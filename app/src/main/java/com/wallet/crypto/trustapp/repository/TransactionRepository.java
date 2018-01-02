@@ -71,7 +71,14 @@ public class TransactionRepository implements TransactionRepositoryType {
 	}
 
 	@Override
-	public Single<String> createTransaction(Wallet from, String toAddress, String wei, BigInteger gasPrice, BigInteger gasLimit, byte[] data, String password) {
+	public Single<String> createTransaction(
+	        Wallet from,
+            String toAddress,
+            String wei,
+            BigInteger gasPrice,
+            BigInteger gasLimit,
+            byte[] data,
+            String password) {
 		final Web3j web3j = Web3jFactory.build(new HttpService(networkRepository.getDefaultNetwork().rpcServerUrl));
 
 		return Single.fromCallable(() -> {

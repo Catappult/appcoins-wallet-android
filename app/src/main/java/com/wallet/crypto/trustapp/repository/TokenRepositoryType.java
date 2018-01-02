@@ -2,9 +2,9 @@ package com.wallet.crypto.trustapp.repository;
 
 import com.wallet.crypto.trustapp.entity.Token;
 
-import io.reactivex.Single;
+import io.reactivex.Observable;
 
 public interface TokenRepositoryType {
 
-    Single<Token[]> fetch(String walletAddress);
+    Observable<Token[]> fetch(String walletAddress);
 }
