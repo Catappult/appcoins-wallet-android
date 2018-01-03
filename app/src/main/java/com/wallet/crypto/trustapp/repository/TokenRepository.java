@@ -1,6 +1,7 @@
 package com.wallet.crypto.trustapp.repository;
 
 import com.wallet.crypto.trustapp.entity.Token;
+import com.wallet.crypto.trustapp.entity.TokenInfo;
 import com.wallet.crypto.trustapp.entity.Wallet;
 import com.wallet.crypto.trustapp.service.TokenExplorerClientType;
 
@@ -24,9 +25,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.Completable;
+import io.reactivex.CompletableSource;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableOperator;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.Observer;
@@ -35,7 +39,9 @@ import io.reactivex.SingleObserver;
 import io.reactivex.SingleOperator;
 import io.reactivex.SingleSource;
 import io.reactivex.SingleTransformer;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Function;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.observers.DisposableSingleObserver;
 
 public class TokenRepository implements TokenRepositoryType {
@@ -53,8 +59,48 @@ public class TokenRepository implements TokenRepositoryType {
         return Observable.create(new ObservableOnSubscribe<Token[]>() {
             @Override
             public void subscribe(ObservableEmitter<Token[]> e) throws Exception {
-                Token[] tokens = tokenLocalSource.fetch(walletAddress).blockingGet();
+                Wallet wallet = new Wallet(walletAddress);
+                Token[] tokens = tokenLocalSource.fetch(wallet)
+                        .map(items -> {
+                            int len = items.length;
+                            Token[] result = new Token[len];
+                            for (int i = 0; i < len; i++) {
+                                result[i] = new Token(items[i], 0);
+                            }
+                            return result;
+                        })
+                        .blockingGet();
                 e.onNext(tokens);
+
+                tokenNetworkService
+                        .fetch(walletAddress)
+                        .flatMapCompletable(items -> Completable.fromAction(() -> {
+                            for (Token token : items) {
+                                try {
+                                    tokenLocalSource.put(wallet, token.tokenInfo)
+                                            .blockingAwait();
+                                } catch (Throwable t) { /* Quietly */ }
+                            }
+                        })).blockingAwait();
+
+                tokenLocalSource.fetch(wallet)
+                        .lift((SingleOperator<Token[], TokenInfo[]>) observer -> new DisposableSingleObserver<TokenInfo[]>() {
+                            @Override
+                            public void onSuccess(TokenInfo[] items) {
+                                int len = items.length;
+                                Token[] result = new Token[len];
+                                for (int i = 0; i < len; i++) {
+                                    result[i] = new Token(items[i], getBalance(wallet, items[i]));
+                                }
+                                observer.onSuccess(result);
+                            }
+
+                            @Override
+                            public void onError(Throwable e1) {
+                                observer.onError(e1);
+                            }
+                        });
+
                 Single.just(tokens)
                         .map(new Function<Token[], Map<String, Token>>() {
                             @Override
