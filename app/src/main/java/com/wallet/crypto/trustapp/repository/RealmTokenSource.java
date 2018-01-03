@@ -2,16 +2,16 @@ package com.wallet.crypto.trustapp.repository;
 
 import com.wallet.crypto.trustapp.entity.TokenInfo;
 import com.wallet.crypto.trustapp.entity.Wallet;
+import com.wallet.crypto.trustapp.repository.entity.RealmTokenInfo;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import io.realm.RealmObject;
 import io.realm.RealmResults;
-import io.realm.annotations.PrimaryKey;
+import io.realm.Sort;
 
-public class RealmTokenSource implements LocalTokenSource {
+public class RealmTokenSource implements TokenLocalSource {
 
     @Override
     public Completable put(Wallet wallet, TokenInfo tokenInfo) {
@@ -24,7 +24,9 @@ public class RealmTokenSource implements LocalTokenSource {
             Realm realm = null;
             try {
                 realm = getRealmInstance(wallet);
-                RealmResults<RealmTokenInfo> realmItems = realm.where(RealmTokenInfo.class).findAll();
+                RealmResults<RealmTokenInfo> realmItems = realm.where(RealmTokenInfo.class)
+                        .sort("addedTime", Sort.ASCENDING)
+                        .findAll();
                 int len = realmItems.size();
                 TokenInfo[] result = new TokenInfo[len];
                 for (int i = 0; i < len; i++) {
@@ -59,14 +61,15 @@ public class RealmTokenSource implements LocalTokenSource {
         try {
             realm = getRealmInstance(wallet);
             RealmTokenInfo realmTokenInfo = realm.where(RealmTokenInfo.class)
-                    .equalTo("address", wallet.address).findFirst();
+                    .equalTo("address", tokenInfo.address)
+                    .findFirst();
             if (realmTokenInfo == null) {
                 realm.executeTransaction(r -> {
-                    RealmTokenInfo obj = r.createObject(RealmTokenInfo.class);
-                    obj.setAddress(tokenInfo.address);
+                    RealmTokenInfo obj = r.createObject(RealmTokenInfo.class, tokenInfo.address);
                     obj.setName(tokenInfo.name);
                     obj.setSymbol(tokenInfo.symbol);
                     obj.setDecimals(tokenInfo.decimals);
+                    obj.setAddedTime(System.currentTimeMillis());
                 });
             }
         } finally {
@@ -76,43 +79,4 @@ public class RealmTokenSource implements LocalTokenSource {
         }
     }
 
-    private static class RealmTokenInfo extends RealmObject {
-        @PrimaryKey
-        private String address;
-        private String name;
-        private String symbol;
-        private int decimals;
-
-        int getDecimals() {
-            return decimals;
-        }
-
-        void setDecimals(int decimals) {
-            this.decimals = decimals;
-        }
-
-        String getSymbol() {
-            return symbol;
-        }
-
-        void setSymbol(String symbol) {
-            this.symbol = symbol;
-        }
-
-        String getName() {
-            return name;
-        }
-
-        void setName(String name) {
-            this.name = name;
-        }
-
-        String getAddress() {
-            return address;
-        }
-
-        void setAddress(String address) {
-            this.address = address;
-        }
-    }
 }

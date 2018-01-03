@@ -11,7 +11,6 @@ import com.wallet.crypto.trustapp.R;
 import com.wallet.crypto.trustapp.entity.Token;
 import com.wallet.crypto.trustapp.ui.widget.OnTokenClickListener;
 
-import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class TokenHolder extends BinderViewHolder<Token> implements View.OnClickListener {
@@ -44,11 +43,10 @@ public class TokenHolder extends BinderViewHolder<Token> implements View.OnClick
             name.setText(token.tokenInfo.name);
             symbol.setText(token.tokenInfo.symbol);
 
-            BigDecimal balance = new BigDecimal(token.balance);
-            BigDecimal decimalDivisor = new BigDecimal(Math.pow(10, token.tokenInfo.decimals));
-            balance = token.tokenInfo.decimals > 0 ? balance.divide(decimalDivisor) : balance;
-            balance = balance.setScale(SIGNIFICANT_FIGURES, RoundingMode.HALF_UP).stripTrailingZeros();
-            this.balance.setText(balance.toPlainString());
+            this.balance.setText(token.balance
+                            .setScale(SIGNIFICANT_FIGURES, RoundingMode.HALF_UP)
+                            .stripTrailingZeros()
+                            .toPlainString());
         } catch (Exception e) {
             fillEmpty();
         }

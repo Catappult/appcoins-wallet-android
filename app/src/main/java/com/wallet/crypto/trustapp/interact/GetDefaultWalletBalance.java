@@ -13,6 +13,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.wallet.crypto.trustapp.C.USD_SYMBOL;
+import static com.wallet.crypto.trustapp.util.BallanceUtils.formatWeiToEth;
 import static com.wallet.crypto.trustapp.util.BallanceUtils.weiToEth;
 
 public class GetDefaultWalletBalance {
@@ -31,7 +32,7 @@ public class GetDefaultWalletBalance {
         return walletRepository.balanceInWei(wallet)
                 .flatMap(ethBallance -> {
                     Map<String, String> balances = new HashMap<>();
-                    balances.put(ethereumNetworkRepository.getDefaultNetwork().symbol, weiToEth(ethBallance, 5));
+                    balances.put(ethereumNetworkRepository.getDefaultNetwork().symbol, formatWeiToEth(ethBallance, 5));
                     return Single.just(balances);
                 })
                 .flatMap(balances -> ethereumNetworkRepository
