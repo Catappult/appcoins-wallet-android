@@ -6,6 +6,7 @@
     android:paddingBottom="@dimen/big_padding"
     android:paddingStart="0dp"
     android:paddingEnd="@dimen/big_padding"
+    android:clickable="true"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >

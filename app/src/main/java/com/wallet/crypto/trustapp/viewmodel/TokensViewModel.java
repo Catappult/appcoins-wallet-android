@@ -10,6 +10,7 @@ import com.wallet.crypto.trustapp.entity.Wallet;
 import com.wallet.crypto.trustapp.interact.FetchTokensInteract;
 import com.wallet.crypto.trustapp.interact.FindDefaultNetworkInteract;
 import com.wallet.crypto.trustapp.router.AddTokenRouter;
+import com.wallet.crypto.trustapp.router.SendTokenRouter;
 
 public class TokensViewModel extends BaseViewModel {
     private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
@@ -19,14 +20,17 @@ public class TokensViewModel extends BaseViewModel {
     private final FindDefaultNetworkInteract findDefaultNetworkInteract;
     private final FetchTokensInteract fetchTokensInteract;
     private final AddTokenRouter addTokenRouter;
+    private final SendTokenRouter sendTokenRouter;
 
     TokensViewModel(
             FindDefaultNetworkInteract findDefaultNetworkInteract,
             FetchTokensInteract fetchTokensInteract,
-            AddTokenRouter addTokenRouter) {
+            AddTokenRouter addTokenRouter,
+            SendTokenRouter sendTokenRouter) {
         this.findDefaultNetworkInteract = findDefaultNetworkInteract;
         this.fetchTokensInteract = fetchTokensInteract;
         this.addTokenRouter = addTokenRouter;
+        this.sendTokenRouter = sendTokenRouter;
     }
 
     public void prepare() {
@@ -74,5 +78,10 @@ public class TokensViewModel extends BaseViewModel {
 
     public void showAddToken(Context context) {
         addTokenRouter.open(context);
+    }
+
+    public void showSendToken(Context context, String address, String symbol, int decimals) {
+        sendTokenRouter.open(context, address, symbol, decimals);
+
     }
 }
