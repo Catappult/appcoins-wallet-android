@@ -31,7 +31,7 @@ public class GetDefaultWalletBalance {
         return walletRepository.balanceInWei(wallet)
                 .flatMap(ethBallance -> {
                     Map<String, String> balances = new HashMap<>();
-                    balances.put(ethereumNetworkRepository.getDefaultNetwork().symbol, formatWeiToEth(ethBallance, 5));
+                    balances.put(ethereumNetworkRepository.getDefaultNetwork().symbol, weiToEth(ethBallance, 5));
                     return Single.just(balances);
                 })
                 .flatMap(balances -> ethereumNetworkRepository
