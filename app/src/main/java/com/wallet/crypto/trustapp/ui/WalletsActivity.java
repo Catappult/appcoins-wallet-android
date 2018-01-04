@@ -141,7 +141,7 @@ public class WalletsActivity extends BaseActivity implements
                 Snackbar.make(systemView, getString(R.string.toast_message_wallet_imported), Snackbar.LENGTH_SHORT)
                         .show();
                 if (adapter.getItemCount() <= 1) {
-                    onBackPressed();
+                    viewModel.showTransactions(this);
                 }
             }
 		} else if (requestCode == SHARE_REQUEST_CODE) {
