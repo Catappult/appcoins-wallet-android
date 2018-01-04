@@ -7,7 +7,6 @@ import com.wallet.crypto.trustapp.entity.Token;
 import com.wallet.crypto.trustapp.entity.TokenInfo;
 import com.wallet.crypto.trustapp.entity.Wallet;
 import com.wallet.crypto.trustapp.service.TokenExplorerClientType;
-import com.wallet.crypto.trustapp.util.BallanceUtils;
 
 import org.web3j.abi.FunctionEncoder;
 import org.web3j.abi.FunctionReturnDecoder;
@@ -22,16 +21,11 @@ import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.http.HttpService;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.math.RoundingMode;
 import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
-import io.reactivex.SingleOperator;
-import io.reactivex.functions.Function;
-import io.reactivex.observers.DisposableSingleObserver;
 import okhttp3.OkHttpClient;
 
 public class TokenRepository implements TokenRepositoryType {
@@ -73,40 +67,46 @@ public class TokenRepository implements TokenRepositoryType {
                     .blockingGet();
             e.onNext(tokens);
 
-            tokenNetworkService
-                    .fetch(walletAddress)
-                    .flatMapCompletable(items -> Completable.fromAction(() -> {
-                        for (TokenInfo tokenInfo : items) {
-                            try {
-                                tokenLocalSource.put(wallet, tokenInfo)
-                                        .blockingAwait();
-                            } catch (Throwable t) {
-                                Log.d("TOKEN_REM", "Err", t);
-                            }
-                        }
-                    })).blockingAwait();
-
+            updateTokenInfoCache(wallet);
             tokens = tokenLocalSource.fetch(wallet)
-                    .map(new Function<TokenInfo[], Token[]>() {
-                        @Override
-                        public Token[] apply(TokenInfo[] items) throws Exception {
+                        .map(items -> {
                             int len = items.length;
                             Token[] result = new Token[len];
                             for (int i = 0; i < len; i++) {
                                 BigDecimal balance = null;
                                 try {
                                     balance = getBalance(wallet, items[i]);
-                                } catch (Exception e) {
-                                    Log.d("TOKEN", "Err", e);
+                                } catch (Exception e1) {
+                                    Log.d("TOKEN", "Err", e1);
                                     /* Quietly */
                                 }
                                 result[i] = new Token(items[i], balance);
                             }
                             return result;
-                        }
-                    }).blockingGet();
+                        }).blockingGet();
             e.onNext(tokens);
         });
+    }
+
+    @Override
+    public Completable addToken(Wallet wallet, String address, String symbol, int decimals) {
+        return tokenLocalSource
+                .put(wallet, new TokenInfo(address, "", symbol, decimals));
+    }
+
+    private void updateTokenInfoCache(Wallet wallet) {
+        tokenNetworkService
+                .fetch(wallet.address)
+                .flatMapCompletable(items -> Completable.fromAction(() -> {
+                    for (TokenInfo tokenInfo : items) {
+                        try {
+                            tokenLocalSource.put(wallet, tokenInfo).blockingAwait();
+                        } catch (Throwable t) {
+                            Log.d("TOKEN_REM", "Err", t);
+                        }
+                    }
+                }))
+                .blockingAwait();
     }
 
     private BigDecimal getBalance(Wallet wallet, TokenInfo tokenInfo) throws Exception {
@@ -116,9 +116,7 @@ public class TokenRepository implements TokenRepositoryType {
         List<Type> response = FunctionReturnDecoder.decode(
                 responseValue, function.getOutputParameters());
         if (response.size() == 1) {
-            BigDecimal balance = new BigDecimal(((Uint256) response.get(0)).getValue());
-            BigDecimal decimalDivisor = new BigDecimal(Math.pow(10, tokenInfo.decimals));
-            return tokenInfo.decimals > 0 ? balance.divide(decimalDivisor) : balance;
+            return new BigDecimal(((Uint256) response.get(0)).getValue());
         } else {
             return null;
         }

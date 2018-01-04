@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.wallet.crypto.trustapp.R;
@@ -60,6 +62,22 @@ public class TokensActivity extends BaseActivity implements View.OnClickListener
         viewModel.wallet().setValue(getIntent().getParcelableExtra(WALLET));
 
         refreshLayout.setOnRefreshListener(viewModel::fetchTokens);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_add, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_add: {
+                viewModel.showAddToken(this);
+            } break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void onTokenClick(View view, Token token) {
