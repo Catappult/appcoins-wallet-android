@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -41,7 +42,8 @@ import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
 
-import static com.wallet.crypto.trustapp.C.ETH_SYMBOL;
+import static com.wallet.crypto.trustapp.C.ETHEREUM_NETWORK_NAME;
+import static com.wallet.crypto.trustapp.C.ErrorCode.EMPTY_COLLECTION;
 
 public class TransactionsActivity extends BaseNavigationActivity implements View.OnClickListener {
 
@@ -73,6 +75,15 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         RecyclerView list = findViewById(R.id.list);
 
         list.setLayoutManager(new LinearLayoutManager(this));
+        list.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                int position = list.getChildAdapterPosition(view);
+                if (position == 0) {
+                    outRect.top = (int) getResources().getDimension(R.dimen.big_margin);
+                }
+            }
+        });
         list.setAdapter(adapter);
 
         systemView.attachRecyclerView(list);
@@ -119,7 +130,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         getMenuInflater().inflate(R.menu.menu_settings, menu);
 
         NetworkInfo networkInfo = viewModel.defaultNetwork().getValue();
-        if (networkInfo != null && networkInfo.symbol.equals(ETH_SYMBOL)) {
+        if (networkInfo != null && networkInfo.name.equals(ETHEREUM_NETWORK_NAME)) {
             getMenuInflater().inflate(R.menu.menu_deposit, menu);
         }
         return super.onCreateOptionsMenu(menu);
@@ -186,11 +197,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     }
 
     private void onTransactions(Transaction[] transaction) {
-        if (transaction == null || transaction.length == 0) {
-            EmptyTransactionsView emptyView = new EmptyTransactionsView(this, this);
-            emptyView.setNetworkInfo(viewModel.defaultNetwork().getValue());
-            systemView.showEmpty(emptyView);
-        }
         adapter.addTransactions(transaction);
         invalidateOptionsMenu();
     }
@@ -201,12 +207,17 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
     private void onDefaultNetwork(NetworkInfo networkInfo) {
         adapter.setDefaultNetwork(networkInfo);
-        setBottomMenu(networkInfo.isMainNetwork
-                ? R.menu.menu_main_network : R.menu.menu_secondary_network);
+        setBottomMenu(R.menu.menu_main_network);
     }
 
     private void onError(ErrorEnvelope errorEnvelope) {
-        systemView.showError(getString(R.string.error_fail_load_transaction), this);
+        if (errorEnvelope.code == EMPTY_COLLECTION) {
+            EmptyTransactionsView emptyView = new EmptyTransactionsView(this, this);
+            emptyView.setNetworkInfo(viewModel.defaultNetwork().getValue());
+            systemView.showEmpty(emptyView);
+        } else {
+            systemView.showError(getString(R.string.error_fail_load_transaction), this);
+        }
     }
 
     private void checkRoot() {

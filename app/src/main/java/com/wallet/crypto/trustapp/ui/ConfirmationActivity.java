@@ -49,6 +49,7 @@ public class ConfirmationActivity extends BaseActivity {
     private BigInteger amount;
     private int decimals;
     private String contractAddress;
+    private boolean confirmationForTokenTransfer = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,9 +77,11 @@ public class ConfirmationActivity extends BaseActivity {
         String symbol = getIntent().getStringExtra(C.EXTRA_SYMBOL);
         symbol = symbol == null ? C.ETH_SYMBOL : symbol;
 
+        confirmationForTokenTransfer = contractAddress != null;
+
         toAddressText.setText(toAddress);
 
-        String amountString = "-" + BalanceUtils.subunitToBase(amount, decimals) + " " + symbol;
+        String amountString = "-" + BalanceUtils.subunitToBase(amount, decimals).toPlainString() + " " + symbol;
         valueText.setText(amountString);
         valueText.setTextColor(ContextCompat.getColor(this, R.color.red));
 
@@ -114,7 +117,7 @@ public class ConfirmationActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
 
-        viewModel.prepare();
+        viewModel.prepare(confirmationForTokenTransfer);
     }
 
     private void onProgress(boolean shouldShowProgress) {
@@ -138,7 +141,7 @@ public class ConfirmationActivity extends BaseActivity {
     private void onSend() {
         GasSettings gasSettings = viewModel.gasSettings().getValue();
 
-        if (contractAddress == null) {
+        if (!confirmationForTokenTransfer) {
             viewModel.createTransaction(
                     fromAddressText.getText().toString(),
                     toAddressText.getText().toString(),

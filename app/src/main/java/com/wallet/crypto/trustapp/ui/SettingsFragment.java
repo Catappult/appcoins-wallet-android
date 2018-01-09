@@ -11,6 +11,8 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.wallet.crypto.trustapp.C;
 import com.wallet.crypto.trustapp.R;
@@ -36,7 +38,10 @@ public class SettingsFragment extends PreferenceFragment
     public void onCreate(Bundle savedInstanceState) {
         AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
+    }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.fragment_settings);
         final Preference wallets = findPreference("pref_wallet");
@@ -55,7 +60,7 @@ public class SettingsFragment extends PreferenceFragment
                             .putString("pref_wallet", wallet.address)
                             .apply();
                     wallets.setSummary(wallet.address);
-                });
+                }, t -> {});
 
         final ListPreference listPreference = (ListPreference) findPreference("pref_rpcServer");
         // THIS IS REQUIRED IF YOU DON'T HAVE 'entries' and 'entryValues' in your XML
@@ -89,6 +94,13 @@ public class SettingsFragment extends PreferenceFragment
                 // no Twitter app, revert to browser
                 intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/trustwalletapp"));
             }
+            startActivity(intent);
+            return false;
+        });
+
+        final Preference facebook = findPreference("pref_facebook");
+        facebook.setOnPreferenceClickListener(preference -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/trustwalletapp"));
             startActivity(intent);
             return false;
         });

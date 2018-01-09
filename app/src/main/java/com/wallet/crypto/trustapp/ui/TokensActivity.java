@@ -23,6 +23,7 @@ import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
 
+import static com.wallet.crypto.trustapp.C.ErrorCode.EMPTY_COLLECTION;
 import static com.wallet.crypto.trustapp.C.Key.WALLET;
 
 public class TokensActivity extends BaseActivity implements View.OnClickListener {
@@ -77,8 +78,16 @@ public class TokensActivity extends BaseActivity implements View.OnClickListener
             case R.id.action_add: {
                 viewModel.showAddToken(this);
             } break;
+            case android.R.id.home: {
+                viewModel.showTransactions(this, true);
+            }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        viewModel.showTransactions(this, true);
     }
 
     private void onTokenClick(View view, Token token) {
@@ -95,13 +104,14 @@ public class TokensActivity extends BaseActivity implements View.OnClickListener
 
     private void onTokens(Token[] tokens) {
         adapter.setTokens(tokens);
-        if (tokens == null || tokens.length == 0) {
-            systemView.showEmpty(getString(R.string.no_tokens));
-        }
     }
 
     private void onError(ErrorEnvelope errorEnvelope) {
-        systemView.showError(getString(R.string.error_fail_load_transaction), this);
+        if (errorEnvelope.code == EMPTY_COLLECTION) {
+            systemView.showEmpty(getString(R.string.no_tokens));
+        } else {
+            systemView.showError(getString(R.string.error_fail_load_tokens), this);
+        }
     }
 
     @Override

@@ -37,18 +37,21 @@ public abstract class C {
     public static final String CHANGELLY_REF_ID = "968d4f0f0bf9";
     public static final String DONATION_ADDRESS = "0x9f8284ce2cf0c8ce10685f537b1fff418104a317";
 
-    public static final String DEFAULT_GAS_PRICE = "21000000000";
+    public static final String DEFAULT_GAS_PRICE = "30000000000";
     public static final String DEFAULT_GAS_LIMIT = "90000";
+    public static final String DEFAULT_GAS_LIMIT_FOR_TOKENS = "144000";
     public static final long GAS_LIMIT_MIN = 21000L;
     public static final long GAS_LIMIT_MAX = 300000L;
     public static final long GAS_PRICE_MIN = 1000000000L;
-    public static final long NETWORK_FEE_MAX = 20000000000000000L;
+    public static final long NETWORK_FEE_MAX = 30000000000000000L;
     public static final int ETHER_DECIMALS = 18;
 
     public interface ErrorCode {
 
         int UNKNOWN = 1;
         int CANT_GET_STORE_PASSWORD = 2;
+        int ALREADY_ADDED = 3;
+        int EMPTY_COLLECTION = 4;
     }
 
     public interface Key {

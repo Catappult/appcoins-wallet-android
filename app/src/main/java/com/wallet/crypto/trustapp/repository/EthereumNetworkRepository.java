@@ -11,14 +11,14 @@ import java.util.Set;
 
 import io.reactivex.Single;
 
+import static com.wallet.crypto.trustapp.C.CLASSIC_NETWORK_NAME;
+import static com.wallet.crypto.trustapp.C.ETC_SYMBOL;
 import static com.wallet.crypto.trustapp.C.ETHEREUM_NETWORK_NAME;
 import static com.wallet.crypto.trustapp.C.ETH_SYMBOL;
 import static com.wallet.crypto.trustapp.C.KOVAN_NETWORK_NAME;
 import static com.wallet.crypto.trustapp.C.POA_NETWORK_NAME;
 import static com.wallet.crypto.trustapp.C.POA_SYMBOL;
 import static com.wallet.crypto.trustapp.C.ROPSTEN_NETWORK_NAME;
-import static com.wallet.crypto.trustapp.C.CLASSIC_NETWORK_NAME;
-import static com.wallet.crypto.trustapp.C.ETC_SYMBOL;
 
 public class EthereumNetworkRepository implements EthereumNetworkRepositoryType {
 
@@ -30,7 +30,7 @@ public class EthereumNetworkRepository implements EthereumNetworkRepositoryType 
             new NetworkInfo(CLASSIC_NETWORK_NAME, ETC_SYMBOL,
                     "https://mewapi.epool.io/",
                     "https://classic.trustwalletapp.com",
-                    "https://gastracker.io",66, true),
+                    "https://gastracker.io",61, true),
             new NetworkInfo(POA_NETWORK_NAME, POA_SYMBOL,
                     "https://core.poa.network",
                     "https://poa.trustwalletapp.com","poa", 99, false),

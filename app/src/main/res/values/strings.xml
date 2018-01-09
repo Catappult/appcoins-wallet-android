@@ -137,12 +137,14 @@
     <string name="title_my_tokens">My Tokens</string>
     <string name="title_activity_send">Send</string>
     <string name="title_activity_confirmation">Confirm</string>
+    <string name="title_transaction_details">Transaction Details</string>
+    <string name="title_add_token">Add Custom Token</string>
     <!-- Suggestions -->
     <string name="suggestion_field_required">* Field required</string>
     <string name="suggestion_import_keystore">Importing wallet as easy as creating</string>
     <string name="suggestion_private_key">Private key has to be 64 characters long</string>
     <string name="suggestion_empty_password_available">The password can be left blank.</string>
-    <string name="suggestion_this_is_your_address">My %s wallet address</string>
+    <string name="suggestion_this_is_your_address">My public %s wallet address</string>
     <!-- Hints -->
     <string name="hint_private_key_field">Private key *</string>
     <string name="hint_keystore">Keystore *</string>
@@ -185,13 +187,13 @@
     <!-- Subtitles -->
     <string name="subtitle_from">From</string>
     <string name="subtitle_to">To</string>
-    <string name="subtitle_gas_fee">Gas Fee (Gwei)</string>
+    <string name="subtitle_gas_fee">Gas Fee</string>
     <string name="subtitle_transaction_num">Transaction #</string>
     <string name="subtitle_transaction_time">Transaction Time</string>
     <string name="subtitle_block_num">Block #</string>
     <!-- Actions -->
     <string name="action_share">Share</string>
-    <string name="action_transaction_detail">More details</string>
+    <string name="action_more_details">More details</string>
     <string name="action_add_wallet">Add wallet</string>
     <string name="action_coinbase">Coinbase</string>
     <string name="action_shapeshift">Shapeshift (Crypto only)</string>
@@ -215,7 +217,7 @@
     <string name="no_transactions_yet">No transactions yet!</string>
     <string name="unknown_balance_with_symbol">-- ETH</string>
     <string name="unknown_balance_without_symbol">--</string>
-    <string name="dummy">dummy_value</string>
+    <string name="dummy">-</string>
     <string name="dummy_transaction_value">-- ETH</string>
     <string name="title_dialog_sending">Sending...</string>
     <string name="welcome.erc20.label.title">ERC20 Compatible</string>
@@ -227,5 +229,8 @@
     <string name="title_send_settings">Advanced</string>
     <string name="title_activity_barcode">Barcode Scan</string>
     <string name="error_add_token">Could not add token.</string>
-    <string name="title_add_token">Add token</string>
+    <string name="facebook">Facebook</string>
+    <string name="error_already_added">Already added</string>
+    <string name="error_export_error">Failed to export the purse</string>
+    <string name="error_fail_load_tokens">Failed to load tokens list</string>
 </resources>

@@ -4,7 +4,10 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 
+import com.wallet.crypto.trustapp.C;
+import com.wallet.crypto.trustapp.entity.ErrorEnvelope;
 import com.wallet.crypto.trustapp.entity.NetworkInfo;
 import com.wallet.crypto.trustapp.entity.Transaction;
 import com.wallet.crypto.trustapp.entity.Wallet;
@@ -27,8 +30,8 @@ import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 
 public class TransactionsViewModel extends BaseViewModel {
-    private static final long GET_BALANCE_INTERVAL = 3;
-    private static final long FETCH_TRANSACTIONS_INTERVAL = 5;
+    private static final long GET_BALANCE_INTERVAL = 10;
+    private static final long FETCH_TRANSACTIONS_INTERVAL = 12;
     private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
     private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
     private final MutableLiveData<Transaction[]> transactions = new MutableLiveData<>();
@@ -46,8 +49,10 @@ public class TransactionsViewModel extends BaseViewModel {
     private final MyAddressRouter myAddressRouter;
     private final MyTokensRouter myTokensRouter;
     private final ExternalBrowserRouter externalBrowserRouter;
-    private Disposable balanceDisposable;
-    private Disposable transactionDisposable;
+    @Nullable
+    private Disposable getBalanceDisposable;
+    @Nullable
+    private Disposable fetchTransactionDisposable;
 
     TransactionsViewModel(
             FindDefaultNetworkInteract findDefaultNetworkInteract,
@@ -78,8 +83,12 @@ public class TransactionsViewModel extends BaseViewModel {
     protected void onCleared() {
         super.onCleared();
 
-        transactionDisposable.dispose();
-        balanceDisposable.dispose();
+        if (fetchTransactionDisposable != null) {
+            fetchTransactionDisposable.dispose();
+        }
+        if (getBalanceDisposable != null) {
+            getBalanceDisposable.dispose();
+        }
     }
 
     public LiveData<NetworkInfo> defaultNetwork() {
@@ -107,16 +116,16 @@ public class TransactionsViewModel extends BaseViewModel {
 
     public void fetchTransactions() {
         progress.postValue(true);
-        transactionDisposable = Observable.interval(0, FETCH_TRANSACTIONS_INTERVAL, TimeUnit.MINUTES)
+        fetchTransactionDisposable = Observable.interval(0, FETCH_TRANSACTIONS_INTERVAL, TimeUnit.SECONDS)
             .doOnNext(l ->
-                disposable = fetchTransactionsInteract
+                    fetchTransactionDisposable = fetchTransactionsInteract
                         .fetch(defaultWallet.getValue()/*new Wallet("0x60f7a1cbc59470b74b1df20b133700ec381f15d3")*/)
-                        .subscribe(this::onTransactions, this::onError))
+                        .subscribe(this::onTransactions, this::onError, this::onTransactionsFetchCompleted))
             .subscribe();
     }
 
     public void getBalance() {
-        balanceDisposable = Observable.interval(0, GET_BALANCE_INTERVAL, TimeUnit.MINUTES)
+        getBalanceDisposable = Observable.interval(0, GET_BALANCE_INTERVAL, TimeUnit.SECONDS)
                 .doOnNext(l -> getDefaultWalletBalance
                         .get(defaultWallet.getValue())
                         .subscribe(defaultWalletBalance::postValue, t -> {}))
@@ -137,8 +146,15 @@ public class TransactionsViewModel extends BaseViewModel {
     }
 
     private void onTransactions(Transaction[] transactions) {
+        this.transactions.setValue(transactions);
+    }
+
+    private void onTransactionsFetchCompleted() {
         progress.postValue(false);
-        this.transactions.postValue(transactions);
+        Transaction[] transactions = this.transactions.getValue();
+        if (transactions == null || transactions.length == 0) {
+            error.postValue(new ErrorEnvelope(C.ErrorCode.EMPTY_COLLECTION, "empty collection"));
+        }
     }
 
     public void showWallets(Context context) {
@@ -149,7 +165,7 @@ public class TransactionsViewModel extends BaseViewModel {
         settingsRouter.open(context);
     }
 
-    public void showSend(Context context) { sendRouter.open(context); }
+    public void showSend(Context context) { sendRouter.open(context, defaultNetwork.getValue().symbol); }
 
     public void showDetails(Context context, Transaction transaction) {
         transactionDetailRouter.open(context, transaction);

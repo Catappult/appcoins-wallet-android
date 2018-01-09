@@ -3,8 +3,6 @@ package com.wallet.crypto.trustapp.viewmodel;
 import android.app.Activity;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.content.Context;
-import android.content.Intent;
 
 import com.wallet.crypto.trustapp.entity.GasSettings;
 import com.wallet.crypto.trustapp.entity.Wallet;
@@ -28,7 +26,9 @@ public class ConfirmationViewModel extends BaseViewModel {
 
     private final GasSettingsRouter gasSettingsRouter;
 
-    public ConfirmationViewModel(FindDefaultWalletInteract findDefaultWalletInteract,
+    private boolean confirmationForTokenTransfer = false;
+
+    ConfirmationViewModel(FindDefaultWalletInteract findDefaultWalletInteract,
                                  FetchGasSettingsInteract fetchGasSettingsInteract,
                                  CreateTransactionInteract createTransactionInteract,
                                  GasSettingsRouter gasSettingsRouter) {
@@ -61,9 +61,12 @@ public class ConfirmationViewModel extends BaseViewModel {
         return gasSettings;
     }
 
-    public LiveData<String> sendTransaction() { return newTransaction; }
+    public LiveData<String> sendTransaction() {
+        return newTransaction;
+    }
 
-    public void prepare() {
+    public void prepare(boolean confirmationForTokenTransfer) {
+        this.confirmationForTokenTransfer = confirmationForTokenTransfer;
         disposable = findDefaultWalletInteract
                 .find()
                 .subscribe(this::onDefaultWallet, this::onError);
@@ -77,12 +80,14 @@ public class ConfirmationViewModel extends BaseViewModel {
     private void onDefaultWallet(Wallet wallet) {
         defaultWallet.setValue(wallet);
         if (gasSettings.getValue() == null) {
-            onGasSettings(fetchGasSettingsInteract.fetch());
+            disposable = fetchGasSettingsInteract
+                    .fetch(confirmationForTokenTransfer)
+                    .subscribe(this::onGasSettings, this::onError);
         }
     }
 
     private void onGasSettings(GasSettings gasSettings) {
-        this.gasSettings.setValue(gasSettings);
+        this.gasSettings.postValue(gasSettings);
     }
 
     public void openGasSettings(Activity context) {
