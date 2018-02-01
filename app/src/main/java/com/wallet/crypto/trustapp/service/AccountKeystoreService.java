@@ -45,7 +45,7 @@ public interface AccountKeystoreService {
 	 * @param signer {@link Wallet}
 	 * @param signerPassword password from {@link Wallet}
 	 * @param toAddress transaction destination address
-	 * @param wei
+	 * @param amount
 	 * @param nonce
 	 * @return sign data
 	 */

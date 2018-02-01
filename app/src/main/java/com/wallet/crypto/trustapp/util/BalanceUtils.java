@@ -7,7 +7,7 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 
 public class BalanceUtils {
-    private static String weiInEth  = "1000000000000000000";
+    private static String WEI_IN_ETH = "1000000000000000000";
 
     public static BigDecimal weiToEth(BigDecimal wei) {
         return Convert.fromWei(wei, Convert.Unit.ETHER);
@@ -19,9 +19,8 @@ public class BalanceUtils {
         return usd.toString();
     }
 
-    public static String EthToWei(String eth) throws Exception {
-        BigDecimal wei = new BigDecimal(eth).multiply(new BigDecimal(weiInEth));
-        return wei.toBigInteger().toString();
+    public static BigDecimal EthToWei(String eth) throws Exception {
+        return new BigDecimal(eth).multiply(new BigDecimal(WEI_IN_ETH));
     }
 
     public static BigDecimal weiToGweiBI(BigInteger wei) {

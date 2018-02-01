@@ -71,14 +71,13 @@ public class ConfirmationActivity extends BaseActivity {
 
         sendButton.setOnClickListener(view -> onSend());
 
-        String toAddress = getIntent().getStringExtra(C.EXTRA_TO_ADDRESS);
-        contractAddress = getIntent().getStringExtra(C.EXTRA_CONTRACT_ADDRESS);
-        amount = new BigInteger(getIntent().getStringExtra(C.EXTRA_AMOUNT));
-        decimals = getIntent().getIntExtra(C.EXTRA_DECIMALS, -1);
-        String symbol = getIntent().getStringExtra(C.EXTRA_SYMBOL);
-        symbol = symbol == null ? C.ETH_SYMBOL : symbol;
-
-        confirmationForTokenTransfer = contractAddress != null;
+//        String toAddress = getIntent().getStringExtra(C.EXTRA_TO_ADDRESS);
+//        contractAddress = getIntent().getStringExtra(C.EXTRA_CONTRACT_ADDRESS);
+//        amount = new BigInteger(getIntent().getStringExtra(C.EXTRA_AMOUNT));
+//        decimals = getIntent().getIntExtra(C.EXTRA_DECIMALS, -1);
+//        String symbol = getIntent().getStringExtra(C.EXTRA_SYMBOL);
+//        symbol = symbol == null ? C.ETH_SYMBOL : symbol;
+//        confirmationForTokenTransfer = contractAddress != null;
 
         toAddressText.setText(toAddress);
 
