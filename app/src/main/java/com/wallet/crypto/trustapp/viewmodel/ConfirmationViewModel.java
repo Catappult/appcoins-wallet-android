@@ -12,6 +12,7 @@ import com.wallet.crypto.trustapp.interact.FindDefaultWalletInteract;
 import com.wallet.crypto.trustapp.repository.TokenRepository;
 import com.wallet.crypto.trustapp.router.GasSettingsRouter;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class ConfirmationViewModel extends BaseViewModel {
