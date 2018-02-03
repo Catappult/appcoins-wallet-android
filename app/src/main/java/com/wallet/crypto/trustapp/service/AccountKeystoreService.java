@@ -2,6 +2,7 @@ package com.wallet.crypto.trustapp.service;
 
 import com.wallet.crypto.trustapp.entity.Wallet;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import io.reactivex.Completable;
@@ -42,7 +43,7 @@ public interface AccountKeystoreService {
 
 	/**
 	 * Sign transaction
-	 * @param signer {@link Wallet}
+	 * @param fromAddress
 	 * @param signerPassword password from {@link Wallet}
 	 * @param toAddress transaction destination address
 	 * @param amount
@@ -50,12 +51,12 @@ public interface AccountKeystoreService {
 	 * @return sign data
 	 */
 	Single<byte[]> signTransaction(
-			Wallet signer,
+			String fromAddress,
 			String signerPassword,
 			String toAddress,
-			BigInteger amount,
-			BigInteger gasPrice,
-			BigInteger gasLimit,
+			BigDecimal amount,
+			BigDecimal gasPrice,
+			BigDecimal gasLimit,
 			long nonce,
 			byte[] data,
 			long chainId);

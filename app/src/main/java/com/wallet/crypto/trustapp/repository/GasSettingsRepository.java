@@ -1,7 +1,6 @@
 package com.wallet.crypto.trustapp.repository;
 
 
-import com.wallet.crypto.trustapp.C;
 import com.wallet.crypto.trustapp.entity.GasSettings;
 
 import org.web3j.protocol.Web3j;
@@ -9,50 +8,51 @@ import org.web3j.protocol.Web3jFactory;
 import org.web3j.protocol.core.methods.response.EthGasPrice;
 import org.web3j.protocol.http.HttpService;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
+import static com.wallet.crypto.trustapp.C.DEFAULT_GAS_LIMIT;
+import static com.wallet.crypto.trustapp.C.DEFAULT_GAS_LIMIT_FOR_TOKENS;
+import static com.wallet.crypto.trustapp.C.DEFAULT_GAS_PRICE;
 
 public class GasSettingsRepository implements GasSettingsRepositoryType {
 
     private final EthereumNetworkRepositoryType networkRepository;
-    private BigInteger cachedGasPrice;
-    private Disposable gasSettingsDisposable;
+    private BigDecimal cachedGasPrice;
 
     private final static long FETCH_GAS_PRICE_INTERVAL = 60;
 
     public GasSettingsRepository(EthereumNetworkRepositoryType networkRepository) {
         this.networkRepository = networkRepository;
 
-        cachedGasPrice = new BigInteger(C.DEFAULT_GAS_PRICE);
-        gasSettingsDisposable = Observable.interval(0, FETCH_GAS_PRICE_INTERVAL, TimeUnit.SECONDS)
-                .doOnNext(l ->
-                        fetchGasSettings()
-                ).subscribe();
+        cachedGasPrice = new BigDecimal(DEFAULT_GAS_PRICE);
+        Observable.interval(0, FETCH_GAS_PRICE_INTERVAL, TimeUnit.SECONDS)
+                .doOnNext(l -> updateGasSettings())
+                .subscribe(l -> {}, t -> {});
     }
 
-    private void fetchGasSettings() {
-
-        final Web3j web3j = Web3jFactory.build(new HttpService(networkRepository.getDefaultNetwork().rpcServerUrl));
-
+    private void updateGasSettings() {
+        final Web3j web3j = Web3jFactory
+                .build(new HttpService(networkRepository.getDefaultNetwork().rpcServerUrl));
         try {
             EthGasPrice price = web3j
                     .ethGasPrice()
                     .send();
-            cachedGasPrice = price.getGasPrice();
-        } catch (Exception ex) {
-            // silently
-        }
+            cachedGasPrice = new BigDecimal(price.getGasPrice());
+        } catch (Exception ex) { /* Quietly */ }
     }
 
     public Single<GasSettings> getGasSettings(boolean forTokenTransfer) {
-        return Single.fromCallable( () -> {
-            BigInteger gasLimit = new BigInteger(C.DEFAULT_GAS_LIMIT);
-            if (forTokenTransfer) {
-                gasLimit = new BigInteger(C.DEFAULT_GAS_LIMIT_FOR_TOKENS);
+        return Single.fromCallable(() -> {
+            BigDecimal gasLimit = forTokenTransfer
+                    ? new BigDecimal(DEFAULT_GAS_LIMIT_FOR_TOKENS)
+                    : new BigDecimal(DEFAULT_GAS_LIMIT);
+            if (cachedGasPrice == null) {
+                updateGasSettings();
             }
             return new GasSettings(cachedGasPrice, gasLimit);
         });

@@ -11,26 +11,27 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.wallet.crypto.trustapp.C;
 import com.wallet.crypto.trustapp.R;
 import com.wallet.crypto.trustapp.entity.ErrorEnvelope;
-import com.wallet.crypto.trustapp.entity.GasSettings;
-import com.wallet.crypto.trustapp.entity.Wallet;
+import com.wallet.crypto.trustapp.entity.TransactionBuilder;
 import com.wallet.crypto.trustapp.util.BalanceUtils;
 import com.wallet.crypto.trustapp.viewmodel.ConfirmationViewModel;
 import com.wallet.crypto.trustapp.viewmodel.ConfirmationViewModelFactory;
 import com.wallet.crypto.trustapp.viewmodel.GasSettingsViewModel;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
+
+import static com.wallet.crypto.trustapp.C.EXTRA_GAS_SETTINGS;
+import static com.wallet.crypto.trustapp.C.EXTRA_TRANSACTION_BUILDER;
+import static com.wallet.crypto.trustapp.C.GWEI_UNIT;
 
 public class ConfirmationActivity extends BaseActivity {
     AlertDialog dialog;
@@ -45,12 +46,6 @@ public class ConfirmationActivity extends BaseActivity {
     private TextView gasPriceText;
     private TextView gasLimitText;
     private TextView networkFeeText;
-    private Button sendButton;
-
-    private BigInteger amount;
-    private int decimals;
-    private String contractAddress;
-    private boolean confirmationForTokenTransfer = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,32 +62,30 @@ public class ConfirmationActivity extends BaseActivity {
         gasPriceText = findViewById(R.id.text_gas_price);
         gasLimitText = findViewById(R.id.text_gas_limit);
         networkFeeText = findViewById(R.id.text_network_fee);
-        sendButton = findViewById(R.id.send_button);
-
-        sendButton.setOnClickListener(view -> onSend());
-
-//        String toAddress = getIntent().getStringExtra(C.EXTRA_TO_ADDRESS);
-//        contractAddress = getIntent().getStringExtra(C.EXTRA_CONTRACT_ADDRESS);
-//        amount = new BigInteger(getIntent().getStringExtra(C.EXTRA_AMOUNT));
-//        decimals = getIntent().getIntExtra(C.EXTRA_DECIMALS, -1);
-//        String symbol = getIntent().getStringExtra(C.EXTRA_SYMBOL);
-//        symbol = symbol == null ? C.ETH_SYMBOL : symbol;
-//        confirmationForTokenTransfer = contractAddress != null;
-
-        toAddressText.setText(toAddress);
-
-        String amountString = "-" + BalanceUtils.subunitToBase(amount, decimals).toPlainString() + " " + symbol;
-        valueText.setText(amountString);
-        valueText.setTextColor(ContextCompat.getColor(this, R.color.red));
+        findViewById(R.id.send_button).setOnClickListener(view -> onSend());
 
         viewModel = ViewModelProviders.of(this, confirmationViewModelFactory)
                 .get(ConfirmationViewModel.class);
+        viewModel.transactionBuilder().observe(this, this::onTransactionBuilder);
+        viewModel.transactionHash().observe(this, this::onTransaction);
 
-        viewModel.defaultWallet().observe(this, this::onDefaultWallet);
-        viewModel.gasSettings().observe(this, this::onGasSettings);
-        viewModel.sendTransaction().observe(this, this::onTransaction);
         viewModel.progress().observe(this, this::onProgress);
         viewModel.error().observe(this, this::onError);
+    }
+
+    private void onTransactionBuilder(TransactionBuilder transactionBuilder) {
+        fromAddressText.setText(transactionBuilder.fromAddress());
+        toAddressText.setText(transactionBuilder.toAddress());
+
+        valueText.setText(getString(R.string.new_transaction_value, transactionBuilder.amount(), transactionBuilder.symbol()));
+        valueText.setTextColor(ContextCompat.getColor(this, R.color.red));
+        BigDecimal gasPrice = transactionBuilder.gasSettings().gasPrice;
+        BigDecimal gasLimit = transactionBuilder.gasSettings().gasLimit;
+        gasPriceText.setText(getString(R.string.gas_price_value, BalanceUtils.weiToGwei(gasPrice), GWEI_UNIT));
+        gasLimitText.setText(transactionBuilder.gasSettings().gasLimit.toPlainString());
+
+        String networkFee = BalanceUtils.weiToEth(gasPrice.multiply(gasLimit)).toPlainString() + " " + C.ETH_SYMBOL;
+        networkFeeText.setText(networkFee);
     }
 
     @Override
@@ -107,8 +100,7 @@ public class ConfirmationActivity extends BaseActivity {
         switch (item.getItemId()) {
             case R.id.action_edit: {
                 viewModel.openGasSettings(ConfirmationActivity.this);
-            }
-            break;
+            } break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -117,7 +109,7 @@ public class ConfirmationActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
 
-        viewModel.prepare(confirmationForTokenTransfer);
+        viewModel.init(getIntent().getParcelableExtra(EXTRA_TRANSACTION_BUILDER));
     }
 
     private void onProgress(boolean shouldShowProgress) {
@@ -139,29 +131,9 @@ public class ConfirmationActivity extends BaseActivity {
     }
 
     private void onSend() {
-        GasSettings gasSettings = viewModel.gasSettings().getValue();
-
-        if (!confirmationForTokenTransfer) {
-            viewModel.createTransaction(
-                    fromAddressText.getText().toString(),
-                    toAddressText.getText().toString(),
-                    amount,
-                    gasSettings.gasPrice,
-                    gasSettings.gasLimit);
-        } else {
-            viewModel.createTokenTransfer(
-                    fromAddressText.getText().toString(),
-                    toAddressText.getText().toString(),
-                    contractAddress,
-                    amount,
-                    gasSettings.gasPrice,
-                    gasSettings.gasLimit);
-        }
+        viewModel.send();
     }
 
-    private void onDefaultWallet(Wallet wallet) {
-        fromAddressText.setText(wallet.address);
-    }
 
     private void onTransaction(String hash) {
         hideDialog();
@@ -181,16 +153,6 @@ public class ConfirmationActivity extends BaseActivity {
         dialog.show();
     }
 
-    private void onGasSettings(GasSettings gasSettings) {
-        String gasPrice = BalanceUtils.weiToGwei(gasSettings.gasPrice) + " " + C.GWEI_UNIT;
-        gasPriceText.setText(gasPrice);
-        gasLimitText.setText(gasSettings.gasLimit.toString());
-
-        String networkFee = BalanceUtils.weiToEth(new BigDecimal(gasSettings
-                .gasPrice.multiply(gasSettings.gasLimit))).toPlainString() + " " + C.ETH_SYMBOL;
-        networkFeeText.setText(networkFee);
-    }
-
     private void onError(ErrorEnvelope error) {
         hideDialog();
         AlertDialog dialog = new AlertDialog.Builder(this)
@@ -207,10 +169,11 @@ public class ConfirmationActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == GasSettingsViewModel.SET_GAS_SETTINGS) {
             if (resultCode == RESULT_OK) {
-                BigInteger gasPrice = new BigInteger(intent.getStringExtra(C.EXTRA_GAS_PRICE));
-                BigInteger gasLimit = new BigInteger(intent.getStringExtra(C.EXTRA_GAS_LIMIT));
-                GasSettings settings = new GasSettings(gasPrice, gasLimit);
-                viewModel.gasSettings().postValue(settings);
+                viewModel.setGasSettings(intent.getParcelableExtra(EXTRA_GAS_SETTINGS));
+//                BigInteger gasPrice = new BigInteger(intent.getStringExtra(C.EXTRA_GAS_PRICE));
+//                BigInteger gasLimit = new BigInteger(intent.getStringExtra(C.EXTRA_GAS_LIMIT));
+//                GasSettings settings = new GasSettings(gasPrice, gasLimit);
+//                viewModel.gasSettings().postValue(settings);
             }
         }
     }

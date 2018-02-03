@@ -21,10 +21,10 @@ public class CreateTransactionInteract {
 
     public Single<String> create(
             Wallet from, String to, BigInteger subunitAmount, BigInteger gasPrice, BigInteger gasLimit, byte[] data) {
-        return passwordStore.getPassword(from)
-                .flatMap(password ->
-                        transactionRepository.createTransaction(from, to, subunitAmount, gasPrice, gasLimit, data, password)
-                .observeOn(AndroidSchedulers.mainThread()));
+        return passwordStore.getPassword(from);
+//                .flatMap(password ->
+//                        transactionRepository.createTransaction(from, to, subunitAmount, gasPrice, gasLimit, data, password)
+//                .observeOn(AndroidSchedulers.mainThread()));
     }
 
 }

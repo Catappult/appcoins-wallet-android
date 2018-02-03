@@ -37,8 +37,7 @@ public class SettingsFragment extends PreferenceFragment
     FindDefaultWalletInteract findDefaultWalletInteract;
     @Inject
     ManageWalletsRouter manageWalletsRouter;
-    @Inject
-    SendRouter sendRouter;
+    SendRouter sendRouter = new SendRouter();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -133,7 +132,9 @@ public class SettingsFragment extends PreferenceFragment
         final Preference donate = findPreference("pref_donate");
         donate.setOnPreferenceClickListener(preference -> {
             sendRouter.open(getActivity(),
-                    new TransactionBuilder(C.ETC_SYMBOL).toAddress(DONATION_ADDRESS));
+                    new TransactionBuilder(C.ETC_SYMBOL)
+                            .decimals(C.ETHER_DECIMALS)
+                            .toAddress(DONATION_ADDRESS));
             return true;
         });
 

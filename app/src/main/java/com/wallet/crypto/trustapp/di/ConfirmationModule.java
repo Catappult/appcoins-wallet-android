@@ -1,13 +1,9 @@
 package com.wallet.crypto.trustapp.di;
 
 
-import com.wallet.crypto.trustapp.interact.CreateTransactionInteract;
-import com.wallet.crypto.trustapp.interact.FetchGasSettingsInteract;
-import com.wallet.crypto.trustapp.interact.FindDefaultWalletInteract;
-import com.wallet.crypto.trustapp.repository.GasSettingsRepositoryType;
+import com.wallet.crypto.trustapp.interact.SendTransactionInteract;
 import com.wallet.crypto.trustapp.repository.PasswordStore;
 import com.wallet.crypto.trustapp.repository.TransactionRepositoryType;
-import com.wallet.crypto.trustapp.repository.WalletRepositoryType;
 import com.wallet.crypto.trustapp.router.GasSettingsRouter;
 import com.wallet.crypto.trustapp.viewmodel.ConfirmationViewModelFactory;
 
@@ -17,28 +13,18 @@ import dagger.Provides;
 @Module
 public class ConfirmationModule {
     @Provides
-    public ConfirmationViewModelFactory provideConfirmationViewModelFactory(
-            FindDefaultWalletInteract findDefaultWalletInteract,
-            FetchGasSettingsInteract fetchGasSettingsInteract,
-            CreateTransactionInteract createTransactionInteract,
+    ConfirmationViewModelFactory provideConfirmationViewModelFactory(
+            SendTransactionInteract sendTransactionInteract,
             GasSettingsRouter gasSettingsRouter
     ) {
-        return new ConfirmationViewModelFactory(findDefaultWalletInteract, fetchGasSettingsInteract, createTransactionInteract, gasSettingsRouter);
+        return new ConfirmationViewModelFactory(sendTransactionInteract, gasSettingsRouter);
     }
 
     @Provides
-    FindDefaultWalletInteract provideFindDefaultWalletInteract(WalletRepositoryType walletRepository) {
-        return new FindDefaultWalletInteract(walletRepository);
-    }
-
-    @Provides
-    FetchGasSettingsInteract provideFetchGasSettingsInteract(GasSettingsRepositoryType gasSettingsRepository) {
-        return new FetchGasSettingsInteract(gasSettingsRepository);
-    }
-
-    @Provides
-    CreateTransactionInteract provideCreateTransactionInteract(TransactionRepositoryType transactionRepository, PasswordStore passwordStore) {
-        return new CreateTransactionInteract(transactionRepository, passwordStore);
+    SendTransactionInteract provideSendTransactionInteract(
+            TransactionRepositoryType transactionRepository,
+            PasswordStore passwordStore) {
+        return new SendTransactionInteract(transactionRepository, passwordStore);
     }
 
     @Provides

@@ -31,8 +31,8 @@
                     android:imeOptions="actionUnspecified"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:paddingRight="@dimen/half_large_padding"
-                    android:paddingEnd="@dimen/half_large_padding"
+                    android:paddingRight="48dp"
+                    android:paddingEnd="48dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     />

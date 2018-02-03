@@ -42,10 +42,10 @@ public class BaseViewModel extends ViewModel {
         if (throwable instanceof ServiceException) {
 			error.postValue(((ServiceException) throwable).error);
 		} else {
-		    if (throwable.getCause() == null || TextUtils.isEmpty(throwable.getCause().getMessage())) {
+		    if (TextUtils.isEmpty(throwable.getMessage())) {
                 error.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, null, throwable));
             } else {
-                error.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, throwable.getCause().getMessage(), throwable));
+                error.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, throwable.getMessage(), throwable));
             }
 		}
 	}

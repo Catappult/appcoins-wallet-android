@@ -6,31 +6,46 @@ import android.content.Context;
 
 import com.google.android.gms.vision.barcode.Barcode;
 import com.wallet.crypto.trustapp.entity.Address;
+import com.wallet.crypto.trustapp.entity.GasSettings;
 import com.wallet.crypto.trustapp.entity.TransactionBuilder;
+import com.wallet.crypto.trustapp.entity.Wallet;
+import com.wallet.crypto.trustapp.interact.FetchGasSettingsInteract;
+import com.wallet.crypto.trustapp.interact.FindDefaultWalletInteract;
 import com.wallet.crypto.trustapp.router.ConfirmationRouter;
-import com.wallet.crypto.trustapp.util.BalanceUtils;
 import com.wallet.crypto.trustapp.util.QRUri;
+
+import org.web3j.utils.Numeric;
+
+import java.math.BigDecimal;
 
 public class SendViewModel extends BaseViewModel {
     private final MutableLiveData<String> symbol = new MutableLiveData<>();
     private final MutableLiveData<String> address = new MutableLiveData<>();
-
     private TransactionBuilder transactionBuilder;
 
+    private final FindDefaultWalletInteract findDefaultWalletInteract;
+    private final FetchGasSettingsInteract fetchGasSettingsInteract;
     private final ConfirmationRouter confirmationRouter;
 
-    SendViewModel(ConfirmationRouter confirmationRouter) {
+    SendViewModel(
+            FindDefaultWalletInteract findDefaultWalletInteract,
+            FetchGasSettingsInteract fetchGasSettingsInteract,
+            ConfirmationRouter confirmationRouter) {
+        this.findDefaultWalletInteract = findDefaultWalletInteract;
+        this.fetchGasSettingsInteract = fetchGasSettingsInteract;
         this.confirmationRouter = confirmationRouter;
     }
 
-    public void openConfirmation(Context context) {
-        confirmationRouter.open(context, transactionBuilder);
-    }
-
-    public void setTransactionBuilder(TransactionBuilder transactionBuilder) {
+    public void init(TransactionBuilder transactionBuilder) {
         this.transactionBuilder = transactionBuilder;
         symbol.postValue(transactionBuilder.symbol());
         address.postValue(transactionBuilder.toAddress());
+        fetchGasSettingsInteract
+                .fetch(transactionBuilder.shouldSendToken())
+                .subscribe(this::onGasSettings, t -> {});
+        disposable = findDefaultWalletInteract
+                .find()
+                .subscribe(this::onDefaultWallet, this::onError);
     }
 
     public LiveData<String> symbol() {
@@ -52,7 +67,7 @@ public class SendViewModel extends BaseViewModel {
 
     public boolean setAmmount(String amount) {
         try {
-            transactionBuilder.amount(BalanceUtils.EthToWei(amount));
+            transactionBuilder.amount(new BigDecimal(amount));
             return true;
         } catch (Exception e) {
             return false;
@@ -63,11 +78,23 @@ public class SendViewModel extends BaseViewModel {
         QRUri qrUrl = QRUri.parse(barcode.displayValue);
         if (qrUrl != null) {
             transactionBuilder.toAddress(qrUrl.getAddress());
-            transactionBuilder.tokenData(qrUrl.getParameter("data"));
+            transactionBuilder.data(Numeric.hexStringToByteArray(Numeric.cleanHexPrefix(qrUrl.getParameter("data"))));
             address.postValue(qrUrl.getAddress());
             return true;
         } else {
             return false;
         }
+    }
+
+    public void openConfirmation(Context context) {
+        confirmationRouter.open(context, transactionBuilder);
+    }
+
+    private void onGasSettings(GasSettings gasSettings) {
+        transactionBuilder.gasSettings(gasSettings);
+    }
+
+    private void onDefaultWallet(Wallet wallet) {
+        transactionBuilder.fromAddress(wallet.address);
     }
 }

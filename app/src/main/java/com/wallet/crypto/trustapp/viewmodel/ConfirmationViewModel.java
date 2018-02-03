@@ -5,91 +5,65 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.wallet.crypto.trustapp.entity.GasSettings;
-import com.wallet.crypto.trustapp.entity.Wallet;
-import com.wallet.crypto.trustapp.interact.CreateTransactionInteract;
-import com.wallet.crypto.trustapp.interact.FetchGasSettingsInteract;
-import com.wallet.crypto.trustapp.interact.FindDefaultWalletInteract;
-import com.wallet.crypto.trustapp.repository.TokenRepository;
+import com.wallet.crypto.trustapp.entity.TransactionBuilder;
+import com.wallet.crypto.trustapp.interact.SendTransactionInteract;
 import com.wallet.crypto.trustapp.router.GasSettingsRouter;
 
-import java.math.BigInteger;
-
 public class ConfirmationViewModel extends BaseViewModel {
-    private final MutableLiveData<String> newTransaction = new MutableLiveData<>();
-    private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
-    private final MutableLiveData<GasSettings> gasSettings = new MutableLiveData<>();
+    private final MutableLiveData<TransactionBuilder> transactionBuilder = new MutableLiveData<>();
+    private final MutableLiveData<String> transactionHash = new MutableLiveData<>();
 
-    private final FindDefaultWalletInteract findDefaultWalletInteract;
-    private final FetchGasSettingsInteract fetchGasSettingsInteract;
-    private final CreateTransactionInteract createTransactionInteract;
+    private final SendTransactionInteract sendTransactionInteract;
 
     private final GasSettingsRouter gasSettingsRouter;
 
-    private boolean confirmationForTokenTransfer = false;
-
-    ConfirmationViewModel(FindDefaultWalletInteract findDefaultWalletInteract,
-                                 FetchGasSettingsInteract fetchGasSettingsInteract,
-                                 CreateTransactionInteract createTransactionInteract,
-                                 GasSettingsRouter gasSettingsRouter) {
-        this.findDefaultWalletInteract = findDefaultWalletInteract;
-        this.fetchGasSettingsInteract = fetchGasSettingsInteract;
-        this.createTransactionInteract = createTransactionInteract;
+    ConfirmationViewModel(
+            SendTransactionInteract sendTransactionInteract,
+            GasSettingsRouter gasSettingsRouter) {
+        this.sendTransactionInteract = sendTransactionInteract;
         this.gasSettingsRouter = gasSettingsRouter;
     }
 
-    public void createTransaction(String from, String to, BigInteger amount, BigInteger gasPrice, BigInteger gasLimit) {
-        progress.postValue(true);
-        disposable = createTransactionInteract
-                .create(new Wallet(from), to, amount, gasPrice, gasLimit, null)
-                .subscribe(this::onCreateTransaction, this::onError);
+    public void init(TransactionBuilder transactionBuilder) {
+        this.transactionBuilder.postValue(transactionBuilder);
     }
 
-    public void createTokenTransfer(String from, String to, String contractAddress, BigInteger amount, BigInteger gasPrice, BigInteger gasLimit) {
-        progress.postValue(true);
-        final byte[] data = TokenRepository.createTokenTransferData(to, amount);
-        disposable = createTransactionInteract
-                .create(new Wallet(from), contractAddress, BigInteger.valueOf(0), gasPrice, gasLimit, data)
-                .subscribe(this::onCreateTransaction, this::onError);
+    public LiveData<TransactionBuilder> transactionBuilder() {
+        return transactionBuilder;
     }
 
-    public LiveData<Wallet> defaultWallet() {
-        return defaultWallet;
+    public LiveData<String> transactionHash() {
+        return transactionHash;
     }
 
-    public MutableLiveData<GasSettings> gasSettings() {
-        return gasSettings;
-    }
-
-    public LiveData<String> sendTransaction() {
-        return newTransaction;
-    }
-
-    public void prepare(boolean confirmationForTokenTransfer) {
-        this.confirmationForTokenTransfer = confirmationForTokenTransfer;
-        disposable = findDefaultWalletInteract
-                .find()
-                .subscribe(this::onDefaultWallet, this::onError);
+    public void openGasSettings(Activity context) {
+        TransactionBuilder transactionBuilder = this.transactionBuilder.getValue();
+        if (transactionBuilder != null) {
+            gasSettingsRouter.open(context, transactionBuilder.gasSettings());
+        }/* else {
+        // TODO: Good idea return to SendActivity
+        }*/
     }
 
     private void onCreateTransaction(String transaction) {
         progress.postValue(false);
-        newTransaction.postValue(transaction);
+        transactionHash.postValue(transaction);
     }
 
-    private void onDefaultWallet(Wallet wallet) {
-        defaultWallet.setValue(wallet);
-        if (gasSettings.getValue() == null) {
-            disposable = fetchGasSettingsInteract
-                    .fetch(confirmationForTokenTransfer)
-                    .subscribe(this::onGasSettings, this::onError);
-        }
+    public void send() {
+        progress.postValue(true);
+        disposable = sendTransactionInteract
+                .send(transactionBuilder.getValue())
+                .subscribe(this::onCreateTransaction, this::onError);
     }
 
-    private void onGasSettings(GasSettings gasSettings) {
-        this.gasSettings.postValue(gasSettings);
-    }
-
-    public void openGasSettings(Activity context) {
-        gasSettingsRouter.open(context, gasSettings.getValue());
+    public void setGasSettings(GasSettings gasSettings) {
+        TransactionBuilder transactionBuilder = this.transactionBuilder.getValue();
+        if (transactionBuilder != null) {
+            transactionBuilder.gasSettings(gasSettings);
+            this.transactionBuilder.postValue(transactionBuilder); // refresh view
+        }/* else {
+        // TODO: Good idea return to SendActivity
+        }*/
     }
 }

@@ -3,9 +3,14 @@ package com.wallet.crypto.trustapp.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.wallet.crypto.trustapp.repository.TokenRepository;
+import com.wallet.crypto.trustapp.util.BalanceUtils;
+
 import java.math.BigDecimal;
 
 import io.reactivex.annotations.NonNull;
+
+import static com.wallet.crypto.trustapp.C.ETHER_DECIMALS;
 
 public class TransactionBuilder implements Parcelable {
     private String contractAddress;
@@ -14,9 +19,11 @@ public class TransactionBuilder implements Parcelable {
     private boolean shouldSendToken;
 
     private String toAddress;
-    private BigDecimal amount;
+    private String fromAddress;
+    private BigDecimal amount = BigDecimal.ZERO;
 
-    private String tokenData;
+    private byte[] data;
+    private GasSettings gasSettings;
 
     public TransactionBuilder(@NonNull TokenInfo tokenInfo) {
         contractAddress(tokenInfo.address)
@@ -26,7 +33,8 @@ public class TransactionBuilder implements Parcelable {
     }
 
     public TransactionBuilder(@NonNull String symbol) {
-        symbol(symbol);
+        symbol(symbol)
+        .decimals(ETHER_DECIMALS);
     }
 
     private TransactionBuilder(Parcel in) {
@@ -35,8 +43,10 @@ public class TransactionBuilder implements Parcelable {
         symbol = in.readString();
         shouldSendToken = in.readInt() == 1;
         toAddress = in.readString();
+        fromAddress = in.readString();
         amount = new BigDecimal(in.readString());
-        tokenData = in.readString();
+        data = in.createByteArray();
+        gasSettings = in.readParcelable(GasSettings.class.getClassLoader());
     }
 
     public TransactionBuilder symbol(String symbol) {
@@ -93,12 +103,43 @@ public class TransactionBuilder implements Parcelable {
         return amount;
     }
 
-    public void tokenData(String data) {
-        tokenData = data;
+    public BigDecimal subunitAmount() {
+        if (shouldSendToken) {
+            return BigDecimal.ZERO;
+        } else {
+            return BalanceUtils.baseToSubunit(amount, decimals);
+        }
     }
 
-    public String tokenData() {
-        return tokenData;
+    public TransactionBuilder data(byte[] data) {
+        this.data = data;
+        return this;
+    }
+
+    public byte[] data() {
+        if (shouldSendToken) {
+            return TokenRepository.createTokenTransferData(toAddress, amount);
+        } else {
+            return data;
+        }
+    }
+
+    public TransactionBuilder gasSettings(GasSettings gasSettings) {
+        this.gasSettings = gasSettings;
+        return this;
+    }
+
+    public GasSettings gasSettings() {
+        return gasSettings;
+    }
+
+    public TransactionBuilder fromAddress(String fromAddress) {
+        this.fromAddress = fromAddress;
+        return this;
+    }
+
+    public String fromAddress() {
+        return fromAddress;
     }
 
     @Override
@@ -108,8 +149,10 @@ public class TransactionBuilder implements Parcelable {
         dest.writeString(symbol);
         dest.writeInt(shouldSendToken ? 1 : 0);
         dest.writeString(toAddress);
+        dest.writeString(fromAddress);
         dest.writeString(amount.toString());
-        dest.writeString(tokenData);
+        dest.writeByteArray(data);
+        dest.writeParcelable(gasSettings, flags);
     }
 
     @Override

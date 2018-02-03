@@ -287,8 +287,8 @@ public class TokenRepository implements TokenRepositoryType {
         return response.getValue();
     }
 
-    public static byte[] createTokenTransferData(String to, BigInteger tokenAmount) {
-        List<Type> params = Arrays.asList(new Address(to), new Uint256(tokenAmount));
+    public static byte[] createTokenTransferData(String to, BigDecimal tokenAmount) {
+        List<Type> params = Arrays.asList(new Address(to), new Uint256(tokenAmount.toBigInteger()));
         List<TypeReference<?>> returnTypes = Collections.singletonList(new TypeReference<Bool>() {});
         Function function = new Function("transfer", params, returnTypes);
         String encodedFunction = FunctionEncoder.encode(function);

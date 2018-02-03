@@ -2,6 +2,7 @@ package com.wallet.crypto.trustapp.repository;
 
 import com.wallet.crypto.trustapp.entity.NetworkInfo;
 import com.wallet.crypto.trustapp.entity.Transaction;
+import com.wallet.crypto.trustapp.entity.TransactionBuilder;
 import com.wallet.crypto.trustapp.entity.Wallet;
 import com.wallet.crypto.trustapp.service.AccountKeystoreService;
 import com.wallet.crypto.trustapp.service.TransactionsNetworkClientType;
@@ -13,8 +14,6 @@ import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Numeric;
-
-import java.math.BigInteger;
 
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
@@ -63,16 +62,26 @@ public class TransactionRepository implements TransactionRepositoryType {
 	}
 
 	@Override
-	public Single<String> createTransaction(Wallet from, String toAddress, BigInteger subunitAmount, BigInteger gasPrice, BigInteger gasLimit, byte[] data, String password) {
+	public Single<String> createTransaction(TransactionBuilder transactionBuilder, String password) {
 		final Web3j web3j = Web3jFactory.build(new HttpService(networkRepository.getDefaultNetwork().rpcServerUrl));
 
 		return Single.fromCallable(() -> {
 			EthGetTransactionCount ethGetTransactionCount = web3j
-					.ethGetTransactionCount(from.address, DefaultBlockParameterName.LATEST)
+					.ethGetTransactionCount(transactionBuilder.fromAddress(), DefaultBlockParameterName.LATEST)
 					.send();
 			return ethGetTransactionCount.getTransactionCount();
 		})
-		.flatMap(nonce -> accountKeystoreService.signTransaction(from, password, toAddress, subunitAmount, gasPrice, gasLimit, nonce.longValue(), data, networkRepository.getDefaultNetwork().chainId))
+		.flatMap(nonce ->
+                accountKeystoreService.signTransaction(
+                        transactionBuilder.fromAddress(),
+                        password,
+                        transactionBuilder.toAddress(),
+                        transactionBuilder.subunitAmount(),
+                        transactionBuilder.gasSettings().gasPrice,
+                        transactionBuilder.gasSettings().gasLimit,
+                        nonce.longValue(),
+                        transactionBuilder.data(),
+                        networkRepository.getDefaultNetwork().chainId))
 		.flatMap(signedMessage -> Single.fromCallable( () -> {
 			EthSendTransaction raw = web3j
 					.ethSendRawTransaction(Numeric.toHexString(signedMessage))

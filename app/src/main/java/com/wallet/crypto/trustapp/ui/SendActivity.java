@@ -48,15 +48,15 @@ public class SendActivity extends BaseActivity {
         setContentView(R.layout.activity_send);
         toolbar();
 
-        viewModel = ViewModelProviders.of(this, sendViewModelFactory)
-                .get(SendViewModel.class);
-
         toInputLayout = findViewById(R.id.to_input_layout);
         toAddressText = findViewById(R.id.send_to_address);
         amountInputLayout = findViewById(R.id.amount_input_layout);
         amountText = findViewById(R.id.send_amount);
 
-        viewModel.setTransactionBuilder(getIntent().getParcelableExtra(EXTRA_TRANSACTION_BUILDER));
+        viewModel = ViewModelProviders.of(this, sendViewModelFactory)
+                .get(SendViewModel.class);
+        viewModel.init(getIntent().getParcelableExtra(EXTRA_TRANSACTION_BUILDER));
+
         viewModel.symbol().observe(this, this::onSymbol);
         viewModel.toAddress().observe(this, this::onToAddress);
 
@@ -65,16 +65,6 @@ public class SendActivity extends BaseActivity {
             Intent intent = new Intent(getApplicationContext(), BarcodeCaptureActivity.class);
             startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
         });
-    }
-
-    private void onToAddress(String toAddress) {
-        // Populate to address if it has been passed forward
-        toAddressText.setText(toAddress);
-    }
-
-    private void onSymbol(String symbol) {
-        setTitle(getString(R.string.title_send) + " " + symbol);
-        amountInputLayout.setHint(getString(R.string.hint_amount) + " " + symbol);
     }
 
     @Override
@@ -136,5 +126,15 @@ public class SendActivity extends BaseActivity {
 
             viewModel.openConfirmation(this);
         }
+    }
+
+    private void onToAddress(String toAddress) {
+        // Populate to address if it has been passed forward
+        toAddressText.setText(toAddress);
+    }
+
+    private void onSymbol(String symbol) {
+        setTitle(getString(R.string.title_send) + " " + symbol);
+        amountInputLayout.setHint(getString(R.string.hint_amount) + " " + symbol);
     }
 }

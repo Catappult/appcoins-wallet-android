@@ -15,6 +15,7 @@ import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
 import io.realm.RealmResults;
+import io.realm.Sort;
 
 public class TransactionsRealmCache implements TransactionLocalSource {
 
@@ -30,7 +31,10 @@ public class TransactionsRealmCache implements TransactionLocalSource {
             Realm instance = null;
             try {
                 instance = realmManager.getRealmInstance(networkInfo, wallet);
-                return convert(instance.where(RealmTransaction.class).findAll());
+                RealmResults<RealmTransaction> list = instance.where(RealmTransaction.class)
+                        .sort("nonce", Sort.DESCENDING)
+                        .findAll();
+                return convert(list);
             } finally {
                 if (instance != null) {
                     instance.close();
@@ -47,7 +51,12 @@ public class TransactionsRealmCache implements TransactionLocalSource {
                 instance = realmManager.getRealmInstance(networkInfo, wallet);
                 instance.beginTransaction();
                 for (Transaction transaction : transactions) {
-                    RealmTransaction item = instance.createObject(RealmTransaction.class, transaction.hash);
+                    RealmTransaction item = instance.where(RealmTransaction.class)
+                            .equalTo("hash", transaction.hash)
+                            .findFirst();
+                    if (item == null) {
+                        item = instance.createObject(RealmTransaction.class, transaction.hash);
+                    }
                     fill(instance, item, transaction);
                 }
                 instance.commitTransaction();
@@ -70,7 +79,10 @@ public class TransactionsRealmCache implements TransactionLocalSource {
             Realm realm = null;
             try {
                 realm = realmManager.getRealmInstance(networkInfo, wallet);
-                return convert(realm.where(RealmTransaction.class).findFirst());
+                return convert(realm.where(RealmTransaction.class)
+                        .sort("timeStamp", Sort.DESCENDING)
+                        .findAll()
+                        .first());
             } finally {
                 if (realm != null) {
                     realm.close();
