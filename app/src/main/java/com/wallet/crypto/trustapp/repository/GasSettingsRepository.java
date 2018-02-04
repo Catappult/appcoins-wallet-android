@@ -13,7 +13,6 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.reactivex.schedulers.Schedulers;
 
 import static com.wallet.crypto.trustapp.C.DEFAULT_GAS_LIMIT;
 import static com.wallet.crypto.trustapp.C.DEFAULT_GAS_LIMIT_FOR_TOKENS;

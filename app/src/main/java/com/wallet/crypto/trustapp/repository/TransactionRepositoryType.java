@@ -4,8 +4,6 @@ import com.wallet.crypto.trustapp.entity.Transaction;
 import com.wallet.crypto.trustapp.entity.TransactionBuilder;
 import com.wallet.crypto.trustapp.entity.Wallet;
 
-import java.math.BigInteger;
-
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;

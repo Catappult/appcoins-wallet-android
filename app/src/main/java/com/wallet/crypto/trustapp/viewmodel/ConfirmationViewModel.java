@@ -10,8 +10,6 @@ import com.wallet.crypto.trustapp.entity.TransactionBuilder;
 import com.wallet.crypto.trustapp.interact.SendTransactionInteract;
 import com.wallet.crypto.trustapp.router.GasSettingsRouter;
 
-import io.fabric.sdk.android.Fabric;
-
 public class ConfirmationViewModel extends BaseViewModel {
     private final MutableLiveData<TransactionBuilder> transactionBuilder = new MutableLiveData<>();
     private final MutableLiveData<String> transactionHash = new MutableLiveData<>();
