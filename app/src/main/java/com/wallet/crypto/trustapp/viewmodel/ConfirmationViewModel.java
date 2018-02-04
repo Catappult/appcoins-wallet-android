@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
+import com.crashlytics.android.Crashlytics;
 import com.wallet.crypto.trustapp.entity.GasSettings;
 import com.wallet.crypto.trustapp.entity.TransactionBuilder;
 import com.wallet.crypto.trustapp.interact.SendTransactionInteract;
 import com.wallet.crypto.trustapp.router.GasSettingsRouter;
+
+import io.fabric.sdk.android.Fabric;
 
 public class ConfirmationViewModel extends BaseViewModel {
     private final MutableLiveData<TransactionBuilder> transactionBuilder = new MutableLiveData<>();
@@ -65,5 +68,11 @@ public class ConfirmationViewModel extends BaseViewModel {
         }/* else {
         // TODO: Good idea return to SendActivity
         }*/
+    }
+
+    @Override
+    protected void onError(Throwable throwable) {
+        super.onError(throwable);
+        Crashlytics.logException(throwable);
     }
 }
