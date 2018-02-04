@@ -65,7 +65,7 @@ public class SendViewModel extends BaseViewModel {
         }
     }
 
-    public boolean setAmmount(String amount) {
+    public boolean setAmount(String amount) {
         try {
             transactionBuilder.amount(new BigDecimal(amount));
             return true;

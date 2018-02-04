@@ -115,7 +115,7 @@ public class SendActivity extends BaseActivity {
             hasError = true;
         }
 
-        if (!viewModel.setAmmount(amount)) {
+        if (!viewModel.setAmount(amount)) {
             amountInputLayout.setError(getString(R.string.error_invalid_amount));
             hasError = true;
         }

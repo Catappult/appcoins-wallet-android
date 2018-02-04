@@ -21,16 +21,4 @@ public class FetchGasSettingsInteract {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
-
-    public Single<GasSettings> fetchDefault(boolean tokenTransfer) {
-        return null;
-//        return Single.fromCallable(() -> {
-//            BigInteger gasPrice = new BigInteger(C.DEFAULT_GAS_PRICE);
-//            BigInteger gasLimit = new BigInteger(C.DEFAULT_GAS_LIMIT);
-//            if (tokenTransfer) {
-//                gasLimit = new BigInteger(C.DEFAULT_GAS_LIMIT_FOR_TOKENS);
-//            }
-//            return new GasSettings(gasPrice, gasLimit);
-//        });
-    }
 }

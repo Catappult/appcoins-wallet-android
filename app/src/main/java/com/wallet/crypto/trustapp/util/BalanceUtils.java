@@ -39,11 +39,12 @@ public class BalanceUtils {
      * Base - taken to mean default unit for a currency e.g. ETH, DOLLARS
      * Subunit - taken to mean subdivision of base e.g. WEI, CENTS
      *
-     * @param baseAmount - decimal amonut in base unit of a given currency
+     * @param baseAmount - decimal amount in base unit of a given currency
      * @param decimals - decimal places used to convert to subunits
      * @return amount in subunits
      */
     public static BigDecimal baseToSubunit(BigDecimal baseAmount, int decimals) {
+        assert(decimals >= 0);
         return baseAmount.multiply(BigDecimal.valueOf(10).pow(decimals));
     }
 

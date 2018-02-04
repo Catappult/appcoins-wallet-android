@@ -110,29 +110,10 @@ public class SettingsFragment extends PreferenceFragment
                 return false;
         });
 
-//        final SwitchPreference pinCode = (SwitchPreference) findPreference("pref_pincode");
-//        pinCode.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-//            @Override
-//            public boolean onPreferenceChange(Preference preference, Object o) {
-//                final boolean enable = !((SwitchPreference) preference).isChecked();
-//                if (enable) {
-//                    // enable pin code
-//                    final Intent intent = new Intent(getActivity(), CustomPinActivity.class);
-//                    intent.putExtra(AppLock.EXTRA_TYPE, AppLock.ENABLE_PINLOCK);
-//                    startActivity(intent);
-//                } else {
-//                    // disable pin code without asking for it
-//                    LockManager<CustomPinActivity> lockManager = LockManager.getInstance();
-//                    lockManager.getAppLock().disable();
-//                }
-//                return true;
-//            }
-//        });
-
         final Preference donate = findPreference("pref_donate");
         donate.setOnPreferenceClickListener(preference -> {
             sendRouter.open(getActivity(),
-                    new TransactionBuilder(C.ETC_SYMBOL)
+                    new TransactionBuilder(ethereumNetworkRepository.getDefaultNetwork().symbol)
                             .decimals(C.ETHER_DECIMALS)
                             .toAddress(DONATION_ADDRESS));
             return true;

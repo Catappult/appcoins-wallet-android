@@ -170,10 +170,6 @@ public class ConfirmationActivity extends BaseActivity {
         if (requestCode == GasSettingsViewModel.SET_GAS_SETTINGS) {
             if (resultCode == RESULT_OK) {
                 viewModel.setGasSettings(intent.getParcelableExtra(EXTRA_GAS_SETTINGS));
-//                BigInteger gasPrice = new BigInteger(intent.getStringExtra(C.EXTRA_GAS_PRICE));
-//                BigInteger gasLimit = new BigInteger(intent.getStringExtra(C.EXTRA_GAS_LIMIT));
-//                GasSettings settings = new GasSettings(gasPrice, gasLimit);
-//                viewModel.gasSettings().postValue(settings);
             }
         }
     }
