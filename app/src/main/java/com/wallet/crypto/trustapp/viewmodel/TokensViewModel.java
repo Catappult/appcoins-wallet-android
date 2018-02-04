@@ -3,6 +3,7 @@ package com.wallet.crypto.trustapp.viewmodel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.wallet.crypto.trustapp.entity.ErrorEnvelope;
 import com.wallet.crypto.trustapp.entity.Token;
@@ -79,7 +80,9 @@ public class TokensViewModel extends BaseViewModel {
     private void showTotalBalance(Token[] tokens) {
         BigDecimal total = new BigDecimal("0");
         for (Token token : tokens) {
-            if (token.balance != null && token.ticker != null
+            if (token.balance != null
+                    && token.ticker != null
+                    && !TextUtils.isEmpty(token.ticker.price)
                     && token.balance.compareTo(BigDecimal.ZERO) != 0) {
                 BigDecimal decimalDivisor = new BigDecimal(Math.pow(10, token.tokenInfo.decimals));
                 BigDecimal ethBalance = token.tokenInfo.decimals > 0
