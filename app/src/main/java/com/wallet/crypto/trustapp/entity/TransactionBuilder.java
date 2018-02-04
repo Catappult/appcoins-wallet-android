@@ -34,7 +34,7 @@ public class TransactionBuilder implements Parcelable {
 
     public TransactionBuilder(@NonNull String symbol) {
         symbol(symbol)
-        .decimals(ETHER_DECIMALS);
+            .decimals(ETHER_DECIMALS);
     }
 
     private TransactionBuilder(Parcel in) {
@@ -104,11 +104,7 @@ public class TransactionBuilder implements Parcelable {
     }
 
     public BigDecimal subunitAmount() {
-        if (shouldSendToken) {
-            return BigDecimal.ZERO;
-        } else {
-            return BalanceUtils.baseToSubunit(amount, decimals);
-        }
+        return BalanceUtils.baseToSubunit(amount, decimals);
     }
 
     public TransactionBuilder data(byte[] data) {
@@ -118,7 +114,7 @@ public class TransactionBuilder implements Parcelable {
 
     public byte[] data() {
         if (shouldSendToken) {
-            return TokenRepository.createTokenTransferData(toAddress, amount);
+            return TokenRepository.createTokenTransferData(toAddress, subunitAmount());
         } else {
             return data;
         }

@@ -15,6 +15,8 @@ import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Numeric;
 
+import java.math.BigDecimal;
+
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -75,8 +77,10 @@ public class TransactionRepository implements TransactionRepositoryType {
                 accountKeystoreService.signTransaction(
                         transactionBuilder.fromAddress(),
                         password,
-                        transactionBuilder.toAddress(),
-                        transactionBuilder.subunitAmount(),
+                        transactionBuilder.shouldSendToken()
+                                ? transactionBuilder.contractAddress() : transactionBuilder.toAddress(),
+                        transactionBuilder.shouldSendToken()
+                            ? BigDecimal.ZERO : transactionBuilder.subunitAmount(),
                         transactionBuilder.gasSettings().gasPrice,
                         transactionBuilder.gasSettings().gasLimit,
                         nonce.longValue(),
