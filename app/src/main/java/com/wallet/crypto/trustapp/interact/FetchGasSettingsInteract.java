@@ -18,7 +18,7 @@ public class FetchGasSettingsInteract {
     public Single<GasSettings> fetch(boolean forTokenTransfer) {
         return repository
                 .getGasSettings(forTokenTransfer)
-                .observeOn(Schedulers.io())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
