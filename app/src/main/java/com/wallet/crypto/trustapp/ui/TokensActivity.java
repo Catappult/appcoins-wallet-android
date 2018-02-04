@@ -14,6 +14,7 @@ import android.view.View;
 import com.wallet.crypto.trustapp.R;
 import com.wallet.crypto.trustapp.entity.ErrorEnvelope;
 import com.wallet.crypto.trustapp.entity.Token;
+import com.wallet.crypto.trustapp.entity.Wallet;
 import com.wallet.crypto.trustapp.ui.widget.adapter.TokensAdapter;
 import com.wallet.crypto.trustapp.viewmodel.TokensViewModel;
 import com.wallet.crypto.trustapp.viewmodel.TokensViewModelFactory;
@@ -64,7 +65,7 @@ public class TokensActivity extends BaseActivity implements View.OnClickListener
         viewModel.error().observe(this, this::onError);
         viewModel.tokens().observe(this, this::onTokens);
         viewModel.total().observe(this, this::onTotal);
-        viewModel.wallet().setValue(getIntent().getParcelableExtra(WALLET));
+        viewModel.wallet().observe(this, this::onWallet);
 
         refreshLayout.setOnRefreshListener(viewModel::fetchTokens);
     }
@@ -111,6 +112,10 @@ public class TokensActivity extends BaseActivity implements View.OnClickListener
     protected void onResume() {
         super.onResume();
 
+        viewModel.wallet().postValue(getIntent().getParcelableExtra(WALLET));
+    }
+
+    private void onWallet(Wallet wallet) {
         viewModel.fetchTokens();
     }
 
