@@ -152,9 +152,7 @@ public class TransactionsViewModel extends BaseViewModel {
         if (transactions == null || transactions.length == 0) {
             error.postValue(new ErrorEnvelope(C.ErrorCode.EMPTY_COLLECTION, "empty collection"));
         }
-        handler.postDelayed(
-                startFetchTransactionsTask,
-                FETCH_TRANSACTIONS_INTERVAL * DateUtils.SECOND_IN_MILLIS);
+        handler.postDelayed(startFetchTransactionsTask, FETCH_TRANSACTIONS_INTERVAL);
     }
 
     public void showWallets(Context context) {

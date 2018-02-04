@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.wallet.crypto.trustapp.R;
 import com.wallet.crypto.trustapp.entity.Token;
@@ -80,6 +81,7 @@ public class TokenHolder extends BinderViewHolder<Token> implements View.OnClick
         } else {
             Picasso.with(getContext())
                     .load(imageUrl)
+                    .networkPolicy(NetworkPolicy.OFFLINE)
                     .fit()
                     .centerInside()
                     .placeholder(defaultResId)
