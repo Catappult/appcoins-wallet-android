@@ -177,6 +177,11 @@ public class TransactionsViewModel extends BaseViewModel {
         myTokensRouter.open(context, defaultWallet.getValue());
     }
 
+    public void pause() {
+        handler.removeCallbacks(startFetchTransactionsTask);
+        handler.removeCallbacks(startGetBalanceTask);
+    }
+
     public void openDeposit(Context context, Uri uri) {
         externalBrowserRouter.open(context, uri);
     }

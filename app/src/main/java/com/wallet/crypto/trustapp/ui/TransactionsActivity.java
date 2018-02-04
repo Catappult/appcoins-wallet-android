@@ -124,6 +124,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
+        viewModel.pause();
     }
 
     @Override
