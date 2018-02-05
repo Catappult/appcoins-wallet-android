@@ -17,13 +17,17 @@ import android.view.View;
 import com.wallet.crypto.trustapp.C;
 import com.wallet.crypto.trustapp.R;
 import com.wallet.crypto.trustapp.entity.NetworkInfo;
+import com.wallet.crypto.trustapp.entity.TransactionBuilder;
 import com.wallet.crypto.trustapp.interact.FindDefaultWalletInteract;
 import com.wallet.crypto.trustapp.repository.EthereumNetworkRepositoryType;
 import com.wallet.crypto.trustapp.router.ManageWalletsRouter;
+import com.wallet.crypto.trustapp.router.SendRouter;
 
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
+
+import static com.wallet.crypto.trustapp.C.DONATION_ADDRESS;
 
 public class SettingsFragment extends PreferenceFragment
         implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -33,6 +37,7 @@ public class SettingsFragment extends PreferenceFragment
     FindDefaultWalletInteract findDefaultWalletInteract;
     @Inject
     ManageWalletsRouter manageWalletsRouter;
+    SendRouter sendRouter = new SendRouter();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -105,30 +110,12 @@ public class SettingsFragment extends PreferenceFragment
                 return false;
         });
 
-//        final SwitchPreference pinCode = (SwitchPreference) findPreference("pref_pincode");
-//        pinCode.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-//            @Override
-//            public boolean onPreferenceChange(Preference preference, Object o) {
-//                final boolean enable = !((SwitchPreference) preference).isChecked();
-//                if (enable) {
-//                    // enable pin code
-//                    final Intent intent = new Intent(getActivity(), CustomPinActivity.class);
-//                    intent.putExtra(AppLock.EXTRA_TYPE, AppLock.ENABLE_PINLOCK);
-//                    startActivity(intent);
-//                } else {
-//                    // disable pin code without asking for it
-//                    LockManager<CustomPinActivity> lockManager = LockManager.getInstance();
-//                    lockManager.getAppLock().disable();
-//                }
-//                return true;
-//            }
-//        });
-
         final Preference donate = findPreference("pref_donate");
         donate.setOnPreferenceClickListener(preference -> {
-            Intent intent = new Intent(getActivity(), SendActivity.class);
-            intent.putExtra(C.EXTRA_ADDRESS, C.DONATION_ADDRESS);
-            startActivity(intent);
+            sendRouter.open(getActivity(),
+                    new TransactionBuilder(ethereumNetworkRepository.getDefaultNetwork().symbol)
+                            .decimals(C.ETHER_DECIMALS)
+                            .toAddress(DONATION_ADDRESS));
             return true;
         });
 

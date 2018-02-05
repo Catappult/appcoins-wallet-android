@@ -8,7 +8,6 @@ import android.util.Log;
 
 import com.wallet.crypto.trustapp.C;
 import com.wallet.crypto.trustapp.entity.ErrorEnvelope;
-import com.wallet.crypto.trustapp.entity.ServiceException;
 
 import io.reactivex.disposables.Disposable;
 
@@ -39,14 +38,10 @@ public class BaseViewModel extends ViewModel {
 
 	protected void onError(Throwable throwable) {
         Log.d("TAG", "Err", throwable);
-        if (throwable instanceof ServiceException) {
-			error.postValue(((ServiceException) throwable).error);
-		} else {
-		    if (throwable.getCause() == null || TextUtils.isEmpty(throwable.getCause().getMessage())) {
-                error.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, null, throwable));
-            } else {
-                error.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, throwable.getCause().getMessage(), throwable));
-            }
-		}
+        if (TextUtils.isEmpty(throwable.getMessage())) {
+            error.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, null, throwable));
+        } else {
+            error.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, throwable.getMessage(), throwable));
+        }
 	}
 }

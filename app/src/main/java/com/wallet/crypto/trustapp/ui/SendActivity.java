@@ -2,7 +2,6 @@ package com.wallet.crypto.trustapp.ui;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -15,21 +14,17 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
-import com.wallet.crypto.trustapp.C;
 import com.wallet.crypto.trustapp.R;
 import com.wallet.crypto.trustapp.ui.barcode.BarcodeCaptureActivity;
-import com.wallet.crypto.trustapp.util.BalanceUtils;
-import com.wallet.crypto.trustapp.util.QRURLParser;
 import com.wallet.crypto.trustapp.viewmodel.SendViewModel;
 import com.wallet.crypto.trustapp.viewmodel.SendViewModelFactory;
-
-import org.ethereum.geth.Address;
-
-import java.math.BigInteger;
 
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
+
+import static android.widget.Toast.LENGTH_SHORT;
+import static com.wallet.crypto.trustapp.C.EXTRA_TRANSACTION_BUILDER;
 
 public class SendActivity extends BaseActivity {
 
@@ -41,12 +36,6 @@ public class SendActivity extends BaseActivity {
 
     private EditText toAddressText;
     private EditText amountText;
-
-    // In case we're sending tokens
-    private boolean sendingTokens = false;
-    private String contractAddress;
-    private int decimals;
-    private String symbol;
     private TextInputLayout toInputLayout;
     private TextInputLayout amountInputLayout;
 
@@ -59,28 +48,17 @@ public class SendActivity extends BaseActivity {
         setContentView(R.layout.activity_send);
         toolbar();
 
-        viewModel = ViewModelProviders.of(this, sendViewModelFactory)
-                .get(SendViewModel.class);
-
         toInputLayout = findViewById(R.id.to_input_layout);
         toAddressText = findViewById(R.id.send_to_address);
         amountInputLayout = findViewById(R.id.amount_input_layout);
         amountText = findViewById(R.id.send_amount);
 
-        contractAddress = getIntent().getStringExtra(C.EXTRA_CONTRACT_ADDRESS);
-        decimals = getIntent().getIntExtra(C.EXTRA_DECIMALS, C.ETHER_DECIMALS);
-        symbol = getIntent().getStringExtra(C.EXTRA_SYMBOL);
-        symbol = symbol == null ? C.ETH_SYMBOL : symbol;
-        sendingTokens = getIntent().getBooleanExtra(C.EXTRA_SENDING_TOKENS, false);
+        viewModel = ViewModelProviders.of(this, sendViewModelFactory)
+                .get(SendViewModel.class);
+        viewModel.init(getIntent().getParcelableExtra(EXTRA_TRANSACTION_BUILDER));
 
-        setTitle(getString(R.string.title_send) + " " + symbol);
-        amountInputLayout.setHint(getString(R.string.hint_amount) + " " + symbol);
-
-        // Populate to address if it has been passed forward
-        String toAddress = getIntent().getStringExtra(C.EXTRA_ADDRESS);
-        if (toAddress != null) {
-            toAddressText.setText(toAddress);
-        }
+        viewModel.symbol().observe(this, this::onSymbol);
+        viewModel.toAddress().observe(this, this::onToAddress);
 
         ImageButton scanBarcodeButton = findViewById(R.id.scan_barcode_button);
         scanBarcodeButton.setOnClickListener(view -> {
@@ -101,8 +79,7 @@ public class SendActivity extends BaseActivity {
         switch (item.getItemId()) {
             case R.id.action_next: {
                 onNext();
-            }
-            break;
+            } break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -113,15 +90,10 @@ public class SendActivity extends BaseActivity {
             if (resultCode == CommonStatusCodes.SUCCESS) {
                 if (data != null) {
                     Barcode barcode = data.getParcelableExtra(BarcodeCaptureActivity.BarcodeObject);
-
-                    QRURLParser parser = QRURLParser.getInstance();
-                    String extracted_address = parser.extractAddressFromQrString(barcode.displayValue);
-                    if (extracted_address == null) {
-                        Toast.makeText(this, R.string.toast_qr_code_no_address, Toast.LENGTH_SHORT).show();
-                        return;
+                    if (!viewModel.extractFromQR(barcode)) {
+                        Toast.makeText(this, R.string.toast_qr_code_no_address, LENGTH_SHORT)
+                                .show();
                     }
-                    Point[] p = barcode.cornerPoints;
-                    toAddressText.setText(extracted_address);
                 }
             } else {
                 Log.e("SEND", String.format(getString(R.string.barcode_error_format),
@@ -134,44 +106,35 @@ public class SendActivity extends BaseActivity {
 
     private void onNext() {
         // Validate input fields
-        boolean inputValid = true;
+        boolean hasError = false;
         final String to = toAddressText.getText().toString();
-        if (!isAddressValid(to)) {
-            toInputLayout.setError(getString(R.string.error_invalid_address));
-            inputValid = false;
-        }
         final String amount = amountText.getText().toString();
-        if (!isValidAmount(amount)) {
+
+        if (!viewModel.setToAddress(to)) {
+            toInputLayout.setError(getString(R.string.error_invalid_address));
+            hasError = true;
+        }
+
+        if (!viewModel.setAmount(amount)) {
             amountInputLayout.setError(getString(R.string.error_invalid_amount));
-            inputValid = false;
+            hasError = true;
         }
 
-        if (!inputValid) {
-            return;
-        }
+        if (!hasError) {
+            toInputLayout.setErrorEnabled(false);
+            amountInputLayout.setErrorEnabled(false);
 
-        toInputLayout.setErrorEnabled(false);
-        amountInputLayout.setErrorEnabled(false);
-
-        BigInteger amountInSubunits = BalanceUtils.baseToSubunit(amount, decimals);
-        viewModel.openConfirmation(this, to, amountInSubunits, contractAddress, decimals, symbol, sendingTokens);
-    }
-
-    boolean isAddressValid(String address) {
-        try {
-            new Address(address);
-            return true;
-        } catch (Exception e) {
-            return false;
+            viewModel.openConfirmation(this);
         }
     }
 
-    boolean isValidAmount(String eth) {
-        try {
-            String wei = BalanceUtils.EthToWei(eth);
-            return wei != null;
-        } catch (Exception e) {
-            return false;
-        }
+    private void onToAddress(String toAddress) {
+        // Populate to address if it has been passed forward
+        toAddressText.setText(toAddress);
+    }
+
+    private void onSymbol(String symbol) {
+        setTitle(getString(R.string.title_send) + " " + symbol);
+        amountInputLayout.setHint(getString(R.string.hint_amount) + " " + symbol);
     }
 }

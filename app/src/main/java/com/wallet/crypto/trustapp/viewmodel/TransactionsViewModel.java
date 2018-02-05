@@ -5,7 +5,6 @@ import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
-import android.support.annotation.Nullable;
 import android.text.format.DateUtils;
 
 import com.wallet.crypto.trustapp.C;
@@ -28,7 +27,6 @@ import com.wallet.crypto.trustapp.router.TransactionDetailRouter;
 import java.util.Map;
 
 import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
 
 public class TransactionsViewModel extends BaseViewModel {
     private static final long GET_BALANCE_INTERVAL = 10 * DateUtils.SECOND_IN_MILLIS;
@@ -50,10 +48,7 @@ public class TransactionsViewModel extends BaseViewModel {
     private final MyAddressRouter myAddressRouter;
     private final MyTokensRouter myTokensRouter;
     private final ExternalBrowserRouter externalBrowserRouter;
-    @Nullable
-    private Disposable getBalanceDisposable;
-    @Nullable
-    private Disposable fetchTransactionDisposable;
+
     private Handler handler = new Handler();
 
     TransactionsViewModel(
@@ -117,12 +112,11 @@ public class TransactionsViewModel extends BaseViewModel {
         progress.postValue(shouldShowProgress);
         /*For specific address use: new Wallet("0x60f7a1cbc59470b74b1df20b133700ec381f15d3")*/
         Observable<Transaction[]> fetch = fetchTransactionsInteract.fetch(defaultWallet.getValue());
-        fetchTransactionDisposable = fetch
-                .subscribe(this::onTransactions, this::onError, this::onTransactionsFetchCompleted);
+        fetch.subscribe(this::onTransactions, this::onError, this::onTransactionsFetchCompleted);
     }
 
     public void getBalance() {
-        getBalanceDisposable = getDefaultWalletBalance
+        getDefaultWalletBalance
                 .get(defaultWallet.getValue())
                 .subscribe(values -> {
                     defaultWalletBalance.postValue(values);
@@ -158,9 +152,7 @@ public class TransactionsViewModel extends BaseViewModel {
         if (transactions == null || transactions.length == 0) {
             error.postValue(new ErrorEnvelope(C.ErrorCode.EMPTY_COLLECTION, "empty collection"));
         }
-        handler.postDelayed(
-                startFetchTransactionsTask,
-                FETCH_TRANSACTIONS_INTERVAL * DateUtils.SECOND_IN_MILLIS);
+        handler.postDelayed(startFetchTransactionsTask, FETCH_TRANSACTIONS_INTERVAL);
     }
 
     public void showWallets(Context context) {
@@ -183,6 +175,11 @@ public class TransactionsViewModel extends BaseViewModel {
 
     public void showTokens(Context context) {
         myTokensRouter.open(context, defaultWallet.getValue());
+    }
+
+    public void pause() {
+        handler.removeCallbacks(startFetchTransactionsTask);
+        handler.removeCallbacks(startGetBalanceTask);
     }
 
     public void openDeposit(Context context, Uri uri) {

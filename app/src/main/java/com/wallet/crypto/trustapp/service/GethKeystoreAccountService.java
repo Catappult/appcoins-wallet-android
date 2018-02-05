@@ -19,6 +19,7 @@ import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.WalletFile;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
 
@@ -43,10 +44,6 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
 
     public GethKeystoreAccountService(File keyStoreFile) {
         keyStore = new KeyStore(keyStoreFile.getAbsolutePath(), Geth.LightScryptN, Geth.LightScryptP);
-    }
-
-    public GethKeystoreAccountService(KeyStore keyStore) {
-        this.keyStore = keyStore;
     }
 
     @Override
@@ -112,7 +109,16 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
     }
 
     @Override
-    public Single<byte[]> signTransaction(Wallet signer, String signerPassword, String toAddress, BigInteger amount, BigInteger gasPrice, BigInteger gasLimit, long nonce, byte[] data, long chainId) {
+    public Single<byte[]> signTransaction(
+            String fromAddress,
+            String signerPassword,
+            String toAddress,
+            BigDecimal amount,
+            BigDecimal gasPrice,
+            BigDecimal gasLimit,
+            long nonce,
+            byte[] data,
+            long chainId) {
         return Single.fromCallable(() -> {
             BigInt value = new BigInt(0);
             value.setString(amount.toString(), 10);
@@ -132,7 +138,7 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
                     data);
 
             BigInt chain = new BigInt(chainId); // Chain identifier of the main net
-            org.ethereum.geth.Account gethAccount = findAccount(signer.address);
+            org.ethereum.geth.Account gethAccount = findAccount(fromAddress);
             keyStore.unlock(gethAccount, signerPassword);
             Transaction signed = keyStore.signTx(gethAccount, tx, chain);
             keyStore.lock(gethAccount.getAddress());

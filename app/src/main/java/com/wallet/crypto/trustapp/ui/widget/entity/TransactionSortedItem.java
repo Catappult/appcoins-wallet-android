@@ -16,10 +16,9 @@ public class TransactionSortedItem extends TimestampSortedItem<Transaction> {
 
     @Override
     public int compare(SortedItem other) {
-        return super.compare(other);
-//        return other.viewType == TransactionHolder.VIEW_TYPE ||
-//                ? super.compare(other)
-//                : weight - other.weight;
+        return other.viewType == viewType && ((TransactionSortedItem) other).value.hash.equalsIgnoreCase(value.hash)
+                ? 0
+                : super.compare(other);
     }
 
     @Override
