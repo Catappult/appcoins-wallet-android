@@ -104,7 +104,7 @@ public class TokensViewModel extends BaseViewModel {
     }
 
     public void showSendToken(Context context, String address, String symbol, int decimals) {
-        sendRouter.open(context, new TokenInfo(address, "", symbol, decimals, true));
+        sendRouter.open(context, new TokenInfo(address, "", symbol, decimals, true, false));
 
     }
 
