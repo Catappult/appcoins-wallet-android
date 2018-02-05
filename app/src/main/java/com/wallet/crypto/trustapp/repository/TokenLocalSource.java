@@ -18,4 +18,6 @@ public interface TokenLocalSource {
 
     Completable saveTickers(NetworkInfo network, Wallet wallet, TokenTicker[] tokenTickers);
     Single<TokenTicker[]> fetchTickers(NetworkInfo network, Wallet wallet, Token[] tokens);
+
+    Completable delete(NetworkInfo network, Wallet wallet, Token token);
 }

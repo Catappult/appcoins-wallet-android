@@ -44,7 +44,7 @@ public class TokenChangeCollectionActivity extends BaseActivity implements View.
 
         toolbar();
 
-        adapter = new ChangeTokenCollectionAdapter(this::onTokenClick);
+        adapter = new ChangeTokenCollectionAdapter(this::onTokenClick, this::onTokenDeleteClick);
         RecyclerView list = findViewById(R.id.list);
         systemView = findViewById(R.id.system_view);
         SwipeRefreshLayout refreshLayout = findViewById(R.id.refresh_layout);
@@ -68,6 +68,10 @@ public class TokenChangeCollectionActivity extends BaseActivity implements View.
 
     private void onTokenClick(View view, Token token) {
         viewModel.setEnabled(token);
+    }
+
+    private void onTokenDeleteClick(View view, Token token) {
+        viewModel.deleteToken(token);
     }
 
     @Override

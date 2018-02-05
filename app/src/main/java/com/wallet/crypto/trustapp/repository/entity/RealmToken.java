@@ -13,6 +13,7 @@ public class RealmToken extends RealmObject {
     private long updatedTime;
     private String balance;
     private boolean isEnabled;
+    private boolean isAddedManually;
 
     public int getDecimals() {
         return decimals;
@@ -76,5 +77,13 @@ public class RealmToken extends RealmObject {
 
     public void setEnabled(boolean isEnabled) {
         this.isEnabled = isEnabled;
+    }
+
+    public boolean getAddedManually() {
+        return isAddedManually;
+    }
+
+    public void setAddedManually(boolean isAddedManually) {
+        this.isAddedManually = isAddedManually;
     }
 }

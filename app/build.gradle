@@ -23,13 +23,13 @@ android {
         applicationId "com.wallet.crypto.trustapp"
         minSdkVersion 18
         targetSdkVersion 27
-        versionCode 62
-        versionName "1.4.28"
+        versionCode 65
+        versionName "1.4.31"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled = true
 
-        buildConfigField 'int', 'DB_VERSION', '4'
+        buildConfigField 'int', 'DB_VERSION', '5'
     }
     buildTypes {
         release {

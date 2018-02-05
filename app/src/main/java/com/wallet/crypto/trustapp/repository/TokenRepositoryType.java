@@ -12,7 +12,9 @@ public interface TokenRepositoryType {
 
     Observable<Token[]> fetchAll(String walletAddress);
 
-    Completable addToken(Wallet wallet, String address, String symbol, int decimals);
+    Completable addToken(Wallet wallet, String address, String symbol, int decimals, boolean isAddedManually);
 
     Completable setEnable(Wallet wallet, Token token, boolean isEnabled);
+
+    Completable delete(Wallet wallet, Token token);
 }
