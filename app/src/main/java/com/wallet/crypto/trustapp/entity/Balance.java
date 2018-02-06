@@ -1,17 +1,17 @@
 package com.wallet.crypto.trustapp.entity;
 
 public class Balance {
-    private final String Symbol;
+    private final String symbol;
     private final long balance;
 
     public Balance(String symbol, long balance) {
-        Symbol = symbol;
+        this.symbol = symbol;
         this.balance = balance;
 
     }
 
     public String getSymbol() {
-        return Symbol;
+        return symbol;
     }
 
     public long getBalance() {
