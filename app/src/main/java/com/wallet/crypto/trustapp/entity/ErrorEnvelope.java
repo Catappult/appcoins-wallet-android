@@ -1,6 +1,7 @@
 package com.wallet.crypto.trustapp.entity;
 
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 
 import com.wallet.crypto.trustapp.C;
 
@@ -17,6 +18,11 @@ public class ErrorEnvelope {
 
 	public ErrorEnvelope(int code, @Nullable String message) {
 		this(code, message, null);
+	}
+
+	public ErrorEnvelope(int code, @StringRes int message) {
+		this(code, null, null);
+
 	}
 
 	public ErrorEnvelope(int code, @Nullable String message, @Nullable Throwable throwable) {

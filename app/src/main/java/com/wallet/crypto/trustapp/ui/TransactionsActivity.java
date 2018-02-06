@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
@@ -120,6 +121,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
+        viewModel.pause();
     }
 
     @Override
@@ -236,6 +238,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
             DepositView view = new DepositView(this, wallet);
             view.setOnDepositClickListener(this::onDepositClick);
             dialog.setContentView(view);
+            BottomSheetBehavior behavior = BottomSheetBehavior.from((View) view.getParent());
+            dialog.setOnShowListener(d -> behavior.setPeekHeight(view.getHeight()));
             dialog.show();
             this.dialog = dialog;
         }

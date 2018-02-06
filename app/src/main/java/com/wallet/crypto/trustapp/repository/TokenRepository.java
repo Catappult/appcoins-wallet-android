@@ -29,7 +29,6 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Numeric;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -109,7 +108,7 @@ public class TokenRepository implements TokenRepositoryType {
                         (data, tokenTickers) -> {
                             for (Token token : data) {
                                 for (TokenTicker ticker : tokenTickers) {
-                                    if (token.tokenInfo.address.equals(ticker.contract)) {
+                                    if (token.tokenInfo.address.equalsIgnoreCase(ticker.contract)) {
                                         token.ticker = ticker;
                                     }
                                 }
@@ -130,7 +129,7 @@ public class TokenRepository implements TokenRepositoryType {
     }
 
     @Override
-    public Completable addToken(Wallet wallet, String address, String symbol, int decimals) {
+    public Completable addToken(Wallet wallet, String address, String symbol, int decimals, boolean isAddedManually) {
         return localSource.saveTokens(
                 ethereumNetworkRepository.getDefaultNetwork(),
                 wallet,
@@ -139,7 +138,8 @@ public class TokenRepository implements TokenRepositoryType {
                                 "",
                                 symbol.toLowerCase(),
                                 decimals,
-                                true),
+                                true,
+                                isAddedManually),
                         null, 0)});
     }
 
@@ -147,6 +147,12 @@ public class TokenRepository implements TokenRepositoryType {
     public Completable setEnable(Wallet wallet, Token token, boolean isEnabled) {
         NetworkInfo network = ethereumNetworkRepository.getDefaultNetwork();
         return Completable.fromAction(() -> localSource.setEnable(network, wallet, token, isEnabled));
+    }
+
+    @Override
+    public Completable delete(Wallet wallet, Token token) {
+        NetworkInfo network = ethereumNetworkRepository.getDefaultNetwork();
+        return localSource.delete(network, wallet, token);
     }
 
     private Single<Token[]> fetchFromNetworkSource(@NonNull NetworkInfo network, @NonNull Wallet wallet) {
@@ -177,7 +183,8 @@ public class TokenRepository implements TokenRepositoryType {
                                 operation.contract.name,
                                 operation.contract.symbol,
                                 operation.contract.decimals,
-                                true), null, 0));
+                                true,
+                                false), null, 0));
                     }
                     return Single.just(result.toArray(new Token[result.size()]));
                 });
@@ -248,12 +255,19 @@ public class TokenRepository implements TokenRepositoryType {
     private Single<Token> attachEth(NetworkInfo network, Wallet wallet) {
         return walletRepository.balanceInWei(wallet)
                 .map(balance -> {
-                    TokenInfo info = new TokenInfo(wallet.address, network.name, network.symbol, 18, true);
+                    TokenInfo info = new TokenInfo(
+                            wallet.address,
+                            network.name,
+                            network.symbol,
+                            18,
+                            true,
+                            false);
                     return new Token(info, balance, System.currentTimeMillis());
                 })
                 .flatMap(token -> ethereumNetworkRepository.getTicker()
                         .map(ticker -> {
-                            token.ticker = new TokenTicker("", "", ticker.price, ticker.percentChange24h, null);
+                            token.ticker = new TokenTicker(
+                                    "", "", ticker.price, ticker.percentChange24h, null);
                             return token;
                         }).onErrorResumeNext(throwable -> Single.just(token)));
     }
@@ -287,8 +301,8 @@ public class TokenRepository implements TokenRepositoryType {
         return response.getValue();
     }
 
-    public static byte[] createTokenTransferData(String to, BigInteger tokenAmount) {
-        List<Type> params = Arrays.asList(new Address(to), new Uint256(tokenAmount));
+    public static byte[] createTokenTransferData(String to, BigDecimal tokenAmount) {
+        List<Type> params = Arrays.asList(new Address(to), new Uint256(tokenAmount.toBigInteger()));
         List<TypeReference<?>> returnTypes = Collections.singletonList(new TypeReference<Bool>() {});
         Function function = new Function("transfer", params, returnTypes);
         String encodedFunction = FunctionEncoder.encode(function);

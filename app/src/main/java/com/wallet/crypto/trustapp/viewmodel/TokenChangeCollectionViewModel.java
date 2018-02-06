@@ -8,6 +8,7 @@ import com.wallet.crypto.trustapp.entity.Token;
 import com.wallet.crypto.trustapp.entity.Wallet;
 import com.wallet.crypto.trustapp.interact.ChangeTokenEnableInteract;
 import com.wallet.crypto.trustapp.interact.FetchAllTokenInfoInteract;
+import com.wallet.crypto.trustapp.interact.DeleteTokenInteract;
 
 import static com.wallet.crypto.trustapp.C.ErrorCode.EMPTY_COLLECTION;
 
@@ -17,12 +18,15 @@ public class TokenChangeCollectionViewModel extends BaseViewModel {
 
     private final FetchAllTokenInfoInteract fetchAllTokenInfoInteract;
     private final ChangeTokenEnableInteract changeTokenEnableInteract;
+    private final DeleteTokenInteract tokenDeleteInteract;
 
     TokenChangeCollectionViewModel(
             FetchAllTokenInfoInteract fetchAllTokenInfoInteract,
-            ChangeTokenEnableInteract changeTokenEnableInteract) {
+            ChangeTokenEnableInteract changeTokenEnableInteract,
+            DeleteTokenInteract tokenDeleteInteract) {
         this.fetchAllTokenInfoInteract = fetchAllTokenInfoInteract;
         this.changeTokenEnableInteract = changeTokenEnableInteract;
+        this.tokenDeleteInteract = tokenDeleteInteract;
     }
 
     public void prepare() {
@@ -64,5 +68,13 @@ public class TokenChangeCollectionViewModel extends BaseViewModel {
         changeTokenEnableInteract
                 .setEnable(wallet.getValue(), token)
                 .subscribe(() -> {}, this::onError);
+    }
+
+    public void deleteToken(Token token) {
+        tokenDeleteInteract
+                .delete(wallet.getValue(), token)
+                .subscribe(this::fetchTokens, t -> {
+
+                } );
     }
 }

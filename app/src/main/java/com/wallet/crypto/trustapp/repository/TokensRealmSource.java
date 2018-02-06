@@ -156,6 +156,27 @@ public class TokensRealmSource implements TokenLocalSource {
     }
 
     @Override
+    public Completable delete(NetworkInfo network, Wallet wallet, Token token) {
+        return Completable.fromAction(() -> {
+            Realm realm = null;
+            try {
+                realm = realmManager.getRealmInstance(network, wallet);
+                realm.beginTransaction();
+                RealmToken item = realm.where(RealmToken.class)
+                        .equalTo("address", token.tokenInfo.address).findFirst();
+                if (item != null) {
+                    item.deleteFromRealm();
+                }
+                realm.commitTransaction();
+            } finally {
+                if (realm != null) {
+                    realm.close();
+                }
+            }
+        });
+    }
+
+    @Override
     public void setEnable(NetworkInfo network, Wallet wallet, Token token, boolean isEnabled) {
         Realm realm = null;
         try {
@@ -219,6 +240,7 @@ public class TokensRealmSource implements TokenLocalSource {
                 realmToken.setDecimals(token.tokenInfo.decimals);
                 realmToken.setAddedTime(currentTime.getTime());
                 realmToken.setEnabled(true);
+                realmToken.setAddedManually(token.tokenInfo.isAddedManually);
             }
             realmToken.setBalance(token.balance == null ? null : token.balance.toString());
             realm.commitTransaction();
@@ -244,8 +266,10 @@ public class TokensRealmSource implements TokenLocalSource {
                         realmItem.getName(),
                         realmItem.getSymbol(),
                         realmItem.getDecimals(),
-                        realmItem.getEnabled());
-                BigDecimal balance = TextUtils.isEmpty(realmItem.getBalance()) || realmItem.getUpdatedTime() + ACTUAL_BALANCE_INTERVAL < now
+                        realmItem.getEnabled(),
+                        realmItem.getAddedManually());
+                BigDecimal balance = TextUtils.isEmpty(realmItem.getBalance())
+                            || realmItem.getUpdatedTime() + ACTUAL_BALANCE_INTERVAL < now
                         ? null : new BigDecimal(realmItem.getBalance());
                 result[i] = new Token(info, balance, realmItem.getUpdatedTime());
             }

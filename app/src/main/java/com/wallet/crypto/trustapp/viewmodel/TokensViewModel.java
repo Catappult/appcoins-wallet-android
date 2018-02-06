@@ -3,14 +3,16 @@ package com.wallet.crypto.trustapp.viewmodel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.wallet.crypto.trustapp.entity.ErrorEnvelope;
 import com.wallet.crypto.trustapp.entity.Token;
+import com.wallet.crypto.trustapp.entity.TokenInfo;
 import com.wallet.crypto.trustapp.entity.Wallet;
 import com.wallet.crypto.trustapp.interact.FetchTokensInteract;
 import com.wallet.crypto.trustapp.router.AddTokenRouter;
 import com.wallet.crypto.trustapp.router.ChangeTokenCollectionRouter;
-import com.wallet.crypto.trustapp.router.SendTokenRouter;
+import com.wallet.crypto.trustapp.router.SendRouter;
 import com.wallet.crypto.trustapp.router.TransactionsRouter;
 
 import java.math.BigDecimal;
@@ -24,19 +26,19 @@ public class TokensViewModel extends BaseViewModel {
 
     private final FetchTokensInteract fetchTokensInteract;
     private final AddTokenRouter addTokenRouter;
-    private final SendTokenRouter sendTokenRouter;
+    private final SendRouter sendRouter;
     private final TransactionsRouter transactionsRouter;
     private final ChangeTokenCollectionRouter changeTokenCollectionRouter;
 
     TokensViewModel(
             FetchTokensInteract fetchTokensInteract,
             AddTokenRouter addTokenRouter,
-            SendTokenRouter sendTokenRouter,
+            SendRouter sendRouter,
             TransactionsRouter transactionsRouter,
             ChangeTokenCollectionRouter changeTokenCollectionRouter) {
         this.fetchTokensInteract = fetchTokensInteract;
         this.addTokenRouter = addTokenRouter;
-        this.sendTokenRouter = sendTokenRouter;
+        this.sendRouter = sendRouter;
         this.transactionsRouter = transactionsRouter;
         this.changeTokenCollectionRouter = changeTokenCollectionRouter;
     }
@@ -79,7 +81,9 @@ public class TokensViewModel extends BaseViewModel {
     private void showTotalBalance(Token[] tokens) {
         BigDecimal total = new BigDecimal("0");
         for (Token token : tokens) {
-            if (token.balance != null && token.ticker != null
+            if (token.balance != null
+                    && token.ticker != null
+                    && !TextUtils.isEmpty(token.ticker.price)
                     && token.balance.compareTo(BigDecimal.ZERO) != 0) {
                 BigDecimal decimalDivisor = new BigDecimal(Math.pow(10, token.tokenInfo.decimals));
                 BigDecimal ethBalance = token.tokenInfo.decimals > 0
@@ -100,7 +104,7 @@ public class TokensViewModel extends BaseViewModel {
     }
 
     public void showSendToken(Context context, String address, String symbol, int decimals) {
-        sendTokenRouter.open(context, address, symbol, decimals);
+        sendRouter.open(context, new TokenInfo(address, "", symbol, decimals, true, false));
 
     }
 

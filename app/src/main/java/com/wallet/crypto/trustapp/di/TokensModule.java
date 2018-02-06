@@ -6,7 +6,7 @@ import com.wallet.crypto.trustapp.repository.EthereumNetworkRepositoryType;
 import com.wallet.crypto.trustapp.repository.TokenRepositoryType;
 import com.wallet.crypto.trustapp.router.AddTokenRouter;
 import com.wallet.crypto.trustapp.router.ChangeTokenCollectionRouter;
-import com.wallet.crypto.trustapp.router.SendTokenRouter;
+import com.wallet.crypto.trustapp.router.SendRouter;
 import com.wallet.crypto.trustapp.router.TransactionsRouter;
 import com.wallet.crypto.trustapp.viewmodel.TokensViewModelFactory;
 
@@ -20,7 +20,7 @@ class TokensModule {
     TokensViewModelFactory provideTokensViewModelFactory(
             FetchTokensInteract fetchTokensInteract,
             AddTokenRouter addTokenRouter,
-            SendTokenRouter sendTokenRouter,
+            SendRouter sendTokenRouter,
             TransactionsRouter transactionsRouter,
             ChangeTokenCollectionRouter changeTokenCollectionRouter) {
         return new TokensViewModelFactory(
@@ -48,8 +48,8 @@ class TokensModule {
     }
 
     @Provides
-    SendTokenRouter provideSendTokenRouter() {
-        return new SendTokenRouter();
+    SendRouter provideSendTokenRouter() {
+        return new SendRouter();
     }
 
     @Provides

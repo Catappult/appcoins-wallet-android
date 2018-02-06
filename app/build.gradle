@@ -23,13 +23,13 @@ android {
         applicationId "com.wallet.crypto.trustapp"
         minSdkVersion 18
         targetSdkVersion 27
-        versionCode 60
-        versionName "1.4.26"
+        versionCode 67
+        versionName "1.4.33"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled = true
 
-        buildConfigField 'int', 'DB_VERSION', '4'
+        buildConfigField 'int', 'DB_VERSION', '5'
     }
     buildTypes {
         release {
@@ -82,8 +82,8 @@ dependencies {
     implementation "com.google.code.gson:gson:$project.gsonVersion"
     implementation "com.squareup.picasso:picasso:$project.picassoVersion"
 
-    implementation "android.arch.lifecycle:runtime:1.0.3"
-    implementation "android.arch.lifecycle:extensions:1.0.0"
+    implementation "android.arch.lifecycle:runtime:1.1.0"
+    implementation "android.arch.lifecycle:extensions:1.1.0"
 
     implementation "com.android.support:appcompat-v7:$project.supportVersion"
     implementation "com.android.support:design:$project.supportVersion"

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.wallet.crypto.trustapp.C;
 import com.wallet.crypto.trustapp.R;
+import com.wallet.crypto.trustapp.entity.GasSettings;
 import com.wallet.crypto.trustapp.entity.NetworkInfo;
 import com.wallet.crypto.trustapp.util.BalanceUtils;
 import com.wallet.crypto.trustapp.viewmodel.GasSettingsViewModel;
@@ -136,7 +137,7 @@ public class GasSettingsActivity extends BaseActivity {
     }
 
     private void onGasPrice(BigInteger price) {
-        String priceStr = BalanceUtils.weiToGwei(price) + " " + C.GWEI_UNIT;
+        String priceStr = BalanceUtils.weiToGwei(new BigDecimal(price)) + " " + C.GWEI_UNIT;
         gasPriceText.setText(priceStr);
 
         updateNetworkFee();
@@ -165,8 +166,9 @@ public class GasSettingsActivity extends BaseActivity {
         switch (item.getItemId()) {
             case R.id.action_save: {
                 Intent intent = new Intent();
-                intent.putExtra(C.EXTRA_GAS_PRICE, viewModel.gasPrice().getValue().toString());
-                intent.putExtra(C.EXTRA_GAS_LIMIT, viewModel.gasLimit().getValue().toString());
+                intent.putExtra(C.EXTRA_GAS_SETTINGS, new GasSettings(
+                        new BigDecimal(viewModel.gasPrice().getValue()),
+                        new BigDecimal(viewModel.gasLimit().getValue())));
                 setResult(RESULT_OK, intent);
                 finish();
             }

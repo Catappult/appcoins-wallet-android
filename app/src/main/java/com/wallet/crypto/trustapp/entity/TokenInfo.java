@@ -8,14 +8,16 @@ public class TokenInfo implements Parcelable {
     public final String name;
     public final String symbol;
     public final int decimals;
-    public boolean isEnabled;
+    public final boolean isEnabled;
+    public final boolean isAddedManually;
 
-    public TokenInfo(String address, String name, String symbol, int decimals, boolean isEnabled) {
+    public TokenInfo(String address, String name, String symbol, int decimals, boolean isEnabled, boolean isAddedManually) {
         this.address = address;
         this.name = name;
         this.symbol = symbol;
         this.decimals = decimals;
         this.isEnabled = isEnabled;
+        this.isAddedManually = isAddedManually;
     }
 
     private TokenInfo(Parcel in) {
@@ -24,6 +26,7 @@ public class TokenInfo implements Parcelable {
         symbol = in.readString();
         decimals = in.readInt();
         isEnabled = in.readInt() == 1;
+        isAddedManually = in.readInt() == 1;
     }
 
     public static final Creator<TokenInfo> CREATOR = new Creator<TokenInfo>() {
@@ -50,5 +53,6 @@ public class TokenInfo implements Parcelable {
         dest.writeString(symbol);
         dest.writeInt(decimals);
         dest.writeInt(isEnabled ? 1 : 0);
+        dest.writeInt(isAddedManually ? 1 : 0);
     }
 }

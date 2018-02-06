@@ -20,7 +20,7 @@ public class AddTokenInteract {
         return walletRepository
                 .getDefaultWallet()
                 .flatMapCompletable(wallet -> tokenRepository
-                        .addToken(wallet, address, symbol, decimals)
+                        .addToken(wallet, address, symbol, decimals, true)
                         .observeOn(AndroidSchedulers.mainThread()));
     }
 }

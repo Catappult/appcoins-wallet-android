@@ -7,8 +7,11 @@ import com.wallet.crypto.trustapp.entity.Wallet;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.realm.DynamicRealm;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmMigration;
+import io.realm.RealmObjectSchema;
 
 public class RealmManager {
 
