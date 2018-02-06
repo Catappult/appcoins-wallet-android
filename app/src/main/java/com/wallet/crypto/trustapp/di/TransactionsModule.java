@@ -1,10 +1,15 @@
 package com.wallet.crypto.trustapp.di;
 
+import com.wallet.crypto.trustapp.interact.FetchTokensInteract;
 import com.wallet.crypto.trustapp.interact.FetchTransactionsInteract;
 import com.wallet.crypto.trustapp.interact.FindDefaultNetworkInteract;
 import com.wallet.crypto.trustapp.interact.FindDefaultWalletInteract;
 import com.wallet.crypto.trustapp.interact.GetDefaultWalletBalance;
 import com.wallet.crypto.trustapp.repository.EthereumNetworkRepositoryType;
+import com.wallet.crypto.trustapp.repository.TokenLocalSource;
+import com.wallet.crypto.trustapp.repository.TokenRepository;
+import com.wallet.crypto.trustapp.repository.TokenRepositoryType;
+import com.wallet.crypto.trustapp.repository.TransactionLocalSource;
 import com.wallet.crypto.trustapp.repository.TransactionRepositoryType;
 import com.wallet.crypto.trustapp.repository.WalletRepositoryType;
 import com.wallet.crypto.trustapp.router.ExternalBrowserRouter;
@@ -14,10 +19,13 @@ import com.wallet.crypto.trustapp.router.MyTokensRouter;
 import com.wallet.crypto.trustapp.router.SendRouter;
 import com.wallet.crypto.trustapp.router.SettingsRouter;
 import com.wallet.crypto.trustapp.router.TransactionDetailRouter;
+import com.wallet.crypto.trustapp.service.TickerService;
+import com.wallet.crypto.trustapp.service.TokenExplorerClientType;
 import com.wallet.crypto.trustapp.viewmodel.TransactionsViewModelFactory;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.OkHttpClient;
 
 @Module
 class TransactionsModule {
@@ -26,26 +34,29 @@ class TransactionsModule {
             FindDefaultNetworkInteract findDefaultNetworkInteract,
             FindDefaultWalletInteract findDefaultWalletInteract,
             FetchTransactionsInteract fetchTransactionsInteract,
-            GetDefaultWalletBalance getDefaultWalletBalance,
             ManageWalletsRouter manageWalletsRouter,
             SettingsRouter settingsRouter,
             SendRouter sendRouter,
             TransactionDetailRouter transactionDetailRouter,
             MyAddressRouter myAddressRouter,
             MyTokensRouter myTokensRouter,
-            ExternalBrowserRouter externalBrowserRouter) {
+            ExternalBrowserRouter externalBrowserRouter, FetchTokensInteract fetchTokensInteract) {
         return new TransactionsViewModelFactory(
                 findDefaultNetworkInteract,
                 findDefaultWalletInteract,
                 fetchTransactionsInteract,
-                getDefaultWalletBalance,
                 manageWalletsRouter,
                 settingsRouter,
                 sendRouter,
                 transactionDetailRouter,
                 myAddressRouter,
                 myTokensRouter,
-                externalBrowserRouter);
+                externalBrowserRouter, fetchTokensInteract);
+    }
+
+    @Provides
+    FetchTokensInteract provideFetchTokensInteract(TokenRepositoryType tokenRepository) {
+        return new FetchTokensInteract(tokenRepository);
     }
 
     @Provides
@@ -81,7 +92,9 @@ class TransactionsModule {
     }
 
     @Provides
-    SendRouter provideSendRouter() { return new SendRouter(); }
+    SendRouter provideSendRouter() {
+        return new SendRouter();
+    }
 
     @Provides
     TransactionDetailRouter provideTransactionDetailRouter() {
@@ -101,5 +114,24 @@ class TransactionsModule {
     @Provides
     ExternalBrowserRouter provideExternalBrowserRouter() {
         return new ExternalBrowserRouter();
+    }
+
+    @Provides
+    TokenRepository provideTokenRepository(
+            OkHttpClient okHttpClient,
+            EthereumNetworkRepositoryType ethereumNetworkRepository,
+            WalletRepositoryType walletRepository,
+            TokenExplorerClientType tokenExplorerClientType,
+            TokenLocalSource tokenLocalSource,
+            TransactionLocalSource inDiskCache,
+            TickerService tickerService) {
+        return new TokenRepository(
+                okHttpClient,
+                ethereumNetworkRepository,
+                walletRepository,
+                tokenExplorerClientType,
+                tokenLocalSource,
+                inDiskCache,
+                tickerService);
     }
 }

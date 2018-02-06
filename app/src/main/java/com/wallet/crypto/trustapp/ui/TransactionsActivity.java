@@ -15,14 +15,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.wallet.crypto.trustapp.C;
 import com.wallet.crypto.trustapp.R;
+import com.wallet.crypto.trustapp.entity.Balance;
 import com.wallet.crypto.trustapp.entity.ErrorEnvelope;
 import com.wallet.crypto.trustapp.entity.NetworkInfo;
 import com.wallet.crypto.trustapp.entity.Transaction;
@@ -35,8 +34,6 @@ import com.wallet.crypto.trustapp.viewmodel.TransactionsViewModelFactory;
 import com.wallet.crypto.trustapp.widget.DepositView;
 import com.wallet.crypto.trustapp.widget.EmptyTransactionsView;
 import com.wallet.crypto.trustapp.widget.SystemView;
-
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -141,10 +138,12 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         switch (item.getItemId()) {
             case R.id.action_settings: {
                 viewModel.showSettings(this);
-            } break;
+            }
+            break;
             case R.id.action_deposit: {
                 openExchangeDialog();
-            } break;
+            }
+            break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -154,7 +153,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         switch (view.getId()) {
             case R.id.try_again: {
                 viewModel.fetchTransactions(true);
-            } break;
+            }
+            break;
             case R.id.action_buy: {
                 openExchangeDialog();
             }
@@ -180,20 +180,13 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         return false;
     }
 
-    private void onBalanceChanged(Map<String, String> balance) {
+    private void onBalanceChanged(Balance balance) {
         ActionBar actionBar = getSupportActionBar();
-        NetworkInfo networkInfo = viewModel.defaultNetwork().getValue();
-        Wallet wallet = viewModel.defaultWallet().getValue();
-        if (actionBar == null || networkInfo == null || wallet == null) {
+        if (actionBar == null) {
             return;
         }
-        if (TextUtils.isEmpty(balance.get(C.USD_SYMBOL))) {
-            actionBar.setTitle(balance.get(networkInfo.symbol) + " " + networkInfo.symbol);
-            actionBar.setSubtitle("");
-        } else {
-            actionBar.setTitle("$" + balance.get(C.USD_SYMBOL));
-            actionBar.setSubtitle(balance.get(networkInfo.symbol) + " " + networkInfo.symbol);
-        }
+        actionBar.setTitle(balance.getBalance() + " " + balance.getSymbol());
+        actionBar.setSubtitle("");
     }
 
     private void onTransactions(Transaction[] transaction) {
