@@ -1,5 +1,6 @@
 package com.wallet.crypto.trustapp.di;
 
+import com.wallet.crypto.trustapp.interact.BuildConfigDefaultTokenProvider;
 import com.wallet.crypto.trustapp.interact.FetchTokensInteract;
 import com.wallet.crypto.trustapp.interact.FetchTransactionsInteract;
 import com.wallet.crypto.trustapp.interact.FindDefaultNetworkInteract;
@@ -56,7 +57,7 @@ class TransactionsModule {
 
     @Provides
     FetchTokensInteract provideFetchTokensInteract(TokenRepositoryType tokenRepository) {
-        return new FetchTokensInteract(tokenRepository);
+        return new FetchTokensInteract(tokenRepository, new BuildConfigDefaultTokenProvider());
     }
 
     @Provides
@@ -66,18 +67,21 @@ class TransactionsModule {
     }
 
     @Provides
-    FindDefaultWalletInteract provideFindDefaultWalletInteract(WalletRepositoryType walletRepository) {
+    FindDefaultWalletInteract provideFindDefaultWalletInteract(WalletRepositoryType
+                                                                       walletRepository) {
         return new FindDefaultWalletInteract(walletRepository);
     }
 
     @Provides
-    FetchTransactionsInteract provideFetchTransactionsInteract(TransactionRepositoryType transactionRepository) {
+    FetchTransactionsInteract provideFetchTransactionsInteract(TransactionRepositoryType
+                                                                       transactionRepository) {
         return new FetchTransactionsInteract(transactionRepository);
     }
 
     @Provides
     GetDefaultWalletBalance provideGetDefaultWalletBalance(
-            WalletRepositoryType walletRepository, EthereumNetworkRepositoryType ethereumNetworkRepository) {
+            WalletRepositoryType walletRepository, EthereumNetworkRepositoryType
+            ethereumNetworkRepository) {
         return new GetDefaultWalletBalance(walletRepository, ethereumNetworkRepository);
     }
 

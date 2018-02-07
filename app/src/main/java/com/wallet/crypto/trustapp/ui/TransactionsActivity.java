@@ -22,9 +22,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.wallet.crypto.trustapp.R;
-import com.wallet.crypto.trustapp.entity.Balance;
 import com.wallet.crypto.trustapp.entity.ErrorEnvelope;
 import com.wallet.crypto.trustapp.entity.NetworkInfo;
+import com.wallet.crypto.trustapp.entity.Token;
 import com.wallet.crypto.trustapp.entity.Transaction;
 import com.wallet.crypto.trustapp.entity.Wallet;
 import com.wallet.crypto.trustapp.ui.widget.adapter.TransactionsAdapter;
@@ -35,6 +35,9 @@ import com.wallet.crypto.trustapp.viewmodel.TransactionsViewModelFactory;
 import com.wallet.crypto.trustapp.widget.DepositView;
 import com.wallet.crypto.trustapp.widget.EmptyTransactionsView;
 import com.wallet.crypto.trustapp.widget.SystemView;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import javax.inject.Inject;
 
@@ -75,7 +78,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         list.setLayoutManager(new LinearLayoutManager(this));
         list.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
-            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView
+                    .State state) {
                 int position = list.getChildAdapterPosition(view);
                 if (position == 0) {
                     outRect.top = (int) getResources().getDimension(R.dimen.big_margin);
@@ -182,13 +186,26 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         return false;
     }
 
-    private void onBalanceChanged(Balance balance) {
+    private void onBalanceChanged(Token token) {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar == null) {
             return;
         }
-        actionBar.setTitle(balance.getBalance() + " " + balance.getSymbol());
-        actionBar.setSubtitle("");
+        BigDecimal decimalDivisor = new BigDecimal(Math.pow(10, token.tokenInfo.decimals));
+        BigDecimal ethBalance = token.tokenInfo.decimals > 0
+                ? token.balance.divide(decimalDivisor) : token.balance;
+        ethBalance = ethBalance.setScale(4, RoundingMode.HALF_UP).stripTrailingZeros();
+        String value = ethBalance.compareTo(BigDecimal.ZERO) == 0 ? "0" : ethBalance
+                .toPlainString();
+        actionBar.setTitle(value + " " + token.tokenInfo.symbol);
+
+        String converted = ethBalance.compareTo(BigDecimal.ZERO) == 0
+                ? "\u2014\u2014"
+                : ethBalance.multiply(new BigDecimal(token.ticker.price))
+                .setScale(2, RoundingMode.HALF_UP)
+                .stripTrailingZeros()
+                .toPlainString();
+        actionBar.setSubtitle("$" + converted);
     }
 
     private void onTransactions(Transaction[] transaction) {

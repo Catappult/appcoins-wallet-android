@@ -9,9 +9,9 @@ import android.text.format.DateUtils;
 import android.util.Log;
 
 import com.wallet.crypto.trustapp.C;
-import com.wallet.crypto.trustapp.entity.Balance;
 import com.wallet.crypto.trustapp.entity.ErrorEnvelope;
 import com.wallet.crypto.trustapp.entity.NetworkInfo;
+import com.wallet.crypto.trustapp.entity.Token;
 import com.wallet.crypto.trustapp.entity.Transaction;
 import com.wallet.crypto.trustapp.entity.Wallet;
 import com.wallet.crypto.trustapp.interact.FetchTokensInteract;
@@ -25,9 +25,6 @@ import com.wallet.crypto.trustapp.router.MyTokensRouter;
 import com.wallet.crypto.trustapp.router.SendRouter;
 import com.wallet.crypto.trustapp.router.SettingsRouter;
 import com.wallet.crypto.trustapp.router.TransactionDetailRouter;
-import com.wallet.crypto.trustapp.util.BalanceUtils;
-
-import java.util.Arrays;
 
 import io.reactivex.Observable;
 
@@ -38,7 +35,7 @@ public class TransactionsViewModel extends BaseViewModel {
     private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
     private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
     private final MutableLiveData<Transaction[]> transactions = new MutableLiveData<>();
-    private final MutableLiveData<Balance> defaultWalletBalance = new MutableLiveData<>();
+    private final MutableLiveData<Token> defaultWalletBalance = new MutableLiveData<>();
     private final FindDefaultNetworkInteract findDefaultNetworkInteract;
     private final FindDefaultWalletInteract findDefaultWalletInteract;
     private final FetchTransactionsInteract fetchTransactionsInteract;
@@ -98,7 +95,7 @@ public class TransactionsViewModel extends BaseViewModel {
         return transactions;
     }
 
-    public LiveData<Balance> defaultWalletBalance() {
+    public LiveData<Token> defaultWalletBalance() {
         return defaultWalletBalance;
     }
 
@@ -118,14 +115,15 @@ public class TransactionsViewModel extends BaseViewModel {
     }
 
     private void getBalance() {
-        fetchTokensInteract.fetch(defaultWallet.getValue())
-                .flatMapIterable(tokens -> Arrays.asList(tokens))
-                .filter(token -> token.tokenInfo.symbol.toUpperCase().equals("APPC"))
-                .subscribe(token -> {
-                    defaultWalletBalance.postValue(new Balance(token.tokenInfo.symbol, BalanceUtils.subunitToBase(token.balance, token.tokenInfo.decimals).longValue()));
-                    handler.removeCallbacks(startGetBalanceTask);
-                    handler.postDelayed(startGetBalanceTask, GET_BALANCE_INTERVAL);
-                }, t -> Log.w(TAG, "getBalance: ", t));
+        fetchTokensInteract.fetchDefaultToken(defaultWallet.getValue()).subscribe(token -> {
+            defaultWalletBalance.postValue(token);
+            handler.removeCallbacks(startGetBalanceTask);
+            handler.postDelayed(startGetBalanceTask, GET_BALANCE_INTERVAL);
+        }, throwable -> {
+            Log.w(TAG, "getBalance: ", throwable);
+            handler.removeCallbacks(startGetBalanceTask);
+            handler.postDelayed(startGetBalanceTask, GET_BALANCE_INTERVAL);
+        });
     }
 
     private void onDefaultNetwork(NetworkInfo networkInfo) {
