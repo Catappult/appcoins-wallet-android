@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
+import com.wallet.crypto.trustapp.interact.AddTokenInteract;
 import com.wallet.crypto.trustapp.interact.CreateWalletInteract;
 import com.wallet.crypto.trustapp.interact.DeleteWalletInteract;
 import com.wallet.crypto.trustapp.interact.ExportWalletInteract;
@@ -26,9 +27,9 @@ public class WalletsViewModelFactory implements ViewModelProvider.Factory {
 
 	private final ImportWalletRouter importWalletRouter;
     private final TransactionsRouter transactionsRouter;
+	private final AddTokenInteract addTokenInteract;
 
-
-    @Inject
+	@Inject
 	public WalletsViewModelFactory(
             CreateWalletInteract createWalletInteract,
             SetDefaultWalletInteract setDefaultWalletInteract,
@@ -37,7 +38,8 @@ public class WalletsViewModelFactory implements ViewModelProvider.Factory {
             FindDefaultWalletInteract findDefaultWalletInteract,
             ExportWalletInteract exportWalletInteract,
             ImportWalletRouter importWalletRouter,
-            TransactionsRouter transactionsRouter) {
+            TransactionsRouter transactionsRouter,
+						AddTokenInteract addTokenInteract) {
 		this.createWalletInteract = createWalletInteract;
 		this.setDefaultWalletInteract = setDefaultWalletInteract;
 		this.deleteWalletInteract = deleteWalletInteract;
@@ -46,6 +48,7 @@ public class WalletsViewModelFactory implements ViewModelProvider.Factory {
 		this.exportWalletInteract = exportWalletInteract;
 		this.importWalletRouter = importWalletRouter;
 		this.transactionsRouter = transactionsRouter;
+		this.addTokenInteract = addTokenInteract;
 	}
 
 	@NonNull
@@ -59,6 +62,7 @@ public class WalletsViewModelFactory implements ViewModelProvider.Factory {
                 findDefaultWalletInteract,
                 exportWalletInteract,
                 importWalletRouter,
-                transactionsRouter);
+                transactionsRouter,
+								addTokenInteract);
 	}
 }
