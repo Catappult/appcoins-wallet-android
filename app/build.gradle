@@ -30,11 +30,19 @@ android {
         multiDexEnabled = true
 
         buildConfigField 'int', 'DB_VERSION', '5'
+
+        buildConfigField 'String', 'DEFAULT_TOKEN_SYMBOL', '"APPC"'
+        buildConfigField 'String', 'DEFAULT_TOKEN_ADDRESS', '"0x1a7a8bd9106f2b8d977e08582dc7d24c723ab0db"'
+        buildConfigField 'int', 'DEFAULT_TOKEN_DECIMALS', '18'
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            buildConfigField 'String', 'DEFAULT_TOKEN_SYMBOL', '"APPC"'
+            buildConfigField 'String', 'DEFAULT_TOKEN_ADDRESS', '"0x1a7a8bd9106f2b8d977e08582dc7d24c723ab0db"'
+            buildConfigField 'int', 'DEFAULT_TOKEN_DECIMALS', '18'
         }
     }
     packagingOptions {

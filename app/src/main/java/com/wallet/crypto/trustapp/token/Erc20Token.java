@@ -1,11 +1,14 @@
 package com.wallet.crypto.trustapp.token;
 
+import com.wallet.crypto.trustapp.BuildConfig;
+
 /**
  * Created by neuro on 07-02-2018.
  */
 
 public enum Erc20Token {
-  APPC("APPC", 18, "0x1a7a8bd9106f2b8d977e08582dc7d24c723ab0db");
+  APPC(BuildConfig.DEFAULT_TOKEN_SYMBOL, BuildConfig.DEFAULT_TOKEN_DECIMALS,
+      BuildConfig.DEFAULT_TOKEN_ADDRESS),;
 
   private final String address;
   private final String symbol;
