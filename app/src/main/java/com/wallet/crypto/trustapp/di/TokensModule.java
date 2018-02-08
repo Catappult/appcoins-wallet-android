@@ -1,5 +1,6 @@
 package com.wallet.crypto.trustapp.di;
 
+import com.wallet.crypto.trustapp.interact.BuildConfigDefaultTokenProvider;
 import com.wallet.crypto.trustapp.interact.FetchTokensInteract;
 import com.wallet.crypto.trustapp.interact.FindDefaultNetworkInteract;
 import com.wallet.crypto.trustapp.repository.EthereumNetworkRepositoryType;
@@ -39,7 +40,7 @@ class TokensModule {
 
     @Provides
     FetchTokensInteract provideFetchTokensInteract(TokenRepositoryType tokenRepository) {
-        return new FetchTokensInteract(tokenRepository);
+        return new FetchTokensInteract(tokenRepository, new BuildConfigDefaultTokenProvider());
     }
 
     @Provides

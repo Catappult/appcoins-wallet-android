@@ -4,10 +4,10 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
+import com.wallet.crypto.trustapp.interact.FetchTokensInteract;
 import com.wallet.crypto.trustapp.interact.FetchTransactionsInteract;
 import com.wallet.crypto.trustapp.interact.FindDefaultNetworkInteract;
 import com.wallet.crypto.trustapp.interact.FindDefaultWalletInteract;
-import com.wallet.crypto.trustapp.interact.GetDefaultWalletBalance;
 import com.wallet.crypto.trustapp.router.ExternalBrowserRouter;
 import com.wallet.crypto.trustapp.router.ManageWalletsRouter;
 import com.wallet.crypto.trustapp.router.MyAddressRouter;
@@ -20,7 +20,6 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
 
     private final FindDefaultNetworkInteract findDefaultNetworkInteract;
     private final FindDefaultWalletInteract findDefaultWalletInteract;
-    private final GetDefaultWalletBalance getDefaultWalletBalance;
     private final FetchTransactionsInteract fetchTransactionsInteract;
     private final ManageWalletsRouter manageWalletsRouter;
     private final SettingsRouter settingsRouter;
@@ -29,22 +28,21 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
     private final MyAddressRouter myAddressRouter;
     private final MyTokensRouter myTokensRouter;
     private final ExternalBrowserRouter externalBrowserRouter;
+    private final FetchTokensInteract fetchTokensInteract;
 
     public TransactionsViewModelFactory(
             FindDefaultNetworkInteract findDefaultNetworkInteract,
             FindDefaultWalletInteract findDefaultWalletInteract,
             FetchTransactionsInteract fetchTransactionsInteract,
-            GetDefaultWalletBalance getDefaultWalletBalance,
             ManageWalletsRouter manageWalletsRouter,
             SettingsRouter settingsRouter,
             SendRouter sendRouter,
             TransactionDetailRouter transactionDetailRouter,
             MyAddressRouter myAddressRouter,
             MyTokensRouter myTokensRouter,
-            ExternalBrowserRouter externalBrowserRouter) {
+            ExternalBrowserRouter externalBrowserRouter, FetchTokensInteract fetchTokensInteract) {
         this.findDefaultNetworkInteract = findDefaultNetworkInteract;
         this.findDefaultWalletInteract = findDefaultWalletInteract;
-        this.getDefaultWalletBalance = getDefaultWalletBalance;
         this.fetchTransactionsInteract = fetchTransactionsInteract;
         this.manageWalletsRouter = manageWalletsRouter;
         this.settingsRouter = settingsRouter;
@@ -53,6 +51,7 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
         this.myAddressRouter = myAddressRouter;
         this.myTokensRouter = myTokensRouter;
         this.externalBrowserRouter = externalBrowserRouter;
+        this.fetchTokensInteract = fetchTokensInteract;
     }
 
     @NonNull
@@ -62,13 +61,12 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
                 findDefaultNetworkInteract,
                 findDefaultWalletInteract,
                 fetchTransactionsInteract,
-                getDefaultWalletBalance,
                 manageWalletsRouter,
                 settingsRouter,
                 sendRouter,
                 transactionDetailRouter,
                 myAddressRouter,
                 myTokensRouter,
-                externalBrowserRouter);
+                externalBrowserRouter, fetchTokensInteract);
     }
 }
