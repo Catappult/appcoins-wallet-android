@@ -1,5 +1,6 @@
 package com.wallet.crypto.trustapp.di;
 
+import com.wallet.crypto.trustapp.interact.AddTokenInteract;
 import com.wallet.crypto.trustapp.interact.CreateWalletInteract;
 import com.wallet.crypto.trustapp.interact.DeleteWalletInteract;
 import com.wallet.crypto.trustapp.interact.ExportWalletInteract;
@@ -7,6 +8,7 @@ import com.wallet.crypto.trustapp.interact.FetchWalletsInteract;
 import com.wallet.crypto.trustapp.interact.FindDefaultWalletInteract;
 import com.wallet.crypto.trustapp.interact.SetDefaultWalletInteract;
 import com.wallet.crypto.trustapp.repository.PasswordStore;
+import com.wallet.crypto.trustapp.repository.TokenRepositoryType;
 import com.wallet.crypto.trustapp.repository.WalletRepositoryType;
 import com.wallet.crypto.trustapp.router.ImportWalletRouter;
 import com.wallet.crypto.trustapp.router.TransactionsRouter;
@@ -18,6 +20,12 @@ import dagger.Provides;
 @Module
 class AccountsManageModule {
 
+	@Provides AddTokenInteract provideAddTokenInteract(
+			TokenRepositoryType tokenRepository,
+			WalletRepositoryType walletRepository) {
+		return new AddTokenInteract(walletRepository, tokenRepository);
+	}
+
 	@Provides
     WalletsViewModelFactory provideAccountsManageViewModelFactory(
 			CreateWalletInteract createWalletInteract,
@@ -27,7 +35,8 @@ class AccountsManageModule {
 			FindDefaultWalletInteract findDefaultWalletInteract,
 			ExportWalletInteract exportWalletInteract,
 			ImportWalletRouter importWalletRouter,
-            TransactionsRouter transactionsRouter) {
+            TransactionsRouter transactionsRouter,
+			AddTokenInteract addTokenInteract) {
 		return new WalletsViewModelFactory(createWalletInteract,
                 setDefaultWalletInteract,
                 deleteWalletInteract,
@@ -35,7 +44,8 @@ class AccountsManageModule {
                 findDefaultWalletInteract,
                 exportWalletInteract,
                 importWalletRouter,
-                transactionsRouter);
+                transactionsRouter,
+								addTokenInteract);
 	}
 
 	@Provides

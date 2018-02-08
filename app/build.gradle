@@ -30,11 +30,19 @@ android {
         multiDexEnabled = true
 
         buildConfigField 'int', 'DB_VERSION', '5'
+
+        buildConfigField 'String', 'DEFAULT_TOKEN_SYMBOL', "\"" + project.DEBUG_DEFAULT_TOKEN_SYMBOL + "\""
+        buildConfigField 'String', 'DEFAULT_TOKEN_ADDRESS', "\"" + project.DEBUG_DEFAULT_TOKEN_ADDRESS + "\""
+        buildConfigField 'int', 'DEFAULT_TOKEN_DECIMALS', project.DEBUG_DEFAULT_TOKEN_DECIMALS
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            buildConfigField 'String', 'DEFAULT_TOKEN_SYMBOL', "\"" + project.RELEASE_DEFAULT_TOKEN_SYMBOL + "\""
+            buildConfigField 'String', 'DEFAULT_TOKEN_ADDRESS', "\"" + project.RELEASE_DEFAULT_TOKEN_ADDRESS + "\""
+            buildConfigField 'int', 'DEFAULT_TOKEN_DECIMALS', "\'" + project.RELEASE_DEFAULT_TOKEN_DECIMALS + "\'"
         }
     }
     packagingOptions {

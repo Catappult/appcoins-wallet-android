@@ -8,8 +8,10 @@ import android.text.TextUtils;
 
 import com.crashlytics.android.Crashlytics;
 import com.wallet.crypto.trustapp.C;
+import com.wallet.crypto.trustapp.token.Erc20Token;
 import com.wallet.crypto.trustapp.entity.ErrorEnvelope;
 import com.wallet.crypto.trustapp.entity.Wallet;
+import com.wallet.crypto.trustapp.interact.AddTokenInteract;
 import com.wallet.crypto.trustapp.interact.CreateWalletInteract;
 import com.wallet.crypto.trustapp.interact.DeleteWalletInteract;
 import com.wallet.crypto.trustapp.interact.ExportWalletInteract;
@@ -40,8 +42,9 @@ public class WalletsViewModel extends BaseViewModel {
 	private final MutableLiveData<String> exportedStore = new MutableLiveData<>();
 	private final MutableLiveData<ErrorEnvelope> exportWalletError = new MutableLiveData<>();
 	private final MutableLiveData<ErrorEnvelope> deleteWalletError = new MutableLiveData<>();
+	private final AddTokenInteract addTokenInteract;
 
-    WalletsViewModel(
+	WalletsViewModel(
             CreateWalletInteract createWalletInteract,
             SetDefaultWalletInteract setDefaultWalletInteract,
             DeleteWalletInteract deleteWalletInteract,
@@ -49,7 +52,8 @@ public class WalletsViewModel extends BaseViewModel {
             FindDefaultWalletInteract findDefaultWalletInteract,
             ExportWalletInteract exportWalletInteract,
             ImportWalletRouter importWalletRouter,
-            TransactionsRouter transactionsRouter) {
+            TransactionsRouter transactionsRouter,
+						AddTokenInteract addTokenInteract) {
 		this.createWalletInteract = createWalletInteract;
 		this.setDefaultWalletInteract = setDefaultWalletInteract;
 		this.deleteWalletInteract = deleteWalletInteract;
@@ -58,6 +62,7 @@ public class WalletsViewModel extends BaseViewModel {
 		this.importWalletRouter = importWalletRouter;
 		this.exportWalletInteract = exportWalletInteract;
 		this.transactionsRouter = transactionsRouter;
+		this.addTokenInteract = addTokenInteract;
 
 		fetchWallets();
 	}
@@ -113,6 +118,15 @@ public class WalletsViewModel extends BaseViewModel {
 	private void onDefaultWalletChanged(Wallet wallet) {
 		progress.postValue(false);
 		defaultWallet.postValue(wallet);
+
+		addDefaultToken();
+	}
+
+	private void addDefaultToken() {
+		Erc20Token appcToken = Erc20Token.APPC;
+
+		addTokenInteract.add(appcToken.getAddress(), appcToken.getSymbol(), appcToken.getDecimals())
+				.subscribe();
 	}
 
 	public void fetchWallets() {
