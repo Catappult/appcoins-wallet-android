@@ -6,40 +6,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-    <LinearLayout
-        android:id="@+id/import_form"
-        android:layout_margin="@dimen/big_margin"
-        android:orientation="vertical"
+  <LinearLayout
+      android:id="@+id/import_form"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/big_margin"
+      android:orientation="vertical"
+      >
+    <com.wallet.crypto.trustapp.widget.HelperTextInputLayout
+        android:id="@+id/private_key_input_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:helperText="@string/suggestion_private_key"
+        app:hintAnimationEnabled="true"
+        app:hintEnabled="true"
+        app:passwordToggleEnabled="true"
         >
-        <com.wallet.crypto.trustapp.widget.HelperTextInputLayout
-            android:id="@+id/private_key_input_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:passwordToggleEnabled="true"
-            app:hintEnabled="true"
-            app:hintAnimationEnabled="true"
-            app:helperText="@string/suggestion_private_key"
-            >
-            <EditText
-                android:id="@+id/private_key"
-                android:hint="@string/hint_private_key_field"
-                android:imeActionLabel="@string/action_sign_in_short"
-                android:imeOptions="actionUnspecified"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-        </com.wallet.crypto.trustapp.widget.HelperTextInputLayout>
-        <Button
-            android:id="@+id/import_action"
-            android:text="@string/action_import"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Widget.AppCompat.Button.Colored"
-            />
-    </LinearLayout>
+      <EditText
+          android:id="@+id/private_key"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="@string/hint_private_key_field"
+          android:imeActionLabel="@string/action_sign_in_short"
+          android:imeOptions="actionUnspecified"
+          android:inputType="textPassword"
+          android:maxLines="1"
+          android:singleLine="true"
+          />
+    </com.wallet.crypto.trustapp.widget.HelperTextInputLayout>
+    <Button
+        android:id="@+id/import_action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/action_import"
+        style="@style/Widget.AppCompat.Button.Colored"
+        />
+  </LinearLayout>
 </ScrollView>

@@ -2,15 +2,17 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/topLayout"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:keepScreenOn="true">
+    android:keepScreenOn="true"
+    android:orientation="vertical"
+    >
 
-    <com.wallet.crypto.trustapp.ui.camera.CameraSourcePreview
-        android:id="@+id/preview"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-    </com.wallet.crypto.trustapp.ui.camera.CameraSourcePreview>
+  <com.wallet.crypto.trustapp.ui.camera.CameraSourcePreview
+      android:id="@+id/preview"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      >
+  </com.wallet.crypto.trustapp.ui.camera.CameraSourcePreview>
 </LinearLayout>

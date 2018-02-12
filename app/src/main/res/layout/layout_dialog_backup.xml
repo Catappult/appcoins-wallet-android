@@ -2,33 +2,33 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:padding="24dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
     >
-    <TextView
-        android:text="@string/dialog_message"
-        android:textSize="16sp"
-        android:fontFamily="@font/roboto_regular"
-        android:gravity="center_horizontal"
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:fontFamily="@font/roboto_regular"
+      android:gravity="center_horizontal"
+      android:text="@string/dialog_message"
+      android:textSize="16sp"
+      />
+  <com.wallet.crypto.trustapp.widget.HelperTextInputLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      app:errorEnabled="true"
+      app:helperText="@string/suggestion_empty_password_available"
+      app:hintEnabled="false"
+      app:passwordToggleEnabled="true"
+      >
+    <EditText
+        android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textPassword"
         />
-    <com.wallet.crypto.trustapp.widget.HelperTextInputLayout
-        app:hintEnabled="false"
-        app:errorEnabled="true"
-        app:passwordToggleEnabled="true"
-        app:helperText="@string/suggestion_empty_password_available"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-        <EditText
-            android:id="@+id/password"
-            android:inputType="textPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-    </com.wallet.crypto.trustapp.widget.HelperTextInputLayout>
+  </com.wallet.crypto.trustapp.widget.HelperTextInputLayout>
 </LinearLayout>

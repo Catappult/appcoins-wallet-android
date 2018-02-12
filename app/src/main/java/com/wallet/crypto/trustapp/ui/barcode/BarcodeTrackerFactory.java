@@ -16,24 +16,24 @@
 package com.wallet.crypto.trustapp.ui.barcode;
 
 import android.content.Context;
-
 import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.Tracker;
 import com.google.android.gms.vision.barcode.Barcode;
 
 /**
- * Factory for creating a tracker and associated graphic to be associated with a new barcode_capture.  The
- * multi-processor uses this factory to create barcode_capture trackers as needed -- one for each barcode_capture.
+ * Factory for creating a tracker and associated graphic to be associated with a new
+ * barcode_capture.  The
+ * multi-processor uses this factory to create barcode_capture trackers as needed -- one for each
+ * barcode_capture.
  */
 class BarcodeTrackerFactory implements MultiProcessor.Factory<Barcode> {
-    private Context mContext;
+  private Context mContext;
 
-    BarcodeTrackerFactory(Context context) {
-        mContext = context;
-    }
+  BarcodeTrackerFactory(Context context) {
+    mContext = context;
+  }
 
-    @Override
-    public Tracker<Barcode> create(Barcode barcode) {
-        return new BarcodeTracker(mContext);
-    }
+  @Override public Tracker<Barcode> create(Barcode barcode) {
+    return new BarcodeTracker(mContext);
+  }
 }

@@ -6,28 +6,25 @@ import io.reactivex.observers.DisposableCompletableObserver;
 
 public class CompletableErrorProxyOperator implements CompletableOperator {
 
-    private final Throwable throwable;
+  private final Throwable throwable;
 
-    CompletableErrorProxyOperator(Throwable throwable) {
-        this.throwable = throwable;
-    }
+  CompletableErrorProxyOperator(Throwable throwable) {
+    this.throwable = throwable;
+  }
 
-    @Override
-    public CompletableObserver apply(CompletableObserver observer) throws Exception {
-        return new DisposableCompletableObserver() {
-            @Override
-            public void onComplete() {
-                if (!isDisposed()) {
-                    observer.onError(throwable);
-                }
-            }
+  @Override public CompletableObserver apply(CompletableObserver observer) throws Exception {
+    return new DisposableCompletableObserver() {
+      @Override public void onComplete() {
+        if (!isDisposed()) {
+          observer.onError(throwable);
+        }
+      }
 
-            @Override
-            public void onError(Throwable ex) {
-                if (!isDisposed()) {
-                    observer.onError(ex);
-                }
-            }
-        };
-    }
+      @Override public void onError(Throwable ex) {
+        if (!isDisposed()) {
+          observer.onError(ex);
+        }
+      }
+    };
+  }
 }

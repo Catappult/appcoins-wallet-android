@@ -7,8 +7,7 @@ import io.reactivex.Single;
  */
 
 public class BuildConfigDefaultTokenProvider implements DefaultTokenProvider {
-    @Override
-    public Single<String> getDefaultToken() {
-        return Single.just("APPC");
-    }
+  @Override public Single<String> getDefaultToken() {
+    return Single.just("APPC");
+  }
 }

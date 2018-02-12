@@ -7,7 +7,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-
 import com.wallet.crypto.trustapp.R;
 import com.wallet.crypto.trustapp.entity.ErrorEnvelope;
 import com.wallet.crypto.trustapp.entity.Token;
@@ -15,90 +14,88 @@ import com.wallet.crypto.trustapp.ui.widget.adapter.ChangeTokenCollectionAdapter
 import com.wallet.crypto.trustapp.viewmodel.TokenChangeCollectionViewModel;
 import com.wallet.crypto.trustapp.viewmodel.TokenChangeCollectionViewModelFactory;
 import com.wallet.crypto.trustapp.widget.SystemView;
-
-import javax.inject.Inject;
-
 import dagger.android.AndroidInjection;
+import javax.inject.Inject;
 
 import static com.wallet.crypto.trustapp.C.ErrorCode.EMPTY_COLLECTION;
 import static com.wallet.crypto.trustapp.C.Key.WALLET;
 
 public class TokenChangeCollectionActivity extends BaseActivity implements View.OnClickListener {
 
-    @Inject
-    protected TokenChangeCollectionViewModelFactory viewModelFactory;
-    private TokenChangeCollectionViewModel viewModel;
+  @Inject protected TokenChangeCollectionViewModelFactory viewModelFactory;
+  private TokenChangeCollectionViewModel viewModel;
 
-    private ChangeTokenCollectionAdapter adapter;
-    private SystemView systemView;
+  private ChangeTokenCollectionAdapter adapter;
+  private SystemView systemView;
 
+  @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    AndroidInjection.inject(this);
 
-        AndroidInjection.inject(this);
+    super.onCreate(savedInstanceState);
 
-        super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_tokens);
 
-        setContentView(R.layout.activity_tokens);
+    toolbar();
 
-        toolbar();
+    adapter = new ChangeTokenCollectionAdapter(this::onTokenClick, this::onTokenDeleteClick);
+    RecyclerView list = findViewById(R.id.list);
+    systemView = findViewById(R.id.system_view);
+    SwipeRefreshLayout refreshLayout = findViewById(R.id.refresh_layout);
 
-        adapter = new ChangeTokenCollectionAdapter(this::onTokenClick, this::onTokenDeleteClick);
-        RecyclerView list = findViewById(R.id.list);
-        systemView = findViewById(R.id.system_view);
-        SwipeRefreshLayout refreshLayout = findViewById(R.id.refresh_layout);
+    list.setLayoutManager(new LinearLayoutManager(this));
+    list.setAdapter(adapter);
 
-        list.setLayoutManager(new LinearLayoutManager(this));
-        list.setAdapter(adapter);
+    systemView.attachRecyclerView(list);
+    systemView.attachSwipeRefreshLayout(refreshLayout);
 
-        systemView.attachRecyclerView(list);
-        systemView.attachSwipeRefreshLayout(refreshLayout);
+    viewModel = ViewModelProviders.of(this, viewModelFactory)
+        .get(TokenChangeCollectionViewModel.class);
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory)
-                .get(TokenChangeCollectionViewModel.class);
+    viewModel.progress()
+        .observe(this, systemView::showProgress);
+    viewModel.error()
+        .observe(this, this::onError);
+    viewModel.tokens()
+        .observe(this, this::onTokens);
+    viewModel.wallet()
+        .setValue(getIntent().getParcelableExtra(WALLET));
 
-        viewModel.progress().observe(this, systemView::showProgress);
-        viewModel.error().observe(this, this::onError);
-        viewModel.tokens().observe(this, this::onTokens);
-        viewModel.wallet().setValue(getIntent().getParcelableExtra(WALLET));
+    refreshLayout.setOnRefreshListener(viewModel::fetchTokens);
+  }
 
-        refreshLayout.setOnRefreshListener(viewModel::fetchTokens);
+  private void onTokenClick(View view, Token token) {
+    viewModel.setEnabled(token);
+  }
+
+  private void onTokenDeleteClick(View view, Token token) {
+    viewModel.deleteToken(token);
+  }
+
+  @Override protected void onResume() {
+    super.onResume();
+
+    viewModel.prepare();
+  }
+
+  private void onTokens(Token[] tokens) {
+    adapter.setTokens(tokens);
+  }
+
+  private void onError(ErrorEnvelope errorEnvelope) {
+    if (errorEnvelope.code == EMPTY_COLLECTION) {
+      systemView.showEmpty(getString(R.string.no_tokens));
+    } else {
+      systemView.showError(getString(R.string.error_fail_load_tokens), this);
     }
+  }
 
-    private void onTokenClick(View view, Token token) {
-        viewModel.setEnabled(token);
+  @Override public void onClick(View view) {
+    switch (view.getId()) {
+      case R.id.try_again: {
+        viewModel.fetchTokens();
+      }
+      break;
     }
-
-    private void onTokenDeleteClick(View view, Token token) {
-        viewModel.deleteToken(token);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        viewModel.prepare();
-    }
-
-    private void onTokens(Token[] tokens) {
-        adapter.setTokens(tokens);
-    }
-
-    private void onError(ErrorEnvelope errorEnvelope) {
-        if (errorEnvelope.code == EMPTY_COLLECTION) {
-            systemView.showEmpty(getString(R.string.no_tokens));
-        } else {
-            systemView.showError(getString(R.string.error_fail_load_tokens), this);
-        }
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.try_again: {
-                viewModel.fetchTokens();
-            } break;
-        }
-    }
+  }
 }

@@ -1,7 +1,6 @@
 package com.wallet.crypto.trustapp.di;
 
 import android.content.Context;
-
 import com.google.gson.Gson;
 import com.wallet.crypto.trustapp.repository.EthereumNetworkRepository;
 import com.wallet.crypto.trustapp.repository.EthereumNetworkRepositoryType;
@@ -28,119 +27,77 @@ import com.wallet.crypto.trustapp.service.TokenExplorerClientType;
 import com.wallet.crypto.trustapp.service.TransactionsNetworkClient;
 import com.wallet.crypto.trustapp.service.TransactionsNetworkClientType;
 import com.wallet.crypto.trustapp.service.TrustWalletTickerService;
-
-import java.io.File;
-
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
+import java.io.File;
+import javax.inject.Singleton;
 import okhttp3.OkHttpClient;
 
-@Module
-public class RepositoriesModule {
-	@Singleton
-	@Provides
-	PreferenceRepositoryType providePreferenceRepository(Context context) {
-		return new SharedPreferenceRepository(context);
-	}
+@Module public class RepositoriesModule {
+  @Singleton @Provides PreferenceRepositoryType providePreferenceRepository(Context context) {
+    return new SharedPreferenceRepository(context);
+  }
 
-	@Singleton
-	@Provides
-	AccountKeystoreService provideAccountKeyStoreService(Context context) {
-        File file = new File(context.getFilesDir(), "keystore/keystore");
-		return new GethKeystoreAccountService(file);
-	}
+  @Singleton @Provides AccountKeystoreService provideAccountKeyStoreService(Context context) {
+    File file = new File(context.getFilesDir(), "keystore/keystore");
+    return new GethKeystoreAccountService(file);
+  }
 
-	@Singleton
-    @Provides
-    TickerService provideTickerService(OkHttpClient httpClient, Gson gson) {
-	    return new TrustWalletTickerService(httpClient, gson);
-    }
+  @Singleton @Provides TickerService provideTickerService(OkHttpClient httpClient, Gson gson) {
+    return new TrustWalletTickerService(httpClient, gson);
+  }
 
-	@Singleton
-	@Provides
-	EthereumNetworkRepositoryType provideEthereumNetworkRepository(
-            PreferenceRepositoryType preferenceRepository,
-            TickerService tickerService) {
-		return new EthereumNetworkRepository(preferenceRepository, tickerService);
-	}
+  @Singleton @Provides EthereumNetworkRepositoryType provideEthereumNetworkRepository(
+      PreferenceRepositoryType preferenceRepository, TickerService tickerService) {
+    return new EthereumNetworkRepository(preferenceRepository, tickerService);
+  }
 
-	@Singleton
-	@Provides
-    WalletRepositoryType provideWalletRepository(
-            OkHttpClient okHttpClient,
-			PreferenceRepositoryType preferenceRepositoryType,
-			AccountKeystoreService accountKeystoreService,
-			EthereumNetworkRepositoryType networkRepository) {
-		return new WalletRepository(
-		        okHttpClient, preferenceRepositoryType, accountKeystoreService, networkRepository);
-	}
+  @Singleton @Provides WalletRepositoryType provideWalletRepository(OkHttpClient okHttpClient,
+      PreferenceRepositoryType preferenceRepositoryType,
+      AccountKeystoreService accountKeystoreService,
+      EthereumNetworkRepositoryType networkRepository) {
+    return new WalletRepository(okHttpClient, preferenceRepositoryType, accountKeystoreService,
+        networkRepository);
+  }
 
-	@Singleton
-	@Provides
-	TransactionRepositoryType provideTransactionRepository(
-			EthereumNetworkRepositoryType networkRepository,
-			AccountKeystoreService accountKeystoreService,
-			TransactionsNetworkClientType blockExplorerClient,
-            TransactionLocalSource inDiskCache) {
-		return new TransactionRepository(
-				networkRepository,
-				accountKeystoreService,
-				inDiskCache,
-				blockExplorerClient);
-	}
+  @Singleton @Provides TransactionRepositoryType provideTransactionRepository(
+      EthereumNetworkRepositoryType networkRepository,
+      AccountKeystoreService accountKeystoreService,
+      TransactionsNetworkClientType blockExplorerClient, TransactionLocalSource inDiskCache) {
+    return new TransactionRepository(networkRepository, accountKeystoreService, inDiskCache,
+        blockExplorerClient);
+  }
 
-	@Singleton
-    @Provides
-    TransactionLocalSource provideTransactionInDiskCache(RealmManager realmManager) {
-        return new TransactionsRealmCache(realmManager);
-    }
+  @Singleton @Provides TransactionLocalSource provideTransactionInDiskCache(
+      RealmManager realmManager) {
+    return new TransactionsRealmCache(realmManager);
+  }
 
-	@Singleton
-	@Provides
-    TransactionsNetworkClientType provideBlockExplorerClient(
-			OkHttpClient httpClient,
-			Gson gson,
-			EthereumNetworkRepositoryType ethereumNetworkRepository) {
-		return new TransactionsNetworkClient(httpClient, gson, ethereumNetworkRepository);
-	}
+  @Singleton @Provides TransactionsNetworkClientType provideBlockExplorerClient(
+      OkHttpClient httpClient, Gson gson, EthereumNetworkRepositoryType ethereumNetworkRepository) {
+    return new TransactionsNetworkClient(httpClient, gson, ethereumNetworkRepository);
+  }
 
-	@Singleton
-    @Provides
-    TokenRepositoryType provideTokenRepository(
-            OkHttpClient okHttpClient,
-            EthereumNetworkRepositoryType ethereumNetworkRepository,
-            WalletRepositoryType walletRepository,
-            TokenExplorerClientType tokenExplorerClientType,
-            TokenLocalSource tokenLocalSource,
-            TransactionLocalSource inDiskCache,
-            TickerService tickerService) {
-	    return new TokenRepository(
-	            okHttpClient,
-	            ethereumNetworkRepository,
-	            walletRepository,
-	            tokenExplorerClientType,
-                tokenLocalSource,
-                inDiskCache,
-                tickerService);
-    }
+  @Singleton @Provides TokenRepositoryType provideTokenRepository(OkHttpClient okHttpClient,
+      EthereumNetworkRepositoryType ethereumNetworkRepository,
+      WalletRepositoryType walletRepository, TokenExplorerClientType tokenExplorerClientType,
+      TokenLocalSource tokenLocalSource, TransactionLocalSource inDiskCache,
+      TickerService tickerService) {
+    return new TokenRepository(okHttpClient, ethereumNetworkRepository, walletRepository,
+        tokenExplorerClientType, tokenLocalSource, inDiskCache, tickerService);
+  }
 
-	@Singleton
-    @Provides
-    TokenExplorerClientType provideTokenService(OkHttpClient okHttpClient, Gson gson) {
-	    return new EthplorerTokenService(okHttpClient, gson);
-    }
+  @Singleton @Provides TokenExplorerClientType provideTokenService(OkHttpClient okHttpClient,
+      Gson gson) {
+    return new EthplorerTokenService(okHttpClient, gson);
+  }
 
-    @Singleton
-    @Provides
-    TokenLocalSource provideRealmTokenSource(RealmManager realmManager) {
-	    return new TokensRealmSource(realmManager);
-    }
+  @Singleton @Provides TokenLocalSource provideRealmTokenSource(RealmManager realmManager) {
+    return new TokensRealmSource(realmManager);
+  }
 
-    @Singleton
-	@Provides
-	GasSettingsRepositoryType provideGasSettingsRepository(EthereumNetworkRepositoryType ethereumNetworkRepository) {
-		return new GasSettingsRepository(ethereumNetworkRepository);
-	}
+  @Singleton @Provides GasSettingsRepositoryType provideGasSettingsRepository(
+      EthereumNetworkRepositoryType ethereumNetworkRepository) {
+    return new GasSettingsRepository(ethereumNetworkRepository);
+  }
 }

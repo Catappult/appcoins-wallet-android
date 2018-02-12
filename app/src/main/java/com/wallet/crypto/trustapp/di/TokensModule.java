@@ -10,56 +10,41 @@ import com.wallet.crypto.trustapp.router.ChangeTokenCollectionRouter;
 import com.wallet.crypto.trustapp.router.SendRouter;
 import com.wallet.crypto.trustapp.router.TransactionsRouter;
 import com.wallet.crypto.trustapp.viewmodel.TokensViewModelFactory;
-
 import dagger.Module;
 import dagger.Provides;
 
-@Module
-class TokensModule {
+@Module class TokensModule {
 
-    @Provides
-    TokensViewModelFactory provideTokensViewModelFactory(
-            FetchTokensInteract fetchTokensInteract,
-            AddTokenRouter addTokenRouter,
-            SendRouter sendTokenRouter,
-            TransactionsRouter transactionsRouter,
-            ChangeTokenCollectionRouter changeTokenCollectionRouter) {
-        return new TokensViewModelFactory(
-                fetchTokensInteract,
-                addTokenRouter,
-                sendTokenRouter,
-                transactionsRouter,
-                changeTokenCollectionRouter);
-    }
+  @Provides TokensViewModelFactory provideTokensViewModelFactory(
+      FetchTokensInteract fetchTokensInteract, AddTokenRouter addTokenRouter,
+      SendRouter sendTokenRouter, TransactionsRouter transactionsRouter,
+      ChangeTokenCollectionRouter changeTokenCollectionRouter) {
+    return new TokensViewModelFactory(fetchTokensInteract, addTokenRouter, sendTokenRouter,
+        transactionsRouter, changeTokenCollectionRouter);
+  }
 
-    @Provides
-    FindDefaultNetworkInteract provideFindDefaultNetworkInteract(
-            EthereumNetworkRepositoryType networkRepository) {
-        return new FindDefaultNetworkInteract(networkRepository);
-    }
+  @Provides FindDefaultNetworkInteract provideFindDefaultNetworkInteract(
+      EthereumNetworkRepositoryType networkRepository) {
+    return new FindDefaultNetworkInteract(networkRepository);
+  }
 
-    @Provides
-    FetchTokensInteract provideFetchTokensInteract(TokenRepositoryType tokenRepository) {
-        return new FetchTokensInteract(tokenRepository, new BuildConfigDefaultTokenProvider());
-    }
+  @Provides FetchTokensInteract provideFetchTokensInteract(TokenRepositoryType tokenRepository) {
+    return new FetchTokensInteract(tokenRepository, new BuildConfigDefaultTokenProvider());
+  }
 
-    @Provides
-    AddTokenRouter provideAddTokenRouter() {
-        return new AddTokenRouter();
-    }
+  @Provides AddTokenRouter provideAddTokenRouter() {
+    return new AddTokenRouter();
+  }
 
-    @Provides
-    SendRouter provideSendTokenRouter() {
-        return new SendRouter();
-    }
+  @Provides SendRouter provideSendTokenRouter() {
+    return new SendRouter();
+  }
 
-    @Provides
-    TransactionsRouter provideTransactionsRouter() {
-        return new TransactionsRouter();
-    }
+  @Provides TransactionsRouter provideTransactionsRouter() {
+    return new TransactionsRouter();
+  }
 
-    @Provides
-    ChangeTokenCollectionRouter provideChangeTokenCollectionRouter() {
-        return new ChangeTokenCollectionRouter();
-    }
+  @Provides ChangeTokenCollectionRouter provideChangeTokenCollectionRouter() {
+    return new ChangeTokenCollectionRouter();
+  }
 }

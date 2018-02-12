@@ -7,5 +7,5 @@ import io.reactivex.Single;
  */
 
 interface DefaultTokenProvider {
-    Single<String> getDefaultToken();
+  Single<String> getDefaultToken();
 }

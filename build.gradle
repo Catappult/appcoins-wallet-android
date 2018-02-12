@@ -1,32 +1,32 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    repositories {
-        google()
-        jcenter()
-        mavenCentral()
-        maven { url 'https://jitpack.io' }
-        google()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
-        classpath "io.realm:realm-gradle-plugin:4.3.1"
-    }
+  repositories {
+    google()
+    jcenter()
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+    google()
+  }
+  dependencies {
+    classpath 'com.android.tools.build:gradle:3.0.1'
+    classpath "io.realm:realm-gradle-plugin:4.3.1"
+  }
 }
 
 allprojects {
-    repositories {
-        jcenter()
-        google()
-        mavenCentral()
-        maven { url 'https://jitpack.io' }
-        // needed for pincode Lollipin
-        maven {
-            url "https://github.com/omadahealth/omada-nexus/raw/master/release"
-        }
+  repositories {
+    jcenter()
+    google()
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+    // needed for pincode Lollipin
+    maven {
+      url "https://github.com/omadahealth/omada-nexus/raw/master/release"
     }
+  }
 }
 
 task clean(type: Delete) {
-    delete rootProject.buildDir
+  delete rootProject.buildDir
 }
