@@ -18,6 +18,8 @@ import com.wallet.crypto.trustapp.ui.barcode.BarcodeCaptureActivity;
 import com.wallet.crypto.trustapp.viewmodel.SendViewModel;
 import com.wallet.crypto.trustapp.viewmodel.SendViewModelFactory;
 import dagger.android.AndroidInjection;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import javax.inject.Inject;
 
 import static android.widget.Toast.LENGTH_SHORT;
@@ -48,10 +50,13 @@ public class SendActivity extends BaseActivity {
 
     viewModel = ViewModelProviders.of(this, sendViewModelFactory)
         .get(SendViewModel.class);
-    viewModel.init(getIntent().getParcelableExtra(EXTRA_TRANSACTION_BUILDER));
+    viewModel.init(getIntent().getParcelableExtra(EXTRA_TRANSACTION_BUILDER),
+        getIntent().getData());
 
     viewModel.symbol()
         .observe(this, this::onSymbol);
+    viewModel.amount()
+        .observe(this, this::onAmount);
     viewModel.toAddress()
         .observe(this, this::onToAddress);
 
@@ -60,6 +65,11 @@ public class SendActivity extends BaseActivity {
       Intent intent = new Intent(getApplicationContext(), BarcodeCaptureActivity.class);
       startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
     });
+  }
+
+  private void onAmount(BigDecimal bigDecimal) {
+    amountText.setText(NumberFormat.getInstance()
+        .format(bigDecimal));
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {

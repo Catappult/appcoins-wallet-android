@@ -6,6 +6,7 @@ import com.wallet.crypto.trustapp.repository.TokenRepository;
 import com.wallet.crypto.trustapp.util.BalanceUtils;
 import io.reactivex.annotations.NonNull;
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 import static com.wallet.crypto.trustapp.C.ETHER_DECIMALS;
 
@@ -138,6 +139,33 @@ public class TransactionBuilder implements Parcelable {
 
   public String fromAddress() {
     return fromAddress;
+  }
+
+  @Override public String toString() {
+    return "TransactionBuilder{"
+        + "contractAddress='"
+        + contractAddress
+        + '\''
+        + ", decimals="
+        + decimals
+        + ", symbol='"
+        + symbol
+        + '\''
+        + ", shouldSendToken="
+        + shouldSendToken
+        + ", toAddress='"
+        + toAddress
+        + '\''
+        + ", fromAddress='"
+        + fromAddress
+        + '\''
+        + ", amount="
+        + amount
+        + ", data="
+        + Arrays.toString(data)
+        + ", gasSettings="
+        + gasSettings
+        + '}';
   }
 
   @Override public int describeContents() {
