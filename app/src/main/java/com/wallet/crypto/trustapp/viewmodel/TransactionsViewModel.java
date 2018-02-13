@@ -24,6 +24,8 @@ import com.wallet.crypto.trustapp.router.MyTokensRouter;
 import com.wallet.crypto.trustapp.router.SendRouter;
 import com.wallet.crypto.trustapp.router.SettingsRouter;
 import com.wallet.crypto.trustapp.router.TransactionDetailRouter;
+import com.wallet.crypto.trustapp.token.Erc20Token;
+import com.wallet.crypto.trustapp.util.TokenInfoFactory;
 import io.reactivex.Observable;
 
 public class TransactionsViewModel extends BaseViewModel {
@@ -157,7 +159,7 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void showSend(Context context) {
-    sendRouter.open(context, defaultNetwork.getValue().symbol);
+    sendRouter.open(context, TokenInfoFactory.getTokenInfo(Erc20Token.APPC));
   }
 
   public void showDetails(Context context, Transaction transaction) {
