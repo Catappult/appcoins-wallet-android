@@ -10,6 +10,7 @@ import com.wallet.crypto.trustapp.util.TransferParser;
 import com.wallet.crypto.trustapp.viewmodel.SendViewModelFactory;
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.subjects.PublishSubject;
 
 @Module class SendModule {
   @Provides SendViewModelFactory provideSendViewModelFactory(
@@ -20,7 +21,7 @@ import dagger.Provides;
   }
 
   @Provides ConfirmationRouter provideConfirmationRouter() {
-    return new ConfirmationRouter();
+    return new ConfirmationRouter(PublishSubject.create());
   }
 
   @Provides TransferParser provideTransferParser(

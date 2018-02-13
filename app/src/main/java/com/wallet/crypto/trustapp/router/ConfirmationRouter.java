@@ -1,16 +1,43 @@
 package com.wallet.crypto.trustapp.router;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import com.wallet.crypto.trustapp.entity.TransactionBuilder;
 import com.wallet.crypto.trustapp.ui.ConfirmationActivity;
+import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
 
 import static com.wallet.crypto.trustapp.C.EXTRA_TRANSACTION_BUILDER;
 
 public class ConfirmationRouter {
-  public void open(Context context, TransactionBuilder transactionBuilder) {
-    Intent intent = new Intent(context, ConfirmationActivity.class);
+
+  public static final int TRANSACTION_CONFIRMATION_REQUEST_CODE = 12344;
+  private final PublishSubject<Result> result;
+
+  public ConfirmationRouter(PublishSubject<Result> result) {
+    this.result = result;
+  }
+
+  public void open(Activity activity, TransactionBuilder transactionBuilder) {
+    Intent intent = new Intent(activity, ConfirmationActivity.class);
     intent.putExtra(EXTRA_TRANSACTION_BUILDER, transactionBuilder);
-    context.startActivity(intent);
+    activity.startActivityForResult(intent, TRANSACTION_CONFIRMATION_REQUEST_CODE);
+  }
+
+  public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (requestCode == TRANSACTION_CONFIRMATION_REQUEST_CODE) {
+      if (resultCode == Activity.RESULT_OK) {
+        result.onNext(new Result(true, requestCode, data));
+      } else if (resultCode == Activity.RESULT_CANCELED) {
+        result.onNext(new Result(false, requestCode, data));
+      }
+      return true;
+    }
+    return false;
+  }
+
+  public Observable<Result> getTransactionResult() {
+    return result.filter(
+        result -> result.getRequestCode() == TRANSACTION_CONFIRMATION_REQUEST_CODE);
   }
 }

@@ -17,7 +17,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class TransferParserTest {
-  @Test public void preFillData() throws Exception {
+  @Test public void parse() throws Exception {
     TokenRepositoryType tokenRepositoryType = mock(TokenRepositoryType.class);
     FindDefaultWalletInteract findDefaultWalletInteract = mock(FindDefaultWalletInteract.class);
 
