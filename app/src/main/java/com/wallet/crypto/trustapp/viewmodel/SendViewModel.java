@@ -1,8 +1,10 @@
 package com.wallet.crypto.trustapp.viewmodel;
 
+import android.app.Activity;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.wallet.crypto.trustapp.entity.Address;
 import com.wallet.crypto.trustapp.entity.GasSettings;
@@ -11,34 +13,65 @@ import com.wallet.crypto.trustapp.entity.Wallet;
 import com.wallet.crypto.trustapp.interact.FetchGasSettingsInteract;
 import com.wallet.crypto.trustapp.interact.FindDefaultWalletInteract;
 import com.wallet.crypto.trustapp.router.ConfirmationRouter;
+import com.wallet.crypto.trustapp.router.Result;
 import com.wallet.crypto.trustapp.util.QRUri;
+import com.wallet.crypto.trustapp.util.TransferParser;
 import java.math.BigDecimal;
 import org.web3j.utils.Numeric;
 
 public class SendViewModel extends BaseViewModel {
   private final MutableLiveData<String> symbol = new MutableLiveData<>();
   private final MutableLiveData<String> address = new MutableLiveData<>();
+  private final MutableLiveData<BigDecimal> amount = new MutableLiveData<>();
+  private final MutableLiveData<Result> transactionSucceed = new MutableLiveData<>();
   private final FindDefaultWalletInteract findDefaultWalletInteract;
   private final FetchGasSettingsInteract fetchGasSettingsInteract;
   private final ConfirmationRouter confirmationRouter;
+  private final TransferParser transferParser;
   private TransactionBuilder transactionBuilder;
 
   SendViewModel(FindDefaultWalletInteract findDefaultWalletInteract,
-      FetchGasSettingsInteract fetchGasSettingsInteract, ConfirmationRouter confirmationRouter) {
+      FetchGasSettingsInteract fetchGasSettingsInteract, ConfirmationRouter confirmationRouter,
+      TransferParser transferParser) {
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchGasSettingsInteract = fetchGasSettingsInteract;
     this.confirmationRouter = confirmationRouter;
+    this.transferParser = transferParser;
   }
 
-  public void init(TransactionBuilder transactionBuilder) {
-    this.transactionBuilder = transactionBuilder;
-    symbol.postValue(transactionBuilder.symbol());
-    address.postValue(transactionBuilder.toAddress());
-    fetchGasSettingsInteract.fetch(transactionBuilder.shouldSendToken())
-        .subscribe(this::onGasSettings, t -> {
-        });
-    disposable = findDefaultWalletInteract.find()
-        .subscribe(this::onDefaultWallet, this::onError);
+  public void init(TransactionBuilder transactionBuilder, Uri data) {
+    if (transactionBuilder != null) {
+      this.transactionBuilder = transactionBuilder;
+      fetchGasSettingsInteract.fetch(transactionBuilder.shouldSendToken())
+          .subscribe(this::onGasSettings, this::onError);
+
+      disposable = findDefaultWalletInteract.find()
+          .subscribe(this::onDefaultWallet, this::onError);
+    } else {
+      transferParser.parse(data.toString())
+          .flatMapObservable(transaction -> {
+            this.transactionBuilder = transaction;
+            symbol.postValue(transaction.symbol());
+            address.postValue(transaction.toAddress());
+            amount.postValue(transaction.amount());
+            return fetchGasSettingsInteract.fetch(transaction.shouldSendToken())
+                .doOnSuccess(this::onGasSettings)
+                .flatMap(gasSettings -> findDefaultWalletInteract.find()
+                    .doOnSuccess(this::onDefaultWallet))
+                .flatMapObservable(wallet -> confirmationRouter.getTransactionResult()
+                    .doOnNext(transactionSucceed::postValue));
+          })
+          .subscribe(wallet -> {
+          }, this::onError);
+    }
+  }
+
+  public MutableLiveData<Result> onTransactionSucceed() {
+    return transactionSucceed;
+  }
+
+  public MutableLiveData<BigDecimal> amount() {
+    return amount;
   }
 
   public LiveData<String> symbol() {
@@ -60,7 +93,9 @@ public class SendViewModel extends BaseViewModel {
 
   public boolean setAmount(String amount) {
     try {
-      transactionBuilder.amount(new BigDecimal(amount));
+      BigDecimal value = new BigDecimal(amount);
+      transactionBuilder.amount(value);
+      this.amount.postValue(value);
       return true;
     } catch (Exception e) {
       return false;
@@ -80,8 +115,8 @@ public class SendViewModel extends BaseViewModel {
     }
   }
 
-  public void openConfirmation(Context context) {
-    confirmationRouter.open(context, transactionBuilder);
+  public void openConfirmation(Activity activity) {
+    confirmationRouter.open(activity, transactionBuilder);
   }
 
   private void onGasSettings(GasSettings gasSettings) {
@@ -90,5 +125,9 @@ public class SendViewModel extends BaseViewModel {
 
   private void onDefaultWallet(Wallet wallet) {
     transactionBuilder.fromAddress(wallet.address);
+  }
+
+  public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
+    return confirmationRouter.onActivityResult(requestCode, resultCode, data);
   }
 }

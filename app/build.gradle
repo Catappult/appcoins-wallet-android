@@ -81,6 +81,7 @@ project.ext {
   rxJavaVersion = "2.1.6"
   rxAndroidVersion = "2.0.1"
   daggerVersion = "2.11"
+  erc681Version = "0.36"
 }
 
 dependencies {
@@ -123,8 +124,11 @@ dependencies {
   annotationProcessor "com.google.dagger:dagger-android-processor:$project.daggerVersion"
   // if you are not using support library, include this instead
   implementation "com.google.dagger:dagger-android:$project.daggerVersion"
+
+  compile "com.github.walleth.kethereum:erc681:$project.erc681Version"
   // Tests
   testImplementation "junit:junit:4.12"
+  testCompile "org.mockito:mockito-core:2.13.0"
   androidTestImplementation("com.android.support.test.espresso:espresso-core:2.2.2", {
     exclude group: "com.android.support", module: "support-annotations"
   })

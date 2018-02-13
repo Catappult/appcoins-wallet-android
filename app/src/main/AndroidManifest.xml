@@ -55,7 +55,13 @@
 
     <activity
         android:name=".ui.SendActivity"
-        android:label="@string/title_activity_send"/>
+        android:label="@string/title_activity_send">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data android:scheme="ethereum"/>
+      </intent-filter>
+    </activity>
 
     <activity
         android:name=".ui.ConfirmationActivity"

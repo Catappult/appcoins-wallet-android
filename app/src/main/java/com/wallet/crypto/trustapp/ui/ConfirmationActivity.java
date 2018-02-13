@@ -1,5 +1,6 @@
 package com.wallet.crypto.trustapp.ui;
 
+import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -131,17 +132,24 @@ public class ConfirmationActivity extends BaseActivity {
     dialog = new AlertDialog.Builder(this).setTitle(R.string.transaction_succeeded)
         .setMessage(hash)
         .setPositiveButton(R.string.button_ok, (dialog1, id) -> {
-          finish();
+          successFinish(hash);
         })
         .setNeutralButton(R.string.copy, (dialog1, id) -> {
           ClipboardManager clipboard =
               (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
           ClipData clip = ClipData.newPlainText("transaction hash", hash);
           clipboard.setPrimaryClip(clip);
-          finish();
+          successFinish(hash);
         })
         .create();
     dialog.show();
+  }
+
+  private void successFinish(String hash) {
+    Intent intent = new Intent();
+    intent.putExtra("transaction_hash", hash);
+    setResult(Activity.RESULT_OK, intent);
+    finish();
   }
 
   private void onError(ErrorEnvelope error) {

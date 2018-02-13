@@ -1,5 +1,6 @@
 package com.wallet.crypto.trustapp.ui;
 
+import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,10 +15,13 @@ import android.widget.Toast;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.wallet.crypto.trustapp.R;
+import com.wallet.crypto.trustapp.router.Result;
 import com.wallet.crypto.trustapp.ui.barcode.BarcodeCaptureActivity;
 import com.wallet.crypto.trustapp.viewmodel.SendViewModel;
 import com.wallet.crypto.trustapp.viewmodel.SendViewModelFactory;
 import dagger.android.AndroidInjection;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import javax.inject.Inject;
 
 import static android.widget.Toast.LENGTH_SHORT;
@@ -48,18 +52,35 @@ public class SendActivity extends BaseActivity {
 
     viewModel = ViewModelProviders.of(this, sendViewModelFactory)
         .get(SendViewModel.class);
-    viewModel.init(getIntent().getParcelableExtra(EXTRA_TRANSACTION_BUILDER));
+    viewModel.init(getIntent().getParcelableExtra(EXTRA_TRANSACTION_BUILDER),
+        getIntent().getData());
 
     viewModel.symbol()
         .observe(this, this::onSymbol);
+    viewModel.amount()
+        .observe(this, this::onAmount);
     viewModel.toAddress()
         .observe(this, this::onToAddress);
+    viewModel.onTransactionSucceed()
+        .observe(this, this::onFinishWithResult);
 
     ImageButton scanBarcodeButton = findViewById(R.id.scan_barcode_button);
     scanBarcodeButton.setOnClickListener(view -> {
       Intent intent = new Intent(getApplicationContext(), BarcodeCaptureActivity.class);
       startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
     });
+  }
+
+  private void onFinishWithResult(Result result) {
+    if (result.isSuccess()) {
+      setResult(Activity.RESULT_OK, result.getData());
+      finish();
+    }
+  }
+
+  private void onAmount(BigDecimal bigDecimal) {
+    amountText.setText(NumberFormat.getInstance()
+        .format(bigDecimal));
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
@@ -79,7 +100,8 @@ public class SendActivity extends BaseActivity {
   }
 
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == BARCODE_READER_REQUEST_CODE) {
+    if (!viewModel.onActivityResult(requestCode, resultCode, data)
+        && requestCode == BARCODE_READER_REQUEST_CODE) {
       if (resultCode == CommonStatusCodes.SUCCESS) {
         if (data != null) {
           Barcode barcode = data.getParcelableExtra(BarcodeCaptureActivity.BarcodeObject);
