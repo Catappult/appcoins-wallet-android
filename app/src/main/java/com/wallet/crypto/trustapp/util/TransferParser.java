@@ -30,37 +30,57 @@ public class TransferParser {
                   .filter(token -> token.tokenInfo.address.equalsIgnoreCase(payment.getAddress()))
                   .toList())
               .flatMap(tokens -> {
+                TransactionBuilder transactionBuilder;
                 if (tokens.isEmpty()) {
-                  return Single.error(new RuntimeException("token not added"));
+                  if (!isTokenTransfer(payment)) {
+                    transactionBuilder = new TransactionBuilder("ETH");
+                    transactionBuilder.toAddress(payment.getAddress());
+                    transactionBuilder.amount(getEtherTransferAmount(payment));
+                  } else {
+                    return Single.error(new RuntimeException("token not added"));
+                  }
                 } else {
                   Token token = tokens.get(0);
-                  TransactionBuilder transactionBuilder = new TransactionBuilder(token.tokenInfo);
+                  transactionBuilder = new TransactionBuilder(token.tokenInfo);
                   transactionBuilder.toAddress(getReceiverAddress(payment));
                   transactionBuilder.amount(
                       getTokenTransferAmount(payment, token.tokenInfo.decimals));
-                  return Single.just(transactionBuilder);
                 }
+                return Single.just(transactionBuilder);
               }));
     }
-    return Single.error(new RuntimeException("token not added"));
+    return Single.error(new RuntimeException("is not an supported URI"));
+  }
+
+  private BigDecimal getEtherTransferAmount(ERC681 payment) {
+    return convertToMainMetric(new BigDecimal(payment.getValue()), 18);
+  }
+
+  private boolean isTokenTransfer(ERC681 erc681) {
+    return erc681.getFunction() != null && erc681.getFunction()
+        .equals("transfer");
   }
 
   private BigDecimal getTokenTransferAmount(ERC681 payment, int decimals) {
     if (payment.getFunctionParams()
         .containsKey("uint256")) {
-      try {
-        StringBuilder divider = new StringBuilder(18);
-        divider.append("1");
-        for (int i = 0; i < decimals; i++) {
-          divider.append("0");
-        }
-        return new BigDecimal((payment.getFunctionParams()
-            .get("uint256"))).divide(new BigDecimal(divider.toString()));
-      } catch (NumberFormatException ex) {
-        return BigDecimal.ZERO;
-      }
+      return convertToMainMetric(new BigDecimal(payment.getFunctionParams()
+          .get("uint256")), decimals);
     }
     return BigDecimal.ZERO;
+  }
+
+  private BigDecimal convertToMainMetric(BigDecimal value, int decimals) {
+    try {
+      StringBuilder divider = new StringBuilder(18);
+      divider.append("1");
+      for (int i = 0; i < decimals; i++) {
+        divider.append("0");
+      }
+      return value.divide(new BigDecimal(divider.toString()));
+    } catch (NumberFormatException ex) {
+      return BigDecimal.ZERO;
+    }
   }
 
   private String getReceiverAddress(ERC681 payment) {
