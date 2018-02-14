@@ -72,13 +72,13 @@ public class TransactionRepository implements TransactionRepositoryType {
             String requestedNetwork = "unknown";
             for (NetworkInfo networkInfo : networkRepository.getAvailableNetworkList()) {
               if (networkInfo.chainId == transactionBuilder.getChainId()) {
-                requestedNetwork = networkInfo.symbol;
+                requestedNetwork = networkInfo.name;
                 break;
               }
             }
             return Single.error(new RuntimeException(
                 "Default network is different from the intended on transaction\nCurrent network: "
-                    + networkRepository.getDefaultNetwork().symbol
+                    + networkRepository.getDefaultNetwork().name
                     + "\nRequested: "
                     + requestedNetwork));
           }
