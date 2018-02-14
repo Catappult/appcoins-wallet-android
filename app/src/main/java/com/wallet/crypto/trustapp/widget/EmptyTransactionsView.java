@@ -20,7 +20,7 @@ public class EmptyTransactionsView extends FrameLayout {
 
   public void setNetworkInfo(NetworkInfo networkInfo) {
     if (networkInfo.isMainNetwork) {
-      findViewById(R.id.action_buy).setVisibility(VISIBLE);
+      findViewById(R.id.action_buy).setVisibility(GONE);
     } else {
       findViewById(R.id.action_buy).setVisibility(GONE);
     }
