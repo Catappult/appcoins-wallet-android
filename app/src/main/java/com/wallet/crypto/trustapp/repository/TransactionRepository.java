@@ -66,13 +66,30 @@ public class TransactionRepository implements TransactionRepositoryType {
               .send();
       return ethGetTransactionCount.getTransactionCount();
     })
-        .flatMap(nonce -> accountKeystoreService.signTransaction(transactionBuilder.fromAddress(),
-            password, transactionBuilder.shouldSendToken() ? transactionBuilder.contractAddress()
-                : transactionBuilder.toAddress(),
-            transactionBuilder.shouldSendToken() ? BigDecimal.ZERO
-                : transactionBuilder.subunitAmount(), transactionBuilder.gasSettings().gasPrice,
-            transactionBuilder.gasSettings().gasLimit, nonce.longValue(), transactionBuilder.data(),
-            networkRepository.getDefaultNetwork().chainId))
+        .flatMap(nonce -> {
+          if (transactionBuilder.getChainId() != TransactionBuilder.NO_CHAIN_ID
+              && transactionBuilder.getChainId() != networkRepository.getDefaultNetwork().chainId) {
+            String requestedNetwork = "unknown";
+            for (NetworkInfo networkInfo : networkRepository.getAvailableNetworkList()) {
+              if (networkInfo.chainId == transactionBuilder.getChainId()) {
+                requestedNetwork = networkInfo.symbol;
+                break;
+              }
+            }
+            return Single.error(new RuntimeException(
+                "Default network is different from the intended on transaction\nCurrent network: "
+                    + networkRepository.getDefaultNetwork().symbol
+                    + "\nRequested: "
+                    + requestedNetwork));
+          }
+          return accountKeystoreService.signTransaction(transactionBuilder.fromAddress(), password,
+              transactionBuilder.shouldSendToken() ? transactionBuilder.contractAddress()
+                  : transactionBuilder.toAddress(),
+              transactionBuilder.shouldSendToken() ? BigDecimal.ZERO
+                  : transactionBuilder.subunitAmount(), transactionBuilder.gasSettings().gasPrice,
+              transactionBuilder.gasSettings().gasLimit, nonce.longValue(),
+              transactionBuilder.data(), networkRepository.getDefaultNetwork().chainId);
+        })
         .flatMap(signedMessage -> Single.fromCallable(() -> {
           EthSendTransaction raw = web3j.ethSendRawTransaction(Numeric.toHexString(signedMessage))
               .send();

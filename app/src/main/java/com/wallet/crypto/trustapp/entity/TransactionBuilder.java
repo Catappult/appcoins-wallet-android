@@ -11,6 +11,7 @@ import java.util.Arrays;
 import static com.wallet.crypto.trustapp.C.ETHER_DECIMALS;
 
 public class TransactionBuilder implements Parcelable {
+  public static final long NO_CHAIN_ID = -1;
   public static final Creator<TransactionBuilder> CREATOR = new Creator<TransactionBuilder>() {
     @Override public TransactionBuilder createFromParcel(Parcel in) {
       return new TransactionBuilder(in);
@@ -29,15 +30,18 @@ public class TransactionBuilder implements Parcelable {
   private BigDecimal amount = BigDecimal.ZERO;
   private byte[] data;
   private GasSettings gasSettings;
+  private long chainId;
 
   public TransactionBuilder(@NonNull TokenInfo tokenInfo) {
     contractAddress(tokenInfo.address).decimals(tokenInfo.decimals)
         .symbol(tokenInfo.symbol)
         .shouldSendToken(true);
+    chainId = NO_CHAIN_ID;
   }
 
   public TransactionBuilder(@NonNull String symbol) {
     symbol(symbol).decimals(ETHER_DECIMALS);
+    chainId = NO_CHAIN_ID;
   }
 
   private TransactionBuilder(Parcel in) {
@@ -50,6 +54,16 @@ public class TransactionBuilder implements Parcelable {
     amount = new BigDecimal(in.readString());
     data = in.createByteArray();
     gasSettings = in.readParcelable(GasSettings.class.getClassLoader());
+    chainId = in.readLong();
+  }
+
+  public long getChainId() {
+    return chainId;
+  }
+
+  public TransactionBuilder setChainId(long chainId) {
+    this.chainId = chainId;
+    return this;
   }
 
   public TransactionBuilder symbol(String symbol) {
@@ -182,5 +196,6 @@ public class TransactionBuilder implements Parcelable {
     dest.writeString(amount.toString());
     dest.writeByteArray(data);
     dest.writeParcelable(gasSettings, flags);
+    dest.writeLong(chainId);
   }
 }

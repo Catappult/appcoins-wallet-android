@@ -42,6 +42,9 @@ public class TransferParser {
                 } else {
                   Token token = tokens.get(0);
                   transactionBuilder = new TransactionBuilder(token.tokenInfo);
+                  if (payment.getChainId() != null) {
+                    transactionBuilder.setChainId(payment.getChainId());
+                  }
                   transactionBuilder.toAddress(getReceiverAddress(payment));
                   transactionBuilder.amount(
                       getTokenTransferAmount(payment, token.tokenInfo.decimals));
