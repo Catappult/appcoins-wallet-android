@@ -8,6 +8,7 @@
       android:icon="@drawable/ic_action_deposit"
       android:orderInCategory="10"
       android:title="@string/action_buy"
+      android:visible="false"
       app:showAsAction="always"
       />
 </menu>

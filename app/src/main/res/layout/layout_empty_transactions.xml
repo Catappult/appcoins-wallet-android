@@ -10,6 +10,7 @@
       android:layout_height="120dp"
       android:layout_gravity="center_horizontal"
       android:src="@drawable/no_transactions_mascot"
+      android:visibility="gone"
       />
   <TextView
       android:layout_width="wrap_content"
@@ -27,6 +28,7 @@
       android:layout_marginTop="@dimen/big_margin"
       android:text="@string/action_buy"
       android:textAllCaps="true"
+      android:visibility="gone"
       style="@style/Widget.AppCompat.Button.Colored"
       />
 </LinearLayout>
