@@ -66,7 +66,7 @@
         android:title="@string/telegram">
       <intent
           android:action="android.intent.action.VIEW"
-          android:data="https://t.me/joinchat/AAMtrQ_wtd918mm_mU0BRQ"/>
+          android:data="https://t.me/joinchat/G337zg6z0ACm6QTvUU9_Yw"/>
     </Preference>
 
     <Preference
