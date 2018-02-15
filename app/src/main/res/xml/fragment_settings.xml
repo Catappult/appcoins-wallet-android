@@ -83,20 +83,9 @@
       >
 
     <Preference
-        android:icon="@mipmap/settings_rating"
-        android:key="pref_rate"
-        android:title="@string/title_rate"/>
-
-    <Preference
         android:icon="@mipmap/settings_email"
         android:key="pref_email"
         android:title="@string/title_email"/>
-
-    <Preference
-        android:icon="@mipmap/settings_donate"
-        android:key="pref_donate"
-        android:title="@string/title_donate">
-    </Preference>
 
     <Preference
         android:icon="@mipmap/settings_privacy_policy"

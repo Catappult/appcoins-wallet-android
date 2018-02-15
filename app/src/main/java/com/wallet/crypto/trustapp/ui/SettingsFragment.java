@@ -13,18 +13,14 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.view.View;
-import com.wallet.crypto.trustapp.C;
 import com.wallet.crypto.trustapp.R;
 import com.wallet.crypto.trustapp.entity.NetworkInfo;
-import com.wallet.crypto.trustapp.entity.TransactionBuilder;
 import com.wallet.crypto.trustapp.interact.FindDefaultWalletInteract;
 import com.wallet.crypto.trustapp.repository.EthereumNetworkRepositoryType;
 import com.wallet.crypto.trustapp.router.ManageWalletsRouter;
 import com.wallet.crypto.trustapp.router.SendRouter;
 import dagger.android.AndroidInjection;
 import javax.inject.Inject;
-
-import static com.wallet.crypto.trustapp.C.DONATION_ADDRESS;
 
 public class SettingsFragment extends PreferenceFragment
     implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -70,11 +66,6 @@ public class SettingsFragment extends PreferenceFragment
     version.setSummary(versionString);
     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
     preferences.registerOnSharedPreferenceChangeListener(SettingsFragment.this);
-    final Preference rate = findPreference("pref_rate");
-    rate.setOnPreferenceClickListener(preference -> {
-      rateThisApp();
-      return false;
-    });
 
     final Preference twitter = findPreference("pref_twitter");
     twitter.setOnPreferenceClickListener(preference -> {
@@ -102,14 +93,6 @@ public class SettingsFragment extends PreferenceFragment
       return false;
     });
 
-    final Preference donate = findPreference("pref_donate");
-    donate.setOnPreferenceClickListener(preference -> {
-      sendRouter.open(getActivity(),
-          new TransactionBuilder(ethereumNetworkRepository.getDefaultNetwork().symbol).decimals(
-              C.ETHER_DECIMALS)
-              .toAddress(DONATION_ADDRESS));
-      return true;
-    });
 
     final Preference email = findPreference("pref_email");
     email.setOnPreferenceClickListener(preference -> {
