@@ -23,8 +23,8 @@ android {
     applicationId "com.wallet.crypto.trustapp"
     minSdkVersion 18
     targetSdkVersion 27
-    versionCode 67
-    versionName "1.4.33"
+    versionCode 0
+    versionName "0.1.0b"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     vectorDrawables.useSupportLibrary = true
     multiDexEnabled = true
@@ -48,6 +48,11 @@ android {
           "\"" + project.RELEASE_DEFAULT_TOKEN_ADDRESS + "\""
       buildConfigField 'int', 'DEFAULT_TOKEN_DECIMALS',
           "\'" + project.RELEASE_DEFAULT_TOKEN_DECIMALS + "\'"
+    }
+    debug {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      applicationIdSuffix ".dev"
     }
   }
   packagingOptions {
