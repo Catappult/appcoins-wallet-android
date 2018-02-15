@@ -75,11 +75,11 @@ public class SettingsFragment extends PreferenceFragment
         getActivity().getPackageManager()
             .getPackageInfo("com.twitter.android", 0);
         intent =
-            new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?user_id=911011433147654144"));
+            new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?user_id=915531221551255552"));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
       } catch (Exception e) {
         // no Twitter app, revert to browser
-        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/trustwalletapp"));
+        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/AppCoinsProject"));
       }
       startActivity(intent);
       return false;
@@ -88,22 +88,22 @@ public class SettingsFragment extends PreferenceFragment
     final Preference facebook = findPreference("pref_facebook");
     facebook.setOnPreferenceClickListener(preference -> {
       Intent intent =
-          new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/trustwalletapp"));
+          new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/AppCoinsOfficial"));
       startActivity(intent);
       return false;
     });
 
-
     final Preference email = findPreference("pref_email");
     email.setOnPreferenceClickListener(preference -> {
 
-      Intent mailto = new Intent(Intent.ACTION_SENDTO);
+      Intent mailto = new Intent(Intent.ACTION_SEND_MULTIPLE);
       mailto.setType("message/rfc822"); // use from live device
-      mailto.setData(Uri.parse("mailto:support@trustwalletapp.com")
-          .buildUpon()
-          .appendQueryParameter("subject", "Android support question")
-          .appendQueryParameter("body", "Dear Trust support,")
-          .build());
+      mailto.putExtra(Intent.EXTRA_EMAIL, new String[] {
+          "info@appcoins.io"
+      });
+      mailto.putExtra(Intent.EXTRA_SUBJECT, "Android wallet support question");
+      mailto.putExtra(Intent.EXTRA_TEXT, "Dear AppCoins support,");
+
       startActivity(Intent.createChooser(mailto, "Select email application."));
       return true;
     });
