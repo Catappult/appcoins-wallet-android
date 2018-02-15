@@ -103,12 +103,19 @@
           android:data="https://trustwalletapp.com/terms.html"/>
     </Preference>
 
-    <Preference
-        android:iconSpaceReserved="true"
-        android:key="pref_version"
-        android:title="@string/title_version">
-    </Preference>
 
   </PreferenceCategory>
+  <PreferenceCategory android:title="Credits">
+    <Preference
+        android:icon="@drawable/ic_description_black_24dp"
+        android:iconSpaceReserved="true"
+        android:key="pref_credits"
+        android:title="Credits"/>
+  </PreferenceCategory>
+  <Preference
+      android:iconSpaceReserved="true"
+      android:key="pref_version"
+      android:title="@string/title_version">
+  </Preference>
 
 </PreferenceScreen>
