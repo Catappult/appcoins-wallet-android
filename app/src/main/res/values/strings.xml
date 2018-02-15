@@ -1,5 +1,5 @@
 <resources>
-  <string name="app_name">Trust</string>
+  <string name="app_name">ASF Wallet</string>
   <string name="balance">Balance</string>
   <string name="title_send">Send</string>
   <string name="title_request">Receive</string>
@@ -50,7 +50,6 @@
   <string name="network_label">Network</string>
   <string name="app_intro">Intro</string>
 
-  <string name="title_trust">Trust</string>
   <string name="low_storage_error">low storage error</string>
   <string name="no_camera_permission">camera permission not given</string>
   <string name="ok">Ok</string>
@@ -117,7 +116,7 @@
   <string name="unable_unblock_device">Unable to unlock the device.</string>
   <string name="skip">Skip</string>
   <string name="root_title">DEVICE SECURITY COMPROMISED</string>
-  <string name="root_body">Any \'rooted\' app can access Trust\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
+  <string name="root_body">Any \'rooted\' app can access ASF Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
   <string name="gas_fee_title">Gas Fee (Gwei)</string>
   <string name="transfer">Transfer %s</string>
   <string name="action_buy">Buy</string>
@@ -161,7 +160,7 @@
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Enter the password to encrypt your wallet</string>
-  <string name="dialog_message_unrecoverable_message">If this device is replaced or this app is deleted, neither you nor Trust Wallet can recover your funds without a backup.</string>
+  <string name="dialog_message_unrecoverable_message">If this device is replaced or this app is deleted, neither you nor ASF Wallet can recover your funds without a backup.</string>
   <string name="toast_message_wallet_imported">The wallet was imported</string>
   <string name="toast_message_wallet_exported">A backup was created</string>
   <string name="toast_qr_code_no_address">QR code doesn\'t contain valid address</string>
