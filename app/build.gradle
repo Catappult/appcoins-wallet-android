@@ -53,6 +53,8 @@ android {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       applicationIdSuffix ".dev"
+      applicationVariants.all { variant -> renameArtifact(variant, defaultConfig)
+      }
     }
   }
   packagingOptions {
@@ -155,4 +157,16 @@ dependencies {
   //    compile('com.github.omadahealth:lollipin:2.1.0@aar') {
   //        transitive = true
   //    }
+}
+
+def renameArtifact(variant, defaultConfig) {
+  variant.outputs.all { output ->
+    def formattedDate = new Date().format('yyMMdd-HHmm')
+    def fileName = "ASF_Wallet_V" +
+        defaultConfig.versionCode +
+        "_" +
+        formattedDate
+
+    outputFileName = new File("${fileName}.apk")
+  }
 }
