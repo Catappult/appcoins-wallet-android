@@ -1,5 +1,6 @@
 package com.wallet.crypto.trustapp.ui;
 
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -105,6 +106,16 @@ public class SettingsFragment extends PreferenceFragment
       mailto.putExtra(Intent.EXTRA_TEXT, "Dear AppCoins support,");
 
       startActivity(Intent.createChooser(mailto, "Select email application."));
+      return true;
+    });
+
+    final Preference credits = findPreference("pref_credits");
+    credits.setOnPreferenceClickListener(preference -> {
+      new AlertDialog.Builder(getActivity()).setPositiveButton(R.string.close,
+          (dialog, which) -> dialog.dismiss())
+          .setMessage(R.string.settings_fragment_credits)
+          .create()
+          .show();
       return true;
     });
   }
