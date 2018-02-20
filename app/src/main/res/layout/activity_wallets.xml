@@ -21,14 +21,14 @@
         android:layout_height="match_parent"
         />
   </android.support.v4.widget.SwipeRefreshLayout>
-  <com.wallet.crypto.trustapp.widget.SystemView
+  <com.asf.wallet.widget.SystemView
       android:id="@+id/system_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:background="@android:color/white"
       tools:visibility="gone"
       />
-  <com.wallet.crypto.trustapp.widget.BackupWarningView
+  <com.asf.wallet.widget.BackupWarningView
       android:id="@+id/backup_warning"
       android:layout_width="match_parent"
       android:layout_height="match_parent"

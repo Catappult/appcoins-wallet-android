@@ -47,7 +47,7 @@ android {
       buildConfigField 'String', 'DEFAULT_TOKEN_ADDRESS',
           "\"" + project.RELEASE_DEFAULT_TOKEN_ADDRESS + "\""
       buildConfigField 'int', 'DEFAULT_TOKEN_DECIMALS',
-          "\'" + project.RELEASE_DEFAULT_TOKEN_DECIMALS + "\'"
+          project.RELEASE_DEFAULT_TOKEN_DECIMALS
     }
     debug {
       minifyEnabled false

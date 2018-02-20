@@ -8,11 +8,11 @@
     android:orientation="vertical"
     >
 
-  <com.wallet.crypto.trustapp.ui.camera.CameraSourcePreview
+  <com.asf.wallet.ui.camera.CameraSourcePreview
       android:id="@+id/preview"
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:layout_weight="1"
       >
-  </com.wallet.crypto.trustapp.ui.camera.CameraSourcePreview>
+  </com.asf.wallet.ui.camera.CameraSourcePreview>
 </LinearLayout>
