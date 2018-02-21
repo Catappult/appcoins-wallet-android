@@ -106,8 +106,10 @@ public class SendViewModel extends BaseViewModel {
     QRUri qrUrl = QRUri.parse(barcode.displayValue);
     if (qrUrl != null) {
       transactionBuilder.toAddress(qrUrl.getAddress());
-      transactionBuilder.data(
-          Numeric.hexStringToByteArray(Numeric.cleanHexPrefix(qrUrl.getParameter("data"))));
+      if (qrUrl.getParameter("data") != null) {
+        transactionBuilder.data(
+            Numeric.hexStringToByteArray(Numeric.cleanHexPrefix(qrUrl.getParameter("data"))));
+      }
       address.postValue(qrUrl.getAddress());
       return true;
     } else {
