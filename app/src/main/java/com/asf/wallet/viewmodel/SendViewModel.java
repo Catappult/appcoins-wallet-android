@@ -42,6 +42,7 @@ public class SendViewModel extends BaseViewModel {
   public void init(TransactionBuilder transactionBuilder, Uri data) {
     if (transactionBuilder != null) {
       this.transactionBuilder = transactionBuilder;
+      symbol.postValue(transactionBuilder.symbol());
       fetchGasSettingsInteract.fetch(transactionBuilder.shouldSendToken())
           .subscribe(this::onGasSettings, this::onError);
 
