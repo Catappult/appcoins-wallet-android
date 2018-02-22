@@ -173,8 +173,6 @@ dependencies {
 
 def renameArtifact(variant, defaultConfig) {
   variant.outputs.all { output ->
-    println "cenas"
-    println output.properties.get("outputs")
     def formattedDate = new Date().format('yyMMdd-HHmm')
     def fileName = "ASF_Wallet_V" +
         defaultConfig.versionCode +
