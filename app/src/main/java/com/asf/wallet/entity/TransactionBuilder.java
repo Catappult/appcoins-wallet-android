@@ -34,8 +34,10 @@ public class TransactionBuilder implements Parcelable {
 
   public TransactionBuilder(@NonNull TokenInfo tokenInfo) {
     contractAddress(tokenInfo.address).decimals(tokenInfo.decimals)
-        .symbol(tokenInfo.symbol)
-        .shouldSendToken(true);
+        .symbol(tokenInfo.symbol);
+    if (!tokenInfo.symbol.equals("ETH")) {
+      shouldSendToken(true);
+    }
     chainId = NO_CHAIN_ID;
   }
 
