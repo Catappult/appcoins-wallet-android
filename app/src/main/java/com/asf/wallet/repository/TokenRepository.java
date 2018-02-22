@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import okhttp3.OkHttpClient;
@@ -94,6 +95,7 @@ public class TokenRepository implements TokenRepositoryType {
     return Single.merge(fetchCachedEnabledTokens(network, wallet), // Immediately show the cache.
         updateTokens(network, wallet) // Looking for new tokens
             .andThen(fetchCachedEnabledTokens(network, wallet))) // and showing the cach
+        .map(this::removeDuplicates)
         .toObservable();
   }
 
@@ -122,6 +124,36 @@ public class TokenRepository implements TokenRepositoryType {
   @Override public Completable delete(Wallet wallet, Token token) {
     NetworkInfo network = ethereumNetworkRepository.getDefaultNetwork();
     return localSource.delete(network, wallet, token);
+  }
+
+  private Token[] removeDuplicates(Token[] tokens) {
+    List<Token> toKeep = new LinkedList<>();
+
+    for (Token token : tokens) {
+      Token toRemove = null;
+      for (Token tmp : tokens) {
+        if (tmp != token && tmp.tokenInfo.address.equals(token.tokenInfo.address)) {
+          toRemove = token;
+          break;
+        }
+      }
+
+      if (toRemove == null) {
+        toKeep.add(token);
+      }
+    }
+
+    return mapToArray(toKeep);
+  }
+
+  private Token[] mapToArray(List<Token> toKeep) {
+    Token[] tokens = new Token[toKeep.size()];
+
+    for (int i = 0; i < tokens.length; i++) {
+      tokens[i] = toKeep.get(i);
+    }
+
+    return tokens;
   }
 
   private SingleTransformer<Token[], Token[]> attachTicker(NetworkInfo network, Wallet wallet) {
