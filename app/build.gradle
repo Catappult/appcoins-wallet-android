@@ -36,6 +36,7 @@ android {
     buildConfigField 'String', 'DEFAULT_TOKEN_ADDRESS',
         "\"" + project.DEBUG_DEFAULT_TOKEN_ADDRESS + "\""
     buildConfigField 'int', 'DEFAULT_TOKEN_DECIMALS', project.DEBUG_DEFAULT_TOKEN_DECIMALS
+    manifestPlaceholders.fabricApiKey = "${project.ASF_WALLET_FABRIC_KEY}"
   }
   buildTypes {
     release {
