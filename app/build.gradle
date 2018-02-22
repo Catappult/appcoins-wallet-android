@@ -65,7 +65,7 @@ android {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       applicationIdSuffix ".dev"
-      applicationVariants.all { variant -> renameArtifact(variant, defaultConfig)
+      applicationVariants.all { variant -> renameArtifact(defaultConfig)
       }
     }
   }
@@ -171,14 +171,12 @@ dependencies {
   //    }
 }
 
-def renameArtifact(variant, defaultConfig) {
-  variant.outputs.all { output ->
-    def formattedDate = new Date().format('yyMMdd-HHmm')
-    def fileName = "ASF_Wallet_V" +
-        defaultConfig.versionCode +
-        "_" +
-        formattedDate
-
-    outputFileName = new File("${fileName}.apk")
+def renameArtifact(defaultConfig) {
+  android.applicationVariants.all { variant ->
+    variant.outputs.all {
+      def formattedDate = new Date().format('yyMMdd-HHmm')
+      def fileName = "ASF_Wallet_V${defaultConfig.versionCode}_${formattedDate}_${variant.name}"
+      outputFileName = new File("${fileName}.apk")
+    }
   }
 }
