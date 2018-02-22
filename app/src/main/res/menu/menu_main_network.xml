@@ -13,7 +13,7 @@
       />
   <item
       android:id="@+id/action_my_tokens"
-      android:icon="@drawable/token_icon"
+      android:icon="@drawable/ic_appc_tokens_logo"
       android:title="@string/title_tokens"
       />
 </menu>
