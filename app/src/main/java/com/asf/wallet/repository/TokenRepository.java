@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -127,19 +128,18 @@ public class TokenRepository implements TokenRepositoryType {
   }
 
   private Token[] removeDuplicates(Token[] tokens) {
-    List<Token> toKeep = new LinkedList<>();
+    List<Token> toKeep = new LinkedList<>(Arrays.asList(tokens));
 
-    for (Token token : tokens) {
-      Token toRemove = null;
-      for (Token tmp : tokens) {
-        if (tmp != token && tmp.tokenInfo.address.equals(token.tokenInfo.address)) {
-          toRemove = token;
+    Iterator<Token> iterator = toKeep.iterator();
+
+    while (iterator.hasNext()) {
+      Token token = iterator.next();
+      for (Token tmp : toKeep) {
+        if (tmp != token && tmp.tokenInfo.address.toLowerCase()
+            .equals(token.tokenInfo.address.toLowerCase())) {
+          iterator.remove();
           break;
         }
-      }
-
-      if (toRemove == null) {
-        toKeep.add(token);
       }
     }
 
