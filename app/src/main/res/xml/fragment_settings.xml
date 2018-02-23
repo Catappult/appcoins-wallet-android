@@ -93,7 +93,7 @@
         android:title="@string/title_privacy_policy">
       <intent
           android:action="android.intent.action.VIEW"
-          android:data="https://trustwalletapp.com/privacy-policy.html"/>
+          android:data="https://appcoins.io"/>
     </Preference>
 
     <Preference
@@ -101,7 +101,7 @@
         android:title="@string/title_terms">
       <intent
           android:action="android.intent.action.VIEW"
-          android:data="https://trustwalletapp.com/terms.html"/>
+          android:data="https://appcoins.io"/>
     </Preference>
 
 
