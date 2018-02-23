@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center_vertical"
-    android:background="@color/white"
-    android:orientation="vertical"
+    android:layout_height="wrap_content"
     >
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:background="@color/white"
+      android:orientation="vertical"
+      >
   <TextView
       android:id="@+id/title"
       android:layout_width="wrap_content"
@@ -24,7 +28,7 @@
       android:layout_height="@dimen/intro_img_size"
       android:layout_gravity="center_horizontal"
       android:contentDescription="@string/empty"
-      android:src="@mipmap/onboarding_lock"
+      android:src="@drawable/icon_alpha_version"
       />
   <TextView
       android:id="@+id/message"
@@ -35,6 +39,7 @@
       android:gravity="center_horizontal"
       android:textColor="@color/colorPrimary"
       android:textSize="16sp"
-      tools:text="Private keys never leave your device."
+      tools:text="Please note this app is a beta version and you should not use it with important accounts yet!"
       />
-</LinearLayout>
+  </LinearLayout>
+</ScrollView>
