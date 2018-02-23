@@ -23,7 +23,7 @@ android {
     applicationId "com.asf.wallet"
     minSdkVersion 18
     targetSdkVersion 27
-    versionCode 0
+    versionCode 1
     versionName "0.1.0a"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     vectorDrawables.useSupportLibrary = true
