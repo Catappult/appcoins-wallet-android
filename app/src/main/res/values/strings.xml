@@ -168,7 +168,7 @@
   <string name="intro_title_first_page">Disclaimer</string>
   <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
   <string name="intro_title_third_page">Fully Transparent</string>
-  <string name="intro_message_first_page">Please note this app is a beta version and you should not use it with important accounts yet!</string>
+  <string name="intro_message_first_page">Please note this app is a alpha version and you should not use it with important accounts yet!</string>
   <string name="intro_message_second_page">Private keys never leave your device.</string>
   <string name="intro_message_third_page">Code is open sourced (GPL-3.0 license) and fully audited.</string>
   <!-- Menus -->
