@@ -93,7 +93,7 @@
         android:title="@string/title_privacy_policy">
       <intent
           android:action="android.intent.action.VIEW"
-          android:data="https://appcoins.io"/>
+          android:data="https://www.appstorefoundation.org"/>
     </Preference>
 
     <Preference
@@ -101,7 +101,7 @@
         android:title="@string/title_terms">
       <intent
           android:action="android.intent.action.VIEW"
-          android:data="https://appcoins.io"/>
+          android:data="https://www.appstorefoundation.org"/>
     </Preference>
 
 
