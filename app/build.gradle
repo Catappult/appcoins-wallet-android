@@ -38,6 +38,16 @@ android {
     buildConfigField 'int', 'DEFAULT_TOKEN_DECIMALS', project.DEBUG_DEFAULT_TOKEN_DECIMALS
     manifestPlaceholders.fabricApiKey = "${project.ASF_WALLET_FABRIC_KEY}"
   }
+
+  signingConfigs {
+    release {
+      storeFile = file(project.ASF_WALLET_STORE_FILE)
+      storePassword = project.ASF_WALLET_STORE_PASSWORD
+      keyAlias = project.ASF_WALLET_KEY_ALIAS
+      keyPassword = project.ASF_WALLET_KEY_PASSWORD
+    }
+  }
+
   buildTypes {
     release {
       minifyEnabled false
@@ -49,12 +59,13 @@ android {
           "\"" + project.RELEASE_DEFAULT_TOKEN_ADDRESS + "\""
       buildConfigField 'int', 'DEFAULT_TOKEN_DECIMALS',
           project.RELEASE_DEFAULT_TOKEN_DECIMALS
+      signingConfig signingConfigs.release
     }
     debug {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       applicationIdSuffix ".dev"
-      applicationVariants.all { variant -> renameArtifact(variant, defaultConfig)
+      applicationVariants.all { variant -> renameArtifact(defaultConfig)
       }
     }
   }
@@ -160,14 +171,12 @@ dependencies {
   //    }
 }
 
-def renameArtifact(variant, defaultConfig) {
-  variant.outputs.all { output ->
-    def formattedDate = new Date().format('yyMMdd-HHmm')
-    def fileName = "ASF_Wallet_V" +
-        defaultConfig.versionCode +
-        "_" +
-        formattedDate
-
-    outputFileName = new File("${fileName}.apk")
+def renameArtifact(defaultConfig) {
+  android.applicationVariants.all { variant ->
+    variant.outputs.all {
+      def formattedDate = new Date().format('yyMMdd-HHmm')
+      def fileName = "ASF_Wallet_V${defaultConfig.versionCode}_${formattedDate}_${variant.name}"
+      outputFileName = new File("${fileName}.apk")
+    }
   }
 }
