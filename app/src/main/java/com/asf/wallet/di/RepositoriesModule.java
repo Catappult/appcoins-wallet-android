@@ -5,6 +5,7 @@ import com.asf.wallet.repository.EthereumNetworkRepository;
 import com.asf.wallet.repository.EthereumNetworkRepositoryType;
 import com.asf.wallet.repository.GasSettingsRepository;
 import com.asf.wallet.repository.GasSettingsRepositoryType;
+import com.asf.wallet.repository.PendingTransactionService;
 import com.asf.wallet.repository.PreferenceRepositoryType;
 import com.asf.wallet.repository.SharedPreferenceRepository;
 import com.asf.wallet.repository.TokenLocalSource;
@@ -17,6 +18,8 @@ import com.asf.wallet.repository.TransactionRepositoryType;
 import com.asf.wallet.repository.TransactionsRealmCache;
 import com.asf.wallet.repository.WalletRepository;
 import com.asf.wallet.repository.WalletRepositoryType;
+import com.asf.wallet.repository.Web3jProvider;
+import com.asf.wallet.repository.Web3jService;
 import com.asf.wallet.service.AccountKeystoreService;
 import com.asf.wallet.service.EthplorerTokenService;
 import com.asf.wallet.service.GethKeystoreAccountService;
@@ -29,6 +32,7 @@ import com.asf.wallet.service.TrustWalletTickerService;
 import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.schedulers.Schedulers;
 import java.io.File;
 import javax.inject.Singleton;
 import okhttp3.OkHttpClient;
@@ -58,6 +62,20 @@ import okhttp3.OkHttpClient;
       EthereumNetworkRepositoryType networkRepository) {
     return new WalletRepository(okHttpClient, preferenceRepositoryType, accountKeystoreService,
         networkRepository);
+  }
+
+  @Singleton @Provides Web3jService providesWeb3jService(Web3jProvider web3jProvider) {
+    return new Web3jService(web3jProvider);
+  }
+
+  @Singleton @Provides Web3jProvider providesWeb3jProvider(
+      EthereumNetworkRepositoryType ethereumNetworkRepository, OkHttpClient client) {
+    return new Web3jProvider(ethereumNetworkRepository, client);
+  }
+
+  @Singleton @Provides PendingTransactionService providesPendingTransactionService(
+      Web3jService web3jService) {
+    return new PendingTransactionService(web3jService, Schedulers.computation(), 5);
   }
 
   @Singleton @Provides TransactionRepositoryType provideTransactionRepository(

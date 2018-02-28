@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.asf.wallet.C;
 import com.asf.wallet.R;
 import com.asf.wallet.entity.ErrorEnvelope;
+import com.asf.wallet.entity.PendingTransaction;
 import com.asf.wallet.entity.TransactionBuilder;
 import com.asf.wallet.util.BalanceUtils;
 import com.asf.wallet.viewmodel.ConfirmationViewModel;
@@ -107,8 +108,8 @@ public class ConfirmationActivity extends BaseActivity {
   }
 
   private void onProgress(boolean shouldShowProgress) {
-    hideDialog();
     if (shouldShowProgress) {
+      hideDialog();
       dialog = new AlertDialog.Builder(this).setTitle(R.string.title_dialog_sending)
           .setView(new ProgressBar(this))
           .setCancelable(false)
@@ -127,22 +128,24 @@ public class ConfirmationActivity extends BaseActivity {
     viewModel.send();
   }
 
-  private void onTransaction(String hash) {
-    hideDialog();
-    dialog = new AlertDialog.Builder(this).setTitle(R.string.transaction_succeeded)
-        .setMessage(hash)
-        .setPositiveButton(R.string.button_ok, (dialog1, id) -> {
-          successFinish(hash);
-        })
-        .setNeutralButton(R.string.copy, (dialog1, id) -> {
-          ClipboardManager clipboard =
-              (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-          ClipData clip = ClipData.newPlainText("transaction hash", hash);
-          clipboard.setPrimaryClip(clip);
-          successFinish(hash);
-        })
-        .create();
-    dialog.show();
+  private void onTransaction(PendingTransaction transaction) {
+    if (!transaction.isPending()) {
+      hideDialog();
+      dialog = new AlertDialog.Builder(this).setTitle(R.string.transaction_succeeded)
+          .setMessage(transaction.getHash())
+          .setPositiveButton(R.string.button_ok, (dialog1, id) -> {
+            successFinish(transaction.getHash());
+          })
+          .setNeutralButton(R.string.copy, (dialog1, id) -> {
+            ClipboardManager clipboard =
+                (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("transaction transaction", transaction.getHash());
+            clipboard.setPrimaryClip(clip);
+            successFinish(transaction.getHash());
+          })
+          .create();
+      dialog.show();
+    }
   }
 
   private void successFinish(String hash) {

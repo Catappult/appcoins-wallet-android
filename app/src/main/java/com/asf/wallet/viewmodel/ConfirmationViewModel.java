@@ -4,23 +4,27 @@ import android.app.Activity;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import com.asf.wallet.entity.GasSettings;
+import com.asf.wallet.entity.PendingTransaction;
 import com.asf.wallet.entity.TransactionBuilder;
 import com.asf.wallet.interact.SendTransactionInteract;
+import com.asf.wallet.repository.PendingTransactionService;
 import com.asf.wallet.router.GasSettingsRouter;
 import com.crashlytics.android.Crashlytics;
 
 public class ConfirmationViewModel extends BaseViewModel {
   private final MutableLiveData<TransactionBuilder> transactionBuilder = new MutableLiveData<>();
-  private final MutableLiveData<String> transactionHash = new MutableLiveData<>();
+  private final MutableLiveData<PendingTransaction> transactionHash = new MutableLiveData<>();
 
   private final SendTransactionInteract sendTransactionInteract;
 
   private final GasSettingsRouter gasSettingsRouter;
+  private final PendingTransactionService pendingTransactionService;
 
   ConfirmationViewModel(SendTransactionInteract sendTransactionInteract,
-      GasSettingsRouter gasSettingsRouter) {
+      GasSettingsRouter gasSettingsRouter, PendingTransactionService pendingTransactionService) {
     this.sendTransactionInteract = sendTransactionInteract;
     this.gasSettingsRouter = gasSettingsRouter;
+    this.pendingTransactionService = pendingTransactionService;
   }
 
   public void init(TransactionBuilder transactionBuilder) {
@@ -31,7 +35,7 @@ public class ConfirmationViewModel extends BaseViewModel {
     return transactionBuilder;
   }
 
-  public LiveData<String> transactionHash() {
+  public LiveData<PendingTransaction> transactionHash() {
     return transactionHash;
   }
 
@@ -44,14 +48,14 @@ public class ConfirmationViewModel extends BaseViewModel {
         }*/
   }
 
-  private void onCreateTransaction(String transaction) {
-    progress.postValue(false);
-    transactionHash.postValue(transaction);
+  private void onCreateTransaction(PendingTransaction pendingTransaction) {
+    transactionHash.postValue(pendingTransaction);
   }
 
   public void send() {
     progress.postValue(true);
     disposable = sendTransactionInteract.send(transactionBuilder.getValue())
+        .flatMapObservable(hash -> pendingTransactionService.checkTransactionState(hash))
         .subscribe(this::onCreateTransaction, this::onError);
   }
 
