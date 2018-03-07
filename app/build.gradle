@@ -25,12 +25,8 @@ android {
 
     def inputFile = new File("appcoins-services.json")
     def json = new JsonSlurper().parseText(inputFile.text)
-    json.each { k, v ->
-      if ("default_address" == k) {
-        buildConfigField 'String', 'DEFAULT_OEM_ADREESS',
-            "\"" + v + "\""
-      }
-    }
+    buildConfigField 'String', 'DEFAULT_OEM_ADREESS',
+        "\"" + json.default_address + "\""
 
     applicationId "com.asf.wallet"
     minSdkVersion 18
