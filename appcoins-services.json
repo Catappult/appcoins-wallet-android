@@ -1,0 +1,11 @@
+{
+  "stores": {
+    "cm.aptoide.pt": "Aptoide_address",
+    "com.google.vending": "Google_address"
+  },
+  "oems": {
+    "xiaomi_oem_id": "Xiaomi_address",
+    "google_oem_id": "Google_address"
+  },
+  "default_address": "0x2c30194bd2e7b6b8ff1467c5af1650f53cd231be"
+}
