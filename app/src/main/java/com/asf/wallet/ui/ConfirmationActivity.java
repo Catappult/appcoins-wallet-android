@@ -60,6 +60,7 @@ public class ConfirmationActivity extends BaseActivity {
     networkFeeText = findViewById(R.id.text_network_fee);
     findViewById(R.id.send_button).setOnClickListener(view -> onSend());
     findViewById(R.id.approve).setOnClickListener(view -> viewModel.approve());
+    findViewById(R.id.call_smart_contract).setOnClickListener(view -> viewModel.callSmartContract());
 
     viewModel = ViewModelProviders.of(this, confirmationViewModelFactory)
         .get(ConfirmationViewModel.class);

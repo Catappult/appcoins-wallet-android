@@ -76,6 +76,12 @@ public class ConfirmationViewModel extends BaseViewModel {
 
   public void approve() {
     sendTransactionInteract.approve(transactionBuilder.getValue())
-        .subscribe(s -> Log.d(TAG, "approve: " + s));
+        .subscribe(s -> Log.d(TAG, "approve: " + s), Throwable::printStackTrace);
+  }
+
+  public void callSmartContract() {
+    sendTransactionInteract.callSmartContract(transactionBuilder.getValue())
+        .subscribe(transactionHash -> Log.d(TAG, "callSmartContract: " + transactionHash),
+            throwable -> throwable.printStackTrace());
   }
 }

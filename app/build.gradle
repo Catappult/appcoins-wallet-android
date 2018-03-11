@@ -27,6 +27,8 @@ android {
     def json = new JsonSlurper().parseText(inputFile.text)
     buildConfigField 'String', 'DEFAULT_OEM_ADREESS',
         "\"" + json.default_address + "\""
+    buildConfigField 'String', 'DEFAULT_STORE_ADREESS',
+        "\"" + json.default_address + "\""
 
     applicationId "com.asf.wallet"
     minSdkVersion 18

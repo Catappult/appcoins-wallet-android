@@ -2,6 +2,7 @@ package com.asf.wallet.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import com.asf.wallet.BuildConfig;
 import com.asf.wallet.repository.TokenRepository;
 import com.asf.wallet.util.BalanceUtils;
 import io.reactivex.annotations.NonNull;
@@ -204,5 +205,13 @@ public class TransactionBuilder implements Parcelable {
   public byte[] approveData(String spender) {
     BigDecimal base = new BigDecimal("10");
     return TokenRepository.createTokenApproveData(spender, amount.multiply(base.pow(decimals)));
+  }
+
+  public byte[] buyData() {
+    BigDecimal base = new BigDecimal("10");
+    return TokenRepository.buyData(toAddress, BuildConfig.DEFAULT_STORE_ADREESS,
+        //hacking
+        BuildConfig.DEFAULT_OEM_ADREESS, "sku_id",
+        amount.multiply(base.pow(decimals)));
   }
 }
