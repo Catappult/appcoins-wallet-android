@@ -200,4 +200,9 @@ public class TransactionBuilder implements Parcelable {
     dest.writeParcelable(gasSettings, flags);
     dest.writeLong(chainId);
   }
+
+  public byte[] approveData(String spender) {
+    BigDecimal base = new BigDecimal("10");
+    return TokenRepository.createTokenApproveData(spender, amount.multiply(base.pow(decimals)));
+  }
 }

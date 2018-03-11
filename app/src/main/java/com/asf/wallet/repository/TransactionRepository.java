@@ -11,6 +11,7 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jFactory;
 import org.web3j.protocol.core.DefaultBlockParameterName;
@@ -54,42 +55,45 @@ public class TransactionRepository implements TransactionRepositoryType {
         });
   }
 
-  @Override
   public Single<String> createTransaction(TransactionBuilder transactionBuilder, String password) {
+    return createTransaction(transactionBuilder, password, transactionBuilder.data());
+  }
+
+  @Override public Single<String> approve(TransactionBuilder transactionBuilder, String password,
+      String spender) {
+    return createTransaction(transactionBuilder, password,
+        transactionBuilder.approveData(spender));
+  }
+
+  private Single<String> createTransaction(TransactionBuilder transactionBuilder, String password,
+      byte[] data) {
     final Web3j web3j =
         Web3jFactory.build(new HttpService(networkRepository.getDefaultNetwork().rpcServerUrl));
 
-    return Single.fromCallable(() -> {
-      EthGetTransactionCount ethGetTransactionCount =
-          web3j.ethGetTransactionCount(transactionBuilder.fromAddress(),
-              DefaultBlockParameterName.LATEST)
-              .send();
-      return ethGetTransactionCount.getTransactionCount();
-    })
-        .flatMap(nonce -> {
-          if (transactionBuilder.getChainId() != TransactionBuilder.NO_CHAIN_ID
-              && transactionBuilder.getChainId() != networkRepository.getDefaultNetwork().chainId) {
-            String requestedNetwork = "unknown";
-            for (NetworkInfo networkInfo : networkRepository.getAvailableNetworkList()) {
-              if (networkInfo.chainId == transactionBuilder.getChainId()) {
-                requestedNetwork = networkInfo.name;
-                break;
-              }
-            }
-            return Single.error(new RuntimeException(
-                "Default network is different from the intended on transaction\nCurrent network: "
-                    + networkRepository.getDefaultNetwork().name
-                    + "\nRequested: "
-                    + requestedNetwork));
+    return getNonce(web3j, transactionBuilder.fromAddress()).flatMap(nonce -> {
+      if (transactionBuilder.getChainId() != TransactionBuilder.NO_CHAIN_ID
+          && transactionBuilder.getChainId() != networkRepository.getDefaultNetwork().chainId) {
+        String requestedNetwork = "unknown";
+        for (NetworkInfo networkInfo : networkRepository.getAvailableNetworkList()) {
+          if (networkInfo.chainId == transactionBuilder.getChainId()) {
+            requestedNetwork = networkInfo.name;
+            break;
           }
-          return accountKeystoreService.signTransaction(transactionBuilder.fromAddress(), password,
-              transactionBuilder.shouldSendToken() ? transactionBuilder.contractAddress()
-                  : transactionBuilder.toAddress(),
-              transactionBuilder.shouldSendToken() ? BigDecimal.ZERO
-                  : transactionBuilder.subunitAmount(), transactionBuilder.gasSettings().gasPrice,
-              transactionBuilder.gasSettings().gasLimit, nonce.longValue(),
-              transactionBuilder.data(), networkRepository.getDefaultNetwork().chainId);
-        })
+        }
+        return Single.error(new RuntimeException(
+            "Default network is different from the intended on transaction\nCurrent network: "
+                + networkRepository.getDefaultNetwork().name
+                + "\nRequested: "
+                + requestedNetwork));
+      }
+      return accountKeystoreService.signTransaction(transactionBuilder.fromAddress(), password,
+          transactionBuilder.shouldSendToken() ? transactionBuilder.contractAddress()
+              : transactionBuilder.toAddress(),
+          transactionBuilder.shouldSendToken() ? BigDecimal.ZERO
+              : transactionBuilder.subunitAmount(), transactionBuilder.gasSettings().gasPrice,
+          transactionBuilder.gasSettings().gasLimit, nonce.longValue(), data,
+          networkRepository.getDefaultNetwork().chainId);
+    })
         .flatMap(signedMessage -> Single.fromCallable(() -> {
           EthSendTransaction raw = web3j.ethSendRawTransaction(Numeric.toHexString(signedMessage))
               .send();
@@ -100,6 +104,15 @@ public class TransactionRepository implements TransactionRepositoryType {
           return raw.getTransactionHash();
         }))
         .subscribeOn(Schedulers.io());
+  }
+
+  private Single<BigInteger> getNonce(Web3j web3j, String fromAddress) {
+    return Single.fromCallable(() -> {
+      EthGetTransactionCount ethGetTransactionCount =
+          web3j.ethGetTransactionCount(fromAddress, DefaultBlockParameterName.LATEST)
+              .send();
+      return ethGetTransactionCount.getTransactionCount();
+    });
   }
 
   private Single<Transaction[]> fetchFromCache(NetworkInfo networkInfo, Wallet wallet) {

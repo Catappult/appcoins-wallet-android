@@ -59,6 +59,7 @@ public class ConfirmationActivity extends BaseActivity {
     gasLimitText = findViewById(R.id.text_gas_limit);
     networkFeeText = findViewById(R.id.text_network_fee);
     findViewById(R.id.send_button).setOnClickListener(view -> onSend());
+    findViewById(R.id.approve).setOnClickListener(view -> viewModel.approve());
 
     viewModel = ViewModelProviders.of(this, confirmationViewModelFactory)
         .get(ConfirmationViewModel.class);

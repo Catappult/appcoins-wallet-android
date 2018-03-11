@@ -137,7 +137,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         style="@style/Widget.AppCompat.Button.Colored"
         />
-
+    <Button
+        android:id="@+id/approve"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="approve"
+        app:layout_constraintBottom_toTopOf="@id/send_button"
+        style="@style/Widget.AppCompat.Button.Colored"
+        />
 
   </android.support.constraint.ConstraintLayout>
 </LinearLayout>

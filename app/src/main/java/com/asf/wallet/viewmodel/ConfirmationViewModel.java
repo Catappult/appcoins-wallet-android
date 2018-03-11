@@ -3,6 +3,7 @@ package com.asf.wallet.viewmodel;
 import android.app.Activity;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.util.Log;
 import com.asf.wallet.entity.GasSettings;
 import com.asf.wallet.entity.PendingTransaction;
 import com.asf.wallet.entity.TransactionBuilder;
@@ -12,11 +13,10 @@ import com.asf.wallet.router.GasSettingsRouter;
 import com.crashlytics.android.Crashlytics;
 
 public class ConfirmationViewModel extends BaseViewModel {
+  private static final String TAG = ConfirmationViewModel.class.getSimpleName();
   private final MutableLiveData<TransactionBuilder> transactionBuilder = new MutableLiveData<>();
   private final MutableLiveData<PendingTransaction> transactionHash = new MutableLiveData<>();
-
   private final SendTransactionInteract sendTransactionInteract;
-
   private final GasSettingsRouter gasSettingsRouter;
   private final PendingTransactionService pendingTransactionService;
 
@@ -72,5 +72,10 @@ public class ConfirmationViewModel extends BaseViewModel {
   @Override protected void onError(Throwable throwable) {
     super.onError(throwable);
     Crashlytics.logException(throwable);
+  }
+
+  public void approve() {
+    sendTransactionInteract.approve(transactionBuilder.getValue())
+        .subscribe(s -> Log.d(TAG, "approve: " + s));
   }
 }

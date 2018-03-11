@@ -86,6 +86,16 @@ public class TokenRepository implements TokenRepositoryType {
     return Numeric.hexStringToByteArray(Numeric.cleanHexPrefix(encodedFunction));
   }
 
+  public static byte[] createTokenApproveData(String spender, BigDecimal amount) {
+    List<Type> params =
+        Arrays.asList(new Address(spender), new Uint256(amount.toBigInteger()));
+    List<TypeReference<?>> returnTypes = Collections.singletonList(new TypeReference<Bool>() {
+    });
+    Function function = new Function("approve", params, returnTypes);
+    String encodedFunction = FunctionEncoder.encode(function);
+    return Numeric.hexStringToByteArray(Numeric.cleanHexPrefix(encodedFunction));
+  }
+
   private void buildWeb3jClient(NetworkInfo defaultNetwork) {
     web3j = Web3jFactory.build(new HttpService(defaultNetwork.rpcServerUrl, httpClient, false));
   }
@@ -282,7 +292,7 @@ public class TokenRepository implements TokenRepositoryType {
 
   private BigDecimal getBalance(Wallet wallet, TokenInfo tokenInfo) throws Exception {
     Function function = balanceOf(wallet.address);
-    String responseValue = callSmartContractFunction(function, tokenInfo.address, wallet);
+    String responseValue = callSmartContractFunction(function, tokenInfo.address, wallet.address);
 
     List<Type> response =
         FunctionReturnDecoder.decode(responseValue, function.getOutputParameters());
@@ -293,11 +303,11 @@ public class TokenRepository implements TokenRepositoryType {
     }
   }
 
-  private String callSmartContractFunction(Function function, String contractAddress, Wallet wallet)
-      throws Exception {
+  private String callSmartContractFunction(Function function, String contractAddress,
+      String walletAddress) throws Exception {
     String encodedFunction = FunctionEncoder.encode(function);
     org.web3j.protocol.core.methods.request.Transaction transaction =
-        createEthCallTransaction(wallet.address, contractAddress, encodedFunction);
+        createEthCallTransaction(walletAddress, contractAddress, encodedFunction);
     EthCall response = web3j.ethCall(transaction, DefaultBlockParameterName.LATEST)
         .send();
 
