@@ -32,12 +32,24 @@ public class TransactionBuilder implements Parcelable {
   private byte[] data;
   private GasSettings gasSettings;
   private long chainId;
+  private TransactionType transactionType;
 
   public TransactionBuilder(@NonNull TokenInfo tokenInfo) {
     contractAddress(tokenInfo.address).decimals(tokenInfo.decimals)
         .symbol(tokenInfo.symbol);
-    if (!tokenInfo.symbol.equals("ETH")) {
-      shouldSendToken(true);
+    switch (tokenInfo.symbol) {
+      case "ETH":
+        transactionType = TransactionType.ETH;
+        shouldSendToken(false);
+        break;
+      case BuildConfig.DEFAULT_TOKEN_SYMBOL:
+        transactionType = TransactionType.APPC;
+        shouldSendToken(false);
+        break;
+      default:
+        transactionType = TransactionType.TOKEN;
+        shouldSendToken(false);
+        break;
     }
     chainId = NO_CHAIN_ID;
   }
@@ -58,6 +70,7 @@ public class TransactionBuilder implements Parcelable {
     data = in.createByteArray();
     gasSettings = in.readParcelable(GasSettings.class.getClassLoader());
     chainId = in.readLong();
+    transactionType = (TransactionType) in.readSerializable();
   }
 
   public long getChainId() {
@@ -200,6 +213,11 @@ public class TransactionBuilder implements Parcelable {
     dest.writeByteArray(data);
     dest.writeParcelable(gasSettings, flags);
     dest.writeLong(chainId);
+    dest.writeSerializable(transactionType);
+  }
+
+  public TransactionType getTransactionType() {
+    return transactionType;
   }
 
   public byte[] approveData(String spender) {
@@ -211,7 +229,10 @@ public class TransactionBuilder implements Parcelable {
     BigDecimal base = new BigDecimal("10");
     return TokenRepository.buyData(toAddress, BuildConfig.DEFAULT_STORE_ADREESS,
         //hacking
-        BuildConfig.DEFAULT_OEM_ADREESS, "sku_id",
-        amount.multiply(base.pow(decimals)));
+        BuildConfig.DEFAULT_OEM_ADREESS, "sku_id", amount.multiply(base.pow(decimals)));
+  }
+
+  public enum TransactionType {
+    APPC, TOKEN, ETH
   }
 }

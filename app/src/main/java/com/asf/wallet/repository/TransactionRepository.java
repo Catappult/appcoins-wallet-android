@@ -58,24 +58,24 @@ public class TransactionRepository implements TransactionRepositoryType {
   public Single<String> createTransaction(TransactionBuilder transactionBuilder, String password) {
     return createTransaction(transactionBuilder, password, transactionBuilder.data(),
         transactionBuilder.shouldSendToken() ? transactionBuilder.contractAddress()
-            : transactionBuilder.toAddress());
+            : transactionBuilder.toAddress(), transactionBuilder.shouldSendToken() ? BigDecimal.ZERO
+            : transactionBuilder.subunitAmount());
   }
 
   @Override public Single<String> approve(TransactionBuilder transactionBuilder, String password,
       String spender) {
     return createTransaction(transactionBuilder, password, transactionBuilder.approveData(spender),
-        transactionBuilder.shouldSendToken() ? transactionBuilder.contractAddress()
-            : transactionBuilder.toAddress());
+        transactionBuilder.contractAddress(), BigDecimal.ZERO);
   }
 
   @Override public Single<String> callIab(TransactionBuilder transaction, String password,
       String contractAddress) {
-    //hacking
-    return createTransaction(transaction, password, transaction.buyData(), contractAddress);
+    return createTransaction(transaction, password, transaction.buyData(), contractAddress,
+        BigDecimal.ZERO);
   }
 
   private Single<String> createTransaction(TransactionBuilder transactionBuilder, String password,
-      byte[] data, String toAddress) {
+      byte[] data, String toAddress, BigDecimal amount) {
     final Web3j web3j =
         Web3jFactory.build(new HttpService(networkRepository.getDefaultNetwork().rpcServerUrl));
 
@@ -96,8 +96,7 @@ public class TransactionRepository implements TransactionRepositoryType {
                 + requestedNetwork));
       }
       return accountKeystoreService.signTransaction(transactionBuilder.fromAddress(), password,
-          toAddress, transactionBuilder.shouldSendToken() ? BigDecimal.ZERO
-              : transactionBuilder.subunitAmount(), transactionBuilder.gasSettings().gasPrice,
+          toAddress, amount, transactionBuilder.gasSettings().gasPrice,
           transactionBuilder.gasSettings().gasLimit, nonce.longValue(), data,
           networkRepository.getDefaultNetwork().chainId);
     })

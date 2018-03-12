@@ -31,7 +31,7 @@ public class SendTransactionInteract {
             BuildConfig.ASF_IAB_CONTRACT_ADDRESS));
   }
 
-  public Single<String> callSmartContract(TransactionBuilder transaction) {
+  public Single<String> buy(TransactionBuilder transaction) {
     return passwordStore.getPassword(new Wallet(transaction.fromAddress()))
         .flatMap(password -> transactionRepository.callIab(transaction, password,
             BuildConfig.ASF_IAB_CONTRACT_ADDRESS));
