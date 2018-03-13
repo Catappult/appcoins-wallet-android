@@ -42,7 +42,11 @@ public class TransferParser {
   }
 
   private Single<TransactionBuilder> buildEthTransaction(ERC681 payment) {
-    return null;
+    TransactionBuilder transactionBuilder = new TransactionBuilder("ETH");
+    transactionBuilder.toAddress(payment.getAddress());
+    transactionBuilder.amount(getEtherTransferAmount(payment));
+    transactionBuilder.setTransactionType(TransactionBuilder.TransactionType.ETH);
+    return Single.just(transactionBuilder);
   }
 
   private Single<TransactionBuilder> buildTokenTransaction(ERC681 payment) {
@@ -73,10 +77,10 @@ public class TransferParser {
   }
 
   private TransactionBuilder.TransactionType getTransactionType(ERC681 payment) {
-    if (payment.getFunction()
+    if (payment.getFunction() != null && payment.getFunction()
         .equalsIgnoreCase("buy")) {
       return TransactionBuilder.TransactionType.APPC;
-    } else if (payment.getFunction()
+    } else if (payment.getFunction() != null && payment.getFunction()
         .equalsIgnoreCase("transfer")) {
       return TransactionBuilder.TransactionType.TOKEN;
     } else {
@@ -93,11 +97,6 @@ public class TransferParser {
 
   private BigDecimal getEtherTransferAmount(ERC681 payment) {
     return convertToMainMetric(new BigDecimal(payment.getValue()), 18);
-  }
-
-  private boolean isTokenTransfer(ERC681 erc681) {
-    return erc681.getFunction() != null && erc681.getFunction()
-        .equals("transfer");
   }
 
   private BigDecimal getTokenTransferAmount(ERC681 payment, int decimals) {
