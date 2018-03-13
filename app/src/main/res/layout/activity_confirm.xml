@@ -138,6 +138,5 @@
         style="@style/Widget.AppCompat.Button.Colored"
         />
 
-
   </android.support.constraint.ConstraintLayout>
 </LinearLayout>

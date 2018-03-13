@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
@@ -32,11 +33,11 @@ import static com.asf.wallet.C.EXTRA_TRANSACTION_BUILDER;
 import static com.asf.wallet.C.GWEI_UNIT;
 
 public class ConfirmationActivity extends BaseActivity {
-  AlertDialog dialog;
+  private static final String TAG = ConfirmationActivity.class.getSimpleName();
 
+  AlertDialog dialog;
   @Inject ConfirmationViewModelFactory confirmationViewModelFactory;
   ConfirmationViewModel viewModel;
-
   private TextView fromAddressText;
   private TextView toAddressText;
   private TextView valueText;
@@ -129,13 +130,13 @@ public class ConfirmationActivity extends BaseActivity {
   }
 
   private void onTransaction(PendingTransaction transaction) {
+    Log.d(TAG, "onTransaction() called with: transaction = [" + transaction + "]");
     if (!transaction.isPending()) {
       hideDialog();
       dialog = new AlertDialog.Builder(this).setTitle(R.string.transaction_succeeded)
           .setMessage(transaction.getHash())
-          .setPositiveButton(R.string.button_ok, (dialog1, id) -> {
-            successFinish(transaction.getHash());
-          })
+          .setPositiveButton(R.string.button_ok,
+              (dialog1, id) -> successFinish(transaction.getHash()))
           .setNeutralButton(R.string.copy, (dialog1, id) -> {
             ClipboardManager clipboard =
                 (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);

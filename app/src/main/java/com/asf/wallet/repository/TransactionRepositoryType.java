@@ -13,4 +13,8 @@ public interface TransactionRepositoryType {
   Maybe<Transaction> findTransaction(Wallet wallet, String transactionHash);
 
   Single<String> createTransaction(TransactionBuilder transactionBuilder, String password);
+
+  Single<String> approve(TransactionBuilder transactionBuilder, String password, String spender);
+
+  Single<String> callIab(TransactionBuilder transaction, String password, String contractAddress);
 }

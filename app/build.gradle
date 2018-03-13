@@ -27,6 +27,8 @@ android {
     def json = new JsonSlurper().parseText(inputFile.text)
     buildConfigField 'String', 'DEFAULT_OEM_ADREESS',
         "\"" + json.default_address + "\""
+    buildConfigField 'String', 'DEFAULT_STORE_ADREESS',
+        "\"" + json.default_address + "\""
 
     applicationId "com.asf.wallet"
     minSdkVersion 18
@@ -45,6 +47,8 @@ android {
         "\"" + project.DEBUG_DEFAULT_TOKEN_ADDRESS + "\""
     buildConfigField 'int', 'DEFAULT_TOKEN_DECIMALS', project.DEBUG_DEFAULT_TOKEN_DECIMALS
     manifestPlaceholders.fabricApiKey = "${project.ASF_WALLET_FABRIC_KEY}"
+    buildConfigField 'String', 'ASF_IAB_CONTRACT_ADDRESS',
+        "\"" + project.ASF_IAB_CONTRACT_ADDRESS + "\""
   }
 
   signingConfigs {

@@ -2,6 +2,7 @@ package com.asf.wallet.repository;
 
 import android.support.annotation.NonNull;
 import android.text.format.DateUtils;
+import com.asf.wallet.BuildConfig;
 import com.asf.wallet.entity.NetworkInfo;
 import com.asf.wallet.entity.Token;
 import com.asf.wallet.entity.TokenInfo;
@@ -33,6 +34,7 @@ import org.web3j.abi.datatypes.Address;
 import org.web3j.abi.datatypes.Bool;
 import org.web3j.abi.datatypes.Function;
 import org.web3j.abi.datatypes.Type;
+import org.web3j.abi.datatypes.Utf8String;
 import org.web3j.abi.datatypes.generated.Uint256;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jFactory;
@@ -82,6 +84,15 @@ public class TokenRepository implements TokenRepositoryType {
     List<TypeReference<?>> returnTypes = Collections.singletonList(new TypeReference<Bool>() {
     });
     Function function = new Function("transfer", params, returnTypes);
+    String encodedFunction = FunctionEncoder.encode(function);
+    return Numeric.hexStringToByteArray(Numeric.cleanHexPrefix(encodedFunction));
+  }
+
+  public static byte[] createTokenApproveData(String spender, BigDecimal amount) {
+    List<Type> params = Arrays.asList(new Address(spender), new Uint256(amount.toBigInteger()));
+    List<TypeReference<?>> returnTypes = Collections.singletonList(new TypeReference<Bool>() {
+    });
+    Function function = new Function("approve", params, returnTypes);
     String encodedFunction = FunctionEncoder.encode(function);
     return Numeric.hexStringToByteArray(Numeric.cleanHexPrefix(encodedFunction));
   }
@@ -282,7 +293,7 @@ public class TokenRepository implements TokenRepositoryType {
 
   private BigDecimal getBalance(Wallet wallet, TokenInfo tokenInfo) throws Exception {
     Function function = balanceOf(wallet.address);
-    String responseValue = callSmartContractFunction(function, tokenInfo.address, wallet);
+    String responseValue = callSmartContractFunction(function, tokenInfo.address, wallet.address);
 
     List<Type> response =
         FunctionReturnDecoder.decode(responseValue, function.getOutputParameters());
@@ -293,11 +304,11 @@ public class TokenRepository implements TokenRepositoryType {
     }
   }
 
-  private String callSmartContractFunction(Function function, String contractAddress, Wallet wallet)
-      throws Exception {
+  private String callSmartContractFunction(Function function, String contractAddress,
+      String walletAddress) throws Exception {
     String encodedFunction = FunctionEncoder.encode(function);
     org.web3j.protocol.core.methods.request.Transaction transaction =
-        createEthCallTransaction(wallet.address, contractAddress, encodedFunction);
+        createEthCallTransaction(walletAddress, contractAddress, encodedFunction);
     EthCall response = web3j.ethCall(transaction, DefaultBlockParameterName.LATEST)
         .send();
 
@@ -311,5 +322,23 @@ public class TokenRepository implements TokenRepositoryType {
       tokens[i] = new Token(items[i], null, 0);
     }
     return tokens;
+  }
+
+  public static byte[] buyData(String developerAddress, String storeAddress,
+      String oemAddress, String data, BigDecimal amount) {
+    Uint256 amountParam = new Uint256(amount.toBigInteger());
+    Utf8String dataParam = new Utf8String(data);
+    Address contractAddress = new Address(BuildConfig.DEFAULT_TOKEN_ADDRESS);
+    Address developerAddressParam = new Address(developerAddress);
+    Address storeAddressParam = new Address(storeAddress);
+    Address oemAddressParam = new Address(oemAddress);
+    List<Type> params =
+        Arrays.asList(amountParam, dataParam, contractAddress, developerAddressParam,
+            storeAddressParam, oemAddressParam);
+    List<TypeReference<?>> returnTypes = Collections.singletonList(new TypeReference<Bool>() {
+    });
+    Function function = new Function("buy", params, returnTypes);
+    String encodedFunction = FunctionEncoder.encode(function);
+    return Numeric.hexStringToByteArray(Numeric.cleanHexPrefix(encodedFunction));
   }
 }

@@ -2,6 +2,7 @@ package com.asf.wallet.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import com.asf.wallet.BuildConfig;
 import com.asf.wallet.repository.TokenRepository;
 import com.asf.wallet.util.BalanceUtils;
 import io.reactivex.annotations.NonNull;
@@ -31,12 +32,25 @@ public class TransactionBuilder implements Parcelable {
   private byte[] data;
   private GasSettings gasSettings;
   private long chainId;
+  private TransactionType transactionType;
+  private String skuId;
 
   public TransactionBuilder(@NonNull TokenInfo tokenInfo) {
     contractAddress(tokenInfo.address).decimals(tokenInfo.decimals)
         .symbol(tokenInfo.symbol);
-    if (!tokenInfo.symbol.equals("ETH")) {
-      shouldSendToken(true);
+    switch (tokenInfo.symbol) {
+      case "ETH":
+        transactionType = TransactionType.ETH;
+        shouldSendToken(false);
+        break;
+      case BuildConfig.DEFAULT_TOKEN_SYMBOL:
+        transactionType = TransactionType.APPC;
+        shouldSendToken(false);
+        break;
+      default:
+        transactionType = TransactionType.TOKEN;
+        shouldSendToken(false);
+        break;
     }
     chainId = NO_CHAIN_ID;
   }
@@ -57,6 +71,22 @@ public class TransactionBuilder implements Parcelable {
     data = in.createByteArray();
     gasSettings = in.readParcelable(GasSettings.class.getClassLoader());
     chainId = in.readLong();
+    transactionType = (TransactionType) in.readSerializable();
+    skuId = in.readString();
+  }
+
+  public TransactionBuilder(String symbol, String iabContractAddress,
+      TransactionType transactionType, Long chainId, String toAddress, BigDecimal amount,
+      String skuId, int decimals) {
+    this.symbol = symbol;
+    this.contractAddress = iabContractAddress;
+    this.transactionType = transactionType;
+    this.chainId = chainId == null ? NO_CHAIN_ID : chainId;
+    this.toAddress = toAddress;
+    this.amount = amount;
+    this.skuId = skuId;
+    this.shouldSendToken = false;
+    this.decimals = decimals;
   }
 
   public long getChainId() {
@@ -124,6 +154,14 @@ public class TransactionBuilder implements Parcelable {
 
   public BigDecimal subunitAmount() {
     return BalanceUtils.baseToSubunit(amount, decimals);
+  }
+
+  public String getSkuId() {
+    return skuId;
+  }
+
+  public void setSkuId(String skuId) {
+    this.skuId = skuId;
   }
 
   public TransactionBuilder data(byte[] data) {
@@ -199,5 +237,30 @@ public class TransactionBuilder implements Parcelable {
     dest.writeByteArray(data);
     dest.writeParcelable(gasSettings, flags);
     dest.writeLong(chainId);
+    dest.writeSerializable(transactionType);
+    dest.writeString(skuId);
+  }
+
+  public TransactionType getTransactionType() {
+    return transactionType;
+  }
+
+  public void setTransactionType(TransactionType transactionType) {
+    this.transactionType = transactionType;
+  }
+
+  public byte[] approveData(String spender) {
+    BigDecimal base = new BigDecimal("10");
+    return TokenRepository.createTokenApproveData(spender, amount.multiply(base.pow(decimals)));
+  }
+
+  public byte[] buyData() {
+    BigDecimal base = new BigDecimal("10");
+    return TokenRepository.buyData(toAddress, BuildConfig.DEFAULT_STORE_ADREESS,
+        BuildConfig.DEFAULT_OEM_ADREESS, skuId, amount.multiply(base.pow(decimals)));
+  }
+
+  public enum TransactionType {
+    APPC, TOKEN, ETH
   }
 }

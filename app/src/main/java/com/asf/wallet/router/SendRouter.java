@@ -10,10 +10,6 @@ import static com.asf.wallet.C.EXTRA_TRANSACTION_BUILDER;
 
 public class SendRouter {
 
-  public void open(Context context, String symbol) {
-    open(context, new TransactionBuilder(symbol));
-  }
-
   public void open(Context context, TokenInfo tokenInfo) {
     open(context, new TransactionBuilder(tokenInfo));
   }
