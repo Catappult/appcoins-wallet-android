@@ -50,7 +50,22 @@ public class TransferParser {
   }
 
   private Single<TransactionBuilder> buildTokenTransaction(ERC681 payment) {
-    return null;
+    return findDefaultWalletInteract.find()
+        .flatMap(wallet -> tokenRepository.fetchAll(wallet.address)
+            .flatMapIterable(Arrays::asList)
+            .filter(token -> token.tokenInfo.address.equalsIgnoreCase(payment.getAddress()))
+            .toList())
+        .flatMap(tokens -> {
+          if (tokens.isEmpty()) {
+            return Single.error(new RuntimeException("token not added"));
+          } else {
+            return Single.just(tokens.get(0));
+          }
+        })
+        .map(token -> new TransactionBuilder(token.tokenInfo.symbol, token.tokenInfo.address,
+            TransactionBuilder.TransactionType.TOKEN, payment.getChainId(),
+            getReceiverAddress(payment), getTokenTransferAmount(payment, token.tokenInfo.decimals),
+            null, token.tokenInfo.decimals).shouldSendToken(true));
   }
 
   private Single<TransactionBuilder> buildAppcTransaction(ERC681 payment) {

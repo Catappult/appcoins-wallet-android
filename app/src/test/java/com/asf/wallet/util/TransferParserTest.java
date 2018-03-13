@@ -76,6 +76,42 @@ public class TransferParserTest {
         .equals("0xab949343e6c369c6b17c7ae302c1debd4b7b61c3"));
     test.assertValue(transactionBuilder -> transactionBuilder.getTransactionType()
         .equals(TransactionBuilder.TransactionType.APPC));
+    test.assertValue(transactionBuilder -> transactionBuilder.shouldSendToken() == false);
+  }
+
+  @Test public void parseTransferToken() throws Exception {
+    TokenRepositoryType tokenRepositoryType = mock(TokenRepositoryType.class);
+    FindDefaultWalletInteract findDefaultWalletInteract = mock(FindDefaultWalletInteract.class);
+
+    String contractAddress = "0xab949343e6c369c6b17c7ae302c1debd4b7b61c3";
+    when(findDefaultWalletInteract.find()).thenReturn(Single.just(new Wallet(contractAddress)));
+    Token token = new Token(new TokenInfo(contractAddress, "AppCoins", "APPC", 18, true, true),
+        new BigDecimal(10), 32L);
+    Token[] tokens = new Token[1];
+    tokens[0] = token;
+
+    when(tokenRepositoryType.fetchAll(any())).thenReturn(Observable.just(tokens));
+
+    TransferParser transferParser =
+        new TransferParser(findDefaultWalletInteract, tokenRepositoryType);
+    String toAddress = "0x2c30194bd2e7b6b8ff1467c5af1650f53cd231be";
+    TestObserver<TransactionBuilder> test = transferParser.parse("ethereum:"
+        + contractAddress
+        + "@3"
+        + "/transfer?address="
+        + toAddress
+        + "&uint256=1000000000000000000")
+        .test();
+
+    test.assertValue(transactionBuilder -> transactionBuilder.amount()
+        .equals(new BigDecimal(1)));
+    test.assertValue(transactionBuilder -> transactionBuilder.toAddress()
+        .equals(toAddress));
+    test.assertValue(transactionBuilder -> transactionBuilder.contractAddress()
+        .equals(contractAddress));
+    test.assertValue(transactionBuilder -> transactionBuilder.getTransactionType()
+        .equals(TransactionBuilder.TransactionType.TOKEN));
+    test.assertValue(transactionBuilder -> transactionBuilder.shouldSendToken() == true);
   }
 
   @Test public void parseEthTransaction() throws Exception {
@@ -96,5 +132,6 @@ public class TransferParserTest {
         .equals(toAddress));
     test.assertValue(transactionBuilder -> transactionBuilder.getTransactionType()
         .equals(TransactionBuilder.TransactionType.ETH));
+    test.assertValue(transactionBuilder -> transactionBuilder.shouldSendToken() == false);
   }
 }
