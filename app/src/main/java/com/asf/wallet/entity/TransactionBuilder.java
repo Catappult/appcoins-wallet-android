@@ -33,6 +33,7 @@ public class TransactionBuilder implements Parcelable {
   private GasSettings gasSettings;
   private long chainId;
   private TransactionType transactionType;
+  private String skuId;
 
   public TransactionBuilder(@NonNull TokenInfo tokenInfo) {
     contractAddress(tokenInfo.address).decimals(tokenInfo.decimals)
@@ -71,6 +72,21 @@ public class TransactionBuilder implements Parcelable {
     gasSettings = in.readParcelable(GasSettings.class.getClassLoader());
     chainId = in.readLong();
     transactionType = (TransactionType) in.readSerializable();
+    skuId = in.readString();
+  }
+
+  public TransactionBuilder(String symbol, String iabContractAddress,
+      TransactionType transactionType, Long chainId, String toAddress, BigDecimal amount,
+      String skuId, int decimals) {
+    this.symbol = symbol;
+    this.contractAddress = iabContractAddress;
+    this.transactionType = transactionType;
+    this.chainId = chainId == null ? NO_CHAIN_ID : chainId;
+    this.toAddress = toAddress;
+    this.amount = amount;
+    this.skuId = skuId;
+    this.shouldSendToken = false;
+    this.decimals = decimals;
   }
 
   public long getChainId() {
@@ -138,6 +154,14 @@ public class TransactionBuilder implements Parcelable {
 
   public BigDecimal subunitAmount() {
     return BalanceUtils.baseToSubunit(amount, decimals);
+  }
+
+  public String getSkuId() {
+    return skuId;
+  }
+
+  public void setSkuId(String skuId) {
+    this.skuId = skuId;
   }
 
   public TransactionBuilder data(byte[] data) {
@@ -214,10 +238,15 @@ public class TransactionBuilder implements Parcelable {
     dest.writeParcelable(gasSettings, flags);
     dest.writeLong(chainId);
     dest.writeSerializable(transactionType);
+    dest.writeString(skuId);
   }
 
   public TransactionType getTransactionType() {
     return transactionType;
+  }
+
+  public void setTransactionType(TransactionType transactionType) {
+    this.transactionType = transactionType;
   }
 
   public byte[] approveData(String spender) {
@@ -228,8 +257,7 @@ public class TransactionBuilder implements Parcelable {
   public byte[] buyData() {
     BigDecimal base = new BigDecimal("10");
     return TokenRepository.buyData(toAddress, BuildConfig.DEFAULT_STORE_ADREESS,
-        //hacking
-        BuildConfig.DEFAULT_OEM_ADREESS, "sku_id", amount.multiply(base.pow(decimals)));
+        BuildConfig.DEFAULT_OEM_ADREESS, skuId, amount.multiply(base.pow(decimals)));
   }
 
   public enum TransactionType {
