@@ -10,6 +10,8 @@ import io.reactivex.Observable;
 public interface IabView {
   Observable<String> getBuyClick();
 
+  Observable<Object> getCancelClick();
+
   void finish(String hash);
 
   void showLoading();
@@ -21,4 +23,6 @@ public interface IabView {
   void unlockOrientation();
 
   void setup(TransactionBuilder transactionBuilder);
+
+  void close();
 }

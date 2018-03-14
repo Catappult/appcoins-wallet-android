@@ -22,6 +22,7 @@ import com.jakewharton.rxbinding2.view.RxView;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import java.util.Formatter;
 import java.util.Locale;
@@ -44,6 +45,7 @@ public class IabActivity extends BaseActivity implements IabView {
   private TextView itemDescription;
   private TextView itemPrice;
   private ImageView appIcon;
+  private View contentView;
 
   public static Intent newIntent(Activity activity, Intent previousIntent) {
     Intent intent = new Intent(previousIntent);
@@ -62,7 +64,9 @@ public class IabActivity extends BaseActivity implements IabView {
     appIcon = findViewById(R.id.iab_activity_item_icon);
     itemDescription = findViewById(R.id.iab_activity_item_description);
     itemPrice = findViewById(R.id.iab_activity_item_price);
-    presenter = new IabPresenter(this, transactionService, AndroidSchedulers.mainThread());
+    contentView = findViewById(android.R.id.content);
+    presenter = new IabPresenter(this, transactionService, AndroidSchedulers.mainThread(),
+        new CompositeDisposable());
     Observable.just(getAppPackage())
         .observeOn(Schedulers.io())
         .map(packageName -> new Pair<>(getApplicationName(packageName),
@@ -74,21 +78,25 @@ public class IabActivity extends BaseActivity implements IabView {
         });
   }
 
-  @Override protected void onPause() {
-    presenter.stop();
-    super.onPause();
-  }
-
-  @Override protected void onResume() {
-    super.onResume();
+  @Override protected void onStart() {
+    super.onStart();
     presenter.present(getIntent().getData()
         .toString());
+  }
+
+  @Override protected void onStop() {
+    presenter.stop();
+    super.onStop();
   }
 
   @Override public Observable<String> getBuyClick() {
     return RxView.clicks(buyButton)
         .map(click -> getIntent().getData()
             .toString());
+  }
+
+  @Override public Observable<Object> getCancelClick() {
+    return RxView.clicks(findViewById(R.id.cancel_button));
   }
 
   @Override public void finish(String hash) {
@@ -105,7 +113,8 @@ public class IabActivity extends BaseActivity implements IabView {
   }
 
   @Override public void showError() {
-    Snackbar.make(loadingView, "Error", Snackbar.LENGTH_LONG)
+    loadingView.setVisibility(View.GONE);
+    Snackbar.make(contentView, "Error", Snackbar.LENGTH_LONG)
         .show();
     buyButton.setText(R.string.iab_activity_retry_button_text);
   }
@@ -132,6 +141,11 @@ public class IabActivity extends BaseActivity implements IabView {
       itemDescription.setText(getIntent().getExtras()
           .getString(PRODUCT_NAME));
     }
+  }
+
+  @Override public void close() {
+    setResult(Activity.RESULT_CANCELED, null);
+    finish();
   }
 
   private CharSequence getApplicationName(String appPackage)

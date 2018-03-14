@@ -4,7 +4,7 @@ import android.util.Log;
 import com.asf.wallet.entity.PendingTransaction;
 import com.asf.wallet.repository.TransactionService;
 import io.reactivex.Scheduler;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.CompositeDisposable;
 
 /**
  * Created by trinkes on 13/03/2018.
@@ -15,28 +15,36 @@ public class IabPresenter {
   private final IabView view;
   private final TransactionService transactionService;
   private final Scheduler viewScheduler;
-  private Disposable disposable;
+  private final CompositeDisposable disposables;
 
-  public IabPresenter(IabView view, TransactionService transactionService,
-      Scheduler viewScheduler) {
+  public IabPresenter(IabView view, TransactionService transactionService, Scheduler viewScheduler,
+      CompositeDisposable disposables) {
     this.view = view;
     this.transactionService = transactionService;
     this.viewScheduler = viewScheduler;
+    this.disposables = disposables;
   }
 
   public void present(String uriString) {
-    transactionService.parseTransaction(uriString)
+    disposables.add(transactionService.parseTransaction(uriString)
         .observeOn(viewScheduler)
-        .subscribe(transactionBuilder -> view.setup(transactionBuilder), this::showError);
+        .subscribe(transactionBuilder -> view.setup(transactionBuilder), this::showError));
 
-    disposable = view.getBuyClick()
+    view.getCancelClick()
+        .subscribe(click -> close());
+
+    disposables.add(view.getBuyClick()
         .doOnNext(__ -> view.lockOrientation())
         .flatMap(uri -> transactionService.sendTransaction(uri)
             .observeOn(viewScheduler)
             .doOnNext(this::showPendingTransaction)
             .doOnError(this::showError))
         .retry()
-        .subscribe();
+        .subscribe());
+  }
+
+  private void close() {
+    view.close();
   }
 
   private void showError(Throwable throwable) {
@@ -55,8 +63,6 @@ public class IabPresenter {
   }
 
   public void stop() {
-    if (disposable != null && !disposable.isDisposed()) {
-      disposable.dispose();
-    }
+    disposables.clear();
   }
 }
