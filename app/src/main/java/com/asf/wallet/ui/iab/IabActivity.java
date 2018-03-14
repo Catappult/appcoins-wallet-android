@@ -9,13 +9,17 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import com.asf.wallet.R;
+import com.asf.wallet.entity.TransactionBuilder;
 import com.asf.wallet.repository.TransactionService;
 import com.asf.wallet.ui.BaseActivity;
 import com.jakewharton.rxbinding2.view.RxView;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import java.util.Formatter;
+import java.util.Locale;
 import javax.inject.Inject;
 
 /**
@@ -28,6 +32,9 @@ public class IabActivity extends BaseActivity implements IabView {
   private Button buyButton;
   private IabPresenter presenter;
   private View loadingView;
+  private TextView appName;
+  private TextView itemDescription;
+  private TextView itemPrice;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     AndroidInjection.inject(this);
@@ -35,6 +42,9 @@ public class IabActivity extends BaseActivity implements IabView {
     setContentView(R.layout.iab_activity);
     buyButton = findViewById(R.id.buy_button);
     loadingView = findViewById(R.id.loading);
+    appName = findViewById(R.id.iab_activity_app_name);
+    itemDescription = findViewById(R.id.iab_activity_item_description);
+    itemPrice = findViewById(R.id.iab_activity_item_price);
     presenter = new IabPresenter(this, transactionService, AndroidSchedulers.mainThread());
   }
 
@@ -45,7 +55,8 @@ public class IabActivity extends BaseActivity implements IabView {
 
   @Override protected void onResume() {
     super.onResume();
-    presenter.present();
+    presenter.present(getIntent().getData()
+        .toString());
   }
 
   @Override public Observable<String> getBuyClick() {
@@ -84,5 +95,12 @@ public class IabActivity extends BaseActivity implements IabView {
 
   @Override public void unlockOrientation() {
     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+  }
+
+  @Override public void setup(TransactionBuilder transactionBuilder) {
+    Formatter formatter = new Formatter();
+    itemPrice.setText(formatter.format(Locale.getDefault(), "%(,.2f", transactionBuilder.amount()
+        .doubleValue())
+        .toString());
   }
 }

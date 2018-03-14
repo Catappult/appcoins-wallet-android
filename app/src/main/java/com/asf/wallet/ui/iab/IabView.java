@@ -1,5 +1,6 @@
 package com.asf.wallet.ui.iab;
 
+import com.asf.wallet.entity.TransactionBuilder;
 import io.reactivex.Observable;
 
 /**
@@ -18,4 +19,6 @@ public interface IabView {
   void lockOrientation();
 
   void unlockOrientation();
+
+  void setup(TransactionBuilder transactionBuilder);
 }

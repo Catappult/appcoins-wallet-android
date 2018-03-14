@@ -24,7 +24,11 @@ public class IabPresenter {
     this.viewScheduler = viewScheduler;
   }
 
-  public void present() {
+  public void present(String uriString) {
+    transactionService.parseTransaction(uriString)
+        .observeOn(viewScheduler)
+        .subscribe(transactionBuilder -> view.setup(transactionBuilder), this::showError);
+
     disposable = view.getBuyClick()
         .doOnNext(__ -> view.lockOrientation())
         .flatMap(uri -> transactionService.sendTransaction(uri)

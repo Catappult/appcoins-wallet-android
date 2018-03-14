@@ -2,14 +2,15 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="296dp"
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:padding="16dp"
     >
   <FrameLayout
       android:id="@+id/loading"
-      android:layout_width="0dp"
+      android:layout_width="296dp"
       android:layout_height="0dp"
       android:background="@color/white"
       android:elevation="10dp"
@@ -29,43 +30,34 @@
       android:id="@+id/iab_activity_item_icon"
       android:layout_width="50dp"
       android:layout_height="50dp"
-      android:layout_marginStart="8dp"
       android:src="@drawable/ic_launcher"
-      app:layout_constraintBottom_toBottomOf="@id/guideline"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       />
   <TextView
       android:id="@+id/iab_activity_item_description"
-      android:layout_width="wrap_content"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="8dp"
       android:text="Item Description"
       android:textColor="@color/black"
       app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toEndOf="@id/iab_activity_item_icon"
       app:layout_constraintTop_toTopOf="@id/iab_activity_item_icon"
       style="@style/Base.TextAppearance.AppCompat.Subhead"
       />
   <TextView
+      android:id="@+id/iab_activity_app_name"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="8dp"
       android:text="app name"
       android:textColor="@color/black"
-      app:layout_constraintBottom_toBottomOf="@+id/iab_activity_item_icon"
       app:layout_constraintStart_toStartOf="@id/iab_activity_item_description"
       app:layout_constraintTop_toBottomOf="@+id/iab_activity_item_description"
       style="@style/Base.TextAppearance.AppCompat.Caption"
       />
-  <android.support.constraint.Guideline
-      android:id="@+id/guideline"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      app:layout_constraintGuide_begin="48dp"
-      />
-
   <TextView
       android:id="@+id/appc"
       android:layout_width="wrap_content"
@@ -73,18 +65,20 @@
       android:paddingBottom="4dp"
       android:text="APPC"
       android:textColor="@color/black"
-      app:layout_constraintBottom_toBottomOf="@+id/price"
+      app:layout_constraintBottom_toBottomOf="@+id/iab_activity_item_price"
       app:layout_constraintEnd_toEndOf="parent"
       style="@style/Base.TextAppearance.AppCompat.Caption"
       />
   <TextView
-      android:id="@+id/price"
+      android:id="@+id/iab_activity_item_price"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="2.45"
+      android:layout_marginEnd="8dp"
+      android:layout_marginTop="8dp"
       android:textColor="@color/black"
       app:layout_constraintEnd_toStartOf="@id/appc"
-      app:layout_constraintTop_toBottomOf="@id/guideline"
+      app:layout_constraintTop_toBottomOf="@id/iab_activity_app_name"
+      tools:text="2.45"
       style="@style/Base.TextAppearance.AppCompat.Headline"
       />
 
@@ -92,9 +86,21 @@
       android:id="@+id/buy_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
       android:text="@string/action_buy"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/price"
+      app:layout_constraintTop_toBottomOf="@id/iab_activity_item_price"
+      style="@style/Base.TextAppearance.AppCompat.Button"
+      />
+
+  <Button
+      android:id="@+id/cancel_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
+      android:text="@string/cancel"
+      app:layout_constraintEnd_toStartOf="@id/buy_button"
+      app:layout_constraintTop_toTopOf="@id/buy_button"
       style="@style/Base.TextAppearance.AppCompat.Button"
       />
 </android.support.constraint.ConstraintLayout>
