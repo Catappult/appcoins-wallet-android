@@ -2,10 +2,12 @@ package com.asf.wallet.repository;
 
 import com.asf.wallet.entity.GasSettings;
 import com.asf.wallet.entity.PendingTransaction;
+import com.asf.wallet.entity.TransactionBuilder;
 import com.asf.wallet.interact.FetchGasSettingsInteract;
 import com.asf.wallet.interact.FindDefaultWalletInteract;
 import com.asf.wallet.interact.SendTransactionInteract;
 import com.asf.wallet.util.TransferParser;
+import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.Single;
 import java.math.BigDecimal;
@@ -37,14 +39,28 @@ public class TransactionService {
   public ObservableSource<PendingTransaction> sendTransaction(String uri) {
     return Single.zip(parser.parse(uri), defaultWalletInteract.find(),
         (transaction, wallet) -> transaction.fromAddress(wallet.address))
-        .flatMap(transactionBuilder -> gasSettingsInteract.fetch(true)
+        .flatMapObservable(transactionBuilder -> gasSettingsInteract.fetch(true)
             .map(gasSettings -> transactionBuilder.gasSettings(
-                new GasSettings(gasSettings.gasPrice, new BigDecimal(DEFAULT_GAS_LIMIT)))))
-        .flatMapObservable(transactionBuilder -> sendTransactionInteract.approve(transactionBuilder)
-            .flatMapObservable(pendingTransactionService::checkTransactionState)
-            .filter(pendingTransaction -> !pendingTransaction.isPending())
-            .flatMapSingle(approved -> sendTransactionInteract.buy(transactionBuilder))
-            .flatMap(pendingTransactionService::checkTransactionState)
-            .startWith(new PendingTransaction(null, true)));
+                new GasSettings(gasSettings.gasPrice, new BigDecimal(DEFAULT_GAS_LIMIT))))
+            .flatMapObservable(this::send));
+  }
+
+  private Observable<PendingTransaction> send(TransactionBuilder transaction) {
+    return approve(transaction).concatMap(pendingTransaction -> {
+      if (pendingTransaction.isPending()) {
+        return Observable.just(pendingTransaction);
+      }
+      return buy(transaction);
+    });
+  }
+
+  private Observable<PendingTransaction> buy(TransactionBuilder transaction) {
+    return sendTransactionInteract.buy(transaction)
+        .flatMapObservable(pendingTransactionService::checkTransactionState);
+  }
+
+  private Observable<PendingTransaction> approve(TransactionBuilder transaction) {
+    return sendTransactionInteract.approve(transaction)
+        .flatMapObservable(pendingTransactionService::checkTransactionState);
   }
 }
