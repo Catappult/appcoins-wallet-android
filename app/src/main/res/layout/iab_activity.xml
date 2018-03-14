@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="16dp"
+    >
+  <ImageView
+      android:id="@+id/iab_activity_item_icon"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
+      android:layout_marginStart="8dp"
+      android:src="@drawable/ic_launcher"
+      app:layout_constraintBottom_toBottomOf="@id/guideline"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+  <TextView
+      android:id="@+id/iab_activity_item_description"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
+      android:text="Item Description"
+      android:textColor="@color/black"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/iab_activity_item_icon"
+      app:layout_constraintTop_toTopOf="@id/iab_activity_item_icon"
+      style="@style/Base.TextAppearance.AppCompat.Subhead"
+      />
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="8dp"
+      android:text="app name"
+      android:textColor="@color/black"
+      app:layout_constraintBottom_toBottomOf="@+id/iab_activity_item_icon"
+      app:layout_constraintStart_toStartOf="@id/iab_activity_item_description"
+      app:layout_constraintTop_toBottomOf="@+id/iab_activity_item_description"
+      style="@style/Base.TextAppearance.AppCompat.Caption"
+      />
+  <android.support.constraint.Guideline
+      android:id="@+id/guideline"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_begin="48dp"
+      />
+
+  <TextView
+      android:id="@+id/appc"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:paddingBottom="4dp"
+      android:text="APPC"
+      android:textColor="@color/black"
+      app:layout_constraintBottom_toBottomOf="@+id/price"
+      app:layout_constraintEnd_toEndOf="parent"
+      style="@style/Base.TextAppearance.AppCompat.Caption"
+      />
+  <TextView
+      android:id="@+id/price"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="2.45"
+      android:textColor="@color/black"
+      app:layout_constraintEnd_toStartOf="@id/appc"
+      app:layout_constraintTop_toBottomOf="@id/guideline"
+      style="@style/Base.TextAppearance.AppCompat.Headline"
+      />
+
+  <Button
+      android:id="@+id/buy_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/action_buy"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/price"
+      style="@style/Base.TextAppearance.AppCompat.Button"
+      />
+</android.support.constraint.ConstraintLayout>
+

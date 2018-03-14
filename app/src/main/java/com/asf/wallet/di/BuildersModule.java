@@ -13,6 +13,7 @@ import com.asf.wallet.ui.TokensActivity;
 import com.asf.wallet.ui.TransactionDetailActivity;
 import com.asf.wallet.ui.TransactionsActivity;
 import com.asf.wallet.ui.WalletsActivity;
+import com.asf.wallet.ui.iab.IabActivity;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
@@ -40,6 +41,9 @@ import dagger.android.ContributesAndroidInjector;
 
   @ActivityScope @ContributesAndroidInjector(modules = ConfirmationModule.class)
   abstract ConfirmationActivity bindConfirmationModule();
+
+  @ActivityScope @ContributesAndroidInjector(modules = ConfirmationModule.class)
+  abstract IabActivity bindIabModule();
 
   @ContributesAndroidInjector abstract MyAddressActivity bindMyAddressModule();
 

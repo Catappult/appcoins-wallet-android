@@ -12,7 +12,7 @@ import dagger.Module;
 import dagger.Provides;
 import io.reactivex.subjects.PublishSubject;
 
-@Module class SendModule {
+@Module public class SendModule {
   @Provides SendViewModelFactory provideSendViewModelFactory(
       FindDefaultWalletInteract findDefaultWalletInteract, ConfirmationRouter confirmationRouter,
       FetchGasSettingsInteract fetchGasSettingsInteract, TransferParser transferParser) {
