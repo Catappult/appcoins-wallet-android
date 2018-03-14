@@ -3,10 +3,13 @@ package com.asf.wallet.ui.iab;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,6 +22,7 @@ import com.jakewharton.rxbinding2.view.RxView;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import java.util.Formatter;
 import java.util.Locale;
 import javax.inject.Inject;
@@ -29,6 +33,9 @@ import javax.inject.Inject;
 
 public class IabActivity extends BaseActivity implements IabView {
 
+  public static final String APP_PACKAGE = "app_package";
+  public static final String PRODUCT_NAME = "product_name";
+  public static final String TRANSACTION_HASH = "transaction_hash";
   @Inject TransactionService transactionService;
   private Button buyButton;
   private IabPresenter presenter;
@@ -37,6 +44,13 @@ public class IabActivity extends BaseActivity implements IabView {
   private TextView itemDescription;
   private TextView itemPrice;
   private ImageView appIcon;
+
+  public static Intent newIntent(Activity activity, Intent previousIntent) {
+    Intent intent = new Intent(previousIntent);
+    intent.setClass(activity, IabActivity.class);
+    intent.putExtra(APP_PACKAGE, activity.getCallingPackage());
+    return intent;
+  }
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     AndroidInjection.inject(this);
@@ -49,6 +63,15 @@ public class IabActivity extends BaseActivity implements IabView {
     itemDescription = findViewById(R.id.iab_activity_item_description);
     itemPrice = findViewById(R.id.iab_activity_item_price);
     presenter = new IabPresenter(this, transactionService, AndroidSchedulers.mainThread());
+    Observable.just(getAppPackage())
+        .observeOn(Schedulers.io())
+        .map(packageName -> new Pair<>(getApplicationName(packageName),
+            getPackageManager().getApplicationIcon(packageName)))
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(pair -> {
+          appName.setText(pair.first);
+          appIcon.setImageDrawable(pair.second);
+        });
   }
 
   @Override protected void onPause() {
@@ -70,7 +93,7 @@ public class IabActivity extends BaseActivity implements IabView {
 
   @Override public void finish(String hash) {
     Intent intent = new Intent();
-    intent.putExtra("transaction_hash", hash);
+    intent.putExtra(TRANSACTION_HASH, hash);
     setResult(Activity.RESULT_OK, intent);
     finish();
   }
@@ -105,9 +128,23 @@ public class IabActivity extends BaseActivity implements IabView {
     itemPrice.setText(formatter.format(Locale.getDefault(), "%(,.2f", transactionBuilder.amount()
         .doubleValue())
         .toString());
-    if (getIntent().hasExtra("product_name")) {
+    if (getIntent().hasExtra(PRODUCT_NAME)) {
       itemDescription.setText(getIntent().getExtras()
-          .getString("product_name"));
+          .getString(PRODUCT_NAME));
     }
+  }
+
+  private CharSequence getApplicationName(String appPackage)
+      throws PackageManager.NameNotFoundException {
+    PackageManager packageManager = getPackageManager();
+    ApplicationInfo packageInfo = packageManager.getApplicationInfo(appPackage, 0);
+    return packageManager.getApplicationLabel(packageInfo);
+  }
+
+  public String getAppPackage() {
+    if (getIntent().hasExtra(APP_PACKAGE)) {
+      return getIntent().getStringExtra(APP_PACKAGE);
+    }
+    return null;
   }
 }

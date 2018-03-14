@@ -30,7 +30,7 @@
       android:id="@+id/iab_activity_item_icon"
       android:layout_width="50dp"
       android:layout_height="50dp"
-      android:src="@drawable/ic_launcher"
+      tools:src="@drawable/ic_launcher"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       />

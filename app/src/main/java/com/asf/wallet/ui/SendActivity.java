@@ -2,6 +2,7 @@ package com.asf.wallet.ui;
 
 import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -36,6 +37,12 @@ public class SendActivity extends BaseActivity {
   private EditText amountText;
   private TextInputLayout toInputLayout;
   private TextInputLayout amountInputLayout;
+
+  public static Intent newIntent(Context context, Intent previousIntent) {
+    Intent intent = new Intent(previousIntent);
+    intent.setClass(context, SendActivity.class);
+    return intent;
+  }
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     AndroidInjection.inject(this);

@@ -1,6 +1,5 @@
 package com.asf.wallet.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,18 +15,14 @@ public class Erc681Receiver extends BaseActivity {
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    Intent intent;
     if (getIntent().getData()
         .toString()
         .contains("/buy?")) {
-      createIntent(IabActivity.class);
+      intent = IabActivity.newIntent(this, getIntent());
     } else {
-      createIntent(SendActivity.class);
+      intent = SendActivity.newIntent(this, getIntent());
     }
-  }
-
-  private void createIntent(Class<? extends Activity> activity) {
-    Intent intent = new Intent(getIntent());
-    intent.setClass(this, activity);
     startActivityForResult(intent, REQUEST_CODE);
   }
 
