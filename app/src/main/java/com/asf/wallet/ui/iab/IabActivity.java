@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.asf.wallet.R;
 import com.asf.wallet.entity.TransactionBuilder;
@@ -35,6 +36,7 @@ public class IabActivity extends BaseActivity implements IabView {
   private TextView appName;
   private TextView itemDescription;
   private TextView itemPrice;
+  private ImageView appIcon;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     AndroidInjection.inject(this);
@@ -43,6 +45,7 @@ public class IabActivity extends BaseActivity implements IabView {
     buyButton = findViewById(R.id.buy_button);
     loadingView = findViewById(R.id.loading);
     appName = findViewById(R.id.iab_activity_app_name);
+    appIcon = findViewById(R.id.iab_activity_item_icon);
     itemDescription = findViewById(R.id.iab_activity_item_description);
     itemPrice = findViewById(R.id.iab_activity_item_price);
     presenter = new IabPresenter(this, transactionService, AndroidSchedulers.mainThread());
@@ -102,5 +105,9 @@ public class IabActivity extends BaseActivity implements IabView {
     itemPrice.setText(formatter.format(Locale.getDefault(), "%(,.2f", transactionBuilder.amount()
         .doubleValue())
         .toString());
+    if (getIntent().hasExtra("product_name")) {
+      itemDescription.setText(getIntent().getExtras()
+          .getString("product_name"));
+    }
   }
 }

@@ -8,7 +8,6 @@ import com.asf.wallet.interact.FindDefaultWalletInteract;
 import com.asf.wallet.interact.SendTransactionInteract;
 import com.asf.wallet.util.TransferParser;
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.Single;
 import java.math.BigDecimal;
 
