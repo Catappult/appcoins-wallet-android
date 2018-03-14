@@ -1,7 +1,9 @@
 package com.asf.wallet.ui.iab;
 
 import android.util.Log;
+import com.asf.wallet.entity.PendingTransaction;
 import com.asf.wallet.repository.TransactionService;
+import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
 
 /**
@@ -12,22 +14,40 @@ public class IabPresenter {
   private static final String TAG = IabPresenter.class.getSimpleName();
   private final IabView view;
   private final TransactionService transactionService;
+  private final Scheduler viewScheduler;
   private Disposable disposable;
 
-  public IabPresenter(IabView view, TransactionService transactionService) {
+  public IabPresenter(IabView view, TransactionService transactionService,
+      Scheduler viewScheduler) {
     this.view = view;
     this.transactionService = transactionService;
+    this.viewScheduler = viewScheduler;
   }
 
   public void present() {
     disposable = view.getBuyClick()
-        .flatMap(transactionService::sendTransaction)
-        .subscribe(pendingTransaction -> {
-          Log.d(TAG, "present: " + pendingTransaction);
-          if (!pendingTransaction.isPending()) {
-            view.finish(pendingTransaction.getHash());
-          }
-        });
+        .doOnNext(__ -> view.lockOrientation())
+        .flatMap(uri -> transactionService.sendTransaction(uri)
+            .observeOn(viewScheduler)
+            .doOnNext(this::showPendingTransaction)
+            .doOnError(this::showError))
+        .retry()
+        .subscribe();
+  }
+
+  private void showError(Throwable throwable) {
+    view.unlockOrientation();
+    view.showError();
+  }
+
+  private void showPendingTransaction(PendingTransaction pendingTransaction) {
+    Log.d(TAG, "present: " + pendingTransaction);
+    if (!pendingTransaction.isPending()) {
+      view.finish(pendingTransaction.getHash());
+      view.unlockOrientation();
+    } else {
+      view.showLoading();
+    }
   }
 
   public void stop() {

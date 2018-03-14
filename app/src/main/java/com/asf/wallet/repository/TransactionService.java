@@ -36,13 +36,14 @@ public class TransactionService {
     this.parser = parser;
   }
 
-  public ObservableSource<PendingTransaction> sendTransaction(String uri) {
+  public Observable<PendingTransaction> sendTransaction(String uri) {
     return Single.zip(parser.parse(uri), defaultWalletInteract.find(),
         (transaction, wallet) -> transaction.fromAddress(wallet.address))
         .flatMapObservable(transactionBuilder -> gasSettingsInteract.fetch(true)
             .map(gasSettings -> transactionBuilder.gasSettings(
                 new GasSettings(gasSettings.gasPrice, new BigDecimal(DEFAULT_GAS_LIMIT))))
-            .flatMapObservable(this::send));
+            .flatMapObservable(this::send))
+        .startWith(new PendingTransaction(null, true));
   }
 
   private Observable<PendingTransaction> send(TransactionBuilder transaction) {

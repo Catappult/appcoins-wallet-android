@@ -242,4 +242,5 @@
   <string name="gas_price_value">%1$s %2$s</string>
   <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the ASF wallet development. We considered it the best alternative regarding already implemented functionalities and forked it with the intention to contribute back with implementations and work that would be considered relevant.</string>
   <string name="iab_activity_buy_button">BUY</string>
+  <string name="iab_activity_retry_button_text">Retry</string>
 </resources>

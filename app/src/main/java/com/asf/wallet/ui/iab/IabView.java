@@ -10,4 +10,12 @@ public interface IabView {
   Observable<String> getBuyClick();
 
   void finish(String hash);
+
+  void showLoading();
+
+  void showError();
+
+  void lockOrientation();
+
+  void unlockOrientation();
 }
