@@ -2,6 +2,7 @@ package com.asf.wallet.di;
 
 import com.asf.wallet.ui.AddTokenActivity;
 import com.asf.wallet.ui.ConfirmationActivity;
+import com.asf.wallet.ui.Erc681Receiver;
 import com.asf.wallet.ui.GasSettingsActivity;
 import com.asf.wallet.ui.ImportWalletActivity;
 import com.asf.wallet.ui.MyAddressActivity;
@@ -58,4 +59,7 @@ import dagger.android.ContributesAndroidInjector;
 
   @ActivityScope @ContributesAndroidInjector(modules = ChangeTokenModule.class)
   abstract TokenChangeCollectionActivity bindChangeTokenCollectionActivity();
+
+  @ActivityScope @ContributesAndroidInjector(modules = ConfirmationModule.class)
+  abstract Erc681Receiver bindErc681Receiver();
 }

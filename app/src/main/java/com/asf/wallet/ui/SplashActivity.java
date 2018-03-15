@@ -1,6 +1,8 @@
 package com.asf.wallet.ui;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import com.asf.wallet.BuildConfig;
 import com.asf.wallet.entity.Wallet;
@@ -18,6 +20,10 @@ public class SplashActivity extends BaseActivity {
 
   @Inject SplashViewModelFactory splashViewModelFactory;
   SplashViewModel splashViewModel;
+
+  public static Intent newIntent(Context context) {
+    return new Intent(context, SplashActivity.class);
+  }
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     AndroidInjection.inject(this);
@@ -40,5 +46,6 @@ public class SplashActivity extends BaseActivity {
     } else {
       new TransactionsRouter().open(this, true);
     }
+    finish();
   }
 }
