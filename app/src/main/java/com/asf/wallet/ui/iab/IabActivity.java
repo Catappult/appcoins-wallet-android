@@ -48,8 +48,11 @@ public class IabActivity extends BaseActivity implements IabView {
   private View contentView;
 
   public static Intent newIntent(Activity activity, Intent previousIntent) {
-    Intent intent = new Intent(previousIntent);
-    intent.setClass(activity, IabActivity.class);
+    Intent intent = new Intent(activity, IabActivity.class);
+    intent.setData(previousIntent.getData());
+    if (previousIntent.getExtras() != null) {
+      intent.putExtras(previousIntent.getExtras());
+    }
     intent.putExtra(APP_PACKAGE, activity.getCallingPackage());
     return intent;
   }

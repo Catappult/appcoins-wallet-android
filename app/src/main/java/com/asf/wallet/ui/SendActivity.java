@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.asf.wallet.R;
 import com.asf.wallet.router.Result;
 import com.asf.wallet.ui.barcode.BarcodeCaptureActivity;
+import com.asf.wallet.ui.iab.IabActivity;
 import com.asf.wallet.viewmodel.SendViewModel;
 import com.asf.wallet.viewmodel.SendViewModelFactory;
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -39,8 +40,11 @@ public class SendActivity extends BaseActivity {
   private TextInputLayout amountInputLayout;
 
   public static Intent newIntent(Context context, Intent previousIntent) {
-    Intent intent = new Intent(previousIntent);
-    intent.setClass(context, SendActivity.class);
+    Intent intent = new Intent(context, IabActivity.class);
+    intent.setData(previousIntent.getData());
+    if (previousIntent.getExtras() != null) {
+      intent.putExtras(previousIntent.getExtras());
+    }
     return intent;
   }
 

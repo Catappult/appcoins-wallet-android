@@ -78,12 +78,18 @@
     <item name="android:windowContentOverlay">@null</item>
     <item name="windowNoTitle">true</item>
     <item name="android:windowNoTitle">true</item>
+    <item name="android:windowBackground">@android:color/transparent</item>
     <item name="android:windowIsFloating">true</item>
     <item name="android:backgroundDimEnabled">true</item>
   </style>
 
   <style name="Theme.AppCompat.Transparent.NoDisplay" parent="Theme.AppCompat.Transparent">
     <item name="android:backgroundDimEnabled">false</item>
+  </style>
+
+  <style name="buy_button" parent="Base.Widget.AppCompat.ImageButton">
+    <item name="android:background">@drawable/buy_button_background</item>
+    <item name="android:textAllCaps">true</item>
   </style>
 
 
