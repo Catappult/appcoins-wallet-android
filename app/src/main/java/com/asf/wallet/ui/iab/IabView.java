@@ -25,4 +25,6 @@ public interface IabView {
   void setup(TransactionBuilder transactionBuilder);
 
   void close();
+
+  void showTransactionCompleted();
 }

@@ -46,6 +46,7 @@ public class IabActivity extends BaseActivity implements IabView {
   private TextView itemPrice;
   private ImageView appIcon;
   private View contentView;
+  private View transactionCompletedLayout;
 
   public static Intent newIntent(Activity activity, Intent previousIntent) {
     Intent intent = new Intent(activity, IabActivity.class);
@@ -64,6 +65,7 @@ public class IabActivity extends BaseActivity implements IabView {
     buyButton = findViewById(R.id.buy_button);
     loadingView = findViewById(R.id.loading);
     appName = findViewById(R.id.iab_activity_app_name);
+    transactionCompletedLayout = findViewById(R.id.iab_activity_transaction_completed);
     appIcon = findViewById(R.id.iab_activity_item_icon);
     itemDescription = findViewById(R.id.iab_activity_item_description);
     itemPrice = findViewById(R.id.iab_activity_item_price);
@@ -149,6 +151,11 @@ public class IabActivity extends BaseActivity implements IabView {
   @Override public void close() {
     setResult(Activity.RESULT_CANCELED, null);
     finish();
+  }
+
+  @Override public void showTransactionCompleted() {
+    loadingView.setVisibility(View.GONE);
+    transactionCompletedLayout.setVisibility(View.VISIBLE);
   }
 
   private CharSequence getApplicationName(String appPackage)

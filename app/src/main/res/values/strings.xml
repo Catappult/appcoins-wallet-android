@@ -246,4 +246,5 @@
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">Transaction in Progress</string>
   <string name="activity_aib_loading_message">This may take a while…</string>
+  <string name="activity_iab_transaction_completed_title">Transaction Completed</string>
 </resources>

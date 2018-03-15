@@ -11,6 +11,9 @@
     android:padding="16dp"
     >
   <include layout="@layout/iab_activity_loading"/>
+
+  <include layout="@layout/iab_activity_transaction_completed"/>
+
   <ImageView
       android:id="@+id/iab_activity_item_icon"
       android:layout_width="50dp"
@@ -70,7 +73,7 @@
   <Button
       android:id="@+id/buy_button"
       android:layout_width="wrap_content"
-      android:layout_height="35dp"
+      android:layout_height="36dp"
       android:layout_marginTop="16dp"
       android:text="@string/action_buy"
       app:layout_constraintEnd_toEndOf="parent"
@@ -81,7 +84,7 @@
   <Button
       android:id="@+id/cancel_button"
       android:layout_width="wrap_content"
-      android:layout_height="35dp"
+      android:layout_height="36dp"
       android:layout_marginEnd="16dp"
       android:text="@string/cancel"
       android:textColor="@color/iab_activity_gray"

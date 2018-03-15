@@ -3,8 +3,10 @@ package com.asf.wallet.ui.iab;
 import android.util.Log;
 import com.asf.wallet.entity.PendingTransaction;
 import com.asf.wallet.repository.TransactionService;
+import io.reactivex.Completable;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by trinkes on 13/03/2018.
@@ -35,9 +37,9 @@ public class IabPresenter {
 
     disposables.add(view.getBuyClick()
         .doOnNext(__ -> view.lockOrientation())
-        .flatMap(uri -> transactionService.sendTransaction(uri)
+        .flatMapCompletable(uri -> transactionService.sendTransaction(uri)
             .observeOn(viewScheduler)
-            .doOnNext(this::showPendingTransaction)
+            .flatMapCompletable(this::showPendingTransaction)
             .doOnError(this::showError))
         .retry()
         .subscribe());
@@ -48,17 +50,22 @@ public class IabPresenter {
   }
 
   private void showError(Throwable throwable) {
+    throwable.printStackTrace();
     view.unlockOrientation();
     view.showError();
   }
 
-  private void showPendingTransaction(PendingTransaction pendingTransaction) {
+  private Completable showPendingTransaction(PendingTransaction pendingTransaction) {
     Log.d(TAG, "present: " + pendingTransaction);
-    if (!pendingTransaction.isPending()) {
-      view.finish(pendingTransaction.getHash());
-      view.unlockOrientation();
+    if (pendingTransaction.isPending()) {
+      return Completable.fromAction(view::showLoading);
     } else {
-      view.showLoading();
+      return Completable.fromAction(view::showTransactionCompleted)
+          .andThen(Completable.timer(1, TimeUnit.SECONDS))
+          .andThen(Completable.fromAction(() -> {
+            view.finish(pendingTransaction.getHash());
+            view.unlockOrientation();
+          }));
     }
   }
 
