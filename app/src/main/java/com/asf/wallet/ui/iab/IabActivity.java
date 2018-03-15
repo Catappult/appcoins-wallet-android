@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
@@ -39,14 +38,16 @@ public class IabActivity extends BaseActivity implements IabView {
   public static final String TRANSACTION_HASH = "transaction_hash";
   @Inject TransactionService transactionService;
   private Button buyButton;
+  private Button okErrorButton;
   private IabPresenter presenter;
   private View loadingView;
   private TextView appName;
   private TextView itemDescription;
   private TextView itemPrice;
   private ImageView appIcon;
-  private View contentView;
   private View transactionCompletedLayout;
+  private View transactionErrorLayout;
+  private View buyLayout;
 
   public static Intent newIntent(Activity activity, Intent previousIntent) {
     Intent intent = new Intent(activity, IabActivity.class);
@@ -63,13 +64,15 @@ public class IabActivity extends BaseActivity implements IabView {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.iab_activity);
     buyButton = findViewById(R.id.buy_button);
+    okErrorButton = findViewById(R.id.activity_iab_error_ok_button);
     loadingView = findViewById(R.id.loading);
     appName = findViewById(R.id.iab_activity_app_name);
     transactionCompletedLayout = findViewById(R.id.iab_activity_transaction_completed);
+    buyLayout = findViewById(R.id.iab_activity_buy_layout);
+    transactionErrorLayout = findViewById(R.id.activity_iab_error_view);
     appIcon = findViewById(R.id.iab_activity_item_icon);
     itemDescription = findViewById(R.id.iab_activity_item_description);
     itemPrice = findViewById(R.id.iab_activity_item_price);
-    contentView = findViewById(android.R.id.content);
     presenter = new IabPresenter(this, transactionService, AndroidSchedulers.mainThread(),
         new CompositeDisposable());
     Observable.just(getAppPackage())
@@ -104,24 +107,15 @@ public class IabActivity extends BaseActivity implements IabView {
     return RxView.clicks(findViewById(R.id.cancel_button));
   }
 
+  @Override public Observable<Object> getOkErrorClick() {
+    return RxView.clicks(okErrorButton);
+  }
+
   @Override public void finish(String hash) {
     Intent intent = new Intent();
     intent.putExtra(TRANSACTION_HASH, hash);
     setResult(Activity.RESULT_OK, intent);
     finish();
-  }
-
-  @Override public void showLoading() {
-    loadingView.setVisibility(View.VISIBLE);
-    loadingView.requestFocus();
-    loadingView.setOnTouchListener((v, event) -> true);
-  }
-
-  @Override public void showError() {
-    loadingView.setVisibility(View.GONE);
-    Snackbar.make(contentView, "Error", Snackbar.LENGTH_LONG)
-        .show();
-    buyButton.setText(R.string.iab_activity_retry_button_text);
   }
 
   @Override public void lockOrientation() {
@@ -154,8 +148,25 @@ public class IabActivity extends BaseActivity implements IabView {
   }
 
   @Override public void showTransactionCompleted() {
-    loadingView.setVisibility(View.GONE);
     transactionCompletedLayout.setVisibility(View.VISIBLE);
+    loadingView.setVisibility(View.GONE);
+  }
+
+  @Override public void showBuy() {
+    buyLayout.setVisibility(View.VISIBLE);
+    transactionErrorLayout.setVisibility(View.GONE);
+  }
+
+  @Override public void showLoading() {
+    loadingView.setVisibility(View.VISIBLE);
+    buyLayout.setVisibility(View.GONE);
+    loadingView.requestFocus();
+    loadingView.setOnTouchListener((v, event) -> true);
+  }
+
+  @Override public void showError() {
+    transactionErrorLayout.setVisibility(View.VISIBLE);
+    loadingView.setVisibility(View.GONE);
   }
 
   private CharSequence getApplicationName(String appPackage)

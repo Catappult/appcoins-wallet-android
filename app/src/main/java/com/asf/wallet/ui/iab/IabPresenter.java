@@ -32,8 +32,11 @@ public class IabPresenter {
         .observeOn(viewScheduler)
         .subscribe(transactionBuilder -> view.setup(transactionBuilder), this::showError));
 
-    view.getCancelClick()
-        .subscribe(click -> close());
+    disposables.add(view.getCancelClick()
+        .subscribe(click -> close()));
+
+    disposables.add(view.getOkErrorClick()
+        .subscribe(click -> showBuy()));
 
     disposables.add(view.getBuyClick()
         .doOnNext(__ -> view.lockOrientation())
@@ -43,6 +46,10 @@ public class IabPresenter {
             .doOnError(this::showError))
         .retry()
         .subscribe());
+  }
+
+  private void showBuy() {
+    view.showBuy();
   }
 
   private void close() {

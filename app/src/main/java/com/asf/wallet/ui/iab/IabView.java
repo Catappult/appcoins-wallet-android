@@ -12,6 +12,8 @@ public interface IabView {
 
   Observable<Object> getCancelClick();
 
+  Observable<Object> getOkErrorClick();
+
   void finish(String hash);
 
   void showLoading();
@@ -27,4 +29,6 @@ public interface IabView {
   void close();
 
   void showTransactionCompleted();
+
+  void showBuy();
 }
