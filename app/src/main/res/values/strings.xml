@@ -244,4 +244,6 @@
   <string name="iab_activity_buy_button">BUY</string>
   <string name="iab_activity_retry_button_text">Retry</string>
   <string name="appcoins_symbol">APPC</string>
+  <string name="activity_aib_loading_title">Transaction in Progress</string>
+  <string name="activity_aib_loading_message">This may take a while…</string>
 </resources>

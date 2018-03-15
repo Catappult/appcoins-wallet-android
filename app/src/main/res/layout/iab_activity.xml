@@ -1,32 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    android:id="@+id/screen_view"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/screen_view"
     android:layout_width="296dp"
     android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
     android:background="@drawable/background_card"
     android:padding="16dp"
     >
-  <FrameLayout
-      android:id="@+id/loading"
-      android:layout_width="296dp"
-      android:layout_height="0dp"
-      android:background="@color/white"
-      android:elevation="10dp"
-      android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      >
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        />
-  </FrameLayout>
+  <include layout="@layout/iab_activity_loading"/>
   <ImageView
       android:id="@+id/iab_activity_item_icon"
       android:layout_width="50dp"
@@ -40,12 +24,12 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="8dp"
-      tools:text="Item Description"
       android:textColor="@color/black_87_alpha"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toEndOf="@id/iab_activity_item_icon"
       app:layout_constraintTop_toTopOf="@id/iab_activity_item_icon"
+      tools:text="Item Description"
       style="@style/Base.TextAppearance.AppCompat.Subhead"
       />
   <TextView
@@ -53,10 +37,10 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="8dp"
-      tools:text="app name"
       android:textColor="@color/iab_activity_gray"
       app:layout_constraintStart_toStartOf="@id/iab_activity_item_description"
       app:layout_constraintTop_toBottomOf="@+id/iab_activity_item_description"
+      tools:text="app name"
       style="@style/Base.TextAppearance.AppCompat.Caption"
       />
   <TextView
