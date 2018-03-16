@@ -27,9 +27,4 @@ import dagger.Provides;
   @Provides ExternalBrowserRouter externalBrowserRouter() {
     return new ExternalBrowserRouter();
   }
-
-  @Provides FindDefaultWalletInteract findDefaultWalletInteract(
-      WalletRepositoryType walletRepository) {
-    return new FindDefaultWalletInteract(walletRepository);
-  }
 }

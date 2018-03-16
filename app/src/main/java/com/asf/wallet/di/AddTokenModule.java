@@ -22,11 +22,6 @@ import dagger.Provides;
     return new AddTokenInteract(walletRepository, tokenRepository);
   }
 
-  @Provides FindDefaultWalletInteract provideFindDefaultWalletInteract(
-      WalletRepositoryType walletRepository) {
-    return new FindDefaultWalletInteract(walletRepository);
-  }
-
   @Provides MyTokensRouter provideMyTokensRouter() {
     return new MyTokensRouter();
   }

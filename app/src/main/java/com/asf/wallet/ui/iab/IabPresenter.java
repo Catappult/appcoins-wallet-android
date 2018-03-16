@@ -2,6 +2,7 @@ package com.asf.wallet.ui.iab;
 
 import android.util.Log;
 import com.asf.wallet.entity.PendingTransaction;
+import com.asf.wallet.repository.PaymentTransaction;
 import com.asf.wallet.repository.TransactionService;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
@@ -40,11 +41,16 @@ public class IabPresenter {
 
     disposables.add(view.getBuyClick()
         .doOnNext(__ -> view.lockOrientation())
-        .flatMapCompletable(uri -> transactionService.sendTransaction(uri)
+        .flatMapCompletable(uri -> transactionService.send(uri)
             .observeOn(viewScheduler)
-            .flatMapCompletable(this::showPendingTransaction)
             .doOnError(this::showError))
         .retry()
+        .subscribe());
+
+    disposables.add(transactionService.getTransactionState(uriString)
+        .observeOn(viewScheduler)
+        .flatMapCompletable(this::showPendingTransaction)
+        .andThen(transactionService.remove(uriString))
         .subscribe());
   }
 
@@ -62,15 +68,16 @@ public class IabPresenter {
     view.showError();
   }
 
-  private Completable showPendingTransaction(PendingTransaction pendingTransaction) {
-    Log.d(TAG, "present: " + pendingTransaction);
-    if (pendingTransaction.isPending()) {
+  private Completable showPendingTransaction(PaymentTransaction transaction) {
+    Log.d(TAG, "present: " + transaction);
+    if (!transaction.getState()
+        .equals(PaymentTransaction.PaymentState.COMPLETED)) {
       return Completable.fromAction(view::showLoading);
     } else {
       return Completable.fromAction(view::showTransactionCompleted)
           .andThen(Completable.timer(1, TimeUnit.SECONDS))
           .andThen(Completable.fromAction(() -> {
-            view.finish(pendingTransaction.getHash());
+            view.finish(transaction.getBuyHash());
             view.unlockOrientation();
           }));
     }

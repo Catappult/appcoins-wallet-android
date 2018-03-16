@@ -54,11 +54,6 @@ import dagger.Provides;
     return new FetchWalletsInteract(accountRepository);
   }
 
-  @Provides FindDefaultWalletInteract provideFindDefaultAccountInteract(
-      WalletRepositoryType accountRepository) {
-    return new FindDefaultWalletInteract(accountRepository);
-  }
-
   @Provides ExportWalletInteract provideExportWalletInteract(WalletRepositoryType walletRepository,
       PasswordStore passwordStore) {
     return new ExportWalletInteract(walletRepository, passwordStore);
