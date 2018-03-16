@@ -76,7 +76,7 @@ public class IabActivity extends BaseActivity implements IabView {
     itemPrice = findViewById(R.id.iab_activity_item_price);
     presenter = new IabPresenter(this, transactionService, AndroidSchedulers.mainThread(),
         new CompositeDisposable());
-    Single.just(getAppPackage())
+    Single.defer(() -> Single.just(getAppPackage()))
         .observeOn(Schedulers.io())
         .map(packageName -> new Pair<>(getApplicationName(packageName),
             getPackageManager().getApplicationIcon(packageName)))
@@ -189,6 +189,6 @@ public class IabActivity extends BaseActivity implements IabView {
     if (getIntent().hasExtra(APP_PACKAGE)) {
       return getIntent().getStringExtra(APP_PACKAGE);
     }
-    return null;
+    throw new IllegalArgumentException("previous app package name not found");
   }
 }
