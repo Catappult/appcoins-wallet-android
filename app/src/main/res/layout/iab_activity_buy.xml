@@ -8,6 +8,7 @@
     android:layout_height="160dp"
     android:padding="16dp"
     tools:showIn="@layout/iab_activity"
+    tools:visibility="gone"
     >
     <!--tools:visibility="gone"-->
   <ImageView

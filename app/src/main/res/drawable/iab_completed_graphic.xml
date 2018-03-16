@@ -3,7 +3,8 @@
   <!-- Larger blue circle in back -->
   <item>
     <shape
-        android:shape="ring" android:thicknessRatio="100"
+        android:shape="ring"
+        android:thicknessRatio="100"
         android:useLevel="false">
       <size
           android:height="100dp"
@@ -29,10 +30,14 @@
     </shape>
   </item>
   <item
+      android:bottom="50dp"
       android:drawable="@drawable/check_mark"
-      android:height="10dp"
-      android:start="42dp"
-      android:top="45dp"
-      android:width="15dp">
+      android:end="44dp"
+      android:gravity="center"
+      android:left="44dp"
+      android:right="44dp"
+      android:start="44dp"
+      android:top="50dp"
+      >
   </item>
 </layer-list>
