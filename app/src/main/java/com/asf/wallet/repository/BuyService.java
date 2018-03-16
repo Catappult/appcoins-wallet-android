@@ -46,11 +46,11 @@ public class BuyService {
     if (pendingTransaction.isPending()) {
       return cache.save(paymentTransaction.getUri(),
           new PaymentTransaction(paymentTransaction, PaymentTransaction.PaymentState.BUYING,
-              paymentTransaction.getApproveHash(),pendingTransaction.getHash()));
+              paymentTransaction.getApproveHash(), pendingTransaction.getHash()));
     }
     return cache.save(paymentTransaction.getUri(),
         new PaymentTransaction(paymentTransaction, PaymentTransaction.PaymentState.BOUGHT,
-            pendingTransaction.getHash()));
+            paymentTransaction.getApproveHash(), pendingTransaction.getHash()));
   }
 
   public Completable buy(String key, PaymentTransaction paymentTransaction) {
