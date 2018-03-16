@@ -69,8 +69,7 @@ public class TransactionServiceTest {
     tokens[0] = token;
     when(tokenRepository.fetchAll(any())).thenReturn(Observable.just(tokens));
 
-    transactionService = new TransactionService(gasSettingsInteract, sendTransactionInteract,
-        pendingTransactionService, defaultWalletInteract,
+    transactionService = new TransactionService(gasSettingsInteract, defaultWalletInteract,
         new TransferParser(defaultWalletInteract, tokenRepository),
         new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
         new ApproveService(sendTransactionInteract, pendingTransactionService,
@@ -104,6 +103,30 @@ public class TransactionServiceTest {
 
     List<PaymentTransaction> values = testObserver.assertNoErrors()
         .values();
-    Assert.assertTrue(values.size() == 9);
+    Assert.assertTrue(values.get(0)
+        .getState()
+        .equals(PaymentTransaction.PaymentState.PENDING));
+    Assert.assertTrue(values.get(1)
+        .getState()
+        .equals(PaymentTransaction.PaymentState.APPROVING));
+    Assert.assertTrue(values.get(2)
+        .getState()
+        .equals(PaymentTransaction.PaymentState.APPROVING));
+    Assert.assertTrue(values.get(3)
+        .getState()
+        .equals(PaymentTransaction.PaymentState.APPROVED));
+    Assert.assertTrue(values.get(4)
+        .getState()
+        .equals(PaymentTransaction.PaymentState.BUYING));
+    Assert.assertTrue(values.get(5)
+        .getState()
+        .equals(PaymentTransaction.PaymentState.BUYING));
+    Assert.assertTrue(values.get(6)
+        .getState()
+        .equals(PaymentTransaction.PaymentState.BOUGHT));
+    Assert.assertTrue(values.get(7)
+        .getState()
+        .equals(PaymentTransaction.PaymentState.COMPLETED));
+    Assert.assertTrue(values.size() == 8);
   }
 }

@@ -86,12 +86,10 @@ import okhttp3.OkHttpClient;
   }
 
   @Singleton @Provides TransactionService provideTransactionService(
-      FetchGasSettingsInteract gasSettingsInteract, SendTransactionInteract sendTransactionInteract,
-      PendingTransactionService pendingTransactionService, TransferParser parser,
+      FetchGasSettingsInteract gasSettingsInteract, TransferParser parser,
       FindDefaultWalletInteract defaultWalletInteract, ApproveService approveService,
       BuyService buyService) {
-    return new TransactionService(gasSettingsInteract, sendTransactionInteract,
-        pendingTransactionService, defaultWalletInteract, parser,
+    return new TransactionService(gasSettingsInteract, defaultWalletInteract, parser,
         new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), approveService, buyService);
   }
 

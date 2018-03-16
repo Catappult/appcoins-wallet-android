@@ -72,7 +72,11 @@ public class ApproveService {
   }
 
   public Observable<List<PaymentTransaction>> getAll() {
-    return cache.getAll();
+    return cache.getAll()
+        .flatMapSingle(paymentTransactions -> Observable.fromIterable(paymentTransactions)
+            .filter(paymentTransaction -> !paymentTransaction.getState()
+                .equals(PaymentTransaction.PaymentState.PENDING))
+            .toList());
   }
 
   public Completable remove(String key) {
