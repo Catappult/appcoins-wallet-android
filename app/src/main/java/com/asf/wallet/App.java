@@ -38,7 +38,9 @@ public class App extends MultiDexApplication implements HasActivityInjector {
   private void setupRxJava() {
     RxJavaPlugins.setErrorHandler(throwable -> {
       if (throwable instanceof UndeliverableException) {
-        if (Crashlytics.getInstance() != null) {
+        Crashlytics crashlytics = Crashlytics.getInstance();
+        if (crashlytics != null && crashlytics.getFabric()
+            .isDebuggable()) {
           Crashlytics.logException(throwable);
         } else {
           throwable.printStackTrace();
