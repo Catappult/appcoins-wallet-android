@@ -25,10 +25,12 @@ public class ApproveService {
 
   public void start() {
     cache.getAll()
-        .flatMap(paymentTransactions -> Observable.fromIterable(paymentTransactions))
-        .filter(paymentTransaction -> paymentTransaction.getState()
-            .equals(PaymentTransaction.PaymentState.PENDING))
-        .flatMapCompletable(this::approveTransaction)
+        .flatMapCompletable(paymentTransactions -> Observable.fromIterable(paymentTransactions)
+            .filter(paymentTransaction -> paymentTransaction.getState()
+                .equals(PaymentTransaction.PaymentState.PENDING))
+            .flatMapCompletable(this::approveTransaction))
+        .doOnError(Throwable::printStackTrace)
+        .retry()
         .subscribe();
   }
 
@@ -38,7 +40,14 @@ public class ApproveService {
         .andThen(sendTransactionInteract.approve(paymentTransaction.getTransactionBuilder())
             .flatMapCompletable(hash -> pendingTransactionService.checkTransactionState(hash)
                 .flatMapCompletable(pendingTransaction -> saveTransaction(pendingTransaction,
-                    paymentTransaction))));
+                    paymentTransaction).onErrorResumeNext(throwable -> {
+                  throwable.printStackTrace();
+                  return cache.save(paymentTransaction.getUri(),
+                      new PaymentTransaction(paymentTransaction,
+                          PaymentTransaction.PaymentState.ERROR));
+                }))))
+        .onErrorResumeNext(throwable -> cache.save(paymentTransaction.getUri(),
+            new PaymentTransaction(paymentTransaction, PaymentTransaction.PaymentState.ERROR)));
   }
 
   private Completable saveTransaction(PendingTransaction pendingTransaction,

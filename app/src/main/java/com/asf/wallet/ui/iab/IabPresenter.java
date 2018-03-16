@@ -50,7 +50,6 @@ public class IabPresenter {
     disposables.add(transactionService.getTransactionState(uriString)
         .observeOn(viewScheduler)
         .flatMapCompletable(this::showPendingTransaction)
-        .andThen(transactionService.remove(uriString))
         .subscribe());
   }
 
@@ -70,16 +69,25 @@ public class IabPresenter {
 
   private Completable showPendingTransaction(PaymentTransaction transaction) {
     Log.d(TAG, "present: " + transaction);
-    if (!transaction.getState()
-        .equals(PaymentTransaction.PaymentState.COMPLETED)) {
-      return Completable.fromAction(view::showLoading);
-    } else {
-      return Completable.fromAction(view::showTransactionCompleted)
-          .andThen(Completable.timer(1, TimeUnit.SECONDS))
-          .andThen(Completable.fromAction(() -> {
-            view.finish(transaction.getBuyHash());
-            view.unlockOrientation();
-          }));
+    switch (transaction.getState()) {
+      case COMPLETED:
+        return Completable.fromAction(view::showTransactionCompleted)
+            .andThen(Completable.timer(1, TimeUnit.SECONDS))
+            .andThen(Completable.fromAction(() -> {
+              view.finish(transaction.getBuyHash());
+              view.unlockOrientation();
+            }))
+            .andThen(transactionService.remove(transaction.getUri()));
+      case ERROR:
+        return Completable.fromAction(() -> view.showError())
+            .andThen(transactionService.remove(transaction.getUri()));
+      case PENDING:
+      case APPROVING:
+      case APPROVED:
+      case BUYING:
+      case BOUGHT:
+        default:
+        return Completable.fromAction(view::showLoading);
     }
   }
 

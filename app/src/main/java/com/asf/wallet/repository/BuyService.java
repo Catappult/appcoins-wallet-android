@@ -3,6 +3,7 @@ package com.asf.wallet.repository;
 import com.asf.wallet.entity.PendingTransaction;
 import com.asf.wallet.interact.SendTransactionInteract;
 import io.reactivex.Completable;
+import io.reactivex.CompletableSource;
 import io.reactivex.Observable;
 import java.util.List;
 
@@ -25,10 +26,12 @@ public class BuyService {
 
   public void start() {
     cache.getAll()
-        .flatMap(paymentTransactions -> Observable.fromIterable(paymentTransactions))
-        .filter(paymentTransaction -> paymentTransaction.getState()
-            .equals(PaymentTransaction.PaymentState.APPROVED))
-        .flatMapCompletable(this::buy)
+        .flatMapCompletable(paymentTransactions -> Observable.fromIterable(paymentTransactions)
+            .filter(paymentTransaction -> paymentTransaction.getState()
+                .equals(PaymentTransaction.PaymentState.APPROVED))
+            .flatMapCompletable(this::buy))
+        .doOnError(Throwable::printStackTrace)
+        .retry()
         .subscribe();
   }
 
@@ -38,7 +41,15 @@ public class BuyService {
         .andThen(sendTransactionInteract.buy(paymentTransaction.getTransactionBuilder())
             .flatMapCompletable(hash -> pendingTransactionService.checkTransactionState(hash)
                 .flatMapCompletable(pendingTransaction -> saveTransaction(pendingTransaction,
-                    paymentTransaction))));
+                    paymentTransaction).onErrorResumeNext(
+                    throwable -> saveError(paymentTransaction, throwable))))
+            .onErrorResumeNext(throwable -> saveError(paymentTransaction, throwable)));
+  }
+
+  private CompletableSource saveError(PaymentTransaction paymentTransaction, Throwable throwable) {
+    throwable.printStackTrace();
+    return cache.save(paymentTransaction.getUri(),
+        new PaymentTransaction(paymentTransaction, PaymentTransaction.PaymentState.ERROR));
   }
 
   private Completable saveTransaction(PendingTransaction pendingTransaction,

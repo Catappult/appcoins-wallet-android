@@ -117,6 +117,6 @@ public class PaymentTransaction {
   }
 
   public enum PaymentState {
-    PENDING, APPROVING, APPROVED, BUYING, BOUGHT, COMPLETED
+    PENDING, APPROVING, APPROVED, BUYING, BOUGHT, COMPLETED, ERROR
   }
 }

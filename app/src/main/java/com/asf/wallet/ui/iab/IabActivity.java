@@ -148,25 +148,33 @@ public class IabActivity extends BaseActivity implements IabView {
   }
 
   @Override public void showTransactionCompleted() {
-    transactionCompletedLayout.setVisibility(View.VISIBLE);
     loadingView.setVisibility(View.GONE);
+    transactionErrorLayout.setVisibility(View.GONE);
+    transactionCompletedLayout.setVisibility(View.VISIBLE);
+    buyLayout.setVisibility(View.GONE);
   }
 
   @Override public void showBuy() {
-    buyLayout.setVisibility(View.VISIBLE);
+    loadingView.setVisibility(View.GONE);
     transactionErrorLayout.setVisibility(View.GONE);
+    transactionCompletedLayout.setVisibility(View.GONE);
+    buyLayout.setVisibility(View.VISIBLE);
   }
 
   @Override public void showLoading() {
     loadingView.setVisibility(View.VISIBLE);
+    transactionErrorLayout.setVisibility(View.GONE);
+    transactionCompletedLayout.setVisibility(View.GONE);
     buyLayout.setVisibility(View.GONE);
     loadingView.requestFocus();
     loadingView.setOnTouchListener((v, event) -> true);
   }
 
   @Override public void showError() {
-    transactionErrorLayout.setVisibility(View.VISIBLE);
     loadingView.setVisibility(View.GONE);
+    transactionErrorLayout.setVisibility(View.VISIBLE);
+    transactionCompletedLayout.setVisibility(View.GONE);
+    buyLayout.setVisibility(View.GONE);
   }
 
   private CharSequence getApplicationName(String appPackage)
