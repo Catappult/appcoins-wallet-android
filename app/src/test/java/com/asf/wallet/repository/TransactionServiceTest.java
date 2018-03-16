@@ -80,33 +80,6 @@ public class TransactionServiceTest {
   }
 
   @Test public void sendTransaction() throws Exception {
-    TestObserver<PendingTransaction> testObserver = new TestObserver<>();
-    transactionService.sendTransaction("ethereum:"
-        + CONTRACT_ADDRESS
-        + "@3"
-        + "/transfer?uint256=1000000000000000000&address"
-        + "=0x4fbcc5ce88493c3d9903701c143af65f54481119&data=0x636f6d2e63656e61732e70726f64756374")
-        .subscribe(testObserver);
-
-    PendingTransaction pendingTransaction0 = new PendingTransaction("approve_hash", true);
-    PendingTransaction pendingTransaction1 = new PendingTransaction("approve_hash", false);
-    PendingTransaction pendingTransaction2 = new PendingTransaction("buy_hash", true);
-    PendingTransaction pendingTransaction3 = new PendingTransaction("buy_hash", false);
-
-    pendingApproveState.onNext(pendingTransaction0);
-    pendingApproveState.onNext(pendingTransaction1);
-    pendingBuyState.onNext(pendingTransaction2);
-    pendingBuyState.onNext(pendingTransaction3);
-
-    List<PendingTransaction> values = testObserver.assertNoErrors()
-        .values();
-    Assert.assertEquals(values.get(0), pendingTransaction0);
-    Assert.assertEquals(values.get(1), pendingTransaction2);
-    Assert.assertEquals(values.get(2), pendingTransaction3);
-    Assert.assertEquals(values.size(), 3);
-  }
-
-  @Test public void sendTransaction2() throws Exception {
     String uri = "ethereum:"
         + CONTRACT_ADDRESS
         + "@3"
@@ -115,7 +88,6 @@ public class TransactionServiceTest {
     transactionService.start();
     TestObserver<PaymentTransaction> testObserver = new TestObserver<>();
     transactionService.getTransactionState(uri)
-        .doOnNext(paymentTransaction -> System.out.println(paymentTransaction))
         .subscribe(testObserver);
     transactionService.send(uri)
         .subscribe();
@@ -132,5 +104,6 @@ public class TransactionServiceTest {
 
     List<PaymentTransaction> values = testObserver.assertNoErrors()
         .values();
+    Assert.assertTrue(values.size() == 9);
   }
 }
