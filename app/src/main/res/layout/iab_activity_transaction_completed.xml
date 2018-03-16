@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/iab_activity_transaction_completed"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:elevation="10dp"
+    android:padding="16dp"
+    android:visibility="gone"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:showIn="@layout/iab_activity"
+    >
+  <TextView
+      android:id="@+id/activity_iab_transaction_completed_title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/activity_iab_transaction_completed_title"
+      android:textColor="@color/black_87_alpha"
+      android:textSize="24sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+  <ImageView
+      android:layout_width="156dp"
+      android:layout_height="156dp"
+      android:layout_marginTop="10dp"
+      android:src="@drawable/iab_completed_graphic"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/activity_iab_transaction_completed_title"
+      />
+</android.support.constraint.ConstraintLayout>

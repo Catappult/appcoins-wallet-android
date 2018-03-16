@@ -55,11 +55,6 @@
     <activity
         android:name="com.asf.wallet.ui.SendActivity"
         android:label="@string/title_activity_send">
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-        <data android:scheme="ethereum"/>
-      </intent-filter>
     </activity>
 
     <activity
@@ -82,6 +77,19 @@
     <activity
         android:name="com.asf.wallet.ui.TokenChangeCollectionActivity"
         android:label="@string/title_tokens"/>
+    <activity
+        android:name=".ui.Erc681Receiver"
+        android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data android:scheme="ethereum"/>
+      </intent-filter>
+    </activity>
+
+    <activity
+        android:name=".ui.iab.IabActivity"
+        android:theme="@style/Theme.AppCompat.Transparent"/>
 
     <meta-data
         android:name="io.fabric.ApiKey"

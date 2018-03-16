@@ -1,6 +1,7 @@
 package com.asf.wallet.repository;
 
 import com.asf.wallet.entity.PendingTransaction;
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import java.util.concurrent.TimeUnit;

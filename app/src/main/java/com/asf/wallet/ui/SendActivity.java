@@ -2,6 +2,7 @@ package com.asf.wallet.ui;
 
 import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.asf.wallet.R;
 import com.asf.wallet.router.Result;
 import com.asf.wallet.ui.barcode.BarcodeCaptureActivity;
+import com.asf.wallet.ui.iab.IabActivity;
 import com.asf.wallet.viewmodel.SendViewModel;
 import com.asf.wallet.viewmodel.SendViewModelFactory;
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -36,6 +38,15 @@ public class SendActivity extends BaseActivity {
   private EditText amountText;
   private TextInputLayout toInputLayout;
   private TextInputLayout amountInputLayout;
+
+  public static Intent newIntent(Context context, Intent previousIntent) {
+    Intent intent = new Intent(context, IabActivity.class);
+    intent.setData(previousIntent.getData());
+    if (previousIntent.getExtras() != null) {
+      intent.putExtras(previousIntent.getExtras());
+    }
+    return intent;
+  }
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     AndroidInjection.inject(this);

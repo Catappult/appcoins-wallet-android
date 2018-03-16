@@ -51,11 +51,6 @@ import okhttp3.OkHttpClient;
     return new FindDefaultNetworkInteract(ethereumNetworkRepositoryType);
   }
 
-  @Provides FindDefaultWalletInteract provideFindDefaultWalletInteract(
-      WalletRepositoryType walletRepository) {
-    return new FindDefaultWalletInteract(walletRepository);
-  }
-
   @Provides FetchTransactionsInteract provideFetchTransactionsInteract(
       TransactionRepositoryType transactionRepository) {
     return new FetchTransactionsInteract(transactionRepository);

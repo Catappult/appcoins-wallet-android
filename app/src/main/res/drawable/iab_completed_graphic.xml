@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <!-- Larger blue circle in back -->
+  <item>
+    <shape
+        android:shape="ring"
+        android:thicknessRatio="100"
+        android:useLevel="false">
+      <size
+          android:height="100dp"
+          android:width="100dp"/>
+      <gradient
+          android:endColor="@color/dark_blue"
+          android:startColor="@color/light_blue"/>
+    </shape>
+  </item>
+  <!-- Smaller red circle in front -->
+  <item>
+    <shape android:shape="oval">
+      <!-- transparent stroke = larger_circle_size - smaller_circle_size -->
+      <stroke
+          android:color="@android:color/transparent"
+          android:width="50dp"/>
+      <gradient
+          android:endColor="@color/dark_blue"
+          android:startColor="@color/light_blue"/>
+      <size
+          android:height="100dp"
+          android:width="100dp"/>
+    </shape>
+  </item>
+  <item
+      android:bottom="50dp"
+      android:drawable="@drawable/check_mark"
+      android:end="44dp"
+      android:gravity="center"
+      android:left="44dp"
+      android:right="44dp"
+      android:start="44dp"
+      android:top="50dp"
+      >
+  </item>
+</layer-list>

@@ -3,6 +3,7 @@ package com.asf.wallet;
 import android.app.Activity;
 import android.support.multidex.MultiDexApplication;
 import com.asf.wallet.di.DaggerAppComponent;
+import com.asf.wallet.repository.TransactionService;
 import com.crashlytics.android.Crashlytics;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
@@ -15,6 +16,7 @@ import javax.inject.Inject;
 public class App extends MultiDexApplication implements HasActivityInjector {
 
   @Inject DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
+  @Inject TransactionService transactionService;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -25,6 +27,8 @@ public class App extends MultiDexApplication implements HasActivityInjector {
         .inject(this);
     setupRxJava();
 
+    transactionService.start();
+
     // enable pin code for the application
     //		LockManager<CustomPinActivity> lockManager = LockManager.getInstance();
     //		lockManager.enableAppLock(this, CustomPinActivity.class);
@@ -34,7 +38,9 @@ public class App extends MultiDexApplication implements HasActivityInjector {
   private void setupRxJava() {
     RxJavaPlugins.setErrorHandler(throwable -> {
       if (throwable instanceof UndeliverableException) {
-        if (Crashlytics.getInstance() != null) {
+        Crashlytics crashlytics = Crashlytics.getInstance();
+        if (crashlytics != null && crashlytics.getFabric()
+            .isDebuggable()) {
           Crashlytics.logException(throwable);
         } else {
           throwable.printStackTrace();

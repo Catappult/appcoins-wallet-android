@@ -12,7 +12,7 @@ import dagger.Module;
 import dagger.Provides;
 import io.reactivex.subjects.PublishSubject;
 
-@Module class SendModule {
+@Module public class SendModule {
   @Provides SendViewModelFactory provideSendViewModelFactory(
       FindDefaultWalletInteract findDefaultWalletInteract, ConfirmationRouter confirmationRouter,
       FetchGasSettingsInteract fetchGasSettingsInteract, TransferParser transferParser) {
@@ -24,19 +24,4 @@ import io.reactivex.subjects.PublishSubject;
     return new ConfirmationRouter(PublishSubject.create());
   }
 
-  @Provides TransferParser provideTransferParser(
-      FindDefaultWalletInteract provideFindDefaultWalletInteract,
-      TokenRepositoryType tokenRepositoryType) {
-    return new TransferParser(provideFindDefaultWalletInteract, tokenRepositoryType);
-  }
-
-  @Provides FetchGasSettingsInteract provideFetchGasSettingsInteract(
-      GasSettingsRepositoryType gasSettingsRepository) {
-    return new FetchGasSettingsInteract(gasSettingsRepository);
-  }
-
-  @Provides FindDefaultWalletInteract provideFindDefaultWalletInteract(
-      WalletRepositoryType walletRepository) {
-    return new FindDefaultWalletInteract(walletRepository);
-  }
 }

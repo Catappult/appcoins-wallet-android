@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/screen_view"
+    android:layout_width="296dp"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    android:background="@drawable/background_card"
+    >
+
+  <include layout="@layout/iab_activity_loading"/>
+  <include layout="@layout/iab_activity_transaction_completed"/>
+  <include layout="@layout/iab_activity_error"/>
+  <include layout="@layout/iab_activity_buy"/>
+
+</android.support.constraint.ConstraintLayout>
+

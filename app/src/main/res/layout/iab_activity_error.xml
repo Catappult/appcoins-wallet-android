@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_iab_error_view"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:elevation="10dp"
+    android:padding="16dp"
+    android:visibility="gone"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:showIn="@layout/iab_activity"
+    >
+    <!--tools:visibility="visible"-->
+  <TextView
+      android:id="@+id/activity_iab_error_title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/activity_iab_error_title"
+      android:textColor="@color/black_87_alpha"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      style="@style/Base.TextAppearance.AppCompat.Subhead"
+      />
+  <TextView
+      android:id="@+id/activity_iab_error_message"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:minLines="3"
+      android:text="@string/activity_iab_error_message"
+      android:textColor="@color/iab_activity_gray"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/activity_iab_error_title"
+      style="@style/Base.TextAppearance.AppCompat.Caption"
+      />
+
+  <Button
+      android:id="@+id/activity_iab_error_ok_button"
+      android:layout_width="wrap_content"
+      android:layout_height="36dp"
+      android:text="@string/ok"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/activity_iab_error_message"
+      app:layout_constraintVertical_bias="1"
+      style="@style/buy_button"
+      />
+</android.support.constraint.ConstraintLayout>
+
+  

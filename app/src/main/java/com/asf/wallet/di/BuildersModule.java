@@ -2,6 +2,7 @@ package com.asf.wallet.di;
 
 import com.asf.wallet.ui.AddTokenActivity;
 import com.asf.wallet.ui.ConfirmationActivity;
+import com.asf.wallet.ui.Erc681Receiver;
 import com.asf.wallet.ui.GasSettingsActivity;
 import com.asf.wallet.ui.ImportWalletActivity;
 import com.asf.wallet.ui.MyAddressActivity;
@@ -13,6 +14,7 @@ import com.asf.wallet.ui.TokensActivity;
 import com.asf.wallet.ui.TransactionDetailActivity;
 import com.asf.wallet.ui.TransactionsActivity;
 import com.asf.wallet.ui.WalletsActivity;
+import com.asf.wallet.ui.iab.IabActivity;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
@@ -41,6 +43,9 @@ import dagger.android.ContributesAndroidInjector;
   @ActivityScope @ContributesAndroidInjector(modules = ConfirmationModule.class)
   abstract ConfirmationActivity bindConfirmationModule();
 
+  @ActivityScope @ContributesAndroidInjector(modules = ConfirmationModule.class)
+  abstract IabActivity bindIabModule();
+
   @ContributesAndroidInjector abstract MyAddressActivity bindMyAddressModule();
 
   @ActivityScope @ContributesAndroidInjector(modules = TokensModule.class)
@@ -54,4 +59,7 @@ import dagger.android.ContributesAndroidInjector;
 
   @ActivityScope @ContributesAndroidInjector(modules = ChangeTokenModule.class)
   abstract TokenChangeCollectionActivity bindChangeTokenCollectionActivity();
+
+  @ActivityScope @ContributesAndroidInjector(modules = ConfirmationModule.class)
+  abstract Erc681Receiver bindErc681Receiver();
 }

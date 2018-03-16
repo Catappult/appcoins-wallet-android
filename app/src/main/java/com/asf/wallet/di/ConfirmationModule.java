@@ -9,7 +9,8 @@ import com.asf.wallet.viewmodel.ConfirmationViewModelFactory;
 import dagger.Module;
 import dagger.Provides;
 
-@Module public class ConfirmationModule {
+@Module(includes = { SendModule.class }) public class ConfirmationModule {
+
   @Provides ConfirmationViewModelFactory provideConfirmationViewModelFactory(
       SendTransactionInteract sendTransactionInteract, GasSettingsRouter gasSettingsRouter,
       PendingTransactionService pendingTransactionService) {
@@ -17,12 +18,5 @@ import dagger.Provides;
         pendingTransactionService);
   }
 
-  @Provides SendTransactionInteract provideSendTransactionInteract(
-      TransactionRepositoryType transactionRepository, PasswordStore passwordStore) {
-    return new SendTransactionInteract(transactionRepository, passwordStore);
-  }
 
-  @Provides GasSettingsRouter provideGasSettingsRouter() {
-    return new GasSettingsRouter();
-  }
 }

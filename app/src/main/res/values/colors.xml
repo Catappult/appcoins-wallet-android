@@ -23,4 +23,8 @@
   <color name="QRCodeWhiteColor">#FFFFFFFF</color>
 
   <color name="item_icon_tint">#89000000</color>
+  <color name="iab_activity_gray">#8a000000</color>
+  <color name="black_87_alpha">#de000000</color>
+  <color name="dark_blue">#1976d2</color>
+  <color name="light_blue">#36aeeb</color>
 </resources>
