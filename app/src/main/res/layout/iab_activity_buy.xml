@@ -5,12 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/iab_activity_buy_layout"
     android:layout_width="match_parent"
-    android:layout_height="160dp"
+    android:layout_height="wrap_content"
+    android:minHeight="160dp"
     android:padding="16dp"
     tools:showIn="@layout/iab_activity"
     tools:visibility="gone"
     >
-    <!--tools:visibility="gone"-->
+
   <ImageView
       android:id="@+id/iab_activity_item_icon"
       android:layout_width="50dp"
