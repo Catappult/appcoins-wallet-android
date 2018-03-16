@@ -20,6 +20,7 @@ import com.asf.wallet.ui.BaseActivity;
 import com.jakewharton.rxbinding2.view.RxView;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -75,7 +76,7 @@ public class IabActivity extends BaseActivity implements IabView {
     itemPrice = findViewById(R.id.iab_activity_item_price);
     presenter = new IabPresenter(this, transactionService, AndroidSchedulers.mainThread(),
         new CompositeDisposable());
-    Observable.just(getAppPackage())
+    Single.just(getAppPackage())
         .observeOn(Schedulers.io())
         .map(packageName -> new Pair<>(getApplicationName(packageName),
             getPackageManager().getApplicationIcon(packageName)))
@@ -83,7 +84,7 @@ public class IabActivity extends BaseActivity implements IabView {
         .subscribe(pair -> {
           appName.setText(pair.first);
           appIcon.setImageDrawable(pair.second);
-        });
+        }, throwable -> showError());
   }
 
   @Override protected void onStart() {
@@ -116,6 +117,22 @@ public class IabActivity extends BaseActivity implements IabView {
     intent.putExtra(TRANSACTION_HASH, hash);
     setResult(Activity.RESULT_OK, intent);
     finish();
+  }
+
+  @Override public void showLoading() {
+    loadingView.setVisibility(View.VISIBLE);
+    transactionErrorLayout.setVisibility(View.GONE);
+    transactionCompletedLayout.setVisibility(View.GONE);
+    buyLayout.setVisibility(View.GONE);
+    loadingView.requestFocus();
+    loadingView.setOnTouchListener((v, event) -> true);
+  }
+
+  @Override public void showError() {
+    loadingView.setVisibility(View.GONE);
+    transactionErrorLayout.setVisibility(View.VISIBLE);
+    transactionCompletedLayout.setVisibility(View.GONE);
+    buyLayout.setVisibility(View.GONE);
   }
 
   @Override public void lockOrientation() {
@@ -159,22 +176,6 @@ public class IabActivity extends BaseActivity implements IabView {
     transactionErrorLayout.setVisibility(View.GONE);
     transactionCompletedLayout.setVisibility(View.GONE);
     buyLayout.setVisibility(View.VISIBLE);
-  }
-
-  @Override public void showLoading() {
-    loadingView.setVisibility(View.VISIBLE);
-    transactionErrorLayout.setVisibility(View.GONE);
-    transactionCompletedLayout.setVisibility(View.GONE);
-    buyLayout.setVisibility(View.GONE);
-    loadingView.requestFocus();
-    loadingView.setOnTouchListener((v, event) -> true);
-  }
-
-  @Override public void showError() {
-    loadingView.setVisibility(View.GONE);
-    transactionErrorLayout.setVisibility(View.VISIBLE);
-    transactionCompletedLayout.setVisibility(View.GONE);
-    buyLayout.setVisibility(View.GONE);
   }
 
   private CharSequence getApplicationName(String appPackage)
