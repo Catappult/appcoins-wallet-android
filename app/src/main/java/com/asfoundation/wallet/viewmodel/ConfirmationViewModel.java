@@ -53,26 +53,9 @@ public class ConfirmationViewModel extends BaseViewModel {
 
   public void send() {
     progress.postValue(true);
-    switch (transactionBuilder.getValue()
-        .getTransactionType()) {
-      case APPC:
-        // TODO: 3/11/18 trinkes refactor this. We don't all the appcoins transactions to be a buy
-        disposable = sendTransactionInteract.approve(transactionBuilder.getValue())
-            .doOnSuccess(
-                approveHash -> onCreateTransaction(new PendingTransaction(approveHash, true)))
-            .flatMapObservable(pendingTransactionService::checkTransactionState)
-            .filter(pendingTransaction -> !pendingTransaction.isPending())
-            .flatMapSingle(approved -> sendTransactionInteract.buy(transactionBuilder.getValue()))
-            .flatMap(pendingTransactionService::checkTransactionState)
-            .subscribe(this::onCreateTransaction, this::onError);
-
-        break;
-      case TOKEN:
-      case ETH:
-        disposable = sendTransactionInteract.send(transactionBuilder.getValue())
-            .flatMapObservable(pendingTransactionService::checkTransactionState)
-            .subscribe(this::onCreateTransaction, this::onError);
-    }
+    disposable = sendTransactionInteract.send(transactionBuilder.getValue())
+        .flatMapObservable(pendingTransactionService::checkTransactionState)
+        .subscribe(this::onCreateTransaction, this::onError);
   }
 
   public void setGasSettings(GasSettings gasSettings) {

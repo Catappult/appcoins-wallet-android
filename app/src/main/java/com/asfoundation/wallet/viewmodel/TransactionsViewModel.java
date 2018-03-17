@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.text.format.DateUtils;
 import android.util.Log;
+import com.asf.wallet.service.AirDropService;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.NetworkInfo;
@@ -27,6 +28,7 @@ import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.token.Erc20Token;
 import com.asfoundation.wallet.util.TokenInfoFactory;
 import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 
 public class TransactionsViewModel extends BaseViewModel {
   private static final long GET_BALANCE_INTERVAL = 10 * DateUtils.SECOND_IN_MILLIS;
@@ -47,6 +49,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MyTokensRouter myTokensRouter;
   private final ExternalBrowserRouter externalBrowserRouter;
   private final FetchTokensInteract fetchTokensInteract;
+  private final AirDropService airDropService;
   private Handler handler = new Handler();
   private final Runnable startFetchTransactionsTask = () -> this.fetchTransactions(false);
   private final Runnable startGetBalanceTask = this::getBalance;
@@ -57,7 +60,7 @@ public class TransactionsViewModel extends BaseViewModel {
       SettingsRouter settingsRouter, SendRouter sendRouter,
       TransactionDetailRouter transactionDetailRouter, MyAddressRouter myAddressRouter,
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
-      FetchTokensInteract fetchTokensInteract) {
+      FetchTokensInteract fetchTokensInteract, AirDropService airDropService) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchTransactionsInteract = fetchTransactionsInteract;
@@ -69,6 +72,7 @@ public class TransactionsViewModel extends BaseViewModel {
     this.myTokensRouter = myTokensRouter;
     this.externalBrowserRouter = externalBrowserRouter;
     this.fetchTokensInteract = fetchTokensInteract;
+    this.airDropService = airDropService;
   }
 
   @Override protected void onCleared() {
@@ -181,5 +185,12 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public void openDeposit(Context context, Uri uri) {
     externalBrowserRouter.open(context, uri);
+  }
+
+  public void showAirDrop() {
+    findDefaultWalletInteract.find()
+        .observeOn(Schedulers.io())
+        .flatMapCompletable(wallet -> airDropService.request(wallet))
+        .subscribe();
   }
 }

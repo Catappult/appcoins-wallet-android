@@ -16,6 +16,7 @@ public class EmptyTransactionsView extends FrameLayout {
         .inflate(R.layout.layout_empty_transactions, this, true);
 
     findViewById(R.id.action_buy).setOnClickListener(onClickListener);
+    findViewById(R.id.action_air_drop).setOnClickListener(onClickListener);
   }
 
   public void setNetworkInfo(NetworkInfo networkInfo) {

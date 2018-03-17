@@ -156,10 +156,15 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     switch (view.getId()) {
       case R.id.try_again: {
         viewModel.fetchTransactions(true);
+        break;
       }
-      break;
       case R.id.action_buy: {
         openExchangeDialog();
+        break;
+      }
+      case R.id.action_air_drop: {
+        viewModel.showAirDrop();
+        break;
       }
     }
   }

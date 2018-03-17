@@ -31,4 +31,14 @@
       android:visibility="gone"
       style="@style/Widget.AppCompat.Button.Colored"
       />
+  <Button
+      android:id="@+id/action_air_drop"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginTop="@dimen/big_margin"
+      android:text="@string/action_buy"
+      android:textAllCaps="true"
+      style="@style/Widget.AppCompat.Button.Colored"
+      />
 </LinearLayout>
