@@ -22,7 +22,7 @@
         android:layout_height="match_parent"
         />
   </android.support.v4.widget.SwipeRefreshLayout>
-  <com.asf.wallet.widget.SystemView
+  <com.asfoundation.wallet.widget.SystemView
       android:id="@+id/system_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
