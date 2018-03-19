@@ -100,7 +100,7 @@ public class PaymentTransaction {
 
   @Override public String toString() {
     return "PaymentTransaction{"
-        + ", approveHash='"
+        + "approveHash='"
         + approveHash
         + '\''
         + ", buyHash='"
@@ -110,7 +110,7 @@ public class PaymentTransaction {
         + state
         + ", transactionBuilder="
         + transactionBuilder
-        + "uri='"
+        + ", uri='"
         + uri
         + '\''
         + '}';

@@ -29,21 +29,21 @@ public class BuyService {
         .flatMapCompletable(paymentTransactions -> Observable.fromIterable(paymentTransactions)
             .filter(paymentTransaction -> paymentTransaction.getState()
                 .equals(PaymentTransaction.PaymentState.APPROVED))
-            .flatMapCompletable(this::buy))
+            .flatMapCompletable(paymentTransaction -> cache.save(paymentTransaction.getUri(),
+                new PaymentTransaction(paymentTransaction, PaymentTransaction.PaymentState.BUYING))
+                .andThen(buy(paymentTransaction))))
         .doOnError(Throwable::printStackTrace)
         .retry()
         .subscribe();
   }
 
   private Completable buy(PaymentTransaction paymentTransaction) {
-    return cache.save(paymentTransaction.getUri(),
-        new PaymentTransaction(paymentTransaction, PaymentTransaction.PaymentState.BUYING))
-        .andThen(sendTransactionInteract.buy(paymentTransaction.getTransactionBuilder())
-            .flatMapCompletable(hash -> pendingTransactionService.checkTransactionState(hash)
-                .flatMapCompletable(pendingTransaction -> saveTransaction(pendingTransaction,
-                    paymentTransaction).onErrorResumeNext(
-                    throwable -> saveError(paymentTransaction, throwable))))
-            .onErrorResumeNext(throwable -> saveError(paymentTransaction, throwable)));
+    return sendTransactionInteract.buy(paymentTransaction.getTransactionBuilder())
+        .flatMapCompletable(hash -> pendingTransactionService.checkTransactionState(hash)
+            .flatMapCompletable(pendingTransaction -> saveTransaction(pendingTransaction,
+                paymentTransaction).onErrorResumeNext(
+                throwable -> saveError(paymentTransaction, throwable))))
+        .onErrorResumeNext(throwable -> saveError(paymentTransaction, throwable));
   }
 
   private CompletableSource saveError(PaymentTransaction paymentTransaction, Throwable throwable) {
@@ -74,7 +74,11 @@ public class BuyService {
   }
 
   public Observable<List<PaymentTransaction>> getAll() {
-    return cache.getAll();
+    return cache.getAll()
+        .flatMapSingle(paymentTransactions -> Observable.fromIterable(paymentTransactions)
+            .filter(paymentTransaction -> !paymentTransaction.getState()
+                .equals(PaymentTransaction.PaymentState.APPROVED))
+            .toList());
   }
 
   public Completable remove(String key) {
