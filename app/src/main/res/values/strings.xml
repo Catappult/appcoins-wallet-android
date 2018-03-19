@@ -215,7 +215,7 @@
   <string name="NA">N/A</string>
   <string name="minus">-</string>
   <string name="error_wallet_not_selected">Wallet is not selected</string>
-  <string name="no_transactions_yet">No transactions yet!</string>
+  <string name="no_transactions_yet">Check out how APPC payments work with our demo app</string>
   <string name="unknown_balance_with_symbol">-- ETH</string>
   <string name="unknown_balance_without_symbol">--</string>
   <string name="dummy">-</string>
@@ -249,4 +249,6 @@
   <string name="activity_iab_transaction_completed_title">Transaction Completed</string>
   <string name="activity_iab_error_title">Error</string>
   <string name="activity_iab_error_message">An error occured, please try again</string>
+  <string name="action_try">try</string>
+  <string name="activity_transactions_learn_more">Learn more</string>
 </resources>

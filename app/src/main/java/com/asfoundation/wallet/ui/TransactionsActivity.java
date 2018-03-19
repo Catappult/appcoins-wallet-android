@@ -158,10 +158,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         viewModel.fetchTransactions(true);
         break;
       }
-      case R.id.action_buy: {
-        openExchangeDialog();
-        break;
-      }
       case R.id.action_air_drop: {
         viewModel.showAirDrop();
         break;
@@ -225,8 +221,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private void onError(ErrorEnvelope errorEnvelope) {
     if (errorEnvelope.code == EMPTY_COLLECTION || adapter.getItemCount() == 0) {
       EmptyTransactionsView emptyView = new EmptyTransactionsView(this, this);
-      emptyView.setNetworkInfo(viewModel.defaultNetwork()
-          .getValue());
       systemView.showEmpty(emptyView);
     }/* else {
             systemView.showError(getString(R.string.error_fail_load_transaction), this);

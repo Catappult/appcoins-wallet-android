@@ -1,44 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:layout_height="match_parent"
     >
   <ImageView
-      android:layout_width="120dp"
-      android:layout_height="120dp"
-      android:layout_gravity="center_horizontal"
-      android:src="@drawable/no_transactions_mascot"
-      android:visibility="gone"
+      android:id="@+id/asf_logo"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/icon_asf_lightgrey"
+      app:layout_constraintBottom_toTopOf="@id/no_transactions_text"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_chainStyle="packed"
       />
   <TextView
-      android:layout_width="wrap_content"
+      android:id="@+id/no_transactions_text"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
-      android:layout_marginTop="@dimen/big_margin"
+      android:layout_marginTop="42dp"
+      android:gravity="center"
       android:text="@string/no_transactions_yet"
       android:textColor="@color/colorAccent"
-      />
-  <Button
-      android:id="@+id/action_buy"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
-      android:layout_marginTop="@dimen/big_margin"
-      android:text="@string/action_buy"
-      android:textAllCaps="true"
-      android:visibility="gone"
-      style="@style/Widget.AppCompat.Button.Colored"
+      app:layout_constraintBottom_toTopOf="@id/action_air_drop"
+      app:layout_constraintEnd_toStartOf="@+id/guideline2"
+      app:layout_constraintStart_toStartOf="@+id/guideline"
+      app:layout_constraintTop_toBottomOf="@id/asf_logo"
       />
   <Button
       android:id="@+id/action_air_drop"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
-      android:layout_marginTop="@dimen/big_margin"
-      android:text="@string/action_buy"
+      android:layout_marginTop="24dp"
+      android:text="@string/action_try"
       android:textAllCaps="true"
+      app:layout_constraintBottom_toTopOf="@id/action_learn_more"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/no_transactions_text"
       style="@style/Widget.AppCompat.Button.Colored"
       />
-</LinearLayout>
+
+  <TextView
+      android:id="@+id/action_learn_more"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="40dp"
+      android:text="@string/activity_transactions_learn_more"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/action_air_drop"
+      />
+  <android.support.constraint.Guideline
+      android:id="@+id/guideline"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_begin="71dp"
+      />
+  <android.support.constraint.Guideline
+      android:id="@+id/guideline2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_end="71dp"
+      />
+</android.support.constraint.ConstraintLayout>
