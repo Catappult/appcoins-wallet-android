@@ -28,6 +28,7 @@ import com.asfoundation.wallet.viewmodel.TransactionsViewModelFactory;
 import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.subjects.BehaviorSubject;
 import okhttp3.OkHttpClient;
 
 @Module class TransactionsModule {
@@ -48,7 +49,8 @@ import okhttp3.OkHttpClient;
   @Provides AirDropService provideAirDropService(OkHttpClient client, Gson gson,
       PendingTransactionService pendingTransactionService,
       EthereumNetworkRepositoryType repository) {
-    return new AirDropService(client, gson, pendingTransactionService, repository);
+    return new AirDropService(client, gson, pendingTransactionService, repository,
+        BehaviorSubject.create());
   }
 
   @Provides FetchTokensInteract provideFetchTokensInteract(TokenRepositoryType tokenRepository) {

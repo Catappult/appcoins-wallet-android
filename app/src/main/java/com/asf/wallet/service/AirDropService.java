@@ -7,7 +7,9 @@ import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import io.reactivex.Completable;
+import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.subjects.BehaviorSubject;
 import java.util.ArrayList;
 import java.util.List;
 import okhttp3.OkHttpClient;
@@ -26,12 +28,14 @@ public class AirDropService {
   private final Api api;
   private final PendingTransactionService pendingTransactionService;
   private final EthereumNetworkRepositoryType repository;
+  private final BehaviorSubject<AirdropStatus> airdropResponse;
 
   public AirDropService(OkHttpClient httpClient, Gson gson,
-      PendingTransactionService pendingTransactionService,
-      EthereumNetworkRepositoryType repository) {
+      PendingTransactionService pendingTransactionService, EthereumNetworkRepositoryType repository,
+      BehaviorSubject<AirdropStatus> airdropResponse) {
     this.pendingTransactionService = pendingTransactionService;
     this.repository = repository;
+    this.airdropResponse = airdropResponse;
     api = new Retrofit.Builder().baseUrl(BASE_URL)
         .client(httpClient)
         .addConverterFactory(GsonConverterFactory.create(gson))
@@ -40,8 +44,9 @@ public class AirDropService {
         .create(Api.class);
   }
 
-  public Completable request(Wallet wallet) {
-    return api.requestCoins(wallet.address)
+  public void request(Wallet wallet) {
+    api.requestCoins(wallet.address)
+        .doOnSubscribe(__ -> airdropResponse.onNext(AirdropStatus.PENDING))
         .doOnSuccess(airDropResponse -> {
           for (NetworkInfo networkInfo : repository.getAvailableNetworkList()) {
             if (airDropResponse.getChainId() == networkInfo.chainId) {
@@ -49,17 +54,42 @@ public class AirDropService {
             }
           }
         })
+        .doOnSuccess(airDropResponse -> publish(AirdropStatus.PENDING))
         .flatMapCompletable(airDropResponse -> {
           List<Completable> list = new ArrayList<>();
           list.add(waitTransactionComplete(airDropResponse.getAppcoinsTransaction()));
           list.add(waitTransactionComplete(airDropResponse.getEthTransaction()));
           return Completable.merge(list);
-        });
+        })
+        .doOnTerminate(() -> publish(AirdropStatus.DONE))
+        .subscribe(() -> {
+        }, throwable -> publish(throwable));
+  }
+
+  private void publish(Throwable throwable) {
+    throwable.printStackTrace();
+    publish(AirdropStatus.ERROR);
+  }
+
+  private void publish(AirdropStatus status) {
+    airdropResponse.onNext(status);
   }
 
   private Completable waitTransactionComplete(String transactionHash) {
     return pendingTransactionService.checkTransactionState(transactionHash)
         .ignoreElements();
+  }
+
+  public Observable<AirdropStatus> getStatus() {
+    return airdropResponse.filter(airdropStatus -> airdropStatus != AirdropStatus.EMPTY);
+  }
+
+  public void resetStatus() {
+    airdropResponse.onNext(AirdropStatus.EMPTY);
+  }
+
+  public enum AirdropStatus {
+    PENDING, ERROR, ENDED, DONE, EMPTY
   }
 
   public interface Api {

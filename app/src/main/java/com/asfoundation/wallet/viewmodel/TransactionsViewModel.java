@@ -28,6 +28,7 @@ import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.token.Erc20Token;
 import com.asfoundation.wallet.util.TokenInfoFactory;
 import io.reactivex.Observable;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class TransactionsViewModel extends BaseViewModel {
@@ -38,6 +39,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
   private final MutableLiveData<Transaction[]> transactions = new MutableLiveData<>();
   private final MutableLiveData<Token> defaultWalletBalance = new MutableLiveData<>();
+  private final MutableLiveData<AirDropService.AirdropStatus> airdrop = new MutableLiveData<>();
   private final FindDefaultNetworkInteract findDefaultNetworkInteract;
   private final FindDefaultWalletInteract findDefaultWalletInteract;
   private final FetchTransactionsInteract fetchTransactionsInteract;
@@ -50,6 +52,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final ExternalBrowserRouter externalBrowserRouter;
   private final FetchTokensInteract fetchTokensInteract;
   private final AirDropService airDropService;
+  private final CompositeDisposable disposables;
   private Handler handler = new Handler();
   private final Runnable startFetchTransactionsTask = () -> this.fetchTransactions(false);
   private final Runnable startGetBalanceTask = this::getBalance;
@@ -73,11 +76,15 @@ public class TransactionsViewModel extends BaseViewModel {
     this.externalBrowserRouter = externalBrowserRouter;
     this.fetchTokensInteract = fetchTokensInteract;
     this.airDropService = airDropService;
+    disposables = new CompositeDisposable();
   }
 
   @Override protected void onCleared() {
     super.onCleared();
 
+    if (!disposables.isDisposed()) {
+      disposables.dispose();
+    }
     handler.removeCallbacks(startFetchTransactionsTask);
     handler.removeCallbacks(startGetBalanceTask);
   }
@@ -98,10 +105,21 @@ public class TransactionsViewModel extends BaseViewModel {
     return defaultWalletBalance;
   }
 
+  public LiveData<AirDropService.AirdropStatus> onAirdrop() {
+    disposables.add(airDropService.getStatus()
+        .subscribe((AirDropService.AirdropStatus status) -> {
+          if (status != AirDropService.AirdropStatus.PENDING) {
+            airDropService.resetStatus();
+          }
+          airdrop.postValue(status);
+        }));
+    return airdrop;
+  }
+
   public void prepare() {
     progress.postValue(true);
-    disposable = findDefaultNetworkInteract.find()
-        .subscribe(this::onDefaultNetwork, this::onError);
+    disposables.add(findDefaultNetworkInteract.find()
+        .subscribe(this::onDefaultNetwork, this::onError));
   }
 
   public void fetchTransactions(boolean shouldShowProgress) {
@@ -109,11 +127,12 @@ public class TransactionsViewModel extends BaseViewModel {
     progress.postValue(shouldShowProgress);
         /*For specific address use: new Wallet("0x60f7a1cbc59470b74b1df20b133700ec381f15d3")*/
     Observable<Transaction[]> fetch = fetchTransactionsInteract.fetch(defaultWallet.getValue());
-    fetch.subscribe(this::onTransactions, this::onError, this::onTransactionsFetchCompleted);
+    disposables.add(
+        fetch.subscribe(this::onTransactions, this::onError, this::onTransactionsFetchCompleted));
   }
 
   private void getBalance() {
-    fetchTokensInteract.fetchDefaultToken(defaultWallet.getValue())
+    disposables.add(fetchTokensInteract.fetchDefaultToken(defaultWallet.getValue())
         .subscribe(token -> {
           defaultWalletBalance.postValue(token);
           handler.removeCallbacks(startGetBalanceTask);
@@ -122,13 +141,13 @@ public class TransactionsViewModel extends BaseViewModel {
           Log.w(TAG, "getBalance: ", throwable);
           handler.removeCallbacks(startGetBalanceTask);
           handler.postDelayed(startGetBalanceTask, GET_BALANCE_INTERVAL);
-        });
+        }));
   }
 
   private void onDefaultNetwork(NetworkInfo networkInfo) {
     defaultNetwork.postValue(networkInfo);
-    disposable = findDefaultWalletInteract.find()
-        .subscribe(this::onDefaultWallet, this::onError);
+    disposables.add(findDefaultWalletInteract.find()
+        .subscribe(this::onDefaultWallet, this::onError));
   }
 
   private void onDefaultWallet(Wallet wallet) {
@@ -188,9 +207,9 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void showAirDrop() {
-    findDefaultWalletInteract.find()
+    disposables.add(findDefaultWalletInteract.find()
         .observeOn(Schedulers.io())
-        .flatMapCompletable(wallet -> airDropService.request(wallet))
-        .subscribe();
+        .doOnSuccess(airDropService::request)
+        .subscribe());
   }
 }

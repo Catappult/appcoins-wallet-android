@@ -16,6 +16,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,13 +46,15 @@ import static com.asfoundation.wallet.C.ErrorCode.EMPTY_COLLECTION;
 
 public class TransactionsActivity extends BaseNavigationActivity implements View.OnClickListener {
 
+  private static final String TAG = TransactionsActivity.class.getSimpleName();
   @Inject TransactionsViewModelFactory transactionsViewModelFactory;
   @Inject AddTokenInteract addTokenInteract;
   private TransactionsViewModel viewModel;
-
   private SystemView systemView;
   private TransactionsAdapter adapter;
   private Dialog dialog;
+  private AlertDialog loadingDialog;
+  private EmptyTransactionsView emptyView;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     AndroidInjection.inject(this);
@@ -100,6 +103,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::onDefaultWallet);
     viewModel.transactions()
         .observe(this, this::onTransactions);
+    viewModel.onAirdrop()
+        .observe(this, this::onAirdrop);
 
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
   }
@@ -160,6 +165,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       }
       case R.id.action_air_drop: {
         viewModel.showAirDrop();
+        emptyView.setAirdropButtonEnable(false);
         break;
       }
     }
@@ -205,8 +211,10 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void onTransactions(Transaction[] transaction) {
-    adapter.addTransactions(transaction);
-    invalidateOptionsMenu();
+    if (transaction.length > 0) {
+      adapter.addTransactions(transaction);
+      invalidateOptionsMenu();
+    }
   }
 
   private void onDefaultWallet(Wallet wallet) {
@@ -219,8 +227,9 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void onError(ErrorEnvelope errorEnvelope) {
-    if (errorEnvelope.code == EMPTY_COLLECTION || adapter.getItemCount() == 0) {
-      EmptyTransactionsView emptyView = new EmptyTransactionsView(this, this);
+    if (emptyView == null && (errorEnvelope.code == EMPTY_COLLECTION
+        || adapter.getItemCount() == 0)) {
+      emptyView = new EmptyTransactionsView(this, this);
       systemView.showEmpty(emptyView);
     }/* else {
             systemView.showError(getString(R.string.error_fail_load_transaction), this);
@@ -261,5 +270,39 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private void onDepositClick(View view, Uri uri) {
     viewModel.openDeposit(view.getContext(), uri);
+  }
+
+  private void onAirdrop(AirDropService.AirdropStatus airdropStatus) {
+    Log.d(TAG, "onAirdrop() called with: airdropStatus = [" + airdropStatus + "]");
+    switch (airdropStatus) {
+      case PENDING:
+        showPendingDialog();
+        break;
+      case ERROR:
+        emptyView.setAirdropButtonEnable(false);
+      case ENDED:
+      case DONE:
+        hideDialogs();
+        break;
+    }
+  }
+
+  private void hideDialogs() {
+    if (loadingDialog != null) {
+      loadingDialog.dismiss();
+    }
+  }
+
+  private void showPendingDialog() {
+    if (loadingDialog == null) {
+      View dialogView =
+          getLayoutInflater().inflate(R.layout.transactions_activity_airdrop_loading, systemView,
+              false);
+      loadingDialog = new AlertDialog.Builder(this).setView(dialogView)
+          .setCancelable(false)
+          .setOnDismissListener(dialogInterface -> loadingDialog = null)
+          .create();
+      loadingDialog.show();
+    }
   }
 }
