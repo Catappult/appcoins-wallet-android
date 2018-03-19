@@ -30,7 +30,7 @@ android {
     buildConfigField 'String', 'DEFAULT_STORE_ADREESS',
         "\"" + json.default_address + "\""
 
-    applicationId "com.asf.wallet"
+    applicationId "com.asfoundation.wallet"
     minSdkVersion 18
     targetSdkVersion 27
     versionCode 1

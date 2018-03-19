@@ -3,10 +3,10 @@ package com.asf.wallet;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import com.asf.wallet.repository.EthereumNetworkRepository;
-import com.asf.wallet.repository.EthereumNetworkRepositoryType;
-import com.asf.wallet.repository.PreferenceRepositoryType;
-import com.asf.wallet.repository.SharedPreferenceRepository;
+import com.asfoundation.wallet.repository.EthereumNetworkRepository;
+import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
+import com.asfoundation.wallet.repository.PreferenceRepositoryType;
+import com.asfoundation.wallet.repository.SharedPreferenceRepository;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 

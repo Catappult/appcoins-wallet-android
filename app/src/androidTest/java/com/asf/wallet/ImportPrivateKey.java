@@ -1,7 +1,7 @@
 package com.asf.wallet;
 
 import android.support.test.runner.AndroidJUnit4;
-import com.asf.wallet.controller.EtherStoreUtils;
+import com.asfoundation.wallet.controller.EtherStoreUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import java.io.UnsupportedEncodingException;
 import org.junit.Test;
