@@ -12,7 +12,6 @@
 
   <ListPreference
       android:dialogTitle="@string/network_label"
-      android:enabled="@bool/change_network_option_enable"
       android:icon="@mipmap/settings_server"
       android:key="pref_rpcServer"
       android:title="@string/network_label"/>

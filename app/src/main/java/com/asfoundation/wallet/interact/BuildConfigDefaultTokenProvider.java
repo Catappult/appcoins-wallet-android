@@ -9,6 +9,6 @@ import io.reactivex.Single;
 
 public class BuildConfigDefaultTokenProvider implements DefaultTokenProvider {
   @Override public Single<String> getDefaultToken() {
-    return Single.just(Erc20Token.APPC.getSymbol());
+    return Single.just(Erc20Token.APPC.getAddress());
   }
 }

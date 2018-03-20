@@ -27,8 +27,8 @@ import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Token;
 import com.asfoundation.wallet.entity.Transaction;
 import com.asfoundation.wallet.entity.Wallet;
-import com.asfoundation.wallet.service.AirDropService;
 import com.asfoundation.wallet.interact.AddTokenInteract;
+import com.asfoundation.wallet.service.AirDropService;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsAdapter;
 import com.asfoundation.wallet.util.RootUtil;
 import com.asfoundation.wallet.viewmodel.BaseNavigationActivity;
@@ -213,20 +213,22 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     if (actionBar == null) {
       return;
     }
-    BigDecimal decimalDivisor = new BigDecimal(Math.pow(10, token.tokenInfo.decimals));
-    BigDecimal ethBalance =
-        token.tokenInfo.decimals > 0 ? token.balance.divide(decimalDivisor) : token.balance;
-    ethBalance = ethBalance.setScale(4, RoundingMode.HALF_UP)
-        .stripTrailingZeros();
-    String value = ethBalance.compareTo(BigDecimal.ZERO) == 0 ? "0" : ethBalance.toPlainString();
-    actionBar.setTitle(value + " " + token.tokenInfo.symbol);
+    if (token.ticker != null && token.balance != null) {
+      BigDecimal decimalDivisor = new BigDecimal(Math.pow(10, token.tokenInfo.decimals));
+      BigDecimal ethBalance =
+          token.tokenInfo.decimals > 0 ? token.balance.divide(decimalDivisor) : token.balance;
+      ethBalance = ethBalance.setScale(4, RoundingMode.HALF_UP)
+          .stripTrailingZeros();
+      String value = ethBalance.compareTo(BigDecimal.ZERO) == 0 ? "0" : ethBalance.toPlainString();
+      actionBar.setTitle(value + " " + token.tokenInfo.symbol);
 
-    String converted = ethBalance.compareTo(BigDecimal.ZERO) == 0 ? "\u2014\u2014"
-        : ethBalance.multiply(new BigDecimal(token.ticker.price))
-            .setScale(2, RoundingMode.HALF_UP)
-            .stripTrailingZeros()
-            .toPlainString();
-    actionBar.setSubtitle("$" + converted);
+      String converted = ethBalance.compareTo(BigDecimal.ZERO) == 0 ? "\u2014\u2014"
+          : ethBalance.multiply(new BigDecimal(token.ticker.price))
+              .setScale(2, RoundingMode.HALF_UP)
+              .stripTrailingZeros()
+              .toPlainString();
+      actionBar.setSubtitle("$" + converted);
+    }
   }
 
   private void onTransactions(Transaction[] transaction) {
