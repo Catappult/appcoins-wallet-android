@@ -57,6 +57,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private AlertDialog loadingDialog;
   private EmptyTransactionsView emptyView;
   private AlertDialog successDialog;
+  private AlertDialog errorDialog;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     AndroidInjection.inject(this);
@@ -171,6 +172,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         break;
       }
       case R.id.activity_transactions_success_ok_button:
+      case R.id.activity_transactions_error_ok_button:
         dismissDialogs();
         break;
       case R.id.activity_transactions_error_more_info_button:
@@ -291,13 +293,43 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         showPendingDialog();
         break;
       case ERROR:
-        emptyView.setAirdropButtonEnable(false);
+        showErrorDialog();
+        emptyView.setAirdropButtonEnable(true);
+        break;
       case ENDED:
         dismissDialogs();
         break;
       case SUCCESS:
         showSuccessDialog();
         break;
+    }
+  }
+
+  private void showErrorDialog() {
+    dismissDialogs();
+    if (errorDialog == null) {
+      View dialogView =
+          getLayoutInflater().inflate(R.layout.transactions_activity_airdrop_error, systemView,
+              false);
+      errorDialog = new AlertDialog.Builder(this).setView(dialogView)
+          .setCancelable(false)
+          .setOnDismissListener(dialogInterface -> errorDialog = null)
+          .create();
+      dialogView.findViewById(R.id.activity_transactions_error_ok_button)
+          .setOnClickListener(this);
+      errorDialog.show();
+    }
+  }
+
+  private void dismissDialogs() {
+    if (loadingDialog != null) {
+      loadingDialog.dismiss();
+    }
+    if (successDialog != null) {
+      successDialog.dismiss();
+    }
+    if (errorDialog != null) {
+      errorDialog.dismiss();
     }
   }
 
@@ -316,15 +348,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       dialogView.findViewById(R.id.activity_transactions_error_more_info_button)
           .setOnClickListener(this);
       successDialog.show();
-    }
-  }
-
-  private void dismissDialogs() {
-    if (loadingDialog != null) {
-      loadingDialog.dismiss();
-    }
-    if (successDialog != null) {
-      successDialog.dismiss();
     }
   }
 

@@ -248,7 +248,9 @@
   <string name="activity_aib_loading_message">This may take a while…</string>
   <string name="activity_iab_transaction_completed_title">Transaction Completed</string>
   <string name="activity_iab_error_title">Error</string>
-  <string name="activity_iab_error_message">An error occured, please try again</string>
+  <string name="activity_transaction_error_title">Error</string>
+  <string name="activity_iab_error_message">An error occurred, please try again</string>
+  <string name="activity_transactions_error_message">An error occurred, please try again</string>
   <string name="action_try">try</string>
   <string name="activity_transactions_learn_more">Learn more</string>
   <string name="activity_transactions_airdrop_more_info">More info</string>
