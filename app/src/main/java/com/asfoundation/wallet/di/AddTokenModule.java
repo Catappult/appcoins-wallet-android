@@ -2,8 +2,6 @@ package com.asfoundation.wallet.di;
 
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
-import com.asfoundation.wallet.repository.TokenRepositoryType;
-import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.router.MyTokensRouter;
 import com.asfoundation.wallet.viewmodel.AddTokenViewModelFactory;
 import dagger.Module;
@@ -15,11 +13,6 @@ import dagger.Provides;
       FindDefaultWalletInteract findDefaultWalletInteract, MyTokensRouter myTokensRouter) {
     return new AddTokenViewModelFactory(addTokenInteract, findDefaultWalletInteract,
         myTokensRouter);
-  }
-
-  @Provides AddTokenInteract provideAddTokenInteract(TokenRepositoryType tokenRepository,
-      WalletRepositoryType walletRepository) {
-    return new AddTokenInteract(walletRepository, tokenRepository);
   }
 
   @Provides MyTokensRouter provideMyTokensRouter() {
