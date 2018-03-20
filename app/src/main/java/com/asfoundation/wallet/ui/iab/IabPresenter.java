@@ -7,6 +7,7 @@ import io.reactivex.Completable;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
 import java.util.concurrent.TimeUnit;
+import javax.annotation.Nullable;
 
 /**
  * Created by trinkes on 13/03/2018.
@@ -60,8 +61,10 @@ public class IabPresenter {
     view.close();
   }
 
-  private void showError(Throwable throwable) {
-    throwable.printStackTrace();
+  private void showError(@Nullable Throwable throwable) {
+    if (throwable != null) {
+      throwable.printStackTrace();
+    }
     view.unlockOrientation();
     view.showError();
   }
@@ -78,14 +81,14 @@ public class IabPresenter {
             }))
             .andThen(transactionService.remove(transaction.getUri()));
       case ERROR:
-        return Completable.fromAction(() -> view.showError())
+        return Completable.fromAction(() -> showError(null))
             .andThen(transactionService.remove(transaction.getUri()));
       case PENDING:
       case APPROVING:
       case APPROVED:
       case BUYING:
       case BOUGHT:
-        default:
+      default:
         return Completable.fromAction(view::showLoading);
     }
   }
