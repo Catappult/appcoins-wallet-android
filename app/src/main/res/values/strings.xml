@@ -256,4 +256,6 @@
   <string name="activity_transactions_airdrop_more_info">More info</string>
   <string name="activity_transactions_airdrop_success_title">Congratulations!</string>
   <string name="activity_transactions_airdrop_success_message">You are now in a test network (Ropsten). Use your test APPC in our demo app.</string>
+  <string name="activity_transaction_program_ended_title">Sorry</string>
+  <string name="activity_transactions_program_ended_message">Test program successfully closed!</string>
 </resources>

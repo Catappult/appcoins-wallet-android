@@ -58,6 +58,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private EmptyTransactionsView emptyView;
   private AlertDialog successDialog;
   private AlertDialog errorDialog;
+  private AlertDialog programEndedDialog;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     AndroidInjection.inject(this);
@@ -173,6 +174,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       }
       case R.id.activity_transactions_success_ok_button:
       case R.id.activity_transactions_error_ok_button:
+      case R.id.activity_transactions_program_ended_ok_button:
         dismissDialogs();
         break;
       case R.id.activity_transactions_error_more_info_button:
@@ -297,11 +299,26 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         emptyView.setAirdropButtonEnable(true);
         break;
       case ENDED:
-        dismissDialogs();
+        showProgramEndedDialog();
         break;
       case SUCCESS:
         showSuccessDialog();
         break;
+    }
+  }
+
+  private void showProgramEndedDialog() {
+    dismissDialogs();
+    if (programEndedDialog == null) {
+      View dialogView =
+          getLayoutInflater().inflate(R.layout.transactions_activity_airdrop_program_ended,
+              systemView, false);
+      programEndedDialog = new AlertDialog.Builder(this).setView(dialogView)
+          .setOnDismissListener(dialogInterface -> programEndedDialog = null)
+          .create();
+      dialogView.findViewById(R.id.activity_transactions_program_ended_ok_button)
+          .setOnClickListener(this);
+      programEndedDialog.show();
     }
   }
 
@@ -312,24 +329,11 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
           getLayoutInflater().inflate(R.layout.transactions_activity_airdrop_error, systemView,
               false);
       errorDialog = new AlertDialog.Builder(this).setView(dialogView)
-          .setCancelable(false)
           .setOnDismissListener(dialogInterface -> errorDialog = null)
           .create();
       dialogView.findViewById(R.id.activity_transactions_error_ok_button)
           .setOnClickListener(this);
       errorDialog.show();
-    }
-  }
-
-  private void dismissDialogs() {
-    if (loadingDialog != null) {
-      loadingDialog.dismiss();
-    }
-    if (successDialog != null) {
-      successDialog.dismiss();
-    }
-    if (errorDialog != null) {
-      errorDialog.dismiss();
     }
   }
 
@@ -340,7 +344,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
           getLayoutInflater().inflate(R.layout.transactions_activity_airdrop_success, systemView,
               false);
       successDialog = new AlertDialog.Builder(this).setView(dialogView)
-          .setCancelable(false)
           .setOnDismissListener(dialogInterface -> successDialog = null)
           .create();
       dialogView.findViewById(R.id.activity_transactions_success_ok_button)
@@ -361,6 +364,21 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
           .setOnDismissListener(dialogInterface -> loadingDialog = null)
           .create();
       loadingDialog.show();
+    }
+  }
+
+  private void dismissDialogs() {
+    if (loadingDialog != null) {
+      loadingDialog.dismiss();
+    }
+    if (successDialog != null) {
+      successDialog.dismiss();
+    }
+    if (errorDialog != null) {
+      errorDialog.dismiss();
+    }
+    if (programEndedDialog != null) {
+      programEndedDialog.dismiss();
     }
   }
 }

@@ -13,6 +13,7 @@ import io.reactivex.subjects.BehaviorSubject;
 import java.util.ArrayList;
 import java.util.List;
 import okhttp3.OkHttpClient;
+import retrofit2.HttpException;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -68,7 +69,11 @@ public class AirDropService {
 
   private void publish(Throwable throwable) {
     throwable.printStackTrace();
-    publish(AirdropStatus.ERROR);
+    if (((HttpException) throwable).code() == 404) {
+      publish(AirdropStatus.ENDED);
+    } else {
+      publish(AirdropStatus.ERROR);
+    }
   }
 
   private void publish(AirdropStatus status) {
