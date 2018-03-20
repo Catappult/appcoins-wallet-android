@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.di;
 
-import com.asf.wallet.service.AirDropService;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchTokensInteract;
 import com.asfoundation.wallet.interact.FetchTransactionsInteract;
@@ -22,6 +21,7 @@ import com.asfoundation.wallet.router.MyTokensRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
+import com.asfoundation.wallet.service.AirDropService;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenExplorerClientType;
 import com.asfoundation.wallet.viewmodel.TransactionsViewModelFactory;

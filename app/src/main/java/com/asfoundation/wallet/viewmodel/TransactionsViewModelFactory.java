@@ -3,7 +3,6 @@ package com.asfoundation.wallet.viewmodel;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
-import com.asf.wallet.service.AirDropService;
 import com.asfoundation.wallet.interact.FetchTokensInteract;
 import com.asfoundation.wallet.interact.FetchTransactionsInteract;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
@@ -15,6 +14,7 @@ import com.asfoundation.wallet.router.MyTokensRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
+import com.asfoundation.wallet.service.AirDropService;
 
 public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
 

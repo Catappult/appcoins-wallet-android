@@ -1,4 +1,4 @@
-package com.asf.wallet.service;
+package com.asfoundation.wallet.service;
 
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
