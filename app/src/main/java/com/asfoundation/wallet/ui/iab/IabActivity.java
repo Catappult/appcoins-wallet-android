@@ -49,6 +49,7 @@ public class IabActivity extends BaseActivity implements IabView {
   private View transactionCompletedLayout;
   private View transactionErrorLayout;
   private View buyLayout;
+  private boolean isBackEnable;
 
   public static Intent newIntent(Activity activity, Intent previousIntent) {
     Intent intent = new Intent(activity, IabActivity.class);
@@ -58,6 +59,12 @@ public class IabActivity extends BaseActivity implements IabView {
     }
     intent.putExtra(APP_PACKAGE, activity.getCallingPackage());
     return intent;
+  }
+
+  @Override public void onBackPressed() {
+    if (isBackEnable) {
+      super.onBackPressed();
+    }
   }
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,6 +92,7 @@ public class IabActivity extends BaseActivity implements IabView {
           appName.setText(pair.first);
           appIcon.setImageDrawable(pair.second);
         }, throwable -> showError());
+    isBackEnable = true;
   }
 
   @Override protected void onStart() {
@@ -120,6 +128,7 @@ public class IabActivity extends BaseActivity implements IabView {
   }
 
   @Override public void showLoading() {
+    isBackEnable = false;
     loadingView.setVisibility(View.VISIBLE);
     transactionErrorLayout.setVisibility(View.GONE);
     transactionCompletedLayout.setVisibility(View.GONE);
@@ -133,6 +142,7 @@ public class IabActivity extends BaseActivity implements IabView {
     transactionErrorLayout.setVisibility(View.VISIBLE);
     transactionCompletedLayout.setVisibility(View.GONE);
     buyLayout.setVisibility(View.GONE);
+    isBackEnable = true;
   }
 
   @Override public void lockOrientation() {
@@ -176,6 +186,7 @@ public class IabActivity extends BaseActivity implements IabView {
     transactionErrorLayout.setVisibility(View.GONE);
     transactionCompletedLayout.setVisibility(View.GONE);
     buyLayout.setVisibility(View.VISIBLE);
+    isBackEnable = true;
   }
 
   private CharSequence getApplicationName(String appPackage)
