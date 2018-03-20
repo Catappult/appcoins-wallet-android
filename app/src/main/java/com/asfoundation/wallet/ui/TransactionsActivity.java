@@ -224,10 +224,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void onTransactions(Transaction[] transaction) {
-    if (transaction.length > 0) {
-      adapter.addTransactions(transaction);
-      invalidateOptionsMenu();
-    }
+    adapter.addTransactions(transaction);
+    invalidateOptionsMenu();
   }
 
   private void onDefaultWallet(Wallet wallet) {
@@ -240,9 +238,10 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void onError(ErrorEnvelope errorEnvelope) {
-    if (emptyView == null && (errorEnvelope.code == EMPTY_COLLECTION
-        || adapter.getItemCount() == 0)) {
-      emptyView = new EmptyTransactionsView(this, this);
+    if ((errorEnvelope.code == EMPTY_COLLECTION || adapter.getItemCount() == 0)) {
+      if (emptyView == null) {
+        emptyView = new EmptyTransactionsView(this, this);
+      }
       systemView.showEmpty(emptyView);
     }/* else {
             systemView.showError(getString(R.string.error_fail_load_transaction), this);
