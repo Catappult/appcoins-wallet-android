@@ -12,34 +12,34 @@
       android:background="@color/white"
       android:orientation="vertical"
       >
-  <TextView
-      android:id="@+id/title"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
-      android:layout_marginBottom="@dimen/big_margin"
-      android:textColor="@color/colorPrimary"
-      android:textSize="28sp"
-      tools:text="Private and Secure"
-      />
-  <ImageView
-      android:id="@+id/img"
-      android:layout_width="@dimen/intro_img_size"
-      android:layout_height="@dimen/intro_img_size"
-      android:layout_gravity="center_horizontal"
-      android:contentDescription="@string/empty"
-      android:src="@drawable/icon_alpha_version"
-      />
-  <TextView
-      android:id="@+id/message"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
-      android:layout_margin="@dimen/big_margin"
-      android:gravity="center_horizontal"
-      android:textColor="@color/colorPrimary"
-      android:textSize="16sp"
-      tools:text="Please note this app is a beta version and you should not use it with important accounts yet!"
-      />
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/big_margin"
+        android:textColor="@color/colorPrimary"
+        android:textSize="28sp"
+        tools:text="@string/intro_title_first_page"
+        />
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="@dimen/intro_img_size"
+        android:layout_height="@dimen/intro_img_size"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/empty"
+        android:src="@drawable/onboarding_asf_ic"
+        />
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/big_margin"
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        tools:text="Please note this app is a beta version and you should not use it with important accounts yet!"
+        />
   </LinearLayout>
 </ScrollView>
