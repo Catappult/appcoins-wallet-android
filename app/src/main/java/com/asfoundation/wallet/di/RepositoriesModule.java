@@ -1,13 +1,11 @@
 package com.asfoundation.wallet.di;
 
 import android.content.Context;
-import com.asfoundation.wallet.repository.EthereumNetworkRepository;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.GasSettingsRepository;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
 import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.PreferenceRepositoryType;
-import com.asfoundation.wallet.repository.SharedPreferenceRepository;
 import com.asfoundation.wallet.repository.TokenLocalSource;
 import com.asfoundation.wallet.repository.TokenRepository;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
@@ -28,7 +26,6 @@ import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenExplorerClientType;
 import com.asfoundation.wallet.service.TransactionsNetworkClient;
 import com.asfoundation.wallet.service.TransactionsNetworkClientType;
-import com.asfoundation.wallet.service.TrustWalletTickerService;
 import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
@@ -38,22 +35,10 @@ import javax.inject.Singleton;
 import okhttp3.OkHttpClient;
 
 @Module public class RepositoriesModule {
-  @Singleton @Provides PreferenceRepositoryType providePreferenceRepository(Context context) {
-    return new SharedPreferenceRepository(context);
-  }
 
   @Singleton @Provides AccountKeystoreService provideAccountKeyStoreService(Context context) {
     File file = new File(context.getFilesDir(), "keystore/keystore");
     return new GethKeystoreAccountService(file);
-  }
-
-  @Singleton @Provides TickerService provideTickerService(OkHttpClient httpClient, Gson gson) {
-    return new TrustWalletTickerService(httpClient, gson);
-  }
-
-  @Singleton @Provides EthereumNetworkRepositoryType provideEthereumNetworkRepository(
-      PreferenceRepositoryType preferenceRepository, TickerService tickerService) {
-    return new EthereumNetworkRepository(preferenceRepository, tickerService);
   }
 
   @Singleton @Provides WalletRepositoryType provideWalletRepository(OkHttpClient okHttpClient,

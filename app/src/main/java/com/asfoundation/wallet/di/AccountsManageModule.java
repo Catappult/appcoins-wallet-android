@@ -8,7 +8,6 @@ import com.asfoundation.wallet.interact.FetchWalletsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.SetDefaultWalletInteract;
 import com.asfoundation.wallet.repository.PasswordStore;
-import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.router.ImportWalletRouter;
 import com.asfoundation.wallet.router.TransactionsRouter;
@@ -17,11 +16,6 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module class AccountsManageModule {
-
-  @Provides AddTokenInteract provideAddTokenInteract(TokenRepositoryType tokenRepository,
-      WalletRepositoryType walletRepository) {
-    return new AddTokenInteract(walletRepository, tokenRepository);
-  }
 
   @Provides WalletsViewModelFactory provideAccountsManageViewModelFactory(
       CreateWalletInteract createWalletInteract, SetDefaultWalletInteract setDefaultWalletInteract,

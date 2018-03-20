@@ -26,6 +26,7 @@ import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Token;
 import com.asfoundation.wallet.entity.Transaction;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsAdapter;
 import com.asfoundation.wallet.util.RootUtil;
 import com.asfoundation.wallet.viewmodel.BaseNavigationActivity;
@@ -45,6 +46,7 @@ import static com.asfoundation.wallet.C.ErrorCode.EMPTY_COLLECTION;
 public class TransactionsActivity extends BaseNavigationActivity implements View.OnClickListener {
 
   @Inject TransactionsViewModelFactory transactionsViewModelFactory;
+  @Inject AddTokenInteract addTokenInteract;
   private TransactionsViewModel viewModel;
 
   private SystemView systemView;

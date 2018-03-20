@@ -2,15 +2,20 @@ package com.asfoundation.wallet.di;
 
 import android.content.Context;
 import com.asfoundation.wallet.App;
+import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.BuyService;
+import com.asfoundation.wallet.repository.EthereumNetworkRepository;
+import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
 import com.asfoundation.wallet.repository.MemoryCache;
 import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.PendingTransactionService;
+import com.asfoundation.wallet.repository.PreferenceRepositoryType;
+import com.asfoundation.wallet.repository.SharedPreferenceRepository;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
 import com.asfoundation.wallet.repository.TransactionService;
@@ -18,6 +23,8 @@ import com.asfoundation.wallet.repository.TrustPasswordStore;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.router.GasSettingsRouter;
 import com.asfoundation.wallet.service.RealmManager;
+import com.asfoundation.wallet.service.TickerService;
+import com.asfoundation.wallet.service.TrustWalletTickerService;
 import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.TransferParser;
 import com.google.gson.Gson;
@@ -44,6 +51,24 @@ import okhttp3.OkHttpClient;
         .readTimeout(30, TimeUnit.MINUTES)
         .writeTimeout(30, TimeUnit.MINUTES)
         .build();
+  }
+
+  @Singleton @Provides EthereumNetworkRepositoryType provideEthereumNetworkRepository(
+      PreferenceRepositoryType preferenceRepository, TickerService tickerService) {
+    return new EthereumNetworkRepository(preferenceRepository, tickerService);
+  }
+
+  @Singleton @Provides PreferenceRepositoryType providePreferenceRepository(Context context) {
+    return new SharedPreferenceRepository(context);
+  }
+
+  @Singleton @Provides TickerService provideTickerService(OkHttpClient httpClient, Gson gson) {
+    return new TrustWalletTickerService(httpClient, gson);
+  }
+
+  @Provides AddTokenInteract provideAddTokenInteract(TokenRepositoryType tokenRepository,
+      WalletRepositoryType walletRepository) {
+    return new AddTokenInteract(walletRepository, tokenRepository);
   }
 
   @Singleton @Provides PasswordStore passwordStore(Context context) {
