@@ -43,7 +43,7 @@ public class ApproveServiceTest {
         Single.just("buy_hash"));
 
     approveService = new ApproveService(sendTransactionInteract, pendingTransactionService,
-        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()));
+        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new ErrorMapper());
     approveService.start();
   }
 

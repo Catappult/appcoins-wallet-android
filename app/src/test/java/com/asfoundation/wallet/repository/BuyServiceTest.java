@@ -44,7 +44,7 @@ public class BuyServiceTest {
         Single.just("buy_hash"));
 
     buyService = new BuyService(sendTransactionInteract, pendingTransactionService,
-        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()));
+        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new ErrorMapper());
     buyService.start();
   }
 

@@ -14,13 +14,15 @@ public class ApproveService {
   private final SendTransactionInteract sendTransactionInteract;
   private final PendingTransactionService pendingTransactionService;
   private final Cache<String, PaymentTransaction> cache;
+  private final ErrorMapper errorMapper;
 
   public ApproveService(SendTransactionInteract sendTransactionInteract,
-      PendingTransactionService pendingTransactionService,
-      Cache<String, PaymentTransaction> cache) {
+      PendingTransactionService pendingTransactionService, Cache<String, PaymentTransaction> cache,
+      ErrorMapper errorMapper) {
     this.sendTransactionInteract = sendTransactionInteract;
     this.pendingTransactionService = pendingTransactionService;
     this.cache = cache;
+    this.errorMapper = errorMapper;
   }
 
   public void start() {
@@ -43,11 +45,10 @@ public class ApproveService {
                     paymentTransaction).onErrorResumeNext(throwable -> {
                   throwable.printStackTrace();
                   return cache.save(paymentTransaction.getUri(),
-                      new PaymentTransaction(paymentTransaction,
-                          PaymentTransaction.PaymentState.ERROR));
+                      new PaymentTransaction(paymentTransaction, errorMapper.map(throwable)));
                 }))))
         .onErrorResumeNext(throwable -> cache.save(paymentTransaction.getUri(),
-            new PaymentTransaction(paymentTransaction, PaymentTransaction.PaymentState.ERROR)));
+            new PaymentTransaction(paymentTransaction, errorMapper.map(throwable))));
   }
 
   private Completable saveTransaction(PendingTransaction pendingTransaction,
