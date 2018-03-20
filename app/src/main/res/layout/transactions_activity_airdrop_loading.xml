@@ -13,20 +13,6 @@
     app:layout_constraintTop_toTopOf="parent"
     >
   <TextView
-      android:id="@+id/loading_title"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:fontFamily="sans-serif"
-      android:gravity="center"
-      android:lineSpacingExtra="8sp"
-      android:text="@string/activity_aib_loading_title"
-      android:textColor="@color/black_87_alpha"
-      android:textSize="24sp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
-  <TextView
       android:id="@+id/loading_message"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
@@ -36,14 +22,14 @@
       android:textColor="@color/iab_activity_gray"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/loading_title"
+      app:layout_constraintTop_toTopOf="parent"
       />
   <ProgressBar
       android:id="@+id/progressBar"
       android:layout_width="80dp"
       android:layout_height="80dp"
-      android:layout_marginBottom="38dp"
-      android:layout_marginTop="44dp"
+      android:layout_marginBottom="40dp"
+      android:layout_marginTop="40dp"
       android:indeterminateDrawable="@drawable/gradient_progress"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"

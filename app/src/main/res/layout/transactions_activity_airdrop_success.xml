@@ -25,6 +25,7 @@
       android:id="@+id/activity_transactions_error_message"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
       android:minLines="3"
       android:text="@string/activity_transactions_airdrop_success_message"
       android:textColor="@color/activity_transactions_airdrop_success_gray"
@@ -38,24 +39,12 @@
       android:layout_width="wrap_content"
       android:layout_height="36dp"
       android:layout_marginTop="4dp"
-      android:text="@string/ok"
+      android:text="@string/action_next"
       android:textColor="@color/white"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@id/activity_transactions_error_message"
       style="@style/buy_button"
-      />
-
-  <TextView
-      android:id="@+id/activity_transactions_error_more_info_button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="29dp"
-      android:text="@string/activity_transactions_airdrop_more_info"
-      android:textColor="#2a97e0"
-      app:layout_constraintBottom_toBottomOf="@id/activity_transactions_success_ok_button"
-      app:layout_constraintEnd_toStartOf="@id/activity_transactions_success_ok_button"
-      app:layout_constraintTop_toTopOf="@id/activity_transactions_success_ok_button"
       />
 </android.support.constraint.ConstraintLayout>
 

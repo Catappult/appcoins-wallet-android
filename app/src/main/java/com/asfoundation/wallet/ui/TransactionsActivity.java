@@ -47,7 +47,8 @@ import static com.asfoundation.wallet.C.ErrorCode.EMPTY_COLLECTION;
 
 public class TransactionsActivity extends BaseNavigationActivity implements View.OnClickListener {
 
-  public static final String AIRDROP_MORE_INFO_URL = "https://www.appstorefoundation.org/";
+  public static final String AIRDROP_MORE_INFO_URL =
+      "https://www.appstorefoundation.org/asf-wallet";
   private static final String TAG = TransactionsActivity.class.getSimpleName();
   @Inject TransactionsViewModelFactory transactionsViewModelFactory;
   @Inject AddTokenInteract addTokenInteract;
@@ -173,12 +174,11 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         emptyView.setAirdropButtonEnable(false);
         break;
       }
-      case R.id.activity_transactions_success_ok_button:
       case R.id.activity_transactions_error_ok_button:
       case R.id.activity_transactions_program_ended_ok_button:
         dismissDialogs();
         break;
-      case R.id.activity_transactions_error_more_info_button:
+      case R.id.activity_transactions_success_ok_button:
       case R.id.action_learn_more:
         openLearnMore();
         dismissDialogs();
@@ -349,10 +349,9 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
               false);
       successDialog = new AlertDialog.Builder(this).setView(dialogView)
           .setOnDismissListener(dialogInterface -> successDialog = null)
+          .setCancelable(false)
           .create();
       dialogView.findViewById(R.id.activity_transactions_success_ok_button)
-          .setOnClickListener(this);
-      dialogView.findViewById(R.id.activity_transactions_error_more_info_button)
           .setOnClickListener(this);
       successDialog.show();
     }

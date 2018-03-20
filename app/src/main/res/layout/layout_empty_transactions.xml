@@ -24,7 +24,6 @@
       android:layout_marginTop="42dp"
       android:gravity="center"
       android:text="@string/no_transactions_yet"
-      android:textColor="@color/colorAccent"
       app:layout_constraintBottom_toTopOf="@id/action_air_drop"
       app:layout_constraintEnd_toStartOf="@+id/guideline2"
       app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -48,25 +47,27 @@
       android:id="@+id/action_learn_more"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="40dp"
+      android:layout_marginTop="16dp"
       android:text="@string/activity_transactions_learn_more"
+      android:textColor="@color/colorAccent"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/action_air_drop"
+      style="@style/Widget.AppCompat.Button.Borderless"
       />
   <android.support.constraint.Guideline
       android:id="@+id/guideline"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="vertical"
-      app:layout_constraintGuide_begin="71dp"
+      app:layout_constraintGuide_begin="80dp"
       />
   <android.support.constraint.Guideline
       android:id="@+id/guideline2"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="vertical"
-      app:layout_constraintGuide_end="71dp"
+      app:layout_constraintGuide_end="80dp"
       />
 </android.support.constraint.ConstraintLayout>
