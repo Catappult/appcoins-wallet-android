@@ -46,6 +46,7 @@ import static com.asfoundation.wallet.C.ErrorCode.EMPTY_COLLECTION;
 
 public class TransactionsActivity extends BaseNavigationActivity implements View.OnClickListener {
 
+  public static final String AIRDROP_MORE_INFO_URL = "https://www.appstorefoundation.org/";
   private static final String TAG = TransactionsActivity.class.getSimpleName();
   @Inject TransactionsViewModelFactory transactionsViewModelFactory;
   @Inject AddTokenInteract addTokenInteract;
@@ -55,6 +56,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private Dialog dialog;
   private AlertDialog loadingDialog;
   private EmptyTransactionsView emptyView;
+  private AlertDialog successDialog;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     AndroidInjection.inject(this);
@@ -168,7 +170,18 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         emptyView.setAirdropButtonEnable(false);
         break;
       }
+      case R.id.activity_transactions_success_ok_button:
+        dismissDialogs();
+        break;
+      case R.id.activity_transactions_error_more_info_button:
+        openLearnMore();
+        dismissDialogs();
+        break;
     }
+  }
+
+  private void openLearnMore() {
+    viewModel.onLearnMoreClick(this, Uri.parse(AIRDROP_MORE_INFO_URL));
   }
 
   @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -281,15 +294,38 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       case ERROR:
         emptyView.setAirdropButtonEnable(false);
       case ENDED:
-      case DONE:
-        hideDialogs();
+        dismissDialogs();
+        break;
+      case SUCCESS:
+        showSuccessDialog();
         break;
     }
   }
 
-  private void hideDialogs() {
+  private void showSuccessDialog() {
+    dismissDialogs();
+    if (successDialog == null) {
+      View dialogView =
+          getLayoutInflater().inflate(R.layout.transactions_activity_airdrop_success, systemView,
+              false);
+      successDialog = new AlertDialog.Builder(this).setView(dialogView)
+          .setCancelable(false)
+          .setOnDismissListener(dialogInterface -> successDialog = null)
+          .create();
+      dialogView.findViewById(R.id.activity_transactions_success_ok_button)
+          .setOnClickListener(this);
+      dialogView.findViewById(R.id.activity_transactions_error_more_info_button)
+          .setOnClickListener(this);
+      successDialog.show();
+    }
+  }
+
+  private void dismissDialogs() {
     if (loadingDialog != null) {
       loadingDialog.dismiss();
+    }
+    if (successDialog != null) {
+      successDialog.dismiss();
     }
   }
 

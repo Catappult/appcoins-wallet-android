@@ -212,4 +212,8 @@ public class TransactionsViewModel extends BaseViewModel {
         .doOnSuccess(airDropService::request)
         .subscribe());
   }
+
+  public void onLearnMoreClick(Context context, Uri uri) {
+    openDeposit(context, uri);
+  }
 }

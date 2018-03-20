@@ -27,4 +27,5 @@
   <color name="black_87_alpha">#de000000</color>
   <color name="dark_blue">#1976d2</color>
   <color name="light_blue">#36aeeb</color>
+  <color name="activity_transactions_airdrop_success_gray">#8a000000</color>
 </resources>

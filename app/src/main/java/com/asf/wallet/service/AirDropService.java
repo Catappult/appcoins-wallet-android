@@ -61,7 +61,7 @@ public class AirDropService {
           list.add(waitTransactionComplete(airDropResponse.getEthTransaction()));
           return Completable.merge(list);
         })
-        .doOnTerminate(() -> publish(AirdropStatus.DONE))
+        .doOnTerminate(() -> publish(AirdropStatus.SUCCESS))
         .subscribe(() -> {
         }, throwable -> publish(throwable));
   }
@@ -89,7 +89,7 @@ public class AirDropService {
   }
 
   public enum AirdropStatus {
-    PENDING, ERROR, ENDED, DONE, EMPTY
+    PENDING, ERROR, ENDED, SUCCESS, EMPTY
   }
 
   public interface Api {
