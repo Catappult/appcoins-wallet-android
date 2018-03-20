@@ -49,7 +49,8 @@ public class IabPresenter {
     disposables.add(transactionService.getTransactionState(uriString)
         .observeOn(viewScheduler)
         .flatMapCompletable(this::showPendingTransaction)
-        .subscribe());
+        .subscribe(() -> {
+        }, throwable -> throwable.printStackTrace()));
   }
 
   private void showBuy() {
