@@ -40,7 +40,6 @@ public class IabPresenter {
         .subscribe(click -> showBuy()));
 
     disposables.add(view.getBuyClick()
-        .doOnNext(__ -> view.lockOrientation())
         .flatMapCompletable(uri -> transactionService.send(uri)
             .observeOn(viewScheduler)
             .doOnError(this::showError))
@@ -65,7 +64,6 @@ public class IabPresenter {
     if (throwable != null) {
       throwable.printStackTrace();
     }
-    view.unlockOrientation();
     view.showError();
   }
 
@@ -77,7 +75,6 @@ public class IabPresenter {
             .andThen(Completable.timer(1, TimeUnit.SECONDS))
             .andThen(Completable.fromAction(() -> {
               view.finish(transaction.getBuyHash());
-              view.unlockOrientation();
             }))
             .andThen(transactionService.remove(transaction.getUri()));
       case ERROR:

@@ -2,10 +2,8 @@ package com.asfoundation.wallet.ui.iab;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Pair;
@@ -143,19 +141,6 @@ public class IabActivity extends BaseActivity implements IabView {
     transactionCompletedLayout.setVisibility(View.GONE);
     buyLayout.setVisibility(View.GONE);
     isBackEnable = true;
-  }
-
-  @Override public void lockOrientation() {
-    int currentOrientation = getResources().getConfiguration().orientation;
-    if (currentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
-      setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-    } else {
-      setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
-    }
-  }
-
-  @Override public void unlockOrientation() {
-    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
   }
 
   @Override public void setup(TransactionBuilder transactionBuilder) {

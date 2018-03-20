@@ -20,10 +20,6 @@ public interface IabView {
 
   void showError();
 
-  void lockOrientation();
-
-  void unlockOrientation();
-
   void setup(TransactionBuilder transactionBuilder);
 
   void close();
