@@ -18,7 +18,7 @@
       android:layout_height="50dp"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      tools:src="@drawable/ic_launcher"
+      tools:src="@mipmap/ic_launcher"
       />
   <TextView
       android:id="@+id/iab_activity_item_description"
