@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import com.asf.wallet.R;
+import com.asf.wallet.service.AirDropService;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Token;
@@ -178,6 +179,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         dismissDialogs();
         break;
       case R.id.activity_transactions_error_more_info_button:
+      case R.id.action_learn_more:
         openLearnMore();
         dismissDialogs();
         break;
@@ -304,6 +306,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       case SUCCESS:
         showSuccessDialog();
         break;
+      default:
+        dismissDialogs();
     }
   }
 

@@ -62,14 +62,14 @@ public class AirDropService {
           list.add(waitTransactionComplete(airDropResponse.getEthTransaction()));
           return Completable.merge(list);
         })
-        .doOnTerminate(() -> publish(AirdropStatus.SUCCESS))
+        .andThen(Completable.fromAction(() -> publish(AirdropStatus.SUCCESS)))
         .subscribe(() -> {
         }, throwable -> publish(throwable));
   }
 
   private void publish(Throwable throwable) {
     throwable.printStackTrace();
-    if (((HttpException) throwable).code() == 404) {
+    if (throwable instanceof HttpException && ((HttpException) throwable).code() == 404) {
       publish(AirdropStatus.ENDED);
     } else {
       publish(AirdropStatus.ERROR);

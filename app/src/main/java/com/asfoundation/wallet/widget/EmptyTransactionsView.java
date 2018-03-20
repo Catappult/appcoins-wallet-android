@@ -19,6 +19,7 @@ public class EmptyTransactionsView extends FrameLayout {
         .inflate(R.layout.layout_empty_transactions, this, true);
 
     airdropButton = findViewById(R.id.action_air_drop);
+    findViewById(R.id.action_learn_more).setOnClickListener(onClickListener);
     airdropButton.setOnClickListener(onClickListener);
   }
 
