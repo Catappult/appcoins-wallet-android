@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 
 public class TransactionService {
 
+  public static final double GAS_PRICE_MULTIPLIER = 2;
   private static final String DEFAULT_GAS_LIMIT = "200000";
   private final FetchGasSettingsInteract gasSettingsInteract;
   private final FindDefaultWalletInteract defaultWalletInteract;
@@ -47,7 +48,8 @@ public class TransactionService {
         (transaction, wallet) -> transaction.fromAddress(wallet.address))
         .flatMap(transactionBuilder -> gasSettingsInteract.fetch(true)
             .map(gasSettings -> transactionBuilder.gasSettings(
-                new GasSettings(gasSettings.gasPrice, new BigDecimal(DEFAULT_GAS_LIMIT)))))
+                new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
+                    new BigDecimal(DEFAULT_GAS_LIMIT)))))
         .map(transactionBuilder -> new PaymentTransaction(uri, transactionBuilder,
             PaymentTransaction.PaymentState.PENDING));
   }
