@@ -26,6 +26,7 @@ import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenExplorerClientType;
 import com.asfoundation.wallet.service.TransactionsNetworkClient;
 import com.asfoundation.wallet.service.TransactionsNetworkClientType;
+import com.asfoundation.wallet.service.TrustWalletTickerService;
 import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;

@@ -14,6 +14,7 @@ import com.asfoundation.wallet.router.MyTokensRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
+import com.asfoundation.wallet.service.AirDropService;
 
 public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
 
@@ -28,6 +29,7 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
   private final MyTokensRouter myTokensRouter;
   private final ExternalBrowserRouter externalBrowserRouter;
   private final FetchTokensInteract fetchTokensInteract;
+  private final AirDropService airDropService;
 
   public TransactionsViewModelFactory(FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
@@ -35,7 +37,7 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
       SettingsRouter settingsRouter, SendRouter sendRouter,
       TransactionDetailRouter transactionDetailRouter, MyAddressRouter myAddressRouter,
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
-      FetchTokensInteract fetchTokensInteract) {
+      FetchTokensInteract fetchTokensInteract, AirDropService airDropService) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchTransactionsInteract = fetchTransactionsInteract;
@@ -47,12 +49,13 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
     this.myTokensRouter = myTokensRouter;
     this.externalBrowserRouter = externalBrowserRouter;
     this.fetchTokensInteract = fetchTokensInteract;
+    this.airDropService = airDropService;
   }
 
   @NonNull @Override public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
     return (T) new TransactionsViewModel(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, manageWalletsRouter, settingsRouter, sendRouter,
         transactionDetailRouter, myAddressRouter, myTokensRouter, externalBrowserRouter,
-        fetchTokensInteract);
+        fetchTokensInteract, airDropService);
   }
 }

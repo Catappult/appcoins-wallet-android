@@ -16,6 +16,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Token;
 import com.asfoundation.wallet.entity.Transaction;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.service.AirDropService;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsAdapter;
 import com.asfoundation.wallet.util.RootUtil;
@@ -45,13 +47,20 @@ import static com.asfoundation.wallet.C.ErrorCode.EMPTY_COLLECTION;
 
 public class TransactionsActivity extends BaseNavigationActivity implements View.OnClickListener {
 
+  public static final String AIRDROP_MORE_INFO_URL =
+      "https://www.appstorefoundation.org/asf-wallet";
+  private static final String TAG = TransactionsActivity.class.getSimpleName();
   @Inject TransactionsViewModelFactory transactionsViewModelFactory;
   @Inject AddTokenInteract addTokenInteract;
   private TransactionsViewModel viewModel;
-
   private SystemView systemView;
   private TransactionsAdapter adapter;
   private Dialog dialog;
+  private AlertDialog loadingDialog;
+  private EmptyTransactionsView emptyView;
+  private AlertDialog successDialog;
+  private AlertDialog errorDialog;
+  private AlertDialog programEndedDialog;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     AndroidInjection.inject(this);
@@ -100,6 +109,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::onDefaultWallet);
     viewModel.transactions()
         .observe(this, this::onTransactions);
+    viewModel.onAirdrop()
+        .observe(this, this::onAirdrop);
 
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
   }
@@ -156,12 +167,27 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     switch (view.getId()) {
       case R.id.try_again: {
         viewModel.fetchTransactions(true);
+        break;
       }
-      break;
-      case R.id.action_buy: {
-        openExchangeDialog();
+      case R.id.action_air_drop: {
+        viewModel.showAirDrop();
+        emptyView.setAirdropButtonEnable(false);
+        break;
       }
+      case R.id.activity_transactions_error_ok_button:
+      case R.id.activity_transactions_program_ended_ok_button:
+        dismissDialogs();
+        break;
+      case R.id.activity_transactions_success_ok_button:
+      case R.id.action_learn_more:
+        openLearnMore();
+        dismissDialogs();
+        break;
     }
+  }
+
+  private void openLearnMore() {
+    viewModel.onLearnMoreClick(this, Uri.parse(AIRDROP_MORE_INFO_URL));
   }
 
   @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -218,10 +244,10 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void onError(ErrorEnvelope errorEnvelope) {
-    if (errorEnvelope.code == EMPTY_COLLECTION || adapter.getItemCount() == 0) {
-      EmptyTransactionsView emptyView = new EmptyTransactionsView(this, this);
-      emptyView.setNetworkInfo(viewModel.defaultNetwork()
-          .getValue());
+    if ((errorEnvelope.code == EMPTY_COLLECTION || adapter.getItemCount() == 0)) {
+      if (emptyView == null) {
+        emptyView = new EmptyTransactionsView(this, this);
+      }
       systemView.showEmpty(emptyView);
     }/* else {
             systemView.showError(getString(R.string.error_fail_load_transaction), this);
@@ -262,5 +288,100 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private void onDepositClick(View view, Uri uri) {
     viewModel.openDeposit(view.getContext(), uri);
+  }
+
+  private void onAirdrop(AirDropService.AirdropStatus airdropStatus) {
+    Log.d(TAG, "onAirdrop() called with: airdropStatus = [" + airdropStatus + "]");
+    switch (airdropStatus) {
+      case PENDING:
+        showPendingDialog();
+        break;
+      case ERROR:
+        showErrorDialog();
+        emptyView.setAirdropButtonEnable(true);
+        break;
+      case ENDED:
+        showProgramEndedDialog();
+        break;
+      case SUCCESS:
+        showSuccessDialog();
+        break;
+      default:
+        dismissDialogs();
+    }
+  }
+
+  private void showProgramEndedDialog() {
+    dismissDialogs();
+    if (programEndedDialog == null) {
+      View dialogView =
+          getLayoutInflater().inflate(R.layout.transactions_activity_airdrop_program_ended,
+              systemView, false);
+      programEndedDialog = new AlertDialog.Builder(this).setView(dialogView)
+          .setOnDismissListener(dialogInterface -> programEndedDialog = null)
+          .create();
+      dialogView.findViewById(R.id.activity_transactions_program_ended_ok_button)
+          .setOnClickListener(this);
+      programEndedDialog.show();
+    }
+  }
+
+  private void showErrorDialog() {
+    dismissDialogs();
+    if (errorDialog == null) {
+      View dialogView =
+          getLayoutInflater().inflate(R.layout.transactions_activity_airdrop_error, systemView,
+              false);
+      errorDialog = new AlertDialog.Builder(this).setView(dialogView)
+          .setOnDismissListener(dialogInterface -> errorDialog = null)
+          .create();
+      dialogView.findViewById(R.id.activity_transactions_error_ok_button)
+          .setOnClickListener(this);
+      errorDialog.show();
+    }
+  }
+
+  private void showSuccessDialog() {
+    dismissDialogs();
+    if (successDialog == null) {
+      View dialogView =
+          getLayoutInflater().inflate(R.layout.transactions_activity_airdrop_success, systemView,
+              false);
+      successDialog = new AlertDialog.Builder(this).setView(dialogView)
+          .setOnDismissListener(dialogInterface -> successDialog = null)
+          .setCancelable(false)
+          .create();
+      dialogView.findViewById(R.id.activity_transactions_success_ok_button)
+          .setOnClickListener(this);
+      successDialog.show();
+    }
+  }
+
+  private void showPendingDialog() {
+    if (loadingDialog == null) {
+      View dialogView =
+          getLayoutInflater().inflate(R.layout.transactions_activity_airdrop_loading, systemView,
+              false);
+      loadingDialog = new AlertDialog.Builder(this).setView(dialogView)
+          .setCancelable(false)
+          .setOnDismissListener(dialogInterface -> loadingDialog = null)
+          .create();
+      loadingDialog.show();
+    }
+  }
+
+  private void dismissDialogs() {
+    if (loadingDialog != null) {
+      loadingDialog.dismiss();
+    }
+    if (successDialog != null) {
+      successDialog.dismiss();
+    }
+    if (errorDialog != null) {
+      errorDialog.dismiss();
+    }
+    if (programEndedDialog != null) {
+      programEndedDialog.dismiss();
+    }
   }
 }

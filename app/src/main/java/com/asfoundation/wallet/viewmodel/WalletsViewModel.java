@@ -157,6 +157,7 @@ public class WalletsViewModel extends BaseViewModel {
   }
 
   private void onCreateWalletError(Throwable throwable) {
+    throwable.printStackTrace();
     Crashlytics.logException(throwable);
     progress.postValue(false);
     createWalletError.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, throwable.getMessage()));

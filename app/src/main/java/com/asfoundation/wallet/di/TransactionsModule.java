@@ -7,6 +7,7 @@ import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
+import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.TokenLocalSource;
 import com.asfoundation.wallet.repository.TokenRepository;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
@@ -20,11 +21,14 @@ import com.asfoundation.wallet.router.MyTokensRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
+import com.asfoundation.wallet.service.AirDropService;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenExplorerClientType;
 import com.asfoundation.wallet.viewmodel.TransactionsViewModelFactory;
+import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.subjects.BehaviorSubject;
 import okhttp3.OkHttpClient;
 
 @Module class TransactionsModule {
@@ -35,11 +39,18 @@ import okhttp3.OkHttpClient;
       SettingsRouter settingsRouter, SendRouter sendRouter,
       TransactionDetailRouter transactionDetailRouter, MyAddressRouter myAddressRouter,
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
-      FetchTokensInteract fetchTokensInteract) {
+      FetchTokensInteract fetchTokensInteract, AirDropService airDropService) {
     return new TransactionsViewModelFactory(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, manageWalletsRouter, settingsRouter, sendRouter,
         transactionDetailRouter, myAddressRouter, myTokensRouter, externalBrowserRouter,
-        fetchTokensInteract);
+        fetchTokensInteract, airDropService);
+  }
+
+  @Provides AirDropService provideAirDropService(OkHttpClient client, Gson gson,
+      PendingTransactionService pendingTransactionService,
+      EthereumNetworkRepositoryType repository) {
+    return new AirDropService(client, gson, pendingTransactionService, repository,
+        BehaviorSubject.create());
   }
 
   @Provides FetchTokensInteract provideFetchTokensInteract(TokenRepositoryType tokenRepository) {

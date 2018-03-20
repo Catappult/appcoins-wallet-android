@@ -22,7 +22,12 @@ public class Web3jService implements EthereumService {
           EthTransaction ethTransaction = web3j.get()
               .ethGetTransactionByHash(hash)
               .send();
-          emitter.onSuccess(new PendingTransaction(hash, isPending(ethTransaction)));
+          if (ethTransaction.hasError()) {
+            emitter.onError(new RuntimeException(ethTransaction.getError()
+                .getMessage()));
+          } else {
+            emitter.onSuccess(new PendingTransaction(hash, isPending(ethTransaction)));
+          }
         }
       } catch (Exception e) {
         if (!emitter.isDisposed()) {

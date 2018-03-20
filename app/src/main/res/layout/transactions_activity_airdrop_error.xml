@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_transaction_error_view"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:padding="16dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    >
+  <TextView
+      android:id="@+id/activity_transactions_error_title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/activity_transaction_error_title"
+      android:textColor="@color/black_87_alpha"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      style="@style/Base.TextAppearance.AppCompat.Subhead"
+      />
+  <TextView
+      android:id="@+id/activity_transactions_error_message"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:minLines="3"
+      android:text="@string/activity_transactions_error_message"
+      android:textColor="@color/activity_transactions_airdrop_success_gray"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/activity_transactions_error_title"
+      style="@style/Base.TextAppearance.AppCompat.Caption"
+      />
+
+  <Button
+      android:id="@+id/activity_transactions_error_ok_button"
+      android:layout_width="wrap_content"
+      android:layout_height="36dp"
+      android:text="@string/ok"
+      android:textColor="@color/white"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/activity_transactions_error_message"
+      app:layout_constraintVertical_bias="1"
+      style="@style/buy_button"
+      />
+</android.support.constraint.ConstraintLayout>
+
