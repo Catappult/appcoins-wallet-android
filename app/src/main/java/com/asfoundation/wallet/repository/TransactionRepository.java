@@ -104,8 +104,10 @@ public class TransactionRepository implements TransactionRepositoryType {
           EthSendTransaction raw = web3j.ethSendRawTransaction(Numeric.toHexString(signedMessage))
               .send();
           if (raw.hasError()) {
-            throw new Exception(raw.getError()
-                .getMessage());
+            throw new TransactionException(raw.getError()
+                .getCode(), raw.getError()
+                .getMessage(), raw.getError()
+                .getData());
           }
           return raw.getTransactionHash();
         }))

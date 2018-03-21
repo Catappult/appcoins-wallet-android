@@ -74,8 +74,6 @@ public class TransferParserTest {
         .equals("0x2c30194bd2e7b6b8ff1467c5af1650f53cd231be"));
     test.assertValue(transactionBuilder -> transactionBuilder.contractAddress()
         .equals("0xab949343e6c369c6b17c7ae302c1debd4b7b61c3"));
-    test.assertValue(transactionBuilder -> transactionBuilder.getTransactionType()
-        .equals(TransactionBuilder.TransactionType.APPC));
     test.assertValue(transactionBuilder -> transactionBuilder.shouldSendToken() == false);
   }
 
@@ -109,8 +107,6 @@ public class TransferParserTest {
         .equals(toAddress));
     test.assertValue(transactionBuilder -> transactionBuilder.contractAddress()
         .equals(contractAddress));
-    test.assertValue(transactionBuilder -> transactionBuilder.getTransactionType()
-        .equals(TransactionBuilder.TransactionType.TOKEN));
     test.assertValue(transactionBuilder -> transactionBuilder.shouldSendToken() == true);
   }
 
@@ -130,8 +126,6 @@ public class TransferParserTest {
         .equals(new BigDecimal(1)));
     test.assertValue(transactionBuilder -> transactionBuilder.toAddress()
         .equals(toAddress));
-    test.assertValue(transactionBuilder -> transactionBuilder.getTransactionType()
-        .equals(TransactionBuilder.TransactionType.ETH));
     test.assertValue(transactionBuilder -> transactionBuilder.shouldSendToken() == false);
   }
 }

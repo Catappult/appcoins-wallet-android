@@ -33,4 +33,6 @@ public interface IabView {
   void showWrongNetworkError();
 
   void showNoNetworkError();
+
+  void showNonceError();
 }
