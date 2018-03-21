@@ -48,7 +48,7 @@ import static com.asfoundation.wallet.C.ErrorCode.EMPTY_COLLECTION;
 public class TransactionsActivity extends BaseNavigationActivity implements View.OnClickListener {
 
   public static final String AIRDROP_MORE_INFO_URL =
-      "https://www.appstorefoundation.org/asf-wallet";
+      "https://appstorefoundation.org/asf-wallet#wallet-steps";
   private static final String TAG = TransactionsActivity.class.getSimpleName();
   @Inject TransactionsViewModelFactory transactionsViewModelFactory;
   @Inject AddTokenInteract addTokenInteract;
