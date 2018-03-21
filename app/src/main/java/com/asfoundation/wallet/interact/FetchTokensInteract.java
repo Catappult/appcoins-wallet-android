@@ -29,7 +29,7 @@ public class FetchTokensInteract {
     return tokenRepository.fetchActive(wallet.address)
         .flatMap(tokens -> defaultTokenProvider.getDefaultToken()
             .flatMapObservable(defaultToken -> Observable.fromIterable(Arrays.asList(tokens))
-                .filter(token -> token.tokenInfo.address.equals(defaultToken))))
+                .filter(token -> token.tokenInfo.address.equalsIgnoreCase(defaultToken))))
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread());
   }
