@@ -220,7 +220,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       ethBalance = ethBalance.setScale(4, RoundingMode.HALF_UP)
           .stripTrailingZeros();
       String value = ethBalance.compareTo(BigDecimal.ZERO) == 0 ? "0" : ethBalance.toPlainString();
-      actionBar.setTitle(value + " " + token.tokenInfo.symbol);
+      actionBar.setTitle(value + " " + token.tokenInfo.symbol.toUpperCase());
 
       String converted = ethBalance.compareTo(BigDecimal.ZERO) == 0 ? "\u2014\u2014"
           : ethBalance.multiply(new BigDecimal(token.ticker.price))
