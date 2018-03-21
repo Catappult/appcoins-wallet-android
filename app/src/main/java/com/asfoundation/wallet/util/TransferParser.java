@@ -45,7 +45,6 @@ public class TransferParser {
     TransactionBuilder transactionBuilder = new TransactionBuilder("ETH");
     transactionBuilder.toAddress(payment.getAddress());
     transactionBuilder.amount(getEtherTransferAmount(payment));
-    transactionBuilder.setTransactionType(TransactionBuilder.TransactionType.ETH);
     return Single.just(transactionBuilder);
   }
 
@@ -63,7 +62,7 @@ public class TransferParser {
           }
         })
         .map(token -> new TransactionBuilder(token.tokenInfo.symbol, token.tokenInfo.address,
-            TransactionBuilder.TransactionType.TOKEN, payment.getChainId(),
+            payment.getChainId(),
             getReceiverAddress(payment), getTokenTransferAmount(payment, token.tokenInfo.decimals),
             null, token.tokenInfo.decimals).shouldSendToken(true));
   }
@@ -82,7 +81,7 @@ public class TransferParser {
           }
         })
         .map(token -> new TransactionBuilder(token.tokenInfo.symbol, getIabContractAddress(payment),
-            TransactionBuilder.TransactionType.APPC, payment.getChainId(),
+            payment.getChainId(),
             getReceiverAddress(payment), getTokenTransferAmount(payment, token.tokenInfo.decimals),
             getSkuId(payment), token.tokenInfo.decimals));
   }
@@ -91,15 +90,15 @@ public class TransferParser {
     return payment.getAddress();
   }
 
-  private TransactionBuilder.TransactionType getTransactionType(ERC681 payment) {
+  private TransactionType getTransactionType(ERC681 payment) {
     if (payment.getFunction() != null && payment.getFunction()
         .equalsIgnoreCase("buy")) {
-      return TransactionBuilder.TransactionType.APPC;
+      return TransactionType.APPC;
     } else if (payment.getFunction() != null && payment.getFunction()
         .equalsIgnoreCase("transfer")) {
-      return TransactionBuilder.TransactionType.TOKEN;
+      return TransactionType.TOKEN;
     } else {
-      return TransactionBuilder.TransactionType.ETH;
+      return TransactionType.ETH;
     }
   }
 
@@ -147,5 +146,9 @@ public class TransferParser {
       address = payment.getAddress();
     }
     return address;
+  }
+
+  public enum TransactionType {
+    APPC, TOKEN, ETH
   }
 }
