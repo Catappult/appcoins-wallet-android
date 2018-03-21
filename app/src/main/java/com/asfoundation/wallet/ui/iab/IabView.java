@@ -27,4 +27,10 @@ public interface IabView {
   void showTransactionCompleted();
 
   void showBuy();
+
+  void showNoFundsError();
+
+  void showWrongNetworkError();
+
+  void showNoNetworkError();
 }

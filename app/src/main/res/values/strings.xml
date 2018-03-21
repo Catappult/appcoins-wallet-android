@@ -258,4 +258,7 @@
   <string name="activity_transactions_airdrop_success_message">You are now in a test network (Ropsten). Use your test APPC in our demo app.</string>
   <string name="activity_transaction_program_ended_title">Sorry</string>
   <string name="activity_transactions_program_ended_message">Test program successfully closed!</string>
+  <string name="activity_iab_no_funds_message">Not enough funds</string>
+  <string name="activity_iab_wrong_network_message">Wrong ethereum network</string>
+  <string name="activity_iab_no_network_message">No network access</string>
 </resources>

@@ -48,6 +48,7 @@ public class IabActivity extends BaseActivity implements IabView {
   private View transactionErrorLayout;
   private View buyLayout;
   private boolean isBackEnable;
+  private TextView errorTextView;
 
   public static Intent newIntent(Activity activity, Intent previousIntent) {
     Intent intent = new Intent(activity, IabActivity.class);
@@ -73,6 +74,7 @@ public class IabActivity extends BaseActivity implements IabView {
     okErrorButton = findViewById(R.id.activity_iab_error_ok_button);
     loadingView = findViewById(R.id.loading);
     appName = findViewById(R.id.iab_activity_app_name);
+    errorTextView = findViewById(R.id.activity_iab_error_message);
     transactionCompletedLayout = findViewById(R.id.iab_activity_transaction_completed);
     buyLayout = findViewById(R.id.iab_activity_buy_layout);
     transactionErrorLayout = findViewById(R.id.activity_iab_error_view);
@@ -89,7 +91,10 @@ public class IabActivity extends BaseActivity implements IabView {
         .subscribe(pair -> {
           appName.setText(pair.first);
           appIcon.setImageDrawable(pair.second);
-        }, throwable -> showError());
+        }, throwable -> {
+          throwable.printStackTrace();
+          showError();
+        });
     isBackEnable = true;
   }
 
@@ -136,11 +141,7 @@ public class IabActivity extends BaseActivity implements IabView {
   }
 
   @Override public void showError() {
-    loadingView.setVisibility(View.GONE);
-    transactionErrorLayout.setVisibility(View.VISIBLE);
-    transactionCompletedLayout.setVisibility(View.GONE);
-    buyLayout.setVisibility(View.GONE);
-    isBackEnable = true;
+    showError(R.string.activity_iab_error_message);
   }
 
   @Override public void setup(TransactionBuilder transactionBuilder) {
@@ -172,6 +173,27 @@ public class IabActivity extends BaseActivity implements IabView {
     transactionCompletedLayout.setVisibility(View.GONE);
     buyLayout.setVisibility(View.VISIBLE);
     isBackEnable = true;
+  }
+
+  @Override public void showNoFundsError() {
+    showError(R.string.activity_iab_no_funds_message);
+  }
+
+  @Override public void showWrongNetworkError() {
+    showError(R.string.activity_iab_wrong_network_message);
+  }
+
+  @Override public void showNoNetworkError() {
+    showError(R.string.activity_iab_no_network_message);
+  }
+
+  public void showError(int error_message) {
+    loadingView.setVisibility(View.GONE);
+    transactionErrorLayout.setVisibility(View.VISIBLE);
+    transactionCompletedLayout.setVisibility(View.GONE);
+    buyLayout.setVisibility(View.GONE);
+    isBackEnable = true;
+    errorTextView.setText(error_message);
   }
 
   private CharSequence getApplicationName(String appPackage)

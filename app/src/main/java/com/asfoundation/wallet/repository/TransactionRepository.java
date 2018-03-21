@@ -89,7 +89,7 @@ public class TransactionRepository implements TransactionRepositoryType {
             break;
           }
         }
-        return Single.error(new RuntimeException(
+        return Single.error(new WrongNetworkException(
             "Default network is different from the intended on transaction\nCurrent network: "
                 + networkRepository.getDefaultNetwork().name
                 + "\nRequested: "
