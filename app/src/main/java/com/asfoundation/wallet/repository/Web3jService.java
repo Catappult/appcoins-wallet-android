@@ -40,6 +40,10 @@ public class Web3jService implements EthereumService {
   private boolean isPending(EthTransaction ethTransaction) {
     org.web3j.protocol.core.methods.response.Transaction transaction =
         ethTransaction.getTransaction();
-    return transaction.getBlockNumberRaw() == null;
+    if (transaction == null) {
+      throw new TransactionNotFoundException();
+    } else {
+      return transaction.getBlockNumberRaw() == null;
+    }
   }
 }

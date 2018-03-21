@@ -22,6 +22,9 @@ public class ErrorMapper {
         .equalsIgnoreCase(INSUFFICIENT_MESSAGE)) {
       return PaymentTransaction.PaymentState.NO_FUNDS;
     }
+    if (throwable instanceof TransactionNotFoundException) {
+      return PaymentTransaction.PaymentState.ERROR;
+    }
     return PaymentTransaction.PaymentState.ERROR;
   }
 }
