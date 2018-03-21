@@ -78,9 +78,6 @@ public class IabPresenter {
               view.finish(transaction.getBuyHash());
             }))
             .andThen(transactionService.remove(transaction.getUri()));
-      case ERROR:
-        return Completable.fromAction(() -> showError(null))
-            .andThen(transactionService.remove(transaction.getUri()));
       case NO_FUNDS:
         return Completable.fromAction(() -> view.showNoFundsError())
             .andThen(transactionService.remove(transaction.getUri()));
@@ -96,10 +93,14 @@ public class IabPresenter {
       case PENDING:
       case APPROVING:
       case APPROVED:
+        return Completable.fromAction(view::showApproving);
       case BUYING:
       case BOUGHT:
+        return Completable.fromAction(view::showBuying);
       default:
-        return Completable.fromAction(view::showLoading);
+      case ERROR:
+        return Completable.fromAction(() -> showError(null))
+            .andThen(transactionService.remove(transaction.getUri()));
     }
   }
 

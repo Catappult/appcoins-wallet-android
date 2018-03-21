@@ -34,5 +34,9 @@ public interface IabView {
 
   void showNoNetworkError();
 
+  void showApproving();
+
+  void showBuying();
+
   void showNonceError();
 }

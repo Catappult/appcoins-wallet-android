@@ -6,6 +6,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
@@ -49,6 +50,7 @@ public class IabActivity extends BaseActivity implements IabView {
   private View buyLayout;
   private boolean isBackEnable;
   private TextView errorTextView;
+  private TextView loadingMessage;
 
   public static Intent newIntent(Activity activity, Intent previousIntent) {
     Intent intent = new Intent(activity, IabActivity.class);
@@ -73,6 +75,7 @@ public class IabActivity extends BaseActivity implements IabView {
     buyButton = findViewById(R.id.buy_button);
     okErrorButton = findViewById(R.id.activity_iab_error_ok_button);
     loadingView = findViewById(R.id.loading);
+    loadingMessage = findViewById(R.id.loading_message);
     appName = findViewById(R.id.iab_activity_app_name);
     errorTextView = findViewById(R.id.activity_iab_error_message);
     transactionCompletedLayout = findViewById(R.id.iab_activity_transaction_completed);
@@ -131,13 +134,7 @@ public class IabActivity extends BaseActivity implements IabView {
   }
 
   @Override public void showLoading() {
-    isBackEnable = false;
-    loadingView.setVisibility(View.VISIBLE);
-    transactionErrorLayout.setVisibility(View.GONE);
-    transactionCompletedLayout.setVisibility(View.GONE);
-    buyLayout.setVisibility(View.GONE);
-    loadingView.requestFocus();
-    loadingView.setOnTouchListener((v, event) -> true);
+    showLoading(R.string.activity_aib_loading_message);
   }
 
   @Override public void showError() {
@@ -187,8 +184,27 @@ public class IabActivity extends BaseActivity implements IabView {
     showError(R.string.activity_iab_no_network_message);
   }
 
+  @Override public void showApproving() {
+    showLoading(R.string.activity_iab_approving_message);
+  }
+
+  @Override public void showBuying() {
+    showLoading(R.string.activity_aib_buying_message);
+  }
+
   @Override public void showNonceError() {
     showError(R.string.activity_iab_nonce_message);
+  }
+
+  private void showLoading(@StringRes int message) {
+    isBackEnable = false;
+    loadingView.setVisibility(View.VISIBLE);
+    transactionErrorLayout.setVisibility(View.GONE);
+    transactionCompletedLayout.setVisibility(View.GONE);
+    buyLayout.setVisibility(View.GONE);
+    loadingMessage.setText(message);
+    loadingView.requestFocus();
+    loadingView.setOnTouchListener((v, event) -> true);
   }
 
   public void showError(int error_message) {
