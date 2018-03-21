@@ -82,11 +82,17 @@ public class IabPresenter {
         return Completable.fromAction(() -> showError(null))
             .andThen(transactionService.remove(transaction.getUri()));
       case NO_FUNDS:
-        return Completable.fromAction(() -> view.showNoFundsError());
+        return Completable.fromAction(() -> view.showNoFundsError())
+            .andThen(transactionService.remove(transaction.getUri()));
       case WRONG_NETWORK:
-        return Completable.fromAction(() -> view.showWrongNetworkError());
+        return Completable.fromAction(() -> view.showWrongNetworkError())
+            .andThen(transactionService.remove(transaction.getUri()));
       case NO_INTERNET:
-        return Completable.fromAction(() -> view.showNoNetworkError());
+        return Completable.fromAction(() -> view.showNoNetworkError())
+            .andThen(transactionService.remove(transaction.getUri()));
+      case NONCE_ERROR:
+        return Completable.fromAction(() -> view.showNonceError())
+            .andThen(transactionService.remove(transaction.getUri()));
       case PENDING:
       case APPROVING:
       case APPROVED:

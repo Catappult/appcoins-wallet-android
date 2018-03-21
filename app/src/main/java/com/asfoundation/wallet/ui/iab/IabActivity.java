@@ -187,6 +187,10 @@ public class IabActivity extends BaseActivity implements IabView {
     showError(R.string.activity_iab_no_network_message);
   }
 
+  @Override public void showNonceError() {
+    showError(R.string.activity_iab_nonce_message);
+  }
+
   public void showError(int error_message) {
     loadingView.setVisibility(View.GONE);
     transactionErrorLayout.setVisibility(View.VISIBLE);

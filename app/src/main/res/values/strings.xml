@@ -261,4 +261,5 @@
   <string name="activity_iab_no_funds_message">Not enough funds</string>
   <string name="activity_iab_wrong_network_message">Wrong ethereum network</string>
   <string name="activity_iab_no_network_message">No network access</string>
+  <string name="activity_iab_nonce_message">An error with blockchain occurred, please try again later.</string>
 </resources>
