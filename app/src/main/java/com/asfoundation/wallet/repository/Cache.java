@@ -8,7 +8,7 @@ import java.util.List;
  * Created by trinkes on 3/15/18.
  */
 
-interface Cache<T, K> {
+public interface Cache<T, K> {
   Completable save(T key, K value);
 
   Observable<List<K>> getAll();
