@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.di;
 
-import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
+import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchTokensInteract;
 import com.asfoundation.wallet.interact.FetchTransactionsInteract;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
@@ -39,11 +39,12 @@ import okhttp3.OkHttpClient;
       SettingsRouter settingsRouter, SendRouter sendRouter,
       TransactionDetailRouter transactionDetailRouter, MyAddressRouter myAddressRouter,
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
-      FetchTokensInteract fetchTokensInteract, AirDropService airDropService) {
+      FetchTokensInteract fetchTokensInteract, AirDropService airDropService,
+      DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance) {
     return new TransactionsViewModelFactory(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, manageWalletsRouter, settingsRouter, sendRouter,
         transactionDetailRouter, myAddressRouter, myTokensRouter, externalBrowserRouter,
-        fetchTokensInteract, airDropService);
+        fetchTokensInteract, airDropService, defaultTokenProvider, getDefaultWalletBalance);
   }
 
   @Provides AirDropService provideAirDropService(OkHttpClient client, Gson gson,
@@ -53,13 +54,9 @@ import okhttp3.OkHttpClient;
         BehaviorSubject.create());
   }
 
-  @Provides FetchTokensInteract provideFetchTokensInteract(TokenRepositoryType tokenRepository) {
-    return new FetchTokensInteract(tokenRepository, new BuildConfigDefaultTokenProvider());
-  }
-
-  @Provides FindDefaultNetworkInteract provideFindDefaultNetworkInteract(
-      EthereumNetworkRepositoryType ethereumNetworkRepositoryType) {
-    return new FindDefaultNetworkInteract(ethereumNetworkRepositoryType);
+  @Provides FetchTokensInteract provideFetchTokensInteract(TokenRepositoryType tokenRepository,
+      DefaultTokenProvider defaultTokenProvider) {
+    return new FetchTokensInteract(tokenRepository, defaultTokenProvider);
   }
 
   @Provides FetchTransactionsInteract provideFetchTransactionsInteract(
@@ -69,8 +66,10 @@ import okhttp3.OkHttpClient;
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(
       WalletRepositoryType walletRepository,
-      EthereumNetworkRepositoryType ethereumNetworkRepository) {
-    return new GetDefaultWalletBalance(walletRepository, ethereumNetworkRepository);
+      EthereumNetworkRepositoryType ethereumNetworkRepository,
+      FetchTokensInteract fetchTokensInteract) {
+    return new GetDefaultWalletBalance(walletRepository, ethereumNetworkRepository,
+        fetchTokensInteract);
   }
 
   @Provides ManageWalletsRouter provideManageWalletsRouter() {

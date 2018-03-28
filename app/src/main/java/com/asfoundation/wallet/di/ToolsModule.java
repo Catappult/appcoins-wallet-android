@@ -3,7 +3,10 @@ package com.asfoundation.wallet.di;
 import android.content.Context;
 import com.asfoundation.wallet.App;
 import com.asfoundation.wallet.interact.AddTokenInteract;
+import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
+import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
+import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.repository.ApproveService;
@@ -127,5 +130,16 @@ import okhttp3.OkHttpClient;
       FindDefaultWalletInteract provideFindDefaultWalletInteract,
       TokenRepositoryType tokenRepositoryType) {
     return new TransferParser(provideFindDefaultWalletInteract, tokenRepositoryType);
+  }
+
+  @Provides FindDefaultNetworkInteract provideFindDefaultNetworkInteract(
+      EthereumNetworkRepositoryType ethereumNetworkRepositoryType) {
+    return new FindDefaultNetworkInteract(ethereumNetworkRepositoryType);
+  }
+
+  @Provides DefaultTokenProvider provideDefaultTokenProvider(
+      FindDefaultNetworkInteract defaultNetworkInteract,
+      FindDefaultWalletInteract findDefaultWalletInteract) {
+    return new BuildConfigDefaultTokenProvider(defaultNetworkInteract, findDefaultWalletInteract);
   }
 }

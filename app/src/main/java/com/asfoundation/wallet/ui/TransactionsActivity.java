@@ -22,9 +22,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.Token;
 import com.asfoundation.wallet.entity.Transaction;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.AddTokenInteract;
@@ -38,8 +38,7 @@ import com.asfoundation.wallet.widget.DepositView;
 import com.asfoundation.wallet.widget.EmptyTransactionsView;
 import com.asfoundation.wallet.widget.SystemView;
 import dagger.android.AndroidInjection;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.util.Map;
 import javax.inject.Inject;
 
 import static com.asfoundation.wallet.C.ETHEREUM_NETWORK_NAME;
@@ -113,6 +112,24 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::onAirdrop);
 
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
+  }
+
+  private void onBalanceChanged(Map<String, String> balance) {
+    ActionBar actionBar = getSupportActionBar();
+    if (actionBar == null) {
+      return;
+    }
+
+    for (Map.Entry<String, String> entry : balance.entrySet()) {
+      if (entry.getKey()
+          .equals(C.USD_SYMBOL)) {
+        actionBar.setSubtitle(C.USD_SYMBOL + balance.get(C.USD_SYMBOL));
+      } else {
+        actionBar.setTitle(entry.getValue()
+            .toUpperCase() + " " + entry.getKey());
+        break;
+      }
+    }
   }
 
   private void onTransactionClick(View view, Transaction transaction) {
@@ -206,29 +223,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       }
     }
     return false;
-  }
-
-  private void onBalanceChanged(Token token) {
-    ActionBar actionBar = getSupportActionBar();
-    if (actionBar == null) {
-      return;
-    }
-    if (token.ticker != null && token.balance != null) {
-      BigDecimal decimalDivisor = new BigDecimal(Math.pow(10, token.tokenInfo.decimals));
-      BigDecimal ethBalance =
-          token.tokenInfo.decimals > 0 ? token.balance.divide(decimalDivisor) : token.balance;
-      ethBalance = ethBalance.setScale(4, RoundingMode.HALF_UP)
-          .stripTrailingZeros();
-      String value = ethBalance.compareTo(BigDecimal.ZERO) == 0 ? "0" : ethBalance.toPlainString();
-      actionBar.setTitle(value + " " + token.tokenInfo.symbol.toUpperCase());
-
-      String converted = ethBalance.compareTo(BigDecimal.ZERO) == 0 ? "\u2014\u2014"
-          : ethBalance.multiply(new BigDecimal(token.ticker.price))
-              .setScale(2, RoundingMode.HALF_UP)
-              .stripTrailingZeros()
-              .toPlainString();
-      actionBar.setSubtitle("$" + converted);
-    }
   }
 
   private void onTransactions(Transaction[] transaction) {

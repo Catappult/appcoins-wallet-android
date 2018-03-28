@@ -6,17 +6,17 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
 import android.text.format.DateUtils;
-import android.util.Log;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.Token;
 import com.asfoundation.wallet.entity.Transaction;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchTokensInteract;
 import com.asfoundation.wallet.interact.FetchTransactionsInteract;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
+import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.ManageWalletsRouter;
 import com.asfoundation.wallet.router.MyAddressRouter;
@@ -25,11 +25,10 @@ import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.service.AirDropService;
-import com.asfoundation.wallet.token.Erc20Token;
-import com.asfoundation.wallet.util.TokenInfoFactory;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import java.util.Map;
 
 public class TransactionsViewModel extends BaseViewModel {
   private static final long GET_BALANCE_INTERVAL = 10 * DateUtils.SECOND_IN_MILLIS;
@@ -38,7 +37,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
   private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
   private final MutableLiveData<Transaction[]> transactions = new MutableLiveData<>();
-  private final MutableLiveData<Token> defaultWalletBalance = new MutableLiveData<>();
+  private final MutableLiveData<Map<String, String>> defaultWalletBalance = new MutableLiveData<>();
   private final MutableLiveData<AirDropService.AirdropStatus> airdrop = new MutableLiveData<>();
   private final FindDefaultNetworkInteract findDefaultNetworkInteract;
   private final FindDefaultWalletInteract findDefaultWalletInteract;
@@ -53,8 +52,10 @@ public class TransactionsViewModel extends BaseViewModel {
   private final FetchTokensInteract fetchTokensInteract;
   private final AirDropService airDropService;
   private final CompositeDisposable disposables;
+  private final DefaultTokenProvider defaultTokenProvider;
   private Handler handler = new Handler();
   private final Runnable startFetchTransactionsTask = () -> this.fetchTransactions(false);
+  private final GetDefaultWalletBalance getDefaultWalletBalance;
   private final Runnable startGetBalanceTask = this::getBalance;
 
   TransactionsViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract,
@@ -63,7 +64,8 @@ public class TransactionsViewModel extends BaseViewModel {
       SettingsRouter settingsRouter, SendRouter sendRouter,
       TransactionDetailRouter transactionDetailRouter, MyAddressRouter myAddressRouter,
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
-      FetchTokensInteract fetchTokensInteract, AirDropService airDropService) {
+      FetchTokensInteract fetchTokensInteract, AirDropService airDropService,
+      DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchTransactionsInteract = fetchTransactionsInteract;
@@ -76,6 +78,8 @@ public class TransactionsViewModel extends BaseViewModel {
     this.externalBrowserRouter = externalBrowserRouter;
     this.fetchTokensInteract = fetchTokensInteract;
     this.airDropService = airDropService;
+    this.defaultTokenProvider = defaultTokenProvider;
+    this.getDefaultWalletBalance = getDefaultWalletBalance;
     disposables = new CompositeDisposable();
   }
 
@@ -101,7 +105,7 @@ public class TransactionsViewModel extends BaseViewModel {
     return transactions;
   }
 
-  public LiveData<Token> defaultWalletBalance() {
+  public MutableLiveData<Map<String, String>> defaultWalletBalance() {
     return defaultWalletBalance;
   }
 
@@ -125,23 +129,19 @@ public class TransactionsViewModel extends BaseViewModel {
   public void fetchTransactions(boolean shouldShowProgress) {
     handler.removeCallbacks(startFetchTransactionsTask);
     progress.postValue(shouldShowProgress);
-        /*For specific address use: new Wallet("0x60f7a1cbc59470b74b1df20b133700ec381f15d3")*/
+    /*For specific address use: new Wallet("0x60f7a1cbc59470b74b1df20b133700ec381f15d3")*/
     Observable<Transaction[]> fetch = fetchTransactionsInteract.fetch(defaultWallet.getValue());
     disposables.add(
         fetch.subscribe(this::onTransactions, this::onError, this::onTransactionsFetchCompleted));
   }
 
   private void getBalance() {
-    disposables.add(fetchTokensInteract.fetchDefaultToken(defaultWallet.getValue())
-        .subscribe(token -> {
-          defaultWalletBalance.postValue(token);
+    disposables.add(getDefaultWalletBalance.get(defaultWallet.getValue())
+        .subscribe(values -> {
+          defaultWalletBalance.postValue(values);
           handler.removeCallbacks(startGetBalanceTask);
           handler.postDelayed(startGetBalanceTask, GET_BALANCE_INTERVAL);
-        }, throwable -> {
-          Log.w(TAG, "getBalance: ", throwable);
-          handler.removeCallbacks(startGetBalanceTask);
-          handler.postDelayed(startGetBalanceTask, GET_BALANCE_INTERVAL);
-        }));
+        }, throwable -> throwable.printStackTrace()));
   }
 
   private void onDefaultNetwork(NetworkInfo networkInfo) {
@@ -182,7 +182,9 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void showSend(Context context) {
-    sendRouter.open(context, TokenInfoFactory.getTokenInfo(Erc20Token.APPC));
+    defaultTokenProvider.getDefaultToken()
+        .doOnSuccess(defaultToken -> sendRouter.open(context, defaultToken))
+        .subscribe();
   }
 
   public void showDetails(Context context, Transaction transaction) {

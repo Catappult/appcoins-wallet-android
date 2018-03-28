@@ -41,14 +41,25 @@ android {
 
     buildConfigField 'int', 'DB_VERSION', '5'
 
-    buildConfigField 'String', 'DEFAULT_TOKEN_SYMBOL',
-        "\"" + project.DEBUG_DEFAULT_TOKEN_SYMBOL + "\""
-    buildConfigField 'String', 'DEFAULT_TOKEN_ADDRESS',
-        "\"" + project.DEBUG_DEFAULT_TOKEN_ADDRESS + "\""
-    buildConfigField 'int', 'DEFAULT_TOKEN_DECIMALS', project.DEBUG_DEFAULT_TOKEN_DECIMALS
+    buildConfigField 'String', 'ROPSTEN_DEFAULT_TOKEN_SYMBOL',
+        "\"" + project.ROPSTEN_DEFAULT_TOKEN_SYMBOL + "\""
+    buildConfigField 'String', 'ROPSTEN_DEFAULT_TOKEN_ADDRESS',
+        "\"" + project.ROPSTEN_DEFAULT_TOKEN_ADDRESS + "\""
+    buildConfigField 'String', 'MAIN_NETWORK_DEFAULT_TOKEN_NAME',
+        "\"" + project.MAIN_NETWORK_DEFAULT_TOKEN_NAME + "\""
+    buildConfigField 'int', 'ROPSTEN_DEFAULT_TOKEN_DECIMALS', project.ROPSTEN_DEFAULT_TOKEN_DECIMALS
     manifestPlaceholders.fabricApiKey = "${project.ASF_WALLET_FABRIC_KEY}"
     buildConfigField 'String', 'ASF_IAB_CONTRACT_ADDRESS',
         "\"" + project.ASF_IAB_CONTRACT_ADDRESS + "\""
+
+    buildConfigField 'String', 'MAIN_NETWORK_DEFAULT_TOKEN_SYMBOL',
+        "\"" + project.MAIN_NETWORK_DEFAULT_TOKEN_SYMBOL + "\""
+    buildConfigField 'String', 'MAIN_NETWORK_DEFAULT_TOKEN_ADDRESS',
+        "\"" + project.MAIN_NETWORK_DEFAULT_TOKEN_ADDRESS + "\""
+    buildConfigField 'String', 'ROPSTEN_DEFAULT_TOKEN_NAME',
+        "\"" + project.ROPSTEN_DEFAULT_TOKEN_NAME + "\""
+    buildConfigField 'int', 'MAIN_NETWORK_DEFAULT_TOKEN_DECIMALS',
+        project.MAIN_NETWORK_DEFAULT_TOKEN_DECIMALS
   }
 
   signingConfigs {
@@ -64,13 +75,6 @@ android {
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
-      buildConfigField 'String', 'DEFAULT_TOKEN_SYMBOL',
-          "\"" + project.RELEASE_DEFAULT_TOKEN_SYMBOL + "\""
-      buildConfigField 'String', 'DEFAULT_TOKEN_ADDRESS',
-          "\"" + project.RELEASE_DEFAULT_TOKEN_ADDRESS + "\""
-      buildConfigField 'int', 'DEFAULT_TOKEN_DECIMALS',
-          project.RELEASE_DEFAULT_TOKEN_DECIMALS
       signingConfig signingConfigs.release
     }
     debug {

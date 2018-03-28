@@ -98,10 +98,10 @@ public class TokenRepository implements TokenRepositoryType {
   }
 
   public static byte[] buyData(String developerAddress, String storeAddress, String oemAddress,
-      String data, BigDecimal amount) {
+      String data, BigDecimal amount, String tokenAddress) {
     Uint256 amountParam = new Uint256(amount.toBigInteger());
     Utf8String dataParam = new Utf8String(data);
-    Address contractAddress = new Address(BuildConfig.DEFAULT_TOKEN_ADDRESS);
+    Address contractAddress = new Address(tokenAddress);
     Address developerAddressParam = new Address(developerAddress);
     Address storeAddressParam = new Address(storeAddress);
     Address oemAddressParam = new Address(oemAddress);
@@ -166,7 +166,11 @@ public class TokenRepository implements TokenRepositoryType {
       for (Token tmp : toKeep) {
         if (tmp != token && tmp.tokenInfo.address.toLowerCase()
             .equals(token.tokenInfo.address.toLowerCase())) {
-          iterator.remove();
+          if (tmp.tokenInfo.name.equals("")) {
+            toKeep.remove(tmp);
+          } else {
+            iterator.remove();
+          }
           break;
         }
       }

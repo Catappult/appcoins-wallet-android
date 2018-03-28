@@ -10,6 +10,7 @@ import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.CreateWalletInteract;
+import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.DeleteWalletInteract;
 import com.asfoundation.wallet.interact.ExportWalletInteract;
 import com.asfoundation.wallet.interact.FetchWalletsInteract;
@@ -17,7 +18,6 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.SetDefaultWalletInteract;
 import com.asfoundation.wallet.router.ImportWalletRouter;
 import com.asfoundation.wallet.router.TransactionsRouter;
-import com.asfoundation.wallet.token.Erc20Token;
 import com.crashlytics.android.Crashlytics;
 
 import static com.asfoundation.wallet.C.IMPORT_REQUEST_CODE;
@@ -42,13 +42,15 @@ public class WalletsViewModel extends BaseViewModel {
   private final MutableLiveData<ErrorEnvelope> exportWalletError = new MutableLiveData<>();
   private final MutableLiveData<ErrorEnvelope> deleteWalletError = new MutableLiveData<>();
   private final AddTokenInteract addTokenInteract;
+  private final DefaultTokenProvider defaultTokenProvider;
 
   WalletsViewModel(CreateWalletInteract createWalletInteract,
       SetDefaultWalletInteract setDefaultWalletInteract, DeleteWalletInteract deleteWalletInteract,
       FetchWalletsInteract fetchWalletsInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
       ExportWalletInteract exportWalletInteract, ImportWalletRouter importWalletRouter,
-      TransactionsRouter transactionsRouter, AddTokenInteract addTokenInteract) {
+      TransactionsRouter transactionsRouter, AddTokenInteract addTokenInteract,
+      DefaultTokenProvider defaultTokenProvider) {
     this.createWalletInteract = createWalletInteract;
     this.setDefaultWalletInteract = setDefaultWalletInteract;
     this.deleteWalletInteract = deleteWalletInteract;
@@ -58,6 +60,7 @@ public class WalletsViewModel extends BaseViewModel {
     this.exportWalletInteract = exportWalletInteract;
     this.transactionsRouter = transactionsRouter;
     this.addTokenInteract = addTokenInteract;
+    this.defaultTokenProvider = defaultTokenProvider;
 
     fetchWallets();
   }
@@ -116,9 +119,10 @@ public class WalletsViewModel extends BaseViewModel {
   }
 
   private void addDefaultToken() {
-    Erc20Token appcToken = Erc20Token.APPC;
-
-    addTokenInteract.add(appcToken.getAddress(), appcToken.getSymbol(), appcToken.getDecimals())
+    defaultTokenProvider.getDefaultToken()
+        .flatMapCompletable(
+            defaultToken -> addTokenInteract.add(defaultToken.address, defaultToken.symbol,
+                defaultToken.decimals))
         .subscribe();
   }
 
