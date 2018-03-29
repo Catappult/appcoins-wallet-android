@@ -10,6 +10,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.asfoundation.wallet.poa.ProofOfAttentionService.MAX_NUMBER_PROOF_COMPONENTS;
+
 public class ProofOfAttentionServiceTest {
 
   private ProofOfAttentionService proofOfAttentionService;
@@ -96,5 +98,57 @@ public class ProofOfAttentionServiceTest {
     Assert.assertEquals(testObserver.assertValueCount(1)
         .values()
         .get(0), new Proof(packageName, null, proofComponents));
+  }
+
+  @Test public void registerProofMaxComponents() {
+    String packageName = "packageName";
+    String data = "data";
+    int timeStamp = 10;
+
+    TestObserver<Proof> testObserver = new TestObserver<>();
+    cache.get(packageName)
+        .subscribe(testObserver);
+
+    proofOfAttentionService.registerProof(packageName, timeStamp, data)
+        .blockingAwait();
+    proofOfAttentionService.registerProof(packageName, timeStamp, data)
+        .blockingAwait();
+    proofOfAttentionService.registerProof(packageName, timeStamp, data)
+        .blockingAwait();
+    proofOfAttentionService.registerProof(packageName, timeStamp, data)
+        .blockingAwait();
+
+    proofOfAttentionService.registerProof(packageName, timeStamp, data)
+        .blockingAwait();
+    proofOfAttentionService.registerProof(packageName, timeStamp, data)
+        .blockingAwait();
+    proofOfAttentionService.registerProof(packageName, timeStamp, data)
+        .blockingAwait();
+    proofOfAttentionService.registerProof(packageName, timeStamp, data)
+        .blockingAwait();
+
+    proofOfAttentionService.registerProof(packageName, timeStamp, data)
+        .blockingAwait();
+    proofOfAttentionService.registerProof(packageName, timeStamp, data)
+        .blockingAwait();
+    proofOfAttentionService.registerProof(packageName, timeStamp, data)
+        .blockingAwait();
+    proofOfAttentionService.registerProof(packageName, timeStamp, data)
+        .blockingAwait();
+
+    proofOfAttentionService.registerProof(packageName, timeStamp, data)
+        .blockingAwait();
+    proofOfAttentionService.registerProof(packageName, timeStamp, data)
+        .blockingAwait();
+    proofOfAttentionService.registerProof(packageName, timeStamp, data)
+        .blockingAwait();
+    proofOfAttentionService.registerProof(packageName, timeStamp, data)
+        .blockingAwait();
+
+    testObserver.assertValueCount(16);
+    Assert.assertEquals(testObserver.values()
+        .get(15)
+        .getProofComponentList()
+        .size(), MAX_NUMBER_PROOF_COMPONENTS);
   }
 }

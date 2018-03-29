@@ -7,6 +7,7 @@ import io.reactivex.Single;
 import java.util.ArrayList;
 
 public class ProofOfAttentionService {
+  public static final int MAX_NUMBER_PROOF_COMPONENTS = 12;
   private final Cache<String, Proof> cache;
 
   public ProofOfAttentionService(Cache<String, Proof> cache) {
@@ -26,7 +27,9 @@ public class ProofOfAttentionService {
   @NonNull private ArrayList<ProofComponent> createProofComponentList(long timeStamp, String data,
       Proof proof) {
     ArrayList<ProofComponent> list = new ArrayList<>(proof.getProofComponentList());
-    list.add(new ProofComponent(timeStamp, data));
+    if (list.size() < MAX_NUMBER_PROOF_COMPONENTS) {
+      list.add(new ProofComponent(timeStamp, data));
+    }
     return list;
   }
 
