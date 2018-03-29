@@ -2,6 +2,7 @@ package com.asfoundation.wallet.repository;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.subjects.BehaviorSubject;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,5 +45,9 @@ public class MemoryCache<K, V> implements Cache<K, V> {
       cache.remove(key);
       subject.onNext(new HashMap<>(cache));
     });
+  }
+
+  @Override public Single<Boolean> contains(K key) {
+    return Single.just(cache.containsKey(key));
   }
 }
