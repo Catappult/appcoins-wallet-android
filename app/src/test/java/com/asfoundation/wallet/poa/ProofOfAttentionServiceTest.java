@@ -2,13 +2,10 @@ package com.asfoundation.wallet.poa;
 
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.repository.MemoryCache;
+import com.google.gson.GsonBuilder;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.subjects.BehaviorSubject;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -25,11 +22,14 @@ public class ProofOfAttentionServiceTest {
 
   private ProofOfAttentionService proofOfAttentionService;
   private MemoryCache<String, Proof> cache;
+  private HashCalculator hashCalculator;
 
-  @Before public void before() {
+  @Before public void before() throws NoSuchAlgorithmException {
     cache = new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>());
+    hashCalculator =
+        new HashCalculator(new GsonBuilder().create(), MessageDigest.getInstance("SHA-256"));
     proofOfAttentionService =
-        new ProofOfAttentionService(cache, BuildConfig.APPLICATION_ID, new HashCalculator(),
+        new ProofOfAttentionService(cache, BuildConfig.APPLICATION_ID, hashCalculator,
             new CompositeDisposable());
   }
 
@@ -214,32 +214,17 @@ public class ProofOfAttentionServiceTest {
 
     completedPoA.assertNoErrors()
         .assertValueCount(1);
+    Proof value = completedPoA.values()
+        .get(0);
+    Assert.assertEquals(value.getCampaignId(), campaignId);
+    Assert.assertEquals(value.getPackageName(), packageName);
+    Assert.assertEquals(value.getProofId(), hashCalculator.calculate(
+        new Proof(value.getPackageName(), value.getCampaignId(), value.getProofComponentList(),
+            null, value.getWalletPackage())));
+    Assert.assertEquals(value.getProofComponentList()
+        .size(), ProofOfAttentionService.MAX_NUMBER_PROOF_COMPONENTS);
+    Assert.assertEquals(value.getWalletPackage(), BuildConfig.APPLICATION_ID);
 
     proofOfAttentionService.stop();
-  }
-
-  @Test public void test() throws IOException, NoSuchAlgorithmException {
-    String packageName = "packageName";
-    String campaignId = "campaignId";
-    String walletPackage = BuildConfig.APPLICATION_ID;
-    System.out.println(
-        checksum(new Proof(packageName, campaignId, Collections.emptyList(), null, walletPackage)));
-  }
-
-  private String checksum(Object obj) throws IOException, NoSuchAlgorithmException {
-
-    if (obj == null) {
-      return BigInteger.ZERO.toString();
-    }
-
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    ObjectOutputStream oos = new ObjectOutputStream(baos);
-    oos.writeObject(obj);
-    oos.close();
-
-    MessageDigest m = MessageDigest.getInstance("SHA-256");
-    m.update(baos.toByteArray());
-
-    return new BigInteger(1, m.digest()).toString();
   }
 }
