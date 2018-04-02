@@ -235,6 +235,11 @@ public class ProofOfAttentionServiceTest {
         .size(), ProofOfAttentionService.MAX_NUMBER_PROOF_COMPONENTS);
     Assert.assertEquals(value.getWalletPackage(), BuildConfig.APPLICATION_ID);
 
+    TestObserver<Boolean> containsSubscriber = new TestObserver<>();
+    cache.contains(packageName)
+        .subscribe(containsSubscriber);
+    containsSubscriber.assertValue(false);
+
     proofOfAttentionService.stop();
   }
 

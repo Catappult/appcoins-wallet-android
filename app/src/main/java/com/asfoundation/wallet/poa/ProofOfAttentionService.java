@@ -96,7 +96,11 @@ public class ProofOfAttentionService {
   public Observable<Proof> getReadyToSignProofs() {
     return cache.getAll()
         .flatMap(proofs -> Observable.fromIterable(proofs)
-            .filter(this::isReadyToSign));
+            .filter(this::isReadyToSign))
+        .flatMap(proof -> cache.remove(proof.getPackageName())
+            .toSingleDefault(true)
+            .toObservable()
+            .map(__ -> proof));
   }
 
   private boolean isReadyToSign(Proof proof) {
