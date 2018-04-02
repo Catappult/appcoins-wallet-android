@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.di;
 
 import android.content.Context;
+import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.App;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
@@ -9,11 +10,17 @@ import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
+import com.asfoundation.wallet.poa.BlockChainWriter;
+import com.asfoundation.wallet.poa.DataMapper;
+import com.asfoundation.wallet.poa.HashCalculator;
+import com.asfoundation.wallet.poa.ProofOfAttentionService;
+import com.asfoundation.wallet.poa.TransactionFactory;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.EthereumNetworkRepository;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
+import com.asfoundation.wallet.repository.GasSettingsRepository;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
 import com.asfoundation.wallet.repository.MemoryCache;
 import com.asfoundation.wallet.repository.PasswordStore;
@@ -25,7 +32,9 @@ import com.asfoundation.wallet.repository.TransactionRepositoryType;
 import com.asfoundation.wallet.repository.TransactionService;
 import com.asfoundation.wallet.repository.TrustPasswordStore;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
+import com.asfoundation.wallet.repository.Web3jProvider;
 import com.asfoundation.wallet.router.GasSettingsRouter;
+import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.RealmManager;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TrustWalletTickerService;
@@ -34,7 +43,10 @@ import com.asfoundation.wallet.util.TransferParser;
 import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.subjects.BehaviorSubject;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Singleton;
@@ -141,5 +153,49 @@ import okhttp3.OkHttpClient;
       FindDefaultNetworkInteract defaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract) {
     return new BuildConfigDefaultTokenProvider(defaultNetworkInteract, findDefaultWalletInteract);
+  }
+
+  @Singleton @Provides MessageDigest provideMessageDigest() {
+    try {
+      return MessageDigest.getInstance("SHA-256");
+    } catch (NoSuchAlgorithmException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Singleton @Provides GasSettingsRepositoryType provideGasSettingsRepository(
+      EthereumNetworkRepositoryType ethereumNetworkRepository) {
+    return new GasSettingsRepository(ethereumNetworkRepository);
+  }
+
+  @Singleton @Provides DataMapper provideDataMapper() {
+    return new DataMapper();
+  }
+
+  @Singleton @Provides TransactionFactory provideTransactionFactory(Web3jProvider web3jProvider,
+      WalletRepositoryType walletRepository, GasSettingsRepositoryType gasSettings,
+      AccountKeystoreService accountKeystoreService, PasswordStore passwordStore,
+      DefaultTokenProvider defaultTokenProvider,
+      EthereumNetworkRepositoryType ethereumNetworkRepository, DataMapper dataMapper) {
+
+    return new TransactionFactory(web3jProvider, walletRepository, gasSettings,
+        accountKeystoreService, passwordStore, defaultTokenProvider, ethereumNetworkRepository,
+        dataMapper);
+  }
+
+  @Singleton @Provides BlockChainWriter provideBlockChainWriter(Web3jProvider web3jProvider,
+      TransactionFactory transactionFactory) {
+    return new BlockChainWriter(web3jProvider, transactionFactory);
+  }
+
+  @Singleton @Provides HashCalculator provideHashCalculator(Gson gson,
+      MessageDigest messageDigest) {
+    return new HashCalculator(gson, messageDigest);
+  }
+
+  @Singleton @Provides ProofOfAttentionService provideProofOfAttentionService(
+      HashCalculator hashCalculator, BlockChainWriter blockChainWriter) {
+    return new ProofOfAttentionService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
+        BuildConfig.APPLICATION_ID, hashCalculator, new CompositeDisposable(), blockChainWriter);
   }
 }

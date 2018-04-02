@@ -4,7 +4,7 @@ package com.asfoundation.wallet.repository;
  * Created by trinkes on 21/03/2018.
  */
 
-class TransactionException extends RuntimeException {
+public class TransactionException extends RuntimeException {
   private final int code;
   private final String data;
 

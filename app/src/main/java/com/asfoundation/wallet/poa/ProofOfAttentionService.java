@@ -14,13 +14,16 @@ public class ProofOfAttentionService {
   private final String walletPackage;
   private final HashCalculator hashCalculator;
   private final CompositeDisposable compositeDisposable;
+  private final BlockChainWriter blockChainWriter;
 
   public ProofOfAttentionService(Cache<String, Proof> cache, String walletPackage,
-      HashCalculator hashCalculator, CompositeDisposable compositeDisposable) {
+      HashCalculator hashCalculator, CompositeDisposable compositeDisposable,
+      BlockChainWriter blockChainWriter) {
     this.cache = cache;
     this.walletPackage = walletPackage;
     this.hashCalculator = hashCalculator;
     this.compositeDisposable = compositeDisposable;
+    this.blockChainWriter = blockChainWriter;
   }
 
   public void start() {
@@ -31,6 +34,10 @@ public class ProofOfAttentionService {
         .doOnError(Throwable::printStackTrace)
         .retry()
         .subscribe());
+  }
+
+  public Single<String> sendProof(String proof) {
+    return blockChainWriter.writeProof(proof);
   }
 
   public void stop() {

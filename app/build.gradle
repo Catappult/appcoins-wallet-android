@@ -60,6 +60,8 @@ android {
         "\"" + project.ROPSTEN_DEFAULT_TOKEN_NAME + "\""
     buildConfigField 'int', 'MAIN_NETWORK_DEFAULT_TOKEN_DECIMALS',
         project.MAIN_NETWORK_DEFAULT_TOKEN_DECIMALS
+    buildConfigField 'String', 'MAIN_NETWORK_ASF_ADS_CONTRACT_ADDRESS',
+        "\"" + project.MAIN_NETWORK_ASF_ADS_CONTRACT_ADDRESS+ "\""
   }
 
   signingConfigs {

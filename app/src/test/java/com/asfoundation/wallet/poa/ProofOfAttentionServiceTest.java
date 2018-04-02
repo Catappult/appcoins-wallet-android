@@ -3,6 +3,7 @@ package com.asfoundation.wallet.poa;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.repository.MemoryCache;
 import com.google.gson.GsonBuilder;
+import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.subjects.BehaviorSubject;
@@ -15,22 +16,31 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import static com.asfoundation.wallet.poa.ProofOfAttentionService.MAX_NUMBER_PROOF_COMPONENTS;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class ProofOfAttentionServiceTest {
 
+  @Mock BlockChainWriter blockChainWriter;
   private ProofOfAttentionService proofOfAttentionService;
   private MemoryCache<String, Proof> cache;
   private HashCalculator hashCalculator;
 
   @Before public void before() throws NoSuchAlgorithmException {
+    MockitoAnnotations.initMocks(this);
     cache = new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>());
     hashCalculator =
         new HashCalculator(new GsonBuilder().create(), MessageDigest.getInstance("SHA-256"));
     proofOfAttentionService =
         new ProofOfAttentionService(cache, BuildConfig.APPLICATION_ID, hashCalculator,
-            new CompositeDisposable());
+            new CompositeDisposable(), blockChainWriter);
+    when(blockChainWriter.writeProof(anyString())).thenReturn(Single.just("hash"));
   }
 
   @Test public void setCampaignId() {
@@ -226,5 +236,15 @@ public class ProofOfAttentionServiceTest {
     Assert.assertEquals(value.getWalletPackage(), BuildConfig.APPLICATION_ID);
 
     proofOfAttentionService.stop();
+  }
+
+  @Test public void sendProof() {
+    TestObserver<String> subscriber = new TestObserver<>();
+    String proof = "this is a proof";
+    proofOfAttentionService.sendProof(proof)
+        .subscribe(subscriber);
+    verify(blockChainWriter, times(1)).writeProof(proof);
+    subscriber.assertValueCount(1)
+        .assertValue("hash");
   }
 }

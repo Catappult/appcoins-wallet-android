@@ -35,6 +35,18 @@ public class BuildConfigDefaultTokenProvider implements DefaultTokenProvider {
             .map(wallet -> getDefaultToken(networkInfo, wallet)));
   }
 
+  @Override public Single<String> getAdsAddress() {
+    return defaultNetworkInteract.find()
+        .map(this::getDefaultAdsAddress);
+  }
+
+  private String getDefaultAdsAddress(NetworkInfo networkInfo) {
+    switch (networkInfo.chainId) {
+      default:
+        return BuildConfig.MAIN_NETWORK_ASF_ADS_CONTRACT_ADDRESS;
+    }
+  }
+
   private TokenInfo getDefaultToken(NetworkInfo networkInfo, Wallet wallet) {
     switch (networkInfo.chainId) {
       // MAIN

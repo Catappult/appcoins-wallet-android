@@ -9,4 +9,6 @@ import io.reactivex.Single;
 
 public interface DefaultTokenProvider {
   Single<TokenInfo> getDefaultToken();
+
+  Single<String> getAdsAddress();
 }
