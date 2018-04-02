@@ -36,7 +36,6 @@ public class TransferParser {
                 return buildEthTransaction(erc681);
             }
           });
-
     }
     return Single.error(new RuntimeException("is not an supported URI"));
   }
@@ -56,15 +55,15 @@ public class TransferParser {
             .toList())
         .flatMap(tokens -> {
           if (tokens.isEmpty()) {
-            return Single.error(new RuntimeException("token not added"));
+            return Single.error(new UnknownTokenException());
           } else {
             return Single.just(tokens.get(0));
           }
         })
         .map(token -> new TransactionBuilder(token.tokenInfo.symbol, token.tokenInfo.address,
-            payment.getChainId(),
-            getReceiverAddress(payment), getTokenTransferAmount(payment, token.tokenInfo.decimals),
-            null, token.tokenInfo.decimals).shouldSendToken(true));
+            payment.getChainId(), getReceiverAddress(payment),
+            getTokenTransferAmount(payment, token.tokenInfo.decimals), null,
+            token.tokenInfo.decimals).shouldSendToken(true));
   }
 
   private Single<TransactionBuilder> buildAppcTransaction(ERC681 payment) {
@@ -75,15 +74,15 @@ public class TransferParser {
             .toList())
         .flatMap(tokens -> {
           if (tokens.isEmpty()) {
-            return Single.error(new RuntimeException("token not added"));
+            return Single.error(new UnknownTokenException());
           } else {
             return Single.just(tokens.get(0));
           }
         })
         .map(token -> new TransactionBuilder(token.tokenInfo.symbol, getIabContractAddress(payment),
-            payment.getChainId(),
-            getReceiverAddress(payment), getTokenTransferAmount(payment, token.tokenInfo.decimals),
-            getSkuId(payment), token.tokenInfo.decimals));
+            payment.getChainId(), getReceiverAddress(payment),
+            getTokenTransferAmount(payment, token.tokenInfo.decimals), getSkuId(payment),
+            token.tokenInfo.decimals));
   }
 
   private String getIabContractAddress(ERC681 payment) {

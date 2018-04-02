@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.repository;
 
+import com.asfoundation.wallet.util.UnknownTokenException;
 import java.net.UnknownHostException;
 
 /**
@@ -21,6 +22,9 @@ public class ErrorMapper {
     }
     if (throwable instanceof TransactionNotFoundException) {
       return PaymentTransaction.PaymentState.ERROR;
+    }
+    if (throwable instanceof UnknownTokenException) {
+      return PaymentTransaction.PaymentState.UNKNOWN_TOKEN;
     }
     if (throwable instanceof TransactionException) {
       switch (throwable.getMessage()) {

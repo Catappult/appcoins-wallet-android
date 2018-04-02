@@ -16,6 +16,7 @@ import com.asfoundation.wallet.router.Result;
 import com.asfoundation.wallet.util.QRUri;
 import com.asfoundation.wallet.util.TransferParser;
 import com.google.android.gms.vision.barcode.Barcode;
+import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
 import org.web3j.utils.Numeric;
 
@@ -28,6 +29,7 @@ public class SendViewModel extends BaseViewModel {
   private final FetchGasSettingsInteract fetchGasSettingsInteract;
   private final ConfirmationRouter confirmationRouter;
   private final TransferParser transferParser;
+  private final CompositeDisposable disposables;
   private TransactionBuilder transactionBuilder;
 
   SendViewModel(FindDefaultWalletInteract findDefaultWalletInteract,
@@ -37,19 +39,25 @@ public class SendViewModel extends BaseViewModel {
     this.fetchGasSettingsInteract = fetchGasSettingsInteract;
     this.confirmationRouter = confirmationRouter;
     this.transferParser = transferParser;
+    disposables = new CompositeDisposable();
+  }
+
+  @Override protected void onCleared() {
+    disposables.clear();
+    super.onCleared();
   }
 
   public void init(TransactionBuilder transactionBuilder, Uri data) {
     if (transactionBuilder != null) {
       this.transactionBuilder = transactionBuilder;
       symbol.postValue(transactionBuilder.symbol());
-      fetchGasSettingsInteract.fetch(transactionBuilder.shouldSendToken())
-          .subscribe(this::onGasSettings, this::onError);
+      disposables.add(fetchGasSettingsInteract.fetch(transactionBuilder.shouldSendToken())
+          .subscribe(this::onGasSettings, this::onError));
 
       disposable = findDefaultWalletInteract.find()
           .subscribe(this::onDefaultWallet, this::onError);
     } else {
-      transferParser.parse(data.toString())
+      disposables.add(transferParser.parse(data.toString())
           .flatMapObservable(transaction -> {
             this.transactionBuilder = transaction;
             symbol.postValue(transaction.symbol());
@@ -63,7 +71,7 @@ public class SendViewModel extends BaseViewModel {
                     .doOnNext(transactionSucceed::postValue));
           })
           .subscribe(wallet -> {
-          }, this::onError);
+          }, this::onError));
     }
   }
 
