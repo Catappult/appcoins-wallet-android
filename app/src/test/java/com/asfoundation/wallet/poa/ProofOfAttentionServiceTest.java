@@ -219,7 +219,7 @@ public class ProofOfAttentionServiceTest {
         .blockingAwait();
 
     TestObserver<Proof> completedPoA = new TestObserver<>();
-    proofOfAttentionService.getReadyToSignProofs()
+    proofOfAttentionService.getReadyToSignProof()
         .subscribe(completedPoA);
 
     completedPoA.assertNoErrors()
@@ -246,7 +246,7 @@ public class ProofOfAttentionServiceTest {
   @Test public void sendProof() {
     TestObserver<String> subscriber = new TestObserver<>();
     String proof = "this is a proof";
-    proofOfAttentionService.sendProof(proof)
+    proofOfAttentionService.sendSignedProof(proof)
         .subscribe(subscriber);
     verify(blockChainWriter, times(1)).writeProof(proof);
     subscriber.assertValueCount(1)

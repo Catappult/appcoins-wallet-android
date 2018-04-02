@@ -36,7 +36,7 @@ public class ProofOfAttentionService {
         .subscribe());
   }
 
-  public Single<String> sendProof(String proof) {
+  public Single<String> sendSignedProof(String proof) {
     return blockChainWriter.writeProof(proof);
   }
 
@@ -93,7 +93,7 @@ public class ProofOfAttentionService {
         .isEmpty());
   }
 
-  public Observable<Proof> getReadyToSignProofs() {
+  public Observable<Proof> getReadyToSignProof() {
     return cache.getAll()
         .flatMap(proofs -> Observable.fromIterable(proofs)
             .filter(this::isReadyToSign))
