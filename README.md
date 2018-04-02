@@ -25,4 +25,3 @@ and steps to reproduce the reported bugs.
 ## Credit
 
 We forked the [Trust Wallet](https://trustwalletapp.com) for Android project to bootstrap the ASF wallet development. We considered it the best alternative regarding already implemented functionalities and forked it with the intention to contribute back with implementations and work that would be considered relevant. 
-
