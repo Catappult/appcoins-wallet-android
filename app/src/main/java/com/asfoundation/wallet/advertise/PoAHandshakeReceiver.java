@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import static com.asfoundation.wallet.advertise.PoAServiceConnector.PARAM_APP_PACKAGE_NAME;
-import static com.asfoundation.wallet.advertise.PoAServiceConnector.PARAM_APP_SERVICE_NAME;
+import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_APP_PACKAGE_NAME;
+import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_APP_SERVICE_NAME;
 
 /**
  * Created by Joao Raimundo on 29/03/2018.
@@ -22,6 +22,6 @@ public class PoAHandshakeReceiver extends BroadcastReceiver {
         Intent serviceIntent = new Intent(context, WalletPoAService.class);
         serviceIntent.putExtra(PARAM_APP_PACKAGE_NAME, intent.getStringExtra(PARAM_APP_PACKAGE_NAME));
         serviceIntent.putExtra(PARAM_APP_SERVICE_NAME, intent.getStringExtra(PARAM_APP_SERVICE_NAME));
-        context.startService(serviceIntent);
+        context.startForegroundService(serviceIntent);
     }
 }

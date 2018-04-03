@@ -1,87 +1,143 @@
 package com.asfoundation.wallet.advertise;
 
-import android.content.Context;
-import android.os.Bundle;
-
 /**
  * Created by Joao Raimundo on 28/03/2018.
  */
 
-public interface PoAServiceConnector {
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.IBinder;
+import android.os.Message;
+import android.os.Messenger;
+import android.os.RemoteException;
+import android.util.Log;
+import java.util.ArrayList;
+import org.jetbrains.annotations.NotNull;
 
-    /**
-     * Information for the shared preferences used by the Proof of Attention mechanism.
-     */
-    /** The shared preferences name */
-    String SHARED_PREFS = "sdk_prefs";
-    /** The preference name for the package name of the application that started the handshake */
-    String PREFERENCE_SDK_PCKG_NAME = "WALLET_SDK_NAME";
-    /**
-     * Actions used to communicate with the service on the wallet side, for the bind.
-     */
-    String ACTION_BIND = "com.asf.appcoins.service.ACTION_BIND";
-    /**
-     * Actions used to listen to the confirmation of the handshake.
-     */
-    String ACTION_ACK_BROADCAST = "com.asf.appcoins.service.ACTION_ACK_BROADCAST";
-    /**
-     * Intent parameter for the wallet package name, that was obtained on the handshake.
-     */
-    String PARAM_WALLET_PACKAGE_NAME = "PARAM_WALLET_PKG_NAME";
-    /**
-     * Intent parameter for the application package name, to be used ont the second step of the
-     * handshake.
-     */
-    String PARAM_APP_PACKAGE_NAME = "PARAM_APP_PKG_NAME";
-    /**
-     * Intent parameter for the application service name, to be used ont the second step of the
-     * handshake.
-     */
-    String PARAM_APP_SERVICE_NAME = "PARAM_APP_SERVICE_NAME";
+public class PoAServiceConnector implements ServiceConnector {
 
-    /** WARNING: The values for the messages are used on both, sdk and wallet side. So when a new is
-     * message value is added on any side please replicate that change of the interface that is
-     * missing it.
-     */
-    /**
-     * Command to the service to register the Ad campaign
-     */
-    int MSG_REGISTER_CAMPAIGN = 1;
-    /**
-     * Command to the service to send a proof of attention (PoA)
-     */
-    int MSG_SEND_PROOF = 2;
-    /**
-     * Command to the service to send the complete proof to be signed by the App
-     */
-    int MSG_SIGN_PROOF = 3;
+  private static final String TAG = "PoAServiceConnector";
 
-    /**
-     * Method to bind to the service on the received package name and listening to the for the given
-     * action of the intent filter.
-     *
-     * @param context     The context where this connector is being used.
-     * @param action      The action that the service should be listening to.
-     * @param packageName The package name where the service is located.
-     * @retun true if the bind was successful, false otherwise.
-     */
-    boolean connectToService(Context context, String action, String packageName);
+  /** Messenger for sending messages to the service. */
+  private Messenger serviceMessenger = null;
+  /** Messenger for receiving messages from the service. */
+  private Messenger clientMessenger = null;
 
-    /**
-     * Method to unbind with the service that handles the PoA process.
-     *
-     * @param context     The context where this connector is being used.
-     */
-    void disconnectFromService(Context context);
+  /**
+   * Target we publish for clients to send messages to IncomingHandler. Note
+   * that calls to its binder are sequential!
+   */
+  private final IncomingHandler handler;
 
-    /**
-     * Method to send the message to the bound service.
-     *
-     * @param context     The context where this connector is being used.
-     * @param messageType The type of message being send. Possible values at the moment:
-     *                   {MSG_REGISTER_CAMPAIGN, MSG_SEND_PROOF and MSG_SIGN_PROOF}.
-     * @param content     The package name where the service is located.
-     */
-    void sendMessage(Context context, int messageType, Bundle content);
+  /**
+   * Handler thread to avoid running on the main thread (UI)
+   */
+  private final HandlerThread handlerThread;
 
+  /** Flag indicating whether we have called bind on the service. */
+  private boolean isBound;
+
+  /**
+   * Handler of incoming messages from service.
+   */
+  private class IncomingHandler extends Handler {
+
+    ArrayList<MessageListener> listeners;
+
+    public IncomingHandler(HandlerThread thr, @NotNull ArrayList<MessageListener> listeners) {
+      super(thr.getLooper());
+      this.listeners = listeners;
+    }
+
+    @Override public void handleMessage(Message msg) {
+      Log.d(TAG, "Message received: " + msg.what);
+      for (MessageListener listener : listeners) {
+        listener.handle(msg);
+      }
+    }
+  }
+
+  /**
+   * Class for interacting with the main interface of the service.
+   */
+  private ServiceConnection mConnection = new ServiceConnection() {
+    public void onServiceConnected(ComponentName className, IBinder service) {
+      // This is called when the connection with the service has been
+      // established, giving us the object we can use to
+      // interact with the service. We are communicating with the
+      // service using a Messenger, so here we get a client-side
+      // representation of that from the raw IBinder object.
+      serviceMessenger = new Messenger(service);
+      isBound = true;
+    }
+
+    public void onServiceDisconnected(ComponentName className) {
+      // This is called when the connection with the service has been
+      // unexpectedly disconnected -- that is, its process crashed.
+      serviceMessenger = null;
+      isBound = false;
+    }
+  };
+
+  public PoAServiceConnector(ArrayList<MessageListener> listeners) {
+    handlerThread = new HandlerThread("HandlerThread");
+    handlerThread.start();
+    handler = new IncomingHandler(handlerThread, listeners != null? listeners : new ArrayList<>());
+    clientMessenger = new Messenger(handler);
+  }
+
+  /**
+   * Method used for binding with the service
+   */
+
+  @Override public boolean connectToService(Context context) {
+    // Note that this is an implicit Intent that must be defined in the Android Manifest.
+    SharedPreferences preferences =
+        context.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+    String packageName = preferences.getString(PREFERENCE_SDK_PCKG_NAME, null);
+    Intent i = new Intent(ACTION_BIND);
+    i.setPackage(packageName);
+
+    boolean result = context.getApplicationContext()
+        .bindService(i, mConnection, Context.BIND_AUTO_CREATE);
+
+    if (!result) {
+      context.getApplicationContext().unbindService(mConnection);
+    }
+    return result;
+  }
+
+  @Override public void disconnectFromService(Context context) {
+    if (isBound) {
+      context.getApplicationContext()
+          .unbindService(mConnection);
+      isBound = false;
+    }
+  }
+
+  @Override public void sendMessage(Context context, int type, Bundle bundle) {
+    // validate if the service is bound
+    if (!isBound) {
+      return;
+    }
+
+    // Create and send a message to the service, using a supported 'what'
+    // value
+    Message msg = Message.obtain(null, type, 0, 0);
+    msg.setData(bundle);
+    msg.replyTo = clientMessenger;
+
+    try {
+      serviceMessenger.send(msg);
+    } catch (RemoteException e) {
+      Log.e(TAG, "Failed to send message: " + e.getMessage(), e);
+    }
+  }
 }
+
