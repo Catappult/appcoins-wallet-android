@@ -20,7 +20,7 @@ public class MemoryCacheTest {
     cache = new MemoryCache<Integer, Integer>(BehaviorSubject.create(), new ConcurrentHashMap());
   }
 
-  @Test public void add() throws Exception {
+  @Test public void add() {
     cache.save(1, 2)
         .subscribe();
     TestObserver<List<Integer>> testObserver = new TestObserver<>();
@@ -32,7 +32,7 @@ public class MemoryCacheTest {
         .get(0), new Integer(2));
   }
 
-  @Test public void getAll() throws Exception {
+  @Test public void getAll() {
     cache.save(1, 2)
         .subscribe();
     TestObserver<List<Integer>> testObserver = new TestObserver<>();
@@ -79,7 +79,7 @@ public class MemoryCacheTest {
         .get(1), new Integer(3));
   }
 
-  @Test public void remove() throws Exception {
+  @Test public void remove() {
     cache.save(1, 2)
         .subscribe();
     cache.remove(1)
@@ -91,5 +91,36 @@ public class MemoryCacheTest {
     assertEquals(testObserver.valueCount(), 1);
     ArrayList<Integer> expected = (ArrayList<Integer>) testObserver.values().<Integer>get(0);
     assertEquals(expected.size(), 0);
+  }
+
+  @Test public void contains() {
+    cache.save(1, 2)
+        .blockingAwait();
+    TestObserver<Boolean> subscriber = new TestObserver<>();
+    cache.contains(1)
+        .subscribe(subscriber);
+    subscriber.assertNoErrors()
+        .assertValue(true)
+        .assertComplete();
+  }
+
+  @Test public void containsEmptyCache() {
+    TestObserver<Boolean> subscriber = new TestObserver<>();
+    cache.contains(1)
+        .subscribe(subscriber);
+    subscriber.assertNoErrors()
+        .assertValue(false)
+        .assertComplete();
+  }
+
+  @Test public void notContains() {
+    cache.save(1, 2)
+        .blockingAwait();
+    TestObserver<Boolean> subscriber = new TestObserver<>();
+    cache.contains(2)
+        .subscribe(subscriber);
+    subscriber.assertNoErrors()
+        .assertValue(false)
+        .assertComplete();
   }
 }

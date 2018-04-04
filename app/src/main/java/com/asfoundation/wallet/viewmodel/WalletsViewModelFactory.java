@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.CreateWalletInteract;
+import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.DeleteWalletInteract;
 import com.asfoundation.wallet.interact.ExportWalletInteract;
 import com.asfoundation.wallet.interact.FetchWalletsInteract;
@@ -26,13 +27,15 @@ public class WalletsViewModelFactory implements ViewModelProvider.Factory {
   private final ImportWalletRouter importWalletRouter;
   private final TransactionsRouter transactionsRouter;
   private final AddTokenInteract addTokenInteract;
+  private final DefaultTokenProvider defaultTokenProvider;
 
   @Inject public WalletsViewModelFactory(CreateWalletInteract createWalletInteract,
       SetDefaultWalletInteract setDefaultWalletInteract, DeleteWalletInteract deleteWalletInteract,
       FetchWalletsInteract fetchWalletsInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
       ExportWalletInteract exportWalletInteract, ImportWalletRouter importWalletRouter,
-      TransactionsRouter transactionsRouter, AddTokenInteract addTokenInteract) {
+      TransactionsRouter transactionsRouter, AddTokenInteract addTokenInteract,
+      DefaultTokenProvider defaultTokenProvider) {
     this.createWalletInteract = createWalletInteract;
     this.setDefaultWalletInteract = setDefaultWalletInteract;
     this.deleteWalletInteract = deleteWalletInteract;
@@ -42,11 +45,12 @@ public class WalletsViewModelFactory implements ViewModelProvider.Factory {
     this.importWalletRouter = importWalletRouter;
     this.transactionsRouter = transactionsRouter;
     this.addTokenInteract = addTokenInteract;
+    this.defaultTokenProvider = defaultTokenProvider;
   }
 
   @NonNull @Override public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
     return (T) new WalletsViewModel(createWalletInteract, setDefaultWalletInteract,
         deleteWalletInteract, fetchWalletsInteract, findDefaultWalletInteract, exportWalletInteract,
-        importWalletRouter, transactionsRouter, addTokenInteract);
+        importWalletRouter, transactionsRouter, addTokenInteract, defaultTokenProvider);
   }
 }

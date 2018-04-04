@@ -1,9 +1,7 @@
 package com.asfoundation.wallet.di;
 
-import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
+import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchTokensInteract;
-import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
-import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.router.AddTokenRouter;
 import com.asfoundation.wallet.router.ChangeTokenCollectionRouter;
@@ -23,13 +21,9 @@ import dagger.Provides;
         transactionsRouter, changeTokenCollectionRouter);
   }
 
-  @Provides FindDefaultNetworkInteract provideFindDefaultNetworkInteract(
-      EthereumNetworkRepositoryType networkRepository) {
-    return new FindDefaultNetworkInteract(networkRepository);
-  }
-
-  @Provides FetchTokensInteract provideFetchTokensInteract(TokenRepositoryType tokenRepository) {
-    return new FetchTokensInteract(tokenRepository, new BuildConfigDefaultTokenProvider());
+  @Provides FetchTokensInteract provideFetchTokensInteract(TokenRepositoryType tokenRepository,
+      DefaultTokenProvider defaultTokenProvider) {
+    return new FetchTokensInteract(tokenRepository, defaultTokenProvider);
   }
 
   @Provides AddTokenRouter provideAddTokenRouter() {

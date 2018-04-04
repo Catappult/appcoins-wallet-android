@@ -4,6 +4,7 @@ import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Transaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.TransactionsNetworkClientType;
 import io.reactivex.Maybe;
@@ -26,14 +27,17 @@ public class TransactionRepository implements TransactionRepositoryType {
   private final AccountKeystoreService accountKeystoreService;
   private final TransactionLocalSource inDiskCache;
   private final TransactionsNetworkClientType blockExplorerClient;
+  private final DefaultTokenProvider defaultTokenProvider;
 
   public TransactionRepository(EthereumNetworkRepositoryType networkRepository,
       AccountKeystoreService accountKeystoreService, TransactionLocalSource inDiskCache,
-      TransactionsNetworkClientType blockExplorerClient) {
+      TransactionsNetworkClientType blockExplorerClient,
+      DefaultTokenProvider defaultTokenProvider) {
     this.networkRepository = networkRepository;
     this.accountKeystoreService = accountKeystoreService;
     this.blockExplorerClient = blockExplorerClient;
     this.inDiskCache = inDiskCache;
+    this.defaultTokenProvider = defaultTokenProvider;
   }
 
   @Override public Observable<Transaction[]> fetchTransaction(Wallet wallet) {
@@ -70,8 +74,10 @@ public class TransactionRepository implements TransactionRepositoryType {
 
   @Override public Single<String> callIab(TransactionBuilder transaction, String password,
       String contractAddress) {
-    return createTransaction(transaction, password, transaction.buyData(), contractAddress,
-        BigDecimal.ZERO);
+    return defaultTokenProvider.getDefaultToken()
+        .flatMap(
+            token -> createTransaction(transaction, password, transaction.buyData(token.address),
+                contractAddress, BigDecimal.ZERO));
   }
 
   private Single<String> createTransaction(TransactionBuilder transactionBuilder, String password,
