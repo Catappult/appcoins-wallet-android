@@ -223,9 +223,9 @@ public class TransactionBuilder implements Parcelable {
     return TokenRepository.createTokenApproveData(spender, amount.multiply(base.pow(decimals)));
   }
 
-  public byte[] buyData() {
+  public byte[] buyData(String tokenAddress) {
     BigDecimal base = new BigDecimal("10");
     return TokenRepository.buyData(toAddress, BuildConfig.DEFAULT_STORE_ADREESS,
-        BuildConfig.DEFAULT_OEM_ADREESS, skuId, amount.multiply(base.pow(decimals)));
+        BuildConfig.DEFAULT_OEM_ADREESS, skuId, amount.multiply(base.pow(decimals)), tokenAddress);
   }
 }

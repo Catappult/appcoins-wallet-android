@@ -8,6 +8,9 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.util.Log;
+import com.asfoundation.wallet.poa.ProofOfAttentionService;
+import dagger.android.AndroidInjection;
+import javax.inject.Inject;
 
 import static com.asfoundation.wallet.advertise.ServiceConnector.ACTION_ACK_BROADCAST;
 import static com.asfoundation.wallet.advertise.ServiceConnector.MSG_REGISTER_CAMPAIGN;
@@ -33,6 +36,8 @@ public class WalletPoAService extends Service {
   /** Boolean indicating that we are already bound */
   boolean isBound = false;
 
+  @Inject ProofOfAttentionService proofOfAttentionService;
+
   /**
    * When binding to the service, we return an interface to our messenger for
    * sending messages to the service.
@@ -49,6 +54,8 @@ public class WalletPoAService extends Service {
 
   @Override public void onCreate() {
     super.onCreate();
+
+    AndroidInjection.inject(this);
   }
 
   @Override public int onStartCommand(Intent intent, int flags, int startId) {

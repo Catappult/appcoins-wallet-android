@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.di;
 
 import android.content.Context;
+import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.GasSettingsRepository;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
@@ -26,7 +27,6 @@ import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenExplorerClientType;
 import com.asfoundation.wallet.service.TransactionsNetworkClient;
 import com.asfoundation.wallet.service.TransactionsNetworkClientType;
-import com.asfoundation.wallet.service.TrustWalletTickerService;
 import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
@@ -67,9 +67,10 @@ import okhttp3.OkHttpClient;
   @Singleton @Provides TransactionRepositoryType provideTransactionRepository(
       EthereumNetworkRepositoryType networkRepository,
       AccountKeystoreService accountKeystoreService,
-      TransactionsNetworkClientType blockExplorerClient, TransactionLocalSource inDiskCache) {
+      TransactionsNetworkClientType blockExplorerClient, TransactionLocalSource inDiskCache,
+      DefaultTokenProvider defaultTokenProvider) {
     return new TransactionRepository(networkRepository, accountKeystoreService, inDiskCache,
-        blockExplorerClient);
+        blockExplorerClient, defaultTokenProvider);
   }
 
   @Singleton @Provides TransactionLocalSource provideTransactionInDiskCache(
@@ -98,10 +99,5 @@ import okhttp3.OkHttpClient;
 
   @Singleton @Provides TokenLocalSource provideRealmTokenSource(RealmManager realmManager) {
     return new TokensRealmSource(realmManager);
-  }
-
-  @Singleton @Provides GasSettingsRepositoryType provideGasSettingsRepository(
-      EthereumNetworkRepositoryType ethereumNetworkRepository) {
-    return new GasSettingsRepository(ethereumNetworkRepository);
   }
 }
