@@ -28,17 +28,16 @@ public class ProofOfAttentionService {
   }
 
   public void start() {
-    compositeDisposable.add(getReadyPoA().flatMapCompletable(
-        proof -> cache.save(proof.getPackageName(),
-            new Proof(proof.getPackageName(), proof.getCampaignId(), proof.getProofComponentList(),
-                hashCalculator.calculate(proof), proof.getWalletPackage())))
-        .doOnError(Throwable::printStackTrace)
-        .retry()
+    compositeDisposable.add(getReadyPoA().flatMap(
+        (Proof proof) -> cache.remove(proof.getPackageName())
+            .andThen(Observable.just(new Proof(proof.getPackageName(), proof.getCampaignId(),
+                proof.getProofComponentList(), hashCalculator.calculate(proof),
+                proof.getWalletPackage())))
+            .doOnNext(blockChainWriter::writeProof)
+            .doOnError(Throwable::printStackTrace)
+            .onErrorResumeNext(cache.save(proof.getPackageName(), proof)
+                .toObservable()))
         .subscribe());
-  }
-
-  public Single<String> sendSignedProof(String proof) {
-    return blockChainWriter.writeProof(proof);
   }
 
   public void stop() {
@@ -92,26 +91,5 @@ public class ProofOfAttentionService {
         .size() == maxNumberProofComponents
         && (proof.getProofId() == null || proof.getProofId()
         .isEmpty());
-  }
-
-  public Observable<Proof> getReadyToSignProof() {
-    return cache.getAll()
-        .flatMap(proofs -> Observable.fromIterable(proofs)
-            .filter(this::isReadyToSign))
-        .flatMap(proof -> cache.remove(proof.getPackageName())
-            .toSingleDefault(true)
-            .toObservable()
-            .map(__ -> proof));
-  }
-
-  private boolean isReadyToSign(Proof proof) {
-    return proof.getCampaignId() != null
-        && !proof.getCampaignId()
-        .isEmpty()
-        && proof.getProofComponentList()
-        .size() == maxNumberProofComponents
-        && proof.getProofId() != null
-        && !proof.getProofId()
-        .isEmpty();
   }
 }
