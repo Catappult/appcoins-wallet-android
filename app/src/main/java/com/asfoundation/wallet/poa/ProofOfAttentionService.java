@@ -9,21 +9,22 @@ import io.reactivex.disposables.CompositeDisposable;
 import java.util.ArrayList;
 
 public class ProofOfAttentionService {
-  public static final int MAX_NUMBER_PROOF_COMPONENTS = 12;
   private final Cache<String, Proof> cache;
   private final String walletPackage;
   private final HashCalculator hashCalculator;
   private final CompositeDisposable compositeDisposable;
   private final BlockChainWriter blockChainWriter;
+  private final int maxNumberProofComponents;
 
   public ProofOfAttentionService(Cache<String, Proof> cache, String walletPackage,
       HashCalculator hashCalculator, CompositeDisposable compositeDisposable,
-      BlockChainWriter blockChainWriter) {
+      BlockChainWriter blockChainWriter, int maxNumberProofComponents) {
     this.cache = cache;
     this.walletPackage = walletPackage;
     this.hashCalculator = hashCalculator;
     this.compositeDisposable = compositeDisposable;
     this.blockChainWriter = blockChainWriter;
+    this.maxNumberProofComponents = maxNumberProofComponents;
   }
 
   public void start() {
@@ -44,13 +45,13 @@ public class ProofOfAttentionService {
     compositeDisposable.clear();
   }
 
-  Completable setCampaignId(String packageName, String campaignId) {
+  public Completable setCampaignId(String packageName, String campaignId) {
     return getPreviousProof(packageName).flatMapCompletable(proof -> cache.save(packageName,
         new Proof(packageName, campaignId, proof.getProofComponentList(), proof.getProofId(),
             walletPackage)));
   }
 
-  Completable registerProof(String packageName, long timeStamp, String data) {
+  public Completable registerProof(String packageName, long timeStamp, String data) {
     return getPreviousProof(packageName).flatMapCompletable(proof -> cache.save(packageName,
         new Proof(proof.getPackageName(), proof.getCampaignId(),
             createProofComponentList(timeStamp, data, proof), proof.getProofId(), walletPackage)));
@@ -59,7 +60,7 @@ public class ProofOfAttentionService {
   @NonNull private ArrayList<ProofComponent> createProofComponentList(long timeStamp, String data,
       Proof proof) {
     ArrayList<ProofComponent> list = new ArrayList<>(proof.getProofComponentList());
-    if (list.size() < MAX_NUMBER_PROOF_COMPONENTS) {
+    if (list.size() < maxNumberProofComponents) {
       list.add(new ProofComponent(timeStamp, data));
     }
     return list;
@@ -88,7 +89,7 @@ public class ProofOfAttentionService {
         && !proof.getCampaignId()
         .isEmpty()
         && proof.getProofComponentList()
-        .size() == MAX_NUMBER_PROOF_COMPONENTS
+        .size() == maxNumberProofComponents
         && (proof.getProofId() == null || proof.getProofId()
         .isEmpty());
   }
@@ -108,7 +109,7 @@ public class ProofOfAttentionService {
         && !proof.getCampaignId()
         .isEmpty()
         && proof.getProofComponentList()
-        .size() == MAX_NUMBER_PROOF_COMPONENTS
+        .size() == maxNumberProofComponents
         && proof.getProofId() != null
         && !proof.getProofId()
         .isEmpty();

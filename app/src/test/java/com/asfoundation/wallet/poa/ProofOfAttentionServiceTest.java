@@ -19,7 +19,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static com.asfoundation.wallet.poa.ProofOfAttentionService.MAX_NUMBER_PROOF_COMPONENTS;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -31,15 +30,17 @@ public class ProofOfAttentionServiceTest {
   private ProofOfAttentionService proofOfAttentionService;
   private MemoryCache<String, Proof> cache;
   private HashCalculator hashCalculator;
+  private int maxNumberProofComponents;
 
   @Before public void before() throws NoSuchAlgorithmException {
     MockitoAnnotations.initMocks(this);
     cache = new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>());
     hashCalculator =
         new HashCalculator(new GsonBuilder().create(), MessageDigest.getInstance("SHA-256"));
+    maxNumberProofComponents = 12;
     proofOfAttentionService =
         new ProofOfAttentionService(cache, BuildConfig.APPLICATION_ID, hashCalculator,
-            new CompositeDisposable(), blockChainWriter);
+            new CompositeDisposable(), blockChainWriter, maxNumberProofComponents);
     when(blockChainWriter.writeProof(anyString())).thenReturn(Single.just("hash"));
   }
 
@@ -174,7 +175,7 @@ public class ProofOfAttentionServiceTest {
     Assert.assertEquals(testObserver.values()
         .get(15)
         .getProofComponentList()
-        .size(), MAX_NUMBER_PROOF_COMPONENTS);
+        .size(), maxNumberProofComponents);
   }
 
   @Test public void getCompletedPoA() {
@@ -232,7 +233,7 @@ public class ProofOfAttentionServiceTest {
         new Proof(value.getPackageName(), value.getCampaignId(), value.getProofComponentList(),
             null, value.getWalletPackage())));
     Assert.assertEquals(value.getProofComponentList()
-        .size(), ProofOfAttentionService.MAX_NUMBER_PROOF_COMPONENTS);
+        .size(), maxNumberProofComponents);
     Assert.assertEquals(value.getWalletPackage(), BuildConfig.APPLICATION_ID);
 
     TestObserver<Boolean> containsSubscriber = new TestObserver<>();

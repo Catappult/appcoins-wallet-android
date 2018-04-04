@@ -196,6 +196,7 @@ import okhttp3.OkHttpClient;
   @Singleton @Provides ProofOfAttentionService provideProofOfAttentionService(
       HashCalculator hashCalculator, BlockChainWriter blockChainWriter) {
     return new ProofOfAttentionService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-        BuildConfig.APPLICATION_ID, hashCalculator, new CompositeDisposable(), blockChainWriter);
+        BuildConfig.APPLICATION_ID, hashCalculator, new CompositeDisposable(), blockChainWriter,
+        12);
   }
 }

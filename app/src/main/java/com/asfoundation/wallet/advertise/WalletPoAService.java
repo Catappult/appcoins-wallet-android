@@ -10,8 +10,10 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.util.Log;
+import com.asfoundation.wallet.poa.ProofOfAttentionService;
+import dagger.android.AndroidInjection;
 import java.util.ArrayList;
-import java.util.List;
+import javax.inject.Inject;
 
 import static com.asfoundation.wallet.advertise.ServiceConnector.ACTION_ACK_BROADCAST;
 import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_APP_PACKAGE_NAME;
@@ -37,9 +39,8 @@ public class WalletPoAService extends Service implements MessageListener {
   boolean isBound = false;
 
   ServiceConnector serviceConnector;
-
+  @Inject ProofOfAttentionService proofOfAttentionService;
   private String appPackageName;
-
   private String appServiceName;
 
   /**
@@ -58,6 +59,7 @@ public class WalletPoAService extends Service implements MessageListener {
 
   @Override public void onCreate() {
     super.onCreate();
+    AndroidInjection.inject(this);
     ArrayList<MessageListener> listeners = new ArrayList<>();
     listeners.add(this);
     serviceConnector = new PoAServiceConnector(listeners);
