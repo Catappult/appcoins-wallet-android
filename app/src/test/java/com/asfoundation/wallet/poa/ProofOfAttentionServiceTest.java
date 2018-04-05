@@ -2,13 +2,10 @@ package com.asfoundation.wallet.poa;
 
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.repository.MemoryCache;
-import com.google.gson.GsonBuilder;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.subjects.BehaviorSubject;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,19 +24,22 @@ import static org.mockito.Mockito.when;
 public class ProofOfAttentionServiceTest {
 
   @Mock BlockChainWriter blockChainWriter;
+  @Mock HashCalculator hashCalculator;
   private ProofOfAttentionService proofOfAttentionService;
   private MemoryCache<String, Proof> cache;
-  private HashCalculator hashCalculator;
   private int maxNumberProofComponents = 3;
+  private long nonce;
 
-  @Before public void before() throws NoSuchAlgorithmException {
+  @Before public void before() {
     MockitoAnnotations.initMocks(this);
     cache = new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>());
-    hashCalculator =
-        new HashCalculator(new GsonBuilder().create(), MessageDigest.getInstance("SHA-256"));
     proofOfAttentionService =
         new ProofOfAttentionService(cache, BuildConfig.APPLICATION_ID, hashCalculator,
             new CompositeDisposable(), blockChainWriter, maxNumberProofComponents);
+
+    nonce = 1L;
+    when(hashCalculator.calculateNonce(any(NonceData.class))).thenReturn(nonce);
+    when(hashCalculator.calculate((Object) any())).thenReturn("hash");
     when(blockChainWriter.writeProof(any(Proof.class))).thenReturn(Single.just("hash"));
   }
 
@@ -60,7 +60,6 @@ public class ProofOfAttentionServiceTest {
   @Test public void registerProof() {
     String packageName = "packageName";
     String campaignId = "campaignId";
-    String data = "data";
     String walletPackage = BuildConfig.APPLICATION_ID;
     int timeStamp = 10;
     long timeStamp2 = 20;
@@ -76,26 +75,26 @@ public class ProofOfAttentionServiceTest {
             new Proof(packageName, campaignId, Collections.emptyList(), null, walletPackage));
 
     TestObserver<Object> registerObservable = new TestObserver<>();
-    proofOfAttentionService.registerProof(packageName, timeStamp, data)
+    proofOfAttentionService.registerProof(packageName, timeStamp)
         .subscribe(registerObservable);
 
     registerObservable.assertComplete()
         .assertNoErrors();
 
     List<ProofComponent> proofComponents = new ArrayList<>();
-    proofComponents.add(new ProofComponent(timeStamp, data));
+    proofComponents.add(new ProofComponent(timeStamp, nonce));
     Assert.assertEquals(testObserver.assertValueCount(2)
         .values()
         .get(1), new Proof(packageName, campaignId, proofComponents, null, walletPackage));
 
     TestObserver<Object> registerObservable2 = new TestObserver<>();
-    proofOfAttentionService.registerProof(packageName, timeStamp2, data)
+    proofOfAttentionService.registerProof(packageName, timeStamp2)
         .subscribe(registerObservable2);
 
     registerObservable2.assertComplete()
         .assertNoErrors();
 
-    proofComponents.add(new ProofComponent(timeStamp2, data));
+    proofComponents.add(new ProofComponent(timeStamp2, nonce));
     Assert.assertEquals(testObserver.assertValueCount(3)
         .values()
         .get(2), new Proof(packageName, campaignId, proofComponents, null, walletPackage));
@@ -104,7 +103,6 @@ public class ProofOfAttentionServiceTest {
   @Test public void registerProofWithoutCampaignId() {
     String packageName = "packageName";
     String walletPackage = BuildConfig.APPLICATION_ID;
-    String data = "data";
     int timeStamp = 10;
 
     TestObserver<Proof> testObserver = new TestObserver<>();
@@ -112,14 +110,14 @@ public class ProofOfAttentionServiceTest {
         .subscribe(testObserver);
 
     TestObserver<Object> registerObservable = new TestObserver<>();
-    proofOfAttentionService.registerProof(packageName, timeStamp, data)
+    proofOfAttentionService.registerProof(packageName, timeStamp)
         .subscribe(registerObservable);
 
     registerObservable.assertComplete()
         .assertNoErrors();
 
     List<ProofComponent> proofComponents = new ArrayList<>();
-    proofComponents.add(new ProofComponent(timeStamp, data));
+    proofComponents.add(new ProofComponent(timeStamp, nonce));
     Assert.assertEquals(testObserver.assertValueCount(1)
         .values()
         .get(0), new Proof(packageName, null, proofComponents, null, walletPackage));
@@ -127,18 +125,17 @@ public class ProofOfAttentionServiceTest {
 
   @Test public void registerProofMaxComponents() {
     String packageName = "packageName";
-    String data = "data";
     int timeStamp = 10;
 
     TestObserver<Proof> testObserver = new TestObserver<>();
     cache.get(packageName)
         .subscribe(testObserver);
 
-    proofOfAttentionService.registerProof(packageName, timeStamp, data)
+    proofOfAttentionService.registerProof(packageName, timeStamp)
         .blockingAwait();
-    proofOfAttentionService.registerProof(packageName, timeStamp, data)
+    proofOfAttentionService.registerProof(packageName, timeStamp)
         .blockingAwait();
-    proofOfAttentionService.registerProof(packageName, timeStamp, data)
+    proofOfAttentionService.registerProof(packageName, timeStamp)
         .blockingAwait();
 
     testObserver.assertValueCount(3);
@@ -150,7 +147,6 @@ public class ProofOfAttentionServiceTest {
 
   @Test public void getCompletedPoA() {
     String packageName = "packageName";
-    String data = "data";
     String campaignId = "campaignId";
     int timeStamp = 10;
 
@@ -163,11 +159,11 @@ public class ProofOfAttentionServiceTest {
     proofOfAttentionService.setCampaignId(packageName, campaignId)
         .blockingAwait();
 
-    proofOfAttentionService.registerProof(packageName, timeStamp, data)
+    proofOfAttentionService.registerProof(packageName, timeStamp)
         .blockingAwait();
-    proofOfAttentionService.registerProof(packageName, timeStamp, data)
+    proofOfAttentionService.registerProof(packageName, timeStamp)
         .blockingAwait();
-    proofOfAttentionService.registerProof(packageName, timeStamp, data)
+    proofOfAttentionService.registerProof(packageName, timeStamp)
         .blockingAwait();
 
     cacheObserver.assertNoErrors()

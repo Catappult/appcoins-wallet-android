@@ -62,6 +62,8 @@ android {
         project.MAIN_NETWORK_DEFAULT_TOKEN_DECIMALS
     buildConfigField 'String', 'MAIN_NETWORK_ASF_ADS_CONTRACT_ADDRESS',
         "\"" + project.MAIN_NETWORK_ASF_ADS_CONTRACT_ADDRESS+ "\""
+    buildConfigField 'int', 'LEADING_ZEROS_ON_PROOF_OF_ATTENTION',
+        project.LEADING_ZEROS_ON_PROOF_OF_ATTENTION
   }
 
   signingConfigs {

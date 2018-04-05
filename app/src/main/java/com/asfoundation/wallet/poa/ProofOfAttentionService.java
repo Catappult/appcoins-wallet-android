@@ -50,17 +50,18 @@ public class ProofOfAttentionService {
             walletPackage)));
   }
 
-  public Completable registerProof(String packageName, long timeStamp, String data) {
+  public Completable registerProof(String packageName, long timeStamp) {
     return getPreviousProof(packageName).flatMapCompletable(proof -> cache.save(packageName,
-        new Proof(proof.getPackageName(), proof.getCampaignId(),
-            createProofComponentList(timeStamp, data, proof), proof.getProofId(), walletPackage)));
+        new Proof(proof.getPackageName(), proof.getCampaignId(), createProofComponentList(timeStamp,
+            hashCalculator.calculateNonce(new NonceData(timeStamp, packageName)), proof),
+            proof.getProofId(), walletPackage)));
   }
 
-  @NonNull private ArrayList<ProofComponent> createProofComponentList(long timeStamp, String data,
+  @NonNull private ArrayList<ProofComponent> createProofComponentList(long timeStamp, long nonce,
       Proof proof) {
     ArrayList<ProofComponent> list = new ArrayList<>(proof.getProofComponentList());
     if (list.size() < maxNumberProofComponents) {
-      list.add(new ProofComponent(timeStamp, data));
+      list.add(new ProofComponent(timeStamp, nonce));
     }
     return list;
   }

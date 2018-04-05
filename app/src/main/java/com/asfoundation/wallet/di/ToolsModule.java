@@ -190,7 +190,7 @@ import okhttp3.OkHttpClient;
 
   @Singleton @Provides HashCalculator provideHashCalculator(Gson gson,
       MessageDigest messageDigest) {
-    return new HashCalculator(gson, messageDigest);
+    return new HashCalculator(gson, messageDigest, BuildConfig.LEADING_ZEROS_ON_PROOF_OF_ATTENTION);
   }
 
   @Singleton @Provides ProofOfAttentionService provideProofOfAttentionService(

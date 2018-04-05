@@ -14,7 +14,7 @@ public class HashCalculatorTest {
 
   @Before public void before() throws NoSuchAlgorithmException {
     hashCalculator =
-        new HashCalculator(new GsonBuilder().create(), MessageDigest.getInstance("SHA-256"));
+        new HashCalculator(new GsonBuilder().create(), MessageDigest.getInstance("SHA-256"), 5);
   }
 
   @Test public void calculate() {
@@ -24,5 +24,9 @@ public class HashCalculatorTest {
     Proof proof = new Proof(packageName, campaignId, Collections.emptyList(), null, walletPackage);
     Assert.assertEquals("0e02bedfad303659d486a709d9edbb34b61fba4b6cebb3d413da0abd966bae6c",
         hashCalculator.calculate(proof));
+  }
+
+  @Test public void calculateNonce() {
+    Assert.assertEquals(1, hashCalculator.calculateNonce(new NonceData(1618307, "package_name")));
   }
 }
