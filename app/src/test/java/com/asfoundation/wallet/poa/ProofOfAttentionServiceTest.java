@@ -6,6 +6,7 @@ import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.subjects.BehaviorSubject;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,7 +31,7 @@ public class ProofOfAttentionServiceTest {
   private int maxNumberProofComponents = 3;
   private long nonce;
 
-  @Before public void before() {
+  @Before public void before() throws NoSuchAlgorithmException {
     MockitoAnnotations.initMocks(this);
     cache = new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>());
     proofOfAttentionService =
@@ -39,7 +40,7 @@ public class ProofOfAttentionServiceTest {
 
     nonce = 1L;
     when(hashCalculator.calculateNonce(any(NonceData.class))).thenReturn(nonce);
-    when(hashCalculator.calculate((Object) any())).thenReturn("hash");
+    when(hashCalculator.calculate(any())).thenReturn("hash");
     when(blockChainWriter.writeProof(any(Proof.class))).thenReturn(Single.just("hash"));
   }
 
@@ -145,7 +146,7 @@ public class ProofOfAttentionServiceTest {
         .size(), maxNumberProofComponents);
   }
 
-  @Test public void getCompletedPoA() {
+  @Test public void getCompletedPoA() throws NoSuchAlgorithmException {
     String packageName = "packageName";
     String campaignId = "campaignId";
     int timeStamp = 10;

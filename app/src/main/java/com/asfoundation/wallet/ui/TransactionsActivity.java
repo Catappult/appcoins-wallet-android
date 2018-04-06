@@ -28,6 +28,7 @@ import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Transaction;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.AddTokenInteract;
+import com.asfoundation.wallet.poa.TransactionFactory;
 import com.asfoundation.wallet.service.AirDropService;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsAdapter;
 import com.asfoundation.wallet.util.RootUtil;
@@ -51,6 +52,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private static final String TAG = TransactionsActivity.class.getSimpleName();
   @Inject TransactionsViewModelFactory transactionsViewModelFactory;
   @Inject AddTokenInteract addTokenInteract;
+  @Inject TransactionFactory transactionFactory;
   private TransactionsViewModel viewModel;
   private SystemView systemView;
   private TransactionsAdapter adapter;

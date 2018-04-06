@@ -16,4 +16,8 @@ class NonceData {
   public String getPackageName() {
     return packageName;
   }
+
+  @Override public String toString() {
+    return "NonceData{" + "timeStamp=" + timeStamp + ", packageName='" + packageName + '\'' + '}';
+  }
 }

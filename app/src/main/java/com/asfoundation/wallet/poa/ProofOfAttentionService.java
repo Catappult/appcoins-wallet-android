@@ -7,6 +7,7 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProofOfAttentionService {
   private final Cache<String, Proof> cache;
@@ -33,7 +34,7 @@ public class ProofOfAttentionService {
             .andThen(Observable.just(new Proof(proof.getPackageName(), proof.getCampaignId(),
                 proof.getProofComponentList(), hashCalculator.calculate(proof),
                 proof.getWalletPackage())))
-            .doOnNext(blockChainWriter::writeProof)
+            .flatMapSingle(blockChainWriter::writeProof)
             .doOnError(Throwable::printStackTrace)
             .onErrorResumeNext(cache.save(proof.getPackageName(), proof)
                 .toObservable()))
@@ -51,14 +52,17 @@ public class ProofOfAttentionService {
   }
 
   public Completable registerProof(String packageName, long timeStamp) {
-    return getPreviousProof(packageName).flatMapCompletable(proof -> cache.save(packageName,
-        new Proof(proof.getPackageName(), proof.getCampaignId(), createProofComponentList(timeStamp,
-            hashCalculator.calculateNonce(new NonceData(timeStamp, packageName)), proof),
-            proof.getProofId(), walletPackage)));
+    return Single.defer(
+        () -> Single.just(hashCalculator.calculateNonce(new NonceData(timeStamp, packageName))))
+        .flatMapCompletable(nonce -> getPreviousProof(packageName).flatMapCompletable(
+            proof -> cache.save(packageName,
+                new Proof(proof.getPackageName(), proof.getCampaignId(),
+                    createProofComponentList(timeStamp, nonce, proof), proof.getProofId(),
+                    walletPackage))));
   }
 
-  @NonNull private ArrayList<ProofComponent> createProofComponentList(long timeStamp, long nonce,
-      Proof proof) {
+  @NonNull
+  private List<ProofComponent> createProofComponentList(long timeStamp, long nonce, Proof proof) {
     ArrayList<ProofComponent> list = new ArrayList<>(proof.getProofComponentList());
     if (list.size() < maxNumberProofComponents) {
       list.add(new ProofComponent(timeStamp, nonce));

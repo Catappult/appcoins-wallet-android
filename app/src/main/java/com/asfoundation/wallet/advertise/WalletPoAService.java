@@ -10,6 +10,7 @@ import android.os.Messenger;
 import android.util.Log;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import dagger.android.AndroidInjection;
+import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
 
 import static com.asfoundation.wallet.advertise.ServiceConnector.ACTION_ACK_BROADCAST;
@@ -37,20 +38,6 @@ public class WalletPoAService extends Service {
   boolean isBound = false;
 
   @Inject ProofOfAttentionService proofOfAttentionService;
-
-  /**
-   * When binding to the service, we return an interface to our messenger for
-   * sending messages to the service.
-   */
-  @Override public IBinder onBind(Intent intent) {
-    isBound = true;
-    return serviceMessenger.getBinder();
-  }
-
-  @Override public boolean onUnbind(Intent intent) {
-    isBound = false;
-    return super.onUnbind(intent);
-  }
 
   @Override public void onCreate() {
     super.onCreate();
@@ -80,17 +67,41 @@ public class WalletPoAService extends Service {
   }
 
   /**
+   * When binding to the service, we return an interface to our messenger for
+   * sending messages to the service.
+   */
+  @Override public IBinder onBind(Intent intent) {
+    isBound = true;
+    return serviceMessenger.getBinder();
+  }
+
+  @Override public boolean onUnbind(Intent intent) {
+    isBound = false;
+    return super.onUnbind(intent);
+  }
+
+  /**
    * Handler of incoming messages from clients.
    */
   class IncomingHandler extends Handler {
     @Override public void handleMessage(Message msg) {
-      Log.d(TAG, "Message received: ");
+      Log.d(TAG, "handleMessage() called with: msg = [" + msg + "]");
       switch (msg.what) {
         case MSG_REGISTER_CAMPAIGN:
           Log.d(TAG, "MSG_REGISTER_CAMPAIGN");
+          proofOfAttentionService.setCampaignId(msg.getData()
+              .getString("packageName"), msg.getData()
+              .getString("campaignId"))
+              .subscribeOn(Schedulers.computation())
+              .subscribe();
           break;
         case MSG_SEND_PROOF:
           Log.d(TAG, "MSG_SEND_PROOF");
+          proofOfAttentionService.registerProof(msg.getData()
+              .getString("packageName"), msg.getData()
+              .getLong("timeStamp"))
+              .subscribeOn(Schedulers.computation())
+              .subscribe();
           break;
 
         default:

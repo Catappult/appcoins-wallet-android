@@ -11,6 +11,7 @@ import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.poa.BlockChainWriter;
+import com.asfoundation.wallet.poa.Calculator;
 import com.asfoundation.wallet.poa.DataMapper;
 import com.asfoundation.wallet.poa.HashCalculator;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
@@ -45,8 +46,6 @@ import dagger.Module;
 import dagger.Provides;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.subjects.BehaviorSubject;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Singleton;
@@ -155,12 +154,8 @@ import okhttp3.OkHttpClient;
     return new BuildConfigDefaultTokenProvider(defaultNetworkInteract, findDefaultWalletInteract);
   }
 
-  @Singleton @Provides MessageDigest provideMessageDigest() {
-    try {
-      return MessageDigest.getInstance("SHA-256");
-    } catch (NoSuchAlgorithmException e) {
-      throw new RuntimeException(e);
-    }
+  @Singleton @Provides Calculator provideMessageDigest() {
+    return new Calculator();
   }
 
   @Singleton @Provides GasSettingsRepositoryType provideGasSettingsRepository(
@@ -188,9 +183,8 @@ import okhttp3.OkHttpClient;
     return new BlockChainWriter(web3jProvider, transactionFactory, gson);
   }
 
-  @Singleton @Provides HashCalculator provideHashCalculator(Gson gson,
-      MessageDigest messageDigest) {
-    return new HashCalculator(gson, messageDigest, BuildConfig.LEADING_ZEROS_ON_PROOF_OF_ATTENTION);
+  @Singleton @Provides HashCalculator provideHashCalculator(Gson gson, Calculator calculator) {
+    return new HashCalculator(gson, BuildConfig.LEADING_ZEROS_ON_PROOF_OF_ATTENTION, calculator);
   }
 
   @Singleton @Provides ProofOfAttentionService provideProofOfAttentionService(
