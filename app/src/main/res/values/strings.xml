@@ -264,4 +264,5 @@
   <string name="activity_iab_nonce_message">An error with blockchain occurred, please try again later.</string>
   <string name="activity_iab_approving_message">Checking all details: balance, items, network…</string>
   <string name="activity_aib_buying_message">Details checked 👍 \nReceiving your item…</string>
+  <string name="notification_ongoing_poa">Processing your PoA</string>
 </resources>
