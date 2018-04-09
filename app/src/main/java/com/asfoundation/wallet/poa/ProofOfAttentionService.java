@@ -6,6 +6,7 @@ import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,16 +30,19 @@ public class ProofOfAttentionService {
   }
 
   public void start() {
-    compositeDisposable.add(getReadyPoA().flatMap(
-        (Proof proof) -> cache.remove(proof.getPackageName())
-            .andThen(Observable.just(new Proof(proof.getPackageName(), proof.getCampaignId(),
-                proof.getProofComponentList(), hashCalculator.calculate(proof),
-                proof.getWalletPackage())))
-            .flatMapSingle(blockChainWriter::writeProof)
+    compositeDisposable.add(getReadyPoA().flatMapSingle(
+        proof -> cache.remove(proof.getPackageName())
+            .andThen(writeOnBlockChain(proof))
             .doOnError(Throwable::printStackTrace)
             .onErrorResumeNext(cache.save(proof.getPackageName(), proof)
-                .toObservable()))
+                .toSingleDefault("")))
         .subscribe());
+  }
+
+  private Single<String> writeOnBlockChain(Proof proof) throws NoSuchAlgorithmException {
+    return blockChainWriter.writeProof(
+        new Proof(proof.getPackageName(), proof.getCampaignId(), proof.getProofComponentList(),
+            hashCalculator.calculate(proof), proof.getWalletPackage()));
   }
 
   public void stop() {
