@@ -5,6 +5,7 @@ import java.nio.charset.Charset;
 import java.security.NoSuchAlgorithmException;
 
 public class HashCalculator {
+  private static final String TAG = HashCalculator.class.getSimpleName();
   public final String leadingString;
   private final Gson gson;
   private final Calculator calculator;
@@ -30,12 +31,17 @@ public class HashCalculator {
   public long calculateNonce(NonceData nonceData) throws NoSuchAlgorithmException {
     String result;
     long nonce = -1;
+    System.out.println(
+        TAG + " calculateNonce() called with: nonceData = [" + gson.toJson(nonceData) + "]");
     String hash = calculate(nonceData);
+    System.out.println(TAG + " calculateNonce: hash: " + hash);
     do {
       nonce++;
       result = calculator.calculate(convertToBytes(hash + nonce));
     } while (!result.substring(0, leadingString.length())
         .equals(leadingString));
+    System.out.println(TAG + " calculateNonce: result: " + result);
+    System.out.println(TAG + " calculateNonce() returned: " + nonce);
     return nonce;
   }
 }

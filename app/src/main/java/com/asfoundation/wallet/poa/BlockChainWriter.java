@@ -8,6 +8,7 @@ import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.utils.Numeric;
 
 public class BlockChainWriter {
+  private static final String TAG = BlockChainWriter.class.getSimpleName();
   private final Web3jProvider web3jProvider;
   private final TransactionFactory transactionFactory;
   private final Gson gson;
@@ -20,7 +21,9 @@ public class BlockChainWriter {
   }
 
   public Single<String> writeProof(Proof proof) {
-    return transactionFactory.createProofTransaction(gson.toJson(proof))
+    String jsonProof = gson.toJson(proof);
+    System.out.println(TAG + " writeProof() called with: proof = [" + jsonProof + "]");
+    return transactionFactory.createProofTransaction(jsonProof)
         .flatMap(this::sendTransaction);
   }
 
@@ -35,6 +38,7 @@ public class BlockChainWriter {
             .getMessage(), sentTransaction.getError()
             .getData());
       }
+      System.out.println(TAG + " sendTransaction: hash: " + sentTransaction.getTransactionHash());
       return sentTransaction.getTransactionHash();
     });
   }
