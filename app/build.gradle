@@ -75,12 +75,16 @@ android {
 
   buildTypes {
     release {
+      buildConfigField 'int', 'LEADING_ZEROS_ON_PROOF_OF_ATTENTION',
+          project.LEADING_ZEROS_ON_PROOF_OF_ATTENTION_RELEASE
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       signingConfig signingConfigs.release
     }
     debug {
       minifyEnabled false
+      buildConfigField 'int', 'LEADING_ZEROS_ON_PROOF_OF_ATTENTION',
+          project.LEADING_ZEROS_ON_PROOF_OF_ATTENTION_DEBUG
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       applicationIdSuffix ".dev"
       applicationVariants.all { variant -> renameArtifact(defaultConfig)

@@ -7,6 +7,7 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProofOfAttentionService {
   private final Cache<String, Proof> cache;
@@ -28,17 +29,16 @@ public class ProofOfAttentionService {
   }
 
   public void start() {
-    compositeDisposable.add(getReadyPoA().flatMapCompletable(
-        proof -> cache.save(proof.getPackageName(),
-            new Proof(proof.getPackageName(), proof.getCampaignId(), proof.getProofComponentList(),
-                hashCalculator.calculate(proof), proof.getWalletPackage())))
-        .doOnError(Throwable::printStackTrace)
-        .retry()
+    compositeDisposable.add(getReadyPoA().flatMap(
+        (Proof proof) -> cache.remove(proof.getPackageName())
+            .andThen(Observable.just(new Proof(proof.getPackageName(), proof.getCampaignId(),
+                proof.getProofComponentList(), hashCalculator.calculate(proof),
+                proof.getWalletPackage())))
+            .flatMapSingle(blockChainWriter::writeProof)
+            .doOnError(Throwable::printStackTrace)
+            .onErrorResumeNext(cache.save(proof.getPackageName(), proof)
+                .toObservable()))
         .subscribe());
-  }
-
-  public Single<String> sendSignedProof(String proof) {
-    return blockChainWriter.writeProof(proof);
   }
 
   public void stop() {
@@ -51,17 +51,21 @@ public class ProofOfAttentionService {
             walletPackage)));
   }
 
-  public Completable registerProof(String packageName, long timeStamp, String data) {
-    return getPreviousProof(packageName).flatMapCompletable(proof -> cache.save(packageName,
-        new Proof(proof.getPackageName(), proof.getCampaignId(),
-            createProofComponentList(timeStamp, data, proof), proof.getProofId(), walletPackage)));
+  public Completable registerProof(String packageName, long timeStamp) {
+    return Single.defer(
+        () -> Single.just(hashCalculator.calculateNonce(new NonceData(timeStamp, packageName))))
+        .flatMapCompletable(nonce -> getPreviousProof(packageName).flatMapCompletable(
+            proof -> cache.save(packageName,
+                new Proof(proof.getPackageName(), proof.getCampaignId(),
+                    createProofComponentList(timeStamp, nonce, proof), proof.getProofId(),
+                    walletPackage))));
   }
 
-  @NonNull private ArrayList<ProofComponent> createProofComponentList(long timeStamp, String data,
-      Proof proof) {
+  @NonNull
+  private List<ProofComponent> createProofComponentList(long timeStamp, long nonce, Proof proof) {
     ArrayList<ProofComponent> list = new ArrayList<>(proof.getProofComponentList());
     if (list.size() < maxNumberProofComponents) {
-      list.add(new ProofComponent(timeStamp, data));
+      list.add(new ProofComponent(timeStamp, nonce));
     }
     return list;
   }
@@ -92,26 +96,5 @@ public class ProofOfAttentionService {
         .size() == maxNumberProofComponents
         && (proof.getProofId() == null || proof.getProofId()
         .isEmpty());
-  }
-
-  public Observable<Proof> getReadyToSignProof() {
-    return cache.getAll()
-        .flatMap(proofs -> Observable.fromIterable(proofs)
-            .filter(this::isReadyToSign))
-        .flatMap(proof -> cache.remove(proof.getPackageName())
-            .toSingleDefault(true)
-            .toObservable()
-            .map(__ -> proof));
-  }
-
-  private boolean isReadyToSign(Proof proof) {
-    return proof.getCampaignId() != null
-        && !proof.getCampaignId()
-        .isEmpty()
-        && proof.getProofComponentList()
-        .size() == maxNumberProofComponents
-        && proof.getProofId() != null
-        && !proof.getProofId()
-        .isEmpty();
   }
 }

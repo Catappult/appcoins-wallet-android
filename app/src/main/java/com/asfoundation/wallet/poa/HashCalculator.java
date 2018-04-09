@@ -1,27 +1,41 @@
 package com.asfoundation.wallet.poa;
 
 import com.google.gson.Gson;
-import java.math.BigInteger;
 import java.nio.charset.Charset;
-import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class HashCalculator {
+  public final String leadingString;
   private final Gson gson;
-  private MessageDigest messageDigest;
+  private final Calculator calculator;
 
-  public HashCalculator(Gson gson, MessageDigest messageDigest) {
+  public HashCalculator(Gson gson, int nonceLeadingZeros, Calculator calculator) {
     this.gson = gson;
-    this.messageDigest = messageDigest;
+    this.calculator = calculator;
+    this.leadingString = String.format("%0" + nonceLeadingZeros + "d", 0);
   }
 
-  public String calculate(Object object) {
+  public String calculate(Object object) throws NoSuchAlgorithmException {
     if (object == null) {
       throw new NullPointerException("proof object is null");
     }
 
-    messageDigest.update(gson.toJson(object)
-        .getBytes(Charset.forName("UTF-8")));
+    return calculator.calculate(convertToBytes(gson.toJson(object)));
+  }
 
-    return String.format("%064x", new BigInteger(1, messageDigest.digest()));
+  private byte[] convertToBytes(String data) {
+    return data.getBytes(Charset.forName("UTF-8"));
+  }
+
+  public long calculateNonce(NonceData nonceData) throws NoSuchAlgorithmException {
+    String result;
+    long nonce = -1;
+    String hash = calculate(nonceData);
+    do {
+      nonce++;
+      result = calculator.calculate(convertToBytes(hash + nonce));
+    } while (!result.substring(0, leadingString.length())
+        .equals(leadingString));
+    return nonce;
   }
 }
