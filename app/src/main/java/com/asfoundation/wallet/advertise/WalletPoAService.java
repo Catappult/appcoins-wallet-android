@@ -1,13 +1,19 @@
 package com.asfoundation.wallet.advertise;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import com.asf.wallet.R;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import dagger.android.AndroidInjection;
 import io.reactivex.schedulers.Schedulers;
@@ -39,6 +45,45 @@ public class WalletPoAService extends Service {
 
   @Inject ProofOfAttentionService proofOfAttentionService;
 
+  /**
+   * When binding to the service, we return an interface to our messenger for
+   * sending messages to the service.
+   */
+  @Override public IBinder onBind(Intent intent) {
+    isBound = true;
+    NotificationCompat.Builder builder;
+
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+      String channelId = "notification_channel_id";
+      CharSequence channelName = "Notification channel";
+      int importance = NotificationManager.IMPORTANCE_LOW;
+      NotificationChannel notificationChannel = new NotificationChannel(channelId, channelName, importance);
+      builder = new NotificationCompat.Builder(this, channelId);
+
+
+      NotificationManager notificationManager =
+          (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+      notificationManager.createNotificationChannel(notificationChannel);
+
+    } else {
+      builder = new NotificationCompat.Builder(this);
+    }
+
+    Notification notification = builder.setContentTitle(getString(R.string.app_name))
+        .setSmallIcon(R.drawable.ic_launcher_foreground)
+        .setContentText(getString(R.string.notification_ongoing_poa)).build();
+    startForeground(1234, notification);
+
+    return serviceMessenger.getBinder();
+  }
+
+  @Override public boolean onUnbind(Intent intent) {
+    isBound = false;
+    stopForeground(true);
+    return super.onUnbind(intent);
+  }
+
+
   @Override public void onCreate() {
     super.onCreate();
 
@@ -64,20 +109,6 @@ public class WalletPoAService extends Service {
       }
     }
     return super.onStartCommand(intent, flags, startId);
-  }
-
-  /**
-   * When binding to the service, we return an interface to our messenger for
-   * sending messages to the service.
-   */
-  @Override public IBinder onBind(Intent intent) {
-    isBound = true;
-    return serviceMessenger.getBinder();
-  }
-
-  @Override public boolean onUnbind(Intent intent) {
-    isBound = false;
-    return super.onUnbind(intent);
   }
 
   /**
