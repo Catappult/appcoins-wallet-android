@@ -33,7 +33,7 @@ public class HashCalculator {
     String hash = calculate(nonceData);
     do {
       nonce++;
-      result = calculator.calculate(convertToBytes(hash + nonce));
+      result = calculator.calculate(convertToBytes(nonce + hash));
     } while (!result.substring(0, leadingString.length())
         .equals(leadingString));
     return nonce;
