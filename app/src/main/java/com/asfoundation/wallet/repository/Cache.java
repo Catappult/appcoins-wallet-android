@@ -2,18 +2,21 @@ package com.asfoundation.wallet.repository;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import java.util.List;
 
 /**
  * Created by trinkes on 3/15/18.
  */
 
-interface Cache<T, K> {
-  Completable save(T key, K value);
+public interface Cache<K, T> {
+  Completable save(K key, T value);
 
-  Observable<List<K>> getAll();
+  Observable<List<T>> getAll();
 
-  Observable<K> get(T key);
+  Observable<T> get(K key);
 
-  Completable remove(T key);
+  Completable remove(K key);
+
+  Single<Boolean> contains(K key);
 }

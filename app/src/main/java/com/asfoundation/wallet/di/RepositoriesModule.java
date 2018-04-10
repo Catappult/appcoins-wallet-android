@@ -100,9 +100,4 @@ import okhttp3.OkHttpClient;
   @Singleton @Provides TokenLocalSource provideRealmTokenSource(RealmManager realmManager) {
     return new TokensRealmSource(realmManager);
   }
-
-  @Singleton @Provides GasSettingsRepositoryType provideGasSettingsRepository(
-      EthereumNetworkRepositoryType ethereumNetworkRepository) {
-    return new GasSettingsRepository(ethereumNetworkRepository);
-  }
 }
