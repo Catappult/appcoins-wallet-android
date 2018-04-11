@@ -50,19 +50,31 @@ public class ProofOfAttentionService {
   }
 
   public Completable setCampaignId(String packageName, String campaignId) {
-    return getPreviousProof(packageName).flatMapCompletable(proof -> cache.save(packageName,
-        new Proof(packageName, campaignId, proof.getProofComponentList(), proof.getProofId(),
-            walletPackage)));
+    return Completable.fromAction(() -> setCampaignIdSync(packageName, campaignId));
+  }
+
+  private void setCampaignIdSync(String packageName, String campaignId) {
+    synchronized (this) {
+      Proof proof = getPreviousProofSync(packageName);
+      cache.saveSync(packageName,
+          new Proof(packageName, campaignId, proof.getProofComponentList(), proof.getProofId(),
+              walletPackage));
+    }
+  }
+
+  private void setSetProofSync(String packageName, long timeStamp, long nonce) {
+    synchronized (this) {
+      Proof proof = getPreviousProofSync(packageName);
+      cache.saveSync(packageName, new Proof(proof.getPackageName(), proof.getCampaignId(),
+          createProofComponentList(timeStamp, nonce, proof), proof.getProofId(), walletPackage));
+    }
   }
 
   public Completable registerProof(String packageName, long timeStamp) {
     return Single.defer(
         () -> Single.just(hashCalculator.calculateNonce(new NonceData(timeStamp, packageName))))
-        .flatMapCompletable(nonce -> getPreviousProof(packageName).flatMapCompletable(
-            proof -> cache.save(packageName,
-                new Proof(proof.getPackageName(), proof.getCampaignId(),
-                    createProofComponentList(timeStamp, nonce, proof), proof.getProofId(),
-                    walletPackage))));
+        .doOnSuccess(nonce -> setSetProofSync(packageName, timeStamp, nonce))
+        .toCompletable();
   }
 
   @NonNull
@@ -74,16 +86,12 @@ public class ProofOfAttentionService {
     return list;
   }
 
-  private Single<Proof> getPreviousProof(String packageName) {
-    return cache.contains(packageName)
-        .flatMap(contains -> {
-          if (contains) {
-            return cache.get(packageName)
-                .firstOrError();
-          } else {
-            return Single.just(new Proof(packageName, walletPackage));
-          }
-        });
+  private Proof getPreviousProofSync(String packageName) {
+    if (cache.containsSync(packageName)) {
+      return cache.getSync(packageName);
+    } else {
+      return new Proof(packageName, walletPackage);
+    }
   }
 
   private Observable<Proof> getReadyPoA() {
