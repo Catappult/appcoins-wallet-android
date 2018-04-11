@@ -19,4 +19,14 @@ public interface Cache<K, T> {
   Completable remove(K key);
 
   Single<Boolean> contains(K key);
+
+  void saveSync(K key, T value);
+
+  List<T> getAllSync();
+
+  T getSync(K key);
+
+  void removeSync(K key);
+
+  boolean containsSync(K key);
 }
