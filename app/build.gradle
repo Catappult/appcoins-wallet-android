@@ -12,6 +12,8 @@ buildscript {
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'realm-android'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 repositories {
   maven { url 'https://maven.fabric.io/public' }
@@ -61,7 +63,7 @@ android {
     buildConfigField 'int', 'MAIN_NETWORK_DEFAULT_TOKEN_DECIMALS',
         project.MAIN_NETWORK_DEFAULT_TOKEN_DECIMALS
     buildConfigField 'String', 'MAIN_NETWORK_ASF_ADS_CONTRACT_ADDRESS',
-        "\"" + project.MAIN_NETWORK_ASF_ADS_CONTRACT_ADDRESS+ "\""
+        "\"" + project.MAIN_NETWORK_ASF_ADS_CONTRACT_ADDRESS + "\""
   }
 
   signingConfigs {
@@ -187,6 +189,7 @@ dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
   implementation project(":tn")
   implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
   // Pincode Lollipin
   //    compile('com.github.omadahealth:lollipin:2.1.0@aar') {
