@@ -10,18 +10,25 @@ public class Proof {
   private final String walletPackage;
   @Nullable private final String campaignId;
   private final List<ProofComponent> proofComponentList;
+  private final ProofStatus proofStatus;
 
   public Proof(String packageName, @Nullable String campaignId,
-      List<ProofComponent> proofComponentList, @Nullable String proofId, String walletPackage) {
+      List<ProofComponent> proofComponentList, @Nullable String proofId, String walletPackage,
+      ProofStatus proofStatus) {
     this.packageName = packageName;
     this.campaignId = campaignId;
     this.proofComponentList = proofComponentList;
     this.proofId = proofId;
     this.walletPackage = walletPackage;
+    this.proofStatus = proofStatus;
   }
 
-  public Proof(String packageName, String walletPackage) {
-    this(packageName, null, Collections.emptyList(), null, walletPackage);
+  public Proof(String packageName, String walletPackage, ProofStatus proofStatus) {
+    this(packageName, null, Collections.emptyList(), null, walletPackage, proofStatus);
+  }
+
+  public ProofStatus getProofStatus() {
+    return proofStatus;
   }
 
   public String getWalletPackage() {

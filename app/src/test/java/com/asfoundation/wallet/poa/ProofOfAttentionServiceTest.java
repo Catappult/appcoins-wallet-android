@@ -55,7 +55,7 @@ public class ProofOfAttentionServiceTest {
     testObserver.assertNoErrors()
         .assertValueCount(1)
         .assertValue(new Proof(packageName, campaignId, Collections.emptyList(), null,
-            BuildConfig.APPLICATION_ID));
+            BuildConfig.APPLICATION_ID, ProofStatus.PROCESSING));
   }
 
   @Test public void registerProof() {
@@ -73,7 +73,8 @@ public class ProofOfAttentionServiceTest {
     testObserver.assertNoErrors()
         .assertValueCount(1)
         .assertValue(
-            new Proof(packageName, campaignId, Collections.emptyList(), null, walletPackage));
+            new Proof(packageName, campaignId, Collections.emptyList(), null, walletPackage,
+                ProofStatus.PROCESSING));
 
     TestObserver<Object> registerObservable = new TestObserver<>();
     proofOfAttentionService.registerProof(packageName, timeStamp)
@@ -86,7 +87,8 @@ public class ProofOfAttentionServiceTest {
     proofComponents.add(new ProofComponent(timeStamp, nonce));
     Assert.assertEquals(testObserver.assertValueCount(2)
         .values()
-        .get(1), new Proof(packageName, campaignId, proofComponents, null, walletPackage));
+        .get(1), new Proof(packageName, campaignId, proofComponents, null, walletPackage,
+        ProofStatus.PROCESSING));
 
     TestObserver<Object> registerObservable2 = new TestObserver<>();
     proofOfAttentionService.registerProof(packageName, timeStamp2)
@@ -98,7 +100,8 @@ public class ProofOfAttentionServiceTest {
     proofComponents.add(new ProofComponent(timeStamp2, nonce));
     Assert.assertEquals(testObserver.assertValueCount(3)
         .values()
-        .get(2), new Proof(packageName, campaignId, proofComponents, null, walletPackage));
+        .get(2), new Proof(packageName, campaignId, proofComponents, null, walletPackage,
+        ProofStatus.PROCESSING));
   }
 
   @Test public void registerProofWithoutCampaignId() {
@@ -120,8 +123,9 @@ public class ProofOfAttentionServiceTest {
     List<ProofComponent> proofComponents = new ArrayList<>();
     proofComponents.add(new ProofComponent(timeStamp, nonce));
     Assert.assertEquals(testObserver.assertValueCount(1)
-        .values()
-        .get(0), new Proof(packageName, null, proofComponents, null, walletPackage));
+            .values()
+            .get(0),
+        new Proof(packageName, null, proofComponents, null, walletPackage, ProofStatus.PROCESSING));
   }
 
   @Test public void registerProofMaxComponents() {
@@ -168,26 +172,21 @@ public class ProofOfAttentionServiceTest {
         .blockingAwait();
 
     cacheObserver.assertNoErrors()
-        .assertValueCount(4);
+        .assertValueCount(6);
     Proof value = cacheObserver.values()
-        .get(3);
+        .get(5);
     Proof proof =
         new Proof(value.getPackageName(), value.getCampaignId(), value.getProofComponentList(),
-            hashCalculator.calculate(value), value.getWalletPackage());
+            hashCalculator.calculate(value), value.getWalletPackage(), ProofStatus.COMPLETED);
     verify(blockChainWriter, times(1)).writeProof(proof);
     Assert.assertEquals(proof.getCampaignId(), campaignId);
     Assert.assertEquals(proof.getPackageName(), packageName);
     Assert.assertEquals(proof.getProofId(), hashCalculator.calculate(
         new Proof(proof.getPackageName(), proof.getCampaignId(), proof.getProofComponentList(),
-            null, proof.getWalletPackage())));
+            "proof_id", proof.getWalletPackage(), ProofStatus.COMPLETED)));
     Assert.assertEquals(proof.getProofComponentList()
         .size(), maxNumberProofComponents);
     Assert.assertEquals(proof.getWalletPackage(), BuildConfig.APPLICATION_ID);
-
-    TestObserver<Boolean> containsSubscriber = new TestObserver<>();
-    cache.contains(packageName)
-        .subscribe(containsSubscriber);
-    containsSubscriber.assertValue(false);
 
     proofOfAttentionService.stop();
   }
