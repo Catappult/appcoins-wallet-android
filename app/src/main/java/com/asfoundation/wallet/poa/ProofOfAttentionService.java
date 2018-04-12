@@ -125,9 +125,7 @@ public class ProofOfAttentionService {
         && !proof.getCampaignId()
         .isEmpty()
         && proof.getProofComponentList()
-        .size() == maxNumberProofComponents
-        && (proof.getProofId() == null || proof.getProofId()
-        .isEmpty()) && proof.getProofStatus()
+        .size() == maxNumberProofComponents && proof.getProofStatus()
         .equals(ProofStatus.PROCESSING);
   }
 

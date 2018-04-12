@@ -11,11 +11,14 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
+import android.support.annotation.StringRes;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
+import com.asfoundation.wallet.poa.ProofStatus;
 import dagger.android.AndroidInjection;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
 
@@ -44,49 +47,10 @@ public class WalletPoAService extends Service {
   boolean isBound = false;
 
   @Inject ProofOfAttentionService proofOfAttentionService;
-
-  /**
-   * When binding to the service, we return an interface to our messenger for
-   * sending messages to the service.
-   */
-  @Override public IBinder onBind(Intent intent) {
-    isBound = true;
-    NotificationCompat.Builder builder;
-
-    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-      String channelId = "notification_channel_id";
-      CharSequence channelName = "Notification channel";
-      int importance = NotificationManager.IMPORTANCE_LOW;
-      NotificationChannel notificationChannel = new NotificationChannel(channelId, channelName, importance);
-      builder = new NotificationCompat.Builder(this, channelId);
-
-
-      NotificationManager notificationManager =
-          (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-      notificationManager.createNotificationChannel(notificationChannel);
-
-    } else {
-      builder = new NotificationCompat.Builder(this);
-    }
-
-    Notification notification = builder.setContentTitle(getString(R.string.app_name))
-        .setSmallIcon(R.drawable.ic_launcher_foreground)
-        .setContentText(getString(R.string.notification_ongoing_poa)).build();
-    startForeground(1234, notification);
-
-    return serviceMessenger.getBinder();
-  }
-
-  @Override public boolean onUnbind(Intent intent) {
-    isBound = false;
-    stopForeground(true);
-    return super.onUnbind(intent);
-  }
-
+  private Disposable disposable;
 
   @Override public void onCreate() {
     super.onCreate();
-
     AndroidInjection.inject(this);
   }
 
@@ -109,6 +73,68 @@ public class WalletPoAService extends Service {
       }
     }
     return super.onStartCommand(intent, flags, startId);
+  }
+
+  /**
+   * When binding to the service, we return an interface to our messenger for
+   * sending messages to the service.
+   */
+  @Override public IBinder onBind(Intent intent) {
+    isBound = true;
+    updateNotification(ProofStatus.PROCESSING);
+    disposable = proofOfAttentionService.get()
+        .flatMapIterable(proofs -> proofs)
+        .subscribe(proof -> updateNotification(proof.getProofStatus()));
+    return serviceMessenger.getBinder();
+  }
+
+  @Override public boolean onUnbind(Intent intent) {
+    isBound = false;
+    if (!disposable.isDisposed()) {
+      disposable.dispose();
+    }
+    stopForeground(true);
+    return super.onUnbind(intent);
+  }
+
+  private void updateNotification(ProofStatus status) {
+    NotificationCompat.Builder builder;
+
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+      String channelId = "notification_channel_id";
+      CharSequence channelName = "Notification channel";
+      int importance = NotificationManager.IMPORTANCE_LOW;
+      NotificationChannel notificationChannel =
+          new NotificationChannel(channelId, channelName, importance);
+      builder = new NotificationCompat.Builder(this, channelId);
+
+      NotificationManager notificationManager =
+          (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+      notificationManager.createNotificationChannel(notificationChannel);
+    } else {
+      builder = new NotificationCompat.Builder(this);
+    }
+    @StringRes int notificationText;
+    switch (status) {
+      case SUBMITTING:
+        notificationText = R.string.notification_submitting_poa;
+        break;
+      case COMPLETED:
+        notificationText = R.string.notification_completed_poa;
+        break;
+      default:
+      case PROCESSING:
+        notificationText = R.string.notification_ongoing_poa;
+        break;
+    }
+    Notification notification = builder.setContentTitle(getString(R.string.app_name))
+        .setSmallIcon(R.drawable.ic_launcher_foreground)
+        .setContentText(getString(notificationText))
+        .build();
+    startForeground(1234, notification);
+    if (status.equals(ProofStatus.COMPLETED)) {
+      stopForeground(false);
+    }
   }
 
   /**

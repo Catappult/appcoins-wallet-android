@@ -265,4 +265,6 @@
   <string name="activity_iab_approving_message">Checking all details: balance, items, network…</string>
   <string name="activity_aib_buying_message">Details checked 👍 \nReceiving your item…</string>
   <string name="notification_ongoing_poa">Processing your PoA</string>
+  <string name="notification_completed_poa">Proof processed and submitted</string>
+  <string name="notification_submitting_poa">Submitting proof of attention to blockchain</string>
 </resources>
