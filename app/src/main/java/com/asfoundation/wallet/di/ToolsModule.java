@@ -45,6 +45,7 @@ import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
@@ -191,6 +192,6 @@ import okhttp3.OkHttpClient;
       HashCalculator hashCalculator, BlockChainWriter blockChainWriter) {
     return new ProofOfAttentionService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
         BuildConfig.APPLICATION_ID, hashCalculator, new CompositeDisposable(), blockChainWriter,
-        12);
+        Schedulers.computation(), 12);
   }
 }

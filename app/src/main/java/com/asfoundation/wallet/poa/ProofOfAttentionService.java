@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import com.asfoundation.wallet.repository.Cache;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import java.security.NoSuchAlgorithmException;
@@ -17,21 +18,24 @@ public class ProofOfAttentionService {
   private final CompositeDisposable compositeDisposable;
   private final BlockChainWriter blockChainWriter;
   private final int maxNumberProofComponents;
+  private final Scheduler computationScheduler;
 
   public ProofOfAttentionService(Cache<String, Proof> cache, String walletPackage,
       HashCalculator hashCalculator, CompositeDisposable compositeDisposable,
-      BlockChainWriter blockChainWriter, int maxNumberProofComponents) {
+      BlockChainWriter blockChainWriter, Scheduler computationScheduler,
+      int maxNumberProofComponents) {
     this.cache = cache;
     this.walletPackage = walletPackage;
     this.hashCalculator = hashCalculator;
     this.compositeDisposable = compositeDisposable;
     this.blockChainWriter = blockChainWriter;
+    this.computationScheduler = computationScheduler;
     this.maxNumberProofComponents = maxNumberProofComponents;
   }
 
   public void start() {
-    compositeDisposable.add(getReadyPoA().flatMapSingle(
-        proof -> writeOnBlockChain(proof).doOnError(Throwable::printStackTrace)
+    compositeDisposable.add(getReadyPoA().observeOn(computationScheduler)
+        .flatMapSingle(proof -> writeOnBlockChain(proof).doOnError(Throwable::printStackTrace)
             .doOnSubscribe(
                 disposable -> updateProofStatus(proof.getPackageName(), ProofStatus.SUBMITTING)))
         .subscribe());

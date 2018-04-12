@@ -5,12 +5,14 @@ import com.asfoundation.wallet.repository.MemoryCache;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.TestObserver;
+import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.BehaviorSubject;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,13 +32,15 @@ public class ProofOfAttentionServiceTest {
   private MemoryCache<String, Proof> cache;
   private int maxNumberProofComponents = 3;
   private long nonce;
+  private TestScheduler testScheduler;
 
   @Before public void before() throws NoSuchAlgorithmException {
     MockitoAnnotations.initMocks(this);
     cache = new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>());
+    testScheduler = new TestScheduler();
     proofOfAttentionService =
         new ProofOfAttentionService(cache, BuildConfig.APPLICATION_ID, hashCalculator,
-            new CompositeDisposable(), blockChainWriter, maxNumberProofComponents);
+            new CompositeDisposable(), blockChainWriter, testScheduler, maxNumberProofComponents);
 
     nonce = 1L;
     when(hashCalculator.calculateNonce(any(NonceData.class))).thenReturn(nonce);
@@ -171,6 +175,7 @@ public class ProofOfAttentionServiceTest {
     proofOfAttentionService.registerProof(packageName, timeStamp)
         .blockingAwait();
 
+    testScheduler.advanceTimeBy(1, TimeUnit.SECONDS);
     cacheObserver.assertNoErrors()
         .assertValueCount(6);
     Proof value = cacheObserver.values()
@@ -189,5 +194,77 @@ public class ProofOfAttentionServiceTest {
     Assert.assertEquals(proof.getWalletPackage(), BuildConfig.APPLICATION_ID);
 
     proofOfAttentionService.stop();
+  }
+
+  @Test public void get() {
+    String packageName = "packageName";
+    String campaignId = "campaignId";
+    int timeStamp = 10;
+
+    proofOfAttentionService.start();
+
+    TestObserver<List<Proof>> observer = new TestObserver<>();
+    proofOfAttentionService.get()
+        .subscribe(observer);
+
+    proofOfAttentionService.setCampaignId(packageName, campaignId)
+        .blockingAwait();
+
+    proofOfAttentionService.registerProof(packageName, timeStamp)
+        .blockingAwait();
+    proofOfAttentionService.registerProof(packageName, timeStamp)
+        .blockingAwait();
+    proofOfAttentionService.registerProof(packageName, timeStamp)
+        .blockingAwait();
+    testScheduler.advanceTimeBy(1, TimeUnit.SECONDS);
+
+    observer.assertNoErrors()
+        .assertValueCount(6);
+    Proof proof = observer.values()
+        .get(0)
+        .get(0);
+
+    Assert.assertEquals(ProofStatus.PROCESSING, proof.getProofStatus());
+    Assert.assertEquals(campaignId, proof.getCampaignId());
+
+    proof = observer.values()
+        .get(1)
+        .get(0);
+    Assert.assertEquals(ProofStatus.PROCESSING, proof.getProofStatus());
+    Assert.assertEquals(campaignId, proof.getCampaignId());
+    Assert.assertEquals(1, proof.getProofComponentList()
+        .size());
+
+    proof = observer.values()
+        .get(2)
+        .get(0);
+    Assert.assertEquals(ProofStatus.PROCESSING, proof.getProofStatus());
+    Assert.assertEquals(campaignId, proof.getCampaignId());
+    Assert.assertEquals(2, proof.getProofComponentList()
+        .size());
+
+    proof = observer.values()
+        .get(3)
+        .get(0);
+    Assert.assertEquals(ProofStatus.PROCESSING, proof.getProofStatus());
+    Assert.assertEquals(campaignId, proof.getCampaignId());
+    Assert.assertEquals(3, proof.getProofComponentList()
+        .size());
+
+    proof = observer.values()
+        .get(4)
+        .get(0);
+    Assert.assertEquals(ProofStatus.SUBMITTING, proof.getProofStatus());
+    Assert.assertEquals(campaignId, proof.getCampaignId());
+    Assert.assertEquals(3, proof.getProofComponentList()
+        .size());
+
+    proof = observer.values()
+        .get(5)
+        .get(0);
+    Assert.assertEquals(ProofStatus.COMPLETED, proof.getProofStatus());
+    Assert.assertEquals(campaignId, proof.getCampaignId());
+    Assert.assertEquals(3, proof.getProofComponentList()
+        .size());
   }
 }

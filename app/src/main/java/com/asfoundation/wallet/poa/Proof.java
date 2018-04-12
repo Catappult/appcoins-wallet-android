@@ -23,6 +23,27 @@ public class Proof {
     this.proofStatus = proofStatus;
   }
 
+  @Override public String toString() {
+    return "Proof{"
+        + "packageName='"
+        + packageName
+        + '\''
+        + ", proofStatus="
+        + proofStatus
+        + ", proofId='"
+        + proofId
+        + '\''
+        + ", walletPackage='"
+        + walletPackage
+        + '\''
+        + ", campaignId='"
+        + campaignId
+        + '\''
+        + ", proofComponentList="
+        + proofComponentList
+        + '}';
+  }
+
   public Proof(String packageName, String walletPackage, ProofStatus proofStatus) {
     this(packageName, null, Collections.emptyList(), null, walletPackage, proofStatus);
   }
