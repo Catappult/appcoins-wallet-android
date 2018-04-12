@@ -2,7 +2,8 @@ package com.asfoundation.wallet.poa;
 
 import com.google.gson.GsonBuilder;
 import java.security.NoSuchAlgorithmException;
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,8 +20,12 @@ public class HashCalculatorTest {
     String packageName = "packageName";
     String campaignId = "campaignId";
     String walletPackage = "package";
-    Proof proof = new Proof(packageName, campaignId, Collections.emptyList(), null, walletPackage);
-    Assert.assertEquals("0e02bedfad303659d486a709d9edbb34b61fba4b6cebb3d413da0abd966bae6c",
+
+    List<ProofComponent> proofComponentList = new ArrayList<>();
+    proofComponentList.add(new ProofComponent(4810492, 1));
+    StatelessProof proof =
+        new StatelessProof(packageName, campaignId, proofComponentList, "proof_id", walletPackage);
+    Assert.assertEquals("a31388acb13878c8ccea80c7a2ca5a982ab62cb19a5b577c912bdcf4e1cfb024",
         hashCalculator.calculate(proof));
   }
 
