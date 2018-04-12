@@ -40,7 +40,8 @@ public class ProofOfAttentionServiceTest {
     testScheduler = new TestScheduler();
     proofOfAttentionService =
         new ProofOfAttentionService(cache, BuildConfig.APPLICATION_ID, hashCalculator,
-            new CompositeDisposable(), blockChainWriter, testScheduler, maxNumberProofComponents);
+            new CompositeDisposable(), blockChainWriter, testScheduler, maxNumberProofComponents,
+            new BlockchainErrorMapper());
 
     nonce = 1L;
     when(hashCalculator.calculateNonce(any(NonceData.class))).thenReturn(nonce);

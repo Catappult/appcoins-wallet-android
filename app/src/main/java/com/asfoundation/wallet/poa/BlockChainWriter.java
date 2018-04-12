@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.poa;
 
+import android.util.Log;
 import com.asfoundation.wallet.repository.TransactionException;
 import com.asfoundation.wallet.repository.Web3jProvider;
 import com.google.gson.Gson;
@@ -8,6 +9,7 @@ import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.utils.Numeric;
 
 public class BlockChainWriter {
+  private static final String TAG = BlockChainWriter.class.getSimpleName();
   private final Web3jProvider web3jProvider;
   private final TransactionFactory transactionFactory;
   private final Gson gson;
@@ -20,6 +22,7 @@ public class BlockChainWriter {
   }
 
   public Single<String> writeProof(Proof proof) {
+    Log.d(TAG, "writeProof() called with: proof = [" + gson.toJson(proof) + "]");
     return transactionFactory.createProofTransaction(gson.toJson(proof))
         .flatMap(this::sendTransaction);
   }

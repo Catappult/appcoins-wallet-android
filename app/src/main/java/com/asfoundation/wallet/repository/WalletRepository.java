@@ -70,7 +70,14 @@ public class WalletRepository implements WalletRepositoryType {
   }
 
   @Override public Single<Wallet> getDefaultWallet() {
-    return Single.fromCallable(preferenceRepositoryType::getCurrentWalletAddress)
+    return Single.fromCallable(() -> {
+      String currentWalletAddress = preferenceRepositoryType.getCurrentWalletAddress();
+      if (currentWalletAddress == null) {
+        throw new WalletNotFoundException();
+      } else {
+        return currentWalletAddress;
+      }
+    })
         .flatMap(this::findWallet);
   }
 

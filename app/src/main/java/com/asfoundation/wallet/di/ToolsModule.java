@@ -11,6 +11,7 @@ import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.poa.BlockChainWriter;
+import com.asfoundation.wallet.poa.BlockchainErrorMapper;
 import com.asfoundation.wallet.poa.Calculator;
 import com.asfoundation.wallet.poa.DataMapper;
 import com.asfoundation.wallet.poa.HashCalculator;
@@ -192,6 +193,6 @@ import okhttp3.OkHttpClient;
       HashCalculator hashCalculator, BlockChainWriter blockChainWriter) {
     return new ProofOfAttentionService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
         BuildConfig.APPLICATION_ID, hashCalculator, new CompositeDisposable(), blockChainWriter,
-        Schedulers.computation(), 12);
+        Schedulers.computation(), 12, new BlockchainErrorMapper());
   }
 }
