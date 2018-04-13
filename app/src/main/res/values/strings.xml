@@ -267,4 +267,8 @@
   <string name="notification_ongoing_poa">Processing your PoA</string>
   <string name="notification_completed_poa">Proof processed and submitted</string>
   <string name="notification_submitting_poa">Submitting proof of attention to blockchain</string>
+  <string name="notification_no_funds_poa">Not enough funds to submit the proof</string>
+  <string name="notification_no_internet_poa">No network connection</string>
+  <string name="notification_error_poa">An error has occurred</string>
+  <string name="notification_no_wallet_poa">Wallet not configured yet</string>
 </resources>
