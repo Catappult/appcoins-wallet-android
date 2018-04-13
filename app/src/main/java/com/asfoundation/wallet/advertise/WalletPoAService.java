@@ -36,8 +36,8 @@ import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_WALLET_PA
 
 public class WalletPoAService extends Service {
 
+  public static final int SERVICE_ID = 77784;
   static final String TAG = WalletPoAService.class.getSimpleName();
-
   /**
    * Target we publish for clients to send messages to IncomingHandler.Note
    * that calls to its binder are sequential!
@@ -84,7 +84,7 @@ public class WalletPoAService extends Service {
    */
   @Override public IBinder onBind(Intent intent) {
     isBound = true;
-    startForeground(1234, createNotification(R.string.notification_ongoing_poa));
+    startForeground(SERVICE_ID, createNotification(R.string.notification_ongoing_poa));
     disposable = proofOfAttentionService.get()
         .flatMapIterable(proofs -> proofs)
         .distinctUntilChanged(Proof::getProofStatus)
@@ -128,7 +128,7 @@ public class WalletPoAService extends Service {
         break;
     }
 
-    notificationManager.notify(1234, createNotification(notificationText));
+    notificationManager.notify(SERVICE_ID, createNotification(notificationText));
     if (status.equals(ProofStatus.COMPLETED) || status.isError()) {
       stopForeground(false);
     }
@@ -144,7 +144,8 @@ public class WalletPoAService extends Service {
           new NotificationChannel(channelId, channelName, importance);
       builder = new NotificationCompat.Builder(this, channelId);
 
-      NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+      NotificationManager notificationManager =
+          (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
       notificationManager.createNotificationChannel(notificationChannel);
     } else {
       builder = new NotificationCompat.Builder(this);
