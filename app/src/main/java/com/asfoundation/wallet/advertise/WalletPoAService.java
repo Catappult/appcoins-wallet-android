@@ -26,6 +26,7 @@ import javax.inject.Inject;
 import static com.asfoundation.wallet.advertise.ServiceConnector.ACTION_ACK_BROADCAST;
 import static com.asfoundation.wallet.advertise.ServiceConnector.MSG_REGISTER_CAMPAIGN;
 import static com.asfoundation.wallet.advertise.ServiceConnector.MSG_SEND_PROOF;
+import static com.asfoundation.wallet.advertise.ServiceConnector.MSG_SET_NETWORK;
 import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_APP_PACKAGE_NAME;
 import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_APP_SERVICE_NAME;
 import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_WALLET_PACKAGE_NAME;
@@ -180,7 +181,13 @@ public class WalletPoAService extends Service {
               .subscribeOn(Schedulers.computation())
               .subscribe();
           break;
-
+        case MSG_SET_NETWORK:
+          Log.d(TAG, "MSG_SET_NETWORK");
+          proofOfAttentionService.setChainId(msg.getData()
+              .getString("packageName"), msg.getData()
+              .getInt("networkId"))
+              .subscribeOn(Schedulers.computation())
+              .subscribe();
         default:
           super.handleMessage(msg);
       }

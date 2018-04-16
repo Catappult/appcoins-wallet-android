@@ -21,6 +21,10 @@ public interface ServiceConnector {
    */
   int MSG_SEND_PROOF = 2;
   /**
+   * Command to the service to define the network that is working in
+   */
+  int MSG_SET_NETWORK = 3;
+  /**
    * Actions used to communicate with the service on the wallet side, for the bind.
    */
   String ACTION_BIND = "com.asf.appcoins.service.ACTION_BIND";

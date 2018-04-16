@@ -11,41 +11,26 @@ public class Proof {
   @Nullable private final String campaignId;
   private final List<ProofComponent> proofComponentList;
   private final ProofStatus proofStatus;
+  private final int chainId;
 
   public Proof(String packageName, @Nullable String campaignId,
       List<ProofComponent> proofComponentList, @Nullable String proofId, String walletPackage,
-      ProofStatus proofStatus) {
+      ProofStatus proofStatus, int chainId) {
     this.packageName = packageName;
     this.campaignId = campaignId;
     this.proofComponentList = proofComponentList;
     this.proofId = proofId;
     this.walletPackage = walletPackage;
     this.proofStatus = proofStatus;
+    this.chainId = chainId;
   }
 
-  @Override public String toString() {
-    return "Proof{"
-        + "packageName='"
-        + packageName
-        + '\''
-        + ", proofStatus="
-        + proofStatus
-        + ", proofId='"
-        + proofId
-        + '\''
-        + ", walletPackage='"
-        + walletPackage
-        + '\''
-        + ", campaignId='"
-        + campaignId
-        + '\''
-        + ", proofComponentList="
-        + proofComponentList
-        + '}';
+  public Proof(String packageName, String walletPackage, ProofStatus proofStatus, int chainId) {
+    this(packageName, null, Collections.emptyList(), null, walletPackage, proofStatus, chainId);
   }
 
-  public Proof(String packageName, String walletPackage, ProofStatus proofStatus) {
-    this(packageName, null, Collections.emptyList(), null, walletPackage, proofStatus);
+  public int getChainId() {
+    return chainId;
   }
 
   public ProofStatus getProofStatus() {
@@ -78,6 +63,8 @@ public class Proof {
     result = 31 * result + walletPackage.hashCode();
     result = 31 * result + (campaignId != null ? campaignId.hashCode() : 0);
     result = 31 * result + proofComponentList.hashCode();
+    result = 31 * result + proofStatus.hashCode();
+    result = 31 * result + chainId;
     return result;
   }
 
@@ -87,12 +74,35 @@ public class Proof {
 
     Proof proof = (Proof) o;
 
+    if (chainId != proof.chainId) return false;
     if (!packageName.equals(proof.packageName)) return false;
     if (proofId != null ? !proofId.equals(proof.proofId) : proof.proofId != null) return false;
     if (!walletPackage.equals(proof.walletPackage)) return false;
     if (campaignId != null ? !campaignId.equals(proof.campaignId) : proof.campaignId != null) {
       return false;
     }
-    return proofComponentList.equals(proof.proofComponentList);
+    if (!proofComponentList.equals(proof.proofComponentList)) return false;
+    return proofStatus == proof.proofStatus;
+  }
+
+  @Override public String toString() {
+    return "Proof{"
+        + "packageName='"
+        + packageName
+        + '\''
+        + ", proofStatus="
+        + proofStatus
+        + ", proofId='"
+        + proofId
+        + '\''
+        + ", walletPackage='"
+        + walletPackage
+        + '\''
+        + ", campaignId='"
+        + campaignId
+        + '\''
+        + ", proofComponentList="
+        + proofComponentList
+        + '}';
   }
 }
