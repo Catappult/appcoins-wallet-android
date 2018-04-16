@@ -37,7 +37,7 @@ public class TransactionFactory {
     this.dataMapper = dataMapper;
   }
 
-  public Single<byte[]> createProofTransaction(String proof) {
+  public Single<byte[]> createTransaction(Proof proof) {
     return defaultTokenProvider.getAdsAddress()
         .flatMap(adsAddress -> walletRepositoryType.getDefaultWallet()
             .flatMap(wallet -> gasSettingsRepository.getGasSettings(true)

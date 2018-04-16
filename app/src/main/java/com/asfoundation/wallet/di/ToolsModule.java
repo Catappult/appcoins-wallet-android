@@ -181,8 +181,8 @@ import okhttp3.OkHttpClient;
   }
 
   @Singleton @Provides BlockChainWriter provideBlockChainWriter(Web3jProvider web3jProvider,
-      TransactionFactory transactionFactory, Gson gson) {
-    return new BlockChainWriter(web3jProvider, transactionFactory, gson);
+      TransactionFactory transactionFactory) {
+    return new BlockChainWriter(web3jProvider, transactionFactory);
   }
 
   @Singleton @Provides HashCalculator provideHashCalculator(Gson gson, Calculator calculator) {

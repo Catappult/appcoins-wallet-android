@@ -42,6 +42,8 @@ public class BuildConfigDefaultTokenProvider implements DefaultTokenProvider {
 
   private String getDefaultAdsAddress(NetworkInfo networkInfo) {
     switch (networkInfo.chainId) {
+      case 3:
+        return BuildConfig.ROPSTEN_NETWORK_ASF_ADS_CONTRACT_ADDRESS;
       default:
         return BuildConfig.MAIN_NETWORK_ASF_ADS_CONTRACT_ADDRESS;
     }
