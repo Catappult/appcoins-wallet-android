@@ -174,4 +174,10 @@ public class ProofOfAttentionService {
   public Observable<List<Proof>> get() {
     return cache.getAll();
   }
+
+  public void remove(String packageName) {
+    synchronized (this) {
+      cache.removeSync(packageName);
+    }
+  }
 }

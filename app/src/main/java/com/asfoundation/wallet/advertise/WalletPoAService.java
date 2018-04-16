@@ -89,16 +89,23 @@ public class WalletPoAService extends Service {
     disposable = proofOfAttentionService.get()
         .flatMapIterable(proofs -> proofs)
         .distinctUntilChanged(Proof::getProofStatus)
-        .subscribe(proof -> updateNotification(proof.getProofStatus()));
+        .doOnNext(proof -> updateNotification(proof.getProofStatus()))
+        .filter(proof -> proof.getProofStatus()
+            .equals(ProofStatus.COMPLETED))
+        .take(1)
+        .doOnNext(proof -> {
+          proofOfAttentionService.remove(proof.getPackageName());
+          if (!disposable.isDisposed()) {
+            disposable.dispose();
+          }
+        })
+        .subscribe(proof -> {
+        });
     return serviceMessenger.getBinder();
   }
 
   @Override public boolean onUnbind(Intent intent) {
     isBound = false;
-    if (!disposable.isDisposed()) {
-      disposable.dispose();
-    }
-    stopForeground(true);
     return super.onUnbind(intent);
   }
 
