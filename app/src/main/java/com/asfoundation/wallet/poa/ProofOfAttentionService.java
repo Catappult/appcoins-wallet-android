@@ -49,12 +49,12 @@ public class ProofOfAttentionService {
     ProofStatus proofStatus;
     switch (errorMapper.map(throwable)) {
       default:
-        throwable.printStackTrace();
       case WRONG_NETWORK:
       case UNKNOWN_TOKEN:
       case NONCE_ERROR:
       case INVALID_BLOCKCHAIN_ERROR:
       case TRANSACTION_NOT_FOUND:
+        throwable.printStackTrace();
         proofStatus = ProofStatus.GENERAL_ERROR;
         break;
       case NO_FUNDS:

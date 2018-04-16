@@ -24,4 +24,12 @@ public class ProofComponent {
     if (timeStamp != that.timeStamp) return false;
     return nonce == that.nonce;
   }
+
+  public long getTimeStamp() {
+    return timeStamp;
+  }
+
+  public long getNonce() {
+    return nonce;
+  }
 }
