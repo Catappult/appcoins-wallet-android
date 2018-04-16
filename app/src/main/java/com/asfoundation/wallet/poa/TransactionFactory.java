@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.poa;
 
+import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
@@ -38,15 +39,26 @@ public class TransactionFactory {
   }
 
   public Single<byte[]> createTransaction(Proof proof) {
-    return defaultTokenProvider.getAdsAddress()
-        .flatMap(adsAddress -> walletRepositoryType.getDefaultWallet()
-            .flatMap(wallet -> gasSettingsRepository.getGasSettings(true)
-                .flatMap(gasSettings -> passwordStore.getPassword(wallet)
-                    .flatMap(
-                        password -> accountKeystoreService.signTransaction(wallet.address, password,
-                            adsAddress, BigDecimal.ZERO, gasSettings.gasPrice, gasSettings.gasLimit,
-                            getNonce(wallet.address), dataMapper.getData(proof),
-                            networkRepositoryType.getDefaultNetwork().chainId)))));
+    return Single.just(networkRepositoryType.getDefaultNetwork())
+        .flatMap(defaultNetworkInfo -> defaultTokenProvider.getAdsAddress()
+            .doOnSubscribe(disposable -> setNetwork(proof.getChainId()))
+            .flatMap(adsAddress -> walletRepositoryType.getDefaultWallet()
+                .flatMap(wallet -> gasSettingsRepository.getGasSettings(true)
+                    .flatMap(gasSettings -> passwordStore.getPassword(wallet)
+                        .flatMap(password -> accountKeystoreService.signTransaction(wallet.address,
+                            password, adsAddress, BigDecimal.ZERO, gasSettings.gasPrice,
+                            gasSettings.gasLimit, getNonce(wallet.address),
+                            dataMapper.getData(proof), proof.getChainId())))))
+            .doAfterTerminate(
+                () -> networkRepositoryType.setDefaultNetworkInfo(defaultNetworkInfo)));
+  }
+
+  public void setNetwork(int chainId) {
+    for (NetworkInfo networkInfo : networkRepositoryType.getAvailableNetworkList()) {
+      if (chainId == networkInfo.chainId) {
+        networkRepositoryType.setDefaultNetworkInfo(networkInfo);
+      }
+    }
   }
 
   private long getNonce(String address) throws IOException {

@@ -60,7 +60,7 @@ public class ProofOfAttentionServiceTest {
     testObserver.assertNoErrors()
         .assertValueCount(1)
         .assertValue(new Proof(packageName, campaignId, Collections.emptyList(), null,
-            BuildConfig.APPLICATION_ID, ProofStatus.PROCESSING));
+            BuildConfig.APPLICATION_ID, ProofStatus.PROCESSING, 1));
   }
 
   @Test public void registerProof() {
@@ -79,7 +79,7 @@ public class ProofOfAttentionServiceTest {
         .assertValueCount(1)
         .assertValue(
             new Proof(packageName, campaignId, Collections.emptyList(), null, walletPackage,
-                ProofStatus.PROCESSING));
+                ProofStatus.PROCESSING, 1));
 
     TestObserver<Object> registerObservable = new TestObserver<>();
     proofOfAttentionService.registerProof(packageName, timeStamp)
@@ -93,7 +93,7 @@ public class ProofOfAttentionServiceTest {
     Assert.assertEquals(testObserver.assertValueCount(2)
         .values()
         .get(1), new Proof(packageName, campaignId, proofComponents, null, walletPackage,
-        ProofStatus.PROCESSING));
+        ProofStatus.PROCESSING, 1));
 
     TestObserver<Object> registerObservable2 = new TestObserver<>();
     proofOfAttentionService.registerProof(packageName, timeStamp2)
@@ -106,7 +106,7 @@ public class ProofOfAttentionServiceTest {
     Assert.assertEquals(testObserver.assertValueCount(3)
         .values()
         .get(2), new Proof(packageName, campaignId, proofComponents, null, walletPackage,
-        ProofStatus.PROCESSING));
+        ProofStatus.PROCESSING, 1));
   }
 
   @Test public void registerProofWithoutCampaignId() {
@@ -130,7 +130,8 @@ public class ProofOfAttentionServiceTest {
     Assert.assertEquals(testObserver.assertValueCount(1)
             .values()
             .get(0),
-        new Proof(packageName, null, proofComponents, null, walletPackage, ProofStatus.PROCESSING));
+        new Proof(packageName, null, proofComponents, null, walletPackage, ProofStatus.PROCESSING,
+            1));
   }
 
   @Test public void registerProofMaxComponents() {
@@ -181,18 +182,14 @@ public class ProofOfAttentionServiceTest {
         .assertValueCount(6);
     Proof value = cacheObserver.values()
         .get(5);
-    Proof proof =
+    verify(blockChainWriter, times(1)).writeProof(
         new Proof(value.getPackageName(), value.getCampaignId(), value.getProofComponentList(),
-            hashCalculator.calculate(value), value.getWalletPackage(), ProofStatus.COMPLETED);
-    verify(blockChainWriter, times(1)).writeProof(proof);
-    Assert.assertEquals(proof.getCampaignId(), campaignId);
-    Assert.assertEquals(proof.getPackageName(), packageName);
-    Assert.assertEquals(proof.getProofId(), hashCalculator.calculate(
-        new Proof(proof.getPackageName(), proof.getCampaignId(), proof.getProofComponentList(),
-            "proof_id", proof.getWalletPackage(), ProofStatus.COMPLETED)));
-    Assert.assertEquals(proof.getProofComponentList()
-        .size(), maxNumberProofComponents);
-    Assert.assertEquals(proof.getWalletPackage(), BuildConfig.APPLICATION_ID);
+            hashCalculator.calculate(value), value.getWalletPackage(), ProofStatus.SUBMITTING, 1));
+
+    Assert.assertEquals(
+        new Proof(value.getPackageName(), value.getCampaignId(), value.getProofComponentList(),
+            hashCalculator.calculate(value), value.getWalletPackage(), ProofStatus.COMPLETED, 1),
+        value);
 
     proofOfAttentionService.stop();
   }
@@ -267,5 +264,19 @@ public class ProofOfAttentionServiceTest {
     Assert.assertEquals(campaignId, proof.getCampaignId());
     Assert.assertEquals(3, proof.getProofComponentList()
         .size());
+  }
+
+  @Test public void setChainId() {
+    String packageName = "packageName";
+    TestObserver<Proof> testObserver = new TestObserver<>();
+    proofOfAttentionService.setChainId(packageName, 2)
+        .blockingAwait();
+    cache.get(packageName)
+        .subscribe(testObserver);
+    testObserver.assertNoErrors()
+        .assertValueCount(1)
+        .assertValue(
+            new Proof(packageName, null, Collections.emptyList(), null, BuildConfig.APPLICATION_ID,
+                ProofStatus.PROCESSING, 2));
   }
 }

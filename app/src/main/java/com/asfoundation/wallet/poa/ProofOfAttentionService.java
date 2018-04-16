@@ -76,12 +76,12 @@ public class ProofOfAttentionService {
             proof.getProofComponentList(), proof.getProofId(), proof.getWalletPackage()));
     Proof completedProof =
         new Proof(proof.getPackageName(), proof.getCampaignId(), proof.getProofComponentList(),
-            calculate, proof.getWalletPackage(), ProofStatus.SUBMITTING);
+            calculate, proof.getWalletPackage(), ProofStatus.SUBMITTING, proof.getChainId());
     return blockChainWriter.writeProof(completedProof)
         .doOnSuccess(hash -> cache.saveSync(completedProof.getPackageName(),
             new Proof(completedProof.getPackageName(), completedProof.getCampaignId(),
                 completedProof.getProofComponentList(), completedProof.getProofId(), walletPackage,
-                ProofStatus.COMPLETED)));
+                ProofStatus.COMPLETED, proof.getChainId())));
   }
 
   public void stop() {
@@ -97,7 +97,20 @@ public class ProofOfAttentionService {
       Proof proof = getPreviousProofSync(packageName);
       cache.saveSync(packageName,
           new Proof(packageName, campaignId, proof.getProofComponentList(), proof.getProofId(),
-              walletPackage, ProofStatus.PROCESSING));
+              walletPackage, ProofStatus.PROCESSING, proof.getChainId()));
+    }
+  }
+
+  public Completable setChainId(String packageName, int chainId) {
+    return Completable.fromAction(() -> setChainIdSync(packageName, chainId));
+  }
+
+  private void setChainIdSync(String packageName, int chainId) {
+    synchronized (this) {
+      Proof proof = getPreviousProofSync(packageName);
+      cache.saveSync(packageName,
+          new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
+              proof.getProofId(), walletPackage, ProofStatus.PROCESSING, chainId));
     }
   }
 
@@ -106,7 +119,7 @@ public class ProofOfAttentionService {
       Proof proof = getPreviousProofSync(packageName);
       cache.saveSync(packageName,
           new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
-              proof.getProofId(), walletPackage, proofStatus));
+              proof.getProofId(), walletPackage, proofStatus, proof.getChainId()));
     }
   }
 
@@ -115,7 +128,7 @@ public class ProofOfAttentionService {
       Proof proof = getPreviousProofSync(packageName);
       cache.saveSync(packageName, new Proof(proof.getPackageName(), proof.getCampaignId(),
           createProofComponentList(timeStamp, nonce, proof), proof.getProofId(), walletPackage,
-          ProofStatus.PROCESSING));
+          ProofStatus.PROCESSING, proof.getChainId()));
     }
   }
 
@@ -139,7 +152,7 @@ public class ProofOfAttentionService {
     if (cache.containsSync(packageName)) {
       return cache.getSync(packageName);
     } else {
-      return new Proof(packageName, walletPackage, ProofStatus.PROCESSING);
+      return new Proof(packageName, walletPackage, ProofStatus.PROCESSING, 1);
     }
   }
 
