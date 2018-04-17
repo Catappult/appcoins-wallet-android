@@ -159,8 +159,15 @@ public class ProofOfAttentionService {
   @NonNull
   private List<ProofComponent> createProofComponentList(long timeStamp, long nonce, Proof proof) {
     ArrayList<ProofComponent> list = new ArrayList<>(proof.getProofComponentList());
+    int i;
+    for (i = 0; i < list.size(); i++) {
+      ProofComponent proofComponent = list.get(i);
+      if (proofComponent.getTimeStamp() > timeStamp) {
+        break;
+      }
+    }
     if (list.size() < maxNumberProofComponents) {
-      list.add(new ProofComponent(timeStamp, nonce));
+      list.add(i, new ProofComponent(timeStamp, nonce));
     }
     return list;
   }
