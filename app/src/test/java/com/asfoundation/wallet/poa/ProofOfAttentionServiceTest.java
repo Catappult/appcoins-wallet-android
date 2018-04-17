@@ -60,7 +60,7 @@ public class ProofOfAttentionServiceTest {
     testObserver.assertNoErrors()
         .assertValueCount(1)
         .assertValue(new Proof(packageName, campaignId, Collections.emptyList(), null,
-            BuildConfig.APPLICATION_ID, ProofStatus.PROCESSING, 1));
+            BuildConfig.APPLICATION_ID, ProofStatus.PROCESSING, 1, null, null));
   }
 
   @Test public void registerProof() {
@@ -79,7 +79,7 @@ public class ProofOfAttentionServiceTest {
         .assertValueCount(1)
         .assertValue(
             new Proof(packageName, campaignId, Collections.emptyList(), null, walletPackage,
-                ProofStatus.PROCESSING, 1));
+                ProofStatus.PROCESSING, 1, null, null));
 
     proofOfAttentionService.registerProof(packageName, timeStamp);
 
@@ -89,7 +89,7 @@ public class ProofOfAttentionServiceTest {
     Assert.assertEquals(testObserver.assertValueCount(2)
         .values()
         .get(1), new Proof(packageName, campaignId, proofComponents, null, walletPackage,
-        ProofStatus.PROCESSING, 1));
+        ProofStatus.PROCESSING, 1, null, null));
 
     proofOfAttentionService.registerProof(packageName, timeStamp2);
     testScheduler.triggerActions();
@@ -98,7 +98,7 @@ public class ProofOfAttentionServiceTest {
     Assert.assertEquals(testObserver.assertValueCount(3)
         .values()
         .get(2), new Proof(packageName, campaignId, proofComponents, null, walletPackage,
-        ProofStatus.PROCESSING, 1));
+        ProofStatus.PROCESSING, 1, null, null));
   }
 
   @Test public void registerProofWithoutCampaignId() {
@@ -118,7 +118,7 @@ public class ProofOfAttentionServiceTest {
             .values()
             .get(0),
         new Proof(packageName, null, proofComponents, null, walletPackage, ProofStatus.PROCESSING,
-            1));
+            1, null, null));
   }
 
   @Test public void registerProofMaxComponents() {
@@ -164,12 +164,13 @@ public class ProofOfAttentionServiceTest {
         .get(5);
     verify(blockChainWriter, times(1)).writeProof(
         new Proof(value.getPackageName(), value.getCampaignId(), value.getProofComponentList(),
-            hashCalculator.calculate(value), value.getWalletPackage(), ProofStatus.SUBMITTING, 1));
+            hashCalculator.calculate(value), value.getWalletPackage(), ProofStatus.SUBMITTING, 1,
+            null, null));
 
     Assert.assertEquals(
         new Proof(value.getPackageName(), value.getCampaignId(), value.getProofComponentList(),
-            hashCalculator.calculate(value), value.getWalletPackage(), ProofStatus.COMPLETED, 1),
-        value);
+            hashCalculator.calculate(value), value.getWalletPackage(), ProofStatus.COMPLETED, 1,
+            null, null), value);
 
     proofOfAttentionService.stop();
   }
@@ -253,6 +254,6 @@ public class ProofOfAttentionServiceTest {
         .assertValueCount(1)
         .assertValue(
             new Proof(packageName, null, Collections.emptyList(), null, BuildConfig.APPLICATION_ID,
-                ProofStatus.PROCESSING, 2));
+                ProofStatus.PROCESSING, 2, null, null));
   }
 }

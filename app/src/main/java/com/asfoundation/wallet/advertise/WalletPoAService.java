@@ -14,6 +14,7 @@ import android.os.Messenger;
 import android.support.annotation.StringRes;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
@@ -109,12 +110,7 @@ public class WalletPoAService extends Service {
           .filter(proof -> proof.getProofStatus()
               .isTerminate())
           .take(1)
-          .doOnNext(proof -> {
-            proofOfAttentionService.remove(proof.getPackageName());
-            if (!disposable.isDisposed()) {
-              disposable.dispose();
-            }
-          })
+          .doOnNext(proof -> proofOfAttentionService.remove(proof.getPackageName()))
           .subscribe(proof -> {
           });
     }
@@ -192,6 +188,8 @@ public class WalletPoAService extends Service {
           Log.d(TAG, "MSG_REGISTER_CAMPAIGN");
           proofOfAttentionService.setCampaignId(packageName, msg.getData()
               .getString("campaignId"));
+          proofOfAttentionService.setOemAddress(packageName, BuildConfig.DEFAULT_OEM_ADREESS);
+          proofOfAttentionService.setStoreAddress(packageName, BuildConfig.DEFAULT_STORE_ADREESS);
           break;
         case MSG_SEND_PROOF:
           Log.d(TAG, "MSG_SEND_PROOF");
