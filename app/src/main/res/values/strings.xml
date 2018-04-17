@@ -271,4 +271,5 @@
   <string name="notification_no_internet_poa">No network connection</string>
   <string name="notification_error_poa">An error has occurred</string>
   <string name="notification_no_wallet_poa">Wallet not configured yet</string>
+  <string name="notification_cancelled_poa">PoA cancelled</string>
 </resources>

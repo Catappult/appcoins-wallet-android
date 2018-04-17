@@ -10,9 +10,9 @@ import io.reactivex.subjects.BehaviorSubject;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,7 +41,7 @@ public class ProofOfAttentionServiceTest {
     proofOfAttentionService =
         new ProofOfAttentionService(cache, BuildConfig.APPLICATION_ID, hashCalculator,
             new CompositeDisposable(), blockChainWriter, testScheduler, maxNumberProofComponents,
-            new BlockchainErrorMapper());
+            new BlockchainErrorMapper(), new TaggedCompositeDisposable(new HashMap<>()));
 
     nonce = 1L;
     when(hashCalculator.calculateNonce(any(NonceData.class))).thenReturn(nonce);
@@ -53,8 +53,8 @@ public class ProofOfAttentionServiceTest {
     String packageName = "packageName";
     String campaignId = "campaignId";
     TestObserver<Proof> testObserver = new TestObserver<>();
-    proofOfAttentionService.setCampaignId(packageName, campaignId)
-        .blockingAwait();
+    proofOfAttentionService.setCampaignId(packageName, campaignId);
+    testScheduler.triggerActions();
     cache.get(packageName)
         .subscribe(testObserver);
     testObserver.assertNoErrors()
@@ -71,23 +71,19 @@ public class ProofOfAttentionServiceTest {
     long timeStamp2 = 20;
 
     TestObserver<Proof> testObserver = new TestObserver<>();
-    proofOfAttentionService.setCampaignId(packageName, campaignId)
-        .blockingAwait();
+    proofOfAttentionService.setCampaignId(packageName, campaignId);
     cache.get(packageName)
         .subscribe(testObserver);
+    testScheduler.triggerActions();
     testObserver.assertNoErrors()
         .assertValueCount(1)
         .assertValue(
             new Proof(packageName, campaignId, Collections.emptyList(), null, walletPackage,
                 ProofStatus.PROCESSING, 1));
 
-    TestObserver<Object> registerObservable = new TestObserver<>();
-    proofOfAttentionService.registerProof(packageName, timeStamp)
-        .subscribe(registerObservable);
+    proofOfAttentionService.registerProof(packageName, timeStamp);
 
-    registerObservable.assertComplete()
-        .assertNoErrors();
-
+    testScheduler.triggerActions();
     List<ProofComponent> proofComponents = new ArrayList<>();
     proofComponents.add(new ProofComponent(timeStamp, nonce));
     Assert.assertEquals(testObserver.assertValueCount(2)
@@ -95,12 +91,8 @@ public class ProofOfAttentionServiceTest {
         .get(1), new Proof(packageName, campaignId, proofComponents, null, walletPackage,
         ProofStatus.PROCESSING, 1));
 
-    TestObserver<Object> registerObservable2 = new TestObserver<>();
-    proofOfAttentionService.registerProof(packageName, timeStamp2)
-        .subscribe(registerObservable2);
-
-    registerObservable2.assertComplete()
-        .assertNoErrors();
+    proofOfAttentionService.registerProof(packageName, timeStamp2);
+    testScheduler.triggerActions();
 
     proofComponents.add(new ProofComponent(timeStamp2, nonce));
     Assert.assertEquals(testObserver.assertValueCount(3)
@@ -118,13 +110,8 @@ public class ProofOfAttentionServiceTest {
     cache.get(packageName)
         .subscribe(testObserver);
 
-    TestObserver<Object> registerObservable = new TestObserver<>();
-    proofOfAttentionService.registerProof(packageName, timeStamp)
-        .subscribe(registerObservable);
-
-    registerObservable.assertComplete()
-        .assertNoErrors();
-
+    proofOfAttentionService.registerProof(packageName, timeStamp);
+    testScheduler.triggerActions();
     List<ProofComponent> proofComponents = new ArrayList<>();
     proofComponents.add(new ProofComponent(timeStamp, nonce));
     Assert.assertEquals(testObserver.assertValueCount(1)
@@ -142,13 +129,10 @@ public class ProofOfAttentionServiceTest {
     cache.get(packageName)
         .subscribe(testObserver);
 
-    proofOfAttentionService.registerProof(packageName, timeStamp)
-        .blockingAwait();
-    proofOfAttentionService.registerProof(packageName, timeStamp)
-        .blockingAwait();
-    proofOfAttentionService.registerProof(packageName, timeStamp)
-        .blockingAwait();
-
+    proofOfAttentionService.registerProof(packageName, timeStamp);
+    proofOfAttentionService.registerProof(packageName, timeStamp);
+    proofOfAttentionService.registerProof(packageName, timeStamp);
+    testScheduler.triggerActions();
     testObserver.assertValueCount(3);
     Assert.assertEquals(testObserver.values()
         .get(2)
@@ -167,17 +151,13 @@ public class ProofOfAttentionServiceTest {
     cache.get(packageName)
         .subscribe(cacheObserver);
 
-    proofOfAttentionService.setCampaignId(packageName, campaignId)
-        .blockingAwait();
+    proofOfAttentionService.setCampaignId(packageName, campaignId);
 
-    proofOfAttentionService.registerProof(packageName, timeStamp)
-        .blockingAwait();
-    proofOfAttentionService.registerProof(packageName, timeStamp)
-        .blockingAwait();
-    proofOfAttentionService.registerProof(packageName, timeStamp)
-        .blockingAwait();
+    proofOfAttentionService.registerProof(packageName, timeStamp);
+    proofOfAttentionService.registerProof(packageName, timeStamp);
+    proofOfAttentionService.registerProof(packageName, timeStamp);
 
-    testScheduler.advanceTimeBy(1, TimeUnit.SECONDS);
+    testScheduler.triggerActions();
     cacheObserver.assertNoErrors()
         .assertValueCount(6);
     Proof value = cacheObserver.values()
@@ -205,16 +185,12 @@ public class ProofOfAttentionServiceTest {
     proofOfAttentionService.get()
         .subscribe(observer);
 
-    proofOfAttentionService.setCampaignId(packageName, campaignId)
-        .blockingAwait();
+    proofOfAttentionService.setCampaignId(packageName, campaignId);
 
-    proofOfAttentionService.registerProof(packageName, timeStamp)
-        .blockingAwait();
-    proofOfAttentionService.registerProof(packageName, timeStamp)
-        .blockingAwait();
-    proofOfAttentionService.registerProof(packageName, timeStamp)
-        .blockingAwait();
-    testScheduler.advanceTimeBy(1, TimeUnit.SECONDS);
+    proofOfAttentionService.registerProof(packageName, timeStamp);
+    proofOfAttentionService.registerProof(packageName, timeStamp);
+    proofOfAttentionService.registerProof(packageName, timeStamp);
+    testScheduler.triggerActions();
 
     observer.assertNoErrors()
         .assertValueCount(6);
@@ -269,10 +245,10 @@ public class ProofOfAttentionServiceTest {
   @Test public void setChainId() {
     String packageName = "packageName";
     TestObserver<Proof> testObserver = new TestObserver<>();
-    proofOfAttentionService.setChainId(packageName, 2)
-        .blockingAwait();
+    proofOfAttentionService.setChainId(packageName, 2);
     cache.get(packageName)
         .subscribe(testObserver);
+    testScheduler.triggerActions();
     testObserver.assertNoErrors()
         .assertValueCount(1)
         .assertValue(
