@@ -41,8 +41,11 @@ public class TaggedCompositeDisposable {
   }
 
   public void dispose(String key) {
-    for (Disposable disposable : map.get(key)) {
-      dispose(disposable);
+    List<Disposable> disposables = map.get(key);
+    if (disposables != null) {
+      for (Disposable disposable : disposables) {
+        dispose(disposable);
+      }
     }
   }
 }

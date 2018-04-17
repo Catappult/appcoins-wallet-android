@@ -76,6 +76,7 @@ public class WalletPoAService extends Service {
         startService(i);
       }
     }
+    startNotifications();
     return super.onStartCommand(intent, flags, startId);
   }
 
@@ -85,7 +86,6 @@ public class WalletPoAService extends Service {
    */
   @Override public IBinder onBind(Intent intent) {
     isBound = true;
-    startNotifications();
     return serviceMessenger.getBinder();
   }
 
@@ -97,26 +97,27 @@ public class WalletPoAService extends Service {
   @Override public void onRebind(Intent intent) {
     isBound = true;
     super.onRebind(intent);
-    startNotifications();
   }
 
   public void startNotifications() {
     startForeground(SERVICE_ID, createNotification(R.string.notification_ongoing_poa));
-    disposable = proofOfAttentionService.get()
-        .flatMapIterable(proofs -> proofs)
-        .distinctUntilChanged(Proof::getProofStatus)
-        .doOnNext(proof -> updateNotification(proof.getProofStatus()))
-        .filter(proof -> proof.getProofStatus()
-            .isTerminate())
-        .take(1)
-        .doOnNext(proof -> {
-          proofOfAttentionService.remove(proof.getPackageName());
-          if (!disposable.isDisposed()) {
-            disposable.dispose();
-          }
-        })
-        .subscribe(proof -> {
-        });
+    if (disposable == null || disposable.isDisposed()) {
+      disposable = proofOfAttentionService.get()
+          .flatMapIterable(proofs -> proofs)
+          .distinctUntilChanged(Proof::getProofStatus)
+          .doOnNext(proof -> updateNotification(proof.getProofStatus()))
+          .filter(proof -> proof.getProofStatus()
+              .isTerminate())
+          .take(1)
+          .doOnNext(proof -> {
+            proofOfAttentionService.remove(proof.getPackageName());
+            if (!disposable.isDisposed()) {
+              disposable.dispose();
+            }
+          })
+          .subscribe(proof -> {
+          });
+    }
   }
 
   private void updateNotification(ProofStatus status) {
