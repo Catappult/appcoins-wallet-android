@@ -9,6 +9,7 @@ import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.TransactionService;
+import com.asfoundation.wallet.repository.WalletNotFoundException;
 import com.crashlytics.android.Crashlytics;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
@@ -40,13 +41,18 @@ public class App extends MultiDexApplication implements HasActivityInjector, Has
 
     transactionService.start();
     proofOfAttentionService.start();
-    ethereumNetworkRepository.addOnChangeDefaultNetwork(networkInfo -> {
-      defaultTokenProvider.getDefaultToken()
-          .flatMapCompletable(
-              defaultToken -> addTokenInteract.add(defaultToken.address, defaultToken.symbol,
-                  defaultToken.decimals))
-          .subscribe();
-    });
+    ethereumNetworkRepository.addOnChangeDefaultNetwork(
+        networkInfo -> defaultTokenProvider.getDefaultToken()
+            .flatMapCompletable(
+                defaultToken -> addTokenInteract.add(defaultToken.address, defaultToken.symbol,
+                    defaultToken.decimals))
+            .doOnError(throwable -> {
+              if (!(throwable instanceof WalletNotFoundException)) {
+                throwable.printStackTrace();
+              }
+            })
+            .retry()
+            .subscribe());
 
     // enable pin code for the application
     //		LockManager<CustomPinActivity> lockManager = LockManager.getInstance();
