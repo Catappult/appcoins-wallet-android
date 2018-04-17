@@ -20,11 +20,13 @@ public class ProofOfAttentionService {
   private final int maxNumberProofComponents;
   private final Scheduler computationScheduler;
   private final BlockchainErrorMapper errorMapper;
+  private final TaggedCompositeDisposable disposables;
 
   public ProofOfAttentionService(Cache<String, Proof> cache, String walletPackage,
       HashCalculator hashCalculator, CompositeDisposable compositeDisposable,
       BlockChainWriter blockChainWriter, Scheduler computationScheduler,
-      int maxNumberProofComponents, BlockchainErrorMapper errorMapper) {
+      int maxNumberProofComponents, BlockchainErrorMapper errorMapper,
+      TaggedCompositeDisposable disposables) {
     this.cache = cache;
     this.walletPackage = walletPackage;
     this.hashCalculator = hashCalculator;
@@ -33,6 +35,7 @@ public class ProofOfAttentionService {
     this.computationScheduler = computationScheduler;
     this.maxNumberProofComponents = maxNumberProofComponents;
     this.errorMapper = errorMapper;
+    this.disposables = disposables;
   }
 
   public void start() {
@@ -86,10 +89,14 @@ public class ProofOfAttentionService {
 
   public void stop() {
     compositeDisposable.clear();
+    disposables.disposeAll();
   }
 
-  public Completable setCampaignId(String packageName, String campaignId) {
-    return Completable.fromAction(() -> setCampaignIdSync(packageName, campaignId));
+  public void setCampaignId(String packageName, String campaignId) {
+    disposables.add(packageName,
+        Completable.fromAction(() -> setCampaignIdSync(packageName, campaignId))
+            .subscribeOn(computationScheduler)
+            .subscribe());
   }
 
   private void setCampaignIdSync(String packageName, String campaignId) {
@@ -101,8 +108,10 @@ public class ProofOfAttentionService {
     }
   }
 
-  public Completable setChainId(String packageName, int chainId) {
-    return Completable.fromAction(() -> setChainIdSync(packageName, chainId));
+  public void setChainId(String packageName, int chainId) {
+    disposables.add(packageName, Completable.fromAction(() -> setChainIdSync(packageName, chainId))
+        .subscribeOn(computationScheduler)
+        .subscribe());
   }
 
   private void setChainIdSync(String packageName, int chainId) {
@@ -132,11 +141,13 @@ public class ProofOfAttentionService {
     }
   }
 
-  public Completable registerProof(String packageName, long timeStamp) {
-    return Single.defer(
+  public void registerProof(String packageName, long timeStamp) {
+    disposables.add(packageName, Single.defer(
         () -> Single.just(hashCalculator.calculateNonce(new NonceData(timeStamp, packageName))))
         .doOnSuccess(nonce -> setSetProofSync(packageName, timeStamp, nonce))
-        .toCompletable();
+        .toCompletable()
+        .subscribeOn(computationScheduler)
+        .subscribe());
   }
 
   @NonNull
@@ -179,5 +190,10 @@ public class ProofOfAttentionService {
     synchronized (this) {
       cache.removeSync(packageName);
     }
+  }
+
+  public void cancel(String packageName) {
+    disposables.dispose(packageName);
+    updateProofStatus(packageName, ProofStatus.CANCELLED);
   }
 }

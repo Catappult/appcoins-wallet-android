@@ -16,6 +16,7 @@ import com.asfoundation.wallet.poa.Calculator;
 import com.asfoundation.wallet.poa.DataMapper;
 import com.asfoundation.wallet.poa.HashCalculator;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
+import com.asfoundation.wallet.poa.TaggedCompositeDisposable;
 import com.asfoundation.wallet.poa.TransactionFactory;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.BuyService;
@@ -189,10 +190,15 @@ import okhttp3.OkHttpClient;
     return new HashCalculator(gson, BuildConfig.LEADING_ZEROS_ON_PROOF_OF_ATTENTION, calculator);
   }
 
+  @Provides TaggedCompositeDisposable provideTaggedCompositeDisposable() {
+    return new TaggedCompositeDisposable(new HashMap<>());
+  }
+
   @Singleton @Provides ProofOfAttentionService provideProofOfAttentionService(
-      HashCalculator hashCalculator, BlockChainWriter blockChainWriter) {
+      HashCalculator hashCalculator, BlockChainWriter blockChainWriter,
+      TaggedCompositeDisposable disposables) {
     return new ProofOfAttentionService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
         BuildConfig.APPLICATION_ID, hashCalculator, new CompositeDisposable(), blockChainWriter,
-        Schedulers.computation(), 12, new BlockchainErrorMapper());
+        Schedulers.computation(), 12, new BlockchainErrorMapper(), disposables);
   }
 }

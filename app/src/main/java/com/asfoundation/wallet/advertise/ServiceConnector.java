@@ -25,6 +25,10 @@ public interface ServiceConnector {
    */
   int MSG_SET_NETWORK = 3;
   /**
+   * Command to the service to stop the PoA process on the wallet side
+   */
+  int MSG_STOP_PROCESS = 4;
+  /**
    * Actions used to communicate with the service on the wallet side, for the bind.
    */
   String ACTION_BIND = "com.asf.appcoins.service.ACTION_BIND";

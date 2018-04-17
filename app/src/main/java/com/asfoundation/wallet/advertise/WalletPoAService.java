@@ -20,13 +20,13 @@ import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofStatus;
 import dagger.android.AndroidInjection;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
 
 import static com.asfoundation.wallet.advertise.ServiceConnector.ACTION_ACK_BROADCAST;
 import static com.asfoundation.wallet.advertise.ServiceConnector.MSG_REGISTER_CAMPAIGN;
 import static com.asfoundation.wallet.advertise.ServiceConnector.MSG_SEND_PROOF;
 import static com.asfoundation.wallet.advertise.ServiceConnector.MSG_SET_NETWORK;
+import static com.asfoundation.wallet.advertise.ServiceConnector.MSG_STOP_PROCESS;
 import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_APP_PACKAGE_NAME;
 import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_APP_SERVICE_NAME;
 import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_WALLET_PACKAGE_NAME;
@@ -76,6 +76,7 @@ public class WalletPoAService extends Service {
         startService(i);
       }
     }
+    startNotifications();
     return super.onStartCommand(intent, flags, startId);
   }
 
@@ -85,7 +86,6 @@ public class WalletPoAService extends Service {
    */
   @Override public IBinder onBind(Intent intent) {
     isBound = true;
-    startNotifications();
     return serviceMessenger.getBinder();
   }
 
@@ -97,27 +97,27 @@ public class WalletPoAService extends Service {
   @Override public void onRebind(Intent intent) {
     isBound = true;
     super.onRebind(intent);
-    startNotifications();
   }
 
   public void startNotifications() {
     startForeground(SERVICE_ID, createNotification(R.string.notification_ongoing_poa));
-    disposable = proofOfAttentionService.get()
-        .flatMapIterable(proofs -> proofs)
-        .distinctUntilChanged(Proof::getProofStatus)
-        .doOnNext(proof -> updateNotification(proof.getProofStatus()))
-        .filter(proof -> proof.getProofStatus()
-            .equals(ProofStatus.COMPLETED) || proof.getProofStatus()
-            .isError())
-        .take(1)
-        .doOnNext(proof -> {
-          proofOfAttentionService.remove(proof.getPackageName());
-          if (!disposable.isDisposed()) {
-            disposable.dispose();
-          }
-        })
-        .subscribe(proof -> {
-        });
+    if (disposable == null || disposable.isDisposed()) {
+      disposable = proofOfAttentionService.get()
+          .flatMapIterable(proofs -> proofs)
+          .distinctUntilChanged(Proof::getProofStatus)
+          .doOnNext(proof -> updateNotification(proof.getProofStatus()))
+          .filter(proof -> proof.getProofStatus()
+              .isTerminate())
+          .take(1)
+          .doOnNext(proof -> {
+            proofOfAttentionService.remove(proof.getPackageName());
+            if (!disposable.isDisposed()) {
+              disposable.dispose();
+            }
+          })
+          .subscribe(proof -> {
+          });
+    }
   }
 
   private void updateNotification(ProofStatus status) {
@@ -141,6 +141,9 @@ public class WalletPoAService extends Service {
       case NO_WALLET:
         notificationText = R.string.notification_no_wallet_poa;
         break;
+      case CANCELLED:
+        notificationText = R.string.notification_cancelled_poa;
+        break;
       default:
       case PROCESSING:
         notificationText = R.string.notification_ongoing_poa;
@@ -148,7 +151,7 @@ public class WalletPoAService extends Service {
     }
 
     notificationManager.notify(SERVICE_ID, createNotification(notificationText));
-    if (status.equals(ProofStatus.COMPLETED) || status.isError()) {
+    if (status.isTerminate()) {
       stopForeground(false);
     }
   }
@@ -181,31 +184,29 @@ public class WalletPoAService extends Service {
    */
   class IncomingHandler extends Handler {
     @Override public void handleMessage(Message msg) {
-      Log.d(TAG, "handleMessage() called with: msg = [" + msg + "]");
+      String packageName = msg.getData()
+          .getString("packageName");
+      Log.d(TAG, "handleMessage() called with: msg = [" + msg + "] " + "");
       switch (msg.what) {
         case MSG_REGISTER_CAMPAIGN:
           Log.d(TAG, "MSG_REGISTER_CAMPAIGN");
-          proofOfAttentionService.setCampaignId(msg.getData()
-              .getString("packageName"), msg.getData()
-              .getString("campaignId"))
-              .subscribeOn(Schedulers.computation())
-              .subscribe();
+          proofOfAttentionService.setCampaignId(packageName, msg.getData()
+              .getString("campaignId"));
           break;
         case MSG_SEND_PROOF:
           Log.d(TAG, "MSG_SEND_PROOF");
-          proofOfAttentionService.registerProof(msg.getData()
-              .getString("packageName"), msg.getData()
-              .getLong("timeStamp"))
-              .subscribeOn(Schedulers.computation())
-              .subscribe();
+          proofOfAttentionService.registerProof(packageName, msg.getData()
+              .getLong("timeStamp"));
           break;
         case MSG_SET_NETWORK:
           Log.d(TAG, "MSG_SET_NETWORK");
-          proofOfAttentionService.setChainId(msg.getData()
-              .getString("packageName"), msg.getData()
-              .getInt("networkId"))
-              .subscribeOn(Schedulers.computation())
-              .subscribe();
+          proofOfAttentionService.setChainId(packageName, msg.getData()
+              .getInt("networkId"));
+          break;
+        case MSG_STOP_PROCESS:
+          Log.d(TAG, "MSG_STOP_PROCESS");
+          proofOfAttentionService.cancel(packageName);
+          break;
         default:
           super.handleMessage(msg);
       }
