@@ -40,7 +40,7 @@ public class TransactionFactory {
 
   public Single<byte[]> createTransaction(Proof proof) {
     return Single.just(networkRepositoryType.getDefaultNetwork())
-        .flatMap(defaultNetworkInfo -> defaultTokenProvider.getAdsAddress()
+        .flatMap(defaultNetworkInfo -> defaultTokenProvider.getAdsAddress(proof.getChainId())
             .doOnSubscribe(disposable -> setNetwork(proof.getChainId()))
             .flatMap(adsAddress -> walletRepositoryType.getDefaultWallet()
                 .flatMap(wallet -> gasSettingsRepository.getGasSettings(true)
