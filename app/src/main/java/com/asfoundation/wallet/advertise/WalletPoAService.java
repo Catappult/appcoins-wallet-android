@@ -85,13 +85,30 @@ public class WalletPoAService extends Service {
    */
   @Override public IBinder onBind(Intent intent) {
     isBound = true;
+    startNotifications();
+    return serviceMessenger.getBinder();
+  }
+
+  @Override public boolean onUnbind(Intent intent) {
+    isBound = false;
+    return true;
+  }
+
+  @Override public void onRebind(Intent intent) {
+    isBound = true;
+    super.onRebind(intent);
+    startNotifications();
+  }
+
+  public void startNotifications() {
     startForeground(SERVICE_ID, createNotification(R.string.notification_ongoing_poa));
     disposable = proofOfAttentionService.get()
         .flatMapIterable(proofs -> proofs)
         .distinctUntilChanged(Proof::getProofStatus)
         .doOnNext(proof -> updateNotification(proof.getProofStatus()))
         .filter(proof -> proof.getProofStatus()
-            .equals(ProofStatus.COMPLETED))
+            .equals(ProofStatus.COMPLETED) || proof.getProofStatus()
+            .isError())
         .take(1)
         .doOnNext(proof -> {
           proofOfAttentionService.remove(proof.getPackageName());
@@ -101,12 +118,6 @@ public class WalletPoAService extends Service {
         })
         .subscribe(proof -> {
         });
-    return serviceMessenger.getBinder();
-  }
-
-  @Override public boolean onUnbind(Intent intent) {
-    isBound = false;
-    return super.onUnbind(intent);
   }
 
   private void updateNotification(ProofStatus status) {
