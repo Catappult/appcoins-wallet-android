@@ -1,16 +1,21 @@
 package com.asfoundation.wallet.poa;
 
 public enum ProofStatus {
-  PROCESSING(false), SUBMITTING(false), COMPLETED(true), NO_FUNDS(true), NO_INTERNET(
-      true), GENERAL_ERROR(true), NO_WALLET(true), CANCELLED(true);
-
-  private final boolean isTerminate;
-
-  ProofStatus(boolean isTerminate) {
-    this.isTerminate = isTerminate;
-  }
+  PROCESSING, SUBMITTING, COMPLETED, NO_FUNDS, NO_INTERNET, GENERAL_ERROR, NO_WALLET, CANCELLED;
 
   public boolean isTerminate() {
-    return isTerminate;
+    switch (this) {
+      case PROCESSING:
+      case SUBMITTING:
+        return false;
+      case COMPLETED:
+      case NO_FUNDS:
+      case NO_INTERNET:
+      case GENERAL_ERROR:
+      case NO_WALLET:
+      case CANCELLED:
+      default:
+        return true;
+    }
   }
 }

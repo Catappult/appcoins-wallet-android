@@ -89,6 +89,7 @@ public class ProofOfAttentionService {
 
   public void stop() {
     compositeDisposable.clear();
+    disposables.disposeAll();
   }
 
   public void setCampaignId(String packageName, String campaignId) {

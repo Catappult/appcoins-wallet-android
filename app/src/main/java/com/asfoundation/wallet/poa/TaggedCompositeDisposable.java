@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.poa;
 
 import io.reactivex.disposables.Disposable;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,9 +22,9 @@ public class TaggedCompositeDisposable {
   public List<Disposable> get(String key) {
     List<Disposable> disposables = map.get(key);
     if (disposables == null) {
-      return new ArrayList<>();
+      return new LinkedList<>();
     } else {
-      return new ArrayList<>(disposables);
+      return new LinkedList<>(disposables);
     }
   }
 
