@@ -33,10 +33,10 @@ android {
         "\"" + json.stores.default_address + "\""
 
     applicationId "com.asfoundation.wallet"
-    minSdkVersion 18
+    minSdkVersion 21
     targetSdkVersion 27
-    versionCode 4
-    versionName "0.2.2a"
+    versionCode 5
+    versionName "0.2.3a"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     vectorDrawables.useSupportLibrary = true
     multiDexEnabled = true
