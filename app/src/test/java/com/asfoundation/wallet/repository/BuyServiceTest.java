@@ -12,8 +12,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -22,7 +23,7 @@ import static org.mockito.Mockito.when;
 /**
  * Created by trinkes on 3/16/18.
  */
-public class BuyServiceTest {
+@RunWith(MockitoJUnitRunner.class) public class BuyServiceTest {
 
   @Mock SendTransactionInteract sendTransactionInteract;
   @Mock PendingTransactionService pendingTransactionService;
@@ -30,25 +31,18 @@ public class BuyServiceTest {
   private PublishSubject<PendingTransaction> pendingTransactionState;
 
   @Before public void before() {
-    MockitoAnnotations.initMocks(this);
-
     pendingTransactionState = PublishSubject.create();
     when(pendingTransactionService.checkTransactionState(anyString())).thenReturn(
-        pendingTransactionState)
-        .thenReturn(pendingTransactionState);
+        pendingTransactionState);
 
-    when(sendTransactionInteract.approve(any(TransactionBuilder.class))).thenReturn(
-        Single.just("approve_hash"));
-
-    when(sendTransactionInteract.buy(any(TransactionBuilder.class))).thenReturn(
-        Single.just("buy_hash"));
+    when(sendTransactionInteract.buy(any())).thenReturn(Single.just("buy_hash"));
 
     buyService = new BuyService(sendTransactionInteract, pendingTransactionService,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new ErrorMapper());
     buyService.start();
   }
 
-  @Test public void buy() throws Exception {
+  @Test public void buy() {
     String uri = "uri";
     TestObserver<PaymentTransaction> observer = new TestObserver<>();
     buyService.getBuy(uri)

@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 
 public class TransactionService {
 
-  public static final double GAS_PRICE_MULTIPLIER = 5;
+  public static final double GAS_PRICE_MULTIPLIER = 1.25;
   private static final String DEFAULT_GAS_LIMIT = "120000";
   private final FetchGasSettingsInteract gasSettingsInteract;
   private final FindDefaultWalletInteract defaultWalletInteract;

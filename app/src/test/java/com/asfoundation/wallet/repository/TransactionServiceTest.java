@@ -78,7 +78,7 @@ public class TransactionServiceTest {
             new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new ErrorMapper()));
   }
 
-  @Test public void sendTransaction() throws Exception {
+  @Test public void sendTransaction() {
     String uri = "ethereum:"
         + CONTRACT_ADDRESS
         + "@3"

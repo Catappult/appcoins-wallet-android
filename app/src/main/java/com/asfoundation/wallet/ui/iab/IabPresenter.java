@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.iab;
 import android.util.Log;
 import com.asfoundation.wallet.repository.PaymentTransaction;
 import com.asfoundation.wallet.repository.TransactionService;
+import com.asfoundation.wallet.util.UnknownTokenException;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
@@ -37,7 +38,8 @@ public class IabPresenter {
         .subscribe(click -> close()));
 
     disposables.add(view.getOkErrorClick()
-        .subscribe(click -> showBuy()));
+        .flatMapSingle(__ -> transactionService.parseTransaction(uriString))
+        .subscribe(click -> showBuy(), throwable -> close()));
 
     disposables.add(view.getBuyClick()
         .flatMapCompletable(uri -> transactionService.send(uri)
@@ -65,7 +67,11 @@ public class IabPresenter {
     if (throwable != null) {
       throwable.printStackTrace();
     }
-    view.showError();
+    if (throwable instanceof UnknownTokenException) {
+      view.showWrongNetworkError();
+    } else {
+      view.showError();
+    }
   }
 
   private Completable showPendingTransaction(PaymentTransaction transaction) {
@@ -82,6 +88,7 @@ public class IabPresenter {
         return Completable.fromAction(() -> view.showNoFundsError())
             .andThen(transactionService.remove(transaction.getUri()));
       case WRONG_NETWORK:
+      case UNKNOWN_TOKEN:
         return Completable.fromAction(() -> view.showWrongNetworkError())
             .andThen(transactionService.remove(transaction.getUri()));
       case NO_INTERNET:

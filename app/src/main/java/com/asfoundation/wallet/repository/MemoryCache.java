@@ -2,6 +2,7 @@ package com.asfoundation.wallet.repository;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.subjects.BehaviorSubject;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,10 +23,7 @@ public class MemoryCache<K, V> implements Cache<K, V> {
   }
 
   @Override public Completable save(K key, V value) {
-    return Completable.fromAction(() -> {
-      cache.put(key, value);
-      subject.onNext(new HashMap<>(cache));
-    });
+    return Completable.fromAction(() -> saveSync(key, value));
   }
 
   @Override public Observable<List<V>> getAll() {
@@ -40,9 +38,38 @@ public class MemoryCache<K, V> implements Cache<K, V> {
   }
 
   @Override public Completable remove(K key) {
-    return Completable.fromAction(() -> {
-      cache.remove(key);
-      subject.onNext(new HashMap<>(cache));
-    });
+    return Completable.fromAction(() -> removeSync(key));
+  }
+
+  @Override public Single<Boolean> contains(K key) {
+    return Single.just(containsSync(key));
+  }
+
+  @Override public void saveSync(K key, V value) {
+    cache.put(key, value);
+    subject.onNext(new HashMap<>(cache));
+  }
+
+  @Override public List<V> getAllSync() {
+    return new ArrayList<>(cache.values());
+  }
+
+  @Override public V getSync(K key) {
+    for (Map.Entry<K, V> entry : cache.entrySet()) {
+      if (entry.getKey()
+          .equals(key)) {
+        return entry.getValue();
+      }
+    }
+    return null;
+  }
+
+  @Override public void removeSync(K key) {
+    cache.remove(key);
+    subject.onNext(new HashMap<>(cache));
+  }
+
+  @Override public boolean containsSync(K key) {
+    return cache.containsKey(key);
   }
 }

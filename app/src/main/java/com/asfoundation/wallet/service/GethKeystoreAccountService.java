@@ -117,7 +117,8 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
       gasLimitBI.setString(gasLimit.toString(), 10);
 
       Transaction tx =
-          new Transaction(nonce, new Address(toAddress), value, gasLimitBI, gasPriceBI, data);
+          new Transaction(nonce, new Address(toAddress), value, gasLimitBI.getInt64(), gasPriceBI,
+              data);
 
       BigInt chain = new BigInt(chainId); // Chain identifier of the main net
       org.ethereum.geth.Account gethAccount = findAccount(fromAddress);
