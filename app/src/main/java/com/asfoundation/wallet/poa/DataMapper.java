@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import org.web3j.abi.FunctionEncoder;
 import org.web3j.abi.TypeReference;
+import org.web3j.abi.datatypes.Address;
 import org.web3j.abi.datatypes.Bool;
 import org.web3j.abi.datatypes.DynamicArray;
 import org.web3j.abi.datatypes.Function;
@@ -30,9 +31,11 @@ public class DataMapper {
       timeStampList.add(new Uint256(proof1.getTimeStamp()));
       nonceList.add(new Uint256(proof1.getNonce()));
     }
+    Address storeAddress = new Address(proof.getStoreAddress());
+    Address oemAddress = new Address(proof.getOemAddress());
 
     List<Type> params = Arrays.asList(packageName, bidId, new DynamicArray<>(timeStampList),
-        new DynamicArray<>(nonceList));
+        new DynamicArray<>(nonceList), storeAddress, oemAddress);
     List<TypeReference<?>> returnTypes = Collections.singletonList(new TypeReference<Bool>() {
     });
     Function function = new Function("registerPoA", params, returnTypes);

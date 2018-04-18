@@ -12,10 +12,13 @@ public class Proof {
   private final List<ProofComponent> proofComponentList;
   private final ProofStatus proofStatus;
   private final int chainId;
+  @Nullable private final String oemAddress;
+  @Nullable private final String storeAddress;
 
   public Proof(String packageName, @Nullable String campaignId,
       List<ProofComponent> proofComponentList, @Nullable String proofId, String walletPackage,
-      ProofStatus proofStatus, int chainId) {
+      ProofStatus proofStatus, int chainId, @Nullable String oemAddress,
+      @Nullable String storeAddress) {
     this.packageName = packageName;
     this.campaignId = campaignId;
     this.proofComponentList = proofComponentList;
@@ -23,10 +26,21 @@ public class Proof {
     this.walletPackage = walletPackage;
     this.proofStatus = proofStatus;
     this.chainId = chainId;
+    this.oemAddress = oemAddress;
+    this.storeAddress = storeAddress;
   }
 
   public Proof(String packageName, String walletPackage, ProofStatus proofStatus, int chainId) {
-    this(packageName, null, Collections.emptyList(), null, walletPackage, proofStatus, chainId);
+    this(packageName, null, Collections.emptyList(), null, walletPackage, proofStatus, chainId,
+        null, null);
+  }
+
+  public String getOemAddress() {
+    return oemAddress;
+  }
+
+  public String getStoreAddress() {
+    return storeAddress;
   }
 
   public int getChainId() {
@@ -65,6 +79,8 @@ public class Proof {
     result = 31 * result + proofComponentList.hashCode();
     result = 31 * result + proofStatus.hashCode();
     result = 31 * result + chainId;
+    result = 31 * result + (oemAddress != null ? oemAddress.hashCode() : 0);
+    result = 31 * result + (storeAddress != null ? storeAddress.hashCode() : 0);
     return result;
   }
 
@@ -82,7 +98,12 @@ public class Proof {
       return false;
     }
     if (!proofComponentList.equals(proof.proofComponentList)) return false;
-    return proofStatus == proof.proofStatus;
+    if (proofStatus != proof.proofStatus) return false;
+    if (oemAddress != null ? !oemAddress.equals(proof.oemAddress) : proof.oemAddress != null) {
+      return false;
+    }
+    return storeAddress != null ? storeAddress.equals(proof.storeAddress)
+        : proof.storeAddress == null;
   }
 
   @Override public String toString() {
