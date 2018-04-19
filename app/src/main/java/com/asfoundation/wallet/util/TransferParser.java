@@ -82,7 +82,12 @@ public class TransferParser {
         .map(token -> new TransactionBuilder(token.tokenInfo.symbol, getIabContractAddress(payment),
             payment.getChainId(), getReceiverAddress(payment),
             getTokenTransferAmount(payment, token.tokenInfo.decimals), getSkuId(payment),
-            token.tokenInfo.decimals));
+            token.tokenInfo.decimals, getIabContract(payment)));
+  }
+
+  private String getIabContract(ERC681 payment) {
+    return payment.getFunctionParams()
+        .get("iabContractAddress");
   }
 
   private String getIabContractAddress(ERC681 payment) {
@@ -147,7 +152,7 @@ public class TransferParser {
     return address;
   }
 
-  public enum TransactionType {
+  private enum TransactionType {
     APPC, TOKEN, ETH
   }
 }

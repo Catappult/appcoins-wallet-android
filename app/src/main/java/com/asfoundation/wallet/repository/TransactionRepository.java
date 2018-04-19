@@ -66,18 +66,16 @@ public class TransactionRepository implements TransactionRepositoryType {
             : transactionBuilder.subunitAmount());
   }
 
-  @Override public Single<String> approve(TransactionBuilder transactionBuilder, String password,
-      String spender) {
-    return createTransaction(transactionBuilder, password, transactionBuilder.approveData(spender),
+  @Override public Single<String> approve(TransactionBuilder transactionBuilder, String password) {
+    return createTransaction(transactionBuilder, password, transactionBuilder.approveData(),
         transactionBuilder.contractAddress(), BigDecimal.ZERO);
   }
 
-  @Override public Single<String> callIab(TransactionBuilder transaction, String password,
-      String contractAddress) {
+  @Override public Single<String> callIab(TransactionBuilder transaction, String password) {
     return defaultTokenProvider.getDefaultToken()
         .flatMap(
             token -> createTransaction(transaction, password, transaction.buyData(token.address),
-                contractAddress, BigDecimal.ZERO));
+                transaction.getIabContract(), BigDecimal.ZERO));
   }
 
   private Single<String> createTransaction(TransactionBuilder transactionBuilder, String password,
