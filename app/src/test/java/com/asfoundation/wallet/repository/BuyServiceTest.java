@@ -3,14 +3,15 @@ package com.asfoundation.wallet.repository;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
+import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -27,22 +28,20 @@ import static org.mockito.Mockito.when;
 
   @Mock SendTransactionInteract sendTransactionInteract;
   @Mock PendingTransactionService pendingTransactionService;
-  private BuyService buyService;
-  private PublishSubject<PendingTransaction> pendingTransactionState;
 
-  @Before public void before() {
-    pendingTransactionState = PublishSubject.create();
+  @Test public void buy() {
+    PublishSubject<PendingTransaction> pendingTransactionState = PublishSubject.create();
     when(pendingTransactionService.checkTransactionState(anyString())).thenReturn(
         pendingTransactionState);
 
     when(sendTransactionInteract.buy(any())).thenReturn(Single.just("buy_hash"));
 
-    buyService = new BuyService(sendTransactionInteract, pendingTransactionService,
-        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new ErrorMapper());
+    TestScheduler scheduler = new TestScheduler();
+    BuyService buyService = new BuyService(sendTransactionInteract, pendingTransactionService,
+        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new ErrorMapper(),
+        scheduler);
     buyService.start();
-  }
 
-  @Test public void buy() {
     String uri = "uri";
     TestObserver<PaymentTransaction> observer = new TestObserver<>();
     buyService.getBuy(uri)
@@ -52,12 +51,45 @@ import static org.mockito.Mockito.when;
         PaymentTransaction.PaymentState.PENDING))
         .subscribe();
 
+    scheduler.triggerActions();
     pendingTransactionState.onNext(new PendingTransaction("hash", true));
+    scheduler.triggerActions();
     pendingTransactionState.onNext(new PendingTransaction("hash", false));
-
+    scheduler.triggerActions();
     List<PaymentTransaction> values = observer.values();
     Assert.assertEquals(values.size(), 4);
     Assert.assertEquals(values.get(3)
         .getState(), PaymentTransaction.PaymentState.BOUGHT);
+  }
+
+  @Test public void buyTransactionNotFound() {
+    Observable<PendingTransaction> pendingTransactionState =
+        Observable.just(new PendingTransaction("hash", true),
+            new PendingTransaction("hash", false));
+    when(pendingTransactionService.checkTransactionState(anyString())).thenReturn(
+        pendingTransactionState);
+
+    when(sendTransactionInteract.buy(any())).thenReturn(Single.just("buy_hash"));
+
+    TestScheduler scheduler = new TestScheduler();
+    BuyService buyService = new BuyService(sendTransactionInteract, pendingTransactionService,
+        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new ErrorMapper(),
+        scheduler);
+    buyService.start();
+
+    String uri = "uri";
+    TestObserver<PaymentTransaction> observer = new TestObserver<>();
+    buyService.getBuy(uri)
+        .subscribe(observer);
+    scheduler.triggerActions();
+    buyService.buy(uri, new PaymentTransaction(uri, new TransactionBuilder("APPC"),
+        PaymentTransaction.PaymentState.PENDING))
+        .subscribe();
+    scheduler.triggerActions();
+
+    List<PaymentTransaction> values = observer.values();
+    Assert.assertEquals(4, values.size());
+    Assert.assertEquals(PaymentTransaction.PaymentState.BOUGHT, values.get(3)
+        .getState());
   }
 }

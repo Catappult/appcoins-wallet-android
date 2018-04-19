@@ -13,6 +13,7 @@ import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
+import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 import java.math.BigDecimal;
@@ -73,9 +74,11 @@ public class TransactionServiceTest {
         new TransferParser(defaultWalletInteract, tokenRepository),
         new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
         new ApproveService(sendTransactionInteract, pendingTransactionService,
-            new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new ErrorMapper()),
+            new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new ErrorMapper(),
+            Schedulers.io()),
         new BuyService(sendTransactionInteract, pendingTransactionService,
-            new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new ErrorMapper()));
+            new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new ErrorMapper(),
+            Schedulers.io()));
   }
 
   @Test public void sendTransaction() {
