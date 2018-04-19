@@ -2,9 +2,9 @@ package com.asfoundation.wallet.di;
 
 import android.content.Context;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
+import com.asfoundation.wallet.poa.BlockchainErrorMapper;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
-import com.asfoundation.wallet.repository.GasSettingsRepository;
-import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
+import com.asfoundation.wallet.repository.NonceGetter;
 import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.PreferenceRepositoryType;
 import com.asfoundation.wallet.repository.TokenLocalSource;
@@ -70,7 +70,7 @@ import okhttp3.OkHttpClient;
       TransactionsNetworkClientType blockExplorerClient, TransactionLocalSource inDiskCache,
       DefaultTokenProvider defaultTokenProvider) {
     return new TransactionRepository(networkRepository, accountKeystoreService, inDiskCache,
-        blockExplorerClient, defaultTokenProvider);
+        blockExplorerClient, defaultTokenProvider, new NonceGetter(), new BlockchainErrorMapper());
   }
 
   @Singleton @Provides TransactionLocalSource provideTransactionInDiskCache(
