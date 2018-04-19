@@ -13,7 +13,7 @@ import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 import java.math.BigDecimal;
@@ -45,6 +45,7 @@ public class TransactionServiceTest {
   private TransactionService transactionService;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
+  private TestScheduler scheduler;
 
   @Before public void before() {
     MockitoAnnotations.initMocks(this);
@@ -70,15 +71,15 @@ public class TransactionServiceTest {
     tokens[0] = token;
     when(tokenRepository.fetchAll(any())).thenReturn(Observable.just(tokens));
 
+    scheduler = new TestScheduler();
     transactionService = new TransactionService(gasSettingsInteract, defaultWalletInteract,
         new TransferParser(defaultWalletInteract, tokenRepository),
         new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
         new ApproveService(sendTransactionInteract, pendingTransactionService,
             new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new ErrorMapper(),
-            Schedulers.io()),
-        new BuyService(sendTransactionInteract, pendingTransactionService,
-            new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new ErrorMapper(),
-            Schedulers.io()));
+            scheduler), new BuyService(sendTransactionInteract, pendingTransactionService,
+        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new ErrorMapper(),
+        scheduler));
   }
 
   @Test public void sendTransaction() {
@@ -91,8 +92,10 @@ public class TransactionServiceTest {
     TestObserver<PaymentTransaction> testObserver = new TestObserver<>();
     transactionService.getTransactionState(uri)
         .subscribe(testObserver);
+    scheduler.triggerActions();
     transactionService.send(uri)
         .subscribe();
+    scheduler.triggerActions();
 
     PendingTransaction pendingTransaction0 = new PendingTransaction("approve_hash", true);
     PendingTransaction pendingTransaction1 = new PendingTransaction("approve_hash", false);
@@ -100,9 +103,13 @@ public class TransactionServiceTest {
     PendingTransaction pendingTransaction3 = new PendingTransaction("buy_hash", false);
 
     pendingApproveState.onNext(pendingTransaction0);
+    scheduler.triggerActions();
     pendingApproveState.onNext(pendingTransaction1);
+    scheduler.triggerActions();
     pendingBuyState.onNext(pendingTransaction2);
+    scheduler.triggerActions();
     pendingBuyState.onNext(pendingTransaction3);
+    scheduler.triggerActions();
 
     List<PaymentTransaction> values = testObserver.assertNoErrors()
         .values();
