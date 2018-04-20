@@ -100,13 +100,13 @@ import okhttp3.OkHttpClient;
   @Provides ApproveService provideApproveService(SendTransactionInteract sendTransactionInteract,
       PendingTransactionService pendingTransactionService, ErrorMapper errorMapper) {
     return new ApproveService(sendTransactionInteract, pendingTransactionService,
-        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), errorMapper);
+        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), errorMapper, Schedulers.io());
   }
 
   @Provides BuyService provideBuyService(SendTransactionInteract sendTransactionInteract,
       PendingTransactionService pendingTransactionService, ErrorMapper errorMapper) {
     return new BuyService(sendTransactionInteract, pendingTransactionService,
-        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), errorMapper);
+        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), errorMapper, Schedulers.io());
   }
 
   @Singleton @Provides ErrorMapper provideErrorMapper() {

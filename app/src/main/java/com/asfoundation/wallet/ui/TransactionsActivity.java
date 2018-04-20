@@ -129,7 +129,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       } else {
         actionBar.setTitle(entry.getValue()
             .toUpperCase() + " " + entry.getKey());
-        break;
       }
     }
   }

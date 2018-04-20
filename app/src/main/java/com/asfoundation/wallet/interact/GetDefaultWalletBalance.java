@@ -43,10 +43,11 @@ public class GetDefaultWalletBalance {
 
   private Single<Map<String, String>> getTokenBalance(Token token) {
     Map<String, String> balances = new HashMap<>();
-    balances.put(token.tokenInfo.symbol, weiToEth(token.balance).setScale(4, RoundingMode.HALF_UP)
+    String value = weiToEth(token.balance).setScale(4, RoundingMode.HALF_UP)
         .stripTrailingZeros()
-        .toPlainString());
-    balances.put(USD_SYMBOL, BalanceUtils.ethToUsd(token.ticker.price, token.balance.toString()));
+        .toPlainString();
+    balances.put(token.tokenInfo.symbol, value);
+    balances.put(USD_SYMBOL, BalanceUtils.ethToUsd(token.ticker.price, value));
     return Single.just(balances);
   }
 
@@ -63,7 +64,8 @@ public class GetDefaultWalletBalance {
         .flatMap(balances -> ethereumNetworkRepository.getTicker()
             .observeOn(Schedulers.io())
             .flatMap(ticker -> {
-              String ethBallance = balances.get(ethereumNetworkRepository.getDefaultNetwork().symbol);
+              String ethBallance =
+                  balances.get(ethereumNetworkRepository.getDefaultNetwork().symbol);
               balances.put(USD_SYMBOL, BalanceUtils.ethToUsd(ticker.price, ethBallance));
               return Single.just(balances);
             })

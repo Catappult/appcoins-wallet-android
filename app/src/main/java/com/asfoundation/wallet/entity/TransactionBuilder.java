@@ -33,6 +33,7 @@ public class TransactionBuilder implements Parcelable {
   private GasSettings gasSettings;
   private long chainId;
   private String skuId;
+  private String iabContract;
 
   public TransactionBuilder(@NonNull TokenInfo tokenInfo) {
     contractAddress(tokenInfo.address).decimals(tokenInfo.decimals)
@@ -60,16 +61,27 @@ public class TransactionBuilder implements Parcelable {
     skuId = in.readString();
   }
 
-  public TransactionBuilder(String symbol, String iabContractAddress, Long chainId,
-      String toAddress, BigDecimal amount, String skuId, int decimals) {
+  public TransactionBuilder(String symbol, String contractAddress, Long chainId, String toAddress,
+      BigDecimal amount, String skuId, int decimals) {
     this.symbol = symbol;
-    this.contractAddress = iabContractAddress;
+    this.contractAddress = contractAddress;
     this.chainId = chainId == null ? NO_CHAIN_ID : chainId;
     this.toAddress = toAddress;
     this.amount = amount;
     this.skuId = skuId;
     this.shouldSendToken = false;
     this.decimals = decimals;
+  }
+
+  public TransactionBuilder(String symbol, String contractAddress, Long chainId,
+      String receiverAddress, BigDecimal tokenTransferAmount, String skuId, int decimals,
+      String iabContract) {
+    this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, skuId, decimals);
+    this.iabContract = iabContract;
+  }
+
+  public String getIabContract() {
+    return iabContract;
   }
 
   public long getChainId() {
@@ -218,9 +230,9 @@ public class TransactionBuilder implements Parcelable {
     dest.writeString(skuId);
   }
 
-  public byte[] approveData(String spender) {
+  public byte[] approveData() {
     BigDecimal base = new BigDecimal("10");
-    return TokenRepository.createTokenApproveData(spender, amount.multiply(base.pow(decimals)));
+    return TokenRepository.createTokenApproveData(iabContract, amount.multiply(base.pow(decimals)));
   }
 
   public byte[] buyData(String tokenAddress) {
