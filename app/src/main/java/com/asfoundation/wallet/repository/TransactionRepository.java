@@ -5,18 +5,18 @@ import com.asfoundation.wallet.entity.Transaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
+import com.asfoundation.wallet.poa.BlockchainErrorMapper;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.TransactionsNetworkClientType;
+import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
-import java.math.BigInteger;
+import org.reactivestreams.Publisher;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jFactory;
-import org.web3j.protocol.core.DefaultBlockParameterName;
-import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Numeric;
@@ -28,16 +28,20 @@ public class TransactionRepository implements TransactionRepositoryType {
   private final TransactionLocalSource inDiskCache;
   private final TransactionsNetworkClientType blockExplorerClient;
   private final DefaultTokenProvider defaultTokenProvider;
+  private final NonceGetter nonceGetter;
+  private final BlockchainErrorMapper errorMapper;
 
   public TransactionRepository(EthereumNetworkRepositoryType networkRepository,
       AccountKeystoreService accountKeystoreService, TransactionLocalSource inDiskCache,
-      TransactionsNetworkClientType blockExplorerClient,
-      DefaultTokenProvider defaultTokenProvider) {
+      TransactionsNetworkClientType blockExplorerClient, DefaultTokenProvider defaultTokenProvider,
+      NonceGetter nonceGetter, BlockchainErrorMapper errorMapper) {
     this.networkRepository = networkRepository;
     this.accountKeystoreService = accountKeystoreService;
     this.blockExplorerClient = blockExplorerClient;
     this.inDiskCache = inDiskCache;
     this.defaultTokenProvider = defaultTokenProvider;
+    this.nonceGetter = nonceGetter;
+    this.errorMapper = errorMapper;
   }
 
   @Override public Observable<Transaction[]> fetchTransaction(Wallet wallet) {
@@ -66,18 +70,16 @@ public class TransactionRepository implements TransactionRepositoryType {
             : transactionBuilder.subunitAmount());
   }
 
-  @Override public Single<String> approve(TransactionBuilder transactionBuilder, String password,
-      String spender) {
-    return createTransaction(transactionBuilder, password, transactionBuilder.approveData(spender),
+  @Override public Single<String> approve(TransactionBuilder transactionBuilder, String password) {
+    return createTransaction(transactionBuilder, password, transactionBuilder.approveData(),
         transactionBuilder.contractAddress(), BigDecimal.ZERO);
   }
 
-  @Override public Single<String> callIab(TransactionBuilder transaction, String password,
-      String contractAddress) {
+  @Override public Single<String> callIab(TransactionBuilder transaction, String password) {
     return defaultTokenProvider.getDefaultToken()
         .flatMap(
             token -> createTransaction(transaction, password, transaction.buyData(token.address),
-                contractAddress, BigDecimal.ZERO));
+                transaction.getIabContract(), BigDecimal.ZERO));
   }
 
   private Single<String> createTransaction(TransactionBuilder transactionBuilder, String password,
@@ -85,48 +87,51 @@ public class TransactionRepository implements TransactionRepositoryType {
     final Web3j web3j =
         Web3jFactory.build(new HttpService(networkRepository.getDefaultNetwork().rpcServerUrl));
 
-    return getNonce(web3j, transactionBuilder.fromAddress()).flatMap(nonce -> {
-      if (transactionBuilder.getChainId() != TransactionBuilder.NO_CHAIN_ID
-          && transactionBuilder.getChainId() != networkRepository.getDefaultNetwork().chainId) {
-        String requestedNetwork = "unknown";
-        for (NetworkInfo networkInfo : networkRepository.getAvailableNetworkList()) {
-          if (networkInfo.chainId == transactionBuilder.getChainId()) {
-            requestedNetwork = networkInfo.name;
-            break;
+    return nonceGetter.getNonce(web3j, transactionBuilder.fromAddress())
+        .flatMap(nonce -> {
+          if (transactionBuilder.getChainId() != TransactionBuilder.NO_CHAIN_ID
+              && transactionBuilder.getChainId() != networkRepository.getDefaultNetwork().chainId) {
+            String requestedNetwork = "unknown";
+            for (NetworkInfo networkInfo : networkRepository.getAvailableNetworkList()) {
+              if (networkInfo.chainId == transactionBuilder.getChainId()) {
+                requestedNetwork = networkInfo.name;
+                break;
+              }
+            }
+            return Single.error(new WrongNetworkException(
+                "Default network is different from the intended on transaction\nCurrent network: "
+                    + networkRepository.getDefaultNetwork().name
+                    + "\nRequested: "
+                    + requestedNetwork));
           }
-        }
-        return Single.error(new WrongNetworkException(
-            "Default network is different from the intended on transaction\nCurrent network: "
-                + networkRepository.getDefaultNetwork().name
-                + "\nRequested: "
-                + requestedNetwork));
-      }
-      return accountKeystoreService.signTransaction(transactionBuilder.fromAddress(), password,
-          toAddress, amount, transactionBuilder.gasSettings().gasPrice,
-          transactionBuilder.gasSettings().gasLimit, nonce.longValue(), data,
-          networkRepository.getDefaultNetwork().chainId);
-    })
-        .flatMap(signedMessage -> Single.fromCallable(() -> {
-          EthSendTransaction raw = web3j.ethSendRawTransaction(Numeric.toHexString(signedMessage))
-              .send();
-          if (raw.hasError()) {
-            throw new TransactionException(raw.getError()
-                .getCode(), raw.getError()
-                .getMessage(), raw.getError()
-                .getData());
-          }
-          return raw.getTransactionHash();
-        }))
-        .subscribeOn(Schedulers.io());
+          return accountKeystoreService.signTransaction(transactionBuilder.fromAddress(), password,
+              toAddress, amount, transactionBuilder.gasSettings().gasPrice,
+              transactionBuilder.gasSettings().gasLimit, nonce.longValue(), data,
+              networkRepository.getDefaultNetwork().chainId)
+              .flatMap(signedMessage -> Single.fromCallable(() -> {
+                EthSendTransaction raw =
+                    web3j.ethSendRawTransaction(Numeric.toHexString(signedMessage))
+                        .send();
+                if (raw.hasError()) {
+                  throw new TransactionException(raw.getError()
+                      .getCode(), raw.getError()
+                      .getMessage(), raw.getError()
+                      .getData());
+                }
+                return raw.getTransactionHash();
+              }))
+              .subscribeOn(Schedulers.io());
+        })
+        .retryWhen(throwableFlowable -> throwableFlowable.flatMap(this::getPublisher));
   }
 
-  private Single<BigInteger> getNonce(Web3j web3j, String fromAddress) {
-    return Single.fromCallable(() -> {
-      EthGetTransactionCount ethGetTransactionCount =
-          web3j.ethGetTransactionCount(fromAddress, DefaultBlockParameterName.LATEST)
-              .send();
-      return ethGetTransactionCount.getTransactionCount();
-    });
+  private Publisher<?> getPublisher(Throwable throwable) {
+    if (errorMapper.map(throwable)
+        .equals(BlockchainErrorMapper.BlockchainError.NONCE_ERROR)) {
+      nonceGetter.bump();
+      return Flowable.just(true);
+    }
+    return Flowable.error(throwable);
   }
 
   private Single<Transaction[]> fetchFromCache(NetworkInfo networkInfo, Wallet wallet) {

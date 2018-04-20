@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.interact;
 
-import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.repository.PasswordStore;
@@ -27,13 +26,11 @@ public class SendTransactionInteract {
 
   public Single<String> approve(TransactionBuilder transactionBuilder) {
     return passwordStore.getPassword(new Wallet(transactionBuilder.fromAddress()))
-        .flatMap(password -> transactionRepository.approve(transactionBuilder, password,
-            BuildConfig.ASF_IAB_CONTRACT_ADDRESS));
+        .flatMap(password -> transactionRepository.approve(transactionBuilder, password));
   }
 
   public Single<String> buy(TransactionBuilder transaction) {
     return passwordStore.getPassword(new Wallet(transaction.fromAddress()))
-        .flatMap(password -> transactionRepository.callIab(transaction, password,
-            BuildConfig.ASF_IAB_CONTRACT_ADDRESS));
+        .flatMap(password -> transactionRepository.callIab(transaction, password));
   }
 }
