@@ -35,8 +35,8 @@ android {
     applicationId "com.asfoundation.wallet"
     minSdkVersion 21
     targetSdkVersion 27
-    versionCode 5
-    versionName "0.2.3a"
+    versionCode 6
+    versionName "0.2.4a"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     vectorDrawables.useSupportLibrary = true
     multiDexEnabled = true
