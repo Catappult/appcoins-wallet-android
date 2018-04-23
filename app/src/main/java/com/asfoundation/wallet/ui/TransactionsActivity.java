@@ -25,7 +25,7 @@ import com.asf.wallet.R;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.Transaction;
+import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.poa.TransactionFactory;
@@ -133,7 +133,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     }
   }
 
-  private void onTransactionClick(View view, Transaction transaction) {
+  private void onTransactionClick(View view, RawTransaction transaction) {
     viewModel.showDetails(view.getContext(), transaction);
   }
 
@@ -226,7 +226,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     return false;
   }
 
-  private void onTransactions(Transaction[] transaction) {
+  private void onTransactions(RawTransaction[] transaction) {
     adapter.addTransactions(transaction);
     invalidateOptionsMenu();
   }

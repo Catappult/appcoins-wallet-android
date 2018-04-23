@@ -9,7 +9,7 @@ import android.text.format.DateUtils;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.Transaction;
+import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchTokensInteract;
@@ -36,7 +36,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private static final String TAG = TransactionsViewModel.class.getSimpleName();
   private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
   private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
-  private final MutableLiveData<Transaction[]> transactions = new MutableLiveData<>();
+  private final MutableLiveData<RawTransaction[]> transactions = new MutableLiveData<>();
   private final MutableLiveData<Map<String, String>> defaultWalletBalance = new MutableLiveData<>();
   private final MutableLiveData<AirDropService.AirdropStatus> airdrop = new MutableLiveData<>();
   private final FindDefaultNetworkInteract findDefaultNetworkInteract;
@@ -101,7 +101,7 @@ public class TransactionsViewModel extends BaseViewModel {
     return defaultWallet;
   }
 
-  public LiveData<Transaction[]> transactions() {
+  public LiveData<RawTransaction[]> transactions() {
     return transactions;
   }
 
@@ -130,7 +130,7 @@ public class TransactionsViewModel extends BaseViewModel {
     handler.removeCallbacks(startFetchTransactionsTask);
     progress.postValue(shouldShowProgress);
     /*For specific address use: new Wallet("0x60f7a1cbc59470b74b1df20b133700ec381f15d3")*/
-    Observable<Transaction[]> fetch = fetchTransactionsInteract.fetch(defaultWallet.getValue());
+    Observable<RawTransaction[]> fetch = fetchTransactionsInteract.fetch(defaultWallet.getValue());
     disposables.add(
         fetch.subscribe(this::onTransactions, this::onError, this::onTransactionsFetchCompleted));
   }
@@ -156,7 +156,7 @@ public class TransactionsViewModel extends BaseViewModel {
     fetchTransactions(true);
   }
 
-  private void onTransactions(Transaction[] transactions) {
+  private void onTransactions(RawTransaction[] transactions) {
     this.transactions.setValue(transactions);
     Boolean last = progress.getValue();
     if (transactions != null && transactions.length > 0 && last != null && last) {
@@ -166,7 +166,7 @@ public class TransactionsViewModel extends BaseViewModel {
 
   private void onTransactionsFetchCompleted() {
     progress.postValue(false);
-    Transaction[] transactions = this.transactions.getValue();
+    RawTransaction[] transactions = this.transactions.getValue();
     if (transactions == null || transactions.length == 0) {
       error.postValue(new ErrorEnvelope(C.ErrorCode.EMPTY_COLLECTION, "empty collection"));
     }
@@ -187,7 +187,7 @@ public class TransactionsViewModel extends BaseViewModel {
         .subscribe();
   }
 
-  public void showDetails(Context context, Transaction transaction) {
+  public void showDetails(Context context, RawTransaction transaction) {
     transactionDetailRouter.open(context, transaction);
   }
 

@@ -5,14 +5,14 @@ import android.os.Parcelable;
 import com.google.gson.annotations.SerializedName;
 import java.util.Arrays;
 
-public class Transaction implements Parcelable {
-  public static final Creator<Transaction> CREATOR = new Creator<Transaction>() {
-    @Override public Transaction createFromParcel(Parcel in) {
-      return new Transaction(in);
+public class RawTransaction implements Parcelable {
+  public static final Creator<RawTransaction> CREATOR = new Creator<RawTransaction>() {
+    @Override public RawTransaction createFromParcel(Parcel in) {
+      return new RawTransaction(in);
     }
 
-    @Override public Transaction[] newArray(int size) {
-      return new Transaction[size];
+    @Override public RawTransaction[] newArray(int size) {
+      return new RawTransaction[size];
     }
   };
   @SerializedName("id") public final String hash;
@@ -29,7 +29,7 @@ public class Transaction implements Parcelable {
   public final TransactionOperation[] operations;
   public final String error;
 
-  public Transaction(String hash, String error, String blockNumber, long timeStamp, int nonce,
+  public RawTransaction(String hash, String error, String blockNumber, long timeStamp, int nonce,
       String from, String to, String value, String gas, String gasPrice, String input,
       String gasUsed, TransactionOperation[] operations) {
     this.hash = hash;
@@ -47,7 +47,7 @@ public class Transaction implements Parcelable {
     this.operations = operations;
   }
 
-  protected Transaction(Parcel in) {
+  protected RawTransaction(Parcel in) {
     hash = in.readString();
     error = in.readString();
     blockNumber = in.readString();

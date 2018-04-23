@@ -2,12 +2,11 @@ package com.asfoundation.wallet.repository;
 
 import android.support.annotation.NonNull;
 import android.text.format.DateUtils;
-import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.entity.NetworkInfo;
+import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.Token;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TokenTicker;
-import com.asfoundation.wallet.entity.Transaction;
 import com.asfoundation.wallet.entity.TransactionOperation;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.service.TickerService;
@@ -231,7 +230,7 @@ public class TokenRepository implements TokenRepositoryType {
     return transactionsLocalCache.fetchTransaction(network, wallet)
         .flatMap(transactions -> {
           List<Token> result = new ArrayList<>();
-          for (Transaction transaction : transactions) {
+          for (RawTransaction transaction : transactions) {
             if (transaction.operations == null || transaction.operations.length == 0) {
               continue;
             }

@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.service;
 
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.Transaction;
+import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.google.gson.Gson;
@@ -54,18 +54,18 @@ public class TransactionsNetworkClient implements TransactionsNetworkClientType 
         .create(ApiClient.class);
   }
 
-  @Override public Observable<Transaction[]> fetchTransactions(String address) {
+  @Override public Observable<RawTransaction[]> fetchTransactions(String address) {
     return apiClient.fetchTransactions(address)
         .lift(apiError())
         .map(r -> r.docs)
         .subscribeOn(Schedulers.io());
   }
 
-  @Override public Observable<Transaction[]> fetchLastTransactions(Wallet wallet,
-      Transaction lastTransaction) {
+  @Override public Observable<RawTransaction[]> fetchLastTransactions(Wallet wallet,
+      RawTransaction lastTransaction) {
     return Observable.fromCallable(() -> {
       @NonNull String lastTransactionHash = lastTransaction == null ? "" : lastTransaction.hash;
-      List<Transaction> result = new ArrayList<>();
+      List<RawTransaction> result = new ArrayList<>();
       int pages = 0;
       int page = 0;
       boolean hasMore = true;
@@ -78,7 +78,7 @@ public class TransactionsNetworkClient implements TransactionsNetworkClientType 
           ApiClientResponse body = response.body();
           if (body != null) {
             pages = body.pages;
-            for (Transaction transaction : body.docs) {
+            for (RawTransaction transaction : body.docs) {
               if (lastTransactionHash.equals(transaction.hash)) {
                 hasMore = false;
                 break;
@@ -88,7 +88,7 @@ public class TransactionsNetworkClient implements TransactionsNetworkClientType 
           }
         }
       } while (page < pages && hasMore);
-      return result.toArray(new Transaction[result.size()]);
+      return result.toArray(new RawTransaction[result.size()]);
     })
         .subscribeOn(Schedulers.io());
   }
@@ -106,14 +106,13 @@ public class TransactionsNetworkClient implements TransactionsNetworkClientType 
   }
 
   private final static class ApiClientResponse {
-    Transaction[] docs;
+    RawTransaction[] docs;
     int pages;
   }
 
   private final static class ApiErrorOperator<T> implements ObservableOperator<T, Response<T>> {
 
-    @Override public Observer<? super retrofit2.Response<T>> apply(Observer<? super T> observer)
-        throws Exception {
+    @Override public Observer<? super retrofit2.Response<T>> apply(Observer<? super T> observer) {
       return new DisposableObserver<Response<T>>() {
         @Override public void onNext(Response<T> response) {
           observer.onNext(response.body());

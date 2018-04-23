@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.Transaction;
+import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.ui.widget.OnTransactionClickListener;
 import com.asfoundation.wallet.ui.widget.entity.DateSortedItem;
@@ -100,9 +100,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
     notifyDataSetChanged();
   }
 
-  public void addTransactions(Transaction[] transactions) {
+  public void addTransactions(RawTransaction[] transactions) {
     items.beginBatchedUpdates();
-    for (Transaction transaction : transactions) {
+    for (RawTransaction transaction : transactions) {
       TransactionSortedItem sortedItem =
           new TransactionSortedItem(TransactionHolder.VIEW_TYPE, transaction,
               TimestampSortedItem.DESC);

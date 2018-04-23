@@ -1,20 +1,20 @@
 package com.asfoundation.wallet.ui.widget.entity;
 
 import android.text.format.DateUtils;
-import com.asfoundation.wallet.entity.Transaction;
+import com.asfoundation.wallet.entity.RawTransaction;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-public class TransactionSortedItem extends TimestampSortedItem<Transaction> {
+public class TransactionSortedItem extends TimestampSortedItem<RawTransaction> {
 
-  public TransactionSortedItem(int viewType, Transaction value, int order) {
+  public TransactionSortedItem(int viewType, RawTransaction value, int order) {
     super(viewType, value, 0, order);
   }
 
   @Override public boolean areContentsTheSame(SortedItem newItem) {
     if (viewType == newItem.viewType) {
-      Transaction transaction = (Transaction) newItem.value;
+      RawTransaction transaction = (RawTransaction) newItem.value;
       return value.hash.equals(transaction.hash) && value.timeStamp == transaction.timeStamp;
     }
     return false;

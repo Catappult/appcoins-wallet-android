@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.interact;
 
-import com.asfoundation.wallet.entity.Transaction;
+import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
 import io.reactivex.Observable;
@@ -15,7 +15,7 @@ public class FetchTransactionsInteract {
     this.transactionRepository = transactionRepository;
   }
 
-  public Observable<Transaction[]> fetch(Wallet wallet) {
+  public Observable<RawTransaction[]> fetch(Wallet wallet) {
     return transactionRepository.fetchTransaction(wallet)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread());

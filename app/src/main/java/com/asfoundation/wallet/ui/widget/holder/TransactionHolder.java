@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.entity.Transaction;
+import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.TransactionOperation;
 import com.asfoundation.wallet.ui.widget.OnTransactionClickListener;
 import java.math.BigDecimal;
@@ -19,7 +19,7 @@ import java.math.RoundingMode;
 
 import static com.asfoundation.wallet.C.ETHER_DECIMALS;
 
-public class TransactionHolder extends BinderViewHolder<Transaction>
+public class TransactionHolder extends BinderViewHolder<RawTransaction>
     implements View.OnClickListener {
 
   public static final int VIEW_TYPE = 1003;
@@ -31,7 +31,7 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   private final TextView value;
   private final ImageView typeIcon;
 
-  private Transaction transaction;
+  private RawTransaction transaction;
   private String defaultAddress;
   private OnTransactionClickListener onTransactionClickListener;
 
@@ -49,7 +49,7 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     itemView.setOnClickListener(this);
   }
 
-  @Override public void bind(@Nullable Transaction data, @NonNull Bundle addition) {
+  @Override public void bind(@Nullable RawTransaction data, @NonNull Bundle addition) {
     transaction = data; // reset
     if (this.transaction == null) {
       return;

@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.repository;
 
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.Transaction;
+import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
@@ -44,17 +44,17 @@ public class TransactionRepository implements TransactionRepositoryType {
     this.errorMapper = errorMapper;
   }
 
-  @Override public Observable<Transaction[]> fetchTransaction(Wallet wallet) {
+  @Override public Observable<RawTransaction[]> fetchTransaction(Wallet wallet) {
     NetworkInfo networkInfo = networkRepository.getDefaultNetwork();
     return Single.merge(fetchFromCache(networkInfo, wallet),
         fetchAndCacheFromNetwork(networkInfo, wallet))
         .toObservable();
   }
 
-  @Override public Maybe<Transaction> findTransaction(Wallet wallet, String transactionHash) {
+  @Override public Maybe<RawTransaction> findTransaction(Wallet wallet, String transactionHash) {
     return fetchTransaction(wallet).firstElement()
         .flatMap(transactions -> {
-          for (Transaction transaction : transactions) {
+          for (RawTransaction transaction : transactions) {
             if (transaction.hash.equals(transactionHash)) {
               return Maybe.just(transaction);
             }
@@ -134,11 +134,12 @@ public class TransactionRepository implements TransactionRepositoryType {
     return Flowable.error(throwable);
   }
 
-  private Single<Transaction[]> fetchFromCache(NetworkInfo networkInfo, Wallet wallet) {
+  private Single<RawTransaction[]> fetchFromCache(NetworkInfo networkInfo, Wallet wallet) {
     return inDiskCache.fetchTransaction(networkInfo, wallet);
   }
 
-  private Single<Transaction[]> fetchAndCacheFromNetwork(NetworkInfo networkInfo, Wallet wallet) {
+  private Single<RawTransaction[]> fetchAndCacheFromNetwork(NetworkInfo networkInfo,
+      Wallet wallet) {
     return inDiskCache.findLast(networkInfo, wallet)
         .flatMap(lastTransaction -> Single.fromObservable(
             blockExplorerClient.fetchLastTransactions(wallet, lastTransaction)))
