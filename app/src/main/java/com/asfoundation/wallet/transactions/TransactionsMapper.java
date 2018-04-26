@@ -45,7 +45,7 @@ public class TransactionsMapper {
 
   private Transaction mapIabTransaction(RawTransaction approveTransaction,
       RawTransaction transaction) {
-    return new IabTransaction(approveTransaction.hash, transaction.hash);
+    return new Transaction(approveTransaction.hash, transaction.hash);
   }
 
   private boolean isIabTransaction(RawTransaction auxTransaction) {

@@ -58,7 +58,7 @@ import org.mockito.junit.MockitoJUnitRunner;
                 true, false)));
   }
 
-  @Test public void getTransactions() {
+  @Test public void getNormalAndIabTransactions() {
     RawTransaction[] transactions = getData().docs;
     TransactionsMapper mapper = new TransactionsMapper(defaultTokenProvider);
     TestObserver<List<Transaction>> test = mapper.map(transactions)
@@ -69,7 +69,7 @@ import org.mockito.junit.MockitoJUnitRunner;
     transactionList.add(
         new Transaction("0x7d15f9c11a2f718ede84facca02080f6c9cf8a78da3c545347c1979235299932"));
     transactionList.add(
-        new IabTransaction("0x8506e0e07e4fbcd89684689257dd5f5649474f5cb3d1f0c703460a31bac110bb",
+        new Transaction("0x8506e0e07e4fbcd89684689257dd5f5649474f5cb3d1f0c703460a31bac110bb",
             "0xca74e82bc850c7dc5afad05387ba314de579b8552269200821e6c39d285e4ff9"));
     test.assertNoErrors()
         .assertComplete()
