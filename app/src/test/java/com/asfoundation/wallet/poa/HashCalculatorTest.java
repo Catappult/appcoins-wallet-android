@@ -30,6 +30,8 @@ public class HashCalculatorTest {
   }
 
   @Test public void calculateNonce() throws NoSuchAlgorithmException {
-    Assert.assertEquals(1, hashCalculator.calculateNonce(new NonceData(4810492, "package_name")));
+    NonceData nonceData = new NonceData(135852, "package_name");
+    Assert.assertEquals(1, hashCalculator.
+        calculateNonce(nonceData));
   }
 }
