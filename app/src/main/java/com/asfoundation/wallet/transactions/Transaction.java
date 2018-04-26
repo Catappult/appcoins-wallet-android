@@ -69,6 +69,6 @@ public class Transaction {
   }
 
   public enum TransactionType {
-    STANDARD, IAB
+    STANDARD, IAB, ADS
   }
 }

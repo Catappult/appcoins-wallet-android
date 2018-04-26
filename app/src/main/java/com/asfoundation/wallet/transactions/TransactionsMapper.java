@@ -9,6 +9,7 @@ import java.util.List;
 public class TransactionsMapper {
   public static final String APPROVE_METHOD_ID = "0x095ea7b3";
   public static final String BUY_METHOD_ID = "0xdc9564d5";
+  public static final String ADS_METHOD_ID = "0xa95281f";
   private final DefaultTokenProvider defaultTokenProvider;
 
   public TransactionsMapper(DefaultTokenProvider defaultTokenProvider) {
@@ -24,19 +25,27 @@ public class TransactionsMapper {
     List<Transaction> transactionList = new ArrayList<>();
     for (int i = transactions.length - 1; i >= 0; i--) {
       RawTransaction transaction = transactions[i];
-      if (isAppcoinsTransaction(transaction, address)) {
-        RawTransaction auxTransaction = transactions[i - 1];
-        if (isIabTransaction(auxTransaction)) {
-          transactionList.add(mapIabTransaction(transaction, auxTransaction));
-          i--;
-          continue;
-        }
-        throw new IllegalStateException("unknown transaction type");
+      if (isAppcoinsTransaction(transaction, address)
+          && isAppoveTransaction(transaction)
+          && isIabTransaction(transactions[i - 1])) {
+        transactionList.add(0, mapIabTransaction(transaction, transactions[i - 1]));
+        i--;
+      } else if (isAdsTransaction(transaction)) {
+        transactionList.add(0, mapAdsTransaction(transaction));
       } else {
-        transactionList.add(mapStandardTransaction(transaction));
+        transactionList.add(0, mapStandardTransaction(transaction));
       }
     }
     return transactionList;
+  }
+
+  private Transaction mapAdsTransaction(RawTransaction transaction) {
+    return new Transaction(transaction.hash, Transaction.TransactionType.ADS, null);
+  }
+
+  private boolean isAdsTransaction(RawTransaction transaction) {
+    return transaction.input.toUpperCase()
+        .startsWith(ADS_METHOD_ID.toUpperCase());
   }
 
   private Transaction mapStandardTransaction(RawTransaction transaction) {
@@ -53,8 +62,12 @@ public class TransactionsMapper {
         .startsWith(BUY_METHOD_ID.toUpperCase());
   }
 
-  private boolean isAppcoinsTransaction(RawTransaction transaction, String address) {
-    return transaction.to.equalsIgnoreCase(address) && transaction.input.toUpperCase()
+  private boolean isAppoveTransaction(RawTransaction transaction) {
+    return transaction.input.toUpperCase()
         .startsWith(APPROVE_METHOD_ID.toUpperCase());
+  }
+
+  private boolean isAppcoinsTransaction(RawTransaction transaction, String address) {
+    return transaction.to.equalsIgnoreCase(address);
   }
 }
