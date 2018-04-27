@@ -6,7 +6,6 @@ import javax.annotation.Nullable;
 
 public class Proof {
   private final String packageName;
-  @Nullable private final String proofId;
   private final String walletPackage;
   @Nullable private final String campaignId;
   private final List<ProofComponent> proofComponentList;
@@ -16,13 +15,12 @@ public class Proof {
   @Nullable private final String storeAddress;
 
   public Proof(String packageName, @Nullable String campaignId,
-      List<ProofComponent> proofComponentList, @Nullable String proofId, String walletPackage,
-      ProofStatus proofStatus, int chainId, @Nullable String oemAddress,
+      List<ProofComponent> proofComponentList, String walletPackage, ProofStatus proofStatus,
+      int chainId, @Nullable String oemAddress,
       @Nullable String storeAddress) {
     this.packageName = packageName;
     this.campaignId = campaignId;
     this.proofComponentList = proofComponentList;
-    this.proofId = proofId;
     this.walletPackage = walletPackage;
     this.proofStatus = proofStatus;
     this.chainId = chainId;
@@ -31,7 +29,7 @@ public class Proof {
   }
 
   public Proof(String packageName, String walletPackage, ProofStatus proofStatus, int chainId) {
-    this(packageName, null, Collections.emptyList(), null, walletPackage, proofStatus, chainId,
+    this(packageName, null, Collections.emptyList(), walletPackage, proofStatus, chainId,
         null, null);
   }
 
@@ -55,9 +53,6 @@ public class Proof {
     return walletPackage;
   }
 
-  @Nullable public String getProofId() {
-    return proofId;
-  }
 
   public List<ProofComponent> getProofComponentList() {
     return Collections.unmodifiableList(proofComponentList);
@@ -73,7 +68,6 @@ public class Proof {
 
   @Override public int hashCode() {
     int result = packageName.hashCode();
-    result = 31 * result + (proofId != null ? proofId.hashCode() : 0);
     result = 31 * result + walletPackage.hashCode();
     result = 31 * result + (campaignId != null ? campaignId.hashCode() : 0);
     result = 31 * result + proofComponentList.hashCode();
@@ -92,7 +86,6 @@ public class Proof {
 
     if (chainId != proof.chainId) return false;
     if (!packageName.equals(proof.packageName)) return false;
-    if (proofId != null ? !proofId.equals(proof.proofId) : proof.proofId != null) return false;
     if (!walletPackage.equals(proof.walletPackage)) return false;
     if (campaignId != null ? !campaignId.equals(proof.campaignId) : proof.campaignId != null) {
       return false;
@@ -113,8 +106,6 @@ public class Proof {
         + '\''
         + ", proofStatus="
         + proofStatus
-        + ", proofId='"
-        + proofId
         + '\''
         + ", walletPackage='"
         + walletPackage
