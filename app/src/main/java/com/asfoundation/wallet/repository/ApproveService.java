@@ -1,12 +1,10 @@
 package com.asfoundation.wallet.repository;
 
-import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by trinkes on 3/16/18.
@@ -14,16 +12,13 @@ import java.util.concurrent.TimeUnit;
 
 public class ApproveService {
   private final SendTransactionInteract sendTransactionInteract;
-  private final PendingTransactionService pendingTransactionService;
   private final Cache<String, PaymentTransaction> cache;
   private final ErrorMapper errorMapper;
   private final Scheduler scheduler;
 
   public ApproveService(SendTransactionInteract sendTransactionInteract,
-      PendingTransactionService pendingTransactionService, Cache<String, PaymentTransaction> cache,
-      ErrorMapper errorMapper, Scheduler scheduler) {
+      Cache<String, PaymentTransaction> cache, ErrorMapper errorMapper, Scheduler scheduler) {
     this.sendTransactionInteract = sendTransactionInteract;
-    this.pendingTransactionService = pendingTransactionService;
     this.cache = cache;
     this.errorMapper = errorMapper;
     this.scheduler = scheduler;
@@ -44,38 +39,17 @@ public class ApproveService {
   private Completable approveTransaction(PaymentTransaction paymentTransaction) {
     return cache.save(paymentTransaction.getUri(),
         new PaymentTransaction(paymentTransaction, PaymentTransaction.PaymentState.APPROVING))
-        .andThen(sendTransactionInteract.approve(paymentTransaction.getTransactionBuilder())
-            .flatMapCompletable(hash -> pendingTransactionService.checkTransactionState(hash)
-                .retryWhen(this::retryOnTransactionNotFound)
-                .flatMapCompletable(pendingTransaction -> saveTransaction(pendingTransaction,
-                    paymentTransaction).onErrorResumeNext(throwable -> {
-                  throwable.printStackTrace();
-                  return cache.save(paymentTransaction.getUri(),
-                      new PaymentTransaction(paymentTransaction, errorMapper.map(throwable)));
-                }))))
+        .observeOn(scheduler)
+        .andThen(sendTransactionInteract.approve(paymentTransaction.getTransactionBuilder(),
+            paymentTransaction.getNonce())
+            .flatMapCompletable(hash -> saveTransaction(hash, paymentTransaction)))
         .onErrorResumeNext(throwable -> cache.save(paymentTransaction.getUri(),
             new PaymentTransaction(paymentTransaction, errorMapper.map(throwable))));
   }
 
-  private Observable<Long> retryOnTransactionNotFound(Observable<Throwable> attempts) {
-    return attempts.flatMap(throwable -> {
-      if (throwable instanceof TransactionNotFoundException) {
-        return Observable.timer(1, TimeUnit.SECONDS);
-      }
-      return Observable.error(throwable);
-    });
-  }
-
-  private Completable saveTransaction(PendingTransaction pendingTransaction,
-      PaymentTransaction paymentTransaction) {
-    if (pendingTransaction.isPending()) {
-      return cache.save(paymentTransaction.getUri(),
-          new PaymentTransaction(paymentTransaction, PaymentTransaction.PaymentState.APPROVING,
-              pendingTransaction.getHash()));
-    }
+  private Completable saveTransaction(String hash, PaymentTransaction paymentTransaction) {
     return cache.save(paymentTransaction.getUri(),
-        new PaymentTransaction(paymentTransaction, PaymentTransaction.PaymentState.APPROVED,
-            pendingTransaction.getHash()));
+        new PaymentTransaction(paymentTransaction, PaymentTransaction.PaymentState.APPROVED, hash));
   }
 
   public Completable approve(String key, PaymentTransaction paymentTransaction) {

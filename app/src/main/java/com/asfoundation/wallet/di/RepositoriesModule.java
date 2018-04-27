@@ -68,9 +68,9 @@ import okhttp3.OkHttpClient;
       EthereumNetworkRepositoryType networkRepository,
       AccountKeystoreService accountKeystoreService,
       TransactionsNetworkClientType blockExplorerClient, TransactionLocalSource inDiskCache,
-      DefaultTokenProvider defaultTokenProvider) {
+      DefaultTokenProvider defaultTokenProvider, NonceGetter nonceGetter) {
     return new TransactionRepository(networkRepository, accountKeystoreService, inDiskCache,
-        blockExplorerClient, defaultTokenProvider, new NonceGetter(), new BlockchainErrorMapper());
+        blockExplorerClient, defaultTokenProvider, nonceGetter, new BlockchainErrorMapper());
   }
 
   @Singleton @Provides TransactionLocalSource provideTransactionInDiskCache(

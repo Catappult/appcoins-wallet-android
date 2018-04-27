@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.repository;
 
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import java.math.BigInteger;
 import javax.annotation.Nullable;
 
 /**
@@ -8,24 +9,28 @@ import javax.annotation.Nullable;
  */
 
 public class PaymentTransaction {
+  public static final BigInteger INVALID_NONCE = new BigInteger("-1");
   private final String uri;
   private final @Nullable String approveHash;
   private final @Nullable String buyHash;
   private final TransactionBuilder transactionBuilder;
   private final PaymentState state;
+  private final BigInteger nonce;
 
   public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, PaymentState state,
-      @Nullable String approveHash, @Nullable String buyHash) {
+      @Nullable String approveHash, @Nullable String buyHash, BigInteger nonce) {
     this.uri = uri;
     this.transactionBuilder = transactionBuilder;
     this.state = state;
     this.approveHash = approveHash;
     this.buyHash = buyHash;
+    this.nonce = nonce;
   }
 
   public PaymentTransaction(PaymentTransaction paymentTransaction, PaymentState state) {
     this(paymentTransaction.getUri(), paymentTransaction.getTransactionBuilder(), state,
-        paymentTransaction.getApproveHash(), paymentTransaction.getBuyHash());
+        paymentTransaction.getApproveHash(), paymentTransaction.getBuyHash(),
+        paymentTransaction.getNonce());
   }
 
   public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, PaymentState state,
@@ -35,22 +40,33 @@ public class PaymentTransaction {
     this.transactionBuilder = transactionBuilder;
     this.state = state;
     buyHash = null;
+    nonce = INVALID_NONCE;
   }
 
   public PaymentTransaction(PaymentTransaction paymentTransaction, PaymentState state,
       String approveHash) {
     this(paymentTransaction.getUri(), paymentTransaction.getTransactionBuilder(), state,
-        approveHash, null);
+        approveHash, null, paymentTransaction.getNonce());
   }
 
   public PaymentTransaction(PaymentTransaction paymentTransaction, PaymentState state,
       String approveHash, String buyHash) {
     this(paymentTransaction.getUri(), paymentTransaction.getTransactionBuilder(), state,
-        approveHash, buyHash);
+        approveHash, buyHash, paymentTransaction.getNonce());
   }
 
   public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, PaymentState state) {
     this(uri, transactionBuilder, state, null);
+  }
+
+  public PaymentTransaction(PaymentTransaction paymentTransaction, BigInteger nonce) {
+    this(paymentTransaction.getUri(), paymentTransaction.getTransactionBuilder(),
+        paymentTransaction.getState(), paymentTransaction.getApproveHash(),
+        paymentTransaction.getBuyHash(), nonce);
+  }
+
+  public BigInteger getNonce() {
+    return nonce;
   }
 
   public String getUri() {

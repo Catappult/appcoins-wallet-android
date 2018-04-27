@@ -17,6 +17,7 @@ import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import org.junit.Assert;
@@ -42,6 +43,7 @@ public class TransactionServiceTest {
   @Mock PendingTransactionService pendingTransactionService;
   @Mock FindDefaultWalletInteract defaultWalletInteract;
   @Mock TokenRepositoryType tokenRepository;
+  @Mock NonceGetter nonceGetter;
   private TransactionService transactionService;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
@@ -52,11 +54,13 @@ public class TransactionServiceTest {
     when(gasSettingsInteract.fetch(anyBoolean())).thenReturn(
         Single.just(new GasSettings(new BigDecimal(1), new BigDecimal(2))));
 
-    when(sendTransactionInteract.approve(any(TransactionBuilder.class))).thenReturn(
-        Single.just(APPROVE_HASH));
+    when(sendTransactionInteract.approve(any(TransactionBuilder.class),
+        any(BigInteger.class))).thenReturn(Single.just(APPROVE_HASH));
 
-    when(sendTransactionInteract.buy(any(TransactionBuilder.class))).thenReturn(
-        Single.just(BUY_HASH));
+    when(sendTransactionInteract.buy(any(TransactionBuilder.class),
+        any(BigInteger.class))).thenReturn(Single.just(BUY_HASH));
+
+    when(nonceGetter.getNonce()).thenReturn(Single.just(BigInteger.ONE));
     pendingApproveState = PublishSubject.create();
     pendingBuyState = PublishSubject.create();
     when(pendingTransactionService.checkTransactionState(APPROVE_HASH)).thenReturn(
@@ -75,11 +79,11 @@ public class TransactionServiceTest {
     transactionService = new TransactionService(gasSettingsInteract, defaultWalletInteract,
         new TransferParser(defaultWalletInteract, tokenRepository),
         new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-        new ApproveService(sendTransactionInteract, pendingTransactionService,
+        new ApproveService(sendTransactionInteract,
             new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new ErrorMapper(),
-            scheduler), new BuyService(sendTransactionInteract, pendingTransactionService,
-        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new ErrorMapper(),
-        scheduler));
+            scheduler), new BuyService(sendTransactionInteract,
+        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new ErrorMapper(), scheduler),
+        nonceGetter);
   }
 
   @Test public void sendTransaction() {
@@ -121,22 +125,16 @@ public class TransactionServiceTest {
         .equals(PaymentTransaction.PaymentState.APPROVING));
     Assert.assertTrue(values.get(2)
         .getState()
-        .equals(PaymentTransaction.PaymentState.APPROVING));
+        .equals(PaymentTransaction.PaymentState.APPROVED));
     Assert.assertTrue(values.get(3)
         .getState()
-        .equals(PaymentTransaction.PaymentState.APPROVED));
+        .equals(PaymentTransaction.PaymentState.BUYING));
     Assert.assertTrue(values.get(4)
         .getState()
-        .equals(PaymentTransaction.PaymentState.BUYING));
+        .equals(PaymentTransaction.PaymentState.BOUGHT));
     Assert.assertTrue(values.get(5)
         .getState()
-        .equals(PaymentTransaction.PaymentState.BUYING));
-    Assert.assertTrue(values.get(6)
-        .getState()
-        .equals(PaymentTransaction.PaymentState.BOUGHT));
-    Assert.assertTrue(values.get(7)
-        .getState()
         .equals(PaymentTransaction.PaymentState.COMPLETED));
-    Assert.assertTrue(values.size() == 8);
+    Assert.assertTrue(values.size() == 6);
   }
 }
