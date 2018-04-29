@@ -5,7 +5,6 @@
     android:id="@+id/app_bar"
     android:layout_width="match_parent"
     android:layout_height="@dimen/app_bar_height"
-    android:fitsSystemWindows="true"
     android:theme="@style/AppTheme.AppBarOverlay"
     >
 
@@ -13,10 +12,14 @@
       android:id="@+id/toolbar_layout"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:fitsSystemWindows="true"
-      app:contentScrim="?attr/colorPrimary"
+      android:background="@drawable/appbar_background_color"
+      app:expandedTitleGravity="bottom|center_horizontal"
       app:layout_scrollFlags="scroll|exitUntilCollapsed"
       app:toolbarId="@+id/toolbar"
+      app:expandedTitleTextAppearance="@style/ToolbarTextAppearance.Title.Expanded"
+      app:collapsedTitleTextAppearance="@style/ToolbarTextAppearance.Title"
+      android:theme="@style/AppTheme.AppBarOverlay"
+      android:fitsSystemWindows="false"
       >
 
     <android.support.v7.widget.Toolbar
@@ -25,7 +28,7 @@
         android:layout_height="?attr/actionBarSize"
         app:layout_collapseMode="pin"
         app:popupTheme="@style/AppTheme.PopupOverlay"
-        android:background="@drawable/appbar_background_color"
+        android:fitsSystemWindows="false"
         />
 
   </android.support.design.widget.CollapsingToolbarLayout>

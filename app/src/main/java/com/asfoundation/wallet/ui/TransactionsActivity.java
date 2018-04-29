@@ -10,12 +10,15 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -70,7 +73,17 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     setContentView(R.layout.activity_transactions);
 
     toolbar();
-    setTitle(getString(R.string.unknown_balance_with_symbol));
+    enableDisplayHomeAsUp();
+
+    ((AppBarLayout) findViewById(R.id.app_bar)).addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+      @Override public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        float percentage = ((float)Math.abs(verticalOffset)/appBarLayout.getTotalScrollRange());
+        findViewById(R.id.toolbar_layout_logo).setAlpha(1 - percentage);
+      }
+    });
+
+    setCollapsingTitle(new SpannableString(getString(R.string.unknown_balance_with_symbol)));
+    //setTitle(getString(R.string.unknown_balance_with_symbol));
     setSubtitle("");
     initBottomNavigation();
     dissableDisplayHomeAsUp();
@@ -117,18 +130,13 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void onBalanceChanged(Map<String, String> balance) {
-    ActionBar actionBar = getSupportActionBar();
-    if (actionBar == null) {
-      return;
-    }
-
     for (Map.Entry<String, String> entry : balance.entrySet()) {
       if (entry.getKey()
           .equals(C.USD_SYMBOL)) {
-        actionBar.setSubtitle(C.USD_SYMBOL + balance.get(C.USD_SYMBOL));
+        setSubtitle(C.USD_SYMBOL + balance.get(C.USD_SYMBOL));
       } else {
-        actionBar.setTitle(entry.getValue()
-            .toUpperCase() + " " + entry.getKey());
+        String fullText = entry.getValue().toUpperCase() + " " + entry.getKey();
+        setCollapsingTitle(new SpannableString(fullText));
         break;
       }
     }
@@ -149,7 +157,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   @Override protected void onResume() {
     super.onResume();
-
     setTitle(getString(R.string.unknown_balance_without_symbol));
     setSubtitle("");
     adapter.clear();
@@ -380,6 +387,18 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     }
     if (programEndedDialog != null) {
       programEndedDialog.dismiss();
+    }
+  }
+
+  private void setCollapsingTitle(SpannableString title) {
+    Toolbar toolbar = findViewById(R.id.toolbar);
+    if (toolbar != null) {
+      toolbar.setTitle(title);
+    }
+
+    CollapsingToolbarLayout collapsing = findViewById(R.id.toolbar_layout);
+    if (collapsing != null) {
+      collapsing.setTitle(title);
     }
   }
 }

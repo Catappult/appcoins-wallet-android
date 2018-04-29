@@ -4,11 +4,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
-    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
   <include layout="@layout/layout_collapsing_app_bar"/>
+
+  <ImageView
+      android:id="@+id/toolbar_layout_logo"
+      android:layout_width="111dp"
+      android:layout_height="24dp"
+      android:layout_margin="16dp"
+      android:src="@drawable/ic_app_logo"
+      app:layout_anchor="@+id/app_bar"
+      app:layout_anchorGravity="start|top"
+      />
+
   <android.support.v4.widget.SwipeRefreshLayout
       android:id="@+id/refresh_layout"
       android:layout_width="match_parent"

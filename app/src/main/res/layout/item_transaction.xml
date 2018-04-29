@@ -1,60 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:paddingBottom="@dimen/normal_margin"
-    android:paddingTop="@dimen/normal_margin"
+    android:background="@color/white"
+    android:elevation="@dimen/component_elevation"
+    android:paddingBottom="@dimen/big_padding"
+    android:paddingHorizontal="@dimen/big_padding"
+    android:paddingTop="@dimen/normal_padding"
     >
-  <ImageView
+
+  <FrameLayout
+      android:id="@+id/src_img"
+      android:layout_width="40dp"
+      android:layout_height="40dp"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:background="@drawable/transaction_img_background"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      >
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="center"
+        android:contentDescription="@string/empty"
+        tools:src="@drawable/ic_transaction_peer"
+        />
+  </FrameLayout>
+
+  <FrameLayout
       android:id="@+id/type_icon"
       android:layout_width="24dp"
       android:layout_height="24dp"
-      android:layout_alignParentStart="true"
-      android:layout_centerVertical="true"
-      android:layout_marginStart="@dimen/big_margin"
-      android:contentDescription="@string/empty"
-      tools:src="@drawable/ic_arrow_downward_black_24dp"
-      />
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_alignParentStart="true"
-      android:layout_centerVertical="true"
-      android:layout_marginStart="72dp"
-      android:layout_toStartOf="@+id/value"
-      android:orientation="vertical"
+      android:layout_marginStart="24dp"
+      android:background="@drawable/transaction_icon_background"
+      android:visibility="invisible"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       >
-    <TextView
-        android:id="@+id/type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxLines="1"
-        android:textAppearance="?attr/textAppearanceListItem"
-        tools:text="Sent"
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_gravity="center"
+        android:contentDescription="@string/empty"
+        tools:src="@drawable/ic_transaction_poa"
         />
-    <TextView
-        android:id="@+id/address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/small_margin"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textAppearance="?attr/textAppearanceListItemSecondary"
-        android:textSize="12sp"
-        tools:text="0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFD"
-        />
+  </FrameLayout>
+
+
+  <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      >
+
   </LinearLayout>
+  <TextView
+      android:id="@+id/address"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/small_margin"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:ellipsize="middle"
+      android:singleLine="true"
+      android:textColor="@color/transaction_item_text_color"
+      android:textSize="16dp"
+      app:layout_constraintEnd_toStartOf="@id/value"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toEndOf="@id/src_img"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintWidth_default="wrap"
+      tools:text="0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFD"
+      />
+
+  <TextView
+      android:id="@+id/description"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/small_margin"
+      android:layout_marginStart="@dimen/big_margin"
+      android:maxLines="1"
+      android:textColor="@color/transaction_item_snd_text_color"
+      android:textSize="12dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="@id/value"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toEndOf="@id/src_img"
+      app:layout_constraintTop_toBottomOf="@id/address"
+      app:layout_constraintWidth_default="wrap"
+      tools:text="Description"
+      />
+
+  <TextView
+      android:id="@+id/currency"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:textColor="@color/gray"
+      android:textSize="12sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintBaseline_toBaselineOf="@id/value"
+      tools:text="APPC"
+      />
+
   <TextView
       android:id="@+id/value"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_alignParentEnd="true"
-      android:layout_centerVertical="true"
-      android:layout_marginEnd="@dimen/big_margin"
-      android:textColor="@color/colorAccent"
+      android:layout_marginEnd="4dp"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:textColor="@color/black"
+      app:layout_constraintEnd_toStartOf="@id/currency"
+      app:layout_constraintTop_toTopOf="parent"
+      android:textSize="16sp"
       tools:text="+10"
       />
-</RelativeLayout>
+
+
+  <TextView
+      android:id="@+id/status"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textColor="@color/green"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/currency"
+      android:textSize="12sp"
+      tools:text="Success"
+      />
+</android.support.constraint.ConstraintLayout>

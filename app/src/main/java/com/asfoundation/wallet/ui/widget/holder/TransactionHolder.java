@@ -26,10 +26,14 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   public static final String DEFAULT_ADDRESS_ADDITIONAL = "default_address";
   public static final String DEFAULT_SYMBOL_ADDITIONAL = "network_symbol";
   private static final int SIGNIFICANT_FIGURES = 3;
-  private final TextView type;
-  private final TextView address;
-  private final TextView value;
+  //private final TextView type;
+  private final ImageView srcImage;
   private final ImageView typeIcon;
+  private final TextView address;
+  private final TextView description;
+  private final TextView value;
+  private final TextView currency;
+  private final TextView status;
 
   private Transaction transaction;
   private String defaultAddress;
@@ -38,10 +42,13 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   public TransactionHolder(int resId, ViewGroup parent) {
     super(resId, parent);
 
-    typeIcon = findViewById(R.id.type_icon);
+    srcImage = findViewById(R.id.img);
+    typeIcon = findViewById(R.id.icon);
     address = findViewById(R.id.address);
-    type = findViewById(R.id.type);
+    description = findViewById(R.id.description);
     value = findViewById(R.id.value);
+    currency = findViewById(R.id.currency);
+    status = findViewById(R.id.status);
 
     typeIcon.setColorFilter(ContextCompat.getColor(getContext(), R.color.item_icon_tint),
         PorterDuff.Mode.SRC_ATOP);
@@ -76,22 +83,30 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
       long decimals, long timestamp) {
     boolean isSent = from.toLowerCase()
         .equals(defaultAddress);
-    type.setText(isSent ? getString(R.string.sent) : getString(R.string.received));
-    if (!TextUtils.isEmpty(error)) {
-      typeIcon.setImageResource(R.drawable.ic_error_outline_black_24dp);
-    } else if (isSent) {
-      typeIcon.setImageResource(R.drawable.ic_arrow_upward_black_24dp);
+    if (isSent) {
+      srcImage.setImageResource(R.drawable.ic_transaction_iab);
     } else {
-      typeIcon.setImageResource(R.drawable.ic_arrow_downward_black_24dp);
+      srcImage.setImageResource(R.drawable.ic_transaction_peer);
+    }
+    if (!TextUtils.isEmpty(error)) {
+      status.setText("Failed");
+      status.setTextColor(ContextCompat.getColor(getContext(), R.color.red));
+    } else if (isSent) {
+      status.setText("Success");
+      status.setTextColor(ContextCompat.getColor(getContext(), R.color.green));
+    } else {
+      status.setText("Pending");
+      status.setTextColor(ContextCompat.getColor(getContext(), R.color.orange));
     }
     address.setText(isSent ? to : from);
-    value.setTextColor(ContextCompat.getColor(getContext(), isSent ? R.color.red : R.color.green));
-
+    description.setText(isSent ? getString(R.string.sent) : getString(R.string.received));
     if (valueStr.equals("0")) {
-      valueStr = "0 " + symbol;
+      valueStr = "0 ";
     } else {
-      valueStr = (isSent ? "-" : "+") + getScaledValue(valueStr, decimals) + " " + symbol;
+      valueStr = (isSent ? "-" : "+") + getScaledValue(valueStr, decimals);
     }
+
+    currency.setText(symbol);
 
     this.value.setText(valueStr);
   }
