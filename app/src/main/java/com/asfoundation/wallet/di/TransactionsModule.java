@@ -22,6 +22,7 @@ import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.service.AirDropService;
+import com.asfoundation.wallet.service.AirdropChainIdMapper;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenExplorerClientType;
 import com.asfoundation.wallet.viewmodel.TransactionsViewModelFactory;
@@ -30,6 +31,11 @@ import dagger.Module;
 import dagger.Provides;
 import io.reactivex.subjects.BehaviorSubject;
 import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.asfoundation.wallet.service.AirDropService.BASE_URL;
 
 @Module class TransactionsModule {
   @Provides TransactionsViewModelFactory provideTransactionsViewModelFactory(
@@ -48,15 +54,25 @@ import okhttp3.OkHttpClient;
   }
 
   @Provides AirDropService provideAirDropService(OkHttpClient client, Gson gson,
-      PendingTransactionService pendingTransactionService,
-      EthereumNetworkRepositoryType repository) {
-    return new AirDropService(client, gson, pendingTransactionService, repository,
-        BehaviorSubject.create());
+      PendingTransactionService pendingTransactionService, EthereumNetworkRepositoryType repository,
+      AirdropChainIdMapper airdropChainIdMapper) {
+    return new AirDropService(pendingTransactionService, repository, BehaviorSubject.create(),
+        new Retrofit.Builder().baseUrl(BASE_URL)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
+            .create(AirDropService.Api.class), airdropChainIdMapper);
   }
 
   @Provides FetchTokensInteract provideFetchTokensInteract(TokenRepositoryType tokenRepository,
       DefaultTokenProvider defaultTokenProvider) {
     return new FetchTokensInteract(tokenRepository, defaultTokenProvider);
+  }
+
+  @Provides AirdropChainIdMapper provideAirdropChainIdMapper(
+      FindDefaultNetworkInteract defaultNetworkInteract) {
+    return new AirdropChainIdMapper(defaultNetworkInteract);
   }
 
   @Provides FetchTransactionsInteract provideFetchTransactionsInteract(

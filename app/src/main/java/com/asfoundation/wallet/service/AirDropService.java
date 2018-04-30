@@ -4,21 +4,18 @@ import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.PendingTransactionService;
-import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import java.util.ArrayList;
 import java.util.List;
-import okhttp3.OkHttpClient;
 import retrofit2.HttpException;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by trinkes on 3/16/18.
@@ -30,23 +27,22 @@ public class AirDropService {
   private final PendingTransactionService pendingTransactionService;
   private final EthereumNetworkRepositoryType repository;
   private final BehaviorSubject<AirdropStatus> airdropResponse;
+  private final AirdropChainIdMapper airdropChainIdMapper;
 
-  public AirDropService(OkHttpClient httpClient, Gson gson,
-      PendingTransactionService pendingTransactionService, EthereumNetworkRepositoryType repository,
-      BehaviorSubject<AirdropStatus> airdropResponse) {
+  public AirDropService(PendingTransactionService pendingTransactionService,
+      EthereumNetworkRepositoryType repository, BehaviorSubject<AirdropStatus> airdropResponse,
+      Api api, AirdropChainIdMapper airdropChainIdMapper) {
     this.pendingTransactionService = pendingTransactionService;
     this.repository = repository;
     this.airdropResponse = airdropResponse;
-    api = new Retrofit.Builder().baseUrl(BASE_URL)
-        .client(httpClient)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(Api.class);
+    this.api = api;
+    this.airdropChainIdMapper = airdropChainIdMapper;
   }
 
   public void request(Wallet wallet) {
-    api.requestCoins(wallet.address)
+    airdropChainIdMapper.getAirdropChainId()
+        .observeOn(Schedulers.io())
+        .flatMap(chainId -> api.requestCoins(wallet.address, chainId))
         .doOnSubscribe(__ -> airdropResponse.onNext(AirdropStatus.PENDING))
         .doOnSuccess(airDropResponse -> {
           for (NetworkInfo networkInfo : repository.getAvailableNetworkList()) {
@@ -100,7 +96,7 @@ public class AirDropService {
   public interface Api {
 
     @GET("airdrop/{address}/funds") Single<AirDropResponse> requestCoins(
-        @Path("address") String address);
+        @Path("address") String address, @Query("chain_id") int chainId);
   }
 
   private static class AirDropResponse {
