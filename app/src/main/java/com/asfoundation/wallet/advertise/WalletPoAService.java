@@ -21,6 +21,7 @@ import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofStatus;
 import dagger.android.AndroidInjection;
 import io.reactivex.disposables.Disposable;
+import java.util.List;
 import javax.inject.Inject;
 
 import static com.asfoundation.wallet.advertise.ServiceConnector.ACTION_ACK_BROADCAST;
@@ -109,8 +110,11 @@ public class WalletPoAService extends Service {
           .doOnNext(proof -> updateNotification(proof.getProofStatus()))
           .filter(proof -> proof.getProofStatus()
               .isTerminate())
-          .take(1)
           .doOnNext(proof -> proofOfAttentionService.remove(proof.getPackageName()))
+          .flatMapSingle(proof -> proofOfAttentionService.get()
+              .firstOrError())
+          .filter(List::isEmpty)
+          .take(1)
           .subscribe(proof -> {
           });
     }
