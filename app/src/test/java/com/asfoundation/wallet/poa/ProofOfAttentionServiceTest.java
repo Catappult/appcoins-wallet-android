@@ -45,7 +45,6 @@ public class ProofOfAttentionServiceTest {
 
     nonce = 1L;
     when(hashCalculator.calculateNonce(any(NonceData.class))).thenReturn(nonce);
-    when(hashCalculator.calculate(any())).thenReturn("hash");
     when(blockChainWriter.writeProof(any(Proof.class))).thenReturn(Single.just("hash"));
   }
 
@@ -59,8 +58,9 @@ public class ProofOfAttentionServiceTest {
         .subscribe(testObserver);
     testObserver.assertNoErrors()
         .assertValueCount(1)
-        .assertValue(new Proof(packageName, campaignId, Collections.emptyList(), null,
-            BuildConfig.APPLICATION_ID, ProofStatus.PROCESSING, 1, null, null));
+        .assertValue(
+            new Proof(packageName, campaignId, Collections.emptyList(), BuildConfig.APPLICATION_ID,
+                ProofStatus.PROCESSING, 1, null, null));
   }
 
   @Test public void registerProof() {
@@ -77,9 +77,8 @@ public class ProofOfAttentionServiceTest {
     testScheduler.triggerActions();
     testObserver.assertNoErrors()
         .assertValueCount(1)
-        .assertValue(
-            new Proof(packageName, campaignId, Collections.emptyList(), null, walletPackage,
-                ProofStatus.PROCESSING, 1, null, null));
+        .assertValue(new Proof(packageName, campaignId, Collections.emptyList(), walletPackage,
+            ProofStatus.PROCESSING, 1, null, null));
 
     proofOfAttentionService.registerProof(packageName, timeStamp);
 
@@ -87,18 +86,20 @@ public class ProofOfAttentionServiceTest {
     List<ProofComponent> proofComponents = new ArrayList<>();
     proofComponents.add(new ProofComponent(timeStamp, nonce));
     Assert.assertEquals(testObserver.assertValueCount(2)
-        .values()
-        .get(1), new Proof(packageName, campaignId, proofComponents, null, walletPackage,
-        ProofStatus.PROCESSING, 1, null, null));
+            .values()
+            .get(1),
+        new Proof(packageName, campaignId, proofComponents, walletPackage, ProofStatus.PROCESSING,
+            1, null, null));
 
     proofOfAttentionService.registerProof(packageName, timeStamp2);
     testScheduler.triggerActions();
 
     proofComponents.add(new ProofComponent(timeStamp2, nonce));
     Assert.assertEquals(testObserver.assertValueCount(3)
-        .values()
-        .get(2), new Proof(packageName, campaignId, proofComponents, null, walletPackage,
-        ProofStatus.PROCESSING, 1, null, null));
+            .values()
+            .get(2),
+        new Proof(packageName, campaignId, proofComponents, walletPackage, ProofStatus.PROCESSING,
+            1, null, null));
   }
 
   @Test public void registerProofWithoutCampaignId() {
@@ -117,8 +118,8 @@ public class ProofOfAttentionServiceTest {
     Assert.assertEquals(testObserver.assertValueCount(1)
             .values()
             .get(0),
-        new Proof(packageName, null, proofComponents, null, walletPackage, ProofStatus.PROCESSING,
-            1, null, null));
+        new Proof(packageName, null, proofComponents, walletPackage, ProofStatus.PROCESSING, 1,
+            null, null));
   }
 
   @Test public void registerProofMaxComponents() {
@@ -140,7 +141,7 @@ public class ProofOfAttentionServiceTest {
         .size(), maxNumberProofComponents);
   }
 
-  @Test public void getCompletedPoA() throws NoSuchAlgorithmException {
+  @Test public void getCompletedPoA() {
     String packageName = "packageName";
     String campaignId = "campaignId";
     int timeStamp = 10;
@@ -164,13 +165,11 @@ public class ProofOfAttentionServiceTest {
         .get(5);
     verify(blockChainWriter, times(1)).writeProof(
         new Proof(value.getPackageName(), value.getCampaignId(), value.getProofComponentList(),
-            hashCalculator.calculate(value), value.getWalletPackage(), ProofStatus.SUBMITTING, 1,
-            null, null));
+            value.getWalletPackage(), ProofStatus.SUBMITTING, 1, null, null));
 
     Assert.assertEquals(
         new Proof(value.getPackageName(), value.getCampaignId(), value.getProofComponentList(),
-            hashCalculator.calculate(value), value.getWalletPackage(), ProofStatus.COMPLETED, 1,
-            null, null), value);
+            value.getWalletPackage(), ProofStatus.COMPLETED, 1, null, null), value);
 
     proofOfAttentionService.stop();
   }
@@ -253,7 +252,7 @@ public class ProofOfAttentionServiceTest {
     testObserver.assertNoErrors()
         .assertValueCount(1)
         .assertValue(
-            new Proof(packageName, null, Collections.emptyList(), null, BuildConfig.APPLICATION_ID,
+            new Proof(packageName, null, Collections.emptyList(), BuildConfig.APPLICATION_ID,
                 ProofStatus.PROCESSING, 2, null, null));
   }
 }

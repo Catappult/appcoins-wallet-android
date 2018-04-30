@@ -187,8 +187,8 @@ import okhttp3.OkHttpClient;
     return new BlockChainWriter(web3jProvider, transactionFactory);
   }
 
-  @Singleton @Provides HashCalculator provideHashCalculator(Gson gson, Calculator calculator) {
-    return new HashCalculator(gson, BuildConfig.LEADING_ZEROS_ON_PROOF_OF_ATTENTION, calculator);
+  @Singleton @Provides HashCalculator provideHashCalculator(Calculator calculator) {
+    return new HashCalculator(BuildConfig.LEADING_ZEROS_ON_PROOF_OF_ATTENTION, calculator);
   }
 
   @Provides TaggedCompositeDisposable provideTaggedCompositeDisposable() {
