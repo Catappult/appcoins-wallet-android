@@ -26,8 +26,8 @@ import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.GasSettingsRepository;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
 import com.asfoundation.wallet.repository.MemoryCache;
+import com.asfoundation.wallet.repository.NonceGetter;
 import com.asfoundation.wallet.repository.PasswordStore;
-import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.PreferenceRepositoryType;
 import com.asfoundation.wallet.repository.SharedPreferenceRepository;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
@@ -98,14 +98,14 @@ import okhttp3.OkHttpClient;
   }
 
   @Provides ApproveService provideApproveService(SendTransactionInteract sendTransactionInteract,
-      PendingTransactionService pendingTransactionService, ErrorMapper errorMapper) {
-    return new ApproveService(sendTransactionInteract, pendingTransactionService,
+      ErrorMapper errorMapper) {
+    return new ApproveService(sendTransactionInteract,
         new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), errorMapper, Schedulers.io());
   }
 
   @Provides BuyService provideBuyService(SendTransactionInteract sendTransactionInteract,
-      PendingTransactionService pendingTransactionService, ErrorMapper errorMapper) {
-    return new BuyService(sendTransactionInteract, pendingTransactionService,
+      ErrorMapper errorMapper) {
+    return new BuyService(sendTransactionInteract,
         new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), errorMapper, Schedulers.io());
   }
 
@@ -135,9 +135,10 @@ import okhttp3.OkHttpClient;
   @Singleton @Provides TransactionService provideTransactionService(
       FetchGasSettingsInteract gasSettingsInteract, TransferParser parser,
       FindDefaultWalletInteract defaultWalletInteract, ApproveService approveService,
-      BuyService buyService) {
+      BuyService buyService, NonceGetter nonceGetter) {
     return new TransactionService(gasSettingsInteract, defaultWalletInteract, parser,
-        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), approveService, buyService);
+        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), approveService, buyService,
+        nonceGetter);
   }
 
   @Provides TransferParser provideTransferParser(
@@ -200,5 +201,10 @@ import okhttp3.OkHttpClient;
     return new ProofOfAttentionService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
         BuildConfig.APPLICATION_ID, hashCalculator, new CompositeDisposable(), blockChainWriter,
         Schedulers.computation(), 12, new BlockchainErrorMapper(), disposables);
+  }
+
+  @Provides NonceGetter provideNonceGetter(EthereumNetworkRepositoryType networkRepository,
+      FindDefaultWalletInteract defaultWalletInteract) {
+    return new NonceGetter(networkRepository, defaultWalletInteract);
   }
 }
