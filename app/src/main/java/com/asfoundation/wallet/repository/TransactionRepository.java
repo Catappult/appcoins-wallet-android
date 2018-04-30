@@ -14,6 +14,7 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import org.reactivestreams.Publisher;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jFactory;
@@ -64,31 +65,35 @@ public class TransactionRepository implements TransactionRepositoryType {
   }
 
   public Single<String> createTransaction(TransactionBuilder transactionBuilder, String password) {
-    return createTransaction(transactionBuilder, password, transactionBuilder.data(),
-        transactionBuilder.shouldSendToken() ? transactionBuilder.contractAddress()
-            : transactionBuilder.toAddress(), transactionBuilder.shouldSendToken() ? BigDecimal.ZERO
-            : transactionBuilder.subunitAmount());
+    return nonceGetter.getNonce(transactionBuilder.fromAddress())
+        .flatMap(nonce -> createTransaction(transactionBuilder, password, transactionBuilder.data(),
+            transactionBuilder.shouldSendToken() ? transactionBuilder.contractAddress()
+                : transactionBuilder.toAddress(),
+            transactionBuilder.shouldSendToken() ? BigDecimal.ZERO
+                : transactionBuilder.subunitAmount(), nonce));
   }
 
-  @Override public Single<String> approve(TransactionBuilder transactionBuilder, String password) {
+  @Override public Single<String> approve(TransactionBuilder transactionBuilder, String password,
+      BigInteger nonce) {
     return createTransaction(transactionBuilder, password, transactionBuilder.approveData(),
-        transactionBuilder.contractAddress(), BigDecimal.ZERO);
+        transactionBuilder.contractAddress(), BigDecimal.ZERO, nonce);
   }
 
-  @Override public Single<String> callIab(TransactionBuilder transaction, String password) {
+  @Override
+  public Single<String> callIab(TransactionBuilder transaction, String password, BigInteger nonce) {
     return defaultTokenProvider.getDefaultToken()
         .flatMap(
             token -> createTransaction(transaction, password, transaction.buyData(token.address),
-                transaction.getIabContract(), BigDecimal.ZERO));
+                transaction.getIabContract(), BigDecimal.ZERO, nonce));
   }
 
   private Single<String> createTransaction(TransactionBuilder transactionBuilder, String password,
-      byte[] data, String toAddress, BigDecimal amount) {
+      byte[] data, String toAddress, BigDecimal amount, BigInteger nonce) {
     final Web3j web3j =
         Web3jFactory.build(new HttpService(networkRepository.getDefaultNetwork().rpcServerUrl));
 
-    return nonceGetter.getNonce(web3j, transactionBuilder.fromAddress())
-        .flatMap(nonce -> {
+    return Single.just(nonce)
+        .flatMap(__ -> {
           if (transactionBuilder.getChainId() != TransactionBuilder.NO_CHAIN_ID
               && transactionBuilder.getChainId() != networkRepository.getDefaultNetwork().chainId) {
             String requestedNetwork = "unknown";

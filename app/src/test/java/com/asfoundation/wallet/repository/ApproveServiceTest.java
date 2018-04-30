@@ -3,12 +3,12 @@ package com.asfoundation.wallet.repository;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
-import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import org.junit.Assert;
@@ -18,7 +18,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 /**
@@ -26,7 +25,6 @@ import static org.mockito.Mockito.when;
  */
 public class ApproveServiceTest {
   @Mock SendTransactionInteract sendTransactionInteract;
-  @Mock PendingTransactionService pendingTransactionService;
   private ApproveService approveService;
   private PublishSubject<PendingTransaction> pendingTransactionState;
   private TestScheduler scheduler;
@@ -35,18 +33,15 @@ public class ApproveServiceTest {
     MockitoAnnotations.initMocks(this);
 
     pendingTransactionState = PublishSubject.create();
-    when(pendingTransactionService.checkTransactionState(anyString())).thenReturn(
-        pendingTransactionState)
-        .thenReturn(pendingTransactionState);
 
-    when(sendTransactionInteract.approve(any(TransactionBuilder.class))).thenReturn(
-        Single.just("approve_hash"));
+    when(sendTransactionInteract.approve(any(TransactionBuilder.class),
+        any(BigInteger.class))).thenReturn(Single.just("approve_hash"));
 
-    when(sendTransactionInteract.buy(any(TransactionBuilder.class))).thenReturn(
-        Single.just("buy_hash"));
+    when(sendTransactionInteract.buy(any(TransactionBuilder.class),
+        any(BigInteger.class))).thenReturn(Single.just("buy_hash"));
 
     scheduler = new TestScheduler();
-    approveService = new ApproveService(sendTransactionInteract, pendingTransactionService,
+    approveService = new ApproveService(sendTransactionInteract,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new ErrorMapper(),
         scheduler);
     approveService.start();
@@ -69,25 +64,19 @@ public class ApproveServiceTest {
     scheduler.triggerActions();
 
     List<PaymentTransaction> values = observer.values();
-    Assert.assertEquals(values.size(), 4);
-    Assert.assertEquals(values.get(3)
+    Assert.assertEquals(values.size(), 3);
+    Assert.assertEquals(values.get(2)
         .getState(), PaymentTransaction.PaymentState.APPROVED);
   }
 
   @Test public void approveTransactionNotFound() {
-    Observable<PendingTransaction> pendingTransactionState =
-        Observable.just(new PendingTransaction("hash", true),
-            new PendingTransaction("hash", false));
-    when(pendingTransactionService.checkTransactionState(anyString())).thenReturn(
-        pendingTransactionState);
-
-    when(sendTransactionInteract.buy(any())).thenReturn(Single.just("buy_hash"));
+    when(sendTransactionInteract.buy(any(), any(BigInteger.class))).thenReturn(
+        Single.just("buy_hash"));
 
     TestScheduler scheduler = new TestScheduler();
-    ApproveService approveService =
-        new ApproveService(sendTransactionInteract, pendingTransactionService,
-            new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
-            new ErrorMapper(), scheduler);
+    ApproveService approveService = new ApproveService(sendTransactionInteract,
+        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new ErrorMapper(),
+        scheduler);
     approveService.start();
 
     String uri = "uri";
@@ -101,8 +90,8 @@ public class ApproveServiceTest {
     scheduler.triggerActions();
 
     List<PaymentTransaction> values = observer.values();
-    Assert.assertEquals(4, values.size());
-    Assert.assertEquals(PaymentTransaction.PaymentState.APPROVED, values.get(3)
+    Assert.assertEquals(3, values.size());
+    Assert.assertEquals(PaymentTransaction.PaymentState.APPROVED, values.get(2)
         .getState());
   }
 }

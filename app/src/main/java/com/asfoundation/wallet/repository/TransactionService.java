@@ -24,23 +24,27 @@ public class TransactionService {
   private final Cache<String, PaymentTransaction> cache;
   private final ApproveService approveService;
   private final BuyService buyService;
+  private final NonceGetter nonceGetter;
 
   public TransactionService(FetchGasSettingsInteract gasSettingsInteract,
       FindDefaultWalletInteract defaultWalletInteract, TransferParser parser,
-      Cache<String, PaymentTransaction> cache, ApproveService approveService,
-      BuyService buyService) {
+      Cache<String, PaymentTransaction> cache, ApproveService approveService, BuyService buyService,
+      NonceGetter nonceGetter) {
     this.gasSettingsInteract = gasSettingsInteract;
     this.defaultWalletInteract = defaultWalletInteract;
     this.parser = parser;
     this.cache = cache;
     this.approveService = approveService;
     this.buyService = buyService;
+    this.nonceGetter = nonceGetter;
   }
 
   public Completable send(String uri) {
     return buildPaymentTransaction(uri).flatMapCompletable(
         paymentTransaction -> cache.save(paymentTransaction.getUri(), paymentTransaction)
-            .andThen(approveService.approve(uri, paymentTransaction)));
+            .andThen(nonceGetter.getNonce()
+                .flatMapCompletable(nonce -> approveService.approve(uri,
+                    new PaymentTransaction(paymentTransaction, nonce)))));
   }
 
   private Single<PaymentTransaction> buildPaymentTransaction(String uri) {
