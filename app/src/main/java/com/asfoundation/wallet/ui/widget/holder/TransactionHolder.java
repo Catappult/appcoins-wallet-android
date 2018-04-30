@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.widget.holder;
 
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.entity.RawTransaction;
-import com.asfoundation.wallet.entity.TransactionOperation;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.widget.OnTransactionClickListener;
 import java.math.BigDecimal;
@@ -26,9 +23,7 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   public static final int VIEW_TYPE = 1003;
   public static final String DEFAULT_ADDRESS_ADDITIONAL = "default_address";
   public static final String DEFAULT_SYMBOL_ADDITIONAL = "network_symbol";
-  private static final int SIGNIFICANT_FIGURES = 3;
   private final ImageView srcImage;
-  private final ImageView typeIcon;
   private final TextView address;
   private final TextView description;
   private final TextView value;
@@ -39,16 +34,16 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   private String defaultAddress;
   private OnTransactionClickListener onTransactionClickListener;
 
-  public TransactionHolder(int resId, ViewGroup parent) {
+  public TransactionHolder(int resId, ViewGroup parent, OnTransactionClickListener listener) {
     super(resId, parent);
 
     srcImage = findViewById(R.id.img);
-    typeIcon = findViewById(R.id.icon);
     address = findViewById(R.id.address);
     description = findViewById(R.id.description);
     value = findViewById(R.id.value);
     currency = findViewById(R.id.currency);
     status = findViewById(R.id.status);
+    onTransactionClickListener = listener;
 
     itemView.setOnClickListener(this);
   }
@@ -65,19 +60,9 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     if (!TextUtils.isEmpty(transaction.getCurrency())) {
       currency = transaction.getCurrency();
     }
-    // If operations include token transfer, display token transfer instead
-    //TransactionOperation operation =
-    //    transaction.operations == null || transaction.operations.length == 0 ? null
-    //        : transaction.operations[0];
+    fill(transaction.getType(), transaction.getFrom(), transaction.getTo(), currency,
+        transaction.getValue(), ETHER_DECIMALS, transaction.getStatus(), transaction.getDetails());
 
-    //if (operation == null || operation.contract == null) {
-      // default to ether transaction
-      fill(transaction.getType(), transaction.getFrom(), transaction.getTo(), currency,
-          transaction.getValue(), ETHER_DECIMALS, transaction.getStatus(), transaction.getDetails());
-    //} else {
-    //  fill(transaction.error, operation.from, operation.to, operation.contract.symbol,
-    //      operation.value, operation.contract.decimals, transaction.timeStamp);
-    //}
   }
 
   private void fill(Transaction.TransactionType type, String from, String to, String currencySymbol,
@@ -137,12 +122,6 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   }
 
   @Override public void onClick(View view) {
-    if (onTransactionClickListener != null) {
-      onTransactionClickListener.onTransactionClick(view, transaction.getTransaction());
-    }
-  }
-
-  public void setOnTransactionClickListener(OnTransactionClickListener onTransactionClickListener) {
-    this.onTransactionClickListener = onTransactionClickListener;
+    onTransactionClickListener.onTransactionClick(view, transaction.getTransaction());
   }
 }

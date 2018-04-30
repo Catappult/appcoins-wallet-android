@@ -6,28 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-  <ImageView
-      android:id="@+id/asf_logo"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:src="@drawable/icon_asf_lightgrey"
-      app:layout_constraintBottom_toTopOf="@id/no_transactions_text"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintVertical_chainStyle="packed"
-      />
   <TextView
       android:id="@+id/no_transactions_text"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginTop="42dp"
+      android:layout_marginTop="@dimen/half_large_margin"
       android:gravity="center"
       android:text="@string/no_transactions_yet"
       app:layout_constraintBottom_toTopOf="@id/action_air_drop"
       app:layout_constraintEnd_toStartOf="@+id/guideline2"
       app:layout_constraintStart_toStartOf="@+id/guideline"
-      app:layout_constraintTop_toBottomOf="@id/asf_logo"
+      app:layout_constraintTop_toTopOf="parent"
       />
   <Button
       android:id="@+id/action_air_drop"

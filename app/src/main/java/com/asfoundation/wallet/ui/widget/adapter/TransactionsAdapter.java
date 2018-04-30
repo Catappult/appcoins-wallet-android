@@ -65,8 +65,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
     switch (viewType) {
       case TransactionHolder.VIEW_TYPE: {
         TransactionHolder transactionHolder =
-            new TransactionHolder(R.layout.item_transaction, parent);
-        transactionHolder.setOnTransactionClickListener(onTransactionClickListener);
+            new TransactionHolder(R.layout.item_transaction, parent, onTransactionClickListener);
         holder = transactionHolder;
       }
       break;

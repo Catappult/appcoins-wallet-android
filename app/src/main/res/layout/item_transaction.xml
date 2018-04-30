@@ -14,13 +14,13 @@
       android:id="@+id/src_img"
       android:layout_width="40dp"
       android:layout_height="40dp"
+      android:layout_marginBottom="@dimen/big_padding"
+      android:layout_marginStart="@dimen/big_padding"
       android:layout_marginTop="@dimen/normal_margin"
       android:background="@drawable/transaction_img_background"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      android:layout_marginStart="@dimen/big_padding"
-      android:layout_marginBottom="@dimen/big_padding"
       >
     <ImageView
         android:id="@+id/img"
@@ -36,9 +36,9 @@
       android:id="@+id/type_icon"
       android:layout_width="24dp"
       android:layout_height="24dp"
+      android:layout_marginStart="40dp"
       android:background="@drawable/transaction_icon_background"
       android:visibility="invisible"
-      android:layout_marginStart="40dp"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       >
@@ -74,6 +74,7 @@
       android:id="@+id/description"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/big_padding"
       android:layout_marginEnd="@dimen/small_margin"
       android:layout_marginStart="@dimen/big_margin"
       android:maxLines="1"
@@ -86,20 +87,19 @@
       app:layout_constraintTop_toBottomOf="@id/address"
       app:layout_constraintWidth_default="wrap"
       tools:text="Description"
-      android:layout_marginBottom="@dimen/big_padding"
       />
 
   <TextView
       android:id="@+id/currency"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/big_padding"
       android:layout_marginTop="@dimen/normal_margin"
       android:textColor="@color/gray"
       android:textSize="12sp"
-      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintBaseline_toBaselineOf="@id/value"
+      app:layout_constraintEnd_toEndOf="parent"
       tools:text="APPC"
-      android:layout_marginEnd="@dimen/big_padding"
       />
 
   <TextView
@@ -109,9 +109,9 @@
       android:layout_marginEnd="4dp"
       android:layout_marginTop="@dimen/normal_margin"
       android:textColor="@color/black"
+      android:textSize="16sp"
       app:layout_constraintEnd_toStartOf="@id/currency"
       app:layout_constraintTop_toTopOf="parent"
-      android:textSize="16sp"
       tools:text="+10"
       />
 
@@ -120,14 +120,14 @@
       android:id="@+id/status"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/big_padding"
+      android:layout_marginEnd="@dimen/big_padding"
       android:textColor="@color/green"
+      android:textSize="12sp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@id/currency"
-      android:textSize="12sp"
       tools:text="Success"
-      android:layout_marginEnd="@dimen/big_padding"
-      android:layout_marginBottom="@dimen/big_padding"
       />
 
   <View

@@ -42,8 +42,9 @@
   <com.asfoundation.wallet.widget.SystemView
       android:id="@+id/system_view"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_marginTop="?actionBarSize"
+      android:layout_height="wrap_content"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"
+      android:background="@color/activity_background_color"
       tools:visibility="gone"
       />
   <android.support.design.widget.BottomNavigationView
