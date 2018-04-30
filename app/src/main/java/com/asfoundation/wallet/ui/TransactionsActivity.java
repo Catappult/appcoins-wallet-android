@@ -15,6 +15,7 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -23,16 +24,18 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.Transaction;
+import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.poa.TransactionFactory;
 import com.asfoundation.wallet.service.AirDropService;
+import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsAdapter;
 import com.asfoundation.wallet.util.RootUtil;
 import com.asfoundation.wallet.viewmodel.BaseNavigationActivity;
@@ -42,6 +45,7 @@ import com.asfoundation.wallet.widget.DepositView;
 import com.asfoundation.wallet.widget.EmptyTransactionsView;
 import com.asfoundation.wallet.widget.SystemView;
 import dagger.android.AndroidInjection;
+import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
 
@@ -75,15 +79,13 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     toolbar();
     enableDisplayHomeAsUp();
 
-    ((AppBarLayout) findViewById(R.id.app_bar)).addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-      @Override public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-        float percentage = ((float)Math.abs(verticalOffset)/appBarLayout.getTotalScrollRange());
-        findViewById(R.id.toolbar_layout_logo).setAlpha(1 - percentage);
-      }
-    });
+    ((AppBarLayout) findViewById(R.id.app_bar)).addOnOffsetChangedListener(
+        (appBarLayout, verticalOffset) -> {
+          float percentage = ((float)Math.abs(verticalOffset)/appBarLayout.getTotalScrollRange());
+          findViewById(R.id.toolbar_layout_logo).setAlpha(1 - (percentage * 1.20f));
+        });
 
-    setCollapsingTitle(new SpannableString(getString(R.string.unknown_balance_with_symbol)));
-    //setTitle(getString(R.string.unknown_balance_with_symbol));
+    setCollapsingTitle(getString(R.string.unknown_balance_with_symbol));
     setSubtitle("");
     initBottomNavigation();
     dissableDisplayHomeAsUp();
@@ -93,17 +95,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     systemView = findViewById(R.id.system_view);
 
     RecyclerView list = findViewById(R.id.list);
-
     list.setLayoutManager(new LinearLayoutManager(this));
-    list.addItemDecoration(new RecyclerView.ItemDecoration() {
-      @Override public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
-          RecyclerView.State state) {
-        int position = list.getChildAdapterPosition(view);
-        if (position == 0) {
-          outRect.top = (int) getResources().getDimension(R.dimen.big_margin);
-        }
-      }
-    });
     list.setAdapter(adapter);
 
     systemView.attachRecyclerView(list);
@@ -135,14 +127,12 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
           .equals(C.USD_SYMBOL)) {
         setSubtitle(C.USD_SYMBOL + balance.get(C.USD_SYMBOL));
       } else {
-        String fullText = entry.getValue().toUpperCase() + " " + entry.getKey();
-        setCollapsingTitle(new SpannableString(fullText));
-        break;
+        setCollapsingTitle(entry.getValue().toUpperCase() + " " + entry.getKey());
       }
     }
   }
 
-  private void onTransactionClick(View view, Transaction transaction) {
+  private void onTransactionClick(View view, RawTransaction transaction) {
     viewModel.showDetails(view.getContext(), transaction);
   }
 
@@ -157,7 +147,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   @Override protected void onResume() {
     super.onResume();
-    setTitle(getString(R.string.unknown_balance_without_symbol));
+    setCollapsingTitle(getString(R.string.unknown_balance_without_symbol));
     setSubtitle("");
     adapter.clear();
     viewModel.prepare();
@@ -234,7 +224,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     return false;
   }
 
-  private void onTransactions(Transaction[] transaction) {
+  private void onTransactions(List<Transaction> transaction) {
     adapter.addTransactions(transaction);
     invalidateOptionsMenu();
   }
@@ -254,9 +244,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         emptyView = new EmptyTransactionsView(this, this);
       }
       systemView.showEmpty(emptyView);
-    }/* else {
-            systemView.showError(getString(R.string.error_fail_load_transaction), this);
-        }*/
+    }
   }
 
   private void checkRoot() {
@@ -387,18 +375,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     }
     if (programEndedDialog != null) {
       programEndedDialog.dismiss();
-    }
-  }
-
-  private void setCollapsingTitle(SpannableString title) {
-    Toolbar toolbar = findViewById(R.id.toolbar);
-    if (toolbar != null) {
-      toolbar.setTitle(title);
-    }
-
-    CollapsingToolbarLayout collapsing = findViewById(R.id.toolbar_layout);
-    if (collapsing != null) {
-      collapsing.setTitle(title);
     }
   }
 }

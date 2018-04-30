@@ -9,7 +9,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.Transaction;
+import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
@@ -42,14 +42,14 @@ public class TransactionDetailViewModel extends BaseViewModel {
     return defaultNetwork;
   }
 
-  public void showMoreDetails(Context context, Transaction transaction) {
+  public void showMoreDetails(Context context, RawTransaction transaction) {
     Uri uri = buildEtherscanUri(transaction);
     if (uri != null) {
       externalBrowserRouter.open(context, uri);
     }
   }
 
-  public void shareTransactionDetail(Context context, Transaction transaction) {
+  public void shareTransactionDetail(Context context, RawTransaction transaction) {
     Uri shareUri = buildEtherscanUri(transaction);
     if (shareUri != null) {
       Intent sharingIntent = new Intent(Intent.ACTION_SEND);
@@ -61,7 +61,7 @@ public class TransactionDetailViewModel extends BaseViewModel {
     }
   }
 
-  @Nullable private Uri buildEtherscanUri(Transaction transaction) {
+  @Nullable private Uri buildEtherscanUri(RawTransaction transaction) {
     NetworkInfo networkInfo = defaultNetwork.getValue();
     if (networkInfo != null && !TextUtils.isEmpty(networkInfo.etherscanUrl)) {
       return Uri.parse(networkInfo.etherscanUrl)

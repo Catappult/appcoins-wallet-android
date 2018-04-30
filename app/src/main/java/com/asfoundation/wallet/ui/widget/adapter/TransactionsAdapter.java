@@ -6,8 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.Transaction;
+import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.widget.OnTransactionClickListener;
 import com.asfoundation.wallet.ui.widget.entity.DateSortedItem;
 import com.asfoundation.wallet.ui.widget.entity.SortedItem;
@@ -16,6 +17,7 @@ import com.asfoundation.wallet.ui.widget.entity.TransactionSortedItem;
 import com.asfoundation.wallet.ui.widget.holder.BinderViewHolder;
 import com.asfoundation.wallet.ui.widget.holder.TransactionDateHolder;
 import com.asfoundation.wallet.ui.widget.holder.TransactionHolder;
+import java.util.List;
 
 public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> {
 
@@ -100,14 +102,14 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
     notifyDataSetChanged();
   }
 
-  public void addTransactions(Transaction[] transactions) {
+  public void addTransactions(List<Transaction> transactions) {
     items.beginBatchedUpdates();
     for (Transaction transaction : transactions) {
       TransactionSortedItem sortedItem =
           new TransactionSortedItem(TransactionHolder.VIEW_TYPE, transaction,
               TimestampSortedItem.DESC);
       items.add(sortedItem);
-      items.add(DateSortedItem.round(transaction.timeStamp));
+      items.add(DateSortedItem.round(transaction.getTimeStamp()));
     }
     items.endBatchedUpdates();
   }

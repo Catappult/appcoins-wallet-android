@@ -7,23 +7,19 @@ import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
-import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.router.GasSettingsRouter;
 import com.crashlytics.android.Crashlytics;
 
 public class ConfirmationViewModel extends BaseViewModel {
-  private static final String TAG = ConfirmationViewModel.class.getSimpleName();
   private final MutableLiveData<TransactionBuilder> transactionBuilder = new MutableLiveData<>();
   private final MutableLiveData<PendingTransaction> transactionHash = new MutableLiveData<>();
   private final SendTransactionInteract sendTransactionInteract;
   private final GasSettingsRouter gasSettingsRouter;
-  private final PendingTransactionService pendingTransactionService;
 
   ConfirmationViewModel(SendTransactionInteract sendTransactionInteract,
-      GasSettingsRouter gasSettingsRouter, PendingTransactionService pendingTransactionService) {
+      GasSettingsRouter gasSettingsRouter) {
     this.sendTransactionInteract = sendTransactionInteract;
     this.gasSettingsRouter = gasSettingsRouter;
-    this.pendingTransactionService = pendingTransactionService;
   }
 
   public void init(TransactionBuilder transactionBuilder) {
@@ -54,7 +50,7 @@ public class ConfirmationViewModel extends BaseViewModel {
   public void send() {
     progress.postValue(true);
     disposable = sendTransactionInteract.send(transactionBuilder.getValue())
-        .flatMapObservable(pendingTransactionService::checkTransactionState)
+        .map(hash -> new PendingTransaction(hash, false))
         .subscribe(this::onCreateTransaction, this::onError);
   }
 

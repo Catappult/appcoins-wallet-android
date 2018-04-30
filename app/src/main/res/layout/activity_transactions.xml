@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/activity_background_color"
+    >
 
   <include layout="@layout/layout_collapsing_app_bar"/>
 
@@ -25,11 +27,16 @@
       android:layout_height="match_parent"
       android:layout_marginBottom="?actionBarSize"
       app:layout_behavior="@string/appbar_scrolling_view_behavior"
+      android:background="@color/activity_background_color"
       >
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/activity_background_color"
+        android:paddingBottom="@dimen/big_padding"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         />
   </android.support.v4.widget.SwipeRefreshLayout>
   <com.asfoundation.wallet.widget.SystemView
@@ -37,7 +44,6 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_marginTop="?actionBarSize"
-      android:background="@color/white"
       tools:visibility="gone"
       />
   <android.support.design.widget.BottomNavigationView

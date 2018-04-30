@@ -7,8 +7,6 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:elevation="@dimen/component_elevation"
-    android:paddingBottom="@dimen/big_padding"
-    android:paddingHorizontal="@dimen/big_padding"
     android:paddingTop="@dimen/normal_padding"
     >
 
@@ -21,6 +19,8 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      android:layout_marginStart="@dimen/big_padding"
+      android:layout_marginBottom="@dimen/big_padding"
       >
     <ImageView
         android:id="@+id/img"
@@ -36,9 +36,9 @@
       android:id="@+id/type_icon"
       android:layout_width="24dp"
       android:layout_height="24dp"
-      android:layout_marginStart="24dp"
       android:background="@drawable/transaction_icon_background"
       android:visibility="invisible"
+      android:layout_marginStart="40dp"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       >
@@ -51,14 +51,6 @@
         tools:src="@drawable/ic_transaction_poa"
         />
   </FrameLayout>
-
-
-  <LinearLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      >
-
-  </LinearLayout>
   <TextView
       android:id="@+id/address"
       android:layout_width="0dp"
@@ -94,6 +86,7 @@
       app:layout_constraintTop_toBottomOf="@id/address"
       app:layout_constraintWidth_default="wrap"
       tools:text="Description"
+      android:layout_marginBottom="@dimen/big_padding"
       />
 
   <TextView
@@ -106,6 +99,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintBaseline_toBaselineOf="@id/value"
       tools:text="APPC"
+      android:layout_marginEnd="@dimen/big_padding"
       />
 
   <TextView
@@ -132,5 +126,14 @@
       app:layout_constraintTop_toBottomOf="@id/currency"
       android:textSize="12sp"
       tools:text="Success"
+      android:layout_marginEnd="@dimen/big_padding"
+      android:layout_marginBottom="@dimen/big_padding"
+      />
+
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="@color/list_separator_color"
+      app:layout_constraintBottom_toBottomOf="parent"
       />
 </android.support.constraint.ConstraintLayout>

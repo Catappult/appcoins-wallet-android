@@ -3,8 +3,10 @@ package com.asfoundation.wallet.repository;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
+import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 import java.util.List;
@@ -27,6 +29,7 @@ public class ApproveServiceTest {
   @Mock PendingTransactionService pendingTransactionService;
   private ApproveService approveService;
   private PublishSubject<PendingTransaction> pendingTransactionState;
+  private TestScheduler scheduler;
 
   @Before public void before() {
     MockitoAnnotations.initMocks(this);
@@ -42,27 +45,64 @@ public class ApproveServiceTest {
     when(sendTransactionInteract.buy(any(TransactionBuilder.class))).thenReturn(
         Single.just("buy_hash"));
 
+    scheduler = new TestScheduler();
     approveService = new ApproveService(sendTransactionInteract, pendingTransactionService,
-        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new ErrorMapper());
+        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new ErrorMapper(),
+        scheduler);
     approveService.start();
   }
 
-  @Test public void approve() throws Exception {
+  @Test public void approve() {
     String uri = "uri";
     TestObserver<PaymentTransaction> observer = new TestObserver<>();
     approveService.getApprove(uri)
         .subscribe(observer);
-
+    scheduler.triggerActions();
     approveService.approve(uri, new PaymentTransaction(uri, new TransactionBuilder("APPC"),
         PaymentTransaction.PaymentState.PENDING))
         .subscribe();
+    scheduler.triggerActions();
 
     pendingTransactionState.onNext(new PendingTransaction("hash", true));
+    scheduler.triggerActions();
     pendingTransactionState.onNext(new PendingTransaction("hash", false));
+    scheduler.triggerActions();
 
     List<PaymentTransaction> values = observer.values();
     Assert.assertEquals(values.size(), 4);
     Assert.assertEquals(values.get(3)
         .getState(), PaymentTransaction.PaymentState.APPROVED);
+  }
+
+  @Test public void approveTransactionNotFound() {
+    Observable<PendingTransaction> pendingTransactionState =
+        Observable.just(new PendingTransaction("hash", true),
+            new PendingTransaction("hash", false));
+    when(pendingTransactionService.checkTransactionState(anyString())).thenReturn(
+        pendingTransactionState);
+
+    when(sendTransactionInteract.buy(any())).thenReturn(Single.just("buy_hash"));
+
+    TestScheduler scheduler = new TestScheduler();
+    ApproveService approveService =
+        new ApproveService(sendTransactionInteract, pendingTransactionService,
+            new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
+            new ErrorMapper(), scheduler);
+    approveService.start();
+
+    String uri = "uri";
+    TestObserver<PaymentTransaction> observer = new TestObserver<>();
+    approveService.getApprove(uri)
+        .subscribe(observer);
+    scheduler.triggerActions();
+    approveService.approve(uri, new PaymentTransaction(uri, new TransactionBuilder("APPC"),
+        PaymentTransaction.PaymentState.PENDING))
+        .subscribe();
+    scheduler.triggerActions();
+
+    List<PaymentTransaction> values = observer.values();
+    Assert.assertEquals(4, values.size());
+    Assert.assertEquals(PaymentTransaction.PaymentState.APPROVED, values.get(3)
+        .getState());
   }
 }

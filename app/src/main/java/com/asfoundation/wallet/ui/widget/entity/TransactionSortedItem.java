@@ -1,7 +1,8 @@
 package com.asfoundation.wallet.ui.widget.entity;
 
 import android.text.format.DateUtils;
-import com.asfoundation.wallet.entity.Transaction;
+import com.asfoundation.wallet.entity.RawTransaction;
+import com.asfoundation.wallet.transactions.Transaction;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -15,7 +16,7 @@ public class TransactionSortedItem extends TimestampSortedItem<Transaction> {
   @Override public boolean areContentsTheSame(SortedItem newItem) {
     if (viewType == newItem.viewType) {
       Transaction transaction = (Transaction) newItem.value;
-      return value.hash.equals(transaction.hash) && value.timeStamp == transaction.timeStamp;
+      return value.getTransactionId().equals(transaction.getTimeStamp()) && value.getTimeStamp() == transaction.getTimeStamp();
     }
     return false;
   }
@@ -26,13 +27,13 @@ public class TransactionSortedItem extends TimestampSortedItem<Transaction> {
 
   @Override public Date getTimestamp() {
     Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-    calendar.setTimeInMillis(value.timeStamp * DateUtils.SECOND_IN_MILLIS);
+    calendar.setTimeInMillis(value.getTimeStamp() * DateUtils.SECOND_IN_MILLIS);
     return calendar.getTime();
   }
 
   @Override public int compare(SortedItem other) {
     return
-        other.viewType == viewType && ((TransactionSortedItem) other).value.hash.equalsIgnoreCase(
-            value.hash) ? 0 : super.compare(other);
+        other.viewType == viewType && ((TransactionSortedItem) other).value.getTransactionId().equalsIgnoreCase(
+            value.getTransactionId()) ? 0 : super.compare(other);
   }
 }

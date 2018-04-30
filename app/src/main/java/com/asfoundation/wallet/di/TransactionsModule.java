@@ -24,6 +24,7 @@ import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.service.AirDropService;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenExplorerClientType;
+import com.asfoundation.wallet.transactions.TransactionsMapper;
 import com.asfoundation.wallet.viewmodel.TransactionsViewModelFactory;
 import com.google.gson.Gson;
 import dagger.Module;
@@ -40,11 +41,13 @@ import okhttp3.OkHttpClient;
       TransactionDetailRouter transactionDetailRouter, MyAddressRouter myAddressRouter,
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
       FetchTokensInteract fetchTokensInteract, AirDropService airDropService,
-      DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance) {
+      DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
+      TransactionsMapper transactionsMapper) {
     return new TransactionsViewModelFactory(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, manageWalletsRouter, settingsRouter, sendRouter,
         transactionDetailRouter, myAddressRouter, myTokensRouter, externalBrowserRouter,
-        fetchTokensInteract, airDropService, defaultTokenProvider, getDefaultWalletBalance);
+        fetchTokensInteract, airDropService, defaultTokenProvider, getDefaultWalletBalance,
+        transactionsMapper);
   }
 
   @Provides AirDropService provideAirDropService(OkHttpClient client, Gson gson,
@@ -107,5 +110,9 @@ import okhttp3.OkHttpClient;
       TickerService tickerService) {
     return new TokenRepository(okHttpClient, ethereumNetworkRepository, walletRepository,
         tokenExplorerClientType, tokenLocalSource, inDiskCache, tickerService);
+  }
+
+  @Provides TransactionsMapper provideTransactionsMapper(DefaultTokenProvider defaultTokenProvider) {
+    return new TransactionsMapper(defaultTokenProvider);
   }
 }

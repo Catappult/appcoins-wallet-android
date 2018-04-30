@@ -17,7 +17,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class TransferParserTest {
-  @Test public void parse() throws Exception {
+  @Test public void parse() {
     TokenRepositoryType tokenRepositoryType = mock(TokenRepositoryType.class);
     FindDefaultWalletInteract findDefaultWalletInteract = mock(FindDefaultWalletInteract.class);
 
@@ -46,7 +46,7 @@ public class TransferParserTest {
         .equals("0xab949343e6c369c6b17c7ae302c1debd4b7b61c3"));
   }
 
-  @Test public void parseWithData() throws Exception {
+  @Test public void parseWithData() {
     TokenRepositoryType tokenRepositoryType = mock(TokenRepositoryType.class);
     FindDefaultWalletInteract findDefaultWalletInteract = mock(FindDefaultWalletInteract.class);
 
@@ -65,7 +65,8 @@ public class TransferParserTest {
         + contractAddress
         + "@3"
         + "/buy?address=0x2c30194bd2e7b6b8ff1467c5af1650f53cd231be&uint256"
-        + "=1000000000000000000&data=0x636f6d2e63656e61732e70726f64756374")
+        + "=1000000000000000000&data=0x636f6d2e63656e61732e70726f64756374&iabContractAddress"
+        + "=0xb015D9bBabc472BBfC990ED6A0C961a90a482C57")
         .test();
 
     test.assertValue(transactionBuilder -> transactionBuilder.amount()
@@ -75,9 +76,11 @@ public class TransferParserTest {
     test.assertValue(transactionBuilder -> transactionBuilder.contractAddress()
         .equals("0xab949343e6c369c6b17c7ae302c1debd4b7b61c3"));
     test.assertValue(transactionBuilder -> transactionBuilder.shouldSendToken() == false);
+    test.assertValue(transactionBuilder -> transactionBuilder.getIabContract()
+        .equals("0xb015D9bBabc472BBfC990ED6A0C961a90a482C57"));
   }
 
-  @Test public void parseTransferToken() throws Exception {
+  @Test public void parseTransferToken() {
     TokenRepositoryType tokenRepositoryType = mock(TokenRepositoryType.class);
     FindDefaultWalletInteract findDefaultWalletInteract = mock(FindDefaultWalletInteract.class);
 
@@ -110,7 +113,7 @@ public class TransferParserTest {
     test.assertValue(transactionBuilder -> transactionBuilder.shouldSendToken() == true);
   }
 
-  @Test public void parseEthTransaction() throws Exception {
+  @Test public void parseEthTransaction() {
     TokenRepositoryType tokenRepositoryType = mock(TokenRepositoryType.class);
     FindDefaultWalletInteract findDefaultWalletInteract = mock(FindDefaultWalletInteract.class);
 
