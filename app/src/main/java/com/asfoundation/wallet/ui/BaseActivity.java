@@ -1,12 +1,34 @@
 package com.asfoundation.wallet.ui;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import com.asf.wallet.R;
 
 public abstract class BaseActivity extends AppCompatActivity {
+
+  @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    Window window = getWindow();
+
+    // clear FLAG_TRANSLUCENT_STATUS flag:
+    window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+    // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+    // finally change the color
+    window.setStatusBarColor(ContextCompat.getColor(this,R.color.statusBarColor));
+  }
 
   protected Toolbar toolbar() {
     Toolbar toolbar = findViewById(R.id.toolbar);
@@ -29,6 +51,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     ActionBar actionBar = getSupportActionBar();
     if (actionBar != null) {
       actionBar.setSubtitle(subtitle);
+    }
+  }
+
+  protected void setCollapsingTitle(String title) {
+    Toolbar toolbar = findViewById(R.id.toolbar);
+    if (toolbar != null) {
+      toolbar.setTitle(title);
+    }
+
+    CollapsingToolbarLayout collapsing = findViewById(R.id.toolbar_layout);
+    if (collapsing != null) {
+      collapsing.setTitle(title);
     }
   }
 

@@ -12,18 +12,20 @@
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
     <item name="actionMenuTextColor">@color/white</item>
+    <item name="android:windowContentOverlay">@null</item>
   </style>
 
-  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+  </style>
 
   <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
   <!-- Splash Screen theme. -->
 
   <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
-
     <item name="android:windowBackground">@drawable/splash_background</item>
-
+    <item name="android:windowTranslucentStatus">true</item>
+    <item name="android:fitsSystemWindows">true</item>
   </style>
 
   <style name="AppTheme.Toolbar" parent="ThemeOverlay.AppCompat.ActionBar">
@@ -31,8 +33,24 @@
   </style>
 
   <style name="AppTheme.Toolbar.Title" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-    <item name="android:textColor">@color/white</item>
+    <item name="android:textColor">@color/black</item>
     <item name="android:textSize">20sp</item>
+  </style>
+
+  <style name="Theme.AppCompat.Transparent" parent="Theme.AppCompat">
+    <item name="android:windowIsTranslucent">true</item>
+    <item name="android:windowContentOverlay">@null</item>
+    <item name="windowNoTitle">true</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowBackground">@android:color/transparent</item>
+    <item name="android:windowIsFloating">true</item>
+    <item name="android:backgroundDimEnabled">true</item>
+    <item name="android:windowTranslucentStatus">true</item>
+    <item name="android:fitsSystemWindows">true</item>
+  </style>
+
+  <style name="Theme.AppCompat.Transparent.NoDisplay" parent="Theme.AppCompat.Transparent">
+    <item name="android:backgroundDimEnabled">false</item>
   </style>
 
   <style name="ToolbarTextAppearance">
@@ -44,7 +62,11 @@
   </style>
 
   <style name="ToolbarTextAppearance.Title">
-    <item name="android:textSize">20sp</item>
+    <item name="android:textSize">24sp</item>
+  </style>
+
+  <style name="ToolbarTextAppearance.Title.Expanded">
+    <item name="android:textSize">34sp</item>
   </style>
 
   <style name="ToolbarTextAppearance.Subtitle">
@@ -73,23 +95,10 @@
     <item name="textAllCaps">true</item>
   </style>
 
-  <style name="Theme.AppCompat.Transparent" parent="Theme.AppCompat">
-    <item name="android:windowIsTranslucent">true</item>
-    <item name="android:windowContentOverlay">@null</item>
-    <item name="windowNoTitle">true</item>
-    <item name="android:windowNoTitle">true</item>
-    <item name="android:windowBackground">@android:color/transparent</item>
-    <item name="android:windowIsFloating">true</item>
-    <item name="android:backgroundDimEnabled">true</item>
-  </style>
-
-  <style name="Theme.AppCompat.Transparent.NoDisplay" parent="Theme.AppCompat.Transparent">
-    <item name="android:backgroundDimEnabled">false</item>
-  </style>
-
-  <style name="buy_button" parent="Base.Widget.AppCompat.ImageButton">
+  <style name="ButtonStyle" parent="Base.Widget.AppCompat.ImageButton">
     <item name="android:background">@drawable/buy_button_background</item>
     <item name="android:textAllCaps">true</item>
+    <item name="android:textColor">@color/white</item>
   </style>
 
 

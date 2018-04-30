@@ -4,15 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/half_small_margin"
-    android:paddingTop="@dimen/big_margin"
+    android:padding="@dimen/big_margin"
     >
   <TextView
       android:id="@+id/title"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_marginEnd="@dimen/big_margin"
-      android:layout_marginStart="@dimen/list_content_margin"
       android:fontFamily="@font/roboto_regular"
       android:gravity="center_vertical"
       android:textColor="@color/list_group_head"

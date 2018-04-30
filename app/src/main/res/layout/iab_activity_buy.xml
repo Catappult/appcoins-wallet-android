@@ -76,7 +76,7 @@
       android:text="@string/action_buy"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@id/iab_activity_item_price"
-      style="@style/buy_button"
+      style="@style/ButtonStyle"
       />
 
   <Button

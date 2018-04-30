@@ -17,6 +17,7 @@ import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.service.AirDropService;
+import com.asfoundation.wallet.transactions.TransactionsMapper;
 
 public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
 
@@ -34,6 +35,7 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
   private final AirDropService airDropService;
   private final DefaultTokenProvider defaultTokenProvider;
   private final GetDefaultWalletBalance getDefaultWalletBalance;
+  private final TransactionsMapper transactionsMapper;
 
   public TransactionsViewModelFactory(FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
@@ -42,7 +44,8 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
       TransactionDetailRouter transactionDetailRouter, MyAddressRouter myAddressRouter,
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
       FetchTokensInteract fetchTokensInteract, AirDropService airDropService,
-      DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance) {
+      DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
+      TransactionsMapper transactionsMapper) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchTransactionsInteract = fetchTransactionsInteract;
@@ -57,12 +60,14 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
     this.airDropService = airDropService;
     this.defaultTokenProvider = defaultTokenProvider;
     this.getDefaultWalletBalance = getDefaultWalletBalance;
+    this.transactionsMapper = transactionsMapper;
   }
 
   @NonNull @Override public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
     return (T) new TransactionsViewModel(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, manageWalletsRouter, settingsRouter, sendRouter,
         transactionDetailRouter, myAddressRouter, myTokensRouter, externalBrowserRouter,
-        fetchTokensInteract, airDropService, defaultTokenProvider, getDefaultWalletBalance);
+        fetchTokensInteract, airDropService, defaultTokenProvider, getDefaultWalletBalance,
+        transactionsMapper);
   }
 }
