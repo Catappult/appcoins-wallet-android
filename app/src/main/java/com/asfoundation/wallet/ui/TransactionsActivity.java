@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.C;
@@ -29,7 +30,7 @@ import com.asfoundation.wallet.entity.Transaction;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.poa.TransactionFactory;
-import com.asfoundation.wallet.service.AirDropService;
+import com.asfoundation.wallet.service.Airdrop;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsAdapter;
 import com.asfoundation.wallet.util.RootUtil;
 import com.asfoundation.wallet.viewmodel.BaseNavigationActivity;
@@ -287,9 +288,9 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     viewModel.openDeposit(view.getContext(), uri);
   }
 
-  private void onAirdrop(AirDropService.AirdropStatus airdropStatus) {
-    Log.d(TAG, "onAirdrop() called with: airdropStatus = [" + airdropStatus + "]");
-    switch (airdropStatus) {
+  private void onAirdrop(Airdrop airdrop) {
+    Log.d(TAG, "onAirdrop() called with: airdrop = [" + airdrop + "]");
+    switch (airdrop.getStatus()) {
       case PENDING:
         showPendingDialog();
         break;
@@ -297,8 +298,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         showErrorDialog();
         emptyView.setAirdropButtonEnable(true);
         break;
-      case ENDED:
-        showProgramEndedDialog();
+      case API_ERROR:
+        showProgramEndedDialog(airdrop.getErrorMessage());
         break;
       case SUCCESS:
         showSuccessDialog();
@@ -308,7 +309,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     }
   }
 
-  private void showProgramEndedDialog() {
+  private void showProgramEndedDialog(String errorMessage) {
     dismissDialogs();
     if (programEndedDialog == null) {
       View dialogView =
@@ -317,6 +318,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       programEndedDialog = new AlertDialog.Builder(this).setView(dialogView)
           .setOnDismissListener(dialogInterface -> programEndedDialog = null)
           .create();
+      ((TextView) dialogView.findViewById(R.id.activity_transactions_error_message)).setText(
+          errorMessage);
       dialogView.findViewById(R.id.activity_transactions_program_ended_ok_button)
           .setOnClickListener(this);
       programEndedDialog.show();

@@ -62,7 +62,7 @@ import static com.asfoundation.wallet.service.AirDropService.BASE_URL;
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
-            .create(AirDropService.Api.class), airdropChainIdMapper);
+            .create(AirDropService.Api.class), airdropChainIdMapper, gson);
   }
 
   @Provides FetchTokensInteract provideFetchTokensInteract(TokenRepositoryType tokenRepository,
