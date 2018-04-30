@@ -29,7 +29,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/no_transactions_text"
-      style="@style/Widget.AppCompat.Button.Colored"
+      style="@style/ButtonStyle"
       />
 
   <TextView

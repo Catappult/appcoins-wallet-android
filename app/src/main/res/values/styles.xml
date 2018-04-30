@@ -95,9 +95,10 @@
     <item name="textAllCaps">true</item>
   </style>
 
-  <style name="buy_button" parent="Base.Widget.AppCompat.ImageButton">
+  <style name="ButtonStyle" parent="Base.Widget.AppCompat.ImageButton">
     <item name="android:background">@drawable/buy_button_background</item>
     <item name="android:textAllCaps">true</item>
+    <item name="android:textColor">@color/white</item>
   </style>
 
 
