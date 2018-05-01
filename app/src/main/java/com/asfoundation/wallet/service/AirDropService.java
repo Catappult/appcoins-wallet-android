@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.service;
 
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.PendingTransactionService;
+import com.asfoundation.wallet.repository.TransactionNotFoundException;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import io.reactivex.Completable;
@@ -14,6 +14,7 @@ import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import retrofit2.HttpException;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -87,7 +88,12 @@ public class AirDropService {
 
   private Completable waitTransactionComplete(String transactionHash) {
     return pendingTransactionService.checkTransactionState(transactionHash)
-        .onErrorResumeNext(Observable.just(new PendingTransaction(null, true)))
+        .retryWhen(throwableObservable -> throwableObservable.flatMap(throwable -> {
+          if (throwable instanceof TransactionNotFoundException) {
+            return Observable.timer(5, TimeUnit.SECONDS);
+          }
+          return Observable.error(throwable);
+        }))
         .ignoreElements();
   }
 
