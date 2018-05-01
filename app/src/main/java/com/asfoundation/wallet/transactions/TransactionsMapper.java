@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.transactions;
 
-import android.media.VolumeShaper;
 import android.text.TextUtils;
 import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.TransactionOperation;
@@ -13,7 +12,7 @@ import java.util.List;
 public class TransactionsMapper {
   public static final String APPROVE_METHOD_ID = "0x095ea7b3";
   public static final String BUY_METHOD_ID = "0xdc9564d5";
-  public static final String ADS_METHOD_ID = "0xa95281f";
+  public static final String ADS_METHOD_ID = "0x79c6b667";
   private final DefaultTokenProvider defaultTokenProvider;
 
   public TransactionsMapper(DefaultTokenProvider defaultTokenProvider) {

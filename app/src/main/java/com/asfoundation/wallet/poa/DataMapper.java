@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.poa;
 
-import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,28 +14,29 @@ import org.web3j.abi.datatypes.Function;
 import org.web3j.abi.datatypes.Type;
 import org.web3j.abi.datatypes.Utf8String;
 import org.web3j.abi.datatypes.generated.Bytes32;
-import org.web3j.abi.datatypes.generated.Uint256;
+import org.web3j.abi.datatypes.generated.Uint64;
 import org.web3j.utils.Numeric;
 
 public class DataMapper {
-  public byte[] getData(Proof proof) throws UnsupportedEncodingException {
+  public byte[] getData(Proof proof) {
     Utf8String packageName = new Utf8String(proof.getPackageName());
 
     Bytes32 bidId = stringToBytes32(proof.getCampaignId());
 
-    List<Uint256> timeStampList = new ArrayList<>();
-    List<Uint256> nonceList = new ArrayList<>();
+    List<Uint64> timeStampList = new ArrayList<>();
+    List<Uint64> nonceList = new ArrayList<>();
     List<ProofComponent> proofComponentList = proof.getProofComponentList();
     for (int i = 0; i < proofComponentList.size(); i++) {
       ProofComponent proof1 = proofComponentList.get(i);
-      timeStampList.add(new Uint256(proof1.getTimeStamp()));
-      nonceList.add(new Uint256(proof1.getNonce()));
+      timeStampList.add(new Uint64(proof1.getTimeStamp()));
+      nonceList.add(new Uint64(proof1.getNonce()));
     }
     Address storeAddress = new Address(proof.getStoreAddress());
     Address oemAddress = new Address(proof.getOemAddress());
+    Utf8String walletName = new Utf8String(proof.getWalletPackage());
 
     List<Type> params = Arrays.asList(packageName, bidId, new DynamicArray<>(timeStampList),
-        new DynamicArray<>(nonceList), storeAddress, oemAddress);
+        new DynamicArray<>(nonceList), storeAddress, oemAddress, walletName);
     List<TypeReference<?>> returnTypes = Collections.singletonList(new TypeReference<Bool>() {
     });
     Function function = new Function("registerPoA", params, returnTypes);
@@ -43,10 +44,11 @@ public class DataMapper {
     return Numeric.hexStringToByteArray(Numeric.cleanHexPrefix(encodedFunction));
   }
 
-  private Bytes32 stringToBytes32(String string) throws UnsupportedEncodingException {
-    byte[] byteValue = string.getBytes("UTF-8");
-    byte[] byteValueLen32 = new byte[32];
-    System.arraycopy(byteValue, 0, byteValueLen32, 0, byteValue.length);
-    return new Bytes32(byteValueLen32);
+  private Bytes32 stringToBytes32(String string) {
+    BigInteger bidId = new BigInteger(string);
+    byte[] value = new byte[32];
+    System.arraycopy(bidId.toByteArray(), 0, value, value.length - bidId.toByteArray().length,
+        bidId.toByteArray().length);
+    return new Bytes32(value);
   }
 }
