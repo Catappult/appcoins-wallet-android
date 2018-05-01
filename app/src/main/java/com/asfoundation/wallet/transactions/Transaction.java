@@ -114,11 +114,11 @@ public class Transaction {
   }
 
   public enum TransactionType {
-    STANDARD, IAB, ADS;
+    STANDARD, IAB, ADS
   }
 
   public enum TransactionStatus {
-    SUCCESS, FAILED, PENDING;
+    SUCCESS, FAILED, PENDING
   }
 
   @Override public String toString() {

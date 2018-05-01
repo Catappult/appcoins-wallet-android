@@ -49,7 +49,9 @@ import org.mockito.junit.MockitoJUnitRunner;
     List<Transaction> transactionList = new ArrayList<>();
     transactionList.add(
         new Transaction("0xfddcbb2776d74ed5bc4c831ddb2210c624ecbb7af0864cf1dc8ab6ad5943307a",
-            Transaction.TransactionType.ADS, null));
+            Transaction.TransactionType.ADS, null, 0,
+            Transaction.TransactionStatus.SUCCESS, null, null, null, null,
+            null, null));
     transactionList.add(
         new Transaction("0xd6d42df92b55be4b7d24c96c3dc546474ad638ff66cb061f2fd05e9b74e4e6a1"));
     transactionList.add(
