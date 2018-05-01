@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.SharedPreferences;
-import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -13,18 +12,14 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.text.SpannableString;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.C;
@@ -34,7 +29,7 @@ import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.poa.TransactionFactory;
-import com.asfoundation.wallet.service.AirDropService;
+import com.asfoundation.wallet.service.Airdrop;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsAdapter;
 import com.asfoundation.wallet.util.RootUtil;
@@ -54,8 +49,7 @@ import static com.asfoundation.wallet.C.ErrorCode.EMPTY_COLLECTION;
 
 public class TransactionsActivity extends BaseNavigationActivity implements View.OnClickListener {
 
-  public static final String AIRDROP_MORE_INFO_URL =
-      "https://appstorefoundation.org/asf-wallet#wallet-steps";
+  public static final String AIRDROP_MORE_INFO_URL = "https://appstorefoundation.org/asf-wallet";
   private static final String TAG = TransactionsActivity.class.getSimpleName();
   @Inject TransactionsViewModelFactory transactionsViewModelFactory;
   @Inject AddTokenInteract addTokenInteract;
@@ -81,7 +75,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
     ((AppBarLayout) findViewById(R.id.app_bar)).addOnOffsetChangedListener(
         (appBarLayout, verticalOffset) -> {
-          float percentage = ((float)Math.abs(verticalOffset)/appBarLayout.getTotalScrollRange());
+          float percentage =
+              ((float) Math.abs(verticalOffset) / appBarLayout.getTotalScrollRange());
           findViewById(R.id.toolbar_layout_logo).setAlpha(1 - (percentage * 1.20f));
         });
 
@@ -121,13 +116,28 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
   }
 
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.action_settings: {
+        viewModel.showSettings(this);
+      }
+      break;
+      case R.id.action_deposit: {
+        openExchangeDialog();
+      }
+      break;
+    }
+    return super.onOptionsItemSelected(item);
+  }
+
   private void onBalanceChanged(Map<String, String> balance) {
     for (Map.Entry<String, String> entry : balance.entrySet()) {
       if (entry.getKey()
           .equals(C.USD_SYMBOL)) {
         setSubtitle(C.USD_SYMBOL + balance.get(C.USD_SYMBOL));
       } else {
-        setCollapsingTitle(entry.getValue().toUpperCase() + " " + entry.getKey());
+        setCollapsingTitle(entry.getValue()
+            .toUpperCase() + " " + entry.getKey());
       }
     }
   }
@@ -163,20 +173,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       getMenuInflater().inflate(R.menu.menu_deposit, menu);
     }
     return super.onCreateOptionsMenu(menu);
-  }
-
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.action_settings: {
-        viewModel.showSettings(this);
-      }
-      break;
-      case R.id.action_deposit: {
-        openExchangeDialog();
-      }
-      break;
-    }
-    return super.onOptionsItemSelected(item);
   }
 
   @Override public void onClick(View view) {
@@ -283,9 +279,9 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     viewModel.openDeposit(view.getContext(), uri);
   }
 
-  private void onAirdrop(AirDropService.AirdropStatus airdropStatus) {
-    Log.d(TAG, "onAirdrop() called with: airdropStatus = [" + airdropStatus + "]");
-    switch (airdropStatus) {
+  private void onAirdrop(Airdrop airdrop) {
+    Log.d(TAG, "onAirdrop() called with: airdrop = [" + airdrop + "]");
+    switch (airdrop.getStatus()) {
       case PENDING:
         showPendingDialog();
         break;
@@ -293,18 +289,18 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         showErrorDialog();
         emptyView.setAirdropButtonEnable(true);
         break;
-      case ENDED:
-        showProgramEndedDialog();
+      case API_ERROR:
+        showProgramEndedDialog(airdrop.getMessage());
         break;
       case SUCCESS:
-        showSuccessDialog();
+        showSuccessDialog(airdrop.getMessage());
         break;
       default:
         dismissDialogs();
     }
   }
 
-  private void showProgramEndedDialog() {
+  private void showProgramEndedDialog(String errorMessage) {
     dismissDialogs();
     if (programEndedDialog == null) {
       View dialogView =
@@ -313,6 +309,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       programEndedDialog = new AlertDialog.Builder(this).setView(dialogView)
           .setOnDismissListener(dialogInterface -> programEndedDialog = null)
           .create();
+      ((TextView) dialogView.findViewById(R.id.activity_transactions_error_message)).setText(
+          errorMessage);
       dialogView.findViewById(R.id.activity_transactions_program_ended_ok_button)
           .setOnClickListener(this);
       programEndedDialog.show();
@@ -334,7 +332,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     }
   }
 
-  private void showSuccessDialog() {
+  private void showSuccessDialog(String message) {
     dismissDialogs();
     if (successDialog == null) {
       View dialogView =
@@ -344,6 +342,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
           .setOnDismissListener(dialogInterface -> successDialog = null)
           .setCancelable(false)
           .create();
+      ((TextView) dialogView.findViewById(R.id.activity_transactions_error_message)).setText(
+          message);
       dialogView.findViewById(R.id.activity_transactions_success_ok_button)
           .setOnClickListener(this);
       successDialog.show();

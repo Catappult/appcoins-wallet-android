@@ -25,6 +25,7 @@ import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.service.AirDropService;
+import com.asfoundation.wallet.service.Airdrop;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
 import io.reactivex.Observable;
@@ -41,7 +42,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
   private final MutableLiveData<List<Transaction>> transactions = new MutableLiveData<>();
   private final MutableLiveData<Map<String, String>> defaultWalletBalance = new MutableLiveData<>();
-  private final MutableLiveData<AirDropService.AirdropStatus> airdrop = new MutableLiveData<>();
+  private final MutableLiveData<Airdrop> airdrop = new MutableLiveData<>();
   private final FindDefaultNetworkInteract findDefaultNetworkInteract;
   private final FindDefaultWalletInteract findDefaultWalletInteract;
   private final FetchTransactionsInteract fetchTransactionsInteract;
@@ -56,9 +57,9 @@ public class TransactionsViewModel extends BaseViewModel {
   private final AirDropService airDropService;
   private final CompositeDisposable disposables;
   private final DefaultTokenProvider defaultTokenProvider;
+  private final GetDefaultWalletBalance getDefaultWalletBalance;
   private Handler handler = new Handler();
   private final Runnable startFetchTransactionsTask = () -> this.fetchTransactions(false);
-  private final GetDefaultWalletBalance getDefaultWalletBalance;
   private final Runnable startGetBalanceTask = this::getBalance;
   private final TransactionsMapper transactionsMapper;
 
@@ -115,13 +116,13 @@ public class TransactionsViewModel extends BaseViewModel {
     return defaultWalletBalance;
   }
 
-  public LiveData<AirDropService.AirdropStatus> onAirdrop() {
+  public LiveData<Airdrop> onAirdrop() {
     disposables.add(airDropService.getStatus()
-        .subscribe((AirDropService.AirdropStatus status) -> {
-          if (status != AirDropService.AirdropStatus.PENDING) {
+        .subscribe(airdropData -> {
+          if (airdropData.getStatus() != Airdrop.AirdropStatus.PENDING) {
             airDropService.resetStatus();
           }
-          airdrop.postValue(status);
+          airdrop.postValue(airdropData);
         }));
     return airdrop;
   }
