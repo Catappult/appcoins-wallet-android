@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.Transaction;
+import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.util.BalanceUtils;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModel;
@@ -31,7 +31,7 @@ public class TransactionDetailActivity extends BaseActivity implements View.OnCl
   @Inject TransactionDetailViewModelFactory transactionDetailViewModelFactory;
   private TransactionDetailViewModel viewModel;
 
-  private Transaction transaction;
+  private RawTransaction transaction;
   private TextView amount;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {

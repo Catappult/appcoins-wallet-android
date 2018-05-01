@@ -44,7 +44,7 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@id/activity_transactions_error_message"
-      style="@style/buy_button"
+      style="@style/ButtonStyle"
       />
 </android.support.constraint.ConstraintLayout>
 

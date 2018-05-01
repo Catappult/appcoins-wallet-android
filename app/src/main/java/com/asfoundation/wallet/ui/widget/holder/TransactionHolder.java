@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.widget.holder;
 
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,8 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.entity.Transaction;
-import com.asfoundation.wallet.entity.TransactionOperation;
+import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.widget.OnTransactionClickListener;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -25,26 +23,27 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   public static final int VIEW_TYPE = 1003;
   public static final String DEFAULT_ADDRESS_ADDITIONAL = "default_address";
   public static final String DEFAULT_SYMBOL_ADDITIONAL = "network_symbol";
-  private static final int SIGNIFICANT_FIGURES = 3;
-  private final TextView type;
+  private final ImageView srcImage;
   private final TextView address;
+  private final TextView description;
   private final TextView value;
-  private final ImageView typeIcon;
+  private final TextView currency;
+  private final TextView status;
 
   private Transaction transaction;
   private String defaultAddress;
   private OnTransactionClickListener onTransactionClickListener;
 
-  public TransactionHolder(int resId, ViewGroup parent) {
+  public TransactionHolder(int resId, ViewGroup parent, OnTransactionClickListener listener) {
     super(resId, parent);
 
-    typeIcon = findViewById(R.id.type_icon);
+    srcImage = findViewById(R.id.img);
     address = findViewById(R.id.address);
-    type = findViewById(R.id.type);
+    description = findViewById(R.id.description);
     value = findViewById(R.id.value);
-
-    typeIcon.setColorFilter(ContextCompat.getColor(getContext(), R.color.item_icon_tint),
-        PorterDuff.Mode.SRC_ATOP);
+    currency = findViewById(R.id.currency);
+    status = findViewById(R.id.status);
+    onTransactionClickListener = listener;
 
     itemView.setOnClickListener(this);
   }
@@ -56,42 +55,58 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     }
     defaultAddress = addition.getString(DEFAULT_ADDRESS_ADDITIONAL);
 
-    String networkSymbol = addition.getString(DEFAULT_SYMBOL_ADDITIONAL);
-    // If operations include token transfer, display token transfer instead
-    TransactionOperation operation =
-        transaction.operations == null || transaction.operations.length == 0 ? null
-            : transaction.operations[0];
+    String currency = addition.getString(DEFAULT_SYMBOL_ADDITIONAL);
 
-    if (operation == null || operation.contract == null) {
-      // default to ether transaction
-      fill(transaction.error, transaction.from, transaction.to, networkSymbol, transaction.value,
-          ETHER_DECIMALS, transaction.timeStamp);
-    } else {
-      fill(transaction.error, operation.from, operation.to, operation.contract.symbol,
-          operation.value, operation.contract.decimals, transaction.timeStamp);
+    if (!TextUtils.isEmpty(transaction.getCurrency())) {
+      currency = transaction.getCurrency();
     }
+    fill(transaction.getType(), transaction.getFrom(), transaction.getTo(), currency,
+        transaction.getValue(), ETHER_DECIMALS, transaction.getStatus(), transaction.getDetails());
+
   }
 
-  private void fill(String error, String from, String to, String symbol, String valueStr,
-      long decimals, long timestamp) {
+  private void fill(Transaction.TransactionType type, String from, String to, String currencySymbol,
+      String valueStr, long decimals, Transaction.TransactionStatus transactionStatus,
+      String details) {
     boolean isSent = from.toLowerCase()
         .equals(defaultAddress);
-    type.setText(isSent ? getString(R.string.sent) : getString(R.string.received));
-    if (!TextUtils.isEmpty(error)) {
-      typeIcon.setImageResource(R.drawable.ic_error_outline_black_24dp);
-    } else if (isSent) {
-      typeIcon.setImageResource(R.drawable.ic_arrow_upward_black_24dp);
-    } else {
-      typeIcon.setImageResource(R.drawable.ic_arrow_downward_black_24dp);
-    }
-    address.setText(isSent ? to : from);
-    value.setTextColor(ContextCompat.getColor(getContext(), isSent ? R.color.red : R.color.green));
 
-    if (valueStr.equals("0")) {
-      valueStr = "0 " + symbol;
-    } else {
-      valueStr = (isSent ? "-" : "+") + getScaledValue(valueStr, decimals) + " " + symbol;
+    int transactionTypeIcon = R.drawable.ic_transaction_peer;
+
+    if (type == Transaction.TransactionType.ADS) {
+      transactionTypeIcon = R.drawable.ic_transaction_poa;
+    } else if (type == Transaction.TransactionType.IAB) {
+      transactionTypeIcon = R.drawable.ic_transaction_iab;
     }
+
+    srcImage.setImageResource(transactionTypeIcon);
+
+    int statusText = R.string.transaction_status_success;
+    int statusColor = R.color.green;
+
+    switch (transactionStatus) {
+      case PENDING:
+        statusText = R.string.transaction_status_pending;
+        statusColor = R.color.orange;
+        break;
+      case FAILED:
+        statusText = R.string.transaction_status_failed;
+        statusColor = R.color.red;
+        break;
+    }
+
+    status.setText(statusText);
+    status.setTextColor(ContextCompat.getColor(getContext(), statusColor));
+
+    address.setText(isSent ? to : from);
+    description.setText(details);
+    if (valueStr.equals("0")) {
+      valueStr = "0 ";
+    } else {
+      valueStr = (isSent ? "-" : "+") + getScaledValue(valueStr, decimals);
+    }
+
+    currency.setText(currencySymbol);
 
     this.value.setText(valueStr);
   }
@@ -107,12 +122,6 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   }
 
   @Override public void onClick(View view) {
-    if (onTransactionClickListener != null) {
-      onTransactionClickListener.onTransactionClick(view, transaction);
-    }
-  }
-
-  public void setOnTransactionClickListener(OnTransactionClickListener onTransactionClickListener) {
-    this.onTransactionClickListener = onTransactionClickListener;
+    onTransactionClickListener.onTransactionClick(view, transaction.getTransaction());
   }
 }

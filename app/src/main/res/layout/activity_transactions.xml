@@ -6,28 +6,45 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
+    android:background="@color/activity_background_color"
     >
-  <include layout="@layout/layout_app_bar"/>
+
+  <include layout="@layout/layout_collapsing_app_bar"/>
+
+  <ImageView
+      android:id="@+id/toolbar_layout_logo"
+      android:layout_width="111dp"
+      android:layout_height="24dp"
+      android:layout_margin="16dp"
+      android:src="@drawable/ic_app_logo"
+      app:layout_anchor="@+id/app_bar"
+      app:layout_anchorGravity="start|top"
+      />
+
   <android.support.v4.widget.SwipeRefreshLayout
       android:id="@+id/refresh_layout"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_marginBottom="?actionBarSize"
       app:layout_behavior="@string/appbar_scrolling_view_behavior"
+      android:background="@color/activity_background_color"
       >
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/activity_background_color"
+        android:paddingBottom="@dimen/big_padding"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         />
   </android.support.v4.widget.SwipeRefreshLayout>
   <com.asfoundation.wallet.widget.SystemView
       android:id="@+id/system_view"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_marginTop="?actionBarSize"
-      android:background="@color/white"
+      android:layout_height="wrap_content"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"
+      android:background="@color/activity_background_color"
       tools:visibility="gone"
       />
   <android.support.design.widget.BottomNavigationView

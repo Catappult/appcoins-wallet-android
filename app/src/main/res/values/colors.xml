@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="green">#2fbb4f</color>
-  <color name="red">#f7506c</color>
+  <color name="green">#4caf50</color>
+  <color name="red">#d32f2f</color>
+  <color name="orange">#ef6c00</color>
   <color name="white">#FFFFFFFF</color>
   <color name="black">#313849</color>
 
@@ -9,13 +10,17 @@
   <color name="colorPrimaryDark">#1E76CE</color>
   <color name="colorAccent">#2e91db</color>
 
+  <color name="statusBarColor">#154868</color>
+
+  <color name="activity_background_color">#fafafa</color>
+
   <!--<color name="title">#89000000</color>-->
   <color name="secondary_text">#40000000</color>
 
   <color name="bottom_dialog_title">#89000000</color>
   <color name="bottom_dialog_item">#dd000000</color>
 
-  <color name="list_group_head">#40000000</color>
+  <color name="list_group_head">#8a000000</color>
 
   <color name="semitransparentWhite">#AAFFFFFF</color>
 
@@ -27,6 +32,12 @@
   <color name="black_87_alpha">#de000000</color>
   <color name="dark_blue">#1976d2</color>
   <color name="light_blue">#36aeeb</color>
-  <color name="activity_transactions_airdrop_success_gray">#8a000000</color>
   <color name="gray">#8a000000</color>
+  <color name="appbar_subtitle_color">#b8ffffff</color>
+
+  <color name="activity_transactions_airdrop_success_gray">#8a000000</color>
+  <color name="transaction_item_text_color">#de000000</color>
+  <color name="transaction_item_snd_text_color">#8a000000</color>
+  <color name="list_separator_color">#f0f0f0</color>
+
 </resources>

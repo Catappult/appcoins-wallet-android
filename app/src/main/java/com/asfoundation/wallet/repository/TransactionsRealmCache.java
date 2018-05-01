@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.repository;
 
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.Transaction;
+import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.TransactionContract;
 import com.asfoundation.wallet.entity.TransactionOperation;
 import com.asfoundation.wallet.entity.Wallet;
@@ -24,7 +24,8 @@ public class TransactionsRealmCache implements TransactionLocalSource {
     this.realmManager = realmManager;
   }
 
-  @Override public Single<Transaction[]> fetchTransaction(NetworkInfo networkInfo, Wallet wallet) {
+  @Override
+  public Single<RawTransaction[]> fetchTransaction(NetworkInfo networkInfo, Wallet wallet) {
     return Single.fromCallable(() -> {
       Realm instance = null;
       try {
@@ -42,13 +43,13 @@ public class TransactionsRealmCache implements TransactionLocalSource {
   }
 
   @Override public Completable putTransactions(NetworkInfo networkInfo, Wallet wallet,
-      Transaction[] transactions) {
+      RawTransaction[] transactions) {
     return Completable.fromAction(() -> {
       Realm instance = null;
       try {
         instance = realmManager.getRealmInstance(networkInfo, wallet);
         instance.beginTransaction();
-        for (Transaction transaction : transactions) {
+        for (RawTransaction transaction : transactions) {
           RealmTransaction item = instance.where(RealmTransaction.class)
               .equalTo("hash", transaction.hash)
               .findFirst();
@@ -71,7 +72,7 @@ public class TransactionsRealmCache implements TransactionLocalSource {
         .subscribeOn(Schedulers.io());
   }
 
-  @Override public Single<Transaction> findLast(NetworkInfo networkInfo, Wallet wallet) {
+  @Override public Single<RawTransaction> findLast(NetworkInfo networkInfo, Wallet wallet) {
     return Single.fromCallable(() -> {
       Realm realm = null;
       try {
@@ -89,7 +90,7 @@ public class TransactionsRealmCache implements TransactionLocalSource {
         .observeOn(Schedulers.io());
   }
 
-  private void fill(Realm realm, RealmTransaction item, Transaction transaction) {
+  private void fill(Realm realm, RealmTransaction item, RawTransaction transaction) {
     item.setError(transaction.error);
     item.setBlockNumber(transaction.blockNumber);
     item.setTimeStamp(transaction.timeStamp);
@@ -124,16 +125,16 @@ public class TransactionsRealmCache implements TransactionLocalSource {
     }
   }
 
-  private Transaction[] convert(RealmResults<RealmTransaction> items) {
+  private RawTransaction[] convert(RealmResults<RealmTransaction> items) {
     int len = items.size();
-    Transaction[] result = new Transaction[len];
+    RawTransaction[] result = new RawTransaction[len];
     for (int i = 0; i < len; i++) {
       result[i] = convert(items.get(i));
     }
     return result;
   }
 
-  private Transaction convert(RealmTransaction rawItem) {
+  private RawTransaction convert(RealmTransaction rawItem) {
     int len = rawItem.getOperations()
         .size();
     TransactionOperation[] operations = new TransactionOperation[len];
@@ -162,7 +163,7 @@ public class TransactionsRealmCache implements TransactionLocalSource {
           .getSymbol();
       operations[i] = operation;
     }
-    return new Transaction(rawItem.getHash(), rawItem.getError(), rawItem.getBlockNumber(),
+    return new RawTransaction(rawItem.getHash(), rawItem.getError(), rawItem.getBlockNumber(),
         rawItem.getTimeStamp(), rawItem.getNonce(), rawItem.getFrom(), rawItem.getTo(),
         rawItem.getValue(), rawItem.getGas(), rawItem.getGasPrice(), rawItem.getInput(),
         rawItem.getGasUsed(), operations);
