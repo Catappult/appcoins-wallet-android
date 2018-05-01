@@ -4,24 +4,24 @@ import javax.annotation.Nullable;
 
 public class Airdrop {
   private final AirdropStatus status;
-  private final @Nullable String errorMessage;
+  private final @Nullable String message;
 
-  public Airdrop(AirdropStatus status, @Nullable String errorMessage) {
+  public Airdrop(AirdropStatus status, @Nullable String message) {
     this.status = status;
-    this.errorMessage = errorMessage;
+    this.message = message;
   }
 
   public Airdrop(AirdropStatus status) {
     this.status = status;
-    this.errorMessage = null;
+    this.message = null;
   }
 
   public AirdropStatus getStatus() {
     return status;
   }
 
-  @Nullable public String getErrorMessage() {
-    return errorMessage;
+  @Nullable public String getMessage() {
+    return message;
   }
 
   public enum AirdropStatus {

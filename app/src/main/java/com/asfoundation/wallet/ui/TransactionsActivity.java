@@ -76,7 +76,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
     ((AppBarLayout) findViewById(R.id.app_bar)).addOnOffsetChangedListener(
         (appBarLayout, verticalOffset) -> {
-          float percentage = ((float)Math.abs(verticalOffset)/appBarLayout.getTotalScrollRange());
+          float percentage =
+              ((float) Math.abs(verticalOffset) / appBarLayout.getTotalScrollRange());
           findViewById(R.id.toolbar_layout_logo).setAlpha(1 - (percentage * 1.20f));
         });
 
@@ -116,13 +117,28 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
   }
 
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.action_settings: {
+        viewModel.showSettings(this);
+      }
+      break;
+      case R.id.action_deposit: {
+        openExchangeDialog();
+      }
+      break;
+    }
+    return super.onOptionsItemSelected(item);
+  }
+
   private void onBalanceChanged(Map<String, String> balance) {
     for (Map.Entry<String, String> entry : balance.entrySet()) {
       if (entry.getKey()
           .equals(C.USD_SYMBOL)) {
         setSubtitle(C.USD_SYMBOL + balance.get(C.USD_SYMBOL));
       } else {
-        setCollapsingTitle(entry.getValue().toUpperCase() + " " + entry.getKey());
+        setCollapsingTitle(entry.getValue()
+            .toUpperCase() + " " + entry.getKey());
       }
     }
   }
@@ -158,20 +174,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       getMenuInflater().inflate(R.menu.menu_deposit, menu);
     }
     return super.onCreateOptionsMenu(menu);
-  }
-
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.action_settings: {
-        viewModel.showSettings(this);
-      }
-      break;
-      case R.id.action_deposit: {
-        openExchangeDialog();
-      }
-      break;
-    }
-    return super.onOptionsItemSelected(item);
   }
 
   @Override public void onClick(View view) {
@@ -289,10 +291,10 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         emptyView.setAirdropButtonEnable(true);
         break;
       case API_ERROR:
-        showProgramEndedDialog(airdrop.getErrorMessage());
+        showProgramEndedDialog(airdrop.getMessage());
         break;
       case SUCCESS:
-        showSuccessDialog();
+        showSuccessDialog(airdrop.getMessage());
         break;
       default:
         dismissDialogs();
@@ -331,7 +333,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     }
   }
 
-  private void showSuccessDialog() {
+  private void showSuccessDialog(String message) {
     dismissDialogs();
     if (successDialog == null) {
       View dialogView =
@@ -341,6 +343,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
           .setOnDismissListener(dialogInterface -> successDialog = null)
           .setCancelable(false)
           .create();
+      ((TextView) dialogView.findViewById(R.id.activity_transactions_error_message)).setText(
+          message);
       dialogView.findViewById(R.id.activity_transactions_success_ok_button)
           .setOnClickListener(this);
       successDialog.show();

@@ -59,9 +59,10 @@ public class AirDropService {
           List<Completable> list = new ArrayList<>();
           list.add(waitTransactionComplete(airDropResponse.getAppcoinsTransaction()));
           list.add(waitTransactionComplete(airDropResponse.getEthTransaction()));
-          return Completable.merge(list);
+          return Completable.merge(list)
+              .andThen(Completable.fromAction(() -> airdropResponse.onNext(
+                  new Airdrop(Airdrop.AirdropStatus.SUCCESS, airDropResponse.getDescription()))));
         })
-        .andThen(Completable.fromAction(() -> publish(Airdrop.AirdropStatus.SUCCESS)))
         .subscribe(() -> {
         }, throwable -> publish(throwable));
   }
@@ -122,8 +123,17 @@ public class AirDropService {
     @SerializedName("txid_appc") private String appcoinsTransaction;
     @SerializedName("txid_eth") private String ethTransaction;
     @SerializedName("chain_id") private int chainId;
+    @SerializedName("description") private String description;
 
     public AirDropResponse() {
+    }
+
+    public String getDescription() {
+      return description;
+    }
+
+    public void setDescription(String description) {
+      this.description = description;
     }
 
     public int getChainId() {
