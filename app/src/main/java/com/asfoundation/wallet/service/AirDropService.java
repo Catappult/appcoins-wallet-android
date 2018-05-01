@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.service;
 
 import com.asfoundation.wallet.entity.NetworkInfo;
+import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.PendingTransactionService;
@@ -86,6 +87,7 @@ public class AirDropService {
 
   private Completable waitTransactionComplete(String transactionHash) {
     return pendingTransactionService.checkTransactionState(transactionHash)
+        .onErrorResumeNext(Observable.just(new PendingTransaction(null, true)))
         .ignoreElements();
   }
 
