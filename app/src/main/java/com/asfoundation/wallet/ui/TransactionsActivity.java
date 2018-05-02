@@ -136,8 +136,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
           .equals(C.USD_SYMBOL)) {
         setSubtitle(C.USD_SYMBOL + balance.get(C.USD_SYMBOL));
       } else {
-        setCollapsingTitle(entry.getValue()
-            .toUpperCase() + " " + entry.getKey());
+        setCollapsingTitle(entry.getValue() + " " + entry.getKey()
+            .toUpperCase());
       }
     }
   }

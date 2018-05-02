@@ -39,5 +39,6 @@
   <color name="transaction_item_text_color">#de000000</color>
   <color name="transaction_item_snd_text_color">#8a000000</color>
   <color name="list_separator_color">#f0f0f0</color>
+  <color name="disable_gray">#12000000</color>
 
 </resources>
