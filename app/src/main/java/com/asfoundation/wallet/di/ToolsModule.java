@@ -28,6 +28,7 @@ import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
 import com.asfoundation.wallet.repository.MemoryCache;
 import com.asfoundation.wallet.repository.NonceGetter;
 import com.asfoundation.wallet.repository.PasswordStore;
+import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.PreferenceRepositoryType;
 import com.asfoundation.wallet.repository.SharedPreferenceRepository;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
@@ -105,8 +106,8 @@ import okhttp3.OkHttpClient;
   }
 
   @Provides BuyService provideBuyService(SendTransactionInteract sendTransactionInteract,
-      ErrorMapper errorMapper) {
-    return new BuyService(sendTransactionInteract,
+      ErrorMapper errorMapper, PendingTransactionService pendingTransactionService) {
+    return new BuyService(sendTransactionInteract, pendingTransactionService,
         new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), errorMapper, Schedulers.io());
   }
 

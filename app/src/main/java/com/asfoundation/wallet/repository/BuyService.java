@@ -1,12 +1,15 @@
 package com.asfoundation.wallet.repository;
 
+import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import io.reactivex.Completable;
 import io.reactivex.CompletableSource;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
+import io.reactivex.schedulers.Schedulers;
 import java.math.BigInteger;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by trinkes on 3/16/18.
@@ -14,13 +17,16 @@ import java.util.List;
 
 public class BuyService {
   private final SendTransactionInteract sendTransactionInteract;
+  private final PendingTransactionService pendingTransactionService;
   private final Cache<String, PaymentTransaction> cache;
   private final ErrorMapper errorMapper;
   private final Scheduler scheduler;
 
   public BuyService(SendTransactionInteract sendTransactionInteract,
-      Cache<String, PaymentTransaction> cache, ErrorMapper errorMapper, Scheduler scheduler) {
+      PendingTransactionService pendingTransactionService, Cache<String, PaymentTransaction> cache,
+      ErrorMapper errorMapper, Scheduler scheduler) {
     this.sendTransactionInteract = sendTransactionInteract;
+    this.pendingTransactionService = pendingTransactionService;
     this.cache = cache;
     this.errorMapper = errorMapper;
     this.scheduler = scheduler;
@@ -44,9 +50,22 @@ public class BuyService {
     return sendTransactionInteract.buy(paymentTransaction.getTransactionBuilder(),
         paymentTransaction.getNonce()
             .add(BigInteger.ONE))
-        .subscribeOn(scheduler)
-        .flatMapCompletable(hash -> saveTransaction(hash, paymentTransaction))
+        .flatMapCompletable(hash -> pendingTransactionService.checkTransactionState(hash)
+            .retryWhen(this::retryOnTransactionNotFound)
+            .firstOrError()
+            .flatMapCompletable(pendingTransaction -> saveTransaction(pendingTransaction,
+                paymentTransaction).onErrorResumeNext(
+                throwable -> saveError(paymentTransaction, throwable))))
         .onErrorResumeNext(throwable -> saveError(paymentTransaction, throwable));
+  }
+
+  private Observable<Long> retryOnTransactionNotFound(Observable<Throwable> throwableObservable) {
+    return throwableObservable.flatMap(throwable -> {
+      if (throwable instanceof TransactionNotFoundException) {
+        return Observable.timer(1, TimeUnit.SECONDS, Schedulers.trampoline());
+      }
+      return Observable.error(throwable);
+    });
   }
 
   private CompletableSource saveError(PaymentTransaction paymentTransaction, Throwable throwable) {
@@ -55,10 +74,11 @@ public class BuyService {
         new PaymentTransaction(paymentTransaction, errorMapper.map(throwable)));
   }
 
-  private Completable saveTransaction(String hash, PaymentTransaction paymentTransaction) {
+  private Completable saveTransaction(PendingTransaction pendingTransaction,
+      PaymentTransaction paymentTransaction) {
     return cache.save(paymentTransaction.getUri(),
         new PaymentTransaction(paymentTransaction, PaymentTransaction.PaymentState.BOUGHT,
-            paymentTransaction.getApproveHash(), hash));
+            paymentTransaction.getApproveHash(), pendingTransaction.getHash()));
   }
 
   public Completable buy(String key, PaymentTransaction paymentTransaction) {
