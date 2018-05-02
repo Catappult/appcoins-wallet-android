@@ -64,6 +64,8 @@ android {
         "\"" + project.MAIN_NETWORK_ASF_ADS_CONTRACT_ADDRESS + "\""
     buildConfigField 'String', 'ROPSTEN_NETWORK_ASF_ADS_CONTRACT_ADDRESS',
         "\"" + project.ROPSTEN_NETWORK_ASF_ADS_CONTRACT_ADDRESS + "\""
+    buildConfigField 'String', 'REGISTER_PROOF_GAS_LIMIT',
+        "\"" + project.REGISTER_PROOF_GAS_LIMIT + "\""
   }
 
   signingConfigs {

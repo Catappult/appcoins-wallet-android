@@ -49,6 +49,7 @@ import dagger.Provides;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Singleton;
@@ -179,7 +180,7 @@ import okhttp3.OkHttpClient;
 
     return new TransactionFactory(web3jProvider, walletRepository, gasSettings,
         accountKeystoreService, passwordStore, defaultTokenProvider, ethereumNetworkRepository,
-        dataMapper);
+        dataMapper, new BigDecimal(BuildConfig.REGISTER_PROOF_GAS_LIMIT));
   }
 
   @Singleton @Provides BlockChainWriter provideBlockChainWriter(Web3jProvider web3jProvider,
