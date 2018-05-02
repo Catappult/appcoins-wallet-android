@@ -22,12 +22,14 @@ public class TransactionFactory {
   private final DefaultTokenProvider defaultTokenProvider;
   private final EthereumNetworkRepositoryType networkRepositoryType;
   private final DataMapper dataMapper;
+  private final BigDecimal registerProofGasLimit;
 
   public TransactionFactory(Web3jProvider web3jProvider, WalletRepositoryType walletRepositoryType,
       GasSettingsRepositoryType gasSettingsRepository,
       AccountKeystoreService accountKeystoreService, PasswordStore passwordStore,
       DefaultTokenProvider defaultTokenProvider,
-      EthereumNetworkRepositoryType networkRepositoryType, DataMapper dataMapper) {
+      EthereumNetworkRepositoryType networkRepositoryType, DataMapper dataMapper,
+      BigDecimal registerProofGasLimit) {
     this.web3jProvider = web3jProvider;
     this.walletRepositoryType = walletRepositoryType;
     this.gasSettingsRepository = gasSettingsRepository;
@@ -36,6 +38,7 @@ public class TransactionFactory {
     this.defaultTokenProvider = defaultTokenProvider;
     this.networkRepositoryType = networkRepositoryType;
     this.dataMapper = dataMapper;
+    this.registerProofGasLimit = registerProofGasLimit;
   }
 
   public Single<byte[]> createTransaction(Proof proof) {
@@ -47,7 +50,7 @@ public class TransactionFactory {
                     .flatMap(gasSettings -> passwordStore.getPassword(wallet)
                         .flatMap(password -> accountKeystoreService.signTransaction(wallet.address,
                             password, adsAddress, BigDecimal.ZERO, gasSettings.gasPrice,
-                            gasSettings.gasLimit, getNonce(wallet.address),
+                            registerProofGasLimit, getNonce(wallet.address),
                             dataMapper.getData(proof), proof.getChainId())))))
             .doAfterTerminate(
                 () -> networkRepositoryType.setDefaultNetworkInfo(defaultNetworkInfo)));
