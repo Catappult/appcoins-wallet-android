@@ -81,7 +81,7 @@ public class TransactionServiceTest {
         new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
         new ApproveService(sendTransactionInteract,
             new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new ErrorMapper(),
-            scheduler), new BuyService(sendTransactionInteract,
+            scheduler), new BuyService(sendTransactionInteract, pendingTransactionService,
         new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new ErrorMapper(), scheduler),
         nonceGetter);
   }
