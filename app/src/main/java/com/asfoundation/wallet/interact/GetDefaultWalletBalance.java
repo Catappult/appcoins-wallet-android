@@ -51,7 +51,7 @@ public class GetDefaultWalletBalance {
     return Single.just(balances);
   }
 
-  private Single<Map<String, String>> getEtherBalance(Wallet wallet) {
+  public Single<Map<String, String>> getEtherBalance(Wallet wallet) {
     return walletRepository.balanceInWei(wallet)
         .flatMap(ethBalance -> {
           Map<String, String> balances = new HashMap<>();

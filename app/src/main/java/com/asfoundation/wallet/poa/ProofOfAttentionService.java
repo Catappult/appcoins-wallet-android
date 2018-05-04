@@ -2,6 +2,7 @@ package com.asfoundation.wallet.poa;
 
 import android.support.annotation.NonNull;
 import com.asfoundation.wallet.repository.Cache;
+import com.asfoundation.wallet.repository.WalletNotFoundException;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -15,7 +16,7 @@ public class ProofOfAttentionService {
   private final String walletPackage;
   private final HashCalculator hashCalculator;
   private final CompositeDisposable compositeDisposable;
-  private final BlockChainWriter blockChainWriter;
+  private final ProofWriter proofWriter;
   private final int maxNumberProofComponents;
   private final Scheduler computationScheduler;
   private final BlockchainErrorMapper errorMapper;
@@ -23,14 +24,13 @@ public class ProofOfAttentionService {
 
   public ProofOfAttentionService(Cache<String, Proof> cache, String walletPackage,
       HashCalculator hashCalculator, CompositeDisposable compositeDisposable,
-      BlockChainWriter blockChainWriter, Scheduler computationScheduler,
-      int maxNumberProofComponents, BlockchainErrorMapper errorMapper,
-      TaggedCompositeDisposable disposables) {
+      ProofWriter proofWriter, Scheduler computationScheduler, int maxNumberProofComponents,
+      BlockchainErrorMapper errorMapper, TaggedCompositeDisposable disposables) {
     this.cache = cache;
     this.walletPackage = walletPackage;
     this.hashCalculator = hashCalculator;
     this.compositeDisposable = compositeDisposable;
-    this.blockChainWriter = blockChainWriter;
+    this.proofWriter = proofWriter;
     this.computationScheduler = computationScheduler;
     this.maxNumberProofComponents = maxNumberProofComponents;
     this.errorMapper = errorMapper;
@@ -77,7 +77,7 @@ public class ProofOfAttentionService {
         new Proof(proof.getPackageName(), proof.getCampaignId(), proof.getProofComponentList(),
             proof.getWalletPackage(), ProofStatus.SUBMITTING, proof.getChainId(),
             proof.getOemAddress(), proof.getStoreAddress());
-    return blockChainWriter.writeProof(completedProof)
+    return proofWriter.writeProof(completedProof)
         .doOnSuccess(hash -> cache.saveSync(completedProof.getPackageName(),
             new Proof(completedProof.getPackageName(), completedProof.getCampaignId(),
                 completedProof.getProofComponentList(), walletPackage, ProofStatus.COMPLETED,
@@ -236,5 +236,25 @@ public class ProofOfAttentionService {
               walletPackage, ProofStatus.PROCESSING, proof.getChainId(), proof.getOemAddress(),
               address));
     }
+  }
+
+  public Single<RequirementsStatus> isWalletReady() {
+    return proofWriter.hasEnoughFunds()
+        .map(hasFunds -> {
+          if (hasFunds) {
+            return RequirementsStatus.READY;
+          }
+          return RequirementsStatus.NO_FUNDS;
+        })
+        .onErrorResumeNext(throwable -> {
+          if (throwable instanceof WalletNotFoundException) {
+            return Single.just(RequirementsStatus.NO_WALLET);
+          }
+          return Single.error(throwable);
+        });
+  }
+
+  public enum RequirementsStatus {
+    READY, NO_FUNDS, NO_WALLET
   }
 }
