@@ -58,7 +58,7 @@
       android:layout_marginEnd="@dimen/big_margin"
       android:layout_marginStart="@dimen/big_margin"
       android:layout_marginTop="@dimen/normal_margin"
-      android:ellipsize="middle"
+      android:ellipsize="end"
       android:singleLine="true"
       android:textColor="@color/transaction_item_text_color"
       android:textSize="16dp"
