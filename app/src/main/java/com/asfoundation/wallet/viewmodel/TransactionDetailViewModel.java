@@ -75,4 +75,5 @@ public class TransactionDetailViewModel extends BaseViewModel {
   public LiveData<Wallet> defaultWallet() {
     return defaultWallet;
   }
+
 }

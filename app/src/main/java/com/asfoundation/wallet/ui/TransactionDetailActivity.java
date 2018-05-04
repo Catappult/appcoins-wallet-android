@@ -69,6 +69,7 @@ public class TransactionDetailActivity extends BaseActivity implements View.OnCl
   }
 
   private void onDefaultWallet(Wallet wallet) {
+
     boolean isSent = transaction.from.toLowerCase()
         .equals(wallet.address);
     String rawValue;
@@ -80,6 +81,10 @@ public class TransactionDetailActivity extends BaseActivity implements View.OnCl
       rawValue = transaction.value;
       symbol = networkInfo == null ? "" : networkInfo.symbol;
     } else {
+      isSent = transaction.operations[0].from.toLowerCase()
+          .equals(wallet.address);
+      ((TextView) findViewById(R.id.from)).setText(transaction.operations[0].from);
+      ((TextView) findViewById(R.id.to)).setText(transaction.operations[0].to);
       rawValue = transaction.operations[0].value;
       decimals = transaction.operations[0].contract.decimals;
       symbol = transaction.operations[0].contract.symbol;
