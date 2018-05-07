@@ -20,6 +20,7 @@ import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofStatus;
 import dagger.android.AndroidInjection;
+import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import java.util.List;
 import javax.inject.Inject;
@@ -63,23 +64,48 @@ public class WalletPoAService extends Service {
   @Override public int onStartCommand(Intent intent, int flags, int startId) {
     if (!isBound && intent != null) {
       if (intent.hasExtra(PARAM_APP_PACKAGE_NAME)) {
+        Single.just(intent)
+            .flatMap(receivedIntent -> proofOfAttentionService.isWalletReady()
+                .doOnSuccess(
+                    requirementsStatus -> processWalletSate(requirementsStatus, receivedIntent)))
+            .subscribe();
+
+      }
+    }
+    startNotifications();
+    return super.onStartCommand(intent, flags, startId);
+  }
+
+  private void processWalletSate(ProofOfAttentionService.RequirementsStatus requirementsStatus,
+      Intent intent) {
+    switch (requirementsStatus) {
+      case READY:
         // send intent to confirm that we receive the broadcast and we want to finish the handshake
         String appPackageName = intent.getStringExtra(PARAM_APP_PACKAGE_NAME);
         String appServiceName = intent.getStringExtra(PARAM_APP_SERVICE_NAME);
-        Log.e(TAG, "Received broadcast for handshake package name: "
+        Log.d(TAG, "Received broadcast for handshake package name: "
             + appPackageName
             + " and service: "
             + appServiceName);
-
         // send explicit intent
         Intent i = new Intent(ACTION_ACK_BROADCAST);
         i.setComponent(new ComponentName(appPackageName, appServiceName));
         i.putExtra(PARAM_WALLET_PACKAGE_NAME, getPackageName());
         startService(i);
-      }
+        break;
+      case NO_FUNDS:
+        // show notification mentioning that we have no fund to register the PoA
+        notificationManager.notify(SERVICE_ID,
+            createNotification(R.string.notification_no_funds_poa));
+        stopForeground(false);
+        break;
+      case NO_WALLET:
+        // Show notification mentioning that we have no wallet configured on the app
+        notificationManager.notify(SERVICE_ID,
+            createNotification(R.string.notification_no_wallet_poa));
+        stopForeground(false);
+        break;
     }
-    startNotifications();
-    return super.onStartCommand(intent, flags, startId);
   }
 
   /**

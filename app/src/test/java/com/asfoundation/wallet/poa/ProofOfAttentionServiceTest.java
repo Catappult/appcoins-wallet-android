@@ -1,7 +1,9 @@
 package com.asfoundation.wallet.poa;
 
 import com.asf.wallet.BuildConfig;
+import com.asfoundation.wallet.repository.BlockChainWriter;
 import com.asfoundation.wallet.repository.MemoryCache;
+import com.asfoundation.wallet.repository.WalletNotFoundException;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.TestObserver;
@@ -13,6 +15,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,6 +49,19 @@ public class ProofOfAttentionServiceTest {
     nonce = 1L;
     when(hashCalculator.calculateNonce(any(NonceData.class))).thenReturn(nonce);
     when(blockChainWriter.writeProof(any(Proof.class))).thenReturn(Single.just("hash"));
+    AtomicInteger i = new AtomicInteger();
+    when(blockChainWriter.hasEnoughFunds()).thenReturn(Single.create(e -> {
+      int index = i.getAndIncrement();
+      if (index == 0) {
+        e.onSuccess(true);
+      }
+      if (index == 1) {
+        e.onSuccess(false);
+      }
+      if (index > 1) {
+        e.onError(new WalletNotFoundException());
+      }
+    }));
   }
 
   @Test public void setCampaignId() {
@@ -254,5 +270,26 @@ public class ProofOfAttentionServiceTest {
         .assertValue(
             new Proof(packageName, null, Collections.emptyList(), BuildConfig.APPLICATION_ID,
                 ProofStatus.PROCESSING, 2, null, null));
+  }
+
+  @Test public void isWalletReady() {
+    TestObserver<ProofOfAttentionService.RequirementsStatus> ready =
+        proofOfAttentionService.isWalletReady()
+            .test();
+    TestObserver<ProofOfAttentionService.RequirementsStatus> noFunds =
+        proofOfAttentionService.isWalletReady()
+            .test();
+    TestObserver<ProofOfAttentionService.RequirementsStatus> noWallet =
+        proofOfAttentionService.isWalletReady()
+            .test();
+    ready.assertComplete()
+        .assertNoErrors()
+        .assertValue(ProofOfAttentionService.RequirementsStatus.READY);
+    noFunds.assertComplete()
+        .assertNoErrors()
+        .assertValue(ProofOfAttentionService.RequirementsStatus.NO_FUNDS);
+    noWallet.assertComplete()
+        .assertNoErrors()
+        .assertValue(ProofOfAttentionService.RequirementsStatus.NO_WALLET);
   }
 }
