@@ -7,7 +7,6 @@ import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.util.BalanceUtils;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +28,7 @@ public class GetDefaultWalletBalance {
     this.fetchTokensInteract = fetchTokensInteract;
   }
 
-  public Single<Map<String, String>> get(Wallet wallet) {
+  public Single<String> get(Wallet wallet) {
     return fetchTokensInteract.fetchDefaultToken(wallet)
         .flatMapSingle(token -> {
           if (wallet.address.equals(token.tokenInfo.address)) {
@@ -41,35 +40,27 @@ public class GetDefaultWalletBalance {
         .firstOrError();
   }
 
-  private Single<Map<String, String>> getTokenBalance(Token token) {
-    Map<String, String> balances = new HashMap<>();
-    String value = weiToEth(token.balance).setScale(4, RoundingMode.HALF_UP)
+  private Single<String> getTokenBalance(Token token) {
+    StringBuilder balance = new StringBuilder();
+    balance.append(weiToEth(token.balance).setScale(4, RoundingMode.HALF_UP)
         .stripTrailingZeros()
-        .toPlainString();
-    balances.put(token.tokenInfo.symbol, value);
-    balances.put(USD_SYMBOL, BalanceUtils.ethToUsd(token.ticker.price, value));
-    return Single.just(balances);
+        .toPlainString())
+        .append(" ")
+        .append(token.tokenInfo.symbol);
+    return Single.just(balance.toString());
   }
 
-  private Single<Map<String, String>> getEtherBalance(Wallet wallet) {
+  private Single<String> getEtherBalance(Wallet wallet) {
     return walletRepository.balanceInWei(wallet)
         .flatMap(ethBalance -> {
-          Map<String, String> balances = new HashMap<>();
-          balances.put(ethereumNetworkRepository.getDefaultNetwork().symbol,
-              weiToEth(ethBalance).setScale(4, RoundingMode.HALF_UP)
-                  .stripTrailingZeros()
-                  .toPlainString());
-          return Single.just(balances);
+          StringBuilder balance = new StringBuilder();
+          balance.append(weiToEth(ethBalance).setScale(4, RoundingMode.HALF_UP)
+              .stripTrailingZeros()
+              .toPlainString())
+              .append(" ")
+              .append(ethereumNetworkRepository.getDefaultNetwork().symbol);
+          return Single.just(balance.toString());
         })
-        .flatMap(balances -> ethereumNetworkRepository.getTicker()
-            .observeOn(Schedulers.io())
-            .flatMap(ticker -> {
-              String ethBallance =
-                  balances.get(ethereumNetworkRepository.getDefaultNetwork().symbol);
-              balances.put(USD_SYMBOL, BalanceUtils.ethToUsd(ticker.price, ethBallance));
-              return Single.just(balances);
-            })
-            .onErrorResumeNext(throwable -> Single.just(balances)))
         .observeOn(AndroidSchedulers.mainThread());
   }
 }

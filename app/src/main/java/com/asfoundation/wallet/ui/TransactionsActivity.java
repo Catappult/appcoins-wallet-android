@@ -81,7 +81,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         });
 
     setCollapsingTitle(getString(R.string.unknown_balance_with_symbol));
-    setSubtitle("");
     initBottomNavigation();
     dissableDisplayHomeAsUp();
 
@@ -130,16 +129,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     return super.onOptionsItemSelected(item);
   }
 
-  private void onBalanceChanged(Map<String, String> balance) {
-    for (Map.Entry<String, String> entry : balance.entrySet()) {
-      if (entry.getKey()
-          .equals(C.USD_SYMBOL)) {
-        setSubtitle(C.USD_SYMBOL + balance.get(C.USD_SYMBOL));
-      } else {
-        setCollapsingTitle(entry.getValue() + " " + entry.getKey()
-            .toUpperCase());
-      }
-    }
+  private void onBalanceChanged(String balance) {
+    setCollapsingTitle(balance.toUpperCase());
   }
 
   private void onTransactionClick(View view, RawTransaction transaction) {
@@ -158,7 +149,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   @Override protected void onResume() {
     super.onResume();
     setCollapsingTitle(getString(R.string.unknown_balance_without_symbol));
-    setSubtitle("");
     adapter.clear();
     viewModel.prepare();
     checkRoot();
