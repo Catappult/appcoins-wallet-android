@@ -34,9 +34,15 @@ import org.mockito.junit.MockitoJUnitRunner;
         .test();
     List<Transaction> transactionList = new ArrayList<>();
     transactionList.add(
-        new Transaction("0xd6d42df92b55be4b7d24c96c3dc546474ad638ff66cb061f2fd05e9b74e4e6a1"));
+        new Transaction("0xd6d42df92b55be4b7d24c96c3dc546474ad638ff66cb061f2fd05e9b74e4e6a1",
+            Transaction.TransactionType.STANDARD,  null, 0,
+            Transaction.TransactionStatus.SUCCESS, null, null, null, null,
+            null, null));
     transactionList.add(
-        new Transaction("0xa03f872318ee763e7cd92923304671e0115f883c32c0520ca3b7c3a1a9d47f98"));
+        new Transaction("0xa03f872318ee763e7cd92923304671e0115f883c32c0520ca3b7c3a1a9d47f98",
+        Transaction.TransactionType.STANDARD,  null, 0,
+        Transaction.TransactionStatus.SUCCESS, null, null, null, null,
+        null, null));
     Assert.assertEquals(transactionList, test.values()
         .get(0));
   }
@@ -53,9 +59,15 @@ import org.mockito.junit.MockitoJUnitRunner;
             Transaction.TransactionStatus.SUCCESS, null, null, null, null,
             null, null));
     transactionList.add(
-        new Transaction("0xd6d42df92b55be4b7d24c96c3dc546474ad638ff66cb061f2fd05e9b74e4e6a1"));
+        new Transaction("0xd6d42df92b55be4b7d24c96c3dc546474ad638ff66cb061f2fd05e9b74e4e6a1",
+        Transaction.TransactionType.STANDARD,  null, 0,
+        Transaction.TransactionStatus.SUCCESS, null, null, null, null,
+        null, null));
     transactionList.add(
-        new Transaction("0xa03f872318ee763e7cd92923304671e0115f883c32c0520ca3b7c3a1a9d47f98"));
+        new Transaction("0xa03f872318ee763e7cd92923304671e0115f883c32c0520ca3b7c3a1a9d47f98",
+            Transaction.TransactionType.STANDARD,  null, 0,
+            Transaction.TransactionStatus.SUCCESS, null, null, null, null,
+            null, null));
     Assert.assertEquals(transactionList, test.values()
         .get(0));
   }
@@ -68,11 +80,20 @@ import org.mockito.junit.MockitoJUnitRunner;
     List<Transaction> transactionList = new ArrayList<>();
     transactionList.add(
         new Transaction("0x8506e0e07e4fbcd89684689257dd5f5649474f5cb3d1f0c703460a31bac110bb",
-            "0xca74e82bc850c7dc5afad05387ba314de579b8552269200821e6c39d285e4ff9"));
+            Transaction.TransactionType.IAB,
+            "0xca74e82bc850c7dc5afad05387ba314de579b8552269200821e6c39d285e4ff9",
+            0, Transaction.TransactionStatus.SUCCESS, null, null, null,
+            null, null, null));
     transactionList.add(
-        new Transaction("0x7d15f9c11a2f718ede84facca02080f6c9cf8a78da3c545347c1979235299932"));
+        new Transaction("0x7d15f9c11a2f718ede84facca02080f6c9cf8a78da3c545347c1979235299932",
+            Transaction.TransactionType.STANDARD,  null, 0,
+            Transaction.TransactionStatus.SUCCESS, null, null, null, null,
+            null, null));
     transactionList.add(
-        new Transaction("0x04efa141853e05a749b5e9dcdf4e474db24955bc411f7adca314dace3037c533"));
+        new Transaction("0x04efa141853e05a749b5e9dcdf4e474db24955bc411f7adca314dace3037c533",
+            Transaction.TransactionType.STANDARD,  null, 0,
+            Transaction.TransactionStatus.SUCCESS, null, null, null, null,
+            null, null));
     test.assertNoErrors()
         .assertComplete();
     Assert.assertEquals(transactionList, test.values()
