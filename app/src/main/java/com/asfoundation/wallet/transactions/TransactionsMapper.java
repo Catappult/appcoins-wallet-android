@@ -102,13 +102,14 @@ public class TransactionsMapper {
    * transaction, since the user transfer the value that afterwards is split between all the parties
    * included in the iab transaction.
    *
+   * @param approveTransaction The raw transaction for the approve transaction.
    * @param transaction The raw transaction including all the information for a given transaction.
    *
    * @return a Transaction object containing the information needed and formatted, ready to be shown
    * on the transactions list.
    * */
-  private Transaction mapIabTransaction(RawTransaction transaction,
-      RawTransaction approveTransaction) {
+  private Transaction mapIabTransaction(RawTransaction approveTransaction,
+      RawTransaction transaction) {
     BigInteger value = new BigInteger(transaction.value);
     String currency = null;
     if (transaction.operations != null && transaction.operations.length > 0) {
@@ -137,7 +138,7 @@ public class TransactionsMapper {
   }
 
   private Transaction.TransactionStatus getError(RawTransaction transaction) {
-    return (transaction.error != null && !transaction.error.isEmpty()) ?
+    return (transaction.error == null || transaction.error.isEmpty()) ?
         Transaction.TransactionStatus.SUCCESS : Transaction.TransactionStatus.FAILED;
   }
 }
