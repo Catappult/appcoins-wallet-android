@@ -58,13 +58,18 @@ public class TransactionsMapper {
   private Transaction mapAdsTransaction(RawTransaction transaction) {
     String value = transaction.value;
     String currency = null;
+    String from = transaction.from;
+    String to = transaction.to;
+
     if (transaction.operations != null && transaction.operations.length > 0) {
       value = transaction.operations[0].value;
       currency = transaction.operations[0].contract.symbol;
+      from = transaction.operations[0].from;
+      to = transaction.operations[0].to;
     }
     return new Transaction(transaction.hash, Transaction.TransactionType.ADS,
         null, transaction.timeStamp, getError(transaction),
-        value, transaction.from, transaction.to, null, currency, transaction);
+        value, from, to, null, currency, transaction);
   }
 
   private boolean isAdsTransaction(RawTransaction transaction) {
