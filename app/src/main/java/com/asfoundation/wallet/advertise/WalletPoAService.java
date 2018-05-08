@@ -32,6 +32,7 @@ import static com.asfoundation.wallet.advertise.ServiceConnector.MSG_SET_NETWORK
 import static com.asfoundation.wallet.advertise.ServiceConnector.MSG_STOP_PROCESS;
 import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_APP_PACKAGE_NAME;
 import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_APP_SERVICE_NAME;
+import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_NETWORK_ID;
 import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_WALLET_PACKAGE_NAME;
 
 /**
@@ -64,6 +65,11 @@ public class WalletPoAService extends Service {
   @Override public int onStartCommand(Intent intent, int flags, int startId) {
     if (!isBound && intent != null) {
       if (intent.hasExtra(PARAM_APP_PACKAGE_NAME)) {
+        // set the chain id received from the application. If not received, it is set as the main
+        // network chain id
+        proofOfAttentionService.setChainId(
+            intent.getStringExtra(PARAM_APP_PACKAGE_NAME),
+            intent.getIntExtra(PARAM_NETWORK_ID, 1));
         Single.just(intent)
             .flatMap(receivedIntent -> proofOfAttentionService.isWalletReady()
                 .doOnSuccess(
