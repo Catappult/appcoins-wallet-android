@@ -32,18 +32,6 @@ public class Transaction {
     this.transaction = transaction;
   }
 
-  public Transaction(String transactionId) {
-    this(transactionId, TransactionType.STANDARD, null, 0,
-        TransactionStatus.SUCCESS, null, null, null, null, null,
-        null);
-  }
-
-  public Transaction(String transactionId, String approveTransactionId) {
-    this(transactionId, TransactionType.IAB, approveTransactionId, 0,
-        TransactionStatus.SUCCESS, null, null, null, null, null,
-        null);
-  }
-
   public TransactionType getTransactionType() {
     return type;
   }

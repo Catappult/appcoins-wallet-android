@@ -107,8 +107,8 @@ public class TransactionsMapper {
    * @return a Transaction object containing the information needed and formatted, ready to be shown
    * on the transactions list.
    * */
-  private Transaction mapIabTransaction(RawTransaction approveTransaction,
-      RawTransaction transaction) {
+  private Transaction mapIabTransaction(RawTransaction transaction,
+      RawTransaction approveTransaction) {
     BigInteger value = new BigInteger(transaction.value);
     String currency = null;
     if (transaction.operations != null && transaction.operations.length > 0) {
@@ -137,7 +137,7 @@ public class TransactionsMapper {
   }
 
   private Transaction.TransactionStatus getError(RawTransaction transaction) {
-    return TextUtils.isEmpty(transaction.error) ?
+    return (transaction.error != null && !transaction.error.isEmpty()) ?
         Transaction.TransactionStatus.SUCCESS : Transaction.TransactionStatus.FAILED;
   }
 }
