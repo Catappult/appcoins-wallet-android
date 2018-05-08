@@ -3,6 +3,7 @@ package com.asfoundation.wallet;
 import android.app.Activity;
 import android.app.Service;
 import android.support.multidex.MultiDexApplication;
+import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.di.DaggerAppComponent;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
@@ -11,10 +12,12 @@ import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.TransactionService;
 import com.asfoundation.wallet.repository.WalletNotFoundException;
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.core.CrashlyticsCore;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 import dagger.android.HasServiceInjector;
+import io.fabric.sdk.android.Fabric;
 import io.reactivex.exceptions.UndeliverableException;
 import io.reactivex.plugins.RxJavaPlugins;
 import io.realm.Realm;
@@ -38,6 +41,11 @@ public class App extends MultiDexApplication implements HasActivityInjector, Has
         .build()
         .inject(this);
     setupRxJava();
+
+    Fabric.with(this, new Crashlytics.Builder().core(
+        new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG)
+            .build())
+        .build());
 
     transactionService.start();
     proofOfAttentionService.start();
