@@ -21,8 +21,8 @@ import com.asfoundation.wallet.poa.ProofWriter;
 import com.asfoundation.wallet.poa.TaggedCompositeDisposable;
 import com.asfoundation.wallet.poa.TransactionFactory;
 import com.asfoundation.wallet.repository.ApproveService;
-import com.asfoundation.wallet.repository.BlockChainWriter;
 import com.asfoundation.wallet.repository.BalanceService;
+import com.asfoundation.wallet.repository.BlockChainWriter;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.EthereumNetworkRepository;
@@ -142,10 +142,10 @@ import okhttp3.OkHttpClient;
   @Singleton @Provides TransactionService provideTransactionService(
       FetchGasSettingsInteract gasSettingsInteract, TransferParser parser,
       FindDefaultWalletInteract defaultWalletInteract, ApproveService approveService,
-      BuyService buyService, NonceGetter nonceGetter, BalanceService getDefaultWalletBalance) {
+      BuyService buyService, NonceGetter nonceGetter, BalanceService balanceService) {
     return new TransactionService(gasSettingsInteract, defaultWalletInteract, parser,
         new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), approveService, buyService,
-        nonceGetter, getDefaultWalletBalance, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT));
+        nonceGetter, balanceService, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT));
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(
