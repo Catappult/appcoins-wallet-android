@@ -10,15 +10,16 @@ import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
-import com.asfoundation.wallet.poa.BlockChainWriter;
 import com.asfoundation.wallet.poa.BlockchainErrorMapper;
 import com.asfoundation.wallet.poa.Calculator;
 import com.asfoundation.wallet.poa.DataMapper;
 import com.asfoundation.wallet.poa.HashCalculator;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
+import com.asfoundation.wallet.poa.ProofWriter;
 import com.asfoundation.wallet.poa.TaggedCompositeDisposable;
 import com.asfoundation.wallet.poa.TransactionFactory;
 import com.asfoundation.wallet.repository.ApproveService;
+import com.asfoundation.wallet.repository.BlockChainWriter;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.EthereumNetworkRepository;
@@ -53,6 +54,7 @@ import io.reactivex.subjects.BehaviorSubject;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
+import javax.inject.Named;
 import javax.inject.Singleton;
 import okhttp3.OkHttpClient;
 
@@ -173,20 +175,29 @@ import okhttp3.OkHttpClient;
     return new DataMapper();
   }
 
+  @Singleton @Provides @Named("REGISTER_PROOF_GAS_LIMIT") BigDecimal provideRegisterPoaGasLimit() {
+    return new BigDecimal(BuildConfig.REGISTER_PROOF_GAS_LIMIT);
+  }
+
   @Singleton @Provides TransactionFactory provideTransactionFactory(Web3jProvider web3jProvider,
       WalletRepositoryType walletRepository, GasSettingsRepositoryType gasSettings,
       AccountKeystoreService accountKeystoreService, PasswordStore passwordStore,
       DefaultTokenProvider defaultTokenProvider,
-      EthereumNetworkRepositoryType ethereumNetworkRepository, DataMapper dataMapper) {
+      EthereumNetworkRepositoryType ethereumNetworkRepository, DataMapper dataMapper,
+      @Named("REGISTER_PROOF_GAS_LIMIT") BigDecimal registerProofGasLimit) {
 
     return new TransactionFactory(web3jProvider, walletRepository, gasSettings,
         accountKeystoreService, passwordStore, defaultTokenProvider, ethereumNetworkRepository,
-        dataMapper, new BigDecimal(BuildConfig.REGISTER_PROOF_GAS_LIMIT));
+        dataMapper, registerProofGasLimit);
   }
 
-  @Singleton @Provides BlockChainWriter provideBlockChainWriter(Web3jProvider web3jProvider,
-      TransactionFactory transactionFactory) {
-    return new BlockChainWriter(web3jProvider, transactionFactory);
+  @Singleton @Provides ProofWriter provideBlockChainWriter(Web3jProvider web3jProvider,
+      TransactionFactory transactionFactory,
+      @Named("REGISTER_PROOF_GAS_LIMIT") BigDecimal registerPoaGasLimit,
+      GasSettingsRepositoryType gasSettingsRepository,
+      FindDefaultWalletInteract defaultWalletInteract, WalletRepositoryType walletRepositoryType) {
+    return new BlockChainWriter(web3jProvider, transactionFactory, walletRepositoryType,
+        defaultWalletInteract, gasSettingsRepository, registerPoaGasLimit);
   }
 
   @Singleton @Provides HashCalculator provideHashCalculator(Calculator calculator) {
@@ -198,10 +209,10 @@ import okhttp3.OkHttpClient;
   }
 
   @Singleton @Provides ProofOfAttentionService provideProofOfAttentionService(
-      HashCalculator hashCalculator, BlockChainWriter blockChainWriter,
+      HashCalculator hashCalculator, ProofWriter proofWriter,
       TaggedCompositeDisposable disposables) {
     return new ProofOfAttentionService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-        BuildConfig.APPLICATION_ID, hashCalculator, new CompositeDisposable(), blockChainWriter,
+        BuildConfig.APPLICATION_ID, hashCalculator, new CompositeDisposable(), proofWriter,
         Schedulers.computation(), 12, new BlockchainErrorMapper(), disposables);
   }
 
