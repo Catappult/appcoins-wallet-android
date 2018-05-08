@@ -10,7 +10,6 @@ import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.TokenLocalSource;
 import com.asfoundation.wallet.repository.TokenRepository;
-import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.TransactionLocalSource;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
@@ -68,11 +67,6 @@ import static com.asfoundation.wallet.service.AirDropService.BASE_URL;
             .create(AirDropService.Api.class), airdropChainIdMapper, gson);
   }
 
-  @Provides FetchTokensInteract provideFetchTokensInteract(TokenRepositoryType tokenRepository,
-      DefaultTokenProvider defaultTokenProvider) {
-    return new FetchTokensInteract(tokenRepository, defaultTokenProvider);
-  }
-
   @Provides AirdropChainIdMapper provideAirdropChainIdMapper(
       FindDefaultNetworkInteract defaultNetworkInteract) {
     return new AirdropChainIdMapper(defaultNetworkInteract);
@@ -81,14 +75,6 @@ import static com.asfoundation.wallet.service.AirDropService.BASE_URL;
   @Provides FetchTransactionsInteract provideFetchTransactionsInteract(
       TransactionRepositoryType transactionRepository) {
     return new FetchTransactionsInteract(transactionRepository);
-  }
-
-  @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(
-      WalletRepositoryType walletRepository,
-      EthereumNetworkRepositoryType ethereumNetworkRepository,
-      FetchTokensInteract fetchTokensInteract) {
-    return new GetDefaultWalletBalance(walletRepository, ethereumNetworkRepository,
-        fetchTokensInteract);
   }
 
   @Provides ManageWalletsRouter provideManageWalletsRouter() {
@@ -128,7 +114,8 @@ import static com.asfoundation.wallet.service.AirDropService.BASE_URL;
         tokenExplorerClientType, tokenLocalSource, inDiskCache, tickerService);
   }
 
-  @Provides TransactionsMapper provideTransactionsMapper(DefaultTokenProvider defaultTokenProvider) {
+  @Provides TransactionsMapper provideTransactionsMapper(
+      DefaultTokenProvider defaultTokenProvider) {
     return new TransactionsMapper(defaultTokenProvider);
   }
 }

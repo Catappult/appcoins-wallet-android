@@ -91,6 +91,12 @@ public class IabPresenter {
       case UNKNOWN_TOKEN:
         return Completable.fromAction(() -> view.showWrongNetworkError())
             .andThen(transactionService.remove(transaction.getUri()));
+      case NO_TOKENS:
+        return Completable.fromAction(() -> view.showNoTokenFundsError())
+            .andThen(transactionService.remove(transaction.getUri()));
+      case NO_ETHER:
+        return Completable.fromAction(() -> view.showNoEtherFundsError())
+            .andThen(transactionService.remove(transaction.getUri()));
       case NO_INTERNET:
         return Completable.fromAction(() -> view.showNoNetworkError())
             .andThen(transactionService.remove(transaction.getUri()));

@@ -7,8 +7,10 @@ import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
+import com.asfoundation.wallet.interact.FetchTokensInteract;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
+import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.poa.BlockchainErrorMapper;
 import com.asfoundation.wallet.poa.Calculator;
@@ -20,6 +22,7 @@ import com.asfoundation.wallet.poa.TaggedCompositeDisposable;
 import com.asfoundation.wallet.poa.TransactionFactory;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.BlockChainWriter;
+import com.asfoundation.wallet.repository.BalanceService;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.EthereumNetworkRepository;
@@ -139,10 +142,27 @@ import okhttp3.OkHttpClient;
   @Singleton @Provides TransactionService provideTransactionService(
       FetchGasSettingsInteract gasSettingsInteract, TransferParser parser,
       FindDefaultWalletInteract defaultWalletInteract, ApproveService approveService,
-      BuyService buyService, NonceGetter nonceGetter) {
+      BuyService buyService, NonceGetter nonceGetter, BalanceService getDefaultWalletBalance) {
     return new TransactionService(gasSettingsInteract, defaultWalletInteract, parser,
         new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), approveService, buyService,
-        nonceGetter);
+        nonceGetter, getDefaultWalletBalance, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT));
+  }
+
+  @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(
+      WalletRepositoryType walletRepository,
+      EthereumNetworkRepositoryType ethereumNetworkRepository,
+      FetchTokensInteract fetchTokensInteract, FindDefaultWalletInteract defaultWalletInteract) {
+    return new GetDefaultWalletBalance(walletRepository, ethereumNetworkRepository,
+        fetchTokensInteract, defaultWalletInteract);
+  }
+
+  @Provides FetchTokensInteract provideFetchTokensInteract(TokenRepositoryType tokenRepository,
+      DefaultTokenProvider defaultTokenProvider) {
+    return new FetchTokensInteract(tokenRepository, defaultTokenProvider);
+  }
+
+  @Provides BalanceService provideBalanceService(GetDefaultWalletBalance getDefaultWalletBalance) {
+    return getDefaultWalletBalance;
   }
 
   @Provides TransferParser provideTransferParser(

@@ -17,7 +17,6 @@ import java.math.BigDecimal;
 public class TransactionService {
 
   public static final double GAS_PRICE_MULTIPLIER = 1.25;
-  private static final String DEFAULT_GAS_LIMIT = "200000";
   private final FetchGasSettingsInteract gasSettingsInteract;
   private final FindDefaultWalletInteract defaultWalletInteract;
   private final TransferParser parser;
@@ -25,11 +24,13 @@ public class TransactionService {
   private final ApproveService approveService;
   private final BuyService buyService;
   private final NonceGetter nonceGetter;
+  private final BalanceService balanceService;
+  private final BigDecimal paymentGasLimit;
 
   public TransactionService(FetchGasSettingsInteract gasSettingsInteract,
       FindDefaultWalletInteract defaultWalletInteract, TransferParser parser,
       Cache<String, PaymentTransaction> cache, ApproveService approveService, BuyService buyService,
-      NonceGetter nonceGetter) {
+      NonceGetter nonceGetter, BalanceService balanceService, BigDecimal paymentGasLimit) {
     this.gasSettingsInteract = gasSettingsInteract;
     this.defaultWalletInteract = defaultWalletInteract;
     this.parser = parser;
@@ -37,14 +38,37 @@ public class TransactionService {
     this.approveService = approveService;
     this.buyService = buyService;
     this.nonceGetter = nonceGetter;
+    this.balanceService = balanceService;
+    this.paymentGasLimit = paymentGasLimit;
   }
 
   public Completable send(String uri) {
-    return buildPaymentTransaction(uri).flatMapCompletable(
-        paymentTransaction -> cache.save(paymentTransaction.getUri(), paymentTransaction)
-            .andThen(nonceGetter.getNonce()
-                .flatMapCompletable(nonce -> approveService.approve(uri,
-                    new PaymentTransaction(paymentTransaction, nonce)))));
+    return buildPaymentTransaction(uri).doOnSuccess(
+        paymentTransaction -> cache.saveSync(paymentTransaction.getUri(), paymentTransaction))
+        .flatMapCompletable(paymentTransaction -> balanceService.hasEnoughBalance(
+            paymentTransaction.getTransactionBuilder(), paymentGasLimit)
+            .flatMapCompletable(balance -> {
+              switch (balance) {
+                case NO_TOKEN:
+                  return cache.save(paymentTransaction.getUri(),
+                      new PaymentTransaction(paymentTransaction,
+                          PaymentTransaction.PaymentState.NO_TOKENS));
+                case NO_ETHER:
+                  return cache.save(paymentTransaction.getUri(),
+                      new PaymentTransaction(paymentTransaction,
+                          PaymentTransaction.PaymentState.NO_ETHER));
+                case NO_ETHER_NO_TOKEN:
+                  return cache.save(paymentTransaction.getUri(),
+                      new PaymentTransaction(paymentTransaction,
+                          PaymentTransaction.PaymentState.NO_FUNDS));
+                case OK:
+                default:
+                  return cache.save(paymentTransaction.getUri(), paymentTransaction)
+                      .andThen(nonceGetter.getNonce()
+                          .flatMapCompletable(nonce -> approveService.approve(uri,
+                              new PaymentTransaction(paymentTransaction, nonce))));
+              }
+            }));
   }
 
   private Single<PaymentTransaction> buildPaymentTransaction(String uri) {
@@ -53,7 +77,7 @@ public class TransactionService {
         .flatMap(transactionBuilder -> gasSettingsInteract.fetch(true)
             .map(gasSettings -> transactionBuilder.gasSettings(
                 new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
-                    new BigDecimal(DEFAULT_GAS_LIMIT)))))
+                    paymentGasLimit.divide(new BigDecimal("2"), BigDecimal.ROUND_FLOOR)))))
         .map(transactionBuilder -> new PaymentTransaction(uri, transactionBuilder,
             PaymentTransaction.PaymentState.PENDING));
   }

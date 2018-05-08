@@ -172,10 +172,6 @@ public class IabActivity extends BaseActivity implements IabView {
     isBackEnable = true;
   }
 
-  @Override public void showNoFundsError() {
-    showError(R.string.activity_iab_no_funds_message);
-  }
-
   @Override public void showWrongNetworkError() {
     showError(R.string.activity_iab_wrong_network_message);
   }
@@ -194,6 +190,18 @@ public class IabActivity extends BaseActivity implements IabView {
 
   @Override public void showNonceError() {
     showError(R.string.activity_iab_nonce_message);
+  }
+
+  @Override public void showNoTokenFundsError() {
+    showError(R.string.activity_iab_no_token_funds_message);
+  }
+
+  @Override public void showNoEtherFundsError() {
+    showError(R.string.activity_iab_no_ethereum_funds_message);
+  }
+
+  @Override public void showNoFundsError() {
+    showError(R.string.activity_iab_no_funds_message);
   }
 
   private void showLoading(@StringRes int message) {

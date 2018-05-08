@@ -82,7 +82,7 @@ public class TransferParser {
         .map(token -> new TransactionBuilder(token.tokenInfo.symbol, getIabContractAddress(payment),
             payment.getChainId(), getReceiverAddress(payment),
             getTokenTransferAmount(payment, token.tokenInfo.decimals), getSkuId(payment),
-            token.tokenInfo.decimals, getIabContract(payment)));
+            token.tokenInfo.decimals, getIabContract(payment)).shouldSendToken(true));
   }
 
   private String getIabContract(ERC681 payment) {
