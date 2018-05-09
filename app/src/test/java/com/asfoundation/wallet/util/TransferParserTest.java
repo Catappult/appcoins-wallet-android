@@ -75,7 +75,7 @@ public class TransferParserTest {
         .equals("0x2c30194bd2e7b6b8ff1467c5af1650f53cd231be"));
     test.assertValue(transactionBuilder -> transactionBuilder.contractAddress()
         .equals("0xab949343e6c369c6b17c7ae302c1debd4b7b61c3"));
-    test.assertValue(transactionBuilder -> transactionBuilder.shouldSendToken() == false);
+    test.assertValue(transactionBuilder -> transactionBuilder.shouldSendToken() == true);
     test.assertValue(transactionBuilder -> transactionBuilder.getIabContract()
         .equals("0xb015D9bBabc472BBfC990ED6A0C961a90a482C57"));
   }
