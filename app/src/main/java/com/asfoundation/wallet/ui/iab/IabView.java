@@ -28,8 +28,6 @@ public interface IabView {
 
   void showBuy();
 
-  void showNoFundsError();
-
   void showWrongNetworkError();
 
   void showNoNetworkError();
@@ -39,4 +37,10 @@ public interface IabView {
   void showBuying();
 
   void showNonceError();
+
+  void showNoTokenFundsError();
+
+  void showNoEtherFundsError();
+
+  void showNoFundsError();
 }

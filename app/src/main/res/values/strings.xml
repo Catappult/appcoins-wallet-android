@@ -258,7 +258,9 @@
   <string name="activity_transactions_airdrop_success_message">You are now in a test network (Ropsten). Use your test APPC in our demo app.</string>
   <string name="activity_transaction_program_ended_title">Sorry</string>
   <string name="activity_transactions_program_ended_message">Test program successfully closed!</string>
-  <string name="activity_iab_no_funds_message">Not enough funds</string>
+  <string name="activity_iab_no_funds_message">Not enough ETH and APPC</string>
+  <string name="activity_iab_no_ethereum_funds_message">Not enough ethereum</string>
+  <string name="activity_iab_no_token_funds_message">Not enough appcoins</string>
   <string name="activity_iab_wrong_network_message">Wrong ethereum network or unknown token</string>
   <string name="activity_iab_no_network_message">No network access</string>
   <string name="activity_iab_nonce_message">An error with blockchain occurred, please try again later.</string>

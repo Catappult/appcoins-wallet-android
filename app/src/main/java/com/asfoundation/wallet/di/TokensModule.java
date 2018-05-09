@@ -21,11 +21,6 @@ import dagger.Provides;
         transactionsRouter, changeTokenCollectionRouter);
   }
 
-  @Provides FetchTokensInteract provideFetchTokensInteract(TokenRepositoryType tokenRepository,
-      DefaultTokenProvider defaultTokenProvider) {
-    return new FetchTokensInteract(tokenRepository, defaultTokenProvider);
-  }
-
   @Provides AddTokenRouter provideAddTokenRouter() {
     return new AddTokenRouter();
   }
