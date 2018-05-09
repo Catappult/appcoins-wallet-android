@@ -7,17 +7,12 @@ import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.repository.BalanceService;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
-import com.asfoundation.wallet.util.BalanceUtils;
 import com.asfoundation.wallet.util.UnknownTokenException;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.HashMap;
-import java.util.Map;
 
-import static com.asfoundation.wallet.C.USD_SYMBOL;
 import static com.asfoundation.wallet.util.BalanceUtils.weiToEth;
 
 public class GetDefaultWalletBalance implements BalanceService {
@@ -75,8 +70,8 @@ public class GetDefaultWalletBalance implements BalanceService {
   @Override public Single<BalanceState> hasEnoughBalance(TransactionBuilder transactionBuilder,
       BigDecimal transactionGasLimit) {
     GasSettings gasSettings = transactionBuilder.gasSettings();
-    return Single.zip(hasForFee(gasSettings.gasPrice.multiply(transactionGasLimit)),
-        hasEnoughToTransfer(transactionBuilder.amount(), transactionBuilder.shouldSendToken(),
+    return Single.zip(hasEnoughForFee(gasSettings.gasPrice.multiply(transactionGasLimit)),
+        hasEnoughForTransfer(transactionBuilder.amount(), transactionBuilder.shouldSendToken(),
             gasSettings.gasPrice.multiply(transactionGasLimit),
             transactionBuilder.contractAddress()), this::mapToState);
   }
@@ -93,7 +88,7 @@ public class GetDefaultWalletBalance implements BalanceService {
     }
   }
 
-  private Single<Boolean> hasForFee(BigDecimal cost) {
+  private Single<Boolean> hasEnoughForFee(BigDecimal cost) {
     return getBalanceInWei().map(ethBalance -> ethBalance.compareTo(cost) >= 0);
   }
 
@@ -102,7 +97,7 @@ public class GetDefaultWalletBalance implements BalanceService {
         .flatMap(walletRepository::balanceInWei);
   }
 
-  private Single<Boolean> hasEnoughToTransfer(BigDecimal cost, boolean isTokenTransfer,
+  private Single<Boolean> hasEnoughForTransfer(BigDecimal cost, boolean isTokenTransfer,
       BigDecimal feeCost, String contractAddress) {
     if (isTokenTransfer) {
       return getToken(contractAddress).map(token -> token.balance.compareTo(cost) >= 0);
