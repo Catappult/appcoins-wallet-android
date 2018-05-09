@@ -19,6 +19,7 @@ import com.asf.wallet.R;
 import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofStatus;
+import com.asfoundation.wallet.poa.ProofSubmissionFeeData;
 import dagger.android.AndroidInjection;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
@@ -83,7 +84,7 @@ public class WalletPoAService extends Service {
     return super.onStartCommand(intent, flags, startId);
   }
 
-  private void processWalletSate(ProofOfAttentionService.RequirementsStatus requirementsStatus,
+  private void processWalletSate(ProofSubmissionFeeData.RequirementsStatus requirementsStatus,
       Intent intent) {
     switch (requirementsStatus) {
       case READY:
