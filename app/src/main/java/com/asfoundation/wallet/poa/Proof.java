@@ -112,7 +112,7 @@ public class Proof {
         + '\''
         + ", campaignId='"
         + campaignId
-        + '\''
+        + '\'' + ", chainId='" + chainId + '\''
         + ", proofComponentList="
         + proofComponentList
         + '}';

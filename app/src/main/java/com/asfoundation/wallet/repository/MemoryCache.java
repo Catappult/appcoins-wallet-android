@@ -44,7 +44,6 @@ public class MemoryCache<K, V> implements Cache<K, V> {
   @Override public Single<Boolean> contains(K key) {
     return Single.just(containsSync(key));
   }
-
   @Override public void saveSync(K key, V value) {
     cache.put(key, value);
     subject.onNext(new HashMap<>(cache));

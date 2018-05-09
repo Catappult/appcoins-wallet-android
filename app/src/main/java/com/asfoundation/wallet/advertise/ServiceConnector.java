@@ -50,7 +50,11 @@ public interface ServiceConnector {
    * handshake.
    */
   String PARAM_APP_SERVICE_NAME = "PARAM_APP_SERVICE_NAME";
-
+  /**
+   * Intent parameter for the application service name, to identify the network we are using.
+   */
+  String PARAM_NETWORK_ID = "PARAM_NETWORK_ID";
+  
   /**
    * Method to bind to the service on the received package name and listening to the for the given
    * action of the intent filter.

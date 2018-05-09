@@ -89,4 +89,27 @@ public class EthereumNetworkRepository implements EthereumNetworkRepositoryType 
   @Override public Single<Ticker> getTicker() {
     return Single.fromObservable(tickerService.fetchTickerPrice(getDefaultNetwork().symbol));
   }
+
+  /**
+   * execute a single on a specific network and after terminate, restore the network to the
+   * previous one
+   * use it only when doing fast operations!
+   *
+   * @param chainId - identifies the network where the single should run
+   * @param single - single to run
+   */
+  @Override public <T> Single<T> executeOnNetworkAndRestore(int chainId, Single<T> single) {
+    return Single.just(getDefaultNetwork())
+        .doOnSuccess(__ -> setNetwork(chainId))
+        .flatMap(defaultNetworkInfo -> single.doAfterTerminate(
+            () -> setDefaultNetworkInfo(defaultNetworkInfo)));
+  }
+
+  private void setNetwork(int chainId) {
+    for (NetworkInfo networkInfo : getAvailableNetworkList()) {
+      if (chainId == networkInfo.chainId) {
+        setDefaultNetworkInfo(networkInfo);
+      }
+    }
+  }
 }

@@ -50,7 +50,7 @@ public class ProofOfAttentionServiceTest {
     when(hashCalculator.calculateNonce(any(NonceData.class))).thenReturn(nonce);
     when(blockChainWriter.writeProof(any(Proof.class))).thenReturn(Single.just("hash"));
     AtomicInteger i = new AtomicInteger();
-    when(blockChainWriter.hasEnoughFunds()).thenReturn(Single.create(e -> {
+    when(blockChainWriter.hasEnoughFunds(1)).thenReturn(Single.create(e -> {
       int index = i.getAndIncrement();
       if (index == 0) {
         e.onSuccess(true);
@@ -274,20 +274,23 @@ public class ProofOfAttentionServiceTest {
 
   @Test public void isWalletReady() {
     TestObserver<ProofOfAttentionService.RequirementsStatus> ready =
-        proofOfAttentionService.isWalletReady()
+        proofOfAttentionService.isWalletReady("packageName")
             .test();
-    TestObserver<ProofOfAttentionService.RequirementsStatus> noFunds =
-        proofOfAttentionService.isWalletReady()
-            .test();
-    TestObserver<ProofOfAttentionService.RequirementsStatus> noWallet =
-        proofOfAttentionService.isWalletReady()
-            .test();
+    testScheduler.triggerActions();
     ready.assertComplete()
         .assertNoErrors()
         .assertValue(ProofOfAttentionService.RequirementsStatus.READY);
+    TestObserver<ProofOfAttentionService.RequirementsStatus> noFunds =
+        proofOfAttentionService.isWalletReady("packageName")
+            .test();
+    testScheduler.triggerActions();
     noFunds.assertComplete()
         .assertNoErrors()
         .assertValue(ProofOfAttentionService.RequirementsStatus.NO_FUNDS);
+    TestObserver<ProofOfAttentionService.RequirementsStatus> noWallet =
+        proofOfAttentionService.isWalletReady("packageName")
+            .test();
+    testScheduler.triggerActions();
     noWallet.assertComplete()
         .assertNoErrors()
         .assertValue(ProofOfAttentionService.RequirementsStatus.NO_WALLET);
