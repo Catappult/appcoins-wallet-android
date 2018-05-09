@@ -238,8 +238,14 @@ public class ProofOfAttentionService {
     }
   }
 
-  public Single<RequirementsStatus> isWalletReady() {
-    return proofWriter.hasEnoughFunds()
+  public Single<RequirementsStatus> isWalletReady(String packageName) {
+    return Single.defer(() -> {
+      synchronized (this) {
+        Proof proof = getPreviousProofSync(packageName);
+        return proofWriter.hasEnoughFunds(proof.getChainId());
+      }
+    })
+        .subscribeOn(computationScheduler)
         .map(hasFunds -> {
           if (hasFunds) {
             return RequirementsStatus.READY;

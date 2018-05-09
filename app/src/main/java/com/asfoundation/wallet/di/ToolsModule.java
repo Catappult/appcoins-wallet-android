@@ -195,9 +195,10 @@ import okhttp3.OkHttpClient;
       TransactionFactory transactionFactory,
       @Named("REGISTER_PROOF_GAS_LIMIT") BigDecimal registerPoaGasLimit,
       GasSettingsRepositoryType gasSettingsRepository,
-      FindDefaultWalletInteract defaultWalletInteract, WalletRepositoryType walletRepositoryType) {
+      FindDefaultWalletInteract defaultWalletInteract, WalletRepositoryType walletRepositoryType,
+      EthereumNetworkRepositoryType ethereumNetwork) {
     return new BlockChainWriter(web3jProvider, transactionFactory, walletRepositoryType,
-        defaultWalletInteract, gasSettingsRepository, registerPoaGasLimit);
+        defaultWalletInteract, gasSettingsRepository, registerPoaGasLimit, ethereumNetwork);
   }
 
   @Singleton @Provides HashCalculator provideHashCalculator(Calculator calculator) {

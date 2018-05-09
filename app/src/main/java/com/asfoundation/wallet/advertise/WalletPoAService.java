@@ -63,6 +63,7 @@ public class WalletPoAService extends Service {
   }
 
   @Override public int onStartCommand(Intent intent, int flags, int startId) {
+    startNotifications();
     if (!isBound && intent != null) {
       if (intent.hasExtra(PARAM_APP_PACKAGE_NAME)) {
         // set the chain id received from the application. If not received, it is set as the main
@@ -71,14 +72,14 @@ public class WalletPoAService extends Service {
             intent.getStringExtra(PARAM_APP_PACKAGE_NAME),
             intent.getIntExtra(PARAM_NETWORK_ID, 1));
         Single.just(intent)
-            .flatMap(receivedIntent -> proofOfAttentionService.isWalletReady()
+            .flatMap(receivedIntent -> proofOfAttentionService.isWalletReady(
+                intent.getStringExtra(PARAM_APP_PACKAGE_NAME))
                 .doOnSuccess(
                     requirementsStatus -> processWalletSate(requirementsStatus, receivedIntent)))
             .subscribe();
 
       }
     }
-    startNotifications();
     return super.onStartCommand(intent, flags, startId);
   }
 

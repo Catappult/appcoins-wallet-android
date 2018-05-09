@@ -15,4 +15,6 @@ public interface EthereumNetworkRepositoryType {
   void addOnChangeDefaultNetwork(OnNetworkChangeListener onNetworkChanged);
 
   Single<Ticker> getTicker();
+
+  <T> Single<T> executeOnNetworkAndRestore(int chainId, Single<T> single);
 }
