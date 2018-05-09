@@ -57,8 +57,8 @@ public class BlockChainWriter implements ProofWriter {
 
   private ProofSubmissionFeeData getFeeData(boolean hasFunds, GasSettings gasSettings) {
     if (hasFunds) {
-      return new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NO_FUNDS,
-          gasSettings.gasLimit, gasSettings.gasPrice);
+      return new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY,
+          registerPoaGasLimit, gasSettings.gasPrice);
     }
     return new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NO_FUNDS,
         BigDecimal.ZERO, BigDecimal.ZERO);
