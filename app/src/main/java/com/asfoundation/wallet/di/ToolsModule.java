@@ -43,6 +43,9 @@ import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.repository.Web3jProvider;
 import com.asfoundation.wallet.router.GasSettingsRouter;
 import com.asfoundation.wallet.service.AccountKeystoreService;
+import com.asfoundation.wallet.service.AirdropChainIdMapper;
+import com.asfoundation.wallet.service.AirdropInteractor;
+import com.asfoundation.wallet.service.AirdropService;
 import com.asfoundation.wallet.service.RealmManager;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TrustWalletTickerService;
@@ -61,6 +64,11 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.asfoundation.wallet.service.AirdropService.BASE_URL;
 
 @Module class ToolsModule {
   @Provides Context provideContext(App application) {
@@ -242,5 +250,27 @@ import okhttp3.OkHttpClient;
   @Provides NonceGetter provideNonceGetter(EthereumNetworkRepositoryType networkRepository,
       FindDefaultWalletInteract defaultWalletInteract) {
     return new NonceGetter(networkRepository, defaultWalletInteract);
+  }
+
+  @Provides AirdropChainIdMapper provideAirdropChainIdMapper(
+      FindDefaultNetworkInteract defaultNetworkInteract) {
+    return new AirdropChainIdMapper(defaultNetworkInteract);
+  }
+
+  @Provides AirdropService provideAirdropService(OkHttpClient client, Gson gson) {
+    AirdropService.Api api = new Retrofit.Builder().baseUrl(BASE_URL)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(AirdropService.Api.class);
+    return new AirdropService(api, gson, Schedulers.io());
+  }
+
+  @Provides AirdropInteractor provideAirdropInteractor(
+      PendingTransactionService pendingTransactionService, EthereumNetworkRepositoryType repository,
+      AirdropChainIdMapper airdropChainIdMapper, AirdropService airdropService) {
+    return new AirdropInteractor(pendingTransactionService, repository, BehaviorSubject.create(),
+        airdropChainIdMapper, airdropService);
   }
 }

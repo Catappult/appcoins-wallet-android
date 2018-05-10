@@ -54,28 +54,6 @@ import static com.asfoundation.wallet.service.AirdropService.BASE_URL;
         defaultTokenProvider, getDefaultWalletBalance, transactionsMapper);
   }
 
-  @Provides AirdropService provideAirdropService(OkHttpClient client, Gson gson) {
-    AirdropService.Api api = new Retrofit.Builder().baseUrl(BASE_URL)
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(AirdropService.Api.class);
-    return new AirdropService(api, gson, Schedulers.io());
-  }
-
-  @Provides AirdropInteractor provideAirdropInteractor(
-      PendingTransactionService pendingTransactionService, EthereumNetworkRepositoryType repository,
-      AirdropChainIdMapper airdropChainIdMapper, AirdropService airdropService) {
-    return new AirdropInteractor(pendingTransactionService, repository, BehaviorSubject.create(),
-        airdropChainIdMapper, airdropService);
-  }
-
-  @Provides AirdropChainIdMapper provideAirdropChainIdMapper(
-      FindDefaultNetworkInteract defaultNetworkInteract) {
-    return new AirdropChainIdMapper(defaultNetworkInteract);
-  }
-
   @Provides FetchTransactionsInteract provideFetchTransactionsInteract(
       TransactionRepositoryType transactionRepository) {
     return new FetchTransactionsInteract(transactionRepository);

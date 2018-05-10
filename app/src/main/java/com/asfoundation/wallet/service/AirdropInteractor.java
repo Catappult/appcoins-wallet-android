@@ -7,6 +7,7 @@ import com.asfoundation.wallet.repository.TransactionNotFoundException;
 import io.reactivex.Completable;
 import io.reactivex.CompletableSource;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.BehaviorSubject;
 import java.util.ArrayList;
@@ -103,5 +104,9 @@ public class AirdropInteractor {
 
   public void resetStatus() {
     airdropResponse.onNext(new Airdrop(Airdrop.AirdropStatus.EMPTY));
+  }
+
+  public Single<String> requestCaptcha(String walletAddress) {
+    return airdropService.requestCaptcha(walletAddress);
   }
 }

@@ -40,6 +40,11 @@ public class AirdropService {
         });
   }
 
+  public Single<String> requestCaptcha(String walletAddress) {
+    return api.requestCaptcha(walletAddress)
+        .map(CaptchaResponse::getUrl);
+  }
+
   public enum Status {
     OK, FAIL
   }
@@ -48,6 +53,9 @@ public class AirdropService {
 
     @GET("airdrop/{address}/funds") Single<AirDropResponse> requestCoins(
         @Path("address") String address, @Query("chain_id") int chainId);
+
+    @GET("airdrop/captcha/{address}") Single<CaptchaResponse> requestCaptcha(
+        @Path("address") String address);
   }
 
   static class AirDropResponse {
@@ -112,6 +120,17 @@ public class AirdropService {
 
     public void setAppcoinsTransaction(String appcoinsTransaction) {
       this.appcoinsTransaction = appcoinsTransaction;
+    }
+  }
+
+  public static class CaptchaResponse {
+    @SerializedName("captcha_url") String url;
+
+    public CaptchaResponse() {
+    }
+
+    public String getUrl() {
+      return url;
     }
   }
 }
