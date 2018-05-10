@@ -23,7 +23,7 @@ public class Airdrop {
   }
 
   public void request(String walletAddress, int chainId) {
-    disposable = airdropService.request(walletAddress, chainId)
+    disposable = airdropService.requestAirdrop(walletAddress, chainId)
         .doOnSubscribe(
             __ -> airdropResponse.onNext(new AirdropData(AirdropData.AirdropStatus.PENDING)))
         .flatMapCompletable(airDropResponse -> {

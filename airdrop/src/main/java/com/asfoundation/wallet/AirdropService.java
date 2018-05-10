@@ -25,7 +25,7 @@ public class AirdropService {
     this.scheduler = scheduler;
   }
 
-  public Single<AirDropResponse> request(String walletAddress, Integer chainId) {
+  public Single<AirDropResponse> requestAirdrop(String walletAddress, Integer chainId) {
     return api.requestCoins(walletAddress, chainId)
         .subscribeOn(scheduler)
         .onErrorResumeNext(throwable -> {
