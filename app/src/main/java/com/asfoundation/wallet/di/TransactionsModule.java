@@ -46,12 +46,12 @@ import static com.asfoundation.wallet.service.AirdropService.BASE_URL;
       SettingsRouter settingsRouter, SendRouter sendRouter,
       TransactionDetailRouter transactionDetailRouter, MyAddressRouter myAddressRouter,
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
-      AirdropInteractor airdropInteractor, DefaultTokenProvider defaultTokenProvider,
-      GetDefaultWalletBalance getDefaultWalletBalance, TransactionsMapper transactionsMapper) {
+      DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
+      TransactionsMapper transactionsMapper) {
     return new TransactionsViewModelFactory(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, manageWalletsRouter, settingsRouter, sendRouter,
         transactionDetailRouter, myAddressRouter, myTokensRouter, externalBrowserRouter,
-        airdropInteractor, defaultTokenProvider, getDefaultWalletBalance, transactionsMapper);
+        defaultTokenProvider, getDefaultWalletBalance, transactionsMapper);
   }
 
   @Provides AirdropService provideAirdropService(OkHttpClient client, Gson gson) {

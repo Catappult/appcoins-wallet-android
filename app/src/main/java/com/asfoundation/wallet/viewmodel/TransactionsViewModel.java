@@ -23,24 +23,19 @@ import com.asfoundation.wallet.router.MyTokensRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
-import com.asfoundation.wallet.service.Airdrop;
-import com.asfoundation.wallet.service.AirdropInteractor;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
 import java.util.List;
 
 public class TransactionsViewModel extends BaseViewModel {
   private static final long GET_BALANCE_INTERVAL = 10 * DateUtils.SECOND_IN_MILLIS;
   private static final long FETCH_TRANSACTIONS_INTERVAL = 12 * DateUtils.SECOND_IN_MILLIS;
-  private static final String TAG = TransactionsViewModel.class.getSimpleName();
   private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
   private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
   private final MutableLiveData<List<Transaction>> transactions = new MutableLiveData<>();
   private final MutableLiveData<String> defaultWalletBalance = new MutableLiveData<>();
-  private final MutableLiveData<Airdrop> airdrop = new MutableLiveData<>();
   private final FindDefaultNetworkInteract findDefaultNetworkInteract;
   private final FindDefaultWalletInteract findDefaultWalletInteract;
   private final FetchTransactionsInteract fetchTransactionsInteract;
@@ -51,7 +46,6 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MyAddressRouter myAddressRouter;
   private final MyTokensRouter myTokensRouter;
   private final ExternalBrowserRouter externalBrowserRouter;
-  private final AirdropInteractor airdropInteractor;
   private final CompositeDisposable disposables;
   private final DefaultTokenProvider defaultTokenProvider;
   private final GetDefaultWalletBalance getDefaultWalletBalance;
@@ -66,8 +60,8 @@ public class TransactionsViewModel extends BaseViewModel {
       SettingsRouter settingsRouter, SendRouter sendRouter,
       TransactionDetailRouter transactionDetailRouter, MyAddressRouter myAddressRouter,
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
-      AirdropInteractor airdropInteractor, DefaultTokenProvider defaultTokenProvider,
-      GetDefaultWalletBalance getDefaultWalletBalance, TransactionsMapper transactionsMapper) {
+      DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
+      TransactionsMapper transactionsMapper) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchTransactionsInteract = fetchTransactionsInteract;
@@ -78,7 +72,6 @@ public class TransactionsViewModel extends BaseViewModel {
     this.myAddressRouter = myAddressRouter;
     this.myTokensRouter = myTokensRouter;
     this.externalBrowserRouter = externalBrowserRouter;
-    this.airdropInteractor = airdropInteractor;
     this.defaultTokenProvider = defaultTokenProvider;
     this.getDefaultWalletBalance = getDefaultWalletBalance;
     this.transactionsMapper = transactionsMapper;
@@ -109,17 +102,6 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public MutableLiveData<String> defaultWalletBalance() {
     return defaultWalletBalance;
-  }
-
-  public LiveData<Airdrop> onAirdrop() {
-    disposables.add(airdropInteractor.getStatus()
-        .subscribe(airdropData -> {
-          if (airdropData.getStatus() != Airdrop.AirdropStatus.PENDING) {
-            airdropInteractor.resetStatus();
-          }
-          airdrop.postValue(airdropData);
-        }));
-    return airdrop;
   }
 
   public void prepare() {
@@ -209,13 +191,6 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public void openDeposit(Context context, Uri uri) {
     externalBrowserRouter.open(context, uri);
-  }
-
-  public void showAirDrop() {
-    disposables.add(findDefaultWalletInteract.find()
-        .observeOn(Schedulers.io())
-        .doOnSuccess(wallet -> airdropInteractor.request(wallet.address))
-        .subscribe());
   }
 
   public void onLearnMoreClick(Context context, Uri uri) {
