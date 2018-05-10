@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.repository;
 
-import android.text.TextUtils;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Ticker;
 import com.asfoundation.wallet.service.TickerService;
@@ -55,7 +54,7 @@ public class EthereumNetworkRepository implements EthereumNetworkRepositoryType 
   }
 
   private NetworkInfo getByName(String name) {
-    if (!TextUtils.isEmpty(name)) {
+    if (name != null && !name.isEmpty()) {
       for (NetworkInfo NETWORK : NETWORKS) {
         if (name.equals(NETWORK.name)) {
           return NETWORK;

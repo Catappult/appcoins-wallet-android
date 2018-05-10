@@ -51,6 +51,7 @@ import com.asfoundation.wallet.util.TransferParser;
 import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
@@ -173,7 +174,8 @@ import okhttp3.OkHttpClient;
 
   @Provides FindDefaultNetworkInteract provideFindDefaultNetworkInteract(
       EthereumNetworkRepositoryType ethereumNetworkRepositoryType) {
-    return new FindDefaultNetworkInteract(ethereumNetworkRepositoryType);
+    return new FindDefaultNetworkInteract(ethereumNetworkRepositoryType,
+        AndroidSchedulers.mainThread());
   }
 
   @Provides DefaultTokenProvider provideDefaultTokenProvider(

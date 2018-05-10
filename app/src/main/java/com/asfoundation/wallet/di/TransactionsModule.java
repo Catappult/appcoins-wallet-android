@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.di;
 
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
-import com.asfoundation.wallet.interact.FetchTokensInteract;
 import com.asfoundation.wallet.interact.FetchTransactionsInteract;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
@@ -20,8 +19,9 @@ import com.asfoundation.wallet.router.MyTokensRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
-import com.asfoundation.wallet.service.AirDropService;
 import com.asfoundation.wallet.service.AirdropChainIdMapper;
+import com.asfoundation.wallet.service.AirdropInteractor;
+import com.asfoundation.wallet.service.AirdropService;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenExplorerClientType;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
@@ -29,13 +29,14 @@ import com.asfoundation.wallet.viewmodel.TransactionsViewModelFactory;
 import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.asfoundation.wallet.service.AirDropService.BASE_URL;
+import static com.asfoundation.wallet.service.AirdropService.BASE_URL;
 
 @Module class TransactionsModule {
   @Provides TransactionsViewModelFactory provideTransactionsViewModelFactory(
@@ -45,26 +46,29 @@ import static com.asfoundation.wallet.service.AirDropService.BASE_URL;
       SettingsRouter settingsRouter, SendRouter sendRouter,
       TransactionDetailRouter transactionDetailRouter, MyAddressRouter myAddressRouter,
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
-      FetchTokensInteract fetchTokensInteract, AirDropService airDropService,
-      DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
-      TransactionsMapper transactionsMapper) {
+      AirdropInteractor airdropInteractor, DefaultTokenProvider defaultTokenProvider,
+      GetDefaultWalletBalance getDefaultWalletBalance, TransactionsMapper transactionsMapper) {
     return new TransactionsViewModelFactory(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, manageWalletsRouter, settingsRouter, sendRouter,
         transactionDetailRouter, myAddressRouter, myTokensRouter, externalBrowserRouter,
-        fetchTokensInteract, airDropService, defaultTokenProvider, getDefaultWalletBalance,
-        transactionsMapper);
+        airdropInteractor, defaultTokenProvider, getDefaultWalletBalance, transactionsMapper);
   }
 
-  @Provides AirDropService provideAirDropService(OkHttpClient client, Gson gson,
+  @Provides AirdropService provideAirdropService(OkHttpClient client, Gson gson) {
+    AirdropService.Api api = new Retrofit.Builder().baseUrl(BASE_URL)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(AirdropService.Api.class);
+    return new AirdropService(api, gson, Schedulers.io());
+  }
+
+  @Provides AirdropInteractor provideAirdropInteractor(
       PendingTransactionService pendingTransactionService, EthereumNetworkRepositoryType repository,
-      AirdropChainIdMapper airdropChainIdMapper) {
-    return new AirDropService(pendingTransactionService, repository, BehaviorSubject.create(),
-        new Retrofit.Builder().baseUrl(BASE_URL)
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build()
-            .create(AirDropService.Api.class), airdropChainIdMapper, gson);
+      AirdropChainIdMapper airdropChainIdMapper, AirdropService airdropService) {
+    return new AirdropInteractor(pendingTransactionService, repository, BehaviorSubject.create(),
+        airdropChainIdMapper, airdropService);
   }
 
   @Provides AirdropChainIdMapper provideAirdropChainIdMapper(

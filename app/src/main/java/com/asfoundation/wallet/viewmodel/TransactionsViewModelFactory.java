@@ -4,7 +4,6 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
-import com.asfoundation.wallet.interact.FetchTokensInteract;
 import com.asfoundation.wallet.interact.FetchTransactionsInteract;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
@@ -16,7 +15,7 @@ import com.asfoundation.wallet.router.MyTokensRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
-import com.asfoundation.wallet.service.AirDropService;
+import com.asfoundation.wallet.service.AirdropInteractor;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
 
 public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
@@ -31,8 +30,7 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
   private final MyAddressRouter myAddressRouter;
   private final MyTokensRouter myTokensRouter;
   private final ExternalBrowserRouter externalBrowserRouter;
-  private final FetchTokensInteract fetchTokensInteract;
-  private final AirDropService airDropService;
+  private final AirdropInteractor airdropInteractor;
   private final DefaultTokenProvider defaultTokenProvider;
   private final GetDefaultWalletBalance getDefaultWalletBalance;
   private final TransactionsMapper transactionsMapper;
@@ -43,9 +41,8 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
       SettingsRouter settingsRouter, SendRouter sendRouter,
       TransactionDetailRouter transactionDetailRouter, MyAddressRouter myAddressRouter,
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
-      FetchTokensInteract fetchTokensInteract, AirDropService airDropService,
-      DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
-      TransactionsMapper transactionsMapper) {
+      AirdropInteractor airdropInteractor, DefaultTokenProvider defaultTokenProvider,
+      GetDefaultWalletBalance getDefaultWalletBalance, TransactionsMapper transactionsMapper) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchTransactionsInteract = fetchTransactionsInteract;
@@ -56,8 +53,7 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
     this.myAddressRouter = myAddressRouter;
     this.myTokensRouter = myTokensRouter;
     this.externalBrowserRouter = externalBrowserRouter;
-    this.fetchTokensInteract = fetchTokensInteract;
-    this.airDropService = airDropService;
+    this.airdropInteractor = airdropInteractor;
     this.defaultTokenProvider = defaultTokenProvider;
     this.getDefaultWalletBalance = getDefaultWalletBalance;
     this.transactionsMapper = transactionsMapper;
@@ -67,7 +63,6 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
     return (T) new TransactionsViewModel(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, manageWalletsRouter, settingsRouter, sendRouter,
         transactionDetailRouter, myAddressRouter, myTokensRouter, externalBrowserRouter,
-        fetchTokensInteract, airDropService, defaultTokenProvider, getDefaultWalletBalance,
-        transactionsMapper);
+        airdropInteractor, defaultTokenProvider, getDefaultWalletBalance, transactionsMapper);
   }
 }
