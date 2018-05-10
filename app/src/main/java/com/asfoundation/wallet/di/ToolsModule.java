@@ -2,6 +2,8 @@ package com.asfoundation.wallet.di;
 
 import android.content.Context;
 import com.asf.wallet.BuildConfig;
+import com.asfoundation.wallet.Airdrop;
+import com.asfoundation.wallet.AirdropService;
 import com.asfoundation.wallet.App;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
@@ -43,12 +45,12 @@ import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.repository.Web3jProvider;
 import com.asfoundation.wallet.router.GasSettingsRouter;
 import com.asfoundation.wallet.service.AccountKeystoreService;
-import com.asfoundation.wallet.service.AirdropChainIdMapper;
-import com.asfoundation.wallet.service.AirdropInteractor;
-import com.asfoundation.wallet.service.AirdropService;
 import com.asfoundation.wallet.service.RealmManager;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TrustWalletTickerService;
+import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper;
+import com.asfoundation.wallet.ui.airdrop.AirdropInteractor;
+import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService;
 import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.TransferParser;
 import com.google.gson.Gson;
@@ -68,7 +70,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.asfoundation.wallet.service.AirdropService.BASE_URL;
+import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
 @Module class ToolsModule {
   @Provides Context provideContext(App application) {
@@ -269,8 +271,11 @@ import static com.asfoundation.wallet.service.AirdropService.BASE_URL;
 
   @Provides AirdropInteractor provideAirdropInteractor(
       PendingTransactionService pendingTransactionService, EthereumNetworkRepositoryType repository,
-      AirdropChainIdMapper airdropChainIdMapper, AirdropService airdropService) {
-    return new AirdropInteractor(pendingTransactionService, repository, BehaviorSubject.create(),
-        airdropChainIdMapper, airdropService);
+      AirdropService airdropService, FindDefaultWalletInteract findDefaultWalletInteract,
+      AirdropChainIdMapper airdropChainIdMapper) {
+    return new AirdropInteractor(
+        new Airdrop(new AppcoinsTransactionService(pendingTransactionService, repository),
+            BehaviorSubject.create(), airdropService), findDefaultWalletInteract,
+        airdropChainIdMapper);
   }
 }

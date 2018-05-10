@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.service;
+package com.asfoundation.wallet.ui.airdrop;
 
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;

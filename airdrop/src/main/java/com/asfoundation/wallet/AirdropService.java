@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.service;
+package com.asfoundation.wallet;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
@@ -58,7 +58,7 @@ public class AirdropService {
         @Path("address") String address);
   }
 
-  static class AirDropResponse {
+  public static class AirDropResponse {
     private final Status status;
     @SerializedName("txid_appc") private String appcoinsTransaction;
     @SerializedName("txid_eth") private String ethTransaction;
