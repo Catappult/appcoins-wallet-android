@@ -16,12 +16,13 @@ public class AirdropActivity extends BaseActivity {
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_airdrop);
-    getSupportFragmentManager().beginTransaction()
-        .add(R.id.fragment_container, AirdropFragment.newInstance())
-        .commit();
-
     toolbar();
 
+    if (savedInstanceState == null) {
+      getSupportFragmentManager().beginTransaction()
+          .add(R.id.fragment_container, AirdropFragment.newInstance())
+          .commit();
+    }
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {

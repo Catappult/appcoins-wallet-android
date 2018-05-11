@@ -3,6 +3,8 @@ package com.asfoundation.wallet.ui.airdrop;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,6 +25,7 @@ import dagger.android.support.DaggerFragment;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.subjects.BehaviorSubject;
 import javax.inject.Inject;
 
 public class AirdropFragment extends DaggerFragment implements AirdropView {
@@ -33,9 +36,10 @@ public class AirdropFragment extends DaggerFragment implements AirdropView {
   private Button submitButton;
   private TextInputEditText captchaAnswerView;
   private View refreshButton;
-  private ProgressDialog loading;
+  private AlertDialog loading;
   private AlertDialog genericErrorDialog;
   private AlertDialog errorDialog;
+  private BehaviorSubject<Object> terminateStateConsumed;
 
   public static AirdropFragment newInstance() {
     return new AirdropFragment();
@@ -45,6 +49,7 @@ public class AirdropFragment extends DaggerFragment implements AirdropView {
     super.onCreate(savedInstanceState);
     presenter = new AirdropPresenter(this, new CompositeDisposable(), airdropInteractor,
         AndroidSchedulers.mainThread());
+    terminateStateConsumed = BehaviorSubject.create();
   }
 
   @Nullable @Override
@@ -116,7 +121,14 @@ public class AirdropFragment extends DaggerFragment implements AirdropView {
   }
 
   @Override public void showLoading() {
-    loading = ProgressDialog.show(getContext(), "Loading", "", true, false);
+    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
+    LayoutInflater inflater = this.getLayoutInflater();
+    final View dialogView = inflater.inflate(R.layout.dialog_loading, null);
+    dialogBuilder.setView(dialogView);
+    loading = dialogBuilder.create();
+    loading.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    loading.show();
+
     Log.d(TAG, "showLoading() called");
   }
 
@@ -132,6 +144,7 @@ public class AirdropFragment extends DaggerFragment implements AirdropView {
     genericErrorDialog = new AlertDialog.Builder(getContext()).setTitle("Airdrop")
         .setMessage("An error has occurred")
         .setPositiveButton("ok", (dialog, which) -> dialog.dismiss())
+        .setOnDismissListener(dialog -> terminateStateConsumed.onNext(true))
         .create();
     genericErrorDialog.show();
   }
@@ -141,6 +154,7 @@ public class AirdropFragment extends DaggerFragment implements AirdropView {
     errorDialog = new AlertDialog.Builder(getContext()).setTitle("Airdrop")
         .setMessage(message)
         .setPositiveButton("ok", (dialog, which) -> dialog.dismiss())
+        .setOnDismissListener(dialog -> terminateStateConsumed.onNext(true))
         .create();
     errorDialog.show();
   }
@@ -149,11 +163,20 @@ public class AirdropFragment extends DaggerFragment implements AirdropView {
     Log.d(TAG, "showSuccess() called");
     AlertDialog successDialog = new AlertDialog.Builder(getContext()).setTitle("Airdrop")
         .setMessage("Airdrop completed")
+        .setOnDismissListener(dialog -> terminateStateConsumed.onNext(true))
         .setPositiveButton("ok", (dialog, which) -> {
           dialog.dismiss();
           getFragmentManager().popBackStack();
         })
         .create();
     successDialog.show();
+  }
+
+  @Override public Observable<Object> getTerminateStateConsumed() {
+    return terminateStateConsumed;
+  }
+
+  @Override public void clearCaptchaText() {
+    captchaAnswerView.setText("");
   }
 }

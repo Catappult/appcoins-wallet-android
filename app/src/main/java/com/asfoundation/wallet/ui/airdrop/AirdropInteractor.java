@@ -36,4 +36,8 @@ public class AirdropInteractor {
   public Observable<AirdropData> getStatus() {
     return airdrop.getStatus();
   }
+
+  public void terminateStateConsumed() {
+    airdrop.resetState();
+  }
 }

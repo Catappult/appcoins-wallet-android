@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.airdrop;
 
 import com.asfoundation.wallet.AirdropData;
 import io.reactivex.Scheduler;
+import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class AirdropPresenter {
@@ -23,17 +24,39 @@ public class AirdropPresenter {
     onCaptchaRefreshClick();
     onAirdropRequestClick();
     onAirdropStatusChange();
+    onTerminateStateConsumed();
+    resetOnErrorState();
+  }
+
+  private void resetOnErrorState() {
+    disposables.add(airdrop.getStatus()
+        .filter(airdropData -> airdropData.getStatus()
+            .equals(AirdropData.AirdropStatus.API_ERROR) || airdropData.getStatus()
+            .equals(AirdropData.AirdropStatus.ERROR))
+        .doOnNext(__-> view.clearCaptchaText())
+        .flatMapSingle(airdropData -> refreshCaptcha())
+        .observeOn(scheduler)
+        .subscribe(__ -> {},Throwable::printStackTrace));
+  }
+
+  private void onTerminateStateConsumed() {
+    disposables.add(view.getTerminateStateConsumed()
+        .subscribe(__ -> airdrop.terminateStateConsumed()));
   }
 
   private void onCaptchaRefreshClick() {
     disposables.add(view.getCaptchaRefreshListener()
-        .flatMapSingle(__ -> airdrop.requestCaptcha()
-            .observeOn(scheduler)
-            .doOnSuccess(view::showCaptcha)
-            .doOnError(throwable -> throwable.printStackTrace()))
+        .flatMapSingle(__ -> refreshCaptcha())
         .retry()
         .subscribe(__ -> {
         }, Throwable::printStackTrace));
+  }
+
+  private Single<String> refreshCaptcha() {
+    return airdrop.requestCaptcha()
+        .observeOn(scheduler)
+        .doOnSuccess(view::showCaptcha)
+        .doOnError(throwable -> throwable.printStackTrace());
   }
 
   private void onAirdropStatusChange() {
