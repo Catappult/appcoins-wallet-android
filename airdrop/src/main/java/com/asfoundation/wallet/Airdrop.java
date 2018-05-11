@@ -71,7 +71,12 @@ public class Airdrop {
   }
 
   public Observable<AirdropData> getStatus() {
-    return airdropResponse;
+    return airdropResponse.filter(
+        airdropData -> airdropData.getStatus() != AirdropData.AirdropStatus.UNDEFINED);
+  }
+
+  public void resetState() {
+    airdropResponse.onNext(new AirdropData(AirdropData.AirdropStatus.UNDEFINED));
   }
 
   public Single<String> requestCaptcha(String walletAddress) {

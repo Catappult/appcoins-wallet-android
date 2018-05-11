@@ -23,6 +23,12 @@ public class AirdropPresenter {
     onCaptchaRefreshClick();
     onAirdropRequestClick();
     onAirdropStatusChange();
+    onTerminateStateConsumed();
+  }
+
+  private void onTerminateStateConsumed() {
+    disposables.add(view.getTerminateStateConsumed()
+        .subscribe(__ -> airdrop.terminateStateConsumed()));
   }
 
   private void onCaptchaRefreshClick() {
