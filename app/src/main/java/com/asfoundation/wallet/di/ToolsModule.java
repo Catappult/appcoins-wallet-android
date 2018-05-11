@@ -269,7 +269,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
     return new AirdropService(api, gson, Schedulers.io());
   }
 
-  @Provides AirdropInteractor provideAirdropInteractor(
+  @Singleton @Provides AirdropInteractor provideAirdropInteractor(
       PendingTransactionService pendingTransactionService, EthereumNetworkRepositoryType repository,
       AirdropService airdropService, FindDefaultWalletInteract findDefaultWalletInteract,
       AirdropChainIdMapper airdropChainIdMapper) {

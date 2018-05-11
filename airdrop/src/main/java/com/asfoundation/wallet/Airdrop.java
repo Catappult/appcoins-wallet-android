@@ -22,8 +22,8 @@ public class Airdrop {
     this.airdropService = airdropService;
   }
 
-  public void request(String walletAddress, int chainId) {
-    disposable = airdropService.requestAirdrop(walletAddress, chainId)
+  public void request(String walletAddress, int chainId, String captchaAnswer) {
+    disposable = airdropService.requestAirdrop(walletAddress, chainId, captchaAnswer)
         .doOnSubscribe(
             __ -> airdropResponse.onNext(new AirdropData(AirdropData.AirdropStatus.PENDING)))
         .flatMapCompletable(airDropResponse -> {
@@ -71,12 +71,7 @@ public class Airdrop {
   }
 
   public Observable<AirdropData> getStatus() {
-    return airdropResponse.filter(
-        airdropStatus -> airdropStatus.getStatus() != AirdropData.AirdropStatus.EMPTY);
-  }
-
-  public void resetStatus() {
-    airdropResponse.onNext(new AirdropData(AirdropData.AirdropStatus.EMPTY));
+    return airdropResponse;
   }
 
   public Single<String> requestCaptcha(String walletAddress) {

@@ -2,16 +2,42 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
   <ImageView
       android:id="@+id/airdrop_fragment_captcha_image_view"
       android:layout_width="0dp"
-      android:layout_height="0dp"
-      app:layout_constraintBottom_toBottomOf="parent"
+      android:layout_height="80dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      tools:src="@drawable/ic_app_logo"
+      />
+  <EditText
+      android:id="@+id/airdrop_fragment_captcha_answer"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:hint="captcha answer"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/airdrop_fragment_captcha_image_view"
+      />
+  <Button
+      android:id="@+id/airdrop_fragment_request_airdrop_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/airdrop_fragment_submit_button"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/airdrop_fragment_captcha_answer"
+      />
+  <ImageButton
+      android:id="@+id/airdrop_fragment_request_captcha_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/ic_refresh"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/airdrop_fragment_request_airdrop_button"
       />
 </android.support.constraint.ConstraintLayout>

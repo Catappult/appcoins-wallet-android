@@ -25,8 +25,9 @@ public class AirdropService {
     this.scheduler = scheduler;
   }
 
-  public Single<AirDropResponse> requestAirdrop(String walletAddress, Integer chainId) {
-    return api.requestCoins(walletAddress, chainId)
+  public Single<AirDropResponse> requestAirdrop(String walletAddress, Integer chainId,
+      String captchaAnswer) {
+    return api.requestCoins(walletAddress, chainId, captchaAnswer)
         .subscribeOn(scheduler)
         .onErrorResumeNext(throwable -> {
           if (throwable instanceof HttpException) {
@@ -52,7 +53,8 @@ public class AirdropService {
   public interface Api {
 
     @GET("airdrop/{address}/funds") Single<AirDropResponse> requestCoins(
-        @Path("address") String address, @Query("chain_id") int chainId);
+        @Path("address") String address, @Query("chain_id") int chainId,
+        @Query("captcha_answer") String captchaAnswer);
 
     @GET("airdrop/captcha/{address}") Single<CaptchaResponse> requestCaptcha(
         @Path("address") String address);
