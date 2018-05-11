@@ -24,6 +24,8 @@
         android:paddingBottom="40dp"
         android:paddingStart="@dimen/big_margin"
         android:paddingEnd="@dimen/big_margin"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         >
       <TextView
           android:id="@+id/title"
@@ -84,7 +86,7 @@
           app:layout_constraintEnd_toEndOf="parent"
           android:layout_marginTop="@dimen/normal_margin"
           app:errorEnabled="true"
-          app:hintAnimationEnabled="false"
+          app:hintEnabled="false"
           >
 
         <android.support.design.widget.TextInputEditText
@@ -109,7 +111,7 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@id/captcha_text"
           android:text="@string/activity_airdrop_submit_btn"
-          android:enabled="false"
+          android:enabled="true"
           />
 
     </android.support.constraint.ConstraintLayout>
