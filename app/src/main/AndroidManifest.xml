@@ -90,7 +90,7 @@
         android:theme="@style/Theme.AppCompat.Transparent"/>
 
     <activity
-        android:name="com.asfoundation.wallet.ui.widget.AirDropActivity"
+        android:name="com.asfoundation.wallet.ui.airdrop.AirdropActivity"
         android:label="@string/title_airdrop"/>
 
     <meta-data
@@ -116,5 +116,4 @@
     </receiver>
 
   </application>
-
 </manifest>

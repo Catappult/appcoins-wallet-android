@@ -1,29 +1,27 @@
-package com.asfoundation.wallet.ui.widget;
+package com.asfoundation.wallet.ui.airdrop;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.Menu;
 import android.view.MenuItem;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.ui.BaseActivity;
-import com.asfoundation.wallet.widget.SystemView;
-import dagger.android.AndroidInjection;
 
-public class AirDropActivity extends BaseActivity {
+public class AirdropActivity extends BaseActivity {
+  public static Intent newIntent(Context context) {
+    return new Intent(context, AirdropActivity.class);
+  }
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
-    //AndroidInjection.inject(this);
-
     super.onCreate(savedInstanceState);
-
     setContentView(R.layout.activity_airdrop);
+    getSupportFragmentManager().beginTransaction()
+        .add(R.id.fragment_container, AirdropFragment.newInstance())
+        .commit();
 
     toolbar();
 
-  }
-
-  @Override public boolean onCreateOptionsMenu(Menu menu) {
-    return super.onCreateOptionsMenu(menu);
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
@@ -35,11 +33,4 @@ public class AirDropActivity extends BaseActivity {
     return super.onOptionsItemSelected(item);
   }
 
-  @Override public void onBackPressed() {
-    finish();
-  }
-
-  @Override protected void onResume() {
-    super.onResume();
-  }
 }
