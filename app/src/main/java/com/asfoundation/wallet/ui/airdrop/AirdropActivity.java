@@ -15,8 +15,10 @@ public class AirdropActivity extends BaseActivity {
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.airdrop_activity_layout);
-    getSupportFragmentManager().beginTransaction()
-        .add(R.id.fragment_container, AirdropFragment.newInstance())
-        .commit();
+    if (savedInstanceState == null) {
+      getSupportFragmentManager().beginTransaction()
+          .add(R.id.fragment_container, AirdropFragment.newInstance())
+          .commit();
+    }
   }
 }
