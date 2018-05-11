@@ -34,4 +34,5 @@
 
   <dimen name="component_elevation">2dp</dimen>
 
+  <dimen name="button_height">32dp</dimen>
 </resources>

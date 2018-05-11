@@ -172,7 +172,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         break;
       }
       case R.id.action_air_drop: {
-        viewModel.showAirDrop();
+        viewModel.showAirDrop(this);
         emptyView.setAirdropButtonEnable(false);
         break;
       }

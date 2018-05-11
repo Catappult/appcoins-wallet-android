@@ -13,6 +13,7 @@ import com.asfoundation.wallet.repository.TokenRepository;
 import com.asfoundation.wallet.repository.TransactionLocalSource;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
+import com.asfoundation.wallet.router.AirdropRouter;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.ManageWalletsRouter;
 import com.asfoundation.wallet.router.MyAddressRouter;
@@ -47,12 +48,12 @@ import static com.asfoundation.wallet.service.AirDropService.BASE_URL;
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
       FetchTokensInteract fetchTokensInteract, AirDropService airDropService,
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
-      TransactionsMapper transactionsMapper) {
+      TransactionsMapper transactionsMapper, AirdropRouter airdropRouter) {
     return new TransactionsViewModelFactory(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, manageWalletsRouter, settingsRouter, sendRouter,
         transactionDetailRouter, myAddressRouter, myTokensRouter, externalBrowserRouter,
         fetchTokensInteract, airDropService, defaultTokenProvider, getDefaultWalletBalance,
-        transactionsMapper);
+        transactionsMapper, airdropRouter);
   }
 
   @Provides AirDropService provideAirDropService(OkHttpClient client, Gson gson,
@@ -117,5 +118,9 @@ import static com.asfoundation.wallet.service.AirDropService.BASE_URL;
   @Provides TransactionsMapper provideTransactionsMapper(
       DefaultTokenProvider defaultTokenProvider) {
     return new TransactionsMapper(defaultTokenProvider);
+  }
+
+  @Provides AirdropRouter provideAirdropRouter() {
+    return new AirdropRouter();
   }
 }
