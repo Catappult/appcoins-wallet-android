@@ -12,6 +12,8 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.asfoundation.wallet.util.BalanceUtils.weiToEth;
 
@@ -31,7 +33,7 @@ public class GetDefaultWalletBalance implements BalanceService {
     this.defaultWalletInteract = defaultWalletInteract;
   }
 
-  public Single<String> get(Wallet wallet) {
+  public Single<Map<String, String>> get(Wallet wallet) {
     return fetchTokensInteract.fetchDefaultToken(wallet)
         .flatMapSingle(token -> {
           if (wallet.address.equals(token.tokenInfo.address)) {
@@ -43,26 +45,24 @@ public class GetDefaultWalletBalance implements BalanceService {
         .firstOrError();
   }
 
-  private Single<String> getTokenBalance(Token token) {
-    StringBuilder balance = new StringBuilder();
-    balance.append(weiToEth(token.balance).setScale(4, RoundingMode.HALF_UP)
-        .stripTrailingZeros()
-        .toPlainString())
-        .append(" ")
-        .append(token.tokenInfo.symbol);
-    return Single.just(balance.toString());
+  private Single<Map<String, String>> getTokenBalance(Token token) {
+    Map<String, String> balance = new HashMap<>();
+    balance.put(token.tokenInfo.symbol,
+        weiToEth(token.balance).setScale(4, RoundingMode.HALF_UP)
+            .stripTrailingZeros()
+            .toPlainString());
+    return Single.just(balance);
   }
 
-  private Single<String> getEtherBalance(Wallet wallet) {
+  private Single<Map<String, String>> getEtherBalance(Wallet wallet) {
     return walletRepository.balanceInWei(wallet)
         .flatMap(ethBalance -> {
-          StringBuilder balance = new StringBuilder();
-          balance.append(weiToEth(ethBalance).setScale(4, RoundingMode.HALF_UP)
-              .stripTrailingZeros()
-              .toPlainString())
-              .append(" ")
-              .append(ethereumNetworkRepository.getDefaultNetwork().symbol);
-          return Single.just(balance.toString());
+          Map<String, String> balance = new HashMap<>();
+          balance.put(ethereumNetworkRepository.getDefaultNetwork().symbol,
+              weiToEth(ethBalance).setScale(4, RoundingMode.HALF_UP)
+                  .stripTrailingZeros()
+                  .toPlainString());
+          return Single.just(balance);
         })
         .observeOn(AndroidSchedulers.mainThread());
   }

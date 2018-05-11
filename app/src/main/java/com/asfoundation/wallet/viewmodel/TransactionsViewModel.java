@@ -41,7 +41,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
   private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
   private final MutableLiveData<List<Transaction>> transactions = new MutableLiveData<>();
-  private final MutableLiveData<String> defaultWalletBalance = new MutableLiveData<>();
+  private final MutableLiveData<Map<String, String>> defaultWalletBalance = new MutableLiveData<>();
   private final MutableLiveData<Airdrop> airdrop = new MutableLiveData<>();
   private final FindDefaultNetworkInteract findDefaultNetworkInteract;
   private final FindDefaultWalletInteract findDefaultWalletInteract;
@@ -112,7 +112,7 @@ public class TransactionsViewModel extends BaseViewModel {
     return transactions;
   }
 
-  public MutableLiveData<String> defaultWalletBalance() {
+  public MutableLiveData<Map<String, String>> defaultWalletBalance() {
     return defaultWalletBalance;
   }
 
