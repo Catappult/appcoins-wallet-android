@@ -99,16 +99,21 @@ public class EthereumNetworkRepository implements EthereumNetworkRepositoryType 
    */
   @Override public <T> Single<T> executeOnNetworkAndRestore(int chainId, Single<T> single) {
     return Single.just(getDefaultNetwork())
-        .doOnSuccess(__ -> setNetwork(chainId))
+        .doOnSuccess(__ -> setDefaultNetworkInfo(chainId))
         .flatMap(defaultNetworkInfo -> single.doAfterTerminate(
             () -> setDefaultNetworkInfo(defaultNetworkInfo)));
   }
 
-  private void setNetwork(int chainId) {
+  @Override public void setDefaultNetworkInfo(int chainId) {
+    setDefaultNetworkInfo(getNetwork(chainId));
+  }
+
+  @Override public NetworkInfo getNetwork(int chainId) {
     for (NetworkInfo networkInfo : getAvailableNetworkList()) {
       if (chainId == networkInfo.chainId) {
-        setDefaultNetworkInfo(networkInfo);
+        return networkInfo;
       }
     }
+    throw new IllegalArgumentException("Unknown chain Id: " + chainId);
   }
 }

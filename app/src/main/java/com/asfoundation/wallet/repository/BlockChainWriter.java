@@ -47,7 +47,7 @@ public class BlockChainWriter implements ProofWriter {
 
   private Single<String> sendTransaction(byte[] transaction) {
     return Single.fromCallable(() -> {
-      EthSendTransaction sentTransaction = web3jProvider.get()
+      EthSendTransaction sentTransaction = web3jProvider.getDefault()
           .ethSendRawTransaction(Numeric.toHexString(transaction))
           .send();
       if (sentTransaction.hasError()) {

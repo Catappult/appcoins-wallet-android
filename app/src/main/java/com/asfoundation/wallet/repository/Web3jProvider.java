@@ -13,12 +13,14 @@ import org.web3j.protocol.http.HttpService;
 public class Web3jProvider {
 
   private final OkHttpClient httpClient;
+  private final EthereumNetworkRepositoryType ethereumNetworkRepository;
   private Web3j web3j;
 
   public Web3jProvider(EthereumNetworkRepositoryType ethereumNetworkRepository,
       OkHttpClient client) {
     httpClient = client;
-    ethereumNetworkRepository.addOnChangeDefaultNetwork(this::buildWeb3jClient);
+    this.ethereumNetworkRepository = ethereumNetworkRepository;
+    this.ethereumNetworkRepository.addOnChangeDefaultNetwork(this::buildWeb3jClient);
     buildWeb3jClient(ethereumNetworkRepository.getDefaultNetwork());
   }
 
@@ -26,7 +28,13 @@ public class Web3jProvider {
     web3j = Web3jFactory.build(new HttpService(defaultNetwork.rpcServerUrl, httpClient, false));
   }
 
-  public Web3j get() {
+  public Web3j getDefault() {
     return web3j;
+  }
+
+  public Web3j get(int chainId) {
+    return Web3jFactory.build(
+        new HttpService(ethereumNetworkRepository.getNetwork(chainId).rpcServerUrl, httpClient,
+            false));
   }
 }

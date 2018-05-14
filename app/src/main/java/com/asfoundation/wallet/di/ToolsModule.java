@@ -274,8 +274,8 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
       AirdropService airdropService, FindDefaultWalletInteract findDefaultWalletInteract,
       AirdropChainIdMapper airdropChainIdMapper) {
     return new AirdropInteractor(
-        new Airdrop(new AppcoinsTransactionService(pendingTransactionService, repository),
+        new Airdrop(new AppcoinsTransactionService(pendingTransactionService),
             BehaviorSubject.create(), airdropService), findDefaultWalletInteract,
-        airdropChainIdMapper);
+        airdropChainIdMapper, repository);
   }
 }

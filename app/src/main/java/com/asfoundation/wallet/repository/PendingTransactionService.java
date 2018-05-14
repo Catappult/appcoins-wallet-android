@@ -27,4 +27,12 @@ public class PendingTransactionService {
             .toObservable())
         .takeUntil(pendingTransaction -> !pendingTransaction.isPending());
   }
+
+  public Observable<PendingTransaction> checkTransactionState(String hash, int chainId) {
+    return Observable.interval(period, TimeUnit.SECONDS, scheduler)
+        .timeInterval()
+        .switchMap(scan -> service.getTransaction(hash, chainId)
+            .toObservable())
+        .takeUntil(pendingTransaction -> !pendingTransaction.isPending());
+  }
 }

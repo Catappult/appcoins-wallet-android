@@ -2,6 +2,7 @@ package com.asfoundation.wallet.repository;
 
 import com.asfoundation.wallet.entity.PendingTransaction;
 import io.reactivex.Single;
+import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.response.EthTransaction;
 
 /**
@@ -15,12 +16,11 @@ public class Web3jService implements EthereumService {
     this.web3j = web3j;
   }
 
-  @Override public Single<PendingTransaction> getTransaction(String hash) {
+  private Single<PendingTransaction> getTransaction(String hash, Web3j web3jClient) {
     return Single.create(emitter -> {
       try {
         if (!emitter.isDisposed()) {
-          EthTransaction ethTransaction = web3j.get()
-              .ethGetTransactionByHash(hash)
+          EthTransaction ethTransaction = web3jClient.ethGetTransactionByHash(hash)
               .send();
           if (ethTransaction.hasError()) {
             emitter.onError(new RuntimeException(ethTransaction.getError()
@@ -35,6 +35,14 @@ public class Web3jService implements EthereumService {
         }
       }
     });
+  }
+
+  @Override public Single<PendingTransaction> getTransaction(String hash) {
+    return Single.defer(() -> getTransaction(hash, web3j.getDefault()));
+  }
+
+  @Override public Single<PendingTransaction> getTransaction(String hash, int chainId) {
+    return Single.defer(() -> getTransaction(hash, web3j.get(chainId)));
   }
 
   private boolean isPending(EthTransaction ethTransaction) {
