@@ -143,34 +143,37 @@ public class AirdropFragment extends DaggerFragment implements AirdropView {
 
   @Override public void showGenericError() {
     Log.d(TAG, "showGenericError() called");
-    genericErrorDialog = new AlertDialog.Builder(getContext()).setTitle("Airdrop")
-        .setMessage("An error has occurred")
-        .setPositiveButton("ok", (dialog, which) -> dialog.dismiss())
-        .setOnDismissListener(dialog -> terminateStateConsumed.onNext(true))
-        .create();
+    genericErrorDialog =
+        new AlertDialog.Builder(getContext()).setTitle(R.string.activity_airdrop_message_title)
+            .setMessage(R.string.activity_airdrop_generic_error_message)
+            .setPositiveButton(R.string.activity_airdrop_ok, (dialog, which) -> dialog.dismiss())
+            .setOnDismissListener(dialog -> terminateStateConsumed.onNext(true))
+            .create();
     genericErrorDialog.show();
   }
 
   @Override public void showError(String message) {
     Log.d(TAG, "showError() called with: message = [" + message + "]");
-    errorDialog = new AlertDialog.Builder(getContext()).setTitle("Airdrop")
-        .setMessage(message)
-        .setPositiveButton("ok", (dialog, which) -> dialog.dismiss())
-        .setOnDismissListener(dialog -> terminateStateConsumed.onNext(true))
-        .create();
+    errorDialog =
+        new AlertDialog.Builder(getContext()).setTitle(R.string.activity_airdrop_message_title)
+            .setMessage(message)
+            .setPositiveButton(R.string.activity_airdrop_ok, (dialog, which) -> dialog.dismiss())
+            .setOnDismissListener(dialog -> terminateStateConsumed.onNext(true))
+            .create();
     errorDialog.show();
   }
 
   @Override public void showSuccess() {
     Log.d(TAG, "showSuccess() called");
-    AlertDialog successDialog = new AlertDialog.Builder(getContext()).setTitle("Airdrop")
-        .setMessage("Airdrop completed")
-        .setOnDismissListener(dialog -> terminateStateConsumed.onNext(true))
-        .setPositiveButton("ok", (dialog, which) -> {
-          dialog.dismiss();
-          airdropBack.onAirdropFinish();
-        })
-        .create();
+    AlertDialog successDialog =
+        new AlertDialog.Builder(getContext()).setTitle(R.string.activity_airdrop_message_title)
+            .setMessage(R.string.activity_airdrop_success_message)
+            .setOnDismissListener(dialog -> terminateStateConsumed.onNext(true))
+            .setPositiveButton(R.string.activity_airdrop_ok, (dialog, which) -> {
+              dialog.dismiss();
+              airdropBack.onAirdropFinish();
+            })
+            .create();
     successDialog.show();
   }
 
