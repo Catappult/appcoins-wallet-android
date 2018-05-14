@@ -33,9 +33,9 @@ public class AirdropPresenter {
         .filter(airdropData -> airdropData.getStatus()
             .equals(AirdropData.AirdropStatus.API_ERROR) || airdropData.getStatus()
             .equals(AirdropData.AirdropStatus.ERROR))
+        .observeOn(scheduler)
         .doOnNext(__-> view.clearCaptchaText())
         .flatMapSingle(airdropData -> refreshCaptcha())
-        .observeOn(scheduler)
         .subscribe(__ -> {},Throwable::printStackTrace));
   }
 

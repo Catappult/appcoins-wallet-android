@@ -91,7 +91,8 @@
 
     <activity
         android:name="com.asfoundation.wallet.ui.airdrop.AirdropActivity"
-        android:label="@string/title_airdrop"/>
+        android:label="@string/title_airdrop"
+        android:screenOrientation="portrait"/>
 
     <meta-data
         android:name="io.fabric.ApiKey"
