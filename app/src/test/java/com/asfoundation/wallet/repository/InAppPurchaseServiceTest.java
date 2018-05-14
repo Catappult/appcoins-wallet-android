@@ -34,7 +34,7 @@ import static org.mockito.Mockito.when;
 /**
  * Created by trinkes on 14/03/2018.
  */
-public class TransactionServiceTest {
+public class InAppPurchaseServiceTest {
 
   public static final String CONTRACT_ADDRESS = "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3";
   public static final String APPROVE_HASH = "approve_hash";

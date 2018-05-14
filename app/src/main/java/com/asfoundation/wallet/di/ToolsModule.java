@@ -31,6 +31,7 @@ import com.asfoundation.wallet.repository.EthereumNetworkRepository;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.GasSettingsRepository;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
+import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.MemoryCache;
 import com.asfoundation.wallet.repository.NonceGetter;
 import com.asfoundation.wallet.repository.PasswordStore;
@@ -39,7 +40,6 @@ import com.asfoundation.wallet.repository.PreferenceRepositoryType;
 import com.asfoundation.wallet.repository.SharedPreferenceRepository;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
-import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.TrustPasswordStore;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.repository.Web3jProvider;
@@ -51,6 +51,7 @@ import com.asfoundation.wallet.service.TrustWalletTickerService;
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper;
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor;
 import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService;
+import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.TransferParser;
 import com.google.gson.Gson;
@@ -157,6 +158,11 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
     return new InAppPurchaseService(gasSettingsInteract, defaultWalletInteract, parser,
         new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), approveService, buyService,
         nonceGetter, balanceService, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT));
+  }
+
+  @Singleton @Provides InAppPurchaseInteractor provideTransactionInteractor(
+      InAppPurchaseService inAppPurchaseService) {
+    return new InAppPurchaseInteractor(inAppPurchaseService);
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(

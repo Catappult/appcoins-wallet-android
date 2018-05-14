@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.ui.BaseActivity;
 import com.jakewharton.rxbinding2.view.RxView;
 import dagger.android.AndroidInjection;
@@ -36,7 +35,7 @@ public class IabActivity extends BaseActivity implements IabView {
   public static final String APP_PACKAGE = "app_package";
   public static final String PRODUCT_NAME = "product_name";
   public static final String TRANSACTION_HASH = "transaction_hash";
-  @Inject InAppPurchaseService transactionService;
+  @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   private Button buyButton;
   private Button okErrorButton;
   private IabPresenter presenter;
@@ -84,7 +83,7 @@ public class IabActivity extends BaseActivity implements IabView {
     appIcon = findViewById(R.id.iab_activity_item_icon);
     itemDescription = findViewById(R.id.iab_activity_item_description);
     itemPrice = findViewById(R.id.iab_activity_item_price);
-    presenter = new IabPresenter(this, transactionService, AndroidSchedulers.mainThread(),
+    presenter = new IabPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
         new CompositeDisposable());
     Single.defer(() -> Single.just(getAppPackage()))
         .observeOn(Schedulers.io())
