@@ -30,13 +30,17 @@ public class AirdropPresenter {
 
   private void resetOnErrorState() {
     disposables.add(airdrop.getStatus()
-        .filter(airdropData -> airdropData.getStatus()
-            .equals(AirdropData.AirdropStatus.API_ERROR) || airdropData.getStatus()
-            .equals(AirdropData.AirdropStatus.ERROR))
+        .filter(airdropData -> shouldClearCaptchaAnswer(airdropData.getStatus()))
         .observeOn(scheduler)
-        .doOnNext(__-> view.clearCaptchaText())
+        .doOnNext(__ -> view.clearCaptchaText())
         .flatMapSingle(airdropData -> refreshCaptcha())
-        .subscribe(__ -> {},Throwable::printStackTrace));
+        .subscribe(__ -> {
+        }, Throwable::printStackTrace));
+  }
+
+  private boolean shouldClearCaptchaAnswer(AirdropData.AirdropStatus status) {
+    return status.equals(AirdropData.AirdropStatus.API_ERROR) || status.equals(
+        AirdropData.AirdropStatus.ERROR) || status.equals(AirdropData.AirdropStatus.CAPTCHA_ERROR);
   }
 
   private void onTerminateStateConsumed() {
@@ -86,6 +90,10 @@ public class AirdropPresenter {
       case SUCCESS:
         view.hideLoading();
         view.showSuccess();
+        break;
+      case CAPTCHA_ERROR:
+        view.hideLoading();
+        view.showCaptchaError();
         break;
     }
   }

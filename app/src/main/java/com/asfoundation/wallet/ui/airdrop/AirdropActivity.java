@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.ui.BaseActivity;
 
-public class AirdropActivity extends BaseActivity {
+public class AirdropActivity extends BaseActivity implements AirdropFragment.AirdropBack {
   public static Intent newIntent(Context context) {
     return new Intent(context, AirdropActivity.class);
   }
@@ -34,4 +34,7 @@ public class AirdropActivity extends BaseActivity {
     return super.onOptionsItemSelected(item);
   }
 
+  @Override public void onAirdropFinish() {
+    finish();
+  }
 }

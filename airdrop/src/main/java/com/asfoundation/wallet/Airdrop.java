@@ -28,6 +28,8 @@ public class Airdrop {
             __ -> airdropResponse.onNext(new AirdropData(AirdropData.AirdropStatus.PENDING)))
         .flatMapCompletable(airDropResponse -> {
           switch (airDropResponse.getStatus()) {
+            case WRONG_CAPTCHA:
+              return Completable.fromAction(() -> publishCaptchaError());
             default:
             case OK:
               return waitForTransactions(airDropResponse);
@@ -56,6 +58,10 @@ public class Airdrop {
         .andThen(Completable.fromAction(() -> airdropResponse.onNext(
             new AirdropData(AirdropData.AirdropStatus.SUCCESS, airDropResponse.getDescription(),
                 airDropResponse.getChainId()))));
+  }
+
+  private void publishCaptchaError() {
+    publish(AirdropData.AirdropStatus.CAPTCHA_ERROR);
   }
 
   private void publishApiError(AirdropService.AirDropResponse airDropResponse) {

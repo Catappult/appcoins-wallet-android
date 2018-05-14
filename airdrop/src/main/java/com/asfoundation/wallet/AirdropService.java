@@ -34,7 +34,12 @@ public class AirdropService {
             return Single.just(gson.fromJson(((HttpException) throwable).response()
                 .errorBody()
                 .charStream(), AirDropResponse.class))
-                .map(response -> new AirDropResponse(Status.FAIL, response));
+                .map(response -> {
+                  if (((HttpException) throwable).code() == 406) {
+                    return new AirDropResponse(Status.WRONG_CAPTCHA, response);
+                  }
+                  return new AirDropResponse(Status.FAIL, response);
+                });
           } else {
             return Single.error(throwable);
           }
@@ -47,7 +52,7 @@ public class AirdropService {
   }
 
   public enum Status {
-    OK, FAIL
+    OK, WRONG_CAPTCHA, FAIL
   }
 
   public interface Api {

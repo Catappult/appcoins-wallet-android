@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.airdrop;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import com.asf.wallet.R;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -40,6 +39,7 @@ public class AirdropFragment extends DaggerFragment implements AirdropView {
   private AlertDialog genericErrorDialog;
   private AlertDialog errorDialog;
   private BehaviorSubject<Object> terminateStateConsumed;
+  private AirdropBack airdropBack;
 
   public static AirdropFragment newInstance() {
     return new AirdropFragment();
@@ -124,9 +124,11 @@ public class AirdropFragment extends DaggerFragment implements AirdropView {
     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getContext());
     LayoutInflater inflater = this.getLayoutInflater();
     final View dialogView = inflater.inflate(R.layout.dialog_loading, null);
+    dialogBuilder.setCancelable(false);
     dialogBuilder.setView(dialogView);
     loading = dialogBuilder.create();
-    loading.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    loading.getWindow()
+        .setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     loading.show();
 
     Log.d(TAG, "showLoading() called");
@@ -166,7 +168,7 @@ public class AirdropFragment extends DaggerFragment implements AirdropView {
         .setOnDismissListener(dialog -> terminateStateConsumed.onNext(true))
         .setPositiveButton("ok", (dialog, which) -> {
           dialog.dismiss();
-          getFragmentManager().popBackStack();
+          airdropBack.onAirdropFinish();
         })
         .create();
     successDialog.show();
@@ -178,5 +180,22 @@ public class AirdropFragment extends DaggerFragment implements AirdropView {
 
   @Override public void clearCaptchaText() {
     captchaAnswerView.setText("");
+  }
+
+  @Override public void showCaptchaError() {
+    captchaAnswerView.setError(getString(R.string.activity_airdrop_wrong_captcha));
+  }
+
+  @Override public void onAttach(Context context) {
+    super.onAttach(context);
+    if (!(context instanceof AirdropBack)) {
+      throw new IllegalArgumentException(context.getClass()
+          .getSimpleName() + " should implement " + AirdropBack.class.getSimpleName());
+    }
+    airdropBack = ((AirdropBack) context);
+  }
+
+  public interface AirdropBack {
+    void onAirdropFinish();
   }
 }

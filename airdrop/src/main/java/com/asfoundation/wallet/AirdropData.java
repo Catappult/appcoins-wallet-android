@@ -69,6 +69,6 @@ public class AirdropData {
   }
 
   public enum AirdropStatus {
-    PENDING, ERROR, API_ERROR, SUCCESS, UNDEFINED
+    PENDING, ERROR, API_ERROR, SUCCESS, CAPTCHA_ERROR, UNDEFINED
   }
 }

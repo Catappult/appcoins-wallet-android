@@ -283,4 +283,5 @@
   <string name="activity_airdrop_details">This is just a security thing.</string>
   <string name="activity_airdrop_hint">Type the words in the image</string>
   <string name="activity_airdrop_submit_btn">Submit</string>
+  <string name="activity_airdrop_wrong_captcha">Wrong captcha</string>
 </resources>

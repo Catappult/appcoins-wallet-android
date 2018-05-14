@@ -23,4 +23,6 @@ interface AirdropView {
   Observable<Object> getTerminateStateConsumed();
 
   void clearCaptchaText();
+
+  void showCaptchaError();
 }
