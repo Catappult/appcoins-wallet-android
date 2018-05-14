@@ -48,16 +48,19 @@ public class Airdrop {
   }
 
   private Completable waitForTransactions(AirdropService.AirDropResponse airDropResponse) {
-    List<Completable> list = new ArrayList<>();
-    list.add(
-        transactionService.waitForTransactionToComplete(airDropResponse.getAppcoinsTransaction(),
-            airDropResponse.getChainId()));
-    list.add(transactionService.waitForTransactionToComplete(airDropResponse.getEthTransaction(),
-        airDropResponse.getChainId()));
-    return Completable.merge(list)
-        .andThen(Completable.fromAction(() -> airdropResponse.onNext(
-            new AirdropData(AirdropData.AirdropStatus.SUCCESS, airDropResponse.getDescription(),
-                airDropResponse.getChainId()))));
+    return Single.fromCallable(() -> {
+      List<Completable> list = new ArrayList<>();
+      list.add(
+          transactionService.waitForTransactionToComplete(airDropResponse.getAppcoinsTransaction(),
+              airDropResponse.getChainId()));
+      list.add(transactionService.waitForTransactionToComplete(airDropResponse.getEthTransaction(),
+          airDropResponse.getChainId()));
+      return list;
+    })
+        .flatMapCompletable(list -> Completable.merge(list)
+            .andThen(Completable.fromAction(() -> airdropResponse.onNext(
+                new AirdropData(AirdropData.AirdropStatus.SUCCESS, airDropResponse.getDescription(),
+                    airDropResponse.getChainId())))));
   }
 
   private void publishCaptchaError() {
