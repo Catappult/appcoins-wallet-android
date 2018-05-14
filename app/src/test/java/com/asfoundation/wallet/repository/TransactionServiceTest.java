@@ -46,7 +46,7 @@ public class TransactionServiceTest {
   @Mock TokenRepositoryType tokenRepository;
   @Mock NonceGetter nonceGetter;
   @Mock BalanceService balanceService;
-  private TransactionService transactionService;
+  private InAppPurchaseService transactionService;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
   private PublishSubject<GetDefaultWalletBalance.BalanceState> balance;
@@ -82,7 +82,7 @@ public class TransactionServiceTest {
     when(tokenRepository.fetchAll(any())).thenReturn(Observable.just(tokens));
 
     scheduler = new TestScheduler();
-    transactionService = new TransactionService(gasSettingsInteract, defaultWalletInteract,
+    transactionService = new InAppPurchaseService(gasSettingsInteract, defaultWalletInteract,
         new TransferParser(defaultWalletInteract, tokenRepository),
         new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
         new ApproveService(sendTransactionInteract,

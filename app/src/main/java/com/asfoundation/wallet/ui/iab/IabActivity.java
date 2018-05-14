@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.repository.TransactionService;
+import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.ui.BaseActivity;
 import com.jakewharton.rxbinding2.view.RxView;
 import dagger.android.AndroidInjection;
@@ -36,7 +36,7 @@ public class IabActivity extends BaseActivity implements IabView {
   public static final String APP_PACKAGE = "app_package";
   public static final String PRODUCT_NAME = "product_name";
   public static final String TRANSACTION_HASH = "transaction_hash";
-  @Inject TransactionService transactionService;
+  @Inject InAppPurchaseService transactionService;
   private Button buyButton;
   private Button okErrorButton;
   private IabPresenter presenter;

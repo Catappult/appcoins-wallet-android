@@ -39,7 +39,7 @@ import com.asfoundation.wallet.repository.PreferenceRepositoryType;
 import com.asfoundation.wallet.repository.SharedPreferenceRepository;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
-import com.asfoundation.wallet.repository.TransactionService;
+import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.TrustPasswordStore;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.repository.Web3jProvider;
@@ -150,11 +150,11 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
     return new SendTransactionInteract(transactionRepository, passwordStore);
   }
 
-  @Singleton @Provides TransactionService provideTransactionService(
+  @Singleton @Provides InAppPurchaseService provideTransactionService(
       FetchGasSettingsInteract gasSettingsInteract, TransferParser parser,
       FindDefaultWalletInteract defaultWalletInteract, ApproveService approveService,
       BuyService buyService, NonceGetter nonceGetter, BalanceService balanceService) {
-    return new TransactionService(gasSettingsInteract, defaultWalletInteract, parser,
+    return new InAppPurchaseService(gasSettingsInteract, defaultWalletInteract, parser,
         new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), approveService, buyService,
         nonceGetter, balanceService, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT));
   }

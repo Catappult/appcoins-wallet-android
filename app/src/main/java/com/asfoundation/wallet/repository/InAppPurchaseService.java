@@ -14,7 +14,7 @@ import java.math.BigDecimal;
  * Created by trinkes on 13/03/2018.
  */
 
-public class TransactionService {
+public class InAppPurchaseService {
 
   public static final double GAS_PRICE_MULTIPLIER = 1.25;
   private final FetchGasSettingsInteract gasSettingsInteract;
@@ -27,7 +27,7 @@ public class TransactionService {
   private final BalanceService balanceService;
   private final BigDecimal paymentGasLimit;
 
-  public TransactionService(FetchGasSettingsInteract gasSettingsInteract,
+  public InAppPurchaseService(FetchGasSettingsInteract gasSettingsInteract,
       FindDefaultWalletInteract defaultWalletInteract, TransferParser parser,
       Cache<String, PaymentTransaction> cache, ApproveService approveService, BuyService buyService,
       NonceGetter nonceGetter, BalanceService balanceService, BigDecimal paymentGasLimit) {

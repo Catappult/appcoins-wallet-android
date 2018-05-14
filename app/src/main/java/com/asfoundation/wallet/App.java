@@ -10,7 +10,7 @@ import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
-import com.asfoundation.wallet.repository.TransactionService;
+import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.WalletNotFoundException;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
@@ -31,7 +31,7 @@ public class App extends MultiDexApplication
   @Inject DispatchingAndroidInjector<Activity> dispatchingActivityInjector;
   @Inject DispatchingAndroidInjector<Service> dispatchingServiceInjector;
   @Inject DispatchingAndroidInjector<Fragment> dispatchingFragmentInjector;
-  @Inject TransactionService transactionService;
+  @Inject InAppPurchaseService inAppPurchaseService;
   @Inject EthereumNetworkRepositoryType ethereumNetworkRepository;
   @Inject AddTokenInteract addTokenInteract;
   @Inject DefaultTokenProvider defaultTokenProvider;
@@ -51,7 +51,7 @@ public class App extends MultiDexApplication
             .build())
         .build());
 
-    transactionService.start();
+    inAppPurchaseService.start();
     proofOfAttentionService.start();
     ethereumNetworkRepository.addOnChangeDefaultNetwork(
         networkInfo -> defaultTokenProvider.getDefaultToken()
