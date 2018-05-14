@@ -151,18 +151,17 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
     return new SendTransactionInteract(transactionRepository, passwordStore);
   }
 
-  @Singleton @Provides InAppPurchaseService provideTransactionService(
-      FetchGasSettingsInteract gasSettingsInteract, TransferParser parser,
-      FindDefaultWalletInteract defaultWalletInteract, ApproveService approveService,
+  @Singleton @Provides InAppPurchaseService provideTransactionService(ApproveService approveService,
       BuyService buyService, NonceGetter nonceGetter, BalanceService balanceService) {
-    return new InAppPurchaseService(gasSettingsInteract, defaultWalletInteract, parser,
-        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), approveService, buyService,
-        nonceGetter, balanceService, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT));
+    return new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
+        approveService, buyService, nonceGetter, balanceService);
   }
 
   @Singleton @Provides InAppPurchaseInteractor provideTransactionInteractor(
-      InAppPurchaseService inAppPurchaseService) {
-    return new InAppPurchaseInteractor(inAppPurchaseService);
+      InAppPurchaseService inAppPurchaseService, FindDefaultWalletInteract defaultWalletInteract,
+      FetchGasSettingsInteract gasSettingsInteract, TransferParser parser) {
+    return new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
+        gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser);
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(

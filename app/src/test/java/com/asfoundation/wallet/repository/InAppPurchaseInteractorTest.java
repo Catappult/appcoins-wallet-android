@@ -10,6 +10,7 @@ import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
+import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -34,7 +35,7 @@ import static org.mockito.Mockito.when;
 /**
  * Created by trinkes on 14/03/2018.
  */
-public class InAppPurchaseServiceTest {
+public class InAppPurchaseInteractorTest {
 
   public static final String CONTRACT_ADDRESS = "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3";
   public static final String APPROVE_HASH = "approve_hash";
@@ -46,11 +47,12 @@ public class InAppPurchaseServiceTest {
   @Mock TokenRepositoryType tokenRepository;
   @Mock NonceGetter nonceGetter;
   @Mock BalanceService balanceService;
-  private InAppPurchaseService transactionService;
+  private InAppPurchaseInteractor transactionService;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
   private PublishSubject<GetDefaultWalletBalance.BalanceState> balance;
   private TestScheduler scheduler;
+  private InAppPurchaseService inAppPurchaseService;
 
   @Before public void before() {
     MockitoAnnotations.initMocks(this);
@@ -82,14 +84,16 @@ public class InAppPurchaseServiceTest {
     when(tokenRepository.fetchAll(any())).thenReturn(Observable.just(tokens));
 
     scheduler = new TestScheduler();
-    transactionService = new InAppPurchaseService(gasSettingsInteract, defaultWalletInteract,
-        new TransferParser(defaultWalletInteract, tokenRepository),
-        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-        new ApproveService(sendTransactionInteract,
+    inAppPurchaseService =
+        new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
+            new ApproveService(sendTransactionInteract,
+                new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new ErrorMapper(),
+                scheduler), new BuyService(sendTransactionInteract, pendingTransactionService,
             new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new ErrorMapper(),
-            scheduler), new BuyService(sendTransactionInteract, pendingTransactionService,
-        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new ErrorMapper(), scheduler),
-        nonceGetter, balanceService, BigDecimal.ONE);
+            scheduler), nonceGetter, balanceService);
+    transactionService = new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
+        gasSettingsInteract, BigDecimal.ONE,
+        new TransferParser(defaultWalletInteract, tokenRepository));
   }
 
   @Test public void sendTransaction() {
@@ -98,7 +102,7 @@ public class InAppPurchaseServiceTest {
         + "@3"
         + "/transfer?uint256=1000000000000000000&address"
         + "=0x4fbcc5ce88493c3d9903701c143af65f54481119&data=0x636f6d2e63656e61732e70726f64756374";
-    transactionService.start();
+    inAppPurchaseService.start();
     TestObserver<PaymentTransaction> testObserver = new TestObserver<>();
     transactionService.getTransactionState(uri)
         .subscribe(testObserver);
@@ -155,7 +159,7 @@ public class InAppPurchaseServiceTest {
         + "@3"
         + "/transfer?uint256=1000000000000000000&address"
         + "=0x4fbcc5ce88493c3d9903701c143af65f54481119&data=0x636f6d2e63656e61732e70726f64756374";
-    transactionService.start();
+    inAppPurchaseService.start();
     TestObserver<PaymentTransaction> testObserver = new TestObserver<>();
     transactionService.getTransactionState(uri)
         .subscribe(testObserver);
@@ -197,7 +201,7 @@ public class InAppPurchaseServiceTest {
         + "@3"
         + "/transfer?uint256=1000000000000000000&address"
         + "=0x4fbcc5ce88493c3d9903701c143af65f54481119&data=0x636f6d2e63656e61732e70726f64756374";
-    transactionService.start();
+    inAppPurchaseService.start();
     TestObserver<PaymentTransaction> testObserver = new TestObserver<>();
     transactionService.getTransactionState(uri)
         .subscribe(testObserver);
