@@ -23,8 +23,12 @@ import static org.mockito.Mockito.when;
   public static final String PACKAGE_NAME = "PACKAGE_NAME";
   public static final String URI = "uri";
   public static final String APPROVE_HASH = "approve_hash";
-  public static final String BUY_HASH = "buy_hash";
+  public static final String APPLICATION_NAME = "application_name";
+  public static final String PATH = "path";
+  public static final String PRODUCT_NAME = "product_name";
+  public static final String BUY_HASH_1 = "id1";
   @Mock InAppPurchaseService inAppPurchaseService;
+  @Mock AppInfoProvider appInfoProvider;
   private BehaviorSubject<List<PaymentTransaction>> subject;
   private InAppPurchaseDataSaver dataSaver;
   private TestScheduler scheduler;
@@ -33,31 +37,35 @@ import static org.mockito.Mockito.when;
   @Before public void before() {
     subject = BehaviorSubject.create();
     when(inAppPurchaseService.getAll()).thenReturn(subject);
+    when(appInfoProvider.get(BUY_HASH_1, PACKAGE_NAME, PRODUCT_NAME)).thenReturn(
+        new InAppPurchaseData(BUY_HASH_1, PACKAGE_NAME, APPLICATION_NAME, PATH, PRODUCT_NAME));
     scheduler = new TestScheduler();
     cache = new MemoryCache<>(BehaviorSubject.create(), new HashMap<>());
-    dataSaver = new InAppPurchaseDataSaver(inAppPurchaseService, cache, scheduler);
+    dataSaver = new InAppPurchaseDataSaver(inAppPurchaseService, cache, appInfoProvider, scheduler);
   }
 
   @Test public void start() {
     dataSaver.start();
     ArrayList<PaymentTransaction> list = new ArrayList<>();
     list.add(new PaymentTransaction(URI, new TransactionBuilder("APPC"),
-        PaymentTransaction.PaymentState.COMPLETED, APPROVE_HASH, BUY_HASH, BigInteger.ONE,
-        PACKAGE_NAME));
+        PaymentTransaction.PaymentState.COMPLETED, APPROVE_HASH, BUY_HASH_1, BigInteger.ONE,
+        PACKAGE_NAME, PRODUCT_NAME));
     subject.onNext(list);
     scheduler.triggerActions();
-    Assert.assertEquals(new InAppPurchaseData(BUY_HASH), cache.getSync(BUY_HASH));
+    Assert.assertEquals(
+        new InAppPurchaseData(BUY_HASH_1, PACKAGE_NAME, APPLICATION_NAME, PATH, PRODUCT_NAME),
+        cache.getSync(BUY_HASH_1));
   }
 
   @Test public void startWithoutAnyCompleted() {
     dataSaver.start();
     ArrayList<PaymentTransaction> list = new ArrayList<>();
     list.add(new PaymentTransaction(URI, new TransactionBuilder("APPC"),
-        PaymentTransaction.PaymentState.BUYING, APPROVE_HASH, BUY_HASH, BigInteger.ONE,
-        PACKAGE_NAME));
+        PaymentTransaction.PaymentState.BUYING, APPROVE_HASH, BUY_HASH_1, BigInteger.ONE,
+        PACKAGE_NAME, PRODUCT_NAME));
     subject.onNext(list);
     scheduler.triggerActions();
-    Assert.assertEquals(null, cache.getSync(BUY_HASH));
+    Assert.assertEquals(null, cache.getSync(BUY_HASH_1));
   }
 
   @Test public void addAfterStop() {
@@ -66,24 +74,26 @@ import static org.mockito.Mockito.when;
 
     ArrayList<PaymentTransaction> list = new ArrayList<>();
     list.add(new PaymentTransaction(URI, new TransactionBuilder("APPC"),
-        PaymentTransaction.PaymentState.COMPLETED, APPROVE_HASH, BUY_HASH, BigInteger.ONE,
-        PACKAGE_NAME));
+        PaymentTransaction.PaymentState.COMPLETED, APPROVE_HASH, BUY_HASH_1, BigInteger.ONE,
+        PACKAGE_NAME, PRODUCT_NAME));
     subject.onNext(list);
     scheduler.triggerActions();
-    Assert.assertEquals(null, cache.getSync(BUY_HASH));
+    Assert.assertEquals(null, cache.getSync(BUY_HASH_1));
   }
 
   @Test public void removeDataAfterStop() {
     dataSaver.start();
     ArrayList<PaymentTransaction> list = new ArrayList<>();
     list.add(new PaymentTransaction(URI, new TransactionBuilder("APPC"),
-        PaymentTransaction.PaymentState.COMPLETED, APPROVE_HASH, BUY_HASH, BigInteger.ONE,
-        PACKAGE_NAME));
+        PaymentTransaction.PaymentState.COMPLETED, APPROVE_HASH, BUY_HASH_1, BigInteger.ONE,
+        PACKAGE_NAME, PRODUCT_NAME));
     subject.onNext(list);
     scheduler.triggerActions();
-    Assert.assertEquals(new InAppPurchaseData(BUY_HASH), cache.getSync(BUY_HASH));
+    Assert.assertEquals(
+        new InAppPurchaseData(BUY_HASH_1, PACKAGE_NAME, APPLICATION_NAME, PATH, PRODUCT_NAME),
+        cache.getSync(BUY_HASH_1));
 
     dataSaver.stop();
-    Assert.assertEquals(null, cache.getSync(BUY_HASH));
+    Assert.assertEquals(null, cache.getSync(BUY_HASH_1));
   }
 }

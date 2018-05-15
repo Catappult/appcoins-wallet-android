@@ -51,6 +51,8 @@ import com.asfoundation.wallet.service.TrustWalletTickerService;
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper;
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor;
 import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService;
+import com.asfoundation.wallet.ui.iab.AppInfoProvider;
+import com.asfoundation.wallet.ui.iab.ImageSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseDataSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.util.LogInterceptor;
@@ -258,9 +260,10 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   }
 
   @Provides @Singleton InAppPurchaseDataSaver provideInAppPurchaseDataSaver(
-      InAppPurchaseService inAppPurchaseService) {
+      InAppPurchaseService inAppPurchaseService, Context context) {
     return new InAppPurchaseDataSaver(inAppPurchaseService,
-        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), Schedulers.io());
+        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
+        new AppInfoProvider(context, new ImageSaver()), Schedulers.io());
   }
 
   @Provides AirdropChainIdMapper provideAirdropChainIdMapper(

@@ -34,8 +34,8 @@ public class InAppPurchaseInteractor {
     return parser.parse(uri);
   }
 
-  public Completable send(String uri, String packageName) {
-    return buildPaymentTransaction(uri, packageName).flatMapCompletable(
+  public Completable send(String uri, String packageName, String productName) {
+    return buildPaymentTransaction(uri, packageName, productName).flatMapCompletable(
         paymentTransaction -> inAppPurchaseService.send(paymentTransaction.getUri(),
             paymentTransaction));
   }
@@ -48,13 +48,15 @@ public class InAppPurchaseInteractor {
     return inAppPurchaseService.remove(uri);
   }
 
-  private Single<PaymentTransaction> buildPaymentTransaction(String uri, String packageName) {
+  private Single<PaymentTransaction> buildPaymentTransaction(String uri, String packageName,
+      String productName) {
     return Single.zip(parseTransaction(uri), defaultWalletInteract.find(),
         (transaction, wallet) -> transaction.fromAddress(wallet.address))
         .flatMap(transactionBuilder -> gasSettingsInteract.fetch(true)
             .map(gasSettings -> transactionBuilder.gasSettings(
                 new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
                     paymentGasLimit))))
-        .map(transactionBuilder -> new PaymentTransaction(uri, transactionBuilder, packageName));
+        .map(transactionBuilder -> new PaymentTransaction(uri, transactionBuilder, packageName,
+            productName));
   }
 }
