@@ -31,28 +31,26 @@ public class InAppPurchaseDataSaver {
             .filter(paymentTransaction -> paymentTransaction.getState()
                 .equals(PaymentTransaction.PaymentState.COMPLETED))
             .flatMap(paymentTransaction -> {
-              InAppPurchaseData inAppPurchaseData =
-                  appInfoProvider.get(paymentTransaction.getBuyHash(),
-                      paymentTransaction.getPackageName(), paymentTransaction.getProductName());
-              if (inAppPurchaseData == null) {
-                return Observable.error(new IllegalArgumentException("app with the packageName "
-                    + paymentTransaction.getPackageName()
-                    + " does not exist"));
+              try {
+                return Observable.just(appInfoProvider.get(paymentTransaction.getBuyHash(),
+                    paymentTransaction.getPackageName(), paymentTransaction.getProductName()));
+              } catch (ImageSaver.SaveException | AppInfoProvider.UnknownApplicationException e) {
+                return Observable.error(e);
               }
-              return Observable.just(inAppPurchaseData);
             })
             .doOnNext(inAppPurchaseData -> cache.saveSync(inAppPurchaseData.getTransactionId(),
                 inAppPurchaseData))
             .toList())
         .doOnError(throwable -> throwable.printStackTrace())
-        .retryWhen(this::isAppMissingError)
+        .retryWhen(this::isKnownErrorError)
         .subscribe();
   }
 
-  public Observable<Object> isAppMissingError(Observable<Throwable> throwableObservable) {
+  private Observable<Object> isKnownErrorError(Observable<Throwable> throwableObservable) {
     return throwableObservable.flatMap(throwable -> {
-      if (throwable instanceof IllegalArgumentException) {
-        return Observable.empty();
+      if (throwable instanceof ImageSaver.SaveException
+          || throwable instanceof AppInfoProvider.UnknownApplicationException) {
+        return Observable.just(true);
       }
       return Observable.error(throwable);
     });

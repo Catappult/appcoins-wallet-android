@@ -263,7 +263,8 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
       InAppPurchaseService inAppPurchaseService, Context context) {
     return new InAppPurchaseDataSaver(inAppPurchaseService,
         new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-        new AppInfoProvider(context, new ImageSaver()), Schedulers.io());
+        new AppInfoProvider(context, new ImageSaver(context.getFilesDir() + "/app_icons/")),
+        Schedulers.io());
   }
 
   @Provides AirdropChainIdMapper provideAirdropChainIdMapper(

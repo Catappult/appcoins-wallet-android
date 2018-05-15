@@ -34,7 +34,8 @@ import static org.mockito.Mockito.when;
   private TestScheduler scheduler;
   private MemoryCache<String, InAppPurchaseData> cache;
 
-  @Before public void before() {
+  @Before public void before()
+      throws AppInfoProvider.UnknownApplicationException, ImageSaver.SaveException {
     subject = BehaviorSubject.create();
     when(inAppPurchaseService.getAll()).thenReturn(subject);
     when(appInfoProvider.get(BUY_HASH_1, PACKAGE_NAME, PRODUCT_NAME)).thenReturn(
