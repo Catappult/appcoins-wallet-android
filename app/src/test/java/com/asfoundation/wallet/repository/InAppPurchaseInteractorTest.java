@@ -40,6 +40,7 @@ public class InAppPurchaseInteractorTest {
   public static final String CONTRACT_ADDRESS = "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3";
   public static final String APPROVE_HASH = "approve_hash";
   public static final String BUY_HASH = "buy_hash";
+  public static final String PACKAGE_NAME = "package_name";
   @Mock FetchGasSettingsInteract gasSettingsInteract;
   @Mock SendTransactionInteract sendTransactionInteract;
   @Mock PendingTransactionService pendingTransactionService;
@@ -107,7 +108,7 @@ public class InAppPurchaseInteractorTest {
     transactionService.getTransactionState(uri)
         .subscribe(testObserver);
     scheduler.triggerActions();
-    transactionService.send(uri)
+    transactionService.send(uri, PACKAGE_NAME)
         .subscribe();
     scheduler.triggerActions();
     balance.onNext(GetDefaultWalletBalance.BalanceState.OK);
@@ -164,7 +165,7 @@ public class InAppPurchaseInteractorTest {
     transactionService.getTransactionState(uri)
         .subscribe(testObserver);
     scheduler.triggerActions();
-    transactionService.send(uri)
+    transactionService.send(uri, PACKAGE_NAME)
         .subscribe();
     scheduler.triggerActions();
     balance.onNext(GetDefaultWalletBalance.BalanceState.NO_ETHER);
@@ -206,7 +207,7 @@ public class InAppPurchaseInteractorTest {
     transactionService.getTransactionState(uri)
         .subscribe(testObserver);
     scheduler.triggerActions();
-    transactionService.send(uri)
+    transactionService.send(uri, PACKAGE_NAME)
         .subscribe();
     scheduler.triggerActions();
     balance.onNext(GetDefaultWalletBalance.BalanceState.NO_ETHER_NO_TOKEN);

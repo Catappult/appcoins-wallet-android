@@ -51,6 +51,7 @@ import com.asfoundation.wallet.service.TrustWalletTickerService;
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper;
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor;
 import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService;
+import com.asfoundation.wallet.ui.iab.InAppPurchaseDataSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.TransferParser;
@@ -254,6 +255,12 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   @Provides NonceGetter provideNonceGetter(EthereumNetworkRepositoryType networkRepository,
       FindDefaultWalletInteract defaultWalletInteract) {
     return new NonceGetter(networkRepository, defaultWalletInteract);
+  }
+
+  @Provides @Singleton InAppPurchaseDataSaver provideInAppPurchaseDataSaver(
+      InAppPurchaseService inAppPurchaseService) {
+    return new InAppPurchaseDataSaver(inAppPurchaseService,
+        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), Schedulers.io());
   }
 
   @Provides AirdropChainIdMapper provideAirdropChainIdMapper(

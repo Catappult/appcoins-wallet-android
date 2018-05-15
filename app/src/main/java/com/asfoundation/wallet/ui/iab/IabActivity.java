@@ -103,7 +103,7 @@ public class IabActivity extends BaseActivity implements IabView {
   @Override protected void onStart() {
     super.onStart();
     presenter.present(getIntent().getData()
-        .toString());
+        .toString(), getAppPackage());
   }
 
   @Override protected void onStop() {

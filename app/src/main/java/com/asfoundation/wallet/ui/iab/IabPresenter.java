@@ -28,7 +28,7 @@ public class IabPresenter {
     this.disposables = disposables;
   }
 
-  public void present(String uriString) {
+  public void present(String uriString, String appPackage) {
     disposables.add(inAppPurchaseInteractor.parseTransaction(uriString)
         .observeOn(viewScheduler)
         .subscribe(transactionBuilder -> view.setup(transactionBuilder), this::showError));
@@ -41,7 +41,7 @@ public class IabPresenter {
         .subscribe(click -> showBuy(), throwable -> close()));
 
     disposables.add(view.getBuyClick()
-        .flatMapCompletable(uri -> inAppPurchaseInteractor.send(uri)
+        .flatMapCompletable(uri -> inAppPurchaseInteractor.send(uri, appPackage)
             .observeOn(viewScheduler)
             .doOnError(this::showError))
         .retry()

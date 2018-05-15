@@ -27,6 +27,7 @@ import static org.mockito.Mockito.when;
  */
 @RunWith(MockitoJUnitRunner.class) public class BuyServiceTest {
 
+  public static final String PACKAGE_NAME = "package_name";
   @Mock SendTransactionInteract sendTransactionInteract;
   @Mock PendingTransactionService pendingTransactionService;
 
@@ -49,8 +50,7 @@ import static org.mockito.Mockito.when;
     buyService.getBuy(uri)
         .subscribe(observer);
 
-    buyService.buy(uri, new PaymentTransaction(uri, new TransactionBuilder("APPC"),
-        PaymentTransaction.PaymentState.PENDING))
+    buyService.buy(uri, new PaymentTransaction(uri, new TransactionBuilder("APPC"), PACKAGE_NAME))
         .subscribe();
 
     scheduler.triggerActions();
@@ -85,8 +85,7 @@ import static org.mockito.Mockito.when;
     buyService.getBuy(uri)
         .subscribe(observer);
     scheduler.triggerActions();
-    buyService.buy(uri, new PaymentTransaction(uri, new TransactionBuilder("APPC"),
-        PaymentTransaction.PaymentState.PENDING))
+    buyService.buy(uri, new PaymentTransaction(uri, new TransactionBuilder("APPC"), PACKAGE_NAME))
         .subscribe();
     scheduler.triggerActions();
 

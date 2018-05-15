@@ -16,26 +16,30 @@ public class PaymentTransaction {
   private final TransactionBuilder transactionBuilder;
   private final PaymentState state;
   private final BigInteger nonce;
+  private final String packageName;
 
   public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, PaymentState state,
-      @Nullable String approveHash, @Nullable String buyHash, BigInteger nonce) {
+      @Nullable String approveHash, @Nullable String buyHash, BigInteger nonce,
+      String packageName) {
     this.uri = uri;
     this.transactionBuilder = transactionBuilder;
     this.state = state;
     this.approveHash = approveHash;
     this.buyHash = buyHash;
     this.nonce = nonce;
+    this.packageName = packageName;
   }
 
   public PaymentTransaction(PaymentTransaction paymentTransaction, PaymentState state) {
     this(paymentTransaction.getUri(), paymentTransaction.getTransactionBuilder(), state,
         paymentTransaction.getApproveHash(), paymentTransaction.getBuyHash(),
-        paymentTransaction.getNonce());
+        paymentTransaction.getNonce(), paymentTransaction.getPackageName());
   }
 
   public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, PaymentState state,
-      @Nullable String approveHash) {
+      @Nullable String approveHash, String packageName) {
     this.approveHash = approveHash;
+    this.packageName = packageName;
     this.uri = uri;
     this.transactionBuilder = transactionBuilder;
     this.state = state;
@@ -46,23 +50,27 @@ public class PaymentTransaction {
   public PaymentTransaction(PaymentTransaction paymentTransaction, PaymentState state,
       String approveHash) {
     this(paymentTransaction.getUri(), paymentTransaction.getTransactionBuilder(), state,
-        approveHash, null, paymentTransaction.getNonce());
+        approveHash, null, paymentTransaction.getNonce(), paymentTransaction.getPackageName());
   }
 
   public PaymentTransaction(PaymentTransaction paymentTransaction, PaymentState state,
       String approveHash, String buyHash) {
     this(paymentTransaction.getUri(), paymentTransaction.getTransactionBuilder(), state,
-        approveHash, buyHash, paymentTransaction.getNonce());
+        approveHash, buyHash, paymentTransaction.getNonce(), paymentTransaction.getPackageName());
   }
 
-  public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, PaymentState state) {
-    this(uri, transactionBuilder, state, null);
+  public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, String packageName) {
+    this(uri, transactionBuilder, PaymentState.PENDING, null, packageName);
   }
 
   public PaymentTransaction(PaymentTransaction paymentTransaction, BigInteger nonce) {
     this(paymentTransaction.getUri(), paymentTransaction.getTransactionBuilder(),
         paymentTransaction.getState(), paymentTransaction.getApproveHash(),
-        paymentTransaction.getBuyHash(), nonce);
+        paymentTransaction.getBuyHash(), nonce, paymentTransaction.getPackageName());
+  }
+
+  public String getPackageName() {
+    return packageName;
   }
 
   public BigInteger getNonce() {

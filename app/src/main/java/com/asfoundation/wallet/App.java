@@ -12,6 +12,7 @@ import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.WalletNotFoundException;
+import com.asfoundation.wallet.ui.iab.InAppPurchaseDataSaver;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import dagger.android.AndroidInjector;
@@ -36,6 +37,7 @@ public class App extends MultiDexApplication
   @Inject AddTokenInteract addTokenInteract;
   @Inject DefaultTokenProvider defaultTokenProvider;
   @Inject ProofOfAttentionService proofOfAttentionService;
+  @Inject InAppPurchaseDataSaver inAppPurchaseDataSaver;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -51,6 +53,7 @@ public class App extends MultiDexApplication
             .build())
         .build());
 
+    inAppPurchaseDataSaver.start();
     inAppPurchaseService.start();
     proofOfAttentionService.start();
     ethereumNetworkRepository.addOnChangeDefaultNetwork(

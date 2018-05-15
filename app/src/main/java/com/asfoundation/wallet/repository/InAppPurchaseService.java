@@ -2,6 +2,7 @@ package com.asfoundation.wallet.repository;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import java.util.List;
 
 /**
  * Created by trinkes on 13/03/2018.
@@ -86,5 +87,9 @@ public class InAppPurchaseService {
     return buyService.remove(key)
         .andThen(approveService.remove(key))
         .andThen(cache.remove(key));
+  }
+
+  public Observable<List<PaymentTransaction>> getAll() {
+    return cache.getAll();
   }
 }
