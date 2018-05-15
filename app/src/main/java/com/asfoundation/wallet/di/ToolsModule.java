@@ -2,6 +2,8 @@ package com.asfoundation.wallet.di;
 
 import android.content.Context;
 import com.asf.wallet.BuildConfig;
+import com.asfoundation.wallet.Airdrop;
+import com.asfoundation.wallet.AirdropService;
 import com.asfoundation.wallet.App;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
@@ -46,11 +48,15 @@ import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.RealmManager;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TrustWalletTickerService;
+import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper;
+import com.asfoundation.wallet.ui.airdrop.AirdropInteractor;
+import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService;
 import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.TransferParser;
 import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
@@ -60,6 +66,11 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
 @Module class ToolsModule {
   @Provides Context provideContext(App application) {
@@ -173,7 +184,8 @@ import okhttp3.OkHttpClient;
 
   @Provides FindDefaultNetworkInteract provideFindDefaultNetworkInteract(
       EthereumNetworkRepositoryType ethereumNetworkRepositoryType) {
-    return new FindDefaultNetworkInteract(ethereumNetworkRepositoryType);
+    return new FindDefaultNetworkInteract(ethereumNetworkRepositoryType,
+        AndroidSchedulers.mainThread());
   }
 
   @Provides DefaultTokenProvider provideDefaultTokenProvider(
@@ -240,5 +252,30 @@ import okhttp3.OkHttpClient;
   @Provides NonceGetter provideNonceGetter(EthereumNetworkRepositoryType networkRepository,
       FindDefaultWalletInteract defaultWalletInteract) {
     return new NonceGetter(networkRepository, defaultWalletInteract);
+  }
+
+  @Provides AirdropChainIdMapper provideAirdropChainIdMapper(
+      FindDefaultNetworkInteract defaultNetworkInteract) {
+    return new AirdropChainIdMapper(defaultNetworkInteract);
+  }
+
+  @Provides AirdropService provideAirdropService(OkHttpClient client, Gson gson) {
+    AirdropService.Api api = new Retrofit.Builder().baseUrl(BASE_URL)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(AirdropService.Api.class);
+    return new AirdropService(api, gson, Schedulers.io());
+  }
+
+  @Singleton @Provides AirdropInteractor provideAirdropInteractor(
+      PendingTransactionService pendingTransactionService, EthereumNetworkRepositoryType repository,
+      AirdropService airdropService, FindDefaultWalletInteract findDefaultWalletInteract,
+      AirdropChainIdMapper airdropChainIdMapper) {
+    return new AirdropInteractor(
+        new Airdrop(new AppcoinsTransactionService(pendingTransactionService),
+            BehaviorSubject.create(), airdropService), findDefaultWalletInteract,
+        airdropChainIdMapper, repository);
   }
 }

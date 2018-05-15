@@ -65,7 +65,7 @@ public class TransactionFactory {
   }
 
   private long getNonce(String address) throws IOException {
-    return web3jProvider.get()
+    return web3jProvider.getDefault()
         .ethGetTransactionCount(address, DefaultBlockParameterName.LATEST)
         .send()
         .getTransactionCount()

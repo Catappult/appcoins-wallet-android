@@ -1,0 +1,18 @@
+apply plugin: 'java-library'
+
+
+repositories {
+  maven { url 'https://maven.fabric.io/public' }
+}
+
+dependencies {
+  implementation fileTree(dir: 'libs', include: ['*.jar'])
+  implementation "com.squareup.retrofit2:adapter-rxjava2:$project.retrofitVersion"
+  implementation "com.google.code.gson:gson:$project.gsonVersion"
+  implementation "org.jetbrains:annotations:$project.jetbrainsAnnotationsVersion"
+  testImplementation "junit:junit:$project.junitVersion"
+  testImplementation "org.mockito:mockito-core:$project.mockitoCoreVersion"
+}
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
