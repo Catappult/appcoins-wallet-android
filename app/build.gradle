@@ -198,3 +198,8 @@ def renameArtifact(defaultConfig) {
     }
   }
 }
+// execute android tests before realising a new apk
+tasks.whenTaskAdded { task ->
+  if (task.name == 'assembleRelease')
+    task.dependsOn('test')
+}
