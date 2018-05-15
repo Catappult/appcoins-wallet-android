@@ -161,8 +161,8 @@ dependencies {
 
   implementation "com.github.walleth.kethereum:erc681:$project.erc681Version"
   // Tests
-  testImplementation "junit:junit:4.12"
-  testImplementation "org.mockito:mockito-core:2.15.0"
+  testImplementation "junit:junit:$junitVersion"
+  testImplementation "org.mockito:mockito-core:$project.mockitoCoreVersion"
   androidTestImplementation("com.android.support.test.espresso:espresso-core:2.2.2", {
     exclude group: "com.android.support", module: "support-annotations"
   })

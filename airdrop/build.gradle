@@ -9,9 +9,9 @@ dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
   implementation "com.squareup.retrofit2:adapter-rxjava2:$project.retrofitVersion"
   implementation "com.google.code.gson:gson:$project.gsonVersion"
-  implementation 'org.jetbrains:annotations:15.0'
-  testImplementation "junit:junit:4.12"
-  testImplementation "org.mockito:mockito-core:2.15.0"
+  implementation "org.jetbrains:annotations:$project.jetbrainsAnnotationsVersion"
+  testImplementation "junit:junit:$project.junitVersion"
+  testImplementation "org.mockito:mockito-core:$project.mockitoCoreVersion"
 }
 
 sourceCompatibility = "1.8"
