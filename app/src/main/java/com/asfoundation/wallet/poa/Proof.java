@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.poa;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nullable;
@@ -7,17 +8,19 @@ import javax.annotation.Nullable;
 public class Proof {
   private final String packageName;
   private final String walletPackage;
-  @Nullable private final String campaignId;
   private final List<ProofComponent> proofComponentList;
   private final ProofStatus proofStatus;
   private final int chainId;
+  private final BigDecimal gasPrice;
+  private final BigDecimal gasLimit;
+  @Nullable private final String campaignId;
   @Nullable private final String oemAddress;
   @Nullable private final String storeAddress;
 
   public Proof(String packageName, @Nullable String campaignId,
       List<ProofComponent> proofComponentList, String walletPackage, ProofStatus proofStatus,
-      int chainId, @Nullable String oemAddress,
-      @Nullable String storeAddress) {
+      int chainId, @Nullable String oemAddress, @Nullable String storeAddress, BigDecimal gasPrice,
+      BigDecimal gasLimit) {
     this.packageName = packageName;
     this.campaignId = campaignId;
     this.proofComponentList = proofComponentList;
@@ -26,11 +29,21 @@ public class Proof {
     this.chainId = chainId;
     this.oemAddress = oemAddress;
     this.storeAddress = storeAddress;
+    this.gasPrice = gasPrice;
+    this.gasLimit = gasLimit;
   }
 
   public Proof(String packageName, String walletPackage, ProofStatus proofStatus, int chainId) {
-    this(packageName, null, Collections.emptyList(), walletPackage, proofStatus, chainId,
-        null, null);
+    this(packageName, null, Collections.emptyList(), walletPackage, proofStatus, chainId, null,
+        null, BigDecimal.ZERO, BigDecimal.ZERO);
+  }
+
+  public BigDecimal getGasPrice() {
+    return gasPrice;
+  }
+
+  public BigDecimal getGasLimit() {
+    return gasLimit;
   }
 
   public String getOemAddress() {
@@ -53,7 +66,6 @@ public class Proof {
     return walletPackage;
   }
 
-
   public List<ProofComponent> getProofComponentList() {
     return Collections.unmodifiableList(proofComponentList);
   }
@@ -69,10 +81,12 @@ public class Proof {
   @Override public int hashCode() {
     int result = packageName.hashCode();
     result = 31 * result + walletPackage.hashCode();
-    result = 31 * result + (campaignId != null ? campaignId.hashCode() : 0);
     result = 31 * result + proofComponentList.hashCode();
     result = 31 * result + proofStatus.hashCode();
     result = 31 * result + chainId;
+    result = 31 * result + gasPrice.hashCode();
+    result = 31 * result + gasLimit.hashCode();
+    result = 31 * result + (campaignId != null ? campaignId.hashCode() : 0);
     result = 31 * result + (oemAddress != null ? oemAddress.hashCode() : 0);
     result = 31 * result + (storeAddress != null ? storeAddress.hashCode() : 0);
     return result;
@@ -87,11 +101,13 @@ public class Proof {
     if (chainId != proof.chainId) return false;
     if (!packageName.equals(proof.packageName)) return false;
     if (!walletPackage.equals(proof.walletPackage)) return false;
+    if (!proofComponentList.equals(proof.proofComponentList)) return false;
+    if (proofStatus != proof.proofStatus) return false;
+    if (!gasPrice.equals(proof.gasPrice)) return false;
+    if (!gasLimit.equals(proof.gasLimit)) return false;
     if (campaignId != null ? !campaignId.equals(proof.campaignId) : proof.campaignId != null) {
       return false;
     }
-    if (!proofComponentList.equals(proof.proofComponentList)) return false;
-    if (proofStatus != proof.proofStatus) return false;
     if (oemAddress != null ? !oemAddress.equals(proof.oemAddress) : proof.oemAddress != null) {
       return false;
     }
@@ -104,17 +120,28 @@ public class Proof {
         + "packageName='"
         + packageName
         + '\''
-        + ", proofStatus="
-        + proofStatus
-        + '\''
         + ", walletPackage='"
         + walletPackage
         + '\''
-        + ", campaignId='"
-        + campaignId
-        + '\'' + ", chainId='" + chainId + '\''
         + ", proofComponentList="
         + proofComponentList
+        + ", proofStatus="
+        + proofStatus
+        + ", chainId="
+        + chainId
+        + ", gasPrice="
+        + gasPrice
+        + ", gasLimit="
+        + gasLimit
+        + ", campaignId='"
+        + campaignId
+        + '\''
+        + ", oemAddress='"
+        + oemAddress
+        + '\''
+        + ", storeAddress='"
+        + storeAddress
+        + '\''
         + '}';
   }
 }

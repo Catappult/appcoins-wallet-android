@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.repository;
 
-import android.text.TextUtils;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Ticker;
 import com.asfoundation.wallet.service.TickerService;
@@ -55,7 +54,7 @@ public class EthereumNetworkRepository implements EthereumNetworkRepositoryType 
   }
 
   private NetworkInfo getByName(String name) {
-    if (!TextUtils.isEmpty(name)) {
+    if (name != null && !name.isEmpty()) {
       for (NetworkInfo NETWORK : NETWORKS) {
         if (name.equals(NETWORK.name)) {
           return NETWORK;
@@ -100,16 +99,21 @@ public class EthereumNetworkRepository implements EthereumNetworkRepositoryType 
    */
   @Override public <T> Single<T> executeOnNetworkAndRestore(int chainId, Single<T> single) {
     return Single.just(getDefaultNetwork())
-        .doOnSuccess(__ -> setNetwork(chainId))
+        .doOnSuccess(__ -> setDefaultNetworkInfo(chainId))
         .flatMap(defaultNetworkInfo -> single.doAfterTerminate(
             () -> setDefaultNetworkInfo(defaultNetworkInfo)));
   }
 
-  private void setNetwork(int chainId) {
+  @Override public void setDefaultNetworkInfo(int chainId) {
+    setDefaultNetworkInfo(getNetwork(chainId));
+  }
+
+  @Override public NetworkInfo getNetwork(int chainId) {
     for (NetworkInfo networkInfo : getAvailableNetworkList()) {
       if (chainId == networkInfo.chainId) {
-        setDefaultNetworkInfo(networkInfo);
+        return networkInfo;
       }
     }
+    throw new IllegalArgumentException("Unknown chain Id: " + chainId);
   }
 }

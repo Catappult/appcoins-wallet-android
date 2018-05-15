@@ -3,27 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/loading"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:layout_gravity="center"
     android:padding="16dp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     >
-  <TextView
-      android:id="@+id/loading_message"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="4dp"
-      android:gravity="center"
-      android:text="@string/activity_aib_loading_message"
-      android:textColor="@color/iab_activity_gray"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
   <ProgressBar
       android:id="@+id/progressBar"
       android:layout_width="80dp"
@@ -34,6 +22,19 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/loading_message"
+      app:layout_constraintTop_toTopOf="parent"
       />
+  <TextView
+      android:id="@+id/loading_message"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="4dp"
+      android:gravity="center"
+      android:text="@string/activity_aib_loading_message"
+      android:textColor="@color/white"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/progressBar"
+      />
+
 </android.support.constraint.ConstraintLayout>
