@@ -1,7 +1,9 @@
 package com.asfoundation.wallet.repository;
 
+import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.poa.Proof;
+import com.asfoundation.wallet.poa.ProofSubmissionFeeData;
 import com.asfoundation.wallet.poa.ProofWriter;
 import com.asfoundation.wallet.poa.TransactionFactory;
 import io.reactivex.Single;
@@ -36,13 +38,30 @@ public class BlockChainWriter implements ProofWriter {
         .flatMap(this::sendTransaction);
   }
 
-  @Override public Single<Boolean> hasEnoughFunds(int chainId) {
+  @Override public Single<ProofSubmissionFeeData> hasEnoughFunds(int chainId) {
     return ethereumNetwork.executeOnNetworkAndRestore(chainId, defaultWalletInteract.find()
         .flatMap(walletRepositoryType::balanceInWei)
         .flatMap(balance -> gasSettingsRepository.getGasSettings(true)
-            .map(
-                gasSettings -> balance.compareTo(registerPoaGasLimit.multiply(gasSettings.gasPrice))
-                    >= 1)));
+            .map(gasSettings -> getFeeData(
+                balance.compareTo(registerPoaGasLimit.multiply(gasSettings.gasPrice)) >= 1,
+                gasSettings))))
+        .onErrorResumeNext(throwable -> {
+          if (throwable instanceof WalletNotFoundException) {
+            return Single.just(
+                new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NO_WALLET,
+                    BigDecimal.ZERO, BigDecimal.ZERO));
+          }
+          return Single.error(throwable);
+        });
+  }
+
+  private ProofSubmissionFeeData getFeeData(boolean hasFunds, GasSettings gasSettings) {
+    if (hasFunds) {
+      return new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY,
+          registerPoaGasLimit, gasSettings.gasPrice);
+    }
+    return new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NO_FUNDS,
+        BigDecimal.ZERO, BigDecimal.ZERO);
   }
 
   private Single<String> sendTransaction(byte[] transaction) {

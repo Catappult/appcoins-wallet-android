@@ -212,15 +212,12 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   }
 
   @Singleton @Provides TransactionFactory provideTransactionFactory(Web3jProvider web3jProvider,
-      WalletRepositoryType walletRepository, GasSettingsRepositoryType gasSettings,
-      AccountKeystoreService accountKeystoreService, PasswordStore passwordStore,
-      DefaultTokenProvider defaultTokenProvider,
-      EthereumNetworkRepositoryType ethereumNetworkRepository, DataMapper dataMapper,
-      @Named("REGISTER_PROOF_GAS_LIMIT") BigDecimal registerProofGasLimit) {
+      WalletRepositoryType walletRepository, AccountKeystoreService accountKeystoreService,
+      PasswordStore passwordStore, DefaultTokenProvider defaultTokenProvider,
+      EthereumNetworkRepositoryType ethereumNetworkRepository, DataMapper dataMapper) {
 
-    return new TransactionFactory(web3jProvider, walletRepository, gasSettings,
-        accountKeystoreService, passwordStore, defaultTokenProvider, ethereumNetworkRepository,
-        dataMapper, registerProofGasLimit);
+    return new TransactionFactory(web3jProvider, walletRepository, accountKeystoreService,
+        passwordStore, defaultTokenProvider, ethereumNetworkRepository, dataMapper);
   }
 
   @Singleton @Provides ProofWriter provideBlockChainWriter(Web3jProvider web3jProvider,
