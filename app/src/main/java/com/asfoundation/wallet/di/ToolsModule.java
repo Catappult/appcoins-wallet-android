@@ -54,9 +54,9 @@ import com.asfoundation.wallet.ui.airdrop.AirdropInteractor;
 import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService;
 import com.asfoundation.wallet.ui.iab.AppInfoProvider;
 import com.asfoundation.wallet.ui.iab.ImageSaver;
-import com.asfoundation.wallet.ui.iab.InAppPurchaseRepository;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseDataSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
+import com.asfoundation.wallet.ui.iab.InAppPurchaseRepository;
 import com.asfoundation.wallet.ui.iab.database.InAppPurchaseDatabase;
 import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.TransferParser;
@@ -165,9 +165,11 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
   @Singleton @Provides InAppPurchaseInteractor provideTransactionInteractor(
       InAppPurchaseService inAppPurchaseService, FindDefaultWalletInteract defaultWalletInteract,
-      FetchGasSettingsInteract gasSettingsInteract, TransferParser parser) {
-    return new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
-        gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser);
+      FetchGasSettingsInteract gasSettingsInteract, TransferParser parser,
+      InAppPurchaseDataSaver inAppPurchaseDataSaver) {
+    return new InAppPurchaseInteractor(inAppPurchaseService, inAppPurchaseDataSaver,
+        defaultWalletInteract, gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT),
+        parser);
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(
