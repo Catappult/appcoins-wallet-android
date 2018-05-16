@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.poa;
 
 import android.support.annotation.NonNull;
-import com.asfoundation.wallet.repository.Cache;
+import com.asfoundation.wallet.repository.Repository;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProofOfAttentionService {
-  private final Cache<String, Proof> cache;
+  private final Repository<String, Proof> cache;
   private final String walletPackage;
   private final HashCalculator hashCalculator;
   private final CompositeDisposable compositeDisposable;
@@ -21,7 +21,7 @@ public class ProofOfAttentionService {
   private final BlockchainErrorMapper errorMapper;
   private final TaggedCompositeDisposable disposables;
 
-  public ProofOfAttentionService(Cache<String, Proof> cache, String walletPackage,
+  public ProofOfAttentionService(Repository<String, Proof> cache, String walletPackage,
       HashCalculator hashCalculator, CompositeDisposable compositeDisposable,
       ProofWriter proofWriter, Scheduler computationScheduler, int maxNumberProofComponents,
       BlockchainErrorMapper errorMapper, TaggedCompositeDisposable disposables) {

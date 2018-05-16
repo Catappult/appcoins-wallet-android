@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
-import com.asfoundation.wallet.repository.Cache;
+import com.asfoundation.wallet.repository.Repository;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.PaymentTransaction;
 import com.asfoundation.wallet.ui.iab.database.InAppPurchaseData;
@@ -11,13 +11,13 @@ import java.util.List;
 
 public class InAppPurchaseDataSaver {
   private final InAppPurchaseService inAppPurchaseService;
-  private final Cache<String, InAppPurchaseData> cache;
+  private final Repository<String, InAppPurchaseData> cache;
   private final AppInfoProvider appInfoProvider;
   private final Scheduler scheduler;
   private Disposable disposable;
 
   public InAppPurchaseDataSaver(InAppPurchaseService inAppPurchaseService,
-      Cache<String, InAppPurchaseData> cache, AppInfoProvider appInfoProvider,
+      Repository<String, InAppPurchaseData> cache, AppInfoProvider appInfoProvider,
       Scheduler scheduler) {
     this.inAppPurchaseService = inAppPurchaseService;
     this.cache = cache;

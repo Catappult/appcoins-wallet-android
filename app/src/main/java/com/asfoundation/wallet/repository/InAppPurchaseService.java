@@ -10,13 +10,13 @@ import java.util.List;
 
 public class InAppPurchaseService {
 
-  private final Cache<String, PaymentTransaction> cache;
+  private final Repository<String, PaymentTransaction> cache;
   private final ApproveService approveService;
   private final BuyService buyService;
   private final NonceGetter nonceGetter;
   private final BalanceService balanceService;
 
-  public InAppPurchaseService(Cache<String, PaymentTransaction> cache,
+  public InAppPurchaseService(Repository<String, PaymentTransaction> cache,
       ApproveService approveService, BuyService buyService, NonceGetter nonceGetter,
       BalanceService balanceService) {
     this.cache = cache;

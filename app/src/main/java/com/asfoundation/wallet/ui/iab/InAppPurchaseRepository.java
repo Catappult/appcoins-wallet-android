@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
-import com.asfoundation.wallet.repository.Cache;
+import com.asfoundation.wallet.repository.Repository;
 import com.asfoundation.wallet.ui.iab.database.InAppPurchaseData;
 import com.asfoundation.wallet.ui.iab.database.InAppPurchaseDataDao;
 import io.reactivex.Completable;
@@ -8,7 +8,7 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import java.util.List;
 
-public class InAppPurchaseRepository implements Cache<String, InAppPurchaseData> {
+public class InAppPurchaseRepository implements Repository<String, InAppPurchaseData> {
   private final InAppPurchaseDataDao inAppPurchaseDataDao;
 
   public InAppPurchaseRepository(InAppPurchaseDataDao inAppPurchaseDataDao) {
