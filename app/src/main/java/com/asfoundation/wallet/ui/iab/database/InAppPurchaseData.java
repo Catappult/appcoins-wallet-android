@@ -1,19 +1,24 @@
-package com.asfoundation.wallet.ui.iab;
+package com.asfoundation.wallet.ui.iab.database;
 
-public class InAppPurchaseData {
-  private final String transactionId;
-  private final String packageName;
-  private final String applicationName;
-  private final String path;
-  private final String productName;
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
-  public InAppPurchaseData(String transactionId, String packageName, String applicationName,
-      String path, String productName) {
+@Entity public class InAppPurchaseData {
+  @NonNull @PrimaryKey @ColumnInfo(name = "transaction_id") private final String transactionId;
+  @NonNull @ColumnInfo(name = "package_name") private final String packageName;
+  @NonNull @ColumnInfo(name = "application_name") private final String applicationName;
+  @NonNull @ColumnInfo(name = "icon_path") private final String iconPath;
+  @NonNull @ColumnInfo(name = "product_name") private final String productName;
+
+  public InAppPurchaseData(@NonNull String transactionId, @NonNull String packageName,
+      @NonNull String applicationName, @NonNull String iconPath, @NonNull String productName) {
 
     this.transactionId = transactionId;
     this.packageName = packageName;
     this.applicationName = applicationName;
-    this.path = path;
+    this.iconPath = iconPath;
     this.productName = productName;
   }
 
@@ -25,8 +30,8 @@ public class InAppPurchaseData {
     return applicationName;
   }
 
-  public String getPath() {
-    return path;
+  public String getIconPath() {
+    return iconPath;
   }
 
   public String getProductName() {
@@ -41,7 +46,7 @@ public class InAppPurchaseData {
     int result = transactionId.hashCode();
     result = 31 * result + packageName.hashCode();
     result = 31 * result + applicationName.hashCode();
-    result = 31 * result + path.hashCode();
+    result = 31 * result + iconPath.hashCode();
     result = 31 * result + productName.hashCode();
     return result;
   }
@@ -55,7 +60,7 @@ public class InAppPurchaseData {
     if (!transactionId.equals(that.transactionId)) return false;
     if (!packageName.equals(that.packageName)) return false;
     if (!applicationName.equals(that.applicationName)) return false;
-    if (!path.equals(that.path)) return false;
+    if (!iconPath.equals(that.iconPath)) return false;
     return productName.equals(that.productName);
   }
 
@@ -71,7 +76,7 @@ public class InAppPurchaseData {
         + applicationName
         + '\''
         + ", path='"
-        + path
+        + iconPath
         + '\''
         + ", productName='"
         + productName

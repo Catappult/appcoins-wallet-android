@@ -4,6 +4,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.MemoryCache;
 import com.asfoundation.wallet.repository.PaymentTransaction;
+import com.asfoundation.wallet.ui.iab.database.InAppPurchaseData;
 import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.BehaviorSubject;
 import java.math.BigInteger;

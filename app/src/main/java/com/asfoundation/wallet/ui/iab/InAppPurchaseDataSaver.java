@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.iab;
 import com.asfoundation.wallet.repository.Cache;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.PaymentTransaction;
+import com.asfoundation.wallet.ui.iab.database.InAppPurchaseData;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;

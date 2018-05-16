@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.di;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.Airdrop;
@@ -53,8 +54,10 @@ import com.asfoundation.wallet.ui.airdrop.AirdropInteractor;
 import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService;
 import com.asfoundation.wallet.ui.iab.AppInfoProvider;
 import com.asfoundation.wallet.ui.iab.ImageSaver;
+import com.asfoundation.wallet.ui.iab.InAppPurchaseRepository;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseDataSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
+import com.asfoundation.wallet.ui.iab.database.InAppPurchaseDatabase;
 import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.TransferParser;
 import com.google.gson.Gson;
@@ -261,8 +264,11 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
   @Provides @Singleton InAppPurchaseDataSaver provideInAppPurchaseDataSaver(
       InAppPurchaseService inAppPurchaseService, Context context) {
-    return new InAppPurchaseDataSaver(inAppPurchaseService,
-        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
+    return new InAppPurchaseDataSaver(inAppPurchaseService, new InAppPurchaseRepository(
+        Room.databaseBuilder(context.getApplicationContext(), InAppPurchaseDatabase.class,
+            "In_App_Purchase_data")
+            .build()
+            .inAppPurchaseDataDao()),
         new AppInfoProvider(context, new ImageSaver(context.getFilesDir() + "/app_icons/")),
         Schedulers.io());
   }
