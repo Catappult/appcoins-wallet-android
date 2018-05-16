@@ -1,9 +1,13 @@
 package com.asfoundation.wallet.transactions;
 
-import com.asfoundation.wallet.entity.RawTransaction;
+import android.os.Parcel;
+import android.os.Parcelable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javax.annotation.Nullable;
 
-public class Transaction {
+public class Transaction implements Parcelable {
   private final String transactionId;
   @Nullable private final String approveTransactionId;
   private final TransactionType type;
@@ -14,11 +18,11 @@ public class Transaction {
   private final String to;
   private final String details;
   private final String currency;
-  private final RawTransaction transaction;
+  private final List<Operation> operations;
 
   public Transaction(String transactionId, TransactionType type,
       @Nullable String approveTransactionId, long timeStamp, TransactionStatus status,
-      String value, String from, String to, String details, String currency, RawTransaction transaction) {
+      String value, String from, String to, String details, String currency, List<Operation> operations) {
     this.transactionId = transactionId;
     this.approveTransactionId = approveTransactionId;
     this.type = type;
@@ -29,11 +33,61 @@ public class Transaction {
     this.to = to;
     this.details = details;
     this.currency = currency;
-    this.transaction = transaction;
+    this.operations = operations;
   }
 
-  public TransactionType getTransactionType() {
-    return type;
+  public static final Creator<Transaction> CREATOR = new Creator<Transaction>() {
+    @Override public Transaction createFromParcel(Parcel in) {
+      return new Transaction(in);
+    }
+
+    @Override public Transaction[] newArray(int size) {
+      return new Transaction[size];
+    }
+  };
+
+  @Override public int describeContents() {
+    return 0;
+  }
+
+  @Override public void writeToParcel(Parcel dest, int flags) {
+    dest.writeString(transactionId);
+    dest.writeString(approveTransactionId);
+    dest.writeInt(type.ordinal());
+    dest.writeLong(timeStamp);
+    dest.writeInt(status.ordinal());
+    dest.writeString(value);
+    dest.writeString(from);
+    dest.writeString(to);
+    dest.writeString(details);
+    dest.writeString(currency);
+    Operation[] operationsArray = new Operation[operations.size()];
+    operations.toArray(operationsArray);
+    dest.writeParcelableArray(operationsArray, flags);
+  }
+
+  protected Transaction(Parcel in) {
+    transactionId = in.readString();
+    approveTransactionId = in.readString();
+    type = TransactionType.fromInt(in.readInt());
+    timeStamp = in.readLong();
+    status = TransactionStatus.fromInt(in.readInt());
+    value = in.readString();
+    from = in.readString();
+    to = in.readString();
+    details = in.readString();
+    currency = in.readString();
+    Parcelable[] parcelableArray =
+        in.readParcelableArray(Operation.class.getClassLoader());
+    Operation[] operations = null;
+    if (parcelableArray != null) {
+      operations =
+          Arrays.copyOf(parcelableArray, parcelableArray.length, Operation[].class);
+    }
+    this.operations = new ArrayList<>();
+    for (Operation operation : operations){
+      this.operations.add(operation);
+    }
   }
 
   @Override public int hashCode() {
@@ -93,8 +147,8 @@ public class Transaction {
     return details;
   }
 
-  public RawTransaction getTransaction() {
-    return transaction;
+  public List<Operation> getOperations() {
+    return operations;
   }
 
   public String getCurrency() {
@@ -102,11 +156,37 @@ public class Transaction {
   }
 
   public enum TransactionType {
-    STANDARD, IAB, ADS
+    STANDARD, IAB, ADS;
+
+    static TransactionType fromInt(int type) {
+     switch (type) {
+       case 0:
+         return STANDARD;
+       case 1:
+         return IAB;
+       case 2:
+         return ADS;
+       default:
+         return STANDARD;
+     }
+    }
   }
 
   public enum TransactionStatus {
-    SUCCESS, FAILED, PENDING
+    SUCCESS, FAILED, PENDING;
+
+    static TransactionStatus fromInt(int status) {
+      switch (status) {
+        case 0:
+          return SUCCESS;
+        case 1:
+          return FAILED;
+        case 2:
+          return PENDING;
+        default:
+          return SUCCESS;
+      }
+    }
   }
 
   @Override public String toString() {
@@ -138,8 +218,8 @@ public class Transaction {
         + ", currency='"
         + currency
         + '\''
-        + ", transaction="
-        + transaction
+        + ", operations="
+        + operations
         + '}';
   }
 }

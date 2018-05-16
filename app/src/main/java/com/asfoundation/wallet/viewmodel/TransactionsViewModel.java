@@ -195,7 +195,7 @@ public class TransactionsViewModel extends BaseViewModel {
         .subscribe();
   }
 
-  public void showDetails(Context context, RawTransaction transaction) {
+  public void showDetails(Context context, Transaction transaction) {
     transactionDetailRouter.open(context, transaction);
   }
 

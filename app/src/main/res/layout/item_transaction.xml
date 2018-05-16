@@ -95,7 +95,7 @@
       android:layout_height="wrap_content"
       android:layout_marginEnd="@dimen/big_padding"
       android:layout_marginTop="@dimen/normal_margin"
-      android:textColor="@color/gray"
+      android:textColor="@color/gray_alpha_8a"
       android:textSize="12sp"
       app:layout_constraintBaseline_toBaselineOf="@id/value"
       app:layout_constraintEnd_toEndOf="parent"

@@ -122,6 +122,6 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   }
 
   @Override public void onClick(View view) {
-    onTransactionClickListener.onTransactionClick(view, transaction.getTransaction());
+    onTransactionClickListener.onTransactionClick(view, transaction);
   }
 }

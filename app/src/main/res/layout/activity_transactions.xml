@@ -53,7 +53,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="bottom"
       android:background="?android:attr/windowBackground"
-      app:itemIconTint="@color/gray"
-      app:itemTextColor="@color/gray"
+      app:itemIconTint="@color/gray_alpha_8a"
+      app:itemTextColor="@color/gray_alpha_8a"
       />
 </android.support.design.widget.CoordinatorLayout>

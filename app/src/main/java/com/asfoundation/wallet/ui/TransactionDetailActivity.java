@@ -1,19 +1,29 @@
 package com.asfoundation.wallet.ui;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.transactions.Operation;
+import com.asfoundation.wallet.transactions.Transaction;
+import com.asfoundation.wallet.ui.widget.adapter.TransactionsAdapter;
+import com.asfoundation.wallet.ui.widget.adapter.TransactionsDetailsAdapter;
 import com.asfoundation.wallet.util.BalanceUtils;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModel;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModelFactory;
@@ -26,13 +36,15 @@ import javax.inject.Inject;
 
 import static com.asfoundation.wallet.C.Key.TRANSACTION;
 
-public class TransactionDetailActivity extends BaseActivity implements View.OnClickListener {
+public class TransactionDetailActivity extends BaseActivity {
 
   @Inject TransactionDetailViewModelFactory transactionDetailViewModelFactory;
   private TransactionDetailViewModel viewModel;
 
-  private RawTransaction transaction;
+  private Transaction transaction;
   private TextView amount;
+  private TransactionsDetailsAdapter adapter;
+
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -48,17 +60,16 @@ public class TransactionDetailActivity extends BaseActivity implements View.OnCl
     }
     toolbar();
 
-    BigDecimal gasFee =
-        new BigDecimal(transaction.gasUsed).multiply(new BigDecimal(transaction.gasPrice));
+    // get gas on each operation
+    //Operation operation = transaction.getOperations()
+    //    .get(0);
+    //new BigDecimal(transaction.gasUsed).multiply(new BigDecimal(transaction.gasPrice));
     amount = findViewById(R.id.amount);
-    ((TextView) findViewById(R.id.from)).setText(transaction.from);
-    ((TextView) findViewById(R.id.to)).setText(transaction.to);
-    ((TextView) findViewById(R.id.gas_fee)).setText(BalanceUtils.weiToEth(gasFee)
-        .toPlainString());
-    ((TextView) findViewById(R.id.txn_hash)).setText(transaction.hash);
-    ((TextView) findViewById(R.id.txn_time)).setText(getDate(transaction.timeStamp));
-    ((TextView) findViewById(R.id.block_number)).setText(transaction.blockNumber);
-    findViewById(R.id.more_detail).setOnClickListener(this);
+
+    adapter = new TransactionsDetailsAdapter(this::onMoreClicked);
+    RecyclerView list = findViewById(R.id.details_list);
+    //list.setLayoutManager(new LinearLayoutManager(this));
+    list.setAdapter(adapter);
 
     viewModel = ViewModelProviders.of(this, transactionDetailViewModelFactory)
         .get(TransactionDetailViewModel.class);
@@ -69,34 +80,63 @@ public class TransactionDetailActivity extends BaseActivity implements View.OnCl
   }
 
   private void onDefaultWallet(Wallet wallet) {
+    adapter.setDefaultWallet(wallet);
+    adapter.addOperations(transaction.getOperations());
 
-    boolean isSent = transaction.from.toLowerCase()
+    boolean isSent = transaction.getFrom()
+        .toLowerCase()
         .equals(wallet.address);
     String rawValue;
     String symbol;
     long decimals = 18;
     NetworkInfo networkInfo = viewModel.defaultNetwork()
         .getValue();
-    if (transaction.operations == null || transaction.operations.length == 0) {
-      rawValue = transaction.value;
-      symbol = networkInfo == null ? "" : networkInfo.symbol;
-    } else {
-      isSent = transaction.operations[0].from.toLowerCase()
-          .equals(wallet.address);
-      ((TextView) findViewById(R.id.from)).setText(transaction.operations[0].from);
-      ((TextView) findViewById(R.id.to)).setText(transaction.operations[0].to);
-      rawValue = transaction.operations[0].value;
-      decimals = transaction.operations[0].contract.decimals;
-      symbol = transaction.operations[0].contract.symbol;
+    rawValue = transaction.getValue();
+    symbol = transaction.getCurrency() == null ? (networkInfo == null ? "" : networkInfo.symbol)
+        : transaction.getCurrency();
+
+    if (!rawValue.equals("0")) {
+      rawValue = (isSent ? "-" : "+") + getScaledValue(rawValue, decimals);
     }
 
-    amount.setTextColor(ContextCompat.getColor(this, isSent ? R.color.red : R.color.green));
-    if (rawValue.equals("0")) {
-      rawValue = "0 " + symbol;
-    } else {
-      rawValue = (isSent ? "-" : "+") + getScaledValue(rawValue, decimals) + " " + symbol;
+    int smallTitleSize = (int) getResources().getDimension(R.dimen.small_text);
+    int color = getResources().getColor(R.color.gray_alpha_8a);
+    amount.setText(BalanceUtils.formatBalance(rawValue, symbol, smallTitleSize, color));
+
+    ((TextView) findViewById(R.id.app_id)).setText(transaction.getTransactionId());
+    ((TextView) findViewById(R.id.app_id)).setVisibility(View.VISIBLE);
+    @StringRes int statusStr = R.string.transaction_status_success;
+    @ColorRes int statusColor = R.color.green;
+
+    switch (transaction.getStatus()) {
+      case FAILED:
+        statusStr = R.string.transaction_status_failed;
+        statusColor = R.color.red;
+        break;
+      case PENDING:
+        statusStr = R.string.transaction_status_pending;
+        statusColor = R.color.orange;
+        break;
     }
-    amount.setText(rawValue);
+    ((TextView) findViewById(R.id.status)).setText(statusStr);
+    ((TextView) findViewById(R.id.status)).setTextColor(getResources().getColor(statusColor));
+
+    @StringRes int typeStr = R.string.transaction_type_standard;
+    @DrawableRes int typeIcon = R.drawable.ic_transaction_peer;
+
+    switch (transaction.getType()) {
+      case ADS:
+        typeStr = R.string.transaction_type_poa;
+        typeIcon = R.drawable.ic_transaction_poa;
+        break;
+      case IAB:
+        typeStr = R.string.transaction_type_iab;
+        typeIcon = R.drawable.ic_transaction_iab;
+        break;
+    }
+    ((TextView) findViewById(R.id.category_name)).setText(typeStr);
+    ((ImageView) findViewById(R.id.category_icon)).setImageResource(typeIcon);
+
   }
 
   private String getScaledValue(String valueStr, long decimals) {
@@ -116,24 +156,14 @@ public class TransactionDetailActivity extends BaseActivity implements View.OnCl
         .format(cal.getTime());
   }
 
-  @Override public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.menu_share, menu);
-    return super.onCreateOptionsMenu(menu);
-  }
-
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    if (item.getItemId() == R.id.action_share) {
-      viewModel.shareTransactionDetail(this, transaction);
-    }
-    return super.onOptionsItemSelected(item);
-  }
-
   private void onDefaultNetwork(NetworkInfo networkInfo) {
-    findViewById(R.id.more_detail).setVisibility(
-        TextUtils.isEmpty(networkInfo.etherscanUrl) ? View.GONE : View.VISIBLE);
+    //findViewById(R.id.more_detail).setVisibility(
+    //    TextUtils.isEmpty(networkInfo.etherscanUrl) ? View.GONE : View.VISIBLE);
   }
 
-  @Override public void onClick(View v) {
-    viewModel.showMoreDetails(v.getContext(), transaction);
+
+  private void onMoreClicked(View view, Operation operation) {
+    viewModel.showMoreDetails(view.getContext(), operation);
   }
+
 }

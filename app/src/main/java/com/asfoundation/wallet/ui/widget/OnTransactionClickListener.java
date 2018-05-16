@@ -5,5 +5,5 @@ import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.transactions.Transaction;
 
 public interface OnTransactionClickListener {
-  void onTransactionClick(View view, RawTransaction transaction);
+  void onTransactionClick(View view, Transaction transaction);
 }

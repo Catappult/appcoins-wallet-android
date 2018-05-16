@@ -133,7 +133,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     setCollapsingTitle(balance.toUpperCase());
   }
 
-  private void onTransactionClick(View view, RawTransaction transaction) {
+  private void onTransactionClick(View view, Transaction transaction) {
     viewModel.showDetails(view.getContext(), transaction);
   }
 
