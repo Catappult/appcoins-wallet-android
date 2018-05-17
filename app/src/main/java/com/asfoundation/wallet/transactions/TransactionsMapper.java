@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.transactions;
 
-import android.text.TextUtils;
 import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.TransactionOperation;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
@@ -28,9 +27,8 @@ public class TransactionsMapper {
     List<Transaction> transactionList = new ArrayList<>();
     for (int i = transactions.length - 1; i >= 0; i--) {
       RawTransaction transaction = transactions[i];
-      if (isAppcoinsTransaction(transaction, address)
-          && isApprovedTransaction(transaction)
-          && isIabTransaction(transactions[i - 1])) {
+      if (isAppcoinsTransaction(transaction, address) && isApprovedTransaction(transaction) && (i
+          > 0 && isIabTransaction(transactions[i - 1]))) {
         transactionList.add(0, mapIabTransaction(transaction, transactions[i - 1]));
         i--;
       } else if (isAdsTransaction(transaction)) {
@@ -54,7 +52,7 @@ public class TransactionsMapper {
    *
    * @return a Transaction object containing the information needed and formatted, ready to be shown
    * on the transactions list.
-   * */
+   */
   private Transaction mapAdsTransaction(RawTransaction transaction) {
     String value = transaction.value;
     String currency = null;
@@ -67,9 +65,8 @@ public class TransactionsMapper {
       from = transaction.operations[0].from;
       to = transaction.operations[0].to;
     }
-    return new Transaction(transaction.hash, Transaction.TransactionType.ADS,
-        null, transaction.timeStamp, getError(transaction),
-        value, from, to, null, currency, transaction);
+    return new Transaction(transaction.hash, Transaction.TransactionType.ADS, null,
+        transaction.timeStamp, getError(transaction), value, from, to, null, currency, transaction);
   }
 
   private boolean isAdsTransaction(RawTransaction transaction) {
@@ -88,7 +85,7 @@ public class TransactionsMapper {
    *
    * @return a Transaction object containing the information needed and formatted, ready to be shown
    * on the transactions list.
-   * */
+   */
   private Transaction mapStandardTransaction(RawTransaction transaction) {
     String value = transaction.value;
     String currency = null;
@@ -96,9 +93,9 @@ public class TransactionsMapper {
       value = transaction.operations[0].value;
       currency = transaction.operations[0].contract.symbol;
     }
-    return new Transaction(transaction.hash, Transaction.TransactionType.STANDARD,
-        null, transaction.timeStamp, getError(transaction),
-        value, transaction.from, transaction.to, null, currency, transaction);
+    return new Transaction(transaction.hash, Transaction.TransactionType.STANDARD, null,
+        transaction.timeStamp, getError(transaction), value, transaction.from, transaction.to, null,
+        currency, transaction);
   }
 
   /**
@@ -112,7 +109,7 @@ public class TransactionsMapper {
    *
    * @return a Transaction object containing the information needed and formatted, ready to be shown
    * on the transactions list.
-   * */
+   */
   private Transaction mapIabTransaction(RawTransaction approveTransaction,
       RawTransaction transaction) {
     BigInteger value = new BigInteger(transaction.value);
@@ -124,8 +121,8 @@ public class TransactionsMapper {
       }
     }
     return new Transaction(transaction.hash, Transaction.TransactionType.IAB,
-        approveTransaction.hash, transaction.timeStamp, getError(transaction),
-        value.toString(), transaction.from, transaction.to, null, currency, transaction);
+        approveTransaction.hash, transaction.timeStamp, getError(transaction), value.toString(),
+        transaction.from, transaction.to, null, currency, transaction);
   }
 
   private boolean isIabTransaction(RawTransaction auxTransaction) {
@@ -143,7 +140,7 @@ public class TransactionsMapper {
   }
 
   private Transaction.TransactionStatus getError(RawTransaction transaction) {
-    return (transaction.error == null || transaction.error.isEmpty()) ?
-        Transaction.TransactionStatus.SUCCESS : Transaction.TransactionStatus.FAILED;
+    return (transaction.error == null || transaction.error.isEmpty())
+        ? Transaction.TransactionStatus.SUCCESS : Transaction.TransactionStatus.FAILED;
   }
 }

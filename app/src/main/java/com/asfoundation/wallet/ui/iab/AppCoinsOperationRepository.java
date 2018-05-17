@@ -1,30 +1,30 @@
 package com.asfoundation.wallet.ui.iab;
 
 import com.asfoundation.wallet.repository.Repository;
-import com.asfoundation.wallet.ui.iab.database.InAppPurchaseData;
-import com.asfoundation.wallet.ui.iab.database.InAppPurchaseDataDao;
+import com.asfoundation.wallet.ui.iab.database.AppCoinsOperation;
+import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDao;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import java.util.List;
 
-public class InAppPurchaseRepository implements Repository<String, InAppPurchaseData> {
-  private final InAppPurchaseDataDao inAppPurchaseDataDao;
+public class AppCoinsOperationRepository implements Repository<String, AppCoinsOperation> {
+  private final AppCoinsOperationDao inAppPurchaseDataDao;
 
-  public InAppPurchaseRepository(InAppPurchaseDataDao inAppPurchaseDataDao) {
+  public AppCoinsOperationRepository(AppCoinsOperationDao inAppPurchaseDataDao) {
     this.inAppPurchaseDataDao = inAppPurchaseDataDao;
   }
 
-  @Override public Completable save(String key, InAppPurchaseData value) {
+  @Override public Completable save(String key, AppCoinsOperation value) {
     return Completable.fromAction(() -> saveSync(key, value));
   }
 
-  @Override public Observable<List<InAppPurchaseData>> getAll() {
+  @Override public Observable<List<AppCoinsOperation>> getAll() {
     return inAppPurchaseDataDao.getAllAsFlowable()
         .toObservable();
   }
 
-  @Override public Observable<InAppPurchaseData> get(String key) {
+  @Override public Observable<AppCoinsOperation> get(String key) {
     return inAppPurchaseDataDao.getAsFlowable(key)
         .toObservable();
   }
@@ -37,15 +37,15 @@ public class InAppPurchaseRepository implements Repository<String, InAppPurchase
     return Single.just(containsSync(key));
   }
 
-  @Override public void saveSync(String key, InAppPurchaseData value) {
+  @Override public void saveSync(String key, AppCoinsOperation value) {
     inAppPurchaseDataDao.insert(value);
   }
 
-  @Override public List<InAppPurchaseData> getAllSync() {
+  @Override public List<AppCoinsOperation> getAllSync() {
     return inAppPurchaseDataDao.getAll();
   }
 
-  @Override public InAppPurchaseData getSync(String key) {
+  @Override public AppCoinsOperation getSync(String key) {
     return inAppPurchaseDataDao.get(key);
   }
 

@@ -5,7 +5,7 @@ import com.asfoundation.wallet.poa.ProofStatus;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.PaymentTransaction;
 import com.asfoundation.wallet.repository.Repository;
-import com.asfoundation.wallet.ui.iab.database.InAppPurchaseData;
+import com.asfoundation.wallet.ui.iab.database.AppCoinsOperation;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.Scheduler;
@@ -16,13 +16,13 @@ public class AppcoinsOperationsDataSaver {
   private static final String TAG = AppcoinsOperationsDataSaver.class.getSimpleName();
   private final InAppPurchaseService inAppPurchaseService;
   private final ProofOfAttentionService proofOfAttentionService;
-  private final Repository<String, InAppPurchaseData> cache;
+  private final Repository<String, AppCoinsOperation> cache;
   private final AppInfoProvider appInfoProvider;
   private final Scheduler scheduler;
   private final CompositeDisposable disposables;
 
   public AppcoinsOperationsDataSaver(InAppPurchaseService inAppPurchaseService,
-      ProofOfAttentionService proofOfAttentionService, Repository<String, InAppPurchaseData> cache,
+      ProofOfAttentionService proofOfAttentionService, Repository<String, AppCoinsOperation> cache,
       AppInfoProvider appInfoProvider, Scheduler scheduler, CompositeDisposable disposables) {
     this.inAppPurchaseService = inAppPurchaseService;
     this.proofOfAttentionService = proofOfAttentionService;
@@ -41,7 +41,7 @@ public class AppcoinsOperationsDataSaver {
         .subscribe());
   }
 
-  private Observable<InAppPurchaseData> getInAppData() {
+  private Observable<AppCoinsOperation> getInAppData() {
     return inAppPurchaseService.getAll()
         .subscribeOn(scheduler)
         .flatMap(paymentTransactions -> Observable.fromIterable(paymentTransactions)
@@ -51,7 +51,7 @@ public class AppcoinsOperationsDataSaver {
                 paymentTransaction.getPackageName(), paymentTransaction.getProductName())));
   }
 
-  private Observable<InAppPurchaseData> getProofAppData() {
+  private Observable<AppCoinsOperation> getProofAppData() {
     return proofOfAttentionService.get()
         .subscribeOn(scheduler)
         .flatMap(proofs -> Observable.fromIterable(proofs)
@@ -61,7 +61,7 @@ public class AppcoinsOperationsDataSaver {
                 proof.getCampaignId())));
   }
 
-  private ObservableSource<? extends InAppPurchaseData> getAppData(String hash, String packageName,
+  private ObservableSource<? extends AppCoinsOperation> getAppData(String hash, String packageName,
       String data) {
     try {
       return Observable.just(appInfoProvider.get(hash, packageName, data));
@@ -80,7 +80,7 @@ public class AppcoinsOperationsDataSaver {
     });
   }
 
-  public Observable<InAppPurchaseData> get(String id) {
+  public Observable<AppCoinsOperation> get(String id) {
     return cache.get(id);
   }
 
@@ -88,12 +88,12 @@ public class AppcoinsOperationsDataSaver {
     if (!disposables.isDisposed()) {
       disposables.dispose();
     }
-    for (InAppPurchaseData inAppPurchaseData : cache.getAllSync()) {
+    for (AppCoinsOperation inAppPurchaseData : cache.getAllSync()) {
       cache.removeSync(inAppPurchaseData.getTransactionId());
     }
   }
 
-  public Observable<List<InAppPurchaseData>> getAll() {
+  public Observable<List<AppCoinsOperation>> getAll() {
     return cache.getAll();
   }
 }

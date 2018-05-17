@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import com.asfoundation.wallet.ui.iab.database.InAppPurchaseData;
+import com.asfoundation.wallet.ui.iab.database.AppCoinsOperation;
 
 public class AppInfoProvider {
   private final Context context;
@@ -20,7 +20,7 @@ public class AppInfoProvider {
    * Since the info is collected from the android framework, it is slow. Avoid calling this
    * method from main thread
    */
-  public InAppPurchaseData get(String id, String packageName, String productName)
+  public AppCoinsOperation get(String id, String packageName, String productName)
       throws UnknownApplicationException, ImageSaver.SaveException {
     try {
       PackageManager packageManager = context.getPackageManager();
@@ -29,7 +29,7 @@ public class AppInfoProvider {
       String path = imageSaver.save(packageName, icon);
       String applicationName = packageManager.getApplicationLabel(app)
           .toString();
-      return new InAppPurchaseData(id, packageName, applicationName, path, productName);
+      return new AppCoinsOperation(id, packageName, applicationName, path, productName);
     } catch (PackageManager.NameNotFoundException e) {
       throw new UnknownApplicationException(
           "Unable to find the application with the packageName: " + packageName);

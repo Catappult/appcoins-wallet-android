@@ -16,7 +16,7 @@ import com.asfoundation.wallet.ui.iab.AppInfoProvider;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.ui.iab.ImageSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
-import com.asfoundation.wallet.ui.iab.database.InAppPurchaseData;
+import com.asfoundation.wallet.ui.iab.database.AppCoinsOperation;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -114,7 +114,7 @@ public class InAppPurchaseInteractorTest {
 
     when(appInfoProvider.get(anyString(), anyString(), anyString())).thenAnswer(invocation -> {
       Object[] arguments = invocation.getArguments();
-      return new InAppPurchaseData(((String) arguments[0]), ((String) arguments[1]),
+      return new AppCoinsOperation(((String) arguments[0]), ((String) arguments[1]),
           APPLICATION_NAME, ICON_PATH, ((String) arguments[2]));
     });
 
@@ -135,7 +135,7 @@ public class InAppPurchaseInteractorTest {
         + "/transfer?uint256=1000000000000000000&address"
         + "=0x4fbcc5ce88493c3d9903701c143af65f54481119&data=0x636f6d2e63656e61732e70726f64756374";
     inAppPurchaseInteractor.start();
-    TestObserver<List<InAppPurchaseData>> test = inAppPurchaseInteractor.getAllPurchasesData()
+    TestObserver<List<AppCoinsOperation>> test = inAppPurchaseInteractor.getAllPurchasesData()
         .test();
     TestObserver<PaymentTransaction> testObserver = new TestObserver<>();
     inAppPurchaseInteractor.getTransactionState(uri)
@@ -185,9 +185,9 @@ public class InAppPurchaseInteractorTest {
         .getState()
         .equals(PaymentTransaction.PaymentState.COMPLETED));
     Assert.assertTrue(values.size() == 7);
-    InAppPurchaseData inAppPurchaseData =
-        new InAppPurchaseData("buy_hash", PACKAGE_NAME, APPLICATION_NAME, ICON_PATH, PRODUCT_NAME);
-    ArrayList<InAppPurchaseData> list = new ArrayList<>();
+    AppCoinsOperation inAppPurchaseData =
+        new AppCoinsOperation("buy_hash", PACKAGE_NAME, APPLICATION_NAME, ICON_PATH, PRODUCT_NAME);
+    ArrayList<AppCoinsOperation> list = new ArrayList<>();
     list.add(inAppPurchaseData);
     test.assertValues(list);
   }

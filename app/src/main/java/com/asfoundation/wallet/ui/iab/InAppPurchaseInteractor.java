@@ -6,7 +6,7 @@ import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.PaymentTransaction;
-import com.asfoundation.wallet.ui.iab.database.InAppPurchaseData;
+import com.asfoundation.wallet.ui.iab.database.AppCoinsOperation;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -35,11 +35,11 @@ public class InAppPurchaseInteractor {
     this.parser = parser;
   }
 
-  public Observable<InAppPurchaseData> getPurchaseData(String id) {
+  public Observable<AppCoinsOperation> getPurchaseData(String id) {
     return inAppPurchaseDataSaver.get(id);
   }
 
-  public Observable<List<InAppPurchaseData>> getAllPurchasesData() {
+  public Observable<List<AppCoinsOperation>> getAllPurchasesData() {
     return inAppPurchaseDataSaver.getAll();
   }
 

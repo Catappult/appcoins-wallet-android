@@ -5,14 +5,14 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity public class InAppPurchaseData {
+@Entity public class AppCoinsOperation {
   @NonNull @PrimaryKey @ColumnInfo(name = "transaction_id") private final String transactionId;
   @NonNull @ColumnInfo(name = "package_name") private final String packageName;
   @NonNull @ColumnInfo(name = "application_name") private final String applicationName;
   @NonNull @ColumnInfo(name = "icon_path") private final String iconPath;
   @NonNull @ColumnInfo(name = "product_name") private final String productName;
 
-  public InAppPurchaseData(@NonNull String transactionId, @NonNull String packageName,
+  public AppCoinsOperation(@NonNull String transactionId, @NonNull String packageName,
       @NonNull String applicationName, @NonNull String iconPath, @NonNull String productName) {
 
     this.transactionId = transactionId;
@@ -53,9 +53,9 @@ import android.support.annotation.NonNull;
 
   @Override public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof InAppPurchaseData)) return false;
+    if (!(o instanceof AppCoinsOperation)) return false;
 
-    InAppPurchaseData that = (InAppPurchaseData) o;
+    AppCoinsOperation that = (AppCoinsOperation) o;
 
     if (!transactionId.equals(that.transactionId)) return false;
     if (!packageName.equals(that.packageName)) return false;

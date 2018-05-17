@@ -52,12 +52,12 @@ import com.asfoundation.wallet.service.TrustWalletTickerService;
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper;
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor;
 import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService;
+import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository;
 import com.asfoundation.wallet.ui.iab.AppInfoProvider;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.ui.iab.ImageSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
-import com.asfoundation.wallet.ui.iab.InAppPurchaseRepository;
-import com.asfoundation.wallet.ui.iab.database.InAppPurchaseDatabase;
+import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase;
 import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.TransferParser;
 import com.google.gson.Gson;
@@ -268,11 +268,11 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
       InAppPurchaseService inAppPurchaseService, Context context,
       ProofOfAttentionService proofOfAttentionService) {
     return new AppcoinsOperationsDataSaver(inAppPurchaseService, proofOfAttentionService,
-        new InAppPurchaseRepository(
-            Room.databaseBuilder(context.getApplicationContext(), InAppPurchaseDatabase.class,
-                "In_App_Purchase_data")
+        new AppCoinsOperationRepository(
+            Room.databaseBuilder(context.getApplicationContext(), AppCoinsOperationDatabase.class,
+                "appcoins_operations_data")
                 .build()
-                .inAppPurchaseDataDao()),
+                .appCoinsOperationDao()),
         new AppInfoProvider(context, new ImageSaver(context.getFilesDir() + "/app_icons/")),
         Schedulers.io(), new CompositeDisposable());
   }

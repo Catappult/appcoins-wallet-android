@@ -6,7 +6,7 @@ import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.MemoryCache;
 import com.asfoundation.wallet.repository.PaymentTransaction;
-import com.asfoundation.wallet.ui.iab.database.InAppPurchaseData;
+import com.asfoundation.wallet.ui.iab.database.AppCoinsOperation;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.BehaviorSubject;
@@ -23,7 +23,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class) public class InAppPurchaseDataSaverTest {
+@RunWith(MockitoJUnitRunner.class) public class AppCoinsOperationDataSaverTest {
   public static final String PACKAGE_NAME = "PACKAGE_NAME";
   public static final String URI = "uri";
   public static final String APPROVE_HASH = "approve_hash";
@@ -38,14 +38,14 @@ import static org.mockito.Mockito.when;
   private BehaviorSubject<List<Proof>> proofSubject;
   private AppcoinsOperationsDataSaver dataSaver;
   private TestScheduler scheduler;
-  private MemoryCache<String, InAppPurchaseData> cache;
+  private MemoryCache<String, AppCoinsOperation> cache;
 
   @Before public void before()
       throws AppInfoProvider.UnknownApplicationException, ImageSaver.SaveException {
     paymentSubject = BehaviorSubject.create();
     when(inAppPurchaseService.getAll()).thenReturn(paymentSubject);
     when(appInfoProvider.get(BUY_HASH_1, PACKAGE_NAME, PRODUCT_NAME)).thenReturn(
-        new InAppPurchaseData(BUY_HASH_1, PACKAGE_NAME, APPLICATION_NAME, PATH, PRODUCT_NAME));
+        new AppCoinsOperation(BUY_HASH_1, PACKAGE_NAME, APPLICATION_NAME, PATH, PRODUCT_NAME));
     scheduler = new TestScheduler();
     cache = new MemoryCache<>(BehaviorSubject.create(), new HashMap<>());
     proofSubject = BehaviorSubject.create();
@@ -65,7 +65,7 @@ import static org.mockito.Mockito.when;
     paymentSubject.onNext(list);
     scheduler.triggerActions();
     Assert.assertEquals(
-        new InAppPurchaseData(BUY_HASH_1, PACKAGE_NAME, APPLICATION_NAME, PATH, PRODUCT_NAME),
+        new AppCoinsOperation(BUY_HASH_1, PACKAGE_NAME, APPLICATION_NAME, PATH, PRODUCT_NAME),
         cache.getSync(BUY_HASH_1));
   }
 
@@ -102,7 +102,7 @@ import static org.mockito.Mockito.when;
     paymentSubject.onNext(list);
     scheduler.triggerActions();
     Assert.assertEquals(
-        new InAppPurchaseData(BUY_HASH_1, PACKAGE_NAME, APPLICATION_NAME, PATH, PRODUCT_NAME),
+        new AppCoinsOperation(BUY_HASH_1, PACKAGE_NAME, APPLICATION_NAME, PATH, PRODUCT_NAME),
         cache.getSync(BUY_HASH_1));
 
     dataSaver.stop();
