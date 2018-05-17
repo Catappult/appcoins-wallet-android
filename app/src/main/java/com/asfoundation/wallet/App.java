@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Service;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.di.DaggerAppComponent;
 import com.asfoundation.wallet.interact.AddTokenInteract;
@@ -12,6 +11,7 @@ import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.WalletNotFoundException;
+import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
@@ -38,6 +38,7 @@ public class App extends MultiDexApplication
   @Inject DefaultTokenProvider defaultTokenProvider;
   @Inject ProofOfAttentionService proofOfAttentionService;
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
+  @Inject AppcoinsOperationsDataSaver appcoinsOperationsDataSaver;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -54,9 +55,8 @@ public class App extends MultiDexApplication
         .build());
 
     inAppPurchaseInteractor.start();
-    inAppPurchaseInteractor.getAllPurchasesData()
-        .subscribe(inAppPurchaseData -> Log.d(TAG, "onCreate: " + inAppPurchaseData));
     proofOfAttentionService.start();
+    appcoinsOperationsDataSaver.start();
     ethereumNetworkRepository.addOnChangeDefaultNetwork(
         networkInfo -> defaultTokenProvider.getDefaultToken()
             .flatMapCompletable(

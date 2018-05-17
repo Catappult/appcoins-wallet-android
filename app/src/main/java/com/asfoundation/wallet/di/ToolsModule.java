@@ -69,6 +69,7 @@ import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -165,11 +166,9 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
   @Singleton @Provides InAppPurchaseInteractor provideTransactionInteractor(
       InAppPurchaseService inAppPurchaseService, FindDefaultWalletInteract defaultWalletInteract,
-      FetchGasSettingsInteract gasSettingsInteract, TransferParser parser,
-      AppcoinsOperationsDataSaver inAppPurchaseDataSaver) {
-    return new InAppPurchaseInteractor(inAppPurchaseService, inAppPurchaseDataSaver,
-        defaultWalletInteract, gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT),
-        parser);
+      FetchGasSettingsInteract gasSettingsInteract, TransferParser parser) {
+    return new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
+        gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser);
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(
@@ -264,17 +263,27 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
     return new NonceGetter(networkRepository, defaultWalletInteract);
   }
 
-  @Provides @Singleton AppcoinsOperationsDataSaver provideInAppPurchaseDataSaver(
-      InAppPurchaseService inAppPurchaseService, Context context,
-      ProofOfAttentionService proofOfAttentionService) {
-    return new AppcoinsOperationsDataSaver(inAppPurchaseService, proofOfAttentionService,
-        new AppCoinsOperationRepository(
-            Room.databaseBuilder(context.getApplicationContext(), AppCoinsOperationDatabase.class,
-                "appcoins_operations_data")
-                .build()
-                .appCoinsOperationDao()),
+  @Provides @Singleton AppcoinsOperationsDataSaver provideInAppPurchaseDataSaver(Context context,
+      List<AppcoinsOperationsDataSaver.OperationDataSource> list) {
+    return new AppcoinsOperationsDataSaver(list, new AppCoinsOperationRepository(
+        Room.databaseBuilder(context.getApplicationContext(), AppCoinsOperationDatabase.class,
+            "appcoins_operations_data")
+            .build()
+            .appCoinsOperationDao()),
         new AppInfoProvider(context, new ImageSaver(context.getFilesDir() + "/app_icons/")),
         Schedulers.io(), new CompositeDisposable());
+  }
+
+  @Provides OperationSources provideOperationSources(
+      InAppPurchaseInteractor inAppPurchaseInteractor,
+      ProofOfAttentionService proofOfAttentionService) {
+    return new OperationSources(inAppPurchaseInteractor, proofOfAttentionService);
+  }
+
+  @Provides
+  List<AppcoinsOperationsDataSaver.OperationDataSource> provideAppcoinsOperationListDataSource(
+      OperationSources operationSources) {
+    return operationSources.getSources();
   }
 
   @Provides AirdropChainIdMapper provideAirdropChainIdMapper(

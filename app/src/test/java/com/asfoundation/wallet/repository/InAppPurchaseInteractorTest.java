@@ -13,21 +13,18 @@ import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.ui.iab.AppInfoProvider;
-import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.ui.iab.ImageSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperation;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.junit.Assert;
@@ -118,13 +115,9 @@ public class InAppPurchaseInteractorTest {
           APPLICATION_NAME, ICON_PATH, ((String) arguments[2]));
     });
 
-    AppcoinsOperationsDataSaver inAppPurchaseDataSaver =
-        new AppcoinsOperationsDataSaver(inAppPurchaseService, proofOfAttentionService,
-            new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), appInfoProvider,
-            scheduler, new CompositeDisposable());
     inAppPurchaseInteractor =
-        new InAppPurchaseInteractor(inAppPurchaseService, inAppPurchaseDataSaver,
-            defaultWalletInteract, gasSettingsInteract, BigDecimal.ONE,
+        new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
+            gasSettingsInteract, BigDecimal.ONE,
             new TransferParser(defaultWalletInteract, tokenRepository));
   }
 
@@ -135,8 +128,6 @@ public class InAppPurchaseInteractorTest {
         + "/transfer?uint256=1000000000000000000&address"
         + "=0x4fbcc5ce88493c3d9903701c143af65f54481119&data=0x636f6d2e63656e61732e70726f64756374";
     inAppPurchaseInteractor.start();
-    TestObserver<List<AppCoinsOperation>> test = inAppPurchaseInteractor.getAllPurchasesData()
-        .test();
     TestObserver<PaymentTransaction> testObserver = new TestObserver<>();
     inAppPurchaseInteractor.getTransactionState(uri)
         .subscribe(testObserver);
@@ -185,11 +176,6 @@ public class InAppPurchaseInteractorTest {
         .getState()
         .equals(PaymentTransaction.PaymentState.COMPLETED));
     Assert.assertTrue(values.size() == 7);
-    AppCoinsOperation inAppPurchaseData =
-        new AppCoinsOperation("buy_hash", PACKAGE_NAME, APPLICATION_NAME, ICON_PATH, PRODUCT_NAME);
-    ArrayList<AppCoinsOperation> list = new ArrayList<>();
-    list.add(inAppPurchaseData);
-    test.assertValues(list);
   }
 
   @Test public void sendTransactionNoEtherFunds() {

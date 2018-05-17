@@ -65,7 +65,7 @@ import android.support.annotation.NonNull;
   }
 
   @Override public String toString() {
-    return "InAppPurchaseData{"
+    return "AppCoinsOperation{"
         + "transactionId='"
         + transactionId
         + '\''
@@ -74,8 +74,7 @@ import android.support.annotation.NonNull;
         + '\''
         + ", applicationName='"
         + applicationName
-        + '\''
-        + ", path='"
+        + '\'' + ", iconPath='"
         + iconPath
         + '\''
         + ", productName='"

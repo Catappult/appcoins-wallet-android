@@ -1,31 +1,26 @@
 package com.asfoundation.wallet.ui.iab;
 
-import com.asfoundation.wallet.poa.ProofOfAttentionService;
-import com.asfoundation.wallet.poa.ProofStatus;
-import com.asfoundation.wallet.repository.InAppPurchaseService;
-import com.asfoundation.wallet.repository.PaymentTransaction;
 import com.asfoundation.wallet.repository.Repository;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperation;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.Scheduler;
+import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AppcoinsOperationsDataSaver {
-  private static final String TAG = AppcoinsOperationsDataSaver.class.getSimpleName();
-  private final InAppPurchaseService inAppPurchaseService;
-  private final ProofOfAttentionService proofOfAttentionService;
   private final Repository<String, AppCoinsOperation> cache;
   private final AppInfoProvider appInfoProvider;
   private final Scheduler scheduler;
   private final CompositeDisposable disposables;
+  private List<OperationDataSource> operationDataSourceList;
 
-  public AppcoinsOperationsDataSaver(InAppPurchaseService inAppPurchaseService,
-      ProofOfAttentionService proofOfAttentionService, Repository<String, AppCoinsOperation> cache,
-      AppInfoProvider appInfoProvider, Scheduler scheduler, CompositeDisposable disposables) {
-    this.inAppPurchaseService = inAppPurchaseService;
-    this.proofOfAttentionService = proofOfAttentionService;
+  public AppcoinsOperationsDataSaver(List<OperationDataSource> operationDataSourceList,
+      Repository<String, AppCoinsOperation> cache, AppInfoProvider appInfoProvider,
+      Scheduler scheduler, CompositeDisposable disposables) {
+    this.operationDataSourceList = operationDataSourceList;
     this.cache = cache;
     this.appInfoProvider = appInfoProvider;
     this.scheduler = scheduler;
@@ -33,35 +28,27 @@ public class AppcoinsOperationsDataSaver {
   }
 
   public void start() {
-    disposables.add(Observable.merge(getInAppData(), getProofAppData())
+    disposables.add(Single.fromCallable(() -> {
+      List<Observable<OperationDataSource.OperationData>> list = new ArrayList<>();
+      for (OperationDataSource operationDataSource : operationDataSourceList) {
+        list.add(operationDataSource.get());
+      }
+      return list;
+    })
+        .subscribeOn(scheduler)
+        .toObservable()
+        .flatMap(Observable::merge)
+        .flatMap(
+            operationData -> getAppData(operationData.getHash(), operationData.getPackageName(),
+                operationData.getData()))
         .doOnNext(inAppPurchaseData -> cache.saveSync(inAppPurchaseData.getTransactionId(),
             inAppPurchaseData))
-        .doOnError(throwable -> throwable.printStackTrace())
+        .doOnError(Throwable::printStackTrace)
         .retryWhen(this::isKnownErrorError)
         .subscribe());
   }
 
-  private Observable<AppCoinsOperation> getInAppData() {
-    return inAppPurchaseService.getAll()
-        .subscribeOn(scheduler)
-        .flatMap(paymentTransactions -> Observable.fromIterable(paymentTransactions)
-            .filter(paymentTransaction -> paymentTransaction.getState()
-                .equals(PaymentTransaction.PaymentState.COMPLETED))
-            .flatMap(paymentTransaction -> getAppData(paymentTransaction.getBuyHash(),
-                paymentTransaction.getPackageName(), paymentTransaction.getProductName())));
-  }
-
-  private Observable<AppCoinsOperation> getProofAppData() {
-    return proofOfAttentionService.get()
-        .subscribeOn(scheduler)
-        .flatMap(proofs -> Observable.fromIterable(proofs)
-            .filter(proof -> proof.getProofStatus()
-                .equals(ProofStatus.COMPLETED))
-            .flatMap(proof -> getAppData(proof.getHash(), proof.getPackageName(),
-                proof.getCampaignId())));
-  }
-
-  private ObservableSource<? extends AppCoinsOperation> getAppData(String hash, String packageName,
+  private ObservableSource<AppCoinsOperation> getAppData(String hash, String packageName,
       String data) {
     try {
       return Observable.just(appInfoProvider.get(hash, packageName, data));
@@ -88,13 +75,38 @@ public class AppcoinsOperationsDataSaver {
     if (!disposables.isDisposed()) {
       disposables.dispose();
     }
-    for (AppCoinsOperation inAppPurchaseData : cache.getAllSync()) {
-      cache.removeSync(inAppPurchaseData.getTransactionId());
-    }
   }
 
   public Observable<List<AppCoinsOperation>> getAll() {
     return cache.getAll();
+  }
+
+  public interface OperationDataSource {
+    Observable<OperationData> get();
+
+    class OperationData {
+      private final String hash;
+      private final String packageName;
+      private final String data;
+
+      public OperationData(String hash, String packageName, String data) {
+        this.hash = hash;
+        this.packageName = packageName;
+        this.data = data;
+      }
+
+      public String getHash() {
+        return hash;
+      }
+
+      public String getPackageName() {
+        return packageName;
+      }
+
+      public String getData() {
+        return data;
+      }
+    }
   }
 }
 

@@ -6,7 +6,6 @@ import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.PaymentTransaction;
-import com.asfoundation.wallet.ui.iab.database.AppCoinsOperation;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -17,30 +16,19 @@ import java.util.List;
 public class InAppPurchaseInteractor {
   public static final double GAS_PRICE_MULTIPLIER = 1.25;
   private final InAppPurchaseService inAppPurchaseService;
-  private final AppcoinsOperationsDataSaver inAppPurchaseDataSaver;
   private final FindDefaultWalletInteract defaultWalletInteract;
   private final FetchGasSettingsInteract gasSettingsInteract;
   private final BigDecimal paymentGasLimit;
   private final TransferParser parser;
 
   public InAppPurchaseInteractor(InAppPurchaseService inAppPurchaseService,
-      AppcoinsOperationsDataSaver inAppPurchaseDataSaver,
       FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
       BigDecimal paymentGasLimit, TransferParser parser) {
     this.inAppPurchaseService = inAppPurchaseService;
-    this.inAppPurchaseDataSaver = inAppPurchaseDataSaver;
     this.defaultWalletInteract = defaultWalletInteract;
     this.gasSettingsInteract = gasSettingsInteract;
     this.paymentGasLimit = paymentGasLimit;
     this.parser = parser;
-  }
-
-  public Observable<AppCoinsOperation> getPurchaseData(String id) {
-    return inAppPurchaseDataSaver.get(id);
-  }
-
-  public Observable<List<AppCoinsOperation>> getAllPurchasesData() {
-    return inAppPurchaseDataSaver.getAll();
   }
 
   public Single<TransactionBuilder> parseTransaction(String uri) {
@@ -74,11 +62,10 @@ public class InAppPurchaseInteractor {
   }
 
   public void start() {
-    inAppPurchaseDataSaver.start();
     inAppPurchaseService.start();
   }
 
-  public void stop() {
-    inAppPurchaseDataSaver.stop();
+  public Observable<List<PaymentTransaction>> getAll() {
+    return inAppPurchaseService.getAll();
   }
 }

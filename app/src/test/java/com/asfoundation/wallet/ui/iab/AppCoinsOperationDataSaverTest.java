@@ -1,16 +1,10 @@
 package com.asfoundation.wallet.ui.iab;
 
-import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.poa.Proof;
-import com.asfoundation.wallet.poa.ProofOfAttentionService;
-import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.MemoryCache;
-import com.asfoundation.wallet.repository.PaymentTransaction;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperation;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.BehaviorSubject;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,91 +15,70 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class) public class AppCoinsOperationDataSaverTest {
   public static final String PACKAGE_NAME = "PACKAGE_NAME";
-  public static final String URI = "uri";
-  public static final String APPROVE_HASH = "approve_hash";
   public static final String APPLICATION_NAME = "application_name";
   public static final String PATH = "path";
   public static final String PRODUCT_NAME = "product_name";
-  public static final String BUY_HASH_1 = "id1";
-  @Mock InAppPurchaseService inAppPurchaseService;
-  @Mock ProofOfAttentionService proofOfAttentionService;
+  public static final String ID_1 = "id1";
+  public static final String ID_2 = "id_2";
   @Mock AppInfoProvider appInfoProvider;
-  private BehaviorSubject<List<PaymentTransaction>> paymentSubject;
-  private BehaviorSubject<List<Proof>> proofSubject;
+  private BehaviorSubject<AppcoinsOperationsDataSaver.OperationDataSource.OperationData>
+      operationDataSource1;
+  private BehaviorSubject<AppcoinsOperationsDataSaver.OperationDataSource.OperationData>
+      operationDataSource2;
   private AppcoinsOperationsDataSaver dataSaver;
   private TestScheduler scheduler;
   private MemoryCache<String, AppCoinsOperation> cache;
 
   @Before public void before()
       throws AppInfoProvider.UnknownApplicationException, ImageSaver.SaveException {
-    paymentSubject = BehaviorSubject.create();
-    when(inAppPurchaseService.getAll()).thenReturn(paymentSubject);
-    when(appInfoProvider.get(BUY_HASH_1, PACKAGE_NAME, PRODUCT_NAME)).thenReturn(
-        new AppCoinsOperation(BUY_HASH_1, PACKAGE_NAME, APPLICATION_NAME, PATH, PRODUCT_NAME));
+    operationDataSource1 = BehaviorSubject.create();
+    operationDataSource2 = BehaviorSubject.create();
+
+    when(appInfoProvider.get(anyString(), anyString(), anyString())).thenAnswer(
+        invocation -> new AppCoinsOperation(invocation.getArgument(0), invocation.getArgument(1),
+            APPLICATION_NAME, PATH, invocation.getArgument(2)));
+
     scheduler = new TestScheduler();
     cache = new MemoryCache<>(BehaviorSubject.create(), new HashMap<>());
-    proofSubject = BehaviorSubject.create();
-    when(proofOfAttentionService.get()).thenReturn(proofSubject);
 
-    dataSaver =
-        new AppcoinsOperationsDataSaver(inAppPurchaseService, proofOfAttentionService, cache,
-            appInfoProvider, scheduler, new CompositeDisposable());
+    List<AppcoinsOperationsDataSaver.OperationDataSource> list = new ArrayList<>();
+    list.add(() -> operationDataSource1);
+    list.add(() -> operationDataSource2);
+    dataSaver = new AppcoinsOperationsDataSaver(list, cache, appInfoProvider, scheduler,
+        new CompositeDisposable());
   }
 
   @Test public void start() {
     dataSaver.start();
-    ArrayList<PaymentTransaction> list = new ArrayList<>();
-    list.add(new PaymentTransaction(URI, new TransactionBuilder("APPC"),
-        PaymentTransaction.PaymentState.COMPLETED, APPROVE_HASH, BUY_HASH_1, BigInteger.ONE,
-        PACKAGE_NAME, PRODUCT_NAME));
-    paymentSubject.onNext(list);
+    operationDataSource1.onNext(
+        new AppcoinsOperationsDataSaver.OperationDataSource.OperationData(ID_1, PACKAGE_NAME,
+            PRODUCT_NAME));
+    operationDataSource2.onNext(
+        new AppcoinsOperationsDataSaver.OperationDataSource.OperationData(ID_2, PACKAGE_NAME,
+            PRODUCT_NAME));
+    scheduler.triggerActions();
     scheduler.triggerActions();
     Assert.assertEquals(
-        new AppCoinsOperation(BUY_HASH_1, PACKAGE_NAME, APPLICATION_NAME, PATH, PRODUCT_NAME),
-        cache.getSync(BUY_HASH_1));
-  }
-
-  @Test public void startWithoutAnyCompleted() {
-    dataSaver.start();
-    ArrayList<PaymentTransaction> list = new ArrayList<>();
-    list.add(new PaymentTransaction(URI, new TransactionBuilder("APPC"),
-        PaymentTransaction.PaymentState.BUYING, APPROVE_HASH, BUY_HASH_1, BigInteger.ONE,
-        PACKAGE_NAME, PRODUCT_NAME));
-    paymentSubject.onNext(list);
-    scheduler.triggerActions();
-    Assert.assertEquals(null, cache.getSync(BUY_HASH_1));
+        new AppCoinsOperation(ID_1, PACKAGE_NAME, APPLICATION_NAME, PATH, PRODUCT_NAME),
+        cache.getSync(ID_1));
+    Assert.assertEquals(
+        new AppCoinsOperation(ID_2, PACKAGE_NAME, APPLICATION_NAME, PATH, PRODUCT_NAME),
+        cache.getSync(ID_2));
   }
 
   @Test public void addAfterStop() {
     dataSaver.start();
     dataSaver.stop();
 
-    ArrayList<PaymentTransaction> list = new ArrayList<>();
-    list.add(new PaymentTransaction(URI, new TransactionBuilder("APPC"),
-        PaymentTransaction.PaymentState.COMPLETED, APPROVE_HASH, BUY_HASH_1, BigInteger.ONE,
-        PACKAGE_NAME, PRODUCT_NAME));
-    paymentSubject.onNext(list);
+    operationDataSource1.onNext(
+        new AppcoinsOperationsDataSaver.OperationDataSource.OperationData(ID_1, PACKAGE_NAME,
+            PRODUCT_NAME));
     scheduler.triggerActions();
-    Assert.assertEquals(null, cache.getSync(BUY_HASH_1));
-  }
-
-  @Test public void removeDataAfterStop() {
-    dataSaver.start();
-    ArrayList<PaymentTransaction> list = new ArrayList<>();
-    list.add(new PaymentTransaction(URI, new TransactionBuilder("APPC"),
-        PaymentTransaction.PaymentState.COMPLETED, APPROVE_HASH, BUY_HASH_1, BigInteger.ONE,
-        PACKAGE_NAME, PRODUCT_NAME));
-    paymentSubject.onNext(list);
-    scheduler.triggerActions();
-    Assert.assertEquals(
-        new AppCoinsOperation(BUY_HASH_1, PACKAGE_NAME, APPLICATION_NAME, PATH, PRODUCT_NAME),
-        cache.getSync(BUY_HASH_1));
-
-    dataSaver.stop();
-    Assert.assertEquals(null, cache.getSync(BUY_HASH_1));
+    Assert.assertEquals(null, cache.getSync(ID_1));
   }
 }
