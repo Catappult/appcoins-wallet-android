@@ -82,7 +82,7 @@ public class ProofOfAttentionService {
             new Proof(completedProof.getPackageName(), completedProof.getCampaignId(),
                 completedProof.getProofComponentList(), walletPackage, ProofStatus.COMPLETED,
                 proof.getChainId(), proof.getOemAddress(), proof.getStoreAddress(),
-                proof.getGasPrice(), proof.getGasLimit())));
+                proof.getGasPrice(), proof.getGasLimit(), hash)));
   }
 
   public void stop() {

@@ -41,7 +41,7 @@ public class AppcoinsOperationsDataSaver {
         .subscribe());
   }
 
-  private Observable<InAppPurchaseData> getProofAppData() {
+  private Observable<InAppPurchaseData> getInAppData() {
     return inAppPurchaseService.getAll()
         .subscribeOn(scheduler)
         .flatMap(paymentTransactions -> Observable.fromIterable(paymentTransactions)
@@ -51,20 +51,20 @@ public class AppcoinsOperationsDataSaver {
                 paymentTransaction.getPackageName(), paymentTransaction.getProductName())));
   }
 
-  private Observable<InAppPurchaseData> getInAppData() {
+  private Observable<InAppPurchaseData> getProofAppData() {
     return proofOfAttentionService.get()
         .subscribeOn(scheduler)
         .flatMap(proofs -> Observable.fromIterable(proofs)
             .filter(proof -> proof.getProofStatus()
                 .equals(ProofStatus.COMPLETED))
-            .flatMap(proof -> getAppData(proof.getCampaignId(), proof.getPackageName(),
-                proof.getWalletPackage())));
+            .flatMap(proof -> getAppData(proof.getHash(), proof.getPackageName(),
+                proof.getCampaignId())));
   }
 
-  private ObservableSource<? extends InAppPurchaseData> getAppData(String campaignId,
-      String packageName, String walletPackage) {
+  private ObservableSource<? extends InAppPurchaseData> getAppData(String hash, String packageName,
+      String data) {
     try {
-      return Observable.just(appInfoProvider.get(campaignId, packageName, walletPackage));
+      return Observable.just(appInfoProvider.get(hash, packageName, data));
     } catch (ImageSaver.SaveException | AppInfoProvider.UnknownApplicationException e) {
       return Observable.error(e);
     }
