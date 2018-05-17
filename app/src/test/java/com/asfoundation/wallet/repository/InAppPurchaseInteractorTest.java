@@ -10,14 +10,17 @@ import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
+import com.asfoundation.wallet.poa.Proof;
+import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.ui.iab.AppInfoProvider;
+import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.ui.iab.ImageSaver;
-import com.asfoundation.wallet.ui.iab.InAppPurchaseDataSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.database.InAppPurchaseData;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.BehaviorSubject;
@@ -58,10 +61,12 @@ public class InAppPurchaseInteractorTest {
   @Mock NonceGetter nonceGetter;
   @Mock BalanceService balanceService;
   @Mock AppInfoProvider appInfoProvider;
+  @Mock ProofOfAttentionService proofOfAttentionService;
   private InAppPurchaseInteractor inAppPurchaseInteractor;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
   private PublishSubject<GetDefaultWalletBalance.BalanceState> balance;
+  private PublishSubject<List<Proof>> proofPublishSubject;
   private TestScheduler scheduler;
   private InAppPurchaseService inAppPurchaseService;
 
@@ -104,14 +109,19 @@ public class InAppPurchaseInteractorTest {
             new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new ErrorMapper(),
             scheduler), nonceGetter, balanceService);
 
+    proofPublishSubject = PublishSubject.create();
+    when(proofOfAttentionService.get()).thenReturn(proofPublishSubject);
+
     when(appInfoProvider.get(anyString(), anyString(), anyString())).thenAnswer(invocation -> {
       Object[] arguments = invocation.getArguments();
       return new InAppPurchaseData(((String) arguments[0]), ((String) arguments[1]),
           APPLICATION_NAME, ICON_PATH, ((String) arguments[2]));
     });
 
-    InAppPurchaseDataSaver inAppPurchaseDataSaver = new InAppPurchaseDataSaver(inAppPurchaseService,
-        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), appInfoProvider, scheduler);
+    AppcoinsOperationsDataSaver inAppPurchaseDataSaver =
+        new AppcoinsOperationsDataSaver(inAppPurchaseService, proofOfAttentionService,
+            new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), appInfoProvider,
+            scheduler, new CompositeDisposable());
     inAppPurchaseInteractor =
         new InAppPurchaseInteractor(inAppPurchaseService, inAppPurchaseDataSaver,
             defaultWalletInteract, gasSettingsInteract, BigDecimal.ONE,

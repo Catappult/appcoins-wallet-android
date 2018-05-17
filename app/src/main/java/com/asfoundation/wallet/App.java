@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Service;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.di.DaggerAppComponent;
 import com.asfoundation.wallet.interact.AddTokenInteract;
@@ -28,6 +29,7 @@ import javax.inject.Inject;
 public class App extends MultiDexApplication
     implements HasActivityInjector, HasServiceInjector, HasSupportFragmentInjector {
 
+  private static final String TAG = App.class.getSimpleName();
   @Inject DispatchingAndroidInjector<Activity> dispatchingActivityInjector;
   @Inject DispatchingAndroidInjector<Service> dispatchingServiceInjector;
   @Inject DispatchingAndroidInjector<Fragment> dispatchingFragmentInjector;
@@ -52,6 +54,8 @@ public class App extends MultiDexApplication
         .build());
 
     inAppPurchaseInteractor.start();
+    inAppPurchaseInteractor.getAllPurchasesData()
+        .subscribe(inAppPurchaseData -> Log.d(TAG, "onCreate: " + inAppPurchaseData));
     proofOfAttentionService.start();
     ethereumNetworkRepository.addOnChangeDefaultNetwork(
         networkInfo -> defaultTokenProvider.getDefaultToken()

@@ -17,14 +17,14 @@ import java.util.List;
 public class InAppPurchaseInteractor {
   public static final double GAS_PRICE_MULTIPLIER = 1.25;
   private final InAppPurchaseService inAppPurchaseService;
-  private final InAppPurchaseDataSaver inAppPurchaseDataSaver;
+  private final AppcoinsOperationsDataSaver inAppPurchaseDataSaver;
   private final FindDefaultWalletInteract defaultWalletInteract;
   private final FetchGasSettingsInteract gasSettingsInteract;
   private final BigDecimal paymentGasLimit;
   private final TransferParser parser;
 
   public InAppPurchaseInteractor(InAppPurchaseService inAppPurchaseService,
-      InAppPurchaseDataSaver inAppPurchaseDataSaver,
+      AppcoinsOperationsDataSaver inAppPurchaseDataSaver,
       FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
       BigDecimal paymentGasLimit, TransferParser parser) {
     this.inAppPurchaseService = inAppPurchaseService;

@@ -53,8 +53,8 @@ import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper;
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor;
 import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService;
 import com.asfoundation.wallet.ui.iab.AppInfoProvider;
+import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.ui.iab.ImageSaver;
-import com.asfoundation.wallet.ui.iab.InAppPurchaseDataSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseRepository;
 import com.asfoundation.wallet.ui.iab.database.InAppPurchaseDatabase;
@@ -166,7 +166,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   @Singleton @Provides InAppPurchaseInteractor provideTransactionInteractor(
       InAppPurchaseService inAppPurchaseService, FindDefaultWalletInteract defaultWalletInteract,
       FetchGasSettingsInteract gasSettingsInteract, TransferParser parser,
-      InAppPurchaseDataSaver inAppPurchaseDataSaver) {
+      AppcoinsOperationsDataSaver inAppPurchaseDataSaver) {
     return new InAppPurchaseInteractor(inAppPurchaseService, inAppPurchaseDataSaver,
         defaultWalletInteract, gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT),
         parser);
@@ -264,15 +264,17 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
     return new NonceGetter(networkRepository, defaultWalletInteract);
   }
 
-  @Provides @Singleton InAppPurchaseDataSaver provideInAppPurchaseDataSaver(
-      InAppPurchaseService inAppPurchaseService, Context context) {
-    return new InAppPurchaseDataSaver(inAppPurchaseService, new InAppPurchaseRepository(
-        Room.databaseBuilder(context.getApplicationContext(), InAppPurchaseDatabase.class,
-            "In_App_Purchase_data")
-            .build()
-            .inAppPurchaseDataDao()),
+  @Provides @Singleton AppcoinsOperationsDataSaver provideInAppPurchaseDataSaver(
+      InAppPurchaseService inAppPurchaseService, Context context,
+      ProofOfAttentionService proofOfAttentionService) {
+    return new AppcoinsOperationsDataSaver(inAppPurchaseService, proofOfAttentionService,
+        new InAppPurchaseRepository(
+            Room.databaseBuilder(context.getApplicationContext(), InAppPurchaseDatabase.class,
+                "In_App_Purchase_data")
+                .build()
+                .inAppPurchaseDataDao()),
         new AppInfoProvider(context, new ImageSaver(context.getFilesDir() + "/app_icons/")),
-        Schedulers.io());
+        Schedulers.io(), new CompositeDisposable());
   }
 
   @Provides AirdropChainIdMapper provideAirdropChainIdMapper(
