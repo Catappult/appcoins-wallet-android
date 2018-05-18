@@ -2,12 +2,18 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "f49aa1cbd2731469a6c633eabe6aeba4",
+    "identityHash": "b89cb8f86f387299d33aabf03ca35a39",
     "entities": [
       {
-        "tableName": "AppCoinsOperation",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`transaction_id` TEXT NOT NULL, `package_name` TEXT NOT NULL, `application_name` TEXT NOT NULL, `icon_path` TEXT NOT NULL, `product_name` TEXT NOT NULL, PRIMARY KEY(`transaction_id`))",
+        "tableName": "AppCoinsOperationEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`key` TEXT NOT NULL, `transaction_id` TEXT NOT NULL, `package_name` TEXT NOT NULL, `application_name` TEXT NOT NULL, `icon_path` TEXT NOT NULL, `product_name` TEXT NOT NULL, PRIMARY KEY(`key`))",
         "fields": [
+          {
+            "fieldPath": "key",
+            "columnName": "key",
+            "affinity": "TEXT",
+            "notNull": true
+          },
           {
             "fieldPath": "transactionId",
             "columnName": "transaction_id",
@@ -41,7 +47,7 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "transaction_id"
+            "key"
           ],
           "autoGenerate": false
         },
@@ -51,7 +57,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"f49aa1cbd2731469a6c633eabe6aeba4\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"b89cb8f86f387299d33aabf03ca35a39\")"
     ]
   }
 }

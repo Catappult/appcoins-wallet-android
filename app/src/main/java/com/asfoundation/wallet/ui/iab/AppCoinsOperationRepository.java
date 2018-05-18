@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
 import com.asfoundation.wallet.repository.Repository;
-import com.asfoundation.wallet.ui.iab.database.AppCoinsOperation;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDao;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -10,9 +9,12 @@ import java.util.List;
 
 public class AppCoinsOperationRepository implements Repository<String, AppCoinsOperation> {
   private final AppCoinsOperationDao inAppPurchaseDataDao;
+  private final AppCoinsOperationMapper mapper;
 
-  public AppCoinsOperationRepository(AppCoinsOperationDao inAppPurchaseDataDao) {
+  public AppCoinsOperationRepository(AppCoinsOperationDao inAppPurchaseDataDao,
+      AppCoinsOperationMapper mapper) {
     this.inAppPurchaseDataDao = inAppPurchaseDataDao;
+    this.mapper = mapper;
   }
 
   @Override public Completable save(String key, AppCoinsOperation value) {
@@ -21,12 +23,14 @@ public class AppCoinsOperationRepository implements Repository<String, AppCoinsO
 
   @Override public Observable<List<AppCoinsOperation>> getAll() {
     return inAppPurchaseDataDao.getAllAsFlowable()
-        .toObservable();
+        .toObservable()
+        .map(mapper::map);
   }
 
   @Override public Observable<AppCoinsOperation> get(String key) {
     return inAppPurchaseDataDao.getAsFlowable(key)
-        .toObservable();
+        .toObservable()
+        .map(appCoinsOperationEntity -> mapper.map(appCoinsOperationEntity));
   }
 
   @Override public Completable remove(String key) {
@@ -38,15 +42,15 @@ public class AppCoinsOperationRepository implements Repository<String, AppCoinsO
   }
 
   @Override public void saveSync(String key, AppCoinsOperation value) {
-    inAppPurchaseDataDao.insert(value);
+    inAppPurchaseDataDao.insert(mapper.map(key, value));
   }
 
   @Override public List<AppCoinsOperation> getAllSync() {
-    return inAppPurchaseDataDao.getAll();
+    return mapper.map(inAppPurchaseDataDao.getAll());
   }
 
   @Override public AppCoinsOperation getSync(String key) {
-    return inAppPurchaseDataDao.get(key);
+    return mapper.map(inAppPurchaseDataDao.get(key));
   }
 
   @Override public void removeSync(String key) {

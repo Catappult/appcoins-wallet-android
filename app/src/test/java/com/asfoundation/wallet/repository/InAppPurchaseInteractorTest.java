@@ -15,7 +15,7 @@ import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.ui.iab.AppInfoProvider;
 import com.asfoundation.wallet.ui.iab.ImageSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
-import com.asfoundation.wallet.ui.iab.database.AppCoinsOperation;
+import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationEntity;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -111,8 +111,8 @@ public class InAppPurchaseInteractorTest {
 
     when(appInfoProvider.get(anyString(), anyString(), anyString())).thenAnswer(invocation -> {
       Object[] arguments = invocation.getArguments();
-      return new AppCoinsOperation(((String) arguments[0]), ((String) arguments[1]),
-          APPLICATION_NAME, ICON_PATH, ((String) arguments[2]));
+      return new AppCoinsOperationEntity(((String) arguments[0]), ((String) arguments[0]),
+          ((String) arguments[1]), APPLICATION_NAME, ICON_PATH, ((String) arguments[2]));
     });
 
     inAppPurchaseInteractor =

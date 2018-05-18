@@ -52,6 +52,7 @@ import com.asfoundation.wallet.service.TrustWalletTickerService;
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper;
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor;
 import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService;
+import com.asfoundation.wallet.ui.iab.AppCoinsOperationMapper;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository;
 import com.asfoundation.wallet.ui.iab.AppInfoProvider;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
@@ -269,7 +270,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
         Room.databaseBuilder(context.getApplicationContext(), AppCoinsOperationDatabase.class,
             "appcoins_operations_data")
             .build()
-            .appCoinsOperationDao()),
+            .appCoinsOperationDao(), new AppCoinsOperationMapper()),
         new AppInfoProvider(context, new ImageSaver(context.getFilesDir() + "/app_icons/")),
         Schedulers.io(), new CompositeDisposable());
   }

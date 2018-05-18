@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import com.asfoundation.wallet.ui.iab.database.AppCoinsOperation;
 
 public class AppInfoProvider {
   private final Context context;

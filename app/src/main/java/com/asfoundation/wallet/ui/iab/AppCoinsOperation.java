@@ -1,20 +1,16 @@
-package com.asfoundation.wallet.ui.iab.database;
+package com.asfoundation.wallet.ui.iab;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity public class AppCoinsOperation {
-  @NonNull @PrimaryKey @ColumnInfo(name = "transaction_id") private final String transactionId;
-  @NonNull @ColumnInfo(name = "package_name") private final String packageName;
-  @NonNull @ColumnInfo(name = "application_name") private final String applicationName;
-  @NonNull @ColumnInfo(name = "icon_path") private final String iconPath;
-  @NonNull @ColumnInfo(name = "product_name") private final String productName;
+public class AppCoinsOperation {
+  private final String transactionId;
+  private final String packageName;
+  private final String applicationName;
+  private final String iconPath;
+  private final String productName;
 
   public AppCoinsOperation(@NonNull String transactionId, @NonNull String packageName,
       @NonNull String applicationName, @NonNull String iconPath, @NonNull String productName) {
-
     this.transactionId = transactionId;
     this.packageName = packageName;
     this.applicationName = applicationName;
@@ -72,9 +68,7 @@ import android.support.annotation.NonNull;
         + ", packageName='"
         + packageName
         + '\''
-        + ", applicationName='"
-        + applicationName
-        + '\'' + ", iconPath='"
+        + ", applicationName='" + applicationName + '\'' + ", iconPath='"
         + iconPath
         + '\''
         + ", productName='"
