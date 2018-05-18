@@ -1,15 +1,14 @@
 package com.asfoundation.wallet.transactions;
 
-import android.text.TextUtils;
 import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.TransactionOperation;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
+import com.asfoundation.wallet.util.BalanceUtils;
 import io.reactivex.Single;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-import org.web3j.utils.Convert;
 
 public class TransactionsMapper {
   public static final String APPROVE_METHOD_ID = "0x095ea7b3";
@@ -63,7 +62,9 @@ public class TransactionsMapper {
     String from = transaction.from;
     String to = transaction.to;
     List<Operation> operations = new ArrayList<>();
-    String fee = new BigDecimal(transaction.gasUsed).multiply(new BigDecimal(transaction.gasPrice)).toString();
+    String fee = BalanceUtils.weiToEth(
+        new BigDecimal(transaction.gasUsed).multiply(new BigDecimal(transaction.gasPrice)))
+        .toPlainString();
 
     if (transaction.operations != null && transaction.operations.length > 0) {
       TransactionOperation operation = transaction.operations[0];
@@ -72,12 +73,12 @@ public class TransactionsMapper {
       from = operation.from;
       to = operation.to;
 
-      operations.add(new Operation(operation.transactionId, operation.from, operation.to, fee,
-          operation.contract.symbol, ""));
+      operations.add(new Operation(transaction.hash, operation.from, operation.to, fee,
+          operation.contract.symbol));
     } else {
 
       operations.add(new Operation(transaction.hash, transaction.from, transaction.to, fee,
-          currency, ""));
+          currency));
     }
 
     return new Transaction(transaction.hash, Transaction.TransactionType.ADS,
@@ -106,19 +107,21 @@ public class TransactionsMapper {
     String value = transaction.value;
     String currency = null;
     List<Operation> operations = new ArrayList<>();
-    String fee = new BigDecimal(transaction.gasUsed).multiply(new BigDecimal(transaction.gasPrice)).toString();
+    String fee = BalanceUtils.weiToEth(
+        new BigDecimal(transaction.gasUsed).multiply(new BigDecimal(transaction.gasPrice)))
+        .toPlainString();
 
     if (transaction.operations != null && transaction.operations.length > 0) {
       TransactionOperation operation = transaction.operations[0];
       value = operation.value;
       currency = operation.contract.symbol;
 
-      operations.add(new Operation(operation.transactionId, operation.from, operation.to, fee,
-          currency, ""));
+      operations.add(new Operation(transaction.hash, operation.from, operation.to, fee,
+          currency));
     } else {
 
       operations.add(new Operation(transaction.hash, transaction.from, transaction.to, fee,
-          currency, ""));
+          currency));
     }
 
     return new Transaction(transaction.hash, Transaction.TransactionType.STANDARD,
@@ -144,22 +147,24 @@ public class TransactionsMapper {
     String currency = null;
     List<Operation> operations = new ArrayList<>();
 
-    String fee = new BigDecimal(approveTransaction.gasUsed).multiply(
-        new BigDecimal(approveTransaction.gasPrice))
-        .toString();
+    String fee = BalanceUtils.weiToEth(new BigDecimal(approveTransaction.gasUsed).multiply(
+        new BigDecimal(approveTransaction.gasPrice)))
+        .toPlainString();
     if (approveTransaction.operations != null && approveTransaction.operations.length > 0) {
       currency = approveTransaction.operations[0].contract.symbol;
 
       operations.add(
           new Operation(approveTransaction.hash, approveTransaction.from, approveTransaction.to,
-              fee, currency, ""));
+              fee, currency));
     } else {
-      operations.add(new Operation(transaction.hash, transaction.from, transaction.to, fee,
-          currency, ""));
+      operations.add(
+          new Operation(approveTransaction.hash, approveTransaction.from, approveTransaction.to,
+              fee, currency));
     }
 
-    fee = new BigDecimal(transaction.gasUsed).multiply(new BigDecimal(transaction.gasPrice))
-            .toString();
+    fee = BalanceUtils.weiToEth(
+        new BigDecimal(transaction.gasUsed).multiply(new BigDecimal(transaction.gasPrice)))
+        .toPlainString();
     if (transaction.operations != null && transaction.operations.length > 0) {
       currency = transaction.operations[0].contract.symbol;
       for (TransactionOperation operation : transaction.operations) {
@@ -167,7 +172,7 @@ public class TransactionsMapper {
       }
 
       operations.add(
-          new Operation(transaction.hash, transaction.from, transaction.to, fee, currency, ""));
+          new Operation(transaction.hash, transaction.from, transaction.to, fee, currency));
     }
 
     return new Transaction(transaction.hash, Transaction.TransactionType.IAB,

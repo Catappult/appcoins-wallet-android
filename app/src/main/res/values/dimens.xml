@@ -33,5 +33,7 @@
   <dimen name="intro_img_size">200dp</dimen>
 
   <dimen name="component_elevation">2dp</dimen>
+  <dimen name="transaction_details_width">300dp</dimen>
+  <dimen name="transaction_details_height">156dp</dimen>
 
 </resources>

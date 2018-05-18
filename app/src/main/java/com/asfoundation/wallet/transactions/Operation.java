@@ -19,16 +19,13 @@ public class Operation implements Parcelable {
   private String to;
   private String fee;
   private String currency;
-  private String detailsUrl;
 
-  Operation(String transactionId, String from, String to, String fee, String currency,
-      String detailsUrl) {
+  Operation(String transactionId, String from, String to, String fee, String currency) {
     this.transactionId = transactionId;
     this.from = from;
     this.to = to;
     this.fee = fee;
     this.currency = currency;
-    this.detailsUrl = detailsUrl;
   }
 
   private Operation(Parcel in) {
@@ -37,7 +34,6 @@ public class Operation implements Parcelable {
     to = in.readString();
     fee = in.readString();
     currency = in.readString();
-    detailsUrl = in.readString();
   }
 
   @Override public int describeContents() {
@@ -50,7 +46,6 @@ public class Operation implements Parcelable {
     parcel.writeString(to);
     parcel.writeString(fee);
     parcel.writeString(currency);
-    parcel.writeString(detailsUrl);
   }
 
   @Override public String toString() {
@@ -69,9 +64,6 @@ public class Operation implements Parcelable {
         + '\''
         + ", currency='"
         + currency
-        + '\''
-        + ", detailsUrl='"
-        + detailsUrl
         + '\''
         + '}';
   }
@@ -94,9 +86,5 @@ public class Operation implements Parcelable {
 
   public String getCurrency() {
     return currency;
-  }
-
-  public String getDetailsUrl() {
-    return detailsUrl;
   }
 }

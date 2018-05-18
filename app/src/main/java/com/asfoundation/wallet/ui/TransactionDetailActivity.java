@@ -1,19 +1,13 @@
 package com.asfoundation.wallet.ui;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.text.format.DateFormat;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,7 +16,6 @@ import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
-import com.asfoundation.wallet.ui.widget.adapter.TransactionsAdapter;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsDetailsAdapter;
 import com.asfoundation.wallet.util.BalanceUtils;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModel;
@@ -60,15 +53,9 @@ public class TransactionDetailActivity extends BaseActivity {
     }
     toolbar();
 
-    // get gas on each operation
-    //Operation operation = transaction.getOperations()
-    //    .get(0);
-    //new BigDecimal(transaction.gasUsed).multiply(new BigDecimal(transaction.gasPrice));
     amount = findViewById(R.id.amount);
-
     adapter = new TransactionsDetailsAdapter(this::onMoreClicked);
     RecyclerView list = findViewById(R.id.details_list);
-    //list.setLayoutManager(new LinearLayoutManager(this));
     list.setAdapter(adapter);
 
     viewModel = ViewModelProviders.of(this, transactionDetailViewModelFactory)
@@ -104,7 +91,6 @@ public class TransactionDetailActivity extends BaseActivity {
     amount.setText(BalanceUtils.formatBalance(rawValue, symbol, smallTitleSize, color));
 
     ((TextView) findViewById(R.id.app_id)).setText(transaction.getTransactionId());
-    ((TextView) findViewById(R.id.app_id)).setVisibility(View.VISIBLE);
     @StringRes int statusStr = R.string.transaction_status_success;
     @ColorRes int statusColor = R.color.green;
 

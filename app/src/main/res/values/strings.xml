@@ -188,7 +188,7 @@
   <!-- Subtitles -->
   <string name="subtitle_from">From</string>
   <string name="subtitle_to">To</string>
-  <string name="subtitle_gas_fee">Gas Fee</string>
+  <string name="subtitle_gas_fee">Fee</string>
   <string name="subtitle_transaction_num">Transaction</string>
   <string name="subtitle_transaction_time">Transaction Time</string>
   <string name="subtitle_block_num">Block #</string>
@@ -274,12 +274,13 @@
   <string name="notification_error_poa">An error has occurred</string>
   <string name="notification_no_wallet_poa">Wallet not configured yet</string>
   <string name="notification_cancelled_poa">PoA cancelled</string>
+  <!-- transaction details -->
   <string name="transaction_status_success">Success</string>
   <string name="transaction_status_pending">Pending</string>
   <string name="transaction_status_failed">Failed</string>
-
   <string name="transaction_type_iab">In App Purchase</string>
   <string name="transaction_type_poa">Proof of Attention</string>
   <string name="transaction_type_standard">Transfer</string>
+  <string name="transaction_details_brand_txt">Powered By Ethereum</string>
 
 </resources>
