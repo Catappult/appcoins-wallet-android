@@ -1,7 +1,10 @@
 package com.asfoundation.wallet.di;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import com.asf.wallet.BuildConfig;
+import com.asfoundation.wallet.Airdrop;
+import com.asfoundation.wallet.AirdropService;
 import com.asfoundation.wallet.App;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
@@ -29,6 +32,7 @@ import com.asfoundation.wallet.repository.EthereumNetworkRepository;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.GasSettingsRepository;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
+import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.MemoryCache;
 import com.asfoundation.wallet.repository.NonceGetter;
 import com.asfoundation.wallet.repository.PasswordStore;
@@ -37,7 +41,6 @@ import com.asfoundation.wallet.repository.PreferenceRepositoryType;
 import com.asfoundation.wallet.repository.SharedPreferenceRepository;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
-import com.asfoundation.wallet.repository.TransactionService;
 import com.asfoundation.wallet.repository.TrustPasswordStore;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.repository.Web3jProvider;
@@ -46,20 +49,36 @@ import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.RealmManager;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TrustWalletTickerService;
+import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper;
+import com.asfoundation.wallet.ui.airdrop.AirdropInteractor;
+import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService;
+import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository;
+import com.asfoundation.wallet.ui.iab.AppInfoProvider;
+import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
+import com.asfoundation.wallet.ui.iab.ImageSaver;
+import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
+import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase;
 import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.TransferParser;
 import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
 @Module class ToolsModule {
   @Provides Context provideContext(App application) {
@@ -139,13 +158,17 @@ import okhttp3.OkHttpClient;
     return new SendTransactionInteract(transactionRepository, passwordStore);
   }
 
-  @Singleton @Provides TransactionService provideTransactionService(
-      FetchGasSettingsInteract gasSettingsInteract, TransferParser parser,
-      FindDefaultWalletInteract defaultWalletInteract, ApproveService approveService,
+  @Singleton @Provides InAppPurchaseService provideTransactionService(ApproveService approveService,
       BuyService buyService, NonceGetter nonceGetter, BalanceService balanceService) {
-    return new TransactionService(gasSettingsInteract, defaultWalletInteract, parser,
-        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), approveService, buyService,
-        nonceGetter, balanceService, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT));
+    return new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
+        approveService, buyService, nonceGetter, balanceService);
+  }
+
+  @Singleton @Provides InAppPurchaseInteractor provideTransactionInteractor(
+      InAppPurchaseService inAppPurchaseService, FindDefaultWalletInteract defaultWalletInteract,
+      FetchGasSettingsInteract gasSettingsInteract, TransferParser parser) {
+    return new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
+        gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser);
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(
@@ -173,7 +196,8 @@ import okhttp3.OkHttpClient;
 
   @Provides FindDefaultNetworkInteract provideFindDefaultNetworkInteract(
       EthereumNetworkRepositoryType ethereumNetworkRepositoryType) {
-    return new FindDefaultNetworkInteract(ethereumNetworkRepositoryType);
+    return new FindDefaultNetworkInteract(ethereumNetworkRepositoryType,
+        AndroidSchedulers.mainThread());
   }
 
   @Provides DefaultTokenProvider provideDefaultTokenProvider(
@@ -200,15 +224,12 @@ import okhttp3.OkHttpClient;
   }
 
   @Singleton @Provides TransactionFactory provideTransactionFactory(Web3jProvider web3jProvider,
-      WalletRepositoryType walletRepository, GasSettingsRepositoryType gasSettings,
-      AccountKeystoreService accountKeystoreService, PasswordStore passwordStore,
-      DefaultTokenProvider defaultTokenProvider,
-      EthereumNetworkRepositoryType ethereumNetworkRepository, DataMapper dataMapper,
-      @Named("REGISTER_PROOF_GAS_LIMIT") BigDecimal registerProofGasLimit) {
+      WalletRepositoryType walletRepository, AccountKeystoreService accountKeystoreService,
+      PasswordStore passwordStore, DefaultTokenProvider defaultTokenProvider,
+      EthereumNetworkRepositoryType ethereumNetworkRepository, DataMapper dataMapper) {
 
-    return new TransactionFactory(web3jProvider, walletRepository, gasSettings,
-        accountKeystoreService, passwordStore, defaultTokenProvider, ethereumNetworkRepository,
-        dataMapper, registerProofGasLimit);
+    return new TransactionFactory(web3jProvider, walletRepository, accountKeystoreService,
+        passwordStore, defaultTokenProvider, ethereumNetworkRepository, dataMapper);
   }
 
   @Singleton @Provides ProofWriter provideBlockChainWriter(Web3jProvider web3jProvider,
@@ -240,5 +261,53 @@ import okhttp3.OkHttpClient;
   @Provides NonceGetter provideNonceGetter(EthereumNetworkRepositoryType networkRepository,
       FindDefaultWalletInteract defaultWalletInteract) {
     return new NonceGetter(networkRepository, defaultWalletInteract);
+  }
+
+  @Provides @Singleton AppcoinsOperationsDataSaver provideInAppPurchaseDataSaver(Context context,
+      List<AppcoinsOperationsDataSaver.OperationDataSource> list) {
+    return new AppcoinsOperationsDataSaver(list, new AppCoinsOperationRepository(
+        Room.databaseBuilder(context.getApplicationContext(), AppCoinsOperationDatabase.class,
+            "appcoins_operations_data")
+            .build()
+            .appCoinsOperationDao()),
+        new AppInfoProvider(context, new ImageSaver(context.getFilesDir() + "/app_icons/")),
+        Schedulers.io(), new CompositeDisposable());
+  }
+
+  @Provides OperationSources provideOperationSources(
+      InAppPurchaseInteractor inAppPurchaseInteractor,
+      ProofOfAttentionService proofOfAttentionService) {
+    return new OperationSources(inAppPurchaseInteractor, proofOfAttentionService);
+  }
+
+  @Provides
+  List<AppcoinsOperationsDataSaver.OperationDataSource> provideAppcoinsOperationListDataSource(
+      OperationSources operationSources) {
+    return operationSources.getSources();
+  }
+
+  @Provides AirdropChainIdMapper provideAirdropChainIdMapper(
+      FindDefaultNetworkInteract defaultNetworkInteract) {
+    return new AirdropChainIdMapper(defaultNetworkInteract);
+  }
+
+  @Provides AirdropService provideAirdropService(OkHttpClient client, Gson gson) {
+    AirdropService.Api api = new Retrofit.Builder().baseUrl(BASE_URL)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(AirdropService.Api.class);
+    return new AirdropService(api, gson, Schedulers.io());
+  }
+
+  @Singleton @Provides AirdropInteractor provideAirdropInteractor(
+      PendingTransactionService pendingTransactionService, EthereumNetworkRepositoryType repository,
+      AirdropService airdropService, FindDefaultWalletInteract findDefaultWalletInteract,
+      AirdropChainIdMapper airdropChainIdMapper) {
+    return new AirdropInteractor(
+        new Airdrop(new AppcoinsTransactionService(pendingTransactionService),
+            BehaviorSubject.create(), airdropService), findDefaultWalletInteract,
+        airdropChainIdMapper, repository);
   }
 }

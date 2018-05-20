@@ -35,5 +35,8 @@
   <dimen name="component_elevation">2dp</dimen>
   <dimen name="transaction_details_width">300dp</dimen>
   <dimen name="transaction_details_height">156dp</dimen>
+  <dimen name="transaction_img_size">40dp</dimen>
+  <dimen name="transaction_img_size_inside">100dp</dimen>
 
+  <dimen name="button_height">32dp</dimen>
 </resources>

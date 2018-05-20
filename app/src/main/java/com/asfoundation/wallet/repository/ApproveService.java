@@ -12,12 +12,12 @@ import java.util.List;
 
 public class ApproveService {
   private final SendTransactionInteract sendTransactionInteract;
-  private final Cache<String, PaymentTransaction> cache;
+  private final Repository<String, PaymentTransaction> cache;
   private final ErrorMapper errorMapper;
   private final Scheduler scheduler;
 
   public ApproveService(SendTransactionInteract sendTransactionInteract,
-      Cache<String, PaymentTransaction> cache, ErrorMapper errorMapper, Scheduler scheduler) {
+      Repository<String, PaymentTransaction> cache, ErrorMapper errorMapper, Scheduler scheduler) {
     this.sendTransactionInteract = sendTransactionInteract;
     this.cache = cache;
     this.errorMapper = errorMapper;

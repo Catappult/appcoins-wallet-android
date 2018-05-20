@@ -12,8 +12,8 @@
 
   <FrameLayout
       android:id="@+id/src_img"
-      android:layout_width="40dp"
-      android:layout_height="40dp"
+      android:layout_width="@dimen/transaction_img_size"
+      android:layout_height="@dimen/transaction_img_size"
       android:layout_marginBottom="@dimen/big_padding"
       android:layout_marginStart="@dimen/big_padding"
       android:layout_marginTop="@dimen/normal_margin"
@@ -24,11 +24,13 @@
       >
     <ImageView
         android:id="@+id/img"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_gravity="center"
         android:contentDescription="@string/empty"
+        android:scaleType="centerInside"
         tools:src="@drawable/ic_transaction_peer"
+        android:adjustViewBounds="true"
         />
   </FrameLayout>
 

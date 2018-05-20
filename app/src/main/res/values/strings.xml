@@ -140,6 +140,7 @@
   <string name="title_activity_confirmation">Confirm</string>
   <string name="title_transaction_details">Transaction Details</string>
   <string name="title_add_token">Add Custom Token</string>
+  <string name="title_airdrop">Airdrop</string>
   <!-- Suggestions -->
   <string name="suggestion_field_required">* Field required</string>
   <string name="suggestion_import_keystore">Importing wallet as easy as creating</string>
@@ -283,4 +284,13 @@
   <string name="transaction_type_standard">Transfer</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
 
+  <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins 🤖</string>
+  <string name="activity_airdrop_details">This is just a security thing.</string>
+  <string name="activity_airdrop_hint">Type the words in the image</string>
+  <string name="activity_airdrop_submit_btn">Submit</string>
+  <string name="activity_airdrop_wrong_captcha">Wrong captcha</string>
+  <string name="activity_airdrop_ok">ok</string>
+  <string name="activity_airdrop_message_title">Airdrop</string>
+  <string name="activity_airdrop_success_message">Airdrop completed</string>
+  <string name="activity_airdrop_generic_error_message">An error has occurred</string>
 </resources>

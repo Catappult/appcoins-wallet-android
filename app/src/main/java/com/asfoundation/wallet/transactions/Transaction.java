@@ -2,6 +2,7 @@ package com.asfoundation.wallet.transactions;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import com.asfoundation.wallet.entity.TransactionContract;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,13 +17,13 @@ public class Transaction implements Parcelable {
   private final String value;
   private final String from;
   private final String to;
-  private final String details;
+  private final TransactionDetails details;
   private final String currency;
   private final List<Operation> operations;
 
   public Transaction(String transactionId, TransactionType type,
-      @Nullable String approveTransactionId, long timeStamp, TransactionStatus status,
-      String value, String from, String to, String details, String currency, List<Operation> operations) {
+      @Nullable String approveTransactionId, long timeStamp, TransactionStatus status, String value,
+      String from, String to, @Nullable TransactionDetails details, String currency, List<Operation> operations) {
     this.transactionId = transactionId;
     this.approveTransactionId = approveTransactionId;
     this.type = type;
@@ -59,7 +60,7 @@ public class Transaction implements Parcelable {
     dest.writeString(value);
     dest.writeString(from);
     dest.writeString(to);
-    dest.writeString(details);
+    dest.writeParcelable(details, flags);
     dest.writeString(currency);
     Operation[] operationsArray = new Operation[operations.size()];
     operations.toArray(operationsArray);
@@ -75,7 +76,7 @@ public class Transaction implements Parcelable {
     value = in.readString();
     from = in.readString();
     to = in.readString();
-    details = in.readString();
+    details = in.readParcelable(TransactionDetails.class.getClassLoader());;
     currency = in.readString();
     Parcelable[] parcelableArray =
         in.readParcelableArray(Operation.class.getClassLoader());
@@ -143,7 +144,7 @@ public class Transaction implements Parcelable {
     return to;
   }
 
-  public String getDetails() {
+  public TransactionDetails getDetails() {
     return details;
   }
 

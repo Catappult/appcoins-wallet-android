@@ -1,13 +1,20 @@
 package com.asfoundation.wallet.transactions;
 
+import android.support.annotation.Nullable;
 import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.TransactionOperation;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
+import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
+import com.asfoundation.wallet.ui.iab.database.AppCoinsOperation;
 import com.asfoundation.wallet.util.BalanceUtils;
+import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class TransactionsMapper {
@@ -15,13 +22,16 @@ public class TransactionsMapper {
   public static final String BUY_METHOD_ID = "0xdc9564d5";
   public static final String ADS_METHOD_ID = "0x79c6b667";
   private final DefaultTokenProvider defaultTokenProvider;
+  private final AppcoinsOperationsDataSaver operationsDataSaver;
 
-  public TransactionsMapper(DefaultTokenProvider defaultTokenProvider) {
+  public TransactionsMapper(DefaultTokenProvider defaultTokenProvider,
+      AppcoinsOperationsDataSaver operationsDataSaver) {
     this.defaultTokenProvider = defaultTokenProvider;
+    this.operationsDataSaver = operationsDataSaver;
   }
 
   public Single<List<Transaction>> map(RawTransaction[] transactions) {
-    return defaultTokenProvider.getDefaultToken()
+    return defaultTokenProvider.getDefaultToken().observeOn(Schedulers.io())
         .map(tokenInfo -> map(tokenInfo.address, transactions));
   }
 
@@ -29,9 +39,8 @@ public class TransactionsMapper {
     List<Transaction> transactionList = new ArrayList<>();
     for (int i = transactions.length - 1; i >= 0; i--) {
       RawTransaction transaction = transactions[i];
-      if (isAppcoinsTransaction(transaction, address)
-          && isApprovedTransaction(transaction)
-          && isIabTransaction(transactions[i - 1])) {
+      if (isAppcoinsTransaction(transaction, address) && isApprovedTransaction(transaction) && (i
+          > 0 && isIabTransaction(transactions[i - 1]))) {
         transactionList.add(0, mapIabTransaction(transaction, transactions[i - 1]));
         i--;
       } else if (isAdsTransaction(transaction)) {
@@ -55,7 +64,7 @@ public class TransactionsMapper {
    *
    * @return a Transaction object containing the information needed and formatted, ready to be shown
    * on the transactions list.
-   * */
+   */
   private Transaction mapAdsTransaction(RawTransaction transaction) {
     String value = transaction.value;
     String currency = null;
@@ -77,13 +86,25 @@ public class TransactionsMapper {
           operation.contract.symbol));
     } else {
 
-      operations.add(new Operation(transaction.hash, transaction.from, transaction.to, fee,
-          currency));
+      operations.add(
+          new Operation(transaction.hash, transaction.from, transaction.to, fee, currency));
     }
 
-    return new Transaction(transaction.hash, Transaction.TransactionType.ADS,
-        null, transaction.timeStamp, getError(transaction),
-        value, from, to, null, currency, operations);
+    TransactionDetails details = getTransactionDetails(transaction);
+
+    return new Transaction(transaction.hash, Transaction.TransactionType.ADS, null,
+        transaction.timeStamp, getError(transaction), value, from, to, details, currency,
+        operations);
+  }
+
+  @Nullable private TransactionDetails getTransactionDetails(RawTransaction transaction) {
+    TransactionDetails details = null;
+    AppCoinsOperation operationDetails = operationsDataSaver.getSync(transaction.hash);
+    if (operationDetails != null) {
+      details = new TransactionDetails(operationDetails.getApplicationName(),
+          operationDetails.getIconPath(), operationDetails.getProductName());
+    }
+    return details;
   }
 
   private boolean isAdsTransaction(RawTransaction transaction) {
@@ -102,7 +123,7 @@ public class TransactionsMapper {
    *
    * @return a Transaction object containing the information needed and formatted, ready to be shown
    * on the transactions list.
-   * */
+   */
   private Transaction mapStandardTransaction(RawTransaction transaction) {
     String value = transaction.value;
     String currency = null;
@@ -116,17 +137,16 @@ public class TransactionsMapper {
       value = operation.value;
       currency = operation.contract.symbol;
 
-      operations.add(new Operation(transaction.hash, operation.from, operation.to, fee,
-          currency));
+      operations.add(new Operation(transaction.hash, operation.from, operation.to, fee, currency));
     } else {
 
-      operations.add(new Operation(transaction.hash, transaction.from, transaction.to, fee,
-          currency));
+      operations.add(
+          new Operation(transaction.hash, transaction.from, transaction.to, fee, currency));
     }
 
-    return new Transaction(transaction.hash, Transaction.TransactionType.STANDARD,
-        null, transaction.timeStamp, getError(transaction),
-        value, transaction.from, transaction.to, null, currency, operations);
+    return new Transaction(transaction.hash, Transaction.TransactionType.STANDARD, null,
+        transaction.timeStamp, getError(transaction), value, transaction.from, transaction.to, null,
+        currency, operations);
   }
 
   /**
@@ -140,7 +160,7 @@ public class TransactionsMapper {
    *
    * @return a Transaction object containing the information needed and formatted, ready to be shown
    * on the transactions list.
-   * */
+   */
   private Transaction mapIabTransaction(RawTransaction approveTransaction,
       RawTransaction transaction) {
     BigInteger value = new BigInteger(transaction.value);
@@ -175,9 +195,11 @@ public class TransactionsMapper {
           new Operation(transaction.hash, transaction.from, transaction.to, fee, currency));
     }
 
+    TransactionDetails details = getTransactionDetails(transaction);
+
     return new Transaction(transaction.hash, Transaction.TransactionType.IAB,
         approveTransaction.hash, transaction.timeStamp, getError(transaction), value.toString(),
-        transaction.from, transaction.to, null, currency, operations);
+        transaction.from, transaction.to, details, currency, operations);
   }
 
   private boolean isIabTransaction(RawTransaction auxTransaction) {
@@ -195,7 +217,7 @@ public class TransactionsMapper {
   }
 
   private Transaction.TransactionStatus getError(RawTransaction transaction) {
-    return (transaction.error == null || transaction.error.isEmpty()) ?
-        Transaction.TransactionStatus.SUCCESS : Transaction.TransactionStatus.FAILED;
+    return (transaction.error == null || transaction.error.isEmpty())
+        ? Transaction.TransactionStatus.SUCCESS : Transaction.TransactionStatus.FAILED;
   }
 }

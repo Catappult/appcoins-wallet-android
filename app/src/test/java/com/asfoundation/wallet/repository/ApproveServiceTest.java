@@ -24,6 +24,8 @@ import static org.mockito.Mockito.when;
  * Created by trinkes on 3/16/18.
  */
 public class ApproveServiceTest {
+  public static final String PACKAGE_NAME = "package_name";
+  public static final String PRODUCT_NAME = "product_name";
   @Mock SendTransactionInteract sendTransactionInteract;
   private ApproveService approveService;
   private PublishSubject<PendingTransaction> pendingTransactionState;
@@ -53,8 +55,8 @@ public class ApproveServiceTest {
     approveService.getApprove(uri)
         .subscribe(observer);
     scheduler.triggerActions();
-    approveService.approve(uri, new PaymentTransaction(uri, new TransactionBuilder("APPC"),
-        PaymentTransaction.PaymentState.PENDING))
+    approveService.approve(uri,
+        new PaymentTransaction(uri, new TransactionBuilder("APPC"), PACKAGE_NAME, PRODUCT_NAME))
         .subscribe();
     scheduler.triggerActions();
 
@@ -84,8 +86,8 @@ public class ApproveServiceTest {
     approveService.getApprove(uri)
         .subscribe(observer);
     scheduler.triggerActions();
-    approveService.approve(uri, new PaymentTransaction(uri, new TransactionBuilder("APPC"),
-        PaymentTransaction.PaymentState.PENDING))
+    approveService.approve(uri,
+        new PaymentTransaction(uri, new TransactionBuilder("APPC"), PACKAGE_NAME, PRODUCT_NAME))
         .subscribe();
     scheduler.triggerActions();
 

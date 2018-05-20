@@ -7,7 +7,11 @@
     android:layout_height="match_parent"
 
     >
-  <include layout="@layout/layout_app_bar"/>
+  <include layout="@layout/layout_collapsing_app_bar"
+      android:layout_height="92dp"
+      android:layout_width="match_parent"/>
+
+  
   <ScrollView
       android:layout_width="match_parent"
       android:layout_height="match_parent"

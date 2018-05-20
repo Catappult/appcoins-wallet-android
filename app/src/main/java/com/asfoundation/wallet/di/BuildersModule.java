@@ -15,6 +15,7 @@ import com.asfoundation.wallet.ui.TokensActivity;
 import com.asfoundation.wallet.ui.TransactionDetailActivity;
 import com.asfoundation.wallet.ui.TransactionsActivity;
 import com.asfoundation.wallet.ui.WalletsActivity;
+import com.asfoundation.wallet.ui.airdrop.AirdropFragment;
 import com.asfoundation.wallet.ui.iab.IabActivity;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -65,4 +66,6 @@ import dagger.android.ContributesAndroidInjector;
   abstract Erc681Receiver bindErc681Receiver();
 
   @ContributesAndroidInjector() abstract WalletPoAService bindWalletPoAService();
+
+  @ContributesAndroidInjector() abstract AirdropFragment bindAirdropFragment();
 }

@@ -35,11 +35,18 @@ android {
     applicationId "com.asfoundation.wallet"
     minSdkVersion 21
     targetSdkVersion 27
-    versionCode 8
-    versionName "0.3.1a"
+    versionCode 9
+    versionName "0.3.2a"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     vectorDrawables.useSupportLibrary = true
     multiDexEnabled = true
+
+    //room schemas location
+    javaCompileOptions {
+      annotationProcessorOptions {
+        arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+      }
+    }
 
     buildConfigField 'int', 'DB_VERSION', '5'
 
@@ -117,19 +124,6 @@ android {
   }
 }
 
-project.ext {
-  retrofitVersion = "2.3.0"
-  okhttpVersion = "3.9.0"
-  picassoVersion = "2.5.2"
-  supportVersion = "27.1.0"
-  web3jVersion = "3.0.1-android"
-  gethVersion = "1.8.0"
-  gsonVersion = "2.8.2"
-  rxJavaVersion = "2.1.6"
-  rxAndroidVersion = "2.0.1"
-  daggerVersion = "2.13"
-  erc681Version = "0.36"
-}
 
 dependencies {
   // Etherium client
@@ -177,8 +171,8 @@ dependencies {
 
   implementation "com.github.walleth.kethereum:erc681:$project.erc681Version"
   // Tests
-  testImplementation "junit:junit:4.12"
-  testImplementation "org.mockito:mockito-core:2.15.0"
+  testImplementation "junit:junit:$junitVersion"
+  testImplementation "org.mockito:mockito-core:$project.mockitoCoreVersion"
   androidTestImplementation("com.android.support.test.espresso:espresso-core:2.2.2", {
     exclude group: "com.android.support", module: "support-annotations"
   })
@@ -198,10 +192,15 @@ dependencies {
   implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
+  implementation "android.arch.persistence.room:runtime:$project.roomVersion"
+  annotationProcessor "android.arch.persistence.room:compiler:$project.roomVersion"
+  // RxJava support for Room
+  implementation "android.arch.persistence.room:rxjava2:$project.roomVersion"
   // Pincode Lollipin
   //    compile('com.github.omadahealth:lollipin:2.1.0@aar') {
   //        transitive = true
   //    }
+  implementation project(path: ':airdrop')
 }
 
 def renameArtifact(defaultConfig) {
@@ -212,4 +211,8 @@ def renameArtifact(defaultConfig) {
       outputFileName = new File("${fileName}.apk")
     }
   }
+}
+
+// execute android tests before realising a new apk
+tasks.whenTaskAdded { task -> if (task.name == 'assembleRelease') task.dependsOn('test')
 }

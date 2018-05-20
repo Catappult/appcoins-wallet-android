@@ -11,7 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.transactions.Transaction;
+import com.asfoundation.wallet.transactions.TransactionDetails;
 import com.asfoundation.wallet.ui.widget.OnTransactionClickListener;
+import com.asfoundation.wallet.widget.CircleTransformation;
+import com.squareup.picasso.Picasso;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -24,6 +27,7 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   public static final String DEFAULT_ADDRESS_ADDITIONAL = "default_address";
   public static final String DEFAULT_SYMBOL_ADDITIONAL = "network_symbol";
   private final ImageView srcImage;
+  private final View typeIcon;
   private final TextView address;
   private final TextView description;
   private final TextView value;
@@ -38,6 +42,7 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     super(resId, parent);
 
     srcImage = findViewById(R.id.img);
+    typeIcon = findViewById(R.id.type_icon);
     address = findViewById(R.id.address);
     description = findViewById(R.id.description);
     value = findViewById(R.id.value);
@@ -60,14 +65,14 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     if (!TextUtils.isEmpty(transaction.getCurrency())) {
       currency = transaction.getCurrency();
     }
+
     fill(transaction.getType(), transaction.getFrom(), transaction.getTo(), currency,
         transaction.getValue(), ETHER_DECIMALS, transaction.getStatus(), transaction.getDetails());
-
   }
 
   private void fill(Transaction.TransactionType type, String from, String to, String currencySymbol,
       String valueStr, long decimals, Transaction.TransactionStatus transactionStatus,
-      String details) {
+      TransactionDetails details) {
     boolean isSent = from.toLowerCase()
         .equals(defaultAddress);
 
@@ -79,7 +84,17 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
       transactionTypeIcon = R.drawable.ic_transaction_iab;
     }
 
-    srcImage.setImageResource(transactionTypeIcon);
+    if (details == null) {
+      srcImage.setImageResource(transactionTypeIcon);
+      typeIcon.setVisibility(View.GONE);
+    } else {
+      Picasso.with(getContext())
+          .load("file:" + details.getIcon())
+          .transform(new CircleTransformation())
+          .into(srcImage);
+      ((ImageView) typeIcon.findViewById(R.id.icon)).setImageResource(transactionTypeIcon);
+      typeIcon.setVisibility(View.VISIBLE);
+    }
 
     int statusText = R.string.transaction_status_success;
     int statusColor = R.color.green;
@@ -98,8 +113,8 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     status.setText(statusText);
     status.setTextColor(ContextCompat.getColor(getContext(), statusColor));
 
-    address.setText(isSent ? to : from);
-    description.setText(details);
+    address.setText(details != null ? details.getSourceName() : isSent ? to : from);
+    description.setText(details != null ? details.getDescription() : "");
     if (valueStr.equals("0")) {
       valueStr = "0 ";
     } else {

@@ -53,7 +53,7 @@ public class WalletHolder extends BinderViewHolder<Wallet> implements View.OnCli
     defaultAction.setChecked(addition.getBoolean(IS_DEFAULT_ADDITION, false));
     defaultAction.setEnabled(true);
     deleteAction.setVisibility(
-        addition.getBoolean(IS_DEFAULT_ADDITION, false) && !addition.getBoolean(IS_LAST_ITEM, false)
+        addition.getBoolean(IS_DEFAULT_ADDITION, false) || addition.getBoolean(IS_LAST_ITEM, false)
             ? View.GONE : View.VISIBLE);
   }
 

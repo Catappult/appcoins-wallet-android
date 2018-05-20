@@ -21,7 +21,7 @@
   <Button
       android:id="@+id/action_air_drop"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_height="@dimen/button_height"
       android:layout_marginTop="24dp"
       android:text="@string/action_try"
       android:textAllCaps="true"
