@@ -13,22 +13,30 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:background="@drawable/appbar_background_color"
+      android:fitsSystemWindows="false"
+      android:theme="@style/AppTheme.AppBarOverlay"
+      app:collapsedTitleTextAppearance="@style/ToolbarTextAppearance.Title"
       app:expandedTitleGravity="bottom|center_horizontal"
+      app:expandedTitleTextAppearance="@style/ToolbarTextAppearance.Title.Expanded"
       app:layout_scrollFlags="scroll|exitUntilCollapsed"
       app:toolbarId="@+id/toolbar"
-      app:expandedTitleTextAppearance="@style/ToolbarTextAppearance.Title.Expanded"
-      app:collapsedTitleTextAppearance="@style/ToolbarTextAppearance.Title"
-      android:theme="@style/AppTheme.AppBarOverlay"
-      android:fitsSystemWindows="false"
       >
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:fitsSystemWindows="false"
         app:layout_collapseMode="pin"
         app:popupTheme="@style/AppTheme.PopupOverlay"
-        android:fitsSystemWindows="false"
+        >
+
+    </android.support.v7.widget.Toolbar>
+
+    <com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground
+        android:id="@+id/toolbar_background_arc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         />
 
   </android.support.design.widget.CollapsingToolbarLayout>
