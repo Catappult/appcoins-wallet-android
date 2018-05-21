@@ -41,6 +41,13 @@ android {
     vectorDrawables.useSupportLibrary = true
     multiDexEnabled = true
 
+    //room schemas location
+    javaCompileOptions {
+      annotationProcessorOptions {
+        arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+      }
+    }
+
     buildConfigField 'int', 'DB_VERSION', '5'
 
     buildConfigField 'String', 'ROPSTEN_DEFAULT_TOKEN_SYMBOL',
@@ -182,6 +189,10 @@ dependencies {
   implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
+  implementation "android.arch.persistence.room:runtime:$project.roomVersion"
+  annotationProcessor "android.arch.persistence.room:compiler:$project.roomVersion"
+  // RxJava support for Room
+  implementation "android.arch.persistence.room:rxjava2:$project.roomVersion"
   // Pincode Lollipin
   //    compile('com.github.omadahealth:lollipin:2.1.0@aar') {
   //        transitive = true
@@ -198,8 +209,7 @@ def renameArtifact(defaultConfig) {
     }
   }
 }
+
 // execute android tests before realising a new apk
-tasks.whenTaskAdded { task ->
-  if (task.name == 'assembleRelease')
-    task.dependsOn('test')
+tasks.whenTaskAdded { task -> if (task.name == 'assembleRelease') task.dependsOn('test')
 }

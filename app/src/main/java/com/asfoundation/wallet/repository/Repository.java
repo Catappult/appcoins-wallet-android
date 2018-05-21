@@ -9,7 +9,7 @@ import java.util.List;
  * Created by trinkes on 3/15/18.
  */
 
-public interface Cache<K, T> {
+public interface Repository<K, T> {
   Completable save(K key, T value);
 
   Observable<List<T>> getAll();

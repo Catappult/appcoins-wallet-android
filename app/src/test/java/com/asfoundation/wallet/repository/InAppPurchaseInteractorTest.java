@@ -10,6 +10,12 @@ import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
+import com.asfoundation.wallet.poa.Proof;
+import com.asfoundation.wallet.poa.ProofOfAttentionService;
+import com.asfoundation.wallet.ui.iab.AppInfoProvider;
+import com.asfoundation.wallet.ui.iab.ImageSaver;
+import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
+import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationEntity;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -29,16 +35,21 @@ import org.mockito.MockitoAnnotations;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 /**
  * Created by trinkes on 14/03/2018.
  */
-public class TransactionServiceTest {
+public class InAppPurchaseInteractorTest {
 
   public static final String CONTRACT_ADDRESS = "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3";
   public static final String APPROVE_HASH = "approve_hash";
   public static final String BUY_HASH = "buy_hash";
+  public static final String PACKAGE_NAME = "package_name";
+  public static final String PRODUCT_NAME = "product_name";
+  public static final String APPLICATION_NAME = "application_name";
+  public static final String ICON_PATH = "icon_path";
   @Mock FetchGasSettingsInteract gasSettingsInteract;
   @Mock SendTransactionInteract sendTransactionInteract;
   @Mock PendingTransactionService pendingTransactionService;
@@ -46,13 +57,18 @@ public class TransactionServiceTest {
   @Mock TokenRepositoryType tokenRepository;
   @Mock NonceGetter nonceGetter;
   @Mock BalanceService balanceService;
-  private TransactionService transactionService;
+  @Mock AppInfoProvider appInfoProvider;
+  @Mock ProofOfAttentionService proofOfAttentionService;
+  private InAppPurchaseInteractor inAppPurchaseInteractor;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
   private PublishSubject<GetDefaultWalletBalance.BalanceState> balance;
+  private PublishSubject<List<Proof>> proofPublishSubject;
   private TestScheduler scheduler;
+  private InAppPurchaseService inAppPurchaseService;
 
-  @Before public void before() {
+  @Before public void before()
+      throws AppInfoProvider.UnknownApplicationException, ImageSaver.SaveException {
     MockitoAnnotations.initMocks(this);
     balance = PublishSubject.create();
     when(gasSettingsInteract.fetch(anyBoolean())).thenReturn(
@@ -82,14 +98,27 @@ public class TransactionServiceTest {
     when(tokenRepository.fetchAll(any())).thenReturn(Observable.just(tokens));
 
     scheduler = new TestScheduler();
-    transactionService = new TransactionService(gasSettingsInteract, defaultWalletInteract,
-        new TransferParser(defaultWalletInteract, tokenRepository),
-        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-        new ApproveService(sendTransactionInteract,
+    inAppPurchaseService =
+        new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
+            new ApproveService(sendTransactionInteract,
+                new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new ErrorMapper(),
+                scheduler), new BuyService(sendTransactionInteract, pendingTransactionService,
             new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new ErrorMapper(),
-            scheduler), new BuyService(sendTransactionInteract, pendingTransactionService,
-        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new ErrorMapper(), scheduler),
-        nonceGetter, balanceService, BigDecimal.ONE);
+            scheduler), nonceGetter, balanceService);
+
+    proofPublishSubject = PublishSubject.create();
+    when(proofOfAttentionService.get()).thenReturn(proofPublishSubject);
+
+    when(appInfoProvider.get(anyString(), anyString(), anyString())).thenAnswer(invocation -> {
+      Object[] arguments = invocation.getArguments();
+      return new AppCoinsOperationEntity(((String) arguments[0]), ((String) arguments[0]),
+          ((String) arguments[1]), APPLICATION_NAME, ICON_PATH, ((String) arguments[2]));
+    });
+
+    inAppPurchaseInteractor =
+        new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
+            gasSettingsInteract, BigDecimal.ONE,
+            new TransferParser(defaultWalletInteract, tokenRepository));
   }
 
   @Test public void sendTransaction() {
@@ -98,12 +127,12 @@ public class TransactionServiceTest {
         + "@3"
         + "/transfer?uint256=1000000000000000000&address"
         + "=0x4fbcc5ce88493c3d9903701c143af65f54481119&data=0x636f6d2e63656e61732e70726f64756374";
-    transactionService.start();
+    inAppPurchaseInteractor.start();
     TestObserver<PaymentTransaction> testObserver = new TestObserver<>();
-    transactionService.getTransactionState(uri)
+    inAppPurchaseInteractor.getTransactionState(uri)
         .subscribe(testObserver);
     scheduler.triggerActions();
-    transactionService.send(uri)
+    inAppPurchaseInteractor.send(uri, PACKAGE_NAME, PRODUCT_NAME)
         .subscribe();
     scheduler.triggerActions();
     balance.onNext(GetDefaultWalletBalance.BalanceState.OK);
@@ -155,12 +184,12 @@ public class TransactionServiceTest {
         + "@3"
         + "/transfer?uint256=1000000000000000000&address"
         + "=0x4fbcc5ce88493c3d9903701c143af65f54481119&data=0x636f6d2e63656e61732e70726f64756374";
-    transactionService.start();
+    inAppPurchaseService.start();
     TestObserver<PaymentTransaction> testObserver = new TestObserver<>();
-    transactionService.getTransactionState(uri)
+    inAppPurchaseInteractor.getTransactionState(uri)
         .subscribe(testObserver);
     scheduler.triggerActions();
-    transactionService.send(uri)
+    inAppPurchaseInteractor.send(uri, PACKAGE_NAME, PRODUCT_NAME)
         .subscribe();
     scheduler.triggerActions();
     balance.onNext(GetDefaultWalletBalance.BalanceState.NO_ETHER);
@@ -197,12 +226,12 @@ public class TransactionServiceTest {
         + "@3"
         + "/transfer?uint256=1000000000000000000&address"
         + "=0x4fbcc5ce88493c3d9903701c143af65f54481119&data=0x636f6d2e63656e61732e70726f64756374";
-    transactionService.start();
+    inAppPurchaseService.start();
     TestObserver<PaymentTransaction> testObserver = new TestObserver<>();
-    transactionService.getTransactionState(uri)
+    inAppPurchaseInteractor.getTransactionState(uri)
         .subscribe(testObserver);
     scheduler.triggerActions();
-    transactionService.send(uri)
+    inAppPurchaseInteractor.send(uri, PACKAGE_NAME, PRODUCT_NAME)
         .subscribe();
     scheduler.triggerActions();
     balance.onNext(GetDefaultWalletBalance.BalanceState.NO_ETHER_NO_TOKEN);
