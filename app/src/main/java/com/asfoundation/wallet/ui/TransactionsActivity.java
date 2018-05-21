@@ -36,6 +36,7 @@ import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
 import com.asfoundation.wallet.ui.airdrop.AirdropActivity;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsAdapter;
+import com.asfoundation.wallet.util.BalanceUtils;
 import com.asfoundation.wallet.util.RootUtil;
 import com.asfoundation.wallet.util.ToolbarUtil;
 import com.asfoundation.wallet.viewmodel.BaseNavigationActivity;
@@ -132,7 +133,9 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       Map.Entry<String,String> entry = balance.entrySet().iterator().next();
       String currency = entry.getKey();
       String value = entry.getValue();
-      setCollapsingTitle(ToolbarUtil.formatBalance(this, value, currency));
+      int smallTitleSize = (int) getResources().getDimension(R.dimen.title_small_text);
+      int color = getResources().getColor(R.color.appbar_subtitle_color);
+      setCollapsingTitle(BalanceUtils.formatBalance(value, currency, smallTitleSize, color));
     }
   }
 

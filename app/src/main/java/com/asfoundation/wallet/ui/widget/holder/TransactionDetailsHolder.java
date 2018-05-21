@@ -4,12 +4,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.ui.widget.OnMoreClickListener;
+
+import static com.asfoundation.wallet.ui.widget.holder.TransactionHolder.DEFAULT_SYMBOL_ADDITIONAL;
 
 /**
  * Transaction details view holder used to show details about all transfer steps of specific
@@ -56,6 +59,9 @@ public class TransactionDetailsHolder extends BinderViewHolder<Operation>
     }
     String defaultAddress = addition.getString(DEFAULT_ADDRESS_ADDITIONAL);
 
+    String currency = addition.getString(DEFAULT_SYMBOL_ADDITIONAL);
+
+
     String peer = operation.getFrom();
     int peerLabel = R.string.label_from;
     // Check if the from matches the current wallet address, ifo so then we change a label to "To"
@@ -67,7 +73,10 @@ public class TransactionDetailsHolder extends BinderViewHolder<Operation>
 
     more.setOnClickListener(this);
 
-    fill(operation.getTransactionId(), peerLabel, peer, operation.getFee());
+    if (!TextUtils.isEmpty(operation.getCurrency())) {
+      currency = operation.getCurrency();
+    }
+    fill(operation.getTransactionId(), peerLabel, peer, operation.getFee() + " " + currency.toUpperCase());
   }
 
   private void fill(String transactionId, @StringRes int peerLabel, String peerAddress,

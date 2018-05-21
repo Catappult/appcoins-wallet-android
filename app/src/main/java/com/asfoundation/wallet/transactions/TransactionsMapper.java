@@ -90,21 +90,11 @@ public class TransactionsMapper {
           new Operation(transaction.hash, transaction.from, transaction.to, fee, currency));
     }
 
-    TransactionDetails details = getTransactionDetails(transaction);
+    TransactionDetails details = getTransactionDetails(Transaction.TransactionType.ADS, transaction);
 
     return new Transaction(transaction.hash, Transaction.TransactionType.ADS, null,
         transaction.timeStamp, getError(transaction), value, from, to, details, currency,
         operations);
-  }
-
-  @Nullable private TransactionDetails getTransactionDetails(RawTransaction transaction) {
-    TransactionDetails details = null;
-    AppCoinsOperation operationDetails = operationsDataSaver.getSync(transaction.hash);
-    if (operationDetails != null) {
-      details = new TransactionDetails(operationDetails.getApplicationName(),
-          operationDetails.getIconPath(), operationDetails.getProductName());
-    }
-    return details;
   }
 
   private boolean isAdsTransaction(RawTransaction transaction) {
@@ -195,7 +185,7 @@ public class TransactionsMapper {
           new Operation(transaction.hash, transaction.from, transaction.to, fee, currency));
     }
 
-    TransactionDetails details = getTransactionDetails(transaction);
+    TransactionDetails details = getTransactionDetails(Transaction.TransactionType.IAB, transaction);
 
     return new Transaction(transaction.hash, Transaction.TransactionType.IAB,
         approveTransaction.hash, transaction.timeStamp, getError(transaction), value.toString(),
@@ -219,5 +209,19 @@ public class TransactionsMapper {
   private Transaction.TransactionStatus getError(RawTransaction transaction) {
     return (transaction.error == null || transaction.error.isEmpty())
         ? Transaction.TransactionStatus.SUCCESS : Transaction.TransactionStatus.FAILED;
+  }
+
+  @Nullable private TransactionDetails getTransactionDetails(Transaction.TransactionType type, RawTransaction transaction) {
+    TransactionDetails details = null;
+    AppCoinsOperation operationDetails = operationsDataSaver.getSync(transaction.hash);
+    if (operationDetails != null) {
+      String productName = null;
+      if (!Transaction.TransactionType.ADS.equals(type)) {
+        productName = operationDetails.getProductName();
+      }
+      details = new TransactionDetails(operationDetails.getApplicationName(),
+          operationDetails.getIconPath(), productName);
+    }
+    return details;
   }
 }

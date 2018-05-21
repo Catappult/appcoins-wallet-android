@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.ui.widget.OnMoreClickListener;
@@ -26,6 +27,7 @@ public class TransactionsDetailsAdapter extends RecyclerView.Adapter<BinderViewH
   private final OnMoreClickListener clickListener;
   /** The current wallet in use */
   private Wallet wallet;
+  private NetworkInfo network;
 
   public TransactionsDetailsAdapter(OnMoreClickListener onTransactionClickListener) {
     this.clickListener = onTransactionClickListener;
@@ -49,6 +51,7 @@ public class TransactionsDetailsAdapter extends RecyclerView.Adapter<BinderViewH
   @Override public void onBindViewHolder(BinderViewHolder holder, int position) {
     Bundle addition = new Bundle();
     addition.putString(TransactionHolder.DEFAULT_ADDRESS_ADDITIONAL, wallet.address);
+    addition.putString(TransactionHolder.DEFAULT_SYMBOL_ADDITIONAL, network.symbol);
     holder.bind(items.get(position), addition);
   }
 
@@ -67,6 +70,11 @@ public class TransactionsDetailsAdapter extends RecyclerView.Adapter<BinderViewH
    */
   public void setDefaultWallet(Wallet wallet) {
     this.wallet = wallet;
+    notifyDataSetChanged();
+  }
+
+  public void setDefaultNetwork(NetworkInfo network) {
+    this.network = network;
     notifyDataSetChanged();
   }
 

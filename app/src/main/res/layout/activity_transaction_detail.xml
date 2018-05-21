@@ -5,19 +5,41 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     >
   <include layout="@layout/layout_collapsing_app_bar"
       android:layout_height="92dp"
       android:layout_width="match_parent"/>
 
-  
-  <ScrollView
+  <FrameLayout
+      android:id="@+id/src_img"
+      android:layout_width="56dp"
+      android:layout_height="56dp"
+      android:layout_marginBottom="@dimen/big_padding"
+      android:layout_marginStart="@dimen/big_padding"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:background="@drawable/transaction_details_img_background"
+      app:layout_anchor="@+id/app_bar"
+      app:layout_anchorGravity="center|bottom"
+      app:layout_behavior="com.asfoundation.wallet.widget.ImageBehavior"
+      android:elevation="@dimen/component_elevation"
+      >
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:contentDescription="@string/empty"
+        android:scaleType="centerInside"
+        tools:src="@drawable/ic_transaction_peer"
+        android:adjustViewBounds="true"
+        />
+  </FrameLayout>
+
+  <android.support.v4.widget.NestedScrollView
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:fillViewport="true"
       app:layout_behavior="@string/appbar_scrolling_view_behavior"
-
       >
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -63,7 +85,6 @@
           android:layout_marginTop="@dimen/big_margin"
           android:ellipsize="end"
           android:maxLines="1"
-          android:text="0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF"
           app:layout_constraintEnd_toStartOf="@id/guideline_end"
           app:layout_constraintStart_toEndOf="@id/guideline_start"
           app:layout_constraintTop_toBottomOf="@id/amount"
@@ -77,7 +98,6 @@
           android:layout_height="wrap_content"
           android:ellipsize="end"
           android:maxLines="1"
-          android:text="Item id"
           android:visibility="invisible"
           app:layout_constraintEnd_toStartOf="@id/guideline_end"
           app:layout_constraintStart_toEndOf="@id/guideline_start"
@@ -134,7 +154,7 @@
           />
 
       <FrameLayout
-          android:id="@+id/src_img"
+          android:id="@+id/category"
           android:layout_width="24dp"
           android:layout_height="24dp"
           android:layout_marginEnd="@dimen/normal_margin"
@@ -182,6 +202,7 @@
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/details_label"
           app:layout_constraintVertical_bias="0.0"
+          android:nestedScrollingEnabled="false"
           />
 
       <ImageView
@@ -195,6 +216,7 @@
           app:layout_constraintEnd_toStartOf="@+id/brand"
           app:layout_constraintHorizontal_chainStyle="packed"
           app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/details_list"
           app:layout_constraintVertical_bias="1.0"
           app:layout_constraintWidth_default="wrap"
           />
@@ -202,16 +224,15 @@
           android:id="@+id/brand"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginBottom="40dp"
           android:singleLine="true"
           android:text="@string/transaction_details_brand_txt"
-          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintTop_toTopOf="@id/logo"
           app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintBottom_toBottomOf="@id/logo"
           app:layout_constraintHorizontal_chainStyle="packed"
           app:layout_constraintStart_toEndOf="@+id/logo"
-          app:layout_constraintVertical_bias="1.0"
           style="@style/TransactionDetailsTextStyle.Footer"
           />
     </android.support.constraint.ConstraintLayout>
-  </ScrollView>
+  </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

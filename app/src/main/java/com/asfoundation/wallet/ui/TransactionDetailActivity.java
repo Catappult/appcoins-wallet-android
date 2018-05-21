@@ -16,10 +16,13 @@ import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
+import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsDetailsAdapter;
 import com.asfoundation.wallet.util.BalanceUtils;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModel;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModelFactory;
+import com.asfoundation.wallet.widget.CircleTransformation;
+import com.squareup.picasso.Picasso;
 import dagger.android.AndroidInjection;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -38,7 +41,6 @@ public class TransactionDetailActivity extends BaseActivity {
   private TextView amount;
   private TransactionsDetailsAdapter adapter;
 
-
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
@@ -52,6 +54,8 @@ public class TransactionDetailActivity extends BaseActivity {
       return;
     }
     toolbar();
+
+    ((ToolbarArcBackground) findViewById(R.id.toolbar_background_arc)).setScale(1f);
 
     amount = findViewById(R.id.amount);
     adapter = new TransactionsDetailsAdapter(this::onMoreClicked);
@@ -73,39 +77,31 @@ public class TransactionDetailActivity extends BaseActivity {
     boolean isSent = transaction.getFrom()
         .toLowerCase()
         .equals(wallet.address);
-    String rawValue;
-    String symbol;
+
     long decimals = 18;
     NetworkInfo networkInfo = viewModel.defaultNetwork()
         .getValue();
-    rawValue = transaction.getValue();
-    symbol = transaction.getCurrency() == null ? (networkInfo == null ? "" : networkInfo.symbol)
-        : transaction.getCurrency();
 
+    String rawValue = transaction.getValue();
     if (!rawValue.equals("0")) {
       rawValue = (isSent ? "-" : "+") + getScaledValue(rawValue, decimals);
     }
 
-    int smallTitleSize = (int) getResources().getDimension(R.dimen.small_text);
-    int color = getResources().getColor(R.color.gray_alpha_8a);
-    amount.setText(BalanceUtils.formatBalance(rawValue, symbol, smallTitleSize, color));
+    String symbol =
+        transaction.getCurrency() == null ? (networkInfo == null ? "" : networkInfo.symbol)
+            : transaction.getCurrency();
 
-    ((TextView) findViewById(R.id.app_id)).setText(transaction.getTransactionId());
-    @StringRes int statusStr = R.string.transaction_status_success;
-    @ColorRes int statusColor = R.color.green;
-
-    switch (transaction.getStatus()) {
-      case FAILED:
-        statusStr = R.string.transaction_status_failed;
-        statusColor = R.color.red;
-        break;
-      case PENDING:
-        statusStr = R.string.transaction_status_pending;
-        statusColor = R.color.orange;
-        break;
+    String icon = null;
+    String id = transaction.getTransactionId();
+    String description = null;
+    if (transaction.getDetails() != null) {
+      icon = transaction.getDetails()
+          .getIcon();
+      id = transaction.getDetails()
+          .getSourceName();
+      description = transaction.getDetails()
+          .getDescription();
     }
-    ((TextView) findViewById(R.id.status)).setText(statusStr);
-    ((TextView) findViewById(R.id.status)).setTextColor(getResources().getColor(statusColor));
 
     @StringRes int typeStr = R.string.transaction_type_standard;
     @DrawableRes int typeIcon = R.drawable.ic_transaction_peer;
@@ -120,9 +116,27 @@ public class TransactionDetailActivity extends BaseActivity {
         typeIcon = R.drawable.ic_transaction_iab;
         break;
     }
-    ((TextView) findViewById(R.id.category_name)).setText(typeStr);
-    ((ImageView) findViewById(R.id.category_icon)).setImageResource(typeIcon);
 
+    @StringRes int statusStr = R.string.transaction_status_success;
+    @ColorRes int statusColor = R.color.green;
+
+    switch (transaction.getStatus()) {
+      case FAILED:
+        statusStr = R.string.transaction_status_failed;
+        statusColor = R.color.red;
+        break;
+      case PENDING:
+        statusStr = R.string.transaction_status_pending;
+        statusColor = R.color.orange;
+        break;
+    }
+
+    setUIContent(transaction.getTimeStamp(), rawValue, symbol, icon, id, description, typeStr,
+        typeIcon, statusStr, statusColor);
+  }
+
+  private void onDefaultNetwork(NetworkInfo networkInfo) {
+    adapter.setDefaultNetwork(networkInfo);
   }
 
   private String getScaledValue(String valueStr, long decimals) {
@@ -138,18 +152,43 @@ public class TransactionDetailActivity extends BaseActivity {
   private String getDate(long timeStampInSec) {
     Calendar cal = Calendar.getInstance(Locale.ENGLISH);
     cal.setTimeInMillis(timeStampInSec * 1000);
-    return DateFormat.getLongDateFormat(this)
-        .format(cal.getTime());
+    return DateFormat.format("dd MMM yyyy hh:mm a", cal.getTime())
+        .toString();
   }
-
-  private void onDefaultNetwork(NetworkInfo networkInfo) {
-    //findViewById(R.id.more_detail).setVisibility(
-    //    TextUtils.isEmpty(networkInfo.etherscanUrl) ? View.GONE : View.VISIBLE);
-  }
-
 
   private void onMoreClicked(View view, Operation operation) {
     viewModel.showMoreDetails(view.getContext(), operation);
   }
 
+  private void setUIContent(long timeStamp, String value, String symbol, String icon, String id,
+      String description, int typeStr, int typeIcon, int statusStr, int statusColor) {
+    ((TextView) findViewById(R.id.transaction_timestamp)).setText(getDate(timeStamp));
+    findViewById(R.id.transaction_timestamp).setVisibility(View.VISIBLE);
+
+    int smallTitleSize = (int) getResources().getDimension(R.dimen.small_text);
+    int color = getResources().getColor(R.color.gray_alpha_8a);
+
+    amount.setText(BalanceUtils.formatBalance(value, symbol, smallTitleSize, color));
+
+    if (icon != null) {
+      Picasso.with(this)
+          .load("file:" + icon)
+          .transform(new CircleTransformation())
+          .fit()
+          .into((ImageView) findViewById(R.id.img));
+    } else {
+      ((ImageView) findViewById(R.id.img)).setImageResource(typeIcon);
+    }
+
+    ((TextView) findViewById(R.id.app_id)).setText(id);
+    if (description != null) {
+      ((TextView) findViewById(R.id.item_id)).setText(description);
+      findViewById(R.id.item_id).setVisibility(View.VISIBLE);
+    }
+    ((TextView) findViewById(R.id.category_name)).setText(typeStr);
+    ((ImageView) findViewById(R.id.category_icon)).setImageResource(typeIcon);
+
+    ((TextView) findViewById(R.id.status)).setText(statusStr);
+    ((TextView) findViewById(R.id.status)).setTextColor(getResources().getColor(statusColor));
+  }
 }
