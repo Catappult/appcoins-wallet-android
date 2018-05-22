@@ -73,9 +73,6 @@ public class TransactionDetailsHolder extends BinderViewHolder<Operation>
 
     more.setOnClickListener(this);
 
-    if (!TextUtils.isEmpty(operation.getCurrency())) {
-      currency = operation.getCurrency();
-    }
     fill(operation.getTransactionId(), peerLabel, peer, operation.getFee() + " " + currency.toUpperCase());
   }
 

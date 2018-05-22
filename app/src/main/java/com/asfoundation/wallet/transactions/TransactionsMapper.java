@@ -7,14 +7,11 @@ import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperation;
 import com.asfoundation.wallet.util.BalanceUtils;
-import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
-import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class TransactionsMapper {
@@ -23,15 +20,17 @@ public class TransactionsMapper {
   public static final String ADS_METHOD_ID = "0x79c6b667";
   private final DefaultTokenProvider defaultTokenProvider;
   private final AppcoinsOperationsDataSaver operationsDataSaver;
+  private final Scheduler scheduler;
 
   public TransactionsMapper(DefaultTokenProvider defaultTokenProvider,
-      AppcoinsOperationsDataSaver operationsDataSaver) {
+      AppcoinsOperationsDataSaver operationsDataSaver, Scheduler scheduler) {
     this.defaultTokenProvider = defaultTokenProvider;
     this.operationsDataSaver = operationsDataSaver;
+    this.scheduler = scheduler;
   }
 
   public Single<List<Transaction>> map(RawTransaction[] transactions) {
-    return defaultTokenProvider.getDefaultToken().observeOn(Schedulers.io())
+    return defaultTokenProvider.getDefaultToken().observeOn(scheduler)
         .map(tokenInfo -> map(tokenInfo.address, transactions));
   }
 
@@ -82,12 +81,11 @@ public class TransactionsMapper {
       from = operation.from;
       to = operation.to;
 
-      operations.add(new Operation(transaction.hash, operation.from, operation.to, fee,
-          operation.contract.symbol));
+      operations.add(new Operation(transaction.hash, operation.from, operation.to, fee));
     } else {
 
       operations.add(
-          new Operation(transaction.hash, transaction.from, transaction.to, fee, currency));
+          new Operation(transaction.hash, transaction.from, transaction.to, fee));
     }
 
     TransactionDetails details = getTransactionDetails(Transaction.TransactionType.ADS, transaction);
@@ -127,11 +125,11 @@ public class TransactionsMapper {
       value = operation.value;
       currency = operation.contract.symbol;
 
-      operations.add(new Operation(transaction.hash, operation.from, operation.to, fee, currency));
+      operations.add(new Operation(transaction.hash, operation.from, operation.to, fee));
     } else {
 
       operations.add(
-          new Operation(transaction.hash, transaction.from, transaction.to, fee, currency));
+          new Operation(transaction.hash, transaction.from, transaction.to, fee));
     }
 
     return new Transaction(transaction.hash, Transaction.TransactionType.STANDARD, null,
@@ -165,11 +163,11 @@ public class TransactionsMapper {
 
       operations.add(
           new Operation(approveTransaction.hash, approveTransaction.from, approveTransaction.to,
-              fee, currency));
+              fee));
     } else {
       operations.add(
           new Operation(approveTransaction.hash, approveTransaction.from, approveTransaction.to,
-              fee, currency));
+              fee));
     }
 
     fee = BalanceUtils.weiToEth(
@@ -182,7 +180,7 @@ public class TransactionsMapper {
       }
 
       operations.add(
-          new Operation(transaction.hash, transaction.from, transaction.to, fee, currency));
+          new Operation(transaction.hash, transaction.from, transaction.to, fee));
     }
 
     TransactionDetails details = getTransactionDetails(Transaction.TransactionType.IAB, transaction);

@@ -14,6 +14,7 @@ import android.view.animation.Interpolator;
 /**
  * Created by Joao Raimundo on 20/05/2018.
  */
+@SuppressWarnings("unused")
 public class ImageBehavior extends CoordinatorLayout.Behavior<View> {
   private static final Interpolator INTERPOLATOR = new FastOutSlowInInterpolator();
 

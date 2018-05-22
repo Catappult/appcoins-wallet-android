@@ -6,6 +6,7 @@ import com.asfoundation.wallet.entity.TransactionContract;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import javax.annotation.Nullable;
 
 public class Transaction implements Parcelable {
@@ -80,36 +81,13 @@ public class Transaction implements Parcelable {
     currency = in.readString();
     Parcelable[] parcelableArray =
         in.readParcelableArray(Operation.class.getClassLoader());
-    Operation[] operations = null;
+    operations = new ArrayList<>();
     if (parcelableArray != null) {
-      operations =
+      Operation[] operationsArray =
           Arrays.copyOf(parcelableArray, parcelableArray.length, Operation[].class);
+      operations.addAll(Arrays.asList(operationsArray));
     }
-    this.operations = new ArrayList<>();
-    for (Operation operation : operations){
-      this.operations.add(operation);
-    }
-  }
 
-  @Override public int hashCode() {
-    int result = transactionId.hashCode();
-    result = 31 * result + (approveTransactionId != null ? approveTransactionId.hashCode() : 0);
-    result = 31 * result + type.hashCode();
-    return result;
-  }
-
-  @Override public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof Transaction)) return false;
-
-    Transaction that = (Transaction) o;
-
-    if (!transactionId.equals(that.transactionId)) return false;
-    if (approveTransactionId != null ? !approveTransactionId.equals(that.approveTransactionId)
-        : that.approveTransactionId != null) {
-      return false;
-    }
-    return type == that.type;
   }
 
   public String getApproveTransactionId() {
@@ -188,6 +166,28 @@ public class Transaction implements Parcelable {
           return SUCCESS;
       }
     }
+  }
+
+  @Override public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Transaction that = (Transaction) o;
+    return timeStamp == that.timeStamp
+        && Objects.equals(transactionId, that.transactionId)
+        && Objects.equals(approveTransactionId, that.approveTransactionId)
+        && type == that.type
+        && status == that.status
+        && Objects.equals(value, that.value)
+        && Objects.equals(from, that.from)
+        && Objects.equals(to, that.to)
+        && Objects.equals(details, that.details)
+        && Objects.equals(currency, that.currency)
+        && Objects.equals(operations, that.operations);
+  }
+
+  @Override public int hashCode() {
+    return Objects.hash(transactionId, approveTransactionId, type, timeStamp, status, value, from,
+        to, details, currency, operations);
   }
 
   @Override public String toString() {

@@ -2,6 +2,7 @@ package com.asfoundation.wallet.transactions;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import java.util.Objects;
 
 public class Operation implements Parcelable {
   public static final Creator<Operation> CREATOR = new Creator<Operation>() {
@@ -18,14 +19,12 @@ public class Operation implements Parcelable {
   private String from;
   private String to;
   private String fee;
-  private String currency;
 
-  Operation(String transactionId, String from, String to, String fee, String currency) {
+  Operation(String transactionId, String from, String to, String fee) {
     this.transactionId = transactionId;
     this.from = from;
     this.to = to;
     this.fee = fee;
-    this.currency = currency;
   }
 
   private Operation(Parcel in) {
@@ -33,7 +32,6 @@ public class Operation implements Parcelable {
     from = in.readString();
     to = in.readString();
     fee = in.readString();
-    currency = in.readString();
   }
 
   @Override public int describeContents() {
@@ -45,7 +43,6 @@ public class Operation implements Parcelable {
     parcel.writeString(from);
     parcel.writeString(to);
     parcel.writeString(fee);
-    parcel.writeString(currency);
   }
 
   @Override public String toString() {
@@ -61,9 +58,6 @@ public class Operation implements Parcelable {
         + '\''
         + ", fee='"
         + fee
-        + '\''
-        + ", currency='"
-        + currency
         + '\''
         + '}';
   }
@@ -84,7 +78,15 @@ public class Operation implements Parcelable {
     return fee;
   }
 
-  public String getCurrency() {
-    return currency;
+  @Override public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Operation operation = (Operation) o;
+    return Objects.equals(transactionId, operation.transactionId) && Objects.equals(from,
+        operation.from) && Objects.equals(to, operation.to) && Objects.equals(fee, operation.fee);
+  }
+
+  @Override public int hashCode() {
+    return Objects.hash(transactionId, from, to, fee);
   }
 }

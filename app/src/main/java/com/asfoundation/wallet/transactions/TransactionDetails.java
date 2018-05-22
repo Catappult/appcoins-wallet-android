@@ -2,6 +2,7 @@ package com.asfoundation.wallet.transactions;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import java.util.Objects;
 
 /**
  * Created by Joao Raimundo on 18/05/2018.
@@ -54,5 +55,32 @@ public class TransactionDetails  implements Parcelable {
 
   public String getDescription() {
     return description;
+  }
+
+  @Override public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TransactionDetails that = (TransactionDetails) o;
+    return Objects.equals(sourceName, that.sourceName)
+        && Objects.equals(icon, that.icon)
+        && Objects.equals(description, that.description);
+  }
+
+  @Override public int hashCode() {
+    return Objects.hash(sourceName, icon, description);
+  }
+
+  @Override public String toString() {
+    return "TransactionDetails{"
+        + "sourceName='"
+        + sourceName
+        + '\''
+        + ", icon='"
+        + icon
+        + '\''
+        + ", description='"
+        + description
+        + '\''
+        + '}';
   }
 }
