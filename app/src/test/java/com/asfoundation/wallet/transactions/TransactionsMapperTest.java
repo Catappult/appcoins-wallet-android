@@ -4,7 +4,7 @@ import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
-import com.asfoundation.wallet.ui.iab.database.AppCoinsOperation;
+import com.asfoundation.wallet.ui.iab.AppCoinsOperation;
 import com.google.gson.Gson;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;

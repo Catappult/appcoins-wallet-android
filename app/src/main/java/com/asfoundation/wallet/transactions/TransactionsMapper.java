@@ -5,7 +5,7 @@ import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.TransactionOperation;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
-import com.asfoundation.wallet.ui.iab.database.AppCoinsOperation;
+import com.asfoundation.wallet.ui.iab.AppCoinsOperation;
 import com.asfoundation.wallet.util.BalanceUtils;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
