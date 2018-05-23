@@ -275,6 +275,8 @@
   <string name="notification_error_poa">An error has occurred</string>
   <string name="notification_no_wallet_poa">Wallet not configured yet</string>
   <string name="notification_cancelled_poa">PoA cancelled</string>
+  <string name="notification_no_network_poa">No network access</string>
+
   <!-- transaction details -->
   <string name="transaction_status_success">Success</string>
   <string name="transaction_status_pending">Pending</string>

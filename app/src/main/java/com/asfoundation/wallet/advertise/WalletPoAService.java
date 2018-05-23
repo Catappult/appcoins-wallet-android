@@ -113,6 +113,12 @@ public class WalletPoAService extends Service {
             createNotification(R.string.notification_no_wallet_poa));
         stopForeground(false);
         break;
+      case NO_NETWORK:
+        // Show notification mentioning that we have no wallet configured on the app
+        notificationManager.notify(SERVICE_ID,
+            createNotification(R.string.notification_no_network_poa));
+        stopForeground(false);
+        break;
     }
   }
 
