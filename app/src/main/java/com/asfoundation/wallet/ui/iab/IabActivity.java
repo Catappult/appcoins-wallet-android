@@ -9,8 +9,10 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.util.Pair;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -50,6 +52,7 @@ public class IabActivity extends BaseActivity implements IabView {
   private boolean isBackEnable;
   private TextView errorTextView;
   private TextView loadingMessage;
+  private Spinner dropdown;
 
   public static Intent newIntent(Activity activity, Intent previousIntent) {
     Intent intent = new Intent(activity, IabActivity.class);
@@ -83,8 +86,12 @@ public class IabActivity extends BaseActivity implements IabView {
     appIcon = findViewById(R.id.iab_activity_item_icon);
     itemDescription = findViewById(R.id.iab_activity_item_description);
     itemPrice = findViewById(R.id.iab_activity_item_price);
+    dropdown = findViewById(R.id.channel_amount_dropdown);
     presenter = new IabPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
         new CompositeDisposable());
+    dropdown.setAdapter(
+        new ArrayAdapter<>(getApplicationContext(), R.layout.iab_raiden_dropdown_item, R.id.item,
+            new Integer[] { 1, 2, 3, 4 }));
     Single.defer(() -> Single.just(getAppPackage()))
         .observeOn(Schedulers.io())
         .map(packageName -> new Pair<>(getApplicationName(packageName),
