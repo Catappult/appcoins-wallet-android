@@ -6,9 +6,9 @@
   <color name="white">#FFFFFFFF</color>
   <color name="black">#313849</color>
 
-  <color name="colorPrimary">#2e91db</color>
+  <color name="colorPrimary">#248adb</color>
   <color name="colorPrimaryDark">#1E76CE</color>
-  <color name="colorAccent">#2e91db</color>
+  <color name="colorAccent">#248adb</color>
 
   <color name="statusBarColor">#154868</color>
 
@@ -33,7 +33,8 @@
   <color name="grey">#757575</color>
   <color name="dark_blue">#1976d2</color>
   <color name="light_blue">#36aeeb</color>
-  <color name="grey_8a_alpha">#8a000000</color>
+  <color name="gray_alpha_8a">#8a000000</color>
+  <color name="gray_alpha_61">#61000000</color>
   <color name="grey_6b_alpha">#6b000000</color>
   <color name="appbar_subtitle_color">#b8ffffff</color>
 
@@ -41,8 +42,10 @@
   <color name="transaction_item_text_color">#de000000</color>
   <color name="transaction_item_snd_text_color">#8a000000</color>
   <color name="list_separator_color">#f0f0f0</color>
+
+  <color name="disable_gray">#12000000</color>
+  <color name="details_address_text_color">#248adb</color>
   <color name="btn_disable_color">#00000000</color>
   <color name="btn_text_disable_color">#42000000</color>
   <color name="btn_text_enable_color">#ffffff</color>
-
 </resources>

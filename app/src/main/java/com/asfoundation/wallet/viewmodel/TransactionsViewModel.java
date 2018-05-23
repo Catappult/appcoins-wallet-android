@@ -26,9 +26,14 @@ import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
+import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 import java.util.List;
+import java.util.Map;
 
 public class TransactionsViewModel extends BaseViewModel {
   private static final long GET_BALANCE_INTERVAL = 10 * DateUtils.SECOND_IN_MILLIS;
@@ -36,7 +41,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
   private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
   private final MutableLiveData<List<Transaction>> transactions = new MutableLiveData<>();
-  private final MutableLiveData<String> defaultWalletBalance = new MutableLiveData<>();
+  private final MutableLiveData<Map<String, String>> defaultWalletBalance = new MutableLiveData<>();
   private final FindDefaultNetworkInteract findDefaultNetworkInteract;
   private final FindDefaultWalletInteract findDefaultWalletInteract;
   private final FetchTransactionsInteract fetchTransactionsInteract;
@@ -55,7 +60,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final Runnable startFetchTransactionsTask = () -> this.fetchTransactions(false);
   private final Runnable startGetBalanceTask = this::getBalance;
   private final AirdropRouter airdropRouter;
-
+  private final AppcoinsOperationsDataSaver operationsDataSaver;
 
   TransactionsViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
@@ -64,7 +69,8 @@ public class TransactionsViewModel extends BaseViewModel {
       TransactionDetailRouter transactionDetailRouter, MyAddressRouter myAddressRouter,
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
-      TransactionsMapper transactionsMapper, AirdropRouter airdropRouter) {
+      TransactionsMapper transactionsMapper, AirdropRouter airdropRouter,
+      AppcoinsOperationsDataSaver operationsDataSaver) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchTransactionsInteract = fetchTransactionsInteract;
@@ -79,6 +85,7 @@ public class TransactionsViewModel extends BaseViewModel {
     this.getDefaultWalletBalance = getDefaultWalletBalance;
     this.transactionsMapper = transactionsMapper;
     this.airdropRouter = airdropRouter;
+    this.operationsDataSaver = operationsDataSaver;
     disposables = new CompositeDisposable();
   }
 
@@ -104,7 +111,7 @@ public class TransactionsViewModel extends BaseViewModel {
     return transactions;
   }
 
-  public MutableLiveData<String> defaultWalletBalance() {
+  public MutableLiveData<Map<String, String>> defaultWalletBalance() {
     return defaultWalletBalance;
   }
 
@@ -119,7 +126,8 @@ public class TransactionsViewModel extends BaseViewModel {
     progress.postValue(shouldShowProgress);
     /*For specific address use: new Wallet("0x60f7a1cbc59470b74b1df20b133700ec381f15d3")*/
     Observable<List<Transaction>> fetch = fetchTransactionsInteract.fetch(defaultWallet.getValue())
-        .flatMapSingle(rawTransactions -> transactionsMapper.map(rawTransactions));
+        .flatMapSingle(rawTransactions -> transactionsMapper.map(rawTransactions)).observeOn(
+            AndroidSchedulers.mainThread());
     disposables.add(
         fetch.subscribe(this::onTransactions, this::onError, this::onTransactionsFetchCompleted));
   }
@@ -176,7 +184,7 @@ public class TransactionsViewModel extends BaseViewModel {
         .subscribe();
   }
 
-  public void showDetails(Context context, RawTransaction transaction) {
+  public void showDetails(Context context, Transaction transaction) {
     transactionDetailRouter.open(context, transaction);
   }
 

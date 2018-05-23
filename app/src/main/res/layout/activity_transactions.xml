@@ -25,7 +25,7 @@
       android:id="@+id/refresh_layout"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_marginBottom="?actionBarSize"
+      android:layout_marginBottom="?android:actionBarSize"
       app:layout_behavior="@string/appbar_scrolling_view_behavior"
       android:background="@color/activity_background_color"
       >
@@ -53,7 +53,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="bottom"
       android:background="?android:attr/windowBackground"
-      app:itemIconTint="@color/grey_8a_alpha"
-      app:itemTextColor="@color/grey_8a_alpha"
+      app:itemIconTint="@color/gray_alpha_8a"
+      app:itemTextColor="@color/gray_alpha_8a"
       />
 </android.support.design.widget.CoordinatorLayout>

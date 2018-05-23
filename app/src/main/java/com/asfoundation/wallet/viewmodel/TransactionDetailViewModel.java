@@ -14,6 +14,8 @@ import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
+import com.asfoundation.wallet.transactions.Operation;
+import com.asfoundation.wallet.transactions.Transaction;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class TransactionDetailViewModel extends BaseViewModel {
@@ -42,15 +44,15 @@ public class TransactionDetailViewModel extends BaseViewModel {
     return defaultNetwork;
   }
 
-  public void showMoreDetails(Context context, RawTransaction transaction) {
+  public void showMoreDetails(Context context, Operation transaction) {
     Uri uri = buildEtherscanUri(transaction);
     if (uri != null) {
       externalBrowserRouter.open(context, uri);
     }
   }
 
-  public void shareTransactionDetail(Context context, RawTransaction transaction) {
-    Uri shareUri = buildEtherscanUri(transaction);
+  public void shareTransactionDetail(Context context, Operation operation) {
+    Uri shareUri = buildEtherscanUri(operation);
     if (shareUri != null) {
       Intent sharingIntent = new Intent(Intent.ACTION_SEND);
       sharingIntent.setType("text/plain");
@@ -61,12 +63,12 @@ public class TransactionDetailViewModel extends BaseViewModel {
     }
   }
 
-  @Nullable private Uri buildEtherscanUri(RawTransaction transaction) {
+  @Nullable private Uri buildEtherscanUri(Operation operation) {
     NetworkInfo networkInfo = defaultNetwork.getValue();
     if (networkInfo != null && !TextUtils.isEmpty(networkInfo.etherscanUrl)) {
       return Uri.parse(networkInfo.etherscanUrl)
           .buildUpon()
-          .appendEncodedPath(transaction.hash)
+          .appendEncodedPath(operation.getTransactionId())
           .build();
     }
     return null;

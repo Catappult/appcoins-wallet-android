@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.repository;
 
+import android.util.Log;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.poa.Proof;
@@ -8,6 +9,7 @@ import com.asfoundation.wallet.poa.ProofWriter;
 import com.asfoundation.wallet.poa.TransactionFactory;
 import io.reactivex.Single;
 import java.math.BigDecimal;
+import java.net.UnknownHostException;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.utils.Numeric;
 
@@ -49,6 +51,10 @@ public class BlockChainWriter implements ProofWriter {
           if (throwable instanceof WalletNotFoundException) {
             return Single.just(
                 new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NO_WALLET,
+                    BigDecimal.ZERO, BigDecimal.ZERO));
+          } else if (throwable instanceof UnknownHostException) {
+            return Single.just(
+                new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NO_NETWORK,
                     BigDecimal.ZERO, BigDecimal.ZERO));
           }
           return Single.error(throwable);

@@ -144,12 +144,15 @@ dependencies {
   implementation "com.android.support:design:$project.supportVersion"
   implementation "com.android.support:support-vector-drawable:$project.supportVersion"
   implementation "com.android.support:recyclerview-v7:$project.supportVersion"
+  implementation "com.android.support:cardview-v7:$project.supportVersion"
+
   implementation "com.android.support:multidex:1.0.3"
   // Bar code scanning
   implementation "com.google.zxing:core:3.3.1"
   implementation "com.google.android.gms:play-services-vision:12.0.0"
   // Sugar
   implementation "com.android.support.constraint:constraint-layout:1.0.2"
+
   implementation "com.github.apl-devs:appintro:v4.2.2"
   implementation 'com.romandanylyk:pageindicatorview:1.0.0'
   implementation "com.journeyapps:zxing-android-embedded:3.2.0@aar"

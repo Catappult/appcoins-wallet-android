@@ -2,21 +2,27 @@ package com.asfoundation.wallet.ui;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.text.TextUtils;
+import android.support.annotation.StringRes;
+import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.transactions.Operation;
+import com.asfoundation.wallet.transactions.Transaction;
+import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
+import com.asfoundation.wallet.ui.widget.adapter.TransactionsDetailsAdapter;
 import com.asfoundation.wallet.util.BalanceUtils;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModel;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModelFactory;
+import com.asfoundation.wallet.widget.CircleTransformation;
+import com.squareup.picasso.Picasso;
 import dagger.android.AndroidInjection;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -26,13 +32,14 @@ import javax.inject.Inject;
 
 import static com.asfoundation.wallet.C.Key.TRANSACTION;
 
-public class TransactionDetailActivity extends BaseActivity implements View.OnClickListener {
+public class TransactionDetailActivity extends BaseActivity {
 
   @Inject TransactionDetailViewModelFactory transactionDetailViewModelFactory;
   private TransactionDetailViewModel viewModel;
 
-  private RawTransaction transaction;
+  private Transaction transaction;
   private TextView amount;
+  private TransactionsDetailsAdapter adapter;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -48,17 +55,12 @@ public class TransactionDetailActivity extends BaseActivity implements View.OnCl
     }
     toolbar();
 
-    BigDecimal gasFee =
-        new BigDecimal(transaction.gasUsed).multiply(new BigDecimal(transaction.gasPrice));
+    ((ToolbarArcBackground) findViewById(R.id.toolbar_background_arc)).setScale(1f);
+
     amount = findViewById(R.id.amount);
-    ((TextView) findViewById(R.id.from)).setText(transaction.from);
-    ((TextView) findViewById(R.id.to)).setText(transaction.to);
-    ((TextView) findViewById(R.id.gas_fee)).setText(BalanceUtils.weiToEth(gasFee)
-        .toPlainString());
-    ((TextView) findViewById(R.id.txn_hash)).setText(transaction.hash);
-    ((TextView) findViewById(R.id.txn_time)).setText(getDate(transaction.timeStamp));
-    ((TextView) findViewById(R.id.block_number)).setText(transaction.blockNumber);
-    findViewById(R.id.more_detail).setOnClickListener(this);
+    adapter = new TransactionsDetailsAdapter(this::onMoreClicked);
+    RecyclerView list = findViewById(R.id.details_list);
+    list.setAdapter(adapter);
 
     viewModel = ViewModelProviders.of(this, transactionDetailViewModelFactory)
         .get(TransactionDetailViewModel.class);
@@ -69,34 +71,72 @@ public class TransactionDetailActivity extends BaseActivity implements View.OnCl
   }
 
   private void onDefaultWallet(Wallet wallet) {
+    adapter.setDefaultWallet(wallet);
+    adapter.addOperations(transaction.getOperations());
 
-    boolean isSent = transaction.from.toLowerCase()
+    boolean isSent = transaction.getFrom()
+        .toLowerCase()
         .equals(wallet.address);
-    String rawValue;
-    String symbol;
+
     long decimals = 18;
     NetworkInfo networkInfo = viewModel.defaultNetwork()
         .getValue();
-    if (transaction.operations == null || transaction.operations.length == 0) {
-      rawValue = transaction.value;
-      symbol = networkInfo == null ? "" : networkInfo.symbol;
-    } else {
-      isSent = transaction.operations[0].from.toLowerCase()
-          .equals(wallet.address);
-      ((TextView) findViewById(R.id.from)).setText(transaction.operations[0].from);
-      ((TextView) findViewById(R.id.to)).setText(transaction.operations[0].to);
-      rawValue = transaction.operations[0].value;
-      decimals = transaction.operations[0].contract.decimals;
-      symbol = transaction.operations[0].contract.symbol;
+
+    String rawValue = transaction.getValue();
+    if (!rawValue.equals("0")) {
+      rawValue = (isSent ? "-" : "+") + getScaledValue(rawValue, decimals);
     }
 
-    amount.setTextColor(ContextCompat.getColor(this, isSent ? R.color.red : R.color.green));
-    if (rawValue.equals("0")) {
-      rawValue = "0 " + symbol;
-    } else {
-      rawValue = (isSent ? "-" : "+") + getScaledValue(rawValue, decimals) + " " + symbol;
+    String symbol =
+        transaction.getCurrency() == null ? (networkInfo == null ? "" : networkInfo.symbol)
+            : transaction.getCurrency();
+
+    String icon = null;
+    String id = transaction.getTransactionId();
+    String description = null;
+    if (transaction.getDetails() != null) {
+      icon = transaction.getDetails()
+          .getIcon();
+      id = transaction.getDetails()
+          .getSourceName();
+      description = transaction.getDetails()
+          .getDescription();
     }
-    amount.setText(rawValue);
+
+    @StringRes int typeStr = R.string.transaction_type_standard;
+    @DrawableRes int typeIcon = R.drawable.ic_transaction_peer;
+
+    switch (transaction.getType()) {
+      case ADS:
+        typeStr = R.string.transaction_type_poa;
+        typeIcon = R.drawable.ic_transaction_poa;
+        break;
+      case IAB:
+        typeStr = R.string.transaction_type_iab;
+        typeIcon = R.drawable.ic_transaction_iab;
+        break;
+    }
+
+    @StringRes int statusStr = R.string.transaction_status_success;
+    @ColorRes int statusColor = R.color.green;
+
+    switch (transaction.getStatus()) {
+      case FAILED:
+        statusStr = R.string.transaction_status_failed;
+        statusColor = R.color.red;
+        break;
+      case PENDING:
+        statusStr = R.string.transaction_status_pending;
+        statusColor = R.color.orange;
+        break;
+    }
+
+    setUIContent(transaction.getTimeStamp(), rawValue, symbol, icon, id, description, typeStr,
+        typeIcon, statusStr, statusColor);
+  }
+
+  private void onDefaultNetwork(NetworkInfo networkInfo) {
+    adapter.setDefaultNetwork(networkInfo);
   }
 
   private String getScaledValue(String valueStr, long decimals) {
@@ -112,28 +152,43 @@ public class TransactionDetailActivity extends BaseActivity implements View.OnCl
   private String getDate(long timeStampInSec) {
     Calendar cal = Calendar.getInstance(Locale.ENGLISH);
     cal.setTimeInMillis(timeStampInSec * 1000);
-    return DateFormat.getLongDateFormat(this)
-        .format(cal.getTime());
+    return DateFormat.format("dd MMM yyyy hh:mm a", cal.getTime())
+        .toString();
   }
 
-  @Override public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.menu_share, menu);
-    return super.onCreateOptionsMenu(menu);
+  private void onMoreClicked(View view, Operation operation) {
+    viewModel.showMoreDetails(view.getContext(), operation);
   }
 
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    if (item.getItemId() == R.id.action_share) {
-      viewModel.shareTransactionDetail(this, transaction);
+  private void setUIContent(long timeStamp, String value, String symbol, String icon, String id,
+      String description, int typeStr, int typeIcon, int statusStr, int statusColor) {
+    ((TextView) findViewById(R.id.transaction_timestamp)).setText(getDate(timeStamp));
+    findViewById(R.id.transaction_timestamp).setVisibility(View.VISIBLE);
+
+    int smallTitleSize = (int) getResources().getDimension(R.dimen.small_text);
+    int color = getResources().getColor(R.color.gray_alpha_8a);
+
+    amount.setText(BalanceUtils.formatBalance(value, symbol, smallTitleSize, color));
+
+    if (icon != null) {
+      Picasso.with(this)
+          .load("file:" + icon)
+          .transform(new CircleTransformation())
+          .fit()
+          .into((ImageView) findViewById(R.id.img));
+    } else {
+      ((ImageView) findViewById(R.id.img)).setImageResource(typeIcon);
     }
-    return super.onOptionsItemSelected(item);
-  }
 
-  private void onDefaultNetwork(NetworkInfo networkInfo) {
-    findViewById(R.id.more_detail).setVisibility(
-        TextUtils.isEmpty(networkInfo.etherscanUrl) ? View.GONE : View.VISIBLE);
-  }
+    ((TextView) findViewById(R.id.app_id)).setText(id);
+    if (description != null) {
+      ((TextView) findViewById(R.id.item_id)).setText(description);
+      findViewById(R.id.item_id).setVisibility(View.VISIBLE);
+    }
+    ((TextView) findViewById(R.id.category_name)).setText(typeStr);
+    ((ImageView) findViewById(R.id.category_icon)).setImageResource(typeIcon);
 
-  @Override public void onClick(View v) {
-    viewModel.showMoreDetails(v.getContext(), transaction);
+    ((TextView) findViewById(R.id.status)).setText(statusStr);
+    ((TextView) findViewById(R.id.status)).setTextColor(getResources().getColor(statusColor));
   }
 }

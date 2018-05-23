@@ -70,6 +70,10 @@ public class AppcoinsOperationsDataSaver {
     return cache.get(id);
   }
 
+  public AppCoinsOperation getSync(String id) {
+    return cache.getSync(id);
+  }
+
   public void stop() {
     if (!disposables.isDisposed()) {
       disposables.dispose();
