@@ -24,7 +24,10 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Formatter;
+import java.util.List;
 import java.util.Locale;
 import javax.inject.Inject;
 
@@ -53,6 +56,7 @@ public class IabActivity extends BaseActivity implements IabView {
   private TextView errorTextView;
   private TextView loadingMessage;
   private Spinner dropdown;
+  private ArrayAdapter<BigDecimal> adapter;
 
   public static Intent newIntent(Activity activity, Intent previousIntent) {
     Intent intent = new Intent(activity, IabActivity.class);
@@ -89,9 +93,10 @@ public class IabActivity extends BaseActivity implements IabView {
     dropdown = findViewById(R.id.channel_amount_dropdown);
     presenter = new IabPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
         new CompositeDisposable());
-    dropdown.setAdapter(
+    adapter =
         new ArrayAdapter<>(getApplicationContext(), R.layout.iab_raiden_dropdown_item, R.id.item,
-            new Integer[] { 1, 2, 3, 4 }));
+            new ArrayList<>());
+    dropdown.setAdapter(adapter);
     Single.defer(() -> Single.just(getAppPackage()))
         .observeOn(Schedulers.io())
         .map(packageName -> new Pair<>(getApplicationName(packageName),
@@ -209,6 +214,11 @@ public class IabActivity extends BaseActivity implements IabView {
 
   @Override public void showNoFundsError() {
     showError(R.string.activity_iab_no_funds_message);
+  }
+
+  @Override public void showRaidenChannelValues(List<BigDecimal> values) {
+    adapter.addAll(values);
+    adapter.notifyDataSetChanged();
   }
 
   private void showLoading(@StringRes int message) {

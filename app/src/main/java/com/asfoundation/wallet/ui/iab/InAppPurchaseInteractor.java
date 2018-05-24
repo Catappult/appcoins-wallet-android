@@ -11,6 +11,7 @@ import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public class InAppPurchaseInteractor {
@@ -67,5 +68,17 @@ public class InAppPurchaseInteractor {
 
   public Observable<List<PaymentTransaction>> getAll() {
     return inAppPurchaseService.getAll();
+  }
+
+  public List<BigDecimal> getTopUpChannelSuggestionValues(BigDecimal price) {
+    BigDecimal firstValue =
+        price.add(new BigDecimal(5).subtract((price.remainder(new BigDecimal(5)))));
+    ArrayList<BigDecimal> list = new ArrayList<>();
+    list.add(price);
+    list.add(firstValue);
+    list.add(firstValue.add(new BigDecimal(5)));
+    list.add(firstValue.add(new BigDecimal(15)));
+    list.add(firstValue.add(new BigDecimal(25)));
+    return list;
   }
 }

@@ -2,6 +2,8 @@ package com.asfoundation.wallet.ui.iab;
 
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import io.reactivex.Observable;
+import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Created by trinkes on 13/03/2018.
@@ -43,4 +45,6 @@ public interface IabView {
   void showNoEtherFundsError();
 
   void showNoFundsError();
+
+  void showRaidenChannelValues(List<BigDecimal> values);
 }

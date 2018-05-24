@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.util.Log;
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.repository.PaymentTransaction;
 import com.asfoundation.wallet.util.UnknownTokenException;
 import io.reactivex.Completable;
@@ -31,7 +32,7 @@ public class IabPresenter {
   public void present(String uriString, String appPackage, String productName) {
     disposables.add(inAppPurchaseInteractor.parseTransaction(uriString)
         .observeOn(viewScheduler)
-        .subscribe(transactionBuilder -> view.setup(transactionBuilder), this::showError));
+        .subscribe(this::setup, this::showError));
 
     disposables.add(view.getCancelClick()
         .subscribe(click -> close()));
@@ -118,5 +119,11 @@ public class IabPresenter {
 
   public void stop() {
     disposables.clear();
+  }
+
+  private void setup(TransactionBuilder transaction) {
+    view.setup(transaction);
+    view.showRaidenChannelValues(
+        inAppPurchaseInteractor.getTopUpChannelSuggestionValues(transaction.amount()));
   }
 }
