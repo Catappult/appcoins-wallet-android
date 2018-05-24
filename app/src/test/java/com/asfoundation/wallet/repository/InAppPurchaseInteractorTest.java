@@ -15,6 +15,7 @@ import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.ui.iab.AppInfoProvider;
 import com.asfoundation.wallet.ui.iab.ImageSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
+import com.asfoundation.wallet.ui.iab.RaidenRepository;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationEntity;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Observable;
@@ -59,6 +60,7 @@ public class InAppPurchaseInteractorTest {
   @Mock BalanceService balanceService;
   @Mock AppInfoProvider appInfoProvider;
   @Mock ProofOfAttentionService proofOfAttentionService;
+  @Mock RaidenRepository repository;
   private InAppPurchaseInteractor inAppPurchaseInteractor;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
@@ -118,7 +120,7 @@ public class InAppPurchaseInteractorTest {
     inAppPurchaseInteractor =
         new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
             gasSettingsInteract, BigDecimal.ONE,
-            new TransferParser(defaultWalletInteract, tokenRepository));
+            new TransferParser(defaultWalletInteract, tokenRepository), repository);
   }
 
   @Test public void sendTransaction() {

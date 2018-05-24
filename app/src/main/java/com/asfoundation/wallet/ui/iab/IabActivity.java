@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -11,12 +12,14 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.ui.BaseActivity;
+import com.asfoundation.wallet.ui.RxCheckbox;
 import com.jakewharton.rxbinding2.view.RxView;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
@@ -57,6 +60,7 @@ public class IabActivity extends BaseActivity implements IabView {
   private TextView loadingMessage;
   private Spinner dropdown;
   private ArrayAdapter<BigDecimal> adapter;
+  private CheckBox checkbox;
 
   public static Intent newIntent(Activity activity, Intent previousIntent) {
     Intent intent = new Intent(activity, IabActivity.class);
@@ -97,6 +101,7 @@ public class IabActivity extends BaseActivity implements IabView {
         new ArrayAdapter<>(getApplicationContext(), R.layout.iab_raiden_dropdown_item, R.id.item,
             new ArrayList<>());
     dropdown.setAdapter(adapter);
+    checkbox = findViewById(R.id.iab_activity_create_channel);
     Single.defer(() -> Single.just(getAppPackage()))
         .observeOn(Schedulers.io())
         .map(packageName -> new Pair<>(getApplicationName(packageName),
@@ -219,6 +224,17 @@ public class IabActivity extends BaseActivity implements IabView {
   @Override public void showRaidenChannelValues(List<BigDecimal> values) {
     adapter.addAll(values);
     adapter.notifyDataSetChanged();
+  }
+
+  @Override public Observable<Boolean> getCreateChannelClick() {
+    return RxCheckbox.checks(checkbox);
+  }
+
+  @Override public void showRaidenInfo() {
+    new AlertDialog.Builder(this).setMessage(R.string.iab_activity_raiden_channel_info_message)
+        .setTitle(R.string.iab_activity_raiden_channel_info_title)
+        .setPositiveButton(R.string.ok, (dialog, which) -> dialog.dismiss())
+        .show();
   }
 
   private void showLoading(@StringRes int message) {

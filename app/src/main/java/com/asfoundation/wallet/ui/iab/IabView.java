@@ -47,4 +47,8 @@ public interface IabView {
   void showNoFundsError();
 
   void showRaidenChannelValues(List<BigDecimal> values);
+
+  Observable<Boolean> getCreateChannelClick();
+
+  void showRaidenInfo();
 }

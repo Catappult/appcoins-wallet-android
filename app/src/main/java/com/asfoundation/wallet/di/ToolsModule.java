@@ -167,9 +167,12 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
   @Singleton @Provides InAppPurchaseInteractor provideTransactionInteractor(
       InAppPurchaseService inAppPurchaseService, FindDefaultWalletInteract defaultWalletInteract,
-      FetchGasSettingsInteract gasSettingsInteract, TransferParser parser) {
+      FetchGasSettingsInteract gasSettingsInteract, TransferParser parser,
+      PreferenceRepositoryType sharedPreferencesRepository) {
+
     return new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
-        gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser);
+        gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
+        sharedPreferencesRepository::getShouldShowRaidenDialog);
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(

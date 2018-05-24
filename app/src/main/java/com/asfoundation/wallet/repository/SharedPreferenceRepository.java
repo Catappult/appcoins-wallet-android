@@ -11,6 +11,7 @@ public class SharedPreferenceRepository implements PreferenceRepositoryType {
   private static final String GAS_PRICE_KEY = "gas_price";
   private static final String GAS_LIMIT_KEY = "gas_limit";
   private static final String GAS_LIMIT_FOR_TOKENS_KEY = "gas_limit_for_tokens";
+  private static final String SHOULD_SHOW_RAIDEN_DIALOG = "should_show_raiden_dialog";
 
   private final SharedPreferences pref;
 
@@ -36,5 +37,9 @@ public class SharedPreferenceRepository implements PreferenceRepositoryType {
     pref.edit()
         .putString(DEFAULT_NETWORK_NAME_KEY, netName)
         .apply();
+  }
+
+  @Override public boolean getShouldShowRaidenDialog() {
+    return pref.getBoolean(SHOULD_SHOW_RAIDEN_DIALOG, true);
   }
 }

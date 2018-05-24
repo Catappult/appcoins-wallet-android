@@ -53,6 +53,10 @@ public class IabPresenter {
         .flatMapCompletable(this::showPendingTransaction)
         .subscribe(() -> {
         }, throwable -> throwable.printStackTrace()));
+
+    disposables.add(view.getCreateChannelClick()
+        .filter(isChecked -> isChecked && inAppPurchaseInteractor.shouldShowDialog())
+        .subscribe(__ -> view.showRaidenInfo()));
   }
 
   private void showBuy() {

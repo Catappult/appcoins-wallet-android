@@ -4,8 +4,6 @@ import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.util.TransferParser;
-import io.reactivex.Observable;
-import io.reactivex.Single;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +21,12 @@ import org.mockito.junit.MockitoJUnitRunner;
   @Mock FetchGasSettingsInteract gasSettingsInteract;
   @Mock TransferParser parser;
   private InAppPurchaseInteractor inAppPurchaseInteractor;
+  @Mock RaidenRepository raidenRepository;
 
   @Before public void setUp() throws Exception {
     inAppPurchaseInteractor =
         new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
-            gasSettingsInteract, BigDecimal.ZERO, parser);
+            gasSettingsInteract, BigDecimal.ZERO, parser, raidenRepository);
   }
 
   @Test public void getTopUpChannelSuggestionValues() {

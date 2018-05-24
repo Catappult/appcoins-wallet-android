@@ -21,15 +21,17 @@ public class InAppPurchaseInteractor {
   private final FetchGasSettingsInteract gasSettingsInteract;
   private final BigDecimal paymentGasLimit;
   private final TransferParser parser;
+  private final RaidenRepository raidenRepository;
 
   public InAppPurchaseInteractor(InAppPurchaseService inAppPurchaseService,
       FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
-      BigDecimal paymentGasLimit, TransferParser parser) {
+      BigDecimal paymentGasLimit, TransferParser parser, RaidenRepository raidenRepository) {
     this.inAppPurchaseService = inAppPurchaseService;
     this.defaultWalletInteract = defaultWalletInteract;
     this.gasSettingsInteract = gasSettingsInteract;
     this.paymentGasLimit = paymentGasLimit;
     this.parser = parser;
+    this.raidenRepository = raidenRepository;
   }
 
   public Single<TransactionBuilder> parseTransaction(String uri) {
@@ -80,5 +82,9 @@ public class InAppPurchaseInteractor {
     list.add(firstValue.add(new BigDecimal(15)));
     list.add(firstValue.add(new BigDecimal(25)));
     return list;
+  }
+
+  public boolean shouldShowDialog() {
+    return raidenRepository.shouldShowDialog();
   }
 }
