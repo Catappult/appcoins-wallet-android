@@ -14,9 +14,12 @@ public class AppCoinsOperationMapper {
   }
 
   public AppCoinsOperation map(AppCoinsOperationEntity appCoinsOperationEntity) {
-    return new AppCoinsOperation(appCoinsOperationEntity.getTransactionId(),
-        appCoinsOperationEntity.getPackageName(), appCoinsOperationEntity.getApplicationName(),
-        appCoinsOperationEntity.getIconPath(), appCoinsOperationEntity.getProductName());
+    if (appCoinsOperationEntity != null) {
+      return new AppCoinsOperation(appCoinsOperationEntity.getTransactionId(),
+          appCoinsOperationEntity.getPackageName(), appCoinsOperationEntity.getApplicationName(),
+          appCoinsOperationEntity.getIconPath(), appCoinsOperationEntity.getProductName());
+    }
+    return null;
   }
 
   public AppCoinsOperationEntity map(String key, AppCoinsOperation appCoinsOperation) {
