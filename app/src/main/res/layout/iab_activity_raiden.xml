@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:background="@drawable/background_card"
     android:theme="@style/AppTheme.NoActionBar"
     >
@@ -54,9 +55,9 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="16dp"
+      android:layout_marginTop="8dp"
       android:text="@string/iab_activity_raiden_channel_label"
       android:textColor="@color/iab_activity_gray"
-      app:layout_constraintBottom_toTopOf="@id/guideline2"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/guideline1"
       />
@@ -72,12 +73,12 @@
       app:layout_constraintTop_toTopOf="@id/channel_label"
       />
 
-  <android.support.constraint.Guideline
-      android:id="@+id/guideline2"
+  <android.support.constraint.Group
+      android:id="@+id/amount_group"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      app:layout_constraintGuide_begin="80dp"
+      android:visibility="gone"
+      app:constraint_referenced_ids="amount_label,channel_amount_dropdown,guideline2"
       />
 
   <TextView
@@ -85,12 +86,12 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="16dp"
+      android:layout_marginTop="8dp"
       android:text="@string/iab_activity_raiden_amount_label"
-      app:layout_constraintBottom_toBottomOf="@id/guideline3"
       app:layout_constraintEnd_toStartOf="@id/channel_amount_dropdown"
       app:layout_constraintHorizontal_chainStyle="spread_inside"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/guideline2"
+      app:layout_constraintTop_toBottomOf="@id/iab_activity_create_channel"
       />
   <Spinner
       android:id="@+id/channel_amount_dropdown"
@@ -105,13 +106,6 @@
       tools:listitem="@layout/iab_raiden_dropdown_item"
       />
 
-  <android.support.constraint.Guideline
-      android:id="@+id/guideline3"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      app:layout_constraintGuide_begin="112dp"
-      />
   <ImageView
       android:id="@+id/appcoins_icon"
       android:layout_width="wrap_content"
@@ -122,7 +116,9 @@
       android:src="@drawable/ic_appcoins_wallet"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/guideline3"
+      app:layout_constraintTop_toBottomOf="@id/amount_label"
+      app:layout_goneMarginBottom="16dp"
+      app:layout_goneMarginTop="8dp"
       />
 
 </android.support.constraint.ConstraintLayout>

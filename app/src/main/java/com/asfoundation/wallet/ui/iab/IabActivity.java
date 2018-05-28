@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.constraint.Group;
 import android.util.Pair;
 import android.view.ContextThemeWrapper;
 import android.view.View;
@@ -21,7 +22,6 @@ import android.widget.TextView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.ui.BaseActivity;
-import com.asfoundation.wallet.ui.RxCheckbox;
 import com.jakewharton.rxbinding2.view.RxView;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
@@ -49,6 +49,7 @@ public class IabActivity extends BaseActivity implements IabView {
   private static final String TAG = IabActivity.class.getSimpleName();
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   BehaviorSubject<Object> raidenMoreInfoOkButtonClick;
+  BehaviorSubject<Boolean> createChannelClick;
   private Button buyButton;
   private Button okErrorButton;
   private IabPresenter presenter;
@@ -67,6 +68,7 @@ public class IabActivity extends BaseActivity implements IabView {
   private ArrayAdapter<BigDecimal> adapter;
   private CheckBox checkbox;
   private View raidenMoreInfoView;
+  private Group amountGroup;
 
   public static Intent newIntent(Activity activity, Intent previousIntent) {
     Intent intent = new Intent(activity, IabActivity.class);
@@ -101,6 +103,7 @@ public class IabActivity extends BaseActivity implements IabView {
     itemDescription = findViewById(R.id.iab_activity_item_description);
     itemPrice = findViewById(R.id.iab_activity_item_price);
     dropdown = findViewById(R.id.channel_amount_dropdown);
+    amountGroup = findViewById(R.id.amount_group);
     presenter = new IabPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
         new CompositeDisposable());
     adapter =
@@ -108,6 +111,9 @@ public class IabActivity extends BaseActivity implements IabView {
             new ArrayList<>());
     dropdown.setAdapter(adapter);
     checkbox = findViewById(R.id.iab_activity_create_channel);
+    createChannelClick = BehaviorSubject.create();
+    checkbox.setOnCheckedChangeListener(
+        (buttonView, isChecked) -> createChannelClick.onNext(isChecked));
     raidenMoreInfoOkButtonClick = BehaviorSubject.create();
     raidenMoreInfoView = View.inflate(new ContextThemeWrapper(this, R.style.AppTheme),
         R.layout.iab_activity_raiden_more_info, null);
@@ -236,7 +242,7 @@ public class IabActivity extends BaseActivity implements IabView {
   }
 
   @Override public Observable<Boolean> getCreateChannelClick() {
-    return RxCheckbox.checks(checkbox);
+    return createChannelClick;
   }
 
   @Override public void showRaidenInfo() {
@@ -254,6 +260,14 @@ public class IabActivity extends BaseActivity implements IabView {
   @Override public Observable<Object> getDontShowAgainClick() {
     return raidenMoreInfoOkButtonClick.filter(o -> ((CheckBox) raidenMoreInfoView.findViewById(
         R.id.iab_activity_raiden_dont_show_again)).isChecked());
+  }
+
+  @Override public void showChannelAmount() {
+    amountGroup.setVisibility(View.VISIBLE);
+  }
+
+  @Override public void hideChannelAmount() {
+    amountGroup.setVisibility(View.GONE);
   }
 
   private void showLoading(@StringRes int message) {

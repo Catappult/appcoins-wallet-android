@@ -53,4 +53,8 @@ public interface IabView {
   void showRaidenInfo();
 
   Observable<Object> getDontShowAgainClick();
+
+  void showChannelAmount();
+
+  void hideChannelAmount();
 }

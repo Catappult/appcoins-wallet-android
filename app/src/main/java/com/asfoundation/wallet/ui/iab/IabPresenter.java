@@ -40,9 +40,26 @@ public class IabPresenter {
 
     showTransactionState(uriString);
 
-    showMicroRaidenInfo();
 
     handleDontShowMicroRaidenInfo();
+
+    showChannelAmount();
+
+    showMicroRaidenInfo();
+  }
+
+  private void showChannelAmount() {
+    disposables.add(view.getCreateChannelClick()
+        .doOnNext(isChecked -> {
+          if (isChecked) {
+            view.showChannelAmount();
+          } else {
+            view.hideChannelAmount();
+          }
+        })
+        .doOnError(Throwable::printStackTrace)
+        .retry()
+        .subscribe());
   }
 
   private void handleDontShowMicroRaidenInfo() {
