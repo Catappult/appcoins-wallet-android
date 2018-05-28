@@ -6,6 +6,7 @@
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
+    <item name="android:statusBarColor">@color/statusBarColor</item>
   </style>
 
   <style name="AppTheme.NoActionBar" parent="AppTheme">
@@ -103,5 +104,11 @@
     <item name="android:textSize">14sp</item>
   </style>
 
-
+  <style name="ButtonStyle.Light" parent="Base.Widget.AppCompat.ImageButton">
+    <item name="android:background">@drawable/button_light_background</item>
+    <item name="android:textAllCaps">true</item>
+    <item name="android:textColor">@drawable/btn_light_text_color</item>
+    <item name="android:fontFamily">@font/roboto_regular</item>
+    <item name="android:textSize">14sp</item>
+  </style>
 </resources>
