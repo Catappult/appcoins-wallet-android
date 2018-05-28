@@ -57,6 +57,9 @@ public class IabPresenter {
     disposables.add(view.getCreateChannelClick()
         .filter(isChecked -> isChecked && inAppPurchaseInteractor.shouldShowDialog())
         .subscribe(__ -> view.showRaidenInfo()));
+    disposables.add(view.getDontShowAgainClick()
+        .doOnNext(__ -> inAppPurchaseInteractor.dontShowAgain())
+        .subscribe());
   }
 
   private void showBuy() {

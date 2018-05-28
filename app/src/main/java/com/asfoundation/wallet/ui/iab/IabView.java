@@ -51,4 +51,6 @@ public interface IabView {
   Observable<Boolean> getCreateChannelClick();
 
   void showRaidenInfo();
+
+  Observable<Object> getDontShowAgainClick();
 }

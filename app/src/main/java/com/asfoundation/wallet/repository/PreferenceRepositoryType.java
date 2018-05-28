@@ -9,5 +9,4 @@ public interface PreferenceRepositoryType {
 
   void setDefaultNetwork(String netName);
 
-  boolean getShouldShowRaidenDialog();
 }

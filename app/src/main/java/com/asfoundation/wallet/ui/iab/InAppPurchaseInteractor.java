@@ -87,4 +87,8 @@ public class InAppPurchaseInteractor {
   public boolean shouldShowDialog() {
     return raidenRepository.shouldShowDialog();
   }
+
+  public void dontShowAgain() {
+    raidenRepository.setShouldShowDialog(false);
+  }
 }

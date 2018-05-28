@@ -58,6 +58,7 @@ import com.asfoundation.wallet.ui.iab.AppInfoProvider;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.ui.iab.ImageSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
+import com.asfoundation.wallet.ui.iab.RaidenRepository;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase;
 import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.TransferParser;
@@ -98,13 +99,23 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
         .build();
   }
 
+  @Singleton @Provides RaidenRepository provideRaidenRepository(
+      SharedPreferenceRepository sharedPreferenceRepository) {
+    return sharedPreferenceRepository;
+  }
+
   @Singleton @Provides EthereumNetworkRepositoryType provideEthereumNetworkRepository(
       PreferenceRepositoryType preferenceRepository, TickerService tickerService) {
     return new EthereumNetworkRepository(preferenceRepository, tickerService);
   }
 
-  @Singleton @Provides PreferenceRepositoryType providePreferenceRepository(Context context) {
+  @Singleton @Provides SharedPreferenceRepository providePreferenceRepository(Context context) {
     return new SharedPreferenceRepository(context);
+  }
+
+  @Singleton @Provides PreferenceRepositoryType providePreferenceRepositoryType(
+      SharedPreferenceRepository sharedPreferenceRepository) {
+    return sharedPreferenceRepository;
   }
 
   @Singleton @Provides TickerService provideTickerService(OkHttpClient httpClient, Gson gson) {
@@ -168,11 +179,11 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   @Singleton @Provides InAppPurchaseInteractor provideTransactionInteractor(
       InAppPurchaseService inAppPurchaseService, FindDefaultWalletInteract defaultWalletInteract,
       FetchGasSettingsInteract gasSettingsInteract, TransferParser parser,
-      PreferenceRepositoryType sharedPreferencesRepository) {
+      RaidenRepository raidenRepository) {
 
     return new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
-        sharedPreferencesRepository::getShouldShowRaidenDialog);
+        raidenRepository);
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(
