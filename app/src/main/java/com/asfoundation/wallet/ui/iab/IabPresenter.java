@@ -40,7 +40,6 @@ public class IabPresenter {
 
     showTransactionState(uriString);
 
-
     handleDontShowMicroRaidenInfo();
 
     showChannelAmount();

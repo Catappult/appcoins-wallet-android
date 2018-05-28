@@ -69,6 +69,7 @@ public class IabActivity extends BaseActivity implements IabView {
   private CheckBox checkbox;
   private View raidenMoreInfoView;
   private Group amountGroup;
+  private View raidenLayout;
 
   public static Intent newIntent(Activity activity, Intent previousIntent) {
     Intent intent = new Intent(activity, IabActivity.class);
@@ -101,6 +102,7 @@ public class IabActivity extends BaseActivity implements IabView {
     transactionErrorLayout = findViewById(R.id.activity_iab_error_view);
     appIcon = findViewById(R.id.iab_activity_item_icon);
     itemDescription = findViewById(R.id.iab_activity_item_description);
+    raidenLayout = findViewById(R.id.raiden_layout);
     itemPrice = findViewById(R.id.iab_activity_item_price);
     dropdown = findViewById(R.id.channel_amount_dropdown);
     amountGroup = findViewById(R.id.amount_group);
@@ -192,8 +194,9 @@ public class IabActivity extends BaseActivity implements IabView {
   @Override public void showTransactionCompleted() {
     loadingView.setVisibility(View.GONE);
     transactionErrorLayout.setVisibility(View.GONE);
-    transactionCompletedLayout.setVisibility(View.VISIBLE);
     buyLayout.setVisibility(View.GONE);
+    raidenLayout.setVisibility(View.GONE);
+    transactionCompletedLayout.setVisibility(View.VISIBLE);
   }
 
   @Override public void showBuy() {
@@ -201,6 +204,7 @@ public class IabActivity extends BaseActivity implements IabView {
     transactionErrorLayout.setVisibility(View.GONE);
     transactionCompletedLayout.setVisibility(View.GONE);
     buyLayout.setVisibility(View.VISIBLE);
+    raidenLayout.setVisibility(View.VISIBLE);
     isBackEnable = true;
   }
 
