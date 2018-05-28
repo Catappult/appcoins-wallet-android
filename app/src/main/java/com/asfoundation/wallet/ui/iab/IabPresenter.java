@@ -30,36 +30,65 @@ public class IabPresenter {
   }
 
   public void present(String uriString, String appPackage, String productName) {
-    disposables.add(inAppPurchaseInteractor.parseTransaction(uriString)
-        .observeOn(viewScheduler)
-        .subscribe(this::setup, this::showError));
+    setupUi(uriString);
 
-    disposables.add(view.getCancelClick()
-        .subscribe(click -> close()));
+    handleCancelClick();
 
-    disposables.add(view.getOkErrorClick()
-        .flatMapSingle(__ -> inAppPurchaseInteractor.parseTransaction(uriString))
-        .subscribe(click -> showBuy(), throwable -> close()));
+    handleOkErrorClick(uriString);
 
-    disposables.add(view.getBuyClick()
-        .flatMapCompletable(uri -> inAppPurchaseInteractor.send(uri, appPackage, productName)
-            .observeOn(viewScheduler)
-            .doOnError(this::showError))
-        .retry()
+    handleBuyEvent(appPackage, productName);
+
+    showTransactionState(uriString);
+
+    showMicroRaidenInfo();
+
+    handleDontShowMicroRaidenInfo();
+  }
+
+  private void handleDontShowMicroRaidenInfo() {
+    disposables.add(view.getDontShowAgainClick()
+        .doOnNext(__ -> inAppPurchaseInteractor.dontShowAgain())
         .subscribe());
+  }
 
+  private void showMicroRaidenInfo() {
+    disposables.add(view.getCreateChannelClick()
+        .filter(isChecked -> isChecked && inAppPurchaseInteractor.shouldShowDialog())
+        .subscribe(__ -> view.showRaidenInfo()));
+  }
+
+  private void showTransactionState(String uriString) {
     disposables.add(inAppPurchaseInteractor.getTransactionState(uriString)
         .observeOn(viewScheduler)
         .flatMapCompletable(this::showPendingTransaction)
         .subscribe(() -> {
         }, throwable -> throwable.printStackTrace()));
+  }
 
-    disposables.add(view.getCreateChannelClick()
-        .filter(isChecked -> isChecked && inAppPurchaseInteractor.shouldShowDialog())
-        .subscribe(__ -> view.showRaidenInfo()));
-    disposables.add(view.getDontShowAgainClick()
-        .doOnNext(__ -> inAppPurchaseInteractor.dontShowAgain())
+  private boolean handleBuyEvent(String appPackage, String productName) {
+    return disposables.add(view.getBuyClick()
+        .flatMapCompletable(uri -> inAppPurchaseInteractor.send(uri, appPackage, productName)
+            .observeOn(viewScheduler)
+            .doOnError(this::showError))
+        .retry()
         .subscribe());
+  }
+
+  private void handleOkErrorClick(String uriString) {
+    disposables.add(view.getOkErrorClick()
+        .flatMapSingle(__ -> inAppPurchaseInteractor.parseTransaction(uriString))
+        .subscribe(click -> showBuy(), throwable -> close()));
+  }
+
+  private void handleCancelClick() {
+    disposables.add(view.getCancelClick()
+        .subscribe(click -> close()));
+  }
+
+  private void setupUi(String uriString) {
+    disposables.add(inAppPurchaseInteractor.parseTransaction(uriString)
+        .observeOn(viewScheduler)
+        .subscribe(this::setup, this::showError));
   }
 
   private void showBuy() {
