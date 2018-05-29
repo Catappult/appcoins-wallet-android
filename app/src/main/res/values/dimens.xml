@@ -23,7 +23,8 @@
 
   <dimen name="small_text">12sp</dimen>
   <dimen name="normal_text">16sp</dimen>
-  <dimen name="title_text">26sp</dimen>
+  <dimen name="title_large_text">24sp</dimen>
+  <dimen name="title_small_text">14sp</dimen>
   <dimen name="list_content_margin">72dp</dimen>
   <dimen name="list_group_head">12sp</dimen>
   <dimen name="title_height_small">48dp</dimen>
@@ -33,6 +34,10 @@
   <dimen name="intro_img_size">200dp</dimen>
 
   <dimen name="component_elevation">2dp</dimen>
+  <dimen name="transaction_details_width">300dp</dimen>
+  <dimen name="transaction_details_height">156dp</dimen>
+  <dimen name="transaction_img_size">40dp</dimen>
+  <dimen name="transaction_img_size_inside">50dp</dimen>
 
   <dimen name="button_height">32dp</dimen>
 </resources>

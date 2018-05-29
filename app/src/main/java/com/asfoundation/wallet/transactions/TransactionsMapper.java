@@ -1,10 +1,15 @@
 package com.asfoundation.wallet.transactions;
 
-import android.text.TextUtils;
+import android.support.annotation.Nullable;
 import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.TransactionOperation;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
+import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
+import com.asfoundation.wallet.ui.iab.AppCoinsOperation;
+import com.asfoundation.wallet.util.BalanceUtils;
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +19,18 @@ public class TransactionsMapper {
   public static final String BUY_METHOD_ID = "0xdc9564d5";
   public static final String ADS_METHOD_ID = "0x79c6b667";
   private final DefaultTokenProvider defaultTokenProvider;
+  private final AppcoinsOperationsDataSaver operationsDataSaver;
+  private final Scheduler scheduler;
 
-  public TransactionsMapper(DefaultTokenProvider defaultTokenProvider) {
+  public TransactionsMapper(DefaultTokenProvider defaultTokenProvider,
+      AppcoinsOperationsDataSaver operationsDataSaver, Scheduler scheduler) {
     this.defaultTokenProvider = defaultTokenProvider;
+    this.operationsDataSaver = operationsDataSaver;
+    this.scheduler = scheduler;
   }
 
   public Single<List<Transaction>> map(RawTransaction[] transactions) {
-    return defaultTokenProvider.getDefaultToken()
+    return defaultTokenProvider.getDefaultToken().observeOn(scheduler)
         .map(tokenInfo -> map(tokenInfo.address, transactions));
   }
 
@@ -28,9 +38,8 @@ public class TransactionsMapper {
     List<Transaction> transactionList = new ArrayList<>();
     for (int i = transactions.length - 1; i >= 0; i--) {
       RawTransaction transaction = transactions[i];
-      if (isAppcoinsTransaction(transaction, address)
-          && isApprovedTransaction(transaction)
-          && isIabTransaction(transactions[i - 1])) {
+      if (isAppcoinsTransaction(transaction, address) && isApprovedTransaction(transaction) && (i
+          > 0 && isIabTransaction(transactions[i - 1]))) {
         transactionList.add(0, mapIabTransaction(transaction, transactions[i - 1]));
         i--;
       } else if (isAdsTransaction(transaction)) {
@@ -54,22 +63,36 @@ public class TransactionsMapper {
    *
    * @return a Transaction object containing the information needed and formatted, ready to be shown
    * on the transactions list.
-   * */
+   */
   private Transaction mapAdsTransaction(RawTransaction transaction) {
     String value = transaction.value;
     String currency = null;
     String from = transaction.from;
     String to = transaction.to;
+    List<Operation> operations = new ArrayList<>();
+    String fee = BalanceUtils.weiToEth(
+        new BigDecimal(transaction.gasUsed).multiply(new BigDecimal(transaction.gasPrice)))
+        .toPlainString();
 
     if (transaction.operations != null && transaction.operations.length > 0) {
-      value = transaction.operations[0].value;
-      currency = transaction.operations[0].contract.symbol;
-      from = transaction.operations[0].from;
-      to = transaction.operations[0].to;
+      TransactionOperation operation = transaction.operations[0];
+      value = operation.value;
+      currency = operation.contract.symbol;
+      from = operation.from;
+      to = operation.to;
+
+      operations.add(new Operation(transaction.hash, operation.from, operation.to, fee));
+    } else {
+
+      operations.add(
+          new Operation(transaction.hash, transaction.from, transaction.to, fee));
     }
-    return new Transaction(transaction.hash, Transaction.TransactionType.ADS,
-        null, transaction.timeStamp, getError(transaction),
-        value, from, to, null, currency, transaction);
+
+    TransactionDetails details = getTransactionDetails(Transaction.TransactionType.ADS, transaction);
+
+    return new Transaction(transaction.hash, Transaction.TransactionType.ADS, null,
+        transaction.timeStamp, getError(transaction), value, from, to, details, currency,
+        operations);
   }
 
   private boolean isAdsTransaction(RawTransaction transaction) {
@@ -88,17 +111,30 @@ public class TransactionsMapper {
    *
    * @return a Transaction object containing the information needed and formatted, ready to be shown
    * on the transactions list.
-   * */
+   */
   private Transaction mapStandardTransaction(RawTransaction transaction) {
     String value = transaction.value;
     String currency = null;
+    List<Operation> operations = new ArrayList<>();
+    String fee = BalanceUtils.weiToEth(
+        new BigDecimal(transaction.gasUsed).multiply(new BigDecimal(transaction.gasPrice)))
+        .toPlainString();
+
     if (transaction.operations != null && transaction.operations.length > 0) {
-      value = transaction.operations[0].value;
-      currency = transaction.operations[0].contract.symbol;
+      TransactionOperation operation = transaction.operations[0];
+      value = operation.value;
+      currency = operation.contract.symbol;
+
+      operations.add(new Operation(transaction.hash, operation.from, operation.to, fee));
+    } else {
+
+      operations.add(
+          new Operation(transaction.hash, transaction.from, transaction.to, fee));
     }
-    return new Transaction(transaction.hash, Transaction.TransactionType.STANDARD,
-        null, transaction.timeStamp, getError(transaction),
-        value, transaction.from, transaction.to, null, currency, transaction);
+
+    return new Transaction(transaction.hash, Transaction.TransactionType.STANDARD, null,
+        transaction.timeStamp, getError(transaction), value, transaction.from, transaction.to, null,
+        currency, operations);
   }
 
   /**
@@ -112,20 +148,46 @@ public class TransactionsMapper {
    *
    * @return a Transaction object containing the information needed and formatted, ready to be shown
    * on the transactions list.
-   * */
+   */
   private Transaction mapIabTransaction(RawTransaction approveTransaction,
       RawTransaction transaction) {
     BigInteger value = new BigInteger(transaction.value);
     String currency = null;
+    List<Operation> operations = new ArrayList<>();
+
+    String fee = BalanceUtils.weiToEth(new BigDecimal(approveTransaction.gasUsed).multiply(
+        new BigDecimal(approveTransaction.gasPrice)))
+        .toPlainString();
+    if (approveTransaction.operations != null && approveTransaction.operations.length > 0) {
+      currency = approveTransaction.operations[0].contract.symbol;
+
+      operations.add(
+          new Operation(approveTransaction.hash, approveTransaction.from, approveTransaction.to,
+              fee));
+    } else {
+      operations.add(
+          new Operation(approveTransaction.hash, approveTransaction.from, approveTransaction.to,
+              fee));
+    }
+
+    fee = BalanceUtils.weiToEth(
+        new BigDecimal(transaction.gasUsed).multiply(new BigDecimal(transaction.gasPrice)))
+        .toPlainString();
     if (transaction.operations != null && transaction.operations.length > 0) {
       currency = transaction.operations[0].contract.symbol;
       for (TransactionOperation operation : transaction.operations) {
         value = value.add(new BigInteger(operation.value));
       }
+
+      operations.add(
+          new Operation(transaction.hash, transaction.from, transaction.to, fee));
     }
+
+    TransactionDetails details = getTransactionDetails(Transaction.TransactionType.IAB, transaction);
+
     return new Transaction(transaction.hash, Transaction.TransactionType.IAB,
-        approveTransaction.hash, transaction.timeStamp, getError(transaction),
-        value.toString(), transaction.from, transaction.to, null, currency, transaction);
+        approveTransaction.hash, transaction.timeStamp, getError(transaction), value.toString(),
+        transaction.from, transaction.to, details, currency, operations);
   }
 
   private boolean isIabTransaction(RawTransaction auxTransaction) {
@@ -143,7 +205,21 @@ public class TransactionsMapper {
   }
 
   private Transaction.TransactionStatus getError(RawTransaction transaction) {
-    return (transaction.error == null || transaction.error.isEmpty()) ?
-        Transaction.TransactionStatus.SUCCESS : Transaction.TransactionStatus.FAILED;
+    return (transaction.error == null || transaction.error.isEmpty())
+        ? Transaction.TransactionStatus.SUCCESS : Transaction.TransactionStatus.FAILED;
+  }
+
+  @Nullable private TransactionDetails getTransactionDetails(Transaction.TransactionType type, RawTransaction transaction) {
+    TransactionDetails details = null;
+    AppCoinsOperation operationDetails = operationsDataSaver.getSync(transaction.hash);
+    if (operationDetails != null) {
+      String productName = null;
+      if (!Transaction.TransactionType.ADS.equals(type)) {
+        productName = operationDetails.getProductName();
+      }
+      details = new TransactionDetails(operationDetails.getApplicationName(),
+          operationDetails.getIconPath(), productName);
+    }
+    return details;
   }
 }

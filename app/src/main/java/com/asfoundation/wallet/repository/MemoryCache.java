@@ -13,7 +13,7 @@ import java.util.Map;
  * Created by trinkes on 3/15/18.
  */
 
-public class MemoryCache<K, V> implements Cache<K, V> {
+public class MemoryCache<K, V> implements Repository<K, V> {
   private final BehaviorSubject<Map<K, V>> subject;
   private final Map<K, V> cache;
 

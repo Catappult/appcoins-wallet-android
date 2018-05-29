@@ -16,11 +16,12 @@ public class Proof {
   @Nullable private final String campaignId;
   @Nullable private final String oemAddress;
   @Nullable private final String storeAddress;
+  @Nullable private final String hash;
 
   public Proof(String packageName, @Nullable String campaignId,
       List<ProofComponent> proofComponentList, String walletPackage, ProofStatus proofStatus,
       int chainId, @Nullable String oemAddress, @Nullable String storeAddress, BigDecimal gasPrice,
-      BigDecimal gasLimit) {
+      BigDecimal gasLimit, @Nullable String hash) {
     this.packageName = packageName;
     this.campaignId = campaignId;
     this.proofComponentList = proofComponentList;
@@ -31,11 +32,24 @@ public class Proof {
     this.storeAddress = storeAddress;
     this.gasPrice = gasPrice;
     this.gasLimit = gasLimit;
+    this.hash = hash;
+  }
+
+  public Proof(String packageName, @Nullable String campaignId,
+      List<ProofComponent> proofComponentList, String walletPackage, ProofStatus proofStatus,
+      int chainId, @Nullable String oemAddress, @Nullable String storeAddress, BigDecimal gasPrice,
+      BigDecimal gasLimit) {
+    this(packageName, campaignId, proofComponentList, walletPackage, proofStatus, chainId,
+        oemAddress, storeAddress, gasPrice, gasLimit, null);
   }
 
   public Proof(String packageName, String walletPackage, ProofStatus proofStatus, int chainId) {
     this(packageName, null, Collections.emptyList(), walletPackage, proofStatus, chainId, null,
-        null, BigDecimal.ZERO, BigDecimal.ZERO);
+        null, BigDecimal.ZERO, BigDecimal.ZERO, null);
+  }
+
+  @Nullable public String getHash() {
+    return hash;
   }
 
   public BigDecimal getGasPrice() {

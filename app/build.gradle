@@ -35,11 +35,18 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 27
-    versionCode 9
-    versionName "0.3.2a"
+    versionCode 10
+    versionName "0.3.3a"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     vectorDrawables.useSupportLibrary = true
     multiDexEnabled = true
+
+    //room schemas location
+    javaCompileOptions {
+      annotationProcessorOptions {
+        arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+      }
+    }
 
     buildConfigField 'int', 'DB_VERSION', '5'
 
@@ -137,12 +144,15 @@ dependencies {
   implementation "com.android.support:design:$project.supportVersion"
   implementation "com.android.support:support-vector-drawable:$project.supportVersion"
   implementation "com.android.support:recyclerview-v7:$project.supportVersion"
+  implementation "com.android.support:cardview-v7:$project.supportVersion"
+
   implementation "com.android.support:multidex:1.0.3"
   // Bar code scanning
   implementation "com.google.zxing:core:3.3.1"
   implementation "com.google.android.gms:play-services-vision:12.0.0"
   // Sugar
   implementation "com.android.support.constraint:constraint-layout:1.0.2"
+
   implementation "com.github.apl-devs:appintro:v4.2.2"
   implementation 'com.romandanylyk:pageindicatorview:1.0.0'
   implementation "com.journeyapps:zxing-android-embedded:3.2.0@aar"
@@ -182,6 +192,10 @@ dependencies {
   implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
+  implementation "android.arch.persistence.room:runtime:$project.roomVersion"
+  annotationProcessor "android.arch.persistence.room:compiler:$project.roomVersion"
+  // RxJava support for Room
+  implementation "android.arch.persistence.room:rxjava2:$project.roomVersion"
   // Pincode Lollipin
   //    compile('com.github.omadahealth:lollipin:2.1.0@aar') {
   //        transitive = true
@@ -198,8 +212,7 @@ def renameArtifact(defaultConfig) {
     }
   }
 }
+
 // execute android tests before realising a new apk
-tasks.whenTaskAdded { task ->
-  if (task.name == 'assembleRelease')
-    task.dependsOn('test')
+tasks.whenTaskAdded { task -> if (task.name == 'assembleRelease') task.dependsOn('test')
 }

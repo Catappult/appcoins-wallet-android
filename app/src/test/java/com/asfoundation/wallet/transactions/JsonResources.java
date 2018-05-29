@@ -60,8 +60,8 @@ public class JsonResources {
       + "\"from\":\"0x2c30194bd2e7b6b8ff1467c5af1650f53cd231be\","
       + "\"to\":\"0xab949343e6c369c6b17c7ae302c1debd4b7b61c3\",\"value\":\"0\","
       + "\"gas\":\"250000\",\"gasPrice\":\"5000000000\",\"gasUsed\":\"52225\","
-      +
-      "\"input\":\"0xa9059cbb0000000000000000000000008367e6e522e5545466687bce1a508f4a32d14a4900000000000000000000000000000000000000000000000410d586a20a4c0000\",\"error\":\"\",\"id\":\"0xa03f872318ee763e7cd92923304671e0115f883c32c0520ca3b7c3a1a9d47f98\"}],\"total\":2,\"limit\":20,\"page\":1,\"pages\":1}";
+      + "\"input\":\"0xa9059cbb0000000000000000000000008367e6e522e5545466687bce1a508f4a32d14a4900000000000000000000000000000000000000000000000410d586a20a4c0000\","
+      + "\"error\":\"\",\"id\":\"0xa03f872318ee763e7cd92923304671e0115f883c32c0520ca3b7c3a1a9d47f98\"}],\"total\":2,\"limit\":20,\"page\":1,\"pages\":1}";
 
   public final static String STANDARD_AND_ADS_JSON = "{\"docs\":[{\"operations\":[],"
       + "\"contract\":null,"
