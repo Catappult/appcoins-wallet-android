@@ -67,10 +67,10 @@ android {
         "\"" + project.ROPSTEN_DEFAULT_TOKEN_NAME + "\""
     buildConfigField 'int', 'MAIN_NETWORK_DEFAULT_TOKEN_DECIMALS',
         project.MAIN_NETWORK_DEFAULT_TOKEN_DECIMALS
-    buildConfigField 'String', 'MAIN_NETWORK_ASF_ADS_CONTRACT_ADDRESS',
-        "\"" + project.MAIN_NETWORK_ASF_ADS_CONTRACT_ADDRESS + "\""
-    buildConfigField 'String', 'ROPSTEN_NETWORK_ASF_ADS_CONTRACT_ADDRESS',
-        "\"" + project.ROPSTEN_NETWORK_ASF_ADS_CONTRACT_ADDRESS + "\""
+    buildConfigField 'String', 'MAIN_NETWORK_PROXY_CONTRACT_ADDRESS',
+        "\"" + project.MAIN_NETWORK_PROXY_CONTRACT_ADDRESS + "\""
+    buildConfigField 'String', 'ROPSTEN_NETWORK_PROXY_CONTRACT_ADDRESS',
+        "\"" + project.ROPSTEN_NETWORK_PROXY_CONTRACT_ADDRESS + "\""
     buildConfigField 'String', 'REGISTER_PROOF_GAS_LIMIT',
         "\"" + project.REGISTER_PROOF_GAS_LIMIT + "\""
     buildConfigField 'String', 'PAYMENT_GAS_LIMIT',

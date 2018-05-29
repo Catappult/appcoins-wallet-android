@@ -15,6 +15,8 @@ import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
+import com.asfoundation.wallet.interact.contract.proxy.AdsContractAddressProvider;
+import com.asfoundation.wallet.interact.contract.proxy.Web3jProxyContract;
 import com.asfoundation.wallet.poa.BlockchainErrorMapper;
 import com.asfoundation.wallet.poa.Calculator;
 import com.asfoundation.wallet.poa.DataMapper;
@@ -226,11 +228,10 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
   @Singleton @Provides TransactionFactory provideTransactionFactory(Web3jProvider web3jProvider,
       WalletRepositoryType walletRepository, AccountKeystoreService accountKeystoreService,
-      PasswordStore passwordStore, DefaultTokenProvider defaultTokenProvider,
-      EthereumNetworkRepositoryType ethereumNetworkRepository, DataMapper dataMapper) {
-
+      PasswordStore passwordStore, EthereumNetworkRepositoryType ethereumNetworkRepository,
+      DataMapper dataMapper, AdsContractAddressProvider adsContractAddressProvider) {
     return new TransactionFactory(web3jProvider, walletRepository, accountKeystoreService,
-        passwordStore, defaultTokenProvider, ethereumNetworkRepository, dataMapper);
+        passwordStore, ethereumNetworkRepository, dataMapper, adsContractAddressProvider);
   }
 
   @Singleton @Provides ProofWriter provideBlockChainWriter(Web3jProvider web3jProvider,
@@ -241,6 +242,12 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
       EthereumNetworkRepositoryType ethereumNetwork) {
     return new BlockChainWriter(web3jProvider, transactionFactory, walletRepositoryType,
         defaultWalletInteract, gasSettingsRepository, registerPoaGasLimit, ethereumNetwork);
+  }
+
+  @Singleton @Provides AdsContractAddressProvider provideAdsContractAddressProvider(
+      Web3jProvider web3jProvider, FindDefaultWalletInteract findDefaultWalletInteract) {
+    return new AdsContractAddressProvider(findDefaultWalletInteract,
+        new Web3jProxyContract(web3jProvider::get));
   }
 
   @Singleton @Provides HashCalculator provideHashCalculator(Calculator calculator) {
