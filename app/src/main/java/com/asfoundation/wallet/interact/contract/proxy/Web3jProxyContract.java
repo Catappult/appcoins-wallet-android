@@ -27,12 +27,13 @@ public class Web3jProxyContract implements ProxyContract {
     this.proxyContractAddressProvider = proxyContractAddressProvider;
   }
 
-  @Override public String getContractAddressById(String fromAddress, int chainId, String id) {
+  @Override
+  public String getContractAddressById(String fromAddress, int chainId, String contractId) {
     List<Type> arguments = new ArrayList<>();
     List<TypeReference<?>> returnValues = new ArrayList<>();
     returnValues.add(new TypeReference<Address>() {
     });
-    arguments.add(stringToBytes32(id));
+    arguments.add(stringToBytes32(contractId));
     Function getContractAddressById =
         new Function("getContractAddressById", arguments, returnValues);
     String encodedFunction = FunctionEncoder.encode(getContractAddressById);
