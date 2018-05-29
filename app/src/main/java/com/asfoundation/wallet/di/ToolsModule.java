@@ -73,6 +73,7 @@ import io.reactivex.subjects.BehaviorSubject;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -254,7 +255,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
         default:
           return BuildConfig.MAIN_NETWORK_PROXY_CONTRACT_ADDRESS;
       }
-    }), Schedulers.io());
+    }), Schedulers.io(), new ConcurrentHashMap<>());
   }
 
   @Singleton @Provides HashCalculator provideHashCalculator(Calculator calculator) {
