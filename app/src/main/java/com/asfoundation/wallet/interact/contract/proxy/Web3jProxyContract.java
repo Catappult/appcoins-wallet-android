@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.interact.contract.proxy;
 
-import com.asf.wallet.BuildConfig;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +19,12 @@ import static org.web3j.protocol.core.methods.request.Transaction.createEthCallT
 
 public class Web3jProxyContract implements ProxyContract {
   private final Web3jProvider web3jProvider;
+  private final ProxyContractAddressProvider proxyContractAddressProvider;
 
-  public Web3jProxyContract(Web3jProvider web3jProvider) {
+  public Web3jProxyContract(Web3jProvider web3jProvider,
+      ProxyContractAddressProvider proxyContractAddressProvider) {
     this.web3jProvider = web3jProvider;
+    this.proxyContractAddressProvider = proxyContractAddressProvider;
   }
 
   @Override public String getContractAddressById(String fromAddress, int chainId, String id) {
@@ -34,8 +36,8 @@ public class Web3jProxyContract implements ProxyContract {
     Function getContractAddressById =
         new Function("getContractAddressById", arguments, returnValues);
     String encodedFunction = FunctionEncoder.encode(getContractAddressById);
-    Transaction ethCallTransaction =
-        createEthCallTransaction(fromAddress, getProxyContractAddress(chainId), encodedFunction);
+    Transaction ethCallTransaction = createEthCallTransaction(fromAddress,
+        proxyContractAddressProvider.getProxyContractAddress(chainId), encodedFunction);
     try {
       EthCall rawResponse = web3jProvider.get(chainId)
           .ethCall(ethCallTransaction, DefaultBlockParameterName.LATEST)
@@ -66,14 +68,5 @@ public class Web3jProxyContract implements ProxyContract {
     byte[] bytes = string.getBytes();
     System.arraycopy(bytes, 0, value, 0, bytes.length);
     return new Bytes32(value);
-  }
-
-  private String getProxyContractAddress(int chainId) {
-    switch (chainId) {
-      case 3:
-        return BuildConfig.ROPSTEN_NETWORK_PROXY_CONTRACT_ADDRESS;
-      default:
-        return BuildConfig.MAIN_NETWORK_PROXY_CONTRACT_ADDRESS;
-    }
   }
 }

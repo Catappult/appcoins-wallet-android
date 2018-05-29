@@ -247,8 +247,14 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   @Singleton @Provides AdsContractAddressProvider provideAdsContractAddressProvider(
       Web3jProvider web3jProvider, FindDefaultWalletInteract findDefaultWalletInteract) {
     return new AdsContractAddressProvider(() -> findDefaultWalletInteract.find()
-        .map(wallet -> wallet.address), new Web3jProxyContract(web3jProvider::get),
-        Schedulers.io());
+        .map(wallet -> wallet.address), new Web3jProxyContract(web3jProvider::get, chainId -> {
+      switch (chainId) {
+        case 3:
+          return BuildConfig.ROPSTEN_NETWORK_PROXY_CONTRACT_ADDRESS;
+        default:
+          return BuildConfig.MAIN_NETWORK_PROXY_CONTRACT_ADDRESS;
+      }
+    }), Schedulers.io());
   }
 
   @Singleton @Provides HashCalculator provideHashCalculator(Calculator calculator) {
