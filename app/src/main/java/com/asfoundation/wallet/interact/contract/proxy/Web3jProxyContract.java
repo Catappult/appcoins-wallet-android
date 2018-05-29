@@ -12,7 +12,9 @@ import org.web3j.abi.datatypes.Function;
 import org.web3j.abi.datatypes.Type;
 import org.web3j.abi.datatypes.generated.Bytes32;
 import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.Response;
 import org.web3j.protocol.core.methods.request.Transaction;
+import org.web3j.protocol.core.methods.response.EthCall;
 
 import static org.web3j.protocol.core.methods.request.Transaction.createEthCallTransaction;
 
@@ -34,22 +36,29 @@ public class Web3jProxyContract implements ProxyContract {
     String encodedFunction = FunctionEncoder.encode(getContractAddressById);
     Transaction ethCallTransaction =
         createEthCallTransaction(fromAddress, getProxyContractAddress(chainId), encodedFunction);
-    String responseValue;
     try {
-      responseValue = web3jProvider.get(chainId)
+      EthCall rawResponse = web3jProvider.get(chainId)
           .ethCall(ethCallTransaction, DefaultBlockParameterName.LATEST)
-          .send()
-          .getValue();
+          .send();
+      if (!rawResponse.hasError()) {
+        List<Type> response = FunctionReturnDecoder.decode(rawResponse.getValue(),
+            getContractAddressById.getOutputParameters());
+        return ((Address) response.get(0)).getValue();
+      } else {
+        throw new RuntimeException(mapErrorToMessage(rawResponse.getError()));
+      }
     } catch (IOException e) {
-      e.printStackTrace();
-      return null;
+      throw new RuntimeException(e);
     }
-    List<Type> response =
-        FunctionReturnDecoder.decode(responseValue, getContractAddressById.getOutputParameters());
-    if (response.size() == 1) {
-      return ((Address) response.get(0)).getValue();
-    }
-    return responseValue;
+  }
+
+  private String mapErrorToMessage(Response.Error error) {
+    return "Code: "
+        + error.getCode()
+        + "\nmessage: "
+        + error.getMessage()
+        + "\nData: "
+        + error.getData();
   }
 
   private Bytes32 stringToBytes32(String string) {
