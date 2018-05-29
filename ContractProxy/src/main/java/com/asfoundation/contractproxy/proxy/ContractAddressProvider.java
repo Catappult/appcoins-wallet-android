@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.interact.contract.proxy;
+package com.asfoundation.contractproxy.proxy;
 
 import io.reactivex.Scheduler;
 import io.reactivex.Single;

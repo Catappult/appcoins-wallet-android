@@ -201,6 +201,7 @@ dependencies {
   //        transitive = true
   //    }
   implementation project(path: ':airdrop')
+  implementation project(path: ':ContractProxy')
 }
 
 def renameArtifact(defaultConfig) {

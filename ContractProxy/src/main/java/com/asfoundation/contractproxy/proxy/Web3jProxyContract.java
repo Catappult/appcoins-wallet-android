@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.interact.contract.proxy;
+package com.asfoundation.contractproxy.proxy;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.poa;
 
+import com.asfoundation.contractproxy.proxy.ContractAddressProvider;
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.interact.contract.proxy.ContractAddressProvider;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.WalletRepositoryType;

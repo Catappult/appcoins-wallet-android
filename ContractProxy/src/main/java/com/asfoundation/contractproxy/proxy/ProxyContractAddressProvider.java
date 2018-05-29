@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.interact.contract.proxy;
+package com.asfoundation.contractproxy.proxy;
 
 public interface ProxyContractAddressProvider {
   String getProxyContractAddress(int chainId);
