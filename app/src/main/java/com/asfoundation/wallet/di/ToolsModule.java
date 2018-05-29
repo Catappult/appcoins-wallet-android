@@ -246,8 +246,9 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
   @Singleton @Provides AdsContractAddressProvider provideAdsContractAddressProvider(
       Web3jProvider web3jProvider, FindDefaultWalletInteract findDefaultWalletInteract) {
-    return new AdsContractAddressProvider(findDefaultWalletInteract,
-        new Web3jProxyContract(web3jProvider::get));
+    return new AdsContractAddressProvider(() -> findDefaultWalletInteract.find()
+        .map(wallet -> wallet.address), new Web3jProxyContract(web3jProvider::get),
+        Schedulers.io());
   }
 
   @Singleton @Provides HashCalculator provideHashCalculator(Calculator calculator) {

@@ -1,23 +1,23 @@
 package com.asfoundation.wallet.interact.contract.proxy;
 
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
-import io.reactivex.schedulers.Schedulers;
 
 public class AdsContractAddressProvider {
-  private final FindDefaultWalletInteract findDefaultWalletInteract;
+  private final WalletAddressProvider walletAddressProvider;
   private final Web3jProxyContract web3jProxyContract;
+  private final Scheduler scheduler;
 
-  public AdsContractAddressProvider(FindDefaultWalletInteract findDefaultWalletInteract,
-      Web3jProxyContract web3jProxyContract) {
-    this.findDefaultWalletInteract = findDefaultWalletInteract;
+  public AdsContractAddressProvider(WalletAddressProvider walletAddressProvider,
+      Web3jProxyContract web3jProxyContract, Scheduler scheduler) {
+    this.walletAddressProvider = walletAddressProvider;
     this.web3jProxyContract = web3jProxyContract;
+    this.scheduler = scheduler;
   }
 
   public Single<String> getAdsAddress(int chainId) {
-    return findDefaultWalletInteract.find()
-        .observeOn(Schedulers.io())
-        .map(wallet -> web3jProxyContract.getContractAddressById(wallet.address, chainId,
-            "advertisement"));
+    return walletAddressProvider.get()
+        .observeOn(scheduler)
+        .map(wallet -> web3jProxyContract.getContractAddressById(wallet, chainId, "advertisement"));
   }
 }
