@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.poa;
 
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.interact.contract.proxy.AdsContractAddressProvider;
+import com.asfoundation.wallet.interact.contract.proxy.ContractAddressProvider;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
@@ -19,12 +19,12 @@ public class TransactionFactory {
   private final PasswordStore passwordStore;
   private final EthereumNetworkRepositoryType networkRepositoryType;
   private final DataMapper dataMapper;
-  private final AdsContractAddressProvider adsContractAddressProvider;
+  private final ContractAddressProvider adsContractAddressProvider;
 
   public TransactionFactory(Web3jProvider web3jProvider, WalletRepositoryType walletRepositoryType,
       AccountKeystoreService accountKeystoreService, PasswordStore passwordStore,
       EthereumNetworkRepositoryType networkRepositoryType, DataMapper dataMapper,
-      AdsContractAddressProvider adsContractAddressProvider) {
+      ContractAddressProvider adsContractAddressProvider) {
     this.web3jProvider = web3jProvider;
     this.walletRepositoryType = walletRepositoryType;
     this.accountKeystoreService = accountKeystoreService;

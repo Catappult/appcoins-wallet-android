@@ -4,14 +4,14 @@ import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import java.util.Map;
 
-public class AdsContractAddressProvider {
+public class ContractAddressProvider {
   public static final String ADVERTISEMENT_CONTRACT = "advertisement";
   private final WalletAddressProvider walletAddressProvider;
   private final Web3jProxyContract web3jProxyContract;
   private final Scheduler scheduler;
   private final Map<String, String> cache;
 
-  public AdsContractAddressProvider(WalletAddressProvider walletAddressProvider,
+  public ContractAddressProvider(WalletAddressProvider walletAddressProvider,
       Web3jProxyContract web3jProxyContract, Scheduler scheduler, Map<String, String> cache) {
     this.walletAddressProvider = walletAddressProvider;
     this.web3jProxyContract = web3jProxyContract;
