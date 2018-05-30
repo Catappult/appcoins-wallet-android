@@ -6,9 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-  <include layout="@layout/layout_collapsing_app_bar"
+  <include
+      layout="@layout/layout_collapsing_app_bar"
+      android:layout_width="match_parent"
       android:layout_height="92dp"
-      android:layout_width="match_parent"/>
+      />
 
   <FrameLayout
       android:id="@+id/src_img"
@@ -18,20 +20,20 @@
       android:layout_marginStart="@dimen/big_padding"
       android:layout_marginTop="@dimen/normal_margin"
       android:background="@drawable/transaction_details_img_background"
+      android:elevation="@dimen/component_elevation"
       app:layout_anchor="@+id/app_bar"
       app:layout_anchorGravity="center|bottom"
       app:layout_behavior="com.asfoundation.wallet.widget.ImageBehavior"
-      android:elevation="@dimen/component_elevation"
       >
     <ImageView
         android:id="@+id/img"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_gravity="center"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/empty"
         android:scaleType="centerInside"
         tools:src="@drawable/ic_transaction_peer"
-        android:adjustViewBounds="true"
         />
   </FrameLayout>
 
@@ -40,6 +42,7 @@
       android:layout_height="match_parent"
       android:fillViewport="true"
       app:layout_behavior="@string/appbar_scrolling_view_behavior"
+      android:paddingBottom="40dp"
       >
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -189,10 +192,10 @@
           android:id="@+id/details_list"
           android:layout_width="match_parent"
           android:layout_height="@dimen/transaction_details_height"
-          android:layout_marginBottom="40dp"
           android:layout_marginTop="@dimen/big_margin"
           android:clipChildren="false"
           android:clipToPadding="false"
+          android:nestedScrollingEnabled="false"
           android:orientation="horizontal"
           android:paddingEnd="@dimen/small_padding"
           android:paddingStart="@dimen/small_padding"
@@ -202,21 +205,32 @@
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/details_label"
           app:layout_constraintVertical_bias="0.0"
-          android:nestedScrollingEnabled="false"
+          />
+
+      <Button
+          android:id="@+id/close_channel_btn"
+          android:layout_width="wrap_content"
+          android:layout_height="32dp"
+          android:layout_marginTop="@dimen/half_large_margin"
+          android:text="@string/transaction_close_channel_btn_txt"
+          android:visibility="gone"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/details_list"
+          style="@style/ButtonStyle.Light"
           />
 
       <ImageView
           android:id="@+id/logo"
           android:layout_width="16dp"
           android:layout_height="16dp"
-          android:layout_marginBottom="40dp"
           android:layout_marginEnd="@dimen/normal_margin"
+          android:layout_marginTop="40dp"
           android:src="@drawable/ic_ether_logo"
-          app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toStartOf="@+id/brand"
           app:layout_constraintHorizontal_chainStyle="packed"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/details_list"
+          app:layout_constraintTop_toBottomOf="@+id/close_channel_btn"
           app:layout_constraintVertical_bias="1.0"
           app:layout_constraintWidth_default="wrap"
           />
@@ -226,11 +240,11 @@
           android:layout_height="wrap_content"
           android:singleLine="true"
           android:text="@string/transaction_details_brand_txt"
-          app:layout_constraintTop_toTopOf="@id/logo"
-          app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintBottom_toBottomOf="@id/logo"
+          app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintHorizontal_chainStyle="packed"
           app:layout_constraintStart_toEndOf="@+id/logo"
+          app:layout_constraintTop_toTopOf="@id/logo"
           style="@style/TransactionDetailsTextStyle.Footer"
           />
     </android.support.constraint.ConstraintLayout>

@@ -18,6 +18,9 @@ public class TransactionsMapper {
   public static final String APPROVE_METHOD_ID = "0x095ea7b3";
   public static final String BUY_METHOD_ID = "0xdc9564d5";
   public static final String ADS_METHOD_ID = "0x79c6b667";
+  public static final String OPEN_CHANNEL_METHOD_ID = "0xa6d15963";
+  public static final String TOPUP_CHANNEL_METHOD_ID = "0x016a8cf6";
+  public static final String CLOSE_CHANNEL_METHOD_ID = "0x79c6b667";
   private final DefaultTokenProvider defaultTokenProvider;
   private final AppcoinsOperationsDataSaver operationsDataSaver;
   private final Scheduler scheduler;
@@ -30,7 +33,8 @@ public class TransactionsMapper {
   }
 
   public Single<List<Transaction>> map(RawTransaction[] transactions) {
-    return defaultTokenProvider.getDefaultToken().observeOn(scheduler)
+    return defaultTokenProvider.getDefaultToken()
+        .observeOn(scheduler)
         .map(tokenInfo -> map(tokenInfo.address, transactions));
   }
 
@@ -38,9 +42,9 @@ public class TransactionsMapper {
     List<Transaction> transactionList = new ArrayList<>();
     for (int i = transactions.length - 1; i >= 0; i--) {
       RawTransaction transaction = transactions[i];
-      if (isAppcoinsTransaction(transaction, address) && isApprovedTransaction(transaction) && (i
-          > 0 && isIabTransaction(transactions[i - 1]))) {
-        transactionList.add(0, mapIabTransaction(transaction, transactions[i - 1]));
+      if (isAppcoinsTransaction(transaction, address) && isApprovedTransaction(transaction)
+          && i > 0) {
+        transactionList.add(0, mapTransactionWithApprove(transaction, transactions[i - 1]));
         i--;
       } else if (isAdsTransaction(transaction)) {
         transactionList.add(0, mapAdsTransaction(transaction));
@@ -84,11 +88,11 @@ public class TransactionsMapper {
       operations.add(new Operation(transaction.hash, operation.from, operation.to, fee));
     } else {
 
-      operations.add(
-          new Operation(transaction.hash, transaction.from, transaction.to, fee));
+      operations.add(new Operation(transaction.hash, transaction.from, transaction.to, fee));
     }
 
-    TransactionDetails details = getTransactionDetails(Transaction.TransactionType.ADS, transaction);
+    TransactionDetails details =
+        getTransactionDetails(Transaction.TransactionType.ADS, transaction);
 
     return new Transaction(transaction.hash, Transaction.TransactionType.ADS, null,
         transaction.timeStamp, getError(transaction), value, from, to, details, currency,
@@ -128,8 +132,7 @@ public class TransactionsMapper {
       operations.add(new Operation(transaction.hash, operation.from, operation.to, fee));
     } else {
 
-      operations.add(
-          new Operation(transaction.hash, transaction.from, transaction.to, fee));
+      operations.add(new Operation(transaction.hash, transaction.from, transaction.to, fee));
     }
 
     return new Transaction(transaction.hash, Transaction.TransactionType.STANDARD, null,
@@ -149,7 +152,7 @@ public class TransactionsMapper {
    * @return a Transaction object containing the information needed and formatted, ready to be shown
    * on the transactions list.
    */
-  private Transaction mapIabTransaction(RawTransaction approveTransaction,
+  private Transaction mapTransactionWithApprove(RawTransaction approveTransaction,
       RawTransaction transaction) {
     BigInteger value = new BigInteger(transaction.value);
     String currency = null;
@@ -179,11 +182,11 @@ public class TransactionsMapper {
         value = value.add(new BigInteger(operation.value));
       }
 
-      operations.add(
-          new Operation(transaction.hash, transaction.from, transaction.to, fee));
+      operations.add(new Operation(transaction.hash, transaction.from, transaction.to, fee));
     }
 
-    TransactionDetails details = getTransactionDetails(Transaction.TransactionType.IAB, transaction);
+    TransactionDetails details =
+        getTransactionDetails(getTransactionType(transaction), transaction);
 
     return new Transaction(transaction.hash, Transaction.TransactionType.IAB,
         approveTransaction.hash, transaction.timeStamp, getError(transaction), value.toString(),
@@ -200,6 +203,21 @@ public class TransactionsMapper {
         .startsWith(APPROVE_METHOD_ID.toUpperCase());
   }
 
+  private boolean isOpenChannelTransaction(RawTransaction transaction) {
+    return transaction.input.toUpperCase()
+        .startsWith(OPEN_CHANNEL_METHOD_ID.toUpperCase());
+  }
+
+  private boolean isTopUpChannelTransaction(RawTransaction transaction) {
+    return transaction.input.toUpperCase()
+        .startsWith(TOPUP_CHANNEL_METHOD_ID.toUpperCase());
+  }
+
+  private boolean isCloseChannleTransaction(RawTransaction transaction) {
+    return transaction.input.toUpperCase()
+        .startsWith(CLOSE_CHANNEL_METHOD_ID.toUpperCase());
+  }
+
   private boolean isAppcoinsTransaction(RawTransaction transaction, String address) {
     return transaction.to.equalsIgnoreCase(address);
   }
@@ -209,7 +227,8 @@ public class TransactionsMapper {
         ? Transaction.TransactionStatus.SUCCESS : Transaction.TransactionStatus.FAILED;
   }
 
-  @Nullable private TransactionDetails getTransactionDetails(Transaction.TransactionType type, RawTransaction transaction) {
+  @Nullable private TransactionDetails getTransactionDetails(Transaction.TransactionType type,
+      RawTransaction transaction) {
     TransactionDetails details = null;
     AppCoinsOperation operationDetails = operationsDataSaver.getSync(transaction.hash);
     if (operationDetails != null) {
@@ -221,5 +240,19 @@ public class TransactionsMapper {
           operationDetails.getIconPath(), productName);
     }
     return details;
+  }
+
+  private Transaction.TransactionType getTransactionType(RawTransaction transaction) {
+    Transaction.TransactionType type = Transaction.TransactionType.STANDARD;
+    if (isIabTransaction(transaction)) {
+      type = Transaction.TransactionType.IAB;
+    } else if (isOpenChannelTransaction(transaction)) {
+      type = Transaction.TransactionType.OPEN_CHANNEL;
+    } else if (isTopUpChannelTransaction(transaction)) {
+      type = Transaction.TransactionType.TOP_UP_CHANNEL;
+    } else if (isCloseChannleTransaction(transaction)) {
+      type = Transaction.TransactionType.CLOSE_CHANNEL;
+    }
+    return type;
   }
 }

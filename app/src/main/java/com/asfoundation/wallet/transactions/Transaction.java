@@ -135,7 +135,7 @@ public class Transaction implements Parcelable {
   }
 
   public enum TransactionType {
-    STANDARD, IAB, ADS;
+    STANDARD, IAB, ADS, OPEN_CHANNEL, TOP_UP_CHANNEL, CLOSE_CHANNEL;
 
     static TransactionType fromInt(int type) {
      switch (type) {
@@ -145,6 +145,12 @@ public class Transaction implements Parcelable {
          return IAB;
        case 2:
          return ADS;
+       case 3:
+         return OPEN_CHANNEL;
+       case 4:
+         return TOP_UP_CHANNEL;
+       case 5:
+         return CLOSE_CHANNEL;
        default:
          return STANDARD;
      }
