@@ -71,7 +71,7 @@
   <Button
       android:id="@+id/buy_button"
       android:layout_width="wrap_content"
-      android:layout_height="36dp"
+      android:layout_height="wrap_content"
       android:layout_marginTop="16dp"
       android:text="@string/action_buy"
       app:layout_constraintEnd_toEndOf="parent"

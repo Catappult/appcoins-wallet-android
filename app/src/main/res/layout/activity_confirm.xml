@@ -132,7 +132,7 @@
     <Button
         android:id="@+id/send_button"
         android:layout_width="match_parent"
-        android:layout_height="32dp"
+        android:layout_height="@dimen/button_height"
         android:text="@string/action_send"
         app:layout_constraintBottom_toBottomOf="parent"
         style="@style/ButtonStyle"

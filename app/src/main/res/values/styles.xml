@@ -102,6 +102,9 @@
     <item name="android:textColor">@drawable/btn_text_color</item>
     <item name="android:fontFamily">@font/roboto_regular</item>
     <item name="android:textSize">14sp</item>
+    <item name="android:paddingStart">@dimen/big_padding</item>
+    <item name="android:paddingEnd">@dimen/big_padding</item>
+    <item name="android:minWidth">64dp</item>
   </style>
   
   <style name="TransactionDetailsTextStyle">
@@ -128,6 +131,9 @@
     <item name="android:textColor">@drawable/btn_light_text_color</item>
     <item name="android:fontFamily">@font/roboto_regular</item>
     <item name="android:textSize">14sp</item>
+    <item name="android:paddingStart">@dimen/big_padding</item>
+    <item name="android:paddingEnd">@dimen/big_padding</item>
+    <item name="android:minWidth">64dp</item>
   </style>
 
   <style name="TransactionDetailsTextStyle.Subtitle">
