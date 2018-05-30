@@ -144,10 +144,10 @@ public class ProofOfAttentionService {
   }
 
   public void registerProof(String packageName, long timeStamp) {
-    disposables.add(packageName, Single.defer(
-        () -> Single.just(hashCalculator.calculateNonce(new NonceData(timeStamp, packageName))))
-        .doOnSuccess(nonce -> setSetProofSync(packageName, timeStamp, nonce))
-        .toCompletable()
+    disposables.add(packageName, Observable.fromCallable(
+        () -> hashCalculator.calculateNonce(new NonceData(timeStamp, packageName)))
+        .doOnNext(nonce -> setSetProofSync(packageName, timeStamp, nonce))
+        .ignoreElements()
         .subscribeOn(computationScheduler)
         .subscribe());
   }
