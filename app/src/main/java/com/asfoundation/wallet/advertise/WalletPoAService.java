@@ -21,9 +21,11 @@ import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofStatus;
 import com.asfoundation.wallet.poa.ProofSubmissionFeeData;
 import dagger.android.AndroidInjection;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import static com.asfoundation.wallet.advertise.ServiceConnector.ACTION_ACK_BROADCAST;
@@ -56,6 +58,7 @@ public class WalletPoAService extends Service {
   @Inject ProofOfAttentionService proofOfAttentionService;
   private Disposable disposable;
   private NotificationManager notificationManager;
+  private Disposable timerDisposable;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -69,8 +72,7 @@ public class WalletPoAService extends Service {
       if (intent.hasExtra(PARAM_APP_PACKAGE_NAME)) {
         // set the chain id received from the application. If not received, it is set as the main
         // network chain id
-        proofOfAttentionService.setChainId(
-            intent.getStringExtra(PARAM_APP_PACKAGE_NAME),
+        proofOfAttentionService.setChainId(intent.getStringExtra(PARAM_APP_PACKAGE_NAME),
             intent.getIntExtra(PARAM_NETWORK_ID, 1));
         Single.just(intent)
             .flatMap(receivedIntent -> proofOfAttentionService.isWalletReady(
@@ -78,10 +80,28 @@ public class WalletPoAService extends Service {
                 .doOnSuccess(
                     requirementsStatus -> processWalletSate(requirementsStatus, receivedIntent)))
             .subscribe();
-
       }
     }
     return super.onStartCommand(intent, flags, startId);
+  }
+
+  /**
+   * When binding to the service, we return an interface to our messenger for
+   * sending messages to the service.
+   */
+  @Override public IBinder onBind(Intent intent) {
+    isBound = true;
+    return serviceMessenger.getBinder();
+  }
+
+  @Override public boolean onUnbind(Intent intent) {
+    isBound = false;
+    return true;
+  }
+
+  @Override public void onRebind(Intent intent) {
+    isBound = true;
+    super.onRebind(intent);
   }
 
   private void processWalletSate(ProofSubmissionFeeData.RequirementsStatus requirementsStatus,
@@ -106,39 +126,29 @@ public class WalletPoAService extends Service {
         notificationManager.notify(SERVICE_ID,
             createNotification(R.string.notification_no_funds_poa));
         stopForeground(false);
+        stopTimeout();
         break;
       case NO_WALLET:
         // Show notification mentioning that we have no wallet configured on the app
         notificationManager.notify(SERVICE_ID,
             createNotification(R.string.notification_no_wallet_poa));
         stopForeground(false);
+        stopTimeout();
         break;
       case NO_NETWORK:
         // Show notification mentioning that we have no wallet configured on the app
         notificationManager.notify(SERVICE_ID,
             createNotification(R.string.notification_no_network_poa));
         stopForeground(false);
+        stopTimeout();
         break;
     }
   }
 
-  /**
-   * When binding to the service, we return an interface to our messenger for
-   * sending messages to the service.
-   */
-  @Override public IBinder onBind(Intent intent) {
-    isBound = true;
-    return serviceMessenger.getBinder();
-  }
-
-  @Override public boolean onUnbind(Intent intent) {
-    isBound = false;
-    return true;
-  }
-
-  @Override public void onRebind(Intent intent) {
-    isBound = true;
-    super.onRebind(intent);
+  private void stopTimeout() {
+    if (timerDisposable != null && !timerDisposable.isDisposed()) {
+      timerDisposable.dispose();
+    }
   }
 
   public void startNotifications() {
@@ -193,6 +203,7 @@ public class WalletPoAService extends Service {
     notificationManager.notify(SERVICE_ID, createNotification(notificationText));
     if (status.isTerminate()) {
       stopForeground(false);
+      stopTimeout();
     }
   }
 
@@ -219,6 +230,14 @@ public class WalletPoAService extends Service {
         .build();
   }
 
+  public void setTimeout(String packageName) {
+    if (timerDisposable != null && !timerDisposable.isDisposed()) {
+      timerDisposable.dispose();
+    }
+    timerDisposable = Observable.timer(30, TimeUnit.SECONDS)
+        .subscribe(__ -> proofOfAttentionService.cancel(packageName));
+  }
+
   /**
    * Handler of incoming messages from clients.
    */
@@ -226,6 +245,7 @@ public class WalletPoAService extends Service {
     @Override public void handleMessage(Message msg) {
       String packageName = msg.getData()
           .getString("packageName");
+      setTimeout(packageName);
       Log.d(TAG, "handleMessage() called with: msg = [" + msg + "] " + "");
       switch (msg.what) {
         case MSG_REGISTER_CAMPAIGN:
