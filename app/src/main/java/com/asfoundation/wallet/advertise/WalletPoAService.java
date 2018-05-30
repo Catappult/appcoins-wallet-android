@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.advertise;
 
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
@@ -11,14 +10,13 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
-import android.support.annotation.StringRes;
+import android.support.annotation.IntRange;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
-import com.asfoundation.wallet.poa.ProofStatus;
 import com.asfoundation.wallet.poa.ProofSubmissionFeeData;
 import dagger.android.AndroidInjection;
 import io.reactivex.Single;
@@ -69,8 +67,7 @@ public class WalletPoAService extends Service {
       if (intent.hasExtra(PARAM_APP_PACKAGE_NAME)) {
         // set the chain id received from the application. If not received, it is set as the main
         // network chain id
-        proofOfAttentionService.setChainId(
-            intent.getStringExtra(PARAM_APP_PACKAGE_NAME),
+        proofOfAttentionService.setChainId(intent.getStringExtra(PARAM_APP_PACKAGE_NAME),
             intent.getIntExtra(PARAM_NETWORK_ID, 1));
         Single.just(intent)
             .flatMap(receivedIntent -> proofOfAttentionService.isWalletReady(
@@ -78,10 +75,28 @@ public class WalletPoAService extends Service {
                 .doOnSuccess(
                     requirementsStatus -> processWalletSate(requirementsStatus, receivedIntent)))
             .subscribe();
-
       }
     }
     return super.onStartCommand(intent, flags, startId);
+  }
+
+  /**
+   * When binding to the service, we return an interface to our messenger for
+   * sending messages to the service.
+   */
+  @Override public IBinder onBind(Intent intent) {
+    isBound = true;
+    return serviceMessenger.getBinder();
+  }
+
+  @Override public boolean onUnbind(Intent intent) {
+    isBound = false;
+    return true;
+  }
+
+  @Override public void onRebind(Intent intent) {
+    isBound = true;
+    super.onRebind(intent);
   }
 
   private void processWalletSate(ProofSubmissionFeeData.RequirementsStatus requirementsStatus,
@@ -104,50 +119,31 @@ public class WalletPoAService extends Service {
       case NO_FUNDS:
         // show notification mentioning that we have no fund to register the PoA
         notificationManager.notify(SERVICE_ID,
-            createNotification(R.string.notification_no_funds_poa));
+            createDefaultNotificationBuilder(R.string.notification_no_funds_poa).build());
         stopForeground(false);
         break;
       case NO_WALLET:
         // Show notification mentioning that we have no wallet configured on the app
         notificationManager.notify(SERVICE_ID,
-            createNotification(R.string.notification_no_wallet_poa));
+            createDefaultNotificationBuilder(R.string.notification_no_wallet_poa).build());
         stopForeground(false);
         break;
       case NO_NETWORK:
         // Show notification mentioning that we have no wallet configured on the app
         notificationManager.notify(SERVICE_ID,
-            createNotification(R.string.notification_no_network_poa));
+            createDefaultNotificationBuilder(R.string.notification_no_network_poa).build());
         stopForeground(false);
         break;
     }
   }
 
-  /**
-   * When binding to the service, we return an interface to our messenger for
-   * sending messages to the service.
-   */
-  @Override public IBinder onBind(Intent intent) {
-    isBound = true;
-    return serviceMessenger.getBinder();
-  }
-
-  @Override public boolean onUnbind(Intent intent) {
-    isBound = false;
-    return true;
-  }
-
-  @Override public void onRebind(Intent intent) {
-    isBound = true;
-    super.onRebind(intent);
-  }
-
   public void startNotifications() {
-    startForeground(SERVICE_ID, createNotification(R.string.notification_ongoing_poa));
+    startForeground(SERVICE_ID,
+        createDefaultNotificationBuilder(R.string.notification_ongoing_poa).build());
     if (disposable == null || disposable.isDisposed()) {
       disposable = proofOfAttentionService.get()
           .flatMapIterable(proofs -> proofs)
-          .distinctUntilChanged(Proof::getProofStatus)
-          .doOnNext(proof -> updateNotification(proof.getProofStatus()))
+          .doOnNext(this::updateNotification)
           .filter(proof -> proof.getProofStatus()
               .isTerminate())
           .doOnNext(proof -> proofOfAttentionService.remove(proof.getPackageName()))
@@ -160,43 +156,69 @@ public class WalletPoAService extends Service {
     }
   }
 
-  private void updateNotification(ProofStatus status) {
-    @StringRes int notificationText;
-    switch (status) {
+  private void updateNotification(Proof proof) {
+    switch (proof.getProofStatus()) {
       case SUBMITTING:
-        notificationText = R.string.notification_submitting_poa;
+        notificationManager.notify(SERVICE_ID,
+            createDefaultNotificationBuilder(R.string.notification_submitting_poa).build());
         break;
       case COMPLETED:
-        notificationText = R.string.notification_completed_poa;
+        notificationManager.notify(SERVICE_ID,
+            createDefaultNotificationBuilder(R.string.notification_completed_poa).build());
         break;
       case NO_FUNDS:
-        notificationText = R.string.notification_no_funds_poa;
+        notificationManager.notify(SERVICE_ID,
+            createDefaultNotificationBuilder(R.string.notification_no_funds_poa).build());
         break;
       case NO_INTERNET:
-        notificationText = R.string.notification_no_internet_poa;
+        notificationManager.notify(SERVICE_ID,
+            createDefaultNotificationBuilder(R.string.notification_no_internet_poa).build());
         break;
       case GENERAL_ERROR:
-        notificationText = R.string.notification_error_poa;
+        notificationManager.notify(SERVICE_ID,
+            createDefaultNotificationBuilder(R.string.notification_error_poa).build());
         break;
       case NO_WALLET:
-        notificationText = R.string.notification_no_wallet_poa;
+        notificationManager.notify(SERVICE_ID,
+            createDefaultNotificationBuilder(R.string.notification_no_wallet_poa).build());
         break;
       case CANCELLED:
-        notificationText = R.string.notification_cancelled_poa;
+        notificationManager.notify(SERVICE_ID,
+            createDefaultNotificationBuilder(R.string.notification_cancelled_poa).build());
         break;
       default:
       case PROCESSING:
-        notificationText = R.string.notification_ongoing_poa;
+        int progress = calculateProgress(proof);
+        notificationManager.notify(SERVICE_ID,
+            createDefaultNotificationBuilder(R.string.notification_ongoing_poa).setProgress(100,
+                progress, progress == 0 || progress == 100)
+                .build());
         break;
     }
 
-    notificationManager.notify(SERVICE_ID, createNotification(notificationText));
-    if (status.isTerminate()) {
+    if (proof.getProofStatus()
+        .isTerminate()) {
       stopForeground(false);
     }
   }
 
-  private Notification createNotification(int notificationText) {
+  private @IntRange(from = 0, to = 100) int calculateProgress(Proof proof) {
+    int progress = 0;
+    progress += proof.getProofComponentList()
+        .size();
+    if (proof.getCampaignId() != null) {
+      progress++;
+    }
+    if (proof.getStoreAddress() != null) {
+      progress++;
+    }
+    if (proof.getOemAddress() != null) {
+      progress++;
+    }
+    return progress * 100 / 15;
+  }
+
+  private NotificationCompat.Builder createDefaultNotificationBuilder(int notificationText) {
     NotificationCompat.Builder builder;
     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
       String channelId = "notification_channel_id";
@@ -215,8 +237,7 @@ public class WalletPoAService extends Service {
 
     return builder.setContentTitle(getString(R.string.app_name))
         .setSmallIcon(R.drawable.ic_launcher_foreground)
-        .setContentText(getString(notificationText))
-        .build();
+        .setContentText(getString(notificationText));
   }
 
   /**
