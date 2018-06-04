@@ -19,9 +19,11 @@ import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofSubmissionFeeData;
 import dagger.android.AndroidInjection;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import static com.asfoundation.wallet.advertise.ServiceConnector.ACTION_ACK_BROADCAST;
@@ -54,6 +56,7 @@ public class WalletPoAService extends Service {
   @Inject ProofOfAttentionService proofOfAttentionService;
   private Disposable disposable;
   private NotificationManager notificationManager;
+  private Disposable timerDisposable;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -121,19 +124,28 @@ public class WalletPoAService extends Service {
         notificationManager.notify(SERVICE_ID,
             createDefaultNotificationBuilder(R.string.notification_no_funds_poa).build());
         stopForeground(false);
+        stopTimeout();
         break;
       case NO_WALLET:
         // Show notification mentioning that we have no wallet configured on the app
         notificationManager.notify(SERVICE_ID,
             createDefaultNotificationBuilder(R.string.notification_no_wallet_poa).build());
         stopForeground(false);
+        stopTimeout();
         break;
       case NO_NETWORK:
         // Show notification mentioning that we have no wallet configured on the app
         notificationManager.notify(SERVICE_ID,
             createDefaultNotificationBuilder(R.string.notification_no_network_poa).build());
         stopForeground(false);
+        stopTimeout();
         break;
+    }
+  }
+
+  private void stopTimeout() {
+    if (timerDisposable != null && !timerDisposable.isDisposed()) {
+      timerDisposable.dispose();
     }
   }
 
@@ -199,6 +211,7 @@ public class WalletPoAService extends Service {
     if (proof.getProofStatus()
         .isTerminate()) {
       stopForeground(false);
+      stopTimeout();
     }
   }
 
@@ -240,6 +253,14 @@ public class WalletPoAService extends Service {
         .setContentText(getString(notificationText));
   }
 
+  public void setTimeout(String packageName) {
+    if (timerDisposable != null && !timerDisposable.isDisposed()) {
+      timerDisposable.dispose();
+    }
+    timerDisposable = Observable.timer(30, TimeUnit.SECONDS)
+        .subscribe(__ -> proofOfAttentionService.cancel(packageName));
+  }
+
   /**
    * Handler of incoming messages from clients.
    */
@@ -247,6 +268,7 @@ public class WalletPoAService extends Service {
     @Override public void handleMessage(Message msg) {
       String packageName = msg.getData()
           .getString("packageName");
+      setTimeout(packageName);
       Log.d(TAG, "handleMessage() called with: msg = [" + msg + "] " + "");
       switch (msg.what) {
         case MSG_REGISTER_CAMPAIGN:
