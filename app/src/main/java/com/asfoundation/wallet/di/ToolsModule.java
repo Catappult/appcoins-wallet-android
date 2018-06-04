@@ -247,16 +247,21 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
     return new HashCalculator(BuildConfig.LEADING_ZEROS_ON_PROOF_OF_ATTENTION, calculator);
   }
 
+  @Provides @Named("MAX_NUMBER_PROOF_COMPONENTS") int provideMaxNumberProofComponents() {
+    return 12;
+  }
+
   @Provides TaggedCompositeDisposable provideTaggedCompositeDisposable() {
     return new TaggedCompositeDisposable(new HashMap<>());
   }
 
   @Singleton @Provides ProofOfAttentionService provideProofOfAttentionService(
-      HashCalculator hashCalculator, ProofWriter proofWriter,
-      TaggedCompositeDisposable disposables) {
+      HashCalculator hashCalculator, ProofWriter proofWriter, TaggedCompositeDisposable disposables,
+      @Named("MAX_NUMBER_PROOF_COMPONENTS") int maxNumberProofComponents) {
     return new ProofOfAttentionService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
         BuildConfig.APPLICATION_ID, hashCalculator, new CompositeDisposable(), proofWriter,
-        Schedulers.computation(), 12, new BlockchainErrorMapper(), disposables);
+        Schedulers.computation(), maxNumberProofComponents, new BlockchainErrorMapper(),
+        disposables);
   }
 
   @Provides NonceGetter provideNonceGetter(EthereumNetworkRepositoryType networkRepository,
