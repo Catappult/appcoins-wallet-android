@@ -165,7 +165,6 @@ public class WalletPoAService extends Service {
 
   private void stopTimeout() {
     disposeDisposable(timerDisposable);
-    disposeDisposable(requirementsDisposable);
   }
 
   public void startNotifications() {
@@ -275,7 +274,10 @@ public class WalletPoAService extends Service {
   public void setTimeout(String packageName) {
     disposeDisposable(timerDisposable);
     timerDisposable = Observable.timer(30, TimeUnit.SECONDS)
-        .subscribe(__ -> proofOfAttentionService.cancel(packageName));
+        .subscribe(__ -> {
+          disposeDisposable(requirementsDisposable);
+          proofOfAttentionService.cancel(packageName);
+        });
   }
 
   public void disposeDisposable(Disposable disposable) {
