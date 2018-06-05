@@ -16,7 +16,6 @@ import com.asfoundation.wallet.ui.widget.OnBackupClickListener;
 public class BackupWarningView extends FrameLayout implements View.OnClickListener {
 
   private OnBackupClickListener onPositiveClickListener;
-  private OnBackupClickListener onNegativeClickListener;
   private Wallet wallet;
 
   public BackupWarningView(@NonNull Context context) {
@@ -53,10 +52,6 @@ public class BackupWarningView extends FrameLayout implements View.OnClickListen
       }
       break;
     }
-  }
-
-  public void setOnNegativeClickListener(OnBackupClickListener onNegativeClickListener) {
-    this.onNegativeClickListener = onNegativeClickListener;
   }
 
   public void setOnPositiveClickListener(OnBackupClickListener onPositiveClickListener) {
