@@ -69,7 +69,6 @@ public class WalletsActivity extends BaseActivity
     systemView.attachRecyclerView(list);
     systemView.attachSwipeRefreshLayout(refreshLayout);
     backupWarning.setOnPositiveClickListener(this::onNowBackup);
-    backupWarning.setOnNegativeClickListener(this::onLaterBackup);
 
     viewModel = ViewModelProviders.of(this, walletsViewModelFactory)
         .get(WalletsViewModel.class);
@@ -255,26 +254,8 @@ public class WalletsActivity extends BaseActivity
     backupWarning.show(wallet);
   }
 
-  private void onLaterBackup(View view, Wallet wallet) {
-    showNoBackupWarning(wallet);
-  }
-
   private void onNowBackup(View view, Wallet wallet) {
     showBackupDialog(wallet, true);
-  }
-
-  private void showNoBackupWarning(Wallet wallet) {
-    dialog = buildDialog().setTitle(getString(R.string.title_dialog_watch_out))
-        .setMessage(getString(R.string.dialog_message_unrecoverable_message))
-        .setIcon(R.drawable.ic_warning_black_24dp)
-        .setPositiveButton(R.string.i_understand, (dialog, whichButton) -> {
-          backupWarning.hide();
-          showToolbar();
-        })
-        .setNegativeButton(android.R.string.cancel,
-            null) //(dialog, whichButton) -> showBackupDialog(wallet, true)
-        .create();
-    dialog.show();
   }
 
   private void showBackupDialog(Wallet wallet, boolean isNew) {

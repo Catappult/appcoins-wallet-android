@@ -132,10 +132,10 @@
     <Button
         android:id="@+id/send_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/button_height"
         android:text="@string/action_send"
         app:layout_constraintBottom_toBottomOf="parent"
-        style="@style/Widget.AppCompat.Button.Colored"
+        style="@style/ButtonStyle"
         />
 
   </android.support.constraint.ConstraintLayout>

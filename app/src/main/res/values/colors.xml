@@ -6,15 +6,13 @@
   <color name="white">#FFFFFFFF</color>
   <color name="black">#313849</color>
 
-  <color name="colorPrimary">#248adb</color>
-  <color name="colorPrimaryDark">#1E76CE</color>
-  <color name="colorAccent">#248adb</color>
+  <color name="colorPrimary">#fc9d48</color>
+  <color name="colorPrimaryDark">#e44b46</color>
+  <color name="colorAccent">#e44b46</color>
 
   <color name="statusBarColor">#154868</color>
-
   <color name="activity_background_color">#fafafa</color>
 
-  <!--<color name="title">#89000000</color>-->
   <color name="secondary_text">#40000000</color>
 
   <color name="bottom_dialog_title">#89000000</color>
@@ -31,11 +29,14 @@
   <color name="iab_activity_gray">#8a000000</color>
   <color name="black_87_alpha">#de000000</color>
   <color name="grey">#757575</color>
-  <color name="dark_blue">#1976d2</color>
-  <color name="light_blue">#36aeeb</color>
+
+  <color name="appbar_start_gradient_color">#000000</color>
+  <color name="appbar_end_gradient_color">#012945</color>
+  <color name="grey_8a_alpha">#8a000000</color>
+
   <color name="gray_alpha_8a">#8a000000</color>
   <color name="gray_alpha_61">#61000000</color>
-  <color name="grey_6b_alpha">#6b000000</color>
+  <color name="grey_alpha_6b">#6b000000</color>
   <color name="appbar_subtitle_color">#b8ffffff</color>
 
   <color name="activity_transactions_airdrop_success_gray">#8a000000</color>
@@ -44,8 +45,14 @@
   <color name="list_separator_color">#f0f0f0</color>
 
   <color name="disable_gray">#12000000</color>
-  <color name="details_address_text_color">#248adb</color>
+  <color name="details_address_text_color">#e44b46</color>
   <color name="btn_disable_color">#00000000</color>
   <color name="btn_text_disable_color">#42000000</color>
   <color name="btn_text_enable_color">#ffffff</color>
+
+  <color name="btn_light_text_enable_color">#e44b46</color>
+  <color name="btn_start_gradient_color">#fc9d48</color>
+  <color name="btn_end_gradient_color">#ff578c</color>
+  <color name="btn_light_enabled_color">#e44b46</color>
+  <color name="btn_light_disable_color">#42000000</color>
 </resources>

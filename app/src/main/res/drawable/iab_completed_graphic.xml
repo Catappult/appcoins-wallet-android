@@ -4,29 +4,27 @@
   <item>
     <shape
         android:shape="ring"
-        android:thicknessRatio="100"
+        android:thicknessRatio="40"
         android:useLevel="false">
       <size
-          android:height="100dp"
-          android:width="100dp"/>
+          android:height="180dp"
+          android:width="180dp"/>
       <gradient
-          android:endColor="@color/dark_blue"
-          android:startColor="@color/light_blue"/>
+          android:angle="315"
+          android:endColor="@color/btn_end_gradient_color"
+          android:startColor="@color/btn_start_gradient_color"/>
     </shape>
   </item>
-  <!-- Smaller red circle in front -->
   <item>
     <shape android:shape="oval">
       <!-- transparent stroke = larger_circle_size - smaller_circle_size -->
       <stroke
           android:color="@android:color/transparent"
-          android:width="50dp"/>
+          android:width="90dp"/>
       <gradient
-          android:endColor="@color/dark_blue"
-          android:startColor="@color/light_blue"/>
-      <size
-          android:height="100dp"
-          android:width="100dp"/>
+          android:angle="315"
+          android:endColor="@color/btn_end_gradient_color"
+          android:startColor="@color/btn_start_gradient_color"/>
     </shape>
   </item>
   <item

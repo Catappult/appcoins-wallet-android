@@ -44,21 +44,14 @@
         android:text="@string/backup_warning_text"
         android:textAlignment="center"
         />
-    <Button
-        android:id="@+id/later_action"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/normal_margin"
-        android:text="@string/action_backup_later"
-        style="@style/Widget.AppCompat.Button"
-        />
+
     <Button
         android:id="@+id/backup_action"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/button_height"
         android:layout_marginTop="@dimen/big_margin"
         android:text="@string/action_backup_wallet"
-        style="@style/Widget.AppCompat.Button.Colored"
+        style="@style/ButtonStyle"
         />
   </LinearLayout>
 </FrameLayout>
