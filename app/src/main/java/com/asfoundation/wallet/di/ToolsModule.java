@@ -6,6 +6,8 @@ import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.Airdrop;
 import com.asfoundation.wallet.AirdropService;
 import com.asfoundation.wallet.App;
+import com.asfoundation.wallet.FabricLogger;
+import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
@@ -118,6 +120,10 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
   @Singleton @Provides PasswordStore passwordStore(Context context) {
     return new TrustPasswordStore(context);
+  }
+
+  @Singleton @Provides Logger provideLogger() {
+    return new FabricLogger();
   }
 
   @Singleton @Provides RealmManager provideRealmManager() {

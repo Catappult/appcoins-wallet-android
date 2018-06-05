@@ -15,11 +15,11 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofSubmissionFeeData;
 import dagger.android.AndroidInjection;
-import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import java.util.List;
@@ -56,6 +56,7 @@ public class WalletPoAService extends Service {
 
   @Inject ProofOfAttentionService proofOfAttentionService;
   @Inject @Named("MAX_NUMBER_PROOF_COMPONENTS") int maxNumberProofComponents;
+  @Inject Logger logger;
   private Disposable disposable;
   private NotificationManager notificationManager;
   private Disposable timerDisposable;
@@ -72,16 +73,26 @@ public class WalletPoAService extends Service {
     if (!isBound && intent != null) {
       if (intent.hasExtra(PARAM_APP_PACKAGE_NAME)) {
         // set the chain id received from the application. If not received, it is set as the main
-        // network chain id
-        requirementsDisposable = Completable.fromAction(
-            () -> proofOfAttentionService.setChainId(intent.getStringExtra(PARAM_APP_PACKAGE_NAME),
-                intent.getIntExtra(PARAM_NETWORK_ID, 1)))
-            .andThen(
-                proofOfAttentionService.isWalletReady(intent.getStringExtra(PARAM_APP_PACKAGE_NAME))
-                    .doOnSuccess(
-                        requirementsStatus -> processWalletSate(requirementsStatus, intent)))
-            .subscribe();
+        String packageName = intent.getStringExtra(PARAM_APP_PACKAGE_NAME);
+        requirementsDisposable =
+            proofOfAttentionService.isWalletReady(intent.getIntExtra(PARAM_NETWORK_ID, 1))
+                // network chain id
+                .doOnSuccess(requirementsStatus -> proofOfAttentionService.setChainId(packageName,
+                    intent.getIntExtra(PARAM_NETWORK_ID, 1)))
+                .doOnSuccess(
+                    proofSubmissionFeeData -> proofOfAttentionService.setGasSettings(packageName,
+                        proofSubmissionFeeData.getGasPrice(), proofSubmissionFeeData.getGasLimit()))
+                .doOnSuccess(
+                    requirementsStatus -> processWalletSate(requirementsStatus.getStatus(), intent))
+                .subscribe(requirementsStatus -> {
+                }, throwable -> {
+                  logger.log(throwable);
+                  showGenericErrorNotificationAndStopForeground();
+                });
       }
+    }
+    if (intent.hasExtra(PARAM_APP_PACKAGE_NAME)) {
+      setTimeout(intent.getStringExtra(PARAM_APP_PACKAGE_NAME));
     }
     return super.onStartCommand(intent, flags, startId);
   }
@@ -103,6 +114,12 @@ public class WalletPoAService extends Service {
   @Override public void onRebind(Intent intent) {
     isBound = true;
     super.onRebind(intent);
+  }
+
+  private void showGenericErrorNotificationAndStopForeground() {
+    notificationManager.notify(SERVICE_ID,
+        createDefaultNotificationBuilder(R.string.notification_generic_error).build());
+    stopForeground(false);
   }
 
   private void processWalletSate(ProofSubmissionFeeData.RequirementsStatus requirementsStatus,
@@ -147,9 +164,8 @@ public class WalletPoAService extends Service {
   }
 
   private void stopTimeout() {
-    if (timerDisposable != null && !timerDisposable.isDisposed()) {
-      timerDisposable.dispose();
-    }
+    disposeDisposable(timerDisposable);
+    disposeDisposable(requirementsDisposable);
   }
 
   public void startNotifications() {
@@ -257,11 +273,15 @@ public class WalletPoAService extends Service {
   }
 
   public void setTimeout(String packageName) {
-    if (timerDisposable != null && !timerDisposable.isDisposed()) {
-      timerDisposable.dispose();
-    }
+    disposeDisposable(timerDisposable);
     timerDisposable = Observable.timer(30, TimeUnit.SECONDS)
         .subscribe(__ -> proofOfAttentionService.cancel(packageName));
+  }
+
+  public void disposeDisposable(Disposable disposable) {
+    if (disposable != null && !disposable.isDisposed()) {
+      disposable.dispose();
+    }
   }
 
   /**
@@ -294,9 +314,6 @@ public class WalletPoAService extends Service {
         case MSG_STOP_PROCESS:
           Log.d(TAG, "MSG_STOP_PROCESS");
           proofOfAttentionService.cancel(packageName);
-          if (requirementsDisposable != null && requirementsDisposable.isDisposed()) {
-            requirementsDisposable.dispose();
-          }
           break;
         default:
           super.handleMessage(msg);
