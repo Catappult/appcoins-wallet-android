@@ -212,8 +212,8 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   }
 
   @Singleton @Provides GasSettingsRepositoryType provideGasSettingsRepository(
-      EthereumNetworkRepositoryType ethereumNetworkRepository) {
-    return new GasSettingsRepository(ethereumNetworkRepository);
+      EthereumNetworkRepositoryType ethereumNetworkRepository, Web3jProvider web3jProvider) {
+    return new GasSettingsRepository(ethereumNetworkRepository, web3jProvider);
   }
 
   @Singleton @Provides DataMapper provideDataMapper() {

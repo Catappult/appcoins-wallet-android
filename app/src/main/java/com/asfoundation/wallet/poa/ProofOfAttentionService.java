@@ -109,7 +109,6 @@ public class ProofOfAttentionService {
 
   public void setChainId(String packageName, int chainId) {
     disposables.add(packageName, Completable.fromAction(() -> setChainIdSync(packageName, chainId))
-        .subscribeOn(computationScheduler)
         .subscribe());
   }
 
@@ -260,7 +259,6 @@ public class ProofOfAttentionService {
     })
         .doOnSuccess(
             proofSubmissionFeeData -> setGasSettingsSync(packageName, proofSubmissionFeeData))
-        .subscribeOn(computationScheduler)
         .map(ProofSubmissionFeeData::getStatus);
   }
 }

@@ -268,6 +268,7 @@ public class ProofOfAttentionServiceTest {
   @Test public void isWalletReady() {
     TestObserver<ProofSubmissionFeeData.RequirementsStatus> ready =
         proofOfAttentionService.isWalletReady("packageName")
+            .subscribeOn(testScheduler)
             .test();
     ProofSubmissionFeeData readyFee =
         new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY, BigDecimal.ONE,
@@ -279,6 +280,7 @@ public class ProofOfAttentionServiceTest {
         .assertValue(readyFee.getStatus());
     TestObserver<ProofSubmissionFeeData.RequirementsStatus> noFunds =
         proofOfAttentionService.isWalletReady("packageName")
+            .subscribeOn(testScheduler)
             .test();
     ProofSubmissionFeeData noFundsFee =
         new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NO_FUNDS,
@@ -290,6 +292,7 @@ public class ProofOfAttentionServiceTest {
         .assertValue(noFundsFee.getStatus());
     TestObserver<ProofSubmissionFeeData.RequirementsStatus> noWallet =
         proofOfAttentionService.isWalletReady("packageName")
+            .subscribeOn(testScheduler)
             .test();
     ProofSubmissionFeeData noWalletFee =
         new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NO_WALLET,

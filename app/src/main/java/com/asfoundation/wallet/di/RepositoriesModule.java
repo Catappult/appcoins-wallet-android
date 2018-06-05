@@ -45,9 +45,9 @@ import okhttp3.OkHttpClient;
   @Singleton @Provides WalletRepositoryType provideWalletRepository(OkHttpClient okHttpClient,
       PreferenceRepositoryType preferenceRepositoryType,
       AccountKeystoreService accountKeystoreService,
-      EthereumNetworkRepositoryType networkRepository) {
+      EthereumNetworkRepositoryType networkRepository, Web3jProvider web3jProvider) {
     return new WalletRepository(okHttpClient, preferenceRepositoryType, accountKeystoreService,
-        networkRepository);
+        networkRepository, web3jProvider);
   }
 
   @Singleton @Provides Web3jService providesWeb3jService(Web3jProvider web3jProvider) {

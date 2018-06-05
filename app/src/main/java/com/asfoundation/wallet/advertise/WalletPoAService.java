@@ -19,8 +19,8 @@ import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofSubmissionFeeData;
 import dagger.android.AndroidInjection;
+import io.reactivex.Completable;
 import io.reactivex.Observable;
-import io.reactivex.Single;
 import io.reactivex.disposables.Disposable;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -59,6 +59,7 @@ public class WalletPoAService extends Service {
   private Disposable disposable;
   private NotificationManager notificationManager;
   private Disposable timerDisposable;
+  private Disposable requirementsDisposable;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -72,13 +73,13 @@ public class WalletPoAService extends Service {
       if (intent.hasExtra(PARAM_APP_PACKAGE_NAME)) {
         // set the chain id received from the application. If not received, it is set as the main
         // network chain id
-        proofOfAttentionService.setChainId(intent.getStringExtra(PARAM_APP_PACKAGE_NAME),
-            intent.getIntExtra(PARAM_NETWORK_ID, 1));
-        Single.just(intent)
-            .flatMap(receivedIntent -> proofOfAttentionService.isWalletReady(
-                intent.getStringExtra(PARAM_APP_PACKAGE_NAME))
-                .doOnSuccess(
-                    requirementsStatus -> processWalletSate(requirementsStatus, receivedIntent)))
+        requirementsDisposable = Completable.fromAction(
+            () -> proofOfAttentionService.setChainId(intent.getStringExtra(PARAM_APP_PACKAGE_NAME),
+                intent.getIntExtra(PARAM_NETWORK_ID, 1)))
+            .andThen(
+                proofOfAttentionService.isWalletReady(intent.getStringExtra(PARAM_APP_PACKAGE_NAME))
+                    .doOnSuccess(
+                        requirementsStatus -> processWalletSate(requirementsStatus, intent)))
             .subscribe();
       }
     }
@@ -293,6 +294,9 @@ public class WalletPoAService extends Service {
         case MSG_STOP_PROCESS:
           Log.d(TAG, "MSG_STOP_PROCESS");
           proofOfAttentionService.cancel(packageName);
+          if (requirementsDisposable != null && requirementsDisposable.isDisposed()) {
+            requirementsDisposable.dispose();
+          }
           break;
         default:
           super.handleMessage(msg);
