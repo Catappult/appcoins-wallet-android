@@ -6,6 +6,8 @@ import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.Airdrop;
 import com.asfoundation.wallet.AirdropService;
 import com.asfoundation.wallet.App;
+import com.asfoundation.wallet.FabricLogger;
+import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
@@ -123,6 +125,10 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
     return new TrustPasswordStore(context);
   }
 
+  @Singleton @Provides Logger provideLogger() {
+    return new FabricLogger();
+  }
+
   @Singleton @Provides RealmManager provideRealmManager() {
     return new RealmManager();
   }
@@ -215,8 +221,8 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   }
 
   @Singleton @Provides GasSettingsRepositoryType provideGasSettingsRepository(
-      EthereumNetworkRepositoryType ethereumNetworkRepository) {
-    return new GasSettingsRepository(ethereumNetworkRepository);
+      EthereumNetworkRepositoryType ethereumNetworkRepository, Web3jProvider web3jProvider) {
+    return new GasSettingsRepository(ethereumNetworkRepository, web3jProvider);
   }
 
   @Singleton @Provides DataMapper provideDataMapper() {
@@ -262,16 +268,21 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
     return new HashCalculator(BuildConfig.LEADING_ZEROS_ON_PROOF_OF_ATTENTION, calculator);
   }
 
+  @Provides @Named("MAX_NUMBER_PROOF_COMPONENTS") int provideMaxNumberProofComponents() {
+    return 12;
+  }
+
   @Provides TaggedCompositeDisposable provideTaggedCompositeDisposable() {
     return new TaggedCompositeDisposable(new HashMap<>());
   }
 
   @Singleton @Provides ProofOfAttentionService provideProofOfAttentionService(
-      HashCalculator hashCalculator, ProofWriter proofWriter,
-      TaggedCompositeDisposable disposables) {
+      HashCalculator hashCalculator, ProofWriter proofWriter, TaggedCompositeDisposable disposables,
+      @Named("MAX_NUMBER_PROOF_COMPONENTS") int maxNumberProofComponents) {
     return new ProofOfAttentionService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
         BuildConfig.APPLICATION_ID, hashCalculator, new CompositeDisposable(), proofWriter,
-        Schedulers.computation(), 12, new BlockchainErrorMapper(), disposables);
+        Schedulers.computation(), maxNumberProofComponents, new BlockchainErrorMapper(),
+        disposables);
   }
 
   @Provides NonceGetter provideNonceGetter(EthereumNetworkRepositoryType networkRepository,
