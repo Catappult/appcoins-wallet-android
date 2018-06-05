@@ -52,11 +52,6 @@ public class BackupWarningView extends FrameLayout implements View.OnClickListen
         }
       }
       break;
-      //case R.id.later_action: {
-      //  if (onNegativeClickListener != null) {
-      //    onNegativeClickListener.onBackupClick(v, wallet);
-      //  }
-      //}
     }
   }
 
