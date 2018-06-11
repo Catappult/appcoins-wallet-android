@@ -84,7 +84,7 @@ public class AddWalletView extends FrameLayout implements View.OnClickListener {
         R.string.intro_message_second_page, R.string.intro_message_third_page,
     };
     private int[] images = new int[] {
-        R.drawable.onboarding_asf_ic, R.drawable.onboarding_erc20, R.mipmap.onboarding_open_source,
+        R.drawable.ic_appc_primary, R.mipmap.onboarding_erc20, R.mipmap.onboarding_open_source,
         R.mipmap.onboarding_rocket
     };
 

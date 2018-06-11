@@ -41,7 +41,7 @@
   <Button
       android:id="@+id/activity_iab_error_ok_button"
       android:layout_width="wrap_content"
-      android:layout_height="36dp"
+      android:layout_height="@dimen/button_height"
       android:text="@string/ok"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"

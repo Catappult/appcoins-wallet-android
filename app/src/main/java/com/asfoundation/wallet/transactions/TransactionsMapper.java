@@ -20,7 +20,7 @@ public class TransactionsMapper {
   public static final String ADS_METHOD_ID = "0x79c6b667";
   public static final String OPEN_CHANNEL_METHOD_ID = "0xa6d15963";
   public static final String TOPUP_CHANNEL_METHOD_ID = "0x016a8cf6";
-  public static final String CLOSE_CHANNEL_METHOD_ID = "0x79c6b667";
+  public static final String CLOSE_CHANNEL_METHOD_ID = "0x1c6f609b";
   private final DefaultTokenProvider defaultTokenProvider;
   private final AppcoinsOperationsDataSaver operationsDataSaver;
   private final Scheduler scheduler;
@@ -42,7 +42,8 @@ public class TransactionsMapper {
     List<Transaction> transactionList = new ArrayList<>();
     for (int i = transactions.length - 1; i >= 0; i--) {
       RawTransaction transaction = transactions[i];
-      if (isAppcoinsTransaction(transaction, address) && isApprovedTransaction(transaction)
+      if (isAppcoinsTransaction(transaction, address)
+          && isApprovedTransaction(transaction)
           && i > 0) {
         transactionList.add(0, mapTransactionWithApprove(transaction, transactions[i - 1]));
         i--;
@@ -185,12 +186,12 @@ public class TransactionsMapper {
       operations.add(new Operation(transaction.hash, transaction.from, transaction.to, fee));
     }
 
-    TransactionDetails details =
-        getTransactionDetails(getTransactionType(transaction), transaction);
+    Transaction.TransactionType type = getTransactionType(transaction);
+    TransactionDetails details = getTransactionDetails(type, transaction);
 
-    return new Transaction(transaction.hash, Transaction.TransactionType.IAB,
-        approveTransaction.hash, transaction.timeStamp, getError(transaction), value.toString(),
-        transaction.from, transaction.to, details, currency, operations);
+    return new Transaction(transaction.hash, type, approveTransaction.hash, transaction.timeStamp,
+        getError(transaction), value.toString(), transaction.from, transaction.to, details,
+        currency, operations);
   }
 
   private boolean isIabTransaction(RawTransaction auxTransaction) {

@@ -19,6 +19,7 @@ import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsDetailsAdapter;
 import com.asfoundation.wallet.util.BalanceUtils;
+import com.asfoundation.wallet.util.StringUtils;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModel;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModelFactory;
 import com.asfoundation.wallet.widget.CircleTransformation;
@@ -105,6 +106,7 @@ public class TransactionDetailActivity extends BaseActivity {
 
     @StringRes int typeStr = R.string.transaction_type_standard;
     @DrawableRes int typeIcon = R.drawable.ic_transaction_peer;
+    boolean showCloseButton = false;
 
     switch (transaction.getType()) {
       case ADS:
@@ -114,6 +116,32 @@ public class TransactionDetailActivity extends BaseActivity {
       case IAB:
         typeStr = R.string.transaction_type_iab;
         typeIcon = R.drawable.ic_transaction_iab;
+        break;
+      case OPEN_CHANNEL:
+        showCloseButton = true;
+        typeStr = R.string.transaction_type_miuraiden;
+        typeIcon = R.drawable.ic_transaction_miu;
+        id = getString(R.string.miuraiden_trans_details_open);
+        description =
+            StringUtils.resizeString(isSent ? transaction.getTo() : transaction.getFrom(), 7,
+                getString(R.string.ellipsize));
+        break;
+      case TOP_UP_CHANNEL:
+        showCloseButton = true;
+        typeStr = R.string.transaction_type_miuraiden;
+        typeIcon = R.drawable.ic_transaction_miu;
+        id = getString(R.string.miuraiden_trans_details_topup);
+        description =
+            StringUtils.resizeString(isSent ? transaction.getTo() : transaction.getFrom(), 7,
+                getString(R.string.ellipsize));
+        break;
+      case CLOSE_CHANNEL:
+        typeStr = R.string.transaction_type_miuraiden;
+        typeIcon = R.drawable.ic_transaction_miu;
+        id = getString(R.string.miuraiden_trans_details_close);
+        description =
+            StringUtils.resizeString(isSent ? transaction.getTo() : transaction.getFrom(), 7,
+                getString(R.string.ellipsize));
         break;
     }
 
@@ -132,7 +160,7 @@ public class TransactionDetailActivity extends BaseActivity {
     }
 
     setUIContent(transaction.getTimeStamp(), rawValue, symbol, icon, id, description, typeStr,
-        typeIcon, statusStr, statusColor);
+        typeIcon, statusStr, statusColor, showCloseButton);
   }
 
   private void onDefaultNetwork(NetworkInfo networkInfo) {
@@ -161,7 +189,8 @@ public class TransactionDetailActivity extends BaseActivity {
   }
 
   private void setUIContent(long timeStamp, String value, String symbol, String icon, String id,
-      String description, int typeStr, int typeIcon, int statusStr, int statusColor) {
+      String description, int typeStr, int typeIcon, int statusStr, int statusColor,
+      boolean showCloseBtn) {
     ((TextView) findViewById(R.id.transaction_timestamp)).setText(getDate(timeStamp));
     findViewById(R.id.transaction_timestamp).setVisibility(View.VISIBLE);
 
@@ -190,5 +219,7 @@ public class TransactionDetailActivity extends BaseActivity {
 
     ((TextView) findViewById(R.id.status)).setText(statusStr);
     ((TextView) findViewById(R.id.status)).setTextColor(getResources().getColor(statusColor));
+
+    findViewById(R.id.close_channel_btn).setVisibility(showCloseBtn ? View.VISIBLE : View.GONE);
   }
 }

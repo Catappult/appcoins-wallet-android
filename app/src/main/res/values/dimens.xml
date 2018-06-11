@@ -39,5 +39,5 @@
   <dimen name="transaction_img_size">40dp</dimen>
   <dimen name="transaction_img_size_inside">50dp</dimen>
 
-  <dimen name="button_height">32dp</dimen>
+  <dimen name="button_height">40dp</dimen>
 </resources>
