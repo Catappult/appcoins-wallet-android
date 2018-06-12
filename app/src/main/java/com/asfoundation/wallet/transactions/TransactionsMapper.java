@@ -44,11 +44,14 @@ public class TransactionsMapper {
       RawTransaction transaction = transactions[i];
       if (isAppcoinsTransaction(transaction, address)
           && isApprovedTransaction(transaction)
-          && i > 0) {
+          && i > 0
+          && isTransactionWithApprove(transactions[i - 1])) {
         transactionList.add(0, mapTransactionWithApprove(transaction, transactions[i - 1]));
         i--;
       } else if (isAdsTransaction(transaction)) {
         transactionList.add(0, mapAdsTransaction(transaction));
+      } else if (isCloseChannleTransaction(transaction)) {
+        transactionList.add(0, mapCloseChannelTransaction(transaction));
       } else {
         transactionList.add(0, mapStandardTransaction(transaction));
       }
@@ -100,9 +103,40 @@ public class TransactionsMapper {
         operations);
   }
 
-  private boolean isAdsTransaction(RawTransaction transaction) {
-    return transaction.input.toUpperCase()
-        .startsWith(ADS_METHOD_ID.toUpperCase());
+  /**
+   * Method to map a raw transaction to a close channel transaction. In this case most probably the
+   * raw transaction value contains the value of the transfer, but to make sure that is the case, we
+   * confirm that there is no operation inside the raw transaction. In case the operations list is
+   * not empty we make the assumption that the value on the first operation of the list is the one
+   * to be taken in consideration for the user.
+   *
+   * @param transaction The raw transaction including all the information for a given transaction.
+   *
+   * @return a Transaction object containing the information needed and formatted, ready to be shown
+   * on the transactions list.
+   */
+  private Transaction mapCloseChannelTransaction(RawTransaction transaction) {
+    String value = transaction.value;
+    String currency = null;
+    List<Operation> operations = new ArrayList<>();
+    String fee = BalanceUtils.weiToEth(
+        new BigDecimal(transaction.gasUsed).multiply(new BigDecimal(transaction.gasPrice)))
+        .toPlainString();
+
+    if (transaction.operations != null && transaction.operations.length > 0) {
+      TransactionOperation operation = transaction.operations[0];
+      value = operation.value;
+      currency = operation.contract.symbol;
+
+      operations.add(new Operation(transaction.hash, operation.from, operation.to, fee));
+    } else {
+
+      operations.add(new Operation(transaction.hash, transaction.from, transaction.to, fee));
+    }
+
+    return new Transaction(transaction.hash, Transaction.TransactionType.CLOSE_CHANNEL, null,
+        transaction.timeStamp, getError(transaction), value, transaction.from, transaction.to, null,
+        currency, operations);
   }
 
   /**
@@ -194,6 +228,11 @@ public class TransactionsMapper {
         currency, operations);
   }
 
+  private boolean isAdsTransaction(RawTransaction transaction) {
+    return transaction.input.toUpperCase()
+        .startsWith(ADS_METHOD_ID.toUpperCase());
+  }
+
   private boolean isIabTransaction(RawTransaction auxTransaction) {
     return auxTransaction.input.toUpperCase()
         .startsWith(BUY_METHOD_ID.toUpperCase());
@@ -221,6 +260,13 @@ public class TransactionsMapper {
 
   private boolean isAppcoinsTransaction(RawTransaction transaction, String address) {
     return transaction.to.equalsIgnoreCase(address);
+  }
+
+  private boolean isTransactionWithApprove(RawTransaction auxTransaction) {
+    return auxTransaction.input.toUpperCase()
+        .startsWith(BUY_METHOD_ID.toUpperCase()) || auxTransaction.input.toUpperCase()
+        .startsWith(OPEN_CHANNEL_METHOD_ID.toUpperCase()) || auxTransaction.input.toUpperCase()
+        .startsWith(TOPUP_CHANNEL_METHOD_ID.toUpperCase());
   }
 
   private Transaction.TransactionStatus getError(RawTransaction transaction) {
@@ -251,9 +297,8 @@ public class TransactionsMapper {
       type = Transaction.TransactionType.OPEN_CHANNEL;
     } else if (isTopUpChannelTransaction(transaction)) {
       type = Transaction.TransactionType.TOP_UP_CHANNEL;
-    } else if (isCloseChannleTransaction(transaction)) {
-      type = Transaction.TransactionType.CLOSE_CHANNEL;
     }
+
     return type;
   }
 }
