@@ -49,6 +49,7 @@ import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.RealmManager;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TrustWalletTickerService;
+import com.asfoundation.wallet.ui.MicroRaidenInteractor;
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper;
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor;
 import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService;
@@ -59,6 +60,12 @@ import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.ui.iab.ImageSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase;
+import com.asfoundation.wallet.ui.iab.raiden.AppcoinsRaiden;
+import com.asfoundation.wallet.ui.iab.raiden.NonceObtainer;
+import com.asfoundation.wallet.ui.iab.raiden.PrivateKeyProvider;
+import com.asfoundation.wallet.ui.iab.raiden.Raiden;
+import com.asfoundation.wallet.ui.iab.raiden.RaidenFactory;
+import com.asfoundation.wallet.ui.iab.raiden.RaidenRepository;
 import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.TransferParser;
 import com.google.gson.Gson;
@@ -98,13 +105,23 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
         .build();
   }
 
+  @Singleton @Provides RaidenRepository provideRaidenRepository(
+      SharedPreferenceRepository sharedPreferenceRepository) {
+    return sharedPreferenceRepository;
+  }
+
   @Singleton @Provides EthereumNetworkRepositoryType provideEthereumNetworkRepository(
       PreferenceRepositoryType preferenceRepository, TickerService tickerService) {
     return new EthereumNetworkRepository(preferenceRepository, tickerService);
   }
 
-  @Singleton @Provides PreferenceRepositoryType providePreferenceRepository(Context context) {
+  @Singleton @Provides SharedPreferenceRepository providePreferenceRepository(Context context) {
     return new SharedPreferenceRepository(context);
+  }
+
+  @Singleton @Provides PreferenceRepositoryType providePreferenceRepositoryType(
+      SharedPreferenceRepository sharedPreferenceRepository) {
+    return sharedPreferenceRepository;
   }
 
   @Singleton @Provides TickerService provideTickerService(OkHttpClient httpClient, Gson gson) {
@@ -167,9 +184,16 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
   @Singleton @Provides InAppPurchaseInteractor provideTransactionInteractor(
       InAppPurchaseService inAppPurchaseService, FindDefaultWalletInteract defaultWalletInteract,
-      FetchGasSettingsInteract gasSettingsInteract, TransferParser parser) {
+      FetchGasSettingsInteract gasSettingsInteract, TransferParser parser,
+      RaidenRepository raidenRepository, Web3jProvider web3jprovider,
+      GasSettingsRepositoryType repository, WalletRepositoryType walletRepositoryType,
+      NonceObtainer nonceObtainer) {
+
     return new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
-        gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser);
+        gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
+        raidenRepository,
+        new AppcoinsRaiden(new RaidenFactory(web3jprovider, repository, nonceObtainer),
+            new PrivateKeyProvider()));
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(
@@ -183,6 +207,10 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   @Provides FetchTokensInteract provideFetchTokensInteract(TokenRepositoryType tokenRepository,
       DefaultTokenProvider defaultTokenProvider) {
     return new FetchTokensInteract(tokenRepository, defaultTokenProvider);
+  }
+
+  @Provides NonceObtainer provideNonceObtainer(Web3jProvider web3jProvider) {
+    return new NonceObtainer(30000, web3jProvider);
   }
 
   @Provides BalanceService provideBalanceService(GetDefaultWalletBalance getDefaultWalletBalance) {
@@ -310,5 +338,9 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
         new Airdrop(new AppcoinsTransactionService(pendingTransactionService),
             BehaviorSubject.create(), airdropService), findDefaultWalletInteract,
         airdropChainIdMapper, repository);
+  }
+
+  @Provides MicroRaidenInteractor provideMicroRaidenInteractor(Raiden raiden) {
+    return new MicroRaidenInteractor(raiden);
   }
 }

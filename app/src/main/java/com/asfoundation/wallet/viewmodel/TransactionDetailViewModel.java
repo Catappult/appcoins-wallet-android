@@ -3,20 +3,23 @@ package com.asfoundation.wallet.viewmodel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.transactions.Operation;
-import com.asfoundation.wallet.transactions.Transaction;
+import com.asfoundation.wallet.ui.MicroRaidenInteractor;
+import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
+import io.reactivex.Completable;
+import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class TransactionDetailViewModel extends BaseViewModel {
 
@@ -25,11 +28,13 @@ public class TransactionDetailViewModel extends BaseViewModel {
   private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
   private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
 
+  private final MicroRaidenInteractor microRaidenInteractor;
+
   TransactionDetailViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
-      ExternalBrowserRouter externalBrowserRouter) {
+      ExternalBrowserRouter externalBrowserRouter, MicroRaidenInteractor interactor) {
     this.externalBrowserRouter = externalBrowserRouter;
-
+    this.microRaidenInteractor = interactor;
     findDefaultNetworkInteract.find()
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(defaultNetwork::postValue, t -> {
@@ -66,7 +71,9 @@ public class TransactionDetailViewModel extends BaseViewModel {
     return defaultWallet;
   }
 
-  public void closeChannel() {
+  public Completable closeChannel(String fromAddress) {
+      return microRaidenInteractor.closeChannel(fromAddress)
+          .subscribeOn(Schedulers.io());
   }
 
 }

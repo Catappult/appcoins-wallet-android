@@ -11,13 +11,11 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.transactions.Operation;
@@ -31,6 +29,8 @@ import com.asfoundation.wallet.viewmodel.TransactionDetailViewModelFactory;
 import com.asfoundation.wallet.widget.CircleTransformation;
 import com.squareup.picasso.Picasso;
 import dagger.android.AndroidInjection;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Calendar;
@@ -48,7 +48,10 @@ public class TransactionDetailActivity extends BaseActivity {
   private TextView amount;
   private TransactionsDetailsAdapter adapter;
 
-  Dialog dialog;
+  private Dialog dialog;
+  private String walletAddr;
+  private CompositeDisposable disposables;
+
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -56,7 +59,7 @@ public class TransactionDetailActivity extends BaseActivity {
     AndroidInjection.inject(this);
 
     setContentView(R.layout.activity_transaction_detail);
-
+    disposables = new CompositeDisposable();
     transaction = getIntent().getParcelableExtra(TRANSACTION);
     if (transaction == null) {
       finish();
@@ -79,7 +82,14 @@ public class TransactionDetailActivity extends BaseActivity {
         .observe(this, this::onDefaultWallet);
   }
 
+  @Override protected void onStop() {
+    super.onStop();
+    disposables.dispose();
+    hideDialog();
+  }
+
   private void onDefaultWallet(Wallet wallet) {
+    walletAddr = wallet.address;
     adapter.setDefaultWallet(wallet);
     adapter.addOperations(transaction.getOperations());
 
@@ -235,11 +245,15 @@ public class TransactionDetailActivity extends BaseActivity {
   private void showCloseChannelConfirmation() {
     AlertDialog.Builder builder = buildDialog();
     View view = getLayoutInflater().inflate(R.layout.dialog_close_channel, null);
-    view.findViewById(R.id.positive_button).setOnClickListener(v -> {
-      showLoading();
-      viewModel.closeChannel();
-    });
-    view.findViewById(R.id.negative_button).setOnClickListener(v -> hideDialog());
+    view.findViewById(R.id.positive_button)
+        .setOnClickListener(v -> {
+          showLoading();
+          disposables.add(viewModel.closeChannel(walletAddr)
+              .observeOn(AndroidSchedulers.mainThread())
+              .doOnComplete(this::hideDialog).subscribe());
+        });
+    view.findViewById(R.id.negative_button)
+        .setOnClickListener(v -> hideDialog());
 
     builder.setView(view);
     dialog = builder.create();

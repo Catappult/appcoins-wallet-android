@@ -6,6 +6,7 @@
     android:id="@+id/iab_activity_transaction_completed"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
+    android:background="@drawable/background_card"
     android:elevation="10dp"
     android:padding="16dp"
     android:visibility="gone"
