@@ -51,18 +51,6 @@ public class TransactionDetailViewModel extends BaseViewModel {
     }
   }
 
-  public void shareTransactionDetail(Context context, Operation operation) {
-    Uri shareUri = buildEtherscanUri(operation);
-    if (shareUri != null) {
-      Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-      sharingIntent.setType("text/plain");
-      sharingIntent.putExtra(Intent.EXTRA_SUBJECT,
-          context.getString(R.string.subject_transaction_detail));
-      sharingIntent.putExtra(Intent.EXTRA_TEXT, shareUri.toString());
-      context.startActivity(Intent.createChooser(sharingIntent, "Share via"));
-    }
-  }
-
   @Nullable private Uri buildEtherscanUri(Operation operation) {
     NetworkInfo networkInfo = defaultNetwork.getValue();
     if (networkInfo != null && !TextUtils.isEmpty(networkInfo.etherscanUrl)) {
@@ -76,6 +64,9 @@ public class TransactionDetailViewModel extends BaseViewModel {
 
   public LiveData<Wallet> defaultWallet() {
     return defaultWallet;
+  }
+
+  public void closeChannel() {
   }
 
 }

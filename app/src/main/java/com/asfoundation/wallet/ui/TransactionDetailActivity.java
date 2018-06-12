@@ -1,17 +1,23 @@
 package com.asfoundation.wallet.ui;
 
+import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.transactions.Operation;
@@ -41,6 +47,8 @@ public class TransactionDetailActivity extends BaseActivity {
   private Transaction transaction;
   private TextView amount;
   private TransactionsDetailsAdapter adapter;
+
+  Dialog dialog;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -221,5 +229,43 @@ public class TransactionDetailActivity extends BaseActivity {
     ((TextView) findViewById(R.id.status)).setTextColor(getResources().getColor(statusColor));
 
     findViewById(R.id.close_channel_btn).setVisibility(showCloseBtn ? View.VISIBLE : View.GONE);
+    findViewById(R.id.close_channel_btn).setOnClickListener(v -> showCloseChannelConfirmation());
+  }
+
+  private void showCloseChannelConfirmation() {
+    AlertDialog.Builder builder = buildDialog();
+    View view = getLayoutInflater().inflate(R.layout.dialog_close_channel, null);
+    view.findViewById(R.id.positive_button).setOnClickListener(v -> {
+      showLoading();
+      viewModel.closeChannel();
+    });
+    view.findViewById(R.id.negative_button).setOnClickListener(v -> hideDialog());
+
+    builder.setView(view);
+    dialog = builder.create();
+    dialog.show();
+  }
+
+  private void showLoading() {
+    AlertDialog.Builder builder = buildDialog();
+    View view = getLayoutInflater().inflate(R.layout.dialog_loading, null);
+    builder.setView(view);
+    builder.setCancelable(false);
+    dialog = builder.create();
+    dialog.getWindow()
+        .setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    dialog.show();
+  }
+
+  private AlertDialog.Builder buildDialog() {
+    hideDialog();
+    return new AlertDialog.Builder(this);
+  }
+
+  private void hideDialog() {
+    if (dialog != null && dialog.isShowing()) {
+      dialog.dismiss();
+      dialog = null;
+    }
   }
 }
