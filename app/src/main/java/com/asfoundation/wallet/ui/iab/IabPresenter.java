@@ -2,11 +2,11 @@ package com.asfoundation.wallet.ui.iab;
 
 import android.util.Log;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.repository.PaymentTransaction;
 import com.asfoundation.wallet.util.UnknownTokenException;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.Nullable;
 
@@ -83,7 +83,10 @@ public class IabPresenter {
 
   private boolean handleBuyEvent(String appPackage, String productName) {
     return disposables.add(view.getBuyClick()
-        .flatMapCompletable(uri -> inAppPurchaseInteractor.send(uri, appPackage, productName)
+        .observeOn(Schedulers.io())
+        .flatMapCompletable(buyData -> inAppPurchaseInteractor.send(buyData.getUri(),
+            buyData.isRaiden ? InAppPurchaseInteractor.TransactionType.RAIDEN
+                : InAppPurchaseInteractor.TransactionType.NORMAL, appPackage, productName)
             .observeOn(viewScheduler)
             .doOnError(this::showError))
         .retry()
@@ -126,9 +129,9 @@ public class IabPresenter {
     }
   }
 
-  private Completable showPendingTransaction(PaymentTransaction transaction) {
+  private Completable showPendingTransaction(Payment transaction) {
     Log.d(TAG, "present: " + transaction);
-    switch (transaction.getState()) {
+    switch (transaction.getStatus()) {
       case COMPLETED:
         return Completable.fromAction(view::showTransactionCompleted)
             .andThen(Completable.timer(1, TimeUnit.SECONDS))
@@ -139,8 +142,7 @@ public class IabPresenter {
       case NO_FUNDS:
         return Completable.fromAction(() -> view.showNoFundsError())
             .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));
-      case WRONG_NETWORK:
-      case UNKNOWN_TOKEN:
+      case NETWORK_ERROR:
         return Completable.fromAction(() -> view.showWrongNetworkError())
             .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));
       case NO_TOKENS:
@@ -155,12 +157,9 @@ public class IabPresenter {
       case NONCE_ERROR:
         return Completable.fromAction(() -> view.showNonceError())
             .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));
-      case PENDING:
       case APPROVING:
-      case APPROVED:
         return Completable.fromAction(view::showApproving);
       case BUYING:
-      case BOUGHT:
         return Completable.fromAction(view::showBuying);
       default:
       case ERROR:
@@ -177,5 +176,23 @@ public class IabPresenter {
     view.setup(transaction);
     view.showRaidenChannelValues(
         inAppPurchaseInteractor.getTopUpChannelSuggestionValues(transaction.amount()));
+  }
+
+  public static class BuyData {
+    private final boolean isRaiden;
+    private final String uri;
+
+    public BuyData(boolean isRaiden, String uri) {
+      this.isRaiden = isRaiden;
+      this.uri = uri;
+    }
+
+    public boolean isRaiden() {
+      return isRaiden;
+    }
+
+    public String getUri() {
+      return uri;
+    }
   }
 }

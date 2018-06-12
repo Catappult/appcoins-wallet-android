@@ -146,10 +146,10 @@ public class IabActivity extends BaseActivity implements IabView {
     super.onStop();
   }
 
-  @Override public Observable<String> getBuyClick() {
+  @Override public Observable<IabPresenter.BuyData> getBuyClick() {
     return RxView.clicks(buyButton)
-        .map(click -> getIntent().getData()
-            .toString());
+        .map(click -> new IabPresenter.BuyData(checkbox.isChecked(), getIntent().getData()
+            .toString()));
   }
 
   @Override public Observable<Object> getCancelClick() {

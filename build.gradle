@@ -24,6 +24,7 @@ allprojects {
     google()
     mavenCentral()
     maven { url 'https://jitpack.io' }
+    maven { url "https://dl.bintray.com/asf/asf" }
     // needed for pincode Lollipin
     maven {
       url "https://github.com/omadahealth/omada-nexus/raw/master/release"
@@ -35,7 +36,7 @@ project.ext {
   okhttpVersion = "3.9.0"
   picassoVersion = "2.5.2"
   supportVersion = "27.1.0"
-  web3jVersion = "3.0.1-android"
+  web3jVersion = "3.3.1-android"
   gethVersion = "1.8.0"
   gsonVersion = "2.8.2"
   rxJavaVersion = "2.1.6"

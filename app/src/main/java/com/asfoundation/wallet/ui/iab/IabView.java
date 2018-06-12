@@ -10,7 +10,7 @@ import java.util.List;
  */
 
 public interface IabView {
-  Observable<String> getBuyClick();
+  Observable<IabPresenter.BuyData> getBuyClick();
 
   Observable<Object> getCancelClick();
 

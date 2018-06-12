@@ -3,7 +3,7 @@ package com.asfoundation.wallet.repository;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import com.asfoundation.wallet.ui.iab.RaidenRepository;
+import com.asfoundation.wallet.ui.iab.raiden.RaidenRepository;
 
 public class SharedPreferenceRepository implements PreferenceRepositoryType, RaidenRepository {
 
