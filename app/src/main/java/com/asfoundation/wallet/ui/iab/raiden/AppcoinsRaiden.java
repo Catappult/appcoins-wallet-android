@@ -3,32 +3,38 @@ package com.asfoundation.wallet.ui.iab.raiden;
 import com.asf.microraidenj.type.Address;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.repository.PaymentTransaction;
+import com.bds.microraidenj.MicroRaidenBDS;
 import com.bds.microraidenj.channel.BDSChannel;
 import io.reactivex.Completable;
 import io.reactivex.Single;
+import io.reactivex.functions.Predicate;
 import java.math.BigDecimal;
 
 public class AppcoinsRaiden implements Raiden {
   public static final String BDS_ADDRESS = "0x31a16aDF2D5FC73F149fBB779D20c036678b1bBD";
-  private final RaidenFactory raidenFactory;
   private final PrivateKeyProvider privatekeyProvider;
+  private final MicroRaidenBDS raiden;
 
-  public AppcoinsRaiden(RaidenFactory raidenFactory, PrivateKeyProvider privatekeyProvider) {
-    this.raidenFactory = raidenFactory;
+  public AppcoinsRaiden(PrivateKeyProvider privatekeyProvider, MicroRaidenBDS raiden) {
     this.privatekeyProvider = privatekeyProvider;
+    this.raiden = raiden;
   }
 
   @Override public Completable createChannel(String from, BigDecimal channelBudget) {
-    return raidenFactory.get()
-        .createChannel(privatekeyProvider.get(from), Address.from(BDS_ADDRESS),
-            convertToWeis(channelBudget).toBigInteger())
+    return raiden.createChannel(privatekeyProvider.get(from), Address.from(BDS_ADDRESS),
+        convertToWeis(channelBudget).toBigInteger())
         .toCompletable();
   }
 
   @Override public Completable buy(PaymentTransaction paymentTransaction) {
     return getChannel(paymentTransaction.getTransactionBuilder()
-        .fromAddress()).doOnSuccess(bdsChannel -> bdsChannel.makePayment(convertToWeis(
-        paymentTransaction.getTransactionBuilder()
+        .fromAddress(), bdsChannel -> bdsChannel.getReceiverAddress()
+        .toString()
+        .equals(BDS_ADDRESS)
+        || bdsChannel.getBalance()
+        .compareTo(convertToWeis(paymentTransaction.getTransactionBuilder()
+            .amount()).toBigInteger()) >= 0).doOnSuccess(bdsChannel -> bdsChannel.makePayment(
+        convertToWeis(paymentTransaction.getTransactionBuilder()
             .amount()).toBigInteger(), Address.from(paymentTransaction.getTransactionBuilder()
             .toAddress()), Address.from(BuildConfig.DEFAULT_STORE_ADREESS),
         Address.from(BuildConfig.DEFAULT_OEM_ADREESS)))
@@ -36,7 +42,9 @@ public class AppcoinsRaiden implements Raiden {
   }
 
   @Override public Completable closeChannel(String fromAddress) {
-    return getChannel(fromAddress).doOnSuccess(
+    return getChannel(fromAddress, bdsChannel -> bdsChannel.getReceiverAddress()
+        .toString()
+        .equals(BDS_ADDRESS)).doOnSuccess(
         channel -> channel.closeCooperatively(privatekeyProvider.get(fromAddress)))
         .toCompletable();
   }
@@ -46,16 +54,11 @@ public class AppcoinsRaiden implements Raiden {
         .pow(18));
   }
 
-  private Single<BDSChannel> getChannel(String fromAddress) {
-    return raidenFactory.get()
-        .listChannels(privatekeyProvider.get(fromAddress), false)
+  private Single<BDSChannel> getChannel(String fromAddress, Predicate<BDSChannel> filter) {
+    return raiden.listChannels(privatekeyProvider.get(fromAddress), false)
         .toObservable()
         .flatMapIterable(bdsChannels -> bdsChannels)
-        .filter(bdsChannel -> bdsChannel.getReceiverAddress()
-            .toString()
-            .equals(BDS_ADDRESS)
-            || bdsChannel.getBalance()
-            .compareTo(convertToWeis(BigDecimal.ONE).toBigInteger()) >= 0)
+        .filter(filter)
         .toList()
         .flatMap(bdsChannels -> {
           if (bdsChannels.isEmpty()) {

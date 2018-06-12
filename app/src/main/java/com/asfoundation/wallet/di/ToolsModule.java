@@ -68,6 +68,7 @@ import com.asfoundation.wallet.ui.iab.raiden.RaidenFactory;
 import com.asfoundation.wallet.ui.iab.raiden.RaidenRepository;
 import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.TransferParser;
+import com.bds.microraidenj.MicroRaidenBDS;
 import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
@@ -185,15 +186,11 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   @Singleton @Provides InAppPurchaseInteractor provideTransactionInteractor(
       InAppPurchaseService inAppPurchaseService, FindDefaultWalletInteract defaultWalletInteract,
       FetchGasSettingsInteract gasSettingsInteract, TransferParser parser,
-      RaidenRepository raidenRepository, Web3jProvider web3jprovider,
-      GasSettingsRepositoryType repository, WalletRepositoryType walletRepositoryType,
-      NonceObtainer nonceObtainer) {
+      RaidenRepository raidenRepository, MicroRaidenBDS raiden) {
 
     return new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
-        raidenRepository,
-        new AppcoinsRaiden(new RaidenFactory(web3jprovider, repository, nonceObtainer),
-            new PrivateKeyProvider()));
+        raidenRepository, new AppcoinsRaiden(new PrivateKeyProvider(), raiden));
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(
@@ -207,6 +204,11 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   @Provides FetchTokensInteract provideFetchTokensInteract(TokenRepositoryType tokenRepository,
       DefaultTokenProvider defaultTokenProvider) {
     return new FetchTokensInteract(tokenRepository, defaultTokenProvider);
+  }
+
+  @Singleton @Provides MicroRaidenBDS provideMicroRaidenBDS(Web3jProvider web3jProvider,
+      GasSettingsRepositoryType gasSettings, NonceObtainer nonceObtainer) {
+    return new RaidenFactory(web3jProvider, gasSettings, nonceObtainer).get();
   }
 
   @Provides NonceObtainer provideNonceObtainer(Web3jProvider web3jProvider) {

@@ -48,7 +48,7 @@ public class InAppPurchaseInteractor {
   }
 
   public Completable send(String uri, TransactionType transactionType, String packageName,
-      String productName) {
+      String productName, BigDecimal channelBudget) {
     switch (transactionType) {
       case NORMAL:
         return buildPaymentTransaction(uri, packageName, productName).flatMapCompletable(
@@ -60,7 +60,7 @@ public class InAppPurchaseInteractor {
                 .retryWhen(throwableFlowable -> throwableFlowable.flatMap(throwable -> {
                   if (throwable instanceof ChannelNotFoundException) {
                     return raiden.createChannel(paymentTransaction.getTransactionBuilder()
-                        .fromAddress(), BigDecimal.ONE)
+                        .fromAddress(), channelBudget)
                         .andThen(Observable.just(new Object()))
                         .toFlowable(BackpressureStrategy.DROP);
                   } else {
