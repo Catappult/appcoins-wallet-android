@@ -3,8 +3,8 @@ package com.asfoundation.wallet.ui.iab.raiden;
 import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.service.AccountKeystoreService;
+import com.asfoundation.wallet.util.WalletUtils;
 import ethereumj.crypto.ECKey;
-import org.web3j.crypto.WalletUtils;
 
 public class PrivateKeyProvider {
 
@@ -23,8 +23,7 @@ public class PrivateKeyProvider {
     return walletRepositoryType.findWallet(walletAddress)
         .flatMap(wallet -> passwordStore.getPassword(wallet)
             .flatMap(password -> accountKeystoreService.exportAccount(wallet, password, password)
-                .map(json -> ECKey.fromPrivate(WalletUtils.loadCredentials(password, json)
-                    .getEcKeyPair()
+                .map(json -> ECKey.fromPrivate(WalletUtils.loadCredentials(password, json).getEcKeyPair()
                     .getPrivateKey()))))
         .blockingGet();
   }
