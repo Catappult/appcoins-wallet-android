@@ -44,7 +44,7 @@ public class AppcoinsRaiden implements Raiden {
   @Override public Completable closeChannel(String fromAddress) {
     return getChannel(fromAddress, bdsChannel -> bdsChannel.getReceiverAddress()
         .toString()
-        .equals(BDS_ADDRESS)).doOnSuccess(
+        .equalsIgnoreCase(BDS_ADDRESS)).doOnSuccess(
         channel -> channel.closeCooperatively(privatekeyProvider.get(fromAddress)))
         .toCompletable();
   }

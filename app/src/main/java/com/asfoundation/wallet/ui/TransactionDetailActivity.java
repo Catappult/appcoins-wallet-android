@@ -12,6 +12,7 @@ import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,6 +42,7 @@ import static com.asfoundation.wallet.C.Key.TRANSACTION;
 
 public class TransactionDetailActivity extends BaseActivity {
 
+  private static final String TAG = TransactionDetailActivity.class.getSimpleName();
   @Inject TransactionDetailViewModelFactory transactionDetailViewModelFactory;
   private TransactionDetailViewModel viewModel;
 
@@ -250,7 +252,10 @@ public class TransactionDetailActivity extends BaseActivity {
           showLoading();
           disposables.add(viewModel.closeChannel(walletAddr)
               .observeOn(AndroidSchedulers.mainThread())
-              .doOnComplete(this::hideDialog).subscribe());
+              .subscribe(this::hideDialog, throwable -> {
+                Log.e(TAG, "Failed to close channel.", throwable);
+                hideDialog();
+              }));
         });
     view.findViewById(R.id.negative_button)
         .setOnClickListener(v -> hideDialog());
