@@ -186,11 +186,11 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   @Singleton @Provides InAppPurchaseInteractor provideTransactionInteractor(
       InAppPurchaseService inAppPurchaseService, FindDefaultWalletInteract defaultWalletInteract,
       FetchGasSettingsInteract gasSettingsInteract, TransferParser parser,
-      RaidenRepository raidenRepository, MicroRaidenBDS raiden) {
+      RaidenRepository raidenRepository, Raiden raiden) {
 
     return new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
-        raidenRepository, new AppcoinsRaiden(new PrivateKeyProvider(), raiden));
+        raidenRepository, raiden);
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(
@@ -345,4 +345,9 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   @Provides MicroRaidenInteractor provideMicroRaidenInteractor(Raiden raiden) {
     return new MicroRaidenInteractor(raiden);
   }
+
+  @Provides Raiden provideRaiden(MicroRaidenBDS raiden) {
+    return new AppcoinsRaiden(new PrivateKeyProvider(), raiden);
+  }
+
 }
