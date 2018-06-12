@@ -142,7 +142,7 @@ public class InAppPurchaseInteractorTest {
         .subscribe(testObserver);
     scheduler.triggerActions();
     inAppPurchaseInteractor.send(uri, InAppPurchaseInteractor.TransactionType.NORMAL, PACKAGE_NAME,
-        PRODUCT_NAME)
+        PRODUCT_NAME, BigDecimal.ONE)
         .subscribe();
     scheduler.triggerActions();
     balance.onNext(GetDefaultWalletBalance.BalanceState.OK);
@@ -200,7 +200,7 @@ public class InAppPurchaseInteractorTest {
         .subscribe(testObserver);
     scheduler.triggerActions();
     inAppPurchaseInteractor.send(uri, InAppPurchaseInteractor.TransactionType.NORMAL, PACKAGE_NAME,
-        PRODUCT_NAME)
+        PRODUCT_NAME, BigDecimal.ONE)
         .subscribe();
     scheduler.triggerActions();
     balance.onNext(GetDefaultWalletBalance.BalanceState.NO_ETHER);
@@ -243,7 +243,7 @@ public class InAppPurchaseInteractorTest {
         .subscribe(testObserver);
     scheduler.triggerActions();
     inAppPurchaseInteractor.send(uri, InAppPurchaseInteractor.TransactionType.NORMAL, PACKAGE_NAME,
-        PRODUCT_NAME)
+        PRODUCT_NAME, BigDecimal.ONE)
         .subscribe();
     scheduler.triggerActions();
     balance.onNext(GetDefaultWalletBalance.BalanceState.NO_ETHER_NO_TOKEN);

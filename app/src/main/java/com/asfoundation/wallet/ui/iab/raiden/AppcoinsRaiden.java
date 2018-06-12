@@ -6,6 +6,7 @@ import com.asfoundation.wallet.repository.PaymentTransaction;
 import com.bds.microraidenj.channel.BDSChannel;
 import io.reactivex.Completable;
 import io.reactivex.Single;
+import io.reactivex.functions.Predicate;
 import java.math.BigDecimal;
 
 public class AppcoinsRaiden implements Raiden {
@@ -27,8 +28,13 @@ public class AppcoinsRaiden implements Raiden {
 
   @Override public Completable buy(PaymentTransaction paymentTransaction) {
     return getChannel(paymentTransaction.getTransactionBuilder()
-        .fromAddress()).doOnSuccess(bdsChannel -> bdsChannel.makePayment(convertToWeis(
-        paymentTransaction.getTransactionBuilder()
+        .fromAddress(), bdsChannel -> bdsChannel.getReceiverAddress()
+        .toString()
+        .equals(BDS_ADDRESS)
+        || bdsChannel.getBalance()
+        .compareTo(convertToWeis(paymentTransaction.getTransactionBuilder()
+            .amount()).toBigInteger()) >= 0).doOnSuccess(bdsChannel -> bdsChannel.makePayment(
+        convertToWeis(paymentTransaction.getTransactionBuilder()
             .amount()).toBigInteger(), Address.from(paymentTransaction.getTransactionBuilder()
             .toAddress()), Address.from(BuildConfig.DEFAULT_STORE_ADREESS),
         Address.from(BuildConfig.DEFAULT_OEM_ADREESS)))
@@ -36,7 +42,9 @@ public class AppcoinsRaiden implements Raiden {
   }
 
   @Override public Completable closeChannel(String fromAddress) {
-    return getChannel(fromAddress).doOnSuccess(
+    return getChannel(fromAddress, bdsChannel -> bdsChannel.getReceiverAddress()
+        .toString()
+        .equals(BDS_ADDRESS)).doOnSuccess(
         channel -> channel.closeCooperatively(privatekeyProvider.get(fromAddress)))
         .toCompletable();
   }
@@ -46,16 +54,12 @@ public class AppcoinsRaiden implements Raiden {
         .pow(18));
   }
 
-  private Single<BDSChannel> getChannel(String fromAddress) {
+  private Single<BDSChannel> getChannel(String fromAddress, Predicate<BDSChannel> filter) {
     return raidenFactory.get()
         .listChannels(privatekeyProvider.get(fromAddress), false)
         .toObservable()
         .flatMapIterable(bdsChannels -> bdsChannels)
-        .filter(bdsChannel -> bdsChannel.getReceiverAddress()
-            .toString()
-            .equals(BDS_ADDRESS)
-            || bdsChannel.getBalance()
-            .compareTo(convertToWeis(BigDecimal.ONE).toBigInteger()) >= 0)
+        .filter(filter)
         .toList()
         .flatMap(bdsChannels -> {
           if (bdsChannels.isEmpty()) {

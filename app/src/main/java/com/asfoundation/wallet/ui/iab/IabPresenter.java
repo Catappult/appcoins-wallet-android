@@ -7,6 +7,7 @@ import io.reactivex.Completable;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.Nullable;
 
@@ -86,7 +87,8 @@ public class IabPresenter {
         .observeOn(Schedulers.io())
         .flatMapCompletable(buyData -> inAppPurchaseInteractor.send(buyData.getUri(),
             buyData.isRaiden ? InAppPurchaseInteractor.TransactionType.RAIDEN
-                : InAppPurchaseInteractor.TransactionType.NORMAL, appPackage, productName)
+                : InAppPurchaseInteractor.TransactionType.NORMAL, appPackage, productName,
+            buyData.getChannelBudget())
             .observeOn(viewScheduler)
             .doOnError(this::showError))
         .retry()
@@ -181,10 +183,12 @@ public class IabPresenter {
   public static class BuyData {
     private final boolean isRaiden;
     private final String uri;
+    private final BigDecimal channelBudget;
 
-    public BuyData(boolean isRaiden, String uri) {
+    public BuyData(boolean isRaiden, String uri, BigDecimal channelBudget) {
       this.isRaiden = isRaiden;
       this.uri = uri;
+      this.channelBudget = channelBudget;
     }
 
     public boolean isRaiden() {
@@ -193,6 +197,10 @@ public class IabPresenter {
 
     public String getUri() {
       return uri;
+    }
+
+    public BigDecimal getChannelBudget() {
+      return channelBudget;
     }
   }
 }

@@ -149,7 +149,8 @@ public class IabActivity extends BaseActivity implements IabView {
   @Override public Observable<IabPresenter.BuyData> getBuyClick() {
     return RxView.clicks(buyButton)
         .map(click -> new IabPresenter.BuyData(checkbox.isChecked(), getIntent().getData()
-            .toString()));
+            .toString(), new BigDecimal(dropdown.getSelectedItem()
+            .toString())));
   }
 
   @Override public Observable<Object> getCancelClick() {
