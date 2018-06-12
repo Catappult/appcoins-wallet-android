@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.iab.raiden;
 import com.asf.microraidenj.type.Address;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.repository.PaymentTransaction;
+import com.bds.microraidenj.MicroRaidenBDS;
 import com.bds.microraidenj.channel.BDSChannel;
 import io.reactivex.Completable;
 import io.reactivex.Single;
@@ -11,18 +12,17 @@ import java.math.BigDecimal;
 
 public class AppcoinsRaiden implements Raiden {
   public static final String BDS_ADDRESS = "0x31a16aDF2D5FC73F149fBB779D20c036678b1bBD";
-  private final RaidenFactory raidenFactory;
   private final PrivateKeyProvider privatekeyProvider;
+  private final MicroRaidenBDS raiden;
 
-  public AppcoinsRaiden(RaidenFactory raidenFactory, PrivateKeyProvider privatekeyProvider) {
-    this.raidenFactory = raidenFactory;
+  public AppcoinsRaiden(PrivateKeyProvider privatekeyProvider, MicroRaidenBDS raiden) {
     this.privatekeyProvider = privatekeyProvider;
+    this.raiden = raiden;
   }
 
   @Override public Completable createChannel(String from, BigDecimal channelBudget) {
-    return raidenFactory.get()
-        .createChannel(privatekeyProvider.get(from), Address.from(BDS_ADDRESS),
-            convertToWeis(channelBudget).toBigInteger())
+    return raiden.createChannel(privatekeyProvider.get(from), Address.from(BDS_ADDRESS),
+        convertToWeis(channelBudget).toBigInteger())
         .toCompletable();
   }
 
@@ -55,8 +55,7 @@ public class AppcoinsRaiden implements Raiden {
   }
 
   private Single<BDSChannel> getChannel(String fromAddress, Predicate<BDSChannel> filter) {
-    return raidenFactory.get()
-        .listChannels(privatekeyProvider.get(fromAddress), false)
+    return raiden.listChannels(privatekeyProvider.get(fromAddress), false)
         .toObservable()
         .flatMapIterable(bdsChannels -> bdsChannels)
         .filter(filter)
