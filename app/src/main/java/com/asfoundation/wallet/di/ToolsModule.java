@@ -60,8 +60,10 @@ import com.asfoundation.wallet.ui.iab.ImageSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase;
 import com.asfoundation.wallet.ui.iab.raiden.AppcoinsRaiden;
+import com.asfoundation.wallet.ui.iab.raiden.ChannelService;
 import com.asfoundation.wallet.ui.iab.raiden.NonceObtainer;
 import com.asfoundation.wallet.ui.iab.raiden.PrivateKeyProvider;
+import com.asfoundation.wallet.ui.iab.raiden.Raiden;
 import com.asfoundation.wallet.ui.iab.raiden.RaidenFactory;
 import com.asfoundation.wallet.ui.iab.raiden.RaidenRepository;
 import com.asfoundation.wallet.util.LogInterceptor;
@@ -184,16 +186,11 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   @Singleton @Provides InAppPurchaseInteractor provideTransactionInteractor(
       InAppPurchaseService inAppPurchaseService, FindDefaultWalletInteract defaultWalletInteract,
       FetchGasSettingsInteract gasSettingsInteract, TransferParser parser,
-      RaidenRepository raidenRepository, Web3jProvider web3jprovider,
-      GasSettingsRepositoryType repository, WalletRepositoryType walletRepositoryType,
-      NonceObtainer nonceObtainer, AccountKeystoreService accountKeystoreService,
-      PasswordStore passwordStore, MicroRaidenBDS raiden) {
+      RaidenRepository raidenRepository, ChannelService channelService) {
 
     return new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
-        raidenRepository, new AppcoinsRaiden(
-        new PrivateKeyProvider(walletRepositoryType, accountKeystoreService, passwordStore),
-        raiden));
+        raidenRepository, channelService);
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(
@@ -212,6 +209,16 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   @Singleton @Provides MicroRaidenBDS provideMicroRaidenBDS(Web3jProvider web3jProvider,
       GasSettingsRepositoryType gasSettings, NonceObtainer nonceObtainer) {
     return new RaidenFactory(web3jProvider, gasSettings, nonceObtainer).get();
+  }
+
+  @Provides Raiden provideRaiden(MicroRaidenBDS raiden, WalletRepositoryType walletRepositoryType,
+      AccountKeystoreService accountKeyService, PasswordStore passwordStore) {
+    return new AppcoinsRaiden(
+        new PrivateKeyProvider(walletRepositoryType, accountKeyService, passwordStore), raiden);
+  }
+
+  @Provides ChannelService provideChannelService(Raiden raiden) {
+    return new ChannelService(raiden, new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()));
   }
 
   @Provides NonceObtainer provideNonceObtainer(Web3jProvider web3jProvider) {

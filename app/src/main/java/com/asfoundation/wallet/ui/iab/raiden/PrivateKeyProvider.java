@@ -1,10 +1,12 @@
 package com.asfoundation.wallet.ui.iab.raiden;
 
+import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.util.WalletUtils;
 import ethereumj.crypto.ECKey;
+import io.reactivex.Single;
 
 public class PrivateKeyProvider {
 
@@ -19,12 +21,12 @@ public class PrivateKeyProvider {
     this.passwordStore = passwordStore;
   }
 
-  public ECKey get(String walletAddress) {
-    return walletRepositoryType.findWallet(walletAddress)
+  public Single<ECKey> get(String walletAddress) {
+    return Single.just(new Wallet(walletAddress))
         .flatMap(wallet -> passwordStore.getPassword(wallet)
             .flatMap(password -> accountKeystoreService.exportAccount(wallet, password, password)
-                .map(json -> ECKey.fromPrivate(WalletUtils.loadCredentials(password, json).getEcKeyPair()
-                    .getPrivateKey()))))
-        .blockingGet();
+                .map(json -> ECKey.fromPrivate(WalletUtils.loadCredentials(password, json)
+                    .getEcKeyPair()
+                    .getPrivateKey()))));
   }
 }

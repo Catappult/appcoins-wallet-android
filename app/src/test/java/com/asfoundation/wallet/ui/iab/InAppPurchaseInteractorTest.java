@@ -22,6 +22,7 @@ import com.asfoundation.wallet.repository.NonceGetter;
 import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationEntity;
+import com.asfoundation.wallet.ui.iab.raiden.ChannelService;
 import com.asfoundation.wallet.ui.iab.raiden.RaidenRepository;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Observable;
@@ -127,7 +128,8 @@ public class InAppPurchaseInteractorTest {
     inAppPurchaseInteractor =
         new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
             gasSettingsInteract, BigDecimal.ONE,
-            new TransferParser(defaultWalletInteract, tokenRepository), repository, null);
+            new TransferParser(defaultWalletInteract, tokenRepository), repository,
+            new ChannelService(null, new MemoryCache<>(BehaviorSubject.create(), new HashMap<>())));
   }
 
   @Test public void sendTransaction() {
