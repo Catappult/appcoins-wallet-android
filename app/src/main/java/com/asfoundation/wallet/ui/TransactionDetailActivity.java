@@ -28,10 +28,12 @@ import com.asfoundation.wallet.util.StringUtils;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModel;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModelFactory;
 import com.asfoundation.wallet.widget.CircleTransformation;
+import com.jakewharton.rxbinding2.view.RxView;
 import com.squareup.picasso.Picasso;
 import dagger.android.AndroidInjection;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Calendar;
@@ -53,7 +55,6 @@ public class TransactionDetailActivity extends BaseActivity {
   private Dialog dialog;
   private String walletAddr;
   private CompositeDisposable disposables;
-
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -247,16 +248,15 @@ public class TransactionDetailActivity extends BaseActivity {
   private void showCloseChannelConfirmation() {
     AlertDialog.Builder builder = buildDialog();
     View view = getLayoutInflater().inflate(R.layout.dialog_close_channel, null);
-    view.findViewById(R.id.positive_button)
-        .setOnClickListener(v -> {
-          showLoading();
-          disposables.add(viewModel.closeChannel(walletAddr)
-              .observeOn(AndroidSchedulers.mainThread())
-              .subscribe(this::hideDialog, throwable -> {
-                Log.e(TAG, "Failed to close channel.", throwable);
-                hideDialog();
-              }));
-        });
+    disposables.add(RxView.clicks(view.findViewById(R.id.positive_button))
+        .doOnNext(__ -> showLoading())
+        .observeOn(Schedulers.io())
+        .flatMapCompletable(__ -> viewModel.closeChannel(walletAddr))
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(this::hideDialog, throwable -> {
+          Log.e(TAG, "Failed to close channel.", throwable);
+          hideDialog();
+        }));
     view.findViewById(R.id.negative_button)
         .setOnClickListener(v -> hideDialog());
 
@@ -266,10 +266,11 @@ public class TransactionDetailActivity extends BaseActivity {
   }
 
   private void showLoading() {
-    AlertDialog.Builder builder = buildDialog();
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
     View view = getLayoutInflater().inflate(R.layout.dialog_loading, null);
     builder.setView(view);
     builder.setCancelable(false);
+    hideDialog();
     dialog = builder.create();
     dialog.getWindow()
         .setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
