@@ -1,12 +1,14 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.PaymentTransaction;
+import com.asfoundation.wallet.ui.iab.raiden.ChannelCreation;
 import com.asfoundation.wallet.ui.iab.raiden.ChannelPayment;
 import com.asfoundation.wallet.ui.iab.raiden.ChannelService;
 import com.asfoundation.wallet.ui.iab.raiden.RaidenRepository;
@@ -21,6 +23,7 @@ import java.util.List;
 
 public class InAppPurchaseInteractor {
   public static final double GAS_PRICE_MULTIPLIER = 1.25;
+  private static final String TAG = InAppPurchaseInteractor.class.getSimpleName();
   private final InAppPurchaseService inAppPurchaseService;
   private final FindDefaultWalletInteract defaultWalletInteract;
   private final FetchGasSettingsInteract gasSettingsInteract;
@@ -62,9 +65,15 @@ public class InAppPurchaseInteractor {
                   if (hasChannel) {
                     return makePayment(channelBudget, paymentTransaction);
                   }
-                  return channelService.createChannel(paymentTransaction.getTransactionBuilder()
-                      .fromAddress(), channelBudget)
-                      .andThen(makePayment(channelBudget, paymentTransaction));
+                  return channelService.createChannel(paymentTransaction.getUri(),
+                      paymentTransaction.getTransactionBuilder()
+                          .fromAddress(), channelBudget)
+                      .andThen(channelService.getChannel(uri)
+                          .filter(channelCreation -> channelCreation.getStatus()
+                              .equals(ChannelCreation.Status.CREATED))
+                          .firstOrError()
+                          .flatMapCompletable(
+                              __ -> makePayment(channelBudget, paymentTransaction)));
                 }));
     }
     return Completable.error(
@@ -87,7 +96,23 @@ public class InAppPurchaseInteractor {
   public Observable<Payment> getTransactionState(String uri) {
     return Observable.merge(inAppPurchaseService.getTransactionState(uri)
         .map(this::mapToPayment), channelService.getPayment(uri)
+        .map(this::mapToPayment), channelService.getChannel(uri)
         .map(this::mapToPayment));
+  }
+
+  private Payment mapToPayment(ChannelCreation creation) {
+    Log.d(TAG, "mapToPayment() called with: creation = [" + creation.getStatus() + "]");
+    switch (creation.getStatus()) {
+      case PENDING:
+        return new Payment(creation.getKey(), Payment.Status.APPROVING, null);
+      case CREATING:
+        return new Payment(creation.getKey(), Payment.Status.APPROVING, null);
+      case CREATED:
+        return new Payment(creation.getKey(), Payment.Status.APPROVING, null);
+      case ERROR:
+        return new Payment(creation.getKey(), Payment.Status.ERROR, null);
+    }
+    throw new IllegalStateException("Status " + creation.getStatus() + " not mapped");
   }
 
   @NonNull private Payment mapToPayment(PaymentTransaction paymentTransaction) {

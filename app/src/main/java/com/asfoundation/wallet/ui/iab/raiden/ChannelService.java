@@ -12,53 +12,77 @@ import org.reactivestreams.Publisher;
 
 public class ChannelService {
   private final Raiden raiden;
-  private final Repository<String, ChannelPayment> cache;
+  private final Repository<String, ChannelPayment> paymentCache;
+  private final Repository<String, ChannelCreation> channelCache;
 
-  public ChannelService(Raiden raiden, Repository<String, ChannelPayment> cache) {
+  public ChannelService(Raiden raiden, Repository<String, ChannelPayment> paymentCache,
+      Repository<String, ChannelCreation> channelCache) {
     this.raiden = raiden;
-    this.cache = cache;
+    this.paymentCache = paymentCache;
+    this.channelCache = channelCache;
   }
 
   public void start() {
-    cache.getAll()
+    paymentCache.getAll()
         .flatMapIterable(channelPayments -> channelPayments)
         .filter(channelPayment -> channelPayment.getStatus()
             .equals(ChannelPayment.Status.PENDING))
         .flatMapSingle(payment -> raiden.buy(payment.getFromAddress(), payment.getAmmount(),
             payment.getToAddress())
             .doOnSubscribe(disposable -> updatePaymentStatus(payment, ChannelPayment.Status.BUYING))
-            .doOnSuccess(hash -> cache.saveSync(payment.getId(),
+            .doOnSuccess(hash -> paymentCache.saveSync(payment.getId(),
                 new ChannelPayment(payment.getId(), ChannelPayment.Status.COMPLETED,
                     payment.getFromAddress(), payment.getAmmount(), payment.getToAddress(),
                     payment.getChannelBudget(), hash)))
             .retryWhen(throwableFlowable -> throwableFlowable.flatMap(
                 throwable -> createChannelOrError(payment, throwable)))
             .doOnError(throwable -> updatePaymentStatus(payment, ChannelPayment.Status.ERROR)))
-        .doOnError(throwable -> throwable.printStackTrace())
+        .doOnError(Throwable::printStackTrace)
+        .retry()
+        .subscribe();
+
+    channelCache.getAll()
+        .flatMapIterable(channelCreations -> channelCreations)
+        .filter(channelCreation -> channelCreation.getStatus()
+            .equals(ChannelCreation.Status.PENDING))
+        .doOnNext(channelCreation -> updateChannelStatus(channelCreation,
+            ChannelCreation.Status.CREATING))
+        .flatMapCompletable(channelCreation -> raiden.createChannel(channelCreation.getAddress(),
+            channelCreation.getBudget())
+            .andThen(channelCache.save(channelCreation.getKey(),
+                new ChannelCreation(channelCreation, ChannelCreation.Status.CREATED)))
+            .doOnError(
+                throwable -> updateChannelStatus(channelCreation, ChannelCreation.Status.ERROR)))
+        .doOnError(Throwable::printStackTrace)
         .retry()
         .subscribe();
   }
 
+  private void updateChannelStatus(ChannelCreation channelCreation, ChannelCreation.Status status) {
+    channelCache.saveSync(channelCreation.getKey(), new ChannelCreation(channelCreation, status));
+  }
+
   private Publisher<?> createChannelOrError(ChannelPayment payment, Throwable throwable) {
     if (throwable instanceof ChannelNotFoundException) {
-      return createChannel(payment.getFromAddress(), payment.getChannelBudget()).andThen(
-          Observable.just(new Object()))
+      return createChannel(payment.getId(), payment.getFromAddress(),
+          payment.getChannelBudget()).andThen(Observable.just(new Object()))
           .toFlowable(BackpressureStrategy.DROP);
     } else {
       return Flowable.error(throwable);
     }
   }
 
-  public Completable createChannel(String fromAddress, BigDecimal channelBudget) {
-    return raiden.createChannel(fromAddress, channelBudget);
+  public Completable createChannel(String uri, String fromAddress, BigDecimal channelBudget) {
+    return channelCache.save(uri,
+        new ChannelCreation(uri, ChannelCreation.Status.PENDING, fromAddress, channelBudget));
   }
 
   private void updatePaymentStatus(ChannelPayment payment, ChannelPayment.Status status) {
-    cache.saveSync(payment.getId(), new ChannelPayment(status, payment));
+    paymentCache.saveSync(payment.getId(), new ChannelPayment(status, payment));
   }
 
   public void buy(PaymentTransaction paymentTransaction, BigDecimal channelBudget) {
-    cache.saveSync(paymentTransaction.getUri(),
+    paymentCache.saveSync(paymentTransaction.getUri(),
         new ChannelPayment(paymentTransaction.getUri(), ChannelPayment.Status.PENDING,
             paymentTransaction.getTransactionBuilder()
                 .fromAddress(), paymentTransaction.getTransactionBuilder()
@@ -67,13 +91,20 @@ public class ChannelService {
   }
 
   public Observable<ChannelPayment> getPayment(String key) {
-    return cache.get(key)
+    return paymentCache.get(key)
         .filter(channelPayment -> !channelPayment.getStatus()
             .equals(ChannelPayment.Status.PENDING));
   }
 
+  public Observable<ChannelCreation> getChannel(String key) {
+    return channelCache.get(key)
+        .filter(channel -> !channel.getStatus()
+            .equals(ChannelPayment.Status.PENDING));
+  }
+
   public Completable remove(String key) {
-    return cache.remove(key);
+    return paymentCache.remove(key)
+        .andThen(channelCache.remove(key));
   }
 
   public Single<Boolean> hasChannel(String wallet) {

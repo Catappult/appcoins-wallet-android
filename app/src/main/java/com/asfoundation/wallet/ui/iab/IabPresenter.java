@@ -84,8 +84,8 @@ public class IabPresenter {
         }, throwable -> throwable.printStackTrace()));
   }
 
-  private boolean handleBuyEvent(String appPackage, String productName) {
-    return disposables.add(view.getBuyClick()
+  private void handleBuyEvent(String appPackage, String productName) {
+    disposables.add(view.getBuyClick()
         .observeOn(Schedulers.io())
         .flatMapCompletable(buyData -> inAppPurchaseInteractor.send(buyData.getUri(),
             buyData.isRaiden ? InAppPurchaseInteractor.TransactionType.RAIDEN

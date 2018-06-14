@@ -218,7 +218,8 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   }
 
   @Provides ChannelService provideChannelService(Raiden raiden) {
-    return new ChannelService(raiden, new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()));
+    return new ChannelService(raiden, new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
+        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()));
   }
 
   @Provides NonceObtainer provideNonceObtainer(Web3jProvider web3jProvider) {

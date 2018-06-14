@@ -302,6 +302,7 @@ public class IabActivity extends BaseActivity implements IabView {
   }
 
   @Override public void showNoChannelFundsError() {
+    showBuy();
     AlertDialog dialog = new AlertDialog.Builder(this).setView(channelNoFundsView)
         .show();
 
