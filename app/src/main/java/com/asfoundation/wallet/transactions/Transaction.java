@@ -63,8 +63,11 @@ public class Transaction implements Parcelable {
     dest.writeString(to);
     dest.writeParcelable(details, flags);
     dest.writeString(currency);
-    Operation[] operationsArray = new Operation[operations.size()];
-    operations.toArray(operationsArray);
+    Operation[] operationsArray = new Operation[0];
+    if (operations != null) {
+      operationsArray = new Operation[operations.size()];
+      operations.toArray(operationsArray);
+    }
     dest.writeParcelableArray(operationsArray, flags);
   }
 
@@ -135,7 +138,7 @@ public class Transaction implements Parcelable {
   }
 
   public enum TransactionType {
-    STANDARD, IAB, ADS, OPEN_CHANNEL, TOP_UP_CHANNEL, CLOSE_CHANNEL;
+    STANDARD, IAB, ADS, OPEN_CHANNEL, TOP_UP_CHANNEL, CLOSE_CHANNEL, MICRO_IAB;
 
     static TransactionType fromInt(int type) {
      switch (type) {
@@ -151,6 +154,8 @@ public class Transaction implements Parcelable {
          return TOP_UP_CHANNEL;
        case 5:
          return CLOSE_CHANNEL;
+       case 6:
+         return MICRO_IAB;
        default:
          return STANDARD;
      }

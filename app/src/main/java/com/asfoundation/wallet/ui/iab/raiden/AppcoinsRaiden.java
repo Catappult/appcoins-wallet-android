@@ -4,10 +4,12 @@ import com.asf.microraidenj.type.Address;
 import com.asf.wallet.BuildConfig;
 import com.bds.microraidenj.MicroRaidenBDS;
 import com.bds.microraidenj.channel.BDSChannel;
+import com.bds.microraidenj.ws.ChannelHistoryResponse;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.functions.Predicate;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class AppcoinsRaiden implements Raiden {
   public static final String BDS_ADDRESS = "0x31a16aDF2D5FC73F149fBB779D20c036678b1bBD";
@@ -44,6 +46,11 @@ public class AppcoinsRaiden implements Raiden {
                 .toString()
                 .equalsIgnoreCase(BDS_ADDRESS)).doOnSuccess(channel -> channel.closeCooperatively(ecKey))
             .toCompletable());
+  }
+
+  @Override public Single<List<ChannelHistoryResponse.MicroTransaction>> fetchTransactions(
+      String walletAddress) {
+    return raiden.listTransactions(Address.from(walletAddress));
   }
 
   private BigDecimal convertToWeis(BigDecimal amount) {

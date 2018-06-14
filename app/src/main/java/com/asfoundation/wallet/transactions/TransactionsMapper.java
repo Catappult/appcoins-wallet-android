@@ -7,12 +7,15 @@ import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperation;
 import com.asfoundation.wallet.util.BalanceUtils;
+import com.bds.microraidenj.ws.ChannelHistoryResponse;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.asfoundation.wallet.transactions.Transaction.TransactionType.MICRO_IAB;
 
 public class TransactionsMapper {
   public static final String APPROVE_METHOD_ID = "0x095ea7b3";
@@ -38,6 +41,10 @@ public class TransactionsMapper {
         .map(tokenInfo -> map(tokenInfo.address, transactions));
   }
 
+  public Single<List<Transaction>> map(List<ChannelHistoryResponse.MicroTransaction> transactions) {
+    return Single.just(mapMicroTransactions(transactions)).observeOn(scheduler);
+  }
+
   private List<Transaction> map(String address, RawTransaction[] transactions) {
     List<Transaction> transactionList = new ArrayList<>();
     for (int i = transactions.length - 1; i >= 0; i--) {
@@ -55,6 +62,20 @@ public class TransactionsMapper {
       } else {
         transactionList.add(0, mapStandardTransaction(transaction));
       }
+    }
+    return transactionList;
+  }
+
+  private List<Transaction> mapMicroTransactions(List<ChannelHistoryResponse.MicroTransaction> transactions) {
+    List<Transaction> transactionList = new ArrayList<>();
+    for (int i = transactions.size() - 1; i >= 0; i--) {
+      ChannelHistoryResponse.MicroTransaction transaction = transactions.get(i);
+
+      transactionList.add(0, new Transaction(transaction.getTxID(), MICRO_IAB, null,
+          transaction.getTs()
+              .getTime() / 1000, Transaction.TransactionStatus.SUCCESS, transaction.getAmount()
+          .toString(), transaction.getSender(), transaction.getReceiver(),
+          getTransactionDetails(MICRO_IAB, transaction.getTxID()), null, null));
     }
     return transactionList;
   }
@@ -96,7 +117,7 @@ public class TransactionsMapper {
     }
 
     TransactionDetails details =
-        getTransactionDetails(Transaction.TransactionType.ADS, transaction);
+        getTransactionDetails(Transaction.TransactionType.ADS, transaction.hash);
 
     return new Transaction(transaction.hash, Transaction.TransactionType.ADS, null,
         transaction.timeStamp, getError(transaction), value, from, to, details, currency,
@@ -130,7 +151,7 @@ public class TransactionsMapper {
       for (TransactionOperation operation : transaction.operations) {
         operations.add(new Operation(transaction.hash, operation.from, operation.to, fee));
         if (operation.to.equals(transaction.from)) {
-          currency =  operation.contract.symbol;
+          currency = operation.contract.symbol;
           from = operation.from;
           to = operation.to;
           value = operation.value;
@@ -141,8 +162,7 @@ public class TransactionsMapper {
     }
 
     return new Transaction(transaction.hash, Transaction.TransactionType.CLOSE_CHANNEL, null,
-        transaction.timeStamp, getError(transaction), value, from, to, null,
-        currency, operations);
+        transaction.timeStamp, getError(transaction), value, from, to, null, currency, operations);
   }
 
   /**
@@ -227,7 +247,7 @@ public class TransactionsMapper {
     }
 
     Transaction.TransactionType type = getTransactionType(transaction);
-    TransactionDetails details = getTransactionDetails(type, transaction);
+    TransactionDetails details = getTransactionDetails(type, transaction.hash);
 
     return new Transaction(transaction.hash, type, approveTransaction.hash, transaction.timeStamp,
         getError(transaction), value.toString(), transaction.from, transaction.to, details,
@@ -281,9 +301,9 @@ public class TransactionsMapper {
   }
 
   @Nullable private TransactionDetails getTransactionDetails(Transaction.TransactionType type,
-      RawTransaction transaction) {
+      String transactionId) {
     TransactionDetails details = null;
-    AppCoinsOperation operationDetails = operationsDataSaver.getSync(transaction.hash);
+    AppCoinsOperation operationDetails = operationsDataSaver.getSync(transactionId);
     if (operationDetails != null) {
       String productName = null;
       if (!Transaction.TransactionType.ADS.equals(type)) {

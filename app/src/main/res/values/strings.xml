@@ -295,6 +295,10 @@
   <string name="miuraiden_trans_details_topup">µRaiden channel top up</string>
   <string name="miuraiden_trans_details_close">µRaiden channel closed</string>
   <string name="ellipsize">\u0020• • •</string>
+  <string name="transaction_status_label">Status</string>
+  <string name="transaction_category_label">Category</string>
+  <string name="transaction_details_label">Details</string>
+  <string name="transaction_to_label">To</string>
 
 
   <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins 🤖</string>

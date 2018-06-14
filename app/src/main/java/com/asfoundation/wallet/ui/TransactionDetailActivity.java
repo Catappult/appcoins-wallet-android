@@ -53,6 +53,7 @@ public class TransactionDetailActivity extends BaseActivity {
   private Transaction transaction;
   private TextView amount;
   private TransactionsDetailsAdapter adapter;
+  private RecyclerView detailsList;
 
   private Dialog dialog;
   private String walletAddr;
@@ -76,8 +77,8 @@ public class TransactionDetailActivity extends BaseActivity {
 
     amount = findViewById(R.id.amount);
     adapter = new TransactionsDetailsAdapter(this::onMoreClicked);
-    RecyclerView list = findViewById(R.id.details_list);
-    list.setAdapter(adapter);
+    detailsList = findViewById(R.id.details_list);
+    detailsList.setAdapter(adapter);
 
     viewModel = ViewModelProviders.of(this, transactionDetailViewModelFactory)
         .get(TransactionDetailViewModel.class);
@@ -126,6 +127,7 @@ public class TransactionDetailActivity extends BaseActivity {
       description = transaction.getDetails()
           .getDescription();
     }
+    String to = null;
 
     @StringRes int typeStr = R.string.transaction_type_standard;
     @DrawableRes int typeIcon = R.drawable.ic_transaction_peer;
@@ -136,6 +138,9 @@ public class TransactionDetailActivity extends BaseActivity {
         typeStr = R.string.transaction_type_poa;
         typeIcon = R.drawable.ic_transaction_poa;
         break;
+      case MICRO_IAB:
+        to = transaction.getTo();
+        showCloseButton = true;
       case IAB:
         typeStr = R.string.transaction_type_iab;
         typeIcon = R.drawable.ic_transaction_iab;
@@ -183,7 +188,7 @@ public class TransactionDetailActivity extends BaseActivity {
     }
 
     setUIContent(transaction.getTimeStamp(), rawValue, symbol, icon, id, description, typeStr,
-        typeIcon, statusStr, statusColor, showCloseButton);
+        typeIcon, statusStr, statusColor, showCloseButton, to);
   }
 
   private void onDefaultNetwork(NetworkInfo networkInfo) {
@@ -213,7 +218,7 @@ public class TransactionDetailActivity extends BaseActivity {
 
   private void setUIContent(long timeStamp, String value, String symbol, String icon, String id,
       String description, int typeStr, int typeIcon, int statusStr, int statusColor,
-      boolean showCloseBtn) {
+      boolean showCloseBtn, String to) {
     ((TextView) findViewById(R.id.transaction_timestamp)).setText(getDate(timeStamp));
     findViewById(R.id.transaction_timestamp).setVisibility(View.VISIBLE);
 
@@ -242,6 +247,14 @@ public class TransactionDetailActivity extends BaseActivity {
 
     ((TextView) findViewById(R.id.status)).setText(statusStr);
     ((TextView) findViewById(R.id.status)).setTextColor(getResources().getColor(statusColor));
+
+    if (to != null) {
+      ((TextView) findViewById(R.id.to)).setText(to);
+      detailsList.setVisibility( View.GONE);
+      findViewById(R.id.details_label).setVisibility(View.GONE);
+      findViewById(R.id.to_label).setVisibility(View.VISIBLE);
+      findViewById(R.id.to).setVisibility(View.VISIBLE);
+    }
 
     findViewById(R.id.close_channel_btn).setVisibility(showCloseBtn ? View.VISIBLE : View.GONE);
     findViewById(R.id.close_channel_btn).setOnClickListener(v -> showCloseChannelConfirmation());

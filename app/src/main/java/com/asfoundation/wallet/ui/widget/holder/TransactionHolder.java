@@ -80,7 +80,8 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
 
     if (type == Transaction.TransactionType.ADS) {
       transactionTypeIcon = R.drawable.ic_transaction_poa;
-    } else if (type == Transaction.TransactionType.IAB) {
+    } else if (type == Transaction.TransactionType.IAB
+        || type == Transaction.TransactionType.MICRO_IAB) {
       transactionTypeIcon = R.drawable.ic_transaction_iab;
     } else if (type == Transaction.TransactionType.OPEN_CHANNEL
         || type == Transaction.TransactionType.TOP_UP_CHANNEL
@@ -137,6 +138,7 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
           description.setText(details.getDescription());
         } else {
           address.setText(isSent ? to : from);
+          description.setText("");
         }
         break;
     }

@@ -69,6 +69,14 @@
           app:layout_constraintGuide_percent="0.88"
           />
 
+      <android.support.constraint.Guideline
+          android:id="@+id/guideline_mid"
+          android:layout_width="1dp"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          app:layout_constraintGuide_percent="0.5"
+          />
+
       <TextView
           android:id="@+id/amount"
           android:layout_width="wrap_content"
@@ -115,7 +123,7 @@
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/big_margin"
           android:layout_marginTop="32dp"
-          android:text="Status"
+          android:text="@string/transaction_status_label"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/item_id"
           style="@style/TransactionDetailsTextStyle"
@@ -139,7 +147,7 @@
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/big_margin"
           android:layout_marginTop="@dimen/big_margin"
-          android:text="Category"
+          android:text="@string/transaction_category_label"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/status_label"
           style="@style/TransactionDetailsTextStyle"
@@ -177,12 +185,41 @@
       </FrameLayout>
 
       <TextView
+          android:id="@+id/to_label"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginTop="@dimen/big_margin"
+          android:text="@string/transaction_to_label"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/category_label"
+          style="@style/TransactionDetailsTextStyle"
+          android:visibility="gone"
+          />
+
+      <TextView
+          android:id="@+id/to"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/big_margin"
+          android:singleLine="true"
+          android:text="0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF"
+          app:layout_constraintBottom_toBottomOf="@id/to_label"
+          app:layout_constraintEnd_toEndOf="parent"
+          style="@style/TransactionDetailsTextStyle.Content.Address"
+          app:layout_constraintHorizontal_bias="1.0"
+          app:layout_constraintStart_toEndOf="@id/guideline_mid"
+          app:layout_constraintWidth_default="wrap"
+          android:visibility="gone"
+          />
+
+      <TextView
           android:id="@+id/details_label"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/big_margin"
           android:layout_marginTop="@dimen/big_margin"
-          android:text="Details"
+          android:text="@string/transaction_details_label"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/category_label"
           style="@style/TransactionDetailsTextStyle"
@@ -228,6 +265,7 @@
           android:src="@drawable/ic_ether_logo"
           app:layout_constraintEnd_toStartOf="@+id/brand"
           app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintHorizontal_chainStyle="packed"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/close_channel_btn"

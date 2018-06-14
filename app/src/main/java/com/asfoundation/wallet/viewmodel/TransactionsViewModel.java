@@ -26,6 +26,7 @@ import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
+import com.asfoundation.wallet.ui.MicroRaidenInteractor;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -61,6 +62,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final Runnable startGetBalanceTask = this::getBalance;
   private final AirdropRouter airdropRouter;
   private final AppcoinsOperationsDataSaver operationsDataSaver;
+  private final MicroRaidenInteractor microRaidenInteractor;
 
   TransactionsViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
@@ -70,7 +72,8 @@ public class TransactionsViewModel extends BaseViewModel {
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
       TransactionsMapper transactionsMapper, AirdropRouter airdropRouter,
-      AppcoinsOperationsDataSaver operationsDataSaver) {
+      AppcoinsOperationsDataSaver operationsDataSaver,
+      MicroRaidenInteractor microRaidenInteractor) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchTransactionsInteract = fetchTransactionsInteract;
@@ -86,6 +89,7 @@ public class TransactionsViewModel extends BaseViewModel {
     this.transactionsMapper = transactionsMapper;
     this.airdropRouter = airdropRouter;
     this.operationsDataSaver = operationsDataSaver;
+    this.microRaidenInteractor = microRaidenInteractor;
     disposables = new CompositeDisposable();
   }
 
@@ -125,11 +129,25 @@ public class TransactionsViewModel extends BaseViewModel {
     handler.removeCallbacks(startFetchTransactionsTask);
     progress.postValue(shouldShowProgress);
     /*For specific address use: new Wallet("0x60f7a1cbc59470b74b1df20b133700ec381f15d3")*/
-    Observable<List<Transaction>> fetch = fetchTransactionsInteract.fetch(defaultWallet.getValue())
-        .flatMapSingle(rawTransactions -> transactionsMapper.map(rawTransactions)).observeOn(
-            AndroidSchedulers.mainThread());
-    disposables.add(
-        fetch.subscribe(this::onTransactions, this::onError, this::onTransactionsFetchCompleted));
+    Observable<List<Transaction>> fetchBdsTransactions =
+        microRaidenInteractor.listTransactions(defaultWallet.getValue())
+            .toObservable()
+            .flatMapSingle(transactionsMapper::map);
+
+    Observable<List<Transaction>> fetchBlockchainTransactions =
+        fetchTransactionsInteract.fetch(defaultWallet.getValue())
+            .flatMapSingle(transactionsMapper::map);
+
+    Observable<List<Transaction>> zip =
+        Observable.zip(fetchBdsTransactions, fetchBlockchainTransactions,
+            (bdsTransactions, blockchainTransactions) -> {
+              bdsTransactions.addAll(blockchainTransactions);
+              return bdsTransactions;
+            });
+
+    disposables.add(zip.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        .subscribe(this::onTransactions, this::onError, this::onTransactionsFetchCompleted));
+
   }
 
   private void getBalance() {
