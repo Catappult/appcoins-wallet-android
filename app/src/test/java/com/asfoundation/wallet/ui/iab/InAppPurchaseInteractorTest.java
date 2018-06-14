@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.repository;
+package com.asfoundation.wallet.ui.iab;
 
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.PendingTransaction;
@@ -12,10 +12,18 @@ import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
-import com.asfoundation.wallet.ui.iab.AppInfoProvider;
-import com.asfoundation.wallet.ui.iab.ImageSaver;
-import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
+import com.asfoundation.wallet.repository.ApproveService;
+import com.asfoundation.wallet.repository.BalanceService;
+import com.asfoundation.wallet.repository.BuyService;
+import com.asfoundation.wallet.repository.ErrorMapper;
+import com.asfoundation.wallet.repository.InAppPurchaseService;
+import com.asfoundation.wallet.repository.MemoryCache;
+import com.asfoundation.wallet.repository.NonceGetter;
+import com.asfoundation.wallet.repository.PendingTransactionService;
+import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationEntity;
+import com.asfoundation.wallet.ui.iab.raiden.ChannelService;
+import com.asfoundation.wallet.ui.iab.raiden.RaidenRepository;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -25,6 +33,7 @@ import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.junit.Assert;
@@ -59,6 +68,7 @@ public class InAppPurchaseInteractorTest {
   @Mock BalanceService balanceService;
   @Mock AppInfoProvider appInfoProvider;
   @Mock ProofOfAttentionService proofOfAttentionService;
+  @Mock RaidenRepository repository;
   private InAppPurchaseInteractor inAppPurchaseInteractor;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
@@ -118,7 +128,8 @@ public class InAppPurchaseInteractorTest {
     inAppPurchaseInteractor =
         new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
             gasSettingsInteract, BigDecimal.ONE,
-            new TransferParser(defaultWalletInteract, tokenRepository));
+            new TransferParser(defaultWalletInteract, tokenRepository), repository,
+            new ChannelService(null, new MemoryCache<>(BehaviorSubject.create(), new HashMap<>())));
   }
 
   @Test public void sendTransaction() {
@@ -128,11 +139,12 @@ public class InAppPurchaseInteractorTest {
         + "/transfer?uint256=1000000000000000000&address"
         + "=0x4fbcc5ce88493c3d9903701c143af65f54481119&data=0x636f6d2e63656e61732e70726f64756374";
     inAppPurchaseInteractor.start();
-    TestObserver<PaymentTransaction> testObserver = new TestObserver<>();
+    TestObserver<Payment> testObserver = new TestObserver<>();
     inAppPurchaseInteractor.getTransactionState(uri)
         .subscribe(testObserver);
     scheduler.triggerActions();
-    inAppPurchaseInteractor.send(uri, PACKAGE_NAME, PRODUCT_NAME)
+    inAppPurchaseInteractor.send(uri, InAppPurchaseInteractor.TransactionType.NORMAL, PACKAGE_NAME,
+        PRODUCT_NAME, BigDecimal.ONE)
         .subscribe();
     scheduler.triggerActions();
     balance.onNext(GetDefaultWalletBalance.BalanceState.OK);
@@ -151,30 +163,30 @@ public class InAppPurchaseInteractorTest {
     pendingBuyState.onNext(pendingTransaction3);
     scheduler.triggerActions();
 
-    List<PaymentTransaction> values = testObserver.assertNoErrors()
+    List<Payment> values = testObserver.assertNoErrors()
         .values();
     int index = 0;
     Assert.assertTrue(values.get(index++)
-        .getState()
-        .equals(PaymentTransaction.PaymentState.PENDING));
+        .getStatus()
+        .equals(Payment.Status.APPROVING));
     Assert.assertTrue(values.get(index++)
-        .getState()
-        .equals(PaymentTransaction.PaymentState.PENDING));
+        .getStatus()
+        .equals(Payment.Status.APPROVING));
     Assert.assertTrue(values.get(index++)
-        .getState()
-        .equals(PaymentTransaction.PaymentState.APPROVING));
+        .getStatus()
+        .equals(Payment.Status.APPROVING));
     Assert.assertTrue(values.get(index++)
-        .getState()
-        .equals(PaymentTransaction.PaymentState.APPROVED));
+        .getStatus()
+        .equals(Payment.Status.APPROVING));
     Assert.assertTrue(values.get(index++)
-        .getState()
-        .equals(PaymentTransaction.PaymentState.BUYING));
+        .getStatus()
+        .equals(Payment.Status.BUYING));
     Assert.assertTrue(values.get(index++)
-        .getState()
-        .equals(PaymentTransaction.PaymentState.BOUGHT));
+        .getStatus()
+        .equals(Payment.Status.BUYING));
     Assert.assertTrue(values.get(index++)
-        .getState()
-        .equals(PaymentTransaction.PaymentState.COMPLETED));
+        .getStatus()
+        .equals(Payment.Status.COMPLETED));
     Assert.assertTrue(values.size() == 7);
   }
 
@@ -185,11 +197,12 @@ public class InAppPurchaseInteractorTest {
         + "/transfer?uint256=1000000000000000000&address"
         + "=0x4fbcc5ce88493c3d9903701c143af65f54481119&data=0x636f6d2e63656e61732e70726f64756374";
     inAppPurchaseService.start();
-    TestObserver<PaymentTransaction> testObserver = new TestObserver<>();
+    TestObserver<Payment> testObserver = new TestObserver<>();
     inAppPurchaseInteractor.getTransactionState(uri)
         .subscribe(testObserver);
     scheduler.triggerActions();
-    inAppPurchaseInteractor.send(uri, PACKAGE_NAME, PRODUCT_NAME)
+    inAppPurchaseInteractor.send(uri, InAppPurchaseInteractor.TransactionType.NORMAL, PACKAGE_NAME,
+        PRODUCT_NAME, BigDecimal.ONE)
         .subscribe();
     scheduler.triggerActions();
     balance.onNext(GetDefaultWalletBalance.BalanceState.NO_ETHER);
@@ -208,15 +221,15 @@ public class InAppPurchaseInteractorTest {
     pendingBuyState.onNext(pendingTransaction3);
     scheduler.triggerActions();
 
-    List<PaymentTransaction> values = testObserver.assertNoErrors()
+    List<Payment> values = testObserver.assertNoErrors()
         .values();
     int index = 0;
     Assert.assertTrue(values.get(index++)
-        .getState()
-        .equals(PaymentTransaction.PaymentState.PENDING));
+        .getStatus()
+        .equals(Payment.Status.APPROVING));
     Assert.assertTrue(values.get(index++)
-        .getState()
-        .equals(PaymentTransaction.PaymentState.NO_ETHER));
+        .getStatus()
+        .equals(Payment.Status.NO_ETHER));
     Assert.assertTrue(values.size() == 2);
   }
 
@@ -227,11 +240,12 @@ public class InAppPurchaseInteractorTest {
         + "/transfer?uint256=1000000000000000000&address"
         + "=0x4fbcc5ce88493c3d9903701c143af65f54481119&data=0x636f6d2e63656e61732e70726f64756374";
     inAppPurchaseService.start();
-    TestObserver<PaymentTransaction> testObserver = new TestObserver<>();
+    TestObserver<Payment> testObserver = new TestObserver<>();
     inAppPurchaseInteractor.getTransactionState(uri)
         .subscribe(testObserver);
     scheduler.triggerActions();
-    inAppPurchaseInteractor.send(uri, PACKAGE_NAME, PRODUCT_NAME)
+    inAppPurchaseInteractor.send(uri, InAppPurchaseInteractor.TransactionType.NORMAL, PACKAGE_NAME,
+        PRODUCT_NAME, BigDecimal.ONE)
         .subscribe();
     scheduler.triggerActions();
     balance.onNext(GetDefaultWalletBalance.BalanceState.NO_ETHER_NO_TOKEN);
@@ -253,15 +267,27 @@ public class InAppPurchaseInteractorTest {
     scheduler.triggerActions();
     balance.onNext(GetDefaultWalletBalance.BalanceState.NO_ETHER_NO_TOKEN);
 
-    List<PaymentTransaction> values = testObserver.assertNoErrors()
+    List<Payment> values = testObserver.assertNoErrors()
         .values();
     int index = 0;
     Assert.assertTrue(values.get(index++)
-        .getState()
-        .equals(PaymentTransaction.PaymentState.PENDING));
+        .getStatus()
+        .equals(Payment.Status.APPROVING));
     Assert.assertTrue(values.get(index++)
-        .getState()
-        .equals(PaymentTransaction.PaymentState.NO_FUNDS));
+        .getStatus()
+        .equals(Payment.Status.NO_FUNDS));
     Assert.assertTrue(values.size() == 2);
+  }
+
+  @Test public void getTopUpChannelSuggestionValues() {
+    List<BigDecimal> topUpChannelSuggestionValues =
+        inAppPurchaseInteractor.getTopUpChannelSuggestionValues(new BigDecimal("7.2"));
+    List<BigDecimal> list = new ArrayList<>();
+    list.add(new BigDecimal("7.2"));
+    list.add(new BigDecimal("10.0"));
+    list.add(new BigDecimal("15.0"));
+    list.add(new BigDecimal("25.0"));
+    list.add(new BigDecimal("35.0"));
+    Assert.assertEquals(list, topUpChannelSuggestionValues);
   }
 }

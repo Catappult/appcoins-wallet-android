@@ -118,24 +118,30 @@ public class TransactionsMapper {
   private Transaction mapCloseChannelTransaction(RawTransaction transaction) {
     String value = transaction.value;
     String currency = null;
+    String from = transaction.from;
+    String to = transaction.to;
+
     List<Operation> operations = new ArrayList<>();
     String fee = BalanceUtils.weiToEth(
         new BigDecimal(transaction.gasUsed).multiply(new BigDecimal(transaction.gasPrice)))
         .toPlainString();
 
     if (transaction.operations != null && transaction.operations.length > 0) {
-      TransactionOperation operation = transaction.operations[0];
-      value = operation.value;
-      currency = operation.contract.symbol;
-
-      operations.add(new Operation(transaction.hash, operation.from, operation.to, fee));
+      for (TransactionOperation operation : transaction.operations) {
+        operations.add(new Operation(transaction.hash, operation.from, operation.to, fee));
+        if (operation.to.equals(transaction.from)) {
+          currency =  operation.contract.symbol;
+          from = operation.from;
+          to = operation.to;
+          value = operation.value;
+        }
+      }
     } else {
-
       operations.add(new Operation(transaction.hash, transaction.from, transaction.to, fee));
     }
 
     return new Transaction(transaction.hash, Transaction.TransactionType.CLOSE_CHANNEL, null,
-        transaction.timeStamp, getError(transaction), value, transaction.from, transaction.to, null,
+        transaction.timeStamp, getError(transaction), value, from, to, null,
         currency, operations);
   }
 

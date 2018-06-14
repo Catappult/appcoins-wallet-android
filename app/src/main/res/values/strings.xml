@@ -159,12 +159,14 @@
   <string name="title_dialog_watch_out">Watch out!</string>
   <string name="title_dialog_add_account">Add wallet</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
+  <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Enter the password to encrypt your wallet</string>
   <string name="dialog_message_unrecoverable_message">If this device is replaced or this app is deleted, neither you nor AppCoins Wallet can recover your funds without a backup.</string>
   <string name="toast_message_wallet_imported">The wallet was imported</string>
   <string name="toast_message_wallet_exported">A backup was created</string>
   <string name="toast_qr_code_no_address">QR code doesn\'t contain valid address</string>
+  <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
   <string name="intro_title_first_page">Alpha Version</string>
   <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
@@ -186,6 +188,8 @@
   <string name="hint_contract_address">Contract address</string>
   <string name="hint_contract_symbol">Symbol</string>
   <string name="hint_contract_decimals">Decimals</string>
+  <string name="button_cancel">CANCEL</string>
+  <string name="button_yes">YES</string>
   <!-- Subtitles -->
   <string name="subtitle_from">From</string>
   <string name="subtitle_to">To</string>
@@ -303,4 +307,9 @@
   <string name="activity_airdrop_success_message">Airdrop completed</string>
   <string name="activity_airdrop_generic_error_message">An error has occurred</string>
 
+  <string name="iab_activity_micro_raiden_wallet">Wallet</string>
+  <string name="iab_activity_raiden_channel_label">Create µRaiden channel</string>
+  <string name="iab_activity_raiden_amount_label">Select Amount</string>
+  <string name="iab_activity_raiden_channel_info_message">You’ll not pay fees for the transactions made with this developer until the amount you choose is reached. The amount will be withdrawn and stored, and you can close this channel anytime.</string>
+  <string name="iab_activity_raiden_channel_info_title">µRaiden channel</string>
 </resources>

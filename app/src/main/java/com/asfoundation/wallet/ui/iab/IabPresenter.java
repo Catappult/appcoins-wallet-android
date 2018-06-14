@@ -1,11 +1,13 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.util.Log;
-import com.asfoundation.wallet.repository.PaymentTransaction;
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.util.UnknownTokenException;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.Nullable;
 
@@ -29,29 +31,85 @@ public class IabPresenter {
   }
 
   public void present(String uriString, String appPackage, String productName) {
-    disposables.add(inAppPurchaseInteractor.parseTransaction(uriString)
-        .observeOn(viewScheduler)
-        .subscribe(transactionBuilder -> view.setup(transactionBuilder), this::showError));
+    setupUi(uriString);
 
-    disposables.add(view.getCancelClick()
-        .subscribe(click -> close()));
+    handleCancelClick();
 
-    disposables.add(view.getOkErrorClick()
-        .flatMapSingle(__ -> inAppPurchaseInteractor.parseTransaction(uriString))
-        .subscribe(click -> showBuy(), throwable -> close()));
+    handleOkErrorClick(uriString);
 
-    disposables.add(view.getBuyClick()
-        .flatMapCompletable(uri -> inAppPurchaseInteractor.send(uri, appPackage, productName)
-            .observeOn(viewScheduler)
-            .doOnError(this::showError))
+    handleBuyEvent(appPackage, productName);
+
+    showTransactionState(uriString);
+
+    handleDontShowMicroRaidenInfo();
+
+    showChannelAmount();
+
+    showMicroRaidenInfo();
+  }
+
+  private void showChannelAmount() {
+    disposables.add(view.getCreateChannelClick()
+        .doOnNext(isChecked -> {
+          if (isChecked) {
+            view.showChannelAmount();
+          } else {
+            view.hideChannelAmount();
+          }
+        })
+        .doOnError(Throwable::printStackTrace)
         .retry()
         .subscribe());
+  }
 
+  private void handleDontShowMicroRaidenInfo() {
+    disposables.add(view.getDontShowAgainClick()
+        .doOnNext(__ -> inAppPurchaseInteractor.dontShowAgain())
+        .subscribe());
+  }
+
+  private void showMicroRaidenInfo() {
+    disposables.add(view.getCreateChannelClick()
+        .filter(isChecked -> isChecked && inAppPurchaseInteractor.shouldShowDialog())
+        .subscribe(__ -> view.showRaidenInfo()));
+  }
+
+  private void showTransactionState(String uriString) {
     disposables.add(inAppPurchaseInteractor.getTransactionState(uriString)
         .observeOn(viewScheduler)
         .flatMapCompletable(this::showPendingTransaction)
         .subscribe(() -> {
         }, throwable -> throwable.printStackTrace()));
+  }
+
+  private boolean handleBuyEvent(String appPackage, String productName) {
+    return disposables.add(view.getBuyClick()
+        .observeOn(Schedulers.io())
+        .flatMapCompletable(buyData -> inAppPurchaseInteractor.send(buyData.getUri(),
+            buyData.isRaiden ? InAppPurchaseInteractor.TransactionType.RAIDEN
+                : InAppPurchaseInteractor.TransactionType.NORMAL, appPackage, productName,
+            buyData.getChannelBudget())
+            .observeOn(viewScheduler)
+            .doOnError(this::showError))
+        .retry()
+        .subscribe());
+  }
+
+  private void handleOkErrorClick(String uriString) {
+    disposables.add(view.getOkErrorClick()
+        .flatMapSingle(__ -> inAppPurchaseInteractor.parseTransaction(uriString))
+        .subscribe(click -> showBuy(), throwable -> close()));
+  }
+
+  private void handleCancelClick() {
+    disposables.add(view.getCancelClick()
+        .subscribe(click -> close()));
+  }
+
+  private void setupUi(String uriString) {
+    disposables.add(inAppPurchaseInteractor.parseTransaction(uriString)
+        .observeOn(viewScheduler)
+        .subscribe(this::setup, this::showError));
   }
 
   private void showBuy() {
@@ -73,9 +131,9 @@ public class IabPresenter {
     }
   }
 
-  private Completable showPendingTransaction(PaymentTransaction transaction) {
+  private Completable showPendingTransaction(Payment transaction) {
     Log.d(TAG, "present: " + transaction);
-    switch (transaction.getState()) {
+    switch (transaction.getStatus()) {
       case COMPLETED:
         return Completable.fromAction(view::showTransactionCompleted)
             .andThen(Completable.timer(1, TimeUnit.SECONDS))
@@ -86,8 +144,7 @@ public class IabPresenter {
       case NO_FUNDS:
         return Completable.fromAction(() -> view.showNoFundsError())
             .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));
-      case WRONG_NETWORK:
-      case UNKNOWN_TOKEN:
+      case NETWORK_ERROR:
         return Completable.fromAction(() -> view.showWrongNetworkError())
             .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));
       case NO_TOKENS:
@@ -102,12 +159,9 @@ public class IabPresenter {
       case NONCE_ERROR:
         return Completable.fromAction(() -> view.showNonceError())
             .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));
-      case PENDING:
       case APPROVING:
-      case APPROVED:
         return Completable.fromAction(view::showApproving);
       case BUYING:
-      case BOUGHT:
         return Completable.fromAction(view::showBuying);
       default:
       case ERROR:
@@ -118,5 +172,35 @@ public class IabPresenter {
 
   public void stop() {
     disposables.clear();
+  }
+
+  private void setup(TransactionBuilder transaction) {
+    view.setup(transaction);
+    view.showRaidenChannelValues(
+        inAppPurchaseInteractor.getTopUpChannelSuggestionValues(transaction.amount()));
+  }
+
+  public static class BuyData {
+    private final boolean isRaiden;
+    private final String uri;
+    private final BigDecimal channelBudget;
+
+    public BuyData(boolean isRaiden, String uri, BigDecimal channelBudget) {
+      this.isRaiden = isRaiden;
+      this.uri = uri;
+      this.channelBudget = channelBudget;
+    }
+
+    public boolean isRaiden() {
+      return isRaiden;
+    }
+
+    public String getUri() {
+      return uri;
+    }
+
+    public BigDecimal getChannelBudget() {
+      return channelBudget;
+    }
   }
 }

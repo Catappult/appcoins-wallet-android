@@ -1,13 +1,18 @@
 package com.asfoundation.wallet.ui;
 
+import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,8 +28,14 @@ import com.asfoundation.wallet.util.StringUtils;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModel;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModelFactory;
 import com.asfoundation.wallet.widget.CircleTransformation;
+import com.jakewharton.rxbinding2.view.RxView;
 import com.squareup.picasso.Picasso;
 import dagger.android.AndroidInjection;
+import io.reactivex.Completable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Calendar;
@@ -35,6 +46,7 @@ import static com.asfoundation.wallet.C.Key.TRANSACTION;
 
 public class TransactionDetailActivity extends BaseActivity {
 
+  private static final String TAG = TransactionDetailActivity.class.getSimpleName();
   @Inject TransactionDetailViewModelFactory transactionDetailViewModelFactory;
   private TransactionDetailViewModel viewModel;
 
@@ -42,13 +54,17 @@ public class TransactionDetailActivity extends BaseActivity {
   private TextView amount;
   private TransactionsDetailsAdapter adapter;
 
+  private Dialog dialog;
+  private String walletAddr;
+  private CompositeDisposable disposables;
+
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     AndroidInjection.inject(this);
 
     setContentView(R.layout.activity_transaction_detail);
-
+    disposables = new CompositeDisposable();
     transaction = getIntent().getParcelableExtra(TRANSACTION);
     if (transaction == null) {
       finish();
@@ -71,7 +87,14 @@ public class TransactionDetailActivity extends BaseActivity {
         .observe(this, this::onDefaultWallet);
   }
 
+  @Override protected void onStop() {
+    super.onStop();
+    disposables.dispose();
+    hideDialog();
+  }
+
   private void onDefaultWallet(Wallet wallet) {
+    walletAddr = wallet.address;
     adapter.setDefaultWallet(wallet);
     adapter.addOperations(transaction.getOperations());
 
@@ -221,5 +244,53 @@ public class TransactionDetailActivity extends BaseActivity {
     ((TextView) findViewById(R.id.status)).setTextColor(getResources().getColor(statusColor));
 
     findViewById(R.id.close_channel_btn).setVisibility(showCloseBtn ? View.VISIBLE : View.GONE);
+    findViewById(R.id.close_channel_btn).setOnClickListener(v -> showCloseChannelConfirmation());
+  }
+
+  private void showCloseChannelConfirmation() {
+    AlertDialog.Builder builder = buildDialog();
+    View view = getLayoutInflater().inflate(R.layout.dialog_close_channel, null);
+    view.findViewById(R.id.positive_button)
+        .setOnClickListener(v -> {
+          showLoading();
+          disposables.add(Completable.complete()
+              .observeOn(Schedulers.io())
+              .andThen(viewModel.closeChannel(walletAddr))
+              .observeOn(AndroidSchedulers.mainThread())
+              .subscribe(this::hideDialog, throwable -> {
+                Log.e(TAG, "Failed to close channel.", throwable);
+                hideDialog();
+              }));
+        });
+    view.findViewById(R.id.negative_button)
+        .setOnClickListener(v -> hideDialog());
+
+    builder.setView(view);
+    dialog = builder.create();
+    dialog.show();
+  }
+
+  private void showLoading() {
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    View view = getLayoutInflater().inflate(R.layout.dialog_loading, null);
+    builder.setView(view);
+    builder.setCancelable(false);
+    hideDialog();
+    dialog = builder.create();
+    dialog.getWindow()
+        .setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    dialog.show();
+  }
+
+  private AlertDialog.Builder buildDialog() {
+    hideDialog();
+    return new AlertDialog.Builder(this);
+  }
+
+  private void hideDialog() {
+    if (dialog != null && dialog.isShowing()) {
+      dialog.dismiss();
+      dialog = null;
+    }
   }
 }
