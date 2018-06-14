@@ -50,13 +50,15 @@ public class IabPresenter {
 
   private void showChannelAmount() {
     disposables.add(view.getCreateChannelClick()
-        .doOnNext(isChecked -> {
-          if (isChecked) {
-            view.showChannelAmount();
-          } else {
-            view.hideChannelAmount();
-          }
-        })
+        .flatMapSingle(isChecked -> inAppPurchaseInteractor.hasChannel()
+            .observeOn(viewScheduler)
+            .doOnSuccess(hasChannel -> {
+              if (isChecked && !hasChannel) {
+                view.showChannelAmount();
+              } else {
+                view.hideChannelAmount();
+              }
+            }))
         .doOnError(Throwable::printStackTrace)
         .retry()
         .subscribe());
@@ -116,7 +118,7 @@ public class IabPresenter {
         .subscribe(view::showWallet, Throwable::printStackTrace));
 
     disposables.add(inAppPurchaseInteractor.getWalletAddress()
-        .flatMap(inAppPurchaseInteractor::hasChannel)
+        .flatMap(wallet -> inAppPurchaseInteractor.hasChannel())
         .observeOn(viewScheduler)
         .subscribe(hasChannel -> {
           if (hasChannel) {

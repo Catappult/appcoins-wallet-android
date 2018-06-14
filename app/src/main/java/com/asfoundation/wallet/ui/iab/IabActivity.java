@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.constraint.Group;
@@ -153,8 +154,7 @@ public class IabActivity extends BaseActivity implements IabView {
   @Override public Observable<IabPresenter.BuyData> getBuyClick() {
     return RxView.clicks(buyButton)
         .map(click -> new IabPresenter.BuyData(checkbox.isChecked(), getIntent().getData()
-            .toString(), new BigDecimal(dropdown.getSelectedItem()
-            .toString())));
+            .toString(), getChannelBudget()));
   }
 
   @Override public Observable<Object> getCancelClick() {
@@ -246,6 +246,7 @@ public class IabActivity extends BaseActivity implements IabView {
   }
 
   @Override public void showRaidenChannelValues(List<BigDecimal> values) {
+    adapter.clear();
     adapter.addAll(values);
     adapter.notifyDataSetChanged();
   }
@@ -291,6 +292,12 @@ public class IabActivity extends BaseActivity implements IabView {
 
   @Override public void showWallet(String wallet) {
     walletAddressTextView.setText(wallet);
+  }
+
+  @NonNull private BigDecimal getChannelBudget() {
+    return new BigDecimal(dropdown.getSelectedItem() == null ? "0"
+        : dropdown.getSelectedItem()
+            .toString());
   }
 
   private void showLoading(@StringRes int message) {
