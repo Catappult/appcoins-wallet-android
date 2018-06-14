@@ -212,10 +212,9 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
     return new RaidenFactory(web3jProvider, gasSettings, nonceObtainer).get();
   }
 
-  @Provides Raiden provideRaiden(MicroRaidenBDS raiden, WalletRepositoryType walletRepositoryType,
-      AccountKeystoreService accountKeyService, PasswordStore passwordStore) {
-    return new AppcoinsRaiden(
-        new PrivateKeyProvider(walletRepositoryType, accountKeyService, passwordStore), raiden);
+  @Provides Raiden provideRaiden(MicroRaidenBDS raiden, AccountKeystoreService accountKeyService,
+      PasswordStore passwordStore) {
+    return new AppcoinsRaiden(new PrivateKeyProvider(accountKeyService, passwordStore), raiden);
   }
 
   @Provides ChannelService provideChannelService(Raiden raiden) {

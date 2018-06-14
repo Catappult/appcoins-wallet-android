@@ -24,6 +24,7 @@ import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.ui.BaseActivity;
 import com.jakewharton.rxbinding2.view.RxView;
+import com.jakewharton.rxrelay2.PublishRelay;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -49,8 +50,9 @@ public class IabActivity extends BaseActivity implements IabView {
   public static final String TRANSACTION_HASH = "transaction_hash";
   private static final String TAG = IabActivity.class.getSimpleName();
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
-  BehaviorSubject<Object> raidenMoreInfoOkButtonClick;
-  BehaviorSubject<Boolean> createChannelClick;
+  private BehaviorSubject<Object> raidenMoreInfoOkButtonClick;
+  private BehaviorSubject<Boolean> createChannelClick;
+  private PublishRelay<IabPresenter.BuyData> buyButtonClick;
   private Button buyButton;
   private Button okErrorButton;
   private IabPresenter presenter;
@@ -73,6 +75,7 @@ public class IabActivity extends BaseActivity implements IabView {
   private View raidenLayout;
   private Group createChannelGroup;
   private TextView walletAddressTextView;
+  private View channelNoFundsView;
 
   public static Intent newIntent(Activity activity, Intent previousIntent) {
     Intent intent = new Intent(activity, IabActivity.class);
@@ -119,11 +122,14 @@ public class IabActivity extends BaseActivity implements IabView {
     dropdown.setAdapter(adapter);
     checkbox = findViewById(R.id.iab_activity_create_channel);
     createChannelClick = BehaviorSubject.create();
+    buyButtonClick = PublishRelay.create();
     checkbox.setOnCheckedChangeListener(
         (buttonView, isChecked) -> createChannelClick.onNext(isChecked));
     raidenMoreInfoOkButtonClick = BehaviorSubject.create();
     raidenMoreInfoView = View.inflate(new ContextThemeWrapper(this, R.style.AppTheme),
         R.layout.iab_activity_raiden_more_info, null);
+    channelNoFundsView = View.inflate(new ContextThemeWrapper(this, R.style.AppTheme),
+        R.layout.iab_activity_no_channel_funds, null);
     Single.defer(() -> Single.just(getAppPackage()))
         .observeOn(Schedulers.io())
         .map(packageName -> new Pair<>(getApplicationName(packageName),
@@ -136,6 +142,9 @@ public class IabActivity extends BaseActivity implements IabView {
           throwable.printStackTrace();
           showError();
         });
+    buyButton.setOnClickListener(v -> buyButtonClick.accept(
+        new IabPresenter.BuyData(checkbox.isChecked(), getIntent().getData()
+            .toString(), getChannelBudget())));
     isBackEnable = true;
   }
 
@@ -152,9 +161,7 @@ public class IabActivity extends BaseActivity implements IabView {
   }
 
   @Override public Observable<IabPresenter.BuyData> getBuyClick() {
-    return RxView.clicks(buyButton)
-        .map(click -> new IabPresenter.BuyData(checkbox.isChecked(), getIntent().getData()
-            .toString(), getChannelBudget()));
+    return buyButtonClick;
   }
 
   @Override public Observable<Object> getCancelClick() {
@@ -294,10 +301,27 @@ public class IabActivity extends BaseActivity implements IabView {
     walletAddressTextView.setText(wallet);
   }
 
+  @Override public void showNoChannelFundsError() {
+    AlertDialog dialog = new AlertDialog.Builder(this).setView(channelNoFundsView)
+        .show();
+
+    channelNoFundsView.findViewById(R.id.iab_activity_raiden_no_funds_ok_button)
+        .setOnClickListener(v -> {
+          dialog.dismiss();
+          ((ViewGroup) channelNoFundsView.getParent()).removeView(channelNoFundsView);
+          buyButtonClick.accept(new IabPresenter.BuyData(false, getIntent().getData()
+              .toString(), getChannelBudget()));
+        });
+    channelNoFundsView.findViewById(R.id.iab_activity_raiden_no_funds_cancel_button)
+        .setOnClickListener(v -> {
+          dialog.dismiss();
+          ((ViewGroup) channelNoFundsView.getParent()).removeView(channelNoFundsView);
+        });
+  }
+
   @NonNull private BigDecimal getChannelBudget() {
-    return new BigDecimal(dropdown.getSelectedItem() == null ? "0"
-        : dropdown.getSelectedItem()
-            .toString());
+    return new BigDecimal(dropdown.getSelectedItem() == null ? "0" : dropdown.getSelectedItem()
+        .toString());
   }
 
   private void showLoading(@StringRes int message) {

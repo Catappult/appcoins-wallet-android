@@ -63,4 +63,6 @@ public interface IabView {
   void showDefaultAsDefaultPayment();
 
   void showWallet(String wallet);
+
+  void showNoChannelFundsError();
 }

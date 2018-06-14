@@ -141,7 +141,9 @@ public class IabPresenter {
     if (throwable != null) {
       throwable.printStackTrace();
     }
-    if (throwable instanceof UnknownTokenException) {
+    if (throwable instanceof NotEnoughFundsException) {
+      view.showNoChannelFundsError();
+    } else if (throwable instanceof UnknownTokenException) {
       view.showWrongNetworkError();
     } else {
       view.showError();

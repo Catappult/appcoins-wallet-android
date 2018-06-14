@@ -41,15 +41,16 @@ public class ChannelService {
 
   private Publisher<?> createChannelOrError(ChannelPayment payment, Throwable throwable) {
     if (throwable instanceof ChannelNotFoundException) {
-      return createChannel(payment).andThen(Observable.just(new Object()))
+      return createChannel(payment.getFromAddress(), payment.getChannelBudget()).andThen(
+          Observable.just(new Object()))
           .toFlowable(BackpressureStrategy.DROP);
     } else {
       return Flowable.error(throwable);
     }
   }
 
-  private Completable createChannel(ChannelPayment payment) {
-    return raiden.createChannel(payment.getFromAddress(), payment.getChannelBudget());
+  public Completable createChannel(String fromAddress, BigDecimal channelBudget) {
+    return raiden.createChannel(fromAddress, channelBudget);
   }
 
   private void updatePaymentStatus(ChannelPayment payment, ChannelPayment.Status status) {
@@ -77,5 +78,9 @@ public class ChannelService {
 
   public Single<Boolean> hasChannel(String wallet) {
     return raiden.hasChannel(wallet);
+  }
+
+  public Single<Boolean> hasFunds(String wallet, BigDecimal amount) {
+    return raiden.hasFunds(wallet, amount);
   }
 }

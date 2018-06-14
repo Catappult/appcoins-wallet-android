@@ -55,12 +55,33 @@ public class InAppPurchaseInteractor {
                 paymentTransaction));
       case RAIDEN:
         return buildPaymentTransaction(uri, packageName, productName).observeOn(Schedulers.io())
-            .doOnSuccess(
-                paymentTransaction -> channelService.buy(paymentTransaction, channelBudget))
-            .toCompletable();
+            .flatMapCompletable(paymentTransaction -> channelService.hasChannel(
+                paymentTransaction.getTransactionBuilder()
+                    .fromAddress())
+                .flatMapCompletable(hasChannel -> {
+                  if (hasChannel) {
+                    return makePayment(channelBudget, paymentTransaction);
+                  }
+                  return channelService.createChannel(paymentTransaction.getTransactionBuilder()
+                      .fromAddress(), channelBudget)
+                      .andThen(makePayment(channelBudget, paymentTransaction));
+                }));
     }
     return Completable.error(
         new IllegalArgumentException("Transaction type " + transactionType + " not supported"));
+  }
+
+  private Completable makePayment(BigDecimal channelBudget, PaymentTransaction paymentTransaction) {
+    return channelService.hasFunds(paymentTransaction.getTransactionBuilder()
+        .fromAddress(), paymentTransaction.getTransactionBuilder()
+        .amount())
+        .flatMapCompletable(hasFunds -> {
+          if (hasFunds) {
+            return Completable.fromAction(
+                () -> channelService.buy(paymentTransaction, channelBudget));
+          }
+          return Completable.error(new NotEnoughFundsException());
+        });
   }
 
   public Observable<Payment> getTransactionState(String uri) {
@@ -170,8 +191,8 @@ public class InAppPurchaseInteractor {
 
   public Single<Boolean> hasChannel() {
     return defaultWalletInteract.find()
-        .flatMap(wallet -> channelService.hasChannel(wallet.address))
-        .doOnSuccess(System.out::println);
+        .observeOn(Schedulers.io())
+        .flatMap(wallet -> channelService.hasChannel(wallet.address));
   }
 
   public Single<String> getWalletAddress() {

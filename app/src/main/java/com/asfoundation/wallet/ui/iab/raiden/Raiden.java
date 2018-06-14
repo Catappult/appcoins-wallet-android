@@ -12,4 +12,6 @@ public interface Raiden {
   Completable closeChannel(String fromAddress);
 
   Single<Boolean> hasChannel(String wallet);
+
+  Single<Boolean> hasFunds(String wallet, BigDecimal amount);
 }
