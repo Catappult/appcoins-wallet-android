@@ -31,8 +31,10 @@ import com.asfoundation.wallet.widget.CircleTransformation;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.squareup.picasso.Picasso;
 import dagger.android.AndroidInjection;
+import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -248,15 +250,18 @@ public class TransactionDetailActivity extends BaseActivity {
   private void showCloseChannelConfirmation() {
     AlertDialog.Builder builder = buildDialog();
     View view = getLayoutInflater().inflate(R.layout.dialog_close_channel, null);
-    disposables.add(RxView.clicks(view.findViewById(R.id.positive_button))
-        .doOnNext(__ -> showLoading())
-        .observeOn(Schedulers.io())
-        .flatMapCompletable(__ -> viewModel.closeChannel(walletAddr))
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(this::hideDialog, throwable -> {
-          Log.e(TAG, "Failed to close channel.", throwable);
-          hideDialog();
-        }));
+    view.findViewById(R.id.positive_button)
+        .setOnClickListener(v -> {
+          showLoading();
+          disposables.add(Completable.complete()
+              .observeOn(Schedulers.io())
+              .andThen(viewModel.closeChannel(walletAddr))
+              .observeOn(AndroidSchedulers.mainThread())
+              .subscribe(this::hideDialog, throwable -> {
+                Log.e(TAG, "Failed to close channel.", throwable);
+                hideDialog();
+              }));
+        });
     view.findViewById(R.id.negative_button)
         .setOnClickListener(v -> hideDialog());
 

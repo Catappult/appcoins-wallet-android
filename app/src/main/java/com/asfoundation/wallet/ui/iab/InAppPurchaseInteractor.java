@@ -1,18 +1,17 @@
 package com.asfoundation.wallet.ui.iab;
 
+import android.support.annotation.NonNull;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.PaymentTransaction;
-import com.asfoundation.wallet.ui.iab.raiden.ChannelNotFoundException;
-import com.asfoundation.wallet.ui.iab.raiden.Raiden;
+import com.asfoundation.wallet.ui.iab.raiden.ChannelPayment;
+import com.asfoundation.wallet.ui.iab.raiden.ChannelService;
 import com.asfoundation.wallet.ui.iab.raiden.RaidenRepository;
 import com.asfoundation.wallet.util.TransferParser;
-import io.reactivex.BackpressureStrategy;
 import io.reactivex.Completable;
-import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
@@ -28,19 +27,19 @@ public class InAppPurchaseInteractor {
   private final BigDecimal paymentGasLimit;
   private final TransferParser parser;
   private final RaidenRepository raidenRepository;
-  private final Raiden raiden;
+  private final ChannelService channelService;
 
   public InAppPurchaseInteractor(InAppPurchaseService inAppPurchaseService,
       FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
       BigDecimal paymentGasLimit, TransferParser parser, RaidenRepository raidenRepository,
-      Raiden raiden) {
+      ChannelService channelService) {
     this.inAppPurchaseService = inAppPurchaseService;
     this.defaultWalletInteract = defaultWalletInteract;
     this.gasSettingsInteract = gasSettingsInteract;
     this.paymentGasLimit = paymentGasLimit;
     this.parser = parser;
     this.raidenRepository = raidenRepository;
-    this.raiden = raiden;
+    this.channelService = channelService;
   }
 
   public Single<TransactionBuilder> parseTransaction(String uri) {
@@ -56,26 +55,41 @@ public class InAppPurchaseInteractor {
                 paymentTransaction));
       case RAIDEN:
         return buildPaymentTransaction(uri, packageName, productName).observeOn(Schedulers.io())
-            .flatMapCompletable(paymentTransaction -> raiden.buy(paymentTransaction)
-                .retryWhen(throwableFlowable -> throwableFlowable.flatMap(throwable -> {
-                  if (throwable instanceof ChannelNotFoundException) {
-                    return raiden.createChannel(paymentTransaction.getTransactionBuilder()
-                        .fromAddress(), channelBudget)
-                        .andThen(Observable.just(new Object()))
-                        .toFlowable(BackpressureStrategy.DROP);
-                  } else {
-                    return Flowable.error(throwable);
-                  }
-                })));
+            .doOnSuccess(
+                paymentTransaction -> channelService.buy(paymentTransaction, channelBudget))
+            .toCompletable();
     }
     return Completable.error(
         new IllegalArgumentException("Transaction type " + transactionType + " not supported"));
   }
 
   public Observable<Payment> getTransactionState(String uri) {
-    return inAppPurchaseService.getTransactionState(uri)
-        .map(paymentTransaction -> new Payment(paymentTransaction.getUri(),
-            mapStatus(paymentTransaction.getState()), paymentTransaction.getBuyHash()));
+    return Observable.merge(inAppPurchaseService.getTransactionState(uri)
+        .map(this::mapToPayment), channelService.getPayment(uri)
+        .map(this::mapToPayment));
+  }
+
+  @NonNull private Payment mapToPayment(PaymentTransaction paymentTransaction) {
+    return new Payment(paymentTransaction.getUri(), mapStatus(paymentTransaction.getState()),
+        paymentTransaction.getBuyHash());
+  }
+
+  @NonNull private Payment mapToPayment(ChannelPayment channelPayment) {
+    return new Payment(channelPayment.getId(), mapStatus(channelPayment.getStatus()),
+        channelPayment.getHash());
+  }
+
+  private Payment.Status mapStatus(ChannelPayment.Status status) {
+    switch (status) {
+      case PENDING:
+      case BUYING:
+        return Payment.Status.BUYING;
+      case COMPLETED:
+        return Payment.Status.COMPLETED;
+      case ERROR:
+        return Payment.Status.ERROR;
+    }
+    throw new IllegalStateException("Status " + status + " not mapped");
   }
 
   private Payment.Status mapStatus(PaymentTransaction.PaymentState state) {
@@ -109,7 +123,8 @@ public class InAppPurchaseInteractor {
   }
 
   public Completable remove(String uri) {
-    return inAppPurchaseService.remove(uri);
+    return inAppPurchaseService.remove(uri)
+        .andThen(channelService.remove(uri));
   }
 
   private Single<PaymentTransaction> buildPaymentTransaction(String uri, String packageName,
@@ -126,6 +141,7 @@ public class InAppPurchaseInteractor {
 
   public void start() {
     inAppPurchaseService.start();
+    channelService.start();
   }
 
   public Observable<List<PaymentTransaction>> getAll() {
