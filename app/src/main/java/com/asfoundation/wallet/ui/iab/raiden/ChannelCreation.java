@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab.raiden;
 
+import com.asfoundation.wallet.repository.PaymentTransaction;
 import java.math.BigDecimal;
 
 public class ChannelCreation {
@@ -7,12 +8,15 @@ public class ChannelCreation {
   private final String key;
   private final String address;
   private final BigDecimal budget;
+  private final PaymentTransaction payment;
 
-  public ChannelCreation(String key, Status status, String address, BigDecimal budget) {
+  public ChannelCreation(String key, Status status, String address, BigDecimal budget,
+      PaymentTransaction payment) {
     this.status = status;
     this.key = key;
     this.address = address;
     this.budget = budget;
+    this.payment = payment;
   }
 
   public ChannelCreation(ChannelCreation channelCreation, Status status) {
@@ -20,6 +24,7 @@ public class ChannelCreation {
     this.status = status;
     this.address = channelCreation.getAddress();
     this.budget = channelCreation.getBudget();
+    this.payment = channelCreation.getPayment();
   }
 
   public Status getStatus() {
@@ -38,7 +43,11 @@ public class ChannelCreation {
     return budget;
   }
 
+  public PaymentTransaction getPayment() {
+    return payment;
+  }
+
   public enum Status {
-    PENDING, CREATING, CREATED,ERROR
+    PENDING, CREATING, CREATED, ERROR
   }
 }

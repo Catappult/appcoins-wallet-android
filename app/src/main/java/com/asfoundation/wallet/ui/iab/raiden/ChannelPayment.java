@@ -8,38 +8,32 @@ public class ChannelPayment {
   private final String id;
   private final Status status;
   private final String fromAddress;
-  private final BigDecimal ammount;
+  private final BigDecimal amount;
   private final String toAddress;
-  private final BigDecimal channelBudget;
   private final @Nullable String hash;
 
-  public ChannelPayment(String id, Status status, String fromAddress, BigDecimal ammount,
-      String toAddress, BigDecimal channelBudget) {
-    this(id, status, fromAddress, ammount, toAddress, channelBudget, null);
+  public ChannelPayment(String id, Status status, String fromAddress, BigDecimal amount,
+      String toAddress) {
+    this(id, status, fromAddress, amount, toAddress, null);
   }
 
   public ChannelPayment(Status status, ChannelPayment payment) {
-    this(payment.getId(), status, payment.getFromAddress(), payment.getAmmount(),
-        payment.getToAddress(), payment.getChannelBudget(), null);
+    this(payment.getId(), status, payment.getFromAddress(), payment.getAmount(),
+        payment.getToAddress(), null);
   }
 
-  public ChannelPayment(String id, Status completed, String fromAddress, BigDecimal ammount,
-      String toAddress, BigDecimal channelBudget, String hash) {
+  public ChannelPayment(String id, Status completed, String fromAddress, BigDecimal amount,
+      String toAddress, String hash) {
     this.id = id;
     status = completed;
     this.fromAddress = fromAddress;
-    this.ammount = ammount;
+    this.amount = amount;
     this.toAddress = toAddress;
-    this.channelBudget = channelBudget;
     this.hash = hash;
   }
 
   public String getId() {
     return id;
-  }
-
-  public BigDecimal getChannelBudget() {
-    return channelBudget;
   }
 
   public Status getStatus() {
@@ -50,8 +44,8 @@ public class ChannelPayment {
     return fromAddress;
   }
 
-  public BigDecimal getAmmount() {
-    return ammount;
+  public BigDecimal getAmount() {
+    return amount;
   }
 
   public String getToAddress() {

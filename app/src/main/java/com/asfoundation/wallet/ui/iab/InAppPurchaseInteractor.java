@@ -63,31 +63,24 @@ public class InAppPurchaseInteractor {
                     .fromAddress())
                 .flatMapCompletable(hasChannel -> {
                   if (hasChannel) {
-                    return makePayment(channelBudget, paymentTransaction);
+                    return makePayment(paymentTransaction);
                   }
-                  return channelService.createChannel(paymentTransaction.getUri(),
+                  return channelService.createChannelAndBuy(paymentTransaction.getUri(),
                       paymentTransaction.getTransactionBuilder()
-                          .fromAddress(), channelBudget)
-                      .andThen(channelService.getChannel(uri)
-                          .filter(channelCreation -> channelCreation.getStatus()
-                              .equals(ChannelCreation.Status.CREATED))
-                          .firstOrError()
-                          .flatMapCompletable(
-                              __ -> makePayment(channelBudget, paymentTransaction)));
+                          .fromAddress(), channelBudget, paymentTransaction);
                 }));
     }
     return Completable.error(
         new IllegalArgumentException("Transaction type " + transactionType + " not supported"));
   }
 
-  private Completable makePayment(BigDecimal channelBudget, PaymentTransaction paymentTransaction) {
+  private Completable makePayment(PaymentTransaction paymentTransaction) {
     return channelService.hasFunds(paymentTransaction.getTransactionBuilder()
         .fromAddress(), paymentTransaction.getTransactionBuilder()
         .amount())
         .flatMapCompletable(hasFunds -> {
           if (hasFunds) {
-            return Completable.fromAction(
-                () -> channelService.buy(paymentTransaction, channelBudget));
+            return Completable.fromAction(() -> channelService.buy(paymentTransaction));
           }
           return Completable.error(new NotEnoughFundsException());
         });
