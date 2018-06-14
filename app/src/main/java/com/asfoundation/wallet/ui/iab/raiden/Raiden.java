@@ -10,4 +10,6 @@ public interface Raiden {
   Single<String> buy(String fromAddress, BigDecimal amount, String toAddress);
 
   Completable closeChannel(String fromAddress);
+
+  Single<Boolean> hasChannel(String wallet);
 }

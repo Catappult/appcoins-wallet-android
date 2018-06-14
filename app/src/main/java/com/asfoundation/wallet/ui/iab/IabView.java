@@ -57,4 +57,10 @@ public interface IabView {
   void showChannelAmount();
 
   void hideChannelAmount();
+
+  void showChannelAsDefaultPayment();
+
+  void showDefaultAsDefaultPayment();
+
+  void showWallet(String wallet);
 }

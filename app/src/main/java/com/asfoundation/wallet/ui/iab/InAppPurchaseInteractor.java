@@ -168,6 +168,14 @@ public class InAppPurchaseInteractor {
     raidenRepository.setShouldShowDialog(false);
   }
 
+  public Single<Boolean> hasChannel(String wallet) {
+    return channelService.hasChannel(wallet);
+  }
+
+  public Single<String> getWalletAddress() {
+    return defaultWalletInteract.find().map(wallet -> wallet.address);
+  }
+
   public enum TransactionType {
     NORMAL, RAIDEN
   }

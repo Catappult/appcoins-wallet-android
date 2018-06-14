@@ -70,6 +70,8 @@ public class IabActivity extends BaseActivity implements IabView {
   private View raidenMoreInfoView;
   private Group amountGroup;
   private View raidenLayout;
+  private Group createChannelGroup;
+  private TextView walletAddressTextView;
 
   public static Intent newIntent(Activity activity, Intent previousIntent) {
     Intent intent = new Intent(activity, IabActivity.class);
@@ -106,6 +108,8 @@ public class IabActivity extends BaseActivity implements IabView {
     itemPrice = findViewById(R.id.iab_activity_item_price);
     dropdown = findViewById(R.id.channel_amount_dropdown);
     amountGroup = findViewById(R.id.amount_group);
+    createChannelGroup = findViewById(R.id.create_channel_group);
+    walletAddressTextView = findViewById(R.id.wallet_address);
     presenter = new IabPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
         new CompositeDisposable());
     adapter =
@@ -273,6 +277,20 @@ public class IabActivity extends BaseActivity implements IabView {
 
   @Override public void hideChannelAmount() {
     amountGroup.setVisibility(View.GONE);
+  }
+
+  @Override public void showChannelAsDefaultPayment() {
+    checkbox.setChecked(true);
+    createChannelGroup.setVisibility(View.VISIBLE);
+  }
+
+  @Override public void showDefaultAsDefaultPayment() {
+    checkbox.setChecked(false);
+    createChannelGroup.setVisibility(View.VISIBLE);
+  }
+
+  @Override public void showWallet(String wallet) {
+    walletAddressTextView.setText(wallet);
   }
 
   private void showLoading(@StringRes int message) {

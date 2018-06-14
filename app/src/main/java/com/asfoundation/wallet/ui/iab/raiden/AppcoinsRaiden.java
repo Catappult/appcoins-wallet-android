@@ -8,6 +8,7 @@ import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.functions.Predicate;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class AppcoinsRaiden implements Raiden {
   public static final String BDS_ADDRESS = "0x31a16aDF2D5FC73F149fBB779D20c036678b1bBD";
@@ -44,6 +45,23 @@ public class AppcoinsRaiden implements Raiden {
                 .toString()
                 .equalsIgnoreCase(BDS_ADDRESS)).doOnSuccess(channel -> channel.closeCooperatively(ecKey))
             .toCompletable());
+  }
+
+  @Override public Single<Boolean> hasChannel(String wallet) {
+    return privatekeyProvider.get(wallet)
+        .flatMap(ecKey -> raiden.listChannels(ecKey, false))
+        .map(this::hasChannel);
+  }
+
+  private boolean hasChannel(List<BDSChannel> bdsChannels) {
+    for (BDSChannel bdsChannel : bdsChannels) {
+      if (bdsChannel.getReceiverAddress()
+          .toString()
+          .equalsIgnoreCase(BDS_ADDRESS)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   private BigDecimal convertToWeis(BigDecimal amount) {

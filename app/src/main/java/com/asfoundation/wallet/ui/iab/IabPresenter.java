@@ -110,6 +110,21 @@ public class IabPresenter {
     disposables.add(inAppPurchaseInteractor.parseTransaction(uriString)
         .observeOn(viewScheduler)
         .subscribe(this::setup, this::showError));
+
+    disposables.add(inAppPurchaseInteractor.getWalletAddress()
+        .observeOn(viewScheduler)
+        .subscribe(view::showWallet, Throwable::printStackTrace));
+
+    disposables.add(inAppPurchaseInteractor.getWalletAddress()
+        .flatMap(inAppPurchaseInteractor::hasChannel)
+        .observeOn(viewScheduler)
+        .subscribe(hasChannel -> {
+          if (hasChannel) {
+            view.showChannelAsDefaultPayment();
+          } else {
+            view.showDefaultAsDefaultPayment();
+          }
+        }, Throwable::printStackTrace));
   }
 
   private void showBuy() {

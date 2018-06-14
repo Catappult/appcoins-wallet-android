@@ -6,6 +6,7 @@ import io.reactivex.BackpressureStrategy;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import java.math.BigDecimal;
 import org.reactivestreams.Publisher;
 
@@ -72,5 +73,9 @@ public class ChannelService {
 
   public Completable remove(String key) {
     return cache.remove(key);
+  }
+
+  public Single<Boolean> hasChannel(String wallet) {
+    return raiden.hasChannel(wallet);
   }
 }
