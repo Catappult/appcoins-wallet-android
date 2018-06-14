@@ -82,6 +82,10 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
       transactionTypeIcon = R.drawable.ic_transaction_poa;
     } else if (type == Transaction.TransactionType.IAB) {
       transactionTypeIcon = R.drawable.ic_transaction_iab;
+    } else if (type == Transaction.TransactionType.OPEN_CHANNEL
+        || type == Transaction.TransactionType.TOP_UP_CHANNEL
+        || type == Transaction.TransactionType.CLOSE_CHANNEL) {
+      transactionTypeIcon = R.drawable.ic_transaction_miu;
     }
 
     if (details == null) {
@@ -113,8 +117,30 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     status.setText(statusText);
     status.setTextColor(ContextCompat.getColor(getContext(), statusColor));
 
-    address.setText(details != null ? details.getSourceName() : isSent ? to : from);
-    description.setText(details != null ? details.getDescription() : "");
+
+    switch (type) {
+      case OPEN_CHANNEL:
+        address.setText(R.string.miuraiden_trans_details_open);
+        description.setText(isSent ? to : from);
+        break;
+      case TOP_UP_CHANNEL:
+        address.setText(R.string.miuraiden_trans_details_topup);
+        description.setText(isSent ? to : from);
+        break;
+      case CLOSE_CHANNEL:
+        address.setText(R.string.miuraiden_trans_details_close);
+        description.setText(isSent ? to : from);
+        break;
+      default:
+        if (details != null) {
+          address.setText(details.getSourceName());
+          description.setText(details.getDescription());
+        } else {
+          address.setText(isSent ? to : from);
+        }
+        break;
+    }
+
     if (valueStr.equals("0")) {
       valueStr = "0 ";
     } else {
