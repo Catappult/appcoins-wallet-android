@@ -95,7 +95,7 @@ public class ChannelService {
   public Observable<ChannelCreation> getChannel(String key) {
     return channelCache.get(key)
         .filter(channel -> !channel.getStatus()
-            .equals(ChannelPayment.Status.PENDING));
+            .equals(ChannelCreation.Status.PENDING));
   }
 
   public Completable remove(String key) {
