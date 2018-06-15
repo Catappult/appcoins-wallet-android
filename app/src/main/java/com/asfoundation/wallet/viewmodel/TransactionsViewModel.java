@@ -6,11 +6,9 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
 import android.text.format.DateUtils;
-import android.util.Log;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchTransactionsInteract;
@@ -28,13 +26,9 @@ import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
 import com.asfoundation.wallet.ui.MicroRaidenInteractor;
-import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import io.reactivex.Observable;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -63,7 +57,6 @@ public class TransactionsViewModel extends BaseViewModel {
   private final Runnable startFetchTransactionsTask = () -> this.fetchTransactions(false);
   private final Runnable startGetBalanceTask = this::getBalance;
   private final AirdropRouter airdropRouter;
-  private final AppcoinsOperationsDataSaver operationsDataSaver;
   private final MicroRaidenInteractor microRaidenInteractor;
 
   TransactionsViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract,
@@ -74,7 +67,6 @@ public class TransactionsViewModel extends BaseViewModel {
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
       TransactionsMapper transactionsMapper, AirdropRouter airdropRouter,
-      AppcoinsOperationsDataSaver operationsDataSaver,
       MicroRaidenInteractor microRaidenInteractor) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
@@ -90,7 +82,6 @@ public class TransactionsViewModel extends BaseViewModel {
     this.getDefaultWalletBalance = getDefaultWalletBalance;
     this.transactionsMapper = transactionsMapper;
     this.airdropRouter = airdropRouter;
-    this.operationsDataSaver = operationsDataSaver;
     this.microRaidenInteractor = microRaidenInteractor;
     disposables = new CompositeDisposable();
   }
@@ -131,32 +122,14 @@ public class TransactionsViewModel extends BaseViewModel {
     handler.removeCallbacks(startFetchTransactionsTask);
     progress.postValue(shouldShowProgress);
     /*For specific address use: new Wallet("0x60f7a1cbc59470b74b1df20b133700ec381f15d3")*/
-    Observable<List<Transaction>> fetchBlockchainTransactions =
-        fetchTransactionsInteract.fetch(defaultWallet.getValue())
-            .flatMapSingle(transactions -> transactionsMapper.map(transactions))
-            .observeOn(AndroidSchedulers.mainThread());
-
-    Observable<List<Transaction>> fetchBdsTransactions =
+    disposables.add(Observable.merge(
         microRaidenInteractor.listTransactions(defaultWallet.getValue())
             .toObservable()
-            .flatMapSingle(transactions -> transactionsMapper.map(transactions));
-
-    Observable<List<Transaction>> zip =
-        Observable.zip(fetchBlockchainTransactions, fetchBdsTransactions,
-            (blockchainTransactions, bdsTransactions) -> {
-              blockchainTransactions.addAll(bdsTransactions);
-              return blockchainTransactions;
-            });
-
-    disposables.add(zip.subscribeOn(Schedulers.io())
+            .flatMapSingle(transactionsMapper::map),
+        fetchTransactionsInteract.fetch(defaultWallet.getValue())
+            .flatMapSingle(transactionsMapper::map))
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(this::onTransactions, this::onError, this::onTransactionsFetchCompleted));
-
-    //Observable<List<Transaction>> fetch = fetchTransactionsInteract.fetch(defaultWallet.getValue())
-    //    .flatMapSingle(rawTransactions -> transactionsMapper.map(rawTransactions))
-    //    .observeOn(AndroidSchedulers.mainThread());
-    //disposables.add(
-    //    fetch.subscribe(this::onTransactions, this::onError, this::onTransactionsFetchCompleted));
   }
 
   private void getBalance() {

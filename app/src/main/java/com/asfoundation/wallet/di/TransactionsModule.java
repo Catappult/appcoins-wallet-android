@@ -40,11 +40,12 @@ import okhttp3.OkHttpClient;
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
       TransactionsMapper transactionsMapper, AirdropRouter airdropRouter,
-      AppcoinsOperationsDataSaver operationsDataSaver, MicroRaidenInteractor microRaidenInteractor) {
+      MicroRaidenInteractor microRaidenInteractor) {
     return new TransactionsViewModelFactory(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, manageWalletsRouter, settingsRouter, sendRouter,
         transactionDetailRouter, myAddressRouter, myTokensRouter, externalBrowserRouter,
-        defaultTokenProvider, getDefaultWalletBalance, transactionsMapper, airdropRouter, operationsDataSaver, microRaidenInteractor);
+        defaultTokenProvider, getDefaultWalletBalance, transactionsMapper, airdropRouter,
+        microRaidenInteractor);
   }
 
   @Provides FetchTransactionsInteract provideFetchTransactionsInteract(
@@ -89,8 +90,8 @@ import okhttp3.OkHttpClient;
         tokenExplorerClientType, tokenLocalSource, inDiskCache, tickerService);
   }
 
-  @Provides TransactionsMapper provideTransactionsMapper(
-      DefaultTokenProvider defaultTokenProvider, AppcoinsOperationsDataSaver operationsDataSaver) {
+  @Provides TransactionsMapper provideTransactionsMapper(DefaultTokenProvider defaultTokenProvider,
+      AppcoinsOperationsDataSaver operationsDataSaver) {
     return new TransactionsMapper(defaultTokenProvider, operationsDataSaver, Schedulers.io());
   }
 
