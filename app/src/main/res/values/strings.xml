@@ -318,4 +318,6 @@
   <string name="iab_activity_raiden_channel_info_message">You’ll not pay fees for the transactions made with this developer until the amount you choose is reached. The amount will be withdrawn and stored, and you can close this channel anytime.</string>
   <string name="iab_activity_raiden_channel_info_title">µRaiden channel</string>
   <string name="proceed">proceed</string>
+  <string name="iab_activity_raiden_channel_no_funds_message">You don\'t have enough funds on your µRainden payment channel. Go to your wallet and close the channel to create a new one.  Do you still want to complete this purchase with a standard payment?</string>
+  <string name="iab_activity_raiden_channel_no_funds_title">Payment Channel Funds</string>
 </resources>
