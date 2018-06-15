@@ -123,8 +123,6 @@ public class IabActivity extends BaseActivity implements IabView {
     checkbox = findViewById(R.id.iab_activity_create_channel);
     createChannelClick = BehaviorSubject.create();
     buyButtonClick = PublishRelay.create();
-    checkbox.setOnCheckedChangeListener(
-        (buttonView, isChecked) -> createChannelClick.onNext(isChecked));
     raidenMoreInfoOkButtonClick = BehaviorSubject.create();
     raidenMoreInfoView = View.inflate(new ContextThemeWrapper(this, R.style.AppTheme),
         R.layout.iab_activity_raiden_more_info, null);
@@ -289,11 +287,15 @@ public class IabActivity extends BaseActivity implements IabView {
 
   @Override public void showChannelAsDefaultPayment() {
     checkbox.setChecked(true);
+    checkbox.setOnCheckedChangeListener(
+        (buttonView, isChecked) -> createChannelClick.onNext(isChecked));
     createChannelGroup.setVisibility(View.VISIBLE);
   }
 
   @Override public void showDefaultAsDefaultPayment() {
     checkbox.setChecked(false);
+    checkbox.setOnCheckedChangeListener(
+        (buttonView, isChecked) -> createChannelClick.onNext(isChecked));
     createChannelGroup.setVisibility(View.VISIBLE);
   }
 
