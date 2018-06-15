@@ -53,11 +53,11 @@ public class TransactionsViewModel extends BaseViewModel {
   private final DefaultTokenProvider defaultTokenProvider;
   private final GetDefaultWalletBalance getDefaultWalletBalance;
   private final TransactionsMapper transactionsMapper;
+  private final AirdropRouter airdropRouter;
+  private final MicroRaidenInteractor microRaidenInteractor;
   private Handler handler = new Handler();
   private final Runnable startFetchTransactionsTask = () -> this.fetchTransactions(false);
   private final Runnable startGetBalanceTask = this::getBalance;
-  private final AirdropRouter airdropRouter;
-  private final MicroRaidenInteractor microRaidenInteractor;
 
   TransactionsViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
@@ -122,10 +122,13 @@ public class TransactionsViewModel extends BaseViewModel {
     handler.removeCallbacks(startFetchTransactionsTask);
     progress.postValue(shouldShowProgress);
     /*For specific address use: new Wallet("0x60f7a1cbc59470b74b1df20b133700ec381f15d3")*/
-    disposables.add(Observable.merge(
-        microRaidenInteractor.listTransactions(defaultWallet.getValue())
-            .toObservable()
-            .flatMapSingle(transactionsMapper::map),
+    disposables.add(Observable.merge(findDefaultNetworkInteract.find()
+            .filter(networkInfo -> networkInfo.chainId == 3)
+            .flatMapObservable(
+                networkInfo -> microRaidenInteractor.listTransactions(defaultWallet.getValue())
+                    .toObservable()
+                    .filter(microTransactions -> !microTransactions.isEmpty())
+                    .flatMapSingle(transactionsMapper::map)),
         fetchTransactionsInteract.fetch(defaultWallet.getValue())
             .flatMapSingle(transactionsMapper::map))
         .observeOn(AndroidSchedulers.mainThread())
