@@ -50,13 +50,15 @@ public class IabPresenter {
 
   private void showChannelAmount() {
     disposables.add(view.getCreateChannelClick()
-        .doOnNext(isChecked -> {
-          if (isChecked) {
-            view.showChannelAmount();
-          } else {
-            view.hideChannelAmount();
-          }
-        })
+        .flatMapSingle(isChecked -> inAppPurchaseInteractor.hasChannel()
+            .observeOn(viewScheduler)
+            .doOnSuccess(hasChannel -> {
+              if (isChecked && !hasChannel) {
+                view.showChannelAmount();
+              } else {
+                view.hideChannelAmount();
+              }
+            }))
         .doOnError(Throwable::printStackTrace)
         .retry()
         .subscribe());
@@ -82,8 +84,8 @@ public class IabPresenter {
         }, throwable -> throwable.printStackTrace()));
   }
 
-  private boolean handleBuyEvent(String appPackage, String productName) {
-    return disposables.add(view.getBuyClick()
+  private void handleBuyEvent(String appPackage, String productName) {
+    disposables.add(view.getBuyClick()
         .observeOn(Schedulers.io())
         .flatMapCompletable(buyData -> inAppPurchaseInteractor.send(buyData.getUri(),
             buyData.isRaiden ? InAppPurchaseInteractor.TransactionType.RAIDEN
@@ -110,6 +112,21 @@ public class IabPresenter {
     disposables.add(inAppPurchaseInteractor.parseTransaction(uriString)
         .observeOn(viewScheduler)
         .subscribe(this::setup, this::showError));
+
+    disposables.add(inAppPurchaseInteractor.getWalletAddress()
+        .observeOn(viewScheduler)
+        .subscribe(view::showWallet, Throwable::printStackTrace));
+
+    disposables.add(inAppPurchaseInteractor.getWalletAddress()
+        .flatMap(wallet -> inAppPurchaseInteractor.hasChannel())
+        .observeOn(viewScheduler)
+        .subscribe(hasChannel -> {
+          if (hasChannel) {
+            view.showChannelAsDefaultPayment();
+          } else {
+            view.showDefaultAsDefaultPayment();
+          }
+        }, Throwable::printStackTrace));
   }
 
   private void showBuy() {
@@ -124,7 +141,9 @@ public class IabPresenter {
     if (throwable != null) {
       throwable.printStackTrace();
     }
-    if (throwable instanceof UnknownTokenException) {
+    if (throwable instanceof NotEnoughFundsException) {
+      view.showNoChannelFundsError();
+    } else if (throwable instanceof UnknownTokenException) {
       view.showWrongNetworkError();
     } else {
       view.showError();

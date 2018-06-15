@@ -15,4 +15,7 @@ public interface Raiden {
 
   Single<List<ChannelHistoryResponse.MicroTransaction>> fetchTransactions(String walletAddress);
 
+  Single<Boolean> hasChannel(String wallet);
+
+  Single<Boolean> hasFunds(String wallet, BigDecimal amount);
 }

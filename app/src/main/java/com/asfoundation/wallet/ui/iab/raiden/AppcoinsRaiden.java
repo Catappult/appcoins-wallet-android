@@ -10,6 +10,7 @@ import io.reactivex.Single;
 import io.reactivex.functions.Predicate;
 import java.math.BigDecimal;
 import java.util.List;
+import java.math.BigInteger;
 
 public class AppcoinsRaiden implements Raiden {
   public static final String BDS_ADDRESS = "0x31a16aDF2D5FC73F149fBB779D20c036678b1bBD";
@@ -44,13 +45,48 @@ public class AppcoinsRaiden implements Raiden {
         .flatMapCompletable(ecKey -> getChannel(fromAddress,
             bdsChannel -> bdsChannel.getReceiverAddress()
                 .toString()
-                .equalsIgnoreCase(BDS_ADDRESS)).doOnSuccess(channel -> channel.closeCooperatively(ecKey))
+                .equalsIgnoreCase(BDS_ADDRESS)).doOnSuccess(
+            channel -> channel.closeCooperatively(ecKey))
             .toCompletable());
   }
 
   @Override public Single<List<ChannelHistoryResponse.MicroTransaction>> fetchTransactions(
       String walletAddress) {
     return raiden.listTransactions(Address.from(walletAddress));
+  }
+
+  @Override public Single<Boolean> hasChannel(String wallet) {
+    return privatekeyProvider.get(wallet)
+        .flatMap(ecKey -> raiden.listChannels(ecKey, false))
+        .map(this::hasChannel);
+  }
+
+  private boolean hasChannel(List<BDSChannel> bdsChannels) {
+    for (BDSChannel bdsChannel : bdsChannels) {
+      if (bdsChannel.getReceiverAddress()
+          .toString()
+          .equalsIgnoreCase(BDS_ADDRESS)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  @Override public Single<Boolean> hasFunds(String wallet, BigDecimal amount) {
+    return privatekeyProvider.get(wallet)
+        .flatMap(ecKey -> raiden.listChannels(ecKey, false))
+        .map(bdsChannels -> hasFunds(bdsChannels, amount));
+  }
+
+  private boolean hasFunds(List<BDSChannel> bdsChannels, BigDecimal amount) {
+    BigInteger amountAsBigInteger = convertToWeis(amount).toBigInteger();
+    for (BDSChannel bdsChannel : bdsChannels) {
+      if (bdsChannel.getBalance()
+          .compareTo(amountAsBigInteger) >= 0) {
+        return true;
+      }
+    }
+    return false;
   }
 
   private BigDecimal convertToWeis(BigDecimal amount) {
