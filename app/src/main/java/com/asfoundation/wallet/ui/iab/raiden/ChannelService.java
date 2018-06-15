@@ -6,6 +6,7 @@ import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class ChannelService {
   private final Raiden raiden;
@@ -29,7 +30,8 @@ public class ChannelService {
             .doOnSubscribe(disposable -> updatePaymentStatus(payment, ChannelPayment.Status.BUYING))
             .doOnSuccess(hash -> paymentCache.saveSync(payment.getId(),
                 new ChannelPayment(payment.getId(), ChannelPayment.Status.COMPLETED,
-                    payment.getFromAddress(), payment.getAmount(), payment.getToAddress(), hash)))
+                    payment.getFromAddress(), payment.getAmount(), payment.getToAddress(), hash,
+                    payment.getPackageName(), payment.getProductName())))
             .doOnError(throwable -> updatePaymentStatus(payment, ChannelPayment.Status.ERROR)))
         .doOnError(Throwable::printStackTrace)
         .retry()
@@ -83,7 +85,8 @@ public class ChannelService {
             paymentTransaction.getTransactionBuilder()
                 .fromAddress(), paymentTransaction.getTransactionBuilder()
             .amount(), paymentTransaction.getTransactionBuilder()
-            .toAddress()));
+            .toAddress(), paymentTransaction.getPackageName(),
+            paymentTransaction.getProductName()));
   }
 
   public Observable<ChannelPayment> getPayment(String key) {
@@ -109,5 +112,9 @@ public class ChannelService {
 
   public Single<Boolean> hasFunds(String wallet, BigDecimal amount) {
     return raiden.hasFunds(wallet, amount);
+  }
+
+  public Observable<List<ChannelPayment>> getAll() {
+    return paymentCache.getAll();
   }
 }

@@ -97,25 +97,26 @@ public class InAppPurchaseInteractor {
     Log.d(TAG, "mapToPayment() called with: creation = [" + creation.getStatus() + "]");
     switch (creation.getStatus()) {
       case PENDING:
-        return new Payment(creation.getKey(), Payment.Status.APPROVING, null);
+        return new Payment(creation.getKey(), Payment.Status.APPROVING);
       case CREATING:
-        return new Payment(creation.getKey(), Payment.Status.APPROVING, null);
+        return new Payment(creation.getKey(), Payment.Status.APPROVING);
       case CREATED:
-        return new Payment(creation.getKey(), Payment.Status.APPROVING, null);
+        return new Payment(creation.getKey(), Payment.Status.APPROVING);
       case ERROR:
-        return new Payment(creation.getKey(), Payment.Status.ERROR, null);
+        return new Payment(creation.getKey(), Payment.Status.ERROR);
     }
     throw new IllegalStateException("Status " + creation.getStatus() + " not mapped");
   }
 
   @NonNull private Payment mapToPayment(PaymentTransaction paymentTransaction) {
     return new Payment(paymentTransaction.getUri(), mapStatus(paymentTransaction.getState()),
-        paymentTransaction.getBuyHash());
+        paymentTransaction.getBuyHash(), paymentTransaction.getPackageName(),
+        paymentTransaction.getProductName());
   }
 
   @NonNull private Payment mapToPayment(ChannelPayment channelPayment) {
     return new Payment(channelPayment.getId(), mapStatus(channelPayment.getStatus()),
-        channelPayment.getHash());
+        channelPayment.getHash(), channelPayment.getPackageName(), channelPayment.getProductName());
   }
 
   private Payment.Status mapStatus(ChannelPayment.Status status) {
@@ -183,8 +184,18 @@ public class InAppPurchaseInteractor {
     channelService.start();
   }
 
-  public Observable<List<PaymentTransaction>> getAll() {
-    return inAppPurchaseService.getAll();
+  public Observable<List<Payment>> getAll() {
+    return Observable.merge(channelService.getAll()
+        .flatMapSingle(channelPayments -> Observable.fromIterable(channelPayments)
+            .map(channelPayment -> new Payment(channelPayment.getId(),
+                mapStatus(channelPayment.getStatus()), channelPayment.getHash(),
+                channelPayment.getPackageName(), channelPayment.getProductName()))
+            .toList()), inAppPurchaseService.getAll()
+        .flatMapSingle(paymentTransactions -> Observable.fromIterable(paymentTransactions)
+            .map(paymentTransaction -> new Payment(paymentTransaction.getUri(),
+                mapStatus(paymentTransaction.getState()), paymentTransaction.getBuyHash(),
+                paymentTransaction.getPackageName(), paymentTransaction.getProductName()))
+            .toList()));
   }
 
   public List<BigDecimal> getTopUpChannelSuggestionValues(BigDecimal price) {

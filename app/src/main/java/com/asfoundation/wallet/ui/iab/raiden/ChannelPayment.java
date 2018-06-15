@@ -11,25 +11,29 @@ public class ChannelPayment {
   private final BigDecimal amount;
   private final String toAddress;
   private final @Nullable String hash;
+  private final String packageName;
+  private final String productName;
 
   public ChannelPayment(String id, Status status, String fromAddress, BigDecimal amount,
-      String toAddress) {
-    this(id, status, fromAddress, amount, toAddress, null);
+      String toAddress, String packageName, String productName) {
+    this(id, status, fromAddress, amount, toAddress, null, packageName, productName);
   }
 
   public ChannelPayment(Status status, ChannelPayment payment) {
     this(payment.getId(), status, payment.getFromAddress(), payment.getAmount(),
-        payment.getToAddress(), null);
+        payment.getToAddress(), null, payment.getPackageName(), payment.getProductName());
   }
 
   public ChannelPayment(String id, Status completed, String fromAddress, BigDecimal amount,
-      String toAddress, String hash) {
+      String toAddress, String hash, String packageName, String productName) {
     this.id = id;
     status = completed;
     this.fromAddress = fromAddress;
     this.amount = amount;
     this.toAddress = toAddress;
     this.hash = hash;
+    this.packageName = packageName;
+    this.productName = productName;
   }
 
   public String getId() {
@@ -54,6 +58,14 @@ public class ChannelPayment {
 
   public String getHash() {
     return hash;
+  }
+
+  public String getPackageName() {
+    return packageName;
+  }
+
+  public String getProductName() {
+    return productName;
   }
 
   public enum Status {
