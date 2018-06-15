@@ -2,9 +2,9 @@ package com.asfoundation.wallet.di;
 
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofStatus;
-import com.asfoundation.wallet.repository.PaymentTransaction;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
+import com.asfoundation.wallet.ui.iab.Payment;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
@@ -26,8 +26,8 @@ public class OperationSources {
     list.add(() -> inAppPurchaseInteractor.getAll()
         .subscribeOn(Schedulers.io())
         .flatMap(paymentTransactions -> Observable.fromIterable(paymentTransactions)
-            .filter(paymentTransaction -> paymentTransaction.getState()
-                .equals(PaymentTransaction.PaymentState.COMPLETED))
+            .filter(paymentTransaction -> paymentTransaction.getStatus()
+                .equals(Payment.Status.COMPLETED))
             .map(
                 paymentTransaction -> new AppcoinsOperationsDataSaver.OperationDataSource
                     .OperationData(
