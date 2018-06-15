@@ -6,6 +6,8 @@ import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.Airdrop;
 import com.asfoundation.wallet.AirdropService;
 import com.asfoundation.wallet.App;
+import com.asfoundation.wallet.FabricLogger;
+import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
@@ -15,6 +17,8 @@ import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
+import com.asfoundation.contractproxy.proxy.ContractAddressProvider;
+import com.asfoundation.contractproxy.proxy.Web3jProxyContract;
 import com.asfoundation.wallet.poa.BlockchainErrorMapper;
 import com.asfoundation.wallet.poa.Calculator;
 import com.asfoundation.wallet.poa.DataMapper;
@@ -80,6 +84,7 @@ import io.reactivex.subjects.BehaviorSubject;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -137,6 +142,10 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
   @Singleton @Provides PasswordStore passwordStore(Context context) {
     return new TrustPasswordStore(context);
+  }
+
+  @Singleton @Provides Logger provideLogger() {
+    return new FabricLogger();
   }
 
   @Singleton @Provides RealmManager provideRealmManager() {
@@ -253,8 +262,8 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   }
 
   @Singleton @Provides GasSettingsRepositoryType provideGasSettingsRepository(
-      EthereumNetworkRepositoryType ethereumNetworkRepository) {
-    return new GasSettingsRepository(ethereumNetworkRepository);
+      EthereumNetworkRepositoryType ethereumNetworkRepository, Web3jProvider web3jProvider) {
+    return new GasSettingsRepository(ethereumNetworkRepository, web3jProvider);
   }
 
   @Singleton @Provides DataMapper provideDataMapper() {
@@ -267,11 +276,10 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
   @Singleton @Provides TransactionFactory provideTransactionFactory(Web3jProvider web3jProvider,
       WalletRepositoryType walletRepository, AccountKeystoreService accountKeystoreService,
-      PasswordStore passwordStore, DefaultTokenProvider defaultTokenProvider,
-      EthereumNetworkRepositoryType ethereumNetworkRepository, DataMapper dataMapper) {
-
+      PasswordStore passwordStore, EthereumNetworkRepositoryType ethereumNetworkRepository,
+      DataMapper dataMapper, ContractAddressProvider adsContractAddressProvider) {
     return new TransactionFactory(web3jProvider, walletRepository, accountKeystoreService,
-        passwordStore, defaultTokenProvider, ethereumNetworkRepository, dataMapper);
+        passwordStore, ethereumNetworkRepository, dataMapper, adsContractAddressProvider);
   }
 
   @Singleton @Provides ProofWriter provideBlockChainWriter(Web3jProvider web3jProvider,
@@ -284,8 +292,25 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
         defaultWalletInteract, gasSettingsRepository, registerPoaGasLimit, ethereumNetwork);
   }
 
+  @Singleton @Provides ContractAddressProvider provideAdsContractAddressProvider(
+      Web3jProvider web3jProvider, FindDefaultWalletInteract findDefaultWalletInteract) {
+    return new ContractAddressProvider(() -> findDefaultWalletInteract.find()
+        .map(wallet -> wallet.address), new Web3jProxyContract(web3jProvider::get, chainId -> {
+      switch (chainId) {
+        case 3:
+          return BuildConfig.ROPSTEN_NETWORK_PROXY_CONTRACT_ADDRESS;
+        default:
+          return BuildConfig.MAIN_NETWORK_PROXY_CONTRACT_ADDRESS;
+      }
+    }), Schedulers.io(), new ConcurrentHashMap<>());
+  }
+
   @Singleton @Provides HashCalculator provideHashCalculator(Calculator calculator) {
     return new HashCalculator(BuildConfig.LEADING_ZEROS_ON_PROOF_OF_ATTENTION, calculator);
+  }
+
+  @Provides @Named("MAX_NUMBER_PROOF_COMPONENTS") int provideMaxNumberProofComponents() {
+    return 12;
   }
 
   @Provides TaggedCompositeDisposable provideTaggedCompositeDisposable() {
@@ -293,11 +318,12 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   }
 
   @Singleton @Provides ProofOfAttentionService provideProofOfAttentionService(
-      HashCalculator hashCalculator, ProofWriter proofWriter,
-      TaggedCompositeDisposable disposables) {
+      HashCalculator hashCalculator, ProofWriter proofWriter, TaggedCompositeDisposable disposables,
+      @Named("MAX_NUMBER_PROOF_COMPONENTS") int maxNumberProofComponents) {
     return new ProofOfAttentionService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
         BuildConfig.APPLICATION_ID, hashCalculator, new CompositeDisposable(), proofWriter,
-        Schedulers.computation(), 12, new BlockchainErrorMapper(), disposables);
+        Schedulers.computation(), maxNumberProofComponents, new BlockchainErrorMapper(),
+        disposables);
   }
 
   @Provides NonceGetter provideNonceGetter(EthereumNetworkRepositoryType networkRepository,
