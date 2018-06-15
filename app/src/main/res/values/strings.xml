@@ -270,7 +270,7 @@
   <string name="activity_iab_no_network_message">No network access</string>
   <string name="activity_iab_nonce_message">An error with blockchain occurred, please try again later.</string>
   <string name="activity_iab_approving_message">Checking all details: balance, items, network…</string>
-  <string name="activity_aib_buying_message">Details checked 👍 \nReceiving your item…</string>
+  <string name="activity_aib_buying_message">Details checked \nReceiving your item…</string>
   <string name="notification_ongoing_poa">Processing your PoA</string>
   <string name="notification_completed_poa">Proof processed and submitted</string>
   <string name="notification_submitting_poa">Submitting proof of attention to blockchain</string>
@@ -301,7 +301,7 @@
   <string name="transaction_to_label">To</string>
 
 
-  <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins 🤖</string>
+  <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
   <string name="activity_airdrop_details">This is just a security thing.</string>
   <string name="activity_airdrop_hint">Type the words in the image</string>
   <string name="activity_airdrop_submit_btn">Submit</string>
