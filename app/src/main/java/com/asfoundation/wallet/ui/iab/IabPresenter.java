@@ -73,7 +73,10 @@ public class IabPresenter {
   private void showMicroRaidenInfo() {
     disposables.add(view.getCreateChannelClick()
         .filter(isChecked -> isChecked && inAppPurchaseInteractor.shouldShowDialog())
-        .subscribe(__ -> view.showRaidenInfo()));
+        .doOnNext(__ -> view.showRaidenInfo())
+        .doOnError(Throwable::printStackTrace)
+        .retry()
+        .subscribe());
   }
 
   private void showTransactionState(String uriString) {
