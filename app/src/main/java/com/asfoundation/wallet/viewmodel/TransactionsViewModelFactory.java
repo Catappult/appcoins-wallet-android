@@ -18,7 +18,6 @@ import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
 import com.asfoundation.wallet.ui.MicroRaidenInteractor;
-import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 
 public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
 
@@ -36,7 +35,6 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
   private final GetDefaultWalletBalance getDefaultWalletBalance;
   private final TransactionsMapper transactionsMapper;
   private final AirdropRouter airdropRouter;
-  private final AppcoinsOperationsDataSaver operationsDataSaver;
   private final MicroRaidenInteractor microRaidenInteractor;
 
   public TransactionsViewModelFactory(FindDefaultNetworkInteract findDefaultNetworkInteract,
@@ -47,7 +45,7 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
       TransactionsMapper transactionsMapper, AirdropRouter airdropRouter,
-      AppcoinsOperationsDataSaver operationsDataSaver, MicroRaidenInteractor microRaidenInteractor) {
+      MicroRaidenInteractor microRaidenInteractor) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchTransactionsInteract = fetchTransactionsInteract;
@@ -62,7 +60,6 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
     this.getDefaultWalletBalance = getDefaultWalletBalance;
     this.transactionsMapper = transactionsMapper;
     this.airdropRouter = airdropRouter;
-    this.operationsDataSaver = operationsDataSaver;
     this.microRaidenInteractor = microRaidenInteractor;
   }
 
@@ -71,6 +68,6 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
         fetchTransactionsInteract, manageWalletsRouter, settingsRouter, sendRouter,
         transactionDetailRouter, myAddressRouter, myTokensRouter, externalBrowserRouter,
         defaultTokenProvider, getDefaultWalletBalance, transactionsMapper, airdropRouter,
-        operationsDataSaver, microRaidenInteractor);
+        microRaidenInteractor);
   }
 }
