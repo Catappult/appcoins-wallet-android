@@ -55,7 +55,7 @@
   </FrameLayout>
   <TextView
       android:id="@+id/address"
-      android:layout_width="0dp"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="@dimen/big_margin"
       android:layout_marginStart="@dimen/big_margin"
@@ -68,13 +68,13 @@
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toEndOf="@id/src_img"
       app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintWidth_default="wrap"
+      app:layout_constrainedWidth="true"
       tools:text="0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFD"
       />
 
   <TextView
       android:id="@+id/description"
-      android:layout_width="0dp"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginBottom="@dimen/big_padding"
       android:layout_marginEnd="@dimen/big_margin"
@@ -88,7 +88,7 @@
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toEndOf="@id/src_img"
       app:layout_constraintTop_toBottomOf="@id/address"
-      app:layout_constraintWidth_default="wrap"
+      app:layout_constrainedWidth="true"
       tools:text="0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFD"
       />
 

@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.widget.adapter;
 import android.os.Bundle;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ViewGroup;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.NetworkInfo;
@@ -16,6 +17,7 @@ import com.asfoundation.wallet.ui.widget.entity.TransactionSortedItem;
 import com.asfoundation.wallet.ui.widget.holder.BinderViewHolder;
 import com.asfoundation.wallet.ui.widget.holder.TransactionDateHolder;
 import com.asfoundation.wallet.ui.widget.holder.TransactionHolder;
+import java.util.Arrays;
 import java.util.List;
 
 public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> {

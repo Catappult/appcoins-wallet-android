@@ -6,6 +6,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
 import android.text.format.DateUtils;
+import android.util.Log;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.NetworkInfo;
@@ -33,6 +34,7 @@ import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -148,6 +150,11 @@ public class TransactionsViewModel extends BaseViewModel {
     disposables.add(zip.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
         .subscribe(this::onTransactions, this::onError, this::onTransactionsFetchCompleted));
 
+    //Observable<List<Transaction>> fetch = fetchTransactionsInteract.fetch(defaultWallet.getValue())
+    //    .flatMapSingle(rawTransactions -> transactionsMapper.map(rawTransactions))
+    //    .observeOn(AndroidSchedulers.mainThread());
+    //disposables.add(
+    //    fetch.subscribe(this::onTransactions, this::onError, this::onTransactionsFetchCompleted));
   }
 
   private void getBalance() {

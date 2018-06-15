@@ -37,7 +37,7 @@
         />
     <TextView
         android:id="@+id/transaction_id"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/normal_margin"
         android:layout_marginStart="@dimen/big_margin"
@@ -47,7 +47,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintWidth_default="wrap"
+        app:layout_constrainedWidth="true"
         style="@style/TransactionDetailsTextStyle.Content.Address"
         />
 
@@ -63,7 +63,7 @@
         />
     <TextView
         android:id="@+id/peer_address"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/normal_margin"
         android:layout_marginStart="@dimen/big_margin"
@@ -73,7 +73,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/guideline"
-        app:layout_constraintWidth_default="wrap"
+        app:layout_constrainedWidth="true"
         style="@style/TransactionDetailsTextStyle.Content.Address"
         />
 
@@ -89,7 +89,7 @@
         />
     <TextView
         android:id="@+id/gas_fee"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/normal_margin"
         android:layout_marginStart="@dimen/big_margin"
@@ -99,7 +99,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/gas_fee_label"
-        app:layout_constraintWidth_default="wrap"
+        app:layout_constrainedWidth="true"
         style="@style/TransactionDetailsTextStyle.Content"
         />
 
