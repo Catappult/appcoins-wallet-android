@@ -131,23 +131,25 @@ public class TransactionsViewModel extends BaseViewModel {
     handler.removeCallbacks(startFetchTransactionsTask);
     progress.postValue(shouldShowProgress);
     /*For specific address use: new Wallet("0x60f7a1cbc59470b74b1df20b133700ec381f15d3")*/
+    Observable<List<Transaction>> fetchBlockchainTransactions =
+        fetchTransactionsInteract.fetch(defaultWallet.getValue())
+            .flatMapSingle(transactions -> transactionsMapper.map(transactions))
+            .observeOn(AndroidSchedulers.mainThread());
+
     Observable<List<Transaction>> fetchBdsTransactions =
         microRaidenInteractor.listTransactions(defaultWallet.getValue())
             .toObservable()
-            .flatMapSingle(transactionsMapper::map);
-
-    Observable<List<Transaction>> fetchBlockchainTransactions =
-        fetchTransactionsInteract.fetch(defaultWallet.getValue())
-            .flatMapSingle(transactionsMapper::map);
+            .flatMapSingle(transactions -> transactionsMapper.map(transactions));
 
     Observable<List<Transaction>> zip =
-        Observable.zip(fetchBdsTransactions, fetchBlockchainTransactions,
-            (bdsTransactions, blockchainTransactions) -> {
-              bdsTransactions.addAll(blockchainTransactions);
-              return bdsTransactions;
+        Observable.zip(fetchBlockchainTransactions, fetchBdsTransactions,
+            (blockchainTransactions, bdsTransactions) -> {
+              blockchainTransactions.addAll(bdsTransactions);
+              return blockchainTransactions;
             });
 
-    disposables.add(zip.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    disposables.add(zip.subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
         .subscribe(this::onTransactions, this::onError, this::onTransactionsFetchCompleted));
 
     //Observable<List<Transaction>> fetch = fetchTransactionsInteract.fetch(defaultWallet.getValue())
