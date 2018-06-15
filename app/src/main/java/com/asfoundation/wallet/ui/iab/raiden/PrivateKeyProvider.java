@@ -10,13 +10,11 @@ import io.reactivex.Single;
 
 public class PrivateKeyProvider {
 
-  private final WalletRepositoryType walletRepositoryType;
   private final AccountKeystoreService accountKeystoreService;
   private final PasswordStore passwordStore;
 
-  public PrivateKeyProvider(WalletRepositoryType walletRepositoryType,
+  public PrivateKeyProvider(
       AccountKeystoreService accountKeystoreService, PasswordStore passwordStore) {
-    this.walletRepositoryType = walletRepositoryType;
     this.accountKeystoreService = accountKeystoreService;
     this.passwordStore = passwordStore;
   }
