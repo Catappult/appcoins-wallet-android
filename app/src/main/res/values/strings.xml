@@ -310,6 +310,7 @@
   <string name="activity_airdrop_message_title">Airdrop</string>
   <string name="activity_airdrop_success_message">Airdrop completed</string>
   <string name="activity_airdrop_generic_error_message">An error has occurred</string>
+  <string name="notification_generic_error">@string/unknown_error</string>
 
   <string name="iab_activity_micro_raiden_wallet">Wallet</string>
   <string name="iab_activity_raiden_channel_label">Create µRaiden channel</string>
