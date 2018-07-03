@@ -26,25 +26,26 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_marginBottom="?android:actionBarSize"
-      app:layout_behavior="@string/appbar_scrolling_view_behavior"
       android:background="@color/activity_background_color"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"
       >
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/activity_background_color"
-        android:paddingBottom="@dimen/big_padding"
         android:clipChildren="false"
         android:clipToPadding="false"
+        android:paddingBottom="@dimen/big_padding"
+        android:visibility="gone"
         />
   </android.support.v4.widget.SwipeRefreshLayout>
   <com.asfoundation.wallet.widget.SystemView
       android:id="@+id/system_view"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      app:layout_behavior="@string/appbar_scrolling_view_behavior"
       android:background="@color/activity_background_color"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"
       tools:visibility="gone"
       />
   <android.support.design.widget.BottomNavigationView

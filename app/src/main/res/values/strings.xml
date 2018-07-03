@@ -320,4 +320,5 @@
   <string name="proceed">proceed</string>
   <string name="iab_activity_raiden_channel_no_funds_message">You don\'t have enough funds on your µRainden payment channel. Go to your wallet and close the channel to create a new one.  Do you still want to complete this purchase with a standard payment?</string>
   <string name="iab_activity_raiden_channel_no_funds_title">Payment Channel Funds</string>
+  <string name="spend_your_appcoins">Spend your AppCoins</string>
 </resources>
