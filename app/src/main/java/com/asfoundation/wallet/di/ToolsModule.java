@@ -3,11 +3,15 @@ package com.asfoundation.wallet.di;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import com.asf.wallet.BuildConfig;
+import com.asfoundation.contractproxy.proxy.ContractAddressProvider;
+import com.asfoundation.contractproxy.proxy.Web3jProxyContract;
 import com.asfoundation.wallet.Airdrop;
 import com.asfoundation.wallet.AirdropService;
 import com.asfoundation.wallet.App;
 import com.asfoundation.wallet.FabricLogger;
 import com.asfoundation.wallet.Logger;
+import com.asfoundation.wallet.apps.Applications;
+import com.asfoundation.wallet.apps.AppsApi;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
@@ -17,8 +21,6 @@ import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
-import com.asfoundation.contractproxy.proxy.ContractAddressProvider;
-import com.asfoundation.contractproxy.proxy.Web3jProxyContract;
 import com.asfoundation.wallet.poa.BlockchainErrorMapper;
 import com.asfoundation.wallet.poa.Calculator;
 import com.asfoundation.wallet.poa.DataMapper;
@@ -53,6 +55,7 @@ import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.RealmManager;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TrustWalletTickerService;
+import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.MicroRaidenInteractor;
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper;
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor;
@@ -381,5 +384,16 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
   @Provides MicroRaidenInteractor provideMicroRaidenInteractor(Raiden raiden) {
     return new MicroRaidenInteractor(raiden);
+  }
+
+  @Singleton @Provides AppcoinsApps provideAppcoinsApps(OkHttpClient client, Gson gson) {
+    AppsApi appsApi = new Retrofit.Builder().baseUrl(AppsApi.API_BASE_URL)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(AppsApi.class);
+    return new AppcoinsApps(new Applications.Builder().setApi(appsApi)
+        .build());
   }
 }
