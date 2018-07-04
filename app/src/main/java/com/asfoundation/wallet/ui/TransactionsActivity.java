@@ -48,7 +48,7 @@ import static com.asfoundation.wallet.C.ErrorCode.EMPTY_COLLECTION;
 
 public class TransactionsActivity extends BaseNavigationActivity implements View.OnClickListener {
 
-  public static final String AIRDROP_MORE_INFO_URL = "https://appstorefoundation.org/asf-wallet";
+  public static final String READ_MORE_INFO_URL = "https://www.appstorefoundation.org/readmore";
   @Inject TransactionsViewModelFactory transactionsViewModelFactory;
   @Inject AddTokenInteract addTokenInteract;
   @Inject TransactionFactory transactionFactory;
@@ -181,7 +181,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void openLearnMore() {
-    viewModel.onLearnMoreClick(this, Uri.parse(AIRDROP_MORE_INFO_URL));
+    viewModel.onLearnMoreClick(this, Uri.parse(READ_MORE_INFO_URL));
   }
 
   @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
