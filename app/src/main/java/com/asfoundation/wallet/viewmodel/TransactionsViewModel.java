@@ -149,7 +149,7 @@ public class TransactionsViewModel extends BaseViewModel {
             return appcoinsApplications;
           })
           .observeOn(AndroidSchedulers.mainThread())
-          .subscribe(appcoinsApplications::postValue));
+          .subscribe(appcoinsApplications::postValue, Throwable::printStackTrace));
     }
   }
 
