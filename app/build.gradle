@@ -191,7 +191,7 @@ dependencies {
   implementation project(":tn")
   implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  implementation 'com.asfoundation:microraidenj-bds:0.3.4a'
+  implementation 'com.asfoundation:microraidenj-bds:0.3.7a'
 
   implementation "android.arch.persistence.room:runtime:$project.roomVersion"
   annotationProcessor "android.arch.persistence.room:compiler:$project.roomVersion"
