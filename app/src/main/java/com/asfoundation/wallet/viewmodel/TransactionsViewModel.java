@@ -149,6 +149,7 @@ public class TransactionsViewModel extends BaseViewModel {
             return appcoinsApplications;
           })
           .observeOn(AndroidSchedulers.mainThread())
+          .doOnSubscribe(disposable -> appcoinsApplications.postValue(Collections.emptyList()))
           .subscribe(appcoinsApplications::postValue, Throwable::printStackTrace));
     }
   }
