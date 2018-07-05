@@ -42,9 +42,9 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
   private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
   private final MutableLiveData<List<Transaction>> transactions = new MutableLiveData<>();
-  private final MutableLiveData<Map<String, String>> defaultWalletBalance = new MutableLiveData<>();
   private final MutableLiveData<List<AppcoinsApplication>> appcoinsApplications =
       new MutableLiveData<>();
+  private final MutableLiveData<Map<String, String>> defaultWalletBalance = new MutableLiveData<>();
   private final FindDefaultNetworkInteract findDefaultNetworkInteract;
   private final FindDefaultWalletInteract findDefaultWalletInteract;
   private final FetchTransactionsInteract fetchTransactionsInteract;
@@ -91,7 +91,7 @@ public class TransactionsViewModel extends BaseViewModel {
     this.airdropRouter = airdropRouter;
     this.microRaidenInteractor = microRaidenInteractor;
     this.applications = applications;
-    disposables = new CompositeDisposable();
+    this.disposables = new CompositeDisposable();
   }
 
   @Override protected void onCleared() {
@@ -141,6 +141,13 @@ public class TransactionsViewModel extends BaseViewModel {
             .flatMapSingle(transactionsMapper::map))
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(this::onTransactions, this::onError, this::onTransactionsFetchCompleted));
+
+    Observable<List<Transaction>> fetch = fetchTransactionsInteract.fetch(defaultWallet.getValue())
+        .flatMapSingle(transactionsMapper::map)
+        .observeOn(AndroidSchedulers.mainThread());
+    disposables.add(
+        fetch.subscribe(this::onTransactions, this::onError, this::onTransactionsFetchCompleted));
+
     if (shouldShowProgress) {
       disposables.add(applications.getApps()
           .subscribeOn(Schedulers.io())
@@ -160,7 +167,7 @@ public class TransactionsViewModel extends BaseViewModel {
           defaultWalletBalance.postValue(values);
           handler.removeCallbacks(startGetBalanceTask);
           handler.postDelayed(startGetBalanceTask, GET_BALANCE_INTERVAL);
-        }, throwable -> throwable.printStackTrace()));
+        }, Throwable::printStackTrace));
   }
 
   private void onDefaultNetwork(NetworkInfo networkInfo) {

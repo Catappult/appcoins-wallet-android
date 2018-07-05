@@ -2,9 +2,9 @@ package com.asfoundation.wallet.di;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxyBuilder;
+import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk;
 import com.asf.wallet.BuildConfig;
-import com.asfoundation.contractproxy.proxy.ContractAddressProvider;
-import com.asfoundation.contractproxy.proxy.Web3jProxyContract;
 import com.asfoundation.wallet.Airdrop;
 import com.asfoundation.wallet.AirdropService;
 import com.asfoundation.wallet.App;
@@ -87,7 +87,6 @@ import io.reactivex.subjects.BehaviorSubject;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -280,7 +279,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   @Singleton @Provides TransactionFactory provideTransactionFactory(Web3jProvider web3jProvider,
       WalletRepositoryType walletRepository, AccountKeystoreService accountKeystoreService,
       PasswordStore passwordStore, EthereumNetworkRepositoryType ethereumNetworkRepository,
-      DataMapper dataMapper, ContractAddressProvider adsContractAddressProvider) {
+      DataMapper dataMapper, AppCoinsAddressProxySdk adsContractAddressProvider) {
     return new TransactionFactory(web3jProvider, walletRepository, accountKeystoreService,
         passwordStore, ethereumNetworkRepository, dataMapper, adsContractAddressProvider);
   }
@@ -295,17 +294,10 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
         defaultWalletInteract, gasSettingsRepository, registerPoaGasLimit, ethereumNetwork);
   }
 
-  @Singleton @Provides ContractAddressProvider provideAdsContractAddressProvider(
+  @Singleton @Provides AppCoinsAddressProxySdk provideAdsContractAddressSdk(
       Web3jProvider web3jProvider, FindDefaultWalletInteract findDefaultWalletInteract) {
-    return new ContractAddressProvider(() -> findDefaultWalletInteract.find()
-        .map(wallet -> wallet.address), new Web3jProxyContract(web3jProvider::get, chainId -> {
-      switch (chainId) {
-        case 3:
-          return BuildConfig.ROPSTEN_NETWORK_PROXY_CONTRACT_ADDRESS;
-        default:
-          return BuildConfig.MAIN_NETWORK_PROXY_CONTRACT_ADDRESS;
-      }
-    }), Schedulers.io(), new ConcurrentHashMap<>());
+    return new AppCoinsAddressProxyBuilder().createAddressProxySdk(() -> findDefaultWalletInteract.find()
+        .map(wallet -> wallet.address), web3jProvider::get);
   }
 
   @Singleton @Provides HashCalculator provideHashCalculator(Calculator calculator) {

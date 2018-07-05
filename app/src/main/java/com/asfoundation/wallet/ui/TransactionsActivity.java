@@ -49,6 +49,7 @@ import static com.asfoundation.wallet.C.ErrorCode.EMPTY_COLLECTION;
 public class TransactionsActivity extends BaseNavigationActivity implements View.OnClickListener {
 
   public static final String READ_MORE_INFO_URL = "https://www.appstorefoundation.org/readmore";
+  private static final String TAG = TransactionsActivity.class.getSimpleName();
   @Inject TransactionsViewModelFactory transactionsViewModelFactory;
   @Inject AddTokenInteract addTokenInteract;
   @Inject TransactionFactory transactionFactory;
@@ -87,9 +88,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     list.setLayoutManager(new LinearLayoutManager(this));
     list.setAdapter(adapter);
 
-    list.setLayoutManager(new LinearLayoutManager(this));
-    list.setAdapter(adapter);
-
     systemView.attachRecyclerView(list);
     systemView.attachSwipeRefreshLayout(refreshLayout);
 
@@ -112,23 +110,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
   }
 
-  private void onApplicationClick(AppcoinsApplication appcoinsApplication) {
-    viewModel.onAppClick(appcoinsApplication, getBaseContext());
-  }
-
-  private void onApplications(List<AppcoinsApplication> appcoinsApplications) {
-    adapter.setApps(appcoinsApplications);
-    showList();
-  }
-
-  private void showList() {
-    // the value is 1 because apps list item is always added, so if there is at least 1
-    // transaction, the list is shown
-    if (adapter.getItemCount() > 1) {
-      list.setVisibility(View.VISIBLE);
-    }
-  }
-
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.action_settings: {
@@ -143,9 +124,20 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     return super.onOptionsItemSelected(item);
   }
 
+  private void onApplicationClick(AppcoinsApplication appcoinsApplication) {
+    viewModel.onAppClick(appcoinsApplication, getBaseContext());
+  }
+
+  private void onApplications(List<AppcoinsApplication> appcoinsApplications) {
+    adapter.setApps(appcoinsApplications);
+    showList();
+  }
+
   private void onBalanceChanged(Map<String, String> balance) {
     if (!balance.isEmpty()) {
-      Map.Entry<String,String> entry = balance.entrySet().iterator().next();
+      Map.Entry<String, String> entry = balance.entrySet()
+          .iterator()
+          .next();
       String currency = entry.getKey();
       String value = entry.getValue();
       int smallTitleSize = (int) getResources().getDimension(R.dimen.title_small_text);
@@ -229,6 +221,14 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     adapter.addTransactions(transaction);
     showList();
     invalidateOptionsMenu();
+  }
+
+  private void showList() {
+    // the value is 1 because apps list item is always added, so if there is at least 1
+    // transaction, the list is shown
+    if (adapter.getItemCount() > 1) {
+      list.setVisibility(View.VISIBLE);
+    }
   }
 
   private void onDefaultWallet(Wallet wallet) {

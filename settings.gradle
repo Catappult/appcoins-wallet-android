@@ -1,1 +1,1 @@
-include ':app', ':tn', ':airdrop', ':ContractProxy'
+include ':app', ':tn', ':airdrop'

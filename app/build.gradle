@@ -35,8 +35,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 27
-    versionCode 11
-    versionName "0.1.0a"
+    versionCode 12
+    versionName "0.1.1a"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     vectorDrawables.useSupportLibrary = true
     multiDexEnabled = true
@@ -67,10 +67,6 @@ android {
         "\"" + project.ROPSTEN_DEFAULT_TOKEN_NAME + "\""
     buildConfigField 'int', 'MAIN_NETWORK_DEFAULT_TOKEN_DECIMALS',
         project.MAIN_NETWORK_DEFAULT_TOKEN_DECIMALS
-    buildConfigField 'String', 'MAIN_NETWORK_PROXY_CONTRACT_ADDRESS',
-        "\"" + project.MAIN_NETWORK_PROXY_CONTRACT_ADDRESS + "\""
-    buildConfigField 'String', 'ROPSTEN_NETWORK_PROXY_CONTRACT_ADDRESS',
-        "\"" + project.ROPSTEN_NETWORK_PROXY_CONTRACT_ADDRESS + "\""
     buildConfigField 'String', 'REGISTER_PROOF_GAS_LIMIT',
         "\"" + project.REGISTER_PROOF_GAS_LIMIT + "\""
     buildConfigField 'String', 'PAYMENT_GAS_LIMIT',
@@ -202,9 +198,9 @@ dependencies {
   //        transitive = true
   //    }
   implementation project(path: ':airdrop')
-  implementation project(path: ':ContractProxy')
   implementation 'com.asfoundation:apps:1'
   implementation "com.android.support:palette-v7:$project.supportVersion"
+  api "com.asfoundation:appcoins-contract-proxy:$project.appcoinsSdkVersion"
 }
 
 def renameArtifact(defaultConfig) {
