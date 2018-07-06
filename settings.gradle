@@ -1,1 +1,1 @@
-include ':app', ':tn', ':airdrop'
+include ':app', ':tn', ':airdrop', ':billing'

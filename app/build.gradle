@@ -200,7 +200,8 @@ dependencies {
   implementation project(path: ':airdrop')
   implementation 'com.asfoundation:apps:1'
   implementation "com.android.support:palette-v7:$project.supportVersion"
-  api "com.asfoundation:appcoins-contract-proxy:$project.appcoinsSdkVersion"
+  implementation "com.asfoundation:appcoins-contract-proxy:$project.appcoinsSdkVersion"
+  implementation project(path: ':billing')
 }
 
 def renameArtifact(defaultConfig) {

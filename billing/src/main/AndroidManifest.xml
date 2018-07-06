@@ -1,0 +1,9 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.appcoins.wallet.billing">
+
+  <application>
+    <service
+        android:name=".BillingService"
+        android:exported="true"/>
+  </application>
+</manifest>
