@@ -18,6 +18,7 @@ import com.asfoundation.wallet.ui.widget.holder.AppcoinsApplicationListViewHolde
 import com.asfoundation.wallet.ui.widget.holder.BinderViewHolder;
 import com.asfoundation.wallet.ui.widget.holder.TransactionDateHolder;
 import com.asfoundation.wallet.ui.widget.holder.TransactionHolder;
+import java.util.Collections;
 import java.util.List;
 import rx.functions.Action1;
 
@@ -113,6 +114,10 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
 
   public void addTransactions(List<Transaction> transactions) {
     items.beginBatchedUpdates();
+    if (items.size() == 0) {
+      items.add(new ApplicationSortedItem(Collections.emptyList(),
+          AppcoinsApplicationListViewHolder.VIEW_TYPE));
+    }
     for (Transaction transaction : transactions) {
       TransactionSortedItem sortedItem =
           new TransactionSortedItem(TransactionHolder.VIEW_TYPE, transaction,

@@ -15,6 +15,7 @@ buildscript {
     classpath "io.realm:realm-gradle-plugin:5.0.0"
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+    classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
   }
 }
 
@@ -29,6 +30,7 @@ allprojects {
     maven {
       url "https://github.com/omadahealth/omada-nexus/raw/master/release"
     }
+    maven { url "https://dl.bintray.com/asf/asf" }
   }
 }
 project.ext {
@@ -47,6 +49,7 @@ project.ext {
   junitVersion = "4.12"
   mockitoCoreVersion = "2.15.0"
   roomVersion = "1.1.0"
+  appcoinsSdkVersion = "0.3.7a"
 }
 
 task clean(type: Delete) {
