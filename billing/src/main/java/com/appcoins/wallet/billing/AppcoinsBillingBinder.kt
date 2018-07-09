@@ -2,10 +2,27 @@ package com.appcoins.wallet.billing
 
 import android.os.Bundle
 import com.appcoins.billing.AppcoinsBilling
+import io.reactivex.schedulers.Schedulers
 
-class AppcoinsBillingBinder(var billing: Billing) : AppcoinsBilling.Stub() {
+internal class AppcoinsBillingBinder(var billing: Billing) : AppcoinsBilling.Stub() {
   override fun isBillingSupported(apiVersion: Int, packageName: String?, type: String?): Int {
-    return billing.isSupported().map { t -> if (t) 1 else 0 }.blockingGet()
+    if (packageName == null || packageName.isBlank() || type == null || type.isBlank()) {
+      return 0
+    }
+    return when (type) {
+      "inapp" -> {
+        billing.isInAppSupported(packageName)
+            .subscribeOn(Schedulers.io())
+            .map { t -> if (t) 1 else 0 }.blockingGet()
+      }
+      "subs" -> {
+        billing.isSubsSupported(packageName)
+            .subscribeOn(Schedulers.io())
+            .map { t -> if (t) 1 else 0 }.blockingGet()
+      }
+      else ->
+        0
+    }
   }
 
   override fun getSkuDetails(apiVersion: Int, packageName: String?, type: String?,

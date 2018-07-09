@@ -2,6 +2,7 @@ package com.appcoins.wallet.billing
 
 import io.reactivex.Single
 
-interface Billing {
-  fun isSupported(): Single<Boolean>
+internal interface Billing {
+  fun isSubsSupported(packageName: String): Single<Boolean>
+  fun isInAppSupported(packageName: String): Single<Boolean>
 }
