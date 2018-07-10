@@ -91,7 +91,7 @@ public class WalletPoAService extends Service {
                 });
       }
     }
-    if (intent.hasExtra(PARAM_APP_PACKAGE_NAME)) {
+    if (intent != null && intent.hasExtra(PARAM_APP_PACKAGE_NAME)) {
       setTimeout(intent.getStringExtra(PARAM_APP_PACKAGE_NAME));
     }
     return super.onStartCommand(intent, flags, startId);
