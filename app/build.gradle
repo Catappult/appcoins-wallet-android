@@ -49,6 +49,7 @@ android {
     }
 
     buildConfigField 'int', 'DB_VERSION', '5'
+    buildConfigField 'int', 'BILLING_SUPPORTED_VERSION', project.BILLING_SUPPORTED_VERSION
 
     buildConfigField 'String', 'ROPSTEN_DEFAULT_TOKEN_SYMBOL',
         "\"" + project.ROPSTEN_DEFAULT_TOKEN_SYMBOL + "\""

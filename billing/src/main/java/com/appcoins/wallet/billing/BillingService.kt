@@ -13,14 +13,16 @@ class BillingService : Service() {
 
   override fun onCreate() {
     super.onCreate()
-    if (applicationContext !is BdsApiProvider) {
+    if (applicationContext !is BillingDependenciesProvider) {
       throw IllegalArgumentException(
-          "application must implement ${BdsApiProvider::class.java.simpleName}")
+          "application must implement ${BillingDependenciesProvider::class.java.simpleName}")
     }
   }
 
   override fun onBind(intent: Intent): IBinder {
+    val bdsApiProvider = applicationContext as BillingDependenciesProvider
     return AppcoinsBillingBinder(BdsBilling(
-        BdsRepository(RemoteRepository((applicationContext as BdsApiProvider).getBdsApi()))))
+        BdsRepository(RemoteRepository(bdsApiProvider.getBdsApi()))),
+        bdsApiProvider.getSupportedVersion())
   }
 }

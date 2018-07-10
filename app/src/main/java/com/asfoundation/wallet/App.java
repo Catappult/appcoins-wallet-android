@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.Service;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.Fragment;
-import com.appcoins.wallet.billing.BdsApiProvider;
+import com.appcoins.wallet.billing.BillingDependenciesProvider;
 import com.appcoins.wallet.billing.repository.RemoteRepository;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.di.DaggerAppComponent;
@@ -30,7 +30,8 @@ import javax.inject.Inject;
 import org.jetbrains.annotations.NotNull;
 
 public class App extends MultiDexApplication
-    implements HasActivityInjector, HasServiceInjector, HasSupportFragmentInjector, BdsApiProvider {
+    implements HasActivityInjector, HasServiceInjector, HasSupportFragmentInjector,
+    BillingDependenciesProvider {
 
   private static final String TAG = App.class.getSimpleName();
   @Inject DispatchingAndroidInjector<Activity> dispatchingActivityInjector;
@@ -101,6 +102,10 @@ public class App extends MultiDexApplication
 
   @Override public AndroidInjector<Fragment> supportFragmentInjector() {
     return dispatchingFragmentInjector;
+  }
+
+  @Override public int getSupportedVersion() {
+    return BuildConfig.BILLING_SUPPORTED_VERSION;
   }
 
   @NotNull @Override public RemoteRepository.BdsApi getBdsApi() {
