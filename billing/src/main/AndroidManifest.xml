@@ -4,6 +4,12 @@
   <application>
     <service
         android:name=".BillingService"
-        android:exported="true"/>
+        android:exported="true"
+        android:permission="${applicationId}.permission.BILLING">
+      <intent-filter>
+        <action android:name="${applicationId}.iab.action.BIND"/>
+      </intent-filter>
+    </service>
+
   </application>
 </manifest>
