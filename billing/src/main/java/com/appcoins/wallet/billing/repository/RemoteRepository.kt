@@ -12,10 +12,7 @@ class RemoteRepository(private val api: BdsApi) {
 
   internal fun isBillingSupported(packageName: String,
                                   type: BillingSupportedType): Single<Boolean> {
-    return api.getPackage(packageName, type.name.toLowerCase()).map { true }.onErrorReturn {
-      it.printStackTrace()
-      false
-    }
+    return api.getPackage(packageName, type.name.toLowerCase()).map { true }
   }
 
   interface BdsApi {
