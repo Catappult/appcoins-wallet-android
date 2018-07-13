@@ -22,6 +22,7 @@ class BillingThrowableCodeMapper {
   private fun mapHttpCode(throwable: HttpException): Billing.BillingSupportType =
       when (throwable.code()) {
         404 -> Billing.BillingSupportType.MERCHANT_NOT_FOUND
+        in 500..599 -> Billing.BillingSupportType.API_ERROR
         else -> {
           throwable.printStackTrace()
           Billing.BillingSupportType.UNKNOWN_ERROR

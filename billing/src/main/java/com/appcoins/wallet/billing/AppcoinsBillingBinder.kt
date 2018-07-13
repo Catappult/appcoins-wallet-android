@@ -47,6 +47,7 @@ internal class AppcoinsBillingBinder(private val billing: Billing,
         Billing.BillingSupportType.MERCHANT_NOT_FOUND -> RESULT_BILLING_UNAVAILABLE
         Billing.BillingSupportType.UNKNOWN_ERROR -> RESULT_BILLING_UNAVAILABLE
         Billing.BillingSupportType.NO_INTERNET_CONNECTION -> RESULT_SERVICE_UNAVAILABLE
+        Billing.BillingSupportType.API_ERROR -> RESULT_ERROR
       }
 
 
