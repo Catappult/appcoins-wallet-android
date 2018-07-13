@@ -13,6 +13,7 @@ internal class BdsBilling(private val repository: Repository,
 
   override fun isSubsSupported(packageName: String): Single<Billing.BillingSupportType> {
     return repository.isSupported(packageName, BillingSupportedType.SUBS).map { map(it) }
+        .onErrorReturn { errorMapper.map(it) }
   }
 
   private fun map(it: Boolean) =
