@@ -2,6 +2,7 @@ package com.asfoundation.wallet.di;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import com.appcoins.wallet.billing.repository.RemoteRepository;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxyBuilder;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk;
 import com.asf.wallet.BuildConfig;
@@ -387,5 +388,14 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
         .create(AppsApi.class);
     return new AppcoinsApps(new Applications.Builder().setApi(appsApi)
         .build());
+  }
+
+  @Singleton @Provides RemoteRepository.BdsApi provideBdsApi(OkHttpClient client, Gson gson) {
+    return new Retrofit.Builder().baseUrl(RemoteRepository.BASE_HOST)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(RemoteRepository.BdsApi.class);
   }
 }

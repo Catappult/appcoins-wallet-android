@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Service;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.Fragment;
+import com.appcoins.wallet.billing.BillingDependenciesProvider;
+import com.appcoins.wallet.billing.repository.RemoteRepository;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.di.DaggerAppComponent;
 import com.asfoundation.wallet.interact.AddTokenInteract;
@@ -25,9 +27,11 @@ import io.reactivex.exceptions.UndeliverableException;
 import io.reactivex.plugins.RxJavaPlugins;
 import io.realm.Realm;
 import javax.inject.Inject;
+import org.jetbrains.annotations.NotNull;
 
 public class App extends MultiDexApplication
-    implements HasActivityInjector, HasServiceInjector, HasSupportFragmentInjector {
+    implements HasActivityInjector, HasServiceInjector, HasSupportFragmentInjector,
+    BillingDependenciesProvider {
 
   private static final String TAG = App.class.getSimpleName();
   @Inject DispatchingAndroidInjector<Activity> dispatchingActivityInjector;
@@ -39,6 +43,7 @@ public class App extends MultiDexApplication
   @Inject ProofOfAttentionService proofOfAttentionService;
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject AppcoinsOperationsDataSaver appcoinsOperationsDataSaver;
+  @Inject RemoteRepository.BdsApi bdsApi;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -97,5 +102,13 @@ public class App extends MultiDexApplication
 
   @Override public AndroidInjector<Fragment> supportFragmentInjector() {
     return dispatchingFragmentInjector;
+  }
+
+  @Override public int getSupportedVersion() {
+    return BuildConfig.BILLING_SUPPORTED_VERSION;
+  }
+
+  @NotNull @Override public RemoteRepository.BdsApi getBdsApi() {
+    return bdsApi;
   }
 }

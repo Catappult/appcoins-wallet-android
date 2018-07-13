@@ -49,6 +49,7 @@ android {
     }
 
     buildConfigField 'int', 'DB_VERSION', '5'
+    buildConfigField 'int', 'BILLING_SUPPORTED_VERSION', project.BILLING_SUPPORTED_VERSION
 
     buildConfigField 'String', 'ROPSTEN_DEFAULT_TOKEN_SYMBOL',
         "\"" + project.ROPSTEN_DEFAULT_TOKEN_SYMBOL + "\""
@@ -200,7 +201,8 @@ dependencies {
   implementation project(path: ':airdrop')
   implementation 'com.asfoundation:apps:1'
   implementation "com.android.support:palette-v7:$project.supportVersion"
-  api "com.asfoundation:appcoins-contract-proxy:$project.appcoinsSdkVersion"
+  implementation "com.asfoundation:appcoins-contract-proxy:$project.appcoinsSdkVersion"
+  implementation project(path: ':billing')
 }
 
 def renameArtifact(defaultConfig) {
