@@ -7,6 +7,6 @@ internal interface Billing {
   fun isInAppSupported(packageName: String): Single<BillingSupportType>
 
   enum class BillingSupportType {
-    SUPPORTED, MERCHANT_NOT_FOUND, UNKNOWN_ERROR
+    SUPPORTED, MERCHANT_NOT_FOUND, UNKNOWN_ERROR, NO_INTERNET_CONNECTION
   }
 }

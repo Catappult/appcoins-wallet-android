@@ -36,8 +36,7 @@ internal class AppcoinsBillingBinder(private val billing: Billing,
             .subscribeOn(Schedulers.io())
             .map { isSupported -> mapSupported(isSupported) }.blockingGet()
       }
-      else ->
-        RESULT_BILLING_UNAVAILABLE
+      else -> RESULT_BILLING_UNAVAILABLE
     }
 
   }
@@ -47,6 +46,7 @@ internal class AppcoinsBillingBinder(private val billing: Billing,
         Billing.BillingSupportType.SUPPORTED -> RESULT_OK
         Billing.BillingSupportType.MERCHANT_NOT_FOUND -> RESULT_BILLING_UNAVAILABLE
         Billing.BillingSupportType.UNKNOWN_ERROR -> RESULT_BILLING_UNAVAILABLE
+        Billing.BillingSupportType.NO_INTERNET_CONNECTION -> RESULT_SERVICE_UNAVAILABLE
       }
 
 

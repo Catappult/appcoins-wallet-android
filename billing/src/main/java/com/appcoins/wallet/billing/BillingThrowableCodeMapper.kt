@@ -1,12 +1,16 @@
 package com.appcoins.wallet.billing
 
 import retrofit2.HttpException
+import java.net.UnknownHostException
 
 class BillingThrowableCodeMapper {
   internal fun map(throwable: Throwable): Billing.BillingSupportType {
     return when (throwable) {
       is HttpException -> {
         mapHttpCode(throwable)
+      }
+      is UnknownHostException -> {
+        Billing.BillingSupportType.NO_INTERNET_CONNECTION
       }
       else -> {
         throwable.printStackTrace()
