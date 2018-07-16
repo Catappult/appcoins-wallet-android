@@ -23,6 +23,6 @@ class BillingService : Service() {
     val bdsApiProvider = applicationContext as BillingDependenciesProvider
     return AppcoinsBillingBinder(BdsBilling(
         BdsRepository(RemoteRepository(bdsApiProvider.getBdsApi())), BillingThrowableCodeMapper()),
-        bdsApiProvider.getSupportedVersion())
+        bdsApiProvider.getSupportedVersion(), BillingMessagesMapper())
   }
 }

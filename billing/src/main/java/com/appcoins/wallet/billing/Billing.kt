@@ -1,10 +1,12 @@
 package com.appcoins.wallet.billing
 
+import com.appcoins.wallet.billing.repository.entity.SkuDetails
 import io.reactivex.Single
 
 internal interface Billing {
   fun isSubsSupported(packageName: String): Single<BillingSupportType>
   fun isInAppSupported(packageName: String): Single<BillingSupportType>
+  fun getInappSkuDetails(packageName: String, skuIds: List<String>): Single<SkuDetails>
 
   enum class BillingSupportType {
     SUPPORTED, MERCHANT_NOT_FOUND, UNKNOWN_ERROR, NO_INTERNET_CONNECTION, API_ERROR

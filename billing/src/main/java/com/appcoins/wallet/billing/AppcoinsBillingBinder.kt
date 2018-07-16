@@ -2,10 +2,12 @@ package com.appcoins.wallet.billing
 
 import android.os.Bundle
 import com.appcoins.billing.AppcoinsBilling
+import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
 internal class AppcoinsBillingBinder(private val billing: Billing,
-                                     private val supportedVersion: Int) :
+                                     private val supportedVersion: Int,
+                                     private val billingMessagesMapper: BillingMessagesMapper) :
     AppcoinsBilling.Stub() {
   companion object {
     internal const val RESULT_OK = 0 // success
@@ -28,33 +30,33 @@ internal class AppcoinsBillingBinder(private val billing: Billing,
     return when (type) {
       "inapp" -> {
         billing.isInAppSupported(packageName)
-            .subscribeOn(Schedulers.io())
-            .map { supported -> mapSupported(supported) }.blockingGet()
       }
       "subs" -> {
         billing.isSubsSupported(packageName)
-            .subscribeOn(Schedulers.io())
-            .map { isSupported -> mapSupported(isSupported) }.blockingGet()
       }
-      else -> RESULT_BILLING_UNAVAILABLE
-    }
-
+      else -> Single.just(Billing.BillingSupportType.UNKNOWN_ERROR)
+    }.subscribeOn(Schedulers.io())
+        .map { supported -> billingMessagesMapper.mapSupported(supported) }
+        .blockingGet()
   }
-
-  private fun mapSupported(supportType: Billing.BillingSupportType): Int =
-      when (supportType) {
-        Billing.BillingSupportType.SUPPORTED -> RESULT_OK
-        Billing.BillingSupportType.MERCHANT_NOT_FOUND -> RESULT_BILLING_UNAVAILABLE
-        Billing.BillingSupportType.UNKNOWN_ERROR -> RESULT_BILLING_UNAVAILABLE
-        Billing.BillingSupportType.NO_INTERNET_CONNECTION -> RESULT_SERVICE_UNAVAILABLE
-        Billing.BillingSupportType.API_ERROR -> RESULT_ERROR
-      }
-
 
   override fun getSkuDetails(apiVersion: Int, packageName: String?, type: String?,
                              skusBundle: Bundle?): Bundle {
-    TODO(
-        "not implemented") //To change body of created functions use File | Settings | File Templates.
+    if (apiVersion != supportedVersion || packageName == null || packageName.isBlank()
+        || type == null || type.isBlank() || skusBundle == null
+        || !skusBundle.containsKey("ITEM_ID_LIST")) {
+      val bundle = Bundle()
+      bundle.putInt("RESPONSE_CODE", RESULT_BILLING_UNAVAILABLE)
+      return bundle
+    }
+    val stringArray = skusBundle.getStringArrayList("ITEM_ID_LIST")
+
+    return when (type) {
+      "inapp" -> {
+        billing.getInappSkuDetails(packageName, stringArray)
+      }
+      else -> throw Exception()
+    }.map { billingMessagesMapper.mapSkuDetails(it) }.blockingGet()
   }
 
   override fun getBuyIntent(apiVersion: Int, packageName: String?, sku: String?, type: String?,
