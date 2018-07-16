@@ -9,7 +9,9 @@ internal class BdsRepository(private val remoteRepository: RemoteRepository) : R
     return remoteRepository.isBillingSupported(packageName, type)
   }
 
-  override fun getSkuDetails(packageName: String, skuIds: List<String>): Single<List<Sku>> {
-    return remoteRepository.getSkuDetails(packageName, skuIds)
+  override fun getSkuDetails(packageName: String,
+                             skuIds: List<String>,
+                             type: Repository.BillingType): Single<List<Sku>> {
+    return remoteRepository.getSkuDetails(packageName, skuIds, type.name)
   }
 }

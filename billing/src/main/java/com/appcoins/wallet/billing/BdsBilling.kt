@@ -18,8 +18,10 @@ internal class BdsBilling(private val repository: Repository,
         .onErrorReturn { errorMapper.map(it) }
   }
 
-  override fun getInappSkuDetails(packageName: String, skuIds: List<String>): Single<SkuDetails> {
-    return repository.getSkuDetails(packageName, skuIds).map { map(it) }
+  override fun getSkuDetails(packageName: String,
+                             skuIds: List<String>, type: String): Single<SkuDetails> {
+    return repository.getSkuDetails(packageName, skuIds, Repository.BillingType.valueOf(type))
+        .map { map(it) }
   }
 
   private fun map(skus: List<Sku>): SkuDetails {

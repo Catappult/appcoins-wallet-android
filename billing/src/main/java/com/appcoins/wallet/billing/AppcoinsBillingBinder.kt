@@ -51,12 +51,8 @@ internal class AppcoinsBillingBinder(private val billing: Billing,
     }
     val stringArray = skusBundle.getStringArrayList("ITEM_ID_LIST")
 
-    return when (type) {
-      "inapp" -> {
-        billing.getInappSkuDetails(packageName, stringArray)
-      }
-      else -> throw Exception()
-    }.map { billingMessagesMapper.mapSkuDetails(it) }.blockingGet()
+    return billing.getSkuDetails(packageName, stringArray, type)
+        .map { billingMessagesMapper.mapSkuDetails(it) }.blockingGet()
   }
 
   override fun getBuyIntent(apiVersion: Int, packageName: String?, sku: String?, type: String?,

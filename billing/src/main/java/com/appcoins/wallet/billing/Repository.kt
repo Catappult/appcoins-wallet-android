@@ -6,5 +6,10 @@ import io.reactivex.Single
 
 internal interface Repository {
   fun isSupported(packageName: String, type: BillingSupportedType): Single<Boolean>
-  fun getSkuDetails(packageName: String, skuIds: List<String>): Single<List<Sku>>
+  fun getSkuDetails(packageName: String, skuIds: List<String>,
+                    type: BillingType): Single<List<Sku>>
+
+  enum class BillingType {
+    inapp, subs
+  }
 }

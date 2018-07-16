@@ -16,7 +16,8 @@ class RemoteRepository(private val api: BdsApi) {
     return api.getPackage(packageName, type.name.toLowerCase()).map { true }
   }
 
-  fun getSkuDetails(packageName: String, skuIds: List<String>): Single<List<Sku>> {
+  fun getSkuDetails(packageName: String, skuIds: List<String>,
+                    type: String): Single<List<Sku>> {
     TODO(
         "not implemented") //To change body of created functions use File | Settings | File Templates.
   }
