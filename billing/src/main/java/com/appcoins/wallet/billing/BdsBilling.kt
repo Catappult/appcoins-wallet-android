@@ -1,8 +1,8 @@
 package com.appcoins.wallet.billing
 
 import com.appcoins.wallet.billing.repository.BillingSupportedType
-import com.appcoins.wallet.billing.repository.entity.Sku
-import com.appcoins.wallet.billing.repository.entity.SkuDetails
+import com.appcoins.wallet.billing.repository.entity.Product
+import com.appcoins.wallet.billing.repository.entity.ProductsDetail
 import io.reactivex.Single
 
 internal class BdsBilling(private val repository: Repository,
@@ -19,13 +19,13 @@ internal class BdsBilling(private val repository: Repository,
   }
 
   override fun getSkuDetails(packageName: String,
-                             skuIds: List<String>, type: String): Single<SkuDetails> {
+                             skuIds: List<String>, type: String): Single<ProductsDetail> {
     return repository.getSkuDetails(packageName, skuIds, Repository.BillingType.valueOf(type))
         .map { map(it) }
   }
 
-  private fun map(skus: List<Sku>): SkuDetails {
-    return SkuDetails(skus)
+  private fun map(skus: List<Product>): ProductsDetail {
+    return ProductsDetail(skus)
   }
 
   private fun map(it: Boolean) =

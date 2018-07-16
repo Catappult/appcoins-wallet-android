@@ -1,10 +1,10 @@
 package com.appcoins.wallet.billing
 
 import android.os.Bundle
-import com.appcoins.wallet.billing.repository.entity.SkuDetails
+import com.appcoins.wallet.billing.repository.entity.ProductsDetail
 
 internal class BillingMessagesMapper {
-  fun mapSkuDetails(skuDetails: SkuDetails): Bundle {
+  fun mapSkuDetails(skuDetails: ProductsDetail): Bundle {
     val bundle = Bundle()
     TODO()
     return bundle

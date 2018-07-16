@@ -1,6 +1,6 @@
 package com.appcoins.wallet.billing.repository
 
-import com.appcoins.wallet.billing.repository.entity.Sku
+import com.appcoins.wallet.billing.repository.entity.Product
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -17,7 +17,7 @@ class RemoteRepository(private val api: BdsApi) {
   }
 
   fun getSkuDetails(packageName: String, skuIds: List<String>,
-                    type: String): Single<List<Sku>> {
+                    type: String): Single<List<Product>> {
     TODO(
         "not implemented") //To change body of created functions use File | Settings | File Templates.
   }
