@@ -2,6 +2,7 @@ package com.appcoins.wallet.billing.repository
 
 import com.appcoins.wallet.billing.Repository
 import com.appcoins.wallet.billing.repository.entity.Product
+import io.reactivex.Observable
 import io.reactivex.Single
 
 internal class BdsRepository(private val remoteRepository: RemoteRepository) : Repository {
@@ -10,8 +11,16 @@ internal class BdsRepository(private val remoteRepository: RemoteRepository) : R
   }
 
   override fun getSkuDetails(packageName: String,
-                             skuIds: List<String>,
-                             type: Repository.BillingType): Single<List<Product>> {
-    return remoteRepository.getSkuDetails(packageName, skuIds, type.name)
+                             skus: List<String>,
+                             type: Repository.BillingType,
+                             walletAddress: String,
+                             walletSignature: String): Single<List<Product>> {
+    return Observable.fromIterable(skus)
+        .map {
+          remoteRepository.getSkuDetails(packageName, it, type.name, walletAddress, walletSignature)
+              .toObservable()
+        }
+        .toList()
+        .flatMap { Observable.merge(it).toList() }
   }
 }

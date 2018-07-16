@@ -6,7 +6,8 @@ import com.appcoins.wallet.billing.repository.entity.ProductsDetail
 import io.reactivex.Single
 
 internal class BdsBilling(private val repository: Repository,
-                          private val errorMapper: BillingThrowableCodeMapper) : Billing {
+                          private val errorMapper: BillingThrowableCodeMapper,
+                          private val walletService: WalletService) : Billing {
 
   override fun isInAppSupported(packageName: String): Single<Billing.BillingSupportType> {
     return repository.isSupported(packageName, BillingSupportedType.INAPP).map { map(it) }
@@ -20,12 +21,17 @@ internal class BdsBilling(private val repository: Repository,
 
   override fun getSkuDetails(packageName: String,
                              skuIds: List<String>, type: String): Single<ProductsDetail> {
-    return repository.getSkuDetails(packageName, skuIds, Repository.BillingType.valueOf(type))
-        .map { map(it) }
+    return walletService.getAddress().flatMap { walletAddress: String ->
+      walletService.getSignature()
+          .flatMap { signature: String ->
+            repository.getSkuDetails(packageName, skuIds, Repository.BillingType.valueOf(type),
+                walletAddress, signature).map { map(it) }
+          }
+    }
   }
 
-  private fun map(skus: List<Product>): ProductsDetail {
-    return ProductsDetail(skus)
+  private fun map(products: List<Product>): ProductsDetail {
+    return ProductsDetail(products)
   }
 
   private fun map(it: Boolean) =

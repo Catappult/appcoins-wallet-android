@@ -5,11 +5,13 @@ import android.app.Service;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.Fragment;
 import com.appcoins.wallet.billing.BillingDependenciesProvider;
+import com.appcoins.wallet.billing.WalletService;
 import com.appcoins.wallet.billing.repository.RemoteRepository;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.di.DaggerAppComponent;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
+import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.WalletNotFoundException;
@@ -23,8 +25,10 @@ import dagger.android.HasActivityInjector;
 import dagger.android.HasServiceInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 import io.fabric.sdk.android.Fabric;
+import io.reactivex.Single;
 import io.reactivex.exceptions.UndeliverableException;
 import io.reactivex.plugins.RxJavaPlugins;
+import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
 import javax.inject.Inject;
 import org.jetbrains.annotations.NotNull;
@@ -44,6 +48,7 @@ public class App extends MultiDexApplication
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject AppcoinsOperationsDataSaver appcoinsOperationsDataSaver;
   @Inject RemoteRepository.BdsApi bdsApi;
+  @Inject FindDefaultWalletInteract defaultWalletInteract;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -110,5 +115,19 @@ public class App extends MultiDexApplication
 
   @NotNull @Override public RemoteRepository.BdsApi getBdsApi() {
     return bdsApi;
+  }
+
+  @NotNull @Override public WalletService getWalletService() {
+    return new WalletService() {
+      @NotNull @Override public Single<String> getAddress() {
+        return defaultWalletInteract.find()
+            .map(wallet -> wallet.address)
+            .observeOn(Schedulers.io());
+      }
+
+      @NotNull @Override public Single<String> getSignature() {
+        return Single.just("signature");
+      }
+    };
   }
 }
