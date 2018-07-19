@@ -2,12 +2,11 @@ package com.appcoins.wallet.billing
 
 import com.appcoins.wallet.billing.repository.BillingSupportedType
 import com.appcoins.wallet.billing.repository.entity.Product
-import com.appcoins.wallet.billing.repository.entity.ProductsDetail
 import io.reactivex.Single
 
-internal class BdsBilling(private val repository: Repository,
-                          private val errorMapper: BillingThrowableCodeMapper,
-                          private val walletService: WalletService) : Billing {
+internal class BdsBilling(private val merchantName: String,
+                          private val repository: Repository,
+                          private val errorMapper: BillingThrowableCodeMapper) : Billing {
 
   override fun isInAppSupported(packageName: String): Single<Billing.BillingSupportType> {
     return repository.isSupported(packageName, BillingSupportedType.INAPP).map { map(it) }
@@ -19,19 +18,8 @@ internal class BdsBilling(private val repository: Repository,
         .onErrorReturn { errorMapper.map(it) }
   }
 
-  override fun getSkuDetails(packageName: String,
-                             skuIds: List<String>, type: String): Single<ProductsDetail> {
-    return walletService.getAddress().flatMap { walletAddress: String ->
-      walletService.getSignature()
-          .flatMap { signature: String ->
-            repository.getSkuDetails(packageName, skuIds, Repository.BillingType.valueOf(type),
-                walletAddress, signature).map { map(it) }
-          }
-    }
-  }
-
-  private fun map(products: List<Product>): ProductsDetail {
-    return ProductsDetail(products)
+  override fun getProducts(skus: List<String>, type: String): Single<List<Product>> {
+    return repository.getSkuDetails(merchantName, skus, Repository.BillingType.valueOf(type))
   }
 
   private fun map(it: Boolean) =

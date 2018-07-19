@@ -5,7 +5,6 @@ import android.app.Service;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.Fragment;
 import com.appcoins.wallet.billing.BillingDependenciesProvider;
-import com.appcoins.wallet.billing.WalletService;
 import com.appcoins.wallet.billing.repository.RemoteRepository;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.di.DaggerAppComponent;
@@ -25,10 +24,8 @@ import dagger.android.HasActivityInjector;
 import dagger.android.HasServiceInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 import io.fabric.sdk.android.Fabric;
-import io.reactivex.Single;
 import io.reactivex.exceptions.UndeliverableException;
 import io.reactivex.plugins.RxJavaPlugins;
-import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
 import javax.inject.Inject;
 import org.jetbrains.annotations.NotNull;
@@ -117,17 +114,4 @@ public class App extends MultiDexApplication
     return bdsApi;
   }
 
-  @NotNull @Override public WalletService getWalletService() {
-    return new WalletService() {
-      @NotNull @Override public Single<String> getAddress() {
-        return defaultWalletInteract.find()
-            .map(wallet -> wallet.address)
-            .observeOn(Schedulers.io());
-      }
-
-      @NotNull @Override public Single<String> getSignature() {
-        return Single.just("signature");
-      }
-    };
-  }
 }

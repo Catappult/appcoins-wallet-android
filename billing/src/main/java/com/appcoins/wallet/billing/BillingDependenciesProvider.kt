@@ -6,5 +6,4 @@ interface BillingDependenciesProvider {
   fun getSupportedVersion(): Int
 
   fun getBdsApi(): RemoteRepository.BdsApi
-  fun getWalletService(): WalletService
 }
