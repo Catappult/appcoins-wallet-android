@@ -10,7 +10,6 @@ import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.di.DaggerAppComponent;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.WalletNotFoundException;
@@ -45,7 +44,6 @@ public class App extends MultiDexApplication
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject AppcoinsOperationsDataSaver appcoinsOperationsDataSaver;
   @Inject RemoteRepository.BdsApi bdsApi;
-  @Inject FindDefaultWalletInteract defaultWalletInteract;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -113,5 +111,4 @@ public class App extends MultiDexApplication
   @NotNull @Override public RemoteRepository.BdsApi getBdsApi() {
     return bdsApi;
   }
-
 }
