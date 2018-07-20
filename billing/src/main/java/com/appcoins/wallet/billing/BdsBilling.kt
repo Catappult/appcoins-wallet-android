@@ -8,13 +8,13 @@ internal class BdsBilling(private val merchantName: String,
                           private val repository: Repository,
                           private val errorMapper: BillingThrowableCodeMapper) : Billing {
 
-  override fun isInAppSupported(packageName: String): Single<Billing.BillingSupportType> {
-    return repository.isSupported(packageName, BillingSupportedType.INAPP).map { map(it) }
+  override fun isInAppSupported(): Single<Billing.BillingSupportType> {
+    return repository.isSupported(merchantName, BillingSupportedType.INAPP).map { map(it) }
         .onErrorReturn { errorMapper.map(it) }
   }
 
-  override fun isSubsSupported(packageName: String): Single<Billing.BillingSupportType> {
-    return repository.isSupported(packageName, BillingSupportedType.SUBS).map { map(it) }
+  override fun isSubsSupported(): Single<Billing.BillingSupportType> {
+    return repository.isSupported(merchantName, BillingSupportedType.SUBS).map { map(it) }
         .onErrorReturn { errorMapper.map(it) }
   }
 

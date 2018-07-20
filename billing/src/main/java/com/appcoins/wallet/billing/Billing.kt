@@ -4,8 +4,8 @@ import com.appcoins.wallet.billing.repository.entity.Product
 import io.reactivex.Single
 
 internal interface Billing {
-  fun isSubsSupported(packageName: String): Single<BillingSupportType>
-  fun isInAppSupported(packageName: String): Single<BillingSupportType>
+  fun isSubsSupported(): Single<BillingSupportType>
+  fun isInAppSupported(): Single<BillingSupportType>
   fun getProducts(skus: List<String>, type: String): Single<List<Product>>
 
   enum class BillingSupportType {

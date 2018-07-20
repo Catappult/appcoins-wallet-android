@@ -52,10 +52,10 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     }
     return when (type) {
       "inapp" -> {
-        billing.isInAppSupported(packageName)
+        billing.isInAppSupported()
       }
       "subs" -> {
-        billing.isSubsSupported(packageName)
+        billing.isSubsSupported()
       }
       else -> Single.just(Billing.BillingSupportType.UNKNOWN_ERROR)
     }.subscribeOn(Schedulers.io())
