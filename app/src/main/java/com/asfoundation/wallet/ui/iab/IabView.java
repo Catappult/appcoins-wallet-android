@@ -12,5 +12,5 @@ public interface IabView {
 
   void close();
 
-  void setup(TransactionBuilder transactionBuilder, Boolean canBuy);
+  void setup(TransactionBuilder transactionBuilder, Boolean canBuy, String uriString);
 }

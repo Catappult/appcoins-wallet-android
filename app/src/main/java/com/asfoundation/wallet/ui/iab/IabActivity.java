@@ -75,15 +75,18 @@ public class IabActivity extends BaseActivity implements IabView {
     finish();
   }
 
-  @Override public void setup(TransactionBuilder transactionBuilder, Boolean canBuy) {
+  @Override
+  public void setup(TransactionBuilder transactionBuilder, Boolean canBuy, String uriString) {
     if (savedInstanceState == null) {
       if (canBuy) {
         getSupportFragmentManager().beginTransaction()
-            .add(R.id.fragment_container, RegularBuyFragment.newInstance())
+            .add(R.id.fragment_container,
+                RegularBuyFragment.newInstance(getIntent().getExtras(), uriString))
             .commit();
       } else {
         getSupportFragmentManager().beginTransaction()
-            .add(R.id.fragment_container, ExpressCheckoutBuyFragment.newInstance())
+            .add(R.id.fragment_container,
+                ExpressCheckoutBuyFragment.newInstance(getIntent().getExtras(), uriString))
             .commit();
       }
     }

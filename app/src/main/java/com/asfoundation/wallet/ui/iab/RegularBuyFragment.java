@@ -77,9 +77,16 @@ public class RegularBuyFragment extends DaggerFragment implements RegularBuyView
   private TextView walletAddressTextView;
   private View channelNoFundsView;
   private IabView iabView;
+  private Bundle extras;
+  private String data;
 
-  public static RegularBuyFragment newInstance() {
-    return new RegularBuyFragment();
+  public static RegularBuyFragment newInstance(Bundle extras, String data) {
+    RegularBuyFragment fragment = new RegularBuyFragment();
+    Bundle bundle = new Bundle();
+    bundle.putBundle("extras", extras);
+    bundle.putString("data", data);
+    fragment.setArguments(bundle);
+    return fragment;
   }
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,6 +95,8 @@ public class RegularBuyFragment extends DaggerFragment implements RegularBuyView
     buyButtonClick = PublishRelay.create();
     raidenMoreInfoOkButtonClick = BehaviorSubject.create();
     isBackEnable = true;
+    extras = getArguments().getBundle("extras");
+    data = getArguments().getString("data");
   }
 
   @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -97,6 +106,7 @@ public class RegularBuyFragment extends DaggerFragment implements RegularBuyView
   }
 
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
     buyButton = view.findViewById(R.id.buy_button);
     cancelButton = view.findViewById(R.id.cancel_button);
     okErrorButton = view.findViewById(R.id.activity_iab_error_ok_button);
@@ -143,18 +153,12 @@ public class RegularBuyFragment extends DaggerFragment implements RegularBuyView
           showError();
         });
     buyButton.setOnClickListener(v -> buyButtonClick.accept(
-        new RegularBuyPresenter.BuyData(checkbox.isChecked(), getActivity().getIntent()
-            .getData()
-            .toString(), getChannelBudget())));
+        new RegularBuyPresenter.BuyData(checkbox.isChecked(), data, getChannelBudget())));
   }
 
   @Override public void onStart() {
     super.onStart();
-    presenter.present(getActivity().getIntent()
-        .getData()
-        .toString(), getAppPackage(), getActivity().getIntent()
-        .getExtras()
-        .getString(PRODUCT_NAME));
+    presenter.present(data, getAppPackage(), extras.getString(PRODUCT_NAME));
   }
 
   @Override public void onStop() {
@@ -208,11 +212,8 @@ public class RegularBuyFragment extends DaggerFragment implements RegularBuyView
     itemPrice.setText(formatter.format(Locale.getDefault(), "%(,.2f", transactionBuilder.amount()
         .doubleValue())
         .toString());
-    if (getActivity().getIntent()
-        .hasExtra(PRODUCT_NAME)) {
-      itemDescription.setText(getActivity().getIntent()
-          .getExtras()
-          .getString(PRODUCT_NAME));
+    if (extras.containsKey(PRODUCT_NAME)) {
+      itemDescription.setText(extras.getString(PRODUCT_NAME));
     }
   }
 
@@ -327,9 +328,7 @@ public class RegularBuyFragment extends DaggerFragment implements RegularBuyView
         .setOnClickListener(v -> {
           dialog.dismiss();
           ((ViewGroup) channelNoFundsView.getParent()).removeView(channelNoFundsView);
-          buyButtonClick.accept(new RegularBuyPresenter.BuyData(false, getActivity().getIntent()
-              .getData()
-              .toString(), getChannelBudget()));
+          buyButtonClick.accept(new RegularBuyPresenter.BuyData(false, data, getChannelBudget()));
         });
     channelNoFundsView.findViewById(R.id.iab_activity_raiden_no_funds_cancel_button)
         .setOnClickListener(v -> {
@@ -379,10 +378,8 @@ public class RegularBuyFragment extends DaggerFragment implements RegularBuyView
   }
 
   public String getAppPackage() {
-    if (getActivity().getIntent()
-        .hasExtra(APP_PACKAGE)) {
-      return getActivity().getIntent()
-          .getStringExtra(APP_PACKAGE);
+    if (extras.containsKey(APP_PACKAGE)) {
+      return extras.getString(APP_PACKAGE);
     }
     throw new IllegalArgumentException("previous app package name not found");
   }
