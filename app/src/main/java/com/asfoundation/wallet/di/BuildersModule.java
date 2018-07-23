@@ -16,7 +16,9 @@ import com.asfoundation.wallet.ui.TransactionDetailActivity;
 import com.asfoundation.wallet.ui.TransactionsActivity;
 import com.asfoundation.wallet.ui.WalletsActivity;
 import com.asfoundation.wallet.ui.airdrop.AirdropFragment;
+import com.asfoundation.wallet.ui.iab.ExpressCheckoutBuyFragment;
 import com.asfoundation.wallet.ui.iab.IabActivity;
+import com.asfoundation.wallet.ui.iab.RegularBuyFragment;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
@@ -68,4 +70,10 @@ import dagger.android.ContributesAndroidInjector;
   @ContributesAndroidInjector() abstract WalletPoAService bindWalletPoAService();
 
   @ContributesAndroidInjector() abstract AirdropFragment bindAirdropFragment();
+
+  @ContributesAndroidInjector() abstract RegularBuyFragment bindRegularBuyFragment();
+
+  @ContributesAndroidInjector()
+  abstract ExpressCheckoutBuyFragment bindExpressCheckoutBuyFragment();
+
 }

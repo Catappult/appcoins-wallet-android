@@ -229,6 +229,14 @@ public class InAppPurchaseInteractor {
         .map(wallet -> wallet.address);
   }
 
+  public Single<Boolean> canBuy(TransactionBuilder transactionBuilder) {
+    return gasSettingsInteract.fetch(true)
+        .doOnSuccess(gasSettings -> transactionBuilder.gasSettings(
+            new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
+                paymentGasLimit)))
+        .flatMap(__ -> inAppPurchaseService.hasBalanceToBuy(transactionBuilder));
+  }
+
   public enum TransactionType {
     NORMAL, RAIDEN
   }
