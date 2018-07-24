@@ -1,16 +1,9 @@
 package com.appcoins.wallet.billing.repository.entity
 
-import com.google.gson.GsonBuilder
+data class Purchase(val uid: String, val product: RemoteProduct, val status: String, val packageName: Package,
+               val signature: Signature)
 
-
-data class Purchase(val uid: String, val product: Product, val status: String, val packageName: Package,
-               val signature: Signature) {
-  fun getSignatureData(): String {
-    return GsonBuilder().create().toJson(signature.message)
-  }
-}
-
-data class Product(val name: String)
+data class RemoteProduct(val name: String)
 
 data class Package(val name: String)
 

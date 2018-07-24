@@ -2,25 +2,35 @@ package com.appcoins.wallet.billing
 
 import com.appcoins.wallet.billing.repository.BillingSupportedType
 import com.appcoins.wallet.billing.repository.entity.Purchase
+import com.appcoins.wallet.billing.repository.entity.Product
 import io.reactivex.Single
 
-internal class BdsBilling(private val repository: Repository,
+internal class BdsBilling(private val merchantName: String,
+                          private val repository: Repository,
+                          private val walletService: WalletService,
                           private val errorMapper: BillingThrowableCodeMapper) : Billing {
 
-  override fun isInAppSupported(packageName: String): Single<Billing.BillingSupportType> {
-    return repository.isSupported(packageName, BillingSupportedType.INAPP).map { map(it) }
+  override fun isInAppSupported(): Single<Billing.BillingSupportType> {
+    return repository.isSupported(merchantName, BillingSupportedType.INAPP).map { map(it) }
         .onErrorReturn { errorMapper.map(it) }
   }
 
-  override fun isSubsSupported(packageName: String): Single<Billing.BillingSupportType> {
-    return repository.isSupported(packageName, BillingSupportedType.SUBS).map { map(it) }
+  override fun isSubsSupported(): Single<Billing.BillingSupportType> {
+    return repository.isSupported(merchantName, BillingSupportedType.SUBS).map { map(it) }
         .onErrorReturn { errorMapper.map(it) }
   }
 
-  override fun getPurchases(packageName: String, walletAddress: String, walletSignature: String,
-                            type: BillingSupportedType): Single<List<Purchase>> {
-    return repository.getPurchases(packageName, walletAddress, walletSignature, type).map{it}
-        .onErrorReturn { ArrayList() }
+  override fun getProducts(skus: List<String>, type: String): Single<List<Product>> {
+    return repository.getSkuDetails(merchantName, skus, Repository.BillingType.valueOf(type))
+  }
+
+  override fun getPurchases(type: BillingSupportedType): Single<List<Purchase>> {
+    return walletService.getWalletAddress().flatMap { address ->
+      walletService.signContent(address).flatMap { signedContent ->
+        repository.getPurchases(merchantName, address, signedContent,
+            type).map { it }
+      }
+    }.onErrorReturn { ArrayList() }
   }
 
   private fun map(it: Boolean) =

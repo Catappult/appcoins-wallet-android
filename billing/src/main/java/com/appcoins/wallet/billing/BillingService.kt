@@ -3,14 +3,12 @@ package com.appcoins.wallet.billing
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
+import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer
+import com.appcoins.wallet.billing.repository.BdsApiResponseMapper
 import com.appcoins.wallet.billing.repository.BdsRepository
 import com.appcoins.wallet.billing.repository.RemoteRepository
 
 class BillingService : Service() {
-  companion object {
-    private val TAG: String = BillingService::class.java.simpleName
-  }
-
   override fun onCreate() {
     super.onCreate()
     if (applicationContext !is BillingDependenciesProvider) {
@@ -20,9 +18,18 @@ class BillingService : Service() {
   }
 
   override fun onBind(intent: Intent): IBinder {
-    val dependeciesProvider = applicationContext as BillingDependenciesProvider
-    return AppcoinsBillingBinder(BdsBilling(
-        BdsRepository(RemoteRepository(dependeciesProvider.getBdsApi())), BillingThrowableCodeMapper()),
-        dependeciesProvider.getSupportedVersion(), dependeciesProvider.getWalletService())
+    val dependenciesProvider = applicationContext as BillingDependenciesProvider
+    return AppcoinsBillingBinder(dependenciesProvider.getSupportedVersion(),
+        BillingMessagesMapper(),
+        packageManager,
+        object : BillingFactory {
+          override fun getBilling(merchantName: String): Billing {
+            return BdsBilling(merchantName,
+                BdsRepository(
+                    RemoteRepository(dependenciesProvider.getBdsApi(), BdsApiResponseMapper()),
+                    BillingThrowableCodeMapper()), dependenciesProvider.getWalletService(),
+                BillingThrowableCodeMapper())
+          }
+        }, ExternalBillingSerializer())
   }
 }

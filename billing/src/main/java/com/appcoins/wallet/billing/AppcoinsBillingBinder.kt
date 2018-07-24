@@ -1,16 +1,23 @@
 package com.appcoins.wallet.billing
 
+import android.content.pm.PackageManager
+import android.os.Binder
 import android.os.Bundle
+import android.os.Parcel
+import android.os.RemoteException
 import com.appcoins.billing.AppcoinsBilling
 import com.appcoins.wallet.billing.repository.BillingSupportedType
 import com.appcoins.wallet.billing.repository.entity.Purchase
+import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer
+import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import java.io.IOException
 import java.util.ArrayList
 
-internal class AppcoinsBillingBinder(private val billing: Billing,
-                                     private val supportedVersion: Int,
-                                     private val walletService: WalletService) :
+internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
+                                     private val billingMessagesMapper: BillingMessagesMapper,
+                                     private var packageManager: PackageManager,
+                                     private val billingFactory: BillingFactory,
+                                     private val serializer: ExternalBillingSerializer) :
     AppcoinsBilling.Stub() {
   companion object {
     internal const val RESULT_OK = 0 // success
@@ -33,32 +40,64 @@ internal class AppcoinsBillingBinder(private val billing: Billing,
 
     internal const val ITEM_TYPE_INAPP = "inapp"
     internal const val ITEM_TYPE_SUBS = "subs"
+    internal const val DETAILS_LIST = "DETAILS_LIST"
+    internal const val ITEM_ID_LIST = "ITEM_ID_LIST"
+
+  }
+
+  private lateinit var billing: Billing
+  private lateinit var merchantName: String
+
+  @Throws(RemoteException::class)
+  override fun onTransact(code: Int, data: Parcel, reply: Parcel, flags: Int): Boolean {
+    merchantName = packageManager.getPackagesForUid(Binder.getCallingUid())!![0]
+    billing = billingFactory.getBilling(merchantName)
+    return super.onTransact(code, data, reply, flags)
   }
 
   override fun isBillingSupported(apiVersion: Int, packageName: String?, type: String?): Int {
-    if (apiVersion != supportedVersion || packageName == null || packageName.isBlank() || type == null || type.isBlank()) {
+    if (apiVersion != supportedApiVersion || packageName == null || packageName.isBlank() || type == null || type.isBlank()) {
       return RESULT_BILLING_UNAVAILABLE
     }
     return when (type) {
       ITEM_TYPE_INAPP -> {
-        billing.isInAppSupported(packageName)
-            .subscribeOn(Schedulers.io())
-            .map { supported -> mapSupported(supported) }.blockingGet()
+        billing.isInAppSupported()
       }
       ITEM_TYPE_SUBS -> {
-        billing.isSubsSupported(packageName)
-            .subscribeOn(Schedulers.io())
-            .map { isSupported -> mapSupported(isSupported) }.blockingGet()
+        billing.isSubsSupported()
       }
-      else -> RESULT_BILLING_UNAVAILABLE
-    }
-
+      else -> Single.just(Billing.BillingSupportType.UNKNOWN_ERROR)
+    }.subscribeOn(Schedulers.io())
+        .map { supported -> billingMessagesMapper.mapSupported(supported) }
+        .blockingGet()
   }
 
   override fun getSkuDetails(apiVersion: Int, packageName: String?, type: String?,
                              skusBundle: Bundle?): Bundle {
-    TODO(
-        "not implemented") //To change body of created functions use File | Settings | File Templates.
+    val result = Bundle()
+
+    if (skusBundle == null || !skusBundle.containsKey(
+            ITEM_ID_LIST) || apiVersion != supportedApiVersion || type == null || type.isBlank()) {
+      result.putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR)
+      return result
+    }
+
+    val skus = skusBundle.getStringArrayList(ITEM_ID_LIST)
+
+    if (skus == null || skus.size <= 0) {
+      result.putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR)
+      return result
+    }
+
+    return try {
+      val serializedProducts: List<String> = billing.getProducts(skus, type)
+          .flatMap { Single.just(serializer.serializeProducts(it)) }.subscribeOn(Schedulers.io())
+          .blockingGet()
+      billingMessagesMapper.mapSkuDetails(serializedProducts)
+    } catch (exception: Exception) {
+      exception.printStackTrace()
+      billingMessagesMapper.mapSkuDetailsError(exception)
+    }
   }
 
   override fun getBuyIntent(apiVersion: Int, packageName: String?, sku: String?, type: String?,
@@ -71,7 +110,7 @@ internal class AppcoinsBillingBinder(private val billing: Billing,
                             continuationToken: String?): Bundle {
     val result = Bundle()
 
-    if (apiVersion != supportedVersion) {
+    if (apiVersion != supportedApiVersion) {
       result.putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR)
       return result
     }
@@ -82,19 +121,17 @@ internal class AppcoinsBillingBinder(private val billing: Billing,
 
     if (type == ITEM_TYPE_INAPP) {
       try {
-        val address = walletService.getWalletAddress().blockingGet()
-        val signature = walletService.signContent(address).blockingGet()
-        val purchases = billing.getPurchases(packageName!!, address, signature, BillingSupportedType.INAPP)
-            .blockingGet()
+        val purchases =
+            billing.getPurchases(BillingSupportedType.INAPP)
+                .blockingGet()
 
         purchases.forEach { purchase: Purchase ->
-          dataList.add(purchase.getSignatureData())
+          dataList.add(serializer.serializeSignatureData(purchase))
           signatureList.add(purchase.signature.value)
           skuList.add(purchase.product.name)
         }
       } catch (exception: Exception) {
-        result.putInt(RESPONSE_CODE, mapPaymentThrowable(exception.cause))
-        return result
+        return billingMessagesMapper.mapPurchasesError(exception)
       }
 
     }
@@ -110,22 +147,4 @@ internal class AppcoinsBillingBinder(private val billing: Billing,
     TODO(
         "not implemented") //To change body of created functions use File | Settings | File Templates.
   }
-
-  private fun mapSupported(supportType: Billing.BillingSupportType): Int =
-      when (supportType) {
-        Billing.BillingSupportType.SUPPORTED -> RESULT_OK
-        Billing.BillingSupportType.MERCHANT_NOT_FOUND -> RESULT_BILLING_UNAVAILABLE
-        Billing.BillingSupportType.UNKNOWN_ERROR -> RESULT_BILLING_UNAVAILABLE
-        Billing.BillingSupportType.NO_INTERNET_CONNECTION -> RESULT_SERVICE_UNAVAILABLE
-        Billing.BillingSupportType.API_ERROR -> RESULT_ERROR
-      }
-
-  private fun mapPaymentThrowable(throwable: Throwable?): Int =
-    when (throwable) {
-      is IOException -> RESULT_SERVICE_UNAVAILABLE
-      is IllegalArgumentException -> RESULT_DEVELOPER_ERROR
-      else -> RESULT_ERROR
-    }
-
-
 }

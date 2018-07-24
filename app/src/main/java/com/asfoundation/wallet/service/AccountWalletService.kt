@@ -8,6 +8,7 @@ import com.asfoundation.wallet.repository.PasswordStore
 import com.asfoundation.wallet.util.WalletUtils
 import ethereumj.crypto.ECKey
 import io.reactivex.Single
+import org.spongycastle.jcajce.provider.digest.Keccak
 
 
 class AccountWalletService(private val walletInteract: FindDefaultWalletInteract,
@@ -27,8 +28,8 @@ class AccountWalletService(private val walletInteract: FindDefaultWalletInteract
 
   @Throws(Exception::class)
   fun sign(plainText: String, ecKey: ECKey): String {
-    val signature = ecKey.doSign(plainText.toByteArray())
-    return signature.toBase64()
+    val signature = ecKey.doSign(sha3(plainText.toByteArray()))
+    return signature.toHex()
   }
 
   private fun getPrivateKey(wallet: Wallet): Single<ECKey> {
@@ -44,5 +45,11 @@ class AccountWalletService(private val walletInteract: FindDefaultWalletInteract
                     .privateKey)
               }
         }.doOnSuccess { ecKey -> stringECKeyPair = Pair(wallet.address, ecKey) }
+  }
+
+  fun sha3(input: ByteArray): ByteArray {
+    val kecc = Keccak.Digest256()
+    kecc.update(input, 0, input.size)
+    return kecc.digest()
   }
 }
