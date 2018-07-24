@@ -13,6 +13,7 @@ import com.asfoundation.wallet.FabricLogger;
 import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.apps.Applications;
 import com.asfoundation.wallet.apps.AppsApi;
+import com.asfoundation.wallet.entity.FiatValueResponse;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
@@ -37,6 +38,7 @@ import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.EthereumNetworkRepository;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
+import com.asfoundation.wallet.repository.ExpressCheckoutBuyService;
 import com.asfoundation.wallet.repository.GasSettingsRepository;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
@@ -55,6 +57,7 @@ import com.asfoundation.wallet.router.GasSettingsRouter;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.RealmManager;
 import com.asfoundation.wallet.service.TickerService;
+import com.asfoundation.wallet.service.TokenToFiatService;
 import com.asfoundation.wallet.service.TrustWalletTickerService;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.MicroRaidenInteractor;
@@ -81,6 +84,7 @@ import com.bds.microraidenj.MicroRaidenBDS;
 import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -199,11 +203,12 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   @Singleton @Provides InAppPurchaseInteractor provideTransactionInteractor(
       InAppPurchaseService inAppPurchaseService, FindDefaultWalletInteract defaultWalletInteract,
       FetchGasSettingsInteract gasSettingsInteract, TransferParser parser,
-      RaidenRepository raidenRepository, ChannelService channelService) {
+      RaidenRepository raidenRepository, ChannelService channelService,
+      ExpressCheckoutBuyService expressCheckoutBuyService) {
 
     return new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
-        raidenRepository, channelService);
+        raidenRepository, channelService, expressCheckoutBuyService);
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(
@@ -397,5 +402,32 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(RemoteRepository.BdsApi.class);
+  }
+
+  @Singleton @Provides TokenToFiatService.TokenToFiatApi providesTokenToFiatApi(OkHttpClient client,
+      Gson gson) {
+    return request -> {
+      FiatValueResponse response = new FiatValueResponse();
+      response.setAmount(0.01);
+      response.setCurrency("EUR");
+      return Observable.just(response);
+    };
+
+    //return new Retrofit.Builder().baseUrl("https://34.254.1.70")
+    //    .client(client)
+    //    .addConverterFactory(GsonConverterFactory.create(gson))
+    //    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+    //    .build()
+    //    .create(TokenToFiatService.TokenToFiatApi.class);
+  }
+
+  @Singleton @Provides TokenToFiatService provideTokenToFiatService(
+      TokenToFiatService.TokenToFiatApi tokenToFiatApi) {
+    return new TokenToFiatService(tokenToFiatApi);
+  }
+
+  @Singleton @Provides ExpressCheckoutBuyService provideExpressCheckoutBuyService(
+      TokenToFiatService tokenToFiatService) {
+    return new ExpressCheckoutBuyService(tokenToFiatService);
   }
 }
