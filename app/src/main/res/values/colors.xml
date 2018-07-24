@@ -55,4 +55,7 @@
   <color name="btn_end_gradient_color">#ff578c</color>
   <color name="btn_light_enabled_color">#e44b46</color>
   <color name="btn_light_disable_color">#42000000</color>
+
+  <color name="dialog_buy_value_text">#4e4e4e</color>
+  <color name="dialog_buy_total_value">#fe677b</color>
 </resources>

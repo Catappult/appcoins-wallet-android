@@ -1,10 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="296dp"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
     android:background="@drawable/background_card"
+    android:orientation="vertical"
     >
+  <RelativeLayout
+      android:id="@+id/sku_info"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="15dp"
+      android:layout_marginStart="15dp"
+      android:layout_marginTop="14dp"
+      >
+    <ImageView
+        android:id="@+id/app_icon"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:src="@drawable/ic_appc"
+        />
+    <TextView
+        android:id="@+id/app_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_toEndOf="@id/app_icon"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black_87_alpha"
+        android:textSize="16sp"
+        tools:text="App name and cenas"
+        />
 
+    <TextView
+        android:id="@+id/app_sku_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/app_name"
+        android:layout_marginStart="13dp"
+        android:layout_toEndOf="@id/app_icon"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/grey_8a_alpha"
+        android:textSize="12sp"
+        tools:text="Buying gas"
+        />
+  </RelativeLayout>
+  <RelativeLayout
+      android:id="@+id/details_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
+      android:layout_marginStart="23dp"
+      android:layout_marginTop="23dp"
+      >
+    <TextView
+        android:id="@+id/sku_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/dialog_buy_value_text"
+        android:textSize="12sp"
+        tools:text="Gas"
+        />
+
+    <TextView
+        android:id="@+id/sku_price"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAlignment="textEnd"
+        android:textColor="@color/dialog_buy_value_text"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        tools:text="25 APPC"
+        />
+
+    <View
+        android:id="@+id/line_separator"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_below="@id/sku_description"
+        android:layout_marginBottom="13dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/dashed_line"
+        android:layerType="software"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/line_separator"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Total Price"
+        android:textColor="@color/black"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/total_price"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/line_separator"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAlignment="textEnd"
+        android:textColor="@color/dialog_buy_value_text"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        tools:text="25 APPC"
+        />
+  </RelativeLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:layout_marginBottom="16dp"
+      android:layout_marginEnd="17dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="14dp"
+      android:orientation="horizontal"
+      >
+    <Button
+        android:id="@+id/cancel_button"
+        android:layout_width="126dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="0.3"
+        android:text="Cancel"
+        android:textColor="@color/dialog_buy_value_text"
+        android:textSize="14sp"
+        style="?android:attr/borderlessButtonStyle"
+        />
+    <View
+        android:layout_width="1dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="0.4"
+        />
+    <Button
+        android:id="@+id/buy_button"
+        android:layout_width="126dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="0.3"
+        android:text="Buy"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        style="@style/ButtonStyle"
+        />
+  </LinearLayout>
 </LinearLayout>

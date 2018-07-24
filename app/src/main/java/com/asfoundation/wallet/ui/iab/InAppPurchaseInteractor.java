@@ -2,10 +2,12 @@ package com.asfoundation.wallet.ui.iab;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
+import com.asfoundation.wallet.entity.FiatValueResponse;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
+import com.asfoundation.wallet.repository.ExpressCheckoutBuyService;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.PaymentTransaction;
 import com.asfoundation.wallet.ui.iab.raiden.ChannelCreation;
@@ -25,6 +27,7 @@ public class InAppPurchaseInteractor {
   public static final double GAS_PRICE_MULTIPLIER = 1.25;
   private static final String TAG = InAppPurchaseInteractor.class.getSimpleName();
   private final InAppPurchaseService inAppPurchaseService;
+  private final ExpressCheckoutBuyService expressCheckoutBuyService;
   private final FindDefaultWalletInteract defaultWalletInteract;
   private final FetchGasSettingsInteract gasSettingsInteract;
   private final BigDecimal paymentGasLimit;
@@ -35,7 +38,7 @@ public class InAppPurchaseInteractor {
   public InAppPurchaseInteractor(InAppPurchaseService inAppPurchaseService,
       FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
       BigDecimal paymentGasLimit, TransferParser parser, RaidenRepository raidenRepository,
-      ChannelService channelService) {
+      ChannelService channelService, ExpressCheckoutBuyService expressCheckoutBuyService) {
     this.inAppPurchaseService = inAppPurchaseService;
     this.defaultWalletInteract = defaultWalletInteract;
     this.gasSettingsInteract = gasSettingsInteract;
@@ -43,6 +46,7 @@ public class InAppPurchaseInteractor {
     this.parser = parser;
     this.raidenRepository = raidenRepository;
     this.channelService = channelService;
+    this.expressCheckoutBuyService = expressCheckoutBuyService;
   }
 
   public Single<TransactionBuilder> parseTransaction(String uri) {
@@ -235,6 +239,10 @@ public class InAppPurchaseInteractor {
             new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
                 paymentGasLimit)))
         .flatMap(__ -> inAppPurchaseService.hasBalanceToBuy(transactionBuilder));
+  }
+
+  public Observable<FiatValueResponse> convertToFiat(double appcValue) {
+    return expressCheckoutBuyService.getTokenValue(appcValue);
   }
 
   public enum TransactionType {
