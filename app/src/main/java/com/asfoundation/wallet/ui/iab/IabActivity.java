@@ -78,7 +78,7 @@ public class IabActivity extends BaseActivity implements IabView {
   @Override
   public void setup(TransactionBuilder transactionBuilder, Boolean canBuy, String uriString) {
     if (savedInstanceState == null) {
-      if (canBuy) {
+      if (true) {
         getSupportFragmentManager().beginTransaction()
             .add(R.id.fragment_container,
                 RegularBuyFragment.newInstance(getIntent().getExtras(), uriString))
