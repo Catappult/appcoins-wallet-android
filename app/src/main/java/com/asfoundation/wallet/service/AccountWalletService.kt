@@ -7,8 +7,9 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.repository.PasswordStore
 import com.asfoundation.wallet.util.WalletUtils
 import ethereumj.crypto.ECKey
+import ethereumj.crypto.HashUtil.sha3
 import io.reactivex.Single
-import org.spongycastle.jcajce.provider.digest.Keccak
+import org.web3j.crypto.Keys.toChecksumAddress
 
 
 class AccountWalletService(private val walletInteract: FindDefaultWalletInteract,
@@ -18,12 +19,12 @@ class AccountWalletService(private val walletInteract: FindDefaultWalletInteract
   private var stringECKeyPair: Pair<String, ethereumj.crypto.ECKey>? = null
 
   override fun getWalletAddress(): Single<String> {
-    return walletInteract.find().map { wallet -> wallet.address }
+    return walletInteract.find().map { wallet -> toChecksumAddress(wallet.address) }
   }
 
   override fun signContent(content: String): Single<String> {
     return walletInteract.find()
-        .flatMap { wallet -> getPrivateKey(wallet).map { ecKey -> sign(wallet.address, ecKey) } }
+        .flatMap { wallet -> getPrivateKey(wallet).map { ecKey -> sign(content, ecKey) } }
   }
 
   @Throws(Exception::class)
@@ -45,11 +46,5 @@ class AccountWalletService(private val walletInteract: FindDefaultWalletInteract
                     .privateKey)
               }
         }.doOnSuccess { ecKey -> stringECKeyPair = Pair(wallet.address, ecKey) }
-  }
-
-  fun sha3(input: ByteArray): ByteArray {
-    val kecc = Keccak.Digest256()
-    kecc.update(input, 0, input.size)
-    return kecc.digest()
   }
 }

@@ -45,4 +45,8 @@ internal class BillingMessagesMapper {
     result.putInt(AppcoinsBillingBinder.RESPONSE_CODE, map(exception.cause))
     return result
   }
+
+  fun mapConsumePurchasesError(exception: Exception): Int {
+    return map(exception.cause)
+  }
 }

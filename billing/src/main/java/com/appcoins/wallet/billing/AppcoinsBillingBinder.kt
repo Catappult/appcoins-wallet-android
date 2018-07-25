@@ -143,8 +143,16 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     return result
   }
 
-  override fun consumePurchase(apiVersion: Int, packageName: String?, purchaseToken: String?): Int {
-    TODO(
-        "not implemented") //To change body of created functions use File | Settings | File Templates.
+  override fun consumePurchase(apiVersion: Int, packageName: String?, purchaseToken: String): Int {
+    if (apiVersion != supportedApiVersion) {
+      return RESULT_DEVELOPER_ERROR
+    }
+
+    try {
+      return billing.consumePurchases(purchaseToken).map { RESULT_OK }.blockingGet()
+    } catch (exception: Exception) {
+      return billingMessagesMapper.mapConsumePurchasesError(exception)
+    }
+
   }
 }
