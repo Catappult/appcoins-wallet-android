@@ -101,6 +101,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
 @Module class ToolsModule {
+  private static final String TOKEN_TO_FIAT_END_POINT =
+      "https://app.zeplin.io/project/58a5dde3079da73c80cc892e/screen/5b4dcc844ff5c34608bb87cf";
   @Provides Context provideContext(App application) {
     return application.getApplicationContext();
   }
@@ -411,7 +413,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
     //  return Observable.just(response);
     //};
 
-    return new Retrofit.Builder().baseUrl("https://34.254.1.70")
+    return new Retrofit.Builder().baseUrl(TOKEN_TO_FIAT_END_POINT)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

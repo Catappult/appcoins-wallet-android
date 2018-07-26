@@ -78,7 +78,9 @@ public class IabActivity extends BaseActivity implements IabView {
   @Override
   public void setup(TransactionBuilder transactionBuilder, Boolean canBuy, String uriString) {
     if (savedInstanceState == null) {
-      if (true) {
+      //This is a feature toggle! If we force true here we will force the old flow instead of the new
+      canBuy = true;
+      if (canBuy) {
         getSupportFragmentManager().beginTransaction()
             .add(R.id.fragment_container,
                 RegularBuyFragment.newInstance(getIntent().getExtras(), uriString))
