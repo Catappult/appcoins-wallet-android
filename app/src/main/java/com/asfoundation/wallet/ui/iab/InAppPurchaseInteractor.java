@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui.iab;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
-import com.asfoundation.wallet.entity.FiatValueResponse;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
@@ -241,7 +240,7 @@ public class InAppPurchaseInteractor {
         .flatMap(__ -> inAppPurchaseService.hasBalanceToBuy(transactionBuilder));
   }
 
-  public Observable<FiatValueResponse> convertToFiat(double appcValue) {
+  public Observable<FiatValue> convertToFiat(double appcValue) {
     return expressCheckoutBuyService.getTokenValue(appcValue);
   }
 

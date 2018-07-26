@@ -13,7 +13,6 @@ import com.asfoundation.wallet.FabricLogger;
 import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.apps.Applications;
 import com.asfoundation.wallet.apps.AppsApi;
-import com.asfoundation.wallet.entity.FiatValueResponse;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
@@ -84,7 +83,6 @@ import com.bds.microraidenj.MicroRaidenBDS;
 import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -406,19 +404,19 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
   @Singleton @Provides TokenToFiatService.TokenToFiatApi providesTokenToFiatApi(OkHttpClient client,
       Gson gson) {
-    return request -> {
-      FiatValueResponse response = new FiatValueResponse();
-      response.setAmount(0.01);
-      response.setCurrency("EUR");
-      return Observable.just(response);
-    };
+    //return request -> {
+    //  ConvertToFiatResponseBody response = new ConvertToFiatResponseBody();
+    //  response.setAmount(0.01);
+    //  response.setCurrency("EUR");
+    //  return Observable.just(response);
+    //};
 
-    //return new Retrofit.Builder().baseUrl("https://34.254.1.70")
-    //    .client(client)
-    //    .addConverterFactory(GsonConverterFactory.create(gson))
-    //    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-    //    .build()
-    //    .create(TokenToFiatService.TokenToFiatApi.class);
+    return new Retrofit.Builder().baseUrl("https://34.254.1.70")
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(TokenToFiatService.TokenToFiatApi.class);
   }
 
   @Singleton @Provides TokenToFiatService provideTokenToFiatService(

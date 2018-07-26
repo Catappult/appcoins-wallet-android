@@ -20,7 +20,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.entity.FiatValueResponse;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxrelay2.PublishRelay;
@@ -134,7 +133,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     iabView = ((IabView) context);
   }
 
-  @Override public void setup(TransactionBuilder transactionBuilder, FiatValueResponse response) {
+  @Override public void setup(TransactionBuilder transactionBuilder, FiatValue response) {
     Formatter formatter = new Formatter();
     String valueText = formatter.format(Locale.getDefault(), "%(,.2f", transactionBuilder.amount()
         .doubleValue())

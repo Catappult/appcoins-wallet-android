@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.iab;
 
-import com.asfoundation.wallet.entity.FiatValueResponse;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import io.reactivex.Observable;
 
@@ -10,7 +9,7 @@ import io.reactivex.Observable;
 
 public interface ExpressCheckoutBuyView {
 
-  void setup(TransactionBuilder transactionBuilder, FiatValueResponse fiatValueResponse);
+  void setup(TransactionBuilder transactionBuilder, FiatValue convertToFiatResponseBody);
 
   void showError();
 

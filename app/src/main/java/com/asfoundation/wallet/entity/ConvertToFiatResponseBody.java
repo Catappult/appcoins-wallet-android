@@ -4,7 +4,7 @@ package com.asfoundation.wallet.entity;
  * Created by franciscocalado on 24/07/2018.
  */
 
-public class FiatValueResponse {
+public class ConvertToFiatResponseBody {
   private double amount;
   private String currency;
 
