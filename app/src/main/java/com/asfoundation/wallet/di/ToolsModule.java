@@ -101,8 +101,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
 @Module class ToolsModule {
-  private static final String TOKEN_TO_FIAT_END_POINT =
-      "https://app.zeplin.io/project/58a5dde3079da73c80cc892e/screen/5b4dcc844ff5c34608bb87cf";
+  private static final String TOKEN_TO_FIAT_END_POINT = "https://34.254.1.70";
   @Provides Context provideContext(App application) {
     return application.getApplicationContext();
   }
