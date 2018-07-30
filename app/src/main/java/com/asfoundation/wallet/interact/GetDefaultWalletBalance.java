@@ -2,6 +2,7 @@ package com.asfoundation.wallet.interact;
 
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.Token;
+import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.repository.BalanceService;
@@ -47,10 +48,9 @@ public class GetDefaultWalletBalance implements BalanceService {
 
   private Single<Map<String, String>> getTokenBalance(Token token) {
     Map<String, String> balance = new HashMap<>();
-    balance.put(token.tokenInfo.symbol,
-        weiToEth(token.balance).setScale(4, RoundingMode.HALF_UP)
-            .stripTrailingZeros()
-            .toPlainString());
+    balance.put(token.tokenInfo.symbol, weiToEth(token.balance).setScale(4, RoundingMode.HALF_UP)
+        .stripTrailingZeros()
+        .toPlainString());
     return Single.just(balance);
   }
 
@@ -100,7 +100,8 @@ public class GetDefaultWalletBalance implements BalanceService {
   private Single<Boolean> hasEnoughForTransfer(BigDecimal cost, boolean isTokenTransfer,
       BigDecimal feeCost, String contractAddress) {
     if (isTokenTransfer) {
-      return getToken(contractAddress).map(token -> token.balance.compareTo(cost) >= 0);
+      return getToken(contractAddress).map(
+          token -> normalizeBalance(token.balance, token.tokenInfo).compareTo(cost) >= 0);
     }
     return getBalanceInWei().map(ethBalance -> ethBalance.subtract(feeCost)
         .compareTo(cost) >= 0);
@@ -118,6 +119,23 @@ public class GetDefaultWalletBalance implements BalanceService {
           }
           return Single.error(new UnknownTokenException());
         });
+  }
+
+  private BigDecimal normalizeBalance(BigDecimal balance, TokenInfo tokenInfo) {
+    return convertToMainMetric(balance, tokenInfo.decimals);
+  }
+
+  private BigDecimal convertToMainMetric(BigDecimal value, int decimals) {
+    try {
+      StringBuilder divider = new StringBuilder(18);
+      divider.append("1");
+      for (int i = 0; i < decimals; i++) {
+        divider.append("0");
+      }
+      return value.divide(new BigDecimal(divider.toString()), decimals, RoundingMode.DOWN);
+    } catch (NumberFormatException ex) {
+      return BigDecimal.ZERO;
+    }
   }
 
   public enum BalanceState {
