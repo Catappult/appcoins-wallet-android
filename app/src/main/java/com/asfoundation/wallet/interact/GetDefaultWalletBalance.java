@@ -132,7 +132,7 @@ public class GetDefaultWalletBalance implements BalanceService {
       for (int i = 0; i < decimals; i++) {
         divider.append("0");
       }
-      return value.divide(new BigDecimal(divider.toString()));
+      return value.divide(new BigDecimal(divider.toString()), decimals, RoundingMode.DOWN);
     } catch (NumberFormatException ex) {
       return BigDecimal.ZERO;
     }
