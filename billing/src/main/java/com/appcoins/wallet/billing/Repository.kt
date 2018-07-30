@@ -15,6 +15,9 @@ internal interface Repository {
   fun getPurchases(packageName: String, walletAddress: String, walletSignature: String,
                    type: BillingSupportedType): Single<List<Purchase>>
 
+  fun consumePurchases(packageName: String, purchaseToken: String, walletAddress: String,
+                       walletSignature: String, data: String): Single<Boolean>
+
   enum class BillingType {
     inapp, subs
   }

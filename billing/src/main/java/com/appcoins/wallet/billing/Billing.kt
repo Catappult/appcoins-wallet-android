@@ -15,6 +15,8 @@ internal interface Billing {
 
   fun getPurchases(type: BillingSupportedType): Single<List<Purchase>>
 
+  fun consumePurchases(purchaseToken: String): Single<Boolean>
+
   enum class BillingSupportType {
     SUPPORTED, MERCHANT_NOT_FOUND, UNKNOWN_ERROR, NO_INTERNET_CONNECTION, API_ERROR
   }
