@@ -2,6 +2,7 @@ package com.appcoins.wallet.billing.repository
 
 import com.appcoins.wallet.billing.BillingThrowableCodeMapper
 import com.appcoins.wallet.billing.Repository
+import com.appcoins.wallet.billing.repository.entity.Purchase
 import com.appcoins.wallet.billing.repository.entity.Product
 import io.reactivex.Single
 
@@ -18,5 +19,10 @@ internal class BdsRepository(private val remoteRepository: RemoteRepository,
           it.printStackTrace()
           Single.error(errorMapper.mapException(it))
         }
+  }
+
+  override fun getPurchases(packageName: String, walletAddress: String, walletSignature: String,
+                            type: BillingSupportedType): Single<List<Purchase>> {
+    return remoteRepository.getPurchases(packageName, walletAddress, walletSignature, type)
   }
 }

@@ -6,9 +6,12 @@ import android.os.Bundle
 import android.os.Parcel
 import android.os.RemoteException
 import com.appcoins.billing.AppcoinsBilling
+import com.appcoins.wallet.billing.repository.BillingSupportedType
+import com.appcoins.wallet.billing.repository.entity.Purchase
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import java.util.ArrayList
 
 internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
                                      private val billingMessagesMapper: BillingMessagesMapper,
@@ -30,8 +33,14 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     internal const val RESULT_ITEM_NOT_OWNED = 8 // Failure to consume since item is not owned
 
     internal const val RESPONSE_CODE = "RESPONSE_CODE"
-    internal const val DETAILS_LIST = "DETAILS_LIST"
+    internal const val INAPP_PURCHASE_ITEM_LIST = "INAPP_PURCHASE_ITEM_LIST"
+    internal const val INAPP_PURCHASE_DATA_LIST = "INAPP_PURCHASE_DATA_LIST"
+    internal const val INAPP_DATA_SIGNATURE_LIST = "INAPP_DATA_SIGNATURE_LIST"
 
+
+    internal const val ITEM_TYPE_INAPP = "inapp"
+    internal const val ITEM_TYPE_SUBS = "subs"
+    internal const val DETAILS_LIST = "DETAILS_LIST"
     internal const val ITEM_ID_LIST = "ITEM_ID_LIST"
 
   }
@@ -51,10 +60,10 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
       return RESULT_BILLING_UNAVAILABLE
     }
     return when (type) {
-      "inapp" -> {
+      ITEM_TYPE_INAPP -> {
         billing.isInAppSupported()
       }
-      "subs" -> {
+      ITEM_TYPE_SUBS -> {
         billing.isSubsSupported()
       }
       else -> Single.just(Billing.BillingSupportType.UNKNOWN_ERROR)
@@ -99,8 +108,39 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
 
   override fun getPurchases(apiVersion: Int, packageName: String?, type: String?,
                             continuationToken: String?): Bundle {
-    TODO(
-        "not implemented") //To change body of created functions use File | Settings | File Templates.
+    val result = Bundle()
+
+    if (apiVersion != supportedApiVersion) {
+      result.putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR)
+      return result
+    }
+
+    val dataList = ArrayList<String>()
+    val signatureList = ArrayList<String>()
+    val skuList = ArrayList<String>()
+
+    if (type == ITEM_TYPE_INAPP) {
+      try {
+        val purchases =
+            billing.getPurchases(BillingSupportedType.INAPP)
+                .blockingGet()
+
+        purchases.forEach { purchase: Purchase ->
+          dataList.add(serializer.serializeSignatureData(purchase))
+          signatureList.add(purchase.signature.value)
+          skuList.add(purchase.product.name)
+        }
+      } catch (exception: Exception) {
+        return billingMessagesMapper.mapPurchasesError(exception)
+      }
+
+    }
+
+    result.putStringArrayList(INAPP_PURCHASE_DATA_LIST, dataList)
+    result.putStringArrayList(INAPP_PURCHASE_ITEM_LIST, skuList)
+    result.putStringArrayList(INAPP_DATA_SIGNATURE_LIST, signatureList)
+    result.putInt(RESPONSE_CODE, RESULT_OK)
+    return result
   }
 
   override fun consumePurchase(apiVersion: Int, packageName: String?, purchaseToken: String?): Int {

@@ -2,6 +2,7 @@ package com.asfoundation.wallet.di;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import com.appcoins.wallet.billing.WalletService;
 import com.appcoins.wallet.billing.repository.RemoteRepository;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxyBuilder;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk;
@@ -53,6 +54,7 @@ import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.repository.Web3jProvider;
 import com.asfoundation.wallet.router.GasSettingsRouter;
 import com.asfoundation.wallet.service.AccountKeystoreService;
+import com.asfoundation.wallet.service.AccountWalletService;
 import com.asfoundation.wallet.service.RealmManager;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TrustWalletTickerService;
@@ -297,8 +299,9 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
   @Singleton @Provides AppCoinsAddressProxySdk provideAdsContractAddressSdk(
       Web3jProvider web3jProvider, FindDefaultWalletInteract findDefaultWalletInteract) {
-    return new AppCoinsAddressProxyBuilder().createAddressProxySdk(() -> findDefaultWalletInteract.find()
-        .map(wallet -> wallet.address), web3jProvider::get);
+    return new AppCoinsAddressProxyBuilder().createAddressProxySdk(
+        () -> findDefaultWalletInteract.find()
+            .map(wallet -> wallet.address), web3jProvider::get);
   }
 
   @Singleton @Provides HashCalculator provideHashCalculator(Calculator calculator) {
@@ -397,5 +400,10 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(RemoteRepository.BdsApi.class);
+  }
+
+  @Singleton @Provides WalletService provideWalletService(FindDefaultWalletInteract walletInteract,
+      AccountKeystoreService accountKeyService, PasswordStore passwordStore) {
+    return new AccountWalletService(walletInteract, accountKeyService, passwordStore);
   }
 }

@@ -5,6 +5,7 @@ import android.app.Service;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.Fragment;
 import com.appcoins.wallet.billing.BillingDependenciesProvider;
+import com.appcoins.wallet.billing.WalletService;
 import com.appcoins.wallet.billing.repository.RemoteRepository;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.di.DaggerAppComponent;
@@ -44,6 +45,7 @@ public class App extends MultiDexApplication
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject AppcoinsOperationsDataSaver appcoinsOperationsDataSaver;
   @Inject RemoteRepository.BdsApi bdsApi;
+  @Inject WalletService walletService;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -111,4 +113,9 @@ public class App extends MultiDexApplication
   @NotNull @Override public RemoteRepository.BdsApi getBdsApi() {
     return bdsApi;
   }
+
+  @NotNull @Override public WalletService getWalletService() {
+    return walletService;
+  }
+
 }
