@@ -23,18 +23,18 @@ public class ExpressCheckoutBuyPresenter {
     this.disposables = disposables;
   }
 
-  public void present(String uriString, String appPackage, String productName) {
+  public void present(String uriString) {
     setupUi(uriString);
     handleCancelClick();
   }
 
-  public void setupUi(String uriString) {
+  private void setupUi(String uriString) {
     disposables.add(inAppPurchaseInteractor.parseTransaction(uriString)
-        .flatMapObservable(transactionBuilder -> inAppPurchaseInteractor.convertToFiat(
+        .flatMap(transactionBuilder -> inAppPurchaseInteractor.convertToFiat(
             transactionBuilder.amount()
                 .doubleValue())
             .observeOn(viewScheduler)
-            .doOnNext(value -> view.setup(transactionBuilder, value)))
+            .doOnSuccess(value -> view.setup(transactionBuilder, value)))
         .subscribe(__ -> {
         }, this::showError));
   }
@@ -45,6 +45,12 @@ public class ExpressCheckoutBuyPresenter {
   }
 
   private void showError(Throwable t) {
+  }
+
+  public void stop() {
+    if (!disposables.isDisposed()) {
+      disposables.clear();
+    }
   }
 
   private void close() {

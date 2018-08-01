@@ -79,11 +79,11 @@ public class IabActivity extends BaseActivity implements IabView {
   public void setup(TransactionBuilder transactionBuilder, Boolean canBuy, String uriString) {
     if (savedInstanceState == null) {
       //This is a feature toggle! If we force true here we will force the old flow instead of the new
-      canBuy = true;
+      //canBuy = true;
       if (canBuy) {
         getSupportFragmentManager().beginTransaction()
             .add(R.id.fragment_container,
-                RegularBuyFragment.newInstance(getIntent().getExtras(), uriString))
+                OnChainBuyFragment.newInstance(getIntent().getExtras(), uriString))
             .commit();
       } else {
         getSupportFragmentManager().beginTransaction()
@@ -92,7 +92,15 @@ public class IabActivity extends BaseActivity implements IabView {
             .commit();
       }
     }
+  }
 
+  @Override public void navigateToCreditCardAuthorization(String packageName, String appName,
+      String appDescription, FiatValue fiatValue, double appcValue) {
+    getSupportFragmentManager().beginTransaction()
+        .replace(R.id.fragment_container,
+            CreditCardAuthorizationFragment.newInstance(packageName, appName, appDescription,
+                fiatValue, appcValue))
+        .commit();
   }
 
   public String getAppPackage() {

@@ -15,15 +15,15 @@ import javax.annotation.Nullable;
  * Created by franciscocalado on 19/07/2018.
  */
 
-public class RegularBuyPresenter {
+public class OnChainBuyPresenter {
 
-  private static final String TAG = RegularBuyPresenter.class.getSimpleName();
-  private final RegularBuyView view;
+  private static final String TAG = OnChainBuyPresenter.class.getSimpleName();
+  private final OnChainBuyView view;
   private final InAppPurchaseInteractor inAppPurchaseInteractor;
   private final Scheduler viewScheduler;
   private final CompositeDisposable disposables;
 
-  public RegularBuyPresenter(RegularBuyView view, InAppPurchaseInteractor inAppPurchaseInteractor,
+  public OnChainBuyPresenter(OnChainBuyView view, InAppPurchaseInteractor inAppPurchaseInteractor,
       Scheduler viewScheduler, CompositeDisposable disposables) {
     this.view = view;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;

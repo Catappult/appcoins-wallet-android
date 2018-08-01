@@ -1,54 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="296dp"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
     android:background="@drawable/background_card"
-    android:orientation="vertical"
     >
-  <RelativeLayout
-      android:id="@+id/sku_info"
+  <LinearLayout
+      android:id="@+id/info_dialog"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginEnd="15dp"
-      android:layout_marginStart="15dp"
-      android:layout_marginTop="14dp"
+      android:orientation="vertical"
+      android:visibility="visible"
       >
-    <ImageView
-        android:id="@+id/app_icon"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
-        android:src="@drawable/ic_appc"
-        />
-    <TextView
-        android:id="@+id/app_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
-        android:layout_toEndOf="@id/app_icon"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textColor="@color/black_87_alpha"
-        android:textSize="16sp"
-        tools:text="App name and cenas"
-        />
+    <include layout="@layout/dialog_buy_app_info_header"/>
 
-    <TextView
-        android:id="@+id/app_sku_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/app_name"
-        android:layout_marginStart="13dp"
-        android:layout_toEndOf="@id/app_icon"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textColor="@color/grey_8a_alpha"
-        android:textSize="12sp"
-        tools:text="Buying gas"
-        />
-  </RelativeLayout>
   <RelativeLayout
       android:id="@+id/details_layout"
       android:layout_width="match_parent"
@@ -59,7 +26,7 @@
       >
     <TextView
         android:id="@+id/sku_description"
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
@@ -121,42 +88,14 @@
         />
   </RelativeLayout>
 
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="40dp"
-      android:layout_marginBottom="16dp"
-      android:layout_marginEnd="17dp"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="14dp"
-      android:orientation="horizontal"
-      >
-    <Button
-        android:id="@+id/cancel_button"
-        android:layout_width="126dp"
-        android:layout_height="35dp"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="0.3"
-        android:text="@string/cancel"
-        android:textColor="@color/dialog_buy_value_text"
-        android:textSize="14sp"
-        style="?android:attr/borderlessButtonStyle"
-        />
-    <View
-        android:layout_width="1dp"
-        android:layout_height="35dp"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="0.4"
-        />
-    <Button
-        android:id="@+id/buy_button"
-        android:layout_width="126dp"
-        android:layout_height="35dp"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="0.3"
-        android:text="@string/dialog_express_checkout_top_up_buy"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        style="@style/ButtonStyle"
-        />
+    <include layout="@layout/dialog_buy_buttons"/>
   </LinearLayout>
-</LinearLayout>
+
+  <ProgressBar
+      android:id="@+id/loading_view"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
+      />
+
+</RelativeLayout>

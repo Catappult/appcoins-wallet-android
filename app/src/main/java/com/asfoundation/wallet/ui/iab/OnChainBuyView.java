@@ -9,8 +9,8 @@ import java.util.List;
  * Created by franciscocalado on 19/07/2018.
  */
 
-public interface RegularBuyView {
-  Observable<RegularBuyPresenter.BuyData> getBuyClick();
+public interface OnChainBuyView {
+  Observable<OnChainBuyPresenter.BuyData> getBuyClick();
 
   Observable<Object> getCancelClick();
 

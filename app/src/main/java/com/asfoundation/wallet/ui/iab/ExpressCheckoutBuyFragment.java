@@ -5,7 +5,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -18,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -29,6 +29,7 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import java.util.Currency;
 import java.util.Formatter;
 import java.util.Locale;
 import javax.inject.Inject;
@@ -46,6 +47,8 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   private PublishRelay<Snackbar> buyButtonClick;
   private IabView iabView;
   private ExpressCheckoutBuyPresenter presenter;
+  private ProgressBar loadingView;
+  private View dialog;
   private TextView appName;
   private TextView itemHeaderDescription;
   private TextView itemListDescription;
@@ -54,6 +57,8 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   private ImageView appIcon;
   private Button buyButton;
   private Button cancelButton;
+  private FiatValue fiatValue;
+  private double appcValue;
 
   public static ExpressCheckoutBuyFragment newInstance(Bundle extras, String uri) {
     ExpressCheckoutBuyFragment fragment = new ExpressCheckoutBuyFragment();
@@ -68,6 +73,8 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     super.onCreate(savedInstanceState);
     extras = getArguments().getBundle("extras");
     data = getArguments().getString("data");
+    presenter = new ExpressCheckoutBuyPresenter(this, inAppPurchaseInteractor,
+        AndroidSchedulers.mainThread(), new CompositeDisposable());
   }
 
   @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -77,6 +84,8 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   }
 
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    loadingView = view.findViewById(R.id.loading_view);
+    dialog = view.findViewById(R.id.info_dialog);
     appName = view.findViewById(R.id.app_name);
     itemHeaderDescription = view.findViewById(R.id.app_sku_description);
     itemListDescription = view.findViewById(R.id.sku_description);
@@ -85,8 +94,6 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     appIcon = view.findViewById(R.id.app_icon);
     buyButton = view.findViewById(R.id.buy_button);
     cancelButton = view.findViewById(R.id.cancel_button);
-    presenter = new ExpressCheckoutBuyPresenter(this, inAppPurchaseInteractor,
-        AndroidSchedulers.mainThread(), new CompositeDisposable());
 
     Single.defer(() -> Single.just(getAppPackage()))
         .observeOn(Schedulers.io())
@@ -102,21 +109,31 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
           showError();
         });
     buyButton.setOnClickListener(
-        v -> Snackbar.make(this.getView(), "Buy triggered", BaseTransientBottomBar.LENGTH_LONG)
-            .show());
+        v -> iabView.navigateToCreditCardAuthorization(extras.getString(APP_PACKAGE),
+            appName.getText()
+                .toString(), itemHeaderDescription.getText()
+                .toString(), fiatValue, appcValue));
+    presenter.present(data);
   }
 
   @Override public void onStart() {
     super.onStart();
-    presenter.present(data, getAppPackage(), extras.getString(PRODUCT_NAME));
   }
 
   @Override public void onDestroyView() {
     super.onDestroyView();
-  }
+    presenter.stop();
+    loadingView = null;
+    dialog = null;
+    appName = null;
+    itemHeaderDescription = null;
+    itemListDescription = null;
+    itemPrice = null;
+    itemFinalPrice = null;
+    appIcon = null;
+    buyButton = null;
+    cancelButton = null;
 
-  @Override public void onDestroy() {
-    super.onDestroy();
   }
 
   @Override public void onDetach() {
@@ -135,8 +152,9 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
 
   @Override public void setup(TransactionBuilder transactionBuilder, FiatValue response) {
     Formatter formatter = new Formatter();
-    String valueText = formatter.format(Locale.getDefault(), "%(,.2f", transactionBuilder.amount()
-        .doubleValue())
+    appcValue = transactionBuilder.amount()
+        .doubleValue();
+    String valueText = formatter.format(Locale.getDefault(), "%(,.2f", appcValue)
         .toString() + " APPC";
     String valueTextCompose = valueText + " = ";
     String currency = getCurrency(response.getCurrency());
@@ -152,11 +170,13 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     itemPrice.setText(valueText);
     itemFinalPrice.setText(spannable, TextView.BufferType.SPANNABLE);
-
+    fiatValue = response;
     if (extras.containsKey(PRODUCT_NAME)) {
       itemHeaderDescription.setText(extras.getString(PRODUCT_NAME));
       itemListDescription.setText(extras.getString(PRODUCT_NAME));
     }
+    dialog.setVisibility(View.VISIBLE);
+    loadingView.setVisibility(View.GONE);
   }
 
   @Override public void showError() {
@@ -185,11 +205,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   }
 
   public String getCurrency(String currency) {
-    switch (currency) {
-      case "EUR":
-        return "€";
-      default:
-        return "$";
-    }
+    return Currency.getInstance(currency)
+        .getSymbol();
   }
 }

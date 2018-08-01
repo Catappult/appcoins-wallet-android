@@ -99,9 +99,9 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.asfoundation.wallet.AirdropService.BASE_URL;
+import static com.asfoundation.wallet.service.TokenToFiatService.TOKEN_TO_FIAT_END_POINT;
 
 @Module class ToolsModule {
-  private static final String TOKEN_TO_FIAT_END_POINT = "https://34.254.1.70";
   @Provides Context provideContext(App application) {
     return application.getApplicationContext();
   }
@@ -301,8 +301,9 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
   @Singleton @Provides AppCoinsAddressProxySdk provideAdsContractAddressSdk(
       Web3jProvider web3jProvider, FindDefaultWalletInteract findDefaultWalletInteract) {
-    return new AppCoinsAddressProxyBuilder().createAddressProxySdk(() -> findDefaultWalletInteract.find()
-        .map(wallet -> wallet.address), web3jProvider::get);
+    return new AppCoinsAddressProxyBuilder().createAddressProxySdk(
+        () -> findDefaultWalletInteract.find()
+            .map(wallet -> wallet.address), web3jProvider::get);
   }
 
   @Singleton @Provides HashCalculator provideHashCalculator(Calculator calculator) {
@@ -403,26 +404,15 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
         .create(RemoteRepository.BdsApi.class);
   }
 
-  @Singleton @Provides TokenToFiatService.TokenToFiatApi providesTokenToFiatApi(OkHttpClient client,
+  @Singleton @Provides TokenToFiatService provideTokenToFiatService(OkHttpClient client,
       Gson gson) {
-    //return request -> {
-    //  ConvertToFiatResponseBody response = new ConvertToFiatResponseBody();
-    //  response.setAmount(0.01);
-    //  response.setCurrency("EUR");
-    //  return Observable.just(response);
-    //};
-
-    return new Retrofit.Builder().baseUrl(TOKEN_TO_FIAT_END_POINT)
+    TokenToFiatService.TokenToFiatApi api = new Retrofit.Builder().baseUrl(TOKEN_TO_FIAT_END_POINT)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(TokenToFiatService.TokenToFiatApi.class);
-  }
-
-  @Singleton @Provides TokenToFiatService provideTokenToFiatService(
-      TokenToFiatService.TokenToFiatApi tokenToFiatApi) {
-    return new TokenToFiatService(tokenToFiatApi);
+    return new TokenToFiatService(api);
   }
 
   @Singleton @Provides ExpressCheckoutBuyService provideExpressCheckoutBuyService(

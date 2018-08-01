@@ -42,20 +42,20 @@ import javax.inject.Inject;
  * Created by franciscocalado on 19/07/2018.
  */
 
-public class RegularBuyFragment extends DaggerFragment implements RegularBuyView {
+public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView {
 
   public static final String APP_PACKAGE = "app_package";
   public static final String PRODUCT_NAME = "product_name";
   public static final String TRANSACTION_HASH = "transaction_hash";
-  private static final String TAG = RegularBuyFragment.class.getSimpleName();
+  private static final String TAG = OnChainBuyFragment.class.getSimpleName();
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   private BehaviorSubject<Object> raidenMoreInfoOkButtonClick;
   private BehaviorSubject<Boolean> createChannelClick;
-  private PublishRelay<RegularBuyPresenter.BuyData> buyButtonClick;
+  private PublishRelay<OnChainBuyPresenter.BuyData> buyButtonClick;
   private Button buyButton;
   private Button cancelButton;
   private Button okErrorButton;
-  private RegularBuyPresenter presenter;
+  private OnChainBuyPresenter presenter;
   private View loadingView;
   private TextView appName;
   private TextView itemDescription;
@@ -80,8 +80,8 @@ public class RegularBuyFragment extends DaggerFragment implements RegularBuyView
   private Bundle extras;
   private String data;
 
-  public static RegularBuyFragment newInstance(Bundle extras, String data) {
-    RegularBuyFragment fragment = new RegularBuyFragment();
+  public static OnChainBuyFragment newInstance(Bundle extras, String data) {
+    OnChainBuyFragment fragment = new OnChainBuyFragment();
     Bundle bundle = new Bundle();
     bundle.putBundle("extras", extras);
     bundle.putString("data", data);
@@ -126,19 +126,16 @@ public class RegularBuyFragment extends DaggerFragment implements RegularBuyView
     createChannelGroup = view.findViewById(R.id.create_channel_group);
     walletAddressTextView = view.findViewById(R.id.wallet_address);
     presenter =
-        new RegularBuyPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
+        new OnChainBuyPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
             new CompositeDisposable());
     adapter =
         new ArrayAdapter<>(getContext().getApplicationContext(), R.layout.iab_raiden_dropdown_item,
             R.id.item, new ArrayList<>());
     dropdown.setAdapter(adapter);
     checkbox = view.findViewById(R.id.iab_activity_create_channel);
-    raidenMoreInfoView = View.inflate(
-        new ContextThemeWrapper(getContext().getApplicationContext(), R.style.AppTheme),
-        R.layout.iab_activity_raiden_more_info, null);
-    channelNoFundsView = View.inflate(
-        new ContextThemeWrapper(getContext().getApplicationContext(), R.style.AppTheme),
-        R.layout.iab_activity_no_channel_funds, null);
+    raidenMoreInfoView = inflateView(R.layout.iab_activity_raiden_more_info);
+    channelNoFundsView = inflateView(R.layout.iab_activity_no_channel_funds);
+
     Single.defer(() -> Single.just(getAppPackage()))
         .observeOn(Schedulers.io())
         .map(packageName -> new Pair<>(getApplicationName(packageName),
@@ -152,8 +149,9 @@ public class RegularBuyFragment extends DaggerFragment implements RegularBuyView
           throwable.printStackTrace();
           showError();
         });
+
     buyButton.setOnClickListener(v -> buyButtonClick.accept(
-        new RegularBuyPresenter.BuyData(checkbox.isChecked(), data, getChannelBudget())));
+        new OnChainBuyPresenter.BuyData(checkbox.isChecked(), data, getChannelBudget())));
   }
 
   @Override public void onStart() {
@@ -179,7 +177,7 @@ public class RegularBuyFragment extends DaggerFragment implements RegularBuyView
     iabView = null;
   }
 
-  @Override public Observable<RegularBuyPresenter.BuyData> getBuyClick() {
+  @Override public Observable<OnChainBuyPresenter.BuyData> getBuyClick() {
     return buyButtonClick;
   }
 
@@ -328,7 +326,7 @@ public class RegularBuyFragment extends DaggerFragment implements RegularBuyView
         .setOnClickListener(v -> {
           dialog.dismiss();
           ((ViewGroup) channelNoFundsView.getParent()).removeView(channelNoFundsView);
-          buyButtonClick.accept(new RegularBuyPresenter.BuyData(false, data, getChannelBudget()));
+          buyButtonClick.accept(new OnChainBuyPresenter.BuyData(false, data, getChannelBudget()));
         });
     channelNoFundsView.findViewById(R.id.iab_activity_raiden_no_funds_cancel_button)
         .setOnClickListener(v -> {
@@ -382,5 +380,11 @@ public class RegularBuyFragment extends DaggerFragment implements RegularBuyView
       return extras.getString(APP_PACKAGE);
     }
     throw new IllegalArgumentException("previous app package name not found");
+  }
+
+  private View inflateView(int resourceId) {
+    return View.inflate(
+        new ContextThemeWrapper(getContext().getApplicationContext(), R.style.AppTheme), resourceId,
+        null);
   }
 }

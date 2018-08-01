@@ -240,7 +240,7 @@ public class InAppPurchaseInteractor {
         .flatMap(__ -> inAppPurchaseService.hasBalanceToBuy(transactionBuilder));
   }
 
-  public Observable<FiatValue> convertToFiat(double appcValue) {
+  public Single<FiatValue> convertToFiat(double appcValue) {
     return expressCheckoutBuyService.getTokenValue(appcValue);
   }
 

@@ -1,10 +1,12 @@
 package com.asfoundation.wallet.ui.iab;
 
+import java.io.Serializable;
+
 /**
  * Created by franciscocalado on 26/07/2018.
  */
 
-public class FiatValue {
+public class FiatValue implements Serializable {
   private double amount;
   private String currency;
 

@@ -2,7 +2,7 @@ package com.asfoundation.wallet.repository;
 
 import com.asfoundation.wallet.service.TokenToFiatService;
 import com.asfoundation.wallet.ui.iab.FiatValue;
-import io.reactivex.Observable;
+import io.reactivex.Single;
 
 /**
  * Created by franciscocalado on 24/07/2018.
@@ -16,7 +16,7 @@ public class ExpressCheckoutBuyService {
     this.tokenToFiatService = tokenToFiatService;
   }
 
-  public Observable<FiatValue> getTokenValue(double value) {
+  public Single<FiatValue> getTokenValue(double value) {
     return tokenToFiatService.convertAppcToFiat(value);
   }
 }
