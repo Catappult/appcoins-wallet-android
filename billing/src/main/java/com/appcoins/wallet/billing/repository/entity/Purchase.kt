@@ -1,7 +1,7 @@
 package com.appcoins.wallet.billing.repository.entity
 
 data class Purchase(val uid: String, val product: RemoteProduct, val status: String, val packageName: Package,
-               val signature: Signature)
+                    val signature: Signature)
 
 data class RemoteProduct(val name: String)
 

@@ -133,7 +133,6 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     appIcon = null;
     buyButton = null;
     cancelButton = null;
-
   }
 
   @Override public void onDetach() {

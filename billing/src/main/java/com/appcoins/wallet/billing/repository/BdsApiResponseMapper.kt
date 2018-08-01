@@ -11,13 +11,13 @@ class BdsApiResponseMapper {
     })
   }
 
-  fun map(productDetails: GetPackageResponse): Boolean = true
+    fun map(productDetails: GetPackageResponse): Boolean = true
 
-  fun map(purchasesResponse: GetPurchasesResponse): List<Purchase> {
-    return purchasesResponse.items
-  }
+    fun map(purchasesResponse: GetPurchasesResponse): List<Purchase> {
+        return purchasesResponse.items
+    }
 
-  fun map(it: Void): Boolean? {
-    return true
-  }
+    fun map(it: Void): Boolean? {
+        return true
+    }
 }

@@ -1,12 +1,6 @@
 package com.appcoins.wallet.billing.repository
 
-import android.os.Build
-import com.appcoins.wallet.billing.BuildConfig
-import com.appcoins.wallet.billing.repository.entity.GetPackageResponse
-import com.appcoins.wallet.billing.repository.entity.GetPurchasesResponse
-import com.appcoins.wallet.billing.repository.entity.Purchase
-import com.appcoins.wallet.billing.repository.entity.DetailsResponseBody
-import com.appcoins.wallet.billing.repository.entity.Product
+import com.appcoins.wallet.billing.repository.entity.*
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -32,7 +26,7 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
                             walletSignature: String,
                             type: BillingSupportedType): Single<List<Purchase>> {
     return api.getPurchases(packageName, walletAddress, walletSignature,
-        type.name.toLowerCase()).map { responseMapper.map(it) }
+            type.name.toLowerCase()).map { responseMapper.map(it) }
   }
 
   internal fun consumePurchase(packageName: String,
@@ -41,7 +35,7 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
                                walletSignature: String,
                                data: String): Single<Boolean> {
     return api.consumePurchase(packageName, purchaseToken, walletAddress, walletSignature, data)
-        .map { responseMapper.map(it) }
+            .map { responseMapper.map(it) }
   }
 
   interface BdsApi {
