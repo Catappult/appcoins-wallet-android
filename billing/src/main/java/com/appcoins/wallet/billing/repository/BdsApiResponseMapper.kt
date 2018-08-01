@@ -1,8 +1,6 @@
 package com.appcoins.wallet.billing.repository
 
-import com.appcoins.wallet.billing.repository.entity.DetailsResponseBody
-import com.appcoins.wallet.billing.repository.entity.Price
-import com.appcoins.wallet.billing.repository.entity.Product
+import com.appcoins.wallet.billing.repository.entity.*
 
 class BdsApiResponseMapper {
   fun map(productDetails: DetailsResponseBody): List<Product> {
@@ -13,5 +11,13 @@ class BdsApiResponseMapper {
     })
   }
 
-  fun map(productDetails: RemoteRepository.GetPackageResponse): Boolean = true
+  fun map(productDetails: GetPackageResponse): Boolean = true
+
+  fun map(purchasesResponse: GetPurchasesResponse): List<Purchase> {
+    return purchasesResponse.items
+  }
+
+  fun map(it: Void): Boolean? {
+    return true
+  }
 }

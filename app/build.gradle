@@ -98,6 +98,8 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       applicationIdSuffix ".dev"
       applicationVariants.all { variant -> renameArtifact(defaultConfig)
+        buildConfigField 'String', 'BASE_HOST',
+            "\"" + project.BASE_HOST_DEV + "\""
       }
     }
   }

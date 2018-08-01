@@ -2,6 +2,7 @@ package com.appcoins.wallet.billing
 
 import android.os.Bundle
 import com.appcoins.wallet.billing.exceptions.BillingException
+import java.io.IOException
 
 internal class BillingMessagesMapper {
 
@@ -19,6 +20,8 @@ internal class BillingMessagesMapper {
     return throwable?.let {
       when (it) {
         is BillingException -> it.getErrorCode()
+        is IOException -> AppcoinsBillingBinder.RESULT_SERVICE_UNAVAILABLE
+        is IllegalArgumentException -> AppcoinsBillingBinder.RESULT_DEVELOPER_ERROR
         else -> AppcoinsBillingBinder.RESULT_ERROR
       }
     } ?: AppcoinsBillingBinder.RESULT_ERROR
@@ -37,4 +40,13 @@ internal class BillingMessagesMapper {
     return result
   }
 
+  fun mapPurchasesError(exception: Exception): Bundle {
+    val result = Bundle()
+    result.putInt(AppcoinsBillingBinder.RESPONSE_CODE, map(exception.cause))
+    return result
+  }
+
+  fun mapConsumePurchasesError(exception: Exception): Int {
+    return map(exception.cause)
+  }
 }

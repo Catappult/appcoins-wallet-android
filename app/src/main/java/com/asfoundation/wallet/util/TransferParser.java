@@ -6,6 +6,7 @@ import com.asfoundation.wallet.repository.TokenRepositoryType;
 import io.reactivex.Single;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 import org.kethereum.erc681.ERC681;
 import org.kethereum.erc681.ERC681ExtensionFunKt;
@@ -133,7 +134,7 @@ public class TransferParser {
       for (int i = 0; i < decimals; i++) {
         divider.append("0");
       }
-      return value.divide(new BigDecimal(divider.toString()));
+      return value.divide(new BigDecimal(divider.toString()), decimals, RoundingMode.DOWN);
     } catch (NumberFormatException ex) {
       return BigDecimal.ZERO;
     }
