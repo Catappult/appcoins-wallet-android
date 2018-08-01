@@ -5,14 +5,16 @@ import javax.annotation.Nullable;
 public class Payment {
   private final Status status;
   private final String uri;
+  private @Nullable final String fromAddress;
   private @Nullable final String buyHash;
   private @Nullable final String packageName;
   private @Nullable final String productName;
 
-  public Payment(String uri, Status status, @Nullable String buyHash, @Nullable String packageName,
-      @Nullable String productName) {
+  public Payment(String uri, Status status, @Nullable String fromAddress, @Nullable String buyHash,
+      @Nullable String packageName, @Nullable String productName) {
     this.status = status;
     this.uri = uri;
+    this.fromAddress = fromAddress;
     this.buyHash = buyHash;
     this.packageName = packageName;
     this.productName = productName;
@@ -21,9 +23,14 @@ public class Payment {
   public Payment(String uri, Status status) {
     this.uri = uri;
     this.status = status;
+    this.fromAddress = null;
     this.buyHash = null;
     this.packageName = null;
     this.productName = null;
+  }
+
+  @Nullable public String getFromAddress() {
+    return fromAddress;
   }
 
   public Status getStatus() {

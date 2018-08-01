@@ -27,9 +27,9 @@ android {
 
     def inputFile = new File("appcoins-services.json")
     def json = new JsonSlurper().parseText(inputFile.text)
-    buildConfigField 'String', 'DEFAULT_OEM_ADREESS',
+    buildConfigField 'String', 'DEFAULT_OEM_ADDRESS',
         "\"" + json.oems.default_address + "\""
-    buildConfigField 'String', 'DEFAULT_STORE_ADREESS',
+    buildConfigField 'String', 'DEFAULT_STORE_ADDRESS',
         "\"" + json.stores.default_address + "\""
 
     applicationId "com.appcoins.wallet"

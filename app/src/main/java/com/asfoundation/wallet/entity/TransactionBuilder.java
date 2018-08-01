@@ -237,7 +237,7 @@ public class TransactionBuilder implements Parcelable {
 
   public byte[] buyData(String tokenAddress) {
     BigDecimal base = new BigDecimal("10");
-    return TokenRepository.buyData(toAddress, BuildConfig.DEFAULT_STORE_ADREESS,
-        BuildConfig.DEFAULT_OEM_ADREESS, skuId, amount.multiply(base.pow(decimals)), tokenAddress);
+    return TokenRepository.buyData(toAddress, BuildConfig.DEFAULT_STORE_ADDRESS,
+        BuildConfig.DEFAULT_OEM_ADDRESS, skuId, amount.multiply(base.pow(decimals)), tokenAddress);
   }
 }

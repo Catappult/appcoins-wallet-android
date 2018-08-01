@@ -37,8 +37,8 @@ public class AppcoinsRaiden implements Raiden {
         || bdsChannel.getBalance()
         .compareTo(convertToWeis(amount).toBigInteger()) >= 0).flatMap(
         bdsChannel -> bdsChannel.makePayment(convertToWeis(amount).toBigInteger(),
-            Address.from(address), Address.from(BuildConfig.DEFAULT_STORE_ADREESS),
-            Address.from(BuildConfig.DEFAULT_OEM_ADREESS)));
+            Address.from(address), Address.from(BuildConfig.DEFAULT_STORE_ADDRESS),
+            Address.from(BuildConfig.DEFAULT_OEM_ADDRESS)));
   }
 
   @Override public Completable closeChannel(String fromAddress) {
