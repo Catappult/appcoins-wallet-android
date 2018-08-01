@@ -18,6 +18,13 @@ internal interface Repository {
   fun consumePurchases(packageName: String, purchaseToken: String, walletAddress: String,
                        walletSignature: String): Single<Boolean>
 
+  fun registerProof(id: String, paymentType: String, walletAddress: String,
+                    walletSignature: String,
+                    productName: String,
+                    packageName: String,
+                    developerWallet: String,
+                    storeWallet: String): Single<String>
+
   enum class BillingType {
     inapp, subs
   }

@@ -8,6 +8,16 @@ import io.reactivex.Single
 
 internal class BdsRepository(private val remoteRepository: RemoteRepository,
                              private val errorMapper: BillingThrowableCodeMapper) : Repository {
+  override fun registerProof(id: String, paymentType: String,
+                             walletAddress: String,
+                             walletSignature: String,
+                             productName: String,
+                             packageName: String,
+                             developerWallet: String,
+                             storeWallet: String): Single<String> {
+    return remoteRepository.registerAuthorizationProof(id, paymentType, walletAddress,
+        walletSignature, productName, packageName, developerWallet, storeWallet).map { it.uid }
+  }
 
   override fun isSupported(packageName: String, type: BillingSupportedType): Single<Boolean> {
     return remoteRepository.isBillingSupported(packageName, type)

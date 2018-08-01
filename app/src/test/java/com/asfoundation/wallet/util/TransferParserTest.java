@@ -39,7 +39,7 @@ public class TransferParserTest {
         + "=1000000000000000000")
         .test();
     test.assertValue(transactionBuilder -> transactionBuilder.amount()
-        .equals(new BigDecimal(1)));
+        .equals(new BigDecimal(1).setScale(18)));
     test.assertValue(transactionBuilder -> transactionBuilder.toAddress()
         .equals("0x2c30194bd2e7b6b8ff1467c5af1650f53cd231be"));
     test.assertValue(transactionBuilder -> transactionBuilder.contractAddress()
@@ -70,7 +70,7 @@ public class TransferParserTest {
         .test();
 
     test.assertValue(transactionBuilder -> transactionBuilder.amount()
-        .equals(new BigDecimal(1)));
+        .equals(new BigDecimal(1).setScale(18)));
     test.assertValue(transactionBuilder -> transactionBuilder.toAddress()
         .equals("0x2c30194bd2e7b6b8ff1467c5af1650f53cd231be"));
     test.assertValue(transactionBuilder -> transactionBuilder.contractAddress()
@@ -105,7 +105,7 @@ public class TransferParserTest {
         .test();
 
     test.assertValue(transactionBuilder -> transactionBuilder.amount()
-        .equals(new BigDecimal(1)));
+        .equals(new BigDecimal(1).setScale(18)));
     test.assertValue(transactionBuilder -> transactionBuilder.toAddress()
         .equals(toAddress));
     test.assertValue(transactionBuilder -> transactionBuilder.contractAddress()
@@ -126,7 +126,7 @@ public class TransferParserTest {
             .test();
 
     test.assertValue(transactionBuilder -> transactionBuilder.amount()
-        .equals(new BigDecimal(1)));
+        .equals(new BigDecimal(1).setScale(18)));
     test.assertValue(transactionBuilder -> transactionBuilder.toAddress()
         .equals(toAddress));
     test.assertValue(transactionBuilder -> transactionBuilder.shouldSendToken() == false);
