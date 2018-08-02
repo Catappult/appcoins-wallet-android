@@ -28,12 +28,13 @@ import static org.mockito.Mockito.when;
     paymentPublishRelay = PublishRelay.create();
     when(inAppPurchaseService.getAll()).thenReturn(paymentPublishRelay);
     inAppPurchaseProofSource =
-        new InAppPurchaseProofSource(inAppPurchaseService, new CopyOnWriteArrayList<>());
+        new InAppPurchaseProofSource(inAppPurchaseService, new CopyOnWriteArrayList<>(),
+            new CopyOnWriteArrayList<>());
   }
 
   @Test public void get() {
     TestObserver<AuthorizationProof> observer = new TestObserver<>();
-    inAppPurchaseProofSource.get()
+    inAppPurchaseProofSource.getAuthorization()
         .subscribe(observer);
     List<PaymentTransaction> payments = new ArrayList<>();
     payments.add(createPayment("approve_hash", null));
@@ -41,8 +42,8 @@ import static org.mockito.Mockito.when;
     paymentPublishRelay.accept(payments);
     observer.assertNoErrors();
     observer.assertValue(new AuthorizationProof("appcoins", "approve_hash", "skuId", "packageName",
-            "0xc41b4160b63d1f9488937f7b66640d2babdbf8ad",
-            "0x0965b2a3e664690315ad20b9e5b0336c19cf172e"));
+        "0xc41b4160b63d1f9488937f7b66640d2babdbf8ad",
+        "0x0965b2a3e664690315ad20b9e5b0336c19cf172e"));
     observer.assertValueCount(1);
   }
 
@@ -50,7 +51,6 @@ import static org.mockito.Mockito.when;
     return new PaymentTransaction("uri",
         new TransactionBuilder("symbol", "contractAddress", 1L, "toAddress", BigDecimal.ONE,
             "skuId", 18), PaymentTransaction.PaymentState.APPROVED, approve_hash, buyHash,
-        BigInteger.ONE,
-        "packageName", "productName");
+        BigInteger.ONE, "packageName", "productName");
   }
 }
