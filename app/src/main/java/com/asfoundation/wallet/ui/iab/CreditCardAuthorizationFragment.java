@@ -23,7 +23,7 @@ import com.adyen.core.utils.AmountUtil;
 import com.adyen.core.utils.StringUtils;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
-import com.asfoundation.wallet.util.RxAlertDialog;
+import com.asfoundation.wallet.view.rx.RxAlertDialog;
 import com.braintreepayments.cardform.view.CardForm;
 import com.jakewharton.rxbinding.view.RxView;
 import com.jakewharton.rxrelay.PublishRelay;

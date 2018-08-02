@@ -58,4 +58,7 @@
 
   <color name="dialog_buy_value_text">#4e4e4e</color>
   <color name="dialog_buy_total_value">#fe677b</color>
+
+  <color name="overlay_black">#77000000</color>
+  <color name="fragment_payment_dark_gray">#4d4d4d</color>
 </resources>

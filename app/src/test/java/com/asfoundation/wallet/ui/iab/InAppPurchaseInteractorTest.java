@@ -130,7 +130,7 @@ public class InAppPurchaseInteractorTest {
             gasSettingsInteract, BigDecimal.ONE,
             new TransferParser(defaultWalletInteract, tokenRepository), repository,
             new ChannelService(null, new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-                new MemoryCache<>(BehaviorSubject.create(), new HashMap<>())));
+                new MemoryCache<>(BehaviorSubject.create(), new HashMap<>())), any());
   }
 
   @Test public void sendTransaction() {

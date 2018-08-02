@@ -1,8 +1,4 @@
-package com.asfoundation.wallet.util;
-
-/**
- * Created by franciscocalado on 01/08/2018.
- */
+package com.asfoundation.wallet.view.rx;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,6 +7,10 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 import com.jakewharton.rxrelay.PublishRelay;
 import rx.Observable;
+
+/**
+ * Created by marcelobenites on 08/03/17.
+ */
 
 public class RxAlertDialog implements DialogInterface {
 
