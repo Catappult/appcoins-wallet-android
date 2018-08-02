@@ -24,7 +24,8 @@ public class InAppPurchaseProofSource {
 
   private AuthorizationProof map(PaymentTransaction paymentTransaction) {
     return new AuthorizationProof("appcoins", paymentTransaction.getApproveHash(),
-        paymentTransaction.getProductName(), paymentTransaction.getPackageName(),
+        paymentTransaction.getTransactionBuilder()
+            .getSkuId(), paymentTransaction.getPackageName(),
         com.asf.wallet.BuildConfig.DEFAULT_STORE_ADDRESS,
         com.asf.wallet.BuildConfig.DEFAULT_OEM_ADDRESS);
   }
