@@ -46,6 +46,13 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
         RegisterAuthorizationBody(productName, packageName, id, developerWallet, storeWallet))
   }
 
+  fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
+                           walletSignature: String,
+                           paymentProof: String): Single<PaymentProofResponse> {
+    return api.registerPayment(paymentType, paymentId, walletAddress, walletSignature,
+        RegisterPaymentBody(paymentProof)).map { PaymentProofResponse() }
+  }
+
   interface BdsApi {
 
     @GET("inapp/8.20180518/packages/{packageName}")
@@ -74,6 +81,15 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
     fun registerAuthorization(@Path("name") gateway: String, @Query("wallet.address")
     walletAddress: String, @Query("wallet.signature") walletSignature: String, @Body
                               body: RegisterAuthorizationBody): Single<RegisterAuthorizationResponse>
+
+    @Headers("Content-Type: application/json")
+    @PATCH("inapp/8.20180727/gateways/{gateway}/transactions/{paymentId}")
+    fun registerPayment(@Path("gateway") gateway: String,
+                        @Path("paymentId") paymentId: String,
+                        @Query("wallet.address") walletAddress: String,
+                        @Query("wallet.signature") walletSignature: String,
+                        @Body body: RegisterPaymentBody): Single<Void>
+
 
   }
 

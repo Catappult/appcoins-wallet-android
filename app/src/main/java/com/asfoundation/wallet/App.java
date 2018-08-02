@@ -83,7 +83,8 @@ public class App extends MultiDexApplication
     BillingPaymentProofSubmission proofSubmission =
         new BillingPaymentProofSubmission.Builder(this).build();
     proofSubmission.start();
-    proofSubmission.addProofSource(inAppPurchaseProofSource.get());
+    proofSubmission.addAuthorizationProofSource(inAppPurchaseProofSource.getAuthorization());
+    proofSubmission.addPaymentProofSource(inAppPurchaseProofSource.getPayment());
   }
 
   private void setupRxJava() {

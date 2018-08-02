@@ -411,6 +411,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
   @Singleton @Provides InAppPurchaseProofSource provideInAppPurchaseProofSource(
       InAppPurchaseService inAppPurchaseService) {
-    return new InAppPurchaseProofSource(inAppPurchaseService, new CopyOnWriteArrayList<>());
+    return new InAppPurchaseProofSource(inAppPurchaseService, new CopyOnWriteArrayList<>(),
+        new CopyOnWriteArrayList<>());
   }
 }

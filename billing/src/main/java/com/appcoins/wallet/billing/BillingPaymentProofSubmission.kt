@@ -3,38 +3,69 @@ package com.appcoins.wallet.billing
 import com.appcoins.wallet.billing.repository.BdsApiResponseMapper
 import com.appcoins.wallet.billing.repository.BdsRepository
 import com.appcoins.wallet.billing.repository.RemoteRepository
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
+import java.util.concurrent.ConcurrentHashMap
 
 class BillingPaymentProofSubmission internal constructor(
-    private val eventMerger: EventMerger<AuthorizationProof>,
+    private val authorizationEventMerger: EventMerger<AuthorizationProof>,
+    private val paymentEventMerger: EventMerger<PaymentProof>,
     private val walletService: WalletService,
-    private val repository: Repository, private val networkScheduler: Scheduler) {
-  var disposable: Disposable? = null
+    private val repository: Repository,
+    private val networkScheduler: Scheduler,
+    private val paymentIds: MutableMap<String, String>,
+    private val disposables: CompositeDisposable) {
+
   fun start() {
-    disposable = eventMerger.getEvents()
+    disposables.add(authorizationEventMerger.getEvents()
         .subscribeOn(networkScheduler)
         .flatMapSingle {
-          registerProof(it.id, it.paymentType, it.productName, it.packageName, it.oemAddress,
-              it.storeAddress)
+          registerAuthorizationProof(it.id, it.paymentType, it.productName, it.packageName,
+              it.oemAddress,
+              it.storeAddress).doOnSuccess { paymentId -> paymentIds[it.id] = paymentId }
+
         }
         .doOnError { it.printStackTrace() }
         .retry()
-        .subscribe()
+        .subscribe())
+
+    disposables.add(paymentEventMerger.getEvents()
+        .subscribeOn(networkScheduler)
+        .flatMapCompletable {
+          paymentIds[it.approveProof]?.let { paymentId ->
+            registerPaymentProof(paymentId, it.paymentProof, it.paymentType)
+          } ?: Completable.error(IllegalArgumentException("No payment id for {${it.approveProof}}"))
+        }
+        .doOnError { it.printStackTrace() }
+        .retry()
+        .subscribe())
   }
 
-  private fun registerProof(id: String, paymentType: String, productName: String,
-                            packageName: String,
-                            developerWallet: String,
-                            storeWallet: String): Single<String> {
+  private fun registerPaymentProof(paymentId: String, paymentProof: String,
+                                   paymentType: String): Completable {
+    return walletService.getWalletAddress().observeOn(networkScheduler)
+        .flatMapCompletable { walletAddress ->
+          walletService.signContent(walletAddress).observeOn(networkScheduler)
+              .flatMapCompletable { signedData ->
+                repository.registerPaymentProof(paymentId, paymentType, walletAddress, signedData,
+                    paymentProof)
+              }
+        }
+  }
+
+  private fun registerAuthorizationProof(id: String, paymentType: String, productName: String,
+                                         packageName: String,
+                                         developerWallet: String,
+                                         storeWallet: String): Single<String> {
     return walletService.getWalletAddress().observeOn(networkScheduler).flatMap { walletAddress ->
       walletService.signContent(walletAddress).observeOn(networkScheduler).flatMap { signedData ->
-        repository.registerProof(id, paymentType, walletAddress, signedData, productName,
+        repository.registerAuthorizationProof(id, paymentType, walletAddress, signedData,
+            productName,
             packageName, developerWallet, storeWallet)
 
       }
@@ -42,12 +73,17 @@ class BillingPaymentProofSubmission internal constructor(
   }
 
   fun stop() {
-    disposable?.let { if (!it.isDisposed) it.dispose() }
-    eventMerger.stop()
+    disposables.clear()
+    authorizationEventMerger.stop()
+    paymentEventMerger.stop()
   }
 
-  fun addProofSource(source: Observable<AuthorizationProof>) {
-    eventMerger.addSource(source)
+  fun addAuthorizationProofSource(source: Observable<AuthorizationProof>) {
+    authorizationEventMerger.addSource(source)
+  }
+
+  fun addPaymentProofSource(source: Observable<PaymentProof>) {
+    paymentEventMerger.addSource(source)
   }
 
   companion object {
@@ -61,10 +97,12 @@ class BillingPaymentProofSubmission internal constructor(
     fun build() =
         BillingPaymentProofSubmission(
             EventMerger(PublishSubject.create(), CompositeDisposable()),
+            EventMerger(PublishSubject.create(), CompositeDisposable()),
             billingDependenciesProvider.getWalletService(),
             BdsRepository(
                 RemoteRepository(billingDependenciesProvider.getBdsApi(), BdsApiResponseMapper()),
-                BillingThrowableCodeMapper()), networkScheduler)
+                BillingThrowableCodeMapper()), networkScheduler, ConcurrentHashMap(),
+            CompositeDisposable())
   }
 
 }
@@ -75,3 +113,11 @@ data class AuthorizationProof(val paymentType: String,
                               val packageName: String,
                               val storeAddress: String,
                               val oemAddress: String)
+
+data class PaymentProof(val paymentType: String,
+                        val approveProof: String,
+                        val paymentProof: String,
+                        val productName: String,
+                        val packageName: String,
+                        val storeAddress: String,
+                        val oemAddress: String)
