@@ -5,6 +5,7 @@ import com.appcoins.wallet.billing.AuthorizationProof;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.jakewharton.rxrelay2.PublishRelay;
 import io.reactivex.observers.TestObserver;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,16 +40,17 @@ import static org.mockito.Mockito.when;
     paymentPublishRelay.accept(payments);
     paymentPublishRelay.accept(payments);
     observer.assertNoErrors();
-    observer.assertValue(
-        new AuthorizationProof("appcoins", "approve_hash", "productName", "packageName",
+    observer.assertValue(new AuthorizationProof("appcoins", "approve_hash", "skuId", "packageName",
             "0xc41b4160b63d1f9488937f7b66640d2babdbf8ad",
             "0x0965b2a3e664690315ad20b9e5b0336c19cf172e"));
     observer.assertValueCount(1);
   }
 
   @NonNull private PaymentTransaction createPayment(String approve_hash, String buyHash) {
-    return new PaymentTransaction("uri", new TransactionBuilder("symbol"),
-        PaymentTransaction.PaymentState.APPROVED, approve_hash, buyHash, BigInteger.ONE,
+    return new PaymentTransaction("uri",
+        new TransactionBuilder("symbol", "contractAddress", 1L, "toAddress", BigDecimal.ONE,
+            "skuId", 18), PaymentTransaction.PaymentState.APPROVED, approve_hash, buyHash,
+        BigInteger.ONE,
         "packageName", "productName");
   }
 }
