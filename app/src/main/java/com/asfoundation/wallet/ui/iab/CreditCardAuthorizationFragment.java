@@ -21,8 +21,6 @@ import com.adyen.core.models.paymentdetails.CreditCardPaymentDetails;
 import com.adyen.core.models.paymentdetails.PaymentDetails;
 import com.adyen.core.utils.AmountUtil;
 import com.adyen.core.utils.StringUtils;
-import com.appcoins.wallet.billing.repository.entity.Price;
-import com.appcoins.wallet.billing.repository.entity.Product;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.util.RxAlertDialog;
@@ -38,6 +36,10 @@ import javax.inject.Inject;
 import org.json.JSONException;
 import org.json.JSONObject;
 import rx.Observable;
+
+import static com.asfoundation.wallet.ui.iab.IabActivity.APP_PACKAGE;
+import static com.asfoundation.wallet.ui.iab.IabActivity.PRODUCT_NAME;
+import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
 
 /**
  * Created by franciscocalado on 30/07/2018.
@@ -77,12 +79,10 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   private PublishRelay<Void> backButton;
   private PublishRelay<Void> keyboardBuyRelay;
 
-  public static CreditCardAuthorizationFragment newInstance(String packageName) {
+  public static CreditCardAuthorizationFragment newInstance(Bundle skuDetails) {
 
     final CreditCardAuthorizationFragment fragment = new CreditCardAuthorizationFragment();
-    Bundle appInfo = new Bundle();
-    appInfo.putString(PACKAGE_NAME, packageName);
-    fragment.setArguments(appInfo);
+    fragment.setArguments(skuDetails);
     return fragment;
   }
 
@@ -128,12 +128,12 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
 
     });
 
-    networkErrorDialog = networkErrorDialog =
+    networkErrorDialog =
         new RxAlertDialog.Builder(getContext()).setMessage(R.string.notification_no_internet_poa)
             .setPositiveButton(R.string.ok)
             .build();
 
-    showProduct(new Product("Gas", "Toolbox", "Gas", new Price(0.01, 1, "EUR", "€")));
+    showProduct(6.34);
     showProductPrice(new Amount(100, "USD"));
     presenter.present();
   }
@@ -168,7 +168,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
     iabView = ((IabView) context);
   }
 
-  @Override public void showProduct(Product product) {
+  @Override public void showProduct(double amount) {
     Formatter formatter = new Formatter();
 
     try {
@@ -178,9 +178,9 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
     } catch (PackageManager.NameNotFoundException e) {
       e.printStackTrace();
     }
-    productDescription.setText(product.getDescription());
-    String appcValue = formatter.format(Locale.getDefault(), "%(,.2f", product.getPrice()
-        .getAppcoinsAmount())
+    productDescription.setText(getArguments().getString(PRODUCT_NAME));
+    String appcValue = formatter.format(Locale.getDefault(), "%(,.2f",
+        getArguments().getDouble(TRANSACTION_AMOUNT))
         .toString() + " APPC";
     appcPrice.setText(appcValue);
   }
@@ -209,8 +209,8 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
     }
   }
 
-  @Override public Observable<Void> cancelEvent() {
-    return Observable.merge(RxView.clicks(cancelButton), backButton);
+  @Override public io.reactivex.Observable<Object> cancelEvent() {
+    return com.jakewharton.rxbinding2.view.RxView.clicks(cancelButton);
   }
 
   @Override public void showCvcView(Amount amount, PaymentMethod paymentMethod) {
@@ -298,8 +298,8 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   }
 
   public String getAppPackage() {
-    if (getArguments().containsKey(PACKAGE_NAME)) {
-      return getArguments().getString(PACKAGE_NAME);
+    if (getArguments().containsKey(APP_PACKAGE)) {
+      return getArguments().getString(APP_PACKAGE);
     }
     throw new IllegalArgumentException("previous app package name not found");
   }

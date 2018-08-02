@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.ui.BaseActivity;
 import dagger.android.AndroidInjection;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -20,10 +19,13 @@ public class IabActivity extends BaseActivity implements IabView {
   public static final String APP_PACKAGE = "app_package";
   public static final String PRODUCT_NAME = "product_name";
   public static final String TRANSACTION_HASH = "transaction_hash";
+  public static final String TRANSACTION_AMOUNT = "transaction_ammout";
+  public static final String FIAT_VALUE = "fiat_value";
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   private boolean isBackEnable;
   private IabPresenter presenter;
   private Bundle savedInstanceState;
+  private Bundle skuDetails;
 
   public static Intent newIntent(Activity activity, Intent previousIntent) {
     Intent intent = new Intent(activity, IabActivity.class);
@@ -75,20 +77,27 @@ public class IabActivity extends BaseActivity implements IabView {
     finish();
   }
 
-  @Override
-  public void setup(TransactionBuilder transactionBuilder, Boolean canBuy, String uriString) {
+  @Override public void setup(double amount, Boolean canBuy) {
     if (savedInstanceState == null) {
-      //This is a feature toggle! If we force true here we will force the old flow instead of the new
+      //This is a feature toggle! If we set canBuy to true we will force the on chain buy flow
       //canBuy = true;
+      Bundle bundle = new Bundle();
+      bundle.putDouble(TRANSACTION_AMOUNT, amount);
+      bundle.putString(APP_PACKAGE, getIntent().getExtras()
+          .getString(APP_PACKAGE, ""));
+      bundle.putString(PRODUCT_NAME, getIntent().getExtras()
+          .getString(PRODUCT_NAME));
+      skuDetails = bundle;
+
       if (canBuy) {
         getSupportFragmentManager().beginTransaction()
-            .add(R.id.fragment_container,
-                OnChainBuyFragment.newInstance(getIntent().getExtras(), uriString))
+            .add(R.id.fragment_container, OnChainBuyFragment.newInstance(bundle,
+                getIntent().getData()
+                    .toString()))
             .commit();
       } else {
         getSupportFragmentManager().beginTransaction()
-            .add(R.id.fragment_container,
-                ExpressCheckoutBuyFragment.newInstance(getIntent().getExtras(), uriString))
+            .add(R.id.fragment_container, ExpressCheckoutBuyFragment.newInstance(bundle))
             .commit();
       }
     }
@@ -96,8 +105,7 @@ public class IabActivity extends BaseActivity implements IabView {
 
   @Override public void navigateToCreditCardAuthorization() {
     getSupportFragmentManager().beginTransaction()
-        .replace(R.id.fragment_container,
-            CreditCardAuthorizationFragment.newInstance(getAppPackage()))
+        .replace(R.id.fragment_container, CreditCardAuthorizationFragment.newInstance(skuDetails))
         .commit();
   }
 

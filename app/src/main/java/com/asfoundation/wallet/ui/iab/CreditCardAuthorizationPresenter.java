@@ -30,10 +30,23 @@ public class CreditCardAuthorizationPresenter {
         .doOnSuccess(wallet -> view.showWalletAddress(wallet.address))
         .subscribe(wallet -> {
         }, this::showError));
+
+    handleCancelClick();
   }
 
   private void showError(Throwable t) {
   }
+
+  private void handleCancelClick() {
+    disposables.add(view.cancelEvent()
+        .doOnNext(click -> close())
+        .subscribe());
+  }
+
+  private void close() {
+    view.close();
+  }
+
 
   public void stop() {
     disposables.clear();

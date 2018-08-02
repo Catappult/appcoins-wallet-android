@@ -20,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxrelay2.PublishRelay;
 import dagger.android.support.DaggerFragment;
@@ -34,6 +33,8 @@ import java.util.Formatter;
 import java.util.Locale;
 import javax.inject.Inject;
 
+import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
+
 /**
  * Created by franciscocalado on 20/07/2018.
  */
@@ -43,7 +44,6 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   public static final String PRODUCT_NAME = "product_name";
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   private Bundle extras;
-  private String data;
   private PublishRelay<Snackbar> buyButtonClick;
   private IabView iabView;
   private ExpressCheckoutBuyPresenter presenter;
@@ -58,13 +58,14 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   private Button buyButton;
   private Button cancelButton;
   private FiatValue fiatValue;
-  private double appcValue;
+  private View errorView;
+  private TextView errorMessage;
+  private Button errorDismissButton;
 
-  public static ExpressCheckoutBuyFragment newInstance(Bundle extras, String uri) {
+  public static ExpressCheckoutBuyFragment newInstance(Bundle extras) {
     ExpressCheckoutBuyFragment fragment = new ExpressCheckoutBuyFragment();
     Bundle bundle = new Bundle();
     bundle.putBundle("extras", extras);
-    bundle.putString("data", uri);
     fragment.setArguments(bundle);
     return fragment;
   }
@@ -72,7 +73,6 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     extras = getArguments().getBundle("extras");
-    data = getArguments().getString("data");
     presenter = new ExpressCheckoutBuyPresenter(this, inAppPurchaseInteractor,
         AndroidSchedulers.mainThread(), new CompositeDisposable());
   }
@@ -94,6 +94,9 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     appIcon = view.findViewById(R.id.app_icon);
     buyButton = view.findViewById(R.id.buy_button);
     cancelButton = view.findViewById(R.id.cancel_button);
+    errorView = view.findViewById(R.id.error_message);
+    errorMessage = view.findViewById(R.id.activity_iab_error_message);
+    errorDismissButton = view.findViewById(R.id.activity_iab_error_ok_button);
 
     Single.defer(() -> Single.just(getAppPackage()))
         .observeOn(Schedulers.io())
@@ -109,7 +112,8 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
           showError();
         });
     buyButton.setOnClickListener(v -> iabView.navigateToCreditCardAuthorization());
-    presenter.present(data);
+    presenter.present(extras.getDouble(TRANSACTION_AMOUNT));
+
   }
 
   @Override public void onStart() {
@@ -145,14 +149,14 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     iabView = ((IabView) context);
   }
 
-  @Override public void setup(TransactionBuilder transactionBuilder, FiatValue response) {
+  @Override public void setup(FiatValue response) {
     Formatter formatter = new Formatter();
-    appcValue = transactionBuilder.amount()
-        .doubleValue();
-    String valueText = formatter.format(Locale.getDefault(), "%(,.2f", appcValue)
+    StringBuilder builder = new StringBuilder();
+    String valueText =
+        formatter.format(Locale.getDefault(), "%(,.2f", extras.getDouble(TRANSACTION_AMOUNT))
         .toString() + " APPC";
     String valueTextCompose = valueText + " = ";
-    String currency = getCurrency(response.getCurrency());
+    String currency = mapCurrencyCodeToSymbol(response.getCurrency());
     String priceText = currency + Double.toString(response.getAmount());
     String finalString = valueTextCompose + priceText;
     Spannable spannable = new SpannableString(finalString);
@@ -175,6 +179,10 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   }
 
   @Override public void showError() {
+    loadingView.setVisibility(View.GONE);
+    dialog.setVisibility(View.GONE);
+    errorView.setVisibility(View.VISIBLE);
+    errorMessage.setText(R.string.activity_iab_error_message);
   }
 
   @Override public Observable<Object> getCancelClick() {
@@ -183,6 +191,10 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
 
   @Override public void close() {
     iabView.close();
+  }
+
+  @Override public Observable<Object> errorDismisses() {
+    return RxView.clicks(errorDismissButton);
   }
 
   private CharSequence getApplicationName(String appPackage)
@@ -199,8 +211,8 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     throw new IllegalArgumentException("previous app package name not found");
   }
 
-  public String getCurrency(String currency) {
-    return Currency.getInstance(currency)
+  public String mapCurrencyCodeToSymbol(String currencyCode) {
+    return Currency.getInstance(currencyCode)
         .getSymbol();
   }
 }

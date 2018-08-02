@@ -198,7 +198,7 @@ public class OnChainBuyPresenter {
   }
 
   private void setup(TransactionBuilder transaction) {
-    view.setup(transaction);
+    view.setup();
     view.showRaidenChannelValues(
         inAppPurchaseInteractor.getTopUpChannelSuggestionValues(transaction.amount()));
   }

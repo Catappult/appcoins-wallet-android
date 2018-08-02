@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.iab;
 
-import com.asfoundation.wallet.entity.TransactionBuilder;
 import io.reactivex.Observable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -24,7 +23,7 @@ public interface OnChainBuyView {
 
   void showError();
 
-  void setup(TransactionBuilder transactionBuilder);
+  void setup();
 
   void showTransactionCompleted();
 

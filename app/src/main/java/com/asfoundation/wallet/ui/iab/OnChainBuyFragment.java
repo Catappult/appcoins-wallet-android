@@ -26,7 +26,6 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxrelay2.PublishRelay;
 import dagger.android.support.DaggerFragment;
@@ -42,6 +41,8 @@ import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
 import javax.inject.Inject;
+
+import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
 
 /**
  * Created by franciscocalado on 19/07/2018.
@@ -219,11 +220,10 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     showError(R.string.activity_iab_error_message);
   }
 
-  @Override public void setup(TransactionBuilder transactionBuilder) {
+  @Override public void setup() {
     Formatter formatter = new Formatter();
     String formatedPrice = formatter.format(Locale.getDefault(), "%(,.2f",
-        transactionBuilder.amount()
-            .doubleValue())
+        extras.getDouble(TRANSACTION_AMOUNT))
         .toString();
     buyButton.setText(getResources().getString(R.string.action_buy));
     itemPrice.setText(formatedPrice);

@@ -3,7 +3,6 @@ package com.asfoundation.wallet.ui.iab;
 import com.adyen.core.models.Amount;
 import com.adyen.core.models.PaymentMethod;
 import com.adyen.core.models.paymentdetails.PaymentDetails;
-import com.appcoins.wallet.billing.repository.entity.Product;
 import rx.Observable;
 
 /**
@@ -12,7 +11,7 @@ import rx.Observable;
 
 public interface CreditCardAuthorizationView {
 
-  void showProduct(Product product);
+  void showProduct(double amount);
 
   void showLoading();
 
@@ -24,7 +23,7 @@ public interface CreditCardAuthorizationView {
 
   void showNetworkError();
 
-  Observable<Void> cancelEvent();
+  io.reactivex.Observable<Object> cancelEvent();
 
   void showCvcView(Amount amount, PaymentMethod paymentMethod);
 
