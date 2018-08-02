@@ -94,12 +94,10 @@ public class IabActivity extends BaseActivity implements IabView {
     }
   }
 
-  @Override public void navigateToCreditCardAuthorization(String packageName, String appName,
-      String appDescription, FiatValue fiatValue, double appcValue) {
+  @Override public void navigateToCreditCardAuthorization() {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container,
-            CreditCardAuthorizationFragment.newInstance(packageName, appName, appDescription,
-                fiatValue, appcValue))
+            CreditCardAuthorizationFragment.newInstance(getAppPackage()))
         .commit();
   }
 

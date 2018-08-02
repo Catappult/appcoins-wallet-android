@@ -97,7 +97,8 @@ android {
           project.LEADING_ZEROS_ON_PROOF_OF_ATTENTION_DEBUG
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       applicationIdSuffix ".dev"
-      applicationVariants.all { variant -> renameArtifact(defaultConfig)
+      applicationVariants.all { variant ->
+        renameArtifact(defaultConfig)
         buildConfigField 'String', 'BASE_HOST',
             "\"" + project.BASE_HOST_DEV + "\""
       }
@@ -158,6 +159,11 @@ dependencies {
   // ReactiveX
   implementation "io.reactivex.rxjava2:rxjava:$project.rxJavaVersion"
   implementation "io.reactivex.rxjava2:rxandroid:$project.rxAndroidVersion"
+  //ReactiveX 1 for legacy code support
+  implementation "io.reactivex:rxjava:1.2.7"
+  //
+  implementation "com.jakewharton.rxrelay:rxrelay:1.2.0"
+  implementation "com.jakewharton.rxbinding:rxbinding:1.0.1"
   // Dagger 2
   // Dagger core
   implementation "com.google.dagger:dagger:$project.daggerVersion"
@@ -208,7 +214,7 @@ dependencies {
 
   //braintreepayments card form dependency
   implementation "com.braintreepayments:card-form:3.3.0"
-
+  implementation "com.adyen.checkout:core:1.14.2"
 }
 
 def renameArtifact(defaultConfig) {

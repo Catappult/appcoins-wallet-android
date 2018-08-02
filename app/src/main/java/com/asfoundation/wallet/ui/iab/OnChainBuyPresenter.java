@@ -66,9 +66,9 @@ public class OnChainBuyPresenter {
   }
 
   private void handleDontShowMicroRaidenInfo() {
-    disposables.add(view.getDontShowAgainClick()
-        .doOnNext(__ -> inAppPurchaseInteractor.dontShowAgain())
-        .subscribe());
+    //disposables.add(view.getDontShowAgainClick()
+    //    .doOnNext(__ -> inAppPurchaseInteractor.dontShowAgain())
+    //    .subscribe());
   }
 
   private void showMicroRaidenInfo() {
@@ -126,7 +126,7 @@ public class OnChainBuyPresenter {
         .observeOn(viewScheduler)
         .subscribe(hasChannel -> {
           if (hasChannel) {
-            view.showChannelAsDefaultPayment();
+            //view.showChannelAsDefaultPayment();
           } else {
             view.showDefaultAsDefaultPayment();
           }

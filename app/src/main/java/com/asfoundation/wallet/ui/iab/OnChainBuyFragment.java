@@ -9,6 +9,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.constraint.Group;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.Pair;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -18,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.asf.wallet.R;
@@ -59,7 +64,9 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   private View loadingView;
   private TextView appName;
   private TextView itemDescription;
+  private TextView itemHeaderDescription;
   private TextView itemPrice;
+  private TextView itemFinalPrice;
   private ImageView appIcon;
   private View transactionCompletedLayout;
   private View transactionErrorLayout;
@@ -68,11 +75,13 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   private TextView errorTextView;
   private TextView loadingMessage;
   private Spinner dropdown;
+  private ProgressBar buyDialogLoading;
   private ArrayAdapter<BigDecimal> adapter;
   private CheckBox checkbox;
   private View raidenMoreInfoView;
   private Group amountGroup;
   private View raidenLayout;
+  private View infoDialog;
   private Group createChannelGroup;
   private TextView walletAddressTextView;
   private View channelNoFundsView;
@@ -108,23 +117,28 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
     buyButton = view.findViewById(R.id.buy_button);
+    buyDialogLoading = view.findViewById(R.id.loading_view);
     cancelButton = view.findViewById(R.id.cancel_button);
     okErrorButton = view.findViewById(R.id.activity_iab_error_ok_button);
     loadingView = view.findViewById(R.id.loading);
     loadingMessage = view.findViewById(R.id.loading_message);
-    appName = view.findViewById(R.id.iab_activity_app_name);
+    appName = view.findViewById(R.id.app_name);
     errorTextView = view.findViewById(R.id.activity_iab_error_message);
     transactionCompletedLayout = view.findViewById(R.id.iab_activity_transaction_completed);
-    buyLayout = view.findViewById(R.id.iab_activity_buy_layout);
+    buyLayout = view.findViewById(R.id.dialog_buy_app);
+    infoDialog = view.findViewById(R.id.info_dialog);
     transactionErrorLayout = view.findViewById(R.id.activity_iab_error_view);
-    appIcon = view.findViewById(R.id.iab_activity_item_icon);
-    itemDescription = view.findViewById(R.id.iab_activity_item_description);
-    raidenLayout = view.findViewById(R.id.raiden_layout);
-    itemPrice = view.findViewById(R.id.iab_activity_item_price);
+    appIcon = view.findViewById(R.id.app_icon);
+    itemDescription = view.findViewById(R.id.sku_description);
+    itemHeaderDescription = view.findViewById(R.id.app_sku_description);
+    itemPrice = view.findViewById(R.id.sku_price);
+    itemFinalPrice = view.findViewById(R.id.total_price);
     dropdown = view.findViewById(R.id.channel_amount_dropdown);
     amountGroup = view.findViewById(R.id.amount_group);
     createChannelGroup = view.findViewById(R.id.create_channel_group);
+    raidenLayout = view.findViewById(R.id.raiden_layout);
     walletAddressTextView = view.findViewById(R.id.wallet_address);
+
     presenter =
         new OnChainBuyPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
             new CompositeDisposable());
@@ -133,8 +147,8 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
             R.id.item, new ArrayList<>());
     dropdown.setAdapter(adapter);
     checkbox = view.findViewById(R.id.iab_activity_create_channel);
-    raidenMoreInfoView = inflateView(R.layout.iab_activity_raiden_more_info);
     channelNoFundsView = inflateView(R.layout.iab_activity_no_channel_funds);
+    raidenMoreInfoView = inflateView(R.layout.iab_activity_raiden_more_info);
 
     Single.defer(() -> Single.just(getAppPackage()))
         .observeOn(Schedulers.io())
@@ -151,7 +165,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
         });
 
     buyButton.setOnClickListener(v -> buyButtonClick.accept(
-        new OnChainBuyPresenter.BuyData(checkbox.isChecked(), data, getChannelBudget())));
+        new OnChainBuyPresenter.BuyData(false, data, getChannelBudget())));
   }
 
   @Override public void onStart() {
@@ -207,19 +221,29 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
 
   @Override public void setup(TransactionBuilder transactionBuilder) {
     Formatter formatter = new Formatter();
-    itemPrice.setText(formatter.format(Locale.getDefault(), "%(,.2f", transactionBuilder.amount()
-        .doubleValue())
-        .toString());
+    String formatedPrice = formatter.format(Locale.getDefault(), "%(,.2f",
+        transactionBuilder.amount()
+            .doubleValue())
+        .toString();
+    buyButton.setText(getResources().getString(R.string.action_buy));
+    itemPrice.setText(formatedPrice);
+    Spannable spannable = new SpannableString(formatedPrice + " APPC");
+    spannable.setSpan(
+        new ForegroundColorSpan(getResources().getColor(R.color.dialog_buy_total_value)), 0,
+        formatedPrice.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    itemFinalPrice.setText(spannable);
     if (extras.containsKey(PRODUCT_NAME)) {
       itemDescription.setText(extras.getString(PRODUCT_NAME));
+      itemHeaderDescription.setText(extras.getString(PRODUCT_NAME));
     }
+    buyDialogLoading.setVisibility(View.GONE);
+    infoDialog.setVisibility(View.VISIBLE);
   }
 
   @Override public void showTransactionCompleted() {
     loadingView.setVisibility(View.GONE);
     transactionErrorLayout.setVisibility(View.GONE);
     buyLayout.setVisibility(View.GONE);
-    raidenLayout.setVisibility(View.GONE);
     transactionCompletedLayout.setVisibility(View.VISIBLE);
   }
 
@@ -228,7 +252,6 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     transactionErrorLayout.setVisibility(View.GONE);
     transactionCompletedLayout.setVisibility(View.GONE);
     buyLayout.setVisibility(View.VISIBLE);
-    raidenLayout.setVisibility(View.VISIBLE);
     isBackEnable = true;
   }
 

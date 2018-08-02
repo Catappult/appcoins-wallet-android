@@ -14,6 +14,5 @@ public interface IabView {
 
   void setup(TransactionBuilder transactionBuilder, Boolean canBuy, String uriString);
 
-  void navigateToCreditCardAuthorization(String packageName, String appName, String appDescription,
-      FiatValue fiatValue, double appcValue);
+  void navigateToCreditCardAuthorization();
 }
