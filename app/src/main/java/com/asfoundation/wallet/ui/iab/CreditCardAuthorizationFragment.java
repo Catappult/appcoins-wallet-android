@@ -22,6 +22,9 @@ import com.adyen.core.models.paymentdetails.PaymentDetails;
 import com.adyen.core.utils.AmountUtil;
 import com.adyen.core.utils.StringUtils;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.billing.AdyenBilling;
+import com.asfoundation.wallet.billing.payment.Adyen;
+import com.asfoundation.wallet.billing.view.card.CreditCardFragmentNavigator;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.view.rx.RxAlertDialog;
 import com.braintreepayments.cardform.view.CardForm;
@@ -37,6 +40,7 @@ import javax.inject.Inject;
 import org.json.JSONException;
 import org.json.JSONObject;
 import rx.Observable;
+import rx.subscriptions.CompositeSubscription;
 
 import static com.asfoundation.wallet.ui.iab.IabActivity.APP_PACKAGE;
 import static com.asfoundation.wallet.ui.iab.IabActivity.PRODUCT_NAME;
@@ -87,12 +91,19 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
     return fragment;
   }
 
+  @Inject AdyenBilling adyenBilling;
+  @Inject Adyen adyen;
+
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     backButton = PublishRelay.create();
     keyboardBuyRelay = PublishRelay.create();
+
+    CreditCardFragmentNavigator navigator = new CreditCardFragmentNavigator(getFragmentManager());
+
     presenter = new CreditCardAuthorizationPresenter(this, defaultWalletInteract,
-        AndroidSchedulers.mainThread(), new CompositeDisposable());
+        AndroidSchedulers.mainThread(), new CompositeSubscription(), adyen, adyenBilling,
+        navigator);
   }
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -210,8 +221,8 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
     }
   }
 
-  @Override public io.reactivex.Observable<Object> cancelEvent() {
-    return com.jakewharton.rxbinding2.view.RxView.clicks(cancelButton);
+  @Override public Observable<Void> cancelEvent() {
+    return RxView.clicks(cancelButton);
   }
 
   @Override public void showCvcView(Amount amount, PaymentMethod paymentMethod) {
@@ -255,6 +266,10 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
 
   @Override public void showWalletAddress(String address) {
     walletAddressFooter.setText(address);
+  }
+
+  @Override public void showSuccess() {
+    // TODO: 02-08-2018 neuro
   }
 
   private PaymentDetails getPaymentDetails(String publicKey, String generationTime) {

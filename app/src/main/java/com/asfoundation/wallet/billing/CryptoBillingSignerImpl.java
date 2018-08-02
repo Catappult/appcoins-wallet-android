@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.billing;
 
-public class BillingSignerImpl implements BillingSigner {
+public class CryptoBillingSignerImpl implements CryptoBillingSigner {
 
   @Override public String getAddress() {
     return "0xBB83e699F1188bAAbEa820ce02995C97BD9b510F";

@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.billing;
 
-public interface BillingSigner {
+public interface CryptoBillingSigner {
 
   String getAddress();
 

@@ -8,6 +8,7 @@ import com.appcoins.wallet.billing.BillingDependenciesProvider;
 import com.appcoins.wallet.billing.WalletService;
 import com.appcoins.wallet.billing.repository.RemoteRepository;
 import com.asf.wallet.BuildConfig;
+import com.asfoundation.wallet.billing.payment.Adyen;
 import com.asfoundation.wallet.di.DaggerAppComponent;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
@@ -18,6 +19,7 @@ import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
+import com.jakewharton.rxrelay.PublishRelay;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
@@ -27,8 +29,10 @@ import io.fabric.sdk.android.Fabric;
 import io.reactivex.exceptions.UndeliverableException;
 import io.reactivex.plugins.RxJavaPlugins;
 import io.realm.Realm;
+import java.nio.charset.Charset;
 import javax.inject.Inject;
 import org.jetbrains.annotations.NotNull;
+import rx.schedulers.Schedulers;
 
 public class App extends MultiDexApplication
     implements HasActivityInjector, HasServiceInjector, HasSupportFragmentInjector,
@@ -46,6 +50,7 @@ public class App extends MultiDexApplication
   @Inject AppcoinsOperationsDataSaver appcoinsOperationsDataSaver;
   @Inject RemoteRepository.BdsApi bdsApi;
   @Inject WalletService walletService;
+  @Inject Adyen adyen;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -56,26 +61,30 @@ public class App extends MultiDexApplication
         .inject(this);
     setupRxJava();
 
-    Fabric.with(this, new Crashlytics.Builder().core(
-        new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG)
-            .build())
+    Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG)
+        .build())
         .build());
 
     inAppPurchaseInteractor.start();
     proofOfAttentionService.start();
     appcoinsOperationsDataSaver.start();
-    ethereumNetworkRepository.addOnChangeDefaultNetwork(
-        networkInfo -> defaultTokenProvider.getDefaultToken()
-            .flatMapCompletable(
-                defaultToken -> addTokenInteract.add(defaultToken.address, defaultToken.symbol,
-                    defaultToken.decimals))
-            .doOnError(throwable -> {
-              if (!(throwable instanceof WalletNotFoundException)) {
-                throwable.printStackTrace();
-              }
-            })
-            .retry()
-            .subscribe());
+    ethereumNetworkRepository.addOnChangeDefaultNetwork(networkInfo -> defaultTokenProvider.getDefaultToken()
+        .flatMapCompletable(defaultToken -> addTokenInteract.add(defaultToken.address, defaultToken.symbol,
+            defaultToken.decimals))
+        .doOnError(throwable -> {
+          if (!(throwable instanceof WalletNotFoundException)) {
+            throwable.printStackTrace();
+          }
+        })
+        .retry()
+        .subscribe());
+  }
+
+  public Adyen getAdyen() {
+    if (adyen == null) {
+      adyen = new Adyen(this, Charset.forName("UTF-8"), Schedulers.io(), PublishRelay.create());
+    }
+    return adyen;
   }
 
   private void setupRxJava() {

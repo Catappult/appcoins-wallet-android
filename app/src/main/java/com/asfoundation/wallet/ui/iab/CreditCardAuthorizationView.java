@@ -23,7 +23,7 @@ public interface CreditCardAuthorizationView {
 
   void showNetworkError();
 
-  io.reactivex.Observable<Object> cancelEvent();
+  Observable<Void> cancelEvent();
 
   void showCvcView(Amount amount, PaymentMethod paymentMethod);
 
@@ -33,4 +33,6 @@ public interface CreditCardAuthorizationView {
   void close();
 
   void showWalletAddress(String address);
+
+  void showSuccess();
 }

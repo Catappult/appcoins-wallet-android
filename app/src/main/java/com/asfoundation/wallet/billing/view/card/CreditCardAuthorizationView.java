@@ -6,6 +6,7 @@ import com.adyen.core.models.paymentdetails.PaymentDetails;
 import com.asfoundation.wallet.presenter.View;
 import rx.Observable;
 
+@Deprecated
 public interface CreditCardAuthorizationView extends View {
 
   void showLoading();
@@ -22,8 +23,7 @@ public interface CreditCardAuthorizationView extends View {
 
   void showCvcView(Amount amount, PaymentMethod paymentMethod);
 
-  void showCreditCardView(PaymentMethod paymentMethod, Amount amount, boolean cvcStatus,
-      boolean allowSave, String publicKey, String generationTime);
+  void showCreditCardView(PaymentMethod paymentMethod, Amount amount, boolean cvcStatus, boolean allowSave, String publicKey, String generationTime);
 
   void showSuccess();
 }

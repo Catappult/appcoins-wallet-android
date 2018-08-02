@@ -14,6 +14,12 @@ import com.asfoundation.wallet.FabricLogger;
 import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.apps.Applications;
 import com.asfoundation.wallet.apps.AppsApi;
+import com.asfoundation.wallet.billing.AdyenBilling;
+import com.asfoundation.wallet.billing.AdyenBillingImpl;
+import com.asfoundation.wallet.billing.CryptoBillingSigner;
+import com.asfoundation.wallet.billing.CryptoBillingSignerImpl;
+import com.asfoundation.wallet.billing.TransactionService;
+import com.asfoundation.wallet.billing.payment.Adyen;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
@@ -81,8 +87,10 @@ import com.asfoundation.wallet.ui.iab.raiden.RaidenFactory;
 import com.asfoundation.wallet.ui.iab.raiden.RaidenRepository;
 import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.TransferParser;
+import com.asfoundation.wallet.ws.BDSTransactionService;
 import com.bds.microraidenj.MicroRaidenBDS;
 import com.google.gson.Gson;
+import com.jakewharton.rxrelay.PublishRelay;
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -90,6 +98,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import java.math.BigDecimal;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -195,8 +204,9 @@ import static com.asfoundation.wallet.service.TokenToFiatService.TOKEN_TO_FIAT_E
     return new SendTransactionInteract(transactionRepository, passwordStore);
   }
 
-  @Singleton @Provides InAppPurchaseService provideTransactionService(ApproveService approveService,
-      BuyService buyService, NonceGetter nonceGetter, BalanceService balanceService) {
+  @Singleton @Provides InAppPurchaseService provideInAppPurchaseService(
+      ApproveService approveService, BuyService buyService, NonceGetter nonceGetter,
+      BalanceService balanceService) {
     return new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
         approveService, buyService, nonceGetter, balanceService);
   }
@@ -425,5 +435,23 @@ import static com.asfoundation.wallet.service.TokenToFiatService.TOKEN_TO_FIAT_E
   @Singleton @Provides WalletService provideWalletService(FindDefaultWalletInteract walletInteract,
       AccountKeystoreService accountKeyService, PasswordStore passwordStore) {
     return new AccountWalletService(walletInteract, accountKeyService, passwordStore);
+  }
+
+  @Singleton @Provides Adyen provideAdyen(Context context) {
+    return new Adyen(context, Charset.forName("UTF-8"), rx.schedulers.Schedulers.io(),
+        PublishRelay.create());
+  }
+
+  @Singleton @Provides TransactionService provideTransactionService() {
+    return new BDSTransactionService();
+  }
+
+  @Singleton @Provides CryptoBillingSigner provideCryptoBillingSigner() {
+    return new CryptoBillingSignerImpl();
+  }
+
+  @Singleton @Provides AdyenBilling provideAdyenBilling(TransactionService transactionService,
+      CryptoBillingSigner cryptoBillingSigner, Adyen adyen) {
+    return new AdyenBillingImpl(transactionService, cryptoBillingSigner, adyen);
   }
 }

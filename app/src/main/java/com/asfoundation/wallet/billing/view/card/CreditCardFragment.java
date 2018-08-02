@@ -18,8 +18,8 @@ import com.adyen.core.models.PaymentMethod;
 import com.adyen.core.models.paymentdetails.CreditCardPaymentDetails;
 import com.adyen.core.models.paymentdetails.PaymentDetails;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.billing.AdyenBilling;
-import com.asfoundation.wallet.billing.BillingSignerImpl;
+import com.asfoundation.wallet.billing.AdyenBillingImpl;
+import com.asfoundation.wallet.billing.CryptoBillingSignerImpl;
 import com.asfoundation.wallet.billing.payment.Adyen;
 import com.asfoundation.wallet.view.MyApp;
 import com.asfoundation.wallet.view.fragment.BaseFragment;
@@ -33,6 +33,7 @@ import org.json.JSONObject;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 
+@Deprecated
 public class CreditCardFragment extends BaseFragment implements CreditCardAuthorizationView {
 
   private static final String TAG = CreditCardFragment.class.getSimpleName();
@@ -62,8 +63,7 @@ public class CreditCardFragment extends BaseFragment implements CreditCardAuthor
     return new CreditCardFragment();
   }
 
-  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
+  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     return inflater.inflate(R.layout.fragment_credit_card_authorization, container, false);
   }
 
@@ -148,8 +148,7 @@ public class CreditCardFragment extends BaseFragment implements CreditCardAuthor
       return paymentDetails;
     }
 
-    final CreditCardPaymentDetails creditCardPaymentDetails =
-        new CreditCardPaymentDetails(paymentMethod.getInputDetails());
+    final CreditCardPaymentDetails creditCardPaymentDetails = new CreditCardPaymentDetails(paymentMethod.getInputDetails());
     try {
       final JSONObject sensitiveData = new JSONObject();
 
@@ -159,8 +158,7 @@ public class CreditCardFragment extends BaseFragment implements CreditCardAuthor
       sensitiveData.put("expiryYear", cardForm.getExpirationYear());
       sensitiveData.put("generationtime", generationTime);
       sensitiveData.put("cvc", cardForm.getCvv());
-      creditCardPaymentDetails.fillCardToken(
-          new ClientSideEncrypter(publicKey).encrypt(sensitiveData.toString()));
+      creditCardPaymentDetails.fillCardToken(new ClientSideEncrypter(publicKey).encrypt(sensitiveData.toString()));
     } catch (JSONException e) {
       Log.e(TAG, "JSON Exception occurred while generating token.", e);
     } catch (EncrypterException e) {
@@ -180,8 +178,7 @@ public class CreditCardFragment extends BaseFragment implements CreditCardAuthor
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    preAuthorizedCardText =
-        view.findViewById(R.id.fragment_credit_card_authorization_pre_authorized_card);
+    preAuthorizedCardText = view.findViewById(R.id.fragment_credit_card_authorization_pre_authorized_card);
     progressBar = view.findViewById(R.id.fragment_credit_card_authorization_progress_bar);
     overlay = view.findViewById(R.id.fragment_credit_card_authorization_overlay);
     //productIcon = (ImageView) view.findViewById(R.id.include_payment_product_icon);
@@ -190,15 +187,13 @@ public class CreditCardFragment extends BaseFragment implements CreditCardAuthor
     //productPrice = (TextView) view.findViewById(R.id.include_payment_product_price);
     cancelButton = view.findViewById(R.id.include_payment_buttons_cancel_button);
     buyButton = view.findViewById(R.id.include_payment_buttons_buy_button);
-    rememberCardCheckBox =
-        view.findViewById(R.id.fragment_credit_card_authorization_remember_card_check_box);
+    rememberCardCheckBox = view.findViewById(R.id.fragment_credit_card_authorization_remember_card_check_box);
     buyButton.setVisibility(View.GONE);
     cardForm = view.findViewById(R.id.fragment_braintree_credit_card_form);
 
-    networkErrorDialog =
-        new RxAlertDialog.Builder(getContext()).setMessage(R.string.connection_error)
-            .setPositiveButton(R.string.iab_button_ok)
-            .build();
+    networkErrorDialog = new RxAlertDialog.Builder(getContext()).setMessage(R.string.connection_error)
+        .setPositiveButton(R.string.iab_button_ok)
+        .build();
 
     clickHandler = new ClickHandler() {
       @Override public boolean handle() {
@@ -221,10 +216,8 @@ public class CreditCardFragment extends BaseFragment implements CreditCardAuthor
 
     Adyen adyen = ((MyApp) getContext().getApplicationContext()).getAdyen();
 
-    attachPresenter(
-        new CreditCardAuthorizationPresenter(adyen, this, AndroidSchedulers.mainThread(),
-            new AdyenBilling(new BDSTransactionService(), new BillingSignerImpl(), adyen),
-            new CreditCardFragmentNavigator(getActivity().getSupportFragmentManager())));
+    attachPresenter(new CreditCardAuthorizationPresenter(adyen, this, AndroidSchedulers.mainThread(),
+        new AdyenBillingImpl(new BDSTransactionService(), new CryptoBillingSignerImpl(), adyen), new CreditCardFragmentNavigator(getActivity().getSupportFragmentManager())));
   }
 
   @Override public void onDestroyView() {

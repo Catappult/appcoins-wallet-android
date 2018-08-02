@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.billing.view.card;
 
 import com.adyen.core.models.PaymentMethod;
-import com.asfoundation.wallet.billing.Billing;
+import com.asfoundation.wallet.billing.AdyenBilling;
 import com.asfoundation.wallet.billing.payment.Adyen;
 import com.asfoundation.wallet.presenter.Presenter;
 import com.asfoundation.wallet.presenter.View;
@@ -10,20 +10,21 @@ import rx.Completable;
 import rx.Scheduler;
 import rx.exceptions.OnErrorNotImplementedException;
 
+@Deprecated
 public class CreditCardAuthorizationPresenter implements Presenter {
 
   private final Adyen adyen;
   private final CreditCardAuthorizationView view;
   private final Scheduler viewScheduler;
-  private final Billing billing;
+  private final AdyenBilling adyenBilling;
   private final CreditCardNavigator navigator;
 
   public CreditCardAuthorizationPresenter(Adyen adyen, CreditCardAuthorizationView view,
-      Scheduler viewScheduler, Billing billing, CreditCardNavigator navigator) {
+      Scheduler viewScheduler, AdyenBilling adyenBilling, CreditCardNavigator navigator) {
     this.adyen = adyen;
     this.view = view;
     this.viewScheduler = viewScheduler;
-    this.billing = billing;
+    this.adyenBilling = adyenBilling;
     this.navigator = navigator;
   }
 
@@ -89,7 +90,7 @@ public class CreditCardAuthorizationPresenter implements Presenter {
     view.getLifecycleEvents()
         .filter(event -> event.equals(View.LifecycleEvent.CREATE))
         .doOnNext(__ -> view.showLoading())
-        .flatMap(__ -> billing.getAuthorization())
+        .flatMap(__ -> adyenBilling.getAuthorization())
         .observeOn(viewScheduler)
         //.doOnNext(payment -> view.showProduct(payment.getProduct()))
         .first(payment -> payment.isPendingAuthorization())
@@ -116,7 +117,7 @@ public class CreditCardAuthorizationPresenter implements Presenter {
   private void onViewCreatedCheckAuthorizationActive() {
     view.getLifecycleEvents()
         .filter(event -> event.equals(View.LifecycleEvent.CREATE))
-        .flatMap(created -> billing.getAuthorization())
+        .flatMap(created -> adyenBilling.getAuthorization())
         .first(payment -> payment.isCompleted())
         //.doOnNext(payment -> analytics.sendAuthorizationSuccessEvent(payment))
         .observeOn(viewScheduler)
@@ -130,7 +131,7 @@ public class CreditCardAuthorizationPresenter implements Presenter {
   private void onViewCreatedCheckAuthorizationFailed() {
     view.getLifecycleEvents()
         .filter(event -> event.equals(View.LifecycleEvent.CREATE))
-        .flatMap(created -> billing.getAuthorization())
+        .flatMap(created -> adyenBilling.getAuthorization())
         .first(payment -> payment.isFailed())
         .observeOn(viewScheduler)
         .doOnNext(__ -> navigator.popViewWithError())
@@ -142,7 +143,7 @@ public class CreditCardAuthorizationPresenter implements Presenter {
   private void onViewCreatedCheckAuthorizationProcessing() {
     view.getLifecycleEvents()
         .filter(event -> event.equals(View.LifecycleEvent.CREATE))
-        .flatMap(created -> billing.getAuthorization())
+        .flatMap(created -> adyenBilling.getAuthorization())
         .filter(payment -> payment.isProcessing())
         .observeOn(viewScheduler)
         .doOnNext(__ -> view.showLoading())
@@ -206,7 +207,7 @@ public class CreditCardAuthorizationPresenter implements Presenter {
         .flatMapSingle(__ -> adyen.getPaymentResult())
         .flatMapCompletable(result -> {
           if (result.isProcessed()) {
-            return billing.authorize(result.getPayment(), result.getPayment()
+            return adyenBilling.authorize(result.getPayment(), result.getPayment()
                 .getPayload());
             //return billing.authorize(sku, result.getAuthorization()
             //    .getPayload());
