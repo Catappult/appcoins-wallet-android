@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.util.Log;
-import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.util.UnknownTokenException;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
@@ -31,8 +30,8 @@ public class OnChainBuyPresenter {
     this.disposables = disposables;
   }
 
-  public void present(String uriString, String appPackage, String productName) {
-    setupUi(uriString);
+  public void present(String uriString, String appPackage, String productName, BigDecimal amount) {
+    setupUi(amount);
 
     handleCancelClick();
 
@@ -112,10 +111,8 @@ public class OnChainBuyPresenter {
         .subscribe(click -> close()));
   }
 
-  private void setupUi(String uriString) {
-    disposables.add(inAppPurchaseInteractor.parseTransaction(uriString)
-        .observeOn(viewScheduler)
-        .subscribe(this::setup, this::showError));
+  private void setupUi(BigDecimal appcAmount) {
+    setup(appcAmount);
 
     disposables.add(inAppPurchaseInteractor.getWalletAddress()
         .observeOn(viewScheduler)
@@ -126,7 +123,7 @@ public class OnChainBuyPresenter {
         .observeOn(viewScheduler)
         .subscribe(hasChannel -> {
           if (hasChannel) {
-            //view.showChannelAsDefaultPayment();
+            view.showChannelAsDefaultPayment();
           } else {
             view.showDefaultAsDefaultPayment();
           }
@@ -197,10 +194,9 @@ public class OnChainBuyPresenter {
     disposables.clear();
   }
 
-  private void setup(TransactionBuilder transaction) {
+  private void setup(BigDecimal amount) {
     view.setup();
-    view.showRaidenChannelValues(
-        inAppPurchaseInteractor.getTopUpChannelSuggestionValues(transaction.amount()));
+    view.showRaidenChannelValues(inAppPurchaseInteractor.getTopUpChannelSuggestionValues(amount));
   }
 
   public static class BuyData {

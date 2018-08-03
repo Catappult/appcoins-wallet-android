@@ -171,7 +171,8 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
 
   @Override public void onStart() {
     super.onStart();
-    presenter.present(data, getAppPackage(), extras.getString(PRODUCT_NAME));
+    presenter.present(data, getAppPackage(), extras.getString(PRODUCT_NAME),
+        (BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT));
   }
 
   @Override public void onStop() {
@@ -223,11 +224,11 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   @Override public void setup() {
     Formatter formatter = new Formatter();
     String formatedPrice = formatter.format(Locale.getDefault(), "%(,.2f",
-        extras.getDouble(TRANSACTION_AMOUNT))
-        .toString();
+        ((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue())
+        .toString() + " APPC";
     buyButton.setText(getResources().getString(R.string.action_buy));
     itemPrice.setText(formatedPrice);
-    Spannable spannable = new SpannableString(formatedPrice + " APPC");
+    Spannable spannable = new SpannableString(formatedPrice);
     spannable.setSpan(
         new ForegroundColorSpan(getResources().getColor(R.color.dialog_buy_total_value)), 0,
         formatedPrice.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

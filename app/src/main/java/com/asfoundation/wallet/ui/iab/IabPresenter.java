@@ -31,8 +31,7 @@ public class IabPresenter {
     disposables.add(inAppPurchaseInteractor.parseTransaction(uriString)
         .observeOn(viewScheduler)
         .flatMap(transactionBuilder -> inAppPurchaseInteractor.canBuy(transactionBuilder)
-            .doOnSuccess(canBuy -> view.setup(transactionBuilder.amount()
-                .doubleValue(), canBuy)))
+            .doOnSuccess(canBuy -> view.setup(transactionBuilder.amount(), canBuy)))
         .subscribe(canBuy -> {
         }, this::showError));
   }

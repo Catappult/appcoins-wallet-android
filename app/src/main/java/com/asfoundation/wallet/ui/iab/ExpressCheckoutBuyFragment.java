@@ -28,6 +28,7 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Formatter;
 import java.util.Locale;
@@ -112,7 +113,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
           showError();
         });
     buyButton.setOnClickListener(v -> iabView.navigateToCreditCardAuthorization());
-    presenter.present(extras.getDouble(TRANSACTION_AMOUNT));
+    presenter.present(((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue());
 
   }
 
@@ -152,8 +153,8 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   @Override public void setup(FiatValue response) {
     Formatter formatter = new Formatter();
     StringBuilder builder = new StringBuilder();
-    String valueText =
-        formatter.format(Locale.getDefault(), "%(,.2f", extras.getDouble(TRANSACTION_AMOUNT))
+    String valueText = formatter.format(Locale.getDefault(), "%(,.2f",
+        (BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT))
         .toString() + " APPC";
     String valueTextCompose = valueText + " = ";
     String currency = mapCurrencyCodeToSymbol(response.getCurrency());

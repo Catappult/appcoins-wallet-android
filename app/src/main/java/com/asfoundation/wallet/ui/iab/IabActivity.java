@@ -9,6 +9,7 @@ import com.asfoundation.wallet.ui.BaseActivity;
 import dagger.android.AndroidInjection;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import java.math.BigDecimal;
 import javax.inject.Inject;
 
 /**
@@ -77,12 +78,12 @@ public class IabActivity extends BaseActivity implements IabView {
     finish();
   }
 
-  @Override public void setup(double amount, Boolean canBuy) {
+  @Override public void setup(BigDecimal amount, Boolean canBuy) {
     if (savedInstanceState == null) {
       //This is a feature toggle! If we set canBuy to true we will force the on chain buy flow
       //canBuy = true;
       Bundle bundle = new Bundle();
-      bundle.putDouble(TRANSACTION_AMOUNT, amount);
+      bundle.putSerializable(TRANSACTION_AMOUNT, amount);
       bundle.putString(APP_PACKAGE, getIntent().getExtras()
           .getString(APP_PACKAGE, ""));
       bundle.putString(PRODUCT_NAME, getIntent().getExtras()

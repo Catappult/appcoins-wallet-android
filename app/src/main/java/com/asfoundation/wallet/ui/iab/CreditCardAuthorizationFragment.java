@@ -30,6 +30,7 @@ import com.jakewharton.rxrelay.PublishRelay;
 import dagger.android.support.DaggerFragment;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import java.math.BigDecimal;
 import java.util.Formatter;
 import java.util.Locale;
 import javax.inject.Inject;
@@ -180,7 +181,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
     }
     productDescription.setText(getArguments().getString(PRODUCT_NAME));
     String appcValue = formatter.format(Locale.getDefault(), "%(,.2f",
-        getArguments().getDouble(TRANSACTION_AMOUNT))
+        ((BigDecimal) getArguments().getSerializable(TRANSACTION_AMOUNT)).doubleValue())
         .toString() + " APPC";
     appcPrice.setText(appcValue);
   }
