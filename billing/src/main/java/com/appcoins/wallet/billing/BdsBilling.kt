@@ -38,7 +38,7 @@ internal class BdsBilling(private val merchantName: String,
     return walletService.getWalletAddress().flatMap { address ->
       walletService.signContent(address).flatMap { signedContent ->
         repository.consumePurchases(merchantName, purchaseToken, address, signedContent,
-            Gson().toJson(Consume())).map { it }
+            Gson().toJson(Consumed())).map { it }
       }
     }.onErrorReturn { false }
   }
@@ -46,5 +46,5 @@ internal class BdsBilling(private val merchantName: String,
   private fun map(it: Boolean) =
       if (it) Billing.BillingSupportType.SUPPORTED else Billing.BillingSupportType.MERCHANT_NOT_FOUND
 
-  data class Consume(val status: String = "CONSUME")
+  data class Consumed(val status: String = "CONSUMED")
 }

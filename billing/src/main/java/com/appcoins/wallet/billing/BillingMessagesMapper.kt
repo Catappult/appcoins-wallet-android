@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.appcoins.wallet.billing.exceptions.BillingException
 import java.io.IOException
 
-internal class BillingMessagesMapper {
+class BillingMessagesMapper {
 
   internal fun mapSupported(supportType: Billing.BillingSupportType): Int =
       when (supportType) {
@@ -46,7 +46,19 @@ internal class BillingMessagesMapper {
     return result
   }
 
+  fun mapBuyIntentError(exception: Exception): Bundle {
+    val result = Bundle()
+    result.putInt(AppcoinsBillingBinder.RESPONSE_CODE, map(exception.cause))
+    return result
+  }
+
   fun mapConsumePurchasesError(exception: Exception): Int {
     return map(exception.cause)
+  }
+
+  fun mapCancellation(): Bundle {
+    val bundle = Bundle()
+    bundle.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_USER_CANCELED)
+    return bundle
   }
 }

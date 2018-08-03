@@ -2,6 +2,7 @@ package com.asfoundation.wallet.di;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.WalletService;
 import com.appcoins.wallet.billing.repository.RemoteRepository;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxyBuilder;
@@ -205,7 +206,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
     return new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
-        raidenRepository, channelService);
+        raidenRepository, channelService, new BillingMessagesMapper());
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(

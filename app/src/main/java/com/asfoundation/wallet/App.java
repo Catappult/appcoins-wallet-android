@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import com.appcoins.wallet.billing.BillingDependenciesProvider;
 import com.appcoins.wallet.billing.WalletService;
 import com.appcoins.wallet.billing.repository.RemoteRepository;
+import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.di.DaggerAppComponent;
 import com.asfoundation.wallet.interact.AddTokenInteract;
@@ -46,6 +47,7 @@ public class App extends MultiDexApplication
   @Inject AppcoinsOperationsDataSaver appcoinsOperationsDataSaver;
   @Inject RemoteRepository.BdsApi bdsApi;
   @Inject WalletService walletService;
+  @Inject AppCoinsAddressProxySdk contractAddressProvider;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -118,4 +120,7 @@ public class App extends MultiDexApplication
     return walletService;
   }
 
+  @NotNull @Override public AppCoinsAddressProxySdk getContractAddressProvider() {
+    return contractAddressProvider;
+  }
 }
