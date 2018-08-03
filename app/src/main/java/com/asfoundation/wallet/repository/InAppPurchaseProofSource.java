@@ -32,7 +32,8 @@ public class InAppPurchaseProofSource {
         paymentTransaction.getTransactionBuilder()
             .getSkuId(), paymentTransaction.getPackageName(),
         com.asf.wallet.BuildConfig.DEFAULT_STORE_ADDRESS,
-        com.asf.wallet.BuildConfig.DEFAULT_OEM_ADDRESS);
+        com.asf.wallet.BuildConfig.DEFAULT_OEM_ADDRESS, paymentTransaction.getTransactionBuilder()
+        .toAddress());
   }
 
   public Observable<PaymentProof> getPayment() {
