@@ -34,4 +34,11 @@ public class SendTransactionInteract {
     return passwordStore.getPassword(new Wallet(transaction.fromAddress()))
         .flatMap(password -> transactionRepository.callIab(transaction, password, nonce));
   }
+
+  Single<String> computeTransactionHash(TransactionBuilder transactionBuilder, BigInteger nonce) {
+    return passwordStore.getPassword(new Wallet(transactionBuilder.fromAddress()))
+        .flatMap(
+            password -> transactionRepository.computeTransactionHash(transactionBuilder, password,
+                nonce));
+  }
 }
