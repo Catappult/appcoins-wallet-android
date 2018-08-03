@@ -1,6 +1,7 @@
 package com.appcoins.wallet.billing.repository
 
 import com.appcoins.wallet.billing.repository.entity.*
+import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -49,7 +50,7 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
                            walletSignature: String,
                            paymentProof: String): Single<PaymentProofResponse> {
     return api.registerPayment(paymentType, paymentId, walletAddress, walletSignature,
-        RegisterPaymentBody(paymentProof)).map { PaymentProofResponse() }
+        RegisterPaymentBody(paymentProof)).andThen(Single.just(PaymentProofResponse()))
   }
 
   interface BdsApi {
@@ -87,7 +88,7 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
                         @Path("paymentId") paymentId: String,
                         @Query("wallet.address") walletAddress: String,
                         @Query("wallet.signature") walletSignature: String,
-                        @Body body: RegisterPaymentBody): Single<Void>
+                        @Body body: RegisterPaymentBody): Completable
 
 
   }

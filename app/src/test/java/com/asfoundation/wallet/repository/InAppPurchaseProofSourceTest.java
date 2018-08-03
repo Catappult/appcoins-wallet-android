@@ -42,8 +42,8 @@ import static org.mockito.Mockito.when;
     paymentPublishRelay.accept(payments);
     observer.assertNoErrors();
     observer.assertValue(new AuthorizationProof("appcoins", "approve_hash", "skuId", "packageName",
-        "0xc41b4160b63d1f9488937f7b66640d2babdbf8ad",
-        "0x0965b2a3e664690315ad20b9e5b0336c19cf172e"));
+        "0xc41b4160b63d1f9488937f7b66640d2babdbf8ad", "0x0965b2a3e664690315ad20b9e5b0336c19cf172e",
+        "toAddress"));
     observer.assertValueCount(1);
   }
 

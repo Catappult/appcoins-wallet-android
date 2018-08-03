@@ -26,7 +26,7 @@ class BillingPaymentProofSubmission internal constructor(
         .subscribeOn(networkScheduler)
         .flatMapSingle {
           registerAuthorizationProof(it.id, it.paymentType, it.productName, it.packageName,
-              it.oemAddress,
+              it.developerAddress,
               it.storeAddress).doOnSuccess { paymentId -> paymentIds[it.id] = paymentId }
 
         }
@@ -112,7 +112,8 @@ data class AuthorizationProof(val paymentType: String,
                               val productName: String,
                               val packageName: String,
                               val storeAddress: String,
-                              val oemAddress: String)
+                              val oemAddress: String,
+                              val developerAddress: String)
 
 data class PaymentProof(val paymentType: String,
                         val approveProof: String,
