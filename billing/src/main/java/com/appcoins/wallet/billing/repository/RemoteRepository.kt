@@ -1,12 +1,7 @@
 package com.appcoins.wallet.billing.repository
 
-import android.os.Build
-import com.appcoins.wallet.billing.BuildConfig
-import com.appcoins.wallet.billing.repository.entity.GetPackageResponse
-import com.appcoins.wallet.billing.repository.entity.GetPurchasesResponse
-import com.appcoins.wallet.billing.repository.entity.Purchase
-import com.appcoins.wallet.billing.repository.entity.DetailsResponseBody
-import com.appcoins.wallet.billing.repository.entity.Product
+import com.appcoins.wallet.billing.repository.entity.*
+import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -44,7 +39,23 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
         .map { responseMapper.map(it) }
   }
 
+  fun registerAuthorizationProof(id: String, paymentType: String, walletAddress: String,
+                                 walletSignature: String, productName: String, packageName: String,
+                                 developerWallet: String,
+                                 storeWallet: String): Single<RegisterAuthorizationResponse> {
+    return api.registerAuthorization(paymentType, walletAddress, walletSignature,
+        RegisterAuthorizationBody(productName, packageName, id, developerWallet, storeWallet))
+  }
+
+  fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
+                           walletSignature: String,
+                           paymentProof: String): Single<PaymentProofResponse> {
+    return api.registerPayment(paymentType, paymentId, walletAddress, walletSignature,
+        RegisterPaymentBody(paymentProof)).andThen(Single.just(PaymentProofResponse()))
+  }
+
   interface BdsApi {
+
     @GET("inapp/8.20180518/packages/{packageName}")
     fun getPackage(@Path("packageName") packageName: String, @Query("type")
     type: String): Single<GetPackageResponse>
@@ -65,6 +76,21 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
                         @Query("wallet.address") walletAddress: String,
                         @Query("wallet.signature") walletSignature: String,
                         @Body data: String): Single<Void>
+
+    @Headers("Content-Type: application/json")
+    @POST("inapp/8.20180727/gateways/{name}/transactions")
+    fun registerAuthorization(@Path("name") gateway: String, @Query("wallet.address")
+    walletAddress: String, @Query("wallet.signature") walletSignature: String, @Body
+                              body: RegisterAuthorizationBody): Single<RegisterAuthorizationResponse>
+
+    @Headers("Content-Type: application/json")
+    @PATCH("inapp/8.20180727/gateways/{gateway}/transactions/{paymentId}")
+    fun registerPayment(@Path("gateway") gateway: String,
+                        @Path("paymentId") paymentId: String,
+                        @Query("wallet.address") walletAddress: String,
+                        @Query("wallet.signature") walletSignature: String,
+                        @Body body: RegisterPaymentBody): Completable
+
 
   }
 

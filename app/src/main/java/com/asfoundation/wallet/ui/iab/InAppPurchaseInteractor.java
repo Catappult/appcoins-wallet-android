@@ -114,13 +114,15 @@ public class InAppPurchaseInteractor {
 
   @NonNull private Payment mapToPayment(PaymentTransaction paymentTransaction) {
     return new Payment(paymentTransaction.getUri(), mapStatus(paymentTransaction.getState()),
-        paymentTransaction.getBuyHash(), paymentTransaction.getPackageName(),
+        paymentTransaction.getTransactionBuilder()
+            .fromAddress(), paymentTransaction.getBuyHash(), paymentTransaction.getPackageName(),
         paymentTransaction.getProductName());
   }
 
   @NonNull private Payment mapToPayment(ChannelPayment channelPayment) {
     return new Payment(channelPayment.getId(), mapStatus(channelPayment.getStatus()),
-        channelPayment.getHash(), channelPayment.getPackageName(), channelPayment.getProductName());
+        channelPayment.getFromAddress(), channelPayment.getHash(), channelPayment.getPackageName(),
+        channelPayment.getProductName());
   }
 
   private Payment.Status mapStatus(ChannelPayment.Status status) {
@@ -192,12 +194,14 @@ public class InAppPurchaseInteractor {
     return Observable.merge(channelService.getAll()
         .flatMapSingle(channelPayments -> Observable.fromIterable(channelPayments)
             .map(channelPayment -> new Payment(channelPayment.getId(),
-                mapStatus(channelPayment.getStatus()), channelPayment.getHash(),
-                channelPayment.getPackageName(), channelPayment.getProductName()))
+                mapStatus(channelPayment.getStatus()), channelPayment.getFromAddress(),
+                channelPayment.getHash(), channelPayment.getPackageName(),
+                channelPayment.getProductName()))
             .toList()), inAppPurchaseService.getAll()
         .flatMapSingle(paymentTransactions -> Observable.fromIterable(paymentTransactions)
             .map(paymentTransaction -> new Payment(paymentTransaction.getUri(),
-                mapStatus(paymentTransaction.getState()), paymentTransaction.getBuyHash(),
+                mapStatus(paymentTransaction.getState()), paymentTransaction.getTransactionBuilder()
+                .fromAddress(), paymentTransaction.getBuyHash(),
                 paymentTransaction.getPackageName(), paymentTransaction.getProductName()))
             .toList()));
   }

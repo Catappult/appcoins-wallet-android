@@ -300,8 +300,8 @@ public class WalletPoAService extends Service {
           Log.d(TAG, "MSG_REGISTER_CAMPAIGN");
           proofOfAttentionService.setCampaignId(packageName, msg.getData()
               .getString("campaignId"));
-          proofOfAttentionService.setOemAddress(packageName, BuildConfig.DEFAULT_OEM_ADREESS);
-          proofOfAttentionService.setStoreAddress(packageName, BuildConfig.DEFAULT_STORE_ADREESS);
+          proofOfAttentionService.setOemAddress(packageName, BuildConfig.DEFAULT_OEM_ADDRESS);
+          proofOfAttentionService.setStoreAddress(packageName, BuildConfig.DEFAULT_STORE_ADDRESS);
           break;
         case MSG_SEND_PROOF:
           Log.d(TAG, "MSG_SEND_PROOF");

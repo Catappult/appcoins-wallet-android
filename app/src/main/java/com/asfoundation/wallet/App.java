@@ -5,6 +5,7 @@ import android.app.Service;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.Fragment;
 import com.appcoins.wallet.billing.BillingDependenciesProvider;
+import com.appcoins.wallet.billing.BillingPaymentProofSubmission;
 import com.appcoins.wallet.billing.WalletService;
 import com.appcoins.wallet.billing.repository.RemoteRepository;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk;
@@ -14,6 +15,7 @@ import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
+import com.asfoundation.wallet.repository.InAppPurchaseProofSource;
 import com.asfoundation.wallet.repository.WalletNotFoundException;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
@@ -48,6 +50,7 @@ public class App extends MultiDexApplication
   @Inject RemoteRepository.BdsApi bdsApi;
   @Inject WalletService walletService;
   @Inject AppCoinsAddressProxySdk contractAddressProvider;
+  @Inject InAppPurchaseProofSource inAppPurchaseProofSource;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -78,6 +81,12 @@ public class App extends MultiDexApplication
             })
             .retry()
             .subscribe());
+
+    BillingPaymentProofSubmission proofSubmission =
+        new BillingPaymentProofSubmission.Builder(this).build();
+    proofSubmission.start();
+    proofSubmission.addAuthorizationProofSource(inAppPurchaseProofSource.getAuthorization());
+    proofSubmission.addPaymentProofSource(inAppPurchaseProofSource.getPayment());
   }
 
   private void setupRxJava() {
