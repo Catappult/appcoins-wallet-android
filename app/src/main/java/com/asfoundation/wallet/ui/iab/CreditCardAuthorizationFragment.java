@@ -98,7 +98,8 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
     backButton = PublishRelay.create();
     keyboardBuyRelay = PublishRelay.create();
 
-    CreditCardFragmentNavigator navigator = new CreditCardFragmentNavigator(getFragmentManager());
+    CreditCardFragmentNavigator navigator =
+        new CreditCardFragmentNavigator(getFragmentManager(), iabView);
 
     presenter = new CreditCardAuthorizationPresenter(this, defaultWalletInteract,
         AndroidSchedulers.mainThread(), new CompositeSubscription(), adyen, adyenBilling,

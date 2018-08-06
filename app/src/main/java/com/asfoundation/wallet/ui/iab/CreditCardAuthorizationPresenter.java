@@ -131,7 +131,7 @@ public class CreditCardAuthorizationPresenter {
         .first(payment -> payment.isCompleted())
         //.doOnNext(payment -> analytics.sendAuthorizationSuccessEvent(payment))
         .observeOn(viewScheduler)
-        .doOnNext(__ -> navigator.popView())
+        .doOnNext(__ -> navigator.popView(adyenBilling.getTransactionUid()))
         .doOnNext(__ -> view.showSuccess())
         .subscribe(__ -> {
         }, throwable -> showError(throwable)));

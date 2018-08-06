@@ -10,4 +10,6 @@ public interface AdyenBilling {
   Observable<AdyenAuthorization> getAuthorization();
 
   Completable authorize(Payment payment, String paykey);
+
+  String getTransactionUid();
 }

@@ -44,6 +44,10 @@ public class AdyenBillingImpl implements AdyenBilling {
                 .andThen(Completable.fromAction(() -> callRelay(authorized))));
   }
 
+  @Override public String getTransactionUid() {
+    return transactionUid;
+  }
+
   private void callRelay(boolean authorized) {
     if (authorized) {
       relay.call(new AdyenAuthorization(adyenAuthorization.getSession(),
