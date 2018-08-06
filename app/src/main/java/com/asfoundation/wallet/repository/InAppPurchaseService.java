@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.repository;
 
+import android.support.annotation.NonNull;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import java.util.List;
@@ -68,15 +69,65 @@ public class InAppPurchaseService {
 
     buyService.getAll()
         .flatMapCompletable(paymentTransactions -> Observable.fromIterable(paymentTransactions)
-            .flatMapCompletable(
-                paymentTransaction -> cache.save(paymentTransaction.getUri(), paymentTransaction)
-                    .toSingleDefault(paymentTransaction)
-                    .filter(transaction -> transaction.getState()
-                        .equals(PaymentTransaction.PaymentState.BOUGHT))
-                    .flatMapCompletable(transaction -> cache.save(transaction.getUri(),
-                        new PaymentTransaction(paymentTransaction,
-                            PaymentTransaction.PaymentState.COMPLETED)))))
+            .flatMapCompletable(buyTransaction -> cache.get(buyTransaction.getKey())
+                .firstOrError()
+                .map(paymentTransaction -> map(paymentTransaction, buyTransaction))
+                .flatMap(
+                    paymentTransaction -> cache.save(buyTransaction.getKey(), paymentTransaction)
+                        .toSingleDefault(paymentTransaction))
+                .filter(transaction -> transaction.getState()
+                    .equals(PaymentTransaction.PaymentState.BOUGHT))
+                .flatMapCompletable(transaction -> cache.save(transaction.getUri(),
+                    new PaymentTransaction(transaction,
+                        PaymentTransaction.PaymentState.COMPLETED)))))
         .subscribe();
+  }
+
+  @NonNull private PaymentTransaction map(PaymentTransaction paymentTransaction,
+      BuyService.BuyTransaction buyTransaction) {
+    return new PaymentTransaction(paymentTransaction, getStatus(buyTransaction.getStatus()),
+        paymentTransaction.getApproveHash(), buyTransaction.getTransactionHash());
+  }
+
+  private PaymentTransaction.PaymentState getStatus(BuyService.Status status) {
+    PaymentTransaction.PaymentState paymentState;
+    switch (status) {
+      case BUYING:
+        paymentState = PaymentTransaction.PaymentState.BUYING;
+        break;
+      case BOUGHT:
+        paymentState = PaymentTransaction.PaymentState.BOUGHT;
+        break;
+      default:
+      case ERROR:
+        paymentState = PaymentTransaction.PaymentState.ERROR;
+        break;
+      case WRONG_NETWORK:
+        paymentState = PaymentTransaction.PaymentState.WRONG_NETWORK;
+        break;
+      case NONCE_ERROR:
+        paymentState = PaymentTransaction.PaymentState.NONCE_ERROR;
+        break;
+      case UNKNOWN_TOKEN:
+        paymentState = PaymentTransaction.PaymentState.UNKNOWN_TOKEN;
+        break;
+      case NO_TOKENS:
+        paymentState = PaymentTransaction.PaymentState.NO_TOKENS;
+        break;
+      case NO_ETHER:
+        paymentState = PaymentTransaction.PaymentState.NO_ETHER;
+        break;
+      case NO_FUNDS:
+        paymentState = PaymentTransaction.PaymentState.NO_FUNDS;
+        break;
+      case NO_INTERNET:
+        paymentState = PaymentTransaction.PaymentState.NO_INTERNET;
+        break;
+      case PENDING:
+        paymentState = PaymentTransaction.PaymentState.PENDING;
+        break;
+    }
+    return paymentState;
   }
 
   public Observable<PaymentTransaction> getTransactionState(String key) {

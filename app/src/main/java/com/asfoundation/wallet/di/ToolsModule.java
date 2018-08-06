@@ -60,6 +60,7 @@ import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
 import com.asfoundation.wallet.repository.TrustPasswordStore;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
+import com.asfoundation.wallet.repository.WatchedTransactionService;
 import com.asfoundation.wallet.repository.Web3jProvider;
 import com.asfoundation.wallet.router.GasSettingsRouter;
 import com.asfoundation.wallet.service.AccountKeystoreService;
@@ -100,6 +101,7 @@ import io.reactivex.subjects.BehaviorSubject;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Named;
@@ -177,8 +179,9 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
   @Provides BuyService provideBuyService(SendTransactionInteract sendTransactionInteract,
       ErrorMapper errorMapper, PendingTransactionService pendingTransactionService) {
-    return new BuyService(sendTransactionInteract, pendingTransactionService,
-        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), errorMapper, Schedulers.io());
+    return new BuyService(new WatchedTransactionService(sendTransactionInteract::buy,
+        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
+        Schedulers.io(), pendingTransactionService));
   }
 
   @Singleton @Provides ErrorMapper provideErrorMapper() {

@@ -67,8 +67,7 @@ class WatchedTransactionServiceTest {
         .subscribe(observer)
     scheduler.triggerActions()
 
-    watchedTransactionService.sendTransaction(uri,
-        PaymentTransaction(uri, transactionBuilder, PACKAGE_NAME, PRODUCT_NAME), nonce)
+    watchedTransactionService.sendTransaction(uri, nonce, transactionBuilder)
         .subscribe()
 
     scheduler.triggerActions()
@@ -81,9 +80,9 @@ class WatchedTransactionServiceTest {
     pendingTransactionState.onComplete()
 
     observer.assertValues(
-        Transaction(uri, Status.PROCESSING, transactionBuilder, nonce),
-        Transaction(uri, Status.PROCESSING, transactionBuilder, nonce, transactionHash),
-        Transaction(uri, Status.COMPLETED, transactionBuilder, nonce, transactionHash))
+        Transaction(uri, Transaction.Status.PROCESSING, transactionBuilder, nonce),
+        Transaction(uri, Transaction.Status.PROCESSING, transactionBuilder, nonce, transactionHash),
+        Transaction(uri, Transaction.Status.COMPLETED, transactionBuilder, nonce, transactionHash))
     observer.assertNoErrors()
   }
 }
