@@ -216,8 +216,10 @@ public class CreditCardFragment extends BaseFragment implements CreditCardAuthor
 
     Adyen adyen = ((MyApp) getContext().getApplicationContext()).getAdyen();
 
-    attachPresenter(new CreditCardAuthorizationPresenter(adyen, this, AndroidSchedulers.mainThread(),
-        new AdyenBillingImpl(new BDSTransactionService(), new CryptoBillingSignerImpl(), adyen), new CreditCardFragmentNavigator(getActivity().getSupportFragmentManager())));
+    attachPresenter(
+        new CreditCardAuthorizationPresenter(adyen, this, AndroidSchedulers.mainThread(),
+            new AdyenBillingImpl(new BDSTransactionService(), new CryptoBillingSignerImpl(), adyen),
+            new CreditCardFragmentNavigator(getActivity().getSupportFragmentManager())));
   }
 
   @Override public void onDestroyView() {

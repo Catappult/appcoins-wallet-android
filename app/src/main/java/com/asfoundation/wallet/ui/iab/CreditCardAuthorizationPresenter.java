@@ -94,6 +94,8 @@ public class CreditCardAuthorizationPresenter {
   }
 
   private void showError(Throwable throwable) {
+    throwable.printStackTrace();
+
     if (throwable instanceof IOException) {
       view.hideLoading();
       view.showNetworkError();

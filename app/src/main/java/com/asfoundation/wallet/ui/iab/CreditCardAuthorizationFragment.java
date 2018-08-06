@@ -32,7 +32,6 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.jakewharton.rxrelay.PublishRelay;
 import dagger.android.support.DaggerFragment;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
 import java.util.Formatter;
 import java.util.Locale;

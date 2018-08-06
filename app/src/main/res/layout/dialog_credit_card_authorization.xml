@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/AppTheme"
     >
   <LinearLayout
       android:id="@+id/fragment_payment_card"
@@ -87,7 +88,7 @@
             android:layout_marginBottom="16dp"
             android:layout_marginEnd="16dp"
             android:gravity="end"
-            android:text="****8500"
+            tools:text="****8500"
             />
 
         <com.braintreepayments.cardform.view.CardForm
@@ -96,13 +97,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/line_separator"
             android:layout_margin="16dp"
+            android:theme="@style/AppTheme"
             />
 
         <CheckBox
             android:id="@+id/fragment_credit_card_authorization_remember_card_check_box"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/fragment_credit_card_authorization_pre_authorized_card"
+            android:layout_below="@id/fragment_braintree_credit_card_form"
             android:layout_marginBottom="16dp"
             android:checked="true"
             android:text="@string/dialog_credit_card_remember"
