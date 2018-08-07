@@ -1,9 +1,7 @@
 package com.asfoundation.wallet.billing.view.card;
 
 import android.support.v4.app.FragmentManager;
-import com.asf.wallet.R;
 import com.asfoundation.wallet.ui.iab.IabView;
-import com.asfoundation.wallet.view.fragment.RedFragment;
 
 public class CreditCardFragmentNavigator implements CreditCardNavigator {
 
@@ -20,8 +18,6 @@ public class CreditCardFragmentNavigator implements CreditCardNavigator {
   }
 
   @Override public void popViewWithError() {
-    fragmentManager.beginTransaction()
-        .add(R.id.fragment_container, new RedFragment())
-        .commit();
+    iabView.showError();
   }
 }

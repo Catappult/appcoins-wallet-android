@@ -15,4 +15,6 @@ public interface IabView {
   void setup(BigDecimal amount, Boolean canBuy);
 
   void navigateToCreditCardAuthorization();
+
+  void showError();
 }

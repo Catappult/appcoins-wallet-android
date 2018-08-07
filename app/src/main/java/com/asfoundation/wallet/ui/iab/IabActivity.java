@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.widget.Toast;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.ui.BaseActivity;
 import dagger.android.AndroidInjection;
@@ -108,6 +109,13 @@ public class IabActivity extends BaseActivity implements IabView {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container, CreditCardAuthorizationFragment.newInstance(skuDetails))
         .commit();
+  }
+
+  @Override public void showError() {
+    Toast.makeText(this, "Payment Failed", Toast.LENGTH_LONG)
+        .show();
+    setResult(Activity.RESULT_CANCELED);
+    finish();
   }
 
   public String getAppPackage() {
