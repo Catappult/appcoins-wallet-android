@@ -26,7 +26,7 @@ public class CreateAdyenTransaction
     String payload = "hello";
     String packageName = "com.appcoins.trivialdrivesample.test";
     String productName = "gas";
-    String walletsDeveloper = "0xd95c64c6eee9164539d679354f349779a04f57cb";
+    String walletsDeveloper = "0xda99070eb09ab6ab7e49866c390b01d3bca9d516";
     String walletsStore = "0xd95c64c6eee9164539d679354f349779a04f57cb";
 
     return service.createAdyenTransaction(payload, packageName, productName, walletsDeveloper,
