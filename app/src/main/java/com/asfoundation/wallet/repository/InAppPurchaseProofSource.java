@@ -40,7 +40,7 @@ public class InAppPurchaseProofSource {
     return inAppPurchaseService.getAll()
         .flatMapIterable(paymentTransactions -> paymentTransactions)
         .filter(paymentTransaction -> paymentTransaction.getBuyHash() != null
-            && !submittedAuthorizations.contains(paymentTransaction.getBuyHash()))
+            && !submittedPayments.contains(paymentTransaction.getBuyHash()))
         .doOnNext(paymentTransaction -> submittedPayments.add(paymentTransaction.getBuyHash()))
         .map(this::mapPaymentProof);
   }
