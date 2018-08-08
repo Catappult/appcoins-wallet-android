@@ -91,16 +91,19 @@ public class IabActivity extends BaseActivity implements IabView {
           .getString(PRODUCT_NAME));
       skuDetails = bundle;
 
-      if (canBuy) {
-        getSupportFragmentManager().beginTransaction()
-            .add(R.id.fragment_container, OnChainBuyFragment.newInstance(bundle,
-                getIntent().getData()
-                    .toString()))
-            .commit();
-      } else {
-        getSupportFragmentManager().beginTransaction()
-            .add(R.id.fragment_container, ExpressCheckoutBuyFragment.newInstance(bundle))
-            .commit();
+      if (getSupportFragmentManager().getFragments()
+          .isEmpty()) {
+        if (canBuy) {
+          getSupportFragmentManager().beginTransaction()
+              .add(R.id.fragment_container, OnChainBuyFragment.newInstance(bundle,
+                  getIntent().getData()
+                      .toString()))
+              .commit();
+        } else {
+          getSupportFragmentManager().beginTransaction()
+              .add(R.id.fragment_container, ExpressCheckoutBuyFragment.newInstance(bundle))
+              .commit();
+        }
       }
     }
   }
