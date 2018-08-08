@@ -26,6 +26,7 @@ import com.asfoundation.wallet.billing.AdyenBilling;
 import com.asfoundation.wallet.billing.payment.Adyen;
 import com.asfoundation.wallet.billing.view.card.CreditCardFragmentNavigator;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
+import com.asfoundation.wallet.util.KeyboardUtils;
 import com.asfoundation.wallet.view.rx.RxAlertDialog;
 import com.braintreepayments.cardform.view.CardForm;
 import com.jakewharton.rxbinding.view.RxView;
@@ -60,6 +61,8 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   private static final String FIAT_VALUE = "fiatValue";
   private static final String APPC_VALUE = "appcValue";
   @Inject FindDefaultWalletInteract defaultWalletInteract;
+  @Inject AdyenBilling adyenBilling;
+  @Inject Adyen adyen;
   private View progressBar;
   private IabView iabView;
   private RxAlertDialog networkErrorDialog;
@@ -79,7 +82,6 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   private TextView walletAddressFooter;
   private CheckBox rememberCardCheckBox;
   private CreditCardAuthorizationPresenter presenter;
-
   private PublishRelay<Void> backButton;
   private PublishRelay<Void> keyboardBuyRelay;
 
@@ -89,9 +91,6 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
     fragment.setArguments(skuDetails);
     return fragment;
   }
-
-  @Inject AdyenBilling adyenBilling;
-  @Inject Adyen adyen;
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -131,6 +130,9 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
 
     cardForm.setOnCardFormValidListener(valid -> {
       if (valid) {
+        if (getView() != null) {
+          KeyboardUtils.hideKeyboard(getView());
+        }
         buyButton.setVisibility(View.VISIBLE);
       } else {
         buyButton.setVisibility(View.GONE);
