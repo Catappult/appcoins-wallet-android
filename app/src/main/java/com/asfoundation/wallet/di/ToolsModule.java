@@ -2,6 +2,8 @@ package com.asfoundation.wallet.di;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import com.appcoins.wallet.billing.BillingMessagesMapper;
+import com.appcoins.wallet.billing.ProxyService;
 import com.appcoins.wallet.billing.WalletService;
 import com.appcoins.wallet.billing.repository.RemoteRepository;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxyBuilder;
@@ -83,6 +85,7 @@ import com.bds.microraidenj.MicroRaidenBDS;
 import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -94,6 +97,7 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import okhttp3.OkHttpClient;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -205,7 +209,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
     return new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
-        raidenRepository, channelService);
+        raidenRepository, channelService, new BillingMessagesMapper());
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(
@@ -405,5 +409,20 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   @Singleton @Provides WalletService provideWalletService(FindDefaultWalletInteract walletInteract,
       AccountKeystoreService accountKeyService, PasswordStore passwordStore) {
     return new AccountWalletService(walletInteract, accountKeyService, passwordStore);
+  }
+
+  @Singleton @Provides ProxyService provideProxyService(AppCoinsAddressProxySdk proxySdk) {
+    return new ProxyService() {
+      private static final int NETWORK_ID_ROPSTEN = 3;
+      private static final int NETWORK_ID_MAIN = 1;
+
+      @NotNull @Override public Single<String> getAppCoinsAddress(boolean debug) {
+        return proxySdk.getAppCoinsAddress(debug? NETWORK_ID_ROPSTEN : NETWORK_ID_MAIN);
+      }
+
+      @NotNull @Override public Single<String> getIabAddress(boolean debug) {
+        return proxySdk.getIabAddress(debug? NETWORK_ID_ROPSTEN : NETWORK_ID_MAIN);
+      }
+    };
   }
 }

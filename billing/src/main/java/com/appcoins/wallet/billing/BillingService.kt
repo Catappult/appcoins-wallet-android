@@ -30,6 +30,7 @@ class BillingService : Service() {
                     BillingThrowableCodeMapper()), dependenciesProvider.getWalletService(),
                 BillingThrowableCodeMapper())
           }
-        }, ExternalBillingSerializer())
+        }, ExternalBillingSerializer(), dependenciesProvider.getProxyService(),
+        BillingIntentBuilder(applicationContext))
   }
 }

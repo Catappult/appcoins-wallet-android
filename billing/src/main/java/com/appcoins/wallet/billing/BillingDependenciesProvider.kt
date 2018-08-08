@@ -8,4 +8,7 @@ interface BillingDependenciesProvider {
   fun getBdsApi(): RemoteRepository.BdsApi
 
   fun getWalletService(): WalletService
+
+  fun getProxyService(): ProxyService
+
 }

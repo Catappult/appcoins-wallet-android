@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
+import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.Token;
@@ -130,7 +131,7 @@ public class InAppPurchaseInteractorTest {
             gasSettingsInteract, BigDecimal.ONE,
             new TransferParser(defaultWalletInteract, tokenRepository), repository,
             new ChannelService(null, new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-                new MemoryCache<>(BehaviorSubject.create(), new HashMap<>())));
+                new MemoryCache<>(BehaviorSubject.create(), new HashMap<>())), new BillingMessagesMapper());
   }
 
   @Test public void sendTransaction() {

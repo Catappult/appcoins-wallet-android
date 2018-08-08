@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.iab;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
+import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
@@ -21,6 +22,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class InAppPurchaseInteractor {
   public static final double GAS_PRICE_MULTIPLIER = 1.25;
   private static final String TAG = InAppPurchaseInteractor.class.getSimpleName();
@@ -31,11 +33,12 @@ public class InAppPurchaseInteractor {
   private final TransferParser parser;
   private final RaidenRepository raidenRepository;
   private final ChannelService channelService;
+  private final BillingMessagesMapper billingMessagesMapper;
 
   public InAppPurchaseInteractor(InAppPurchaseService inAppPurchaseService,
       FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
       BigDecimal paymentGasLimit, TransferParser parser, RaidenRepository raidenRepository,
-      ChannelService channelService) {
+      ChannelService channelService, BillingMessagesMapper billingMessagesMapper) {
     this.inAppPurchaseService = inAppPurchaseService;
     this.defaultWalletInteract = defaultWalletInteract;
     this.gasSettingsInteract = gasSettingsInteract;
@@ -43,6 +46,7 @@ public class InAppPurchaseInteractor {
     this.parser = parser;
     this.raidenRepository = raidenRepository;
     this.channelService = channelService;
+    this.billingMessagesMapper = billingMessagesMapper;
   }
 
   public Single<TransactionBuilder> parseTransaction(String uri) {
@@ -227,6 +231,10 @@ public class InAppPurchaseInteractor {
   public Single<String> getWalletAddress() {
     return defaultWalletInteract.find()
         .map(wallet -> wallet.address);
+  }
+
+  public BillingMessagesMapper getBillingMessagesMapper() {
+    return billingMessagesMapper;
   }
 
   public enum TransactionType {

@@ -2,9 +2,8 @@ package com.appcoins.wallet.billing.repository
 
 import com.appcoins.wallet.billing.BillingThrowableCodeMapper
 import com.appcoins.wallet.billing.Repository
-import com.appcoins.wallet.billing.repository.entity.Purchase
 import com.appcoins.wallet.billing.repository.entity.Product
-import com.google.gson.Gson
+import com.appcoins.wallet.billing.repository.entity.Purchase
 import io.reactivex.Single
 
 internal class BdsRepository(private val remoteRepository: RemoteRepository,
@@ -29,8 +28,8 @@ internal class BdsRepository(private val remoteRepository: RemoteRepository,
   }
 
   override fun consumePurchases(packageName: String, purchaseToken: String, walletAddress: String,
-                                walletSignature: String, data: String): Single<Boolean> {
+                                walletSignature: String): Single<Boolean> {
     return remoteRepository.consumePurchase(packageName, purchaseToken, walletAddress,
-        walletSignature, data)
+        walletSignature)
   }
 }

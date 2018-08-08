@@ -1,12 +1,6 @@
 package com.appcoins.wallet.billing.repository
 
-import android.os.Build
-import com.appcoins.wallet.billing.BuildConfig
-import com.appcoins.wallet.billing.repository.entity.GetPackageResponse
-import com.appcoins.wallet.billing.repository.entity.GetPurchasesResponse
-import com.appcoins.wallet.billing.repository.entity.Purchase
-import com.appcoins.wallet.billing.repository.entity.DetailsResponseBody
-import com.appcoins.wallet.billing.repository.entity.Product
+import com.appcoins.wallet.billing.repository.entity.*
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -38,9 +32,8 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
   internal fun consumePurchase(packageName: String,
                                purchaseToken: String,
                                walletAddress: String,
-                               walletSignature: String,
-                               data: String): Single<Boolean> {
-    return api.consumePurchase(packageName, purchaseToken, walletAddress, walletSignature, data)
+                               walletSignature: String): Single<Boolean> {
+    return api.consumePurchase(packageName, purchaseToken, walletAddress, walletSignature, Consumed())
         .map { responseMapper.map(it) }
   }
 
@@ -64,8 +57,10 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
                         @Path("uid") purchaseToken: String,
                         @Query("wallet.address") walletAddress: String,
                         @Query("wallet.signature") walletSignature: String,
-                        @Body data: String): Single<Void>
+                        @Body data: Consumed): Single<Void>
 
   }
+
+  data class Consumed(val status: String = "CONSUMED")
 
 }

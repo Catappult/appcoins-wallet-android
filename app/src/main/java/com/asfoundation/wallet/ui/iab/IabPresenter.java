@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.util.Log;
+import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.util.UnknownTokenException;
 import io.reactivex.Completable;
@@ -21,13 +22,15 @@ public class IabPresenter {
   private final InAppPurchaseInteractor inAppPurchaseInteractor;
   private final Scheduler viewScheduler;
   private final CompositeDisposable disposables;
+  private final BillingMessagesMapper billingMessagesMapper;
 
   public IabPresenter(IabView view, InAppPurchaseInteractor inAppPurchaseInteractor,
-      Scheduler viewScheduler, CompositeDisposable disposables) {
+      Scheduler viewScheduler, CompositeDisposable disposables, BillingMessagesMapper billingMessagesMapper) {
     this.view = view;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.viewScheduler = viewScheduler;
     this.disposables = disposables;
+    this.billingMessagesMapper = billingMessagesMapper;
   }
 
   public void present(String uriString, String appPackage, String productName) {
@@ -137,7 +140,7 @@ public class IabPresenter {
   }
 
   private void close() {
-    view.close();
+    view.close(billingMessagesMapper.mapCancellation());
   }
 
   private void showError(@Nullable Throwable throwable) {
@@ -201,6 +204,8 @@ public class IabPresenter {
     view.showRaidenChannelValues(
         inAppPurchaseInteractor.getTopUpChannelSuggestionValues(transaction.amount()));
   }
+
+
 
   public static class BuyData {
     private final boolean isRaiden;
