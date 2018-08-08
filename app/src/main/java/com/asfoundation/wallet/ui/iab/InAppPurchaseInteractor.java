@@ -1,8 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
-import com.appcoins.wallet.billing.Billing;
 import com.appcoins.wallet.billing.BillingFactory;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
@@ -40,7 +38,6 @@ public class InAppPurchaseInteractor {
   private final BillingMessagesMapper billingMessagesMapper;
   private final BillingFactory billingFactory;
   private final ExternalBillingSerializer billingSerializer;
-  private Billing billing;
 
   public InAppPurchaseInteractor(InAppPurchaseService inAppPurchaseService,
       FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
@@ -108,7 +105,6 @@ public class InAppPurchaseInteractor {
   }
 
   private Payment mapToPayment(ChannelCreation creation) {
-    Log.d(TAG, "mapToPayment() called with: creation = [" + creation.getStatus() + "]");
     switch (creation.getStatus()) {
       case PENDING:
         return new Payment(creation.getKey(), Payment.Status.APPROVING);
