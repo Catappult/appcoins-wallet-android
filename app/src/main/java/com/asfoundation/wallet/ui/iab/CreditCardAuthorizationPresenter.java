@@ -217,6 +217,7 @@ public class CreditCardAuthorizationPresenter {
         .doOnNext(__ -> {
           //analytics.sendAuthorizationCancelEvent(serviceName);
           //navigator.popView();
+          close();
         })
         .subscribe(__ -> {
         }, throwable -> showError(throwable)));
