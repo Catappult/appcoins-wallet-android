@@ -9,7 +9,7 @@ import io.reactivex.Completable
 import io.reactivex.Single
 
 class BdsRepository(private val remoteRepository: RemoteRepository,
-                    private val errorMapper: BillingThrowableCodeMapper) : Repository {
+                             private val errorMapper: BillingThrowableCodeMapper) : Repository {
 
   override fun registerAuthorizationProof(id: String, paymentType: String,
                                           walletAddress: String,

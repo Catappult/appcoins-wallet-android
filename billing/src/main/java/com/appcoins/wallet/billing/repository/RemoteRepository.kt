@@ -128,5 +128,4 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
   }
 
   data class Consumed(val status: String = "CONSUMED")
-
 }
