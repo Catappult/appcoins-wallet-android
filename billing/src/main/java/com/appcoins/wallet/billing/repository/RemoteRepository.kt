@@ -48,9 +48,8 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
   internal fun consumePurchase(packageName: String,
                                purchaseToken: String,
                                walletAddress: String,
-                               walletSignature: String,
-                               data: String): Single<Boolean> {
-    return api.consumePurchase(packageName, purchaseToken, walletAddress, walletSignature, data)
+                               walletSignature: String): Single<Boolean> {
+    return api.consumePurchase(packageName, purchaseToken, walletAddress, walletSignature, Consumed())
         .map { responseMapper.map(it) }
   }
 
@@ -108,7 +107,7 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
                         @Path("purchaseId") purchaseToken: String,
                         @Query("wallet.address") walletAddress: String,
                         @Query("wallet.signature") walletSignature: String,
-                        @Body data: String): Single<Void>
+                        @Body data: Consumed): Single<Void>
 
     @Headers("Content-Type: application/json")
     @POST("inapp/8.20180727/gateways/{name}/transactions")
@@ -127,4 +126,7 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
     @GET("inapp/8.20180518/gateways")
     fun getGateways(): Single<GetGatewaysResponse>
   }
+
+  data class Consumed(val status: String = "CONSUMED")
+
 }

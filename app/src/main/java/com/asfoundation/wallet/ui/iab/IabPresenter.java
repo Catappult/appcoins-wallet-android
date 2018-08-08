@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.iab;
 
 import android.util.Log;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
+import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.util.UnknownTokenException;
 import io.reactivex.Completable;
@@ -24,15 +25,17 @@ public class IabPresenter {
   private final Scheduler viewScheduler;
   private final CompositeDisposable disposables;
   private final BillingMessagesMapper billingMessagesMapper;
+  private final ExternalBillingSerializer billingSerializer;
 
   public IabPresenter(IabView view, InAppPurchaseInteractor inAppPurchaseInteractor,
       Scheduler viewScheduler, CompositeDisposable disposables,
-      BillingMessagesMapper billingMessagesMapper) {
+      BillingMessagesMapper billingMessagesMapper, ExternalBillingSerializer billingSerializer) {
     this.view = view;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.viewScheduler = viewScheduler;
     this.disposables = disposables;
     this.billingMessagesMapper = billingMessagesMapper;
+    this.billingSerializer = billingSerializer;
   }
 
   public void present(String uriString, String appPackage, String productName) {
@@ -168,8 +171,12 @@ public class IabPresenter {
             .andThen(inAppPurchaseInteractor.getPurchase(transaction.getPackageName(),
                 transaction.getProductId())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess(purchaseBundle -> view.finish(purchaseBundle)))
-            .flatMapCompletable(__ -> inAppPurchaseInteractor.remove(transaction.getUri()));
+                .doOnSuccess(purchase -> view.finish(billingMessagesMapper.mapPurchase(
+                    purchase.getSignature()
+                        .getValue(), billingSerializer.serializeSignatureData(purchase))))
+                .toCompletable()
+                .onErrorResumeNext(throwable -> Completable.fromAction(() -> showError(throwable)))
+                .andThen(inAppPurchaseInteractor.remove(transaction.getUri())));
       case NO_FUNDS:
         return Completable.fromAction(() -> view.showNoFundsError())
             .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));

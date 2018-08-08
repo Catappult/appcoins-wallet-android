@@ -115,7 +115,8 @@ public class IabActivity extends BaseActivity implements IabView {
     createChannelGroup = findViewById(R.id.create_channel_group);
     walletAddressTextView = findViewById(R.id.wallet_address);
     presenter = new IabPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
-        new CompositeDisposable(), inAppPurchaseInteractor.getBillingMessagesMapper());
+        new CompositeDisposable(), inAppPurchaseInteractor.getBillingMessagesMapper(),
+        inAppPurchaseInteractor.getBillingSerializer());
     adapter =
         new ArrayAdapter<>(getApplicationContext(), R.layout.iab_raiden_dropdown_item, R.id.item,
             new ArrayList<>());

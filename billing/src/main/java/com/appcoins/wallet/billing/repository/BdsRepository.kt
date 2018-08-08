@@ -2,11 +2,9 @@ package com.appcoins.wallet.billing.repository
 
 import com.appcoins.wallet.billing.BillingThrowableCodeMapper
 import com.appcoins.wallet.billing.Repository
-
 import com.appcoins.wallet.billing.repository.entity.Gateway
-import com.appcoins.wallet.billing.repository.entity.Purchase
 import com.appcoins.wallet.billing.repository.entity.Product
-import com.appcoins.wallet.billing.repository.entity.Transaction
+import com.appcoins.wallet.billing.repository.entity.Purchase
 import io.reactivex.Completable
 import io.reactivex.Single
 
@@ -60,9 +58,9 @@ class BdsRepository(private val remoteRepository: RemoteRepository,
   }
 
   override fun consumePurchases(packageName: String, purchaseToken: String, walletAddress: String,
-                                walletSignature: String, data: String): Single<Boolean> {
+                                walletSignature: String): Single<Boolean> {
     return remoteRepository.consumePurchase(packageName, purchaseToken, walletAddress,
-        walletSignature, data)
+        walletSignature)
   }
 
   override fun getGateways(): Single<List<Gateway>> {

@@ -7,11 +7,10 @@ import android.net.Uri
 import android.os.Bundle
 import com.appcoins.wallet.billing.repository.entity.SKU
 import com.appcoins.wallet.billing.util.PayloadHelper
-import com.google.gson.Gson
-import org.spongycastle.util.encoders.Hex
 import java.io.UnsupportedEncodingException
 import java.math.BigDecimal
 import java.util.*
+import org.spongycastle.util.encoders.Hex
 
 
 class BillingIntentBuilder(val context: Context) {
@@ -38,7 +37,7 @@ class BillingIntentBuilder(val context: Context) {
 
     val intent = Intent(Intent.ACTION_VIEW)
     val data = Uri.parse(buildUriString(tokenContractAddress, iabContractAddress, value,
-        PayloadHelper.getAddress(payload), sku.productId, AppcoinsBillingBinder.ROPSTEN_CHAIN_ID))
+        PayloadHelper.getAddress(payload), sku.productId, BuildConfig.NETWORK_ID))
     intent.data = data
 
     intent.putExtra(AppcoinsBillingBinder.PRODUCT_NAME, sku.title)

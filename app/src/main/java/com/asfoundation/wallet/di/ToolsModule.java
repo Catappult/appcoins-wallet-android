@@ -3,11 +3,10 @@ package com.asfoundation.wallet.di;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import com.appcoins.wallet.billing.BdsBilling;
-import com.appcoins.wallet.billing.Billing;
 import com.appcoins.wallet.billing.BillingFactory;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
-import com.appcoins.wallet.billing.BillingService;
 import com.appcoins.wallet.billing.BillingThrowableCodeMapper;
+import com.appcoins.wallet.billing.ProxyService;
 import com.appcoins.wallet.billing.WalletService;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.billing.repository.BdsApiResponseMapper;
@@ -93,6 +92,7 @@ import com.bds.microraidenj.MicroRaidenBDS;
 import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -105,6 +105,7 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import okhttp3.OkHttpClient;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -431,5 +432,20 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
     return merchantName -> new BdsBilling(merchantName,
         new BdsRepository(new RemoteRepository(bdsApi, new BdsApiResponseMapper()),
             new BillingThrowableCodeMapper()), walletService, new BillingThrowableCodeMapper());
+  }
+
+  @Singleton @Provides ProxyService provideProxyService(AppCoinsAddressProxySdk proxySdk) {
+    return new ProxyService() {
+      private static final int NETWORK_ID_ROPSTEN = 3;
+      private static final int NETWORK_ID_MAIN = 1;
+
+      @NotNull @Override public Single<String> getAppCoinsAddress(boolean debug) {
+        return proxySdk.getAppCoinsAddress(debug? NETWORK_ID_ROPSTEN : NETWORK_ID_MAIN);
+      }
+
+      @NotNull @Override public Single<String> getIabAddress(boolean debug) {
+        return proxySdk.getIabAddress(debug? NETWORK_ID_ROPSTEN : NETWORK_ID_MAIN);
+      }
+    };
   }
 }

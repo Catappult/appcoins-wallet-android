@@ -2,8 +2,8 @@ package com.appcoins.wallet.billing
 
 import com.appcoins.wallet.billing.repository.BillingSupportedType
 import com.appcoins.wallet.billing.repository.entity.Gateway
-import com.appcoins.wallet.billing.repository.entity.Purchase
 import com.appcoins.wallet.billing.repository.entity.Product
+import com.appcoins.wallet.billing.repository.entity.Purchase
 import io.reactivex.Completable
 import io.reactivex.Single
 
@@ -24,7 +24,7 @@ interface Repository {
                    type: BillingSupportedType): Single<List<Purchase>>
 
   fun consumePurchases(packageName: String, purchaseToken: String, walletAddress: String,
-                       walletSignature: String, data: String): Single<Boolean>
+                       walletSignature: String): Single<Boolean>
 
   fun registerAuthorizationProof(id: String, paymentType: String, walletAddress: String,
                                  walletSignature: String,

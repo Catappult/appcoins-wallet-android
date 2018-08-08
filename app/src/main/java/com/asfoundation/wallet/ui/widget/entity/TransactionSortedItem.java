@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.ui.widget.entity;
 
 import android.text.format.DateUtils;
-import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.transactions.Transaction;
 import java.util.Calendar;
 import java.util.Date;

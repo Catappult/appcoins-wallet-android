@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.iab;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import com.appcoins.wallet.billing.Billing;
@@ -14,6 +13,7 @@ import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.PaymentTransaction;
+import com.asfoundation.wallet.repository.TransactionNotFoundException;
 import com.asfoundation.wallet.ui.iab.raiden.ChannelCreation;
 import com.asfoundation.wallet.ui.iab.raiden.ChannelPayment;
 import com.asfoundation.wallet.ui.iab.raiden.ChannelService;
@@ -22,7 +22,6 @@ import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.reactivex.internal.operators.completable.CompletableFromAction;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -252,23 +251,20 @@ public class InAppPurchaseInteractor {
     return billingMessagesMapper;
   }
 
-  public Single<Bundle> getPurchase(String packageName, String productName) {
-    setBilling(packageName);
-    // Completable.fromAction(() -> setBilling(packageName)).andThen(
-    return billing.getSkuTransactionStatus(productName, Schedulers.io())
-        .flatMap(transactionStatus -> {
-          if (transactionStatus.equalsIgnoreCase("COMPLETED")) {
-            return billing.getSkuPurchase(productName, Schedulers.io())
-                .map(purchase -> billingMessagesMapper.mapPurchase(purchase.getSignature()
-                    .getValue(), billingSerializer.serializeSignatureData(purchase)));
-          } else {
-            return null;
-          }
-        });
+  public ExternalBillingSerializer getBillingSerializer() {
+    return billingSerializer;
   }
 
-  private void setBilling(String packageName) {
-    billing = billingFactory.getBilling(packageName);
+  public Single<Purchase> getPurchase(String packageName, String productName) {
+    return Single.fromCallable(() -> billingFactory.getBilling(packageName))
+        .flatMap(billing -> billing.getSkuTransactionStatus(productName, Schedulers.io())
+            .flatMap(transactionStatus -> {
+              if (transactionStatus.equalsIgnoreCase("COMPLETED")) {
+                return billing.getSkuPurchase(productName, Schedulers.io());
+              } else {
+                return Single.error(new TransactionNotFoundException());
+              }
+            }));
   }
 
   public enum TransactionType {

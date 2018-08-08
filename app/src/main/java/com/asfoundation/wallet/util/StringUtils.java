@@ -1,7 +1,5 @@
 package com.asfoundation.wallet.util;
 
-import org.jetbrains.annotations.NotNull;
-
 /**
  * String format utility class.
  */
