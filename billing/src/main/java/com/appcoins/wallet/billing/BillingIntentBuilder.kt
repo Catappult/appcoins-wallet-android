@@ -10,6 +10,7 @@ import com.appcoins.wallet.billing.util.PayloadHelper
 import java.io.UnsupportedEncodingException
 import java.math.BigDecimal
 import java.util.*
+import org.spongycastle.util.encoders.Hex
 
 
 class BillingIntentBuilder(val context: Context) {
