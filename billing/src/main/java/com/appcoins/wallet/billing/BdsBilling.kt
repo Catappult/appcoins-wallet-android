@@ -38,10 +38,7 @@ class BdsBilling(private val merchantName: String,
   override fun getSkuPurchase(sku: String, scheduler: Scheduler): Single<Purchase> {
     return walletService.getWalletAddress().flatMap { address ->
       walletService.signContent(address).observeOn(scheduler).flatMap { signedContent ->
-        repository.getPurchases(merchantName, address, signedContent, BillingSupportedType.INAPP)
-            .map { it[0] }
-        // TODO  replace with: repository.getSkuPurchase(merchantName, sku, address, signedContent)
-        // TODO when server is fixed.
+        repository.getSkuPurchase(merchantName, sku, address, signedContent)
       }
     }
   }
