@@ -90,6 +90,8 @@ android {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       signingConfig signingConfigs.release
+      buildConfigField 'int', 'NETWORK_ID', project.NETWORK_ID_PROD
+
     }
     debug {
       minifyEnabled false
@@ -98,8 +100,6 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       applicationIdSuffix ".dev"
       applicationVariants.all { variant -> renameArtifact(defaultConfig)
-        buildConfigField 'String', 'BASE_HOST',
-            "\"" + project.BASE_HOST_DEV + "\""
       }
     }
   }

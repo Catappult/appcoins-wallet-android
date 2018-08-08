@@ -1,15 +1,17 @@
 package com.appcoins.wallet.billing
 
 import com.appcoins.wallet.billing.repository.BillingSupportedType
+import com.appcoins.wallet.billing.repository.entity.Gateway
 import com.appcoins.wallet.billing.repository.entity.Purchase
 import com.appcoins.wallet.billing.repository.entity.Product
 import com.google.gson.Gson
+import io.reactivex.Scheduler
 import io.reactivex.Single
 
-internal class BdsBilling(private val merchantName: String,
-                          private val repository: Repository,
-                          private val walletService: WalletService,
-                          private val errorMapper: BillingThrowableCodeMapper) : Billing {
+class BdsBilling(private val merchantName: String,
+                 private val repository: Repository,
+                 private val walletService: WalletService,
+                 private val errorMapper: BillingThrowableCodeMapper) : Billing {
 
   override fun isInAppSupported(): Single<Billing.BillingSupportType> {
     return repository.isSupported(merchantName, BillingSupportedType.INAPP).map { map(it) }
@@ -25,22 +27,47 @@ internal class BdsBilling(private val merchantName: String,
     return repository.getSkuDetails(merchantName, skus, Repository.BillingType.valueOf(type))
   }
 
-  override fun getPurchases(type: BillingSupportedType): Single<List<Purchase>> {
+  override fun getSkuTransactionStatus(sku: String, scheduler: Scheduler): Single<String> {
     return walletService.getWalletAddress().flatMap { address ->
-      walletService.signContent(address).flatMap { signedContent ->
+      walletService.signContent(address).observeOn(scheduler).flatMap { signedContent ->
+        repository.getSkuTransactionStatus(merchantName, sku, address, signedContent)
+      }
+    }
+  }
+
+  override fun getSkuPurchase(sku: String, scheduler: Scheduler): Single<Purchase> {
+    return walletService.getWalletAddress().flatMap { address ->
+      walletService.signContent(address).observeOn(scheduler).flatMap { signedContent ->
+        repository.getPurchases(merchantName, address, signedContent, BillingSupportedType.INAPP)
+            .map { it[0] }
+        // TODO  replace with: repository.getSkuPurchase(merchantName, sku, address, signedContent)
+        // TODO when server is fixed.
+      }
+    }
+  }
+
+  override fun getPurchases(type: BillingSupportedType,
+                            scheduler: Scheduler): Single<List<Purchase>> {
+    return walletService.getWalletAddress().flatMap { address ->
+      walletService.signContent(address).observeOn(scheduler).flatMap { signedContent ->
         repository.getPurchases(merchantName, address, signedContent,
             type).map { it }
       }
     }.onErrorReturn { ArrayList() }
   }
 
-  override fun consumePurchases(purchaseToken: String): Single<Boolean> {
+  override fun consumePurchases(purchaseToken: String, scheduler: Scheduler): Single<Boolean> {
     return walletService.getWalletAddress().flatMap { address ->
-      walletService.signContent(address).flatMap { signedContent ->
+      walletService.signContent(address).observeOn(scheduler).flatMap { signedContent ->
         repository.consumePurchases(merchantName, purchaseToken, address, signedContent,
             Gson().toJson(Consumed())).map { it }
       }
     }.onErrorReturn { false }
+  }
+
+  override fun getGateways(): Single<List<Gateway>> {
+    return repository.getGateways().map { it }
+        .onErrorReturn { ArrayList() }
   }
 
   private fun map(it: Boolean) =

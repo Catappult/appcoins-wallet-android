@@ -170,10 +170,8 @@ public class IabActivity extends BaseActivity implements IabView {
     return RxView.clicks(okErrorButton);
   }
 
-  @Override public void finish(String hash) {
-    Intent intent = new Intent();
-    intent.putExtra(TRANSACTION_HASH, hash);
-    setResult(Activity.RESULT_OK, intent);
+  @Override public void finish(Bundle bundle) {
+    setResult(Activity.RESULT_OK, new Intent().putExtras(bundle));
     finish();
   }
 

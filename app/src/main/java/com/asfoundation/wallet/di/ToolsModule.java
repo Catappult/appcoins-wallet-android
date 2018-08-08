@@ -2,8 +2,16 @@ package com.asfoundation.wallet.di;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import com.appcoins.wallet.billing.BdsBilling;
+import com.appcoins.wallet.billing.Billing;
+import com.appcoins.wallet.billing.BillingFactory;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
+import com.appcoins.wallet.billing.BillingService;
+import com.appcoins.wallet.billing.BillingThrowableCodeMapper;
 import com.appcoins.wallet.billing.WalletService;
+import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
+import com.appcoins.wallet.billing.repository.BdsApiResponseMapper;
+import com.appcoins.wallet.billing.repository.BdsRepository;
 import com.appcoins.wallet.billing.repository.RemoteRepository;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxyBuilder;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk;
@@ -204,11 +212,13 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   @Singleton @Provides InAppPurchaseInteractor provideTransactionInteractor(
       InAppPurchaseService inAppPurchaseService, FindDefaultWalletInteract defaultWalletInteract,
       FetchGasSettingsInteract gasSettingsInteract, TransferParser parser,
-      RaidenRepository raidenRepository, ChannelService channelService) {
+      RaidenRepository raidenRepository, ChannelService channelService,
+      BillingFactory billingFactory) {
 
     return new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
-        raidenRepository, channelService, new BillingMessagesMapper());
+        raidenRepository, channelService, new BillingMessagesMapper(), billingFactory,
+        new ExternalBillingSerializer());
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(
@@ -414,5 +424,12 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
       InAppPurchaseService inAppPurchaseService) {
     return new InAppPurchaseProofSource(inAppPurchaseService, new CopyOnWriteArrayList<>(),
         new CopyOnWriteArrayList<>());
+  }
+
+  @Singleton @Provides BillingFactory provideBillingFactory(RemoteRepository.BdsApi bdsApi,
+      WalletService walletService) {
+    return merchantName -> new BdsBilling(merchantName,
+        new BdsRepository(new RemoteRepository(bdsApi, new BdsApiResponseMapper()),
+            new BillingThrowableCodeMapper()), walletService, new BillingThrowableCodeMapper());
   }
 }

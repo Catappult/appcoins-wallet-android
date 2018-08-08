@@ -1,11 +1,13 @@
 package com.appcoins.wallet.billing
 
 import com.appcoins.wallet.billing.repository.BillingSupportedType
+import com.appcoins.wallet.billing.repository.entity.Gateway
 import com.appcoins.wallet.billing.repository.entity.Purchase
 import io.reactivex.Single
 import com.appcoins.wallet.billing.repository.entity.Product
+import io.reactivex.Scheduler
 
-internal interface Billing {
+interface Billing {
 
   fun isSubsSupported(): Single<BillingSupportType>
 
@@ -13,9 +15,15 @@ internal interface Billing {
 
   fun getProducts(skus: List<String>, type: String): Single<List<Product>>
 
-  fun getPurchases(type: BillingSupportedType): Single<List<Purchase>>
+  fun getSkuTransactionStatus(sku: String, scheduler: Scheduler): Single<String>
 
-  fun consumePurchases(purchaseToken: String): Single<Boolean>
+  fun getSkuPurchase(sku: String, scheduler: Scheduler): Single<Purchase>
+
+  fun getPurchases(type: BillingSupportedType, scheduler: Scheduler): Single<List<Purchase>>
+
+  fun consumePurchases(purchaseToken: String, scheduler: Scheduler): Single<Boolean>
+
+  fun getGateways(): Single<List<Gateway>>
 
   enum class BillingSupportType {
     SUPPORTED, MERCHANT_NOT_FOUND, UNKNOWN_ERROR, NO_INTERNET_CONNECTION, API_ERROR

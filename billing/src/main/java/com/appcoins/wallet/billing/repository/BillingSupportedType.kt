@@ -1,5 +1,5 @@
 package com.appcoins.wallet.billing.repository
 
-internal enum class BillingSupportedType {
+enum class BillingSupportedType {
   INAPP, SUBS
 }

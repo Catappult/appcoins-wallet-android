@@ -2,14 +2,14 @@
     package="com.appcoins.wallet.billing">
 
   <permission
-      android:name="${applicationId}.permission.BILLING"
+      android:name="${iabPermission}"
       android:label="Make internal payments"
       android:protectionLevel="normal"/>
   <application>
     <service
         android:name=".BillingService"
         android:exported="true"
-        android:permission="${applicationId}.permission.BILLING">
+        android:permission="${iabPermission}">
       <intent-filter>
         <action android:name="${applicationId}.iab.action.BIND"/>
       </intent-filter>

@@ -11,4 +11,6 @@ interface BillingDependenciesProvider {
   fun getWalletService(): WalletService
 
   fun getContractAddressProvider(): AppCoinsAddressProxySdk
+
+  fun getBillingFactory(): BillingFactory
 }

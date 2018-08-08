@@ -21,12 +21,16 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       buildConfigField 'String', 'BASE_HOST',
           "\"" + project.BASE_HOST_PROD + "\""
+      buildConfigField 'int', 'NETWORK_ID', project.NETWORK_ID_PROD
+      manifestPlaceholders = [iabPermission: project.APPCOINS_IAB_PERMISSION]
     }
 
     debug {
       minifyEnabled false
       buildConfigField 'String', 'BASE_HOST',
           "\"" + project.BASE_HOST_DEV + "\""
+      buildConfigField 'int', 'NETWORK_ID', project.NETWORK_ID_DEV
+      manifestPlaceholders = [iabPermission: project.APPCOINS_DEV_IAB_PERMISSION]
     }
   }
 }
