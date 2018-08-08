@@ -3,6 +3,7 @@ package com.appcoins.wallet.billing
 import com.appcoins.wallet.billing.repository.BillingSupportedType
 import com.appcoins.wallet.billing.repository.entity.Product
 import com.appcoins.wallet.billing.repository.entity.Purchase
+import io.reactivex.Completable
 import io.reactivex.Single
 
 internal interface Repository {
@@ -17,6 +18,16 @@ internal interface Repository {
 
   fun consumePurchases(packageName: String, purchaseToken: String, walletAddress: String,
                        walletSignature: String): Single<Boolean>
+
+  fun registerAuthorizationProof(id: String, paymentType: String, walletAddress: String,
+                                 walletSignature: String,
+                                 productName: String,
+                                 packageName: String,
+                                 developerWallet: String,
+                                 storeWallet: String): Single<String>
+
+  fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
+                           signedData: String, paymentProof: String): Completable
 
   enum class BillingType {
     inapp, subs
