@@ -1,12 +1,6 @@
 package com.appcoins.wallet.billing.repository
 
-import android.os.Build
-import com.appcoins.wallet.billing.BuildConfig
-import com.appcoins.wallet.billing.repository.entity.GetPackageResponse
-import com.appcoins.wallet.billing.repository.entity.GetPurchasesResponse
-import com.appcoins.wallet.billing.repository.entity.Purchase
-import com.appcoins.wallet.billing.repository.entity.DetailsResponseBody
-import com.appcoins.wallet.billing.repository.entity.Product
+import com.appcoins.wallet.billing.repository.entity.*
 import io.reactivex.Single
 import retrofit2.http.*
 

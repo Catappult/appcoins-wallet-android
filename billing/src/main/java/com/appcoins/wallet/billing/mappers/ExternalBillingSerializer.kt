@@ -4,10 +4,7 @@ import com.appcoins.wallet.billing.repository.entity.Product
 import com.appcoins.wallet.billing.repository.entity.Purchase
 import com.appcoins.wallet.billing.repository.entity.SKU
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import org.jetbrains.annotations.NotNull
-import java.util.ArrayList
-import java.util.Locale
+import java.util.*
 
 class ExternalBillingSerializer {
   fun serializeProducts(products: List<Product>): List<String> {

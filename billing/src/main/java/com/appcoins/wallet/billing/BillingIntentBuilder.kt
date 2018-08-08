@@ -7,8 +7,6 @@ import android.net.Uri
 import android.os.Bundle
 import com.appcoins.wallet.billing.repository.entity.SKU
 import com.appcoins.wallet.billing.util.PayloadHelper
-import com.google.gson.Gson
-import org.spongycastle.util.encoders.Hex
 import java.io.UnsupportedEncodingException
 import java.math.BigDecimal
 import java.util.*

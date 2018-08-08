@@ -26,7 +26,6 @@ import dagger.android.HasActivityInjector;
 import dagger.android.HasServiceInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 import io.fabric.sdk.android.Fabric;
-import io.reactivex.Single;
 import io.reactivex.exceptions.UndeliverableException;
 import io.reactivex.plugins.RxJavaPlugins;
 import io.realm.Realm;

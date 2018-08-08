@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.ui.airdrop;
 
 import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
 
 interface AirdropView {
   void showCaptcha(String captchaUrl);

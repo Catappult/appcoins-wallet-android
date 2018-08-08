@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.repository;
 
-import android.util.Log;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.poa.Proof;

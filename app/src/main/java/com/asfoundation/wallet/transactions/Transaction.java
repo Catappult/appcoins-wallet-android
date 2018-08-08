@@ -2,7 +2,6 @@ package com.asfoundation.wallet.transactions;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import com.asfoundation.wallet.entity.TransactionContract;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

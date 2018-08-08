@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.iab;
 
-import android.app.Activity;
 import android.util.Log;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asfoundation.wallet.entity.TransactionBuilder;

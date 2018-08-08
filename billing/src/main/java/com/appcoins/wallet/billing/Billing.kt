@@ -1,9 +1,9 @@
 package com.appcoins.wallet.billing
 
 import com.appcoins.wallet.billing.repository.BillingSupportedType
+import com.appcoins.wallet.billing.repository.entity.Product
 import com.appcoins.wallet.billing.repository.entity.Purchase
 import io.reactivex.Single
-import com.appcoins.wallet.billing.repository.entity.Product
 
 internal interface Billing {
 

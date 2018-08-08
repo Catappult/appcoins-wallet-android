@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.entity.NetworkInfo;
 
 public class EmptyTransactionsView extends FrameLayout {
 

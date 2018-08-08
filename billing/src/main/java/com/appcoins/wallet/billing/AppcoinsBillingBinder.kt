@@ -6,12 +6,10 @@ import android.os.Bundle
 import android.os.Parcel
 import android.os.RemoteException
 import com.appcoins.billing.AppcoinsBilling
-import com.appcoins.wallet.billing.repository.BillingSupportedType
-import com.appcoins.wallet.billing.repository.entity.Purchase
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer
+import com.appcoins.wallet.billing.repository.BillingSupportedType
 import com.appcoins.wallet.billing.repository.entity.Product
-import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk
-import io.reactivex.Observable
+import com.appcoins.wallet.billing.repository.entity.Purchase
 import io.reactivex.Single
 import io.reactivex.functions.Function3
 import io.reactivex.schedulers.Schedulers
