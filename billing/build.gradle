@@ -44,7 +44,6 @@ dependencies {
   implementation "com.squareup.retrofit2:converter-gson:$project.retrofitVersion"
   implementation "com.squareup.retrofit2:retrofit:$project.retrofitVersion"
   implementation "com.google.code.gson:gson:$project.gsonVersion"
-  implementation "com.asfoundation:appcoins-contract-proxy:$project.appcoinsSdkVersion"
 }
 repositories {
   mavenCentral()

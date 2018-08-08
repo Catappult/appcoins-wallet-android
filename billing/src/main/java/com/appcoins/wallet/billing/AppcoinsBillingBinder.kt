@@ -23,7 +23,7 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
                                      private var packageManager: PackageManager,
                                      private val billingFactory: BillingFactory,
                                      private val serializer: ExternalBillingSerializer,
-                                     private val contractAddressProvider: AppCoinsAddressProxySdk,
+                                     private val proxyService: ProxyService,
                                      private val intentBuilder: BillingIntentBuilder) :
     AppcoinsBilling.Stub() {
   companion object {
@@ -50,7 +50,7 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     internal const val ITEM_ID_LIST = "ITEM_ID_LIST"
     internal const val BUY_INTENT = "BUY_INTENT"
 
-    internal val PRODUCT_NAME = "product_name"
+    internal const val PRODUCT_NAME = "product_name"
     internal const val ROPSTEN_CHAIN_ID = 3
 
   }
@@ -121,16 +121,14 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
       return result
     }
 
-    val getTokenContractAddress = contractAddressProvider.getAppCoinsAddress(ROPSTEN_CHAIN_ID)
-        .toObservable()
+    val getTokenContractAddress = proxyService.getAppCoinsAddress(BuildConfig.DEBUG)
         .subscribeOn(Schedulers.io())
-    val getIabContractAddress = contractAddressProvider.getIabAddress(ROPSTEN_CHAIN_ID)
-        .toObservable()
+    val getIabContractAddress = proxyService.getIabAddress(BuildConfig.DEBUG)
         .subscribeOn(Schedulers.io())
-    val getSkuDetails = billing.getProducts(listOf(sku), type).toObservable()
+    val getSkuDetails = billing.getProducts(listOf(sku), type)
         .subscribeOn(Schedulers.io())
 
-    return Observable.zip(getTokenContractAddress,
+    return Single.zip(getTokenContractAddress,
         getIabContractAddress, getSkuDetails,
         Function3 { tokenContractAddress: String, iabContractAddress: String, skuDetails: List<Product> ->
             try {
@@ -141,7 +139,7 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
               billingMessagesMapper.mapBuyIntentError(exception)
             }
 
-        }).blockingSingle()
+        }).blockingGet()
   }
 
   override fun getPurchases(apiVersion: Int, packageName: String?, type: String?,

@@ -38,9 +38,8 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
   internal fun consumePurchase(packageName: String,
                                purchaseToken: String,
                                walletAddress: String,
-                               walletSignature: String,
-                               data: String): Single<Boolean> {
-    return api.consumePurchase(packageName, purchaseToken, walletAddress, walletSignature, data)
+                               walletSignature: String): Single<Boolean> {
+    return api.consumePurchase(packageName, purchaseToken, walletAddress, walletSignature, Consumed())
         .map { responseMapper.map(it) }
   }
 
@@ -64,8 +63,10 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
                         @Path("uid") purchaseToken: String,
                         @Query("wallet.address") walletAddress: String,
                         @Query("wallet.signature") walletSignature: String,
-                        @Body data: String): Single<Void>
+                        @Body data: Consumed): Single<Void>
 
   }
+
+  data class Consumed(val status: String = "CONSUMED")
 
 }

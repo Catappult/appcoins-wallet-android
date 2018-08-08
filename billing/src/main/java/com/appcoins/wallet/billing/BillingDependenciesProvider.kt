@@ -1,7 +1,7 @@
 package com.appcoins.wallet.billing
 
 import com.appcoins.wallet.billing.repository.RemoteRepository
-import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk
+import io.reactivex.Single
 
 interface BillingDependenciesProvider {
   fun getSupportedVersion(): Int
@@ -10,5 +10,6 @@ interface BillingDependenciesProvider {
 
   fun getWalletService(): WalletService
 
-  fun getContractAddressProvider(): AppCoinsAddressProxySdk
+  fun getProxyService(): ProxyService
+
 }

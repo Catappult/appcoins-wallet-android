@@ -5,6 +5,7 @@ import android.app.Service;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.Fragment;
 import com.appcoins.wallet.billing.BillingDependenciesProvider;
+import com.appcoins.wallet.billing.ProxyService;
 import com.appcoins.wallet.billing.WalletService;
 import com.appcoins.wallet.billing.repository.RemoteRepository;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk;
@@ -25,6 +26,7 @@ import dagger.android.HasActivityInjector;
 import dagger.android.HasServiceInjector;
 import dagger.android.support.HasSupportFragmentInjector;
 import io.fabric.sdk.android.Fabric;
+import io.reactivex.Single;
 import io.reactivex.exceptions.UndeliverableException;
 import io.reactivex.plugins.RxJavaPlugins;
 import io.realm.Realm;
@@ -48,6 +50,7 @@ public class App extends MultiDexApplication
   @Inject RemoteRepository.BdsApi bdsApi;
   @Inject WalletService walletService;
   @Inject AppCoinsAddressProxySdk contractAddressProvider;
+  @Inject ProxyService proxyService;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -120,7 +123,7 @@ public class App extends MultiDexApplication
     return walletService;
   }
 
-  @NotNull @Override public AppCoinsAddressProxySdk getContractAddressProvider() {
-    return contractAddressProvider;
+  @NotNull @Override public ProxyService getProxyService() {
+    return proxyService;
   }
 }

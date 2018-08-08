@@ -29,8 +29,8 @@ internal class BdsRepository(private val remoteRepository: RemoteRepository,
   }
 
   override fun consumePurchases(packageName: String, purchaseToken: String, walletAddress: String,
-                                walletSignature: String, data: String): Single<Boolean> {
+                                walletSignature: String): Single<Boolean> {
     return remoteRepository.consumePurchase(packageName, purchaseToken, walletAddress,
-        walletSignature, data)
+        walletSignature)
   }
 }
