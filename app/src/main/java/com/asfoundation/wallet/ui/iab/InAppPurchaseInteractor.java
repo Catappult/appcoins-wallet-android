@@ -1,14 +1,17 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
+import com.appcoins.wallet.billing.BillingFactory;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
+import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
+import com.appcoins.wallet.billing.repository.entity.Purchase;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.PaymentTransaction;
+import com.asfoundation.wallet.repository.TransactionNotFoundException;
 import com.asfoundation.wallet.ui.iab.raiden.ChannelCreation;
 import com.asfoundation.wallet.ui.iab.raiden.ChannelPayment;
 import com.asfoundation.wallet.ui.iab.raiden.ChannelService;
@@ -22,7 +25,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class InAppPurchaseInteractor {
   public static final double GAS_PRICE_MULTIPLIER = 1.25;
   private static final String TAG = InAppPurchaseInteractor.class.getSimpleName();
@@ -34,11 +36,14 @@ public class InAppPurchaseInteractor {
   private final RaidenRepository raidenRepository;
   private final ChannelService channelService;
   private final BillingMessagesMapper billingMessagesMapper;
+  private final BillingFactory billingFactory;
+  private final ExternalBillingSerializer billingSerializer;
 
   public InAppPurchaseInteractor(InAppPurchaseService inAppPurchaseService,
       FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
       BigDecimal paymentGasLimit, TransferParser parser, RaidenRepository raidenRepository,
-      ChannelService channelService, BillingMessagesMapper billingMessagesMapper) {
+      ChannelService channelService, BillingMessagesMapper billingMessagesMapper,
+      BillingFactory billingFactory, ExternalBillingSerializer billingSerializer) {
     this.inAppPurchaseService = inAppPurchaseService;
     this.defaultWalletInteract = defaultWalletInteract;
     this.gasSettingsInteract = gasSettingsInteract;
@@ -47,6 +52,8 @@ public class InAppPurchaseInteractor {
     this.raidenRepository = raidenRepository;
     this.channelService = channelService;
     this.billingMessagesMapper = billingMessagesMapper;
+    this.billingFactory = billingFactory;
+    this.billingSerializer = billingSerializer;
   }
 
   public Single<TransactionBuilder> parseTransaction(String uri) {
@@ -98,7 +105,6 @@ public class InAppPurchaseInteractor {
   }
 
   private Payment mapToPayment(ChannelCreation creation) {
-    Log.d(TAG, "mapToPayment() called with: creation = [" + creation.getStatus() + "]");
     switch (creation.getStatus()) {
       case PENDING:
         return new Payment(creation.getKey(), Payment.Status.APPROVING);
@@ -239,6 +245,22 @@ public class InAppPurchaseInteractor {
 
   public BillingMessagesMapper getBillingMessagesMapper() {
     return billingMessagesMapper;
+  }
+
+  public ExternalBillingSerializer getBillingSerializer() {
+    return billingSerializer;
+  }
+
+  public Single<Purchase> getPurchase(String packageName, String productName) {
+    return Single.fromCallable(() -> billingFactory.getBilling(packageName))
+        .flatMap(billing -> billing.getSkuTransactionStatus(productName, Schedulers.io())
+            .flatMap(transactionStatus -> {
+              if (transactionStatus.equalsIgnoreCase("COMPLETED")) {
+                return billing.getSkuPurchase(productName, Schedulers.io());
+              } else {
+                return Single.error(new TransactionNotFoundException());
+              }
+            }));
   }
 
   public enum TransactionType {

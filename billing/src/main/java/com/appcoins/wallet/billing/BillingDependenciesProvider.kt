@@ -9,6 +9,7 @@ interface BillingDependenciesProvider {
 
   fun getWalletService(): WalletService
 
-  fun getProxyService(): ProxyService
+  fun getBillingFactory(): BillingFactory
 
+  fun getProxyService(): ProxyService
 }

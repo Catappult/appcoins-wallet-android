@@ -115,7 +115,8 @@ public class IabActivity extends BaseActivity implements IabView {
     createChannelGroup = findViewById(R.id.create_channel_group);
     walletAddressTextView = findViewById(R.id.wallet_address);
     presenter = new IabPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
-        new CompositeDisposable(), inAppPurchaseInteractor.getBillingMessagesMapper());
+        new CompositeDisposable(), inAppPurchaseInteractor.getBillingMessagesMapper(),
+        inAppPurchaseInteractor.getBillingSerializer());
     adapter =
         new ArrayAdapter<>(getApplicationContext(), R.layout.iab_raiden_dropdown_item, R.id.item,
             new ArrayList<>());
@@ -170,10 +171,8 @@ public class IabActivity extends BaseActivity implements IabView {
     return RxView.clicks(okErrorButton);
   }
 
-  @Override public void finish(String hash) {
-    Intent intent = new Intent();
-    intent.putExtra(TRANSACTION_HASH, hash);
-    setResult(Activity.RESULT_OK, intent);
+  @Override public void finish(Bundle bundle) {
+    setResult(Activity.RESULT_OK, new Intent().putExtras(bundle));
     finish();
   }
 

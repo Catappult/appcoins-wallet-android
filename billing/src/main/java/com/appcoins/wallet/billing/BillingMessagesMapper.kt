@@ -1,7 +1,9 @@
 package com.appcoins.wallet.billing
 
 import android.os.Bundle
+import android.provider.Telephony.BaseMmsColumns.TRANSACTION_ID
 import com.appcoins.wallet.billing.exceptions.BillingException
+import com.appcoins.wallet.billing.repository.entity.Purchase
 import java.io.IOException
 
 class BillingMessagesMapper {
@@ -60,5 +62,13 @@ class BillingMessagesMapper {
     val bundle = Bundle()
     bundle.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_USER_CANCELED)
     return bundle
+  }
+
+  fun mapPurchase(signature: String, signatureData: String): Bundle {
+    val intent = Bundle()
+    intent.putString(AppcoinsBillingBinder.INAPP_PURCHASE_DATA, signatureData)
+    intent.putString(AppcoinsBillingBinder.INAPP_DATA_SIGNATURE, signature)
+    intent.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
+    return intent
   }
 }

@@ -37,7 +37,7 @@ class BillingIntentBuilder(val context: Context) {
 
     val intent = Intent(Intent.ACTION_VIEW)
     val data = Uri.parse(buildUriString(tokenContractAddress, iabContractAddress, value,
-        PayloadHelper.getAddress(payload), sku.productId, AppcoinsBillingBinder.ROPSTEN_CHAIN_ID))
+        PayloadHelper.getAddress(payload), sku.productId, BuildConfig.NETWORK_ID))
     intent.data = data
 
     intent.putExtra(AppcoinsBillingBinder.PRODUCT_NAME, sku.title)

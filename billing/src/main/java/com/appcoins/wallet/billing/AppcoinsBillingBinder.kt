@@ -41,6 +41,9 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     internal const val INAPP_PURCHASE_ITEM_LIST = "INAPP_PURCHASE_ITEM_LIST"
     internal const val INAPP_PURCHASE_DATA_LIST = "INAPP_PURCHASE_DATA_LIST"
     internal const val INAPP_DATA_SIGNATURE_LIST = "INAPP_DATA_SIGNATURE_LIST"
+    internal const val INAPP_PURCHASE_DATA = "INAPP_PURCHASE_DATA"
+    internal const val INAPP_DATA_SIGNATURE = "INAPP_DATA_SIGNATURE"
+    internal const val INAPP_CONTINUATION_TOKEN = "INAPP_CONTINUATION_TOKEN"
 
     internal const val ITEM_TYPE_INAPP = "inapp"
     internal const val ITEM_TYPE_SUBS = "subs"
@@ -49,8 +52,6 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     internal const val BUY_INTENT = "BUY_INTENT"
 
     internal const val PRODUCT_NAME = "product_name"
-    internal const val ROPSTEN_CHAIN_ID = 3
-
   }
 
   private lateinit var billing: Billing
@@ -156,7 +157,7 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     if (type == ITEM_TYPE_INAPP) {
       try {
         val purchases =
-            billing.getPurchases(BillingSupportedType.INAPP)
+            billing.getPurchases(BillingSupportedType.INAPP, Schedulers.io())
                 .blockingGet()
 
         purchases.forEach { purchase: Purchase ->
@@ -182,11 +183,10 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
       return RESULT_DEVELOPER_ERROR
     }
 
-    try {
-      return billing.consumePurchases(purchaseToken).map { RESULT_OK }.blockingGet()
+    return try {
+      billing.consumePurchases(purchaseToken, Schedulers.io()).map { RESULT_OK }.blockingGet()
     } catch (exception: Exception) {
-      return billingMessagesMapper.mapConsumePurchasesError(exception)
+      billingMessagesMapper.mapConsumePurchasesError(exception)
     }
-
   }
 }

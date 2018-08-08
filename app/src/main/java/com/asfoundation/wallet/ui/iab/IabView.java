@@ -17,7 +17,7 @@ public interface IabView {
 
   Observable<Object> getOkErrorClick();
 
-  void finish(String hash);
+  void finish(Bundle data);
 
   void showLoading();
 

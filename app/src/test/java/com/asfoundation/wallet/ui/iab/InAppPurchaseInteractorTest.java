@@ -1,6 +1,9 @@
 package com.asfoundation.wallet.ui.iab;
 
+import com.appcoins.wallet.billing.Billing;
+import com.appcoins.wallet.billing.BillingFactory;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
+import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.Token;
@@ -37,6 +40,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -70,6 +74,7 @@ public class InAppPurchaseInteractorTest {
   @Mock AppInfoProvider appInfoProvider;
   @Mock ProofOfAttentionService proofOfAttentionService;
   @Mock RaidenRepository repository;
+  @Mock BillingFactory billingFactory;
   private InAppPurchaseInteractor inAppPurchaseInteractor;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
@@ -131,7 +136,8 @@ public class InAppPurchaseInteractorTest {
             gasSettingsInteract, BigDecimal.ONE,
             new TransferParser(defaultWalletInteract, tokenRepository), repository,
             new ChannelService(null, new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-                new MemoryCache<>(BehaviorSubject.create(), new HashMap<>())), new BillingMessagesMapper());
+                new MemoryCache<>(BehaviorSubject.create(), new HashMap<>())),
+            new BillingMessagesMapper(), billingFactory, new ExternalBillingSerializer());
   }
 
   @Test public void sendTransaction() {

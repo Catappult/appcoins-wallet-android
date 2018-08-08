@@ -5,6 +5,7 @@ import android.app.Service;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.Fragment;
 import com.appcoins.wallet.billing.BillingDependenciesProvider;
+import com.appcoins.wallet.billing.BillingFactory;
 import com.appcoins.wallet.billing.BillingPaymentProofSubmission;
 import com.appcoins.wallet.billing.ProxyService;
 import com.appcoins.wallet.billing.WalletService;
@@ -51,8 +52,9 @@ public class App extends MultiDexApplication
   @Inject RemoteRepository.BdsApi bdsApi;
   @Inject WalletService walletService;
   @Inject AppCoinsAddressProxySdk contractAddressProvider;
-  @Inject ProxyService proxyService;
   @Inject InAppPurchaseProofSource inAppPurchaseProofSource;
+  @Inject BillingFactory billingFactory;
+  @Inject ProxyService proxyService;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -133,5 +135,9 @@ public class App extends MultiDexApplication
 
   @NotNull @Override public ProxyService getProxyService() {
     return proxyService;
+  }
+
+  @NotNull @Override public BillingFactory getBillingFactory() {
+    return billingFactory;
   }
 }
