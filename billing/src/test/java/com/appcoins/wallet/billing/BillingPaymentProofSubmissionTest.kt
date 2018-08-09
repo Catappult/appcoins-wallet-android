@@ -38,6 +38,29 @@ class BillingPaymentProofSubmissionTest {
   fun setUp() {
     scheduler = TestScheduler()
     billing = BillingPaymentProofSubmission.build(object : BillingDependenciesProvider {
+      override fun getBillingFactory(): BillingFactory {
+        return object : BillingFactory {
+          override fun getBilling(merchantName: String): Billing {
+            TODO(
+                "not implemented") //To change body of created functions use File | Settings | File Templates.
+          }
+        }
+      }
+
+      override fun getProxyService(): ProxyService {
+        return object : ProxyService {
+          override fun getAppCoinsAddress(debug: Boolean): Single<String> {
+            TODO(
+                "not implemented") //To change body of created functions use File | Settings | File Templates.
+          }
+
+          override fun getIabAddress(debug: Boolean): Single<String> {
+            TODO(
+                "not implemented") //To change body of created functions use File | Settings | File Templates.
+          }
+        }
+      }
+
       override fun getSupportedVersion(): Int = 3
       override fun getBdsApi(): RemoteRepository.BdsApi = api
       override fun getWalletService(): WalletService = object : WalletService {
