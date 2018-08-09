@@ -54,7 +54,7 @@ class BdsBilling(private val merchantName: String,
 
   override fun consumePurchases(purchaseToken: String, scheduler: Scheduler): Single<Boolean> {
     return walletService.getWalletAddress().flatMap { address ->
-      walletService.signContent(address).flatMap { signedContent ->
+      walletService.signContent(address).observeOn(scheduler).flatMap { signedContent ->
         repository.consumePurchases(merchantName, purchaseToken, address, signedContent)
       }
     }.onErrorReturn { false }
