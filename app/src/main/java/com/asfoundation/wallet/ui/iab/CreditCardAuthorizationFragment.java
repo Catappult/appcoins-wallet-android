@@ -24,7 +24,6 @@ import com.adyen.core.utils.StringUtils;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.AdyenBilling;
 import com.asfoundation.wallet.billing.payment.Adyen;
-import com.asfoundation.wallet.billing.view.card.CreditCardFragmentNavigator;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.util.KeyboardUtils;
 import com.asfoundation.wallet.view.rx.RxAlertDialog;

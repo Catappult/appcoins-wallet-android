@@ -1,7 +1,6 @@
-package com.asfoundation.wallet.billing.view.card;
+package com.asfoundation.wallet.ui.iab;
 
 import android.support.v4.app.FragmentManager;
-import com.asfoundation.wallet.ui.iab.IabView;
 
 public class CreditCardFragmentNavigator implements CreditCardNavigator {
 

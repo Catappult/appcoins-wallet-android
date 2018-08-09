@@ -2,6 +2,7 @@ package com.asfoundation.wallet.di;
 
 import android.content.Context;
 import com.appcoins.wallet.billing.repository.GatewaysRepository;
+import com.asfoundation.wallet.billing.BDSTransactionService;
 import com.asfoundation.wallet.billing.TransactionService;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.poa.BlockchainErrorMapper;
@@ -29,7 +30,6 @@ import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenExplorerClientType;
 import com.asfoundation.wallet.service.TransactionsNetworkClient;
 import com.asfoundation.wallet.service.TransactionsNetworkClientType;
-import com.asfoundation.wallet.ws.BDSTransactionService;
 import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;

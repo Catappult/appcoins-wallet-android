@@ -3,7 +3,6 @@ package com.asfoundation.wallet.ui.iab;
 import com.adyen.core.models.PaymentMethod;
 import com.asfoundation.wallet.billing.AdyenBilling;
 import com.asfoundation.wallet.billing.payment.Adyen;
-import com.asfoundation.wallet.billing.view.card.CreditCardNavigator;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import hu.akarnokd.rxjava.interop.RxJavaInterop;
 import io.reactivex.Scheduler;

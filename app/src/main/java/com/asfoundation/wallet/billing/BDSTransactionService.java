@@ -1,8 +1,7 @@
-package com.asfoundation.wallet.ws;
+package com.asfoundation.wallet.billing;
 
 import com.appcoins.wallet.billing.repository.GatewaysRepository;
 import com.appcoins.wallet.billing.repository.entity.TransactionStatus;
-import com.asfoundation.wallet.billing.TransactionService;
 import hu.akarnokd.rxjava.interop.RxJavaInterop;
 import rx.Completable;
 import rx.Single;

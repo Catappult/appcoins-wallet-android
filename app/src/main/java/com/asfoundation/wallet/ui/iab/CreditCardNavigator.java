@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.billing.view.card;
+package com.asfoundation.wallet.ui.iab;
 
 public interface CreditCardNavigator {
 
