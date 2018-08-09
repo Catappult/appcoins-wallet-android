@@ -128,6 +128,8 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
     rememberCardCheckBox =
         view.findViewById(R.id.fragment_credit_card_authorization_remember_card_check_box);
 
+    buyButton.setVisibility(View.GONE);
+
     cardForm.setOnCardFormValidListener(valid -> {
       if (valid) {
         if (getView() != null) {
