@@ -30,7 +30,7 @@ import static org.mockito.Mockito.when;
   public static final String PACKAGE_NAME = "package_name";
   public static final String PRODUCT_NAME = "product_name";
   @Mock SendTransactionInteract sendTransactionInteract;
-  @Mock PendingTransactionService pendingTransactionService;
+  @Mock TrackTransactionService trackTransactionService;
 
   @Mock TransactionSender transactionSender;
   private TestScheduler scheduler;
@@ -45,12 +45,12 @@ import static org.mockito.Mockito.when;
     scheduler = new TestScheduler();
     transactionService = new WatchedTransactionService(transactionSender,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new ErrorMapper(),
-        scheduler, pendingTransactionService);
+        scheduler, trackTransactionService);
   }
 
   @Test public void buy() {
     PublishSubject<PendingTransaction> pendingTransactionState = PublishSubject.create();
-    when(pendingTransactionService.checkTransactionState(anyString())).thenReturn(
+    when(trackTransactionService.checkTransactionState(anyString())).thenReturn(
         pendingTransactionState);
 
     BuyService buyService = new BuyService(transactionService);
@@ -83,7 +83,7 @@ import static org.mockito.Mockito.when;
     Observable<PendingTransaction> pendingTransactionState =
         Observable.just(new PendingTransaction("hash", true),
             new PendingTransaction("hash", false));
-    when(pendingTransactionService.checkTransactionState("hash")).thenReturn(
+    when(trackTransactionService.checkTransactionState("hash")).thenReturn(
         pendingTransactionState);
 
     BuyService buyService = new BuyService(transactionService);

@@ -57,6 +57,7 @@ import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.PreferenceRepositoryType;
 import com.asfoundation.wallet.repository.SharedPreferenceRepository;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
+import com.asfoundation.wallet.repository.TrackTransactionService;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
 import com.asfoundation.wallet.repository.TrustPasswordStore;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
@@ -178,7 +179,8 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   }
 
   @Provides BuyService provideBuyService(SendTransactionInteract sendTransactionInteract,
-      ErrorMapper errorMapper, PendingTransactionService pendingTransactionService) {
+      ErrorMapper errorMapper,
+      @Named("wait_pending_transaction") TrackTransactionService pendingTransactionService) {
     return new BuyService(new WatchedTransactionService(sendTransactionInteract::buy,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
         Schedulers.io(), pendingTransactionService));
@@ -443,11 +445,11 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
       private static final int NETWORK_ID_MAIN = 1;
 
       @NotNull @Override public Single<String> getAppCoinsAddress(boolean debug) {
-        return proxySdk.getAppCoinsAddress(debug? NETWORK_ID_ROPSTEN : NETWORK_ID_MAIN);
+        return proxySdk.getAppCoinsAddress(debug ? NETWORK_ID_ROPSTEN : NETWORK_ID_MAIN);
       }
 
       @NotNull @Override public Single<String> getIabAddress(boolean debug) {
-        return proxySdk.getIabAddress(debug? NETWORK_ID_ROPSTEN : NETWORK_ID_MAIN);
+        return proxySdk.getIabAddress(debug ? NETWORK_ID_ROPSTEN : NETWORK_ID_MAIN);
       }
     };
   }

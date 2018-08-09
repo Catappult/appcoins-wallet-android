@@ -13,7 +13,7 @@ class WatchedTransactionService(private val transactionSender: TransactionSender
                                 private val cache: Repository<String, Transaction>,
                                 private val errorMapper: ErrorMapper,
                                 private val scheduler: Scheduler,
-                                private val transactionTracker: PendingTransactionService) {
+                                private val transactionTracker: TrackTransactionService) {
 
   fun start() {
     cache.all
