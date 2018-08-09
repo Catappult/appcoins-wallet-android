@@ -138,13 +138,11 @@ public class TransactionDetailActivity extends BaseActivity {
         break;
       case MICRO_IAB:
         to = transaction.getTo();
-        showCloseButton = true;
       case IAB:
         typeStr = R.string.transaction_type_iab;
         typeIcon = R.drawable.ic_transaction_iab;
         break;
       case OPEN_CHANNEL:
-        showCloseButton = true;
         typeStr = R.string.transaction_type_miuraiden;
         typeIcon = R.drawable.ic_transaction_miu;
         id = getString(R.string.miuraiden_trans_details_open);
@@ -153,7 +151,6 @@ public class TransactionDetailActivity extends BaseActivity {
                 getString(R.string.ellipsize));
         break;
       case TOP_UP_CHANNEL:
-        showCloseButton = true;
         typeStr = R.string.transaction_type_miuraiden;
         typeIcon = R.drawable.ic_transaction_miu;
         id = getString(R.string.miuraiden_trans_details_topup);

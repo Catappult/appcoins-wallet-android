@@ -50,10 +50,6 @@ public class IabPresenter {
     showTransactionState(uriString);
 
     handleDontShowMicroRaidenInfo();
-
-    showChannelAmount();
-
-    showMicroRaidenInfo();
   }
 
   private void showChannelAmount() {
@@ -127,17 +123,6 @@ public class IabPresenter {
     disposables.add(inAppPurchaseInteractor.getWalletAddress()
         .observeOn(viewScheduler)
         .subscribe(view::showWallet, Throwable::printStackTrace));
-
-    disposables.add(inAppPurchaseInteractor.getWalletAddress()
-        .flatMap(wallet -> inAppPurchaseInteractor.hasChannel())
-        .observeOn(viewScheduler)
-        .subscribe(hasChannel -> {
-          if (hasChannel) {
-            view.showChannelAsDefaultPayment();
-          } else {
-            view.showDefaultAsDefaultPayment();
-          }
-        }, Throwable::printStackTrace));
   }
 
   private void showBuy() {
