@@ -87,7 +87,6 @@ import com.asfoundation.wallet.ui.iab.raiden.RaidenFactory;
 import com.asfoundation.wallet.ui.iab.raiden.RaidenRepository;
 import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.TransferParser;
-import com.asfoundation.wallet.ws.BDSTransactionService;
 import com.bds.microraidenj.MicroRaidenBDS;
 import com.google.gson.Gson;
 import com.jakewharton.rxrelay.PublishRelay;
@@ -440,10 +439,6 @@ import static com.asfoundation.wallet.service.TokenToFiatService.TOKEN_TO_FIAT_E
   @Singleton @Provides Adyen provideAdyen(Context context) {
     return new Adyen(context, Charset.forName("UTF-8"), rx.schedulers.Schedulers.io(),
         PublishRelay.create());
-  }
-
-  @Singleton @Provides TransactionService provideTransactionService() {
-    return new BDSTransactionService();
   }
 
   @Singleton @Provides CryptoBillingSigner provideCryptoBillingSigner() {

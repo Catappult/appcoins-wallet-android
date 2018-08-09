@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.di;
 
 import android.content.Context;
+import com.appcoins.wallet.billing.repository.GatewaysRepository;
+import com.asfoundation.wallet.billing.TransactionService;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.poa.BlockchainErrorMapper;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
@@ -27,6 +29,7 @@ import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenExplorerClientType;
 import com.asfoundation.wallet.service.TransactionsNetworkClient;
 import com.asfoundation.wallet.service.TransactionsNetworkClientType;
+import com.asfoundation.wallet.ws.BDSTransactionService;
 import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
@@ -34,6 +37,9 @@ import io.reactivex.schedulers.Schedulers;
 import java.io.File;
 import javax.inject.Singleton;
 import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 @Module public class RepositoriesModule {
 
@@ -99,5 +105,25 @@ import okhttp3.OkHttpClient;
 
   @Singleton @Provides TokenLocalSource provideRealmTokenSource(RealmManager realmManager) {
     return new TokensRealmSource(realmManager);
+  }
+
+  @Singleton @Provides GatewaysRepository.BdsGatewaysApi provideBdsGatewaysApi(
+      OkHttpClient client) {
+    return new Retrofit.Builder().baseUrl(GatewaysRepository.BASE_HOST)
+        .client(client)
+        .addConverterFactory(JacksonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(GatewaysRepository.BdsGatewaysApi.class);
+  }
+
+  @Singleton @Provides GatewaysRepository provideGatewaysRepository(
+      GatewaysRepository.BdsGatewaysApi bdsGatewaysApi) {
+    return new GatewaysRepository(bdsGatewaysApi);
+  }
+
+  @Singleton @Provides TransactionService provideTransactionService(
+      GatewaysRepository gatewaysRepository) {
+    return new BDSTransactionService(gatewaysRepository);
   }
 }

@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ws.transactions.authorization;
+package com.appcoins.wallet.billing.repository.entity.authorization;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

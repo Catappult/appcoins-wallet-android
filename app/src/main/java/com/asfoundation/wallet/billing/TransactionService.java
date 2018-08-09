@@ -5,7 +5,8 @@ import rx.Single;
 
 public interface TransactionService {
 
-  Single<String> createTransaction(String address, String signature, String token);
+  Single<String> createTransaction(String address, String signature, String token,
+      String packageName);
 
   Single<String> getSession(String transactionUid);
 

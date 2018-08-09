@@ -18,6 +18,7 @@ public class AdyenBillingImpl implements AdyenBilling {
   private final AtomicBoolean processingPayment;
   private final Adyen adyen;
   private AdyenAuthorization adyenAuthorization;
+  private String packageName;
   private String transactionUid;
 
   public AdyenBillingImpl(TransactionService transactionService,
@@ -68,8 +69,11 @@ public class AdyenBillingImpl implements AdyenBilling {
     // TODO: 31-07-2018 neuro recheck
     if (!processingPayment.getAndSet(true)) {
       this.adyenAuthorization = adyen.createToken()
+          .doOnSuccess(s -> {
+            this.packageName = "com.appcoins.trivialdrivesample.test";
+          })
           .flatMap(token -> transactionService.createTransaction(cryptoBillingSigner.getAddress(),
-              cryptoBillingSigner.getSignature(), token))
+              cryptoBillingSigner.getSignature(), token, packageName))
           .doOnSuccess(transactionUid -> this.transactionUid = transactionUid)
           .flatMap(__ -> transactionService.getSession(transactionUid))
           .map(this::newDefaultAdyenAuthorization)

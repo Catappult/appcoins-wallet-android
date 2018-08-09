@@ -50,6 +50,7 @@ project.ext {
   mockitoCoreVersion = "2.15.0"
   roomVersion = "1.1.0"
   appcoinsSdkVersion = "0.3.7a"
+  jacksonVersion = "2.9.6"
 }
 
 task clean(type: Delete) {
