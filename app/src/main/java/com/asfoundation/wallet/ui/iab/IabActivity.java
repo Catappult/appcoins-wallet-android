@@ -18,6 +18,7 @@ import javax.inject.Inject;
  */
 
 public class IabActivity extends BaseActivity implements IabView {
+  public static final String SKU_DETAILS = "sku_details";
   public static final String APP_PACKAGE = "app_package";
   public static final String PRODUCT_NAME = "product_name";
   public static final String TRANSACTION_HASH = "transaction_hash";
@@ -28,6 +29,12 @@ public class IabActivity extends BaseActivity implements IabView {
   private IabPresenter presenter;
   private Bundle savedInstanceState;
   private Bundle skuDetails;
+
+  @Override protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+
+    outState.putBundle(SKU_DETAILS, skuDetails);
+  }
 
   public static Intent newIntent(Activity activity, Intent previousIntent) {
     Intent intent = new Intent(activity, IabActivity.class);
@@ -47,6 +54,12 @@ public class IabActivity extends BaseActivity implements IabView {
     isBackEnable = true;
     presenter = new IabPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
         new CompositeDisposable());
+
+    if (savedInstanceState != null) {
+      if (savedInstanceState.containsKey(SKU_DETAILS)) {
+        skuDetails = savedInstanceState.getBundle(SKU_DETAILS);
+      }
+    }
   }
 
   @Override public void onBackPressed() {
