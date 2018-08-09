@@ -299,7 +299,7 @@
   <string name="transaction_category_label">Category</string>
   <string name="transaction_details_label">Details</string>
   <string name="transaction_to_label">To</string>
-  <string name="dialog_express_checkout_top_up_buy">Top up &amp; buy</string>
+  <string name="dialog_express_checkout_buy">Buy</string>
   <string name="dialog_credit_card_remember">Remember Card</string>
 
 
