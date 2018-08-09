@@ -30,6 +30,7 @@ import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenExplorerClientType;
 import com.asfoundation.wallet.service.TransactionsNetworkClient;
 import com.asfoundation.wallet.service.TransactionsNetworkClientType;
+import com.asfoundation.wallet.ui.iab.raiden.NonceObtainer;
 import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
@@ -83,9 +84,11 @@ import okhttp3.OkHttpClient;
       EthereumNetworkRepositoryType networkRepository,
       AccountKeystoreService accountKeystoreService,
       TransactionsNetworkClientType blockExplorerClient, TransactionLocalSource inDiskCache,
-      DefaultTokenProvider defaultTokenProvider, NonceGetter nonceGetter) {
+      DefaultTokenProvider defaultTokenProvider, NonceGetter nonceGetter,
+      NonceObtainer nonceObtainer) {
     return new TransactionRepository(networkRepository, accountKeystoreService, inDiskCache,
-        blockExplorerClient, defaultTokenProvider, nonceGetter, new BlockchainErrorMapper());
+        blockExplorerClient, defaultTokenProvider, nonceGetter, new BlockchainErrorMapper(),
+        nonceObtainer);
   }
 
   @Singleton @Provides TransactionLocalSource provideTransactionInDiskCache(

@@ -31,6 +31,12 @@ public class BuyService {
         .map(this::mapTransaction);
   }
 
+  private BuyTransaction mapTransaction(Transaction transaction) {
+    return new BuyTransaction(transaction.getKey(), transaction.getTransactionBuilder(),
+        mapState(transaction.getStatus()), transaction.getTransactionHash(),
+        transaction.getNonce());
+  }
+
   private Status mapState(Transaction.Status status) {
     Status toReturn;
     switch (status) {
@@ -77,12 +83,6 @@ public class BuyService {
         .flatMapSingle(entries -> Observable.fromIterable(entries)
             .map(this::mapTransaction)
             .toList());
-  }
-
-  private BuyTransaction mapTransaction(Transaction transaction) {
-    return new BuyTransaction(transaction.getKey(), transaction.getTransactionBuilder(),
-        mapState(transaction.getStatus()), transaction.getTransactionHash(),
-        transaction.getNonce());
   }
 
   public Completable remove(String key) {

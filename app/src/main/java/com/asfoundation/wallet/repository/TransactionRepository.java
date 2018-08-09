@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.repository;
 
+import com.asf.microraidenj.type.Address;
+import com.asf.microraidenj.type.ByteArray;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -8,6 +10,7 @@ import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.poa.BlockchainErrorMapper;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.TransactionsNetworkClientType;
+import com.asfoundation.wallet.ui.iab.raiden.NonceObtainer;
 import ethereumj.Transaction;
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
@@ -32,11 +35,12 @@ public class TransactionRepository implements TransactionRepositoryType {
   private final DefaultTokenProvider defaultTokenProvider;
   private final NonceGetter nonceGetter;
   private final BlockchainErrorMapper errorMapper;
+  private final NonceObtainer nonceObtainer;
 
   public TransactionRepository(EthereumNetworkRepositoryType networkRepository,
       AccountKeystoreService accountKeystoreService, TransactionLocalSource inDiskCache,
       TransactionsNetworkClientType blockExplorerClient, DefaultTokenProvider defaultTokenProvider,
-      NonceGetter nonceGetter, BlockchainErrorMapper errorMapper) {
+      NonceGetter nonceGetter, BlockchainErrorMapper errorMapper, NonceObtainer nonceObtainer) {
     this.networkRepository = networkRepository;
     this.accountKeystoreService = accountKeystoreService;
     this.blockExplorerClient = blockExplorerClient;
@@ -44,6 +48,7 @@ public class TransactionRepository implements TransactionRepositoryType {
     this.defaultTokenProvider = defaultTokenProvider;
     this.nonceGetter = nonceGetter;
     this.errorMapper = errorMapper;
+    this.nonceObtainer = nonceObtainer;
   }
 
   @Override public Observable<RawTransaction[]> fetchTransaction(Wallet wallet) {
@@ -98,21 +103,26 @@ public class TransactionRepository implements TransactionRepositoryType {
 
   private Single<String> createTransactionAndSend(TransactionBuilder transactionBuilder,
       String password, byte[] data, String toAddress, BigDecimal amount, BigInteger nonce) {
-    final Web3j web3j = Web3jFactory.build(new HttpService(networkRepository.getDefaultNetwork().rpcServerUrl));
-
-    return createRawTransaction(transactionBuilder, password, data, toAddress, amount,
-        nonce).flatMap(signedMessage -> Single.fromCallable(() -> {
-      EthSendTransaction raw = web3j.ethSendRawTransaction(Numeric.toHexString(signedMessage))
-          .send();
-      if (raw.hasError()) {
-        throw new TransactionException(raw.getError()
-            .getCode(), raw.getError()
-            .getMessage(), raw.getError()
-            .getData());
-      }
-      return raw.getTransactionHash();
-    })
-        .subscribeOn(Schedulers.io()))
+    final Web3j web3j =
+        Web3jFactory.build(new HttpService(networkRepository.getDefaultNetwork().rpcServerUrl));
+    return Single.fromCallable(
+        () -> nonceObtainer.getNonce(new Address(ByteArray.from(transactionBuilder.fromAddress()))))
+        .flatMap(nonceValue -> createRawTransaction(transactionBuilder, password, data, toAddress,
+            amount, nonceObtainer.getNonce(
+                new Address(ByteArray.from(transactionBuilder.fromAddress())))).flatMap(
+            signedMessage -> Single.fromCallable(() -> {
+              EthSendTransaction raw =
+                  web3j.ethSendRawTransaction(Numeric.toHexString(signedMessage))
+                      .send();
+              if (raw.hasError()) {
+                throw new TransactionException(raw.getError()
+                    .getCode(), raw.getError()
+                    .getMessage(), raw.getError()
+                    .getData());
+              }
+              return raw.getTransactionHash();
+            })
+                .subscribeOn(Schedulers.io())))
         .retryWhen(throwableFlowable -> throwableFlowable.flatMap(this::getPublisher));
   }
 
@@ -136,7 +146,8 @@ public class TransactionRepository implements TransactionRepositoryType {
                     + requestedNetwork));
           }
           return accountKeystoreService.signTransaction(transactionBuilder.fromAddress(), password,
-              toAddress, amount, transactionBuilder.gasSettings().gasPrice, transactionBuilder.gasSettings().gasLimit, nonce.longValue(), data,
+              toAddress, amount, transactionBuilder.gasSettings().gasPrice,
+              transactionBuilder.gasSettings().gasLimit, nonce.longValue(), data,
               networkRepository.getDefaultNetwork().chainId);
         });
   }

@@ -50,6 +50,7 @@ class WatchedTransactionService(private val transactionSender: TransactionSender
                           transaction.nonce, hash))))
         })
         .doOnError { throwable ->
+          throwable.printStackTrace()
           cache.save(transaction.key,
               Transaction(transaction.key, enumValueOf(errorMapper.map(throwable).name),
                   transaction.transactionBuilder, transaction.nonce, null))

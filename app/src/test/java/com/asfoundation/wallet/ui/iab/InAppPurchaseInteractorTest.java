@@ -120,15 +120,20 @@ public class InAppPurchaseInteractorTest {
     when(transactionSender.send(any(TransactionBuilder.class), any(BigInteger.class))).thenReturn(
         Single.just(BUY_HASH));
 
-    WatchedTransactionService transactionService = new WatchedTransactionService(transactionSender,
-        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new ErrorMapper(),
-        scheduler, pendingTransactionService);
+    WatchedTransactionService buyTransactionService =
+        new WatchedTransactionService(transactionSender,
+            new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
+            new ErrorMapper(), scheduler, pendingTransactionService);
+
+    WatchedTransactionService approveTransactionService =
+        new WatchedTransactionService(transactionSender,
+            new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
+            new ErrorMapper(), scheduler, pendingTransactionService);
 
     inAppPurchaseService =
         new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-            new ApproveService(sendTransactionInteract,
-                new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new ErrorMapper(),
-                scheduler), new BuyService(transactionService), nonceGetter, balanceService);
+            new ApproveService(approveTransactionService), new BuyService(buyTransactionService),
+            nonceGetter, balanceService);
 
     proofPublishSubject = PublishSubject.create();
     when(proofOfAttentionService.get()).thenReturn(proofPublishSubject);
@@ -174,6 +179,8 @@ public class InAppPurchaseInteractorTest {
     scheduler.triggerActions();
     pendingApproveState.onNext(pendingTransaction1);
     scheduler.triggerActions();
+    pendingApproveState.onComplete();
+    scheduler.triggerActions();
     pendingBuyState.onNext(pendingTransaction2);
     scheduler.triggerActions();
     pendingBuyState.onNext(pendingTransaction3);
@@ -186,31 +193,24 @@ public class InAppPurchaseInteractorTest {
     List<Payment> values = testObserver.assertNoErrors()
         .values();
     int index = 0;
-    Assert.assertTrue(values.size() == 8);
-    Assert.assertTrue(values.get(index++)
-        .getStatus()
-        .equals(Payment.Status.APPROVING));
-    Assert.assertTrue(values.get(index++)
-        .getStatus()
-        .equals(Payment.Status.APPROVING));
-    Assert.assertTrue(values.get(index++)
-        .getStatus()
-        .equals(Payment.Status.APPROVING));
-    Assert.assertTrue(values.get(index++)
-        .getStatus()
-        .equals(Payment.Status.APPROVING));
-    Assert.assertTrue(values.get(index++)
-        .getStatus()
-        .equals(Payment.Status.BUYING));
-    Assert.assertTrue(values.get(index++)
-        .getStatus()
-        .equals(Payment.Status.BUYING));
-    Assert.assertTrue(values.get(index++)
-        .getStatus()
-        .equals(Payment.Status.BUYING));
-    Assert.assertTrue(values.get(index++)
-        .getStatus()
-        .equals(Payment.Status.COMPLETED));
+
+    Assert.assertEquals(8, values.size());
+    Assert.assertEquals(Payment.Status.APPROVING, values.get(index++)
+        .getStatus());
+    Assert.assertEquals(Payment.Status.APPROVING, values.get(index++)
+        .getStatus());
+    Assert.assertEquals(Payment.Status.APPROVING, values.get(index++)
+        .getStatus());
+    Assert.assertEquals(Payment.Status.APPROVING, values.get(index++)
+        .getStatus());
+    Assert.assertEquals(Payment.Status.BUYING, values.get(index++)
+        .getStatus());
+    Assert.assertEquals(Payment.Status.BUYING, values.get(index++)
+        .getStatus());
+    Assert.assertEquals(Payment.Status.BUYING, values.get(index++)
+        .getStatus());
+    Assert.assertEquals(Payment.Status.COMPLETED, values.get(index++)
+        .getStatus());
   }
 
   @Test public void sendTransactionNoEtherFunds() {

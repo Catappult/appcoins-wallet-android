@@ -173,9 +173,11 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   }
 
   @Provides ApproveService provideApproveService(SendTransactionInteract sendTransactionInteract,
-      ErrorMapper errorMapper) {
-    return new ApproveService(sendTransactionInteract,
-        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), errorMapper, Schedulers.io());
+      ErrorMapper errorMapper,
+      @Named("no_wait_transaction") TrackTransactionService pendingTransactionService) {
+    return new ApproveService(new WatchedTransactionService(sendTransactionInteract::approve,
+        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
+        Schedulers.io(), pendingTransactionService));
   }
 
   @Provides BuyService provideBuyService(SendTransactionInteract sendTransactionInteract,

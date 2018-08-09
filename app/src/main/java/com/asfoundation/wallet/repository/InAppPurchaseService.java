@@ -3,6 +3,7 @@ package com.asfoundation.wallet.repository;
 import android.support.annotation.NonNull;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import java.util.List;
 
 /**
@@ -45,10 +46,9 @@ public class InAppPurchaseService {
                       PaymentTransaction.PaymentState.NO_FUNDS));
                 case OK:
                 default:
-                  return cache.save(key, paymentTransaction)
-                      .andThen(nonceGetter.getNonce()
-                          .flatMapCompletable(nonce -> approveService.approve(key,
-                              new PaymentTransaction(paymentTransaction, nonce))));
+                  return nonceGetter.getNonce()
+                      .flatMapCompletable(nonce -> approveService.approve(key,
+                          new PaymentTransaction(paymentTransaction, nonce)));
               }
             }));
   }
@@ -58,13 +58,14 @@ public class InAppPurchaseService {
     buyService.start();
     approveService.getAll()
         .flatMapCompletable(paymentTransactions -> Observable.fromIterable(paymentTransactions)
-            .flatMapCompletable(
+            .flatMapCompletable(approveTransaction -> mapTransactionToPaymentTransaction(
+                approveTransaction).flatMap(
                 paymentTransaction -> cache.save(paymentTransaction.getUri(), paymentTransaction)
-                    .toSingleDefault(paymentTransaction)
-                    .filter(transaction -> transaction.getState()
-                        .equals(PaymentTransaction.PaymentState.APPROVED))
-                    .flatMapCompletable(
-                        transaction -> buyService.buy(transaction.getUri(), transaction))))
+                    .toSingleDefault(paymentTransaction))
+                .filter(transaction -> transaction.getState()
+                    .equals(PaymentTransaction.PaymentState.APPROVED))
+                .flatMapCompletable(transaction -> approveService.remove(transaction.getUri())
+                    .andThen(buyService.buy(transaction.getUri(), transaction)))))
         .subscribe();
 
     buyService.getAll()
@@ -77,10 +78,59 @@ public class InAppPurchaseService {
                         .toSingleDefault(paymentTransaction))
                 .filter(transaction -> transaction.getState()
                     .equals(PaymentTransaction.PaymentState.BOUGHT))
-                .flatMapCompletable(transaction -> cache.save(transaction.getUri(),
-                    new PaymentTransaction(transaction,
-                        PaymentTransaction.PaymentState.COMPLETED)))))
+                .flatMapCompletable(transaction -> buyService.remove(transaction.getUri())
+                    .andThen(cache.save(transaction.getUri(), new PaymentTransaction(transaction,
+                        PaymentTransaction.PaymentState.COMPLETED))))))
         .subscribe();
+  }
+
+  private Single<PaymentTransaction> mapTransactionToPaymentTransaction(
+      ApproveService.ApproveTransaction approveTransaction) {
+    return cache.get(approveTransaction.getKey())
+        .firstOrError()
+        .map(paymentTransaction -> new PaymentTransaction(paymentTransaction,
+            getStatus(approveTransaction.getStatus()), approveTransaction.getTransactionHash()));
+  }
+
+  private PaymentTransaction.PaymentState getStatus(ApproveService.Status status) {
+    PaymentTransaction.PaymentState toReturn;
+    switch (status) {
+      case PENDING:
+        toReturn = PaymentTransaction.PaymentState.PENDING;
+        break;
+      case APPROVING:
+        toReturn = PaymentTransaction.PaymentState.APPROVING;
+        break;
+      case APPROVED:
+        toReturn = PaymentTransaction.PaymentState.APPROVED;
+        break;
+      default:
+      case ERROR:
+        toReturn = PaymentTransaction.PaymentState.ERROR;
+        break;
+      case WRONG_NETWORK:
+        toReturn = PaymentTransaction.PaymentState.WRONG_NETWORK;
+        break;
+      case NONCE_ERROR:
+        toReturn = PaymentTransaction.PaymentState.NONCE_ERROR;
+        break;
+      case UNKNOWN_TOKEN:
+        toReturn = PaymentTransaction.PaymentState.UNKNOWN_TOKEN;
+        break;
+      case NO_TOKENS:
+        toReturn = PaymentTransaction.PaymentState.NO_TOKENS;
+        break;
+      case NO_ETHER:
+        toReturn = PaymentTransaction.PaymentState.NO_ETHER;
+        break;
+      case NO_FUNDS:
+        toReturn = PaymentTransaction.PaymentState.NO_FUNDS;
+        break;
+      case NO_INTERNET:
+        toReturn = PaymentTransaction.PaymentState.NO_INTERNET;
+        break;
+    }
+    return toReturn;
   }
 
   @NonNull private PaymentTransaction map(PaymentTransaction paymentTransaction,
