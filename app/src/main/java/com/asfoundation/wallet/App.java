@@ -5,8 +5,12 @@ import android.app.Service;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.Fragment;
 import com.appcoins.wallet.billing.BillingDependenciesProvider;
+import com.appcoins.wallet.billing.BillingFactory;
+import com.appcoins.wallet.billing.BillingPaymentProofSubmission;
+import com.appcoins.wallet.billing.ProxyService;
 import com.appcoins.wallet.billing.WalletService;
 import com.appcoins.wallet.billing.repository.RemoteRepository;
+import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.billing.payment.Adyen;
 import com.asfoundation.wallet.di.DaggerAppComponent;
@@ -14,6 +18,7 @@ import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
+import com.asfoundation.wallet.repository.InAppPurchaseProofSource;
 import com.asfoundation.wallet.repository.WalletNotFoundException;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
@@ -50,6 +55,10 @@ public class App extends MultiDexApplication
   @Inject AppcoinsOperationsDataSaver appcoinsOperationsDataSaver;
   @Inject RemoteRepository.BdsApi bdsApi;
   @Inject WalletService walletService;
+  @Inject AppCoinsAddressProxySdk contractAddressProvider;
+  @Inject InAppPurchaseProofSource inAppPurchaseProofSource;
+  @Inject BillingFactory billingFactory;
+  @Inject ProxyService proxyService;
   @Inject Adyen adyen;
 
   @Override public void onCreate() {
@@ -68,16 +77,24 @@ public class App extends MultiDexApplication
     inAppPurchaseInteractor.start();
     proofOfAttentionService.start();
     appcoinsOperationsDataSaver.start();
-    ethereumNetworkRepository.addOnChangeDefaultNetwork(networkInfo -> defaultTokenProvider.getDefaultToken()
-        .flatMapCompletable(defaultToken -> addTokenInteract.add(defaultToken.address, defaultToken.symbol,
-            defaultToken.decimals))
-        .doOnError(throwable -> {
-          if (!(throwable instanceof WalletNotFoundException)) {
-            throwable.printStackTrace();
-          }
-        })
-        .retry()
-        .subscribe());
+    ethereumNetworkRepository.addOnChangeDefaultNetwork(
+        networkInfo -> defaultTokenProvider.getDefaultToken()
+            .flatMapCompletable(
+                defaultToken -> addTokenInteract.add(defaultToken.address, defaultToken.symbol,
+                    defaultToken.decimals))
+            .doOnError(throwable -> {
+              if (!(throwable instanceof WalletNotFoundException)) {
+                throwable.printStackTrace();
+              }
+            })
+            .retry()
+            .subscribe());
+
+    BillingPaymentProofSubmission proofSubmission =
+        new BillingPaymentProofSubmission.Builder(this).build();
+    proofSubmission.start();
+    proofSubmission.addAuthorizationProofSource(inAppPurchaseProofSource.getAuthorization());
+    proofSubmission.addPaymentProofSource(inAppPurchaseProofSource.getPayment());
   }
 
   public Adyen getAdyen() {
@@ -127,4 +144,11 @@ public class App extends MultiDexApplication
     return walletService;
   }
 
+  @NotNull @Override public ProxyService getProxyService() {
+    return proxyService;
+  }
+
+  @NotNull @Override public BillingFactory getBillingFactory() {
+    return billingFactory;
+  }
 }

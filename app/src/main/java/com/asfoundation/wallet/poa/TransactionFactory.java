@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.poa;
 
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk;
-import com.asf.appcoins.sdk.contractproxy.ContractAddressProvider;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.PasswordStore;

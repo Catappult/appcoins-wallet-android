@@ -17,7 +17,11 @@ class BdsApiResponseMapper {
         return purchasesResponse.items
     }
 
-    fun map(it: Void): Boolean? {
-        return true
-    }
+  fun map(gatewaysResponse: GetGatewaysResponse): List<Gateway> {
+    return gatewaysResponse.items
+  }
+
+  fun map(it: Void): Boolean? {
+    return true
+  }
 }

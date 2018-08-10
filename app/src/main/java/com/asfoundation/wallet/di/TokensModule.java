@@ -1,8 +1,6 @@
 package com.asfoundation.wallet.di;
 
-import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchTokensInteract;
-import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.router.AddTokenRouter;
 import com.asfoundation.wallet.router.ChangeTokenCollectionRouter;
 import com.asfoundation.wallet.router.SendRouter;

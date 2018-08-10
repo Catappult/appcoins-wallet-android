@@ -1,6 +1,13 @@
 package com.asfoundation.wallet.ui.iab;
 
+import android.util.Log;
+import com.appcoins.wallet.billing.BillingMessagesMapper;
+import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
+import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.util.UnknownTokenException;
+import io.reactivex.Completable;
 import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import javax.annotation.Nullable;
 
@@ -14,13 +21,18 @@ public class IabPresenter {
   private final InAppPurchaseInteractor inAppPurchaseInteractor;
   private final Scheduler viewScheduler;
   private final CompositeDisposable disposables;
+  private final BillingMessagesMapper billingMessagesMapper;
+  private final ExternalBillingSerializer billingSerializer;
 
   public IabPresenter(IabView view, InAppPurchaseInteractor inAppPurchaseInteractor,
-      Scheduler viewScheduler, CompositeDisposable disposables) {
+      Scheduler viewScheduler, CompositeDisposable disposables,
+      BillingMessagesMapper billingMessagesMapper, ExternalBillingSerializer billingSerializer) {
     this.view = view;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.viewScheduler = viewScheduler;
     this.disposables = disposables;
+    this.billingMessagesMapper = billingMessagesMapper;
+    this.billingSerializer = billingSerializer;
   }
 
   public void present(String uriString, String appPackage, String productName) {

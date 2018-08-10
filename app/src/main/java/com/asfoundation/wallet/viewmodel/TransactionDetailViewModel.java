@@ -13,12 +13,8 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.ui.MicroRaidenInteractor;
-import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import io.reactivex.Completable;
-import io.reactivex.Observable;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class TransactionDetailViewModel extends BaseViewModel {

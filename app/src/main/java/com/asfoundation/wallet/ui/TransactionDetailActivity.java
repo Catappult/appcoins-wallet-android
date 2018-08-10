@@ -28,13 +28,11 @@ import com.asfoundation.wallet.util.StringUtils;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModel;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModelFactory;
 import com.asfoundation.wallet.widget.CircleTransformation;
-import com.jakewharton.rxbinding2.view.RxView;
 import com.squareup.picasso.Picasso;
 import dagger.android.AndroidInjection;
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -140,13 +138,11 @@ public class TransactionDetailActivity extends BaseActivity {
         break;
       case MICRO_IAB:
         to = transaction.getTo();
-        showCloseButton = true;
       case IAB:
         typeStr = R.string.transaction_type_iab;
         typeIcon = R.drawable.ic_transaction_iab;
         break;
       case OPEN_CHANNEL:
-        showCloseButton = true;
         typeStr = R.string.transaction_type_miuraiden;
         typeIcon = R.drawable.ic_transaction_miu;
         id = getString(R.string.miuraiden_trans_details_open);
@@ -155,7 +151,6 @@ public class TransactionDetailActivity extends BaseActivity {
                 getString(R.string.ellipsize));
         break;
       case TOP_UP_CHANNEL:
-        showCloseButton = true;
         typeStr = R.string.transaction_type_miuraiden;
         typeIcon = R.drawable.ic_transaction_miu;
         id = getString(R.string.miuraiden_trans_details_topup);

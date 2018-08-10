@@ -142,7 +142,8 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
 
     presenter =
         new OnChainBuyPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
-            new CompositeDisposable());
+            new CompositeDisposable(), inAppPurchaseInteractor.getBillingMessagesMapper(),
+            inAppPurchaseInteractor.getBillingSerializer());
     adapter =
         new ArrayAdapter<>(getContext().getApplicationContext(), R.layout.iab_raiden_dropdown_item,
             R.id.item, new ArrayList<>());
@@ -166,7 +167,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
         });
 
     buyButton.setOnClickListener(v -> buyButtonClick.accept(
-        new OnChainBuyPresenter.BuyData(false, data, getChannelBudget())));
+        new OnChainBuyPresenter.BuyData(checkbox.isChecked(), data, getChannelBudget())));
   }
 
   @Override public void onStart() {
@@ -209,12 +210,12 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     showLoading(R.string.activity_aib_loading_message);
   }
 
-  @Override public void close() {
-    iabView.close();
+  @Override public void close(Bundle data) {
+    iabView.close(data);
   }
 
-  @Override public void finish(String hash) {
-    iabView.finish(hash);
+  @Override public void finish(Bundle data) {
+    iabView.finish(data);
   }
 
   @Override public void showError() {

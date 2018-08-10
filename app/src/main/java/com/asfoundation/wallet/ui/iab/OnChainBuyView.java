@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
+import android.os.Bundle;
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import io.reactivex.Observable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,9 +19,9 @@ public interface OnChainBuyView {
 
   void showLoading();
 
-  void close();
+  void close(Bundle data);
 
-  void finish(String hash);
+  void finish(Bundle data);
 
   void showError();
 

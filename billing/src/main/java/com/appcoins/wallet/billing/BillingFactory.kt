@@ -1,5 +1,5 @@
 package com.appcoins.wallet.billing
 
-internal interface BillingFactory {
+interface BillingFactory {
   fun getBilling(merchantName: String): Billing
 }

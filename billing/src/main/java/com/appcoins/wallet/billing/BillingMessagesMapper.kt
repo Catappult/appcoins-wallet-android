@@ -2,9 +2,10 @@ package com.appcoins.wallet.billing
 
 import android.os.Bundle
 import com.appcoins.wallet.billing.exceptions.BillingException
+import com.appcoins.wallet.billing.repository.entity.Purchase
 import java.io.IOException
 
-internal class BillingMessagesMapper {
+class BillingMessagesMapper {
 
   internal fun mapSupported(supportType: Billing.BillingSupportType): Int =
       when (supportType) {
@@ -46,7 +47,28 @@ internal class BillingMessagesMapper {
         return result
     }
 
-    fun mapConsumePurchasesError(exception: Exception): Int {
-        return map(exception.cause)
-    }
+  fun mapBuyIntentError(exception: Exception): Bundle {
+    val result = Bundle()
+    result.putInt(AppcoinsBillingBinder.RESPONSE_CODE, map(exception.cause))
+    return result
+  }
+
+  fun mapConsumePurchasesError(exception: Exception): Int {
+    return map(exception.cause)
+  }
+
+  fun mapCancellation(): Bundle {
+    val bundle = Bundle()
+    bundle.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_USER_CANCELED)
+    return bundle
+  }
+
+  fun mapPurchase(purchaseId: String, signature: String, signatureData: String): Bundle {
+    val intent = Bundle()
+    intent.putString(AppcoinsBillingBinder.INAPP_PURCHASE_ID, purchaseId)
+    intent.putString(AppcoinsBillingBinder.INAPP_PURCHASE_DATA, signatureData)
+    intent.putString(AppcoinsBillingBinder.INAPP_DATA_SIGNATURE, signature)
+    intent.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
+    return intent
+  }
 }

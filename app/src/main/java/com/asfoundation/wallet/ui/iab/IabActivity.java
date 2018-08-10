@@ -80,6 +80,11 @@ public class IabActivity extends BaseActivity implements IabView {
     super.onStop();
   }
 
+  @Override public void finish(Bundle bundle) {
+    setResult(Activity.RESULT_OK, new Intent().putExtras(bundle));
+    finish();
+  }
+
   @Override public void finish(String hash) {
     Intent intent = new Intent();
     intent.putExtra(TRANSACTION_HASH, hash);
@@ -87,8 +92,20 @@ public class IabActivity extends BaseActivity implements IabView {
     finish();
   }
 
-  @Override public void close() {
-    setResult(Activity.RESULT_CANCELED, null);
+  @Override public void showLoading() {
+    showLoading(R.string.activity_aib_loading_message);
+  }
+
+  @Override public void showError() {
+    showError(R.string.activity_iab_error_message);
+  }
+
+  @Override public void close(Bundle data) {
+    Intent intent = null;
+    if (data != null) {
+      new Intent().putExtras(data);
+    }
+    setResult(Activity.RESULT_CANCELED, intent);
     finish();
   }
 

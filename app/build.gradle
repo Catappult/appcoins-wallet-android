@@ -27,9 +27,9 @@ android {
 
     def inputFile = new File("appcoins-services.json")
     def json = new JsonSlurper().parseText(inputFile.text)
-    buildConfigField 'String', 'DEFAULT_OEM_ADREESS',
+    buildConfigField 'String', 'DEFAULT_OEM_ADDRESS',
         "\"" + json.oems.default_address + "\""
-    buildConfigField 'String', 'DEFAULT_STORE_ADREESS',
+    buildConfigField 'String', 'DEFAULT_STORE_ADDRESS',
         "\"" + json.stores.default_address + "\""
 
     applicationId "com.appcoins.wallet"
@@ -90,6 +90,8 @@ android {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       signingConfig signingConfigs.release
+      buildConfigField 'int', 'NETWORK_ID', project.NETWORK_ID_PROD
+
     }
     debug {
       minifyEnabled false
@@ -97,10 +99,7 @@ android {
           project.LEADING_ZEROS_ON_PROOF_OF_ATTENTION_DEBUG
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       applicationIdSuffix ".dev"
-      applicationVariants.all { variant ->
-        renameArtifact(defaultConfig)
-        buildConfigField 'String', 'BASE_HOST',
-            "\"" + project.BASE_HOST_DEV + "\""
+      applicationVariants.all { variant -> renameArtifact(defaultConfig)
       }
     }
   }
