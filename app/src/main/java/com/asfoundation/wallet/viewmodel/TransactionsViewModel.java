@@ -9,7 +9,6 @@ import android.text.format.DateUtils;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchTransactionsInteract;
@@ -26,9 +25,16 @@ import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
+import com.asfoundation.wallet.ui.AppcoinsApps;
+import com.asfoundation.wallet.ui.MicroRaidenInteractor;
+import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class TransactionsViewModel extends BaseViewModel {
   private static final long GET_BALANCE_INTERVAL = 10 * DateUtils.SECOND_IN_MILLIS;
@@ -36,7 +42,9 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
   private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
   private final MutableLiveData<List<Transaction>> transactions = new MutableLiveData<>();
-  private final MutableLiveData<String> defaultWalletBalance = new MutableLiveData<>();
+  private final MutableLiveData<List<AppcoinsApplication>> appcoinsApplications =
+      new MutableLiveData<>();
+  private final MutableLiveData<Map<String, String>> defaultWalletBalance = new MutableLiveData<>();
   private final FindDefaultNetworkInteract findDefaultNetworkInteract;
   private final FindDefaultWalletInteract findDefaultWalletInteract;
   private final FetchTransactionsInteract fetchTransactionsInteract;
@@ -51,11 +59,12 @@ public class TransactionsViewModel extends BaseViewModel {
   private final DefaultTokenProvider defaultTokenProvider;
   private final GetDefaultWalletBalance getDefaultWalletBalance;
   private final TransactionsMapper transactionsMapper;
+  private final AirdropRouter airdropRouter;
+  private final MicroRaidenInteractor microRaidenInteractor;
+  private final AppcoinsApps applications;
   private Handler handler = new Handler();
   private final Runnable startFetchTransactionsTask = () -> this.fetchTransactions(false);
   private final Runnable startGetBalanceTask = this::getBalance;
-  private final AirdropRouter airdropRouter;
-
 
   TransactionsViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
@@ -64,7 +73,8 @@ public class TransactionsViewModel extends BaseViewModel {
       TransactionDetailRouter transactionDetailRouter, MyAddressRouter myAddressRouter,
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
-      TransactionsMapper transactionsMapper, AirdropRouter airdropRouter) {
+      TransactionsMapper transactionsMapper, AirdropRouter airdropRouter,
+      MicroRaidenInteractor microRaidenInteractor, AppcoinsApps applications) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchTransactionsInteract = fetchTransactionsInteract;
@@ -79,7 +89,9 @@ public class TransactionsViewModel extends BaseViewModel {
     this.getDefaultWalletBalance = getDefaultWalletBalance;
     this.transactionsMapper = transactionsMapper;
     this.airdropRouter = airdropRouter;
-    disposables = new CompositeDisposable();
+    this.microRaidenInteractor = microRaidenInteractor;
+    this.applications = applications;
+    this.disposables = new CompositeDisposable();
   }
 
   @Override protected void onCleared() {
@@ -104,7 +116,7 @@ public class TransactionsViewModel extends BaseViewModel {
     return transactions;
   }
 
-  public MutableLiveData<String> defaultWalletBalance() {
+  public MutableLiveData<Map<String, String>> defaultWalletBalance() {
     return defaultWalletBalance;
   }
 
@@ -118,10 +130,35 @@ public class TransactionsViewModel extends BaseViewModel {
     handler.removeCallbacks(startFetchTransactionsTask);
     progress.postValue(shouldShowProgress);
     /*For specific address use: new Wallet("0x60f7a1cbc59470b74b1df20b133700ec381f15d3")*/
+    disposables.add(Observable.merge(findDefaultNetworkInteract.find()
+            .filter(networkInfo -> networkInfo.chainId == 3)
+            .flatMapObservable(
+                networkInfo -> microRaidenInteractor.listTransactions(defaultWallet.getValue())
+                    .toObservable()
+                    .filter(microTransactions -> !microTransactions.isEmpty())
+                    .flatMapSingle(transactionsMapper::map)),
+        fetchTransactionsInteract.fetch(defaultWallet.getValue())
+            .flatMapSingle(transactionsMapper::map))
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(this::onTransactions, this::onError, this::onTransactionsFetchCompleted));
+
     Observable<List<Transaction>> fetch = fetchTransactionsInteract.fetch(defaultWallet.getValue())
-        .flatMapSingle(rawTransactions -> transactionsMapper.map(rawTransactions));
+        .flatMapSingle(transactionsMapper::map)
+        .observeOn(AndroidSchedulers.mainThread());
     disposables.add(
         fetch.subscribe(this::onTransactions, this::onError, this::onTransactionsFetchCompleted));
+
+    if (shouldShowProgress) {
+      disposables.add(applications.getApps()
+          .subscribeOn(Schedulers.io())
+          .map(appcoinsApplications -> {
+            Collections.shuffle(appcoinsApplications);
+            return appcoinsApplications;
+          })
+          .observeOn(AndroidSchedulers.mainThread())
+          .doOnSubscribe(disposable -> appcoinsApplications.postValue(Collections.emptyList()))
+          .subscribe(appcoinsApplications::postValue, Throwable::printStackTrace));
+    }
   }
 
   private void getBalance() {
@@ -130,7 +167,7 @@ public class TransactionsViewModel extends BaseViewModel {
           defaultWalletBalance.postValue(values);
           handler.removeCallbacks(startGetBalanceTask);
           handler.postDelayed(startGetBalanceTask, GET_BALANCE_INTERVAL);
-        }, throwable -> throwable.printStackTrace()));
+        }, Throwable::printStackTrace));
   }
 
   private void onDefaultNetwork(NetworkInfo networkInfo) {
@@ -176,7 +213,7 @@ public class TransactionsViewModel extends BaseViewModel {
         .subscribe();
   }
 
-  public void showDetails(Context context, RawTransaction transaction) {
+  public void showDetails(Context context, Transaction transaction) {
     transactionDetailRouter.open(context, transaction);
   }
 
@@ -203,5 +240,15 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public void onLearnMoreClick(Context context, Uri uri) {
     openDeposit(context, uri);
+  }
+
+  public LiveData<List<AppcoinsApplication>> applications() {
+    return appcoinsApplications;
+  }
+
+  public void onAppClick(AppcoinsApplication appcoinsApplication, Context context) {
+    externalBrowserRouter.open(context, Uri.parse(
+        "https://www.appstorefoundation.org/offer-wall#spendAppCoinsList-"
+            + appcoinsApplication.getPackageName()));
   }
 }

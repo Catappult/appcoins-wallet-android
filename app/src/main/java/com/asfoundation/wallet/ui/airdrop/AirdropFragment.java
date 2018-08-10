@@ -70,9 +70,9 @@ public class AirdropFragment extends DaggerFragment implements AirdropView {
       }
 
       @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if (before == 0 && count > 0) {
+        if (!submitButton.isEnabled() && s.length() > 0) {
           submitButton.setEnabled(true);
-        } else if (before > 0 && count == 0) {
+        } else if (submitButton.isEnabled() && s.length() == 0) {
           submitButton.setEnabled(false);
         }
       }

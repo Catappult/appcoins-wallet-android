@@ -44,7 +44,8 @@
         android:label="@string/title_activity_settings"/>
     <activity
         android:name="com.asfoundation.wallet.ui.TransactionDetailActivity"
-        android:label="@string/title_transaction_details"/>
+        android:label=""/>
+
     <activity
         android:name="com.asfoundation.wallet.ui.MyAddressActivity"
         android:label="@string/title_my_address"/>

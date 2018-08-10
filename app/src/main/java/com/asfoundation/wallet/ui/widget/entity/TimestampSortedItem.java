@@ -25,6 +25,6 @@ public abstract class TimestampSortedItem<T> extends SortedItem<T> {
       return order * (getTimestamp().compareTo(otherTimestamp.getTimestamp()));/*
                     ? 1 : getTimestamp() == otherTimestamp.getTimestamp() ? 0 : -1);*/
     }
-    return Integer.MIN_VALUE;
+    return Integer.compare(weight, other.weight);
   }
 }

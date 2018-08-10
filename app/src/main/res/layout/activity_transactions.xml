@@ -13,7 +13,7 @@
 
   <ImageView
       android:id="@+id/toolbar_layout_logo"
-      android:layout_width="111dp"
+      android:layout_width="wrap_content"
       android:layout_height="24dp"
       android:layout_margin="16dp"
       android:src="@drawable/ic_app_logo"
@@ -25,26 +25,27 @@
       android:id="@+id/refresh_layout"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_marginBottom="?actionBarSize"
-      app:layout_behavior="@string/appbar_scrolling_view_behavior"
+      android:layout_marginBottom="?android:actionBarSize"
       android:background="@color/activity_background_color"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"
       >
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/activity_background_color"
-        android:paddingBottom="@dimen/big_padding"
         android:clipChildren="false"
         android:clipToPadding="false"
+        android:paddingBottom="@dimen/big_padding"
+        android:visibility="gone"
         />
   </android.support.v4.widget.SwipeRefreshLayout>
   <com.asfoundation.wallet.widget.SystemView
       android:id="@+id/system_view"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      app:layout_behavior="@string/appbar_scrolling_view_behavior"
       android:background="@color/activity_background_color"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"
       tools:visibility="gone"
       />
   <android.support.design.widget.BottomNavigationView
@@ -53,7 +54,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="bottom"
       android:background="?android:attr/windowBackground"
-      app:itemIconTint="@color/grey_8a_alpha"
-      app:itemTextColor="@color/grey_8a_alpha"
+      app:itemIconTint="@color/gray_alpha_8a"
+      app:itemTextColor="@color/gray_alpha_8a"
       />
 </android.support.design.widget.CoordinatorLayout>

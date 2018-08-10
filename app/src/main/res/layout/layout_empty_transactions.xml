@@ -25,6 +25,8 @@
       android:layout_marginTop="24dp"
       android:text="@string/action_try"
       android:textAllCaps="true"
+      android:paddingStart="@dimen/half_large_margin"
+      android:paddingEnd="@dimen/half_large_margin"
       app:layout_constraintBottom_toTopOf="@id/action_learn_more"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"

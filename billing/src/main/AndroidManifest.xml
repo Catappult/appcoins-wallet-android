@@ -1,0 +1,19 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.appcoins.wallet.billing">
+
+  <permission
+      android:name="${iabPermission}"
+      android:label="Make internal payments"
+      android:protectionLevel="normal"/>
+  <application>
+    <service
+        android:name=".BillingService"
+        android:exported="true"
+        android:permission="${iabPermission}">
+      <intent-filter>
+        <action android:name="${applicationId}.iab.action.BIND"/>
+      </intent-filter>
+    </service>
+
+  </application>
+</manifest>

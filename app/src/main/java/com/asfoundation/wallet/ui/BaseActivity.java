@@ -3,10 +3,10 @@ package com.asfoundation.wallet.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
@@ -23,9 +23,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-
-    // finally change the color
-    window.setStatusBarColor(ContextCompat.getColor(this,R.color.statusBarColor));
   }
 
   protected Toolbar toolbar() {
@@ -52,12 +49,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
   }
 
-  protected void setCollapsingTitle(String title) {
-    Toolbar toolbar = findViewById(R.id.toolbar);
-    if (toolbar != null) {
-      toolbar.setTitle(title);
-    }
-
+  protected void setCollapsingTitle(SpannableString title) {
     CollapsingToolbarLayout collapsing = findViewById(R.id.toolbar_layout);
     if (collapsing != null) {
       collapsing.setTitle(title);
@@ -71,7 +63,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
   }
 
-  protected void dissableDisplayHomeAsUp() {
+  protected void disableDisplayHomeAsUp() {
     ActionBar actionBar = getSupportActionBar();
     if (actionBar != null) {
       actionBar.setDisplayHomeAsUpEnabled(false);

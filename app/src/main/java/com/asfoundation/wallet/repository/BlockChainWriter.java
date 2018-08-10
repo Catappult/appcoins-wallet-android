@@ -8,6 +8,7 @@ import com.asfoundation.wallet.poa.ProofWriter;
 import com.asfoundation.wallet.poa.TransactionFactory;
 import io.reactivex.Single;
 import java.math.BigDecimal;
+import java.net.UnknownHostException;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.utils.Numeric;
 
@@ -39,16 +40,20 @@ public class BlockChainWriter implements ProofWriter {
   }
 
   @Override public Single<ProofSubmissionFeeData> hasEnoughFunds(int chainId) {
-    return ethereumNetwork.executeOnNetworkAndRestore(chainId, defaultWalletInteract.find()
-        .flatMap(walletRepositoryType::balanceInWei)
-        .flatMap(balance -> gasSettingsRepository.getGasSettings(true)
+    return defaultWalletInteract.find()
+        .flatMap(wallet -> walletRepositoryType.balanceInWei(wallet, chainId))
+        .flatMap(balance -> gasSettingsRepository.getGasSettings(true, chainId)
             .map(gasSettings -> getFeeData(
                 balance.compareTo(registerPoaGasLimit.multiply(gasSettings.gasPrice)) >= 1,
-                gasSettings))))
+                gasSettings)))
         .onErrorResumeNext(throwable -> {
           if (throwable instanceof WalletNotFoundException) {
             return Single.just(
                 new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NO_WALLET,
+                    BigDecimal.ZERO, BigDecimal.ZERO));
+          } else if (throwable instanceof UnknownHostException) {
+            return Single.just(
+                new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NO_NETWORK,
                     BigDecimal.ZERO, BigDecimal.ZERO));
           }
           return Single.error(throwable);

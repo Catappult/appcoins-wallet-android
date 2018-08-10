@@ -1,5 +1,5 @@
 <resources>
-  <string name="app_name">ASF Wallet</string>
+  <string name="app_name">AppCoins Wallet</string>
   <string name="title_balance">Balance</string>
   <string name="title_send">Send</string>
   <string name="title_request">Receive</string>
@@ -116,7 +116,7 @@
   <string name="unable_unblock_device">Unable to unlock the device.</string>
   <string name="skip">Skip</string>
   <string name="root_title">DEVICE SECURITY COMPROMISED</string>
-  <string name="root_body">Any \'rooted\' app can access ASF Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
+  <string name="root_body">Any \'rooted\' app can access AppCoins Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
   <string name="gas_fee_title">Gas Fee (Gwei)</string>
   <string name="transfer">Transfer %s</string>
   <string name="action_buy">Buy</string>
@@ -159,12 +159,14 @@
   <string name="title_dialog_watch_out">Watch out!</string>
   <string name="title_dialog_add_account">Add wallet</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
+  <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Enter the password to encrypt your wallet</string>
-  <string name="dialog_message_unrecoverable_message">If this device is replaced or this app is deleted, neither you nor ASF Wallet can recover your funds without a backup.</string>
+  <string name="dialog_message_unrecoverable_message">If this device is replaced or this app is deleted, neither you nor AppCoins Wallet can recover your funds without a backup.</string>
   <string name="toast_message_wallet_imported">The wallet was imported</string>
   <string name="toast_message_wallet_exported">A backup was created</string>
   <string name="toast_qr_code_no_address">QR code doesn\'t contain valid address</string>
+  <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
   <string name="intro_title_first_page">Alpha Version</string>
   <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
@@ -186,16 +188,18 @@
   <string name="hint_contract_address">Contract address</string>
   <string name="hint_contract_symbol">Symbol</string>
   <string name="hint_contract_decimals">Decimals</string>
+  <string name="button_cancel">CANCEL</string>
+  <string name="button_yes">YES</string>
   <!-- Subtitles -->
   <string name="subtitle_from">From</string>
   <string name="subtitle_to">To</string>
-  <string name="subtitle_gas_fee">Gas Fee</string>
-  <string name="subtitle_transaction_num">Transaction #</string>
+  <string name="subtitle_gas_fee">Fee</string>
+  <string name="subtitle_transaction_num">Transaction</string>
   <string name="subtitle_transaction_time">Transaction Time</string>
   <string name="subtitle_block_num">Block #</string>
   <!-- Actions -->
   <string name="action_share">Share</string>
-  <string name="action_more_details">More details</string>
+  <string name="action_more_details">More</string>
   <string name="action_add_wallet">Add wallet</string>
   <string name="action_coinbase">Coinbase</string>
   <string name="action_shapeshift">Shapeshift (Crypto only)</string>
@@ -241,7 +245,7 @@
   <string name="token_name">%1$s (%2$s)</string>
   <string name="new_transaction_value">-%1$s %2$s</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the ASF wallet development. We considered it the best alternative regarding already implemented functionalities and forked it with the intention to contribute back with implementations and work that would be considered relevant.</string>
+  <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the AppCoins wallet development. We considered it the best alternative regarding already implemented functionalities and forked it with the intention to contribute back with implementations and work that would be considered relevant.</string>
   <string name="iab_activity_buy_button">BUY</string>
   <string name="iab_activity_retry_button_text">Retry</string>
   <string name="appcoins_symbol">APPC</string>
@@ -266,7 +270,7 @@
   <string name="activity_iab_no_network_message">No network access</string>
   <string name="activity_iab_nonce_message">An error with blockchain occurred, please try again later.</string>
   <string name="activity_iab_approving_message">Checking all details: balance, items, network…</string>
-  <string name="activity_aib_buying_message">Details checked 👍 \nReceiving your item…</string>
+  <string name="activity_aib_buying_message">Details checked \nReceiving your item…</string>
   <string name="notification_ongoing_poa">Processing your PoA</string>
   <string name="notification_completed_poa">Proof processed and submitted</string>
   <string name="notification_submitting_poa">Submitting proof of attention to blockchain</string>
@@ -275,11 +279,29 @@
   <string name="notification_error_poa">An error has occurred</string>
   <string name="notification_no_wallet_poa">Wallet not configured yet</string>
   <string name="notification_cancelled_poa">PoA cancelled</string>
+  <string name="notification_no_network_poa">No network access</string>
+
+  <!-- transaction details -->
   <string name="transaction_status_success">Success</string>
   <string name="transaction_status_pending">Pending</string>
   <string name="transaction_status_failed">Failed</string>
+  <string name="transaction_type_iab">In App Purchase</string>
+  <string name="transaction_type_poa">Proof of Attention</string>
+  <string name="transaction_type_standard">Transfer</string>
+  <string name="transaction_type_miuraiden">µRaiden channel</string>
+  <string name="transaction_details_brand_txt">Powered By Ethereum</string>
+  <string name="transaction_close_channel_btn_txt">close channel</string>
+  <string name="miuraiden_trans_details_open">µRaiden channel open</string>
+  <string name="miuraiden_trans_details_topup">µRaiden channel top up</string>
+  <string name="miuraiden_trans_details_close">µRaiden channel closed</string>
+  <string name="ellipsize">\u0020• • •</string>
+  <string name="transaction_status_label">Status</string>
+  <string name="transaction_category_label">Category</string>
+  <string name="transaction_details_label">Details</string>
+  <string name="transaction_to_label">To</string>
 
-  <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins 🤖</string>
+
+  <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
   <string name="activity_airdrop_details">This is just a security thing.</string>
   <string name="activity_airdrop_hint">Type the words in the image</string>
   <string name="activity_airdrop_submit_btn">Submit</string>
@@ -288,4 +310,15 @@
   <string name="activity_airdrop_message_title">Airdrop</string>
   <string name="activity_airdrop_success_message">Airdrop completed</string>
   <string name="activity_airdrop_generic_error_message">An error has occurred</string>
+  <string name="notification_generic_error">@string/unknown_error</string>
+
+  <string name="iab_activity_micro_raiden_wallet">Wallet</string>
+  <string name="iab_activity_raiden_channel_label">Create µRaiden channel</string>
+  <string name="iab_activity_raiden_amount_label">Select Amount</string>
+  <string name="iab_activity_raiden_channel_info_message">You’ll not pay fees for the transactions made with this developer until the amount you choose is reached. The amount will be withdrawn and stored, and you can close this channel anytime.</string>
+  <string name="iab_activity_raiden_channel_info_title">µRaiden channel</string>
+  <string name="proceed">proceed</string>
+  <string name="iab_activity_raiden_channel_no_funds_message">You don\'t have enough funds on your µRainden payment channel. Go to your wallet and close the channel to create a new one.  Do you still want to complete this purchase with a standard payment?</string>
+  <string name="iab_activity_raiden_channel_no_funds_title">Payment Channel Funds</string>
+  <string name="spend_your_appcoins">Spend your AppCoins</string>
 </resources>

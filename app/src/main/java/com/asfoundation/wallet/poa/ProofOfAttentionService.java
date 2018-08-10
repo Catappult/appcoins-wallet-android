@@ -1,17 +1,18 @@
 package com.asfoundation.wallet.poa;
 
 import android.support.annotation.NonNull;
-import com.asfoundation.wallet.repository.Cache;
+import com.asfoundation.wallet.repository.Repository;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProofOfAttentionService {
-  private final Cache<String, Proof> cache;
+  private final Repository<String, Proof> cache;
   private final String walletPackage;
   private final HashCalculator hashCalculator;
   private final CompositeDisposable compositeDisposable;
@@ -21,7 +22,7 @@ public class ProofOfAttentionService {
   private final BlockchainErrorMapper errorMapper;
   private final TaggedCompositeDisposable disposables;
 
-  public ProofOfAttentionService(Cache<String, Proof> cache, String walletPackage,
+  public ProofOfAttentionService(Repository<String, Proof> cache, String walletPackage,
       HashCalculator hashCalculator, CompositeDisposable compositeDisposable,
       ProofWriter proofWriter, Scheduler computationScheduler, int maxNumberProofComponents,
       BlockchainErrorMapper errorMapper, TaggedCompositeDisposable disposables) {
@@ -82,7 +83,7 @@ public class ProofOfAttentionService {
             new Proof(completedProof.getPackageName(), completedProof.getCampaignId(),
                 completedProof.getProofComponentList(), walletPackage, ProofStatus.COMPLETED,
                 proof.getChainId(), proof.getOemAddress(), proof.getStoreAddress(),
-                proof.getGasPrice(), proof.getGasLimit())));
+                proof.getGasPrice(), proof.getGasLimit(), hash)));
   }
 
   public void stop() {
@@ -109,7 +110,6 @@ public class ProofOfAttentionService {
 
   public void setChainId(String packageName, int chainId) {
     disposables.add(packageName, Completable.fromAction(() -> setChainIdSync(packageName, chainId))
-        .subscribeOn(computationScheduler)
         .subscribe());
   }
 
@@ -144,10 +144,10 @@ public class ProofOfAttentionService {
   }
 
   public void registerProof(String packageName, long timeStamp) {
-    disposables.add(packageName, Single.defer(
-        () -> Single.just(hashCalculator.calculateNonce(new NonceData(timeStamp, packageName))))
-        .doOnSuccess(nonce -> setSetProofSync(packageName, timeStamp, nonce))
-        .toCompletable()
+    disposables.add(packageName, Observable.fromCallable(
+        () -> hashCalculator.calculateNonce(new NonceData(timeStamp, packageName)))
+        .doOnNext(nonce -> setSetProofSync(packageName, timeStamp, nonce))
+        .ignoreElements()
         .subscribeOn(computationScheduler)
         .subscribe());
   }
@@ -223,15 +223,13 @@ public class ProofOfAttentionService {
     }
   }
 
-  private void setGasSettingsSync(String packageName,
-      ProofSubmissionFeeData proofSubmissionFeeData) {
+  private void setGasSettingsSync(String packageName, BigDecimal gasPrice, BigDecimal gasLimit) {
     synchronized (this) {
       Proof proof = getPreviousProofSync(packageName);
       cache.saveSync(packageName,
           new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
               walletPackage, ProofStatus.PROCESSING, proof.getChainId(), proof.getOemAddress(),
-              proof.getStoreAddress(), proofSubmissionFeeData.getGasPrice(),
-              proofSubmissionFeeData.getGasLimit()));
+              proof.getStoreAddress(), gasPrice, gasLimit));
     }
   }
 
@@ -252,15 +250,17 @@ public class ProofOfAttentionService {
     }
   }
 
-  public Single<ProofSubmissionFeeData.RequirementsStatus> isWalletReady(String packageName) {
+  public Single<ProofSubmissionFeeData> isWalletReady(int chainId) {
     return Single.defer(() -> {
       synchronized (this) {
-        return proofWriter.hasEnoughFunds(getPreviousProofSync(packageName).getChainId());
+        return proofWriter.hasEnoughFunds(chainId);
       }
-    })
-        .doOnSuccess(
-            proofSubmissionFeeData -> setGasSettingsSync(packageName, proofSubmissionFeeData))
-        .subscribeOn(computationScheduler)
-        .map(ProofSubmissionFeeData::getStatus);
+    });
+  }
+
+  public void setGasSettings(String packageName, BigDecimal gasPrice, BigDecimal gasLimit) {
+    disposables.add(packageName,
+        Completable.fromAction(() -> setGasSettingsSync(packageName, gasPrice, gasLimit))
+            .subscribe());
   }
 }

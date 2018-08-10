@@ -266,9 +266,9 @@ public class ProofOfAttentionServiceTest {
   }
 
   @Test public void isWalletReady() {
-    TestObserver<ProofSubmissionFeeData.RequirementsStatus> ready =
-        proofOfAttentionService.isWalletReady("packageName")
-            .test();
+    TestObserver<ProofSubmissionFeeData> ready = proofOfAttentionService.isWalletReady(1)
+        .subscribeOn(testScheduler)
+        .test();
     ProofSubmissionFeeData readyFee =
         new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY, BigDecimal.ONE,
             BigDecimal.ONE);
@@ -276,10 +276,10 @@ public class ProofOfAttentionServiceTest {
     testScheduler.triggerActions();
     ready.assertComplete()
         .assertNoErrors()
-        .assertValue(readyFee.getStatus());
-    TestObserver<ProofSubmissionFeeData.RequirementsStatus> noFunds =
-        proofOfAttentionService.isWalletReady("packageName")
-            .test();
+        .assertValue(readyFee);
+    TestObserver<ProofSubmissionFeeData> noFunds = proofOfAttentionService.isWalletReady(1)
+        .subscribeOn(testScheduler)
+        .test();
     ProofSubmissionFeeData noFundsFee =
         new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NO_FUNDS,
             BigDecimal.ZERO, BigDecimal.ZERO);
@@ -287,10 +287,10 @@ public class ProofOfAttentionServiceTest {
     testScheduler.triggerActions();
     noFunds.assertComplete()
         .assertNoErrors()
-        .assertValue(noFundsFee.getStatus());
-    TestObserver<ProofSubmissionFeeData.RequirementsStatus> noWallet =
-        proofOfAttentionService.isWalletReady("packageName")
-            .test();
+        .assertValue(noFundsFee);
+    TestObserver<ProofSubmissionFeeData> noWallet = proofOfAttentionService.isWalletReady(1)
+        .subscribeOn(testScheduler)
+        .test();
     ProofSubmissionFeeData noWalletFee =
         new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NO_WALLET,
             BigDecimal.ZERO, BigDecimal.ZERO);
@@ -298,6 +298,6 @@ public class ProofOfAttentionServiceTest {
     testScheduler.triggerActions();
     noWallet.assertComplete()
         .assertNoErrors()
-        .assertValue(noWalletFee.getStatus());
+        .assertValue(noWalletFee);
   }
 }

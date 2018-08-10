@@ -49,11 +49,11 @@
       <Button
           android:id="@+id/copy_action"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"
+          android:layout_height="@dimen/button_height"
           android:layout_gravity="center_horizontal"
           android:layout_marginTop="@dimen/big_margin"
           android:text="@string/copy"
-          style="@style/Widget.AppCompat.Button.Colored"
+          style="@style/ButtonStyle"
           />
     </LinearLayout>
   </FrameLayout>

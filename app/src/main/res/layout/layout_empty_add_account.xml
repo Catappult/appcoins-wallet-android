@@ -34,26 +34,24 @@
   <Button
       android:id="@+id/new_account_action"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="@dimen/button_height"
       android:layout_gravity="center_horizontal"
       android:layout_marginEnd="@dimen/big_margin"
       android:layout_marginStart="@dimen/big_margin"
       android:layout_marginTop="@dimen/big_margin"
-      android:padding="@dimen/big_padding"
       android:text="@string/action_create_new_account"
-      style="@style/Widget.AppCompat.Button.Colored"
+      style="@style/ButtonStyle"
       />
   <Button
       android:id="@+id/import_account_action"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="@dimen/button_height"
       android:layout_gravity="center_horizontal"
       android:layout_marginEnd="@dimen/big_margin"
       android:layout_marginStart="@dimen/big_margin"
-      android:layout_marginTop="@dimen/normal_margin"
+      android:layout_marginTop="@dimen/big_margin"
       android:gravity="center_horizontal|center_vertical"
-      android:padding="@dimen/big_padding"
       android:text="@string/already_have_account"
-      style="@style/Widget.AppCompat.Button"
+      style="@style/ButtonStyle.Light"
       />
 </LinearLayout>

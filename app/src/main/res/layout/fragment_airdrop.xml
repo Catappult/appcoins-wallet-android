@@ -84,8 +84,8 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:hint="@string/activity_airdrop_hint"
-          android:textColorHighlight="@color/grey_6b_alpha"
-          android:textColorHint="@color/grey_6b_alpha"
+          android:textColorHighlight="@color/grey_alpha_6b"
+          android:textColorHint="@color/grey_alpha_6b"
           android:textSize="16sp"
           />
 
@@ -96,8 +96,6 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/button_height"
         android:enabled="false"
-        android:paddingEnd="@dimen/big_margin"
-        android:paddingStart="@dimen/big_margin"
         android:text="@string/activity_airdrop_submit_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/captcha_text"

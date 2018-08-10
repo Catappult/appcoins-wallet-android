@@ -17,6 +17,8 @@ import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
+import com.asfoundation.wallet.ui.AppcoinsApps;
+import com.asfoundation.wallet.ui.MicroRaidenInteractor;
 
 public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
 
@@ -34,6 +36,8 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
   private final GetDefaultWalletBalance getDefaultWalletBalance;
   private final TransactionsMapper transactionsMapper;
   private final AirdropRouter airdropRouter;
+  private final MicroRaidenInteractor microRaidenInteractor;
+  private final AppcoinsApps applications;
 
   public TransactionsViewModelFactory(FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
@@ -42,7 +46,8 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
       TransactionDetailRouter transactionDetailRouter, MyAddressRouter myAddressRouter,
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
-      TransactionsMapper transactionsMapper, AirdropRouter airdropRouter) {
+      TransactionsMapper transactionsMapper, AirdropRouter airdropRouter,
+      MicroRaidenInteractor microRaidenInteractor, AppcoinsApps applications) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchTransactionsInteract = fetchTransactionsInteract;
@@ -57,12 +62,15 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
     this.getDefaultWalletBalance = getDefaultWalletBalance;
     this.transactionsMapper = transactionsMapper;
     this.airdropRouter = airdropRouter;
+    this.microRaidenInteractor = microRaidenInteractor;
+    this.applications = applications;
   }
 
   @NonNull @Override public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
     return (T) new TransactionsViewModel(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, manageWalletsRouter, settingsRouter, sendRouter,
         transactionDetailRouter, myAddressRouter, myTokensRouter, externalBrowserRouter,
-        defaultTokenProvider, getDefaultWalletBalance, transactionsMapper, airdropRouter);
+        defaultTokenProvider, getDefaultWalletBalance, transactionsMapper, airdropRouter,
+        microRaidenInteractor, applications);
   }
 }

@@ -1,0 +1,56 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+  compileSdkVersion 27
+
+
+
+  defaultConfig {
+    minSdkVersion 15
+    targetSdkVersion 27
+    versionCode 1
+    versionName "1.0"
+
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      buildConfigField 'String', 'BASE_HOST',
+          "\"" + project.BASE_HOST_PROD + "\""
+      buildConfigField 'int', 'NETWORK_ID', project.NETWORK_ID_PROD
+      manifestPlaceholders = [iabPermission: project.APPCOINS_IAB_PERMISSION]
+    }
+
+    debug {
+      minifyEnabled false
+      buildConfigField 'String', 'BASE_HOST',
+          "\"" + project.BASE_HOST_DEV + "\""
+      buildConfigField 'int', 'NETWORK_ID', project.NETWORK_ID_DEV
+      manifestPlaceholders = [iabPermission: project.APPCOINS_DEV_IAB_PERMISSION]
+    }
+  }
+}
+
+dependencies {
+  implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+  implementation "com.android.support:appcompat-v7:$project.supportVersion"
+  testImplementation "junit:junit:$project.junitVersion"
+  testImplementation "org.mockito:mockito-core:$project.mockitoCoreVersion"
+  androidTestImplementation 'com.android.support.test:runner:1.0.2'
+  androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+  implementation "io.reactivex.rxjava2:rxjava:$project.rxJavaVersion"
+  implementation "com.squareup.retrofit2:adapter-rxjava2:$project.retrofitVersion"
+  implementation "com.squareup.retrofit2:converter-gson:$project.retrofitVersion"
+  implementation "com.squareup.retrofit2:retrofit:$project.retrofitVersion"
+  implementation "com.google.code.gson:gson:$project.gsonVersion"
+  implementation "com.madgag.spongycastle:core:1.58.0.0@jar"
+}
+repositories {
+  mavenCentral()
+}

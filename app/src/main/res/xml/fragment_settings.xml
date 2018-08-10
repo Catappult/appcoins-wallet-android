@@ -25,7 +25,7 @@
         android:title="@string/title_source_code">
       <intent
           android:action="android.intent.action.VIEW"
-          android:data="https://github.com/Aptoide/asf-wallet-android"/>
+          android:data="https://github.com/Aptoide/appcoins-wallet-android"/>
     </Preference>
 
     <Preference
@@ -33,7 +33,7 @@
         android:title="@string/title_report_bug">
       <intent
           android:action="android.intent.action.VIEW"
-          android:data="https://github.com/Aptoide/asf-wallet-android/issues/new"/>
+          android:data="https://github.com/Aptoide/appcoins-wallet-android/issues/new"/>
     </Preference>
 
   </PreferenceCategory>

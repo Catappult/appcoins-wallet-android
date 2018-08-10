@@ -4,14 +4,23 @@ import android.app.Activity;
 import android.app.Service;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.Fragment;
+import com.appcoins.wallet.billing.BillingDependenciesProvider;
+import com.appcoins.wallet.billing.BillingFactory;
+import com.appcoins.wallet.billing.BillingPaymentProofSubmission;
+import com.appcoins.wallet.billing.ProxyService;
+import com.appcoins.wallet.billing.WalletService;
+import com.appcoins.wallet.billing.repository.RemoteRepository;
+import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.di.DaggerAppComponent;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
-import com.asfoundation.wallet.repository.TransactionService;
+import com.asfoundation.wallet.repository.InAppPurchaseProofSource;
 import com.asfoundation.wallet.repository.WalletNotFoundException;
+import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
+import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 import dagger.android.AndroidInjector;
@@ -24,18 +33,28 @@ import io.reactivex.exceptions.UndeliverableException;
 import io.reactivex.plugins.RxJavaPlugins;
 import io.realm.Realm;
 import javax.inject.Inject;
+import org.jetbrains.annotations.NotNull;
 
 public class App extends MultiDexApplication
-    implements HasActivityInjector, HasServiceInjector, HasSupportFragmentInjector {
+    implements HasActivityInjector, HasServiceInjector, HasSupportFragmentInjector,
+    BillingDependenciesProvider {
 
+  private static final String TAG = App.class.getSimpleName();
   @Inject DispatchingAndroidInjector<Activity> dispatchingActivityInjector;
   @Inject DispatchingAndroidInjector<Service> dispatchingServiceInjector;
   @Inject DispatchingAndroidInjector<Fragment> dispatchingFragmentInjector;
-  @Inject TransactionService transactionService;
   @Inject EthereumNetworkRepositoryType ethereumNetworkRepository;
   @Inject AddTokenInteract addTokenInteract;
   @Inject DefaultTokenProvider defaultTokenProvider;
   @Inject ProofOfAttentionService proofOfAttentionService;
+  @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
+  @Inject AppcoinsOperationsDataSaver appcoinsOperationsDataSaver;
+  @Inject RemoteRepository.BdsApi bdsApi;
+  @Inject WalletService walletService;
+  @Inject AppCoinsAddressProxySdk contractAddressProvider;
+  @Inject InAppPurchaseProofSource inAppPurchaseProofSource;
+  @Inject BillingFactory billingFactory;
+  @Inject ProxyService proxyService;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -51,8 +70,9 @@ public class App extends MultiDexApplication
             .build())
         .build());
 
-    transactionService.start();
+    inAppPurchaseInteractor.start();
     proofOfAttentionService.start();
+    appcoinsOperationsDataSaver.start();
     ethereumNetworkRepository.addOnChangeDefaultNetwork(
         networkInfo -> defaultTokenProvider.getDefaultToken()
             .flatMapCompletable(
@@ -66,10 +86,11 @@ public class App extends MultiDexApplication
             .retry()
             .subscribe());
 
-    // enable pin code for the application
-    //		LockManager<CustomPinActivity> lockManager = LockManager.getInstance();
-    //		lockManager.enableAppLock(this, CustomPinActivity.class);
-    //		lockManager.getAppLock().setShouldShowForgot(false);
+    BillingPaymentProofSubmission proofSubmission =
+        new BillingPaymentProofSubmission.Builder(this).build();
+    proofSubmission.start();
+    proofSubmission.addAuthorizationProofSource(inAppPurchaseProofSource.getAuthorization());
+    proofSubmission.addPaymentProofSource(inAppPurchaseProofSource.getPayment());
   }
 
   private void setupRxJava() {
@@ -98,5 +119,25 @@ public class App extends MultiDexApplication
 
   @Override public AndroidInjector<Fragment> supportFragmentInjector() {
     return dispatchingFragmentInjector;
+  }
+
+  @Override public int getSupportedVersion() {
+    return BuildConfig.BILLING_SUPPORTED_VERSION;
+  }
+
+  @NotNull @Override public RemoteRepository.BdsApi getBdsApi() {
+    return bdsApi;
+  }
+
+  @NotNull @Override public WalletService getWalletService() {
+    return walletService;
+  }
+
+  @NotNull @Override public ProxyService getProxyService() {
+    return proxyService;
+  }
+
+  @NotNull @Override public BillingFactory getBillingFactory() {
+    return billingFactory;
   }
 }

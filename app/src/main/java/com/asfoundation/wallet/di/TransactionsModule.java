@@ -22,9 +22,13 @@ import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenExplorerClientType;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
+import com.asfoundation.wallet.ui.AppcoinsApps;
+import com.asfoundation.wallet.ui.MicroRaidenInteractor;
+import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.viewmodel.TransactionsViewModelFactory;
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 
 @Module class TransactionsModule {
@@ -36,11 +40,13 @@ import okhttp3.OkHttpClient;
       TransactionDetailRouter transactionDetailRouter, MyAddressRouter myAddressRouter,
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
-      TransactionsMapper transactionsMapper, AirdropRouter airdropRouter) {
+      TransactionsMapper transactionsMapper, AirdropRouter airdropRouter,
+      MicroRaidenInteractor microRaidenInteractor, AppcoinsApps applications) {
     return new TransactionsViewModelFactory(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, manageWalletsRouter, settingsRouter, sendRouter,
         transactionDetailRouter, myAddressRouter, myTokensRouter, externalBrowserRouter,
-        defaultTokenProvider, getDefaultWalletBalance, transactionsMapper, airdropRouter);
+        defaultTokenProvider, getDefaultWalletBalance, transactionsMapper, airdropRouter,
+        microRaidenInteractor, applications);
   }
 
   @Provides FetchTransactionsInteract provideFetchTransactionsInteract(
@@ -85,9 +91,9 @@ import okhttp3.OkHttpClient;
         tokenExplorerClientType, tokenLocalSource, inDiskCache, tickerService);
   }
 
-  @Provides TransactionsMapper provideTransactionsMapper(
-      DefaultTokenProvider defaultTokenProvider) {
-    return new TransactionsMapper(defaultTokenProvider);
+  @Provides TransactionsMapper provideTransactionsMapper(DefaultTokenProvider defaultTokenProvider,
+      AppcoinsOperationsDataSaver operationsDataSaver) {
+    return new TransactionsMapper(defaultTokenProvider, operationsDataSaver, Schedulers.io());
   }
 
   @Provides AirdropRouter provideAirdropRouter() {

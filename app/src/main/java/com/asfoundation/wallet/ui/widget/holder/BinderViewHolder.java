@@ -15,6 +15,10 @@ public abstract class BinderViewHolder<T> extends RecyclerView.ViewHolder {
         .inflate(resId, parent, false));
   }
 
+  public BinderViewHolder(View view) {
+    super(view);
+  }
+
   public abstract void bind(@Nullable T data, @NonNull Bundle addition);
 
   public void bind(@Nullable T data) {

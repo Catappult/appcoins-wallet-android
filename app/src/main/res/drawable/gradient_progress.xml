@@ -12,9 +12,9 @@
 
     <gradient
         android:angle="0"
-        android:centerColor="@color/light_blue"
-        android:endColor="@color/dark_blue"
-        android:startColor="#00ffffff"
+        android:centerColor="@color/btn_end_gradient_color"
+        android:endColor="@color/btn_start_gradient_color"
+        android:startColor="#00ff578c"
         android:type="sweep"
         android:useLevel="false"
         />

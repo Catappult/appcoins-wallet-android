@@ -25,6 +25,7 @@ gen/
 .gradle/
 /build
 app/release
+app/debug
 
 # Fastlane
 fastlane/report.xml

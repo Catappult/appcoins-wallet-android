@@ -18,12 +18,13 @@ import java.util.concurrent.TimeUnit;
 public class BuyService {
   private final SendTransactionInteract sendTransactionInteract;
   private final PendingTransactionService pendingTransactionService;
-  private final Cache<String, PaymentTransaction> cache;
+  private final Repository<String, PaymentTransaction> cache;
   private final ErrorMapper errorMapper;
   private final Scheduler scheduler;
 
   public BuyService(SendTransactionInteract sendTransactionInteract,
-      PendingTransactionService pendingTransactionService, Cache<String, PaymentTransaction> cache,
+      PendingTransactionService pendingTransactionService,
+      Repository<String, PaymentTransaction> cache,
       ErrorMapper errorMapper, Scheduler scheduler) {
     this.sendTransactionInteract = sendTransactionInteract;
     this.pendingTransactionService = pendingTransactionService;

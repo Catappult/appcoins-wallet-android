@@ -12,8 +12,8 @@
 
   <FrameLayout
       android:id="@+id/src_img"
-      android:layout_width="40dp"
-      android:layout_height="40dp"
+      android:layout_width="@dimen/transaction_img_size"
+      android:layout_height="@dimen/transaction_img_size"
       android:layout_marginBottom="@dimen/big_padding"
       android:layout_marginStart="@dimen/big_padding"
       android:layout_marginTop="@dimen/normal_margin"
@@ -24,11 +24,13 @@
       >
     <ImageView
         android:id="@+id/img"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="@dimen/transaction_img_size_inside"
+        android:layout_height="@dimen/transaction_img_size_inside"
         android:layout_gravity="center"
         android:contentDescription="@string/empty"
+        android:scaleType="centerInside"
         tools:src="@drawable/ic_transaction_peer"
+        android:adjustViewBounds="true"
         />
   </FrameLayout>
 
@@ -53,7 +55,7 @@
   </FrameLayout>
   <TextView
       android:id="@+id/address"
-      android:layout_width="0dp"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="@dimen/big_margin"
       android:layout_marginStart="@dimen/big_margin"
@@ -61,32 +63,33 @@
       android:ellipsize="end"
       android:singleLine="true"
       android:textColor="@color/transaction_item_text_color"
-      android:textSize="16dp"
+      android:textSize="16sp"
       app:layout_constraintEnd_toStartOf="@id/value"
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toEndOf="@id/src_img"
       app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintWidth_default="wrap"
+      app:layout_constrainedWidth="true"
       tools:text="0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFD"
       />
 
   <TextView
       android:id="@+id/description"
-      android:layout_width="0dp"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginBottom="@dimen/big_padding"
       android:layout_marginEnd="@dimen/big_margin"
       android:layout_marginStart="@dimen/big_margin"
+      android:ellipsize="end"
       android:maxLines="1"
       android:textColor="@color/transaction_item_snd_text_color"
-      android:textSize="12dp"
+      android:textSize="12sp"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="@id/value"
+      app:layout_constraintEnd_toStartOf="@id/value"
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toEndOf="@id/src_img"
       app:layout_constraintTop_toBottomOf="@id/address"
-      app:layout_constraintWidth_default="wrap"
-      tools:text="Description"
+      app:layout_constrainedWidth="true"
+      tools:text="0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFD"
       />
 
   <TextView
@@ -95,7 +98,7 @@
       android:layout_height="wrap_content"
       android:layout_marginEnd="@dimen/big_padding"
       android:layout_marginTop="@dimen/normal_margin"
-      android:textColor="@color/grey_8a_alpha"
+      android:textColor="@color/gray_alpha_8a"
       android:textSize="12sp"
       app:layout_constraintBaseline_toBaselineOf="@id/value"
       app:layout_constraintEnd_toEndOf="parent"

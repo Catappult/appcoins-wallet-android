@@ -1,5 +1,9 @@
 package com.asfoundation.wallet.util;
 
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.ForegroundColorSpan;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
@@ -60,5 +64,19 @@ public class BalanceUtils {
   public static BigDecimal subunitToBase(BigDecimal subunitAmount, int decimals) {
     return subunitAmount.divide(BigDecimal.valueOf(10)
         .pow(decimals));
+  }
+
+
+  static public SpannableString formatBalance(String value, String currency, int currencySize,
+      int currencyColor) {
+    String balance = value + " " + currency.toUpperCase();
+    SpannableString styledTitle = new SpannableString(balance);
+    int currencyIndex = balance.indexOf(currency.toUpperCase());
+
+    styledTitle.setSpan(new AbsoluteSizeSpan(currencySize), currencyIndex, balance.length(),
+        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    styledTitle.setSpan(new ForegroundColorSpan(currencyColor), currencyIndex, balance.length(),
+        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    return styledTitle;
   }
 }
