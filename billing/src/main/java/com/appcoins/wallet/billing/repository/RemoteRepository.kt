@@ -102,6 +102,7 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
                      @Query("wallet.signature") walletSignature: String,
                      @Query("type") type: String): Single<GetPurchasesResponse>
 
+    @Headers("Content-Type: application/json")
     @PATCH("inapp/8.20180518/packages/{packageName}/purchases/{purchaseId}")
     fun consumePurchase(@Path("packageName") packageName: String,
                         @Path("purchaseId") purchaseToken: String,

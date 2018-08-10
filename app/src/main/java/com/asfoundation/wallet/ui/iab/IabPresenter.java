@@ -172,6 +172,7 @@ public class IabPresenter {
                 transaction.getProductId())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSuccess(purchase -> view.finish(billingMessagesMapper.mapPurchase(
+                    purchase.getUid(),
                     purchase.getSignature()
                         .getValue(), billingSerializer.serializeSignatureData(purchase))))
                 .toCompletable()

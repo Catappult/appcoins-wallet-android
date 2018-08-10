@@ -41,9 +41,12 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     internal const val INAPP_PURCHASE_ITEM_LIST = "INAPP_PURCHASE_ITEM_LIST"
     internal const val INAPP_PURCHASE_DATA_LIST = "INAPP_PURCHASE_DATA_LIST"
     internal const val INAPP_DATA_SIGNATURE_LIST = "INAPP_DATA_SIGNATURE_LIST"
+    internal const val INAPP_PURCHASE_ID_LIST = "INAPP_PURCHASE_ID_LIST"
+
     internal const val INAPP_PURCHASE_DATA = "INAPP_PURCHASE_DATA"
     internal const val INAPP_DATA_SIGNATURE = "INAPP_DATA_SIGNATURE"
     internal const val INAPP_CONTINUATION_TOKEN = "INAPP_CONTINUATION_TOKEN"
+    internal const val INAPP_PURCHASE_ID = "INAPP_PURCHASE_ID"
 
     internal const val ITEM_TYPE_INAPP = "inapp"
     internal const val ITEM_TYPE_SUBS = "subs"
@@ -150,6 +153,7 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
       return result
     }
 
+    val idsList = ArrayList<String>()
     val dataList = ArrayList<String>()
     val signatureList = ArrayList<String>()
     val skuList = ArrayList<String>()
@@ -161,6 +165,7 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
                 .blockingGet()
 
         purchases.forEach { purchase: Purchase ->
+          idsList.add(purchase.uid)
           dataList.add(serializer.serializeSignatureData(purchase))
           signatureList.add(purchase.signature.value)
           skuList.add(purchase.product.name)
@@ -171,6 +176,7 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
 
     }
 
+    result.putStringArrayList(INAPP_PURCHASE_ID_LIST, idsList)
     result.putStringArrayList(INAPP_PURCHASE_DATA_LIST, dataList)
     result.putStringArrayList(INAPP_PURCHASE_ITEM_LIST, skuList)
     result.putStringArrayList(INAPP_DATA_SIGNATURE_LIST, signatureList)

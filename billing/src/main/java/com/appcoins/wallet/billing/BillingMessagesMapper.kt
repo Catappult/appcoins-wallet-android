@@ -64,8 +64,9 @@ class BillingMessagesMapper {
     return bundle
   }
 
-  fun mapPurchase(signature: String, signatureData: String): Bundle {
+  fun mapPurchase(purchaseId: String, signature: String, signatureData: String): Bundle {
     val intent = Bundle()
+    intent.putString(AppcoinsBillingBinder.INAPP_PURCHASE_ID, purchaseId)
     intent.putString(AppcoinsBillingBinder.INAPP_PURCHASE_DATA, signatureData)
     intent.putString(AppcoinsBillingBinder.INAPP_DATA_SIGNATURE, signature)
     intent.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
