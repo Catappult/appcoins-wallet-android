@@ -133,15 +133,18 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     return Single.zip(getTokenContractAddress,
         getIabContractAddress, getSkuDetails,
         Function3 { tokenContractAddress: String, iabContractAddress: String, skuDetails: List<Product> ->
-            try {
-              intentBuilder.buildBuyIntentBundle(serializer.mapProduct(skuDetails[0]),
-                  tokenContractAddress,
-                  iabContractAddress, developerPayload)
-            } catch (exception: Exception) {
-              billingMessagesMapper.mapBuyIntentError(exception)
-            }
+          try {
+            intentBuilder.buildBuyIntentBundle(serializer.mapProduct(skuDetails[0]),
+                tokenContractAddress,
+                iabContractAddress, developerPayload)
+          } catch (exception: Exception) {
+            billingMessagesMapper.mapBuyIntentError(exception)
+          }
 
-        }).blockingGet()
+        }).onErrorReturn { throwable ->
+      billingMessagesMapper.mapBuyIntentError(
+          throwable as Exception)
+    }.blockingGet()
   }
 
   override fun getPurchases(apiVersion: Int, packageName: String?, type: String?,
