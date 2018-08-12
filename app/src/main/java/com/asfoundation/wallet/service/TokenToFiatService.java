@@ -13,7 +13,8 @@ import retrofit2.http.Query;
  */
 
 public class TokenToFiatService {
-  public static final String TOKEN_TO_FIAT_END_POINT = "http://34.254.1.70/";
+  public static final String TOKEN_TO_FIAT_END_POINT_DEV = "http://34.254.1.70/";
+  public static final String TOKEN_TO_FIAT_END_POINT_PROD = "http://52.209.250.255/";
 
   private final TokenToFiatApi tokenToFiatApi;
 

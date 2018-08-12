@@ -110,7 +110,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import static com.asfoundation.wallet.AirdropService.BASE_URL;
-import static com.asfoundation.wallet.service.TokenToFiatService.TOKEN_TO_FIAT_END_POINT;
+import static com.asfoundation.wallet.service.TokenToFiatService.TOKEN_TO_FIAT_END_POINT_DEV;
+import static com.asfoundation.wallet.service.TokenToFiatService.TOKEN_TO_FIAT_END_POINT_PROD;
 
 @Module class ToolsModule {
   @Provides Context provideContext(App application) {
@@ -408,7 +409,9 @@ import static com.asfoundation.wallet.service.TokenToFiatService.TOKEN_TO_FIAT_E
   }
 
   @Singleton @Provides RemoteRepository.BdsApi provideBdsApi(OkHttpClient client, Gson gson) {
-    return new Retrofit.Builder().baseUrl(RemoteRepository.BASE_HOST)
+    String baseUrl =
+        BuildConfig.DEBUG ? RemoteRepository.BASE_HOST_DEV : RemoteRepository.BASE_HOST_PROD;
+    return new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -418,7 +421,8 @@ import static com.asfoundation.wallet.service.TokenToFiatService.TOKEN_TO_FIAT_E
 
   @Singleton @Provides TokenToFiatService provideTokenToFiatService(OkHttpClient client,
       Gson gson) {
-    TokenToFiatService.TokenToFiatApi api = new Retrofit.Builder().baseUrl(TOKEN_TO_FIAT_END_POINT)
+    String baseUrl = BuildConfig.DEBUG ? TOKEN_TO_FIAT_END_POINT_DEV : TOKEN_TO_FIAT_END_POINT_PROD;
+    TokenToFiatService.TokenToFiatApi api = new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(JacksonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

@@ -6,7 +6,8 @@ import retrofit2.http.*
 
 class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiResponseMapper) {
   companion object {
-    const val BASE_HOST = "http://api-dev.blockchainds.com"//BuildConfig.BASE_HOST
+    const val BASE_HOST_DEV = "http://api-dev.blockchainds.com"//BuildConfig.BASE_HOST
+    const val BASE_HOST_PROD = "http://api.blockchainds.com"//BuildConfig.BASE_HOST
 
   }
 
