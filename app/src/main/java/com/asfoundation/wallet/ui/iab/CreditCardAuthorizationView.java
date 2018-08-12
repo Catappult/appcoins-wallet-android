@@ -11,7 +11,7 @@ import rx.Observable;
 
 public interface CreditCardAuthorizationView {
 
-  void showProduct(double amount);
+  void showProduct();
 
   void showLoading();
 

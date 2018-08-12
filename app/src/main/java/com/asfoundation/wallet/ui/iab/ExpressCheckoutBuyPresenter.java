@@ -23,14 +23,14 @@ public class ExpressCheckoutBuyPresenter {
     this.disposables = disposables;
   }
 
-  public void present(double transactionValue) {
-    setupUi(transactionValue);
+  public void present(double transactionValue, String currency) {
+    setupUi(transactionValue, currency);
     handleCancelClick();
     handleErrorDismisses();
   }
 
-  private void setupUi(double transactionValue) {
-    disposables.add(inAppPurchaseInteractor.convertToFiat(transactionValue)
+  private void setupUi(double transactionValue, String currency) {
+    disposables.add(inAppPurchaseInteractor.convertToFiat(transactionValue, currency)
             .observeOn(viewScheduler)
         .doOnSuccess(view::setup)
         .subscribe(__ -> {

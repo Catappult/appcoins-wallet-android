@@ -35,6 +35,7 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
+import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_CURRENCY;
 
 /**
  * Created by franciscocalado on 20/07/2018.
@@ -113,7 +114,9 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
           showError();
         });
     buyButton.setOnClickListener(v -> iabView.navigateToCreditCardAuthorization());
-    presenter.present(((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue());
+    // TODO: 12-08-2018 neuro add currency
+    presenter.present(((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue(),
+        extras.getString(TRANSACTION_CURRENCY));
 
   }
 

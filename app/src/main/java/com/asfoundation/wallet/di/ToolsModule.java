@@ -107,6 +107,7 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import static com.asfoundation.wallet.AirdropService.BASE_URL;
 import static com.asfoundation.wallet.service.TokenToFiatService.TOKEN_TO_FIAT_END_POINT;
@@ -419,7 +420,7 @@ import static com.asfoundation.wallet.service.TokenToFiatService.TOKEN_TO_FIAT_E
       Gson gson) {
     TokenToFiatService.TokenToFiatApi api = new Retrofit.Builder().baseUrl(TOKEN_TO_FIAT_END_POINT)
         .client(client)
-        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addConverterFactory(JacksonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(TokenToFiatService.TokenToFiatApi.class);

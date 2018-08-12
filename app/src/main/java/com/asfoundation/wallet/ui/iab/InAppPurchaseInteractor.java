@@ -240,8 +240,13 @@ public class InAppPurchaseInteractor {
         .flatMap(__ -> inAppPurchaseService.hasBalanceToBuy(transactionBuilder));
   }
 
-  public Single<FiatValue> convertToFiat(double appcValue) {
-    return expressCheckoutBuyService.getTokenValue(appcValue);
+  public Single<FiatValue> convertToFiat(double appcValue, String currency) {
+    return expressCheckoutBuyService.getTokenValue(currency)
+        .map(fiatValueConvertion -> calculateValue(fiatValueConvertion, appcValue));
+  }
+
+  private FiatValue calculateValue(FiatValue fiatValue, double appcValue) {
+    return new FiatValue(fiatValue.getAmount() * appcValue, fiatValue.getCurrency());
   }
 
   public enum TransactionType {

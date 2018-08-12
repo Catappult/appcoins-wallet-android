@@ -16,7 +16,7 @@ public class ExpressCheckoutBuyService {
     this.tokenToFiatService = tokenToFiatService;
   }
 
-  public Single<FiatValue> getTokenValue(double value) {
-    return tokenToFiatService.convertAppcToFiat(value);
+  public Single<FiatValue> getTokenValue(String currency) {
+    return tokenToFiatService.convertAppcToFiat(currency);
   }
 }

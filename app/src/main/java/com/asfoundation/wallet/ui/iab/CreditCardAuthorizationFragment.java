@@ -148,8 +148,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
             .setPositiveButton(R.string.ok)
             .build();
 
-    showProduct(6.34);
-    showProductPrice(new Amount(100, "USD"));
+    showProduct();
     presenter.present();
   }
 
@@ -183,7 +182,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
     iabView = ((IabView) context);
   }
 
-  @Override public void showProduct(double amount) {
+  @Override public void showProduct() {
     Formatter formatter = new Formatter();
 
     try {

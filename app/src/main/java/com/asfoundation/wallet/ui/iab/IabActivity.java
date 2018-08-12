@@ -23,6 +23,7 @@ public class IabActivity extends BaseActivity implements IabView {
   public static final String PRODUCT_NAME = "product_name";
   public static final String TRANSACTION_HASH = "transaction_hash";
   public static final String TRANSACTION_AMOUNT = "transaction_ammout";
+  public static final String TRANSACTION_CURRENCY = "transaction_currency";
   public static final String FIAT_VALUE = "fiat_value";
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   private boolean isBackEnable;
@@ -98,6 +99,8 @@ public class IabActivity extends BaseActivity implements IabView {
       //canBuy = true;
       Bundle bundle = new Bundle();
       bundle.putSerializable(TRANSACTION_AMOUNT, amount);
+      // TODO: 12-08-2018 neuro add currency
+      bundle.putSerializable(TRANSACTION_CURRENCY, "EUR");
       bundle.putString(APP_PACKAGE, getIntent().getExtras()
           .getString(APP_PACKAGE, ""));
       bundle.putString(PRODUCT_NAME, getIntent().getExtras()
