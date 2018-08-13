@@ -24,12 +24,7 @@ class BillingPaymentProofSubmission internal constructor(
   fun start() {
     disposables.add(authorizationEventMerger.getEvents()
         .subscribeOn(networkScheduler)
-        .flatMapSingle {
-          registerAuthorizationProof(it.id, it.paymentType, it.productName, it.packageName,
-              it.developerAddress,
-              it.storeAddress).doOnSuccess { paymentId -> paymentIds[it.id] = paymentId }
-
-        }
+        .flatMapCompletable { processAuthorizationProof(it) }
         .doOnError { it.printStackTrace() }
         .retry()
         .subscribe())
@@ -44,6 +39,13 @@ class BillingPaymentProofSubmission internal constructor(
         .doOnError { it.printStackTrace() }
         .retry()
         .subscribe())
+  }
+
+  fun processAuthorizationProof(
+      it: AuthorizationProof): Completable {
+    return registerAuthorizationProof(it.id, it.paymentType, it.productName, it.packageName,
+        it.developerAddress, it.storeAddress)
+        .doOnSuccess { paymentId -> paymentIds[it.id] = paymentId }.toCompletable()
   }
 
   private fun registerPaymentProof(paymentId: String, paymentProof: String,
@@ -87,22 +89,35 @@ class BillingPaymentProofSubmission internal constructor(
   }
 
   companion object {
-    inline fun build(billingDependenciesProvider: BillingDependenciesProvider,
-                     block: BillingPaymentProofSubmission.Builder.() -> Unit) =
-        BillingPaymentProofSubmission.Builder(billingDependenciesProvider).apply(block).build()
+    inline fun build(block: BillingPaymentProofSubmission.Builder.() -> Unit) =
+        BillingPaymentProofSubmission.Builder().apply(block).build()
   }
 
-  class Builder(private val billingDependenciesProvider: BillingDependenciesProvider) {
-    var networkScheduler: Scheduler = Schedulers.io()
-    fun build() =
-        BillingPaymentProofSubmission(
-            EventMerger(PublishSubject.create(), CompositeDisposable()),
-            EventMerger(PublishSubject.create(), CompositeDisposable()),
-            billingDependenciesProvider.getWalletService(),
-            BdsRepository(
-                RemoteRepository(billingDependenciesProvider.getBdsApi(), BdsApiResponseMapper()),
-                BillingThrowableCodeMapper()), networkScheduler, ConcurrentHashMap(),
-            CompositeDisposable())
+  class Builder {
+    private var walletService: WalletService? = null
+    private var networkScheduler: Scheduler = Schedulers.io()
+    private var api: RemoteRepository.BdsApi? = null
+
+    fun setApi(bdsApi: RemoteRepository.BdsApi) = apply { api = bdsApi }
+
+    fun setScheduler(scheduler: Scheduler) = apply { this.networkScheduler = scheduler }
+
+    fun setWalletService(walletService: WalletService) =
+        apply { this.walletService = walletService }
+
+    fun build(): BillingPaymentProofSubmission {
+      return walletService?.let { walletService ->
+        api?.let { api ->
+          BillingPaymentProofSubmission(
+              EventMerger(PublishSubject.create(), CompositeDisposable()),
+              EventMerger(PublishSubject.create(), CompositeDisposable()),
+              walletService, BdsRepository(
+              RemoteRepository(api, BdsApiResponseMapper()),
+              BillingThrowableCodeMapper()), networkScheduler, ConcurrentHashMap(),
+              CompositeDisposable())
+        } ?: throw IllegalArgumentException("BdsApi not defined")
+      } ?: throw IllegalArgumentException("WalletService not defined")
+    }
   }
 
 }

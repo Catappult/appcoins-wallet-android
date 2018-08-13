@@ -37,38 +37,12 @@ class BillingPaymentProofSubmissionTest {
   @Before
   fun setUp() {
     scheduler = TestScheduler()
-    billing = BillingPaymentProofSubmission.build(object : BillingDependenciesProvider {
-      override fun getBillingFactory(): BillingFactory {
-        return object : BillingFactory {
-          override fun getBilling(merchantName: String): Billing {
-            TODO(
-                "not implemented") //To change body of created functions use File | Settings | File Templates.
-          }
-        }
-      }
 
-      override fun getProxyService(): ProxyService {
-        return object : ProxyService {
-          override fun getAppCoinsAddress(debug: Boolean): Single<String> {
-            TODO(
-                "not implemented") //To change body of created functions use File | Settings | File Templates.
-          }
-
-          override fun getIabAddress(debug: Boolean): Single<String> {
-            TODO(
-                "not implemented") //To change body of created functions use File | Settings | File Templates.
-          }
-        }
-      }
-
-      override fun getSupportedVersion(): Int = 3
-      override fun getBdsApi(): RemoteRepository.BdsApi = api
-      override fun getWalletService(): WalletService = object : WalletService {
-        override fun getWalletAddress(): Single<String> = Single.just(walletAddress)
-
-        override fun signContent(content: String): Single<String> = Single.just(signedContent)
-      }
-    }) { networkScheduler = scheduler }
+    billing = BillingPaymentProofSubmission.Builder().setApi(api).setScheduler(scheduler)
+        .setWalletService(object : WalletService {
+          override fun getWalletAddress(): Single<String> = Single.just(walletAddress)
+          override fun signContent(content: String): Single<String> = Single.just(signedContent)
+        }).build()
 
     `when`(api.registerAuthorization(paymentType, walletAddress, signedContent,
         RegisterAuthorizationBody(productName, packageName, paymentId, developerAddress,

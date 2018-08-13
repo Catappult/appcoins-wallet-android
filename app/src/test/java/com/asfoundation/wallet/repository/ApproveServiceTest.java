@@ -2,6 +2,7 @@ package com.asfoundation.wallet.repository;
 
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
@@ -19,6 +20,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
 
@@ -37,6 +39,7 @@ public class ApproveServiceTest {
   private WatchedTransactionService transactionService;
   private TransactionBuilder transactionBuilder;
   private BigInteger nonce;
+  @Mock ApproveTransactionValidator approveTransactionValidator;
 
   @Before public void before() {
     MockitoAnnotations.initMocks(this);
@@ -51,7 +54,9 @@ public class ApproveServiceTest {
     transactionService = new WatchedTransactionService(transactionSender,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new ErrorMapper(),
         scheduler, trackTransactionService);
-    approveService = new ApproveService(transactionService);
+
+    when(approveTransactionValidator.approve(any())).thenReturn(Completable.complete());
+    approveService = new ApproveService(transactionService, approveTransactionValidator);
     approveService.start();
   }
 

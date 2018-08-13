@@ -16,6 +16,7 @@ import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.repository.ApproveService;
+import com.asfoundation.wallet.repository.ApproveTransactionValidator;
 import com.asfoundation.wallet.repository.BalanceService;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.ErrorMapper;
@@ -30,6 +31,7 @@ import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationEntity;
 import com.asfoundation.wallet.ui.iab.raiden.ChannelService;
 import com.asfoundation.wallet.ui.iab.raiden.RaidenRepository;
 import com.asfoundation.wallet.util.TransferParser;
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
@@ -77,6 +79,7 @@ public class InAppPurchaseInteractorTest {
   @Mock RaidenRepository repository;
   @Mock TransactionSender transactionSender;
   @Mock BillingFactory billingFactory;
+  @Mock ApproveTransactionValidator approveTransactionSender;
   private InAppPurchaseInteractor inAppPurchaseInteractor;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
@@ -130,10 +133,11 @@ public class InAppPurchaseInteractorTest {
             new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
             new ErrorMapper(), scheduler, pendingTransactionService);
 
+    when(approveTransactionSender.approve(any())).thenReturn(Completable.complete());
     inAppPurchaseService =
         new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-            new ApproveService(approveTransactionService), new BuyService(buyTransactionService),
-            nonceGetter, balanceService);
+            new ApproveService(approveTransactionService, approveTransactionSender),
+            new BuyService(buyTransactionService), nonceGetter, balanceService);
 
     proofPublishSubject = PublishSubject.create();
     when(proofOfAttentionService.get()).thenReturn(proofPublishSubject);

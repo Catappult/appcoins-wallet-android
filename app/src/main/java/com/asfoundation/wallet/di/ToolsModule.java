@@ -5,6 +5,7 @@ import android.content.Context;
 import com.appcoins.wallet.billing.BdsBilling;
 import com.appcoins.wallet.billing.BillingFactory;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
+import com.appcoins.wallet.billing.BillingPaymentProofSubmission;
 import com.appcoins.wallet.billing.BillingThrowableCodeMapper;
 import com.appcoins.wallet.billing.ProxyService;
 import com.appcoins.wallet.billing.WalletService;
@@ -40,6 +41,8 @@ import com.asfoundation.wallet.poa.ProofWriter;
 import com.asfoundation.wallet.poa.TaggedCompositeDisposable;
 import com.asfoundation.wallet.poa.TransactionFactory;
 import com.asfoundation.wallet.repository.ApproveService;
+import com.asfoundation.wallet.repository.ApproveTransactionSender;
+import com.asfoundation.wallet.repository.ApproveTransactionValidator;
 import com.asfoundation.wallet.repository.BalanceService;
 import com.asfoundation.wallet.repository.BlockChainWriter;
 import com.asfoundation.wallet.repository.BuyService;
@@ -173,12 +176,22 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
     return new RealmManager();
   }
 
+  @Provides BillingPaymentProofSubmission providesBillingPaymentProofSubmission(
+      RemoteRepository.BdsApi api, WalletService walletService) {
+    return new BillingPaymentProofSubmission.Builder().setApi(api)
+        .setWalletService(walletService)
+        .build();
+  }
+
   @Provides ApproveService provideApproveService(SendTransactionInteract sendTransactionInteract,
       ErrorMapper errorMapper,
-      @Named("no_wait_transaction") TrackTransactionService pendingTransactionService) {
-    return new ApproveService(new WatchedTransactionService(sendTransactionInteract::approve,
-        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
-        Schedulers.io(), pendingTransactionService));
+      @Named("no_wait_transaction") TrackTransactionService pendingTransactionService,
+      BillingPaymentProofSubmission billingPaymentProofSubmission) {
+    return new ApproveService(
+        new WatchedTransactionService(new ApproveTransactionSender(sendTransactionInteract),
+            new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
+            Schedulers.io(), pendingTransactionService),
+        new ApproveTransactionValidator(sendTransactionInteract, billingPaymentProofSubmission));
   }
 
   @Provides BuyService provideBuyService(SendTransactionInteract sendTransactionInteract,

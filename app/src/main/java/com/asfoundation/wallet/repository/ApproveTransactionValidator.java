@@ -1,0 +1,34 @@
+package com.asfoundation.wallet.repository;
+
+import com.appcoins.wallet.billing.AuthorizationProof;
+import com.appcoins.wallet.billing.BillingPaymentProofSubmission;
+import com.asf.wallet.BuildConfig;
+import com.asfoundation.wallet.interact.SendTransactionInteract;
+import io.reactivex.Completable;
+
+public class ApproveTransactionValidator {
+  private final SendTransactionInteract sendTransactionInteract;
+  private final BillingPaymentProofSubmission billingPaymentProofSubmission;
+
+  public ApproveTransactionValidator(SendTransactionInteract sendTransactionInteract,
+      BillingPaymentProofSubmission billingPaymentProofSubmission) {
+    this.sendTransactionInteract = sendTransactionInteract;
+    this.billingPaymentProofSubmission = billingPaymentProofSubmission;
+  }
+
+  public Completable approve(PaymentTransaction paymentTransaction) {
+    String packageName = paymentTransaction.getPackageName();
+    String storeAddress = BuildConfig.DEFAULT_STORE_ADDRESS;
+    String oemAddress = BuildConfig.DEFAULT_OEM_ADDRESS;
+    String developerAddress = paymentTransaction.getTransactionBuilder()
+        .toAddress();
+    String productName = paymentTransaction.getTransactionBuilder()
+        .getSkuId();
+    return sendTransactionInteract.computeTransactionHash(
+        paymentTransaction.getTransactionBuilder(), paymentTransaction.getNonce())
+        .map(
+            hash -> new AuthorizationProof("appcoins", hash, productName, packageName, storeAddress,
+                oemAddress, developerAddress))
+        .flatMapCompletable(billingPaymentProofSubmission::processAuthorizationProof);
+  }
+}

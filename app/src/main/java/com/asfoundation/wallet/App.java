@@ -6,7 +6,6 @@ import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.Fragment;
 import com.appcoins.wallet.billing.BillingDependenciesProvider;
 import com.appcoins.wallet.billing.BillingFactory;
-import com.appcoins.wallet.billing.BillingPaymentProofSubmission;
 import com.appcoins.wallet.billing.ProxyService;
 import com.appcoins.wallet.billing.WalletService;
 import com.appcoins.wallet.billing.repository.RemoteRepository;
@@ -86,11 +85,6 @@ public class App extends MultiDexApplication
             .retry()
             .subscribe());
 
-    BillingPaymentProofSubmission proofSubmission =
-        new BillingPaymentProofSubmission.Builder(this).build();
-    proofSubmission.start();
-    proofSubmission.addAuthorizationProofSource(inAppPurchaseProofSource.getAuthorization());
-    proofSubmission.addPaymentProofSource(inAppPurchaseProofSource.getPayment());
   }
 
   private void setupRxJava() {
