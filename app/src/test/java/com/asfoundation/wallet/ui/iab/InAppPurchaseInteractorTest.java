@@ -133,7 +133,7 @@ public class InAppPurchaseInteractorTest {
             new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
             new ErrorMapper(), scheduler, pendingTransactionService);
 
-    when(approveTransactionSender.approve(any())).thenReturn(Completable.complete());
+    when(approveTransactionSender.validate(any())).thenReturn(Completable.complete());
     inAppPurchaseService =
         new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
             new ApproveService(approveTransactionService, approveTransactionSender),

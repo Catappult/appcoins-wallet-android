@@ -39,7 +39,7 @@ public class ApproveServiceTest {
   private WatchedTransactionService transactionService;
   private TransactionBuilder transactionBuilder;
   private BigInteger nonce;
-  @Mock ApproveTransactionValidator approveTransactionValidator;
+  @Mock TransactionValidator transactionValidator;
 
   @Before public void before() {
     MockitoAnnotations.initMocks(this);
@@ -55,8 +55,8 @@ public class ApproveServiceTest {
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new ErrorMapper(),
         scheduler, trackTransactionService);
 
-    when(approveTransactionValidator.approve(any())).thenReturn(Completable.complete());
-    approveService = new ApproveService(transactionService, approveTransactionValidator);
+    when(transactionValidator.validate(any())).thenReturn(Completable.complete());
+    approveService = new ApproveService(transactionService, transactionValidator);
     approveService.start();
   }
 

@@ -10,10 +10,10 @@ import java.util.List;
 
 public class ApproveService {
   private final WatchedTransactionService transactionService;
-  private final ApproveTransactionValidator approveTransactionSender;
+  private final TransactionValidator approveTransactionSender;
 
   public ApproveService(WatchedTransactionService transactionService,
-      ApproveTransactionValidator approveTransactionSender) {
+      TransactionValidator approveTransactionSender) {
     this.transactionService = transactionService;
     this.approveTransactionSender = approveTransactionSender;
   }
@@ -23,7 +23,7 @@ public class ApproveService {
   }
 
   public Completable approve(String key, PaymentTransaction paymentTransaction) {
-    return approveTransactionSender.approve(paymentTransaction)
+    return approveTransactionSender.validate(paymentTransaction)
         .andThen(transactionService.sendTransaction(key, paymentTransaction.getNonce(),
             paymentTransaction.getTransactionBuilder()));
   }

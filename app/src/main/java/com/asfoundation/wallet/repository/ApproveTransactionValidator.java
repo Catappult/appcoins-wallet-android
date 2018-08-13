@@ -6,7 +6,7 @@ import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import io.reactivex.Completable;
 
-public class ApproveTransactionValidator {
+public class ApproveTransactionValidator implements TransactionValidator {
   private final SendTransactionInteract sendTransactionInteract;
   private final BillingPaymentProofSubmission billingPaymentProofSubmission;
 
@@ -16,7 +16,7 @@ public class ApproveTransactionValidator {
     this.billingPaymentProofSubmission = billingPaymentProofSubmission;
   }
 
-  public Completable approve(PaymentTransaction paymentTransaction) {
+  @Override public Completable validate(PaymentTransaction paymentTransaction) {
     String packageName = paymentTransaction.getPackageName();
     String storeAddress = BuildConfig.DEFAULT_STORE_ADDRESS;
     String oemAddress = BuildConfig.DEFAULT_OEM_ADDRESS;
