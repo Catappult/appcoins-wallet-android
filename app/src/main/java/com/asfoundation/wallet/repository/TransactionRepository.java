@@ -108,22 +108,21 @@ public class TransactionRepository implements TransactionRepositoryType {
     return Single.fromCallable(
         () -> nonceObtainer.getNonce(new Address(ByteArray.from(transactionBuilder.fromAddress()))))
         .flatMap(nonceValue -> createRawTransaction(transactionBuilder, password, data, toAddress,
-            amount, nonceObtainer.getNonce(
-                new Address(ByteArray.from(transactionBuilder.fromAddress())))).flatMap(
-            signedMessage -> Single.fromCallable(() -> {
-              EthSendTransaction raw =
-                  web3j.ethSendRawTransaction(Numeric.toHexString(signedMessage))
-                      .send();
-              if (raw.hasError()) {
-                throw new TransactionException(raw.getError()
-                    .getCode(), raw.getError()
-                    .getMessage(), raw.getError()
-                    .getData());
-              }
-              return raw.getTransactionHash();
-            })
-                .subscribeOn(Schedulers.io())))
-        .retryWhen(throwableFlowable -> throwableFlowable.flatMap(this::getPublisher));
+            amount, nonceValue).flatMap(signedMessage -> Single.fromCallable(() -> {
+          EthSendTransaction raw = web3j.ethSendRawTransaction(Numeric.toHexString(signedMessage))
+              .send();
+          if (raw.hasError()) {
+            throw new TransactionException(raw.getError()
+                .getCode(), raw.getError()
+                .getMessage(), raw.getError()
+                .getData());
+          }
+          return raw.getTransactionHash();
+        })
+            .subscribeOn(Schedulers.io()))
+            .doOnSuccess(hash -> nonceObtainer.consumeNonce(nonceValue))
+            .retryWhen(throwableFlowable -> throwableFlowable.flatMap(
+                throwable -> getPublisher(throwable, nonceValue))));
   }
 
   private Single<byte[]> createRawTransaction(TransactionBuilder transactionBuilder,
@@ -152,10 +151,10 @@ public class TransactionRepository implements TransactionRepositoryType {
         });
   }
 
-  private Publisher<?> getPublisher(Throwable throwable) {
+  private Publisher<?> getPublisher(Throwable throwable, BigInteger nonceValue) {
     if (errorMapper.map(throwable)
         .equals(BlockchainErrorMapper.BlockchainError.NONCE_ERROR)) {
-      nonceGetter.bump();
+      nonceObtainer.consumeNonce(nonceValue);
       return Flowable.just(true);
     }
     return Flowable.error(throwable);

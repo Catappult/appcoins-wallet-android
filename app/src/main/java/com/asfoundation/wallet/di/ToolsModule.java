@@ -88,6 +88,7 @@ import com.asfoundation.wallet.ui.iab.raiden.PrivateKeyProvider;
 import com.asfoundation.wallet.ui.iab.raiden.Raiden;
 import com.asfoundation.wallet.ui.iab.raiden.RaidenFactory;
 import com.asfoundation.wallet.ui.iab.raiden.RaidenRepository;
+import com.asfoundation.wallet.ui.iab.raiden.Web3jNonceProvider;
 import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.TransferParser;
 import com.bds.microraidenj.MicroRaidenBDS;
@@ -258,7 +259,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   }
 
   @Provides NonceObtainer provideNonceObtainer(Web3jProvider web3jProvider) {
-    return new NonceObtainer(30000, web3jProvider);
+    return new NonceObtainer(30000, new Web3jNonceProvider(web3jProvider));
   }
 
   @Provides BalanceService provideBalanceService(GetDefaultWalletBalance getDefaultWalletBalance) {

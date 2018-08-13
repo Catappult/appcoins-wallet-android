@@ -1,37 +1,47 @@
 package com.asfoundation.wallet.ui.iab.raiden;
 
 import com.asf.microraidenj.type.Address;
-import com.asfoundation.wallet.repository.Web3jProvider;
 import java.io.IOException;
 import java.math.BigInteger;
-import org.web3j.protocol.core.DefaultBlockParameterName;
 
 public class NonceObtainer implements com.asf.microraidenj.eth.NonceObtainer {
   private final int refreshIntervalMillis;
-  private final Web3jProvider web3jProvider;
+  private final NonceProvider nonceProvider;
+  private final Object object = new Object();
   private AtomicBigInteger atomicBigInteger;
   private long refreshTime;
 
-  public NonceObtainer(int refreshIntervalMillis, Web3jProvider web3jProvider) {
+  public NonceObtainer(int refreshIntervalMillis, NonceProvider nonceProvider) {
     this.refreshIntervalMillis = refreshIntervalMillis;
-    this.web3jProvider = web3jProvider;
+    this.nonceProvider = nonceProvider;
   }
 
-  @Override synchronized public BigInteger getNonce(Address address) {
-    if (atomicBigInteger == null
-        || System.currentTimeMillis() - refreshTime > refreshIntervalMillis) {
-      refresh(address);
+  @Override public BigInteger getNonce(Address address) {
+    synchronized (object) {
+      if (atomicBigInteger == null
+          || System.currentTimeMillis() - refreshTime > refreshIntervalMillis) {
+        refresh(address);
+      }
+      return atomicBigInteger.get();
     }
-    return atomicBigInteger.getAndIncrement();
+  }
+
+  public boolean consumeNonce(BigInteger nonce) {
+    synchronized (object) {
+      if (atomicBigInteger.get()
+          .compareTo(nonce) == 0) {
+        atomicBigInteger.increment();
+        return true;
+      } else {
+        return false;
+      }
+    }
   }
 
   private void refresh(Address address) {
     try {
       refreshTime = System.currentTimeMillis();
-      BigInteger count = web3jProvider.getDefault()
-          .ethGetTransactionCount(address.toString(), DefaultBlockParameterName.PENDING)
-          .send()
-          .getTransactionCount();
+      BigInteger count = nonceProvider.getNonce(address);
       if (atomicBigInteger == null
           || atomicBigInteger.get()
           .compareTo(count) < 0) {
