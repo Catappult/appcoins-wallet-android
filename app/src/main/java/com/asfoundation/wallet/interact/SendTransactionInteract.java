@@ -36,16 +36,16 @@ public class SendTransactionInteract {
   }
 
   public Single<String> computeApproveTransactionHash(TransactionBuilder transactionBuilder,
-      BigInteger nonce, byte[] data) {
+      BigInteger nonce) {
     return passwordStore.getPassword(new Wallet(transactionBuilder.fromAddress()))
         .flatMap(password -> transactionRepository.computeApproveTransactionHash(transactionBuilder,
-            password, nonce, data));
+            password, nonce));
   }
 
   public Single<String> computeBuyTransactionHash(TransactionBuilder transactionBuilder,
-      BigInteger nonce, byte[] data) {
+      BigInteger nonce) {
     return passwordStore.getPassword(new Wallet(transactionBuilder.fromAddress()))
         .flatMap(password -> transactionRepository.computeBuyTransactionHash(transactionBuilder,
-            password, nonce, data));
+            password, nonce));
   }
 }

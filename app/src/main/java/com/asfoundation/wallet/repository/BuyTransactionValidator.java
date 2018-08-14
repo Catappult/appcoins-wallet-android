@@ -30,8 +30,7 @@ public class BuyTransactionValidator implements TransactionValidator {
     return defaultTokenProvider.getDefaultToken()
         .flatMapCompletable(tokenInfo -> sendTransactionInteract.computeBuyTransactionHash(
             paymentTransaction.getTransactionBuilder(), paymentTransaction.getNonce()
-                .add(BigInteger.ONE), paymentTransaction.getTransactionBuilder()
-                .buyData(tokenInfo.address))
+                .add(BigInteger.ONE))
             .map(hash -> new PaymentProof("appcoins", paymentTransaction.getApproveHash(), hash,
                 productName, packageName, storeAddress, oemAddress))
             .flatMapCompletable(billingPaymentProofSubmission::processPurchaseProof));
