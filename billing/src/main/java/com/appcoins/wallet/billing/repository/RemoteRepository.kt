@@ -9,7 +9,6 @@ import retrofit2.http.*
 class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiResponseMapper) {
   companion object {
     const val BASE_HOST = BuildConfig.BASE_HOST
-
   }
 
   internal fun isBillingSupported(packageName: String,

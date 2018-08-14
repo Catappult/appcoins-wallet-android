@@ -1,7 +1,8 @@
 package com.asfoundation.wallet.service;
 
-import com.asfoundation.wallet.entity.ConvertToFiatResponseBody;
+import com.asfoundation.wallet.entity.AppcToFiatResponseBody;
 import com.asfoundation.wallet.ui.iab.FiatValue;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.http.GET;
@@ -12,7 +13,8 @@ import retrofit2.http.Query;
  */
 
 public class TokenToFiatService {
-  public static final String TOKEN_TO_FIAT_END_POINT = "http://34.254.1.70";
+  public static final String TOKEN_TO_FIAT_END_POINT_DEV = "http://34.254.1.70/";
+  public static final String TOKEN_TO_FIAT_END_POINT_PROD = "http://52.209.250.255/";
 
   private final TokenToFiatApi tokenToFiatApi;
 
@@ -21,18 +23,17 @@ public class TokenToFiatService {
     this.tokenToFiatApi = tokenToFiatApi;
   }
 
-  public Single<FiatValue> convertAppcToFiat(double value) {
-    return tokenToFiatApi.convertAppcToFiat(value)
-        .map(responseBody -> mapToFiatValue(responseBody))
-        .subscribeOn(Schedulers.io());
-  }
-
-  private FiatValue mapToFiatValue(ConvertToFiatResponseBody responseBody) {
-    return new FiatValue(responseBody.getAmount(), responseBody.getCurrency());
+  public Single<FiatValue> convertAppcToFiat(String currency) {
+    return tokenToFiatApi.getAppcToFiatRate(currency)
+        .map(appcToFiatResponseBody -> appcToFiatResponseBody)
+        .map(AppcToFiatResponseBody::getFiatValue)
+        .map(value -> new FiatValue(value, currency))
+        .subscribeOn(Schedulers.io())
+        .singleOrError();
   }
 
   public interface TokenToFiatApi {
-    @GET("/appc/rate") Single<ConvertToFiatResponseBody> convertAppcToFiat(
-        @Query("appc") double value);
+    @GET("appc/value") Observable<AppcToFiatResponseBody> getAppcToFiatRate(
+        @Query("currency") String currency);
   }
 }

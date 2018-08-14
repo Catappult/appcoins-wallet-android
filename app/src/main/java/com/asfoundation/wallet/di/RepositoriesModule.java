@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.di;
 
 import android.content.Context;
+import com.appcoins.wallet.billing.BuildConfig;
 import com.appcoins.wallet.billing.repository.GatewaysRepository;
 import com.asfoundation.wallet.billing.BDSTransactionService;
 import com.asfoundation.wallet.billing.TransactionService;
@@ -109,7 +110,9 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
   @Singleton @Provides GatewaysRepository.BdsGatewaysApi provideBdsGatewaysApi(
       OkHttpClient client) {
-    return new Retrofit.Builder().baseUrl(GatewaysRepository.BASE_HOST)
+    String baseUrl =
+        BuildConfig.DEBUG ? GatewaysRepository.BASE_HOST_DEV : GatewaysRepository.BASE_HOST_PROD;
+    return new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(JacksonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

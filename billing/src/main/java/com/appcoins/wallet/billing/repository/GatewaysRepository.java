@@ -15,8 +15,10 @@ import retrofit2.http.Query;
 
 public class GatewaysRepository {
 
-  public static final String BASE_HOST =
+  public static final String BASE_HOST_DEV =
       "http://api-dev.blockchainds.com/inapp/8.20180401/gateways/";
+  public static final String BASE_HOST_PROD =
+      "http://api.blockchainds.com/inapp/8.20180401/gateways/";
 
   private final BdsGatewaysApi bdsGatewaysApi;
 
