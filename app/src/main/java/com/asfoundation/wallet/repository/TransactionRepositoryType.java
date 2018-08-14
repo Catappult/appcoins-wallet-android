@@ -19,6 +19,9 @@ public interface TransactionRepositoryType {
 
   Single<String> callIab(TransactionBuilder transaction, String password, BigInteger nonce);
 
-  Single<String> computeTransactionHash(TransactionBuilder transactionBuilder, String password,
-      BigInteger nonce);
+  Single<String> computeApproveTransactionHash(TransactionBuilder transactionBuilder,
+      String password, BigInteger nonce, byte[] data);
+
+  Single<String> computeBuyTransactionHash(TransactionBuilder transactionBuilder, String password,
+      BigInteger nonce, byte[] data);
 }

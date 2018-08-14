@@ -32,20 +32,25 @@ class BillingPaymentProofSubmission internal constructor(
     disposables.add(paymentEventMerger.getEvents()
         .subscribeOn(networkScheduler)
         .flatMapCompletable {
-          paymentIds[it.approveProof]?.let { paymentId ->
-            registerPaymentProof(paymentId, it.paymentProof, it.paymentType)
-          } ?: Completable.error(IllegalArgumentException("No payment id for {${it.approveProof}}"))
+          processPurchaseProof(it)
         }
         .doOnError { it.printStackTrace() }
         .retry()
         .subscribe())
   }
 
-  fun processAuthorizationProof(
-      it: AuthorizationProof): Completable {
-    return registerAuthorizationProof(it.id, it.paymentType, it.productName, it.packageName,
-        it.developerAddress, it.storeAddress)
-        .doOnSuccess { paymentId -> paymentIds[it.id] = paymentId }.toCompletable()
+  fun processPurchaseProof(paymentProof: PaymentProof): Completable {
+    return paymentIds[paymentProof.approveProof]?.let { paymentId ->
+      registerPaymentProof(paymentId, paymentProof.paymentProof, paymentProof.paymentType)
+    } ?: Completable.error(
+        IllegalArgumentException("No payment id for {${paymentProof.approveProof}}"))
+  }
+
+  fun processAuthorizationProof(authorizationProof: AuthorizationProof): Completable {
+    return registerAuthorizationProof(authorizationProof.id, authorizationProof.paymentType,
+        authorizationProof.productName, authorizationProof.packageName,
+        authorizationProof.developerAddress, authorizationProof.storeAddress)
+        .doOnSuccess { paymentId -> paymentIds[authorizationProof.id] = paymentId }.toCompletable()
   }
 
   private fun registerPaymentProof(paymentId: String, paymentProof: String,

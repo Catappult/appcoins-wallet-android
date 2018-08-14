@@ -94,11 +94,21 @@ public class TransactionRepository implements TransactionRepositoryType {
             nonce));
   }
 
-  public Single<String> computeTransactionHash(TransactionBuilder transactionBuilder,
-      String password, BigInteger nonce) {
-    return createRawTransaction(transactionBuilder, password, transactionBuilder.data(),
-        transactionBuilder.toAddress(), transactionBuilder.amount(), nonce).map(
-        signedTransaction -> Numeric.toHexString(new Transaction(signedTransaction).getHash()));
+  @Override
+  public Single<String> computeApproveTransactionHash(TransactionBuilder transactionBuilder,
+      String password, BigInteger nonce, byte[] data) {
+    return createRawTransaction(transactionBuilder, password, transactionBuilder.approveData(),
+        transactionBuilder.contractAddress(), BigDecimal.ZERO, nonce).map(signedTransaction -> Numeric.toHexString(new Transaction(signedTransaction).getHash()));
+  }
+
+  @Override public Single<String> computeBuyTransactionHash(TransactionBuilder transactionBuilder,
+      String password, BigInteger nonce, byte[] data) {
+    return defaultTokenProvider.getDefaultToken()
+        .flatMap(tokenInfo -> createRawTransaction(transactionBuilder, password,
+            transactionBuilder.buyData(tokenInfo.address), transactionBuilder.getIabContract(),
+            BigDecimal.ZERO, nonce))
+        .map(
+            signedTransaction -> Numeric.toHexString(new Transaction(signedTransaction).getHash()));
   }
 
   private Single<String> createTransactionAndSend(TransactionBuilder transactionBuilder,

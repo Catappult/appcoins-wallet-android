@@ -16,7 +16,6 @@ import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.repository.ApproveService;
-import com.asfoundation.wallet.repository.ApproveTransactionValidator;
 import com.asfoundation.wallet.repository.BalanceService;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.ErrorMapper;
@@ -26,6 +25,7 @@ import com.asfoundation.wallet.repository.NonceGetter;
 import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.TransactionSender;
+import com.asfoundation.wallet.repository.TransactionValidator;
 import com.asfoundation.wallet.repository.WatchedTransactionService;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationEntity;
 import com.asfoundation.wallet.ui.iab.raiden.ChannelService;
@@ -79,7 +79,7 @@ public class InAppPurchaseInteractorTest {
   @Mock RaidenRepository repository;
   @Mock TransactionSender transactionSender;
   @Mock BillingFactory billingFactory;
-  @Mock ApproveTransactionValidator approveTransactionSender;
+  @Mock TransactionValidator transactionValidator;
   private InAppPurchaseInteractor inAppPurchaseInteractor;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
@@ -133,11 +133,13 @@ public class InAppPurchaseInteractorTest {
             new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
             new ErrorMapper(), scheduler, pendingTransactionService);
 
-    when(approveTransactionSender.validate(any())).thenReturn(Completable.complete());
+    when(transactionValidator.validate(any())).thenReturn(Completable.complete());
+
     inAppPurchaseService =
         new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-            new ApproveService(approveTransactionService, approveTransactionSender),
-            new BuyService(buyTransactionService), nonceGetter, balanceService);
+            new ApproveService(approveTransactionService, transactionValidator),
+            new BuyService(buyTransactionService, transactionValidator), nonceGetter,
+            balanceService);
 
     proofPublishSubject = PublishSubject.create();
     when(proofOfAttentionService.get()).thenReturn(proofPublishSubject);
@@ -198,7 +200,9 @@ public class InAppPurchaseInteractorTest {
         .values();
     int index = 0;
 
-    Assert.assertEquals(8, values.size());
+    Assert.assertEquals(9, values.size());
+    Assert.assertEquals(Payment.Status.APPROVING, values.get(index++)
+        .getStatus());
     Assert.assertEquals(Payment.Status.APPROVING, values.get(index++)
         .getStatus());
     Assert.assertEquals(Payment.Status.APPROVING, values.get(index++)

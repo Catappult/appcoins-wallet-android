@@ -46,6 +46,7 @@ import com.asfoundation.wallet.repository.ApproveTransactionValidator;
 import com.asfoundation.wallet.repository.BalanceService;
 import com.asfoundation.wallet.repository.BlockChainWriter;
 import com.asfoundation.wallet.repository.BuyService;
+import com.asfoundation.wallet.repository.BuyTransactionValidator;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.EthereumNetworkRepository;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
@@ -176,7 +177,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
     return new RealmManager();
   }
 
-  @Provides BillingPaymentProofSubmission providesBillingPaymentProofSubmission(
+  @Singleton @Provides BillingPaymentProofSubmission providesBillingPaymentProofSubmission(
       RemoteRepository.BdsApi api, WalletService walletService) {
     return new BillingPaymentProofSubmission.Builder().setApi(api)
         .setWalletService(walletService)
@@ -196,10 +197,14 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
   @Provides BuyService provideBuyService(SendTransactionInteract sendTransactionInteract,
       ErrorMapper errorMapper,
-      @Named("wait_pending_transaction") TrackTransactionService pendingTransactionService) {
+      @Named("wait_pending_transaction") TrackTransactionService pendingTransactionService,
+      BillingPaymentProofSubmission billingPaymentProofSubmission,
+      DefaultTokenProvider defaultTokenProvider) {
     return new BuyService(new WatchedTransactionService(sendTransactionInteract::buy,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
-        Schedulers.io(), pendingTransactionService));
+        Schedulers.io(), pendingTransactionService),
+        new BuyTransactionValidator(sendTransactionInteract, billingPaymentProofSubmission,
+            defaultTokenProvider));
   }
 
   @Singleton @Provides ErrorMapper provideErrorMapper() {

@@ -3,6 +3,7 @@ package com.asfoundation.wallet.repository;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
@@ -19,6 +20,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -33,6 +35,7 @@ import static org.mockito.Mockito.when;
   @Mock TrackTransactionService trackTransactionService;
 
   @Mock TransactionSender transactionSender;
+  @Mock TransactionValidator transactionValidator;
   private TestScheduler scheduler;
   private WatchedTransactionService transactionService;
   private TransactionBuilder transactionBuilder;
@@ -46,6 +49,7 @@ import static org.mockito.Mockito.when;
     transactionService = new WatchedTransactionService(transactionSender,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new ErrorMapper(),
         scheduler, trackTransactionService);
+    when(transactionValidator.validate(any())).thenReturn(Completable.complete());
   }
 
   @Test public void buy() {
@@ -53,7 +57,7 @@ import static org.mockito.Mockito.when;
     when(trackTransactionService.checkTransactionState(anyString())).thenReturn(
         pendingTransactionState);
 
-    BuyService buyService = new BuyService(transactionService);
+    BuyService buyService = new BuyService(transactionService, transactionValidator);
     buyService.start();
     scheduler.triggerActions();
 
@@ -86,7 +90,7 @@ import static org.mockito.Mockito.when;
     when(trackTransactionService.checkTransactionState("hash")).thenReturn(
         pendingTransactionState);
 
-    BuyService buyService = new BuyService(transactionService);
+    BuyService buyService = new BuyService(transactionService, transactionValidator);
     buyService.start();
 
     String uri = "uri";

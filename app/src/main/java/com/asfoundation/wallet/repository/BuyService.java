@@ -12,9 +12,12 @@ import java.util.List;
 
 public class BuyService {
   private final WatchedTransactionService transactionService;
+  private final TransactionValidator transactionValidator;
 
-  public BuyService(WatchedTransactionService transactionService) {
+  public BuyService(WatchedTransactionService transactionService,
+      TransactionValidator transactionValidator) {
     this.transactionService = transactionService;
+    this.transactionValidator = transactionValidator;
   }
 
   public void start() {
@@ -22,8 +25,9 @@ public class BuyService {
   }
 
   public Completable buy(String key, PaymentTransaction paymentTransaction) {
-    return transactionService.sendTransaction(key, paymentTransaction.getNonce()
-        .add(BigInteger.ONE), paymentTransaction.getTransactionBuilder());
+    return transactionValidator.validate(paymentTransaction)
+        .andThen(transactionService.sendTransaction(key, paymentTransaction.getNonce()
+            .add(BigInteger.ONE), paymentTransaction.getTransactionBuilder()));
   }
 
   public Observable<BuyTransaction> getBuy(String uri) {

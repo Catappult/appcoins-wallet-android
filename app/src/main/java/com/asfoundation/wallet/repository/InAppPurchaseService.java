@@ -47,8 +47,10 @@ public class InAppPurchaseService {
                 case OK:
                 default:
                   return nonceGetter.getNonce()
-                      .flatMapCompletable(nonce -> approveService.approve(key,
-                          new PaymentTransaction(paymentTransaction, nonce)));
+                      .map(nonce -> new PaymentTransaction(paymentTransaction, nonce))
+                      .flatMapCompletable(
+                          transaction -> cache.save(transaction.getUri(), transaction)
+                              .andThen(approveService.approve(key, transaction)));
               }
             }));
   }

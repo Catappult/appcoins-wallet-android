@@ -35,11 +35,17 @@ public class SendTransactionInteract {
         .flatMap(password -> transactionRepository.callIab(transaction, password, nonce));
   }
 
-  public Single<String> computeTransactionHash(TransactionBuilder transactionBuilder,
-      BigInteger nonce) {
+  public Single<String> computeApproveTransactionHash(TransactionBuilder transactionBuilder,
+      BigInteger nonce, byte[] data) {
     return passwordStore.getPassword(new Wallet(transactionBuilder.fromAddress()))
-        .flatMap(
-            password -> transactionRepository.computeTransactionHash(transactionBuilder, password,
-                nonce));
+        .flatMap(password -> transactionRepository.computeApproveTransactionHash(transactionBuilder,
+            password, nonce, data));
+  }
+
+  public Single<String> computeBuyTransactionHash(TransactionBuilder transactionBuilder,
+      BigInteger nonce, byte[] data) {
+    return passwordStore.getPassword(new Wallet(transactionBuilder.fromAddress()))
+        .flatMap(password -> transactionRepository.computeBuyTransactionHash(transactionBuilder,
+            password, nonce, data));
   }
 }
