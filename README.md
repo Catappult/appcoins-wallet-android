@@ -1,9 +1,9 @@
-# ASF Wallet for Android
+# AppCoins Wallet for Android
 
 [![Build Status](https://travis-ci.org/TrustWallet/trust-wallet-android.svg?branch=master)](https://travis-ci.org/TrustWallet/trust-wallet-android)
 [![License](https://img.shields.io/badge/license-GPL3-green.svg?style=flat)](https://github.com/fastlane/fastlane/blob/master/LICENSE)
 
-Welcome to ASF Wallet's open source Android app!
+Welcome to AppCoins Wallet's open source Android app!
 
 ## Getting Started
 
@@ -14,7 +14,7 @@ Welcome to ASF Wallet's open source Android app!
 ## Contributing
 
 As an open source project, it is our intention that this project may receive 
-contributions from the community. Ultimately, our goal in the ASF is to build
+contributions from the community. Ultimately, our goal in the AppCoins is to build
 technology that is useful to our users.
 
 In order to submit feedback and report bugs, we consider the best way is to open 
