@@ -51,7 +51,6 @@ import com.asfoundation.wallet.repository.EthereumNetworkRepository;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.GasSettingsRepository;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
-import com.asfoundation.wallet.repository.InAppPurchaseProofSource;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.MemoryCache;
 import com.asfoundation.wallet.repository.NonceGetter;
@@ -107,7 +106,6 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -443,12 +441,6 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   @Singleton @Provides WalletService provideWalletService(FindDefaultWalletInteract walletInteract,
       AccountKeystoreService accountKeyService, PasswordStore passwordStore) {
     return new AccountWalletService(walletInteract, accountKeyService, passwordStore);
-  }
-
-  @Singleton @Provides InAppPurchaseProofSource provideInAppPurchaseProofSource(
-      InAppPurchaseService inAppPurchaseService) {
-    return new InAppPurchaseProofSource(inAppPurchaseService, new CopyOnWriteArrayList<>(),
-        new CopyOnWriteArrayList<>());
   }
 
   @Singleton @Provides BillingFactory provideBillingFactory(RemoteRepository.BdsApi bdsApi,

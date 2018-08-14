@@ -15,6 +15,7 @@ import ethereumj.Transaction;
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
@@ -36,11 +37,13 @@ public class TransactionRepository implements TransactionRepositoryType {
   private final NonceGetter nonceGetter;
   private final BlockchainErrorMapper errorMapper;
   private final NonceObtainer nonceObtainer;
+  private final Scheduler scheduler;
 
   public TransactionRepository(EthereumNetworkRepositoryType networkRepository,
       AccountKeystoreService accountKeystoreService, TransactionLocalSource inDiskCache,
       TransactionsNetworkClientType blockExplorerClient, DefaultTokenProvider defaultTokenProvider,
-      NonceGetter nonceGetter, BlockchainErrorMapper errorMapper, NonceObtainer nonceObtainer) {
+      NonceGetter nonceGetter, BlockchainErrorMapper errorMapper, NonceObtainer nonceObtainer,
+      Scheduler scheduler) {
     this.networkRepository = networkRepository;
     this.accountKeystoreService = accountKeystoreService;
     this.blockExplorerClient = blockExplorerClient;
@@ -49,6 +52,7 @@ public class TransactionRepository implements TransactionRepositoryType {
     this.nonceGetter = nonceGetter;
     this.errorMapper = errorMapper;
     this.nonceObtainer = nonceObtainer;
+    this.scheduler = scheduler;
   }
 
   @Override public Observable<RawTransaction[]> fetchTransaction(Wallet wallet) {
@@ -87,6 +91,7 @@ public class TransactionRepository implements TransactionRepositoryType {
 
   @Override public Single<String> callIab(TransactionBuilder transaction, String password) {
     return defaultTokenProvider.getDefaultToken()
+        .observeOn(scheduler)
         .flatMap(token -> createTransactionAndSend(transaction, password,
             transaction.buyData(token.address), transaction.getIabContract(), BigDecimal.ZERO));
   }

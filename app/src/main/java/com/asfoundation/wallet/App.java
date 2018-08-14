@@ -16,7 +16,6 @@ import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
-import com.asfoundation.wallet.repository.InAppPurchaseProofSource;
 import com.asfoundation.wallet.repository.WalletNotFoundException;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
@@ -51,7 +50,6 @@ public class App extends MultiDexApplication
   @Inject RemoteRepository.BdsApi bdsApi;
   @Inject WalletService walletService;
   @Inject AppCoinsAddressProxySdk contractAddressProvider;
-  @Inject InAppPurchaseProofSource inAppPurchaseProofSource;
   @Inject BillingFactory billingFactory;
   @Inject ProxyService proxyService;
 

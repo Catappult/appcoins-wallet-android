@@ -88,7 +88,7 @@ import okhttp3.OkHttpClient;
       NonceObtainer nonceObtainer) {
     return new TransactionRepository(networkRepository, accountKeystoreService, inDiskCache,
         blockExplorerClient, defaultTokenProvider, nonceGetter, new BlockchainErrorMapper(),
-        nonceObtainer);
+        nonceObtainer, Schedulers.io());
   }
 
   @Singleton @Provides TransactionLocalSource provideTransactionInDiskCache(
