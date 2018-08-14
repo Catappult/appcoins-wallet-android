@@ -137,7 +137,8 @@ public class InAppPurchaseInteractorTest {
     inAppPurchaseService =
         new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
             new ApproveService(approveTransactionService, transactionValidator),
-            new BuyService(buyTransactionService, transactionValidator), balanceService, scheduler);
+            new BuyService(buyTransactionService, transactionValidator), balanceService, scheduler,
+            new ErrorMapper());
 
     proofPublishSubject = PublishSubject.create();
     when(proofOfAttentionService.get()).thenReturn(proofPublishSubject);

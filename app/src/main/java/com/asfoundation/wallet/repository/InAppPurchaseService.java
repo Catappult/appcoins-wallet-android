@@ -18,15 +18,17 @@ public class InAppPurchaseService {
   private final BuyService buyService;
   private final BalanceService balanceService;
   private final Scheduler scheduler;
+  private final ErrorMapper errorMapper;
 
   public InAppPurchaseService(Repository<String, PaymentTransaction> cache,
       ApproveService approveService, BuyService buyService, BalanceService balanceService,
-      Scheduler scheduler) {
+      Scheduler scheduler, ErrorMapper errorMapper) {
     this.cache = cache;
     this.approveService = approveService;
     this.buyService = buyService;
     this.balanceService = balanceService;
     this.scheduler = scheduler;
+    this.errorMapper = errorMapper;
   }
 
   public Completable send(String key, PaymentTransaction paymentTransaction) {
@@ -50,7 +52,9 @@ public class InAppPurchaseService {
                 default:
                   return approveService.approve(key, paymentTransaction);
               }
-            }));
+            }))
+        .onErrorResumeNext(throwable -> cache.save(paymentTransaction.getUri(),
+            new PaymentTransaction(paymentTransaction, errorMapper.map(throwable))));
   }
 
   public void start() {
@@ -65,7 +69,9 @@ public class InAppPurchaseService {
                 .filter(transaction -> transaction.getState()
                     .equals(PaymentTransaction.PaymentState.APPROVED))
                 .flatMapCompletable(transaction -> approveService.remove(transaction.getUri())
-                    .andThen(buyService.buy(transaction.getUri(), transaction)))))
+                    .andThen(buyService.buy(transaction.getUri(), transaction)
+                        .onErrorResumeNext(throwable -> cache.save(transaction.getUri(),
+                            new PaymentTransaction(transaction, errorMapper.map(throwable))))))))
         .subscribe();
 
     buyService.getAll()
