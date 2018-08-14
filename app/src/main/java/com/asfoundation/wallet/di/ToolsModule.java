@@ -41,7 +41,6 @@ import com.asfoundation.wallet.poa.ProofWriter;
 import com.asfoundation.wallet.poa.TaggedCompositeDisposable;
 import com.asfoundation.wallet.poa.TransactionFactory;
 import com.asfoundation.wallet.repository.ApproveService;
-import com.asfoundation.wallet.repository.ApproveTransactionSender;
 import com.asfoundation.wallet.repository.ApproveTransactionValidator;
 import com.asfoundation.wallet.repository.BalanceService;
 import com.asfoundation.wallet.repository.BlockChainWriter;
@@ -188,10 +187,9 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
       ErrorMapper errorMapper,
       @Named("no_wait_transaction") TrackTransactionService pendingTransactionService,
       BillingPaymentProofSubmission billingPaymentProofSubmission) {
-    return new ApproveService(
-        new WatchedTransactionService(new ApproveTransactionSender(sendTransactionInteract),
-            new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
-            Schedulers.io(), pendingTransactionService),
+    return new ApproveService(new WatchedTransactionService(sendTransactionInteract::approve,
+        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
+        Schedulers.io(), pendingTransactionService),
         new ApproveTransactionValidator(sendTransactionInteract, billingPaymentProofSubmission));
   }
 

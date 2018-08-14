@@ -77,43 +77,42 @@ public class TransactionRepository implements TransactionRepositoryType {
             transactionBuilder.shouldSendToken() ? transactionBuilder.contractAddress()
                 : transactionBuilder.toAddress(),
             transactionBuilder.shouldSendToken() ? BigDecimal.ZERO
-                : transactionBuilder.subunitAmount(), nonce));
+                : transactionBuilder.subunitAmount()));
   }
 
-  @Override public Single<String> approve(TransactionBuilder transactionBuilder, String password,
-      BigInteger nonce) {
+  @Override public Single<String> approve(TransactionBuilder transactionBuilder, String password) {
     return createTransactionAndSend(transactionBuilder, password, transactionBuilder.approveData(),
-        transactionBuilder.contractAddress(), BigDecimal.ZERO, nonce);
+        transactionBuilder.contractAddress(), BigDecimal.ZERO);
   }
 
-  @Override
-  public Single<String> callIab(TransactionBuilder transaction, String password, BigInteger nonce) {
+  @Override public Single<String> callIab(TransactionBuilder transaction, String password) {
     return defaultTokenProvider.getDefaultToken()
         .flatMap(token -> createTransactionAndSend(transaction, password,
-            transaction.buyData(token.address), transaction.getIabContract(), BigDecimal.ZERO,
-            nonce));
+            transaction.buyData(token.address), transaction.getIabContract(), BigDecimal.ZERO));
   }
 
   @Override
   public Single<String> computeApproveTransactionHash(TransactionBuilder transactionBuilder,
-      String password, BigInteger nonce) {
+      String password) {
     return createRawTransaction(transactionBuilder, password, transactionBuilder.approveData(),
-        transactionBuilder.contractAddress(), BigDecimal.ZERO, nonce).map(
+        transactionBuilder.contractAddress(), BigDecimal.ZERO,
+        nonceObtainer.getNonce(new Address(ByteArray.from(transactionBuilder.fromAddress())))).map(
         signedTransaction -> Numeric.toHexString(new Transaction(signedTransaction).getHash()));
   }
 
   @Override public Single<String> computeBuyTransactionHash(TransactionBuilder transactionBuilder,
-      String password, BigInteger nonce) {
+      String password) {
     return defaultTokenProvider.getDefaultToken()
         .flatMap(tokenInfo -> createRawTransaction(transactionBuilder, password,
             transactionBuilder.buyData(tokenInfo.address), transactionBuilder.getIabContract(),
-            BigDecimal.ZERO, nonce))
+            BigDecimal.ZERO,
+            nonceObtainer.getNonce(new Address(ByteArray.from(transactionBuilder.fromAddress())))))
         .map(
             signedTransaction -> Numeric.toHexString(new Transaction(signedTransaction).getHash()));
   }
 
   private Single<String> createTransactionAndSend(TransactionBuilder transactionBuilder,
-      String password, byte[] data, String toAddress, BigDecimal amount, BigInteger nonce) {
+      String password, byte[] data, String toAddress, BigDecimal amount) {
     final Web3j web3j =
         Web3jFactory.build(new HttpService(networkRepository.getDefaultNetwork().rpcServerUrl));
     return Single.fromCallable(

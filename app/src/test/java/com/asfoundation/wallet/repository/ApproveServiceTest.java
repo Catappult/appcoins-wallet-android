@@ -48,7 +48,7 @@ public class ApproveServiceTest {
     pendingTransactionState = PublishSubject.create();
     nonce = BigInteger.ZERO;
 
-    when(transactionSender.send(transactionBuilder, nonce)).thenReturn(Single.just(APPROVE_HASH));
+    when(transactionSender.send(transactionBuilder)).thenReturn(Single.just(APPROVE_HASH));
 
     scheduler = new TestScheduler();
     transactionService = new WatchedTransactionService(transactionSender,

@@ -95,11 +95,11 @@ public class InAppPurchaseInteractorTest {
     when(gasSettingsInteract.fetch(anyBoolean())).thenReturn(
         Single.just(new GasSettings(new BigDecimal(1), new BigDecimal(2))));
 
-    when(sendTransactionInteract.approve(any(TransactionBuilder.class),
-        any(BigInteger.class))).thenReturn(Single.just(APPROVE_HASH));
+    when(sendTransactionInteract.approve(any(TransactionBuilder.class))).thenReturn(
+        Single.just(APPROVE_HASH));
 
-    when(sendTransactionInteract.buy(any(TransactionBuilder.class),
-        any(BigInteger.class))).thenReturn(Single.just(BUY_HASH));
+    when(sendTransactionInteract.buy(any(TransactionBuilder.class))).thenReturn(
+        Single.just(BUY_HASH));
 
     when(nonceGetter.getNonce()).thenReturn(Single.just(BigInteger.ONE));
     pendingApproveState = PublishSubject.create();
@@ -120,7 +120,7 @@ public class InAppPurchaseInteractorTest {
 
     scheduler = new TestScheduler();
 
-    when(transactionSender.send(any(TransactionBuilder.class), any(BigInteger.class))).thenReturn(
+    when(transactionSender.send(any(TransactionBuilder.class))).thenReturn(
         Single.just(BUY_HASH));
 
     WatchedTransactionService buyTransactionService =

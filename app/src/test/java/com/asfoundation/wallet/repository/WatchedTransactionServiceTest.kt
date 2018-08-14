@@ -43,7 +43,7 @@ class WatchedTransactionServiceTest {
 
     transactionBuilder = TransactionBuilder("APPC")
     nonce = BigInteger.ONE
-    `when`(transactionSender.send(transactionBuilder, nonce)).thenReturn(Single.just(
+    `when`(transactionSender.send(transactionBuilder)).thenReturn(Single.just(
         transactionHash))
 
     scheduler = TestScheduler()

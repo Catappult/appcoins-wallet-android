@@ -35,8 +35,7 @@ class WatchedTransactionService(private val transactionSender: TransactionSender
         Transaction(transaction.key, Transaction.Status.PROCESSING, transaction.transactionBuilder,
             transaction.nonce))
         .observeOn(scheduler)
-        .andThen(transactionSender.send(transaction.transactionBuilder,
-            transaction.nonce).flatMapCompletable { hash ->
+        .andThen(transactionSender.send(transaction.transactionBuilder).flatMapCompletable { hash ->
           cache.save(transaction.key,
               Transaction(transaction.key, Transaction.Status.PROCESSING,
                   transaction.transactionBuilder,
@@ -104,6 +103,5 @@ data class Transaction(
 }
 
 interface TransactionSender {
-  fun send(transactionBuilder: TransactionBuilder,
-           nonce: BigInteger): Single<String>
+  fun send(transactionBuilder: TransactionBuilder): Single<String>
 }

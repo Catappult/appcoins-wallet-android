@@ -25,7 +25,7 @@ public class ApproveTransactionValidator implements TransactionValidator {
     String productName = paymentTransaction.getTransactionBuilder()
         .getSkuId();
     return sendTransactionInteract.computeApproveTransactionHash(
-        paymentTransaction.getTransactionBuilder(), paymentTransaction.getNonce())
+        paymentTransaction.getTransactionBuilder())
         .map(
             hash -> new AuthorizationProof("appcoins", hash, productName, packageName, storeAddress,
                 oemAddress, developerAddress))

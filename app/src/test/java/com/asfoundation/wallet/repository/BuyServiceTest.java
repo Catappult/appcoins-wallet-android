@@ -42,7 +42,7 @@ import static org.mockito.Mockito.when;
 
   @Before public void setup() {
     transactionBuilder = new TransactionBuilder("APPC");
-    when(transactionSender.send(transactionBuilder, BigInteger.ONE)).thenReturn(
+    when(transactionSender.send(transactionBuilder)).thenReturn(
         Single.just("hash"));
 
     scheduler = new TestScheduler();

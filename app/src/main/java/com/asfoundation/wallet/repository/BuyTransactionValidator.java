@@ -6,7 +6,6 @@ import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import io.reactivex.Completable;
-import java.math.BigInteger;
 
 public class BuyTransactionValidator implements TransactionValidator {
   private final SendTransactionInteract sendTransactionInteract;
@@ -29,8 +28,7 @@ public class BuyTransactionValidator implements TransactionValidator {
         .getSkuId();
     return defaultTokenProvider.getDefaultToken()
         .flatMapCompletable(tokenInfo -> sendTransactionInteract.computeBuyTransactionHash(
-            paymentTransaction.getTransactionBuilder(), paymentTransaction.getNonce()
-                .add(BigInteger.ONE))
+            paymentTransaction.getTransactionBuilder())
             .map(hash -> new PaymentProof("appcoins", paymentTransaction.getApproveHash(), hash,
                 productName, packageName, storeAddress, oemAddress))
             .flatMapCompletable(billingPaymentProofSubmission::processPurchaseProof));
