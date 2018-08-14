@@ -3,6 +3,7 @@ package com.asfoundation.wallet.repository;
 import android.support.annotation.NonNull;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import java.util.List;
 
@@ -15,17 +16,17 @@ public class InAppPurchaseService {
   private final Repository<String, PaymentTransaction> cache;
   private final ApproveService approveService;
   private final BuyService buyService;
-  private final NonceGetter nonceGetter;
   private final BalanceService balanceService;
+  private final Scheduler scheduler;
 
   public InAppPurchaseService(Repository<String, PaymentTransaction> cache,
-      ApproveService approveService, BuyService buyService, NonceGetter nonceGetter,
-      BalanceService balanceService) {
+      ApproveService approveService, BuyService buyService, BalanceService balanceService,
+      Scheduler scheduler) {
     this.cache = cache;
     this.approveService = approveService;
     this.buyService = buyService;
-    this.nonceGetter = nonceGetter;
     this.balanceService = balanceService;
+    this.scheduler = scheduler;
   }
 
   public Completable send(String key, PaymentTransaction paymentTransaction) {
@@ -33,6 +34,7 @@ public class InAppPurchaseService {
         .andThen(balanceService.hasEnoughBalance(paymentTransaction.getTransactionBuilder(),
             paymentTransaction.getTransactionBuilder()
                 .gasSettings().gasLimit)
+            .observeOn(scheduler)
             .flatMapCompletable(balance -> {
               switch (balance) {
                 case NO_TOKEN:
@@ -46,11 +48,7 @@ public class InAppPurchaseService {
                       PaymentTransaction.PaymentState.NO_FUNDS));
                 case OK:
                 default:
-                  return nonceGetter.getNonce()
-                      .map(nonce -> new PaymentTransaction(paymentTransaction, nonce))
-                      .flatMapCompletable(
-                          transaction -> cache.save(transaction.getUri(), transaction)
-                              .andThen(approveService.approve(key, transaction)));
+                  return approveService.approve(key, paymentTransaction);
               }
             }));
   }

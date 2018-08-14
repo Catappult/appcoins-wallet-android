@@ -70,7 +70,7 @@ public class ApproveServiceTest {
     scheduler.triggerActions();
     approveService.approve(uri,
         new PaymentTransaction(uri, transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
-            "", null, nonce, PACKAGE_NAME, PRODUCT_NAME))
+            "", null, PACKAGE_NAME, PRODUCT_NAME))
         .subscribe();
     scheduler.triggerActions();
 
@@ -102,7 +102,7 @@ public class ApproveServiceTest {
     scheduler.triggerActions();
     approveService.approve(uri,
         new PaymentTransaction(uri, transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
-            "", null, nonce, PACKAGE_NAME, PRODUCT_NAME))
+            "", null, PACKAGE_NAME, PRODUCT_NAME))
         .subscribe();
     scheduler.triggerActions();
 

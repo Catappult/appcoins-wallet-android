@@ -120,8 +120,7 @@ public class InAppPurchaseInteractorTest {
 
     scheduler = new TestScheduler();
 
-    when(transactionSender.send(any(TransactionBuilder.class))).thenReturn(
-        Single.just(BUY_HASH));
+    when(transactionSender.send(any(TransactionBuilder.class))).thenReturn(Single.just(BUY_HASH));
 
     WatchedTransactionService buyTransactionService =
         new WatchedTransactionService(transactionSender,
@@ -138,8 +137,7 @@ public class InAppPurchaseInteractorTest {
     inAppPurchaseService =
         new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
             new ApproveService(approveTransactionService, transactionValidator),
-            new BuyService(buyTransactionService, transactionValidator), nonceGetter,
-            balanceService);
+            new BuyService(buyTransactionService, transactionValidator), balanceService, scheduler);
 
     proofPublishSubject = PublishSubject.create();
     when(proofOfAttentionService.get()).thenReturn(proofPublishSubject);
@@ -200,9 +198,7 @@ public class InAppPurchaseInteractorTest {
         .values();
     int index = 0;
 
-    Assert.assertEquals(9, values.size());
-    Assert.assertEquals(Payment.Status.APPROVING, values.get(index++)
-        .getStatus());
+    Assert.assertEquals(8, values.size());
     Assert.assertEquals(Payment.Status.APPROVING, values.get(index++)
         .getStatus());
     Assert.assertEquals(Payment.Status.APPROVING, values.get(index++)

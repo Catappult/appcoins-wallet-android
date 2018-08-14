@@ -19,8 +19,6 @@ import java.util.concurrent.ConcurrentHashMap
 @RunWith(MockitoJUnitRunner::class)
 class WatchedTransactionServiceTest {
 
-  val PACKAGE_NAME = "package_name"
-  val PRODUCT_NAME = "product_name"
   @Mock
   lateinit var pendingTransactionService: PendingTransactionService
   @Mock
@@ -67,7 +65,7 @@ class WatchedTransactionServiceTest {
         .subscribe(observer)
     scheduler.triggerActions()
 
-    watchedTransactionService.sendTransaction(uri, nonce, transactionBuilder)
+    watchedTransactionService.sendTransaction(uri, transactionBuilder)
         .subscribe()
 
     scheduler.triggerActions()
@@ -80,9 +78,9 @@ class WatchedTransactionServiceTest {
     pendingTransactionState.onComplete()
 
     observer.assertValues(
-        Transaction(uri, Transaction.Status.PROCESSING, transactionBuilder, nonce),
-        Transaction(uri, Transaction.Status.PROCESSING, transactionBuilder, nonce, transactionHash),
-        Transaction(uri, Transaction.Status.COMPLETED, transactionBuilder, nonce, transactionHash))
+        Transaction(uri, Transaction.Status.PROCESSING, transactionBuilder),
+        Transaction(uri, Transaction.Status.PROCESSING, transactionBuilder, transactionHash),
+        Transaction(uri, Transaction.Status.COMPLETED, transactionBuilder, transactionHash))
     observer.assertNoErrors()
   }
 }

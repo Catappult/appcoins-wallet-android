@@ -7,7 +7,6 @@ import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.jakewharton.rxrelay2.PublishRelay;
 import io.reactivex.observers.TestObserver;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -68,6 +67,6 @@ import static org.mockito.Mockito.when;
     return new PaymentTransaction("uri",
         new TransactionBuilder("symbol", "contractAddress", 1L, "toAddress", BigDecimal.ONE,
             "skuId", 18), PaymentTransaction.PaymentState.APPROVED, approve_hash, buyHash,
-        BigInteger.ONE, "packageName", "productName");
+        "packageName", "productName");
   }
 }

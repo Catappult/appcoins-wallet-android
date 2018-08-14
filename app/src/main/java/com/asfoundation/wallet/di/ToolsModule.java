@@ -229,9 +229,9 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   }
 
   @Singleton @Provides InAppPurchaseService provideTransactionService(ApproveService approveService,
-      BuyService buyService, NonceGetter nonceGetter, BalanceService balanceService) {
+      BuyService buyService, BalanceService balanceService) {
     return new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-        approveService, buyService, nonceGetter, balanceService);
+        approveService, buyService, balanceService, Schedulers.io());
   }
 
   @Singleton @Provides InAppPurchaseInteractor provideTransactionInteractor(

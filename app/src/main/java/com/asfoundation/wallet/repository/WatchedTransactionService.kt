@@ -6,7 +6,6 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import java.math.BigInteger
 import java.util.concurrent.TimeUnit
 
 class WatchedTransactionService(private val transactionSender: TransactionSender,
@@ -32,27 +31,24 @@ class WatchedTransactionService(private val transactionSender: TransactionSender
 
   private fun executeTransaction(transaction: Transaction): Completable {
     return cache.save(transaction.key,
-        Transaction(transaction.key, Transaction.Status.PROCESSING, transaction.transactionBuilder,
-            transaction.nonce))
+        Transaction(transaction.key, Transaction.Status.PROCESSING, transaction.transactionBuilder))
         .observeOn(scheduler)
         .andThen(transactionSender.send(transaction.transactionBuilder).flatMapCompletable { hash ->
           cache.save(transaction.key,
               Transaction(transaction.key, Transaction.Status.PROCESSING,
-                  transaction.transactionBuilder,
-                  transaction.nonce, hash))
+                  transaction.transactionBuilder, hash))
               .andThen(transactionTracker.checkTransactionState(hash).retryWhen {
                 retryOnTransactionNotFound(it)
               }.ignoreElements()
                   .andThen(cache.save(transaction.key,
                       Transaction(transaction.key, Transaction.Status.COMPLETED,
-                          transaction.transactionBuilder,
-                          transaction.nonce, hash))))
+                          transaction.transactionBuilder, hash))))
         })
         .doOnError { throwable ->
           throwable.printStackTrace()
-          cache.save(transaction.key,
+          cache.saveSync(transaction.key,
               Transaction(transaction.key, enumValueOf(errorMapper.map(throwable).name),
-                  transaction.transactionBuilder, transaction.nonce, null))
+                  transaction.transactionBuilder))
         }
   }
 
@@ -67,9 +63,8 @@ class WatchedTransactionService(private val transactionSender: TransactionSender
     }
   }
 
-  fun sendTransaction(key: String, nonce: BigInteger,
-                      transactionBuilder: TransactionBuilder): Completable {
-    return cache.save(key, Transaction(key, Transaction.Status.PENDING, transactionBuilder, nonce))
+  fun sendTransaction(key: String, transactionBuilder: TransactionBuilder): Completable {
+    return cache.save(key, Transaction(key, Transaction.Status.PENDING, transactionBuilder))
   }
 
   fun getTransaction(key: String): Observable<Transaction> =
@@ -93,7 +88,7 @@ data class Transaction(
     val key: String,
     val status: Status,
     val transactionBuilder: TransactionBuilder,
-    val nonce: BigInteger, val transactionHash: String? = null) {
+    val transactionHash: String? = null) {
 
   enum class Status {
     PENDING, PROCESSING, COMPLETED, ERROR, WRONG_NETWORK, NONCE_ERROR, UNKNOWN_TOKEN, NO_TOKENS,

@@ -10,7 +10,6 @@ import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
-import java.math.BigInteger;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import org.junit.Assert;
@@ -42,8 +41,7 @@ import static org.mockito.Mockito.when;
 
   @Before public void setup() {
     transactionBuilder = new TransactionBuilder("APPC");
-    when(transactionSender.send(transactionBuilder)).thenReturn(
-        Single.just("hash"));
+    when(transactionSender.send(transactionBuilder)).thenReturn(Single.just("hash"));
 
     scheduler = new TestScheduler();
     transactionService = new WatchedTransactionService(transactionSender,
@@ -68,7 +66,7 @@ import static org.mockito.Mockito.when;
 
     buyService.buy(uri,
         new PaymentTransaction(uri, transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
-            "", null, BigInteger.ZERO, PACKAGE_NAME, PRODUCT_NAME))
+            "", null, PACKAGE_NAME, PRODUCT_NAME))
         .subscribe();
 
     scheduler.triggerActions();
@@ -87,8 +85,7 @@ import static org.mockito.Mockito.when;
     Observable<PendingTransaction> pendingTransactionState =
         Observable.just(new PendingTransaction("hash", true),
             new PendingTransaction("hash", false));
-    when(trackTransactionService.checkTransactionState("hash")).thenReturn(
-        pendingTransactionState);
+    when(trackTransactionService.checkTransactionState("hash")).thenReturn(pendingTransactionState);
 
     BuyService buyService = new BuyService(transactionService, transactionValidator);
     buyService.start();
@@ -100,7 +97,7 @@ import static org.mockito.Mockito.when;
     scheduler.triggerActions();
     buyService.buy(uri,
         new PaymentTransaction(uri, transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
-            "", null, BigInteger.ZERO, PACKAGE_NAME, PRODUCT_NAME))
+            "", null, PACKAGE_NAME, PRODUCT_NAME))
         .subscribe();
     scheduler.triggerActions();
 

@@ -3,7 +3,6 @@ package com.asfoundation.wallet.repository;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
-import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -26,8 +25,8 @@ public class BuyService {
 
   public Completable buy(String key, PaymentTransaction paymentTransaction) {
     return transactionValidator.validate(paymentTransaction)
-        .andThen(transactionService.sendTransaction(key, paymentTransaction.getNonce()
-            .add(BigInteger.ONE), paymentTransaction.getTransactionBuilder()));
+        .andThen(
+            transactionService.sendTransaction(key, paymentTransaction.getTransactionBuilder()));
   }
 
   public Observable<BuyTransaction> getBuy(String uri) {
@@ -37,8 +36,7 @@ public class BuyService {
 
   private BuyTransaction mapTransaction(Transaction transaction) {
     return new BuyTransaction(transaction.getKey(), transaction.getTransactionBuilder(),
-        mapState(transaction.getStatus()), transaction.getTransactionHash(),
-        transaction.getNonce());
+        mapState(transaction.getStatus()), transaction.getTransactionHash());
   }
 
   private Status mapState(Transaction.Status status) {
@@ -104,15 +102,13 @@ public class BuyService {
     private final TransactionBuilder transactionBuilder;
     private final Status status;
     private final String transactionHash;
-    private final BigInteger nonce;
 
     private BuyTransaction(String key, TransactionBuilder transactionBuilder, Status status,
-        String transactionHash, BigInteger nonce) {
+        String transactionHash) {
       this.key = key;
       this.transactionBuilder = transactionBuilder;
       this.status = status;
       this.transactionHash = transactionHash;
-      this.nonce = nonce;
     }
 
     public String getKey() {
@@ -129,10 +125,6 @@ public class BuyService {
 
     public String getTransactionHash() {
       return transactionHash;
-    }
-
-    public BigInteger getNonce() {
-      return nonce;
     }
   }
 }
