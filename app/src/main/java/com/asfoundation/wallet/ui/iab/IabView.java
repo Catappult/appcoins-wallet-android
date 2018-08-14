@@ -13,8 +13,6 @@ public interface IabView {
 
   void finish(Bundle data);
 
-  void showLoading();
-
   void showError();
 
   void close(Bundle bundle);

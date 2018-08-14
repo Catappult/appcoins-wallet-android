@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
+import com.appcoins.wallet.billing.BillingMessagesMapper;
+import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -13,14 +15,19 @@ public class ExpressCheckoutBuyPresenter {
   private final InAppPurchaseInteractor inAppPurchaseInteractor;
   private final Scheduler viewScheduler;
   private final CompositeDisposable disposables;
+  private final BillingMessagesMapper billingMessagesMapper;
+  private final ExternalBillingSerializer billingSerializer;
 
   public ExpressCheckoutBuyPresenter(ExpressCheckoutBuyView view,
       InAppPurchaseInteractor inAppPurchaseInteractor, Scheduler viewScheduler,
-      CompositeDisposable disposables) {
+      CompositeDisposable disposables,
+      BillingMessagesMapper billingMessagesMapper, ExternalBillingSerializer billingSerializer) {
     this.view = view;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.viewScheduler = viewScheduler;
     this.disposables = disposables;
+    this.billingMessagesMapper = billingMessagesMapper;
+    this.billingSerializer = billingSerializer;
   }
 
   public void present(double transactionValue) {
@@ -53,8 +60,9 @@ public class ExpressCheckoutBuyPresenter {
   }
 
   private void close() {
-    view.close();
+    view.close(billingMessagesMapper.mapCancellation());
   }
+
 
   private void handleErrorDismisses() {
     disposables.add(view.errorDismisses()

@@ -75,7 +75,9 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     super.onCreate(savedInstanceState);
     extras = getArguments().getBundle("extras");
     presenter = new ExpressCheckoutBuyPresenter(this, inAppPurchaseInteractor,
-        AndroidSchedulers.mainThread(), new CompositeDisposable());
+        AndroidSchedulers.mainThread(), new CompositeDisposable(),
+        inAppPurchaseInteractor.getBillingMessagesMapper(),
+        inAppPurchaseInteractor.getBillingSerializer());
   }
 
   @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -114,7 +116,6 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
         });
     buyButton.setOnClickListener(v -> iabView.navigateToCreditCardAuthorization());
     presenter.present(((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue());
-
   }
 
   @Override public void onStart() {
@@ -190,8 +191,8 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     return RxView.clicks(cancelButton);
   }
 
-  @Override public void close() {
-    iabView.close();
+  @Override public void close(Bundle data) {
+    iabView.close(data);
   }
 
   @Override public Observable<Object> errorDismisses() {

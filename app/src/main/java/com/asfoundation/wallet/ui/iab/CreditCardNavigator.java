@@ -1,8 +1,10 @@
 package com.asfoundation.wallet.ui.iab;
 
+import android.os.Bundle;
+
 public interface CreditCardNavigator {
 
-  void popView(String transactionUid);
+  void popView(Bundle bundle);
 
   void popViewWithError();
 }

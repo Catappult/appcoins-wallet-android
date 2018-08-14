@@ -85,21 +85,6 @@ public class IabActivity extends BaseActivity implements IabView {
     finish();
   }
 
-  @Override public void finish(String hash) {
-    Intent intent = new Intent();
-    intent.putExtra(TRANSACTION_HASH, hash);
-    setResult(Activity.RESULT_OK, intent);
-    finish();
-  }
-
-  @Override public void showLoading() {
-    showLoading(R.string.activity_aib_loading_message);
-  }
-
-  @Override public void showError() {
-    showError(R.string.activity_iab_error_message);
-  }
-
   @Override public void close(Bundle data) {
     Intent intent = null;
     if (data != null) {
@@ -145,8 +130,6 @@ public class IabActivity extends BaseActivity implements IabView {
   }
 
   @Override public void showError() {
-    Toast.makeText(this, "Payment Failed", Toast.LENGTH_LONG)
-        .show();
     setResult(Activity.RESULT_CANCELED);
     finish();
   }

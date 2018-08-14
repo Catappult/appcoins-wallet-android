@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
+import android.os.Bundle;
 import com.adyen.core.models.Amount;
 import com.adyen.core.models.PaymentMethod;
 import com.adyen.core.models.paymentdetails.PaymentDetails;
@@ -30,7 +31,7 @@ public interface CreditCardAuthorizationView {
   void showCreditCardView(PaymentMethod paymentMethod, Amount amount, boolean cvcStatus,
       boolean allowSave, String publicKey, String generationTime);
 
-  void close();
+  void close(Bundle bundle);
 
   void showWalletAddress(String address);
 

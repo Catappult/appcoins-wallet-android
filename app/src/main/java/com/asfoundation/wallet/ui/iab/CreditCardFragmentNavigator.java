@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
 public class CreditCardFragmentNavigator implements CreditCardNavigator {
@@ -12,11 +13,11 @@ public class CreditCardFragmentNavigator implements CreditCardNavigator {
     this.iabView = iabView;
   }
 
-  @Override public void popView(String transactionUid) {
-    iabView.finish(transactionUid);
+  @Override public void popView(Bundle bundle) {
+    iabView.finish(bundle);
   }
 
   @Override public void popViewWithError() {
-    iabView.showError();
+    iabView.close(null);
   }
 }

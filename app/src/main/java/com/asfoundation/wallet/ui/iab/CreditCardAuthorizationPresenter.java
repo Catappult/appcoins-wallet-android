@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.ui.iab;
 
 import com.adyen.core.models.PaymentMethod;
+import com.appcoins.wallet.billing.BillingMessagesMapper;
+import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.asfoundation.wallet.billing.AdyenBilling;
 import com.asfoundation.wallet.billing.payment.Adyen;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
@@ -22,6 +24,8 @@ public class CreditCardAuthorizationPresenter {
   private final Adyen adyen;
   private final AdyenBilling adyenBilling;
   private final CreditCardNavigator navigator;
+  private final BillingMessagesMapper billingMessagesMapper;
+  private final ExternalBillingSerializer billingSerializer;
 
   private CreditCardAuthorizationView view;
   private FindDefaultWalletInteract defaultWalletInteract;
@@ -29,7 +33,8 @@ public class CreditCardAuthorizationPresenter {
   public CreditCardAuthorizationPresenter(CreditCardAuthorizationView view,
       FindDefaultWalletInteract defaultWalletInteract, Scheduler viewScheduler,
       CompositeSubscription disposables, Adyen adyen, AdyenBilling adyenBilling,
-      CreditCardNavigator navigator) {
+      CreditCardNavigator navigator, BillingMessagesMapper billingMessagesMapper,
+      ExternalBillingSerializer billingSerializer) {
     this.view = view;
     this.defaultWalletInteract = defaultWalletInteract;
     this.viewScheduler = RxJavaInterop.toV1Scheduler(viewScheduler);
@@ -37,6 +42,8 @@ public class CreditCardAuthorizationPresenter {
     this.adyen = adyen;
     this.adyenBilling = adyenBilling;
     this.navigator = navigator;
+    this.billingMessagesMapper = billingMessagesMapper;
+    this.billingSerializer = billingSerializer;
   }
 
   public void present() {
@@ -130,7 +137,7 @@ public class CreditCardAuthorizationPresenter {
         .first(payment -> payment.isCompleted())
         //.doOnNext(payment -> analytics.sendAuthorizationSuccessEvent(payment))
         .observeOn(viewScheduler)
-        .doOnNext(__ -> navigator.popView(adyenBilling.getTransactionUid()))
+        .doOnNext(__ -> navigator.popView(null))//adyenBilling.getTransactionUid()))
         .doOnNext(__ -> view.showSuccess())
         .subscribe(__ -> {
         }, throwable -> showError(throwable)));
@@ -229,9 +236,8 @@ public class CreditCardAuthorizationPresenter {
   }
 
   private void close() {
-    view.close();
+    view.close(billingMessagesMapper.mapCancellation());
   }
-
 
   public void stop() {
     disposables.clear();

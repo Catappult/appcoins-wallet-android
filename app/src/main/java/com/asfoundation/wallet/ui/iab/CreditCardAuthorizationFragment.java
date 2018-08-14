@@ -59,6 +59,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   private static final String APP_DESCRIPTION = "appDescription";
   private static final String FIAT_VALUE = "fiatValue";
   private static final String APPC_VALUE = "appcValue";
+  @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject FindDefaultWalletInteract defaultWalletInteract;
   @Inject AdyenBilling adyenBilling;
   @Inject Adyen adyen;
@@ -101,7 +102,8 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
 
     presenter = new CreditCardAuthorizationPresenter(this, defaultWalletInteract,
         AndroidSchedulers.mainThread(), new CompositeSubscription(), adyen, adyenBilling,
-        navigator);
+        navigator, inAppPurchaseInteractor.getBillingMessagesMapper(),
+        inAppPurchaseInteractor.getBillingSerializer());
   }
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -263,8 +265,8 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
         .setup(getActivity());
   }
 
-  @Override public void close() {
-    iabView.close();
+  @Override public void close(Bundle bundle) {
+    iabView.close(bundle);
   }
 
   @Override public void showWalletAddress(String address) {
