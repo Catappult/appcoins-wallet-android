@@ -6,9 +6,9 @@ import rx.Single;
 public interface TransactionService {
 
   Single<String> createTransaction(String address, String signature, String token,
-      String packageName);
+      String packageName, String payload, String productName, String developerWallet, String storeWallet);
 
-  Single<String> getSession(String transactionUid);
+  Single<String> getSession(String address, String signature, String transactionUid);
 
-  Completable finishTransaction(String transactionUid, String paykey);
+  Completable finishTransaction(String address, String signature, String transactionUid, String paykey);
 }

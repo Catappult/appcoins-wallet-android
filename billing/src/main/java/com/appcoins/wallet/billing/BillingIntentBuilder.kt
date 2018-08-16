@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_DEVELOPER_PAYLOAD
 import com.appcoins.wallet.billing.repository.entity.SKU
 import com.appcoins.wallet.billing.util.PayloadHelper
 import java.io.UnsupportedEncodingException
@@ -41,6 +42,7 @@ class BillingIntentBuilder(val context: Context) {
     intent.data = data
 
     intent.putExtra(AppcoinsBillingBinder.PRODUCT_NAME, sku.title)
+    intent.putExtra(EXTRA_DEVELOPER_PAYLOAD, payload)
 
     return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
   }

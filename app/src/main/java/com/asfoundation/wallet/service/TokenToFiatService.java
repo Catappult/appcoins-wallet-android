@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.service;
 
+import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.entity.AppcToFiatResponseBody;
 import com.asfoundation.wallet.ui.iab.FiatValue;
 import io.reactivex.Observable;
@@ -13,8 +14,7 @@ import retrofit2.http.Query;
  */
 
 public class TokenToFiatService {
-  public static final String TOKEN_TO_FIAT_END_POINT_DEV = "http://34.254.1.70/";
-  public static final String TOKEN_TO_FIAT_END_POINT_PROD = "http://52.209.250.255/";
+  public static final String CONVERSION_HOST = BuildConfig.CONVERSION_HOST;
 
   private final TokenToFiatApi tokenToFiatApi;
 

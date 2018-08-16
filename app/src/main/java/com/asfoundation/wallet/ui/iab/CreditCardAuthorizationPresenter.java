@@ -3,8 +3,9 @@ package com.asfoundation.wallet.ui.iab;
 import com.adyen.core.models.PaymentMethod;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
-import com.asfoundation.wallet.billing.AdyenBilling;
+import com.asfoundation.wallet.billing.CreditCardBilling;
 import com.asfoundation.wallet.billing.payment.Adyen;
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import hu.akarnokd.rxjava.interop.RxJavaInterop;
 import io.reactivex.Scheduler;
@@ -22,28 +23,35 @@ public class CreditCardAuthorizationPresenter {
   private final rx.Scheduler viewScheduler;
   private final CompositeSubscription disposables;
   private final Adyen adyen;
-  private final AdyenBilling adyenBilling;
+  private final CreditCardBilling creditCardBilling;
   private final CreditCardNavigator navigator;
   private final BillingMessagesMapper billingMessagesMapper;
+  private final InAppPurchaseInteractor inAppPurchaseInteractor;
   private final ExternalBillingSerializer billingSerializer;
+  private final String transactionData;
+  private final String developerPayload;
 
   private CreditCardAuthorizationView view;
   private FindDefaultWalletInteract defaultWalletInteract;
 
   public CreditCardAuthorizationPresenter(CreditCardAuthorizationView view,
       FindDefaultWalletInteract defaultWalletInteract, Scheduler viewScheduler,
-      CompositeSubscription disposables, Adyen adyen, AdyenBilling adyenBilling,
+      CompositeSubscription disposables, Adyen adyen, CreditCardBilling creditCardBilling,
       CreditCardNavigator navigator, BillingMessagesMapper billingMessagesMapper,
-      ExternalBillingSerializer billingSerializer) {
+      InAppPurchaseInteractor inAppPurchaseInteractor, ExternalBillingSerializer billingSerializer,
+      String transactionData, String developerPayload) {
     this.view = view;
     this.defaultWalletInteract = defaultWalletInteract;
     this.viewScheduler = RxJavaInterop.toV1Scheduler(viewScheduler);
     this.disposables = disposables;
     this.adyen = adyen;
-    this.adyenBilling = adyenBilling;
+    this.creditCardBilling = creditCardBilling;
     this.navigator = navigator;
     this.billingMessagesMapper = billingMessagesMapper;
+    this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.billingSerializer = billingSerializer;
+    this.transactionData = transactionData;
+    this.developerPayload = developerPayload;
   }
 
   public void present() {
@@ -112,16 +120,20 @@ public class CreditCardAuthorizationPresenter {
 
   private void onViewCreatedCreatePayment() {
     disposables.add(Completable.fromAction(() -> view.showLoading())
-        .andThen(adyenBilling.getAuthorization())
-        .observeOn(viewScheduler)
-        //.doOnNext(payment -> view.showProduct(payment.getProduct()))
-        .first(payment -> payment.isPendingAuthorization())
-        .map(payment -> payment)
-        //.cast(AdyenAuthorization.class)
-        .flatMapCompletable(authorization -> adyen.createPayment(authorization.getSession()))
-        .observeOn(viewScheduler)
-        .subscribe(__ -> {
-        }, throwable -> showError(throwable)));
+        .andThen(RxJavaInterop.toV1Single(inAppPurchaseInteractor.parseTransaction(transactionData))
+            .toObservable()
+            .map(transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
+                transaction.toAddress(), developerPayload)
+                .observeOn(viewScheduler)
+                //.doOnNext(payment -> view.showProduct(payment.getProduct()))
+                .first(payment -> payment.isPendingAuthorization())
+                .map(payment -> payment)
+                //.cast(AdyenAuthorization.class)
+                .flatMapCompletable(
+                    authorization -> adyen.createPayment(authorization.getSession()))
+                .observeOn(viewScheduler)))
+            .subscribe(__ -> {
+            }, throwable -> showError(throwable)));
   }
 
   private void onViewCreatedSelectCreditCardPayment() {
@@ -133,32 +145,43 @@ public class CreditCardAuthorizationPresenter {
   }
 
   private void onViewCreatedCheckAuthorizationActive() {
-    disposables.add(adyenBilling.getAuthorization()
-        .first(payment -> payment.isCompleted())
-        //.doOnNext(payment -> analytics.sendAuthorizationSuccessEvent(payment))
-        .observeOn(viewScheduler)
-        .doOnNext(__ -> navigator.popView(null))//adyenBilling.getTransactionUid()))
-        .doOnNext(__ -> view.showSuccess())
-        .subscribe(__ -> {
-        }, throwable -> showError(throwable)));
+    disposables.add(
+        RxJavaInterop.toV1Single(inAppPurchaseInteractor.parseTransaction(transactionData))
+            .toObservable()
+            .map(transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
+                transaction.toAddress(), developerPayload)
+                .first(payment -> payment.isCompleted()))
+            .observeOn(viewScheduler)
+            .doOnNext(__ -> navigator.popView(null))//creditCardBilling.getTransactionUid()))
+            .doOnNext(__ -> view.showSuccess())
+            .subscribe(__ -> {
+            }, throwable -> showError(throwable)));
   }
 
   private void onViewCreatedCheckAuthorizationFailed() {
-    disposables.add(adyenBilling.getAuthorization()
-        .first(payment -> payment.isFailed())
-        .observeOn(viewScheduler)
-        .doOnNext(__ -> navigator.popViewWithError())
-        .subscribe(__ -> {
-        }, throwable -> showError(throwable)));
+    disposables.add(
+        RxJavaInterop.toV1Single(inAppPurchaseInteractor.parseTransaction(transactionData))
+            .toObservable()
+            .map(transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
+                transaction.toAddress(), developerPayload)
+                .first(payment -> payment.isFailed())
+                .observeOn(viewScheduler)
+                .doOnNext(__ -> navigator.popViewWithError()))
+            .subscribe(__ -> {
+            }, throwable -> showError(throwable)));
   }
 
   private void onViewCreatedCheckAuthorizationProcessing() {
-    disposables.add(adyenBilling.getAuthorization()
-        .filter(payment -> payment.isProcessing())
-        .observeOn(viewScheduler)
-        .doOnNext(__ -> view.showLoading())
-        .subscribe(__ -> {
-        }, throwable -> showError(throwable)));
+    disposables.add(
+        RxJavaInterop.toV1Single(inAppPurchaseInteractor.parseTransaction(transactionData))
+            .toObservable()
+            .map(transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
+                transaction.toAddress(), developerPayload)
+                .filter(payment -> payment.isProcessing())
+                .observeOn(viewScheduler)
+                .doOnNext(__ -> view.showLoading()))
+            .subscribe(__ -> {
+            }, throwable -> showError(throwable)));
   }
 
   private void handleAdyenCreditCardResults() {
@@ -205,7 +228,7 @@ public class CreditCardAuthorizationPresenter {
     disposables.add(adyen.getPaymentResult()
         .flatMapCompletable(result -> {
           if (result.isProcessed()) {
-            return adyenBilling.authorize(result.getPayment(), result.getPayment()
+            return creditCardBilling.authorize(result.getPayment(), result.getPayment()
                 .getPayload());
             //return billing.authorize(sku, result.getAuthorization()
             //    .getPayload());

@@ -48,13 +48,14 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     internal const val INAPP_CONTINUATION_TOKEN = "INAPP_CONTINUATION_TOKEN"
     internal const val INAPP_PURCHASE_ID = "INAPP_PURCHASE_ID"
 
-      internal const val ITEM_TYPE_INAPP = "inapp"
-      internal const val ITEM_TYPE_SUBS = "subs"
+    internal const val ITEM_TYPE_INAPP = "inapp"
+    internal const val ITEM_TYPE_SUBS = "subs"
     internal const val DETAILS_LIST = "DETAILS_LIST"
     internal const val ITEM_ID_LIST = "ITEM_ID_LIST"
     internal const val BUY_INTENT = "BUY_INTENT"
 
     internal const val PRODUCT_NAME = "product_name"
+    internal const val EXTRA_DEVELOPER_PAYLOAD = "developer_payload"
   }
 
   private lateinit var billing: Billing
@@ -72,10 +73,10 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
       return RESULT_BILLING_UNAVAILABLE
     }
     return when (type) {
-        ITEM_TYPE_INAPP -> {
+      ITEM_TYPE_INAPP -> {
         billing.isInAppSupported()
       }
-        ITEM_TYPE_SUBS -> {
+      ITEM_TYPE_SUBS -> {
         billing.isSubsSupported()
       }
       else -> Single.just(Billing.BillingSupportType.UNKNOWN_ERROR)
@@ -149,12 +150,12 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
 
   override fun getPurchases(apiVersion: Int, packageName: String?, type: String?,
                             continuationToken: String?): Bundle {
-      val result = Bundle()
+    val result = Bundle()
 
-      if (apiVersion != supportedApiVersion) {
-          result.putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR)
-          return result
-      }
+    if (apiVersion != supportedApiVersion) {
+      result.putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR)
+      return result
+    }
 
     val idsList = ArrayList<String>()
     val dataList = ArrayList<String>()
@@ -177,7 +178,7 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
         return billingMessagesMapper.mapPurchasesError(exception)
       }
 
-      }
+    }
 
     result.putStringArrayList(INAPP_PURCHASE_ID_LIST, idsList)
     result.putStringArrayList(INAPP_PURCHASE_DATA_LIST, dataList)
@@ -187,10 +188,10 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     return result
   }
 
-    override fun consumePurchase(apiVersion: Int, packageName: String?, purchaseToken: String): Int {
-        if (apiVersion != supportedApiVersion) {
-            return RESULT_DEVELOPER_ERROR
-        }
+  override fun consumePurchase(apiVersion: Int, packageName: String?, purchaseToken: String): Int {
+    if (apiVersion != supportedApiVersion) {
+      return RESULT_DEVELOPER_ERROR
+    }
 
     return try {
       billing.consumePurchases(purchaseToken, Schedulers.io()).map { RESULT_OK }.blockingGet()

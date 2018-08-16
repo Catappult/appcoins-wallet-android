@@ -22,8 +22,9 @@ import com.adyen.core.models.paymentdetails.PaymentDetails;
 import com.adyen.core.utils.AmountUtil;
 import com.adyen.core.utils.StringUtils;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.billing.AdyenBilling;
+import com.asfoundation.wallet.billing.CreditCardBilling;
 import com.asfoundation.wallet.billing.payment.Adyen;
+import com.asfoundation.wallet.billing.purchase.CreditCardBillingFactory;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.util.KeyboardUtils;
 import com.asfoundation.wallet.view.rx.RxAlertDialog;
@@ -42,8 +43,10 @@ import rx.Observable;
 import rx.subscriptions.CompositeSubscription;
 
 import static com.asfoundation.wallet.ui.iab.IabActivity.APP_PACKAGE;
+import static com.asfoundation.wallet.ui.iab.IabActivity.EXTRA_DEVELOPER_PAYLOAD;
 import static com.asfoundation.wallet.ui.iab.IabActivity.PRODUCT_NAME;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
+import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_DATA;
 
 /**
  * Created by franciscocalado on 30/07/2018.
@@ -61,7 +64,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   private static final String APPC_VALUE = "appcValue";
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject FindDefaultWalletInteract defaultWalletInteract;
-  @Inject AdyenBilling adyenBilling;
+  @Inject CreditCardBillingFactory creditCardBillingFactory;
   @Inject Adyen adyen;
   private View progressBar;
   private IabView iabView;
@@ -101,9 +104,10 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
         new CreditCardFragmentNavigator(getFragmentManager(), iabView);
 
     presenter = new CreditCardAuthorizationPresenter(this, defaultWalletInteract,
-        AndroidSchedulers.mainThread(), new CompositeSubscription(), adyen, adyenBilling,
-        navigator, inAppPurchaseInteractor.getBillingMessagesMapper(),
-        inAppPurchaseInteractor.getBillingSerializer());
+        AndroidSchedulers.mainThread(), new CompositeSubscription(), adyen,
+        creditCardBillingFactory.getBilling(getAppPackage()), navigator,
+        inAppPurchaseInteractor.getBillingMessagesMapper(), inAppPurchaseInteractor,
+        inAppPurchaseInteractor.getBillingSerializer(), getTransactionData(), getDeveloperPayload());
   }
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -322,5 +326,16 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
       return getArguments().getString(APP_PACKAGE);
     }
     throw new IllegalArgumentException("previous app package name not found");
+  }
+
+  public String getTransactionData() {
+    if (getArguments().containsKey(TRANSACTION_DATA)) {
+      return getArguments().getString(TRANSACTION_DATA);
+    }
+    throw new IllegalArgumentException("previous transaction data not found");
+  }
+
+  public String getDeveloperPayload() {
+    return getArguments().getString(EXTRA_DEVELOPER_PAYLOAD);
   }
 }

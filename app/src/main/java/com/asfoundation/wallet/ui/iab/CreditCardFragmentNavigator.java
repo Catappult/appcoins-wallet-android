@@ -18,6 +18,6 @@ public class CreditCardFragmentNavigator implements CreditCardNavigator {
   }
 
   @Override public void popViewWithError() {
-    iabView.close(null);
+    iabView.close(new Bundle());
   }
 }

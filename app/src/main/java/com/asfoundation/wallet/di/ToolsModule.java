@@ -23,11 +23,10 @@ import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.apps.Applications;
 import com.asfoundation.wallet.apps.AppsApi;
 import com.asfoundation.wallet.billing.AdyenBilling;
-import com.asfoundation.wallet.billing.AdyenBillingImpl;
-import com.asfoundation.wallet.billing.CryptoBillingSigner;
-import com.asfoundation.wallet.billing.CryptoBillingSignerImpl;
+import com.asfoundation.wallet.billing.BDSTransactionService;
 import com.asfoundation.wallet.billing.TransactionService;
 import com.asfoundation.wallet.billing.payment.Adyen;
+import com.asfoundation.wallet.billing.purchase.CreditCardBillingFactory;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
@@ -122,8 +121,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import static com.asfoundation.wallet.AirdropService.BASE_URL;
-import static com.asfoundation.wallet.service.TokenToFiatService.TOKEN_TO_FIAT_END_POINT_DEV;
-import static com.asfoundation.wallet.service.TokenToFiatService.TOKEN_TO_FIAT_END_POINT_PROD;
 
 @Module class ToolsModule {
   @Provides Context provideContext(App application) {
@@ -422,8 +419,7 @@ import static com.asfoundation.wallet.service.TokenToFiatService.TOKEN_TO_FIAT_E
   }
 
   @Singleton @Provides RemoteRepository.BdsApi provideBdsApi(OkHttpClient client, Gson gson) {
-    String baseUrl =
-        BuildConfig.DEBUG ? RemoteRepository.BASE_HOST_DEV : RemoteRepository.BASE_HOST_PROD;
+    String baseUrl = RemoteRepository.BASE_HOST;
     return new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
@@ -434,7 +430,7 @@ import static com.asfoundation.wallet.service.TokenToFiatService.TOKEN_TO_FIAT_E
 
   @Singleton @Provides TokenToFiatService provideTokenToFiatService(OkHttpClient client,
       Gson gson) {
-    String baseUrl = BuildConfig.DEBUG ? TOKEN_TO_FIAT_END_POINT_DEV : TOKEN_TO_FIAT_END_POINT_PROD;
+    String baseUrl = TokenToFiatService.CONVERSION_HOST;
     TokenToFiatService.TokenToFiatApi api = new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(JacksonConverterFactory.create())
@@ -473,11 +469,11 @@ import static com.asfoundation.wallet.service.TokenToFiatService.TOKEN_TO_FIAT_E
       private static final int NETWORK_ID_MAIN = 1;
 
       @NotNull @Override public Single<String> getAppCoinsAddress(boolean debug) {
-        return proxySdk.getAppCoinsAddress(debug? NETWORK_ID_ROPSTEN : NETWORK_ID_MAIN);
+        return proxySdk.getAppCoinsAddress(debug ? NETWORK_ID_ROPSTEN : NETWORK_ID_MAIN);
       }
 
       @NotNull @Override public Single<String> getIabAddress(boolean debug) {
-        return proxySdk.getIabAddress(debug? NETWORK_ID_ROPSTEN : NETWORK_ID_MAIN);
+        return proxySdk.getIabAddress(debug ? NETWORK_ID_ROPSTEN : NETWORK_ID_MAIN);
       }
     };
   }
@@ -487,12 +483,12 @@ import static com.asfoundation.wallet.service.TokenToFiatService.TOKEN_TO_FIAT_E
         PublishRelay.create());
   }
 
-  @Singleton @Provides CryptoBillingSigner provideCryptoBillingSigner() {
-    return new CryptoBillingSignerImpl();
+  @Singleton @Provides TransactionService provideTransactionService(RemoteRepository.BdsApi bdsApi) {
+    return new BDSTransactionService(new RemoteRepository(bdsApi, new BdsApiResponseMapper()));
   }
 
-  @Singleton @Provides AdyenBilling provideAdyenBilling(TransactionService transactionService,
-      CryptoBillingSigner cryptoBillingSigner, Adyen adyen) {
-    return new AdyenBillingImpl(transactionService, cryptoBillingSigner, adyen);
+  @Singleton @Provides CreditCardBillingFactory provideCreditCardBillingFactory(
+      TransactionService transactionService, WalletService walletService, Adyen adyen) {
+    return merchantName -> new AdyenBilling(merchantName, transactionService, walletService, adyen);
   }
 }

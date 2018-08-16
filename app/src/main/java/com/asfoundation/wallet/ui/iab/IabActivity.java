@@ -21,8 +21,10 @@ public class IabActivity extends BaseActivity implements IabView {
   public static final String SKU_DETAILS = "sku_details";
   public static final String APP_PACKAGE = "app_package";
   public static final String PRODUCT_NAME = "product_name";
+  public static final String EXTRA_DEVELOPER_PAYLOAD = "developer_payload";
+  public static final String TRANSACTION_DATA = "transaction_data";
   public static final String TRANSACTION_HASH = "transaction_hash";
-  public static final String TRANSACTION_AMOUNT = "transaction_ammout";
+  public static final String TRANSACTION_AMOUNT = "transaction_amount";
   public static final String TRANSACTION_CURRENCY = "transaction_currency";
   public static final String FIAT_VALUE = "fiat_value";
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
@@ -107,6 +109,8 @@ public class IabActivity extends BaseActivity implements IabView {
           .getString(APP_PACKAGE, ""));
       bundle.putString(PRODUCT_NAME, getIntent().getExtras()
           .getString(PRODUCT_NAME));
+      bundle.putString(TRANSACTION_DATA, getIntent().getDataString());
+      bundle.putString(EXTRA_DEVELOPER_PAYLOAD, getIntent().getExtras().getString(EXTRA_DEVELOPER_PAYLOAD));
       skuDetails = bundle;
 
       if (getSupportFragmentManager().getFragments()
