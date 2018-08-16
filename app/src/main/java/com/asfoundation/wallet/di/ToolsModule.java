@@ -483,7 +483,8 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
         PublishRelay.create());
   }
 
-  @Singleton @Provides TransactionService provideTransactionService(RemoteRepository.BdsApi bdsApi) {
+  @Singleton @Provides TransactionService provideTransactionService(
+      RemoteRepository.BdsApi bdsApi) {
     return new BDSTransactionService(new RemoteRepository(bdsApi, new BdsApiResponseMapper()));
   }
 

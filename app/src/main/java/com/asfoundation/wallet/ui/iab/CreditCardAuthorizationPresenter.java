@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
+import android.util.Log;
 import com.adyen.core.models.PaymentMethod;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
@@ -121,19 +122,19 @@ public class CreditCardAuthorizationPresenter {
   private void onViewCreatedCreatePayment() {
     disposables.add(Completable.fromAction(() -> view.showLoading())
         .andThen(RxJavaInterop.toV1Single(inAppPurchaseInteractor.parseTransaction(transactionData))
-            .toObservable()
-            .map(transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                transaction.toAddress(), developerPayload)
-                .observeOn(viewScheduler)
-                //.doOnNext(payment -> view.showProduct(payment.getProduct()))
-                .first(payment -> payment.isPendingAuthorization())
-                .map(payment -> payment)
-                //.cast(AdyenAuthorization.class)
-                .flatMapCompletable(
-                    authorization -> adyen.createPayment(authorization.getSession()))
-                .observeOn(viewScheduler)))
-            .subscribe(__ -> {
-            }, throwable -> showError(throwable)));
+            .flatMapObservable(
+                transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
+                    transaction.toAddress(), developerPayload)
+                    .observeOn(viewScheduler)
+                    //.doOnNext(payment -> view.showProduct(payment.getProduct()))
+                    .first(payment -> payment.isPendingAuthorization())
+                    .map(payment -> payment)
+                    //.cast(AdyenAuthorization.class)
+                    .flatMapCompletable(
+                        authorization -> adyen.createPayment(authorization.getSession()))
+                    .observeOn(viewScheduler)))
+        .subscribe(__ -> {
+        }, throwable -> showError(throwable)));
   }
 
   private void onViewCreatedSelectCreditCardPayment() {
@@ -147,13 +148,12 @@ public class CreditCardAuthorizationPresenter {
   private void onViewCreatedCheckAuthorizationActive() {
     disposables.add(
         RxJavaInterop.toV1Single(inAppPurchaseInteractor.parseTransaction(transactionData))
-            .toObservable()
-            .map(transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
+            .flatMapObservable(transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
                 transaction.toAddress(), developerPayload)
-                .first(payment -> payment.isCompleted()))
-            .observeOn(viewScheduler)
-            .doOnNext(__ -> navigator.popView(null))//creditCardBilling.getTransactionUid()))
-            .doOnNext(__ -> view.showSuccess())
+                .first(payment -> payment.isCompleted())
+                .observeOn(viewScheduler)
+                .doOnNext(__ -> navigator.popView(null))//creditCardBilling.getTransactionUid()))
+                .doOnNext(__ -> view.showSuccess()))
             .subscribe(__ -> {
             }, throwable -> showError(throwable)));
   }
@@ -161,8 +161,7 @@ public class CreditCardAuthorizationPresenter {
   private void onViewCreatedCheckAuthorizationFailed() {
     disposables.add(
         RxJavaInterop.toV1Single(inAppPurchaseInteractor.parseTransaction(transactionData))
-            .toObservable()
-            .map(transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
+            .flatMapObservable(transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
                 transaction.toAddress(), developerPayload)
                 .first(payment -> payment.isFailed())
                 .observeOn(viewScheduler)
@@ -174,8 +173,7 @@ public class CreditCardAuthorizationPresenter {
   private void onViewCreatedCheckAuthorizationProcessing() {
     disposables.add(
         RxJavaInterop.toV1Single(inAppPurchaseInteractor.parseTransaction(transactionData))
-            .toObservable()
-            .map(transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
+            .flatMapObservable(transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
                 transaction.toAddress(), developerPayload)
                 .filter(payment -> payment.isProcessing())
                 .observeOn(viewScheduler)
