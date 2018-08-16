@@ -11,6 +11,9 @@ public class NonceObtainer implements com.asf.microraidenj.eth.NonceObtainer {
   private AtomicBigInteger atomicBigInteger;
   private long refreshTime;
 
+  /**
+   * @param refreshIntervalMillis time window between each nonce sync with ethereum network.
+   */
   public NonceObtainer(int refreshIntervalMillis, NonceProvider nonceProvider) {
     this.refreshIntervalMillis = refreshIntervalMillis;
     this.nonceProvider = nonceProvider;
