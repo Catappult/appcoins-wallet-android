@@ -90,6 +90,7 @@ import com.asfoundation.wallet.ui.iab.AppCoinsOperationMapper;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository;
 import com.asfoundation.wallet.ui.iab.AppInfoProvider;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
+import com.asfoundation.wallet.ui.iab.BdsInAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.ImageSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase;
@@ -257,6 +258,13 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
         raidenRepository, channelService, new BillingMessagesMapper(), billingFactory,
         new ExternalBillingSerializer(), expressCheckoutBuyService);
+  }
+
+  @Singleton @Provides BdsInAppPurchaseInteractor provideBdsInAppPurchaseInteractor(
+      BillingPaymentProofSubmission billingPaymentProofSubmission,
+      InAppPurchaseInteractor inAppPurchaseInteractor) {
+    return new BdsInAppPurchaseInteractor(inAppPurchaseInteractor, billingPaymentProofSubmission,
+        (packageName, productName) -> Single.just("approveKey"));
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(

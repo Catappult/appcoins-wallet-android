@@ -88,8 +88,24 @@ public class InAppPurchaseInteractor {
                           .fromAddress(), channelBudget, paymentTransaction);
                 }));
     }
-    return Completable.error(
-        new IllegalArgumentException("Transaction type " + transactionType + " not supported"));
+    return Completable.error(new UnsupportedOperationException(
+        "Transaction type " + transactionType + " not supported"));
+  }
+
+  public Completable resume(String uri, TransactionType transactionType, String packageName,
+      String productName, String approveKey) {
+    switch (transactionType) {
+      case NORMAL:
+        return buildPaymentTransaction(uri, packageName, productName).map(
+            paymentTransaction -> new PaymentTransaction(paymentTransaction,
+                PaymentTransaction.PaymentState.APPROVED, approveKey))
+            .flatMapCompletable(
+                paymentTransaction -> inAppPurchaseService.resume(paymentTransaction.getUri(),
+                    paymentTransaction));
+      default:
+        return Completable.error(new UnsupportedOperationException(
+            "Transaction type " + transactionType + " not supported"));
+    }
   }
 
   private Completable makePayment(PaymentTransaction paymentTransaction) {

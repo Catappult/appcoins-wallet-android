@@ -336,4 +336,34 @@ public class InAppPurchaseInteractorTest {
     list.add(new BigDecimal("35.0"));
     Assert.assertEquals(list, topUpChannelSuggestionValues);
   }
+
+  @Test public void resumePurchase() {
+    String uri = "ethereum:"
+        + CONTRACT_ADDRESS
+        + "@3"
+        + "/transfer?uint256=1000000000000000000&address"
+        + "=0x4fbcc5ce88493c3d9903701c143af65f54481119&data=0x636f6d2e63656e61732e70726f64756374";
+
+    inAppPurchaseInteractor.start();
+    TestObserver<Payment> observer = new TestObserver<>();
+    inAppPurchaseInteractor.getTransactionState(uri)
+        .subscribe(observer);
+    scheduler.triggerActions();
+
+    inAppPurchaseInteractor.resume(uri, InAppPurchaseInteractor.TransactionType.NORMAL,
+        PACKAGE_NAME, PRODUCT_NAME, "approveKey")
+        .subscribe();
+
+    scheduler.triggerActions();
+    balance.onNext(GetDefaultWalletBalance.BalanceState.OK);
+    scheduler.triggerActions();
+
+    pendingBuyState.onComplete();
+    scheduler.triggerActions();
+
+    for (Payment payment : observer.values()) {
+      System.out.println(payment);
+    }
+    observer.assertNoErrors();
+  }
 }

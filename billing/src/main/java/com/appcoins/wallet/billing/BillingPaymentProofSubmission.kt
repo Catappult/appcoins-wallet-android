@@ -55,6 +55,10 @@ class BillingPaymentProofSubmission internal constructor(
     }
   }
 
+  fun saveApproveKey(approveKey: String, key: String) {
+    paymentIds[approveKey] = key
+  }
+
   companion object {
     inline fun build(block: BillingPaymentProofSubmission.Builder.() -> Unit) =
         BillingPaymentProofSubmission.Builder().apply(block).build()
