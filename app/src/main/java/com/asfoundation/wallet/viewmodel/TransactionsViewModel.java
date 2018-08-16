@@ -173,6 +173,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private void onDefaultNetwork(NetworkInfo networkInfo) {
     defaultNetwork.postValue(networkInfo);
     disposables.add(findDefaultWalletInteract.find()
+        .observeOn(AndroidSchedulers.mainThread())
         .subscribe(this::onDefaultWallet, this::onError));
   }
 
