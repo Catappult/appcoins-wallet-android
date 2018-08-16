@@ -20,7 +20,18 @@ public final class AtomicBigInteger {
       }
     }
   }
+
   public BigInteger get() {
     return valueHolder.get();
+  }
+
+  public void increment() {
+    for (; ; ) {
+      BigInteger current = valueHolder.get();
+      BigInteger next = current.add(BigInteger.ONE);
+      if (valueHolder.compareAndSet(current, next)) {
+        return;
+      }
+    }
   }
 }

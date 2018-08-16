@@ -5,6 +5,7 @@ import android.content.Context;
 import com.appcoins.wallet.billing.BdsBilling;
 import com.appcoins.wallet.billing.BillingFactory;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
+import com.appcoins.wallet.billing.BillingPaymentProofSubmission;
 import com.appcoins.wallet.billing.BillingThrowableCodeMapper;
 import com.appcoins.wallet.billing.ProxyService;
 import com.appcoins.wallet.billing.WalletService;
@@ -40,15 +41,16 @@ import com.asfoundation.wallet.poa.ProofWriter;
 import com.asfoundation.wallet.poa.TaggedCompositeDisposable;
 import com.asfoundation.wallet.poa.TransactionFactory;
 import com.asfoundation.wallet.repository.ApproveService;
+import com.asfoundation.wallet.repository.ApproveTransactionValidator;
 import com.asfoundation.wallet.repository.BalanceService;
 import com.asfoundation.wallet.repository.BlockChainWriter;
 import com.asfoundation.wallet.repository.BuyService;
+import com.asfoundation.wallet.repository.BuyTransactionValidator;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.EthereumNetworkRepository;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.GasSettingsRepository;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
-import com.asfoundation.wallet.repository.InAppPurchaseProofSource;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.MemoryCache;
 import com.asfoundation.wallet.repository.NonceGetter;
@@ -57,9 +59,11 @@ import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.PreferenceRepositoryType;
 import com.asfoundation.wallet.repository.SharedPreferenceRepository;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
+import com.asfoundation.wallet.repository.TrackTransactionService;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
 import com.asfoundation.wallet.repository.TrustPasswordStore;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
+import com.asfoundation.wallet.repository.WatchedTransactionService;
 import com.asfoundation.wallet.repository.Web3jProvider;
 import com.asfoundation.wallet.router.GasSettingsRouter;
 import com.asfoundation.wallet.service.AccountKeystoreService;
@@ -86,6 +90,7 @@ import com.asfoundation.wallet.ui.iab.raiden.PrivateKeyProvider;
 import com.asfoundation.wallet.ui.iab.raiden.Raiden;
 import com.asfoundation.wallet.ui.iab.raiden.RaidenFactory;
 import com.asfoundation.wallet.ui.iab.raiden.RaidenRepository;
+import com.asfoundation.wallet.ui.iab.raiden.Web3jNonceProvider;
 import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.TransferParser;
 import com.bds.microraidenj.MicroRaidenBDS;
@@ -100,7 +105,7 @@ import io.reactivex.subjects.BehaviorSubject;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -169,16 +174,33 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
     return new RealmManager();
   }
 
+  @Singleton @Provides BillingPaymentProofSubmission providesBillingPaymentProofSubmission(
+      RemoteRepository.BdsApi api, WalletService walletService) {
+    return new BillingPaymentProofSubmission.Builder().setApi(api)
+        .setWalletService(walletService)
+        .build();
+  }
+
   @Provides ApproveService provideApproveService(SendTransactionInteract sendTransactionInteract,
-      ErrorMapper errorMapper) {
-    return new ApproveService(sendTransactionInteract,
-        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), errorMapper, Schedulers.io());
+      ErrorMapper errorMapper,
+      @Named("no_wait_transaction") TrackTransactionService pendingTransactionService,
+      BillingPaymentProofSubmission billingPaymentProofSubmission) {
+    return new ApproveService(new WatchedTransactionService(sendTransactionInteract::approve,
+        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
+        Schedulers.io(), pendingTransactionService),
+        new ApproveTransactionValidator(sendTransactionInteract, billingPaymentProofSubmission));
   }
 
   @Provides BuyService provideBuyService(SendTransactionInteract sendTransactionInteract,
-      ErrorMapper errorMapper, PendingTransactionService pendingTransactionService) {
-    return new BuyService(sendTransactionInteract, pendingTransactionService,
-        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), errorMapper, Schedulers.io());
+      ErrorMapper errorMapper,
+      @Named("wait_pending_transaction") TrackTransactionService pendingTransactionService,
+      BillingPaymentProofSubmission billingPaymentProofSubmission,
+      DefaultTokenProvider defaultTokenProvider) {
+    return new BuyService(new WatchedTransactionService(sendTransactionInteract::buy,
+        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
+        Schedulers.io(), pendingTransactionService),
+        new BuyTransactionValidator(sendTransactionInteract, billingPaymentProofSubmission,
+            defaultTokenProvider));
   }
 
   @Singleton @Provides ErrorMapper provideErrorMapper() {
@@ -205,9 +227,9 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   }
 
   @Singleton @Provides InAppPurchaseService provideTransactionService(ApproveService approveService,
-      BuyService buyService, NonceGetter nonceGetter, BalanceService balanceService) {
+      BuyService buyService, BalanceService balanceService, ErrorMapper errorMapper) {
     return new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-        approveService, buyService, nonceGetter, balanceService);
+        approveService, buyService, balanceService, Schedulers.io(), errorMapper);
   }
 
   @Singleton @Provides InAppPurchaseInteractor provideTransactionInteractor(
@@ -251,7 +273,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   }
 
   @Provides NonceObtainer provideNonceObtainer(Web3jProvider web3jProvider) {
-    return new NonceObtainer(30000, web3jProvider);
+    return new NonceObtainer(30000, new Web3jNonceProvider(web3jProvider));
   }
 
   @Provides BalanceService provideBalanceService(GetDefaultWalletBalance getDefaultWalletBalance) {
@@ -421,12 +443,6 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
     return new AccountWalletService(walletInteract, accountKeyService, passwordStore);
   }
 
-  @Singleton @Provides InAppPurchaseProofSource provideInAppPurchaseProofSource(
-      InAppPurchaseService inAppPurchaseService) {
-    return new InAppPurchaseProofSource(inAppPurchaseService, new CopyOnWriteArrayList<>(),
-        new CopyOnWriteArrayList<>());
-  }
-
   @Singleton @Provides BillingFactory provideBillingFactory(RemoteRepository.BdsApi bdsApi,
       WalletService walletService) {
     return merchantName -> new BdsBilling(merchantName,
@@ -440,11 +456,11 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
       private static final int NETWORK_ID_MAIN = 1;
 
       @NotNull @Override public Single<String> getAppCoinsAddress(boolean debug) {
-        return proxySdk.getAppCoinsAddress(debug? NETWORK_ID_ROPSTEN : NETWORK_ID_MAIN);
+        return proxySdk.getAppCoinsAddress(debug ? NETWORK_ID_ROPSTEN : NETWORK_ID_MAIN);
       }
 
       @NotNull @Override public Single<String> getIabAddress(boolean debug) {
-        return proxySdk.getIabAddress(debug? NETWORK_ID_ROPSTEN : NETWORK_ID_MAIN);
+        return proxySdk.getIabAddress(debug ? NETWORK_ID_ROPSTEN : NETWORK_ID_MAIN);
       }
     };
   }

@@ -6,8 +6,8 @@ import com.appcoins.wallet.billing.repository.RegisterPaymentBody
 import com.appcoins.wallet.billing.repository.RemoteRepository
 import io.reactivex.Completable
 import io.reactivex.Single
+import io.reactivex.observers.TestObserver
 import io.reactivex.schedulers.TestScheduler
-import io.reactivex.subjects.PublishSubject
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -37,15 +37,12 @@ class BillingPaymentProofSubmissionTest {
   @Before
   fun setUp() {
     scheduler = TestScheduler()
-    billing = BillingPaymentProofSubmission.build(object : BillingDependenciesProvider {
-      override fun getSupportedVersion(): Int = 3
-      override fun getBdsApi(): RemoteRepository.BdsApi = api
-      override fun getWalletService(): WalletService = object : WalletService {
-        override fun getWalletAddress(): Single<String> = Single.just(walletAddress)
 
-        override fun signContent(content: String): Single<String> = Single.just(signedContent)
-      }
-    }) { networkScheduler = scheduler }
+    billing = BillingPaymentProofSubmission.Builder().setApi(api).setScheduler(scheduler)
+        .setWalletService(object : WalletService {
+          override fun getWalletAddress(): Single<String> = Single.just(walletAddress)
+          override fun signContent(content: String): Single<String> = Single.just(signedContent)
+        }).build()
 
     `when`(api.registerAuthorization(paymentType, walletAddress, signedContent,
         RegisterAuthorizationBody(productName, packageName, paymentId, developerAddress,
@@ -58,22 +55,20 @@ class BillingPaymentProofSubmissionTest {
 
   @Test
   fun start() {
-    billing.start()
-    val authorizationPublisher: PublishSubject<AuthorizationProof> = PublishSubject.create()
-    val paymentPublisher: PublishSubject<PaymentProof> = PublishSubject.create()
-    billing.addAuthorizationProofSource(authorizationPublisher)
-    billing.addPaymentProofSource(paymentPublisher)
-    scheduler.triggerActions()
-    authorizationPublisher.onNext(
+    val authorizationDisposable = TestObserver<Any>()
+    val purchaseDisposable = TestObserver<Any>()
+    billing.processAuthorizationProof(
         AuthorizationProof(paymentType, paymentId, productName, packageName, storeAddress,
-            oemAddress, developerAddress))
+            oemAddress, developerAddress)).subscribe(authorizationDisposable)
     scheduler.triggerActions()
 
-    paymentPublisher.onNext(PaymentProof(paymentType, paymentId, paymentToken, productName,
-        packageName, storeAddress, oemAddress))
+    billing.processPurchaseProof(PaymentProof(paymentType, paymentId, paymentToken, productName,
+        packageName, storeAddress, oemAddress)).subscribe(purchaseDisposable)
     scheduler.triggerActions()
 
 
+    authorizationDisposable.assertNoErrors().assertComplete()
+    purchaseDisposable.assertNoErrors().assertComplete()
     verify(api, times(1)).registerAuthorization(paymentType, walletAddress, signedContent,
         RegisterAuthorizationBody(productName, packageName, paymentId, developerAddress,
             storeAddress))

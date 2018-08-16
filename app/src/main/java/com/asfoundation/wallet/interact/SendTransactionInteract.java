@@ -6,7 +6,6 @@ import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import java.math.BigInteger;
 
 public class SendTransactionInteract {
 
@@ -25,13 +24,25 @@ public class SendTransactionInteract {
             .observeOn(AndroidSchedulers.mainThread()));
   }
 
-  public Single<String> approve(TransactionBuilder transactionBuilder, BigInteger nonce) {
+  public Single<String> approve(TransactionBuilder transactionBuilder) {
     return passwordStore.getPassword(new Wallet(transactionBuilder.fromAddress()))
-        .flatMap(password -> transactionRepository.approve(transactionBuilder, password, nonce));
+        .flatMap(password -> transactionRepository.approve(transactionBuilder, password));
   }
 
-  public Single<String> buy(TransactionBuilder transaction, BigInteger nonce) {
+  public Single<String> buy(TransactionBuilder transaction) {
     return passwordStore.getPassword(new Wallet(transaction.fromAddress()))
-        .flatMap(password -> transactionRepository.callIab(transaction, password, nonce));
+        .flatMap(password -> transactionRepository.callIab(transaction, password));
+  }
+
+  public Single<String> computeApproveTransactionHash(TransactionBuilder transactionBuilder) {
+    return passwordStore.getPassword(new Wallet(transactionBuilder.fromAddress()))
+        .flatMap(password -> transactionRepository.computeApproveTransactionHash(transactionBuilder,
+            password));
+  }
+
+  public Single<String> computeBuyTransactionHash(TransactionBuilder transactionBuilder) {
+    return passwordStore.getPassword(new Wallet(transactionBuilder.fromAddress()))
+        .flatMap(password -> transactionRepository.computeBuyTransactionHash(transactionBuilder,
+            password));
   }
 }
