@@ -29,7 +29,6 @@ import com.asfoundation.wallet.ui.MicroRaidenInteractor;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.viewmodel.TransactionsViewModelFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.schedulers.Schedulers;
@@ -112,7 +111,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
   }
 
   @Provides OffChainTransactionsRepository providesOffChainTransactionsRepository(
-      OkHttpClient client, Gson gson) {
+      OkHttpClient client) {
 
     ObjectMapper objectMapper = new ObjectMapper();
 
