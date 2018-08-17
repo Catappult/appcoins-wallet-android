@@ -14,7 +14,8 @@ import org.web3j.crypto.Keys.toChecksumAddress
 
 class AccountWalletService(private val walletInteract: FindDefaultWalletInteract,
                            private val accountKeyService: AccountKeystoreService,
-                           private val passwordStore: PasswordStore) : WalletService {
+                           private val passwordStore: PasswordStore,
+                           private var normalizer: ContentNormalizer) : WalletService {
 
   private var stringECKeyPair: Pair<String, ethereumj.crypto.ECKey>? = null
 
@@ -24,7 +25,11 @@ class AccountWalletService(private val walletInteract: FindDefaultWalletInteract
 
   override fun signContent(content: String): Single<String> {
     return walletInteract.find()
-        .flatMap { wallet -> getPrivateKey(wallet).map { ecKey -> sign(content, ecKey) } }
+        .flatMap { wallet ->
+          getPrivateKey(wallet).map { ecKey ->
+            sign(normalizer.normalize(content), ecKey)
+          }
+        }
   }
 
   @Throws(Exception::class)
@@ -46,5 +51,9 @@ class AccountWalletService(private val walletInteract: FindDefaultWalletInteract
                     .privateKey)
               }
         }.doOnSuccess { ecKey -> stringECKeyPair = Pair(wallet.address, ecKey) }
+  }
+
+  interface ContentNormalizer {
+    fun normalize(content: String): String
   }
 }
