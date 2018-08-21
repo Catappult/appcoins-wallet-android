@@ -1,12 +1,10 @@
 package com.asfoundation.wallet.ui.iab;
 
-import android.util.Log;
 import com.adyen.core.models.PaymentMethod;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.asfoundation.wallet.billing.CreditCardBilling;
 import com.asfoundation.wallet.billing.payment.Adyen;
-import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import hu.akarnokd.rxjava.interop.RxJavaInterop;
 import io.reactivex.Scheduler;
@@ -57,6 +55,7 @@ public class CreditCardAuthorizationPresenter {
 
   public void present() {
     disposables.add(RxJavaInterop.toV1Single(defaultWalletInteract.find())
+        .doOnSuccess(wallet -> adyen.createToken())
         .observeOn(viewScheduler)
         .doOnSuccess(wallet -> view.showWalletAddress(wallet.address))
         .subscribe(wallet -> {
