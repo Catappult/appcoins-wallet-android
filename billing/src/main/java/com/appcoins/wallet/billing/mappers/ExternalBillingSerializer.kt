@@ -20,15 +20,15 @@ class ExternalBillingSerializer {
   fun mapProduct(product: Product): SKU {
     return SKU(product.sku, "inapp", getPrice(product),
         product.price
-            .currency, (product.price
-        .appcoinsAmount).toLong(), product.title, product.description)
+            .currency, product.price
+        .appcoinsAmount, product.title, product.description)
   }
 
-    private fun getPrice(product: Product): String {
-        return String.format(Locale.US, "%s %.2f", product.price
-                .currencySymbol, product.price
-                .amount)
-    }
+  private fun getPrice(product: Product): String {
+    return String.format(Locale.US, "%s %.2s", product.price
+        .currencySymbol, product.price
+        .amount)
+  }
 
   fun serializeSignatureData(purchase: Purchase): String {
     val gson = GsonBuilder().registerTypeAdapter(Purchase::class.java, PurchaseSignatureSerializer())

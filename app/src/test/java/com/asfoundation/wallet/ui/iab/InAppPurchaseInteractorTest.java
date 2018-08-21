@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.iab;
 
-import com.appcoins.wallet.billing.Billing;
 import com.appcoins.wallet.billing.BillingFactory;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
@@ -20,15 +19,21 @@ import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.BalanceService;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.ErrorMapper;
+import com.asfoundation.wallet.repository.ExpressCheckoutBuyService;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.MemoryCache;
 import com.asfoundation.wallet.repository.NonceGetter;
 import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
+import com.asfoundation.wallet.repository.TransactionSender;
+import com.asfoundation.wallet.repository.TransactionValidator;
+import com.asfoundation.wallet.repository.WatchedTransactionService;
+import com.asfoundation.wallet.service.TokenToFiatService;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationEntity;
 import com.asfoundation.wallet.ui.iab.raiden.ChannelService;
 import com.asfoundation.wallet.ui.iab.raiden.RaidenRepository;
 import com.asfoundation.wallet.util.TransferParser;
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
@@ -40,11 +45,12 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import org.jetbrains.annotations.NotNull;
+import java.util.concurrent.ConcurrentHashMap;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -74,7 +80,9 @@ public class InAppPurchaseInteractorTest {
   @Mock AppInfoProvider appInfoProvider;
   @Mock ProofOfAttentionService proofOfAttentionService;
   @Mock RaidenRepository repository;
+  @Mock TransactionSender transactionSender;
   @Mock BillingFactory billingFactory;
+  @Mock TransactionValidator transactionValidator;
   private InAppPurchaseInteractor inAppPurchaseInteractor;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
@@ -90,11 +98,11 @@ public class InAppPurchaseInteractorTest {
     when(gasSettingsInteract.fetch(anyBoolean())).thenReturn(
         Single.just(new GasSettings(new BigDecimal(1), new BigDecimal(2))));
 
-    when(sendTransactionInteract.approve(any(TransactionBuilder.class),
-        any(BigInteger.class))).thenReturn(Single.just(APPROVE_HASH));
+    when(sendTransactionInteract.approve(any(TransactionBuilder.class))).thenReturn(
+        Single.just(APPROVE_HASH));
 
-    when(sendTransactionInteract.buy(any(TransactionBuilder.class),
-        any(BigInteger.class))).thenReturn(Single.just(BUY_HASH));
+    when(sendTransactionInteract.buy(any(TransactionBuilder.class))).thenReturn(
+        Single.just(BUY_HASH));
 
     when(nonceGetter.getNonce()).thenReturn(Single.just(BigInteger.ONE));
     pendingApproveState = PublishSubject.create();
@@ -114,13 +122,26 @@ public class InAppPurchaseInteractorTest {
     when(tokenRepository.fetchAll(any())).thenReturn(Observable.just(tokens));
 
     scheduler = new TestScheduler();
+
+    when(transactionSender.send(any(TransactionBuilder.class))).thenReturn(Single.just(BUY_HASH));
+
+    WatchedTransactionService buyTransactionService =
+        new WatchedTransactionService(transactionSender,
+            new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
+            new ErrorMapper(), scheduler, pendingTransactionService);
+
+    WatchedTransactionService approveTransactionService =
+        new WatchedTransactionService(transactionSender,
+            new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
+            new ErrorMapper(), scheduler, pendingTransactionService);
+
+    when(transactionValidator.validate(any())).thenReturn(Completable.complete());
+
     inAppPurchaseService =
         new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-            new ApproveService(sendTransactionInteract,
-                new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new ErrorMapper(),
-                scheduler), new BuyService(sendTransactionInteract, pendingTransactionService,
-            new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new ErrorMapper(),
-            scheduler), nonceGetter, balanceService);
+            new ApproveService(approveTransactionService, transactionValidator),
+            new BuyService(buyTransactionService, transactionValidator), balanceService, scheduler,
+            new ErrorMapper());
 
     proofPublishSubject = PublishSubject.create();
     when(proofOfAttentionService.get()).thenReturn(proofPublishSubject);
@@ -137,7 +158,8 @@ public class InAppPurchaseInteractorTest {
             new TransferParser(defaultWalletInteract, tokenRepository), repository,
             new ChannelService(null, new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
                 new MemoryCache<>(BehaviorSubject.create(), new HashMap<>())),
-            new BillingMessagesMapper(), billingFactory, new ExternalBillingSerializer(), any());
+            new BillingMessagesMapper(), billingFactory, new ExternalBillingSerializer(),
+            new ExpressCheckoutBuyService(Mockito.mock(TokenToFiatService.class)));
   }
 
   @Test public void sendTransaction() {
@@ -157,45 +179,47 @@ public class InAppPurchaseInteractorTest {
     scheduler.triggerActions();
     balance.onNext(GetDefaultWalletBalance.BalanceState.OK);
 
-    PendingTransaction pendingTransaction0 = new PendingTransaction("approve_hash", true);
-    PendingTransaction pendingTransaction1 = new PendingTransaction("approve_hash", false);
-    PendingTransaction pendingTransaction2 = new PendingTransaction("buy_hash", true);
-    PendingTransaction pendingTransaction3 = new PendingTransaction("buy_hash", false);
+    PendingTransaction pendingTransaction0 = new PendingTransaction(APPROVE_HASH, true);
+    PendingTransaction pendingTransaction1 = new PendingTransaction(APPROVE_HASH, false);
+    PendingTransaction pendingTransaction2 = new PendingTransaction(BUY_HASH, true);
+    PendingTransaction pendingTransaction3 = new PendingTransaction(BUY_HASH, false);
 
     pendingApproveState.onNext(pendingTransaction0);
     scheduler.triggerActions();
     pendingApproveState.onNext(pendingTransaction1);
     scheduler.triggerActions();
+    pendingApproveState.onComplete();
+    scheduler.triggerActions();
     pendingBuyState.onNext(pendingTransaction2);
     scheduler.triggerActions();
     pendingBuyState.onNext(pendingTransaction3);
+    scheduler.triggerActions();
+    pendingBuyState.onNext(pendingTransaction3);
+    scheduler.triggerActions();
+    pendingBuyState.onComplete();
     scheduler.triggerActions();
 
     List<Payment> values = testObserver.assertNoErrors()
         .values();
     int index = 0;
-    Assert.assertTrue(values.get(index++)
-        .getStatus()
-        .equals(Payment.Status.APPROVING));
-    Assert.assertTrue(values.get(index++)
-        .getStatus()
-        .equals(Payment.Status.APPROVING));
-    Assert.assertTrue(values.get(index++)
-        .getStatus()
-        .equals(Payment.Status.APPROVING));
-    Assert.assertTrue(values.get(index++)
-        .getStatus()
-        .equals(Payment.Status.APPROVING));
-    Assert.assertTrue(values.get(index++)
-        .getStatus()
-        .equals(Payment.Status.BUYING));
-    Assert.assertTrue(values.get(index++)
-        .getStatus()
-        .equals(Payment.Status.BUYING));
-    Assert.assertTrue(values.get(index++)
-        .getStatus()
-        .equals(Payment.Status.COMPLETED));
-    Assert.assertTrue(values.size() == 7);
+
+    Assert.assertEquals(8, values.size());
+    Assert.assertEquals(Payment.Status.APPROVING, values.get(index++)
+        .getStatus());
+    Assert.assertEquals(Payment.Status.APPROVING, values.get(index++)
+        .getStatus());
+    Assert.assertEquals(Payment.Status.APPROVING, values.get(index++)
+        .getStatus());
+    Assert.assertEquals(Payment.Status.APPROVING, values.get(index++)
+        .getStatus());
+    Assert.assertEquals(Payment.Status.BUYING, values.get(index++)
+        .getStatus());
+    Assert.assertEquals(Payment.Status.BUYING, values.get(index++)
+        .getStatus());
+    Assert.assertEquals(Payment.Status.BUYING, values.get(index++)
+        .getStatus());
+    Assert.assertEquals(Payment.Status.COMPLETED, values.get(index++)
+        .getStatus());
   }
 
   @Test public void sendTransactionNoEtherFunds() {

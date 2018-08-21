@@ -3,16 +3,17 @@ package com.asfoundation.wallet.repository;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
-import java.math.BigInteger;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -30,71 +31,79 @@ import static org.mockito.Mockito.when;
   public static final String PACKAGE_NAME = "package_name";
   public static final String PRODUCT_NAME = "product_name";
   @Mock SendTransactionInteract sendTransactionInteract;
-  @Mock PendingTransactionService pendingTransactionService;
+  @Mock TrackTransactionService trackTransactionService;
+
+  @Mock TransactionSender transactionSender;
+  @Mock TransactionValidator transactionValidator;
+  private TestScheduler scheduler;
+  private WatchedTransactionService transactionService;
+  private TransactionBuilder transactionBuilder;
+
+  @Before public void setup() {
+    transactionBuilder = new TransactionBuilder("APPC");
+    when(transactionSender.send(transactionBuilder)).thenReturn(Single.just("hash"));
+
+    scheduler = new TestScheduler();
+    transactionService = new WatchedTransactionService(transactionSender,
+        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new ErrorMapper(),
+        scheduler, trackTransactionService);
+    when(transactionValidator.validate(any())).thenReturn(Completable.complete());
+  }
 
   @Test public void buy() {
     PublishSubject<PendingTransaction> pendingTransactionState = PublishSubject.create();
-    when(pendingTransactionService.checkTransactionState(anyString())).thenReturn(
+    when(trackTransactionService.checkTransactionState(anyString())).thenReturn(
         pendingTransactionState);
 
-    when(sendTransactionInteract.buy(any(), any(BigInteger.class))).thenReturn(
-        Single.just("buy_hash"));
-
-    TestScheduler scheduler = new TestScheduler();
-    BuyService buyService = new BuyService(sendTransactionInteract, pendingTransactionService,
-        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new ErrorMapper(),
-        scheduler);
+    BuyService buyService = new BuyService(transactionService, transactionValidator);
     buyService.start();
+    scheduler.triggerActions();
 
     String uri = "uri";
-    TestObserver<PaymentTransaction> observer = new TestObserver<>();
+    TestObserver<BuyService.BuyTransaction> observer = new TestObserver<>();
     buyService.getBuy(uri)
         .subscribe(observer);
 
     buyService.buy(uri,
-        new PaymentTransaction(uri, new TransactionBuilder("APPC"), PACKAGE_NAME, PRODUCT_NAME))
+        new PaymentTransaction(uri, transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
+            "", null, PACKAGE_NAME, PRODUCT_NAME))
         .subscribe();
 
     scheduler.triggerActions();
     pendingTransactionState.onNext(new PendingTransaction("hash", true));
     scheduler.triggerActions();
     pendingTransactionState.onNext(new PendingTransaction("hash", false));
+    pendingTransactionState.onComplete();
     scheduler.triggerActions();
-    List<PaymentTransaction> values = observer.values();
+    List<BuyService.BuyTransaction> values = observer.values();
     Assert.assertEquals(values.size(), 3);
     Assert.assertEquals(values.get(2)
-        .getState(), PaymentTransaction.PaymentState.BOUGHT);
+        .getStatus(), BuyService.Status.BOUGHT);
   }
 
   @Test public void buyTransactionNotFound() {
     Observable<PendingTransaction> pendingTransactionState =
         Observable.just(new PendingTransaction("hash", true),
             new PendingTransaction("hash", false));
-    when(pendingTransactionService.checkTransactionState(anyString())).thenReturn(
-        pendingTransactionState);
+    when(trackTransactionService.checkTransactionState("hash")).thenReturn(pendingTransactionState);
 
-    when(sendTransactionInteract.buy(any(), any(BigInteger.class))).thenReturn(
-        Single.just("buy_hash"));
-
-    TestScheduler scheduler = new TestScheduler();
-    BuyService buyService = new BuyService(sendTransactionInteract, pendingTransactionService,
-        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new ErrorMapper(),
-        scheduler);
+    BuyService buyService = new BuyService(transactionService, transactionValidator);
     buyService.start();
 
     String uri = "uri";
-    TestObserver<PaymentTransaction> observer = new TestObserver<>();
+    TestObserver<BuyService.BuyTransaction> observer = new TestObserver<>();
     buyService.getBuy(uri)
         .subscribe(observer);
     scheduler.triggerActions();
     buyService.buy(uri,
-        new PaymentTransaction(uri, new TransactionBuilder("APPC"), PACKAGE_NAME, PRODUCT_NAME))
+        new PaymentTransaction(uri, transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
+            "", null, PACKAGE_NAME, PRODUCT_NAME))
         .subscribe();
     scheduler.triggerActions();
 
-    List<PaymentTransaction> values = observer.values();
+    List<BuyService.BuyTransaction> values = observer.values();
     Assert.assertEquals(3, values.size());
-    Assert.assertEquals(PaymentTransaction.PaymentState.BOUGHT, values.get(2)
-        .getState());
+    Assert.assertEquals(BuyService.Status.BOUGHT, values.get(2)
+        .getStatus());
   }
 }

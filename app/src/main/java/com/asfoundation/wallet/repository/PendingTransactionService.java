@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
  * Created by trinkes on 26/02/2018.
  */
 
-public class PendingTransactionService {
+public class PendingTransactionService implements TrackTransactionService {
   private final EthereumService service;
   private final int period;
   private final Scheduler scheduler;
@@ -20,7 +20,7 @@ public class PendingTransactionService {
     this.period = period;
   }
 
-  public Observable<PendingTransaction> checkTransactionState(String hash) {
+  @Override public Observable<PendingTransaction> checkTransactionState(String hash) {
     return Observable.interval(period, TimeUnit.SECONDS, scheduler)
         .timeInterval()
         .switchMap(scan -> service.getTransaction(hash)
@@ -28,7 +28,7 @@ public class PendingTransactionService {
         .takeUntil(pendingTransaction -> !pendingTransaction.isPending());
   }
 
-  public Observable<PendingTransaction> checkTransactionState(String hash, int chainId) {
+  @Override public Observable<PendingTransaction> checkTransactionState(String hash, int chainId) {
     return Observable.interval(period, TimeUnit.SECONDS, scheduler)
         .timeInterval()
         .switchMap(scan -> service.getTransaction(hash, chainId)

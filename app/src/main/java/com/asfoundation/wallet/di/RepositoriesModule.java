@@ -5,12 +5,15 @@ import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.poa.BlockchainErrorMapper;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.NonceGetter;
+import com.asfoundation.wallet.repository.NotTrackTransactionService;
 import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.PreferenceRepositoryType;
 import com.asfoundation.wallet.repository.TokenLocalSource;
 import com.asfoundation.wallet.repository.TokenRepository;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.TokensRealmSource;
+import com.asfoundation.wallet.repository.TrackPendingTransactionService;
+import com.asfoundation.wallet.repository.TrackTransactionService;
 import com.asfoundation.wallet.repository.TransactionLocalSource;
 import com.asfoundation.wallet.repository.TransactionRepository;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
@@ -27,11 +30,13 @@ import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenExplorerClientType;
 import com.asfoundation.wallet.service.TransactionsNetworkClient;
 import com.asfoundation.wallet.service.TransactionsNetworkClientType;
+import com.asfoundation.wallet.ui.iab.raiden.NonceObtainer;
 import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.schedulers.Schedulers;
 import java.io.File;
+import javax.inject.Named;
 import javax.inject.Singleton;
 import okhttp3.OkHttpClient;
 
@@ -64,13 +69,26 @@ import okhttp3.OkHttpClient;
     return new PendingTransactionService(web3jService, Schedulers.computation(), 5);
   }
 
+  @Singleton @Provides @Named("wait_pending_transaction")
+  TrackTransactionService providesWaitPendingTransactionTrackTransactionService(
+      PendingTransactionService pendingTransactionService) {
+    return new TrackPendingTransactionService(pendingTransactionService);
+  }
+
+  @Singleton @Provides @Named("no_wait_transaction")
+  TrackTransactionService providesNoWaitTransactionTransactionTrackTransactionService() {
+    return new NotTrackTransactionService();
+  }
+
   @Singleton @Provides TransactionRepositoryType provideTransactionRepository(
       EthereumNetworkRepositoryType networkRepository,
       AccountKeystoreService accountKeystoreService,
       TransactionsNetworkClientType blockExplorerClient, TransactionLocalSource inDiskCache,
-      DefaultTokenProvider defaultTokenProvider, NonceGetter nonceGetter) {
+      DefaultTokenProvider defaultTokenProvider, NonceGetter nonceGetter,
+      NonceObtainer nonceObtainer) {
     return new TransactionRepository(networkRepository, accountKeystoreService, inDiskCache,
-        blockExplorerClient, defaultTokenProvider, nonceGetter, new BlockchainErrorMapper());
+        blockExplorerClient, defaultTokenProvider, nonceGetter, new BlockchainErrorMapper(),
+        nonceObtainer, Schedulers.io());
   }
 
   @Singleton @Provides TransactionLocalSource provideTransactionInDiskCache(
