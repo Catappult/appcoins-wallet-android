@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
+import android.os.Bundle;
 import com.adyen.core.models.PaymentMethod;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
@@ -151,10 +152,18 @@ public class CreditCardAuthorizationPresenter {
                 transaction.toAddress(), developerPayload)
                 .first(payment -> payment.isCompleted())
                 .observeOn(viewScheduler)
-                .doOnNext(__ -> navigator.popView(null))//creditCardBilling.getTransactionUid()))
+                .doOnNext(__ -> navigator.popView(buildBundle()))//creditCardBilling.getTransactionUid()))
                 .doOnNext(__ -> view.showSuccess()))
             .subscribe(__ -> {
             }, throwable -> showError(throwable)));
+  }
+
+  private Bundle buildBundle() {
+    Bundle bundle = new Bundle();
+
+    bundle.putString(IabActivity.TRANSACTION_HASH, creditCardBilling.getTransactionUid());
+
+    return bundle;
   }
 
   private void onViewCreatedCheckAuthorizationFailed() {
