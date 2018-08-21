@@ -75,7 +75,7 @@ public class TransactionsMapper {
           transaction.getTs()
               .getTime() / 1000, Transaction.TransactionStatus.SUCCESS, transaction.getAmount()
           .toString(), transaction.getSender(), transaction.getReceiver(),
-          getTransactionDetails(MICRO_IAB, transaction.getTxID()), null, null));
+          getTransactionDetails(MICRO_IAB, transaction.getTxID()), "APPC", null));
     }
     return transactionList;
   }

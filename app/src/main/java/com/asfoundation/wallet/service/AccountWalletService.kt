@@ -14,7 +14,8 @@ import org.web3j.crypto.Keys.toChecksumAddress
 
 class AccountWalletService(private val walletInteract: FindDefaultWalletInteract,
                            private val accountKeyService: AccountKeystoreService,
-                           private val passwordStore: PasswordStore) : WalletService {
+                           private val passwordStore: PasswordStore,
+                           private var normalizer: ContentNormalizer) : WalletService {
 
     private var stringECKeyPair: Pair<String, ethereumj.crypto.ECKey>? = null
 
@@ -22,10 +23,10 @@ class AccountWalletService(private val walletInteract: FindDefaultWalletInteract
         return walletInteract.find().map { wallet -> toChecksumAddress(wallet.address) }
     }
 
-    override fun signContent(content: String): Single<String> {
-        return walletInteract.find()
-                .flatMap { wallet -> getPrivateKey(wallet).map { ecKey -> sign(content, ecKey) } }
-    }
+  override fun signContent(content: String): Single<String> {
+    return walletInteract.find()
+        .flatMap { wallet -> getPrivateKey(wallet).map { ecKey -> sign(normalizer.normalize(content), ecKey) } }
+  }
 
     @Throws(Exception::class)
     fun sign(plainText: String, ecKey: ECKey): String {
@@ -33,18 +34,22 @@ class AccountWalletService(private val walletInteract: FindDefaultWalletInteract
         return signature.toHex()
     }
 
-    private fun getPrivateKey(wallet: Wallet): Single<ECKey> {
-        if (stringECKeyPair != null && stringECKeyPair!!.first.equals(wallet.address, true)) {
-            return Single.just(stringECKeyPair!!.second)
-        }
-        return passwordStore.getPassword(wallet)
-                .flatMap { password ->
-                    accountKeyService.exportAccount(wallet, password, password)
-                            .map { json ->
-                                ECKey.fromPrivate(WalletUtils.loadCredentials(password, json)
-                                        .ecKeyPair
-                                        .privateKey)
-                            }
-                }.doOnSuccess { ecKey -> stringECKeyPair = Pair(wallet.address, ecKey) }
+  private fun getPrivateKey(wallet: Wallet): Single<ECKey> {
+    if (stringECKeyPair != null && stringECKeyPair!!.first.equals(wallet.address, true)) {
+      return Single.just(stringECKeyPair!!.second)
+    }
+    return passwordStore.getPassword(wallet)
+        .flatMap { password ->
+          accountKeyService.exportAccount(wallet, password, password)
+              .map { json ->
+                ECKey.fromPrivate(WalletUtils.loadCredentials(password, json)
+                    .ecKeyPair
+                    .privateKey)
+              }
+        }.doOnSuccess { ecKey -> stringECKeyPair = Pair(wallet.address, ecKey) }
+  }
+
+    interface ContentNormalizer {
+        fun normalize(content: String): String
     }
 }
