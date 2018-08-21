@@ -440,7 +440,8 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
   @Singleton @Provides WalletService provideWalletService(FindDefaultWalletInteract walletInteract,
       AccountKeystoreService accountKeyService, PasswordStore passwordStore) {
-    return new AccountWalletService(walletInteract, accountKeyService, passwordStore);
+    return new AccountWalletService(walletInteract, accountKeyService, passwordStore,
+        content -> "\\x19Ethereum Signed Message:\n" + content.length() + content);
   }
 
   @Singleton @Provides BillingFactory provideBillingFactory(RemoteRepository.BdsApi bdsApi,
