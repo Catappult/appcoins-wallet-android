@@ -13,6 +13,7 @@ import org.web3j.abi.datatypes.DynamicArray;
 import org.web3j.abi.datatypes.Function;
 import org.web3j.abi.datatypes.Type;
 import org.web3j.abi.datatypes.Utf8String;
+import org.web3j.abi.datatypes.generated.Bytes2;
 import org.web3j.abi.datatypes.generated.Bytes32;
 import org.web3j.abi.datatypes.generated.Uint64;
 import org.web3j.utils.Numeric;
@@ -34,9 +35,10 @@ public class DataMapper {
     Address storeAddress = new Address(proof.getStoreAddress());
     Address oemAddress = new Address(proof.getOemAddress());
     Utf8String walletName = new Utf8String(proof.getWalletPackage());
+    Bytes2 countryCode = new Bytes2(convertCountryCode(proof.getCountryCode()));
 
     List<Type> params = Arrays.asList(packageName, bidId, new DynamicArray<>(timeStampList),
-        new DynamicArray<>(nonceList), storeAddress, oemAddress, walletName);
+        new DynamicArray<>(nonceList), storeAddress, oemAddress, walletName, countryCode);
     List<TypeReference<?>> returnTypes = Collections.singletonList(new TypeReference<Bool>() {
     });
     Function function = new Function("registerPoA", params, returnTypes);
@@ -50,5 +52,16 @@ public class DataMapper {
     System.arraycopy(bidId.toByteArray(), 0, value, value.length - bidId.toByteArray().length,
         bidId.toByteArray().length);
     return new Bytes32(value);
+  }
+
+  private byte[] convertCountryCode(String countryCode) {
+    byte[] data = new byte[2];
+    char[] chars = countryCode.toCharArray();
+    //map country code for contract's format
+    int index = ((int) chars[0] - 65) * 26 + ((int) chars[1] - 65);
+
+    data[0] = (byte) ((index >>> 8) & 0xFF);
+    data[1] = (byte) (index & 0xFF);
+    return data;
   }
 }
