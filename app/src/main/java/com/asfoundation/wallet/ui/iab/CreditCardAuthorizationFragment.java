@@ -21,8 +21,8 @@ import com.adyen.core.models.paymentdetails.CreditCardPaymentDetails;
 import com.adyen.core.models.paymentdetails.PaymentDetails;
 import com.adyen.core.utils.AmountUtil;
 import com.adyen.core.utils.StringUtils;
+import com.appcoins.wallet.billing.BillingFactory;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.billing.CreditCardBilling;
 import com.asfoundation.wallet.billing.payment.Adyen;
 import com.asfoundation.wallet.billing.purchase.CreditCardBillingFactory;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
@@ -66,6 +66,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   @Inject FindDefaultWalletInteract defaultWalletInteract;
   @Inject CreditCardBillingFactory creditCardBillingFactory;
   @Inject Adyen adyen;
+  @Inject BillingFactory billingFactory;
   private View progressBar;
   private IabView iabView;
   private RxAlertDialog networkErrorDialog;
@@ -107,7 +108,8 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
         AndroidSchedulers.mainThread(), new CompositeSubscription(), adyen,
         creditCardBillingFactory.getBilling(getAppPackage()), navigator,
         inAppPurchaseInteractor.getBillingMessagesMapper(), inAppPurchaseInteractor,
-        inAppPurchaseInteractor.getBillingSerializer(), getTransactionData(), getDeveloperPayload());
+        inAppPurchaseInteractor.getBillingSerializer(), getTransactionData(), getDeveloperPayload(),
+        billingFactory.getBilling(getAppPackage()));
   }
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,

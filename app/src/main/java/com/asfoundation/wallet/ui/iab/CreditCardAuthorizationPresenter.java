@@ -2,13 +2,17 @@ package com.asfoundation.wallet.ui.iab;
 
 import android.os.Bundle;
 import com.adyen.core.models.PaymentMethod;
+import com.appcoins.wallet.billing.BdsBilling;
+import com.appcoins.wallet.billing.Billing;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
+import com.appcoins.wallet.billing.repository.BillingSupportedType;
 import com.asfoundation.wallet.billing.CreditCardBilling;
 import com.asfoundation.wallet.billing.payment.Adyen;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import hu.akarnokd.rxjava.interop.RxJavaInterop;
 import io.reactivex.Scheduler;
+import io.reactivex.schedulers.Schedulers;
 import java.io.IOException;
 import rx.Completable;
 import rx.exceptions.OnErrorNotImplementedException;
@@ -19,6 +23,10 @@ import rx.subscriptions.CompositeSubscription;
  */
 
 public class CreditCardAuthorizationPresenter {
+
+  private static final String INAPP_PURCHASE_DATA = "INAPP_PURCHASE_DATA";
+  private static final String INAPP_DATA_SIGNATURE = "INAPP_DATA_SIGNATURE";
+  private static final String INAPP_PURCHASE_ID = "INAPP_PURCHASE_ID";
 
   private final rx.Scheduler viewScheduler;
   private final CompositeSubscription disposables;
@@ -39,7 +47,7 @@ public class CreditCardAuthorizationPresenter {
       CompositeSubscription disposables, Adyen adyen, CreditCardBilling creditCardBilling,
       CreditCardNavigator navigator, BillingMessagesMapper billingMessagesMapper,
       InAppPurchaseInteractor inAppPurchaseInteractor, ExternalBillingSerializer billingSerializer,
-      String transactionData, String developerPayload) {
+      String transactionData, String developerPayload, Billing billing) {
     this.view = view;
     this.defaultWalletInteract = defaultWalletInteract;
     this.viewScheduler = RxJavaInterop.toV1Scheduler(viewScheduler);
@@ -52,6 +60,7 @@ public class CreditCardAuthorizationPresenter {
     this.billingSerializer = billingSerializer;
     this.transactionData = transactionData;
     this.developerPayload = developerPayload;
+    this.billing = billing;
   }
 
   public void present() {
@@ -148,20 +157,38 @@ public class CreditCardAuthorizationPresenter {
   private void onViewCreatedCheckAuthorizationActive() {
     disposables.add(
         RxJavaInterop.toV1Single(inAppPurchaseInteractor.parseTransaction(transactionData))
-            .flatMapObservable(transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                transaction.toAddress(), developerPayload)
-                .first(payment -> payment.isCompleted())
-                .observeOn(viewScheduler)
-                .doOnNext(__ -> navigator.popView(buildBundle()))//creditCardBilling.getTransactionUid()))
-                .doOnNext(__ -> view.showSuccess()))
+            .flatMapObservable(
+                transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
+                    transaction.toAddress(), developerPayload)
+                    .first(payment -> payment.isCompleted())
+                    .observeOn(viewScheduler)
+                    .doOnNext(__ -> navigator.popView(
+                        buildBundle()))//creditCardBilling.getTransactionUid()))
+                    .doOnNext(__ -> view.showSuccess()))
             .subscribe(__ -> {
             }, throwable -> showError(throwable)));
   }
 
+  private final Billing billing;
+
   private Bundle buildBundle() {
     Bundle bundle = new Bundle();
 
-    bundle.putString(IabActivity.TRANSACTION_HASH, creditCardBilling.getTransactionUid());
+    billing.getPurchases(BillingSupportedType.INAPP, Schedulers.io())
+        .map(purchases -> purchases.get(0))
+        .doOnSuccess(purchase -> {
+          ExternalBillingSerializer serializer = new ExternalBillingSerializer();
+
+
+          bundle.putString(INAPP_PURCHASE_DATA, serializer.serializeSignatureData(purchase));
+          bundle.putString(INAPP_DATA_SIGNATURE, purchase.getSignature()
+              .getValue());
+          bundle.putString(INAPP_PURCHASE_ID, purchase.getSignature()
+              .getMessage()
+              .getOrderId());
+        })
+        .ignoreElement()
+        .blockingAwait();
 
     return bundle;
   }
@@ -169,11 +196,12 @@ public class CreditCardAuthorizationPresenter {
   private void onViewCreatedCheckAuthorizationFailed() {
     disposables.add(
         RxJavaInterop.toV1Single(inAppPurchaseInteractor.parseTransaction(transactionData))
-            .flatMapObservable(transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                transaction.toAddress(), developerPayload)
-                .first(payment -> payment.isFailed())
-                .observeOn(viewScheduler)
-                .doOnNext(__ -> navigator.popViewWithError()))
+            .flatMapObservable(
+                transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
+                    transaction.toAddress(), developerPayload)
+                    .first(payment -> payment.isFailed())
+                    .observeOn(viewScheduler)
+                    .doOnNext(__ -> navigator.popViewWithError()))
             .subscribe(__ -> {
             }, throwable -> showError(throwable)));
   }
@@ -181,11 +209,12 @@ public class CreditCardAuthorizationPresenter {
   private void onViewCreatedCheckAuthorizationProcessing() {
     disposables.add(
         RxJavaInterop.toV1Single(inAppPurchaseInteractor.parseTransaction(transactionData))
-            .flatMapObservable(transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                transaction.toAddress(), developerPayload)
-                .filter(payment -> payment.isProcessing())
-                .observeOn(viewScheduler)
-                .doOnNext(__ -> view.showLoading()))
+            .flatMapObservable(
+                transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
+                    transaction.toAddress(), developerPayload)
+                    .filter(payment -> payment.isProcessing())
+                    .observeOn(viewScheduler)
+                    .doOnNext(__ -> view.showLoading()))
             .subscribe(__ -> {
             }, throwable -> showError(throwable)));
   }
