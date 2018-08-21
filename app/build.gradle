@@ -90,8 +90,10 @@ android {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       signingConfig signingConfigs.release
-      buildConfigField 'int', 'NETWORK_ID', project.NETWORK_ID_PROD
-
+      buildConfigField 'String', 'BASE_HOST',
+          "\"" + project.BASE_HOST_PROD + "\""
+      buildConfigField 'String', 'CONVERSION_HOST',
+          "\"" + project.CONVERSION_HOST_PROD + "\""
     }
     debug {
       minifyEnabled false
@@ -99,6 +101,10 @@ android {
           project.LEADING_ZEROS_ON_PROOF_OF_ATTENTION_DEBUG
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       applicationIdSuffix ".dev"
+      buildConfigField 'String', 'BASE_HOST',
+          "\"" + project.BASE_HOST_DEV + "\""
+      buildConfigField 'String', 'CONVERSION_HOST',
+          "\"" + project.CONVERSION_HOST_DEV + "\""
       applicationVariants.all { variant -> renameArtifact(defaultConfig)
       }
     }
@@ -131,6 +137,7 @@ dependencies {
   // Http client
   implementation "com.squareup.retrofit2:retrofit:$project.retrofitVersion"
   implementation "com.squareup.retrofit2:converter-gson:$project.retrofitVersion"
+  implementation "com.squareup.retrofit2:adapter-rxjava:2.1.0"
   implementation "com.squareup.retrofit2:adapter-rxjava2:$project.retrofitVersion"
   implementation "com.squareup.okhttp3:okhttp:$project.okhttpVersion"
   implementation "com.google.code.gson:gson:$project.gsonVersion"
@@ -158,6 +165,11 @@ dependencies {
   // ReactiveX
   implementation "io.reactivex.rxjava2:rxjava:$project.rxJavaVersion"
   implementation "io.reactivex.rxjava2:rxandroid:$project.rxAndroidVersion"
+  //ReactiveX 1 for legacy code support
+  implementation "io.reactivex:rxjava:1.2.7"
+  //
+  implementation "com.jakewharton.rxrelay:rxrelay:1.2.0"
+  implementation "com.jakewharton.rxbinding:rxbinding:1.0.1"
   // Dagger 2
   // Dagger core
   implementation "com.google.dagger:dagger:$project.daggerVersion"
@@ -205,6 +217,18 @@ dependencies {
   implementation "com.android.support:palette-v7:$project.supportVersion"
   implementation "com.asfoundation:appcoins-contract-proxy:0.4.4b"
   implementation project(path: ':billing')
+
+  //braintreepayments card form dependency
+  implementation "com.braintreepayments:card-form:3.3.0"
+  implementation "com.adyen.checkout:core:1.14.2"
+
+  // Rx Lifecycle
+  implementation "com.trello:rxlifecycle:1.0"
+  // If you want pre-written Activities and Fragments you can subclass as providers
+  implementation "com.trello:rxlifecycle-components:1.0"
+
+  // Needed to fill the gap between wallet's rxjava2 and billing rxjava1.
+  implementation "com.github.akarnokd:rxjava2-interop:0.13.0"
 }
 
 def renameArtifact(defaultConfig) {
@@ -218,5 +242,5 @@ def renameArtifact(defaultConfig) {
 }
 
 // execute android tests before realising a new apk
-tasks.whenTaskAdded { task -> if (task.name == 'assembleRelease') task.dependsOn('test')
-}
+//(tasks.whenTaskAdded { task -> if (task.name == 'assembleRelease') task.dependsOn('test')
+//})

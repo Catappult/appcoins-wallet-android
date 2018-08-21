@@ -9,6 +9,7 @@ import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
+import com.asfoundation.wallet.repository.ExpressCheckoutBuyService;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.PaymentTransaction;
 import com.asfoundation.wallet.repository.TransactionNotFoundException;
@@ -29,6 +30,7 @@ public class InAppPurchaseInteractor {
   public static final double GAS_PRICE_MULTIPLIER = 1.25;
   private static final String TAG = InAppPurchaseInteractor.class.getSimpleName();
   private final InAppPurchaseService inAppPurchaseService;
+  private final ExpressCheckoutBuyService expressCheckoutBuyService;
   private final FindDefaultWalletInteract defaultWalletInteract;
   private final FetchGasSettingsInteract gasSettingsInteract;
   private final BigDecimal paymentGasLimit;
@@ -43,7 +45,8 @@ public class InAppPurchaseInteractor {
       FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
       BigDecimal paymentGasLimit, TransferParser parser, RaidenRepository raidenRepository,
       ChannelService channelService, BillingMessagesMapper billingMessagesMapper,
-      BillingFactory billingFactory, ExternalBillingSerializer billingSerializer) {
+      BillingFactory billingFactory, ExternalBillingSerializer billingSerializer,
+      ExpressCheckoutBuyService expressCheckoutBuyService) {
     this.inAppPurchaseService = inAppPurchaseService;
     this.defaultWalletInteract = defaultWalletInteract;
     this.gasSettingsInteract = gasSettingsInteract;
@@ -54,6 +57,7 @@ public class InAppPurchaseInteractor {
     this.billingMessagesMapper = billingMessagesMapper;
     this.billingFactory = billingFactory;
     this.billingSerializer = billingSerializer;
+    this.expressCheckoutBuyService = expressCheckoutBuyService;
   }
 
   public Single<TransactionBuilder> parseTransaction(String uri) {
@@ -241,6 +245,23 @@ public class InAppPurchaseInteractor {
   public Single<String> getWalletAddress() {
     return defaultWalletInteract.find()
         .map(wallet -> wallet.address);
+  }
+
+  public Single<Boolean> canBuy(TransactionBuilder transactionBuilder) {
+    return gasSettingsInteract.fetch(true)
+        .doOnSuccess(gasSettings -> transactionBuilder.gasSettings(
+            new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
+                paymentGasLimit)))
+        .flatMap(__ -> inAppPurchaseService.hasBalanceToBuy(transactionBuilder));
+  }
+
+  public Single<FiatValue> convertToFiat(double appcValue, String currency) {
+    return expressCheckoutBuyService.getTokenValue(currency)
+        .map(fiatValueConvertion -> calculateValue(fiatValueConvertion, appcValue));
+  }
+
+  private FiatValue calculateValue(FiatValue fiatValue, double appcValue) {
+    return new FiatValue(fiatValue.getAmount() * appcValue, fiatValue.getCurrency());
   }
 
   public BillingMessagesMapper getBillingMessagesMapper() {

@@ -23,6 +23,11 @@ import com.asfoundation.wallet.FabricLogger;
 import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.apps.Applications;
 import com.asfoundation.wallet.apps.AppsApi;
+import com.asfoundation.wallet.billing.AdyenBilling;
+import com.asfoundation.wallet.billing.BDSTransactionService;
+import com.asfoundation.wallet.billing.TransactionService;
+import com.asfoundation.wallet.billing.payment.Adyen;
+import com.asfoundation.wallet.billing.purchase.CreditCardBillingFactory;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
@@ -49,6 +54,7 @@ import com.asfoundation.wallet.repository.BuyTransactionValidator;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.EthereumNetworkRepository;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
+import com.asfoundation.wallet.repository.ExpressCheckoutBuyService;
 import com.asfoundation.wallet.repository.GasSettingsRepository;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
@@ -71,6 +77,7 @@ import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.AccountWalletService;
 import com.asfoundation.wallet.service.RealmManager;
 import com.asfoundation.wallet.service.TickerService;
+import com.asfoundation.wallet.service.TokenToFiatService;
 import com.asfoundation.wallet.service.TrustWalletTickerService;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.MicroRaidenInteractor;
@@ -96,6 +103,7 @@ import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.TransferParser;
 import com.bds.microraidenj.MicroRaidenBDS;
 import com.google.gson.Gson;
+import com.jakewharton.rxrelay.PublishRelay;
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.Single;
@@ -104,6 +112,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import java.math.BigDecimal;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -115,6 +124,7 @@ import org.jetbrains.annotations.NotNull;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
@@ -227,8 +237,9 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
     return new SendTransactionInteract(transactionRepository, passwordStore);
   }
 
-  @Singleton @Provides InAppPurchaseService provideTransactionService(ApproveService approveService,
-      BuyService buyService, BalanceService balanceService, ErrorMapper errorMapper) {
+  @Singleton @Provides InAppPurchaseService provideInAppPurchaseService(
+      ApproveService approveService, BuyService buyService, NonceGetter nonceGetter,
+      BalanceService balanceService, ErrorMapper errorMapper) {
     return new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
         approveService, buyService, balanceService, Schedulers.io(), errorMapper);
   }
@@ -237,12 +248,12 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
       InAppPurchaseService inAppPurchaseService, FindDefaultWalletInteract defaultWalletInteract,
       FetchGasSettingsInteract gasSettingsInteract, TransferParser parser,
       RaidenRepository raidenRepository, ChannelService channelService,
-      BillingFactory billingFactory) {
+      BillingFactory billingFactory, ExpressCheckoutBuyService expressCheckoutBuyService) {
 
     return new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
         raidenRepository, channelService, new BillingMessagesMapper(), billingFactory,
-        new ExternalBillingSerializer());
+        new ExternalBillingSerializer(), expressCheckoutBuyService);
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(
@@ -435,12 +446,30 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   }
 
   @Singleton @Provides RemoteRepository.BdsApi provideBdsApi(OkHttpClient client, Gson gson) {
-    return new Retrofit.Builder().baseUrl(RemoteRepository.BASE_HOST)
+    String baseUrl = RemoteRepository.BASE_HOST;
+    return new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(RemoteRepository.BdsApi.class);
+  }
+
+  @Singleton @Provides TokenToFiatService provideTokenToFiatService(OkHttpClient client,
+      Gson gson) {
+    String baseUrl = TokenToFiatService.CONVERSION_HOST;
+    TokenToFiatService.TokenToFiatApi api = new Retrofit.Builder().baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(JacksonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(TokenToFiatService.TokenToFiatApi.class);
+    return new TokenToFiatService(api);
+  }
+
+  @Singleton @Provides ExpressCheckoutBuyService provideExpressCheckoutBuyService(
+      TokenToFiatService tokenToFiatService) {
+    return new ExpressCheckoutBuyService(tokenToFiatService);
   }
 
   @Singleton @Provides WalletService provideWalletService(FindDefaultWalletInteract walletInteract,
@@ -469,5 +498,20 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
         return proxySdk.getIabAddress(debug ? NETWORK_ID_ROPSTEN : NETWORK_ID_MAIN);
       }
     };
+  }
+
+  @Singleton @Provides Adyen provideAdyen(Context context) {
+    return new Adyen(context, Charset.forName("UTF-8"), rx.schedulers.Schedulers.io(),
+        PublishRelay.create());
+  }
+
+  @Singleton @Provides TransactionService provideTransactionService(
+      RemoteRepository.BdsApi bdsApi) {
+    return new BDSTransactionService(new RemoteRepository(bdsApi, new BdsApiResponseMapper()));
+  }
+
+  @Singleton @Provides CreditCardBillingFactory provideCreditCardBillingFactory(
+      TransactionService transactionService, WalletService walletService, Adyen adyen) {
+    return merchantName -> new AdyenBilling(merchantName, transactionService, walletService, adyen);
   }
 }

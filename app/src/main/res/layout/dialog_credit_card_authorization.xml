@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/AppTheme"
+    >
+  <LinearLayout
+      android:id="@+id/fragment_payment_card"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="10dp"
+      android:background="@drawable/background_card_grey"
+      android:orientation="vertical"
+      >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_card"
+        android:elevation="2dp"
+        >
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:clickable="true"
+          android:focusable="true"
+          android:padding="16dp"
+          >
+
+        <include
+            layout="@layout/dialog_buy_app_info_header"
+            android:id="@+id/info_header"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginBottom="18dp"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@id/info_header"
+            android:orientation="vertical"
+            >
+
+          <TextView
+              android:id="@+id/fiat_price"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="end"
+              android:lines="1"
+              android:textColor="@color/dialog_buy_total_value"
+              android:textSize="15sp"
+              android:textStyle="bold"
+              tools:text="€ 6.45"
+              />
+
+          <TextView
+              android:id="@+id/appc_price"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:gravity="end"
+              android:lines="1"
+              android:textColor="@color/dialog_buy_value_text"
+              android:textSize="12sp"
+              android:textStyle="bold"
+              tools:text="10 APPC"
+              />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/line_separator"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_below="@id/info_header"
+            android:layout_marginBottom="18dp"
+            android:background="@drawable/dashed_line"
+            android:layerType="software"
+            />
+
+        <TextView
+            android:id="@+id/fragment_credit_card_authorization_pre_authorized_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line_separator"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="end"
+            tools:text="****8500"
+            />
+
+        <com.braintreepayments.cardform.view.CardForm
+            android:id="@+id/fragment_braintree_credit_card_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line_separator"
+            android:layout_margin="16dp"
+            android:theme="@style/AppTheme"
+            />
+
+        <CheckBox
+            android:id="@+id/fragment_credit_card_authorization_remember_card_check_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fragment_braintree_credit_card_form"
+            android:layout_marginBottom="16dp"
+            android:checked="true"
+            android:text="@string/dialog_credit_card_remember"
+            />
+
+        <include
+            layout="@layout/dialog_buy_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fragment_credit_card_authorization_remember_card_check_box"
+            />
+
+      </RelativeLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+      <ImageView
+          android:id="@+id/logo_wallet"
+          android:layout_width="76dp"
+          android:layout_height="16dp"
+          android:layout_marginBottom="10dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="7dp"
+          android:src="@drawable/logo_asf_wallet"
+          />
+
+      <TextView
+          android:id="@+id/wallet_address_footer"
+          android:layout_width="116dp"
+          android:layout_height="24dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="4dp"
+          android:layout_toEndOf="@id/logo_wallet"
+          android:ellipsize="end"
+          android:gravity="center_vertical"
+          android:maxLines="1"
+          android:textColor="@color/grey_8a_alpha"
+          android:textSize="12sp"
+          tools:text="0x1a78a81235dls019sk291id"
+          />
+    </RelativeLayout>
+
+  </LinearLayout>
+
+  <LinearLayout
+      android:id="@+id/fragment_credit_card_authorization_progress_bar"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:layout_alignBottom="@id/fragment_payment_card"
+      android:layout_alignEnd="@id/fragment_payment_card"
+      android:layout_alignStart="@id/fragment_payment_card"
+      android:layout_alignTop="@id/fragment_payment_card"
+      android:clickable="true"
+      android:focusable="true"
+      android:gravity="center"
+      android:orientation="vertical"
+      android:visibility="gone"
+      >
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+  </LinearLayout>
+
+</RelativeLayout>

@@ -1,11 +1,15 @@
 package com.asfoundation.wallet.repository;
 
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import android.support.annotation.NonNull;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import java.util.List;
+
+import static com.asfoundation.wallet.interact.GetDefaultWalletBalance.BalanceState.OK;
 
 /**
  * Created by trinkes on 13/03/2018.
@@ -198,5 +202,17 @@ public class InAppPurchaseService {
 
   public Observable<List<PaymentTransaction>> getAll() {
     return cache.getAll();
+  }
+
+  public Single<Boolean> hasBalanceToBuy(TransactionBuilder transactionBuilder) {
+    return balanceService.hasEnoughBalance(transactionBuilder,
+        transactionBuilder.gasSettings().gasLimit)
+        .flatMap(balanceState -> {
+          if (balanceState.equals(OK)) {
+            return Single.just(true);
+          } else {
+            return Single.just(false);
+          }
+        });
   }
 }

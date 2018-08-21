@@ -19,6 +19,7 @@ import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.BalanceService;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.ErrorMapper;
+import com.asfoundation.wallet.repository.ExpressCheckoutBuyService;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.MemoryCache;
 import com.asfoundation.wallet.repository.NonceGetter;
@@ -27,6 +28,7 @@ import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.TransactionSender;
 import com.asfoundation.wallet.repository.TransactionValidator;
 import com.asfoundation.wallet.repository.WatchedTransactionService;
+import com.asfoundation.wallet.service.TokenToFiatService;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationEntity;
 import com.asfoundation.wallet.ui.iab.raiden.ChannelService;
 import com.asfoundation.wallet.ui.iab.raiden.RaidenRepository;
@@ -48,6 +50,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -155,7 +158,8 @@ public class InAppPurchaseInteractorTest {
             new TransferParser(defaultWalletInteract, tokenRepository), repository,
             new ChannelService(null, new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
                 new MemoryCache<>(BehaviorSubject.create(), new HashMap<>())),
-            new BillingMessagesMapper(), billingFactory, new ExternalBillingSerializer());
+            new BillingMessagesMapper(), billingFactory, new ExternalBillingSerializer(),
+            new ExpressCheckoutBuyService(Mockito.mock(TokenToFiatService.class)));
   }
 
   @Test public void sendTransaction() {

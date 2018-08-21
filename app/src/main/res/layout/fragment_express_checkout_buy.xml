@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dialog_buy_app"
+    android:layout_width="296dp"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    android:background="@drawable/background_card"
+    >
+  <LinearLayout
+      android:id="@+id/info_dialog"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:visibility="invisible"
+      >
+    <include layout="@layout/dialog_buy_app_info_header"/>
+
+    <RelativeLayout
+        android:id="@+id/details_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="23dp"
+        >
+      <TextView
+          android:id="@+id/sku_description"
+          android:layout_width="150dp"
+          android:layout_height="wrap_content"
+          android:ellipsize="end"
+          android:maxLines="1"
+          android:textColor="@color/dialog_buy_value_text"
+          android:textSize="12sp"
+          tools:text="Gas"
+          />
+
+      <TextView
+          android:id="@+id/sku_price"
+          android:layout_width="90dp"
+          android:layout_height="wrap_content"
+          android:layout_alignParentEnd="true"
+          android:ellipsize="end"
+          android:maxLines="1"
+          android:textAlignment="textEnd"
+          android:textColor="@color/dialog_buy_value_text"
+          android:textSize="12sp"
+          android:textStyle="bold"
+          tools:text="25 APPC"
+          />
+
+      <View
+          android:id="@+id/line_separator"
+          android:layout_width="match_parent"
+          android:layout_height="5dp"
+          android:layout_below="@id/sku_description"
+          android:layout_marginBottom="13dp"
+          android:layout_marginTop="15dp"
+          android:background="@drawable/dashed_line"
+          android:layerType="software"
+          />
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/line_separator"
+          android:ellipsize="end"
+          android:maxLines="1"
+          android:text="Total Price"
+          android:textColor="@color/black"
+          android:textSize="11sp"
+          android:textStyle="bold"
+          />
+
+      <TextView
+          android:id="@+id/total_price"
+          android:layout_width="170dp"
+          android:layout_height="wrap_content"
+          android:layout_alignParentEnd="true"
+          android:layout_below="@id/line_separator"
+          android:ellipsize="end"
+          android:maxLines="1"
+          android:textAlignment="textEnd"
+          android:textColor="@color/dialog_buy_value_text"
+          android:textSize="15sp"
+          android:textStyle="bold"
+          tools:text="25 APPC"
+          />
+    </RelativeLayout>
+
+    <include layout="@layout/dialog_buy_buttons"/>
+  </LinearLayout>
+
+  <include
+      layout="@layout/fragment_iab_error"
+      android:id="@+id/error_message"
+      />
+
+  <ProgressBar
+      android:id="@+id/loading_view"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
+      />
+
+</RelativeLayout>

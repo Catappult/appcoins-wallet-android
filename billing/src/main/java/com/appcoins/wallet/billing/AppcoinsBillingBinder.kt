@@ -55,6 +55,7 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     internal const val BUY_INTENT = "BUY_INTENT"
 
     internal const val PRODUCT_NAME = "product_name"
+    internal const val EXTRA_DEVELOPER_PAYLOAD = "developer_payload"
   }
 
   private lateinit var billing: Billing
