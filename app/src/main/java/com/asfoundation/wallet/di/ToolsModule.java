@@ -334,11 +334,8 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
         defaultWalletInteract, gasSettingsRepository, registerPoaGasLimit, ethereumNetwork);
   }
 
-  @Singleton @Provides AppCoinsAddressProxySdk provideAdsContractAddressSdk(
-      Web3jProvider web3jProvider, FindDefaultWalletInteract findDefaultWalletInteract) {
-    return new AppCoinsAddressProxyBuilder().createAddressProxySdk(
-        () -> findDefaultWalletInteract.find()
-            .map(wallet -> wallet.address), web3jProvider::get);
+  @Singleton @Provides AppCoinsAddressProxySdk provideAdsContractAddressSdk() {
+    return new AppCoinsAddressProxyBuilder().createAddressProxySdk();
   }
 
   @Singleton @Provides HashCalculator provideHashCalculator(Calculator calculator) {
