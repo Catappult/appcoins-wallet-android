@@ -52,6 +52,7 @@ import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.GasSettingsRepository;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
+import com.asfoundation.wallet.repository.IpCountryCodeProvider;
 import com.asfoundation.wallet.repository.MemoryCache;
 import com.asfoundation.wallet.repository.NonceGetter;
 import com.asfoundation.wallet.repository.PasswordStore;
@@ -354,11 +355,18 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
   @Singleton @Provides ProofOfAttentionService provideProofOfAttentionService(
       HashCalculator hashCalculator, ProofWriter proofWriter, TaggedCompositeDisposable disposables,
-      @Named("MAX_NUMBER_PROOF_COMPONENTS") int maxNumberProofComponents) {
+      @Named("MAX_NUMBER_PROOF_COMPONENTS") int maxNumberProofComponents, OkHttpClient client,
+      Gson gson) {
+    IpCountryCodeProvider.IpApi api = new Retrofit.Builder().baseUrl(IpCountryCodeProvider.ENDPOINT)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(IpCountryCodeProvider.IpApi.class);
     return new ProofOfAttentionService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
         BuildConfig.APPLICATION_ID, hashCalculator, new CompositeDisposable(), proofWriter,
         Schedulers.computation(), maxNumberProofComponents, new BlockchainErrorMapper(),
-        disposables);
+        disposables, new IpCountryCodeProvider(api));
   }
 
   @Provides NonceGetter provideNonceGetter(EthereumNetworkRepositoryType networkRepository,

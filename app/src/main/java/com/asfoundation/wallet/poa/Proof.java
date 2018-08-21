@@ -13,6 +13,7 @@ public class Proof {
   private final int chainId;
   private final BigDecimal gasPrice;
   private final BigDecimal gasLimit;
+  @Nullable private final String countryCode;
   @Nullable private final String campaignId;
   @Nullable private final String oemAddress;
   @Nullable private final String storeAddress;
@@ -21,7 +22,7 @@ public class Proof {
   public Proof(String packageName, @Nullable String campaignId,
       List<ProofComponent> proofComponentList, String walletPackage, ProofStatus proofStatus,
       int chainId, @Nullable String oemAddress, @Nullable String storeAddress, BigDecimal gasPrice,
-      BigDecimal gasLimit, @Nullable String hash) {
+      BigDecimal gasLimit, @Nullable String hash, @Nullable String countryCode) {
     this.packageName = packageName;
     this.campaignId = campaignId;
     this.proofComponentList = proofComponentList;
@@ -33,19 +34,24 @@ public class Proof {
     this.gasPrice = gasPrice;
     this.gasLimit = gasLimit;
     this.hash = hash;
+    this.countryCode = countryCode;
   }
 
   public Proof(String packageName, @Nullable String campaignId,
       List<ProofComponent> proofComponentList, String walletPackage, ProofStatus proofStatus,
       int chainId, @Nullable String oemAddress, @Nullable String storeAddress, BigDecimal gasPrice,
-      BigDecimal gasLimit) {
+      BigDecimal gasLimit, String countryCode) {
     this(packageName, campaignId, proofComponentList, walletPackage, proofStatus, chainId,
-        oemAddress, storeAddress, gasPrice, gasLimit, null);
+        oemAddress, storeAddress, gasPrice, gasLimit, null, countryCode);
   }
 
   public Proof(String packageName, String walletPackage, ProofStatus proofStatus, int chainId) {
     this(packageName, null, Collections.emptyList(), walletPackage, proofStatus, chainId, null,
-        null, BigDecimal.ZERO, BigDecimal.ZERO, null);
+        null, BigDecimal.ZERO, BigDecimal.ZERO, null, null);
+  }
+
+  @Nullable public String getCountryCode() {
+    return countryCode;
   }
 
   @Nullable public String getHash() {
@@ -98,11 +104,13 @@ public class Proof {
     result = 31 * result + proofComponentList.hashCode();
     result = 31 * result + proofStatus.hashCode();
     result = 31 * result + chainId;
-    result = 31 * result + gasPrice.hashCode();
-    result = 31 * result + gasLimit.hashCode();
+    result = 31 * result + (gasPrice != null ? gasPrice.hashCode() : 0);
+    result = 31 * result + (gasLimit != null ? gasLimit.hashCode() : 0);
+    result = 31 * result + (countryCode != null ? countryCode.hashCode() : 0);
     result = 31 * result + (campaignId != null ? campaignId.hashCode() : 0);
     result = 31 * result + (oemAddress != null ? oemAddress.hashCode() : 0);
     result = 31 * result + (storeAddress != null ? storeAddress.hashCode() : 0);
+    result = 31 * result + (hash != null ? hash.hashCode() : 0);
     return result;
   }
 
@@ -117,16 +125,22 @@ public class Proof {
     if (!walletPackage.equals(proof.walletPackage)) return false;
     if (!proofComponentList.equals(proof.proofComponentList)) return false;
     if (proofStatus != proof.proofStatus) return false;
-    if (!gasPrice.equals(proof.gasPrice)) return false;
-    if (!gasLimit.equals(proof.gasLimit)) return false;
+    if (gasPrice != null ? !gasPrice.equals(proof.gasPrice) : proof.gasPrice != null) return false;
+    if (gasLimit != null ? !gasLimit.equals(proof.gasLimit) : proof.gasLimit != null) return false;
+    if (countryCode != null ? !countryCode.equals(proof.countryCode) : proof.countryCode != null) {
+      return false;
+    }
     if (campaignId != null ? !campaignId.equals(proof.campaignId) : proof.campaignId != null) {
       return false;
     }
     if (oemAddress != null ? !oemAddress.equals(proof.oemAddress) : proof.oemAddress != null) {
       return false;
     }
-    return storeAddress != null ? storeAddress.equals(proof.storeAddress)
-        : proof.storeAddress == null;
+    if (storeAddress != null ? !storeAddress.equals(proof.storeAddress)
+        : proof.storeAddress != null) {
+      return false;
+    }
+    return hash != null ? hash.equals(proof.hash) : proof.hash == null;
   }
 
   @Override public String toString() {
@@ -145,16 +159,14 @@ public class Proof {
         + chainId
         + ", gasPrice="
         + gasPrice
-        + ", gasLimit="
-        + gasLimit
+        + ", gasLimit=" + gasLimit + ", countryCode='" + countryCode + '\''
         + ", campaignId='"
         + campaignId
         + '\''
         + ", oemAddress='"
         + oemAddress
         + '\''
-        + ", storeAddress='"
-        + storeAddress
+        + ", storeAddress='" + storeAddress + '\'' + ", hash='" + hash
         + '\''
         + '}';
   }
