@@ -215,7 +215,7 @@ dependencies {
   implementation project(path: ':airdrop')
   implementation 'com.asfoundation:apps:1'
   implementation "com.android.support:palette-v7:$project.supportVersion"
-  implementation "com.asfoundation:appcoins-contract-proxy:$project.appcoinsSdkVersion"
+  implementation "com.asfoundation:appcoins-contract-proxy:0.4.4b"
   implementation project(path: ':billing')
 
   //braintreepayments card form dependency
