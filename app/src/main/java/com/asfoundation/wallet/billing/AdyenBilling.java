@@ -48,9 +48,15 @@ public class AdyenBilling implements CreditCardBilling {
             .flatMapCompletable(
                 walletAddress -> RxJavaInterop.toV1Single(walletService.signContent(walletAddress))
                     .flatMapCompletable(
-                        signedContent -> transactionService.finishTransaction(walletAddress,
-                            signedContent, transactionUid, paykey)))
-            .andThen(Completable.fromAction(() -> callRelay(authorized))));
+                        signedContent -> {
+                          if (transactionUid == null) {
+                            return Completable.complete();
+                          } else {
+                            return transactionService.finishTransaction(walletAddress,
+                                signedContent, transactionUid, paykey)
+                                .andThen(Completable.fromAction(() -> callRelay(authorized)));
+                          }
+                        })));
   }
 
   @Override public String getTransactionUid() {
