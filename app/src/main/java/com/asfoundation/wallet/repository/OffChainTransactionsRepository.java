@@ -13,7 +13,7 @@ public class OffChainTransactionsRepository {
   }
 
   public Single<ChannelHistoryResponse> getTransactions(String wallet) {
-    return api.transactionHistory(wallet, "iab_offchain");
+    return api.transactionHistory(wallet, "iap_offchain");
   }
 
   public interface TransactionsApi {
