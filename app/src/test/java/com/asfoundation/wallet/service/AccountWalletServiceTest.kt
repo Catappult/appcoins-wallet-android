@@ -5,6 +5,7 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.repository.PasswordStore
 import com.asfoundation.wallet.repository.SignDataStandardNormalizer
 import io.reactivex.Single
+import io.reactivex.observers.TestObserver
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -45,6 +46,9 @@ class AccountWalletServiceTest {
 
   @Test
   fun signContent() {
-    println(accountWalletService.signContent(ADDRESS).blockingGet())
+    val testObserver = TestObserver<String>()
+    accountWalletService.signContent(ADDRESS).subscribe(testObserver)
+    testObserver.assertNoErrors().assertValue(
+        "c7a5c8192cf90952b0cd492ab2fd0d41d96e2e158c365b92742eb5e1bcbf70885a7947331d92717ccc8b938d9f725e541cae8fb4360424533bb86b20d829dc5b00")
   }
 }

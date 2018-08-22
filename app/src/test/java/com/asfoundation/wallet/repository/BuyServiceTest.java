@@ -5,6 +5,8 @@ import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
+import com.asfoundation.wallet.poa.CountryCodeProvider;
+import com.asfoundation.wallet.poa.DataMapper;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -42,6 +44,8 @@ import static org.mockito.Mockito.when;
   private TestScheduler scheduler;
   private WatchedTransactionService transactionService;
   private TransactionBuilder transactionBuilder;
+  @Mock CountryCodeProvider countryCodeProvider;
+  private DataMapper dataMapper;
 
   @Before public void setup() {
 
@@ -59,6 +63,8 @@ import static org.mockito.Mockito.when;
             "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3");
     when(transactionSender.send(transactionBuilder)).thenReturn(Single.just("hash"));
     when(defaultTokenProvider.getDefaultToken()).thenReturn(Single.just(tokenInfo));
+    when(countryCodeProvider.getCountryCode()).thenReturn(Single.just("PT"));
+    dataMapper = new DataMapper();
   }
 
   @Test public void buy() {
@@ -67,7 +73,8 @@ import static org.mockito.Mockito.when;
         pendingTransactionState);
 
     BuyService buyService =
-        new BuyService(transactionService, transactionValidator, defaultTokenProvider);
+        new BuyService(transactionService, transactionValidator, defaultTokenProvider,
+            countryCodeProvider, dataMapper);
     buyService.start();
     scheduler.triggerActions();
 
@@ -100,7 +107,8 @@ import static org.mockito.Mockito.when;
     when(trackTransactionService.checkTransactionState("hash")).thenReturn(pendingTransactionState);
 
     BuyService buyService =
-        new BuyService(transactionService, transactionValidator, defaultTokenProvider);
+        new BuyService(transactionService, transactionValidator, defaultTokenProvider,
+            countryCodeProvider, dataMapper);
     buyService.start();
 
     String uri = "uri";

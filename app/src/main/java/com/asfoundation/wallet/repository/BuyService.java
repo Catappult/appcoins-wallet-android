@@ -5,6 +5,8 @@ import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
+import com.asfoundation.wallet.poa.CountryCodeProvider;
+import com.asfoundation.wallet.poa.DataMapper;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import java.math.BigDecimal;
@@ -18,12 +20,17 @@ public class BuyService {
   private final WatchedTransactionService transactionService;
   private final TransactionValidator transactionValidator;
   private final DefaultTokenProvider defaultTokenProvider;
+  private final CountryCodeProvider countryCodeProvider;
+  private final DataMapper dataMapper;
 
   public BuyService(WatchedTransactionService transactionService,
-      TransactionValidator transactionValidator, DefaultTokenProvider defaultTokenProvider) {
+      TransactionValidator transactionValidator, DefaultTokenProvider defaultTokenProvider,
+      CountryCodeProvider countryCodeProvider, DataMapper dataMapper) {
     this.transactionService = transactionService;
     this.transactionValidator = transactionValidator;
     this.defaultTokenProvider = defaultTokenProvider;
+    this.countryCodeProvider = countryCodeProvider;
+    this.dataMapper = dataMapper;
   }
 
   public void start() {
@@ -32,9 +39,11 @@ public class BuyService {
 
   public Completable buy(String key, PaymentTransaction paymentTransaction) {
     TransactionBuilder transactionBuilder = paymentTransaction.getTransactionBuilder();
-    return defaultTokenProvider.getDefaultToken()
-        .map(tokenInfo -> transactionBuilder.appcoinsData(
-            getBuyData(transactionBuilder, tokenInfo, paymentTransaction.getPackageName())))
+    return countryCodeProvider.getCountryCode()
+        .flatMap(countryCode -> defaultTokenProvider.getDefaultToken()
+            .map(tokenInfo -> transactionBuilder.appcoinsData(
+                getBuyData(transactionBuilder, tokenInfo, paymentTransaction.getPackageName(),
+                    countryCode))))
         .map(transaction -> updateTransactionBuilderData(paymentTransaction, transaction))
         .flatMapCompletable(payment -> transactionValidator.validate(payment)
             .andThen(transactionService.sendTransaction(key, payment.getTransactionBuilder())));
@@ -50,12 +59,12 @@ public class BuyService {
   }
 
   private byte[] getBuyData(TransactionBuilder transactionBuilder, TokenInfo tokenInfo,
-      String packageName) {
+      String packageName, String countryCode) {
     return TokenRepository.buyData(transactionBuilder.toAddress(),
         BuildConfig.DEFAULT_STORE_ADDRESS, BuildConfig.DEFAULT_OEM_ADDRESS,
         transactionBuilder.getSkuId(), transactionBuilder.amount()
             .multiply(new BigDecimal("10").pow(transactionBuilder.decimals())), tokenInfo.address,
-        packageName);
+        packageName, dataMapper.convertCountryCode(countryCode));
   }
 
   public Observable<BuyTransaction> getBuy(String uri) {
