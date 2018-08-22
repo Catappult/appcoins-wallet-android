@@ -28,14 +28,14 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
                               skuId: String,
                               walletAddress: String,
                               walletSignature: String): Single<Purchase> {
-    return api.getSkuPurchase(packageName, skuId, walletAddress, walletSignature).map { it }
+    return api.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
   }
 
   internal fun getSkuTransaction(packageName: String,
                                  skuId: String,
                                  walletAddress: String,
                                  walletSignature: String): Single<Transaction> {
-    return api.getSkuTransaction(packageName, skuId, walletAddress, walletSignature).map { it }
+    return api.getSkuTransaction(packageName, skuId, walletAddress, walletSignature)
   }
 
   internal fun getPurchases(packageName: String,

@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.widget.Toast;
+import android.util.Log;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.ui.BaseActivity;
 import dagger.android.AndroidInjection;
@@ -27,17 +27,12 @@ public class IabActivity extends BaseActivity implements IabView {
   public static final String TRANSACTION_AMOUNT = "transaction_amount";
   public static final String TRANSACTION_CURRENCY = "transaction_currency";
   public static final String FIAT_VALUE = "fiat_value";
+  private static final String TAG = IabActivity.class.getSimpleName();
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   private boolean isBackEnable;
   private IabPresenter presenter;
   private Bundle savedInstanceState;
   private Bundle skuDetails;
-
-  @Override protected void onSaveInstanceState(Bundle outState) {
-    super.onSaveInstanceState(outState);
-
-    outState.putBundle(SKU_DETAILS, skuDetails);
-  }
 
   public static Intent newIntent(Activity activity, Intent previousIntent) {
     Intent intent = new Intent(activity, IabActivity.class);
@@ -56,7 +51,8 @@ public class IabActivity extends BaseActivity implements IabView {
     this.savedInstanceState = savedInstanceState;
     isBackEnable = true;
     presenter = new IabPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
-        new CompositeDisposable());
+        new CompositeDisposable(), getIntent().getData()
+        .toString(), getAppPackage());
 
     if (savedInstanceState != null) {
       if (savedInstanceState.containsKey(SKU_DETAILS)) {
@@ -73,9 +69,7 @@ public class IabActivity extends BaseActivity implements IabView {
 
   @Override protected void onStart() {
     super.onStart();
-    presenter.present(getIntent().getData()
-        .toString(), getAppPackage(), getIntent().getExtras()
-        .getString(PRODUCT_NAME));
+    presenter.present();
   }
 
   @Override protected void onStop() {
@@ -83,8 +77,19 @@ public class IabActivity extends BaseActivity implements IabView {
     super.onStop();
   }
 
+  @Override protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+
+    outState.putBundle(SKU_DETAILS, skuDetails);
+  }
+
   @Override public void finish(Bundle bundle) {
     setResult(Activity.RESULT_OK, new Intent().putExtras(bundle));
+    finish();
+  }
+
+  @Override public void showError() {
+    setResult(Activity.RESULT_CANCELED);
     finish();
   }
 
@@ -110,7 +115,8 @@ public class IabActivity extends BaseActivity implements IabView {
       bundle.putString(PRODUCT_NAME, getIntent().getExtras()
           .getString(PRODUCT_NAME));
       bundle.putString(TRANSACTION_DATA, getIntent().getDataString());
-      bundle.putString(EXTRA_DEVELOPER_PAYLOAD, getIntent().getExtras().getString(EXTRA_DEVELOPER_PAYLOAD));
+      bundle.putString(EXTRA_DEVELOPER_PAYLOAD, getIntent().getExtras()
+          .getString(EXTRA_DEVELOPER_PAYLOAD));
       skuDetails = bundle;
 
       if (getSupportFragmentManager().getFragments()
@@ -136,9 +142,8 @@ public class IabActivity extends BaseActivity implements IabView {
         .commit();
   }
 
-  @Override public void showError() {
-    setResult(Activity.RESULT_CANCELED);
-    finish();
+  @Override public void show(InAppPurchaseInteractor.PaymentStatus canBuy) {
+    Log.d(TAG, "show: " + canBuy);
   }
 
   public String getAppPackage() {

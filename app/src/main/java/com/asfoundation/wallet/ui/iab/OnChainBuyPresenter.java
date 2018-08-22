@@ -166,7 +166,7 @@ public class OnChainBuyPresenter {
         return Completable.fromAction(view::showTransactionCompleted)
             .andThen(Completable.timer(1, TimeUnit.SECONDS))
             .observeOn(Schedulers.io())
-            .andThen(inAppPurchaseInteractor.getPurchase(transaction.getPackageName(),
+            .andThen(inAppPurchaseInteractor.getCompletedPurchase(transaction.getPackageName(),
                 transaction.getProductId())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSuccess(purchase -> view.finish(billingMessagesMapper.mapPurchase(
