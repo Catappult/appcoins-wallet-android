@@ -14,6 +14,8 @@ import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
+import com.asfoundation.wallet.poa.CountryCodeProvider;
+import com.asfoundation.wallet.poa.DataMapper;
 import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.repository.ApproveService;
@@ -85,6 +87,7 @@ public class InAppPurchaseInteractorTest {
   @Mock BillingFactory billingFactory;
   @Mock TransactionValidator transactionValidator;
   @Mock DefaultTokenProvider defaultTokenProvider;
+  @Mock CountryCodeProvider countryCodeProvider;
   private InAppPurchaseInteractor inAppPurchaseInteractor;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
@@ -92,16 +95,20 @@ public class InAppPurchaseInteractorTest {
   private PublishSubject<List<Proof>> proofPublishSubject;
   private TestScheduler scheduler;
   private InAppPurchaseService inAppPurchaseService;
+  private DataMapper dataMapper;
 
   @Before public void before()
       throws AppInfoProvider.UnknownApplicationException, ImageSaver.SaveException {
     MockitoAnnotations.initMocks(this);
     balance = PublishSubject.create();
+    dataMapper = new DataMapper();
     when(gasSettingsInteract.fetch(anyBoolean())).thenReturn(
         Single.just(new GasSettings(new BigDecimal(1), new BigDecimal(2))));
 
     when(sendTransactionInteract.approve(any(TransactionBuilder.class))).thenReturn(
         Single.just(APPROVE_HASH));
+
+    when(countryCodeProvider.getCountryCode()).thenReturn(Single.just("PT"));
 
     when(sendTransactionInteract.buy(any(TransactionBuilder.class))).thenReturn(
         Single.just(BUY_HASH));
@@ -147,8 +154,8 @@ public class InAppPurchaseInteractorTest {
     inAppPurchaseService =
         new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
             new ApproveService(approveTransactionService, transactionValidator),
-            new BuyService(buyTransactionService, transactionValidator, defaultTokenProvider),
-            balanceService, scheduler, new ErrorMapper());
+            new BuyService(buyTransactionService, transactionValidator, defaultTokenProvider,
+                countryCodeProvider, dataMapper), balanceService, scheduler, new ErrorMapper());
 
     proofPublishSubject = PublishSubject.create();
     when(proofOfAttentionService.get()).thenReturn(proofPublishSubject);
