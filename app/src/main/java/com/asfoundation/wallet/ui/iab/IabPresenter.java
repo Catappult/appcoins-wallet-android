@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.iab;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
 import javax.annotation.Nullable;
+import kotlin.NotImplementedError;
 
 /**
  * Created by franciscocalado on 20/07/2018.
@@ -33,10 +34,20 @@ public class IabPresenter {
 
   private void setupUi() {
     disposables.add(inAppPurchaseInteractor.parseTransaction(uriString)
-        .flatMap(transactionBuilder -> inAppPurchaseInteractor.getPaymentStatus(appPackage,
+        .flatMap(transactionBuilder -> inAppPurchaseInteractor.getCurrentPaymentStep(appPackage,
             transactionBuilder.getSkuId(), transactionBuilder)
             .observeOn(viewScheduler)
-            .doOnSuccess(canBuy -> view.show(canBuy)))
+            .doOnSuccess(paymentStatus -> {
+              switch (paymentStatus) {
+                case PAUSED_ON_CHAIN:
+                case READY:
+                  view.showOnChain(transactionBuilder.amount());
+                  break;
+                case PAUSED_OFF_CHAIN:
+                case NO_FUNDS:
+                  throw new NotImplementedError();
+              }
+            }))
         .subscribe(canBuy -> {
         }, this::showError));
   }

@@ -19,5 +19,7 @@ public interface IabView {
 
   void navigateToCreditCardAuthorization();
 
-  void show(InAppPurchaseInteractor.PaymentStatus canBuy);
+  void show(InAppPurchaseInteractor.CurrentPaymentStep canBuy);
+
+  void showOnChain(BigDecimal amount);
 }

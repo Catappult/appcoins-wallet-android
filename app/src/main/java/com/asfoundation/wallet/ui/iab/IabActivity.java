@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.iab;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import com.asf.wallet.R;
@@ -106,18 +107,7 @@ public class IabActivity extends BaseActivity implements IabView {
     if (savedInstanceState == null) {
       //This is a feature toggle! If we set canBuy to true we will force the on chain buy flow
       //canBuy = true;
-      Bundle bundle = new Bundle();
-      bundle.putSerializable(TRANSACTION_AMOUNT, amount);
-      // TODO: 12-08-2018 neuro add currency
-      bundle.putSerializable(TRANSACTION_CURRENCY, "EUR");
-      bundle.putString(APP_PACKAGE, getIntent().getExtras()
-          .getString(APP_PACKAGE, ""));
-      bundle.putString(PRODUCT_NAME, getIntent().getExtras()
-          .getString(PRODUCT_NAME));
-      bundle.putString(TRANSACTION_DATA, getIntent().getDataString());
-      bundle.putString(EXTRA_DEVELOPER_PAYLOAD, getIntent().getExtras()
-          .getString(EXTRA_DEVELOPER_PAYLOAD));
-      skuDetails = bundle;
+      Bundle bundle = createBundle(amount);
 
       if (getSupportFragmentManager().getFragments()
           .isEmpty()) {
@@ -142,8 +132,35 @@ public class IabActivity extends BaseActivity implements IabView {
         .commit();
   }
 
-  @Override public void show(InAppPurchaseInteractor.PaymentStatus canBuy) {
+  @Override public void show(InAppPurchaseInteractor.CurrentPaymentStep canBuy) {
     Log.d(TAG, "show: " + canBuy);
+  }
+
+  @Override public void showOnChain(BigDecimal amount) {
+    if (savedInstanceState == null && getSupportFragmentManager().getFragments()
+        .isEmpty()) {
+      getSupportFragmentManager().beginTransaction()
+          .add(R.id.fragment_container, OnChainBuyFragment.newInstance(createBundle(amount),
+              getIntent().getData()
+                  .toString()))
+          .commit();
+    }
+  }
+
+  @NonNull private Bundle createBundle(BigDecimal amount) {
+    Bundle bundle = new Bundle();
+    bundle.putSerializable(TRANSACTION_AMOUNT, amount);
+    // TODO: 12-08-2018 neuro add currency
+    bundle.putSerializable(TRANSACTION_CURRENCY, "EUR");
+    bundle.putString(APP_PACKAGE, getIntent().getExtras()
+        .getString(APP_PACKAGE, ""));
+    bundle.putString(PRODUCT_NAME, getIntent().getExtras()
+        .getString(PRODUCT_NAME));
+    bundle.putString(TRANSACTION_DATA, getIntent().getDataString());
+    bundle.putString(EXTRA_DEVELOPER_PAYLOAD, getIntent().getExtras()
+        .getString(EXTRA_DEVELOPER_PAYLOAD));
+    skuDetails = bundle;
+    return bundle;
   }
 
   public String getAppPackage() {

@@ -250,7 +250,7 @@ public class InAppPurchaseInteractor {
         .map(wallet -> wallet.address);
   }
 
-  public Single<PaymentStatus> getPaymentStatus(String packageName, String productSku,
+  public Single<CurrentPaymentStep> getCurrentPaymentStep(String packageName, String productSku,
       TransactionBuilder transactionBuilder) {
     return Single.zip(getTransaction(packageName, productSku), gasSettingsInteract.fetch(true)
         .doOnSuccess(gasSettings -> transactionBuilder.gasSettings(
@@ -259,7 +259,7 @@ public class InAppPurchaseInteractor {
         .flatMap(__ -> inAppPurchaseService.hasBalanceToBuy(transactionBuilder)), this::map);
   }
 
-  private PaymentStatus map(Transaction transaction, Boolean isBuyReady)
+  private CurrentPaymentStep map(Transaction transaction, Boolean isBuyReady)
       throws UnknownServiceException {
     switch (transaction.getStatus()) {
       case PENDING:
@@ -268,23 +268,20 @@ public class InAppPurchaseInteractor {
         switch (transaction.getGateway()
             .getName()) {
           case appcoins:
-            return PaymentStatus.PAUSED_ON_CHAIN;
+            return CurrentPaymentStep.PAUSED_ON_CHAIN;
           case adyen:
-            return PaymentStatus.PAUSED_OFF_CHAIN;
+            return CurrentPaymentStep.PAUSED_OFF_CHAIN;
           default:
           case unknown:
             throw new UnknownServiceException("Unknown gateway");
         }
       case COMPLETED:
-        return PaymentStatus.COMPLETED;
+        return isBuyReady ? CurrentPaymentStep.READY : CurrentPaymentStep.NO_FUNDS;
       default:
       case FAILED:
       case CANCELED:
       case INVALID_TRANSACTION:
-        if (isBuyReady) {
-          return PaymentStatus.READY;
-        }
-        return PaymentStatus.NO_FUNDS;
+        return isBuyReady ? CurrentPaymentStep.READY : CurrentPaymentStep.NO_FUNDS;
     }
   }
 
@@ -327,7 +324,7 @@ public class InAppPurchaseInteractor {
     NORMAL, RAIDEN
   }
 
-  public enum PaymentStatus {
-    PAUSED_OFF_CHAIN, PAUSED_ON_CHAIN, NO_FUNDS, READY, COMPLETED
+  public enum CurrentPaymentStep {
+    PAUSED_OFF_CHAIN, PAUSED_ON_CHAIN, NO_FUNDS, READY
   }
 }
