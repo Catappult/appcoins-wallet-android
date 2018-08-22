@@ -65,6 +65,7 @@ import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.PreferenceRepositoryType;
 import com.asfoundation.wallet.repository.SharedPreferenceRepository;
+import com.asfoundation.wallet.repository.SignDataStandardNormalizer;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.TrackTransactionService;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
@@ -211,7 +212,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
         Schedulers.io(), pendingTransactionService),
         new BuyTransactionValidator(sendTransactionInteract, billingPaymentProofSubmission,
-            defaultTokenProvider));
+            defaultTokenProvider), defaultTokenProvider);
   }
 
   @Singleton @Provides ErrorMapper provideErrorMapper() {
@@ -475,7 +476,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   @Singleton @Provides WalletService provideWalletService(FindDefaultWalletInteract walletInteract,
       AccountKeystoreService accountKeyService, PasswordStore passwordStore) {
     return new AccountWalletService(walletInteract, accountKeyService, passwordStore,
-        content -> "\\x19Ethereum Signed Message:\n" + content.length() + content);
+        new SignDataStandardNormalizer());
   }
 
   @Singleton @Provides BillingFactory provideBillingFactory(RemoteRepository.BdsApi bdsApi,

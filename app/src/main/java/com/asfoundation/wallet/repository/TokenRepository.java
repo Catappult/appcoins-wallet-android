@@ -97,16 +97,17 @@ public class TokenRepository implements TokenRepositoryType {
   }
 
   public static byte[] buyData(String developerAddress, String storeAddress, String oemAddress,
-      String data, BigDecimal amount, String tokenAddress) {
+      String data, BigDecimal amount, String tokenAddress, String packageName) {
     Uint256 amountParam = new Uint256(amount.toBigInteger());
     Utf8String dataParam = new Utf8String(data);
+    Utf8String packageNameParam = new Utf8String(packageName);
     Address contractAddress = new Address(tokenAddress);
     Address developerAddressParam = new Address(developerAddress);
     Address storeAddressParam = new Address(storeAddress);
     Address oemAddressParam = new Address(oemAddress);
     List<Type> params =
         Arrays.asList(amountParam, dataParam, contractAddress, developerAddressParam,
-            storeAddressParam, oemAddressParam);
+            storeAddressParam, oemAddressParam, packageNameParam);
     List<TypeReference<?>> returnTypes = Collections.singletonList(new TypeReference<Bool>() {
     });
     Function function = new Function("buy", params, returnTypes);

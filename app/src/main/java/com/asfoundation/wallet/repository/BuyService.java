@@ -1,8 +1,13 @@
 package com.asfoundation.wallet.repository;
 
+import android.support.annotation.NonNull;
+import com.asf.wallet.BuildConfig;
+import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -12,11 +17,13 @@ import java.util.List;
 public class BuyService {
   private final WatchedTransactionService transactionService;
   private final TransactionValidator transactionValidator;
+  private final DefaultTokenProvider defaultTokenProvider;
 
   public BuyService(WatchedTransactionService transactionService,
-      TransactionValidator transactionValidator) {
+      TransactionValidator transactionValidator, DefaultTokenProvider defaultTokenProvider) {
     this.transactionService = transactionService;
     this.transactionValidator = transactionValidator;
+    this.defaultTokenProvider = defaultTokenProvider;
   }
 
   public void start() {
@@ -24,9 +31,31 @@ public class BuyService {
   }
 
   public Completable buy(String key, PaymentTransaction paymentTransaction) {
-    return transactionValidator.validate(paymentTransaction)
-        .andThen(
-            transactionService.sendTransaction(key, paymentTransaction.getTransactionBuilder()));
+    TransactionBuilder transactionBuilder = paymentTransaction.getTransactionBuilder();
+    return defaultTokenProvider.getDefaultToken()
+        .map(tokenInfo -> transactionBuilder.appcoinsData(
+            getBuyData(transactionBuilder, tokenInfo, paymentTransaction.getPackageName())))
+        .map(transaction -> updateTransactionBuilderData(paymentTransaction, transaction))
+        .flatMapCompletable(payment -> transactionValidator.validate(payment)
+            .andThen(transactionService.sendTransaction(key, payment.getTransactionBuilder())));
+  }
+
+  @NonNull
+  private PaymentTransaction updateTransactionBuilderData(PaymentTransaction paymentTransaction,
+      TransactionBuilder transaction) {
+    return new PaymentTransaction(paymentTransaction.getUri(), transaction,
+        paymentTransaction.getState(), paymentTransaction.getApproveHash(),
+        paymentTransaction.getBuyHash(), paymentTransaction.getPackageName(),
+        paymentTransaction.getProductName());
+  }
+
+  private byte[] getBuyData(TransactionBuilder transactionBuilder, TokenInfo tokenInfo,
+      String packageName) {
+    return TokenRepository.buyData(transactionBuilder.toAddress(),
+        BuildConfig.DEFAULT_STORE_ADDRESS, BuildConfig.DEFAULT_OEM_ADDRESS,
+        transactionBuilder.getSkuId(), transactionBuilder.amount()
+            .multiply(new BigDecimal("10").pow(transactionBuilder.decimals())), tokenInfo.address,
+        packageName);
   }
 
   public Observable<BuyTransaction> getBuy(String uri) {
