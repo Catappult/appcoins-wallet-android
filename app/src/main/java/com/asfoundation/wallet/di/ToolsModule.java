@@ -39,6 +39,7 @@ import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.poa.BlockchainErrorMapper;
 import com.asfoundation.wallet.poa.Calculator;
+import com.asfoundation.wallet.poa.CountryCodeProvider;
 import com.asfoundation.wallet.poa.DataMapper;
 import com.asfoundation.wallet.poa.HashCalculator;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
@@ -65,6 +66,7 @@ import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.PreferenceRepositoryType;
 import com.asfoundation.wallet.repository.SharedPreferenceRepository;
+import com.asfoundation.wallet.repository.SignDataStandardNormalizer;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.TrackTransactionService;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
@@ -206,12 +208,13 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
       ErrorMapper errorMapper,
       @Named("wait_pending_transaction") TrackTransactionService pendingTransactionService,
       BillingPaymentProofSubmission billingPaymentProofSubmission,
-      DefaultTokenProvider defaultTokenProvider) {
+      DefaultTokenProvider defaultTokenProvider, CountryCodeProvider countryCodeProvider,
+      DataMapper dataMapper) {
     return new BuyService(new WatchedTransactionService(sendTransactionInteract::buy,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
         Schedulers.io(), pendingTransactionService),
         new BuyTransactionValidator(sendTransactionInteract, billingPaymentProofSubmission,
-            defaultTokenProvider));
+            defaultTokenProvider), defaultTokenProvider, countryCodeProvider, dataMapper);
   }
 
   @Singleton @Provides ErrorMapper provideErrorMapper() {
@@ -363,7 +366,15 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
   @Singleton @Provides ProofOfAttentionService provideProofOfAttentionService(
       HashCalculator hashCalculator, ProofWriter proofWriter, TaggedCompositeDisposable disposables,
-      @Named("MAX_NUMBER_PROOF_COMPONENTS") int maxNumberProofComponents, OkHttpClient client,
+      @Named("MAX_NUMBER_PROOF_COMPONENTS") int maxNumberProofComponents,
+      CountryCodeProvider countryCodeProvider) {
+    return new ProofOfAttentionService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
+        BuildConfig.APPLICATION_ID, hashCalculator, new CompositeDisposable(), proofWriter,
+        Schedulers.computation(), maxNumberProofComponents, new BlockchainErrorMapper(),
+        disposables, countryCodeProvider);
+  }
+
+  @Provides @Singleton CountryCodeProvider providesCountryCodeProvider(OkHttpClient client,
       Gson gson) {
     IpCountryCodeProvider.IpApi api = new Retrofit.Builder().baseUrl(IpCountryCodeProvider.ENDPOINT)
         .client(client)
@@ -371,10 +382,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(IpCountryCodeProvider.IpApi.class);
-    return new ProofOfAttentionService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-        BuildConfig.APPLICATION_ID, hashCalculator, new CompositeDisposable(), proofWriter,
-        Schedulers.computation(), maxNumberProofComponents, new BlockchainErrorMapper(),
-        disposables, new IpCountryCodeProvider(api));
+    return new IpCountryCodeProvider(api);
   }
 
   @Provides NonceGetter provideNonceGetter(EthereumNetworkRepositoryType networkRepository,
@@ -475,7 +483,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   @Singleton @Provides WalletService provideWalletService(FindDefaultWalletInteract walletInteract,
       AccountKeystoreService accountKeyService, PasswordStore passwordStore) {
     return new AccountWalletService(walletInteract, accountKeyService, passwordStore,
-        content -> "\\x19Ethereum Signed Message:\n" + content.length() + content);
+        new SignDataStandardNormalizer());
   }
 
   @Singleton @Provides BillingFactory provideBillingFactory(RemoteRepository.BdsApi bdsApi,

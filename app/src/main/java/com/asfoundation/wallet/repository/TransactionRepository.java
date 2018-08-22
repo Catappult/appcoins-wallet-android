@@ -92,8 +92,9 @@ public class TransactionRepository implements TransactionRepositoryType {
   @Override public Single<String> callIab(TransactionBuilder transaction, String password) {
     return defaultTokenProvider.getDefaultToken()
         .observeOn(scheduler)
-        .flatMap(token -> createTransactionAndSend(transaction, password,
-            transaction.buyData(token.address), transaction.getIabContract(), BigDecimal.ZERO));
+        .flatMap(
+            token -> createTransactionAndSend(transaction, password, transaction.appcoinsData(),
+                transaction.getIabContract(), BigDecimal.ZERO));
   }
 
   @Override
@@ -109,7 +110,7 @@ public class TransactionRepository implements TransactionRepositoryType {
       String password) {
     return defaultTokenProvider.getDefaultToken()
         .flatMap(tokenInfo -> createRawTransaction(transactionBuilder, password,
-            transactionBuilder.buyData(tokenInfo.address), transactionBuilder.getIabContract(),
+            transactionBuilder.appcoinsData(), transactionBuilder.getIabContract(),
             BigDecimal.ZERO,
             nonceObtainer.getNonce(new Address(ByteArray.from(transactionBuilder.fromAddress())))))
         .map(
