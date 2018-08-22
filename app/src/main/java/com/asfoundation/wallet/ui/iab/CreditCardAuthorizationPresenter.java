@@ -185,9 +185,7 @@ public class CreditCardAuthorizationPresenter {
           bundle.putString(INAPP_PURCHASE_DATA, serializeJson(purchase));
           bundle.putString(INAPP_DATA_SIGNATURE, purchase.getSignature()
               .getValue());
-          bundle.putString(INAPP_PURCHASE_ID, purchase.getSignature()
-              .getMessage()
-              .getOrderId());
+          bundle.putString(INAPP_PURCHASE_ID, purchase.getUid());
         })
         .ignoreElement()
         .blockingAwait();
