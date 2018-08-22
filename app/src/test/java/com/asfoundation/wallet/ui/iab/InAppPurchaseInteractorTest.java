@@ -9,6 +9,7 @@ import com.asfoundation.wallet.entity.Token;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
@@ -83,6 +84,7 @@ public class InAppPurchaseInteractorTest {
   @Mock TransactionSender transactionSender;
   @Mock BillingFactory billingFactory;
   @Mock TransactionValidator transactionValidator;
+  @Mock DefaultTokenProvider defaultTokenProvider;
   private InAppPurchaseInteractor inAppPurchaseInteractor;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
@@ -103,6 +105,11 @@ public class InAppPurchaseInteractorTest {
 
     when(sendTransactionInteract.buy(any(TransactionBuilder.class))).thenReturn(
         Single.just(BUY_HASH));
+
+    TokenInfo tokenInfo =
+        new TokenInfo("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", "Appcoins", "APPC", 18, false,
+            false);
+    when(defaultTokenProvider.getDefaultToken()).thenReturn(Single.just(tokenInfo));
 
     when(nonceGetter.getNonce()).thenReturn(Single.just(BigInteger.ONE));
     pendingApproveState = PublishSubject.create();
@@ -140,8 +147,8 @@ public class InAppPurchaseInteractorTest {
     inAppPurchaseService =
         new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
             new ApproveService(approveTransactionService, transactionValidator),
-            new BuyService(buyTransactionService, transactionValidator), balanceService, scheduler,
-            new ErrorMapper());
+            new BuyService(buyTransactionService, transactionValidator, defaultTokenProvider),
+            balanceService, scheduler, new ErrorMapper());
 
     proofPublishSubject = PublishSubject.create();
     when(proofOfAttentionService.get()).thenReturn(proofPublishSubject);

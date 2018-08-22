@@ -1,8 +1,12 @@
 package com.asfoundation.wallet.repository;
 
+import com.asf.wallet.BuildConfig;
+import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -12,11 +16,13 @@ import java.util.List;
 public class BuyService {
   private final WatchedTransactionService transactionService;
   private final TransactionValidator transactionValidator;
+  private final DefaultTokenProvider defaultTokenProvider;
 
   public BuyService(WatchedTransactionService transactionService,
-      TransactionValidator transactionValidator) {
+      TransactionValidator transactionValidator, DefaultTokenProvider defaultTokenProvider) {
     this.transactionService = transactionService;
     this.transactionValidator = transactionValidator;
+    this.defaultTokenProvider = defaultTokenProvider;
   }
 
   public void start() {
@@ -24,9 +30,18 @@ public class BuyService {
   }
 
   public Completable buy(String key, PaymentTransaction paymentTransaction) {
+    TransactionBuilder transactionBuilder = paymentTransaction.getTransactionBuilder();
     return transactionValidator.validate(paymentTransaction)
-        .andThen(
-            transactionService.sendTransaction(key, paymentTransaction.getTransactionBuilder()));
+        .andThen(defaultTokenProvider.getDefaultToken()
+            .flatMapCompletable(tokenInfo -> transactionService.sendTransaction(key,
+                transactionBuilder.appcoinsData(getBuyData(transactionBuilder, tokenInfo)))));
+  }
+
+  private byte[] getBuyData(TransactionBuilder transactionBuilder, TokenInfo tokenInfo) {
+    return TokenRepository.buyData(transactionBuilder.toAddress(),
+        BuildConfig.DEFAULT_STORE_ADDRESS, BuildConfig.DEFAULT_OEM_ADDRESS,
+        transactionBuilder.getSkuId(), transactionBuilder.amount()
+            .multiply(new BigDecimal("10").pow(transactionBuilder.decimals())), tokenInfo.address);
   }
 
   public Observable<BuyTransaction> getBuy(String uri) {

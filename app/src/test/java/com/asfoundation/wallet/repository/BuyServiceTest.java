@@ -1,7 +1,9 @@
 package com.asfoundation.wallet.repository;
 
 import com.asfoundation.wallet.entity.PendingTransaction;
+import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -10,6 +12,7 @@ import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import org.junit.Assert;
@@ -35,19 +38,27 @@ import static org.mockito.Mockito.when;
 
   @Mock TransactionSender transactionSender;
   @Mock TransactionValidator transactionValidator;
+  @Mock DefaultTokenProvider defaultTokenProvider;
   private TestScheduler scheduler;
   private WatchedTransactionService transactionService;
   private TransactionBuilder transactionBuilder;
 
   @Before public void setup() {
-    transactionBuilder = new TransactionBuilder("APPC");
-    when(transactionSender.send(transactionBuilder)).thenReturn(Single.just("hash"));
 
     scheduler = new TestScheduler();
     transactionService = new WatchedTransactionService(transactionSender,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), new ErrorMapper(),
         scheduler, trackTransactionService);
     when(transactionValidator.validate(any())).thenReturn(Completable.complete());
+    TokenInfo tokenInfo =
+        new TokenInfo("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", "Appcoins", "APPC", 18, false,
+            false);
+    transactionBuilder =
+        new TransactionBuilder("APPC", "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", 3l,
+            "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", BigDecimal.ONE, "sku", 18,
+            "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3");
+    when(transactionSender.send(transactionBuilder)).thenReturn(Single.just("hash"));
+    when(defaultTokenProvider.getDefaultToken()).thenReturn(Single.just(tokenInfo));
   }
 
   @Test public void buy() {
@@ -55,7 +66,8 @@ import static org.mockito.Mockito.when;
     when(trackTransactionService.checkTransactionState(anyString())).thenReturn(
         pendingTransactionState);
 
-    BuyService buyService = new BuyService(transactionService, transactionValidator);
+    BuyService buyService =
+        new BuyService(transactionService, transactionValidator, defaultTokenProvider);
     buyService.start();
     scheduler.triggerActions();
 
@@ -87,7 +99,8 @@ import static org.mockito.Mockito.when;
             new PendingTransaction("hash", false));
     when(trackTransactionService.checkTransactionState("hash")).thenReturn(pendingTransactionState);
 
-    BuyService buyService = new BuyService(transactionService, transactionValidator);
+    BuyService buyService =
+        new BuyService(transactionService, transactionValidator, defaultTokenProvider);
     buyService.start();
 
     String uri = "uri";
