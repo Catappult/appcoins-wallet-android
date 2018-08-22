@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.repository;
 
+import android.support.annotation.NonNull;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -31,17 +32,30 @@ public class BuyService {
 
   public Completable buy(String key, PaymentTransaction paymentTransaction) {
     TransactionBuilder transactionBuilder = paymentTransaction.getTransactionBuilder();
-    return transactionValidator.validate(paymentTransaction)
-        .andThen(defaultTokenProvider.getDefaultToken()
-            .flatMapCompletable(tokenInfo -> transactionService.sendTransaction(key,
-                transactionBuilder.appcoinsData(getBuyData(transactionBuilder, tokenInfo)))));
+    return defaultTokenProvider.getDefaultToken()
+        .map(tokenInfo -> transactionBuilder.appcoinsData(
+            getBuyData(transactionBuilder, tokenInfo, paymentTransaction.getPackageName())))
+        .map(transaction -> updateTransactionBuilderData(paymentTransaction, transaction))
+        .flatMapCompletable(payment -> transactionValidator.validate(payment)
+            .andThen(transactionService.sendTransaction(key, payment.getTransactionBuilder())));
   }
 
-  private byte[] getBuyData(TransactionBuilder transactionBuilder, TokenInfo tokenInfo) {
+  @NonNull
+  private PaymentTransaction updateTransactionBuilderData(PaymentTransaction paymentTransaction,
+      TransactionBuilder transaction) {
+    return new PaymentTransaction(paymentTransaction.getUri(), transaction,
+        paymentTransaction.getState(), paymentTransaction.getApproveHash(),
+        paymentTransaction.getBuyHash(), paymentTransaction.getPackageName(),
+        paymentTransaction.getProductName());
+  }
+
+  private byte[] getBuyData(TransactionBuilder transactionBuilder, TokenInfo tokenInfo,
+      String packageName) {
     return TokenRepository.buyData(transactionBuilder.toAddress(),
         BuildConfig.DEFAULT_STORE_ADDRESS, BuildConfig.DEFAULT_OEM_ADDRESS,
         transactionBuilder.getSkuId(), transactionBuilder.amount()
-            .multiply(new BigDecimal("10").pow(transactionBuilder.decimals())), tokenInfo.address);
+            .multiply(new BigDecimal("10").pow(transactionBuilder.decimals())), tokenInfo.address,
+        packageName);
   }
 
   public Observable<BuyTransaction> getBuy(String uri) {
