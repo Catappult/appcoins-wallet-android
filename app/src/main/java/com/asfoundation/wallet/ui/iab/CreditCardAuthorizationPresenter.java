@@ -2,14 +2,17 @@ package com.asfoundation.wallet.ui.iab;
 
 import android.os.Bundle;
 import com.adyen.core.models.PaymentMethod;
-import com.appcoins.wallet.billing.BdsBilling;
 import com.appcoins.wallet.billing.Billing;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.billing.repository.BillingSupportedType;
+import com.appcoins.wallet.billing.repository.entity.DeveloperPurchase;
+import com.appcoins.wallet.billing.repository.entity.Purchase;
 import com.asfoundation.wallet.billing.CreditCardBilling;
 import com.asfoundation.wallet.billing.payment.Adyen;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import hu.akarnokd.rxjava.interop.RxJavaInterop;
 import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
@@ -179,8 +182,7 @@ public class CreditCardAuthorizationPresenter {
         .doOnSuccess(purchase -> {
           ExternalBillingSerializer serializer = new ExternalBillingSerializer();
 
-
-          bundle.putString(INAPP_PURCHASE_DATA, serializer.serializeSignatureData(purchase));
+          bundle.putString(INAPP_PURCHASE_DATA, serializeJson(purchase));
           bundle.putString(INAPP_DATA_SIGNATURE, purchase.getSignature()
               .getValue());
           bundle.putString(INAPP_PURCHASE_ID, purchase.getSignature()
@@ -191,6 +193,14 @@ public class CreditCardAuthorizationPresenter {
         .blockingAwait();
 
     return bundle;
+  }
+
+  private String serializeJson(Purchase purchase) throws IOException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    DeveloperPurchase developerPurchase = objectMapper.readValue(new Gson().toJson(
+        purchase.getSignature()
+            .getMessage()), DeveloperPurchase.class);
+    return objectMapper.writeValueAsString(developerPurchase);
   }
 
   private void onViewCreatedCheckAuthorizationFailed() {
