@@ -90,6 +90,7 @@ import com.asfoundation.wallet.ui.iab.AppCoinsOperationMapper;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository;
 import com.asfoundation.wallet.ui.iab.AppInfoProvider;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
+import com.asfoundation.wallet.ui.iab.ApproveKeyProvider;
 import com.asfoundation.wallet.ui.iab.BdsInAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.ImageSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
@@ -262,9 +263,9 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
   @Singleton @Provides BdsInAppPurchaseInteractor provideBdsInAppPurchaseInteractor(
       BillingPaymentProofSubmission billingPaymentProofSubmission,
-      InAppPurchaseInteractor inAppPurchaseInteractor) {
+      InAppPurchaseInteractor inAppPurchaseInteractor, BillingFactory billingFactory) {
     return new BdsInAppPurchaseInteractor(inAppPurchaseInteractor, billingPaymentProofSubmission,
-        (packageName, productName) -> Single.just("approveKey"));
+        new ApproveKeyProvider(billingFactory));
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(

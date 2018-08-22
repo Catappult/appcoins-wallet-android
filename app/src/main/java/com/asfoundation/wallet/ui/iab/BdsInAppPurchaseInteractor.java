@@ -88,6 +88,11 @@ public class BdsInAppPurchaseInteractor {
     return inAppPurchaseInteractor.getBillingSerializer();
   }
 
+  public Single<InAppPurchaseInteractor.CurrentPaymentStep> getCurrentPaymentStep(
+      String packageName, TransactionBuilder transactionBuilder) {
+    return inAppPurchaseInteractor.getCurrentPaymentStep(packageName, transactionBuilder);
+  }
+
   public Single<Purchase> getCompletedPurchase(String packageName, String productName) {
     return inAppPurchaseInteractor.getCompletedPurchase(packageName, productName);
   }

@@ -266,13 +266,14 @@ public class InAppPurchaseInteractor {
         .map(wallet -> wallet.address);
   }
 
-  public Single<CurrentPaymentStep> getCurrentPaymentStep(String packageName, String productSku,
+  public Single<CurrentPaymentStep> getCurrentPaymentStep(String packageName,
       TransactionBuilder transactionBuilder) {
-    return Single.zip(getTransaction(packageName, productSku), gasSettingsInteract.fetch(true)
-        .doOnSuccess(gasSettings -> transactionBuilder.gasSettings(
-            new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
-                paymentGasLimit)))
-        .flatMap(__ -> inAppPurchaseService.hasBalanceToBuy(transactionBuilder)), this::map);
+    return Single.zip(getTransaction(packageName, transactionBuilder.getSkuId()),
+        gasSettingsInteract.fetch(true)
+            .doOnSuccess(gasSettings -> transactionBuilder.gasSettings(
+                new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
+                    paymentGasLimit)))
+            .flatMap(__ -> inAppPurchaseService.hasBalanceToBuy(transactionBuilder)), this::map);
   }
 
   private CurrentPaymentStep map(Transaction transaction, Boolean isBuyReady)
