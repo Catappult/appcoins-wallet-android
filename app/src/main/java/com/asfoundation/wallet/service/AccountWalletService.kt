@@ -30,7 +30,7 @@ class AccountWalletService(private val walletInteract: FindDefaultWalletInteract
 
     @Throws(Exception::class)
     fun sign(plainText: String, ecKey: ECKey): String {
-        val signature = ecKey.doSign(sha3(plainText.toByteArray()))
+        val signature = ecKey.sign(sha3(plainText.toByteArray()))
         return signature.toHex()
     }
 
