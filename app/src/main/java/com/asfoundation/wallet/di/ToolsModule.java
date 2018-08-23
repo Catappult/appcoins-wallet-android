@@ -49,6 +49,7 @@ import com.asfoundation.wallet.poa.TransactionFactory;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.ApproveTransactionValidator;
 import com.asfoundation.wallet.repository.BalanceService;
+import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.asfoundation.wallet.repository.BlockChainWriter;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.BuyTransactionValidator;
@@ -258,7 +259,11 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
     return new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
         raidenRepository, channelService, new BillingMessagesMapper(), billingFactory,
-        new ExternalBillingSerializer(), expressCheckoutBuyService);
+        new ExternalBillingSerializer(), expressCheckoutBuyService,
+        new BdsPendingTransactionService(5, Schedulers.io(),
+            new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new CompositeDisposable(),
+            (packageName, sku) -> billingFactory.getBilling(packageName)
+                .getSkuTransaction(sku, Schedulers.io())), Schedulers.io());
   }
 
   @Singleton @Provides BdsInAppPurchaseInteractor provideBdsInAppPurchaseInteractor(

@@ -1,8 +1,11 @@
 package com.asfoundation.wallet.ui.iab;
 
+import com.appcoins.wallet.billing.Billing;
 import com.appcoins.wallet.billing.BillingFactory;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
+import com.appcoins.wallet.billing.repository.entity.Gateway;
+import com.appcoins.wallet.billing.repository.entity.Transaction;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.Token;
@@ -20,6 +23,8 @@ import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.BalanceService;
+import com.asfoundation.wallet.repository.BdsPendingTransactionService;
+import com.asfoundation.wallet.repository.BdsTransactionProvider;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.ExpressCheckoutBuyService;
@@ -39,6 +44,7 @@ import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.BehaviorSubject;
@@ -73,7 +79,10 @@ public class InAppPurchaseInteractorTest {
   public static final String PRODUCT_NAME = "product_name";
   public static final String APPLICATION_NAME = "application_name";
   public static final String ICON_PATH = "icon_path";
+  public static final String SKU = "sku";
+  public static final String UID = "uid";
   @Mock FetchGasSettingsInteract gasSettingsInteract;
+  @Mock BdsTransactionProvider transactionProvider;
   @Mock SendTransactionInteract sendTransactionInteract;
   @Mock PendingTransactionService pendingTransactionService;
   @Mock FindDefaultWalletInteract defaultWalletInteract;
@@ -88,6 +97,7 @@ public class InAppPurchaseInteractorTest {
   @Mock TransactionValidator transactionValidator;
   @Mock DefaultTokenProvider defaultTokenProvider;
   @Mock CountryCodeProvider countryCodeProvider;
+  @Mock Billing billing;
   private InAppPurchaseInteractor inAppPurchaseInteractor;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
@@ -166,6 +176,18 @@ public class InAppPurchaseInteractorTest {
           ((String) arguments[1]), APPLICATION_NAME, ICON_PATH, ((String) arguments[2]));
     });
 
+    when(transactionProvider.get(PACKAGE_NAME, SKU)).thenReturn(Single.just(
+        new Transaction(UID, Transaction.Status.PROCESSING,
+            new Gateway(Gateway.Name.appcoins, "", ""))), Single.just(
+        new Transaction(UID, Transaction.Status.COMPLETED,
+            new Gateway(Gateway.Name.appcoins, "", ""))));
+
+    when(billingFactory.getBilling(PACKAGE_NAME)).thenReturn(billing);
+
+    when(billing.getSkuTransactionStatus(any(), any())).thenReturn(Single.just(
+        new Transaction(UID, Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
+            new Gateway(Gateway.Name.appcoins, "", ""))));
+
     inAppPurchaseInteractor =
         new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
             gasSettingsInteract, BigDecimal.ONE,
@@ -173,7 +195,10 @@ public class InAppPurchaseInteractorTest {
             new ChannelService(null, new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
                 new MemoryCache<>(BehaviorSubject.create(), new HashMap<>())),
             new BillingMessagesMapper(), billingFactory, new ExternalBillingSerializer(),
-            new ExpressCheckoutBuyService(Mockito.mock(TokenToFiatService.class)));
+            new ExpressCheckoutBuyService(Mockito.mock(TokenToFiatService.class)),
+            new BdsPendingTransactionService(5, scheduler,
+                new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
+                new CompositeDisposable(), transactionProvider), scheduler);
   }
 
   @Test public void sendTransaction() {
@@ -350,9 +375,10 @@ public class InAppPurchaseInteractorTest {
         .subscribe(observer);
     scheduler.triggerActions();
 
+    TestObserver<Object> submitObserver = new TestObserver<>();
     inAppPurchaseInteractor.resume(uri, InAppPurchaseInteractor.TransactionType.NORMAL,
         PACKAGE_NAME, PRODUCT_NAME, "approveKey")
-        .subscribe();
+        .subscribe(submitObserver);
 
     scheduler.triggerActions();
     balance.onNext(GetDefaultWalletBalance.BalanceState.OK);
@@ -361,9 +387,26 @@ public class InAppPurchaseInteractorTest {
     pendingBuyState.onComplete();
     scheduler.triggerActions();
 
-    for (Payment payment : observer.values()) {
-      System.out.println(payment);
-    }
+    submitObserver.assertComplete()
+        .assertNoErrors();
     observer.assertNoErrors();
+
+    List<Payment> values = observer.values();
+
+    int index = 0;
+    Assert.assertEquals(Payment.Status.APPROVING, values.get(index)
+        .getStatus());
+    index++;
+    Assert.assertEquals(Payment.Status.BUYING, values.get(index)
+        .getStatus());
+    index++;
+    Assert.assertEquals(Payment.Status.BUYING, values.get(index)
+        .getStatus());
+    index++;
+    Assert.assertEquals(Payment.Status.BUYING, values.get(index)
+        .getStatus());
+    index++;
+    Assert.assertEquals(Payment.Status.COMPLETED, values.get(index)
+        .getStatus());
   }
 }
