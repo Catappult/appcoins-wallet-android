@@ -1,21 +1,14 @@
 package com.asfoundation.wallet.ui.iab;
 
-import android.os.Bundle;
 import com.adyen.core.models.PaymentMethod;
 import com.appcoins.wallet.billing.Billing;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
-import com.appcoins.wallet.billing.repository.BillingSupportedType;
-import com.appcoins.wallet.billing.repository.entity.DeveloperPurchase;
-import com.appcoins.wallet.billing.repository.entity.Purchase;
 import com.asfoundation.wallet.billing.CreditCardBilling;
 import com.asfoundation.wallet.billing.payment.Adyen;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import hu.akarnokd.rxjava.interop.RxJavaInterop;
 import io.reactivex.Scheduler;
-import io.reactivex.schedulers.Schedulers;
 import java.io.IOException;
 import rx.Completable;
 import rx.exceptions.OnErrorNotImplementedException;
@@ -26,10 +19,6 @@ import rx.subscriptions.CompositeSubscription;
  */
 
 public class CreditCardAuthorizationPresenter {
-
-  private static final String INAPP_PURCHASE_DATA = "INAPP_PURCHASE_DATA";
-  private static final String INAPP_DATA_SIGNATURE = "INAPP_DATA_SIGNATURE";
-  private static final String INAPP_PURCHASE_ID = "INAPP_PURCHASE_ID";
 
   private final rx.Scheduler viewScheduler;
   private final CompositeSubscription disposables;
@@ -165,41 +154,14 @@ public class CreditCardAuthorizationPresenter {
                     transaction.toAddress(), developerPayload)
                     .first(payment -> payment.isCompleted())
                     .observeOn(viewScheduler)
-                    .doOnNext(__ -> navigator.popView(
-                        buildBundle()))//creditCardBilling.getTransactionUid()))
+                    .doOnNext(__ -> navigator.popView(ExpressCheckoutBuyFragment.buildBundle(
+                        billing)))//creditCardBilling.getTransactionUid()))
                     .doOnNext(__ -> view.showSuccess()))
             .subscribe(__ -> {
             }, throwable -> showError(throwable)));
   }
 
   private final Billing billing;
-
-  private Bundle buildBundle() {
-    Bundle bundle = new Bundle();
-
-    billing.getPurchases(BillingSupportedType.INAPP, Schedulers.io())
-        .map(purchases -> purchases.get(0))
-        .doOnSuccess(purchase -> {
-          ExternalBillingSerializer serializer = new ExternalBillingSerializer();
-
-          bundle.putString(INAPP_PURCHASE_DATA, serializeJson(purchase));
-          bundle.putString(INAPP_DATA_SIGNATURE, purchase.getSignature()
-              .getValue());
-          bundle.putString(INAPP_PURCHASE_ID, purchase.getUid());
-        })
-        .ignoreElement()
-        .blockingAwait();
-
-    return bundle;
-  }
-
-  private String serializeJson(Purchase purchase) throws IOException {
-    ObjectMapper objectMapper = new ObjectMapper();
-    DeveloperPurchase developerPurchase = objectMapper.readValue(new Gson().toJson(
-        purchase.getSignature()
-            .getMessage()), DeveloperPurchase.class);
-    return objectMapper.writeValueAsString(developerPurchase);
-  }
 
   private void onViewCreatedCheckAuthorizationFailed() {
     disposables.add(
