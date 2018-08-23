@@ -10,7 +10,7 @@ import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
-import com.asfoundation.wallet.repository.BdsPendingTransactionService;
+import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.ExpressCheckoutBuyService;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.PaymentTransaction;
@@ -44,7 +44,7 @@ public class InAppPurchaseInteractor {
   private final BillingMessagesMapper billingMessagesMapper;
   private final BillingFactory billingFactory;
   private final ExternalBillingSerializer billingSerializer;
-  private final BdsPendingTransactionService trackTransactionService;
+  private final BdsTransactionService trackTransactionService;
   private final Scheduler scheduler;
 
   public InAppPurchaseInteractor(InAppPurchaseService inAppPurchaseService,
@@ -53,7 +53,7 @@ public class InAppPurchaseInteractor {
       ChannelService channelService, BillingMessagesMapper billingMessagesMapper,
       BillingFactory billingFactory, ExternalBillingSerializer billingSerializer,
       ExpressCheckoutBuyService expressCheckoutBuyService,
-      BdsPendingTransactionService trackTransactionService, Scheduler scheduler) {
+      BdsTransactionService trackTransactionService, Scheduler scheduler) {
     this.inAppPurchaseService = inAppPurchaseService;
     this.defaultWalletInteract = defaultWalletInteract;
     this.gasSettingsInteract = gasSettingsInteract;
@@ -104,7 +104,7 @@ public class InAppPurchaseInteractor {
       case NORMAL:
         return buildPaymentTransaction(uri, packageName, productName).flatMapCompletable(
             paymentTransaction -> billingFactory.getBilling(packageName)
-                .getSkuTransactionStatus(paymentTransaction.getTransactionBuilder()
+                .getSkuTransaction(paymentTransaction.getTransactionBuilder()
                     .getSkuId(), scheduler)
                 .flatMapCompletable(
                     transaction -> resumePayment(approveKey, paymentTransaction, transaction)));
@@ -124,7 +124,7 @@ public class InAppPurchaseInteractor {
       case PROCESSING:
         return trackTransactionService.trackTransaction(paymentTransaction.getUri(),
             paymentTransaction.getPackageName(), paymentTransaction.getTransactionBuilder()
-                .getSkuId());
+                .getSkuId(), transaction.getUid());
       case PENDING:
       case COMPLETED:
       case INVALID_TRANSACTION:
@@ -156,12 +156,12 @@ public class InAppPurchaseInteractor {
         .map(this::map));
   }
 
-  private Payment map(BdsPendingTransactionService.BdsTransaction transaction) {
+  private Payment map(BdsTransactionService.BdsTransaction transaction) {
     return new Payment(transaction.getKey(), mapStatus(transaction.getStatus()), null, null,
         transaction.getPackageName(), null);
   }
 
-  private Payment.Status mapStatus(BdsPendingTransactionService.BdsTransaction.Status status) {
+  private Payment.Status mapStatus(BdsTransactionService.BdsTransaction.Status status) {
     switch (status) {
       default:
       case WAITING:
@@ -375,7 +375,7 @@ public class InAppPurchaseInteractor {
 
   public Single<Purchase> getCompletedPurchase(String packageName, String productName) {
     return Single.fromCallable(() -> billingFactory.getBilling(packageName))
-        .flatMap(billing -> billing.getSkuTransactionStatus(productName, Schedulers.io())
+        .flatMap(billing -> billing.getSkuTransaction(productName, Schedulers.io())
             .map(Transaction::getStatus)
             .flatMap(transactionStatus -> {
               if (transactionStatus.equals(Transaction.Status.COMPLETED)) {

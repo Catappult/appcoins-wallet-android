@@ -13,10 +13,11 @@ class BillingPaymentProofSubmission internal constructor(
     private val walletService: WalletService,
     private val repository: Repository,
     private val networkScheduler: Scheduler,
-    private val paymentIds: MutableMap<String, String>) {
+    private val transactionIdsFromApprove: MutableMap<String, String>,
+    private val transactionIdsFromBuy: MutableMap<String, String>) {
 
   fun processPurchaseProof(paymentProof: PaymentProof): Completable {
-    return paymentIds[paymentProof.approveProof]?.let { paymentId ->
+    return transactionIdsFromApprove[paymentProof.approveProof]?.let { paymentId ->
       registerPaymentProof(paymentId, paymentProof.paymentProof, paymentProof.paymentType)
     } ?: Completable.error(
         IllegalArgumentException("No payment id for {${paymentProof.approveProof}}"))
@@ -26,7 +27,8 @@ class BillingPaymentProofSubmission internal constructor(
     return registerAuthorizationProof(authorizationProof.id, authorizationProof.paymentType,
         authorizationProof.productName, authorizationProof.packageName,
         authorizationProof.developerAddress, authorizationProof.storeAddress)
-        .doOnSuccess { paymentId -> paymentIds[authorizationProof.id] = paymentId }.toCompletable()
+        .doOnSuccess { paymentId -> transactionIdsFromApprove[authorizationProof.id] = paymentId }
+        .toCompletable()
   }
 
   private fun registerPaymentProof(paymentId: String, paymentProof: String,
@@ -38,7 +40,7 @@ class BillingPaymentProofSubmission internal constructor(
                 repository.registerPaymentProof(paymentId, paymentType, walletAddress, signedData,
                     paymentProof)
               }
-        }
+        }.andThen(Completable.fromAction { transactionIdsFromBuy[paymentProof] = paymentId })
   }
 
   private fun registerAuthorizationProof(id: String, paymentType: String, productName: String,
@@ -55,8 +57,12 @@ class BillingPaymentProofSubmission internal constructor(
     }
   }
 
-  fun saveApproveKey(approveKey: String, key: String) {
-    paymentIds[approveKey] = key
+  fun saveTransactionId(key: String) {
+    transactionIdsFromApprove[key] = key
+  }
+
+  fun getTransactionId(buyHash: String): String? {
+    return transactionIdsFromBuy[buyHash]
   }
 
   companion object {
@@ -82,7 +88,8 @@ class BillingPaymentProofSubmission internal constructor(
           BillingPaymentProofSubmission(
               walletService, BdsRepository(
               RemoteRepository(api, BdsApiResponseMapper()),
-              BillingThrowableCodeMapper()), networkScheduler, ConcurrentHashMap())
+              BillingThrowableCodeMapper()), networkScheduler, ConcurrentHashMap(),
+              ConcurrentHashMap())
         } ?: throw IllegalArgumentException("BdsApi not defined")
       } ?: throw IllegalArgumentException("WalletService not defined")
     }

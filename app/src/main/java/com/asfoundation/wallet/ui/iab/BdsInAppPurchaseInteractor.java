@@ -37,8 +37,8 @@ public class BdsInAppPurchaseInteractor {
   public Completable resume(String uri, InAppPurchaseInteractor.TransactionType transactionType,
       String packageName, String productName) {
     return approveKeyProvider.getKey(packageName, productName)
-        .doOnSuccess(
-            approveKey -> billingPaymentProofSubmission.saveApproveKey(approveKey, approveKey))
+        .doOnSuccess(authorizationToken -> billingPaymentProofSubmission.saveTransactionId(
+            authorizationToken))
         .flatMapCompletable(
             approveKey -> inAppPurchaseInteractor.resume(uri, transactionType, packageName,
                 productName, approveKey));

@@ -25,6 +25,7 @@ import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.BalanceService;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.asfoundation.wallet.repository.BdsTransactionProvider;
+import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.ExpressCheckoutBuyService;
@@ -98,6 +99,7 @@ public class InAppPurchaseInteractorTest {
   @Mock DefaultTokenProvider defaultTokenProvider;
   @Mock CountryCodeProvider countryCodeProvider;
   @Mock Billing billing;
+  @Mock BdsPendingTransactionService transactionService;
   private InAppPurchaseInteractor inAppPurchaseInteractor;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
@@ -119,7 +121,8 @@ public class InAppPurchaseInteractorTest {
         Single.just(APPROVE_HASH));
 
     when(countryCodeProvider.getCountryCode()).thenReturn(Single.just("PT"));
-
+    when(transactionService.checkTransactionState(anyString())).thenReturn(
+        Observable.just(new PendingTransaction(BUY_HASH, false)));
     when(sendTransactionInteract.buy(any(TransactionBuilder.class))).thenReturn(
         Single.just(BUY_HASH));
 
@@ -184,7 +187,7 @@ public class InAppPurchaseInteractorTest {
 
     when(billingFactory.getBilling(PACKAGE_NAME)).thenReturn(billing);
 
-    when(billing.getSkuTransactionStatus(any(), any())).thenReturn(Single.just(
+    when(billing.getSkuTransaction(any(), any())).thenReturn(Single.just(
         new Transaction(UID, Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
             new Gateway(Gateway.Name.appcoins, "", ""))));
 
@@ -196,9 +199,9 @@ public class InAppPurchaseInteractorTest {
                 new MemoryCache<>(BehaviorSubject.create(), new HashMap<>())),
             new BillingMessagesMapper(), billingFactory, new ExternalBillingSerializer(),
             new ExpressCheckoutBuyService(Mockito.mock(TokenToFiatService.class)),
-            new BdsPendingTransactionService(5, scheduler,
+            new BdsTransactionService(scheduler,
                 new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
-                new CompositeDisposable(), transactionProvider), scheduler);
+                new CompositeDisposable(), transactionService), scheduler);
   }
 
   @Test public void sendTransaction() {

@@ -77,4 +77,9 @@ class BdsRepository(private val remoteRepository: RemoteRepository,
     return remoteRepository.getGateways()
   }
 
+  override fun getAppcoinsTransaction(uid: String, address: String,
+                                      signedContent: String): Single<Transaction> {
+    return remoteRepository.getAppcoinsTransaction(uid, address, signedContent)
+  }
+
 }

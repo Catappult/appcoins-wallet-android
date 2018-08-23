@@ -50,6 +50,7 @@ import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.ApproveTransactionValidator;
 import com.asfoundation.wallet.repository.BalanceService;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
+import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.BlockChainWriter;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.BuyTransactionValidator;
@@ -212,10 +213,11 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
       @Named("wait_pending_transaction") TrackTransactionService pendingTransactionService,
       BillingPaymentProofSubmission billingPaymentProofSubmission,
       DefaultTokenProvider defaultTokenProvider, CountryCodeProvider countryCodeProvider,
-      DataMapper dataMapper) {
+      DataMapper dataMapper, BillingFactory billingFactory) {
     return new BuyService(new WatchedTransactionService(sendTransactionInteract::buy,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
-        Schedulers.io(), pendingTransactionService),
+        Schedulers.io(), new BdsPendingTransactionService(billingFactory, Schedulers.io(), 5,
+        billingPaymentProofSubmission)),
         new BuyTransactionValidator(sendTransactionInteract, billingPaymentProofSubmission,
             defaultTokenProvider), defaultTokenProvider, countryCodeProvider, dataMapper);
   }
@@ -254,16 +256,22 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
       InAppPurchaseService inAppPurchaseService, FindDefaultWalletInteract defaultWalletInteract,
       FetchGasSettingsInteract gasSettingsInteract, TransferParser parser,
       RaidenRepository raidenRepository, ChannelService channelService,
-      BillingFactory billingFactory, ExpressCheckoutBuyService expressCheckoutBuyService) {
+      BillingFactory billingFactory, ExpressCheckoutBuyService expressCheckoutBuyService,
+      BdsTransactionService bdsTransactionService) {
 
     return new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
         raidenRepository, channelService, new BillingMessagesMapper(), billingFactory,
-        new ExternalBillingSerializer(), expressCheckoutBuyService,
-        new BdsPendingTransactionService(5, Schedulers.io(),
-            new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new CompositeDisposable(),
-            (packageName, sku) -> billingFactory.getBilling(packageName)
-                .getSkuTransaction(sku, Schedulers.io())), Schedulers.io());
+        new ExternalBillingSerializer(), expressCheckoutBuyService, bdsTransactionService,
+        Schedulers.io());
+  }
+
+  @Singleton @Provides BdsTransactionService providesBdsTransactionService(
+      BillingFactory billingFactory, BillingPaymentProofSubmission billingPaymentProofSubmission) {
+    return new BdsTransactionService(Schedulers.io(),
+        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new CompositeDisposable(),
+        new BdsPendingTransactionService(billingFactory, Schedulers.io(), 5,
+            billingPaymentProofSubmission));
   }
 
   @Singleton @Provides BdsInAppPurchaseInteractor provideBdsInAppPurchaseInteractor(

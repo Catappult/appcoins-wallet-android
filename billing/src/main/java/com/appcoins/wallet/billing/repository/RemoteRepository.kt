@@ -87,11 +87,18 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
   }
 
   fun createAdyenTransaction(walletAddress: String,
-  walletSignature: String, token: String, payload: String, packageName: String, productName: String,
-  walletDeveloper: String, walletStore: String): Single<TransactionStatus> {
+                             walletSignature: String, token: String, payload: String,
+                             packageName: String, productName: String,
+                             walletDeveloper: String,
+                             walletStore: String): Single<TransactionStatus> {
     return api.createAdyenTransaction(walletAddress, walletSignature, payload,
         packageName, productName, walletDeveloper, token, walletStore)
         .singleOrError()
+  }
+
+  fun getAppcoinsTransaction(uid: String, address: String,
+                             signedContent: String): Single<Transaction> {
+    return api.getAppcoinsTransaction(uid, address, signedContent)
   }
 
   interface BdsApi {
@@ -116,6 +123,12 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
                           @Path("skuId") skuId: String,
                           @Query("wallet.address") walletAddress: String,
                           @Query("wallet.signature") walletSignature: String): Single<Transaction>
+
+    @GET("inapp/8.20180727/gateways/appcoins/transactions/{uId}")
+    fun getAppcoinsTransaction(@Path("uId") uId: String,
+                               @Query("wallet.address") walletAddress: String,
+                               @Query("wallet.signature")
+                               walletSignature: String): Single<Transaction>
 
 
     @GET("inapp/8.20180518/packages/{packageName}/purchases")
