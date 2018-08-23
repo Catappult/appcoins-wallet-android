@@ -131,7 +131,8 @@ public class OnChainBuyPresenter {
                           InAppPurchaseInteractor.TransactionType.NORMAL, packageName,
                           transaction.getSkuId());
                     case READY:
-                      return Completable.fromAction(() -> setup(appcAmount));
+                      return Completable.fromAction(() -> setup(appcAmount))
+                          .subscribeOn(AndroidSchedulers.mainThread());
                     case PAUSED_OFF_CHAIN:
                     case NO_FUNDS:
                     default:
@@ -188,9 +189,8 @@ public class OnChainBuyPresenter {
             .andThen(inAppPurchaseInteractor.getCompletedPurchase(transaction.getPackageName(),
                 transaction.getProductId())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess(purchase -> view.finish(billingMessagesMapper.mapPurchase(
-                    purchase.getUid(),
-                    purchase.getSignature()
+                .doOnSuccess(purchase -> view.finish(
+                    billingMessagesMapper.mapPurchase(purchase.getUid(), purchase.getSignature()
                         .getValue(), billingSerializer.serializeSignatureData(purchase))))
                 .toCompletable()
                 .onErrorResumeNext(throwable -> Completable.fromAction(() -> showError(throwable)))
