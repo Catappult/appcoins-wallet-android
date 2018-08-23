@@ -5,6 +5,8 @@ import com.appcoins.wallet.billing.BillingFactory;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.billing.repository.entity.Purchase;
+import com.appcoins.wallet.billing.repository.entity.Status;
+import com.appcoins.wallet.billing.repository.entity.Transaction;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
@@ -23,6 +25,7 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
+import java.net.UnknownServiceException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -247,12 +250,39 @@ public class InAppPurchaseInteractor {
         .map(wallet -> wallet.address);
   }
 
-  public Single<Boolean> canBuy(TransactionBuilder transactionBuilder) {
-    return gasSettingsInteract.fetch(true)
+  public Single<CurrentPaymentStep> getCurrentPaymentStep(String packageName, String productSku,
+      TransactionBuilder transactionBuilder) {
+    return Single.zip(getTransaction(packageName, productSku), gasSettingsInteract.fetch(true)
         .doOnSuccess(gasSettings -> transactionBuilder.gasSettings(
             new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
                 paymentGasLimit)))
-        .flatMap(__ -> inAppPurchaseService.hasBalanceToBuy(transactionBuilder));
+        .flatMap(__ -> inAppPurchaseService.hasBalanceToBuy(transactionBuilder)), this::map);
+  }
+
+  private CurrentPaymentStep map(Transaction transaction, Boolean isBuyReady)
+      throws UnknownServiceException {
+    switch (transaction.getStatus()) {
+      case PENDING:
+      case PENDING_SERVICE_AUTHORIZATION:
+      case PROCESSING:
+        switch (transaction.getGateway()
+            .getName()) {
+          case appcoins:
+            return CurrentPaymentStep.PAUSED_ON_CHAIN;
+          case adyen:
+            return CurrentPaymentStep.PAUSED_OFF_CHAIN;
+          default:
+          case unknown:
+            throw new UnknownServiceException("Unknown gateway");
+        }
+      case COMPLETED:
+        return isBuyReady ? CurrentPaymentStep.READY : CurrentPaymentStep.NO_FUNDS;
+      default:
+      case FAILED:
+      case CANCELED:
+      case INVALID_TRANSACTION:
+        return isBuyReady ? CurrentPaymentStep.READY : CurrentPaymentStep.NO_FUNDS;
+    }
   }
 
   public Single<FiatValue> convertToFiat(double appcValue, String currency) {
@@ -272,11 +302,17 @@ public class InAppPurchaseInteractor {
     return billingSerializer;
   }
 
-  public Single<Purchase> getPurchase(String packageName, String productName) {
+  public Single<Transaction> getTransaction(String packageName, String productName) {
+    return Single.fromCallable(() -> billingFactory.getBilling(packageName))
+        .flatMap(billing -> billing.getSkuTransaction(productName, Schedulers.io()));
+  }
+
+  public Single<Purchase> getCompletedPurchase(String packageName, String productName) {
     return Single.fromCallable(() -> billingFactory.getBilling(packageName))
         .flatMap(billing -> billing.getSkuTransactionStatus(productName, Schedulers.io())
+            .map(Transaction::getStatus)
             .flatMap(transactionStatus -> {
-              if (transactionStatus.equalsIgnoreCase("COMPLETED")) {
+              if (transactionStatus.equals(Status.COMPLETED)) {
                 return billing.getSkuPurchase(productName, Schedulers.io());
               } else {
                 return Single.error(new TransactionNotFoundException());
@@ -286,5 +322,9 @@ public class InAppPurchaseInteractor {
 
   public enum TransactionType {
     NORMAL, RAIDEN
+  }
+
+  public enum CurrentPaymentStep {
+    PAUSED_OFF_CHAIN, PAUSED_ON_CHAIN, NO_FUNDS, READY
   }
 }
