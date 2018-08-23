@@ -80,41 +80,57 @@
             android:layerType="software"
             />
 
-        <TextView
-            android:id="@+id/fragment_credit_card_authorization_pre_authorized_card"
+
+        <ProgressBar
+            android:id="@+id/fragment_credit_card_authorization_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line_separator"
+            android:layout_centerInParent="true"
+            />
+
+        <RelativeLayout
+            android:id="@+id/cc_info_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/line_separator"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="16dp"
-            android:gravity="end"
-            tools:text="****8500"
-            />
 
-        <com.braintreepayments.cardform.view.CardForm
-            android:id="@+id/fragment_braintree_credit_card_form"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/line_separator"
-            android:layout_margin="16dp"
-            android:theme="@style/AppTheme"
-            />
+            >
+          <TextView
+              android:id="@+id/fragment_credit_card_authorization_pre_authorized_card"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="16dp"
+              android:layout_marginEnd="16dp"
+              android:gravity="end"
+              tools:text="****8500"
+              />
 
-        <CheckBox
-            android:id="@+id/fragment_credit_card_authorization_remember_card_check_box"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/fragment_braintree_credit_card_form"
-            android:layout_marginBottom="16dp"
-            android:checked="true"
-            android:text="@string/dialog_credit_card_remember"
-            />
+          <CheckBox
+              android:id="@+id/fragment_credit_card_authorization_remember_card_check_box"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_below="@id/fragment_braintree_credit_card_form"
+              android:layout_marginBottom="16dp"
+              android:checked="true"
+              android:text="@string/dialog_credit_card_remember"
+              />
+
+          <com.braintreepayments.cardform.view.CardForm
+              android:id="@+id/fragment_braintree_credit_card_form"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:theme="@style/AppTheme"
+              />
+
+        </RelativeLayout>
 
         <include
             layout="@layout/dialog_buy_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/fragment_credit_card_authorization_remember_card_check_box"
+            android:layout_below="@id/cc_info_view"
+            android:layout_marginTop="10dp"
             />
 
       </RelativeLayout>
@@ -150,26 +166,6 @@
           />
     </RelativeLayout>
 
-  </LinearLayout>
-
-  <LinearLayout
-      android:id="@+id/fragment_credit_card_authorization_progress_bar"
-      android:layout_width="0dp"
-      android:layout_height="0dp"
-      android:layout_alignBottom="@id/fragment_payment_card"
-      android:layout_alignEnd="@id/fragment_payment_card"
-      android:layout_alignStart="@id/fragment_payment_card"
-      android:layout_alignTop="@id/fragment_payment_card"
-      android:clickable="true"
-      android:focusable="true"
-      android:gravity="center"
-      android:orientation="vertical"
-      android:visibility="gone"
-      >
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
   </LinearLayout>
 
 </RelativeLayout>

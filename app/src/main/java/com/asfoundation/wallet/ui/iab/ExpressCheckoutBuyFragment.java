@@ -44,6 +44,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.Currency;
 import java.util.Formatter;
 import java.util.Locale;
@@ -177,23 +178,6 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     checkAndConsumePrevious();
   }
 
-  private Disposable checkAndConsumePrevious() {
-    return bdsBilling.getPurchases(BillingSupportedType.INAPP, Schedulers.io())
-        .filter(purchases -> !purchases.isEmpty())
-        .map(purchases -> purchases.get(0))
-        .map(Purchase::getUid)
-        .flatMap(purchaseUid -> walletService.getWalletAddress()
-            .flatMap(walletAddress -> walletService.signContent(walletAddress)
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess(aBoolean -> iabView.finish(buildBundle(bdsBilling)))
-                .observeOn(Schedulers.io())
-                .flatMap(
-                    signedContent -> bdsBilling.consumePurchases(purchaseUid, Schedulers.io())))
-            .toMaybe())
-        .subscribe(__ -> {
-        }, Throwable::printStackTrace);
-  }
-
   @Override public void onStart() {
     super.onStart();
   }
@@ -218,6 +202,23 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     iabView = null;
   }
 
+  private Disposable checkAndConsumePrevious() {
+    return bdsBilling.getPurchases(BillingSupportedType.INAPP, Schedulers.io())
+        .filter(purchases -> !purchases.isEmpty())
+        .map(purchases -> purchases.get(0))
+        .map(Purchase::getUid)
+        .flatMap(purchaseUid -> walletService.getWalletAddress()
+            .flatMap(walletAddress -> walletService.signContent(walletAddress)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSuccess(aBoolean -> iabView.finish(buildBundle(bdsBilling)))
+                .observeOn(Schedulers.io())
+                .flatMap(
+                    signedContent -> bdsBilling.consumePurchases(purchaseUid, Schedulers.io())))
+            .toMaybe())
+        .subscribe(__ -> {
+        }, Throwable::printStackTrace);
+  }
+
   @Override public void onAttach(Context context) {
     super.onAttach(context);
     if (!(context instanceof IabView)) {
@@ -234,8 +235,9 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
         (BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT))
         .toString() + " APPC";
     String valueTextCompose = valueText + " = ";
+    DecimalFormat decimalFormat = new DecimalFormat("0.00");
     String currency = mapCurrencyCodeToSymbol(response.getCurrency());
-    String priceText = currency + Double.toString(response.getAmount());
+    String priceText = currency + decimalFormat.format(response.getAmount());
     String finalString = valueTextCompose + priceText;
     Spannable spannable = new SpannableString(finalString);
     spannable.setSpan(new AbsoluteSizeSpan(12, true), finalString.indexOf(valueTextCompose),

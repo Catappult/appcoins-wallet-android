@@ -7,6 +7,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.adyen.core.models.Amount;
 import com.adyen.core.models.PaymentMethod;
@@ -68,6 +70,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   @Inject Adyen adyen;
   @Inject BillingFactory billingFactory;
   private View progressBar;
+  private View ccInfoView;
   private IabView iabView;
   private RxAlertDialog networkErrorDialog;
   private CardForm cardForm;
@@ -123,6 +126,8 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
     preAuthorizedCardText =
         view.findViewById(R.id.fragment_credit_card_authorization_pre_authorized_card);
     progressBar = view.findViewById(R.id.fragment_credit_card_authorization_progress_bar);
+    ccInfoView = view.findViewById(R.id.cc_info_view);
+    ccInfoView.setVisibility(View.INVISIBLE);
     productIcon = view.findViewById(R.id.app_icon);
     productName = view.findViewById(R.id.app_name);
     productDescription = view.findViewById(R.id.app_sku_description);
@@ -135,7 +140,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
     rememberCardCheckBox =
         view.findViewById(R.id.fragment_credit_card_authorization_remember_card_check_box);
 
-    buyButton.setVisibility(View.GONE);
+    buyButton.setVisibility(View.INVISIBLE);
 
     cardForm.setOnCardFormValidListener(valid -> {
       if (valid) {
@@ -144,7 +149,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
         }
         buyButton.setVisibility(View.VISIBLE);
       } else {
-        buyButton.setVisibility(View.GONE);
+        buyButton.setVisibility(View.INVISIBLE);
       }
     });
     cardForm.setOnCardFormSubmitListener(() -> {
@@ -171,6 +176,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
     rememberCardCheckBox = null;
     buyButton = null;
     preAuthorizedCardText = null;
+    ccInfoView = null;
     cardForm.setOnCardFormSubmitListener(null);
     cardForm.setOnCardFormValidListener(null);
     cardForm = null;
@@ -237,6 +243,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
 
   @Override public void showCvcView(Amount amount, PaymentMethod paymentMethod) {
     cvcOnly = true;
+    //cardForm.findViewById(com.braintreepayments.cardform.R.id.bt_card_form_card_number_icon).setVisibility(View.GONE);
     this.paymentMethod = paymentMethod;
     showProductPrice(amount);
     preAuthorizedCardText.setVisibility(View.VISIBLE);
@@ -254,6 +261,9 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   @Override
   public void showCreditCardView(PaymentMethod paymentMethod, Amount amount, boolean cvcStatus,
       boolean allowSave, String publicKey, String generationTime) {
+    //LinearLayout.LayoutParams ccNumberParams = (LinearLayout.LayoutParams)cardForm.findViewById(R.id.bt_card_form_card_number_icon).getLayoutParams();
+    //ccNumberParams.gravity = View.TEXT_ALIGNMENT_VIEW_START;
+    //cardForm.findViewById(R.id.bt_card_form_card_number_icon).setLayoutParams(ccNumberParams);
     this.paymentMethod = paymentMethod;
     this.publicKey = publicKey;
     this.generationTime = generationTime;
@@ -261,6 +271,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
     preAuthorizedCardText.setVisibility(View.GONE);
     rememberCardCheckBox.setVisibility(View.VISIBLE);
     showProductPrice(amount);
+    cardForm.setCardNumberIcon(0);
     cardForm.cardRequired(true)
         .expirationRequired(true)
         .cvvRequired(cvcStatus)
@@ -268,6 +279,19 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
         .mobileNumberRequired(false)
         .actionLabel(getString(R.string.action_buy))
         .setup(getActivity());
+
+    hideLoading();
+    cardForm.findViewById(R.id.bt_card_form_card_number_icon)
+        .setVisibility(View.GONE);
+    ((TextInputLayout) cardForm.findViewById(R.id.bt_card_form_card_number)
+        .getParent()
+        .getParent()).setPadding(24, 50, 0, 0);
+    ((LinearLayout) cardForm.findViewById(R.id.bt_card_form_expiration)
+        .getParent()
+        .getParent()
+        .getParent()).setPadding(24, 0, 0, 0);
+    ccInfoView.setVisibility(View.VISIBLE);
+    buyButton.setVisibility(View.VISIBLE);
   }
 
   @Override public void close(Bundle bundle) {

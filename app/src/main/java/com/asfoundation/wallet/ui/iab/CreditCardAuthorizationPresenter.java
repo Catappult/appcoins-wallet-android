@@ -30,7 +30,7 @@ public class CreditCardAuthorizationPresenter {
   private final ExternalBillingSerializer billingSerializer;
   private final String transactionData;
   private final String developerPayload;
-
+  private final Billing billing;
   private CreditCardAuthorizationView view;
   private FindDefaultWalletInteract defaultWalletInteract;
 
@@ -94,7 +94,6 @@ public class CreditCardAuthorizationPresenter {
     disposables.add(adyen.getPaymentData()
         .observeOn(viewScheduler)
         .doOnSuccess(data -> {
-          view.hideLoading();
           if (data.getPaymentMethod()
               .getType()
               .equals(PaymentMethod.Type.CARD)) {
@@ -160,8 +159,6 @@ public class CreditCardAuthorizationPresenter {
             .subscribe(__ -> {
             }, throwable -> showError(throwable)));
   }
-
-  private final Billing billing;
 
   private void onViewCreatedCheckAuthorizationFailed() {
     disposables.add(
