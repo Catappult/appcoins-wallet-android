@@ -31,6 +31,7 @@ import com.appcoins.wallet.billing.repository.RemoteRepository;
 import com.appcoins.wallet.billing.repository.entity.DeveloperPurchase;
 import com.appcoins.wallet.billing.repository.entity.Purchase;
 import com.asf.wallet.R;
+import com.facebook.appevents.AppEventsLogger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -254,6 +255,8 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     }
     dialog.setVisibility(View.VISIBLE);
     loadingView.setVisibility(View.GONE);
+    AppEventsLogger.newLogger(getContext())
+        .logEvent("in_app_purchase_dialog_credit_card_open");
   }
 
   @Override public void showError() {

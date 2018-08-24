@@ -72,6 +72,8 @@ android {
         "\"" + project.REGISTER_PROOF_GAS_LIMIT + "\""
     buildConfigField 'String', 'PAYMENT_GAS_LIMIT',
         "\"" + project.PAYMENT_GAS_LIMIT + "\""
+
+    resValue "string", "facebook_app_id", project.FACEBOOK_APP_KEY
   }
 
   signingConfigs {
@@ -229,6 +231,7 @@ dependencies {
 
   // Needed to fill the gap between wallet's rxjava2 and billing rxjava1.
   implementation "com.github.akarnokd:rxjava2-interop:0.13.0"
+  implementation "com.facebook.android:facebook-android-sdk:4.35.0"
 }
 
 def renameArtifact(defaultConfig) {
