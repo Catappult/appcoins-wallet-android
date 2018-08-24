@@ -215,10 +215,18 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
 
   @Override public void showLoading() {
     progressBar.setVisibility(View.VISIBLE);
+    cardForm.setVisibility(View.GONE);
+    ccInfoView.setVisibility(View.INVISIBLE);
+    buyButton.setVisibility(View.INVISIBLE);
+    cancelButton.setVisibility(View.INVISIBLE);
   }
 
   @Override public void hideLoading() {
     progressBar.setVisibility(View.GONE);
+    cardForm.setVisibility(View.VISIBLE);
+    ccInfoView.setVisibility(View.VISIBLE);
+    buyButton.setVisibility(View.VISIBLE);
+    cancelButton.setVisibility(View.VISIBLE);
   }
 
   @Override public Observable<Void> errorDismisses() {
@@ -243,7 +251,8 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
 
   @Override public void showCvcView(Amount amount, PaymentMethod paymentMethod) {
     cvcOnly = true;
-    //cardForm.findViewById(com.braintreepayments.cardform.R.id.bt_card_form_card_number_icon).setVisibility(View.GONE);
+    cardForm.findViewById(com.braintreepayments.cardform.R.id.bt_card_form_card_number_icon)
+        .setVisibility(View.GONE);
     this.paymentMethod = paymentMethod;
     showProductPrice(amount);
     preAuthorizedCardText.setVisibility(View.VISIBLE);
@@ -256,14 +265,14 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
         .mobileNumberRequired(false)
         .actionLabel(getString(R.string.action_buy))
         .setup(getActivity());
+
+    hideLoading();
+    finishSetupView();
   }
 
   @Override
   public void showCreditCardView(PaymentMethod paymentMethod, Amount amount, boolean cvcStatus,
       boolean allowSave, String publicKey, String generationTime) {
-    //LinearLayout.LayoutParams ccNumberParams = (LinearLayout.LayoutParams)cardForm.findViewById(R.id.bt_card_form_card_number_icon).getLayoutParams();
-    //ccNumberParams.gravity = View.TEXT_ALIGNMENT_VIEW_START;
-    //cardForm.findViewById(R.id.bt_card_form_card_number_icon).setLayoutParams(ccNumberParams);
     this.paymentMethod = paymentMethod;
     this.publicKey = publicKey;
     this.generationTime = generationTime;
@@ -281,6 +290,10 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
         .setup(getActivity());
 
     hideLoading();
+    finishSetupView();
+  }
+
+  private void finishSetupView() {
     cardForm.findViewById(R.id.bt_card_form_card_number_icon)
         .setVisibility(View.GONE);
     ((TextInputLayout) cardForm.findViewById(R.id.bt_card_form_card_number)
@@ -290,8 +303,6 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
         .getParent()
         .getParent()
         .getParent()).setPadding(24, 0, 0, 0);
-    ccInfoView.setVisibility(View.VISIBLE);
-    buyButton.setVisibility(View.VISIBLE);
   }
 
   @Override public void close(Bundle bundle) {

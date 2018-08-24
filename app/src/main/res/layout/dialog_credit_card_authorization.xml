@@ -111,7 +111,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_below="@id/fragment_braintree_credit_card_form"
-              android:layout_marginBottom="16dp"
+              android:layout_marginBottom="12dp"
               android:checked="true"
               android:text="@string/dialog_credit_card_remember"
               />
@@ -120,6 +120,7 @@
               android:id="@+id/fragment_braintree_credit_card_form"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:layout_marginBottom="10dp"
               android:theme="@style/AppTheme"
               />
 
@@ -147,7 +148,7 @@
           android:layout_marginBottom="10dp"
           android:layout_marginStart="16dp"
           android:layout_marginTop="7dp"
-          android:src="@drawable/logo_asf_wallet"
+          android:src="@drawable/logo_appc_wallet"
           />
 
       <TextView
