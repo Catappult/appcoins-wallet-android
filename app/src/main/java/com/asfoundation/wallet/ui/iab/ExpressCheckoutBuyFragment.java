@@ -116,7 +116,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     return bundle;
   }
 
-  private static String serializeJson(Purchase purchase) throws IOException {
+  public static String serializeJson(Purchase purchase) throws IOException {
     ObjectMapper objectMapper = new ObjectMapper();
     DeveloperPurchase developerPurchase = objectMapper.readValue(new Gson().toJson(
         purchase.getSignature()
@@ -211,9 +211,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
             .flatMap(walletAddress -> walletService.signContent(walletAddress)
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSuccess(aBoolean -> iabView.finish(buildBundle(bdsBilling)))
-                .observeOn(Schedulers.io())
-                .flatMap(
-                    signedContent -> bdsBilling.consumePurchases(purchaseUid, Schedulers.io())))
+                .observeOn(Schedulers.io()))
             .toMaybe())
         .subscribe(__ -> {
         }, Throwable::printStackTrace);

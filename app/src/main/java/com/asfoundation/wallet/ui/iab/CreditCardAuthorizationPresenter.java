@@ -1,24 +1,34 @@
 package com.asfoundation.wallet.ui.iab;
 
+import android.os.Bundle;
 import com.adyen.core.models.PaymentMethod;
 import com.appcoins.wallet.billing.Billing;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
+import com.appcoins.wallet.billing.repository.BillingSupportedType;
 import com.asfoundation.wallet.billing.CreditCardBilling;
 import com.asfoundation.wallet.billing.payment.Adyen;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import hu.akarnokd.rxjava.interop.RxJavaInterop;
 import io.reactivex.Scheduler;
+import io.reactivex.schedulers.Schedulers;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 import rx.Completable;
 import rx.exceptions.OnErrorNotImplementedException;
 import rx.subscriptions.CompositeSubscription;
+
+import static com.asfoundation.wallet.ui.iab.ExpressCheckoutBuyFragment.serializeJson;
 
 /**
  * Created by franciscocalado on 30/07/2018.
  */
 
 public class CreditCardAuthorizationPresenter {
+
+  private static final String INAPP_PURCHASE_DATA = "INAPP_PURCHASE_DATA";
+  private static final String INAPP_DATA_SIGNATURE = "INAPP_DATA_SIGNATURE";
+  private static final String INAPP_PURCHASE_ID = "INAPP_PURCHASE_ID";
 
   private final rx.Scheduler viewScheduler;
   private final CompositeSubscription disposables;
@@ -153,11 +163,33 @@ public class CreditCardAuthorizationPresenter {
                     transaction.toAddress(), developerPayload)
                     .first(payment -> payment.isCompleted())
                     .observeOn(viewScheduler)
-                    .doOnNext(__ -> navigator.popView(ExpressCheckoutBuyFragment.buildBundle(
-                        billing)))//creditCardBilling.getTransactionUid()))
+                    .doOnNext(__ -> navigator.popView(
+                        buildBundle(billing)))//creditCardBilling.getTransactionUid()))
                     .doOnNext(__ -> view.showSuccess()))
             .subscribe(__ -> {
             }, throwable -> showError(throwable)));
+  }
+
+  private Bundle buildBundle(Billing billing) {
+    Bundle bundle = new Bundle();
+
+    billing.getPurchases(BillingSupportedType.INAPP, Schedulers.io())
+        .map(purchases -> purchases.get(0))
+        .retryWhen(throwableFlowable -> throwableFlowable.delay(3, TimeUnit.SECONDS)
+            .map(throwable -> 0)
+            .timeout(3, TimeUnit.MINUTES))
+        .doOnSuccess(purchase -> {
+          ExternalBillingSerializer serializer = new ExternalBillingSerializer();
+
+          bundle.putString(INAPP_PURCHASE_DATA, serializeJson(purchase));
+          bundle.putString(INAPP_DATA_SIGNATURE, purchase.getSignature()
+              .getValue());
+          bundle.putString(INAPP_PURCHASE_ID, purchase.getUid());
+        })
+        .ignoreElement()
+        .blockingAwait();
+
+    return bundle;
   }
 
   private void onViewCreatedCheckAuthorizationFailed() {
