@@ -218,10 +218,15 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
     cardForm.setVisibility(View.GONE);
     ccInfoView.setVisibility(View.INVISIBLE);
     buyButton.setVisibility(View.INVISIBLE);
+    cancelButton.setVisibility(View.INVISIBLE);
   }
 
   @Override public void hideLoading() {
     progressBar.setVisibility(View.GONE);
+    cardForm.setVisibility(View.VISIBLE);
+    ccInfoView.setVisibility(View.VISIBLE);
+    buyButton.setVisibility(View.VISIBLE);
+    cancelButton.setVisibility(View.VISIBLE);
   }
 
   @Override public Observable<Void> errorDismisses() {
@@ -290,8 +295,6 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
         .getParent()
         .getParent()
         .getParent()).setPadding(24, 0, 0, 0);
-    ccInfoView.setVisibility(View.VISIBLE);
-    buyButton.setVisibility(View.VISIBLE);
   }
 
   @Override public void close(Bundle bundle) {
