@@ -246,7 +246,8 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
 
   @Override public void showCvcView(Amount amount, PaymentMethod paymentMethod) {
     cvcOnly = true;
-    //cardForm.findViewById(com.braintreepayments.cardform.R.id.bt_card_form_card_number_icon).setVisibility(View.GONE);
+    cardForm.findViewById(com.braintreepayments.cardform.R.id.bt_card_form_card_number_icon)
+        .setVisibility(View.GONE);
     this.paymentMethod = paymentMethod;
     showProductPrice(amount);
     preAuthorizedCardText.setVisibility(View.VISIBLE);
@@ -259,6 +260,9 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
         .mobileNumberRequired(false)
         .actionLabel(getString(R.string.action_buy))
         .setup(getActivity());
+
+    hideLoading();
+    finishSetupView();
   }
 
   @Override
@@ -281,6 +285,10 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
         .setup(getActivity());
 
     hideLoading();
+    finishSetupView();
+  }
+
+  private void finishSetupView() {
     cardForm.findViewById(R.id.bt_card_form_card_number_icon)
         .setVisibility(View.GONE);
     ((TextInputLayout) cardForm.findViewById(R.id.bt_card_form_card_number)
