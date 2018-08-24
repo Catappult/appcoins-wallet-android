@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.asf.wallet.R;
+import com.facebook.appevents.AppEventsLogger;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxrelay2.PublishRelay;
 import dagger.android.support.DaggerFragment;
@@ -181,6 +182,8 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     }
     dialog.setVisibility(View.VISIBLE);
     loadingView.setVisibility(View.GONE);
+    AppEventsLogger.newLogger(getContext())
+        .logEvent("in_app_purchase_dialog_credit_card_open");
   }
 
   @Override public void showError() {
