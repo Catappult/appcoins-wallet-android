@@ -215,6 +215,9 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
 
   @Override public void showLoading() {
     progressBar.setVisibility(View.VISIBLE);
+    cardForm.setVisibility(View.GONE);
+    ccInfoView.setVisibility(View.INVISIBLE);
+    buyButton.setVisibility(View.INVISIBLE);
   }
 
   @Override public void hideLoading() {
@@ -261,9 +264,6 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   @Override
   public void showCreditCardView(PaymentMethod paymentMethod, Amount amount, boolean cvcStatus,
       boolean allowSave, String publicKey, String generationTime) {
-    //LinearLayout.LayoutParams ccNumberParams = (LinearLayout.LayoutParams)cardForm.findViewById(R.id.bt_card_form_card_number_icon).getLayoutParams();
-    //ccNumberParams.gravity = View.TEXT_ALIGNMENT_VIEW_START;
-    //cardForm.findViewById(R.id.bt_card_form_card_number_icon).setLayoutParams(ccNumberParams);
     this.paymentMethod = paymentMethod;
     this.publicKey = publicKey;
     this.generationTime = generationTime;

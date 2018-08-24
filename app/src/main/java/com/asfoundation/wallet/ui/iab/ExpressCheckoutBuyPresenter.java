@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.iab;
 
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
+import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -20,8 +21,8 @@ public class ExpressCheckoutBuyPresenter {
 
   public ExpressCheckoutBuyPresenter(ExpressCheckoutBuyView view,
       InAppPurchaseInteractor inAppPurchaseInteractor, Scheduler viewScheduler,
-      CompositeDisposable disposables,
-      BillingMessagesMapper billingMessagesMapper, ExternalBillingSerializer billingSerializer) {
+      CompositeDisposable disposables, BillingMessagesMapper billingMessagesMapper,
+      ExternalBillingSerializer billingSerializer) {
     this.view = view;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.viewScheduler = viewScheduler;
@@ -34,12 +35,24 @@ public class ExpressCheckoutBuyPresenter {
     setupUi(transactionValue, currency);
     handleCancelClick();
     handleErrorDismisses();
+    showDialog();
   }
 
   private void setupUi(double transactionValue, String currency) {
     disposables.add(inAppPurchaseInteractor.convertToFiat(transactionValue, currency)
-            .observeOn(viewScheduler)
+        .observeOn(viewScheduler)
         .doOnSuccess(view::setup)
+        .subscribe(__ -> {
+        }, this::showError));
+  }
+
+  private void showDialog() {
+    disposables.add(Observable.combineLatest(view.consumePurchasesCompleted()
+        .take(1), view.setupUiCompleted()
+        .take(1), (aBoolean, aBoolean2) -> aBoolean && aBoolean2)
+        .filter(result -> result)
+        .observeOn(viewScheduler)
+        .doOnNext(__ -> view.hideLoading())
         .subscribe(__ -> {
         }, this::showError));
   }
@@ -63,13 +76,10 @@ public class ExpressCheckoutBuyPresenter {
     view.close(billingMessagesMapper.mapCancellation());
   }
 
-
   private void handleErrorDismisses() {
     disposables.add(view.errorDismisses()
         .doOnNext(__ -> close())
         .subscribe(__ -> {
         }, this::showError));
   }
-
-
 }

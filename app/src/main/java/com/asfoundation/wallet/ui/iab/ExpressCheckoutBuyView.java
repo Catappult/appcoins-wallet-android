@@ -18,4 +18,10 @@ public interface ExpressCheckoutBuyView {
   void close(Bundle bundle);
 
   Observable<Object> errorDismisses();
+
+  void hideLoading();
+
+  Observable<Boolean> consumePurchasesCompleted();
+
+  Observable<Boolean> setupUiCompleted();
 }

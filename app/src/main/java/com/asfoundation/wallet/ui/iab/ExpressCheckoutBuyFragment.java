@@ -37,12 +37,14 @@ import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxrelay2.PublishRelay;
 import dagger.android.support.DaggerFragment;
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.PublishSubject;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -89,6 +91,9 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   private Button errorDismissButton;
   private BdsBilling bdsBilling;
 
+  private PublishSubject<Boolean> setupSubject;
+  private PublishSubject<Boolean> consumePurchasesSubject;
+
   public static ExpressCheckoutBuyFragment newInstance(Bundle extras) {
     ExpressCheckoutBuyFragment fragment = new ExpressCheckoutBuyFragment();
     Bundle bundle = new Bundle();
@@ -127,6 +132,10 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
+    setupSubject = PublishSubject.create();
+    consumePurchasesSubject = PublishSubject.create();
+
     extras = getArguments().getBundle("extras");
     presenter = new ExpressCheckoutBuyPresenter(this, inAppPurchaseInteractor,
         AndroidSchedulers.mainThread(), new CompositeDisposable(),
@@ -161,8 +170,9 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
 
     Single.defer(() -> Single.just(getAppPackage()))
         .observeOn(Schedulers.io())
-        .map(packageName -> new Pair<>(getApplicationName(packageName), getContext().getPackageManager()
-            .getApplicationIcon(packageName)))
+        .map(packageName -> new Pair<>(getApplicationName(packageName),
+            getContext().getPackageManager()
+                .getApplicationIcon(packageName)))
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(pair -> {
           appName.setText(pair.first);
@@ -205,13 +215,24 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
 
   private Disposable checkAndConsumePrevious() {
     return bdsBilling.getPurchases(BillingSupportedType.INAPP, Schedulers.io())
-        .filter(purchases -> !purchases.isEmpty())
+        .flatMapMaybe(purchases -> {
+          if (purchases.isEmpty()) {
+            consumePurchasesSubject.onNext(true);
+            return null;
+          } else {
+            return Maybe.just(purchases);
+          }
+        })
+        .filter(purchases -> purchases != null)
         .map(purchases -> purchases.get(0))
         .map(Purchase::getUid)
         .flatMap(purchaseUid -> walletService.getWalletAddress()
             .flatMap(walletAddress -> walletService.signContent(walletAddress)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess(aBoolean -> iabView.finish(buildBundle(bdsBilling)))
+                .doOnSuccess(aBoolean -> {
+                  iabView.finish(buildBundle(bdsBilling));
+                  consumePurchasesSubject.onNext(true);
+                })
                 .observeOn(Schedulers.io()))
             .toMaybe())
         .subscribe(__ -> {
@@ -253,10 +274,12 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
       itemHeaderDescription.setText(extras.getString(PRODUCT_NAME));
       itemListDescription.setText(extras.getString(PRODUCT_NAME));
     }
-    dialog.setVisibility(View.VISIBLE);
-    loadingView.setVisibility(View.GONE);
+    //dialog.setVisibility(View.VISIBLE);
+    //loadingView.setVisibility(View.GONE);
     AppEventsLogger.newLogger(getContext())
         .logEvent("in_app_purchase_dialog_credit_card_open");
+
+    setupSubject.onNext(true);
   }
 
   @Override public void showError() {
@@ -276,6 +299,22 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
 
   @Override public Observable<Object> errorDismisses() {
     return RxView.clicks(errorDismissButton);
+  }
+
+  @Override public void hideLoading() {
+    loadingView.setVisibility(View.GONE);
+    dialog.setVisibility(View.VISIBLE);
+  }
+
+  @Override public Observable<Boolean> consumePurchasesCompleted() {
+    return consumePurchasesSubject;
+  }
+
+  @Override public Observable<Boolean> setupUiCompleted() {
+    return setupSubject;
+  }
+
+  private void showUi() {
   }
 
   private CharSequence getApplicationName(String appPackage)
