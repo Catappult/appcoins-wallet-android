@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.ui.iab.IabActivity;
+import com.facebook.appevents.AppEventsLogger;
 import dagger.android.AndroidInjection;
 import io.reactivex.disposables.Disposable;
 import javax.inject.Inject;
@@ -22,6 +23,8 @@ public class Erc681Receiver extends BaseActivity {
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     AndroidInjection.inject(this);
     super.onCreate(savedInstanceState);
+    AppEventsLogger.newLogger(this)
+        .logEvent("In_App_Purchase_Dialog_Open");
   }
 
   private void startApp(Throwable throwable) {
