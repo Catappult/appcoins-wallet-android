@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.ui.BaseActivity;
+import com.facebook.appevents.AppEventsLogger;
 import dagger.android.AndroidInjection;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -85,6 +86,8 @@ public class IabActivity extends BaseActivity implements IabView {
   }
 
   @Override public void finish(Bundle bundle) {
+    AppEventsLogger.newLogger(this)
+        .logEvent("in_app_purchase_success");
     setResult(Activity.RESULT_OK, new Intent().putExtras(bundle));
     finish();
   }
