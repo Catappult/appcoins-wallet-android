@@ -30,19 +30,21 @@ import com.appcoins.wallet.billing.repository.BillingSupportedType;
 import com.appcoins.wallet.billing.repository.RemoteRepository;
 import com.appcoins.wallet.billing.repository.entity.DeveloperPurchase;
 import com.appcoins.wallet.billing.repository.entity.Purchase;
+import com.appcoins.wallet.billing.repository.entity.Transaction;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.facebook.appevents.AppEventsLogger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxrelay2.PublishRelay;
 import dagger.android.support.DaggerFragment;
+import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 import java.io.IOException;
@@ -55,6 +57,7 @@ import javax.inject.Inject;
 
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_CURRENCY;
+import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_DATA;
 
 /**
  * Created by franciscocalado on 20/07/2018.
@@ -63,6 +66,7 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_CURRENCY;
 public class ExpressCheckoutBuyFragment extends DaggerFragment implements ExpressCheckoutBuyView {
   public static final String APP_PACKAGE = "app_package";
   public static final String PRODUCT_NAME = "product_name";
+  public static final String SKU_ID = "sku_id";
 
   private static final String INAPP_PURCHASE_DATA = "INAPP_PURCHASE_DATA";
   private static final String INAPP_DATA_SIGNATURE = "INAPP_DATA_SIGNATURE";
@@ -72,6 +76,10 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject RemoteRepository.BdsApi bdsApi;
   @Inject WalletService walletService;
+
+  @Inject BdsPendingTransactionService bdsPendingTransactionService;
+  @Inject BdsRepository bdsRepository;
+
   private Bundle extras;
   private PublishRelay<Snackbar> buyButtonClick;
   private IabView iabView;
@@ -168,6 +176,11 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     errorMessage = view.findViewById(R.id.activity_iab_error_message);
     errorDismissButton = view.findViewById(R.id.activity_iab_error_ok_button);
 
+    compositeDisposable.add(checkProcessing().onErrorComplete()
+        .andThen(checkAndConsumePrevious())
+        .subscribe(() -> {
+        }, Throwable::printStackTrace));
+
     Single.defer(() -> Single.just(getAppPackage()))
         .observeOn(Schedulers.io())
         .map(packageName -> new Pair<>(getApplicationName(packageName),
@@ -185,8 +198,25 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     // TODO: 12-08-2018 neuro add currency
     presenter.present(((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue(),
         extras.getString(TRANSACTION_CURRENCY));
+  }
 
-    compositeDisposable.add(checkAndConsumePrevious());
+  private Completable checkProcessing() {
+    return walletService.getWalletAddress()
+        .flatMap(walletAddress -> walletService.signContent(walletAddress)
+            .flatMap(signedContent -> bdsRepository.getSkuTransaction(getAppPackage(), getSkuId(),
+                walletAddress, signedContent)))
+        .filter(transaction -> transaction.getStatus() != Transaction.Status.COMPLETED)
+        .map(Transaction::getUid)
+        .flatMapObservable(
+            uid -> bdsPendingTransactionService.checkTransactionStateFromTransactionId(uid)
+                .doOnComplete(() -> iabView.finish(buildBundle(bdsBilling))))
+        .ignoreElements();
+  }
+
+  private String getSkuId() {
+    return inAppPurchaseInteractor.parseTransaction(extras.getString(TRANSACTION_DATA))
+        .blockingGet()
+        .getSkuId();
   }
 
   @Override public void onStart() {
@@ -215,7 +245,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     iabView = null;
   }
 
-  private Disposable checkAndConsumePrevious() {
+  private Completable checkAndConsumePrevious() {
     return bdsBilling.getPurchases(BillingSupportedType.INAPP, Schedulers.io())
         .flatMapMaybe(purchases -> {
           if (purchases.isEmpty()) {
@@ -237,8 +267,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
                 })
                 .observeOn(Schedulers.io()))
             .toMaybe())
-        .subscribe(__ -> {
-        }, Throwable::printStackTrace);
+        .ignoreElement();
   }
 
   @Override public void onAttach(Context context) {
@@ -331,6 +360,13 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
       return extras.getString(APP_PACKAGE);
     }
     throw new IllegalArgumentException("previous app package name not found");
+  }
+
+  public String getProductName() {
+    if (extras.containsKey(PRODUCT_NAME)) {
+      return extras.getString(PRODUCT_NAME);
+    }
+    throw new IllegalArgumentException("product name not found");
   }
 
   public String mapCurrencyCodeToSymbol(String currencyCode) {
