@@ -24,7 +24,7 @@ public class Erc681Receiver extends BaseActivity {
     AndroidInjection.inject(this);
     super.onCreate(savedInstanceState);
     AppEventsLogger.newLogger(this)
-        .logEvent("In_App_Purchase_Dialog_Open");
+        .logEvent("in_app_purchase_dialog_open");
   }
 
   private void startApp(Throwable throwable) {
