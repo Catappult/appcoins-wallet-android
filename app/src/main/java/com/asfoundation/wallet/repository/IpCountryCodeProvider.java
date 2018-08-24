@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.repository;
 
-import com.appcoins.wallet.billing.BuildConfig;
 import com.asfoundation.wallet.poa.CountryCodeProvider;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -8,7 +7,7 @@ import io.reactivex.Single;
 import retrofit2.http.GET;
 
 public class IpCountryCodeProvider implements CountryCodeProvider {
-  public static String ENDPOINT = BuildConfig.BASE_HOST;
+  public static String ENDPOINT = com.asf.wallet.BuildConfig.CONVERSION_HOST;
   private final IpApi ipApi;
 
   public IpCountryCodeProvider(IpApi ipApi) {
