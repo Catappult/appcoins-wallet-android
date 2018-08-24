@@ -67,6 +67,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   private static final String INAPP_PURCHASE_DATA = "INAPP_PURCHASE_DATA";
   private static final String INAPP_DATA_SIGNATURE = "INAPP_DATA_SIGNATURE";
   private static final String INAPP_PURCHASE_ID = "INAPP_PURCHASE_ID";
+  private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject RemoteRepository.BdsApi bdsApi;
@@ -90,7 +91,6 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   private TextView errorMessage;
   private Button errorDismissButton;
   private BdsBilling bdsBilling;
-
   private PublishSubject<Boolean> setupSubject;
   private PublishSubject<Boolean> consumePurchasesSubject;
 
@@ -186,7 +186,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     presenter.present(((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue(),
         extras.getString(TRANSACTION_CURRENCY));
 
-    checkAndConsumePrevious();
+    compositeDisposable.add(checkAndConsumePrevious());
   }
 
   @Override public void onStart() {
@@ -195,6 +195,8 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
 
   @Override public void onDestroyView() {
     super.onDestroyView();
+    compositeDisposable.dispose();
+
     presenter.stop();
     loadingView = null;
     dialog = null;
