@@ -544,4 +544,15 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
       TransactionService transactionService, WalletService walletService, Adyen adyen) {
     return merchantName -> new AdyenBilling(merchantName, transactionService, walletService, adyen);
   }
+
+  @Singleton @Provides BdsPendingTransactionService provideBdsPendingTransactionService(
+      BillingFactory billingFactory, BillingPaymentProofSubmission billingPaymentProofSubmission) {
+    return new BdsPendingTransactionService(billingFactory, Schedulers.io(), 5,
+        billingPaymentProofSubmission);
+  }
+
+  @Singleton @Provides BdsRepository provideBdsRepository(RemoteRepository.BdsApi bdsApi) {
+    return new BdsRepository(new RemoteRepository(bdsApi, new BdsApiResponseMapper()),
+        new BillingThrowableCodeMapper());
+  }
 }
