@@ -13,7 +13,6 @@ import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.BehaviorSubject;
-import io.reactivex.subjects.PublishSubject;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -41,10 +40,13 @@ import static org.mockito.Mockito.when;
   @Mock TransactionSender transactionSender;
   @Mock TransactionValidator transactionValidator;
   @Mock DefaultTokenProvider defaultTokenProvider;
+  @Mock CountryCodeProvider countryCodeProvider;
   private TestScheduler scheduler;
   private WatchedTransactionService transactionService;
   private TransactionBuilder transactionBuilder;
-  @Mock CountryCodeProvider countryCodeProvider;
+  private BuyService buyService;
+  private Observable<PendingTransaction> pendingTransactionState;
+  private String uri;
   private DataMapper dataMapper;
 
   @Before public void setup() {
@@ -65,23 +67,25 @@ import static org.mockito.Mockito.when;
     when(defaultTokenProvider.getDefaultToken()).thenReturn(Single.just(tokenInfo));
     when(countryCodeProvider.getCountryCode()).thenReturn(Single.just("PT"));
     dataMapper = new DataMapper();
-  }
 
-  @Test public void buy() {
-    PublishSubject<PendingTransaction> pendingTransactionState = PublishSubject.create();
+    pendingTransactionState = Observable.just(new PendingTransaction("hash", true),
+        new PendingTransaction("hash", false));
+
     when(trackTransactionService.checkTransactionState(anyString())).thenReturn(
         pendingTransactionState);
 
-    BuyService buyService =
-        new BuyService(transactionService, transactionValidator, defaultTokenProvider,
-            countryCodeProvider, dataMapper);
-    buyService.start();
-    scheduler.triggerActions();
+    buyService = new BuyService(transactionService, transactionValidator, defaultTokenProvider,
+        countryCodeProvider, dataMapper);
+    uri = "uri";
+  }
 
-    String uri = "uri";
+  @Test public void buy() {
+    buyService.start();
     TestObserver<BuyService.BuyTransaction> observer = new TestObserver<>();
     buyService.getBuy(uri)
         .subscribe(observer);
+
+    scheduler.triggerActions();
 
     buyService.buy(uri,
         new PaymentTransaction(uri, transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
@@ -89,11 +93,7 @@ import static org.mockito.Mockito.when;
         .subscribe();
 
     scheduler.triggerActions();
-    pendingTransactionState.onNext(new PendingTransaction("hash", true));
-    scheduler.triggerActions();
-    pendingTransactionState.onNext(new PendingTransaction("hash", false));
-    pendingTransactionState.onComplete();
-    scheduler.triggerActions();
+
     List<BuyService.BuyTransaction> values = observer.values();
     Assert.assertEquals(values.size(), 3);
     Assert.assertEquals(values.get(2)
@@ -110,16 +110,17 @@ import static org.mockito.Mockito.when;
         new BuyService(transactionService, transactionValidator, defaultTokenProvider,
             countryCodeProvider, dataMapper);
     buyService.start();
-
-    String uri = "uri";
     TestObserver<BuyService.BuyTransaction> observer = new TestObserver<>();
     buyService.getBuy(uri)
         .subscribe(observer);
+
     scheduler.triggerActions();
+
     buyService.buy(uri,
         new PaymentTransaction(uri, transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
             "", null, PACKAGE_NAME, PRODUCT_NAME))
         .subscribe();
+
     scheduler.triggerActions();
 
     List<BuyService.BuyTransaction> values = observer.values();

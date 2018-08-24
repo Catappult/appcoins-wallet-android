@@ -14,6 +14,7 @@ public class ErrorMapper {
   public static final String NONCE_TOO_LOW_ERROR_MESSAGE = "nonce too low";
 
   public PaymentTransaction.PaymentState map(Throwable throwable) {
+    throwable.printStackTrace();
     if (throwable instanceof UnknownHostException) {
       return PaymentTransaction.PaymentState.NO_INTERNET;
     }

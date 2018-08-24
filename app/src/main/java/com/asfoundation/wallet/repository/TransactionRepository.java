@@ -109,6 +109,7 @@ public class TransactionRepository implements TransactionRepositoryType {
   @Override public Single<String> computeBuyTransactionHash(TransactionBuilder transactionBuilder,
       String password) {
     return defaultTokenProvider.getDefaultToken()
+        .observeOn(scheduler)
         .flatMap(tokenInfo -> createRawTransaction(transactionBuilder, password,
             transactionBuilder.appcoinsData(), transactionBuilder.getIabContract(),
             BigDecimal.ZERO,

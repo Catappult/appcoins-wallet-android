@@ -8,9 +8,10 @@ data class Transaction(val uid: String, val status: Status, val gateway: Gateway
     }
 
   }
-}
 
-enum class Status {
-  PENDING, PENDING_SERVICE_AUTHORIZATION, PROCESSING, COMPLETED, INVALID_TRANSACTION, FAILED,
-  CANCELED
+  enum class Status {
+    PENDING, PENDING_SERVICE_AUTHORIZATION, PROCESSING, COMPLETED, INVALID_TRANSACTION, FAILED,
+    CANCELED
+  }
+
 }

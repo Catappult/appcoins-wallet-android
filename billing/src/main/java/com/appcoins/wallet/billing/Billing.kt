@@ -16,7 +16,7 @@ interface Billing {
 
   fun getProducts(skus: List<String>, type: String): Single<List<Product>>
 
-  fun getSkuTransactionStatus(sku: String, scheduler: Scheduler): Single<Transaction>
+  fun getAppcoinsTransaction(uid: String, scheduler: Scheduler): Single<Transaction>
 
   fun getSkuPurchase(sku: String, scheduler: Scheduler): Single<Purchase>
 
