@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.ui.BaseActivity;
 import com.facebook.appevents.AppEventsLogger;
@@ -106,37 +105,10 @@ public class IabActivity extends BaseActivity implements IabView {
     finish();
   }
 
-  @Override public void setup(BigDecimal amount, Boolean canBuy) {
-    if (savedInstanceState == null) {
-      //This is a feature toggle! If we set canBuy to true we will force the on chain buy flow
-      //canBuy = true;
-      Bundle bundle = createBundle(amount);
-
-      if (getSupportFragmentManager().getFragments()
-          .isEmpty()) {
-        if (canBuy) {
-          getSupportFragmentManager().beginTransaction()
-              .add(R.id.fragment_container, OnChainBuyFragment.newInstance(bundle,
-                  getIntent().getData()
-                      .toString()))
-              .commit();
-        } else {
-          getSupportFragmentManager().beginTransaction()
-              .add(R.id.fragment_container, ExpressCheckoutBuyFragment.newInstance(bundle))
-              .commit();
-        }
-      }
-    }
-  }
-
   @Override public void navigateToCreditCardAuthorization() {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container, CreditCardAuthorizationFragment.newInstance(skuDetails))
         .commit();
-  }
-
-  @Override public void show(InAppPurchaseInteractor.CurrentPaymentStep canBuy) {
-    Log.d(TAG, "show: " + canBuy);
   }
 
   @Override public void showOnChain(BigDecimal amount) {
@@ -146,6 +118,16 @@ public class IabActivity extends BaseActivity implements IabView {
           .add(R.id.fragment_container, OnChainBuyFragment.newInstance(createBundle(amount),
               getIntent().getData()
                   .toString()))
+          .commit();
+    }
+  }
+
+  @Override public void showOffChain(BigDecimal amount) {
+    if (savedInstanceState == null && getSupportFragmentManager().getFragments()
+        .isEmpty()) {
+      getSupportFragmentManager().beginTransaction()
+          .add(R.id.fragment_container,
+              ExpressCheckoutBuyFragment.newInstance(createBundle(amount)))
           .commit();
     }
   }
