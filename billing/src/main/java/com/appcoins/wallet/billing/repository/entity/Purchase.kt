@@ -13,11 +13,7 @@ data class RemoteProduct(val name: String)
 
 data class Package(val name: String)
 
-data class Signature(val value: String, val message: Message)
-
-data class Message(val orderId: String, val packageName: String, val productId: String,
-                   val purchaseTime: Long, val purchaseToken: String,
-                   val purchaseState: Integer, val developerPayload: String)
+data class Signature(val value: String, val message: DeveloperPurchase)
 
 class PurchaseSignatureSerializer: JsonSerializer<Purchase> {
   override fun serialize(purchase: Purchase?, typeOfSrc: Type?,
