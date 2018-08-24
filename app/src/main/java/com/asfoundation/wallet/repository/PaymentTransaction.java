@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.repository;
 
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import java.math.BigInteger;
 import javax.annotation.Nullable;
 
 /**
@@ -9,7 +8,6 @@ import javax.annotation.Nullable;
  */
 
 public class PaymentTransaction {
-  public static final BigInteger INVALID_NONCE = new BigInteger("-1");
   private final String uri;
   private final @Nullable String approveHash;
   private final @Nullable String buyHash;

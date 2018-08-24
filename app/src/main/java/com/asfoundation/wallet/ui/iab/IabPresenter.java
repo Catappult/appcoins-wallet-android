@@ -35,7 +35,7 @@ public class IabPresenter {
   private void setupUi() {
     disposables.add(inAppPurchaseInteractor.parseTransaction(uriString)
         .flatMap(transactionBuilder -> inAppPurchaseInteractor.getCurrentPaymentStep(appPackage,
-            transactionBuilder.getSkuId(), transactionBuilder)
+            transactionBuilder)
             .observeOn(viewScheduler)
             .doOnSuccess(paymentStatus -> {
               switch (paymentStatus) {

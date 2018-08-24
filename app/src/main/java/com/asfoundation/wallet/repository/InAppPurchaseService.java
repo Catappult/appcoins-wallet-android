@@ -36,6 +36,11 @@ public class InAppPurchaseService {
   }
 
   public Completable send(String key, PaymentTransaction paymentTransaction) {
+    return checkFunds(key, paymentTransaction, approveService.approve(key, paymentTransaction));
+  }
+
+  private Completable checkFunds(String key, PaymentTransaction paymentTransaction,
+      Completable action) {
     return Completable.fromAction(() -> cache.saveSync(key, paymentTransaction))
         .andThen(balanceService.hasEnoughBalance(paymentTransaction.getTransactionBuilder(),
             paymentTransaction.getTransactionBuilder()
@@ -54,11 +59,15 @@ public class InAppPurchaseService {
                       PaymentTransaction.PaymentState.NO_FUNDS));
                 case OK:
                 default:
-                  return approveService.approve(key, paymentTransaction);
+                  return action;
               }
             }))
         .onErrorResumeNext(throwable -> cache.save(paymentTransaction.getUri(),
             new PaymentTransaction(paymentTransaction, errorMapper.map(throwable))));
+  }
+
+  public Completable resume(String key, PaymentTransaction paymentTransaction) {
+    return checkFunds(key, paymentTransaction, buyService.buy(key, paymentTransaction));
   }
 
   public void start() {

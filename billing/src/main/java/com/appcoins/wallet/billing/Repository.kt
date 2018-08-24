@@ -38,6 +38,8 @@ interface Repository {
                            signedData: String, paymentProof: String): Completable
 
   fun getGateways(): Single<List<Gateway>>
+  fun getAppcoinsTransaction(uid: String, address: String,
+                             signedContent: String): Single<Transaction>
 
   enum class BillingType {
     inapp, subs

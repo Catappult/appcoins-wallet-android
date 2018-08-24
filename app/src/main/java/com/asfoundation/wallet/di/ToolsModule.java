@@ -49,6 +49,8 @@ import com.asfoundation.wallet.poa.TransactionFactory;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.ApproveTransactionValidator;
 import com.asfoundation.wallet.repository.BalanceService;
+import com.asfoundation.wallet.repository.BdsPendingTransactionService;
+import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.BlockChainWriter;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.BuyTransactionValidator;
@@ -90,6 +92,8 @@ import com.asfoundation.wallet.ui.iab.AppCoinsOperationMapper;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository;
 import com.asfoundation.wallet.ui.iab.AppInfoProvider;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
+import com.asfoundation.wallet.ui.iab.ApproveKeyProvider;
+import com.asfoundation.wallet.ui.iab.BdsInAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.ImageSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase;
@@ -209,10 +213,11 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
       @Named("wait_pending_transaction") TrackTransactionService pendingTransactionService,
       BillingPaymentProofSubmission billingPaymentProofSubmission,
       DefaultTokenProvider defaultTokenProvider, CountryCodeProvider countryCodeProvider,
-      DataMapper dataMapper) {
+      DataMapper dataMapper, BillingFactory billingFactory) {
     return new BuyService(new WatchedTransactionService(sendTransactionInteract::buy,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
-        Schedulers.io(), pendingTransactionService),
+        Schedulers.io(), new BdsPendingTransactionService(billingFactory, Schedulers.io(), 5,
+        billingPaymentProofSubmission)),
         new BuyTransactionValidator(sendTransactionInteract, billingPaymentProofSubmission,
             defaultTokenProvider), defaultTokenProvider, countryCodeProvider, dataMapper);
   }
@@ -251,12 +256,29 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
       InAppPurchaseService inAppPurchaseService, FindDefaultWalletInteract defaultWalletInteract,
       FetchGasSettingsInteract gasSettingsInteract, TransferParser parser,
       RaidenRepository raidenRepository, ChannelService channelService,
-      BillingFactory billingFactory, ExpressCheckoutBuyService expressCheckoutBuyService) {
+      BillingFactory billingFactory, ExpressCheckoutBuyService expressCheckoutBuyService,
+      BdsTransactionService bdsTransactionService) {
 
     return new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
         raidenRepository, channelService, new BillingMessagesMapper(), billingFactory,
-        new ExternalBillingSerializer(), expressCheckoutBuyService);
+        new ExternalBillingSerializer(), expressCheckoutBuyService, bdsTransactionService,
+        Schedulers.io());
+  }
+
+  @Singleton @Provides BdsTransactionService providesBdsTransactionService(
+      BillingFactory billingFactory, BillingPaymentProofSubmission billingPaymentProofSubmission) {
+    return new BdsTransactionService(Schedulers.io(),
+        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new CompositeDisposable(),
+        new BdsPendingTransactionService(billingFactory, Schedulers.io(), 5,
+            billingPaymentProofSubmission));
+  }
+
+  @Singleton @Provides BdsInAppPurchaseInteractor provideBdsInAppPurchaseInteractor(
+      BillingPaymentProofSubmission billingPaymentProofSubmission,
+      InAppPurchaseInteractor inAppPurchaseInteractor, BillingFactory billingFactory) {
+    return new BdsInAppPurchaseInteractor(inAppPurchaseInteractor, billingPaymentProofSubmission,
+        new ApproveKeyProvider(billingFactory));
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(

@@ -21,15 +21,16 @@ public class OnChainBuyPresenter {
 
   private static final String TAG = OnChainBuyPresenter.class.getSimpleName();
   private final OnChainBuyView view;
-  private final InAppPurchaseInteractor inAppPurchaseInteractor;
+  private final BdsInAppPurchaseInteractor inAppPurchaseInteractor;
   private final Scheduler viewScheduler;
   private final CompositeDisposable disposables;
   private final BillingMessagesMapper billingMessagesMapper;
   private final ExternalBillingSerializer billingSerializer;
 
-  public OnChainBuyPresenter(OnChainBuyView view, InAppPurchaseInteractor inAppPurchaseInteractor,
-      Scheduler viewScheduler, CompositeDisposable disposables,
-      BillingMessagesMapper billingMessagesMapper, ExternalBillingSerializer billingSerializer) {
+  public OnChainBuyPresenter(OnChainBuyView view,
+      BdsInAppPurchaseInteractor inAppPurchaseInteractor, Scheduler viewScheduler,
+      CompositeDisposable disposables, BillingMessagesMapper billingMessagesMapper,
+      ExternalBillingSerializer billingSerializer) {
     this.view = view;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.viewScheduler = viewScheduler;
@@ -39,7 +40,7 @@ public class OnChainBuyPresenter {
   }
 
   public void present(String uriString, String appPackage, String productName, BigDecimal amount) {
-    setupUi(amount);
+    setupUi(amount, uriString, appPackage);
 
     handleCancelClick();
 
@@ -119,8 +120,27 @@ public class OnChainBuyPresenter {
         .subscribe(click -> close()));
   }
 
-  private void setupUi(BigDecimal appcAmount) {
-    setup(appcAmount);
+  private void setupUi(BigDecimal appcAmount, String uri, String packageName) {
+    disposables.add(inAppPurchaseInteractor.parseTransaction(uri)
+        .flatMapCompletable(
+            transaction -> inAppPurchaseInteractor.getCurrentPaymentStep(packageName, transaction)
+                .flatMapCompletable(currentPaymentStep -> {
+                  switch (currentPaymentStep) {
+                    case PAUSED_ON_CHAIN:
+                      return inAppPurchaseInteractor.resume(uri,
+                          InAppPurchaseInteractor.TransactionType.NORMAL, packageName,
+                          transaction.getSkuId());
+                    case READY:
+                      return Completable.fromAction(() -> setup(appcAmount))
+                          .subscribeOn(AndroidSchedulers.mainThread());
+                    case PAUSED_OFF_CHAIN:
+                    case NO_FUNDS:
+                    default:
+                      return Completable.error(new UnsupportedOperationException(
+                          "Cannot resume from " + currentPaymentStep.name() + " status"));
+                  }
+                }))
+        .subscribe());
 
     disposables.add(inAppPurchaseInteractor.getWalletAddress()
         .observeOn(viewScheduler)
@@ -169,9 +189,8 @@ public class OnChainBuyPresenter {
             .andThen(inAppPurchaseInteractor.getCompletedPurchase(transaction.getPackageName(),
                 transaction.getProductId())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess(purchase -> view.finish(billingMessagesMapper.mapPurchase(
-                    purchase.getUid(),
-                    purchase.getSignature()
+                .doOnSuccess(purchase -> view.finish(
+                    billingMessagesMapper.mapPurchase(purchase.getUid(), purchase.getSignature()
                         .getValue(), billingSerializer.serializeSignatureData(purchase))))
                 .toCompletable()
                 .onErrorResumeNext(throwable -> Completable.fromAction(() -> showError(throwable)))

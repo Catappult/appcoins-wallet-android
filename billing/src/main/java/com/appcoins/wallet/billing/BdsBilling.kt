@@ -27,10 +27,11 @@ class BdsBilling(private val merchantName: String,
     return repository.getSkuDetails(merchantName, skus, Repository.BillingType.valueOf(type))
   }
 
-  override fun getSkuTransactionStatus(sku: String, scheduler: Scheduler): Single<Transaction> {
+  override fun getAppcoinsTransaction(uid: String,
+                                      scheduler: Scheduler): Single<Transaction> {
     return walletService.getWalletAddress().flatMap { address ->
       walletService.signContent(address).observeOn(scheduler).flatMap { signedContent ->
-        repository.getSkuTransaction(merchantName, sku, address, signedContent)
+        repository.getAppcoinsTransaction(uid, address, signedContent)
       }
     }
   }

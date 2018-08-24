@@ -55,7 +55,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   public static final String PRODUCT_NAME = "product_name";
   public static final String TRANSACTION_HASH = "transaction_hash";
   private static final String TAG = OnChainBuyFragment.class.getSimpleName();
-  @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
+  @Inject BdsInAppPurchaseInteractor inAppPurchaseInteractor;
   private BehaviorSubject<Object> raidenMoreInfoOkButtonClick;
   private BehaviorSubject<Boolean> createChannelClick;
   private PublishRelay<OnChainBuyPresenter.BuyData> buyButtonClick;

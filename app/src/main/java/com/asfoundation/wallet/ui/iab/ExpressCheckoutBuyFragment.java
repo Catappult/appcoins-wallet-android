@@ -19,8 +19,21 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import com.appcoins.wallet.billing.BdsBilling;
+import com.appcoins.wallet.billing.Billing;
+import com.appcoins.wallet.billing.BillingThrowableCodeMapper;
+import com.appcoins.wallet.billing.WalletService;
+import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
+import com.appcoins.wallet.billing.repository.BdsApiResponseMapper;
+import com.appcoins.wallet.billing.repository.BdsRepository;
+import com.appcoins.wallet.billing.repository.BillingSupportedType;
+import com.appcoins.wallet.billing.repository.RemoteRepository;
+import com.appcoins.wallet.billing.repository.entity.DeveloperPurchase;
+import com.appcoins.wallet.billing.repository.entity.Purchase;
 import com.asf.wallet.R;
 import com.facebook.appevents.AppEventsLogger;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxrelay2.PublishRelay;
 import dagger.android.support.DaggerFragment;
@@ -28,8 +41,11 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.Currency;
 import java.util.Formatter;
 import java.util.Locale;
@@ -45,7 +61,14 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_CURRENCY;
 public class ExpressCheckoutBuyFragment extends DaggerFragment implements ExpressCheckoutBuyView {
   public static final String APP_PACKAGE = "app_package";
   public static final String PRODUCT_NAME = "product_name";
+
+  private static final String INAPP_PURCHASE_DATA = "INAPP_PURCHASE_DATA";
+  private static final String INAPP_DATA_SIGNATURE = "INAPP_DATA_SIGNATURE";
+  private static final String INAPP_PURCHASE_ID = "INAPP_PURCHASE_ID";
+
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
+  @Inject RemoteRepository.BdsApi bdsApi;
+  @Inject WalletService walletService;
   private Bundle extras;
   private PublishRelay<Snackbar> buyButtonClick;
   private IabView iabView;
@@ -64,6 +87,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   private View errorView;
   private TextView errorMessage;
   private Button errorDismissButton;
+  private BdsBilling bdsBilling;
 
   public static ExpressCheckoutBuyFragment newInstance(Bundle extras) {
     ExpressCheckoutBuyFragment fragment = new ExpressCheckoutBuyFragment();
@@ -73,6 +97,34 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     return fragment;
   }
 
+  static Bundle buildBundle(Billing billing) {
+    Bundle bundle = new Bundle();
+
+    billing.getPurchases(BillingSupportedType.INAPP, Schedulers.io())
+        .filter(purchases -> !purchases.isEmpty())
+        .map(purchases -> purchases.get(0))
+        .doOnSuccess(purchase -> {
+          ExternalBillingSerializer serializer = new ExternalBillingSerializer();
+
+          bundle.putString(INAPP_PURCHASE_DATA, serializeJson(purchase));
+          bundle.putString(INAPP_DATA_SIGNATURE, purchase.getSignature()
+              .getValue());
+          bundle.putString(INAPP_PURCHASE_ID, purchase.getUid());
+        })
+        .ignoreElement()
+        .blockingAwait();
+
+    return bundle;
+  }
+
+  public static String serializeJson(Purchase purchase) throws IOException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    DeveloperPurchase developerPurchase = objectMapper.readValue(new Gson().toJson(
+        purchase.getSignature()
+            .getMessage()), DeveloperPurchase.class);
+    return objectMapper.writeValueAsString(developerPurchase);
+  }
+
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     extras = getArguments().getBundle("extras");
@@ -80,6 +132,10 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
         AndroidSchedulers.mainThread(), new CompositeDisposable(),
         inAppPurchaseInteractor.getBillingMessagesMapper(),
         inAppPurchaseInteractor.getBillingSerializer());
+
+    bdsBilling = new BdsBilling(getAppPackage(),
+        new BdsRepository(new RemoteRepository(bdsApi, new BdsApiResponseMapper()),
+            new BillingThrowableCodeMapper()), walletService, new BillingThrowableCodeMapper());
   }
 
   @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -105,9 +161,8 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
 
     Single.defer(() -> Single.just(getAppPackage()))
         .observeOn(Schedulers.io())
-        .map(packageName -> new Pair<>(getApplicationName(packageName),
-            getContext().getPackageManager()
-                .getApplicationIcon(packageName)))
+        .map(packageName -> new Pair<>(getApplicationName(packageName), getContext().getPackageManager()
+            .getApplicationIcon(packageName)))
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(pair -> {
           appName.setText(pair.first);
@@ -120,6 +175,8 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     // TODO: 12-08-2018 neuro add currency
     presenter.present(((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue(),
         extras.getString(TRANSACTION_CURRENCY));
+
+    checkAndConsumePrevious();
   }
 
   @Override public void onStart() {
@@ -146,6 +203,21 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     iabView = null;
   }
 
+  private Disposable checkAndConsumePrevious() {
+    return bdsBilling.getPurchases(BillingSupportedType.INAPP, Schedulers.io())
+        .filter(purchases -> !purchases.isEmpty())
+        .map(purchases -> purchases.get(0))
+        .map(Purchase::getUid)
+        .flatMap(purchaseUid -> walletService.getWalletAddress()
+            .flatMap(walletAddress -> walletService.signContent(walletAddress)
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSuccess(aBoolean -> iabView.finish(buildBundle(bdsBilling)))
+                .observeOn(Schedulers.io()))
+            .toMaybe())
+        .subscribe(__ -> {
+        }, Throwable::printStackTrace);
+  }
+
   @Override public void onAttach(Context context) {
     super.onAttach(context);
     if (!(context instanceof IabView)) {
@@ -162,8 +234,9 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
         (BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT))
         .toString() + " APPC";
     String valueTextCompose = valueText + " = ";
+    DecimalFormat decimalFormat = new DecimalFormat("0.00");
     String currency = mapCurrencyCodeToSymbol(response.getCurrency());
-    String priceText = currency + Double.toString(response.getAmount());
+    String priceText = currency + decimalFormat.format(response.getAmount());
     String finalString = valueTextCompose + priceText;
     Spannable spannable = new SpannableString(finalString);
     spannable.setSpan(new AbsoluteSizeSpan(12, true), finalString.indexOf(valueTextCompose),

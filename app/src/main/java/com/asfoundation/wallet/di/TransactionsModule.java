@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.di;
 
+import com.appcoins.wallet.billing.BuildConfig;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchTransactionsInteract;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
@@ -41,6 +42,9 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 @Module class TransactionsModule {
+
+  private static final String BASE_HOST = BuildConfig.BASE_HOST;
+
   @Provides TransactionsViewModelFactory provideTransactionsViewModelFactory(
       FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
@@ -122,7 +126,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
         new Retrofit.Builder().addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(JacksonConverterFactory.create(objectMapper))
             .client(client)
-            .baseUrl("http://52.209.250.255/")
+            .baseUrl(BASE_HOST)
             .build();
 
     return new OffChainTransactionsRepository(
