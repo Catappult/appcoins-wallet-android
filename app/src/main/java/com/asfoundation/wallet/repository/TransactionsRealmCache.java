@@ -104,25 +104,37 @@ public class TransactionsRealmCache implements TransactionLocalSource {
     item.setGasUsed(transaction.gasUsed);
 
     for (TransactionOperation operation : transaction.operations) {
-      RealmTransactionOperation realmOperation =
-          realm.createObject(RealmTransactionOperation.class);
-      realmOperation.setTransactionId(operation.transactionId);
-      realmOperation.setViewType(operation.viewType);
-      realmOperation.setFrom(operation.from);
-      realmOperation.setTo(operation.to);
-      realmOperation.setValue(operation.value);
+      if (!isAddedAlready(operation.transactionId, item)) {
+        RealmTransactionOperation realmOperation =
+            realm.createObject(RealmTransactionOperation.class);
+        realmOperation.setTransactionId(operation.transactionId);
+        realmOperation.setViewType(operation.viewType);
+        realmOperation.setFrom(operation.from);
+        realmOperation.setTo(operation.to);
+        realmOperation.setValue(operation.value);
 
-      RealmTransactionContract realmContract = realm.createObject(RealmTransactionContract.class);
-      realmContract.setAddress(operation.contract.address);
-      realmContract.setName(operation.contract.name);
-      realmContract.setTotalSupply(operation.contract.totalSupply);
-      realmContract.setDecimals(operation.contract.decimals);
-      realmContract.setSymbol(operation.contract.symbol);
+        RealmTransactionContract realmContract = realm.createObject(RealmTransactionContract.class);
+        realmContract.setAddress(operation.contract.address);
+        realmContract.setName(operation.contract.name);
+        realmContract.setTotalSupply(operation.contract.totalSupply);
+        realmContract.setDecimals(operation.contract.decimals);
+        realmContract.setSymbol(operation.contract.symbol);
 
-      realmOperation.setContract(realmContract);
-      item.getOperations()
-          .add(realmOperation);
+        realmOperation.setContract(realmContract);
+        item.getOperations()
+            .add(realmOperation);
+      }
     }
+  }
+
+  private boolean isAddedAlready(String hash, RealmTransaction item) {
+    for (RealmTransactionOperation operation : item.getOperations()) {
+      if (operation.getTransactionId()
+          .equalsIgnoreCase(hash)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   private RawTransaction[] convert(RealmResults<RealmTransaction> items) {

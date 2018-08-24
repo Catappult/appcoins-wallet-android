@@ -19,8 +19,8 @@ import static com.asfoundation.wallet.transactions.Transaction.TransactionType.M
 
 public class TransactionsMapper {
   public static final String APPROVE_METHOD_ID = "0x095ea7b3";
-  public static final String BUY_METHOD_ID = "0xdc9564d5";
-  public static final String ADS_METHOD_ID = "0x79c6b667";
+  public static final String BUY_METHOD_ID = "0xb7a2e1f2";
+  public static final String ADS_METHOD_ID = "0xd5bde837";
   public static final String OPEN_CHANNEL_METHOD_ID = "0xa6d15963";
   public static final String TOPUP_CHANNEL_METHOD_ID = "0x016a8cf6";
   public static final String CLOSE_CHANNEL_METHOD_ID = "0x1c6f609b";
