@@ -6,6 +6,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
 import android.text.format.DateUtils;
+import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.NetworkInfo;
@@ -67,6 +68,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private Handler handler = new Handler();
   private final Runnable startFetchTransactionsTask = () -> this.fetchTransactions(false);
   private final Runnable startGetBalanceTask = this::getBalance;
+  private boolean hasTransactions = false;
 
   TransactionsViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
@@ -100,7 +102,7 @@ public class TransactionsViewModel extends BaseViewModel {
 
   @Override protected void onCleared() {
     super.onCleared();
-
+    hasTransactions = false;
     if (!disposables.isDisposed()) {
       disposables.dispose();
     }
@@ -142,8 +144,10 @@ public class TransactionsViewModel extends BaseViewModel {
                     .filter(microTransactions -> !microTransactions.isEmpty())
                     .flatMapSingle(transactionsMapper::map)),
         fetchTransactionsInteract.fetch(defaultWallet.getValue())
-            .flatMapSingle(transactionsMapper::map), offChainTransactions.getTransactions()
-            .toObservable())
+            .flatMapSingle(transactionsMapper::map), findDefaultNetworkInteract.find()
+            .filter(this::shouldShowOffChainTransactions)
+            .flatMapObservable(__ -> offChainTransactions.getTransactions()
+                .toObservable()))
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(this::onTransactions, this::onError, this::onTransactionsFetchCompleted));
 
@@ -164,6 +168,11 @@ public class TransactionsViewModel extends BaseViewModel {
           .doOnSubscribe(disposable -> appcoinsApplications.postValue(Collections.emptyList()))
           .subscribe(appcoinsApplications::postValue, Throwable::printStackTrace));
     }
+  }
+
+  private boolean shouldShowOffChainTransactions(NetworkInfo networkInfo) {
+    return networkInfo.chainId == 3 && BuildConfig.DEBUG
+        || networkInfo.chainId == 1 && !BuildConfig.DEBUG;
   }
 
   private void getBalance() {
@@ -189,6 +198,7 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   private void onTransactions(List<Transaction> transactions) {
+    hasTransactions = (transactions != null && !transactions.isEmpty()) || hasTransactions;
     this.transactions.setValue(transactions);
     Boolean last = progress.getValue();
     if (transactions != null && transactions.size() > 0 && last != null && last) {
@@ -199,7 +209,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private void onTransactionsFetchCompleted() {
     progress.postValue(false);
     List<Transaction> transactions = this.transactions.getValue();
-    if (transactions == null || transactions.size() == 0) {
+    if (!hasTransactions) {
       error.postValue(new ErrorEnvelope(C.ErrorCode.EMPTY_COLLECTION, "empty collection"));
     }
     handler.postDelayed(startFetchTransactionsTask, FETCH_TRANSACTIONS_INTERVAL);
