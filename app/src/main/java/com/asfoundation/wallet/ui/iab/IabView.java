@@ -15,11 +15,9 @@ public interface IabView {
 
   void close(Bundle bundle);
 
-  void setup(BigDecimal amount, Boolean canBuy);
-
   void navigateToCreditCardAuthorization();
 
-  void show(InAppPurchaseInteractor.CurrentPaymentStep canBuy);
-
   void showOnChain(BigDecimal amount);
+
+  void showOffChain(BigDecimal amount);
 }

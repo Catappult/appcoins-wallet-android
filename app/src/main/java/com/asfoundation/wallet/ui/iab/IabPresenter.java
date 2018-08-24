@@ -45,6 +45,9 @@ public class IabPresenter {
                   break;
                 case PAUSED_OFF_CHAIN:
                 case NO_FUNDS:
+                  view.showOffChain(transactionBuilder.amount());
+                  break;
+                default:
                   throw new NotImplementedError();
               }
             }))
