@@ -70,12 +70,14 @@ public class AdyenBilling implements CreditCardBilling {
     } else {
       relay.call(new AdyenAuthorization(adyenAuthorization.getSession(),
           AdyenAuthorization.Status.FAILED));
+      processingPayment.set(false);
     }
   }
 
   private void resetProcessingFlag(AdyenAuthorization adyenAuthorization) {
     if (adyenAuthorization.isCompleted() || adyenAuthorization.isFailed()) {
       processingPayment.set(false);
+      transactionUid = null;
     }
   }
 
