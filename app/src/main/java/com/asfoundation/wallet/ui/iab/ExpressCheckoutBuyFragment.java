@@ -101,6 +101,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   private BdsBilling bdsBilling;
   private PublishSubject<Boolean> setupSubject;
   private PublishSubject<Boolean> consumePurchasesSubject;
+  private View processingDialog;
 
   public static ExpressCheckoutBuyFragment newInstance(Bundle extras) {
     ExpressCheckoutBuyFragment fragment = new ExpressCheckoutBuyFragment();
@@ -175,6 +176,9 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     errorView = view.findViewById(R.id.error_message);
     errorMessage = view.findViewById(R.id.activity_iab_error_message);
     errorDismissButton = view.findViewById(R.id.activity_iab_error_ok_button);
+    processingDialog = view.findViewById(R.id.loading);
+    ((TextView) processingDialog.findViewById(R.id.loading_message)).setText(
+        R.string.activity_aib_buying_message);
 
     compositeDisposable.add(checkProcessing().onErrorComplete()
         .andThen(checkAndConsumePrevious())
@@ -232,6 +236,10 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
             .flatMap(signedContent -> bdsRepository.getSkuTransaction(getAppPackage(), getSkuId(),
                 walletAddress, signedContent)))
         .filter(transaction -> !isTransactionCompleted(transaction))
+        .map(transaction1 -> {
+          showProcessingLoadingDialog();
+          return transaction1.getUid();
+        })
         .flatMapObservable(
             uid -> bdsPendingTransactionService.checkTransactionStateFromTransactionId(uid)
                 .doOnComplete(() -> iabView.finish(buildBundle(bdsBilling))))
@@ -351,6 +359,12 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
 
   @Override public Observable<Boolean> setupUiCompleted() {
     return setupSubject;
+  }
+
+  private void showProcessingLoadingDialog() {
+    dialog.setVisibility(View.GONE);
+    loadingView.setVisibility(View.GONE);
+    processingDialog.setVisibility(View.VISIBLE);
   }
 
   private CharSequence getApplicationName(String appPackage)
