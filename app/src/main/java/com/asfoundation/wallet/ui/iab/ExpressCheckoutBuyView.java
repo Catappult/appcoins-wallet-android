@@ -21,6 +21,8 @@ public interface ExpressCheckoutBuyView {
 
   void hideLoading();
 
+  void showLoading();
+
   Observable<Boolean> consumePurchasesCompleted();
 
   Observable<Boolean> setupUiCompleted();

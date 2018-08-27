@@ -94,8 +94,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/line_separator"
-
             >
+
           <TextView
               android:id="@+id/fragment_credit_card_authorization_pre_authorized_card"
               android:layout_width="match_parent"

@@ -200,25 +200,6 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
         extras.getString(TRANSACTION_CURRENCY));
   }
 
-  private Completable checkProcessing() {
-    return walletService.getWalletAddress()
-        .flatMap(walletAddress -> walletService.signContent(walletAddress)
-            .flatMap(signedContent -> bdsRepository.getSkuTransaction(getAppPackage(), getSkuId(),
-                walletAddress, signedContent)))
-        .filter(transaction -> transaction.getStatus() != Transaction.Status.COMPLETED)
-        .map(Transaction::getUid)
-        .flatMapObservable(
-            uid -> bdsPendingTransactionService.checkTransactionStateFromTransactionId(uid)
-                .doOnComplete(() -> iabView.finish(buildBundle(bdsBilling))))
-        .ignoreElements();
-  }
-
-  private String getSkuId() {
-    return inAppPurchaseInteractor.parseTransaction(extras.getString(TRANSACTION_DATA))
-        .blockingGet()
-        .getSkuId();
-  }
-
   @Override public void onStart() {
     super.onStart();
   }
@@ -243,6 +224,25 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   @Override public void onDetach() {
     super.onDetach();
     iabView = null;
+  }
+
+  private Completable checkProcessing() {
+    return walletService.getWalletAddress()
+        .flatMap(walletAddress -> walletService.signContent(walletAddress)
+            .flatMap(signedContent -> bdsRepository.getSkuTransaction(getAppPackage(), getSkuId(),
+                walletAddress, signedContent)))
+        .filter(transaction -> transaction.getStatus() != Transaction.Status.COMPLETED)
+        .map(Transaction::getUid)
+        .flatMapObservable(
+            uid -> bdsPendingTransactionService.checkTransactionStateFromTransactionId(uid)
+                .doOnComplete(() -> iabView.finish(buildBundle(bdsBilling))))
+        .ignoreElements();
+  }
+
+  private String getSkuId() {
+    return inAppPurchaseInteractor.parseTransaction(extras.getString(TRANSACTION_DATA))
+        .blockingGet()
+        .getSkuId();
   }
 
   private Completable checkAndConsumePrevious() {
@@ -305,8 +305,6 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
       itemHeaderDescription.setText(extras.getString(PRODUCT_NAME));
       itemListDescription.setText(extras.getString(PRODUCT_NAME));
     }
-    //dialog.setVisibility(View.VISIBLE);
-    //loadingView.setVisibility(View.GONE);
     AppEventsLogger.newLogger(getContext())
         .logEvent("in_app_purchase_dialog_credit_card_open");
 
@@ -337,15 +335,17 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     dialog.setVisibility(View.VISIBLE);
   }
 
+  @Override public void showLoading() {
+    loadingView.setVisibility(View.VISIBLE);
+    dialog.setVisibility(View.GONE);
+  }
+
   @Override public Observable<Boolean> consumePurchasesCompleted() {
     return consumePurchasesSubject;
   }
 
   @Override public Observable<Boolean> setupUiCompleted() {
     return setupSubject;
-  }
-
-  private void showUi() {
   }
 
   private CharSequence getApplicationName(String appPackage)
