@@ -227,7 +227,6 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
     progressBar.setVisibility(View.GONE);
     cardForm.setVisibility(View.VISIBLE);
     ccInfoView.setVisibility(View.VISIBLE);
-    buyButton.setVisibility(View.VISIBLE);
     cancelButton.setVisibility(View.VISIBLE);
   }
 
