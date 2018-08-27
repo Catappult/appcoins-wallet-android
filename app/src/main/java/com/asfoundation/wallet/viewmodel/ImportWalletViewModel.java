@@ -7,7 +7,7 @@ import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.ServiceErrorException;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.ImportWalletInteract;
-import com.asfoundation.wallet.repository.WalletRepository;
+import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.ui.widget.OnImportKeystoreListener;
 import com.asfoundation.wallet.ui.widget.OnImportPrivateKeyListener;
 import io.reactivex.Completable;
@@ -17,10 +17,10 @@ public class ImportWalletViewModel extends BaseViewModel
 
   private final ImportWalletInteract importWalletInteract;
   private final MutableLiveData<Wallet> wallet = new MutableLiveData<>();
-  private final WalletRepository walletRepository;
+  private final WalletRepositoryType walletRepository;
 
   ImportWalletViewModel(ImportWalletInteract importWalletInteract,
-      WalletRepository walletRepository) {
+      WalletRepositoryType walletRepository) {
     this.importWalletInteract = importWalletInteract;
     this.walletRepository = walletRepository;
   }

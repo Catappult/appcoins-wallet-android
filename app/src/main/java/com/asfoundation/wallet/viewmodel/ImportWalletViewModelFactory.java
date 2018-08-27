@@ -4,15 +4,15 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 import com.asfoundation.wallet.interact.ImportWalletInteract;
-import com.asfoundation.wallet.repository.WalletRepository;
+import com.asfoundation.wallet.repository.WalletRepositoryType;
 
 public class ImportWalletViewModelFactory implements ViewModelProvider.Factory {
 
   private final ImportWalletInteract importWalletInteract;
-  private final WalletRepository walletRepository;
+  private final WalletRepositoryType walletRepository;
 
   public ImportWalletViewModelFactory(ImportWalletInteract importWalletInteract,
-      WalletRepository walletRepository) {
+      WalletRepositoryType walletRepository) {
     this.importWalletInteract = importWalletInteract;
     this.walletRepository = walletRepository;
   }
