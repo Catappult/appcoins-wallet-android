@@ -6,6 +6,7 @@ import com.appcoins.wallet.billing.Billing;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.asfoundation.wallet.billing.CreditCardBilling;
+import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
 import com.asfoundation.wallet.billing.payment.Adyen;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import hu.akarnokd.rxjava.interop.RxJavaInterop;
@@ -198,9 +199,13 @@ public class CreditCardAuthorizationPresenter {
                     transaction.toAddress(), developerPayload)
                     .first(payment -> payment.isFailed())
                     .observeOn(viewScheduler)
-                    .doOnNext(__ -> navigator.popViewWithError()))
+                    .doOnNext(adyenAuthorization -> showError(adyenAuthorization)))
             .subscribe(__ -> {
             }, throwable -> showError(throwable)));
+  }
+
+  private void showError(AdyenAuthorization adyenAuthorization) {
+    view.showPaymentRefusedError(adyenAuthorization);
   }
 
   private void onViewCreatedCheckAuthorizationProcessing() {

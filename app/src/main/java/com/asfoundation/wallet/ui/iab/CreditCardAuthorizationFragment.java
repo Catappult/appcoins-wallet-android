@@ -25,6 +25,7 @@ import com.adyen.core.utils.AmountUtil;
 import com.adyen.core.utils.StringUtils;
 import com.appcoins.wallet.billing.BillingFactory;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
 import com.asfoundation.wallet.billing.payment.Adyen;
 import com.asfoundation.wallet.billing.purchase.CreditCardBillingFactory;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
@@ -74,6 +75,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   private View ccInfoView;
   private IabView iabView;
   private RxAlertDialog networkErrorDialog;
+  private RxAlertDialog paymentRefusedDialog;
   private CardForm cardForm;
   private Button buyButton;
   private Button cancelButton;
@@ -92,6 +94,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   private CreditCardAuthorizationPresenter presenter;
   private PublishRelay<Void> backButton;
   private PublishRelay<Void> keyboardBuyRelay;
+  private CreditCardFragmentNavigator navigator;
 
   public static CreditCardAuthorizationFragment newInstance(Bundle skuDetails, String skuId) {
 
@@ -106,8 +109,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
     backButton = PublishRelay.create();
     keyboardBuyRelay = PublishRelay.create();
 
-    CreditCardFragmentNavigator navigator =
-        new CreditCardFragmentNavigator(getFragmentManager(), iabView);
+    navigator = new CreditCardFragmentNavigator(getFragmentManager(), iabView);
 
     presenter = new CreditCardAuthorizationPresenter(this, defaultWalletInteract,
         AndroidSchedulers.mainThread(), new CompositeSubscription(), adyen,
@@ -162,6 +164,14 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
         new RxAlertDialog.Builder(getContext()).setMessage(R.string.notification_no_internet_poa)
             .setPositiveButton(R.string.ok)
             .build();
+    paymentRefusedDialog =
+        new RxAlertDialog.Builder(getContext()).setMessage(R.string.notification_payment_refused)
+            .setPositiveButton(R.string.ok)
+            .build();
+
+    paymentRefusedDialog.positiveClicks()
+        .subscribe(dialogInterface -> navigator.popViewWithError(), Throwable::printStackTrace);
+
 
     showProduct();
     presenter.present();
@@ -231,7 +241,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   }
 
   @Override public Observable<Void> errorDismisses() {
-    return networkErrorDialog.dismisses()
+    return Observable.merge(networkErrorDialog.dismisses(), paymentRefusedDialog.dismisses())
         .map(dialogInterface -> null);
   }
 
@@ -316,6 +326,15 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
 
   @Override public void showSuccess() {
     // TODO: 02-08-2018 neuro
+  }
+
+  @Override public void showPaymentRefusedError(AdyenAuthorization adyenAuthorization) {
+    if (!paymentRefusedDialog.isShowing()) {
+      paymentRefusedDialog.show();
+
+      paymentRefusedDialog.positiveClicks()
+          .doOnNext(dialogInterface -> presenter.stop());
+    }
   }
 
   private PaymentDetails getPaymentDetails(String publicKey, String generationTime) {

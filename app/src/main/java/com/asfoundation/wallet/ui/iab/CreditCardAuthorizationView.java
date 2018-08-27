@@ -4,6 +4,7 @@ import android.os.Bundle;
 import com.adyen.core.models.Amount;
 import com.adyen.core.models.PaymentMethod;
 import com.adyen.core.models.paymentdetails.PaymentDetails;
+import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
 import rx.Observable;
 
 /**
@@ -36,4 +37,6 @@ public interface CreditCardAuthorizationView {
   void showWalletAddress(String address);
 
   void showSuccess();
+
+  void showPaymentRefusedError(AdyenAuthorization adyenAuthorization);
 }
