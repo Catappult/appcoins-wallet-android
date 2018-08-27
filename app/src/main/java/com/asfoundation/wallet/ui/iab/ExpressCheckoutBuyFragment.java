@@ -231,12 +231,17 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
         .flatMap(walletAddress -> walletService.signContent(walletAddress)
             .flatMap(signedContent -> bdsRepository.getSkuTransaction(getAppPackage(), getSkuId(),
                 walletAddress, signedContent)))
-        .filter(transaction -> transaction.getStatus() != Transaction.Status.COMPLETED)
-        .map(Transaction::getUid)
+        .filter(transaction -> !isTransactionCompleted(transaction))
         .flatMapObservable(
             uid -> bdsPendingTransactionService.checkTransactionStateFromTransactionId(uid)
                 .doOnComplete(() -> iabView.finish(buildBundle(bdsBilling))))
         .ignoreElements();
+  }
+
+  private boolean isTransactionCompleted(Transaction transaction) {
+    return !((transaction.getStatus() == Transaction.Status.PENDING) || (transaction.getStatus()
+        == Transaction.Status.PENDING_SERVICE_AUTHORIZATION) || (transaction.getStatus()
+        == Transaction.Status.PROCESSING));
   }
 
   private String getSkuId() {
