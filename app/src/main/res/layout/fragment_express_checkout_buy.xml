@@ -104,4 +104,6 @@
       android:layout_centerInParent="true"
       />
 
+  <include layout="@layout/fragment_iab_loading"/>
+
 </RelativeLayout>
