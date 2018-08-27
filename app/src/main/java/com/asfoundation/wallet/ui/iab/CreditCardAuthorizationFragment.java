@@ -59,6 +59,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
 
   private static final String TAG = CreditCardAuthorizationFragment.class.getSimpleName();
 
+  private static final String SKU_ID = "sku_id";
   private static final String PACKAGE_NAME = "packageName";
   private static final String APP_NAME = "appName";
   private static final String APP_DESCRIPTION = "appDescription";
@@ -92,9 +93,10 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   private PublishRelay<Void> backButton;
   private PublishRelay<Void> keyboardBuyRelay;
 
-  public static CreditCardAuthorizationFragment newInstance(Bundle skuDetails) {
+  public static CreditCardAuthorizationFragment newInstance(Bundle skuDetails, String skuId) {
 
     final CreditCardAuthorizationFragment fragment = new CreditCardAuthorizationFragment();
+    skuDetails.putString(SKU_ID, skuId);
     fragment.setArguments(skuDetails);
     return fragment;
   }
@@ -112,7 +114,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
         creditCardBillingFactory.getBilling(getAppPackage()), navigator,
         inAppPurchaseInteractor.getBillingMessagesMapper(), inAppPurchaseInteractor,
         inAppPurchaseInteractor.getBillingSerializer(), getTransactionData(), getDeveloperPayload(),
-        billingFactory.getBilling(getAppPackage()));
+        billingFactory.getBilling(getAppPackage()), getSkuId());
   }
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -370,6 +372,13 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
       return getArguments().getString(TRANSACTION_DATA);
     }
     throw new IllegalArgumentException("previous transaction data not found");
+  }
+
+  public String getSkuId() {
+    if (getArguments().containsKey(SKU_ID)) {
+      return getArguments().getString(SKU_ID);
+    }
+    throw new IllegalArgumentException("sku id not found");
   }
 
   public String getDeveloperPayload() {

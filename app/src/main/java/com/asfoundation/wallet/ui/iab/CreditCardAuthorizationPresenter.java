@@ -5,7 +5,6 @@ import com.adyen.core.models.PaymentMethod;
 import com.appcoins.wallet.billing.Billing;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
-import com.appcoins.wallet.billing.repository.BillingSupportedType;
 import com.asfoundation.wallet.billing.CreditCardBilling;
 import com.asfoundation.wallet.billing.payment.Adyen;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
@@ -41,6 +40,7 @@ public class CreditCardAuthorizationPresenter {
   private final String transactionData;
   private final String developerPayload;
   private final Billing billing;
+  private final String skuId;
   private CreditCardAuthorizationView view;
   private FindDefaultWalletInteract defaultWalletInteract;
 
@@ -49,7 +49,7 @@ public class CreditCardAuthorizationPresenter {
       CompositeSubscription disposables, Adyen adyen, CreditCardBilling creditCardBilling,
       CreditCardNavigator navigator, BillingMessagesMapper billingMessagesMapper,
       InAppPurchaseInteractor inAppPurchaseInteractor, ExternalBillingSerializer billingSerializer,
-      String transactionData, String developerPayload, Billing billing) {
+      String transactionData, String developerPayload, Billing billing, String skuId) {
     this.view = view;
     this.defaultWalletInteract = defaultWalletInteract;
     this.viewScheduler = RxJavaInterop.toV1Scheduler(viewScheduler);
@@ -63,6 +63,7 @@ public class CreditCardAuthorizationPresenter {
     this.transactionData = transactionData;
     this.developerPayload = developerPayload;
     this.billing = billing;
+    this.skuId = skuId;
   }
 
   public void present() {
@@ -173,14 +174,11 @@ public class CreditCardAuthorizationPresenter {
   private Bundle buildBundle(Billing billing) {
     Bundle bundle = new Bundle();
 
-    billing.getPurchases(BillingSupportedType.INAPP, Schedulers.io())
-        .map(purchases -> purchases.get(0))
+    billing.getSkuPurchase(skuId, Schedulers.io())
         .retryWhen(throwableFlowable -> throwableFlowable.delay(3, TimeUnit.SECONDS)
             .map(throwable -> 0)
             .timeout(3, TimeUnit.MINUTES))
         .doOnSuccess(purchase -> {
-          ExternalBillingSerializer serializer = new ExternalBillingSerializer();
-
           bundle.putString(INAPP_PURCHASE_DATA, serializeJson(purchase));
           bundle.putString(INAPP_DATA_SIGNATURE, purchase.getSignature()
               .getValue());
