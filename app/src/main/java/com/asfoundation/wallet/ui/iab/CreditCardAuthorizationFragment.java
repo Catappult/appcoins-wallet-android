@@ -331,9 +331,6 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   @Override public void showPaymentRefusedError(AdyenAuthorization adyenAuthorization) {
     if (!paymentRefusedDialog.isShowing()) {
       paymentRefusedDialog.show();
-
-      paymentRefusedDialog.positiveClicks()
-          .doOnNext(dialogInterface -> presenter.stop());
     }
   }
 

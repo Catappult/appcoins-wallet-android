@@ -70,7 +70,6 @@ public class AdyenBilling implements CreditCardBilling {
     } else {
       relay.call(new AdyenAuthorization(adyenAuthorization.getSession(),
           AdyenAuthorization.Status.FAILED));
-      processingPayment.set(false);
     }
   }
 
@@ -84,6 +83,8 @@ public class AdyenBilling implements CreditCardBilling {
   private void startPaymentIfNeeded(String productName, String developerAddress, String payload) {
     // TODO: 31-07-2018 neuro recheck
     if (!processingPayment.getAndSet(true)) {
+
+      this.adyenAuthorization = null;
       this.adyenAuthorization = RxJavaInterop.toV1Single(walletService.getWalletAddress())
           .flatMap(
               walletAddress -> RxJavaInterop.toV1Single(walletService.signContent(walletAddress))
