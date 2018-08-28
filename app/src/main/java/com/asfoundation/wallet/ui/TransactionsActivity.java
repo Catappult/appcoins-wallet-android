@@ -48,7 +48,7 @@ import static com.asfoundation.wallet.C.ErrorCode.EMPTY_COLLECTION;
 
 public class TransactionsActivity extends BaseNavigationActivity implements View.OnClickListener {
 
-  public static final String READ_MORE_INFO_URL = "https://www.appstorefoundation.org/readmore";
+  public static final String LEARN_MORE_INFO_URL = "https://appcoins.io/";
   private static final String TAG = TransactionsActivity.class.getSimpleName();
   @Inject TransactionsViewModelFactory transactionsViewModelFactory;
   @Inject AddTokenInteract addTokenInteract;
@@ -196,7 +196,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void openLearnMore() {
-    viewModel.onLearnMoreClick(this, Uri.parse(READ_MORE_INFO_URL));
+    viewModel.onLearnMoreClick(this, Uri.parse(LEARN_MORE_INFO_URL));
   }
 
   @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
