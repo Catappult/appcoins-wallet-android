@@ -81,7 +81,7 @@ public class TransactionDetailViewModel extends BaseViewModel {
   }
 
   private Uri buildBdsUri(Transaction transaction) {
-    return Uri.parse("https://appscan.ga/search/")
+    return Uri.parse("https://appcexplorer.io/transaction/")
         .buildUpon()
         .appendEncodedPath(transaction.getTransactionId())
         .build();
