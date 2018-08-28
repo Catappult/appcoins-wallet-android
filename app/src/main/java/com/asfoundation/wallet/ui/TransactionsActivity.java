@@ -254,11 +254,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     }
   }
 
-  private void isMainNetwork(NetworkInfo networkInfo, boolean isMainNet) {
-    isMainNet = networkInfo.isMainNetwork;
-  }
-
-
   private void checkRoot() {
     SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
     if (RootUtil.isDeviceRooted() && pref.getBoolean("should_show_root_warning", true)) {
