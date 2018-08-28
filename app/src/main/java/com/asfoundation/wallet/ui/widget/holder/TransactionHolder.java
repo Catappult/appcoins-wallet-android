@@ -81,7 +81,8 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     if (type == Transaction.TransactionType.ADS) {
       transactionTypeIcon = R.drawable.ic_transaction_poa;
     } else if (type == Transaction.TransactionType.IAB
-        || type == Transaction.TransactionType.MICRO_IAB) {
+        || type == Transaction.TransactionType.MICRO_IAB
+        || type == Transaction.TransactionType.IAP_OFFCHAIN) {
       transactionTypeIcon = R.drawable.ic_transaction_iab;
     } else if (type == Transaction.TransactionType.OPEN_CHANNEL
         || type == Transaction.TransactionType.TOP_UP_CHANNEL
