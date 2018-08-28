@@ -63,6 +63,8 @@ public class TransactionDetailActivity extends BaseActivity {
     AndroidInjection.inject(this);
 
     setContentView(R.layout.activity_transaction_detail);
+    findViewById(R.id.more_detail).setVisibility(View.GONE);
+
     disposables = new CompositeDisposable();
     transaction = getIntent().getParcelableExtra(TRANSACTION);
     if (transaction == null) {
@@ -165,6 +167,15 @@ public class TransactionDetailActivity extends BaseActivity {
         description =
             StringUtils.resizeString(isSent ? transaction.getTo() : transaction.getFrom(), 7,
                 getString(R.string.ellipsize));
+        break;
+      case IAP_OFFCHAIN:
+        View button = findViewById(R.id.more_detail);
+        button.setVisibility(View.VISIBLE);
+        to = transaction.getTo();
+        typeStr = R.string.transaction_type_iab;
+        typeIcon = R.drawable.ic_transaction_iab;
+        button.setOnClickListener(
+            view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
         break;
     }
 

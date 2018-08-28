@@ -15,6 +15,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.asfoundation.wallet.transactions.Transaction.TransactionType.IAP_OFFCHAIN;
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.MICRO_IAB;
 
 public class TransactionsMapper {
@@ -71,11 +72,14 @@ public class TransactionsMapper {
     for (int i = transactions.size() - 1; i >= 0; i--) {
       ChannelHistoryResponse.MicroTransaction transaction = transactions.get(i);
 
-      transactionList.add(0, new Transaction(transaction.getTxID(), MICRO_IAB, null,
+      Transaction.TransactionType txType =
+          "IAP OffChain".equals(transaction.getType()) ? IAP_OFFCHAIN : MICRO_IAB;
+
+      transactionList.add(0, new Transaction(transaction.getTxID(), txType, null,
           transaction.getTs()
               .getTime() / 1000, Transaction.TransactionStatus.SUCCESS, transaction.getAmount()
           .toString(), transaction.getSender(), transaction.getReceiver(),
-          getTransactionDetails(MICRO_IAB, transaction.getTxID()), "APPC", null));
+          getTransactionDetails(txType, transaction.getTxID()), "APPC", null));
     }
     return transactionList;
   }
