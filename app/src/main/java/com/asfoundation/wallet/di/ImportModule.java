@@ -6,15 +6,16 @@ import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.viewmodel.ImportWalletViewModelFactory;
 import dagger.Module;
 import dagger.Provides;
+import javax.inject.Singleton;
 
-@Module class ImportModule {
-  @Provides ImportWalletViewModelFactory provideImportWalletViewModelFactory(
-      ImportWalletInteract importWalletInteract) {
-    return new ImportWalletViewModelFactory(importWalletInteract);
+@Module(includes = RepositoriesModule.class) class ImportModule {
+  @Singleton @Provides ImportWalletInteract provideImportWalletInteract(
+      WalletRepositoryType walletRepository, PasswordStore passwordStore) {
+    return new ImportWalletInteract(walletRepository, passwordStore);
   }
 
-  @Provides ImportWalletInteract provideImportWalletInteract(WalletRepositoryType walletRepository,
-      PasswordStore passwordStore) {
-    return new ImportWalletInteract(walletRepository, passwordStore);
+  @Singleton @Provides ImportWalletViewModelFactory provideImportWalletViewModelFactory(
+      ImportWalletInteract importWalletInteract, WalletRepositoryType walletRepository) {
+    return new ImportWalletViewModelFactory(importWalletInteract, walletRepository);
   }
 }

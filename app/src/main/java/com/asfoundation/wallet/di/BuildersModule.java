@@ -30,7 +30,7 @@ import dagger.android.ContributesAndroidInjector;
   @ActivityScope @ContributesAndroidInjector(modules = AccountsManageModule.class)
   abstract WalletsActivity bindManageWalletsModule();
 
-  @ActivityScope @ContributesAndroidInjector(modules = ImportModule.class)
+  @ActivityScope @ContributesAndroidInjector
   abstract ImportWalletActivity bindImportWalletModule();
 
   @ActivityScope @ContributesAndroidInjector(modules = TransactionsModule.class)

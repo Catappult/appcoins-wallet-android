@@ -4,6 +4,7 @@ import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.rx.operator.Operators;
 import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
+import io.reactivex.Completable;
 import io.reactivex.Single;
 
 import static com.asfoundation.wallet.interact.rx.operator.Operators.completableErrorProxy;
@@ -33,5 +34,9 @@ public class CreateWalletInteract {
             throwable -> walletRepository.deleteWallet(wallet.address, masterPassword)
                 .lift(completableErrorProxy(throwable))
                 .toSingle(() -> wallet));
+  }
+
+  public Completable setDefaultWallet(Wallet wallet) {
+    return walletRepository.setDefaultWallet(wallet);
   }
 }
