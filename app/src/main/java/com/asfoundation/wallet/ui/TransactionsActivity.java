@@ -242,12 +242,22 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private void onError(ErrorEnvelope errorEnvelope) {
     if ((errorEnvelope.code == EMPTY_COLLECTION || adapter.getItemCount() == 0)) {
+      final boolean[] isMainNet = { false };
+      viewModel.defaultNetwork()
+          .observe(this, info -> isMainNet[0] = info.isMainNetwork);
+
       if (emptyView == null) {
-        emptyView = new EmptyTransactionsView(this, this);
+
+        emptyView = new EmptyTransactionsView(this, this, isMainNet[0]);
       }
       systemView.showEmpty(emptyView);
     }
   }
+
+  private void isMainNetwork(NetworkInfo networkInfo, boolean isMainNet) {
+    isMainNet = networkInfo.isMainNetwork;
+  }
+
 
   private void checkRoot() {
     SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
