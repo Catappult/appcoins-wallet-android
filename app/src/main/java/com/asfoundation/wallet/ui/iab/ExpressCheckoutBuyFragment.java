@@ -176,7 +176,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     errorView = view.findViewById(R.id.error_message);
     errorMessage = view.findViewById(R.id.activity_iab_error_message);
     errorDismissButton = view.findViewById(R.id.activity_iab_error_ok_button);
-    processingDialog = view.findViewById(R.id.loading);
+    processingDialog = view.findViewById(R.id.processing_loading);
     ((TextView) processingDialog.findViewById(R.id.loading_message)).setText(
         R.string.activity_aib_buying_message);
 
@@ -350,7 +350,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
 
   @Override public void showLoading() {
     loadingView.setVisibility(View.VISIBLE);
-    dialog.setVisibility(View.GONE);
+    dialog.setVisibility(View.INVISIBLE);
   }
 
   @Override public Observable<Boolean> consumePurchasesCompleted() {

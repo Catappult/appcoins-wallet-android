@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
     android:background="@drawable/background_card"
+    android:orientation="vertical"
     >
   <LinearLayout
       android:id="@+id/info_dialog"
@@ -102,8 +103,48 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_centerInParent="true"
+      android:visibility="visible"
       />
 
-  <include layout="@layout/fragment_iab_loading"/>
+  <LinearLayout
+      android:id="@+id/processing_loading"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:visibility="gone"
+      >
+    <TextView
+        android:id="@+id/loading_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:lineSpacingExtra="8sp"
+        android:text="@string/activity_aib_loading_title"
+        android:textColor="@color/black_87_alpha"
+        android:textSize="24sp"
+        />
+    <TextView
+        android:id="@+id/loading_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="@string/activity_aib_loading_message"
+        android:textColor="@color/iab_activity_gray"
+        />
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="38dp"
+        android:layout_marginTop="44dp"
+        android:indeterminateDrawable="@drawable/gradient_progress"
+        />
+  </LinearLayout>
 
 </RelativeLayout>

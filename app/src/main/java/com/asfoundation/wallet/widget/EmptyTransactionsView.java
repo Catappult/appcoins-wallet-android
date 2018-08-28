@@ -11,7 +11,8 @@ public class EmptyTransactionsView extends FrameLayout {
 
   private final Button airdropButton;
 
-  public EmptyTransactionsView(@NonNull Context context, OnClickListener onClickListener) {
+  public EmptyTransactionsView(@NonNull Context context, OnClickListener onClickListener,
+      boolean isMainNetwork) {
     super(context);
 
     LayoutInflater.from(getContext())
@@ -19,7 +20,12 @@ public class EmptyTransactionsView extends FrameLayout {
 
     airdropButton = findViewById(R.id.action_air_drop);
     findViewById(R.id.action_learn_more).setOnClickListener(onClickListener);
-    airdropButton.setOnClickListener(onClickListener);
+
+    if (isMainNetwork) {
+      airdropButton.setVisibility(GONE);
+    } else {
+      airdropButton.setOnClickListener(onClickListener);
+    }
   }
 
   public void setAirdropButtonEnable(boolean enabled) {
