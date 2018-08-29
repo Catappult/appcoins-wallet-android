@@ -102,6 +102,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   private PublishSubject<Boolean> setupSubject;
   private PublishSubject<Boolean> consumePurchasesSubject;
   private View processingDialog;
+  private TextView walletAddressView;
 
   public static ExpressCheckoutBuyFragment newInstance(Bundle extras) {
     ExpressCheckoutBuyFragment fragment = new ExpressCheckoutBuyFragment();
@@ -179,6 +180,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     processingDialog = view.findViewById(R.id.processing_loading);
     ((TextView) processingDialog.findViewById(R.id.loading_message)).setText(
         R.string.activity_aib_buying_message);
+    walletAddressView = view.findViewById(R.id.wallet_address_footer);
 
     compositeDisposable.add(checkProcessing().onErrorComplete()
         .andThen(checkAndConsumePrevious())
@@ -323,6 +325,10 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     AppEventsLogger.newLogger(getContext())
         .logEvent("in_app_purchase_dialog_credit_card_open");
 
+    compositeDisposable.add(walletService.getWalletAddress()
+        .doOnSuccess(address -> walletAddressView.setText(address))
+        .subscribe(__ -> {
+        }, Throwable::printStackTrace));
     setupSubject.onNext(true);
   }
 
