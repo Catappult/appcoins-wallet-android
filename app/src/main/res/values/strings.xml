@@ -1,5 +1,5 @@
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">AppCoins BDS Wallet</string>
   <string name="title_balance">Balance</string>
   <string name="title_send">Send</string>
   <string name="title_request">Receive</string>
@@ -168,7 +168,7 @@
   <string name="toast_qr_code_no_address">QR code doesn\'t contain valid address</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">AppCoins Wallet</string>
+  <string name="intro_title_first_page">AppCoins BDS Wallet</string>
   <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
   <string name="intro_title_third_page">Simple and Easy</string>
   <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
