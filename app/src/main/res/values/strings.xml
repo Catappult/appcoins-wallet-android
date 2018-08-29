@@ -168,12 +168,12 @@
   <string name="toast_qr_code_no_address">QR code doesn\'t contain valid address</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">Alpha Version</string>
+  <string name="intro_title_first_page">AppCoins Wallet</string>
   <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
-  <string name="intro_title_third_page">Fully Transparent</string>
-  <string name="intro_message_first_page">This app is an alpha version so you shouldn’t use it for important accounts yet!</string>
+  <string name="intro_title_third_page">Simple and Easy</string>
+  <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
   <string name="intro_message_second_page">Private keys never leave your device.</string>
-  <string name="intro_message_third_page">Code is open sourced (GPL-3.0 license) and fully audited.</string>
+  <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
   <!-- Menus -->
   <string name="navigation_settings">Settings</string>
   <!-- Labels -->
