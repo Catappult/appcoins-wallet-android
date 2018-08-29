@@ -3,6 +3,7 @@ package com.asfoundation.wallet.transactions;
 import android.support.annotation.Nullable;
 import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.TransactionOperation;
+import com.asfoundation.wallet.entity.WalletHistory;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperation;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
@@ -42,6 +43,12 @@ public class TransactionsMapper {
         .map(tokenInfo -> map(tokenInfo.address, transactions));
   }
 
+  public Single<List<Transaction>> mapFromWalletHistory(
+      List<WalletHistory.MicroTransaction> transactions) {
+    return Single.just(mapMicroTransactionsFromWalletHistory(transactions))
+        .observeOn(scheduler);
+  }
+
   public Single<List<Transaction>> map(List<ChannelHistoryResponse.MicroTransaction> transactions) {
     return Single.just(mapMicroTransactions(transactions)).observeOn(scheduler);
   }
@@ -71,6 +78,24 @@ public class TransactionsMapper {
     List<Transaction> transactionList = new ArrayList<>();
     for (int i = transactions.size() - 1; i >= 0; i--) {
       ChannelHistoryResponse.MicroTransaction transaction = transactions.get(i);
+
+      Transaction.TransactionType txType =
+          "IAP OffChain".equals(transaction.getType()) ? IAP_OFFCHAIN : MICRO_IAB;
+
+      transactionList.add(0, new Transaction(transaction.getTxID(), txType, null,
+          transaction.getTs()
+              .getTime() / 1000, Transaction.TransactionStatus.SUCCESS, transaction.getAmount()
+          .toString(), transaction.getSender(), transaction.getReceiver(),
+          getTransactionDetails(txType, transaction.getTxID()), "APPC", null));
+    }
+    return transactionList;
+  }
+
+  private List<Transaction> mapMicroTransactionsFromWalletHistory(
+      List<WalletHistory.MicroTransaction> transactions) {
+    List<Transaction> transactionList = new ArrayList<>();
+    for (int i = transactions.size() - 1; i >= 0; i--) {
+      WalletHistory.MicroTransaction transaction = transactions.get(i);
 
       Transaction.TransactionType txType =
           "IAP OffChain".equals(transaction.getType()) ? IAP_OFFCHAIN : MICRO_IAB;

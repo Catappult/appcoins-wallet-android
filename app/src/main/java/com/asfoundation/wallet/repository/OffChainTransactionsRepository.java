@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.repository;
 
-import com.bds.microraidenj.ws.ChannelHistoryResponse;
+import com.asfoundation.wallet.entity.WalletHistory;
 import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -12,12 +12,12 @@ public class OffChainTransactionsRepository {
     this.api = api;
   }
 
-  public Single<ChannelHistoryResponse> getTransactions(String wallet) {
+  public Single<WalletHistory> getTransactions(String wallet) {
     return api.transactionHistory(wallet, "iap_offchain");
   }
 
   public interface TransactionsApi {
-    @GET("appc/wallethistory") Single<ChannelHistoryResponse> transactionHistory(
+    @GET("appc/wallethistory") Single<WalletHistory> transactionHistory(
         @Query("wallet") String wallet, @Query("type") String transactionType);
   }
 }

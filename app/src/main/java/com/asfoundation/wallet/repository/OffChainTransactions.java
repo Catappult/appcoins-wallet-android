@@ -25,6 +25,7 @@ public class OffChainTransactions {
     return defaultWalletInteract.find()
         .observeOn(scheduler)
         .flatMap(wallet -> repository.getTransactions(wallet.address))
-        .flatMap(channelHistoryResponse -> mapper.map(channelHistoryResponse.getResult()));
+        .flatMap(channelHistoryResponse -> mapper.mapFromWalletHistory(
+            channelHistoryResponse.getResult()));
   }
 }
