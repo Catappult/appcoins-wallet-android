@@ -119,6 +119,9 @@ public class TransactionDetailActivity extends BaseActivity {
     String icon = null;
     String id = transaction.getTransactionId();
     String description = null;
+    if (transaction.getIconUrl() != null) {
+      icon = transaction.getIconUrl();
+    }
     if (transaction.getDetails() != null) {
       icon = transaction.getDetails()
           .getIcon();
@@ -234,8 +237,15 @@ public class TransactionDetailActivity extends BaseActivity {
     amount.setText(BalanceUtils.formatBalance(value, symbol, smallTitleSize, color));
 
     if (icon != null) {
+      String path;
+      if (icon.startsWith("http://") || icon.startsWith("https://")) {
+        path = icon;
+      } else {
+        path = "file:" + icon;
+      }
+
       Picasso.with(this)
-          .load("file:" + icon)
+          .load(path)
           .transform(new CircleTransformation())
           .fit()
           .into((ImageView) findViewById(R.id.img));

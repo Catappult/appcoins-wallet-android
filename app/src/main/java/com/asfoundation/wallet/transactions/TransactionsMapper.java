@@ -86,7 +86,7 @@ public class TransactionsMapper {
           transaction.getTs()
               .getTime() / 1000, Transaction.TransactionStatus.SUCCESS, transaction.getAmount()
           .toString(), transaction.getSender(), transaction.getReceiver(),
-          getTransactionDetails(txType, transaction.getTxID()), "APPC", null));
+          getTransactionDetails(txType, transaction.getTxID()), "APPC", null, null));
     }
     return transactionList;
   }
@@ -104,7 +104,8 @@ public class TransactionsMapper {
           transaction.getTs()
               .getTime() / 1000, Transaction.TransactionStatus.SUCCESS, transaction.getAmount()
           .toString(), transaction.getSender(), transaction.getReceiver(),
-          getTransactionDetails(txType, transaction.getTxID()), "APPC", null));
+          getTransactionDetails(txType, transaction.getTxID()), "APPC", null,
+          transaction.getIcon()));
     }
     return transactionList;
   }
@@ -150,7 +151,7 @@ public class TransactionsMapper {
 
     return new Transaction(transaction.hash, Transaction.TransactionType.ADS, null,
         transaction.timeStamp, getError(transaction), value, from, to, details, currency,
-        operations);
+        operations, null);
   }
 
   /**
@@ -191,7 +192,8 @@ public class TransactionsMapper {
     }
 
     return new Transaction(transaction.hash, Transaction.TransactionType.CLOSE_CHANNEL, null,
-        transaction.timeStamp, getError(transaction), value, from, to, null, currency, operations);
+        transaction.timeStamp, getError(transaction), value, from, to, null, currency, operations,
+        null);
   }
 
   /**
@@ -227,7 +229,7 @@ public class TransactionsMapper {
 
     return new Transaction(transaction.hash, Transaction.TransactionType.STANDARD, null,
         transaction.timeStamp, getError(transaction), value, transaction.from, transaction.to, null,
-        currency, operations);
+        currency, operations, null);
   }
 
   /**
@@ -280,7 +282,7 @@ public class TransactionsMapper {
 
     return new Transaction(transaction.hash, type, approveTransaction.hash, transaction.timeStamp,
         getError(transaction), value.toString(), transaction.from, transaction.to, details,
-        currency, operations);
+        currency, operations, null);
   }
 
   private boolean isAdsTransaction(RawTransaction transaction) {

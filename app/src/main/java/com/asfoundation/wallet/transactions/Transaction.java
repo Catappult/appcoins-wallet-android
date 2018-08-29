@@ -20,10 +20,12 @@ public class Transaction implements Parcelable {
   private final TransactionDetails details;
   private final String currency;
   private final List<Operation> operations;
+  private final String iconUrl;
 
   public Transaction(String transactionId, TransactionType type,
       @Nullable String approveTransactionId, long timeStamp, TransactionStatus status, String value,
-      String from, String to, @Nullable TransactionDetails details, String currency, List<Operation> operations) {
+      String from, String to, @Nullable TransactionDetails details, String currency,
+      List<Operation> operations, String iconUrl) {
     this.transactionId = transactionId;
     this.approveTransactionId = approveTransactionId;
     this.type = type;
@@ -35,6 +37,7 @@ public class Transaction implements Parcelable {
     this.details = details;
     this.currency = currency;
     this.operations = operations;
+    this.iconUrl = iconUrl;
   }
 
   public static final Creator<Transaction> CREATOR = new Creator<Transaction>() {
@@ -51,25 +54,6 @@ public class Transaction implements Parcelable {
     return 0;
   }
 
-  @Override public void writeToParcel(Parcel dest, int flags) {
-    dest.writeString(transactionId);
-    dest.writeString(approveTransactionId);
-    dest.writeInt(type.ordinal());
-    dest.writeLong(timeStamp);
-    dest.writeInt(status.ordinal());
-    dest.writeString(value);
-    dest.writeString(from);
-    dest.writeString(to);
-    dest.writeParcelable(details, flags);
-    dest.writeString(currency);
-    Operation[] operationsArray = new Operation[0];
-    if (operations != null) {
-      operationsArray = new Operation[operations.size()];
-      operations.toArray(operationsArray);
-    }
-    dest.writeParcelableArray(operationsArray, flags);
-  }
-
   protected Transaction(Parcel in) {
     transactionId = in.readString();
     approveTransactionId = in.readString();
@@ -79,7 +63,8 @@ public class Transaction implements Parcelable {
     value = in.readString();
     from = in.readString();
     to = in.readString();
-    details = in.readParcelable(TransactionDetails.class.getClassLoader());;
+    details = in.readParcelable(TransactionDetails.class.getClassLoader());
+    iconUrl = in.readString();
     currency = in.readString();
     Parcelable[] parcelableArray =
         in.readParcelableArray(Operation.class.getClassLoader());
@@ -90,6 +75,26 @@ public class Transaction implements Parcelable {
       operations.addAll(Arrays.asList(operationsArray));
     }
 
+  }
+
+  @Override public void writeToParcel(Parcel dest, int flags) {
+    dest.writeString(transactionId);
+    dest.writeString(approveTransactionId);
+    dest.writeInt(type.ordinal());
+    dest.writeLong(timeStamp);
+    dest.writeInt(status.ordinal());
+    dest.writeString(value);
+    dest.writeString(from);
+    dest.writeString(to);
+    dest.writeParcelable(details, flags);
+    dest.writeString(iconUrl);
+    dest.writeString(currency);
+    Operation[] operationsArray = new Operation[0];
+    if (operations != null) {
+      operationsArray = new Operation[operations.size()];
+      operations.toArray(operationsArray);
+    }
+    dest.writeParcelableArray(operationsArray, flags);
   }
 
   public String getApproveTransactionId() {
@@ -130,6 +135,10 @@ public class Transaction implements Parcelable {
 
   public List<Operation> getOperations() {
     return operations;
+  }
+
+  public String getIconUrl() {
+    return iconUrl;
   }
 
   public String getCurrency() {

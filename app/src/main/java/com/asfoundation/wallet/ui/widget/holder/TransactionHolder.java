@@ -91,7 +91,15 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     }
 
     if (details == null) {
-      srcImage.setImageResource(transactionTypeIcon);
+      if (transaction.getIconUrl() != null) {
+        Picasso.with(getContext())
+            .load(transaction.getIconUrl())
+            .transform(new CircleTransformation())
+            .into(srcImage);
+      } else {
+        srcImage.setImageResource(transactionTypeIcon);
+      }
+
       typeIcon.setVisibility(View.GONE);
     } else {
       Picasso.with(getContext())
