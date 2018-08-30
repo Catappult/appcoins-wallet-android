@@ -40,7 +40,8 @@ public class TransactionsDetailsAdapter extends RecyclerView.Adapter<BinderViewH
     // the operation details so the user knows that there are more than one operation detail in the
     // transaction
     if (getItemCount() > 1) {
-      int itemWidth = (int) parent.getResources().getDimension(R.dimen.transaction_details_width);
+      int itemWidth = (int) parent.getResources()
+          .getDimension(R.dimen.transaction_details_width);
       ViewGroup.LayoutParams params = item.getLayoutParams();
       params.width = itemWidth;
       item.setLayoutParams(params);
@@ -49,10 +50,12 @@ public class TransactionsDetailsAdapter extends RecyclerView.Adapter<BinderViewH
   }
 
   @Override public void onBindViewHolder(BinderViewHolder holder, int position) {
-    Bundle addition = new Bundle();
-    addition.putString(TransactionHolder.DEFAULT_ADDRESS_ADDITIONAL, wallet.address);
-    addition.putString(TransactionHolder.DEFAULT_SYMBOL_ADDITIONAL, network.symbol);
-    holder.bind(items.get(position), addition);
+    if (network != null) {
+      Bundle addition = new Bundle();
+      addition.putString(TransactionHolder.DEFAULT_ADDRESS_ADDITIONAL, wallet.address);
+      addition.putString(TransactionHolder.DEFAULT_SYMBOL_ADDITIONAL, network.symbol);
+      holder.bind(items.get(position), addition);
+    }
   }
 
   @Override public int getItemViewType(int position) {
@@ -64,9 +67,9 @@ public class TransactionsDetailsAdapter extends RecyclerView.Adapter<BinderViewH
   }
 
   /**
-   *  Set the default wallet so we can check what is the current wallet in use
+   * Set the default wallet so we can check what is the current wallet in use
    *
-   *  @param wallet The wallet object containing the current wallet information.
+   * @param wallet The wallet object containing the current wallet information.
    */
   public void setDefaultWallet(Wallet wallet) {
     this.wallet = wallet;

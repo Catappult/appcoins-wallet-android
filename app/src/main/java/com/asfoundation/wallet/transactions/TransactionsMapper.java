@@ -3,6 +3,7 @@ package com.asfoundation.wallet.transactions;
 import android.support.annotation.Nullable;
 import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.TransactionOperation;
+import com.asfoundation.wallet.entity.WalletHistory;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperation;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
@@ -15,12 +16,13 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.asfoundation.wallet.transactions.Transaction.TransactionType.IAP_OFFCHAIN;
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.MICRO_IAB;
 
 public class TransactionsMapper {
   public static final String APPROVE_METHOD_ID = "0x095ea7b3";
-  public static final String BUY_METHOD_ID = "0xdc9564d5";
-  public static final String ADS_METHOD_ID = "0x79c6b667";
+  public static final String BUY_METHOD_ID = "0xb7a2e1f2";
+  public static final String ADS_METHOD_ID = "0xd5bde837";
   public static final String OPEN_CHANNEL_METHOD_ID = "0xa6d15963";
   public static final String TOPUP_CHANNEL_METHOD_ID = "0x016a8cf6";
   public static final String CLOSE_CHANNEL_METHOD_ID = "0x1c6f609b";
@@ -39,6 +41,12 @@ public class TransactionsMapper {
     return defaultTokenProvider.getDefaultToken()
         .observeOn(scheduler)
         .map(tokenInfo -> map(tokenInfo.address, transactions));
+  }
+
+  public Single<List<Transaction>> mapFromWalletHistory(
+      List<WalletHistory.MicroTransaction> transactions) {
+    return Single.just(mapMicroTransactionsFromWalletHistory(transactions))
+        .observeOn(scheduler);
   }
 
   public Single<List<Transaction>> map(List<ChannelHistoryResponse.MicroTransaction> transactions) {
@@ -71,11 +79,33 @@ public class TransactionsMapper {
     for (int i = transactions.size() - 1; i >= 0; i--) {
       ChannelHistoryResponse.MicroTransaction transaction = transactions.get(i);
 
-      transactionList.add(0, new Transaction(transaction.getTxID(), MICRO_IAB, null,
+      Transaction.TransactionType txType =
+          "IAP OffChain".equals(transaction.getType()) ? IAP_OFFCHAIN : MICRO_IAB;
+
+      transactionList.add(0, new Transaction(transaction.getTxID(), txType, null,
           transaction.getTs()
               .getTime() / 1000, Transaction.TransactionStatus.SUCCESS, transaction.getAmount()
           .toString(), transaction.getSender(), transaction.getReceiver(),
-          getTransactionDetails(MICRO_IAB, transaction.getTxID()), null, null));
+          getTransactionDetails(txType, transaction.getTxID()), "APPC", null, null));
+    }
+    return transactionList;
+  }
+
+  private List<Transaction> mapMicroTransactionsFromWalletHistory(
+      List<WalletHistory.MicroTransaction> transactions) {
+    List<Transaction> transactionList = new ArrayList<>();
+    for (int i = transactions.size() - 1; i >= 0; i--) {
+      WalletHistory.MicroTransaction transaction = transactions.get(i);
+
+      Transaction.TransactionType txType =
+          "IAP OffChain".equals(transaction.getType()) ? IAP_OFFCHAIN : MICRO_IAB;
+
+      transactionList.add(0, new Transaction(transaction.getTxID(), txType, null,
+          transaction.getTs()
+              .getTime() / 1000, Transaction.TransactionStatus.SUCCESS, transaction.getAmount()
+          .toString(), transaction.getSender(), transaction.getReceiver(),
+          getTransactionDetails(txType, transaction.getTxID()), "APPC", null,
+          transaction.getIcon()));
     }
     return transactionList;
   }
@@ -121,7 +151,7 @@ public class TransactionsMapper {
 
     return new Transaction(transaction.hash, Transaction.TransactionType.ADS, null,
         transaction.timeStamp, getError(transaction), value, from, to, details, currency,
-        operations);
+        operations, null);
   }
 
   /**
@@ -162,7 +192,8 @@ public class TransactionsMapper {
     }
 
     return new Transaction(transaction.hash, Transaction.TransactionType.CLOSE_CHANNEL, null,
-        transaction.timeStamp, getError(transaction), value, from, to, null, currency, operations);
+        transaction.timeStamp, getError(transaction), value, from, to, null, currency, operations,
+        null);
   }
 
   /**
@@ -198,7 +229,7 @@ public class TransactionsMapper {
 
     return new Transaction(transaction.hash, Transaction.TransactionType.STANDARD, null,
         transaction.timeStamp, getError(transaction), value, transaction.from, transaction.to, null,
-        currency, operations);
+        currency, operations, null);
   }
 
   /**
@@ -251,7 +282,7 @@ public class TransactionsMapper {
 
     return new Transaction(transaction.hash, type, approveTransaction.hash, transaction.timeStamp,
         getError(transaction), value.toString(), transaction.from, transaction.to, details,
-        currency, operations);
+        currency, operations, null);
   }
 
   private boolean isAdsTransaction(RawTransaction transaction) {

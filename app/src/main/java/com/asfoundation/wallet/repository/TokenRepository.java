@@ -34,6 +34,7 @@ import org.web3j.abi.datatypes.Bool;
 import org.web3j.abi.datatypes.Function;
 import org.web3j.abi.datatypes.Type;
 import org.web3j.abi.datatypes.Utf8String;
+import org.web3j.abi.datatypes.generated.Bytes2;
 import org.web3j.abi.datatypes.generated.Uint256;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jFactory;
@@ -97,16 +98,17 @@ public class TokenRepository implements TokenRepositoryType {
   }
 
   public static byte[] buyData(String developerAddress, String storeAddress, String oemAddress,
-      String data, BigDecimal amount, String tokenAddress) {
-    Uint256 amountParam = new Uint256(amount.toBigInteger());
+      String data, BigDecimal amount, String tokenAddress, String packageName, byte[] countryCode) {
+    Utf8String packageNameParam = new Utf8String(packageName);
     Utf8String dataParam = new Utf8String(data);
+    Uint256 amountParam = new Uint256(amount.toBigInteger());
     Address contractAddress = new Address(tokenAddress);
     Address developerAddressParam = new Address(developerAddress);
     Address storeAddressParam = new Address(storeAddress);
     Address oemAddressParam = new Address(oemAddress);
-    List<Type> params =
-        Arrays.asList(amountParam, dataParam, contractAddress, developerAddressParam,
-            storeAddressParam, oemAddressParam);
+    Bytes2 countryCodePara = new Bytes2(countryCode);
+    List<Type> params = Arrays.asList(packageNameParam, dataParam, amountParam, contractAddress,
+        developerAddressParam, storeAddressParam, oemAddressParam, countryCodePara);
     List<TypeReference<?>> returnTypes = Collections.singletonList(new TypeReference<Bool>() {
     });
     Function function = new Function("buy", params, returnTypes);

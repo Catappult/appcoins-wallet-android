@@ -5,10 +5,13 @@ import com.appcoins.wallet.billing.BillingFactory;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.billing.repository.entity.Purchase;
+import com.appcoins.wallet.billing.repository.entity.Transaction;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
+import com.asfoundation.wallet.repository.BdsTransactionService;
+import com.asfoundation.wallet.repository.ExpressCheckoutBuyService;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.PaymentTransaction;
 import com.asfoundation.wallet.repository.TransactionNotFoundException;
@@ -19,9 +22,11 @@ import com.asfoundation.wallet.ui.iab.raiden.RaidenRepository;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
+import java.net.UnknownServiceException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +34,7 @@ public class InAppPurchaseInteractor {
   public static final double GAS_PRICE_MULTIPLIER = 1.25;
   private static final String TAG = InAppPurchaseInteractor.class.getSimpleName();
   private final InAppPurchaseService inAppPurchaseService;
+  private final ExpressCheckoutBuyService expressCheckoutBuyService;
   private final FindDefaultWalletInteract defaultWalletInteract;
   private final FetchGasSettingsInteract gasSettingsInteract;
   private final BigDecimal paymentGasLimit;
@@ -38,12 +44,16 @@ public class InAppPurchaseInteractor {
   private final BillingMessagesMapper billingMessagesMapper;
   private final BillingFactory billingFactory;
   private final ExternalBillingSerializer billingSerializer;
+  private final BdsTransactionService trackTransactionService;
+  private final Scheduler scheduler;
 
   public InAppPurchaseInteractor(InAppPurchaseService inAppPurchaseService,
       FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
       BigDecimal paymentGasLimit, TransferParser parser, RaidenRepository raidenRepository,
       ChannelService channelService, BillingMessagesMapper billingMessagesMapper,
-      BillingFactory billingFactory, ExternalBillingSerializer billingSerializer) {
+      BillingFactory billingFactory, ExternalBillingSerializer billingSerializer,
+      ExpressCheckoutBuyService expressCheckoutBuyService,
+      BdsTransactionService trackTransactionService, Scheduler scheduler) {
     this.inAppPurchaseService = inAppPurchaseService;
     this.defaultWalletInteract = defaultWalletInteract;
     this.gasSettingsInteract = gasSettingsInteract;
@@ -54,6 +64,9 @@ public class InAppPurchaseInteractor {
     this.billingMessagesMapper = billingMessagesMapper;
     this.billingFactory = billingFactory;
     this.billingSerializer = billingSerializer;
+    this.expressCheckoutBuyService = expressCheckoutBuyService;
+    this.trackTransactionService = trackTransactionService;
+    this.scheduler = scheduler;
   }
 
   public Single<TransactionBuilder> parseTransaction(String uri) {
@@ -81,8 +94,46 @@ public class InAppPurchaseInteractor {
                           .fromAddress(), channelBudget, paymentTransaction);
                 }));
     }
-    return Completable.error(
-        new IllegalArgumentException("Transaction type " + transactionType + " not supported"));
+    return Completable.error(new UnsupportedOperationException(
+        "Transaction type " + transactionType + " not supported"));
+  }
+
+  public Completable resume(String uri, TransactionType transactionType, String packageName,
+      String productName, String approveKey) {
+    switch (transactionType) {
+      case NORMAL:
+        return buildPaymentTransaction(uri, packageName, productName).flatMapCompletable(
+            paymentTransaction -> billingFactory.getBilling(packageName)
+                .getSkuTransaction(paymentTransaction.getTransactionBuilder()
+                    .getSkuId(), scheduler)
+                .flatMapCompletable(
+                    transaction -> resumePayment(approveKey, paymentTransaction, transaction)));
+      default:
+        return Completable.error(new UnsupportedOperationException(
+            "Transaction type " + transactionType + " not supported"));
+    }
+  }
+
+  private Completable resumePayment(String approveKey, PaymentTransaction paymentTransaction,
+      Transaction transaction) {
+    switch (transaction.getStatus()) {
+      case PENDING_SERVICE_AUTHORIZATION:
+        return inAppPurchaseService.resume(paymentTransaction.getUri(),
+            new PaymentTransaction(paymentTransaction, PaymentTransaction.PaymentState.APPROVED,
+                approveKey));
+      case PROCESSING:
+        return trackTransactionService.trackTransaction(paymentTransaction.getUri(),
+            paymentTransaction.getPackageName(), paymentTransaction.getTransactionBuilder()
+                .getSkuId(), transaction.getUid());
+      case PENDING:
+      case COMPLETED:
+      case INVALID_TRANSACTION:
+      case FAILED:
+      case CANCELED:
+      default:
+        return Completable.error(new UnsupportedOperationException(
+            "Cannot resume from " + transaction.getStatus() + " state"));
+    }
   }
 
   private Completable makePayment(PaymentTransaction paymentTransaction) {
@@ -101,7 +152,26 @@ public class InAppPurchaseInteractor {
     return Observable.merge(inAppPurchaseService.getTransactionState(uri)
         .map(this::mapToPayment), channelService.getPayment(uri)
         .map(this::mapToPayment), channelService.getChannel(uri)
-        .map(this::mapToPayment));
+        .map(this::mapToPayment), trackTransactionService.getTransaction(uri)
+        .map(this::map));
+  }
+
+  private Payment map(BdsTransactionService.BdsTransaction transaction) {
+    return new Payment(transaction.getKey(), mapStatus(transaction.getStatus()), null, null,
+        transaction.getPackageName(), null);
+  }
+
+  private Payment.Status mapStatus(BdsTransactionService.BdsTransaction.Status status) {
+    switch (status) {
+      default:
+      case WAITING:
+      case UNKNOWN_STATUS:
+        return Payment.Status.ERROR;
+      case PROCESSING:
+        return Payment.Status.BUYING;
+      case COMPLETED:
+        return Payment.Status.COMPLETED;
+    }
   }
 
   private Payment mapToPayment(ChannelCreation creation) {
@@ -176,7 +246,8 @@ public class InAppPurchaseInteractor {
 
   public Completable remove(String uri) {
     return inAppPurchaseService.remove(uri)
-        .andThen(channelService.remove(uri));
+        .andThen(channelService.remove(uri))
+        .andThen(trackTransactionService.remove(uri));
   }
 
   private Single<PaymentTransaction> buildPaymentTransaction(String uri, String packageName,
@@ -194,6 +265,7 @@ public class InAppPurchaseInteractor {
   public void start() {
     inAppPurchaseService.start();
     channelService.start();
+    trackTransactionService.start();
   }
 
   public Observable<List<Payment>> getAll() {
@@ -243,6 +315,51 @@ public class InAppPurchaseInteractor {
         .map(wallet -> wallet.address);
   }
 
+  public Single<CurrentPaymentStep> getCurrentPaymentStep(String packageName,
+      TransactionBuilder transactionBuilder) {
+    return Single.zip(getTransaction(packageName, transactionBuilder.getSkuId()),
+        gasSettingsInteract.fetch(true)
+            .doOnSuccess(gasSettings -> transactionBuilder.gasSettings(
+                new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
+                    paymentGasLimit)))
+            .flatMap(__ -> inAppPurchaseService.hasBalanceToBuy(transactionBuilder)), this::map);
+  }
+
+  private CurrentPaymentStep map(Transaction transaction, Boolean isBuyReady)
+      throws UnknownServiceException {
+    switch (transaction.getStatus()) {
+      case PENDING:
+      case PENDING_SERVICE_AUTHORIZATION:
+      case PROCESSING:
+        switch (transaction.getGateway()
+            .getName()) {
+          case appcoins:
+            return CurrentPaymentStep.PAUSED_ON_CHAIN;
+          case adyen:
+            return CurrentPaymentStep.PAUSED_OFF_CHAIN;
+          default:
+          case unknown:
+            throw new UnknownServiceException("Unknown gateway");
+        }
+      case COMPLETED:
+        return isBuyReady ? CurrentPaymentStep.READY : CurrentPaymentStep.NO_FUNDS;
+      default:
+      case FAILED:
+      case CANCELED:
+      case INVALID_TRANSACTION:
+        return isBuyReady ? CurrentPaymentStep.READY : CurrentPaymentStep.NO_FUNDS;
+    }
+  }
+
+  public Single<FiatValue> convertToFiat(double appcValue, String currency) {
+    return expressCheckoutBuyService.getTokenValue(currency)
+        .map(fiatValueConvertion -> calculateValue(fiatValueConvertion, appcValue));
+  }
+
+  private FiatValue calculateValue(FiatValue fiatValue, double appcValue) {
+    return new FiatValue(fiatValue.getAmount() * appcValue, fiatValue.getCurrency());
+  }
+
   public BillingMessagesMapper getBillingMessagesMapper() {
     return billingMessagesMapper;
   }
@@ -251,11 +368,17 @@ public class InAppPurchaseInteractor {
     return billingSerializer;
   }
 
-  public Single<Purchase> getPurchase(String packageName, String productName) {
+  public Single<Transaction> getTransaction(String packageName, String productName) {
     return Single.fromCallable(() -> billingFactory.getBilling(packageName))
-        .flatMap(billing -> billing.getSkuTransactionStatus(productName, Schedulers.io())
+        .flatMap(billing -> billing.getSkuTransaction(productName, Schedulers.io()));
+  }
+
+  public Single<Purchase> getCompletedPurchase(String packageName, String productName) {
+    return Single.fromCallable(() -> billingFactory.getBilling(packageName))
+        .flatMap(billing -> billing.getSkuTransaction(productName, Schedulers.io())
+            .map(Transaction::getStatus)
             .flatMap(transactionStatus -> {
-              if (transactionStatus.equalsIgnoreCase("COMPLETED")) {
+              if (transactionStatus.equals(Transaction.Status.COMPLETED)) {
                 return billing.getSkuPurchase(productName, Schedulers.io());
               } else {
                 return Single.error(new TransactionNotFoundException());
@@ -265,5 +388,9 @@ public class InAppPurchaseInteractor {
 
   public enum TransactionType {
     NORMAL, RAIDEN
+  }
+
+  public enum CurrentPaymentStep {
+    PAUSED_OFF_CHAIN, PAUSED_ON_CHAIN, NO_FUNDS, READY
   }
 }

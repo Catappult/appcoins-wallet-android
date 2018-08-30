@@ -12,6 +12,7 @@ import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.transactions.Operation;
+import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.MicroRaidenInteractor;
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -72,4 +73,17 @@ public class TransactionDetailViewModel extends BaseViewModel {
           .subscribeOn(Schedulers.io());
   }
 
+  public void showMoreDetailsBds(Context context, Transaction transaction) {
+    Uri uri = buildBdsUri(transaction);
+    if (uri != null) {
+      externalBrowserRouter.open(context, uri);
+    }
+  }
+
+  private Uri buildBdsUri(Transaction transaction) {
+    return Uri.parse("https://appcexplorer.io/transaction/")
+        .buildUpon()
+        .appendEncodedPath(transaction.getTransactionId())
+        .build();
+  }
 }

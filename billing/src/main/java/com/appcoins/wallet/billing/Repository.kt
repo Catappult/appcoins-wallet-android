@@ -4,6 +4,7 @@ import com.appcoins.wallet.billing.repository.BillingSupportedType
 import com.appcoins.wallet.billing.repository.entity.Gateway
 import com.appcoins.wallet.billing.repository.entity.Product
 import com.appcoins.wallet.billing.repository.entity.Purchase
+import com.appcoins.wallet.billing.repository.entity.Transaction
 import io.reactivex.Completable
 import io.reactivex.Single
 
@@ -17,8 +18,8 @@ interface Repository {
   fun getSkuPurchase(packageName: String, skuId: String, walletAddress: String,
                      walletSignature: String): Single<Purchase>
 
-  fun getSkuTransactionStatus(packageName: String, skuId: String, walletAddress: String,
-                              walletSignature: String): Single<String>
+  fun getSkuTransaction(packageName: String, skuId: String, walletAddress: String,
+                        walletSignature: String): Single<Transaction>
 
   fun getPurchases(packageName: String, walletAddress: String, walletSignature: String,
                    type: BillingSupportedType): Single<List<Purchase>>
@@ -37,6 +38,8 @@ interface Repository {
                            signedData: String, paymentProof: String): Completable
 
   fun getGateways(): Single<List<Gateway>>
+  fun getAppcoinsTransaction(uid: String, address: String,
+                             signedContent: String): Single<Transaction>
 
   enum class BillingType {
     inapp, subs

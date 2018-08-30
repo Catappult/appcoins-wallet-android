@@ -16,6 +16,9 @@
       android:testOnly="false"
       android:theme="@style/AppTheme.NoActionBar"
       tools:replace="android:name, android:theme, android:allowBackup">
+    <meta-data
+        android:name="com.facebook.sdk.ApplicationId"
+        android:value="@string/facebook_app_id"/>
     <activity
         android:name="com.asfoundation.wallet.ui.SplashActivity"
         android:theme="@style/SplashTheme">

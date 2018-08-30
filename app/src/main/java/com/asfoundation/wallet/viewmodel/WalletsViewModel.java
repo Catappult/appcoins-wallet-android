@@ -135,9 +135,13 @@ public class WalletsViewModel extends BaseViewModel {
   public void newWallet() {
     progress.setValue(true);
     createWalletInteract.create()
-        .subscribe(account -> {
+        .map(wallet -> {
           fetchWallets();
-          createdWallet.postValue(account);
+          createdWallet.postValue(wallet);
+          return wallet;
+        })
+        .flatMapCompletable(createWalletInteract::setDefaultWallet)
+        .subscribe(() -> {
         }, this::onCreateWalletError);
   }
 

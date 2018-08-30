@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 
 @Singleton @Component(modules = {
     AndroidSupportInjectionModule.class, ToolsModule.class, RepositoriesModule.class,
-    BuildersModule.class
+    BuildersModule.class, ImportModule.class
 }) public interface AppComponent {
 
   void inject(App app);

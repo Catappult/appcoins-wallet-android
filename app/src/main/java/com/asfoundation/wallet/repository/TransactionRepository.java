@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.repository;
 
+import com.asf.microraidenj.type.Address;
+import com.asf.microraidenj.type.ByteArray;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -8,9 +10,12 @@ import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.poa.BlockchainErrorMapper;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.TransactionsNetworkClientType;
+import com.asfoundation.wallet.ui.iab.raiden.NonceObtainer;
+import ethereumj.Transaction;
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
@@ -31,11 +36,14 @@ public class TransactionRepository implements TransactionRepositoryType {
   private final DefaultTokenProvider defaultTokenProvider;
   private final NonceGetter nonceGetter;
   private final BlockchainErrorMapper errorMapper;
+  private final NonceObtainer nonceObtainer;
+  private final Scheduler scheduler;
 
   public TransactionRepository(EthereumNetworkRepositoryType networkRepository,
       AccountKeystoreService accountKeystoreService, TransactionLocalSource inDiskCache,
       TransactionsNetworkClientType blockExplorerClient, DefaultTokenProvider defaultTokenProvider,
-      NonceGetter nonceGetter, BlockchainErrorMapper errorMapper) {
+      NonceGetter nonceGetter, BlockchainErrorMapper errorMapper, NonceObtainer nonceObtainer,
+      Scheduler scheduler) {
     this.networkRepository = networkRepository;
     this.accountKeystoreService = accountKeystoreService;
     this.blockExplorerClient = blockExplorerClient;
@@ -43,6 +51,8 @@ public class TransactionRepository implements TransactionRepositoryType {
     this.defaultTokenProvider = defaultTokenProvider;
     this.nonceGetter = nonceGetter;
     this.errorMapper = errorMapper;
+    this.nonceObtainer = nonceObtainer;
+    this.scheduler = scheduler;
   }
 
   @Override public Observable<RawTransaction[]> fetchTransaction(Wallet wallet) {
@@ -66,32 +76,74 @@ public class TransactionRepository implements TransactionRepositoryType {
 
   public Single<String> createTransaction(TransactionBuilder transactionBuilder, String password) {
     return nonceGetter.getNonce(transactionBuilder.fromAddress())
-        .flatMap(nonce -> createTransaction(transactionBuilder, password, transactionBuilder.data(),
+        .flatMap(nonce -> createTransactionAndSend(transactionBuilder, password,
+            transactionBuilder.data(),
             transactionBuilder.shouldSendToken() ? transactionBuilder.contractAddress()
                 : transactionBuilder.toAddress(),
             transactionBuilder.shouldSendToken() ? BigDecimal.ZERO
-                : transactionBuilder.subunitAmount(), nonce));
+                : transactionBuilder.subunitAmount()));
   }
 
-  @Override public Single<String> approve(TransactionBuilder transactionBuilder, String password,
-      BigInteger nonce) {
-    return createTransaction(transactionBuilder, password, transactionBuilder.approveData(),
-        transactionBuilder.contractAddress(), BigDecimal.ZERO, nonce);
+  @Override public Single<String> approve(TransactionBuilder transactionBuilder, String password) {
+    return createTransactionAndSend(transactionBuilder, password, transactionBuilder.approveData(),
+        transactionBuilder.contractAddress(), BigDecimal.ZERO);
+  }
+
+  @Override public Single<String> callIab(TransactionBuilder transaction, String password) {
+    return defaultTokenProvider.getDefaultToken()
+        .observeOn(scheduler)
+        .flatMap(
+            token -> createTransactionAndSend(transaction, password, transaction.appcoinsData(),
+                transaction.getIabContract(), BigDecimal.ZERO));
   }
 
   @Override
-  public Single<String> callIab(TransactionBuilder transaction, String password, BigInteger nonce) {
-    return defaultTokenProvider.getDefaultToken()
-        .flatMap(
-            token -> createTransaction(transaction, password, transaction.buyData(token.address),
-                transaction.getIabContract(), BigDecimal.ZERO, nonce));
+  public Single<String> computeApproveTransactionHash(TransactionBuilder transactionBuilder,
+      String password) {
+    return createRawTransaction(transactionBuilder, password, transactionBuilder.approveData(),
+        transactionBuilder.contractAddress(), BigDecimal.ZERO,
+        nonceObtainer.getNonce(new Address(ByteArray.from(transactionBuilder.fromAddress())))).map(
+        signedTransaction -> Numeric.toHexString(new Transaction(signedTransaction).getHash()));
   }
 
-  private Single<String> createTransaction(TransactionBuilder transactionBuilder, String password,
-      byte[] data, String toAddress, BigDecimal amount, BigInteger nonce) {
+  @Override public Single<String> computeBuyTransactionHash(TransactionBuilder transactionBuilder,
+      String password) {
+    return defaultTokenProvider.getDefaultToken()
+        .observeOn(scheduler)
+        .flatMap(tokenInfo -> createRawTransaction(transactionBuilder, password,
+            transactionBuilder.appcoinsData(), transactionBuilder.getIabContract(),
+            BigDecimal.ZERO,
+            nonceObtainer.getNonce(new Address(ByteArray.from(transactionBuilder.fromAddress())))))
+        .map(
+            signedTransaction -> Numeric.toHexString(new Transaction(signedTransaction).getHash()));
+  }
+
+  private Single<String> createTransactionAndSend(TransactionBuilder transactionBuilder,
+      String password, byte[] data, String toAddress, BigDecimal amount) {
     final Web3j web3j =
         Web3jFactory.build(new HttpService(networkRepository.getDefaultNetwork().rpcServerUrl));
+    return Single.fromCallable(
+        () -> nonceObtainer.getNonce(new Address(ByteArray.from(transactionBuilder.fromAddress()))))
+        .flatMap(nonceValue -> createRawTransaction(transactionBuilder, password, data, toAddress,
+            amount, nonceValue).flatMap(signedMessage -> Single.fromCallable(() -> {
+          EthSendTransaction raw = web3j.ethSendRawTransaction(Numeric.toHexString(signedMessage))
+              .send();
+          if (raw.hasError()) {
+            throw new TransactionException(raw.getError()
+                .getCode(), raw.getError()
+                .getMessage(), raw.getError()
+                .getData());
+          }
+          return raw.getTransactionHash();
+        })
+            .subscribeOn(Schedulers.io()))
+            .doOnSuccess(hash -> nonceObtainer.consumeNonce(nonceValue))
+            .retryWhen(throwableFlowable -> throwableFlowable.flatMap(
+                throwable -> getPublisher(throwable, nonceValue))));
+  }
 
+  private Single<byte[]> createRawTransaction(TransactionBuilder transactionBuilder,
+      String password, byte[] data, String toAddress, BigDecimal amount, BigInteger nonce) {
     return Single.just(nonce)
         .flatMap(__ -> {
           if (transactionBuilder.getChainId() != TransactionBuilder.NO_CHAIN_ID
@@ -112,28 +164,14 @@ public class TransactionRepository implements TransactionRepositoryType {
           return accountKeystoreService.signTransaction(transactionBuilder.fromAddress(), password,
               toAddress, amount, transactionBuilder.gasSettings().gasPrice,
               transactionBuilder.gasSettings().gasLimit, nonce.longValue(), data,
-              networkRepository.getDefaultNetwork().chainId)
-              .flatMap(signedMessage -> Single.fromCallable(() -> {
-                EthSendTransaction raw =
-                    web3j.ethSendRawTransaction(Numeric.toHexString(signedMessage))
-                        .send();
-                if (raw.hasError()) {
-                  throw new TransactionException(raw.getError()
-                      .getCode(), raw.getError()
-                      .getMessage(), raw.getError()
-                      .getData());
-                }
-                return raw.getTransactionHash();
-              }))
-              .subscribeOn(Schedulers.io());
-        })
-        .retryWhen(throwableFlowable -> throwableFlowable.flatMap(this::getPublisher));
+              networkRepository.getDefaultNetwork().chainId);
+        });
   }
 
-  private Publisher<?> getPublisher(Throwable throwable) {
+  private Publisher<?> getPublisher(Throwable throwable, BigInteger nonceValue) {
     if (errorMapper.map(throwable)
         .equals(BlockchainErrorMapper.BlockchainError.NONCE_ERROR)) {
-      nonceGetter.bump();
+      nonceObtainer.consumeNonce(nonceValue);
       return Flowable.just(true);
     }
     return Flowable.error(throwable);

@@ -6,6 +6,7 @@
     android:id="@+id/loading"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
+    android:background="@drawable/background_card"
     android:elevation="10dp"
     android:padding="16dp"
     android:visibility="gone"
@@ -13,8 +14,7 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    android:background="@drawable/background_card"
-    tools:showIn="@layout/iab_activity"
+    tools:showIn="@layout/fragment_iab"
     >
   <TextView
       android:id="@+id/loading_title"

@@ -4,6 +4,7 @@ import com.appcoins.wallet.billing.repository.BillingSupportedType
 import com.appcoins.wallet.billing.repository.entity.Gateway
 import com.appcoins.wallet.billing.repository.entity.Product
 import com.appcoins.wallet.billing.repository.entity.Purchase
+import com.appcoins.wallet.billing.repository.entity.Transaction
 import io.reactivex.Scheduler
 import io.reactivex.Single
 
@@ -26,10 +27,19 @@ class BdsBilling(private val merchantName: String,
     return repository.getSkuDetails(merchantName, skus, Repository.BillingType.valueOf(type))
   }
 
-  override fun getSkuTransactionStatus(sku: String, scheduler: Scheduler): Single<String> {
+  override fun getAppcoinsTransaction(uid: String,
+                                      scheduler: Scheduler): Single<Transaction> {
     return walletService.getWalletAddress().flatMap { address ->
       walletService.signContent(address).observeOn(scheduler).flatMap { signedContent ->
-        repository.getSkuTransactionStatus(merchantName, sku, address, signedContent)
+        repository.getAppcoinsTransaction(uid, address, signedContent)
+      }
+    }
+  }
+
+  override fun getSkuTransaction(sku: String, scheduler: Scheduler): Single<Transaction> {
+    return walletService.getWalletAddress().flatMap { address ->
+      walletService.signContent(address).observeOn(scheduler).flatMap { signedContent ->
+        repository.getSkuTransaction(merchantName, sku, address, signedContent)
       }
     }
   }

@@ -16,7 +16,10 @@ import com.asfoundation.wallet.ui.TransactionDetailActivity;
 import com.asfoundation.wallet.ui.TransactionsActivity;
 import com.asfoundation.wallet.ui.WalletsActivity;
 import com.asfoundation.wallet.ui.airdrop.AirdropFragment;
+import com.asfoundation.wallet.ui.iab.CreditCardAuthorizationFragment;
+import com.asfoundation.wallet.ui.iab.ExpressCheckoutBuyFragment;
 import com.asfoundation.wallet.ui.iab.IabActivity;
+import com.asfoundation.wallet.ui.iab.OnChainBuyFragment;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
@@ -27,7 +30,7 @@ import dagger.android.ContributesAndroidInjector;
   @ActivityScope @ContributesAndroidInjector(modules = AccountsManageModule.class)
   abstract WalletsActivity bindManageWalletsModule();
 
-  @ActivityScope @ContributesAndroidInjector(modules = ImportModule.class)
+  @ActivityScope @ContributesAndroidInjector
   abstract ImportWalletActivity bindImportWalletModule();
 
   @ActivityScope @ContributesAndroidInjector(modules = TransactionsModule.class)
@@ -68,4 +71,13 @@ import dagger.android.ContributesAndroidInjector;
   @ContributesAndroidInjector() abstract WalletPoAService bindWalletPoAService();
 
   @ContributesAndroidInjector() abstract AirdropFragment bindAirdropFragment();
+
+  @ContributesAndroidInjector() abstract OnChainBuyFragment bindRegularBuyFragment();
+
+  @ContributesAndroidInjector()
+  abstract ExpressCheckoutBuyFragment bindExpressCheckoutBuyFragment();
+
+  @ContributesAndroidInjector()
+  abstract CreditCardAuthorizationFragment bindCreditCardAuthorizationFragment();
+
 }

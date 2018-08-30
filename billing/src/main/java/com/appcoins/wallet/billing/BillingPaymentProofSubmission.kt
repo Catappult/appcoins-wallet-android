@@ -4,46 +4,31 @@ import com.appcoins.wallet.billing.repository.BdsApiResponseMapper
 import com.appcoins.wallet.billing.repository.BdsRepository
 import com.appcoins.wallet.billing.repository.RemoteRepository
 import io.reactivex.Completable
-import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import io.reactivex.subjects.PublishSubject
 import java.util.concurrent.ConcurrentHashMap
 
 class BillingPaymentProofSubmission internal constructor(
-    private val authorizationEventMerger: EventMerger<AuthorizationProof>,
-    private val paymentEventMerger: EventMerger<PaymentProof>,
     private val walletService: WalletService,
     private val repository: Repository,
     private val networkScheduler: Scheduler,
-    private val paymentIds: MutableMap<String, String>,
-    private val disposables: CompositeDisposable) {
+    private val transactionIdsFromApprove: MutableMap<String, String>,
+    private val transactionIdsFromBuy: MutableMap<String, String>) {
 
-  fun start() {
-    disposables.add(authorizationEventMerger.getEvents()
-        .subscribeOn(networkScheduler)
-        .flatMapSingle {
-          registerAuthorizationProof(it.id, it.paymentType, it.productName, it.packageName,
-              it.developerAddress,
-              it.storeAddress).doOnSuccess { paymentId -> paymentIds[it.id] = paymentId }
+  fun processPurchaseProof(paymentProof: PaymentProof): Completable {
+    return transactionIdsFromApprove[paymentProof.approveProof]?.let { paymentId ->
+      registerPaymentProof(paymentId, paymentProof.paymentProof, paymentProof.paymentType)
+    } ?: Completable.error(
+        IllegalArgumentException("No payment id for {${paymentProof.approveProof}}"))
+  }
 
-        }
-        .doOnError { it.printStackTrace() }
-        .retry()
-        .subscribe())
-
-    disposables.add(paymentEventMerger.getEvents()
-        .subscribeOn(networkScheduler)
-        .flatMapCompletable {
-          paymentIds[it.approveProof]?.let { paymentId ->
-            registerPaymentProof(paymentId, it.paymentProof, it.paymentType)
-          } ?: Completable.error(IllegalArgumentException("No payment id for {${it.approveProof}}"))
-        }
-        .doOnError { it.printStackTrace() }
-        .retry()
-        .subscribe())
+  fun processAuthorizationProof(authorizationProof: AuthorizationProof): Completable {
+    return registerAuthorizationProof(authorizationProof.id, authorizationProof.paymentType,
+        authorizationProof.productName, authorizationProof.packageName,
+        authorizationProof.developerAddress, authorizationProof.storeAddress)
+        .doOnSuccess { paymentId -> transactionIdsFromApprove[authorizationProof.id] = paymentId }
+        .toCompletable()
   }
 
   private fun registerPaymentProof(paymentId: String, paymentProof: String,
@@ -55,7 +40,7 @@ class BillingPaymentProofSubmission internal constructor(
                 repository.registerPaymentProof(paymentId, paymentType, walletAddress, signedData,
                     paymentProof)
               }
-        }
+        }.andThen(Completable.fromAction { transactionIdsFromBuy[paymentProof] = paymentId })
   }
 
   private fun registerAuthorizationProof(id: String, paymentType: String, productName: String,
@@ -72,37 +57,42 @@ class BillingPaymentProofSubmission internal constructor(
     }
   }
 
-  fun stop() {
-    disposables.clear()
-    authorizationEventMerger.stop()
-    paymentEventMerger.stop()
+  fun saveTransactionId(key: String) {
+    transactionIdsFromApprove[key] = key
   }
 
-  fun addAuthorizationProofSource(source: Observable<AuthorizationProof>) {
-    authorizationEventMerger.addSource(source)
-  }
-
-  fun addPaymentProofSource(source: Observable<PaymentProof>) {
-    paymentEventMerger.addSource(source)
+  fun getTransactionId(buyHash: String): String? {
+    return transactionIdsFromBuy[buyHash]
   }
 
   companion object {
-    inline fun build(billingDependenciesProvider: BillingDependenciesProvider,
-                     block: BillingPaymentProofSubmission.Builder.() -> Unit) =
-        BillingPaymentProofSubmission.Builder(billingDependenciesProvider).apply(block).build()
+    inline fun build(block: BillingPaymentProofSubmission.Builder.() -> Unit) =
+        BillingPaymentProofSubmission.Builder().apply(block).build()
   }
 
-  class Builder(private val billingDependenciesProvider: BillingDependenciesProvider) {
-    var networkScheduler: Scheduler = Schedulers.io()
-    fun build() =
-        BillingPaymentProofSubmission(
-            EventMerger(PublishSubject.create(), CompositeDisposable()),
-            EventMerger(PublishSubject.create(), CompositeDisposable()),
-            billingDependenciesProvider.getWalletService(),
-            BdsRepository(
-                RemoteRepository(billingDependenciesProvider.getBdsApi(), BdsApiResponseMapper()),
-                BillingThrowableCodeMapper()), networkScheduler, ConcurrentHashMap(),
-            CompositeDisposable())
+  class Builder {
+    private var walletService: WalletService? = null
+    private var networkScheduler: Scheduler = Schedulers.io()
+    private var api: RemoteRepository.BdsApi? = null
+
+    fun setApi(bdsApi: RemoteRepository.BdsApi) = apply { api = bdsApi }
+
+    fun setScheduler(scheduler: Scheduler) = apply { this.networkScheduler = scheduler }
+
+    fun setWalletService(walletService: WalletService) =
+        apply { this.walletService = walletService }
+
+    fun build(): BillingPaymentProofSubmission {
+      return walletService?.let { walletService ->
+        api?.let { api ->
+          BillingPaymentProofSubmission(
+              walletService, BdsRepository(
+              RemoteRepository(api, BdsApiResponseMapper()),
+              BillingThrowableCodeMapper()), networkScheduler, ConcurrentHashMap(),
+              ConcurrentHashMap())
+        } ?: throw IllegalArgumentException("BdsApi not defined")
+      } ?: throw IllegalArgumentException("WalletService not defined")
+    }
   }
 
 }

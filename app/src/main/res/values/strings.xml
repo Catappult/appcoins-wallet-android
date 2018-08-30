@@ -1,5 +1,5 @@
 <resources>
-  <string name="app_name">AppCoins Wallet</string>
+  <string name="app_name">AppCoins BDS Wallet</string>
   <string name="title_balance">Balance</string>
   <string name="title_send">Send</string>
   <string name="title_request">Receive</string>
@@ -168,12 +168,12 @@
   <string name="toast_qr_code_no_address">QR code doesn\'t contain valid address</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">Alpha Version</string>
+  <string name="intro_title_first_page">AppCoins BDS Wallet</string>
   <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
-  <string name="intro_title_third_page">Fully Transparent</string>
-  <string name="intro_message_first_page">This app is an alpha version so you shouldn’t use it for important accounts yet!</string>
+  <string name="intro_title_third_page">Simple and Easy</string>
+  <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
   <string name="intro_message_second_page">Private keys never leave your device.</string>
-  <string name="intro_message_third_page">Code is open sourced (GPL-3.0 license) and fully audited.</string>
+  <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
   <!-- Menus -->
   <string name="navigation_settings">Settings</string>
   <!-- Labels -->
@@ -221,6 +221,7 @@
   <string name="minus">-</string>
   <string name="error_wallet_not_selected">Wallet is not selected</string>
   <string name="no_transactions_yet">Get some test APPC so you can see how AppCoins payments will work</string>
+  <string name="no_transactions_yet_main">No transactions yet!</string>
   <string name="unknown_balance_with_symbol">-- ETH</string>
   <string name="unknown_balance_without_symbol">--</string>
   <string name="dummy">-</string>
@@ -299,6 +300,9 @@
   <string name="transaction_category_label">Category</string>
   <string name="transaction_details_label">Details</string>
   <string name="transaction_to_label">To</string>
+  <string name="dialog_express_checkout_buy">Buy</string>
+  <string name="dialog_credit_card_remember">Remember Card</string>
+  <string name="notification_payment_refused">Payment Refused</string>
 
 
   <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
@@ -321,4 +325,11 @@
   <string name="iab_activity_raiden_channel_no_funds_message">You don\'t have enough funds on your µRainden payment channel. Go to your wallet and close the channel to create a new one.  Do you still want to complete this purchase with a standard payment?</string>
   <string name="iab_activity_raiden_channel_no_funds_title">Payment Channel Funds</string>
   <string name="spend_your_appcoins">Spend your AppCoins</string>
+
+  <!-- Billing -->
+  <string name="buy">buy</string>
+  <string name="remember_card_hint">Remember card</string>
+  <string name="connection_error">No network connection</string>
+  <string name="iab_button_ok">OK</string>
+
 </resources>

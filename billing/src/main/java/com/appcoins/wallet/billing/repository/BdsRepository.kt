@@ -5,11 +5,13 @@ import com.appcoins.wallet.billing.Repository
 import com.appcoins.wallet.billing.repository.entity.Gateway
 import com.appcoins.wallet.billing.repository.entity.Product
 import com.appcoins.wallet.billing.repository.entity.Purchase
+import com.appcoins.wallet.billing.repository.entity.Transaction
 import io.reactivex.Completable
 import io.reactivex.Single
+import retrofit2.HttpException
 
 class BdsRepository(private val remoteRepository: RemoteRepository,
-                             private val errorMapper: BillingThrowableCodeMapper) : Repository {
+                    private val errorMapper: BillingThrowableCodeMapper) : Repository {
 
   override fun registerAuthorizationProof(id: String, paymentType: String,
                                           walletAddress: String,
@@ -47,9 +49,17 @@ class BdsRepository(private val remoteRepository: RemoteRepository,
 
   }
 
-  override fun getSkuTransactionStatus(packageName: String, skuId: String, walletAddress: String,
-                                       walletSignature: String): Single<String> {
-    return remoteRepository.getSkuTransaction(packageName, skuId, walletAddress, walletSignature).map { it.status }
+  override fun getSkuTransaction(packageName: String, skuId: String, walletAddress: String,
+                                 walletSignature: String): Single<Transaction> {
+    return remoteRepository.getSkuTransaction(packageName, skuId, walletAddress, walletSignature)
+        .onErrorResumeNext { mapError(it) }
+  }
+
+  private fun mapError(it: Throwable): Single<Transaction> {
+    if (it is HttpException && it.code() == 404) {
+      return Single.just(Transaction.notFound())
+    }
+    return Single.error(it)
   }
 
   override fun getPurchases(packageName: String, walletAddress: String, walletSignature: String,
@@ -65,6 +75,11 @@ class BdsRepository(private val remoteRepository: RemoteRepository,
 
   override fun getGateways(): Single<List<Gateway>> {
     return remoteRepository.getGateways()
+  }
+
+  override fun getAppcoinsTransaction(uid: String, address: String,
+                                      signedContent: String): Single<Transaction> {
+    return remoteRepository.getAppcoinsTransaction(uid, address, signedContent)
   }
 
 }

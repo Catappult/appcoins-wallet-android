@@ -63,7 +63,7 @@ public class TransferParser {
         })
         .map(token -> new TransactionBuilder(token.tokenInfo.symbol, token.tokenInfo.address,
             payment.getChainId(), getReceiverAddress(payment),
-            getTokenTransferAmount(payment, token.tokenInfo.decimals), null,
+            getTokenTransferAmount(payment, token.tokenInfo.decimals), "",
             token.tokenInfo.decimals).shouldSendToken(true));
   }
 
