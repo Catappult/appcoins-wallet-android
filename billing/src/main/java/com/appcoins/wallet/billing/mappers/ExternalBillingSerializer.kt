@@ -28,8 +28,10 @@ class ExternalBillingSerializer {
   }
 
   fun serializeSignatureData(purchase: Purchase): String {
-    val gson = GsonBuilder().registerTypeAdapter(Purchase::class.java, PurchaseSignatureSerializer())
-        .create()
+    val gson =
+        GsonBuilder().registerTypeAdapter(Purchase::class.java, PurchaseSignatureSerializer())
+            .disableHtmlEscaping()
+            .create()
     return gson.toJson(purchase)
   }
 

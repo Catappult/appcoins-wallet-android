@@ -28,20 +28,21 @@ interface Repository {
                        walletSignature: String): Single<Boolean>
 
   fun registerAuthorizationProof(id: String, paymentType: String, walletAddress: String,
-                                 walletSignature: String,
-                                 productName: String,
-                                 packageName: String,
-                                 developerWallet: String,
-                                 storeWallet: String): Single<String>
+                                 walletSignature: String, productName: String, packageName: String,
+                                 developerWallet: String, storeWallet: String,
+                                 developerPayload: String): Single<String>
 
   fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
                            signedData: String, paymentProof: String): Completable
 
   fun getGateways(): Single<List<Gateway>>
+
   fun getAppcoinsTransaction(uid: String, address: String,
                              signedContent: String): Single<Transaction>
 
   enum class BillingType {
     inapp, subs
   }
+
+
 }

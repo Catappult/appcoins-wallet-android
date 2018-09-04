@@ -15,10 +15,11 @@ public class PaymentTransaction {
   private final PaymentState state;
   private final String packageName;
   private final String productName;
+  private final String developerPayload;
 
   public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, PaymentState state,
       @Nullable String approveHash, @Nullable String buyHash, String packageName,
-      String productName) {
+      String productName, String developerPayload) {
     this.uri = uri;
     this.transactionBuilder = transactionBuilder;
     this.state = state;
@@ -26,42 +27,45 @@ public class PaymentTransaction {
     this.buyHash = buyHash;
     this.packageName = packageName;
     this.productName = productName;
+    this.developerPayload = developerPayload;
   }
 
   public PaymentTransaction(PaymentTransaction paymentTransaction, PaymentState state) {
     this(paymentTransaction.getUri(), paymentTransaction.getTransactionBuilder(), state,
         paymentTransaction.getApproveHash(), paymentTransaction.getBuyHash(),
-        paymentTransaction.getPackageName(), paymentTransaction.getProductName());
+        paymentTransaction.getPackageName(), paymentTransaction.getProductName(),
+        paymentTransaction.getDeveloperPayload());
   }
 
   public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, PaymentState state,
-      @Nullable String approveHash, String packageName, String productName) {
+      @Nullable String approveHash, String packageName, String productName, String developerPayload) {
     this.approveHash = approveHash;
     this.packageName = packageName;
     this.uri = uri;
     this.transactionBuilder = transactionBuilder;
     this.state = state;
     this.productName = productName;
-    buyHash = null;
+    this.buyHash = null;
+    this.developerPayload = developerPayload;
   }
 
   public PaymentTransaction(PaymentTransaction paymentTransaction, PaymentState state,
       String approveHash) {
     this(paymentTransaction.getUri(), paymentTransaction.getTransactionBuilder(), state,
-        approveHash, null, paymentTransaction.getPackageName(),
-        paymentTransaction.getProductName());
+        approveHash, null, paymentTransaction.getPackageName(), paymentTransaction.getProductName(),
+        paymentTransaction.getDeveloperPayload());
   }
 
   public PaymentTransaction(PaymentTransaction paymentTransaction, PaymentState state,
       String approveHash, String buyHash) {
     this(paymentTransaction.getUri(), paymentTransaction.getTransactionBuilder(), state,
         approveHash, buyHash, paymentTransaction.getPackageName(),
-        paymentTransaction.getProductName());
+        paymentTransaction.getProductName(), paymentTransaction.getDeveloperPayload());
   }
 
   public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, String packageName,
-      String productName) {
-    this(uri, transactionBuilder, PaymentState.PENDING, null, packageName, productName);
+      String productName, String developerPayload) {
+    this(uri, transactionBuilder, PaymentState.PENDING, null, packageName, productName, developerPayload);
   }
 
   public String getPackageName() {
@@ -135,8 +139,11 @@ public class PaymentTransaction {
     return productName;
   }
 
+  public String getDeveloperPayload() {
+    return developerPayload;
+  }
+
   public enum PaymentState {
-    PENDING, APPROVING, APPROVED, BUYING, BOUGHT, COMPLETED, ERROR, WRONG_NETWORK, NONCE_ERROR,
-    UNKNOWN_TOKEN, NO_TOKENS, NO_ETHER, NO_FUNDS, NO_INTERNET
+    PENDING, APPROVING, APPROVED, BUYING, BOUGHT, COMPLETED, ERROR, WRONG_NETWORK, NONCE_ERROR, UNKNOWN_TOKEN, NO_TOKENS, NO_ETHER, NO_FUNDS, NO_INTERNET
   }
 }

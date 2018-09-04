@@ -27,6 +27,7 @@ class PurchaseSignatureSerializer: JsonSerializer<Purchase> {
     json.add("purchaseTime", context?.serialize(signature?.purchaseTime))
     json.add("purchaseToken", context?.serialize(signature?.purchaseToken))
     json.add("purchaseState", context?.serialize(signature?.purchaseState))
+    json.add("developerPayload", context?.serialize(signature?.developerPayload))
     return json
   }
 

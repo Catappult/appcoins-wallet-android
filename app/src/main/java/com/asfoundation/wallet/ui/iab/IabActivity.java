@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import com.appcoins.wallet.billing.util.PayloadHelper;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.ui.BaseActivity;
 import com.facebook.appevents.AppEventsLogger;
@@ -145,8 +146,11 @@ public class IabActivity extends BaseActivity implements IabView {
     bundle.putString(PRODUCT_NAME, getIntent().getExtras()
         .getString(PRODUCT_NAME));
     bundle.putString(TRANSACTION_DATA, getIntent().getDataString());
-    bundle.putString(EXTRA_DEVELOPER_PAYLOAD, getIntent().getExtras()
-        .getString(EXTRA_DEVELOPER_PAYLOAD));
+    if (getIntent().getExtras()
+        .getString(EXTRA_DEVELOPER_PAYLOAD) != null) {
+      bundle.putString(EXTRA_DEVELOPER_PAYLOAD, PayloadHelper.INSTANCE.getPayload(getIntent().getExtras()
+          .getString(EXTRA_DEVELOPER_PAYLOAD)));
+    }
     skuDetails = bundle;
     return bundle;
   }

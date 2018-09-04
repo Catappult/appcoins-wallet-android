@@ -31,6 +31,7 @@ public class ApproveServiceTest {
   public static final String PACKAGE_NAME = "package_name";
   public static final String PRODUCT_NAME = "product_name";
   public static final String APPROVE_HASH = "approve_hash";
+  public static final String DEVELOPER_PAYLOAD = "developer_payload";
   @Mock TrackTransactionService trackTransactionService;
   @Mock TransactionSender transactionSender;
   private ApproveService approveService;
@@ -70,7 +71,7 @@ public class ApproveServiceTest {
     scheduler.triggerActions();
     approveService.approve(uri,
         new PaymentTransaction(uri, transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
-            "", null, PACKAGE_NAME, PRODUCT_NAME))
+            "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD))
         .subscribe();
     scheduler.triggerActions();
 
@@ -102,7 +103,7 @@ public class ApproveServiceTest {
     scheduler.triggerActions();
     approveService.approve(uri,
         new PaymentTransaction(uri, transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
-            "", null, PACKAGE_NAME, PRODUCT_NAME))
+            "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD))
         .subscribe();
     scheduler.triggerActions();
 

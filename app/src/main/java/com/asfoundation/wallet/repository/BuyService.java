@@ -55,7 +55,7 @@ public class BuyService {
     return new PaymentTransaction(paymentTransaction.getUri(), transaction,
         paymentTransaction.getState(), paymentTransaction.getApproveHash(),
         paymentTransaction.getBuyHash(), paymentTransaction.getPackageName(),
-        paymentTransaction.getProductName());
+        paymentTransaction.getProductName(), paymentTransaction.getDeveloperPayload());
   }
 
   private byte[] getBuyData(TransactionBuilder transactionBuilder, TokenInfo tokenInfo,
