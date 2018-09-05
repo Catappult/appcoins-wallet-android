@@ -51,10 +51,9 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
   }
 
   @Override public Single<Wallet> createAccount(String password) {
-    return Single.fromCallable(() -> new Wallet(keyStore.newAccount(password)
-        .getAddress()
-        .getHex()
-        .toLowerCase()))
+    return Single.fromCallable(() -> WalletUtils.generateNewWalletFile(password,
+        new File(keyStoreFileManager.getKeystoreFolderPath()), false))
+        .map(fileName -> new Wallet(extractAddressFromFileName(fileName)))
         .subscribeOn(Schedulers.io());
   }
 
@@ -148,6 +147,11 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
         .subscribeOn(Schedulers.io());
   }
 
+  private String extractAddressFromFileName(String fileName) {
+    String[] split = fileName.split("--");
+    return "0x".concat(split[split.length - 1].split("\\.")[0]);
+  }
+
   private byte getChainId(long chainId) {
     if (chainId == 1) {
       return ChainId.MAINNET;
@@ -167,7 +171,7 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
       JSONObject jsonObject = new JSONObject(store);
       return "0x" + jsonObject.getString("address");
     } catch (JSONException ex) {
-      throw new Exception("Invalid keystore");
+      throw new Exception("Invalid keystore: " + store);
     }
   }
 

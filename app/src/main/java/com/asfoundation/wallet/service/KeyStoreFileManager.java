@@ -7,6 +7,7 @@ public class KeyStoreFileManager {
   private final String keystoreFolderPath;
 
   public KeyStoreFileManager(String keystoreFolderPath) {
+    new File(keystoreFolderPath).mkdirs();
     this.keystoreFolderPath = keystoreFolderPath;
   }
 
@@ -33,5 +34,9 @@ public class KeyStoreFileManager {
       }
     }
     return null;
+  }
+
+  public String getKeystoreFolderPath() {
+    return keystoreFolderPath;
   }
 }
