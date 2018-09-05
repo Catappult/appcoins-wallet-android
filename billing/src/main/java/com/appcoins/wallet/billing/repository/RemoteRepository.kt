@@ -57,10 +57,11 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
 
   fun registerAuthorizationProof(id: String, paymentType: String, walletAddress: String,
                                  walletSignature: String, productName: String, packageName: String,
-                                 developerWallet: String,
-                                 storeWallet: String): Single<RegisterAuthorizationResponse> {
+                                 developerWallet: String, storeWallet: String,
+                                 developerPayload: String?): Single<RegisterAuthorizationResponse> {
     return api.registerAuthorization(paymentType, walletAddress, walletSignature,
-        RegisterAuthorizationBody(productName, packageName, id, developerWallet, storeWallet))
+        RegisterAuthorizationBody(productName, packageName, id, developerWallet, storeWallet,
+            developerPayload))
   }
 
   fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
@@ -87,7 +88,7 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
   }
 
   fun createAdyenTransaction(walletAddress: String,
-                             walletSignature: String, token: String, payload: String,
+                             walletSignature: String, token: String, payload: String?,
                              packageName: String, productName: String,
                              walletDeveloper: String,
                              walletStore: String): Single<TransactionStatus> {
@@ -178,7 +179,7 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
     @POST("inapp/8.20180401/gateways/adyen/transactions")
     fun createAdyenTransaction(
         @Query("wallet.address") walletAddress: String,
-        @Query("wallet.signature") walletSignature: String, @Field("payload") payload: String,
+        @Query("wallet.signature") walletSignature: String, @Field("payload") payload: String?,
         @Field("package.name") packageName: String, @Field("product.name") productName: String,
         @Field("wallets.developer") walletsDeveloper: String, @Field("token") token: String,
         @Field("wallets.store") walletsStore: String): Observable<TransactionStatus>

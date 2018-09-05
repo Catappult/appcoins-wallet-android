@@ -74,14 +74,16 @@ public class InAppPurchaseInteractor {
   }
 
   public Completable send(String uri, TransactionType transactionType, String packageName,
-      String productName, BigDecimal channelBudget) {
+      String productName, BigDecimal channelBudget, String developerPayload) {
     switch (transactionType) {
       case NORMAL:
-        return buildPaymentTransaction(uri, packageName, productName).flatMapCompletable(
+        return buildPaymentTransaction(uri, packageName, productName,
+            developerPayload).flatMapCompletable(
             paymentTransaction -> inAppPurchaseService.send(paymentTransaction.getUri(),
                 paymentTransaction));
       case RAIDEN:
-        return buildPaymentTransaction(uri, packageName, productName).observeOn(Schedulers.io())
+        return buildPaymentTransaction(uri, packageName, productName, developerPayload).observeOn(
+            Schedulers.io())
             .flatMapCompletable(paymentTransaction -> channelService.hasChannel(
                 paymentTransaction.getTransactionBuilder()
                     .fromAddress())
@@ -99,10 +101,11 @@ public class InAppPurchaseInteractor {
   }
 
   public Completable resume(String uri, TransactionType transactionType, String packageName,
-      String productName, String approveKey) {
+      String productName, String approveKey, String developerPayload) {
     switch (transactionType) {
       case NORMAL:
-        return buildPaymentTransaction(uri, packageName, productName).flatMapCompletable(
+        return buildPaymentTransaction(uri, packageName, productName,
+            developerPayload).flatMapCompletable(
             paymentTransaction -> billingFactory.getBilling(packageName)
                 .getSkuTransaction(paymentTransaction.getTransactionBuilder()
                     .getSkuId(), scheduler)
@@ -251,7 +254,7 @@ public class InAppPurchaseInteractor {
   }
 
   private Single<PaymentTransaction> buildPaymentTransaction(String uri, String packageName,
-      String productName) {
+      String productName, String developerPayload) {
     return Single.zip(parseTransaction(uri), defaultWalletInteract.find(),
         (transaction, wallet) -> transaction.fromAddress(wallet.address))
         .flatMap(transactionBuilder -> gasSettingsInteract.fetch(true)
@@ -259,7 +262,7 @@ public class InAppPurchaseInteractor {
                 new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
                     paymentGasLimit))))
         .map(transactionBuilder -> new PaymentTransaction(uri, transactionBuilder, packageName,
-            productName));
+            productName, developerPayload));
   }
 
   public void start() {

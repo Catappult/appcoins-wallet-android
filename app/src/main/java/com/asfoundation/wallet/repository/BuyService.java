@@ -55,7 +55,7 @@ public class BuyService {
     return new PaymentTransaction(paymentTransaction.getUri(), transaction,
         paymentTransaction.getState(), paymentTransaction.getApproveHash(),
         paymentTransaction.getBuyHash(), paymentTransaction.getPackageName(),
-        paymentTransaction.getProductName());
+        paymentTransaction.getProductName(), paymentTransaction.getDeveloperPayload());
   }
 
   private byte[] getBuyData(TransactionBuilder transactionBuilder, TokenInfo tokenInfo,
@@ -130,8 +130,7 @@ public class BuyService {
   }
 
   public enum Status {
-    BUYING, BOUGHT, ERROR, WRONG_NETWORK, NONCE_ERROR, UNKNOWN_TOKEN, NO_TOKENS, NO_ETHER,
-    NO_FUNDS, NO_INTERNET, PENDING
+    BUYING, BOUGHT, ERROR, WRONG_NETWORK, NONCE_ERROR, UNKNOWN_TOKEN, NO_TOKENS, NO_ETHER, NO_FUNDS, NO_INTERNET, PENDING
 
   }
 

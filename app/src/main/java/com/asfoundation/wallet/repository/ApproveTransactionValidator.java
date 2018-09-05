@@ -28,7 +28,7 @@ public class ApproveTransactionValidator implements TransactionValidator {
         paymentTransaction.getTransactionBuilder())
         .map(
             hash -> new AuthorizationProof("appcoins", hash, productName, packageName, storeAddress,
-                oemAddress, developerAddress))
+                oemAddress, developerAddress, paymentTransaction.getDeveloperPayload()))
         .flatMapCompletable(billingPaymentProofSubmission::processAuthorizationProof);
   }
 }

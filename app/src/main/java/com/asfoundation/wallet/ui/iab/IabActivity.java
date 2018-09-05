@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import com.appcoins.wallet.billing.util.PayloadHelper;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.ui.BaseActivity;
 import com.facebook.appevents.AppEventsLogger;
@@ -19,6 +20,8 @@ import javax.inject.Inject;
  */
 
 public class IabActivity extends BaseActivity implements IabView {
+  public static final String RESPONSE_CODE = "RESPONSE_CODE";
+  public static final int RESULT_USER_CANCELED = 1;
   public static final String SKU_DETAILS = "sku_details";
   public static final String APP_PACKAGE = "app_package";
   public static final String PRODUCT_NAME = "product_name";
@@ -64,6 +67,9 @@ public class IabActivity extends BaseActivity implements IabView {
 
   @Override public void onBackPressed() {
     if (isBackEnable) {
+      Bundle bundle = new Bundle();
+      bundle.putInt(RESPONSE_CODE, RESULT_USER_CANCELED);
+      close(bundle);
       super.onBackPressed();
     }
   }
@@ -97,9 +103,9 @@ public class IabActivity extends BaseActivity implements IabView {
   }
 
   @Override public void close(Bundle data) {
-    Intent intent = null;
+    Intent intent = new Intent();
     if (data != null) {
-      new Intent().putExtras(data);
+      intent.putExtras(data);
     }
     setResult(Activity.RESULT_CANCELED, intent);
     finish();
@@ -145,8 +151,11 @@ public class IabActivity extends BaseActivity implements IabView {
     bundle.putString(PRODUCT_NAME, getIntent().getExtras()
         .getString(PRODUCT_NAME));
     bundle.putString(TRANSACTION_DATA, getIntent().getDataString());
-    bundle.putString(EXTRA_DEVELOPER_PAYLOAD, getIntent().getExtras()
+    String developerPayload = PayloadHelper.INSTANCE.getPayload(getIntent().getExtras()
         .getString(EXTRA_DEVELOPER_PAYLOAD));
+    if (developerPayload != null) {
+      bundle.putString(EXTRA_DEVELOPER_PAYLOAD, developerPayload);
+    }
     skuDetails = bundle;
     return bundle;
   }

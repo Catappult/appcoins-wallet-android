@@ -39,14 +39,15 @@ public class OnChainBuyPresenter {
     this.billingSerializer = billingSerializer;
   }
 
-  public void present(String uriString, String appPackage, String productName, BigDecimal amount) {
-    setupUi(amount, uriString, appPackage);
+  public void present(String uriString, String appPackage, String productName, BigDecimal amount,
+      String developerPayload) {
+    setupUi(amount, uriString, appPackage, developerPayload);
 
     handleCancelClick();
 
     handleOkErrorClick(uriString);
 
-    handleBuyEvent(appPackage, productName);
+    handleBuyEvent(appPackage, productName, developerPayload);
 
     showTransactionState(uriString);
 
@@ -96,13 +97,13 @@ public class OnChainBuyPresenter {
         }, throwable -> throwable.printStackTrace()));
   }
 
-  private void handleBuyEvent(String appPackage, String productName) {
+  private void handleBuyEvent(String appPackage, String productName, String developerPayload) {
     disposables.add(view.getBuyClick()
         .observeOn(Schedulers.io())
         .flatMapCompletable(buyData -> inAppPurchaseInteractor.send(buyData.getUri(),
             buyData.isRaiden ? InAppPurchaseInteractor.TransactionType.RAIDEN
                 : InAppPurchaseInteractor.TransactionType.NORMAL, appPackage, productName,
-            buyData.getChannelBudget())
+            buyData.getChannelBudget(), developerPayload)
             .observeOn(viewScheduler)
             .doOnError(this::showError))
         .retry()
@@ -120,7 +121,8 @@ public class OnChainBuyPresenter {
         .subscribe(click -> close()));
   }
 
-  private void setupUi(BigDecimal appcAmount, String uri, String packageName) {
+  private void setupUi(BigDecimal appcAmount, String uri, String packageName,
+      String developerPayload) {
     disposables.add(inAppPurchaseInteractor.parseTransaction(uri)
         .flatMapCompletable(
             transaction -> inAppPurchaseInteractor.getCurrentPaymentStep(packageName, transaction)
@@ -129,7 +131,7 @@ public class OnChainBuyPresenter {
                     case PAUSED_ON_CHAIN:
                       return inAppPurchaseInteractor.resume(uri,
                           InAppPurchaseInteractor.TransactionType.NORMAL, packageName,
-                          transaction.getSkuId());
+                          transaction.getSkuId(), developerPayload);
                     case READY:
                       return Completable.fromAction(() -> setup(appcAmount))
                           .subscribeOn(AndroidSchedulers.mainThread());

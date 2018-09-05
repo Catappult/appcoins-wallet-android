@@ -29,19 +29,19 @@ public class BdsInAppPurchaseInteractor {
   }
 
   public Completable send(String uri, InAppPurchaseInteractor.TransactionType transactionType,
-      String packageName, String productName, BigDecimal channelBudget) {
+      String packageName, String productName, BigDecimal channelBudget, String developerPayload) {
     return inAppPurchaseInteractor.send(uri, transactionType, packageName, productName,
-        channelBudget);
+        channelBudget, developerPayload);
   }
 
   public Completable resume(String uri, InAppPurchaseInteractor.TransactionType transactionType,
-      String packageName, String productName) {
+      String packageName, String productName, String developerPayload) {
     return approveKeyProvider.getKey(packageName, productName)
         .doOnSuccess(authorizationToken -> billingPaymentProofSubmission.saveTransactionId(
             authorizationToken))
         .flatMapCompletable(
             approveKey -> inAppPurchaseInteractor.resume(uri, transactionType, packageName,
-                productName, approveKey));
+                productName, approveKey, developerPayload));
   }
 
   public Observable<Payment> getTransactionState(String uri) {

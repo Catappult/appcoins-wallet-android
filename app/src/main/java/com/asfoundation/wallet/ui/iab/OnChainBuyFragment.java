@@ -43,6 +43,7 @@ import java.util.List;
 import java.util.Locale;
 import javax.inject.Inject;
 
+import static com.asfoundation.wallet.ui.iab.IabActivity.EXTRA_DEVELOPER_PAYLOAD;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
 
 /**
@@ -174,7 +175,8 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   @Override public void onStart() {
     super.onStart();
     presenter.present(data, getAppPackage(), extras.getString(PRODUCT_NAME),
-        (BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT));
+        (BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT),
+        extras.getString(EXTRA_DEVELOPER_PAYLOAD));
   }
 
   @Override public void onStop() {

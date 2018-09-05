@@ -82,6 +82,7 @@ public class InAppPurchaseInteractorTest {
   public static final String ICON_PATH = "icon_path";
   public static final String SKU = "sku";
   public static final String UID = "uid";
+  public static final String DEVELOPER_PAYLOAD = "developer_payload";
   @Mock FetchGasSettingsInteract gasSettingsInteract;
   @Mock BdsTransactionProvider transactionProvider;
   @Mock SendTransactionInteract sendTransactionInteract;
@@ -216,7 +217,7 @@ public class InAppPurchaseInteractorTest {
         .subscribe(testObserver);
     scheduler.triggerActions();
     inAppPurchaseInteractor.send(uri, InAppPurchaseInteractor.TransactionType.NORMAL, PACKAGE_NAME,
-        PRODUCT_NAME, BigDecimal.ONE)
+        PRODUCT_NAME, BigDecimal.ONE, DEVELOPER_PAYLOAD)
         .subscribe();
     scheduler.triggerActions();
     balance.onNext(GetDefaultWalletBalance.BalanceState.OK);
@@ -276,7 +277,7 @@ public class InAppPurchaseInteractorTest {
         .subscribe(testObserver);
     scheduler.triggerActions();
     inAppPurchaseInteractor.send(uri, InAppPurchaseInteractor.TransactionType.NORMAL, PACKAGE_NAME,
-        PRODUCT_NAME, BigDecimal.ONE)
+        PRODUCT_NAME, BigDecimal.ONE, DEVELOPER_PAYLOAD)
         .subscribe();
     scheduler.triggerActions();
     balance.onNext(GetDefaultWalletBalance.BalanceState.NO_ETHER);
@@ -319,7 +320,7 @@ public class InAppPurchaseInteractorTest {
         .subscribe(testObserver);
     scheduler.triggerActions();
     inAppPurchaseInteractor.send(uri, InAppPurchaseInteractor.TransactionType.NORMAL, PACKAGE_NAME,
-        PRODUCT_NAME, BigDecimal.ONE)
+        PRODUCT_NAME, BigDecimal.ONE, DEVELOPER_PAYLOAD)
         .subscribe();
     scheduler.triggerActions();
     balance.onNext(GetDefaultWalletBalance.BalanceState.NO_ETHER_NO_TOKEN);
@@ -380,7 +381,7 @@ public class InAppPurchaseInteractorTest {
 
     TestObserver<Object> submitObserver = new TestObserver<>();
     inAppPurchaseInteractor.resume(uri, InAppPurchaseInteractor.TransactionType.NORMAL,
-        PACKAGE_NAME, PRODUCT_NAME, "approveKey")
+        PACKAGE_NAME, PRODUCT_NAME, "approveKey", DEVELOPER_PAYLOAD)
         .subscribe(submitObserver);
 
     scheduler.triggerActions();

@@ -62,8 +62,8 @@ object PayloadHelper {
    *
    * @return The additional payload content
    */
-  fun getPayload(uriString: String): String {
-    val uri = Uri.parse(uriString)
+  fun getPayload(uriString: String?): String? {
+    val uri = Uri.parse(uriString!!)
     return if (uri.scheme.equals(SCHEME, ignoreCase = true)) {
       uri.getQueryParameter(PAYLOAD_PARAMETER)
     } else {
