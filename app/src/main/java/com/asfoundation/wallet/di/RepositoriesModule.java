@@ -25,6 +25,7 @@ import com.asfoundation.wallet.repository.Web3jService;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.EthplorerTokenService;
 import com.asfoundation.wallet.service.GethKeystoreAccountService;
+import com.asfoundation.wallet.service.KeyStoreFileManager;
 import com.asfoundation.wallet.service.RealmManager;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenExplorerClientType;
@@ -44,7 +45,7 @@ import okhttp3.OkHttpClient;
 
   @Singleton @Provides AccountKeystoreService provideAccountKeyStoreService(Context context) {
     File file = new File(context.getFilesDir(), "keystore/keystore");
-    return new GethKeystoreAccountService(file);
+    return new GethKeystoreAccountService(file, new KeyStoreFileManager(file.getAbsolutePath()));
   }
 
   @Singleton @Provides WalletRepositoryType provideWalletRepository(OkHttpClient okHttpClient,

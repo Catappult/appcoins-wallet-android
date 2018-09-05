@@ -12,7 +12,6 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
-import java.util.Objects;
 import org.ethereum.geth.Account;
 import org.ethereum.geth.Accounts;
 import org.ethereum.geth.Address;
@@ -44,11 +43,11 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
   private static final int P = 1;
 
   private final KeyStore keyStore;
-  private final String keystoreFolderPath;
+  private final KeyStoreFileManager keyStoreFileManager;
 
-  public GethKeystoreAccountService(File keyStoreFile) {
-    keystoreFolderPath = keyStoreFile.getAbsolutePath();
-    keyStore = new KeyStore(keystoreFolderPath, Geth.LightScryptN, Geth.LightScryptP);
+  public GethKeystoreAccountService(File keyStoreFile, KeyStoreFileManager keyStoreFileManager) {
+    this.keyStoreFileManager = keyStoreFileManager;
+    keyStore = new KeyStore(keyStoreFile.getAbsolutePath(), Geth.LightScryptN, Geth.LightScryptP);
   }
 
   @Override public Single<Wallet> createAccount(String password) {
@@ -118,9 +117,8 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
           RawTransaction.createTransaction(BigInteger.valueOf(nonce), gasPrice.toBigInteger(),
               gasLimit.toBigInteger(), toAddress, amount.toBigInteger(), Hex.toHexString(data));
 
-      Credentials credentials = WalletUtils.loadCredentials(signerPassword,
-          Objects.requireNonNull(getFilePath(fromAddress.substring(2), keystoreFolderPath),
-              "Wallet with address: " + fromAddress + " not found"));
+      Credentials credentials =
+          WalletUtils.loadCredentials(signerPassword, keyStoreFileManager.getKeystore(fromAddress));
 
       byte convertedChainId = getChainId(chainId);
       return convertedChainId == ChainId.NONE ? TransactionEncoder.signMessage(transaction,
@@ -162,26 +160,6 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
     } else {
       return ChainId.NONE;
     }
-  }
-
-  private String getFilePath(String accountAddress, String path) {
-    File file = new File(path);
-    if (!file.isDirectory()) {
-      if (file.getName()
-          .toLowerCase()
-          .contains(accountAddress.toLowerCase())) {
-        return file.getAbsolutePath();
-      }
-    }
-    if (file.isDirectory()) {
-      for (File subFile : file.listFiles()) {
-        String filePath = getFilePath(accountAddress, subFile.getPath());
-        if (filePath != null) {
-          return filePath;
-        }
-      }
-    }
-    return null;
   }
 
   private String extractAddressFromStore(String store) throws Exception {

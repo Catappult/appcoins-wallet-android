@@ -7,6 +7,7 @@ import android.util.Log;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.GethKeystoreAccountService;
+import com.asfoundation.wallet.service.KeyStoreFileManager;
 import io.reactivex.observers.TestObserver;
 import java.io.File;
 import java.util.ArrayList;
@@ -30,7 +31,8 @@ import static org.junit.Assert.assertTrue;
   @Before public void setUp() {
     Context context = InstrumentationRegistry.getTargetContext();
     accountKeystoreService =
-        new GethKeystoreAccountService(new File(context.getFilesDir(), "store"));
+        new GethKeystoreAccountService(new File(context.getFilesDir(), "store"),
+            new KeyStoreFileManager(new File(context.getFilesDir(), "store").getAbsolutePath()));
   }
 
   //	Single<byte[]> signTransaction(
