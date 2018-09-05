@@ -1,6 +1,9 @@
 package com.appcoins.wallet.billing.mappers
 
-import com.appcoins.wallet.billing.repository.entity.*
+import com.appcoins.wallet.billing.repository.entity.Product
+import com.appcoins.wallet.billing.repository.entity.Purchase
+import com.appcoins.wallet.billing.repository.entity.PurchaseSignatureSerializer
+import com.appcoins.wallet.billing.repository.entity.SKU
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import java.util.*

@@ -34,13 +34,13 @@ public class ApproveServiceTest {
   public static final String DEVELOPER_PAYLOAD = "developer_payload";
   @Mock TrackTransactionService trackTransactionService;
   @Mock TransactionSender transactionSender;
+  @Mock TransactionValidator transactionValidator;
   private ApproveService approveService;
   private PublishSubject<PendingTransaction> pendingTransactionState;
   private TestScheduler scheduler;
   private WatchedTransactionService transactionService;
   private TransactionBuilder transactionBuilder;
   private BigInteger nonce;
-  @Mock TransactionValidator transactionValidator;
 
   @Before public void before() {
     MockitoAnnotations.initMocks(this);

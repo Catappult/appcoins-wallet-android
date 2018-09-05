@@ -26,7 +26,8 @@ class BillingPaymentProofSubmission internal constructor(
   fun processAuthorizationProof(authorizationProof: AuthorizationProof): Completable {
     return registerAuthorizationProof(authorizationProof.id, authorizationProof.paymentType,
         authorizationProof.productName, authorizationProof.packageName,
-        authorizationProof.developerAddress, authorizationProof.storeAddress, authorizationProof.developerPayload)
+        authorizationProof.developerAddress, authorizationProof.storeAddress,
+        authorizationProof.developerPayload)
         .doOnSuccess { paymentId -> transactionIdsFromApprove[authorizationProof.id] = paymentId }
         .toCompletable()
   }

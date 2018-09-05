@@ -60,7 +60,8 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
                                  developerWallet: String, storeWallet: String,
                                  developerPayload: String?): Single<RegisterAuthorizationResponse> {
     return api.registerAuthorization(paymentType, walletAddress, walletSignature,
-        RegisterAuthorizationBody(productName, packageName, id, developerWallet, storeWallet, developerPayload))
+        RegisterAuthorizationBody(productName, packageName, id, developerWallet, storeWallet,
+            developerPayload))
   }
 
   fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,

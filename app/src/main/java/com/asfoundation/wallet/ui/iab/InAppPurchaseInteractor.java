@@ -77,11 +77,13 @@ public class InAppPurchaseInteractor {
       String productName, BigDecimal channelBudget, String developerPayload) {
     switch (transactionType) {
       case NORMAL:
-        return buildPaymentTransaction(uri, packageName, productName, developerPayload).flatMapCompletable(
+        return buildPaymentTransaction(uri, packageName, productName,
+            developerPayload).flatMapCompletable(
             paymentTransaction -> inAppPurchaseService.send(paymentTransaction.getUri(),
                 paymentTransaction));
       case RAIDEN:
-        return buildPaymentTransaction(uri, packageName, productName, developerPayload).observeOn(Schedulers.io())
+        return buildPaymentTransaction(uri, packageName, productName, developerPayload).observeOn(
+            Schedulers.io())
             .flatMapCompletable(paymentTransaction -> channelService.hasChannel(
                 paymentTransaction.getTransactionBuilder()
                     .fromAddress())
@@ -102,7 +104,8 @@ public class InAppPurchaseInteractor {
       String productName, String approveKey, String developerPayload) {
     switch (transactionType) {
       case NORMAL:
-        return buildPaymentTransaction(uri, packageName, productName, developerPayload).flatMapCompletable(
+        return buildPaymentTransaction(uri, packageName, productName,
+            developerPayload).flatMapCompletable(
             paymentTransaction -> billingFactory.getBilling(packageName)
                 .getSkuTransaction(paymentTransaction.getTransactionBuilder()
                     .getSkuId(), scheduler)

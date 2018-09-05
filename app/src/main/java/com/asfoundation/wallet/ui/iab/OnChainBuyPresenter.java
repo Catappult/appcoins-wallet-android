@@ -39,7 +39,8 @@ public class OnChainBuyPresenter {
     this.billingSerializer = billingSerializer;
   }
 
-  public void present(String uriString, String appPackage, String productName, BigDecimal amount, String developerPayload) {
+  public void present(String uriString, String appPackage, String productName, BigDecimal amount,
+      String developerPayload) {
     setupUi(amount, uriString, appPackage, developerPayload);
 
     handleCancelClick();
@@ -120,7 +121,8 @@ public class OnChainBuyPresenter {
         .subscribe(click -> close()));
   }
 
-  private void setupUi(BigDecimal appcAmount, String uri, String packageName, String developerPayload) {
+  private void setupUi(BigDecimal appcAmount, String uri, String packageName,
+      String developerPayload) {
     disposables.add(inAppPurchaseInteractor.parseTransaction(uri)
         .flatMapCompletable(
             transaction -> inAppPurchaseInteractor.getCurrentPaymentStep(packageName, transaction)

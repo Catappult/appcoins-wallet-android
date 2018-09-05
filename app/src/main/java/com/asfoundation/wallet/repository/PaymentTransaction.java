@@ -38,7 +38,8 @@ public class PaymentTransaction {
   }
 
   public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, PaymentState state,
-      @Nullable String approveHash, String packageName, String productName, String developerPayload) {
+      @Nullable String approveHash, String packageName, String productName,
+      String developerPayload) {
     this.approveHash = approveHash;
     this.packageName = packageName;
     this.uri = uri;
@@ -65,7 +66,8 @@ public class PaymentTransaction {
 
   public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, String packageName,
       String productName, String developerPayload) {
-    this(uri, transactionBuilder, PaymentState.PENDING, null, packageName, productName, developerPayload);
+    this(uri, transactionBuilder, PaymentState.PENDING, null, packageName, productName,
+        developerPayload);
   }
 
   public String getPackageName() {
