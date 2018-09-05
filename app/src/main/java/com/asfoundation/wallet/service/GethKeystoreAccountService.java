@@ -12,17 +12,22 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
+import java.util.Objects;
 import org.ethereum.geth.Account;
 import org.ethereum.geth.Accounts;
 import org.ethereum.geth.Address;
-import org.ethereum.geth.BigInt;
 import org.ethereum.geth.Geth;
 import org.ethereum.geth.KeyStore;
-import org.ethereum.geth.Transaction;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.spongycastle.util.encoders.Hex;
+import org.web3j.crypto.Credentials;
 import org.web3j.crypto.ECKeyPair;
+import org.web3j.crypto.RawTransaction;
+import org.web3j.crypto.TransactionEncoder;
 import org.web3j.crypto.WalletFile;
+import org.web3j.crypto.WalletUtils;
+import org.web3j.tx.ChainId;
 
 import static org.web3j.crypto.Wallet.create;
 
@@ -39,9 +44,11 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
   private static final int P = 1;
 
   private final KeyStore keyStore;
+  private final String keystoreFolderPath;
 
   public GethKeystoreAccountService(File keyStoreFile) {
-    keyStore = new KeyStore(keyStoreFile.getAbsolutePath(), Geth.LightScryptN, Geth.LightScryptP);
+    keystoreFolderPath = keyStoreFile.getAbsolutePath();
+    keyStore = new KeyStore(keystoreFolderPath, Geth.LightScryptN, Geth.LightScryptP);
   }
 
   @Override public Single<Wallet> createAccount(String password) {
@@ -107,26 +114,17 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
       BigDecimal amount, BigDecimal gasPrice, BigDecimal gasLimit, long nonce, byte[] data,
       long chainId) {
     return Single.fromCallable(() -> {
-      BigInt value = new BigInt(0);
-      value.setString(amount.toString(), 10);
+      RawTransaction transaction =
+          RawTransaction.createTransaction(BigInteger.valueOf(nonce), gasPrice.toBigInteger(),
+              gasLimit.toBigInteger(), toAddress, amount.toBigInteger(), Hex.toHexString(data));
 
-      BigInt gasPriceBI = new BigInt(0);
-      gasPriceBI.setString(gasPrice.toString(), 10);
+      Credentials credentials = WalletUtils.loadCredentials(signerPassword,
+          Objects.requireNonNull(getFilePath(fromAddress.substring(2), keystoreFolderPath),
+              "Wallet with address: " + fromAddress + " not found"));
 
-      BigInt gasLimitBI = new BigInt(0);
-      gasLimitBI.setString(gasLimit.toString(), 10);
-
-      Transaction tx =
-          new Transaction(nonce, new Address(toAddress), value, gasLimitBI.getInt64(), gasPriceBI,
-              data);
-
-      BigInt chain = new BigInt(chainId); // Chain identifier of the main net
-      org.ethereum.geth.Account gethAccount = findAccount(fromAddress);
-      keyStore.unlock(gethAccount, signerPassword);
-      Transaction signed = keyStore.signTx(gethAccount, tx, chain);
-      keyStore.lock(gethAccount.getAddress());
-
-      return signed.encodeRLP();
+      byte convertedChainId = getChainId(chainId);
+      return convertedChainId == ChainId.NONE ? TransactionEncoder.signMessage(transaction,
+          credentials) : TransactionEncoder.signMessage(transaction, convertedChainId, credentials);
     })
         .subscribeOn(Schedulers.io());
   }
@@ -150,6 +148,40 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
       return result;
     })
         .subscribeOn(Schedulers.io());
+  }
+
+  private byte getChainId(long chainId) {
+    if (chainId == 1) {
+      return ChainId.MAINNET;
+    } else if (chainId == 61) {
+      return ChainId.ETHEREUM_CLASSIC_MAINNET;
+    } else if (chainId == 42) {
+      return ChainId.KOVAN;
+    } else if (chainId == 3) {
+      return ChainId.ROPSTEN;
+    } else {
+      return ChainId.NONE;
+    }
+  }
+
+  private String getFilePath(String accountAddress, String path) {
+    File file = new File(path);
+    if (!file.isDirectory()) {
+      if (file.getName()
+          .toLowerCase()
+          .contains(accountAddress.toLowerCase())) {
+        return file.getAbsolutePath();
+      }
+    }
+    if (file.isDirectory()) {
+      for (File subFile : file.listFiles()) {
+        String filePath = getFilePath(accountAddress, subFile.getPath());
+        if (filePath != null) {
+          return filePath;
+        }
+      }
+    }
+    return null;
   }
 
   private String extractAddressFromStore(String store) throws Exception {
@@ -176,7 +208,7 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
           return accounts.get(i);
         }
       } catch (Exception ex) {
-                /* Quietly: interest only result, maybe next is ok. */
+        /* Quietly: interest only result, maybe next is ok. */
       }
     }
     throw new ServiceException("Wallet with address: " + address + " not found");
