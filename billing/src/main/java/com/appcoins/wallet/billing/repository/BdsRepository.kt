@@ -20,7 +20,7 @@ class BdsRepository(private val remoteRepository: RemoteRepository,
                                           packageName: String,
                                           developerWallet: String,
                                           storeWallet: String,
-                                          developerPayload: String): Single<String> {
+                                          developerPayload: String?): Single<String> {
     return remoteRepository.registerAuthorizationProof(id, paymentType, walletAddress,
         walletSignature, productName, packageName, developerWallet, storeWallet, developerPayload)
         .map { it.uid }

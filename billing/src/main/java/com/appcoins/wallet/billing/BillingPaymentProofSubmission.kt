@@ -47,7 +47,7 @@ class BillingPaymentProofSubmission internal constructor(
                                          packageName: String,
                                          developerWallet: String,
                                          storeWallet: String,
-                                         developerPayload: String): Single<String> {
+                                         developerPayload: String?): Single<String> {
     return walletService.getWalletAddress().observeOn(networkScheduler).flatMap { walletAddress ->
       walletService.signContent(walletAddress).observeOn(networkScheduler).flatMap { signedData ->
         repository.registerAuthorizationProof(id, paymentType, walletAddress, signedData,
@@ -104,7 +104,7 @@ data class AuthorizationProof(val paymentType: String,
                               val storeAddress: String,
                               val oemAddress: String,
                               val developerAddress: String,
-                              val developerPayload: String)
+                              val developerPayload: String?)
 
 data class PaymentProof(val paymentType: String,
                         val approveProof: String,

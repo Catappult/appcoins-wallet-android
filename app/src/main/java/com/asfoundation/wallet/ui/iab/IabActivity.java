@@ -151,11 +151,11 @@ public class IabActivity extends BaseActivity implements IabView {
     bundle.putString(PRODUCT_NAME, getIntent().getExtras()
         .getString(PRODUCT_NAME));
     bundle.putString(TRANSACTION_DATA, getIntent().getDataString());
-    if (getIntent().getExtras()
-        .getString(EXTRA_DEVELOPER_PAYLOAD) != null) {
-      bundle.putString(EXTRA_DEVELOPER_PAYLOAD, PayloadHelper.INSTANCE.getPayload(
-          getIntent().getExtras()
-              .getString(EXTRA_DEVELOPER_PAYLOAD)));
+    String developerPayload = PayloadHelper.INSTANCE.getPayload(
+        getIntent().getExtras()
+            .getString(EXTRA_DEVELOPER_PAYLOAD));
+    if (developerPayload != null) {
+      bundle.putString(EXTRA_DEVELOPER_PAYLOAD, developerPayload);
     }
     skuDetails = bundle;
     return bundle;

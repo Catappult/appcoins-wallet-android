@@ -30,7 +30,7 @@ interface Repository {
   fun registerAuthorizationProof(id: String, paymentType: String, walletAddress: String,
                                  walletSignature: String, productName: String, packageName: String,
                                  developerWallet: String, storeWallet: String,
-                                 developerPayload: String): Single<String>
+                                 developerPayload: String?): Single<String>
 
   fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
                            signedData: String, paymentProof: String): Completable

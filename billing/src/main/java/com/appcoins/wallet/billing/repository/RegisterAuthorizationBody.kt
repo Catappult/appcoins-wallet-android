@@ -7,4 +7,4 @@ data class RegisterAuthorizationBody(@SerializedName("product.name") val product
                                      val token: String, @SerializedName("wallets.developer")
                                      val developerWallet: String,
                                      @SerializedName("wallets.store") val storeWallet: String,
-                                     @SerializedName("payload") val developerPayload: String)
+                                     @SerializedName("payload") val developerPayload: String?)
