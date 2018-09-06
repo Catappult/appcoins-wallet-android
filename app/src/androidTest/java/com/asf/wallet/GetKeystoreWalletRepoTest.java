@@ -8,7 +8,9 @@ import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.GethKeystoreAccountService;
 import com.asfoundation.wallet.service.KeyStoreFileManager;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.reactivex.observers.TestObserver;
+import io.reactivex.schedulers.Schedulers;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +40,9 @@ import static org.junit.Assert.assertTrue;
     Context context = InstrumentationRegistry.getTargetContext();
     accountKeystoreService =
         new GethKeystoreAccountService(new File(context.getFilesDir(), "store"),
-            new KeyStoreFileManager(new File(context.getFilesDir(), "store").getAbsolutePath()),
-            context.getCacheDir()
-                .getAbsolutePath());
+            new KeyStoreFileManager(new File(context.getFilesDir(), "store").getAbsolutePath(),
+                new ObjectMapper()), context.getCacheDir()
+            .getAbsolutePath(), Schedulers.io());
   }
 
   //	Single<byte[]> signTransaction(

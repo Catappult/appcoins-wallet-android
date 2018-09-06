@@ -6,17 +6,14 @@ import com.asfoundation.wallet.entity.ServiceException;
 import com.asfoundation.wallet.entity.Wallet;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.reactivex.Completable;
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
-import io.reactivex.schedulers.Schedulers;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.nio.charset.Charset;
-import org.ethereum.geth.Account;
 import org.ethereum.geth.Accounts;
-import org.ethereum.geth.Address;
 import org.ethereum.geth.Geth;
 import org.ethereum.geth.KeyStore;
 import org.json.JSONException;
@@ -47,44 +44,39 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
   private final KeyStore keyStore;
   private final KeyStoreFileManager keyStoreFileManager;
   private final String cacheFolder;
+  private final Scheduler scheduler;
 
   public GethKeystoreAccountService(File keyStoreFile, KeyStoreFileManager keyStoreFileManager,
-      String cacheFolder) {
+      String cacheFolder, Scheduler scheduler) {
     this.keyStoreFileManager = keyStoreFileManager;
     keyStore = new KeyStore(keyStoreFile.getAbsolutePath(), Geth.LightScryptN, Geth.LightScryptP);
     this.cacheFolder = cacheFolder;
+    this.scheduler = scheduler;
   }
 
   @Override public Single<Wallet> createAccount(String password) {
     return Single.fromCallable(() -> WalletUtils.generateNewWalletFile(password,
         new File(keyStoreFileManager.getKeystoreFolderPath()), false))
         .map(fileName -> new Wallet(extractAddressFromFileName(fileName)))
-        .subscribeOn(Schedulers.io());
+        .subscribeOn(scheduler);
   }
 
   @Override
   public Single<Wallet> importKeystore(String store, String password, String newPassword) {
-    return Single.fromCallable(() -> {
-      String address = extractAddressFromStore(store);
-      if (hasAccount(address)) {
-        throw new ServiceErrorException(C.ErrorCode.ALREADY_ADDED, "Already added");
-      }
-      Account account;
-      try {
-        account =
-            keyStore.importKey(store.getBytes(Charset.forName("UTF-8")), password, newPassword);
-      } catch (Exception ex) {
-        // We need to make sure that we do not have a broken account
-        deleteAccount(address, newPassword).subscribe(() -> {
-        }, t -> {
-        });
-        throw ex;
-      }
-      return new Wallet(account.getAddress()
-          .getHex()
-          .toLowerCase());
-    })
-        .subscribeOn(Schedulers.io());
+    return Single.fromCallable(() -> keyStoreFileManager.saveKeyStoreFile(store))
+        .flatMap(keyStoreFilePath -> {
+          Credentials credentials = WalletUtils.loadCredentials(password, keyStoreFilePath);
+          if (hasAccount(credentials.getAddress())) {
+            return Single.error(
+                new ServiceErrorException(C.ErrorCode.ALREADY_ADDED, "Already added"));
+          }
+          return exportAccount(new Wallet(credentials.getAddress()), password,
+              newPassword).doOnSuccess(keyStoreFileManager::saveKeyStoreFile)
+              .doOnSuccess(__ -> keyStoreFileManager.delete(keyStoreFilePath))
+              .map(__ -> credentials.getAddress());
+        })
+        .map(Wallet::new)
+        .subscribeOn(scheduler);
   }
 
   @Override public Single<Wallet> importPrivateKey(String privateKey, String newPassword) {
@@ -111,14 +103,14 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
                         + "from cache");
               }
             }))
-        .subscribeOn(Schedulers.io());
+        .subscribeOn(scheduler);
   }
 
   @Override public Completable deleteAccount(String address, String password) {
     return Single.fromCallable(() -> findAccount(address))
         .flatMapCompletable(
             account -> Completable.fromAction(() -> keyStore.deleteAccount(account, password)))
-        .subscribeOn(Schedulers.io());
+        .subscribeOn(scheduler);
   }
 
   @Override
@@ -137,11 +129,11 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
       return convertedChainId == ChainId.NONE ? TransactionEncoder.signMessage(transaction,
           credentials) : TransactionEncoder.signMessage(transaction, convertedChainId, credentials);
     })
-        .subscribeOn(Schedulers.io());
+        .subscribeOn(scheduler);
   }
 
   @Override public boolean hasAccount(String address) {
-    return keyStore.hasAddress(new Address(address));
+    return keyStoreFileManager.hasAddress(address);
   }
 
   @Override public Single<Wallet[]> fetchAccounts() {
@@ -158,7 +150,7 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
       }
       return result;
     })
-        .subscribeOn(Schedulers.io());
+        .subscribeOn(scheduler);
   }
 
   private String readKeystore(String keystoreFilePath) throws IOException {
