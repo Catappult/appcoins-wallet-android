@@ -9,6 +9,8 @@ import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
@@ -44,10 +46,13 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
 
   private final KeyStore keyStore;
   private final KeyStoreFileManager keyStoreFileManager;
+  private final String cacheFolder;
 
-  public GethKeystoreAccountService(File keyStoreFile, KeyStoreFileManager keyStoreFileManager) {
+  public GethKeystoreAccountService(File keyStoreFile, KeyStoreFileManager keyStoreFileManager,
+      String cacheFolder) {
     this.keyStoreFileManager = keyStoreFileManager;
     keyStore = new KeyStore(keyStoreFile.getAbsolutePath(), Geth.LightScryptN, Geth.LightScryptP);
+    this.cacheFolder = cacheFolder;
   }
 
   @Override public Single<Wallet> createAccount(String password) {
@@ -94,9 +99,18 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
 
   @Override
   public Single<String> exportAccount(Wallet wallet, String password, String newPassword) {
-    return Single.fromCallable(() -> findAccount(wallet.address))
-        .flatMap(account1 -> Single.fromCallable(
-            () -> new String(keyStore.exportKey(account1, password, newPassword))))
+    return Single.fromCallable(() -> keyStoreFileManager.getKeystore(wallet.address))
+        .map(keystoreFilePath -> WalletUtils.loadCredentials(password, keystoreFilePath))
+        .map(credentials -> WalletUtils.generateWalletFile(newPassword, credentials.getEcKeyPair(),
+            new File(cacheFolder), false))
+        .flatMap(fileName -> Single.just(readKeystore(cacheFolder.concat("/" + fileName)))
+            .doOnSuccess(__ -> {
+              if (!new File(cacheFolder.concat("/" + fileName)).delete()) {
+                System.out.println(
+                    "**WARNUNG** GethKeystoreAccountService: unable to delete generated keystore "
+                        + "from cache");
+              }
+            }))
         .subscribeOn(Schedulers.io());
   }
 
@@ -145,6 +159,18 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
       return result;
     })
         .subscribeOn(Schedulers.io());
+  }
+
+  private String readKeystore(String keystoreFilePath) throws IOException {
+    FileInputStream fis = new FileInputStream(new File(keystoreFilePath));
+
+    StringBuilder fileContent = new StringBuilder();
+    byte[] buffer = new byte[1024];
+    int n;
+    while ((n = fis.read(buffer)) != -1) {
+      fileContent.append(new String(buffer, 0, n));
+    }
+    return fileContent.toString();
   }
 
   private String extractAddressFromFileName(String fileName) {

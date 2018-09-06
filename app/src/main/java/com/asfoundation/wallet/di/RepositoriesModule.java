@@ -45,7 +45,9 @@ import okhttp3.OkHttpClient;
 
   @Singleton @Provides AccountKeystoreService provideAccountKeyStoreService(Context context) {
     File file = new File(context.getFilesDir(), "keystore/keystore");
-    return new GethKeystoreAccountService(file, new KeyStoreFileManager(file.getAbsolutePath()));
+    return new GethKeystoreAccountService(file, new KeyStoreFileManager(file.getAbsolutePath()),
+        context.getCacheDir()
+            .getAbsolutePath());
   }
 
   @Singleton @Provides WalletRepositoryType provideWalletRepository(OkHttpClient okHttpClient,

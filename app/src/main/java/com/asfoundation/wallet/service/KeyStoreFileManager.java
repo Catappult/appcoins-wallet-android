@@ -39,4 +39,8 @@ public class KeyStoreFileManager {
   public String getKeystoreFolderPath() {
     return keystoreFolderPath;
   }
+
+  public boolean delete(String keystoreFilePath) {
+    return new File(keystoreFilePath).delete();
+  }
 }
