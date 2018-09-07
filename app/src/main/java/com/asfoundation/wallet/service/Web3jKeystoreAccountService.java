@@ -8,8 +8,6 @@ import io.reactivex.Completable;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
@@ -39,15 +37,12 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
   private static final int P = 1;
 
   private final KeyStoreFileManager keyStoreFileManager;
-  private final KeyStoreFileManager cacheKeyStoreFileManager;
   private final Scheduler scheduler;
   private final ObjectMapper objectMapper;
 
-  public Web3jKeystoreAccountService(KeyStoreFileManager keyStoreFileManager,
-      KeyStoreFileManager cacheKeyStoreFileManager, Scheduler scheduler,
+  public Web3jKeystoreAccountService(KeyStoreFileManager keyStoreFileManager, Scheduler scheduler,
       ObjectMapper objectMapper) {
     this.keyStoreFileManager = keyStoreFileManager;
-    this.cacheKeyStoreFileManager = cacheKeyStoreFileManager;
     this.scheduler = scheduler;
     this.objectMapper = objectMapper;
   }
@@ -87,13 +82,8 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
   public Single<String> exportAccount(Wallet wallet, String password, String newPassword) {
     return Single.fromCallable(() -> keyStoreFileManager.getKeystore(wallet.address))
         .map(keystoreFilePath -> WalletUtils.loadCredentials(password, keystoreFilePath))
-        .map(credentials -> WalletUtils.generateWalletFile(newPassword, credentials.getEcKeyPair(),
-            new File(cacheKeyStoreFileManager.getKeystoreFolderPath()), false))
-        .map(file -> {
-          String keystore = readKeystore(cacheKeyStoreFileManager.getKeystoreFolderPath() + file);
-          cacheKeyStoreFileManager.delete(cacheKeyStoreFileManager.getKeystoreFolderPath() + file);
-          return keystore;
-        })
+        .map(credentials -> objectMapper.writeValueAsString(
+            create(newPassword, credentials.getEcKeyPair(), N, P)))
         .subscribeOn(scheduler);
   }
 
@@ -157,18 +147,6 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
         .doOnSuccess(keyStoreFileManager::saveKeyStoreFile)
         .map(keystore -> new Wallet(extractAddressFromStore(keystore)))
         .doOnError(throwable -> keyStoreFileManager.delete(extractAddressFromStore(store)));
-  }
-
-  private String readKeystore(String keystoreFilePath) throws IOException {
-    FileInputStream fis = new FileInputStream(new File(keystoreFilePath));
-
-    StringBuilder fileContent = new StringBuilder();
-    byte[] buffer = new byte[1024];
-    int n;
-    while ((n = fis.read(buffer)) != -1) {
-      fileContent.append(new String(buffer, 0, n));
-    }
-    return fileContent.toString();
   }
 
   private String extractAddressFromFileName(String fileName) {
