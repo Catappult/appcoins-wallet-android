@@ -49,7 +49,8 @@ import static junit.framework.Assert.assertTrue;
     AccountKeystoreService accountKeystoreService = new Web3jKeystoreAccountService(
         new KeyStoreFileManager(new File(context.getFilesDir(), "store").getAbsolutePath(),
             new ObjectMapper()), new File(context.getFilesDir(), "store").getAbsolutePath(),
-        Schedulers.io());
+        new KeyStoreFileManager(new File(context.getCacheDir()
+            .getAbsolutePath(), "store").getAbsolutePath(), new ObjectMapper()), Schedulers.io());
     //EthereumNetworkRepositoryType networkRepository =
     //    new EthereumNetworkRepository(preferenceRepositoryType);
     accountRepository =

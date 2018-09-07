@@ -41,7 +41,8 @@ import static org.junit.Assert.assertTrue;
     accountKeystoreService = new Web3jKeystoreAccountService(
         new KeyStoreFileManager(new File(context.getFilesDir(), "store").getAbsolutePath(),
             new ObjectMapper()), context.getCacheDir()
-        .getAbsolutePath(), Schedulers.io());
+        .getAbsolutePath(), new KeyStoreFileManager(new File(context.getCacheDir()
+        .getAbsolutePath(), "store").getAbsolutePath(), new ObjectMapper()), Schedulers.io());
   }
 
   //	Single<byte[]> signTransaction(

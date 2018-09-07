@@ -40,11 +40,13 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
 
   private final KeyStoreFileManager keyStoreFileManager;
   private final String cacheFolder;
+  private final KeyStoreFileManager cacheKeyStoreFileManager;
   private final Scheduler scheduler;
 
   public Web3jKeystoreAccountService(KeyStoreFileManager keyStoreFileManager, String cacheFolder,
-      Scheduler scheduler) {
+      KeyStoreFileManager cacheKeyStoreFileManager, Scheduler scheduler) {
     this.keyStoreFileManager = keyStoreFileManager;
+    this.cacheKeyStoreFileManager = cacheKeyStoreFileManager;
     if (cacheFolder.charAt(cacheFolder.length() - 1) == '/') {
       this.cacheFolder = cacheFolder;
     } else {
@@ -89,9 +91,12 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
     return Single.fromCallable(() -> keyStoreFileManager.getKeystore(wallet.address))
         .map(keystoreFilePath -> WalletUtils.loadCredentials(password, keystoreFilePath))
         .map(credentials -> WalletUtils.generateWalletFile(newPassword, credentials.getEcKeyPair(),
-            new File(cacheFolder), false))
-        .flatMap(fileName -> Single.just(readKeystore(cacheFolder.concat(fileName)))
-            .doOnSuccess(__ -> deleteKeystoreFile(cacheFolder.concat(fileName))))
+            new File(cacheKeyStoreFileManager.getKeystoreFolderPath()), false))
+        .map(file -> {
+          String keystore = readKeystore(cacheKeyStoreFileManager.getKeystoreFolderPath() + file);
+          cacheKeyStoreFileManager.delete(cacheKeyStoreFileManager.getKeystoreFolderPath() + file);
+          return keystore;
+        })
         .subscribeOn(scheduler);
   }
 
