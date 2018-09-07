@@ -49,7 +49,8 @@ import okhttp3.OkHttpClient;
     return new Web3jKeystoreAccountService(
         new KeyStoreFileManager(file.getAbsolutePath(), new ObjectMapper()),
         new KeyStoreFileManager(new File(context.getCacheDir()
-        .getAbsolutePath(), "keystore").getAbsolutePath(), new ObjectMapper()), Schedulers.io());
+            .getAbsolutePath(), "keystore").getAbsolutePath(), new ObjectMapper()), Schedulers.io(),
+        new ObjectMapper());
   }
 
   @Singleton @Provides WalletRepositoryType provideWalletRepository(OkHttpClient okHttpClient,

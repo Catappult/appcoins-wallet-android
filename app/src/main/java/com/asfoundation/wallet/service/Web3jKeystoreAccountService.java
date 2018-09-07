@@ -41,12 +41,15 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
   private final KeyStoreFileManager keyStoreFileManager;
   private final KeyStoreFileManager cacheKeyStoreFileManager;
   private final Scheduler scheduler;
+  private final ObjectMapper objectMapper;
 
   public Web3jKeystoreAccountService(KeyStoreFileManager keyStoreFileManager,
-      KeyStoreFileManager cacheKeyStoreFileManager, Scheduler scheduler) {
+      KeyStoreFileManager cacheKeyStoreFileManager, Scheduler scheduler,
+      ObjectMapper objectMapper) {
     this.keyStoreFileManager = keyStoreFileManager;
     this.cacheKeyStoreFileManager = cacheKeyStoreFileManager;
     this.scheduler = scheduler;
+    this.objectMapper = objectMapper;
   }
 
   @Override public Single<Wallet> createAccount(String password) {
@@ -141,34 +144,19 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
 
   private Single<Credentials> loadCredentialsFromKeystore(String keystore, String password) {
     return Single.fromCallable(() -> {
-      String filePath = cacheKeyStoreFileManager.saveKeyStoreFile(keystore);
-      Credentials credentials = WalletUtils.loadCredentials(password, filePath);
-      deleteKeystoreFile(filePath);
-      return credentials;
+      WalletFile walletFile = objectMapper.readValue(keystore, WalletFile.class);
+      return Credentials.create(org.web3j.crypto.Wallet.decrypt(password, walletFile));
     });
   }
 
   private Single<Wallet> importKeystoreInternal(String store, String password, String newPassword) {
-    return loadCredentialsFromKeystore(store, password).map(
-        credentials -> cacheKeyStoreFileManager.getKeystoreFolderPath()
-            + WalletUtils.generateWalletFile(newPassword, credentials.getEcKeyPair(),
-            new File(cacheKeyStoreFileManager.getKeystoreFolderPath()), false))
-        .map(keystoreFilePath -> {
-          String keystore = readKeystore(keystoreFilePath);
-          cacheKeyStoreFileManager.delete(keystoreFilePath);
-          return keystore;
-        })
+    return loadCredentialsFromKeystore(store, password).map(credentials -> {
+      WalletFile walletFile = create(newPassword, credentials.getEcKeyPair(), N, P);
+      return objectMapper.writeValueAsString(walletFile);
+    })
         .doOnSuccess(keyStoreFileManager::saveKeyStoreFile)
         .map(keystore -> new Wallet(extractAddressFromStore(keystore)))
         .doOnError(throwable -> keyStoreFileManager.delete(extractAddressFromStore(store)));
-  }
-
-  private void deleteKeystoreFile(String keystoreFilePath) {
-    if (!new File(keystoreFilePath).delete()) {
-      System.out.println(
-          "**WARNING** GethKeystoreAccountService: unable to delete generated keystore "
-              + "from cache");
-    }
   }
 
   private String readKeystore(String keystoreFilePath) throws IOException {
