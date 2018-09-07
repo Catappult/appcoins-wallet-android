@@ -13,7 +13,10 @@ import com.asfoundation.wallet.repository.WalletRepository;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.GethKeystoreAccountService;
+import com.asfoundation.wallet.service.KeyStoreFileManager;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.reactivex.observers.TestObserver;
+import io.reactivex.schedulers.Schedulers;
 import java.io.File;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -39,8 +42,10 @@ import static junit.framework.Assert.assertTrue;
   @Before public void setUp() {
     Context context = InstrumentationRegistry.getTargetContext();
     PreferenceRepositoryType preferenceRepositoryType = new SharedPreferenceRepository(context);
-    AccountKeystoreService accountKeystoreService =
-        new GethKeystoreAccountService(new File(context.getFilesDir(), "store"));
+    AccountKeystoreService accountKeystoreService = new GethKeystoreAccountService(
+        new KeyStoreFileManager(new File(context.getFilesDir(), "store").getAbsolutePath(),
+            new ObjectMapper()), new File(context.getFilesDir(), "store").getAbsolutePath(),
+        Schedulers.io());
     EthereumNetworkRepositoryType networkRepository =
         new EthereumNetworkRepository(preferenceRepositoryType);
     accountRepository =

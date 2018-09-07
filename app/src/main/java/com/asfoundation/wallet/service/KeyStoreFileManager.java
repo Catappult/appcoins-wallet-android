@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import org.web3j.crypto.WalletFile;
 
@@ -59,11 +61,18 @@ public class KeyStoreFileManager {
   /**
    * @return keystore file's absolute path
    */
-  public String saveKeyStoreFile(String keystore) throws IOException {
+  public String saveKeyStoreFile(String keystore, String path) throws IOException {
     WalletFile walletFile = mapper.readValue(keystore, WalletFile.class);
-    File keystoreFile = new File(keystoreFolderPath.concat(getWalletFileName(walletFile)));
+    File keystoreFile = new File(path.concat(getWalletFileName(walletFile)));
     mapper.writeValue(keystoreFile, walletFile);
     return keystoreFile.getAbsolutePath();
+  }
+
+  /**
+   * @return keystore file's absolute path
+   */
+  public String saveKeyStoreFile(String keystore) throws IOException {
+    return saveKeyStoreFile(keystore, keystoreFolderPath);
   }
 
   public boolean delete(String keystoreFilePath) {
@@ -77,5 +86,26 @@ public class KeyStoreFileManager {
 
   public boolean hasAddress(String address) {
     return getFilePath(removeHexIndicator(address), keystoreFolderPath) != null;
+  }
+
+  public List<String> getAccounts() {
+    List<String> addresses = new ArrayList<>();
+    for (File file : new File(keystoreFolderPath).listFiles()) {
+      String address = getAddressFromFileName(file.getName());
+      if (address != null) {
+        addresses.add(address);
+      }
+    }
+    return addresses;
+  }
+
+  private String getAddressFromFileName(String fileName) {
+    try {
+      String[] split = fileName.split("--");
+      return "0x" + split[split.length - 1].split("\\.")[0];
+    } catch (Exception e) {
+      e.printStackTrace();
+      return null;
+    }
   }
 }

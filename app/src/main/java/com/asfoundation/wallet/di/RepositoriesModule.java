@@ -46,7 +46,7 @@ import okhttp3.OkHttpClient;
 
   @Singleton @Provides AccountKeystoreService provideAccountKeyStoreService(Context context) {
     File file = new File(context.getFilesDir(), "keystore/keystore");
-    return new GethKeystoreAccountService(file,
+    return new GethKeystoreAccountService(
         new KeyStoreFileManager(file.getAbsolutePath(), new ObjectMapper()), context.getCacheDir()
         .getAbsolutePath(), Schedulers.io());
   }

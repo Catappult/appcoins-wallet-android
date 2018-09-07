@@ -2,7 +2,6 @@ package com.asfoundation.wallet.service;
 
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ServiceErrorException;
-import com.asfoundation.wallet.entity.ServiceException;
 import com.asfoundation.wallet.entity.Wallet;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.reactivex.Completable;
@@ -13,9 +12,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import org.ethereum.geth.Accounts;
-import org.ethereum.geth.Geth;
-import org.ethereum.geth.KeyStore;
+import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.spongycastle.util.encoders.Hex;
@@ -41,16 +38,18 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
    */
   private static final int P = 1;
 
-  private final KeyStore keyStore;
   private final KeyStoreFileManager keyStoreFileManager;
   private final String cacheFolder;
   private final Scheduler scheduler;
 
-  public GethKeystoreAccountService(File keyStoreFile, KeyStoreFileManager keyStoreFileManager,
-      String cacheFolder, Scheduler scheduler) {
+  public GethKeystoreAccountService(KeyStoreFileManager keyStoreFileManager, String cacheFolder,
+      Scheduler scheduler) {
     this.keyStoreFileManager = keyStoreFileManager;
-    keyStore = new KeyStore(keyStoreFile.getAbsolutePath(), Geth.LightScryptN, Geth.LightScryptP);
-    this.cacheFolder = cacheFolder;
+    if (cacheFolder.charAt(cacheFolder.length() - 1) == '/') {
+      this.cacheFolder = cacheFolder;
+    } else {
+      this.cacheFolder = cacheFolder + "/";
+    }
     this.scheduler = scheduler;
   }
 
@@ -63,19 +62,15 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
 
   @Override
   public Single<Wallet> importKeystore(String store, String password, String newPassword) {
-    return Single.fromCallable(() -> keyStoreFileManager.saveKeyStoreFile(store))
-        .flatMap(keyStoreFilePath -> {
-          Credentials credentials = WalletUtils.loadCredentials(password, keyStoreFilePath);
-          if (hasAccount(credentials.getAddress())) {
+    return Single.fromCallable(() -> extractAddressFromStore(store))
+        .flatMap(address -> {
+          if (hasAccount(address)) {
             return Single.error(
                 new ServiceErrorException(C.ErrorCode.ALREADY_ADDED, "Already added"));
+          } else {
+            return importKeystoreInternal(store, password, newPassword);
           }
-          return exportAccount(new Wallet(credentials.getAddress()), password,
-              newPassword).doOnSuccess(keyStoreFileManager::saveKeyStoreFile)
-              .doOnSuccess(__ -> keyStoreFileManager.delete(keyStoreFilePath))
-              .map(__ -> credentials.getAddress());
         })
-        .map(Wallet::new)
         .subscribeOn(scheduler);
   }
 
@@ -86,7 +81,7 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
       WalletFile walletFile = create(newPassword, keypair, N, P);
       return new ObjectMapper().writeValueAsString(walletFile);
     })
-        .compose(upstream -> importKeystore(upstream.blockingGet(), newPassword, newPassword));
+        .flatMap(keystore -> importKeystore(keystore, newPassword, newPassword));
   }
 
   @Override
@@ -95,22 +90,16 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
         .map(keystoreFilePath -> WalletUtils.loadCredentials(password, keystoreFilePath))
         .map(credentials -> WalletUtils.generateWalletFile(newPassword, credentials.getEcKeyPair(),
             new File(cacheFolder), false))
-        .flatMap(fileName -> Single.just(readKeystore(cacheFolder.concat("/" + fileName)))
-            .doOnSuccess(__ -> {
-              if (!new File(cacheFolder.concat("/" + fileName)).delete()) {
-                System.out.println(
-                    "**WARNUNG** GethKeystoreAccountService: unable to delete generated keystore "
-                        + "from cache");
-              }
-            }))
+        .flatMap(fileName -> Single.just(readKeystore(cacheFolder.concat(fileName)))
+            .doOnSuccess(__ -> deleteKeystoreFile(cacheFolder.concat(fileName))))
         .subscribeOn(scheduler);
   }
 
   @Override public Completable deleteAccount(String address, String password) {
-    return Single.fromCallable(() -> findAccount(address))
-        .flatMapCompletable(
-            account -> Completable.fromAction(() -> keyStore.deleteAccount(account, password)))
-        .subscribeOn(scheduler);
+    return exportAccount(new Wallet(address), password, password).doOnSuccess(
+        __ -> keyStoreFileManager.delete(keyStoreFileManager.getKeystore(address)))
+        .subscribeOn(scheduler)
+        .ignoreElement();
   }
 
   @Override
@@ -138,19 +127,48 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
 
   @Override public Single<Wallet[]> fetchAccounts() {
     return Single.fromCallable(() -> {
-      Accounts accounts = keyStore.getAccounts();
-      int len = (int) accounts.size();
+      List<String> accounts = keyStoreFileManager.getAccounts();
+      int len = accounts.size();
       Wallet[] result = new Wallet[len];
 
       for (int i = 0; i < len; i++) {
-        org.ethereum.geth.Account gethAccount = accounts.get(i);
-        result[i] = new Wallet(gethAccount.getAddress()
-            .getHex()
-            .toLowerCase());
+        String account = accounts.get(i);
+        result[i] = new Wallet(account.toLowerCase());
       }
       return result;
     })
         .subscribeOn(scheduler);
+  }
+
+  private Single<Credentials> loadCredentialsFromKeystore(String keystore, String password) {
+    return Single.fromCallable(() -> {
+      String filePath = keyStoreFileManager.saveKeyStoreFile(keystore, cacheFolder);
+      Credentials credentials = WalletUtils.loadCredentials(password, filePath);
+      deleteKeystoreFile(filePath);
+      return credentials;
+    });
+  }
+
+  private Single<Wallet> importKeystoreInternal(String store, String password, String newPassword) {
+    return loadCredentialsFromKeystore(store, password).map(
+        credentials -> cacheFolder + WalletUtils.generateWalletFile(newPassword,
+            credentials.getEcKeyPair(), new File(cacheFolder), false))
+        .map(keystoreFilePath -> {
+          String keystore = readKeystore(keystoreFilePath);
+          deleteKeystoreFile(keystoreFilePath);
+          return keystore;
+        })
+        .doOnSuccess(keyStoreFileManager::saveKeyStoreFile)
+        .map(keystore -> new Wallet(extractAddressFromStore(keystore)))
+        .doOnError(throwable -> keyStoreFileManager.delete(extractAddressFromStore(store)));
+  }
+
+  private void deleteKeystoreFile(String keystoreFilePath) {
+    if (!new File(keystoreFilePath).delete()) {
+      System.out.println(
+          "**WARNING** GethKeystoreAccountService: unable to delete generated keystore "
+              + "from cache");
+    }
   }
 
   private String readKeystore(String keystoreFilePath) throws IOException {
@@ -191,26 +209,5 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
     } catch (JSONException ex) {
       throw new Exception("Invalid keystore: " + store);
     }
-  }
-
-  private org.ethereum.geth.Account findAccount(String address) throws ServiceException {
-    Accounts accounts = keyStore.getAccounts();
-    int len = (int) accounts.size();
-    for (int i = 0; i < len; i++) {
-      try {
-        android.util.Log.d("ACCOUNT_FIND", "Address: " + accounts.get(i)
-            .getAddress()
-            .getHex());
-        if (accounts.get(i)
-            .getAddress()
-            .getHex()
-            .equalsIgnoreCase(address)) {
-          return accounts.get(i);
-        }
-      } catch (Exception ex) {
-        /* Quietly: interest only result, maybe next is ok. */
-      }
-    }
-    throw new ServiceException("Wallet with address: " + address + " not found");
   }
 }

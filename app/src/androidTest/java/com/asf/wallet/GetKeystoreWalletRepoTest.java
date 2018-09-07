@@ -38,11 +38,10 @@ import static org.junit.Assert.assertTrue;
 
   @Before public void setUp() {
     Context context = InstrumentationRegistry.getTargetContext();
-    accountKeystoreService =
-        new GethKeystoreAccountService(new File(context.getFilesDir(), "store"),
-            new KeyStoreFileManager(new File(context.getFilesDir(), "store").getAbsolutePath(),
-                new ObjectMapper()), context.getCacheDir()
-            .getAbsolutePath(), Schedulers.io());
+    accountKeystoreService = new GethKeystoreAccountService(
+        new KeyStoreFileManager(new File(context.getFilesDir(), "store").getAbsolutePath(),
+            new ObjectMapper()), context.getCacheDir()
+        .getAbsolutePath(), Schedulers.io());
   }
 
   //	Single<byte[]> signTransaction(
