@@ -6,8 +6,8 @@ import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.service.AccountKeystoreService;
-import com.asfoundation.wallet.service.GethKeystoreAccountService;
 import com.asfoundation.wallet.service.KeyStoreFileManager;
+import com.asfoundation.wallet.service.Web3jKeystoreAccountService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.Schedulers;
@@ -38,7 +38,7 @@ import static org.junit.Assert.assertTrue;
 
   @Before public void setUp() {
     Context context = InstrumentationRegistry.getTargetContext();
-    accountKeystoreService = new GethKeystoreAccountService(
+    accountKeystoreService = new Web3jKeystoreAccountService(
         new KeyStoreFileManager(new File(context.getFilesDir(), "store").getAbsolutePath(),
             new ObjectMapper()), context.getCacheDir()
         .getAbsolutePath(), Schedulers.io());

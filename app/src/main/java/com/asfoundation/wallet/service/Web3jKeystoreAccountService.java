@@ -26,7 +26,7 @@ import org.web3j.tx.ChainId;
 
 import static org.web3j.crypto.Wallet.create;
 
-public class GethKeystoreAccountService implements AccountKeystoreService {
+public class Web3jKeystoreAccountService implements AccountKeystoreService {
   private static final int PRIVATE_KEY_RADIX = 16;
   /**
    * CPU/Memory cost parameter. Must be larger than 1, a power of 2 and less than 2^(128 * r / 8).
@@ -42,7 +42,7 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
   private final String cacheFolder;
   private final Scheduler scheduler;
 
-  public GethKeystoreAccountService(KeyStoreFileManager keyStoreFileManager, String cacheFolder,
+  public Web3jKeystoreAccountService(KeyStoreFileManager keyStoreFileManager, String cacheFolder,
       Scheduler scheduler) {
     this.keyStoreFileManager = keyStoreFileManager;
     if (cacheFolder.charAt(cacheFolder.length() - 1) == '/') {

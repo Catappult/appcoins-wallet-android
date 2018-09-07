@@ -24,13 +24,13 @@ import com.asfoundation.wallet.repository.Web3jProvider;
 import com.asfoundation.wallet.repository.Web3jService;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.EthplorerTokenService;
-import com.asfoundation.wallet.service.GethKeystoreAccountService;
 import com.asfoundation.wallet.service.KeyStoreFileManager;
 import com.asfoundation.wallet.service.RealmManager;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenExplorerClientType;
 import com.asfoundation.wallet.service.TransactionsNetworkClient;
 import com.asfoundation.wallet.service.TransactionsNetworkClientType;
+import com.asfoundation.wallet.service.Web3jKeystoreAccountService;
 import com.asfoundation.wallet.ui.iab.raiden.NonceObtainer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -46,7 +46,7 @@ import okhttp3.OkHttpClient;
 
   @Singleton @Provides AccountKeystoreService provideAccountKeyStoreService(Context context) {
     File file = new File(context.getFilesDir(), "keystore/keystore");
-    return new GethKeystoreAccountService(
+    return new Web3jKeystoreAccountService(
         new KeyStoreFileManager(file.getAbsolutePath(), new ObjectMapper()), context.getCacheDir()
         .getAbsolutePath(), Schedulers.io());
   }
