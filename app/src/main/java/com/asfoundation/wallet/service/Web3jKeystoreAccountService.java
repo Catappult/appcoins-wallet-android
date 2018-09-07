@@ -156,11 +156,12 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
 
   private Single<Wallet> importKeystoreInternal(String store, String password, String newPassword) {
     return loadCredentialsFromKeystore(store, password).map(
-        credentials -> cacheFolder + WalletUtils.generateWalletFile(newPassword,
-            credentials.getEcKeyPair(), new File(cacheFolder), false))
+        credentials -> cacheKeyStoreFileManager.getKeystoreFolderPath()
+            + WalletUtils.generateWalletFile(newPassword, credentials.getEcKeyPair(),
+            new File(cacheKeyStoreFileManager.getKeystoreFolderPath()), false))
         .map(keystoreFilePath -> {
           String keystore = readKeystore(keystoreFilePath);
-          deleteKeystoreFile(keystoreFilePath);
+          cacheKeyStoreFileManager.delete(keystoreFilePath);
           return keystore;
         })
         .doOnSuccess(keyStoreFileManager::saveKeyStoreFile)
