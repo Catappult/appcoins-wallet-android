@@ -35,8 +35,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 27
-    versionCode 17
-    versionName "1.0.0"
+    versionCode 18
+    versionName "1.0.1"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     vectorDrawables.useSupportLibrary = true
     multiDexEnabled = true
@@ -238,7 +238,7 @@ def renameArtifact(defaultConfig) {
   android.applicationVariants.all { variant ->
     variant.outputs.all {
       def formattedDate = new Date().format('yyMMdd-HHmm')
-      def fileName = "ASF_Wallet_V${defaultConfig.versionCode}_${formattedDate}_${variant.name}"
+      def fileName = "AppCoins_Wallet_V${defaultConfig.versionCode}_${formattedDate}_${variant.name}"
       outputFileName = new File("${fileName}.apk")
     }
   }
