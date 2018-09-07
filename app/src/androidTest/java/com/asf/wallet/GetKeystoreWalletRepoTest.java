@@ -40,8 +40,7 @@ import static org.junit.Assert.assertTrue;
     Context context = InstrumentationRegistry.getTargetContext();
     accountKeystoreService = new Web3jKeystoreAccountService(
         new KeyStoreFileManager(new File(context.getFilesDir(), "store").getAbsolutePath(),
-            new ObjectMapper()), context.getCacheDir()
-        .getAbsolutePath(), new KeyStoreFileManager(new File(context.getCacheDir()
+            new ObjectMapper()), new KeyStoreFileManager(new File(context.getCacheDir()
         .getAbsolutePath(), "store").getAbsolutePath(), new ObjectMapper()), Schedulers.io());
   }
 
