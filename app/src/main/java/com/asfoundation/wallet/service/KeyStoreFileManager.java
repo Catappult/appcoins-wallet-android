@@ -36,19 +36,18 @@ public class KeyStoreFileManager {
 
   private String getFilePath(String accountAddress, String path) {
     File file = new File(path);
-    if (!file.isDirectory()) {
-      if (file.getName()
-          .toLowerCase()
-          .contains(accountAddress.toLowerCase())) {
-        return file.getAbsolutePath();
-      }
-    }
     if (file.isDirectory()) {
       for (File subFile : file.listFiles()) {
         String filePath = getFilePath(accountAddress, subFile.getPath());
         if (filePath != null) {
           return filePath;
         }
+      }
+    } else {
+      if (file.getName()
+          .toLowerCase()
+          .contains(accountAddress.toLowerCase())) {
+        return file.getAbsolutePath();
       }
     }
     return null;
