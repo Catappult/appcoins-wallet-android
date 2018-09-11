@@ -26,7 +26,8 @@ class BillingPaymentProofSubmission internal constructor(
   fun processAuthorizationProof(authorizationProof: AuthorizationProof): Completable {
     return registerAuthorizationProof(authorizationProof.id, authorizationProof.paymentType,
         authorizationProof.productName, authorizationProof.packageName,
-        authorizationProof.developerAddress, authorizationProof.storeAddress)
+        authorizationProof.developerAddress, authorizationProof.storeAddress,
+        authorizationProof.developerPayload)
         .doOnSuccess { paymentId -> transactionIdsFromApprove[authorizationProof.id] = paymentId }
         .toCompletable()
   }
@@ -46,12 +47,12 @@ class BillingPaymentProofSubmission internal constructor(
   private fun registerAuthorizationProof(id: String, paymentType: String, productName: String,
                                          packageName: String,
                                          developerWallet: String,
-                                         storeWallet: String): Single<String> {
+                                         storeWallet: String,
+                                         developerPayload: String?): Single<String> {
     return walletService.getWalletAddress().observeOn(networkScheduler).flatMap { walletAddress ->
       walletService.signContent(walletAddress).observeOn(networkScheduler).flatMap { signedData ->
         repository.registerAuthorizationProof(id, paymentType, walletAddress, signedData,
-            productName,
-            packageName, developerWallet, storeWallet)
+            productName, packageName, developerWallet, storeWallet, developerPayload)
 
       }
     }
@@ -103,7 +104,8 @@ data class AuthorizationProof(val paymentType: String,
                               val packageName: String,
                               val storeAddress: String,
                               val oemAddress: String,
-                              val developerAddress: String)
+                              val developerAddress: String,
+                              val developerPayload: String?)
 
 data class PaymentProof(val paymentType: String,
                         val approveProof: String,

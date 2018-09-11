@@ -66,8 +66,41 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
       currency = transaction.getCurrency();
     }
 
-    fill(transaction.getType(), transaction.getFrom(), transaction.getTo(), currency,
+    String to = extractTo(transaction);
+    String from = extractFrom(transaction);
+
+    fill(transaction.getType(), from, to, currency,
         transaction.getValue(), ETHER_DECIMALS, transaction.getStatus(), transaction.getDetails());
+  }
+
+  private String extractTo(Transaction transaction) {
+    if (transaction.getOperations() != null
+        && transaction.getOperations()
+        .get(0) != null
+        && transaction.getOperations()
+        .get(0)
+        .getTo() != null) {
+      return transaction.getOperations()
+          .get(0)
+          .getTo();
+    } else {
+      return transaction.getTo();
+    }
+  }
+
+  private String extractFrom(Transaction transaction) {
+    if (transaction.getOperations() != null
+        && transaction.getOperations()
+        .get(0) != null
+        && transaction.getOperations()
+        .get(0)
+        .getFrom() != null) {
+      return transaction.getOperations()
+          .get(0)
+          .getFrom();
+    } else {
+      return transaction.getFrom();
+    }
   }
 
   private void fill(Transaction.TransactionType type, String from, String to, String currencySymbol,

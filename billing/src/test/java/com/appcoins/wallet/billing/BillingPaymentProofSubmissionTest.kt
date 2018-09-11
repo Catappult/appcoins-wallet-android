@@ -28,6 +28,7 @@ class BillingPaymentProofSubmissionTest {
     val paymentId = "payment_id"
     val paymentToken = "paymentToken"
     val paymentType = "type"
+    val developerPayload = "developer_payload"
   }
 
   @Mock
@@ -46,7 +47,7 @@ class BillingPaymentProofSubmissionTest {
 
     `when`(api.registerAuthorization(paymentType, walletAddress, signedContent,
         RegisterAuthorizationBody(productName, packageName, paymentId, developerAddress,
-            storeAddress))).thenReturn(
+            storeAddress, developerPayload))).thenReturn(
         Single.just(RegisterAuthorizationResponse(paymentId, paymentType, "status", "data")))
 
     `when`(api.registerPayment(paymentType, paymentId, walletAddress, signedContent,
@@ -59,7 +60,7 @@ class BillingPaymentProofSubmissionTest {
     val purchaseDisposable = TestObserver<Any>()
     billing.processAuthorizationProof(
         AuthorizationProof(paymentType, paymentId, productName, packageName, storeAddress,
-            oemAddress, developerAddress)).subscribe(authorizationDisposable)
+            oemAddress, developerAddress, developerPayload)).subscribe(authorizationDisposable)
     scheduler.triggerActions()
 
     billing.processPurchaseProof(PaymentProof(paymentType, paymentId, paymentToken, productName,
@@ -71,7 +72,7 @@ class BillingPaymentProofSubmissionTest {
     purchaseDisposable.assertNoErrors().assertComplete()
     verify(api, times(1)).registerAuthorization(paymentType, walletAddress, signedContent,
         RegisterAuthorizationBody(productName, packageName, paymentId, developerAddress,
-            storeAddress))
+            storeAddress, developerPayload))
     verify(api, times(1)).registerPayment(paymentType, paymentId, walletAddress, signedContent,
         RegisterPaymentBody(paymentToken))
 

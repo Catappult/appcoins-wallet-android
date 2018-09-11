@@ -34,6 +34,7 @@ import static org.mockito.Mockito.when;
 
   public static final String PACKAGE_NAME = "package_name";
   public static final String PRODUCT_NAME = "product_name";
+  public static final String DEVELOPER_PAYLOAD = "developer_payload";
   @Mock SendTransactionInteract sendTransactionInteract;
   @Mock TrackTransactionService trackTransactionService;
 
@@ -89,7 +90,7 @@ import static org.mockito.Mockito.when;
 
     buyService.buy(uri,
         new PaymentTransaction(uri, transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
-            "", null, PACKAGE_NAME, PRODUCT_NAME))
+            "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD))
         .subscribe();
 
     scheduler.triggerActions();
@@ -118,7 +119,7 @@ import static org.mockito.Mockito.when;
 
     buyService.buy(uri,
         new PaymentTransaction(uri, transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
-            "", null, PACKAGE_NAME, PRODUCT_NAME))
+            "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD))
         .subscribe();
 
     scheduler.triggerActions();
