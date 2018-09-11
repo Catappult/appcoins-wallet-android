@@ -99,9 +99,15 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
       BigDecimal amount, BigDecimal gasPrice, BigDecimal gasLimit, long nonce, byte[] data,
       long chainId) {
     return Single.fromCallable(() -> {
-      RawTransaction transaction =
-          RawTransaction.createTransaction(BigInteger.valueOf(nonce), gasPrice.toBigInteger(),
-              gasLimit.toBigInteger(), toAddress, amount.toBigInteger(), Hex.toHexString(data));
+      RawTransaction transaction;
+      if (data == null) {
+        transaction = RawTransaction.createEtherTransaction(BigInteger.valueOf(nonce),
+            gasPrice.toBigInteger(), gasLimit.toBigInteger(), toAddress, amount.toBigInteger());
+      } else {
+        transaction =
+            RawTransaction.createTransaction(BigInteger.valueOf(nonce), gasPrice.toBigInteger(),
+                gasLimit.toBigInteger(), toAddress, amount.toBigInteger(), Hex.toHexString(data));
+      }
 
       Credentials credentials =
           WalletUtils.loadCredentials(signerPassword, keyStoreFileManager.getKeystore(fromAddress));
