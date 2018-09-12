@@ -11,6 +11,9 @@ import java.util.List;
 
 public class AdyenPaymentStatus {
 
+  public static final AdyenPaymentStatus NULL_PAYMENT_STATUS =
+      new AdyenPaymentStatus(null, null, null, null, null, null, null, null, null, null);
+
   private final String token;
   private final PaymentDataCallback dataCallback;
   private final PaymentRequestResult result;

@@ -167,11 +167,6 @@ dependencies {
   // ReactiveX
   implementation "io.reactivex.rxjava2:rxjava:$project.rxJavaVersion"
   implementation "io.reactivex.rxjava2:rxandroid:$project.rxAndroidVersion"
-  //ReactiveX 1 for legacy code support
-  implementation "io.reactivex:rxjava:1.2.7"
-  //
-  implementation "com.jakewharton.rxrelay:rxrelay:1.2.0"
-  implementation "com.jakewharton.rxbinding:rxbinding:1.0.1"
   // Dagger 2
   // Dagger core
   implementation "com.google.dagger:dagger:$project.daggerVersion"

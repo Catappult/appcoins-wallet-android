@@ -32,18 +32,18 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.util.KeyboardUtils;
 import com.asfoundation.wallet.view.rx.RxAlertDialog;
 import com.braintreepayments.cardform.view.CardForm;
-import com.jakewharton.rxbinding.view.RxView;
-import com.jakewharton.rxrelay.PublishRelay;
+import com.jakewharton.rxbinding2.view.RxView;
+import com.jakewharton.rxrelay2.PublishRelay;
 import dagger.android.support.DaggerFragment;
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
 import java.util.Formatter;
 import java.util.Locale;
 import javax.inject.Inject;
 import org.json.JSONException;
 import org.json.JSONObject;
-import rx.Observable;
-import rx.subscriptions.CompositeSubscription;
 
 import static com.asfoundation.wallet.ui.iab.IabActivity.APP_PACKAGE;
 import static com.asfoundation.wallet.ui.iab.IabActivity.EXTRA_DEVELOPER_PAYLOAD;
@@ -112,7 +112,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
     navigator = new CreditCardFragmentNavigator(getFragmentManager(), iabView);
 
     presenter = new CreditCardAuthorizationPresenter(this, defaultWalletInteract,
-        AndroidSchedulers.mainThread(), new CompositeSubscription(), adyen,
+        AndroidSchedulers.mainThread(), new CompositeDisposable(), adyen,
         creditCardBillingFactory.getBilling(getAppPackage()), navigator,
         inAppPurchaseInteractor.getBillingMessagesMapper(), inAppPurchaseInteractor,
         inAppPurchaseInteractor.getBillingSerializer(), getTransactionData(), getDeveloperPayload(),
@@ -240,9 +240,9 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
     cancelButton.setVisibility(View.VISIBLE);
   }
 
-  @Override public Observable<Void> errorDismisses() {
+  @Override public Observable<Object> errorDismisses() {
     return Observable.merge(networkErrorDialog.dismisses(), paymentRefusedDialog.dismisses())
-        .map(dialogInterface -> null);
+        .map(dialogInterface -> new Object());
   }
 
   @Override public Observable<PaymentDetails> creditCardDetailsEvent() {
@@ -256,7 +256,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
     }
   }
 
-  @Override public Observable<Void> cancelEvent() {
+  @Override public Observable<Object> cancelEvent() {
     return RxView.clicks(cancelButton);
   }
 
