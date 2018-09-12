@@ -45,13 +45,6 @@ import static org.junit.Assert.assertTrue;
             new ObjectMapper()), scheduler, new ObjectMapper());
   }
 
-  //	Single<byte[]> signTransaction(
-  //			Wallet signer,
-  //			String signerPassword,
-  //			String toAddress,
-  //			String wei,
-  //			long nonce,
-  //			long chainId);
   @Test public void testCreateAccount() {
     TestObserver<Wallet> subscriber = new TestObserver<>();
     accountKeystoreService.createAccount("1234")
