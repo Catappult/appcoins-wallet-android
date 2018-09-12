@@ -137,11 +137,9 @@ public class CreditCardAuthorizationPresenter {
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
                     transaction.toAddress(), developerPayload)
                     .observeOn(viewScheduler)
-                    //.doOnNext(payment -> view.showProduct(payment.getProduct()))
                     .filter(payment -> payment.isPendingAuthorization())
                     .firstOrError()
                     .map(payment -> payment)
-                    //.cast(AdyenAuthorization.class)
                     .flatMapCompletable(
                         authorization -> adyen.createPayment(authorization.getSession()))
                     .observeOn(viewScheduler)))
@@ -165,8 +163,7 @@ public class CreditCardAuthorizationPresenter {
                     .filter(payment -> payment.isCompleted())
                     .firstOrError()
                     .observeOn(viewScheduler)
-                    .doOnSuccess(__ -> navigator.popView(
-                        buildBundle(billing)))//creditCardBilling.getTransactionUid()))
+                    .doOnSuccess(__ -> navigator.popView(buildBundle(billing)))
                     .doOnSuccess(__ -> view.showSuccess()))
             .subscribe(__ -> {
             }, throwable -> showError(throwable)));
