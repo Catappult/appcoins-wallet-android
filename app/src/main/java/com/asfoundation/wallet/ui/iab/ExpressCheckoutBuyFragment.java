@@ -201,7 +201,6 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
           showError();
         });
     buyButton.setOnClickListener(v -> iabView.navigateToCreditCardAuthorization());
-    // TODO: 12-08-2018 neuro add currency
     presenter.present(((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue(),
         extras.getString(TRANSACTION_CURRENCY));
   }

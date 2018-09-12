@@ -325,7 +325,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   }
 
   @Override public void showSuccess() {
-    // TODO: 02-08-2018 neuro
+
   }
 
   @Override public void showPaymentRefusedError(AdyenAuthorization adyenAuthorization) {

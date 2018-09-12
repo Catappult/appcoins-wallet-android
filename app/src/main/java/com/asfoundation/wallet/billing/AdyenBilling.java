@@ -80,9 +80,7 @@ public class AdyenBilling implements CreditCardBilling {
   }
 
   private void startPaymentIfNeeded(String productName, String developerAddress, String payload) {
-    // TODO: 31-07-2018 neuro recheck
     if (!processingPayment.getAndSet(true)) {
-
       this.adyenAuthorization = null;
       this.adyenAuthorization = walletService.getWalletAddress()
           .flatMap(walletAddress -> walletService.signContent(walletAddress)
