@@ -135,7 +135,6 @@ android {
 dependencies {
   // Etherium client
   implementation "org.web3j:core:$project.web3jVersion"
-  implementation "org.ethereum:geth:$project.gethVersion"
   // Http client
   implementation "com.squareup.retrofit2:retrofit:$project.retrofitVersion"
   implementation "com.squareup.retrofit2:converter-gson:$project.retrofitVersion"
