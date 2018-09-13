@@ -19,15 +19,18 @@ import java.util.List;
 public class BuyService {
   private final WatchedTransactionService transactionService;
   private final TransactionValidator transactionValidator;
+  private final TransactionValidator transactionValidatorOnChain;
   private final DefaultTokenProvider defaultTokenProvider;
   private final CountryCodeProvider countryCodeProvider;
   private final DataMapper dataMapper;
 
   public BuyService(WatchedTransactionService transactionService,
-      TransactionValidator transactionValidator, DefaultTokenProvider defaultTokenProvider,
-      CountryCodeProvider countryCodeProvider, DataMapper dataMapper) {
+      TransactionValidator transactionValidator, TransactionValidator transactionValidatorOnChain,
+      DefaultTokenProvider defaultTokenProvider, CountryCodeProvider countryCodeProvider,
+      DataMapper dataMapper) {
     this.transactionService = transactionService;
     this.transactionValidator = transactionValidator;
+    this.transactionValidatorOnChain = transactionValidatorOnChain;
     this.defaultTokenProvider = defaultTokenProvider;
     this.countryCodeProvider = countryCodeProvider;
     this.dataMapper = dataMapper;
@@ -37,7 +40,7 @@ public class BuyService {
     transactionService.start();
   }
 
-  public Completable buy(String key, PaymentTransaction paymentTransaction) {
+  public Completable buy(String key, PaymentTransaction paymentTransaction, boolean useBds) {
     TransactionBuilder transactionBuilder = paymentTransaction.getTransactionBuilder();
     return countryCodeProvider.getCountryCode()
         .flatMap(countryCode -> defaultTokenProvider.getDefaultToken()
@@ -45,7 +48,9 @@ public class BuyService {
                 getBuyData(transactionBuilder, tokenInfo, paymentTransaction.getPackageName(),
                     countryCode))))
         .map(transaction -> updateTransactionBuilderData(paymentTransaction, transaction))
-        .flatMapCompletable(payment -> transactionValidator.validate(payment)
+        .flatMapCompletable(payment -> Completable.defer(
+            () -> useBds ? transactionValidator.validate(payment)
+                : transactionValidatorOnChain.validate(payment))
             .andThen(transactionService.sendTransaction(key, payment.getTransactionBuilder())));
   }
 

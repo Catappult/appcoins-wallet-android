@@ -54,7 +54,8 @@ import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.BlockChainWriter;
 import com.asfoundation.wallet.repository.BuyService;
-import com.asfoundation.wallet.repository.BuyTransactionValidator;
+import com.asfoundation.wallet.repository.BuyTransactionValidatorBds;
+import com.asfoundation.wallet.repository.BuyTransactionValidatorOnChain;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.EthereumNetworkRepository;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
@@ -219,10 +220,11 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
       DataMapper dataMapper, BillingFactory billingFactory) {
     return new BuyService(new WatchedTransactionService(sendTransactionInteract::buy,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
-        Schedulers.io(), new BdsPendingTransactionService(billingFactory, Schedulers.io(), 5,
-        billingPaymentProofSubmission)),
-        new BuyTransactionValidator(sendTransactionInteract, billingPaymentProofSubmission,
-            defaultTokenProvider), defaultTokenProvider, countryCodeProvider, dataMapper);
+        Schedulers.io(), pendingTransactionService),
+        new BuyTransactionValidatorBds(sendTransactionInteract, billingPaymentProofSubmission,
+            defaultTokenProvider),
+        new BuyTransactionValidatorOnChain(sendTransactionInteract, pendingTransactionService),
+        defaultTokenProvider, countryCodeProvider, dataMapper);
   }
 
   @Singleton @Provides ErrorMapper provideErrorMapper() {

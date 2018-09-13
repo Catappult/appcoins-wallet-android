@@ -67,7 +67,7 @@ public class InAppPurchaseService {
   }
 
   public Completable resume(String key, PaymentTransaction paymentTransaction) {
-    return checkFunds(key, paymentTransaction, buyService.buy(key, paymentTransaction));
+    return checkFunds(key, paymentTransaction, buyService.buy(key, paymentTransaction, true));
   }
 
   public void start() {
@@ -82,7 +82,7 @@ public class InAppPurchaseService {
                 .filter(transaction -> transaction.getState()
                     .equals(PaymentTransaction.PaymentState.APPROVED))
                 .flatMapCompletable(transaction -> approveService.remove(transaction.getUri())
-                    .andThen(buyService.buy(transaction.getUri(), transaction)
+                    .andThen(buyService.buy(transaction.getUri(), transaction, false)
                         .onErrorResumeNext(throwable -> cache.save(transaction.getUri(),
                             new PaymentTransaction(transaction, errorMapper.map(throwable))))))))
         .subscribe();

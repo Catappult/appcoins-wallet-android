@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
@@ -190,10 +191,7 @@ public class OnChainBuyPresenter {
             .andThen(Completable.timer(1, TimeUnit.SECONDS))
             .observeOn(Schedulers.io())
             .andThen(Completable.fromAction(() -> {
-              Bundle bundle = new Bundle();
-              bundle.putInt("RESPONSE_CODE", 0);
-              bundle.putString("transaction_hash", transaction.getBuyHash());
-              view.finish(bundle);
+              view.finish(buildBundle(transaction));
             }))
             .onErrorResumeNext(throwable -> Completable.fromAction(() -> showError(throwable)))
             .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));
@@ -224,6 +222,13 @@ public class OnChainBuyPresenter {
         return Completable.fromAction(() -> showError(null))
             .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));
     }
+  }
+
+  @NonNull private Bundle buildBundle(Payment transaction) {
+    Bundle bundle = new Bundle();
+    bundle.putInt(IabActivity.RESPONSE_CODE, 0);
+    bundle.putString(IabActivity.TRANSACTION_HASH, transaction.getBuyHash());
+    return bundle;
   }
 
   public void stop() {

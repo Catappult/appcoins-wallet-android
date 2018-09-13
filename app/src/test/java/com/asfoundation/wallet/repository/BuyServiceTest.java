@@ -75,7 +75,8 @@ import static org.mockito.Mockito.when;
     when(trackTransactionService.checkTransactionState(anyString())).thenReturn(
         pendingTransactionState);
 
-    buyService = new BuyService(transactionService, transactionValidator, defaultTokenProvider,
+    buyService = new BuyService(transactionService, transactionValidator, transactionValidator,
+        defaultTokenProvider,
         countryCodeProvider, dataMapper);
     uri = "uri";
   }
@@ -90,7 +91,7 @@ import static org.mockito.Mockito.when;
 
     buyService.buy(uri,
         new PaymentTransaction(uri, transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
-            "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD))
+            "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD), true)
         .subscribe();
 
     scheduler.triggerActions();
@@ -108,7 +109,8 @@ import static org.mockito.Mockito.when;
     when(trackTransactionService.checkTransactionState("hash")).thenReturn(pendingTransactionState);
 
     BuyService buyService =
-        new BuyService(transactionService, transactionValidator, defaultTokenProvider,
+        new BuyService(transactionService, transactionValidator, transactionValidator,
+            defaultTokenProvider,
             countryCodeProvider, dataMapper);
     buyService.start();
     TestObserver<BuyService.BuyTransaction> observer = new TestObserver<>();
@@ -119,7 +121,7 @@ import static org.mockito.Mockito.when;
 
     buyService.buy(uri,
         new PaymentTransaction(uri, transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
-            "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD))
+            "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD), false)
         .subscribe();
 
     scheduler.triggerActions();
