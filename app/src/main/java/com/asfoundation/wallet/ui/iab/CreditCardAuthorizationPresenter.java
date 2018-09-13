@@ -9,14 +9,13 @@ import com.asfoundation.wallet.billing.CreditCardBilling;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
 import com.asfoundation.wallet.billing.payment.Adyen;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
-import hu.akarnokd.rxjava.interop.RxJavaInterop;
+import io.reactivex.Completable;
 import io.reactivex.Scheduler;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.exceptions.OnErrorNotImplementedException;
 import io.reactivex.schedulers.Schedulers;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-import rx.Completable;
-import rx.exceptions.OnErrorNotImplementedException;
-import rx.subscriptions.CompositeSubscription;
 
 import static com.asfoundation.wallet.ui.iab.ExpressCheckoutBuyFragment.serializeJson;
 
@@ -30,8 +29,8 @@ public class CreditCardAuthorizationPresenter {
   private static final String INAPP_DATA_SIGNATURE = "INAPP_DATA_SIGNATURE";
   private static final String INAPP_PURCHASE_ID = "INAPP_PURCHASE_ID";
 
-  private final rx.Scheduler viewScheduler;
-  private final CompositeSubscription disposables;
+  private final Scheduler viewScheduler;
+  private final CompositeDisposable disposables;
   private final Adyen adyen;
   private final CreditCardBilling creditCardBilling;
   private final CreditCardNavigator navigator;
@@ -47,13 +46,13 @@ public class CreditCardAuthorizationPresenter {
 
   public CreditCardAuthorizationPresenter(CreditCardAuthorizationView view,
       FindDefaultWalletInteract defaultWalletInteract, Scheduler viewScheduler,
-      CompositeSubscription disposables, Adyen adyen, CreditCardBilling creditCardBilling,
+      CompositeDisposable disposables, Adyen adyen, CreditCardBilling creditCardBilling,
       CreditCardNavigator navigator, BillingMessagesMapper billingMessagesMapper,
       InAppPurchaseInteractor inAppPurchaseInteractor, ExternalBillingSerializer billingSerializer,
       String transactionData, String developerPayload, Billing billing, String skuId) {
     this.view = view;
     this.defaultWalletInteract = defaultWalletInteract;
-    this.viewScheduler = RxJavaInterop.toV1Scheduler(viewScheduler);
+    this.viewScheduler = viewScheduler;
     this.disposables = disposables;
     this.adyen = adyen;
     this.creditCardBilling = creditCardBilling;
@@ -68,7 +67,7 @@ public class CreditCardAuthorizationPresenter {
   }
 
   public void present() {
-    disposables.add(RxJavaInterop.toV1Single(defaultWalletInteract.find())
+    disposables.add(defaultWalletInteract.find()
         .doOnSuccess(wallet -> adyen.createToken())
         .observeOn(viewScheduler)
         .doOnSuccess(wallet -> view.showWalletAddress(wallet.address))
@@ -133,19 +132,18 @@ public class CreditCardAuthorizationPresenter {
 
   private void onViewCreatedCreatePayment() {
     disposables.add(Completable.fromAction(() -> view.showLoading())
-        .andThen(RxJavaInterop.toV1Single(inAppPurchaseInteractor.parseTransaction(transactionData))
-            .flatMapObservable(
+        .andThen(inAppPurchaseInteractor.parseTransaction(transactionData)
+            .flatMapCompletable(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
                     transaction.toAddress(), developerPayload)
                     .observeOn(viewScheduler)
-                    //.doOnNext(payment -> view.showProduct(payment.getProduct()))
-                    .first(payment -> payment.isPendingAuthorization())
+                    .filter(payment -> payment.isPendingAuthorization())
+                    .firstOrError()
                     .map(payment -> payment)
-                    //.cast(AdyenAuthorization.class)
                     .flatMapCompletable(
                         authorization -> adyen.createPayment(authorization.getSession()))
                     .observeOn(viewScheduler)))
-        .subscribe(__ -> {
+        .subscribe(() -> {
         }, throwable -> showError(throwable)));
   }
 
@@ -158,16 +156,15 @@ public class CreditCardAuthorizationPresenter {
   }
 
   private void onViewCreatedCheckAuthorizationActive() {
-    disposables.add(
-        RxJavaInterop.toV1Single(inAppPurchaseInteractor.parseTransaction(transactionData))
-            .flatMapObservable(
+    disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData)
+        .flatMap(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
                     transaction.toAddress(), developerPayload)
-                    .first(payment -> payment.isCompleted())
+                    .filter(payment -> payment.isCompleted())
+                    .firstOrError()
                     .observeOn(viewScheduler)
-                    .doOnNext(__ -> navigator.popView(
-                        buildBundle(billing)))//creditCardBilling.getTransactionUid()))
-                    .doOnNext(__ -> view.showSuccess()))
+                    .doOnSuccess(__ -> navigator.popView(buildBundle(billing)))
+                    .doOnSuccess(__ -> view.showSuccess()))
             .subscribe(__ -> {
             }, throwable -> showError(throwable)));
   }
@@ -192,14 +189,14 @@ public class CreditCardAuthorizationPresenter {
   }
 
   private void onViewCreatedCheckAuthorizationFailed() {
-    disposables.add(
-        RxJavaInterop.toV1Single(inAppPurchaseInteractor.parseTransaction(transactionData))
-            .flatMapObservable(
+    disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData)
+        .flatMap(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
                     transaction.toAddress(), developerPayload)
-                    .first(payment -> payment.isFailed())
+                    .filter(payment -> payment.isFailed())
+                    .firstOrError()
                     .observeOn(viewScheduler)
-                    .doOnNext(adyenAuthorization -> showError(adyenAuthorization)))
+                    .doOnSuccess(adyenAuthorization -> showError(adyenAuthorization)))
             .subscribe(__ -> {
             }, throwable -> showError(throwable)));
   }
@@ -209,8 +206,7 @@ public class CreditCardAuthorizationPresenter {
   }
 
   private void onViewCreatedCheckAuthorizationProcessing() {
-    disposables.add(
-        RxJavaInterop.toV1Single(inAppPurchaseInteractor.parseTransaction(transactionData))
+    disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData)
             .flatMapObservable(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
                     transaction.toAddress(), developerPayload)
@@ -226,7 +222,7 @@ public class CreditCardAuthorizationPresenter {
         .doOnNext(__ -> view.showLoading())
         .flatMapCompletable(details -> adyen.finishPayment(details))
         .observeOn(viewScheduler)
-        .subscribe(__ -> {
+        .subscribe(() -> {
         }, throwable -> showError(throwable)));
   }
 

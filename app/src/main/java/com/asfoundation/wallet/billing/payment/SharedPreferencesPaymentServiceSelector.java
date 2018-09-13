@@ -7,9 +7,9 @@ package com.asfoundation.wallet.billing.payment;
 
 import android.content.SharedPreferences;
 import com.asfoundation.wallet.billing.PaymentServiceSelector;
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 import java.util.List;
-import rx.Completable;
-import rx.Observable;
 
 public class SharedPreferencesPaymentServiceSelector implements PaymentServiceSelector {
 
@@ -28,8 +28,7 @@ public class SharedPreferencesPaymentServiceSelector implements PaymentServiceSe
         serviceName -> getService(services, serviceName).switchIfEmpty(
             getService(services, defaultServiceType))
             .switchIfEmpty(Observable.just(services.get(0)))
-            .first()
-            .toSingle());
+            .firstOrError());
   }
 
   @Override public Completable selectService(PaymentService service) {
@@ -43,7 +42,7 @@ public class SharedPreferencesPaymentServiceSelector implements PaymentServiceSe
   }
 
   private Observable<PaymentService> getService(List<PaymentService> services, String serviceName) {
-    return Observable.from(services)
+    return Observable.fromIterable(services)
         .filter(service -> serviceName != null && serviceName.equals(service.getType()));
   }
 }

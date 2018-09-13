@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.billing;
 
-import rx.Completable;
-import rx.Single;
+import io.reactivex.Completable;
+import io.reactivex.Single;
 
 public interface TransactionService {
 

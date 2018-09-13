@@ -22,7 +22,7 @@ import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
-import com.jakewharton.rxrelay.PublishRelay;
+import com.jakewharton.rxrelay2.PublishRelay;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
@@ -31,11 +31,11 @@ import dagger.android.support.HasSupportFragmentInjector;
 import io.fabric.sdk.android.Fabric;
 import io.reactivex.exceptions.UndeliverableException;
 import io.reactivex.plugins.RxJavaPlugins;
+import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
 import java.nio.charset.Charset;
 import javax.inject.Inject;
 import org.jetbrains.annotations.NotNull;
-import rx.schedulers.Schedulers;
 
 public class App extends MultiDexApplication
     implements HasActivityInjector, HasServiceInjector, HasSupportFragmentInjector,

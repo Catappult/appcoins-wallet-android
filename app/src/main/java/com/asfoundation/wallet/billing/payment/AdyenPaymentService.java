@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.billing.payment;
 
-import rx.Single;
+import io.reactivex.Single;
 
 public class AdyenPaymentService extends PaymentService {
 
