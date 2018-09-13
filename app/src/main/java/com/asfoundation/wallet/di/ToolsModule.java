@@ -47,7 +47,8 @@ import com.asfoundation.wallet.poa.ProofWriter;
 import com.asfoundation.wallet.poa.TaggedCompositeDisposable;
 import com.asfoundation.wallet.poa.TransactionFactory;
 import com.asfoundation.wallet.repository.ApproveService;
-import com.asfoundation.wallet.repository.ApproveTransactionValidator;
+import com.asfoundation.wallet.repository.ApproveTransactionValidatorBds;
+import com.asfoundation.wallet.repository.ApproveTransactionValidatorOnChain;
 import com.asfoundation.wallet.repository.BalanceService;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.asfoundation.wallet.repository.BdsTransactionService;
@@ -200,12 +201,14 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
   @Provides ApproveService provideApproveService(SendTransactionInteract sendTransactionInteract,
       ErrorMapper errorMapper,
-      @Named("no_wait_transaction") TrackTransactionService pendingTransactionService,
+      @Named("no_wait_transaction") TrackTransactionService noWaitPendingTransactionService,
+      PendingTransactionService pendingTransactionService,
       BillingPaymentProofSubmission billingPaymentProofSubmission) {
     return new ApproveService(new WatchedTransactionService(sendTransactionInteract::approve,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
-        Schedulers.io(), pendingTransactionService),
-        new ApproveTransactionValidator(sendTransactionInteract, billingPaymentProofSubmission));
+        Schedulers.io(), noWaitPendingTransactionService),
+        new ApproveTransactionValidatorBds(sendTransactionInteract, billingPaymentProofSubmission),
+        new ApproveTransactionValidatorOnChain(sendTransactionInteract, pendingTransactionService));
   }
 
   @Provides BuyService provideBuyService(SendTransactionInteract sendTransactionInteract,

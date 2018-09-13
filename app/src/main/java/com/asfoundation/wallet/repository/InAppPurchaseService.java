@@ -1,10 +1,9 @@
 package com.asfoundation.wallet.repository;
 
-import com.asfoundation.wallet.entity.TransactionBuilder;
 import android.support.annotation.NonNull;
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
-import io.reactivex.Single;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import java.util.List;
@@ -36,7 +35,8 @@ public class InAppPurchaseService {
   }
 
   public Completable send(String key, PaymentTransaction paymentTransaction) {
-    return checkFunds(key, paymentTransaction, approveService.approve(key, paymentTransaction));
+    return checkFunds(key, paymentTransaction,
+        approveService.approve(key, paymentTransaction, false));
   }
 
   private Completable checkFunds(String key, PaymentTransaction paymentTransaction,

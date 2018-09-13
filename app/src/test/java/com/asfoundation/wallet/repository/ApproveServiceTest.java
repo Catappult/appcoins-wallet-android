@@ -57,7 +57,8 @@ public class ApproveServiceTest {
         scheduler, trackTransactionService);
 
     when(transactionValidator.validate(any())).thenReturn(Completable.complete());
-    approveService = new ApproveService(transactionService, transactionValidator);
+    approveService =
+        new ApproveService(transactionService, transactionValidator, transactionValidator);
     approveService.start();
   }
 
@@ -71,7 +72,7 @@ public class ApproveServiceTest {
     scheduler.triggerActions();
     approveService.approve(uri,
         new PaymentTransaction(uri, transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
-            "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD))
+            "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD), false)
         .subscribe();
     scheduler.triggerActions();
 
@@ -103,7 +104,7 @@ public class ApproveServiceTest {
     scheduler.triggerActions();
     approveService.approve(uri,
         new PaymentTransaction(uri, transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
-            "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD))
+            "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD), false)
         .subscribe();
     scheduler.triggerActions();
 

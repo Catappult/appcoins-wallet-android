@@ -6,11 +6,11 @@ import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import io.reactivex.Completable;
 
-public class ApproveTransactionValidator implements TransactionValidator {
+public class ApproveTransactionValidatorBds implements TransactionValidator {
   private final SendTransactionInteract sendTransactionInteract;
   private final BillingPaymentProofSubmission billingPaymentProofSubmission;
 
-  public ApproveTransactionValidator(SendTransactionInteract sendTransactionInteract,
+  public ApproveTransactionValidatorBds(SendTransactionInteract sendTransactionInteract,
       BillingPaymentProofSubmission billingPaymentProofSubmission) {
     this.sendTransactionInteract = sendTransactionInteract;
     this.billingPaymentProofSubmission = billingPaymentProofSubmission;

@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
+import android.os.Bundle;
 import android.util.Log;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
@@ -188,15 +189,14 @@ public class OnChainBuyPresenter {
         return Completable.fromAction(view::showTransactionCompleted)
             .andThen(Completable.timer(1, TimeUnit.SECONDS))
             .observeOn(Schedulers.io())
-            .andThen(inAppPurchaseInteractor.getCompletedPurchase(transaction.getPackageName(),
-                transaction.getProductId())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess(purchase -> view.finish(
-                    billingMessagesMapper.mapPurchase(purchase.getUid(), purchase.getSignature()
-                        .getValue(), billingSerializer.serializeSignatureData(purchase))))
-                .toCompletable()
-                .onErrorResumeNext(throwable -> Completable.fromAction(() -> showError(throwable)))
-                .andThen(inAppPurchaseInteractor.remove(transaction.getUri())));
+            .andThen(Completable.fromAction(() -> {
+              Bundle bundle = new Bundle();
+              bundle.putInt("RESPONSE_CODE", 0);
+              bundle.putString("transaction_hash", transaction.getBuyHash());
+              view.finish(bundle);
+            }))
+            .onErrorResumeNext(throwable -> Completable.fromAction(() -> showError(throwable)))
+            .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));
       case NO_FUNDS:
         return Completable.fromAction(() -> view.showNoFundsError())
             .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));

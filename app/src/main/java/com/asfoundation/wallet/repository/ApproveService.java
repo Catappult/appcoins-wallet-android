@@ -10,22 +10,26 @@ import java.util.List;
 
 public class ApproveService {
   private final WatchedTransactionService transactionService;
-  private final TransactionValidator approveTransactionSender;
+  private final TransactionValidator approveTransactionSenderBds;
+  private final TransactionValidator approveTransactionSenderOnChain;
 
   public ApproveService(WatchedTransactionService transactionService,
-      TransactionValidator approveTransactionSender) {
+      TransactionValidator approveTransactionSenderBds,
+      TransactionValidator approveTransactionSenderOnChain) {
     this.transactionService = transactionService;
-    this.approveTransactionSender = approveTransactionSender;
+    this.approveTransactionSenderBds = approveTransactionSenderBds;
+    this.approveTransactionSenderOnChain = approveTransactionSenderOnChain;
   }
 
   public void start() {
     transactionService.start();
   }
 
-  public Completable approve(String key, PaymentTransaction paymentTransaction) {
-    return approveTransactionSender.validate(paymentTransaction)
-        .andThen(
-            transactionService.sendTransaction(key, paymentTransaction.getTransactionBuilder()));
+  public Completable approve(String key, PaymentTransaction paymentTransaction, boolean useBds) {
+    Completable validate = useBds ? approveTransactionSenderBds.validate(paymentTransaction)
+        : approveTransactionSenderOnChain.validate(paymentTransaction);
+    return validate.andThen(
+        transactionService.sendTransaction(key, paymentTransaction.getTransactionBuilder()));
   }
 
   public Observable<ApproveTransaction> getApprove(String uri) {

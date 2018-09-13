@@ -167,7 +167,8 @@ public class InAppPurchaseInteractorTest {
 
     inAppPurchaseService =
         new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-            new ApproveService(approveTransactionService, transactionValidator),
+            new ApproveService(approveTransactionService, transactionValidator,
+                transactionValidator),
             new BuyService(buyTransactionService, transactionValidator, defaultTokenProvider,
                 countryCodeProvider, dataMapper), balanceService, scheduler, new ErrorMapper());
 
