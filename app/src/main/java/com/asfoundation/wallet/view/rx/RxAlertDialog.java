@@ -5,14 +5,16 @@ import android.content.DialogInterface;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
-import com.jakewharton.rxrelay.PublishRelay;
-import rx.Observable;
+import com.jakewharton.rxrelay2.PublishRelay;
+import io.reactivex.Observable;
 
 /**
  * Created by marcelobenites on 08/03/17.
  */
 
 public class RxAlertDialog implements DialogInterface {
+
+  private static final Object OBJECT = new Object();
 
   private final AlertDialog dialog;
   private final DialogClick negativeClick;
@@ -130,34 +132,34 @@ public class RxAlertDialog implements DialogInterface {
 
   protected static class DismissEvent implements DialogInterface.OnDismissListener {
 
-    private final PublishRelay<Void> subject;
+    private final PublishRelay<Object> subject;
 
-    public DismissEvent(PublishRelay<Void> subject) {
+    public DismissEvent(PublishRelay<Object> subject) {
       this.subject = subject;
     }
 
     @Override public void onDismiss(DialogInterface dialog) {
-      subject.call(null);
+      subject.accept(OBJECT);
     }
 
-    public Observable<Void> dismisses() {
+    public Observable<Object> dismisses() {
       return subject;
     }
   }
 
   protected static class CancelEvent implements DialogInterface.OnCancelListener {
 
-    private final PublishRelay<Void> subject;
+    private final PublishRelay<Object> subject;
 
-    public CancelEvent(PublishRelay<Void> subject) {
+    public CancelEvent(PublishRelay<Object> subject) {
       this.subject = subject;
     }
 
     @Override public void onCancel(DialogInterface dialog) {
-      subject.call(null);
+      subject.accept(OBJECT);
     }
 
-    public Observable<Void> cancels() {
+    public Observable<Object> cancels() {
       return subject;
     }
   }
@@ -165,20 +167,20 @@ public class RxAlertDialog implements DialogInterface {
   protected static class DialogClick implements DialogInterface.OnClickListener {
 
     private final int which;
-    private final PublishRelay<Void> subject;
+    private final PublishRelay<Object> subject;
 
-    public DialogClick(int which, PublishRelay<Void> subject) {
+    public DialogClick(int which, PublishRelay<Object> subject) {
       this.which = which;
       this.subject = subject;
     }
 
     @Override public void onClick(DialogInterface dialog, int which) {
       if (this.which == which) {
-        subject.call(null);
+        subject.accept(OBJECT);
       }
     }
 
-    public Observable<Void> clicks() {
+    public Observable<Object> clicks() {
       return subject;
     }
   }

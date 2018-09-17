@@ -111,7 +111,7 @@ import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.TransferParser;
 import com.bds.microraidenj.MicroRaidenBDS;
 import com.google.gson.Gson;
-import com.jakewharton.rxrelay.PublishRelay;
+import com.jakewharton.rxrelay2.PublishRelay;
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.Single;
@@ -536,7 +536,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   }
 
   @Singleton @Provides Adyen provideAdyen(Context context) {
-    return new Adyen(context, Charset.forName("UTF-8"), rx.schedulers.Schedulers.io(),
+    return new Adyen(context, Charset.forName("UTF-8"), Schedulers.io(),
         PublishRelay.create());
   }
 

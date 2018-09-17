@@ -146,7 +146,6 @@ public class IabActivity extends BaseActivity implements IabView {
   @NonNull private Bundle createBundle(BigDecimal amount) {
     Bundle bundle = new Bundle();
     bundle.putSerializable(TRANSACTION_AMOUNT, amount);
-    // TODO: 12-08-2018 neuro add currency
     bundle.putSerializable(TRANSACTION_CURRENCY, "EUR");
     bundle.putString(APP_PACKAGE, getIntent().getExtras()
         .getString(APP_PACKAGE, ""));

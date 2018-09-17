@@ -5,7 +5,7 @@ import com.adyen.core.models.Amount;
 import com.adyen.core.models.PaymentMethod;
 import com.adyen.core.models.paymentdetails.PaymentDetails;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * Created by franciscocalado on 30/07/2018.
@@ -19,13 +19,13 @@ public interface CreditCardAuthorizationView {
 
   void hideLoading();
 
-  Observable<Void> errorDismisses();
+  Observable<Object> errorDismisses();
 
   Observable<PaymentDetails> creditCardDetailsEvent();
 
   void showNetworkError();
 
-  Observable<Void> cancelEvent();
+  Observable<Object> cancelEvent();
 
   void showCvcView(Amount amount, PaymentMethod paymentMethod);
 

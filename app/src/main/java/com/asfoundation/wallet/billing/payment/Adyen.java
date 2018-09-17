@@ -14,15 +14,15 @@ import com.adyen.core.models.PaymentMethod;
 import com.adyen.core.models.PaymentRequestResult;
 import com.adyen.core.models.paymentdetails.InputDetail;
 import com.adyen.core.models.paymentdetails.PaymentDetails;
-import com.jakewharton.rxrelay.PublishRelay;
+import com.jakewharton.rxrelay2.PublishRelay;
+import io.reactivex.Completable;
+import io.reactivex.Observable;
+import io.reactivex.Scheduler;
+import io.reactivex.Single;
 import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import rx.Completable;
-import rx.Observable;
-import rx.Scheduler;
-import rx.Single;
 
 public class Adyen {
 
@@ -47,13 +47,11 @@ public class Adyen {
     cancelPreviousToken();
     return getStatus().filter(status -> status.getToken() != null)
         .map(status -> status.getToken())
-        .first()
-        .toSingle();
+        .firstOrError();
   }
 
   public Completable createPayment(String session) {
-    return getStatus().first()
-        .toSingle()
+    return getStatus().firstOrError()
         .flatMapCompletable(status -> {
           if (status.getDataCallback() == null) {
             return Completable.error(
@@ -66,8 +64,7 @@ public class Adyen {
   }
 
   public Completable selectPaymentService(PaymentMethod service) {
-    return getStatus().first()
-        .toSingle()
+    return getStatus().firstOrError()
         .flatMapCompletable(status -> {
           if (status.getServiceCallback() == null) {
             return Completable.error(new IllegalStateException(
@@ -80,8 +77,7 @@ public class Adyen {
   }
 
   public Completable finishUri(Uri uri) {
-    return getStatus().first()
-        .toSingle()
+    return getStatus().firstOrError()
         .flatMapCompletable(status -> {
           if (status.getUriCallback() == null) {
             return Completable.error(new IllegalStateException(
@@ -94,8 +90,7 @@ public class Adyen {
   }
 
   public Completable finishPayment(PaymentDetails details) {
-    return getStatus().first()
-        .toSingle()
+    return getStatus().firstOrError()
         .flatMapCompletable(status -> {
           if (status.getDetailsCallback() == null) {
             return Completable.error(new IllegalStateException(
@@ -110,46 +105,42 @@ public class Adyen {
   public Single<PaymentRequestResult> getPaymentResult() {
     return getStatus().filter(status -> status.getResult() != null)
         .map(status -> status.getResult())
-        .first()
-        .toSingle();
+        .firstOrError();
   }
 
   public Single<PaymentRequest> getPaymentData() {
     return getStatus().filter(status -> status.getPaymentRequest() != null)
         .map(status -> status.getPaymentRequest())
-        .first()
-        .toSingle();
+        .firstOrError();
   }
 
   public Single<String> getRedirectUrl() {
     return getStatus().filter(status -> status.getRedirectUrl() != null)
         .map(status -> status.getRedirectUrl())
-        .first()
-        .toSingle();
+        .firstOrError();
   }
 
   public Single<PaymentMethod> getCreditCardPaymentService() {
     return getStatus().flatMap(
         status -> getRecurringPaymentService(status.getRecurringServices()).switchIfEmpty(
             getPaymentService(status.getServices(), PaymentMethod.Type.CARD)))
-        .first()
-        .toSingle();
+        .firstOrError();
   }
 
   private Observable<PaymentMethod> getPaymentService(List<PaymentMethod> services,
       String paymentType) {
-    return Observable.from(services)
+    return Observable.fromIterable(services)
         .filter(service -> paymentType.equals(service.getType()))
         .take(1);
   }
 
   private Observable<PaymentMethod> getRecurringPaymentService(List<PaymentMethod> services) {
-    return Observable.from(services)
+    return Observable.fromIterable(services)
         .take(1);
   }
 
   private Observable<AdyenPaymentStatus> getStatus() {
-    return status.startWith((AdyenPaymentStatus) null)
+    return status.startWith(AdyenPaymentStatus.NULL_PAYMENT_STATUS)
         .map(event -> new AdyenPaymentStatus(paymentStatus.getToken(),
             paymentStatus.getDataCallback(), paymentStatus.getResult(),
             detailsStatus.getServiceCallback(), detailsStatus.getRecurringServices(),
@@ -215,7 +206,7 @@ public class Adyen {
 
     private void notifyStatus() {
       if (status != null) {
-        this.status.call(null);
+        this.status.accept(AdyenPaymentStatus.NULL_PAYMENT_STATUS);
       }
     }
   }
@@ -297,7 +288,7 @@ public class Adyen {
 
     private void notifyStatus() {
       if (status != null) {
-        this.status.call(null);
+        this.status.accept(AdyenPaymentStatus.NULL_PAYMENT_STATUS);
       }
     }
   }
