@@ -58,13 +58,13 @@ public class ApproveServiceTest {
 
     when(transactionValidator.validate(any())).thenReturn(Completable.complete());
     approveService =
-        new ApproveService(transactionService, transactionValidator, transactionValidator);
+        new BdsApproveService(transactionService, transactionValidator, transactionValidator);
     approveService.start();
   }
 
   @Test public void approve() {
     String uri = "uri";
-    TestObserver<ApproveService.ApproveTransaction> observer = new TestObserver<>();
+    TestObserver<BdsApproveService.ApproveTransaction> observer = new TestObserver<>();
     when(trackTransactionService.checkTransactionState(APPROVE_HASH)).thenReturn(
         Observable.just(new PendingTransaction(APPROVE_HASH, false)));
     approveService.getApprove(uri)
@@ -81,10 +81,10 @@ public class ApproveServiceTest {
     pendingTransactionState.onNext(new PendingTransaction(APPROVE_HASH, false));
     scheduler.triggerActions();
 
-    List<ApproveService.ApproveTransaction> values = observer.values();
+    List<BdsApproveService.ApproveTransaction> values = observer.values();
     Assert.assertEquals(values.size(), 3);
     Assert.assertEquals(values.get(2)
-        .getStatus(), ApproveService.Status.APPROVED);
+        .getStatus(), BdsApproveService.Status.APPROVED);
   }
 
   @Test public void approveTransactionNotFound() {
@@ -98,7 +98,7 @@ public class ApproveServiceTest {
       }
     }).when(trackTransactionService)
         .checkTransactionState(APPROVE_HASH);
-    TestObserver<ApproveService.ApproveTransaction> observer = new TestObserver<>();
+    TestObserver<BdsApproveService.ApproveTransaction> observer = new TestObserver<>();
     approveService.getApprove(uri)
         .subscribe(observer);
     scheduler.triggerActions();
@@ -108,9 +108,9 @@ public class ApproveServiceTest {
         .subscribe();
     scheduler.triggerActions();
 
-    List<ApproveService.ApproveTransaction> values = observer.values();
+    List<BdsApproveService.ApproveTransaction> values = observer.values();
     Assert.assertEquals(3, values.size());
-    Assert.assertEquals(ApproveService.Status.APPROVED, values.get(2)
+    Assert.assertEquals(BdsApproveService.Status.APPROVED, values.get(2)
         .getStatus());
   }
 }

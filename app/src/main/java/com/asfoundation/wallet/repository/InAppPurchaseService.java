@@ -104,14 +104,14 @@ public class InAppPurchaseService {
   }
 
   private Single<PaymentTransaction> mapTransactionToPaymentTransaction(
-      ApproveService.ApproveTransaction approveTransaction) {
+      BdsApproveService.ApproveTransaction approveTransaction) {
     return cache.get(approveTransaction.getKey())
         .firstOrError()
         .map(paymentTransaction -> new PaymentTransaction(paymentTransaction,
             getStatus(approveTransaction.getStatus()), approveTransaction.getTransactionHash()));
   }
 
-  private PaymentTransaction.PaymentState getStatus(ApproveService.Status status) {
+  private PaymentTransaction.PaymentState getStatus(BdsApproveService.Status status) {
     PaymentTransaction.PaymentState toReturn;
     switch (status) {
       case PENDING:
@@ -153,12 +153,12 @@ public class InAppPurchaseService {
   }
 
   @NonNull private PaymentTransaction map(PaymentTransaction paymentTransaction,
-      BuyService.BuyTransaction buyTransaction) {
+      BdsBuyService.BuyTransaction buyTransaction) {
     return new PaymentTransaction(paymentTransaction, getStatus(buyTransaction.getStatus()),
         paymentTransaction.getApproveHash(), buyTransaction.getTransactionHash());
   }
 
-  private PaymentTransaction.PaymentState getStatus(BuyService.Status status) {
+  private PaymentTransaction.PaymentState getStatus(BdsBuyService.Status status) {
     PaymentTransaction.PaymentState paymentState;
     switch (status) {
       case BUYING:

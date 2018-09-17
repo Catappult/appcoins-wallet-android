@@ -50,6 +50,8 @@ import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.ApproveTransactionValidatorBds;
 import com.asfoundation.wallet.repository.ApproveTransactionValidatorOnChain;
 import com.asfoundation.wallet.repository.BalanceService;
+import com.asfoundation.wallet.repository.BdsApproveService;
+import com.asfoundation.wallet.repository.BdsBuyService;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.BlockChainWriter;
@@ -205,7 +207,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
       @Named("no_wait_transaction") TrackTransactionService noWaitPendingTransactionService,
       PendingTransactionService pendingTransactionService,
       BillingPaymentProofSubmission billingPaymentProofSubmission) {
-    return new ApproveService(new WatchedTransactionService(sendTransactionInteract::approve,
+    return new BdsApproveService(new WatchedTransactionService(sendTransactionInteract::approve,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
         Schedulers.io(), noWaitPendingTransactionService),
         new ApproveTransactionValidatorBds(sendTransactionInteract, billingPaymentProofSubmission),
@@ -218,7 +220,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
       BillingPaymentProofSubmission billingPaymentProofSubmission,
       DefaultTokenProvider defaultTokenProvider, CountryCodeProvider countryCodeProvider,
       DataMapper dataMapper, BillingFactory billingFactory) {
-    return new BuyService(new WatchedTransactionService(sendTransactionInteract::buy,
+    return new BdsBuyService(new WatchedTransactionService(sendTransactionInteract::buy,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
         Schedulers.io(), pendingTransactionService),
         new BuyTransactionValidatorBds(sendTransactionInteract, billingPaymentProofSubmission,

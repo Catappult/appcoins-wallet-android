@@ -21,12 +21,12 @@ import com.asfoundation.wallet.poa.CountryCodeProvider;
 import com.asfoundation.wallet.poa.DataMapper;
 import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
-import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.BalanceService;
+import com.asfoundation.wallet.repository.BdsApproveService;
+import com.asfoundation.wallet.repository.BdsBuyService;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.asfoundation.wallet.repository.BdsTransactionProvider;
 import com.asfoundation.wallet.repository.BdsTransactionService;
-import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.ExpressCheckoutBuyService;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
@@ -167,9 +167,9 @@ public class InAppPurchaseInteractorTest {
 
     inAppPurchaseService =
         new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-            new ApproveService(approveTransactionService, transactionValidator,
+            new BdsApproveService(approveTransactionService, transactionValidator,
                 transactionValidator),
-            new BuyService(buyTransactionService, transactionValidator, transactionValidator,
+            new BdsBuyService(buyTransactionService, transactionValidator, transactionValidator,
                 defaultTokenProvider,
                 countryCodeProvider, dataMapper), balanceService, scheduler, new ErrorMapper());
 
