@@ -57,12 +57,12 @@ public class IabActivity extends BaseActivity implements IabView {
     presenter = new IabPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
         new CompositeDisposable(), getIntent().getData()
         .toString(), getAppPackage());
-
     if (savedInstanceState != null) {
       if (savedInstanceState.containsKey(SKU_DETAILS)) {
         skuDetails = savedInstanceState.getBundle(SKU_DETAILS);
       }
     }
+    presenter.present(savedInstanceState);
   }
 
   @Override public void onBackPressed() {
@@ -74,14 +74,9 @@ public class IabActivity extends BaseActivity implements IabView {
     }
   }
 
-  @Override protected void onStart() {
-    super.onStart();
-    presenter.present();
-  }
-
-  @Override protected void onStop() {
+  @Override protected void onDestroy() {
     presenter.stop();
-    super.onStop();
+    super.onDestroy();
   }
 
   @Override protected void onSaveInstanceState(Bundle outState) {
