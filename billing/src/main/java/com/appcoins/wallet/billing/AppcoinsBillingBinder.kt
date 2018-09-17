@@ -56,6 +56,8 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
 
     internal const val PRODUCT_NAME = "product_name"
     internal const val EXTRA_DEVELOPER_PAYLOAD = "developer_payload"
+
+      const val EXTRA_BDS_IAP = "bds_iap"
   }
 
   private lateinit var billing: Billing
@@ -137,7 +139,7 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
           try {
             intentBuilder.buildBuyIntentBundle(serializer.mapProduct(skuDetails[0]),
                 tokenContractAddress,
-                iabContractAddress, developerPayload)
+                    iabContractAddress, developerPayload, true)
           } catch (exception: Exception) {
             billingMessagesMapper.mapBuyIntentError(exception)
           }

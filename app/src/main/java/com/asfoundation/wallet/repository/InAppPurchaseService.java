@@ -34,9 +34,9 @@ public class InAppPurchaseService {
     this.errorMapper = errorMapper;
   }
 
-  public Completable send(String key, PaymentTransaction paymentTransaction) {
+  public Completable send(String key, PaymentTransaction paymentTransaction, boolean useBds) {
     return checkFunds(key, paymentTransaction,
-        approveService.approve(key, paymentTransaction, false));
+        approveService.approve(key, paymentTransaction, useBds));
   }
 
   private Completable checkFunds(String key, PaymentTransaction paymentTransaction,

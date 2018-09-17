@@ -15,6 +15,8 @@ import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
 import javax.inject.Inject;
 
+import static com.appcoins.wallet.billing.AppcoinsBillingBinder.EXTRA_BDS_IAP;
+
 /**
  * Created by franciscocalado on 20/07/2018.
  */
@@ -56,7 +58,7 @@ public class IabActivity extends BaseActivity implements IabView {
     isBackEnable = true;
     presenter = new IabPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
         new CompositeDisposable(), getIntent().getData()
-        .toString(), getAppPackage());
+        .toString(), getAppPackage(), isBdsIap());
 
     if (savedInstanceState != null) {
       if (savedInstanceState.containsKey(SKU_DETAILS)) {
@@ -126,7 +128,7 @@ public class IabActivity extends BaseActivity implements IabView {
       getSupportFragmentManager().beginTransaction()
           .add(R.id.fragment_container, OnChainBuyFragment.newInstance(createBundle(amount),
               getIntent().getData()
-                  .toString()))
+                  .toString(), isBdsIap()))
           .commit();
     }
   }
@@ -165,5 +167,9 @@ public class IabActivity extends BaseActivity implements IabView {
       return getIntent().getStringExtra(APP_PACKAGE);
     }
     throw new IllegalArgumentException("previous app package name not found");
+  }
+
+  public boolean isBdsIap() {
+    return getIntent().getBooleanExtra(EXTRA_BDS_IAP, false);
   }
 }

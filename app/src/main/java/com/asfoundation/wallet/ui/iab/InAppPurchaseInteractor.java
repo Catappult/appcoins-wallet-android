@@ -74,13 +74,13 @@ public class InAppPurchaseInteractor {
   }
 
   public Completable send(String uri, TransactionType transactionType, String packageName,
-      String productName, BigDecimal channelBudget, String developerPayload) {
+      String productName, BigDecimal channelBudget, String developerPayload, boolean useBds) {
     switch (transactionType) {
       case NORMAL:
         return buildPaymentTransaction(uri, packageName, productName,
             developerPayload).flatMapCompletable(
             paymentTransaction -> inAppPurchaseService.send(paymentTransaction.getUri(),
-                paymentTransaction));
+                paymentTransaction, useBds));
       case RAIDEN:
         return buildPaymentTransaction(uri, packageName, productName, developerPayload).observeOn(
             Schedulers.io())

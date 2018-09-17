@@ -28,17 +28,19 @@ public class OnChainBuyPresenter {
   private final CompositeDisposable disposables;
   private final BillingMessagesMapper billingMessagesMapper;
   private final ExternalBillingSerializer billingSerializer;
+  private final boolean useBds;
 
   public OnChainBuyPresenter(OnChainBuyView view,
       BdsInAppPurchaseInteractor inAppPurchaseInteractor, Scheduler viewScheduler,
       CompositeDisposable disposables, BillingMessagesMapper billingMessagesMapper,
-      ExternalBillingSerializer billingSerializer) {
+      ExternalBillingSerializer billingSerializer, boolean useBds) {
     this.view = view;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.viewScheduler = viewScheduler;
     this.disposables = disposables;
     this.billingMessagesMapper = billingMessagesMapper;
     this.billingSerializer = billingSerializer;
+    this.useBds = useBds;
   }
 
   public void present(String uriString, String appPackage, String productName, BigDecimal amount,
@@ -49,7 +51,7 @@ public class OnChainBuyPresenter {
 
     handleOkErrorClick(uriString);
 
-    handleBuyEvent(appPackage, productName, developerPayload);
+    handleBuyEvent(appPackage, productName, developerPayload, useBds);
 
     showTransactionState(uriString);
 
@@ -99,13 +101,14 @@ public class OnChainBuyPresenter {
         }, throwable -> throwable.printStackTrace()));
   }
 
-  private void handleBuyEvent(String appPackage, String productName, String developerPayload) {
+  private void handleBuyEvent(String appPackage, String productName, String developerPayload,
+      boolean useBds) {
     disposables.add(view.getBuyClick()
         .observeOn(Schedulers.io())
         .flatMapCompletable(buyData -> inAppPurchaseInteractor.send(buyData.getUri(),
             buyData.isRaiden ? InAppPurchaseInteractor.TransactionType.RAIDEN
                 : InAppPurchaseInteractor.TransactionType.NORMAL, appPackage, productName,
-            buyData.getChannelBudget(), developerPayload)
+            buyData.getChannelBudget(), developerPayload, useBds)
             .observeOn(viewScheduler)
             .doOnError(this::showError))
         .retry()
@@ -137,8 +140,9 @@ public class OnChainBuyPresenter {
                     case READY:
                       return Completable.fromAction(() -> setup(appcAmount))
                           .subscribeOn(AndroidSchedulers.mainThread());
-                    case PAUSED_OFF_CHAIN:
                     case NO_FUNDS:
+                      return Completable.fromAction(view::showNoFundsError);
+                    case PAUSED_OFF_CHAIN:
                     default:
                       return Completable.error(new UnsupportedOperationException(
                           "Cannot resume from " + currentPaymentStep.name() + " status"));
@@ -190,11 +194,22 @@ public class OnChainBuyPresenter {
         return Completable.fromAction(view::showTransactionCompleted)
             .andThen(Completable.timer(1, TimeUnit.SECONDS))
             .observeOn(Schedulers.io())
-            .andThen(Completable.fromAction(() -> {
-              view.finish(buildBundle(transaction));
-            }))
-            .onErrorResumeNext(throwable -> Completable.fromAction(() -> showError(throwable)))
-            .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));
+            .andThen(Completable.defer(() -> {
+              if (useBds) {
+                return inAppPurchaseInteractor.getCompletedPurchase(transaction.getPackageName(),
+                    transaction.getProductId())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSuccess(purchase -> view.finish(
+                        billingMessagesMapper.mapPurchase(purchase.getUid(), purchase.getSignature()
+                            .getValue(), billingSerializer.serializeSignatureData(purchase))))
+                    .toCompletable()
+                    .onErrorResumeNext(
+                        throwable -> Completable.fromAction(() -> showError(throwable)))
+                    .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));
+              } else {
+                return Completable.fromAction(() -> view.finish(buildBundle(transaction)));
+              }
+            }));
       case NO_FUNDS:
         return Completable.fromAction(() -> view.showNoFundsError())
             .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));

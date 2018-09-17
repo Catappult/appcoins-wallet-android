@@ -29,9 +29,10 @@ public class BdsInAppPurchaseInteractor {
   }
 
   public Completable send(String uri, InAppPurchaseInteractor.TransactionType transactionType,
-      String packageName, String productName, BigDecimal channelBudget, String developerPayload) {
+      String packageName, String productName, BigDecimal channelBudget, String developerPayload,
+      boolean useBds) {
     return inAppPurchaseInteractor.send(uri, transactionType, packageName, productName,
-        channelBudget, developerPayload);
+        channelBudget, developerPayload, useBds);
   }
 
   public Completable resume(String uri, InAppPurchaseInteractor.TransactionType transactionType,

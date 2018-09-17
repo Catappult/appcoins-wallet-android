@@ -16,16 +16,18 @@ public class IabPresenter {
   private final CompositeDisposable disposables;
   private final String uriString;
   private final String appPackage;
+  private final boolean bdsIab;
 
   public IabPresenter(IabView view, InAppPurchaseInteractor inAppPurchaseInteractor,
-      Scheduler viewScheduler, CompositeDisposable disposables, String uriString,
-      String appPackage) {
+      Scheduler viewScheduler, CompositeDisposable disposables, String uriString, String appPackage,
+      boolean bdsIab) {
     this.view = view;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.viewScheduler = viewScheduler;
     this.disposables = disposables;
     this.uriString = uriString;
     this.appPackage = appPackage;
+    this.bdsIab = bdsIab;
   }
 
   public void present() {
@@ -45,7 +47,11 @@ public class IabPresenter {
                   break;
                 case PAUSED_OFF_CHAIN:
                 case NO_FUNDS:
-                  view.showOffChain(transactionBuilder.amount());
+                  if (bdsIab) {
+                    view.showOffChain(transactionBuilder.amount());
+                  } else {
+                    view.showOnChain(transactionBuilder.amount());
+                  }
                   break;
                 default:
                   throw new NotImplementedError();

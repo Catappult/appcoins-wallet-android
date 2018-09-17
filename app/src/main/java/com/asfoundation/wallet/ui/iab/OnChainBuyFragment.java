@@ -91,12 +91,14 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   private IabView iabView;
   private Bundle extras;
   private String data;
+  private boolean bdsIap;
 
-  public static OnChainBuyFragment newInstance(Bundle extras, String data) {
+  public static OnChainBuyFragment newInstance(Bundle extras, String data, boolean bdsIap) {
     OnChainBuyFragment fragment = new OnChainBuyFragment();
     Bundle bundle = new Bundle();
     bundle.putBundle("extras", extras);
     bundle.putString("data", data);
+    bundle.putBoolean("bdsIap", bdsIap);
     fragment.setArguments(bundle);
     return fragment;
   }
@@ -109,6 +111,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     isBackEnable = true;
     extras = getArguments().getBundle("extras");
     data = getArguments().getString("data");
+    bdsIap = getArguments().getBoolean("bdsIap");
   }
 
   @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -145,7 +148,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     presenter =
         new OnChainBuyPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
             new CompositeDisposable(), inAppPurchaseInteractor.getBillingMessagesMapper(),
-            inAppPurchaseInteractor.getBillingSerializer());
+            inAppPurchaseInteractor.getBillingSerializer(), bdsIap);
     adapter =
         new ArrayAdapter<>(getContext().getApplicationContext(), R.layout.iab_raiden_dropdown_item,
             R.id.item, new ArrayList<>());
