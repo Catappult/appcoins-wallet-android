@@ -250,7 +250,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   }
 
   private String getSkuId() {
-    return inAppPurchaseInteractor.parseTransaction(extras.getString(TRANSACTION_DATA))
+    return inAppPurchaseInteractor.parseTransaction(extras.getString(TRANSACTION_DATA), true)
         .blockingGet()
         .getSkuId();
   }

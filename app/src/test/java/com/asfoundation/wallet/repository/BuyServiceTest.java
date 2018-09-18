@@ -91,7 +91,7 @@ import static org.mockito.Mockito.when;
 
     buyService.buy(uri,
         new PaymentTransaction(uri, transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
-            "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD), true)
+            "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD))
         .subscribe();
 
     scheduler.triggerActions();
@@ -121,7 +121,7 @@ import static org.mockito.Mockito.when;
 
     buyService.buy(uri,
         new PaymentTransaction(uri, transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
-            "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD), false)
+            "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD))
         .subscribe();
 
     scheduler.triggerActions();

@@ -21,8 +21,8 @@ import com.asfoundation.wallet.poa.CountryCodeProvider;
 import com.asfoundation.wallet.poa.DataMapper;
 import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
+import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.BalanceService;
-import com.asfoundation.wallet.repository.BdsApproveService;
 import com.asfoundation.wallet.repository.BdsBuyService;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.asfoundation.wallet.repository.BdsTransactionProvider;
@@ -167,8 +167,7 @@ public class InAppPurchaseInteractorTest {
 
     inAppPurchaseService =
         new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-            new BdsApproveService(approveTransactionService, transactionValidator,
-                transactionValidator),
+            new ApproveService(approveTransactionService, transactionValidator),
             new BdsBuyService(buyTransactionService, transactionValidator, transactionValidator,
                 defaultTokenProvider,
                 countryCodeProvider, dataMapper), balanceService, scheduler, new ErrorMapper());
@@ -195,7 +194,8 @@ public class InAppPurchaseInteractorTest {
             new Gateway(Gateway.Name.appcoins, "", ""))));
 
     inAppPurchaseInteractor =
-        new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
+        new InAppPurchaseInteractor(asfInAppPurchaseInteractor, bdsInAppPurchaseInteractor,
+            inAppPurchaseService, defaultWalletInteract,
             gasSettingsInteract, BigDecimal.ONE,
             new TransferParser(defaultWalletInteract, tokenRepository), repository,
             new ChannelService(null, new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
@@ -382,8 +382,8 @@ public class InAppPurchaseInteractorTest {
     scheduler.triggerActions();
 
     TestObserver<Object> submitObserver = new TestObserver<>();
-    inAppPurchaseInteractor.resume(uri, InAppPurchaseInteractor.TransactionType.NORMAL,
-        PACKAGE_NAME, PRODUCT_NAME, "approveKey", DEVELOPER_PAYLOAD)
+    inAppPurchaseInteractor.resume(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
+        PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD, false)
         .subscribe(submitObserver);
 
     scheduler.triggerActions();

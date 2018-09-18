@@ -7,7 +7,7 @@ import java.util.List;
 public interface BuyService {
   void start();
 
-  Completable buy(String key, PaymentTransaction paymentTransaction, boolean useBds);
+  Completable buy(String key, PaymentTransaction paymentTransaction);
 
   Observable<BdsBuyService.BuyTransaction> getBuy(String uri);
 

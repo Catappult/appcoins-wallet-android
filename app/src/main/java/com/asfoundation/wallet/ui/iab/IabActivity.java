@@ -58,7 +58,7 @@ public class IabActivity extends BaseActivity implements IabView {
     isBackEnable = true;
     presenter = new IabPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
         new CompositeDisposable(), getIntent().getData()
-        .toString(), getAppPackage(), isBdsIap());
+        .toString(), getAppPackage(), isBds());
 
     if (savedInstanceState != null) {
       if (savedInstanceState.containsKey(SKU_DETAILS)) {
@@ -116,7 +116,7 @@ public class IabActivity extends BaseActivity implements IabView {
   @Override public void navigateToCreditCardAuthorization() {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container, CreditCardAuthorizationFragment.newInstance(skuDetails,
-            inAppPurchaseInteractor.parseTransaction(getIntent().getDataString())
+            inAppPurchaseInteractor.parseTransaction(getIntent().getDataString(), isBds())
                 .blockingGet()
                 .getSkuId()))
         .commit();
@@ -128,7 +128,7 @@ public class IabActivity extends BaseActivity implements IabView {
       getSupportFragmentManager().beginTransaction()
           .add(R.id.fragment_container, OnChainBuyFragment.newInstance(createBundle(amount),
               getIntent().getData()
-                  .toString(), isBdsIap()))
+                  .toString(), isBds()))
           .commit();
     }
   }
@@ -168,7 +168,7 @@ public class IabActivity extends BaseActivity implements IabView {
     throw new IllegalArgumentException("previous app package name not found");
   }
 
-  public boolean isBdsIap() {
+  public boolean isBds() {
     return getIntent().getBooleanExtra(EXTRA_BDS_IAP, false);
   }
 }

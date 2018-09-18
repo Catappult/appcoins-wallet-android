@@ -23,24 +23,24 @@ public class OnChainBuyPresenter {
 
   private static final String TAG = OnChainBuyPresenter.class.getSimpleName();
   private final OnChainBuyView view;
-  private final BdsInAppPurchaseInteractor inAppPurchaseInteractor;
+  private final InAppPurchaseInteractor inAppPurchaseInteractor;
   private final Scheduler viewScheduler;
   private final CompositeDisposable disposables;
   private final BillingMessagesMapper billingMessagesMapper;
   private final ExternalBillingSerializer billingSerializer;
-  private final boolean useBds;
+  private final boolean isBds;
 
-  public OnChainBuyPresenter(OnChainBuyView view,
-      BdsInAppPurchaseInteractor inAppPurchaseInteractor, Scheduler viewScheduler,
+  public OnChainBuyPresenter(OnChainBuyView view, InAppPurchaseInteractor inAppPurchaseInteractor,
+      Scheduler viewScheduler,
       CompositeDisposable disposables, BillingMessagesMapper billingMessagesMapper,
-      ExternalBillingSerializer billingSerializer, boolean useBds) {
+      ExternalBillingSerializer billingSerializer, boolean isBds) {
     this.view = view;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.viewScheduler = viewScheduler;
     this.disposables = disposables;
     this.billingMessagesMapper = billingMessagesMapper;
     this.billingSerializer = billingSerializer;
-    this.useBds = useBds;
+    this.isBds = isBds;
   }
 
   public void present(String uriString, String appPackage, String productName, BigDecimal amount,
@@ -51,7 +51,7 @@ public class OnChainBuyPresenter {
 
     handleOkErrorClick(uriString);
 
-    handleBuyEvent(appPackage, productName, developerPayload, useBds);
+    handleBuyEvent(appPackage, productName, developerPayload, isBds);
 
     showTransactionState(uriString);
 
@@ -102,13 +102,13 @@ public class OnChainBuyPresenter {
   }
 
   private void handleBuyEvent(String appPackage, String productName, String developerPayload,
-      boolean useBds) {
+      boolean isBds) {
     disposables.add(view.getBuyClick()
         .observeOn(Schedulers.io())
         .flatMapCompletable(buyData -> inAppPurchaseInteractor.send(buyData.getUri(),
-            buyData.isRaiden ? InAppPurchaseInteractor.TransactionType.RAIDEN
-                : InAppPurchaseInteractor.TransactionType.NORMAL, appPackage, productName,
-            buyData.getChannelBudget(), developerPayload, useBds)
+            buyData.isRaiden ? AsfInAppPurchaseInteractor.TransactionType.RAIDEN
+                : AsfInAppPurchaseInteractor.TransactionType.NORMAL, appPackage, productName,
+            buyData.getChannelBudget(), developerPayload, isBds)
             .observeOn(viewScheduler)
             .doOnError(this::showError))
         .retry()
@@ -117,7 +117,7 @@ public class OnChainBuyPresenter {
 
   private void handleOkErrorClick(String uriString) {
     disposables.add(view.getOkErrorClick()
-        .flatMapSingle(__ -> inAppPurchaseInteractor.parseTransaction(uriString))
+        .flatMapSingle(__ -> inAppPurchaseInteractor.parseTransaction(uriString, isBds))
         .subscribe(click -> showBuy(), throwable -> close()));
   }
 
@@ -128,15 +128,15 @@ public class OnChainBuyPresenter {
 
   private void setupUi(BigDecimal appcAmount, String uri, String packageName,
       String developerPayload) {
-    disposables.add(inAppPurchaseInteractor.parseTransaction(uri)
+    disposables.add(inAppPurchaseInteractor.parseTransaction(uri, isBds)
         .flatMapCompletable(
             transaction -> inAppPurchaseInteractor.getCurrentPaymentStep(packageName, transaction)
                 .flatMapCompletable(currentPaymentStep -> {
                   switch (currentPaymentStep) {
                     case PAUSED_ON_CHAIN:
                       return inAppPurchaseInteractor.resume(uri,
-                          InAppPurchaseInteractor.TransactionType.NORMAL, packageName,
-                          transaction.getSkuId(), developerPayload);
+                          AsfInAppPurchaseInteractor.TransactionType.NORMAL, packageName,
+                          transaction.getSkuId(), developerPayload, isBds);
                     case READY:
                       return Completable.fromAction(() -> setup(appcAmount))
                           .subscribeOn(AndroidSchedulers.mainThread());
@@ -195,7 +195,7 @@ public class OnChainBuyPresenter {
             .andThen(Completable.timer(1, TimeUnit.SECONDS))
             .observeOn(Schedulers.io())
             .andThen(Completable.defer(() -> {
-              if (useBds) {
+              if (isBds) {
                 return inAppPurchaseInteractor.getCompletedPurchase(transaction.getPackageName(),
                     transaction.getProductId())
                     .observeOn(AndroidSchedulers.mainThread())

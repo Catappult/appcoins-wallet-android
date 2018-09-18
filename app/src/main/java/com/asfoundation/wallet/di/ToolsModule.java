@@ -50,7 +50,6 @@ import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.ApproveTransactionValidatorBds;
 import com.asfoundation.wallet.repository.ApproveTransactionValidatorOnChain;
 import com.asfoundation.wallet.repository.BalanceService;
-import com.asfoundation.wallet.repository.BdsApproveService;
 import com.asfoundation.wallet.repository.BdsBuyService;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.asfoundation.wallet.repository.BdsTransactionService;
@@ -97,6 +96,7 @@ import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository;
 import com.asfoundation.wallet.ui.iab.AppInfoProvider;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.ui.iab.ApproveKeyProvider;
+import com.asfoundation.wallet.ui.iab.AsfInAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.BdsInAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.ImageSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
@@ -202,21 +202,48 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
         .build();
   }
 
-  @Provides ApproveService provideApproveService(SendTransactionInteract sendTransactionInteract,
+  @Provides @Named("APPROVE_SERVICE_ON_CHAIN") ApproveService provideApproveService(
+      SendTransactionInteract sendTransactionInteract,
       ErrorMapper errorMapper,
       @Named("no_wait_transaction") TrackTransactionService noWaitPendingTransactionService,
       PendingTransactionService pendingTransactionService,
       BillingPaymentProofSubmission billingPaymentProofSubmission) {
-    return new BdsApproveService(new WatchedTransactionService(sendTransactionInteract::approve,
+    return new ApproveService(new WatchedTransactionService(sendTransactionInteract::approve,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
         Schedulers.io(), noWaitPendingTransactionService),
-        new ApproveTransactionValidatorBds(sendTransactionInteract, billingPaymentProofSubmission),
         new ApproveTransactionValidatorOnChain(sendTransactionInteract, pendingTransactionService));
   }
 
-  @Provides BuyService provideBuyService(SendTransactionInteract sendTransactionInteract,
+  @Provides @Named("APPROVE_SERVICE_BDS") ApproveService provideApproveServiceBds(
+      SendTransactionInteract sendTransactionInteract, ErrorMapper errorMapper,
+      @Named("no_wait_transaction") TrackTransactionService noWaitPendingTransactionService,
+      PendingTransactionService pendingTransactionService,
+      BillingPaymentProofSubmission billingPaymentProofSubmission) {
+    return new ApproveService(new WatchedTransactionService(sendTransactionInteract::approve,
+        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
+        Schedulers.io(), noWaitPendingTransactionService),
+        new ApproveTransactionValidatorBds(sendTransactionInteract, billingPaymentProofSubmission));
+  }
+
+  @Provides @Named("BUY_SERVICE_ON_CHAIN") BuyService provideBuyServiceOnChain(
+      SendTransactionInteract sendTransactionInteract, ErrorMapper errorMapper,
+      @Named("wait_pending_transaction") TrackTransactionService pendingTransactionService,
+      BillingPaymentProofSubmission billingPaymentProofSubmission,
+      DefaultTokenProvider defaultTokenProvider, CountryCodeProvider countryCodeProvider,
+      DataMapper dataMapper, BillingFactory billingFactory) {
+    return new BdsBuyService(new WatchedTransactionService(sendTransactionInteract::buy,
+        new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
+        Schedulers.io(), pendingTransactionService),
+        new BuyTransactionValidatorOnChain(sendTransactionInteract, pendingTransactionService),
+        new BuyTransactionValidatorOnChain(sendTransactionInteract, pendingTransactionService),
+        defaultTokenProvider, countryCodeProvider, dataMapper);
+  }
+
+  @Provides @Named("BUY_SERVICE_BDS") BuyService provideBuyServiceBds(
+      SendTransactionInteract sendTransactionInteract,
       ErrorMapper errorMapper,
       @Named("wait_pending_transaction") TrackTransactionService pendingTransactionService,
+      @Named("no_wait_transaction") TrackTransactionService noWaitPendingTransactionService,
       BillingPaymentProofSubmission billingPaymentProofSubmission,
       DefaultTokenProvider defaultTokenProvider, CountryCodeProvider countryCodeProvider,
       DataMapper dataMapper, BillingFactory billingFactory) {
@@ -225,7 +252,8 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
         Schedulers.io(), pendingTransactionService),
         new BuyTransactionValidatorBds(sendTransactionInteract, billingPaymentProofSubmission,
             defaultTokenProvider),
-        new BuyTransactionValidatorOnChain(sendTransactionInteract, pendingTransactionService),
+        new BuyTransactionValidatorBds(sendTransactionInteract, billingPaymentProofSubmission,
+            defaultTokenProvider),
         defaultTokenProvider, countryCodeProvider, dataMapper);
   }
 
@@ -252,25 +280,22 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
     return new SendTransactionInteract(transactionRepository, passwordStore);
   }
 
-  @Singleton @Provides InAppPurchaseService provideInAppPurchaseService(
-      ApproveService approveService, BuyService buyService, NonceGetter nonceGetter,
+  @Singleton @Provides @Named("IN_APP_PURCHASE_SERVICE")
+  InAppPurchaseService provideInAppPurchaseService(
+      @Named("APPROVE_SERVICE_BDS") ApproveService approveService,
+      @Named("BUY_SERVICE_BDS") BuyService buyService, NonceGetter nonceGetter,
       BalanceService balanceService, ErrorMapper errorMapper) {
     return new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
         approveService, buyService, balanceService, Schedulers.io(), errorMapper);
   }
 
-  @Singleton @Provides InAppPurchaseInteractor provideTransactionInteractor(
-      InAppPurchaseService inAppPurchaseService, FindDefaultWalletInteract defaultWalletInteract,
-      FetchGasSettingsInteract gasSettingsInteract, TransferParser parser,
-      RaidenRepository raidenRepository, ChannelService channelService,
-      BillingFactory billingFactory, ExpressCheckoutBuyService expressCheckoutBuyService,
-      BdsTransactionService bdsTransactionService) {
-
-    return new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
-        gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
-        raidenRepository, channelService, new BillingMessagesMapper(), billingFactory,
-        new ExternalBillingSerializer(), expressCheckoutBuyService, bdsTransactionService,
-        Schedulers.io());
+  @Singleton @Provides @Named("ASF_IN_APP_PURCHASE_SERVICE")
+  InAppPurchaseService provideInAppPurchaseServiceAsf(
+      @Named("APPROVE_SERVICE_ON_CHAIN") ApproveService approveService,
+      @Named("BUY_SERVICE_ON_CHAIN") BuyService buyService, NonceGetter nonceGetter,
+      BalanceService balanceService, ErrorMapper errorMapper) {
+    return new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
+        approveService, buyService, balanceService, Schedulers.io(), errorMapper);
   }
 
   @Singleton @Provides BdsTransactionService providesBdsTransactionService(
@@ -283,9 +308,28 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
   @Singleton @Provides BdsInAppPurchaseInteractor provideBdsInAppPurchaseInteractor(
       BillingPaymentProofSubmission billingPaymentProofSubmission,
-      InAppPurchaseInteractor inAppPurchaseInteractor, BillingFactory billingFactory) {
+      AsfInAppPurchaseInteractor inAppPurchaseInteractor, BillingFactory billingFactory) {
     return new BdsInAppPurchaseInteractor(inAppPurchaseInteractor, billingPaymentProofSubmission,
         new ApproveKeyProvider(billingFactory));
+  }
+
+  @Singleton @Provides AsfInAppPurchaseInteractor provideAsfInAppPurchaseInteractor(
+      @Named("ASF_IN_APP_PURCHASE_SERVICE") InAppPurchaseService inAppPurchaseService,
+      FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
+      TransferParser parser, RaidenRepository raidenRepository, ChannelService channelService,
+      BillingFactory billingFactory, ExpressCheckoutBuyService expressCheckoutBuyService,
+      BdsTransactionService bdsTransactionService) {
+    return new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
+        gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
+        raidenRepository, channelService, new BillingMessagesMapper(), billingFactory,
+        new ExternalBillingSerializer(), expressCheckoutBuyService, bdsTransactionService,
+        Schedulers.io());
+  }
+
+  @Singleton @Provides InAppPurchaseInteractor provideDualInAppPurchaseInteractor(
+      BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
+      AsfInAppPurchaseInteractor asfInAppPurchaseInteractor) {
+    return new InAppPurchaseInteractor(asfInAppPurchaseInteractor, bdsInAppPurchaseInteractor);
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(

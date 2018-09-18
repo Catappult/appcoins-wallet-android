@@ -34,9 +34,8 @@ public class InAppPurchaseService {
     this.errorMapper = errorMapper;
   }
 
-  public Completable send(String key, PaymentTransaction paymentTransaction, boolean useBds) {
-    return checkFunds(key, paymentTransaction,
-        approveService.approve(key, paymentTransaction, useBds));
+  public Completable send(String key, PaymentTransaction paymentTransaction) {
+    return checkFunds(key, paymentTransaction, approveService.approve(key, paymentTransaction));
   }
 
   private Completable checkFunds(String key, PaymentTransaction paymentTransaction,
@@ -67,7 +66,7 @@ public class InAppPurchaseService {
   }
 
   public Completable resume(String key, PaymentTransaction paymentTransaction) {
-    return checkFunds(key, paymentTransaction, buyService.buy(key, paymentTransaction, true));
+    return checkFunds(key, paymentTransaction, buyService.buy(key, paymentTransaction));
   }
 
   public void start() {
@@ -82,7 +81,7 @@ public class InAppPurchaseService {
                 .filter(transaction -> transaction.getState()
                     .equals(PaymentTransaction.PaymentState.APPROVED))
                 .flatMapCompletable(transaction -> approveService.remove(transaction.getUri())
-                    .andThen(buyService.buy(transaction.getUri(), transaction, false)
+                    .andThen(buyService.buy(transaction.getUri(), transaction)
                         .onErrorResumeNext(throwable -> cache.save(transaction.getUri(),
                             new PaymentTransaction(transaction, errorMapper.map(throwable))))))))
         .subscribe();
@@ -104,14 +103,14 @@ public class InAppPurchaseService {
   }
 
   private Single<PaymentTransaction> mapTransactionToPaymentTransaction(
-      BdsApproveService.ApproveTransaction approveTransaction) {
+      ApproveService.ApproveTransaction approveTransaction) {
     return cache.get(approveTransaction.getKey())
         .firstOrError()
         .map(paymentTransaction -> new PaymentTransaction(paymentTransaction,
             getStatus(approveTransaction.getStatus()), approveTransaction.getTransactionHash()));
   }
 
-  private PaymentTransaction.PaymentState getStatus(BdsApproveService.Status status) {
+  private PaymentTransaction.PaymentState getStatus(ApproveService.Status status) {
     PaymentTransaction.PaymentState toReturn;
     switch (status) {
       case PENDING:

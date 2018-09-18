@@ -16,18 +16,18 @@ public class IabPresenter {
   private final CompositeDisposable disposables;
   private final String uriString;
   private final String appPackage;
-  private final boolean bdsIab;
+  private final boolean isBds;
 
   public IabPresenter(IabView view, InAppPurchaseInteractor inAppPurchaseInteractor,
       Scheduler viewScheduler, CompositeDisposable disposables, String uriString, String appPackage,
-      boolean bdsIab) {
+      boolean isBds) {
     this.view = view;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.viewScheduler = viewScheduler;
     this.disposables = disposables;
     this.uriString = uriString;
     this.appPackage = appPackage;
-    this.bdsIab = bdsIab;
+    this.isBds = isBds;
   }
 
   public void present() {
@@ -35,7 +35,7 @@ public class IabPresenter {
   }
 
   private void setupUi() {
-    disposables.add(inAppPurchaseInteractor.parseTransaction(uriString)
+    disposables.add(inAppPurchaseInteractor.parseTransaction(uriString, isBds)
         .flatMap(transactionBuilder -> inAppPurchaseInteractor.getCurrentPaymentStep(appPackage,
             transactionBuilder)
             .observeOn(viewScheduler)
@@ -47,7 +47,7 @@ public class IabPresenter {
                   break;
                 case PAUSED_OFF_CHAIN:
                 case NO_FUNDS:
-                  if (bdsIab) {
+                  if (isBds) {
                     view.showOffChain(transactionBuilder.amount());
                   } else {
                     view.showOnChain(transactionBuilder.amount());

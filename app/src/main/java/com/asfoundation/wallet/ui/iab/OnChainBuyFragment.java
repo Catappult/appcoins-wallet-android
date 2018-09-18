@@ -56,7 +56,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   public static final String PRODUCT_NAME = "product_name";
   public static final String TRANSACTION_HASH = "transaction_hash";
   private static final String TAG = OnChainBuyFragment.class.getSimpleName();
-  @Inject BdsInAppPurchaseInteractor inAppPurchaseInteractor;
+  @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   private BehaviorSubject<Object> raidenMoreInfoOkButtonClick;
   private BehaviorSubject<Boolean> createChannelClick;
   private PublishRelay<OnChainBuyPresenter.BuyData> buyButtonClick;
@@ -91,14 +91,14 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   private IabView iabView;
   private Bundle extras;
   private String data;
-  private boolean bdsIap;
+  private boolean isBds;
 
   public static OnChainBuyFragment newInstance(Bundle extras, String data, boolean bdsIap) {
     OnChainBuyFragment fragment = new OnChainBuyFragment();
     Bundle bundle = new Bundle();
     bundle.putBundle("extras", extras);
     bundle.putString("data", data);
-    bundle.putBoolean("bdsIap", bdsIap);
+    bundle.putBoolean("isBds", bdsIap);
     fragment.setArguments(bundle);
     return fragment;
   }
@@ -111,7 +111,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     isBackEnable = true;
     extras = getArguments().getBundle("extras");
     data = getArguments().getString("data");
-    bdsIap = getArguments().getBoolean("bdsIap");
+    isBds = getArguments().getBoolean("isBds");
   }
 
   @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -148,7 +148,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     presenter =
         new OnChainBuyPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
             new CompositeDisposable(), inAppPurchaseInteractor.getBillingMessagesMapper(),
-            inAppPurchaseInteractor.getBillingSerializer(), bdsIap);
+            inAppPurchaseInteractor.getBillingSerializer(), isBds);
     adapter =
         new ArrayAdapter<>(getContext().getApplicationContext(), R.layout.iab_raiden_dropdown_item,
             R.id.item, new ArrayList<>());

@@ -40,8 +40,7 @@ public class BdsBuyService implements BuyService {
     transactionService.start();
   }
 
-  @Override
-  public Completable buy(String key, PaymentTransaction paymentTransaction, boolean useBds) {
+  @Override public Completable buy(String key, PaymentTransaction paymentTransaction) {
     TransactionBuilder transactionBuilder = paymentTransaction.getTransactionBuilder();
     return countryCodeProvider.getCountryCode()
         .flatMap(countryCode -> defaultTokenProvider.getDefaultToken()
@@ -49,10 +48,9 @@ public class BdsBuyService implements BuyService {
                 getBuyData(transactionBuilder, tokenInfo, paymentTransaction.getPackageName(),
                     countryCode))))
         .map(transaction -> updateTransactionBuilderData(paymentTransaction, transaction))
-        .flatMapCompletable(payment -> Completable.defer(
-            () -> useBds ? transactionValidator.validate(payment)
-                : transactionValidatorOnChain.validate(payment))
-            .andThen(transactionService.sendTransaction(key, payment.getTransactionBuilder())));
+        .flatMapCompletable(
+            payment -> Completable.defer(() -> transactionValidator.validate(payment))
+                .andThen(transactionService.sendTransaction(key, payment.getTransactionBuilder())));
   }
 
   @Override public Observable<BuyTransaction> getBuy(String uri) {
@@ -146,7 +144,7 @@ public class BdsBuyService implements BuyService {
     private final Status status;
     private final String transactionHash;
 
-    private BuyTransaction(String key, TransactionBuilder transactionBuilder, Status status,
+    public BuyTransaction(String key, TransactionBuilder transactionBuilder, Status status,
         String transactionHash) {
       this.key = key;
       this.transactionBuilder = transactionBuilder;

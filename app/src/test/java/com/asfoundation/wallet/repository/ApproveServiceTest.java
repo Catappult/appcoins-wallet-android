@@ -58,13 +58,13 @@ public class ApproveServiceTest {
 
     when(transactionValidator.validate(any())).thenReturn(Completable.complete());
     approveService =
-        new BdsApproveService(transactionService, transactionValidator, transactionValidator);
+        new ApproveService(transactionService, transactionValidator, transactionValidator);
     approveService.start();
   }
 
   @Test public void approve() {
     String uri = "uri";
-    TestObserver<BdsApproveService.ApproveTransaction> observer = new TestObserver<>();
+    TestObserver<ApproveService.ApproveTransaction> observer = new TestObserver<>();
     when(trackTransactionService.checkTransactionState(APPROVE_HASH)).thenReturn(
         Observable.just(new PendingTransaction(APPROVE_HASH, false)));
     approveService.getApprove(uri)
@@ -72,7 +72,7 @@ public class ApproveServiceTest {
     scheduler.triggerActions();
     approveService.approve(uri,
         new PaymentTransaction(uri, transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
-            "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD), false)
+            "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD))
         .subscribe();
     scheduler.triggerActions();
 
@@ -81,10 +81,10 @@ public class ApproveServiceTest {
     pendingTransactionState.onNext(new PendingTransaction(APPROVE_HASH, false));
     scheduler.triggerActions();
 
-    List<BdsApproveService.ApproveTransaction> values = observer.values();
+    List<ApproveService.ApproveTransaction> values = observer.values();
     Assert.assertEquals(values.size(), 3);
     Assert.assertEquals(values.get(2)
-        .getStatus(), BdsApproveService.Status.APPROVED);
+        .getStatus(), ApproveService.Status.APPROVED);
   }
 
   @Test public void approveTransactionNotFound() {
@@ -98,19 +98,19 @@ public class ApproveServiceTest {
       }
     }).when(trackTransactionService)
         .checkTransactionState(APPROVE_HASH);
-    TestObserver<BdsApproveService.ApproveTransaction> observer = new TestObserver<>();
+    TestObserver<ApproveService.ApproveTransaction> observer = new TestObserver<>();
     approveService.getApprove(uri)
         .subscribe(observer);
     scheduler.triggerActions();
     approveService.approve(uri,
         new PaymentTransaction(uri, transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
-            "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD), false)
+            "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD))
         .subscribe();
     scheduler.triggerActions();
 
-    List<BdsApproveService.ApproveTransaction> values = observer.values();
+    List<ApproveService.ApproveTransaction> values = observer.values();
     Assert.assertEquals(3, values.size());
-    Assert.assertEquals(BdsApproveService.Status.APPROVED, values.get(2)
+    Assert.assertEquals(ApproveService.Status.APPROVED, values.get(2)
         .getStatus());
   }
 }
