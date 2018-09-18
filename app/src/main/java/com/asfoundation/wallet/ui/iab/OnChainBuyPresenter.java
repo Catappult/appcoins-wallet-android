@@ -191,25 +191,27 @@ public class OnChainBuyPresenter {
     Log.d(TAG, "present: " + transaction);
     switch (transaction.getStatus()) {
       case COMPLETED:
-        return Completable.fromAction(view::showTransactionCompleted)
-            .andThen(Completable.timer(1, TimeUnit.SECONDS))
-            .observeOn(Schedulers.io())
-            .andThen(Completable.defer(() -> {
-              if (isBds) {
-                return inAppPurchaseInteractor.getCompletedPurchase(transaction.getPackageName(),
-                    transaction.getProductId())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .doOnSuccess(purchase -> view.finish(
-                        billingMessagesMapper.mapPurchase(purchase.getUid(), purchase.getSignature()
-                            .getValue(), billingSerializer.serializeSignatureData(purchase))))
-                    .toCompletable()
-                    .onErrorResumeNext(
-                        throwable -> Completable.fromAction(() -> showError(throwable)))
-                    .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));
-              } else {
-                return Completable.fromAction(() -> view.finish(buildBundle(transaction)));
-              }
-            }));
+        return Completable.defer(() -> {
+          if (isBds) {
+            return inAppPurchaseInteractor.getCompletedPurchase(transaction.getPackageName(),
+                transaction.getProductId())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSuccess(purchase -> view.finish(
+                    billingMessagesMapper.mapPurchase(purchase.getUid(), purchase.getSignature()
+                        .getValue(), billingSerializer.serializeSignatureData(purchase))))
+                .toCompletable()
+                .onErrorResumeNext(throwable -> Completable.fromAction(() -> showError(throwable)))
+                .andThen(inAppPurchaseInteractor.remove(transaction.getUri()))
+                .subscribeOn(Schedulers.io())
+                .andThen(Completable.fromAction(view::showTransactionCompleted)
+                    .andThen(Completable.timer(1, TimeUnit.SECONDS)));
+          } else {
+            return Completable.fromAction(() -> view.finish(buildBundle(transaction)))
+                .subscribeOn(Schedulers.io())
+                .andThen(Completable.fromAction(view::showTransactionCompleted)
+                    .andThen(Completable.timer(1, TimeUnit.SECONDS)));
+          }
+        });
       case NO_FUNDS:
         return Completable.fromAction(() -> view.showNoFundsError())
             .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));

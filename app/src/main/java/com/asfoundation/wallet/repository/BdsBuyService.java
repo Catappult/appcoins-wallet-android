@@ -19,18 +19,15 @@ import java.util.List;
 public class BdsBuyService implements BuyService {
   private final WatchedTransactionService transactionService;
   private final TransactionValidator transactionValidator;
-  private final TransactionValidator transactionValidatorOnChain;
   private final DefaultTokenProvider defaultTokenProvider;
   private final CountryCodeProvider countryCodeProvider;
   private final DataMapper dataMapper;
 
   public BdsBuyService(WatchedTransactionService transactionService,
-      TransactionValidator transactionValidator, TransactionValidator transactionValidatorOnChain,
-      DefaultTokenProvider defaultTokenProvider, CountryCodeProvider countryCodeProvider,
-      DataMapper dataMapper) {
+      TransactionValidator transactionValidator, DefaultTokenProvider defaultTokenProvider,
+      CountryCodeProvider countryCodeProvider, DataMapper dataMapper) {
     this.transactionService = transactionService;
     this.transactionValidator = transactionValidator;
-    this.transactionValidatorOnChain = transactionValidatorOnChain;
     this.defaultTokenProvider = defaultTokenProvider;
     this.countryCodeProvider = countryCodeProvider;
     this.dataMapper = dataMapper;

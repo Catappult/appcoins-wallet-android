@@ -75,8 +75,7 @@ import static org.mockito.Mockito.when;
     when(trackTransactionService.checkTransactionState(anyString())).thenReturn(
         pendingTransactionState);
 
-    buyService = new BdsBuyService(transactionService, transactionValidator, transactionValidator,
-        defaultTokenProvider,
+    buyService = new BdsBuyService(transactionService, transactionValidator, defaultTokenProvider,
         countryCodeProvider, dataMapper);
     uri = "uri";
   }
@@ -109,8 +108,7 @@ import static org.mockito.Mockito.when;
     when(trackTransactionService.checkTransactionState("hash")).thenReturn(pendingTransactionState);
 
     BuyService buyService =
-        new BdsBuyService(transactionService, transactionValidator, transactionValidator,
-            defaultTokenProvider,
+        new BdsBuyService(transactionService, transactionValidator, defaultTokenProvider,
             countryCodeProvider, dataMapper);
     buyService.start();
     TestObserver<BdsBuyService.BuyTransaction> observer = new TestObserver<>();

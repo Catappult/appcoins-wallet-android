@@ -48,7 +48,6 @@ import com.asfoundation.wallet.poa.TaggedCompositeDisposable;
 import com.asfoundation.wallet.poa.TransactionFactory;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.ApproveTransactionValidatorBds;
-import com.asfoundation.wallet.repository.ApproveTransactionValidatorOnChain;
 import com.asfoundation.wallet.repository.BalanceService;
 import com.asfoundation.wallet.repository.BdsBuyService;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
@@ -56,7 +55,6 @@ import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.BlockChainWriter;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.BuyTransactionValidatorBds;
-import com.asfoundation.wallet.repository.BuyTransactionValidatorOnChain;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.EthereumNetworkRepository;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
@@ -66,6 +64,7 @@ import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.IpCountryCodeProvider;
 import com.asfoundation.wallet.repository.MemoryCache;
+import com.asfoundation.wallet.repository.NoValidateTransactionValidatorOnChain;
 import com.asfoundation.wallet.repository.NonceGetter;
 import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.PendingTransactionService;
@@ -211,7 +210,8 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
     return new ApproveService(new WatchedTransactionService(sendTransactionInteract::approve,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
         Schedulers.io(), noWaitPendingTransactionService),
-        new ApproveTransactionValidatorOnChain(sendTransactionInteract, pendingTransactionService));
+        new NoValidateTransactionValidatorOnChain(sendTransactionInteract,
+            noWaitPendingTransactionService));
   }
 
   @Provides @Named("APPROVE_SERVICE_BDS") ApproveService provideApproveServiceBds(
@@ -234,8 +234,8 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
     return new BdsBuyService(new WatchedTransactionService(sendTransactionInteract::buy,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
         Schedulers.io(), pendingTransactionService),
-        new BuyTransactionValidatorOnChain(sendTransactionInteract, pendingTransactionService),
-        new BuyTransactionValidatorOnChain(sendTransactionInteract, pendingTransactionService),
+        new NoValidateTransactionValidatorOnChain(sendTransactionInteract,
+            pendingTransactionService),
         defaultTokenProvider, countryCodeProvider, dataMapper);
   }
 
@@ -250,8 +250,6 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
     return new BdsBuyService(new WatchedTransactionService(sendTransactionInteract::buy,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
         Schedulers.io(), pendingTransactionService),
-        new BuyTransactionValidatorBds(sendTransactionInteract, billingPaymentProofSubmission,
-            defaultTokenProvider),
         new BuyTransactionValidatorBds(sendTransactionInteract, billingPaymentProofSubmission,
             defaultTokenProvider),
         defaultTokenProvider, countryCodeProvider, dataMapper);
@@ -308,12 +306,28 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
   @Singleton @Provides BdsInAppPurchaseInteractor provideBdsInAppPurchaseInteractor(
       BillingPaymentProofSubmission billingPaymentProofSubmission,
-      AsfInAppPurchaseInteractor inAppPurchaseInteractor, BillingFactory billingFactory) {
+      @Named("ASF_BDS_IN_APP_INTERACTOR") AsfInAppPurchaseInteractor inAppPurchaseInteractor,
+      BillingFactory billingFactory) {
     return new BdsInAppPurchaseInteractor(inAppPurchaseInteractor, billingPaymentProofSubmission,
         new ApproveKeyProvider(billingFactory));
   }
 
-  @Singleton @Provides AsfInAppPurchaseInteractor provideAsfInAppPurchaseInteractor(
+  @Singleton @Provides @Named("ASF_BDS_IN_APP_INTERACTOR")
+  AsfInAppPurchaseInteractor provideAsfBdsInAppPurchaseInteractor(
+      @Named("IN_APP_PURCHASE_SERVICE") InAppPurchaseService inAppPurchaseService,
+      FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
+      TransferParser parser, RaidenRepository raidenRepository, ChannelService channelService,
+      BillingFactory billingFactory, ExpressCheckoutBuyService expressCheckoutBuyService,
+      BdsTransactionService bdsTransactionService) {
+    return new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
+        gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
+        raidenRepository, channelService, new BillingMessagesMapper(), billingFactory,
+        new ExternalBillingSerializer(), expressCheckoutBuyService, bdsTransactionService,
+        Schedulers.io());
+  }
+
+  @Singleton @Provides @Named("ASF_IN_APP_INTERACTOR")
+  AsfInAppPurchaseInteractor provideAsfInAppPurchaseInteractor(
       @Named("ASF_IN_APP_PURCHASE_SERVICE") InAppPurchaseService inAppPurchaseService,
       FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
       TransferParser parser, RaidenRepository raidenRepository, ChannelService channelService,
@@ -328,7 +342,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
   @Singleton @Provides InAppPurchaseInteractor provideDualInAppPurchaseInteractor(
       BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
-      AsfInAppPurchaseInteractor asfInAppPurchaseInteractor) {
+      @Named("ASF_IN_APP_INTERACTOR") AsfInAppPurchaseInteractor asfInAppPurchaseInteractor) {
     return new InAppPurchaseInteractor(asfInAppPurchaseInteractor, bdsInAppPurchaseInteractor);
   }
 
