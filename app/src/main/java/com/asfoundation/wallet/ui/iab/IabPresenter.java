@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
+import android.os.Bundle;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
 import javax.annotation.Nullable;
@@ -28,8 +29,10 @@ public class IabPresenter {
     this.appPackage = appPackage;
   }
 
-  public void present() {
-    setupUi();
+  public void present(Bundle savedInstanceState) {
+    if (savedInstanceState == null) {
+      setupUi();
+    }
   }
 
   private void setupUi() {
