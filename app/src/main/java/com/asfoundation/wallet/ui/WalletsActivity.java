@@ -69,6 +69,15 @@ public class WalletsActivity extends BaseActivity
     systemView.attachRecyclerView(list);
     systemView.attachSwipeRefreshLayout(refreshLayout);
     backupWarning.setOnPositiveClickListener(this::onNowBackup);
+    backupWarning.setOnSkipClickListener(v -> {
+      hideDialog();
+      showToolbar();
+      if (adapter.getItemCount() <= 1) {
+        onBackPressed();
+      } else {
+        backupWarning.hide();
+      }
+    });
 
     viewModel = ViewModelProviders.of(this, walletsViewModelFactory)
         .get(WalletsViewModel.class);
@@ -95,6 +104,20 @@ public class WalletsActivity extends BaseActivity
     refreshLayout.setOnRefreshListener(viewModel::fetchWallets);
   }
 
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.action_add: {
+        onAddWallet();
+      }
+      break;
+      case android.R.id.home: {
+        onBackPressed();
+        return true;
+      }
+    }
+    return super.onOptionsItemSelected(item);
+  }
+
   private void onCreateWalletError(ErrorEnvelope errorEnvelope) {
     dialog = buildDialog().setTitle(R.string.title_dialog_error)
         .setMessage(
@@ -115,20 +138,6 @@ public class WalletsActivity extends BaseActivity
       getMenuInflater().inflate(R.menu.menu_add, menu);
     }
     return super.onCreateOptionsMenu(menu);
-  }
-
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.action_add: {
-        onAddWallet();
-      }
-      break;
-      case android.R.id.home: {
-        onBackPressed();
-        return true;
-      }
-    }
-    return super.onOptionsItemSelected(item);
   }
 
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
