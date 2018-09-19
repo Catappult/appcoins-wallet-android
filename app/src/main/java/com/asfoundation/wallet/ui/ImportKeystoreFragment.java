@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,16 +15,22 @@ import com.asfoundation.wallet.ui.widget.OnImportKeystoreListener;
 
 public class ImportKeystoreFragment extends Fragment implements View.OnClickListener {
 
-  private static final OnImportKeystoreListener dummyOnImportKeystoreListener = (k, p) -> {
-  };
-
   private EditText keystore;
   private EditText password;
-  @NonNull private OnImportKeystoreListener onImportKeystoreListener =
-      dummyOnImportKeystoreListener;
+  private OnImportKeystoreListener onImportKeystoreListener;
 
   public static ImportKeystoreFragment create() {
     return new ImportKeystoreFragment();
+  }
+
+  @Override public void onAttach(Context context) {
+    if (!(context instanceof OnImportKeystoreListener)) {
+      throw new IllegalArgumentException("this fragment should be attached to an "
+          + OnImportKeystoreListener.class.getSimpleName()
+          + " instance");
+    }
+    onImportKeystoreListener = ((OnImportKeystoreListener) context);
+    super.onAttach(context);
   }
 
   @Nullable @Override
@@ -53,11 +60,5 @@ public class ImportKeystoreFragment extends Fragment implements View.OnClickList
     } else {
       onImportKeystoreListener.onKeystore(keystore, password);
     }
-  }
-
-  public void setOnImportKeystoreListener(
-      @Nullable OnImportKeystoreListener onImportKeystoreListener) {
-    this.onImportKeystoreListener =
-        onImportKeystoreListener == null ? dummyOnImportKeystoreListener : onImportKeystoreListener;
   }
 }
