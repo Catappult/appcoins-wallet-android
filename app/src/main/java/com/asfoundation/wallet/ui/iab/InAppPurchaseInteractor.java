@@ -26,7 +26,11 @@ public class InAppPurchaseInteractor {
   }
 
   public Single<TransactionBuilder> parseTransaction(String uri, boolean isBds) {
-    return asfInAppPurchaseInteractor.parseTransaction(uri);
+    if (isBds) {
+      return asfInAppPurchaseInteractor.parseTransaction(uri);
+    } else {
+      return bdsInAppPurchaseInteractor.parseTransaction(uri);
+    }
   }
 
   public Completable send(String uri, AsfInAppPurchaseInteractor.TransactionType transactionType,
