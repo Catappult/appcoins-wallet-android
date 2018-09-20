@@ -331,5 +331,6 @@
   <string name="remember_card_hint">Remember card</string>
   <string name="connection_error">No network connection</string>
   <string name="iab_button_ok">OK</string>
+  <string name="action_skip_backup_wallet">SKIP BACKUP</string>
 
 </resources>

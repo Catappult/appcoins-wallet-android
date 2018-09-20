@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="@dimen/big_margin"
@@ -14,13 +13,13 @@
       >
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="78dp"
-        android:layout_height="68dp"
+        android:layout_width="195dp"
+        android:layout_height="195dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
-        app:srcCompat="@mipmap/backup_warning"
+        android:src="@drawable/ic_backup_icon"
         />
     <TextView
         android:id="@+id/backup_title"
@@ -60,6 +59,14 @@
         android:layout_marginTop="@dimen/big_margin"
         android:text="@string/action_backup_wallet"
         style="@style/ButtonStyle"
+        />
+    <Button
+        android:id="@+id/skip_action"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginTop="@dimen/big_margin"
+        android:text="@string/action_skip_backup_wallet"
+        style="@style/ButtonStyle.Light"
         />
   </LinearLayout>
 </FrameLayout>
