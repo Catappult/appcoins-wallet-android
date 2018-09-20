@@ -204,11 +204,14 @@ public class OnChainBuyPresenter {
                 .andThen(inAppPurchaseInteractor.remove(transaction.getUri()))
                 .subscribeOn(Schedulers.io())
                 .andThen(Completable.fromAction(view::showTransactionCompleted)
+                    .subscribeOn(AndroidSchedulers.mainThread())
                     .andThen(Completable.timer(1, TimeUnit.SECONDS)));
           } else {
             return Completable.fromAction(() -> view.finish(buildBundle(transaction)))
                 .subscribeOn(Schedulers.io())
+                .andThen(inAppPurchaseInteractor.remove(transaction.getUri()))
                 .andThen(Completable.fromAction(view::showTransactionCompleted)
+                    .subscribeOn(AndroidSchedulers.mainThread())
                     .andThen(Completable.timer(1, TimeUnit.SECONDS)));
           }
         });
