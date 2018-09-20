@@ -23,10 +23,10 @@ import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.BalanceService;
-import com.asfoundation.wallet.repository.BdsBuyService;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.asfoundation.wallet.repository.BdsTransactionProvider;
 import com.asfoundation.wallet.repository.BdsTransactionService;
+import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.ExpressCheckoutBuyService;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
@@ -168,7 +168,7 @@ public class InAppPurchaseInteractorTest {
     inAppPurchaseService =
         new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
             new ApproveService(approveTransactionService, transactionValidator),
-            new BdsBuyService(buyTransactionService, transactionValidator, defaultTokenProvider,
+            new BuyService(buyTransactionService, transactionValidator, defaultTokenProvider,
                 countryCodeProvider, dataMapper), balanceService, scheduler, new ErrorMapper());
 
     proofPublishSubject = PublishSubject.create();
@@ -192,9 +192,8 @@ public class InAppPurchaseInteractorTest {
         new Transaction(UID, Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
             new Gateway(Gateway.Name.appcoins, "", ""))));
 
-    inAppPurchaseInteractor =
-        new InAppPurchaseInteractor(asfInAppPurchaseInteractor, bdsInAppPurchaseInteractor,
-            inAppPurchaseService, defaultWalletInteract,
+    AsfInAppPurchaseInteractor asfInAppPurchaseInteractor =
+        new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
             gasSettingsInteract, BigDecimal.ONE,
             new TransferParser(defaultWalletInteract, tokenRepository), repository,
             new ChannelService(null, new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
@@ -204,6 +203,12 @@ public class InAppPurchaseInteractorTest {
             new BdsTransactionService(scheduler,
                 new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
                 new CompositeDisposable(), transactionService), scheduler);
+    BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor =
+        new BdsInAppPurchaseInteractor(asfInAppPurchaseInteractor, null,
+            new ApproveKeyProvider(billingFactory));
+
+    inAppPurchaseInteractor =
+        new InAppPurchaseInteractor(asfInAppPurchaseInteractor, bdsInAppPurchaseInteractor);
   }
 
   @Test public void sendTransaction() {
@@ -217,7 +222,8 @@ public class InAppPurchaseInteractorTest {
     inAppPurchaseInteractor.getTransactionState(uri)
         .subscribe(testObserver);
     scheduler.triggerActions();
-    inAppPurchaseInteractor.send(uri, InAppPurchaseInteractor.TransactionType.NORMAL, PACKAGE_NAME,
+    inAppPurchaseInteractor.send(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
+        PACKAGE_NAME,
         PRODUCT_NAME, BigDecimal.ONE, DEVELOPER_PAYLOAD, false)
         .subscribe();
     scheduler.triggerActions();
@@ -277,7 +283,8 @@ public class InAppPurchaseInteractorTest {
     inAppPurchaseInteractor.getTransactionState(uri)
         .subscribe(testObserver);
     scheduler.triggerActions();
-    inAppPurchaseInteractor.send(uri, InAppPurchaseInteractor.TransactionType.NORMAL, PACKAGE_NAME,
+    inAppPurchaseInteractor.send(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
+        PACKAGE_NAME,
         PRODUCT_NAME, BigDecimal.ONE, DEVELOPER_PAYLOAD, false)
         .subscribe();
     scheduler.triggerActions();
@@ -320,7 +327,8 @@ public class InAppPurchaseInteractorTest {
     inAppPurchaseInteractor.getTransactionState(uri)
         .subscribe(testObserver);
     scheduler.triggerActions();
-    inAppPurchaseInteractor.send(uri, InAppPurchaseInteractor.TransactionType.NORMAL, PACKAGE_NAME,
+    inAppPurchaseInteractor.send(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
+        PACKAGE_NAME,
         PRODUCT_NAME, BigDecimal.ONE, DEVELOPER_PAYLOAD, false)
         .subscribe();
     scheduler.triggerActions();

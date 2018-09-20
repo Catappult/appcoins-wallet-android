@@ -152,12 +152,12 @@ public class InAppPurchaseService {
   }
 
   @NonNull private PaymentTransaction map(PaymentTransaction paymentTransaction,
-      BdsBuyService.BuyTransaction buyTransaction) {
+      BuyService.BuyTransaction buyTransaction) {
     return new PaymentTransaction(paymentTransaction, getStatus(buyTransaction.getStatus()),
         paymentTransaction.getApproveHash(), buyTransaction.getTransactionHash());
   }
 
-  private PaymentTransaction.PaymentState getStatus(BdsBuyService.Status status) {
+  private PaymentTransaction.PaymentState getStatus(BuyService.Status status) {
     PaymentTransaction.PaymentState paymentState;
     switch (status) {
       case BUYING:

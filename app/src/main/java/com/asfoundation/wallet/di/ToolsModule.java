@@ -49,7 +49,6 @@ import com.asfoundation.wallet.poa.TransactionFactory;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.ApproveTransactionValidatorBds;
 import com.asfoundation.wallet.repository.BalanceService;
-import com.asfoundation.wallet.repository.BdsBuyService;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.BlockChainWriter;
@@ -231,7 +230,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
       BillingPaymentProofSubmission billingPaymentProofSubmission,
       DefaultTokenProvider defaultTokenProvider, CountryCodeProvider countryCodeProvider,
       DataMapper dataMapper, BillingFactory billingFactory) {
-    return new BdsBuyService(new WatchedTransactionService(sendTransactionInteract::buy,
+    return new BuyService(new WatchedTransactionService(sendTransactionInteract::buy,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
         Schedulers.io(), pendingTransactionService),
         new NoValidateTransactionValidatorOnChain(sendTransactionInteract,
@@ -247,7 +246,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
       BillingPaymentProofSubmission billingPaymentProofSubmission,
       DefaultTokenProvider defaultTokenProvider, CountryCodeProvider countryCodeProvider,
       DataMapper dataMapper, BillingFactory billingFactory) {
-    return new BdsBuyService(new WatchedTransactionService(sendTransactionInteract::buy,
+    return new BuyService(new WatchedTransactionService(sendTransactionInteract::buy,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
         Schedulers.io(), pendingTransactionService),
         new BuyTransactionValidatorBds(sendTransactionInteract, billingPaymentProofSubmission,

@@ -57,8 +57,7 @@ public class ApproveServiceTest {
         scheduler, trackTransactionService);
 
     when(transactionValidator.validate(any())).thenReturn(Completable.complete());
-    approveService =
-        new ApproveService(transactionService, transactionValidator, transactionValidator);
+    approveService = new ApproveService(transactionService, transactionValidator);
     approveService.start();
   }
 

@@ -75,14 +75,14 @@ import static org.mockito.Mockito.when;
     when(trackTransactionService.checkTransactionState(anyString())).thenReturn(
         pendingTransactionState);
 
-    buyService = new BdsBuyService(transactionService, transactionValidator, defaultTokenProvider,
+    buyService = new BuyService(transactionService, transactionValidator, defaultTokenProvider,
         countryCodeProvider, dataMapper);
     uri = "uri";
   }
 
   @Test public void buy() {
     buyService.start();
-    TestObserver<BdsBuyService.BuyTransaction> observer = new TestObserver<>();
+    TestObserver<BuyService.BuyTransaction> observer = new TestObserver<>();
     buyService.getBuy(uri)
         .subscribe(observer);
 
@@ -95,10 +95,10 @@ import static org.mockito.Mockito.when;
 
     scheduler.triggerActions();
 
-    List<BdsBuyService.BuyTransaction> values = observer.values();
+    List<BuyService.BuyTransaction> values = observer.values();
     Assert.assertEquals(values.size(), 3);
     Assert.assertEquals(values.get(2)
-        .getStatus(), BdsBuyService.Status.BOUGHT);
+        .getStatus(), BuyService.Status.BOUGHT);
   }
 
   @Test public void buyTransactionNotFound() {
@@ -108,10 +108,10 @@ import static org.mockito.Mockito.when;
     when(trackTransactionService.checkTransactionState("hash")).thenReturn(pendingTransactionState);
 
     BuyService buyService =
-        new BdsBuyService(transactionService, transactionValidator, defaultTokenProvider,
+        new BuyService(transactionService, transactionValidator, defaultTokenProvider,
             countryCodeProvider, dataMapper);
     buyService.start();
-    TestObserver<BdsBuyService.BuyTransaction> observer = new TestObserver<>();
+    TestObserver<BuyService.BuyTransaction> observer = new TestObserver<>();
     buyService.getBuy(uri)
         .subscribe(observer);
 
@@ -124,9 +124,9 @@ import static org.mockito.Mockito.when;
 
     scheduler.triggerActions();
 
-    List<BdsBuyService.BuyTransaction> values = observer.values();
+    List<BuyService.BuyTransaction> values = observer.values();
     Assert.assertEquals(3, values.size());
-    Assert.assertEquals(BdsBuyService.Status.BOUGHT, values.get(2)
+    Assert.assertEquals(BuyService.Status.BOUGHT, values.get(2)
         .getStatus());
   }
 }
