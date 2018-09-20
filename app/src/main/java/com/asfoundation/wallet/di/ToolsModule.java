@@ -237,12 +237,13 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
       ErrorMapper errorMapper,
       @Named("wait_pending_transaction") TrackTransactionService pendingTransactionService,
       @Named("no_wait_transaction") TrackTransactionService noWaitPendingTransactionService,
+      BdsPendingTransactionService bdsPendingTransactionService,
       BillingPaymentProofSubmission billingPaymentProofSubmission,
       DefaultTokenProvider defaultTokenProvider, CountryCodeProvider countryCodeProvider,
       DataMapper dataMapper, BillingFactory billingFactory) {
     return new BuyService(new WatchedTransactionService(sendTransactionInteract::buy,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
-        Schedulers.io(), pendingTransactionService),
+        Schedulers.io(), bdsPendingTransactionService),
         new BuyTransactionValidatorBds(sendTransactionInteract, billingPaymentProofSubmission,
             defaultTokenProvider),
         defaultTokenProvider, countryCodeProvider, dataMapper);
