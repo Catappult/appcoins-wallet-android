@@ -63,7 +63,7 @@ import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.IpCountryCodeProvider;
 import com.asfoundation.wallet.repository.MemoryCache;
-import com.asfoundation.wallet.repository.NoValidateTransactionValidatorOnChain;
+import com.asfoundation.wallet.repository.NoValidateTransactionValidator;
 import com.asfoundation.wallet.repository.NonceGetter;
 import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.PendingTransactionService;
@@ -201,16 +201,12 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   }
 
   @Provides @Named("APPROVE_SERVICE_ON_CHAIN") ApproveService provideApproveService(
-      SendTransactionInteract sendTransactionInteract,
-      ErrorMapper errorMapper,
+      SendTransactionInteract sendTransactionInteract, ErrorMapper errorMapper,
       @Named("no_wait_transaction") TrackTransactionService noWaitPendingTransactionService,
-      PendingTransactionService pendingTransactionService,
-      BillingPaymentProofSubmission billingPaymentProofSubmission) {
+      PendingTransactionService pendingTransactionService) {
     return new ApproveService(new WatchedTransactionService(sendTransactionInteract::approve,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
-        Schedulers.io(), noWaitPendingTransactionService),
-        new NoValidateTransactionValidatorOnChain(sendTransactionInteract,
-            noWaitPendingTransactionService));
+        Schedulers.io(), noWaitPendingTransactionService), new NoValidateTransactionValidator());
   }
 
   @Provides @Named("APPROVE_SERVICE_BDS") ApproveService provideApproveServiceBds(
@@ -232,9 +228,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
       DataMapper dataMapper, BillingFactory billingFactory) {
     return new BuyService(new WatchedTransactionService(sendTransactionInteract::buy,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
-        Schedulers.io(), pendingTransactionService),
-        new NoValidateTransactionValidatorOnChain(sendTransactionInteract,
-            pendingTransactionService),
+        Schedulers.io(), pendingTransactionService), new NoValidateTransactionValidator(),
         defaultTokenProvider, countryCodeProvider, dataMapper);
   }
 
