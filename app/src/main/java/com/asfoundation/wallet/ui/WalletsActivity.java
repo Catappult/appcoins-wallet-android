@@ -187,12 +187,18 @@ public class WalletsActivity extends BaseActivity
   }
 
   @Override public void onBackPressed() {
-    // User can't start work without wallet.
-    if (adapter.getItemCount() > 0) {
-      viewModel.showTransactions(this);
+    if (backupWarning.isShown() && adapter.getItemCount() > 1) {
+      hideDialog();
+      showToolbar();
+      backupWarning.hide();
     } else {
-      finish();
-      System.exit(0);
+      // User can't start work without wallet.
+      if (adapter.getItemCount() > 0) {
+        viewModel.showTransactions(this);
+      } else {
+        finish();
+        System.exit(0);
+      }
     }
   }
 
