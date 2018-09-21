@@ -39,7 +39,7 @@ class BillingPaymentProofSubmissionTest {
   fun setUp() {
     scheduler = TestScheduler()
 
-    billing = BillingPaymentProofSubmission.Builder().setApi(api).setScheduler(scheduler)
+    billing = BillingPaymentProofSubmissionImpl.Builder().setApi(api).setScheduler(scheduler)
         .setWalletService(object : WalletService {
           override fun getWalletAddress(): Single<String> = Single.just(walletAddress)
           override fun signContent(content: String): Single<String> = Single.just(signedContent)

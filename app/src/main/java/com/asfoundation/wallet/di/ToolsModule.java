@@ -6,6 +6,7 @@ import com.appcoins.wallet.billing.BdsBilling;
 import com.appcoins.wallet.billing.BillingFactory;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.BillingPaymentProofSubmission;
+import com.appcoins.wallet.billing.BillingPaymentProofSubmissionImpl;
 import com.appcoins.wallet.billing.BillingThrowableCodeMapper;
 import com.appcoins.wallet.billing.ProxyService;
 import com.appcoins.wallet.billing.WalletService;
@@ -195,7 +196,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 
   @Singleton @Provides BillingPaymentProofSubmission providesBillingPaymentProofSubmission(
       RemoteRepository.BdsApi api, WalletService walletService) {
-    return new BillingPaymentProofSubmission.Builder().setApi(api)
+    return new BillingPaymentProofSubmissionImpl.Builder().setApi(api)
         .setWalletService(walletService)
         .build();
   }
