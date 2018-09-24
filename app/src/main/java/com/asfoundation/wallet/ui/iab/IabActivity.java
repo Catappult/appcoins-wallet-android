@@ -65,6 +65,7 @@ public class IabActivity extends BaseActivity implements IabView {
         skuDetails = savedInstanceState.getBundle(SKU_DETAILS);
       }
     }
+    presenter.present(savedInstanceState);
   }
 
   @Override public void onBackPressed() {
@@ -76,14 +77,9 @@ public class IabActivity extends BaseActivity implements IabView {
     }
   }
 
-  @Override protected void onStart() {
-    super.onStart();
-    presenter.present();
-  }
-
-  @Override protected void onStop() {
+  @Override protected void onDestroy() {
     presenter.stop();
-    super.onStop();
+    super.onDestroy();
   }
 
   @Override protected void onSaveInstanceState(Bundle outState) {

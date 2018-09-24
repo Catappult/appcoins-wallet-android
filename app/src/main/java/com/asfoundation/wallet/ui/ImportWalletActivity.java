@@ -16,6 +16,8 @@ import com.asf.wallet.R;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.ui.widget.OnImportKeystoreListener;
+import com.asfoundation.wallet.ui.widget.OnImportPrivateKeyListener;
 import com.asfoundation.wallet.ui.widget.adapter.TabPagerAdapter;
 import com.asfoundation.wallet.viewmodel.ImportWalletViewModel;
 import com.asfoundation.wallet.viewmodel.ImportWalletViewModelFactory;
@@ -26,7 +28,8 @@ import javax.inject.Inject;
 
 import static com.asfoundation.wallet.C.ErrorCode.ALREADY_ADDED;
 
-public class ImportWalletActivity extends BaseActivity {
+public class ImportWalletActivity extends BaseActivity
+    implements OnImportKeystoreListener, OnImportPrivateKeyListener {
 
   private static final int KEYSTORE_FORM_INDEX = 0;
   private static final int PRIVATE_KEY_FORM_INDEX = 1;
@@ -82,15 +85,6 @@ public class ImportWalletActivity extends BaseActivity {
     hideDialog();
   }
 
-  @Override protected void onResume() {
-    super.onResume();
-
-    ((ImportKeystoreFragment) pages.get(KEYSTORE_FORM_INDEX).second).setOnImportKeystoreListener(
-        importWalletViewModel);
-    ((ImportPrivateKeyFragment) pages.get(
-        PRIVATE_KEY_FORM_INDEX).second).setOnImportPrivateKeyListener(importWalletViewModel);
-  }
-
   private void onError(ErrorEnvelope errorEnvelope) {
     hideDialog();
     String message = TextUtils.isEmpty(errorEnvelope.message) ? getString(R.string.error_import)
@@ -120,5 +114,13 @@ public class ImportWalletActivity extends BaseActivity {
     if (dialog != null && dialog.isShowing()) {
       dialog.dismiss();
     }
+  }
+
+  @Override public void onKeystore(String keystore, String password) {
+    importWalletViewModel.onKeystore(keystore, password);
+  }
+
+  @Override public void onPrivateKey(String key) {
+    importWalletViewModel.onPrivateKey(key);
   }
 }

@@ -25,6 +25,10 @@ public class Erc681Receiver extends BaseActivity {
     super.onCreate(savedInstanceState);
     AppEventsLogger.newLogger(this)
         .logEvent("in_app_purchase_dialog_open");
+    if (savedInstanceState == null) {
+      disposable = walletInteract.find()
+          .subscribe(wallet -> startEipTransfer(), throwable -> startApp(throwable));
+    }
   }
 
   private void startApp(Throwable throwable) {
@@ -58,11 +62,5 @@ public class Erc681Receiver extends BaseActivity {
       disposable.dispose();
     }
     super.onPause();
-  }
-
-  @Override protected void onResume() {
-    super.onResume();
-    disposable = walletInteract.find()
-        .subscribe(wallet -> startEipTransfer(), throwable -> startApp(throwable));
   }
 }
