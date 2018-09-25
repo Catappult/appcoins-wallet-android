@@ -48,7 +48,7 @@ project.ext {
   jetbrainsAnnotationsVersion = "15.0"
   junitVersion = "4.12"
   mockitoCoreVersion = "2.15.0"
-  roomVersion = "1.1.0"
+  roomVersion = "1.1.1"
   appcoinsSdkVersion = "0.3.7a"
   jacksonVersion = "2.9.6"
 }
