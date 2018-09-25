@@ -110,7 +110,6 @@ public class InAppPurchaseInteractor {
       Boolean isBuyReady) throws UnknownServiceException {
     switch (transaction.getStatus()) {
       case PENDING:
-      case PENDING_SERVICE_AUTHORIZATION:
       case PROCESSING:
         switch (transaction.getGateway()
             .getName()) {
@@ -122,12 +121,11 @@ public class InAppPurchaseInteractor {
           case unknown:
             throw new UnknownServiceException("Unknown gateway");
         }
-      case COMPLETED:
-        return isBuyReady ? AsfInAppPurchaseInteractor.CurrentPaymentStep.READY
-            : AsfInAppPurchaseInteractor.CurrentPaymentStep.NO_FUNDS;
       default:
+      case COMPLETED:
       case FAILED:
       case CANCELED:
+      case PENDING_SERVICE_AUTHORIZATION:
       case INVALID_TRANSACTION:
         return isBuyReady ? AsfInAppPurchaseInteractor.CurrentPaymentStep.READY
             : AsfInAppPurchaseInteractor.CurrentPaymentStep.NO_FUNDS;

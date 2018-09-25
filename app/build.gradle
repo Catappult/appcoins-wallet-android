@@ -35,8 +35,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 27
-    versionCode 19
-    versionName "1.1.0"
+    versionCode 21
+    versionName "1.1.0.1"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     vectorDrawables.useSupportLibrary = true
     multiDexEnabled = true
@@ -78,10 +78,10 @@ android {
 
   signingConfigs {
     release {
-      storeFile = file(project.ASF_WALLET_STORE_FILE)
-      storePassword = project.ASF_WALLET_STORE_PASSWORD
-      keyAlias = project.ASF_WALLET_KEY_ALIAS
-      keyPassword = project.ASF_WALLET_KEY_PASSWORD
+      storeFile = file(project.BDS_WALLET_STORE_FILE)
+      storePassword = project.BDS_WALLET_STORE_PASSWORD
+      keyAlias = project.BDS_WALLET_KEY_ALIAS
+      keyPassword = project.BDS_WALLET_KEY_PASSWORD
     }
   }
 
