@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.billing.repository.entity.Purchase;
@@ -8,6 +10,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import java.math.BigDecimal;
 import java.net.UnknownServiceException;
 import java.util.List;
@@ -18,11 +21,16 @@ public class InAppPurchaseInteractor {
 
   private final AsfInAppPurchaseInteractor asfInAppPurchaseInteractor;
   private final BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor;
+  private final BillingMessagesMapper billingMessagesMapper;
+  private final ExternalBillingSerializer billingSerializer;
 
   public InAppPurchaseInteractor(AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
-      BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor) {
+      BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
+      BillingMessagesMapper billingMessagesMapper, ExternalBillingSerializer billingSerializer) {
     this.asfInAppPurchaseInteractor = asfInAppPurchaseInteractor;
     this.bdsInAppPurchaseInteractor = bdsInAppPurchaseInteractor;
+    this.billingMessagesMapper = billingMessagesMapper;
+    this.billingSerializer = billingSerializer;
   }
 
   public Single<TransactionBuilder> parseTransaction(String uri, boolean isBds) {
@@ -96,14 +104,12 @@ public class InAppPurchaseInteractor {
   }
 
   public Single<AsfInAppPurchaseInteractor.CurrentPaymentStep> getCurrentPaymentStep(
-      String packageName,
-      TransactionBuilder transactionBuilder) {
+      String packageName, TransactionBuilder transactionBuilder) {
     return asfInAppPurchaseInteractor.getCurrentPaymentStep(packageName, transactionBuilder);
   }
 
   private AsfInAppPurchaseInteractor.CurrentPaymentStep map(Transaction transaction,
-      Boolean isBuyReady)
-      throws UnknownServiceException {
+      Boolean isBuyReady) throws UnknownServiceException {
     switch (transaction.getStatus()) {
       case PENDING:
       case PENDING_SERVICE_AUTHORIZATION:
@@ -150,7 +156,29 @@ public class InAppPurchaseInteractor {
     return asfInAppPurchaseInteractor.getTransaction(packageName, productName);
   }
 
-  public Single<Purchase> getCompletedPurchase(String packageName, String productName) {
+  private Single<Purchase> getCompletedPurchase(String packageName, String productName) {
     return bdsInAppPurchaseInteractor.getCompletedPurchase(packageName, productName);
+  }
+
+  public Single<Bundle> getCompletedPurchase(Payment transaction, boolean isBds) {
+    if (isBds) {
+      return getCompletedPurchase(transaction.getPackageName(),
+          transaction.getProductId()).observeOn(AndroidSchedulers.mainThread())
+          .map(purchase -> billingMessagesMapper.mapPurchase(purchase.getUid(),
+              purchase.getSignature()
+                  .getValue(), billingSerializer.serializeSignatureData(purchase)))
+
+          .flatMap(bundle -> remove(transaction.getUri()).toSingleDefault(bundle));
+    } else {
+      return Single.fromCallable(() -> buildAsfBundle(transaction))
+          .flatMap(bundle -> remove(transaction.getUri()).toSingleDefault(bundle));
+    }
+  }
+
+  @NonNull private Bundle buildAsfBundle(Payment transaction) {
+    Bundle bundle = new Bundle();
+    bundle.putInt(IabActivity.RESPONSE_CODE, 0);
+    bundle.putString(IabActivity.TRANSACTION_HASH, transaction.getBuyHash());
+    return bundle;
   }
 }

@@ -147,8 +147,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
 
     presenter =
         new OnChainBuyPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
-            new CompositeDisposable(), inAppPurchaseInteractor.getBillingMessagesMapper(),
-            inAppPurchaseInteractor.getBillingSerializer(), isBds);
+            new CompositeDisposable(), inAppPurchaseInteractor.getBillingMessagesMapper(), isBds);
     adapter =
         new ArrayAdapter<>(getContext().getApplicationContext(), R.layout.iab_raiden_dropdown_item,
             R.id.item, new ArrayList<>());

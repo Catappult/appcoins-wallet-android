@@ -1,10 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
-import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.asfoundation.wallet.util.UnknownTokenException;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
@@ -27,19 +24,16 @@ public class OnChainBuyPresenter {
   private final Scheduler viewScheduler;
   private final CompositeDisposable disposables;
   private final BillingMessagesMapper billingMessagesMapper;
-  private final ExternalBillingSerializer billingSerializer;
   private final boolean isBds;
 
   public OnChainBuyPresenter(OnChainBuyView view, InAppPurchaseInteractor inAppPurchaseInteractor,
-      Scheduler viewScheduler,
-      CompositeDisposable disposables, BillingMessagesMapper billingMessagesMapper,
-      ExternalBillingSerializer billingSerializer, boolean isBds) {
+      Scheduler viewScheduler, CompositeDisposable disposables,
+      BillingMessagesMapper billingMessagesMapper, boolean isBds) {
     this.view = view;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.viewScheduler = viewScheduler;
     this.disposables = disposables;
     this.billingMessagesMapper = billingMessagesMapper;
-    this.billingSerializer = billingSerializer;
     this.isBds = isBds;
   }
 
@@ -191,30 +185,13 @@ public class OnChainBuyPresenter {
     Log.d(TAG, "present: " + transaction);
     switch (transaction.getStatus()) {
       case COMPLETED:
-        return Completable.defer(() -> {
-          if (isBds) {
-            return inAppPurchaseInteractor.getCompletedPurchase(transaction.getPackageName(),
-                transaction.getProductId())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess(purchase -> view.finish(
-                    billingMessagesMapper.mapPurchase(purchase.getUid(), purchase.getSignature()
-                        .getValue(), billingSerializer.serializeSignatureData(purchase))))
-                .toCompletable()
-                .onErrorResumeNext(throwable -> Completable.fromAction(() -> showError(throwable)))
-                .andThen(inAppPurchaseInteractor.remove(transaction.getUri()))
-                .subscribeOn(Schedulers.io())
-                .andThen(Completable.fromAction(view::showTransactionCompleted)
-                    .subscribeOn(AndroidSchedulers.mainThread())
-                    .andThen(Completable.timer(1, TimeUnit.SECONDS)));
-          } else {
-            return Completable.fromAction(() -> view.finish(buildBundle(transaction)))
-                .subscribeOn(Schedulers.io())
-                .andThen(inAppPurchaseInteractor.remove(transaction.getUri()))
-                .andThen(Completable.fromAction(view::showTransactionCompleted)
-                    .subscribeOn(AndroidSchedulers.mainThread())
-                    .andThen(Completable.timer(1, TimeUnit.SECONDS)));
-          }
-        });
+        return inAppPurchaseInteractor.getCompletedPurchase(transaction, isBds)
+            .observeOn(AndroidSchedulers.mainThread())
+            .flatMapCompletable(bundle -> Completable.fromAction(view::showTransactionCompleted)
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .andThen(Completable.timer(1, TimeUnit.SECONDS))
+                .andThen(Completable.fromRunnable(() -> view.finish(bundle))))
+            .onErrorResumeNext(throwable -> Completable.fromAction(() -> showError(throwable)));
       case NO_FUNDS:
         return Completable.fromAction(() -> view.showNoFundsError())
             .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));
@@ -242,13 +219,6 @@ public class OnChainBuyPresenter {
         return Completable.fromAction(() -> showError(null))
             .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));
     }
-  }
-
-  @NonNull private Bundle buildBundle(Payment transaction) {
-    Bundle bundle = new Bundle();
-    bundle.putInt(IabActivity.RESPONSE_CODE, 0);
-    bundle.putString(IabActivity.TRANSACTION_HASH, transaction.getBuyHash());
-    return bundle;
   }
 
   public void stop() {
