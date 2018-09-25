@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.ui.iab;
 
+import android.os.Bundle;
 import android.util.Log;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
-import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.asfoundation.wallet.util.UnknownTokenException;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
@@ -21,22 +21,21 @@ public class OnChainBuyPresenter {
 
   private static final String TAG = OnChainBuyPresenter.class.getSimpleName();
   private final OnChainBuyView view;
-  private final BdsInAppPurchaseInteractor inAppPurchaseInteractor;
+  private final InAppPurchaseInteractor inAppPurchaseInteractor;
   private final Scheduler viewScheduler;
   private final CompositeDisposable disposables;
   private final BillingMessagesMapper billingMessagesMapper;
-  private final ExternalBillingSerializer billingSerializer;
+  private final boolean isBds;
 
-  public OnChainBuyPresenter(OnChainBuyView view,
-      BdsInAppPurchaseInteractor inAppPurchaseInteractor, Scheduler viewScheduler,
-      CompositeDisposable disposables, BillingMessagesMapper billingMessagesMapper,
-      ExternalBillingSerializer billingSerializer) {
+  public OnChainBuyPresenter(OnChainBuyView view, InAppPurchaseInteractor inAppPurchaseInteractor,
+      Scheduler viewScheduler, CompositeDisposable disposables,
+      BillingMessagesMapper billingMessagesMapper, boolean isBds) {
     this.view = view;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.viewScheduler = viewScheduler;
     this.disposables = disposables;
     this.billingMessagesMapper = billingMessagesMapper;
-    this.billingSerializer = billingSerializer;
+    this.isBds = isBds;
   }
 
   public void present(String uriString, String appPackage, String productName, BigDecimal amount,
@@ -47,7 +46,7 @@ public class OnChainBuyPresenter {
 
     handleOkErrorClick(uriString);
 
-    handleBuyEvent(appPackage, productName, developerPayload);
+    handleBuyEvent(appPackage, productName, developerPayload, isBds);
 
     showTransactionState(uriString);
 
@@ -97,13 +96,14 @@ public class OnChainBuyPresenter {
         }, throwable -> throwable.printStackTrace()));
   }
 
-  private void handleBuyEvent(String appPackage, String productName, String developerPayload) {
+  private void handleBuyEvent(String appPackage, String productName, String developerPayload,
+      boolean isBds) {
     disposables.add(view.getBuyClick()
         .observeOn(Schedulers.io())
         .flatMapCompletable(buyData -> inAppPurchaseInteractor.send(buyData.getUri(),
-            buyData.isRaiden ? InAppPurchaseInteractor.TransactionType.RAIDEN
-                : InAppPurchaseInteractor.TransactionType.NORMAL, appPackage, productName,
-            buyData.getChannelBudget(), developerPayload)
+            buyData.isRaiden ? AsfInAppPurchaseInteractor.TransactionType.RAIDEN
+                : AsfInAppPurchaseInteractor.TransactionType.NORMAL, appPackage, productName,
+            buyData.getChannelBudget(), developerPayload, isBds)
             .observeOn(viewScheduler)
             .doOnError(this::showError))
         .retry()
@@ -112,7 +112,7 @@ public class OnChainBuyPresenter {
 
   private void handleOkErrorClick(String uriString) {
     disposables.add(view.getOkErrorClick()
-        .flatMapSingle(__ -> inAppPurchaseInteractor.parseTransaction(uriString))
+        .flatMapSingle(__ -> inAppPurchaseInteractor.parseTransaction(uriString, isBds))
         .subscribe(click -> showBuy(), throwable -> close()));
   }
 
@@ -123,20 +123,21 @@ public class OnChainBuyPresenter {
 
   private void setupUi(BigDecimal appcAmount, String uri, String packageName,
       String developerPayload) {
-    disposables.add(inAppPurchaseInteractor.parseTransaction(uri)
+    disposables.add(inAppPurchaseInteractor.parseTransaction(uri, isBds)
         .flatMapCompletable(
             transaction -> inAppPurchaseInteractor.getCurrentPaymentStep(packageName, transaction)
                 .flatMapCompletable(currentPaymentStep -> {
                   switch (currentPaymentStep) {
                     case PAUSED_ON_CHAIN:
                       return inAppPurchaseInteractor.resume(uri,
-                          InAppPurchaseInteractor.TransactionType.NORMAL, packageName,
-                          transaction.getSkuId(), developerPayload);
+                          AsfInAppPurchaseInteractor.TransactionType.NORMAL, packageName,
+                          transaction.getSkuId(), developerPayload, isBds);
                     case READY:
                       return Completable.fromAction(() -> setup(appcAmount))
                           .subscribeOn(AndroidSchedulers.mainThread());
-                    case PAUSED_OFF_CHAIN:
                     case NO_FUNDS:
+                      return Completable.fromAction(view::showNoFundsError);
+                    case PAUSED_OFF_CHAIN:
                     default:
                       return Completable.error(new UnsupportedOperationException(
                           "Cannot resume from " + currentPaymentStep.name() + " status"));
@@ -185,18 +186,14 @@ public class OnChainBuyPresenter {
     Log.d(TAG, "present: " + transaction);
     switch (transaction.getStatus()) {
       case COMPLETED:
-        return Completable.fromAction(view::showTransactionCompleted)
-            .andThen(Completable.timer(1, TimeUnit.SECONDS))
-            .observeOn(Schedulers.io())
-            .andThen(inAppPurchaseInteractor.getCompletedPurchase(transaction.getPackageName(),
-                transaction.getProductId())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess(purchase -> view.finish(
-                    billingMessagesMapper.mapPurchase(purchase.getUid(), purchase.getSignature()
-                        .getValue(), billingSerializer.serializeSignatureData(purchase))))
-                .toCompletable()
-                .onErrorResumeNext(throwable -> Completable.fromAction(() -> showError(throwable)))
-                .andThen(inAppPurchaseInteractor.remove(transaction.getUri())));
+        return inAppPurchaseInteractor.getCompletedPurchase(transaction, isBds)
+            .observeOn(AndroidSchedulers.mainThread())
+            .map(this::buildBundle)
+            .flatMapCompletable(bundle -> Completable.fromAction(view::showTransactionCompleted)
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .andThen(Completable.timer(1, TimeUnit.SECONDS))
+                .andThen(Completable.fromRunnable(() -> view.finish(bundle))))
+            .onErrorResumeNext(throwable -> Completable.fromAction(() -> showError(throwable)));
       case NO_FUNDS:
         return Completable.fromAction(() -> view.showNoFundsError())
             .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));
@@ -223,6 +220,21 @@ public class OnChainBuyPresenter {
       case ERROR:
         return Completable.fromAction(() -> showError(null))
             .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));
+    }
+  }
+
+  private Bundle buildBundle(Payment payment) {
+    if (payment.getUid() != null
+        && payment.getSignature() != null
+        && payment.getSignatureData() != null) {
+      return billingMessagesMapper.mapPurchase(payment.getUid(), payment.getSignature(),
+          payment.getSignatureData());
+    } else {
+      Bundle bundle = new Bundle();
+      bundle.putInt(IabActivity.RESPONSE_CODE, 0);
+      bundle.putString(IabActivity.TRANSACTION_HASH, payment.getBuyHash());
+
+      return bundle;
     }
   }
 

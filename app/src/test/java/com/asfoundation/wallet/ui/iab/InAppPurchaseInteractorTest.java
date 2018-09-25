@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.iab;
 import com.appcoins.wallet.billing.Billing;
 import com.appcoins.wallet.billing.BillingFactory;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
+import com.appcoins.wallet.billing.BillingPaymentProofSubmission;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.billing.repository.entity.Gateway;
 import com.appcoins.wallet.billing.repository.entity.Transaction;
@@ -101,7 +102,7 @@ public class InAppPurchaseInteractorTest {
   @Mock CountryCodeProvider countryCodeProvider;
   @Mock Billing billing;
   @Mock BdsPendingTransactionService transactionService;
-  private InAppPurchaseInteractor inAppPurchaseInteractor;
+  private BdsInAppPurchaseInteractor inAppPurchaseInteractor;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
   private PublishSubject<GetDefaultWalletBalance.BalanceState> balance;
@@ -192,8 +193,8 @@ public class InAppPurchaseInteractorTest {
         new Transaction(UID, Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
             new Gateway(Gateway.Name.appcoins, "", ""))));
 
-    inAppPurchaseInteractor =
-        new InAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
+    AsfInAppPurchaseInteractor asfInAppPurchaseInteractor =
+        new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
             gasSettingsInteract, BigDecimal.ONE,
             new TransferParser(defaultWalletInteract, tokenRepository), repository,
             new ChannelService(null, new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
@@ -203,6 +204,13 @@ public class InAppPurchaseInteractorTest {
             new BdsTransactionService(scheduler,
                 new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
                 new CompositeDisposable(), transactionService), scheduler);
+
+    BillingPaymentProofSubmission billingPaymentProofSubmission =
+        Mockito.mock(BillingPaymentProofSubmission.class);
+
+    inAppPurchaseInteractor =
+        new BdsInAppPurchaseInteractor(asfInAppPurchaseInteractor, billingPaymentProofSubmission,
+            new ApproveKeyProvider(billingFactory));
   }
 
   @Test public void sendTransaction() {
@@ -216,8 +224,8 @@ public class InAppPurchaseInteractorTest {
     inAppPurchaseInteractor.getTransactionState(uri)
         .subscribe(testObserver);
     scheduler.triggerActions();
-    inAppPurchaseInteractor.send(uri, InAppPurchaseInteractor.TransactionType.NORMAL, PACKAGE_NAME,
-        PRODUCT_NAME, BigDecimal.ONE, DEVELOPER_PAYLOAD)
+    inAppPurchaseInteractor.send(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
+        PACKAGE_NAME, PRODUCT_NAME, BigDecimal.ONE, DEVELOPER_PAYLOAD)
         .subscribe();
     scheduler.triggerActions();
     balance.onNext(GetDefaultWalletBalance.BalanceState.OK);
@@ -276,8 +284,8 @@ public class InAppPurchaseInteractorTest {
     inAppPurchaseInteractor.getTransactionState(uri)
         .subscribe(testObserver);
     scheduler.triggerActions();
-    inAppPurchaseInteractor.send(uri, InAppPurchaseInteractor.TransactionType.NORMAL, PACKAGE_NAME,
-        PRODUCT_NAME, BigDecimal.ONE, DEVELOPER_PAYLOAD)
+    inAppPurchaseInteractor.send(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
+        PACKAGE_NAME, PRODUCT_NAME, BigDecimal.ONE, DEVELOPER_PAYLOAD)
         .subscribe();
     scheduler.triggerActions();
     balance.onNext(GetDefaultWalletBalance.BalanceState.NO_ETHER);
@@ -319,8 +327,8 @@ public class InAppPurchaseInteractorTest {
     inAppPurchaseInteractor.getTransactionState(uri)
         .subscribe(testObserver);
     scheduler.triggerActions();
-    inAppPurchaseInteractor.send(uri, InAppPurchaseInteractor.TransactionType.NORMAL, PACKAGE_NAME,
-        PRODUCT_NAME, BigDecimal.ONE, DEVELOPER_PAYLOAD)
+    inAppPurchaseInteractor.send(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
+        PACKAGE_NAME, PRODUCT_NAME, BigDecimal.ONE, DEVELOPER_PAYLOAD)
         .subscribe();
     scheduler.triggerActions();
     balance.onNext(GetDefaultWalletBalance.BalanceState.NO_ETHER_NO_TOKEN);
@@ -380,8 +388,8 @@ public class InAppPurchaseInteractorTest {
     scheduler.triggerActions();
 
     TestObserver<Object> submitObserver = new TestObserver<>();
-    inAppPurchaseInteractor.resume(uri, InAppPurchaseInteractor.TransactionType.NORMAL,
-        PACKAGE_NAME, PRODUCT_NAME, "approveKey", DEVELOPER_PAYLOAD)
+    inAppPurchaseInteractor.resume(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
+        PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD)
         .subscribe(submitObserver);
 
     scheduler.triggerActions();

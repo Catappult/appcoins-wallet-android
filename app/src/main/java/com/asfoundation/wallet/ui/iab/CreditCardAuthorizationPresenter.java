@@ -132,7 +132,7 @@ public class CreditCardAuthorizationPresenter {
 
   private void onViewCreatedCreatePayment() {
     disposables.add(Completable.fromAction(() -> view.showLoading())
-        .andThen(inAppPurchaseInteractor.parseTransaction(transactionData)
+        .andThen(inAppPurchaseInteractor.parseTransaction(transactionData, true)
             .flatMapCompletable(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
                     transaction.toAddress(), developerPayload)
@@ -156,7 +156,7 @@ public class CreditCardAuthorizationPresenter {
   }
 
   private void onViewCreatedCheckAuthorizationActive() {
-    disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData)
+    disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
         .flatMap(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
                     transaction.toAddress(), developerPayload)
@@ -189,7 +189,7 @@ public class CreditCardAuthorizationPresenter {
   }
 
   private void onViewCreatedCheckAuthorizationFailed() {
-    disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData)
+    disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
         .flatMap(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
                     transaction.toAddress(), developerPayload)
@@ -206,7 +206,7 @@ public class CreditCardAuthorizationPresenter {
   }
 
   private void onViewCreatedCheckAuthorizationProcessing() {
-    disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData)
+    disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
             .flatMapObservable(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
                     transaction.toAddress(), developerPayload)

@@ -7,12 +7,12 @@ import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import io.reactivex.Completable;
 
-public class BuyTransactionValidator implements TransactionValidator {
+public class BuyTransactionValidatorBds implements TransactionValidator {
   private final SendTransactionInteract sendTransactionInteract;
   private final BillingPaymentProofSubmission billingPaymentProofSubmission;
   private final DefaultTokenProvider defaultTokenProvider;
 
-  public BuyTransactionValidator(SendTransactionInteract sendTransactionInteract,
+  public BuyTransactionValidatorBds(SendTransactionInteract sendTransactionInteract,
       BillingPaymentProofSubmission billingPaymentProofSubmission,
       DefaultTokenProvider defaultTokenProvider) {
     this.sendTransactionInteract = sendTransactionInteract;

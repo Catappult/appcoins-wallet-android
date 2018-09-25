@@ -12,11 +12,11 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class BdsInAppPurchaseInteractor {
-  private final InAppPurchaseInteractor inAppPurchaseInteractor;
+  private final AsfInAppPurchaseInteractor inAppPurchaseInteractor;
   private final BillingPaymentProofSubmission billingPaymentProofSubmission;
   private final ApproveKeyProvider approveKeyProvider;
 
-  public BdsInAppPurchaseInteractor(InAppPurchaseInteractor inAppPurchaseInteractor,
+  public BdsInAppPurchaseInteractor(AsfInAppPurchaseInteractor inAppPurchaseInteractor,
       BillingPaymentProofSubmission billingPaymentProofSubmission,
       ApproveKeyProvider approveKeyProvider) {
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
@@ -28,13 +28,13 @@ public class BdsInAppPurchaseInteractor {
     return inAppPurchaseInteractor.parseTransaction(uri);
   }
 
-  public Completable send(String uri, InAppPurchaseInteractor.TransactionType transactionType,
+  public Completable send(String uri, AsfInAppPurchaseInteractor.TransactionType transactionType,
       String packageName, String productName, BigDecimal channelBudget, String developerPayload) {
     return inAppPurchaseInteractor.send(uri, transactionType, packageName, productName,
         channelBudget, developerPayload);
   }
 
-  public Completable resume(String uri, InAppPurchaseInteractor.TransactionType transactionType,
+  public Completable resume(String uri, AsfInAppPurchaseInteractor.TransactionType transactionType,
       String packageName, String productName, String developerPayload) {
     return approveKeyProvider.getKey(packageName, productName)
         .doOnSuccess(authorizationToken -> billingPaymentProofSubmission.saveTransactionId(
@@ -88,7 +88,7 @@ public class BdsInAppPurchaseInteractor {
     return inAppPurchaseInteractor.getBillingSerializer();
   }
 
-  public Single<InAppPurchaseInteractor.CurrentPaymentStep> getCurrentPaymentStep(
+  public Single<AsfInAppPurchaseInteractor.CurrentPaymentStep> getCurrentPaymentStep(
       String packageName, TransactionBuilder transactionBuilder) {
     return inAppPurchaseInteractor.getCurrentPaymentStep(packageName, transactionBuilder);
   }

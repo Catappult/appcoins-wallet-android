@@ -45,8 +45,25 @@ public class BuyService {
                 getBuyData(transactionBuilder, tokenInfo, paymentTransaction.getPackageName(),
                     countryCode))))
         .map(transaction -> updateTransactionBuilderData(paymentTransaction, transaction))
-        .flatMapCompletable(payment -> transactionValidator.validate(payment)
-            .andThen(transactionService.sendTransaction(key, payment.getTransactionBuilder())));
+        .flatMapCompletable(
+            payment -> Completable.defer(() -> transactionValidator.validate(payment))
+                .andThen(transactionService.sendTransaction(key, payment.getTransactionBuilder())));
+  }
+
+  public Observable<BuyTransaction> getBuy(String uri) {
+    return transactionService.getTransaction(uri)
+        .map(this::mapTransaction);
+  }
+
+  public Observable<List<BuyTransaction>> getAll() {
+    return transactionService.getAll()
+        .flatMapSingle(entries -> Observable.fromIterable(entries)
+            .map(this::mapTransaction)
+            .toList());
+  }
+
+  public Completable remove(String key) {
+    return transactionService.remove(key);
   }
 
   @NonNull
@@ -65,11 +82,6 @@ public class BuyService {
         transactionBuilder.getSkuId(), transactionBuilder.amount()
             .multiply(new BigDecimal("10").pow(transactionBuilder.decimals())), tokenInfo.address,
         packageName, dataMapper.convertCountryCode(countryCode));
-  }
-
-  public Observable<BuyTransaction> getBuy(String uri) {
-    return transactionService.getTransaction(uri)
-        .map(this::mapTransaction);
   }
 
   private BuyTransaction mapTransaction(Transaction transaction) {
@@ -118,17 +130,6 @@ public class BuyService {
     return toReturn;
   }
 
-  public Observable<List<BuyTransaction>> getAll() {
-    return transactionService.getAll()
-        .flatMapSingle(entries -> Observable.fromIterable(entries)
-            .map(this::mapTransaction)
-            .toList());
-  }
-
-  public Completable remove(String key) {
-    return transactionService.remove(key);
-  }
-
   public enum Status {
     BUYING, BOUGHT, ERROR, WRONG_NETWORK, NONCE_ERROR, UNKNOWN_TOKEN, NO_TOKENS, NO_ETHER, NO_FUNDS, NO_INTERNET, PENDING
 
@@ -140,7 +141,7 @@ public class BuyService {
     private final Status status;
     private final String transactionHash;
 
-    private BuyTransaction(String key, TransactionBuilder transactionBuilder, Status status,
+    public BuyTransaction(String key, TransactionBuilder transactionBuilder, Status status,
         String transactionHash) {
       this.key = key;
       this.transactionBuilder = transactionBuilder;

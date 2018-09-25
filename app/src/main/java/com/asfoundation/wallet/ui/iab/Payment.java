@@ -12,7 +12,21 @@ public class Payment {
   private @Nullable final String buyHash;
   private @Nullable final String packageName;
   private @Nullable final String productName;
+  private @Nullable final String uid;
+  private @Nullable final String signature;
+  private @Nullable final String signatureData;
 
+  public Payment(String uri, Status status, String uid, String signature, String signatureData) {
+    this.status = status;
+    this.uri = uri;
+    this.fromAddress = null;
+    this.buyHash = null;
+    this.packageName = null;
+    this.productName = null;
+    this.uid = uid;
+    this.signature = signature;
+    this.signatureData = signatureData;
+  }
   public Payment(String uri, Status status, @Nullable String fromAddress, @Nullable String buyHash,
       @Nullable String packageName, @Nullable String productName) {
     this.status = status;
@@ -21,8 +35,10 @@ public class Payment {
     this.buyHash = buyHash;
     this.packageName = packageName;
     this.productName = productName;
+    this.uid = null;
+    this.signature = null;
+    this.signatureData = null;
   }
-
   public Payment(String uri, Status status) {
     this.uri = uri;
     this.status = status;
@@ -30,6 +46,9 @@ public class Payment {
     this.buyHash = null;
     this.packageName = null;
     this.productName = null;
+    this.uid = null;
+    this.signature = null;
+    this.signatureData = null;
   }
 
   @Nullable public String getFromAddress() {
@@ -68,7 +87,17 @@ public class Payment {
     }
   }
 
+  @Nullable public String getSignatureData() {
+    return signatureData;
+  }
 
+  @Nullable public String getUid() {
+    return uid;
+  }
+
+  @Nullable public String getSignature() {
+    return signature;
+  }
 
   public enum Status {
     COMPLETED, NO_FUNDS, NETWORK_ERROR, NO_ETHER, NO_TOKENS, NO_INTERNET, NONCE_ERROR, APPROVING,
