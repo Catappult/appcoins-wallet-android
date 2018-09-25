@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
+import android.os.Bundle;
 import android.util.Log;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asfoundation.wallet.util.UnknownTokenException;
@@ -187,6 +188,7 @@ public class OnChainBuyPresenter {
       case COMPLETED:
         return inAppPurchaseInteractor.getCompletedPurchase(transaction, isBds)
             .observeOn(AndroidSchedulers.mainThread())
+            .map(this::buildBundle)
             .flatMapCompletable(bundle -> Completable.fromAction(view::showTransactionCompleted)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .andThen(Completable.timer(1, TimeUnit.SECONDS))
@@ -218,6 +220,21 @@ public class OnChainBuyPresenter {
       case ERROR:
         return Completable.fromAction(() -> showError(null))
             .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));
+    }
+  }
+
+  private Bundle buildBundle(Payment payment) {
+    if (payment.getUid() != null
+        && payment.getSignature() != null
+        && payment.getSignatureData() != null) {
+      return billingMessagesMapper.mapPurchase(payment.getUid(), payment.getSignature(),
+          payment.getSignatureData());
+    } else {
+      Bundle bundle = new Bundle();
+      bundle.putInt(IabActivity.RESPONSE_CODE, 0);
+      bundle.putString(IabActivity.TRANSACTION_HASH, payment.getBuyHash());
+
+      return bundle;
     }
   }
 

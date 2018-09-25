@@ -1,7 +1,5 @@
 package com.asfoundation.wallet.ui.iab;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.billing.repository.entity.Purchase;
@@ -160,25 +158,21 @@ public class InAppPurchaseInteractor {
     return bdsInAppPurchaseInteractor.getCompletedPurchase(packageName, productName);
   }
 
-  public Single<Bundle> getCompletedPurchase(Payment transaction, boolean isBds) {
+  public Single<Payment> getCompletedPurchase(Payment transaction, boolean isBds) {
     if (isBds) {
-      return getCompletedPurchase(transaction.getPackageName(),
-          transaction.getProductId()).observeOn(AndroidSchedulers.mainThread())
-          .map(purchase -> billingMessagesMapper.mapPurchase(purchase.getUid(),
-              purchase.getSignature()
-                  .getValue(), billingSerializer.serializeSignatureData(purchase)))
-
-          .flatMap(bundle -> remove(transaction.getUri()).toSingleDefault(bundle));
+      return getCompletedPurchase(transaction.getPackageName(), transaction.getProductId()).map(
+          purchase -> mapToBdsPayment(transaction, purchase))
+          .observeOn(AndroidSchedulers.mainThread())
+          .flatMap(payment -> remove(transaction.getUri()).toSingleDefault(payment));
     } else {
-      return Single.fromCallable(() -> buildAsfBundle(transaction))
+      return Single.fromCallable(() -> transaction)
           .flatMap(bundle -> remove(transaction.getUri()).toSingleDefault(bundle));
     }
   }
 
-  @NonNull private Bundle buildAsfBundle(Payment transaction) {
-    Bundle bundle = new Bundle();
-    bundle.putInt(IabActivity.RESPONSE_CODE, 0);
-    bundle.putString(IabActivity.TRANSACTION_HASH, transaction.getBuyHash());
-    return bundle;
+  private Payment mapToBdsPayment(Payment transaction, Purchase purchase) {
+    return new Payment(transaction.getUri(), transaction.getStatus(), purchase.getUid(),
+        purchase.getSignature()
+            .getValue(), billingSerializer.serializeSignatureData(purchase));
   }
 }
