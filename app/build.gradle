@@ -138,7 +138,7 @@ dependencies {
   // Http client
   implementation "com.squareup.retrofit2:retrofit:$project.retrofitVersion"
   implementation "com.squareup.retrofit2:converter-gson:$project.retrofitVersion"
-  implementation "com.squareup.retrofit2:adapter-rxjava:2.1.0"
+  implementation "com.squareup.retrofit2:adapter-rxjava:2.3.0"
   implementation "com.squareup.retrofit2:adapter-rxjava2:$project.retrofitVersion"
   implementation "com.squareup.okhttp3:okhttp:$project.okhttpVersion"
   implementation "com.google.code.gson:gson:$project.gsonVersion"
