@@ -37,7 +37,7 @@ project.ext {
   retrofitVersion = "2.3.0"
   okhttpVersion = "3.9.0"
   picassoVersion = "2.5.2"
-  supportVersion = "27.1.0"
+  supportVersion = "27.1.1"
   web3jVersion = "3.3.1-android"
   gethVersion = "1.8.0"
   gsonVersion = "2.8.2"
