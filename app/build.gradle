@@ -155,7 +155,7 @@ dependencies {
 
   implementation "com.android.support:multidex:1.0.3"
   // Bar code scanning
-  implementation "com.google.zxing:core:3.3.1"
+  implementation "com.google.zxing:core:3.3.3"
   implementation "com.google.android.gms:play-services-vision:12.0.0"
   // Sugar
   implementation "com.android.support.constraint:constraint-layout:1.1.2"
