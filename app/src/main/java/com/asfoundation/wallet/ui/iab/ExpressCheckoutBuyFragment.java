@@ -20,17 +20,13 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.appcoins.wallet.billing.BdsBilling;
-import com.appcoins.wallet.billing.Billing;
 import com.appcoins.wallet.billing.BillingThrowableCodeMapper;
 import com.appcoins.wallet.billing.WalletService;
-import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.billing.repository.BdsApiResponseMapper;
 import com.appcoins.wallet.billing.repository.BdsRepository;
-import com.appcoins.wallet.billing.repository.BillingSupportedType;
 import com.appcoins.wallet.billing.repository.RemoteRepository;
 import com.appcoins.wallet.billing.repository.entity.DeveloperPurchase;
 import com.appcoins.wallet.billing.repository.entity.Purchase;
-import com.appcoins.wallet.billing.repository.entity.Transaction;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.facebook.appevents.AppEventsLogger;
@@ -39,8 +35,6 @@ import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxrelay2.PublishRelay;
 import dagger.android.support.DaggerFragment;
-import io.reactivex.Completable;
-import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -100,7 +94,6 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   private Button errorDismissButton;
   private BdsBilling bdsBilling;
   private PublishSubject<Boolean> setupSubject;
-  private PublishSubject<Boolean> consumePurchasesSubject;
   private View processingDialog;
   private TextView walletAddressView;
 
@@ -110,26 +103,6 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     bundle.putBundle("extras", extras);
     fragment.setArguments(bundle);
     return fragment;
-  }
-
-  static Bundle buildBundle(Billing billing) {
-    Bundle bundle = new Bundle();
-
-    billing.getPurchases(BillingSupportedType.INAPP, Schedulers.io())
-        .filter(purchases -> !purchases.isEmpty())
-        .map(purchases -> purchases.get(0))
-        .doOnSuccess(purchase -> {
-          ExternalBillingSerializer serializer = new ExternalBillingSerializer();
-
-          bundle.putString(INAPP_PURCHASE_DATA, serializeJson(purchase));
-          bundle.putString(INAPP_DATA_SIGNATURE, purchase.getSignature()
-              .getValue());
-          bundle.putString(INAPP_PURCHASE_ID, purchase.getUid());
-        })
-        .ignoreElement()
-        .blockingAwait();
-
-    return bundle;
   }
 
   public static String serializeJson(Purchase purchase) throws IOException {
@@ -144,17 +117,17 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     super.onCreate(savedInstanceState);
 
     setupSubject = PublishSubject.create();
-    consumePurchasesSubject = PublishSubject.create();
 
     extras = getArguments().getBundle("extras");
-    presenter = new ExpressCheckoutBuyPresenter(this, inAppPurchaseInteractor,
-        AndroidSchedulers.mainThread(), new CompositeDisposable(),
-        inAppPurchaseInteractor.getBillingMessagesMapper(),
-        inAppPurchaseInteractor.getBillingSerializer());
 
     bdsBilling = new BdsBilling(getAppPackage(),
         new BdsRepository(new RemoteRepository(bdsApi, new BdsApiResponseMapper()),
             new BillingThrowableCodeMapper()), walletService, new BillingThrowableCodeMapper());
+
+    presenter = new ExpressCheckoutBuyPresenter(this, inAppPurchaseInteractor,
+        AndroidSchedulers.mainThread(), walletService, new CompositeDisposable(), bdsRepository,
+        inAppPurchaseInteractor.getBillingMessagesMapper(),
+        inAppPurchaseInteractor.getBillingSerializer(), bdsPendingTransactionService, bdsBilling);
   }
 
   @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -182,11 +155,6 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
         R.string.activity_aib_buying_message);
     walletAddressView = view.findViewById(R.id.wallet_address_footer);
 
-    compositeDisposable.add(checkProcessing().onErrorComplete()
-        .andThen(checkAndConsumePrevious())
-        .subscribe(() -> {
-        }, Throwable::printStackTrace));
-
     Single.defer(() -> Single.just(getAppPackage()))
         .observeOn(Schedulers.io())
         .map(packageName -> new Pair<>(getApplicationName(packageName),
@@ -202,7 +170,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
         });
     buyButton.setOnClickListener(v -> iabView.navigateToCreditCardAuthorization());
     presenter.present(((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue(),
-        extras.getString(TRANSACTION_CURRENCY));
+        extras.getString(TRANSACTION_CURRENCY), getAppPackage(), getSkuId());
   }
 
   @Override public void onStart() {
@@ -231,53 +199,10 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     iabView = null;
   }
 
-  private Completable checkProcessing() {
-    return walletService.getWalletAddress()
-        .flatMap(walletAddress -> walletService.signContent(walletAddress)
-            .flatMap(signedContent -> bdsRepository.getSkuTransaction(getAppPackage(), getSkuId(),
-                walletAddress, signedContent)))
-        .filter(transaction -> transaction.getStatus() == Transaction.Status.PROCESSING)
-        .observeOn(AndroidSchedulers.mainThread())
-        .map(transaction1 -> {
-          showProcessingLoadingDialog();
-          return transaction1.getUid();
-        })
-        .observeOn(Schedulers.io())
-        .flatMapObservable(
-            uid -> bdsPendingTransactionService.checkTransactionStateFromTransactionId(uid)
-                .doOnComplete(() -> iabView.finish(buildBundle(bdsBilling))))
-        .ignoreElements();
-  }
-
   private String getSkuId() {
     return inAppPurchaseInteractor.parseTransaction(extras.getString(TRANSACTION_DATA), true)
         .blockingGet()
         .getSkuId();
-  }
-
-  private Completable checkAndConsumePrevious() {
-    return bdsBilling.getPurchases(BillingSupportedType.INAPP, Schedulers.io())
-        .flatMapMaybe(purchases -> {
-          if (purchases.isEmpty()) {
-            consumePurchasesSubject.onNext(true);
-            return null;
-          } else {
-            return Maybe.just(purchases);
-          }
-        })
-        .filter(purchases -> purchases != null)
-        .map(purchases -> purchases.get(0))
-        .map(Purchase::getUid)
-        .flatMap(purchaseUid -> walletService.getWalletAddress()
-            .flatMap(walletAddress -> walletService.signContent(walletAddress)
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess(aBoolean -> {
-                  iabView.finish(buildBundle(bdsBilling));
-                  consumePurchasesSubject.onNext(true);
-                })
-                .observeOn(Schedulers.io()))
-            .toMaybe())
-        .ignoreElement();
   }
 
   @Override public void onAttach(Context context) {
@@ -354,18 +279,23 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     dialog.setVisibility(View.INVISIBLE);
   }
 
-  @Override public Observable<Boolean> consumePurchasesCompleted() {
-    return consumePurchasesSubject;
-  }
-
   @Override public Observable<Boolean> setupUiCompleted() {
     return setupSubject;
   }
 
-  private void showProcessingLoadingDialog() {
+  @Override public void showProcessingLoadingDialog() {
     dialog.setVisibility(View.GONE);
     loadingView.setVisibility(View.GONE);
     processingDialog.setVisibility(View.VISIBLE);
+  }
+
+  @Override public void finish(Purchase purchase) throws IOException {
+    Bundle bundle = new Bundle();
+    bundle.putString(INAPP_PURCHASE_DATA, serializeJson(purchase));
+    bundle.putString(INAPP_DATA_SIGNATURE, purchase.getSignature()
+        .getValue());
+    bundle.putString(INAPP_PURCHASE_ID, purchase.getUid());
+    close(bundle);
   }
 
   private CharSequence getApplicationName(String appPackage)
