@@ -30,4 +30,6 @@ public interface ExpressCheckoutBuyView {
   void showProcessingLoadingDialog();
 
   void finish(Purchase purchase) throws IOException;
+
+  void hideProcessingLoadingDialog();
 }

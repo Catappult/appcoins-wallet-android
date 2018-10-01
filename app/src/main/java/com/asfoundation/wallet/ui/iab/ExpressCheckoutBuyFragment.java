@@ -66,14 +66,11 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   private static final String INAPP_DATA_SIGNATURE = "INAPP_DATA_SIGNATURE";
   private static final String INAPP_PURCHASE_ID = "INAPP_PURCHASE_ID";
   private final CompositeDisposable compositeDisposable = new CompositeDisposable();
-
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject RemoteRepository.BdsApi bdsApi;
   @Inject WalletService walletService;
-
   @Inject BdsPendingTransactionService bdsPendingTransactionService;
   @Inject BdsRepository bdsRepository;
-
   private Bundle extras;
   private PublishRelay<Snackbar> buyButtonClick;
   private IabView iabView;
@@ -125,9 +122,9 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
             new BillingThrowableCodeMapper()), walletService, new BillingThrowableCodeMapper());
 
     presenter = new ExpressCheckoutBuyPresenter(this, inAppPurchaseInteractor,
-        AndroidSchedulers.mainThread(), walletService, new CompositeDisposable(), bdsRepository,
-        inAppPurchaseInteractor.getBillingMessagesMapper(),
-        inAppPurchaseInteractor.getBillingSerializer(), bdsPendingTransactionService, bdsBilling);
+        AndroidSchedulers.mainThread(), new CompositeDisposable(),
+        inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService,
+        bdsBilling);
   }
 
   @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -171,10 +168,6 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     buyButton.setOnClickListener(v -> iabView.navigateToCreditCardAuthorization());
     presenter.present(((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue(),
         extras.getString(TRANSACTION_CURRENCY), getAppPackage(), getSkuId());
-  }
-
-  @Override public void onStart() {
-    super.onStart();
   }
 
   @Override public void onDestroyView() {
@@ -262,7 +255,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   }
 
   @Override public void close(Bundle data) {
-    iabView.close(data);
+    iabView.finish(data);
   }
 
   @Override public Observable<Object> errorDismisses() {
@@ -271,7 +264,9 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
 
   @Override public void hideLoading() {
     loadingView.setVisibility(View.GONE);
-    dialog.setVisibility(View.VISIBLE);
+    if (processingDialog.getVisibility() != View.VISIBLE) {
+      dialog.setVisibility(View.VISIBLE);
+    }
   }
 
   @Override public void showLoading() {
@@ -296,6 +291,13 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
         .getValue());
     bundle.putString(INAPP_PURCHASE_ID, purchase.getUid());
     close(bundle);
+  }
+
+  @Override public void hideProcessingLoadingDialog() {
+    processingDialog.setVisibility(View.GONE);
+    if (loadingView.getVisibility() != View.VISIBLE) {
+      dialog.setVisibility(View.VISIBLE);
+    }
   }
 
   private CharSequence getApplicationName(String appPackage)
