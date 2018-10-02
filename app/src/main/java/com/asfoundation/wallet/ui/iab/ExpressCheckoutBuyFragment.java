@@ -167,7 +167,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
         });
     buyButton.setOnClickListener(v -> iabView.navigateToCreditCardAuthorization());
     presenter.present(((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue(),
-        extras.getString(TRANSACTION_CURRENCY), getAppPackage(), getSkuId());
+        extras.getString(TRANSACTION_CURRENCY), getSkuId());
   }
 
   @Override public void onDestroyView() {
@@ -291,13 +291,6 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
         .getValue());
     bundle.putString(INAPP_PURCHASE_ID, purchase.getUid());
     close(bundle);
-  }
-
-  @Override public void hideProcessingLoadingDialog() {
-    processingDialog.setVisibility(View.GONE);
-    if (loadingView.getVisibility() != View.VISIBLE) {
-      dialog.setVisibility(View.VISIBLE);
-    }
   }
 
   private CharSequence getApplicationName(String appPackage)

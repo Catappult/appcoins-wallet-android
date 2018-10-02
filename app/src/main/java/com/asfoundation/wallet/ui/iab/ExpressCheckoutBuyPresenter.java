@@ -39,24 +39,30 @@ public class ExpressCheckoutBuyPresenter {
     this.bdsBilling = bdsBilling;
   }
 
-  public void present(double transactionValue, String currency, String appPackage, String skuId) {
+  public void present(double transactionValue, String currency, String skuId) {
     setupUi(transactionValue, currency);
     handleCancelClick();
     handleErrorDismisses();
-    showDialog();
-    handleOnGoingPurchases(appPackage, skuId);
+    handleOnGoingPurchases(skuId);
   }
 
-  private void handleOnGoingPurchases(String appPackage, String skuId) {
-    disposables.add(
-        Completable.mergeArray(checkProcessing(appPackage, skuId), checkAndConsumePrevious(skuId))
-            .subscribe(view::hideLoading, throwable -> {
-              view.showError();
-              throwable.printStackTrace();
-            }));
+  private void handleOnGoingPurchases(String skuId) {
+    disposables.add(Completable.mergeArray(checkProcessing(skuId), checkAndConsumePrevious(skuId),
+        isSetupCompleted())
+        .observeOn(viewScheduler)
+        .subscribe(view::hideLoading, throwable -> {
+          view.showError();
+          throwable.printStackTrace();
+        }));
   }
 
-  private Completable checkProcessing(String appPackage, String skuId) {
+  private Completable isSetupCompleted() {
+    return view.setupUiCompleted()
+        .takeWhile(isViewSet -> !isViewSet)
+        .ignoreElements();
+  }
+
+  private Completable checkProcessing(String skuId) {
     return bdsBilling.getSkuTransaction(skuId, Schedulers.io())
         .filter(transaction -> transaction.getStatus() == Transaction.Status.PROCESSING)
         .observeOn(AndroidSchedulers.mainThread())
@@ -97,12 +103,6 @@ public class ExpressCheckoutBuyPresenter {
         .doOnSuccess(view::setup)
         .subscribe(__ -> {
         }, this::showError));
-  }
-
-  private void showDialog() {
-    disposables.add(view.setupUiCompleted()
-        .filter(isViewSet -> isViewSet)
-        .subscribe(__ -> view.hideLoading(), Throwable::printStackTrace));
   }
 
   private void handleCancelClick() {
