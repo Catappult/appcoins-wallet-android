@@ -7,6 +7,7 @@ import com.asfoundation.wallet.poa.ProofWriter
 import com.asfoundation.wallet.service.PoASubmissionService
 import io.reactivex.Single
 import java.math.BigDecimal
+import java.net.UnknownHostException
 
 class BdsBackEndWriter(private val defaultWalletInteract: FindDefaultWalletInteract,
                        private val service: PoASubmissionService) : ProofWriter {
@@ -17,7 +18,20 @@ class BdsBackEndWriter(private val defaultWalletInteract: FindDefaultWalletInter
   }
 
   override fun hasEnoughFunds(chainId: Int): Single<ProofSubmissionFeeData> {
-    return Single.just(ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY,
-        BigDecimal.ZERO, BigDecimal.ZERO))
+    return defaultWalletInteract.find().flatMap {
+      Single.just(ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY,
+          BigDecimal.ZERO, BigDecimal.ZERO))
+    }.onErrorReturn {
+      when (it) {
+        is WalletNotFoundException -> ProofSubmissionFeeData(
+            ProofSubmissionFeeData.RequirementsStatus.NO_WALLET,
+            BigDecimal.ZERO, BigDecimal.ZERO)
+        is UnknownHostException -> ProofSubmissionFeeData(
+            ProofSubmissionFeeData.RequirementsStatus.NO_NETWORK,
+            BigDecimal.ZERO, BigDecimal.ZERO)
+        else -> throw it
+      }
+    }
   }
+
 }
