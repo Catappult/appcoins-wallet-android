@@ -38,6 +38,7 @@ import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
+import com.asfoundation.wallet.poa.BackEndErrorMapper;
 import com.asfoundation.wallet.poa.BlockchainErrorMapper;
 import com.asfoundation.wallet.poa.Calculator;
 import com.asfoundation.wallet.poa.CountryCodeProvider;
@@ -50,9 +51,9 @@ import com.asfoundation.wallet.poa.TransactionFactory;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.ApproveTransactionValidatorBds;
 import com.asfoundation.wallet.repository.BalanceService;
+import com.asfoundation.wallet.repository.BdsBackEndWriter;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.asfoundation.wallet.repository.BdsTransactionService;
-import com.asfoundation.wallet.repository.BlockChainWriter;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.BuyTransactionValidatorBds;
 import com.asfoundation.wallet.repository.ErrorMapper;
@@ -81,6 +82,7 @@ import com.asfoundation.wallet.repository.Web3jProvider;
 import com.asfoundation.wallet.router.GasSettingsRouter;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.AccountWalletService;
+import com.asfoundation.wallet.service.PoASubmissionService;
 import com.asfoundation.wallet.service.RealmManager;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenToFiatService;
@@ -234,8 +236,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   }
 
   @Provides @Named("BUY_SERVICE_BDS") BuyService provideBuyServiceBds(
-      SendTransactionInteract sendTransactionInteract,
-      ErrorMapper errorMapper,
+      SendTransactionInteract sendTransactionInteract, ErrorMapper errorMapper,
       @Named("wait_pending_transaction") TrackTransactionService pendingTransactionService,
       @Named("no_wait_transaction") TrackTransactionService noWaitPendingTransactionService,
       BdsPendingTransactionService bdsPendingTransactionService,
@@ -246,8 +247,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), errorMapper,
         Schedulers.io(), bdsPendingTransactionService),
         new BuyTransactionValidatorBds(sendTransactionInteract, billingPaymentProofSubmission,
-            defaultTokenProvider),
-        defaultTokenProvider, countryCodeProvider, dataMapper);
+            defaultTokenProvider), defaultTokenProvider, countryCodeProvider, dataMapper);
   }
 
   @Singleton @Provides ErrorMapper provideErrorMapper() {
@@ -421,14 +421,9 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
         passwordStore, ethereumNetworkRepository, dataMapper, adsContractAddressProvider);
   }
 
-  @Singleton @Provides ProofWriter provideBlockChainWriter(Web3jProvider web3jProvider,
-      TransactionFactory transactionFactory,
-      @Named("REGISTER_PROOF_GAS_LIMIT") BigDecimal registerPoaGasLimit,
-      GasSettingsRepositoryType gasSettingsRepository,
-      FindDefaultWalletInteract defaultWalletInteract, WalletRepositoryType walletRepositoryType,
-      EthereumNetworkRepositoryType ethereumNetwork) {
-    return new BlockChainWriter(web3jProvider, transactionFactory, walletRepositoryType,
-        defaultWalletInteract, gasSettingsRepository, registerPoaGasLimit, ethereumNetwork);
+  @Singleton @Provides ProofWriter provideBlockChainWriter(
+      FindDefaultWalletInteract defaultWalletInteract, PoASubmissionService poaSubmissionService) {
+    return new BdsBackEndWriter(defaultWalletInteract, poaSubmissionService);
   }
 
   @Singleton @Provides AppCoinsAddressProxySdk provideAdsContractAddressSdk() {
@@ -453,7 +448,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
       CountryCodeProvider countryCodeProvider) {
     return new ProofOfAttentionService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
         BuildConfig.APPLICATION_ID, hashCalculator, new CompositeDisposable(), proofWriter,
-        Schedulers.computation(), maxNumberProofComponents, new BlockchainErrorMapper(),
+        Schedulers.computation(), maxNumberProofComponents, new BackEndErrorMapper(),
         disposables, countryCodeProvider);
   }
 
@@ -592,8 +587,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   }
 
   @Singleton @Provides Adyen provideAdyen(Context context) {
-    return new Adyen(context, Charset.forName("UTF-8"), Schedulers.io(),
-        PublishRelay.create());
+    return new Adyen(context, Charset.forName("UTF-8"), Schedulers.io(), PublishRelay.create());
   }
 
   @Singleton @Provides TransactionService provideTransactionService(
@@ -615,5 +609,16 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   @Singleton @Provides BdsRepository provideBdsRepository(RemoteRepository.BdsApi bdsApi) {
     return new BdsRepository(new RemoteRepository(bdsApi, new BdsApiResponseMapper()),
         new BillingThrowableCodeMapper());
+  }
+
+  @Singleton @Provides PoASubmissionService providePoASubmissionService(OkHttpClient client) {
+    String baseUrl = PoASubmissionService.SERVICE_HOST;
+    PoASubmissionService.PoASubmissionApi api = new Retrofit.Builder().baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(JacksonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(PoASubmissionService.PoASubmissionApi.class);
+    return new PoASubmissionService(api);
   }
 }

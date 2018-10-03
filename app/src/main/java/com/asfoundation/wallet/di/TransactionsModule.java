@@ -126,7 +126,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
         new Retrofit.Builder().addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(JacksonConverterFactory.create(objectMapper))
             .client(client)
-            .baseUrl(com.asf.wallet.BuildConfig.CONVERSION_HOST)
+            .baseUrl(com.asf.wallet.BuildConfig.BACKEND_HOST)
             .build();
 
     return new OffChainTransactionsRepository(

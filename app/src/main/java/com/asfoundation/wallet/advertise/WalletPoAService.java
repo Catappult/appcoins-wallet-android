@@ -196,13 +196,9 @@ public class WalletPoAService extends Service {
         notificationManager.notify(SERVICE_ID,
             createDefaultNotificationBuilder(R.string.notification_completed_poa).build());
         break;
-      case NO_FUNDS:
-        notificationManager.notify(SERVICE_ID,
-            createDefaultNotificationBuilder(R.string.notification_no_funds_poa).build());
-        break;
       case NO_INTERNET:
         notificationManager.notify(SERVICE_ID,
-            createDefaultNotificationBuilder(R.string.notification_no_internet_poa).build());
+            createDefaultNotificationBuilder(R.string.notification_no_network_poa).build());
         break;
       case GENERAL_ERROR:
         notificationManager.notify(SERVICE_ID,
@@ -215,6 +211,22 @@ public class WalletPoAService extends Service {
       case CANCELLED:
         notificationManager.notify(SERVICE_ID,
             createDefaultNotificationBuilder(R.string.notification_cancelled_poa).build());
+        break;
+      case NOT_AVAILABLE:
+        notificationManager.notify(SERVICE_ID,
+            createDefaultNotificationBuilder(R.string.notification_not_available_poa).build());
+        break;
+      case NOT_AVAILABLE_ON_COUNTRY:
+        notificationManager.notify(SERVICE_ID,
+            createDefaultNotificationBuilder(R.string.notification_not_available_for_country_poa).build());
+        break;
+      case ALREADY_REWARDED:
+        notificationManager.notify(SERVICE_ID,
+            createDefaultNotificationBuilder(R.string.notification_already_rewarded_poa).build());
+        break;
+      case INVALID_DATA:
+        notificationManager.notify(SERVICE_ID,
+            createDefaultNotificationBuilder(R.string.notification_submit_error_poa).build());
         break;
       default:
       case PROCESSING:

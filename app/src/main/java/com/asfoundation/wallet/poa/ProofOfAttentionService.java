@@ -19,14 +19,14 @@ public class ProofOfAttentionService {
   private final ProofWriter proofWriter;
   private final int maxNumberProofComponents;
   private final Scheduler computationScheduler;
-  private final BlockchainErrorMapper errorMapper;
+  private final BackEndErrorMapper errorMapper;
   private final TaggedCompositeDisposable disposables;
   private final CountryCodeProvider countryCodeProvider;
 
   public ProofOfAttentionService(Repository<String, Proof> cache, String walletPackage,
       HashCalculator hashCalculator, CompositeDisposable compositeDisposable,
       ProofWriter proofWriter, Scheduler computationScheduler, int maxNumberProofComponents,
-      BlockchainErrorMapper errorMapper, TaggedCompositeDisposable disposables,
+      BackEndErrorMapper errorMapper, TaggedCompositeDisposable disposables,
       CountryCodeProvider countryCodeProvider) {
     this.cache = cache;
     this.walletPackage = walletPackage;
@@ -42,7 +42,7 @@ public class ProofOfAttentionService {
 
   public void start() {
     compositeDisposable.add(getReadyPoA().observeOn(computationScheduler)
-        .flatMapSingle(proof -> writeOnBlockChain(proof).doOnError(
+        .flatMapSingle(proof -> submitProof(proof).doOnError(
             throwable -> handleError(throwable, proof.getPackageName()))
             .doOnSubscribe(
                 disposable -> updateProofStatus(proof.getPackageName(), ProofStatus.SUBMITTING)))
@@ -71,29 +71,32 @@ public class ProofOfAttentionService {
   private void handleError(Throwable throwable, String proofPackageName) {
     ProofStatus proofStatus;
     switch (errorMapper.map(throwable)) {
-      default:
-      case WRONG_NETWORK:
-      case UNKNOWN_TOKEN:
-      case NONCE_ERROR:
-      case INVALID_BLOCKCHAIN_ERROR:
-      case TRANSACTION_NOT_FOUND:
-        throwable.printStackTrace();
-        proofStatus = ProofStatus.GENERAL_ERROR;
+      case BACKEND_CAMPAIGN_NOT_AVAILABLE:
+        proofStatus = ProofStatus.NOT_AVAILABLE;
         break;
-      case NO_FUNDS:
-        proofStatus = ProofStatus.NO_FUNDS;
+      case BACKEND_CAMPAIGN_NOT_AVAILABLE_ON_COUNTRY:
+        proofStatus = ProofStatus.NOT_AVAILABLE_ON_COUNTRY;
+        break;
+      case BACKEND_ALREADY_AWARDED:
+        proofStatus = ProofStatus.ALREADY_REWARDED;
+        break;
+      case BACKEND_INVALID_DATA:
+        proofStatus = ProofStatus.INVALID_DATA;
         break;
       case NO_INTERNET:
         proofStatus = ProofStatus.NO_INTERNET;
         break;
-      case NO_WALLET:
-        proofStatus = ProofStatus.NO_WALLET;
+      case BACKEND_GENERIC_ERROR:
+      default:
+        throwable.printStackTrace();
+        proofStatus = ProofStatus.GENERAL_ERROR;
         break;
     }
+
     updateProofStatus(proofPackageName, proofStatus);
   }
 
-  private Single<String> writeOnBlockChain(Proof proof) {
+  private Single<String> submitProof(Proof proof) {
     Proof completedProof =
         new Proof(proof.getPackageName(), proof.getCampaignId(), proof.getProofComponentList(),
             proof.getWalletPackage(), ProofStatus.SUBMITTING, proof.getChainId(),

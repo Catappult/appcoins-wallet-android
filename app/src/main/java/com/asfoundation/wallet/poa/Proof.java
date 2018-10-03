@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.poa;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
