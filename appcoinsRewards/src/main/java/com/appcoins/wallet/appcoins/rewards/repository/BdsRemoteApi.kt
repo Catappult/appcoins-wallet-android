@@ -1,0 +1,29 @@
+package com.appcoins.wallet.appcoins.rewards.repository
+
+import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi
+import com.appcoins.wallet.appcoins.rewards.repository.bds.BdsApi
+import com.appcoins.wallet.appcoins.rewards.repository.bds.Origin
+import com.appcoins.wallet.appcoins.rewards.repository.bds.Type
+import io.reactivex.Completable
+import io.reactivex.Single
+import java.math.BigInteger
+
+class BdsRemoteApi(private val backendApi: BackendApi, private val bdsApi: BdsApi) :
+    RemoteRepository {
+  override fun getBalance(address: String): Single<BackendApi.RewardBalanceResponse> {
+    return backendApi.getBalance(address)
+  }
+
+  override fun pay(walletAddress: String, signature: String,
+                   amount: BigInteger,
+                   origin: Origin,
+                   sku: String,
+                   type: Type,
+                   developerAddress: String,
+                   storeAddress: String,
+                   oemAddress: String): Completable {
+    return bdsApi.pay(walletAddress, signature,
+        BdsApi.PayBody(amount.toString(), origin, sku, type, developerAddress, storeAddress,
+            oemAddress))
+  }
+}

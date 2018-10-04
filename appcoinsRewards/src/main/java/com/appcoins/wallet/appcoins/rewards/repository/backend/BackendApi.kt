@@ -1,10 +1,10 @@
-package com.appcoins.wallet.appcoins.rewards.repository
+package com.appcoins.wallet.appcoins.rewards.repository.backend
 
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface Api {
+interface BackendApi {
   @GET("campaign/rewards")
   fun getBalance(@Query("address") address: String): Single<RewardBalanceResponse>
 
