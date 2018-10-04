@@ -421,7 +421,7 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
         passwordStore, ethereumNetworkRepository, dataMapper, adsContractAddressProvider);
   }
 
-  @Singleton @Provides ProofWriter provideBlockChainWriter(
+  @Singleton @Provides ProofWriter provideBdsBackEndWriter(
       FindDefaultWalletInteract defaultWalletInteract, PoASubmissionService poaSubmissionService) {
     return new BdsBackEndWriter(defaultWalletInteract, poaSubmissionService);
   }
