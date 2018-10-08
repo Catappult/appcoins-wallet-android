@@ -34,7 +34,7 @@ public class AppcoinsOperationsDataSaver {
       }
       return list;
     })
-        .subscribeOn(scheduler)
+        .observeOn(scheduler)
         .toObservable()
         .flatMap(Observable::merge)
         .flatMap(
