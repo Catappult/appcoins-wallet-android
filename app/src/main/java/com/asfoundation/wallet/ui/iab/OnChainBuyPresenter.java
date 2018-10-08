@@ -48,8 +48,6 @@ public class OnChainBuyPresenter {
 
     handleBuyEvent(appPackage, productName, developerPayload, isBds);
 
-    showTransactionState(uriString);
-
     handleDontShowMicroRaidenInfo();
 
     showChannelAmount();
@@ -99,6 +97,7 @@ public class OnChainBuyPresenter {
   private void handleBuyEvent(String appPackage, String productName, String developerPayload,
       boolean isBds) {
     disposables.add(view.getBuyClick()
+        .doOnNext(buyData -> showTransactionState(buyData.uri))
         .observeOn(Schedulers.io())
         .flatMapCompletable(buyData -> inAppPurchaseInteractor.send(buyData.getUri(),
             buyData.isRaiden ? AsfInAppPurchaseInteractor.TransactionType.RAIDEN
@@ -129,6 +128,7 @@ public class OnChainBuyPresenter {
                 .flatMapCompletable(currentPaymentStep -> {
                   switch (currentPaymentStep) {
                     case PAUSED_ON_CHAIN:
+                      showTransactionState(uri);
                       return inAppPurchaseInteractor.resume(uri,
                           AsfInAppPurchaseInteractor.TransactionType.NORMAL, packageName,
                           transaction.getSkuId(), developerPayload, isBds);
