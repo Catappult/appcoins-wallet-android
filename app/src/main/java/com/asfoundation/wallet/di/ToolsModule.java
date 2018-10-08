@@ -2,6 +2,11 @@ package com.asfoundation.wallet.di;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
+import com.appcoins.wallet.appcoins.rewards.repository.BdsAppcoinsRewardsRepository;
+import com.appcoins.wallet.appcoins.rewards.repository.BdsRemoteApi;
+import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi;
+import com.appcoins.wallet.appcoins.rewards.repository.bds.BdsApi;
 import com.appcoins.wallet.billing.BdsBilling;
 import com.appcoins.wallet.billing.BillingFactory;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
@@ -103,6 +108,7 @@ import com.asfoundation.wallet.ui.iab.AsfInAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.BdsInAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.ImageSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
+import com.asfoundation.wallet.ui.iab.RewardsManager;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase;
 import com.asfoundation.wallet.ui.iab.raiden.AppcoinsRaiden;
 import com.asfoundation.wallet.ui.iab.raiden.ChannelService;
@@ -618,6 +624,37 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Singleton @Provides BdsRepository provideBdsRepository(RemoteRepository.BdsApi bdsApi) {
     return new BdsRepository(new RemoteRepository(bdsApi, new BdsApiResponseMapper()),
         new BillingThrowableCodeMapper());
+  }
+
+  @Singleton @Provides AppcoinsRewards provideAppcoinsRewards(OkHttpClient client, Gson gson,
+      WalletService walletService) {
+    BackendApi backendApi = new Retrofit.Builder().baseUrl("https://apichain-dev.blockchainds.com/")
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(BackendApi.class);
+    BdsApi bdsApi = new Retrofit.Builder().baseUrl("http://api-dev.blockchainds.com/")
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(BdsApi.class);
+    return new AppcoinsRewards(
+        new BdsAppcoinsRewardsRepository(new BdsRemoteApi(backendApi, bdsApi)),
+        new com.appcoins.wallet.appcoins.rewards.repository.WalletService() {
+          @NotNull @Override public Single<String> getWalletAddress() {
+            return walletService.getWalletAddress();
+          }
+
+          @NotNull @Override public Single<String> signContent(@NotNull String content) {
+            return walletService.signContent(content);
+          }
+        });
+  }
+
+  @Singleton @Provides RewardsManager provideRewardsManager(AppcoinsRewards appcoinsRewards) {
+    return new RewardsManager(appcoinsRewards);
   }
 
   @Singleton @Provides PoASubmissionService providePoASubmissionService(OkHttpClient client) {

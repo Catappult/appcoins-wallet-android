@@ -6,7 +6,7 @@ import com.appcoins.wallet.appcoins.rewards.repository.bds.Origin
 import com.appcoins.wallet.appcoins.rewards.repository.bds.Type
 import io.reactivex.Completable
 import io.reactivex.Single
-import java.math.BigInteger
+import java.math.BigDecimal
 
 class BdsRemoteApi(private val backendApi: BackendApi, private val bdsApi: BdsApi) :
     RemoteRepository {
@@ -15,7 +15,7 @@ class BdsRemoteApi(private val backendApi: BackendApi, private val bdsApi: BdsAp
   }
 
   override fun pay(walletAddress: String, signature: String,
-                   amount: BigInteger,
+                   amount: BigDecimal,
                    origin: Origin,
                    sku: String,
                    type: Type,
@@ -23,7 +23,7 @@ class BdsRemoteApi(private val backendApi: BackendApi, private val bdsApi: BdsAp
                    storeAddress: String,
                    oemAddress: String): Completable {
     return bdsApi.pay(walletAddress, signature,
-        BdsApi.PayBody(amount.toString(), origin, sku, type, developerAddress, storeAddress,
+        BdsApi.PayBody(amount.toPlainString(), origin, sku, type, developerAddress, storeAddress,
             oemAddress))
   }
 }

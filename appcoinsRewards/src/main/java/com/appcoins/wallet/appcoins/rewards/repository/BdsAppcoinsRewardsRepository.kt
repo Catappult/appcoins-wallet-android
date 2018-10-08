@@ -5,7 +5,7 @@ import com.appcoins.wallet.appcoins.rewards.repository.bds.Origin
 import com.appcoins.wallet.appcoins.rewards.repository.bds.Type
 import io.reactivex.Completable
 import io.reactivex.Single
-import java.math.BigInteger
+import java.math.BigDecimal
 
 class BdsAppcoinsRewardsRepository(private val remoteRepository: RemoteRepository) :
     AppcoinsRewardsRepository {
@@ -13,7 +13,7 @@ class BdsAppcoinsRewardsRepository(private val remoteRepository: RemoteRepositor
     return remoteRepository.getBalance(address).map { it.balance }
   }
 
-  override fun pay(walletAddress: String, signature: String, amount: BigInteger,
+  override fun pay(walletAddress: String, signature: String, amount: BigDecimal,
                    origin: Origin,
                    sku: String,
                    type: Type,

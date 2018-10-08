@@ -43,6 +43,8 @@ public class IabPresenter {
             transactionBuilder)
             .observeOn(viewScheduler)
             .doOnSuccess(paymentStatus -> {
+              view.showRewardPayment(transactionBuilder.amount());
+              if (true) return;
               switch (paymentStatus) {
                 case PAUSED_ON_CHAIN:
                 case READY:

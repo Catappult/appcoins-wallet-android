@@ -5,11 +5,11 @@ import com.appcoins.wallet.appcoins.rewards.repository.bds.Origin
 import com.appcoins.wallet.appcoins.rewards.repository.bds.Type
 import io.reactivex.Completable
 import io.reactivex.Single
-import java.math.BigInteger
+import java.math.BigDecimal
 
 interface RemoteRepository {
   fun getBalance(address: String): Single<BackendApi.RewardBalanceResponse>
-  fun pay(walletAddress: String, signature: String, amount: BigInteger,
+  fun pay(walletAddress: String, signature: String, amount: BigDecimal,
           origin: Origin,
           sku: String,
           type: Type,

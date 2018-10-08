@@ -12,7 +12,7 @@ import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import org.junit.Before
 import org.junit.Test
-import java.math.BigInteger
+import java.math.BigDecimal
 
 class AppcoinsRewardsTest {
   companion object {
@@ -42,12 +42,7 @@ class AppcoinsRewardsTest {
 
     appcoinsRewards =
         AppcoinsRewards(
-            BdsAppcoinsRewardsRepository(BdsRemoteApi(api, bdsApi)),
-            object : WalletAddressProvider {
-              override fun getWallet(): Single<String> {
-                return Single.just(USER_ADDRESS)
-              }
-            }, object : WalletService {
+            BdsAppcoinsRewardsRepository(BdsRemoteApi(api, bdsApi)), object : WalletService {
           override fun getWalletAddress(): Single<String> {
             return Single.just("0xd9BA3c6932a5084D0CA0769893353D60b23AAfC4")
           }
@@ -57,17 +52,13 @@ class AppcoinsRewardsTest {
                 "27c3217155834a21fa8f97df99053f2874727837c03805c2eb1ba56383473b2a07fd865dd5db1359a717dfec9aa14bab6437184b14969ec3551b86e9d29c98d401")
 
           }
-        }, object : AppcoinsUnityConverter {
-          override fun convertToAppCoins(amount: BigInteger): BigInteger {
-            return amount.divide(BigInteger.TEN.pow(18))
-          }
         })
   }
 
   @Test
   fun makePayment() {
     val testObserver = TestObserver<Any>()
-    appcoinsRewards.pay(BigInteger("1700000000000000000"),
+    appcoinsRewards.pay(BigDecimal("1700000000000000000"),
         Origin.BDS,
         SKU, Type.INAPP, DEVELOPER_ADDRESS,
         STORE_ADDRESS,
