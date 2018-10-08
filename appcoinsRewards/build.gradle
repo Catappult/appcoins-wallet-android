@@ -1,11 +1,9 @@
-plugins {
-  id 'org.jetbrains.kotlin.jvm'
-}
 apply plugin: 'java-library'
+apply plugin: 'org.jetbrains.kotlin.jvm'
 
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
-  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
   implementation "com.squareup.retrofit2:adapter-rxjava2:$project.retrofitVersion"
   implementation "com.google.code.gson:gson:$project.gsonVersion"
   implementation "com.squareup.retrofit2:converter-gson:$project.retrofitVersion"
