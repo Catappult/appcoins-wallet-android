@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,29 +10,34 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.jakewharton.rxbinding2.view.RxView;
 import dagger.android.support.DaggerFragment;
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
 import javax.inject.Inject;
-import rx.android.schedulers.AndroidSchedulers;
 
 public class AppcoinsRewardsBuyFragment extends DaggerFragment implements AppcoinsRewardsBuyView {
 
   public static final String AMOUNT_KEY = "amount";
+  public static final String PACKAGE_NAME_KEY = "packageName";
   @Inject RewardsManager rewardsManager;
+  @Inject BdsPendingTransactionService bdsPendingTransactionService;
   private View buyButton;
   private View loadingView;
   private AppcoinsRewardsBuyPresenter presenter;
   private TextView amountView;
   private BigDecimal amount;
   private View paymentDetailsView;
+  private IabView iabView;
 
-  public static Fragment newInstance(BigDecimal amount) {
+  public static Fragment newInstance(BigDecimal amount, String packageName) {
     AppcoinsRewardsBuyFragment fragment = new AppcoinsRewardsBuyFragment();
     Bundle bundle = new Bundle();
-    bundle.putString("amount", amount.toString());
+    bundle.putString(AMOUNT_KEY, amount.toString());
+    bundle.putString(PACKAGE_NAME_KEY, packageName);
     fragment.setArguments(bundle);
     return fragment;
   }
@@ -55,8 +61,8 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     paymentDetailsView = view.findViewById(R.id.payment_details_view);
 
     presenter =
-        new AppcoinsRewardsBuyPresenter(this, AndroidSchedulers.mainThread(), rewardsManager,
-            new CompositeDisposable(), amount);
+        new AppcoinsRewardsBuyPresenter(this, rewardsManager, AndroidSchedulers.mainThread(),
+            new CompositeDisposable(), amount, getCallerPackageName());
   }
 
   @Override public void onStart() {
@@ -67,6 +73,10 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   @Override public void onStop() {
     presenter.stop();
     super.onStop();
+  }
+
+  private String getCallerPackageName() {
+    return getArguments().getString(PACKAGE_NAME_KEY);
   }
 
   @Override public Observable<Object> getBuyClick() {
@@ -87,5 +97,18 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
 
   @Override public void hidePaymentDetails() {
     paymentDetailsView.setVisibility(View.GONE);
+  }
+
+  @Override public void finish() {
+    iabView.close(null);
+  }
+
+  @Override public void onAttach(Context context) {
+    super.onAttach(context);
+    if (!(context instanceof IabView)) {
+      throw new IllegalStateException(
+          "Express checkout buy fragment must be attached to IAB activity");
+    }
+    iabView = ((IabView) context);
   }
 }

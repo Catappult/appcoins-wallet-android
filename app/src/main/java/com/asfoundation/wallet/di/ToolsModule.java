@@ -8,6 +8,7 @@ import com.appcoins.wallet.appcoins.rewards.repository.BdsRemoteApi;
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi;
 import com.appcoins.wallet.appcoins.rewards.repository.bds.BdsApi;
 import com.appcoins.wallet.billing.BdsBilling;
+import com.appcoins.wallet.billing.Billing;
 import com.appcoins.wallet.billing.BillingFactory;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.BillingPaymentProofSubmission;
@@ -33,6 +34,7 @@ import com.asfoundation.wallet.billing.BDSTransactionService;
 import com.asfoundation.wallet.billing.TransactionService;
 import com.asfoundation.wallet.billing.payment.Adyen;
 import com.asfoundation.wallet.billing.purchase.CreditCardBillingFactory;
+import com.asfoundation.wallet.billing.purchase.Purchase;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.BalanceGetter;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
@@ -653,8 +655,20 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         });
   }
 
-  @Singleton @Provides RewardsManager provideRewardsManager(AppcoinsRewards appcoinsRewards) {
-    return new RewardsManager(appcoinsRewards);
+  @Singleton @Provides RewardsManager provideRewardsManager(AppcoinsRewards appcoinsRewards,
+      BillingFactory billingFactory, BdsPendingTransactionService bdsPendingTransactionService) {
+
+    return new RewardsManager(appcoinsRewards, (packageName, sku) -> {
+      Billing billing = billingFactory.getBilling(packageName);
+      return billing.getSkuTransaction(sku, Schedulers.io())
+          .flatMap(
+              transaction -> bdsPendingTransactionService.checkTransactionStateFromTransactionId(
+                  transaction.getUid())
+                  .ignoreElements()
+                  .andThen(billing.getSkuPurchase(sku, Schedulers.io())
+                      .map(purchase -> new Purchase(Purchase.Status.COMPLETED, sku,
+                          purchase.getUid()))));
+    });
   }
 
   @Singleton @Provides PoASubmissionService providePoASubmissionService(OkHttpClient client) {

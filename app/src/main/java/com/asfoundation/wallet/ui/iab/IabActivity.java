@@ -151,7 +151,9 @@ public class IabActivity extends BaseActivity implements IabView {
     if (savedInstanceState == null && getSupportFragmentManager().getFragments()
         .isEmpty()) {
       getSupportFragmentManager().beginTransaction()
-          .add(R.id.fragment_container, AppcoinsRewardsBuyFragment.newInstance(amount))
+          .add(R.id.fragment_container, AppcoinsRewardsBuyFragment.newInstance(amount,
+              getIntent().getExtras()
+                  .getString(APP_PACKAGE, "")))
           .commit();
     }
   }

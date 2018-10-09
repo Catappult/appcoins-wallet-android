@@ -1,23 +1,31 @@
 package com.asfoundation.wallet.ui.iab;
 
+import android.util.Log;
+import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
-import rx.Scheduler;
 
 public class AppcoinsRewardsBuyPresenter {
+  private static final String TAG = AppcoinsRewardsBuyPresenter.class.getSimpleName();
   private final AppcoinsRewardsBuyView view;
-  private final Scheduler scheduler;
   private final RewardsManager rewardsManager;
+  private final Scheduler scheduler;
   private final CompositeDisposable disposables;
   private final BigDecimal amount;
+  private final String developerAddress = "0xd9BA3c6932a5084D0CA0769893353D60b23AAfC4";
+  private final String storeAddress = "0xd9BA3c6932a5084D0CA0769893353D60b23AAfC4";
+  private final String oemAddress = "0xd9BA3c6932a5084D0CA0769893353D60b23AAfC4";
+  private final String sku = "cm.aptoide.pt:gas";
+  private final String packageName;
 
-  public AppcoinsRewardsBuyPresenter(AppcoinsRewardsBuyView view, Scheduler scheduler,
-      RewardsManager rewardsManager, CompositeDisposable disposables, BigDecimal amount) {
+  public AppcoinsRewardsBuyPresenter(AppcoinsRewardsBuyView view, RewardsManager rewardsManager,
+      Scheduler scheduler, CompositeDisposable disposables, BigDecimal amount, String packageName) {
     this.view = view;
-    this.scheduler = scheduler;
     this.rewardsManager = rewardsManager;
+    this.scheduler = scheduler;
     this.disposables = disposables;
     this.amount = amount;
+    this.packageName = packageName;
   }
 
   public void present() {
@@ -32,12 +40,14 @@ public class AppcoinsRewardsBuyPresenter {
 
   private void handleBuyClick() {
     disposables.add(view.getBuyClick()
+        .observeOn(scheduler)
         .doOnNext(__ -> view.hidePaymentDetails())
         .doOnNext(__ -> view.showLoading())
-        .flatMapCompletable(__ -> rewardsManager.pay("cm.aptoide.pt:gas", amount,
-            "0xd9BA3c6932a5084D0CA0769893353D60b23AAfC4",
-            "0xd9BA3c6932a5084D0CA0769893353D60b23AAfC4",
-            "0xd9BA3c6932a5084D0CA0769893353D60b23AAfC4"))
+        .flatMapSingle(
+            __ -> rewardsManager.pay(sku, amount, developerAddress, storeAddress, oemAddress)
+                .doOnComplete(() -> Log.d(TAG, "handleBuyClick() called"))
+                .andThen(rewardsManager.getPaymentCompleted(packageName, sku)))
+        .doOnNext(purchase -> view.finish())
         .subscribe());
   }
 

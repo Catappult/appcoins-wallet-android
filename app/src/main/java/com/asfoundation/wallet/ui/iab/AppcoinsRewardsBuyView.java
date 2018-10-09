@@ -12,4 +12,6 @@ interface AppcoinsRewardsBuyView {
   void showPaymentDetails();
 
   void hidePaymentDetails();
+
+  void finish();
 }
