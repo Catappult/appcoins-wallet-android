@@ -3,7 +3,7 @@ package com.asfoundation.wallet.ui.iab;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.appcoins.rewards.repository.bds.Origin;
 import com.appcoins.wallet.appcoins.rewards.repository.bds.Type;
-import com.asfoundation.wallet.billing.purchase.Purchase;
+import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import java.math.BigDecimal;

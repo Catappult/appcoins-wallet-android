@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
+import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import io.reactivex.Observable;
 
 interface AppcoinsRewardsBuyView {
@@ -13,5 +14,5 @@ interface AppcoinsRewardsBuyView {
 
   void hidePaymentDetails();
 
-  void finish();
+  void finish(Purchase purchase);
 }

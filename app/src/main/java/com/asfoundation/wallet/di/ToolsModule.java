@@ -34,7 +34,6 @@ import com.asfoundation.wallet.billing.BDSTransactionService;
 import com.asfoundation.wallet.billing.TransactionService;
 import com.asfoundation.wallet.billing.payment.Adyen;
 import com.asfoundation.wallet.billing.purchase.CreditCardBillingFactory;
-import com.asfoundation.wallet.billing.purchase.Purchase;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.BalanceGetter;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
@@ -324,10 +323,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
       TransferParser parser, RaidenRepository raidenRepository, ChannelService channelService,
       BillingFactory billingFactory, ExpressCheckoutBuyService expressCheckoutBuyService,
-      BdsTransactionService bdsTransactionService) {
+      BdsTransactionService bdsTransactionService, BillingMessagesMapper billingMessagesMapper) {
     return new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
-        raidenRepository, channelService, new BillingMessagesMapper(), billingFactory,
+        raidenRepository, channelService, billingMessagesMapper, billingFactory,
         new ExternalBillingSerializer(), expressCheckoutBuyService, bdsTransactionService,
         Schedulers.io());
   }
@@ -338,19 +337,20 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
       TransferParser parser, RaidenRepository raidenRepository, ChannelService channelService,
       BillingFactory billingFactory, ExpressCheckoutBuyService expressCheckoutBuyService,
-      BdsTransactionService bdsTransactionService) {
+      BdsTransactionService bdsTransactionService, BillingMessagesMapper billingMessagesMapper) {
     return new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
-        raidenRepository, channelService, new BillingMessagesMapper(), billingFactory,
+        raidenRepository, channelService, billingMessagesMapper, billingFactory,
         new ExternalBillingSerializer(), expressCheckoutBuyService, bdsTransactionService,
         Schedulers.io());
   }
 
   @Singleton @Provides InAppPurchaseInteractor provideDualInAppPurchaseInteractor(
       BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
-      @Named("ASF_IN_APP_INTERACTOR") AsfInAppPurchaseInteractor asfInAppPurchaseInteractor) {
+      @Named("ASF_IN_APP_INTERACTOR") AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
+      BillingMessagesMapper billingMessagesMapper) {
     return new InAppPurchaseInteractor(asfInAppPurchaseInteractor, bdsInAppPurchaseInteractor,
-        new BillingMessagesMapper(), new ExternalBillingSerializer());
+        billingMessagesMapper, new ExternalBillingSerializer());
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(
@@ -665,10 +665,12 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
               transaction -> bdsPendingTransactionService.checkTransactionStateFromTransactionId(
                   transaction.getUid())
                   .ignoreElements()
-                  .andThen(billing.getSkuPurchase(sku, Schedulers.io())
-                      .map(purchase -> new Purchase(Purchase.Status.COMPLETED, sku,
-                          purchase.getUid()))));
+                  .andThen(billing.getSkuPurchase(sku, Schedulers.io())));
     });
+  }
+
+  @Singleton @Provides BillingMessagesMapper provideBillingMessagesMapper() {
+    return new BillingMessagesMapper(new ExternalBillingSerializer());
   }
 
   @Singleton @Provides PoASubmissionService providePoASubmissionService(OkHttpClient client) {

@@ -52,7 +52,7 @@ public class AppcoinsRewardsBuyPresenter {
         .flatMapSingle(transaction -> rewardsManager.pay(transaction.getSkuId(), amount,
             transaction.toAddress(), storeAddress, oemAddress, packageName)
             .andThen(rewardsManager.getPaymentCompleted(packageName, transaction.getSkuId())))
-        .doOnNext(purchase -> view.finish())
+        .doOnNext(view::finish)
         .subscribe());
   }
 

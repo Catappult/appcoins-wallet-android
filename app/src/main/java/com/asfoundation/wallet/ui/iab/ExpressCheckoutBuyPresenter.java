@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.ui.iab;
 
 import com.appcoins.wallet.bdsbilling.BdsBilling;
-import com.appcoins.wallet.billing.BillingMessagesMapper;
-import com.appcoins.wallet. bdsbilling.repository.BillingSupportedType;
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
-import com.appcoins.wallet.billing.repository.entity.Transaction;
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
+import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import io.reactivex.Completable;
 import io.reactivex.Observable;

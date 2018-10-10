@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
-import com.asfoundation.wallet.billing.purchase.Purchase;
+import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import io.reactivex.Single;
 
 public interface PurchaseProvider {

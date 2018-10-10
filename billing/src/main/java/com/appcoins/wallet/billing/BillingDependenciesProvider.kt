@@ -1,5 +1,8 @@
-package com.appcoins.wallet.bdsbilling
+package com.appcoins.wallet.billing
 
+import com.appcoins.wallet.bdsbilling.BillingFactory
+import com.appcoins.wallet.bdsbilling.ProxyService
+import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 
 interface BillingDependenciesProvider {
@@ -12,4 +15,6 @@ interface BillingDependenciesProvider {
   fun getBillingFactory(): BillingFactory
 
   fun getProxyService(): ProxyService
+
+  fun getBillingMessagesMapper(): BillingMessagesMapper
 }

@@ -4,12 +4,14 @@ import android.os.Bundle
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.exceptions.ApiException
 import com.appcoins.wallet.bdsbilling.exceptions.BillingException
+import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.billing.exceptions.ServiceUnavailableException
 import com.appcoins.wallet.billing.exceptions.UnknownException
+import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer
 import retrofit2.HttpException
 import java.io.IOException
 
-class BillingMessagesMapper {
+class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerializer) {
 
   internal fun mapSupported(supportType: Billing.BillingSupportType): Int =
       when (supportType) {
@@ -92,5 +94,10 @@ class BillingMessagesMapper {
       else -> ApiException(
           AppcoinsBillingBinder.RESULT_ERROR)
     }
+  }
+
+  fun mapPurchase(purchase: Purchase): Bundle {
+    return mapPurchase(purchase.uid, purchase.signature.value,
+        billingSerializer.serializeSignatureData(purchase))
   }
 }

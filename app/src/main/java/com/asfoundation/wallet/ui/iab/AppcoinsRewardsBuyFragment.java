@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
+import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
@@ -29,6 +31,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   @Inject RewardsManager rewardsManager;
   @Inject BdsPendingTransactionService bdsPendingTransactionService;
   @Inject TransferParser transferParser;
+  @Inject BillingMessagesMapper billingMessagesMapper;
   private View buyButton;
   private View loadingView;
   private AppcoinsRewardsBuyPresenter presenter;
@@ -107,8 +110,8 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     paymentDetailsView.setVisibility(View.GONE);
   }
 
-  @Override public void finish() {
-    iabView.close(null);
+  @Override public void finish(Purchase purchase) {
+    iabView.finish(billingMessagesMapper.mapPurchase(purchase));
   }
 
   @Override public void onAttach(Context context) {

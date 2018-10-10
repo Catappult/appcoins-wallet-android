@@ -4,11 +4,12 @@ import android.app.Activity;
 import android.app.Service;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.Fragment;
-import com.appcoins.wallet.bdsbilling.BillingDependenciesProvider;
 import com.appcoins.wallet.bdsbilling.BillingFactory;
 import com.appcoins.wallet.bdsbilling.ProxyService;
 import com.appcoins.wallet.bdsbilling.WalletService;
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
+import com.appcoins.wallet.billing.BillingDependenciesProvider;
+import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.billing.payment.Adyen;
@@ -57,6 +58,7 @@ public class App extends MultiDexApplication
   @Inject BillingFactory billingFactory;
   @Inject ProxyService proxyService;
   @Inject Adyen adyen;
+  @Inject BillingMessagesMapper billingMessagesMapper;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -142,5 +144,9 @@ public class App extends MultiDexApplication
 
   @NotNull @Override public ProxyService getProxyService() {
     return proxyService;
+  }
+
+  @NotNull @Override public BillingMessagesMapper getBillingMessagesMapper() {
+    return billingMessagesMapper;
   }
 }
