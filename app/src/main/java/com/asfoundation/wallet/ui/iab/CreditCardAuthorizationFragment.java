@@ -23,7 +23,7 @@ import com.adyen.core.models.paymentdetails.CreditCardPaymentDetails;
 import com.adyen.core.models.paymentdetails.PaymentDetails;
 import com.adyen.core.utils.AmountUtil;
 import com.adyen.core.utils.StringUtils;
-import com.appcoins.wallet.billing.BillingFactory;
+import com.appcoins.wallet.bdsbilling.BillingFactory;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
 import com.asfoundation.wallet.billing.payment.Adyen;

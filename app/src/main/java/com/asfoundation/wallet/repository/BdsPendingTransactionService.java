@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.repository;
 
-import com.appcoins.wallet.billing.BillingFactory;
-import com.appcoins.wallet.billing.BillingPaymentProofSubmission;
+import com.appcoins.wallet.bdsbilling.BillingFactory;
+import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
 import com.appcoins.wallet.billing.repository.entity.Transaction;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import io.reactivex.Observable;

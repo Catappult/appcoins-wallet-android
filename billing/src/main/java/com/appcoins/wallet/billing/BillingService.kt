@@ -3,10 +3,11 @@ package com.appcoins.wallet.billing
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
+import com.appcoins.wallet.bdsbilling.*
+import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper
+import com.appcoins.wallet.bdsbilling.repository.BdsRepository
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer
-import com.appcoins.wallet.billing.repository.BdsApiResponseMapper
-import com.appcoins.wallet.billing.repository.BdsRepository
-import com.appcoins.wallet.billing.repository.RemoteRepository
 
 class BillingService : Service() {
   override fun onCreate() {
@@ -25,9 +26,10 @@ class BillingService : Service() {
         object : BillingFactory {
           override fun getBilling(merchantName: String): Billing {
             return BdsBilling(merchantName,
-                    BdsRepository(
-                            RemoteRepository(dependenciesProvider.getBdsApi(), BdsApiResponseMapper()),
-                            BillingThrowableCodeMapper()), dependenciesProvider.getWalletService(),
+                BdsRepository(
+                    RemoteRepository(dependenciesProvider.getBdsApi(), BdsApiResponseMapper()),
+                    BillingThrowableCodeMapper()),
+                dependenciesProvider.getWalletService(),
                 BillingThrowableCodeMapper())
           }
         }, ExternalBillingSerializer(), dependenciesProvider.getProxyService(),

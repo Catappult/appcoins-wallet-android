@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.ui.iab;
 
-import com.appcoins.wallet.billing.Billing;
-import com.appcoins.wallet.billing.BillingFactory;
+import com.appcoins.wallet.bdsbilling.Billing;
+import com.appcoins.wallet.bdsbilling.BillingFactory;
+import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
-import com.appcoins.wallet.billing.BillingPaymentProofSubmission;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.billing.repository.entity.Gateway;
 import com.appcoins.wallet.billing.repository.entity.Transaction;

@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.app.Service;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.Fragment;
-import com.appcoins.wallet.billing.BillingDependenciesProvider;
-import com.appcoins.wallet.billing.BillingFactory;
-import com.appcoins.wallet.billing.ProxyService;
-import com.appcoins.wallet.billing.WalletService;
-import com.appcoins.wallet.billing.repository.RemoteRepository;
+import com.appcoins.wallet.bdsbilling.BillingDependenciesProvider;
+import com.appcoins.wallet.bdsbilling.BillingFactory;
+import com.appcoins.wallet.bdsbilling.ProxyService;
+import com.appcoins.wallet.bdsbilling.WalletService;
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.billing.payment.Adyen;
@@ -67,8 +67,9 @@ public class App extends MultiDexApplication
         .inject(this);
     setupRxJava();
 
-    Fabric.with(this, new Crashlytics.Builder().core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG)
-        .build())
+    Fabric.with(this, new Crashlytics.Builder().core(
+        new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG)
+            .build())
         .build());
 
     inAppPurchaseInteractor.start();
@@ -86,7 +87,6 @@ public class App extends MultiDexApplication
             })
             .retry()
             .subscribe());
-
   }
 
   public Adyen getAdyen() {
@@ -136,11 +136,11 @@ public class App extends MultiDexApplication
     return walletService;
   }
 
-  @NotNull @Override public ProxyService getProxyService() {
-    return proxyService;
-  }
-
   @NotNull @Override public BillingFactory getBillingFactory() {
     return billingFactory;
+  }
+
+  @NotNull @Override public ProxyService getProxyService() {
+    return proxyService;
   }
 }

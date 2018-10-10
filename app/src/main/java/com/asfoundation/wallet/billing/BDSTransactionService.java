@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.billing;
 
-import com.appcoins.wallet.billing.repository.RemoteRepository;
-import com.appcoins.wallet.billing.repository.entity.TransactionStatus;
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
+import com.appcoins.wallet.bdsbilling.repository.entity.TransactionStatus;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;

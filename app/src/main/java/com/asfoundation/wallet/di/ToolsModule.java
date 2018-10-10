@@ -7,19 +7,19 @@ import com.appcoins.wallet.appcoins.rewards.repository.BdsAppcoinsRewardsReposit
 import com.appcoins.wallet.appcoins.rewards.repository.BdsRemoteApi;
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi;
 import com.appcoins.wallet.appcoins.rewards.repository.bds.BdsApi;
-import com.appcoins.wallet.billing.BdsBilling;
-import com.appcoins.wallet.billing.Billing;
-import com.appcoins.wallet.billing.BillingFactory;
+import com.appcoins.wallet.bdsbilling.BdsBilling;
+import com.appcoins.wallet.bdsbilling.Billing;
+import com.appcoins.wallet.bdsbilling.BillingFactory;
+import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
+import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmissionImpl;
+import com.appcoins.wallet.bdsbilling.BillingThrowableCodeMapper;
+import com.appcoins.wallet.bdsbilling.ProxyService;
+import com.appcoins.wallet.bdsbilling.WalletService;
+import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper;
+import com.appcoins.wallet.bdsbilling.repository.BdsRepository;
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
-import com.appcoins.wallet.billing.BillingPaymentProofSubmission;
-import com.appcoins.wallet.billing.BillingPaymentProofSubmissionImpl;
-import com.appcoins.wallet.billing.BillingThrowableCodeMapper;
-import com.appcoins.wallet.billing.ProxyService;
-import com.appcoins.wallet.billing.WalletService;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
-import com.appcoins.wallet.billing.repository.BdsApiResponseMapper;
-import com.appcoins.wallet.billing.repository.BdsRepository;
-import com.appcoins.wallet.billing.repository.RemoteRepository;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxyBuilder;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk;
 import com.asf.wallet.BuildConfig;
@@ -549,7 +549,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides RemoteRepository.BdsApi provideBdsApi(OkHttpClient client, Gson gson) {
-    String baseUrl = RemoteRepository.BASE_HOST;
+    String baseUrl = BuildConfig.BASE_HOST;
     return new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))

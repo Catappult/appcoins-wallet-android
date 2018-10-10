@@ -1,8 +1,12 @@
 package com.appcoins.wallet.billing
 
 import android.os.Bundle
-import com.appcoins.wallet.billing.exceptions.BillingException
-import com.appcoins.wallet.billing.repository.entity.Purchase
+import com.appcoins.wallet.bdsbilling.Billing
+import com.appcoins.wallet.bdsbilling.exceptions.ApiException
+import com.appcoins.wallet.bdsbilling.exceptions.BillingException
+import com.appcoins.wallet.billing.exceptions.ServiceUnavailableException
+import com.appcoins.wallet.billing.exceptions.UnknownException
+import retrofit2.HttpException
 import java.io.IOException
 
 class BillingMessagesMapper {
@@ -21,8 +25,8 @@ class BillingMessagesMapper {
     return throwable?.let {
       when (it) {
         is BillingException -> it.getErrorCode()
-          is IOException -> AppcoinsBillingBinder.RESULT_SERVICE_UNAVAILABLE
-          is IllegalArgumentException -> AppcoinsBillingBinder.RESULT_DEVELOPER_ERROR
+        is IOException -> AppcoinsBillingBinder.RESULT_SERVICE_UNAVAILABLE
+        is IllegalArgumentException -> AppcoinsBillingBinder.RESULT_DEVELOPER_ERROR
         else -> AppcoinsBillingBinder.RESULT_ERROR
       }
     } ?: AppcoinsBillingBinder.RESULT_ERROR
@@ -41,11 +45,11 @@ class BillingMessagesMapper {
     return result
   }
 
-    fun mapPurchasesError(exception: Exception): Bundle {
-        val result = Bundle()
-        result.putInt(AppcoinsBillingBinder.RESPONSE_CODE, map(exception.cause))
-        return result
-    }
+  fun mapPurchasesError(exception: Exception): Bundle {
+    val result = Bundle()
+    result.putInt(AppcoinsBillingBinder.RESPONSE_CODE, map(exception.cause))
+    return result
+  }
 
   fun mapBuyIntentError(exception: Exception): Bundle {
     val result = Bundle()
@@ -70,5 +74,23 @@ class BillingMessagesMapper {
     intent.putString(AppcoinsBillingBinder.INAPP_DATA_SIGNATURE, signature)
     intent.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
     return intent
+  }
+
+  fun mapException(throwable: Throwable): Exception {
+    return when (throwable) {
+      is HttpException -> mapHttpException(throwable)
+      is IOException -> ServiceUnavailableException(
+          AppcoinsBillingBinder.RESULT_SERVICE_UNAVAILABLE)
+      else -> UnknownException(AppcoinsBillingBinder.RESULT_ERROR)
+    }
+  }
+
+  private fun mapHttpException(throwable: HttpException): Exception {
+    return when (throwable.code()) {
+      in 500..599 -> ApiException(
+          AppcoinsBillingBinder.RESULT_ERROR)
+      else -> ApiException(
+          AppcoinsBillingBinder.RESULT_ERROR)
+    }
   }
 }
