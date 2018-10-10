@@ -18,9 +18,9 @@ class BdsBackEndWriter(private val defaultWalletInteract: FindDefaultWalletInter
   }
 
   override fun hasEnoughFunds(chainId: Int): Single<ProofSubmissionFeeData> {
-    return defaultWalletInteract.find().flatMap {
-      Single.just(ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY,
-          BigDecimal.ZERO, BigDecimal.ZERO))
+    return defaultWalletInteract.find().map {
+      ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY,
+          BigDecimal.ZERO, BigDecimal.ZERO)
     }.onErrorReturn {
       when (it) {
         is WalletNotFoundException -> ProofSubmissionFeeData(

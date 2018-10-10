@@ -12,13 +12,11 @@ import retrofit2.http.Body
 import retrofit2.http.Headers
 import retrofit2.http.POST
 
-class PoASubmissionService(poaSubmissionApi: PoASubmissionService.PoASubmissionApi) {
+class PoASubmissionService(private val poaSubmissionApi: PoASubmissionService.PoASubmissionApi) {
 
   companion object {
     const val SERVICE_HOST = BuildConfig.BACKEND_HOST
   }
-
-  private val poaSubmissionApi: PoASubmissionApi = poaSubmissionApi
 
   fun submitProof(proof: Proof, wallet: String): Single<String> {
     return poaSubmissionApi.submitProof(
