@@ -30,5 +30,4 @@ class PurchaseSignatureSerializer : JsonSerializer<Purchase> {
     json.add("developerPayload", context?.serialize(signature?.developerPayload))
     return json
   }
-
 }
