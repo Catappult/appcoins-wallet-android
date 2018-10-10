@@ -118,9 +118,10 @@
 
       <TextView
           android:id="@+id/wallet_address_footer"
-          android:layout_width="116dp"
+          android:layout_width="match_parent"
           android:layout_height="24dp"
           android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp"
           android:layout_marginTop="4dp"
           android:layout_toEndOf="@id/logo_wallet"
           android:ellipsize="end"

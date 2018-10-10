@@ -12,6 +12,7 @@ import com.asf.wallet.R;
 import com.asfoundation.wallet.ui.appcoins.AppcoinsApplicationAdapter;
 import com.asfoundation.wallet.ui.appcoins.ItemDecorator;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
+import java.util.ArrayList;
 import java.util.List;
 import rx.functions.Action1;
 
@@ -32,7 +33,7 @@ public class AppcoinsApplicationListViewHolder extends BinderViewHolder<List<App
     recyclerView.addItemDecoration(new ItemDecorator(space));
     recyclerView.setLayoutManager(
         new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-    adapter = new AppcoinsApplicationAdapter(applicationClickListener);
+    adapter = new AppcoinsApplicationAdapter(applicationClickListener, new ArrayList<>());
     recyclerView.setAdapter(adapter);
   }
 

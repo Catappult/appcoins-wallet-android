@@ -1,58 +1,106 @@
 package com.asfoundation.wallet.ui.iab;
 
+import com.appcoins.wallet.billing.BdsBilling;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
-import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
+import com.appcoins.wallet.billing.repository.BillingSupportedType;
+import com.appcoins.wallet.billing.repository.entity.Purchase;
+import com.appcoins.wallet.billing.repository.entity.Transaction;
+import com.asfoundation.wallet.repository.BdsPendingTransactionService;
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by franciscocalado on 24/07/2018.
  */
 
 public class ExpressCheckoutBuyPresenter {
-  private static final String TAG = ExpressCheckoutBuyPresenter.class.getSimpleName();
   private final ExpressCheckoutBuyView view;
   private final InAppPurchaseInteractor inAppPurchaseInteractor;
   private final Scheduler viewScheduler;
   private final CompositeDisposable disposables;
   private final BillingMessagesMapper billingMessagesMapper;
-  private final ExternalBillingSerializer billingSerializer;
+  private final BdsPendingTransactionService bdsPendingTransactionService;
+  private final BdsBilling bdsBilling;
 
   public ExpressCheckoutBuyPresenter(ExpressCheckoutBuyView view,
       InAppPurchaseInteractor inAppPurchaseInteractor, Scheduler viewScheduler,
       CompositeDisposable disposables, BillingMessagesMapper billingMessagesMapper,
-      ExternalBillingSerializer billingSerializer) {
+      BdsPendingTransactionService bdsPendingTransactionService, BdsBilling bdsBilling) {
     this.view = view;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.viewScheduler = viewScheduler;
     this.disposables = disposables;
     this.billingMessagesMapper = billingMessagesMapper;
-    this.billingSerializer = billingSerializer;
+    this.bdsPendingTransactionService = bdsPendingTransactionService;
+    this.bdsBilling = bdsBilling;
   }
 
-  public void present(double transactionValue, String currency) {
+  public void present(double transactionValue, String currency, String skuId) {
     setupUi(transactionValue, currency);
     handleCancelClick();
     handleErrorDismisses();
-    showDialog();
+    handleOnGoingPurchases(skuId);
+  }
+
+  private void handleOnGoingPurchases(String skuId) {
+    disposables.add(Completable.mergeArray(checkProcessing(skuId), checkAndConsumePrevious(skuId),
+        isSetupCompleted())
+        .observeOn(viewScheduler)
+        .subscribe(view::hideLoading, throwable -> {
+          view.showError();
+          throwable.printStackTrace();
+        }));
+  }
+
+  private Completable isSetupCompleted() {
+    return view.setupUiCompleted()
+        .takeWhile(isViewSet -> !isViewSet)
+        .ignoreElements();
+  }
+
+  private Completable checkProcessing(String skuId) {
+    return bdsBilling.getSkuTransaction(skuId, Schedulers.io())
+        .filter(transaction -> transaction.getStatus() == Transaction.Status.PROCESSING)
+        .observeOn(AndroidSchedulers.mainThread())
+        .doOnSuccess(__ -> view.showProcessingLoadingDialog())
+        .map(Transaction::getUid)
+        .observeOn(Schedulers.io())
+        .flatMapCompletable(
+            uid -> bdsPendingTransactionService.checkTransactionStateFromTransactionId(uid)
+                .ignoreElements()
+                .andThen(finishProcess(skuId)));
+  }
+
+  private Completable finishProcess(String skuId) {
+    return bdsBilling.getSkuPurchase(skuId, Schedulers.io())
+        .observeOn(viewScheduler)
+        .doOnSuccess(view::finish)
+        .ignoreElement();
+  }
+
+  private Completable checkAndConsumePrevious(String sku) {
+    return bdsBilling.getPurchases(BillingSupportedType.INAPP, Schedulers.io())
+        .flatMapObservable(purchases -> {
+          for (Purchase purchase : purchases) {
+            if (purchase.getUid()
+                .equals(sku)) {
+              return Observable.just(purchase);
+            }
+          }
+          return Observable.empty();
+        })
+        .doOnNext(view::finish)
+        .ignoreElements();
   }
 
   private void setupUi(double transactionValue, String currency) {
     disposables.add(inAppPurchaseInteractor.convertToFiat(transactionValue, currency)
         .observeOn(viewScheduler)
         .doOnSuccess(view::setup)
-        .subscribe(__ -> {
-        }, this::showError));
-  }
-
-  private void showDialog() {
-    disposables.add(Observable.combineLatest(view.consumePurchasesCompleted()
-        .take(1), view.setupUiCompleted()
-        .take(1), (aBoolean, aBoolean2) -> aBoolean && aBoolean2)
-        .filter(result -> result)
-        .observeOn(viewScheduler)
-        .doOnNext(__ -> view.hideLoading())
         .subscribe(__ -> {
         }, this::showError));
   }

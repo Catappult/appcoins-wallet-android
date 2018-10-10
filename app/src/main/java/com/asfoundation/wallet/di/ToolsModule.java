@@ -23,7 +23,6 @@ import com.asfoundation.wallet.App;
 import com.asfoundation.wallet.FabricLogger;
 import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.apps.Applications;
-import com.asfoundation.wallet.apps.AppsApi;
 import com.asfoundation.wallet.billing.AdyenBilling;
 import com.asfoundation.wallet.billing.BDSTransactionService;
 import com.asfoundation.wallet.billing.TransactionService;
@@ -39,7 +38,6 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.poa.BackEndErrorMapper;
-import com.asfoundation.wallet.poa.BlockchainErrorMapper;
 import com.asfoundation.wallet.poa.Calculator;
 import com.asfoundation.wallet.poa.CountryCodeProvider;
 import com.asfoundation.wallet.poa.DataMapper;
@@ -82,6 +80,8 @@ import com.asfoundation.wallet.repository.Web3jProvider;
 import com.asfoundation.wallet.router.GasSettingsRouter;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.AccountWalletService;
+import com.asfoundation.wallet.service.AppsApi;
+import com.asfoundation.wallet.service.BDSAppsApi;
 import com.asfoundation.wallet.service.PoASubmissionService;
 import com.asfoundation.wallet.service.RealmManager;
 import com.asfoundation.wallet.service.TickerService;
@@ -138,6 +138,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import static com.asfoundation.wallet.AirdropService.BASE_URL;
+import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
 @Module class ToolsModule {
   @Provides Context provideContext(App application) {
@@ -521,13 +522,14 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
   }
 
   @Singleton @Provides AppcoinsApps provideAppcoinsApps(OkHttpClient client, Gson gson) {
-    AppsApi appsApi = new Retrofit.Builder().baseUrl(AppsApi.API_BASE_URL)
+
+    AppsApi appsApi = new Retrofit.Builder().baseUrl(API_BASE_URL)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(AppsApi.class);
-    return new AppcoinsApps(new Applications.Builder().setApi(appsApi)
+    return new AppcoinsApps(new Applications.Builder().setApi(new BDSAppsApi(appsApi))
         .build());
   }
 

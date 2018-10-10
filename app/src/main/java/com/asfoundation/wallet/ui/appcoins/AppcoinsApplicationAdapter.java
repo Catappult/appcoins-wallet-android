@@ -8,6 +8,7 @@ import com.asf.wallet.R;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.widget.holder.AppcoinsApplicationViewHolder;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 import rx.functions.Action1;
 
 public class AppcoinsApplicationAdapter
@@ -16,8 +17,10 @@ public class AppcoinsApplicationAdapter
   private final Action1<AppcoinsApplication> applicationClickListener;
   private List<AppcoinsApplication> applications;
 
-  public AppcoinsApplicationAdapter(Action1<AppcoinsApplication> applicationClickListener) {
+  public AppcoinsApplicationAdapter(Action1<AppcoinsApplication> applicationClickListener,
+      @NotNull List<AppcoinsApplication> applications) {
     this.applicationClickListener = applicationClickListener;
+    this.applications = applications;
   }
 
   @NonNull @Override

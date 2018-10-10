@@ -143,7 +143,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     amountGroup = view.findViewById(R.id.amount_group);
     createChannelGroup = view.findViewById(R.id.create_channel_group);
     raidenLayout = view.findViewById(R.id.raiden_layout);
-    walletAddressTextView = view.findViewById(R.id.wallet_address);
+    walletAddressTextView = view.findViewById(R.id.wallet_address_footer);
 
     presenter =
         new OnChainBuyPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),

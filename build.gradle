@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-  ext.kotlin_version = "1.2.51"
+  ext.kotlin_version = "1.2.71"
 
   repositories {
     google()
@@ -11,7 +11,7 @@ buildscript {
     google()
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:3.1.4'
+    classpath 'com.android.tools.build:gradle:3.2.0'
     classpath "io.realm:realm-gradle-plugin:5.0.0"
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
@@ -37,18 +37,18 @@ project.ext {
   retrofitVersion = "2.3.0"
   okhttpVersion = "3.9.0"
   picassoVersion = "2.5.2"
-  supportVersion = "27.1.0"
+  supportVersion = "27.1.1"
   web3jVersion = "3.3.1-android"
   gethVersion = "1.8.0"
   gsonVersion = "2.8.2"
   rxJavaVersion = "2.1.6"
   rxAndroidVersion = "2.0.1"
-  daggerVersion = "2.13"
+  daggerVersion = "2.16"
   erc681Version = "0.36"
   jetbrainsAnnotationsVersion = "15.0"
   junitVersion = "4.12"
   mockitoCoreVersion = "2.15.0"
-  roomVersion = "1.1.0"
+  roomVersion = "1.1.1"
   appcoinsSdkVersion = "0.3.7a"
   jacksonVersion = "2.9.6"
 }
