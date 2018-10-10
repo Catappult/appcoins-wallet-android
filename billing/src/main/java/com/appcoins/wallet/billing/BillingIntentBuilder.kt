@@ -5,9 +5,9 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import com.appcoins.wallet.bdsbilling.repository.entity.SKU
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_DEVELOPER_PAYLOAD
-import com.appcoins.wallet.billing.repository.entity.SKU
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.appcoins.wallet.billing.util.PayloadHelper
 import com.google.gson.Gson

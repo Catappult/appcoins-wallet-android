@@ -2,13 +2,12 @@ package com.appcoins.wallet.bdsbilling.repository
 
 import com.appcoins.wallet.bdsbilling.BillingThrowableCodeMapper
 import com.appcoins.wallet.bdsbilling.Repository
+import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
-import com.appcoins.wallet.billing.repository.entity.Gateway
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.billing.repository.entity.Product
-import com.appcoins.wallet.billing.repository.entity.Transaction
 import io.reactivex.Completable
 import io.reactivex.Single
-import retrofit2.HttpException
 
 class BdsRepository(private val remoteRepository: RemoteRepository,
                     private val errorMapper: BillingThrowableCodeMapper) : Repository {
@@ -50,14 +49,12 @@ class BdsRepository(private val remoteRepository: RemoteRepository,
   override fun getSkuTransaction(packageName: String, skuId: String, walletAddress: String,
                                  walletSignature: String): Single<Transaction> {
     return remoteRepository.getSkuTransaction(packageName, skuId, walletAddress, walletSignature)
-        .onErrorResumeNext { mapError(it) }
-  }
-
-  private fun mapError(it: Throwable): Single<Transaction> {
-    if (it is HttpException && it.code() == 404) {
-      return Single.just(Transaction.notFound())
-    }
-    return Single.error(it)
+        .flatMap {
+          if (!it.items.isEmpty()) {
+            Single.just(it.items[0])
+          }
+          Single.just(Transaction.notFound())
+        }
   }
 
   override fun getPurchases(packageName: String, walletAddress: String, walletSignature: String,

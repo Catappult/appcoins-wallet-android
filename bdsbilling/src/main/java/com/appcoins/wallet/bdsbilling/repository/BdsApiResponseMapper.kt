@@ -1,7 +1,8 @@
 package com.appcoins.wallet.bdsbilling.repository
 
-import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
-import com.appcoins.wallet.billing.repository.entity.*
+import com.appcoins.wallet.bdsbilling.repository.entity.*
+import com.appcoins.wallet.billing.repository.entity.Price
+import com.appcoins.wallet.billing.repository.entity.Product
 
 class BdsApiResponseMapper {
   fun map(productDetails: DetailsResponseBody): List<Product> {

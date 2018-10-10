@@ -1,4 +1,4 @@
-package com.appcoins.wallet.billing.repository.entity
+package com.appcoins.wallet.bdsbilling.repository.entity
 
 
 class Gateway(val name: Name, val label: String, val icon: String) {

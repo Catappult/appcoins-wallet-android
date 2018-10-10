@@ -17,7 +17,9 @@ interface BdsApi {
                      private val type: Type,
                      @SerializedName("wallets.developer") private val developerAddress: String,
                      @SerializedName("wallets.store") private val storeAddress: String,
-                     @SerializedName("wallets.oem") private val oemAddress: String)
+                     @SerializedName("wallets.oem") private val oemAddress: String,
+                     @SerializedName("price.currency") private val currency: String,
+                     @SerializedName("domain") private val packageName: String)
 }
 
 enum class Type {

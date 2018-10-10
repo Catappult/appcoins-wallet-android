@@ -62,7 +62,8 @@ class AppcoinsRewardsTest {
         Origin.BDS,
         SKU, Type.INAPP, DEVELOPER_ADDRESS,
         STORE_ADDRESS,
-        OEM_ADDRESS).subscribe(testObserver)
+        OEM_ADDRESS,
+        "packageName").subscribe(testObserver)
     testObserver.assertNoErrors().assertComplete()
   }
 

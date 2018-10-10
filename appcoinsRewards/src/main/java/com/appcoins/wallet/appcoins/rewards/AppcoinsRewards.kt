@@ -23,12 +23,13 @@ class AppcoinsRewards(private val repository: AppcoinsRewardsRepository,
           type: Type,
           developerAddress: String,
           storeAddress: String,
-          oemAddress: String): Completable {
+          oemAddress: String,
+          packageName: String): Completable {
     return walletService.getWalletAddress().flatMapCompletable { walletAddress ->
       walletService.signContent(walletAddress).flatMapCompletable { signature ->
         repository.pay(walletAddress, signature, amount,
             origin, sku,
-            type, developerAddress, storeAddress, oemAddress)
+            type, developerAddress, storeAddress, oemAddress, packageName)
       }
     }
   }

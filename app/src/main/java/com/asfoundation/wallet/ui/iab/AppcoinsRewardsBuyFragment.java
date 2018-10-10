@@ -9,8 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
+import com.asfoundation.wallet.util.TransferParser;
 import com.jakewharton.rxbinding2.view.RxView;
 import dagger.android.support.DaggerFragment;
 import io.reactivex.Observable;
@@ -23,8 +25,10 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
 
   public static final String AMOUNT_KEY = "amount";
   public static final String PACKAGE_NAME_KEY = "packageName";
+  public static final String URI_KEY = "uri_key";
   @Inject RewardsManager rewardsManager;
   @Inject BdsPendingTransactionService bdsPendingTransactionService;
+  @Inject TransferParser transferParser;
   private View buyButton;
   private View loadingView;
   private AppcoinsRewardsBuyPresenter presenter;
@@ -32,12 +36,14 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   private BigDecimal amount;
   private View paymentDetailsView;
   private IabView iabView;
+  private String uri;
 
-  public static Fragment newInstance(BigDecimal amount, String packageName) {
+  public static Fragment newInstance(BigDecimal amount, String packageName, String uri) {
     AppcoinsRewardsBuyFragment fragment = new AppcoinsRewardsBuyFragment();
     Bundle bundle = new Bundle();
     bundle.putString(AMOUNT_KEY, amount.toString());
     bundle.putString(PACKAGE_NAME_KEY, packageName);
+    bundle.putString(URI_KEY, uri);
     fragment.setArguments(bundle);
     return fragment;
   }
@@ -45,6 +51,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     amount = new BigDecimal(getArguments().getString(AMOUNT_KEY));
+    uri = getArguments().getString(URI_KEY);
   }
 
   @Nullable @Override
@@ -62,7 +69,8 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
 
     presenter =
         new AppcoinsRewardsBuyPresenter(this, rewardsManager, AndroidSchedulers.mainThread(),
-            new CompositeDisposable(), amount, getCallerPackageName());
+            new CompositeDisposable(), amount, BuildConfig.DEFAULT_STORE_ADDRESS,
+            BuildConfig.DEFAULT_OEM_ADDRESS, uri, getCallerPackageName(), transferParser);
   }
 
   @Override public void onStart() {

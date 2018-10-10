@@ -1,4 +1,4 @@
-package com.appcoins.wallet.billing.repository.entity
+package com.appcoins.wallet.bdsbilling.repository.entity
 
 
 data class Transaction(val uid: String, val status: Status, val gateway: Gateway) {

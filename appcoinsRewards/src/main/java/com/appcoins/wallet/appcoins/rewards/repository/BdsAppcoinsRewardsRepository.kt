@@ -13,14 +13,16 @@ class BdsAppcoinsRewardsRepository(private val remoteRepository: RemoteRepositor
     return remoteRepository.getBalance(address).map { it.balance }
   }
 
-  override fun pay(walletAddress: String, signature: String, amount: BigDecimal,
+  override fun pay(walletAddress: String, signature: String,
+                   amount: BigDecimal,
                    origin: Origin,
                    sku: String,
                    type: Type,
                    developerAddress: String,
                    storeAddress: String,
-                   oemAddress: String): Completable {
+                   oemAddress: String,
+                   packageName: String): Completable {
     return remoteRepository.pay(walletAddress, signature, amount, origin, sku,
-        type, developerAddress, storeAddress, oemAddress)
+        type, developerAddress, storeAddress, oemAddress, packageName)
   }
 }

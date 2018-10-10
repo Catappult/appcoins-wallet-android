@@ -1,10 +1,10 @@
 package com.appcoins.wallet.bdsbilling
 
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
+import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
-import com.appcoins.wallet.billing.repository.entity.Gateway
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.billing.repository.entity.Product
-import com.appcoins.wallet.billing.repository.entity.Transaction
 import io.reactivex.Completable
 import io.reactivex.Single
 

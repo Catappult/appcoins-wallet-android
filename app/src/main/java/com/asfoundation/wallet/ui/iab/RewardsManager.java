@@ -18,9 +18,9 @@ public class RewardsManager {
   }
 
   public Completable pay(String sku, BigDecimal amount, String developerAddress,
-      String storeAddress, String oemAddress) {
+      String storeAddress, String oemAddress, String packageName) {
     return appcoinsRewards.pay(amount, Origin.BDS, sku, Type.INAPP, developerAddress, storeAddress,
-        oemAddress);
+        oemAddress, packageName);
   }
 
   public Single<Purchase> getPaymentCompleted(String packageName, String sku) {

@@ -13,5 +13,6 @@ interface AppcoinsRewardsRepository {
           type: Type,
           developerAddress: String,
           storeAddress: String,
-          oemAddress: String): Completable
+          oemAddress: String,
+          packageName: String): Completable
 }

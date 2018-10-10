@@ -21,9 +21,10 @@ class BdsRemoteApi(private val backendApi: BackendApi, private val bdsApi: BdsAp
                    type: Type,
                    developerAddress: String,
                    storeAddress: String,
-                   oemAddress: String): Completable {
+                   oemAddress: String,
+                   packageName: String): Completable {
     return bdsApi.pay(walletAddress, signature,
         BdsApi.PayBody(amount.toPlainString(), origin, sku, type, developerAddress, storeAddress,
-            oemAddress))
+            oemAddress, "APPC", packageName))
   }
 }

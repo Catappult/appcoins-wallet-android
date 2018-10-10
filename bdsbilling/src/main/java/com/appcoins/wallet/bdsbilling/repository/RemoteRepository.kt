@@ -1,9 +1,8 @@
 package com.appcoins.wallet.bdsbilling.repository
 
-import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
-import com.appcoins.wallet.bdsbilling.repository.entity.TransactionStatus
+import com.appcoins.wallet.bdsbilling.repository.entity.*
 import com.appcoins.wallet.bdsbilling.repository.entity.authorization.Authorization
-import com.appcoins.wallet.billing.repository.entity.*
+import com.appcoins.wallet.billing.repository.entity.Product
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -34,8 +33,10 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
   internal fun getSkuTransaction(packageName: String,
                                  skuId: String,
                                  walletAddress: String,
-                                 walletSignature: String): Single<Transaction> {
-    return api.getSkuTransaction(packageName, skuId, walletAddress, walletSignature)
+                                 walletSignature: String): Single<TransactionsResponse> {
+    return api.getSkuTransaction(walletAddress, walletSignature, 0, TransactionType.INAPP, 1,
+        "latest", false, skuId, packageName)
+
   }
 
   internal fun getPurchases(packageName: String,
@@ -118,13 +119,20 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
                        @Query("wallet.address") walletAddress: String,
                        @Query("wallet.signature") walletSignature: String): Single<Purchase>
 
-    @GET("inapp/8.20180518/packages/{packageName}/products/{skuId}/transaction")
-    fun getSkuTransaction(@Path("packageName") packageName: String,
-                          @Path("skuId") skuId: String,
-                          @Query("wallet.address") walletAddress: String,
-                          @Query("wallet.signature") walletSignature: String): Single<Transaction>
+    @GET("broker/8.20180518/transactions")
+    fun getSkuTransaction(
+        @Query("wallet.address") walletAddress: String,
+        @Query("wallet.signature") walletSignature: String,
+        @Query("cursor") cursor: Long,
+        @Query("type") type: TransactionType,
+        @Query("limit") limit: Long,
+        @Query("sort.name") sort: String,
+        @Query("sort.reverse") isReverse: Boolean,
+        @Query("product") skuId: String,
+        @Query("domain") packageName: String
+    ): Single<TransactionsResponse>
 
-    @GET("inapp/8.20180727/gateways/appcoins/transactions/{uId}")
+    @GET("broker/8.20180518/transactions/{uId}")
     fun getAppcoinsTransaction(@Path("uId") uId: String,
                                @Query("wallet.address") walletAddress: String,
                                @Query("wallet.signature")
