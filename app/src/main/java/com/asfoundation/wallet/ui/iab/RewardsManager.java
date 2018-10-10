@@ -3,18 +3,25 @@ package com.asfoundation.wallet.ui.iab;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.appcoins.rewards.repository.bds.Origin;
 import com.appcoins.wallet.appcoins.rewards.repository.bds.Type;
+import com.appcoins.wallet.bdsbilling.Billing;
+import com.appcoins.wallet.bdsbilling.BillingFactory;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
+import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import io.reactivex.Completable;
 import io.reactivex.Single;
+import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 
 public class RewardsManager {
   private final AppcoinsRewards appcoinsRewards;
-  private final PurchaseProvider purchaseProvider;
+  private final BillingFactory billingFactory;
+  private final BdsPendingTransactionService bdsPendingTransactionService;
 
-  public RewardsManager(AppcoinsRewards appcoinsRewards, PurchaseProvider purchaseProvider) {
+  public RewardsManager(AppcoinsRewards appcoinsRewards, BillingFactory billingFactory,
+      BdsPendingTransactionService bdsPendingTransactionService) {
     this.appcoinsRewards = appcoinsRewards;
-    this.purchaseProvider = purchaseProvider;
+    this.billingFactory = billingFactory;
+    this.bdsPendingTransactionService = bdsPendingTransactionService;
   }
 
   public Completable pay(String sku, BigDecimal amount, String developerAddress,
@@ -24,6 +31,12 @@ public class RewardsManager {
   }
 
   public Single<Purchase> getPaymentCompleted(String packageName, String sku) {
-    return purchaseProvider.getPurchase(packageName, sku);
+    Billing billing = billingFactory.getBilling(packageName);
+    return billing.getSkuTransaction(sku, Schedulers.io())
+        .flatMap(transaction -> bdsPendingTransactionService.checkTransactionStateFromTransactionId(
+            transaction.getUid())
+            .ignoreElements()
+            .andThen(billing.getSkuPurchase(sku, Schedulers.io())));
+
   }
 }

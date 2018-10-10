@@ -8,7 +8,6 @@ import com.appcoins.wallet.appcoins.rewards.repository.BdsRemoteApi;
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi;
 import com.appcoins.wallet.appcoins.rewards.repository.bds.BdsApi;
 import com.appcoins.wallet.bdsbilling.BdsBilling;
-import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.BillingFactory;
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmissionImpl;
@@ -657,16 +656,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides RewardsManager provideRewardsManager(AppcoinsRewards appcoinsRewards,
       BillingFactory billingFactory, BdsPendingTransactionService bdsPendingTransactionService) {
-
-    return new RewardsManager(appcoinsRewards, (packageName, sku) -> {
-      Billing billing = billingFactory.getBilling(packageName);
-      return billing.getSkuTransaction(sku, Schedulers.io())
-          .flatMap(
-              transaction -> bdsPendingTransactionService.checkTransactionStateFromTransactionId(
-                  transaction.getUid())
-                  .ignoreElements()
-                  .andThen(billing.getSkuPurchase(sku, Schedulers.io())));
-    });
+    return new RewardsManager(appcoinsRewards, billingFactory, bdsPendingTransactionService);
   }
 
   @Singleton @Provides BillingMessagesMapper provideBillingMessagesMapper() {
