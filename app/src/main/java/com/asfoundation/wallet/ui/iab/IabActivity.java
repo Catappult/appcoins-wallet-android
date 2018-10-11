@@ -114,7 +114,7 @@ public class IabActivity extends BaseActivity implements IabView {
         .replace(R.id.fragment_container, CreditCardAuthorizationFragment.newInstance(skuDetails,
             inAppPurchaseInteractor.parseTransaction(getIntent().getDataString(), isBds())
                 .blockingGet()
-                .getSkuId()))
+                .getSkuId(), isBds() ? "INAPP" : "UNKNOWN"))
         .commit();
   }
 

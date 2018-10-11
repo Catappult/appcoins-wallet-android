@@ -7,6 +7,9 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.http.*
+import java.lang.StringBuilder
+import java.math.BigDecimal
+import java.util.*
 
 class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiResponseMapper) {
   companion object {
@@ -87,14 +90,19 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
         .singleOrError()
   }
 
-  fun createAdyenTransaction(walletAddress: String,
-                             walletSignature: String, token: String, payload: String?,
-                             packageName: String, productName: String,
+  fun createAdyenTransaction(origin: String, walletAddress: String,
+                             walletSignature: String, token: String,
+                             packageName: String, priceValue: BigDecimal, priceCurrency: String, productName: String?, type: String,
                              walletDeveloper: String,
-                             walletStore: String): Single<TransactionStatus> {
-    return api.createAdyenTransaction(walletAddress, walletSignature, payload,
-        packageName, productName, walletDeveloper, token, walletStore)
-        .singleOrError()
+                             walletStore: String, walletOem: String): Single<TransactionStatus> {
+    var innerProductName: String
+    if (productName == null) {
+      innerProductName = Random().nextInt().toString()
+    } else {
+      innerProductName = productName
+    }
+    return api.createAdyenTransaction(origin, packageName, priceValue.toString(), priceCurrency, innerProductName, type, walletDeveloper, walletStore, walletOem, token, walletAddress, walletSignature)
+            .singleOrError()
   }
 
   fun getAppcoinsTransaction(uid: String, address: String,
@@ -164,25 +172,31 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
     fun getGateways(): Single<GetGatewaysResponse>
 
     @FormUrlEncoded
-    @PATCH("inapp/8.20180401/gateways/adyen/transactions/{uid}")
+    @PATCH("broker/8.20180518/gateways/adyen/transactions/{uid}")
     fun patchTransaction(
-        @Path("uid") uid: String, @Query("wallet.address") walletAddress: String,
-        @Query("wallet.signature") walletSignature: String, @Field("paykey")
+            @Path("uid") uid: String, @Query("wallet.address") walletAddress: String,
+            @Query("wallet.signature") walletSignature: String, @Field("pay_key")
         paykey: String): Observable<Any>
 
-    @GET("inapp/8.20180401/gateways/adyen/transactions/{uid}/authorization")
+    @GET("broker/8.20180518/gateways/adyen/transactions/{uid}/authorization")
     fun getSessionKey(
         @Path("uid") uid: String, @Query("wallet.address") walletAddress: String,
         @Query("wallet.signature") walletSignature: String): Observable<Authorization>
 
     @FormUrlEncoded
-    @POST("inapp/8.20180401/gateways/adyen/transactions")
-    fun createAdyenTransaction(
-        @Query("wallet.address") walletAddress: String,
-        @Query("wallet.signature") walletSignature: String, @Field("payload") payload: String?,
-        @Field("package.name") packageName: String, @Field("product.name") productName: String,
-        @Field("wallets.developer") walletsDeveloper: String, @Field("token") token: String,
-        @Field("wallets.store") walletsStore: String): Observable<TransactionStatus>
+    @POST("broker/8.20180518/gateways/adyen/transactions")
+    fun createAdyenTransaction(@Field("origin") origin: String,
+                               @Field("domain") domain: String,
+                               @Field("price.value") priceValue: String,
+                               @Field("price.currency") priceCurrency: String,
+                               @Field("product") product: String?,
+                               @Field("type") type: String,
+                               @Field("wallets.developer") walletsDeveloper: String,
+                               @Field("wallets.store") walletsStore: String,
+                               @Field("wallets.oem") walletsOem: String,
+                               @Field("token") token: String,
+                               @Query("wallet.address") walletAddress: String,
+                               @Query("wallet.signature") walletSignature: String): Observable<TransactionStatus>
   }
 
   data class Consumed(val status: String = "CONSUMED")

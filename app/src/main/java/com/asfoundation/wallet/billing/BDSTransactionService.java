@@ -5,6 +5,7 @@ import com.appcoins.wallet.billing.repository.entity.TransactionStatus;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
+import java.math.BigDecimal;
 
 public final class BDSTransactionService implements TransactionService {
 
@@ -15,9 +16,12 @@ public final class BDSTransactionService implements TransactionService {
   }
 
   @Override public Single<String> createTransaction(String address, String signature, String token,
-      String packageName, String payload, String productName, String developerWallet, String storeWallet) {
-    return remoteRepository.createAdyenTransaction(address, signature, token, payload, packageName,
-        productName, developerWallet, storeWallet)
+      String packageName, String payload, String productName, String developerWallet,
+      String storeWallet, String oemWallet, String origin, String walletAddress,
+      BigDecimal priceValue, String priceCurrency, String type) {
+    return remoteRepository.createAdyenTransaction(origin, walletAddress, signature, token,
+        packageName, priceValue, priceCurrency, productName, type, developerWallet, storeWallet,
+        oemWallet)
         .map(TransactionStatus::getUid)
         .subscribeOn(Schedulers.io());
   }

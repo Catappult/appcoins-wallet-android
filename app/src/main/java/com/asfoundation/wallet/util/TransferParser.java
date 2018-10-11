@@ -108,10 +108,11 @@ public class TransferParser {
   }
 
   private String getSkuId(ERC681 payment) throws UnsupportedEncodingException {
-    return new String(Hex.decode(payment.getFunctionParams()
+    return payment.getFunctionParams()
+        .get("data") != null ? new String(Hex.decode(payment.getFunctionParams()
         .get("data")
         .substring(2)
-        .getBytes("UTF-8")));
+        .getBytes("UTF-8"))) : null;
   }
 
   private BigDecimal getEtherTransferAmount(ERC681 payment) {

@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import com.appcoins.wallet.billing.BillingFactory;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
+import com.appcoins.wallet.billing.repository.entity.Gateway;
 import com.appcoins.wallet.billing.repository.entity.Purchase;
 import com.appcoins.wallet.billing.repository.entity.Transaction;
 import com.asfoundation.wallet.entity.GasSettings;
@@ -372,8 +373,14 @@ public class AsfInAppPurchaseInteractor {
   }
 
   public Single<Transaction> getTransaction(String packageName, String productName) {
-    return Single.fromCallable(() -> billingFactory.getBilling(packageName))
-        .flatMap(billing -> billing.getSkuTransaction(productName, Schedulers.io()));
+    return Single.defer(() -> {
+      if (productName != null) {
+        return Single.fromCallable(() -> billingFactory.getBilling(packageName))
+            .flatMap(billing -> billing.getSkuTransaction(productName, Schedulers.io()));
+      } else {
+        return Single.just(Transaction.Companion.notFound());
+      }
+    });
   }
 
   public Single<Purchase> getCompletedPurchase(String packageName, String productName) {
