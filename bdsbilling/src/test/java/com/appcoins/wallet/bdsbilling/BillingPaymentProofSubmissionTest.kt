@@ -1,6 +1,5 @@
-package com.appcoins.wallet.billing
+package com.appcoins.wallet.bdsbilling
 
-import com.appcoins.wallet.bdsbilling.*
 import com.appcoins.wallet.bdsbilling.repository.RegisterAuthorizationBody
 import com.appcoins.wallet.bdsbilling.repository.RegisterAuthorizationResponse
 import com.appcoins.wallet.bdsbilling.repository.RegisterPaymentBody

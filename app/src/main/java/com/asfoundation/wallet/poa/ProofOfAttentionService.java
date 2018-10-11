@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.poa;
 
 import android.support.annotation.NonNull;
-import com.asfoundation.wallet.repository.Repository;
+import com.appcoins.wallet.commons.Repository;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;

@@ -1,7 +1,6 @@
 package com.appcoins.wallet.bdsbilling.repository
 
-import com.appcoins.wallet.bdsbilling.BillingThrowableCodeMapper
-import com.appcoins.wallet.bdsbilling.Repository
+import com.appcoins.wallet.bdsbilling.BillingRepository
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
@@ -9,8 +8,7 @@ import com.appcoins.wallet.billing.repository.entity.Product
 import io.reactivex.Completable
 import io.reactivex.Single
 
-class BdsRepository(private val remoteRepository: RemoteRepository,
-                    private val errorMapper: BillingThrowableCodeMapper) : Repository {
+class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRepository {
 
   override fun registerAuthorizationProof(id: String, paymentType: String,
                                           walletAddress: String,
@@ -36,7 +34,7 @@ class BdsRepository(private val remoteRepository: RemoteRepository,
   }
 
   override fun getSkuDetails(packageName: String, skus: List<String>,
-                             type: Repository.BillingType): Single<List<Product>> {
+                             type: BillingRepository.BillingType): Single<List<Product>> {
     return remoteRepository.getSkuDetails(packageName, skus, type.name)
   }
 

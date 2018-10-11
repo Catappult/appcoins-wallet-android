@@ -19,6 +19,7 @@ import com.appcoins.wallet.bdsbilling.repository.BdsRepository;
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
+import com.appcoins.wallet.commons.MemoryCache;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxyBuilder;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk;
 import com.asf.wallet.BuildConfig;
@@ -69,7 +70,6 @@ import com.asfoundation.wallet.repository.GasSettingsRepository;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.IpCountryCodeProvider;
-import com.asfoundation.wallet.repository.MemoryCache;
 import com.asfoundation.wallet.repository.NoValidateTransactionValidator;
 import com.asfoundation.wallet.repository.NonceGetter;
 import com.asfoundation.wallet.repository.PasswordStore;
@@ -583,8 +583,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Singleton @Provides BillingFactory provideBillingFactory(RemoteRepository.BdsApi bdsApi,
       WalletService walletService) {
     return merchantName -> new BdsBilling(merchantName,
-        new BdsRepository(new RemoteRepository(bdsApi, new BdsApiResponseMapper()),
-            new BillingThrowableCodeMapper()), walletService, new BillingThrowableCodeMapper());
+        new BdsRepository(new RemoteRepository(bdsApi, new BdsApiResponseMapper())), walletService,
+        new BillingThrowableCodeMapper());
   }
 
   @Singleton @Provides ProxyService provideProxyService(AppCoinsAddressProxySdk proxySdk) {
@@ -623,8 +623,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides BdsRepository provideBdsRepository(RemoteRepository.BdsApi bdsApi) {
-    return new BdsRepository(new RemoteRepository(bdsApi, new BdsApiResponseMapper()),
-        new BillingThrowableCodeMapper());
+    return new BdsRepository(new RemoteRepository(bdsApi, new BdsApiResponseMapper()));
   }
 
   @Singleton @Provides AppcoinsRewards provideAppcoinsRewards(OkHttpClient client, Gson gson,

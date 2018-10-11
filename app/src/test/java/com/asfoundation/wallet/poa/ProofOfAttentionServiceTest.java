@@ -1,12 +1,13 @@
 package com.asfoundation.wallet.poa;
 
+import com.appcoins.wallet.commons.MemoryCache;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.repository.BdsBackEndWriter;
-import com.asfoundation.wallet.repository.MemoryCache;
 import com.asfoundation.wallet.repository.WalletNotFoundException;
 import com.asfoundation.wallet.service.PoASubmissionService;
+import com.asfoundation.wallet.repository.BlockChainWriter;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.TestObserver;

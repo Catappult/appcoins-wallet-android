@@ -8,7 +8,7 @@ import com.appcoins.wallet.billing.repository.entity.Product
 import io.reactivex.Completable
 import io.reactivex.Single
 
-interface Repository {
+interface BillingRepository {
 
   fun isSupported(packageName: String, type: BillingSupportedType): Single<Boolean>
 

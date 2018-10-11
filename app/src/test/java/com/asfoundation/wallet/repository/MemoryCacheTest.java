@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.repository;
 
+import com.appcoins.wallet.commons.MemoryCache;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.subjects.BehaviorSubject;
 import java.util.ArrayList;

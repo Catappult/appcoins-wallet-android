@@ -9,7 +9,7 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 
 class BdsBilling(private val merchantName: String,
-                 private val repository: Repository,
+                 private val repository: BillingRepository,
                  private val walletService: WalletService,
                  private val errorMapper: BillingThrowableCodeMapper) : Billing {
 
@@ -24,7 +24,7 @@ class BdsBilling(private val merchantName: String,
   }
 
   override fun getProducts(skus: List<String>, type: String): Single<List<Product>> {
-    return repository.getSkuDetails(merchantName, skus, Repository.BillingType.valueOf(type))
+    return repository.getSkuDetails(merchantName, skus, BillingRepository.BillingType.valueOf(type))
   }
 
   override fun getAppcoinsTransaction(uid: String,
