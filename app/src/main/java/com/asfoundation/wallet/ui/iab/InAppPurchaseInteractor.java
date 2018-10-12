@@ -33,9 +33,9 @@ public class InAppPurchaseInteractor {
 
   public Single<TransactionBuilder> parseTransaction(String uri, boolean isBds) {
     if (isBds) {
-      return asfInAppPurchaseInteractor.parseTransaction(uri);
-    } else {
       return bdsInAppPurchaseInteractor.parseTransaction(uri);
+    } else {
+      return asfInAppPurchaseInteractor.parseTransaction(uri);
     }
   }
 

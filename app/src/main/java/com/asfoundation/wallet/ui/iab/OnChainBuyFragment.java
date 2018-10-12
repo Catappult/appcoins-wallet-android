@@ -44,6 +44,7 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import static com.asfoundation.wallet.ui.iab.IabActivity.EXTRA_DEVELOPER_PAYLOAD;
+import static com.asfoundation.wallet.ui.iab.IabActivity.PRODUCT_NAME;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
 
 /**
@@ -53,7 +54,6 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
 public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView {
 
   public static final String APP_PACKAGE = "app_package";
-  public static final String PRODUCT_NAME = "product_name";
   public static final String TRANSACTION_HASH = "transaction_hash";
   private static final String TAG = OnChainBuyFragment.class.getSimpleName();
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
