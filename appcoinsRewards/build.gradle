@@ -9,6 +9,7 @@ dependencies {
   implementation "com.squareup.retrofit2:converter-gson:$project.retrofitVersion"
   testImplementation "junit:junit:$project.junitVersion"
   testImplementation "org.mockito:mockito-core:$project.mockitoCoreVersion"
+  implementation project(path: ':commons')
 }
 
 sourceCompatibility = 1.8

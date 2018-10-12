@@ -7,12 +7,16 @@ import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi
 import com.appcoins.wallet.appcoins.rewards.repository.bds.BdsApi
 import com.appcoins.wallet.appcoins.rewards.repository.bds.Origin
 import com.appcoins.wallet.appcoins.rewards.repository.bds.Type
+import com.appcoins.wallet.commons.MemoryCache
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
+import io.reactivex.schedulers.TestScheduler
+import io.reactivex.subjects.BehaviorSubject
 import org.junit.Before
 import org.junit.Test
 import java.math.BigDecimal
+import java.util.concurrent.ConcurrentHashMap
 
 class AppcoinsRewardsTest {
   companion object {
@@ -22,9 +26,17 @@ class AppcoinsRewardsTest {
     private const val STORE_ADDRESS: String = "0x652d25ac09f79e9619fba99f34f0d8420d0956b1"
     private const val SKU: String = "cm.aptoide.pt:gas"
     private const val BALANCE: Long = 2
+    private val TYPE: Type = Type.INAPP
+    private const val PACKAGE_NAME = "PACKAGE_NAME"
+    private val ORIGIN = Origin.BDS
+    private val PRICE = BigDecimal("1700000000000000000")
+
   }
 
   private lateinit var appcoinsRewards: AppcoinsRewards
+
+  private val scheduler = TestScheduler()
+
   @Before
   fun setUp() {
     val api = object : BackendApi {
@@ -52,19 +64,30 @@ class AppcoinsRewardsTest {
                 "27c3217155834a21fa8f97df99053f2874727837c03805c2eb1ba56383473b2a07fd865dd5db1359a717dfec9aa14bab6437184b14969ec3551b86e9d29c98d401")
 
           }
-        })
+        }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), scheduler)
+    appcoinsRewards.start()
   }
 
   @Test
   fun makePayment() {
     val testObserver = TestObserver<Any>()
-    appcoinsRewards.pay(BigDecimal("1700000000000000000"),
-        Origin.BDS,
-        SKU, Type.INAPP, DEVELOPER_ADDRESS,
+    appcoinsRewards.pay(PRICE,
+        ORIGIN,
+        SKU, TYPE, DEVELOPER_ADDRESS,
         STORE_ADDRESS,
         OEM_ADDRESS,
-        "packageName").subscribe(testObserver)
+        PACKAGE_NAME).subscribe(testObserver)
+    val statusObserver = TestObserver<Transaction>()
+    appcoinsRewards.getPayment(PACKAGE_NAME, SKU).subscribe(statusObserver)
+
+    scheduler.triggerActions()
     testObserver.assertNoErrors().assertComplete()
+    val mutableListOf = mutableListOf(
+        Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
+            PRICE, ORIGIN, Transaction.Status.PROCESSING),
+        Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
+            PRICE, ORIGIN, Transaction.Status.COMPLETED))
+    statusObserver.assertNoErrors().assertValueSequence(mutableListOf)
   }
 
   @Test

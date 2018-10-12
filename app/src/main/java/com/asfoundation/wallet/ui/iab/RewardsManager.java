@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
+import com.appcoins.wallet.appcoins.rewards.Transaction;
 import com.appcoins.wallet.appcoins.rewards.repository.bds.Origin;
 import com.appcoins.wallet.appcoins.rewards.repository.bds.Type;
 import com.appcoins.wallet.bdsbilling.Billing;
@@ -8,6 +9,7 @@ import com.appcoins.wallet.bdsbilling.BillingFactory;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import io.reactivex.Completable;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
@@ -37,6 +39,9 @@ public class RewardsManager {
             transaction.getUid())
             .ignoreElements()
             .andThen(billing.getSkuPurchase(sku, Schedulers.io())));
+  }
 
+  public Observable<Transaction> getPaymentStatus(String packageName, String sku) {
+    return appcoinsRewards.getPayment(packageName, sku);
   }
 }

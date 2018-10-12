@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.ui.iab;
 
+import com.appcoins.wallet.appcoins.rewards.Transaction;
 import com.asfoundation.wallet.util.TransferParser;
+import io.reactivex.Completable;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
@@ -45,15 +47,35 @@ public class AppcoinsRewardsBuyPresenter {
 
   private void handleBuyClick() {
     disposables.add(view.getBuyClick()
-        .observeOn(scheduler)
-        .doOnNext(__ -> view.hidePaymentDetails())
-        .doOnNext(__ -> view.showLoading())
         .flatMapSingle(__ -> transferParser.parse(uri))
-        .flatMapSingle(transaction -> rewardsManager.pay(transaction.getSkuId(), amount,
+        .flatMapCompletable(transaction -> rewardsManager.pay(transaction.getSkuId(), amount,
             transaction.toAddress(), storeAddress, oemAddress, packageName)
-            .andThen(rewardsManager.getPaymentCompleted(packageName, transaction.getSkuId())))
-        .doOnNext(view::finish)
+            .andThen(rewardsManager.getPaymentStatus(packageName, transaction.getSkuId()))
+            .observeOn(scheduler)
+            .flatMapCompletable(
+                paymentStatus -> handlePaymentStatus(paymentStatus, transaction.getSkuId())))
         .subscribe());
+  }
+
+  private Completable handlePaymentStatus(Transaction transaction, String sku) {
+    switch (transaction.getStatus()) {
+      case PROCESSING:
+        return Completable.fromAction(() -> {
+          view.hidePaymentDetails();
+          view.showLoading();
+        });
+      case COMPLETED:
+        return rewardsManager.getPaymentCompleted(packageName, sku)
+            .doOnSuccess(view::finish)
+            .ignoreElement();
+      case ERROR:
+        return Completable.fromAction(() -> {
+          view.showPaymentDetails();
+          view.hideLoading();
+        });
+    }
+    return Completable.error(new UnsupportedOperationException(
+        "Transaction status " + transaction.getStatus() + " not supported"));
   }
 
   public void stop() {

@@ -650,7 +650,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
           @NotNull @Override public Single<String> signContent(@NotNull String content) {
             return walletService.signContent(content);
           }
-        });
+        }, new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), Schedulers.io());
   }
 
   @Singleton @Provides RewardsManager provideRewardsManager(AppcoinsRewards appcoinsRewards,

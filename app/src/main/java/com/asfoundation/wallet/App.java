@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Service;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.Fragment;
+import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.bdsbilling.BillingFactory;
 import com.appcoins.wallet.bdsbilling.ProxyService;
 import com.appcoins.wallet.bdsbilling.WalletService;
@@ -58,6 +59,7 @@ public class App extends MultiDexApplication
   @Inject BillingFactory billingFactory;
   @Inject ProxyService proxyService;
   @Inject Adyen adyen;
+  @Inject AppcoinsRewards appcoinsRewards;
   @Inject BillingMessagesMapper billingMessagesMapper;
 
   @Override public void onCreate() {
@@ -77,6 +79,7 @@ public class App extends MultiDexApplication
     inAppPurchaseInteractor.start();
     proofOfAttentionService.start();
     appcoinsOperationsDataSaver.start();
+    appcoinsRewards.start();
     ethereumNetworkRepository.addOnChangeDefaultNetwork(
         networkInfo -> defaultTokenProvider.getDefaultToken()
             .flatMapCompletable(

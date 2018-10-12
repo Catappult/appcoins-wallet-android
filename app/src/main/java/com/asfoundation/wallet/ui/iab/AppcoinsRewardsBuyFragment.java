@@ -114,6 +114,10 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     iabView.finish(billingMessagesMapper.mapPurchase(purchase));
   }
 
+  @Override public void hideLoading() {
+    loadingView.setVisibility(View.GONE);
+  }
+
   @Override public void onAttach(Context context) {
     super.onAttach(context);
     if (!(context instanceof IabView)) {
