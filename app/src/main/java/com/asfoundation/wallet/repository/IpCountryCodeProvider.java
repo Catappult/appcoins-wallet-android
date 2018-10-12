@@ -7,7 +7,7 @@ import io.reactivex.Single;
 import retrofit2.http.GET;
 
 public class IpCountryCodeProvider implements CountryCodeProvider {
-  public static String ENDPOINT = com.asf.wallet.BuildConfig.CONVERSION_HOST;
+  public static String ENDPOINT = com.asf.wallet.BuildConfig.BACKEND_HOST;
   private final IpApi ipApi;
 
   public IpCountryCodeProvider(IpApi ipApi) {

@@ -35,8 +35,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 27
-    versionCode 21
-    versionName "1.1.0.1"
+    versionCode 26
+    versionName "1.1.1.4"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     vectorDrawables.useSupportLibrary = true
     multiDexEnabled = true
@@ -94,8 +94,8 @@ android {
       signingConfig signingConfigs.release
       buildConfigField 'String', 'BASE_HOST',
           "\"" + project.BASE_HOST_PROD + "\""
-      buildConfigField 'String', 'CONVERSION_HOST',
-          "\"" + project.CONVERSION_HOST_PROD + "\""
+      buildConfigField 'String', 'BACKEND_HOST',
+          "\"" + project.BACKEND_HOST_PROD + "\""
     }
     debug {
       minifyEnabled false
@@ -105,8 +105,8 @@ android {
       applicationIdSuffix ".dev"
       buildConfigField 'String', 'BASE_HOST',
           "\"" + project.BASE_HOST_DEV + "\""
-      buildConfigField 'String', 'CONVERSION_HOST',
-          "\"" + project.CONVERSION_HOST_DEV + "\""
+      buildConfigField 'String', 'BACKEND_HOST',
+          "\"" + project.BACKEND_HOST_DEV + "\""
       applicationVariants.all { variant -> renameArtifact(defaultConfig)
       }
     }
@@ -209,7 +209,7 @@ dependencies {
   //        transitive = true
   //    }
   implementation project(path: ':airdrop')
-  implementation 'com.asfoundation:apps:1'
+  implementation 'com.asfoundation:applications:3'
   implementation "com.android.support:palette-v7:$project.supportVersion"
   implementation "com.asfoundation:appcoins-contract-proxy:$project.appcoinsSdkVersion"
   implementation project(path: ':billing')

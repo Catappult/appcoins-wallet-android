@@ -272,15 +272,18 @@
   <string name="activity_iab_nonce_message">An error with blockchain occurred, please try again later.</string>
   <string name="activity_iab_approving_message">Checking all details: balance, items, network…</string>
   <string name="activity_aib_buying_message">Details checked \nReceiving your item…</string>
-  <string name="notification_ongoing_poa">Processing your PoA</string>
-  <string name="notification_completed_poa">Proof processed and submitted</string>
-  <string name="notification_submitting_poa">Submitting proof of attention to blockchain</string>
-  <string name="notification_no_funds_poa">Not enough funds to submit the proof</string>
-  <string name="notification_no_internet_poa">No network connection</string>
+  <string name="notification_ongoing_poa">Processing your reward</string>
+  <string name="notification_completed_poa">Reward received, enjoy!</string>
+  <string name="notification_submitting_poa">Submitting your request to the blockchain</string>
+  <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
+  <string name="notification_no_network_poa">No network connection</string>
   <string name="notification_error_poa">An error has occurred</string>
-  <string name="notification_no_wallet_poa">Wallet not configured yet</string>
-  <string name="notification_cancelled_poa">PoA cancelled</string>
-  <string name="notification_no_network_poa">No network access</string>
+  <string name="notification_no_wallet_poa">Your wallet isn\'t configured yet</string>
+  <string name="notification_cancelled_poa">Reward cancelled</string>
+  <string name="notification_not_available_poa">This rewards campaign is no longer available</string>
+  <string name="notification_not_available_for_country_poa">This rewards campaign isn\'t available in your country</string>
+  <string name="notification_already_rewarded_poa">You were already rewarded in this campaign</string>
+  <string name="notification_submit_error_poa">Sorry, there was an error. Try again!</string>
 
   <!-- transaction details -->
   <string name="transaction_status_success">Success</string>

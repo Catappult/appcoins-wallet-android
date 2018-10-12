@@ -14,7 +14,7 @@ import retrofit2.http.Query;
  */
 
 public class TokenToFiatService {
-  public static final String CONVERSION_HOST = BuildConfig.CONVERSION_HOST;
+  public static final String CONVERSION_HOST = BuildConfig.BACKEND_HOST;
 
   private final TokenToFiatApi tokenToFiatApi;
 
