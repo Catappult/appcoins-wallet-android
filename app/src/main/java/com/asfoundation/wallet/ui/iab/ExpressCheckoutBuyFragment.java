@@ -49,6 +49,7 @@ import java.util.Formatter;
 import java.util.Locale;
 import javax.inject.Inject;
 
+import static com.asfoundation.wallet.ui.iab.IabActivity.PRODUCT_NAME;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_CURRENCY;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_DATA;
@@ -59,7 +60,6 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_DATA;
 
 public class ExpressCheckoutBuyFragment extends DaggerFragment implements ExpressCheckoutBuyView {
   public static final String APP_PACKAGE = "app_package";
-  public static final String PRODUCT_NAME = "product_name";
   public static final String SKU_ID = "sku_id";
 
   private static final String INAPP_PURCHASE_DATA = "INAPP_PURCHASE_DATA";

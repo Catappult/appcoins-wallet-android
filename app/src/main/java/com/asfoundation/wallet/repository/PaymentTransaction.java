@@ -15,11 +15,12 @@ public class PaymentTransaction {
   private final PaymentState state;
   private final String packageName;
   private final String productName;
+  private final String productId;
   private final String developerPayload;
 
   public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, PaymentState state,
       @Nullable String approveHash, @Nullable String buyHash, String packageName,
-      String productName, String developerPayload) {
+      String productName, String productId, String developerPayload) {
     this.uri = uri;
     this.transactionBuilder = transactionBuilder;
     this.state = state;
@@ -27,6 +28,7 @@ public class PaymentTransaction {
     this.buyHash = buyHash;
     this.packageName = packageName;
     this.productName = productName;
+    this.productId = productId;
     this.developerPayload = developerPayload;
   }
 
@@ -34,11 +36,11 @@ public class PaymentTransaction {
     this(paymentTransaction.getUri(), paymentTransaction.getTransactionBuilder(), state,
         paymentTransaction.getApproveHash(), paymentTransaction.getBuyHash(),
         paymentTransaction.getPackageName(), paymentTransaction.getProductName(),
-        paymentTransaction.getDeveloperPayload());
+        paymentTransaction.getProductId(), paymentTransaction.getDeveloperPayload());
   }
 
   public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, PaymentState state,
-      @Nullable String approveHash, String packageName, String productName,
+      @Nullable String approveHash, String packageName, String productName, String productId,
       String developerPayload) {
     this.approveHash = approveHash;
     this.packageName = packageName;
@@ -46,6 +48,7 @@ public class PaymentTransaction {
     this.transactionBuilder = transactionBuilder;
     this.state = state;
     this.productName = productName;
+    this.productId = productId;
     this.buyHash = null;
     this.developerPayload = developerPayload;
   }
@@ -54,19 +57,20 @@ public class PaymentTransaction {
       String approveHash) {
     this(paymentTransaction.getUri(), paymentTransaction.getTransactionBuilder(), state,
         approveHash, null, paymentTransaction.getPackageName(), paymentTransaction.getProductName(),
-        paymentTransaction.getDeveloperPayload());
+        paymentTransaction.getProductId(), paymentTransaction.getDeveloperPayload());
   }
 
   public PaymentTransaction(PaymentTransaction paymentTransaction, PaymentState state,
       String approveHash, String buyHash) {
     this(paymentTransaction.getUri(), paymentTransaction.getTransactionBuilder(), state,
         approveHash, buyHash, paymentTransaction.getPackageName(),
-        paymentTransaction.getProductName(), paymentTransaction.getDeveloperPayload());
+        paymentTransaction.getProductName(), paymentTransaction.getProductId(),
+        paymentTransaction.getDeveloperPayload());
   }
 
   public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, String packageName,
-      String productName, String developerPayload) {
-    this(uri, transactionBuilder, PaymentState.PENDING, null, packageName, productName,
+      String productName, String productId, String developerPayload) {
+    this(uri, transactionBuilder, PaymentState.PENDING, null, packageName, productName, productId,
         developerPayload);
   }
 
@@ -121,24 +125,40 @@ public class PaymentTransaction {
 
   @Override public String toString() {
     return "PaymentTransaction{"
-        + "approveHash='"
+        + "uri='"
+        + uri
+        + '\''
+        + ", approveHash='"
         + approveHash
         + '\''
         + ", buyHash='"
         + buyHash
         + '\''
-        + ", state="
-        + state
         + ", transactionBuilder="
         + transactionBuilder
-        + ", uri='"
-        + uri
+        + ", state="
+        + state
+        + ", packageName='"
+        + packageName
+        + '\''
+        + ", productName='"
+        + productName
+        + '\''
+        + ", productId='"
+        + productId
+        + '\''
+        + ", developerPayload='"
+        + developerPayload
         + '\''
         + '}';
   }
 
   public String getProductName() {
     return productName;
+  }
+
+  public String getProductId() {
+    return productId;
   }
 
   public String getDeveloperPayload() {
