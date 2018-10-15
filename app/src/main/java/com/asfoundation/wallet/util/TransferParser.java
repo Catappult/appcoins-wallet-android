@@ -120,7 +120,7 @@ public class TransferParser {
   }
 
   private String getOrigin(ERC681 payment) throws UnsupportedEncodingException {
-    return retrieveData(payment).getOrigin();
+    return retrieveData(payment).getDomain();
   }
 
   private String getPayload(ERC681 payment) throws UnsupportedEncodingException {

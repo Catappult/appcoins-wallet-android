@@ -165,7 +165,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
     });
 
     networkErrorDialog =
-        new RxAlertDialog.Builder(getContext()).setMessage(R.string.notification_no_internet_poa)
+        new RxAlertDialog.Builder(getContext()).setMessage(R.string.notification_no_network_poa)
             .setPositiveButton(R.string.ok)
             .build();
     paymentRefusedDialog =

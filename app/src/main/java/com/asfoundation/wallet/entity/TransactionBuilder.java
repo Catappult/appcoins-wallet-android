@@ -34,7 +34,7 @@ public class TransactionBuilder implements Parcelable {
   private long chainId;
   private String skuId;
   private String type;
-  private String origin;
+  private String domain;
   private String payload;
   private String iabContract;
 
@@ -63,12 +63,12 @@ public class TransactionBuilder implements Parcelable {
     chainId = in.readLong();
     skuId = in.readString();
     type = in.readString();
-    origin = in.readString();
+    domain = in.readString();
     payload = in.readString();
   }
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId, String toAddress,
-      BigDecimal amount, String skuId, int decimals, String type, String origin, String payload) {
+      BigDecimal amount, String skuId, int decimals, String type, String domain, String payload) {
     this.symbol = symbol;
     this.contractAddress = contractAddress;
     this.chainId = chainId == null ? NO_CHAIN_ID : chainId;
@@ -78,15 +78,15 @@ public class TransactionBuilder implements Parcelable {
     this.shouldSendToken = false;
     this.decimals = decimals;
     this.type = type;
-    this.origin = origin;
+    this.domain = domain;
     this.payload = payload;
   }
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId,
       String receiverAddress, BigDecimal tokenTransferAmount, String skuId, int decimals,
-      String iabContract, String type, String origin, String payload) {
+      String iabContract, String type, String domain, String payload) {
     this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, skuId, decimals,
-        type, origin, payload);
+        type, domain, payload);
     this.iabContract = iabContract;
   }
 
@@ -214,8 +214,8 @@ public class TransactionBuilder implements Parcelable {
     return type;
   }
 
-  public String getOrigin() {
-    return origin;
+  public String getDomain() {
+    return domain;
   }
 
   public String getPayload() {
@@ -256,8 +256,8 @@ public class TransactionBuilder implements Parcelable {
         + ", type='"
         + type
         + '\''
-        + ", origin='"
-        + origin
+        + ", domain='"
+        + domain
         + '\''
         + ", payload='"
         + payload
@@ -285,7 +285,7 @@ public class TransactionBuilder implements Parcelable {
     dest.writeLong(chainId);
     dest.writeString(skuId);
     dest.writeString(type);
-    dest.writeString(origin);
+    dest.writeString(domain);
     dest.writeString(payload);
   }
 
