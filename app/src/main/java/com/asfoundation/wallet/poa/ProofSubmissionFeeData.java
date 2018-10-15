@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.poa;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
 public class ProofSubmissionFeeData {
   private final BigDecimal gasLimit;
@@ -34,13 +33,18 @@ public class ProofSubmissionFeeData {
   @Override public boolean equals(Object o) {
     if (this == o) return true;
     if (!(o instanceof ProofSubmissionFeeData)) return false;
+
     ProofSubmissionFeeData that = (ProofSubmissionFeeData) o;
-    return Objects.equals(getGasLimit(), that.getGasLimit()) && Objects.equals(getGasPrice(),
-        that.getGasPrice()) && getStatus() == that.getStatus();
+
+    if (!getGasLimit().equals(that.getGasLimit())) return false;
+    if (!getGasPrice().equals(that.getGasPrice())) return false;
+    return getStatus() == that.getStatus();
   }
 
   @Override public int hashCode() {
-
-    return Objects.hash(getGasLimit(), getGasPrice(), getStatus());
+    int result = getGasLimit().hashCode();
+    result = 31 * result + getGasPrice().hashCode();
+    result = 31 * result + getStatus().hashCode();
+    return result;
   }
 }
