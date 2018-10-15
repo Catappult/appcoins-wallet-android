@@ -95,13 +95,7 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
                              packageName: String, priceValue: BigDecimal, priceCurrency: String, productName: String?, type: String,
                              walletDeveloper: String,
                              walletStore: String, walletOem: String): Single<TransactionStatus> {
-    var innerProductName: String
-    if (productName == null) {
-      innerProductName = Random().nextInt().toString()
-    } else {
-      innerProductName = productName
-    }
-    return api.createAdyenTransaction(origin, packageName, priceValue.toString(), priceCurrency, innerProductName, type, walletDeveloper, walletStore, walletOem, token, walletAddress, walletSignature)
+    return api.createAdyenTransaction(origin, packageName, priceValue.toString(), priceCurrency, productName, type, walletDeveloper, walletStore, walletOem, token, walletAddress, walletSignature)
             .singleOrError()
   }
 

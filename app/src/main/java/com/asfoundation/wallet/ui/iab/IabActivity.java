@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import javax.inject.Inject;
 
 import static com.appcoins.wallet.billing.AppcoinsBillingBinder.EXTRA_BDS_IAP;
+import static com.appcoins.wallet.billing.AppcoinsBillingBinder.EXTRA_BDS_TYPE;
 
 /**
  * Created by franciscocalado on 20/07/2018.
@@ -114,7 +115,7 @@ public class IabActivity extends BaseActivity implements IabView {
         .replace(R.id.fragment_container, CreditCardAuthorizationFragment.newInstance(skuDetails,
             inAppPurchaseInteractor.parseTransaction(getIntent().getDataString(), isBds())
                 .blockingGet()
-                .getSkuId(), isBds() ? "INAPP" : "UNKNOWN"))
+                .getSkuId(), getType()))
         .commit();
   }
 
@@ -133,8 +134,10 @@ public class IabActivity extends BaseActivity implements IabView {
     if (savedInstanceState == null && getSupportFragmentManager().getFragments()
         .isEmpty()) {
       getSupportFragmentManager().beginTransaction()
-          .add(R.id.fragment_container,
-              ExpressCheckoutBuyFragment.newInstance(createBundle(amount)))
+          .add(R.id.fragment_container, ExpressCheckoutBuyFragment.newInstance(createBundle(
+              BigDecimal.valueOf(inAppPurchaseInteractor.convertToFiat(amount.doubleValue(), "EUR")
+                  .blockingGet()
+                  .getAmount()))))
           .commit();
     }
   }
@@ -166,5 +169,9 @@ public class IabActivity extends BaseActivity implements IabView {
 
   public boolean isBds() {
     return getIntent().getBooleanExtra(EXTRA_BDS_IAP, false);
+  }
+
+  public String getType() {
+    return getIntent().getStringExtra(EXTRA_BDS_TYPE);
   }
 }

@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 import com.appcoins.wallet.billing.BillingFactory;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
-import com.appcoins.wallet.billing.repository.entity.Gateway;
 import com.appcoins.wallet.billing.repository.entity.Purchase;
 import com.appcoins.wallet.billing.repository.entity.Transaction;
 import com.asfoundation.wallet.entity.GasSettings;
@@ -322,7 +321,8 @@ public class AsfInAppPurchaseInteractor {
 
   public Single<CurrentPaymentStep> getCurrentPaymentStep(String packageName,
       TransactionBuilder transactionBuilder) {
-    return Single.zip(getTransaction(packageName, transactionBuilder.getSkuId()),
+    return Single.zip(
+        getTransaction(packageName, transactionBuilder.getSkuId(), transactionBuilder.getType()),
         gasSettingsInteract.fetch(true)
             .doOnSuccess(gasSettings -> transactionBuilder.gasSettings(
                 new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
@@ -373,9 +373,9 @@ public class AsfInAppPurchaseInteractor {
     return billingSerializer;
   }
 
-  public Single<Transaction> getTransaction(String packageName, String productName) {
+  public Single<Transaction> getTransaction(String packageName, String productName, String type) {
     return Single.defer(() -> {
-      if (productName != null) {
+      if (type.equals("INAPP")) {
         return Single.fromCallable(() -> billingFactory.getBilling(packageName))
             .flatMap(billing -> billing.getSkuTransaction(productName, Schedulers.io()));
       } else {

@@ -120,7 +120,8 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
         creditCardBillingFactory.getBilling(getAppPackage()), navigator,
         inAppPurchaseInteractor.getBillingMessagesMapper(), inAppPurchaseInteractor,
         inAppPurchaseInteractor.getBillingSerializer(), getTransactionData(), getDeveloperPayload(),
-        billingFactory.getBilling(getAppPackage()), getSkuId(), getType(), getCurrency());
+        billingFactory.getBilling(getAppPackage()), getSkuId(), getType(), getAmount().toString(),
+        getCurrency());
   }
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -410,6 +411,13 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   public String getCurrency() {
     if (getArguments().containsKey(TRANSACTION_CURRENCY)) {
       return getArguments().getString(TRANSACTION_CURRENCY);
+    }
+    throw new IllegalArgumentException("transaction currency not found");
+  }
+
+  public BigDecimal getAmount() {
+    if (getArguments().containsKey(TRANSACTION_AMOUNT)) {
+      return (BigDecimal) getArguments().getSerializable(TRANSACTION_AMOUNT);
     }
     throw new IllegalArgumentException("transaction currency not found");
   }

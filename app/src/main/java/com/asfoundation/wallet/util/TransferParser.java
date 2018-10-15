@@ -128,10 +128,11 @@ public class TransferParser {
   }
 
   private TransactionData retrieveData(ERC681 payment) throws UnsupportedEncodingException {
-    String data = new String(Hex.decode(payment.getFunctionParams()
+    String data = payment.getFunctionParams()
+        .get("data") != null ? new String(Hex.decode(payment.getFunctionParams()
         .get("data")
         .substring(2)
-        .getBytes("UTF-8")));
+        .getBytes("UTF-8"))) : null;
     try {
       return new Gson().fromJson(data, TransactionData.class);
     } catch (JsonSyntaxException e) {
