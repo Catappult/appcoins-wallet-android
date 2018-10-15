@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.poa;
 
 import com.asf.wallet.BuildConfig;
+import com.asfoundation.wallet.repository.BdsBackEndWriter;
 import com.asfoundation.wallet.repository.BlockChainWriter;
 import com.asfoundation.wallet.repository.MemoryCache;
 import io.reactivex.Single;
@@ -29,7 +30,7 @@ import static org.mockito.Mockito.when;
 public class ProofOfAttentionServiceTest {
 
   public static final String SUBMIT_HASH = "hash";
-  @Mock BlockChainWriter blockChainWriter;
+  @Mock BdsBackEndWriter bdsBackEndWriter;
   @Mock HashCalculator hashCalculator;
   private ProofOfAttentionService proofOfAttentionService;
   private MemoryCache<String, Proof> cache;
@@ -45,14 +46,14 @@ public class ProofOfAttentionServiceTest {
     testScheduler = new TestScheduler();
     proofOfAttentionService =
         new ProofOfAttentionService(cache, BuildConfig.APPLICATION_ID, hashCalculator,
-            new CompositeDisposable(), blockChainWriter, testScheduler, maxNumberProofComponents,
-            new BlockchainErrorMapper(), new TaggedCompositeDisposable(new HashMap<>()),
+            new CompositeDisposable(), bdsBackEndWriter, testScheduler, maxNumberProofComponents,
+            new BackEndErrorMapper(), new TaggedCompositeDisposable(new HashMap<>()),
             () -> Single.just("PT"));
 
     nonce = 1L;
     when(hashCalculator.calculateNonce(any(NonceData.class))).thenReturn(nonce);
-    when(blockChainWriter.writeProof(any(Proof.class))).thenReturn(Single.just("hash"));
-    when(blockChainWriter.hasEnoughFunds(1)).thenReturn(hasFunds.firstOrError());
+    when(bdsBackEndWriter.writeProof(any(Proof.class))).thenReturn(Single.just("hash"));
+    when(bdsBackEndWriter.hasEnoughFunds(1)).thenReturn(hasFunds.firstOrError());
   }
 
   @Test public void setCampaignId() {
@@ -170,7 +171,7 @@ public class ProofOfAttentionServiceTest {
         .assertValueCount(7);
     Proof value = cacheObserver.values()
         .get(6);
-    verify(blockChainWriter, times(1)).writeProof(
+    verify(bdsBackEndWriter, times(1)).writeProof(
         new Proof(value.getPackageName(), value.getCampaignId(), value.getProofComponentList(),
             value.getWalletPackage(), ProofStatus.SUBMITTING, 1, null, null, BigDecimal.ZERO,
             BigDecimal.ZERO, null, "PT"));
