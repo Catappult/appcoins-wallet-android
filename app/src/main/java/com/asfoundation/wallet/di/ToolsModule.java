@@ -627,7 +627,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides AppcoinsRewards provideAppcoinsRewards(OkHttpClient client, Gson gson,
-      WalletService walletService) {
+      WalletService walletService, BillingFactory billingFactory) {
     BackendApi backendApi = new Retrofit.Builder().baseUrl("https://apichain-dev.blockchainds.com/")
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
@@ -650,12 +650,13 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
           @NotNull @Override public Single<String> signContent(@NotNull String content) {
             return walletService.signContent(content);
           }
-        }, new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), Schedulers.io());
+        }, new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), Schedulers.io(),
+        billingFactory);
   }
 
   @Singleton @Provides RewardsManager provideRewardsManager(AppcoinsRewards appcoinsRewards,
-      BillingFactory billingFactory, BdsPendingTransactionService bdsPendingTransactionService) {
-    return new RewardsManager(appcoinsRewards, billingFactory, bdsPendingTransactionService);
+      BillingFactory billingFactory) {
+    return new RewardsManager(appcoinsRewards, billingFactory);
   }
 
   @Singleton @Provides BillingMessagesMapper provideBillingMessagesMapper() {

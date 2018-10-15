@@ -3,18 +3,21 @@ package com.appcoins.wallet.appcoins.rewards
 import com.appcoins.wallet.appcoins.rewards.repository.WalletService
 import com.appcoins.wallet.appcoins.rewards.repository.bds.Origin
 import com.appcoins.wallet.appcoins.rewards.repository.bds.Type
+import com.appcoins.wallet.bdsbilling.BillingFactory
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import com.appcoins.wallet.commons.Repository
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import java.math.BigDecimal
+import java.util.concurrent.TimeUnit
 
 class AppcoinsRewards(
     private val repository: AppcoinsRewardsRepository,
     private val walletService: WalletService,
     private val cache: Repository<String, Transaction>,
-    private val scheduler: Scheduler) {
+    private val scheduler: Scheduler, private val billingFactory: BillingFactory) {
 
   fun getBalance(address: String): Single<Long> {
     return repository.getBalance(address)
@@ -48,12 +51,15 @@ class AppcoinsRewards(
           .flatMapCompletable { transaction ->
             walletService.getWalletAddress()
                 .flatMapCompletable { walletAddress ->
-                  walletService.signContent(walletAddress).flatMapCompletable { signature ->
+                  walletService.signContent(walletAddress).flatMap { signature ->
                     repository.pay(walletAddress, signature, transaction.amount,
                         transaction.origin, transaction.sku,
                         transaction.type, transaction.developerAddress, transaction.storeAddress,
                         transaction.oemAddress, transaction.packageName)
                   }
+                      .flatMapCompletable { createdTransaction ->
+                        waitTransactionCompletion(transaction, createdTransaction)
+                      }
                 }.andThen(cache.save(getKey(transaction),
                     Transaction(transaction, Transaction.Status.COMPLETED)))
                 .onErrorResumeNext {
@@ -63,6 +69,21 @@ class AppcoinsRewards(
                 }
           }
     }.subscribe()
+  }
+
+  private fun waitTransactionCompletion(
+      transaction: Transaction,
+      createdTransaction: com.appcoins.wallet.bdsbilling.repository.entity.Transaction): Completable {
+    val billing = billingFactory.getBilling(transaction.packageName)
+    return Observable.interval(0, 5, TimeUnit.SECONDS, scheduler)
+        .timeInterval()
+        .switchMap {
+          billing.getAppcoinsTransaction(createdTransaction.uid, scheduler).toObservable()
+        }
+        .takeUntil { pendingTransaction ->
+          pendingTransaction.status != Status.PROCESSING
+        }.ignoreElements()
+
   }
 
   fun getPayment(packageName: String, sku: String): Observable<Transaction> =

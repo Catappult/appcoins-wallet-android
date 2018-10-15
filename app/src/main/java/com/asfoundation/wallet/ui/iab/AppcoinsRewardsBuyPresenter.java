@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.iab;
 
-import com.appcoins.wallet.appcoins.rewards.Transaction;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
@@ -57,7 +56,7 @@ public class AppcoinsRewardsBuyPresenter {
         .subscribe());
   }
 
-  private Completable handlePaymentStatus(Transaction transaction, String sku) {
+  private Completable handlePaymentStatus(RewardsManager.RewardPayment transaction, String sku) {
     switch (transaction.getStatus()) {
       case PROCESSING:
         return Completable.fromAction(() -> {

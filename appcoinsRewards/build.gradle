@@ -10,6 +10,7 @@ dependencies {
   testImplementation "junit:junit:$project.junitVersion"
   testImplementation "org.mockito:mockito-core:$project.mockitoCoreVersion"
   implementation project(path: ':commons')
+  implementation project(path: ':bdsbilling')
 }
 
 sourceCompatibility = 1.8

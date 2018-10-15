@@ -7,7 +7,6 @@ import com.appcoins.wallet.appcoins.rewards.repository.bds.Type;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.BillingFactory;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
-import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -17,13 +16,10 @@ import java.math.BigDecimal;
 public class RewardsManager {
   private final AppcoinsRewards appcoinsRewards;
   private final BillingFactory billingFactory;
-  private final BdsPendingTransactionService bdsPendingTransactionService;
 
-  public RewardsManager(AppcoinsRewards appcoinsRewards, BillingFactory billingFactory,
-      BdsPendingTransactionService bdsPendingTransactionService) {
+  public RewardsManager(AppcoinsRewards appcoinsRewards, BillingFactory billingFactory) {
     this.appcoinsRewards = appcoinsRewards;
     this.billingFactory = billingFactory;
-    this.bdsPendingTransactionService = bdsPendingTransactionService;
   }
 
   public Completable pay(String sku, BigDecimal amount, String developerAddress,
@@ -34,14 +30,40 @@ public class RewardsManager {
 
   public Single<Purchase> getPaymentCompleted(String packageName, String sku) {
     Billing billing = billingFactory.getBilling(packageName);
-    return billing.getSkuTransaction(sku, Schedulers.io())
-        .flatMap(transaction -> bdsPendingTransactionService.checkTransactionStateFromTransactionId(
-            transaction.getUid())
-            .ignoreElements()
-            .andThen(billing.getSkuPurchase(sku, Schedulers.io())));
+    return billing.getSkuPurchase(sku, Schedulers.io());
   }
 
-  public Observable<Transaction> getPaymentStatus(String packageName, String sku) {
-    return appcoinsRewards.getPayment(packageName, sku);
+  public Observable<RewardPayment> getPaymentStatus(String packageName, String sku) {
+    return appcoinsRewards.getPayment(packageName, sku)
+        .flatMap(this::map);
+  }
+
+  private Observable<RewardPayment> map(Transaction transaction) {
+    switch (transaction.getStatus()) {
+      case PROCESSING:
+        return Observable.just(new RewardPayment(RewardPayment.Status.PROCESSING));
+      case COMPLETED:
+        return Observable.just(new RewardPayment(RewardPayment.Status.COMPLETED));
+      case ERROR:
+        return Observable.just(new RewardPayment(RewardPayment.Status.ERROR));
+    }
+    throw new UnsupportedOperationException(
+        "Transaction status " + transaction.getStatus() + " not supported");
+  }
+
+  static class RewardPayment {
+    private final Status status;
+
+    RewardPayment(Status status) {
+      this.status = status;
+    }
+
+    public Status getStatus() {
+      return status;
+    }
+
+    enum Status {
+      PROCESSING, COMPLETED, ERROR
+    }
   }
 }

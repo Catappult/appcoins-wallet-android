@@ -49,9 +49,9 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     return remoteRepository.getSkuTransaction(packageName, skuId, walletAddress, walletSignature)
         .flatMap {
           if (!it.items.isEmpty()) {
-            Single.just(it.items[0])
+            return@flatMap Single.just(it.items[0])
           }
-          Single.just(Transaction.notFound())
+          return@flatMap Single.just(Transaction.notFound())
         }
   }
 

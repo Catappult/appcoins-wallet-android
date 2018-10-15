@@ -2,7 +2,7 @@ package com.appcoins.wallet.appcoins.rewards
 
 import com.appcoins.wallet.appcoins.rewards.repository.bds.Origin
 import com.appcoins.wallet.appcoins.rewards.repository.bds.Type
-import io.reactivex.Completable
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import io.reactivex.Single
 import java.math.BigDecimal
 
@@ -14,5 +14,5 @@ interface AppcoinsRewardsRepository {
           developerAddress: String,
           storeAddress: String,
           oemAddress: String,
-          packageName: String): Completable
+          packageName: String): Single<Transaction>
 }

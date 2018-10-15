@@ -7,17 +7,24 @@ import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi
 import com.appcoins.wallet.appcoins.rewards.repository.bds.BdsApi
 import com.appcoins.wallet.appcoins.rewards.repository.bds.Origin
 import com.appcoins.wallet.appcoins.rewards.repository.bds.Type
+import com.appcoins.wallet.bdsbilling.Billing
+import com.appcoins.wallet.bdsbilling.BillingFactory
+import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
 import com.appcoins.wallet.commons.MemoryCache
-import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import io.reactivex.schedulers.TestScheduler
 import io.reactivex.subjects.BehaviorSubject
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.Mockito.`when`
+import org.mockito.junit.MockitoJUnitRunner
 import java.math.BigDecimal
 import java.util.concurrent.ConcurrentHashMap
 
+@RunWith(MockitoJUnitRunner::class)
 class AppcoinsRewardsTest {
   companion object {
     private const val USER_ADDRESS: String = "0xd9BA3c6932a5084D0CA0769893353D60b23AAfC4"
@@ -30,12 +37,15 @@ class AppcoinsRewardsTest {
     private const val PACKAGE_NAME = "PACKAGE_NAME"
     private val ORIGIN = Origin.BDS
     private val PRICE = BigDecimal("1700000000000000000")
+    private const val UID = "UID"
 
   }
 
   private lateinit var appcoinsRewards: AppcoinsRewards
 
   private val scheduler = TestScheduler()
+  @Mock
+  lateinit var billing: Billing
 
   @Before
   fun setUp() {
@@ -46,11 +56,19 @@ class AppcoinsRewardsTest {
     }
 
     val bdsApi = object : BdsApi {
+
       override fun pay(walletAddress: String, signature: String,
-                       payBody: BdsApi.PayBody): Completable {
-        return Completable.complete()
+                       payBody: BdsApi.PayBody): Single<com.appcoins.wallet.bdsbilling.repository.entity.Transaction> {
+        return Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
+            com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
+            Gateway.unknown()))
       }
     }
+
+    `when`(billing.getAppcoinsTransaction(UID, scheduler)).thenReturn(
+        Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
+            com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
+            Gateway.unknown())))
 
     appcoinsRewards =
         AppcoinsRewards(
@@ -64,7 +82,12 @@ class AppcoinsRewardsTest {
                 "27c3217155834a21fa8f97df99053f2874727837c03805c2eb1ba56383473b2a07fd865dd5db1359a717dfec9aa14bab6437184b14969ec3551b86e9d29c98d401")
 
           }
-        }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), scheduler)
+        }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), scheduler,
+            object : BillingFactory {
+              override fun getBilling(merchantName: String): Billing {
+                return billing
+              }
+            })
     appcoinsRewards.start()
   }
 
