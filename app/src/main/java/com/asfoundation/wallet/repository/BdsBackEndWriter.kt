@@ -9,7 +9,7 @@ import io.reactivex.Single
 import java.math.BigDecimal
 import java.net.UnknownHostException
 
-class BdsBackEndWriter(private val defaultWalletInteract: FindDefaultWalletInteract,
+open class BdsBackEndWriter(private val defaultWalletInteract: FindDefaultWalletInteract,
                        private val service: PoASubmissionService) : ProofWriter {
 
   override fun writeProof(proof: Proof): Single<String> {
