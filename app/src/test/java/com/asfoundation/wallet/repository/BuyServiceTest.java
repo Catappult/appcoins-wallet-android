@@ -63,7 +63,7 @@ import static org.mockito.Mockito.when;
     transactionBuilder =
         new TransactionBuilder("APPC", "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", 3l,
             "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", BigDecimal.ONE, "sku", 18,
-            "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3");
+            "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", "type", "packageName", "payload");
     when(transactionSender.send(transactionBuilder)).thenReturn(Single.just("hash"));
     when(defaultTokenProvider.getDefaultToken()).thenReturn(Single.just(tokenInfo));
     when(countryCodeProvider.getCountryCode()).thenReturn(Single.just("PT"));
