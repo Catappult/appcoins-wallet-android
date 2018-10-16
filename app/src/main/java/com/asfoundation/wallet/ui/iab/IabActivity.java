@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import com.appcoins.wallet.billing.util.PayloadHelper;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.ui.BaseActivity;
 import com.facebook.appevents.AppEventsLogger;
 import dagger.android.AndroidInjection;
@@ -16,7 +17,6 @@ import java.math.BigDecimal;
 import javax.inject.Inject;
 
 import static com.appcoins.wallet.billing.AppcoinsBillingBinder.EXTRA_BDS_IAP;
-import static com.appcoins.wallet.billing.AppcoinsBillingBinder.EXTRA_BDS_TYPE;
 
 /**
  * Created by franciscocalado on 20/07/2018.
@@ -111,11 +111,13 @@ public class IabActivity extends BaseActivity implements IabView {
   }
 
   @Override public void navigateToCreditCardAuthorization() {
+    TransactionBuilder builder =
+        inAppPurchaseInteractor.parseTransaction(getIntent().getDataString(), isBds())
+            .blockingGet();
     getSupportFragmentManager().beginTransaction()
-        .replace(R.id.fragment_container, CreditCardAuthorizationFragment.newInstance(skuDetails,
-            inAppPurchaseInteractor.parseTransaction(getIntent().getDataString(), isBds())
-                .blockingGet()
-                .getSkuId(), getType()))
+        .replace(R.id.fragment_container,
+            CreditCardAuthorizationFragment.newInstance(skuDetails, builder.getSkuId(),
+                builder.getType()))
         .commit();
   }
 
@@ -169,9 +171,5 @@ public class IabActivity extends BaseActivity implements IabView {
 
   public boolean isBds() {
     return getIntent().getBooleanExtra(EXTRA_BDS_IAP, false);
-  }
-
-  public String getType() {
-    return getIntent().getStringExtra(EXTRA_BDS_TYPE);
   }
 }
