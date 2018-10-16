@@ -179,7 +179,7 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
 
     @FormUrlEncoded
     @POST("broker/8.20180518/gateways/adyen/transactions")
-    fun createAdyenTransaction(@Field("origin") origin: String,
+    fun createAdyenTransaction(@Field("origin") origin: String?,
                                @Field("domain") domain: String,
                                @Field("price.value") priceValue: String,
                                @Field("price.currency") priceCurrency: String,

@@ -30,8 +30,6 @@ public class CreditCardAuthorizationPresenter {
   private static final String INAPP_DATA_SIGNATURE = "INAPP_DATA_SIGNATURE";
   private static final String INAPP_PURCHASE_ID = "INAPP_PURCHASE_ID";
 
-  private static final String BDS = "BDS";
-
   private final Scheduler viewScheduler;
   private final CompositeDisposable disposables;
   private final Adyen adyen;
@@ -45,6 +43,7 @@ public class CreditCardAuthorizationPresenter {
   private final Billing billing;
   private final String skuId;
   private final String type;
+  private final String origin;
   private final String amount;
   private final String currency;
   private CreditCardAuthorizationView view;
@@ -56,7 +55,7 @@ public class CreditCardAuthorizationPresenter {
       CreditCardNavigator navigator, BillingMessagesMapper billingMessagesMapper,
       InAppPurchaseInteractor inAppPurchaseInteractor, ExternalBillingSerializer billingSerializer,
       String transactionData, String developerPayload, Billing billing, String skuId, String type,
-      String amount, String currency) {
+      String origin, String amount, String currency) {
     this.view = view;
     this.defaultWalletInteract = defaultWalletInteract;
     this.viewScheduler = viewScheduler;
@@ -72,6 +71,7 @@ public class CreditCardAuthorizationPresenter {
     this.billing = billing;
     this.skuId = skuId;
     this.type = type;
+    this.origin = origin;
     this.amount = amount;
     this.currency = currency;
   }
@@ -145,7 +145,7 @@ public class CreditCardAuthorizationPresenter {
         .andThen(inAppPurchaseInteractor.parseTransaction(transactionData, true)
             .flatMapCompletable(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                    transaction.toAddress(), developerPayload, BDS, new BigDecimal(amount),
+                    transaction.toAddress(), developerPayload, origin, new BigDecimal(amount),
                     currency,
                     type)
                     .observeOn(viewScheduler)
@@ -171,7 +171,7 @@ public class CreditCardAuthorizationPresenter {
     disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
         .flatMap(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                    transaction.toAddress(), developerPayload, BDS, new BigDecimal(amount),
+                    transaction.toAddress(), developerPayload, origin, new BigDecimal(amount),
                     currency,
                     type)
                     .filter(payment -> payment.isCompleted())
@@ -208,7 +208,7 @@ public class CreditCardAuthorizationPresenter {
     disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
         .flatMap(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                    transaction.toAddress(), developerPayload, BDS, new BigDecimal(amount),
+                    transaction.toAddress(), developerPayload, origin, new BigDecimal(amount),
                     currency,
                     type)
                     .filter(payment -> payment.isFailed())
@@ -227,7 +227,7 @@ public class CreditCardAuthorizationPresenter {
     disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
             .flatMapObservable(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                    transaction.toAddress(), developerPayload, BDS, new BigDecimal(amount),
+                    transaction.toAddress(), developerPayload, origin, new BigDecimal(amount),
                     currency,
                     type)
                     .filter(payment -> payment.isProcessing())

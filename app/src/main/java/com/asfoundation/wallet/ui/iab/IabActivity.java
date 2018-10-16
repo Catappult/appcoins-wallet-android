@@ -23,6 +23,9 @@ import static com.appcoins.wallet.billing.AppcoinsBillingBinder.EXTRA_BDS_IAP;
  */
 
 public class IabActivity extends BaseActivity implements IabView {
+
+  private static final String BDS = "BDS";
+
   public static final String RESPONSE_CODE = "RESPONSE_CODE";
   public static final int RESULT_USER_CANCELED = 1;
   public static final String SKU_DETAILS = "sku_details";
@@ -117,7 +120,7 @@ public class IabActivity extends BaseActivity implements IabView {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container,
             CreditCardAuthorizationFragment.newInstance(skuDetails, builder.getSkuId(),
-                builder.getType()))
+                builder.getType(), isBds() ? BDS : null))
         .commit();
   }
 

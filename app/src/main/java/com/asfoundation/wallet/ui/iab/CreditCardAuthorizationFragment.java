@@ -63,6 +63,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
 
   private static final String SKU_ID = "sku_id";
   private static final String TYPE = "type";
+  private static final String ORIGIN = "origin";
   private static final String PACKAGE_NAME = "packageName";
   private static final String APP_NAME = "appName";
   private static final String APP_DESCRIPTION = "appDescription";
@@ -99,11 +100,12 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   private CreditCardFragmentNavigator navigator;
 
   public static CreditCardAuthorizationFragment newInstance(Bundle skuDetails, String skuId,
-      String type) {
+      String type, String origin) {
 
     final CreditCardAuthorizationFragment fragment = new CreditCardAuthorizationFragment();
     skuDetails.putString(SKU_ID, skuId);
     skuDetails.putString(TYPE, type);
+    skuDetails.putString(ORIGIN, origin);
     fragment.setArguments(skuDetails);
     return fragment;
   }
@@ -120,7 +122,8 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
         creditCardBillingFactory.getBilling(getAppPackage()), navigator,
         inAppPurchaseInteractor.getBillingMessagesMapper(), inAppPurchaseInteractor,
         inAppPurchaseInteractor.getBillingSerializer(), getTransactionData(), getDeveloperPayload(),
-        billingFactory.getBilling(getAppPackage()), getSkuId(), getType(), getAmount().toString(),
+        billingFactory.getBilling(getAppPackage()), getSkuId(), getType(), getOrigin(),
+        getAmount().toString(),
         getCurrency());
   }
 
@@ -406,6 +409,13 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
       return getArguments().getString(TYPE);
     }
     throw new IllegalArgumentException("type not found");
+  }
+
+  public String getOrigin() {
+    if (getArguments().containsKey(ORIGIN)) {
+      return getArguments().getString(ORIGIN);
+    }
+    throw new IllegalArgumentException("origin not found");
   }
 
   public String getCurrency() {
