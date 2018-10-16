@@ -1,14 +1,19 @@
 package com.asfoundation.wallet.poa;
 
 import com.asf.wallet.BuildConfig;
-import com.asfoundation.wallet.repository.BlockChainWriter;
+import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
+import com.asfoundation.wallet.repository.BdsBackEndWriter;
 import com.asfoundation.wallet.repository.MemoryCache;
+import com.asfoundation.wallet.repository.WalletNotFoundException;
+import com.asfoundation.wallet.service.PoASubmissionService;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.BehaviorSubject;
 import java.math.BigDecimal;
+import java.net.UnknownHostException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,6 +27,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -29,30 +35,36 @@ import static org.mockito.Mockito.when;
 public class ProofOfAttentionServiceTest {
 
   public static final String SUBMIT_HASH = "hash";
-  @Mock BlockChainWriter blockChainWriter;
+  @Mock FindDefaultWalletInteract defaultWalletInteract;
+  @Mock PoASubmissionService poaSubmissionService;
   @Mock HashCalculator hashCalculator;
   private ProofOfAttentionService proofOfAttentionService;
   private MemoryCache<String, Proof> cache;
   private int maxNumberProofComponents = 3;
   private long nonce;
   private TestScheduler testScheduler;
-  private BehaviorSubject<ProofSubmissionFeeData> hasFunds;
+  private BehaviorSubject<Wallet> hasWallet;
+  private ProofWriter proofWriter;
+  private String wallet;
 
   @Before public void before() throws NoSuchAlgorithmException {
     MockitoAnnotations.initMocks(this);
-    hasFunds = BehaviorSubject.create();
+    hasWallet = BehaviorSubject.create();
     cache = new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>());
     testScheduler = new TestScheduler();
+    proofWriter = new BdsBackEndWriter(defaultWalletInteract, poaSubmissionService);
     proofOfAttentionService =
         new ProofOfAttentionService(cache, BuildConfig.APPLICATION_ID, hashCalculator,
-            new CompositeDisposable(), blockChainWriter, testScheduler, maxNumberProofComponents,
-            new BlockchainErrorMapper(), new TaggedCompositeDisposable(new HashMap<>()),
+            new CompositeDisposable(), proofWriter, testScheduler, maxNumberProofComponents,
+            new BackEndErrorMapper(), new TaggedCompositeDisposable(new HashMap<>()),
             () -> Single.just("PT"));
 
     nonce = 1L;
+    wallet = "wallet_address";
+    when(defaultWalletInteract.find()).thenReturn(hasWallet.firstOrError());
+    when(poaSubmissionService.submitProof(any(Proof.class), eq(wallet))).thenReturn(
+        Single.just(SUBMIT_HASH));
     when(hashCalculator.calculateNonce(any(NonceData.class))).thenReturn(nonce);
-    when(blockChainWriter.writeProof(any(Proof.class))).thenReturn(Single.just("hash"));
-    when(blockChainWriter.hasEnoughFunds(1)).thenReturn(hasFunds.firstOrError());
   }
 
   @Test public void setCampaignId() {
@@ -153,6 +165,8 @@ public class ProofOfAttentionServiceTest {
     String campaignId = "campaignId";
     int timeStamp = 10;
 
+    hasWallet.onNext(new Wallet(wallet));
+
     proofOfAttentionService.start();
 
     TestObserver<Proof> cacheObserver = new TestObserver<>();
@@ -170,10 +184,10 @@ public class ProofOfAttentionServiceTest {
         .assertValueCount(7);
     Proof value = cacheObserver.values()
         .get(6);
-    verify(blockChainWriter, times(1)).writeProof(
+    verify(poaSubmissionService, times(1)).submitProof(
         new Proof(value.getPackageName(), value.getCampaignId(), value.getProofComponentList(),
             value.getWalletPackage(), ProofStatus.SUBMITTING, 1, null, null, BigDecimal.ZERO,
-            BigDecimal.ZERO, null, "PT"));
+            BigDecimal.ZERO, null, "PT"), wallet);
 
     Assert.assertEquals(
         new Proof(value.getPackageName(), value.getCampaignId(), value.getProofComponentList(),
@@ -187,6 +201,7 @@ public class ProofOfAttentionServiceTest {
     String packageName = "packageName";
     String campaignId = "campaignId";
     int timeStamp = 10;
+    hasWallet.onNext(new Wallet(wallet));
 
     proofOfAttentionService.start();
 
@@ -278,34 +293,40 @@ public class ProofOfAttentionServiceTest {
         .subscribeOn(testScheduler)
         .test();
     ProofSubmissionFeeData readyFee =
-        new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY, BigDecimal.ONE,
-            BigDecimal.ONE);
-    hasFunds.onNext(readyFee);
+        new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY, BigDecimal.ZERO,
+            BigDecimal.ZERO);
+    hasWallet.onNext(new Wallet(wallet));
     testScheduler.triggerActions();
     ready.assertComplete()
         .assertNoErrors()
         .assertValue(readyFee);
-    TestObserver<ProofSubmissionFeeData> noFunds = proofOfAttentionService.isWalletReady(1)
-        .subscribeOn(testScheduler)
-        .test();
-    ProofSubmissionFeeData noFundsFee =
-        new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NO_FUNDS,
-            BigDecimal.ZERO, BigDecimal.ZERO);
-    hasFunds.onNext(noFundsFee);
-    testScheduler.triggerActions();
-    noFunds.assertComplete()
-        .assertNoErrors()
-        .assertValue(noFundsFee);
+  }
+
+  @Test public void noWalletReady() {
     TestObserver<ProofSubmissionFeeData> noWallet = proofOfAttentionService.isWalletReady(1)
         .subscribeOn(testScheduler)
         .test();
     ProofSubmissionFeeData noWalletFee =
         new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NO_WALLET,
             BigDecimal.ZERO, BigDecimal.ZERO);
-    hasFunds.onNext(noWalletFee);
+    hasWallet.onError(new WalletNotFoundException());
     testScheduler.triggerActions();
     noWallet.assertComplete()
         .assertNoErrors()
         .assertValue(noWalletFee);
+  }
+
+  @Test public void noNetwork() {
+    TestObserver<ProofSubmissionFeeData> noFunds = proofOfAttentionService.isWalletReady(1)
+        .subscribeOn(testScheduler)
+        .test();
+    ProofSubmissionFeeData noFundsFee =
+        new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NO_NETWORK,
+            BigDecimal.ZERO, BigDecimal.ZERO);
+    hasWallet.onError(new UnknownHostException());
+    testScheduler.triggerActions();
+    noFunds.assertComplete()
+        .assertNoErrors()
+        .assertValue(noFundsFee);
   }
 }
