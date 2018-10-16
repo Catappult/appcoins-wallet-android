@@ -198,7 +198,7 @@ dependencies {
   implementation project(":tn")
   implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  implementation 'com.asfoundation:microraidenj-bds:0.4.5.19b'
+  implementation "com.asfoundation:microraidenj-bds:$project.appcoinsSdkVersion"
 
   implementation "android.arch.persistence.room:runtime:$project.roomVersion"
   annotationProcessor "android.arch.persistence.room:compiler:$project.roomVersion"
@@ -211,7 +211,7 @@ dependencies {
   implementation project(path: ':airdrop')
   implementation 'com.asfoundation:applications:3'
   implementation "com.android.support:palette-v7:$project.supportVersion"
-  implementation "com.asfoundation:appcoins-contract-proxy:0.4.4b"
+  implementation "com.asfoundation:appcoins-contract-proxy:$project.appcoinsSdkVersion"
   implementation project(path: ':billing')
 
   //braintreepayments card form dependency
