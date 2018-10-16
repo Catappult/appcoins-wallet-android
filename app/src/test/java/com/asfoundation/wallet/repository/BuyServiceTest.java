@@ -34,6 +34,7 @@ import static org.mockito.Mockito.when;
 
   public static final String PACKAGE_NAME = "package_name";
   public static final String PRODUCT_NAME = "product_name";
+  public static final String PRODUCT_ID = "product_id";
   public static final String DEVELOPER_PAYLOAD = "developer_payload";
   @Mock SendTransactionInteract sendTransactionInteract;
   @Mock TrackTransactionService trackTransactionService;
@@ -63,7 +64,7 @@ import static org.mockito.Mockito.when;
     transactionBuilder =
         new TransactionBuilder("APPC", "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", 3l,
             "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", BigDecimal.ONE, "sku", 18,
-            "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3");
+            "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", "type", "packageName", "payload");
     when(transactionSender.send(transactionBuilder)).thenReturn(Single.just("hash"));
     when(defaultTokenProvider.getDefaultToken()).thenReturn(Single.just(tokenInfo));
     when(countryCodeProvider.getCountryCode()).thenReturn(Single.just("PT"));
@@ -90,7 +91,7 @@ import static org.mockito.Mockito.when;
 
     buyService.buy(uri,
         new PaymentTransaction(uri, transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
-            "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD))
+            "", null, PACKAGE_NAME, PRODUCT_NAME, PRODUCT_ID, DEVELOPER_PAYLOAD))
         .subscribe();
 
     scheduler.triggerActions();
@@ -119,7 +120,7 @@ import static org.mockito.Mockito.when;
 
     buyService.buy(uri,
         new PaymentTransaction(uri, transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
-            "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD))
+            "", null, PACKAGE_NAME, PRODUCT_NAME, PRODUCT_ID, DEVELOPER_PAYLOAD))
         .subscribe();
 
     scheduler.triggerActions();
