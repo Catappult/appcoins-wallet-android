@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import com.appcoins.wallet.billing.util.PayloadHelper;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.ui.BaseActivity;
 import com.facebook.appevents.AppEventsLogger;
 import dagger.android.AndroidInjection;
@@ -35,6 +36,7 @@ public class IabActivity extends BaseActivity implements IabView {
   public static final String FIAT_VALUE = "fiat_value";
   private static final String TAG = IabActivity.class.getSimpleName();
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
+  @Inject BillingAnalytics analytics;
   private boolean isBackEnable;
   private IabPresenter presenter;
   private Bundle savedInstanceState;
@@ -58,7 +60,7 @@ public class IabActivity extends BaseActivity implements IabView {
     isBackEnable = true;
     presenter = new IabPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
         new CompositeDisposable(), getIntent().getData()
-        .toString(), getAppPackage(), isBds());
+        .toString(), getAppPackage(), isBds(), analytics);
 
     if (savedInstanceState != null) {
       if (savedInstanceState.containsKey(SKU_DETAILS)) {

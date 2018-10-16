@@ -2,6 +2,9 @@ package com.asfoundation.wallet.di;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.util.Log;
+import cm.aptoide.analytics.AnalyticsManager;
+import cm.aptoide.analytics.EventLogger;
 import com.appcoins.wallet.billing.BdsBilling;
 import com.appcoins.wallet.billing.BillingFactory;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
@@ -26,6 +29,7 @@ import com.asfoundation.wallet.apps.Applications;
 import com.asfoundation.wallet.billing.AdyenBilling;
 import com.asfoundation.wallet.billing.BDSTransactionService;
 import com.asfoundation.wallet.billing.TransactionService;
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.billing.payment.Adyen;
 import com.asfoundation.wallet.billing.purchase.CreditCardBillingFactory;
 import com.asfoundation.wallet.interact.AddTokenInteract;
@@ -124,8 +128,10 @@ import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Named;
@@ -449,8 +455,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       CountryCodeProvider countryCodeProvider) {
     return new ProofOfAttentionService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
         BuildConfig.APPLICATION_ID, hashCalculator, new CompositeDisposable(), proofWriter,
-        Schedulers.computation(), maxNumberProofComponents, new BackEndErrorMapper(),
-        disposables, countryCodeProvider);
+        Schedulers.computation(), maxNumberProofComponents, new BackEndErrorMapper(), disposables,
+        countryCodeProvider);
   }
 
   @Provides @Singleton CountryCodeProvider providesCountryCodeProvider(OkHttpClient client,
@@ -622,5 +628,35 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .build()
         .create(PoASubmissionService.PoASubmissionApi.class);
     return new PoASubmissionService(api);
+  }
+
+  @Singleton @Provides AnalyticsManager provideAnalyticsManager() {
+
+    List<String> list = new ArrayList<>();
+    list.add(BillingAnalytics.PURCHASE_DETAILS);
+    return new AnalyticsManager.Builder().addLogger(new EventLogger() {
+      @Override
+      public void log(String eventName, Map<String, Object> data, AnalyticsManager.Action action,
+          String context) {
+        Log.d(AnalyticsManager.class.getSimpleName(), "log() called with: eventName = ["
+            + eventName
+            + "], data = ["
+            + data
+            + "], action = ["
+            + action
+            + "], context = ["
+            + context
+            + "]");
+      }
+
+      @Override public void setup() {
+        Log.d(AnalyticsManager.class.getSimpleName(), "setup() called");
+      }
+    }, list)
+        .build();
+  }
+
+  @Singleton @Provides BillingAnalytics provideBillingAnalytics(AnalyticsManager analytics) {
+    return new BillingAnalytics(analytics);
   }
 }

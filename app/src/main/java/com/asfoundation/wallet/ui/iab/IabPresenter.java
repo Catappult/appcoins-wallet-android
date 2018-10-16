@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.os.Bundle;
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
 import javax.annotation.Nullable;
@@ -18,10 +19,11 @@ public class IabPresenter {
   private final String uriString;
   private final String appPackage;
   private final boolean isBds;
+  private final BillingAnalytics analytics;
 
   public IabPresenter(IabView view, InAppPurchaseInteractor inAppPurchaseInteractor,
       Scheduler viewScheduler, CompositeDisposable disposables, String uriString, String appPackage,
-      boolean isBds) {
+      boolean isBds, BillingAnalytics analytics) {
     this.view = view;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.viewScheduler = viewScheduler;
@@ -29,6 +31,7 @@ public class IabPresenter {
     this.uriString = uriString;
     this.appPackage = appPackage;
     this.isBds = isBds;
+    this.analytics = analytics;
   }
 
   public void present(Bundle savedInstanceState) {
