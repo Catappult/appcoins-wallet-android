@@ -50,7 +50,11 @@ public class IabPresenter {
                   break;
                 case PAUSED_OFF_CHAIN:
                 case NO_FUNDS:
-                  view.showOffChain(transactionBuilder.amount());
+                  if (isBds) {
+                    view.showOffChain(transactionBuilder.amount());
+                  } else {
+                    view.showOnChain(transactionBuilder.amount());
+                  }
                   break;
                 default:
                   throw new NotImplementedError();
