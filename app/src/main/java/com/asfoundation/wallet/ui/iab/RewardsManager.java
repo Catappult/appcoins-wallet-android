@@ -2,8 +2,6 @@ package com.asfoundation.wallet.ui.iab;
 
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.appcoins.rewards.Transaction;
-import com.appcoins.wallet.appcoins.rewards.repository.bds.Origin;
-import com.appcoins.wallet.appcoins.rewards.repository.bds.Type;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.BillingFactory;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
@@ -23,8 +21,9 @@ public class RewardsManager {
   }
 
   public Completable pay(String sku, BigDecimal amount, String developerAddress,
-      String storeAddress, String oemAddress, String packageName) {
-    return appcoinsRewards.pay(amount, Origin.BDS, sku, Type.INAPP, developerAddress, storeAddress,
+      String storeAddress, String oemAddress, String packageName, Transaction.Origin origin,
+      String type) {
+    return appcoinsRewards.pay(amount, origin, sku, type, developerAddress, storeAddress,
         oemAddress, packageName);
   }
 

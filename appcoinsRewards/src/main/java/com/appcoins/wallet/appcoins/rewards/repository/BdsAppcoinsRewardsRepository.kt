@@ -1,8 +1,6 @@
 package com.appcoins.wallet.appcoins.rewards.repository
 
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository
-import com.appcoins.wallet.appcoins.rewards.repository.bds.Origin
-import com.appcoins.wallet.appcoins.rewards.repository.bds.Type
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import io.reactivex.Single
 import java.math.BigDecimal
@@ -15,9 +13,9 @@ class BdsAppcoinsRewardsRepository(private val remoteRepository: RemoteRepositor
 
   override fun pay(walletAddress: String, signature: String,
                    amount: BigDecimal,
-                   origin: Origin,
+                   origin: String?,
                    sku: String,
-                   type: Type,
+                   type: String,
                    developerAddress: String,
                    storeAddress: String,
                    oemAddress: String,

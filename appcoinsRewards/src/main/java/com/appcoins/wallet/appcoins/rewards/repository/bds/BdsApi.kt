@@ -13,18 +13,14 @@ interface BdsApi {
   signature: String, @Body payBody: PayBody): Single<Transaction>
 
   data class PayBody(@SerializedName("price.value") private val amount: String,
-                     private val origin: Origin,
+                     private val origin: String?,
                      private val product: String,
-                     private val type: Type,
+                     private val type: String,
                      @SerializedName("wallets.developer") private val developerAddress: String,
                      @SerializedName("wallets.store") private val storeAddress: String,
                      @SerializedName("wallets.oem") private val oemAddress: String,
                      @SerializedName("price.currency") private val currency: String,
                      @SerializedName("domain") private val packageName: String)
-}
-
-enum class Type {
-  INAPP
 }
 
 enum class Origin {

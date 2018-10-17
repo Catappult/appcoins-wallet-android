@@ -1,8 +1,6 @@
 package com.appcoins.wallet.appcoins.rewards
 
 import com.appcoins.wallet.appcoins.rewards.repository.WalletService
-import com.appcoins.wallet.appcoins.rewards.repository.bds.Origin
-import com.appcoins.wallet.appcoins.rewards.repository.bds.Type
 import com.appcoins.wallet.bdsbilling.BillingFactory
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import com.appcoins.wallet.commons.Repository
@@ -28,13 +26,12 @@ class AppcoinsRewards(
   }
 
   fun pay(amount: BigDecimal,
-          origin: Origin, sku: String,
-          type: Type,
+          origin: Transaction.Origin, sku: String,
+          type: String,
           developerAddress: String,
           storeAddress: String,
           oemAddress: String,
           packageName: String): Completable {
-
     return cache.save(getKey(sku, packageName),
         Transaction(sku, type, developerAddress, storeAddress, oemAddress, packageName, amount,
             origin, Transaction.Status.PENDING))
@@ -53,7 +50,8 @@ class AppcoinsRewards(
                 .flatMapCompletable { walletAddress ->
                   walletService.signContent(walletAddress).flatMap { signature ->
                     repository.pay(walletAddress, signature, transaction.amount,
-                        transaction.origin, transaction.sku,
+                        getOrigin(transaction),
+                        transaction.sku,
                         transaction.type, transaction.developerAddress, transaction.storeAddress,
                         transaction.oemAddress, transaction.packageName)
                   }
@@ -70,6 +68,10 @@ class AppcoinsRewards(
           }
     }.subscribe()
   }
+
+  private fun getOrigin(
+      transaction: Transaction) =
+      if (transaction.origin.isBds()) transaction.origin.name else null
 
   private fun waitTransactionCompletion(
       transaction: Transaction,

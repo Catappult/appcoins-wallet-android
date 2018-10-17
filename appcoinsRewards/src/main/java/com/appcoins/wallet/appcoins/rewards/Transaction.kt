@@ -1,11 +1,9 @@
 package com.appcoins.wallet.appcoins.rewards
 
-import com.appcoins.wallet.appcoins.rewards.repository.bds.Origin
-import com.appcoins.wallet.appcoins.rewards.repository.bds.Type
 import java.math.BigDecimal
 
 data class Transaction(val sku: String,
-                       val type: Type,
+                       val type: String,
                        val developerAddress: String,
                        val storeAddress: String,
                        val oemAddress: String,
@@ -17,6 +15,12 @@ data class Transaction(val sku: String,
       transaction.developerAddress, transaction.storeAddress, transaction.oemAddress,
       transaction.packageName, transaction.amount, transaction.origin, status)
 
+
+  enum class Origin {
+    BDS, UNKNOWN;
+
+    fun isBds(): Boolean = this == BDS
+  }
 
   enum class Status {
     PENDING, PROCESSING, COMPLETED, ERROR

@@ -35,6 +35,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   public static final String PACKAGE_NAME_KEY = "packageName";
   public static final String URI_KEY = "uri_key";
   public static final String PRODUCT_NAME = "product_name";
+  public static final String IS_BDS = "is_bds";
   @Inject RewardsManager rewardsManager;
   @Inject BdsPendingTransactionService bdsPendingTransactionService;
   @Inject TransferParser transferParser;
@@ -52,23 +53,27 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   private TextView appName;
   private ImageView appIcon;
   private TextView currencyName;
+  private boolean isBds;
 
   public static Fragment newInstance(BigDecimal amount, String packageName, String uri,
-      String productName) {
+      String productName, boolean isBds) {
     AppcoinsRewardsBuyFragment fragment = new AppcoinsRewardsBuyFragment();
     Bundle bundle = new Bundle();
     bundle.putString(AMOUNT_KEY, amount.toString());
     bundle.putString(PACKAGE_NAME_KEY, packageName);
     bundle.putString(URI_KEY, uri);
     bundle.putString(PRODUCT_NAME, productName);
+    bundle.putBoolean(IS_BDS, isBds);
     fragment.setArguments(bundle);
     return fragment;
   }
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    amount = new BigDecimal(getArguments().getString(AMOUNT_KEY));
-    uri = getArguments().getString(URI_KEY);
+    Bundle arguments = getArguments();
+    amount = new BigDecimal(arguments.getString(AMOUNT_KEY));
+    uri = arguments.getString(URI_KEY);
+    isBds = arguments.getBoolean(IS_BDS);
   }
 
   @Nullable @Override
@@ -93,7 +98,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
         new AppcoinsRewardsBuyPresenter(this, rewardsManager, AndroidSchedulers.mainThread(),
             new CompositeDisposable(), amount, BuildConfig.DEFAULT_STORE_ADDRESS,
             BuildConfig.DEFAULT_OEM_ADDRESS, uri, getCallerPackageName(), transferParser,
-            getProductName());
+            getProductName(), isBds);
 
     Single.defer(() -> Single.just(getCallerPackageName()))
         .observeOn(Schedulers.io())

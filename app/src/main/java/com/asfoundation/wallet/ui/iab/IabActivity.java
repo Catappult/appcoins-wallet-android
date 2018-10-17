@@ -155,7 +155,7 @@ public class IabActivity extends BaseActivity implements IabView {
               getIntent().getExtras()
                   .getString(APP_PACKAGE, ""), getIntent().getData()
                   .toString(), getIntent().getExtras()
-                  .getString(PRODUCT_NAME, "")))
+                  .getString(PRODUCT_NAME, ""), isBds()))
           .commit();
     }
   }

@@ -5,8 +5,6 @@ import com.appcoins.wallet.appcoins.rewards.repository.BdsRemoteApi
 import com.appcoins.wallet.appcoins.rewards.repository.WalletService
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi
 import com.appcoins.wallet.appcoins.rewards.repository.bds.BdsApi
-import com.appcoins.wallet.appcoins.rewards.repository.bds.Origin
-import com.appcoins.wallet.appcoins.rewards.repository.bds.Type
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.BillingFactory
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
@@ -33,9 +31,9 @@ class AppcoinsRewardsTest {
     private const val STORE_ADDRESS: String = "0x652d25ac09f79e9619fba99f34f0d8420d0956b1"
     private const val SKU: String = "cm.aptoide.pt:gas"
     private const val BALANCE: Long = 2
-    private val TYPE: Type = Type.INAPP
+    private const val TYPE: String = "INAPP"
     private const val PACKAGE_NAME = "PACKAGE_NAME"
-    private val ORIGIN = Origin.BDS
+    private val ORIGIN = Transaction.Origin.BDS
     private val PRICE = BigDecimal("1700000000000000000")
     private const val UID = "UID"
 
