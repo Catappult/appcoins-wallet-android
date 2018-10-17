@@ -89,7 +89,12 @@ public class AppcoinsRewardsBuyPresenter {
       case COMPLETED:
         return rewardsManager.getPaymentCompleted(packageName, sku)
             .doOnSuccess(view::finish)
-            .ignoreElement();
+            .ignoreElement()
+            .observeOn(scheduler)
+            .onErrorResumeNext(throwable -> Completable.fromAction(() -> {
+              view.showGenericError();
+              view.hideGenericLoading();
+            }));
       case ERROR:
         return Completable.fromAction(() -> {
           view.showGenericError();
