@@ -141,6 +141,10 @@ public class TransactionDetailActivity extends BaseActivity {
         typeStr = R.string.transaction_type_poa;
         typeIcon = R.drawable.ic_transaction_poa;
         break;
+      case ADS_OFFCHAIN:
+        typeStr = R.string.transaction_type_poa_offchain;
+        typeIcon = R.drawable.ic_transaction_poa;
+        break;
       case MICRO_IAB:
         to = transaction.getTo();
       case IAB:

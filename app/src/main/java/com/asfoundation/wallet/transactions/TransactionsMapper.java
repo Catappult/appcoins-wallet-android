@@ -16,6 +16,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.asfoundation.wallet.transactions.Transaction.TransactionType.ADS_OFFCHAIN;
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.IAP_OFFCHAIN;
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.MICRO_IAB;
 
@@ -45,7 +46,7 @@ public class TransactionsMapper {
 
   public Single<List<Transaction>> mapFromWalletHistory(
       List<WalletHistory.MicroTransaction> transactions) {
-    return Single.just(mapMicroTransactionsFromWalletHistory(transactions))
+    return Single.just(mapTransactionsFromWalletHistory(transactions))
         .observeOn(scheduler);
   }
 
@@ -91,14 +92,15 @@ public class TransactionsMapper {
     return transactionList;
   }
 
-  private List<Transaction> mapMicroTransactionsFromWalletHistory(
+  private List<Transaction> mapTransactionsFromWalletHistory(
       List<WalletHistory.MicroTransaction> transactions) {
     List<Transaction> transactionList = new ArrayList<>();
     for (int i = transactions.size() - 1; i >= 0; i--) {
       WalletHistory.MicroTransaction transaction = transactions.get(i);
 
       Transaction.TransactionType txType =
-          "IAP OffChain".equals(transaction.getType()) ? IAP_OFFCHAIN : MICRO_IAB;
+          "IAP OffChain".equals(transaction.getType()) ? IAP_OFFCHAIN
+              : "PoA OffChain".equals(transaction.getType()) ? ADS_OFFCHAIN : MICRO_IAB;
 
       transactionList.add(0, new Transaction(transaction.getTxID(), txType, null,
           transaction.getTs()
@@ -337,7 +339,8 @@ public class TransactionsMapper {
     AppCoinsOperation operationDetails = operationsDataSaver.getSync(transactionId);
     if (operationDetails != null) {
       String productName = null;
-      if (!Transaction.TransactionType.ADS.equals(type)) {
+      if (!Transaction.TransactionType.ADS.equals(type)
+          && !Transaction.TransactionType.ADS_OFFCHAIN.equals(type)) {
         productName = operationDetails.getProductName();
       }
       details = new TransactionDetails(operationDetails.getApplicationName(),

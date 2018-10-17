@@ -19,6 +19,7 @@ public class WalletHistory {
 
   public static class MicroTransaction {
 
+    @JsonProperty("app") private String app;
     @JsonProperty("TxID") private String txID;
     @JsonProperty("amount") private BigInteger amount;
     @JsonProperty("block") private BigInteger block;
