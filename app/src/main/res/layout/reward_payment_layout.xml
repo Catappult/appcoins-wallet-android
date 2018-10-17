@@ -9,6 +9,8 @@
     android:padding="6dp"
     >
 
+  <include layout="@layout/fragment_iab_loading"/>
+  <include layout="@layout/fragment_iab_buy"/>
   <android.support.constraint.Group
       android:id="@+id/loading_view"
       android:layout_width="wrap_content"
@@ -20,7 +22,7 @@
       android:id="@+id/payment_details_view"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      app:constraint_referenced_ids="spending_amount,buy_button"
+      app:constraint_referenced_ids="iab_activity_buy_layout"
       />
   <TextView
       android:id="@+id/loading_title"
@@ -46,26 +48,6 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/loading_title"
-      />
-
-  <TextView
-      android:id="@+id/spending_amount"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:textColor="@color/black_87_alpha"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
-  <Button
-      android:id="@+id/buy_button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/buy"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/spending_amount"
       />
 
 </android.support.constraint.ConstraintLayout>

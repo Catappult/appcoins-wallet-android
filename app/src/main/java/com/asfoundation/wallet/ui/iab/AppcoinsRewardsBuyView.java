@@ -6,15 +6,19 @@ import io.reactivex.Observable;
 interface AppcoinsRewardsBuyView {
   Observable<Object> getBuyClick();
 
-  void showLoading();
+  void showProcessingLoading();
 
-  void setAmount(String amount);
+  void setupView(String amount, String productName, String packageName);
 
   void showPaymentDetails();
 
   void hidePaymentDetails();
 
   void finish(Purchase purchase);
+
+  void hideGenericLoading();
+
+  void showLoading();
 
   void hideLoading();
 }

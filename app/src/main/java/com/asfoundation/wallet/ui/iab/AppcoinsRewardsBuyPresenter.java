@@ -5,6 +5,7 @@ import io.reactivex.Completable;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class AppcoinsRewardsBuyPresenter {
   private static final String TAG = AppcoinsRewardsBuyPresenter.class.getSimpleName();
@@ -18,10 +19,12 @@ public class AppcoinsRewardsBuyPresenter {
   private final String uri;
   private final String packageName;
   private final TransferParser transferParser;
+  private final String productName;
 
   public AppcoinsRewardsBuyPresenter(AppcoinsRewardsBuyView view, RewardsManager rewardsManager,
       Scheduler scheduler, CompositeDisposable disposables, BigDecimal amount, String storeAddress,
-      String oemAddress, String uri, String packageName, TransferParser transferParser) {
+      String oemAddress, String uri, String packageName, TransferParser transferParser,
+      String productName) {
     this.view = view;
     this.rewardsManager = rewardsManager;
     this.scheduler = scheduler;
@@ -32,6 +35,7 @@ public class AppcoinsRewardsBuyPresenter {
     this.uri = uri;
     this.packageName = packageName;
     this.transferParser = transferParser;
+    this.productName = productName;
   }
 
   public void present() {
@@ -40,7 +44,10 @@ public class AppcoinsRewardsBuyPresenter {
   }
 
   private void handleViewSetup() {
-    view.setAmount(amount.toPlainString());
+    view.showLoading();
+    view.setupView(amount.setScale(2, RoundingMode.CEILING)
+        .toPlainString(), productName, packageName);
+    view.hideLoading();
     view.showPaymentDetails();
   }
 
@@ -61,7 +68,7 @@ public class AppcoinsRewardsBuyPresenter {
       case PROCESSING:
         return Completable.fromAction(() -> {
           view.hidePaymentDetails();
-          view.showLoading();
+          view.showProcessingLoading();
         });
       case COMPLETED:
         return rewardsManager.getPaymentCompleted(packageName, sku)
@@ -70,7 +77,7 @@ public class AppcoinsRewardsBuyPresenter {
       case ERROR:
         return Completable.fromAction(() -> {
           view.showPaymentDetails();
-          view.hideLoading();
+          view.hideGenericLoading();
         });
     }
     return Completable.error(new UnsupportedOperationException(

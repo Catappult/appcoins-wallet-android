@@ -154,7 +154,8 @@ public class IabActivity extends BaseActivity implements IabView {
           .add(R.id.fragment_container, AppcoinsRewardsBuyFragment.newInstance(amount,
               getIntent().getExtras()
                   .getString(APP_PACKAGE, ""), getIntent().getData()
-                  .toString()))
+                  .toString(), getIntent().getExtras()
+                  .getString(PRODUCT_NAME, "")))
           .commit();
     }
   }
