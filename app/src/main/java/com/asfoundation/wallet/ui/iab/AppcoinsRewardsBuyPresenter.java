@@ -45,6 +45,12 @@ public class AppcoinsRewardsBuyPresenter {
     handleBuyClick();
     handleCancelClick();
     handleViewSetup();
+    handleOkErrorClick();
+  }
+
+  private void handleOkErrorClick() {
+    disposables.add(view.getOkErrorClick()
+        .subscribe(__ -> view.close()));
   }
 
   private void handleCancelClick() {

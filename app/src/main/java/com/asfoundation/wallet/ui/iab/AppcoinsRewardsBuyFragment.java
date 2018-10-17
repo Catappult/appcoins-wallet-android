@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asf.wallet.BuildConfig;
@@ -57,6 +56,9 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   private TextView appName;
   private ImageView appIcon;
   private boolean isBds;
+  private View transactionErrorLayout;
+  private TextView errorMessage;
+  private View okErrorButton;
 
   public static Fragment newInstance(BigDecimal amount, String packageName, String uri,
       String productName, boolean isBds) {
@@ -92,12 +94,14 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     loadingView = view.findViewById(R.id.loading_view);
     genericLoadingView = view.findViewById(R.id.loading);
     appName = view.findViewById(R.id.app_name);
+    errorMessage = view.findViewById(R.id.activity_iab_error_message);
     amountView = view.findViewById(R.id.sku_price);
     totalAmountView = view.findViewById(R.id.total_price);
     productDescription = view.findViewById(R.id.sku_description);
     paymentDetailsView = view.findViewById(R.id.info_dialog);
     appIcon = view.findViewById(R.id.app_icon);
-
+    transactionErrorLayout = view.findViewById(R.id.error_message);
+    okErrorButton = view.findViewById(R.id.activity_iab_error_ok_button);
     presenter =
         new AppcoinsRewardsBuyPresenter(this, rewardsManager, AndroidSchedulers.mainThread(),
             new CompositeDisposable(), amount, BuildConfig.DEFAULT_STORE_ADDRESS,
@@ -187,12 +191,19 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   }
 
   @Override public void showNoNetworkError() {
-    Toast.makeText(getContext(), "network error", Toast.LENGTH_SHORT)
-        .show();
+    hideGenericLoading();
+    hideLoading();
+    hidePaymentDetails();
+    errorMessage.setText(R.string.activity_iab_no_network_message);
+    transactionErrorLayout.setVisibility(View.VISIBLE);
   }
 
   @Override public Observable<Object> getCancelClick() {
     return RxView.clicks(cancelButton);
+  }
+
+  @Override public Observable<Object> getOkErrorClick() {
+    return RxView.clicks(okErrorButton);
   }
 
   @Override public void close() {
@@ -202,8 +213,11 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   }
 
   @Override public void showGenericError() {
-    Toast.makeText(getContext(), "Generic Error", Toast.LENGTH_SHORT)
-        .show();
+    hideGenericLoading();
+    hideLoading();
+    hidePaymentDetails();
+    errorMessage.setText(R.string.activity_iab_error_message);
+    transactionErrorLayout.setVisibility(View.VISIBLE);
   }
 
   @Override public void onAttach(Context context) {

@@ -26,6 +26,8 @@ interface AppcoinsRewardsBuyView {
 
   Observable<Object> getCancelClick();
 
+  Observable<Object> getOkErrorClick();
+
   void close();
 
   void showGenericError();
