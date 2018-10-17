@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -42,10 +43,12 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   @Inject TransferParser transferParser;
   @Inject BillingMessagesMapper billingMessagesMapper;
   private View buyButton;
+  private View cancelButton;
   private View loadingView;
   private View genericLoadingView;
   private AppcoinsRewardsBuyPresenter presenter;
   private TextView amountView;
+  private TextView totalAmountView;
   private TextView productDescription;
   private BigDecimal amount;
   private View paymentDetailsView;
@@ -53,7 +56,6 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   private String uri;
   private TextView appName;
   private ImageView appIcon;
-  private TextView currencyName;
   private boolean isBds;
 
   public static Fragment newInstance(BigDecimal amount, String packageName, String uri,
@@ -86,14 +88,15 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     buyButton = view.findViewById(R.id.buy_button);
+    cancelButton = view.findViewById(R.id.cancel_button);
     loadingView = view.findViewById(R.id.loading_view);
     genericLoadingView = view.findViewById(R.id.loading);
-    appName = view.findViewById(R.id.iab_activity_app_name);
-    currencyName = view.findViewById(R.id.appc);
-    amountView = view.findViewById(R.id.iab_activity_item_price);
-    productDescription = view.findViewById(R.id.iab_activity_item_description);
-    paymentDetailsView = view.findViewById(R.id.payment_details_view);
-    appIcon = view.findViewById(R.id.iab_activity_item_icon);
+    appName = view.findViewById(R.id.app_name);
+    amountView = view.findViewById(R.id.sku_price);
+    totalAmountView = view.findViewById(R.id.total_price);
+    productDescription = view.findViewById(R.id.sku_description);
+    paymentDetailsView = view.findViewById(R.id.info_dialog);
+    appIcon = view.findViewById(R.id.app_icon);
 
     presenter =
         new AppcoinsRewardsBuyPresenter(this, rewardsManager, AndroidSchedulers.mainThread(),
@@ -109,6 +112,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(pair -> {
           appName.setText(pair.first);
+          appIcon.setImageDrawable(pair.second);
         }, throwable -> {
           throwable.printStackTrace();
         });
@@ -147,15 +151,18 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
 
   @Override public void showProcessingLoading() {
     loadingView.setVisibility(View.VISIBLE);
+    paymentDetailsView.setVisibility(View.INVISIBLE);
   }
 
   @Override public void setupView(String amount, String productName, String packageName) {
-    amountView.setText(amount);
-    currencyName.setText("APPC Rewards");
+    amountView.setText(String.format("%s APPC Rewards", amount));
+    totalAmountView.setText(String.format("%s APPC Rewards", amount));
     productDescription.setText(productName);
+    loadingView.setVisibility(View.GONE);
   }
 
   @Override public void showPaymentDetails() {
+    loadingView.setVisibility(View.GONE);
     paymentDetailsView.setVisibility(View.VISIBLE);
   }
 
@@ -181,6 +188,21 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
 
   @Override public void showNoNetworkError() {
     Toast.makeText(getContext(), "network error", Toast.LENGTH_SHORT)
+        .show();
+  }
+
+  @Override public Observable<Object> getCancelClick() {
+    return RxView.clicks(cancelButton);
+  }
+
+  @Override public void close() {
+    Bundle bundle = new Bundle();
+    bundle.putInt("RESPONSE_CODE", Activity.RESULT_OK);
+    iabView.close(bundle);
+  }
+
+  @Override public void showGenericError() {
+    Toast.makeText(getContext(), "Generic Error", Toast.LENGTH_SHORT)
         .show();
   }
 

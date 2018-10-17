@@ -12,9 +12,7 @@
   <include layout="@layout/fragment_iab_loading"/>
   <include layout="@layout/fragment_iab_transaction_completed"/>
   <include layout="@layout/fragment_iab_error"/>
-  <include
-      layout="@layout/fragment_express_checkout_buy"
-      />
+  <include layout="@layout/fragment_express_checkout_buy"/>
 
   <include
       layout="@layout/iab_activity_raiden"

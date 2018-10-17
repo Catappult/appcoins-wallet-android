@@ -23,4 +23,10 @@ interface AppcoinsRewardsBuyView {
   void hideLoading();
 
   void showNoNetworkError();
+
+  Observable<Object> getCancelClick();
+
+  void close();
+
+  void showGenericError();
 }

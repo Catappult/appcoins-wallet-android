@@ -43,7 +43,13 @@ public class AppcoinsRewardsBuyPresenter {
 
   public void present() {
     handleBuyClick();
+    handleCancelClick();
     handleViewSetup();
+  }
+
+  private void handleCancelClick() {
+    disposables.add(view.getCancelClick()
+        .subscribe(__ -> view.close()));
   }
 
   private void handleViewSetup() {
@@ -80,7 +86,7 @@ public class AppcoinsRewardsBuyPresenter {
             .ignoreElement();
       case ERROR:
         return Completable.fromAction(() -> {
-          view.showPaymentDetails();
+          view.showGenericError();
           view.hideGenericLoading();
         });
       case NO_NETWORK:
@@ -88,7 +94,6 @@ public class AppcoinsRewardsBuyPresenter {
           view.showNoNetworkError();
           view.hideGenericLoading();
         });
-
     }
     return Completable.error(new UnsupportedOperationException(
         "Transaction status " + transaction.getStatus() + " not supported"));

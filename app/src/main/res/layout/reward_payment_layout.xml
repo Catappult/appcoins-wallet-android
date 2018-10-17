@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="296dp"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
@@ -11,44 +10,5 @@
     >
 
   <include layout="@layout/fragment_iab_loading"/>
-  <include layout="@layout/fragment_iab_buy"/>
-  <android.support.constraint.Group
-      android:id="@+id/loading_view"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:visibility="gone"
-      app:constraint_referenced_ids="loading_title,progressBar"
-      />
-  <android.support.constraint.Group
-      android:id="@+id/payment_details_view"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      app:constraint_referenced_ids="iab_activity_buy_layout"
-      />
-  <TextView
-      android:id="@+id/loading_title"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:fontFamily="sans-serif"
-      android:gravity="center"
-      android:lineSpacingExtra="8sp"
-      android:text="Progress"
-      android:textColor="@color/black_87_alpha"
-      android:textSize="24sp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
-  <ProgressBar
-      android:id="@+id/progressBar"
-      android:layout_width="80dp"
-      android:layout_height="80dp"
-      android:indeterminateDrawable="@drawable/gradient_progress"
-      android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/loading_title"
-      />
-
+  <include layout="@layout/fragment_express_checkout_buy"/>
 </android.support.constraint.ConstraintLayout>
