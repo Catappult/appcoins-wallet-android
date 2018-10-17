@@ -58,7 +58,7 @@ android {
     buildConfigField 'String', 'MAIN_NETWORK_DEFAULT_TOKEN_NAME',
         "\"" + project.MAIN_NETWORK_DEFAULT_TOKEN_NAME + "\""
     buildConfigField 'int', 'ROPSTEN_DEFAULT_TOKEN_DECIMALS', project.ROPSTEN_DEFAULT_TOKEN_DECIMALS
-    manifestPlaceholders.fabricApiKey = "${project.ASF_WALLET_FABRIC_KEY}"
+    manifestPlaceholders.fabricApiKey = "${project.BDS_WALLET_FABRIC_KEY}"
 
     buildConfigField 'String', 'MAIN_NETWORK_DEFAULT_TOKEN_SYMBOL',
         "\"" + project.MAIN_NETWORK_DEFAULT_TOKEN_SYMBOL + "\""

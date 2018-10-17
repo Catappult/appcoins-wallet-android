@@ -634,6 +634,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
     List<String> list = new ArrayList<>();
     list.add(BillingAnalytics.PURCHASE_DETAILS);
+    list.add(BillingAnalytics.CREDIT_CARD_DETAILS);
+    list.add(BillingAnalytics.PAYMENT);
     return new AnalyticsManager.Builder().addLogger(new EventLogger() {
       @Override
       public void log(String eventName, Map<String, Object> data, AnalyticsManager.Action action,

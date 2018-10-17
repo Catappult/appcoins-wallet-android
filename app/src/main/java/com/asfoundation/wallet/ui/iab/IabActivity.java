@@ -33,6 +33,8 @@ public class IabActivity extends BaseActivity implements IabView {
   public static final String TRANSACTION_HASH = "transaction_hash";
   public static final String TRANSACTION_AMOUNT = "transaction_amount";
   public static final String TRANSACTION_CURRENCY = "transaction_currency";
+  public static final String PURCHASE_DETAILS_CC = "CREDIT_CARD";
+  public static final String PURCHASE_DETAILS_APPC = "APPC";
   public static final String FIAT_VALUE = "fiat_value";
   private static final String TAG = IabActivity.class.getSimpleName();
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
@@ -91,6 +93,7 @@ public class IabActivity extends BaseActivity implements IabView {
   }
 
   @Override public void finish(Bundle bundle) {
+    presenter.sendPaymentEvent();
     AppEventsLogger.newLogger(this)
         .logEvent("in_app_purchase_success");
     setResult(Activity.RESULT_OK, new Intent().putExtras(bundle));
@@ -118,6 +121,7 @@ public class IabActivity extends BaseActivity implements IabView {
                 .blockingGet()
                 .getSkuId()))
         .commit();
+    presenter.sendCCDetailsEvent();
   }
 
   @Override public void showOnChain(BigDecimal amount) {
@@ -129,6 +133,7 @@ public class IabActivity extends BaseActivity implements IabView {
                   .toString(), isBds()))
           .commit();
     }
+    presenter.sendPurchaseDetails(PURCHASE_DETAILS_APPC);
   }
 
   @Override public void showOffChain(BigDecimal amount) {
@@ -139,6 +144,7 @@ public class IabActivity extends BaseActivity implements IabView {
               ExpressCheckoutBuyFragment.newInstance(createBundle(amount)))
           .commit();
     }
+    presenter.sendPurchaseDetails(PURCHASE_DETAILS_CC);
   }
 
   @NonNull private Bundle createBundle(BigDecimal amount) {

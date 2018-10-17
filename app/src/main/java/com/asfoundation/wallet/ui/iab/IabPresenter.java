@@ -76,4 +76,26 @@ public class IabPresenter {
   public void stop() {
     disposables.clear();
   }
+
+
+  public void sendCCDetailsEvent() {
+    if (isBds) {
+      analytics.sendCreditCardDetailsEvent(appPackage, inAppPurchaseInteractor.parseTransaction(uriString, isBds).blockingGet().getSkuId(),
+              inAppPurchaseInteractor.parseTransaction(uriString, isBds).blockingGet().amount().toString());
+    }
+  }
+
+  public void sendPurchaseDetails(String purchaseDetails) {
+    if (isBds) {
+      analytics.sendPurchaseDetailsEvent(appPackage, inAppPurchaseInteractor.parseTransaction(uriString, isBds).blockingGet().getSkuId(),
+              inAppPurchaseInteractor.parseTransaction(uriString, isBds).blockingGet().amount().toString(), purchaseDetails);
+    }
+  }
+
+  public void sendPaymentEvent(){
+    if(isBds){
+      analytics.sendPaymentEvent(appPackage, inAppPurchaseInteractor.parseTransaction(uriString, isBds).blockingGet().getSkuId(),
+              inAppPurchaseInteractor.parseTransaction(uriString, isBds).blockingGet().amount().toString());
+    }
+  }
 }
