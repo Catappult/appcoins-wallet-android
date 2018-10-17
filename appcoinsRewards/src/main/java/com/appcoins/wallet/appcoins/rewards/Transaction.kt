@@ -23,6 +23,6 @@ data class Transaction(val sku: String,
   }
 
   enum class Status {
-    PENDING, PROCESSING, COMPLETED, ERROR
+    PENDING, PROCESSING, COMPLETED, ERROR, NO_NETWORK
   }
 }

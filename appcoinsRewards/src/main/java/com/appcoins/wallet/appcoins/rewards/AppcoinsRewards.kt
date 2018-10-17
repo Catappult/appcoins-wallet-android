@@ -15,7 +15,9 @@ class AppcoinsRewards(
     private val repository: AppcoinsRewardsRepository,
     private val walletService: WalletService,
     private val cache: Repository<String, Transaction>,
-    private val scheduler: Scheduler, private val billingFactory: BillingFactory) {
+    private val scheduler: Scheduler,
+    private val billingFactory: BillingFactory,
+    private val errorMapper: ErrorMapper) {
 
   fun getBalance(address: String): Single<Long> {
     return repository.getBalance(address)
@@ -63,7 +65,7 @@ class AppcoinsRewards(
                 .onErrorResumeNext {
                   it.printStackTrace()
                   cache.save(getKey(transaction),
-                      Transaction(transaction, Transaction.Status.ERROR))
+                      Transaction(transaction, errorMapper.map(it)))
                 }
           }
     }.subscribe()

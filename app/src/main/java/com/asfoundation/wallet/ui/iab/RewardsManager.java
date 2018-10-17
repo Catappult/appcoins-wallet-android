@@ -45,6 +45,8 @@ public class RewardsManager {
         return Observable.just(new RewardPayment(RewardPayment.Status.COMPLETED));
       case ERROR:
         return Observable.just(new RewardPayment(RewardPayment.Status.ERROR));
+      case NO_NETWORK:
+        return Observable.just(new RewardPayment(RewardPayment.Status.NO_NETWORK));
     }
     throw new UnsupportedOperationException(
         "Transaction status " + transaction.getStatus() + " not supported");
@@ -62,7 +64,7 @@ public class RewardsManager {
     }
 
     enum Status {
-      PROCESSING, COMPLETED, ERROR
+      PROCESSING, COMPLETED, ERROR, NO_NETWORK
     }
   }
 }

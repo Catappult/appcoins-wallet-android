@@ -85,7 +85,7 @@ class AppcoinsRewardsTest {
               override fun getBilling(merchantName: String): Billing {
                 return billing
               }
-            })
+            }, ErrorMapper())
     appcoinsRewards.start()
   }
 

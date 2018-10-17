@@ -21,4 +21,6 @@ interface AppcoinsRewardsBuyView {
   void showLoading();
 
   void hideLoading();
+
+  void showNoNetworkError();
 }

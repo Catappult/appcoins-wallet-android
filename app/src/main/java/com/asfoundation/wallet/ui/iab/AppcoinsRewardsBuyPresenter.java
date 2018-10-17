@@ -83,6 +83,12 @@ public class AppcoinsRewardsBuyPresenter {
           view.showPaymentDetails();
           view.hideGenericLoading();
         });
+      case NO_NETWORK:
+        return Completable.fromAction(() -> {
+          view.showNoNetworkError();
+          view.hideGenericLoading();
+        });
+
     }
     return Completable.error(new UnsupportedOperationException(
         "Transaction status " + transaction.getStatus() + " not supported"));

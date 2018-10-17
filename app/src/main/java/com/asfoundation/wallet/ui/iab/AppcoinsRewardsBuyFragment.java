@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asf.wallet.BuildConfig;
@@ -176,6 +177,11 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
 
   @Override public void hideLoading() {
     genericLoadingView.setVisibility(View.GONE);
+  }
+
+  @Override public void showNoNetworkError() {
+    Toast.makeText(getContext(), "network error", Toast.LENGTH_SHORT)
+        .show();
   }
 
   @Override public void onAttach(Context context) {
