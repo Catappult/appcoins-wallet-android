@@ -90,7 +90,7 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
         .singleOrError()
   }
 
-  fun createAdyenTransaction(origin: String, walletAddress: String,
+  fun createAdyenTransaction(origin: String?, walletAddress: String,
                              walletSignature: String, token: String,
                              packageName: String, priceValue: BigDecimal, priceCurrency: String, productName: String?, type: String,
                              walletDeveloper: String,
