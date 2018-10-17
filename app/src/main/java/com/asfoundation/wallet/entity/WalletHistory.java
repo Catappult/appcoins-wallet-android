@@ -1,10 +1,12 @@
 package com.asfoundation.wallet.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class WalletHistory {
 
   @JsonProperty("result") private List<MicroTransaction> result;
@@ -17,6 +19,7 @@ public class WalletHistory {
     this.result = result;
   }
 
+  @JsonIgnoreProperties(ignoreUnknown = true)
   public static class MicroTransaction {
 
     @JsonProperty("TxID") private String txID;

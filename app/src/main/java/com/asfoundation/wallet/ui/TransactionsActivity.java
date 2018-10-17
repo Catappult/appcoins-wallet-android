@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.entity.Balance;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
@@ -45,6 +46,8 @@ import javax.inject.Inject;
 
 import static com.asfoundation.wallet.C.ETHEREUM_NETWORK_NAME;
 import static com.asfoundation.wallet.C.ErrorCode.EMPTY_COLLECTION;
+import static com.asfoundation.wallet.interact.GetDefaultWalletBalance.BALANCE_CREDITS;
+import static com.asfoundation.wallet.interact.GetDefaultWalletBalance.BALANCE_TOKEN;
 
 public class TransactionsActivity extends BaseNavigationActivity implements View.OnClickListener {
 
@@ -133,16 +136,24 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     showList();
   }
 
-  private void onBalanceChanged(Map<String, String> balance) {
+  private void onBalanceChanged(Map<String, Balance> balance) {
     if (!balance.isEmpty()) {
-      Map.Entry<String, String> entry = balance.entrySet()
-          .iterator()
-          .next();
-      String currency = entry.getKey();
-      String value = entry.getValue();
-      int smallTitleSize = (int) getResources().getDimension(R.dimen.title_small_text);
-      int color = getResources().getColor(R.color.appbar_subtitle_color);
-      setCollapsingTitle(BalanceUtils.formatBalance(value, currency, smallTitleSize, color));
+      Balance balanceDetail = balance.get(BALANCE_TOKEN);
+      if (balanceDetail != null) {
+        String currency = balanceDetail.getSymbol();
+        String value = balanceDetail.getValue();
+        int smallTitleSize = (int) getResources().getDimension(R.dimen.title_small_text);
+        int color = getResources().getColor(R.color.appbar_subtitle_color);
+        setCollapsingTitle(BalanceUtils.formatBalance(value, currency, smallTitleSize, color));
+      }
+
+      balanceDetail = balance.get(BALANCE_CREDITS);
+      if (balanceDetail != null) {
+        setSubtitle(getString(R.string.credits_balance, balanceDetail.getValue()));
+      } else {
+        setSubtitle(null);
+      }
+
     }
   }
 
