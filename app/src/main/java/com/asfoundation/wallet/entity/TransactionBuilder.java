@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.entity;
 
-import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
 import com.asfoundation.wallet.repository.TokenRepository;
