@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.util;
 
-import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.google.gson.Gson;
@@ -128,11 +128,10 @@ public class TransferParser {
   }
 
   private TransactionData retrieveData(ERC681 payment) throws UnsupportedEncodingException {
-    String data = payment.getFunctionParams()
-        .get("data") != null ? new String(Hex.decode(payment.getFunctionParams()
+    String data = new String(Hex.decode(payment.getFunctionParams()
         .get("data")
         .substring(2)
-        .getBytes("UTF-8"))) : null;
+        .getBytes("UTF-8")));
     try {
       return new Gson().fromJson(data, TransactionData.class);
     } catch (JsonSyntaxException e) {
