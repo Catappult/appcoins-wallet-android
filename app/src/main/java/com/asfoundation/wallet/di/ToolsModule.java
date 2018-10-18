@@ -628,13 +628,13 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides AppcoinsRewards provideAppcoinsRewards(OkHttpClient client, Gson gson,
       WalletService walletService, BillingFactory billingFactory) {
-    BackendApi backendApi = new Retrofit.Builder().baseUrl("https://apichain-dev.blockchainds.com/")
+    BackendApi backendApi = new Retrofit.Builder().baseUrl(BuildConfig.BACKEND_HOST)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(BackendApi.class);
-    BdsApi bdsApi = new Retrofit.Builder().baseUrl("http://api-dev.blockchainds.com/")
+    BdsApi bdsApi = new Retrofit.Builder().baseUrl(BuildConfig.BASE_HOST)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
