@@ -148,8 +148,8 @@ public class InAppPurchaseInteractor {
     return bdsInAppPurchaseInteractor.getBillingSerializer();
   }
 
-  public Single<Transaction> getTransaction(String packageName, String productName) {
-    return asfInAppPurchaseInteractor.getTransaction(packageName, productName);
+  public Single<Transaction> getTransaction(String packageName, String productName, String type) {
+    return asfInAppPurchaseInteractor.getTransaction(packageName, productName, type);
   }
 
   private Single<Purchase> getCompletedPurchase(String packageName, String productName) {

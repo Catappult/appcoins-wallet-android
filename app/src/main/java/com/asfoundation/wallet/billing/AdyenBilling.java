@@ -9,6 +9,7 @@ import com.jakewharton.rxrelay2.BehaviorRelay;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AdyenBilling implements CreditCardBilling {
@@ -35,9 +36,11 @@ public class AdyenBilling implements CreditCardBilling {
   }
 
   @Override public Observable<AdyenAuthorization> getAuthorization(String productName,
-      String developerAddress, String payload) {
+      String developerAddress, String payload, String origin, BigDecimal priceValue,
+      String priceCurrency, String type) {
     return relay.doOnSubscribe(
-        disposable -> startPaymentIfNeeded(productName, developerAddress, payload))
+        disposable -> startPaymentIfNeeded(productName, developerAddress, payload, origin,
+            priceValue, priceCurrency, type))
         .doOnNext(this::resetProcessingFlag);
   }
 
@@ -79,7 +82,8 @@ public class AdyenBilling implements CreditCardBilling {
     }
   }
 
-  private void startPaymentIfNeeded(String productName, String developerAddress, String payload) {
+  private void startPaymentIfNeeded(String productName, String developerAddress, String payload,
+      String origin, BigDecimal priceValue, String priceCurrency, String type) {
     if (!processingPayment.getAndSet(true)) {
       this.adyenAuthorization = null;
       this.adyenAuthorization = walletService.getWalletAddress()
@@ -87,7 +91,9 @@ public class AdyenBilling implements CreditCardBilling {
                   .flatMap(signedContent -> adyen.createToken()
                       .flatMap(token -> transactionService.createTransaction(walletAddress,
                           signedContent, token, merchantName, payload, productName,
-                          developerAddress, BuildConfig.DEFAULT_STORE_ADDRESS))
+                          developerAddress, BuildConfig.DEFAULT_STORE_ADDRESS,
+                          BuildConfig.DEFAULT_OEM_ADDRESS, origin, walletAddress, priceValue,
+                          priceCurrency, type))
                       .doOnSuccess(transactionUid -> this.transactionUid = transactionUid)
                       .flatMap(__ -> transactionService.getSession(walletAddress, signedContent,
                           transactionUid))))

@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import com.appcoins.wallet.billing.util.PayloadHelper;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.ui.BaseActivity;
 import com.facebook.appevents.AppEventsLogger;
 import dagger.android.AndroidInjection;
@@ -22,6 +23,9 @@ import static com.appcoins.wallet.billing.AppcoinsBillingBinder.EXTRA_BDS_IAP;
  */
 
 public class IabActivity extends BaseActivity implements IabView {
+
+  private static final String BDS = "BDS";
+
   public static final String RESPONSE_CODE = "RESPONSE_CODE";
   public static final int RESULT_USER_CANCELED = 1;
   public static final String SKU_DETAILS = "sku_details";
@@ -110,11 +114,13 @@ public class IabActivity extends BaseActivity implements IabView {
   }
 
   @Override public void navigateToCreditCardAuthorization() {
+    TransactionBuilder builder =
+        inAppPurchaseInteractor.parseTransaction(getIntent().getDataString(), isBds())
+            .blockingGet();
     getSupportFragmentManager().beginTransaction()
-        .replace(R.id.fragment_container, CreditCardAuthorizationFragment.newInstance(skuDetails,
-            inAppPurchaseInteractor.parseTransaction(getIntent().getDataString(), isBds())
-                .blockingGet()
-                .getSkuId()))
+        .replace(R.id.fragment_container,
+            CreditCardAuthorizationFragment.newInstance(skuDetails, builder.getSkuId(),
+                builder.getType(), isBds() ? BDS : null))
         .commit();
   }
 
@@ -133,8 +139,10 @@ public class IabActivity extends BaseActivity implements IabView {
     if (savedInstanceState == null && getSupportFragmentManager().getFragments()
         .isEmpty()) {
       getSupportFragmentManager().beginTransaction()
-          .add(R.id.fragment_container,
-              ExpressCheckoutBuyFragment.newInstance(createBundle(amount)))
+          .add(R.id.fragment_container, ExpressCheckoutBuyFragment.newInstance(createBundle(
+              BigDecimal.valueOf(inAppPurchaseInteractor.convertToFiat(amount.doubleValue(), "EUR")
+                  .blockingGet()
+                  .getAmount()))))
           .commit();
     }
   }

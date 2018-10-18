@@ -15,6 +15,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.exceptions.OnErrorNotImplementedException;
 import io.reactivex.schedulers.Schedulers;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 
 import static com.asfoundation.wallet.ui.iab.ExpressCheckoutBuyFragment.serializeJson;
@@ -41,6 +42,10 @@ public class CreditCardAuthorizationPresenter {
   private final String developerPayload;
   private final Billing billing;
   private final String skuId;
+  private final String type;
+  private final String origin;
+  private final String amount;
+  private final String currency;
   private CreditCardAuthorizationView view;
   private FindDefaultWalletInteract defaultWalletInteract;
 
@@ -49,7 +54,8 @@ public class CreditCardAuthorizationPresenter {
       CompositeDisposable disposables, Adyen adyen, CreditCardBilling creditCardBilling,
       CreditCardNavigator navigator, BillingMessagesMapper billingMessagesMapper,
       InAppPurchaseInteractor inAppPurchaseInteractor, ExternalBillingSerializer billingSerializer,
-      String transactionData, String developerPayload, Billing billing, String skuId) {
+      String transactionData, String developerPayload, Billing billing, String skuId, String type,
+      String origin, String amount, String currency) {
     this.view = view;
     this.defaultWalletInteract = defaultWalletInteract;
     this.viewScheduler = viewScheduler;
@@ -64,6 +70,10 @@ public class CreditCardAuthorizationPresenter {
     this.developerPayload = developerPayload;
     this.billing = billing;
     this.skuId = skuId;
+    this.type = type;
+    this.origin = origin;
+    this.amount = amount;
+    this.currency = currency;
   }
 
   public void present() {
@@ -135,7 +145,9 @@ public class CreditCardAuthorizationPresenter {
         .andThen(inAppPurchaseInteractor.parseTransaction(transactionData, true)
             .flatMapCompletable(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                    transaction.toAddress(), developerPayload)
+                    transaction.toAddress(), developerPayload, origin, new BigDecimal(amount),
+                    currency,
+                    type)
                     .observeOn(viewScheduler)
                     .filter(payment -> payment.isPendingAuthorization())
                     .firstOrError()
@@ -159,7 +171,9 @@ public class CreditCardAuthorizationPresenter {
     disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
         .flatMap(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                    transaction.toAddress(), developerPayload)
+                    transaction.toAddress(), developerPayload, origin, new BigDecimal(amount),
+                    currency,
+                    type)
                     .filter(payment -> payment.isCompleted())
                     .firstOrError()
                     .observeOn(viewScheduler)
@@ -172,18 +186,20 @@ public class CreditCardAuthorizationPresenter {
   private Bundle buildBundle(Billing billing) {
     Bundle bundle = new Bundle();
 
-    billing.getSkuPurchase(skuId, Schedulers.io())
-        .retryWhen(throwableFlowable -> throwableFlowable.delay(3, TimeUnit.SECONDS)
-            .map(throwable -> 0)
-            .timeout(3, TimeUnit.MINUTES))
-        .doOnSuccess(purchase -> {
-          bundle.putString(INAPP_PURCHASE_DATA, serializeJson(purchase));
-          bundle.putString(INAPP_DATA_SIGNATURE, purchase.getSignature()
-              .getValue());
-          bundle.putString(INAPP_PURCHASE_ID, purchase.getUid());
-        })
-        .ignoreElement()
-        .blockingAwait();
+    if (type.equals("INAPP")) {
+      billing.getSkuPurchase(skuId, Schedulers.io())
+          .retryWhen(throwableFlowable -> throwableFlowable.delay(3, TimeUnit.SECONDS)
+              .map(throwable -> 0)
+              .timeout(3, TimeUnit.MINUTES))
+          .doOnSuccess(purchase -> {
+            bundle.putString(INAPP_PURCHASE_DATA, serializeJson(purchase));
+            bundle.putString(INAPP_DATA_SIGNATURE, purchase.getSignature()
+                .getValue());
+            bundle.putString(INAPP_PURCHASE_ID, purchase.getUid());
+          })
+          .ignoreElement()
+          .blockingAwait();
+    }
 
     return bundle;
   }
@@ -192,7 +208,9 @@ public class CreditCardAuthorizationPresenter {
     disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
         .flatMap(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                    transaction.toAddress(), developerPayload)
+                    transaction.toAddress(), developerPayload, origin, new BigDecimal(amount),
+                    currency,
+                    type)
                     .filter(payment -> payment.isFailed())
                     .firstOrError()
                     .observeOn(viewScheduler)
@@ -209,7 +227,9 @@ public class CreditCardAuthorizationPresenter {
     disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
             .flatMapObservable(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                    transaction.toAddress(), developerPayload)
+                    transaction.toAddress(), developerPayload, origin, new BigDecimal(amount),
+                    currency,
+                    type)
                     .filter(payment -> payment.isProcessing())
                     .observeOn(viewScheduler)
                     .doOnNext(__ -> view.showLoading()))

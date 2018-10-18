@@ -47,13 +47,21 @@ public class ExpressCheckoutBuyPresenter {
   }
 
   private void handleOnGoingPurchases(String skuId) {
-    disposables.add(Completable.mergeArray(checkProcessing(skuId), checkAndConsumePrevious(skuId),
-        isSetupCompleted())
-        .observeOn(viewScheduler)
-        .subscribe(view::hideLoading, throwable -> {
-          view.showError();
-          throwable.printStackTrace();
-        }));
+    if (skuId != null) {
+      disposables.add(Completable.mergeArray(checkProcessing(skuId), checkAndConsumePrevious(skuId),
+          isSetupCompleted())
+          .observeOn(viewScheduler)
+          .subscribe(view::hideLoading, throwable -> {
+            view.showError();
+            throwable.printStackTrace();
+          }));
+    } else {
+      disposables.add(Completable.fromRunnable(view::hideLoading)
+          .subscribe(view::hideLoading, throwable -> {
+            view.showError();
+            throwable.printStackTrace();
+          }));
+    }
   }
 
   private Completable isSetupCompleted() {

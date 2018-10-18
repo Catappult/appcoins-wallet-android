@@ -321,7 +321,8 @@ public class AsfInAppPurchaseInteractor {
 
   public Single<CurrentPaymentStep> getCurrentPaymentStep(String packageName,
       TransactionBuilder transactionBuilder) {
-    return Single.zip(getTransaction(packageName, transactionBuilder.getSkuId()),
+    return Single.zip(
+        getTransaction(packageName, transactionBuilder.getSkuId(), transactionBuilder.getType()),
         gasSettingsInteract.fetch(true)
             .doOnSuccess(gasSettings -> transactionBuilder.gasSettings(
                 new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
@@ -372,9 +373,15 @@ public class AsfInAppPurchaseInteractor {
     return billingSerializer;
   }
 
-  public Single<Transaction> getTransaction(String packageName, String productName) {
-    return Single.fromCallable(() -> billingFactory.getBilling(packageName))
-        .flatMap(billing -> billing.getSkuTransaction(productName, Schedulers.io()));
+  public Single<Transaction> getTransaction(String packageName, String productName, String type) {
+    return Single.defer(() -> {
+      if (type.equals("INAPP")) {
+        return Single.fromCallable(() -> billingFactory.getBilling(packageName))
+            .flatMap(billing -> billing.getSkuTransaction(productName, Schedulers.io()));
+      } else {
+        return Single.just(Transaction.Companion.notFound());
+      }
+    });
   }
 
   public Single<Purchase> getCompletedPurchase(String packageName, String productName) {

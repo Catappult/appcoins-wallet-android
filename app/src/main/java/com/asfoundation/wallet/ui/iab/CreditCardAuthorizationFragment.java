@@ -49,6 +49,7 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.APP_PACKAGE;
 import static com.asfoundation.wallet.ui.iab.IabActivity.EXTRA_DEVELOPER_PAYLOAD;
 import static com.asfoundation.wallet.ui.iab.IabActivity.PRODUCT_NAME;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
+import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_CURRENCY;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_DATA;
 
 /**
@@ -61,6 +62,8 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   private static final String TAG = CreditCardAuthorizationFragment.class.getSimpleName();
 
   private static final String SKU_ID = "sku_id";
+  private static final String TYPE = "type";
+  private static final String ORIGIN = "origin";
   private static final String PACKAGE_NAME = "packageName";
   private static final String APP_NAME = "appName";
   private static final String APP_DESCRIPTION = "appDescription";
@@ -96,10 +99,13 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   private PublishRelay<Void> keyboardBuyRelay;
   private CreditCardFragmentNavigator navigator;
 
-  public static CreditCardAuthorizationFragment newInstance(Bundle skuDetails, String skuId) {
+  public static CreditCardAuthorizationFragment newInstance(Bundle skuDetails, String skuId,
+      String type, String origin) {
 
     final CreditCardAuthorizationFragment fragment = new CreditCardAuthorizationFragment();
     skuDetails.putString(SKU_ID, skuId);
+    skuDetails.putString(TYPE, type);
+    skuDetails.putString(ORIGIN, origin);
     fragment.setArguments(skuDetails);
     return fragment;
   }
@@ -116,7 +122,9 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
         creditCardBillingFactory.getBilling(getAppPackage()), navigator,
         inAppPurchaseInteractor.getBillingMessagesMapper(), inAppPurchaseInteractor,
         inAppPurchaseInteractor.getBillingSerializer(), getTransactionData(), getDeveloperPayload(),
-        billingFactory.getBilling(getAppPackage()), getSkuId());
+        billingFactory.getBilling(getAppPackage()), getSkuId(), getType(), getOrigin(),
+        getAmount().toString(),
+        getCurrency());
   }
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -394,6 +402,34 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
       return getArguments().getString(SKU_ID);
     }
     throw new IllegalArgumentException("sku id not found");
+  }
+
+  public String getType() {
+    if (getArguments().containsKey(TYPE)) {
+      return getArguments().getString(TYPE);
+    }
+    throw new IllegalArgumentException("type not found");
+  }
+
+  public String getOrigin() {
+    if (getArguments().containsKey(ORIGIN)) {
+      return getArguments().getString(ORIGIN);
+    }
+    throw new IllegalArgumentException("origin not found");
+  }
+
+  public String getCurrency() {
+    if (getArguments().containsKey(TRANSACTION_CURRENCY)) {
+      return getArguments().getString(TRANSACTION_CURRENCY);
+    }
+    throw new IllegalArgumentException("transaction currency not found");
+  }
+
+  public BigDecimal getAmount() {
+    if (getArguments().containsKey(TRANSACTION_AMOUNT)) {
+      return (BigDecimal) getArguments().getSerializable(TRANSACTION_AMOUNT);
+    }
+    throw new IllegalArgumentException("transaction currency not found");
   }
 
   public String getDeveloperPayload() {
