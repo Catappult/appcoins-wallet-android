@@ -50,7 +50,7 @@ public class AppcoinsRewardsBuyPresenter {
 
   private void handleOkErrorClick() {
     disposables.add(view.getOkErrorClick()
-        .subscribe(__ -> view.close()));
+        .subscribe(__ -> view.errorClose()));
   }
 
   private void handleCancelClick() {
@@ -87,14 +87,18 @@ public class AppcoinsRewardsBuyPresenter {
           view.showProcessingLoading();
         });
       case COMPLETED:
-        return rewardsManager.getPaymentCompleted(packageName, sku)
-            .doOnSuccess(view::finish)
-            .ignoreElement()
-            .observeOn(scheduler)
-            .onErrorResumeNext(throwable -> Completable.fromAction(() -> {
-              view.showGenericError();
-              view.hideGenericLoading();
-            }));
+        if (isBds) {
+          return rewardsManager.getPaymentCompleted(packageName, sku)
+              .doOnSuccess(view::finish)
+              .ignoreElement()
+              .observeOn(scheduler)
+              .onErrorResumeNext(throwable -> Completable.fromAction(() -> {
+                throwable.printStackTrace();
+                view.showGenericError();
+                view.hideGenericLoading();
+              }));
+        }
+        return Completable.fromAction(() -> view.finish());
       case ERROR:
         return Completable.fromAction(() -> {
           view.showGenericError();

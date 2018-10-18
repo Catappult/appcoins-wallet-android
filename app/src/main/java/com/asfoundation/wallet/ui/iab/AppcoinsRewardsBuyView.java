@@ -31,4 +31,8 @@ interface AppcoinsRewardsBuyView {
   void close();
 
   void showGenericError();
+
+  void finish();
+
+  void errorClose();
 }

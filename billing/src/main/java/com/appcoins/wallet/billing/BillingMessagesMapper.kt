@@ -100,4 +100,10 @@ class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerial
     return mapPurchase(purchase.uid, purchase.signature.value,
         billingSerializer.serializeSignatureData(purchase))
   }
+
+  fun genericError(): Bundle {
+    val bundle = Bundle()
+    bundle.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_ERROR)
+    return bundle
+  }
 }

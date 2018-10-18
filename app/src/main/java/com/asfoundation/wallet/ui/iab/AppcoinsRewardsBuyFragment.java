@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.iab;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -207,9 +206,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   }
 
   @Override public void close() {
-    Bundle bundle = new Bundle();
-    bundle.putInt("RESPONSE_CODE", Activity.RESULT_OK);
-    iabView.close(bundle);
+    iabView.close(billingMessagesMapper.mapCancellation());
   }
 
   @Override public void showGenericError() {
@@ -218,6 +215,15 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     hidePaymentDetails();
     errorMessage.setText(R.string.activity_iab_error_message);
     transactionErrorLayout.setVisibility(View.VISIBLE);
+  }
+
+  @Override public void finish() {
+    Bundle bundle = new Bundle();
+    iabView.finish(bundle);
+  }
+
+  @Override public void errorClose() {
+    iabView.finish(billingMessagesMapper.genericError());
   }
 
   @Override public void onAttach(Context context) {
