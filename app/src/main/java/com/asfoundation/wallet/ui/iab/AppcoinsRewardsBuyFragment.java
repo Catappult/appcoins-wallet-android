@@ -218,8 +218,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   }
 
   @Override public void finish() {
-    Bundle bundle = new Bundle();
-    iabView.finish(bundle);
+    iabView.finish(billingMessagesMapper.successBundle());
   }
 
   @Override public void errorClose() {

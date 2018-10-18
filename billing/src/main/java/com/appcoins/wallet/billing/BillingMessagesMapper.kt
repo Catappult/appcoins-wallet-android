@@ -106,4 +106,10 @@ class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerial
     bundle.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_ERROR)
     return bundle
   }
+
+  fun successBundle(): Bundle {
+    val intent = Bundle()
+    intent.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
+    return intent
+  }
 }
