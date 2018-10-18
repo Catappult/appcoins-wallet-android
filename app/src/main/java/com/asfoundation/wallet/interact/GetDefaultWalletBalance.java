@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.interact;
 
+import com.asfoundation.wallet.entity.Balance;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.Token;
 import com.asfoundation.wallet.entity.TokenInfo;
@@ -19,49 +20,61 @@ import java.util.Map;
 import static com.asfoundation.wallet.util.BalanceUtils.weiToEth;
 
 public class GetDefaultWalletBalance implements BalanceService {
+  public static final String BALANCE_TOKEN = "BALANCE_TOKEN";
+  public static final String BALANCE_CREDITS = "BALANCE_CREDITS";
 
   private final WalletRepositoryType walletRepository;
   private final EthereumNetworkRepositoryType ethereumNetworkRepository;
   private final FetchTokensInteract fetchTokensInteract;
   private final FindDefaultWalletInteract defaultWalletInteract;
+  private final FetchCreditsInteract fetchCreditsInteract;
 
   public GetDefaultWalletBalance(WalletRepositoryType walletRepository,
       EthereumNetworkRepositoryType ethereumNetworkRepository,
-      FetchTokensInteract fetchTokensInteract, FindDefaultWalletInteract defaultWalletInteract) {
+      FetchTokensInteract fetchTokensInteract, FindDefaultWalletInteract defaultWalletInteract,
+      FetchCreditsInteract fetchCreditsInteract) {
     this.walletRepository = walletRepository;
     this.ethereumNetworkRepository = ethereumNetworkRepository;
     this.fetchTokensInteract = fetchTokensInteract;
     this.defaultWalletInteract = defaultWalletInteract;
+    this.fetchCreditsInteract = fetchCreditsInteract;
   }
 
-  public Single<Map<String, String>> get(Wallet wallet) {
+  public Single<Map<String, Balance>> get(Wallet wallet) {
     return fetchTokensInteract.fetchDefaultToken(wallet)
-        .flatMapSingle(token -> {
-          if (wallet.address.equals(token.tokenInfo.address)) {
-            return getEtherBalance(wallet);
-          } else {
-            return getTokenBalance(token);
-          }
-        })
+        .flatMap(token -> fetchCreditsInteract.getBalance(wallet)
+            .flatMapSingle(credits -> {
+              if (wallet.address.equals(token.tokenInfo.address)) {
+                return getEtherBalance(wallet);
+              } else {
+                return getTokenAndCreditBalance(token, credits);
+              }
+            }))
         .firstOrError();
   }
 
-  private Single<Map<String, String>> getTokenBalance(Token token) {
-    Map<String, String> balance = new HashMap<>();
-    balance.put(token.tokenInfo.symbol, weiToEth(token.balance).setScale(4, RoundingMode.HALF_UP)
-        .stripTrailingZeros()
-        .toPlainString());
+  private Single<Map<String, Balance>> getTokenAndCreditBalance(Token token, BigDecimal credits) {
+    Map<String, Balance> balance = new HashMap<>();
+    balance.put(BALANCE_TOKEN, new Balance(token.tokenInfo.symbol,
+        weiToEth(token.balance).setScale(4, RoundingMode.HALF_UP)
+            .stripTrailingZeros()
+            .toPlainString()));
+    balance.put(BALANCE_CREDITS, new Balance("APPCCredits",
+        weiToEth(credits).setScale(4, RoundingMode.HALF_UP)
+            .stripTrailingZeros()
+            .toPlainString()));
     return Single.just(balance);
   }
 
-  private Single<Map<String, String>> getEtherBalance(Wallet wallet) {
+  private Single<Map<String, Balance>> getEtherBalance(Wallet wallet) {
     return walletRepository.balanceInWei(wallet)
         .flatMap(ethBalance -> {
-          Map<String, String> balance = new HashMap<>();
-          balance.put(ethereumNetworkRepository.getDefaultNetwork().symbol,
-              weiToEth(ethBalance).setScale(4, RoundingMode.HALF_UP)
-                  .stripTrailingZeros()
-                  .toPlainString());
+          Map<String, Balance> balance = new HashMap<>();
+          balance.put(BALANCE_TOKEN,
+              new Balance(ethereumNetworkRepository.getDefaultNetwork().symbol,
+                  weiToEth(ethBalance).setScale(4, RoundingMode.HALF_UP)
+                      .stripTrailingZeros()
+                      .toPlainString()));
           return Single.just(balance);
         })
         .observeOn(AndroidSchedulers.mainThread());

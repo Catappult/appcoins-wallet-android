@@ -8,14 +8,16 @@
     android:theme="@style/AppTheme.AppBarOverlay"
     >
 
-  <android.support.design.widget.CollapsingToolbarLayout
+  <android.support.design.widget.SubtitleCollapsingToolbarLayout
       android:id="@+id/toolbar_layout"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:background="@drawable/appbar_background_color"
       android:fitsSystemWindows="false"
       android:theme="@style/AppTheme.AppBarOverlay"
+      app:collapsedSubtitleTextAppearance="@style/ToolbarTextAppearance.Subtitle"
       app:collapsedTitleTextAppearance="@style/ToolbarTextAppearance.Title"
+      app:expandedSubtitleTextAppearance="@style/ToolbarTextAppearance.Subtitle.Expanded"
       app:expandedTitleGravity="bottom|center_horizontal"
       app:expandedTitleTextAppearance="@style/ToolbarTextAppearance.Title.Expanded"
       app:layout_scrollFlags="scroll|exitUntilCollapsed"
@@ -34,10 +36,9 @@
           android:id="@+id/transaction_timestamp"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="18 Feb 2018 02:12PM"
-          android:layout_marginTop="20dp"
-          android:layout_marginEnd="16dp"
           android:layout_gravity="end"
+          android:layout_marginEnd="16dp"
+          android:layout_marginTop="20dp"
           android:visibility="gone"
           style="@style/TransactionDetailsTextStyle.AppBar"
           />
@@ -49,5 +50,5 @@
         android:layout_height="match_parent"
         />
 
-  </android.support.design.widget.CollapsingToolbarLayout>
+  </android.support.design.widget.SubtitleCollapsingToolbarLayout>
 </android.support.design.widget.AppBarLayout>

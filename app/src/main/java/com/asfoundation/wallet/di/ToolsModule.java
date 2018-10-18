@@ -29,8 +29,10 @@ import com.asfoundation.wallet.billing.TransactionService;
 import com.asfoundation.wallet.billing.payment.Adyen;
 import com.asfoundation.wallet.billing.purchase.CreditCardBillingFactory;
 import com.asfoundation.wallet.interact.AddTokenInteract;
+import com.asfoundation.wallet.interact.BalanceGetter;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
+import com.asfoundation.wallet.interact.FetchCreditsInteract;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FetchTokensInteract;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
@@ -346,14 +348,19 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(
       WalletRepositoryType walletRepository,
       EthereumNetworkRepositoryType ethereumNetworkRepository,
-      FetchTokensInteract fetchTokensInteract, FindDefaultWalletInteract defaultWalletInteract) {
+      FetchTokensInteract fetchTokensInteract, FindDefaultWalletInteract defaultWalletInteract,
+      FetchCreditsInteract fetchCreditsInteract) {
     return new GetDefaultWalletBalance(walletRepository, ethereumNetworkRepository,
-        fetchTokensInteract, defaultWalletInteract);
+        fetchTokensInteract, defaultWalletInteract, fetchCreditsInteract);
   }
 
   @Provides FetchTokensInteract provideFetchTokensInteract(TokenRepositoryType tokenRepository,
       DefaultTokenProvider defaultTokenProvider) {
     return new FetchTokensInteract(tokenRepository, defaultTokenProvider);
+  }
+
+  @Provides FetchCreditsInteract provideFetchCreditsInteract(BalanceGetter balanceGetter) {
+    return new FetchCreditsInteract(balanceGetter);
   }
 
   @Singleton @Provides MicroRaidenBDS provideMicroRaidenBDS(Web3jProvider web3jProvider,
@@ -449,8 +456,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       CountryCodeProvider countryCodeProvider) {
     return new ProofOfAttentionService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
         BuildConfig.APPLICATION_ID, hashCalculator, new CompositeDisposable(), proofWriter,
-        Schedulers.computation(), maxNumberProofComponents, new BackEndErrorMapper(),
-        disposables, countryCodeProvider);
+        Schedulers.computation(), maxNumberProofComponents, new BackEndErrorMapper(), disposables,
+        countryCodeProvider);
   }
 
   @Provides @Singleton CountryCodeProvider providesCountryCodeProvider(OkHttpClient client,
@@ -622,5 +629,17 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .build()
         .create(PoASubmissionService.PoASubmissionApi.class);
     return new PoASubmissionService(api);
+  }
+
+  @Singleton @Provides BalanceGetter provideBalanceGetter(PoASubmissionService service) {
+    return new BalanceGetter() {
+      @NotNull @Override public Single<BigDecimal> getBalance(@NotNull String address) {
+        return service.getCreditsBalance(address);
+      }
+
+      @NotNull @Override public Single<BigDecimal> getBalance() {
+        return null;
+      }
+    };
   }
 }

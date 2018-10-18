@@ -71,7 +71,11 @@
   </style>
 
   <style name="ToolbarTextAppearance.Subtitle">
-    <item name="android:textSize">14sp</item>
+    <item name="android:textSize">12sp</item>
+  </style>
+
+  <style name="ToolbarTextAppearance.Subtitle.Expanded">
+    <item name="android:textSize">15sp</item>
   </style>
 
   <style name="MyToolbar">
