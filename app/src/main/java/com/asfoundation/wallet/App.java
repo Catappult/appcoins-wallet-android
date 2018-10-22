@@ -57,7 +57,6 @@ public class App extends MultiDexApplication
   @Inject RemoteRepository.BdsApi bdsApi;
   @Inject WalletService walletService;
   @Inject AppCoinsAddressProxySdk contractAddressProvider;
-  @Inject BillingFactory billingFactory;
   @Inject ProxyService proxyService;
   @Inject Adyen adyen;
   @Inject AppcoinsRewards appcoinsRewards;
@@ -141,10 +140,6 @@ public class App extends MultiDexApplication
 
   @NotNull @Override public WalletService getWalletService() {
     return walletService;
-  }
-
-  @NotNull @Override public BillingFactory getBillingFactory() {
-    return billingFactory;
   }
 
   @NotNull @Override public ProxyService getProxyService() {

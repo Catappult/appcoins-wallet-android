@@ -45,6 +45,7 @@ import com.asfoundation.wallet.ui.iab.raiden.RaidenRepository;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.TestObserver;
@@ -96,7 +97,6 @@ public class InAppPurchaseInteractorTest {
   @Mock ProofOfAttentionService proofOfAttentionService;
   @Mock RaidenRepository repository;
   @Mock TransactionSender transactionSender;
-  @Mock BillingFactory billingFactory;
   @Mock TransactionValidator transactionValidator;
   @Mock DefaultTokenProvider defaultTokenProvider;
   @Mock CountryCodeProvider countryCodeProvider;
@@ -188,10 +188,8 @@ public class InAppPurchaseInteractorTest {
         new Transaction(UID, Transaction.Status.COMPLETED,
             new Gateway(Gateway.Name.appcoins, "", ""))));
 
-    when(billingFactory.getBilling(PACKAGE_NAME)).thenReturn(billing);
-
-    when(billing.getSkuTransaction(any(), any())).thenReturn(Single.just(
-        new Transaction(UID, Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
+    when(billing.getSkuTransaction(anyString(), anyString(), any(Scheduler.class))).thenReturn(
+        Single.just(new Transaction(UID, Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
             new Gateway(Gateway.Name.appcoins, "", ""))));
 
     AsfInAppPurchaseInteractor asfInAppPurchaseInteractor =
@@ -200,7 +198,7 @@ public class InAppPurchaseInteractorTest {
             new TransferParser(defaultWalletInteract, tokenRepository), repository,
             new ChannelService(null, new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
                 new MemoryCache<>(BehaviorSubject.create(), new HashMap<>())),
-            new BillingMessagesMapper(new ExternalBillingSerializer()), billingFactory,
+            new BillingMessagesMapper(new ExternalBillingSerializer()), billing,
             new ExternalBillingSerializer(),
             new ExpressCheckoutBuyService(Mockito.mock(TokenToFiatService.class)),
             new BdsTransactionService(scheduler,
@@ -212,7 +210,7 @@ public class InAppPurchaseInteractorTest {
 
     inAppPurchaseInteractor =
         new BdsInAppPurchaseInteractor(asfInAppPurchaseInteractor, billingPaymentProofSubmission,
-            new ApproveKeyProvider(billingFactory), bdsBilling);
+            new ApproveKeyProvider(billing), billing);
   }
 
   @Test public void sendTransaction() {

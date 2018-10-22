@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import com.adyen.core.models.PaymentMethod;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
-import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.asfoundation.wallet.billing.CreditCardBilling;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
 import com.asfoundation.wallet.billing.payment.Adyen;
@@ -38,7 +37,6 @@ public class CreditCardAuthorizationPresenter {
   private final CreditCardNavigator navigator;
   private final BillingMessagesMapper billingMessagesMapper;
   private final InAppPurchaseInteractor inAppPurchaseInteractor;
-  private final ExternalBillingSerializer billingSerializer;
   private final String transactionData;
   private final String developerPayload;
   private final Billing billing;
@@ -47,17 +45,19 @@ public class CreditCardAuthorizationPresenter {
   private final String origin;
   private final String amount;
   private final String currency;
+  private final String appPackage;
   private CreditCardAuthorizationView view;
   private FindDefaultWalletInteract defaultWalletInteract;
 
-  public CreditCardAuthorizationPresenter(CreditCardAuthorizationView view,
+  public CreditCardAuthorizationPresenter(CreditCardAuthorizationView view, String appPackage,
       FindDefaultWalletInteract defaultWalletInteract, Scheduler viewScheduler,
       CompositeDisposable disposables, Adyen adyen, CreditCardBilling creditCardBilling,
       CreditCardNavigator navigator, BillingMessagesMapper billingMessagesMapper,
-      InAppPurchaseInteractor inAppPurchaseInteractor, ExternalBillingSerializer billingSerializer,
-      String transactionData, String developerPayload, Billing billing, String skuId, String type,
-      String origin, String amount, String currency) {
+      InAppPurchaseInteractor inAppPurchaseInteractor, String transactionData,
+      String developerPayload, Billing billing, String skuId, String type, String origin,
+      String amount, String currency) {
     this.view = view;
+    this.appPackage = appPackage;
     this.defaultWalletInteract = defaultWalletInteract;
     this.viewScheduler = viewScheduler;
     this.disposables = disposables;
@@ -66,7 +66,6 @@ public class CreditCardAuthorizationPresenter {
     this.navigator = navigator;
     this.billingMessagesMapper = billingMessagesMapper;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
-    this.billingSerializer = billingSerializer;
     this.transactionData = transactionData;
     this.developerPayload = developerPayload;
     this.billing = billing;
@@ -195,7 +194,7 @@ public class CreditCardAuthorizationPresenter {
     Bundle bundle = new Bundle();
 
     if (type.equals("INAPP")) {
-      billing.getSkuPurchase(skuId, Schedulers.io())
+      billing.getSkuPurchase(appPackage, skuId, Schedulers.io())
           .retryWhen(throwableFlowable -> throwableFlowable.delay(3, TimeUnit.SECONDS)
               .map(throwable -> 0)
               .timeout(3, TimeUnit.MINUTES))

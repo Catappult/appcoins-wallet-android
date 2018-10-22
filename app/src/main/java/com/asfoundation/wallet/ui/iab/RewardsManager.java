@@ -3,7 +3,6 @@ package com.asfoundation.wallet.ui.iab;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.appcoins.rewards.Transaction;
 import com.appcoins.wallet.bdsbilling.Billing;
-import com.appcoins.wallet.bdsbilling.BillingFactory;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -13,11 +12,11 @@ import java.math.BigDecimal;
 
 public class RewardsManager {
   private final AppcoinsRewards appcoinsRewards;
-  private final BillingFactory billingFactory;
+  private final Billing billing;
 
-  public RewardsManager(AppcoinsRewards appcoinsRewards, BillingFactory billingFactory) {
+  public RewardsManager(AppcoinsRewards appcoinsRewards, Billing billing) {
     this.appcoinsRewards = appcoinsRewards;
-    this.billingFactory = billingFactory;
+    this.billing = billing;
   }
 
   public Completable pay(String sku, BigDecimal amount, String developerAddress,
@@ -28,8 +27,7 @@ public class RewardsManager {
   }
 
   public Single<Purchase> getPaymentCompleted(String packageName, String sku) {
-    Billing billing = billingFactory.getBilling(packageName);
-    return billing.getSkuPurchase(sku, Schedulers.io());
+    return billing.getSkuPurchase(packageName, sku, Schedulers.io());
   }
 
   public Observable<RewardPayment> getPaymentStatus(String packageName, String sku) {

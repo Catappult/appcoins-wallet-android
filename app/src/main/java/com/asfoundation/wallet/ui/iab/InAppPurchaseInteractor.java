@@ -145,7 +145,10 @@ public class InAppPurchaseInteractor {
   }
 
   public Single<Boolean> isWalletFromBds(String packageName, String wallet) {
-    return bdsInAppPurchaseInteractor.isBdsWallet(packageName)
+    if (packageName == null) {
+      return Single.just(false);
+    }
+    return bdsInAppPurchaseInteractor.getWallet(packageName)
         .map(wallet::equalsIgnoreCase);
   }
 

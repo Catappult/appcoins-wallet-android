@@ -1,20 +1,19 @@
 package com.asfoundation.wallet.ui.iab;
 
-import com.appcoins.wallet.bdsbilling.BillingFactory;
+import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
 public class ApproveKeyProvider {
-  private final BillingFactory billingFactory;
+  private final Billing billing;
 
-  public ApproveKeyProvider(BillingFactory billingFactory) {
-    this.billingFactory = billingFactory;
+  public ApproveKeyProvider(Billing billing) {
+    this.billing = billing;
   }
 
   Single<String> getKey(String packageName, String productName) {
-    return billingFactory.getBilling(packageName)
-        .getSkuTransaction(productName, Schedulers.io())
+    return billing.getSkuTransaction(packageName, productName, Schedulers.io())
         .map(Transaction::getUid);
   }
 }

@@ -8,25 +8,25 @@ import com.appcoins.wallet.billing.repository.entity.Product
 import io.reactivex.Scheduler
 import io.reactivex.Single
 
-class BdsBilling(private val merchantName: String,
-                 private val repository: BillingRepository,
+class BdsBilling(private val repository: BillingRepository,
                  private val walletService: WalletService,
                  private val errorMapper: BillingThrowableCodeMapper) : Billing {
   override fun getWallet(packageName: String): Single<String> {
     return repository.getWallet(packageName)
   }
 
-  override fun isInAppSupported(): Single<Billing.BillingSupportType> {
+  override fun isInAppSupported(merchantName: String): Single<Billing.BillingSupportType> {
     return repository.isSupported(merchantName, BillingSupportedType.INAPP).map { map(it) }
         .onErrorReturn { errorMapper.map(it) }
   }
 
-  override fun isSubsSupported(): Single<Billing.BillingSupportType> {
+  override fun isSubsSupported(merchantName: String): Single<Billing.BillingSupportType> {
     return repository.isSupported(merchantName, BillingSupportedType.SUBS).map { map(it) }
         .onErrorReturn { errorMapper.map(it) }
   }
 
-  override fun getProducts(skus: List<String>, type: String): Single<List<Product>> {
+  override fun getProducts(merchantName: String, skus: List<String>,
+                           type: String): Single<List<Product>> {
     return repository.getSkuDetails(merchantName, skus, BillingRepository.BillingType.valueOf(type))
   }
 
@@ -39,7 +39,8 @@ class BdsBilling(private val merchantName: String,
     }
   }
 
-  override fun getSkuTransaction(sku: String, scheduler: Scheduler): Single<Transaction> {
+  override fun getSkuTransaction(merchantName: String, sku: String,
+                                 scheduler: Scheduler): Single<Transaction> {
     return walletService.getWalletAddress().flatMap { address ->
       walletService.signContent(address).observeOn(scheduler).flatMap { signedContent ->
         repository.getSkuTransaction(merchantName, sku, address, signedContent)
@@ -47,7 +48,8 @@ class BdsBilling(private val merchantName: String,
     }
   }
 
-  override fun getSkuPurchase(sku: String, scheduler: Scheduler): Single<Purchase> {
+  override fun getSkuPurchase(merchantName: String, sku: String,
+                              scheduler: Scheduler): Single<Purchase> {
     return walletService.getWalletAddress().flatMap { address ->
       walletService.signContent(address).observeOn(scheduler).flatMap { signedContent ->
         repository.getSkuPurchase(merchantName, sku, address, signedContent)
@@ -55,7 +57,7 @@ class BdsBilling(private val merchantName: String,
     }
   }
 
-  override fun getPurchases(type: BillingSupportedType,
+  override fun getPurchases(merchantName: String, type: BillingSupportedType,
                             scheduler: Scheduler): Single<List<Purchase>> {
     return walletService.getWalletAddress().flatMap { address ->
       walletService.signContent(address).observeOn(scheduler).flatMap { signedContent ->
@@ -65,7 +67,8 @@ class BdsBilling(private val merchantName: String,
     }.onErrorReturn { ArrayList() }
   }
 
-  override fun consumePurchases(purchaseToken: String, scheduler: Scheduler): Single<Boolean> {
+  override fun consumePurchases(merchantName: String, purchaseToken: String,
+                                scheduler: Scheduler): Single<Boolean> {
     return walletService.getWalletAddress().flatMap { address ->
       walletService.signContent(address).observeOn(scheduler).flatMap { signedContent ->
         repository.consumePurchases(merchantName, purchaseToken, address, signedContent)

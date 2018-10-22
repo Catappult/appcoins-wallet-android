@@ -63,13 +63,13 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     const val EXTRA_BDS_IAP = "bds_iap"
   }
 
-  private lateinit var billing: Billing
+  private lateinit var billing: AndroidBilling
   private lateinit var merchantName: String
 
   @Throws(RemoteException::class)
   override fun onTransact(code: Int, data: Parcel, reply: Parcel, flags: Int): Boolean {
     merchantName = packageManager.getPackagesForUid(Binder.getCallingUid())!![0]
-    billing = billingFactory.getBilling(merchantName)
+    billing = AndroidBilling(merchantName, billingFactory.getBilling())
     return super.onTransact(code, data, reply, flags)
   }
 
@@ -173,7 +173,7 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     if (type == ITEM_TYPE_INAPP) {
       try {
         val purchases =
-            billing.getPurchases(BillingSupportedType.INAPP, Schedulers.io())
+            billing.getPurchases(BillingSupportedType.INAPP)
                 .blockingGet()
 
         purchases.forEach { purchase: Purchase ->
@@ -202,7 +202,7 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     }
 
     return try {
-      billing.consumePurchases(purchaseToken, Schedulers.io()).map { RESULT_OK }.blockingGet()
+      billing.consumePurchases(purchaseToken).map { RESULT_OK }.blockingGet()
     } catch (exception: Exception) {
       billingMessagesMapper.mapConsumePurchasesError(exception)
     }

@@ -6,7 +6,6 @@ import com.appcoins.wallet.appcoins.rewards.repository.WalletService
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi
 import com.appcoins.wallet.appcoins.rewards.repository.bds.BdsApi
 import com.appcoins.wallet.bdsbilling.Billing
-import com.appcoins.wallet.bdsbilling.BillingFactory
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
 import com.appcoins.wallet.commons.MemoryCache
 import io.reactivex.Single
@@ -80,12 +79,8 @@ class AppcoinsRewardsTest {
                 "27c3217155834a21fa8f97df99053f2874727837c03805c2eb1ba56383473b2a07fd865dd5db1359a717dfec9aa14bab6437184b14969ec3551b86e9d29c98d401")
 
           }
-        }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), scheduler,
-            object : BillingFactory {
-              override fun getBilling(merchantName: String): Billing {
-                return billing
-              }
-            }, ErrorMapper())
+        }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), scheduler, billing
+            , ErrorMapper())
     appcoinsRewards.start()
   }
 
