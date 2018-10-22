@@ -345,7 +345,7 @@ public class AsfInAppPurchaseInteractor {
           case appcoins:
             return CurrentPaymentStep.PAUSED_ON_CHAIN;
           case adyen:
-            return CurrentPaymentStep.PAUSED_OFF_CHAIN;
+            return CurrentPaymentStep.PAUSED_CC_PAYMENT;
           default:
           case unknown:
             throw new UnknownServiceException("Unknown gateway");
@@ -406,6 +406,6 @@ public class AsfInAppPurchaseInteractor {
   }
 
   public enum CurrentPaymentStep {
-    PAUSED_OFF_CHAIN, PAUSED_ON_CHAIN, NO_FUNDS, READY
+    PAUSED_CC_PAYMENT, PAUSED_ON_CHAIN, NO_FUNDS, READY
   }
 }

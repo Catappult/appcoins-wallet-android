@@ -349,9 +349,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Singleton @Provides InAppPurchaseInteractor provideDualInAppPurchaseInteractor(
       BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
       @Named("ASF_IN_APP_INTERACTOR") AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
-      BillingMessagesMapper billingMessagesMapper) {
+      AppcoinsRewards appcoinsRewards) {
     return new InAppPurchaseInteractor(asfInAppPurchaseInteractor, bdsInAppPurchaseInteractor,
-        billingMessagesMapper, new ExternalBillingSerializer());
+        new ExternalBillingSerializer(), appcoinsRewards);
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(

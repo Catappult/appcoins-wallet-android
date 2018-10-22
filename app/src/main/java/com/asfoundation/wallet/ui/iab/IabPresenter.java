@@ -61,18 +61,20 @@ public class IabPresenter {
   }
 
   private Completable showBdsPayment(TransactionBuilder transactionBuilder) {
-    return inAppPurchaseInteractor.getCurrentPaymentStep(appPackage, transactionBuilder)
-        .observeOn(viewScheduler)
-        .doOnSuccess(paymentStatus -> {
-          switch (paymentStatus) {
-            case PAUSED_ON_CHAIN:
-            case READY:
+    return inAppPurchaseInteractor.getPaymentMethod(appPackage, transactionBuilder)
+        .subscribeOn(viewScheduler)
+        .doOnSuccess(gateway -> {
+          switch (gateway) {
+            case appcoins:
               view.showOnChain(transactionBuilder.amount());
               break;
-            case PAUSED_OFF_CHAIN:
-            case NO_FUNDS:
-              view.showOffChain(transactionBuilder.amount());
+            case adyen:
+              view.showCcPayment(transactionBuilder.amount());
               break;
+            case appcoins_credits:
+              view.showAppcoinsCreditsPayment(transactionBuilder.amount());
+              break;
+            case unknown:
             default:
               throw new NotImplementedError();
           }

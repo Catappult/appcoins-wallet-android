@@ -7,7 +7,7 @@ import java.math.BigDecimal
 
 class BdsAppcoinsRewardsRepository(private val remoteRepository: RemoteRepository) :
     AppcoinsRewardsRepository {
-  override fun getBalance(address: String): Single<Long> {
+  override fun getBalance(address: String): Single<BigDecimal> {
     return remoteRepository.getBalance(address).map { it.balance }
   }
 

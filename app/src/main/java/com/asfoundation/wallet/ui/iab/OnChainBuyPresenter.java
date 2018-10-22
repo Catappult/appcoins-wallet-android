@@ -137,7 +137,7 @@ public class OnChainBuyPresenter {
                           .subscribeOn(AndroidSchedulers.mainThread());
                     case NO_FUNDS:
                       return Completable.fromAction(view::showNoFundsError);
-                    case PAUSED_OFF_CHAIN:
+                    case PAUSED_CC_PAYMENT:
                     default:
                       return Completable.error(new UnsupportedOperationException(
                           "Cannot resume from " + currentPaymentStep.name() + " status"));

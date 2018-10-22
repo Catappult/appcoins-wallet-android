@@ -19,11 +19,11 @@ class AppcoinsRewards(
     private val billingFactory: BillingFactory,
     private val errorMapper: ErrorMapper) {
 
-  fun getBalance(address: String): Single<Long> {
+  fun getBalance(address: String): Single<BigDecimal> {
     return repository.getBalance(address)
   }
 
-  fun getBalance(): Single<Long> {
+  fun getBalance(): Single<BigDecimal> {
     return walletService.getWalletAddress().flatMap { getBalance(it) }
   }
 

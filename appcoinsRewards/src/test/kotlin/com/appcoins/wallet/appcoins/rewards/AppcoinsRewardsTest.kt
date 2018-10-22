@@ -30,7 +30,7 @@ class AppcoinsRewardsTest {
     private const val OEM_ADDRESS: String = "0x652d25ac09f79e9619fba99f34f0d8420d0956b1"
     private const val STORE_ADDRESS: String = "0x652d25ac09f79e9619fba99f34f0d8420d0956b1"
     private const val SKU: String = "cm.aptoide.pt:gas"
-    private const val BALANCE: Long = 2
+    private val BALANCE: BigDecimal = BigDecimal(2)
     private const val TYPE: String = "INAPP"
     private const val PACKAGE_NAME = "PACKAGE_NAME"
     private val ORIGIN = Transaction.Origin.BDS
@@ -113,11 +113,11 @@ class AppcoinsRewardsTest {
 
   @Test
   fun getBalance() {
-    val testObserverNoAddress = TestObserver<Long>()
+    val testObserverNoAddress = TestObserver<BigDecimal>()
     appcoinsRewards.getBalance().subscribe(testObserverNoAddress)
     testObserverNoAddress.assertNoErrors().assertValue(BALANCE).assertComplete()
 
-    val testObserverWithAddress = TestObserver<Long>()
+    val testObserverWithAddress = TestObserver<BigDecimal>()
     appcoinsRewards.getBalance(USER_ADDRESS).subscribe(testObserverWithAddress)
     testObserverWithAddress.assertNoErrors().assertValue(BALANCE).assertComplete()
   }
