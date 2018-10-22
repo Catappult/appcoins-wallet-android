@@ -140,9 +140,7 @@ public class IabActivity extends BaseActivity implements IabView {
         .isEmpty()) {
       getSupportFragmentManager().beginTransaction()
           .add(R.id.fragment_container, ExpressCheckoutBuyFragment.newInstance(createBundle(
-              BigDecimal.valueOf(inAppPurchaseInteractor.convertToFiat(amount.doubleValue(), "EUR")
-                  .blockingGet()
-                  .getAmount()))))
+              BigDecimal.valueOf(amount.doubleValue()))))
           .commit();
     }
   }
