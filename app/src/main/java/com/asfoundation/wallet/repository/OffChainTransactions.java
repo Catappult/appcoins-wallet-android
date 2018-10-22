@@ -11,20 +11,22 @@ public class OffChainTransactions {
   private final OffChainTransactionsRepository repository;
   private final TransactionsMapper mapper;
   private final FindDefaultWalletInteract defaultWalletInteract;
+  private final String versionCode;
   private Scheduler scheduler;
 
   public OffChainTransactions(OffChainTransactionsRepository repository, TransactionsMapper mapper,
-      FindDefaultWalletInteract defaultWalletInteract, Scheduler scheduler) {
+      FindDefaultWalletInteract defaultWalletInteract, String versionCode, Scheduler scheduler) {
     this.repository = repository;
     this.mapper = mapper;
     this.defaultWalletInteract = defaultWalletInteract;
+    this.versionCode = versionCode;
     this.scheduler = scheduler;
   }
 
   public Single<List<Transaction>> getTransactions() {
     return defaultWalletInteract.find()
         .observeOn(scheduler)
-        .flatMap(wallet -> repository.getTransactions(wallet.address))
+        .flatMap(wallet -> repository.getTransactions(wallet.address, versionCode))
         .flatMap(channelHistoryResponse -> mapper.mapFromWalletHistory(
             channelHistoryResponse.getResult()));
   }

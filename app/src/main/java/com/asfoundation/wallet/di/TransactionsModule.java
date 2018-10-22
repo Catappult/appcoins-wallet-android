@@ -136,6 +136,11 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
   @Provides OffChainTransactions providesOffChainTransactions(
       OffChainTransactionsRepository repository, TransactionsMapper mapper,
       FindDefaultWalletInteract walletFinder) {
-    return new OffChainTransactions(repository, mapper, walletFinder, Schedulers.io());
+    return new OffChainTransactions(repository, mapper, walletFinder, getVersionCode(),
+        Schedulers.io());
+  }
+
+  private String getVersionCode() {
+    return String.valueOf(com.asf.wallet.BuildConfig.VERSION_CODE);
   }
 }
