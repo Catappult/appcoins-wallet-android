@@ -12,6 +12,9 @@ class BdsBilling(private val merchantName: String,
                  private val repository: BillingRepository,
                  private val walletService: WalletService,
                  private val errorMapper: BillingThrowableCodeMapper) : Billing {
+  override fun getWallet(packageName: String): Single<String> {
+    return repository.getWallet(packageName)
+  }
 
   override fun isInAppSupported(): Single<Billing.BillingSupportType> {
     return repository.isSupported(merchantName, BillingSupportedType.INAPP).map { map(it) }

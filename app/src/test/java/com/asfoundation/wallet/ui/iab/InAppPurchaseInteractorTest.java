@@ -102,6 +102,7 @@ public class InAppPurchaseInteractorTest {
   @Mock CountryCodeProvider countryCodeProvider;
   @Mock Billing billing;
   @Mock BdsPendingTransactionService transactionService;
+  @Mock BillingFactory bdsBilling;
   private BdsInAppPurchaseInteractor inAppPurchaseInteractor;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
@@ -211,7 +212,7 @@ public class InAppPurchaseInteractorTest {
 
     inAppPurchaseInteractor =
         new BdsInAppPurchaseInteractor(asfInAppPurchaseInteractor, billingPaymentProofSubmission,
-            new ApproveKeyProvider(billingFactory));
+            new ApproveKeyProvider(billingFactory), bdsBilling);
   }
 
   @Test public void sendTransaction() {

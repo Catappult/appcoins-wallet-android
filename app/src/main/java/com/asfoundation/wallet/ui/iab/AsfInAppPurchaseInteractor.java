@@ -323,11 +323,15 @@ public class AsfInAppPurchaseInteractor {
       TransactionBuilder transactionBuilder) {
     return Single.zip(
         getTransaction(packageName, transactionBuilder.getSkuId(), transactionBuilder.getType()),
-        gasSettingsInteract.fetch(true)
-            .doOnSuccess(gasSettings -> transactionBuilder.gasSettings(
-                new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
-                    paymentGasLimit)))
-            .flatMap(__ -> inAppPurchaseService.hasBalanceToBuy(transactionBuilder)), this::map);
+        isAppcoinsPaymentReady(transactionBuilder), this::map);
+  }
+
+  public Single<Boolean> isAppcoinsPaymentReady(TransactionBuilder transactionBuilder) {
+    return gasSettingsInteract.fetch(true)
+        .doOnSuccess(gasSettings -> transactionBuilder.gasSettings(
+            new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
+                paymentGasLimit)))
+        .flatMap(__ -> inAppPurchaseService.hasBalanceToBuy(transactionBuilder));
   }
 
   private CurrentPaymentStep map(Transaction transaction, Boolean isBuyReady)

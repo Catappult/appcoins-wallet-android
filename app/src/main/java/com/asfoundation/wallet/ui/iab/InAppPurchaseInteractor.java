@@ -10,7 +10,6 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import java.math.BigDecimal;
-import java.net.UnknownServiceException;
 import java.util.List;
 
 public class InAppPurchaseInteractor {
@@ -106,38 +105,8 @@ public class InAppPurchaseInteractor {
     return asfInAppPurchaseInteractor.getCurrentPaymentStep(packageName, transactionBuilder);
   }
 
-  private AsfInAppPurchaseInteractor.CurrentPaymentStep map(Transaction transaction,
-      Boolean isBuyReady) throws UnknownServiceException {
-    switch (transaction.getStatus()) {
-      case PENDING:
-      case PROCESSING:
-        switch (transaction.getGateway()
-            .getName()) {
-          case appcoins:
-            return AsfInAppPurchaseInteractor.CurrentPaymentStep.PAUSED_ON_CHAIN;
-          case adyen:
-            return AsfInAppPurchaseInteractor.CurrentPaymentStep.PAUSED_OFF_CHAIN;
-          default:
-          case unknown:
-            throw new UnknownServiceException("Unknown gateway");
-        }
-      default:
-      case COMPLETED:
-      case FAILED:
-      case CANCELED:
-      case PENDING_SERVICE_AUTHORIZATION:
-      case INVALID_TRANSACTION:
-        return isBuyReady ? AsfInAppPurchaseInteractor.CurrentPaymentStep.READY
-            : AsfInAppPurchaseInteractor.CurrentPaymentStep.NO_FUNDS;
-    }
-  }
-
   public Single<FiatValue> convertToFiat(double appcValue, String currency) {
     return asfInAppPurchaseInteractor.convertToFiat(appcValue, currency);
-  }
-
-  private FiatValue calculateValue(FiatValue fiatValue, double appcValue) {
-    return new FiatValue(fiatValue.getAmount() * appcValue, fiatValue.getCurrency());
   }
 
   public BillingMessagesMapper getBillingMessagesMapper() {
@@ -172,5 +141,10 @@ public class InAppPurchaseInteractor {
     return new Payment(transaction.getUri(), transaction.getStatus(), purchase.getUid(),
         purchase.getSignature()
             .getValue(), billingSerializer.serializeSignatureData(purchase));
+  }
+
+  public Single<Boolean> isWalletFromBds(String packageName, String wallet) {
+    return bdsInAppPurchaseInteractor.isBdsWallet(packageName)
+        .map(wallet::equalsIgnoreCase);
   }
 }

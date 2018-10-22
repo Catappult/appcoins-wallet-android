@@ -1,5 +1,6 @@
 package com.appcoins.wallet.bdsbilling
 
+import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
@@ -75,8 +76,11 @@ class BillingPaymentProofSubmissionImpl internal constructor(
     private var walletService: WalletService? = null
     private var networkScheduler: Scheduler = Schedulers.io()
     private var api: RemoteRepository.BdsApi? = null
+    private var bdsApiSecondary: BdsApiSecondary? = null
 
     fun setApi(bdsApi: RemoteRepository.BdsApi) = apply { api = bdsApi }
+
+    fun setBdsApiSecondary(bdsApi: BdsApiSecondary) = apply { bdsApiSecondary = bdsApi }
 
     fun setScheduler(scheduler: Scheduler) = apply { this.networkScheduler = scheduler }
 
@@ -86,11 +90,13 @@ class BillingPaymentProofSubmissionImpl internal constructor(
     fun build(): BillingPaymentProofSubmissionImpl {
       return walletService?.let { walletService ->
         api?.let { api ->
-          BillingPaymentProofSubmissionImpl(
-              walletService, BdsRepository(
-              RemoteRepository(api, BdsApiResponseMapper())), networkScheduler,
-              ConcurrentHashMap(),
-              ConcurrentHashMap())
+          bdsApiSecondary?.let { bdsApiSecondary ->
+            BillingPaymentProofSubmissionImpl(
+                walletService, BdsRepository(
+                RemoteRepository(api, BdsApiResponseMapper(), bdsApiSecondary)), networkScheduler,
+                ConcurrentHashMap(),
+                ConcurrentHashMap())
+          } ?: throw IllegalArgumentException("BdsApiSecondary not defined")
         } ?: throw IllegalArgumentException("BdsApi not defined")
       } ?: throw IllegalArgumentException("WalletService not defined")
     }

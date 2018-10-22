@@ -96,6 +96,8 @@ android {
           "\"" + project.BASE_HOST_PROD + "\""
       buildConfigField 'String', 'BACKEND_HOST',
           "\"" + project.BACKEND_HOST_PROD + "\""
+      buildConfigField 'String', 'BDS_BASE_HOST',
+          "\"" + project.BDS_BASE_HOST_PROD + "\""
     }
     debug {
       minifyEnabled false
@@ -107,6 +109,9 @@ android {
           "\"" + project.BASE_HOST_DEV + "\""
       buildConfigField 'String', 'BACKEND_HOST',
           "\"" + project.BACKEND_HOST_DEV + "\""
+
+      buildConfigField 'String', 'BDS_BASE_HOST',
+          "\"" + project.BDS_BASE_HOST_DEV + "\""
       applicationVariants.all { variant -> renameArtifact(defaultConfig)
       }
     }

@@ -15,6 +15,7 @@ import com.appcoins.wallet.bdsbilling.BillingThrowableCodeMapper;
 import com.appcoins.wallet.bdsbilling.ProxyService;
 import com.appcoins.wallet.bdsbilling.WalletService;
 import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper;
+import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary;
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository;
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
@@ -206,8 +207,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides BillingPaymentProofSubmission providesBillingPaymentProofSubmission(
-      RemoteRepository.BdsApi api, WalletService walletService) {
+      RemoteRepository.BdsApi api, WalletService walletService, BdsApiSecondary bdsApi) {
     return new BillingPaymentProofSubmissionImpl.Builder().setApi(api)
+        .setBdsApiSecondary(bdsApi)
         .setWalletService(walletService)
         .build();
   }
@@ -313,7 +315,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       @Named("ASF_BDS_IN_APP_INTERACTOR") AsfInAppPurchaseInteractor inAppPurchaseInteractor,
       BillingFactory billingFactory) {
     return new BdsInAppPurchaseInteractor(inAppPurchaseInteractor, billingPaymentProofSubmission,
-        new ApproveKeyProvider(billingFactory));
+        new ApproveKeyProvider(billingFactory), billingFactory);
   }
 
   @Singleton @Provides @Named("ASF_BDS_IN_APP_INTERACTOR")
@@ -557,8 +559,17 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .create(RemoteRepository.BdsApi.class);
   }
 
-  @Singleton @Provides TokenToFiatService provideTokenToFiatService(OkHttpClient client,
-      Gson gson) {
+  @Singleton @Provides BdsApiSecondary provideBdsApiSecondary(OkHttpClient client, Gson gson) {
+    String baseUrl = BuildConfig.BDS_BASE_HOST;
+    return new Retrofit.Builder().baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(BdsApiSecondary.class);
+  }
+
+  @Singleton @Provides TokenToFiatService provideTokenToFiatService(OkHttpClient client) {
     String baseUrl = TokenToFiatService.CONVERSION_HOST;
     TokenToFiatService.TokenToFiatApi api = new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
@@ -581,10 +592,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides BillingFactory provideBillingFactory(RemoteRepository.BdsApi bdsApi,
-      WalletService walletService) {
+      WalletService walletService, BdsApiSecondary api) {
     return merchantName -> new BdsBilling(merchantName,
-        new BdsRepository(new RemoteRepository(bdsApi, new BdsApiResponseMapper())), walletService,
-        new BillingThrowableCodeMapper());
+        new BdsRepository(new RemoteRepository(bdsApi, new BdsApiResponseMapper(), api)),
+        walletService, new BillingThrowableCodeMapper());
   }
 
   @Singleton @Provides ProxyService provideProxyService(AppCoinsAddressProxySdk proxySdk) {
@@ -606,9 +617,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new Adyen(context, Charset.forName("UTF-8"), Schedulers.io(), PublishRelay.create());
   }
 
-  @Singleton @Provides TransactionService provideTransactionService(
-      RemoteRepository.BdsApi bdsApi) {
-    return new BDSTransactionService(new RemoteRepository(bdsApi, new BdsApiResponseMapper()));
+  @Singleton @Provides TransactionService provideTransactionService(RemoteRepository.BdsApi bdsApi,
+      BdsApiSecondary api) {
+    return new BDSTransactionService(new RemoteRepository(bdsApi, new BdsApiResponseMapper(), api));
   }
 
   @Singleton @Provides CreditCardBillingFactory provideCreditCardBillingFactory(
@@ -622,8 +633,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         billingPaymentProofSubmission);
   }
 
-  @Singleton @Provides BdsRepository provideBdsRepository(RemoteRepository.BdsApi bdsApi) {
-    return new BdsRepository(new RemoteRepository(bdsApi, new BdsApiResponseMapper()));
+  @Singleton @Provides BdsRepository provideBdsRepository(RemoteRepository.BdsApi bdsApi,
+      BdsApiSecondary api) {
+    return new BdsRepository(new RemoteRepository(bdsApi, new BdsApiResponseMapper(), api));
   }
 
   @Singleton @Provides AppcoinsRewards provideAppcoinsRewards(OkHttpClient client, Gson gson,

@@ -31,4 +31,6 @@ interface Billing {
   }
 
   fun getSkuTransaction(sku: String, scheduler: Scheduler): Single<Transaction>
+
+  fun getWallet(packageName: String): Single<String>
 }

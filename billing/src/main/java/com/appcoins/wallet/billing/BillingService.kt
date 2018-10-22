@@ -30,7 +30,8 @@ class BillingService : Service() {
           override fun getBilling(merchantName: String): Billing {
             return BdsBilling(merchantName,
                 BdsRepository(
-                    RemoteRepository(dependenciesProvider.getBdsApi(), BdsApiResponseMapper())),
+                    RemoteRepository(dependenciesProvider.getBdsApi(), BdsApiResponseMapper(),
+                        dependenciesProvider.getBdsApiSecondary())),
                 dependenciesProvider.getWalletService(),
                 BillingThrowableCodeMapper())
           }
