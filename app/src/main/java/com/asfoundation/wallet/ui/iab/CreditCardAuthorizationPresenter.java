@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import com.adyen.core.models.PaymentMethod;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
@@ -145,7 +146,7 @@ public class CreditCardAuthorizationPresenter {
         .andThen(inAppPurchaseInteractor.parseTransaction(transactionData, true)
             .flatMapCompletable(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                    transaction.toAddress(), developerPayload, origin, new BigDecimal(amount),
+                    transaction.toAddress(), developerPayload, origin, convertAmount(),
                     currency,
                     type)
                     .observeOn(viewScheduler)
@@ -157,6 +158,13 @@ public class CreditCardAuthorizationPresenter {
                     .observeOn(viewScheduler)))
         .subscribe(() -> {
         }, throwable -> showError(throwable)));
+  }
+
+  @NonNull private BigDecimal convertAmount() {
+    return BigDecimal.valueOf(
+        inAppPurchaseInteractor.convertToFiat((new BigDecimal(amount)).doubleValue(), "EUR")
+            .blockingGet()
+            .getAmount());
   }
 
   private void onViewCreatedSelectCreditCardPayment() {
@@ -171,7 +179,7 @@ public class CreditCardAuthorizationPresenter {
     disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
         .flatMap(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                    transaction.toAddress(), developerPayload, origin, new BigDecimal(amount),
+                    transaction.toAddress(), developerPayload, origin, convertAmount(),
                     currency,
                     type)
                     .filter(payment -> payment.isCompleted())
@@ -208,7 +216,7 @@ public class CreditCardAuthorizationPresenter {
     disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
         .flatMap(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                    transaction.toAddress(), developerPayload, origin, new BigDecimal(amount),
+                    transaction.toAddress(), developerPayload, origin, convertAmount(),
                     currency,
                     type)
                     .filter(payment -> payment.isFailed())
@@ -227,7 +235,7 @@ public class CreditCardAuthorizationPresenter {
     disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
             .flatMapObservable(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                    transaction.toAddress(), developerPayload, origin, new BigDecimal(amount),
+                    transaction.toAddress(), developerPayload, origin, convertAmount(),
                     currency,
                     type)
                     .filter(payment -> payment.isProcessing())
