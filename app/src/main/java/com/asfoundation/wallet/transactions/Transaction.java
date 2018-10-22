@@ -146,7 +146,7 @@ public class Transaction implements Parcelable {
   }
 
   public enum TransactionType {
-    STANDARD, IAB, ADS, OPEN_CHANNEL, TOP_UP_CHANNEL, CLOSE_CHANNEL, MICRO_IAB, IAP_OFFCHAIN;
+    STANDARD, IAB, ADS, OPEN_CHANNEL, TOP_UP_CHANNEL, CLOSE_CHANNEL, MICRO_IAB, IAP_OFFCHAIN, ADS_OFFCHAIN;
 
     static TransactionType fromInt(int type) {
      switch (type) {
@@ -166,6 +166,8 @@ public class Transaction implements Parcelable {
          return MICRO_IAB;
        case 7:
          return IAP_OFFCHAIN;
+       case 8:
+         return ADS_OFFCHAIN;
        default:
          return STANDARD;
      }
