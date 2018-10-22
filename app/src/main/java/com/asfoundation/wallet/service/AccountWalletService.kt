@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.service
 
 import android.util.Pair
-import com.appcoins.wallet.billing.WalletService
+import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.repository.PasswordStore

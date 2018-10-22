@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.repository;
 
-import com.appcoins.wallet.billing.AuthorizationProof;
-import com.appcoins.wallet.billing.BillingPaymentProofSubmission;
+import com.appcoins.wallet.bdsbilling.AuthorizationProof;
+import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import io.reactivex.Completable;

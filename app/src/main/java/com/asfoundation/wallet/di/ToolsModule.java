@@ -2,18 +2,24 @@ package com.asfoundation.wallet.di;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
-import com.appcoins.wallet.billing.BdsBilling;
-import com.appcoins.wallet.billing.BillingFactory;
+import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
+import com.appcoins.wallet.appcoins.rewards.repository.BdsAppcoinsRewardsRepository;
+import com.appcoins.wallet.appcoins.rewards.repository.BdsRemoteApi;
+import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi;
+import com.appcoins.wallet.appcoins.rewards.repository.bds.BdsApi;
+import com.appcoins.wallet.bdsbilling.BdsBilling;
+import com.appcoins.wallet.bdsbilling.BillingFactory;
+import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
+import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmissionImpl;
+import com.appcoins.wallet.bdsbilling.BillingThrowableCodeMapper;
+import com.appcoins.wallet.bdsbilling.ProxyService;
+import com.appcoins.wallet.bdsbilling.WalletService;
+import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper;
+import com.appcoins.wallet.bdsbilling.repository.BdsRepository;
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
-import com.appcoins.wallet.billing.BillingPaymentProofSubmission;
-import com.appcoins.wallet.billing.BillingPaymentProofSubmissionImpl;
-import com.appcoins.wallet.billing.BillingThrowableCodeMapper;
-import com.appcoins.wallet.billing.ProxyService;
-import com.appcoins.wallet.billing.WalletService;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
-import com.appcoins.wallet.billing.repository.BdsApiResponseMapper;
-import com.appcoins.wallet.billing.repository.BdsRepository;
-import com.appcoins.wallet.billing.repository.RemoteRepository;
+import com.appcoins.wallet.commons.MemoryCache;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxyBuilder;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk;
 import com.asf.wallet.BuildConfig;
@@ -64,7 +70,6 @@ import com.asfoundation.wallet.repository.GasSettingsRepository;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.IpCountryCodeProvider;
-import com.asfoundation.wallet.repository.MemoryCache;
 import com.asfoundation.wallet.repository.NoValidateTransactionValidator;
 import com.asfoundation.wallet.repository.NonceGetter;
 import com.asfoundation.wallet.repository.PasswordStore;
@@ -103,6 +108,7 @@ import com.asfoundation.wallet.ui.iab.AsfInAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.BdsInAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.ImageSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
+import com.asfoundation.wallet.ui.iab.RewardsManager;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase;
 import com.asfoundation.wallet.ui.iab.raiden.AppcoinsRaiden;
 import com.asfoundation.wallet.ui.iab.raiden.ChannelService;
@@ -316,10 +322,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
       TransferParser parser, RaidenRepository raidenRepository, ChannelService channelService,
       BillingFactory billingFactory, ExpressCheckoutBuyService expressCheckoutBuyService,
-      BdsTransactionService bdsTransactionService) {
+      BdsTransactionService bdsTransactionService, BillingMessagesMapper billingMessagesMapper) {
     return new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
-        raidenRepository, channelService, new BillingMessagesMapper(), billingFactory,
+        raidenRepository, channelService, billingMessagesMapper, billingFactory,
         new ExternalBillingSerializer(), expressCheckoutBuyService, bdsTransactionService,
         Schedulers.io());
   }
@@ -330,19 +336,20 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
       TransferParser parser, RaidenRepository raidenRepository, ChannelService channelService,
       BillingFactory billingFactory, ExpressCheckoutBuyService expressCheckoutBuyService,
-      BdsTransactionService bdsTransactionService) {
+      BdsTransactionService bdsTransactionService, BillingMessagesMapper billingMessagesMapper) {
     return new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
-        raidenRepository, channelService, new BillingMessagesMapper(), billingFactory,
+        raidenRepository, channelService, billingMessagesMapper, billingFactory,
         new ExternalBillingSerializer(), expressCheckoutBuyService, bdsTransactionService,
         Schedulers.io());
   }
 
   @Singleton @Provides InAppPurchaseInteractor provideDualInAppPurchaseInteractor(
       BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
-      @Named("ASF_IN_APP_INTERACTOR") AsfInAppPurchaseInteractor asfInAppPurchaseInteractor) {
+      @Named("ASF_IN_APP_INTERACTOR") AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
+      BillingMessagesMapper billingMessagesMapper) {
     return new InAppPurchaseInteractor(asfInAppPurchaseInteractor, bdsInAppPurchaseInteractor,
-        new BillingMessagesMapper(), new ExternalBillingSerializer());
+        billingMessagesMapper, new ExternalBillingSerializer());
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(
@@ -541,7 +548,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides RemoteRepository.BdsApi provideBdsApi(OkHttpClient client, Gson gson) {
-    String baseUrl = RemoteRepository.BASE_HOST;
+    String baseUrl = BuildConfig.BASE_HOST;
     return new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
@@ -576,8 +583,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Singleton @Provides BillingFactory provideBillingFactory(RemoteRepository.BdsApi bdsApi,
       WalletService walletService) {
     return merchantName -> new BdsBilling(merchantName,
-        new BdsRepository(new RemoteRepository(bdsApi, new BdsApiResponseMapper()),
-            new BillingThrowableCodeMapper()), walletService, new BillingThrowableCodeMapper());
+        new BdsRepository(new RemoteRepository(bdsApi, new BdsApiResponseMapper())), walletService,
+        new BillingThrowableCodeMapper());
   }
 
   @Singleton @Provides ProxyService provideProxyService(AppCoinsAddressProxySdk proxySdk) {
@@ -616,8 +623,44 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides BdsRepository provideBdsRepository(RemoteRepository.BdsApi bdsApi) {
-    return new BdsRepository(new RemoteRepository(bdsApi, new BdsApiResponseMapper()),
-        new BillingThrowableCodeMapper());
+    return new BdsRepository(new RemoteRepository(bdsApi, new BdsApiResponseMapper()));
+  }
+
+  @Singleton @Provides AppcoinsRewards provideAppcoinsRewards(OkHttpClient client, Gson gson,
+      WalletService walletService, BillingFactory billingFactory) {
+    BackendApi backendApi = new Retrofit.Builder().baseUrl(BuildConfig.BACKEND_HOST)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(BackendApi.class);
+    BdsApi bdsApi = new Retrofit.Builder().baseUrl(BuildConfig.BASE_HOST)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(BdsApi.class);
+    return new AppcoinsRewards(
+        new BdsAppcoinsRewardsRepository(new BdsRemoteApi(backendApi, bdsApi)),
+        new com.appcoins.wallet.appcoins.rewards.repository.WalletService() {
+          @NotNull @Override public Single<String> getWalletAddress() {
+            return walletService.getWalletAddress();
+          }
+
+          @NotNull @Override public Single<String> signContent(@NotNull String content) {
+            return walletService.signContent(content);
+          }
+        }, new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), Schedulers.io(),
+        billingFactory, new com.appcoins.wallet.appcoins.rewards.ErrorMapper());
+  }
+
+  @Singleton @Provides RewardsManager provideRewardsManager(AppcoinsRewards appcoinsRewards,
+      BillingFactory billingFactory) {
+    return new RewardsManager(appcoinsRewards, billingFactory);
+  }
+
+  @Singleton @Provides BillingMessagesMapper provideBillingMessagesMapper() {
+    return new BillingMessagesMapper(new ExternalBillingSerializer());
   }
 
   @Singleton @Provides PoASubmissionService providePoASubmissionService(OkHttpClient client) {

@@ -19,14 +19,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import com.appcoins.wallet.billing.BdsBilling;
-import com.appcoins.wallet.billing.BillingThrowableCodeMapper;
-import com.appcoins.wallet.billing.WalletService;
-import com.appcoins.wallet.billing.repository.BdsApiResponseMapper;
-import com.appcoins.wallet.billing.repository.BdsRepository;
-import com.appcoins.wallet.billing.repository.RemoteRepository;
-import com.appcoins.wallet.billing.repository.entity.DeveloperPurchase;
-import com.appcoins.wallet.billing.repository.entity.Purchase;
+import com.appcoins.wallet.bdsbilling.BdsBilling;
+import com.appcoins.wallet.bdsbilling.BillingThrowableCodeMapper;
+import com.appcoins.wallet.bdsbilling.WalletService;
+import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper;
+import com.appcoins.wallet.bdsbilling.repository.BdsRepository;
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
+import com.appcoins.wallet.bdsbilling.repository.entity.DeveloperPurchase;
+import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.facebook.appevents.AppEventsLogger;
@@ -118,8 +118,8 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     extras = getArguments().getBundle("extras");
 
     bdsBilling = new BdsBilling(getAppPackage(),
-        new BdsRepository(new RemoteRepository(bdsApi, new BdsApiResponseMapper()),
-            new BillingThrowableCodeMapper()), walletService, new BillingThrowableCodeMapper());
+        new BdsRepository(new RemoteRepository(bdsApi, new BdsApiResponseMapper())), walletService,
+        new BillingThrowableCodeMapper());
 
     presenter = new ExpressCheckoutBuyPresenter(this, inAppPurchaseInteractor,
         AndroidSchedulers.mainThread(), new CompositeDisposable(),

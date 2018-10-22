@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.billing;
 
 import com.adyen.core.models.Payment;
-import com.appcoins.wallet.billing.WalletService;
+import com.appcoins.wallet.bdsbilling.WalletService;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
 import com.asfoundation.wallet.billing.payment.Adyen;

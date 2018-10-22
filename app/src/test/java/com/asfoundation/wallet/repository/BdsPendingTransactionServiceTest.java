@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.repository;
 
+import com.appcoins.wallet.commons.MemoryCache;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;

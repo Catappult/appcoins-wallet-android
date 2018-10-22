@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.os.Bundle;
-import com.appcoins.wallet.billing.repository.entity.Purchase;
+import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import io.reactivex.Observable;
 import java.io.IOException;
 

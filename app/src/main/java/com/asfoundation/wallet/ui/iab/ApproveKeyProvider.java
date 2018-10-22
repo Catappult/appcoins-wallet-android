@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
-import com.appcoins.wallet.billing.BillingFactory;
-import com.appcoins.wallet.billing.repository.entity.Transaction;
+import com.appcoins.wallet.bdsbilling.BillingFactory;
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 

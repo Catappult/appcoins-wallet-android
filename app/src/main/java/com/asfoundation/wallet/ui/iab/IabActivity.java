@@ -147,6 +147,19 @@ public class IabActivity extends BaseActivity implements IabView {
     }
   }
 
+  @Override public void showRewardPayment(BigDecimal amount) {
+    if (savedInstanceState == null && getSupportFragmentManager().getFragments()
+        .isEmpty()) {
+      getSupportFragmentManager().beginTransaction()
+          .add(R.id.fragment_container, AppcoinsRewardsBuyFragment.newInstance(amount,
+              getIntent().getExtras()
+                  .getString(APP_PACKAGE, ""), getIntent().getData()
+                  .toString(), getIntent().getExtras()
+                  .getString(PRODUCT_NAME, ""), isBds()))
+          .commit();
+    }
+  }
+
   @NonNull private Bundle createBundle(BigDecimal amount) {
     Bundle bundle = new Bundle();
     bundle.putSerializable(TRANSACTION_AMOUNT, amount);

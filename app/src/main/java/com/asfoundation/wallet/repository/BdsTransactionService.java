@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.repository;
 
+import com.appcoins.wallet.commons.Repository;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
