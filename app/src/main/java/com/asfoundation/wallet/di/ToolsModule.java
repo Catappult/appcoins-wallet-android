@@ -3,6 +3,7 @@ package com.asfoundation.wallet.di;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.util.Log;
+
 import cm.aptoide.analytics.AnalyticsManager;
 import cm.aptoide.analytics.EventLogger;
 import com.appcoins.wallet.billing.BdsBilling;
@@ -25,6 +26,9 @@ import com.asfoundation.wallet.AirdropService;
 import com.asfoundation.wallet.App;
 import com.asfoundation.wallet.FabricLogger;
 import com.asfoundation.wallet.Logger;
+import com.asfoundation.wallet.analytics.HttpClientKnockLogger;
+import com.asfoundation.wallet.analytics.KeysNormalizer;
+import com.asfoundation.wallet.analytics.LogcatAnalyticsLogger;
 import com.asfoundation.wallet.apps.Applications;
 import com.asfoundation.wallet.billing.AdyenBilling;
 import com.asfoundation.wallet.billing.BDSTransactionService;
@@ -630,7 +634,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new PoASubmissionService(api);
   }
 
-  @Singleton @Provides AnalyticsManager provideAnalyticsManager() {
+  @Singleton @Provides AnalyticsManager provideAnalyticsManager(OkHttpClient okHttpClient) {
 
     List<String> list = new ArrayList<>();
     list.add(BillingAnalytics.PURCHASE_DETAILS);
@@ -655,6 +659,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         Log.d(AnalyticsManager.class.getSimpleName(), "setup() called");
       }
     }, list)
+        .setAnalyticsNormalizer(new KeysNormalizer())
+        .setDebugLogger(new LogcatAnalyticsLogger())
+        .setKnockLogger(new HttpClientKnockLogger(okHttpClient))
         .build();
   }
 

@@ -226,7 +226,7 @@ dependencies {
   // Needed to fill the gap between wallet's rxjava2 and billing rxjava1.
   implementation "com.github.akarnokd:rxjava2-interop:0.13.0"
   implementation "com.facebook.android:facebook-android-sdk:4.35.0"
-  implementation "aptoide-client-v8:aptoide-analytics-default-implementation:1.0.3"
+  implementation "aptoide-client-v8:aptoide-analytics-core:1.0.3"
 }
 
 def renameArtifact(defaultConfig) {
