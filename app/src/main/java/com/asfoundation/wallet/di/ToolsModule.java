@@ -2,10 +2,8 @@ package com.asfoundation.wallet.di;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
-import android.util.Log;
 
 import cm.aptoide.analytics.AnalyticsManager;
-import cm.aptoide.analytics.EventLogger;
 import com.appcoins.wallet.billing.BdsBilling;
 import com.appcoins.wallet.billing.BillingFactory;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
@@ -26,6 +24,8 @@ import com.asfoundation.wallet.AirdropService;
 import com.asfoundation.wallet.App;
 import com.asfoundation.wallet.FabricLogger;
 import com.asfoundation.wallet.Logger;
+import com.asfoundation.wallet.analytics.AnalyticsAPI;
+import com.asfoundation.wallet.analytics.BackendEventLogger;
 import com.asfoundation.wallet.analytics.HttpClientKnockLogger;
 import com.asfoundation.wallet.analytics.KeysNormalizer;
 import com.asfoundation.wallet.analytics.LogcatAnalyticsLogger;
@@ -135,7 +135,6 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Named;
@@ -634,31 +633,23 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new PoASubmissionService(api);
   }
 
-  @Singleton @Provides AnalyticsManager provideAnalyticsManager(OkHttpClient okHttpClient) {
+  @Singleton @Provides AnalyticsAPI provideAnalyticsAPI(OkHttpClient client) {
+    return new Retrofit.Builder().baseUrl("http://ws75.aptoide.com/api/7/")
+        .client(client)
+        .addConverterFactory(JacksonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(AnalyticsAPI.class);
+  }
+
+  @Singleton @Provides AnalyticsManager provideAnalyticsManager(OkHttpClient okHttpClient,
+      AnalyticsAPI api) {
 
     List<String> list = new ArrayList<>();
     list.add(BillingAnalytics.PURCHASE_DETAILS);
     list.add(BillingAnalytics.CREDIT_CARD_DETAILS);
     list.add(BillingAnalytics.PAYMENT);
-    return new AnalyticsManager.Builder().addLogger(new EventLogger() {
-      @Override
-      public void log(String eventName, Map<String, Object> data, AnalyticsManager.Action action,
-          String context) {
-        Log.d(AnalyticsManager.class.getSimpleName(), "log() called with: eventName = ["
-            + eventName
-            + "], data = ["
-            + data
-            + "], action = ["
-            + action
-            + "], context = ["
-            + context
-            + "]");
-      }
-
-      @Override public void setup() {
-        Log.d(AnalyticsManager.class.getSimpleName(), "setup() called");
-      }
-    }, list)
+    return new AnalyticsManager.Builder().addLogger(new BackendEventLogger(api), list)
         .setAnalyticsNormalizer(new KeysNormalizer())
         .setDebugLogger(new LogcatAnalyticsLogger())
         .setKnockLogger(new HttpClientKnockLogger(okHttpClient))
