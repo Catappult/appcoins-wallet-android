@@ -10,6 +10,6 @@ interface AppsApi {
     const val API_BASE_URL = "https://ws75.aptoide.com/api/7/"
   }
 
-  @GET("listApps/store_name=bds-store/group_id=10358119/limit=10/order=rand")
+  @GET("listApps/store_name=bds-store/group_id=10358961/limit=10/order=rand")
   fun getApplications(): Single<Application>?
 }
