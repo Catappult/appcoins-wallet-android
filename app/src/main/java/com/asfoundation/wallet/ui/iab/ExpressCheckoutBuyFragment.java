@@ -19,10 +19,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import com.appcoins.wallet.bdsbilling.BdsBilling;
-import com.appcoins.wallet.bdsbilling.BillingThrowableCodeMapper;
+import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.WalletService;
-import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper;
+import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary;
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository;
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
 import com.appcoins.wallet.bdsbilling.repository.entity.DeveloperPurchase;
@@ -71,6 +70,8 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   @Inject WalletService walletService;
   @Inject BdsPendingTransactionService bdsPendingTransactionService;
   @Inject BdsRepository bdsRepository;
+  @Inject BdsApiSecondary BdsApiSecondary;
+  @Inject Billing billing;
   private Bundle extras;
   private PublishRelay<Snackbar> buyButtonClick;
   private IabView iabView;
@@ -89,7 +90,6 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   private View errorView;
   private TextView errorMessage;
   private Button errorDismissButton;
-  private BdsBilling bdsBilling;
   private PublishSubject<Boolean> setupSubject;
   private View processingDialog;
   private TextView walletAddressView;
@@ -117,14 +117,9 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
 
     extras = getArguments().getBundle("extras");
 
-    bdsBilling = new BdsBilling(getAppPackage(),
-        new BdsRepository(new RemoteRepository(bdsApi, new BdsApiResponseMapper())), walletService,
-        new BillingThrowableCodeMapper());
-
-    presenter = new ExpressCheckoutBuyPresenter(this, inAppPurchaseInteractor,
+    presenter = new ExpressCheckoutBuyPresenter(this, getAppPackage(), inAppPurchaseInteractor,
         AndroidSchedulers.mainThread(), new CompositeDisposable(),
-        inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService,
-        bdsBilling);
+        inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing);
   }
 
   @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -166,8 +161,9 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
           showError();
         });
     buyButton.setOnClickListener(v -> iabView.navigateToCreditCardAuthorization());
-    presenter.present(((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue(),
-        extras.getString(TRANSACTION_CURRENCY), getSkuId());
+    presenter.present(getSkuId(),
+        ((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue(),
+        extras.getString(TRANSACTION_CURRENCY));
   }
 
   @Override public void onDestroyView() {

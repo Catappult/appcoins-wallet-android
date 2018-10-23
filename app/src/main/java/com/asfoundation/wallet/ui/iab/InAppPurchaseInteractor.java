@@ -1,34 +1,34 @@
 package com.asfoundation.wallet.ui.iab;
 
+import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
+import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.util.BalanceUtils;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import java.math.BigDecimal;
-import java.net.UnknownServiceException;
 import java.util.List;
 
 public class InAppPurchaseInteractor {
-  public static final double GAS_PRICE_MULTIPLIER = 1.25;
-  private static final String TAG = InAppPurchaseInteractor.class.getSimpleName();
 
   private final AsfInAppPurchaseInteractor asfInAppPurchaseInteractor;
   private final BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor;
-  private final BillingMessagesMapper billingMessagesMapper;
   private final ExternalBillingSerializer billingSerializer;
+  private final AppcoinsRewards appcoinsRewards;
 
   public InAppPurchaseInteractor(AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
       BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
-      BillingMessagesMapper billingMessagesMapper, ExternalBillingSerializer billingSerializer) {
+      ExternalBillingSerializer billingSerializer, AppcoinsRewards appcoinsRewards) {
     this.asfInAppPurchaseInteractor = asfInAppPurchaseInteractor;
     this.bdsInAppPurchaseInteractor = bdsInAppPurchaseInteractor;
-    this.billingMessagesMapper = billingMessagesMapper;
     this.billingSerializer = billingSerializer;
+    this.appcoinsRewards = appcoinsRewards;
   }
 
   public Single<TransactionBuilder> parseTransaction(String uri, boolean isBds) {
@@ -106,38 +106,8 @@ public class InAppPurchaseInteractor {
     return asfInAppPurchaseInteractor.getCurrentPaymentStep(packageName, transactionBuilder);
   }
 
-  private AsfInAppPurchaseInteractor.CurrentPaymentStep map(Transaction transaction,
-      Boolean isBuyReady) throws UnknownServiceException {
-    switch (transaction.getStatus()) {
-      case PENDING:
-      case PROCESSING:
-        switch (transaction.getGateway()
-            .getName()) {
-          case appcoins:
-            return AsfInAppPurchaseInteractor.CurrentPaymentStep.PAUSED_ON_CHAIN;
-          case adyen:
-            return AsfInAppPurchaseInteractor.CurrentPaymentStep.PAUSED_OFF_CHAIN;
-          default:
-          case unknown:
-            throw new UnknownServiceException("Unknown gateway");
-        }
-      default:
-      case COMPLETED:
-      case FAILED:
-      case CANCELED:
-      case PENDING_SERVICE_AUTHORIZATION:
-      case INVALID_TRANSACTION:
-        return isBuyReady ? AsfInAppPurchaseInteractor.CurrentPaymentStep.READY
-            : AsfInAppPurchaseInteractor.CurrentPaymentStep.NO_FUNDS;
-    }
-  }
-
   public Single<FiatValue> convertToFiat(double appcValue, String currency) {
     return asfInAppPurchaseInteractor.convertToFiat(appcValue, currency);
-  }
-
-  private FiatValue calculateValue(FiatValue fiatValue, double appcValue) {
-    return new FiatValue(fiatValue.getAmount() * appcValue, fiatValue.getCurrency());
   }
 
   public BillingMessagesMapper getBillingMessagesMapper() {
@@ -172,5 +142,53 @@ public class InAppPurchaseInteractor {
     return new Payment(transaction.getUri(), transaction.getStatus(), purchase.getUid(),
         purchase.getSignature()
             .getValue(), billingSerializer.serializeSignatureData(purchase));
+  }
+
+  public Single<Boolean> isWalletFromBds(String packageName, String wallet) {
+    if (packageName == null) {
+      return Single.just(false);
+    }
+    return bdsInAppPurchaseInteractor.getWallet(packageName)
+        .map(wallet::equalsIgnoreCase);
+  }
+
+  public Single<Gateway.Name> getPaymentMethod(String packageName,
+      TransactionBuilder transactionBuilder) {
+    return Single.zip(getRewardsBalance(), hasAppcoinsFunds(transactionBuilder),
+        asfInAppPurchaseInteractor.getTransaction(packageName, transactionBuilder.getSkuId(),
+            "inapp"),
+        (creditsBalance, hasAppcoinsFunds, transaction) -> map(creditsBalance, hasAppcoinsFunds,
+            transaction, transactionBuilder.amount()));
+  }
+
+  private Single<Boolean> hasAppcoinsFunds(TransactionBuilder transaction) {
+    return asfInAppPurchaseInteractor.isAppcoinsPaymentReady(transaction);
+  }
+
+  private Gateway.Name map(BigDecimal creditsBalance, Boolean hasAppcoinsFunds,
+      Transaction transaction, BigDecimal amount) {
+    if (transaction.getStatus()
+        .equals(Transaction.Status.INVALID_TRANSACTION)) {
+      return getNewPaymentGateway(creditsBalance, hasAppcoinsFunds, amount);
+    } else {
+      return transaction.getGateway()
+          .getName();
+    }
+  }
+
+  private Gateway.Name getNewPaymentGateway(BigDecimal creditsBalance, Boolean hasAppcoinsFunds,
+      BigDecimal amount) {
+    if (creditsBalance.compareTo(amount) > 0) {
+      return Gateway.Name.appcoins_credits;
+    } else if (hasAppcoinsFunds) {
+      return Gateway.Name.appcoins;
+    } else {
+      return Gateway.Name.adyen;
+    }
+  }
+
+  private Single<BigDecimal> getRewardsBalance() {
+    return appcoinsRewards.getBalance()
+        .map(BalanceUtils::weiToEth);
   }
 }

@@ -40,6 +40,8 @@ interface BillingRepository {
   fun getAppcoinsTransaction(uid: String, address: String,
                              signedContent: String): Single<Transaction>
 
+  fun getWallet(packageName: String): Single<String>
+
   enum class BillingType {
     inapp, subs
   }

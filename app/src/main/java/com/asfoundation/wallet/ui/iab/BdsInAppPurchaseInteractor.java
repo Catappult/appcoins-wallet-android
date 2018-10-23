@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
+import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
@@ -15,13 +16,15 @@ public class BdsInAppPurchaseInteractor {
   private final AsfInAppPurchaseInteractor inAppPurchaseInteractor;
   private final BillingPaymentProofSubmission billingPaymentProofSubmission;
   private final ApproveKeyProvider approveKeyProvider;
+  private final Billing billing;
 
   public BdsInAppPurchaseInteractor(AsfInAppPurchaseInteractor inAppPurchaseInteractor,
       BillingPaymentProofSubmission billingPaymentProofSubmission,
-      ApproveKeyProvider approveKeyProvider) {
+      ApproveKeyProvider approveKeyProvider, Billing billing) {
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.billingPaymentProofSubmission = billingPaymentProofSubmission;
     this.approveKeyProvider = approveKeyProvider;
+    this.billing = billing;
   }
 
   public Single<TransactionBuilder> parseTransaction(String uri) {
@@ -94,5 +97,9 @@ public class BdsInAppPurchaseInteractor {
 
   public Single<Purchase> getCompletedPurchase(String packageName, String productName) {
     return inAppPurchaseInteractor.getCompletedPurchase(packageName, productName);
+  }
+
+  public Single<String> getWallet(String packageName) {
+    return billing.getWallet(packageName);
   }
 }

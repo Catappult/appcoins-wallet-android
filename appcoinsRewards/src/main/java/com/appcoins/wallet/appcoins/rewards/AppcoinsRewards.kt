@@ -1,7 +1,7 @@
 package com.appcoins.wallet.appcoins.rewards
 
 import com.appcoins.wallet.appcoins.rewards.repository.WalletService
-import com.appcoins.wallet.bdsbilling.BillingFactory
+import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import com.appcoins.wallet.commons.Repository
 import io.reactivex.Completable
@@ -16,14 +16,14 @@ class AppcoinsRewards(
     private val walletService: WalletService,
     private val cache: Repository<String, Transaction>,
     private val scheduler: Scheduler,
-    private val billingFactory: BillingFactory,
+    private val billing: Billing,
     private val errorMapper: ErrorMapper) {
 
-  fun getBalance(address: String): Single<Long> {
+  fun getBalance(address: String): Single<BigDecimal> {
     return repository.getBalance(address)
   }
 
-  fun getBalance(): Single<Long> {
+  fun getBalance(): Single<BigDecimal> {
     return walletService.getWalletAddress().flatMap { getBalance(it) }
   }
 
@@ -58,7 +58,7 @@ class AppcoinsRewards(
                         transaction.oemAddress, transaction.packageName)
                   }
                       .flatMapCompletable { createdTransaction ->
-                        waitTransactionCompletion(transaction, createdTransaction)
+                        waitTransactionCompletion(createdTransaction)
                       }
                 }.andThen(cache.save(getKey(transaction),
                     Transaction(transaction, Transaction.Status.COMPLETED)))
@@ -76,9 +76,7 @@ class AppcoinsRewards(
       if (transaction.origin.isBds()) transaction.origin.name else null
 
   private fun waitTransactionCompletion(
-      transaction: Transaction,
       createdTransaction: com.appcoins.wallet.bdsbilling.repository.entity.Transaction): Completable {
-    val billing = billingFactory.getBilling(transaction.packageName)
     return Observable.interval(0, 5, TimeUnit.SECONDS, scheduler)
         .timeInterval()
         .switchMap {

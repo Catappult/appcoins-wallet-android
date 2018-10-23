@@ -9,6 +9,9 @@ import io.reactivex.Completable
 import io.reactivex.Single
 
 class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRepository {
+  override fun getWallet(packageName: String): Single<String> {
+    return remoteRepository.getWallet(packageName).map { it.data.address }
+  }
 
   override fun registerAuthorizationProof(id: String, paymentType: String,
                                           walletAddress: String,

@@ -8,7 +8,7 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface BdsApi {
-  @POST("broker/8.20180518/gateways/appcoins_rewards/transactions")
+  @POST("broker/8.20180518/gateways/appcoins_credits/transactions")
   fun pay(@Query("wallet.address") walletAddress: String, @Query("wallet.signature")
   signature: String, @Body payBody: PayBody): Single<Transaction>
 
@@ -21,8 +21,4 @@ interface BdsApi {
                      @SerializedName("wallets.oem") private val oemAddress: String,
                      @SerializedName("price.currency") private val currency: String,
                      @SerializedName("domain") private val packageName: String)
-}
-
-enum class Origin {
-  BDS, UNKNOWN
 }

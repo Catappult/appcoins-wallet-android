@@ -135,7 +135,7 @@ public class IabActivity extends BaseActivity implements IabView {
     }
   }
 
-  @Override public void showOffChain(BigDecimal amount) {
+  @Override public void showCcPayment(BigDecimal amount) {
     if (savedInstanceState == null && getSupportFragmentManager().getFragments()
         .isEmpty()) {
       getSupportFragmentManager().beginTransaction()
@@ -145,7 +145,7 @@ public class IabActivity extends BaseActivity implements IabView {
     }
   }
 
-  @Override public void showRewardPayment(BigDecimal amount) {
+  @Override public void showAppcoinsCreditsPayment(BigDecimal amount) {
     if (savedInstanceState == null && getSupportFragmentManager().getFragments()
         .isEmpty()) {
       getSupportFragmentManager().beginTransaction()

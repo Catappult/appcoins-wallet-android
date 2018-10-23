@@ -5,7 +5,7 @@ import io.reactivex.Single
 import java.math.BigDecimal
 
 interface AppcoinsRewardsRepository {
-  fun getBalance(address: String): Single<Long>
+  fun getBalance(address: String): Single<BigDecimal>
   fun pay(walletAddress: String, signature: String, amount: BigDecimal,
           origin: String?, sku: String,
           type: String,

@@ -1,9 +1,6 @@
 package com.appcoins.wallet.bdsbilling
 
-import com.appcoins.wallet.bdsbilling.repository.RegisterAuthorizationBody
-import com.appcoins.wallet.bdsbilling.repository.RegisterAuthorizationResponse
-import com.appcoins.wallet.bdsbilling.repository.RegisterPaymentBody
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
+import com.appcoins.wallet.bdsbilling.repository.*
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
@@ -43,6 +40,10 @@ class BillingPaymentProofSubmissionTest {
         .setWalletService(object : WalletService {
           override fun getWalletAddress(): Single<String> = Single.just(walletAddress)
           override fun signContent(content: String): Single<String> = Single.just(signedContent)
+        }).setBdsApiSecondary(object : BdsApiSecondary {
+          override fun getWallet(packageName: String): Single<GetWalletResponse> {
+            return Single.just(GetWalletResponse(Data("developer_address")))
+          }
         }).build()
 
     `when`(api.registerAuthorization(paymentType, walletAddress, signedContent,

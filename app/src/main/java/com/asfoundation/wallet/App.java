@@ -8,6 +8,7 @@ import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.bdsbilling.BillingFactory;
 import com.appcoins.wallet.bdsbilling.ProxyService;
 import com.appcoins.wallet.bdsbilling.WalletService;
+import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary;
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
 import com.appcoins.wallet.billing.BillingDependenciesProvider;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
@@ -56,11 +57,11 @@ public class App extends MultiDexApplication
   @Inject RemoteRepository.BdsApi bdsApi;
   @Inject WalletService walletService;
   @Inject AppCoinsAddressProxySdk contractAddressProvider;
-  @Inject BillingFactory billingFactory;
   @Inject ProxyService proxyService;
   @Inject Adyen adyen;
   @Inject AppcoinsRewards appcoinsRewards;
   @Inject BillingMessagesMapper billingMessagesMapper;
+  @Inject BdsApiSecondary bdsapiSecondary;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -141,15 +142,15 @@ public class App extends MultiDexApplication
     return walletService;
   }
 
-  @NotNull @Override public BillingFactory getBillingFactory() {
-    return billingFactory;
-  }
-
   @NotNull @Override public ProxyService getProxyService() {
     return proxyService;
   }
 
   @NotNull @Override public BillingMessagesMapper getBillingMessagesMapper() {
     return billingMessagesMapper;
+  }
+
+  @NotNull @Override public BdsApiSecondary getBdsApiSecondary() {
+    return bdsapiSecondary;
   }
 }

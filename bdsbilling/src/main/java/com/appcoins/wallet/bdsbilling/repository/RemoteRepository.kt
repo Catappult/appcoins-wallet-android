@@ -7,11 +7,10 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.http.*
-import java.lang.StringBuilder
 import java.math.BigDecimal
-import java.util.*
 
-class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiResponseMapper) {
+class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsApiResponseMapper,
+                       private val bdsApiSecondary: BdsApiSecondary) {
   internal fun isBillingSupported(packageName: String,
                                   type: BillingSupportedType): Single<Boolean> {
     return api.getPackage(packageName, type.name.toLowerCase()).map { responseMapper.map(it) }
@@ -90,16 +89,23 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
 
   fun createAdyenTransaction(origin: String?, walletAddress: String,
                              walletSignature: String, token: String,
-                             packageName: String, priceValue: BigDecimal, priceCurrency: String, productName: String?, type: String,
+                             packageName: String, priceValue: BigDecimal, priceCurrency: String,
+                             productName: String?, type: String,
                              walletDeveloper: String,
                              walletStore: String, walletOem: String): Single<TransactionStatus> {
-    return api.createAdyenTransaction(origin, packageName, priceValue.toString(), priceCurrency, productName, type, walletDeveloper, walletStore, walletOem, token, walletAddress, walletSignature)
-            .singleOrError()
+    return api.createAdyenTransaction(origin, packageName, priceValue.toString(), priceCurrency,
+        productName, type, walletDeveloper, walletStore, walletOem, token, walletAddress,
+        walletSignature)
+        .singleOrError()
   }
 
   fun getAppcoinsTransaction(uid: String, address: String,
                              signedContent: String): Single<Transaction> {
     return api.getAppcoinsTransaction(uid, address, signedContent)
+  }
+
+  fun getWallet(packageName: String): Single<GetWalletResponse> {
+    return bdsApiSecondary.getWallet(packageName)
   }
 
   interface BdsApi {
@@ -173,8 +179,8 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
     @FormUrlEncoded
     @PATCH("broker/8.20180518/gateways/adyen/transactions/{uid}")
     fun patchTransaction(
-            @Path("uid") uid: String, @Query("wallet.address") walletAddress: String,
-            @Query("wallet.signature") walletSignature: String, @Field("pay_key")
+        @Path("uid") uid: String, @Query("wallet.address") walletAddress: String,
+        @Query("wallet.signature") walletSignature: String, @Field("pay_key")
         paykey: String): Observable<Any>
 
     @GET("broker/8.20180518/gateways/adyen/transactions/{uid}/authorization")
@@ -195,7 +201,8 @@ class RemoteRepository(private val api: BdsApi, val responseMapper: BdsApiRespon
                                @Field("wallets.oem") walletsOem: String,
                                @Field("token") token: String,
                                @Query("wallet.address") walletAddress: String,
-                               @Query("wallet.signature") walletSignature: String): Observable<TransactionStatus>
+                               @Query("wallet.signature")
+                               walletSignature: String): Observable<TransactionStatus>
   }
 
   data class Consumed(val status: String = "CONSUMED")

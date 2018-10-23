@@ -10,19 +10,21 @@ import io.reactivex.Single
 
 interface Billing {
 
-  fun isSubsSupported(): Single<BillingSupportType>
+  fun isSubsSupported(merchantName: String): Single<BillingSupportType>
 
-  fun isInAppSupported(): Single<BillingSupportType>
+  fun isInAppSupported(merchantName: String): Single<BillingSupportType>
 
-  fun getProducts(skus: List<String>, type: String): Single<List<Product>>
+  fun getProducts(merchantName: String, skus: List<String>, type: String): Single<List<Product>>
 
   fun getAppcoinsTransaction(uid: String, scheduler: Scheduler): Single<Transaction>
 
-  fun getSkuPurchase(sku: String, scheduler: Scheduler): Single<Purchase>
+  fun getSkuPurchase(merchantName: String, sku: String, scheduler: Scheduler): Single<Purchase>
 
-  fun getPurchases(type: BillingSupportedType, scheduler: Scheduler): Single<List<Purchase>>
+  fun getPurchases(merchantName: String, type: BillingSupportedType,
+                   scheduler: Scheduler): Single<List<Purchase>>
 
-  fun consumePurchases(purchaseToken: String, scheduler: Scheduler): Single<Boolean>
+  fun consumePurchases(merchantName: String, purchaseToken: String,
+                       scheduler: Scheduler): Single<Boolean>
 
   fun getGateways(): Single<List<Gateway>>
 
@@ -30,5 +32,8 @@ interface Billing {
     SUPPORTED, MERCHANT_NOT_FOUND, UNKNOWN_ERROR, NO_INTERNET_CONNECTION, API_ERROR
   }
 
-  fun getSkuTransaction(sku: String, scheduler: Scheduler): Single<Transaction>
+  fun getSkuTransaction(merchantName: String, sku: String,
+                        scheduler: Scheduler): Single<Transaction>
+
+  fun getWallet(packageName: String): Single<String>
 }
