@@ -163,7 +163,8 @@ public class CreditCardAuthorizationPresenter {
     return BigDecimal.valueOf(
         inAppPurchaseInteractor.convertToFiat((new BigDecimal(amount)).doubleValue(), "EUR")
             .blockingGet()
-            .getAmount());
+            .getAmount())
+        .setScale(2, BigDecimal.ROUND_UP);
   }
 
   private void onViewCreatedSelectCreditCardPayment() {
