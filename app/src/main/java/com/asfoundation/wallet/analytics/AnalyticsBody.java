@@ -1,14 +1,13 @@
 package com.asfoundation.wallet.analytics;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 
 public class AnalyticsBody {
 
-  @SerializedName("appcoins_vercode")
-  private int appcoinsVercode;
-  @SerializedName("appcoins_package")
-  private String appcoinsPackage;
+  @JsonProperty("aptoide_vercode") private int appcoinsVercode;
+  @JsonProperty("aptoide_package") private String
+      appcoinsPackage;
   private Map data;
 
   public AnalyticsBody(int appcoinsVercode, String appcoinsPackage, Map data) {

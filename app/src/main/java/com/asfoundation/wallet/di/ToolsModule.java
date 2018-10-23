@@ -26,6 +26,7 @@ import com.asfoundation.wallet.FabricLogger;
 import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.analytics.AnalyticsAPI;
 import com.asfoundation.wallet.analytics.BackendEventLogger;
+import com.asfoundation.wallet.analytics.FacebookEventLogger;
 import com.asfoundation.wallet.analytics.HttpClientKnockLogger;
 import com.asfoundation.wallet.analytics.KeysNormalizer;
 import com.asfoundation.wallet.analytics.LogcatAnalyticsLogger;
@@ -121,6 +122,7 @@ import com.asfoundation.wallet.ui.iab.raiden.Web3jNonceProvider;
 import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.TransferParser;
 import com.bds.microraidenj.MicroRaidenBDS;
+import com.facebook.appevents.AppEventsLogger;
 import com.google.gson.Gson;
 import com.jakewharton.rxrelay2.PublishRelay;
 import dagger.Module;
@@ -643,13 +645,14 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides AnalyticsManager provideAnalyticsManager(OkHttpClient okHttpClient,
-      AnalyticsAPI api) {
+      AnalyticsAPI api, Context context) {
 
     List<String> list = new ArrayList<>();
     list.add(BillingAnalytics.PURCHASE_DETAILS);
     list.add(BillingAnalytics.CREDIT_CARD_DETAILS);
     list.add(BillingAnalytics.PAYMENT);
-    return new AnalyticsManager.Builder().addLogger(new BackendEventLogger(api), list)
+    return new AnalyticsManager.Builder().addLogger(new BackendEventLogger(api), list).addLogger(new FacebookEventLogger(AppEventsLogger.newLogger(
+        context)),list)
         .setAnalyticsNormalizer(new KeysNormalizer())
         .setDebugLogger(new LogcatAnalyticsLogger())
         .setKnockLogger(new HttpClientKnockLogger(okHttpClient))

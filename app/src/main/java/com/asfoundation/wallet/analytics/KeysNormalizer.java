@@ -6,16 +6,17 @@ import java.util.Map;
 
 public class KeysNormalizer implements KeyValueNormalizer {
 
-
   @Override public Map<String, Object> normalize(Map<String, Object> data) {
     Map<String, Object> normalized = new HashMap<>();
     for (Map.Entry<String, Object> entrySet : data.entrySet()) {
-      if(entrySet.getValue() != null) {
-        if (entrySet.getValue().getClass().isInstance(new HashMap())) {
-          normalize((HashMap) entrySet.getValue());
-        }
-        else
+      if (entrySet.getValue() != null) {
+        if (entrySet.getValue()
+            .getClass()
+            .isInstance(new HashMap())) {
+          normalized.putAll(normalize((HashMap) entrySet.getValue()));
+        } else {
           normalized.put(entrySet.getKey(), entrySet.getValue());
+        }
       }
     }
     return normalized;
