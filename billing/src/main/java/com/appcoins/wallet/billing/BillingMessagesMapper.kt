@@ -13,6 +13,11 @@ import java.io.IOException
 
 class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerializer) {
 
+  companion object {
+    internal const val TRANSACTION_HASH = "transaction_hash"
+  }
+
+
   internal fun mapSupported(supportType: Billing.BillingSupportType): Int =
       when (supportType) {
         Billing.BillingSupportType.SUPPORTED -> AppcoinsBillingBinder.RESULT_OK
@@ -107,9 +112,12 @@ class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerial
     return bundle
   }
 
-  fun successBundle(): Bundle {
-    val intent = Bundle()
-    intent.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
-    return intent
+  fun successBundle(uid: String): Bundle {
+    val bundle = Bundle()
+    bundle.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
+
+    bundle.putString(TRANSACTION_HASH, uid)
+
+    return bundle
   }
 }

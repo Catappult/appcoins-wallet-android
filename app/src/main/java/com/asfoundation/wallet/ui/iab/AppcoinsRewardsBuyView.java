@@ -32,7 +32,7 @@ interface AppcoinsRewardsBuyView {
 
   void showGenericError();
 
-  void finish();
+  void finish(String uid);
 
   void errorClose();
 }

@@ -30,7 +30,6 @@ public class CreditCardAuthorizationPresenter {
   private static final String INAPP_PURCHASE_DATA = "INAPP_PURCHASE_DATA";
   private static final String INAPP_DATA_SIGNATURE = "INAPP_DATA_SIGNATURE";
   private static final String INAPP_PURCHASE_ID = "INAPP_PURCHASE_ID";
-  private static final String TX_HASH = "TX_HASH";
 
   private final Scheduler viewScheduler;
   private final CompositeDisposable disposables;
@@ -211,7 +210,7 @@ public class CreditCardAuthorizationPresenter {
                 .map(purchase -> bundle);
           } else {
             return inAppPurchaseInteractor.getTransactionUid(creditCardBilling.getTransactionUid())
-                .doOnSuccess(txHash -> bundle.putString(TX_HASH, txHash))
+                .doOnSuccess(txHash -> bundle.putString(IabActivity.TRANSACTION_HASH, txHash))
                 .map(s -> bundle);
           }
         });

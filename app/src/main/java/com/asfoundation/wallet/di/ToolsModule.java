@@ -3,6 +3,7 @@ package com.asfoundation.wallet.di;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
+import com.appcoins.wallet.appcoins.rewards.TransactionIdRepository;
 import com.appcoins.wallet.appcoins.rewards.repository.BdsAppcoinsRewardsRepository;
 import com.appcoins.wallet.appcoins.rewards.repository.BdsRemoteApi;
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi;
@@ -18,7 +19,6 @@ import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper;
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary;
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository;
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
-import com.appcoins.wallet.bdsbilling.repository.TransactionIdRepository;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.commons.MemoryCache;
@@ -650,7 +650,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides AppcoinsRewards provideAppcoinsRewards(OkHttpClient client, Gson gson,
-      WalletService walletService, Billing billing) {
+      WalletService walletService, Billing billing,
+      TransactionIdRepository transactionIdRepository) {
     BackendApi backendApi = new Retrofit.Builder().baseUrl(BuildConfig.BACKEND_HOST)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
@@ -674,7 +675,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
             return walletService.signContent(content);
           }
         }, new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), Schedulers.io(),
-        billing, new com.appcoins.wallet.appcoins.rewards.ErrorMapper());
+        billing, new com.appcoins.wallet.appcoins.rewards.ErrorMapper(), transactionIdRepository);
   }
 
   @Singleton @Provides RewardsManager provideRewardsManager(AppcoinsRewards appcoinsRewards,

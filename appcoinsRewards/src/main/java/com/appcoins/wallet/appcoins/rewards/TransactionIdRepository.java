@@ -1,5 +1,6 @@
-package com.appcoins.wallet.bdsbilling.repository;
+package com.appcoins.wallet.appcoins.rewards;
 
+import com.appcoins.wallet.bdsbilling.repository.GetTransactionIdResponse;
 import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -19,7 +20,7 @@ public class TransactionIdRepository {
 
   public interface Api {
 
-    @GET("appc/transaction?uid=rz2Cx28b29Lc7ruC") Single<GetTransactionIdResponse> getTransactionId(
+    @GET("appc/transaction") Single<GetTransactionIdResponse> getTransactionId(
         @Query("uid") String uid);
   }
 }

@@ -10,10 +10,11 @@ data class Transaction(val sku: String,
                        val packageName: String,
                        val amount: BigDecimal,
                        val origin: Origin,
-                       val status: Status) {
+                       val status: Status,
+                       var txId: String?) {
   constructor(transaction: Transaction, status: Status) : this(transaction.sku, transaction.type,
       transaction.developerAddress, transaction.storeAddress, transaction.oemAddress,
-      transaction.packageName, transaction.amount, transaction.origin, status)
+          transaction.packageName, transaction.amount, transaction.origin, status, transaction.txId)
 
 
   enum class Origin {

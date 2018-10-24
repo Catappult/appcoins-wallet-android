@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
-import com.appcoins.wallet.bdsbilling.repository.TransactionIdRepository;
+import com.appcoins.wallet.appcoins.rewards.TransactionIdRepository;
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
