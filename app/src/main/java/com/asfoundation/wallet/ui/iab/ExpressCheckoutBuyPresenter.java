@@ -5,10 +5,12 @@ import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
+import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -26,11 +28,12 @@ public class ExpressCheckoutBuyPresenter {
   private final BillingMessagesMapper billingMessagesMapper;
   private final BdsPendingTransactionService bdsPendingTransactionService;
   private final Billing billing;
+  private final String uri;
 
   public ExpressCheckoutBuyPresenter(ExpressCheckoutBuyView view, String appPackage,
       InAppPurchaseInteractor inAppPurchaseInteractor, Scheduler viewScheduler,
       CompositeDisposable disposables, BillingMessagesMapper billingMessagesMapper,
-      BdsPendingTransactionService bdsPendingTransactionService, Billing billing) {
+      BdsPendingTransactionService bdsPendingTransactionService, Billing billing, String uri) {
     this.view = view;
     this.appPackage = appPackage;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
@@ -39,31 +42,36 @@ public class ExpressCheckoutBuyPresenter {
     this.billingMessagesMapper = billingMessagesMapper;
     this.bdsPendingTransactionService = bdsPendingTransactionService;
     this.billing = billing;
+    this.uri = uri;
   }
 
-  public void present(String skuId, double transactionValue, String currency) {
-    setupUi(transactionValue, currency);
+  public void present(String uri, double transactionValue, String currency) {
     handleCancelClick();
+    setupUi(transactionValue, currency, uri);
     handleErrorDismisses();
-    handleOnGoingPurchases(skuId);
+    handleOnGoingPurchases();
   }
 
-  private void handleOnGoingPurchases(String skuId) {
-    if (skuId != null) {
-      disposables.add(Completable.mergeArray(checkProcessing(skuId), checkAndConsumePrevious(skuId),
-          isSetupCompleted())
-          .observeOn(viewScheduler)
-          .subscribe(view::hideLoading, throwable -> {
-            view.showError();
-            throwable.printStackTrace();
-          }));
-    } else {
-      disposables.add(Completable.fromRunnable(view::hideLoading)
-          .subscribe(view::hideLoading, throwable -> {
-            view.showError();
-            throwable.printStackTrace();
-          }));
-    }
+  private void handleOnGoingPurchases() {
+    disposables.add(inAppPurchaseInteractor.parseTransaction(uri, true)
+        .flatMapCompletable(transactionBuilder -> {
+          String skuId = transactionBuilder.getSkuId();
+          if (skuId == null) {
+            return Completable.complete();
+          } else {
+            return waitForUi(skuId);
+          }
+        })
+        .observeOn(viewScheduler)
+        .subscribe(view::hideLoading, throwable -> {
+          view.showError();
+          throwable.printStackTrace();
+        }));
+  }
+
+  private Completable waitForUi(String skuId) {
+    return Completable.mergeArray(checkProcessing(skuId), checkAndConsumePrevious(skuId),
+        isSetupCompleted());
   }
 
   private Completable isSetupCompleted() {
@@ -107,11 +115,14 @@ public class ExpressCheckoutBuyPresenter {
         .ignoreElements();
   }
 
-  private void setupUi(double transactionValue, String currency) {
-    disposables.add(inAppPurchaseInteractor.convertToFiat(transactionValue, currency)
-        .observeOn(viewScheduler)
-        .doOnSuccess(view::setup)
-        .subscribe(__ -> {
+  private void setupUi(double transactionValue, String currency, String uri) {
+    disposables.add(Single.zip(inAppPurchaseInteractor.parseTransaction(uri, true),
+        inAppPurchaseInteractor.convertToFiat(transactionValue, currency),
+        (transactionBuilder, fiatValue) -> Completable.fromAction(() -> view.setup(fiatValue,
+            TransactionData.TransactionType.DONATION.name()
+                .equalsIgnoreCase(transactionBuilder.getType()))))
+        .flatMapCompletable(completable -> completable)
+        .subscribe(() -> {
         }, this::showError));
   }
 

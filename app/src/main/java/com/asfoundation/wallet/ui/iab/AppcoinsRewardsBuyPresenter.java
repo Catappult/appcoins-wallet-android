@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
 import com.appcoins.wallet.appcoins.rewards.Transaction;
+import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
@@ -59,11 +60,18 @@ public class AppcoinsRewardsBuyPresenter {
   }
 
   private void handleViewSetup() {
-    view.showLoading();
-    view.setupView(amount.setScale(2, RoundingMode.CEILING)
-        .toPlainString(), productName, packageName);
-    view.hideLoading();
-    view.showPaymentDetails();
+    disposables.add(transferParser.parse(uri)
+        .observeOn(scheduler)
+        .doOnSuccess(transactionBuilder -> {
+          view.showLoading();
+          view.setupView(amount.setScale(2, RoundingMode.CEILING)
+                  .toPlainString(), productName, packageName,
+              TransactionData.TransactionType.DONATION.name()
+                  .equalsIgnoreCase(transactionBuilder.getType()));
+          view.hideLoading();
+          view.showPaymentDetails();
+        })
+        .subscribe());
   }
 
   private void handleBuyClick() {

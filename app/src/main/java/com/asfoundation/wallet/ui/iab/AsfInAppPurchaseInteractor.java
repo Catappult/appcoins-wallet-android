@@ -6,6 +6,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
+import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
@@ -379,7 +380,8 @@ public class AsfInAppPurchaseInteractor {
 
   public Single<Transaction> getTransaction(String packageName, String productName, String type) {
     return Single.defer(() -> {
-      if (type.equals("INAPP")) {
+      if (TransactionData.TransactionType.INAPP.name()
+          .equalsIgnoreCase(type)) {
         return billing.getSkuTransaction(packageName, productName, Schedulers.io());
       } else {
         return Single.just(Transaction.Companion.notFound());

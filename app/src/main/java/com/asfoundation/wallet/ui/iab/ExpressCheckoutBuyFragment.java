@@ -119,7 +119,8 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
 
     presenter = new ExpressCheckoutBuyPresenter(this, getAppPackage(), inAppPurchaseInteractor,
         AndroidSchedulers.mainThread(), new CompositeDisposable(),
-        inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing);
+        inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing,
+        extras.getString(TRANSACTION_DATA));
   }
 
   @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -144,7 +145,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     errorDismissButton = view.findViewById(R.id.activity_iab_error_ok_button);
     processingDialog = view.findViewById(R.id.processing_loading);
     ((TextView) processingDialog.findViewById(R.id.loading_message)).setText(
-        R.string.activity_aib_buying_message);
+        R.string.activity_iab_buying_message);
     walletAddressView = view.findViewById(R.id.wallet_address_footer);
 
     Single.defer(() -> Single.just(getAppPackage()))
@@ -160,8 +161,9 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
           throwable.printStackTrace();
           showError();
         });
+
     buyButton.setOnClickListener(v -> iabView.navigateToCreditCardAuthorization());
-    presenter.present(getSkuId(),
+    presenter.present(extras.getString(TRANSACTION_DATA),
         ((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue(),
         extras.getString(TRANSACTION_CURRENCY));
   }
@@ -188,12 +190,6 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     iabView = null;
   }
 
-  private String getSkuId() {
-    return inAppPurchaseInteractor.parseTransaction(extras.getString(TRANSACTION_DATA), true)
-        .blockingGet()
-        .getSkuId();
-  }
-
   @Override public void onAttach(Context context) {
     super.onAttach(context);
     if (!(context instanceof IabView)) {
@@ -203,7 +199,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     iabView = ((IabView) context);
   }
 
-  @Override public void setup(FiatValue response) {
+  @Override public void setup(FiatValue response, boolean isDonation) {
     Formatter formatter = new Formatter();
     StringBuilder builder = new StringBuilder();
     String valueText = formatter.format(Locale.getDefault(), "%(,.2f",
@@ -225,8 +221,14 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     itemPrice.setText(valueText);
     itemFinalPrice.setText(spannable, TextView.BufferType.SPANNABLE);
     fiatValue = response;
-    if (extras.containsKey(PRODUCT_NAME)) {
-      itemHeaderDescription.setText(extras.getString(PRODUCT_NAME));
+    int buyButtonText = isDonation? R.string.action_donate : R.string.action_buy;
+    buyButton.setText(getResources().getString(buyButtonText));
+
+    if (isDonation) {
+      itemListDescription.setText(getResources().getString(R.string.item_donation));
+      itemHeaderDescription.setText(getResources().getString(R.string.item_donation));
+    } else if (extras.containsKey(PRODUCT_NAME)) {
+      itemHeaderDescription.setText(String.format(getString(R.string.buying), extras.getString(PRODUCT_NAME)));
       itemListDescription.setText(extras.getString(PRODUCT_NAME));
     }
     AppEventsLogger.newLogger(getContext())
