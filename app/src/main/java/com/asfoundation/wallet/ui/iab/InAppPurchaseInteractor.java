@@ -149,7 +149,8 @@ public class InAppPurchaseInteractor {
       return Single.just(false);
     }
     return bdsInAppPurchaseInteractor.getWallet(packageName)
-        .map(wallet::equalsIgnoreCase);
+        .map(wallet::equalsIgnoreCase)
+        .onErrorReturn(throwable -> false);
   }
 
   public Single<Gateway.Name> getPaymentMethod(String packageName,

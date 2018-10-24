@@ -44,13 +44,13 @@ public class IabActivity extends BaseActivity implements IabView {
   private Bundle savedInstanceState;
   private Bundle skuDetails;
 
-  public static Intent newIntent(Activity activity, Intent previousIntent) {
+  public static Intent newIntent(Activity activity, Intent previousIntent, String callingPackage) {
     Intent intent = new Intent(activity, IabActivity.class);
     intent.setData(previousIntent.getData());
     if (previousIntent.getExtras() != null) {
       intent.putExtras(previousIntent.getExtras());
     }
-    intent.putExtra(APP_PACKAGE, activity.getCallingPackage());
+    intent.putExtra(APP_PACKAGE, callingPackage);
     return intent;
   }
 
