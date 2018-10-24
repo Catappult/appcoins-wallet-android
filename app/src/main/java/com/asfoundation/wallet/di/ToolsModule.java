@@ -644,15 +644,28 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .create(AnalyticsAPI.class);
   }
 
-  @Singleton @Provides AnalyticsManager provideAnalyticsManager(OkHttpClient okHttpClient,
-      AnalyticsAPI api, Context context) {
-
+  @Singleton @Provides @Named("bi_event_list") List<String> provideBiEventList() {
     List<String> list = new ArrayList<>();
     list.add(BillingAnalytics.PURCHASE_DETAILS);
     list.add(BillingAnalytics.CREDIT_CARD_DETAILS);
     list.add(BillingAnalytics.PAYMENT);
-    return new AnalyticsManager.Builder().addLogger(new BackendEventLogger(api), list).addLogger(new FacebookEventLogger(AppEventsLogger.newLogger(
-        context)),list)
+    return list;
+  }
+
+  @Singleton @Provides @Named("facebook_event_list") List<String> provideFacebookEventList() {
+    List<String> list = new ArrayList<>();
+    list.add(BillingAnalytics.PURCHASE_DETAILS);
+    list.add(BillingAnalytics.CREDIT_CARD_DETAILS);
+    list.add(BillingAnalytics.PAYMENT);
+    return list;
+  }
+
+  @Singleton @Provides AnalyticsManager provideAnalyticsManager(OkHttpClient okHttpClient,
+      AnalyticsAPI api, Context context, @Named("bi_event_list") List<String> biEventList,
+      @Named("facebook_event_list") List<String> facebookEventList) {
+
+    return new AnalyticsManager.Builder().addLogger(new BackendEventLogger(api), biEventList)
+        .addLogger(new FacebookEventLogger(AppEventsLogger.newLogger(context)), facebookEventList)
         .setAnalyticsNormalizer(new KeysNormalizer())
         .setDebugLogger(new LogcatAnalyticsLogger())
         .setKnockLogger(new HttpClientKnockLogger(okHttpClient))

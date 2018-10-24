@@ -11,25 +11,23 @@ import java.util.Map;
 public class FacebookEventLogger implements EventLogger {
 
   public static final String TAG = AnalyticsManager.class.getSimpleName();
-  private final AppEventsLogger api;
+  private final AppEventsLogger eventLogger;
 
-  public FacebookEventLogger(AppEventsLogger api) {
-    this.api = api;
+  public FacebookEventLogger(AppEventsLogger eventLogger) {
+    this.eventLogger = eventLogger;
   }
 
-
-  private Bundle flatten (Map<String, Object> data) {
+  private Bundle flatten(Map<String, Object> data) {
     Bundle bundle = new Bundle();
     for (Map.Entry<String, Object> entry : data.entrySet()) {
       if (entry.getValue()
           .getClass()
           .isInstance(new HashMap())) {
         flatten((HashMap) entry.getValue());
+      } else {
+        bundle.putString(entry.getKey(), entry.getValue()
+            .toString());
       }
-      else {
-        bundle.putString(entry.getKey(), entry.getValue().toString());
-      }
-
     }
     return bundle;
   }
@@ -47,13 +45,7 @@ public class FacebookEventLogger implements EventLogger {
         + context
         + "]");
     Bundle bundle = flatten(data);
-
-    api.logEvent(eventName, bundle);
-
-    /*api.logEvent(action, eventName, new AnalyticsBody(BuildConfig.VERSION_CODE, BuildConfig.APPLICATION_ID, data))
-        .subscribeOn(Schedulers.io())
-        .subscribe(() -> Log.d(TAG, "event sent"), Throwable::printStackTrace);*/
-
+    eventLogger.logEvent(eventName, bundle);
   }
 
   @Override public void setup() {
