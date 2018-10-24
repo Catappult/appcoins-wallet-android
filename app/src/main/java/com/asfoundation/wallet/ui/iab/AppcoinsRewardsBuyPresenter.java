@@ -5,7 +5,6 @@ import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -62,7 +61,8 @@ public class AppcoinsRewardsBuyPresenter {
 
   private void handleViewSetup() {
     disposables.add(transferParser.parse(uri)
-        .flatMapCompletable(transactionBuilder -> Completable.fromAction(() -> {
+        .observeOn(scheduler)
+        .doOnSuccess(transactionBuilder -> {
           view.showLoading();
           view.setupView(amount.setScale(2, RoundingMode.CEILING)
                   .toPlainString(), productName, packageName,
@@ -71,7 +71,6 @@ public class AppcoinsRewardsBuyPresenter {
           view.hideLoading();
           view.showPaymentDetails();
         })
-            .subscribeOn(AndroidSchedulers.mainThread()))
         .subscribe());
   }
 

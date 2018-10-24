@@ -119,7 +119,8 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
 
     presenter = new ExpressCheckoutBuyPresenter(this, getAppPackage(), inAppPurchaseInteractor,
         AndroidSchedulers.mainThread(), new CompositeDisposable(),
-        inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing);
+        inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing,
+        extras.getString(TRANSACTION_DATA));
   }
 
   @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
