@@ -11,6 +11,7 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
@@ -48,6 +49,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   private TextView amountView;
   private TextView totalAmountView;
   private TextView productDescription;
+  private TextView productHeaderDescription;
   private BigDecimal amount;
   private View paymentDetailsView;
   private IabView iabView;
@@ -93,6 +95,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     loadingView = view.findViewById(R.id.loading_view);
     genericLoadingView = view.findViewById(R.id.loading);
     appName = view.findViewById(R.id.app_name);
+    productHeaderDescription = view.findViewById(R.id.app_sku_description);
     errorMessage = view.findViewById(R.id.activity_iab_error_message);
     amountView = view.findViewById(R.id.sku_price);
     totalAmountView = view.findViewById(R.id.total_price);
@@ -157,10 +160,18 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     paymentDetailsView.setVisibility(View.INVISIBLE);
   }
 
-  @Override public void setupView(String amount, String productName, String packageName) {
-    amountView.setText(String.format("%s APPC Rewards", amount));
-    totalAmountView.setText(String.format("%s APPC Rewards", amount));
-    productDescription.setText(productName);
+  @Override public void setupView(String amount, String productName, String packageName, boolean isDonation) {
+    amountView.setText(String.format(getString(R.string.credits_purchase_value), amount));
+    totalAmountView.setText(String.format(getString(R.string.credits_purchase_value), amount));
+    int buyButtonText = isDonation? R.string.action_donate : R.string.action_buy;
+    ((Button) buyButton).setText(getResources().getString(buyButtonText));
+    if (isDonation) {
+      productHeaderDescription.setText(getResources().getString(R.string.item_donation));
+      productDescription.setText(getResources().getString(R.string.item_donation));
+    } else {
+      productHeaderDescription.setText(String.format(getString(R.string.buying), productName));
+      productDescription.setText(productName);
+    }
     loadingView.setVisibility(View.GONE);
   }
 

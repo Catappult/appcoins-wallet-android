@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.iab;
 import android.os.Bundle;
 import android.util.Log;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
+import com.appcoins.wallet.billing.repository.entity.TransactionData.TransactionType;
 import com.asfoundation.wallet.util.UnknownTokenException;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
@@ -133,7 +134,7 @@ public class OnChainBuyPresenter {
                           AsfInAppPurchaseInteractor.TransactionType.NORMAL, packageName,
                           transaction.getSkuId(), developerPayload, isBds);
                     case READY:
-                      return Completable.fromAction(() -> setup(appcAmount))
+                      return Completable.fromAction(() -> setup(appcAmount, transaction.getType()))
                           .subscribeOn(AndroidSchedulers.mainThread());
                     case NO_FUNDS:
                       return Completable.fromAction(view::showNoFundsError);
@@ -242,8 +243,8 @@ public class OnChainBuyPresenter {
     disposables.clear();
   }
 
-  private void setup(BigDecimal amount) {
-    view.setup();
+  private void setup(BigDecimal amount, String type) {
+    view.setup(TransactionType.DONATION.name().equalsIgnoreCase(type));
     view.showRaidenChannelValues(inAppPurchaseInteractor.getTopUpChannelSuggestionValues(amount));
   }
 

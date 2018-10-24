@@ -6,4 +6,9 @@ class TransactionData @JvmOverloads constructor(val type: String = UNKNOWN, val 
   companion object {
     const val UNKNOWN = "unknown"
   }
+
+  enum class TransactionType {
+    DONATION,
+    INAPP;
+  }
 }

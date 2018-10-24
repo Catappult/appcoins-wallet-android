@@ -25,7 +25,7 @@ public interface OnChainBuyView {
 
   void showError();
 
-  void setup();
+  void setup(boolean isDonation);
 
   void showTransactionCompleted();
 

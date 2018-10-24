@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public interface ExpressCheckoutBuyView {
 
-  void setup(FiatValue convertToFiatResponseBody);
+  void setup(FiatValue convertToFiatResponseBody, boolean isDonation);
 
   void showError();
 

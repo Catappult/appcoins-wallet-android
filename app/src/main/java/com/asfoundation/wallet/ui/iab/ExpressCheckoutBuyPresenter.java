@@ -5,6 +5,7 @@ import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
+import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -41,11 +42,16 @@ public class ExpressCheckoutBuyPresenter {
     this.billing = billing;
   }
 
-  public void present(String skuId, double transactionValue, String currency) {
-    setupUi(transactionValue, currency);
-    handleCancelClick();
-    handleErrorDismisses();
-    handleOnGoingPurchases(skuId);
+  public void present(String uri, double transactionValue, String currency) {
+    disposables.add(inAppPurchaseInteractor.parseTransaction(uri, true)
+        .flatMapCompletable(transactionBuilder -> Completable.fromAction(() -> {
+          setupUi(transactionValue, currency, transactionBuilder.getType());
+          handleCancelClick();
+          handleErrorDismisses();
+          handleOnGoingPurchases(transactionBuilder.getSkuId());
+        })
+            .subscribeOn(AndroidSchedulers.mainThread()))
+        .subscribe());
   }
 
   private void handleOnGoingPurchases(String skuId) {
@@ -107,10 +113,12 @@ public class ExpressCheckoutBuyPresenter {
         .ignoreElements();
   }
 
-  private void setupUi(double transactionValue, String currency) {
+  private void setupUi(double transactionValue, String currency, String transactionType) {
     disposables.add(inAppPurchaseInteractor.convertToFiat(transactionValue, currency)
         .observeOn(viewScheduler)
-        .doOnSuccess(view::setup)
+        .doOnSuccess(convertToFiatResponseBody -> view.setup(convertToFiatResponseBody,
+            TransactionData.TransactionType.DONATION.name()
+                .equalsIgnoreCase(transactionType)))
         .subscribe(__ -> {
         }, this::showError));
   }

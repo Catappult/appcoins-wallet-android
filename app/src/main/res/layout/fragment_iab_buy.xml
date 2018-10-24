@@ -73,7 +73,6 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="16dp"
-      android:text="@string/action_buy"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@id/iab_activity_item_price"
       style="@style/ButtonStyle"
