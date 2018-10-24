@@ -145,7 +145,7 @@ public class CreditCardAuthorizationPresenter {
         .andThen(inAppPurchaseInteractor.parseTransaction(transactionData, true)
             .flatMapCompletable(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                    transaction.toAddress(), developerPayload, origin, convertAmount(),
+                    transaction.toAddress(), developerPayload, origin, convertAmount(currency),
                     currency,
                     type)
                     .observeOn(viewScheduler)
@@ -159,9 +159,9 @@ public class CreditCardAuthorizationPresenter {
         }, throwable -> showError(throwable)));
   }
 
-  @NonNull private BigDecimal convertAmount() {
+  @NonNull private BigDecimal convertAmount(String currency) {
     return BigDecimal.valueOf(
-        inAppPurchaseInteractor.convertToFiat((new BigDecimal(amount)).doubleValue(), "EUR")
+        inAppPurchaseInteractor.convertToFiat((new BigDecimal(amount)).doubleValue(), currency)
             .blockingGet()
             .getAmount())
         .setScale(2, BigDecimal.ROUND_UP);
@@ -179,7 +179,7 @@ public class CreditCardAuthorizationPresenter {
     disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
         .flatMap(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                    transaction.toAddress(), developerPayload, origin, convertAmount(),
+                    transaction.toAddress(), developerPayload, origin, convertAmount(currency),
                     currency,
                     type)
                     .filter(payment -> payment.isCompleted())
@@ -216,7 +216,7 @@ public class CreditCardAuthorizationPresenter {
     disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
         .flatMap(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                    transaction.toAddress(), developerPayload, origin, convertAmount(),
+                    transaction.toAddress(), developerPayload, origin, convertAmount(currency),
                     currency,
                     type)
                     .filter(payment -> payment.isFailed())
@@ -235,7 +235,7 @@ public class CreditCardAuthorizationPresenter {
     disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
             .flatMapObservable(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                    transaction.toAddress(), developerPayload, origin, convertAmount(),
+                    transaction.toAddress(), developerPayload, origin, convertAmount(currency),
                     currency,
                     type)
                     .filter(payment -> payment.isProcessing())

@@ -13,6 +13,9 @@ import kotlin.NotImplementedError;
  */
 
 public class IabPresenter {
+
+  private static final String DEFAULT_CURRENCY = "EUR";
+
   private final IabView view;
   private final InAppPurchaseInteractor inAppPurchaseInteractor;
   private final Scheduler viewScheduler;
@@ -69,7 +72,7 @@ public class IabPresenter {
               view.showOnChain(transactionBuilder.amount());
               break;
             case adyen:
-              view.showCcPayment(transactionBuilder.amount());
+              view.showCcPayment(transactionBuilder.amount(), DEFAULT_CURRENCY);
               break;
             case appcoins_credits:
               view.showAppcoinsCreditsPayment(transactionBuilder.amount());
