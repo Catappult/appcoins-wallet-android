@@ -25,7 +25,7 @@ public interface OnChainBuyView {
 
   void showError();
 
-  void setup();
+  void setup(String productName, String itemName);
 
   void showTransactionCompleted();
 
@@ -66,4 +66,6 @@ public interface OnChainBuyView {
   void showWallet(String wallet);
 
   void showNoChannelFundsError();
+
+  String getDonationString();
 }

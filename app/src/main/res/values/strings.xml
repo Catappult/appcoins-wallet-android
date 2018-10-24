@@ -337,5 +337,6 @@
   <string name="connection_error">No network connection</string>
   <string name="iab_button_ok">OK</string>
   <string name="action_skip_backup_wallet">SKIP BACKUP</string>
+  <string name="fragment_on_chain_donation_title">Donation</string>
 
 </resources>

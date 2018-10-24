@@ -19,6 +19,7 @@ import javax.annotation.Nullable;
 
 public class OnChainBuyPresenter {
 
+  public static final String DONATION_TYPE = "donation";
   private static final String TAG = OnChainBuyPresenter.class.getSimpleName();
   private final OnChainBuyView view;
   private final InAppPurchaseInteractor inAppPurchaseInteractor;
@@ -26,16 +27,18 @@ public class OnChainBuyPresenter {
   private final CompositeDisposable disposables;
   private final BillingMessagesMapper billingMessagesMapper;
   private final boolean isBds;
+  private final String productName;
 
   public OnChainBuyPresenter(OnChainBuyView view, InAppPurchaseInteractor inAppPurchaseInteractor,
       Scheduler viewScheduler, CompositeDisposable disposables,
-      BillingMessagesMapper billingMessagesMapper, boolean isBds) {
+      BillingMessagesMapper billingMessagesMapper, boolean isBds, String productName) {
     this.view = view;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.viewScheduler = viewScheduler;
     this.disposables = disposables;
     this.billingMessagesMapper = billingMessagesMapper;
     this.isBds = isBds;
+    this.productName = productName;
   }
 
   public void present(String uriString, String appPackage, String productName, BigDecimal amount,
@@ -133,7 +136,7 @@ public class OnChainBuyPresenter {
                           AsfInAppPurchaseInteractor.TransactionType.NORMAL, packageName,
                           transaction.getSkuId(), developerPayload, isBds);
                     case READY:
-                      return Completable.fromAction(() -> setup(appcAmount))
+                      return Completable.fromAction(() -> setup(appcAmount, transaction.getType()))
                           .subscribeOn(AndroidSchedulers.mainThread());
                     case NO_FUNDS:
                       return Completable.fromAction(view::showNoFundsError);
@@ -242,8 +245,12 @@ public class OnChainBuyPresenter {
     disposables.clear();
   }
 
-  private void setup(BigDecimal amount) {
-    view.setup();
+  private void setup(BigDecimal amount, String type) {
+    if (type.equalsIgnoreCase(DONATION_TYPE)) {
+      view.setup(view.getDonationString(), "");
+    } else {
+      view.setup(productName, productName);
+    }
     view.showRaidenChannelValues(inAppPurchaseInteractor.getTopUpChannelSuggestionValues(amount));
   }
 
