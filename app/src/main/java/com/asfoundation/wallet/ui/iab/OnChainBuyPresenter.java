@@ -27,16 +27,18 @@ public class OnChainBuyPresenter {
   private final CompositeDisposable disposables;
   private final BillingMessagesMapper billingMessagesMapper;
   private final boolean isBds;
+  private final String productName;
 
   public OnChainBuyPresenter(OnChainBuyView view, InAppPurchaseInteractor inAppPurchaseInteractor,
       Scheduler viewScheduler, CompositeDisposable disposables,
-      BillingMessagesMapper billingMessagesMapper, boolean isBds) {
+      BillingMessagesMapper billingMessagesMapper, boolean isBds, String productName) {
     this.view = view;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.viewScheduler = viewScheduler;
     this.disposables = disposables;
     this.billingMessagesMapper = billingMessagesMapper;
     this.isBds = isBds;
+    this.productName = productName;
   }
 
   public void present(String uriString, String appPackage, String productName, BigDecimal amount,
@@ -244,7 +246,7 @@ public class OnChainBuyPresenter {
   }
 
   private void setup(BigDecimal amount, String type) {
-    view.setup(TransactionType.DONATION.name().equalsIgnoreCase(type));
+    view.setup(productName, TransactionType.DONATION.name().equalsIgnoreCase(type));
     view.showRaidenChannelValues(inAppPurchaseInteractor.getTopUpChannelSuggestionValues(amount));
   }
 

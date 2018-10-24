@@ -148,7 +148,8 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
 
     presenter =
         new OnChainBuyPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
-            new CompositeDisposable(), inAppPurchaseInteractor.getBillingMessagesMapper(), isBds);
+            new CompositeDisposable(), inAppPurchaseInteractor.getBillingMessagesMapper(), isBds,
+            extras.getString(PRODUCT_NAME));
     adapter =
         new ArrayAdapter<>(getContext().getApplicationContext(), R.layout.iab_raiden_dropdown_item,
             R.id.item, new ArrayList<>());
@@ -204,7 +205,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   private Single<Pair<CharSequence, Drawable>> getDefaultInfo() {
     return inAppPurchaseInteractor.parseTransaction(data, isBds)
         .map(transaction -> new Pair<>(transaction.getType(),
-            getContext().getDrawable(R.drawable.ic_transaction_iab)));
+            getContext().getDrawable(R.drawable.purchase_placeholder)));
   }
 
   @Override public Observable<OnChainBuyPresenter.BuyData> getBuyClick() {
@@ -235,7 +236,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     showError(R.string.activity_iab_error_message);
   }
 
-  @Override public void setup(boolean isDonation) {
+  @Override public void setup(String productName, boolean isDonation) {
     Formatter formatter = new Formatter();
     String formatedPrice = formatter.format(Locale.getDefault(), "%(,.2f",
         ((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue())
@@ -251,9 +252,9 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     if (isDonation) {
       itemDescription.setText(getResources().getString(R.string.item_donation));
       itemHeaderDescription.setText(getResources().getString(R.string.item_donation));
-    } else if (extras.containsKey(PRODUCT_NAME)) {
-      itemDescription.setText(extras.getString(PRODUCT_NAME));
-      itemHeaderDescription.setText(String.format(getString(R.string.buying), extras.getString(PRODUCT_NAME)));
+    } else {
+      itemDescription.setText(productName);
+      itemHeaderDescription.setText(String.format(getString(R.string.buying), productName));
     }
     buyDialogLoading.setVisibility(View.GONE);
     infoDialog.setVisibility(View.VISIBLE);
