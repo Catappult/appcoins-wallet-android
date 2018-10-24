@@ -11,6 +11,10 @@ import java.math.BigDecimal
 
 class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsApiResponseMapper,
                        private val bdsApiSecondary: BdsApiSecondary) {
+  companion object {
+    private val ADYEN_GATEWAY = "adyen"
+  }
+
   internal fun isBillingSupported(packageName: String,
                                   type: BillingSupportedType): Single<Boolean> {
     return api.getPackage(packageName, type.name.toLowerCase()).map { responseMapper.map(it) }
@@ -79,7 +83,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
 
   fun patchTransaction(uid: String, walletAddress: String, walletSignature: String,
                        paykey: String): Completable {
-    return api.patchTransaction("adyen", uid, walletAddress, walletSignature, paykey)
+    return api.patchTransaction(ADYEN_GATEWAY, uid, walletAddress, walletSignature, paykey)
   }
 
   fun getSessionKey(uid: String, walletAddress: String,
@@ -94,7 +98,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                              productName: String?, type: String,
                              walletDeveloper: String,
                              walletStore: String, walletOem: String): Single<TransactionStatus> {
-    return api.createTransaction("adyen", origin, packageName, priceValue.toString(),
+    return api.createTransaction(ADYEN_GATEWAY, origin, packageName, priceValue.toString(),
         priceCurrency,
         productName, type, walletDeveloper, walletStore, walletOem, token, walletAddress,
         walletSignature)

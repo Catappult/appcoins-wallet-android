@@ -29,11 +29,10 @@ public class ApproveTransactionValidatorBds implements TransactionValidator {
         .getType();
     BigDecimal priceValue = paymentTransaction.getTransactionBuilder()
         .amount();
-    String origin = "BDS";
     return sendTransactionInteract.computeApproveTransactionHash(
         paymentTransaction.getTransactionBuilder())
         .map(hash -> new AuthorizationProof("appcoins", hash, productName, packageName, priceValue,
-            storeAddress, oemAddress, developerAddress, type, origin,
+            storeAddress, oemAddress, developerAddress, type, "BDS",
             paymentTransaction.getDeveloperPayload()))
         .flatMapCompletable(billingPaymentProofSubmission::processAuthorizationProof);
   }
