@@ -65,7 +65,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                                  priceValue: BigDecimal,
                                  developerWallet: String, storeWallet: String,
                                  developerPayload: String?): Single<TransactionStatus> {
-    return api.createTransaction(paymentType, origin, packageName, priceValue.toString(), "APPC",
+      return api.createTransaction(paymentType, origin, packageName, priceValue.toPlainString(), "APPC",
         productName,
         type, developerWallet, storeWallet, oemWallet, id, walletAddress, walletSignature)
   }
@@ -98,7 +98,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                              productName: String?, type: String,
                              walletDeveloper: String,
                              walletStore: String, walletOem: String): Single<TransactionStatus> {
-    return api.createTransaction(ADYEN_GATEWAY, origin, packageName, priceValue.toString(),
+      return api.createTransaction(ADYEN_GATEWAY, origin, packageName, priceValue.toPlainString(),
         priceCurrency,
         productName, type, walletDeveloper, walletStore, walletOem, token, walletAddress,
         walletSignature)
