@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.text.format.DateUtils;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.C;
+import com.asfoundation.wallet.entity.Balance;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
@@ -46,7 +47,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<List<Transaction>> transactions = new MutableLiveData<>();
   private final MutableLiveData<List<AppcoinsApplication>> appcoinsApplications =
       new MutableLiveData<>();
-  private final MutableLiveData<Map<String, String>> defaultWalletBalance = new MutableLiveData<>();
+  private final MutableLiveData<Map<String, Balance>> defaultWalletBalance = new MutableLiveData<>();
   private final FindDefaultNetworkInteract findDefaultNetworkInteract;
   private final FindDefaultWalletInteract findDefaultWalletInteract;
   private final FetchTransactionsInteract fetchTransactionsInteract;
@@ -122,7 +123,7 @@ public class TransactionsViewModel extends BaseViewModel {
     return transactions;
   }
 
-  public MutableLiveData<Map<String, String>> defaultWalletBalance() {
+  public MutableLiveData<Map<String, Balance>> defaultWalletBalance() {
     return defaultWalletBalance;
   }
 

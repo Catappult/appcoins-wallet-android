@@ -19,14 +19,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import com.appcoins.wallet.billing.BdsBilling;
-import com.appcoins.wallet.billing.BillingThrowableCodeMapper;
-import com.appcoins.wallet.billing.WalletService;
-import com.appcoins.wallet.billing.repository.BdsApiResponseMapper;
-import com.appcoins.wallet.billing.repository.BdsRepository;
-import com.appcoins.wallet.billing.repository.RemoteRepository;
-import com.appcoins.wallet.billing.repository.entity.DeveloperPurchase;
-import com.appcoins.wallet.billing.repository.entity.Purchase;
+import com.appcoins.wallet.bdsbilling.Billing;
+import com.appcoins.wallet.bdsbilling.WalletService;
+import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary;
+import com.appcoins.wallet.bdsbilling.repository.BdsRepository;
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
+import com.appcoins.wallet.bdsbilling.repository.entity.DeveloperPurchase;
+import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.facebook.appevents.AppEventsLogger;
@@ -49,6 +48,7 @@ import java.util.Formatter;
 import java.util.Locale;
 import javax.inject.Inject;
 
+import static com.asfoundation.wallet.ui.iab.IabActivity.PRODUCT_NAME;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_CURRENCY;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_DATA;
@@ -59,7 +59,6 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_DATA;
 
 public class ExpressCheckoutBuyFragment extends DaggerFragment implements ExpressCheckoutBuyView {
   public static final String APP_PACKAGE = "app_package";
-  public static final String PRODUCT_NAME = "product_name";
   public static final String SKU_ID = "sku_id";
 
   private static final String INAPP_PURCHASE_DATA = "INAPP_PURCHASE_DATA";
@@ -71,6 +70,8 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   @Inject WalletService walletService;
   @Inject BdsPendingTransactionService bdsPendingTransactionService;
   @Inject BdsRepository bdsRepository;
+  @Inject BdsApiSecondary BdsApiSecondary;
+  @Inject Billing billing;
   private Bundle extras;
   private PublishRelay<Snackbar> buyButtonClick;
   private IabView iabView;
@@ -89,7 +90,6 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   private View errorView;
   private TextView errorMessage;
   private Button errorDismissButton;
-  private BdsBilling bdsBilling;
   private PublishSubject<Boolean> setupSubject;
   private View processingDialog;
   private TextView walletAddressView;
@@ -117,14 +117,9 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
 
     extras = getArguments().getBundle("extras");
 
-    bdsBilling = new BdsBilling(getAppPackage(),
-        new BdsRepository(new RemoteRepository(bdsApi, new BdsApiResponseMapper()),
-            new BillingThrowableCodeMapper()), walletService, new BillingThrowableCodeMapper());
-
-    presenter = new ExpressCheckoutBuyPresenter(this, inAppPurchaseInteractor,
+    presenter = new ExpressCheckoutBuyPresenter(this, getAppPackage(), inAppPurchaseInteractor,
         AndroidSchedulers.mainThread(), new CompositeDisposable(),
-        inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService,
-        bdsBilling);
+        inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing);
   }
 
   @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -166,8 +161,9 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
           showError();
         });
     buyButton.setOnClickListener(v -> iabView.navigateToCreditCardAuthorization());
-    presenter.present(((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue(),
-        extras.getString(TRANSACTION_CURRENCY), getSkuId());
+    presenter.present(getSkuId(),
+        ((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue(),
+        extras.getString(TRANSACTION_CURRENCY));
   }
 
   @Override public void onDestroyView() {

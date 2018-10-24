@@ -96,6 +96,8 @@ android {
           "\"" + project.BASE_HOST_PROD + "\""
       buildConfigField 'String', 'BACKEND_HOST',
           "\"" + project.BACKEND_HOST_PROD + "\""
+      buildConfigField 'String', 'BDS_BASE_HOST',
+          "\"" + project.BDS_BASE_HOST_PROD + "\""
     }
     debug {
       minifyEnabled false
@@ -107,6 +109,9 @@ android {
           "\"" + project.BASE_HOST_DEV + "\""
       buildConfigField 'String', 'BACKEND_HOST',
           "\"" + project.BACKEND_HOST_DEV + "\""
+
+      buildConfigField 'String', 'BDS_BASE_HOST',
+          "\"" + project.BDS_BASE_HOST_DEV + "\""
       applicationVariants.all { variant -> renameArtifact(defaultConfig)
       }
     }
@@ -198,7 +203,7 @@ dependencies {
   implementation project(":tn")
   implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  implementation 'com.asfoundation:microraidenj-bds:0.4.5.19b'
+  implementation "com.asfoundation:microraidenj-bds:$project.appcoinsSdkVersion"
 
   implementation "android.arch.persistence.room:runtime:$project.roomVersion"
   annotationProcessor "android.arch.persistence.room:compiler:$project.roomVersion"
@@ -211,7 +216,7 @@ dependencies {
   implementation project(path: ':airdrop')
   implementation 'com.asfoundation:applications:3'
   implementation "com.android.support:palette-v7:$project.supportVersion"
-  implementation "com.asfoundation:appcoins-contract-proxy:0.4.4b"
+  implementation "com.asfoundation:appcoins-contract-proxy:$project.appcoinsSdkVersion"
   implementation project(path: ':billing')
 
   //braintreepayments card form dependency
@@ -227,6 +232,10 @@ dependencies {
   implementation "com.github.akarnokd:rxjava2-interop:0.13.0"
   implementation "com.facebook.android:facebook-android-sdk:4.35.0"
   implementation "aptoide-client-v8:aptoide-analytics-core:1.0.3"
+  implementation project(path: ':appcoinsRewards')
+  implementation project(path: ':commons')
+
+  implementation 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:27.1.0'
 }
 
 def renameArtifact(defaultConfig) {

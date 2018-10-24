@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import com.appcoins.wallet.billing.util.PayloadHelper;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.ui.BaseActivity;
 import com.facebook.appevents.AppEventsLogger;
 import dagger.android.AndroidInjection;
@@ -23,6 +24,9 @@ import static com.appcoins.wallet.billing.AppcoinsBillingBinder.EXTRA_BDS_IAP;
  */
 
 public class IabActivity extends BaseActivity implements IabView {
+
+  private static final String BDS = "BDS";
+
   public static final String RESPONSE_CODE = "RESPONSE_CODE";
   public static final int RESULT_USER_CANCELED = 1;
   public static final String SKU_DETAILS = "sku_details";
@@ -44,13 +48,13 @@ public class IabActivity extends BaseActivity implements IabView {
   private Bundle savedInstanceState;
   private Bundle skuDetails;
 
-  public static Intent newIntent(Activity activity, Intent previousIntent) {
+  public static Intent newIntent(Activity activity, Intent previousIntent, String callingPackage) {
     Intent intent = new Intent(activity, IabActivity.class);
     intent.setData(previousIntent.getData());
     if (previousIntent.getExtras() != null) {
       intent.putExtras(previousIntent.getExtras());
     }
-    intent.putExtra(APP_PACKAGE, activity.getCallingPackage());
+    intent.putExtra(APP_PACKAGE, callingPackage);
     return intent;
   }
 
@@ -115,11 +119,13 @@ public class IabActivity extends BaseActivity implements IabView {
   }
 
   @Override public void navigateToCreditCardAuthorization() {
+    TransactionBuilder builder =
+        inAppPurchaseInteractor.parseTransaction(getIntent().getDataString(), isBds())
+            .blockingGet();
     getSupportFragmentManager().beginTransaction()
-        .replace(R.id.fragment_container, CreditCardAuthorizationFragment.newInstance(skuDetails,
-            inAppPurchaseInteractor.parseTransaction(getIntent().getDataString(), isBds())
-                .blockingGet()
-                .getSkuId()))
+        .replace(R.id.fragment_container,
+            CreditCardAuthorizationFragment.newInstance(skuDetails, builder.getSkuId(),
+                builder.getType(), isBds() ? BDS : null))
         .commit();
     presenter.sendCCDetailsEvent();
   }
@@ -136,12 +142,25 @@ public class IabActivity extends BaseActivity implements IabView {
     presenter.sendPurchaseDetails(PURCHASE_DETAILS_APPC);
   }
 
-  @Override public void showOffChain(BigDecimal amount) {
+  @Override public void showCcPayment(BigDecimal amount) {
     if (savedInstanceState == null && getSupportFragmentManager().getFragments()
         .isEmpty()) {
       getSupportFragmentManager().beginTransaction()
-          .add(R.id.fragment_container,
-              ExpressCheckoutBuyFragment.newInstance(createBundle(amount)))
+          .add(R.id.fragment_container, ExpressCheckoutBuyFragment.newInstance(createBundle(
+              BigDecimal.valueOf(amount.doubleValue()))))
+          .commit();
+    }
+  }
+
+  @Override public void showAppcoinsCreditsPayment(BigDecimal amount) {
+    if (savedInstanceState == null && getSupportFragmentManager().getFragments()
+        .isEmpty()) {
+      getSupportFragmentManager().beginTransaction()
+          .add(R.id.fragment_container, AppcoinsRewardsBuyFragment.newInstance(amount,
+              getIntent().getExtras()
+                  .getString(APP_PACKAGE, ""), getIntent().getData()
+                  .toString(), getIntent().getExtras()
+                  .getString(PRODUCT_NAME, ""), isBds()))
           .commit();
     }
     presenter.sendPurchaseDetails(PURCHASE_DETAILS_CC);

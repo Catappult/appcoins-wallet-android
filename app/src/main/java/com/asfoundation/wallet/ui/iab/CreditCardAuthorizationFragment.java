@@ -23,7 +23,7 @@ import com.adyen.core.models.paymentdetails.CreditCardPaymentDetails;
 import com.adyen.core.models.paymentdetails.PaymentDetails;
 import com.adyen.core.utils.AmountUtil;
 import com.adyen.core.utils.StringUtils;
-import com.appcoins.wallet.billing.BillingFactory;
+import com.appcoins.wallet.bdsbilling.Billing;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
 import com.asfoundation.wallet.billing.payment.Adyen;
@@ -49,6 +49,7 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.APP_PACKAGE;
 import static com.asfoundation.wallet.ui.iab.IabActivity.EXTRA_DEVELOPER_PAYLOAD;
 import static com.asfoundation.wallet.ui.iab.IabActivity.PRODUCT_NAME;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
+import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_CURRENCY;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_DATA;
 
 /**
@@ -61,6 +62,8 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   private static final String TAG = CreditCardAuthorizationFragment.class.getSimpleName();
 
   private static final String SKU_ID = "sku_id";
+  private static final String TYPE = "type";
+  private static final String ORIGIN = "origin";
   private static final String PACKAGE_NAME = "packageName";
   private static final String APP_NAME = "appName";
   private static final String APP_DESCRIPTION = "appDescription";
@@ -70,7 +73,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   @Inject FindDefaultWalletInteract defaultWalletInteract;
   @Inject CreditCardBillingFactory creditCardBillingFactory;
   @Inject Adyen adyen;
-  @Inject BillingFactory billingFactory;
+  @Inject Billing billing;
   private View progressBar;
   private View ccInfoView;
   private IabView iabView;
@@ -96,10 +99,13 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   private PublishRelay<Void> keyboardBuyRelay;
   private CreditCardFragmentNavigator navigator;
 
-  public static CreditCardAuthorizationFragment newInstance(Bundle skuDetails, String skuId) {
+  public static CreditCardAuthorizationFragment newInstance(Bundle skuDetails, String skuId,
+      String type, String origin) {
 
     final CreditCardAuthorizationFragment fragment = new CreditCardAuthorizationFragment();
     skuDetails.putString(SKU_ID, skuId);
+    skuDetails.putString(TYPE, type);
+    skuDetails.putString(ORIGIN, origin);
     fragment.setArguments(skuDetails);
     return fragment;
   }
@@ -111,12 +117,12 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
 
     navigator = new CreditCardFragmentNavigator(getFragmentManager(), iabView);
 
-    presenter = new CreditCardAuthorizationPresenter(this, defaultWalletInteract,
+    presenter = new CreditCardAuthorizationPresenter(this, getAppPackage(), defaultWalletInteract,
         AndroidSchedulers.mainThread(), new CompositeDisposable(), adyen,
         creditCardBillingFactory.getBilling(getAppPackage()), navigator,
         inAppPurchaseInteractor.getBillingMessagesMapper(), inAppPurchaseInteractor,
-        inAppPurchaseInteractor.getBillingSerializer(), getTransactionData(), getDeveloperPayload(),
-        billingFactory.getBilling(getAppPackage()), getSkuId());
+        getTransactionData(), getDeveloperPayload(), billing, getSkuId(), getType(), getOrigin(),
+        getAmount().toString(), getCurrency());
   }
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -171,7 +177,6 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
 
     paymentRefusedDialog.positiveClicks()
         .subscribe(dialogInterface -> navigator.popViewWithError(), Throwable::printStackTrace);
-
 
     showProduct();
     presenter.present();
@@ -304,18 +309,6 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
     finishSetupView();
   }
 
-  private void finishSetupView() {
-    cardForm.findViewById(R.id.bt_card_form_card_number_icon)
-        .setVisibility(View.GONE);
-    ((TextInputLayout) cardForm.findViewById(R.id.bt_card_form_card_number)
-        .getParent()
-        .getParent()).setPadding(24, 50, 0, 0);
-    ((LinearLayout) cardForm.findViewById(R.id.bt_card_form_expiration)
-        .getParent()
-        .getParent()
-        .getParent()).setPadding(24, 0, 0, 0);
-  }
-
   @Override public void close(Bundle bundle) {
     iabView.close(bundle);
   }
@@ -332,6 +325,18 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
     if (!paymentRefusedDialog.isShowing()) {
       paymentRefusedDialog.show();
     }
+  }
+
+  private void finishSetupView() {
+    cardForm.findViewById(R.id.bt_card_form_card_number_icon)
+        .setVisibility(View.GONE);
+    ((TextInputLayout) cardForm.findViewById(R.id.bt_card_form_card_number)
+        .getParent()
+        .getParent()).setPadding(24, 50, 0, 0);
+    ((LinearLayout) cardForm.findViewById(R.id.bt_card_form_expiration)
+        .getParent()
+        .getParent()
+        .getParent()).setPadding(24, 0, 0, 0);
   }
 
   private PaymentDetails getPaymentDetails(String publicKey, String generationTime) {
@@ -394,6 +399,34 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
       return getArguments().getString(SKU_ID);
     }
     throw new IllegalArgumentException("sku id not found");
+  }
+
+  public String getType() {
+    if (getArguments().containsKey(TYPE)) {
+      return getArguments().getString(TYPE);
+    }
+    throw new IllegalArgumentException("type not found");
+  }
+
+  public String getOrigin() {
+    if (getArguments().containsKey(ORIGIN)) {
+      return getArguments().getString(ORIGIN);
+    }
+    throw new IllegalArgumentException("origin not found");
+  }
+
+  public String getCurrency() {
+    if (getArguments().containsKey(TRANSACTION_CURRENCY)) {
+      return getArguments().getString(TRANSACTION_CURRENCY);
+    }
+    throw new IllegalArgumentException("transaction currency not found");
+  }
+
+  public BigDecimal getAmount() {
+    if (getArguments().containsKey(TRANSACTION_AMOUNT)) {
+      return (BigDecimal) getArguments().getSerializable(TRANSACTION_AMOUNT);
+    }
+    throw new IllegalArgumentException("transaction currency not found");
   }
 
   public String getDeveloperPayload() {

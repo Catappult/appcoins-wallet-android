@@ -2,6 +2,8 @@ package com.asfoundation.wallet.ui.iab;
 
 import android.os.Bundle;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
+import com.asfoundation.wallet.entity.TransactionBuilder;
+import io.reactivex.Completable;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
 import javax.annotation.Nullable;
@@ -42,29 +44,45 @@ public class IabPresenter {
 
   private void setupUi() {
     disposables.add(inAppPurchaseInteractor.parseTransaction(uriString, isBds)
-        .flatMap(transactionBuilder -> inAppPurchaseInteractor.getCurrentPaymentStep(appPackage,
-            transactionBuilder)
-            .observeOn(viewScheduler)
-            .doOnSuccess(paymentStatus -> {
-              switch (paymentStatus) {
-                case PAUSED_ON_CHAIN:
-                case READY:
-                  view.showOnChain(transactionBuilder.amount());
-                  break;
-                case PAUSED_OFF_CHAIN:
-                case NO_FUNDS:
-                  if (isBds) {
-                    view.showOffChain(transactionBuilder.amount());
-                  } else {
-                    view.showOnChain(transactionBuilder.amount());
-                  }
-                  break;
-                default:
-                  throw new NotImplementedError();
-              }
-            }))
-        .subscribe(canBuy -> {
+        .flatMapCompletable(transaction -> {
+          if (isBds) {
+            return showBdsPayment(transaction);
+          }
+          return inAppPurchaseInteractor.isWalletFromBds(appPackage, transaction.toAddress())
+              .flatMapCompletable(
+                  isWalletFromBds -> showGenericPayment(transaction, isWalletFromBds));
+        })
+        .subscribe(() -> {
         }, this::showError));
+  }
+
+  private Completable showGenericPayment(TransactionBuilder transaction, Boolean isWalletFromBds) {
+    if (isWalletFromBds) {
+      return showBdsPayment(transaction);
+    }
+    return Completable.fromAction(() -> view.showOnChain(transaction.amount()));
+  }
+
+  private Completable showBdsPayment(TransactionBuilder transactionBuilder) {
+    return inAppPurchaseInteractor.getPaymentMethod(appPackage, transactionBuilder)
+        .subscribeOn(viewScheduler)
+        .doOnSuccess(gateway -> {
+          switch (gateway) {
+            case appcoins:
+              view.showOnChain(transactionBuilder.amount());
+              break;
+            case adyen:
+              view.showCcPayment(transactionBuilder.amount());
+              break;
+            case appcoins_credits:
+              view.showAppcoinsCreditsPayment(transactionBuilder.amount());
+              break;
+            case unknown:
+            default:
+              throw new NotImplementedError();
+          }
+        })
+        .ignoreElement();
   }
 
   private void showError(@Nullable Throwable throwable) {

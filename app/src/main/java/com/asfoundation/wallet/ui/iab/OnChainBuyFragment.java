@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -44,6 +45,7 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import static com.asfoundation.wallet.ui.iab.IabActivity.EXTRA_DEVELOPER_PAYLOAD;
+import static com.asfoundation.wallet.ui.iab.IabActivity.PRODUCT_NAME;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
 
 /**
@@ -53,7 +55,6 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
 public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView {
 
   public static final String APP_PACKAGE = "app_package";
-  public static final String PRODUCT_NAME = "product_name";
   public static final String TRANSACTION_HASH = "transaction_hash";
   private static final String TAG = OnChainBuyFragment.class.getSimpleName();
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
@@ -161,6 +162,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
         .map(packageName -> new Pair<>(getApplicationName(packageName),
             getContext().getPackageManager()
                 .getApplicationIcon(packageName)))
+        .onErrorResumeNext(throwable -> getDefaultInfo())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(pair -> {
           appName.setText(pair.first);
@@ -176,7 +178,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
 
   @Override public void onStart() {
     super.onStart();
-    presenter.present(data, getAppPackage(), extras.getString(PRODUCT_NAME),
+    presenter.present(data, getAppPackage(), extras.getString(PRODUCT_NAME, ""),
         (BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT),
         extras.getString(EXTRA_DEVELOPER_PAYLOAD));
   }
@@ -197,6 +199,12 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   @Override public void onDetach() {
     super.onDetach();
     iabView = null;
+  }
+
+  private Single<Pair<CharSequence, Drawable>> getDefaultInfo() {
+    return inAppPurchaseInteractor.parseTransaction(data, isBds)
+        .map(transaction -> new Pair<>(transaction.getType(),
+            getContext().getDrawable(R.drawable.ic_transaction_iab)));
   }
 
   @Override public Observable<OnChainBuyPresenter.BuyData> getBuyClick() {

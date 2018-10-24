@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.ui.iab.IabActivity;
+import com.asfoundation.wallet.util.TransferParser;
 import com.facebook.appevents.AppEventsLogger;
 import dagger.android.AndroidInjection;
 import io.reactivex.disposables.Disposable;
@@ -18,6 +19,7 @@ public class Erc681Receiver extends BaseActivity {
 
   public static final int REQUEST_CODE = 234;
   @Inject FindDefaultWalletInteract walletInteract;
+  @Inject TransferParser transferParser;
   private Disposable disposable;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,7 +29,14 @@ public class Erc681Receiver extends BaseActivity {
         .logEvent("in_app_purchase_dialog_open");
     if (savedInstanceState == null) {
       disposable = walletInteract.find()
-          .subscribe(wallet -> startEipTransfer(), throwable -> startApp(throwable));
+          .flatMap(__ -> transferParser.parse(getIntent().getDataString()))
+          .subscribe(transaction -> {
+            String callingPackage = getCallingPackage();
+            if (callingPackage == null) {
+              callingPackage = transaction.getDomain();
+            }
+            startEipTransfer(callingPackage);
+          }, throwable -> startApp(throwable));
     }
   }
 
@@ -37,12 +46,12 @@ public class Erc681Receiver extends BaseActivity {
     finish();
   }
 
-  private void startEipTransfer() {
+  private void startEipTransfer(String callingPackage) {
     Intent intent;
     if (getIntent().getData()
         .toString()
         .contains("/buy?")) {
-      intent = IabActivity.newIntent(this, getIntent());
+      intent = IabActivity.newIntent(this, getIntent(), callingPackage);
     } else {
       intent = SendActivity.newIntent(this, getIntent());
     }

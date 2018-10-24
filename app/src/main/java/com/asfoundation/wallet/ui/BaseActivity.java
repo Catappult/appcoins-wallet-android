@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.SubtitleCollapsingToolbarLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -43,14 +44,14 @@ public abstract class BaseActivity extends AppCompatActivity {
   }
 
   protected void setSubtitle(String subtitle) {
-    ActionBar actionBar = getSupportActionBar();
-    if (actionBar != null) {
-      actionBar.setSubtitle(subtitle);
+    SubtitleCollapsingToolbarLayout collapsing = findViewById(R.id.toolbar_layout);
+    if (collapsing != null) {
+      collapsing.setSubtitle(subtitle);
     }
   }
 
   protected void setCollapsingTitle(SpannableString title) {
-    CollapsingToolbarLayout collapsing = findViewById(R.id.toolbar_layout);
+    SubtitleCollapsingToolbarLayout collapsing = findViewById(R.id.toolbar_layout);
     if (collapsing != null) {
       collapsing.setTitle(title);
     }

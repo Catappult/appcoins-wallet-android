@@ -1,12 +1,13 @@
 package com.asfoundation.wallet.ui.iab;
 
-import com.appcoins.wallet.billing.Billing;
-import com.appcoins.wallet.billing.BillingFactory;
+import com.appcoins.wallet.bdsbilling.Billing;
+import com.appcoins.wallet.bdsbilling.BillingFactory;
+import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
+import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
-import com.appcoins.wallet.billing.BillingPaymentProofSubmission;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
-import com.appcoins.wallet.billing.repository.entity.Gateway;
-import com.appcoins.wallet.billing.repository.entity.Transaction;
+import com.appcoins.wallet.commons.MemoryCache;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.Token;
@@ -31,7 +32,6 @@ import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.ExpressCheckoutBuyService;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
-import com.asfoundation.wallet.repository.MemoryCache;
 import com.asfoundation.wallet.repository.NonceGetter;
 import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
@@ -45,6 +45,7 @@ import com.asfoundation.wallet.ui.iab.raiden.RaidenRepository;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.TestObserver;
@@ -96,12 +97,12 @@ public class InAppPurchaseInteractorTest {
   @Mock ProofOfAttentionService proofOfAttentionService;
   @Mock RaidenRepository repository;
   @Mock TransactionSender transactionSender;
-  @Mock BillingFactory billingFactory;
   @Mock TransactionValidator transactionValidator;
   @Mock DefaultTokenProvider defaultTokenProvider;
   @Mock CountryCodeProvider countryCodeProvider;
   @Mock Billing billing;
   @Mock BdsPendingTransactionService transactionService;
+  @Mock BillingFactory bdsBilling;
   private BdsInAppPurchaseInteractor inAppPurchaseInteractor;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
@@ -187,10 +188,8 @@ public class InAppPurchaseInteractorTest {
         new Transaction(UID, Transaction.Status.COMPLETED,
             new Gateway(Gateway.Name.appcoins, "", ""))));
 
-    when(billingFactory.getBilling(PACKAGE_NAME)).thenReturn(billing);
-
-    when(billing.getSkuTransaction(any(), any())).thenReturn(Single.just(
-        new Transaction(UID, Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
+    when(billing.getSkuTransaction(anyString(), anyString(), any(Scheduler.class))).thenReturn(
+        Single.just(new Transaction(UID, Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
             new Gateway(Gateway.Name.appcoins, "", ""))));
 
     AsfInAppPurchaseInteractor asfInAppPurchaseInteractor =
@@ -199,7 +198,8 @@ public class InAppPurchaseInteractorTest {
             new TransferParser(defaultWalletInteract, tokenRepository), repository,
             new ChannelService(null, new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
                 new MemoryCache<>(BehaviorSubject.create(), new HashMap<>())),
-            new BillingMessagesMapper(), billingFactory, new ExternalBillingSerializer(),
+            new BillingMessagesMapper(new ExternalBillingSerializer()), billing,
+            new ExternalBillingSerializer(),
             new ExpressCheckoutBuyService(Mockito.mock(TokenToFiatService.class)),
             new BdsTransactionService(scheduler,
                 new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
@@ -210,7 +210,7 @@ public class InAppPurchaseInteractorTest {
 
     inAppPurchaseInteractor =
         new BdsInAppPurchaseInteractor(asfInAppPurchaseInteractor, billingPaymentProofSubmission,
-            new ApproveKeyProvider(billingFactory));
+            new ApproveKeyProvider(billing), billing);
   }
 
   @Test public void sendTransaction() {

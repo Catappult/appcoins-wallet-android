@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.iab.raiden;
 
+import com.appcoins.wallet.commons.Repository;
 import com.asfoundation.wallet.repository.PaymentTransaction;
-import com.asfoundation.wallet.repository.Repository;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -86,7 +86,7 @@ public class ChannelService {
                 .fromAddress(), paymentTransaction.getTransactionBuilder()
             .amount(), paymentTransaction.getTransactionBuilder()
             .toAddress(), paymentTransaction.getPackageName(),
-            paymentTransaction.getProductName()));
+            paymentTransaction.getProductName(), paymentTransaction.getProductId()));
   }
 
   public Observable<ChannelPayment> getPayment(String key) {

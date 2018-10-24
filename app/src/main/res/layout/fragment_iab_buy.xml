@@ -10,7 +10,6 @@
     android:elevation="2dp"
     android:minHeight="160dp"
     android:padding="16dp"
-    tools:showIn="@layout/fragment_iab"
     >
 
   <ImageView

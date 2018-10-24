@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.ui.iab;
 
-import com.appcoins.wallet.billing.BdsBilling;
+import com.appcoins.wallet.bdsbilling.Billing;
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType;
+import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
-import com.appcoins.wallet.billing.repository.BillingSupportedType;
-import com.appcoins.wallet.billing.repository.entity.Purchase;
-import com.appcoins.wallet.billing.repository.entity.Transaction;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -19,27 +19,29 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ExpressCheckoutBuyPresenter {
   private final ExpressCheckoutBuyView view;
+  private final String appPackage;
   private final InAppPurchaseInteractor inAppPurchaseInteractor;
   private final Scheduler viewScheduler;
   private final CompositeDisposable disposables;
   private final BillingMessagesMapper billingMessagesMapper;
   private final BdsPendingTransactionService bdsPendingTransactionService;
-  private final BdsBilling bdsBilling;
+  private final Billing billing;
 
-  public ExpressCheckoutBuyPresenter(ExpressCheckoutBuyView view,
+  public ExpressCheckoutBuyPresenter(ExpressCheckoutBuyView view, String appPackage,
       InAppPurchaseInteractor inAppPurchaseInteractor, Scheduler viewScheduler,
       CompositeDisposable disposables, BillingMessagesMapper billingMessagesMapper,
-      BdsPendingTransactionService bdsPendingTransactionService, BdsBilling bdsBilling) {
+      BdsPendingTransactionService bdsPendingTransactionService, Billing billing) {
     this.view = view;
+    this.appPackage = appPackage;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.viewScheduler = viewScheduler;
     this.disposables = disposables;
     this.billingMessagesMapper = billingMessagesMapper;
     this.bdsPendingTransactionService = bdsPendingTransactionService;
-    this.bdsBilling = bdsBilling;
+    this.billing = billing;
   }
 
-  public void present(double transactionValue, String currency, String skuId) {
+  public void present(String skuId, double transactionValue, String currency) {
     setupUi(transactionValue, currency);
     handleCancelClick();
     handleErrorDismisses();
@@ -47,13 +49,21 @@ public class ExpressCheckoutBuyPresenter {
   }
 
   private void handleOnGoingPurchases(String skuId) {
-    disposables.add(Completable.mergeArray(checkProcessing(skuId), checkAndConsumePrevious(skuId),
-        isSetupCompleted())
-        .observeOn(viewScheduler)
-        .subscribe(view::hideLoading, throwable -> {
-          view.showError();
-          throwable.printStackTrace();
-        }));
+    if (skuId != null) {
+      disposables.add(Completable.mergeArray(checkProcessing(skuId), checkAndConsumePrevious(skuId),
+          isSetupCompleted())
+          .observeOn(viewScheduler)
+          .subscribe(view::hideLoading, throwable -> {
+            view.showError();
+            throwable.printStackTrace();
+          }));
+    } else {
+      disposables.add(Completable.fromRunnable(view::hideLoading)
+          .subscribe(view::hideLoading, throwable -> {
+            view.showError();
+            throwable.printStackTrace();
+          }));
+    }
   }
 
   private Completable isSetupCompleted() {
@@ -63,7 +73,7 @@ public class ExpressCheckoutBuyPresenter {
   }
 
   private Completable checkProcessing(String skuId) {
-    return bdsBilling.getSkuTransaction(skuId, Schedulers.io())
+    return billing.getSkuTransaction(appPackage, skuId, Schedulers.io())
         .filter(transaction -> transaction.getStatus() == Transaction.Status.PROCESSING)
         .observeOn(AndroidSchedulers.mainThread())
         .doOnSuccess(__ -> view.showProcessingLoadingDialog())
@@ -76,14 +86,14 @@ public class ExpressCheckoutBuyPresenter {
   }
 
   private Completable finishProcess(String skuId) {
-    return bdsBilling.getSkuPurchase(skuId, Schedulers.io())
+    return billing.getSkuPurchase(appPackage, skuId, Schedulers.io())
         .observeOn(viewScheduler)
         .doOnSuccess(view::finish)
         .ignoreElement();
   }
 
   private Completable checkAndConsumePrevious(String sku) {
-    return bdsBilling.getPurchases(BillingSupportedType.INAPP, Schedulers.io())
+    return billing.getPurchases(appPackage, BillingSupportedType.INAPP, Schedulers.io())
         .flatMapObservable(purchases -> {
           for (Purchase purchase : purchases) {
             if (purchase.getUid()
