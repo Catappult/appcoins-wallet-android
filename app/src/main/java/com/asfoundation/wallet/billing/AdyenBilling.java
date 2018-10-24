@@ -51,7 +51,7 @@ public class AdyenBilling implements CreditCardBilling {
             .flatMapCompletable(walletAddress -> walletService.signContent(walletAddress)
                     .flatMapCompletable(
                         signedContent -> {
-                          if (transactionUid == null) {
+                          if (!processingPayment.get()) {
                             return Completable.complete();
                           } else {
                             return transactionService.finishTransaction(walletAddress,
@@ -78,7 +78,6 @@ public class AdyenBilling implements CreditCardBilling {
   private void resetProcessingFlag(AdyenAuthorization adyenAuthorization) {
     if (adyenAuthorization.isCompleted() || adyenAuthorization.isFailed()) {
       processingPayment.set(false);
-      transactionUid = null;
     }
   }
 

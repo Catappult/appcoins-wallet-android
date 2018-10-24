@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.appcoins.wallet.appcoins.rewards.TransactionIdRepository;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asf.wallet.BuildConfig;
@@ -39,6 +40,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   public static final String IS_BDS = "is_bds";
   @Inject RewardsManager rewardsManager;
   @Inject BdsPendingTransactionService bdsPendingTransactionService;
+  @Inject TransactionIdRepository transactionIdRepository;
   @Inject TransferParser transferParser;
   @Inject BillingMessagesMapper billingMessagesMapper;
   private View buyButton;
@@ -104,8 +106,8 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     appIcon = view.findViewById(R.id.app_icon);
     transactionErrorLayout = view.findViewById(R.id.error_message);
     okErrorButton = view.findViewById(R.id.activity_iab_error_ok_button);
-    presenter =
-        new AppcoinsRewardsBuyPresenter(this, rewardsManager, AndroidSchedulers.mainThread(),
+    presenter = new AppcoinsRewardsBuyPresenter(transactionIdRepository, this, rewardsManager,
+        AndroidSchedulers.mainThread(),
             new CompositeDisposable(), amount, BuildConfig.DEFAULT_STORE_ADDRESS,
             BuildConfig.DEFAULT_OEM_ADDRESS, uri, getCallerPackageName(), transferParser,
             getProductName(), isBds);
@@ -228,8 +230,8 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     transactionErrorLayout.setVisibility(View.VISIBLE);
   }
 
-  @Override public void finish() {
-    iabView.finish(billingMessagesMapper.successBundle());
+  @Override public void finish(String uid) {
+    iabView.finish(billingMessagesMapper.successBundle(uid));
   }
 
   @Override public void errorClose() {
