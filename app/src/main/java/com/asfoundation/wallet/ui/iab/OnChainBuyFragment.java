@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -161,6 +162,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
         .map(packageName -> new Pair<>(getApplicationName(packageName),
             getContext().getPackageManager()
                 .getApplicationIcon(packageName)))
+        .onErrorResumeNext(throwable -> getDefaultInfo())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(pair -> {
           appName.setText(pair.first);
@@ -197,6 +199,12 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   @Override public void onDetach() {
     super.onDetach();
     iabView = null;
+  }
+
+  private Single<Pair<CharSequence, Drawable>> getDefaultInfo() {
+    return inAppPurchaseInteractor.parseTransaction(data, isBds)
+        .map(transaction -> new Pair<>(transaction.getType(),
+            getContext().getDrawable(R.drawable.ic_transaction_iab)));
   }
 
   @Override public Observable<OnChainBuyPresenter.BuyData> getBuyClick() {
