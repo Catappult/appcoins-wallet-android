@@ -58,19 +58,19 @@ class AppcoinsRewards(
                         transaction.type, transaction.developerAddress, transaction.storeAddress,
                             transaction.oemAddress, transaction.packageName)
                   }
-                          .flatMap { t ->
-                              transactionIdRepository.getTransactionUid(t.uid).flatMapCompletable { t ->
-                                  transaction.txId = t
+                          .flatMap { transaction1 ->
+                              transactionIdRepository.getTransactionUid(transaction1.uid).flatMapCompletable { txId ->
+                                  transaction.txId = txId
                                   cache.save(getKey(transaction), transaction)
-                              }.toSingleDefault(t)
+                              }.toSingleDefault(transaction1)
                           }
                           .flatMapCompletable { createdTransaction ->
                         waitTransactionCompletion(createdTransaction)
                       }
-                }.andThen(Completable.defer({
+                }.andThen(Completable.defer {
                         cache.save(getKey(transaction),
                                 Transaction(transaction, Transaction.Status.COMPLETED))
-                    }))
+                    })
                 .onErrorResumeNext {
                   it.printStackTrace()
                   cache.save(getKey(transaction),
