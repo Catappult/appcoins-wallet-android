@@ -68,9 +68,9 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
 
   fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
                            walletSignature: String,
-                           paymentProof: String): Single<PaymentProofResponse> {
-    return api.registerPayment(paymentType, paymentId, walletAddress, walletSignature,
-        RegisterPaymentBody(paymentProof)).andThen(Single.just(PaymentProofResponse()))
+                           paymentProof: String): Completable {
+    return api.patchTransaction(paymentType, paymentId, walletAddress, walletSignature,
+        paymentProof)
   }
 
   internal fun getGateways(): Single<List<Gateway>> {
@@ -79,8 +79,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
 
   fun patchTransaction(uid: String, walletAddress: String, walletSignature: String,
                        paykey: String): Completable {
-    return api.patchTransaction(uid, walletAddress, walletSignature, paykey)
-        .ignoreElements()
+    return api.patchTransaction("adyen", uid, walletAddress, walletSignature, paykey)
   }
 
   fun getSessionKey(uid: String, walletAddress: String,
@@ -161,23 +160,16 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                         @Query("wallet.signature") walletSignature: String,
                         @Body data: Consumed): Single<Void>
 
-    @Headers("Content-Type: application/json")
-    @PATCH("inapp/8.20180727/gateways/{gateway}/transactions/{paymentId}")
-    fun registerPayment(@Path("gateway") gateway: String,
-                        @Path("paymentId") paymentId: String,
-                        @Query("wallet.address") walletAddress: String,
-                        @Query("wallet.signature") walletSignature: String,
-                        @Body body: RegisterPaymentBody): Completable
-
     @GET("inapp/8.20180518/gateways")
     fun getGateways(): Single<GetGatewaysResponse>
 
     @FormUrlEncoded
-    @PATCH("broker/8.20180518/gateways/adyen/transactions/{uid}")
+    @PATCH("broker/8.20180518/gateways/{gateway}/transactions/{uid}")
     fun patchTransaction(
+        @Path("gateway") gateway: String,
         @Path("uid") uid: String, @Query("wallet.address") walletAddress: String,
         @Query("wallet.signature") walletSignature: String, @Field("pay_key")
-        paykey: String): Observable<Any>
+        paykey: String): Completable
 
     @GET("broker/8.20180518/gateways/adyen/transactions/{uid}/authorization")
     fun getSessionKey(

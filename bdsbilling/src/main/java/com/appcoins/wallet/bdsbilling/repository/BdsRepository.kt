@@ -36,7 +36,7 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
   override fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
                                     signedData: String, paymentProof: String): Completable {
     return remoteRepository.registerPaymentProof(paymentId, paymentType, walletAddress, signedData,
-        paymentProof).toObservable().ignoreElements()
+        paymentProof)
   }
 
   override fun isSupported(packageName: String, type: BillingSupportedType): Single<Boolean> {

@@ -161,7 +161,7 @@ public class AsfInAppPurchaseInteractor {
 
   private Payment map(BdsTransactionService.BdsTransaction transaction) {
     return new Payment(transaction.getKey(), mapStatus(transaction.getStatus()), null, null,
-        transaction.getPackageName(), null, null);
+        transaction.getPackageName(), null, transaction.getSkuId());
   }
 
   private Payment.Status mapStatus(BdsTransactionService.BdsTransaction.Status status) {

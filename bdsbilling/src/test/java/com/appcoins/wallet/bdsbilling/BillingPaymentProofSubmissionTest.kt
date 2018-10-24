@@ -1,6 +1,9 @@
 package com.appcoins.wallet.bdsbilling
 
-import com.appcoins.wallet.bdsbilling.repository.*
+import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
+import com.appcoins.wallet.bdsbilling.repository.Data
+import com.appcoins.wallet.bdsbilling.repository.GetWalletResponse
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.bdsbilling.repository.entity.TransactionStatus
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -58,8 +61,8 @@ class BillingPaymentProofSubmissionTest {
             signedContent)).thenReturn(
         Single.just(TransactionStatus(paymentId, "status")))
 
-    `when`(api.registerPayment(paymentType, paymentId, walletAddress, signedContent,
-        RegisterPaymentBody(paymentToken))).thenReturn(Completable.complete())
+    `when`(api.patchTransaction(paymentType, paymentId, walletAddress, signedContent,
+        paymentToken)).thenReturn(Completable.complete())
   }
 
   @Test
@@ -83,8 +86,8 @@ class BillingPaymentProofSubmissionTest {
     verify(api, times(1)).createTransaction(paymentType, origin, packageName, priceValue, currency,
         productName, type, developerAddress, storeAddress, oemAddress, paymentId, walletAddress,
         signedContent)
-    verify(api, times(1)).registerPayment(paymentType, paymentId, walletAddress, signedContent,
-        RegisterPaymentBody(paymentToken))
+    verify(api, times(1)).patchTransaction(paymentType, paymentId, walletAddress, signedContent,
+        paymentToken)
 
   }
 }
