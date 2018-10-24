@@ -55,13 +55,15 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
         .map { responseMapper.map(it) }
   }
 
-  fun registerAuthorizationProof(id: String, paymentType: String, walletAddress: String,
+  fun registerAuthorizationProof(origin: String, type: String, oemWallet: String, id: String,
+                                 paymentType: String, walletAddress: String,
                                  walletSignature: String, productName: String, packageName: String,
+                                 priceValue: BigDecimal,
                                  developerWallet: String, storeWallet: String,
-                                 developerPayload: String?): Single<RegisterAuthorizationResponse> {
-    return api.registerAuthorization(paymentType, walletAddress, walletSignature,
-        RegisterAuthorizationBody(productName, packageName, id, developerWallet, storeWallet,
-            developerPayload))
+                                 developerPayload: String?): Single<TransactionStatus> {
+    return api.createTransaction(paymentType, origin, packageName, priceValue.toString(), "APPC",
+        productName,
+        type, developerWallet, storeWallet, oemWallet, id, walletAddress, walletSignature)
   }
 
   fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
@@ -93,10 +95,10 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                              productName: String?, type: String,
                              walletDeveloper: String,
                              walletStore: String, walletOem: String): Single<TransactionStatus> {
-    return api.createAdyenTransaction(origin, packageName, priceValue.toString(), priceCurrency,
+    return api.createTransaction("adyen", origin, packageName, priceValue.toString(),
+        priceCurrency,
         productName, type, walletDeveloper, walletStore, walletOem, token, walletAddress,
         walletSignature)
-        .singleOrError()
   }
 
   fun getAppcoinsTransaction(uid: String, address: String,
@@ -160,12 +162,6 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                         @Body data: Consumed): Single<Void>
 
     @Headers("Content-Type: application/json")
-    @POST("inapp/8.20180727/gateways/{name}/transactions")
-    fun registerAuthorization(@Path("name") gateway: String, @Query("wallet.address")
-    walletAddress: String, @Query("wallet.signature") walletSignature: String, @Body
-                              body: RegisterAuthorizationBody): Single<RegisterAuthorizationResponse>
-
-    @Headers("Content-Type: application/json")
     @PATCH("inapp/8.20180727/gateways/{gateway}/transactions/{paymentId}")
     fun registerPayment(@Path("gateway") gateway: String,
                         @Path("paymentId") paymentId: String,
@@ -189,20 +185,21 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
         @Query("wallet.signature") walletSignature: String): Observable<Authorization>
 
     @FormUrlEncoded
-    @POST("broker/8.20180518/gateways/adyen/transactions")
-    fun createAdyenTransaction(@Field("origin") origin: String?,
-                               @Field("domain") domain: String,
-                               @Field("price.value") priceValue: String,
-                               @Field("price.currency") priceCurrency: String,
-                               @Field("product") product: String?,
-                               @Field("type") type: String,
-                               @Field("wallets.developer") walletsDeveloper: String,
-                               @Field("wallets.store") walletsStore: String,
-                               @Field("wallets.oem") walletsOem: String,
-                               @Field("token") token: String,
-                               @Query("wallet.address") walletAddress: String,
-                               @Query("wallet.signature")
-                               walletSignature: String): Observable<TransactionStatus>
+    @POST("broker/8.20180518/gateways/{gateway}/transactions")
+    fun createTransaction(@Path("gateway") gateway: String,
+                          @Field("origin") origin: String?,
+                          @Field("domain") domain: String,
+                          @Field("price.value") priceValue: String?,
+                          @Field("price.currency") priceCurrency: String,
+                          @Field("product") product: String?,
+                          @Field("type") type: String,
+                          @Field("wallets.developer") walletsDeveloper: String,
+                          @Field("wallets.store") walletsStore: String,
+                          @Field("wallets.oem") walletsOem: String,
+                          @Field("token") token: String,
+                          @Query("wallet.address") walletAddress: String,
+                          @Query("wallet.signature")
+                          walletSignature: String): Single<TransactionStatus>
   }
 
   data class Consumed(val status: String = "CONSUMED")

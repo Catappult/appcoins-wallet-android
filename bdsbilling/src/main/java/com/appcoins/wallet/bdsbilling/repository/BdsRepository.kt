@@ -7,6 +7,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.billing.repository.entity.Product
 import io.reactivex.Completable
 import io.reactivex.Single
+import java.math.BigDecimal
 
 class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRepository {
   override fun getWallet(packageName: String): Single<String> {
@@ -18,11 +19,17 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
                                           walletSignature: String,
                                           productName: String,
                                           packageName: String,
+                                          priceValue: BigDecimal,
                                           developerWallet: String,
                                           storeWallet: String,
+                                          origin: String,
+                                          type: String,
+                                          oemWallet: String,
                                           developerPayload: String?): Single<String> {
-    return remoteRepository.registerAuthorizationProof(id, paymentType, walletAddress,
-        walletSignature, productName, packageName, developerWallet, storeWallet, developerPayload)
+    return remoteRepository.registerAuthorizationProof(origin, type, oemWallet, id, paymentType,
+        walletAddress,
+        walletSignature, productName, packageName, priceValue, developerWallet, storeWallet,
+        developerPayload)
         .map { it.uid }
   }
 

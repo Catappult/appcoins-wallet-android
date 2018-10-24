@@ -1,6 +1,7 @@
 package com.appcoins.wallet.bdsbilling
 
 import com.appcoins.wallet.bdsbilling.repository.*
+import com.appcoins.wallet.bdsbilling.repository.entity.TransactionStatus
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
@@ -11,6 +12,7 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
+import java.math.BigDecimal
 
 @RunWith(MockitoJUnitRunner::class)
 class BillingPaymentProofSubmissionTest {
@@ -26,6 +28,10 @@ class BillingPaymentProofSubmissionTest {
     val paymentToken = "paymentToken"
     val paymentType = "type"
     val developerPayload = "developer_payload"
+    val origin = "origin"
+    val priceValue = "1"
+    val currency = "APPC"
+    val type = "APPC"
   }
 
   @Mock
@@ -46,10 +52,11 @@ class BillingPaymentProofSubmissionTest {
           }
         }).build()
 
-    `when`(api.registerAuthorization(paymentType, walletAddress, signedContent,
-        RegisterAuthorizationBody(productName, packageName, paymentId, developerAddress,
-            storeAddress, developerPayload))).thenReturn(
-        Single.just(RegisterAuthorizationResponse(paymentId, paymentType, "status", "data")))
+    `when`(
+        api.createTransaction(paymentType, origin, packageName, priceValue, currency, productName,
+            type, developerAddress, storeAddress, oemAddress, paymentId, walletAddress,
+            signedContent)).thenReturn(
+        Single.just(TransactionStatus(paymentId, "status")))
 
     `when`(api.registerPayment(paymentType, paymentId, walletAddress, signedContent,
         RegisterPaymentBody(paymentToken))).thenReturn(Completable.complete())
@@ -60,8 +67,10 @@ class BillingPaymentProofSubmissionTest {
     val authorizationDisposable = TestObserver<Any>()
     val purchaseDisposable = TestObserver<Any>()
     billing.processAuthorizationProof(
-        AuthorizationProof(paymentType, paymentId, productName, packageName, storeAddress,
-            oemAddress, developerAddress, developerPayload)).subscribe(authorizationDisposable)
+        AuthorizationProof(paymentType, paymentId, productName, packageName, BigDecimal.ONE,
+            storeAddress,
+            oemAddress, developerAddress, type, origin, developerPayload))
+        .subscribe(authorizationDisposable)
     scheduler.triggerActions()
 
     billing.processPurchaseProof(PaymentProof(paymentType, paymentId, paymentToken, productName,
@@ -71,9 +80,9 @@ class BillingPaymentProofSubmissionTest {
 
     authorizationDisposable.assertNoErrors().assertComplete()
     purchaseDisposable.assertNoErrors().assertComplete()
-    verify(api, times(1)).registerAuthorization(paymentType, walletAddress, signedContent,
-        RegisterAuthorizationBody(productName, packageName, paymentId, developerAddress,
-            storeAddress, developerPayload))
+    verify(api, times(1)).createTransaction(paymentType, origin, packageName, priceValue, currency,
+        productName, type, developerAddress, storeAddress, oemAddress, paymentId, walletAddress,
+        signedContent)
     verify(api, times(1)).registerPayment(paymentType, paymentId, walletAddress, signedContent,
         RegisterPaymentBody(paymentToken))
 

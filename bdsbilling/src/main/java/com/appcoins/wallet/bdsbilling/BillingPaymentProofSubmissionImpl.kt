@@ -1,13 +1,14 @@
 package com.appcoins.wallet.bdsbilling
 
-import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper
+import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import java.math.BigDecimal
 import java.util.concurrent.ConcurrentHashMap
 
 class BillingPaymentProofSubmissionImpl internal constructor(
@@ -27,8 +28,10 @@ class BillingPaymentProofSubmissionImpl internal constructor(
   override fun processAuthorizationProof(authorizationProof: AuthorizationProof): Completable {
     return registerAuthorizationProof(authorizationProof.id, authorizationProof.paymentType,
         authorizationProof.productName, authorizationProof.packageName,
+        authorizationProof.priceValue,
         authorizationProof.developerAddress, authorizationProof.storeAddress,
-        authorizationProof.developerPayload)
+        authorizationProof.origin,
+        authorizationProof.type, authorizationProof.oemAddress, authorizationProof.developerPayload)
         .doOnSuccess { paymentId -> transactionIdsFromApprove[authorizationProof.id] = paymentId }
         .toCompletable()
   }
@@ -47,13 +50,18 @@ class BillingPaymentProofSubmissionImpl internal constructor(
 
   override fun registerAuthorizationProof(id: String, paymentType: String, productName: String,
                                           packageName: String,
+                                          priceValue: BigDecimal,
                                           developerWallet: String,
                                           storeWallet: String,
+                                          origin: String,
+                                          type: String,
+                                          oemWallet: String,
                                           developerPayload: String?): Single<String> {
     return walletService.getWalletAddress().observeOn(networkScheduler).flatMap { walletAddress ->
       walletService.signContent(walletAddress).observeOn(networkScheduler).flatMap { signedData ->
         repository.registerAuthorizationProof(id, paymentType, walletAddress, signedData,
-            productName, packageName, developerWallet, storeWallet, developerPayload)
+            productName, packageName, priceValue, developerWallet, storeWallet, origin, type,
+            oemWallet, developerPayload)
 
       }
     }
@@ -108,9 +116,12 @@ data class AuthorizationProof(val paymentType: String,
                               val id: String,
                               val productName: String,
                               val packageName: String,
+                              val priceValue: BigDecimal,
                               val storeAddress: String,
                               val oemAddress: String,
                               val developerAddress: String,
+                              val type: String,
+                              val origin: String,
                               val developerPayload: String?)
 
 data class PaymentProof(val paymentType: String,

@@ -5,6 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TransactionStatus {
+  public TransactionStatus(String uid, String status) {
+    this.uid = uid;
+    this.status = status;
+  }
 
   @JsonProperty("uid") private String uid;
 
