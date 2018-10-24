@@ -168,7 +168,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     if (isDonation) {
       productHeaderDescription.setText(getResources().getString(R.string.item_donation));
       productDescription.setText(getResources().getString(R.string.item_donation));
-    } else {
+    } else if (productName != null) {
       productHeaderDescription.setText(String.format(getString(R.string.buying), productName));
       productDescription.setText(productName);
     }

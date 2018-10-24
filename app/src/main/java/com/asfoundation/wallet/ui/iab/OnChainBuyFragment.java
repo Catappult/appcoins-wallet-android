@@ -252,7 +252,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     if (isDonation) {
       itemDescription.setText(getResources().getString(R.string.item_donation));
       itemHeaderDescription.setText(getResources().getString(R.string.item_donation));
-    } else {
+    } else if (productName != null) {
       itemDescription.setText(productName);
       itemHeaderDescription.setText(String.format(getString(R.string.buying), productName));
     }
