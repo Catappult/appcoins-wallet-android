@@ -71,7 +71,7 @@ class BillingIntentBuilder(val context: Context) {
 
   private fun buildUriData(skuId: String, packageName: String): String {
     return "0x" + Hex.toHexString(
-        Gson().toJson(TransactionData(type = "INAPP", domain = packageName, skuId = skuId)).toByteArray(
+        Gson().toJson(TransactionData(_type = "INAPP", _domain = packageName, _skuId = skuId)).toByteArray(
             charset("UTF-8")))
   }
 }
