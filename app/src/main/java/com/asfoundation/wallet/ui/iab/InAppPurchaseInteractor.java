@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
+import com.appcoins.wallet.bdsbilling.repository.TransactionIdRepository;
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
@@ -21,14 +22,17 @@ public class InAppPurchaseInteractor {
   private final BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor;
   private final ExternalBillingSerializer billingSerializer;
   private final AppcoinsRewards appcoinsRewards;
+  private final TransactionIdRepository transactionIdRepository;
 
   public InAppPurchaseInteractor(AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
       BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
-      ExternalBillingSerializer billingSerializer, AppcoinsRewards appcoinsRewards) {
+      ExternalBillingSerializer billingSerializer, AppcoinsRewards appcoinsRewards,
+      TransactionIdRepository transactionIdRepository) {
     this.asfInAppPurchaseInteractor = asfInAppPurchaseInteractor;
     this.bdsInAppPurchaseInteractor = bdsInAppPurchaseInteractor;
     this.billingSerializer = billingSerializer;
     this.appcoinsRewards = appcoinsRewards;
+    this.transactionIdRepository = transactionIdRepository;
   }
 
   public Single<TransactionBuilder> parseTransaction(String uri, boolean isBds) {
@@ -191,5 +195,9 @@ public class InAppPurchaseInteractor {
   private Single<BigDecimal> getRewardsBalance() {
     return appcoinsRewards.getBalance()
         .map(BalanceUtils::weiToEth);
+  }
+
+  Single<String> getTransactionUid(String uid) {
+    return transactionIdRepository.getTransactionUid(uid);
   }
 }

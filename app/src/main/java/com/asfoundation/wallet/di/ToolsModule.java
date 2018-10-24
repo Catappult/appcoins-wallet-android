@@ -18,6 +18,7 @@ import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper;
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary;
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository;
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
+import com.appcoins.wallet.bdsbilling.repository.TransactionIdRepository;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.commons.MemoryCache;
@@ -341,12 +342,17 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         Schedulers.io());
   }
 
+  @Singleton @Provides TransactionIdRepository provideTransactionIdRepository(
+      TransactionIdRepository.Api api) {
+    return new TransactionIdRepository(api);
+  }
+
   @Singleton @Provides InAppPurchaseInteractor provideDualInAppPurchaseInteractor(
       BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
       @Named("ASF_IN_APP_INTERACTOR") AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
-      AppcoinsRewards appcoinsRewards) {
+      AppcoinsRewards appcoinsRewards, TransactionIdRepository transactionIdRepository) {
     return new InAppPurchaseInteractor(asfInAppPurchaseInteractor, bdsInAppPurchaseInteractor,
-        new ExternalBillingSerializer(), appcoinsRewards);
+        new ExternalBillingSerializer(), appcoinsRewards, transactionIdRepository);
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(
@@ -552,6 +558,16 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(RemoteRepository.BdsApi.class);
+  }
+
+  @Singleton @Provides TransactionIdRepository.Api provideMapasCenasApi(OkHttpClient client) {
+    String baseUrl = BuildConfig.BACKEND_HOST;
+    return new Retrofit.Builder().baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(JacksonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(TransactionIdRepository.Api.class);
   }
 
   @Singleton @Provides BdsApiSecondary provideBdsApiSecondary(OkHttpClient client, Gson gson) {
