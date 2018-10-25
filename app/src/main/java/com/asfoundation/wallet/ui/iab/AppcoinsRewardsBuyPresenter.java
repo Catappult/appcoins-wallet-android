@@ -2,15 +2,10 @@ package com.asfoundation.wallet.ui.iab;
 
 import com.appcoins.wallet.appcoins.rewards.Transaction;
 import com.appcoins.wallet.appcoins.rewards.TransactionIdRepository;
-import com.appcoins.wallet.bdsbilling.repository.entity.Package;
-import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
-import com.appcoins.wallet.bdsbilling.repository.entity.RemoteProduct;
-import com.appcoins.wallet.bdsbilling.repository.entity.Signature;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
-import io.reactivex.SingleSource;
 import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -107,7 +102,6 @@ public class AppcoinsRewardsBuyPresenter {
       case COMPLETED:
         if (isBds) {
           return rewardsManager.getPaymentCompleted(packageName, sku)
-              .flatMap(this::mapUid)
               .doOnSuccess(view::finish)
               .ignoreElement()
               .observeOn(scheduler)
@@ -134,16 +128,6 @@ public class AppcoinsRewardsBuyPresenter {
     }
     return Completable.error(new UnsupportedOperationException(
         "Transaction status " + transaction.getStatus() + " not supported"));
-  }
-
-  private SingleSource<Purchase> mapUid(Purchase purchase) {
-    RemoteProduct product = purchase.getProduct();
-    String status = purchase.getStatus();
-    Package packageName1 = purchase.getPackageName();
-    Signature signature = purchase.getSignature();
-
-    return transactionIdRepository.getTransactionUid(purchase.getUid())
-        .map(newUid -> new Purchase(newUid, product, status, packageName1, signature));
   }
 
   public void stop() {
