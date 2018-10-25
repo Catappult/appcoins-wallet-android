@@ -24,6 +24,7 @@ import com.adyen.core.models.paymentdetails.PaymentDetails;
 import com.adyen.core.utils.AmountUtil;
 import com.adyen.core.utils.StringUtils;
 import com.appcoins.wallet.bdsbilling.Billing;
+import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
 import com.asfoundation.wallet.billing.payment.Adyen;
@@ -151,6 +152,12 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
         view.findViewById(R.id.fragment_credit_card_authorization_remember_card_check_box);
 
     buyButton.setVisibility(View.INVISIBLE);
+
+    if (getType().equalsIgnoreCase(TransactionData.TransactionType.DONATION.name())) {
+      buyButton.setText(R.string.action_donate);
+    } else {
+      buyButton.setText(R.string.action_buy);
+    }
 
     cardForm.setOnCardFormValidListener(valid -> {
       if (valid) {
