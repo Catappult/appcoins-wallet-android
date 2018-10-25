@@ -560,7 +560,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .create(RemoteRepository.BdsApi.class);
   }
 
-  @Singleton @Provides TransactionIdRepository.Api provideTransactionIdRepository(
+  @Singleton @Provides TransactionIdRepository.Api provideTransactionIdRepositoryApi(
       OkHttpClient client) {
     String baseUrl = BuildConfig.BACKEND_HOST;
     return new Retrofit.Builder().baseUrl(baseUrl)
