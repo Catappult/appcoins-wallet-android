@@ -172,13 +172,20 @@ public class InAppPurchaseInteractor {
 
   private Gateway.Name map(BigDecimal creditsBalance, Boolean hasAppcoinsFunds,
       Transaction transaction, BigDecimal amount) {
-    if (transaction.getStatus()
-        .equals(Transaction.Status.INVALID_TRANSACTION)) {
-      return getNewPaymentGateway(creditsBalance, hasAppcoinsFunds, amount);
-    } else {
+    if (isTransactionOccurring(transaction)) {
       return transaction.getGateway()
           .getName();
+    } else {
+      return getNewPaymentGateway(creditsBalance, hasAppcoinsFunds, amount);
     }
+  }
+
+  private boolean isTransactionOccurring(Transaction transaction) {
+    return transaction.getStatus()
+        .equals(Transaction.Status.PROCESSING) || (transaction.getStatus()
+        .equals(Transaction.Status.PENDING_SERVICE_AUTHORIZATION) && transaction.getGateway()
+        .getName()
+        .equals(Gateway.Name.appcoins));
   }
 
   private Gateway.Name getNewPaymentGateway(BigDecimal creditsBalance, Boolean hasAppcoinsFunds,
