@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.iab;
 import android.os.Bundle;
 import android.util.Log;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
+import com.appcoins.wallet.billing.repository.entity.TransactionData.TransactionType;
 import com.asfoundation.wallet.util.UnknownTokenException;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
@@ -26,16 +27,18 @@ public class OnChainBuyPresenter {
   private final CompositeDisposable disposables;
   private final BillingMessagesMapper billingMessagesMapper;
   private final boolean isBds;
+  private final String productName;
 
   public OnChainBuyPresenter(OnChainBuyView view, InAppPurchaseInteractor inAppPurchaseInteractor,
       Scheduler viewScheduler, CompositeDisposable disposables,
-      BillingMessagesMapper billingMessagesMapper, boolean isBds) {
+      BillingMessagesMapper billingMessagesMapper, boolean isBds, String productName) {
     this.view = view;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.viewScheduler = viewScheduler;
     this.disposables = disposables;
     this.billingMessagesMapper = billingMessagesMapper;
     this.isBds = isBds;
+    this.productName = productName;
   }
 
   public void present(String uriString, String appPackage, String productName, BigDecimal amount,
@@ -133,7 +136,7 @@ public class OnChainBuyPresenter {
                           AsfInAppPurchaseInteractor.TransactionType.NORMAL, packageName,
                           transaction.getSkuId(), developerPayload, isBds);
                     case READY:
-                      return Completable.fromAction(() -> setup(appcAmount))
+                      return Completable.fromAction(() -> setup(appcAmount, transaction.getType()))
                           .subscribeOn(AndroidSchedulers.mainThread());
                     case NO_FUNDS:
                       return Completable.fromAction(view::showNoFundsError);
@@ -242,8 +245,8 @@ public class OnChainBuyPresenter {
     disposables.clear();
   }
 
-  private void setup(BigDecimal amount) {
-    view.setup();
+  private void setup(BigDecimal amount, String type) {
+    view.setup(productName, TransactionType.DONATION.name().equalsIgnoreCase(type));
     view.showRaidenChannelValues(inAppPurchaseInteractor.getTopUpChannelSuggestionValues(amount));
   }
 

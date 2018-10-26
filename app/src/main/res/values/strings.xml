@@ -119,6 +119,8 @@
   <string name="root_body">Any \'rooted\' app can access AppCoins Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
   <string name="gas_fee_title">Gas Fee (Gwei)</string>
   <string name="transfer">Transfer %s</string>
+  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="buying">Buying %s</string>
   <string name="action_buy">Buy</string>
   <string name="title_deposit">How would you like to buy?</string>
   <string name="empty"/>
@@ -132,6 +134,8 @@
   <string name="set_account_default">Do want to make a new wallet the main one?</string>
   <string name="no_tokens">No tokens found.</string>
   <string name="title_email">Email us</string>
+  <string name="action_donate">Donate</string>
+
   <!-- Titles -->
   <string name="title_item_detail">Item Detail</string>
   <string name="title_my_address">Receive</string>
@@ -272,7 +276,7 @@
   <string name="activity_iab_no_network_message">No network access</string>
   <string name="activity_iab_nonce_message">An error with blockchain occurred, please try again later.</string>
   <string name="activity_iab_approving_message">Checking all details: balance, items, network…</string>
-  <string name="activity_aib_buying_message">Details checked \nReceiving your item…</string>
+  <string name="activity_iab_buying_message">Details checked \nReceiving your item…</string>
   <string name="notification_ongoing_poa">Processing your reward</string>
   <string name="notification_completed_poa">Reward received, enjoy!</string>
   <string name="notification_submitting_poa">Submitting your request to the blockchain</string>
@@ -337,5 +341,6 @@
   <string name="connection_error">No network connection</string>
   <string name="iab_button_ok">OK</string>
   <string name="action_skip_backup_wallet">SKIP BACKUP</string>
+  <string name="item_donation">Donation</string>
 
 </resources>

@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.ui.iab;
 
 import com.appcoins.wallet.appcoins.rewards.Transaction;
+import com.appcoins.wallet.appcoins.rewards.TransactionIdRepository;
+import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
@@ -23,10 +25,14 @@ public class AppcoinsRewardsBuyPresenter {
   private final String productName;
   private final boolean isBds;
 
-  public AppcoinsRewardsBuyPresenter(AppcoinsRewardsBuyView view, RewardsManager rewardsManager,
-      Scheduler scheduler, CompositeDisposable disposables, BigDecimal amount, String storeAddress,
-      String oemAddress, String uri, String packageName, TransferParser transferParser,
-      String productName, boolean isBds) {
+  private final TransactionIdRepository transactionIdRepository;
+
+  public AppcoinsRewardsBuyPresenter(TransactionIdRepository transactionIdRepository,
+      AppcoinsRewardsBuyView view, RewardsManager rewardsManager, Scheduler scheduler,
+      CompositeDisposable disposables, BigDecimal amount, String storeAddress, String oemAddress,
+      String uri, String packageName, TransferParser transferParser, String productName,
+      boolean isBds) {
+    this.transactionIdRepository = transactionIdRepository;
     this.view = view;
     this.rewardsManager = rewardsManager;
     this.scheduler = scheduler;
@@ -59,11 +65,18 @@ public class AppcoinsRewardsBuyPresenter {
   }
 
   private void handleViewSetup() {
-    view.showLoading();
-    view.setupView(amount.setScale(2, RoundingMode.CEILING)
-        .toPlainString(), productName, packageName);
-    view.hideLoading();
-    view.showPaymentDetails();
+    disposables.add(transferParser.parse(uri)
+        .observeOn(scheduler)
+        .doOnSuccess(transactionBuilder -> {
+          view.showLoading();
+          view.setupView(amount.setScale(2, RoundingMode.CEILING)
+                  .toPlainString(), productName, packageName,
+              TransactionData.TransactionType.DONATION.name()
+                  .equalsIgnoreCase(transactionBuilder.getType()));
+          view.hideLoading();
+          view.showPaymentDetails();
+        })
+        .subscribe());
   }
 
   private void handleBuyClick() {
@@ -98,7 +111,10 @@ public class AppcoinsRewardsBuyPresenter {
                 view.hideGenericLoading();
               }));
         }
-        return Completable.fromAction(() -> view.finish());
+        return Completable.fromAction(() -> view.finish(
+            rewardsManager.getTransaction(packageName, sku)
+                .map(Transaction::getTxId)
+                .blockingFirst()));
       case ERROR:
         return Completable.fromAction(() -> {
           view.showGenericError();

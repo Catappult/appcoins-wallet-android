@@ -12,12 +12,13 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 class AppcoinsRewards(
-    private val repository: AppcoinsRewardsRepository,
-    private val walletService: WalletService,
-    private val cache: Repository<String, Transaction>,
-    private val scheduler: Scheduler,
-    private val billing: Billing,
-    private val errorMapper: ErrorMapper) {
+        private val repository: AppcoinsRewardsRepository,
+        private val walletService: WalletService,
+        private val cache: Repository<String, Transaction>,
+        private val scheduler: Scheduler,
+        private val billing: Billing,
+        private val errorMapper: ErrorMapper,
+        private val transactionIdRepository: TransactionIdRepository) {
 
   fun getBalance(address: String): Single<BigDecimal> {
     return repository.getBalance(address)
@@ -36,7 +37,7 @@ class AppcoinsRewards(
           packageName: String): Completable {
     return cache.save(getKey(sku, packageName),
         Transaction(sku, type, developerAddress, storeAddress, oemAddress, packageName, amount,
-            origin, Transaction.Status.PENDING))
+                origin, Transaction.Status.PENDING, null))
   }
 
   fun start() {
@@ -55,13 +56,24 @@ class AppcoinsRewards(
                         getOrigin(transaction),
                         transaction.sku,
                         transaction.type, transaction.developerAddress, transaction.storeAddress,
-                        transaction.oemAddress, transaction.packageName)
+                            transaction.oemAddress, transaction.packageName)
                   }
-                      .flatMapCompletable { createdTransaction ->
-                        waitTransactionCompletion(createdTransaction)
-                      }
-                }.andThen(cache.save(getKey(transaction),
-                    Transaction(transaction, Transaction.Status.COMPLETED)))
+                          .flatMapCompletable { transaction1 ->
+                              waitTransactionCompletion(transaction1).andThen(
+                                      if (!transaction.origin.equals("BDS")) {
+                                          transactionIdRepository.getTransactionUid(transaction1.uid)
+                                                  .flatMapCompletable { txId ->
+                                                      val tx = Transaction(transaction, Transaction.Status.COMPLETED)
+                                                      tx.txId = txId
+                                                      cache.save(getKey(tx), tx)
+                                                  }
+                                      } else {
+                                          val tx = Transaction(transaction, Transaction.Status.COMPLETED)
+                                          cache.save(getKey(tx), tx)
+                                      }
+                              )
+                          }
+                }
                 .onErrorResumeNext {
                   it.printStackTrace()
                   cache.save(getKey(transaction),

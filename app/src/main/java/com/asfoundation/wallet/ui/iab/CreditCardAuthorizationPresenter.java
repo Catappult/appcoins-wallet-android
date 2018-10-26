@@ -11,6 +11,7 @@ import com.asfoundation.wallet.billing.payment.Adyen;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
+import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.exceptions.OnErrorNotImplementedException;
 import io.reactivex.schedulers.Schedulers;
@@ -145,7 +146,7 @@ public class CreditCardAuthorizationPresenter {
         .andThen(inAppPurchaseInteractor.parseTransaction(transactionData, true)
             .flatMapCompletable(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                    transaction.toAddress(), developerPayload, origin, convertAmount(),
+                    transaction.toAddress(), developerPayload, origin, convertAmount(currency),
                     currency,
                     type)
                     .observeOn(viewScheduler)
@@ -159,9 +160,9 @@ public class CreditCardAuthorizationPresenter {
         }, throwable -> showError(throwable)));
   }
 
-  @NonNull private BigDecimal convertAmount() {
+  @NonNull private BigDecimal convertAmount(String currency) {
     return BigDecimal.valueOf(
-        inAppPurchaseInteractor.convertToFiat((new BigDecimal(amount)).doubleValue(), "EUR")
+        inAppPurchaseInteractor.convertToFiat((new BigDecimal(amount)).doubleValue(), currency)
             .blockingGet()
             .getAmount())
         .setScale(2, BigDecimal.ROUND_UP);
@@ -179,44 +180,47 @@ public class CreditCardAuthorizationPresenter {
     disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
         .flatMap(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                    transaction.toAddress(), developerPayload, origin, convertAmount(),
+                    transaction.toAddress(), developerPayload, origin, convertAmount(currency),
                     currency,
                     type)
                     .filter(payment -> payment.isCompleted())
                     .firstOrError()
+                    .flatMap(adyenAuthorization -> buildBundle(billing))
                     .observeOn(viewScheduler)
-                    .doOnSuccess(__ -> navigator.popView(buildBundle(billing)))
+                    .doOnSuccess(navigator::popView)
                     .doOnSuccess(__ -> view.showSuccess()))
             .subscribe(__ -> {
             }, throwable -> showError(throwable)));
   }
 
-  private Bundle buildBundle(Billing billing) {
-    Bundle bundle = new Bundle();
-
-    if (type.equals("INAPP")) {
-      billing.getSkuPurchase(appPackage, skuId, Schedulers.io())
-          .retryWhen(throwableFlowable -> throwableFlowable.delay(3, TimeUnit.SECONDS)
-              .map(throwable -> 0)
-              .timeout(3, TimeUnit.MINUTES))
-          .doOnSuccess(purchase -> {
-            bundle.putString(INAPP_PURCHASE_DATA, serializeJson(purchase));
-            bundle.putString(INAPP_DATA_SIGNATURE, purchase.getSignature()
-                .getValue());
-            bundle.putString(INAPP_PURCHASE_ID, purchase.getUid());
-          })
-          .ignoreElement()
-          .blockingAwait();
-    }
-
-    return bundle;
+  private Single<Bundle> buildBundle(Billing billing) {
+    return Single.just(new Bundle())
+        .flatMap(bundle -> {
+          if (type.equals("INAPP")) {
+            return billing.getSkuPurchase(appPackage, skuId, Schedulers.io())
+                .retryWhen(throwableFlowable -> throwableFlowable.delay(3, TimeUnit.SECONDS)
+                    .map(throwable -> 0)
+                    .timeout(3, TimeUnit.MINUTES))
+                .doOnSuccess(purchase -> {
+                  bundle.putString(INAPP_PURCHASE_DATA, serializeJson(purchase));
+                  bundle.putString(INAPP_DATA_SIGNATURE, purchase.getSignature()
+                      .getValue());
+                  bundle.putString(INAPP_PURCHASE_ID, purchase.getUid());
+                })
+                .map(purchase -> bundle);
+          } else {
+            return inAppPurchaseInteractor.getTransactionUid(creditCardBilling.getTransactionUid())
+                .doOnSuccess(txHash -> bundle.putString(IabActivity.TRANSACTION_HASH, txHash))
+                .map(s -> bundle);
+          }
+        });
   }
 
   private void onViewCreatedCheckAuthorizationFailed() {
     disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
         .flatMap(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                    transaction.toAddress(), developerPayload, origin, convertAmount(),
+                    transaction.toAddress(), developerPayload, origin, convertAmount(currency),
                     currency,
                     type)
                     .filter(payment -> payment.isFailed())
@@ -235,7 +239,7 @@ public class CreditCardAuthorizationPresenter {
     disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
             .flatMapObservable(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                    transaction.toAddress(), developerPayload, origin, convertAmount(),
+                    transaction.toAddress(), developerPayload, origin, convertAmount(currency),
                     currency,
                     type)
                     .filter(payment -> payment.isProcessing())

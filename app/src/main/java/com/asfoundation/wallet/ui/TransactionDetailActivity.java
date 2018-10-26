@@ -144,6 +144,11 @@ public class TransactionDetailActivity extends BaseActivity {
       case ADS_OFFCHAIN:
         typeStr = R.string.transaction_type_poa_offchain;
         typeIcon = R.drawable.ic_transaction_poa;
+
+        View button = findViewById(R.id.more_detail);
+        button.setVisibility(View.VISIBLE);
+        button.setOnClickListener(
+            view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
         break;
       case MICRO_IAB:
         to = transaction.getTo();
@@ -176,7 +181,7 @@ public class TransactionDetailActivity extends BaseActivity {
                 getString(R.string.ellipsize));
         break;
       case IAP_OFFCHAIN:
-        View button = findViewById(R.id.more_detail);
+        button = findViewById(R.id.more_detail);
         button.setVisibility(View.VISIBLE);
         to = transaction.getTo();
         typeStr = R.string.transaction_type_iab;

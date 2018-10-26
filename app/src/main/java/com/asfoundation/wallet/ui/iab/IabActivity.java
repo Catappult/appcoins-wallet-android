@@ -142,12 +142,12 @@ public class IabActivity extends BaseActivity implements IabView {
     presenter.sendPurchaseDetails(PURCHASE_DETAILS_APPC);
   }
 
-  @Override public void showCcPayment(BigDecimal amount) {
+  @Override public void showCcPayment(BigDecimal amount, String currency) {
     if (savedInstanceState == null && getSupportFragmentManager().getFragments()
         .isEmpty()) {
       getSupportFragmentManager().beginTransaction()
           .add(R.id.fragment_container, ExpressCheckoutBuyFragment.newInstance(createBundle(
-              BigDecimal.valueOf(amount.doubleValue()))))
+              BigDecimal.valueOf(amount.doubleValue()), currency)))
           .commit();
     }
   }
@@ -166,10 +166,17 @@ public class IabActivity extends BaseActivity implements IabView {
     presenter.sendPurchaseDetails(PURCHASE_DETAILS_CC);
   }
 
+  @NonNull private Bundle createBundle(BigDecimal amount, String currency) {
+    Bundle bundle = createBundle(amount);
+
+    bundle.putSerializable(TRANSACTION_CURRENCY, currency);
+
+    return bundle;
+  }
+
   @NonNull private Bundle createBundle(BigDecimal amount) {
     Bundle bundle = new Bundle();
     bundle.putSerializable(TRANSACTION_AMOUNT, amount);
-    bundle.putSerializable(TRANSACTION_CURRENCY, "EUR");
     bundle.putString(APP_PACKAGE, getIntent().getExtras()
         .getString(APP_PACKAGE, ""));
     bundle.putString(PRODUCT_NAME, getIntent().getExtras()

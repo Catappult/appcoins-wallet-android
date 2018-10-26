@@ -2,6 +2,7 @@ package com.appcoins.wallet.bdsbilling;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
+import java.math.BigDecimal;
 import org.jetbrains.annotations.Nullable;
 
 public interface BillingPaymentProofSubmission {
@@ -12,8 +13,8 @@ public interface BillingPaymentProofSubmission {
   Completable registerPaymentProof(String paymentId, String paymentProof, String paymentType);
 
   Single<String> registerAuthorizationProof(String id, String paymentType, String productName,
-      String packageName, String developerWallet, String storeWallet,
-      @Nullable String developerPayload);
+      String packageName, BigDecimal priceValue, String developerWallet, String storeWallet,
+      String origin, String type, String oemWallet, @Nullable String developerPayload);
 
   void saveTransactionId(String key);
 

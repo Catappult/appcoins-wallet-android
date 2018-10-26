@@ -30,6 +30,10 @@ public class RewardsManager {
     return billing.getSkuPurchase(packageName, sku, Schedulers.io());
   }
 
+  public Observable<Transaction> getTransaction(String packageName, String sku) {
+    return appcoinsRewards.getPayment(packageName, sku);
+  }
+
   public Observable<RewardPayment> getPaymentStatus(String packageName, String sku) {
     return appcoinsRewards.getPayment(packageName, sku)
         .flatMap(this::map);

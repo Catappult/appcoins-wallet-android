@@ -7,6 +7,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.billing.repository.entity.Product
 import io.reactivex.Completable
 import io.reactivex.Single
+import java.math.BigDecimal
 
 interface BillingRepository {
 
@@ -29,7 +30,9 @@ interface BillingRepository {
 
   fun registerAuthorizationProof(id: String, paymentType: String, walletAddress: String,
                                  walletSignature: String, productName: String, packageName: String,
-                                 developerWallet: String, storeWallet: String,
+                                 priceValue: BigDecimal,
+                                 developerWallet: String, storeWallet: String, origin: String,
+                                 type: String, oemWallet: String,
                                  developerPayload: String?): Single<String>
 
   fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,

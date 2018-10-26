@@ -8,7 +8,7 @@ interface AppcoinsRewardsBuyView {
 
   void showProcessingLoading();
 
-  void setupView(String amount, String productName, String packageName);
+  void setupView(String amount, String productName, String packageName, boolean isDonation);
 
   void showPaymentDetails();
 
@@ -32,7 +32,7 @@ interface AppcoinsRewardsBuyView {
 
   void showGenericError();
 
-  void finish();
+  void finish(String uid);
 
   void errorClose();
 }

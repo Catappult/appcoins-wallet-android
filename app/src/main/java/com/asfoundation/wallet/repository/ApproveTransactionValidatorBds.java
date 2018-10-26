@@ -5,6 +5,7 @@ import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import io.reactivex.Completable;
+import java.math.BigDecimal;
 
 public class ApproveTransactionValidatorBds implements TransactionValidator {
   private final SendTransactionInteract sendTransactionInteract;
@@ -24,11 +25,15 @@ public class ApproveTransactionValidatorBds implements TransactionValidator {
         .toAddress();
     String productName = paymentTransaction.getTransactionBuilder()
         .getSkuId();
+    String type = paymentTransaction.getTransactionBuilder()
+        .getType();
+    BigDecimal priceValue = paymentTransaction.getTransactionBuilder()
+        .amount();
     return sendTransactionInteract.computeApproveTransactionHash(
         paymentTransaction.getTransactionBuilder())
-        .map(
-            hash -> new AuthorizationProof("appcoins", hash, productName, packageName, storeAddress,
-                oemAddress, developerAddress, paymentTransaction.getDeveloperPayload()))
+        .map(hash -> new AuthorizationProof("appcoins", hash, productName, packageName, priceValue,
+            storeAddress, oemAddress, developerAddress, type, "BDS",
+            paymentTransaction.getDeveloperPayload()))
         .flatMapCompletable(billingPaymentProofSubmission::processAuthorizationProof);
   }
 }

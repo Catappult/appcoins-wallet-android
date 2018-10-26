@@ -184,13 +184,13 @@ public class InAppPurchaseInteractorTest {
 
     when(transactionProvider.get(PACKAGE_NAME, SKU)).thenReturn(Single.just(
         new Transaction(UID, Transaction.Status.PROCESSING,
-            new Gateway(Gateway.Name.appcoins, "", ""))), Single.just(
+            new Gateway(Gateway.Name.appcoins, "", ""), null)), Single.just(
         new Transaction(UID, Transaction.Status.COMPLETED,
-            new Gateway(Gateway.Name.appcoins, "", ""))));
+            new Gateway(Gateway.Name.appcoins, "", ""), null)));
 
     when(billing.getSkuTransaction(anyString(), anyString(), any(Scheduler.class))).thenReturn(
         Single.just(new Transaction(UID, Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
-            new Gateway(Gateway.Name.appcoins, "", ""))));
+            new Gateway(Gateway.Name.appcoins, "", ""), null)));
 
     AsfInAppPurchaseInteractor asfInAppPurchaseInteractor =
         new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,

@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
+import com.appcoins.wallet.appcoins.rewards.TransactionIdRepository;
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
@@ -21,14 +22,17 @@ public class InAppPurchaseInteractor {
   private final BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor;
   private final ExternalBillingSerializer billingSerializer;
   private final AppcoinsRewards appcoinsRewards;
+  private final TransactionIdRepository transactionIdRepository;
 
   public InAppPurchaseInteractor(AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
       BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
-      ExternalBillingSerializer billingSerializer, AppcoinsRewards appcoinsRewards) {
+      ExternalBillingSerializer billingSerializer, AppcoinsRewards appcoinsRewards,
+      TransactionIdRepository transactionIdRepository) {
     this.asfInAppPurchaseInteractor = asfInAppPurchaseInteractor;
     this.bdsInAppPurchaseInteractor = bdsInAppPurchaseInteractor;
     this.billingSerializer = billingSerializer;
     this.appcoinsRewards = appcoinsRewards;
+    this.transactionIdRepository = transactionIdRepository;
   }
 
   public Single<TransactionBuilder> parseTransaction(String uri, boolean isBds) {
@@ -168,13 +172,20 @@ public class InAppPurchaseInteractor {
 
   private Gateway.Name map(BigDecimal creditsBalance, Boolean hasAppcoinsFunds,
       Transaction transaction, BigDecimal amount) {
-    if (transaction.getStatus()
-        .equals(Transaction.Status.INVALID_TRANSACTION)) {
-      return getNewPaymentGateway(creditsBalance, hasAppcoinsFunds, amount);
-    } else {
+    if (isTransactionOccurring(transaction)) {
       return transaction.getGateway()
           .getName();
+    } else {
+      return getNewPaymentGateway(creditsBalance, hasAppcoinsFunds, amount);
     }
+  }
+
+  private boolean isTransactionOccurring(Transaction transaction) {
+    return transaction.getStatus()
+        .equals(Transaction.Status.PROCESSING) || (transaction.getStatus()
+        .equals(Transaction.Status.PENDING_SERVICE_AUTHORIZATION) && transaction.getGateway()
+        .getName()
+        .equals(Gateway.Name.appcoins));
   }
 
   private Gateway.Name getNewPaymentGateway(BigDecimal creditsBalance, Boolean hasAppcoinsFunds,
@@ -191,5 +202,9 @@ public class InAppPurchaseInteractor {
   private Single<BigDecimal> getRewardsBalance() {
     return appcoinsRewards.getBalance()
         .map(BalanceUtils::weiToEth);
+  }
+
+  Single<String> getTransactionUid(String uid) {
+    return transactionIdRepository.getTransactionUid(uid);
   }
 }
