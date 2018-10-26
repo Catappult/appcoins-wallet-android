@@ -21,6 +21,7 @@ import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
+import com.asfoundation.wallet.transactions.TransactionDetails;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsDetailsAdapter;
 import com.asfoundation.wallet.util.BalanceUtils;
@@ -117,20 +118,17 @@ public class TransactionDetailActivity extends BaseActivity {
             : transaction.getCurrency();
 
     String icon = null;
-    String id = transaction.getTransactionId();
+    String id = null;
     String description = null;
-    if (transaction.getIconUrl() != null) {
-      icon = transaction.getIconUrl();
-    }
-    if (transaction.getDetails() != null) {
-      icon = transaction.getDetails()
-          .getIcon();
-      id = transaction.getDetails()
-          .getSourceName();
-      description = transaction.getDetails()
-          .getDescription();
-    }
     String to = null;
+    TransactionDetails details = transaction.getDetails();
+
+    if (details != null) {
+      icon = details.getIcon()
+          .getUri();
+      id = details.getSourceName();
+      description = details.getDescription();
+    }
 
     @StringRes int typeStr = R.string.transaction_type_standard;
     @DrawableRes int typeIcon = R.drawable.ic_transaction_peer;
@@ -275,7 +273,7 @@ public class TransactionDetailActivity extends BaseActivity {
 
     if (to != null) {
       ((TextView) findViewById(R.id.to)).setText(to);
-      detailsList.setVisibility( View.GONE);
+      detailsList.setVisibility(View.GONE);
       findViewById(R.id.details_label).setVisibility(View.GONE);
       findViewById(R.id.to_label).setVisibility(View.VISIBLE);
       findViewById(R.id.to).setVisibility(View.VISIBLE);
