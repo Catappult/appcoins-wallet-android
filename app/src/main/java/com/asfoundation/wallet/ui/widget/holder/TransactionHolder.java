@@ -14,6 +14,7 @@ import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionDetails;
 import com.asfoundation.wallet.ui.widget.OnTransactionClickListener;
 import com.asfoundation.wallet.widget.CircleTransformation;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -69,8 +70,8 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     String to = extractTo(transaction);
     String from = extractFrom(transaction);
 
-    fill(transaction.getType(), from, to, currency,
-        transaction.getValue(), ETHER_DECIMALS, transaction.getStatus(), transaction.getDetails());
+    fill(transaction.getType(), from, to, currency, transaction.getValue(), ETHER_DECIMALS,
+        transaction.getStatus(), transaction.getDetails());
   }
 
   private String extractTo(Transaction transaction) {
@@ -124,25 +125,40 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
       transactionTypeIcon = R.drawable.ic_transaction_miu;
     }
 
-    if (details == null) {
-      if (transaction.getIconUrl() != null) {
-        Picasso.with(getContext())
-            .load(transaction.getIconUrl())
-            .transform(new CircleTransformation())
-            .into(srcImage);
-      } else {
-        srcImage.setImageResource(transactionTypeIcon);
+    TransactionDetails.Icon icon;
+    String uri = null;
+    if (details != null) {
+      icon = details.getIcon();
+      switch (icon.getType()) {
+        case FILE:
+          uri = "file:" + icon.getUri();
+          break;
+        case URL:
+          uri = icon.getUri();
+          break;
       }
-
+    }
+    int finalTransactionTypeIcon = transactionTypeIcon;
+    if (uri == null || details.getSourceName() == null) {
       typeIcon.setVisibility(View.GONE);
     } else {
-      Picasso.with(getContext())
-          .load("file:" + details.getIcon())
-          .transform(new CircleTransformation())
-          .into(srcImage);
-      ((ImageView) typeIcon.findViewById(R.id.icon)).setImageResource(transactionTypeIcon);
       typeIcon.setVisibility(View.VISIBLE);
     }
+    Picasso.with(getContext())
+        .load(uri)
+        .transform(new CircleTransformation())
+        .placeholder(finalTransactionTypeIcon)
+        .error(transactionTypeIcon)
+        .into(srcImage, new Callback() {
+          @Override public void onSuccess() {
+            ((ImageView) typeIcon.findViewById(R.id.icon)).setImageResource(
+                finalTransactionTypeIcon);
+          }
+
+          @Override public void onError() {
+            typeIcon.setVisibility(View.GONE);
+          }
+        });
 
     int statusText = R.string.transaction_status_success;
     int statusColor = R.color.green;
@@ -161,7 +177,6 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     status.setText(statusText);
     status.setTextColor(ContextCompat.getColor(getContext(), statusColor));
 
-
     switch (type) {
       case OPEN_CHANNEL:
         address.setText(R.string.miuraiden_trans_details_open);
@@ -177,8 +192,9 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
         break;
       default:
         if (details != null) {
-          address.setText(details.getSourceName());
-          description.setText(details.getDescription());
+          address.setText(
+              details.getSourceName() == null ? isSent ? to : from : details.getSourceName());
+          description.setText(details.getDescription() == null ? "" : details.getDescription());
         } else {
           address.setText(isSent ? to : from);
           description.setText("");
