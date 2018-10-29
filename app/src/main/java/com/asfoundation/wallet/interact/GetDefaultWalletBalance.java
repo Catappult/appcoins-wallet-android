@@ -1,7 +1,9 @@
 package com.asfoundation.wallet.interact;
 
+import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.entity.Balance;
 import com.asfoundation.wallet.entity.GasSettings;
+import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Token;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -14,15 +16,10 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.asfoundation.wallet.util.BalanceUtils.weiToEth;
 
 public class GetDefaultWalletBalance implements BalanceService {
-  public static final String BALANCE_TOKEN = "BALANCE_TOKEN";
-  public static final String BALANCE_CREDITS = "BALANCE_CREDITS";
-
   private final WalletRepositoryType walletRepository;
   private final EthereumNetworkRepositoryType ethereumNetworkRepository;
   private final FetchTokensInteract fetchTokensInteract;
@@ -40,42 +37,44 @@ public class GetDefaultWalletBalance implements BalanceService {
     this.fetchCreditsInteract = fetchCreditsInteract;
   }
 
-  public Single<Map<String, Balance>> get(Wallet wallet) {
+  public Single<Balance> getTokens(Wallet wallet) {
     return fetchTokensInteract.fetchDefaultToken(wallet)
-        .flatMap(token -> fetchCreditsInteract.getBalance(wallet)
-            .flatMapSingle(credits -> {
-              if (wallet.address.equals(token.tokenInfo.address)) {
-                return getEtherBalance(wallet);
-              } else {
-                return getTokenAndCreditBalance(token, credits);
-              }
-            }))
+        .flatMapSingle(token -> {
+          if (wallet.address.equals(token.tokenInfo.address)) {
+            return getEtherBalance(wallet);
+          } else {
+            return getTokenBalance(token);
+          }
+        })
         .firstOrError();
   }
 
-  private Single<Map<String, Balance>> getTokenAndCreditBalance(Token token, BigDecimal credits) {
-    Map<String, Balance> balance = new HashMap<>();
-    balance.put(BALANCE_TOKEN, new Balance(token.tokenInfo.symbol,
+  public Single<Balance> getCredits(Wallet wallet) {
+    return fetchCreditsInteract.getBalance(wallet)
+        .flatMapSingle(credits -> getCreditsBalance(credits))
+        .firstOrError();
+  }
+
+  private Single<Balance> getTokenBalance(Token token) {
+    return Single.just(new Balance(token.tokenInfo.symbol,
         weiToEth(token.balance).setScale(4, RoundingMode.HALF_UP)
             .stripTrailingZeros()
             .toPlainString()));
-    balance.put(BALANCE_CREDITS, new Balance("APPCCredits",
-        weiToEth(credits).setScale(4, RoundingMode.HALF_UP)
-            .stripTrailingZeros()
-            .toPlainString()));
-    return Single.just(balance);
   }
 
-  private Single<Map<String, Balance>> getEtherBalance(Wallet wallet) {
+  private Single<Balance> getCreditsBalance(BigDecimal value) {
+    return Single.just(new Balance("APPCCredits", weiToEth(value).setScale(4, RoundingMode.HALF_UP)
+        .stripTrailingZeros()
+        .toPlainString()));
+  }
+
+  private Single<Balance> getEtherBalance(Wallet wallet) {
     return walletRepository.balanceInWei(wallet)
         .flatMap(ethBalance -> {
-          Map<String, Balance> balance = new HashMap<>();
-          balance.put(BALANCE_TOKEN,
-              new Balance(ethereumNetworkRepository.getDefaultNetwork().symbol,
-                  weiToEth(ethBalance).setScale(4, RoundingMode.HALF_UP)
-                      .stripTrailingZeros()
-                      .toPlainString()));
-          return Single.just(balance);
+          return Single.just(new Balance(ethereumNetworkRepository.getDefaultNetwork().symbol,
+              weiToEth(ethBalance).setScale(4, RoundingMode.HALF_UP)
+                  .stripTrailingZeros()
+                  .toPlainString()));
         })
         .observeOn(AndroidSchedulers.mainThread());
   }
@@ -149,6 +148,11 @@ public class GetDefaultWalletBalance implements BalanceService {
     } catch (NumberFormatException ex) {
       return BigDecimal.ZERO;
     }
+  }
+
+  private boolean shouldShowCredits(NetworkInfo networkInfo) {
+    return networkInfo.chainId == 3 && BuildConfig.DEBUG
+        || networkInfo.chainId == 1 && !BuildConfig.DEBUG;
   }
 
   public enum BalanceState {
