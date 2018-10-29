@@ -66,8 +66,8 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                                  developerWallet: String, storeWallet: String,
                                  developerPayload: String?): Single<TransactionStatus> {
       return api.createTransaction(paymentType, origin, packageName, priceValue.toPlainString(), "APPC",
-        productName,
-        type, developerWallet, storeWallet, oemWallet, id, walletAddress, walletSignature)
+              productName,
+              type, developerWallet, storeWallet, oemWallet, id, developerPayload, walletAddress, walletSignature)
   }
 
   fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
@@ -97,11 +97,12 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                              packageName: String, priceValue: BigDecimal, priceCurrency: String,
                              productName: String?, type: String,
                              walletDeveloper: String,
-                             walletStore: String, walletOem: String): Single<TransactionStatus> {
+                             walletStore: String, walletOem: String, developerPayload: String?): Single<TransactionStatus> {
       return api.createTransaction(ADYEN_GATEWAY, origin, packageName, priceValue.toPlainString(),
-        priceCurrency,
-        productName, type, walletDeveloper, walletStore, walletOem, token, walletAddress,
-        walletSignature)
+              priceCurrency,
+              productName, type, walletDeveloper, walletStore, walletOem, token, developerPayload,
+              walletAddress,
+              walletSignature)
   }
 
   fun getAppcoinsTransaction(uid: String, address: String,
@@ -193,6 +194,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                           @Field("wallets.store") walletsStore: String,
                           @Field("wallets.oem") walletsOem: String,
                           @Field("token") token: String,
+                          @Field("metadata") developerPayload: String?,
                           @Query("wallet.address") walletAddress: String,
                           @Query("wallet.signature")
                           walletSignature: String): Single<TransactionStatus>

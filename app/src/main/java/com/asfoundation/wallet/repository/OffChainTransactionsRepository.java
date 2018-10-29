@@ -18,7 +18,7 @@ public class OffChainTransactionsRepository {
 
   public interface TransactionsApi {
     @GET("appc/wallethistory") Single<WalletHistory> transactionHistory(
-        @Query("wallet") String wallet, @Query("version") String versionCode,
+        @Query("wallet") String wallet, @Query("version_code") String versionCode,
         @Query("type") String transactionType);
   }
 }

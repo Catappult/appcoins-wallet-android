@@ -6,23 +6,26 @@ import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class WalletHistory {
+@JsonIgnoreProperties(ignoreUnknown = true) public class WalletHistory {
 
-  @JsonProperty("result") private List<MicroTransaction> result;
+  @JsonProperty("result") private List<Transaction> result;
 
-  public List<MicroTransaction> getResult() {
+  public List<Transaction> getResult() {
     return result;
   }
 
-  public void setResult(List<MicroTransaction> result) {
+  public void setResult(List<Transaction> result) {
     this.result = result;
   }
 
-  @JsonIgnoreProperties(ignoreUnknown = true)
-  public static class MicroTransaction {
+  public enum Status {
+    SUCCESS, FAIL
+  }
+
+  @JsonIgnoreProperties(ignoreUnknown = true) public static class Transaction {
 
     @JsonProperty("app") private String app;
+    @JsonProperty("sku") private String sku;
     @JsonProperty("TxID") private String txID;
     @JsonProperty("amount") private BigInteger amount;
     @JsonProperty("block") private BigInteger block;
@@ -31,6 +34,31 @@ public class WalletHistory {
     @JsonProperty("sender") private String sender;
     @JsonProperty("ts") private Date ts;
     @JsonProperty("type") private String type;
+    @JsonProperty("status") private Status status;
+
+    public String getSku() {
+      return sku;
+    }
+
+    public void setSku(String sku) {
+      this.sku = sku;
+    }
+
+    public Status getStatus() {
+      return status;
+    }
+
+    public void setStatus(Status status) {
+      this.status = status;
+    }
+
+    public String getApp() {
+      return app;
+    }
+
+    public void setApp(String app) {
+      this.app = app;
+    }
 
     public String getTxID() {
       return txID;
