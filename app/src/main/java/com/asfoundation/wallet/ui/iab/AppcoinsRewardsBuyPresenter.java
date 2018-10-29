@@ -3,6 +3,8 @@ package com.asfoundation.wallet.ui.iab;
 import com.appcoins.wallet.appcoins.rewards.Transaction;
 import com.appcoins.wallet.appcoins.rewards.TransactionIdRepository;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
@@ -24,6 +26,8 @@ public class AppcoinsRewardsBuyPresenter {
   private final TransferParser transferParser;
   private final String productName;
   private final boolean isBds;
+  private final BillingAnalytics analytics;
+  private final InAppPurchaseInteractor inAppPurchaseInteractor;
 
   private final TransactionIdRepository transactionIdRepository;
 
@@ -31,7 +35,7 @@ public class AppcoinsRewardsBuyPresenter {
       AppcoinsRewardsBuyView view, RewardsManager rewardsManager, Scheduler scheduler,
       CompositeDisposable disposables, BigDecimal amount, String storeAddress, String oemAddress,
       String uri, String packageName, TransferParser transferParser, String productName,
-      boolean isBds) {
+      boolean isBds, BillingAnalytics analytics, InAppPurchaseInteractor inAppPurchaseInteractor) {
     this.transactionIdRepository = transactionIdRepository;
     this.view = view;
     this.rewardsManager = rewardsManager;
@@ -45,6 +49,8 @@ public class AppcoinsRewardsBuyPresenter {
     this.transferParser = transferParser;
     this.productName = productName;
     this.isBds = isBds;
+    this.analytics = analytics;
+    this.inAppPurchaseInteractor = inAppPurchaseInteractor;
   }
 
   public void present() {
@@ -132,5 +138,13 @@ public class AppcoinsRewardsBuyPresenter {
 
   public void stop() {
     disposables.clear();
+  }
+
+  public void sendPurchaseDetails(String purchaseDetails) {
+    TransactionBuilder transactionBuilder = inAppPurchaseInteractor.parseTransaction(uri, isBds)
+        .blockingGet();
+    analytics.sendPurchaseDetailsEvent(packageName, transactionBuilder.getSkuId(),
+        transactionBuilder.amount()
+            .toString(), purchaseDetails);
   }
 }

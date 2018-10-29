@@ -26,6 +26,7 @@ import com.adyen.core.utils.StringUtils;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
 import com.asfoundation.wallet.billing.payment.Adyen;
 import com.asfoundation.wallet.billing.purchase.CreditCardBillingFactory;
@@ -99,6 +100,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   private PublishRelay<Void> backButton;
   private PublishRelay<Void> keyboardBuyRelay;
   private CreditCardFragmentNavigator navigator;
+  @Inject BillingAnalytics analytics;
 
   public static CreditCardAuthorizationFragment newInstance(Bundle skuDetails, String skuId,
       String type, String origin) {
@@ -123,7 +125,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
         creditCardBillingFactory.getBilling(getAppPackage()), navigator,
         inAppPurchaseInteractor.getBillingMessagesMapper(), inAppPurchaseInteractor,
         getTransactionData(), getDeveloperPayload(), billing, getSkuId(), getType(), getOrigin(),
-        getAmount().toString(), getCurrency());
+        getAmount().toString(), getCurrency(), analytics);
   }
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -344,10 +346,10 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
         .getParent()
         .getParent()
         .getParent()).setPadding(24, 0, 0, 0);
+    presenter.sendCCDetailsEvent();
   }
 
   private PaymentDetails getPaymentDetails(String publicKey, String generationTime) {
-
     if (cvcOnly) {
       final PaymentDetails paymentDetails = new PaymentDetails(paymentMethod.getInputDetails());
       paymentDetails.fill("cardDetails.cvc", cardForm.getCvv());

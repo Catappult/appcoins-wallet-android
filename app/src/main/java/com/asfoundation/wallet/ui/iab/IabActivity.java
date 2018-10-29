@@ -5,12 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import com.appcoins.wallet.billing.util.PayloadHelper;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.ui.BaseActivity;
-import com.facebook.appevents.AppEventsLogger;
 import dagger.android.AndroidInjection;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -37,8 +37,6 @@ public class IabActivity extends BaseActivity implements IabView {
   public static final String TRANSACTION_HASH = "transaction_hash";
   public static final String TRANSACTION_AMOUNT = "transaction_amount";
   public static final String TRANSACTION_CURRENCY = "transaction_currency";
-  public static final String PURCHASE_DETAILS_CC = "CREDIT_CARD";
-  public static final String PURCHASE_DETAILS_APPC = "APPC";
   public static final String FIAT_VALUE = "fiat_value";
   private static final String TAG = IabActivity.class.getSimpleName();
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
@@ -98,8 +96,6 @@ public class IabActivity extends BaseActivity implements IabView {
 
   @Override public void finish(Bundle bundle) {
     presenter.sendPaymentEvent();
-    AppEventsLogger.newLogger(this)
-        .logEvent("in_app_purchase_success");
     setResult(Activity.RESULT_OK, new Intent().putExtras(bundle));
     finish();
   }
@@ -127,7 +123,6 @@ public class IabActivity extends BaseActivity implements IabView {
             CreditCardAuthorizationFragment.newInstance(skuDetails, builder.getSkuId(),
                 builder.getType(), isBds() ? BDS : null))
         .commit();
-    presenter.sendCCDetailsEvent();
   }
 
   @Override public void showOnChain(BigDecimal amount) {
@@ -139,15 +134,14 @@ public class IabActivity extends BaseActivity implements IabView {
                   .toString(), isBds()))
           .commit();
     }
-    presenter.sendPurchaseDetails(PURCHASE_DETAILS_APPC);
   }
 
   @Override public void showCcPayment(BigDecimal amount, String currency) {
     if (savedInstanceState == null && getSupportFragmentManager().getFragments()
         .isEmpty()) {
       getSupportFragmentManager().beginTransaction()
-          .add(R.id.fragment_container, ExpressCheckoutBuyFragment.newInstance(createBundle(
-              BigDecimal.valueOf(amount.doubleValue()), currency)))
+          .add(R.id.fragment_container, ExpressCheckoutBuyFragment.newInstance(
+              createBundle(BigDecimal.valueOf(amount.doubleValue()), currency), isBds()))
           .commit();
     }
   }
@@ -163,7 +157,6 @@ public class IabActivity extends BaseActivity implements IabView {
                   .getString(PRODUCT_NAME, ""), isBds()))
           .commit();
     }
-    presenter.sendPurchaseDetails(PURCHASE_DETAILS_CC);
   }
 
   @NonNull private Bundle createBundle(BigDecimal amount, String currency) {

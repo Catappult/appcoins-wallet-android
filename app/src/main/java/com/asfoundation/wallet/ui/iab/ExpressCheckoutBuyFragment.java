@@ -27,6 +27,7 @@ import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
 import com.appcoins.wallet.bdsbilling.repository.entity.DeveloperPurchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.facebook.appevents.AppEventsLogger;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -64,6 +65,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   private static final String INAPP_PURCHASE_DATA = "INAPP_PURCHASE_DATA";
   private static final String INAPP_DATA_SIGNATURE = "INAPP_DATA_SIGNATURE";
   private static final String INAPP_PURCHASE_ID = "INAPP_PURCHASE_ID";
+  public static final String PURCHASE_DETAILS_CC = "CREDIT_CARD";
   private final CompositeDisposable compositeDisposable = new CompositeDisposable();
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject RemoteRepository.BdsApi bdsApi;
@@ -93,11 +95,13 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   private PublishSubject<Boolean> setupSubject;
   private View processingDialog;
   private TextView walletAddressView;
+  @Inject BillingAnalytics analytics;
 
-  public static ExpressCheckoutBuyFragment newInstance(Bundle extras) {
+  public static ExpressCheckoutBuyFragment newInstance(Bundle extras, boolean isBds) {
     ExpressCheckoutBuyFragment fragment = new ExpressCheckoutBuyFragment();
     Bundle bundle = new Bundle();
     bundle.putBundle("extras", extras);
+    bundle.putBoolean("isBds", isBds);
     fragment.setArguments(bundle);
     return fragment;
   }
@@ -116,11 +120,14 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     setupSubject = PublishSubject.create();
 
     extras = getArguments().getBundle("extras");
+    String uriString = extras.getString(TRANSACTION_DATA);
+
+    boolean isBds = extras.getBoolean("isBds");
 
     presenter = new ExpressCheckoutBuyPresenter(this, getAppPackage(), inAppPurchaseInteractor,
         AndroidSchedulers.mainThread(), new CompositeDisposable(),
         inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing,
-        extras.getString(TRANSACTION_DATA));
+        analytics, isBds, extras.getString(TRANSACTION_DATA));
   }
 
   @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -231,8 +238,8 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
       itemHeaderDescription.setText(String.format(getString(R.string.buying), extras.getString(PRODUCT_NAME)));
       itemListDescription.setText(extras.getString(PRODUCT_NAME));
     }
-    AppEventsLogger.newLogger(getContext())
-        .logEvent("in_app_purchase_dialog_credit_card_open");
+
+    presenter.sendPurchaseDetails(PURCHASE_DETAILS_CC);
 
     compositeDisposable.add(walletService.getWalletAddress()
         .doOnSuccess(address -> walletAddressView.setText(address))
@@ -253,7 +260,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   }
 
   @Override public void close(Bundle data) {
-    iabView.finish(data);
+    iabView.close(data);
   }
 
   @Override public Observable<Object> errorDismisses() {
@@ -315,5 +322,9 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   public String mapCurrencyCodeToSymbol(String currencyCode) {
     return Currency.getInstance(currencyCode)
         .getSymbol();
+  }
+
+  public void setAnalytics(BillingAnalytics analytics) {
+    this.analytics = analytics;
   }
 }

@@ -6,8 +6,10 @@ import com.adyen.core.models.PaymentMethod;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asfoundation.wallet.billing.CreditCardBilling;
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
 import com.asfoundation.wallet.billing.payment.Adyen;
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
@@ -49,6 +51,7 @@ public class CreditCardAuthorizationPresenter {
   private final String appPackage;
   private CreditCardAuthorizationView view;
   private FindDefaultWalletInteract defaultWalletInteract;
+  private BillingAnalytics analytics;
 
   public CreditCardAuthorizationPresenter(CreditCardAuthorizationView view, String appPackage,
       FindDefaultWalletInteract defaultWalletInteract, Scheduler viewScheduler,
@@ -56,7 +59,7 @@ public class CreditCardAuthorizationPresenter {
       CreditCardNavigator navigator, BillingMessagesMapper billingMessagesMapper,
       InAppPurchaseInteractor inAppPurchaseInteractor, String transactionData,
       String developerPayload, Billing billing, String skuId, String type, String origin,
-      String amount, String currency) {
+      String amount, String currency, BillingAnalytics analytics) {
     this.view = view;
     this.appPackage = appPackage;
     this.defaultWalletInteract = defaultWalletInteract;
@@ -75,6 +78,7 @@ public class CreditCardAuthorizationPresenter {
     this.origin = origin;
     this.amount = amount;
     this.currency = currency;
+    this.analytics = analytics;
   }
 
   public void present() {
@@ -329,5 +333,9 @@ public class CreditCardAuthorizationPresenter {
 
   public void stop() {
     disposables.clear();
+  }
+
+  public void sendCCDetailsEvent() {
+    analytics.sendCreditCardDetailsEvent(appPackage, skuId, amount);
   }
 }
