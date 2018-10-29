@@ -146,11 +146,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void onCreditsBalanceChanged(Balance balance) {
-    if (balance != null) {
-      setSubtitle(getString(R.string.credits_balance, balance.getValue()));
-    } else {
-      setSubtitle(null);
-    }
+      setSubtitle(balance.getValue() + " " + balance.getSymbol());
   }
 
   private void onTransactionClick(View view, Transaction transaction) {

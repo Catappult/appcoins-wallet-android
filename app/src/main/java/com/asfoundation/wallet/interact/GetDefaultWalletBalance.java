@@ -63,7 +63,7 @@ public class GetDefaultWalletBalance implements BalanceService {
   }
 
   private Single<Balance> getCreditsBalance(BigDecimal value) {
-    return Single.just(new Balance("APPCCredits", weiToEth(value).setScale(4, RoundingMode.HALF_UP)
+    return Single.just(new Balance("APPC Credits", weiToEth(value).setScale(4, RoundingMode.HALF_UP)
         .stripTrailingZeros()
         .toPlainString()));
   }
