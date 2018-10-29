@@ -6,6 +6,7 @@ import com.appcoins.wallet.appcoins.rewards.repository.WalletService
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi
 import com.appcoins.wallet.appcoins.rewards.repository.bds.BdsApi
 import com.appcoins.wallet.bdsbilling.Billing
+import com.appcoins.wallet.bdsbilling.repository.GetTransactionIdResponse
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
 import com.appcoins.wallet.commons.MemoryCache
 import io.reactivex.Single
@@ -15,11 +16,14 @@ import io.reactivex.subjects.BehaviorSubject
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers
 import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 import java.math.BigDecimal
 import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.TimeUnit
 
 @RunWith(MockitoJUnitRunner::class)
 class AppcoinsRewardsTest {
@@ -58,14 +62,25 @@ class AppcoinsRewardsTest {
                        payBody: BdsApi.PayBody): Single<com.appcoins.wallet.bdsbilling.repository.entity.Transaction> {
         return Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
             com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
-            Gateway.unknown()))
+                Gateway.unknown(), "0x32453134"))
       }
     }
 
     `when`(billing.getAppcoinsTransaction(UID, scheduler)).thenReturn(
         Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
             com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
-            Gateway.unknown())))
+                Gateway.unknown(), "0x32453134")))
+
+      val transactionIdRepositoryApi = Mockito.mock(TransactionIdRepository.Api::class.java)
+      val transactionIdRepository = TransactionIdRepository(transactionIdRepositoryApi)
+      val getTransactionIdResponse = GetTransactionIdResponse()
+      getTransactionIdResponse.status = "PENDING"
+      getTransactionIdResponse.txid = "0x32453134"
+
+      `when`(transactionIdRepositoryApi.getTransactionId(ArgumentMatchers.anyString())).thenReturn(Single.just(getTransactionIdResponse))
+
+      scheduler.advanceTimeBy(1, TimeUnit.DAYS)
+      scheduler.triggerActions()
 
     appcoinsRewards =
         AppcoinsRewards(
@@ -80,7 +95,7 @@ class AppcoinsRewardsTest {
 
           }
         }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), scheduler, billing
-            , ErrorMapper())
+                , ErrorMapper(), transactionIdRepository)
     appcoinsRewards.start()
   }
 
@@ -100,9 +115,9 @@ class AppcoinsRewardsTest {
     testObserver.assertNoErrors().assertComplete()
     val mutableListOf = mutableListOf(
         Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-            PRICE, ORIGIN, Transaction.Status.PROCESSING),
+                PRICE, ORIGIN, Transaction.Status.PROCESSING, null),
         Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-            PRICE, ORIGIN, Transaction.Status.COMPLETED))
+                PRICE, ORIGIN, Transaction.Status.COMPLETED, "0x32453134"))
     statusObserver.assertNoErrors().assertValueSequence(mutableListOf)
   }
 

@@ -58,19 +58,22 @@ class AppcoinsRewards(
                         transaction.type, transaction.developerAddress, transaction.storeAddress,
                             transaction.oemAddress, transaction.packageName)
                   }
-                          .flatMap { transaction1 ->
-                              transactionIdRepository.getTransactionUid(transaction1.uid).flatMapCompletable { txId ->
-                                  transaction.txId = txId
-                                  cache.save(getKey(transaction), transaction)
-                              }.toSingleDefault(transaction1)
+                          .flatMapCompletable { transaction1 ->
+                              waitTransactionCompletion(transaction1).andThen(
+                                      if (!transaction.origin.equals("BDS")) {
+                                          transactionIdRepository.getTransactionUid(transaction1.uid)
+                                                  .flatMapCompletable { txId ->
+                                                      val tx = Transaction(transaction, Transaction.Status.COMPLETED)
+                                                      tx.txId = txId
+                                                      cache.save(getKey(tx), tx)
+                                                  }
+                                      } else {
+                                          val tx = Transaction(transaction, Transaction.Status.COMPLETED)
+                                          cache.save(getKey(tx), tx)
+                                      }
+                              )
                           }
-                          .flatMapCompletable { createdTransaction ->
-                        waitTransactionCompletion(createdTransaction)
-                      }
-                }.andThen(Completable.defer {
-                        cache.save(getKey(transaction),
-                                Transaction(transaction, Transaction.Status.COMPLETED))
-                    })
+                }
                 .onErrorResumeNext {
                   it.printStackTrace()
                   cache.save(getKey(transaction),
