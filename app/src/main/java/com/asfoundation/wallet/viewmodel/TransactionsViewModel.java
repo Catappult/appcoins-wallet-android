@@ -37,7 +37,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 public class TransactionsViewModel extends BaseViewModel {
   private static final long GET_BALANCE_INTERVAL = 10 * DateUtils.SECOND_IN_MILLIS;
@@ -47,7 +46,8 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<List<Transaction>> transactions = new MutableLiveData<>();
   private final MutableLiveData<List<AppcoinsApplication>> appcoinsApplications =
       new MutableLiveData<>();
-  private final MutableLiveData<Map<String, Balance>> defaultWalletBalance = new MutableLiveData<>();
+  private final MutableLiveData<Balance> defaultWalletTokenBalance = new MutableLiveData<>();
+  private final MutableLiveData<Balance> defaultWalletCreditBalance = new MutableLiveData<>();
   private final FindDefaultNetworkInteract findDefaultNetworkInteract;
   private final FindDefaultWalletInteract findDefaultWalletInteract;
   private final FetchTransactionsInteract fetchTransactionsInteract;
@@ -68,7 +68,8 @@ public class TransactionsViewModel extends BaseViewModel {
   private final OffChainTransactions offChainTransactions;
   private Handler handler = new Handler();
   private final Runnable startFetchTransactionsTask = () -> this.fetchTransactions(false);
-  private final Runnable startGetBalanceTask = this::getBalance;
+  private final Runnable startGetTokenBalanceTask = this::getTokenBalance;
+  private final Runnable startGetCreditsBalanceTask = this::getCreditsBalance;
   private boolean hasTransactions = false;
 
   TransactionsViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract,
@@ -108,7 +109,8 @@ public class TransactionsViewModel extends BaseViewModel {
       disposables.dispose();
     }
     handler.removeCallbacks(startFetchTransactionsTask);
-    handler.removeCallbacks(startGetBalanceTask);
+    handler.removeCallbacks(startGetTokenBalanceTask);
+    handler.removeCallbacks(startGetCreditsBalanceTask);
   }
 
   public LiveData<NetworkInfo> defaultNetwork() {
@@ -123,8 +125,12 @@ public class TransactionsViewModel extends BaseViewModel {
     return transactions;
   }
 
-  public MutableLiveData<Map<String, Balance>> defaultWalletBalance() {
-    return defaultWalletBalance;
+  public MutableLiveData<Balance> defaultWalletTokenBalance() {
+    return defaultWalletTokenBalance;
+  }
+
+  public MutableLiveData<Balance> defaultWalletCreditsBalance() {
+    return defaultWalletCreditBalance;
   }
 
   public void prepare() {
@@ -146,7 +152,7 @@ public class TransactionsViewModel extends BaseViewModel {
                     .flatMapSingle(transactionsMapper::map)),
         fetchTransactionsInteract.fetch(defaultWallet.getValue())
             .flatMapSingle(transactionsMapper::map), findDefaultNetworkInteract.find()
-            .filter(this::shouldShowOffChainTransactions)
+            .filter(this::shouldShowOffChainInfo)
             .flatMapObservable(__ -> offChainTransactions.getTransactions()
                 .toObservable()))
         .observeOn(AndroidSchedulers.mainThread())
@@ -171,18 +177,29 @@ public class TransactionsViewModel extends BaseViewModel {
     }
   }
 
-  private boolean shouldShowOffChainTransactions(NetworkInfo networkInfo) {
+  private boolean shouldShowOffChainInfo(NetworkInfo networkInfo) {
     return networkInfo.chainId == 3 && BuildConfig.DEBUG
         || networkInfo.chainId == 1 && !BuildConfig.DEBUG;
   }
 
-  private void getBalance() {
-    disposables.add(getDefaultWalletBalance.get(defaultWallet.getValue())
-        .subscribe(values -> {
-          defaultWalletBalance.postValue(values);
-          handler.removeCallbacks(startGetBalanceTask);
-          handler.postDelayed(startGetBalanceTask, GET_BALANCE_INTERVAL);
+  private void getTokenBalance() {
+    disposables.add(getDefaultWalletBalance.getTokens(defaultWallet.getValue())
+        .subscribe(value -> {
+          defaultWalletTokenBalance.postValue(value);
+          handler.removeCallbacks(startGetTokenBalanceTask);
+          handler.postDelayed(startGetTokenBalanceTask, GET_BALANCE_INTERVAL);
         }, Throwable::printStackTrace));
+  }
+
+  private void getCreditsBalance() {
+    disposables.add(findDefaultNetworkInteract.find()
+        .filter(this::shouldShowOffChainInfo)
+        .flatMapSingle(__ -> getDefaultWalletBalance.getCredits(defaultWallet.getValue()))
+            .subscribe(value -> {
+              defaultWalletCreditBalance.postValue(value);
+              handler.removeCallbacks(startGetCreditsBalanceTask);
+              handler.postDelayed(startGetCreditsBalanceTask, GET_BALANCE_INTERVAL);
+            }, Throwable::printStackTrace));
   }
 
   private void onDefaultNetwork(NetworkInfo networkInfo) {
@@ -194,7 +211,8 @@ public class TransactionsViewModel extends BaseViewModel {
 
   private void onDefaultWallet(Wallet wallet) {
     defaultWallet.setValue(wallet);
-    getBalance();
+    getTokenBalance();
+    getCreditsBalance();
     fetchTransactions(true);
   }
 
@@ -244,7 +262,8 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public void pause() {
     handler.removeCallbacks(startFetchTransactionsTask);
-    handler.removeCallbacks(startGetBalanceTask);
+    handler.removeCallbacks(startGetTokenBalanceTask);
+    handler.removeCallbacks(startGetCreditsBalanceTask);
   }
 
   public void openDeposit(Context context, Uri uri) {
