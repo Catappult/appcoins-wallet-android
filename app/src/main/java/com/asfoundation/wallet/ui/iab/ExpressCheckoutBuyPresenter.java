@@ -120,7 +120,8 @@ public class ExpressCheckoutBuyPresenter {
         inAppPurchaseInteractor.convertToFiat(transactionValue, currency),
         (transactionBuilder, fiatValue) -> Completable.fromAction(() -> view.setup(fiatValue,
             TransactionData.TransactionType.DONATION.name()
-                .equalsIgnoreCase(transactionBuilder.getType()))))
+                .equalsIgnoreCase(transactionBuilder.getType())))
+            .subscribeOn(AndroidSchedulers.mainThread()))
         .flatMapCompletable(completable -> completable)
         .subscribe(() -> {
         }, this::showError));
