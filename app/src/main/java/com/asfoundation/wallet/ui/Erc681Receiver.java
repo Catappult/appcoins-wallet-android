@@ -31,9 +31,9 @@ public class Erc681Receiver extends BaseActivity {
       disposable = walletInteract.find()
           .flatMap(__ -> transferParser.parse(getIntent().getDataString()))
           .subscribe(transaction -> {
-            String callingPackage = getCallingPackage();
+            String callingPackage = transaction.getDomain();
             if (callingPackage == null) {
-              callingPackage = transaction.getDomain();
+              callingPackage = getCallingPackage();
             }
             startEipTransfer(callingPackage);
           }, throwable -> startApp(throwable));

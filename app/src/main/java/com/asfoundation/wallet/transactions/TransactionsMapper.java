@@ -45,13 +45,14 @@ public class TransactionsMapper {
   }
 
   public Single<List<Transaction>> mapFromWalletHistory(
-      List<WalletHistory.MicroTransaction> transactions) {
+      List<WalletHistory.Transaction> transactions) {
     return Single.just(mapTransactionsFromWalletHistory(transactions))
         .observeOn(scheduler);
   }
 
   public Single<List<Transaction>> map(List<ChannelHistoryResponse.MicroTransaction> transactions) {
-    return Single.just(mapMicroTransactions(transactions)).observeOn(scheduler);
+    return Single.just(mapMicroTransactions(transactions))
+        .observeOn(scheduler);
   }
 
   private List<Transaction> map(String address, RawTransaction[] transactions) {
@@ -75,7 +76,8 @@ public class TransactionsMapper {
     return transactionList;
   }
 
-  private List<Transaction> mapMicroTransactions(List<ChannelHistoryResponse.MicroTransaction> transactions) {
+  private List<Transaction> mapMicroTransactions(
+      List<ChannelHistoryResponse.MicroTransaction> transactions) {
     List<Transaction> transactionList = new ArrayList<>();
     for (int i = transactions.size() - 1; i >= 0; i--) {
       ChannelHistoryResponse.MicroTransaction transaction = transactions.get(i);
@@ -85,29 +87,43 @@ public class TransactionsMapper {
 
       transactionList.add(0, new Transaction(transaction.getTxID(), txType, null,
           transaction.getTs()
-              .getTime() / 1000, Transaction.TransactionStatus.SUCCESS, transaction.getAmount()
-          .toString(), transaction.getSender(), transaction.getReceiver(),
-          getTransactionDetails(txType, transaction.getTxID()), "APPC", null, null));
+              .getTime() / 1000,
+          com.asfoundation.wallet.transactions.Transaction.TransactionStatus.SUCCESS,
+          transaction.getAmount()
+              .toString(), transaction.getSender(), transaction.getReceiver(),
+          getTransactionDetails(txType, transaction.getTxID()), "APPC", null));
     }
     return transactionList;
   }
 
   private List<Transaction> mapTransactionsFromWalletHistory(
-      List<WalletHistory.MicroTransaction> transactions) {
-    List<Transaction> transactionList = new ArrayList<>();
+      List<WalletHistory.Transaction> transactions) {
+    List<Transaction> transactionList = new ArrayList<>(transactions.size());
     for (int i = transactions.size() - 1; i >= 0; i--) {
-      WalletHistory.MicroTransaction transaction = transactions.get(i);
+      WalletHistory.Transaction transaction = transactions.get(i);
 
       Transaction.TransactionType txType =
           "IAP OffChain".equals(transaction.getType()) ? IAP_OFFCHAIN
               : "PoA OffChain".equals(transaction.getType()) ? ADS_OFFCHAIN : MICRO_IAB;
 
+      Transaction.TransactionStatus status;
+      switch (transaction.getStatus()) {
+        case SUCCESS:
+          status = Transaction.TransactionStatus.SUCCESS;
+          break;
+        default:
+        case FAIL:
+          status = Transaction.TransactionStatus.FAILED;
+          break;
+      }
+
       transactionList.add(0, new Transaction(transaction.getTxID(), txType, null,
           transaction.getTs()
-              .getTime() / 1000, Transaction.TransactionStatus.SUCCESS, transaction.getAmount()
+              .getTime() / 1000, status, transaction.getAmount()
           .toString(), transaction.getSender(), transaction.getReceiver(),
-          getTransactionDetails(txType, transaction.getTxID()), "APPC", null,
-          transaction.getIcon()));
+          new TransactionDetails(transaction.getApp(),
+              new TransactionDetails.Icon(TransactionDetails.Icon.Type.URL, transaction.getIcon()),
+              transaction.getSku()), "APPC", null));
     }
     return transactionList;
   }
@@ -149,11 +165,13 @@ public class TransactionsMapper {
     }
 
     TransactionDetails details =
-        getTransactionDetails(Transaction.TransactionType.ADS, transaction.hash);
+        getTransactionDetails(com.asfoundation.wallet.transactions.Transaction.TransactionType.ADS,
+            transaction.hash);
 
-    return new Transaction(transaction.hash, Transaction.TransactionType.ADS, null,
+    return new Transaction(transaction.hash,
+        com.asfoundation.wallet.transactions.Transaction.TransactionType.ADS, null,
         transaction.timeStamp, getError(transaction), value, from, to, details, currency,
-        operations, null);
+        operations);
   }
 
   /**
@@ -193,9 +211,9 @@ public class TransactionsMapper {
       operations.add(new Operation(transaction.hash, transaction.from, transaction.to, fee));
     }
 
-    return new Transaction(transaction.hash, Transaction.TransactionType.CLOSE_CHANNEL, null,
-        transaction.timeStamp, getError(transaction), value, from, to, null, currency, operations,
-        null);
+    return new Transaction(transaction.hash,
+        com.asfoundation.wallet.transactions.Transaction.TransactionType.CLOSE_CHANNEL, null,
+        transaction.timeStamp, getError(transaction), value, from, to, null, currency, operations);
   }
 
   /**
@@ -229,9 +247,10 @@ public class TransactionsMapper {
       operations.add(new Operation(transaction.hash, transaction.from, transaction.to, fee));
     }
 
-    return new Transaction(transaction.hash, Transaction.TransactionType.STANDARD, null,
+    return new Transaction(transaction.hash,
+        com.asfoundation.wallet.transactions.Transaction.TransactionType.STANDARD, null,
         transaction.timeStamp, getError(transaction), value, transaction.from, transaction.to, null,
-        currency, operations, null);
+        currency, operations);
   }
 
   /**
@@ -284,7 +303,7 @@ public class TransactionsMapper {
 
     return new Transaction(transaction.hash, type, approveTransaction.hash, transaction.timeStamp,
         getError(transaction), value.toString(), transaction.from, transaction.to, details,
-        currency, operations, null);
+        currency, operations);
   }
 
   private boolean isAdsTransaction(RawTransaction transaction) {
@@ -330,7 +349,8 @@ public class TransactionsMapper {
 
   private Transaction.TransactionStatus getError(RawTransaction transaction) {
     return (transaction.error == null || transaction.error.isEmpty())
-        ? Transaction.TransactionStatus.SUCCESS : Transaction.TransactionStatus.FAILED;
+        ? com.asfoundation.wallet.transactions.Transaction.TransactionStatus.SUCCESS
+        : com.asfoundation.wallet.transactions.Transaction.TransactionStatus.FAILED;
   }
 
   @Nullable private TransactionDetails getTransactionDetails(Transaction.TransactionType type,
@@ -339,24 +359,27 @@ public class TransactionsMapper {
     AppCoinsOperation operationDetails = operationsDataSaver.getSync(transactionId);
     if (operationDetails != null) {
       String productName = null;
-      if (!Transaction.TransactionType.ADS.equals(type)
-          && !Transaction.TransactionType.ADS_OFFCHAIN.equals(type)) {
+      if (!com.asfoundation.wallet.transactions.Transaction.TransactionType.ADS.equals(type)
+          && !com.asfoundation.wallet.transactions.Transaction.TransactionType.ADS_OFFCHAIN.equals(
+          type)) {
         productName = operationDetails.getProductName();
       }
       details = new TransactionDetails(operationDetails.getApplicationName(),
-          operationDetails.getIconPath(), productName);
+          new TransactionDetails.Icon(TransactionDetails.Icon.Type.FILE,
+              operationDetails.getIconPath()), productName);
     }
     return details;
   }
 
   private Transaction.TransactionType getTransactionType(RawTransaction transaction) {
-    Transaction.TransactionType type = Transaction.TransactionType.STANDARD;
+    Transaction.TransactionType type =
+        com.asfoundation.wallet.transactions.Transaction.TransactionType.STANDARD;
     if (isIabTransaction(transaction)) {
-      type = Transaction.TransactionType.IAB;
+      type = com.asfoundation.wallet.transactions.Transaction.TransactionType.IAB;
     } else if (isOpenChannelTransaction(transaction)) {
-      type = Transaction.TransactionType.OPEN_CHANNEL;
+      type = com.asfoundation.wallet.transactions.Transaction.TransactionType.OPEN_CHANNEL;
     } else if (isTopUpChannelTransaction(transaction)) {
-      type = Transaction.TransactionType.TOP_UP_CHANNEL;
+      type = com.asfoundation.wallet.transactions.Transaction.TransactionType.TOP_UP_CHANNEL;
     }
 
     return type;

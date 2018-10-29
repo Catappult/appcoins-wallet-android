@@ -41,13 +41,10 @@ import com.asfoundation.wallet.widget.EmptyTransactionsView;
 import com.asfoundation.wallet.widget.SystemView;
 import dagger.android.AndroidInjection;
 import java.util.List;
-import java.util.Map;
 import javax.inject.Inject;
 
 import static com.asfoundation.wallet.C.ETHEREUM_NETWORK_NAME;
 import static com.asfoundation.wallet.C.ErrorCode.EMPTY_COLLECTION;
-import static com.asfoundation.wallet.interact.GetDefaultWalletBalance.BALANCE_CREDITS;
-import static com.asfoundation.wallet.interact.GetDefaultWalletBalance.BALANCE_TOKEN;
 
 public class TransactionsActivity extends BaseNavigationActivity implements View.OnClickListener {
 
@@ -102,8 +99,10 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::onError);
     viewModel.defaultNetwork()
         .observe(this, this::onDefaultNetwork);
-    viewModel.defaultWalletBalance()
-        .observe(this, this::onBalanceChanged);
+    viewModel.defaultWalletTokenBalance()
+        .observe(this, this::onTokenBalanceChanged);
+    viewModel.defaultWalletCreditsBalance()
+        .observe(this, this::onCreditsBalanceChanged);
     viewModel.defaultWallet()
         .observe(this, this::onDefaultWallet);
     viewModel.transactions()
@@ -136,25 +135,18 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     showList();
   }
 
-  private void onBalanceChanged(Map<String, Balance> balance) {
-    if (!balance.isEmpty()) {
-      Balance balanceDetail = balance.get(BALANCE_TOKEN);
-      if (balanceDetail != null) {
-        String currency = balanceDetail.getSymbol();
-        String value = balanceDetail.getValue();
+  private void onTokenBalanceChanged(Balance balance) {
+    if (balance != null) {
+        String currency = balance.getSymbol();
+        String value = balance.getValue();
         int smallTitleSize = (int) getResources().getDimension(R.dimen.title_small_text);
         int color = getResources().getColor(R.color.appbar_subtitle_color);
         setCollapsingTitle(BalanceUtils.formatBalance(value, currency, smallTitleSize, color));
       }
+  }
 
-      balanceDetail = balance.get(BALANCE_CREDITS);
-      if (balanceDetail != null) {
-        setSubtitle(getString(R.string.credits_balance, balanceDetail.getValue()));
-      } else {
-        setSubtitle(null);
-      }
-
-    }
+  private void onCreditsBalanceChanged(Balance balance) {
+      setSubtitle(balance.getValue() + " " + balance.getSymbol());
   }
 
   private void onTransactionClick(View view, Transaction transaction) {

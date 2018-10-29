@@ -57,8 +57,9 @@ class BillingPaymentProofSubmissionTest {
 
     `when`(
         api.createTransaction(paymentType, origin, packageName, priceValue, currency, productName,
-            type, developerAddress, storeAddress, oemAddress, paymentId, walletAddress,
-            signedContent)).thenReturn(
+                type, developerAddress, storeAddress, oemAddress, paymentId, developerPayload,
+                walletAddress,
+                signedContent)).thenReturn(
         Single.just(TransactionStatus(paymentId, "status")))
 
     `when`(api.patchTransaction(paymentType, paymentId, walletAddress, signedContent,
@@ -84,8 +85,9 @@ class BillingPaymentProofSubmissionTest {
     authorizationDisposable.assertNoErrors().assertComplete()
     purchaseDisposable.assertNoErrors().assertComplete()
     verify(api, times(1)).createTransaction(paymentType, origin, packageName, priceValue, currency,
-        productName, type, developerAddress, storeAddress, oemAddress, paymentId, walletAddress,
-        signedContent)
+            productName, type, developerAddress, storeAddress, oemAddress, paymentId, developerPayload,
+            walletAddress,
+            signedContent)
     verify(api, times(1)).patchTransaction(paymentType, paymentId, walletAddress, signedContent,
         paymentToken)
 
