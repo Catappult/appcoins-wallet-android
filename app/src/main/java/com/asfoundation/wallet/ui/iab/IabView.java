@@ -17,7 +17,7 @@ public interface IabView {
 
   void navigateToCreditCardAuthorization();
 
-  void showOnChain(BigDecimal amount);
+  void showOnChain(BigDecimal amount, boolean isBds);
 
   void showCcPayment(BigDecimal amount, String currency);
 
