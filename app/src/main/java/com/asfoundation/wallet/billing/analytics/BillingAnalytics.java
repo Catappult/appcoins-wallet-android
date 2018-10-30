@@ -9,6 +9,11 @@ public class BillingAnalytics implements EventSender {
   public static final String PURCHASE_DETAILS = "PURCHASE_DETAILS";
   public static final String CREDIT_CARD_DETAILS = "CREDIT_CARD_DETAILS";
   public static final String PAYMENT = "PAYMENT";
+  private static final String EVENT_PACKAGE_NAME= "package_name";
+  private static final String EVENT_SKU = "sku";
+  private static final String EVENT_VALUE = "value";
+  private static final String EVENT_PURCHASE= "purchase";
+  private static final String EVENT_PAYMENT_METHOD = "payment_method";
   private final AnalyticsManager analytics;
 
   public BillingAnalytics(AnalyticsManager analytics) {
@@ -21,12 +26,12 @@ public class BillingAnalytics implements EventSender {
     Map<String, Object> map = new HashMap<>();
     Map<String, Object> map2 = new HashMap<>();
 
-    map2.put("package_name", packageName);
-    map2.put("sku", skuDetails);
-    map2.put("value", value);
+    map2.put(EVENT_PACKAGE_NAME, packageName);
+    map2.put(EVENT_SKU, skuDetails);
+    map2.put(EVENT_VALUE, value);
 
-    map.put("purchase", map2);
-    map.put("payment_method", purchaseDetail);
+    map.put(EVENT_PURCHASE, map2);
+    map.put(EVENT_PAYMENT_METHOD, purchaseDetail);
 
     analytics.logEvent(map, PURCHASE_DETAILS, AnalyticsManager.Action.CLICK, WALLET);
   }
@@ -36,11 +41,11 @@ public class BillingAnalytics implements EventSender {
     Map<String, Object> map = new HashMap<>();
     Map<String, Object> map2 = new HashMap<>();
 
-    map2.put("package_name", packageName);
-    map2.put("sku", skuDetails);
-    map2.put("value", value);
+    map2.put(EVENT_PACKAGE_NAME, packageName);
+    map2.put(EVENT_SKU, skuDetails);
+    map2.put(EVENT_VALUE, value);
 
-    map.put("purchase", map2);
+    map.put(EVENT_PURCHASE, map2);
 
     analytics.logEvent(map, CREDIT_CARD_DETAILS, AnalyticsManager.Action.CLICK, WALLET);
   }
@@ -49,11 +54,11 @@ public class BillingAnalytics implements EventSender {
     Map<String, Object> map = new HashMap<>();
     Map<String, Object> map2 = new HashMap<>();
 
-    map2.put("package_name", packageName);
-    map2.put("sku", skuDetails);
-    map2.put("value", value);
+    map2.put(EVENT_PACKAGE_NAME, packageName);
+    map2.put(EVENT_SKU, skuDetails);
+    map2.put(EVENT_VALUE, value);
 
-    map.put("purchase", map2);
+    map.put(EVENT_PURCHASE, map2);
 
     analytics.logEvent(map, PAYMENT, AnalyticsManager.Action.IMPRESSION, WALLET);
   }
