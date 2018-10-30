@@ -178,6 +178,11 @@ public class IabActivity extends BaseActivity implements IabView {
         .getString(EXTRA_DEVELOPER_PAYLOAD));
     if (developerPayload != null) {
       bundle.putString(EXTRA_DEVELOPER_PAYLOAD, developerPayload);
+    } else {
+      TransactionBuilder builder =
+          inAppPurchaseInteractor.parseTransaction(getIntent().getDataString(), isBds())
+              .blockingGet();
+      bundle.putString(EXTRA_DEVELOPER_PAYLOAD, builder.getPayload());
     }
     skuDetails = bundle;
     return bundle;
