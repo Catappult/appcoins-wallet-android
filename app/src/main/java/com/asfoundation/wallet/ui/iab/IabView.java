@@ -19,7 +19,7 @@ public interface IabView {
 
   void showOnChain(BigDecimal amount, boolean isBds);
 
-  void showCcPayment(BigDecimal amount, String currency);
+  void showCcPayment(BigDecimal amount, String currency, boolean isBds);
 
   void showAppcoinsCreditsPayment(BigDecimal amount);
 }

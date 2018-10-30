@@ -73,7 +73,7 @@ public class IabPresenter {
               view.showOnChain(transactionBuilder.amount(), true);
               break;
             case adyen:
-              view.showCcPayment(transactionBuilder.amount(), DEFAULT_CURRENCY);
+              view.showCcPayment(transactionBuilder.amount(), DEFAULT_CURRENCY, true);
               break;
             case appcoins_credits:
               view.showAppcoinsCreditsPayment(transactionBuilder.amount());
