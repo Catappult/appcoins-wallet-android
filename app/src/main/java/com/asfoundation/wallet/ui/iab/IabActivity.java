@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import com.appcoins.wallet.billing.util.PayloadHelper;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.ui.BaseActivity;
 import dagger.android.AndroidInjection;
@@ -133,12 +132,12 @@ public class IabActivity extends BaseActivity implements IabView {
     }
   }
 
-  @Override public void showCcPayment(BigDecimal amount, String currency) {
+  @Override public void showCcPayment(BigDecimal amount, String currency, boolean isBds) {
     if (savedInstanceState == null && getSupportFragmentManager().getFragments()
         .isEmpty()) {
       getSupportFragmentManager().beginTransaction()
           .add(R.id.fragment_container, ExpressCheckoutBuyFragment.newInstance(
-              createBundle(BigDecimal.valueOf(amount.doubleValue()), currency), isBds()))
+              createBundle(BigDecimal.valueOf(amount.doubleValue()), currency), isBds() || isBds))
           .commit();
     }
   }
