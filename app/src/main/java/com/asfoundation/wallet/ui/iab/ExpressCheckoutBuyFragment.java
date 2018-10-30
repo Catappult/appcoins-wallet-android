@@ -29,7 +29,6 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
-import com.facebook.appevents.AppEventsLogger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -65,7 +64,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   private static final String INAPP_PURCHASE_DATA = "INAPP_PURCHASE_DATA";
   private static final String INAPP_DATA_SIGNATURE = "INAPP_DATA_SIGNATURE";
   private static final String INAPP_PURCHASE_ID = "INAPP_PURCHASE_ID";
-  public static final String PURCHASE_DETAILS_CC = "CREDIT_CARD";
+  public static final String PAYMENT_METHOD_CC = "CREDIT_CARD";
   private final CompositeDisposable compositeDisposable = new CompositeDisposable();
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject RemoteRepository.BdsApi bdsApi;
@@ -239,7 +238,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
       itemListDescription.setText(extras.getString(PRODUCT_NAME));
     }
 
-    presenter.sendPurchaseDetails(PURCHASE_DETAILS_CC);
+    presenter.sendPurchaseDetails(PAYMENT_METHOD_CC);
 
     compositeDisposable.add(walletService.getWalletAddress()
         .doOnSuccess(address -> walletAddressView.setText(address))

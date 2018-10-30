@@ -7,5 +7,5 @@ public interface EventSender {
 
     void sendCreditCardDetailsEvent(String packageName, String skuDetails, String value);
 
-    void sendPaymentEvent(String packageName, String skuDetails, String value);
+    void sendPaymentEvent(String packageName, String skuDetails, String value, String paymentDetails);
 }

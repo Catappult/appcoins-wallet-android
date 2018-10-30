@@ -269,6 +269,15 @@ public class OnChainBuyPresenter {
             .toString(), purchaseDetails);
   }
 
+  public void sendPaymentEvent(String purchaseDetails) {
+    TransactionBuilder transactionBuilder =
+        inAppPurchaseInteractor.parseTransaction(uriString, isBds)
+            .blockingGet();
+    analytics.sendPaymentEvent(appPackage, transactionBuilder.getSkuId(),
+        transactionBuilder.amount()
+            .toString(), purchaseDetails);
+  }
+
   public static class BuyData {
     private final boolean isRaiden;
     private final String uri;
