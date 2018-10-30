@@ -9,17 +9,13 @@ public class CreditCardFragmentNavigator implements CreditCardNavigator {
 
   private final FragmentManager fragmentManager;
   private final IabView iabView;
-  private final CreditCardAuthorizationPresenter presenter;
 
-  public CreditCardFragmentNavigator(FragmentManager fragmentManager, IabView iabView,
-      CreditCardAuthorizationPresenter presenter) {
+  public CreditCardFragmentNavigator(FragmentManager fragmentManager, IabView iabView) {
     this.fragmentManager = fragmentManager;
     this.iabView = iabView;
-    this.presenter = presenter;
   }
 
   @Override public void popView(Bundle bundle) {
-    presenter.sendPaymentEvent(PAYMENT_METHOD_CC);
     iabView.finish(bundle);
   }
 

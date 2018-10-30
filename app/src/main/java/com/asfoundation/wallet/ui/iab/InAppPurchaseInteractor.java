@@ -7,6 +7,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
+import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.util.BalanceUtils;
 import io.reactivex.Completable;
@@ -131,15 +132,18 @@ public class InAppPurchaseInteractor {
   }
 
   public Single<Payment> getCompletedPurchase(Payment transaction, boolean isBds) {
-    if (isBds) {
-      return getCompletedPurchase(transaction.getPackageName(), transaction.getProductId()).map(
-          purchase -> mapToBdsPayment(transaction, purchase))
-          .observeOn(AndroidSchedulers.mainThread())
-          .flatMap(payment -> remove(transaction.getUri()).toSingleDefault(payment));
-    } else {
-      return Single.fromCallable(() -> transaction)
-          .flatMap(bundle -> remove(transaction.getUri()).toSingleDefault(bundle));
-    }
+    return parseTransaction(transaction.getUri(), isBds).flatMap(transactionBuilder -> {
+      if (isBds && transactionBuilder.getType()
+          .equalsIgnoreCase(TransactionData.TransactionType.DONATION.name())) {
+        return getCompletedPurchase(transaction.getPackageName(), transaction.getProductId()).map(
+            purchase -> mapToBdsPayment(transaction, purchase))
+            .observeOn(AndroidSchedulers.mainThread())
+            .flatMap(payment -> remove(transaction.getUri()).toSingleDefault(payment));
+      } else {
+        return Single.fromCallable(() -> transaction)
+            .flatMap(bundle -> remove(transaction.getUri()).toSingleDefault(bundle));
+      }
+    });
   }
 
   private Payment mapToBdsPayment(Payment transaction, Purchase purchase) {
