@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 
+import static com.asfoundation.wallet.ui.iab.ExpressCheckoutBuyFragment.PAYMENT_METHOD_CC;
 import static com.asfoundation.wallet.ui.iab.ExpressCheckoutBuyFragment.serializeJson;
 
 /**
@@ -150,8 +151,7 @@ public class CreditCardAuthorizationPresenter {
             .flatMapCompletable(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
                     transaction.toAddress(), developerPayload, origin, convertAmount(currency),
-                    currency,
-                    type)
+                    currency, type)
                     .observeOn(viewScheduler)
                     .filter(payment -> payment.isPendingAuthorization())
                     .firstOrError()
@@ -181,19 +181,20 @@ public class CreditCardAuthorizationPresenter {
 
   private void onViewCreatedCheckAuthorizationActive() {
     disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
-        .flatMap(
-                transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                    transaction.toAddress(), developerPayload, origin, convertAmount(currency),
-                    currency,
-                    type)
-                    .filter(payment -> payment.isCompleted())
-                    .firstOrError()
-                    .flatMap(adyenAuthorization -> buildBundle(billing))
-                    .observeOn(viewScheduler)
-                    .doOnSuccess(navigator::popView)
-                    .doOnSuccess(__ -> view.showSuccess()))
-            .subscribe(__ -> {
-            }, throwable -> showError(throwable)));
+        .flatMap(transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
+            transaction.toAddress(), developerPayload, origin, convertAmount(currency), currency,
+            type)
+            .filter(payment -> payment.isCompleted())
+            .firstOrError()
+            .flatMap(adyenAuthorization -> buildBundle(billing))
+            .observeOn(viewScheduler)
+            .doOnSuccess(bundle -> {
+              sendPaymentEvent(PAYMENT_METHOD_CC);
+              navigator.popView(bundle);
+            })
+            .doOnSuccess(__ -> view.showSuccess()))
+        .subscribe(__ -> {
+        }, throwable -> showError(throwable)));
   }
 
   private Single<Bundle> buildBundle(Billing billing) {
@@ -221,17 +222,15 @@ public class CreditCardAuthorizationPresenter {
 
   private void onViewCreatedCheckAuthorizationFailed() {
     disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
-        .flatMap(
-                transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                    transaction.toAddress(), developerPayload, origin, convertAmount(currency),
-                    currency,
-                    type)
-                    .filter(payment -> payment.isFailed())
-                    .firstOrError()
-                    .observeOn(viewScheduler)
-                    .doOnSuccess(adyenAuthorization -> showError(adyenAuthorization)))
-            .subscribe(__ -> {
-            }, throwable -> showError(throwable)));
+        .flatMap(transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
+            transaction.toAddress(), developerPayload, origin, convertAmount(currency), currency,
+            type)
+            .filter(payment -> payment.isFailed())
+            .firstOrError()
+            .observeOn(viewScheduler)
+            .doOnSuccess(adyenAuthorization -> showError(adyenAuthorization)))
+        .subscribe(__ -> {
+        }, throwable -> showError(throwable)));
   }
 
   private void showError(AdyenAuthorization adyenAuthorization) {
@@ -240,16 +239,14 @@ public class CreditCardAuthorizationPresenter {
 
   private void onViewCreatedCheckAuthorizationProcessing() {
     disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
-            .flatMapObservable(
-                transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                    transaction.toAddress(), developerPayload, origin, convertAmount(currency),
-                    currency,
-                    type)
-                    .filter(payment -> payment.isProcessing())
-                    .observeOn(viewScheduler)
-                    .doOnNext(__ -> view.showLoading()))
-            .subscribe(__ -> {
-            }, throwable -> showError(throwable)));
+        .flatMapObservable(transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
+            transaction.toAddress(), developerPayload, origin, convertAmount(currency), currency,
+            type)
+            .filter(payment -> payment.isProcessing())
+            .observeOn(viewScheduler)
+            .doOnNext(__ -> view.showLoading()))
+        .subscribe(__ -> {
+        }, throwable -> showError(throwable)));
   }
 
   private void handleAdyenCreditCardResults() {
