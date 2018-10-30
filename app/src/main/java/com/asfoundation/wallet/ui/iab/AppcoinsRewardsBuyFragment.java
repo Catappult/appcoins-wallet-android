@@ -39,7 +39,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   public static final String URI_KEY = "uri_key";
   public static final String PRODUCT_NAME = "product_name";
   public static final String IS_BDS = "is_bds";
-  private static final String PURCHASE_DETAILS_REWARDS = "REWARDS";
+  private static final String PAYMENT_METHOD_REWARDS = "REWARDS";
   @Inject RewardsManager rewardsManager;
   @Inject BdsPendingTransactionService bdsPendingTransactionService;
   @Inject TransactionIdRepository transactionIdRepository;
@@ -179,7 +179,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
       productDescription.setText(productName);
     }
     loadingView.setVisibility(View.GONE);
-    presenter.sendPurchaseDetails(PURCHASE_DETAILS_REWARDS);
+    presenter.sendPurchaseDetails(PAYMENT_METHOD_REWARDS);
   }
 
   @Override public void showPaymentDetails() {
@@ -192,6 +192,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   }
 
   @Override public void finish(Purchase purchase) {
+    presenter.sendPaymentEvent(PAYMENT_METHOD_REWARDS);
     iabView.finish(billingMessagesMapper.mapPurchase(purchase));
   }
 

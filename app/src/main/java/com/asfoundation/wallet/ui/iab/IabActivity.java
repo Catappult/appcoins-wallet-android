@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import com.appcoins.wallet.billing.util.PayloadHelper;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
@@ -40,7 +39,6 @@ public class IabActivity extends BaseActivity implements IabView {
   public static final String FIAT_VALUE = "fiat_value";
   private static final String TAG = IabActivity.class.getSimpleName();
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
-  @Inject BillingAnalytics analytics;
   private boolean isBackEnable;
   private IabPresenter presenter;
   private Bundle savedInstanceState;
@@ -64,7 +62,7 @@ public class IabActivity extends BaseActivity implements IabView {
     isBackEnable = true;
     presenter = new IabPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
         new CompositeDisposable(), getIntent().getData()
-        .toString(), getAppPackage(), isBds(), analytics);
+        .toString(), getAppPackage(), isBds());
 
     if (savedInstanceState != null) {
       if (savedInstanceState.containsKey(SKU_DETAILS)) {
@@ -95,7 +93,6 @@ public class IabActivity extends BaseActivity implements IabView {
   }
 
   @Override public void finish(Bundle bundle) {
-    presenter.sendPaymentEvent();
     setResult(Activity.RESULT_OK, new Intent().putExtras(bundle));
     finish();
   }

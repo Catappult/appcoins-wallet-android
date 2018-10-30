@@ -118,7 +118,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
     backButton = PublishRelay.create();
     keyboardBuyRelay = PublishRelay.create();
 
-    navigator = new CreditCardFragmentNavigator(getFragmentManager(), iabView);
+    navigator = new CreditCardFragmentNavigator(getFragmentManager(), iabView, presenter);
 
     presenter = new CreditCardAuthorizationPresenter(this, getAppPackage(), defaultWalletInteract,
         AndroidSchedulers.mainThread(), new CompositeDisposable(), adyen,
@@ -319,6 +319,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   }
 
   @Override public void close(Bundle bundle) {
+    presenter.sendCCDetailsEvent();
     iabView.close(bundle);
   }
 

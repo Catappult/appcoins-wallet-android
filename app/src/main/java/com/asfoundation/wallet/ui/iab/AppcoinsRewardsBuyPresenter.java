@@ -147,4 +147,13 @@ public class AppcoinsRewardsBuyPresenter {
         transactionBuilder.amount()
             .toString(), purchaseDetails);
   }
+
+  public void sendPaymentEvent(String purchaseDetails) {
+    TransactionBuilder transactionBuilder =
+        inAppPurchaseInteractor.parseTransaction(uri, isBds)
+            .blockingGet();
+    analytics.sendPaymentEvent(packageName, transactionBuilder.getSkuId(),
+        transactionBuilder.amount()
+            .toString(), purchaseDetails);
+  }
 }

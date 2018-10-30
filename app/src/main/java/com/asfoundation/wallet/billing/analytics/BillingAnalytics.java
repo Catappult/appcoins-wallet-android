@@ -50,7 +50,7 @@ public class BillingAnalytics implements EventSender {
     analytics.logEvent(map, CREDIT_CARD_DETAILS, AnalyticsManager.Action.CLICK, WALLET);
   }
 
-  @Override public void sendPaymentEvent(String packageName, String skuDetails, String value) {
+  @Override public void sendPaymentEvent(String packageName, String skuDetails, String value, String purchaseDetail) {
     Map<String, Object> map = new HashMap<>();
     Map<String, Object> map2 = new HashMap<>();
 
@@ -59,6 +59,7 @@ public class BillingAnalytics implements EventSender {
     map2.put(EVENT_VALUE, value);
 
     map.put(EVENT_PURCHASE, map2);
+    map.put(EVENT_PAYMENT_METHOD, purchaseDetail);
 
     analytics.logEvent(map, PAYMENT, AnalyticsManager.Action.IMPRESSION, WALLET);
   }

@@ -9,7 +9,6 @@ import com.asfoundation.wallet.billing.CreditCardBilling;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
 import com.asfoundation.wallet.billing.payment.Adyen;
-import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
@@ -337,5 +336,9 @@ public class CreditCardAuthorizationPresenter {
 
   public void sendCCDetailsEvent() {
     analytics.sendCreditCardDetailsEvent(appPackage, skuId, amount);
+  }
+
+  public void sendPaymentEvent(String purchaseDetails) {
+    analytics.sendPaymentEvent(appPackage, skuId, amount, purchaseDetails);
   }
 }

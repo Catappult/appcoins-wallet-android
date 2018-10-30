@@ -28,7 +28,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
-import com.facebook.appevents.AppEventsLogger;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxrelay2.PublishRelay;
 import dagger.android.support.DaggerFragment;
@@ -58,7 +57,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   public static final String APP_PACKAGE = "app_package";
   public static final String TRANSACTION_HASH = "transaction_hash";
   private static final String TAG = OnChainBuyFragment.class.getSimpleName();
-  public static final String PURCHASE_DETAILS_APPC = "APPC";
+  public static final String PAYMENT_METHOD_APPC = "APPC";
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   private BehaviorSubject<Object> raidenMoreInfoOkButtonClick;
   private BehaviorSubject<Boolean> createChannelClick;
@@ -232,6 +231,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   }
 
   @Override public void finish(Bundle data) {
+    presenter.sendPaymentEvent(PAYMENT_METHOD_APPC);
     iabView.finish(data);
   }
 
@@ -262,7 +262,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     buyDialogLoading.setVisibility(View.GONE);
     infoDialog.setVisibility(View.VISIBLE);
 
-    presenter.sendPurchaseDetails(PURCHASE_DETAILS_APPC);
+    presenter.sendPurchaseDetails(PAYMENT_METHOD_APPC);
   }
 
   @Override public void showTransactionCompleted() {
