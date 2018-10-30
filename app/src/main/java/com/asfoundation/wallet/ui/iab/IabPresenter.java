@@ -63,7 +63,7 @@ public class IabPresenter {
     if (isWalletFromBds) {
       return showBdsPayment(transaction);
     }
-    return Completable.fromAction(() -> view.showOnChain(transaction.amount()));
+    return Completable.fromAction(() -> view.showOnChain(transaction.amount(), false));
   }
 
   private Completable showBdsPayment(TransactionBuilder transactionBuilder) {
@@ -72,7 +72,7 @@ public class IabPresenter {
         .doOnSuccess(gateway -> {
           switch (gateway) {
             case appcoins:
-              view.showOnChain(transactionBuilder.amount());
+              view.showOnChain(transactionBuilder.amount(), true);
               break;
             case adyen:
               view.showCcPayment(transactionBuilder.amount(), DEFAULT_CURRENCY);

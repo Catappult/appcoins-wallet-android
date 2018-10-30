@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import com.appcoins.wallet.billing.util.PayloadHelper;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
@@ -125,13 +124,13 @@ public class IabActivity extends BaseActivity implements IabView {
         .commit();
   }
 
-  @Override public void showOnChain(BigDecimal amount) {
+  @Override public void showOnChain(BigDecimal amount, boolean isBds) {
     if (savedInstanceState == null && getSupportFragmentManager().getFragments()
         .isEmpty()) {
       getSupportFragmentManager().beginTransaction()
           .add(R.id.fragment_container, OnChainBuyFragment.newInstance(createBundle(amount),
               getIntent().getData()
-                  .toString(), isBds()))
+                  .toString(), isBds() || isBds))
           .commit();
     }
   }
