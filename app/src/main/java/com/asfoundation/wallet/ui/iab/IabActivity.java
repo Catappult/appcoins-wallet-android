@@ -5,11 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import com.appcoins.wallet.billing.util.PayloadHelper;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.ui.BaseActivity;
-import com.facebook.appevents.AppEventsLogger;
 import dagger.android.AndroidInjection;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -39,6 +40,7 @@ public class IabActivity extends BaseActivity implements IabView {
   public static final String FIAT_VALUE = "fiat_value";
   private static final String TAG = IabActivity.class.getSimpleName();
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
+  @Inject BillingAnalytics analytics;
   private boolean isBackEnable;
   private IabPresenter presenter;
   private Bundle savedInstanceState;
@@ -62,7 +64,7 @@ public class IabActivity extends BaseActivity implements IabView {
     isBackEnable = true;
     presenter = new IabPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
         new CompositeDisposable(), getIntent().getData()
-        .toString(), getAppPackage(), isBds());
+        .toString(), getAppPackage(), isBds(), analytics);
 
     if (savedInstanceState != null) {
       if (savedInstanceState.containsKey(SKU_DETAILS)) {
@@ -93,8 +95,7 @@ public class IabActivity extends BaseActivity implements IabView {
   }
 
   @Override public void finish(Bundle bundle) {
-    AppEventsLogger.newLogger(this)
-        .logEvent("in_app_purchase_success");
+    presenter.sendPaymentEvent();
     setResult(Activity.RESULT_OK, new Intent().putExtras(bundle));
     finish();
   }
@@ -139,8 +140,8 @@ public class IabActivity extends BaseActivity implements IabView {
     if (savedInstanceState == null && getSupportFragmentManager().getFragments()
         .isEmpty()) {
       getSupportFragmentManager().beginTransaction()
-          .add(R.id.fragment_container, ExpressCheckoutBuyFragment.newInstance(createBundle(
-              BigDecimal.valueOf(amount.doubleValue()), currency)))
+          .add(R.id.fragment_container, ExpressCheckoutBuyFragment.newInstance(
+              createBundle(BigDecimal.valueOf(amount.doubleValue()), currency), isBds()))
           .commit();
     }
   }

@@ -26,6 +26,7 @@ allprojects {
     mavenCentral()
     maven { url 'https://jitpack.io' }
     maven { url "https://dl.bintray.com/asf/asf" }
+    maven { url "https://dl.bintray.com/aptoide/Aptoide" }
     // needed for pincode Lollipin
     maven {
       url "https://github.com/omadahealth/omada-nexus/raw/master/release"

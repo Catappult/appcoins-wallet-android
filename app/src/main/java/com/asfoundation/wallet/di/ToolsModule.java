@@ -19,6 +19,7 @@ import com.appcoins.wallet.bdsbilling.repository.BdsApiResponseMapper;
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary;
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository;
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
+import cm.aptoide.analytics.AnalyticsManager;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.commons.MemoryCache;
@@ -30,10 +31,17 @@ import com.asfoundation.wallet.AirdropService;
 import com.asfoundation.wallet.App;
 import com.asfoundation.wallet.FabricLogger;
 import com.asfoundation.wallet.Logger;
+import com.asfoundation.wallet.analytics.AnalyticsAPI;
+import com.asfoundation.wallet.analytics.BackendEventLogger;
+import com.asfoundation.wallet.analytics.FacebookEventLogger;
+import com.asfoundation.wallet.analytics.HttpClientKnockLogger;
+import com.asfoundation.wallet.analytics.KeysNormalizer;
+import com.asfoundation.wallet.analytics.LogcatAnalyticsLogger;
 import com.asfoundation.wallet.apps.Applications;
 import com.asfoundation.wallet.billing.AdyenBilling;
 import com.asfoundation.wallet.billing.BDSTransactionService;
 import com.asfoundation.wallet.billing.TransactionService;
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.billing.payment.Adyen;
 import com.asfoundation.wallet.billing.purchase.CreditCardBillingFactory;
 import com.asfoundation.wallet.interact.AddTokenInteract;
@@ -123,6 +131,7 @@ import com.asfoundation.wallet.ui.iab.raiden.Web3jNonceProvider;
 import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.TransferParser;
 import com.bds.microraidenj.MicroRaidenBDS;
+import com.facebook.appevents.AppEventsLogger;
 import com.google.gson.Gson;
 import com.jakewharton.rxrelay2.PublishRelay;
 import dagger.Module;
@@ -134,6 +143,7 @@ import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -709,5 +719,46 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         return null;
       }
     };
+  }
+
+  @Singleton @Provides AnalyticsAPI provideAnalyticsAPI(OkHttpClient client) {
+    return new Retrofit.Builder().baseUrl("http://ws75.aptoide.com/api/7/")
+        .client(client)
+        .addConverterFactory(JacksonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(AnalyticsAPI.class);
+  }
+
+  @Singleton @Provides @Named("bi_event_list") List<String> provideBiEventList() {
+    List<String> list = new ArrayList<>();
+    list.add(BillingAnalytics.PURCHASE_DETAILS);
+    list.add(BillingAnalytics.CREDIT_CARD_DETAILS);
+    list.add(BillingAnalytics.PAYMENT);
+    return list;
+  }
+
+  @Singleton @Provides @Named("facebook_event_list") List<String> provideFacebookEventList() {
+    List<String> list = new ArrayList<>();
+    list.add(BillingAnalytics.PURCHASE_DETAILS);
+    list.add(BillingAnalytics.CREDIT_CARD_DETAILS);
+    list.add(BillingAnalytics.PAYMENT);
+    return list;
+  }
+
+  @Singleton @Provides AnalyticsManager provideAnalyticsManager(OkHttpClient okHttpClient,
+      AnalyticsAPI api, Context context, @Named("bi_event_list") List<String> biEventList,
+      @Named("facebook_event_list") List<String> facebookEventList) {
+
+    return new AnalyticsManager.Builder().addLogger(new BackendEventLogger(api), biEventList)
+        .addLogger(new FacebookEventLogger(AppEventsLogger.newLogger(context)), facebookEventList)
+        .setAnalyticsNormalizer(new KeysNormalizer())
+        .setDebugLogger(new LogcatAnalyticsLogger())
+        .setKnockLogger(new HttpClientKnockLogger(okHttpClient))
+        .build();
+  }
+
+  @Singleton @Provides BillingAnalytics provideBillingAnalytics(AnalyticsManager analytics) {
+    return new BillingAnalytics(analytics);
   }
 }

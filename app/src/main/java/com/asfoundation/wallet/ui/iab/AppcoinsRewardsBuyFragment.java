@@ -19,6 +19,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.asfoundation.wallet.util.TransferParser;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -38,6 +39,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   public static final String URI_KEY = "uri_key";
   public static final String PRODUCT_NAME = "product_name";
   public static final String IS_BDS = "is_bds";
+  private static final String PURCHASE_DETAILS_REWARDS = "REWARDS";
   @Inject RewardsManager rewardsManager;
   @Inject BdsPendingTransactionService bdsPendingTransactionService;
   @Inject TransactionIdRepository transactionIdRepository;
@@ -62,6 +64,8 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   private View transactionErrorLayout;
   private TextView errorMessage;
   private View okErrorButton;
+  @Inject BillingAnalytics analytics;
+  @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
 
   public static Fragment newInstance(BigDecimal amount, String packageName, String uri,
       String productName, boolean isBds) {
@@ -110,7 +114,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
         AndroidSchedulers.mainThread(),
             new CompositeDisposable(), amount, BuildConfig.DEFAULT_STORE_ADDRESS,
             BuildConfig.DEFAULT_OEM_ADDRESS, uri, getCallerPackageName(), transferParser,
-            getProductName(), isBds);
+            getProductName(), isBds, analytics, inAppPurchaseInteractor);
 
     Single.defer(() -> Single.just(getCallerPackageName()))
         .observeOn(Schedulers.io())
@@ -175,6 +179,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
       productDescription.setText(productName);
     }
     loadingView.setVisibility(View.GONE);
+    presenter.sendPurchaseDetails(PURCHASE_DETAILS_REWARDS);
   }
 
   @Override public void showPaymentDetails() {
@@ -235,7 +240,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   }
 
   @Override public void errorClose() {
-    iabView.finish(billingMessagesMapper.genericError());
+    iabView.close(billingMessagesMapper.genericError());
   }
 
   @Override public void onAttach(Context context) {

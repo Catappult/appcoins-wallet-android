@@ -25,8 +25,6 @@ public class Erc681Receiver extends BaseActivity {
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     AndroidInjection.inject(this);
     super.onCreate(savedInstanceState);
-    AppEventsLogger.newLogger(this)
-        .logEvent("in_app_purchase_dialog_open");
     if (savedInstanceState == null) {
       disposable = walletInteract.find()
           .flatMap(__ -> transferParser.parse(getIntent().getDataString()))

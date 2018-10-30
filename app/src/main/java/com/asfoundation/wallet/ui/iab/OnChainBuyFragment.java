@@ -27,6 +27,7 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.facebook.appevents.AppEventsLogger;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxrelay2.PublishRelay;
@@ -57,6 +58,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   public static final String APP_PACKAGE = "app_package";
   public static final String TRANSACTION_HASH = "transaction_hash";
   private static final String TAG = OnChainBuyFragment.class.getSimpleName();
+  public static final String PURCHASE_DETAILS_APPC = "APPC";
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   private BehaviorSubject<Object> raidenMoreInfoOkButtonClick;
   private BehaviorSubject<Boolean> createChannelClick;
@@ -93,6 +95,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   private Bundle extras;
   private String data;
   private boolean isBds;
+  @Inject BillingAnalytics analytics;
 
   public static OnChainBuyFragment newInstance(Bundle extras, String data, boolean bdsIap) {
     OnChainBuyFragment fragment = new OnChainBuyFragment();
@@ -149,7 +152,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     presenter =
         new OnChainBuyPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
             new CompositeDisposable(), inAppPurchaseInteractor.getBillingMessagesMapper(), isBds,
-            extras.getString(PRODUCT_NAME));
+            extras.getString(PRODUCT_NAME), analytics, getAppPackage(), data);
     adapter =
         new ArrayAdapter<>(getContext().getApplicationContext(), R.layout.iab_raiden_dropdown_item,
             R.id.item, new ArrayList<>());
@@ -259,8 +262,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     buyDialogLoading.setVisibility(View.GONE);
     infoDialog.setVisibility(View.VISIBLE);
 
-    AppEventsLogger.newLogger(getContext())
-        .logEvent("in_app_purchase_dialog_on_chain_open");
+    presenter.sendPurchaseDetails(PURCHASE_DETAILS_APPC);
   }
 
   @Override public void showTransactionCompleted() {

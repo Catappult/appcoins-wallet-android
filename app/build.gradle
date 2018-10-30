@@ -58,7 +58,7 @@ android {
     buildConfigField 'String', 'MAIN_NETWORK_DEFAULT_TOKEN_NAME',
         "\"" + project.MAIN_NETWORK_DEFAULT_TOKEN_NAME + "\""
     buildConfigField 'int', 'ROPSTEN_DEFAULT_TOKEN_DECIMALS', project.ROPSTEN_DEFAULT_TOKEN_DECIMALS
-    manifestPlaceholders.fabricApiKey = "${project.ASF_WALLET_FABRIC_KEY}"
+    manifestPlaceholders.fabricApiKey = "${project.BDS_WALLET_FABRIC_KEY}"
 
     buildConfigField 'String', 'MAIN_NETWORK_DEFAULT_TOKEN_SYMBOL',
         "\"" + project.MAIN_NETWORK_DEFAULT_TOKEN_SYMBOL + "\""
@@ -231,6 +231,7 @@ dependencies {
   // Needed to fill the gap between wallet's rxjava2 and billing rxjava1.
   implementation "com.github.akarnokd:rxjava2-interop:0.13.0"
   implementation "com.facebook.android:facebook-android-sdk:4.35.0"
+  implementation "aptoide-client-v8:aptoide-analytics-core:1.0.3"
   implementation project(path: ':appcoinsRewards')
   implementation project(path: ':commons')
 

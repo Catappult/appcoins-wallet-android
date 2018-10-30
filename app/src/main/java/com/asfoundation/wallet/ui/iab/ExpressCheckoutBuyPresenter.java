@@ -5,7 +5,10 @@ import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -28,12 +31,15 @@ public class ExpressCheckoutBuyPresenter {
   private final BillingMessagesMapper billingMessagesMapper;
   private final BdsPendingTransactionService bdsPendingTransactionService;
   private final Billing billing;
+  private final BillingAnalytics analytics;
+  private final boolean isBds;
   private final String uri;
 
   public ExpressCheckoutBuyPresenter(ExpressCheckoutBuyView view, String appPackage,
       InAppPurchaseInteractor inAppPurchaseInteractor, Scheduler viewScheduler,
       CompositeDisposable disposables, BillingMessagesMapper billingMessagesMapper,
-      BdsPendingTransactionService bdsPendingTransactionService, Billing billing, String uri) {
+      BdsPendingTransactionService bdsPendingTransactionService, Billing billing,
+      BillingAnalytics analytics, boolean isBds, String uri) {
     this.view = view;
     this.appPackage = appPackage;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
@@ -42,6 +48,8 @@ public class ExpressCheckoutBuyPresenter {
     this.billingMessagesMapper = billingMessagesMapper;
     this.bdsPendingTransactionService = bdsPendingTransactionService;
     this.billing = billing;
+    this.analytics = analytics;
+    this.isBds = isBds;
     this.uri = uri;
   }
 
@@ -151,5 +159,14 @@ public class ExpressCheckoutBuyPresenter {
         .doOnNext(__ -> close())
         .subscribe(__ -> {
         }, this::showError));
+  }
+
+  public void sendPurchaseDetails(String purchaseDetails) {
+    TransactionBuilder transactionBuilder =
+        inAppPurchaseInteractor.parseTransaction(uri, isBds)
+            .blockingGet();
+    analytics.sendPurchaseDetailsEvent(appPackage, transactionBuilder.getSkuId(),
+        transactionBuilder.amount()
+            .toString(), purchaseDetails);
   }
 }
