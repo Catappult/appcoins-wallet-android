@@ -134,7 +134,7 @@ public class InAppPurchaseInteractor {
   public Single<Payment> getCompletedPurchase(Payment transaction, boolean isBds) {
     return parseTransaction(transaction.getUri(), isBds).flatMap(transactionBuilder -> {
       if (isBds && transactionBuilder.getType()
-          .equalsIgnoreCase(TransactionData.TransactionType.DONATION.name())) {
+          .equalsIgnoreCase(TransactionData.TransactionType.INAPP.name())) {
         return getCompletedPurchase(transaction.getPackageName(), transaction.getProductId()).map(
             purchase -> mapToBdsPayment(transaction, purchase))
             .observeOn(AndroidSchedulers.mainThread())
