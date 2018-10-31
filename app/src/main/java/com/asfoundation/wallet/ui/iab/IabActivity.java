@@ -110,14 +110,14 @@ public class IabActivity extends BaseActivity implements IabView {
     finish();
   }
 
-  @Override public void navigateToCreditCardAuthorization() {
+  @Override public void navigateToCreditCardAuthorization(boolean isBds) {
     TransactionBuilder builder =
         inAppPurchaseInteractor.parseTransaction(getIntent().getDataString(), isBds())
             .blockingGet();
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container,
             CreditCardAuthorizationFragment.newInstance(skuDetails, builder.getSkuId(),
-                builder.getType(), isBds() ? BDS : null))
+                builder.getType(), (isBds() || isBds) ? BDS : null))
         .commit();
   }
 
