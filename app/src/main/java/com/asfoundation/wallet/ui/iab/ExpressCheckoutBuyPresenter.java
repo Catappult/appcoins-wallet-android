@@ -169,4 +169,8 @@ public class ExpressCheckoutBuyPresenter {
         transactionBuilder.amount()
             .toString(), purchaseDetails);
   }
+
+  public boolean isBds() {
+    return isBds;
+  }
 }
