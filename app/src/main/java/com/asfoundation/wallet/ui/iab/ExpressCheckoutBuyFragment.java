@@ -121,7 +121,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     extras = getArguments().getBundle("extras");
     String uriString = extras.getString(TRANSACTION_DATA);
 
-    boolean isBds = extras.getBoolean("isBds");
+    boolean isBds = getArguments().getBoolean("isBds");
 
     presenter = new ExpressCheckoutBuyPresenter(this, getAppPackage(), inAppPurchaseInteractor,
         AndroidSchedulers.mainThread(), new CompositeDisposable(),
