@@ -165,7 +165,6 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
           appIcon.setImageDrawable(pair.second);
         }, throwable -> {
           throwable.printStackTrace();
-          showError();
         });
 
     buyButton.setOnClickListener(v -> iabView.navigateToCreditCardAuthorization(presenter.isBds()));
