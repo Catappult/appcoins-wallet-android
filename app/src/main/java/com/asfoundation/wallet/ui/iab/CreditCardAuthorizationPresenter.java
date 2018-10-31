@@ -11,6 +11,7 @@ import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
 import com.asfoundation.wallet.billing.payment.Adyen;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import io.reactivex.Completable;
+import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
@@ -19,6 +20,7 @@ import io.reactivex.schedulers.Schedulers;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.asfoundation.wallet.ui.iab.ExpressCheckoutBuyFragment.PAYMENT_METHOD_CC;
 import static com.asfoundation.wallet.ui.iab.ExpressCheckoutBuyFragment.serializeJson;
@@ -214,6 +216,11 @@ public class CreditCardAuthorizationPresenter {
                 .map(purchase -> bundle);
           } else {
             return inAppPurchaseInteractor.getTransactionUid(creditCardBilling.getTransactionUid())
+                .retryWhen(errors -> {
+                  AtomicInteger counter = new AtomicInteger();
+                  return errors.takeWhile(e -> counter.getAndIncrement() != 3)
+                      .flatMap(e -> Flowable.timer(counter.get(), TimeUnit.SECONDS));
+                })
                 .doOnSuccess(txHash -> bundle.putString(IabActivity.TRANSACTION_HASH, txHash))
                 .map(s -> bundle);
           }

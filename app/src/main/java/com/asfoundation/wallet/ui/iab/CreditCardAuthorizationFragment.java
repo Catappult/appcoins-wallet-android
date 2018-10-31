@@ -192,6 +192,8 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   }
 
   @Override public void onDestroyView() {
+    presenter.stop();
+
     progressBar = null;
     productIcon = null;
     productName = null;
