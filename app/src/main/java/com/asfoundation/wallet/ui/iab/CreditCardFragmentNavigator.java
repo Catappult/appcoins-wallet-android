@@ -3,7 +3,6 @@ package com.asfoundation.wallet.ui.iab;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
-import static com.asfoundation.wallet.ui.iab.ExpressCheckoutBuyFragment.PAYMENT_METHOD_CC;
 
 public class CreditCardFragmentNavigator implements CreditCardNavigator {
 
