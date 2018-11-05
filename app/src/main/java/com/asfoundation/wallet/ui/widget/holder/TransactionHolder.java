@@ -148,7 +148,7 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
         .load(uri)
         .transform(new CircleTransformation())
         .placeholder(finalTransactionTypeIcon)
-        .error(transactionTypeIcon)
+        .error(transactionTypeIcon).fit()
         .into(srcImage, new Callback() {
           @Override public void onSuccess() {
             ((ImageView) typeIcon.findViewById(R.id.icon)).setImageResource(
