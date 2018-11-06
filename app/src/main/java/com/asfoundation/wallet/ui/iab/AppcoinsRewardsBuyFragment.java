@@ -32,6 +32,8 @@ import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import javax.inject.Inject;
 
+import static com.asfoundation.wallet.billing.analytics.BillingAnalytics.PAYMENT_METHOD_REWARDS;
+
 public class AppcoinsRewardsBuyFragment extends DaggerFragment implements AppcoinsRewardsBuyView {
 
   public static final String AMOUNT_KEY = "amount";
@@ -39,7 +41,6 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   public static final String URI_KEY = "uri_key";
   public static final String PRODUCT_NAME = "product_name";
   public static final String IS_BDS = "is_bds";
-  private static final String PAYMENT_METHOD_REWARDS = "REWARDS";
   @Inject RewardsManager rewardsManager;
   @Inject BdsPendingTransactionService bdsPendingTransactionService;
   @Inject TransactionIdRepository transactionIdRepository;
