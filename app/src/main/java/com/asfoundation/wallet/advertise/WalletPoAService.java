@@ -69,9 +69,9 @@ public class WalletPoAService extends Service {
   }
 
   @Override public int onStartCommand(Intent intent, int flags, int startId) {
-    startNotifications();
-    if (!isBound && intent != null) {
-      if (intent.hasExtra(PARAM_APP_PACKAGE_NAME)) {
+    if (intent != null && intent.hasExtra(PARAM_APP_PACKAGE_NAME)) {
+      startNotifications();
+      if (!isBound) {
         // set the chain id received from the application. If not received, it is set as the main
         String packageName = intent.getStringExtra(PARAM_APP_PACKAGE_NAME);
         requirementsDisposable =
@@ -90,8 +90,6 @@ public class WalletPoAService extends Service {
                   showGenericErrorNotificationAndStopForeground();
                 });
       }
-    }
-    if (intent != null && intent.hasExtra(PARAM_APP_PACKAGE_NAME)) {
       setTimeout(intent.getStringExtra(PARAM_APP_PACKAGE_NAME));
     }
     return super.onStartCommand(intent, flags, startId);
@@ -120,6 +118,7 @@ public class WalletPoAService extends Service {
     notificationManager.notify(SERVICE_ID,
         createDefaultNotificationBuilder(R.string.notification_generic_error).build());
     stopForeground(false);
+    stopTimeout();
   }
 
   private void processWalletSate(ProofSubmissionFeeData.RequirementsStatus requirementsStatus,
@@ -217,8 +216,8 @@ public class WalletPoAService extends Service {
             createDefaultNotificationBuilder(R.string.notification_not_available_poa).build());
         break;
       case NOT_AVAILABLE_ON_COUNTRY:
-        notificationManager.notify(SERVICE_ID,
-            createDefaultNotificationBuilder(R.string.notification_not_available_for_country_poa).build());
+        notificationManager.notify(SERVICE_ID, createDefaultNotificationBuilder(
+            R.string.notification_not_available_for_country_poa).build());
         break;
       case ALREADY_REWARDED:
         notificationManager.notify(SERVICE_ID,
