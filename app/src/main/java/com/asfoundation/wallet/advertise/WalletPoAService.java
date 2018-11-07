@@ -106,8 +106,6 @@ public class WalletPoAService extends Service {
 
   @Override public boolean onUnbind(Intent intent) {
     isBound = false;
-    stopForeground(false);
-    stopTimeout();
     return true;
   }
 
