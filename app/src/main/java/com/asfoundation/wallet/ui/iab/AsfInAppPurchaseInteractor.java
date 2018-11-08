@@ -346,7 +346,12 @@ public class AsfInAppPurchaseInteractor {
           case appcoins:
             return CurrentPaymentStep.PAUSED_ON_CHAIN;
           case adyen:
-            return CurrentPaymentStep.PAUSED_CC_PAYMENT;
+            if (transaction.getStatus()
+                .equals(Transaction.Status.PROCESSING)) {
+              return CurrentPaymentStep.PAUSED_CC_PAYMENT;
+            } else {
+              return isBuyReady ? CurrentPaymentStep.READY : CurrentPaymentStep.NO_FUNDS;
+            }
           default:
           case unknown:
             throw new UnknownServiceException("Unknown gateway");
