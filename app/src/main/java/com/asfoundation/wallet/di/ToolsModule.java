@@ -81,7 +81,6 @@ import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.IpCountryCodeProvider;
 import com.asfoundation.wallet.repository.NoValidateTransactionValidator;
-import com.asfoundation.wallet.repository.NonceGetter;
 import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.PreferenceRepositoryType;
@@ -489,11 +488,6 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .build()
         .create(IpCountryCodeProvider.IpApi.class);
     return new IpCountryCodeProvider(api);
-  }
-
-  @Provides NonceGetter provideNonceGetter(EthereumNetworkRepositoryType networkRepository,
-      FindDefaultWalletInteract defaultWalletInteract) {
-    return new NonceGetter(networkRepository, defaultWalletInteract);
   }
 
   @Provides @Singleton AppcoinsOperationsDataSaver provideInAppPurchaseDataSaver(Context context,

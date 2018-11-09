@@ -4,7 +4,6 @@ import android.content.Context;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.poa.BlockchainErrorMapper;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
-import com.asfoundation.wallet.repository.NonceGetter;
 import com.asfoundation.wallet.repository.NotTrackTransactionService;
 import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.PreferenceRepositoryType;
@@ -88,11 +87,10 @@ import okhttp3.OkHttpClient;
       EthereumNetworkRepositoryType networkRepository,
       AccountKeystoreService accountKeystoreService,
       TransactionsNetworkClientType blockExplorerClient, TransactionLocalSource inDiskCache,
-      DefaultTokenProvider defaultTokenProvider, NonceGetter nonceGetter,
-      NonceObtainer nonceObtainer) {
+      DefaultTokenProvider defaultTokenProvider, NonceObtainer nonceObtainer) {
     return new TransactionRepository(networkRepository, accountKeystoreService, inDiskCache,
-        blockExplorerClient, defaultTokenProvider, nonceGetter, new BlockchainErrorMapper(),
-        nonceObtainer, Schedulers.io());
+        blockExplorerClient, defaultTokenProvider, new BlockchainErrorMapper(), nonceObtainer,
+        Schedulers.io());
   }
 
   @Singleton @Provides TransactionLocalSource provideTransactionInDiskCache(

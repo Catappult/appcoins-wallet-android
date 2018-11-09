@@ -5,7 +5,7 @@ import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
 import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class SendTransactionInteract {
 
@@ -20,8 +20,8 @@ public class SendTransactionInteract {
 
   public Single<String> send(TransactionBuilder transactionBuilder) {
     return passwordStore.getPassword(new Wallet(transactionBuilder.fromAddress()))
-        .flatMap(password -> transactionRepository.createTransaction(transactionBuilder, password)
-            .observeOn(AndroidSchedulers.mainThread()));
+        .subscribeOn(Schedulers.io())
+        .flatMap(password -> transactionRepository.createTransaction(transactionBuilder, password));
   }
 
   public Single<String> approve(TransactionBuilder transactionBuilder) {

@@ -9,6 +9,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.router.GasSettingsRouter;
 import com.crashlytics.android.Crashlytics;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class ConfirmationViewModel extends BaseViewModel {
   private final MutableLiveData<TransactionBuilder> transactionBuilder = new MutableLiveData<>();
@@ -51,6 +52,7 @@ public class ConfirmationViewModel extends BaseViewModel {
     progress.postValue(true);
     disposable = sendTransactionInteract.send(transactionBuilder.getValue())
         .map(hash -> new PendingTransaction(hash, false))
+        .observeOn(AndroidSchedulers.mainThread())
         .subscribe(this::onCreateTransaction, this::onError);
   }
 
