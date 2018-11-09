@@ -256,8 +256,8 @@ public class AsfInAppPurchaseInteractor {
 
   private Single<PaymentTransaction> buildPaymentTransaction(String uri, String packageName,
       String productName, String developerPayload) {
-    return Single.zip(parseTransaction(uri), defaultWalletInteract.find(),
-        (transaction, wallet) -> transaction.fromAddress(wallet.address))
+    return Single.zip(parseTransaction(uri).observeOn(scheduler), defaultWalletInteract.find()
+        .observeOn(scheduler), (transaction, wallet) -> transaction.fromAddress(wallet.address))
         .flatMap(transactionBuilder -> gasSettingsInteract.fetch(true)
             .map(gasSettings -> transactionBuilder.gasSettings(
                 new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
