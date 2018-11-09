@@ -4,7 +4,7 @@ import com.asf.microraidenj.type.Address;
 import java.io.IOException;
 import java.math.BigInteger;
 
-public class NonceObtainer implements com.asf.microraidenj.eth.NonceObtainer {
+public class MultiWalletNonceObtainer implements com.asf.microraidenj.eth.NonceObtainer {
   private final int refreshIntervalMillis;
   private final NonceProvider nonceProvider;
   private final Object object = new Object();
@@ -14,7 +14,7 @@ public class NonceObtainer implements com.asf.microraidenj.eth.NonceObtainer {
   /**
    * @param refreshIntervalMillis time window between each nonce sync with ethereum network.
    */
-  public NonceObtainer(int refreshIntervalMillis, NonceProvider nonceProvider) {
+  public MultiWalletNonceObtainer(int refreshIntervalMillis, NonceProvider nonceProvider) {
     this.refreshIntervalMillis = refreshIntervalMillis;
     this.nonceProvider = nonceProvider;
   }

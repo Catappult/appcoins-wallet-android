@@ -121,7 +121,7 @@ import com.asfoundation.wallet.ui.iab.RewardsManager;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase;
 import com.asfoundation.wallet.ui.iab.raiden.AppcoinsRaiden;
 import com.asfoundation.wallet.ui.iab.raiden.ChannelService;
-import com.asfoundation.wallet.ui.iab.raiden.NonceObtainer;
+import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer;
 import com.asfoundation.wallet.ui.iab.raiden.PrivateKeyProvider;
 import com.asfoundation.wallet.ui.iab.raiden.Raiden;
 import com.asfoundation.wallet.ui.iab.raiden.RaidenFactory;
@@ -383,7 +383,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides MicroRaidenBDS provideMicroRaidenBDS(Web3jProvider web3jProvider,
-      GasSettingsRepositoryType gasSettings, NonceObtainer nonceObtainer) {
+      GasSettingsRepositoryType gasSettings, MultiWalletNonceObtainer nonceObtainer) {
     return new RaidenFactory(web3jProvider, gasSettings, nonceObtainer).get();
   }
 
@@ -397,8 +397,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()));
   }
 
-  @Provides NonceObtainer provideNonceObtainer(Web3jProvider web3jProvider) {
-    return new NonceObtainer(30000, new Web3jNonceProvider(web3jProvider));
+  @Provides MultiWalletNonceObtainer provideNonceObtainer(Web3jProvider web3jProvider) {
+    return new MultiWalletNonceObtainer(30000, new Web3jNonceProvider(web3jProvider));
   }
 
   @Provides BalanceService provideBalanceService(GetDefaultWalletBalance getDefaultWalletBalance) {

@@ -7,12 +7,12 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class NonceObtainerTest {
+public class MultiWalletNonceObtainerTest {
   private static int nonce = 0;
-  private NonceObtainer nonceObtainer;
+  private MultiWalletNonceObtainer nonceObtainer;
 
   @Before public void setUp() throws Exception {
-    nonceObtainer = new NonceObtainer(1, address -> new BigInteger(String.valueOf(nonce)));
+    nonceObtainer = new MultiWalletNonceObtainer(1, address -> new BigInteger(String.valueOf(nonce)));
   }
 
   @Test public void getNonce() {

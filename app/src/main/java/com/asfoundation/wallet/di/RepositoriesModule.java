@@ -30,7 +30,7 @@ import com.asfoundation.wallet.service.TokenExplorerClientType;
 import com.asfoundation.wallet.service.TransactionsNetworkClient;
 import com.asfoundation.wallet.service.TransactionsNetworkClientType;
 import com.asfoundation.wallet.service.Web3jKeystoreAccountService;
-import com.asfoundation.wallet.ui.iab.raiden.NonceObtainer;
+import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import dagger.Module;
@@ -87,7 +87,7 @@ import okhttp3.OkHttpClient;
       EthereumNetworkRepositoryType networkRepository,
       AccountKeystoreService accountKeystoreService,
       TransactionsNetworkClientType blockExplorerClient, TransactionLocalSource inDiskCache,
-      DefaultTokenProvider defaultTokenProvider, NonceObtainer nonceObtainer) {
+      DefaultTokenProvider defaultTokenProvider, MultiWalletNonceObtainer nonceObtainer) {
     return new TransactionRepository(networkRepository, accountKeystoreService, inDiskCache,
         blockExplorerClient, defaultTokenProvider, new BlockchainErrorMapper(), nonceObtainer,
         Schedulers.io());

@@ -24,10 +24,10 @@ public class RaidenFactory {
   private final BigInteger maxDeposit = new BigInteger("1000000000000000000000000");
   private final Web3jProvider web3jProvider;
   private final GasSettingsRepositoryType gasSettingsRepositoryType;
-  private final NonceObtainer nonceObtainer;
+  private final MultiWalletNonceObtainer nonceObtainer;
 
   public RaidenFactory(Web3jProvider web3jProvider,
-      GasSettingsRepositoryType gasSettingsRepositoryType, NonceObtainer nonceObtainer) {
+      GasSettingsRepositoryType gasSettingsRepositoryType, MultiWalletNonceObtainer nonceObtainer) {
     this.web3jProvider = web3jProvider;
     this.gasSettingsRepositoryType = gasSettingsRepositoryType;
     this.nonceObtainer = nonceObtainer;

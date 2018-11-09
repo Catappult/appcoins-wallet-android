@@ -10,7 +10,7 @@ import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.poa.BlockchainErrorMapper;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.TransactionsNetworkClientType;
-import com.asfoundation.wallet.ui.iab.raiden.NonceObtainer;
+import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer;
 import ethereumj.Transaction;
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
@@ -35,13 +35,13 @@ public class TransactionRepository implements TransactionRepositoryType {
   private final TransactionsNetworkClientType blockExplorerClient;
   private final DefaultTokenProvider defaultTokenProvider;
   private final BlockchainErrorMapper errorMapper;
-  private final NonceObtainer nonceObtainer;
+  private final MultiWalletNonceObtainer nonceObtainer;
   private final Scheduler scheduler;
 
   public TransactionRepository(EthereumNetworkRepositoryType networkRepository,
       AccountKeystoreService accountKeystoreService, TransactionLocalSource inDiskCache,
       TransactionsNetworkClientType blockExplorerClient, DefaultTokenProvider defaultTokenProvider,
-      BlockchainErrorMapper errorMapper, NonceObtainer nonceObtainer, Scheduler scheduler) {
+      BlockchainErrorMapper errorMapper, MultiWalletNonceObtainer nonceObtainer, Scheduler scheduler) {
     this.networkRepository = networkRepository;
     this.accountKeystoreService = accountKeystoreService;
     this.blockExplorerClient = blockExplorerClient;
