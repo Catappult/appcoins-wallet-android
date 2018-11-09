@@ -15,6 +15,7 @@ import com.bds.microraidenj.util.DefaultTransactionSender;
 import com.bds.microraidenj.ws.BDSMicroRaidenApi;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import org.apache.commons.lang3.NotImplementedException;
 
 public class RaidenFactory {
   private static final String TAG = RaidenFactory.class.getSimpleName();
@@ -24,13 +25,11 @@ public class RaidenFactory {
   private final BigInteger maxDeposit = new BigInteger("1000000000000000000000000");
   private final Web3jProvider web3jProvider;
   private final GasSettingsRepositoryType gasSettingsRepositoryType;
-  private final NonceObtainer nonceObtainer;
 
   public RaidenFactory(Web3jProvider web3jProvider,
-      GasSettingsRepositoryType gasSettingsRepositoryType, NonceObtainer nonceObtainer) {
+      GasSettingsRepositoryType gasSettingsRepositoryType) {
     this.web3jProvider = web3jProvider;
     this.gasSettingsRepositoryType = gasSettingsRepositoryType;
-    this.nonceObtainer = nonceObtainer;
   }
 
   public MicroRaidenBDS get() {
@@ -39,8 +38,10 @@ public class RaidenFactory {
             () -> gasSettingsRepositoryType.getGasSettings(true)
                 .map(gasSettings -> gasSettings.gasPrice.multiply(BigDecimal.valueOf(18))
                     .toBigInteger())
-                .blockingGet(), nonceObtainer,
-            new DefaultGasLimitEstimator(web3jProvider.getDefault())));
+                .blockingGet(), address -> {
+          throw new NotImplementedException(
+              "There is no nonce getter that supports micro raiden anymore");
+        }, new DefaultGasLimitEstimator(web3jProvider.getDefault())));
     ChannelBlockObtainer channelBlockObtainer =
         new DefaultChannelBlockObtainer(web3jProvider.getDefault(), 5, 1500);
     MicroRaidenClient microRaidenClient =
