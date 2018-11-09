@@ -1,58 +1,59 @@
 package com.asfoundation.wallet.ui.iab.raiden;
 
 import com.asf.microraidenj.type.Address;
-import java.io.IOException;
 import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
 
-public class MultiWalletNonceObtainer implements com.asf.microraidenj.eth.NonceObtainer {
-  private final int refreshIntervalMillis;
-  private final NonceProvider nonceProvider;
-  private final Object object = new Object();
-  private AtomicBigInteger atomicBigInteger;
-  private long refreshTime;
+public class MultiWalletNonceObtainer {
+  private final Map<Key, NonceObtainer> nonceObtainers;
+  private final NonceObtainerFactory nonceObtainerFactory;
 
-  /**
-   * @param refreshIntervalMillis time window between each nonce sync with ethereum network.
-   */
-  public MultiWalletNonceObtainer(int refreshIntervalMillis, NonceProvider nonceProvider) {
-    this.refreshIntervalMillis = refreshIntervalMillis;
-    this.nonceProvider = nonceProvider;
+  public MultiWalletNonceObtainer(NonceObtainerFactory nonceObtainerFactory) {
+    this.nonceObtainers = new HashMap<>();
+    this.nonceObtainerFactory = nonceObtainerFactory;
   }
 
-  @Override public BigInteger getNonce(Address address) {
-    synchronized (object) {
-      if (atomicBigInteger == null
-          || System.currentTimeMillis() - refreshTime > refreshIntervalMillis) {
-        refresh(address);
-      }
-      return atomicBigInteger.get();
+  public BigInteger getNonce(Address address, long chainId) {
+    return getNonceObtainer(address, chainId).getNonce();
+  }
+
+  public boolean consumeNonce(BigInteger nonce, Address address, long chainId) {
+    return getNonceObtainer(address, chainId).consumeNonce(nonce);
+  }
+
+  private NonceObtainer getNonceObtainer(Address address, long chainId) {
+    NonceObtainer nonceObtainer = nonceObtainers.get(new Key(address, chainId));
+    if (nonceObtainer == null) {
+      nonceObtainer = nonceObtainerFactory.build(address);
+      nonceObtainers.put(new Key(address, chainId), nonceObtainer);
     }
+    return nonceObtainer;
   }
 
-  public boolean consumeNonce(BigInteger nonce) {
-    synchronized (object) {
-      if (atomicBigInteger.get()
-          .compareTo(nonce) == 0) {
-        atomicBigInteger.increment();
-        return true;
-      } else {
-        return false;
-      }
+  private static class Key {
+    private final Address address;
+    private final long chainId;
+
+    private Key(Address address, long chainId) {
+      this.address = address;
+      this.chainId = chainId;
     }
-  }
 
-  private void refresh(Address address) {
-    try {
-      refreshTime = System.currentTimeMillis();
-      BigInteger count = nonceProvider.getNonce(address);
-      if (atomicBigInteger == null
-          || atomicBigInteger.get()
-          .compareTo(count) < 0) {
-        atomicBigInteger = new AtomicBigInteger(count);
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-      throw new RuntimeException(e);
+    @Override public boolean equals(Object o) {
+      if (this == o) return true;
+      if (!(o instanceof Key)) return false;
+
+      Key key = (Key) o;
+
+      if (chainId != key.chainId) return false;
+      return address.equals(key.address);
+    }
+
+    @Override public int hashCode() {
+      int result = address.hashCode();
+      result = 31 * result + (int) (chainId ^ (chainId >>> 32));
+      return result;
     }
   }
 }
