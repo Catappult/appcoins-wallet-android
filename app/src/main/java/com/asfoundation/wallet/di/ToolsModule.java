@@ -661,14 +661,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides AppcoinsRewards provideAppcoinsRewards(OkHttpClient client, Gson gson,
-      WalletService walletService, Billing billing,
-      TransactionIdRepository transactionIdRepository) {
-    BackendApi backendApi = new Retrofit.Builder().baseUrl(BuildConfig.BACKEND_HOST)
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(BackendApi.class);
+      WalletService walletService, Billing billing, TransactionIdRepository transactionIdRepository,
+      BackendApi backendApi) {
     BdsApi bdsApi = new Retrofit.Builder().baseUrl(BuildConfig.BASE_HOST)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
@@ -709,10 +703,21 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new PoASubmissionService(api);
   }
 
-  @Singleton @Provides BalanceGetter provideBalanceGetter(PoASubmissionService service) {
+  @Singleton @Provides BackendApi provideBackendApi(OkHttpClient client, Gson gson) {
+    return new Retrofit.Builder().baseUrl(BuildConfig.BACKEND_HOST)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(BackendApi.class);
+  }
+
+  @Singleton @Provides BalanceGetter provideBalanceGetter(BackendApi backendApi) {
     return new BalanceGetter() {
       @NotNull @Override public Single<BigDecimal> getBalance(@NotNull String address) {
-        return service.getCreditsBalance(address);
+        return backendApi.getBalance(address)
+            .map(response -> response.getBalance())
+            .subscribeOn(Schedulers.io());
       }
 
       @NotNull @Override public Single<BigDecimal> getBalance() {

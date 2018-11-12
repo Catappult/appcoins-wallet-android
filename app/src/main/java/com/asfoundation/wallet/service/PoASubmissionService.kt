@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.service
 
 import com.asf.wallet.BuildConfig
-import com.asfoundation.wallet.entity.CreditsBalanceResponse
 import com.asfoundation.wallet.entity.SubmitPoAException
 import com.asfoundation.wallet.entity.SubmitPoAResponse
 import com.asfoundation.wallet.poa.Proof
@@ -10,7 +9,6 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import retrofit2.http.*
-import java.math.BigDecimal
 
 class PoASubmissionService(private val poaSubmissionApi: PoASubmissionService.PoASubmissionApi) {
 
@@ -27,12 +25,6 @@ class PoASubmissionService(private val poaSubmissionApi: PoASubmissionService.Po
         .singleOrError()
   }
 
-  fun getCreditsBalance(walletAddress: String): Single<BigDecimal> {
-    return poaSubmissionApi.getBalance(walletAddress).map { response -> response.balance }
-        .subscribeOn(Schedulers.io())
-        .singleOrError()
-  }
-
   private fun handleResponse(response: SubmitPoAResponse): String {
     if (response.isValid) {
       return response.transactionId
@@ -45,9 +37,6 @@ class PoASubmissionService(private val poaSubmissionApi: PoASubmissionService.Po
     @Headers("Content-Type: application/json")
     @POST("/campaign/submitpoa")
     fun submitProof(@Body body: SerializedProof?): Observable<SubmitPoAResponse>
-
-    @GET("/campaign/rewards")
-    fun getBalance(@Query("address") address: String): Observable<CreditsBalanceResponse>
   }
 }
 
