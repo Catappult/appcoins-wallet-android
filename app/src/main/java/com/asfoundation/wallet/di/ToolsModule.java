@@ -712,11 +712,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .create(BackendApi.class);
   }
 
-  @Singleton @Provides BalanceGetter provideBalanceGetter(BackendApi backendApi) {
+  @Singleton @Provides BalanceGetter provideBalanceGetter(AppcoinsRewards appcoinsRewards) {
     return new BalanceGetter() {
       @NotNull @Override public Single<BigDecimal> getBalance(@NotNull String address) {
-        return backendApi.getBalance(address)
-            .map(response -> response.getBalance())
+        return appcoinsRewards.getBalance(address)
             .subscribeOn(Schedulers.io());
       }
 
