@@ -148,7 +148,7 @@ public class OnChainBuyPresenter {
                       return Completable.fromAction(() -> setup(appcAmount, transaction.getType()))
                           .subscribeOn(AndroidSchedulers.mainThread());
                     case NO_FUNDS:
-                      return Completable.fromAction(view::showNoFundsError);
+                      return Completable.fromAction(view::showNoFundsError).subscribeOn(viewScheduler);
                     case PAUSED_CC_PAYMENT:
                     default:
                       return Completable.error(new UnsupportedOperationException(

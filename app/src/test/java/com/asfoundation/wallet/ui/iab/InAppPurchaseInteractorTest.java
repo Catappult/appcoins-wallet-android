@@ -32,7 +32,6 @@ import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.ExpressCheckoutBuyService;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
-import com.asfoundation.wallet.repository.NonceGetter;
 import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.TransactionSender;
@@ -91,7 +90,6 @@ public class InAppPurchaseInteractorTest {
   @Mock PendingTransactionService pendingTransactionService;
   @Mock FindDefaultWalletInteract defaultWalletInteract;
   @Mock TokenRepositoryType tokenRepository;
-  @Mock NonceGetter nonceGetter;
   @Mock BalanceService balanceService;
   @Mock AppInfoProvider appInfoProvider;
   @Mock ProofOfAttentionService proofOfAttentionService;
@@ -134,7 +132,6 @@ public class InAppPurchaseInteractorTest {
             false);
     when(defaultTokenProvider.getDefaultToken()).thenReturn(Single.just(tokenInfo));
 
-    when(nonceGetter.getNonce()).thenReturn(Single.just(BigInteger.ONE));
     pendingApproveState = PublishSubject.create();
     pendingBuyState = PublishSubject.create();
     when(pendingTransactionService.checkTransactionState(APPROVE_HASH)).thenReturn(
