@@ -321,7 +321,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   }
 
   @Override public void close(Bundle bundle) {
-    presenter.sendCCDetailsEvent();
+    presenter.sendPaymentMethodDetailsEvent();
     iabView.close(bundle);
   }
 
@@ -349,7 +349,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
         .getParent()
         .getParent()
         .getParent()).setPadding(24, 0, 0, 0);
-    presenter.sendCCDetailsEvent();
+    presenter.sendPaymentMethodDetailsEvent();
   }
 
   private PaymentDetails getPaymentDetails(String publicKey, String generationTime) {

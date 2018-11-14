@@ -7,7 +7,7 @@ import cm.aptoide.analytics.AnalyticsManager;
 public class BillingAnalytics implements EventSender {
   private static final String WALLET = "WALLET";
   public static final String PURCHASE_DETAILS = "PURCHASE_DETAILS";
-  public static final String CREDIT_CARD_DETAILS = "CREDIT_CARD_DETAILS";
+  public static final String PAYMENT_METHOD_DETAILS = "PAYMENT_METHOD_DETAILS";
   public static final String PAYMENT = "PAYMENT";
   private static final String EVENT_PACKAGE_NAME= "package_name";
   private static final String EVENT_SKU = "sku";
@@ -41,7 +41,8 @@ public class BillingAnalytics implements EventSender {
   }
 
   @Override
-  public void sendCreditCardDetailsEvent(String packageName, String skuDetails, String value) {
+  public void sendPaymentMethodDetailsEvent(String packageName, String skuDetails, String value,
+      String purchaseDetails) {
     Map<String, Object> map = new HashMap<>();
     Map<String, Object> map2 = new HashMap<>();
 
@@ -50,8 +51,9 @@ public class BillingAnalytics implements EventSender {
     map2.put(EVENT_VALUE, value);
 
     map.put(EVENT_PURCHASE, map2);
+    map.put(EVENT_PAYMENT_METHOD, purchaseDetails);
 
-    analytics.logEvent(map, CREDIT_CARD_DETAILS, AnalyticsManager.Action.CLICK, WALLET);
+    analytics.logEvent(map, PAYMENT_METHOD_DETAILS, AnalyticsManager.Action.CLICK, WALLET);
   }
 
   @Override public void sendPaymentEvent(String packageName, String skuDetails, String value, String purchaseDetail) {

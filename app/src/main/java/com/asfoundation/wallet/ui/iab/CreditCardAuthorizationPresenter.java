@@ -9,6 +9,7 @@ import com.asfoundation.wallet.billing.CreditCardBilling;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
 import com.asfoundation.wallet.billing.payment.Adyen;
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
@@ -191,7 +192,7 @@ public class CreditCardAuthorizationPresenter {
             .flatMap(adyenAuthorization -> buildBundle(billing))
             .observeOn(viewScheduler)
             .doOnSuccess(bundle -> {
-              sendPaymentEvent(PAYMENT_METHOD_CC);
+              sendPaymentEvent();
               navigator.popView(bundle);
             })
             .doOnSuccess(__ -> view.showSuccess()))
@@ -338,11 +339,21 @@ public class CreditCardAuthorizationPresenter {
     disposables.clear();
   }
 
-  public void sendCCDetailsEvent() {
-    analytics.sendCreditCardDetailsEvent(appPackage, skuId, amount);
+  public void sendPaymentMethodDetailsEvent() {
+    TransactionBuilder transactionBuilder =
+        inAppPurchaseInteractor.parseTransaction(transactionData, true)
+            .blockingGet();
+    analytics.sendPaymentMethodDetailsEvent(appPackage, transactionBuilder.getSkuId(),
+        transactionBuilder.amount()
+            .toString(), PAYMENT_METHOD_CC);
   }
 
-  public void sendPaymentEvent(String purchaseDetails) {
-    analytics.sendPaymentEvent(appPackage, skuId, amount, purchaseDetails);
+  public void sendPaymentEvent() {
+    TransactionBuilder transactionBuilder =
+        inAppPurchaseInteractor.parseTransaction(transactionData, true)
+            .blockingGet();
+    analytics.sendPaymentEvent(appPackage, transactionBuilder.getSkuId(),
+        transactionBuilder.amount()
+            .toString(), PAYMENT_METHOD_CC);
   }
 }
