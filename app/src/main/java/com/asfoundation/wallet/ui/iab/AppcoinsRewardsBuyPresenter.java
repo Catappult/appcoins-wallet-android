@@ -145,7 +145,7 @@ public class AppcoinsRewardsBuyPresenter {
         .blockingGet();
     analytics.sendPurchaseDetailsEvent(packageName, transactionBuilder.getSkuId(),
         transactionBuilder.amount()
-            .toString(), purchaseDetails);
+            .toString(), purchaseDetails, transactionBuilder.getType());
   }
 
   public void sendPaymentEvent(String purchaseDetails) {
@@ -154,6 +154,6 @@ public class AppcoinsRewardsBuyPresenter {
             .blockingGet();
     analytics.sendPaymentEvent(packageName, transactionBuilder.getSkuId(),
         transactionBuilder.amount()
-            .toString(), purchaseDetails);
+            .toString(), purchaseDetails, transactionBuilder.getType());
   }
 }

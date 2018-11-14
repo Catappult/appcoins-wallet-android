@@ -266,7 +266,7 @@ public class OnChainBuyPresenter {
             .blockingGet();
     analytics.sendPurchaseDetailsEvent(appPackage, transactionBuilder.getSkuId(),
         transactionBuilder.amount()
-            .toString(), purchaseDetails);
+            .toString(), purchaseDetails, transactionBuilder.getType());
   }
 
   public void sendPaymentEvent(String purchaseDetails) {
@@ -275,7 +275,7 @@ public class OnChainBuyPresenter {
             .blockingGet();
     analytics.sendPaymentEvent(appPackage, transactionBuilder.getSkuId(),
         transactionBuilder.amount()
-            .toString(), purchaseDetails);
+            .toString(), purchaseDetails, transactionBuilder.getType());
   }
 
   public static class BuyData {

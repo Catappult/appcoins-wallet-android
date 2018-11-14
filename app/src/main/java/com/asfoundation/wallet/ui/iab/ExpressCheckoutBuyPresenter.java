@@ -167,7 +167,7 @@ public class ExpressCheckoutBuyPresenter {
             .blockingGet();
     analytics.sendPurchaseDetailsEvent(appPackage, transactionBuilder.getSkuId(),
         transactionBuilder.amount()
-            .toString(), purchaseDetails);
+            .toString(), purchaseDetails, transactionBuilder.getType());
   }
 
   public boolean isBds() {

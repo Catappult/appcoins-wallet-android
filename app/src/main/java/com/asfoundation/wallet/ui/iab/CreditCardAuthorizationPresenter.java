@@ -345,7 +345,7 @@ public class CreditCardAuthorizationPresenter {
             .blockingGet();
     analytics.sendPaymentMethodDetailsEvent(appPackage, transactionBuilder.getSkuId(),
         transactionBuilder.amount()
-            .toString(), PAYMENT_METHOD_CC);
+            .toString(), PAYMENT_METHOD_CC, transactionBuilder.getType());
   }
 
   public void sendPaymentEvent() {
@@ -354,6 +354,6 @@ public class CreditCardAuthorizationPresenter {
             .blockingGet();
     analytics.sendPaymentEvent(appPackage, transactionBuilder.getSkuId(),
         transactionBuilder.amount()
-            .toString(), PAYMENT_METHOD_CC);
+            .toString(), PAYMENT_METHOD_CC, transactionBuilder.getType());
   }
 }

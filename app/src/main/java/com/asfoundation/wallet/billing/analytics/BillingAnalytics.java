@@ -9,10 +9,11 @@ public class BillingAnalytics implements EventSender {
   public static final String PURCHASE_DETAILS = "PURCHASE_DETAILS";
   public static final String PAYMENT_METHOD_DETAILS = "PAYMENT_METHOD_DETAILS";
   public static final String PAYMENT = "PAYMENT";
-  private static final String EVENT_PACKAGE_NAME= "package_name";
+  private static final String EVENT_PACKAGE_NAME = "package_name";
   private static final String EVENT_SKU = "sku";
   private static final String EVENT_VALUE = "value";
-  private static final String EVENT_PURCHASE= "purchase";
+  private static final String EVENT_PURCHASE = "purchase";
+  private static final String EVENT_TRANSACTION_TYPE = "transaction_type";
   private static final String EVENT_PAYMENT_METHOD = "payment_method";
   public static final String PAYMENT_METHOD_APPC = "APPC";
   public static final String PAYMENT_METHOD_CC = "CREDIT_CARD";
@@ -26,23 +27,7 @@ public class BillingAnalytics implements EventSender {
 
   @Override
   public void sendPurchaseDetailsEvent(String packageName, String skuDetails, String value,
-      String purchaseDetail) {
-    Map<String, Object> map = new HashMap<>();
-    Map<String, Object> map2 = new HashMap<>();
-
-    map2.put(EVENT_PACKAGE_NAME, packageName);
-    map2.put(EVENT_SKU, skuDetails);
-    map2.put(EVENT_VALUE, value);
-
-    map.put(EVENT_PURCHASE, map2);
-    map.put(EVENT_PAYMENT_METHOD, purchaseDetail);
-
-    analytics.logEvent(map, PURCHASE_DETAILS, AnalyticsManager.Action.CLICK, WALLET);
-  }
-
-  @Override
-  public void sendPaymentMethodDetailsEvent(String packageName, String skuDetails, String value,
-      String purchaseDetails) {
+      String purchaseDetails, String transactionType) {
     Map<String, Object> map = new HashMap<>();
     Map<String, Object> map2 = new HashMap<>();
 
@@ -52,11 +37,14 @@ public class BillingAnalytics implements EventSender {
 
     map.put(EVENT_PURCHASE, map2);
     map.put(EVENT_PAYMENT_METHOD, purchaseDetails);
+    map.put(EVENT_TRANSACTION_TYPE, transactionType);
 
-    analytics.logEvent(map, PAYMENT_METHOD_DETAILS, AnalyticsManager.Action.CLICK, WALLET);
+    analytics.logEvent(map, PURCHASE_DETAILS, AnalyticsManager.Action.CLICK, WALLET);
   }
 
-  @Override public void sendPaymentEvent(String packageName, String skuDetails, String value, String purchaseDetail) {
+  @Override
+  public void sendPaymentMethodDetailsEvent(String packageName, String skuDetails, String value,
+      String purchaseDetails, String transactionType) {
     Map<String, Object> map = new HashMap<>();
     Map<String, Object> map2 = new HashMap<>();
 
@@ -65,7 +53,25 @@ public class BillingAnalytics implements EventSender {
     map2.put(EVENT_VALUE, value);
 
     map.put(EVENT_PURCHASE, map2);
-    map.put(EVENT_PAYMENT_METHOD, purchaseDetail);
+    map.put(EVENT_PAYMENT_METHOD, purchaseDetails);
+    map.put(EVENT_TRANSACTION_TYPE, transactionType);
+
+    analytics.logEvent(map, PAYMENT_METHOD_DETAILS, AnalyticsManager.Action.CLICK, WALLET);
+  }
+
+  @Override
+  public void sendPaymentEvent(String packageName, String skuDetails, String value,
+      String purchaseDetails, String transactionType) {
+    Map<String, Object> map = new HashMap<>();
+    Map<String, Object> map2 = new HashMap<>();
+
+    map2.put(EVENT_PACKAGE_NAME, packageName);
+    map2.put(EVENT_SKU, skuDetails);
+    map2.put(EVENT_VALUE, value);
+
+    map.put(EVENT_PURCHASE, map2);
+    map.put(EVENT_PAYMENT_METHOD, purchaseDetails);
+    map.put(EVENT_TRANSACTION_TYPE, transactionType);
 
     analytics.logEvent(map, PAYMENT, AnalyticsManager.Action.IMPRESSION, WALLET);
   }
