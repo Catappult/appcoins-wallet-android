@@ -5,9 +5,11 @@ import android.util.Log;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.repository.entity.TransactionData.TransactionType;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.util.UnknownTokenException;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -32,6 +34,7 @@ public class OnChainBuyPresenter {
   private BillingAnalytics analytics;
   private final String appPackage;
   private final String uriString;
+  private final Single<TransactionBuilder> transactionBuilder;
 
   public OnChainBuyPresenter(OnChainBuyView view, InAppPurchaseInteractor inAppPurchaseInteractor,
       Scheduler viewScheduler, CompositeDisposable disposables,
@@ -47,6 +50,7 @@ public class OnChainBuyPresenter {
     this.analytics = analytics;
     this.appPackage = appPackage;
     this.uriString = uriString;
+    this.transactionBuilder = inAppPurchaseInteractor.parseTransaction(uriString, isBds);
   }
 
   public void present(String uriString, String appPackage, String productName, BigDecimal amount,
@@ -255,22 +259,23 @@ public class OnChainBuyPresenter {
   }
 
   private void setup(BigDecimal amount, String type) {
-    view.setup(productName, TransactionType.DONATION.name().equalsIgnoreCase(type));
+    view.setup(productName, TransactionType.DONATION.name()
+        .equalsIgnoreCase(type));
     view.showRaidenChannelValues(inAppPurchaseInteractor.getTopUpChannelSuggestionValues(amount));
   }
 
   public void sendPurchaseDetails(String purchaseDetails) {
-    inAppPurchaseInteractor.parseTransaction(uriString, isBds)
-        .subscribe(transactionBuilder -> analytics.sendPurchaseDetailsEvent(appPackage,
+    disposables.add(transactionBuilder.subscribe(
+        transactionBuilder -> analytics.sendPurchaseDetailsEvent(appPackage,
             transactionBuilder.getSkuId(), transactionBuilder.amount()
-                .toString(), purchaseDetails, transactionBuilder.getType()));
+                .toString(), purchaseDetails, transactionBuilder.getType())));
   }
 
   public void sendPaymentEvent(String purchaseDetails) {
-    inAppPurchaseInteractor.parseTransaction(uriString, isBds)
-        .subscribe(transactionBuilder -> analytics.sendPaymentEvent(appPackage,
-            transactionBuilder.getSkuId(), transactionBuilder.amount()
-                .toString(), purchaseDetails, transactionBuilder.getType()));
+    disposables.add(transactionBuilder.subscribe(
+        transactionBuilder -> analytics.sendPaymentEvent(appPackage, transactionBuilder.getSkuId(),
+            transactionBuilder.amount()
+                .toString(), purchaseDetails, transactionBuilder.getType())));
   }
 
   public static class BuyData {

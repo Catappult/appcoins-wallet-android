@@ -7,6 +7,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -32,6 +33,7 @@ public class ExpressCheckoutBuyPresenter {
   private final BillingAnalytics analytics;
   private final boolean isBds;
   private final String uri;
+  private final Single<TransactionBuilder> transactionBuilder;
 
   public ExpressCheckoutBuyPresenter(ExpressCheckoutBuyView view, String appPackage,
       InAppPurchaseInteractor inAppPurchaseInteractor, Scheduler viewScheduler,
@@ -49,6 +51,7 @@ public class ExpressCheckoutBuyPresenter {
     this.analytics = analytics;
     this.isBds = isBds;
     this.uri = uri;
+    this.transactionBuilder = inAppPurchaseInteractor.parseTransaction(uri, true);
   }
 
   public void present(String uri, double transactionValue, String currency) {
@@ -59,15 +62,14 @@ public class ExpressCheckoutBuyPresenter {
   }
 
   private void handleOnGoingPurchases() {
-    disposables.add(inAppPurchaseInteractor.parseTransaction(uri, true)
-        .flatMapCompletable(transactionBuilder -> {
-          String skuId = transactionBuilder.getSkuId();
-          if (skuId == null) {
-            return Completable.complete();
-          } else {
-            return waitForUi(skuId);
-          }
-        })
+    disposables.add(transactionBuilder.flatMapCompletable(transactionBuilder -> {
+      String skuId = transactionBuilder.getSkuId();
+      if (skuId == null) {
+        return Completable.complete();
+      } else {
+        return waitForUi(skuId);
+      }
+    })
         .observeOn(viewScheduler)
         .subscribe(view::hideLoading, throwable -> {
           view.showError();
@@ -122,7 +124,7 @@ public class ExpressCheckoutBuyPresenter {
   }
 
   private void setupUi(double transactionValue, String currency, String uri) {
-    disposables.add(Single.zip(inAppPurchaseInteractor.parseTransaction(uri, true),
+    disposables.add(Single.zip(transactionBuilder,
         inAppPurchaseInteractor.convertToFiat(transactionValue, currency),
         (transactionBuilder, fiatValue) -> Completable.fromAction(() -> view.setup(fiatValue,
             TransactionData.TransactionType.DONATION.name()
@@ -160,10 +162,10 @@ public class ExpressCheckoutBuyPresenter {
   }
 
   public void sendPurchaseDetails(String purchaseDetails) {
-    inAppPurchaseInteractor.parseTransaction(uri, isBds)
-        .subscribe(transactionBuilder -> analytics.sendPurchaseDetailsEvent(appPackage,
+    disposables.add(transactionBuilder.subscribe(
+        transactionBuilder -> analytics.sendPurchaseDetailsEvent(appPackage,
             transactionBuilder.getSkuId(), transactionBuilder.amount()
-                .toString(), purchaseDetails, transactionBuilder.getType()));
+                .toString(), purchaseDetails, transactionBuilder.getType())));
   }
 
   public boolean isBds() {

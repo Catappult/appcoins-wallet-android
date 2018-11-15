@@ -4,9 +4,11 @@ import com.appcoins.wallet.appcoins.rewards.Transaction;
 import com.appcoins.wallet.appcoins.rewards.TransactionIdRepository;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
+import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -27,6 +29,7 @@ public class AppcoinsRewardsBuyPresenter {
   private final boolean isBds;
   private final BillingAnalytics analytics;
   private final InAppPurchaseInteractor inAppPurchaseInteractor;
+  private final Single<TransactionBuilder> transactionBuilder;
 
   private final TransactionIdRepository transactionIdRepository;
 
@@ -50,6 +53,7 @@ public class AppcoinsRewardsBuyPresenter {
     this.isBds = isBds;
     this.analytics = analytics;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
+    this.transactionBuilder = inAppPurchaseInteractor.parseTransaction(uri, isBds);
   }
 
   public void present() {
@@ -140,16 +144,16 @@ public class AppcoinsRewardsBuyPresenter {
   }
 
   public void sendPurchaseDetails(String purchaseDetails) {
-    inAppPurchaseInteractor.parseTransaction(uri, isBds)
-        .subscribe(transactionBuilder -> analytics.sendPurchaseDetailsEvent(packageName,
+    disposables.add(transactionBuilder.subscribe(
+        transactionBuilder -> analytics.sendPurchaseDetailsEvent(packageName,
             transactionBuilder.getSkuId(), transactionBuilder.amount()
-                .toString(), purchaseDetails, transactionBuilder.getType()));
+                .toString(), purchaseDetails, transactionBuilder.getType())));
   }
 
   public void sendPaymentEvent(String purchaseDetails) {
-    inAppPurchaseInteractor.parseTransaction(uri, isBds)
-        .subscribe(transactionBuilder -> analytics.sendPaymentEvent(packageName,
-            transactionBuilder.getSkuId(), transactionBuilder.amount()
-                .toString(), purchaseDetails, transactionBuilder.getType()));
+    disposables.add(transactionBuilder.subscribe(
+        transactionBuilder -> analytics.sendPaymentEvent(packageName, transactionBuilder.getSkuId(),
+            transactionBuilder.amount()
+                .toString(), purchaseDetails, transactionBuilder.getType())));
   }
 }
