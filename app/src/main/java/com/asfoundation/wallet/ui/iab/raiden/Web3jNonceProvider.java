@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.ui.iab.raiden;
 
-import com.asf.microraidenj.type.Address;
 import com.asfoundation.wallet.repository.Web3jProvider;
 import java.io.IOException;
 import java.math.BigInteger;
+import org.web3j.abi.datatypes.Address;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 
 public class Web3jNonceProvider implements NonceProvider {

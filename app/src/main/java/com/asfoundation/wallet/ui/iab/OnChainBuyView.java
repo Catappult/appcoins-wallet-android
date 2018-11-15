@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.os.Bundle;
-import com.asfoundation.wallet.entity.TransactionBuilder;
 import io.reactivex.Observable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -58,8 +57,6 @@ public interface OnChainBuyView {
   void showChannelAmount();
 
   void hideChannelAmount();
-
-  void showChannelAsDefaultPayment();
 
   void showDefaultAsDefaultPayment();
 

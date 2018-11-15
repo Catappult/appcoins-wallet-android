@@ -1,10 +1,9 @@
 package com.asfoundation.wallet.ui.iab.raiden;
 
-import android.util.Log;
-import com.asf.microraidenj.type.Address;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
+import org.web3j.abi.datatypes.Address;
 
 public class MultiWalletNonceObtainer {
   private static final String TAG = MultiWalletNonceObtainer.class.getSimpleName();

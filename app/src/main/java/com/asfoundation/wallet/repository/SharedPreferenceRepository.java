@@ -3,9 +3,8 @@ package com.asfoundation.wallet.repository;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import com.asfoundation.wallet.ui.iab.raiden.RaidenRepository;
 
-public class SharedPreferenceRepository implements PreferenceRepositoryType, RaidenRepository {
+public class SharedPreferenceRepository implements PreferenceRepositoryType {
 
   private static final String CURRENT_ACCOUNT_ADDRESS_KEY = "current_account_address";
   private static final String DEFAULT_NETWORK_NAME_KEY = "default_network_name";
@@ -37,16 +36,6 @@ public class SharedPreferenceRepository implements PreferenceRepositoryType, Rai
   @Override public void setDefaultNetwork(String netName) {
     pref.edit()
         .putString(DEFAULT_NETWORK_NAME_KEY, netName)
-        .apply();
-  }
-
-  @Override public boolean shouldShowDialog() {
-    return pref.getBoolean(SHOULD_SHOW_RAIDEN_DIALOG, true);
-  }
-
-  @Override public void setShouldShowDialog(boolean shouldShow) {
-    pref.edit()
-        .putBoolean(SHOULD_SHOW_RAIDEN_DIALOG, shouldShow)
         .apply();
   }
 }
