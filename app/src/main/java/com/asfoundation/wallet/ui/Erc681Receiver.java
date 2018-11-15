@@ -3,57 +3,51 @@ package com.asfoundation.wallet.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.ui.iab.IabActivity;
+import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.util.TransferParser;
-import com.facebook.appevents.AppEventsLogger;
 import dagger.android.AndroidInjection;
-import io.reactivex.disposables.Disposable;
 import javax.inject.Inject;
 
 /**
  * Created by trinkes on 13/03/2018.
  */
 
-public class Erc681Receiver extends BaseActivity {
+public class Erc681Receiver extends BaseActivity implements Erc681ReceiverView {
 
   public static final int REQUEST_CODE = 234;
   @Inject FindDefaultWalletInteract walletInteract;
   @Inject TransferParser transferParser;
-  private Disposable disposable;
+  @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
+  private Erc681ReceiverPresenter presenter;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     AndroidInjection.inject(this);
     super.onCreate(savedInstanceState);
-    if (savedInstanceState == null) {
-      disposable = walletInteract.find()
-          .flatMap(__ -> transferParser.parse(getIntent().getDataString()))
-          .subscribe(transaction -> {
-            String callingPackage = transaction.getDomain();
-            if (callingPackage == null) {
-              callingPackage = getCallingPackage();
-            }
-            startEipTransfer(callingPackage);
-          }, throwable -> startApp(throwable));
-    }
+    presenter =
+        new Erc681ReceiverPresenter(this, transferParser, inAppPurchaseInteractor, walletInteract,
+            getIntent().getDataString());
+    presenter.present(savedInstanceState);
   }
 
-  private void startApp(Throwable throwable) {
-    throwable.printStackTrace();
-    startActivity(SplashActivity.newIntent(this));
-    finish();
-  }
-
-  private void startEipTransfer(String callingPackage) {
+  @Override public void startEipTransfer(TransactionBuilder transaction, Boolean isBds) {
     Intent intent;
     if (getIntent().getData()
         .toString()
         .contains("/buy?")) {
-      intent = IabActivity.newIntent(this, getIntent(), callingPackage);
+      intent = IabActivity.newIntent(this, getIntent(), transaction);
     } else {
       intent = SendActivity.newIntent(this, getIntent());
     }
     startActivityForResult(intent, REQUEST_CODE);
+  }
+
+  @Override public void startApp(Throwable throwable) {
+    throwable.printStackTrace();
+    startActivity(SplashActivity.newIntent(this));
+    finish();
   }
 
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -65,9 +59,7 @@ public class Erc681Receiver extends BaseActivity {
   }
 
   @Override protected void onPause() {
-    if (disposable != null && !disposable.isDisposed()) {
-      disposable.dispose();
-    }
+    presenter.pause();
     super.onPause();
   }
 }

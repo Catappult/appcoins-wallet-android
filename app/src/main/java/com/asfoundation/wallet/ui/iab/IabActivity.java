@@ -28,7 +28,7 @@ public class IabActivity extends BaseActivity implements IabView {
   public static final String RESPONSE_CODE = "RESPONSE_CODE";
   public static final int RESULT_USER_CANCELED = 1;
   public static final String SKU_DETAILS = "sku_details";
-  public static final String APP_PACKAGE = "app_package";
+  public static final String TRANSACTION_EXTRA = "transaction_extra";
   public static final String PRODUCT_NAME = "product_name";
   public static final String EXTRA_DEVELOPER_PAYLOAD = "developer_payload";
   public static final String TRANSACTION_DATA = "transaction_data";
@@ -43,13 +43,14 @@ public class IabActivity extends BaseActivity implements IabView {
   private Bundle savedInstanceState;
   private Bundle skuDetails;
 
-  public static Intent newIntent(Activity activity, Intent previousIntent, String callingPackage) {
+  public static Intent newIntent(Activity activity, Intent previousIntent,
+      TransactionBuilder transaction) {
     Intent intent = new Intent(activity, IabActivity.class);
     intent.setData(previousIntent.getData());
     if (previousIntent.getExtras() != null) {
       intent.putExtras(previousIntent.getExtras());
     }
-    intent.putExtra(APP_PACKAGE, callingPackage);
+    intent.putExtra(TRANSACTION_EXTRA, transaction.getDomain());
     return intent;
   }
 
@@ -148,7 +149,7 @@ public class IabActivity extends BaseActivity implements IabView {
       getSupportFragmentManager().beginTransaction()
           .add(R.id.fragment_container, AppcoinsRewardsBuyFragment.newInstance(amount,
               getIntent().getExtras()
-                  .getString(APP_PACKAGE, ""), getIntent().getData()
+                  .getString(TRANSACTION_EXTRA, ""), getIntent().getData()
                   .toString(), getIntent().getExtras()
                   .getString(PRODUCT_NAME, ""), isBds()))
           .commit();
@@ -166,8 +167,8 @@ public class IabActivity extends BaseActivity implements IabView {
   @NonNull private Bundle createBundle(BigDecimal amount) {
     Bundle bundle = new Bundle();
     bundle.putSerializable(TRANSACTION_AMOUNT, amount);
-    bundle.putString(APP_PACKAGE, getIntent().getExtras()
-        .getString(APP_PACKAGE, ""));
+    bundle.putString(TRANSACTION_EXTRA, getIntent().getExtras()
+        .getString(TRANSACTION_EXTRA, ""));
     bundle.putString(PRODUCT_NAME, getIntent().getExtras()
         .getString(PRODUCT_NAME));
     bundle.putString(TRANSACTION_DATA, getIntent().getDataString());
@@ -186,8 +187,8 @@ public class IabActivity extends BaseActivity implements IabView {
   }
 
   public String getAppPackage() {
-    if (getIntent().hasExtra(APP_PACKAGE)) {
-      return getIntent().getStringExtra(APP_PACKAGE);
+    if (getIntent().hasExtra(TRANSACTION_EXTRA)) {
+      return getIntent().getStringExtra(TRANSACTION_EXTRA);
     }
     throw new IllegalArgumentException("previous app package name not found");
   }

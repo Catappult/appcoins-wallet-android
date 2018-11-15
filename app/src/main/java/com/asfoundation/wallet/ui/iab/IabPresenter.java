@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.os.Bundle;
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
@@ -23,18 +22,18 @@ public class IabPresenter {
   private final CompositeDisposable disposables;
   private final String uriString;
   private final String appPackage;
-  private final boolean isBds;
+  private final boolean isIap;
 
   public IabPresenter(IabView view, InAppPurchaseInteractor inAppPurchaseInteractor,
       Scheduler viewScheduler, CompositeDisposable disposables, String uriString, String appPackage,
-      boolean isBds) {
+      boolean isIap) {
     this.view = view;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.viewScheduler = viewScheduler;
     this.disposables = disposables;
     this.uriString = uriString;
     this.appPackage = appPackage;
-    this.isBds = isBds;
+    this.isIap = isIap;
   }
 
   public void present(Bundle savedInstanceState) {
@@ -44,9 +43,9 @@ public class IabPresenter {
   }
 
   private void setupUi() {
-    disposables.add(inAppPurchaseInteractor.parseTransaction(uriString, isBds)
+    disposables.add(inAppPurchaseInteractor.parseTransaction(uriString, isIap)
         .flatMapCompletable(transaction -> {
-          if (isBds) {
+          if (isIap) {
             return showBdsPayment(transaction);
           }
           return inAppPurchaseInteractor.isWalletFromBds(appPackage, transaction.toAddress())

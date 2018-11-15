@@ -92,8 +92,8 @@ public class TransactionBuilder implements Parcelable {
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId,
       String receiverAddress, BigDecimal tokenTransferAmount, int decimals) {
-    this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, "", decimals,
-        "", "", "");
+    this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, "", decimals, "",
+        "", "");
   }
 
   public String getIabContract() {
@@ -129,6 +129,10 @@ public class TransactionBuilder implements Parcelable {
 
   public int decimals() {
     return decimals;
+  }
+
+  public void setDomain(String domain) {
+    this.domain = domain;
   }
 
   public TransactionBuilder shouldSendToken(boolean shouldSendToken) {
