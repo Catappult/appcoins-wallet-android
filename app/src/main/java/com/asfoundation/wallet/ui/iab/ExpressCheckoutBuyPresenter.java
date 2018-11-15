@@ -6,9 +6,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
-import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -162,12 +160,10 @@ public class ExpressCheckoutBuyPresenter {
   }
 
   public void sendPurchaseDetails(String purchaseDetails) {
-    TransactionBuilder transactionBuilder =
-        inAppPurchaseInteractor.parseTransaction(uri, isBds)
-            .blockingGet();
-    analytics.sendPurchaseDetailsEvent(appPackage, transactionBuilder.getSkuId(),
-        transactionBuilder.amount()
-            .toString(), purchaseDetails, transactionBuilder.getType());
+    inAppPurchaseInteractor.parseTransaction(uri, isBds)
+        .subscribe(transactionBuilder -> analytics.sendPurchaseDetailsEvent(appPackage,
+            transactionBuilder.getSkuId(), transactionBuilder.amount()
+                .toString(), purchaseDetails, transactionBuilder.getType()));
   }
 
   public boolean isBds() {

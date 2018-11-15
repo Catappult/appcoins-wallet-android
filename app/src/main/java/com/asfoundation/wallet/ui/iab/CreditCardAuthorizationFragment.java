@@ -321,7 +321,6 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   }
 
   @Override public void close(Bundle bundle) {
-    presenter.sendPaymentMethodDetailsEvent();
     iabView.close(bundle);
   }
 

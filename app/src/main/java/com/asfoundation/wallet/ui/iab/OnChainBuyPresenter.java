@@ -5,7 +5,6 @@ import android.util.Log;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.repository.entity.TransactionData.TransactionType;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
-import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.util.UnknownTokenException;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
@@ -37,7 +36,7 @@ public class OnChainBuyPresenter {
   public OnChainBuyPresenter(OnChainBuyView view, InAppPurchaseInteractor inAppPurchaseInteractor,
       Scheduler viewScheduler, CompositeDisposable disposables,
       BillingMessagesMapper billingMessagesMapper, boolean isBds, String productName,
-       BillingAnalytics analytics, String appPackage, String uriString) {
+      BillingAnalytics analytics, String appPackage, String uriString) {
     this.view = view;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.viewScheduler = viewScheduler;
@@ -261,21 +260,17 @@ public class OnChainBuyPresenter {
   }
 
   public void sendPurchaseDetails(String purchaseDetails) {
-    TransactionBuilder transactionBuilder =
-        inAppPurchaseInteractor.parseTransaction(uriString, isBds)
-            .blockingGet();
-    analytics.sendPurchaseDetailsEvent(appPackage, transactionBuilder.getSkuId(),
-        transactionBuilder.amount()
-            .toString(), purchaseDetails, transactionBuilder.getType());
+    inAppPurchaseInteractor.parseTransaction(uriString, isBds)
+        .subscribe(transactionBuilder -> analytics.sendPurchaseDetailsEvent(appPackage,
+            transactionBuilder.getSkuId(), transactionBuilder.amount()
+                .toString(), purchaseDetails, transactionBuilder.getType()));
   }
 
   public void sendPaymentEvent(String purchaseDetails) {
-    TransactionBuilder transactionBuilder =
-        inAppPurchaseInteractor.parseTransaction(uriString, isBds)
-            .blockingGet();
-    analytics.sendPaymentEvent(appPackage, transactionBuilder.getSkuId(),
-        transactionBuilder.amount()
-            .toString(), purchaseDetails, transactionBuilder.getType());
+    inAppPurchaseInteractor.parseTransaction(uriString, isBds)
+        .subscribe(transactionBuilder -> analytics.sendPaymentEvent(appPackage,
+            transactionBuilder.getSkuId(), transactionBuilder.amount()
+                .toString(), purchaseDetails, transactionBuilder.getType()));
   }
 
   public static class BuyData {
