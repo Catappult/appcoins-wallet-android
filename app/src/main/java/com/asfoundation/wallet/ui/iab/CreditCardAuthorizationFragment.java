@@ -47,12 +47,12 @@ import javax.inject.Inject;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.asfoundation.wallet.ui.iab.IabActivity.APP_PACKAGE;
 import static com.asfoundation.wallet.ui.iab.IabActivity.EXTRA_DEVELOPER_PAYLOAD;
 import static com.asfoundation.wallet.ui.iab.IabActivity.PRODUCT_NAME;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_CURRENCY;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_DATA;
-import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_EXTRA;
 
 /**
  * Created by franciscocalado on 30/07/2018.
@@ -393,8 +393,8 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   }
 
   public String getAppPackage() {
-    if (getArguments().containsKey(TRANSACTION_EXTRA)) {
-      return getArguments().getString(TRANSACTION_EXTRA);
+    if (getArguments().containsKey(APP_PACKAGE)) {
+      return getArguments().getString(APP_PACKAGE);
     }
     throw new IllegalArgumentException("previous app package name not found");
   }

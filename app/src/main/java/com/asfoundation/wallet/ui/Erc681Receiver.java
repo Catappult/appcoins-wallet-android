@@ -37,7 +37,7 @@ public class Erc681Receiver extends BaseActivity implements Erc681ReceiverView {
     if (getIntent().getData()
         .toString()
         .contains("/buy?")) {
-      intent = IabActivity.newIntent(this, getIntent(), transaction);
+      intent = IabActivity.newIntent(this, getIntent(), transaction, isBds);
     } else {
       intent = SendActivity.newIntent(this, getIntent());
     }

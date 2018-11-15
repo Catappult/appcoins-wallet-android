@@ -15,8 +15,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
 import javax.inject.Inject;
 
-import static com.appcoins.wallet.billing.AppcoinsBillingBinder.EXTRA_BDS_IAP;
-
 /**
  * Created by franciscocalado on 20/07/2018.
  */
@@ -28,6 +26,7 @@ public class IabActivity extends BaseActivity implements IabView {
   public static final String RESPONSE_CODE = "RESPONSE_CODE";
   public static final int RESULT_USER_CANCELED = 1;
   public static final String SKU_DETAILS = "sku_details";
+  public static final String APP_PACKAGE = "app_package";
   public static final String TRANSACTION_EXTRA = "transaction_extra";
   public static final String PRODUCT_NAME = "product_name";
   public static final String EXTRA_DEVELOPER_PAYLOAD = "developer_payload";
@@ -37,20 +36,25 @@ public class IabActivity extends BaseActivity implements IabView {
   public static final String TRANSACTION_CURRENCY = "transaction_currency";
   public static final String FIAT_VALUE = "fiat_value";
   private static final String TAG = IabActivity.class.getSimpleName();
+  private static final String IS_BDS_EXTRA = "is_bds_extra";
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   private boolean isBackEnable;
   private IabPresenter presenter;
   private Bundle savedInstanceState;
   private Bundle skuDetails;
+  private TransactionBuilder transaction;
+  private boolean isBds;
 
   public static Intent newIntent(Activity activity, Intent previousIntent,
-      TransactionBuilder transaction) {
+      TransactionBuilder transaction, Boolean isBds) {
     Intent intent = new Intent(activity, IabActivity.class);
     intent.setData(previousIntent.getData());
     if (previousIntent.getExtras() != null) {
       intent.putExtras(previousIntent.getExtras());
     }
-    intent.putExtra(TRANSACTION_EXTRA, transaction.getDomain());
+    intent.putExtra(TRANSACTION_EXTRA, transaction);
+    intent.putExtra(IS_BDS_EXTRA, isBds);
+    intent.putExtra(APP_PACKAGE, transaction.getDomain());
     return intent;
   }
 
@@ -59,10 +63,11 @@ public class IabActivity extends BaseActivity implements IabView {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_iab);
     this.savedInstanceState = savedInstanceState;
+    isBds = getIntent().getBooleanExtra(IS_BDS_EXTRA, false);
+    transaction = getIntent().getParcelableExtra(TRANSACTION_EXTRA);
     isBackEnable = true;
     presenter = new IabPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
-        new CompositeDisposable(), getIntent().getData()
-        .toString(), getAppPackage(), isBds());
+        new CompositeDisposable(), getAppPackage(), isBds, transaction);
 
     if (savedInstanceState != null) {
       if (savedInstanceState.containsKey(SKU_DETAILS)) {
@@ -112,13 +117,10 @@ public class IabActivity extends BaseActivity implements IabView {
   }
 
   @Override public void navigateToCreditCardAuthorization(boolean isBds) {
-    TransactionBuilder builder =
-        inAppPurchaseInteractor.parseTransaction(getIntent().getDataString(), isBds())
-            .blockingGet();
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container,
-            CreditCardAuthorizationFragment.newInstance(skuDetails, builder.getSkuId(),
-                builder.getType(), (isBds() || isBds) ? BDS : null))
+            CreditCardAuthorizationFragment.newInstance(skuDetails, transaction.getSkuId(),
+                transaction.getType(), isBds ? BDS : null))
         .commit();
   }
 
@@ -128,7 +130,7 @@ public class IabActivity extends BaseActivity implements IabView {
       getSupportFragmentManager().beginTransaction()
           .add(R.id.fragment_container, OnChainBuyFragment.newInstance(createBundle(amount),
               getIntent().getData()
-                  .toString(), isBds() || isBds))
+                  .toString(), isBds))
           .commit();
     }
   }
@@ -138,7 +140,7 @@ public class IabActivity extends BaseActivity implements IabView {
         .isEmpty()) {
       getSupportFragmentManager().beginTransaction()
           .add(R.id.fragment_container, ExpressCheckoutBuyFragment.newInstance(
-              createBundle(BigDecimal.valueOf(amount.doubleValue()), currency), isBds() || isBds))
+              createBundle(BigDecimal.valueOf(amount.doubleValue()), currency), isBds))
           .commit();
     }
   }
@@ -147,11 +149,11 @@ public class IabActivity extends BaseActivity implements IabView {
     if (savedInstanceState == null && getSupportFragmentManager().getFragments()
         .isEmpty()) {
       getSupportFragmentManager().beginTransaction()
-          .add(R.id.fragment_container, AppcoinsRewardsBuyFragment.newInstance(amount,
-              getIntent().getExtras()
-                  .getString(TRANSACTION_EXTRA, ""), getIntent().getData()
-                  .toString(), getIntent().getExtras()
-                  .getString(PRODUCT_NAME, ""), isBds()))
+          .add(R.id.fragment_container,
+              AppcoinsRewardsBuyFragment.newInstance(amount, transaction.getDomain(),
+                  getIntent().getData()
+                      .toString(), getIntent().getExtras()
+                      .getString(PRODUCT_NAME, ""), isBds))
           .commit();
     }
   }
@@ -167,8 +169,7 @@ public class IabActivity extends BaseActivity implements IabView {
   @NonNull private Bundle createBundle(BigDecimal amount) {
     Bundle bundle = new Bundle();
     bundle.putSerializable(TRANSACTION_AMOUNT, amount);
-    bundle.putString(TRANSACTION_EXTRA, getIntent().getExtras()
-        .getString(TRANSACTION_EXTRA, ""));
+    bundle.putString(APP_PACKAGE, transaction.getDomain());
     bundle.putString(PRODUCT_NAME, getIntent().getExtras()
         .getString(PRODUCT_NAME));
     bundle.putString(TRANSACTION_DATA, getIntent().getDataString());
@@ -178,7 +179,7 @@ public class IabActivity extends BaseActivity implements IabView {
       bundle.putString(EXTRA_DEVELOPER_PAYLOAD, developerPayload);
     } else {
       TransactionBuilder builder =
-          inAppPurchaseInteractor.parseTransaction(getIntent().getDataString(), isBds())
+          inAppPurchaseInteractor.parseTransaction(getIntent().getDataString(), isBds)
               .blockingGet();
       bundle.putString(EXTRA_DEVELOPER_PAYLOAD, builder.getPayload());
     }
@@ -187,13 +188,9 @@ public class IabActivity extends BaseActivity implements IabView {
   }
 
   public String getAppPackage() {
-    if (getIntent().hasExtra(TRANSACTION_EXTRA)) {
-      return getIntent().getStringExtra(TRANSACTION_EXTRA);
+    if (getIntent().hasExtra(APP_PACKAGE)) {
+      return getIntent().getStringExtra(APP_PACKAGE);
     }
     throw new IllegalArgumentException("previous app package name not found");
-  }
-
-  public boolean isBds() {
-    return getIntent().getBooleanExtra(EXTRA_BDS_IAP, false);
   }
 }

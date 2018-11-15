@@ -20,20 +20,20 @@ public class IabPresenter {
   private final InAppPurchaseInteractor inAppPurchaseInteractor;
   private final Scheduler viewScheduler;
   private final CompositeDisposable disposables;
-  private final String uriString;
   private final String appPackage;
-  private final boolean isIap;
+  private final boolean isBds;
+  private final TransactionBuilder transaction;
 
   public IabPresenter(IabView view, InAppPurchaseInteractor inAppPurchaseInteractor,
-      Scheduler viewScheduler, CompositeDisposable disposables, String uriString, String appPackage,
-      boolean isIap) {
+      Scheduler viewScheduler, CompositeDisposable disposables, String appPackage, boolean isBds,
+      TransactionBuilder transaction) {
     this.view = view;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.viewScheduler = viewScheduler;
     this.disposables = disposables;
-    this.uriString = uriString;
     this.appPackage = appPackage;
-    this.isIap = isIap;
+    this.isBds = isBds;
+    this.transaction = transaction;
   }
 
   public void present(Bundle savedInstanceState) {
@@ -43,24 +43,14 @@ public class IabPresenter {
   }
 
   private void setupUi() {
-    disposables.add(inAppPurchaseInteractor.parseTransaction(uriString, isIap)
-        .flatMapCompletable(transaction -> {
-          if (isIap) {
-            return showBdsPayment(transaction);
-          }
-          return inAppPurchaseInteractor.isWalletFromBds(appPackage, transaction.toAddress())
-              .flatMapCompletable(
-                  isWalletFromBds -> showGenericPayment(transaction, isWalletFromBds));
-        })
-        .subscribe(() -> {
-        }, this::showError));
-  }
-
-  private Completable showGenericPayment(TransactionBuilder transaction, Boolean isWalletFromBds) {
-    if (isWalletFromBds) {
-      return showBdsPayment(transaction);
+    if (isBds) {
+      disposables.add(showBdsPayment(transaction).subscribe(() -> {
+      }, this::showError));
+    } else {
+      disposables.add(Completable.fromAction(() -> view.showOnChain(transaction.amount(), false))
+          .subscribe(() -> {
+          }, this::showError));
     }
-    return Completable.fromAction(() -> view.showOnChain(transaction.amount(), false));
   }
 
   private Completable showBdsPayment(TransactionBuilder transactionBuilder) {
