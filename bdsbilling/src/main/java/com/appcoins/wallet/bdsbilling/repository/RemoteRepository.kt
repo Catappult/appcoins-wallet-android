@@ -65,9 +65,11 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                                  priceValue: BigDecimal,
                                  developerWallet: String, storeWallet: String,
                                  developerPayload: String?): Single<TransactionStatus> {
-      return api.createTransaction(paymentType, origin, packageName, priceValue.toPlainString(), "APPC",
-              productName,
-              type, developerWallet, storeWallet, oemWallet, id, developerPayload, walletAddress, walletSignature)
+    return api.createTransaction(paymentType, origin, packageName, priceValue.toPlainString(),
+        "APPC",
+        productName,
+        type, developerWallet, storeWallet, oemWallet, id, developerPayload, walletAddress,
+        walletSignature)
   }
 
   fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
@@ -77,8 +79,8 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
         paymentProof)
   }
 
-  internal fun getGateways(): Single<List<Gateway>> {
-    return api.getGateways().map { responseMapper.map(it) }
+  internal fun getPaymentMethods(): Single<List<PaymentMethod>> {
+    return api.getPaymentMethods().map { responseMapper.map(it) }
   }
 
   fun patchTransaction(uid: String, walletAddress: String, walletSignature: String,
@@ -97,12 +99,13 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                              packageName: String, priceValue: BigDecimal, priceCurrency: String,
                              productName: String?, type: String,
                              walletDeveloper: String,
-                             walletStore: String, walletOem: String, developerPayload: String?): Single<TransactionStatus> {
-      return api.createTransaction(ADYEN_GATEWAY, origin, packageName, priceValue.toPlainString(),
-              priceCurrency,
-              productName, type, walletDeveloper, walletStore, walletOem, token, developerPayload,
-              walletAddress,
-              walletSignature)
+                             walletStore: String, walletOem: String,
+                             developerPayload: String?): Single<TransactionStatus> {
+    return api.createTransaction(ADYEN_GATEWAY, origin, packageName, priceValue.toPlainString(),
+        priceCurrency,
+        productName, type, walletDeveloper, walletStore, walletOem, token, developerPayload,
+        walletAddress,
+        walletSignature)
   }
 
   fun getAppcoinsTransaction(uid: String, address: String,
@@ -165,8 +168,8 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                         @Query("wallet.signature") walletSignature: String,
                         @Body data: Consumed): Single<Void>
 
-    @GET("inapp/8.20180518/gateways")
-    fun getGateways(): Single<GetGatewaysResponse>
+    @GET("broker/8.20180518/methods")
+    fun getPaymentMethods(): Single<GetMethodsResponse>
 
     @FormUrlEncoded
     @PATCH("broker/8.20180518/gateways/{gateway}/transactions/{uid}")

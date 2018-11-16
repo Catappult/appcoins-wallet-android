@@ -1,7 +1,7 @@
 package com.appcoins.wallet.bdsbilling.repository
 
 import com.appcoins.wallet.bdsbilling.BillingRepository
-import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
+import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethod
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.billing.repository.entity.Product
@@ -76,8 +76,8 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
         walletSignature)
   }
 
-  override fun getGateways(): Single<List<Gateway>> {
-    return remoteRepository.getGateways()
+  override fun getPaymentMethods(): Single<List<PaymentMethod>> {
+    return remoteRepository.getPaymentMethods()
   }
 
   override fun getAppcoinsTransaction(uid: String, address: String,

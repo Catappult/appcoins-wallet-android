@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.iab;
 
 import android.os.Bundle;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Created by franciscocalado on 20/07/2018.
@@ -22,4 +23,6 @@ public interface IabView {
   void showCcPayment(BigDecimal amount, String currency, boolean isBds);
 
   void showAppcoinsCreditsPayment(BigDecimal amount);
+
+  void showPaymentMethods(List<PaymentMethod> paymentMethods);
 }

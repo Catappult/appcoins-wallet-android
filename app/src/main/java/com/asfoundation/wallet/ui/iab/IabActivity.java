@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import com.appcoins.wallet.billing.util.PayloadHelper;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -13,6 +14,7 @@ import dagger.android.AndroidInjection;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
+import java.util.List;
 import javax.inject.Inject;
 
 /**
@@ -67,7 +69,7 @@ public class IabActivity extends BaseActivity implements IabView {
     transaction = getIntent().getParcelableExtra(TRANSACTION_EXTRA);
     isBackEnable = true;
     presenter = new IabPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
-        new CompositeDisposable(), getAppPackage(), isBds, transaction);
+        new CompositeDisposable(), isBds, transaction);
 
     if (savedInstanceState != null) {
       if (savedInstanceState.containsKey(SKU_DETAILS)) {
@@ -158,6 +160,10 @@ public class IabActivity extends BaseActivity implements IabView {
     }
   }
 
+  @Override public void showPaymentMethods(List<PaymentMethod> paymentMethods) {
+    Log.d(TAG, "showPaymentMethods() called with: paymentMethods = [" + paymentMethods + "]");
+  }
+
   @NonNull private Bundle createBundle(BigDecimal amount, String currency) {
     Bundle bundle = createBundle(amount);
 
@@ -178,19 +184,9 @@ public class IabActivity extends BaseActivity implements IabView {
     if (developerPayload != null) {
       bundle.putString(EXTRA_DEVELOPER_PAYLOAD, developerPayload);
     } else {
-      TransactionBuilder builder =
-          inAppPurchaseInteractor.parseTransaction(getIntent().getDataString(), isBds)
-              .blockingGet();
-      bundle.putString(EXTRA_DEVELOPER_PAYLOAD, builder.getPayload());
+      bundle.putString(EXTRA_DEVELOPER_PAYLOAD, transaction.getPayload());
     }
     skuDetails = bundle;
     return bundle;
-  }
-
-  public String getAppPackage() {
-    if (getIntent().hasExtra(APP_PACKAGE)) {
-      return getIntent().getStringExtra(APP_PACKAGE);
-    }
-    throw new IllegalArgumentException("previous app package name not found");
   }
 }

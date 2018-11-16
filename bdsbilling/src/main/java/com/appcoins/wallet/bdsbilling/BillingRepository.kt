@@ -1,7 +1,7 @@
 package com.appcoins.wallet.bdsbilling
 
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
-import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
+import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethod
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.billing.repository.entity.Product
@@ -38,7 +38,7 @@ interface BillingRepository {
   fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
                            signedData: String, paymentProof: String): Completable
 
-  fun getGateways(): Single<List<Gateway>>
+  fun getPaymentMethods(): Single<List<PaymentMethod>>
 
   fun getAppcoinsTransaction(uid: String, address: String,
                              signedContent: String): Single<Transaction>

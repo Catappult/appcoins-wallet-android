@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.iab;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.appcoins.rewards.TransactionIdRepository;
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
+import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethod;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
@@ -210,5 +211,9 @@ public class InAppPurchaseInteractor {
 
   Single<String> getTransactionUid(String uid) {
     return transactionIdRepository.getTransactionUid(uid);
+  }
+
+  public Single<List<PaymentMethod>> getPaymentMethods() {
+    return bdsInAppPurchaseInteractor.getPaymentMethods();
   }
 }
