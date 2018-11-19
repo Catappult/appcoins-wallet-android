@@ -165,7 +165,7 @@ public class InAppPurchaseInteractor {
       TransactionBuilder transactionBuilder) {
     return Single.zip(getRewardsBalance(), hasAppcoinsFunds(transactionBuilder),
         asfInAppPurchaseInteractor.getTransaction(packageName, transactionBuilder.getSkuId(),
-            "inapp"),
+            transactionBuilder.getType()),
         (creditsBalance, hasAppcoinsFunds, transaction) -> map(creditsBalance, hasAppcoinsFunds,
             transaction, transactionBuilder.amount()));
   }

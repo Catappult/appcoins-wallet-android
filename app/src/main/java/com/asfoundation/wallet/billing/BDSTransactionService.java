@@ -18,10 +18,10 @@ public final class BDSTransactionService implements TransactionService {
   @Override public Single<String> createTransaction(String address, String signature, String token,
       String packageName, String payload, String productName, String developerWallet,
       String storeWallet, String oemWallet, String origin, String walletAddress,
-      BigDecimal priceValue, String priceCurrency, String type) {
+      BigDecimal priceValue, String priceCurrency, String type, String callback) {
     return remoteRepository.createAdyenTransaction(origin, walletAddress, signature, token,
         packageName, priceValue, priceCurrency, productName, type, developerWallet, storeWallet,
-        oemWallet, payload)
+        oemWallet, payload, callback)
         .map(TransactionStatus::getUid)
         .subscribeOn(Schedulers.io());
   }

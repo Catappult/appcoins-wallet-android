@@ -1,11 +1,12 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.os.Bundle;
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 import javax.annotation.Nullable;
 import kotlin.NotImplementedError;
 
@@ -45,11 +46,13 @@ public class IabPresenter {
 
   private void setupUi() {
     disposables.add(inAppPurchaseInteractor.parseTransaction(uriString, isBds)
+        .subscribeOn(Schedulers.io())
         .flatMapCompletable(transaction -> {
           if (isBds) {
             return showBdsPayment(transaction);
           }
           return inAppPurchaseInteractor.isWalletFromBds(appPackage, transaction.toAddress())
+              .observeOn(AndroidSchedulers.mainThread())
               .flatMapCompletable(
                   isWalletFromBds -> showGenericPayment(transaction, isWalletFromBds));
         })

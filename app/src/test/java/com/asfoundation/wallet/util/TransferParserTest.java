@@ -16,10 +16,15 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+//@RunWith(PowerMockRunner.class)
+//@PrepareForTest({ Uri.class })
 public class TransferParserTest {
   @Test public void parse() {
     TokenRepositoryType tokenRepositoryType = mock(TokenRepositoryType.class);
     FindDefaultWalletInteract findDefaultWalletInteract = mock(FindDefaultWalletInteract.class);
+    EIPTransactionParser eipTransactionParser =
+        new EIPTransactionParser(findDefaultWalletInteract, tokenRepositoryType);
+    OneStepTransactionParser oneStepTransactionParser = mock(OneStepTransactionParser.class);
 
     String contractAddress = "0xab949343e6c369c6b17c7ae302c1debd4b7b61c3";
     when(findDefaultWalletInteract.find()).thenReturn(Single.just(new Wallet(contractAddress)));
@@ -31,7 +36,7 @@ public class TransferParserTest {
     when(tokenRepositoryType.fetchAll(any())).thenReturn(Observable.just(tokens));
 
     TransferParser transferParser =
-        new TransferParser(findDefaultWalletInteract, tokenRepositoryType);
+        new TransferParser(eipTransactionParser, oneStepTransactionParser);
     TestObserver<TransactionBuilder> test = transferParser.parse("ethereum:"
         + contractAddress
         + "@3"
@@ -49,6 +54,9 @@ public class TransferParserTest {
   @Test public void parseWithData() {
     TokenRepositoryType tokenRepositoryType = mock(TokenRepositoryType.class);
     FindDefaultWalletInteract findDefaultWalletInteract = mock(FindDefaultWalletInteract.class);
+    EIPTransactionParser eipTransactionParser =
+        new EIPTransactionParser(findDefaultWalletInteract, tokenRepositoryType);
+    OneStepTransactionParser oneStepTransactionParser = mock(OneStepTransactionParser.class);
 
     String contractAddress = "0xab949343e6c369c6b17c7ae302c1debd4b7b61c3";
     when(findDefaultWalletInteract.find()).thenReturn(Single.just(new Wallet(contractAddress)));
@@ -60,7 +68,7 @@ public class TransferParserTest {
     when(tokenRepositoryType.fetchAll(any())).thenReturn(Observable.just(tokens));
 
     TransferParser transferParser =
-        new TransferParser(findDefaultWalletInteract, tokenRepositoryType);
+        new TransferParser(eipTransactionParser, oneStepTransactionParser);
     TestObserver<TransactionBuilder> test = transferParser.parse("ethereum:"
         + contractAddress
         + "@3"
@@ -83,6 +91,9 @@ public class TransferParserTest {
   @Test public void parseTransferToken() {
     TokenRepositoryType tokenRepositoryType = mock(TokenRepositoryType.class);
     FindDefaultWalletInteract findDefaultWalletInteract = mock(FindDefaultWalletInteract.class);
+    EIPTransactionParser eipTransactionParser =
+        new EIPTransactionParser(findDefaultWalletInteract, tokenRepositoryType);
+    OneStepTransactionParser oneStepTransactionParser = mock(OneStepTransactionParser.class);
 
     String contractAddress = "0xab949343e6c369c6b17c7ae302c1debd4b7b61c3";
     when(findDefaultWalletInteract.find()).thenReturn(Single.just(new Wallet(contractAddress)));
@@ -94,7 +105,7 @@ public class TransferParserTest {
     when(tokenRepositoryType.fetchAll(any())).thenReturn(Observable.just(tokens));
 
     TransferParser transferParser =
-        new TransferParser(findDefaultWalletInteract, tokenRepositoryType);
+        new TransferParser(eipTransactionParser, oneStepTransactionParser);
     String toAddress = "0x2c30194bd2e7b6b8ff1467c5af1650f53cd231be";
     TestObserver<TransactionBuilder> test = transferParser.parse("ethereum:"
         + contractAddress
@@ -116,11 +127,14 @@ public class TransferParserTest {
   @Test public void parseEthTransaction() {
     TokenRepositoryType tokenRepositoryType = mock(TokenRepositoryType.class);
     FindDefaultWalletInteract findDefaultWalletInteract = mock(FindDefaultWalletInteract.class);
+    EIPTransactionParser eipTransactionParser =
+        new EIPTransactionParser(findDefaultWalletInteract, tokenRepositoryType);
+    OneStepTransactionParser oneStepTransactionParser = mock(OneStepTransactionParser.class);
 
     String toAddress = "0xab949343e6c369c6b17c7ae302c1debd4b7b61c3";
 
     TransferParser transferParser =
-        new TransferParser(findDefaultWalletInteract, tokenRepositoryType);
+        new TransferParser(eipTransactionParser, oneStepTransactionParser);
     TestObserver<TransactionBuilder> test =
         transferParser.parse("ethereum:" + toAddress + "@3?value=1e18")
             .test();
@@ -131,4 +145,42 @@ public class TransferParserTest {
         .equals(toAddress));
     test.assertValue(transactionBuilder -> transactionBuilder.shouldSendToken() == false);
   }
+
+  //@Test public void parseOneStepTransaction() {
+  //  TokenRepositoryType tokenRepositoryType = mock(TokenRepositoryType.class);
+  //  FindDefaultWalletInteract findDefaultWalletInteract = mock(FindDefaultWalletInteract.class);
+  //  ProxyService proxyService = mock(ProxyService.class);
+  //  Billing billing = mock(Billing.class);
+  //  CurrencyConversionService conversionService = mock(CurrencyConversionService.class);
+  //  EIPTransactionParser eipTransactionParser = mock(EIPTransactionParser.class);
+  //
+  //  OneStepTransactionParser oneStepTransactionParser =
+  //      new OneStepTransactionParser(findDefaultWalletInteract, tokenRepositoryType, proxyService,
+  //          billing, conversionService,
+  //          new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()));
+  //
+  //  String contractAddress = "0xab949343e6c369c6b17c7ae302c1debd4b7b61c3";
+  //  when(findDefaultWalletInteract.find()).thenReturn(Single.just(new Wallet(contractAddress)));
+  //  Token token = new Token(new TokenInfo(contractAddress, "AppCoins", "APPC", 18, true, true),
+  //      new BigDecimal(10), 32L);
+  //  Token[] tokens = new Token[1];
+  //  tokens[0] = token;
+  //
+  //  when(tokenRepositoryType.fetchAll(any())).thenReturn(Observable.just(tokens));
+  //
+  //  TransferParser transferParser =
+  //      new TransferParser(eipTransactionParser, oneStepTransactionParser);
+  //  TestObserver<TransactionBuilder> test = transferParser.parse("htts://"
+  //      + contractAddress
+  //      + "@3"
+  //      + "/transfer?address=0x2c30194bd2e7b6b8ff1467c5af1650f53cd231be&uint256"
+  //      + "=1000000000000000000")
+  //      .test();
+  //  test.assertValue(transactionBuilder -> transactionBuilder.amount()
+  //      .equals(new BigDecimal(1).setScale(18)));
+  //  test.assertValue(transactionBuilder -> transactionBuilder.toAddress()
+  //      .equals("0x2c30194bd2e7b6b8ff1467c5af1650f53cd231be"));
+  //  test.assertValue(transactionBuilder -> transactionBuilder.contractAddress()
+  //      .equals("0xab949343e6c369c6b17c7ae302c1debd4b7b61c3"));
+  //}
 }

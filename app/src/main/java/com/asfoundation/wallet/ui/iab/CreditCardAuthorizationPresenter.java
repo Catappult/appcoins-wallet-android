@@ -153,7 +153,7 @@ public class CreditCardAuthorizationPresenter {
             .flatMapCompletable(
                 transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
                     transaction.toAddress(), developerPayload, origin, convertAmount(currency),
-                    currency, type)
+                    currency, type, transaction.getCallbackUrl())
                     .observeOn(viewScheduler)
                     .filter(payment -> payment.isPendingAuthorization())
                     .firstOrError()
@@ -185,7 +185,7 @@ public class CreditCardAuthorizationPresenter {
     disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
         .flatMap(transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
             transaction.toAddress(), developerPayload, origin, convertAmount(currency), currency,
-            type)
+            type, transaction.getCallbackUrl())
             .filter(payment -> payment.isCompleted())
             .firstOrError()
             .flatMap(adyenAuthorization -> buildBundle(billing))
@@ -231,7 +231,7 @@ public class CreditCardAuthorizationPresenter {
     disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
         .flatMap(transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
             transaction.toAddress(), developerPayload, origin, convertAmount(currency), currency,
-            type)
+            type, transaction.getCallbackUrl())
             .filter(payment -> payment.isFailed())
             .firstOrError()
             .observeOn(viewScheduler)
@@ -248,7 +248,7 @@ public class CreditCardAuthorizationPresenter {
     disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
         .flatMapObservable(transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
             transaction.toAddress(), developerPayload, origin, convertAmount(currency), currency,
-            type)
+            type, transaction.getCallbackUrl())
             .filter(payment -> payment.isProcessing())
             .observeOn(viewScheduler)
             .doOnNext(__ -> view.showLoading()))

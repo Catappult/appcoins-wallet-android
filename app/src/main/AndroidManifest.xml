@@ -79,6 +79,7 @@
     <activity
         android:name="com.asfoundation.wallet.ui.TokenChangeCollectionActivity"
         android:label="@string/title_tokens"/>
+
     <activity
         android:name="com.asfoundation.wallet.ui.Erc681Receiver"
         android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">
@@ -86,6 +87,21 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <data android:scheme="ethereum"/>
+      </intent-filter>
+    </activity>
+
+    <activity
+        android:name="com.asfoundation.wallet.ui.OneStepPaymentReceiver"
+        android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:scheme="https" />
+        <data android:host="${paymentHost}"/>
+        <!--<data android:host="apichain.blockchainds.com" />-->
+        <!--<data android:host="apichain-dev.blockchainds.com" />-->
+        <data android:pathPrefix="/transaction" />
       </intent-filter>
     </activity>
 

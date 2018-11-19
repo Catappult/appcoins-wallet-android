@@ -38,10 +38,12 @@ import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.TransactionSender;
 import com.asfoundation.wallet.repository.TransactionValidator;
 import com.asfoundation.wallet.repository.WatchedTransactionService;
-import com.asfoundation.wallet.service.TokenToFiatService;
+import com.asfoundation.wallet.service.CurrencyConversionService;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationEntity;
 import com.asfoundation.wallet.ui.iab.raiden.ChannelService;
 import com.asfoundation.wallet.ui.iab.raiden.RaidenRepository;
+import com.asfoundation.wallet.util.EIPTransactionParser;
+import com.asfoundation.wallet.util.OneStepTransactionParser;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -90,6 +92,8 @@ public class InAppPurchaseInteractorTest {
   @Mock SendTransactionInteract sendTransactionInteract;
   @Mock PendingTransactionService pendingTransactionService;
   @Mock FindDefaultWalletInteract defaultWalletInteract;
+  @Mock EIPTransactionParser eipTransactionParser;
+  @Mock OneStepTransactionParser oneStepTransactionParser;
   @Mock TokenRepositoryType tokenRepository;
   @Mock NonceGetter nonceGetter;
   @Mock BalanceService balanceService;
@@ -195,12 +199,12 @@ public class InAppPurchaseInteractorTest {
     AsfInAppPurchaseInteractor asfInAppPurchaseInteractor =
         new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
             gasSettingsInteract, BigDecimal.ONE,
-            new TransferParser(defaultWalletInteract, tokenRepository), repository,
+            new TransferParser(eipTransactionParser, oneStepTransactionParser), repository,
             new ChannelService(null, new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
                 new MemoryCache<>(BehaviorSubject.create(), new HashMap<>())),
             new BillingMessagesMapper(new ExternalBillingSerializer()), billing,
             new ExternalBillingSerializer(),
-            new ExpressCheckoutBuyService(Mockito.mock(TokenToFiatService.class)),
+            new ExpressCheckoutBuyService(Mockito.mock(CurrencyConversionService.class)),
             new BdsTransactionService(scheduler,
                 new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
                 new CompositeDisposable(), transactionService), scheduler);
@@ -224,9 +228,10 @@ public class InAppPurchaseInteractorTest {
     inAppPurchaseInteractor.getTransactionState(uri)
         .subscribe(testObserver);
     scheduler.triggerActions();
-    inAppPurchaseInteractor.send(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
-        PACKAGE_NAME, PRODUCT_NAME, BigDecimal.ONE, DEVELOPER_PAYLOAD)
-        .subscribe();
+    Completable c = inAppPurchaseInteractor.send(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
+        PACKAGE_NAME, PRODUCT_NAME, BigDecimal.ONE, DEVELOPER_PAYLOAD);
+
+    c.subscribe();
     scheduler.triggerActions();
     balance.onNext(GetDefaultWalletBalance.BalanceState.OK);
 

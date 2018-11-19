@@ -263,7 +263,7 @@ public class AsfInAppPurchaseInteractor {
                 new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
                     paymentGasLimit))))
         .map(transactionBuilder -> new PaymentTransaction(uri, transactionBuilder, packageName,
-            productName, transactionBuilder.getSkuId(), developerPayload));
+            productName, transactionBuilder.getSkuId(), developerPayload, transactionBuilder.getCallbackUrl()));
   }
 
   public void start() {

@@ -14,13 +14,15 @@ class BdsAppcoinsRewardsRepository(private val remoteRepository: RemoteRepositor
   override fun pay(walletAddress: String, signature: String,
                    amount: BigDecimal,
                    origin: String?,
-                   sku: String,
+                   sku: String?,
                    type: String,
                    developerAddress: String,
                    storeAddress: String,
                    oemAddress: String,
-                   packageName: String): Single<Transaction> {
+                   packageName: String,
+                   payload: String?,
+                   callback: String?): Single<Transaction> {
     return remoteRepository.pay(walletAddress, signature, amount, origin, sku,
-        type, developerAddress, storeAddress, oemAddress, packageName)
+        type, developerAddress, storeAddress, oemAddress, packageName, payload, callback)
   }
 }

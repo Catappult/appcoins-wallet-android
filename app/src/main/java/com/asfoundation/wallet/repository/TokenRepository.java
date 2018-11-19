@@ -101,7 +101,7 @@ public class TokenRepository implements TokenRepositoryType {
       String data, BigDecimal amount, String tokenAddress, String packageName, byte[] countryCode) {
     Uint256 amountParam = new Uint256(amount.toBigInteger());
     Utf8String packageNameType = new Utf8String(packageName);
-    Utf8String dataParam = new Utf8String(data);
+    Utf8String dataParam = data == null? new Utf8String("") : new Utf8String(data);
     Address contractAddress = new Address(tokenAddress);
     Address developerAddressParam = new Address(developerAddress);
     Address storeAddressParam = new Address(storeAddress);

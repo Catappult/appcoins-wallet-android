@@ -37,7 +37,7 @@ public class OnChainBuyPresenter {
   public OnChainBuyPresenter(OnChainBuyView view, InAppPurchaseInteractor inAppPurchaseInteractor,
       Scheduler viewScheduler, CompositeDisposable disposables,
       BillingMessagesMapper billingMessagesMapper, boolean isBds, String productName,
-       BillingAnalytics analytics, String appPackage, String uriString) {
+      BillingAnalytics analytics, String appPackage, String uriString) {
     this.view = view;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.viewScheduler = viewScheduler;
@@ -143,7 +143,8 @@ public class OnChainBuyPresenter {
                       showTransactionState(uri);
                       return inAppPurchaseInteractor.resume(uri,
                           AsfInAppPurchaseInteractor.TransactionType.NORMAL, packageName,
-                          transaction.getSkuId(), developerPayload, isBds);
+                          transaction.getSkuId(), developerPayload,
+                          isBds);
                     case READY:
                       return Completable.fromAction(() -> setup(appcAmount, transaction.getType()))
                           .subscribeOn(AndroidSchedulers.mainThread());
@@ -256,7 +257,8 @@ public class OnChainBuyPresenter {
   }
 
   private void setup(BigDecimal amount, String type) {
-    view.setup(productName, TransactionType.DONATION.name().equalsIgnoreCase(type));
+    view.setup(productName, TransactionType.DONATION.name()
+        .equalsIgnoreCase(type));
     view.showRaidenChannelValues(inAppPurchaseInteractor.getTopUpChannelSuggestionValues(amount));
   }
 

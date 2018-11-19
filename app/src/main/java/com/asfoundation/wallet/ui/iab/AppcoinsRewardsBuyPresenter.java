@@ -90,15 +90,16 @@ public class AppcoinsRewardsBuyPresenter {
         .flatMapSingle(__ -> transferParser.parse(uri))
         .flatMapCompletable(transaction -> rewardsManager.pay(transaction.getSkuId(), amount,
             transaction.toAddress(), storeAddress, oemAddress, packageName,
-            isBds ? Transaction.Origin.BDS : Transaction.Origin.UNKNOWN, transaction.getType())
-            .andThen(rewardsManager.getPaymentStatus(packageName, transaction.getSkuId()))
+            isBds ? Transaction.Origin.BDS : Transaction.Origin.UNKNOWN, transaction.getType(),
+            transaction.getPayload(), transaction.getCallbackUrl())
+            .andThen(rewardsManager.getPaymentStatus(packageName, transaction.getSkuId(), transaction.amount()))
             .observeOn(scheduler)
             .flatMapCompletable(
-                paymentStatus -> handlePaymentStatus(paymentStatus, transaction.getSkuId())))
+                paymentStatus -> handlePaymentStatus(paymentStatus, transaction.getSkuId(), transaction.amount())))
         .subscribe());
   }
 
-  private Completable handlePaymentStatus(RewardsManager.RewardPayment transaction, String sku) {
+  private Completable handlePaymentStatus(RewardsManager.RewardPayment transaction, String sku, BigDecimal amount) {
     switch (transaction.getStatus()) {
       case PROCESSING:
         return Completable.fromAction(() -> {
@@ -118,7 +119,7 @@ public class AppcoinsRewardsBuyPresenter {
               }));
         }
         return Completable.fromAction(() -> view.finish(
-            rewardsManager.getTransaction(packageName, sku)
+            rewardsManager.getTransaction(packageName, sku, amount)
                 .map(Transaction::getTxId)
                 .blockingFirst()));
       case ERROR:
@@ -149,9 +150,8 @@ public class AppcoinsRewardsBuyPresenter {
   }
 
   public void sendPaymentEvent(String purchaseDetails) {
-    TransactionBuilder transactionBuilder =
-        inAppPurchaseInteractor.parseTransaction(uri, isBds)
-            .blockingGet();
+    TransactionBuilder transactionBuilder = inAppPurchaseInteractor.parseTransaction(uri, isBds)
+        .blockingGet();
     analytics.sendPaymentEvent(packageName, transactionBuilder.getSkuId(),
         transactionBuilder.amount()
             .toString(), purchaseDetails);
