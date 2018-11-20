@@ -194,7 +194,7 @@ public class InAppPurchaseInteractor {
 
   private Gateway.Name getNewPaymentGateway(BigDecimal creditsBalance, Boolean hasAppcoinsFunds,
       BigDecimal amount) {
-    if (creditsBalance.compareTo(amount) > 0) {
+    if (creditsBalance.compareTo(amount) >= 0) {
       return Gateway.Name.appcoins_credits;
     } else if (hasAppcoinsFunds) {
       return Gateway.Name.appcoins;
