@@ -6,7 +6,7 @@ import io.reactivex.Completable;
 import io.reactivex.Observable;
 import java.math.BigDecimal;
 
-public interface CreditCardBilling {
+public interface BillingService {
 
   Observable<AdyenAuthorization> getAuthorization(String productName, String developerAddress,
       String payload, String origin, BigDecimal priceValue, String priceCurrency, String type);

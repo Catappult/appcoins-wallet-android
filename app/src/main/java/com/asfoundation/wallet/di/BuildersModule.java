@@ -16,11 +16,13 @@ import com.asfoundation.wallet.ui.TransactionDetailActivity;
 import com.asfoundation.wallet.ui.TransactionsActivity;
 import com.asfoundation.wallet.ui.WalletsActivity;
 import com.asfoundation.wallet.ui.airdrop.AirdropFragment;
+import com.asfoundation.wallet.ui.iab.AdyenAuthorizationFragment;
 import com.asfoundation.wallet.ui.iab.AppcoinsRewardsBuyFragment;
-import com.asfoundation.wallet.ui.iab.CreditCardAuthorizationFragment;
+import com.asfoundation.wallet.ui.iab.BillingWebViewFragment;
 import com.asfoundation.wallet.ui.iab.ExpressCheckoutBuyFragment;
 import com.asfoundation.wallet.ui.iab.IabActivity;
 import com.asfoundation.wallet.ui.iab.OnChainBuyFragment;
+import com.asfoundation.wallet.ui.iab.WebViewActivity;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
@@ -79,7 +81,11 @@ import dagger.android.ContributesAndroidInjector;
   abstract ExpressCheckoutBuyFragment bindExpressCheckoutBuyFragment();
 
   @ContributesAndroidInjector()
-  abstract CreditCardAuthorizationFragment bindCreditCardAuthorizationFragment();
+  abstract AdyenAuthorizationFragment bindCreditCardAuthorizationFragment();
+
+  @ContributesAndroidInjector() abstract BillingWebViewFragment bindWebViewFragment();
+
+  @ContributesAndroidInjector() abstract WebViewActivity bindWebViewActivity();
 
   @ContributesAndroidInjector()
   abstract AppcoinsRewardsBuyFragment bindAppcoinsRewardsBuyFragment();

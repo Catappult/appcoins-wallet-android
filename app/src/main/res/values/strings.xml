@@ -341,5 +341,7 @@
   <string name="iab_button_ok">OK</string>
   <string name="action_skip_backup_wallet">SKIP BACKUP</string>
   <string name="item_donation">Donation</string>
+  <string name="fragment_adyen_generic_error_message">An error has occurred</string>
+
 
 </resources>
