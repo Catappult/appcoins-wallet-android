@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.ui.iab;
 
 import com.appcoins.wallet.bdsbilling.Billing;
-import com.appcoins.wallet.bdsbilling.BillingFactory;
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
+import com.appcoins.wallet.bdsbilling.ProxyService;
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
@@ -54,7 +54,6 @@ import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -91,8 +90,6 @@ public class InAppPurchaseInteractorTest {
   @Mock SendTransactionInteract sendTransactionInteract;
   @Mock PendingTransactionService pendingTransactionService;
   @Mock FindDefaultWalletInteract defaultWalletInteract;
-  @Mock EIPTransactionParser eipTransactionParser;
-  @Mock OneStepTransactionParser oneStepTransactionParser;
   @Mock TokenRepositoryType tokenRepository;
   @Mock BalanceService balanceService;
   @Mock AppInfoProvider appInfoProvider;
@@ -104,7 +101,8 @@ public class InAppPurchaseInteractorTest {
   @Mock CountryCodeProvider countryCodeProvider;
   @Mock Billing billing;
   @Mock BdsPendingTransactionService transactionService;
-  @Mock BillingFactory bdsBilling;
+  @Mock ProxyService proxyService;
+  @Mock CurrencyConversionService conversionService;
   private BdsInAppPurchaseInteractor inAppPurchaseInteractor;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
@@ -113,6 +111,8 @@ public class InAppPurchaseInteractorTest {
   private TestScheduler scheduler;
   private InAppPurchaseService inAppPurchaseService;
   private DataMapper dataMapper;
+  private EIPTransactionParser eipTransactionParser;
+  private OneStepTransactionParser oneStepTransactionParser;
 
   @Before public void before()
       throws AppInfoProvider.UnknownApplicationException, ImageSaver.SaveException {
@@ -193,6 +193,18 @@ public class InAppPurchaseInteractorTest {
         Single.just(new Transaction(UID, Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
             new Gateway(Gateway.Name.appcoins, "", ""), null)));
 
+    when(proxyService.getAppCoinsAddress(anyBoolean())).thenReturn(
+        Single.just("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3"));
+    when(proxyService.getIabAddress(anyBoolean())).thenReturn(
+        Single.just("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3"));
+    when(conversionService.getAppcRate(anyString())).thenReturn(
+        Single.just(new FiatValue(2.0, "EUR")));
+
+    eipTransactionParser = new EIPTransactionParser(defaultWalletInteract, tokenRepository);
+    oneStepTransactionParser =
+        new OneStepTransactionParser(defaultWalletInteract, tokenRepository, proxyService, billing,
+            conversionService, new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()));
+
     AsfInAppPurchaseInteractor asfInAppPurchaseInteractor =
         new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
             gasSettingsInteract, BigDecimal.ONE,
@@ -225,10 +237,9 @@ public class InAppPurchaseInteractorTest {
     inAppPurchaseInteractor.getTransactionState(uri)
         .subscribe(testObserver);
     scheduler.triggerActions();
-    Completable c = inAppPurchaseInteractor.send(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
-        PACKAGE_NAME, PRODUCT_NAME, BigDecimal.ONE, DEVELOPER_PAYLOAD);
-
-    c.subscribe();
+    inAppPurchaseInteractor.send(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
+        PACKAGE_NAME, PRODUCT_NAME, BigDecimal.ONE, DEVELOPER_PAYLOAD)
+        .subscribe();
     scheduler.triggerActions();
     balance.onNext(GetDefaultWalletBalance.BalanceState.OK);
 
