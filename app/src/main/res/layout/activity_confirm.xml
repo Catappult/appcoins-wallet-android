@@ -33,7 +33,6 @@
         >
 
       <TextView
-          android:id="@+id/label_from"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/label_from"
@@ -52,7 +51,6 @@
           />
 
       <TextView
-          android:id="@+id/label_to"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/label_to"
@@ -71,7 +69,6 @@
           />
 
       <TextView
-          android:id="@+id/label_gas_price"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/label_gas_price"
@@ -90,7 +87,6 @@
           />
 
       <TextView
-          android:id="@+id/label_gas_limit"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/label_gas_limit"
@@ -109,7 +105,6 @@
           />
 
       <TextView
-          android:id="@+id/label_network_fee"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/label_network_fee"
