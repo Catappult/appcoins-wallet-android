@@ -32,8 +32,9 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
         Function5 { token: Token, iabContract: String, walletAddress: String, tokenContract: String,
                     amount: BigDecimal ->
           TransactionBuilder(token.tokenInfo.symbol, tokenContract,
-              getChainId(uri), walletAddress, amount, getSkuId(uri), 18, iabContract,
-              getPaymentType(uri), getDomain(uri), getPayload(uri),
+              getChainId(uri), walletAddress, amount, getSkuId(uri), token.tokenInfo.decimals,
+              iabContract,
+              Parameters.PAYMENT_TYPE_INAPP_UNMANAGED, getDomain(uri), getPayload(uri),
               getCallback(uri)).shouldSendToken(true)
         }).doOnSuccess { transactionBuilder ->
       cache.saveSync(uri.toString(), transactionBuilder)
@@ -70,11 +71,8 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
   }
 
   private fun getChainId(uri: OneStepUri): Long? {
-    return if (uri.host == BuildConfig.PAYMENT_HOST_MAIN_NETWORK) Parameters.NETWORK_ID_MAIN else Parameters.NETWORK_ID_ROPSTEN
-  }
-
-  private fun getPaymentType(uri: OneStepUri): String {
-    return Parameters.PAYMENT_TYPE_INAPP_UNMANAGED.toUpperCase()
+    return if (uri.host == BuildConfig.PAYMENT_HOST_MAIN_NETWORK)
+      Parameters.NETWORK_ID_MAIN else Parameters.NETWORK_ID_ROPSTEN
   }
 
   private fun getToken(): Single<Token>? {
@@ -129,11 +127,11 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
 
   private fun getTransactionValue(uri: OneStepUri): Single<BigDecimal> {
     return if (getCurrency(uri) == null || getCurrency(uri) == "APPC") {
-      Single.just(BigDecimal(uri.parameters[Parameters.VALUE]))
+      Single.just(BigDecimal(uri.parameters[Parameters.VALUE]).setScale(18))
     } else {
       conversionService.getAppcRate(getCurrency(uri)).map {
-        BigDecimal(uri.parameters[Parameters.VALUE]).divide(BigDecimal(it.amount),
-            RoundingMode.HALF_UP)
+        BigDecimal(uri.parameters[Parameters.VALUE])
+            .divide(BigDecimal(it.amount.toString()), 18, RoundingMode.UP)
       }
     }
   }
