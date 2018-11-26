@@ -12,6 +12,7 @@ import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
@@ -34,6 +35,7 @@ public class OnChainBuyPresenter {
   private BillingAnalytics analytics;
   private final String appPackage;
   private final String uriString;
+  private Disposable statusDisposable;
   private final Single<TransactionBuilder> transactionBuilder;
 
   public OnChainBuyPresenter(OnChainBuyView view, InAppPurchaseInteractor inAppPurchaseInteractor,
@@ -73,11 +75,14 @@ public class OnChainBuyPresenter {
   }
 
   private void showTransactionState(String uriString) {
-    disposables.add(inAppPurchaseInteractor.getTransactionState(uriString)
+    if (statusDisposable != null && !statusDisposable.isDisposed()) {
+      statusDisposable.dispose();
+    }
+    statusDisposable = inAppPurchaseInteractor.getTransactionState(uriString)
         .observeOn(viewScheduler)
         .flatMapCompletable(this::showPendingTransaction)
         .subscribe(() -> {
-        }, throwable -> throwable.printStackTrace()));
+        }, throwable -> throwable.printStackTrace());
   }
 
   private void handleBuyEvent(String appPackage, String productName, String developerPayload,
@@ -113,7 +118,6 @@ public class OnChainBuyPresenter {
                 .flatMapCompletable(currentPaymentStep -> {
                   switch (currentPaymentStep) {
                     case PAUSED_ON_CHAIN:
-                      showTransactionState(uri);
                       return inAppPurchaseInteractor.resume(uri,
                           AsfInAppPurchaseInteractor.TransactionType.NORMAL, packageName,
                           transaction.getSkuId(), developerPayload, isBds);
@@ -241,6 +245,14 @@ public class OnChainBuyPresenter {
         transactionBuilder -> analytics.sendPaymentEvent(appPackage, transactionBuilder.getSkuId(),
             transactionBuilder.amount()
                 .toString(), purchaseDetails, transactionBuilder.getType())));
+  }
+
+  public void resume() {
+    showTransactionState(uriString);
+  }
+
+  public void pause() {
+    statusDisposable.dispose();
   }
 
   public static class BuyData {
