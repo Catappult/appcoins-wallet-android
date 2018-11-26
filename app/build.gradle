@@ -35,8 +35,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 27
-    versionCode 42
-    versionName "1.2.0.15"
+    versionCode 46
+    versionName "1.2.0.19"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     vectorDrawables.useSupportLibrary = true
     multiDexEnabled = true
@@ -203,7 +203,7 @@ dependencies {
   implementation project(":tn")
   implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  implementation "com.asfoundation:microraidenj-bds:$project.appcoinsSdkVersion"
+  implementation "com.asfoundation:ethereumj-android:$project.appcoinsSdkVersion"
 
   implementation "android.arch.persistence.room:runtime:$project.roomVersion"
   annotationProcessor "android.arch.persistence.room:compiler:$project.roomVersion"

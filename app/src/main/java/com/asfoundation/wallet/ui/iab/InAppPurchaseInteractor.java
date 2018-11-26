@@ -90,18 +90,6 @@ public class InAppPurchaseInteractor {
     return bdsInAppPurchaseInteractor.getTopUpChannelSuggestionValues(price);
   }
 
-  public boolean shouldShowDialog() {
-    return bdsInAppPurchaseInteractor.shouldShowDialog();
-  }
-
-  public void dontShowAgain() {
-    bdsInAppPurchaseInteractor.dontShowAgain();
-  }
-
-  public Single<Boolean> hasChannel() {
-    return bdsInAppPurchaseInteractor.hasChannel();
-  }
-
   public Single<String> getWalletAddress() {
     return asfInAppPurchaseInteractor.getWalletAddress();
   }
@@ -194,7 +182,7 @@ public class InAppPurchaseInteractor {
 
   private Gateway.Name getNewPaymentGateway(BigDecimal creditsBalance, Boolean hasAppcoinsFunds,
       BigDecimal amount) {
-    if (creditsBalance.compareTo(amount) > 0) {
+    if (creditsBalance.compareTo(amount) >= 0) {
       return Gateway.Name.appcoins_credits;
     } else if (hasAppcoinsFunds) {
       return Gateway.Name.appcoins;

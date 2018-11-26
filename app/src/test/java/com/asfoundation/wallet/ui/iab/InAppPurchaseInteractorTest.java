@@ -32,7 +32,6 @@ import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.ExpressCheckoutBuyService;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
-import com.asfoundation.wallet.repository.NonceGetter;
 import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.TransactionSender;
@@ -40,8 +39,6 @@ import com.asfoundation.wallet.repository.TransactionValidator;
 import com.asfoundation.wallet.repository.WatchedTransactionService;
 import com.asfoundation.wallet.service.TokenToFiatService;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationEntity;
-import com.asfoundation.wallet.ui.iab.raiden.ChannelService;
-import com.asfoundation.wallet.ui.iab.raiden.RaidenRepository;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -53,7 +50,6 @@ import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -91,11 +87,9 @@ public class InAppPurchaseInteractorTest {
   @Mock PendingTransactionService pendingTransactionService;
   @Mock FindDefaultWalletInteract defaultWalletInteract;
   @Mock TokenRepositoryType tokenRepository;
-  @Mock NonceGetter nonceGetter;
   @Mock BalanceService balanceService;
   @Mock AppInfoProvider appInfoProvider;
   @Mock ProofOfAttentionService proofOfAttentionService;
-  @Mock RaidenRepository repository;
   @Mock TransactionSender transactionSender;
   @Mock TransactionValidator transactionValidator;
   @Mock DefaultTokenProvider defaultTokenProvider;
@@ -134,7 +128,6 @@ public class InAppPurchaseInteractorTest {
             false);
     when(defaultTokenProvider.getDefaultToken()).thenReturn(Single.just(tokenInfo));
 
-    when(nonceGetter.getNonce()).thenReturn(Single.just(BigInteger.ONE));
     pendingApproveState = PublishSubject.create();
     pendingBuyState = PublishSubject.create();
     when(pendingTransactionService.checkTransactionState(APPROVE_HASH)).thenReturn(
@@ -195,9 +188,7 @@ public class InAppPurchaseInteractorTest {
     AsfInAppPurchaseInteractor asfInAppPurchaseInteractor =
         new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
             gasSettingsInteract, BigDecimal.ONE,
-            new TransferParser(defaultWalletInteract, tokenRepository), repository,
-            new ChannelService(null, new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-                new MemoryCache<>(BehaviorSubject.create(), new HashMap<>())),
+            new TransferParser(defaultWalletInteract, tokenRepository),
             new BillingMessagesMapper(new ExternalBillingSerializer()), billing,
             new ExternalBillingSerializer(),
             new ExpressCheckoutBuyService(Mockito.mock(TokenToFiatService.class)),

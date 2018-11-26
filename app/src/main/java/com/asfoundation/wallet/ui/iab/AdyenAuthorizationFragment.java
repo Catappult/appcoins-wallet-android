@@ -338,7 +338,6 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   }
 
   @Override public void close(Bundle bundle) {
-    presenter.sendCCDetailsEvent();
     iabView.close(bundle);
   }
 
@@ -372,7 +371,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
         .getParent()
         .getParent()
         .getParent()).setPadding(24, 0, 0, 0);
-    presenter.sendCCDetailsEvent();
+    presenter.sendPaymentMethodDetailsEvent();
   }
 
   private PaymentDetails getPaymentDetails(String publicKey, String generationTime) {

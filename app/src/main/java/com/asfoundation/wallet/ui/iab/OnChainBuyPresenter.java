@@ -9,6 +9,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.util.UnknownTokenException;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -33,11 +34,12 @@ public class OnChainBuyPresenter {
   private BillingAnalytics analytics;
   private final String appPackage;
   private final String uriString;
+  private final Single<TransactionBuilder> transactionBuilder;
 
   public OnChainBuyPresenter(OnChainBuyView view, InAppPurchaseInteractor inAppPurchaseInteractor,
       Scheduler viewScheduler, CompositeDisposable disposables,
       BillingMessagesMapper billingMessagesMapper, boolean isBds, String productName,
-       BillingAnalytics analytics, String appPackage, String uriString) {
+      BillingAnalytics analytics, String appPackage, String uriString) {
     this.view = view;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.viewScheduler = viewScheduler;
@@ -48,6 +50,7 @@ public class OnChainBuyPresenter {
     this.analytics = analytics;
     this.appPackage = appPackage;
     this.uriString = uriString;
+    this.transactionBuilder = inAppPurchaseInteractor.parseTransaction(uriString, isBds);
   }
 
   public void present(String uriString, String appPackage, String productName, BigDecimal amount,
@@ -61,41 +64,12 @@ public class OnChainBuyPresenter {
     handleBuyEvent(appPackage, productName, developerPayload, isBds);
 
     handleDontShowMicroRaidenInfo();
-
-    showChannelAmount();
-
-    showMicroRaidenInfo();
-  }
-
-  private void showChannelAmount() {
-    disposables.add(view.getCreateChannelClick()
-        .flatMapSingle(isChecked -> inAppPurchaseInteractor.hasChannel()
-            .observeOn(viewScheduler)
-            .doOnSuccess(hasChannel -> {
-              if (isChecked && !hasChannel) {
-                view.showChannelAmount();
-              } else {
-                view.hideChannelAmount();
-              }
-            }))
-        .doOnError(Throwable::printStackTrace)
-        .retry()
-        .subscribe());
   }
 
   private void handleDontShowMicroRaidenInfo() {
     //disposables.add(view.getDontShowAgainClick()
     //    .doOnNext(__ -> inAppPurchaseInteractor.dontShowAgain())
     //    .subscribe());
-  }
-
-  private void showMicroRaidenInfo() {
-    disposables.add(view.getCreateChannelClick()
-        .filter(isChecked -> isChecked && inAppPurchaseInteractor.shouldShowDialog())
-        .doOnNext(__ -> view.showRaidenInfo())
-        .doOnError(Throwable::printStackTrace)
-        .retry()
-        .subscribe());
   }
 
   private void showTransactionState(String uriString) {
@@ -112,8 +86,7 @@ public class OnChainBuyPresenter {
         .doOnNext(buyData -> showTransactionState(buyData.uri))
         .observeOn(Schedulers.io())
         .flatMapCompletable(buyData -> inAppPurchaseInteractor.send(buyData.getUri(),
-            buyData.isRaiden ? AsfInAppPurchaseInteractor.TransactionType.RAIDEN
-                : AsfInAppPurchaseInteractor.TransactionType.NORMAL, appPackage, productName,
+            AsfInAppPurchaseInteractor.TransactionType.NORMAL, appPackage, productName,
             buyData.getChannelBudget(), developerPayload, isBds)
             .observeOn(viewScheduler)
             .doOnError(this::showError))
@@ -148,7 +121,7 @@ public class OnChainBuyPresenter {
                       return Completable.fromAction(() -> setup(appcAmount, transaction.getType()))
                           .subscribeOn(AndroidSchedulers.mainThread());
                     case NO_FUNDS:
-                      return Completable.fromAction(view::showNoFundsError);
+                      return Completable.fromAction(view::showNoFundsError).subscribeOn(viewScheduler);
                     case PAUSED_CC_PAYMENT:
                     default:
                       return Completable.error(new UnsupportedOperationException(
@@ -161,16 +134,11 @@ public class OnChainBuyPresenter {
         .observeOn(viewScheduler)
         .subscribe(view::showWallet, Throwable::printStackTrace));
 
+    view.showDefaultAsDefaultPayment();
+
     disposables.add(inAppPurchaseInteractor.getWalletAddress()
-        .flatMap(wallet -> inAppPurchaseInteractor.hasChannel())
         .observeOn(viewScheduler)
-        .subscribe(hasChannel -> {
-          if (hasChannel) {
-            view.showChannelAsDefaultPayment();
-          } else {
-            view.showDefaultAsDefaultPayment();
-          }
-        }, Throwable::printStackTrace));
+        .subscribe(hasChannel -> view.showDefaultAsDefaultPayment(), Throwable::printStackTrace));
   }
 
   private void showBuy() {
@@ -256,26 +224,23 @@ public class OnChainBuyPresenter {
   }
 
   private void setup(BigDecimal amount, String type) {
-    view.setup(productName, TransactionType.DONATION.name().equalsIgnoreCase(type));
+    view.setup(productName, TransactionType.DONATION.name()
+        .equalsIgnoreCase(type));
     view.showRaidenChannelValues(inAppPurchaseInteractor.getTopUpChannelSuggestionValues(amount));
   }
 
   public void sendPurchaseDetails(String purchaseDetails) {
-    TransactionBuilder transactionBuilder =
-        inAppPurchaseInteractor.parseTransaction(uriString, isBds)
-            .blockingGet();
-    analytics.sendPurchaseDetailsEvent(appPackage, transactionBuilder.getSkuId(),
-        transactionBuilder.amount()
-            .toString(), purchaseDetails);
+    disposables.add(transactionBuilder.subscribe(
+        transactionBuilder -> analytics.sendPurchaseDetailsEvent(appPackage,
+            transactionBuilder.getSkuId(), transactionBuilder.amount()
+                .toString(), purchaseDetails, transactionBuilder.getType())));
   }
 
   public void sendPaymentEvent(String purchaseDetails) {
-    TransactionBuilder transactionBuilder =
-        inAppPurchaseInteractor.parseTransaction(uriString, isBds)
-            .blockingGet();
-    analytics.sendPaymentEvent(appPackage, transactionBuilder.getSkuId(),
-        transactionBuilder.amount()
-            .toString(), purchaseDetails);
+    disposables.add(transactionBuilder.subscribe(
+        transactionBuilder -> analytics.sendPaymentEvent(appPackage, transactionBuilder.getSkuId(),
+            transactionBuilder.amount()
+                .toString(), purchaseDetails, transactionBuilder.getType())));
   }
 
   public static class BuyData {
