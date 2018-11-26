@@ -61,41 +61,12 @@ public class OnChainBuyPresenter {
     handleBuyEvent(appPackage, productName, developerPayload, isBds);
 
     handleDontShowMicroRaidenInfo();
-
-    showChannelAmount();
-
-    showMicroRaidenInfo();
-  }
-
-  private void showChannelAmount() {
-    disposables.add(view.getCreateChannelClick()
-        .flatMapSingle(isChecked -> inAppPurchaseInteractor.hasChannel()
-            .observeOn(viewScheduler)
-            .doOnSuccess(hasChannel -> {
-              if (isChecked && !hasChannel) {
-                view.showChannelAmount();
-              } else {
-                view.hideChannelAmount();
-              }
-            }))
-        .doOnError(Throwable::printStackTrace)
-        .retry()
-        .subscribe());
   }
 
   private void handleDontShowMicroRaidenInfo() {
     //disposables.add(view.getDontShowAgainClick()
     //    .doOnNext(__ -> inAppPurchaseInteractor.dontShowAgain())
     //    .subscribe());
-  }
-
-  private void showMicroRaidenInfo() {
-    disposables.add(view.getCreateChannelClick()
-        .filter(isChecked -> isChecked && inAppPurchaseInteractor.shouldShowDialog())
-        .doOnNext(__ -> view.showRaidenInfo())
-        .doOnError(Throwable::printStackTrace)
-        .retry()
-        .subscribe());
   }
 
   private void showTransactionState(String uriString) {
@@ -112,8 +83,7 @@ public class OnChainBuyPresenter {
         .doOnNext(buyData -> showTransactionState(buyData.uri))
         .observeOn(Schedulers.io())
         .flatMapCompletable(buyData -> inAppPurchaseInteractor.send(buyData.getUri(),
-            buyData.isRaiden ? AsfInAppPurchaseInteractor.TransactionType.RAIDEN
-                : AsfInAppPurchaseInteractor.TransactionType.NORMAL, appPackage, productName,
+            AsfInAppPurchaseInteractor.TransactionType.NORMAL, appPackage, productName,
             buyData.getChannelBudget(), developerPayload, isBds)
             .observeOn(viewScheduler)
             .doOnError(this::showError))
@@ -161,16 +131,11 @@ public class OnChainBuyPresenter {
         .observeOn(viewScheduler)
         .subscribe(view::showWallet, Throwable::printStackTrace));
 
+    view.showDefaultAsDefaultPayment();
+
     disposables.add(inAppPurchaseInteractor.getWalletAddress()
-        .flatMap(wallet -> inAppPurchaseInteractor.hasChannel())
         .observeOn(viewScheduler)
-        .subscribe(hasChannel -> {
-          if (hasChannel) {
-            view.showChannelAsDefaultPayment();
-          } else {
-            view.showDefaultAsDefaultPayment();
-          }
-        }, Throwable::printStackTrace));
+        .subscribe(hasChannel -> view.showDefaultAsDefaultPayment(), Throwable::printStackTrace));
   }
 
   private void showBuy() {

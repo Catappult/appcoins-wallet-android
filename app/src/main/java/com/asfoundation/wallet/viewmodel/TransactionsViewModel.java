@@ -29,7 +29,6 @@ import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
 import com.asfoundation.wallet.ui.AppcoinsApps;
-import com.asfoundation.wallet.ui.MicroRaidenInteractor;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -63,7 +62,6 @@ public class TransactionsViewModel extends BaseViewModel {
   private final GetDefaultWalletBalance getDefaultWalletBalance;
   private final TransactionsMapper transactionsMapper;
   private final AirdropRouter airdropRouter;
-  private final MicroRaidenInteractor microRaidenInteractor;
   private final AppcoinsApps applications;
   private final OffChainTransactions offChainTransactions;
   private Handler handler = new Handler();
@@ -79,8 +77,7 @@ public class TransactionsViewModel extends BaseViewModel {
       TransactionDetailRouter transactionDetailRouter, MyAddressRouter myAddressRouter,
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
-      TransactionsMapper transactionsMapper, AirdropRouter airdropRouter,
-      MicroRaidenInteractor microRaidenInteractor, AppcoinsApps applications,
+      TransactionsMapper transactionsMapper, AirdropRouter airdropRouter, AppcoinsApps applications,
       OffChainTransactions offChainTransactions) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
@@ -96,7 +93,6 @@ public class TransactionsViewModel extends BaseViewModel {
     this.getDefaultWalletBalance = getDefaultWalletBalance;
     this.transactionsMapper = transactionsMapper;
     this.airdropRouter = airdropRouter;
-    this.microRaidenInteractor = microRaidenInteractor;
     this.applications = applications;
     this.offChainTransactions = offChainTransactions;
     this.disposables = new CompositeDisposable();
@@ -143,18 +139,11 @@ public class TransactionsViewModel extends BaseViewModel {
     handler.removeCallbacks(startFetchTransactionsTask);
     progress.postValue(shouldShowProgress);
     /*For specific address use: new Wallet("0x60f7a1cbc59470b74b1df20b133700ec381f15d3")*/
-    disposables.add(Observable.merge(findDefaultNetworkInteract.find()
-            .filter(networkInfo -> networkInfo.chainId == 3)
-            .flatMapObservable(
-                networkInfo -> microRaidenInteractor.listTransactions(defaultWallet.getValue())
-                    .toObservable()
-                    .filter(microTransactions -> !microTransactions.isEmpty())
-                    .flatMapSingle(transactionsMapper::map)),
-        fetchTransactionsInteract.fetch(defaultWallet.getValue())
-            .flatMapSingle(transactionsMapper::map), findDefaultNetworkInteract.find()
-            .filter(this::shouldShowOffChainInfo)
-            .flatMapObservable(__ -> offChainTransactions.getTransactions()
-                .toObservable()))
+    disposables.add(Observable.merge(fetchTransactionsInteract.fetch(defaultWallet.getValue())
+        .flatMapSingle(transactionsMapper::map), findDefaultNetworkInteract.find()
+        .filter(this::shouldShowOffChainInfo)
+        .flatMapObservable(__ -> offChainTransactions.getTransactions()
+            .toObservable()))
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(this::onTransactions, this::onError, this::onTransactionsFetchCompleted));
 

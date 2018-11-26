@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.ui.iab.raiden;
 
-import com.asf.microraidenj.type.Address;
 import java.io.IOException;
 import java.math.BigInteger;
+import org.web3j.abi.datatypes.Address;
 
 public class NonceObtainer {
   private final int refreshIntervalMillis;
