@@ -34,7 +34,7 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
           TransactionBuilder(token.tokenInfo.symbol, tokenContract,
               getChainId(uri), walletAddress, amount, getSkuId(uri), token.tokenInfo.decimals,
               iabContract,
-              Parameters.PAYMENT_TYPE_INAPP_UNMANAGED, getDomain(uri), getPayload(uri),
+              Parameters.PAYMENT_TYPE_INAPP_UNMANAGED.toUpperCase(), getDomain(uri), getPayload(uri),
               getCallback(uri)).shouldSendToken(true)
         }).doOnSuccess { transactionBuilder ->
       cache.saveSync(uri.toString(), transactionBuilder)

@@ -35,7 +35,7 @@ class OneStepTransactionParserTest {
     val wrongDeveloperAddress = "wrong_developer_address"
     val productName = "product_name"
     val packageName = "package_name"
-    val paymentType = "inapp_unmanaged"
+    val paymentType = "INAPP_UNMANAGED"
     val developerPayload = "developer_payload"
     val priceValue = "2.3"
     val currency = "APPC"
