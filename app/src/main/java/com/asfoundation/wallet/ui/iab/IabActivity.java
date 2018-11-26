@@ -126,6 +126,12 @@ public class IabActivity extends BaseActivity implements IabView {
         .commit();
   }
 
+  @Override public void showPaymentMethodsView() {
+    getSupportFragmentManager().beginTransaction()
+        .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance())
+        .commit();
+  }
+
   @Override public void showOnChain(BigDecimal amount, boolean isBds) {
     if (savedInstanceState == null && getSupportFragmentManager().getFragments()
         .isEmpty()) {

@@ -25,4 +25,6 @@ public interface IabView {
   void showAppcoinsCreditsPayment(BigDecimal amount);
 
   void showPaymentMethods(List<PaymentMethod> paymentMethods);
+
+  void showPaymentMethodsView();
 }

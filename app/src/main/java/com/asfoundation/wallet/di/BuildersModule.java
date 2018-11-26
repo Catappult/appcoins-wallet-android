@@ -21,6 +21,7 @@ import com.asfoundation.wallet.ui.iab.CreditCardAuthorizationFragment;
 import com.asfoundation.wallet.ui.iab.ExpressCheckoutBuyFragment;
 import com.asfoundation.wallet.ui.iab.IabActivity;
 import com.asfoundation.wallet.ui.iab.OnChainBuyFragment;
+import com.asfoundation.wallet.ui.iab.PaymentMethodsFragment;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
@@ -31,8 +32,7 @@ import dagger.android.ContributesAndroidInjector;
   @ActivityScope @ContributesAndroidInjector(modules = AccountsManageModule.class)
   abstract WalletsActivity bindManageWalletsModule();
 
-  @ActivityScope @ContributesAndroidInjector
-  abstract ImportWalletActivity bindImportWalletModule();
+  @ActivityScope @ContributesAndroidInjector abstract ImportWalletActivity bindImportWalletModule();
 
   @ActivityScope @ContributesAndroidInjector(modules = TransactionsModule.class)
   abstract TransactionsActivity bindTransactionsModule();
@@ -84,4 +84,5 @@ import dagger.android.ContributesAndroidInjector;
   @ContributesAndroidInjector()
   abstract AppcoinsRewardsBuyFragment bindAppcoinsRewardsBuyFragment();
 
+  @ContributesAndroidInjector() abstract PaymentMethodsFragment bindPaymentMethodsFragment();
 }

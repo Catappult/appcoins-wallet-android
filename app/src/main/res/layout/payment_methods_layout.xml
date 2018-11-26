@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    >
+
+  <ImageView
+      android:id="@+id/app_icon"
+      android:layout_width="42dp"
+      android:layout_height="42dp"
+      android:src="@drawable/ic_appc"
+      app:layout_constraintStart_toStartOf="parent"
+      />
+  <TextView
+      android:id="@+id/app_name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="13dp"
+      android:layout_toEndOf="@id/app_icon"
+      android:ellipsize="end"
+      android:maxLines="1"
+      android:textColor="@color/black_87_alpha"
+      android:textSize="16sp"
+      app:layout_constraintStart_toEndOf="@id/app_icon"
+      app:layout_constraintTop_toTopOf="@id/app_icon"
+      tools:text="App name and cenas"
+      />
+
+  <TextView
+      android:id="@+id/app_sku_description"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/app_name"
+      android:layout_toEndOf="@id/app_icon"
+      android:ellipsize="end"
+      android:maxLines="1"
+      android:text="Gems"
+      android:textColor="@color/grey_8a_alpha"
+      android:textSize="12sp"
+      app:layout_constraintStart_toStartOf="@id/app_name"
+      app:layout_constraintTop_toBottomOf="@id/app_name"
+      />
+
+  <TextView
+      android:id="@+id/appc_price"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="@font/roboto_bolt"
+      android:textColor="@color/black"
+      android:textSize="15sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="1"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/app_sku_description"
+      tools:text="0,99 APPC"
+      />
+
+  <TextView
+      android:id="@+id/fiat_price"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textSize="12sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="1"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/appc_price"
+      tools:text="0,09 EUR"
+      />
+
+</android.support.constraint.ConstraintLayout>
