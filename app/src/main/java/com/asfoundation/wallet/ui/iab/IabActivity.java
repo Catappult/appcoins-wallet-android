@@ -11,8 +11,6 @@ import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.ui.BaseActivity;
 import dagger.android.AndroidInjection;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
 import java.util.List;
 import javax.inject.Inject;
@@ -68,8 +66,7 @@ public class IabActivity extends BaseActivity implements IabView {
     isBds = getIntent().getBooleanExtra(IS_BDS_EXTRA, false);
     transaction = getIntent().getParcelableExtra(TRANSACTION_EXTRA);
     isBackEnable = true;
-    presenter = new IabPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
-        new CompositeDisposable(), isBds, transaction);
+    presenter = new IabPresenter(this);
 
     if (savedInstanceState != null) {
       if (savedInstanceState.containsKey(SKU_DETAILS)) {
@@ -86,11 +83,6 @@ public class IabActivity extends BaseActivity implements IabView {
       close(bundle);
       super.onBackPressed();
     }
-  }
-
-  @Override protected void onDestroy() {
-    presenter.stop();
-    super.onDestroy();
   }
 
   @Override protected void onSaveInstanceState(Bundle outState) {
