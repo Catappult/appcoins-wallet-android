@@ -349,13 +349,6 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     amountGroup.setVisibility(View.GONE);
   }
 
-  @Override public void showChannelAsDefaultPayment() {
-    checkbox.setChecked(true);
-    checkbox.setOnCheckedChangeListener(
-        (buttonView, isChecked) -> createChannelClick.onNext(isChecked));
-    createChannelGroup.setVisibility(View.VISIBLE);
-  }
-
   @Override public void showDefaultAsDefaultPayment() {
     checkbox.setChecked(false);
     checkbox.setOnCheckedChangeListener(

@@ -1,7 +1,5 @@
 package com.asfoundation.wallet.repository;
 
-import com.asf.microraidenj.type.Address;
-import com.asf.microraidenj.type.ByteArray;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -21,6 +19,7 @@ import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import org.reactivestreams.Publisher;
+import org.web3j.abi.datatypes.Address;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jFactory;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
@@ -97,7 +96,7 @@ public class TransactionRepository implements TransactionRepositoryType {
       String password) {
     return createRawTransaction(transactionBuilder, password, transactionBuilder.approveData(),
         transactionBuilder.contractAddress(), BigDecimal.ZERO,
-        nonceObtainer.getNonce(new Address(ByteArray.from(transactionBuilder.fromAddress())),
+        nonceObtainer.getNonce(new Address(transactionBuilder.fromAddress()),
             getChainId(transactionBuilder))).map(
         signedTransaction -> Numeric.toHexString(new Transaction(signedTransaction).getHash()));
   }
@@ -108,7 +107,7 @@ public class TransactionRepository implements TransactionRepositoryType {
         .observeOn(scheduler)
         .flatMap(tokenInfo -> createRawTransaction(transactionBuilder, password,
             transactionBuilder.appcoinsData(), transactionBuilder.getIabContract(), BigDecimal.ZERO,
-            nonceObtainer.getNonce(new Address(ByteArray.from(transactionBuilder.fromAddress())),
+            nonceObtainer.getNonce(new Address(transactionBuilder.fromAddress()),
                 getChainId(transactionBuilder))))
         .map(
             signedTransaction -> Numeric.toHexString(new Transaction(signedTransaction).getHash()));
@@ -119,7 +118,7 @@ public class TransactionRepository implements TransactionRepositoryType {
     final Web3j web3j =
         Web3jFactory.build(new HttpService(networkRepository.getDefaultNetwork().rpcServerUrl));
     return Single.fromCallable(
-        () -> nonceObtainer.getNonce(new Address(ByteArray.from(transactionBuilder.fromAddress())),
+        () -> nonceObtainer.getNonce(new Address(transactionBuilder.fromAddress()),
             getChainId(transactionBuilder)))
         .flatMap(nonceValue -> createRawTransaction(transactionBuilder, password, data, toAddress,
             amount, nonceValue).flatMap(signedMessage -> Single.fromCallable(() -> {
@@ -135,7 +134,7 @@ public class TransactionRepository implements TransactionRepositoryType {
         })
             .subscribeOn(Schedulers.io()))
             .doOnSuccess(hash -> nonceObtainer.consumeNonce(nonceValue,
-                Address.from(transactionBuilder.fromAddress()), getChainId(transactionBuilder)))
+                new Address(transactionBuilder.fromAddress()), getChainId(transactionBuilder)))
             .retryWhen(throwableFlowable -> throwableFlowable.flatMap(
                 throwable -> getPublisher(throwable, nonceValue, transactionBuilder))))
         .retryWhen(throwableFlowable -> throwableFlowable.flatMap(this::retry));
@@ -182,7 +181,7 @@ public class TransactionRepository implements TransactionRepositoryType {
   private Publisher<?> getPublisher(Throwable throwable, BigInteger nonceValue,
       TransactionBuilder transactionBuilder) {
     if (isNonceError(throwable)) {
-      nonceObtainer.consumeNonce(nonceValue, Address.from(transactionBuilder.fromAddress()),
+      nonceObtainer.consumeNonce(nonceValue, new Address(transactionBuilder.fromAddress()),
           getChainId(transactionBuilder));
     }
     return Flowable.error(throwable);

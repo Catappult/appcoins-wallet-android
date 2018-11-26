@@ -23,7 +23,7 @@ public class FacebookEventLogger implements EventLogger {
       if (entry.getValue()
           .getClass()
           .isInstance(new HashMap())) {
-        flatten((HashMap) entry.getValue());
+        bundle.putAll(flatten((HashMap) entry.getValue()));
       } else {
         bundle.putString(entry.getKey(), entry.getValue()
             .toString());
