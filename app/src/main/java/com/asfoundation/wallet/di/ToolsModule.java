@@ -699,7 +699,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Singleton @Provides @Named("bi_event_list") List<String> provideBiEventList() {
     List<String> list = new ArrayList<>();
     list.add(BillingAnalytics.PURCHASE_DETAILS);
-    list.add(BillingAnalytics.CREDIT_CARD_DETAILS);
+    list.add(BillingAnalytics.PAYMENT_METHOD_DETAILS);
     list.add(BillingAnalytics.PAYMENT);
     return list;
   }
@@ -707,7 +707,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Singleton @Provides @Named("facebook_event_list") List<String> provideFacebookEventList() {
     List<String> list = new ArrayList<>();
     list.add(BillingAnalytics.PURCHASE_DETAILS);
-    list.add(BillingAnalytics.CREDIT_CARD_DETAILS);
+    list.add(BillingAnalytics.PAYMENT_METHOD_DETAILS);
     list.add(BillingAnalytics.PAYMENT);
     return list;
   }
