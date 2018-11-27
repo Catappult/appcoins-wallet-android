@@ -111,7 +111,7 @@ class AppcoinsRewardsTest {
         null,
         null).subscribe(testObserver)
     val statusObserver = TestObserver<Transaction>()
-    appcoinsRewards.getPayment(PACKAGE_NAME, SKU).subscribe(statusObserver)
+    appcoinsRewards.getPayment(PACKAGE_NAME, SKU, PRICE.toString()).subscribe(statusObserver)
 
     scheduler.triggerActions()
     testObserver.assertNoErrors().assertComplete()
