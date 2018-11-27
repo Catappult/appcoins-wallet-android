@@ -9,7 +9,8 @@ import java.math.BigDecimal;
 public interface BillingService {
 
   Observable<AdyenAuthorization> getAuthorization(String productName, String developerAddress,
-      String payload, String origin, BigDecimal priceValue, String priceCurrency, String type);
+      String payload, String origin, BigDecimal priceValue, String priceCurrency, String type,
+      String callback);
 
   Completable authorize(Payment payment, String paykey);
 

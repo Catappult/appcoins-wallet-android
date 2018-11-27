@@ -16,8 +16,8 @@ class AndroidBilling(private val merchantName: String, private val billing: Bill
     return billing.isSubsSupported(merchantName)
   }
 
-  fun getProducts(skus: List<String>, type: String): Single<List<Product>> {
-    return billing.getProducts(merchantName, skus, type)
+  fun getProducts(skus: List<String>): Single<List<Product>> {
+    return billing.getProducts(merchantName, skus)
   }
 
   fun getPurchases(type: BillingSupportedType): Single<List<Purchase>> {

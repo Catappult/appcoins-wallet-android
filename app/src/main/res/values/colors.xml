@@ -22,10 +22,6 @@
 
   <color name="semitransparentWhite">#AAFFFFFF</color>
 
-  <color name="QRCodeBlackColor">#FF000000</color>
-  <color name="QRCodeWhiteColor">#FFFFFFFF</color>
-
-  <color name="item_icon_tint">#89000000</color>
   <color name="iab_activity_gray">#8a000000</color>
   <color name="black_87_alpha">#de000000</color>
   <color name="grey">#757575</color>
@@ -39,18 +35,15 @@
   <color name="grey_alpha_6b">#6b000000</color>
   <color name="appbar_subtitle_color">#b8ffffff</color>
 
-  <color name="activity_transactions_airdrop_success_gray">#8a000000</color>
   <color name="transaction_item_text_color">#de000000</color>
   <color name="transaction_item_snd_text_color">#8a000000</color>
   <color name="list_separator_color">#f0f0f0</color>
 
-  <color name="disable_gray">#12000000</color>
   <color name="details_address_text_color">#e44b46</color>
   <color name="btn_disable_color">#00000000</color>
   <color name="btn_text_disable_color">#42000000</color>
   <color name="btn_text_enable_color">#ffffff</color>
 
-  <color name="btn_light_text_enable_color">#e44b46</color>
   <color name="btn_start_gradient_color">#fc9d48</color>
   <color name="btn_end_gradient_color">#ff578c</color>
   <color name="btn_light_enabled_color">#e44b46</color>
@@ -59,6 +52,4 @@
   <color name="dialog_buy_value_text">#4e4e4e</color>
   <color name="dialog_buy_total_value">#fe677b</color>
 
-  <color name="overlay_black">#77000000</color>
-  <color name="fragment_payment_dark_gray">#4d4d4d</color>
 </resources>

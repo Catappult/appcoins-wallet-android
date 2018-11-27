@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.ui.iab;
 
 import com.appcoins.wallet.bdsbilling.Billing;
-import com.appcoins.wallet.bdsbilling.BillingFactory;
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
+import com.appcoins.wallet.bdsbilling.ProxyService;
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
@@ -37,8 +37,10 @@ import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.TransactionSender;
 import com.asfoundation.wallet.repository.TransactionValidator;
 import com.asfoundation.wallet.repository.WatchedTransactionService;
-import com.asfoundation.wallet.service.TokenToFiatService;
+import com.asfoundation.wallet.service.CurrencyConversionService;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationEntity;
+import com.asfoundation.wallet.util.EIPTransactionParser;
+import com.asfoundation.wallet.util.OneStepTransactionParser;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -50,6 +52,7 @@ import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -96,8 +99,9 @@ public class InAppPurchaseInteractorTest {
   @Mock CountryCodeProvider countryCodeProvider;
   @Mock Billing billing;
   @Mock BdsPendingTransactionService transactionService;
-  @Mock BillingFactory bdsBilling;
   private BdsInAppPurchaseInteractor inAppPurchaseInteractor;
+  @Mock ProxyService proxyService;
+  @Mock CurrencyConversionService conversionService;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
   private PublishSubject<GetDefaultWalletBalance.BalanceState> balance;
@@ -105,6 +109,8 @@ public class InAppPurchaseInteractorTest {
   private TestScheduler scheduler;
   private InAppPurchaseService inAppPurchaseService;
   private DataMapper dataMapper;
+  private EIPTransactionParser eipTransactionParser;
+  private OneStepTransactionParser oneStepTransactionParser;
 
   @Before public void before()
       throws AppInfoProvider.UnknownApplicationException, ImageSaver.SaveException {
@@ -185,13 +191,25 @@ public class InAppPurchaseInteractorTest {
         Single.just(new Transaction(UID, Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
             new Gateway(Gateway.Name.appcoins, "", ""), null)));
 
+    when(proxyService.getAppCoinsAddress(anyBoolean())).thenReturn(
+        Single.just("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3"));
+    when(proxyService.getIabAddress(anyBoolean())).thenReturn(
+        Single.just("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3"));
+    when(conversionService.getAppcRate(anyString())).thenReturn(
+        Single.just(new FiatValue(2.0, "EUR")));
+
+    eipTransactionParser = new EIPTransactionParser(defaultWalletInteract, tokenRepository);
+    oneStepTransactionParser =
+        new OneStepTransactionParser(defaultWalletInteract, tokenRepository, proxyService, billing,
+            conversionService, new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()));
+
     AsfInAppPurchaseInteractor asfInAppPurchaseInteractor =
         new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
             gasSettingsInteract, BigDecimal.ONE,
-            new TransferParser(defaultWalletInteract, tokenRepository),
+            new TransferParser(eipTransactionParser, oneStepTransactionParser),
             new BillingMessagesMapper(new ExternalBillingSerializer()), billing,
             new ExternalBillingSerializer(),
-            new ExpressCheckoutBuyService(Mockito.mock(TokenToFiatService.class)),
+            new ExpressCheckoutBuyService(Mockito.mock(CurrencyConversionService.class)),
             new BdsTransactionService(scheduler,
                 new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
                 new CompositeDisposable(), transactionService), scheduler);

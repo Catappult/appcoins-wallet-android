@@ -1,153 +1,84 @@
 <resources>
   <string name="app_name">AppCoins BDS Wallet</string>
-  <string name="title_balance">Balance</string>
   <string name="title_send">Send</string>
   <string name="title_request">Receive</string>
   <string name="title_import">Import Wallet</string>
-  <string name="title_create">Create</string>
-  <string name="title_account">Wallets</string>
-  <string name="title_activity_main2">Main2Activity</string>
-  <string name="title_activity_create_account">New Wallet</string>
 
   <!-- Strings relatedwalletount creation -->
-  <string name="prompt_email">Wallet name</string>
   <string name="prompt_password">Password</string>
-  <string name="action_sign_in">Create</string>
   <string name="action_sign_in_short">Create</string>
 
   <!-- String related to sending -->
   <string name="prompt_to">To</string>
   <string name="action_send">Send</string>
 
-  <string name="error_invalid_email">This email address is invalid</string>
-  <string name="error_invalid_password">This password is too short</string>
-  <string name="error_incorrect_password">This password is incorrect</string>
   <string name="error_field_required">This field is required</string>
-  <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
-  <string name="title_activity_account_list">AccountListActivity</string>
   <string name="action_settings">Settings</string>
-  <string name="action_select_account">Wallets</string>
   <string name="title_account_list">Wallets</string>
-  <string name="title_account_detail">Wallet Detail</string>
-  <string name="account_delete">delete</string>
   <string name="cancel">cancel</string>
   <string name="confirm_delete_account">Make sure that you have a backup of this wallet.</string>
-  <string name="title_activity_import_account">ImportAccountActivity</string>
   <string name="action_import">Import</string>
-  <string name="title_activity_export_account">ExportAccountActivity</string>
-  <string name="action_export">Backup private key</string>
-  <string name="message_save_this">Keep this someplace safe</string>
   <string name="copy">Copy to clipboard</string>
   <string name="close">Close</string>
-  <string name="keystore_keyword">KEYSTORE</string>
-  <string name="prompt_confirm_password">Confirm password</string>
-  <string name="menu_refresh">Refresh</string>
-  <string name="sent">Sent</string>
-  <string name="received">Received</string>
   <string name="title_activity_settings">Settings</string>
   <string name="network_label">Network</string>
-  <string name="app_intro">Intro</string>
 
   <string name="low_storage_error">low storage error</string>
   <string name="no_camera_permission">camera permission not given</string>
   <string name="ok">Ok</string>
-  <string name="no_barcode_captured">no barcode captured</string>
-  <string name="scan_barcode_button">Scan</string>
   <string name="barcode_error_format">Invalid barcode format: %s</string>
-  <string name="action_request">Receive</string>
-  <string name="title_home">Home</string>
-  <string name="title_dashboard">Dashboard</string>
-  <string name="title_notifications">Notifications</string>
   <string name="title_delete_account">Are you sure you want to delete wallet?</string>
-  <string name="no_transactions">No Transactions.\nSwipe down to refresh.</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Telegram Group</string>
 
   <!-- TODO: Remove or change this placeholder text -->
-  <string name="hello_blank_fragment">Hello blank fragment</string>
   <string name="title_community">Community</string>
-  <string name="title_security">Security</string>
-  <string name="title_pincode">Pincode</string>
   <string name="title_opensource">Open source development</string>
   <string name="title_source_code">Source code</string>
   <string name="title_report_bug">Report a bug</string>
-  <string name="title_rate">Rate us on Play Store</string>
   <string name="title_support">Support</string>
-  <string name="title_donate">Donate</string>
-  <string name="account_already_imported">Wallet with this address already exists</string>
-  <string name="message_delete_account">Permanently deleting wallet. Make sure that it has been exported and stored elsewhere.</string>
   <string name="error_import">Error importing keystore</string>
   <string name="message_this_is_your_address">My public Ethereum wallet address</string>
-  <string name="min_pwd_length">Password must be at least %d chars long</string>
   <string name="backup_warning_text">
         Since only you control your money, you\'ll need to save your backup keystore in case this app is deleted. \n\n
         Your wallet is never saved to cloud storage or standard device backups.
     </string>
   <string name="message_no_backup">No backup, no Ethereum.</string>
   <string name="error_deleting_account">Error deleting wallet</string>
-  <string name="error_deleting_account_with_details">Error deleting wallet %s</string>
-  <string name="error_passwords_must_match">Passwords must match.</string>
-  <string name="label_confirm_new_password">Confirm new password</string>
-  <string name="label_new_password">New password</string>
-  <string name="activity_title_backup">Backup: %s…</string>
-  <string name="action_backup">Backup</string>
   <string name="title_privacy_policy">Privacy Policy</string>
   <string name="title_terms">Terms and Conditions</string>
   <string name="title_version">Version</string>
-  <string name="title_activity_token_list">Tokens</string>
   <string name="title_tokens">My Tokens</string>
-  <string name="prompt_private_key">Private key</string>
-  <string name="error_import_private_key">Error importing private key</string>
-  <string name="message_importing_private_key">Importing private key. One moment.</string>
-  <string name="lock_title">Lock screen</string>
-  <string name="lock_body">Secure lock screen hasn\'t set up. It is not safe.</string>
-  <string name="lock_settings">Lock settings</string>
-  <string name="lock_exit">Exit</string>
   <string name="unlock_screen_title_android">Unlock screen</string>
   <string name="unlock_screen_prompt_android">Please unlock your Android device to continue.</string>
-  <string name="sending_progress">Sending...</string>
 
-  <string name="backup_new_password_text">Think of a password that will be installed on the backup.\nThe password will be available for this wallet.</string>
   <string name="do_manage_make_backup">Did you manage to make a backup?</string>
   <string name="yes_continue">Yes, continue</string>
   <string name="no_repeat">No, repeat</string>
-  <string name="unable_unblock_device">Unable to unlock the device.</string>
   <string name="skip">Skip</string>
   <string name="root_title">DEVICE SECURITY COMPROMISED</string>
   <string name="root_body">Any \'rooted\' app can access AppCoins Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
-  <string name="gas_fee_title">Gas Fee (Gwei)</string>
-  <string name="transfer">Transfer %s</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
   <string name="buying">Buying %s</string>
   <string name="action_buy">Buy</string>
-  <string name="title_deposit">How would you like to buy?</string>
   <string name="empty"/>
   <string name="try_again">Try again</string>
   <string name="already_have_account">Already have a wallet?</string>
-  <string name="title_add_account">Add wallet</string>
   <string name="action_create_new_account">Create new wallet</string>
   <string name="unknown_error">An error has occurred.</string>
   <string name="action_backup_wallet">Backup Wallet</string>
-  <string name="action_backup_later">Do it later</string>
-  <string name="set_account_default">Do want to make a new wallet the main one?</string>
   <string name="no_tokens">No tokens found.</string>
   <string name="title_email">Email us</string>
   <string name="action_donate">Donate</string>
 
   <!-- Titles -->
-  <string name="title_item_detail">Item Detail</string>
   <string name="title_my_address">Receive</string>
   <string name="title_my_tokens">My Tokens</string>
   <string name="title_activity_send">Send</string>
   <string name="title_activity_confirmation">Confirm</string>
-  <string name="title_transaction_details">Transaction Details</string>
   <string name="title_add_token">Add Custom Token</string>
   <string name="title_airdrop">Airdrop</string>
   <!-- Suggestions -->
-  <string name="suggestion_field_required">* Field required</string>
-  <string name="suggestion_import_keystore">Importing wallet as easy as creating</string>
   <string name="suggestion_private_key">Private key has to be 64 characters long</string>
   <string name="suggestion_empty_password_available">The password can be left blank.</string>
   <string name="suggestion_this_is_your_address">My public %s wallet address</string>
@@ -160,13 +91,11 @@
   <!-- Dialog titles -->
   <string name="title_dialog_error">Error</string>
   <string name="title_dialog_handling">Handling…</string>
-  <string name="title_dialog_watch_out">Watch out!</string>
   <string name="title_dialog_add_account">Add wallet</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Enter the password to encrypt your wallet</string>
-  <string name="dialog_message_unrecoverable_message">If this device is replaced or this app is deleted, neither you nor AppCoins Wallet can recover your funds without a backup.</string>
   <string name="toast_message_wallet_imported">The wallet was imported</string>
   <string name="toast_message_wallet_exported">A backup was created</string>
   <string name="toast_qr_code_no_address">QR code doesn\'t contain valid address</string>
@@ -179,7 +108,6 @@
   <string name="intro_message_second_page">Private keys never leave your device.</string>
   <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
   <!-- Menus -->
-  <string name="navigation_settings">Settings</string>
   <!-- Labels -->
   <string name="label_from">From</string>
   <string name="label_to">To</string>
@@ -196,13 +124,9 @@
   <string name="button_yes">YES</string>
   <!-- Subtitles -->
   <string name="subtitle_from">From</string>
-  <string name="subtitle_to">To</string>
   <string name="subtitle_gas_fee">Fee</string>
   <string name="subtitle_transaction_num">Transaction</string>
-  <string name="subtitle_transaction_time">Transaction Time</string>
-  <string name="subtitle_block_num">Block #</string>
   <!-- Actions -->
-  <string name="action_share">Share</string>
   <string name="action_more_details">More</string>
   <string name="action_add_wallet">Add wallet</string>
   <string name="action_coinbase">Coinbase</string>
@@ -213,8 +137,6 @@
   <string name="action_edit">Edit</string>
   <string name="action_save">Save</string>
   <!-- Subject -->
-  <string name="subject_transaction_detail">Transaction detail</string>
-  <string name="error_fail_load_transaction">Failed to load transaction list</string>
   <string name="error_fail_generate_qr">Could not generate qr code.</string>
   <string name="error_invalid_address">Invalid address</string>
   <string name="error_invalid_amount">Invalid amount</string>
@@ -222,7 +144,6 @@
   <string name="error_must_numeric">must be a numeric value.</string>
   <string name="transaction_succeeded">Transaction successful</string>
   <string name="NA">N/A</string>
-  <string name="minus">-</string>
   <string name="error_wallet_not_selected">Wallet is not selected</string>
   <string name="no_transactions_yet">Get some test APPC so you can see how AppCoins payments will work</string>
   <string name="no_transactions_yet_main">No transactions yet!</string>
@@ -233,7 +154,6 @@
   <string name="title_dialog_sending">Sending...</string>
   <string name="welcome.erc20.label.title">ERC20 Compatible</string>
   <string name="welcome.erc20.label.description">Support for ERC20 tokens by default.</string>
-  <string name="i_understand">I understand</string>
   <string name="scan_qr">Get address from QR Code</string>
   <string name="info_gas_price">The higher the gas price, the more expensive your transaction fee will be, but the quicker your transaction will be processed by the Ethereum network.</string>
   <string name="info_gas_limit">The gas limit prevents smart contracts from consuming all your Ethereum. We will try to calculate the gas limit automatically for you, but some smart contracts may require a custom gas limit.</string>
@@ -251,23 +171,14 @@
   <string name="new_transaction_value">-%1$s %2$s</string>
   <string name="gas_price_value">%1$s %2$s</string>
   <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the AppCoins wallet development. We considered it the best alternative regarding already implemented functionalities and forked it with the intention to contribute back with implementations and work that would be considered relevant.</string>
-  <string name="iab_activity_buy_button">BUY</string>
-  <string name="iab_activity_retry_button_text">Retry</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">Transaction in Progress</string>
   <string name="activity_aib_loading_message">This may take a while…</string>
   <string name="activity_iab_transaction_completed_title">Transaction Completed</string>
   <string name="activity_iab_error_title">Error</string>
-  <string name="activity_transaction_error_title">Error</string>
   <string name="activity_iab_error_message">An error occurred, please try again</string>
-  <string name="activity_transactions_error_message">An error occurred, please try again</string>
   <string name="action_try">try</string>
   <string name="activity_transactions_learn_more">Learn more</string>
-  <string name="activity_transactions_airdrop_more_info">More info</string>
-  <string name="activity_transactions_airdrop_success_title">Congratulations!</string>
-  <string name="activity_transactions_airdrop_success_message">You are now in a test network (Ropsten). Use your test APPC in our demo app.</string>
-  <string name="activity_transaction_program_ended_title">Sorry</string>
-  <string name="activity_transactions_program_ended_message">Test program successfully closed!</string>
   <string name="activity_iab_no_funds_message">Not enough ETH and APPC</string>
   <string name="activity_iab_no_ethereum_funds_message">Not enough ethereum</string>
   <string name="activity_iab_no_token_funds_message">Not enough appcoins</string>
@@ -308,7 +219,6 @@
   <string name="transaction_category_label">Category</string>
   <string name="transaction_details_label">Details</string>
   <string name="transaction_to_label">To</string>
-  <string name="dialog_express_checkout_buy">Buy</string>
   <string name="dialog_credit_card_remember">Remember Card</string>
   <string name="notification_payment_refused">Payment Refused</string>
 
@@ -335,10 +245,6 @@
   <string name="spend_your_appcoins">Spend your AppCoins</string>
 
   <!-- Billing -->
-  <string name="buy">buy</string>
-  <string name="remember_card_hint">Remember card</string>
-  <string name="connection_error">No network connection</string>
-  <string name="iab_button_ok">OK</string>
   <string name="action_skip_backup_wallet">SKIP BACKUP</string>
   <string name="item_donation">Donation</string>
   <string name="fragment_adyen_generic_error_message">An error has occurred</string>

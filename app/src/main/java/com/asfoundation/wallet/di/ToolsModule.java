@@ -98,10 +98,10 @@ import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.AccountWalletService;
 import com.asfoundation.wallet.service.AppsApi;
 import com.asfoundation.wallet.service.BDSAppsApi;
+import com.asfoundation.wallet.service.CurrencyConversionService;
 import com.asfoundation.wallet.service.PoASubmissionService;
 import com.asfoundation.wallet.service.RealmManager;
 import com.asfoundation.wallet.service.TickerService;
-import com.asfoundation.wallet.service.TokenToFiatService;
 import com.asfoundation.wallet.service.TrustWalletTickerService;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper;
@@ -121,7 +121,9 @@ import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase;
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer;
 import com.asfoundation.wallet.ui.iab.raiden.NonceObtainerFactory;
 import com.asfoundation.wallet.ui.iab.raiden.Web3jNonceProvider;
+import com.asfoundation.wallet.util.EIPTransactionParser;
 import com.asfoundation.wallet.util.LogInterceptor;
+import com.asfoundation.wallet.util.OneStepTransactionParser;
 import com.asfoundation.wallet.util.TransferParser;
 import com.facebook.appevents.AppEventsLogger;
 import com.google.gson.Gson;
@@ -377,10 +379,24 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return getDefaultWalletBalance;
   }
 
-  @Provides TransferParser provideTransferParser(
+  @Provides EIPTransactionParser provideEIPTransferParser(
       FindDefaultWalletInteract provideFindDefaultWalletInteract,
       TokenRepositoryType tokenRepositoryType) {
-    return new TransferParser(provideFindDefaultWalletInteract, tokenRepositoryType);
+    return new EIPTransactionParser(provideFindDefaultWalletInteract, tokenRepositoryType);
+  }
+
+  @Provides OneStepTransactionParser provideOneStepTransferParser(
+      FindDefaultWalletInteract provideFindDefaultWalletInteract,
+      TokenRepositoryType tokenRepositoryType, ProxyService proxyService, Billing billing,
+      CurrencyConversionService conversionService) {
+    return new OneStepTransactionParser(provideFindDefaultWalletInteract, tokenRepositoryType,
+        proxyService, billing, conversionService,
+        new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()));
+  }
+
+  @Provides TransferParser provideTransferParser(EIPTransactionParser eipTransactionParser,
+      OneStepTransactionParser oneStepTransactionParser) {
+    return new TransferParser(eipTransactionParser, oneStepTransactionParser);
   }
 
   @Provides FindDefaultNetworkInteract provideFindDefaultNetworkInteract(
@@ -553,20 +569,20 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .create(BdsApiSecondary.class);
   }
 
-  @Singleton @Provides TokenToFiatService provideTokenToFiatService(OkHttpClient client) {
-    String baseUrl = TokenToFiatService.CONVERSION_HOST;
-    TokenToFiatService.TokenToFiatApi api = new Retrofit.Builder().baseUrl(baseUrl)
+  @Singleton @Provides CurrencyConversionService provideTokenToFiatService(OkHttpClient client) {
+    String baseUrl = CurrencyConversionService.CONVERSION_HOST;
+    CurrencyConversionService.TokenToFiatApi api = new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(JacksonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-        .create(TokenToFiatService.TokenToFiatApi.class);
-    return new TokenToFiatService(api);
+        .create(CurrencyConversionService.TokenToFiatApi.class);
+    return new CurrencyConversionService(api);
   }
 
   @Singleton @Provides ExpressCheckoutBuyService provideExpressCheckoutBuyService(
-      TokenToFiatService tokenToFiatService) {
-    return new ExpressCheckoutBuyService(tokenToFiatService);
+      CurrencyConversionService currencyConversionService) {
+    return new ExpressCheckoutBuyService(currencyConversionService);
   }
 
   @Singleton @Provides WalletService provideWalletService(FindDefaultWalletInteract walletInteract,
