@@ -37,6 +37,7 @@ public class TransactionBuilder implements Parcelable {
   private String domain;
   private String payload;
   private String iabContract;
+  private String callbackUrl;
 
   public TransactionBuilder(@NonNull TokenInfo tokenInfo) {
     contractAddress(tokenInfo.address).decimals(tokenInfo.decimals)
@@ -65,10 +66,12 @@ public class TransactionBuilder implements Parcelable {
     type = in.readString();
     domain = in.readString();
     payload = in.readString();
+    callbackUrl = in.readString();
   }
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId, String toAddress,
-      BigDecimal amount, String skuId, int decimals, String type, String domain, String payload) {
+      BigDecimal amount, String skuId, int decimals, String type, String domain, String payload,
+      String callbackUrl) {
     this.symbol = symbol;
     this.contractAddress = contractAddress;
     this.chainId = chainId == null ? NO_CHAIN_ID : chainId;
@@ -80,20 +83,21 @@ public class TransactionBuilder implements Parcelable {
     this.type = type;
     this.domain = domain;
     this.payload = payload;
+    this.callbackUrl = callbackUrl;
   }
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId,
       String receiverAddress, BigDecimal tokenTransferAmount, String skuId, int decimals,
-      String iabContract, String type, String domain, String payload) {
+      String iabContract, String type, String domain, String payload, String callbackUrl) {
     this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, skuId, decimals,
-        type, domain, payload);
+        type, domain, payload, callbackUrl);
     this.iabContract = iabContract;
   }
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId,
       String receiverAddress, BigDecimal tokenTransferAmount, int decimals) {
     this(symbol, contractAddress, chainId, receiverAddress, tokenTransferAmount, "", decimals, "",
-        "", "");
+        "", "", "");
   }
 
   public String getIabContract() {
@@ -226,6 +230,10 @@ public class TransactionBuilder implements Parcelable {
     return payload;
   }
 
+  public String getCallbackUrl() {
+    return callbackUrl;
+  }
+
   @Override public String toString() {
     return "TransactionBuilder{"
         + "contractAddress='"
@@ -266,6 +274,9 @@ public class TransactionBuilder implements Parcelable {
         + ", payload='"
         + payload
         + '\''
+        + ", callbackUrl='"
+        + callbackUrl
+        + '\''
         + ", iabContract='"
         + iabContract
         + '\''
@@ -291,6 +302,7 @@ public class TransactionBuilder implements Parcelable {
     dest.writeString(type);
     dest.writeString(domain);
     dest.writeString(payload);
+    dest.writeString(callbackUrl);
   }
 
   public byte[] approveData() {

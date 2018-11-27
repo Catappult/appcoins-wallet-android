@@ -9,7 +9,7 @@ public interface TransactionService {
   Single<String> createTransaction(String address, String signature, String token,
       String packageName, String payload, String productName, String developerWallet,
       String storeWallet, String oemWallet, String origin, String walletAddress,
-      BigDecimal priceValue, String priceCurrency, String type);
+      BigDecimal priceValue, String priceCurrency, String type, String callback);
 
   Single<String> getSession(String address, String signature, String transactionUid);
 

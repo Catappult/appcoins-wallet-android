@@ -13,8 +13,7 @@ interface BillingRepository {
 
   fun isSupported(packageName: String, type: BillingSupportedType): Single<Boolean>
 
-  fun getSkuDetails(packageName: String, skus: List<String>,
-                    type: BillingType): Single<List<Product>>
+  fun getSkuDetails(packageName: String, skus: List<String>): Single<List<Product>>
 
   fun getSkuPurchase(packageName: String, skuId: String, walletAddress: String,
                      walletSignature: String): Single<Purchase>
@@ -29,11 +28,11 @@ interface BillingRepository {
                        walletSignature: String): Single<Boolean>
 
   fun registerAuthorizationProof(id: String, paymentType: String, walletAddress: String,
-                                 walletSignature: String, productName: String, packageName: String,
+                                 walletSignature: String, productName: String?, packageName: String,
                                  priceValue: BigDecimal,
                                  developerWallet: String, storeWallet: String, origin: String,
                                  type: String, oemWallet: String,
-                                 developerPayload: String?): Single<String>
+                                 developerPayload: String?, callback: String?): Single<String>
 
   fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
                            signedData: String, paymentProof: String): Completable

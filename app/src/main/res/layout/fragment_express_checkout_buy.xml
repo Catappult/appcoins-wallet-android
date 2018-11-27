@@ -26,7 +26,6 @@
       <include layout="@layout/dialog_buy_app_info_header"/>
 
       <RelativeLayout
-          android:id="@+id/details_layout"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginEnd="16dp"

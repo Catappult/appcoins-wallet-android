@@ -12,9 +12,10 @@ public interface BillingPaymentProofSubmission {
 
   Completable registerPaymentProof(String paymentId, String paymentProof, String paymentType);
 
-  Single<String> registerAuthorizationProof(String id, String paymentType, String productName,
-      String packageName, BigDecimal priceValue, String developerWallet, String storeWallet,
-      String origin, String type, String oemWallet, @Nullable String developerPayload);
+  Single<String> registerAuthorizationProof(String id, String paymentType,
+      @Nullable String productName, String packageName, BigDecimal priceValue,
+      String developerWallet, String storeWallet, String origin, String type, String oemWallet,
+      @Nullable String developerPayload, @Nullable String callback);
 
   void saveTransactionId(String key);
 

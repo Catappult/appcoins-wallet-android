@@ -37,10 +37,10 @@ public class AdyenBilling implements CreditCardBilling {
 
   @Override public Observable<AdyenAuthorization> getAuthorization(String productName,
       String developerAddress, String payload, String origin, BigDecimal priceValue,
-      String priceCurrency, String type) {
+      String priceCurrency, String type, String callback) {
     return relay.doOnSubscribe(
         disposable -> startPaymentIfNeeded(productName, developerAddress, payload, origin,
-            priceValue, priceCurrency, type))
+            priceValue, priceCurrency, type, callback))
         .doOnNext(this::resetProcessingFlag);
   }
 
@@ -82,7 +82,7 @@ public class AdyenBilling implements CreditCardBilling {
   }
 
   private void startPaymentIfNeeded(String productName, String developerAddress, String payload,
-      String origin, BigDecimal priceValue, String priceCurrency, String type) {
+      String origin, BigDecimal priceValue, String priceCurrency, String type, String callback) {
     if (!processingPayment.getAndSet(true)) {
       this.adyenAuthorization = null;
       this.adyenAuthorization = walletService.getWalletAddress()
@@ -92,7 +92,7 @@ public class AdyenBilling implements CreditCardBilling {
                           signedContent, token, merchantName, payload, productName,
                           developerAddress, BuildConfig.DEFAULT_STORE_ADDRESS,
                           BuildConfig.DEFAULT_OEM_ADDRESS, origin, walletAddress, priceValue,
-                          priceCurrency, type))
+                          priceCurrency, type, callback))
                       .doOnSuccess(transactionUid -> this.transactionUid = transactionUid)
                       .flatMap(__ -> transactionService.getSession(walletAddress, signedContent,
                           transactionUid))))

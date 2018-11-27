@@ -12,36 +12,28 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
 import org.kethereum.erc681.ERC681;
-import org.kethereum.erc681.ERC681ExtensionFunKt;
-import org.kethereum.erc681.ERC681ParserKt;
 import org.spongycastle.util.encoders.Hex;
 
-public class TransferParser {
+public class EIPTransactionParser {
   private final FindDefaultWalletInteract findDefaultWalletInteract;
   private final TokenRepositoryType tokenRepository;
 
-  public TransferParser(FindDefaultWalletInteract findDefaultWalletInteract,
+  public EIPTransactionParser(FindDefaultWalletInteract findDefaultWalletInteract,
       TokenRepositoryType tokenRepository) {
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.tokenRepository = tokenRepository;
   }
 
-  public Single<TransactionBuilder> parse(String uri) {
-    if (ERC681ExtensionFunKt.isEthereumURLString(uri)) {
-      return Single.just(ERC681ParserKt.parseERC681(uri))
-          .flatMap(erc681 -> {
-            switch (getTransactionType(erc681)) {
-              case APPC:
-                return buildAppcTransaction(erc681);
-              case TOKEN:
-                return buildTokenTransaction(erc681);
-              case ETH:
-              default:
-                return buildEthTransaction(erc681);
-            }
-          });
+  public Single<TransactionBuilder> buildTransaction(ERC681 erc681) {
+    switch (getTransactionType(erc681)) {
+      case APPC:
+        return buildAppcTransaction(erc681);
+      case TOKEN:
+        return buildTokenTransaction(erc681);
+      case ETH:
+      default:
+        return buildEthTransaction(erc681);
     }
-    return Single.error(new RuntimeException("is not an supported URI"));
   }
 
   private Single<TransactionBuilder> buildEthTransaction(ERC681 payment) {
@@ -87,7 +79,7 @@ public class TransferParser {
             payment.getChainId(), getReceiverAddress(payment),
             getTokenTransferAmount(payment, token.tokenInfo.decimals), getSkuId(payment),
             token.tokenInfo.decimals, getIabContract(payment), getType(payment), getOrigin(payment),
-            getPayload(payment)).shouldSendToken(true));
+            getPayload(payment), null).shouldSendToken(true));
   }
 
   private String getIabContract(ERC681 payment) {

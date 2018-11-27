@@ -67,18 +67,6 @@ public class BdsInAppPurchaseInteractor {
     return inAppPurchaseInteractor.getTopUpChannelSuggestionValues(price);
   }
 
-  public boolean shouldShowDialog() {
-    return inAppPurchaseInteractor.shouldShowDialog();
-  }
-
-  public void dontShowAgain() {
-    inAppPurchaseInteractor.dontShowAgain();
-  }
-
-  public Single<Boolean> hasChannel() {
-    return inAppPurchaseInteractor.hasChannel();
-  }
-
   public Single<String> getWalletAddress() {
     return inAppPurchaseInteractor.getWalletAddress();
   }

@@ -25,9 +25,8 @@ class BdsBilling(private val repository: BillingRepository,
         .onErrorReturn { errorMapper.map(it) }
   }
 
-  override fun getProducts(merchantName: String, skus: List<String>,
-                           type: String): Single<List<Product>> {
-    return repository.getSkuDetails(merchantName, skus, BillingRepository.BillingType.valueOf(type))
+  override fun getProducts(merchantName: String, skus: List<String>): Single<List<Product>> {
+    return repository.getSkuDetails(merchantName, skus)
   }
 
   override fun getAppcoinsTransaction(uid: String,

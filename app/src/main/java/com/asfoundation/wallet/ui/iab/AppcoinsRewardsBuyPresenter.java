@@ -8,6 +8,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
+import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -28,6 +29,7 @@ public class AppcoinsRewardsBuyPresenter {
   private final boolean isBds;
   private final BillingAnalytics analytics;
   private final InAppPurchaseInteractor inAppPurchaseInteractor;
+  private final Single<TransactionBuilder> transactionBuilder;
 
   private final TransactionIdRepository transactionIdRepository;
 
@@ -51,6 +53,7 @@ public class AppcoinsRewardsBuyPresenter {
     this.isBds = isBds;
     this.analytics = analytics;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
+    this.transactionBuilder = inAppPurchaseInteractor.parseTransaction(uri, isBds);
   }
 
   public void present() {
@@ -90,15 +93,16 @@ public class AppcoinsRewardsBuyPresenter {
         .flatMapSingle(__ -> transferParser.parse(uri))
         .flatMapCompletable(transaction -> rewardsManager.pay(transaction.getSkuId(), amount,
             transaction.toAddress(), storeAddress, oemAddress, packageName,
-            isBds ? Transaction.Origin.BDS : Transaction.Origin.UNKNOWN, transaction.getType())
-            .andThen(rewardsManager.getPaymentStatus(packageName, transaction.getSkuId()))
+            isBds ? Transaction.Origin.BDS : Transaction.Origin.UNKNOWN, transaction.getType(),
+            transaction.getPayload(), transaction.getCallbackUrl())
+            .andThen(rewardsManager.getPaymentStatus(packageName, transaction.getSkuId(), transaction.amount()))
             .observeOn(scheduler)
             .flatMapCompletable(
-                paymentStatus -> handlePaymentStatus(paymentStatus, transaction.getSkuId())))
+                paymentStatus -> handlePaymentStatus(paymentStatus, transaction.getSkuId(), transaction.amount())))
         .subscribe());
   }
 
-  private Completable handlePaymentStatus(RewardsManager.RewardPayment transaction, String sku) {
+  private Completable handlePaymentStatus(RewardsManager.RewardPayment transaction, String sku, BigDecimal amount) {
     switch (transaction.getStatus()) {
       case PROCESSING:
         return Completable.fromAction(() -> {
@@ -118,7 +122,7 @@ public class AppcoinsRewardsBuyPresenter {
               }));
         }
         return Completable.fromAction(() -> view.finish(
-            rewardsManager.getTransaction(packageName, sku)
+            rewardsManager.getTransaction(packageName, sku, amount)
                 .map(Transaction::getTxId)
                 .blockingFirst()));
       case ERROR:
@@ -141,19 +145,16 @@ public class AppcoinsRewardsBuyPresenter {
   }
 
   public void sendPurchaseDetails(String purchaseDetails) {
-    TransactionBuilder transactionBuilder = inAppPurchaseInteractor.parseTransaction(uri, isBds)
-        .blockingGet();
-    analytics.sendPurchaseDetailsEvent(packageName, transactionBuilder.getSkuId(),
-        transactionBuilder.amount()
-            .toString(), purchaseDetails);
+    disposables.add(transactionBuilder.subscribe(
+        transactionBuilder -> analytics.sendPurchaseDetailsEvent(packageName,
+            transactionBuilder.getSkuId(), transactionBuilder.amount()
+                .toString(), purchaseDetails, transactionBuilder.getType())));
   }
 
   public void sendPaymentEvent(String purchaseDetails) {
-    TransactionBuilder transactionBuilder =
-        inAppPurchaseInteractor.parseTransaction(uri, isBds)
-            .blockingGet();
-    analytics.sendPaymentEvent(packageName, transactionBuilder.getSkuId(),
-        transactionBuilder.amount()
-            .toString(), purchaseDetails);
+    disposables.add(transactionBuilder.subscribe(
+        transactionBuilder -> analytics.sendPaymentEvent(packageName, transactionBuilder.getSkuId(),
+            transactionBuilder.amount()
+                .toString(), purchaseDetails, transactionBuilder.getType())));
   }
 }

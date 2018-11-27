@@ -177,21 +177,23 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
 
     buyButton.setOnClickListener(v -> buyButtonClick.accept(
         new OnChainBuyPresenter.BuyData(checkbox.isChecked(), data, getChannelBudget())));
-  }
-
-  @Override public void onStart() {
-    super.onStart();
     presenter.present(data, getAppPackage(), extras.getString(PRODUCT_NAME, ""),
         (BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT),
         extras.getString(EXTRA_DEVELOPER_PAYLOAD));
   }
 
-  @Override public void onStop() {
-    presenter.stop();
-    super.onStop();
+  @Override public void onResume() {
+    super.onResume();
+    presenter.resume();
+  }
+
+  @Override public void onPause() {
+    presenter.pause();
+    super.onPause();
   }
 
   @Override public void onDestroyView() {
+    presenter.stop();
     super.onDestroyView();
   }
 
@@ -244,7 +246,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     String formatedPrice = formatter.format(Locale.getDefault(), "%(,.2f",
         ((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue())
         .toString() + " APPC";
-    int buyButtonText = isDonation? R.string.action_donate : R.string.action_buy;
+    int buyButtonText = isDonation ? R.string.action_donate : R.string.action_buy;
     buyButton.setText(getResources().getString(buyButtonText));
     itemPrice.setText(formatedPrice);
     Spannable spannable = new SpannableString(formatedPrice);
@@ -345,13 +347,6 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
 
   @Override public void hideChannelAmount() {
     amountGroup.setVisibility(View.GONE);
-  }
-
-  @Override public void showChannelAsDefaultPayment() {
-    checkbox.setChecked(true);
-    checkbox.setOnCheckedChangeListener(
-        (buttonView, isChecked) -> createChannelClick.onNext(isChecked));
-    createChannelGroup.setVisibility(View.VISIBLE);
   }
 
   @Override public void showDefaultAsDefaultPayment() {

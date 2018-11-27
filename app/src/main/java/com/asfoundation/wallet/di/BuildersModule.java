@@ -7,6 +7,7 @@ import com.asfoundation.wallet.ui.Erc681Receiver;
 import com.asfoundation.wallet.ui.GasSettingsActivity;
 import com.asfoundation.wallet.ui.ImportWalletActivity;
 import com.asfoundation.wallet.ui.MyAddressActivity;
+import com.asfoundation.wallet.ui.OneStepPaymentReceiver;
 import com.asfoundation.wallet.ui.SendActivity;
 import com.asfoundation.wallet.ui.SettingsActivity;
 import com.asfoundation.wallet.ui.SplashActivity;
@@ -68,6 +69,9 @@ import dagger.android.ContributesAndroidInjector;
 
   @ActivityScope @ContributesAndroidInjector(modules = ConfirmationModule.class)
   abstract Erc681Receiver bindErc681Receiver();
+
+  @ActivityScope @ContributesAndroidInjector(modules = ConfirmationModule.class)
+  abstract OneStepPaymentReceiver bindOneStepPaymentReceiver();
 
   @ContributesAndroidInjector() abstract WalletPoAService bindWalletPoAService();
 
