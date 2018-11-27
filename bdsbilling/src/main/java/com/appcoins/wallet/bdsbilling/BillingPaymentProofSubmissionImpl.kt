@@ -31,7 +31,8 @@ class BillingPaymentProofSubmissionImpl internal constructor(
         authorizationProof.priceValue,
         authorizationProof.developerAddress, authorizationProof.storeAddress,
         authorizationProof.origin,
-        authorizationProof.type, authorizationProof.oemAddress, authorizationProof.developerPayload)
+        authorizationProof.type, authorizationProof.oemAddress, authorizationProof.developerPayload,
+        authorizationProof.callback)
         .doOnSuccess { paymentId -> transactionIdsFromApprove[authorizationProof.id] = paymentId }
         .toCompletable()
   }
@@ -48,7 +49,7 @@ class BillingPaymentProofSubmissionImpl internal constructor(
         }.andThen(Completable.fromAction { transactionIdsFromBuy[paymentProof] = paymentId })
   }
 
-  override fun registerAuthorizationProof(id: String, paymentType: String, productName: String,
+  override fun registerAuthorizationProof(id: String, paymentType: String, productName: String?,
                                           packageName: String,
                                           priceValue: BigDecimal,
                                           developerWallet: String,
@@ -56,12 +57,13 @@ class BillingPaymentProofSubmissionImpl internal constructor(
                                           origin: String,
                                           type: String,
                                           oemWallet: String,
-                                          developerPayload: String?): Single<String> {
+                                          developerPayload: String?,
+                                          callback: String?): Single<String> {
     return walletService.getWalletAddress().observeOn(networkScheduler).flatMap { walletAddress ->
       walletService.signContent(walletAddress).observeOn(networkScheduler).flatMap { signedData ->
         repository.registerAuthorizationProof(id, paymentType, walletAddress, signedData,
             productName, packageName, priceValue, developerWallet, storeWallet, origin, type,
-            oemWallet, developerPayload)
+            oemWallet, developerPayload, callback)
 
       }
     }
@@ -114,7 +116,7 @@ class BillingPaymentProofSubmissionImpl internal constructor(
 
 data class AuthorizationProof(val paymentType: String,
                               val id: String,
-                              val productName: String,
+                              val productName: String?,
                               val packageName: String,
                               val priceValue: BigDecimal,
                               val storeAddress: String,
@@ -122,12 +124,13 @@ data class AuthorizationProof(val paymentType: String,
                               val developerAddress: String,
                               val type: String,
                               val origin: String,
-                              val developerPayload: String?)
+                              val developerPayload: String?,
+                              val callback: String?)
 
 data class PaymentProof(val paymentType: String,
                         val approveProof: String,
                         val paymentProof: String,
-                        val productName: String,
+                        val productName: String?,
                         val packageName: String,
                         val storeAddress: String,
                         val oemAddress: String)

@@ -17,7 +17,6 @@
         android:orientation="vertical"
         >
       <ImageView
-          android:id="@+id/imageView2"
           android:layout_width="195dp"
           android:layout_height="195dp"
           android:layout_gravity="center_horizontal"
@@ -27,7 +26,6 @@
           android:src="@drawable/ic_backup_icon"
           />
       <TextView
-          android:id="@+id/backup_title"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginEnd="@dimen/big_margin"
@@ -40,7 +38,6 @@
           />
 
       <TextView
-          android:id="@+id/textView"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginBottom="@dimen/normal_margin"

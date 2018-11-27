@@ -14,8 +14,10 @@ interface BdsApi {
 
   data class PayBody(@SerializedName("price.value") private val amount: String,
                      private val origin: String?,
-                     private val product: String,
+                     private val product: String?,
                      private val type: String,
+                     @SerializedName("metadata") private val payload: String?,
+                     @SerializedName("callback_url") private val callback: String?,
                      @SerializedName("wallets.developer") private val developerAddress: String,
                      @SerializedName("wallets.store") private val storeAddress: String,
                      @SerializedName("wallets.oem") private val oemAddress: String,

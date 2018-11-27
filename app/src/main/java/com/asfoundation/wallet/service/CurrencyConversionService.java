@@ -13,17 +13,17 @@ import retrofit2.http.Query;
  * Created by franciscocalado on 24/07/2018.
  */
 
-public class TokenToFiatService {
+public class CurrencyConversionService {
   public static final String CONVERSION_HOST = BuildConfig.BACKEND_HOST;
 
   private final TokenToFiatApi tokenToFiatApi;
 
-  public TokenToFiatService(TokenToFiatApi tokenToFiatApi) {
+  public CurrencyConversionService(TokenToFiatApi tokenToFiatApi) {
 
     this.tokenToFiatApi = tokenToFiatApi;
   }
 
-  public Single<FiatValue> convertAppcToFiat(String currency) {
+  public Single<FiatValue> getAppcRate(String currency) {
     return tokenToFiatApi.getAppcToFiatRate(currency)
         .map(appcToFiatResponseBody -> appcToFiatResponseBody)
         .map(AppcToFiatResponseBody::getFiatValue)

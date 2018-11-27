@@ -120,7 +120,8 @@ public class OnChainBuyPresenter {
                     case PAUSED_ON_CHAIN:
                       return inAppPurchaseInteractor.resume(uri,
                           AsfInAppPurchaseInteractor.TransactionType.NORMAL, packageName,
-                          transaction.getSkuId(), developerPayload, isBds);
+                          transaction.getSkuId(), developerPayload,
+                          isBds);
                     case READY:
                       return Completable.fromAction(() -> setup(appcAmount, transaction.getType()))
                           .subscribeOn(AndroidSchedulers.mainThread());
