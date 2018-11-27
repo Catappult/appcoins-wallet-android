@@ -4,7 +4,7 @@
   <string name="app_name">AppCoins BDS Wallet</string>
   <string name="title_send">Send</string>
   <string name="title_send_with_token">Enviar %s</string>
-  <string name="title_request">Receive</string>
+  <string name="title_request">Recibir Tokens</string>
   <string name="title_import">Importar Wallet</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Contraseña</string>
@@ -58,23 +58,23 @@
   <string name="action_buy">Buy</string>
   <string name="empty"></string>
   <string name="try_again">Try again</string>
-  <string name="already_have_account">Already have a wallet?</string>
-  <string name="action_create_new_account">Create new wallet</string>
-  <string name="unknown_error">An error has occurred.</string>
-  <string name="action_backup_wallet">Backup Wallet</string>
-  <string name="no_tokens">You haven\'t added any custom token yet.</string>
-  <string name="title_email">Email us</string>
+  <string name="already_have_account">¿Ya tienes una wallet?</string>
+  <string name="action_create_new_account">Crear una wallet nueva</string>
+  <string name="unknown_error">Ha ocurrido un error.</string>
+  <string name="action_backup_wallet">Hacer un backup</string>
+  <string name="no_tokens">Todavía no has añadido tokens personalizados.</string>
+  <string name="title_email">Mándanos un mail</string>
   <string name="action_donate">Donate</string>
   <!-- Titles -->
   <string name="title_my_address">Receive</string>
   <string name="title_my_tokens">My Tokens</string>
   <string name="title_activity_send">Send</string>
-  <string name="title_activity_confirmation">Confirm</string>
-  <string name="title_add_token">Add Custom Token</string>
+  <string name="title_activity_confirmation">Confirmar</string>
+  <string name="title_add_token">Añadir Token Personalizado</string>
   <string name="title_airdrop">Airdrop</string>
   <!-- Suggestions -->
-  <string name="suggestion_private_key">Private key has to be 64 characters long</string>
-  <string name="suggestion_empty_password_available">The password can be left blank.</string>
+  <string name="suggestion_private_key">La private key debe tener 64 caracteres</string>
+  <string name="suggestion_empty_password_available">Puedes dejar la contraseña vacía.</string>
   <string name="suggestion_this_is_your_address">My public %s wallet address</string>
   <!-- Hints -->
   <string name="hint_private_key_field">Private key *</string>
@@ -84,23 +84,23 @@
   <string name="tab_private_key">Private key</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Error</string>
-  <string name="title_dialog_handling">Processing…</string>
-  <string name="title_dialog_add_account">Add wallet</string>
+  <string name="title_dialog_handling">Procesando…</string>
+  <string name="title_dialog_add_account">Añadir wallet</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Set a password to encrypt your wallet</string>
-  <string name="toast_message_wallet_imported">The wallet was imported</string>
-  <string name="toast_message_wallet_exported">A backup was created</string>
-  <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
+  <string name="dialog_message">Establece una contraseña para encriptar tu wallet</string>
+  <string name="toast_message_wallet_imported">La wallet fue importada con éxito</string>
+  <string name="toast_message_wallet_exported">Backup creado</string>
+  <string name="toast_qr_code_no_address">El código QR no contiene una dirección válida</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins BDS Wallet</string>
-  <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
-  <string name="intro_title_third_page">Simple &amp; Easy</string>
-  <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
-  <string name="intro_message_second_page">Private keys never leave your device.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
+  <string name="intro_title_second_page"><![CDATA[Privada y Segura]]></string>
+  <string name="intro_title_third_page">Simple y Fácil</string>
+  <string name="intro_message_first_page">Bienvenido a la revolución de la economía de las apps.</string>
+  <string name="intro_message_second_page">Las private keys nunca salen de tu dispositivo.</string>
+  <string name="intro_message_third_page">Procesa todos los pagos in-app y recompensas en APPC.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">From</string>
@@ -171,22 +171,22 @@
   <string name="activity_aib_loading_message">This may take a while…</string>
   <string name="activity_iab_transaction_completed_title">Transaction Completed</string>
   <string name="activity_iab_error_title">Error</string>
-  <string name="activity_iab_error_message">An error occurred, please try again</string>
+  <string name="activity_iab_error_message">Ha ocurrido un error, por favor, prueba de nuevo.</string>
   <string name="action_try">try</string>
-  <string name="activity_transactions_learn_more">Learn more</string>
-  <string name="activity_iab_no_funds_message">Not enough ETH and APPC</string>
-  <string name="activity_iab_no_ethereum_funds_message">Not enough Ethereum</string>
-  <string name="activity_iab_no_token_funds_message">Not enough AppCoins</string>
-  <string name="activity_iab_wrong_network_message">Wrong Ethereum network or unknown token</string>
-  <string name="activity_iab_no_network_message">No network access</string>
-  <string name="activity_iab_nonce_message">An error with blockchain occurred, please try again later.</string>
+  <string name="activity_transactions_learn_more">Más info</string>
+  <string name="activity_iab_no_funds_message">No tienes suficientes ETH y APPC</string>
+  <string name="activity_iab_no_ethereum_funds_message">No tienes suficientes Ethereum</string>
+  <string name="activity_iab_no_token_funds_message">No tienes suficientes AppCoins</string>
+  <string name="activity_iab_wrong_network_message">Red Ethereum incorrecta o token desconocido</string>
+  <string name="activity_iab_no_network_message">No hay acceso a la red</string>
+  <string name="activity_iab_nonce_message">Ha ocurrido un error en el blockchain, por favor, inténtalo más tarde.</string>
   <string name="activity_iab_approving_message">Checking all details: balance, items, network…</string>
   <string name="activity_iab_buying_message">Details checked \nReceiving your item…</string>
   <string name="notification_ongoing_poa">Processing your reward</string>
   <string name="notification_completed_poa">Reward received, enjoy!</string>
   <string name="notification_submitting_poa">Submitting your request to the blockchain</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
-  <string name="notification_no_network_poa">No network connection</string>
+  <string name="notification_no_network_poa">No tienes conexión a la red</string>
   <string name="notification_error_poa">Ha ocurrido un error</string>
   <string name="notification_no_wallet_poa">La wallet no está configurada todavía</string>
   <string name="notification_cancelled_poa">Recompensa cancelada</string>
@@ -223,7 +223,7 @@
   <string name="activity_airdrop_ok">ok</string>
   <string name="activity_airdrop_message_title">Airdrop</string>
   <string name="activity_airdrop_success_message">Airdrop completed</string>
-  <string name="activity_airdrop_generic_error_message">An error has occurred</string>
+  <string name="activity_airdrop_generic_error_message">Ha ocurrido un error</string>
   <string name="notification_generic_error">@string/unknown_error</string>
   <string name="iab_activity_micro_raiden_wallet">Wallet</string>
   <string name="iab_activity_raiden_channel_label">Create µRaiden channel</string>
