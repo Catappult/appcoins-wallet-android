@@ -13,10 +13,7 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
-import com.asfoundation.wallet.ui.MicroRaidenInteractor;
-import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class TransactionDetailViewModel extends BaseViewModel {
 
@@ -25,13 +22,10 @@ public class TransactionDetailViewModel extends BaseViewModel {
   private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
   private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
 
-  private final MicroRaidenInteractor microRaidenInteractor;
-
   TransactionDetailViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
-      ExternalBrowserRouter externalBrowserRouter, MicroRaidenInteractor interactor) {
+      ExternalBrowserRouter externalBrowserRouter) {
     this.externalBrowserRouter = externalBrowserRouter;
-    this.microRaidenInteractor = interactor;
     findDefaultNetworkInteract.find()
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(defaultNetwork::postValue, t -> {
@@ -66,11 +60,6 @@ public class TransactionDetailViewModel extends BaseViewModel {
 
   public LiveData<Wallet> defaultWallet() {
     return defaultWallet;
-  }
-
-  public Completable closeChannel(String fromAddress) {
-      return microRaidenInteractor.closeChannel(fromAddress)
-          .subscribeOn(Schedulers.io());
   }
 
   public void showMoreDetailsBds(Context context, Transaction transaction) {

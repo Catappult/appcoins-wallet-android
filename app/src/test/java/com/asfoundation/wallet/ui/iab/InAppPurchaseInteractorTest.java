@@ -39,8 +39,6 @@ import com.asfoundation.wallet.repository.TransactionValidator;
 import com.asfoundation.wallet.repository.WatchedTransactionService;
 import com.asfoundation.wallet.service.CurrencyConversionService;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationEntity;
-import com.asfoundation.wallet.ui.iab.raiden.ChannelService;
-import com.asfoundation.wallet.ui.iab.raiden.RaidenRepository;
 import com.asfoundation.wallet.util.EIPTransactionParser;
 import com.asfoundation.wallet.util.OneStepTransactionParser;
 import com.asfoundation.wallet.util.TransferParser;
@@ -54,6 +52,7 @@ import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -94,16 +93,15 @@ public class InAppPurchaseInteractorTest {
   @Mock BalanceService balanceService;
   @Mock AppInfoProvider appInfoProvider;
   @Mock ProofOfAttentionService proofOfAttentionService;
-  @Mock RaidenRepository repository;
   @Mock TransactionSender transactionSender;
   @Mock TransactionValidator transactionValidator;
   @Mock DefaultTokenProvider defaultTokenProvider;
   @Mock CountryCodeProvider countryCodeProvider;
   @Mock Billing billing;
   @Mock BdsPendingTransactionService transactionService;
+  private BdsInAppPurchaseInteractor inAppPurchaseInteractor;
   @Mock ProxyService proxyService;
   @Mock CurrencyConversionService conversionService;
-  private BdsInAppPurchaseInteractor inAppPurchaseInteractor;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
   private PublishSubject<GetDefaultWalletBalance.BalanceState> balance;
@@ -208,9 +206,7 @@ public class InAppPurchaseInteractorTest {
     AsfInAppPurchaseInteractor asfInAppPurchaseInteractor =
         new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
             gasSettingsInteract, BigDecimal.ONE,
-            new TransferParser(eipTransactionParser, oneStepTransactionParser), repository,
-            new ChannelService(null, new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-                new MemoryCache<>(BehaviorSubject.create(), new HashMap<>())),
+            new TransferParser(eipTransactionParser, oneStepTransactionParser),
             new BillingMessagesMapper(new ExternalBillingSerializer()), billing,
             new ExternalBillingSerializer(),
             new ExpressCheckoutBuyService(Mockito.mock(CurrencyConversionService.class)),

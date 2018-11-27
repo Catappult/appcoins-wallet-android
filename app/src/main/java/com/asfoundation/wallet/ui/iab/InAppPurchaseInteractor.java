@@ -90,18 +90,6 @@ public class InAppPurchaseInteractor {
     return bdsInAppPurchaseInteractor.getTopUpChannelSuggestionValues(price);
   }
 
-  public boolean shouldShowDialog() {
-    return bdsInAppPurchaseInteractor.shouldShowDialog();
-  }
-
-  public void dontShowAgain() {
-    bdsInAppPurchaseInteractor.dontShowAgain();
-  }
-
-  public Single<Boolean> hasChannel() {
-    return bdsInAppPurchaseInteractor.hasChannel();
-  }
-
   public Single<String> getWalletAddress() {
     return asfInAppPurchaseInteractor.getWalletAddress();
   }

@@ -16,10 +16,6 @@ import com.asfoundation.wallet.repository.ExpressCheckoutBuyService;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.PaymentTransaction;
 import com.asfoundation.wallet.repository.TransactionNotFoundException;
-import com.asfoundation.wallet.ui.iab.raiden.ChannelCreation;
-import com.asfoundation.wallet.ui.iab.raiden.ChannelPayment;
-import com.asfoundation.wallet.ui.iab.raiden.ChannelService;
-import com.asfoundation.wallet.ui.iab.raiden.RaidenRepository;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -40,8 +36,6 @@ public class AsfInAppPurchaseInteractor {
   private final FetchGasSettingsInteract gasSettingsInteract;
   private final BigDecimal paymentGasLimit;
   private final TransferParser parser;
-  private final RaidenRepository raidenRepository;
-  private final ChannelService channelService;
   private final BillingMessagesMapper billingMessagesMapper;
   private final Billing billing;
   private final ExternalBillingSerializer billingSerializer;
@@ -50,8 +44,8 @@ public class AsfInAppPurchaseInteractor {
 
   public AsfInAppPurchaseInteractor(InAppPurchaseService inAppPurchaseService,
       FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
-      BigDecimal paymentGasLimit, TransferParser parser, RaidenRepository raidenRepository,
-      ChannelService channelService, BillingMessagesMapper billingMessagesMapper, Billing billing,
+      BigDecimal paymentGasLimit, TransferParser parser,
+      BillingMessagesMapper billingMessagesMapper, Billing billing,
       ExternalBillingSerializer billingSerializer,
       ExpressCheckoutBuyService expressCheckoutBuyService,
       BdsTransactionService trackTransactionService, Scheduler scheduler) {
@@ -60,8 +54,6 @@ public class AsfInAppPurchaseInteractor {
     this.gasSettingsInteract = gasSettingsInteract;
     this.paymentGasLimit = paymentGasLimit;
     this.parser = parser;
-    this.raidenRepository = raidenRepository;
-    this.channelService = channelService;
     this.billingMessagesMapper = billingMessagesMapper;
     this.billing = billing;
     this.billingSerializer = billingSerializer;
@@ -82,20 +74,6 @@ public class AsfInAppPurchaseInteractor {
             developerPayload).flatMapCompletable(
             paymentTransaction -> inAppPurchaseService.send(paymentTransaction.getUri(),
                 paymentTransaction));
-      case RAIDEN:
-        return buildPaymentTransaction(uri, packageName, productName, developerPayload).observeOn(
-            Schedulers.io())
-            .flatMapCompletable(paymentTransaction -> channelService.hasChannel(
-                paymentTransaction.getTransactionBuilder()
-                    .fromAddress())
-                .flatMapCompletable(hasChannel -> {
-                  if (hasChannel) {
-                    return makePayment(paymentTransaction);
-                  }
-                  return channelService.createChannelAndBuy(paymentTransaction.getUri(),
-                      paymentTransaction.getTransactionBuilder()
-                          .fromAddress(), channelBudget, paymentTransaction);
-                }));
     }
     return Completable.error(new UnsupportedOperationException(
         "Transaction type " + transactionType + " not supported"));
@@ -140,22 +118,8 @@ public class AsfInAppPurchaseInteractor {
     }
   }
 
-  private Completable makePayment(PaymentTransaction paymentTransaction) {
-    return channelService.hasFunds(paymentTransaction.getTransactionBuilder()
-        .fromAddress(), paymentTransaction.getTransactionBuilder()
-        .amount())
-        .flatMapCompletable(hasFunds -> {
-          if (hasFunds) {
-            return Completable.fromAction(() -> channelService.buy(paymentTransaction));
-          }
-          return Completable.error(new NotEnoughFundsException());
-        });
-  }
-
   public Observable<Payment> getTransactionState(String uri) {
     return Observable.merge(inAppPurchaseService.getTransactionState(uri)
-        .map(this::mapToPayment), channelService.getPayment(uri)
-        .map(this::mapToPayment), channelService.getChannel(uri)
         .map(this::mapToPayment), trackTransactionService.getTransaction(uri)
         .map(this::map));
   }
@@ -178,44 +142,11 @@ public class AsfInAppPurchaseInteractor {
     }
   }
 
-  private Payment mapToPayment(ChannelCreation creation) {
-    switch (creation.getStatus()) {
-      case PENDING:
-        return new Payment(creation.getKey(), Payment.Status.APPROVING);
-      case CREATING:
-        return new Payment(creation.getKey(), Payment.Status.APPROVING);
-      case CREATED:
-        return new Payment(creation.getKey(), Payment.Status.APPROVING);
-      case ERROR:
-        return new Payment(creation.getKey(), Payment.Status.ERROR);
-    }
-    throw new IllegalStateException("Status " + creation.getStatus() + " not mapped");
-  }
-
   @NonNull private Payment mapToPayment(PaymentTransaction paymentTransaction) {
     return new Payment(paymentTransaction.getUri(), mapStatus(paymentTransaction.getState()),
         paymentTransaction.getTransactionBuilder()
             .fromAddress(), paymentTransaction.getBuyHash(), paymentTransaction.getPackageName(),
         paymentTransaction.getProductName(), paymentTransaction.getProductId());
-  }
-
-  @NonNull private Payment mapToPayment(ChannelPayment channelPayment) {
-    return new Payment(channelPayment.getId(), mapStatus(channelPayment.getStatus()),
-        channelPayment.getFromAddress(), channelPayment.getHash(), channelPayment.getPackageName(),
-        channelPayment.getProductName(), channelPayment.getProductId());
-  }
-
-  private Payment.Status mapStatus(ChannelPayment.Status status) {
-    switch (status) {
-      case PENDING:
-      case BUYING:
-        return Payment.Status.BUYING;
-      case COMPLETED:
-        return Payment.Status.COMPLETED;
-      case ERROR:
-        return Payment.Status.ERROR;
-    }
-    throw new IllegalStateException("Status " + status + " not mapped");
   }
 
   private Payment.Status mapStatus(PaymentTransaction.PaymentState state) {
@@ -250,14 +181,13 @@ public class AsfInAppPurchaseInteractor {
 
   public Completable remove(String uri) {
     return inAppPurchaseService.remove(uri)
-        .andThen(channelService.remove(uri))
         .andThen(trackTransactionService.remove(uri));
   }
 
   private Single<PaymentTransaction> buildPaymentTransaction(String uri, String packageName,
       String productName, String developerPayload) {
-    return Single.zip(parseTransaction(uri), defaultWalletInteract.find(),
-        (transaction, wallet) -> transaction.fromAddress(wallet.address))
+    return Single.zip(parseTransaction(uri).observeOn(scheduler), defaultWalletInteract.find()
+        .observeOn(scheduler), (transaction, wallet) -> transaction.fromAddress(wallet.address))
         .flatMap(transactionBuilder -> gasSettingsInteract.fetch(true)
             .map(gasSettings -> transactionBuilder.gasSettings(
                 new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
@@ -268,25 +198,18 @@ public class AsfInAppPurchaseInteractor {
 
   public void start() {
     inAppPurchaseService.start();
-    channelService.start();
     trackTransactionService.start();
   }
 
   public Observable<List<Payment>> getAll() {
-    return Observable.merge(channelService.getAll()
-        .flatMapSingle(channelPayments -> Observable.fromIterable(channelPayments)
-            .map(channelPayment -> new Payment(channelPayment.getId(),
-                mapStatus(channelPayment.getStatus()), channelPayment.getFromAddress(),
-                channelPayment.getHash(), channelPayment.getPackageName(),
-                channelPayment.getProductName(), channelPayment.getProductId()))
-            .toList()), inAppPurchaseService.getAll()
+    return inAppPurchaseService.getAll()
         .flatMapSingle(paymentTransactions -> Observable.fromIterable(paymentTransactions)
             .map(paymentTransaction -> new Payment(paymentTransaction.getUri(),
                 mapStatus(paymentTransaction.getState()), paymentTransaction.getTransactionBuilder()
                 .fromAddress(), paymentTransaction.getBuyHash(),
                 paymentTransaction.getPackageName(), paymentTransaction.getProductName(),
                 paymentTransaction.getProductId()))
-            .toList()));
+            .toList());
   }
 
   public List<BigDecimal> getTopUpChannelSuggestionValues(BigDecimal price) {
@@ -299,20 +222,6 @@ public class AsfInAppPurchaseInteractor {
     list.add(firstValue.add(new BigDecimal(15)));
     list.add(firstValue.add(new BigDecimal(25)));
     return list;
-  }
-
-  public boolean shouldShowDialog() {
-    return raidenRepository.shouldShowDialog();
-  }
-
-  public void dontShowAgain() {
-    raidenRepository.setShouldShowDialog(false);
-  }
-
-  public Single<Boolean> hasChannel() {
-    return defaultWalletInteract.find()
-        .observeOn(Schedulers.io())
-        .flatMap(wallet -> channelService.hasChannel(wallet.address));
   }
 
   public Single<String> getWalletAddress() {
@@ -346,7 +255,12 @@ public class AsfInAppPurchaseInteractor {
           case appcoins:
             return CurrentPaymentStep.PAUSED_ON_CHAIN;
           case adyen:
-            return CurrentPaymentStep.PAUSED_CC_PAYMENT;
+            if (transaction.getStatus()
+                .equals(Transaction.Status.PROCESSING)) {
+              return CurrentPaymentStep.PAUSED_CC_PAYMENT;
+            } else {
+              return isBuyReady ? CurrentPaymentStep.READY : CurrentPaymentStep.NO_FUNDS;
+            }
           default:
           case unknown:
             throw new UnknownServiceException("Unknown gateway");
@@ -402,7 +316,7 @@ public class AsfInAppPurchaseInteractor {
   }
 
   public enum TransactionType {
-    NORMAL, RAIDEN
+    NORMAL
   }
 
   public enum CurrentPaymentStep {
