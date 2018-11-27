@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface GamificationApi {
-  @GET("user_stats")
+  @GET("gamification/user_stats")
   fun getUserStatus(@Query("address") address: String): Single<UserStatusResponse>
 
   @GET("gamification/levels")
