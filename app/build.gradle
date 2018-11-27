@@ -22,7 +22,7 @@ repositories {
 
 android {
   compileSdkVersion 27
-  buildToolsVersion '28.0.2'
+  buildToolsVersion '28.0.3'
   defaultConfig {
 
     def inputFile = new File("appcoins-services.json")

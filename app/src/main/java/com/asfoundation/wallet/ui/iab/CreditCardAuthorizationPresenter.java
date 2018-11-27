@@ -194,6 +194,7 @@ public class CreditCardAuthorizationPresenter {
             .observeOn(viewScheduler)
             .doOnSuccess(bundle -> {
               sendPaymentEvent();
+              sendRevenueEvent();
               navigator.popView(bundle);
             })
             .doOnSuccess(__ -> view.showSuccess()))
@@ -352,5 +353,11 @@ public class CreditCardAuthorizationPresenter {
         transactionBuilder -> analytics.sendPaymentEvent(appPackage, transactionBuilder.getSkuId(),
             transactionBuilder.amount()
                 .toString(), PAYMENT_METHOD_CC, transactionBuilder.getType())));
+  }
+
+  public void sendRevenueEvent() {
+    disposables.add(transactionBuilder.subscribe(transactionBuilder -> analytics.sendRevenueEvent(
+        transactionBuilder.amount()
+            .toString())));
   }
 }

@@ -157,4 +157,10 @@ public class AppcoinsRewardsBuyPresenter {
             transactionBuilder.amount()
                 .toString(), purchaseDetails, transactionBuilder.getType())));
   }
+
+  public void sendRevenueEvent() {
+    disposables.add(transactionBuilder.subscribe(transactionBuilder -> analytics.sendRevenueEvent(
+        transactionBuilder.amount()
+            .toString())));
+  }
 }
