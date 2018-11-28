@@ -222,6 +222,10 @@
   <string name="transaction_to_label">To</string>
   <string name="dialog_credit_card_remember">Remember Card</string>
   <string name="notification_payment_refused">Payment Refused</string>
+  <string name="dialog_credit_card_number">Card Number</string>
+  <string name="dialog_credit_card_expiration">Expiration Date</string>
+   string name="dialog_credit_card_cvv">CVV</string>
+  
 
 
   <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
