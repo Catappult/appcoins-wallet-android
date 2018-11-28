@@ -261,13 +261,13 @@
   <string name="gamif_level_button_how">HOW IT WORKS</string>
   <string name="gamif_how_header">How to Level Up?</string>
   <string name="gamif_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games</string>
-  <string name="gamif_how_spend">SPEND %s</string>
+  <string name="gamif_how_spend">SPEND %s APPC</string>
   <string name="gamif_comet_title">Comet</string>
   <string name="gamif_moon_title">Moon</string>
   <string name="gamif_planet_title">Planet</string>
   <string name="gamif_star_title">Star</string>
   <string name="gamif_galaxy_title">Galaxy</string>
-  <string name="gamif_comet_subtitle">Be careful and don't hit a planet!</strin>
+  <string name="gamif_comet_subtitle">Be careful and don\'t hit a planet!</strin>
   <string name="gamif_moon_subtitle">A natural satellite</string>
   <string name="gamif_planet_subtitle">Spinning around a big star</string>
   <string name="gamif_star_subtitle">Shinny, big and full of life!</string>
