@@ -67,7 +67,7 @@
   <string name="action_donate">Donar</string>
   <!-- Titles -->
   <string name="title_my_address">Recibir</string>
-  <string name="title_my_tokens">My Tokens</string>
+  <string name="title_my_tokens">Mis Tokens</string>
   <string name="title_activity_send">Send</string>
   <string name="title_activity_confirmation">Confirmar</string>
   <string name="title_add_token">Añadir Token Personalizado</string>
