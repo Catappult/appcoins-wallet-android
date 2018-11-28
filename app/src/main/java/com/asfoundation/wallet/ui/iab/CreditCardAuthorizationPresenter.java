@@ -23,6 +23,7 @@ import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static com.asfoundation.wallet.analytics.FacebookEventLogger.EVENT_REVENUE_CURRENCY;
 import static com.asfoundation.wallet.billing.analytics.BillingAnalytics.PAYMENT_METHOD_CC;
 import static com.asfoundation.wallet.ui.iab.ExpressCheckoutBuyFragment.serializeJson;
 
@@ -357,7 +358,11 @@ public class CreditCardAuthorizationPresenter {
 
   public void sendRevenueEvent() {
     disposables.add(transactionBuilder.subscribe(transactionBuilder -> analytics.sendRevenueEvent(
-        transactionBuilder.amount()
+        new BigDecimal(inAppPurchaseInteractor.convertToFiat((new BigDecimal(
+            transactionBuilder.amount()
+                .toString())).doubleValue(), EVENT_REVENUE_CURRENCY)
+            .blockingGet()
+            .getAmount()).setScale(2, BigDecimal.ROUND_UP)
             .toString())));
   }
 }
