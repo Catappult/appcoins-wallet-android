@@ -154,7 +154,7 @@
   <string name="info_gas_limit">The gas limit prevents smart contracts from consuming all your Ethereum. We will try to calculate the gas limit automatically for you, but some smart contracts may require a custom gas limit.</string>
   <string name="title_send_settings">Advanced</string>
   <string name="title_activity_barcode">Barcode Scan</string>
-  <string name="error_add_token">Couldn\'t add token.</string>
+  <string name="error_add_token">No se pudo añadir el token.</string>
   <string name="facebook">Facebook</string>
   <string name="error_already_added">Already added</string>
   <string name="error_export">Error al exportar la wallet</string>
