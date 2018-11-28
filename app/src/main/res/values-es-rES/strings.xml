@@ -55,7 +55,7 @@
   <string name="root_body">¡Cualquier app rooted puede acceder a los datos del keychain de AppCoins BDS Wallet y robarla! Elimina esta cartera inmediatamente y restaúrala en un dispositivo seguro.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
   <string name="buying">Buying %s</string>
-  <string name="action_buy">Buy</string>
+  <string name="action_buy">Comprar</string>
   <string name="empty"></string>
   <string name="try_again">Try again</string>
   <string name="already_have_account">¿Ya tienes una wallet?</string>
