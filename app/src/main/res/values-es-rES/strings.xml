@@ -119,11 +119,11 @@
   <string name="button_yes">SÍ</string>
   <!-- Subtitles -->
   <string name="subtitle_from">From</string>
-  <string name="subtitle_gas_fee">Fee</string>
-  <string name="subtitle_transaction_num">Transaction</string>
+  <string name="subtitle_gas_fee">Comisión</string>
+  <string name="subtitle_transaction_num">Transacción</string>
   <!-- Actions -->
   <string name="action_more_details">Más</string>
-  <string name="action_add_wallet">Add wallet</string>
+  <string name="action_add_wallet">Añadir wallet</string>
   <string name="action_coinbase">Coinbase</string>
   <string name="action_shapeshift">Shapeshift (Crypto only)</string>
   <string name="action_changelly">Changelly</string>
@@ -172,7 +172,7 @@
   <string name="activity_iab_transaction_completed_title">Transacción completada</string>
   <string name="activity_iab_error_title">Error</string>
   <string name="activity_iab_error_message">Ha ocurrido un error, por favor, prueba de nuevo.</string>
-  <string name="action_try">try</string>
+  <string name="action_try">probar</string>
   <string name="activity_transactions_learn_more">Más info</string>
   <string name="activity_iab_no_funds_message">No tienes suficientes ETH y APPC</string>
   <string name="activity_iab_no_ethereum_funds_message">No tienes suficientes Ethereum</string>
@@ -180,11 +180,11 @@
   <string name="activity_iab_wrong_network_message">Red Ethereum incorrecta o token desconocido</string>
   <string name="activity_iab_no_network_message">No hay acceso a la red</string>
   <string name="activity_iab_nonce_message">Ha ocurrido un error en el blockchain, por favor, inténtalo más tarde.</string>
-  <string name="activity_iab_approving_message">Checking all details: balance, items, network…</string>
-  <string name="activity_iab_buying_message">Details checked \nReceiving your item…</string>
-  <string name="notification_ongoing_poa">Processing your reward</string>
-  <string name="notification_completed_poa">Reward received, enjoy!</string>
-  <string name="notification_submitting_poa">Submitting your request to the blockchain</string>
+  <string name="activity_iab_approving_message">Comprobando los datos: saldo, items, red…</string>
+  <string name="activity_iab_buying_message">Todo en orden \nRecibiendo tu item…</string>
+  <string name="notification_ongoing_poa">Procesando la recompensa</string>
+  <string name="notification_completed_poa">¡Recompensa recibida, disfruta!</string>
+  <string name="notification_submitting_poa">Procesando tu solicitud en el blockchain</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">No tienes conexión a la red</string>
   <string name="notification_error_poa">Ha ocurrido un error</string>
@@ -198,10 +198,10 @@
   <string name="transaction_status_success">Transacción realizada con éxito</string>
   <string name="transaction_status_pending">Transacción pendiente</string>
   <string name="transaction_status_failed">Error</string>
-  <string name="transaction_type_iab">In-App Purchase</string>
+  <string name="transaction_type_iab">Compra in-app</string>
   <string name="transaction_type_poa">Proof of Attention</string>
   <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
-  <string name="transaction_type_standard">Transfer</string>
+  <string name="transaction_type_standard">Transferencia</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -209,23 +209,23 @@
   <string name="miuraiden_trans_details_topup">µRaiden channel top up</string>
   <string name="miuraiden_trans_details_close">µRaiden channel closed</string>
   <string name="ellipsize">\u0020• • •</string>
-  <string name="transaction_status_label">Status</string>
-  <string name="transaction_category_label">Category</string>
-  <string name="transaction_details_label">Details</string>
-  <string name="transaction_to_label">To</string>
+  <string name="transaction_status_label">Estado</string>
+  <string name="transaction_category_label">Categoría</string>
+  <string name="transaction_details_label">Detalles</string>
+  <string name="transaction_to_label">Destinatario</string>
   <string name="dialog_credit_card_remember">Recordar Tarjeta</string>
-  <string name="notification_payment_refused">Payment Refused</string>
-  <string name="dialog_credit_card_number">Card Number</string>
-  <string name="dialog_credit_card_expiration">Expiration Date</string>
+  <string name="notification_payment_refused">Pago rechazado</string>
+  <string name="dialog_credit_card_number">Número de la tarjeta</string>
+  <string name="dialog_credit_card_expiration">Fecha de caducidad</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
-  <string name="activity_airdrop_details">This is just a security thing.</string>
-  <string name="activity_airdrop_hint">Type the words in the image</string>
-  <string name="activity_airdrop_submit_btn">Submit</string>
-  <string name="activity_airdrop_wrong_captcha">Wrong captcha</string>
+  <string name="activity_airdrop_title">Confirma que eres humano para recibir AppCoins</string>
+  <string name="activity_airdrop_details">Es solo una medida de seguridad.</string>
+  <string name="activity_airdrop_hint">Escribe las palabras de la imagen</string>
+  <string name="activity_airdrop_submit_btn">Enviar</string>
+  <string name="activity_airdrop_wrong_captcha">Captcha incorrecto</string>
   <string name="activity_airdrop_ok">ok</string>
   <string name="activity_airdrop_message_title">Airdrop</string>
-  <string name="activity_airdrop_success_message">Airdrop completed</string>
+  <string name="activity_airdrop_success_message">Airdrop completado</string>
   <string name="activity_airdrop_generic_error_message">Ha ocurrido un error</string>
   <string name="notification_generic_error">@string/unknown_error</string>
   <string name="iab_activity_micro_raiden_wallet">Wallet</string>
@@ -239,5 +239,5 @@
   <string name="spend_your_appcoins">Usa tus AppCoins</string>
   <!-- Billing -->
   <string name="action_skip_backup_wallet">SALTAR BACKUP</string>
-  <string name="item_donation">Donation</string>
+  <string name="item_donation">Donación</string>
 </resources>
