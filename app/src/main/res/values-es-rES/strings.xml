@@ -118,7 +118,7 @@
   <string name="button_cancel">CANCELAR</string>
   <string name="button_yes">SÍ</string>
   <!-- Subtitles -->
-  <string name="subtitle_from">From</string>
+  <string name="subtitle_from">De</string>
   <string name="subtitle_gas_fee">Comisión</string>
   <string name="subtitle_transaction_num">Transacción</string>
   <!-- Actions -->
