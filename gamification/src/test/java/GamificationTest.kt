@@ -2,7 +2,7 @@ import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.GamificationApiTest
 import com.appcoins.wallet.gamification.repository.BdsGamificationRepository
 import com.appcoins.wallet.gamification.repository.Levels
-import com.appcoins.wallet.gamification.repository.UserStatus
+import com.appcoins.wallet.gamification.repository.UserStats
 import com.appcoins.wallet.gamification.repository.entity.Level
 import com.appcoins.wallet.gamification.repository.entity.LevelsResponse
 import com.appcoins.wallet.gamification.repository.entity.UserStatusResponse
@@ -28,14 +28,14 @@ class GamificationTest {
     api.userStatusResponse = Single.just(UserStatusResponse(2.2, BigDecimal.ONE, 1, BigDecimal.TEN))
     val testObserver = gamification.getUserStatus(wallet).test()
     testObserver.assertValue(
-        UserStatus(UserStatus.Status.OK, 1, BigDecimal.TEN, 2.2, BigDecimal.ONE))
+        UserStats(UserStats.Status.OK, 1, BigDecimal.TEN, 2.2, BigDecimal.ONE))
   }
 
   @Test
   fun getUserStatsNoNetworkTest() {
     api.userStatusResponse = Single.error(UnknownHostException())
     val testObserver = gamification.getUserStatus(wallet).test()
-    testObserver.assertValue(UserStatus(UserStatus.Status.NO_NETWORK))
+    testObserver.assertValue(UserStats(UserStats.Status.NO_NETWORK))
   }
 
   @Test

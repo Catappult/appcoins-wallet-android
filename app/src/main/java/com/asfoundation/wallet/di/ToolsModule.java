@@ -110,6 +110,7 @@ import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper;
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor;
 import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService;
+import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationMapper;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository;
 import com.asfoundation.wallet.ui.iab.AppInfoProvider;
@@ -686,7 +687,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     String baseUrl = PoASubmissionService.SERVICE_HOST;
     GamificationApi api = new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
-        .addConverterFactory(JacksonConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(GamificationApi.class);
@@ -754,5 +755,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides BillingAnalytics provideBillingAnalytics(AnalyticsManager analytics) {
     return new BillingAnalytics(analytics);
+  }
+
+  @Singleton @Provides GamificationInteractor provideGamificationInteractor(
+      Gamification gamification, FindDefaultWalletInteract defaultWallet) {
+    return new GamificationInteractor(gamification, defaultWallet);
   }
 }
