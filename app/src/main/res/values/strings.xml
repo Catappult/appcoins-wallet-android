@@ -254,23 +254,23 @@
   <string name="item_donation">Donation</string>
   
     <!-- Gamification -->
-  <string name="gamif_level_title">What\'s My Level?</string>
-  <string name="gamif_level_header">Congrats, you're a %s!</string>
-  <string name="gamif_level_earned">EARNED:</string>
-  <string name="gamif_level_bonus">%s BONUS</string>
-  <string name="gamif_level_button_how">HOW IT WORKS</string>
-  <string name="gamif_how_header">How to Level Up?</string>
-  <string name="gamif_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games</string>
-  <string name="gamif_how_spend">SPEND %s APPC</string>
-  <string name="gamif_comet_title">Comet</string>
-  <string name="gamif_moon_title">Moon</string>
-  <string name="gamif_planet_title">Planet</string>
-  <string name="gamif_star_title">Star</string>
-  <string name="gamif_galaxy_title">Galaxy</string>
-  <string name="gamif_comet_subtitle">Be careful and don\'t hit a planet!</strin>
-  <string name="gamif_moon_subtitle">A natural satellite</string>
-  <string name="gamif_planet_subtitle">Spinning around a big star</string>
-  <string name="gamif_star_subtitle">Shinny, big and full of life!</string>
-  <string name="gamif_galaxy_subtitle">The biggest system out there!</string>
+  <string name="gamification_level_title">What\'s My Level?</string>
+  <string name="gamification_level_header">Congrats, you're a %s!</string>
+  <string name="gamification_level_earned">EARNED:</string>
+  <string name="gamification_level_bonus">%s BONUS</string>
+  <string name="gamification_level_button_how">HOW IT WORKS</string>
+  <string name="gamification_how_header">How to Level Up?</string>
+  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games</string>
+  <string name="gamification_how_spend">SPEND %s APPC</string>
+  <string name="gamification_comet_title">Comet</string>
+  <string name="gamification_moon_title">Moon</string>
+  <string name="gamification_planet_title">Planet</string>
+  <string name="gamification_star_title">Star</string>
+  <string name="gamification_galaxy_title">Galaxy</string>
+  <string name="gamification_comet_subtitle">Be careful and don\'t hit a planet!</string>
+  <string name="gamification_moon_subtitle">A natural satellite</string>
+  <string name="gamification_planet_subtitle">Spinning around a big star</string>
+  <string name="gamification_star_subtitle">Shinny, big and full of life!</string>
+  <string name="gamification_galaxy_subtitle">The biggest system out there!</string>
 
 </resources>
