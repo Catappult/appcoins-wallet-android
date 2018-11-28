@@ -57,16 +57,16 @@
   <string name="buying">Buying %s</string>
   <string name="action_buy">Comprar</string>
   <string name="empty"></string>
-  <string name="try_again">Try again</string>
+  <string name="try_again">Intentar de nuevo</string>
   <string name="already_have_account">¿Ya tienes una wallet?</string>
   <string name="action_create_new_account">Crear una wallet nueva</string>
   <string name="unknown_error">Ha ocurrido un error.</string>
   <string name="action_backup_wallet">Hacer un backup</string>
   <string name="no_tokens">Todavía no has añadido tokens personalizados.</string>
   <string name="title_email">Mándanos un mail</string>
-  <string name="action_donate">Donate</string>
+  <string name="action_donate">Donar</string>
   <!-- Titles -->
-  <string name="title_my_address">Receive</string>
+  <string name="title_my_address">Recibir</string>
   <string name="title_my_tokens">My Tokens</string>
   <string name="title_activity_send">Send</string>
   <string name="title_activity_confirmation">Confirmar</string>
