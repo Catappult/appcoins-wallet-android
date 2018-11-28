@@ -19,6 +19,11 @@ import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.TransactionService;
 import com.asfoundation.wallet.billing.purchase.BillingFactory;
 import dagger.android.support.DaggerFragment;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 import javax.inject.Inject;
 
 public class BillingWebViewFragment extends DaggerFragment {
@@ -33,8 +38,10 @@ public class BillingWebViewFragment extends DaggerFragment {
   @Inject WalletService walletService;
   @Inject TransactionService transactionService;
 
+  private final AtomicReference<ScheduledFuture<?>> timeoutReference;
   private WebView webView;
   private String currentUrl;
+  private ScheduledExecutorService executorService;
 
   public static BillingWebViewFragment newInstance(String url) {
     Bundle args = new Bundle();
@@ -44,8 +51,14 @@ public class BillingWebViewFragment extends DaggerFragment {
     return fragment;
   }
 
+  public BillingWebViewFragment() {
+    this.timeoutReference = new AtomicReference<>();
+  }
+
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
+    executorService = Executors.newScheduledThreadPool(0);
 
     if (getArguments() == null || !getArguments().containsKey(URL)) {
       throw new IllegalArgumentException("Provided url is null!");
@@ -69,6 +82,13 @@ public class BillingWebViewFragment extends DaggerFragment {
     int visibility = View.GONE;
     if (webView != null) {
       visibility = webView.getVisibility();
+    }
+
+    ScheduledFuture<?> lastFuture = timeoutReference.getAndSet(
+        executorService.schedule(this::showWebView, 10, TimeUnit.SECONDS));
+
+    if (lastFuture != null) {
+      lastFuture.cancel(false);
     }
 
     webView = view.findViewById(R.id.webview);
@@ -101,6 +121,8 @@ public class BillingWebViewFragment extends DaggerFragment {
         super.onPageFinished(view, url);
 
         if (!url.contains("/redirect")) {
+          timeoutReference.getAndSet(null)
+              .cancel(false);
           webView.setVisibility(View.VISIBLE);
         }
       }
@@ -112,6 +134,16 @@ public class BillingWebViewFragment extends DaggerFragment {
     webView.loadUrl(currentUrl);
 
     return view;
+  }
+
+  @Override public void onDestroy() {
+    executorService.shutdown();
+
+    super.onDestroy();
+  }
+
+  public void showWebView() {
+    getActivity().runOnUiThread(() -> webView.setVisibility(View.VISIBLE));
   }
 
   @Override public void onSaveInstanceState(@NonNull Bundle outState) {
