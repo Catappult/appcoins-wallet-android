@@ -224,7 +224,7 @@
   <string name="notification_payment_refused">Payment Refused</string>
   <string name="dialog_credit_card_number">Card Number</string>
   <string name="dialog_credit_card_expiration">Expiration Date</string>
-   string name="dialog_credit_card_cvv">CVV</string>
+  <string name="dialog_credit_card_cvv">CVV</string>
   
 
 
