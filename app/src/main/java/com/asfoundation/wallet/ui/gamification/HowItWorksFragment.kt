@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.gamification
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -52,8 +53,13 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
     for (level in levels) {
       view = layoutInflater.inflate(R.layout.fragment_gamification_how_it_works_level,
           fragment_gamification_how_it_works_levels_layout, false)
-      view.findViewById<TextView>(R.id.message).text = String.format("SPEND %s APPC", level.amount)
-      view.findViewById<TextView>(R.id.bonus).text = String.format("%s%% BONUS", level.bonus)
+      view.findViewById<TextView>(R.id.message).text =
+          getString(R.string.gamification_how_spend
+              , level.amount)
+      @SuppressLint(
+          "StringFormatMatches") //this format is working, i don't know if there is a bug with "%%"
+      view.findViewById<TextView>(R.id.bonus).text =
+          getString(R.string.gamification_level_bonus, level.bonus)
       view.findViewById<ImageView>(R.id.ic_level).setImageResource(levelIconMapper.map(level))
       (fragment_gamification_how_it_works_levels_layout as LinearLayout).addView(view)
     }
