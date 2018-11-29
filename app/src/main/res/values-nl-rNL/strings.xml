@@ -58,24 +58,24 @@
   <string name="action_buy">Kopen</string>
   <string name="empty"></string>
   <string name="try_again">Opnieuw proberen</string>
-  <string name="already_have_account">Already have a wallet?</string>
-  <string name="action_create_new_account">Create new wallet</string>
-  <string name="unknown_error">An error has occurred.</string>
-  <string name="action_backup_wallet">Backup Wallet</string>
-  <string name="no_tokens">You haven\'t added any custom token yet.</string>
-  <string name="title_email">Email us</string>
-  <string name="action_donate">Donate</string>
+  <string name="already_have_account">Heb je al een wallet?</string>
+  <string name="action_create_new_account">Nieuwe wallet aanmaken</string>
+  <string name="unknown_error">Er is een fout opgetreden.</string>
+  <string name="action_backup_wallet">Back-up van wallet maken</string>
+  <string name="no_tokens">Je heb nog geen persoonlijke token toegevoegd.</string>
+  <string name="title_email">Stuur ons een e-mail</string>
+  <string name="action_donate">Doneren</string>
   <!-- Titles -->
-  <string name="title_my_address">Receive</string>
-  <string name="title_my_tokens">My Tokens</string>
-  <string name="title_activity_send">Send</string>
-  <string name="title_activity_confirmation">Confirm</string>
-  <string name="title_add_token">Add Custom Token</string>
+  <string name="title_my_address">Ontvangen</string>
+  <string name="title_my_tokens">Mijn tokens</string>
+  <string name="title_activity_send">Verzenden</string>
+  <string name="title_activity_confirmation">Bevestigen</string>
+  <string name="title_add_token">Persoonlijke token toevoegen</string>
   <string name="title_airdrop">Airdrop</string>
   <!-- Suggestions -->
-  <string name="suggestion_private_key">Private key has to be 64 characters long</string>
-  <string name="suggestion_empty_password_available">The password can be left blank.</string>
-  <string name="suggestion_this_is_your_address">My public %s wallet address</string>
+  <string name="suggestion_private_key">De privésleutel dient 64 tekens te bevatten</string>
+  <string name="suggestion_empty_password_available">Het wachtwoord kan leeg worden gelaten.</string>
+  <string name="suggestion_this_is_your_address">Adres van mijn openbare %s-wallet</string>
   <!-- Hints -->
   <string name="hint_private_key_field">Private key *</string>
   <string name="hint_keystore">Keystore *</string>
@@ -256,7 +256,7 @@
   <string name="gamification_galaxy_title">Galaxy</string>
   <string name="gamification_comet_subtitle">Be careful and don\'t hit a planet!</string>
   <string name="gamification_moon_subtitle">A natural satellite</string>
-  <string name="gamification_planet_subtitle">Spinning around a big star</string>
-  <string name="gamification_star_subtitle">Shinny, big and full of life!</string>
-  <string name="gamification_galaxy_subtitle">The biggest system out there!</string>
+  <string name="gamification_planet_subtitle">Je bent een echte ster</string>
+  <string name="gamification_star_subtitle">Groot, glanzend en zeer levendig!</string>
+  <string name="gamification_galaxy_subtitle">Het grootste systeem van allemaal!</string>
 </resources>
