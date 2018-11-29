@@ -11,79 +11,89 @@
     android:padding="16dp"
     android:theme="@style/Theme.AppCompat.Transparent"
     >
-  <android.support.constraint.ConstraintLayout
-      android:layout_width="wrap_content"
+  <ScrollView
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="@drawable/background_card"
-      android:padding="24dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       >
-
-    <ImageView
-        android:id="@+id/title_image"
-        android:layout_width="35dp"
-        android:layout_height="37dp"
-        android:src="@drawable/ic_rocket"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-    <TextView
-        android:id="@+id/fragment_gamification_how_it_works_title"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/gamification_how_it_works_fragment_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title_image"
-        style="@style/TextAppearance.AppCompat.Headline.Roboto.Medium"
-        />
-
-    <TextView
-        android:id="@+id/fragment_gamification_how_it_works_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/gamification_how_it_works_fragment_message"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_gamification_how_it_works_title"
-        style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
-        />
-
-    <ScrollView
-        android:id="@+id/scroll_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_gamification_how_it_works_message"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/background_card"
+        android:padding="24dp"
         >
+
+      <ImageView
+          android:id="@+id/title_image"
+          android:layout_width="35dp"
+          android:layout_height="37dp"
+          android:src="@drawable/ic_rocket"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
+
+      <TextView
+          android:id="@+id/fragment_gamification_how_it_works_title"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/gamification_how_it_works_fragment_title"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/title_image"
+          style="@style/TextAppearance.AppCompat.Headline.Roboto.Medium"
+          />
+
+      <TextView
+          android:id="@+id/fragment_gamification_how_it_works_message"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:text="@string/gamification_how_it_works_fragment_message"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/fragment_gamification_how_it_works_title"
+          style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
+          />
+      <ProgressBar
+          android:id="@+id/fragment_gamification_how_it_works_loading"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="16dp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/fragment_gamification_how_it_works_message"
+          />
+
       <LinearLayout
           android:id="@+id/fragment_gamification_how_it_works_levels_layout"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="16dp"
           android:orientation="vertical"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/fragment_gamification_how_it_works_message"
           />
-    </ScrollView>
-    <Button
-        android:id="@+id/fragment_gamification_how_it_works_ok_button"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="24dp"
-        android:minWidth="71dp"
-        android:text="@string/ok"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scroll_view"
-        style="@style/ButtonStyle"
-        />
+      <Button
+          android:id="@+id/fragment_gamification_how_it_works_ok_button"
+          android:layout_width="wrap_content"
+          android:layout_height="40dp"
+          android:layout_marginTop="24dp"
+          android:minWidth="71dp"
+          android:text="@string/ok"
+          android:visibility="gone"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/fragment_gamification_how_it_works_levels_layout"
+          style="@style/ButtonStyle"
+          />
 
-  </android.support.constraint.ConstraintLayout>
-
+    </android.support.constraint.ConstraintLayout>
+  </ScrollView>
 </android.support.constraint.ConstraintLayout>

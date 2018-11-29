@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui.gamification
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,7 +45,8 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   }
 
   override fun showLevels(levels: List<ViewLevel>) {
-    Log.d(TAG, "showLevels() called with: levels = [$levels]")
+    fragment_gamification_how_it_works_loading.visibility = View.GONE
+    fragment_gamification_how_it_works_ok_button.visibility = View.VISIBLE
     var view: View? = null
 
     for (level in levels) {
