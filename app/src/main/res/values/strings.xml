@@ -1,6 +1,7 @@
 <resources>
   <string name="app_name">AppCoins BDS Wallet</string>
   <string name="title_send">Send</string>
+  <string name="title_send_with_token">Send %s</string>
   <string name="title_request">Receive</string>
   <string name="title_import">Import Wallet</string>
 
@@ -13,6 +14,7 @@
   <string name="action_send">Send</string>
 
   <string name="error_field_required">This field is required</string>
+
   <string name="action_settings">Settings</string>
   <string name="title_account_list">Wallets</string>
   <string name="cancel">cancel</string>
@@ -22,28 +24,26 @@
   <string name="close">Close</string>
   <string name="title_activity_settings">Settings</string>
   <string name="network_label">Network</string>
+  <string name="credits">Credits</string>
 
-  <string name="low_storage_error">low storage error</string>
-  <string name="no_camera_permission">camera permission not given</string>
+  <string name="low_storage_error">Not enough storage space</string>
+  <string name="no_camera_permission">AppCoins BDS Wallet needs permission to access your camera to scan QR codes.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Invalid barcode format: %s</string>
-  <string name="title_delete_account">Are you sure you want to delete wallet?</string>
+  <string name="title_delete_account">Are you sure you want to delete this wallet?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Telegram Group</string>
 
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Community</string>
-  <string name="title_opensource">Open source development</string>
+  <string name="title_opensource">Open Source Development</string>
   <string name="title_source_code">Source code</string>
   <string name="title_report_bug">Report a bug</string>
   <string name="title_support">Support</string>
   <string name="error_import">Error importing keystore</string>
   <string name="message_this_is_your_address">My public Ethereum wallet address</string>
-  <string name="backup_warning_text">
-        Since only you control your money, you\'ll need to save your backup keystore in case this app is deleted. \n\n
-        Your wallet is never saved to cloud storage or standard device backups.
-    </string>
-  <string name="message_no_backup">No backup, no Ethereum.</string>
+  <string name="backup_warning_text">Since only you control your money, you\'ll need to save a backup of your keystore in case this app is deleted.\n\nYour wallet is never saved to cloud storage or standard device backups.</string>
+  <string name="message_no_backup">No backup, no Ethereum</string>
   <string name="error_deleting_account">Error deleting wallet</string>
   <string name="title_privacy_policy">Privacy Policy</string>
   <string name="title_terms">Terms and Conditions</string>
@@ -52,7 +52,7 @@
   <string name="unlock_screen_title_android">Unlock screen</string>
   <string name="unlock_screen_prompt_android">Please unlock your Android device to continue.</string>
 
-  <string name="do_manage_make_backup">Did you manage to make a backup?</string>
+  <string name="do_manage_make_backup">Did you successfully make a backup?</string>
   <string name="yes_continue">Yes, continue</string>
   <string name="no_repeat">No, repeat</string>
   <string name="skip">Skip</string>
@@ -67,7 +67,7 @@
   <string name="action_create_new_account">Create new wallet</string>
   <string name="unknown_error">An error has occurred.</string>
   <string name="action_backup_wallet">Backup Wallet</string>
-  <string name="no_tokens">No tokens found.</string>
+  <string name="no_tokens">You haven\'t added any custom token yet.</string>
   <string name="title_email">Email us</string>
   <string name="action_donate">Donate</string>
 
@@ -90,20 +90,20 @@
   <string name="tab_private_key">Private key</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Error</string>
-  <string name="title_dialog_handling">Handling…</string>
+  <string name="title_dialog_handling">Processing…</string>
   <string name="title_dialog_add_account">Add wallet</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Enter the password to encrypt your wallet</string>
+  <string name="dialog_message">Set a password to encrypt your wallet</string>
   <string name="toast_message_wallet_imported">The wallet was imported</string>
   <string name="toast_message_wallet_exported">A backup was created</string>
-  <string name="toast_qr_code_no_address">QR code doesn\'t contain valid address</string>
+  <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins BDS Wallet</string>
   <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
-  <string name="intro_title_third_page">Simple and Easy</string>
+  <string name="intro_title_third_page">Simple &amp; Easy</string>
   <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
   <string name="intro_message_second_page">Private keys never leave your device.</string>
   <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
@@ -115,8 +115,9 @@
   <string name="label_gas_price">Gas Price</string>
   <string name="label_network_fee">Network Fee</string>
   <string name="button_ok">OK</string>
-  <string name="hint_recipient_address">Recipient address</string>
+  <string name="hint_recipient_address">Recipient Address</string>
   <string name="hint_amount">Amount</string>
+  <string name="hint_amount_with_token">Amount %s</string>
   <string name="hint_contract_address">Contract address</string>
   <string name="hint_contract_symbol">Symbol</string>
   <string name="hint_contract_decimals">Decimals</string>
@@ -137,11 +138,11 @@
   <string name="action_edit">Edit</string>
   <string name="action_save">Save</string>
   <!-- Subject -->
-  <string name="error_fail_generate_qr">Could not generate qr code.</string>
+  <string name="error_fail_generate_qr">Could not generate QR code.</string>
   <string name="error_invalid_address">Invalid address</string>
   <string name="error_invalid_amount">Invalid amount</string>
   <string name="error_transaction_failed">Transaction error</string>
-  <string name="error_must_numeric">must be a numeric value.</string>
+  <string name="error_must_numeric">It must be a numeric value.</string>
   <string name="transaction_succeeded">Transaction successful</string>
   <string name="NA">N/A</string>
   <string name="error_wallet_not_selected">Wallet is not selected</string>
@@ -153,13 +154,13 @@
   <string name="dummy_transaction_value">-- ETH</string>
   <string name="title_dialog_sending">Sending...</string>
   <string name="welcome.erc20.label.title">ERC20 Compatible</string>
-  <string name="welcome.erc20.label.description">Support for ERC20 tokens by default.</string>
+  <string name="welcome.erc20.label.description">Supports ERC20 tokens by default.</string>
   <string name="scan_qr">Get address from QR Code</string>
   <string name="info_gas_price">The higher the gas price, the more expensive your transaction fee will be, but the quicker your transaction will be processed by the Ethereum network.</string>
   <string name="info_gas_limit">The gas limit prevents smart contracts from consuming all your Ethereum. We will try to calculate the gas limit automatically for you, but some smart contracts may require a custom gas limit.</string>
   <string name="title_send_settings">Advanced</string>
   <string name="title_activity_barcode">Barcode Scan</string>
-  <string name="error_add_token">Could not add token.</string>
+  <string name="error_add_token">Couldn\'t add token.</string>
   <string name="facebook">Facebook</string>
   <string name="error_already_added">Already added</string>
   <string name="error_export">Failed to export the wallet</string>
@@ -170,9 +171,9 @@
   <string name="token_name">%1$s (%2$s)</string>
   <string name="new_transaction_value">-%1$s %2$s</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the AppCoins wallet development. We considered it the best alternative regarding already implemented functionalities and forked it with the intention to contribute back with implementations and work that would be considered relevant.</string>
+  <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the AppCoins wallet development. We considered it the best alternative regarding already implemented functionalities. We forked it with the intention of contributing back with implementations and work that would be considered relevant.</string>
   <string name="appcoins_symbol">APPC</string>
-  <string name="activity_aib_loading_title">Transaction in Progress</string>
+  <string name="activity_aib_loading_title">Transaction in progress</string>
   <string name="activity_aib_loading_message">This may take a while…</string>
   <string name="activity_iab_transaction_completed_title">Transaction Completed</string>
   <string name="activity_iab_error_title">Error</string>
@@ -180,9 +181,9 @@
   <string name="action_try">try</string>
   <string name="activity_transactions_learn_more">Learn more</string>
   <string name="activity_iab_no_funds_message">Not enough ETH and APPC</string>
-  <string name="activity_iab_no_ethereum_funds_message">Not enough ethereum</string>
-  <string name="activity_iab_no_token_funds_message">Not enough appcoins</string>
-  <string name="activity_iab_wrong_network_message">Wrong ethereum network or unknown token</string>
+  <string name="activity_iab_no_ethereum_funds_message">Not enough Ethereum</string>
+  <string name="activity_iab_no_token_funds_message">Not enough AppCoins</string>
+  <string name="activity_iab_wrong_network_message">Wrong Ethereum network or unknown token</string>
   <string name="activity_iab_no_network_message">No network access</string>
   <string name="activity_iab_nonce_message">An error with blockchain occurred, please try again later.</string>
   <string name="activity_iab_approving_message">Checking all details: balance, items, network…</string>
@@ -204,7 +205,7 @@
   <string name="transaction_status_success">Success</string>
   <string name="transaction_status_pending">Pending</string>
   <string name="transaction_status_failed">Failed</string>
-  <string name="transaction_type_iab">In App Purchase</string>
+  <string name="transaction_type_iab">In-App Purchase</string>
   <string name="transaction_type_poa">Proof of Attention</string>
   <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
   <string name="transaction_type_standard">Transfer</string>
@@ -221,6 +222,10 @@
   <string name="transaction_to_label">To</string>
   <string name="dialog_credit_card_remember">Remember Card</string>
   <string name="notification_payment_refused">Payment Refused</string>
+  <string name="dialog_credit_card_number">Card Number</string>
+  <string name="dialog_credit_card_expiration">Expiration Date</string>
+  <string name="dialog_credit_card_cvv">CVV</string>
+
 
 
   <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
@@ -238,7 +243,7 @@
   <string name="iab_activity_raiden_channel_label">Create µRaiden channel</string>
   <string name="iab_activity_raiden_amount_label">Select Amount</string>
   <string name="iab_activity_raiden_channel_info_message">You’ll not pay fees for the transactions made with this developer until the amount you choose is reached. The amount will be withdrawn and stored, and you can close this channel anytime.</string>
-  <string name="iab_activity_raiden_channel_info_title">µRaiden channel</string>
+  <string name="iab_activity_raiden_channel_info_title">µRaiden Channel</string>
   <string name="proceed">proceed</string>
   <string name="iab_activity_raiden_channel_no_funds_message">You don\'t have enough funds on your µRainden payment channel. Go to your wallet and close the channel to create a new one.  Do you still want to complete this purchase with a standard payment?</string>
   <string name="iab_activity_raiden_channel_no_funds_title">Payment Channel Funds</string>
@@ -247,7 +252,25 @@
   <!-- Billing -->
   <string name="action_skip_backup_wallet">SKIP BACKUP</string>
   <string name="item_donation">Donation</string>
-  <string name="gamification_how_it_works_fragment_title">How to Level Up?</string>
-  <string name="gamification_how_it_works_fragment_message">By purchasing your favorite items in your apps and games you earn APPC</string>
+
+    <!-- Gamification -->
+  <string name="gamification_level_title">What\'s My Level?</string>
+  <string name="gamification_level_header">Congrats, you\'re a %s!</string>
+  <string name="gamification_level_earned">EARNED:</string>
+  <string name="gamification_level_bonus">%s BONUS</string>
+  <string name="gamification_level_button_how">HOW IT WORKS</string>
+  <string name="gamification_how_header">How to Level Up?</string>
+  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games</string>
+  <string name="gamification_how_spend">SPEND %s APPC</string>
+  <string name="gamification_comet_title">Comet</string>
+  <string name="gamification_moon_title">Moon</string>
+  <string name="gamification_planet_title">Planet</string>
+  <string name="gamification_star_title">Star</string>
+  <string name="gamification_galaxy_title">Galaxy</string>
+  <string name="gamification_comet_subtitle">Be careful and don\'t hit a planet!</string>
+  <string name="gamification_moon_subtitle">A natural satellite</string>
+  <string name="gamification_planet_subtitle">Spinning around a big star</string>
+  <string name="gamification_star_subtitle">Shinny, big and full of life!</string>
+  <string name="gamification_galaxy_subtitle">The biggest system out there!</string>
 
 </resources>
