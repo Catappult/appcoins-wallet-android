@@ -186,9 +186,9 @@
   <string name="notification_completed_poa">Beloning ontvangen, veel plezier!</string>
   <string name="notification_submitting_poa">Je verzoek wordt bij de blockchain ingediend</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
-  <string name="notification_no_network_poa">No network connection</string>
-  <string name="notification_error_poa">An error has occurred</string>
-  <string name="notification_no_wallet_poa">Your wallet isn\'t configured yet</string>
+  <string name="notification_no_network_poa">Geen netwerkverbinding</string>
+  <string name="notification_error_poa">Er is een fout opgetreden</string>
+  <string name="notification_no_wallet_poa">Je wallet is nog niet geconfigureerd</string>
   <string name="notification_cancelled_poa">Reward cancelled</string>
   <string name="notification_not_available_poa">This rewards campaign is no longer available</string>
   <string name="notification_not_available_for_country_poa">This rewards campaign isn\'t available in your country</string>
