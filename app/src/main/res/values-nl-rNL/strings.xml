@@ -77,50 +77,50 @@
   <string name="suggestion_empty_password_available">Het wachtwoord kan leeg worden gelaten.</string>
   <string name="suggestion_this_is_your_address">Adres van mijn openbare %s-wallet</string>
   <!-- Hints -->
-  <string name="hint_private_key_field">Private key *</string>
+  <string name="hint_private_key_field">Privésleutel *</string>
   <string name="hint_keystore">Keystore *</string>
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
-  <string name="tab_private_key">Private key</string>
+  <string name="tab_private_key">Privésleutel</string>
   <!-- Dialog titles -->
-  <string name="title_dialog_error">Error</string>
-  <string name="title_dialog_handling">Processing…</string>
-  <string name="title_dialog_add_account">Add wallet</string>
+  <string name="title_dialog_error">Fout</string>
+  <string name="title_dialog_handling">Wordt verwerkt…</string>
+  <string name="title_dialog_add_account">Wallet toevoegen</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Set a password to encrypt your wallet</string>
-  <string name="toast_message_wallet_imported">The wallet was imported</string>
-  <string name="toast_message_wallet_exported">A backup was created</string>
-  <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
+  <string name="dialog_message">Stel een wachtwoord in om je wallet te versleutelen</string>
+  <string name="toast_message_wallet_imported">De wallet is geïmporteerd</string>
+  <string name="toast_message_wallet_exported">Er is een back-up gemaakt</string>
+  <string name="toast_qr_code_no_address">QR-code bevat geen geldig adres</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins BDS Wallet</string>
-  <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
-  <string name="intro_title_third_page">Simple &amp; Easy</string>
-  <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
-  <string name="intro_message_second_page">Private keys never leave your device.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
+  <string name="intro_title_second_page"><![CDATA[Persoonlijk & veilig]]></string>
+  <string name="intro_title_third_page">Simpel &amp; eenvoudig</string>
+  <string name="intro_message_first_page">Welkom bij de revolutionaire app-economie.</string>
+  <string name="intro_message_second_page">Privésleutels zullen je apparaat nooit verlaten.</string>
+  <string name="intro_message_third_page">Verwerk al je in-app betalingen en beloningen in APPC.</string>
   <!-- Menus -->
   <!-- Labels -->
-  <string name="label_from">From</string>
-  <string name="label_to">To</string>
-  <string name="label_gas_limit">Gas Limit</string>
-  <string name="label_gas_price">Gas Price</string>
-  <string name="label_network_fee">Network Fee</string>
+  <string name="label_from">Van</string>
+  <string name="label_to">Naar</string>
+  <string name="label_gas_limit">Gaslimiet</string>
+  <string name="label_gas_price">Gasprijs</string>
+  <string name="label_network_fee">Netwerkkosten</string>
   <string name="button_ok">OK</string>
-  <string name="hint_recipient_address">Recipient Address</string>
-  <string name="hint_amount">Amount</string>
-  <string name="hint_amount_with_token">Amount %s</string>
-  <string name="hint_contract_address">Contract address</string>
-  <string name="hint_contract_symbol">Symbol</string>
-  <string name="hint_contract_decimals">Decimals</string>
-  <string name="button_cancel">CANCEL</string>
-  <string name="button_yes">YES</string>
+  <string name="hint_recipient_address">Adres ontvanger</string>
+  <string name="hint_amount">Bedrag</string>
+  <string name="hint_amount_with_token">Bedrag %s</string>
+  <string name="hint_contract_address">Contractadres</string>
+  <string name="hint_contract_symbol">Symbool</string>
+  <string name="hint_contract_decimals">Decimalen</string>
+  <string name="button_cancel">ANNULEREN</string>
+  <string name="button_yes">JA</string>
   <!-- Subtitles -->
-  <string name="subtitle_from">From</string>
-  <string name="subtitle_gas_fee">Fee</string>
-  <string name="subtitle_transaction_num">Transaction</string>
+  <string name="subtitle_from">Van</string>
+  <string name="subtitle_gas_fee">Kosten</string>
+  <string name="subtitle_transaction_num">Transactie</string>
   <!-- Actions -->
   <string name="action_more_details">Meer</string>
   <string name="action_add_wallet">Wallet toevoegen</string>
