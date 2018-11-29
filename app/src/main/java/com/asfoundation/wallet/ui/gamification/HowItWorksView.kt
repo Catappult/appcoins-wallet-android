@@ -5,5 +5,5 @@ import io.reactivex.Observable
 interface HowItWorksView {
   fun getOkClick(): Observable<Any>
   fun close()
-  fun showLevels(viewLevels: List<ViewLevel>)
+  fun showLevels(levels: List<ViewLevel>)
 }

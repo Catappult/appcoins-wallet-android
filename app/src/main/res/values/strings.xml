@@ -248,6 +248,6 @@
   <string name="action_skip_backup_wallet">SKIP BACKUP</string>
   <string name="item_donation">Donation</string>
   <string name="gamification_how_it_works_fragment_title">How to Level Up?</string>
-  <string name="gamification_how_it_works_fragment_message">By purchasing your favorite items in your apps and games you earn APPCC</string>
+  <string name="gamification_how_it_works_fragment_message">By purchasing your favorite items in your apps and games you earn APPC</string>
 
 </resources>

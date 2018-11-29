@@ -6,6 +6,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import com.asf.wallet.R
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
@@ -20,11 +23,13 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   lateinit var gamificationInteractor: GamificationInteractor
   private lateinit var presenter: HowItWorksPresenter
   private lateinit var gamificationView: GamificationView
+  private lateinit var levelIconMapper: LevelIconMapper
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter = HowItWorksPresenter(this, gamificationInteractor, Schedulers.io(),
         AndroidSchedulers.mainThread())
+    levelIconMapper = LevelIconMapper()
   }
 
   override fun getOkClick(): Observable<Any> {
@@ -40,8 +45,19 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
     gamificationView = context
   }
 
-  override fun showLevels(viewLevels: List<ViewLevel>) {
-    Log.d(TAG, "showLevels() called with: viewLevels = [$viewLevels]")
+  override fun showLevels(levels: List<ViewLevel>) {
+    Log.d(TAG, "showLevels() called with: levels = [$levels]")
+    var view: View? = null
+
+    for (level in levels) {
+      view = layoutInflater.inflate(R.layout.fragment_gamification_how_it_works_level,
+          fragment_gamification_how_it_works_levels_layout, false)
+      view.findViewById<TextView>(R.id.message).text = String.format("SPEND %s APPC", level.amount)
+      view.findViewById<TextView>(R.id.bonus).text = String.format("%s%% BONUS", level.bonus)
+      view.findViewById<ImageView>(R.id.ic_level).setImageResource(levelIconMapper.map(level))
+      (fragment_gamification_how_it_works_levels_layout as LinearLayout).addView(view)
+    }
+    view?.findViewById<View>(R.id.divider)?.visibility = View.GONE
   }
 
   override fun close() {
