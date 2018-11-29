@@ -168,7 +168,7 @@
   <string name="settings_fragment_credits">We hebben een \'fork\' voor het Trust Wallet voor Android-project uitgevoerd om de ontwikkeling van AppCoins-wallet op te starten. We vonden dit het beste alternatief in verband met reeds geïmplementeerde functionaliteiten. We hebben de \'fork\' uitgevoerd met de bedoeling in de andere richting te kunnen bijdragen in de vorm van implementaties en werk dat als relevant wordt beschouwd.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">Transactie in uitvoering</string>
-  <string name="activity_aib_loading_message">Dit kan een even duren…</string>
+  <string name="activity_aib_loading_message">Dit kan even duren…</string>
   <string name="activity_iab_transaction_completed_title">Transactie voltooid</string>
   <string name="activity_iab_error_title">Fout</string>
   <string name="activity_iab_error_message">Er is een fout opgetreden, probeer het opnieuw</string>
@@ -179,7 +179,7 @@
   <string name="activity_iab_no_token_funds_message">Niet genoeg AppCoins</string>
   <string name="activity_iab_wrong_network_message">Onjuist Ethereum-netwerk of ongeldige token</string>
   <string name="activity_iab_no_network_message">Geen netwerktoegang</string>
-  <string name="activity_iab_nonce_message">Er is een fout opgetreden in de blockchain opgetreden, probeer het later opnieuw.</string>
+  <string name="activity_iab_nonce_message">Er is een fout in de blockchain opgetreden, probeer het later opnieuw.</string>
   <string name="activity_iab_approving_message">Alle gegevens controleren: saldo, items, netwerk…</string>
   <string name="activity_iab_buying_message">Gegevens gecontroleerd \nJe item wordt ontvangen…</string>
   <string name="notification_ongoing_poa">Je beloning wordt verwerkt</string>
