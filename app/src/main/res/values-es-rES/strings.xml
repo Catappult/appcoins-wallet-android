@@ -244,7 +244,7 @@
   <string name="gamification_level_title">What\'s My Level?</string>
   <string name="gamification_level_header">Congrats, you\'re a %s!</string>
   <string name="gamification_level_earned">EARNED:</string>
-  <string name="gamification_level_bonus">%s BONUS</string>
+  <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">HOW IT WORKS</string>
   <string name="gamification_how_header">How to Level Up?</string>
   <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games</string>
