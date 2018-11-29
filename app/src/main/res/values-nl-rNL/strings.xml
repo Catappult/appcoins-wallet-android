@@ -52,12 +52,12 @@
   <string name="no_repeat">Nee, opnieuw</string>
   <string name="skip">Overslaan</string>
   <string name="root_title">DE VEILIGHEID VAN HET APPARAAT IS GEVAAR</string>
-  <string name="root_body">Any \'rooted\' app can access AppCoins Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
+  <string name="root_body">Elke \'geroote\' app kan toegang tot de keychain-gegevens van AppCoins Wallet krijgen en je wallet stelen! Wis deze wallet meteen en herstel deze op een veilig apparaat.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
-  <string name="buying">Buying %s</string>
-  <string name="action_buy">Buy</string>
+  <string name="buying">%s kopen</string>
+  <string name="action_buy">Kopen</string>
   <string name="empty"></string>
-  <string name="try_again">Try again</string>
+  <string name="try_again">Opnieuw proberen</string>
   <string name="already_have_account">Already have a wallet?</string>
   <string name="action_create_new_account">Create new wallet</string>
   <string name="unknown_error">An error has occurred.</string>
