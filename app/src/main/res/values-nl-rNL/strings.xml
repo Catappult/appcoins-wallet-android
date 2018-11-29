@@ -136,7 +136,7 @@
   <string name="error_invalid_address">Ongeldig adres</string>
   <string name="error_invalid_amount">Ongeldig bedrag</string>
   <string name="error_transaction_failed">Fout bij transactie</string>
-  <string name="error_must_numeric">Het dient een numerieke waarde te zijn.</string>
+  <string name="error_must_numeric">Dit dient een numerieke waarde te zijn.</string>
   <string name="transaction_succeeded">Transactie gelukt</string>
   <string name="NA">N.v.t.</string>
   <string name="error_wallet_not_selected">Wallet is niet geselecteerd</string>
