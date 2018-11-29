@@ -114,6 +114,11 @@
         android:label="@string/title_airdrop"
         android:screenOrientation="portrait"/>
 
+    <activity
+        android:name="com.asfoundation.wallet.ui.rewards.RewardsLevelActivity"
+        android:label="@string/title_rewards_level"
+        android:screenOrientation="portrait"/>
+
     <meta-data
         android:name="io.fabric.ApiKey"
         android:value="${fabricApiKey}"/>

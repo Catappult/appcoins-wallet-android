@@ -23,6 +23,8 @@ import com.asfoundation.wallet.ui.iab.CreditCardAuthorizationFragment;
 import com.asfoundation.wallet.ui.iab.ExpressCheckoutBuyFragment;
 import com.asfoundation.wallet.ui.iab.IabActivity;
 import com.asfoundation.wallet.ui.iab.OnChainBuyFragment;
+import com.asfoundation.wallet.ui.rewards.MyLevelFragment;
+import com.asfoundation.wallet.ui.rewards.RewardsLevelActivity;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
