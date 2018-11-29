@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/level_progress_container"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+
+<ImageView
+    android:id="@+id/level_icon"
+    android:layout_width="42dp"
+    android:layout_height="42dp"
+    android:background="@drawable/level_icon_background"
+    android:padding="6dp"
+    android:scaleType="centerInside"
+    android:src="@drawable/ic_level_star"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:visibility="visible"
+    />
+
+<ImageView
+    android:id="@+id/level_lock"
+    android:layout_width="16dp"
+    android:layout_height="16dp"
+    android:scaleType="centerInside"
+    android:src="@drawable/ic_level_locked"
+    app:layout_constraintBottom_toBottomOf="@id/level_icon"
+    app:layout_constraintEnd_toEndOf="@id/level_icon"
+    app:layout_constraintStart_toStartOf="@id/level_icon"
+    app:layout_constraintTop_toTopOf="@id/level_icon"
+    android:visibility="invisible"
+    />
+
+
+<TextView
+    android:id="@+id/level_4_text"
+    android:layout_width="32dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:fontFamily="sans-serif"
+    android:gravity="center"
+    android:text="30%"
+    android:textColor="#d4d4d4"
+    android:textSize="10sp"
+    android:textStyle="bold"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/level_icon"
+    />
+</android.support.constraint.ConstraintLayout>

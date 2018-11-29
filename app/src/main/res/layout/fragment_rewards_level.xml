@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <ImageView
+      android:id="@+id/level_img"
+      android:layout_width="wrap_content"
+      android:layout_height="137dp"
+      android:src="@drawable/level_moon"
+      app:layout_constraintBottom_toTopOf="@+id/level_title"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_chainStyle="packed"
+      />
+
+  <TextView
+      android:id="@+id/level_title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="12dp"
+      android:fontFamily="sans-serif-medium"
+      android:text="Congrats, you are a Moon!"
+      android:textColor="#001727"
+      android:textSize="20sp"
+      app:layout_constraintBottom_toTopOf="@id/level_description"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/level_img"
+      app:layout_constraintVertical_chainStyle="packed"
+      />
+  <TextView
+      android:id="@+id/level_description"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
+      android:layout_marginStart="16dp"
+      android:fontFamily="sans-serif"
+      android:text="A natural Satellite"
+      android:textColor="#828282"
+      android:textSize="16sp"
+      app:layout_constraintBottom_toTopOf="@id/earned_value"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/level_title"
+      app:layout_constraintVertical_chainStyle="packed"
+      />
+
+  <TextView
+      android:id="@+id/earned_label"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="4dp"
+      android:text="EARNED:"
+      android:textColor="#828282"
+      android:textSize="10dp"
+      app:layout_constraintBottom_toBottomOf="@id/earned_value"
+      app:layout_constraintEnd_toStartOf="@id/earned_value"
+      app:layout_constraintHorizontal_chainStyle="packed"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@id/earned_value"
+      />
+
+  <TextView
+      android:id="@+id/earned_value"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="10dp"
+      android:background="@drawable/earned_value_background"
+      android:padding="4dp"
+      android:text="150 Credits"
+      android:textColor="#ffffff"
+      app:layout_constraintBottom_toTopOf="@id/level_progress_container"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_chainStyle="packed"
+      app:layout_constraintStart_toEndOf="@id/earned_label"
+      app:layout_constraintTop_toBottomOf="@id/level_description"
+      app:layout_constraintVertical_chainStyle="packed"
+      />
+
+  <android.support.constraint.ConstraintLayout
+      android:id="@+id/level_progress_container"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="14dp"
+      android:paddingEnd="30dp"
+      android:paddingStart="30dp"
+      app:layout_constraintBottom_toTopOf="@+id/details_button"
+      app:layout_constraintTop_toBottomOf="@id/earned_value"
+      app:layout_constraintVertical_chainStyle="packed"
+      >
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="9dp"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:progress="50"
+        android:progressTint="#001727"
+        android:scaleY="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+        />
+
+    <ImageView
+        android:id="@+id/level_1"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@drawable/level_icon_background"
+        android:padding="6dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_level_comet"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/level_1_text"
+        android:layout_width="32dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="20% Bonus"
+        android:textColor="#001727"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/level_1"
+        />
+
+    <ImageView
+        android:id="@+id/level_2"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@drawable/level_icon_background"
+        android:padding="6dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_level_moon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/level_3"
+        app:layout_constraintStart_toEndOf="@id/level_1"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/level_2_text"
+        android:layout_width="32dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="22.5% Bonus"
+        android:textColor="#001727"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@id/level_3_text"
+        app:layout_constraintStart_toEndOf="@id/level_1_text"
+        app:layout_constraintTop_toBottomOf="@id/level_2"
+        />
+
+
+    <ImageView
+        android:id="@+id/level_3"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:background="@drawable/level_icon_background"
+        android:padding="6dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_level_planet"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/level_4"
+        app:layout_constraintStart_toEndOf="@id/level_2"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/level_3_text"
+        android:layout_width="32dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="25% Bonus"
+        android:textColor="#001727"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/level_4_text"
+        app:layout_constraintStart_toEndOf="@id/level_2_text"
+        app:layout_constraintTop_toBottomOf="@id/level_2"
+        />
+
+    <include
+        layout="@layout/level_component"
+        android:id="@+id/level_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/level_5"
+        app:layout_constraintStart_toEndOf="@id/level_3"
+        app:layout_constraintTop_toTopOf="@id/progress_bar"
+        />
+
+    <!--<ImageView-->
+    <!--android:id="@+id/level_4"-->
+    <!--android:layout_width="32dp"-->
+    <!--android:layout_height="32dp"-->
+    <!--android:background="@drawable/level_icon_background"-->
+    <!--android:padding="6dp"-->
+    <!--android:scaleType="centerInside"-->
+    <!--android:src="@drawable/ic_level_star"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintEnd_toStartOf="@id/level_5"-->
+    <!--app:layout_constraintStart_toEndOf="@id/level_3"-->
+    <!--app:layout_constraintTop_toTopOf="parent"-->
+    <!--android:visibility="invisible"-->
+    <!--/>-->
+
+    <!--<ImageView-->
+    <!--android:id="@+id/level_lock"-->
+    <!--android:layout_width="16dp"-->
+    <!--android:layout_height="16dp"-->
+    <!--android:scaleType="centerInside"-->
+    <!--android:src="@drawable/ic_level_locked"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintEnd_toStartOf="@id/level_5"-->
+    <!--app:layout_constraintStart_toEndOf="@id/level_3"-->
+    <!--app:layout_constraintTop_toTopOf="parent"-->
+    <!--/>-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/level_4_text"-->
+    <!--android:layout_width="32dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="4dp"-->
+    <!--android:fontFamily="sans-serif"-->
+    <!--android:gravity="center"-->
+    <!--android:text="30%"-->
+    <!--android:textColor="#d4d4d4"-->
+    <!--android:textSize="10sp"-->
+    <!--android:textStyle="bold"-->
+    <!--app:layout_constraintEnd_toStartOf="@id/level_5_text"-->
+    <!--app:layout_constraintStart_toEndOf="@id/level_3_text"-->
+    <!--app:layout_constraintTop_toBottomOf="@id/level_2"-->
+    <!--/>-->
+
+    <include
+        layout="@layout/level_component"
+        android:id="@+id/level_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/progress_bar"
+        />
+
+  </android.support.constraint.ConstraintLayout>
+
+  <Button
+      android:id="@+id/details_button"
+      android:layout_width="wrap_content"
+      android:layout_height="32dp"
+      android:layout_marginTop="40dp"
+      android:text="how it works"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/level_progress_container"
+      app:layout_constraintVertical_chainStyle="packed"
+      style="@style/ButtonStyle"
+
+      />
+
+</android.support.constraint.ConstraintLayout>

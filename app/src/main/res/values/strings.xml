@@ -22,6 +22,8 @@
   <string name="close">Close</string>
   <string name="title_activity_settings">Settings</string>
   <string name="network_label">Network</string>
+  <string name="app_intro">Intro</string>
+  <string name="action_level">My Level</string>
 
   <string name="low_storage_error">low storage error</string>
   <string name="no_camera_permission">camera permission not given</string>
@@ -78,6 +80,7 @@
   <string name="title_activity_confirmation">Confirm</string>
   <string name="title_add_token">Add Custom Token</string>
   <string name="title_airdrop">Airdrop</string>
+  <string name="title_rewards_level">My Rewards Level</string>
   <!-- Suggestions -->
   <string name="suggestion_private_key">Private key has to be 64 characters long</string>
   <string name="suggestion_empty_password_available">The password can be left blank.</string>
@@ -221,7 +224,6 @@
   <string name="transaction_to_label">To</string>
   <string name="dialog_credit_card_remember">Remember Card</string>
   <string name="notification_payment_refused">Payment Refused</string>
-
 
   <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
   <string name="activity_airdrop_details">This is just a security thing.</string>

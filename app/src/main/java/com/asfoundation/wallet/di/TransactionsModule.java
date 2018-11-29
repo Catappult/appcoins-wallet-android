@@ -19,6 +19,7 @@ import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.ManageWalletsRouter;
 import com.asfoundation.wallet.router.MyAddressRouter;
 import com.asfoundation.wallet.router.MyTokensRouter;
+import com.asfoundation.wallet.router.RewardsLeverRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
@@ -53,12 +54,12 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
       TransactionsMapper transactionsMapper, AirdropRouter airdropRouter, AppcoinsApps applications,
-      OffChainTransactions offChainTransactions) {
+      OffChainTransactions offChainTransactions, RewardsLeverRouter rewardsLeverRouter) {
     return new TransactionsViewModelFactory(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, manageWalletsRouter, settingsRouter, sendRouter,
         transactionDetailRouter, myAddressRouter, myTokensRouter, externalBrowserRouter,
         defaultTokenProvider, getDefaultWalletBalance, transactionsMapper, airdropRouter,
-        applications, offChainTransactions);
+        applications, offChainTransactions, rewardsLeverRouter);
   }
 
   @Provides FetchTransactionsInteract provideFetchTransactionsInteract(
@@ -140,5 +141,9 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
   private String getVersionCode() {
     return String.valueOf(com.asf.wallet.BuildConfig.VERSION_CODE);
+  }
+
+  @Provides RewardsLeverRouter providerRewardsLevelRouter() {
+    return new RewardsLeverRouter();
   }
 }

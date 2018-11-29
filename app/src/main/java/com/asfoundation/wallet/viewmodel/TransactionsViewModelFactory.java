@@ -14,6 +14,7 @@ import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.ManageWalletsRouter;
 import com.asfoundation.wallet.router.MyAddressRouter;
 import com.asfoundation.wallet.router.MyTokensRouter;
+import com.asfoundation.wallet.router.RewardsLeverRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
@@ -38,6 +39,7 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
   private final AirdropRouter airdropRouter;
   private final AppcoinsApps applications;
   private final OffChainTransactions offChainTransactions;
+  private final RewardsLeverRouter rewardsLeverRouter;
 
   public TransactionsViewModelFactory(FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
@@ -47,7 +49,7 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
       TransactionsMapper transactionsMapper, AirdropRouter airdropRouter, AppcoinsApps applications,
-      OffChainTransactions offChainTransactions) {
+      OffChainTransactions offChainTransactions, RewardsLeverRouter rewardsLeverRouter) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchTransactionsInteract = fetchTransactionsInteract;
@@ -64,6 +66,7 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
     this.airdropRouter = airdropRouter;
     this.applications = applications;
     this.offChainTransactions = offChainTransactions;
+    this.rewardsLeverRouter = rewardsLeverRouter;
   }
 
   @NonNull @Override public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
@@ -71,6 +74,6 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
         fetchTransactionsInteract, manageWalletsRouter, settingsRouter, sendRouter,
         transactionDetailRouter, myAddressRouter, myTokensRouter, externalBrowserRouter,
         defaultTokenProvider, getDefaultWalletBalance, transactionsMapper, airdropRouter,
-        applications, offChainTransactions);
+        applications, offChainTransactions, rewardsLeverRouter);
   }
 }

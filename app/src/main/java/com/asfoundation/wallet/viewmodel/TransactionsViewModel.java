@@ -23,6 +23,7 @@ import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.ManageWalletsRouter;
 import com.asfoundation.wallet.router.MyAddressRouter;
 import com.asfoundation.wallet.router.MyTokensRouter;
+import com.asfoundation.wallet.router.RewardsLeverRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
@@ -57,6 +58,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MyAddressRouter myAddressRouter;
   private final MyTokensRouter myTokensRouter;
   private final ExternalBrowserRouter externalBrowserRouter;
+  private final RewardsLeverRouter rewardsLeverRouter;
   private final CompositeDisposable disposables;
   private final DefaultTokenProvider defaultTokenProvider;
   private final GetDefaultWalletBalance getDefaultWalletBalance;
@@ -78,7 +80,7 @@ public class TransactionsViewModel extends BaseViewModel {
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
       TransactionsMapper transactionsMapper, AirdropRouter airdropRouter, AppcoinsApps applications,
-      OffChainTransactions offChainTransactions) {
+      OffChainTransactions offChainTransactions, RewardsLeverRouter rewardsLeverRouter) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchTransactionsInteract = fetchTransactionsInteract;
@@ -89,6 +91,7 @@ public class TransactionsViewModel extends BaseViewModel {
     this.myAddressRouter = myAddressRouter;
     this.myTokensRouter = myTokensRouter;
     this.externalBrowserRouter = externalBrowserRouter;
+    this.rewardsLeverRouter = rewardsLeverRouter;
     this.defaultTokenProvider = defaultTokenProvider;
     this.getDefaultWalletBalance = getDefaultWalletBalance;
     this.transactionsMapper = transactionsMapper;
@@ -184,11 +187,11 @@ public class TransactionsViewModel extends BaseViewModel {
     disposables.add(findDefaultNetworkInteract.find()
         .filter(this::shouldShowOffChainInfo)
         .flatMapSingle(__ -> getDefaultWalletBalance.getCredits(defaultWallet.getValue()))
-            .subscribe(value -> {
-              defaultWalletCreditBalance.postValue(value);
-              handler.removeCallbacks(startGetCreditsBalanceTask);
-              handler.postDelayed(startGetCreditsBalanceTask, GET_BALANCE_INTERVAL);
-            }, Throwable::printStackTrace));
+        .subscribe(value -> {
+          defaultWalletCreditBalance.postValue(value);
+          handler.removeCallbacks(startGetCreditsBalanceTask);
+          handler.postDelayed(startGetCreditsBalanceTask, GET_BALANCE_INTERVAL);
+        }, Throwable::printStackTrace));
   }
 
   private void onDefaultNetwork(NetworkInfo networkInfo) {
@@ -275,5 +278,9 @@ public class TransactionsViewModel extends BaseViewModel {
     externalBrowserRouter.open(context, Uri.parse(
         "https://www.appstorefoundation.org/offer-wall#spendAppCoinsList-"
             + appcoinsApplication.getPackageName()));
+  }
+
+  public void showRewardsLevel(Context context) {
+    rewardsLeverRouter.open(context);
   }
 }

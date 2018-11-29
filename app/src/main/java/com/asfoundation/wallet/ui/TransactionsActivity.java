@@ -117,6 +117,9 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       case R.id.action_settings: {
         viewModel.showSettings(this);
       }
+      case R.id.action_level: {
+        viewModel.showRewardsLevel(this);
+      }
       break;
       case R.id.action_deposit: {
         openExchangeDialog();
@@ -172,7 +175,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.menu_settings, menu);
+    getMenuInflater().inflate(R.menu.menu_transactions_activity, menu);
 
     NetworkInfo networkInfo = viewModel.defaultNetwork()
         .getValue();
