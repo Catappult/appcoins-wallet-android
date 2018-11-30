@@ -59,47 +59,47 @@
   <string name="empty"></string>
   <string name="try_again">Încearcă din nou</string>
   <string name="already_have_account">Ai deja un portofel?</string>
-  <string name="action_create_new_account">Create new wallet</string>
-  <string name="unknown_error">An error has occurred.</string>
-  <string name="action_backup_wallet">Backup Wallet</string>
-  <string name="no_tokens">You haven\'t added any custom token yet.</string>
-  <string name="title_email">Email us</string>
-  <string name="action_donate">Donate</string>
+  <string name="action_create_new_account">Creează portofel nou</string>
+  <string name="unknown_error">A apărut o eroare.</string>
+  <string name="action_backup_wallet">Copie de rezervă portofel</string>
+  <string name="no_tokens">Nu ai adăugat niciun token personalizat încă.</string>
+  <string name="title_email">Trimite-ne un e-mail</string>
+  <string name="action_donate">Donează</string>
   <!-- Titles -->
-  <string name="title_my_address">Receive</string>
-  <string name="title_my_tokens">My Tokens</string>
-  <string name="title_activity_send">Send</string>
-  <string name="title_activity_confirmation">Confirm</string>
-  <string name="title_add_token">Add Custom Token</string>
+  <string name="title_my_address">Primește</string>
+  <string name="title_my_tokens">Token-urile mele</string>
+  <string name="title_activity_send">Trimite</string>
+  <string name="title_activity_confirmation">Confirmă</string>
+  <string name="title_add_token">Adaugă token personalizat</string>
   <string name="title_airdrop">Airdrop</string>
   <!-- Suggestions -->
-  <string name="suggestion_private_key">Private key has to be 64 characters long</string>
-  <string name="suggestion_empty_password_available">The password can be left blank.</string>
-  <string name="suggestion_this_is_your_address">My public %s wallet address</string>
+  <string name="suggestion_private_key">Cheia privată trebuie să conțină 64 de caractere</string>
+  <string name="suggestion_empty_password_available">Câmpul parolă poate fi lăsat necompletat.</string>
+  <string name="suggestion_this_is_your_address">Adresa mea publică a portofelului %s</string>
   <!-- Hints -->
-  <string name="hint_private_key_field">Private key *</string>
+  <string name="hint_private_key_field">Cheie privată *</string>
   <string name="hint_keystore">Keystore *</string>
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
-  <string name="tab_private_key">Private key</string>
+  <string name="tab_private_key">Cheie privată</string>
   <!-- Dialog titles -->
-  <string name="title_dialog_error">Error</string>
-  <string name="title_dialog_handling">Processing…</string>
-  <string name="title_dialog_add_account">Add wallet</string>
+  <string name="title_dialog_error">Eroare</string>
+  <string name="title_dialog_handling">Se procesează…</string>
+  <string name="title_dialog_add_account">Adaugă portofel</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Set a password to encrypt your wallet</string>
-  <string name="toast_message_wallet_imported">The wallet was imported</string>
-  <string name="toast_message_wallet_exported">A backup was created</string>
-  <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
+  <string name="dialog_message">Setează o parolă pentru a-ți cripta portofelul</string>
+  <string name="toast_message_wallet_imported">Portofelul a fost importat</string>
+  <string name="toast_message_wallet_exported">A fost creată o copie de rezervă</string>
+  <string name="toast_qr_code_no_address">Codul QR nu conține o adresă validă</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins BDS Wallet</string>
-  <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
-  <string name="intro_title_third_page">Simple &amp; Easy</string>
-  <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
-  <string name="intro_message_second_page">Private keys never leave your device.</string>
+  <string name="intro_title_second_page"><![CDATA[Privat & sigur]]></string>
+  <string name="intro_title_third_page">Simplu &amp; ușor</string>
+  <string name="intro_message_first_page">Bine ai venit la revoluția economiei aplicației.</string>
+  <string name="intro_message_second_page">Cheile private nu părăsesc niciodată dispozitivul tău.</string>
   <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
   <!-- Menus -->
   <!-- Labels -->
