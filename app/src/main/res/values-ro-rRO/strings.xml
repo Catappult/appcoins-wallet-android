@@ -147,9 +147,9 @@
   <string name="dummy">-</string>
   <string name="dummy_transaction_value">-- ETH</string>
   <string name="title_dialog_sending">Se trimite...</string>
-  <string name="welcome.erc20.label.title">ERC20 Compatible</string>
-  <string name="welcome.erc20.label.description">Supports ERC20 tokens by default.</string>
-  <string name="scan_qr">Get address from QR Code</string>
+  <string name="welcome.erc20.label.title">Compatibil ERC20</string>
+  <string name="welcome.erc20.label.description">Compatibil implicit cu token-uri ERC20.</string>
+  <string name="scan_qr">Ia adresa din Codul QR</string>
   <string name="info_gas_price">The higher the gas price, the more expensive your transaction fee will be, but the quicker your transaction will be processed by the Ethereum network.</string>
   <string name="info_gas_limit">The gas limit prevents smart contracts from consuming all your Ethereum. We will try to calculate the gas limit automatically for you, but some smart contracts may require a custom gas limit.</string>
   <string name="title_send_settings">Advanced</string>
