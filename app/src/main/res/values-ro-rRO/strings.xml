@@ -37,7 +37,7 @@
   <string name="title_report_bug">Raportează o eroare</string>
   <string name="title_support">Asistență</string>
   <string name="error_import">Eroare la importarea keystore-ului</string>
-  <string name="message_this_is_your_address">Adresa mea publică portofel Ethereum</string>
+  <string name="message_this_is_your_address">Adresa mea publică a portofelului Ethereum</string>
   <string name="backup_warning_text">Din moment ce doar tu îți controlezi banii, vei avea nevoie de o copie de rezervă a keystore-ului tău, în cazul în care această aplicație este ștearsă.\n\nPortofelul tău nu este niciodată salvat în spațiul de stocare din Cloud sau pe dispozitive standard pentru copii de rezervă.</string>
   <string name="message_no_backup">Fără copie de rezervă, fără Ethereum</string>
   <string name="error_deleting_account">Eroare la ștergerea portofelului</string>
@@ -54,11 +54,11 @@
   <string name="root_title">SECURITATE DISPOZITIV COMPROMISĂ</string>
   <string name="root_body">Orice aplicație „cu acces rădăcină” poate accesa datele keychain-ului Portofelului AppCoins și îți poate fura portofelul! Șterge imediat acest portofel și restaurează-l pe un dispozitiv sigur.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
-  <string name="buying">În curs de cumpărare %s</string>
+  <string name="buying">Se cumpără %s</string>
   <string name="action_buy">Cumpără</string>
   <string name="empty"></string>
   <string name="try_again">Încearcă din nou</string>
-  <string name="already_have_account">Already have a wallet?</string>
+  <string name="already_have_account">Ai deja un portofel?</string>
   <string name="action_create_new_account">Create new wallet</string>
   <string name="unknown_error">An error has occurred.</string>
   <string name="action_backup_wallet">Backup Wallet</string>
@@ -179,7 +179,7 @@
   <string name="activity_iab_no_token_funds_message">AppCoin-uri insuficiente</string>
   <string name="activity_iab_wrong_network_message">Rețea Ethereum greșită sau token necunoscut</string>
   <string name="activity_iab_no_network_message">Fără acces la rețea</string>
-  <string name="activity_iab_nonce_message">A apărut o eroare cu blockchain-ul, încearcă din nou mai târziu.</string>
+  <string name="activity_iab_nonce_message">A apărut o eroare la blockchain, încearcă din nou mai târziu.</string>
   <string name="activity_iab_approving_message">Se verifică toate detaliile: balanță, articole, rețea…</string>
   <string name="activity_iab_buying_message">Detalii verificate \nSe primește articolul tău…</string>
   <string name="notification_ongoing_poa">Se procesează recompensa ta</string>
