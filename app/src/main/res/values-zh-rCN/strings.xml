@@ -58,24 +58,24 @@
   <string name="action_buy">购买</string>
   <string name="empty"></string>
   <string name="try_again">重试</string>
-  <string name="already_have_account">Already have a wallet?</string>
-  <string name="action_create_new_account">Create new wallet</string>
-  <string name="unknown_error">An error has occurred.</string>
-  <string name="action_backup_wallet">Backup Wallet</string>
-  <string name="no_tokens">You haven\'t added any custom token yet.</string>
-  <string name="title_email">Email us</string>
-  <string name="action_donate">Donate</string>
+  <string name="already_have_account">已有钱包？</string>
+  <string name="action_create_new_account">创建新钱包</string>
+  <string name="unknown_error">出现错误。</string>
+  <string name="action_backup_wallet">备份钱包</string>
+  <string name="no_tokens">您还没有添加任何自定义代币。</string>
+  <string name="title_email">向我们发送邮件</string>
+  <string name="action_donate">捐赠</string>
   <!-- Titles -->
-  <string name="title_my_address">Receive</string>
-  <string name="title_my_tokens">My Tokens</string>
-  <string name="title_activity_send">Send</string>
-  <string name="title_activity_confirmation">Confirm</string>
-  <string name="title_add_token">Add Custom Token</string>
-  <string name="title_airdrop">Airdrop</string>
+  <string name="title_my_address">接收</string>
+  <string name="title_my_tokens">我的代币</string>
+  <string name="title_activity_send">发送</string>
+  <string name="title_activity_confirmation">确认</string>
+  <string name="title_add_token">添加自定义代币</string>
+  <string name="title_airdrop">隔空投送</string>
   <!-- Suggestions -->
-  <string name="suggestion_private_key">Private key has to be 64 characters long</string>
-  <string name="suggestion_empty_password_available">The password can be left blank.</string>
-  <string name="suggestion_this_is_your_address">My public %s wallet address</string>
+  <string name="suggestion_private_key">私钥必须为64个字符</string>
+  <string name="suggestion_empty_password_available">密码可以留空。</string>
+  <string name="suggestion_this_is_your_address">我的公共%s钱包地址</string>
   <!-- Hints -->
   <string name="hint_private_key_field">Private key *</string>
   <string name="hint_keystore">Keystore *</string>
@@ -184,7 +184,7 @@
   <string name="activity_iab_buying_message">已检查的详细信息\n正在接收你的产品…</string>
   <string name="notification_ongoing_poa">正在处理奖励</string>
   <string name="notification_completed_poa">收到奖励，好好享用！</string>
-  <string name="notification_submitting_poa">Submitting your request to the blockchain</string>
+  <string name="notification_submitting_poa">向区块链提交请求</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">No network connection</string>
   <string name="notification_error_poa">An error has occurred</string>
@@ -255,8 +255,8 @@
   <string name="gamification_star_title">Star</string>
   <string name="gamification_galaxy_title">Galaxy</string>
   <string name="gamification_comet_subtitle">Be careful and don\'t hit a planet!</string>
-  <string name="gamification_moon_subtitle">A natural satellite</string>
-  <string name="gamification_planet_subtitle">Spinning around a big star</string>
-  <string name="gamification_star_subtitle">Shinny, big and full of life!</string>
-  <string name="gamification_galaxy_subtitle">The biggest system out there!</string>
+  <string name="gamification_moon_subtitle">自然卫星</string>
+  <string name="gamification_planet_subtitle">围绕大恒星旋转</string>
+  <string name="gamification_star_subtitle">闪闪发光，巨大无比，活力四射！</string>
+  <string name="gamification_galaxy_subtitle">太空最大的星系！</string>
 </resources>
