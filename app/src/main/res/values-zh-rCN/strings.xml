@@ -22,7 +22,7 @@
   <string name="close">关闭</string>
   <string name="title_activity_settings">设置</string>
   <string name="network_label">网络</string>
-  <string name="credits">制作组</string>
+  <string name="credits">信用</string>
   <string name="low_storage_error">存储空间不足</string>
   <string name="no_camera_permission">AppCoins BDS Wallet需要访问相机以扫描二维码的权限。</string>
   <string name="ok">确定</string>
@@ -242,7 +242,7 @@
   <string name="item_donation">捐赠</string>
   <!-- Gamification -->
   <string name="gamification_level_title">我的等级是什么？</string>
-  <string name="gamification_level_header">Congrats, you\'re %s!</string>
+  <string name="gamification_level_header">恭喜，你是%s！</string>
   <string name="gamification_level_earned">已挣：</string>
   <string name="gamification_level_bonus">%s%%奖励</string>
   <string name="gamification_level_button_how">工作原理</string>
