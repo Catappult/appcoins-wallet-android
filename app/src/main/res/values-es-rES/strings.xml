@@ -241,9 +241,9 @@
   <string name="action_skip_backup_wallet">SALTAR BACKUP</string>
   <string name="item_donation">Donación</string>
   <!-- Gamification -->
-  <string name="gamification_level_title">What\'s My Level?</string>
+  <string name="gamification_level_title">¿Cuál es mi nivel?</string>
   <string name="gamification_level_header">Congrats, you\'re a %s!</string>
-  <string name="gamification_level_earned">EARNED:</string>
+  <string name="gamification_level_earned">GANADO:</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">HOW IT WORKS</string>
   <string name="gamification_how_header">How to Level Up?</string>
