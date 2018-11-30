@@ -77,49 +77,49 @@
   <string name="suggestion_empty_password_available">密码可以留空。</string>
   <string name="suggestion_this_is_your_address">我的公共%s钱包地址</string>
   <!-- Hints -->
-  <string name="hint_private_key_field">Private key *</string>
-  <string name="hint_keystore">Keystore *</string>
+  <string name="hint_private_key_field">私钥*</string>
+  <string name="hint_keystore">密钥库*</string>
   <!-- Tabs labels-->
-  <string name="tab_keystore">Keystore</string>
-  <string name="tab_private_key">Private key</string>
+  <string name="tab_keystore">密钥库</string>
+  <string name="tab_private_key">私钥</string>
   <!-- Dialog titles -->
-  <string name="title_dialog_error">Error</string>
-  <string name="title_dialog_handling">Processing…</string>
-  <string name="title_dialog_add_account">Add wallet</string>
+  <string name="title_dialog_error">错误</string>
+  <string name="title_dialog_handling">正在处理…</string>
+  <string name="title_dialog_add_account">添加钱包</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Set a password to encrypt your wallet</string>
-  <string name="toast_message_wallet_imported">The wallet was imported</string>
-  <string name="toast_message_wallet_exported">A backup was created</string>
-  <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
+  <string name="dialog_message">设置密码来加密钱包</string>
+  <string name="toast_message_wallet_imported">钱包已导入</string>
+  <string name="toast_message_wallet_exported">已创建备份</string>
+  <string name="toast_qr_code_no_address">二维码没有包含有效地址</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins BDS Wallet</string>
-  <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
-  <string name="intro_title_third_page">Simple &amp; Easy</string>
-  <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
-  <string name="intro_message_second_page">Private keys never leave your device.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
+  <string name="intro_title_second_page"><![CDATA[私密和安全]]></string>
+  <string name="intro_title_third_page">简单易用</string>
+  <string name="intro_message_first_page">欢迎体验应用经济的革命。</string>
+  <string name="intro_message_second_page">私钥永远不会离开你的设备。</string>
+  <string name="intro_message_third_page">在APPC中处理你的所有应用内付款和奖励。</string>
   <!-- Menus -->
   <!-- Labels -->
-  <string name="label_from">From</string>
-  <string name="label_to">To</string>
-  <string name="label_gas_limit">Gas Limit</string>
-  <string name="label_gas_price">Gas Price</string>
-  <string name="label_network_fee">Network Fee</string>
-  <string name="button_ok">OK</string>
-  <string name="hint_recipient_address">Recipient Address</string>
-  <string name="hint_amount">Amount</string>
-  <string name="hint_amount_with_token">Amount %s</string>
-  <string name="hint_contract_address">Contract address</string>
-  <string name="hint_contract_symbol">Symbol</string>
-  <string name="hint_contract_decimals">Decimals</string>
-  <string name="button_cancel">CANCEL</string>
-  <string name="button_yes">YES</string>
+  <string name="label_from">发送方</string>
+  <string name="label_to">接收方</string>
+  <string name="label_gas_limit">燃料限额</string>
+  <string name="label_gas_price">燃料价格</string>
+  <string name="label_network_fee">网络费</string>
+  <string name="button_ok">确定</string>
+  <string name="hint_recipient_address">接收方地址</string>
+  <string name="hint_amount">金额</string>
+  <string name="hint_amount_with_token">金额%s</string>
+  <string name="hint_contract_address">合约地址</string>
+  <string name="hint_contract_symbol">符号</string>
+  <string name="hint_contract_decimals">小数</string>
+  <string name="button_cancel">取消</string>
+  <string name="button_yes">是</string>
   <!-- Subtitles -->
   <string name="subtitle_from">From</string>
-  <string name="subtitle_gas_fee">Fee</string>
+  <string name="subtitle_gas_fee">服务费</string>
   <string name="subtitle_transaction_num">Transaction</string>
   <!-- Actions -->
   <string name="action_more_details">更多</string>
