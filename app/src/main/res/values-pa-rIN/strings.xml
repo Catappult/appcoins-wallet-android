@@ -70,44 +70,44 @@
   <string name="title_my_tokens">ਮੇਰੇ ਟੋਕਨ</string>
   <string name="title_activity_send">ਭੇਜੋ</string>
   <string name="title_activity_confirmation">ਪੁਸ਼ਟੀ ਕਰੋ</string>
-  <string name="title_add_token">Add Custom Token</string>
-  <string name="title_airdrop">Airdrop</string>
+  <string name="title_add_token">ਕਸਟਮ ਟੋਕਨ ਜੋੜੋ</string>
+  <string name="title_airdrop">ਏਅਰਡ੍ਰੌਪ</string>
   <!-- Suggestions -->
-  <string name="suggestion_private_key">Private key has to be 64 characters long</string>
-  <string name="suggestion_empty_password_available">The password can be left blank.</string>
-  <string name="suggestion_this_is_your_address">My public %s wallet address</string>
+  <string name="suggestion_private_key">ਪ੍ਰਾਈਵੇਟ ਕੀ ਨੂੰ 64 ਅੱਖਰਾਂ ਦਾ ਹੋਣਾ ਜ਼ਰੂਰੀ ਹੈ</string>
+  <string name="suggestion_empty_password_available">ਪਾਸਵਰਡ ਨੂੰ ਖਾਲੀ ਛੱਡਿਆ ਜਾ ਸਕਦਾ ਹੈ|</string>
+  <string name="suggestion_this_is_your_address">ਮੇਰੇ ਜਨਤਕ %s ਬਟੂਏ ਦਾ ਪਤਾ</string>
   <!-- Hints -->
-  <string name="hint_private_key_field">Private key *</string>
-  <string name="hint_keystore">Keystore *</string>
+  <string name="hint_private_key_field">ਪ੍ਰਾਈਵੇਟ ਕੀ *</string>
+  <string name="hint_keystore">ਕੀਸਟੋਰ *</string>
   <!-- Tabs labels-->
-  <string name="tab_keystore">Keystore</string>
-  <string name="tab_private_key">Private key</string>
+  <string name="tab_keystore">ਕੀਸਟੋਰ</string>
+  <string name="tab_private_key">ਪ੍ਰਾਈਵੇਟ ਕੀ</string>
   <!-- Dialog titles -->
-  <string name="title_dialog_error">Error</string>
-  <string name="title_dialog_handling">Processing…</string>
-  <string name="title_dialog_add_account">Add wallet</string>
+  <string name="title_dialog_error">ਗਲਤੀ</string>
+  <string name="title_dialog_handling">ਪ੍ਰੋਸੈਸਿੰਗ…</string>
+  <string name="title_dialog_add_account">ਬਟੂਆ ਸ਼ਾਮਲ ਕਰੋ</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Set a password to encrypt your wallet</string>
-  <string name="toast_message_wallet_imported">The wallet was imported</string>
-  <string name="toast_message_wallet_exported">A backup was created</string>
-  <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
+  <string name="dialog_message">ਆਪਣੇ ਬਟੂਏ ਨੂੰ ਸੁਰਖਿਅਤ ਕਰਨ ਲਈ ਇੱਕ ਪਾਸਵਰਡ ਸੈਟ ਕਰੋ</string>
+  <string name="toast_message_wallet_imported">ਬਟੂਆ ਇਮਪੋਰਟ ਕੀਤਾ ਗਿਆ ਸੀ</string>
+  <string name="toast_message_wallet_exported">ਇੱਕ ਬੈਕਅੱਪ ਬਣਾਇਆ ਗਿਆ ਸੀ</string>
+  <string name="toast_qr_code_no_address">QR ਕੋਡ ਵਿੱਚ ਇੱਕ ਸਹੀ ਪਤਾ ਨਹੀਂ ਹੈ</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins BDS Wallet</string>
-  <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
-  <string name="intro_title_third_page">Simple &amp; Easy</string>
-  <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
-  <string name="intro_message_second_page">Private keys never leave your device.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
+  <string name="intro_title_second_page"><![CDATA[ਪ੍ਰਾਈਵੇਟ ਅਤੇ ਸੁਰੱਖਿਅਤ]]></string>
+  <string name="intro_title_third_page">ਆਸਾਨ &amp; ਸੌਖਾ</string>
+  <string name="intro_message_first_page">ਐਪ ਅਰਥ-ਵਿਵਸਥਾ ਦੀ ਕ੍ਰਾਂਤੀ ਵਿੱਚ ਸੁਆਗਤ ਹੈ|</string>
+  <string name="intro_message_second_page">ਪ੍ਰਾਈਵੇਟ ਕੀ ਤੁਹਾਡੀ ਡਿਵਾਈਸ ਨੂੰ ਕਦੇ ਨਹੀਂ ਛੱਡਦੀਆਂ|</string>
+  <string name="intro_message_third_page">ਏਪੀਪੀਸੀ ਵਿਚ ਆਪਣੇ ਇਨ-ਐਪ ਭੁਗਤਾਨ ਅਤੇ ਇਨਾਮਾਂ ਦੀ ਪ੍ਰਕਿਰਿਆ ਕਰੋ|</string>
   <!-- Menus -->
   <!-- Labels -->
-  <string name="label_from">From</string>
-  <string name="label_to">To</string>
-  <string name="label_gas_limit">Gas Limit</string>
-  <string name="label_gas_price">Gas Price</string>
-  <string name="label_network_fee">Network Fee</string>
+  <string name="label_from">ਵੱਲੋਂ</string>
+  <string name="label_to">ਲਈ</string>
+  <string name="label_gas_limit">ਗੈਸ ਦੀ ਸੀਮਾ</string>
+  <string name="label_gas_price">ਗੈਸ ਦਾ ਮੁੱਲ</string>
+  <string name="label_network_fee">ਨੈਟਵਰਕ ਫ਼ੀਸ</string>
   <string name="button_ok">OK</string>
   <string name="hint_recipient_address">Recipient Address</string>
   <string name="hint_amount">Amount</string>
