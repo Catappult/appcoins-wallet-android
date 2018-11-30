@@ -63,10 +63,10 @@
   <string name="unknown_error">An error has occurred.</string>
   <string name="action_backup_wallet">Backup Wallet</string>
   <string name="no_tokens">You haven\'t added any custom token yet.</string>
-  <string name="title_email">Email us</string>
-  <string name="action_donate">Donate</string>
+  <string name="title_email">ส่งอีเมล์ถึงเรา</string>
+  <string name="action_donate">บริจาค</string>
   <!-- Titles -->
-  <string name="title_my_address">Receive</string>
+  <string name="title_my_address">ได้รับ</string>
   <string name="title_my_tokens">โทเค็นของฉัน</string>
   <string name="title_activity_send">ส่ง</string>
   <string name="title_activity_confirmation">ยืนยัน</string>
@@ -74,24 +74,24 @@
   <string name="title_airdrop">Airdrop</string>
   <!-- Suggestions -->
   <string name="suggestion_private_key">Private key has to be 64 characters long</string>
-  <string name="suggestion_empty_password_available">The password can be left blank.</string>
-  <string name="suggestion_this_is_your_address">My public %s wallet address</string>
+  <string name="suggestion_empty_password_available">รหัสผ่านสามารถเว้นว่างได้</string>
+  <string name="suggestion_this_is_your_address">ที่อยู่กระเป๋าสตางค์ Ethereum สาธารณะของฉัน</string>
   <!-- Hints -->
-  <string name="hint_private_key_field">Private key *</string>
-  <string name="hint_keystore">Keystore *</string>
+  <string name="hint_private_key_field">คีย์ส่วนตัว *</string>
+  <string name="hint_keystore">คีย์สโตร์*</string>
   <!-- Tabs labels-->
-  <string name="tab_keystore">Keystore</string>
-  <string name="tab_private_key">Private key</string>
+  <string name="tab_keystore">คีย์สโตร์</string>
+  <string name="tab_private_key">คีย์ส่วนตัว</string>
   <!-- Dialog titles -->
-  <string name="title_dialog_error">Error</string>
-  <string name="title_dialog_handling">Processing…</string>
-  <string name="title_dialog_add_account">Add wallet</string>
+  <string name="title_dialog_error">ข้อผิดพลาด</string>
+  <string name="title_dialog_handling">กำลังประมวลผล...</string>
+  <string name="title_dialog_add_account">เพิ่มกระเป๋าสตางค์</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Set a password to encrypt your wallet</string>
-  <string name="toast_message_wallet_imported">The wallet was imported</string>
-  <string name="toast_message_wallet_exported">A backup was created</string>
+  <string name="dialog_message">ตั้งรหัสผ่านเพื่อเข้ารหัสกระเป๋าสตางค์ของคุณ</string>
+  <string name="toast_message_wallet_imported">กระเป๋าถูกนำเข้า</string>
+  <string name="toast_message_wallet_exported">สร้างการสำรองข้อมูล</string>
   <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
@@ -112,15 +112,15 @@
   <string name="hint_recipient_address">Recipient Address</string>
   <string name="hint_amount">Amount</string>
   <string name="hint_amount_with_token">Amount %s</string>
-  <string name="hint_contract_address">Contract address</string>
-  <string name="hint_contract_symbol">Symbol</string>
-  <string name="hint_contract_decimals">Decimals</string>
-  <string name="button_cancel">CANCEL</string>
-  <string name="button_yes">YES</string>
+  <string name="hint_contract_address">ที่อยู่ตามสัญญา</string>
+  <string name="hint_contract_symbol">สัญลักษณ์</string>
+  <string name="hint_contract_decimals">ทศนิยม</string>
+  <string name="button_cancel">ยกเลิก</string>
+  <string name="button_yes">ใช่</string>
   <!-- Subtitles -->
-  <string name="subtitle_from">From</string>
-  <string name="subtitle_gas_fee">Fee</string>
-  <string name="subtitle_transaction_num">Transaction</string>
+  <string name="subtitle_from">จาก</string>
+  <string name="subtitle_gas_fee">ค่าธรรมเนียม</string>
+  <string name="subtitle_transaction_num">ธุรกรรม</string>
   <!-- Actions -->
   <string name="action_more_details">เพิ่มเติม</string>
   <string name="action_add_wallet">เพิ่มกระเป๋าสตางค์</string>
@@ -196,33 +196,33 @@
   <string name="notification_submit_error_poa">Sorry, there was an error. Try again!</string>
   <!-- transaction details -->
   <string name="transaction_status_success">Success</string>
-  <string name="transaction_status_pending">Pending</string>
-  <string name="transaction_status_failed">Failed</string>
-  <string name="transaction_type_iab">In-App Purchase</string>
+  <string name="transaction_status_pending">ค้างอยู่</string>
+  <string name="transaction_status_failed">ล้มเหลว</string>
+  <string name="transaction_type_iab">ซื้อใน App</string>
   <string name="transaction_type_poa">Proof of Attention</string>
   <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
-  <string name="transaction_type_standard">Transfer</string>
+  <string name="transaction_type_standard">โอนย้าย</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
-  <string name="transaction_details_brand_txt">Powered By Ethereum</string>
+  <string name="transaction_details_brand_txt">ขับเคลื่อน โดย Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
   <string name="miuraiden_trans_details_topup">µRaiden channel top up</string>
   <string name="miuraiden_trans_details_close">µRaiden channel closed</string>
   <string name="ellipsize">\u0020• • •</string>
-  <string name="transaction_status_label">Status</string>
-  <string name="transaction_category_label">Category</string>
-  <string name="transaction_details_label">Details</string>
-  <string name="transaction_to_label">To</string>
-  <string name="dialog_credit_card_remember">Remember Card</string>
-  <string name="notification_payment_refused">Payment Refused</string>
-  <string name="dialog_credit_card_number">Card Number</string>
-  <string name="dialog_credit_card_expiration">Expiration Date</string>
+  <string name="transaction_status_label">สถานะ</string>
+  <string name="transaction_category_label">ประเภท</string>
+  <string name="transaction_details_label">รายละเอียด</string>
+  <string name="transaction_to_label">ถึง</string>
+  <string name="dialog_credit_card_remember">จดจำบัตร</string>
+  <string name="notification_payment_refused">การชำระเงินถูกปฏิเสธ</string>
+  <string name="dialog_credit_card_number">หมายเลขบัตร</string>
+  <string name="dialog_credit_card_expiration">วันหมดอายุ</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
+  <string name="activity_airdrop_title">ยืนยันว่า คุณเป็นคนที่จะได้รับ AppCoins</string>
   <string name="activity_airdrop_details">This is just a security thing.</string>
   <string name="activity_airdrop_hint">Type the words in the image</string>
-  <string name="activity_airdrop_submit_btn">Submit</string>
-  <string name="activity_airdrop_wrong_captcha">Wrong captcha</string>
+  <string name="activity_airdrop_submit_btn">ส่ง</string>
+  <string name="activity_airdrop_wrong_captcha">Captcha ไม่ถูกต้อง</string>
   <string name="activity_airdrop_ok">ok</string>
   <string name="activity_airdrop_message_title">Airdrop</string>
   <string name="activity_airdrop_success_message">Airdrop completed</string>
@@ -236,10 +236,10 @@
   <string name="proceed">proceed</string>
   <string name="iab_activity_raiden_channel_no_funds_message">You don\'t have enough funds on your µRainden payment channel. Go to your wallet and close the channel to create a new one.  Do you still want to complete this purchase with a standard payment?</string>
   <string name="iab_activity_raiden_channel_no_funds_title">Payment Channel Funds</string>
-  <string name="spend_your_appcoins">Spend your AppCoins</string>
+  <string name="spend_your_appcoins">ใช้ AppCoins ของคุณ</string>
   <!-- Billing -->
-  <string name="action_skip_backup_wallet">SKIP BACKUP</string>
-  <string name="item_donation">Donation</string>
+  <string name="action_skip_backup_wallet">ข้ามการสำรองข้อมูล</string>
+  <string name="item_donation">บริจาค</string>
   <!-- Gamification -->
   <string name="gamification_level_title">What\'s My Level?</string>
   <string name="gamification_level_header">ขอแสดงความยินดี คุณ %s!</string>
