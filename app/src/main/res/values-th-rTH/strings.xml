@@ -58,11 +58,11 @@
   <string name="action_buy">ซื้อ</string>
   <string name="empty"></string>
   <string name="try_again">ลองอีกครั้ง</string>
-  <string name="already_have_account">Already have a wallet?</string>
-  <string name="action_create_new_account">Create new wallet</string>
-  <string name="unknown_error">An error has occurred.</string>
-  <string name="action_backup_wallet">Backup Wallet</string>
-  <string name="no_tokens">You haven\'t added any custom token yet.</string>
+  <string name="already_have_account">มีกระเป๋าสตางค์แล้วใช่ไหม?</string>
+  <string name="action_create_new_account">สร้างกระเป๋าสตางค์ใหม่</string>
+  <string name="unknown_error">มีข้อผิดพลาดเกิดขึ้น</string>
+  <string name="action_backup_wallet">กระเป๋าสตางค์ที่สำรอง</string>
+  <string name="no_tokens">คุณยังไม่ได้เพิ่มการโทเค็นที่กำหนดเองได้</string>
   <string name="title_email">ส่งอีเมล์ถึงเรา</string>
   <string name="action_donate">บริจาค</string>
   <!-- Titles -->
@@ -70,10 +70,10 @@
   <string name="title_my_tokens">โทเค็นของฉัน</string>
   <string name="title_activity_send">ส่ง</string>
   <string name="title_activity_confirmation">ยืนยัน</string>
-  <string name="title_add_token">Add Custom Token</string>
+  <string name="title_add_token">เพิ่มโทเค็นที่กำหนดเอง</string>
   <string name="title_airdrop">Airdrop</string>
   <!-- Suggestions -->
-  <string name="suggestion_private_key">Private key has to be 64 characters long</string>
+  <string name="suggestion_private_key">คีย์ส่วนตัวมีความยาวได้ไม่เกิน 64 อักขระ</string>
   <string name="suggestion_empty_password_available">รหัสผ่านสามารถเว้นว่างได้</string>
   <string name="suggestion_this_is_your_address">ที่อยู่กระเป๋าสตางค์ Ethereum สาธารณะของฉัน</string>
   <!-- Hints -->
@@ -92,26 +92,26 @@
   <string name="dialog_message">ตั้งรหัสผ่านเพื่อเข้ารหัสกระเป๋าสตางค์ของคุณ</string>
   <string name="toast_message_wallet_imported">กระเป๋าถูกนำเข้า</string>
   <string name="toast_message_wallet_exported">สร้างการสำรองข้อมูล</string>
-  <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
+  <string name="toast_qr_code_no_address">รหัส QR ไม่มีที่อยู่ที่ถูกต้อง</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">AppCoins BDS Wallet</string>
-  <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
-  <string name="intro_title_third_page">Simple &amp; Easy</string>
-  <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
-  <string name="intro_message_second_page">Private keys never leave your device.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
+  <string name="intro_title_first_page">กระเป๋าสตางค์ AppCoins BDS</string>
+  <string name="intro_title_second_page"><![CDATA[ส่วนตัว และปลอดภัย]]></string>
+  <string name="intro_title_third_page">ไม่ซับซ้อน &amp; ง่าย</string>
+  <string name="intro_message_first_page">ยินดีต้อนรับสู่การปฏิวัติของเศรษฐกิจ</string>
+  <string name="intro_message_second_page">คีย์ส่วนตัวไม่เคยออกจากอุปกรณ์ของคุณ</string>
+  <string name="intro_message_third_page">กระบวนการในการตรวจสอบการชำระเงินและรางวัลใน APPC ทั้งหมด</string>
   <!-- Menus -->
   <!-- Labels -->
-  <string name="label_from">From</string>
-  <string name="label_to">To</string>
-  <string name="label_gas_limit">Gas Limit</string>
-  <string name="label_gas_price">Gas Price</string>
-  <string name="label_network_fee">Network Fee</string>
-  <string name="button_ok">OK</string>
-  <string name="hint_recipient_address">Recipient Address</string>
-  <string name="hint_amount">Amount</string>
-  <string name="hint_amount_with_token">Amount %s</string>
+  <string name="label_from">จาก</string>
+  <string name="label_to">ถึง</string>
+  <string name="label_gas_limit">จำกัด Gas</string>
+  <string name="label_gas_price">ราคา Gas</string>
+  <string name="label_network_fee">ค่าเครือข่าย</string>
+  <string name="button_ok">ตกลง</string>
+  <string name="hint_recipient_address">ที่อยู่ผู้รับ</string>
+  <string name="hint_amount">ยอดเงิน</string>
+  <string name="hint_amount_with_token">จำนวน %s</string>
   <string name="hint_contract_address">ที่อยู่ตามสัญญา</string>
   <string name="hint_contract_symbol">สัญลักษณ์</string>
   <string name="hint_contract_decimals">ทศนิยม</string>
@@ -140,17 +140,17 @@
   <string name="transaction_succeeded">ธุรกรรมที่ประสบความสำเร็จ</string>
   <string name="NA">N/A</string>
   <string name="error_wallet_not_selected">กระเป๋าสตางค์ไม่ได้ถูกเลือก</string>
-  <string name="no_transactions_yet">Get some test APPC so you can see how AppCoins payments will work</string>
-  <string name="no_transactions_yet_main">No transactions yet!</string>
+  <string name="no_transactions_yet">รับการทดสอบ APPC เพื่อให้คุณสามารถดูวิธีการชำระเงิน AppCoins ที่ใช้</string>
+  <string name="no_transactions_yet_main">ยังไม่มีธุรกรรม!</string>
   <string name="unknown_balance_with_symbol">-- ETH</string>
   <string name="unknown_balance_without_symbol">--</string>
   <string name="dummy">-</string>
   <string name="dummy_transaction_value">-- ETH</string>
   <string name="title_dialog_sending">กำลังส่ง...</string>
-  <string name="welcome.erc20.label.title">ERC20 Compatible</string>
-  <string name="welcome.erc20.label.description">Supports ERC20 tokens by default.</string>
+  <string name="welcome.erc20.label.title">ERC20 ที่เข้ากันได้</string>
+  <string name="welcome.erc20.label.description">รองรับสัญญาณ ERC20 เป็นค่าเริ่มต้น</string>
   <string name="scan_qr">รับที่อยู่จาก QR Code</string>
-  <string name="info_gas_price">The higher the gas price, the more expensive your transaction fee will be, but the quicker your transaction will be processed by the Ethereum network.</string>
+  <string name="info_gas_price">ราคาGasสูงขึ้น ค่าธรรมเนียมก็ยิ่งเพิ่มขึ้น แต่การดำเนินธุรกรรมของคุณที่เร็วกว่าจะถูกดำเนินการโดยเครือข่าย Ethereum</string>
   <string name="info_gas_limit">The gas limit prevents smart contracts from consuming all your Ethereum. We will try to calculate the gas limit automatically for you, but some smart contracts may require a custom gas limit.</string>
   <string name="title_send_settings">ขั้นสูง</string>
   <string name="title_activity_barcode">สแกนบาร์โค้ด</string>
@@ -159,7 +159,7 @@
   <string name="error_already_added">เพิ่มแล้ว</string>
   <string name="error_export">การนำกระเป๋าสตางค์ออกล้มเหลว</string>
   <string name="error_fail_load_tokens">Failed to load tokens list</string>
-  <string name="error_create_wallet">Failed to create a wallet</string>
+  <string name="error_create_wallet">ไม่สามารถสร้างกระเป๋าสตางค์</string>
   <string name="token_balance">%1$s%2$s %3$s</string>
   <string name="action_edit_tokens">แก้ไขโทเค่น</string>
   <string name="token_name">%1$s (%2$s)</string>
@@ -167,7 +167,7 @@
   <string name="gas_price_value">%1$s %2$s</string>
   <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the AppCoins wallet development. We considered it the best alternative regarding already implemented functionalities. We forked it with the intention of contributing back with implementations and work that would be considered relevant.</string>
   <string name="appcoins_symbol">APPC</string>
-  <string name="activity_aib_loading_title">Transaction in progress</string>
+  <string name="activity_aib_loading_title">ธุรกรรมกำลังดำเนินการอยู่</string>
   <string name="activity_aib_loading_message">นี้อาจใช้เวลาสักครู่...</string>
   <string name="activity_iab_transaction_completed_title">ธุรกรรมที่เสร็จสมบูรณ์</string>
   <string name="activity_iab_error_title">ข้อผิดพลาด</string>
@@ -181,21 +181,21 @@
   <string name="activity_iab_no_network_message">ไม่สามารถเข้าถึงเครือข่าย</string>
   <string name="activity_iab_nonce_message">An error with blockchain occurred, please try again later.</string>
   <string name="activity_iab_approving_message">Checking all details: balance, items, network…</string>
-  <string name="activity_iab_buying_message">Details checked \nReceiving your item…</string>
+  <string name="activity_iab_buying_message">รายละเอียดการตรวจสอบ \nการได้รับสินค้าของคุณ...</string>
   <string name="notification_ongoing_poa">การประมวลผลรางวัลของคุณ</string>
-  <string name="notification_completed_poa">Reward received, enjoy!</string>
+  <string name="notification_completed_poa">ได้รับรางวัล เพลิดเพลิน!</string>
   <string name="notification_submitting_poa">การส่งการร้องขอ blockchain</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
-  <string name="notification_no_network_poa">No network connection</string>
-  <string name="notification_error_poa">An error has occurred</string>
-  <string name="notification_no_wallet_poa">Your wallet isn\'t configured yet</string>
-  <string name="notification_cancelled_poa">Reward cancelled</string>
-  <string name="notification_not_available_poa">This rewards campaign is no longer available</string>
-  <string name="notification_not_available_for_country_poa">This rewards campaign isn\'t available in your country</string>
-  <string name="notification_already_rewarded_poa">You were already rewarded in this campaign</string>
-  <string name="notification_submit_error_poa">Sorry, there was an error. Try again!</string>
+  <string name="notification_no_network_poa">ไม่มีการเชื่อมต่อเครือข่าย</string>
+  <string name="notification_error_poa">มีข้อผิดพลาดเกิดขึ้น</string>
+  <string name="notification_no_wallet_poa">กระเป๋าสตางค์ของคุณไม่ได้กำหนดค่าได้</string>
+  <string name="notification_cancelled_poa">ยกเลิกรางวัล</string>
+  <string name="notification_not_available_poa">รางวัลการส่งเสริมการขายไม่มีอีกต่อไป</string>
+  <string name="notification_not_available_for_country_poa">รางวัลการส่งเสริมการขายนี้ไม่มีในประเทศของคุณ</string>
+  <string name="notification_already_rewarded_poa">คุณได้รับรางวัลในแคมเปญนี้แล้ว</string>
+  <string name="notification_submit_error_poa">ขออภัย มีข้อผิดพลาดเกิดขึ้น ลองอีกครั้ง!</string>
   <!-- transaction details -->
-  <string name="transaction_status_success">Success</string>
+  <string name="transaction_status_success">สำเร็จ</string>
   <string name="transaction_status_pending">ค้างอยู่</string>
   <string name="transaction_status_failed">ล้มเหลว</string>
   <string name="transaction_type_iab">ซื้อใน App</string>
@@ -219,14 +219,14 @@
   <string name="dialog_credit_card_expiration">วันหมดอายุ</string>
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="activity_airdrop_title">ยืนยันว่า คุณเป็นคนที่จะได้รับ AppCoins</string>
-  <string name="activity_airdrop_details">This is just a security thing.</string>
-  <string name="activity_airdrop_hint">Type the words in the image</string>
+  <string name="activity_airdrop_details">นี้เป็นเพียงสิ่งปลอดภัย</string>
+  <string name="activity_airdrop_hint">พิมพ์คำในภาพ</string>
   <string name="activity_airdrop_submit_btn">ส่ง</string>
   <string name="activity_airdrop_wrong_captcha">Captcha ไม่ถูกต้อง</string>
-  <string name="activity_airdrop_ok">ok</string>
+  <string name="activity_airdrop_ok">ตกลง</string>
   <string name="activity_airdrop_message_title">Airdrop</string>
-  <string name="activity_airdrop_success_message">Airdrop completed</string>
-  <string name="activity_airdrop_generic_error_message">An error has occurred</string>
+  <string name="activity_airdrop_success_message">Airdrop ที่เสร็จสมบูรณ์</string>
+  <string name="activity_airdrop_generic_error_message">มีข้อผิดพลาดเกิดขึ้น</string>
   <string name="notification_generic_error">@string/unknown_error</string>
   <string name="iab_activity_micro_raiden_wallet">Wallet</string>
   <string name="iab_activity_raiden_channel_label">Create µRaiden channel</string>
@@ -241,7 +241,7 @@
   <string name="action_skip_backup_wallet">ข้ามการสำรองข้อมูล</string>
   <string name="item_donation">บริจาค</string>
   <!-- Gamification -->
-  <string name="gamification_level_title">What\'s My Level?</string>
+  <string name="gamification_level_title">ระดับของฉันคืออะไร</string>
   <string name="gamification_level_header">ขอแสดงความยินดี คุณ %s!</string>
   <string name="gamification_level_earned">ได้รับ:</string>
   <string name="gamification_level_bonus">%s%% โบนัส</string>
