@@ -118,9 +118,11 @@ public class IabActivity extends BaseActivity implements IabView {
         .commit();
   }
 
-  @Override public void showPaymentMethodsView() {
+  @Override public void showPaymentMethodsView(String currency) {
     getSupportFragmentManager().beginTransaction()
-        .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance())
+        .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction, currency,
+            getIntent().getExtras()
+                .getString(PRODUCT_NAME)))
         .commit();
   }
 

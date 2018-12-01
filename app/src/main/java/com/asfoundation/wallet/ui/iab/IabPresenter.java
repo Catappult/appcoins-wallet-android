@@ -8,6 +8,8 @@ import android.os.Bundle;
 
 public class IabPresenter {
 
+  private static final String DEFAULT_CURRENCY = "EUR";
+
   private final IabView view;
 
   public IabPresenter(IabView view) {
@@ -16,7 +18,7 @@ public class IabPresenter {
 
   public void present(Bundle savedInstanceState) {
     if (savedInstanceState == null) {
-      view.showPaymentMethodsView();
+      view.showPaymentMethodsView(DEFAULT_CURRENCY);
     }
   }
 }
