@@ -140,13 +140,13 @@
   <string name="transaction_succeeded">Επιτυχής συναλλαγή</string>
   <string name="NA">Δ/Υ</string>
   <string name="error_wallet_not_selected">Δεν έχει γίνει επιλογή wallet</string>
-  <string name="no_transactions_yet">Get some test APPC so you can see how AppCoins payments will work</string>
-  <string name="no_transactions_yet_main">No transactions yet!</string>
+  <string name="no_transactions_yet">Λάβετε δοκιμαστικά APPC για να δείτε πώς λειτουργούν οι πληρωμές με AppCoins</string>
+  <string name="no_transactions_yet_main">Δεν υπάρχουν ακόμη συναλλαγές!</string>
   <string name="unknown_balance_with_symbol">-- ETH</string>
   <string name="unknown_balance_without_symbol">--</string>
   <string name="dummy">-</string>
   <string name="dummy_transaction_value">-- ETH</string>
-  <string name="title_dialog_sending">Sending...</string>
+  <string name="title_dialog_sending">Αποστολή...</string>
   <string name="welcome.erc20.label.title">ERC20 Compatible</string>
   <string name="welcome.erc20.label.description">Supports ERC20 tokens by default.</string>
   <string name="scan_qr">Get address from QR Code</string>
