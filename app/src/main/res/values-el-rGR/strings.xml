@@ -100,7 +100,7 @@
   <string name="intro_title_third_page">Απλό &amp; Εύκολο</string>
   <string name="intro_message_first_page">Καλώς ήρθατε στην επανάσταση της οικονομίας των εφαρμογών.</string>
   <string name="intro_message_second_page">Τα ιδιωτικά κλειδιά δε θα φύγουν ποτέ από τη συσκευή σας.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
+  <string name="intro_message_third_page">Διαχειριστείτε όλες τις πληρωμές εντός εφαρμογών και τις αμοιβές σε APPC.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Από</string>
@@ -220,13 +220,13 @@
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="activity_airdrop_title">Επιβεβαιώστε ότι είστε άνθρωπος για να λάβετε AppCoins</string>
   <string name="activity_airdrop_details">Αυτό γίνεται για λόγους ασφαλείας.</string>
-  <string name="activity_airdrop_hint">Type the words in the image</string>
-  <string name="activity_airdrop_submit_btn">Submit</string>
-  <string name="activity_airdrop_wrong_captcha">Wrong captcha</string>
+  <string name="activity_airdrop_hint">Πληκτρολογήστε ό,τι βλέπετε στην εικόνα</string>
+  <string name="activity_airdrop_submit_btn">Υποβολή</string>
+  <string name="activity_airdrop_wrong_captcha">Λάθος captcha</string>
   <string name="activity_airdrop_ok">ok</string>
   <string name="activity_airdrop_message_title">Airdrop</string>
   <string name="activity_airdrop_success_message">Airdrop completed</string>
-  <string name="activity_airdrop_generic_error_message">An error has occurred</string>
+  <string name="activity_airdrop_generic_error_message">Παρουσιάστηκε ένα σφάλμα</string>
   <string name="notification_generic_error">@string/unknown_error</string>
   <string name="iab_activity_micro_raiden_wallet">Wallet</string>
   <string name="iab_activity_raiden_channel_label">Create µRaiden channel</string>
@@ -236,21 +236,21 @@
   <string name="proceed">proceed</string>
   <string name="iab_activity_raiden_channel_no_funds_message">You don\'t have enough funds on your µRainden payment channel. Go to your wallet and close the channel to create a new one.  Do you still want to complete this purchase with a standard payment?</string>
   <string name="iab_activity_raiden_channel_no_funds_title">Payment Channel Funds</string>
-  <string name="spend_your_appcoins">Spend your AppCoins</string>
+  <string name="spend_your_appcoins">Ξοδέψτε τα AppCoins σας</string>
   <!-- Billing -->
-  <string name="action_skip_backup_wallet">SKIP BACKUP</string>
-  <string name="item_donation">Donation</string>
+  <string name="action_skip_backup_wallet">ΠΑΡΑΛΕΙΨΗ ΑΝΤΙΓΡΑΦΟΥ ΑΣΦΑΛΕΙΑΣ</string>
+  <string name="item_donation">Δωρεά</string>
   <!-- Gamification -->
-  <string name="gamification_level_title">What\'s My Level?</string>
-  <string name="gamification_level_header">Congrats, you\'re %s!</string>
-  <string name="gamification_level_earned">EARNED:</string>
+  <string name="gamification_level_title">Σε ποιο επίπεδο βρίσκομαι;</string>
+  <string name="gamification_level_header">Συγχαρητήρια, είστε %s!</string>
+  <string name="gamification_level_earned">ΚΕΡΔΗΘΗΚΑΝ:</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
-  <string name="gamification_level_button_how">HOW IT WORKS</string>
-  <string name="gamification_how_header">How to Level Up?</string>
+  <string name="gamification_level_button_how">ΠΩΣ ΛΕΙΤΟΥΡΓΕΙ</string>
+  <string name="gamification_how_header">Πώς να ανεβείτε επίπεδο;</string>
   <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games</string>
-  <string name="gamification_how_spend">SPEND %s APPC</string>
-  <string name="gamification_a_comet_title">a Comet</string>
-  <string name="gamification_a_moon_title">a Moon</string>
+  <string name="gamification_how_spend">ΞΟΔΕΨΤΕ %s APPC</string>
+  <string name="gamification_a_comet_title">ένας κομήτης</string>
+  <string name="gamification_a_moon_title">ένα Φεγγάρι</string>
   <string name="gamification_a_planet_title">ένας Πλανήτης</string>
   <string name="gamification_a_star_title">ένα Αστέρι</string>
   <string name="gamification_a_galaxy_title">ένας Γαλαξίας</string>
