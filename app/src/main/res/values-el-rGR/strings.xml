@@ -138,8 +138,8 @@
   <string name="error_transaction_failed">Σφάλμα συναλλαγής</string>
   <string name="error_must_numeric">Πρέπει να είναι αριθμητική τιμή.</string>
   <string name="transaction_succeeded">Επιτυχής συναλλαγή</string>
-  <string name="NA">N/A</string>
-  <string name="error_wallet_not_selected">Wallet is not selected</string>
+  <string name="NA">Δ/Υ</string>
+  <string name="error_wallet_not_selected">Δεν έχει γίνει επιλογή wallet</string>
   <string name="no_transactions_yet">Get some test APPC so you can see how AppCoins payments will work</string>
   <string name="no_transactions_yet_main">No transactions yet!</string>
   <string name="unknown_balance_with_symbol">-- ETH</string>
