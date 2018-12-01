@@ -18,6 +18,8 @@ public interface IabView {
 
   void navigateToCreditCardAuthorization(boolean isBds);
 
+  void navigateToWebViewAuthorization(String url);
+
   void showOnChain(BigDecimal amount, boolean isBds);
 
   void showCcPayment(BigDecimal amount, String currency, boolean isBds);

@@ -38,12 +38,12 @@ import com.asfoundation.wallet.analytics.HttpClientKnockLogger;
 import com.asfoundation.wallet.analytics.KeysNormalizer;
 import com.asfoundation.wallet.analytics.LogcatAnalyticsLogger;
 import com.asfoundation.wallet.apps.Applications;
-import com.asfoundation.wallet.billing.AdyenBilling;
 import com.asfoundation.wallet.billing.BDSTransactionService;
 import com.asfoundation.wallet.billing.TransactionService;
+import com.asfoundation.wallet.billing.adyen.Adyen;
+import com.asfoundation.wallet.billing.adyen.AdyenBillingService;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
-import com.asfoundation.wallet.billing.payment.Adyen;
-import com.asfoundation.wallet.billing.purchase.CreditCardBillingFactory;
+import com.asfoundation.wallet.billing.purchase.BillingFactory;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.BalanceGetter;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
@@ -127,7 +127,7 @@ import com.asfoundation.wallet.util.OneStepTransactionParser;
 import com.asfoundation.wallet.util.TransferParser;
 import com.facebook.appevents.AppEventsLogger;
 import com.google.gson.Gson;
-import com.jakewharton.rxrelay2.PublishRelay;
+import com.jakewharton.rxrelay2.BehaviorRelay;
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.Single;
@@ -614,7 +614,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides Adyen provideAdyen(Context context) {
-    return new Adyen(context, Charset.forName("UTF-8"), Schedulers.io(), PublishRelay.create());
+    return new Adyen(context, Charset.forName("UTF-8"), Schedulers.io(), BehaviorRelay.create());
   }
 
   @Singleton @Provides TransactionService provideTransactionService(RemoteRepository.BdsApi bdsApi,
@@ -622,9 +622,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new BDSTransactionService(new RemoteRepository(bdsApi, new BdsApiResponseMapper(), api));
   }
 
-  @Singleton @Provides CreditCardBillingFactory provideCreditCardBillingFactory(
+  @Singleton @Provides BillingFactory provideCreditCardBillingFactory(
       TransactionService transactionService, WalletService walletService, Adyen adyen) {
-    return merchantName -> new AdyenBilling(merchantName, transactionService, walletService, adyen);
+    return merchantName -> new AdyenBillingService(merchantName, transactionService, walletService,
+        adyen);
   }
 
   @Singleton @Provides BdsPendingTransactionService provideBdsPendingTransactionService(

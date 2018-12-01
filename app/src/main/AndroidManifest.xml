@@ -106,8 +106,31 @@
     </activity>
 
     <activity
-        android:name="com.asfoundation.wallet.ui.iab.IabActivity"
+        android:name="com.asfoundation.wallet.ui.iab.WebViewActivity"
         android:theme="@style/Theme.AppCompat.Transparent"/>
+
+    <activity
+        android:name="com.asfoundation.wallet.ui.iab.IabActivity"
+        android:launchMode="singleInstance"
+        android:screenOrientation="sensor"
+        android:theme="@style/Theme.AppCompat.Transparent"
+        >
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+
+        <data
+            android:host="aptoide.com"
+            android:pathPrefix="/adyen"
+            android:scheme="billing2"/>
+        <data
+            android:host="aptoide.com"
+            android:pathPrefix="/adyen"
+            android:scheme="billing"/>
+      </intent-filter>
+    </activity>
 
     <activity
         android:name="com.asfoundation.wallet.ui.airdrop.AirdropActivity"
