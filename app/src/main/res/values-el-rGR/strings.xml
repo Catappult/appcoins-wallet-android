@@ -5,20 +5,20 @@
   <string name="title_send">Αποστολή</string>
   <string name="title_send_with_token">Αποστολή %s</string>
   <string name="title_request">Λήψη</string>
-  <string name="title_import">Import Wallet</string>
+  <string name="title_import">Εισαγωγή Wallet</string>
   <!-- Strings relatedwalletount creation -->
-  <string name="prompt_password">Password</string>
+  <string name="prompt_password">Κωδικός πρόσβασης</string>
   <string name="action_sign_in_short">Create</string>
   <!-- String related to sending -->
-  <string name="prompt_to">To</string>
-  <string name="action_send">Send</string>
-  <string name="error_field_required">This field is required</string>
-  <string name="action_settings">Settings</string>
+  <string name="prompt_to">Προς</string>
+  <string name="action_send">Αποστολή</string>
+  <string name="error_field_required">Αυτό το πεδίο είναι υποχρεωτικό</string>
+  <string name="action_settings">Ρυθμίσεις</string>
   <string name="title_account_list">Wallets</string>
-  <string name="cancel">cancel</string>
-  <string name="confirm_delete_account">Make sure that you have a backup of this wallet.</string>
-  <string name="action_import">Import</string>
-  <string name="copy">Copy to clipboard</string>
+  <string name="cancel">ακύρωση</string>
+  <string name="confirm_delete_account">Βεβαιωθείτε ότι έχετε ένα αντίγραφο ασφαλείας αυτού του wallet.</string>
+  <string name="action_import">Εισαγωγή</string>
+  <string name="copy">Αντιγραφή στο πρόχειρο</string>
   <string name="close">Close</string>
   <string name="title_activity_settings">Settings</string>
   <string name="network_label">Network</string>
