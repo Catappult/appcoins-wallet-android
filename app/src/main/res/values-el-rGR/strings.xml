@@ -147,10 +147,10 @@
   <string name="dummy">-</string>
   <string name="dummy_transaction_value">-- ETH</string>
   <string name="title_dialog_sending">Αποστολή...</string>
-  <string name="welcome.erc20.label.title">ERC20 Compatible</string>
-  <string name="welcome.erc20.label.description">Supports ERC20 tokens by default.</string>
-  <string name="scan_qr">Get address from QR Code</string>
-  <string name="info_gas_price">The higher the gas price, the more expensive your transaction fee will be, but the quicker your transaction will be processed by the Ethereum network.</string>
+  <string name="welcome.erc20.label.title">Συμβατό με ER20</string>
+  <string name="welcome.erc20.label.description">Τα ERC20 tokens υποστηρίζονται από προεπιλογή.</string>
+  <string name="scan_qr">Λάβετε διεύθυνση από Kωδικό QR</string>
+  <string name="info_gas_price">Όσο μεγαλύτερη είναι η τιμή του gas, τόσο πιο ακριβή θα είναι η χρέωση της συναλλαγής σας. Ωστόσο, η συναλλαγή σας θα υποβληθεί πιο γρήγορα σε επεξεργασία από το δίκτυο Ethereum.</string>
   <string name="info_gas_limit">The gas limit prevents smart contracts from consuming all your Ethereum. We will try to calculate the gas limit automatically for you, but some smart contracts may require a custom gas limit.</string>
   <string name="title_send_settings">Advanced</string>
   <string name="title_activity_barcode">Barcode Scan</string>
