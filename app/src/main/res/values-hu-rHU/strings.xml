@@ -51,8 +51,8 @@
   <string name="yes_continue">Igen, folytatom</string>
   <string name="no_repeat">Nem, visszalépek</string>
   <string name="skip">Kihagyás</string>
-  <string name="root_title">DEVICE SECURITY COMPROMISED</string>
-  <string name="root_body">Any \'rooted\' app can access AppCoins Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
+  <string name="root_title">ALACSONY BIZTONSÁGÚ ESZKÖZ</string>
+  <string name="root_body">Bármilyen root jogokkal rendelkező app hozzáférhet az AppCoins Wallet keychain-adataihoz, így el is lophatja azokat! Azonnal töröld ezt a pénztárcát, majd állítsd vissza egy biztonságos eszközön.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
   <string name="buying">Buying %s</string>
   <string name="action_buy">Buy</string>
