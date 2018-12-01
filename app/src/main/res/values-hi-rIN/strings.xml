@@ -98,8 +98,8 @@
   <string name="intro_title_first_page">AppCoins BDS Wallet</string>
   <string name="intro_title_second_page"><![CDATA[निजी एवं सुरक्षित]]></string>
   <string name="intro_title_third_page">सरल एवं आसान</string>
-  <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
-  <string name="intro_message_second_page">Private keys never leave your device.</string>
+  <string name="intro_message_first_page">एप्प अर्थव्यवस्था की क्रांति में आपका स्वागत है।</string>
+  <string name="intro_message_second_page">निजी कुंजी कभी भी आपकी डिवाइस नहीं छोड़ती।</string>
   <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
   <!-- Menus -->
   <!-- Labels -->
