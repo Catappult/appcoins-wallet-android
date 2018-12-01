@@ -81,42 +81,42 @@
   <string name="hint_keystore">Keystore *</string>
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
-  <string name="tab_private_key">Private key</string>
+  <string name="tab_private_key">Ιδιωτικό κλειδί</string>
   <!-- Dialog titles -->
-  <string name="title_dialog_error">Error</string>
-  <string name="title_dialog_handling">Processing…</string>
-  <string name="title_dialog_add_account">Add wallet</string>
+  <string name="title_dialog_error">Σφάλμα</string>
+  <string name="title_dialog_handling">Επεξεργασία…</string>
+  <string name="title_dialog_add_account">Προσθήκη wallet</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Set a password to encrypt your wallet</string>
-  <string name="toast_message_wallet_imported">The wallet was imported</string>
-  <string name="toast_message_wallet_exported">A backup was created</string>
-  <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
+  <string name="dialog_message">Ορίστε έναν κωδικό πρόσβασης για το κρυπτογραφήστε το wallet σας</string>
+  <string name="toast_message_wallet_imported">Πραγματοποιήθηκε εισαγωγή του wallet</string>
+  <string name="toast_message_wallet_exported">Δημιουργήθηκε αντίγραφο ασφαλείας</string>
+  <string name="toast_qr_code_no_address">Ο κωδικός QR δεν περιέχει μία έγκυρη διεύθυνση</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins BDS Wallet</string>
-  <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
-  <string name="intro_title_third_page">Simple &amp; Easy</string>
-  <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
-  <string name="intro_message_second_page">Private keys never leave your device.</string>
+  <string name="intro_title_second_page"><![CDATA[Ιδιωτικό & Ασφαλές]]></string>
+  <string name="intro_title_third_page">Απλό &amp; Εύκολο</string>
+  <string name="intro_message_first_page">Καλώς ήρθατε στην επανάσταση της οικονομίας των εφαρμογών.</string>
+  <string name="intro_message_second_page">Τα ιδιωτικά κλειδιά δε θα φύγουν ποτέ από τη συσκευή σας.</string>
   <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
   <!-- Menus -->
   <!-- Labels -->
-  <string name="label_from">From</string>
-  <string name="label_to">To</string>
-  <string name="label_gas_limit">Gas Limit</string>
-  <string name="label_gas_price">Gas Price</string>
-  <string name="label_network_fee">Network Fee</string>
+  <string name="label_from">Από</string>
+  <string name="label_to">Προς</string>
+  <string name="label_gas_limit">Όριο Gas</string>
+  <string name="label_gas_price">Τιμή Gas</string>
+  <string name="label_network_fee">Χρέωση Δικτύου</string>
   <string name="button_ok">OK</string>
-  <string name="hint_recipient_address">Recipient Address</string>
-  <string name="hint_amount">Amount</string>
-  <string name="hint_amount_with_token">Amount %s</string>
+  <string name="hint_recipient_address">Διεύθυνση Παραλήπτη</string>
+  <string name="hint_amount">Ποσό</string>
+  <string name="hint_amount_with_token">Ποσό %s</string>
   <string name="hint_contract_address">Contract address</string>
-  <string name="hint_contract_symbol">Symbol</string>
-  <string name="hint_contract_decimals">Decimals</string>
-  <string name="button_cancel">CANCEL</string>
-  <string name="button_yes">YES</string>
+  <string name="hint_contract_symbol">Σύμβολο</string>
+  <string name="hint_contract_decimals">Δεκαδικά ψηφία</string>
+  <string name="button_cancel">ΑΚΥΡΟ</string>
+  <string name="button_yes">ΝΑΙ</string>
   <!-- Subtitles -->
   <string name="subtitle_from">Από</string>
   <string name="subtitle_gas_fee">Χρέωση</string>
