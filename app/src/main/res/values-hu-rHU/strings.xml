@@ -47,10 +47,10 @@
   <string name="title_tokens">Saját tokenek</string>
   <string name="unlock_screen_title_android">Képernyő feloldása</string>
   <string name="unlock_screen_prompt_android">A folytatáshoz kérjük oldd fel Androidos eszközödet.</string>
-  <string name="do_manage_make_backup">Did you successfully make a backup?</string>
-  <string name="yes_continue">Yes, continue</string>
-  <string name="no_repeat">No, repeat</string>
-  <string name="skip">Skip</string>
+  <string name="do_manage_make_backup">Készítettél biztonsági másolatot?</string>
+  <string name="yes_continue">Igen, folytatom</string>
+  <string name="no_repeat">Nem, visszalépek</string>
+  <string name="skip">Kihagyás</string>
   <string name="root_title">DEVICE SECURITY COMPROMISED</string>
   <string name="root_body">Any \'rooted\' app can access AppCoins Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
