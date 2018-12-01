@@ -54,36 +54,36 @@
   <string name="root_title">ALACSONY BIZTONSÁGÚ ESZKÖZ</string>
   <string name="root_body">Bármilyen root jogokkal rendelkező app hozzáférhet az AppCoins Wallet keychain-adataihoz, így el is lophatja azokat! Azonnal töröld ezt a pénztárcát, majd állítsd vissza egy biztonságos eszközön.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
-  <string name="buying">Buying %s</string>
-  <string name="action_buy">Buy</string>
+  <string name="buying">Vásárlás: %s</string>
+  <string name="action_buy">Vásárlás</string>
   <string name="empty"></string>
-  <string name="try_again">Try again</string>
-  <string name="already_have_account">Already have a wallet?</string>
-  <string name="action_create_new_account">Create new wallet</string>
-  <string name="unknown_error">An error has occurred.</string>
-  <string name="action_backup_wallet">Backup Wallet</string>
-  <string name="no_tokens">You haven\'t added any custom token yet.</string>
-  <string name="title_email">Email us</string>
-  <string name="action_donate">Donate</string>
+  <string name="try_again">Próbáld újra</string>
+  <string name="already_have_account">Már van pénztárcád?</string>
+  <string name="action_create_new_account">Új pénztárca létrehozása</string>
+  <string name="unknown_error">Hiba történt.</string>
+  <string name="action_backup_wallet">Biztonsági mentés készítése</string>
+  <string name="no_tokens">Még nem adtál meg egyéni tokeneket.</string>
+  <string name="title_email">E-mailes kapcsolat</string>
+  <string name="action_donate">Adományozás</string>
   <!-- Titles -->
-  <string name="title_my_address">Receive</string>
-  <string name="title_my_tokens">My Tokens</string>
-  <string name="title_activity_send">Send</string>
-  <string name="title_activity_confirmation">Confirm</string>
-  <string name="title_add_token">Add Custom Token</string>
+  <string name="title_my_address">Fogadás</string>
+  <string name="title_my_tokens">Saját tokenek</string>
+  <string name="title_activity_send">Küldés</string>
+  <string name="title_activity_confirmation">Megerősítés</string>
+  <string name="title_add_token">Egyéni token hozzáadása</string>
   <string name="title_airdrop">Airdrop</string>
   <!-- Suggestions -->
-  <string name="suggestion_private_key">Private key has to be 64 characters long</string>
-  <string name="suggestion_empty_password_available">The password can be left blank.</string>
-  <string name="suggestion_this_is_your_address">My public %s wallet address</string>
+  <string name="suggestion_private_key">A privát kulcsnak 64 karakterből kell állnia</string>
+  <string name="suggestion_empty_password_available">A jelszó mező üresen hagyható.</string>
+  <string name="suggestion_this_is_your_address">Nyilvános %s tárcám címe</string>
   <!-- Hints -->
-  <string name="hint_private_key_field">Private key *</string>
+  <string name="hint_private_key_field">Privát kulcs *</string>
   <string name="hint_keystore">Keystore *</string>
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
-  <string name="tab_private_key">Private key</string>
+  <string name="tab_private_key">Privát kulcs</string>
   <!-- Dialog titles -->
-  <string name="title_dialog_error">Error</string>
+  <string name="title_dialog_error">Hiba</string>
   <string name="title_dialog_handling">Processing…</string>
   <string name="title_dialog_add_account">Add wallet</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
