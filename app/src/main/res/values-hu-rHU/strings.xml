@@ -5,7 +5,7 @@
   <string name="title_send">Küldés</string>
   <string name="title_send_with_token">%s küldése</string>
   <string name="title_request">Fogadás</string>
-  <string name="title_import">Pénztárca importálása</string>
+  <string name="title_import">Tárca importálása</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Jelszó</string>
   <string name="action_sign_in_short">Create</string>
@@ -14,7 +14,7 @@
   <string name="action_send">Küldés</string>
   <string name="error_field_required">Kitöltése kötelező</string>
   <string name="action_settings">Beállítások</string>
-  <string name="title_account_list">Pénztárcák</string>
+  <string name="title_account_list">Tárcák</string>
   <string name="cancel">mégse</string>
   <string name="confirm_delete_account">Győződj meg róla, hogy van biztonsági mentésed erről a tárcáról.</string>
   <string name="action_import">Importálás</string>
@@ -27,7 +27,7 @@
   <string name="no_camera_permission">Az AppCoins BDS Wallet engedélyt kér a kamera használatára, hogy QR-kódokat tudjon beolvasni.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Érvénytelen formátumú Qr-kód: %s</string>
-  <string name="title_delete_account">Biztos törlöd ezt a pénztárcát?</string>
+  <string name="title_delete_account">Biztos törlöd ezt a tárcát?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Telegram csoport</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -37,10 +37,10 @@
   <string name="title_report_bug">Hibabejelentés</string>
   <string name="title_support">Támogatás</string>
   <string name="error_import">Keystore importálása sikertelen</string>
-  <string name="message_this_is_your_address">Saját nyilvános Ethereum pénztárca-címed</string>
-  <string name="backup_warning_text">Mivel a pénzedet kizárólagosan te kezeled, nagyon erősen ajánljuk, hogy készíts biztonsági mentése keystore-odról. \n\nErre azért van szükség, mert pénztárcádat sose mentjük felhőbe vagy az eszközöd hagyományos biztonsági mentéseibe, így az app törlése esetén elveszhet.</string>
+  <string name="message_this_is_your_address">Saját nyilvános Ethereum tárca-címed</string>
+  <string name="backup_warning_text">Mivel a pénzedet kizárólagosan te kezeled, nagyon erősen ajánljuk, hogy készíts biztonsági mentést keystore-odról. \n\nErre azért van szükség, mert tárcádat sose mentjük felhőbe vagy az eszközöd hagyományos biztonsági mentéseibe, így az app törlése esetén elveszhet.</string>
   <string name="message_no_backup">Készíts biztonsági mentést</string>
-  <string name="error_deleting_account">Hiba a pénztárca törlése közben</string>
+  <string name="error_deleting_account">Hiba a tárca törlése közben</string>
   <string name="title_privacy_policy">Adatvédelmi szabályzat</string>
   <string name="title_terms">Általános szerződési feltételek</string>
   <string name="title_version">Verzió</string>
@@ -52,14 +52,14 @@
   <string name="no_repeat">Nem, visszalépek</string>
   <string name="skip">Kihagyás</string>
   <string name="root_title">ALACSONY BIZTONSÁGÚ ESZKÖZ</string>
-  <string name="root_body">Bármilyen root jogokkal rendelkező app hozzáférhet az AppCoins Wallet keychain-adataihoz, így el is lophatja azokat! Azonnal töröld ezt a pénztárcát, majd állítsd vissza egy biztonságos eszközön.</string>
+  <string name="root_body">Bármilyen root jogokkal rendelkező app hozzáférhet az AppCoins Wallet keychain-adataihoz, így el is lophatja azokat! Azonnal töröld ezt a tárcát, majd állítsd vissza egy biztonságos eszközön.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
   <string name="buying">Vásárlás: %s</string>
   <string name="action_buy">Vásárlás</string>
   <string name="empty"></string>
   <string name="try_again">Próbáld újra</string>
-  <string name="already_have_account">Már van pénztárcád?</string>
-  <string name="action_create_new_account">Új pénztárca létrehozása</string>
+  <string name="already_have_account">Már van tárcád?</string>
+  <string name="action_create_new_account">Új tárca létrehozása</string>
   <string name="unknown_error">Hiba történt.</string>
   <string name="action_backup_wallet">Biztonsági mentés készítése</string>
   <string name="no_tokens">Még nem adtál meg egyéni tokeneket.</string>
