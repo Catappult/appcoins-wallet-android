@@ -140,7 +140,7 @@
   <string name="transaction_succeeded">Transakcija je uspela</string>
   <string name="NA">/</string>
   <string name="error_wallet_not_selected">Novčanik nije izabran</string>
-  <string name="no_transactions_yet">Nabavite malo APPC za testiranje da biste videli kako funkcioniše plaćanje pomoću AppCoins</string>
+  <string name="no_transactions_yet">Dobijte malo APPC za testiranje da biste videli kako funkcioniše plaćanje pomoću AppCoins</string>
   <string name="no_transactions_yet_main">Još nema transakcija!</string>
   <string name="unknown_balance_with_symbol">-- ETH</string>
   <string name="unknown_balance_without_symbol">--</string>
@@ -149,9 +149,9 @@
   <string name="title_dialog_sending">Slanje...</string>
   <string name="welcome.erc20.label.title">Kompatibilan sa ERC20</string>
   <string name="welcome.erc20.label.description">Podrazumevano podržava ERC20 tokene.</string>
-  <string name="scan_qr">Preuzmite adresu sa QR koda</string>
+  <string name="scan_qr">Preuzmite adresu iz QR koda</string>
   <string name="info_gas_price">Što je cena gasa viša, naknada za vašu transakciju će biti skuplja, ali će Ethereum mreža brže obraditi transakciju.</string>
-  <string name="info_gas_limit">Ograničenje gasa sprečava da vam pametni ugovori potroše ceo Ethereum. Pokušaćemo da vam automatski izračunamo ograničenje gasa, ali za neke pametne ugovore biće vam potrebno prilagođeno ograničenje gasa.</string>
+  <string name="info_gas_limit">Ograničenje gasa sprečava da vam pametni ugovori potroše sve Ethereume. Pokušaćemo da vam automatski izračunamo ograničenje gasa, ali za neke pametne ugovore biće vam potrebno prilagođeno ograničenje gasa.</string>
   <string name="title_send_settings">Napredno</string>
   <string name="title_activity_barcode">Skeniranje bar-koda</string>
   <string name="error_add_token">Dodavanje tokena nije uspelo.</string>
@@ -165,7 +165,7 @@
   <string name="token_name">%1$s (%2$s)</string>
   <string name="new_transaction_value">-%1$s %2$s</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">Razdvojili smo Trust Wallet za Android projekat za podizanje razvoja novčanika za AppCoins. Smatramo da je to najbolje rešenje u odnosu na već implementirane funkcije. Razdvojili smo ga u nameri da bismo mogli da izvršimo dodatne implementacije i radove koje budemo smatrali potrebnim.</string>
+  <string name="settings_fragment_credits">Razdvojili smo Trust Wallet za Android projekat za podizanje razvoja novčanika za AppCoins. Smatramo da je to najbolje rešenje u odnosu na već implementirane funkcije. Razdvojili smo ga u nameri da izvršimo dodatne implementacije i radove koje budemo smatrali potrebnim.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">Transakcija je u toku</string>
   <string name="activity_aib_loading_message">Ovo će možda malo potrajati…</string>
