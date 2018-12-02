@@ -22,7 +22,7 @@
   <string name="close">Κλείσιμο</string>
   <string name="title_activity_settings">Ρυθμίσεις</string>
   <string name="network_label">Δίκτυο</string>
-  <string name="credits">Credits</string>
+  <string name="credits">Σχετικά με εμάς</string>
   <string name="low_storage_error">Ο αποθηκευτικός χώρος δεν είναι επαρκής</string>
   <string name="no_camera_permission">Το AppCoins BDS Wallet χρειάζεται άδεια πρόσβασης στην κάμερα για τη σάρωση κωδικών QR.</string>
   <string name="ok">Ok</string>
@@ -39,7 +39,7 @@
   <string name="error_import">Σφάλμα κατά την εισαγωγή keystore</string>
   <string name="message_this_is_your_address">Η δημόσια διεύθυνσή μου Ethereum wallet</string>
   <string name="backup_warning_text">Καθώς μόνο εσείς διαχειρίζεστε τα χρήματά σας, θα πρέπει να αποθηκεύσετε ένα αντίγραφο ασφαλείας του keystore σας, σε περίπτωση που διαγραφεί αυτή η εφαρμογή.\n\nΤο wallet σας δεν αποθηκεύεται ποτέ στο cloud ή στα συνηθισμένα αντίγραφα ασφαλείας της συσκευής.</string>
-  <string name="message_no_backup">No backup, no Ethereum</string>
+  <string name="message_no_backup">Χωρίς backup, δεν υπάρχει Ethereum</string>
   <string name="error_deleting_account">Σφάλμα κατά τη διαγραφή του wallet</string>
   <string name="title_privacy_policy">Πολιτική Απορρήτου</string>
   <string name="title_terms">Όροι και Προϋποθέσεις</string>
@@ -112,7 +112,7 @@
   <string name="hint_recipient_address">Διεύθυνση Παραλήπτη</string>
   <string name="hint_amount">Ποσό</string>
   <string name="hint_amount_with_token">Ποσό %s</string>
-  <string name="hint_contract_address">Contract address</string>
+  <string name="hint_contract_address">Διεύθυνση συμβολαίου</string>
   <string name="hint_contract_symbol">Σύμβολο</string>
   <string name="hint_contract_decimals">Δεκαδικά ψηφία</string>
   <string name="button_cancel">ΑΚΥΡΟ</string>
@@ -225,7 +225,7 @@
   <string name="activity_airdrop_wrong_captcha">Λάθος captcha</string>
   <string name="activity_airdrop_ok">ok</string>
   <string name="activity_airdrop_message_title">Airdrop</string>
-  <string name="activity_airdrop_success_message">Airdrop completed</string>
+  <string name="activity_airdrop_success_message">Το Airdrop ολοκληρώθηκε</string>
   <string name="activity_airdrop_generic_error_message">Παρουσιάστηκε ένα σφάλμα</string>
   <string name="notification_generic_error">@string/unknown_error</string>
   <string name="iab_activity_micro_raiden_wallet">Wallet</string>
