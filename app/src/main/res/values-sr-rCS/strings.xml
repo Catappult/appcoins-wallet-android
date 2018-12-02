@@ -58,11 +58,11 @@
   <string name="action_buy">Kupi</string>
   <string name="empty"></string>
   <string name="try_again">Pokušaj ponovo</string>
-  <string name="already_have_account">Already have a wallet?</string>
-  <string name="action_create_new_account">Create new wallet</string>
-  <string name="unknown_error">An error has occurred.</string>
-  <string name="action_backup_wallet">Backup Wallet</string>
-  <string name="no_tokens">You haven\'t added any custom token yet.</string>
+  <string name="already_have_account">Već imate novčanik?</string>
+  <string name="action_create_new_account">Napravite novi novčanik</string>
+  <string name="unknown_error">Došlo je do greške.</string>
+  <string name="action_backup_wallet">Napravite rezervnu kopiju novčanika</string>
+  <string name="no_tokens">Još niste dodali nijedan prilagođeni token.</string>
   <string name="title_email">Email us</string>
   <string name="action_donate">Donate</string>
   <!-- Titles -->
@@ -256,7 +256,7 @@
   <string name="gamification_a_galaxy_title">a Galaxy</string>
   <string name="gamification_a_comet_subtitle">Be careful and don\'t hit a planet!</string>
   <string name="gamification_a_moon_subtitle">A natural satellite</string>
-  <string name="gamification_planet_subtitle">Spinning around a big star</string>
-  <string name="gamification_star_subtitle">Shinny, big and full of life!</string>
-  <string name="gamification_galaxy_subtitle">The biggest system out there!</string>
+  <string name="gamification_planet_subtitle">Okreće se oko velike zvezde</string>
+  <string name="gamification_star_subtitle">Sjajan, veliki i pun života!</string>
+  <string name="gamification_galaxy_subtitle">Najveći sistem koji postoji!</string>
 </resources>
