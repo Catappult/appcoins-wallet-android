@@ -104,7 +104,7 @@
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Kimden</string>
-  <string name="label_to">Kime</string>
+  <string name="label_to">Adres</string>
   <string name="label_gas_limit">Petrol Limiti</string>
   <string name="label_gas_price">Petrol Fiyatı</string>
   <string name="label_network_fee">Ağ Ücreti</string>
@@ -165,7 +165,7 @@
   <string name="token_name">%1$s (%2$s)</string>
   <string name="new_transaction_value">-%1$s %2$s</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the AppCoins wallet development. We considered it the best alternative regarding already implemented functionalities. We forked it with the intention of contributing back with implementations and work that would be considered relevant.</string>
+  <string name="settings_fragment_credits">AppCoins cüzdan geliştirmesinin özyüklemesini yapmak amacıyla Android projesi için Güven Cüzdanını çatalladık. Halihazırda uygulanan işlevlerle ilgili olarak bunu en iyi alternatif olarak kabul ettik. Uygulamalara geri katkıda bulunma niyetiyle çatalladık ve bunun ilgili kabul edileceği yönünde çalışıyoruz.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">İşlem yapılıyor</string>
   <string name="activity_aib_loading_message">Bu biraz zaman alabilir…</string>
