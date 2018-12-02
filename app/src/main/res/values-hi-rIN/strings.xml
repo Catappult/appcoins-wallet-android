@@ -103,8 +103,8 @@
   <string name="intro_message_third_page">APPC में अपने सभी इन-एप्प भुगतानों एवं पुरस्कारों को संसाधित करें।</string>
   <!-- Menus -->
   <!-- Labels -->
-  <string name="label_from">From</string>
-  <string name="label_to">To</string>
+  <string name="label_from">से</string>
+  <string name="label_to">को</string>
   <string name="label_gas_limit">गैस सीमा</string>
   <string name="label_gas_price">गैस मूल्य</string>
   <string name="label_network_fee">नेटवर्क शुल्क</string>
@@ -118,7 +118,7 @@
   <string name="button_cancel">रद्द करें</string>
   <string name="button_yes">हाँ</string>
   <!-- Subtitles -->
-  <string name="subtitle_from">From</string>
+  <string name="subtitle_from">से</string>
   <string name="subtitle_gas_fee">शुल्क</string>
   <string name="subtitle_transaction_num">लेनदेन</string>
   <!-- Actions -->
@@ -212,16 +212,16 @@
   <string name="transaction_status_label">स्थिति</string>
   <string name="transaction_category_label">श्रेणी</string>
   <string name="transaction_details_label">विवरण</string>
-  <string name="transaction_to_label">To</string>
+  <string name="transaction_to_label">को</string>
   <string name="dialog_credit_card_remember">कार्ड याद रखें</string>
-  <string name="notification_payment_refused">Payment Refused</string>
-  <string name="dialog_credit_card_number">Card Number</string>
-  <string name="dialog_credit_card_expiration">Expiration Date</string>
-  <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
-  <string name="activity_airdrop_details">This is just a security thing.</string>
-  <string name="activity_airdrop_hint">Type the words in the image</string>
-  <string name="activity_airdrop_submit_btn">Submit</string>
+  <string name="notification_payment_refused">भुगतान अस्वीकृत</string>
+  <string name="dialog_credit_card_number">कार्ड नंबर</string>
+  <string name="dialog_credit_card_expiration">समाप्ति तिथि</string>
+  <string name="dialog_credit_card_cvv">सीवीवी</string>
+  <string name="activity_airdrop_title">AppCoins प्राप्त करने के लिए पुष्टि करें कि आप एक मानव हैं</string>
+  <string name="activity_airdrop_details">यह केवल एक सुरक्षा की बात है।</string>
+  <string name="activity_airdrop_hint">छवि में दिए गए शब्द लिखें</string>
+  <string name="activity_airdrop_submit_btn">जमा करें</string>
   <string name="activity_airdrop_wrong_captcha">Wrong captcha</string>
   <string name="activity_airdrop_ok">ok</string>
   <string name="activity_airdrop_message_title">Airdrop</string>
