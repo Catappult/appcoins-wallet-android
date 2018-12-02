@@ -38,7 +38,7 @@
   <string name="title_support">Podrška</string>
   <string name="error_import">Greška pri uvozu skladišta ključeva</string>
   <string name="message_this_is_your_address">Javna adresa mog Ethereum novčanika</string>
-  <string name="backup_warning_text">Pošto samo vi kontrolišete svoj novac, moraćete da napravite rezervnu kopiju svog skladišta ključeva za slučaj da ova aplikacija bude izbrisana.\n\nVaš novčanik se nikad ne čuva u memoriji na oblaku ili kao standardna rezervna kopija sa uređaja.</string>
+  <string name="backup_warning_text">Pošto samo vi kontrolišete svoj novac, moraćete da sačuvate rezervnu kopiju svog skladišta ključeva za slučaj da ova aplikacija bude izbrisana.\n\nVaš novčanik se nikad ne čuva u memoriji na oblaku ili kao standardna rezervna kopija sa uređaja.</string>
   <string name="message_no_backup">Bez rezervne kopije, ništa od Ethereuma</string>
   <string name="error_deleting_account">Greška prilikom brisanja novčanika</string>
   <string name="title_privacy_policy">Smernice za privatnost</string>
