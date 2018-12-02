@@ -177,6 +177,8 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     presenter.present(extras.getString(TRANSACTION_DATA),
         ((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue(),
         extras.getString(TRANSACTION_CURRENCY));
+
+    showLoading();
   }
 
   @Override public void onDestroyView() {
@@ -232,6 +234,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     itemPrice.setText(valueText);
     itemFinalPrice.setText(spannable, TextView.BufferType.SPANNABLE);
     fiatValue = response;
+    buyButton.performClick();
     int buyButtonText = isDonation? R.string.action_donate : R.string.action_buy;
     buyButton.setText(getResources().getString(buyButtonText));
 
@@ -250,6 +253,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
         .subscribe(__ -> {
         }, Throwable::printStackTrace));
     setupSubject.onNext(true);
+    hideLoading();
   }
 
   @Override public void showError() {
