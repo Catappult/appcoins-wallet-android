@@ -129,6 +129,8 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
         }, throwable -> {
           throwable.printStackTrace();
         });
+
+    buyButton.performClick();
   }
 
   @Override public void onStart() {
