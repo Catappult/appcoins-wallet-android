@@ -247,16 +247,16 @@
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">KAKO OVO FUNKCIONIŠE</string>
   <string name="gamification_how_header">Kako da pređem na viši nivo?</string>
-  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games</string>
-  <string name="gamification_how_spend">SPEND %s APPC</string>
-  <string name="gamification_a_comet_title">a Comet</string>
-  <string name="gamification_a_moon_title">a Moon</string>
-  <string name="gamification_a_planet_title">a Planet</string>
-  <string name="gamification_a_star_title">a Star</string>
-  <string name="gamification_a_galaxy_title">a Galaxy</string>
-  <string name="gamification_a_comet_subtitle">Be careful and don\'t hit a planet!</string>
-  <string name="gamification_a_moon_subtitle">A natural satellite</string>
+  <string name="gamification_how_body">Zaradićete APPC kredit kada kupujete u omiljenim aplikacijama i igrama</string>
+  <string name="gamification_how_spend">POTROŠITE %s APPC</string>
+  <string name="gamification_a_comet_title">Kometa</string>
+  <string name="gamification_a_moon_title">Mesec</string>
+  <string name="gamification_a_planet_title">Planeta</string>
+  <string name="gamification_a_star_title">Zvezda</string>
+  <string name="gamification_a_galaxy_title">Galaksija</string>
+  <string name="gamification_a_comet_subtitle">Budite pažljivi i nemojte da udarite u neku planetu!</string>
+  <string name="gamification_a_moon_subtitle">Prirodni satelit</string>
   <string name="gamification_planet_subtitle">Okreće se oko velike zvezde</string>
-  <string name="gamification_star_subtitle">Sjajan, veliki i pun života!</string>
+  <string name="gamification_star_subtitle">Sjajna, velika i puna života!</string>
   <string name="gamification_galaxy_subtitle">Najveći sistem koji postoji!</string>
 </resources>
