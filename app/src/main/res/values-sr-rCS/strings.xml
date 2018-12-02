@@ -222,11 +222,11 @@
   <string name="activity_airdrop_details">Ovo je samo iz bezbednosnih razloga.</string>
   <string name="activity_airdrop_hint">Unesite reči sa slike</string>
   <string name="activity_airdrop_submit_btn">Pošalji</string>
-  <string name="activity_airdrop_wrong_captcha">Wrong captcha</string>
-  <string name="activity_airdrop_ok">ok</string>
-  <string name="activity_airdrop_message_title">Airdrop</string>
-  <string name="activity_airdrop_success_message">Airdrop completed</string>
-  <string name="activity_airdrop_generic_error_message">An error has occurred</string>
+  <string name="activity_airdrop_wrong_captcha">Pogrešan znakovni test</string>
+  <string name="activity_airdrop_ok">u redu</string>
+  <string name="activity_airdrop_message_title">AirDrop</string>
+  <string name="activity_airdrop_success_message">AirDrop prenos je dovršen</string>
+  <string name="activity_airdrop_generic_error_message">Došlo je do greške</string>
   <string name="notification_generic_error">@string/unknown_error</string>
   <string name="iab_activity_micro_raiden_wallet">Wallet</string>
   <string name="iab_activity_raiden_channel_label">Create µRaiden channel</string>
@@ -236,17 +236,17 @@
   <string name="proceed">proceed</string>
   <string name="iab_activity_raiden_channel_no_funds_message">You don\'t have enough funds on your µRainden payment channel. Go to your wallet and close the channel to create a new one.  Do you still want to complete this purchase with a standard payment?</string>
   <string name="iab_activity_raiden_channel_no_funds_title">Payment Channel Funds</string>
-  <string name="spend_your_appcoins">Spend your AppCoins</string>
+  <string name="spend_your_appcoins">Potrošite AppCoins</string>
   <!-- Billing -->
-  <string name="action_skip_backup_wallet">SKIP BACKUP</string>
-  <string name="item_donation">Donation</string>
+  <string name="action_skip_backup_wallet">PRESKOČI PRAVLJENJE REZERVNE KOPIJE</string>
+  <string name="item_donation">Donacija</string>
   <!-- Gamification -->
-  <string name="gamification_level_title">What\'s My Level?</string>
-  <string name="gamification_level_header">Congrats, you\'re %s!</string>
-  <string name="gamification_level_earned">EARNED:</string>
+  <string name="gamification_level_title">Na kom sam nivou?</string>
+  <string name="gamification_level_header">Čestitamo, vi ste %s!</string>
+  <string name="gamification_level_earned">ZARAĐENO:</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
-  <string name="gamification_level_button_how">HOW IT WORKS</string>
-  <string name="gamification_how_header">How to Level Up?</string>
+  <string name="gamification_level_button_how">KAKO OVO FUNKCIONIŠE</string>
+  <string name="gamification_how_header">Kako da pređem na viši nivo?</string>
   <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games</string>
   <string name="gamification_how_spend">SPEND %s APPC</string>
   <string name="gamification_a_comet_title">a Comet</string>
