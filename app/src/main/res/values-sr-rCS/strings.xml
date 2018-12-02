@@ -254,7 +254,7 @@
   <string name="gamification_a_planet_title">Planeta</string>
   <string name="gamification_a_star_title">Zvezda</string>
   <string name="gamification_a_galaxy_title">Galaksija</string>
-  <string name="gamification_a_comet_subtitle">Budite pažljivi i nemojte da udarite u neku planetu!</string>
+  <string name="gamification_a_comet_subtitle">Budite pažljivi da ne udarite u neku planetu!</string>
   <string name="gamification_a_moon_subtitle">Prirodni satelit</string>
   <string name="gamification_planet_subtitle">Okreće se oko velike zvezde</string>
   <string name="gamification_star_subtitle">Sjajna, velika i puna života!</string>
