@@ -113,13 +113,13 @@
   <string name="hint_amount">राशि</string>
   <string name="hint_amount_with_token">राशि %s</string>
   <string name="hint_contract_address">अनुबंध पता</string>
-  <string name="hint_contract_symbol">Symbol</string>
-  <string name="hint_contract_decimals">Decimals</string>
-  <string name="button_cancel">CANCEL</string>
-  <string name="button_yes">YES</string>
+  <string name="hint_contract_symbol">चिह्न</string>
+  <string name="hint_contract_decimals">दशमलव</string>
+  <string name="button_cancel">रद्द करें</string>
+  <string name="button_yes">हाँ</string>
   <!-- Subtitles -->
   <string name="subtitle_from">From</string>
-  <string name="subtitle_gas_fee">Fee</string>
+  <string name="subtitle_gas_fee">शुल्क</string>
   <string name="subtitle_transaction_num">लेनदेन</string>
   <!-- Actions -->
   <string name="action_more_details">अधिक</string>
@@ -184,13 +184,13 @@
   <string name="activity_iab_buying_message">विवरण जांचे गए \nआपकी वस्तु प्राप्त कर रहा है…</string>
   <string name="notification_ongoing_poa">आपका इनाम संसाधित कर रहा है</string>
   <string name="notification_completed_poa">इनाम प्राप्त हुआ, मजा लें!</string>
-  <string name="notification_submitting_poa">Submitting your request to the blockchain</string>
+  <string name="notification_submitting_poa">ब्लॉकचैन को आपका अनुरोध जमा कर रहा है</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
-  <string name="notification_no_network_poa">No network connection</string>
-  <string name="notification_error_poa">An error has occurred</string>
-  <string name="notification_no_wallet_poa">Your wallet isn\'t configured yet</string>
-  <string name="notification_cancelled_poa">Reward cancelled</string>
-  <string name="notification_not_available_poa">This rewards campaign is no longer available</string>
+  <string name="notification_no_network_poa">कोई नेटवर्क कनेक्शन नहीं है</string>
+  <string name="notification_error_poa">एक त्रुटि उत्पन्न हुई है</string>
+  <string name="notification_no_wallet_poa">अभी तक आपके वॉलेट का विन्यास नहीं किया है</string>
+  <string name="notification_cancelled_poa">इनाम रद्द किया गया</string>
+  <string name="notification_not_available_poa">यह पुरस्कार अभियान अब उपलब्ध नहीं है</string>
   <string name="notification_not_available_for_country_poa">This rewards campaign isn\'t available in your country</string>
   <string name="notification_already_rewarded_poa">You were already rewarded in this campaign</string>
   <string name="notification_submit_error_poa">Sorry, there was an error. Try again!</string>
