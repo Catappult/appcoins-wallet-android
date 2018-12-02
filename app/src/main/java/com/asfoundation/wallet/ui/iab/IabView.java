@@ -16,13 +16,13 @@ public interface IabView {
 
   void close(Bundle bundle);
 
-  void navigateToCreditCardAuthorization(boolean isBds, String currency);
+  void navigateToAdyenAuthorization(boolean isBds, String currency, String paymentType);
 
   void navigateToWebViewAuthorization(String url);
 
   void showOnChain(BigDecimal amount, boolean isBds);
 
-  void showCcPayment(BigDecimal amount, String currency, boolean isBds);
+  void showAdyenPayment(BigDecimal amount, String currency, boolean isBds, String paymentType);
 
   void showAppcoinsCreditsPayment(BigDecimal amount);
 

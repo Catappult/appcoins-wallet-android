@@ -275,9 +275,12 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         .subscribe(__ -> {
           switch (radioGroup.getCheckedRadioButtonId()) {
             case R.id.paypal:
+              iabView.showAdyenPayment(BigDecimal.valueOf(fiatValue.getAmount()), currency, isBds,
+                  com.adyen.core.models.PaymentMethod.Type.PAYPAL);
               break;
             case R.id.credit_card:
-              iabView.showCcPayment(BigDecimal.valueOf(fiatValue.getAmount()), currency, isBds);
+              iabView.showAdyenPayment(BigDecimal.valueOf(fiatValue.getAmount()), currency, isBds,
+                  com.adyen.core.models.PaymentMethod.Type.CARD);
               break;
             case R.id.appc:
 

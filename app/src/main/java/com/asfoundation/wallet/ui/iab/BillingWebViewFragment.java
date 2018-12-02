@@ -121,8 +121,10 @@ public class BillingWebViewFragment extends DaggerFragment {
         super.onPageFinished(view, url);
 
         if (!url.contains("/redirect")) {
-          timeoutReference.getAndSet(null)
-              .cancel(false);
+          ScheduledFuture<?> timeout = timeoutReference.getAndSet(null);
+          if (timeout != null) {
+            timeout.cancel(false);
+          }
           webView.setVisibility(View.VISIBLE);
         }
       }

@@ -73,6 +73,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   @Inject BdsRepository bdsRepository;
   @Inject BdsApiSecondary BdsApiSecondary;
   @Inject Billing billing;
+  @Inject BillingAnalytics analytics;
   private Bundle extras;
   private PublishRelay<Snackbar> buyButtonClick;
   private IabView iabView;
@@ -94,13 +95,15 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   private PublishSubject<Boolean> setupSubject;
   private View processingDialog;
   private TextView walletAddressView;
-  @Inject BillingAnalytics analytics;
+  private String paymentType;
 
-  public static ExpressCheckoutBuyFragment newInstance(Bundle extras, boolean isBds) {
+  public static ExpressCheckoutBuyFragment newInstance(Bundle extras, boolean isBds,
+      String paymentType) {
     ExpressCheckoutBuyFragment fragment = new ExpressCheckoutBuyFragment();
     Bundle bundle = new Bundle();
     bundle.putBundle("extras", extras);
     bundle.putBoolean("isBds", isBds);
+    bundle.putString("paymentType", paymentType);
     fragment.setArguments(bundle);
     return fragment;
   }
@@ -122,6 +125,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     String uriString = extras.getString(TRANSACTION_DATA);
 
     boolean isBds = getArguments().getBoolean("isBds");
+    paymentType = getArguments().getString("paymentType");
 
     presenter = new ExpressCheckoutBuyPresenter(this, getAppPackage(), inAppPurchaseInteractor,
         AndroidSchedulers.mainThread(), new CompositeDisposable(),
@@ -168,7 +172,8 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
         });
 
     buyButton.setOnClickListener(
-        v -> iabView.navigateToCreditCardAuthorization(presenter.isBds(), fiatValue.getCurrency()));
+        v -> iabView.navigateToAdyenAuthorization(presenter.isBds(), fiatValue.getCurrency(),
+            paymentType));
     presenter.present(extras.getString(TRANSACTION_DATA),
         ((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue(),
         extras.getString(TRANSACTION_CURRENCY));

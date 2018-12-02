@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import com.adyen.core.models.PaymentMethod;
 import com.appcoins.wallet.billing.util.PayloadHelper;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -124,11 +123,12 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     finish();
   }
 
-  @Override public void navigateToCreditCardAuthorization(boolean isBds, String currency) {
+  @Override
+  public void navigateToAdyenAuthorization(boolean isBds, String currency, String paymentType) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container,
             AdyenAuthorizationFragment.newInstance(transaction.getSkuId(), transaction.getType(),
-                isBds ? BDS : null, PaymentMethod.Type.CARD, transaction.getDomain(),
+                isBds ? BDS : null, paymentType, transaction.getDomain(),
                 getIntent().getDataString(), transaction.amount(), currency))
         .commit();
   }
@@ -156,11 +156,12 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     }
   }
 
-  @Override public void showCcPayment(BigDecimal amount, String currency, boolean isBds) {
+  @Override public void showAdyenPayment(BigDecimal amount, String currency, boolean isBds,
+      String paymentType) {
     if (savedInstanceState == null) {
       getSupportFragmentManager().beginTransaction()
           .replace(R.id.fragment_container, ExpressCheckoutBuyFragment.newInstance(
-              createBundle(BigDecimal.valueOf(amount.doubleValue()), currency), isBds))
+              createBundle(BigDecimal.valueOf(amount.doubleValue()), currency), isBds, paymentType))
           .commit();
     }
   }
