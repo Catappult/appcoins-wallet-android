@@ -283,9 +283,10 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
                   com.adyen.core.models.PaymentMethod.Type.CARD);
               break;
             case R.id.appc:
-
+              iabView.showOnChain(BigDecimal.valueOf(fiatValue.getAmount()), isBds);
               break;
             case R.id.appc_credits:
+              iabView.showAppcoinsCreditsPayment(BigDecimal.valueOf(fiatValue.getAmount()));
               break;
             default:
               throw new NotImplementedError();

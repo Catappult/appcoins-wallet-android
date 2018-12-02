@@ -146,10 +146,9 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   }
 
   @Override public void showOnChain(BigDecimal amount, boolean isBds) {
-    if (savedInstanceState == null && getSupportFragmentManager().getFragments()
-        .isEmpty()) {
+    if (savedInstanceState == null) {
       getSupportFragmentManager().beginTransaction()
-          .add(R.id.fragment_container, OnChainBuyFragment.newInstance(createBundle(amount),
+          .replace(R.id.fragment_container, OnChainBuyFragment.newInstance(createBundle(amount),
               getIntent().getData()
                   .toString(), isBds))
           .commit();
@@ -167,10 +166,9 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   }
 
   @Override public void showAppcoinsCreditsPayment(BigDecimal amount) {
-    if (savedInstanceState == null && getSupportFragmentManager().getFragments()
-        .isEmpty()) {
+    if (savedInstanceState == null) {
       getSupportFragmentManager().beginTransaction()
-          .add(R.id.fragment_container,
+          .replace(R.id.fragment_container,
               AppcoinsRewardsBuyFragment.newInstance(amount, transaction.getDomain(),
                   getIntent().getData()
                       .toString(), getIntent().getExtras()
