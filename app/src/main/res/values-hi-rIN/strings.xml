@@ -100,19 +100,19 @@
   <string name="intro_title_third_page">सरल एवं आसान</string>
   <string name="intro_message_first_page">एप्प अर्थव्यवस्था की क्रांति में आपका स्वागत है।</string>
   <string name="intro_message_second_page">निजी कुंजी कभी भी आपकी डिवाइस नहीं छोड़ती।</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
+  <string name="intro_message_third_page">APPC में अपने सभी इन-एप्प भुगतानों एवं पुरस्कारों को संसाधित करें।</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">From</string>
   <string name="label_to">To</string>
-  <string name="label_gas_limit">Gas Limit</string>
-  <string name="label_gas_price">Gas Price</string>
-  <string name="label_network_fee">Network Fee</string>
-  <string name="button_ok">OK</string>
-  <string name="hint_recipient_address">Recipient Address</string>
-  <string name="hint_amount">Amount</string>
-  <string name="hint_amount_with_token">Amount %s</string>
-  <string name="hint_contract_address">Contract address</string>
+  <string name="label_gas_limit">गैस सीमा</string>
+  <string name="label_gas_price">गैस मूल्य</string>
+  <string name="label_network_fee">नेटवर्क शुल्क</string>
+  <string name="button_ok">ठीक</string>
+  <string name="hint_recipient_address">प्राप्तकर्ता पता</string>
+  <string name="hint_amount">राशि</string>
+  <string name="hint_amount_with_token">राशि %s</string>
+  <string name="hint_contract_address">अनुबंध पता</string>
   <string name="hint_contract_symbol">Symbol</string>
   <string name="hint_contract_decimals">Decimals</string>
   <string name="button_cancel">CANCEL</string>
