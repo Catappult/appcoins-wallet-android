@@ -19,7 +19,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class PaymentMethodsPresenter {
-
   private final PaymentMethodsView view;
   private final Scheduler viewScheduler;
   private final Scheduler networkThread;
@@ -35,8 +34,7 @@ public class PaymentMethodsPresenter {
   private final Single<TransactionBuilder> transactionBuilder;
 
   public PaymentMethodsPresenter(PaymentMethodsView view, String appPackage,
-      Scheduler viewScheduler,
-      Scheduler networkThread, CompositeDisposable disposables,
+      Scheduler viewScheduler, Scheduler networkThread, CompositeDisposable disposables,
       InAppPurchaseInteractor inAppPurchaseInteractor, BillingMessagesMapper billingMessagesMapper,
       BdsPendingTransactionService bdsPendingTransactionService, Billing billing,
       BillingAnalytics analytics, boolean isBds, Single<TransactionBuilder> transactionBuilder) {
@@ -171,7 +169,6 @@ public class PaymentMethodsPresenter {
             transactionBuilder.getSkuId(), transactionBuilder.amount()
                 .toString(), purchaseDetails, transactionBuilder.getType())));
   }
-
 
   public void stop() {
     disposables.clear();

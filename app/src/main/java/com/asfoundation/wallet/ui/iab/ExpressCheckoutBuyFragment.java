@@ -167,7 +167,8 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
           throwable.printStackTrace();
         });
 
-    buyButton.setOnClickListener(v -> iabView.navigateToCreditCardAuthorization(presenter.isBds()));
+    buyButton.setOnClickListener(
+        v -> iabView.navigateToCreditCardAuthorization(presenter.isBds(), fiatValue.getCurrency()));
     presenter.present(extras.getString(TRANSACTION_DATA),
         ((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue(),
         extras.getString(TRANSACTION_CURRENCY));

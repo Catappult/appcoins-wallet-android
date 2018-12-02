@@ -105,15 +105,20 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   private PublishRelay<Boolean> keyboardBuyRelay;
   private FragmentNavigator navigator;
 
-  public static AdyenAuthorizationFragment newInstance(Bundle skuDetails, String skuId, String type,
-      String origin, String paymentType) {
-
-    final AdyenAuthorizationFragment fragment = new AdyenAuthorizationFragment();
-    skuDetails.putString(SKU_ID, skuId);
-    skuDetails.putString(TYPE, type);
-    skuDetails.putString(ORIGIN, origin);
-    skuDetails.putString(PAYMENT_TYPE, paymentType);
-    fragment.setArguments(skuDetails);
+  public static AdyenAuthorizationFragment newInstance(String skuId, String type, String origin,
+      String paymentType, String domain, String transactionData, BigDecimal amount,
+      String currency) {
+    Bundle bundle = new Bundle();
+    bundle.putString(SKU_ID, skuId);
+    bundle.putString(TYPE, type);
+    bundle.putString(ORIGIN, origin);
+    bundle.putString(PAYMENT_TYPE, paymentType);
+    bundle.putString(APP_PACKAGE, domain);
+    bundle.putString(TRANSACTION_DATA, transactionData);
+    bundle.putSerializable(TRANSACTION_AMOUNT, amount);
+    bundle.putString(TRANSACTION_CURRENCY, currency);
+    AdyenAuthorizationFragment fragment = new AdyenAuthorizationFragment();
+    fragment.setArguments(bundle);
     return fragment;
   }
 

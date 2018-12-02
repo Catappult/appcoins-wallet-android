@@ -151,7 +151,7 @@
         app:layout_constraintTop_toBottomOf="@id/header_separator"
         >
       <RadioButton
-          android:id="@+id/radio_pirates"
+          android:id="@+id/paypal"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:drawablePadding="18dp"
@@ -269,6 +269,9 @@
 
   </android.support.constraint.ConstraintLayout>
 
-  <include layout="@layout/fragment_iab_error"/>
+  <include
+      layout="@layout/fragment_iab_error"
+      android:id="@+id/error_message"
+      />
 
 </RelativeLayout>

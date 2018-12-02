@@ -124,11 +124,12 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     finish();
   }
 
-  @Override public void navigateToCreditCardAuthorization(boolean isBds) {
+  @Override public void navigateToCreditCardAuthorization(boolean isBds, String currency) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container,
-            AdyenAuthorizationFragment.newInstance(skuDetails, transaction.getSkuId(),
-                transaction.getType(), isBds ? BDS : null, PaymentMethod.Type.CARD))
+            AdyenAuthorizationFragment.newInstance(transaction.getSkuId(), transaction.getType(),
+                isBds ? BDS : null, PaymentMethod.Type.CARD, transaction.getDomain(),
+                getIntent().getDataString(), transaction.amount(), currency))
         .commit();
   }
 
@@ -156,10 +157,9 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   }
 
   @Override public void showCcPayment(BigDecimal amount, String currency, boolean isBds) {
-    if (savedInstanceState == null && getSupportFragmentManager().getFragments()
-        .isEmpty()) {
+    if (savedInstanceState == null) {
       getSupportFragmentManager().beginTransaction()
-          .add(R.id.fragment_container, ExpressCheckoutBuyFragment.newInstance(
+          .replace(R.id.fragment_container, ExpressCheckoutBuyFragment.newInstance(
               createBundle(BigDecimal.valueOf(amount.doubleValue()), currency), isBds))
           .commit();
     }
@@ -181,14 +181,6 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   @Override public void showPaymentMethods(
       List<com.asfoundation.wallet.ui.iab.PaymentMethod> paymentMethods) {
 
-  }
-
-  void replaceFragment(TransactionBuilder builder, boolean isBds, String paymentType) {
-    getSupportFragmentManager().beginTransaction()
-        .replace(R.id.fragment_container,
-            AdyenAuthorizationFragment.newInstance(skuDetails, builder.getSkuId(),
-                builder.getType(), (isBds() || isBds) ? BDS : null, paymentType))
-        .commit();
   }
 
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {

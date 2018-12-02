@@ -16,7 +16,7 @@ public interface IabView {
 
   void close(Bundle bundle);
 
-  void navigateToCreditCardAuthorization(boolean isBds);
+  void navigateToCreditCardAuthorization(boolean isBds, String currency);
 
   void navigateToWebViewAuthorization(String url);
 

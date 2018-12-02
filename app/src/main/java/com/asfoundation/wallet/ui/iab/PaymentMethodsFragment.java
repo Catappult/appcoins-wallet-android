@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.WalletService;
@@ -41,6 +42,7 @@ import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
 import javax.inject.Inject;
+import kotlin.NotImplementedError;
 import org.jetbrains.annotations.NotNull;
 
 import static com.asfoundation.wallet.billing.analytics.BillingAnalytics.PAYMENT_METHOD_CC;
@@ -84,6 +86,9 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private TextView appSkuDescriptionTv;
   private TextView walletAddressTv;
   private String productName;
+  private static final String DEFAULT_CURRENCY = "EUR";
+  private RadioGroup radioGroup;
+  private FiatValue fiatValue;
 
   public static Fragment newInstance(TransactionBuilder transaction, String currency,
       String productName) {
@@ -114,12 +119,20 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     iabView = ((IabView) context);
   }
 
+  private boolean isBds;
+
+  @Nullable @Override
+  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+      @Nullable Bundle savedInstanceState) {
+    return inflater.inflate(R.layout.payment_methods_layout, container, false);
+  }
+
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     setupSubject = PublishSubject.create();
 
-    boolean isBds = getArguments().getBoolean("isBds");
+    isBds = getArguments().getBoolean("isBds");
     transaction = getArguments().getParcelable(TRANSACTION);
     transactionValue =
         ((BigDecimal) getArguments().getSerializable(TRANSACTION_AMOUNT)).doubleValue();
@@ -133,15 +146,23 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         analytics, isBds, Single.just(transaction));
   }
 
-  @Nullable @Override
-  public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-      @Nullable Bundle savedInstanceState) {
-    return inflater.inflate(R.layout.payment_methods_layout, container, false);
+  @Override public void onDestroyView() {
+    presenter.stop();
+    super.onDestroyView();
+    compositeDisposable.dispose();
+
+    cancelButton = null;
+  }
+
+  @Override public void onDetach() {
+    super.onDetach();
+    iabView = null;
   }
 
   @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
+    radioGroup = view.findViewById(R.id.payment_methods_radio_group);
     loadingView = view.findViewById(R.id.loading_view);
     dialog = view.findViewById(R.id.payment_methods);
     errorView = view.findViewById(R.id.error_message);
@@ -158,56 +179,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     walletAddressTv = view.findViewById(R.id.wallet_address_footer);
 
     presenter.present(transactionValue, currency, savedInstanceState);
-  }
-
-  @Override public void onDestroyView() {
-    presenter.stop();
-    super.onDestroyView();
-    compositeDisposable.dispose();
-
-    cancelButton = null;
-  }
-
-  @Override public void onDetach() {
-    super.onDetach();
-    iabView = null;
-  }
-
-  @Override
-  public void showPaymentMethods(@NotNull List<PaymentMethod> paymentMethods, FiatValue fiatValue,
-      boolean isDonation) {
-    Formatter formatter = new Formatter();
-    String valueText = formatter.format(Locale.getDefault(), "%(,.2f", transaction.amount())
-        .toString() + " APPC";
-    DecimalFormat decimalFormat = new DecimalFormat("0.00");
-    String currency = mapCurrencyCodeToSymbol(fiatValue.getCurrency());
-    String priceText = decimalFormat.format(fiatValue.getAmount()) + ' ' + currency;
-    String finalString = priceText;
-    Spannable spannable = new SpannableString(finalString);
-    spannable.setSpan(
-        new ForegroundColorSpan(getResources().getColor(R.color.dialog_buy_total_value)),
-        finalString.indexOf(priceText), finalString.indexOf(priceText) + priceText.length(),
-        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-    appcPriceTv.setText(valueText);
-    fiatPriceTv.setText(spannable, TextView.BufferType.SPANNABLE);
-    int buyButtonText = isDonation ? R.string.action_donate : R.string.action_buy;
-    buyButton.setText(getResources().getString(buyButtonText));
-
-    if (isDonation) {
-      appSkuDescriptionTv.setText(getResources().getString(R.string.item_donation));
-      appNameTv.setText(getResources().getString(R.string.item_donation));
-    } else if (productName != null) {
-      appNameTv.setText(String.format(getString(R.string.buying), productName));
-      appSkuDescriptionTv.setText(productName);
-    }
-
-    presenter.sendPurchaseDetails(PAYMENT_METHOD_CC);
-
-    compositeDisposable.add(walletService.getWalletAddress()
-        .doOnSuccess(address -> walletAddressTv.setText(address))
-        .subscribe(__ -> {
-        }, Throwable::printStackTrace));
-    setupSubject.onNext(true);
   }
 
   @Override public void showError() {
@@ -258,6 +229,65 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     dialog.setVisibility(View.GONE);
     loadingView.setVisibility(View.GONE);
     processingDialog.setVisibility(View.VISIBLE);
+  }
+
+  @Override
+  public void showPaymentMethods(@NotNull List<PaymentMethod> paymentMethods, FiatValue fiatValue,
+      boolean isDonation) {
+    this.fiatValue = fiatValue;
+    Formatter formatter = new Formatter();
+    String valueText = formatter.format(Locale.getDefault(), "%(,.2f", transaction.amount())
+        .toString() + " APPC";
+    DecimalFormat decimalFormat = new DecimalFormat("0.00");
+    String currency = mapCurrencyCodeToSymbol(fiatValue.getCurrency());
+    String priceText = decimalFormat.format(fiatValue.getAmount()) + ' ' + currency;
+    String finalString = priceText;
+    Spannable spannable = new SpannableString(finalString);
+    spannable.setSpan(
+        new ForegroundColorSpan(getResources().getColor(R.color.dialog_buy_total_value)),
+        finalString.indexOf(priceText), finalString.indexOf(priceText) + priceText.length(),
+        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    appcPriceTv.setText(valueText);
+    fiatPriceTv.setText(spannable, TextView.BufferType.SPANNABLE);
+    int buyButtonText = isDonation ? R.string.action_donate : R.string.action_buy;
+    buyButton.setText(getResources().getString(buyButtonText));
+
+    if (isDonation) {
+      appSkuDescriptionTv.setText(getResources().getString(R.string.item_donation));
+      appNameTv.setText(getResources().getString(R.string.item_donation));
+    } else if (productName != null) {
+      appNameTv.setText(String.format(getString(R.string.buying), productName));
+      appSkuDescriptionTv.setText(productName);
+    }
+
+    presenter.sendPurchaseDetails(PAYMENT_METHOD_CC);
+
+    compositeDisposable.add(walletService.getWalletAddress()
+        .doOnSuccess(address -> walletAddressTv.setText(address))
+        .subscribe(__ -> {
+        }, Throwable::printStackTrace));
+    setupPaymentMethods();
+    setupSubject.onNext(true);
+  }
+
+  private void setupPaymentMethods() {
+    compositeDisposable.add(RxView.clicks(buyButton)
+        .subscribe(__ -> {
+          switch (radioGroup.getCheckedRadioButtonId()) {
+            case R.id.paypal:
+              break;
+            case R.id.credit_card:
+              iabView.showCcPayment(BigDecimal.valueOf(fiatValue.getAmount()), currency, isBds);
+              break;
+            case R.id.appc:
+
+              break;
+            case R.id.appc_credits:
+              break;
+            default:
+              throw new NotImplementedError();
+          }
+        }));
   }
 
   public String mapCurrencyCodeToSymbol(String currencyCode) {
