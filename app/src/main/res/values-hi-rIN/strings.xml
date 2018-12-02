@@ -254,7 +254,7 @@
   <string name="gamification_a_planet_title">एक ग्रह</string>
   <string name="gamification_a_star_title">एक सितारा</string>
   <string name="gamification_a_galaxy_title">एक आकाशगंगा</string>
-  <string name="gamification_a_comet_subtitle">Be careful and don\'t hit a planet!</string>
+  <string name="gamification_a_comet_subtitle">सावधान रहें और किसी ग्रह से न टकराएँ!</string>
   <string name="gamification_a_moon_subtitle">एक प्राकृतिक उपग्रह</string>
   <string name="gamification_planet_subtitle">एक बड़े सितारे के चारों तरफ घूम रहा है</string>
   <string name="gamification_star_subtitle">चमकीला, बड़ा और जीवन से भरा हुआ!</string>
