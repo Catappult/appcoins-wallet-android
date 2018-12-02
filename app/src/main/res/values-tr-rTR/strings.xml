@@ -60,67 +60,67 @@
   <string name="try_again">Tekrar dene</string>
   <string name="already_have_account">Zaten cüzdanınız var mı?</string>
   <string name="action_create_new_account">Yeni cüzdan oluştur</string>
-  <string name="unknown_error">An error has occurred.</string>
-  <string name="action_backup_wallet">Backup Wallet</string>
-  <string name="no_tokens">You haven\'t added any custom token yet.</string>
-  <string name="title_email">Email us</string>
-  <string name="action_donate">Donate</string>
+  <string name="unknown_error">Bir hata oluştu.</string>
+  <string name="action_backup_wallet">Yedek Cüzdan</string>
+  <string name="no_tokens">Henüz özel jeton eklemediniz.</string>
+  <string name="title_email">Bize e-posta gönderin</string>
+  <string name="action_donate">Bağış yap</string>
   <!-- Titles -->
-  <string name="title_my_address">Receive</string>
-  <string name="title_my_tokens">My Tokens</string>
-  <string name="title_activity_send">Send</string>
-  <string name="title_activity_confirmation">Confirm</string>
-  <string name="title_add_token">Add Custom Token</string>
+  <string name="title_my_address">Al</string>
+  <string name="title_my_tokens">Jetonlarım</string>
+  <string name="title_activity_send">Gönder</string>
+  <string name="title_activity_confirmation">Doğrula</string>
+  <string name="title_add_token">Özel Jeton Ekle</string>
   <string name="title_airdrop">Airdrop</string>
   <!-- Suggestions -->
-  <string name="suggestion_private_key">Private key has to be 64 characters long</string>
-  <string name="suggestion_empty_password_available">The password can be left blank.</string>
-  <string name="suggestion_this_is_your_address">My public %s wallet address</string>
+  <string name="suggestion_private_key">Özel anahtarın 64 karakter uzunluğunda olması gerekiyor</string>
+  <string name="suggestion_empty_password_available">Şifre boş bırakılamaz.</string>
+  <string name="suggestion_this_is_your_address">Herkese açık %s cüzdanı adresim</string>
   <!-- Hints -->
-  <string name="hint_private_key_field">Private key *</string>
-  <string name="hint_keystore">Keystore *</string>
+  <string name="hint_private_key_field">Özel anahtar *</string>
+  <string name="hint_keystore">Anahtar deposu *</string>
   <!-- Tabs labels-->
-  <string name="tab_keystore">Keystore</string>
-  <string name="tab_private_key">Private key</string>
+  <string name="tab_keystore">Anahtar deposu</string>
+  <string name="tab_private_key">Özel anahtar</string>
   <!-- Dialog titles -->
-  <string name="title_dialog_error">Error</string>
-  <string name="title_dialog_handling">Processing…</string>
-  <string name="title_dialog_add_account">Add wallet</string>
+  <string name="title_dialog_error">Hata</string>
+  <string name="title_dialog_handling">İşleniyor…</string>
+  <string name="title_dialog_add_account">Cüzdan ekle</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Set a password to encrypt your wallet</string>
-  <string name="toast_message_wallet_imported">The wallet was imported</string>
-  <string name="toast_message_wallet_exported">A backup was created</string>
-  <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
+  <string name="dialog_message">Cüzdanınızı şifrelemek için bir şifre belirleyin</string>
+  <string name="toast_message_wallet_imported">Cüzdan aktarıldı</string>
+  <string name="toast_message_wallet_exported">Yedek oluşturuldu</string>
+  <string name="toast_qr_code_no_address">QR kodu geçerli bir adres içermiyor</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">AppCoins BDS Wallet</string>
-  <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
-  <string name="intro_title_third_page">Simple &amp; Easy</string>
-  <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
-  <string name="intro_message_second_page">Private keys never leave your device.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
+  <string name="intro_title_first_page">AppCoins BDS Cüzdanı</string>
+  <string name="intro_title_second_page"><![CDATA[Özel ve Güvenli]]></string>
+  <string name="intro_title_third_page">Basit ve Kolay</string>
+  <string name="intro_message_first_page">Uygulama ekonomisinin evrimine hoş geldiniz.</string>
+  <string name="intro_message_second_page">Özel anahtarlar cihazınızı asla bırakmaz.</string>
+  <string name="intro_message_third_page">Tüm uygulama içi ödemelerinizi ve ödüllerinizi APPC cinsinden işleyin.</string>
   <!-- Menus -->
   <!-- Labels -->
-  <string name="label_from">From</string>
-  <string name="label_to">To</string>
-  <string name="label_gas_limit">Gas Limit</string>
-  <string name="label_gas_price">Gas Price</string>
-  <string name="label_network_fee">Network Fee</string>
-  <string name="button_ok">OK</string>
-  <string name="hint_recipient_address">Recipient Address</string>
-  <string name="hint_amount">Amount</string>
-  <string name="hint_amount_with_token">Amount %s</string>
-  <string name="hint_contract_address">Contract address</string>
-  <string name="hint_contract_symbol">Symbol</string>
-  <string name="hint_contract_decimals">Decimals</string>
-  <string name="button_cancel">CANCEL</string>
-  <string name="button_yes">YES</string>
+  <string name="label_from">Kimden</string>
+  <string name="label_to">Kime</string>
+  <string name="label_gas_limit">Petrol Limiti</string>
+  <string name="label_gas_price">Petrol Fiyatı</string>
+  <string name="label_network_fee">Ağ Ücreti</string>
+  <string name="button_ok">Tamam</string>
+  <string name="hint_recipient_address">Alıcı Adresi</string>
+  <string name="hint_amount">Tutar</string>
+  <string name="hint_amount_with_token">Tutar %s</string>
+  <string name="hint_contract_address">Sözleşme adresi</string>
+  <string name="hint_contract_symbol">Sembol</string>
+  <string name="hint_contract_decimals">Ondalıklar</string>
+  <string name="button_cancel">İPTAL ET</string>
+  <string name="button_yes">EVET</string>
   <!-- Subtitles -->
-  <string name="subtitle_from">From</string>
-  <string name="subtitle_gas_fee">Fee</string>
-  <string name="subtitle_transaction_num">Transaction</string>
+  <string name="subtitle_from">Kimden</string>
+  <string name="subtitle_gas_fee">Ücret</string>
+  <string name="subtitle_transaction_num">İşlem</string>
   <!-- Actions -->
   <string name="action_more_details">Daha fazla</string>
   <string name="action_add_wallet">Cüzdan ekle</string>
@@ -186,9 +186,9 @@
   <string name="notification_completed_poa">Ödül alındı, keyfini çıkarın!</string>
   <string name="notification_submitting_poa">İsteğiniz blok zincirine gönderiliyor</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
-  <string name="notification_no_network_poa">No network connection</string>
-  <string name="notification_error_poa">An error has occurred</string>
-  <string name="notification_no_wallet_poa">Your wallet isn\'t configured yet</string>
+  <string name="notification_no_network_poa">Ağ bağlantısı yok</string>
+  <string name="notification_error_poa">Bir hata oluştu</string>
+  <string name="notification_no_wallet_poa">Cüzdanınız henüz yapılandırılmamış</string>
   <string name="notification_cancelled_poa">Reward cancelled</string>
   <string name="notification_not_available_poa">This rewards campaign is no longer available</string>
   <string name="notification_not_available_for_country_poa">This rewards campaign isn\'t available in your country</string>
