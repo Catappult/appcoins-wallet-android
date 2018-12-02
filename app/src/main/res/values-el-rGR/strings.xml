@@ -15,7 +15,7 @@
   <string name="error_field_required">Αυτό το πεδίο είναι υποχρεωτικό</string>
   <string name="action_settings">Ρυθμίσεις</string>
   <string name="title_account_list">Wallets</string>
-  <string name="cancel">ακύρωση</string>
+  <string name="cancel">άκυρο</string>
   <string name="confirm_delete_account">Βεβαιωθείτε ότι έχετε ένα αντίγραφο ασφαλείας αυτού του wallet.</string>
   <string name="action_import">Εισαγωγή</string>
   <string name="copy">Αντιγραφή στο πρόχειρο</string>
@@ -89,7 +89,7 @@
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Ορίστε έναν κωδικό πρόσβασης για το κρυπτογραφήστε το wallet σας</string>
+  <string name="dialog_message">Ορίστε έναν κωδικό πρόσβασης για να κρυπτογραφήστε το wallet σας</string>
   <string name="toast_message_wallet_imported">Πραγματοποιήθηκε εισαγωγή του wallet</string>
   <string name="toast_message_wallet_exported">Δημιουργήθηκε αντίγραφο ασφαλείας</string>
   <string name="toast_qr_code_no_address">Ο κωδικός QR δεν περιέχει μία έγκυρη διεύθυνση</string>
@@ -247,7 +247,7 @@
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">ΠΩΣ ΛΕΙΤΟΥΡΓΕΙ</string>
   <string name="gamification_how_header">Πώς να ανεβείτε επίπεδο;</string>
-  <string name="gamification_how_body">Κατά την αφορά αντικειμένων στις αγαπημένες σας εφαρμογές και παιχνίδια, θα κερδίζετε APPC Credits</string>
+  <string name="gamification_how_body">Κατά την αγορά αντικειμένων στις αγαπημένες σας εφαρμογές και παιχνίδια, θα κερδίζετε APPC Credits</string>
   <string name="gamification_how_spend">ΞΟΔΕΨΤΕ %s APPC</string>
   <string name="gamification_a_comet_title">ένας κομήτης</string>
   <string name="gamification_a_moon_title">ένα Φεγγάρι</string>
