@@ -33,9 +33,9 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">المجتمع</string>
   <string name="title_opensource">تطوير مفتوح المصدر</string>
-  <string name="title_source_code">Source code</string>
-  <string name="title_report_bug">Report a bug</string>
-  <string name="title_support">Support</string>
+  <string name="title_source_code">الشيفرة المصدر</string>
+  <string name="title_report_bug">التبليغ عن عطل</string>
+  <string name="title_support">الدعم</string>
   <string name="error_import">Error importing keystore</string>
   <string name="message_this_is_your_address">My public Ethereum wallet address</string>
   <string name="backup_warning_text">Since only you control your money, you\'ll need to save a backup of your keystore in case this app is deleted.\n\nYour wallet is never saved to cloud storage or standard device backups.</string>
