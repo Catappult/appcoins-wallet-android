@@ -75,7 +75,7 @@
   <!-- Suggestions -->
   <string name="suggestion_private_key">Kunci peribadi mesti ada 64 aksara</string>
   <string name="suggestion_empty_password_available">Kata laluan tidak boleh dibiarkan kosong.</string>
-  <string name="suggestion_this_is_your_address">My public %s wallet address</string>
+  <string name="suggestion_this_is_your_address">Alamat dompet %s awam saya</string>
   <!-- Hints -->
   <string name="hint_private_key_field">Kunci peribadi *</string>
   <string name="hint_keystore">Kunci kedai *</string>
@@ -165,7 +165,7 @@
   <string name="token_name">%1$s (%2$s)</string>
   <string name="new_transaction_value">-%1$s %2$s</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the AppCoins wallet development. We considered it the best alternative regarding already implemented functionalities. We forked it with the intention of contributing back with implementations and work that would be considered relevant.</string>
+  <string name="settings_fragment_credits">Kami mengembangkan projek Trust Wallet for Android untuk memacu pembangunan dompet AppCoins. Kami menganggap ia sebagai alternatif terbaik dengan mempertimbangkan fungsi-fungsi yang telah dilaksanakan. Kami mengembangkannya dengan harapan agar perlaksanaannya dapat memberikan manfaat dan hasil yang dinilai sebagai relevan.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">Transaksi sedang berlangsung</string>
   <string name="activity_aib_loading_message">Ini akan mengambil masa sebentar…</string>
@@ -179,9 +179,9 @@
   <string name="activity_iab_no_token_funds_message">Tidak cukup AppCoins</string>
   <string name="activity_iab_wrong_network_message">Salah rangkaian Ethereum atau token tidak diketahui</string>
   <string name="activity_iab_no_network_message">Tiada akses rangkaian</string>
-  <string name="activity_iab_nonce_message">An error with blockchain occurred, please try again later.</string>
-  <string name="activity_iab_approving_message">Checking all details: balance, items, network…</string>
-  <string name="activity_iab_buying_message">Details checked \nReceiving your item…</string>
+  <string name="activity_iab_nonce_message">Ralat dengan rantaian blok berlaki, sila cuba lagi nanti.</string>
+  <string name="activity_iab_approving_message">Menyemak semua butiran; baki, item, rangkaian…</string>
+  <string name="activity_iab_buying_message">Butiran telah disemak \nMenerima item anda…</string>
   <string name="notification_ongoing_poa">Memproses ganjaran anda</string>
   <string name="notification_completed_poa">Ganjaran diterima. Berseronoklah!</string>
   <string name="notification_submitting_poa">Menghantar permintaan anda ke blok rantai</string>
