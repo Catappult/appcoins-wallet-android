@@ -95,32 +95,32 @@
   <string name="toast_qr_code_no_address">QR-код не содержит допустимый адрес</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">AppCoins BDS Wallet</string>
-  <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
-  <string name="intro_title_third_page">Simple &amp; Easy</string>
-  <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
-  <string name="intro_message_second_page">Private keys never leave your device.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
+  <string name="intro_title_first_page">AppCoins BDS кошелек</string>
+  <string name="intro_title_second_page"><![CDATA[Закрытый и безопасный]]></string>
+  <string name="intro_title_third_page">Простой в использовании</string>
+  <string name="intro_message_first_page">Добро пожаловать в революцию экономики приложений.</string>
+  <string name="intro_message_second_page">Закрытые ключи никогда не покидают ваше устройство.</string>
+  <string name="intro_message_third_page">Обрабатывайте все ваши встроенные платежи и награды в APPC.</string>
   <!-- Menus -->
   <!-- Labels -->
-  <string name="label_from">From</string>
-  <string name="label_to">To</string>
-  <string name="label_gas_limit">Gas Limit</string>
-  <string name="label_gas_price">Gas Price</string>
-  <string name="label_network_fee">Network Fee</string>
-  <string name="button_ok">OK</string>
-  <string name="hint_recipient_address">Recipient Address</string>
-  <string name="hint_amount">Amount</string>
-  <string name="hint_amount_with_token">Amount %s</string>
-  <string name="hint_contract_address">Contract address</string>
-  <string name="hint_contract_symbol">Symbol</string>
-  <string name="hint_contract_decimals">Decimals</string>
-  <string name="button_cancel">CANCEL</string>
-  <string name="button_yes">YES</string>
+  <string name="label_from">От</string>
+  <string name="label_to">Кому</string>
+  <string name="label_gas_limit">Лимит топлива</string>
+  <string name="label_gas_price">Цена топлива</string>
+  <string name="label_network_fee">Стоимость транзакции</string>
+  <string name="button_ok">ОК</string>
+  <string name="hint_recipient_address">Адрес получателя</string>
+  <string name="hint_amount">Сумма</string>
+  <string name="hint_amount_with_token">Сумма %s</string>
+  <string name="hint_contract_address">Адрес контракта</string>
+  <string name="hint_contract_symbol">Обозначение</string>
+  <string name="hint_contract_decimals">Разрядов после запятой</string>
+  <string name="button_cancel">ОТМЕНИТЬ</string>
+  <string name="button_yes">ДА</string>
   <!-- Subtitles -->
-  <string name="subtitle_from">From</string>
-  <string name="subtitle_gas_fee">Fee</string>
-  <string name="subtitle_transaction_num">Transaction</string>
+  <string name="subtitle_from">От</string>
+  <string name="subtitle_gas_fee">Стоимость транзакции</string>
+  <string name="subtitle_transaction_num">Транзакция</string>
   <!-- Actions -->
   <string name="action_more_details">Больше</string>
   <string name="action_add_wallet">Добавить кошелёк</string>
@@ -183,15 +183,15 @@
   <string name="activity_iab_approving_message">Проверяем все детали: баланс, товары, сеть…</string>
   <string name="activity_iab_buying_message">Детали проверены \nПолучаем ваш товар…</string>
   <string name="notification_ongoing_poa">Обработка вашего вознаграждения</string>
-  <string name="notification_completed_poa">Reward received, enjoy!</string>
+  <string name="notification_completed_poa">Награда получена, наслаждайтесь!</string>
   <string name="notification_submitting_poa">Отправка запроса в блокчейн</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
-  <string name="notification_no_network_poa">No network connection</string>
-  <string name="notification_error_poa">An error has occurred</string>
-  <string name="notification_no_wallet_poa">Your wallet isn\'t configured yet</string>
-  <string name="notification_cancelled_poa">Reward cancelled</string>
-  <string name="notification_not_available_poa">This rewards campaign is no longer available</string>
-  <string name="notification_not_available_for_country_poa">This rewards campaign isn\'t available in your country</string>
+  <string name="notification_no_network_poa">Отсутствует сетевое подключение</string>
+  <string name="notification_error_poa">Произошла ошибка</string>
+  <string name="notification_no_wallet_poa">Ваш кошелёк ещё не настроен</string>
+  <string name="notification_cancelled_poa">Награда отменена</string>
+  <string name="notification_not_available_poa">Эта кампания наград больше не доступна</string>
+  <string name="notification_not_available_for_country_poa">Эта кампания наград недоступна в вашей стране</string>
   <string name="notification_already_rewarded_poa">You were already rewarded in this campaign</string>
   <string name="notification_submit_error_poa">Sorry, there was an error. Try again!</string>
   <!-- transaction details -->
