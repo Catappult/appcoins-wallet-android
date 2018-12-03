@@ -130,7 +130,7 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
     return if (getCurrency(uri) == null || getCurrency(uri).equals("APPC", true)) {
       Single.just(BigDecimal(uri.parameters[Parameters.VALUE]).setScale(18))
     } else {
-      conversionService.getAppcRate(getCurrency(uri)?.toUpperCase()).map {
+      conversionService.getAppcRate(getCurrency(uri)!!.toUpperCase()).map {
         BigDecimal(uri.parameters[Parameters.VALUE])
             .divide(BigDecimal(it.amount.toString()), 18, RoundingMode.UP)
       }
