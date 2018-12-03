@@ -238,25 +238,25 @@
   <string name="iab_activity_raiden_channel_no_funds_title">Payment Channel Funds</string>
   <string name="spend_your_appcoins">أنفق الأبكوينز الخاصة بك</string>
   <!-- Billing -->
-  <string name="action_skip_backup_wallet">SKIP BACKUP</string>
-  <string name="item_donation">Donation</string>
+  <string name="action_skip_backup_wallet">تخطي عملية النسخ الاحتياطي</string>
+  <string name="item_donation">التبرع</string>
   <!-- Gamification -->
-  <string name="gamification_level_title">What\'s My Level?</string>
-  <string name="gamification_level_header">Congrats, you\'re %s!</string>
-  <string name="gamification_level_earned">EARNED:</string>
-  <string name="gamification_level_bonus">%s%% BONUS</string>
-  <string name="gamification_level_button_how">HOW IT WORKS</string>
-  <string name="gamification_how_header">How to Level Up?</string>
-  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games</string>
-  <string name="gamification_how_spend">SPEND %s APPC</string>
-  <string name="gamification_a_comet_title">a Comet</string>
-  <string name="gamification_a_moon_title">a Moon</string>
-  <string name="gamification_a_planet_title">a Planet</string>
-  <string name="gamification_a_star_title">a Star</string>
-  <string name="gamification_a_galaxy_title">a Galaxy</string>
-  <string name="gamification_a_comet_subtitle">Be careful and don\'t hit a planet!</string>
-  <string name="gamification_a_moon_subtitle">A natural satellite</string>
-  <string name="gamification_planet_subtitle">Spinning around a big star</string>
-  <string name="gamification_star_subtitle">Shinny, big and full of life!</string>
-  <string name="gamification_galaxy_subtitle">The biggest system out there!</string>
+  <string name="gamification_level_title">ما هو مستواي؟</string>
+  <string name="gamification_level_header">مبروك، أنت %s!</string>
+  <string name="gamification_level_earned">مكتسب:</string>
+  <string name="gamification_level_bonus">علاوة %s%%</string>
+  <string name="gamification_level_button_how">كيف يعمل</string>
+  <string name="gamification_how_header">كيف أنتقل للمستوى التالي؟</string>
+  <string name="gamification_how_body">سوف تحصل على رصيد APPC عند شراء عناصر من تطبيقاتك وألعابك المفضلة</string>
+  <string name="gamification_how_spend">أنفق %s APPC</string>
+  <string name="gamification_a_comet_title">مذَنَّبْ</string>
+  <string name="gamification_a_moon_title">قمر</string>
+  <string name="gamification_a_planet_title">كوكب</string>
+  <string name="gamification_a_star_title">نجمة</string>
+  <string name="gamification_a_galaxy_title">مجرّة</string>
+  <string name="gamification_a_comet_subtitle">كن حذرًا ولا تصطدم بكوكب!</string>
+  <string name="gamification_a_moon_subtitle">ساتلايت طبيعي</string>
+  <string name="gamification_planet_subtitle">الدوران حول نجمة كبيرة</string>
+  <string name="gamification_star_subtitle">تسلُّق، كبير ومفعم بالحياة!</string>
+  <string name="gamification_galaxy_subtitle">أكبر نظام على الإطلاق!</string>
 </resources>
