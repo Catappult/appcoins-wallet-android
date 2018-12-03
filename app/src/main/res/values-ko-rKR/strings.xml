@@ -174,7 +174,7 @@
   <string name="activity_iab_error_message">오류가 발생했습니다. 다시 시도해주십시오</string>
   <string name="action_try">시도</string>
   <string name="activity_transactions_learn_more">더 알아보기</string>
-  <string name="activity_iab_no_funds_message">ETH와 APPC 가 충분하지 않습니다</string>
+  <string name="activity_iab_no_funds_message">ETH와 APPC가 충분하지 않습니다</string>
   <string name="activity_iab_no_ethereum_funds_message">이더리움이 충분하지 않습니다</string>
   <string name="activity_iab_no_token_funds_message">AppCoins가 충분하지 않습니다</string>
   <string name="activity_iab_wrong_network_message">잘못된 이더리움 네트워크 또는 알수 없는 토큰</string>
