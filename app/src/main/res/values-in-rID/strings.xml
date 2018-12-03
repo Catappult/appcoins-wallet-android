@@ -5,17 +5,17 @@
   <string name="title_send">Kirim</string>
   <string name="title_send_with_token">Kirim %s</string>
   <string name="title_request">Terima</string>
-  <string name="title_import">Impor Wallet</string>
+  <string name="title_import">Impor Dompet</string>
   <!-- Strings relatedwalletount creation -->
-  <string name="prompt_password">Password</string>
+  <string name="prompt_password">Kata Sandi</string>
   <string name="action_sign_in_short">Create</string>
   <!-- String related to sending -->
-  <string name="prompt_to">To</string>
-  <string name="action_send">Send</string>
-  <string name="error_field_required">This field is required</string>
-  <string name="action_settings">Settings</string>
-  <string name="title_account_list">Wallets</string>
-  <string name="cancel">cancel</string>
+  <string name="prompt_to">Ke</string>
+  <string name="action_send">Kirim</string>
+  <string name="error_field_required">Bagian ini harus diisi</string>
+  <string name="action_settings">Pengaturan</string>
+  <string name="title_account_list">Dompet</string>
+  <string name="cancel">batal</string>
   <string name="confirm_delete_account">Make sure that you have a backup of this wallet.</string>
   <string name="action_import">Import</string>
   <string name="copy">Copy to clipboard</string>
@@ -258,5 +258,5 @@
   <string name="gamification_a_moon_subtitle">A natural satellite</string>
   <string name="gamification_planet_subtitle">Spinning around a big star</string>
   <string name="gamification_star_subtitle">Shinny, big and full of life!</string>
-  <string name="gamification_galaxy_subtitle">The biggest system out there!</string>
+  <string name="gamification_galaxy_subtitle">Sistem terbesar yang ada saat ini!</string>
 </resources>
