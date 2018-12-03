@@ -62,7 +62,7 @@
   <string name="action_create_new_account">Создать новый кошелек</string>
   <string name="unknown_error">Произошла ошибка.</string>
   <string name="action_backup_wallet">Резервный бумажник</string>
-  <string name="no_tokens">Вы еще не добавили ни одного пользовательского токена.</string>
+  <string name="no_tokens">Вы еще не добавили ни одного произвольного токена.</string>
   <string name="title_email">Напишите нам</string>
   <string name="action_donate">Пожертвовать</string>
   <!-- Titles -->
@@ -151,7 +151,7 @@
   <string name="welcome.erc20.label.description">По умолчанию поддерживает токены ERC20.</string>
   <string name="scan_qr">Получить адрес из QR-кода</string>
   <string name="info_gas_price">Чем выше цена на топливо, тем дороже будет ваша плата за транзакцию, но тем быстрее ваша транзакция будет обработана сетью Ethereum.</string>
-  <string name="info_gas_limit">Ограничение топлива не позволяет смарт-контрактам использовать весь ваш Ethereum. Мы будем стараться расчитать для вас лимит топлива автоматически, но некоторые умные контракты могут потребовать ввода особого ограничения.</string>
+  <string name="info_gas_limit">Ограничение топлива не позволяет смарт-контрактам использовать весь ваш Ethereum. Мы будем стараться рассчитать для вас лимит топлива автоматически, но некоторые умные контракты могут потребовать ввода особого ограничения.</string>
   <string name="title_send_settings">Расширенные</string>
   <string name="title_activity_barcode">Сканирование штрих-кода</string>
   <string name="error_add_token">Не удается добавить токен.</string>
@@ -179,7 +179,7 @@
   <string name="activity_iab_no_token_funds_message">Не хватает AppCoins</string>
   <string name="activity_iab_wrong_network_message">Неверная сеть Ethereum или неизвестный токен</string>
   <string name="activity_iab_no_network_message">Нет доступа к сети</string>
-  <string name="activity_iab_nonce_message">Произошла ошибка на блокчейне, повторите попытку позже.</string>
+  <string name="activity_iab_nonce_message">Произошла ошибка взаимодействия с блокчейном, повторите попытку позже.</string>
   <string name="activity_iab_approving_message">Проверяем все детали: баланс, товары, сеть…</string>
   <string name="activity_iab_buying_message">Детали проверены \nПолучаем ваш товар…</string>
   <string name="notification_ongoing_poa">Обработка вашего вознаграждения</string>
@@ -241,22 +241,22 @@
   <string name="action_skip_backup_wallet">ПРОПУСТИТЬ РЕЗЕРВНОЕ КОПИРОВАНИЕ</string>
   <string name="item_donation">Пожертвование</string>
   <!-- Gamification -->
-  <string name="gamification_level_title">What\'s My Level?</string>
-  <string name="gamification_level_header">Congrats, you\'re %s!</string>
-  <string name="gamification_level_earned">EARNED:</string>
-  <string name="gamification_level_bonus">%s%% BONUS</string>
-  <string name="gamification_level_button_how">HOW IT WORKS</string>
-  <string name="gamification_how_header">How to Level Up?</string>
-  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games</string>
-  <string name="gamification_how_spend">SPEND %s APPC</string>
-  <string name="gamification_a_comet_title">a Comet</string>
-  <string name="gamification_a_moon_title">a Moon</string>
-  <string name="gamification_a_planet_title">a Planet</string>
-  <string name="gamification_a_star_title">a Star</string>
-  <string name="gamification_a_galaxy_title">a Galaxy</string>
-  <string name="gamification_a_comet_subtitle">Be careful and don\'t hit a planet!</string>
-  <string name="gamification_a_moon_subtitle">A natural satellite</string>
-  <string name="gamification_planet_subtitle">Spinning around a big star</string>
-  <string name="gamification_star_subtitle">Shinny, big and full of life!</string>
-  <string name="gamification_galaxy_subtitle">The biggest system out there!</string>
+  <string name="gamification_level_title">Какой у меня уровень?</string>
+  <string name="gamification_level_header">Поздравляем, вы %s!</string>
+  <string name="gamification_level_earned">ЗАРАБОТАНО:</string>
+  <string name="gamification_level_bonus">%s%% БОНУС</string>
+  <string name="gamification_level_button_how">КАК ЭТО РАБОТАЕТ</string>
+  <string name="gamification_how_header">Как повысить уровень?</string>
+  <string name="gamification_how_body">Вы будете зарабатывать кредиты APPC при покупке товаров в своих любимых приложениях и играх</string>
+  <string name="gamification_how_spend">ПОТРАТЬТЕ %s APPC</string>
+  <string name="gamification_a_comet_title">комета</string>
+  <string name="gamification_a_moon_title">луна</string>
+  <string name="gamification_a_planet_title">планета</string>
+  <string name="gamification_a_star_title">звезда</string>
+  <string name="gamification_a_galaxy_title">галактика</string>
+  <string name="gamification_a_comet_subtitle">Будьте внимательны и не врежьтесь в планету!</string>
+  <string name="gamification_a_moon_subtitle">Естественный спутник</string>
+  <string name="gamification_planet_subtitle">Вращаетесь вокруг большой звездой</string>
+  <string name="gamification_star_subtitle">Сияющая, огромная, полная жизни!</string>
+  <string name="gamification_galaxy_subtitle">Крупнейшая из систем!</string>
 </resources>
