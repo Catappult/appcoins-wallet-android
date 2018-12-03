@@ -22,7 +22,7 @@
   <string name="close">إغلاق</string>
   <string name="title_activity_settings">الإعدادات</string>
   <string name="network_label">الشبكة</string>
-  <string name="credits">Credits</string>
+  <string name="credits">الأرصدة</string>
   <string name="low_storage_error">لا توجد مساحة كافية للتخزين</string>
   <string name="no_camera_permission">AppCoins BDS Wallet يحتاج إلى إذن للدخول إلى الكاميرا لمسح شيفرة QR.</string>
   <string name="ok">موافق</string>
@@ -58,23 +58,23 @@
   <string name="action_buy">شراء</string>
   <string name="empty"></string>
   <string name="try_again">حاول مرة أخرى</string>
-  <string name="already_have_account">Already have a wallet?</string>
-  <string name="action_create_new_account">Create new wallet</string>
-  <string name="unknown_error">An error has occurred.</string>
-  <string name="action_backup_wallet">Backup Wallet</string>
-  <string name="no_tokens">You haven\'t added any custom token yet.</string>
-  <string name="title_email">Email us</string>
-  <string name="action_donate">Donate</string>
+  <string name="already_have_account">هل لديك محفظة بالفعل؟</string>
+  <string name="action_create_new_account">إنشاء محفظة جديدة</string>
+  <string name="unknown_error">حدث خطأ.</string>
+  <string name="action_backup_wallet">محفظة احتياطية</string>
+  <string name="no_tokens">لم تقم بعد بإضافة توكن مخصص.</string>
+  <string name="title_email">أرسل إلينا بريدًا إلكترونيًا</string>
+  <string name="action_donate">تَبرَّع</string>
   <!-- Titles -->
-  <string name="title_my_address">Receive</string>
-  <string name="title_my_tokens">My Tokens</string>
-  <string name="title_activity_send">Send</string>
-  <string name="title_activity_confirmation">Confirm</string>
-  <string name="title_add_token">Add Custom Token</string>
+  <string name="title_my_address">استقبل</string>
+  <string name="title_my_tokens">التوكنز الخاصة بي</string>
+  <string name="title_activity_send">إرسال</string>
+  <string name="title_activity_confirmation">تأكيد</string>
+  <string name="title_add_token">أضف توكن مخصص</string>
   <string name="title_airdrop">Airdrop</string>
   <!-- Suggestions -->
-  <string name="suggestion_private_key">Private key has to be 64 characters long</string>
-  <string name="suggestion_empty_password_available">The password can be left blank.</string>
+  <string name="suggestion_private_key">يجب أن يكون المفتاح الخاص مكونًا من 64 رمزًا</string>
+  <string name="suggestion_empty_password_available">يمكن ترك خانة كلمة المرور خالية.</string>
   <string name="suggestion_this_is_your_address">My public %s wallet address</string>
   <!-- Hints -->
   <string name="hint_private_key_field">Private key *</string>
@@ -165,7 +165,7 @@
   <string name="token_name">%1$s (%2$s)</string>
   <string name="new_transaction_value">-%1$s %2$s</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the AppCoins wallet development. We considered it the best alternative regarding already implemented functionalities. We forked it with the intention of contributing back with implementations and work that would be considered relevant.</string>
+  <string name="settings_fragment_credits">لقد قمنا بتشعيب محفظة ثقة لمشروع أندرويد للتمهيد لتطوير محفظة أبكوينز. اعتبرناها البديل الأفضل بالنسبة للوظائف المنفذة مسبقًا. قمنا بتشعيبها للمساهمة في العمليات التنفيذية والعمل ذي الصلة.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">التحويل قيد التنفيذ</string>
   <string name="activity_aib_loading_message">قد يستغرق هذا بعض الوقت…</string>
