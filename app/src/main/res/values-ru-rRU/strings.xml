@@ -63,36 +63,36 @@
   <string name="unknown_error">Произошла ошибка.</string>
   <string name="action_backup_wallet">Резервный бумажник</string>
   <string name="no_tokens">Вы еще не добавили ни одного пользовательского токена.</string>
-  <string name="title_email">Email us</string>
-  <string name="action_donate">Donate</string>
+  <string name="title_email">Напишите нам</string>
+  <string name="action_donate">Пожертвовать</string>
   <!-- Titles -->
-  <string name="title_my_address">Receive</string>
-  <string name="title_my_tokens">My Tokens</string>
-  <string name="title_activity_send">Send</string>
-  <string name="title_activity_confirmation">Confirm</string>
-  <string name="title_add_token">Add Custom Token</string>
-  <string name="title_airdrop">Airdrop</string>
+  <string name="title_my_address">Получить</string>
+  <string name="title_my_tokens">Мои токены</string>
+  <string name="title_activity_send">Отправить</string>
+  <string name="title_activity_confirmation">Подтвердить</string>
+  <string name="title_add_token">Добавить произвольный токен</string>
+  <string name="title_airdrop">Бонус</string>
   <!-- Suggestions -->
-  <string name="suggestion_private_key">Private key has to be 64 characters long</string>
-  <string name="suggestion_empty_password_available">The password can be left blank.</string>
-  <string name="suggestion_this_is_your_address">My public %s wallet address</string>
+  <string name="suggestion_private_key">Закрытый ключ должен содержать 64 символа</string>
+  <string name="suggestion_empty_password_available">Пароль можно оставить пустым.</string>
+  <string name="suggestion_this_is_your_address">Мой публичный адрес кошелька %s</string>
   <!-- Hints -->
-  <string name="hint_private_key_field">Private key *</string>
-  <string name="hint_keystore">Keystore *</string>
+  <string name="hint_private_key_field">Закрытый ключ *</string>
+  <string name="hint_keystore">Хранилище ключей *</string>
   <!-- Tabs labels-->
-  <string name="tab_keystore">Keystore</string>
-  <string name="tab_private_key">Private key</string>
+  <string name="tab_keystore">Хранилище ключей</string>
+  <string name="tab_private_key">Закрытый ключ</string>
   <!-- Dialog titles -->
-  <string name="title_dialog_error">Error</string>
-  <string name="title_dialog_handling">Processing…</string>
-  <string name="title_dialog_add_account">Add wallet</string>
+  <string name="title_dialog_error">Ошибка</string>
+  <string name="title_dialog_handling">Обработка…</string>
+  <string name="title_dialog_add_account">Добавить кошелёк</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Set a password to encrypt your wallet</string>
-  <string name="toast_message_wallet_imported">The wallet was imported</string>
-  <string name="toast_message_wallet_exported">A backup was created</string>
-  <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
+  <string name="dialog_message">Установите пароль для шифрования вашего кошелька</string>
+  <string name="toast_message_wallet_imported">Кошелёк был импортирован</string>
+  <string name="toast_message_wallet_exported">Была создана резервная копия</string>
+  <string name="toast_qr_code_no_address">QR-код не содержит допустимый адрес</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins BDS Wallet</string>
