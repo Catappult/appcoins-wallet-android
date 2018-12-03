@@ -23,16 +23,16 @@
   <string name="title_activity_settings">الإعدادات</string>
   <string name="network_label">الشبكة</string>
   <string name="credits">Credits</string>
-  <string name="low_storage_error">Not enough storage space</string>
-  <string name="no_camera_permission">AppCoins BDS Wallet needs permission to access your camera to scan QR codes.</string>
-  <string name="ok">Ok</string>
-  <string name="barcode_error_format">Invalid barcode format: %s</string>
-  <string name="title_delete_account">Are you sure you want to delete this wallet?</string>
-  <string name="twitter">Twitter</string>
-  <string name="telegram">Telegram Group</string>
+  <string name="low_storage_error">لا توجد مساحة كافية للتخزين</string>
+  <string name="no_camera_permission">AppCoins BDS Wallet يحتاج إلى إذن للدخول إلى الكاميرا لمسح رمز QR.</string>
+  <string name="ok">موافق</string>
+  <string name="barcode_error_format">باركود غير صالح: %s</string>
+  <string name="title_delete_account">هل أنت متأكد من حذف هذه المحفظة؟</string>
+  <string name="twitter">تويتر</string>
+  <string name="telegram">مجموعة تيليغرام</string>
   <!-- TODO: Remove or change this placeholder text -->
-  <string name="title_community">Community</string>
-  <string name="title_opensource">Open Source Development</string>
+  <string name="title_community">المجتمع</string>
+  <string name="title_opensource">تطوير مفتوح المصدر</string>
   <string name="title_source_code">Source code</string>
   <string name="title_report_bug">Report a bug</string>
   <string name="title_support">Support</string>
