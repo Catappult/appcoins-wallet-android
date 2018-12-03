@@ -24,7 +24,7 @@
   <string name="network_label">네트워크</string>
   <string name="credits">크레딧</string>
   <string name="low_storage_error">저장 공간이 부족합니다</string>
-  <string name="no_camera_permission">AppCoins BDS Wallet 은 QR 코드 스캔을 위해 카메라 접근 권한이 필요합니다.</string>
+  <string name="no_camera_permission">AppCoins BDS Wallet은 QR 코드 스캔을 위해 카메라 접근 권한이 필요합니다.</string>
   <string name="ok">확인</string>
   <string name="barcode_error_format">잘못된 바코드 형식: %s</string>
   <string name="title_delete_account">이 지갑을 삭제하시겠습니까?</string>
@@ -38,7 +38,7 @@
   <string name="title_support">지원</string>
   <string name="error_import">키스토어 불러오기 오류</string>
   <string name="message_this_is_your_address">나의 공개 이더리움 지갑 주소</string>
-  <string name="backup_warning_text">귀하만이 귀하의 돈을 관리하기때문에, 이 앱이 삭제된 경우를 대비하여 키스토어를 백업하실 필요가 있습니다.\n\n 귀하의 지갑은 클라우드 저장공간이나 표준 기기 백업에 절대로 저장되지 않습니다.</string>
+  <string name="backup_warning_text">귀하만이 귀하의 돈을 관리할 수 있기때문에, 이 앱이 삭제된 경우를 대비하여 키스토어를 백업하실 필요가 있습니다.\n\n 귀하의 지갑은 클라우드 저장공간이나 표준 기기 백업에 절대로 저장되지 않습니다.</string>
   <string name="message_no_backup">백업하지 않으면, 이더리움도 없습니다</string>
   <string name="error_deleting_account">지갑 삭제시 오류</string>
   <string name="title_privacy_policy">개인정보 보호정책</string>
@@ -52,7 +52,7 @@
   <string name="no_repeat">아니오, 다시하겠습니다</string>
   <string name="skip">건너뛰기</string>
   <string name="root_title">손상된 장치 보안</string>
-  <string name="root_body">\'루팅\' 앱은 AppCoins Wallet의 키체인 데이터에 접근할 수 있으며 지갑을 도난당할 수 있습니다! 이 지갑을 곧 삭제하시고 안전한 기기에서 복원하십시오.</string>
+  <string name="root_body">\'루팅\' 앱은 AppCoins Wallet의 키체인 데이터에 접근할 수 있으며 지갑을 도난 당할 수 있습니다! 이 지갑을 곧 삭제하시고 안전한 기기에서 복원하십시오.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
   <string name="buying">%s 구매</string>
   <string name="action_buy">구매</string>
@@ -74,7 +74,7 @@
   <string name="title_airdrop">에어드롭</string>
   <!-- Suggestions -->
   <string name="suggestion_private_key">비밀 키는 64 문자 길이어야 합니다</string>
-  <string name="suggestion_empty_password_available">비밀번호는 공백이될 수 없습니다.</string>
+  <string name="suggestion_empty_password_available">비밀번호는 공백이 될 수 없습니다.</string>
   <string name="suggestion_this_is_your_address">나의 공개 %s 지갑 주소</string>
   <!-- Hints -->
   <string name="hint_private_key_field">비밀 키 *</string>
@@ -89,7 +89,7 @@
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">귀하의 지갑을 암호화하기 위핸 비밀번호 설정</string>
+  <string name="dialog_message">귀하의 지갑을 암호화하기 위해 비밀번호 설정</string>
   <string name="toast_message_wallet_imported">지갑을 불러왔습니다</string>
   <string name="toast_message_wallet_exported">백업이 생성되었습니다</string>
   <string name="toast_qr_code_no_address">QR 코드에 유효한 주소가 없습니다</string>
@@ -100,7 +100,7 @@
   <string name="intro_title_third_page">간단하고 쉬움</string>
   <string name="intro_message_first_page">앱 경제의 혁명에 오신것을 환영합니다.</string>
   <string name="intro_message_second_page">비밀 키는 귀하의 기기에서 절대 떠나지 않습니다.</string>
-  <string name="intro_message_third_page">귀하의 모든 앱내 지불와 APPC 보상 처리.</string>
+  <string name="intro_message_third_page">귀하의 모든 앱내 지불과 APPC 보상 처리.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">송신</string>
@@ -140,7 +140,7 @@
   <string name="transaction_succeeded">트랜잭션 성공</string>
   <string name="NA">N/A</string>
   <string name="error_wallet_not_selected">지갑이 선택되지 않았습니다</string>
-  <string name="no_transactions_yet">테스트용 APPC 를 받아서 AppCoins 지불이 어떻게 동작하는지 확인해보십시오</string>
+  <string name="no_transactions_yet">테스트용 APPC를 받아서 AppCoins 지불이 어떻게 동작하는지 확인해보십시오</string>
   <string name="no_transactions_yet_main">아직 트랜잭션 없음!</string>
   <string name="unknown_balance_with_symbol">-- ETH</string>
   <string name="unknown_balance_without_symbol">--</string>
@@ -151,7 +151,7 @@
   <string name="welcome.erc20.label.description">기본적으로 ERC20 토큰 지원</string>
   <string name="scan_qr">QR 코드로 주소 얻기</string>
   <string name="info_gas_price">가스 가격이 높을수록, 트랜잭션 수수료가 더 비싸지게 되지만, 이더리움 네트워크에 의한 트랜잭션은 더 빨라지게 됩니다.</string>
-  <string name="info_gas_limit">가스 제한은 귀하의 모든 이더리움으로 부터의 스마트 계약 소비를 방지해줍니다. 귀하를 위해 가스 제한을 자동적으로 계산해주려고 하고 있지만, 일부 스마트 계약은 사용자정의 가스 제한이 필요할 수 있습니다.</string>
+  <string name="info_gas_limit">가스 제한은 귀하의 모든 이더리움으로 부터의 스마트 계약 소비를 방지 해줍니다. 귀하를 위해 가스 제한을 자동적으로 계산해주려고 하고 있지만, 일부 스마트 계약은 사용자정의 가스 제한이 필요할 수 있습니다.</string>
   <string name="title_send_settings">고급</string>
   <string name="title_activity_barcode">바코드 스캔</string>
   <string name="error_add_token">토큰을 추가할 수 없습니다.</string>
