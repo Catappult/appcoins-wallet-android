@@ -16,7 +16,7 @@
   <string name="action_settings">Pengaturan</string>
   <string name="title_account_list">Dompet</string>
   <string name="cancel">batal</string>
-  <string name="confirm_delete_account">Make sure that you have a backup of this wallet.</string>
+  <string name="confirm_delete_account">Pastikan agar Anda sudah punya cadangan dari dompet ini.</string>
   <string name="action_import">Impor</string>
   <string name="copy">Salin ke clipboard</string>
   <string name="close">Tutup</string>
@@ -24,7 +24,7 @@
   <string name="network_label">Jaringan</string>
   <string name="credits">Kredit</string>
   <string name="low_storage_error">Ruang penyimpanan tidak cukup</string>
-  <string name="no_camera_permission">AppCoins BDS Wallet needs permission to access your camera to scan QR codes.</string>
+  <string name="no_camera_permission">AppCoins BDS Wallet membutuhkan izin untuk mengakses kamera Anda guna memindai kode QR.</string>
   <string name="ok">Oke</string>
   <string name="barcode_error_format">Format barcode tidak valid: %s</string>
   <string name="title_delete_account">Apakah Anda yakin ingin menghapus dompet ini?</string>
@@ -37,7 +37,7 @@
   <string name="title_report_bug">Laporkan bug</string>
   <string name="title_support">Dukungan</string>
   <string name="error_import">Kesalahan mengimpor keystore</string>
-  <string name="message_this_is_your_address">My public Ethereum wallet address</string>
+  <string name="message_this_is_your_address">Alamat dompet Ethereum umum saya</string>
   <string name="backup_warning_text">Since only you control your money, you\'ll need to save a backup of your keystore in case this app is deleted.\n\nYour wallet is never saved to cloud storage or standard device backups.</string>
   <string name="message_no_backup">Tidak ada cadangan, tidak ada Ethereum</string>
   <string name="error_deleting_account">Kesalalahan menghapus dompet</string>
@@ -46,7 +46,7 @@
   <string name="title_version">Versi</string>
   <string name="title_tokens">Token Saya</string>
   <string name="unlock_screen_title_android">Buka kunci layar</string>
-  <string name="unlock_screen_prompt_android">Please unlock your Android device to continue.</string>
+  <string name="unlock_screen_prompt_android">Silakan buka kunci perangkat Android Anda untuk melanjutkan.</string>
   <string name="do_manage_make_backup">Apakah Anda berhasil membuat cadangan?</string>
   <string name="yes_continue">Ya, lanjutkan</string>
   <string name="no_repeat">Tidak, ulangi</string>
@@ -62,7 +62,7 @@
   <string name="action_create_new_account">Buat dompet baru</string>
   <string name="unknown_error">Terjadi kesalahan.</string>
   <string name="action_backup_wallet">Cadangkan Dompet</string>
-  <string name="no_tokens">You haven\'t added any custom token yet.</string>
+  <string name="no_tokens">Anda belum menambahkan token kustom mana pun.</string>
   <string name="title_email">Kirim email</string>
   <string name="action_donate">Donasikan</string>
   <!-- Titles -->
@@ -73,7 +73,7 @@
   <string name="title_add_token">Tambah Token Kustom</string>
   <string name="title_airdrop">Airdrop</string>
   <!-- Suggestions -->
-  <string name="suggestion_private_key">Private key has to be 64 characters long</string>
+  <string name="suggestion_private_key">Kunci rahasia panjangnya harus 64 karakter</string>
   <string name="suggestion_empty_password_available">Kata sandi boleh dikosongkan.</string>
   <string name="suggestion_this_is_your_address">Alamat dompet %s umum saya</string>
   <!-- Hints -->
@@ -95,12 +95,12 @@
   <string name="toast_qr_code_no_address">Kode QR tidak mengandung alamat yang valid</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">Dompet BDS AppCoin</string>
+  <string name="intro_title_first_page">AppCoins BDS Wallet</string>
   <string name="intro_title_second_page"><![CDATA[Rahasia & Aman]]></string>
   <string name="intro_title_third_page">Sederhana &amp; Mudah</string>
-  <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
-  <string name="intro_message_second_page">Private keys never leave your device.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
+  <string name="intro_message_first_page">Selamat datang di revolusi ekonomi aplikasi.</string>
+  <string name="intro_message_second_page">Kunci rahasia tidak pernah tertinggal dari perangkat Anda.</string>
+  <string name="intro_message_third_page">Proses semua pembayaran dan hadiah in-app Anda di APPC.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Dari</string>
@@ -140,7 +140,7 @@
   <string name="transaction_succeeded">Transaksi berhasil</string>
   <string name="NA">N/A</string>
   <string name="error_wallet_not_selected">Dompet tidak dipilih</string>
-  <string name="no_transactions_yet">Get some test APPC so you can see how AppCoins payments will work</string>
+  <string name="no_transactions_yet">Dapatkan beberapa APPC tes agar Anda tahu bagaimana proses pembayaran AppCoin nanti</string>
   <string name="no_transactions_yet_main">Belum ada transaksi!</string>
   <string name="unknown_balance_with_symbol">-- ETH</string>
   <string name="unknown_balance_without_symbol">--</string>
@@ -180,8 +180,8 @@
   <string name="activity_iab_wrong_network_message">Wrong Ethereum network or unknown token</string>
   <string name="activity_iab_no_network_message">Tidak ada akses jaringan</string>
   <string name="activity_iab_nonce_message">Terjadi kesalahan dengan blockchain, silakan coba lagi nanti.</string>
-  <string name="activity_iab_approving_message">Checking all details: balance, items, network…</string>
-  <string name="activity_iab_buying_message">Details checked \nReceiving your item…</string>
+  <string name="activity_iab_approving_message">Memeriksa semua rincian: saldo, item, jaringan…</string>
+  <string name="activity_iab_buying_message">Rincian sudah dicek \nMenerima item Anda…</string>
   <string name="notification_ongoing_poa">Memproses hadiah Anda</string>
   <string name="notification_completed_poa">Hadiah diterima, nikmatilah!</string>
   <string name="notification_submitting_poa">Mengirimkan permintaan Anda ke blockchain</string>
@@ -190,8 +190,8 @@
   <string name="notification_error_poa">Terjadi kesalahan</string>
   <string name="notification_no_wallet_poa">Dompet Anda belum dikonfigurasi</string>
   <string name="notification_cancelled_poa">Hadiah dibatalkan</string>
-  <string name="notification_not_available_poa">This rewards campaign is no longer available</string>
-  <string name="notification_not_available_for_country_poa">This rewards campaign isn\'t available in your country</string>
+  <string name="notification_not_available_poa">Kampanye hadiah ini sudah tidak ada</string>
+  <string name="notification_not_available_for_country_poa">Kampanye hadiah ini tidak tersedia di negara Anda</string>
   <string name="notification_already_rewarded_poa">Anda sudah diberi hadiah pada kampanye ini</string>
   <string name="notification_submit_error_poa">Maaf, ada kesalahan. Coba lagi!</string>
   <!-- transaction details -->
