@@ -17,15 +17,11 @@ import java.util.List;
 
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.ADS_OFFCHAIN;
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.IAP_OFFCHAIN;
-import static com.asfoundation.wallet.transactions.Transaction.TransactionType.MICRO_IAB;
 
 public class TransactionsMapper {
   public static final String APPROVE_METHOD_ID = "0x095ea7b3";
   public static final String BUY_METHOD_ID = "0xb7a2e1f2";
   public static final String ADS_METHOD_ID = "0xd5bde837";
-  public static final String OPEN_CHANNEL_METHOD_ID = "0xa6d15963";
-  public static final String TOPUP_CHANNEL_METHOD_ID = "0x016a8cf6";
-  public static final String CLOSE_CHANNEL_METHOD_ID = "0x1c6f609b";
   private final DefaultTokenProvider defaultTokenProvider;
   private final AppcoinsOperationsDataSaver operationsDataSaver;
   private final Scheduler scheduler;
@@ -61,8 +57,6 @@ public class TransactionsMapper {
         i--;
       } else if (isAdsTransaction(transaction)) {
         transactionList.add(0, mapAdsTransaction(transaction));
-      } else if (isCloseChannleTransaction(transaction)) {
-        transactionList.add(0, mapCloseChannelTransaction(transaction));
       } else {
         transactionList.add(0, mapStandardTransaction(transaction));
       }
@@ -77,8 +71,7 @@ public class TransactionsMapper {
       WalletHistory.Transaction transaction = transactions.get(i);
 
       Transaction.TransactionType txType =
-          "IAP OffChain".equals(transaction.getType()) ? IAP_OFFCHAIN
-              : "PoA OffChain".equals(transaction.getType()) ? ADS_OFFCHAIN : MICRO_IAB;
+          "IAP OffChain".equals(transaction.getType()) ? IAP_OFFCHAIN : ADS_OFFCHAIN;
 
       Transaction.TransactionStatus status;
       switch (transaction.getStatus()) {
@@ -146,48 +139,6 @@ public class TransactionsMapper {
         com.asfoundation.wallet.transactions.Transaction.TransactionType.ADS, null,
         transaction.timeStamp, getError(transaction), value, from, to, details, currency,
         operations);
-  }
-
-  /**
-   * Method to map a raw transaction to a close channel transaction. In this case most probably the
-   * raw transaction value contains the value of the transfer, but to make sure that is the case, we
-   * confirm that there is no operation inside the raw transaction. In case the operations list is
-   * not empty we make the assumption that the value on the first operation of the list is the one
-   * to be taken in consideration for the user.
-   *
-   * @param transaction The raw transaction including all the information for a given transaction.
-   *
-   * @return a Transaction object containing the information needed and formatted, ready to be shown
-   * on the transactions list.
-   */
-  private Transaction mapCloseChannelTransaction(RawTransaction transaction) {
-    String value = transaction.value;
-    String currency = null;
-    String from = transaction.from;
-    String to = transaction.to;
-
-    List<Operation> operations = new ArrayList<>();
-    String fee = BalanceUtils.weiToEth(
-        new BigDecimal(transaction.gasUsed).multiply(new BigDecimal(transaction.gasPrice)))
-        .toPlainString();
-
-    if (transaction.operations != null && transaction.operations.length > 0) {
-      for (TransactionOperation operation : transaction.operations) {
-        operations.add(new Operation(transaction.hash, operation.from, operation.to, fee));
-        if (operation.to.equals(transaction.from)) {
-          currency = operation.contract.symbol;
-          from = operation.from;
-          to = operation.to;
-          value = operation.value;
-        }
-      }
-    } else {
-      operations.add(new Operation(transaction.hash, transaction.from, transaction.to, fee));
-    }
-
-    return new Transaction(transaction.hash,
-        com.asfoundation.wallet.transactions.Transaction.TransactionType.CLOSE_CHANNEL, null,
-        transaction.timeStamp, getError(transaction), value, from, to, null, currency, operations);
   }
 
   /**
@@ -295,30 +246,13 @@ public class TransactionsMapper {
         .startsWith(APPROVE_METHOD_ID.toUpperCase());
   }
 
-  private boolean isOpenChannelTransaction(RawTransaction transaction) {
-    return transaction.input.toUpperCase()
-        .startsWith(OPEN_CHANNEL_METHOD_ID.toUpperCase());
-  }
-
-  private boolean isTopUpChannelTransaction(RawTransaction transaction) {
-    return transaction.input.toUpperCase()
-        .startsWith(TOPUP_CHANNEL_METHOD_ID.toUpperCase());
-  }
-
-  private boolean isCloseChannleTransaction(RawTransaction transaction) {
-    return transaction.input.toUpperCase()
-        .startsWith(CLOSE_CHANNEL_METHOD_ID.toUpperCase());
-  }
-
   private boolean isAppcoinsTransaction(RawTransaction transaction, String address) {
     return transaction.to.equalsIgnoreCase(address);
   }
 
   private boolean isTransactionWithApprove(RawTransaction auxTransaction) {
     return auxTransaction.input.toUpperCase()
-        .startsWith(BUY_METHOD_ID.toUpperCase()) || auxTransaction.input.toUpperCase()
-        .startsWith(OPEN_CHANNEL_METHOD_ID.toUpperCase()) || auxTransaction.input.toUpperCase()
-        .startsWith(TOPUP_CHANNEL_METHOD_ID.toUpperCase());
+        .startsWith(BUY_METHOD_ID.toUpperCase());
   }
 
   private Transaction.TransactionStatus getError(RawTransaction transaction) {
@@ -350,10 +284,6 @@ public class TransactionsMapper {
         com.asfoundation.wallet.transactions.Transaction.TransactionType.STANDARD;
     if (isIabTransaction(transaction)) {
       type = com.asfoundation.wallet.transactions.Transaction.TransactionType.IAB;
-    } else if (isOpenChannelTransaction(transaction)) {
-      type = com.asfoundation.wallet.transactions.Transaction.TransactionType.OPEN_CHANNEL;
-    } else if (isTopUpChannelTransaction(transaction)) {
-      type = com.asfoundation.wallet.transactions.Transaction.TransactionType.TOP_UP_CHANNEL;
     }
 
     return type;

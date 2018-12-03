@@ -116,13 +116,8 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
         || type == Transaction.TransactionType.ADS_OFFCHAIN) {
       transactionTypeIcon = R.drawable.ic_transaction_poa;
     } else if (type == Transaction.TransactionType.IAB
-        || type == Transaction.TransactionType.MICRO_IAB
         || type == Transaction.TransactionType.IAP_OFFCHAIN) {
       transactionTypeIcon = R.drawable.ic_transaction_iab;
-    } else if (type == Transaction.TransactionType.OPEN_CHANNEL
-        || type == Transaction.TransactionType.TOP_UP_CHANNEL
-        || type == Transaction.TransactionType.CLOSE_CHANNEL) {
-      transactionTypeIcon = R.drawable.ic_transaction_miu;
     }
 
     TransactionDetails.Icon icon;
@@ -148,7 +143,8 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
         .load(uri)
         .transform(new CircleTransformation())
         .placeholder(finalTransactionTypeIcon)
-        .error(transactionTypeIcon).fit()
+        .error(transactionTypeIcon)
+        .fit()
         .into(srcImage, new Callback() {
           @Override public void onSuccess() {
             ((ImageView) typeIcon.findViewById(R.id.icon)).setImageResource(
@@ -177,29 +173,13 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     status.setText(statusText);
     status.setTextColor(ContextCompat.getColor(getContext(), statusColor));
 
-    switch (type) {
-      case OPEN_CHANNEL:
-        address.setText(R.string.miuraiden_trans_details_open);
-        description.setText(isSent ? to : from);
-        break;
-      case TOP_UP_CHANNEL:
-        address.setText(R.string.miuraiden_trans_details_topup);
-        description.setText(isSent ? to : from);
-        break;
-      case CLOSE_CHANNEL:
-        address.setText(R.string.miuraiden_trans_details_close);
-        description.setText(isSent ? to : from);
-        break;
-      default:
-        if (details != null) {
-          address.setText(
-              details.getSourceName() == null ? isSent ? to : from : details.getSourceName());
-          description.setText(details.getDescription() == null ? "" : details.getDescription());
-        } else {
-          address.setText(isSent ? to : from);
-          description.setText("");
-        }
-        break;
+    if (details != null) {
+      address.setText(
+          details.getSourceName() == null ? isSent ? to : from : details.getSourceName());
+      description.setText(details.getDescription() == null ? "" : details.getDescription());
+    } else {
+      address.setText(isSent ? to : from);
+      description.setText("");
     }
 
     if (valueStr.equals("0")) {

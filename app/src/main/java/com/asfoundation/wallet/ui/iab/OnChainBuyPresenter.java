@@ -88,11 +88,11 @@ public class OnChainBuyPresenter {
   private void handleBuyEvent(String appPackage, String productName, String developerPayload,
       boolean isBds) {
     disposables.add(view.getBuyClick()
-        .doOnNext(buyData -> showTransactionState(buyData.uri))
+        .doOnNext(this::showTransactionState)
         .observeOn(Schedulers.io())
-        .flatMapCompletable(buyData -> inAppPurchaseInteractor.send(buyData.getUri(),
+        .flatMapCompletable(buyData -> inAppPurchaseInteractor.send(buyData,
             AsfInAppPurchaseInteractor.TransactionType.NORMAL, appPackage, productName,
-            buyData.getChannelBudget(), developerPayload, isBds)
+            BigDecimal.ZERO, developerPayload, isBds)
             .observeOn(viewScheduler)
             .doOnError(this::showError))
         .retry()
@@ -120,13 +120,13 @@ public class OnChainBuyPresenter {
                     case PAUSED_ON_CHAIN:
                       return inAppPurchaseInteractor.resume(uri,
                           AsfInAppPurchaseInteractor.TransactionType.NORMAL, packageName,
-                          transaction.getSkuId(), developerPayload,
-                          isBds);
+                          transaction.getSkuId(), developerPayload, isBds);
                     case READY:
                       return Completable.fromAction(() -> setup(appcAmount, transaction.getType()))
                           .subscribeOn(AndroidSchedulers.mainThread());
                     case NO_FUNDS:
-                      return Completable.fromAction(view::showNoFundsError).subscribeOn(viewScheduler);
+                      return Completable.fromAction(view::showNoFundsError)
+                          .subscribeOn(viewScheduler);
                     case PAUSED_CC_PAYMENT:
                     default:
                       return Completable.error(new UnsupportedOperationException(
@@ -138,12 +138,6 @@ public class OnChainBuyPresenter {
     disposables.add(inAppPurchaseInteractor.getWalletAddress()
         .observeOn(viewScheduler)
         .subscribe(view::showWallet, Throwable::printStackTrace));
-
-    view.showDefaultAsDefaultPayment();
-
-    disposables.add(inAppPurchaseInteractor.getWalletAddress()
-        .observeOn(viewScheduler)
-        .subscribe(hasChannel -> view.showDefaultAsDefaultPayment(), Throwable::printStackTrace));
   }
 
   private void showBuy() {
@@ -158,9 +152,7 @@ public class OnChainBuyPresenter {
     if (throwable != null) {
       throwable.printStackTrace();
     }
-    if (throwable instanceof NotEnoughFundsException) {
-      view.showNoChannelFundsError();
-    } else if (throwable instanceof UnknownTokenException) {
+    if (throwable instanceof UnknownTokenException) {
       view.showWrongNetworkError();
     } else {
       view.showError();
@@ -263,18 +255,12 @@ public class OnChainBuyPresenter {
   }
 
   public static class BuyData {
-    private final boolean isRaiden;
     private final String uri;
     private final BigDecimal channelBudget;
 
-    public BuyData(boolean isRaiden, String uri, BigDecimal channelBudget) {
-      this.isRaiden = isRaiden;
+    public BuyData(String uri, BigDecimal channelBudget) {
       this.uri = uri;
       this.channelBudget = channelBudget;
-    }
-
-    public boolean isRaiden() {
-      return isRaiden;
     }
 
     public String getUri() {
