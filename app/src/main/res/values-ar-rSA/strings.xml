@@ -105,21 +105,21 @@
   <!-- Labels -->
   <string name="label_from">مِن</string>
   <string name="label_to">إلى</string>
-  <string name="label_gas_limit">حدّ عمولات التحويل</string>
-  <string name="label_gas_price">سعر عمولات التحويل</string>
-  <string name="label_network_fee">Network Fee</string>
-  <string name="button_ok">OK</string>
-  <string name="hint_recipient_address">Recipient Address</string>
-  <string name="hint_amount">Amount</string>
-  <string name="hint_amount_with_token">Amount %s</string>
-  <string name="hint_contract_address">Contract address</string>
-  <string name="hint_contract_symbol">Symbol</string>
-  <string name="hint_contract_decimals">Decimals</string>
-  <string name="button_cancel">CANCEL</string>
-  <string name="button_yes">YES</string>
+  <string name="label_gas_limit">حدّ عمولات التحويل (gas)</string>
+  <string name="label_gas_price">سعر عمولات التحويل (gas)</string>
+  <string name="label_network_fee">عمولة الشبكة</string>
+  <string name="button_ok">موافق</string>
+  <string name="hint_recipient_address">عنوان المستقبل</string>
+  <string name="hint_amount">المقدار</string>
+  <string name="hint_amount_with_token">مقدار %s</string>
+  <string name="hint_contract_address">عنوان العقد</string>
+  <string name="hint_contract_symbol">رمز</string>
+  <string name="hint_contract_decimals">الكسور</string>
+  <string name="button_cancel">إلغاء</string>
+  <string name="button_yes">نعم</string>
   <!-- Subtitles -->
-  <string name="subtitle_from">From</string>
-  <string name="subtitle_gas_fee">Fee</string>
+  <string name="subtitle_from">مِن</string>
+  <string name="subtitle_gas_fee">العمولة</string>
   <string name="subtitle_transaction_num">التحويل</string>
   <!-- Actions -->
   <string name="action_more_details">المزيد</string>
@@ -133,7 +133,7 @@
   <string name="action_save">حفظ</string>
   <!-- Subject -->
   <string name="error_fail_generate_qr">لم نتمكن من إنتاج شيفرة QR.</string>
-  <string name="error_invalid_address">Invalid address</string>
+  <string name="error_invalid_address">عنوان غير صالح</string>
   <string name="error_invalid_amount">مقدار غير صالح</string>
   <string name="error_transaction_failed">خطأ في التحويل</string>
   <string name="error_must_numeric">يجب أن تكون قيمة رقمية.</string>
@@ -150,8 +150,8 @@
   <string name="welcome.erc20.label.title">متوافق مع ERC20</string>
   <string name="welcome.erc20.label.description">يدعم توكنز ERC20 بشكل افتراضي.</string>
   <string name="scan_qr">احصل على عنوان من خلال شيفرة QR</string>
-  <string name="info_gas_price">كلما ارتقع سعر الغاز، ارتفعت قيمة عمولة التحويلات التي تقوم بها، لكن تصبح عملية التحويلات أسرع من خلال شبكة الإيثريوم.</string>
-  <string name="info_gas_limit">The gas limit prevents smart contracts from consuming all your Ethereum. We will try to calculate the gas limit automatically for you, but some smart contracts may require a custom gas limit.</string>
+  <string name="info_gas_price">كلما ارتقع سعر عمولات التحويل (gas)، ارتفعت تكلفة عمولة التحويلات التي تقوم بها، لكن ستصبح عملية التحويلات أسرع من خلال شبكة الإيثريوم.</string>
+  <string name="info_gas_limit">إن حدَّ عمولة التحويلات تمنع العقود الذكية من استهلاك كل الإيثيريوم الخاص بك. سنحاول حساب حدّ عمولات التحويل (gas) تلقائيًا من أجلك، لكن بعض العقود الذكية تتطلب حدًّا معينًا لعمولات التحويل (gas).</string>
   <string name="title_send_settings">متقدم</string>
   <string name="title_activity_barcode">مسح الباركود</string>
   <string name="error_add_token">لم نتمكن من إضافة التوكنز.</string>
