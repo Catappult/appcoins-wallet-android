@@ -75,38 +75,38 @@
   <!-- Suggestions -->
   <string name="suggestion_private_key">يجب أن يكون المفتاح الخاص مكونًا من 64 رمزًا</string>
   <string name="suggestion_empty_password_available">يمكن ترك خانة كلمة المرور خالية.</string>
-  <string name="suggestion_this_is_your_address">My public %s wallet address</string>
+  <string name="suggestion_this_is_your_address">عنوان %s العام لمحفظتي</string>
   <!-- Hints -->
-  <string name="hint_private_key_field">Private key *</string>
+  <string name="hint_private_key_field">المفتاح الخاص *</string>
   <string name="hint_keystore">Keystore *</string>
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
-  <string name="tab_private_key">Private key</string>
+  <string name="tab_private_key">المفتاح الخاص</string>
   <!-- Dialog titles -->
-  <string name="title_dialog_error">Error</string>
-  <string name="title_dialog_handling">Processing…</string>
-  <string name="title_dialog_add_account">Add wallet</string>
+  <string name="title_dialog_error">خطأ</string>
+  <string name="title_dialog_handling">جاري التنفيذ…</string>
+  <string name="title_dialog_add_account">أضف محفظة</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Set a password to encrypt your wallet</string>
-  <string name="toast_message_wallet_imported">The wallet was imported</string>
-  <string name="toast_message_wallet_exported">A backup was created</string>
+  <string name="dialog_message">أنشئ كلمة مرور لتشفير محفظتك</string>
+  <string name="toast_message_wallet_imported">تم استيراد المحفظة</string>
+  <string name="toast_message_wallet_exported">تم إنشاء نسخة احتياطية</string>
   <string name="toast_qr_code_no_address">شيفرة QR لا تحتوي على عنوان صالح</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins BDS Wallet</string>
-  <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
-  <string name="intro_title_third_page">Simple &amp; Easy</string>
-  <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
-  <string name="intro_message_second_page">Private keys never leave your device.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
+  <string name="intro_title_second_page"><![CDATA[خاص ومُؤمَّن]]></string>
+  <string name="intro_title_third_page">بسيط &amp; سهل</string>
+  <string name="intro_message_first_page">مرحبًا بك في ثورة اقتصاد التطبيقات.</string>
+  <string name="intro_message_second_page">المفاتيح الخاصة لا تفارق جهازك أبدًا.</string>
+  <string name="intro_message_third_page">نفّذ جميع عمليات الدفع داخل التطبيق والمكافآت بواسطة APPC.</string>
   <!-- Menus -->
   <!-- Labels -->
-  <string name="label_from">From</string>
-  <string name="label_to">To</string>
-  <string name="label_gas_limit">Gas Limit</string>
-  <string name="label_gas_price">Gas Price</string>
+  <string name="label_from">مِن</string>
+  <string name="label_to">إلى</string>
+  <string name="label_gas_limit">حدّ عمولات التحويل</string>
+  <string name="label_gas_price">سعر عمولات التحويل</string>
   <string name="label_network_fee">Network Fee</string>
   <string name="button_ok">OK</string>
   <string name="hint_recipient_address">Recipient Address</string>
