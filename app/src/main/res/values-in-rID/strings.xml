@@ -97,45 +97,45 @@
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins BDS Wallet</string>
   <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
-  <string name="intro_title_third_page">Simple &amp; Easy</string>
+  <string name="intro_title_third_page">Sederhana &amp; Mudah</string>
   <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
   <string name="intro_message_second_page">Private keys never leave your device.</string>
   <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
   <!-- Menus -->
   <!-- Labels -->
-  <string name="label_from">From</string>
-  <string name="label_to">To</string>
-  <string name="label_gas_limit">Gas Limit</string>
-  <string name="label_gas_price">Gas Price</string>
-  <string name="label_network_fee">Network Fee</string>
-  <string name="button_ok">OK</string>
-  <string name="hint_recipient_address">Recipient Address</string>
-  <string name="hint_amount">Amount</string>
-  <string name="hint_amount_with_token">Amount %s</string>
-  <string name="hint_contract_address">Contract address</string>
-  <string name="hint_contract_symbol">Symbol</string>
-  <string name="hint_contract_decimals">Decimals</string>
-  <string name="button_cancel">CANCEL</string>
-  <string name="button_yes">YES</string>
+  <string name="label_from">Dari</string>
+  <string name="label_to">Ke</string>
+  <string name="label_gas_limit">Batas Gas</string>
+  <string name="label_gas_price">Harga Gas</string>
+  <string name="label_network_fee">Biaya Jaringan</string>
+  <string name="button_ok">Oke</string>
+  <string name="hint_recipient_address">Alamat Penerima</string>
+  <string name="hint_amount">Jumlah</string>
+  <string name="hint_amount_with_token">Jumlah %s</string>
+  <string name="hint_contract_address">Alamat kontrak</string>
+  <string name="hint_contract_symbol">Simbol</string>
+  <string name="hint_contract_decimals">Desimal</string>
+  <string name="button_cancel">BATAL</string>
+  <string name="button_yes">YA</string>
   <!-- Subtitles -->
-  <string name="subtitle_from">From</string>
-  <string name="subtitle_gas_fee">Fee</string>
-  <string name="subtitle_transaction_num">Transaction</string>
+  <string name="subtitle_from">Dari</string>
+  <string name="subtitle_gas_fee">Biaya</string>
+  <string name="subtitle_transaction_num">Transaksi</string>
   <!-- Actions -->
-  <string name="action_more_details">More</string>
-  <string name="action_add_wallet">Add wallet</string>
+  <string name="action_more_details">Lainnya</string>
+  <string name="action_add_wallet">Tambah dompet</string>
   <string name="action_coinbase">Coinbase</string>
   <string name="action_shapeshift">Shapeshift (Crypto only)</string>
   <string name="action_changelly">Changelly</string>
-  <string name="action_wallets">Wallets</string>
-  <string name="action_next">Next</string>
+  <string name="action_wallets">Dompet</string>
+  <string name="action_next">Berikutnya</string>
   <string name="action_edit">Edit</string>
-  <string name="action_save">Save</string>
+  <string name="action_save">Simpan</string>
   <!-- Subject -->
   <string name="error_fail_generate_qr">Could not generate QR code.</string>
   <string name="error_invalid_address">Invalid address</string>
   <string name="error_invalid_amount">Invalid amount</string>
-  <string name="error_transaction_failed">Transaction error</string>
+  <string name="error_transaction_failed">Kesalahan transaksi</string>
   <string name="error_must_numeric">It must be a numeric value.</string>
   <string name="transaction_succeeded">Transaction successful</string>
   <string name="NA">N/A</string>
@@ -182,9 +182,9 @@
   <string name="activity_iab_nonce_message">An error with blockchain occurred, please try again later.</string>
   <string name="activity_iab_approving_message">Checking all details: balance, items, network…</string>
   <string name="activity_iab_buying_message">Details checked \nReceiving your item…</string>
-  <string name="notification_ongoing_poa">Processing your reward</string>
-  <string name="notification_completed_poa">Reward received, enjoy!</string>
-  <string name="notification_submitting_poa">Submitting your request to the blockchain</string>
+  <string name="notification_ongoing_poa">Memproses hadiah Anda</string>
+  <string name="notification_completed_poa">Hadiah diterima, nikmatilah!</string>
+  <string name="notification_submitting_poa">Mengirimkan permintaan Anda ke blockchain</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">Tidak ada koneksi jaringan</string>
   <string name="notification_error_poa">Terjadi kesalahan</string>
@@ -192,13 +192,13 @@
   <string name="notification_cancelled_poa">Hadiah dibatalkan</string>
   <string name="notification_not_available_poa">This rewards campaign is no longer available</string>
   <string name="notification_not_available_for_country_poa">This rewards campaign isn\'t available in your country</string>
-  <string name="notification_already_rewarded_poa">You were already rewarded in this campaign</string>
-  <string name="notification_submit_error_poa">Sorry, there was an error. Try again!</string>
+  <string name="notification_already_rewarded_poa">Anda sudah diberi hadiah pada kampanye ini</string>
+  <string name="notification_submit_error_poa">Maaf, ada kesalahan. Coba lagi!</string>
   <!-- transaction details -->
   <string name="transaction_status_success">Berhasil</string>
   <string name="transaction_status_pending">Ditangguhkan</string>
   <string name="transaction_status_failed">Gagal</string>
-  <string name="transaction_type_iab">In-App Purchase</string>
+  <string name="transaction_type_iab">Pembelian In-App</string>
   <string name="transaction_type_poa">Proof of Attention</string>
   <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
   <string name="transaction_type_standard">Transfer</string>
@@ -218,9 +218,9 @@
   <string name="dialog_credit_card_number">Nomor Kartu</string>
   <string name="dialog_credit_card_expiration">Tanggal Kedaluwarsa</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
-  <string name="activity_airdrop_details">This is just a security thing.</string>
-  <string name="activity_airdrop_hint">Type the words in the image</string>
+  <string name="activity_airdrop_title">Untuk menerima AppCoin, konfirmasikan bahwa Anda manusia</string>
+  <string name="activity_airdrop_details">Ini hanya soal keamanan.</string>
+  <string name="activity_airdrop_hint">Ketik kata di gambar itu</string>
   <string name="activity_airdrop_submit_btn">Kirim</string>
   <string name="activity_airdrop_wrong_captcha">Captcha-nya salah</string>
   <string name="activity_airdrop_ok">oke</string>
