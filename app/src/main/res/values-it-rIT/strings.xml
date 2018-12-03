@@ -24,7 +24,7 @@
   <string name="network_label">Rete</string>
   <string name="credits">Crediti</string>
   <string name="low_storage_error">Spazio di archiviazione non sufficiente</string>
-  <string name="no_camera_permission">AppCoins BDS Wallet ha bisogno della tua autorizzazione per accedere alla fotocamera e scansionare i codici QR.</string>
+  <string name="no_camera_permission">L\'AppCoin BDS Wallet ha bisogno della tua autorizzazione per accedere alla fotocamera e scansionare i codici QR.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Formato codice a barre non valido: %s</string>
   <string name="title_delete_account">Sei sicuro di voler eliminare questo portafoglio?</string>
@@ -52,7 +52,7 @@
   <string name="no_repeat">No, ripeti</string>
   <string name="skip">Salta</string>
   <string name="root_title">SICUREZZA DISPOSITIVO COMPROMESSA</string>
-  <string name="root_body">Qualsiasi app \'con permesso di root\' può accedere ai dati portachiavi di AppCoins Wallet e rubare il tuo portafoglio! Cancella immediatamente questo portafoglio e ripristinalo su un dispositivo sicuro.</string>
+  <string name="root_body">Qualsiasi app \'con permesso di root\' può accedere ai dati portachiavi di AppCoin Wallet e rubare il tuo portafoglio! Cancella immediatamente questo portafoglio e ripristinalo su un dispositivo sicuro.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
   <string name="buying">Acquisto di %s</string>
   <string name="action_buy">Acquista</string>
@@ -73,43 +73,43 @@
   <string name="title_add_token">Aggiungi token personalizzato</string>
   <string name="title_airdrop">Airdrop</string>
   <!-- Suggestions -->
-  <string name="suggestion_private_key">Private key has to be 64 characters long</string>
-  <string name="suggestion_empty_password_available">The password can be left blank.</string>
-  <string name="suggestion_this_is_your_address">My public %s wallet address</string>
+  <string name="suggestion_private_key">La chiave privata deve essere lunga 64 caratteri</string>
+  <string name="suggestion_empty_password_available">Si può lasciare vuoto il campo della password.</string>
+  <string name="suggestion_this_is_your_address">Il mio indirizzo pubblico del portafoglio %s</string>
   <!-- Hints -->
-  <string name="hint_private_key_field">Private key *</string>
+  <string name="hint_private_key_field">Chiave privata *</string>
   <string name="hint_keystore">Keystore *</string>
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
-  <string name="tab_private_key">Private key</string>
+  <string name="tab_private_key">Chiave privata</string>
   <!-- Dialog titles -->
-  <string name="title_dialog_error">Error</string>
-  <string name="title_dialog_handling">Processing…</string>
-  <string name="title_dialog_add_account">Add wallet</string>
+  <string name="title_dialog_error">Errore</string>
+  <string name="title_dialog_handling">In fase di elaborazione...</string>
+  <string name="title_dialog_add_account">Aggiungi portafoglio</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Set a password to encrypt your wallet</string>
-  <string name="toast_message_wallet_imported">The wallet was imported</string>
-  <string name="toast_message_wallet_exported">A backup was created</string>
-  <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
+  <string name="dialog_message">Imposta una password per criptare il tuo portafoglio</string>
+  <string name="toast_message_wallet_imported">Il portafoglio è stato importato</string>
+  <string name="toast_message_wallet_exported">E\' stato creato un backup</string>
+  <string name="toast_qr_code_no_address">Il codice QR non contiene un indirizzo valido</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">AppCoins BDS Wallet</string>
-  <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
-  <string name="intro_title_third_page">Simple &amp; Easy</string>
-  <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
-  <string name="intro_message_second_page">Private keys never leave your device.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
+  <string name="intro_title_first_page">AppCoin BDS Wallet</string>
+  <string name="intro_title_second_page"><![CDATA[Privato & Sicuro]]></string>
+  <string name="intro_title_third_page">Semplice &amp; Facile</string>
+  <string name="intro_message_first_page">Benvenuto nella rivoluzione della app economy.</string>
+  <string name="intro_message_second_page">Le chiavi private non lasciano mai il tuo dispositivo.</string>
+  <string name="intro_message_third_page">Elabora tutti i pagamenti in-app e i premi in APPC.</string>
   <!-- Menus -->
   <!-- Labels -->
-  <string name="label_from">From</string>
-  <string name="label_to">To</string>
-  <string name="label_gas_limit">Gas Limit</string>
-  <string name="label_gas_price">Gas Price</string>
+  <string name="label_from">Da</string>
+  <string name="label_to">A</string>
+  <string name="label_gas_limit">Gas limit</string>
+  <string name="label_gas_price">Gas price</string>
   <string name="label_network_fee">Network Fee</string>
   <string name="button_ok">OK</string>
-  <string name="hint_recipient_address">Recipient Address</string>
+  <string name="hint_recipient_address">Indirizzo del destinatario</string>
   <string name="hint_amount">Amount</string>
   <string name="hint_amount_with_token">Amount %s</string>
   <string name="hint_contract_address">Contract address</string>
@@ -140,7 +140,7 @@
   <string name="transaction_succeeded">Transazione riuscita</string>
   <string name="NA">N.A.</string>
   <string name="error_wallet_not_selected">Portafoglio non selezionato</string>
-  <string name="no_transactions_yet">Ottieni alcuni APPC di prova per vedere come funzioneranno i pagamenti AppCoins</string>
+  <string name="no_transactions_yet">Ottieni alcuni APPC di prova per vedere come funzioneranno i pagamenti AppCoin</string>
   <string name="no_transactions_yet_main">Ancora nessuna transazione!</string>
   <string name="unknown_balance_with_symbol">-- ETH</string>
   <string name="unknown_balance_without_symbol">--</string>
@@ -150,8 +150,8 @@
   <string name="welcome.erc20.label.title">Compatibile con ERC20</string>
   <string name="welcome.erc20.label.description">Supporta token ERC20 per impostazione predefinita.</string>
   <string name="scan_qr">Ottieni l\'indirizzo dal codice QR</string>
-  <string name="info_gas_price">Più alto è il prezzo della benzina, più costoso sarà il costo di transazione, ma più veloce sarà la transazione se elaborata dalla rete Ethereum.</string>
-  <string name="info_gas_limit">Il limite di benzina impedisce che i contratti smart consumino tutto il tuo Ethereum. Noi cerchiamo di calcolare per te il limite di benzina in modo automatico, ma alcuni contratti smart possono richiedere un limite di benzina personalizzato.</string>
+  <string name="info_gas_price">Più alto è il gas price, più costoso sarà il costo di transazione, ma più veloce sarà la transazione se elaborata dalla rete Ethereum.</string>
+  <string name="info_gas_limit">Il gas limit impedisce che i contratti smart consumino tutto il tuo Ethereum. Noi cerchiamo di calcolare per te il gas limit in modo automatico, ma alcuni contratti smart possono richiedere un gas limit personalizzato.</string>
   <string name="title_send_settings">Avanzate</string>
   <string name="title_activity_barcode">Scansione di codici a barre</string>
   <string name="error_add_token">Non si è potuto aggiungere il token.</string>
@@ -165,7 +165,7 @@
   <string name="token_name">%1$s (%2$s)</string>
   <string name="new_transaction_value">-%1$s %2$s</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">Abbiamo creato il fork Trust Wallet per Android per portare avanti lo sviluppo del portafoglio di AppCoins. L\'abbiamo ritenuta la migliore alternativa per quanto riguarda le funzionalità già implementate. Abbiamo creato il fork con l\'intento di contribuire con implementazioni e lavori considerati rilevanti.</string>
+  <string name="settings_fragment_credits">Abbiamo creato il fork Trust Wallet per Android per portare avanti lo sviluppo del portafoglio di AppCoin. L\'abbiamo ritenuta la migliore alternativa per quanto riguarda le funzionalità già implementate. Abbiamo creato il fork con l\'intento di contribuire con implementazioni e lavori considerati rilevanti.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">Transazione in corso</string>
   <string name="activity_aib_loading_message">Potrebbe volerci un po\'…</string>
@@ -176,7 +176,7 @@
   <string name="activity_transactions_learn_more">Ulteriori informazioni</string>
   <string name="activity_iab_no_funds_message">ETH e APPC non sufficienti</string>
   <string name="activity_iab_no_ethereum_funds_message">Ethereum non sufficiente</string>
-  <string name="activity_iab_no_token_funds_message">AppCoins non sufficienti</string>
+  <string name="activity_iab_no_token_funds_message">AppCoin non sufficienti</string>
   <string name="activity_iab_wrong_network_message">Rete Ethereum errata o token sconosciuto</string>
   <string name="activity_iab_no_network_message">Nessun accesso di rete</string>
   <string name="activity_iab_nonce_message">Si è verificato un errore con blockchain, riprova più tardi.</string>
@@ -218,7 +218,7 @@
   <string name="dialog_credit_card_number">Numero di carta</string>
   <string name="dialog_credit_card_expiration">Data di scadenza</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="activity_airdrop_title">Conferma di essere un umano per ricevere AppCoins</string>
+  <string name="activity_airdrop_title">Conferma di essere un umano per ricevere AppCoin</string>
   <string name="activity_airdrop_details">E\' solo una questione di sicurezza.</string>
   <string name="activity_airdrop_hint">Digita le parole nell\'immagine</string>
   <string name="activity_airdrop_submit_btn">Invia</string>
