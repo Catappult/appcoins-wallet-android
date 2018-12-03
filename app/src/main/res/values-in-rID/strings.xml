@@ -22,8 +22,8 @@
   <string name="close">Tutup</string>
   <string name="title_activity_settings">Pengaturan</string>
   <string name="network_label">Jaringan</string>
-  <string name="credits">Credits</string>
-  <string name="low_storage_error">Not enough storage space</string>
+  <string name="credits">Kredit</string>
+  <string name="low_storage_error">Ruang penyimpanan tidak cukup</string>
   <string name="no_camera_permission">AppCoins BDS Wallet needs permission to access your camera to scan QR codes.</string>
   <string name="ok">Oke</string>
   <string name="barcode_error_format">Invalid barcode format: %s</string>
@@ -32,25 +32,25 @@
   <string name="telegram">Grup Telegram</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Komunitas</string>
-  <string name="title_opensource">Open Source Development</string>
+  <string name="title_opensource">Pengembangan Open Source</string>
   <string name="title_source_code">Kode sumber</string>
   <string name="title_report_bug">Laporkan bug</string>
   <string name="title_support">Dukungan</string>
-  <string name="error_import">Error importing keystore</string>
+  <string name="error_import">Kesalahan mengimpor keystore</string>
   <string name="message_this_is_your_address">My public Ethereum wallet address</string>
   <string name="backup_warning_text">Since only you control your money, you\'ll need to save a backup of your keystore in case this app is deleted.\n\nYour wallet is never saved to cloud storage or standard device backups.</string>
   <string name="message_no_backup">No backup, no Ethereum</string>
-  <string name="error_deleting_account">Error deleting wallet</string>
-  <string name="title_privacy_policy">Privacy Policy</string>
-  <string name="title_terms">Terms and Conditions</string>
-  <string name="title_version">Version</string>
-  <string name="title_tokens">My Tokens</string>
-  <string name="unlock_screen_title_android">Unlock screen</string>
+  <string name="error_deleting_account">Kesalalahan menghapus dompet</string>
+  <string name="title_privacy_policy">Kebijakan Privasi</string>
+  <string name="title_terms">Syarat dan Ketentuan</string>
+  <string name="title_version">Versi</string>
+  <string name="title_tokens">Token Saya</string>
+  <string name="unlock_screen_title_android">Buka kunci layar</string>
   <string name="unlock_screen_prompt_android">Please unlock your Android device to continue.</string>
   <string name="do_manage_make_backup">Did you successfully make a backup?</string>
-  <string name="yes_continue">Yes, continue</string>
-  <string name="no_repeat">No, repeat</string>
-  <string name="skip">Skip</string>
+  <string name="yes_continue">Ya, lanjutkan</string>
+  <string name="no_repeat">Tidak, ulangi</string>
+  <string name="skip">Lewatkan</string>
   <string name="root_title">DEVICE SECURITY COMPROMISED</string>
   <string name="root_body">Any \'rooted\' app can access AppCoins Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
@@ -61,16 +61,16 @@
   <string name="already_have_account">Sudah punya dompet?</string>
   <string name="action_create_new_account">Buat dompet baru</string>
   <string name="unknown_error">An error has occurred.</string>
-  <string name="action_backup_wallet">Backup Wallet</string>
+  <string name="action_backup_wallet">Cadangkan Dompet</string>
   <string name="no_tokens">You haven\'t added any custom token yet.</string>
-  <string name="title_email">Email us</string>
-  <string name="action_donate">Donate</string>
+  <string name="title_email">Kirim email</string>
+  <string name="action_donate">Donasikan</string>
   <!-- Titles -->
-  <string name="title_my_address">Receive</string>
-  <string name="title_my_tokens">My Tokens</string>
+  <string name="title_my_address">Terima</string>
+  <string name="title_my_tokens">Token Saya</string>
   <string name="title_activity_send">Kirim</string>
-  <string name="title_activity_confirmation">Confirm</string>
-  <string name="title_add_token">Add Custom Token</string>
+  <string name="title_activity_confirmation">Konfirmasi</string>
+  <string name="title_add_token">Tambah Token Kustom</string>
   <string name="title_airdrop">Airdrop</string>
   <!-- Suggestions -->
   <string name="suggestion_private_key">Private key has to be 64 characters long</string>
@@ -81,11 +81,11 @@
   <string name="hint_keystore">Keystore *</string>
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
-  <string name="tab_private_key">Private key</string>
+  <string name="tab_private_key">Kunci rahasia</string>
   <!-- Dialog titles -->
-  <string name="title_dialog_error">Error</string>
-  <string name="title_dialog_handling">Processing…</string>
-  <string name="title_dialog_add_account">Add wallet</string>
+  <string name="title_dialog_error">Kesalahan</string>
+  <string name="title_dialog_handling">Memproses…</string>
+  <string name="title_dialog_add_account">Tambah dompet</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
@@ -96,7 +96,7 @@
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins BDS Wallet</string>
-  <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
+  <string name="intro_title_second_page"><![CDATA[Rahasia & Aman]]></string>
   <string name="intro_title_third_page">Sederhana &amp; Mudah</string>
   <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
   <string name="intro_message_second_page">Private keys never leave your device.</string>
@@ -133,32 +133,32 @@
   <string name="action_save">Simpan</string>
   <!-- Subject -->
   <string name="error_fail_generate_qr">Could not generate QR code.</string>
-  <string name="error_invalid_address">Invalid address</string>
-  <string name="error_invalid_amount">Invalid amount</string>
+  <string name="error_invalid_address">Alamat tidak valid</string>
+  <string name="error_invalid_amount">Jumlah tidak valid</string>
   <string name="error_transaction_failed">Kesalahan transaksi</string>
   <string name="error_must_numeric">It must be a numeric value.</string>
-  <string name="transaction_succeeded">Transaction successful</string>
+  <string name="transaction_succeeded">Transaksi berhasil</string>
   <string name="NA">N/A</string>
-  <string name="error_wallet_not_selected">Wallet is not selected</string>
+  <string name="error_wallet_not_selected">Dompet tidak dipilih</string>
   <string name="no_transactions_yet">Get some test APPC so you can see how AppCoins payments will work</string>
-  <string name="no_transactions_yet_main">No transactions yet!</string>
+  <string name="no_transactions_yet_main">Belum ada transaksi!</string>
   <string name="unknown_balance_with_symbol">-- ETH</string>
   <string name="unknown_balance_without_symbol">--</string>
   <string name="dummy">-</string>
   <string name="dummy_transaction_value">-- ETH</string>
-  <string name="title_dialog_sending">Sending...</string>
-  <string name="welcome.erc20.label.title">ERC20 Compatible</string>
+  <string name="title_dialog_sending">Mengirimkan...</string>
+  <string name="welcome.erc20.label.title">Kompatibel dengan ERC20</string>
   <string name="welcome.erc20.label.description">Supports ERC20 tokens by default.</string>
-  <string name="scan_qr">Get address from QR Code</string>
+  <string name="scan_qr">Dapatkan alamat dari Kode QR</string>
   <string name="info_gas_price">The higher the gas price, the more expensive your transaction fee will be, but the quicker your transaction will be processed by the Ethereum network.</string>
   <string name="info_gas_limit">The gas limit prevents smart contracts from consuming all your Ethereum. We will try to calculate the gas limit automatically for you, but some smart contracts may require a custom gas limit.</string>
-  <string name="title_send_settings">Advanced</string>
-  <string name="title_activity_barcode">Barcode Scan</string>
-  <string name="error_add_token">Couldn\'t add token.</string>
+  <string name="title_send_settings">Lanjutan</string>
+  <string name="title_activity_barcode">Pemindaian Barcode</string>
+  <string name="error_add_token">Tidak bisa menambahkan token.</string>
   <string name="facebook">Facebook</string>
-  <string name="error_already_added">Already added</string>
-  <string name="error_export">Failed to export the wallet</string>
-  <string name="error_fail_load_tokens">Failed to load tokens list</string>
+  <string name="error_already_added">Sudah ditambahkan</string>
+  <string name="error_export">Gagal mengekspor dompet</string>
+  <string name="error_fail_load_tokens">Gagal memuat daftar token</string>
   <string name="error_create_wallet">Gagal membuat dompet</string>
   <string name="token_balance">%1$s%2$s %3$s</string>
   <string name="action_edit_tokens">Edit token</string>
