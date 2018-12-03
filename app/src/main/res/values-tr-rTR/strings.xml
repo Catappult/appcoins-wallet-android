@@ -24,7 +24,7 @@
   <string name="network_label">Ağ</string>
   <string name="credits">Tanıtım</string>
   <string name="low_storage_error">Yeterli saklama alanı yok</string>
-  <string name="no_camera_permission">AppCoins BDS Wallet\'ın QR kodlarını taramak için kameranıza erişim izni olması gerekir.</string>
+  <string name="no_camera_permission">AppCoin BDS Wallet\'ın QR kodlarını taramak için kameranıza erişim izni olması gerekir.</string>
   <string name="ok">Tamam</string>
   <string name="barcode_error_format">Geçersiz barkod formatı: %s</string>
   <string name="title_delete_account">Bu cüzdanı silmek istediğinizden emin misiniz?</string>
@@ -52,7 +52,7 @@
   <string name="no_repeat">Hayır, tekrarla</string>
   <string name="skip">Atla</string>
   <string name="root_title">CİHAZ GÜVENLİĞİ TEHLİKEDE</string>
-  <string name="root_body">\"Root atılan\" herhangi bir uygulama AppCoins Cüzdanının anahtarlık verilerine erişip cüzdanınızı çalabilir! Bu cüzdanı hemen silin ve güvenli bir cihazda geri yükleyin.</string>
+  <string name="root_body">\"Root atılan\" herhangi bir uygulama AppCoin Cüzdanının anahtarlık verilerine erişip cüzdanınızı çalabilir! Bu cüzdanı hemen silin ve güvenli bir cihazda geri yükleyin.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
   <string name="buying">%s satın alınıyor</string>
   <string name="action_buy">Satın Al</string>
@@ -95,7 +95,7 @@
   <string name="toast_qr_code_no_address">QR kodu geçerli bir adres içermiyor</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">AppCoins BDS Cüzdanı</string>
+  <string name="intro_title_first_page">AppCoin BDS Cüzdanı</string>
   <string name="intro_title_second_page"><![CDATA[Özel ve Güvenli]]></string>
   <string name="intro_title_third_page">Basit ve Kolay</string>
   <string name="intro_message_first_page">Uygulama ekonomisinin evrimine hoş geldiniz.</string>
@@ -140,7 +140,7 @@
   <string name="transaction_succeeded">İşlem başarılı</string>
   <string name="NA">Geçersiz</string>
   <string name="error_wallet_not_selected">Cüzdan seçilmedi</string>
-  <string name="no_transactions_yet">AppCoins ödemelerinin nasıl işleyeceğini görebilmek için test APPC edinin</string>
+  <string name="no_transactions_yet">AppCoin ödemelerinin nasıl işleyeceğini görebilmek için test APPC edinin</string>
   <string name="no_transactions_yet_main">Henüz işlem yok!</string>
   <string name="unknown_balance_with_symbol">-- ETH</string>
   <string name="unknown_balance_without_symbol">--</string>
@@ -165,7 +165,7 @@
   <string name="token_name">%1$s (%2$s)</string>
   <string name="new_transaction_value">-%1$s %2$s</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">AppCoins cüzdan geliştirmesinin özyüklemesini yapmak amacıyla Android projesi için Güven Cüzdanını çatalladık. Halihazırda uygulanan işlevlerle ilgili olarak bunu en iyi alternatif olarak kabul ettik. Uygulamalara geri katkıda bulunma niyetiyle çatalladık ve bunun ilgili kabul edileceği yönünde çalışıyoruz.</string>
+  <string name="settings_fragment_credits">AppCoin cüzdan geliştirmesinin özyüklemesini yapmak amacıyla Android projesi için Güven Cüzdanını çatalladık. Halihazırda uygulanan işlevlerle ilgili olarak bunu en iyi alternatif olarak kabul ettik. Uygulamalara geri katkıda bulunma niyetiyle çatalladık ve bunun ilgili kabul edileceği yönünde çalışıyoruz.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">İşlem yapılıyor</string>
   <string name="activity_aib_loading_message">Bu biraz zaman alabilir…</string>
