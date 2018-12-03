@@ -24,7 +24,7 @@
   <string name="network_label">الشبكة</string>
   <string name="credits">Credits</string>
   <string name="low_storage_error">لا توجد مساحة كافية للتخزين</string>
-  <string name="no_camera_permission">AppCoins BDS Wallet يحتاج إلى إذن للدخول إلى الكاميرا لمسح رمز QR.</string>
+  <string name="no_camera_permission">AppCoins BDS Wallet يحتاج إلى إذن للدخول إلى الكاميرا لمسح شيفرة QR.</string>
   <string name="ok">موافق</string>
   <string name="barcode_error_format">باركود غير صالح: %s</string>
   <string name="title_delete_account">هل أنت متأكد من حذف هذه المحفظة؟</string>
@@ -92,7 +92,7 @@
   <string name="dialog_message">Set a password to encrypt your wallet</string>
   <string name="toast_message_wallet_imported">The wallet was imported</string>
   <string name="toast_message_wallet_exported">A backup was created</string>
-  <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
+  <string name="toast_qr_code_no_address">شيفرة QR لا تحتوي على عنوان صالح</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins BDS Wallet</string>
@@ -134,22 +134,22 @@
   <!-- Subject -->
   <string name="error_fail_generate_qr">لم نتمكن من إنتاج شيفرة QR.</string>
   <string name="error_invalid_address">Invalid address</string>
-  <string name="error_invalid_amount">Invalid amount</string>
-  <string name="error_transaction_failed">Transaction error</string>
-  <string name="error_must_numeric">It must be a numeric value.</string>
-  <string name="transaction_succeeded">Transaction successful</string>
-  <string name="NA">N/A</string>
-  <string name="error_wallet_not_selected">Wallet is not selected</string>
-  <string name="no_transactions_yet">Get some test APPC so you can see how AppCoins payments will work</string>
-  <string name="no_transactions_yet_main">No transactions yet!</string>
+  <string name="error_invalid_amount">مقدار غير صالح</string>
+  <string name="error_transaction_failed">خطأ في التحويل</string>
+  <string name="error_must_numeric">يجب أن تكون قيمة رقمية.</string>
+  <string name="transaction_succeeded">تم التحويل بنجاح</string>
+  <string name="NA">لا توجد بيانات</string>
+  <string name="error_wallet_not_selected">لم يتم اختيار محفظة</string>
+  <string name="no_transactions_yet">احصل على بعض عملات APPC لتعرف كيف يعمل نظام الدفع AppCoins</string>
+  <string name="no_transactions_yet_main">لا تحويلات حتى الآن!</string>
   <string name="unknown_balance_with_symbol">-- ETH</string>
   <string name="unknown_balance_without_symbol">--</string>
   <string name="dummy">-</string>
   <string name="dummy_transaction_value">-- ETH</string>
-  <string name="title_dialog_sending">Sending...</string>
-  <string name="welcome.erc20.label.title">ERC20 Compatible</string>
+  <string name="title_dialog_sending">جاري الإرسال...</string>
+  <string name="welcome.erc20.label.title">متوافق مع ERC20</string>
   <string name="welcome.erc20.label.description">Supports ERC20 tokens by default.</string>
-  <string name="scan_qr">Get address from QR Code</string>
+  <string name="scan_qr">احصل على عنوان من خلال شيفرة QR</string>
   <string name="info_gas_price">The higher the gas price, the more expensive your transaction fee will be, but the quicker your transaction will be processed by the Ethereum network.</string>
   <string name="info_gas_limit">The gas limit prevents smart contracts from consuming all your Ethereum. We will try to calculate the gas limit automatically for you, but some smart contracts may require a custom gas limit.</string>
   <string name="title_send_settings">Advanced</string>
