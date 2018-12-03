@@ -38,23 +38,23 @@
   <string name="title_support">Sokongan</string>
   <string name="error_import">Ralat mengimport kunci kedai</string>
   <string name="message_this_is_your_address">Alamat dompet Ethereum awam saya</string>
-  <string name="backup_warning_text">Since only you control your money, you\'ll need to save a backup of your keystore in case this app is deleted.\n\nYour wallet is never saved to cloud storage or standard device backups.</string>
+  <string name="backup_warning_text">Oleh kerana anda mengawal wang anda, anda perlu menyimpan sandaran kunci kedai anda sekiranya aplikasi ini dipadam.\n\nDompet anda tidak sesekali akan disimpan di simpanan awan atau sandaran peranti standard.</string>
   <string name="message_no_backup">Tiada sandaran, tiada Ethereum</string>
   <string name="error_deleting_account">Ralat memadam dompet</string>
-  <string name="title_privacy_policy">Privacy Policy</string>
-  <string name="title_terms">Terms and Conditions</string>
+  <string name="title_privacy_policy">Dasar Privasi</string>
+  <string name="title_terms">Terma dan Syarat</string>
   <string name="title_version">Versi</string>
   <string name="title_tokens">Token Saya</string>
-  <string name="unlock_screen_title_android">Unlock screen</string>
-  <string name="unlock_screen_prompt_android">Please unlock your Android device to continue.</string>
-  <string name="do_manage_make_backup">Did you successfully make a backup?</string>
+  <string name="unlock_screen_title_android">Buka kunci skrin</string>
+  <string name="unlock_screen_prompt_android">Sila buka kunci peranti Android anda untuk teruskan.</string>
+  <string name="do_manage_make_backup">Anda berjaya melakukan sandaran?</string>
   <string name="yes_continue">Ya, teruskan</string>
   <string name="no_repeat">Tidak, ulang</string>
   <string name="skip">Langkau</string>
   <string name="root_title">KESELAMATAN PERANTI TERJEJAS</string>
-  <string name="root_body">Any \'rooted\' app can access AppCoins Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
+  <string name="root_body">Sebarang aplikasi yang di\'root\' boleh mengakses data rantaian kunci Appcoins Wallet dan mencuri dompet anda! Hapuskan dompet ini dengan segera dan tetapkan ia semula pada peranti yang selamat.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
-  <string name="buying">Buying %s</string>
+  <string name="buying">Membeli %s</string>
   <string name="action_buy">Beli</string>
   <string name="empty"></string>
   <string name="try_again">Cuba lagi</string>
@@ -73,40 +73,40 @@
   <string name="title_add_token">Tambah Token Tersuai</string>
   <string name="title_airdrop">Airdrop</string>
   <!-- Suggestions -->
-  <string name="suggestion_private_key">Private key has to be 64 characters long</string>
-  <string name="suggestion_empty_password_available">The password can be left blank.</string>
+  <string name="suggestion_private_key">Kunci peribadi mesti ada 64 aksara</string>
+  <string name="suggestion_empty_password_available">Kata laluan tidak boleh dibiarkan kosong.</string>
   <string name="suggestion_this_is_your_address">My public %s wallet address</string>
   <!-- Hints -->
-  <string name="hint_private_key_field">Private key *</string>
-  <string name="hint_keystore">Keystore *</string>
+  <string name="hint_private_key_field">Kunci peribadi *</string>
+  <string name="hint_keystore">Kunci kedai *</string>
   <!-- Tabs labels-->
-  <string name="tab_keystore">Keystore</string>
-  <string name="tab_private_key">Private key</string>
+  <string name="tab_keystore">Kunci kedai</string>
+  <string name="tab_private_key">Kunci peribadi</string>
   <!-- Dialog titles -->
-  <string name="title_dialog_error">Error</string>
-  <string name="title_dialog_handling">Processing…</string>
+  <string name="title_dialog_error">Ralat</string>
+  <string name="title_dialog_handling">Memproses…</string>
   <string name="title_dialog_add_account">Tambah dompet</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Set a password to encrypt your wallet</string>
+  <string name="dialog_message">Tetapkan kata laluan untuk menyulitkan dompet anda</string>
   <string name="toast_message_wallet_imported">Dompet telah diimport</string>
-  <string name="toast_message_wallet_exported">A backup was created</string>
+  <string name="toast_message_wallet_exported">Sandaran telah disediakan</string>
   <string name="toast_qr_code_no_address">Kod QR tidak mengandungi alamat yang sah</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins BDS Wallet</string>
   <string name="intro_title_second_page"><![CDATA[Terjamin & Selamat]]></string>
   <string name="intro_title_third_page">Ringkas &amp; Mudah</string>
-  <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
-  <string name="intro_message_second_page">Private keys never leave your device.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
+  <string name="intro_message_first_page">Selamat datang ke revolusi ekonomi aplikasi.</string>
+  <string name="intro_message_second_page">Kunci peribadi tidak akan meninggalkan dompet anda.</string>
+  <string name="intro_message_third_page">Proses semua bayaran dan ganjaran dalam aplikasi anda dengan APPC.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Daripada</string>
   <string name="label_to">Kepada</string>
-  <string name="label_gas_limit">Had Gas</string>
-  <string name="label_gas_price">Harga Gas</string>
+  <string name="label_gas_limit">Had Minyak</string>
+  <string name="label_gas_price">Harga Minyak</string>
   <string name="label_network_fee">Yuran Rangkaian</string>
   <string name="button_ok">OK</string>
   <string name="hint_recipient_address">Alamat Penerima</string>
@@ -150,8 +150,8 @@
   <string name="welcome.erc20.label.title">Serasi ERC20</string>
   <string name="welcome.erc20.label.description">Menyokong token ERC20 secara lalai.</string>
   <string name="scan_qr">Dapatkan alamat dari Kod QR</string>
-  <string name="info_gas_price">The higher the gas price, the more expensive your transaction fee will be, but the quicker your transaction will be processed by the Ethereum network.</string>
-  <string name="info_gas_limit">The gas limit prevents smart contracts from consuming all your Ethereum. We will try to calculate the gas limit automatically for you, but some smart contracts may require a custom gas limit.</string>
+  <string name="info_gas_price">Semakin tinggi harga minyak, semakin mahal yuran transaksi anda, namun transaksi anda akan diproses oleh rangkaian Ethereum dengan lebih pantas.</string>
+  <string name="info_gas_limit">Had minyak mencegah kontrak pintar daripada menggunakan semua Ethereum anda. Kami akan cuba mengira had minyak secara automatik untuk anda. Tetapi, sesetengah kontrak pintar mungkin memerlukan had minyak.</string>
   <string name="title_send_settings">Lanjut</string>
   <string name="title_activity_barcode">Imbas Kod Bar</string>
   <string name="error_add_token">Tidak dapat menambah token.</string>
