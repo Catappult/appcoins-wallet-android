@@ -243,8 +243,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     String priceText = decimalFormat.format(fiatValue.getAmount()) + ' ' + currency;
     String finalString = priceText;
     Spannable spannable = new SpannableString(finalString);
-    spannable.setSpan(
-        new ForegroundColorSpan(getResources().getColor(R.color.dialog_buy_total_value)),
+    spannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.dialog_fiat_price)),
         finalString.indexOf(priceText), finalString.indexOf(priceText) + priceText.length(),
         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     appcPriceTv.setText(valueText);
