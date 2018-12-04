@@ -124,6 +124,7 @@ import com.asfoundation.wallet.ui.iab.raiden.Web3jNonceProvider;
 import com.asfoundation.wallet.util.EIPTransactionParser;
 import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.OneStepTransactionParser;
+import com.asfoundation.wallet.util.TransactionIdHelper;
 import com.asfoundation.wallet.util.TransferParser;
 import com.facebook.appevents.AppEventsLogger;
 import com.google.gson.Gson;
@@ -155,6 +156,9 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
 @Module class ToolsModule {
+
+  private final TransactionIdHelper transactionIdHelper = new TransactionIdHelper();
+
   @Provides Context provideContext(App application) {
     return application.getApplicationContext();
   }
@@ -285,7 +289,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       @Named("BUY_SERVICE_BDS") BuyService buyService, BalanceService balanceService,
       ErrorMapper errorMapper) {
     return new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-        approveService, buyService, balanceService, Schedulers.io(), errorMapper);
+        approveService, buyService, balanceService, Schedulers.io(), errorMapper,
+        transactionIdHelper);
   }
 
   @Singleton @Provides @Named("ASF_IN_APP_PURCHASE_SERVICE")
@@ -294,7 +299,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       @Named("BUY_SERVICE_ON_CHAIN") BuyService buyService, BalanceService balanceService,
       ErrorMapper errorMapper) {
     return new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-        approveService, buyService, balanceService, Schedulers.io(), errorMapper);
+        approveService, buyService, balanceService, Schedulers.io(), errorMapper,
+        transactionIdHelper);
   }
 
   @Singleton @Provides BdsTransactionService providesBdsTransactionService(Billing billing,
@@ -302,7 +308,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new BdsTransactionService(Schedulers.io(),
         new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new CompositeDisposable(),
         new BdsPendingTransactionService(billing, Schedulers.io(), 5,
-            billingPaymentProofSubmission));
+            billingPaymentProofSubmission), transactionIdHelper);
   }
 
   @Singleton @Provides BdsInAppPurchaseInteractor provideBdsInAppPurchaseInteractor(
@@ -323,7 +329,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
         billingMessagesMapper, billing,
         new ExternalBillingSerializer(), expressCheckoutBuyService, bdsTransactionService,
-        Schedulers.io());
+        Schedulers.io(), transactionIdHelper);
   }
 
   @Singleton @Provides @Named("ASF_IN_APP_INTERACTOR")
@@ -336,7 +342,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
         billingMessagesMapper, billing,
         new ExternalBillingSerializer(), expressCheckoutBuyService, bdsTransactionService,
-        Schedulers.io());
+        Schedulers.io(), transactionIdHelper);
   }
 
   @Singleton @Provides TransactionIdRepository provideTransactionIdRepository(

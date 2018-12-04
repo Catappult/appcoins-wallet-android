@@ -2,6 +2,8 @@ package com.asfoundation.wallet.repository;
 
 import com.appcoins.wallet.commons.MemoryCache;
 import com.asfoundation.wallet.entity.PendingTransaction;
+import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.util.TransactionIdHelper;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.TestObserver;
@@ -22,19 +24,21 @@ import static org.mockito.Mockito.when;
   private static final String PACKAGE_NAME = "package_name";
   private static final String SKU = "sku";
   private static final String UID = "uid";
-  private static final String KEY = "key";
+  private static final TransactionBuilder TRANSACTION_BUILDER = new TransactionBuilder("TEST");
+  private static final TransactionIdHelper TRANSACTION_ID_HELPER = new TransactionIdHelper();
+  private static final String KEY = TRANSACTION_ID_HELPER.computeId(TRANSACTION_BUILDER);
   @Mock BdsPendingTransactionService transactionService;
   private BdsTransactionService bdsPendingTransactionService;
   private TestScheduler scheduler;
 
-  @Before public void setUp() throws Exception {
+  @Before public void setUp() {
     when(transactionService.checkTransactionStateFromTransactionId(UID)).thenReturn(
         Observable.just(new PendingTransaction(KEY, true), new PendingTransaction(KEY, false)));
 
     scheduler = new TestScheduler();
     bdsPendingTransactionService = new BdsTransactionService(scheduler,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
-        new CompositeDisposable(), transactionService);
+        new CompositeDisposable(), transactionService, new TransactionIdHelper());
   }
 
   @Test public void getTransaction() {
@@ -42,7 +46,7 @@ import static org.mockito.Mockito.when;
     scheduler.triggerActions();
 
     TestObserver<BdsTransactionService.BdsTransaction> transactionObserver = new TestObserver<>();
-    bdsPendingTransactionService.getTransaction(KEY)
+    bdsPendingTransactionService.getTransaction(TRANSACTION_BUILDER)
         .subscribe(transactionObserver);
     scheduler.advanceTimeBy(3, TimeUnit.SECONDS);
     scheduler.triggerActions();

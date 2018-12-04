@@ -1,9 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
-import java.io.UnsupportedEncodingException;
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import javax.annotation.Nullable;
-import org.kethereum.erc681.ERC681ParserKt;
-import org.spongycastle.util.encoders.Hex;
 
 public class Payment {
   private final Status status;
@@ -30,7 +28,8 @@ public class Payment {
     this.productId = null;
   }
   public Payment(String uri, Status status, @Nullable String fromAddress, @Nullable String buyHash,
-      @Nullable String packageName, @Nullable String productName, @Nullable String productId) {
+      @Nullable String packageName, @Nullable String productName, @Nullable String productId,
+      TransactionBuilder transactionBuilder) {
     this.status = status;
     this.uri = uri;
     this.fromAddress = fromAddress;

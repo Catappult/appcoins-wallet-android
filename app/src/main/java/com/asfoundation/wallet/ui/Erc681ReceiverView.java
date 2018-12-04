@@ -5,7 +5,8 @@ import com.asfoundation.wallet.entity.TransactionBuilder;
 interface Erc681ReceiverView {
   String getCallingPackage();
 
-  void startEipTransfer(TransactionBuilder transactionBuilder, Boolean isBds);
+  void startEipTransfer(TransactionBuilder transactionBuilder, Boolean isBds,
+      String developerPayload);
 
   void startApp(Throwable throwable);
 }

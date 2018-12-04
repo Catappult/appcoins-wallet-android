@@ -41,6 +41,7 @@ import com.asfoundation.wallet.service.CurrencyConversionService;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationEntity;
 import com.asfoundation.wallet.util.EIPTransactionParser;
 import com.asfoundation.wallet.util.OneStepTransactionParser;
+import com.asfoundation.wallet.util.TransactionIdHelper;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -52,7 +53,6 @@ import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.PublishSubject;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -111,6 +111,7 @@ public class InAppPurchaseInteractorTest {
   private DataMapper dataMapper;
   private EIPTransactionParser eipTransactionParser;
   private OneStepTransactionParser oneStepTransactionParser;
+  private TransactionIdHelper transactionIdHelper = new TransactionIdHelper();
 
   @Before public void before()
       throws AppInfoProvider.UnknownApplicationException, ImageSaver.SaveException {
@@ -170,7 +171,8 @@ public class InAppPurchaseInteractorTest {
         new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
             new ApproveService(approveTransactionService, transactionValidator),
             new BuyService(buyTransactionService, transactionValidator, defaultTokenProvider,
-                countryCodeProvider, dataMapper), balanceService, scheduler, new ErrorMapper());
+                countryCodeProvider, dataMapper), balanceService, scheduler, new ErrorMapper(),
+            transactionIdHelper);
 
     proofPublishSubject = PublishSubject.create();
     when(proofOfAttentionService.get()).thenReturn(proofPublishSubject);
@@ -212,7 +214,8 @@ public class InAppPurchaseInteractorTest {
             new ExpressCheckoutBuyService(Mockito.mock(CurrencyConversionService.class)),
             new BdsTransactionService(scheduler,
                 new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
-                new CompositeDisposable(), transactionService), scheduler);
+                new CompositeDisposable(), transactionService, transactionIdHelper), scheduler,
+            transactionIdHelper);
 
     BillingPaymentProofSubmission billingPaymentProofSubmission =
         Mockito.mock(BillingPaymentProofSubmission.class);
@@ -229,11 +232,14 @@ public class InAppPurchaseInteractorTest {
         + "/transfer?uint256=1000000000000000000&address"
         + "=0x4fbcc5ce88493c3d9903701c143af65f54481119&data=0x636f6d2e63656e61732e70726f64756374";
     inAppPurchaseInteractor.start();
+    TransactionBuilder transactionBuilder = inAppPurchaseInteractor.parseTransaction(uri)
+        .blockingGet();
     TestObserver<Payment> testObserver = new TestObserver<>();
-    inAppPurchaseInteractor.getTransactionState(uri)
+    inAppPurchaseInteractor.getTransactionState(transactionBuilder)
         .subscribe(testObserver);
     scheduler.triggerActions();
-    inAppPurchaseInteractor.send(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
+    inAppPurchaseInteractor.send(transactionBuilder,
+        AsfInAppPurchaseInteractor.TransactionType.NORMAL,
         PACKAGE_NAME, PRODUCT_NAME, BigDecimal.ONE, DEVELOPER_PAYLOAD)
         .subscribe();
     scheduler.triggerActions();
@@ -289,11 +295,14 @@ public class InAppPurchaseInteractorTest {
         + "/transfer?uint256=1000000000000000000&address"
         + "=0x4fbcc5ce88493c3d9903701c143af65f54481119&data=0x636f6d2e63656e61732e70726f64756374";
     inAppPurchaseService.start();
+    TransactionBuilder transactionBuilder = inAppPurchaseInteractor.parseTransaction(uri)
+        .blockingGet();
     TestObserver<Payment> testObserver = new TestObserver<>();
-    inAppPurchaseInteractor.getTransactionState(uri)
+    inAppPurchaseInteractor.getTransactionState(transactionBuilder)
         .subscribe(testObserver);
     scheduler.triggerActions();
-    inAppPurchaseInteractor.send(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
+    inAppPurchaseInteractor.send(transactionBuilder,
+        AsfInAppPurchaseInteractor.TransactionType.NORMAL,
         PACKAGE_NAME, PRODUCT_NAME, BigDecimal.ONE, DEVELOPER_PAYLOAD)
         .subscribe();
     scheduler.triggerActions();
@@ -332,11 +341,14 @@ public class InAppPurchaseInteractorTest {
         + "/transfer?uint256=1000000000000000000&address"
         + "=0x4fbcc5ce88493c3d9903701c143af65f54481119&data=0x636f6d2e63656e61732e70726f64756374";
     inAppPurchaseService.start();
+    TransactionBuilder transactionBuilder = inAppPurchaseInteractor.parseTransaction(uri)
+        .blockingGet();
     TestObserver<Payment> testObserver = new TestObserver<>();
-    inAppPurchaseInteractor.getTransactionState(uri)
+    inAppPurchaseInteractor.getTransactionState(transactionBuilder)
         .subscribe(testObserver);
     scheduler.triggerActions();
-    inAppPurchaseInteractor.send(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
+    inAppPurchaseInteractor.send(transactionBuilder,
+        AsfInAppPurchaseInteractor.TransactionType.NORMAL,
         PACKAGE_NAME, PRODUCT_NAME, BigDecimal.ONE, DEVELOPER_PAYLOAD)
         .subscribe();
     scheduler.triggerActions();
@@ -389,15 +401,18 @@ public class InAppPurchaseInteractorTest {
         + "@3"
         + "/transfer?uint256=1000000000000000000&address"
         + "=0x4fbcc5ce88493c3d9903701c143af65f54481119&data=0x636f6d2e63656e61732e70726f64756374";
+    TransactionBuilder transactionBuilder = inAppPurchaseInteractor.parseTransaction(uri)
+        .blockingGet();
 
     inAppPurchaseInteractor.start();
     TestObserver<Payment> observer = new TestObserver<>();
-    inAppPurchaseInteractor.getTransactionState(uri)
+    inAppPurchaseInteractor.getTransactionState(transactionBuilder)
         .subscribe(observer);
     scheduler.triggerActions();
 
     TestObserver<Object> submitObserver = new TestObserver<>();
-    inAppPurchaseInteractor.resume(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
+    inAppPurchaseInteractor.resume(transactionBuilder,
+        AsfInAppPurchaseInteractor.TransactionType.NORMAL,
         PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD)
         .subscribe(submitObserver);
 

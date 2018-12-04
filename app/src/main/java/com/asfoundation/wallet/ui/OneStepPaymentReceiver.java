@@ -44,7 +44,7 @@ public class OneStepPaymentReceiver extends BaseActivity {
   }
 
   private void startOneStepTransfer(TransactionBuilder transaction, boolean isBds) {
-    Intent intent = IabActivity.newIntent(this, getIntent(), transaction, isBds);
+    Intent intent = IabActivity.newIntent(this, getIntent(), transaction, isBds, null);
     intent.putExtra(PRODUCT_NAME, transaction.getSkuId());
     startActivityForResult(intent, REQUEST_CODE);
   }

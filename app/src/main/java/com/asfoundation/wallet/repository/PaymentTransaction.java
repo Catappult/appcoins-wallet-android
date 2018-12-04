@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.repository;
 
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import java.util.Objects;
 import javax.annotation.Nullable;
 
 /**
@@ -8,7 +9,6 @@ import javax.annotation.Nullable;
  */
 
 public class PaymentTransaction {
-  private final String uri;
   private final @Nullable String approveHash;
   private final @Nullable String buyHash;
   private final TransactionBuilder transactionBuilder;
@@ -19,10 +19,9 @@ public class PaymentTransaction {
   private final String developerPayload;
   private final String callbackUrl;
 
-  public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, PaymentState state,
+  public PaymentTransaction(TransactionBuilder transactionBuilder, PaymentState state,
       @Nullable String approveHash, @Nullable String buyHash, String packageName,
       String productName, String productId, String developerPayload, String callbackUrl) {
-    this.uri = uri;
     this.transactionBuilder = transactionBuilder;
     this.state = state;
     this.approveHash = approveHash;
@@ -35,19 +34,18 @@ public class PaymentTransaction {
   }
 
   public PaymentTransaction(PaymentTransaction paymentTransaction, PaymentState state) {
-    this(paymentTransaction.getUri(), paymentTransaction.getTransactionBuilder(), state,
+    this(paymentTransaction.getTransactionBuilder(), state,
         paymentTransaction.getApproveHash(), paymentTransaction.getBuyHash(),
         paymentTransaction.getPackageName(), paymentTransaction.getProductName(),
         paymentTransaction.getProductId(), paymentTransaction.getDeveloperPayload(),
         paymentTransaction.getCallbackUrl());
   }
 
-  public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, PaymentState state,
+  public PaymentTransaction(TransactionBuilder transactionBuilder, PaymentState state,
       @Nullable String approveHash, String packageName, String productName, String productId,
       String developerPayload, String callbackUrl) {
     this.approveHash = approveHash;
     this.packageName = packageName;
-    this.uri = uri;
     this.transactionBuilder = transactionBuilder;
     this.state = state;
     this.productName = productName;
@@ -59,7 +57,7 @@ public class PaymentTransaction {
 
   public PaymentTransaction(PaymentTransaction paymentTransaction, PaymentState state,
       String approveHash) {
-    this(paymentTransaction.getUri(), paymentTransaction.getTransactionBuilder(), state,
+    this(paymentTransaction.getTransactionBuilder(), state,
         approveHash, null, paymentTransaction.getPackageName(), paymentTransaction.getProductName(),
         paymentTransaction.getProductId(), paymentTransaction.getDeveloperPayload(),
         paymentTransaction.getCallbackUrl());
@@ -67,24 +65,20 @@ public class PaymentTransaction {
 
   public PaymentTransaction(PaymentTransaction paymentTransaction, PaymentState state,
       String approveHash, String buyHash) {
-    this(paymentTransaction.getUri(), paymentTransaction.getTransactionBuilder(), state,
+    this(paymentTransaction.getTransactionBuilder(), state,
         approveHash, buyHash, paymentTransaction.getPackageName(),
         paymentTransaction.getProductName(), paymentTransaction.getProductId(),
         paymentTransaction.getDeveloperPayload(), paymentTransaction.getCallbackUrl());
   }
 
-  public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, String packageName,
+  public PaymentTransaction(TransactionBuilder transactionBuilder, String packageName,
       String productName, String productId, String developerPayload, String callbackUrl) {
-    this(uri, transactionBuilder, PaymentState.PENDING, null, packageName, productName, productId,
+    this(transactionBuilder, PaymentState.PENDING, null, packageName, productName, productId,
         developerPayload, callbackUrl);
   }
 
   public String getPackageName() {
     return packageName;
-  }
-
-  public String getUri() {
-    return uri;
   }
 
   public TransactionBuilder getTransactionBuilder() {
@@ -104,36 +98,28 @@ public class PaymentTransaction {
   }
 
   @Override public int hashCode() {
-    int result = uri.hashCode();
-    result = 31 * result + (approveHash != null ? approveHash.hashCode() : 0);
-    result = 31 * result + (transactionBuilder != null ? transactionBuilder.hashCode() : 0);
-    result = 31 * result + (state != null ? state.hashCode() : 0);
-    return result;
+
+    return Objects.hash(approveHash, buyHash, transactionBuilder, state, packageName, productName,
+        productId, developerPayload, callbackUrl);
   }
 
   @Override public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof PaymentTransaction)) return false;
-
+    if (o == null || getClass() != o.getClass()) return false;
     PaymentTransaction that = (PaymentTransaction) o;
-
-    if (!uri.equals(that.uri)) return false;
-    if (approveHash != null ? !approveHash.equals(that.approveHash) : that.approveHash != null) {
-      return false;
-    }
-    if (transactionBuilder != null ? !transactionBuilder.equals(that.transactionBuilder)
-        : that.transactionBuilder != null) {
-      return false;
-    }
-    return state == that.state;
+    return Objects.equals(approveHash, that.approveHash)
+        && Objects.equals(buyHash, that.buyHash)
+        && Objects.equals(transactionBuilder, that.transactionBuilder)
+        && state == that.state
+        && Objects.equals(packageName, that.packageName)
+        && Objects.equals(productName, that.productName)
+        && Objects.equals(productId, that.productId)
+        && Objects.equals(developerPayload, that.developerPayload)
+        && Objects.equals(callbackUrl, that.callbackUrl);
   }
 
   @Override public String toString() {
-    return "PaymentTransaction{"
-        + "uri='"
-        + uri
-        + '\''
-        + ", approveHash='"
+    return "PaymentTransaction{" + "approveHash='"
         + approveHash
         + '\''
         + ", buyHash='"

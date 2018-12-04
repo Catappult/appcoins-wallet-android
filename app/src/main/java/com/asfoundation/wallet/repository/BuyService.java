@@ -69,7 +69,7 @@ public class BuyService {
   @NonNull
   private PaymentTransaction updateTransactionBuilderData(PaymentTransaction paymentTransaction,
       TransactionBuilder transaction) {
-    return new PaymentTransaction(paymentTransaction.getUri(), transaction,
+    return new PaymentTransaction(transaction,
         paymentTransaction.getState(), paymentTransaction.getApproveHash(),
         paymentTransaction.getBuyHash(), paymentTransaction.getPackageName(),
         paymentTransaction.getProductName(), paymentTransaction.getProductId(),

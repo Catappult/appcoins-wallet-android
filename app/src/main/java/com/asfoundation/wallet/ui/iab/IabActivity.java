@@ -38,6 +38,7 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   public static final String TRANSACTION_HASH = "transaction_hash";
   public static final String TRANSACTION_AMOUNT = "transaction_amount";
   public static final String TRANSACTION_CURRENCY = "transaction_currency";
+  public static final String DEVELOPER_PAYLOAD = "developer_payload";
   public static final String FIAT_VALUE = "fiat_value";
   private static final String BDS = "BDS";
   private static final String TAG = IabActivity.class.getSimpleName();
@@ -51,9 +52,10 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   private TransactionBuilder transaction;
   private boolean isBds;
   private PublishRelay<Uri> results;
+  private String developerPayload;
 
   public static Intent newIntent(Activity activity, Intent previousIntent,
-      TransactionBuilder transaction, Boolean isBds) {
+      TransactionBuilder transaction, Boolean isBds, String developerPayload) {
     Intent intent = new Intent(activity, IabActivity.class);
     intent.setData(previousIntent.getData());
     if (previousIntent.getExtras() != null) {
@@ -61,6 +63,7 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     }
     intent.putExtra(TRANSACTION_EXTRA, transaction);
     intent.putExtra(IS_BDS_EXTRA, isBds);
+    intent.putExtra(DEVELOPER_PAYLOAD, developerPayload);
     intent.putExtra(APP_PACKAGE, transaction.getDomain());
     return intent;
   }
@@ -72,6 +75,7 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     setContentView(R.layout.activity_iab);
     this.savedInstanceState = savedInstanceState;
     isBds = getIntent().getBooleanExtra(IS_BDS_EXTRA, false);
+    developerPayload = getIntent().getStringExtra(DEVELOPER_PAYLOAD);
     transaction = getIntent().getParcelableExtra(TRANSACTION_EXTRA);
     isBackEnable = true;
     presenter = new IabPresenter(this);
@@ -141,7 +145,7 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction, currency,
             getIntent().getExtras()
-                .getString(PRODUCT_NAME), isBds))
+                .getString(PRODUCT_NAME), isBds, developerPayload))
         .commit();
   }
 
@@ -207,8 +211,11 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     bundle.putString(PRODUCT_NAME, getIntent().getExtras()
         .getString(PRODUCT_NAME));
     bundle.putString(TRANSACTION_DATA, getIntent().getDataString());
-    String developerPayload = PayloadHelper.INSTANCE.getPayload(getIntent().getExtras()
-        .getString(EXTRA_DEVELOPER_PAYLOAD));
+    String developerPayloadStr = getIntent().getExtras()
+        .getString(EXTRA_DEVELOPER_PAYLOAD);
+    String developerPayload = "unknown".equals(developerPayloadStr) ? null
+        : PayloadHelper.INSTANCE.getPayload(getIntent().getExtras()
+            .getString(EXTRA_DEVELOPER_PAYLOAD));
     if (developerPayload != null) {
       bundle.putString(EXTRA_DEVELOPER_PAYLOAD, developerPayload);
     } else {

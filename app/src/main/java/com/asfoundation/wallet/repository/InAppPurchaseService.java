@@ -3,6 +3,7 @@ package com.asfoundation.wallet.repository;
 import android.support.annotation.NonNull;
 import com.appcoins.wallet.commons.Repository;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.util.TransactionIdHelper;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -24,19 +25,26 @@ public class InAppPurchaseService {
   private final Scheduler scheduler;
   private final ErrorMapper errorMapper;
 
+  private final TransactionIdHelper transactionIdHelper;
+
+  public Completable send(String key, PaymentTransaction paymentTransaction) {
+    return checkFunds(key, paymentTransaction, approveService.approve(key, paymentTransaction));
+  }
+
   public InAppPurchaseService(Repository<String, PaymentTransaction> cache,
       ApproveService approveService, BuyService buyService, BalanceService balanceService,
-      Scheduler scheduler, ErrorMapper errorMapper) {
+      Scheduler scheduler, ErrorMapper errorMapper, TransactionIdHelper transactionIdHelper) {
     this.cache = cache;
     this.approveService = approveService;
     this.buyService = buyService;
     this.balanceService = balanceService;
     this.scheduler = scheduler;
     this.errorMapper = errorMapper;
+    this.transactionIdHelper = transactionIdHelper;
   }
 
-  public Completable send(String key, PaymentTransaction paymentTransaction) {
-    return checkFunds(key, paymentTransaction, approveService.approve(key, paymentTransaction));
+  public Completable resume(String key, PaymentTransaction paymentTransaction) {
+    return checkFunds(key, paymentTransaction, buyService.buy(key, paymentTransaction));
   }
 
   private Completable checkFunds(String key, PaymentTransaction paymentTransaction,
@@ -62,45 +70,9 @@ public class InAppPurchaseService {
                   return action;
               }
             }))
-        .onErrorResumeNext(throwable -> cache.save(paymentTransaction.getUri(),
+        .onErrorResumeNext(throwable -> cache.save(
+            transactionIdHelper.computeId(paymentTransaction.getTransactionBuilder()),
             new PaymentTransaction(paymentTransaction, errorMapper.map(throwable))));
-  }
-
-  public Completable resume(String key, PaymentTransaction paymentTransaction) {
-    return checkFunds(key, paymentTransaction, buyService.buy(key, paymentTransaction));
-  }
-
-  public void start() {
-    approveService.start();
-    buyService.start();
-    approveService.getAll()
-        .flatMapCompletable(paymentTransactions -> Observable.fromIterable(paymentTransactions)
-            .flatMapCompletable(approveTransaction -> mapTransactionToPaymentTransaction(
-                approveTransaction).flatMap(
-                paymentTransaction -> cache.save(paymentTransaction.getUri(), paymentTransaction)
-                    .toSingleDefault(paymentTransaction))
-                .filter(transaction -> transaction.getState()
-                    .equals(PaymentTransaction.PaymentState.APPROVED))
-                .flatMapCompletable(transaction -> approveService.remove(transaction.getUri())
-                    .andThen(buyService.buy(transaction.getUri(), transaction)
-                        .onErrorResumeNext(throwable -> cache.save(transaction.getUri(),
-                            new PaymentTransaction(transaction, errorMapper.map(throwable))))))))
-        .subscribe();
-
-    buyService.getAll()
-        .flatMapCompletable(paymentTransactions -> Observable.fromIterable(paymentTransactions)
-            .flatMapCompletable(buyTransaction -> cache.get(buyTransaction.getKey())
-                .firstOrError()
-                .map(paymentTransaction -> map(paymentTransaction, buyTransaction))
-                .flatMap(
-                    paymentTransaction -> cache.save(buyTransaction.getKey(), paymentTransaction)
-                        .toSingleDefault(paymentTransaction))
-                .filter(transaction -> transaction.getState()
-                    .equals(PaymentTransaction.PaymentState.BOUGHT))
-                .flatMapCompletable(transaction -> buyService.remove(transaction.getUri())
-                    .andThen(cache.save(transaction.getUri(), new PaymentTransaction(transaction,
-                        PaymentTransaction.PaymentState.COMPLETED))))))
-        .subscribe();
   }
 
   private Single<PaymentTransaction> mapTransactionToPaymentTransaction(
@@ -199,10 +171,50 @@ public class InAppPurchaseService {
     return paymentState;
   }
 
-  public Observable<PaymentTransaction> getTransactionState(String key) {
-    return cache.get(key);
+  public void start() {
+    approveService.start();
+    buyService.start();
+    approveService.getAll()
+        .flatMapCompletable(paymentTransactions -> Observable.fromIterable(paymentTransactions)
+            .flatMapCompletable(approveTransaction -> mapTransactionToPaymentTransaction(
+                approveTransaction).flatMap(paymentTransaction -> cache.save(
+                transactionIdHelper.computeId(paymentTransaction.getTransactionBuilder()),
+                paymentTransaction)
+                .toSingleDefault(paymentTransaction))
+                .filter(transaction -> transaction.getState()
+                    .equals(PaymentTransaction.PaymentState.APPROVED))
+                .flatMapCompletable(transaction -> approveService.remove(
+                    transactionIdHelper.computeId(transaction.getTransactionBuilder()))
+                    .andThen(buyService.buy(
+                        transactionIdHelper.computeId(transaction.getTransactionBuilder()),
+                        transaction)
+                        .onErrorResumeNext(throwable -> cache.save(
+                            transactionIdHelper.computeId(transaction.getTransactionBuilder()),
+                            new PaymentTransaction(transaction, errorMapper.map(throwable))))))))
+        .subscribe();
+
+    buyService.getAll()
+        .flatMapCompletable(paymentTransactions -> Observable.fromIterable(paymentTransactions)
+            .flatMapCompletable(buyTransaction -> cache.get(buyTransaction.getKey())
+                .firstOrError()
+                .map(paymentTransaction -> map(paymentTransaction, buyTransaction))
+                .flatMap(
+                    paymentTransaction -> cache.save(buyTransaction.getKey(), paymentTransaction)
+                        .toSingleDefault(paymentTransaction))
+                .filter(transaction -> transaction.getState()
+                    .equals(PaymentTransaction.PaymentState.BOUGHT))
+                .flatMapCompletable(transaction -> buyService.remove(
+                    transactionIdHelper.computeId(buyTransaction.getTransactionBuilder()))
+                    .andThen(cache.save(
+                        transactionIdHelper.computeId(buyTransaction.getTransactionBuilder()),
+                        new PaymentTransaction(transaction,
+                            PaymentTransaction.PaymentState.COMPLETED))))))
+        .subscribe();
   }
 
+  public Observable<PaymentTransaction> getTransactionState(TransactionBuilder transactionBuilder) {
+    return cache.get(transactionIdHelper.computeId(transactionBuilder));
+  }
   public Completable remove(String key) {
     return buyService.remove(key)
         .andThen(approveService.remove(key))

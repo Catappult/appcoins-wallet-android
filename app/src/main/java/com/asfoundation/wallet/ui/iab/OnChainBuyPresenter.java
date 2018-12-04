@@ -78,7 +78,7 @@ public class OnChainBuyPresenter {
     if (statusDisposable != null && !statusDisposable.isDisposed()) {
       statusDisposable.dispose();
     }
-    statusDisposable = inAppPurchaseInteractor.getTransactionState(uriString)
+    statusDisposable = inAppPurchaseInteractor.getTransactionState(transactionBuilder.blockingGet())
         .observeOn(viewScheduler)
         .flatMapCompletable(this::showPendingTransaction)
         .subscribe(() -> {
@@ -90,7 +90,8 @@ public class OnChainBuyPresenter {
     disposables.add(view.getBuyClick()
         .doOnNext(buyData -> showTransactionState(buyData.uri))
         .observeOn(Schedulers.io())
-        .flatMapCompletable(buyData -> inAppPurchaseInteractor.send(buyData.getUri(),
+        .flatMapCompletable(
+            buyData -> inAppPurchaseInteractor.send(transactionBuilder.blockingGet(),
             AsfInAppPurchaseInteractor.TransactionType.NORMAL, appPackage, productName,
             buyData.getChannelBudget(), developerPayload, isBds)
             .observeOn(viewScheduler)
@@ -118,7 +119,7 @@ public class OnChainBuyPresenter {
                 .flatMapCompletable(currentPaymentStep -> {
                   switch (currentPaymentStep) {
                     case PAUSED_ON_CHAIN:
-                      return inAppPurchaseInteractor.resume(uri,
+                      return inAppPurchaseInteractor.resume(transactionBuilder.blockingGet(),
                           AsfInAppPurchaseInteractor.TransactionType.NORMAL, packageName,
                           transaction.getSkuId(), developerPayload,
                           isBds);

@@ -32,12 +32,14 @@ public class PaymentMethodsPresenter {
   private final BillingAnalytics analytics;
   private final boolean isBds;
   private final Single<TransactionBuilder> transactionBuilder;
+  private final String developerPayload;
 
   public PaymentMethodsPresenter(PaymentMethodsView view, String appPackage,
       Scheduler viewScheduler, Scheduler networkThread, CompositeDisposable disposables,
       InAppPurchaseInteractor inAppPurchaseInteractor, BillingMessagesMapper billingMessagesMapper,
       BdsPendingTransactionService bdsPendingTransactionService, Billing billing,
-      BillingAnalytics analytics, boolean isBds, Single<TransactionBuilder> transactionBuilder) {
+      BillingAnalytics analytics, boolean isBds, Single<TransactionBuilder> transactionBuilder,
+      String developerPayload) {
     this.view = view;
     this.appPackage = appPackage;
     this.viewScheduler = viewScheduler;
@@ -50,6 +52,7 @@ public class PaymentMethodsPresenter {
     this.analytics = analytics;
     this.isBds = isBds;
     this.transactionBuilder = transactionBuilder;
+    this.developerPayload = developerPayload;
   }
 
   public void present(double transactionValue, String currency, Bundle savedInstanceState) {
@@ -93,12 +96,24 @@ public class PaymentMethodsPresenter {
         .filter(transaction -> transaction.getStatus() == Transaction.Status.PROCESSING)
         .observeOn(AndroidSchedulers.mainThread())
         .doOnSuccess(__ -> view.showProcessingLoadingDialog())
+        .doOnSuccess(transaction -> handleProcessing())
         .map(Transaction::getUid)
         .observeOn(Schedulers.io())
         .flatMapCompletable(
             uid -> bdsPendingTransactionService.checkTransactionStateFromTransactionId(uid)
                 .ignoreElements()
                 .andThen(finishProcess(skuId)));
+  }
+
+  private void handleProcessing() {
+    transactionBuilder.flatMapMaybe(
+        transaction -> inAppPurchaseInteractor.getCurrentPaymentStep(appPackage, transaction)
+            .filter(currentPaymentStep -> currentPaymentStep.equals(
+                AsfInAppPurchaseInteractor.CurrentPaymentStep.PAUSED_ON_CHAIN))
+            .doOnSuccess(currentPaymentStep -> inAppPurchaseInteractor.resume(transaction,
+                AsfInAppPurchaseInteractor.TransactionType.NORMAL, appPackage,
+                transaction.getSkuId(), developerPayload, isBds)))
+        .subscribe();
   }
 
   private Completable finishProcess(String skuId) {

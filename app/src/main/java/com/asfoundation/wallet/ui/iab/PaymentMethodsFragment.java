@@ -47,6 +47,7 @@ import kotlin.NotImplementedError;
 import org.jetbrains.annotations.NotNull;
 
 import static com.asfoundation.wallet.billing.analytics.BillingAnalytics.PAYMENT_METHOD_CC;
+import static com.asfoundation.wallet.ui.iab.IabActivity.DEVELOPER_PAYLOAD;
 import static com.asfoundation.wallet.ui.iab.IabActivity.PRODUCT_NAME;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_CURRENCY;
@@ -96,15 +97,17 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private static final String DEFAULT_CURRENCY = "EUR";
   private RadioGroup radioGroup;
   private FiatValue fiatValue;
+  private String developerPayload;
 
   public static Fragment newInstance(TransactionBuilder transaction, String currency,
-      String productName, boolean isBds) {
+      String productName, boolean isBds, String developerPayload) {
     Bundle bundle = new Bundle();
     bundle.putParcelable(TRANSACTION, transaction);
     bundle.putSerializable(TRANSACTION_AMOUNT, transaction.amount());
     bundle.putString(TRANSACTION_CURRENCY, currency);
     bundle.putString(APP_PACKAGE, transaction.getDomain());
     bundle.putString(PRODUCT_NAME, productName);
+    bundle.putString(DEVELOPER_PAYLOAD, developerPayload);
     bundle.putBoolean(IS_BDS, isBds);
     Fragment fragment = new PaymentMethodsFragment();
     fragment.setArguments(bundle);
@@ -147,11 +150,12 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     currency = getArguments().getString(TRANSACTION_CURRENCY);
     productName = getArguments().getString(PRODUCT_NAME);
     String appPackage = getArguments().getString(APP_PACKAGE);
+    developerPayload = getArguments().getString(DEVELOPER_PAYLOAD);
 
     presenter = new PaymentMethodsPresenter(this, appPackage, AndroidSchedulers.mainThread(),
         Schedulers.io(), new CompositeDisposable(), inAppPurchaseInteractor,
         inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing,
-        analytics, isBds, Single.just(transaction));
+        analytics, isBds, Single.just(transaction), developerPayload);
   }
 
   @Override public void onDestroyView() {

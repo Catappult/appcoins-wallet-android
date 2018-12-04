@@ -47,31 +47,35 @@ public class InAppPurchaseInteractor {
     }
   }
 
-  public Completable send(String uri, AsfInAppPurchaseInteractor.TransactionType transactionType,
-      String packageName, String productName, BigDecimal channelBudget, String developerPayload,
-      boolean isBds) {
+  public Completable send(TransactionBuilder transactionBuilder,
+      AsfInAppPurchaseInteractor.TransactionType transactionType, String packageName,
+      String productName, BigDecimal channelBudget, String developerPayload, boolean isBds) {
     if (isBds) {
-      return bdsInAppPurchaseInteractor.send(uri, transactionType, packageName, productName,
+      return bdsInAppPurchaseInteractor.send(transactionBuilder, transactionType, packageName,
+          productName,
           channelBudget, developerPayload);
     } else {
-      return asfInAppPurchaseInteractor.send(uri, transactionType, packageName, productName,
+      return asfInAppPurchaseInteractor.send(transactionBuilder, transactionType, packageName,
+          productName,
           channelBudget, developerPayload);
     }
   }
 
-  public Completable resume(String uri, AsfInAppPurchaseInteractor.TransactionType transactionType,
+  public Completable resume(TransactionBuilder transactionBuilder,
+      AsfInAppPurchaseInteractor.TransactionType transactionType,
       String packageName, String productName, String developerPayload, boolean isBds) {
     if (isBds) {
-      return bdsInAppPurchaseInteractor.resume(uri, transactionType, packageName, productName,
+      return bdsInAppPurchaseInteractor.resume(transactionBuilder, transactionType, packageName,
+          productName,
           developerPayload);
     } else {
       return Completable.error(new UnsupportedOperationException("Asf doesn't support resume."));
     }
   }
 
-  public Observable<Payment> getTransactionState(String uri) {
-    return Observable.merge(asfInAppPurchaseInteractor.getTransactionState(uri),
-        bdsInAppPurchaseInteractor.getTransactionState(uri));
+  public Observable<Payment> getTransactionState(TransactionBuilder transactionBuilder) {
+    return Observable.merge(asfInAppPurchaseInteractor.getTransactionState(transactionBuilder),
+        bdsInAppPurchaseInteractor.getTransactionState(transactionBuilder));
   }
 
   public Completable remove(String uri) {
