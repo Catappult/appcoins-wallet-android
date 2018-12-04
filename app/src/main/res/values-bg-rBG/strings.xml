@@ -51,7 +51,7 @@
   <string name="yes_continue">Да, продължи</string>
   <string name="no_repeat">Не, повтори</string>
   <string name="skip">Пропусни</string>
-  <string name="root_title">DEVICE SECURITY COMPROMISED</string>
+  <string name="root_title">СИГУРНОСТТА НА УСТРОЙСТВОТО В КОМПРОМЕТИРАНА</string>
   <string name="root_body">Any \'rooted\' app can access AppCoins Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
   <string name="buying">Buying %s</string>
