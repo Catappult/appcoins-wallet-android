@@ -58,68 +58,68 @@
   <string name="action_buy">Acheter</string>
   <string name="empty"></string>
   <string name="try_again">Réessayez</string>
-  <string name="already_have_account">Already have a wallet?</string>
-  <string name="action_create_new_account">Create new wallet</string>
-  <string name="unknown_error">An error has occurred.</string>
-  <string name="action_backup_wallet">Backup Wallet</string>
-  <string name="no_tokens">You haven\'t added any custom token yet.</string>
-  <string name="title_email">Email us</string>
-  <string name="action_donate">Donate</string>
+  <string name="already_have_account">Vous avez déjà un portefeuille ?</string>
+  <string name="action_create_new_account">Créer nouveau portefeuille</string>
+  <string name="unknown_error">Une erreur s’est produite.</string>
+  <string name="action_backup_wallet">Sauvegarder portefeuille</string>
+  <string name="no_tokens">Vous n’avez pas encore ajouté de jeton personnalisé.</string>
+  <string name="title_email">Envoyez-nous un courriel</string>
+  <string name="action_donate">Faire un don</string>
   <!-- Titles -->
-  <string name="title_my_address">Receive</string>
-  <string name="title_my_tokens">My Tokens</string>
-  <string name="title_activity_send">Send</string>
-  <string name="title_activity_confirmation">Confirm</string>
-  <string name="title_add_token">Add Custom Token</string>
+  <string name="title_my_address">Recevoir</string>
+  <string name="title_my_tokens">Mes jetons</string>
+  <string name="title_activity_send">Envoyer</string>
+  <string name="title_activity_confirmation">Confirmer</string>
+  <string name="title_add_token">Ajouter jeton personnalisé</string>
   <string name="title_airdrop">Airdrop</string>
   <!-- Suggestions -->
-  <string name="suggestion_private_key">Private key has to be 64 characters long</string>
-  <string name="suggestion_empty_password_available">The password can be left blank.</string>
-  <string name="suggestion_this_is_your_address">My public %s wallet address</string>
+  <string name="suggestion_private_key">La clé privée doit comporter 64 caractères</string>
+  <string name="suggestion_empty_password_available">Le mot de passe peut être laissée en blanc.</string>
+  <string name="suggestion_this_is_your_address">Mon adresse de portefeuille public %s</string>
   <!-- Hints -->
-  <string name="hint_private_key_field">Private key *</string>
-  <string name="hint_keystore">Keystore *</string>
+  <string name="hint_private_key_field">Clé privée *</string>
+  <string name="hint_keystore">Boutique principale *</string>
   <!-- Tabs labels-->
-  <string name="tab_keystore">Keystore</string>
-  <string name="tab_private_key">Private key</string>
+  <string name="tab_keystore">Boutique principale</string>
+  <string name="tab_private_key">Clé privée</string>
   <!-- Dialog titles -->
-  <string name="title_dialog_error">Error</string>
-  <string name="title_dialog_handling">Processing…</string>
-  <string name="title_dialog_add_account">Add wallet</string>
+  <string name="title_dialog_error">Erreur</string>
+  <string name="title_dialog_handling">Traitement…</string>
+  <string name="title_dialog_add_account">Ajouter un portefeuille</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Set a password to encrypt your wallet</string>
-  <string name="toast_message_wallet_imported">The wallet was imported</string>
-  <string name="toast_message_wallet_exported">A backup was created</string>
-  <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
+  <string name="dialog_message">Définir un mot de passe pour chiffrer votre portefeuille</string>
+  <string name="toast_message_wallet_imported">Le portefeuille a été importé</string>
+  <string name="toast_message_wallet_exported">Une sauvegarde a été créée</string>
+  <string name="toast_qr_code_no_address">Le code QR ne contient pas une adresse valide</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">AppCoins BDS Wallet</string>
-  <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
-  <string name="intro_title_third_page">Simple &amp; Easy</string>
-  <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
-  <string name="intro_message_second_page">Private keys never leave your device.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
+  <string name="intro_title_first_page">Portefeuille AppCoins BDS</string>
+  <string name="intro_title_second_page"><![CDATA[Privé & sécurisé]]></string>
+  <string name="intro_title_third_page">Simple &amp; facile</string>
+  <string name="intro_message_first_page">Bienvenue dans la révolution de l’économie des apps.</string>
+  <string name="intro_message_second_page">Les clés privées ne quittent jamais votre appareil.</string>
+  <string name="intro_message_third_page">Traitez tous vos paiements in-app et récompenses dans l’APPC.</string>
   <!-- Menus -->
   <!-- Labels -->
-  <string name="label_from">From</string>
-  <string name="label_to">To</string>
-  <string name="label_gas_limit">Gas Limit</string>
-  <string name="label_gas_price">Gas Price</string>
-  <string name="label_network_fee">Network Fee</string>
+  <string name="label_from">De</string>
+  <string name="label_to">À</string>
+  <string name="label_gas_limit">Limite de gaz</string>
+  <string name="label_gas_price">Prix du gaz</string>
+  <string name="label_network_fee">Frais de réseau</string>
   <string name="button_ok">OK</string>
-  <string name="hint_recipient_address">Recipient Address</string>
-  <string name="hint_amount">Amount</string>
-  <string name="hint_amount_with_token">Amount %s</string>
-  <string name="hint_contract_address">Contract address</string>
-  <string name="hint_contract_symbol">Symbol</string>
+  <string name="hint_recipient_address">Adresse du destinataire</string>
+  <string name="hint_amount">Montant</string>
+  <string name="hint_amount_with_token">Montant %s</string>
+  <string name="hint_contract_address">Adresse du contrat</string>
+  <string name="hint_contract_symbol">Symbole</string>
   <string name="hint_contract_decimals">Decimals</string>
   <string name="button_cancel">CANCEL</string>
   <string name="button_yes">YES</string>
   <!-- Subtitles -->
   <string name="subtitle_from">From</string>
-  <string name="subtitle_gas_fee">Fee</string>
+  <string name="subtitle_gas_fee">Frais</string>
   <string name="subtitle_transaction_num">Transaction</string>
   <!-- Actions -->
   <string name="action_more_details">Plus</string>
