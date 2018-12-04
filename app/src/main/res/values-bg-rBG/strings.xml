@@ -99,28 +99,28 @@
   <string name="intro_title_second_page"><![CDATA[Частен & защитен]]></string>
   <string name="intro_title_third_page">Просто &amp; Лесно</string>
   <string name="intro_message_first_page">Добре дошли в революцията на ап икономиката.</string>
-  <string name="intro_message_second_page">Private keys never leave your device.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
+  <string name="intro_message_second_page">Частните ключове никога не напускат устройството ти.</string>
+  <string name="intro_message_third_page">Обработва всички твои плащания и дава награди в APPC.</string>
   <!-- Menus -->
   <!-- Labels -->
-  <string name="label_from">From</string>
-  <string name="label_to">To</string>
-  <string name="label_gas_limit">Gas Limit</string>
-  <string name="label_gas_price">Gas Price</string>
-  <string name="label_network_fee">Network Fee</string>
+  <string name="label_from">От</string>
+  <string name="label_to">до</string>
+  <string name="label_gas_limit">Лимит на петрола</string>
+  <string name="label_gas_price">Цена на петрола</string>
+  <string name="label_network_fee">Такса за мрежа</string>
   <string name="button_ok">OK</string>
-  <string name="hint_recipient_address">Recipient Address</string>
-  <string name="hint_amount">Amount</string>
-  <string name="hint_amount_with_token">Amount %s</string>
-  <string name="hint_contract_address">Contract address</string>
-  <string name="hint_contract_symbol">Symbol</string>
-  <string name="hint_contract_decimals">Decimals</string>
-  <string name="button_cancel">CANCEL</string>
-  <string name="button_yes">YES</string>
+  <string name="hint_recipient_address">Адрес на получателя</string>
+  <string name="hint_amount">Количество</string>
+  <string name="hint_amount_with_token">Количество %s</string>
+  <string name="hint_contract_address">Адрес на договора</string>
+  <string name="hint_contract_symbol">Символ</string>
+  <string name="hint_contract_decimals">Десетични знаци</string>
+  <string name="button_cancel">ОТКАЖИ</string>
+  <string name="button_yes">ДА</string>
   <!-- Subtitles -->
-  <string name="subtitle_from">From</string>
-  <string name="subtitle_gas_fee">Fee</string>
-  <string name="subtitle_transaction_num">Transaction</string>
+  <string name="subtitle_from">От</string>
+  <string name="subtitle_gas_fee">Такса</string>
+  <string name="subtitle_transaction_num">Транзакция</string>
   <!-- Actions -->
   <string name="action_more_details">Още</string>
   <string name="action_add_wallet">Добави портфейл</string>
@@ -150,7 +150,7 @@
   <string name="welcome.erc20.label.title">Съвместимо с ERC20</string>
   <string name="welcome.erc20.label.description">Поддържа ERC20 токени по подразбиране.</string>
   <string name="scan_qr">Получи адрес от QR код</string>
-  <string name="info_gas_price">Колкото по-висока е цената на газта, толкова по-скъпа ще бъде таксата за транзакцията ти, но и толкова по-бързо ще бъде обработена тя от мрежата на Ethereum.</string>
+  <string name="info_gas_price">Колкото по-висока е цената на петрола, толкова по-скъпа ще бъде таксата за транзакцията ти, но и толкова по-бързо ще бъде обработена тя от мрежата на Ethereum.</string>
   <string name="info_gas_limit">Ограничението на газта пречи на умните договори да изконсумират целия ти Ethereum. Ние ще се опитаме да изчислим точно лимита на газта за теб, но някои умни договори могат да изискват персонализирана граница на газта.</string>
   <string name="title_send_settings">За напреднали</string>
   <string name="title_activity_barcode">Сканиране на баркод</string>
