@@ -26,7 +26,7 @@
       android:background="@drawable/background_card"
       android:elevation="2dp"
       android:padding="16dp"
-      android:visibility="visible"
+      android:visibility="invisible"
       >
 
     <LinearLayout
@@ -252,11 +252,13 @@
   </android.support.constraint.ConstraintLayout>
 
   <RelativeLayout
+      android:id="@+id/address_footer"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_below="@id/payment_methods"
       android:layout_marginBottom="2dp"
       android:layout_marginTop="2dp"
+      android:visibility="invisible"
       >
     <ImageView
         android:id="@+id/logo_wallet"

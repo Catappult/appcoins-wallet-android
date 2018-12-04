@@ -71,6 +71,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   @Inject WalletService walletService;
   private ProgressBar loadingView;
   private View dialog;
+  private View addressFooter;
   private TextView errorMessage;
   private View errorView;
   private View processingDialog;
@@ -172,6 +173,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     radioGroup = view.findViewById(R.id.payment_methods_radio_group);
     loadingView = view.findViewById(R.id.loading_view);
     dialog = view.findViewById(R.id.payment_methods);
+    addressFooter = view.findViewById(R.id.address_footer);
     errorView = view.findViewById(R.id.error_message);
     errorMessage = view.findViewById(R.id.activity_iab_error_message);
     processingDialog = view.findViewById(R.id.processing_loading);
@@ -196,6 +198,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   @Override public void showError() {
     loadingView.setVisibility(View.GONE);
     dialog.setVisibility(View.GONE);
+    addressFooter.setVisibility(View.GONE);
     errorView.setVisibility(View.VISIBLE);
     errorMessage.setText(R.string.activity_iab_error_message);
   }
@@ -212,12 +215,14 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   @Override public void showLoading() {
     loadingView.setVisibility(View.VISIBLE);
     dialog.setVisibility(View.INVISIBLE);
+    addressFooter.setVisibility(View.INVISIBLE);
   }
 
   @Override public void hideLoading() {
     loadingView.setVisibility(View.GONE);
     if (processingDialog.getVisibility() != View.VISIBLE) {
       dialog.setVisibility(View.VISIBLE);
+      addressFooter.setVisibility(View.VISIBLE);
     }
   }
 
@@ -239,6 +244,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override public void showProcessingLoadingDialog() {
     dialog.setVisibility(View.GONE);
+    addressFooter.setVisibility(View.GONE);
     loadingView.setVisibility(View.GONE);
     processingDialog.setVisibility(View.VISIBLE);
   }
