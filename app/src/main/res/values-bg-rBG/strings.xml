@@ -97,8 +97,8 @@
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins BDS портфейл</string>
   <string name="intro_title_second_page"><![CDATA[Частен & защитен]]></string>
-  <string name="intro_title_third_page">Simple &amp; Easy</string>
-  <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
+  <string name="intro_title_third_page">Просто &amp; Лесно</string>
+  <string name="intro_message_first_page">Добре дошли в революцията на ап икономиката.</string>
   <string name="intro_message_second_page">Private keys never leave your device.</string>
   <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
   <!-- Menus -->
