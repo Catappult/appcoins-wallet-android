@@ -34,7 +34,8 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
           TransactionBuilder(token.tokenInfo.symbol, tokenContract,
               getChainId(uri), walletAddress, amount, getSkuId(uri), token.tokenInfo.decimals,
               iabContract,
-              Parameters.PAYMENT_TYPE_INAPP_UNMANAGED.toUpperCase(), getDomain(uri), getPayload(uri),
+              Parameters.PAYMENT_TYPE_INAPP_UNMANAGED.toUpperCase(), getDomain(uri),
+              getPayload(uri),
               getCallback(uri)).shouldSendToken(true)
         }).doOnSuccess { transactionBuilder ->
       cache.saveSync(uri.toString(), transactionBuilder)
@@ -126,10 +127,10 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
   }
 
   private fun getTransactionValue(uri: OneStepUri): Single<BigDecimal> {
-    return if (getCurrency(uri) == null || getCurrency(uri) == "APPC") {
+    return if (getCurrency(uri) == null || getCurrency(uri).equals("APPC", true)) {
       Single.just(BigDecimal(uri.parameters[Parameters.VALUE]).setScale(18))
     } else {
-      conversionService.getAppcRate(getCurrency(uri)).map {
+      conversionService.getAppcRate(getCurrency(uri)!!.toUpperCase()).map {
         BigDecimal(uri.parameters[Parameters.VALUE])
             .divide(BigDecimal(it.amount.toString()), 18, RoundingMode.UP)
       }
