@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import com.appcoins.wallet.bdsbilling.Billing;
@@ -52,6 +53,7 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_CURRENCY;
 
 public class PaymentMethodsFragment extends DaggerFragment implements PaymentMethodsView {
 
+  private static final String IS_BDS = "isBds";
   private static final String APP_PACKAGE = "app_package";
   private static final String TAG = PaymentMethodsFragment.class.getSimpleName();
   private static final String TRANSACTION = "transaction";
@@ -85,19 +87,24 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private TextView appNameTv;
   private TextView appSkuDescriptionTv;
   private TextView walletAddressTv;
+  private RadioButton appcRadioButton;
+  private View appcView;
+  private RadioButton appcCreditsRadioButton;
+  private View appcCreditsView;
   private String productName;
   private static final String DEFAULT_CURRENCY = "EUR";
   private RadioGroup radioGroup;
   private FiatValue fiatValue;
 
   public static Fragment newInstance(TransactionBuilder transaction, String currency,
-      String productName) {
+      String productName, boolean isBds) {
     Bundle bundle = new Bundle();
     bundle.putParcelable(TRANSACTION, transaction);
     bundle.putSerializable(TRANSACTION_AMOUNT, transaction.amount());
     bundle.putString(TRANSACTION_CURRENCY, currency);
     bundle.putString(APP_PACKAGE, transaction.getDomain());
     bundle.putString(PRODUCT_NAME, productName);
+    bundle.putBoolean(IS_BDS, isBds);
     Fragment fragment = new PaymentMethodsFragment();
     fragment.setArguments(bundle);
     return fragment;
@@ -132,7 +139,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
     setupSubject = PublishSubject.create();
 
-    isBds = getArguments().getBoolean("isBds");
+    isBds = getArguments().getBoolean(IS_BDS);
     transaction = getArguments().getParcelable(TRANSACTION);
     transactionValue =
         ((BigDecimal) getArguments().getSerializable(TRANSACTION_AMOUNT)).doubleValue();
@@ -177,6 +184,11 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     appNameTv = view.findViewById(R.id.app_name);
     appSkuDescriptionTv = view.findViewById(R.id.app_sku_description);
     walletAddressTv = view.findViewById(R.id.wallet_address_footer);
+
+    appcRadioButton = view.findViewById(R.id.appc);
+    appcView = view.findViewById(R.id.appc_view);
+    appcCreditsRadioButton = view.findViewById(R.id.appc_credits);
+    appcCreditsView = view.findViewById(R.id.appc_credits_view);
 
     presenter.present(transactionValue, currency, savedInstanceState);
   }
@@ -265,11 +277,13 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         .doOnSuccess(address -> walletAddressTv.setText(address))
         .subscribe(__ -> {
         }, Throwable::printStackTrace));
-    setupPaymentMethods();
+    setupPaymentMethods(paymentMethods);
     setupSubject.onNext(true);
   }
 
-  private void setupPaymentMethods() {
+  private void setupPaymentMethods(List<PaymentMethod> paymentMethods) {
+    showAvailable(paymentMethods);
+
     compositeDisposable.add(RxView.clicks(buyButton)
         .subscribe(__ -> {
           switch (radioGroup.getCheckedRadioButtonId()) {
@@ -291,6 +305,20 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
               throw new NotImplementedError();
           }
         }));
+  }
+
+  private void showAvailable(List<PaymentMethod> paymentMethods) {
+    for (PaymentMethod paymentMethod : paymentMethods) {
+      if (paymentMethod.getId()
+          .equals("appcoins")) {
+        appcRadioButton.setVisibility(View.VISIBLE);
+        appcView.setVisibility(View.VISIBLE);
+      } else if (paymentMethod.getId()
+          .equals("appcoins_credits")) {
+        appcCreditsRadioButton.setVisibility(View.VISIBLE);
+        appcCreditsView.setVisibility(View.VISIBLE);
+      }
+    }
   }
 
   public String mapCurrencyCodeToSymbol(String currencyCode) {

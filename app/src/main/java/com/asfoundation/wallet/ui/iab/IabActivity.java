@@ -141,7 +141,7 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction, currency,
             getIntent().getExtras()
-                .getString(PRODUCT_NAME)))
+                .getString(PRODUCT_NAME), isBds))
         .commit();
   }
 

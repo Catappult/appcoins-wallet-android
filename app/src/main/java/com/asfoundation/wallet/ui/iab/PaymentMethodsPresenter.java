@@ -124,12 +124,13 @@ public class PaymentMethodsPresenter {
   }
 
   private void setupUi(double transactionValue, String currency) {
-    disposables.add(Single.zip(inAppPurchaseInteractor.getPaymentMethods()
+    disposables.add(Single.zip(transactionBuilder.flatMap(
+        transaction -> inAppPurchaseInteractor.getPaymentMethods(transaction)
             .subscribeOn(networkThread)
             .flatMap(paymentMethods -> Observable.fromIterable(paymentMethods)
-                .map(paymentMethod -> new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
-                    paymentMethod.getIconUrl(), true))
-                .toList())
+                .map(paymentMethod -> new PaymentMethod(paymentMethod.getId(),
+                    paymentMethod.getLabel(), paymentMethod.getIconUrl(), true))
+                .toList()))
             .observeOn(viewScheduler),
         inAppPurchaseInteractor.convertToFiat(transactionValue, currency),
         (paymentMethods, fiatValue) -> Completable.fromAction(
@@ -149,6 +150,7 @@ public class PaymentMethodsPresenter {
   }
 
   private void showError(Throwable t) {
+    t.printStackTrace();
     view.showError();
   }
 

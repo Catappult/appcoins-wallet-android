@@ -8,6 +8,7 @@
     android:layout_marginEnd="17dp"
     android:layout_marginStart="16dp"
     android:layout_marginTop="14dp"
+    android:paddingBottom="12dp"
     android:orientation="horizontal"
     tools:showIn="@layout/fragment_express_checkout_buy"
     >

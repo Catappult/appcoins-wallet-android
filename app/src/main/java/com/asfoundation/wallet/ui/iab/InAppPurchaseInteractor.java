@@ -16,6 +16,8 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import java.math.BigDecimal;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class InAppPurchaseInteractor {
@@ -150,46 +152,33 @@ public class InAppPurchaseInteractor {
         .onErrorReturn(throwable -> false);
   }
 
-  public Single<Gateway.Name> getPaymentMethod(String packageName,
+  public Single<List<Gateway.Name>> getFilteredGateways(
       TransactionBuilder transactionBuilder) {
     return Single.zip(getRewardsBalance(), hasAppcoinsFunds(transactionBuilder),
-        asfInAppPurchaseInteractor.getTransaction(packageName, transactionBuilder.getSkuId(),
-            transactionBuilder.getType()),
-        (creditsBalance, hasAppcoinsFunds, transaction) -> map(creditsBalance, hasAppcoinsFunds,
-            transaction, transactionBuilder.amount()));
+        (creditsBalance, hasAppcoinsFunds) -> getNewPaymentGateways(creditsBalance,
+            hasAppcoinsFunds, transactionBuilder.amount()));
   }
 
   private Single<Boolean> hasAppcoinsFunds(TransactionBuilder transaction) {
     return asfInAppPurchaseInteractor.isAppcoinsPaymentReady(transaction);
   }
 
-  private Gateway.Name map(BigDecimal creditsBalance, Boolean hasAppcoinsFunds,
-      Transaction transaction, BigDecimal amount) {
-    if (isTransactionOccurring(transaction)) {
-      return transaction.getGateway()
-          .getName();
-    } else {
-      return getNewPaymentGateway(creditsBalance, hasAppcoinsFunds, amount);
-    }
-  }
-
-  private boolean isTransactionOccurring(Transaction transaction) {
-    return transaction.getStatus()
-        .equals(Transaction.Status.PROCESSING) || (transaction.getStatus()
-        .equals(Transaction.Status.PENDING_SERVICE_AUTHORIZATION) && transaction.getGateway()
-        .getName()
-        .equals(Gateway.Name.appcoins));
-  }
-
-  private Gateway.Name getNewPaymentGateway(BigDecimal creditsBalance, Boolean hasAppcoinsFunds,
+  private List<Gateway.Name> getNewPaymentGateways(BigDecimal creditsBalance,
+      Boolean hasAppcoinsFunds,
       BigDecimal amount) {
+    List<Gateway.Name> list = new LinkedList<>();
+
     if (creditsBalance.compareTo(amount) >= 0) {
-      return Gateway.Name.appcoins_credits;
-    } else if (hasAppcoinsFunds) {
-      return Gateway.Name.appcoins;
-    } else {
-      return Gateway.Name.adyen;
+      list.add(Gateway.Name.appcoins_credits);
     }
+
+    if (hasAppcoinsFunds) {
+      list.add(Gateway.Name.appcoins);
+    }
+
+    list.add(Gateway.Name.adyen);
+
+    return list;
   }
 
   private Single<BigDecimal> getRewardsBalance() {
@@ -201,7 +190,28 @@ public class InAppPurchaseInteractor {
     return transactionIdRepository.getTransactionUid(uid);
   }
 
-  public Single<List<PaymentMethod>> getPaymentMethods() {
-    return bdsInAppPurchaseInteractor.getPaymentMethods();
+  public Single<List<PaymentMethod>> getPaymentMethods(TransactionBuilder transaction) {
+    return bdsInAppPurchaseInteractor.getPaymentMethods()
+        .flatMap(paymentMethods -> getFilteredGateways(transaction).map(filteredGateways -> {
+          removeUnavailable(paymentMethods, filteredGateways);
+          return paymentMethods;
+        }));
+  }
+
+  private void removeUnavailable(List<PaymentMethod> paymentMethods,
+      List<Gateway.Name> filteredGateways) {
+    Iterator<PaymentMethod> iterator = paymentMethods.iterator();
+
+    while (iterator.hasNext()) {
+      PaymentMethod paymentMethod = iterator.next();
+
+      String id = paymentMethod.getId();
+      if (id.equals("appcoins") && !filteredGateways.contains(Gateway.Name.appcoins)) {
+        iterator.remove();
+      } else if (id.equals("appcoins_credits") && !filteredGateways.contains(
+          Gateway.Name.appcoins_credits)) {
+        iterator.remove();
+      }
+    }
   }
 }
