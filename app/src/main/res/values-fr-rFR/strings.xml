@@ -114,11 +114,11 @@
   <string name="hint_amount_with_token">Montant %s</string>
   <string name="hint_contract_address">Adresse du contrat</string>
   <string name="hint_contract_symbol">Symbole</string>
-  <string name="hint_contract_decimals">Decimals</string>
-  <string name="button_cancel">CANCEL</string>
-  <string name="button_yes">YES</string>
+  <string name="hint_contract_decimals">Décimales</string>
+  <string name="button_cancel">ANNULER</string>
+  <string name="button_yes">OUI</string>
   <!-- Subtitles -->
-  <string name="subtitle_from">From</string>
+  <string name="subtitle_from">De</string>
   <string name="subtitle_gas_fee">Frais</string>
   <string name="subtitle_transaction_num">Transaction</string>
   <!-- Actions -->
@@ -186,10 +186,10 @@
   <string name="notification_completed_poa">Récompense reçue, Profitez-en !</string>
   <string name="notification_submitting_poa">Soumission de votre demande à blockchain</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
-  <string name="notification_no_network_poa">No network connection</string>
-  <string name="notification_error_poa">An error has occurred</string>
-  <string name="notification_no_wallet_poa">Your wallet isn\'t configured yet</string>
-  <string name="notification_cancelled_poa">Reward cancelled</string>
+  <string name="notification_no_network_poa">Aucune connexion réseau</string>
+  <string name="notification_error_poa">Une erreur s’est produite</string>
+  <string name="notification_no_wallet_poa">Votre portefeuille n’est pas encore configuré</string>
+  <string name="notification_cancelled_poa">Récompense annulée</string>
   <string name="notification_not_available_poa">This rewards campaign is no longer available</string>
   <string name="notification_not_available_for_country_poa">This rewards campaign isn\'t available in your country</string>
   <string name="notification_already_rewarded_poa">You were already rewarded in this campaign</string>
