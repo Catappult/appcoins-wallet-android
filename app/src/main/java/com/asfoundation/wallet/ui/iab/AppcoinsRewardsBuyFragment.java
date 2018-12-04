@@ -130,17 +130,15 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
           throwable.printStackTrace();
         });
 
+    presenter.present();
+
     buyButton.performClick();
   }
 
-  @Override public void onStart() {
-    super.onStart();
-    presenter.present();
-  }
-
-  @Override public void onStop() {
+  @Override public void onDestroyView() {
     presenter.stop();
-    super.onStop();
+
+    super.onDestroyView();
   }
 
   private CharSequence getApplicationName(String appPackage)

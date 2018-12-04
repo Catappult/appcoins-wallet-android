@@ -243,7 +243,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   }
 
   @Override public void showProcessingLoadingDialog() {
-    dialog.setVisibility(View.GONE);
+    dialog.setVisibility(View.INVISIBLE);
     addressFooter.setVisibility(View.GONE);
     loadingView.setVisibility(View.GONE);
     processingDialog.setVisibility(View.VISIBLE);
