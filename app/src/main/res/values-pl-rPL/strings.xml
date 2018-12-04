@@ -219,8 +219,8 @@
   <string name="dialog_credit_card_expiration">Data wygaśnięcia</string>
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
-  <string name="activity_airdrop_details">This is just a security thing.</string>
-  <string name="activity_airdrop_hint">Type the words in the image</string>
+  <string name="activity_airdrop_details">To dla bezpieczeństwa.</string>
+  <string name="activity_airdrop_hint">Wpisz słowa z obrazka</string>
   <string name="activity_airdrop_submit_btn">Wyślij</string>
   <string name="activity_airdrop_wrong_captcha">Nieprawidłowa captcha</string>
   <string name="activity_airdrop_ok">ok</string>
