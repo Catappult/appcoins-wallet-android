@@ -151,7 +151,7 @@
   <string name="welcome.erc20.label.description">Domyślnie obsługuje tokeny ERC20.</string>
   <string name="scan_qr">Uzyskaj adres z kodu QR</string>
   <string name="info_gas_price">Im wyższa cena gazu, tym droższa będzie prowizja od transakcji, ale tym szybciej Twoja transakcja będzie przetworzona przez sieć Ethereum.</string>
-  <string name="info_gas_limit">The gas limit prevents smart contracts from consuming all your Ethereum. We will try to calculate the gas limit automatically for you, but some smart contracts may require a custom gas limit.</string>
+  <string name="info_gas_limit">Granica gazu zapobiega zużyciu całego Twojego Ethereum. Postaramy się obliczyć limit gazu automatycznie, ale niektóre inteligentne umowy mogą wymagać niestandardowego limitu gazu.</string>
   <string name="title_send_settings">Zaawansowane</string>
   <string name="title_activity_barcode">Skanowanie kodów kreskowych</string>
   <string name="error_add_token">Nie można było dodać tokenu.</string>
