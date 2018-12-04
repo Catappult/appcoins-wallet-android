@@ -52,12 +52,12 @@
   <string name="no_repeat">Не, повтори</string>
   <string name="skip">Пропусни</string>
   <string name="root_title">СИГУРНОСТТА НА УСТРОЙСТВОТО В КОМПРОМЕТИРАНА</string>
-  <string name="root_body">Any \'rooted\' app can access AppCoins Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
+  <string name="root_body">Всяко \"вкоренено\" приложение има достъп до кийчейн данните на AppCoins портфейла ти и ти го краде! Изтрий този портфейл незабавно и поднови данните си на сигурно устройство.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
-  <string name="buying">Buying %s</string>
-  <string name="action_buy">Buy</string>
+  <string name="buying">Закупуване на %s</string>
+  <string name="action_buy">Купи</string>
   <string name="empty"></string>
-  <string name="try_again">Try again</string>
+  <string name="try_again">Опитай отново</string>
   <string name="already_have_account">Already have a wallet?</string>
   <string name="action_create_new_account">Create new wallet</string>
   <string name="unknown_error">An error has occurred.</string>
@@ -122,20 +122,20 @@
   <string name="subtitle_gas_fee">Fee</string>
   <string name="subtitle_transaction_num">Transaction</string>
   <!-- Actions -->
-  <string name="action_more_details">More</string>
-  <string name="action_add_wallet">Add wallet</string>
+  <string name="action_more_details">Още</string>
+  <string name="action_add_wallet">Добави портфейл</string>
   <string name="action_coinbase">Coinbase</string>
   <string name="action_shapeshift">Shapeshift (Crypto only)</string>
   <string name="action_changelly">Changelly</string>
-  <string name="action_wallets">Wallets</string>
-  <string name="action_next">Next</string>
-  <string name="action_edit">Edit</string>
-  <string name="action_save">Save</string>
+  <string name="action_wallets">Портфейли</string>
+  <string name="action_next">Напред</string>
+  <string name="action_edit">Редактирай</string>
+  <string name="action_save">Запази</string>
   <!-- Subject -->
-  <string name="error_fail_generate_qr">Could not generate QR code.</string>
-  <string name="error_invalid_address">Invalid address</string>
-  <string name="error_invalid_amount">Invalid amount</string>
-  <string name="error_transaction_failed">Transaction error</string>
+  <string name="error_fail_generate_qr">Не може да се генерира QR код.</string>
+  <string name="error_invalid_address">Невалиден адрес</string>
+  <string name="error_invalid_amount">Невалидно количество</string>
+  <string name="error_transaction_failed">Грешка при транзакцията</string>
   <string name="error_must_numeric">It must be a numeric value.</string>
   <string name="transaction_succeeded">Transaction successful</string>
   <string name="NA">N/A</string>
