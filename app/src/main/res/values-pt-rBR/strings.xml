@@ -24,7 +24,7 @@
   <string name="network_label">Rede</string>
   <string name="credits">Créditos</string>
   <string name="low_storage_error">Não há espaço de armazenamento livre</string>
-  <string name="no_camera_permission">A Wallet AppCoins BDS precisa permissão para acessar sua câmera para escanear QR codes.</string>
+  <string name="no_camera_permission">A Wallet AppCoins BDS precisa permissão para acessar sua câmera para escanear QR Codes.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Formato de código de barras inválido: %s</string>
   <string name="title_delete_account">Tem certeza que deseja excluir esta wallet?</string>
@@ -36,9 +36,9 @@
   <string name="title_source_code">Código-fonte</string>
   <string name="title_report_bug">Reportar um bug</string>
   <string name="title_support">Suporte</string>
-  <string name="error_import">Erro ao importar keystore</string>
+  <string name="error_import">Erro ao importar o KeyStore</string>
   <string name="message_this_is_your_address">Meu endereço público da wallet Ethereum</string>
-  <string name="backup_warning_text">Como só você controla seu dinheiro, é necessário fazer um backup do seu keystore caso esse aplicativo seja excluído.\n\nSua carteira nunca é salva em um armazenamento em nuvem ou em dispositivos de backup padrão.</string>
+  <string name="backup_warning_text">Como só você controla seu dinheiro, é necessário fazer um backup do seu KeyStore caso esse aplicativo seja excluído.\n\nSua carteira nunca é salva em um armazenamento em nuvem ou em dispositivos de backup padrão.</string>
   <string name="message_no_backup">Sem backup, sem Ethereum</string>
   <string name="error_deleting_account">Erro ao excluir a wallet</string>
   <string name="title_privacy_policy">Política de Privacidade</string>
@@ -78,9 +78,9 @@
   <string name="suggestion_this_is_your_address">Endereço público da minha carteira %s</string>
   <!-- Hints -->
   <string name="hint_private_key_field">Chave privada *</string>
-  <string name="hint_keystore">Keystore *</string>
+  <string name="hint_keystore">KeyStore *</string>
   <!-- Tabs labels-->
-  <string name="tab_keystore">Keystore</string>
+  <string name="tab_keystore">KeyStore</string>
   <string name="tab_private_key">Chave privada</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Erro</string>
@@ -132,7 +132,7 @@
   <string name="action_edit">Editar</string>
   <string name="action_save">Salvar</string>
   <!-- Subject -->
-  <string name="error_fail_generate_qr">Não foi possível gerar o código QR.</string>
+  <string name="error_fail_generate_qr">Não foi possível gerar o QR Code.</string>
   <string name="error_invalid_address">Endereço inválido</string>
   <string name="error_invalid_amount">Conta inválida</string>
   <string name="error_transaction_failed">Erro na transação</string>
