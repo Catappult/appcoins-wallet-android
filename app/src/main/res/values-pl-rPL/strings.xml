@@ -58,40 +58,40 @@
   <string name="action_buy">Kup</string>
   <string name="empty"></string>
   <string name="try_again">Spróbuj ponownie</string>
-  <string name="already_have_account">Already have a wallet?</string>
-  <string name="action_create_new_account">Create new wallet</string>
-  <string name="unknown_error">An error has occurred.</string>
-  <string name="action_backup_wallet">Backup Wallet</string>
-  <string name="no_tokens">You haven\'t added any custom token yet.</string>
-  <string name="title_email">Email us</string>
-  <string name="action_donate">Donate</string>
+  <string name="already_have_account">Masz już portfel?</string>
+  <string name="action_create_new_account">Utwórz nowy portfel</string>
+  <string name="unknown_error">Wystąpił błąd.</string>
+  <string name="action_backup_wallet">Kopia zapasowa portfela</string>
+  <string name="no_tokens">Nie dodano jeszcze żadnych niestandardowych tokenów.</string>
+  <string name="title_email">Napisz do nas</string>
+  <string name="action_donate">Złóż darowiznę</string>
   <!-- Titles -->
-  <string name="title_my_address">Receive</string>
-  <string name="title_my_tokens">My Tokens</string>
-  <string name="title_activity_send">Send</string>
-  <string name="title_activity_confirmation">Confirm</string>
-  <string name="title_add_token">Add Custom Token</string>
-  <string name="title_airdrop">Airdrop</string>
+  <string name="title_my_address">Odbierz</string>
+  <string name="title_my_tokens">Moje tokeny</string>
+  <string name="title_activity_send">Wyślij</string>
+  <string name="title_activity_confirmation">Potwierdź</string>
+  <string name="title_add_token">Dodaj niestandardowy Token</string>
+  <string name="title_airdrop">Funkcja AirDrop</string>
   <!-- Suggestions -->
-  <string name="suggestion_private_key">Private key has to be 64 characters long</string>
-  <string name="suggestion_empty_password_available">The password can be left blank.</string>
-  <string name="suggestion_this_is_your_address">My public %s wallet address</string>
+  <string name="suggestion_private_key">Klucz prywatny musi mieć 64 znaków</string>
+  <string name="suggestion_empty_password_available">Hasło może być puste.</string>
+  <string name="suggestion_this_is_your_address">Adres portfela publicznego %s</string>
   <!-- Hints -->
-  <string name="hint_private_key_field">Private key *</string>
+  <string name="hint_private_key_field">Klucz prywatny *</string>
   <string name="hint_keystore">Keystore *</string>
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
-  <string name="tab_private_key">Private key</string>
+  <string name="tab_private_key">Klucz prywatny</string>
   <!-- Dialog titles -->
-  <string name="title_dialog_error">Error</string>
-  <string name="title_dialog_handling">Processing…</string>
-  <string name="title_dialog_add_account">Add wallet</string>
+  <string name="title_dialog_error">Błąd</string>
+  <string name="title_dialog_handling">Przetwarzanie…</string>
+  <string name="title_dialog_add_account">Dodaj portfel</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Set a password to encrypt your wallet</string>
-  <string name="toast_message_wallet_imported">The wallet was imported</string>
-  <string name="toast_message_wallet_exported">A backup was created</string>
+  <string name="dialog_message">Ustaw hasło do szyfrowania Twojego portfela</string>
+  <string name="toast_message_wallet_imported">Portfel został zaimportowany</string>
+  <string name="toast_message_wallet_exported">Kopia zapasowa została utworzona</string>
   <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
@@ -255,8 +255,8 @@
   <string name="gamification_a_star_title">a Star</string>
   <string name="gamification_a_galaxy_title">galaktyką</string>
   <string name="gamification_a_comet_subtitle">Zachowaj ostrożność i nie uderz w planetę!</string>
-  <string name="gamification_a_moon_subtitle">A natural satellite</string>
-  <string name="gamification_planet_subtitle">Spinning around a big star</string>
-  <string name="gamification_star_subtitle">Shinny, big and full of life!</string>
-  <string name="gamification_galaxy_subtitle">The biggest system out there!</string>
+  <string name="gamification_a_moon_subtitle">Naturalny satelita</string>
+  <string name="gamification_planet_subtitle">Wirujesz wokół wielkiej gwiazdy</string>
+  <string name="gamification_star_subtitle">Błyszczący, duży i pełny życia!</string>
+  <string name="gamification_galaxy_subtitle">Największy system w kosmosie!</string>
 </resources>
