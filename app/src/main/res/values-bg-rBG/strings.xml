@@ -58,45 +58,45 @@
   <string name="action_buy">Купи</string>
   <string name="empty"></string>
   <string name="try_again">Опитай отново</string>
-  <string name="already_have_account">Already have a wallet?</string>
-  <string name="action_create_new_account">Create new wallet</string>
-  <string name="unknown_error">An error has occurred.</string>
-  <string name="action_backup_wallet">Backup Wallet</string>
-  <string name="no_tokens">You haven\'t added any custom token yet.</string>
-  <string name="title_email">Email us</string>
-  <string name="action_donate">Donate</string>
+  <string name="already_have_account">Вече имаш портфейл?</string>
+  <string name="action_create_new_account">Създаване на нов портфейл</string>
+  <string name="unknown_error">Възникна грешка.</string>
+  <string name="action_backup_wallet">Бекъп портфейл</string>
+  <string name="no_tokens">Не си добавил никакъв потребителски токен още.</string>
+  <string name="title_email">Изпрати ни имейл</string>
+  <string name="action_donate">Дари</string>
   <!-- Titles -->
-  <string name="title_my_address">Receive</string>
-  <string name="title_my_tokens">My Tokens</string>
-  <string name="title_activity_send">Send</string>
-  <string name="title_activity_confirmation">Confirm</string>
-  <string name="title_add_token">Add Custom Token</string>
-  <string name="title_airdrop">Airdrop</string>
+  <string name="title_my_address">Получи</string>
+  <string name="title_my_tokens">Моите токени</string>
+  <string name="title_activity_send">Изпрати</string>
+  <string name="title_activity_confirmation">Потвърди</string>
+  <string name="title_add_token">Добави персонализиран токен</string>
+  <string name="title_airdrop">Аirdrop</string>
   <!-- Suggestions -->
-  <string name="suggestion_private_key">Private key has to be 64 characters long</string>
-  <string name="suggestion_empty_password_available">The password can be left blank.</string>
-  <string name="suggestion_this_is_your_address">My public %s wallet address</string>
+  <string name="suggestion_private_key">Частният ключ трябва да бъде 64 знака</string>
+  <string name="suggestion_empty_password_available">Паролата може да бъде оставена празна.</string>
+  <string name="suggestion_this_is_your_address">Моят публичен %s портфейл адрес</string>
   <!-- Hints -->
-  <string name="hint_private_key_field">Private key *</string>
-  <string name="hint_keystore">Keystore *</string>
+  <string name="hint_private_key_field">Личен ключ *</string>
+  <string name="hint_keystore">Хранилище *</string>
   <!-- Tabs labels-->
-  <string name="tab_keystore">Keystore</string>
-  <string name="tab_private_key">Private key</string>
+  <string name="tab_keystore">Хранилище</string>
+  <string name="tab_private_key">Личен ключ</string>
   <!-- Dialog titles -->
-  <string name="title_dialog_error">Error</string>
-  <string name="title_dialog_handling">Processing…</string>
-  <string name="title_dialog_add_account">Add wallet</string>
+  <string name="title_dialog_error">Грешка</string>
+  <string name="title_dialog_handling">Обработка ...</string>
+  <string name="title_dialog_add_account">Добави портфейл</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Set a password to encrypt your wallet</string>
-  <string name="toast_message_wallet_imported">The wallet was imported</string>
-  <string name="toast_message_wallet_exported">A backup was created</string>
-  <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
+  <string name="dialog_message">Задай парола за криптиране на твоя портфейл</string>
+  <string name="toast_message_wallet_imported">Портфейлът беше импортиран</string>
+  <string name="toast_message_wallet_exported">Беше създаден бекъп</string>
+  <string name="toast_qr_code_no_address">QR кодът не съдържа валиден адрес</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">AppCoins BDS Wallet</string>
-  <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
+  <string name="intro_title_first_page">AppCoins BDS портфейл</string>
+  <string name="intro_title_second_page"><![CDATA[Частен & защитен]]></string>
   <string name="intro_title_third_page">Simple &amp; Easy</string>
   <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
   <string name="intro_message_second_page">Private keys never leave your device.</string>
@@ -183,8 +183,8 @@
   <string name="activity_iab_approving_message">Проверка на всички детайли: баланс, елементи, мрежа...</string>
   <string name="activity_iab_buying_message">Детайли проверени \nПолучаване на твоя елемент…</string>
   <string name="notification_ongoing_poa">Обработка на твоята награда</string>
-  <string name="notification_completed_poa">Reward received, enjoy!</string>
-  <string name="notification_submitting_poa">Submitting your request to the blockchain</string>
+  <string name="notification_completed_poa">Наградата е получена, наслади се!</string>
+  <string name="notification_submitting_poa">Подаване на твоята заявка към блокчейна</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">No network connection</string>
   <string name="notification_error_poa">An error has occurred</string>
@@ -256,7 +256,7 @@
   <string name="gamification_a_galaxy_title">a Galaxy</string>
   <string name="gamification_a_comet_subtitle">Be careful and don\'t hit a planet!</string>
   <string name="gamification_a_moon_subtitle">A natural satellite</string>
-  <string name="gamification_planet_subtitle">Spinning around a big star</string>
-  <string name="gamification_star_subtitle">Shinny, big and full of life!</string>
-  <string name="gamification_galaxy_subtitle">The biggest system out there!</string>
+  <string name="gamification_planet_subtitle">Завъртане около голяма звезда</string>
+  <string name="gamification_star_subtitle">Блестяща, голяма и пълна с живот!</string>
+  <string name="gamification_galaxy_subtitle">Най-голямата съществуваща система!</string>
 </resources>
