@@ -204,7 +204,7 @@ public class Transaction implements Parcelable {
   }
 
   public enum TransactionType {
-    STANDARD, IAB, ADS, IAP_OFFCHAIN, ADS_OFFCHAIN;
+    STANDARD, IAB, ADS, IAP_OFFCHAIN, ADS_OFFCHAIN, BONUS;
 
     static TransactionType fromInt(int type) {
       switch (type) {

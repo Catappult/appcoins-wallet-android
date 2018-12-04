@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.ADS_OFFCHAIN;
+import static com.asfoundation.wallet.transactions.Transaction.TransactionType.BONUS;
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.IAP_OFFCHAIN;
 
 public class TransactionsMapper {
@@ -71,7 +72,8 @@ public class TransactionsMapper {
       WalletHistory.Transaction transaction = transactions.get(i);
 
       Transaction.TransactionType txType =
-          "IAP OffChain".equals(transaction.getType()) ? IAP_OFFCHAIN : ADS_OFFCHAIN;
+          "IAP OffChain".equals(transaction.getType()) ? IAP_OFFCHAIN
+              : "bonus".equals(transaction.getType()) ? BONUS : ADS_OFFCHAIN;
 
       Transaction.TransactionStatus status;
       switch (transaction.getStatus()) {
