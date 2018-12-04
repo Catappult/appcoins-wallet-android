@@ -75,52 +75,52 @@
   <!-- Suggestions -->
   <string name="suggestion_private_key">A chave privada precisa ter 64 caracteres de comprimento</string>
   <string name="suggestion_empty_password_available">A senha não pode ser deixada em branco.</string>
-  <string name="suggestion_this_is_your_address">My public %s wallet address</string>
+  <string name="suggestion_this_is_your_address">Endereço público da minha carteira %s</string>
   <!-- Hints -->
-  <string name="hint_private_key_field">Private key *</string>
+  <string name="hint_private_key_field">Chave privada *</string>
   <string name="hint_keystore">Keystore *</string>
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
-  <string name="tab_private_key">Private key</string>
+  <string name="tab_private_key">Chave privada</string>
   <!-- Dialog titles -->
-  <string name="title_dialog_error">Error</string>
-  <string name="title_dialog_handling">Processing…</string>
-  <string name="title_dialog_add_account">Add wallet</string>
+  <string name="title_dialog_error">Erro</string>
+  <string name="title_dialog_handling">Processando…</string>
+  <string name="title_dialog_add_account">Adicionar wallet</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Set a password to encrypt your wallet</string>
-  <string name="toast_message_wallet_imported">The wallet was imported</string>
-  <string name="toast_message_wallet_exported">A backup was created</string>
-  <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
+  <string name="dialog_message">Definir senha para encriptar sua wallet</string>
+  <string name="toast_message_wallet_imported">A wallet foi importada</string>
+  <string name="toast_message_wallet_exported">Um backup foi criado</string>
+  <string name="toast_qr_code_no_address">O QR Code não contém um endereço válido</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">AppCoins BDS Wallet</string>
-  <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
-  <string name="intro_title_third_page">Simple &amp; Easy</string>
-  <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
-  <string name="intro_message_second_page">Private keys never leave your device.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
+  <string name="intro_title_first_page">Wallet AppCoins BDS</string>
+  <string name="intro_title_second_page"><![CDATA[Privacidade e Segurança]]></string>
+  <string name="intro_title_third_page">Simples e Fácil</string>
+  <string name="intro_message_first_page">Bem-vindo a revolução da economia de aplicativos.</string>
+  <string name="intro_message_second_page">Chaves privadas jamais são removidas do seu dispositivo.</string>
+  <string name="intro_message_third_page">Processe todos seus pagamentos em aplicativos e recompensas em APPC.</string>
   <!-- Menus -->
   <!-- Labels -->
-  <string name="label_from">From</string>
-  <string name="label_to">To</string>
-  <string name="label_gas_limit">Gas Limit</string>
-  <string name="label_gas_price">Gas Price</string>
-  <string name="label_network_fee">Network Fee</string>
+  <string name="label_from">De</string>
+  <string name="label_to">Para</string>
+  <string name="label_gas_limit">Limite de Gasolina</string>
+  <string name="label_gas_price">Preço da Gasolina</string>
+  <string name="label_network_fee">Taxa de Rede</string>
   <string name="button_ok">OK</string>
-  <string name="hint_recipient_address">Recipient Address</string>
-  <string name="hint_amount">Amount</string>
-  <string name="hint_amount_with_token">Amount %s</string>
-  <string name="hint_contract_address">Contract address</string>
-  <string name="hint_contract_symbol">Symbol</string>
-  <string name="hint_contract_decimals">Decimals</string>
-  <string name="button_cancel">CANCEL</string>
-  <string name="button_yes">YES</string>
+  <string name="hint_recipient_address">Endereço do Destinatário</string>
+  <string name="hint_amount">Quantia</string>
+  <string name="hint_amount_with_token">Quantia %s</string>
+  <string name="hint_contract_address">Endereço do contrato</string>
+  <string name="hint_contract_symbol">Símbolo</string>
+  <string name="hint_contract_decimals">Decimais</string>
+  <string name="button_cancel">CANCELAR</string>
+  <string name="button_yes">SIM</string>
   <!-- Subtitles -->
-  <string name="subtitle_from">From</string>
-  <string name="subtitle_gas_fee">Fee</string>
-  <string name="subtitle_transaction_num">Transaction</string>
+  <string name="subtitle_from">De</string>
+  <string name="subtitle_gas_fee">Taxa</string>
+  <string name="subtitle_transaction_num">Transação</string>
   <!-- Actions -->
   <string name="action_more_details">Mais</string>
   <string name="action_add_wallet">Adicionar wallet</string>
