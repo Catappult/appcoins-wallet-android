@@ -150,7 +150,7 @@
   <string name="welcome.erc20.label.title">Kompatybilne z ERC20</string>
   <string name="welcome.erc20.label.description">Domyślnie obsługuje tokeny ERC20.</string>
   <string name="scan_qr">Uzyskaj adres z kodu QR</string>
-  <string name="info_gas_price">The higher the gas price, the more expensive your transaction fee will be, but the quicker your transaction will be processed by the Ethereum network.</string>
+  <string name="info_gas_price">Im wyższa cena gazu, tym droższa będzie prowizja od transakcji, ale tym szybciej Twoja transakcja będzie przetworzona przez sieć Ethereum.</string>
   <string name="info_gas_limit">The gas limit prevents smart contracts from consuming all your Ethereum. We will try to calculate the gas limit automatically for you, but some smart contracts may require a custom gas limit.</string>
   <string name="title_send_settings">Zaawansowane</string>
   <string name="title_activity_barcode">Skanowanie kodów kreskowych</string>
@@ -190,10 +190,10 @@
   <string name="notification_error_poa">Wystąpił błąd</string>
   <string name="notification_no_wallet_poa">Twój portfel nie został jeszcze skonfigurowany</string>
   <string name="notification_cancelled_poa">Nagroda anulowana</string>
-  <string name="notification_not_available_poa">This rewards campaign is no longer available</string>
-  <string name="notification_not_available_for_country_poa">This rewards campaign isn\'t available in your country</string>
-  <string name="notification_already_rewarded_poa">You were already rewarded in this campaign</string>
-  <string name="notification_submit_error_poa">Sorry, there was an error. Try again!</string>
+  <string name="notification_not_available_poa">Ta kampania nagród nie jest już dostępna</string>
+  <string name="notification_not_available_for_country_poa">Ta kampania nagród nie jest dostępna w Twoim kraju</string>
+  <string name="notification_already_rewarded_poa">Zostałeś już nagrodzony/a w tej kampanii</string>
+  <string name="notification_submit_error_poa">Przepraszamy, wystąpił błąd. Spróbuj ponownie!</string>
   <!-- transaction details -->
   <string name="transaction_status_success">Zakończono sukcesem</string>
   <string name="transaction_status_pending">W trakcie</string>
@@ -218,7 +218,7 @@
   <string name="dialog_credit_card_number">Numer karty</string>
   <string name="dialog_credit_card_expiration">Data wygaśnięcia</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
+  <string name="activity_airdrop_title">Potwierdź że jesteś człowiekiem aby otrzymać AppCoins</string>
   <string name="activity_airdrop_details">To dla bezpieczeństwa.</string>
   <string name="activity_airdrop_hint">Wpisz słowa z obrazka</string>
   <string name="activity_airdrop_submit_btn">Wyślij</string>
