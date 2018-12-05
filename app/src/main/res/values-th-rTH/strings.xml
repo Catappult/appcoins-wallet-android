@@ -259,4 +259,5 @@
   <string name="gamification_planet_subtitle">หมุนรอบดาวใหญ่</string>
   <string name="gamification_star_subtitle">ส่องแสง ใหญ่และเต็มรูปแบบของชีวิต</string>
   <string name="gamification_galaxy_subtitle">ระบบที่ใหญ่ที่สุดที่มี!</string>
+  <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
 </resources>
