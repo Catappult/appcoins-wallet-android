@@ -52,40 +52,40 @@
   <string name="no_repeat">Nein, wiederholen</string>
   <string name="skip">Überspringen</string>
   <string name="root_title">GERÄTESICHERHEIT WURDE KOMPROMITTIERT</string>
-  <string name="root_body">Any \'rooted\' app can access AppCoins Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
+  <string name="root_body">Jede App mit Root-Rechten kann auf die Keychain_Daten ihres AppCoins Wallets zugreifen und ihr Wallet entwenden! Entfernen Sie dieses Wallet sofort und stellen Sie sie auf einem sicheren Gerät wieder her.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
-  <string name="buying">Buying %s</string>
+  <string name="buying">Kaufen %s</string>
   <string name="action_buy">Kaufen</string>
   <string name="empty"></string>
   <string name="try_again">Erneut versuchen</string>
-  <string name="already_have_account">Already have a wallet?</string>
-  <string name="action_create_new_account">Create new wallet</string>
-  <string name="unknown_error">An error has occurred.</string>
-  <string name="action_backup_wallet">Backup Wallet</string>
-  <string name="no_tokens">You haven\'t added any custom token yet.</string>
-  <string name="title_email">Email us</string>
-  <string name="action_donate">Donate</string>
+  <string name="already_have_account">Haben sie bereits ein Wallet?</string>
+  <string name="action_create_new_account">Erstellen Sie ein neues Wallet</string>
+  <string name="unknown_error">Es ist ein Fehler aufgetreten.</string>
+  <string name="action_backup_wallet">Wallet-Backup erstellen</string>
+  <string name="no_tokens">Sie haben bisher noch keinen benutzerdefinierten Token hinzugefügt.</string>
+  <string name="title_email">Senden Sie uns eine E-Mail</string>
+  <string name="action_donate">Spenden</string>
   <!-- Titles -->
-  <string name="title_my_address">Receive</string>
-  <string name="title_my_tokens">My Tokens</string>
-  <string name="title_activity_send">Send</string>
-  <string name="title_activity_confirmation">Confirm</string>
-  <string name="title_add_token">Add Custom Token</string>
-  <string name="title_airdrop">Airdrop</string>
+  <string name="title_my_address">Erhalten</string>
+  <string name="title_my_tokens">Meine Token</string>
+  <string name="title_activity_send">Senden</string>
+  <string name="title_activity_confirmation">Bestätigen</string>
+  <string name="title_add_token">Benutzerdefiniertes Token hinzufügen</string>
+  <string name="title_airdrop">AirDrop</string>
   <!-- Suggestions -->
-  <string name="suggestion_private_key">Private key has to be 64 characters long</string>
-  <string name="suggestion_empty_password_available">The password can be left blank.</string>
-  <string name="suggestion_this_is_your_address">My public %s wallet address</string>
+  <string name="suggestion_private_key">Der private Schlüssel muss mindestens 64 Zeichen lang sein</string>
+  <string name="suggestion_empty_password_available">Das Paaswortfeld kann leer bleiben.</string>
+  <string name="suggestion_this_is_your_address">Meine öffentliche %s Wallet Adresse</string>
   <!-- Hints -->
-  <string name="hint_private_key_field">Private key *</string>
+  <string name="hint_private_key_field">Privater Schlüssel *</string>
   <string name="hint_keystore">Keystore *</string>
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
-  <string name="tab_private_key">Private key</string>
+  <string name="tab_private_key">Privater Schlüssel</string>
   <!-- Dialog titles -->
-  <string name="title_dialog_error">Error</string>
-  <string name="title_dialog_handling">Processing…</string>
-  <string name="title_dialog_add_account">Add wallet</string>
+  <string name="title_dialog_error">Fehler</string>
+  <string name="title_dialog_handling">Wird verarbeitet...</string>
+  <string name="title_dialog_add_account">Wallet hinzufügen</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
