@@ -98,6 +98,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private RadioGroup radioGroup;
   private FiatValue fiatValue;
   private String developerPayload;
+  private boolean isBds;
 
   public static Fragment newInstance(TransactionBuilder transaction, String currency,
       String productName, boolean isBds, String developerPayload) {
@@ -129,8 +130,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     }
     iabView = ((IabView) context);
   }
-
-  private boolean isBds;
 
   @Nullable @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -306,10 +305,10 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
                   com.adyen.core.models.PaymentMethod.Type.CARD);
               break;
             case R.id.appc:
-              iabView.showOnChain(BigDecimal.valueOf(fiatValue.getAmount()), isBds);
+              iabView.showOnChain(transaction.amount(), isBds);
               break;
             case R.id.appc_credits:
-              iabView.showAppcoinsCreditsPayment(BigDecimal.valueOf(fiatValue.getAmount()));
+              iabView.showAppcoinsCreditsPayment(transaction.amount());
               break;
             default:
               throw new NotImplementedError();
