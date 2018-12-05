@@ -86,11 +86,18 @@ public class TransactionsMapper {
           break;
       }
 
+      String sourceName;
+      if (txType.equals(BONUS)) {
+        sourceName = transaction.getBonus()
+            .toString();
+      } else {
+        sourceName = transaction.getApp();
+      }
       transactionList.add(0, new Transaction(transaction.getTxID(), txType, null,
           transaction.getTs()
               .getTime() / 1000, status, transaction.getAmount()
           .toString(), transaction.getSender(), transaction.getReceiver(),
-          new TransactionDetails(transaction.getApp(),
+          new TransactionDetails(sourceName,
               new TransactionDetails.Icon(TransactionDetails.Icon.Type.URL, transaction.getIcon()),
               transaction.getSku()), "APPC", null));
     }
