@@ -96,50 +96,50 @@
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins BDS Wallet</string>
-  <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
-  <string name="intro_title_third_page">Simple &amp; Easy</string>
-  <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
-  <string name="intro_message_second_page">Private keys never leave your device.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
+  <string name="intro_title_second_page"><![CDATA[Privat & Sicher]]></string>
+  <string name="intro_title_third_page">Schnell &amp; Einfach</string>
+  <string name="intro_message_first_page">Herzlich Willkommen bei der Revolution der App-Wirtschaft.</string>
+  <string name="intro_message_second_page">Private Schlüssel verlassen nie Ihr Gerät.</string>
+  <string name="intro_message_third_page">Erledigen Sie ihre In-App-Zahlungen und Belohnungen in APPC.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Von</string>
   <string name="label_to">An</string>
-  <string name="label_gas_limit">Gas Limit</string>
-  <string name="label_gas_price">Gas Price</string>
-  <string name="label_network_fee">Network Fee</string>
+  <string name="label_gas_limit">Gas-Limit</string>
+  <string name="label_gas_price">Gaspreis</string>
+  <string name="label_network_fee">Netzwerkgebühr</string>
   <string name="button_ok">OK</string>
   <string name="hint_recipient_address">Empfänger-Adresse</string>
   <string name="hint_amount">Betrag</string>
-  <string name="hint_amount_with_token">Amount %s</string>
-  <string name="hint_contract_address">Contract address</string>
+  <string name="hint_amount_with_token">Betrag %s</string>
+  <string name="hint_contract_address">Kontraktadresse</string>
   <string name="hint_contract_symbol">Symbol</string>
-  <string name="hint_contract_decimals">Decimals</string>
-  <string name="button_cancel">CANCEL</string>
+  <string name="hint_contract_decimals">Dezimalstellen</string>
+  <string name="button_cancel">ABBRECHEN</string>
   <string name="button_yes">JA</string>
   <!-- Subtitles -->
   <string name="subtitle_from">Von</string>
-  <string name="subtitle_gas_fee">Fee</string>
-  <string name="subtitle_transaction_num">Transaction</string>
+  <string name="subtitle_gas_fee">Gebühr</string>
+  <string name="subtitle_transaction_num">Transaktion</string>
   <!-- Actions -->
-  <string name="action_more_details">More</string>
-  <string name="action_add_wallet">Add wallet</string>
+  <string name="action_more_details">Mehr</string>
+  <string name="action_add_wallet">Wallet hinzufügen</string>
   <string name="action_coinbase">Coinbase</string>
   <string name="action_shapeshift">Shapeshift (Crypto only)</string>
   <string name="action_changelly">Changelly</string>
   <string name="action_wallets">Wallets</string>
-  <string name="action_next">Next</string>
-  <string name="action_edit">Edit</string>
-  <string name="action_save">Save</string>
+  <string name="action_next">Weiter</string>
+  <string name="action_edit">Bearbeiten</string>
+  <string name="action_save">Speichern</string>
   <!-- Subject -->
-  <string name="error_fail_generate_qr">Could not generate QR code.</string>
-  <string name="error_invalid_address">Invalid address</string>
-  <string name="error_invalid_amount">Invalid amount</string>
-  <string name="error_transaction_failed">Transaction error</string>
-  <string name="error_must_numeric">It must be a numeric value.</string>
-  <string name="transaction_succeeded">Transaction successful</string>
-  <string name="NA">N/A</string>
-  <string name="error_wallet_not_selected">Wallet is not selected</string>
+  <string name="error_fail_generate_qr">QR-Code konnte nicht generiert werden.</string>
+  <string name="error_invalid_address">Ungültige Adresse</string>
+  <string name="error_invalid_amount">Ungültiger Betrag</string>
+  <string name="error_transaction_failed">Transaktionsfehler</string>
+  <string name="error_must_numeric">Es muss ein numerischer Wert sein.</string>
+  <string name="transaction_succeeded">Transaktion erfolgreich</string>
+  <string name="NA">Nicht verfügbar</string>
+  <string name="error_wallet_not_selected">Wallet wurde nicht ausgewählt</string>
   <string name="no_transactions_yet">Get some test APPC so you can see how AppCoins payments will work</string>
   <string name="no_transactions_yet_main">No transactions yet!</string>
   <string name="unknown_balance_with_symbol">-- ETH</string>
@@ -246,7 +246,7 @@
   <string name="gamification_level_earned">VERDIENT:</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">SO FUNKTIONIERT ES</string>
-  <string name="gamification_how_header">How to Level Up?</string>
+  <string name="gamification_how_header">So können Sie im Rang aufsteigen?</string>
   <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games</string>
   <string name="gamification_how_spend">SPEND %s APPC</string>
   <string name="gamification_a_comet_title">ein Komet</string>
