@@ -58,39 +58,39 @@
   <string name="action_buy">خرید</string>
   <string name="empty"></string>
   <string name="try_again">امتحان دوباره</string>
-  <string name="already_have_account">Already have a wallet?</string>
-  <string name="action_create_new_account">Create new wallet</string>
-  <string name="unknown_error">An error has occurred.</string>
-  <string name="action_backup_wallet">Backup Wallet</string>
-  <string name="no_tokens">You haven\'t added any custom token yet.</string>
-  <string name="title_email">Email us</string>
-  <string name="action_donate">Donate</string>
+  <string name="already_have_account">کیف پول دارید؟</string>
+  <string name="action_create_new_account">ایجاد کیف پول جدید</string>
+  <string name="unknown_error">خطایی رخ داده است.</string>
+  <string name="action_backup_wallet">بک‌آپ کیف پول</string>
+  <string name="no_tokens">شما هنوز هیچ ژتون سفارشی شده‌ای اضافه نکردید.</string>
+  <string name="title_email">ارسال ایمیل به ما</string>
+  <string name="action_donate">کمک مالی</string>
   <!-- Titles -->
-  <string name="title_my_address">Receive</string>
-  <string name="title_my_tokens">My Tokens</string>
-  <string name="title_activity_send">Send</string>
-  <string name="title_activity_confirmation">Confirm</string>
-  <string name="title_add_token">Add Custom Token</string>
+  <string name="title_my_address">دریافت</string>
+  <string name="title_my_tokens">ژتون‌های من</string>
+  <string name="title_activity_send">ارسال</string>
+  <string name="title_activity_confirmation">تایید</string>
+  <string name="title_add_token">اضافه کردن ژتون سفارشی</string>
   <string name="title_airdrop">Airdrop</string>
   <!-- Suggestions -->
-  <string name="suggestion_private_key">Private key has to be 64 characters long</string>
-  <string name="suggestion_empty_password_available">The password can be left blank.</string>
-  <string name="suggestion_this_is_your_address">My public %s wallet address</string>
+  <string name="suggestion_private_key">کلید خصوصی باید 64 کاراکتر باشد</string>
+  <string name="suggestion_empty_password_available">رمز عبور می توانید خالی گذاشته شود.</string>
+  <string name="suggestion_this_is_your_address">آدزس کیف پول عمومی %s من</string>
   <!-- Hints -->
-  <string name="hint_private_key_field">Private key *</string>
+  <string name="hint_private_key_field">کلید خصوصی *</string>
   <string name="hint_keystore">Keystore *</string>
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
-  <string name="tab_private_key">Private key</string>
+  <string name="tab_private_key">کلید خصوصی</string>
   <!-- Dialog titles -->
-  <string name="title_dialog_error">Error</string>
-  <string name="title_dialog_handling">Processing…</string>
-  <string name="title_dialog_add_account">Add wallet</string>
+  <string name="title_dialog_error">خطا</string>
+  <string name="title_dialog_handling">درحال پردازش…</string>
+  <string name="title_dialog_add_account">اضافه کردن کیف پول</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Set a password to encrypt your wallet</string>
-  <string name="toast_message_wallet_imported">The wallet was imported</string>
+  <string name="dialog_message">تنظیم رمز عبور برای رمزگذاری کیف پول خود</string>
+  <string name="toast_message_wallet_imported">کیف پول وارد شده است</string>
   <string name="toast_message_wallet_exported">A backup was created</string>
   <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
@@ -132,14 +132,14 @@
   <string name="action_edit">ویرایش</string>
   <string name="action_save">ذخیره‌سازی</string>
   <!-- Subject -->
-  <string name="error_fail_generate_qr">Could not generate QR code.</string>
-  <string name="error_invalid_address">Invalid address</string>
-  <string name="error_invalid_amount">Invalid amount</string>
-  <string name="error_transaction_failed">Transaction error</string>
-  <string name="error_must_numeric">It must be a numeric value.</string>
-  <string name="transaction_succeeded">Transaction successful</string>
+  <string name="error_fail_generate_qr">کد QR ایجاد نشد.</string>
+  <string name="error_invalid_address">آدرس غیرمعتبر</string>
+  <string name="error_invalid_amount">مقدار غیرمعتبر</string>
+  <string name="error_transaction_failed">خطای معامله</string>
+  <string name="error_must_numeric">باید یک مقدار عددی باشد.</string>
+  <string name="transaction_succeeded">معامله موفق</string>
   <string name="NA">N/A</string>
-  <string name="error_wallet_not_selected">Wallet is not selected</string>
+  <string name="error_wallet_not_selected">کیف پول انتخاب نشده است</string>
   <string name="no_transactions_yet">Get some test APPC so you can see how AppCoins payments will work</string>
   <string name="no_transactions_yet_main">No transactions yet!</string>
   <string name="unknown_balance_with_symbol">-- ETH</string>
