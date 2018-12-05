@@ -259,4 +259,5 @@
   <string name="gamification_planet_subtitle">Περιστρέφεστε γύρω από ένα μεγάλο αστέρι</string>
   <string name="gamification_star_subtitle">Λαμπερό, μεγάλο και γεμάτο ζωή!</string>
   <string name="gamification_galaxy_subtitle">Το μεγαλύτερο σύστημα εκεί έξω!</string>
+  <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
 </resources>
