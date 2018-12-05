@@ -24,15 +24,15 @@
   <string name="network_label">Netzwerk</string>
   <string name="credits">Das Team</string>
   <string name="low_storage_error">Nicht genügend Speicherplatz</string>
-  <string name="no_camera_permission">AppCoins BDS Wallet needs permission to access your camera to scan QR codes.</string>
+  <string name="no_camera_permission">Zum Lesen des QR-Codes benötigt AppCoins BDS Wallet Zugriff auf deine Kamera.</string>
   <string name="ok">Okay</string>
-  <string name="barcode_error_format">Invalid barcode format: %s</string>
-  <string name="title_delete_account">Are you sure you want to delete this wallet?</string>
+  <string name="barcode_error_format">Ungültiges Barcode-Format: %s</string>
+  <string name="title_delete_account">Sind Sie sich, dass Sie dieses Wallet löschen möchten?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Telegram Group</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Community</string>
-  <string name="title_opensource">Open Source Development</string>
+  <string name="title_opensource">Open-Source-Entwicklung</string>
   <string name="title_source_code">Quell-Code</string>
   <string name="title_report_bug">Einen Bug melden</string>
   <string name="title_support">Support</string>
