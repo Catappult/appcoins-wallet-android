@@ -259,4 +259,5 @@
   <string name="gamification_planet_subtitle">एक बड़े सितारे के चारों तरफ घूम रहा है</string>
   <string name="gamification_star_subtitle">चमकीला, बड़ा और जीवन से भरा हुआ!</string>
   <string name="gamification_galaxy_subtitle">वहाँ की सबसे बड़ी प्रणाली!</string>
+  <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
 </resources>
