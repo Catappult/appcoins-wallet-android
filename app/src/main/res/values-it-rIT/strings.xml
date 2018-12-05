@@ -259,4 +259,5 @@
   <string name="gamification_planet_subtitle">Che gira intorno a una grande stella</string>
   <string name="gamification_star_subtitle">Luminosa, grande e piena di vita!</string>
   <string name="gamification_galaxy_subtitle">Il più grande sistema lassù!</string>
+  <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
 </resources>
