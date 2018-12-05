@@ -10,7 +10,7 @@
       android:id="@+id/level_img"
       android:layout_width="wrap_content"
       android:layout_height="137dp"
-      android:src="@drawable/level_moon"
+      android:src="@drawable/level_comet"
       app:layout_constraintBottom_toTopOf="@+id/level_title"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
