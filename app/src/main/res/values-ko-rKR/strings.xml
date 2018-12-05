@@ -259,4 +259,5 @@
   <string name="gamification_planet_subtitle">빅 스타 주위를 회전</string>
   <string name="gamification_star_subtitle">빛나고, 크고 생명으로 가득차있는!</string>
   <string name="gamification_galaxy_subtitle">지금까지 없었던 가장 큰 시스템</string>
+  <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
 </resources>
