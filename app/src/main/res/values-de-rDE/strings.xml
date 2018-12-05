@@ -89,10 +89,10 @@
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Set a password to encrypt your wallet</string>
-  <string name="toast_message_wallet_imported">The wallet was imported</string>
-  <string name="toast_message_wallet_exported">A backup was created</string>
-  <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
+  <string name="dialog_message">Legen Sie zum Verschlüsseln ihrer Wallets ein Passwort fest</string>
+  <string name="toast_message_wallet_imported">Das Wallet wurde importiert</string>
+  <string name="toast_message_wallet_exported">Es wurde ein Backup erstellt</string>
+  <string name="toast_qr_code_no_address">Der QR-Code enthält keine gültige Adresse</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins BDS Wallet</string>
@@ -172,13 +172,13 @@
   <string name="activity_iab_transaction_completed_title">Transaction Completed</string>
   <string name="activity_iab_error_title">Error</string>
   <string name="activity_iab_error_message">An error occurred, please try again</string>
-  <string name="action_try">try</string>
-  <string name="activity_transactions_learn_more">Learn more</string>
-  <string name="activity_iab_no_funds_message">Not enough ETH and APPC</string>
-  <string name="activity_iab_no_ethereum_funds_message">Not enough Ethereum</string>
-  <string name="activity_iab_no_token_funds_message">Not enough AppCoins</string>
-  <string name="activity_iab_wrong_network_message">Wrong Ethereum network or unknown token</string>
-  <string name="activity_iab_no_network_message">No network access</string>
+  <string name="action_try">Testen</string>
+  <string name="activity_transactions_learn_more">Weitere Informationen</string>
+  <string name="activity_iab_no_funds_message">Nicht genug ETH und APPC</string>
+  <string name="activity_iab_no_ethereum_funds_message">Nicht genügend Ethereum</string>
+  <string name="activity_iab_no_token_funds_message">Nicht genügend AppCoins</string>
+  <string name="activity_iab_wrong_network_message">Falsches Ethereumnetzwerk oder unbekanntes Token</string>
+  <string name="activity_iab_no_network_message">Kein Netzwerkzugriff</string>
   <string name="activity_iab_nonce_message">An error with blockchain occurred, please try again later.</string>
   <string name="activity_iab_approving_message">Checking all details: balance, items, network…</string>
   <string name="activity_iab_buying_message">Details checked \nReceiving your item…</string>
@@ -249,11 +249,11 @@
   <string name="gamification_how_header">How to Level Up?</string>
   <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games</string>
   <string name="gamification_how_spend">SPEND %s APPC</string>
-  <string name="gamification_a_comet_title">a Comet</string>
-  <string name="gamification_a_moon_title">a Moon</string>
-  <string name="gamification_a_planet_title">a Planet</string>
-  <string name="gamification_a_star_title">a Star</string>
-  <string name="gamification_a_galaxy_title">a Galaxy</string>
+  <string name="gamification_a_comet_title">ein Komet</string>
+  <string name="gamification_a_moon_title">ein Mond</string>
+  <string name="gamification_a_planet_title">ein Planet</string>
+  <string name="gamification_a_star_title">ein Stern</string>
+  <string name="gamification_a_galaxy_title">eine Galaxie</string>
   <string name="gamification_a_comet_subtitle">Be careful and don\'t hit a planet!</string>
   <string name="gamification_a_moon_subtitle">A natural satellite</string>
   <string name="gamification_planet_subtitle">Spinning around a big star</string>
