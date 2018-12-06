@@ -204,9 +204,8 @@
               android:drawablePadding="18dp"
               android:drawableStart="@drawable/ic_payment_method_appc"
               android:paddingLeft="4dp"
-              android:visibility="gone"
-
-
+              android:enabled="false"
+              android:visibility="visible"
               android:text="@string/appcoins_appc"
               style="@style/PaymentMethodsRadioButton"
               />
@@ -215,17 +214,17 @@
               android:layout_width="match_parent"
               android:layout_height="2dp"
               android:background="#eaeaea"
-              android:visibility="gone"
+              android:visibility="visible"
               />
 
           <RadioButton
               android:id="@+id/appc_credits"
-              android:layout_width="match_parent"
+              android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:drawablePadding="18dp"
               android:drawableStart="@drawable/ic_payment_method_appc_credits"
-              android:visibility="gone"
-
+              android:enabled="false"
+              android:visibility="visible"
               android:paddingLeft="4dp"
               android:text="@string/appc_credits"
               style="@style/PaymentMethodsRadioButton"
@@ -235,7 +234,7 @@
               android:layout_width="match_parent"
               android:layout_height="2dp"
               android:background="#eaeaea"
-              android:visibility="gone"
+              android:visibility="visible"
               />
 
         </RadioGroup>

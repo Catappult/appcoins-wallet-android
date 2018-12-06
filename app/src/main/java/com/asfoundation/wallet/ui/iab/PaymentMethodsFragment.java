@@ -324,12 +324,10 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     for (PaymentMethod paymentMethod : paymentMethods) {
       if (paymentMethod.getId()
           .equals("appcoins")) {
-        appcRadioButton.setVisibility(View.VISIBLE);
-        appcView.setVisibility(View.VISIBLE);
+        appcRadioButton.setEnabled(true);
       } else if (paymentMethod.getId()
           .equals("appcoins_credits")) {
-        appcCreditsRadioButton.setVisibility(View.VISIBLE);
-        appcCreditsView.setVisibility(View.VISIBLE);
+        appcCreditsRadioButton.setEnabled(true);
       }
     }
   }
