@@ -165,7 +165,7 @@
             >
           <RadioButton
               android:id="@+id/paypal"
-              android:layout_width="wrap_content"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:drawablePadding="18dp"
               android:drawableStart="@drawable/ic_payment_method_paypal"
@@ -183,7 +183,7 @@
           <RadioButton
               android:id="@+id/credit_card"
               android:checked="true"
-              android:layout_width="wrap_content"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:drawablePadding="12dp"
               android:drawableStart="@drawable/ic_payment_method_credit_card"
@@ -199,7 +199,7 @@
 
           <RadioButton
               android:id="@+id/appc"
-              android:layout_width="wrap_content"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:drawablePadding="18dp"
               android:drawableStart="@drawable/ic_payment_method_appc"
@@ -220,7 +220,7 @@
 
           <RadioButton
               android:id="@+id/appc_credits"
-              android:layout_width="wrap_content"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:drawablePadding="18dp"
               android:drawableStart="@drawable/ic_payment_method_appc_credits"
