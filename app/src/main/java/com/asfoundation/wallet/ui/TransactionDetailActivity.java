@@ -145,6 +145,17 @@ public class TransactionDetailActivity extends BaseActivity {
         button.setOnClickListener(
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
         break;
+      case BONUS:
+        button = findViewById(R.id.more_detail);
+        button.setVisibility(View.VISIBLE);
+        to = transaction.getTo();
+        typeStr = R.string.gamification_level_bonus;
+        typeIcon = -1;
+        id = getString(R.string.gamification_level_bonus, transaction.getDetails()
+            .getSourceName());
+        button.setOnClickListener(
+            view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        break;
     }
 
     @StringRes int statusStr = R.string.transaction_status_success;
@@ -200,6 +211,7 @@ public class TransactionDetailActivity extends BaseActivity {
 
     amount.setText(BalanceUtils.formatBalance(value, symbol, smallTitleSize, color));
 
+    ImageView typeIconImageView = findViewById(R.id.img);
     if (icon != null) {
       String path;
       if (icon.startsWith("http://") || icon.startsWith("https://")) {
@@ -212,9 +224,14 @@ public class TransactionDetailActivity extends BaseActivity {
           .load(path)
           .transform(new CircleTransformation())
           .fit()
-          .into((ImageView) findViewById(R.id.img));
+          .into(typeIconImageView);
     } else {
-      ((ImageView) findViewById(R.id.img)).setImageResource(typeIcon);
+      if (typeIcon != -1) {
+        typeIconImageView.setImageResource(typeIcon);
+        typeIconImageView.setVisibility(View.VISIBLE);
+      } else {
+        typeIconImageView.setVisibility(View.GONE);
+      }
     }
 
     ((TextView) findViewById(R.id.app_id)).setText(id);
@@ -223,7 +240,14 @@ public class TransactionDetailActivity extends BaseActivity {
       findViewById(R.id.item_id).setVisibility(View.VISIBLE);
     }
     ((TextView) findViewById(R.id.category_name)).setText(typeStr);
-    ((ImageView) findViewById(R.id.category_icon)).setImageResource(typeIcon);
+
+    if (typeIcon != -1) {
+      ((ImageView) findViewById(R.id.category_icon)).setImageResource(typeIcon);
+      findViewById(R.id.category_icon).setVisibility(View.VISIBLE);
+      findViewById(R.id.category_icon_background).setVisibility(View.VISIBLE);
+    } else {
+      findViewById(R.id.category_icon_background).setVisibility(View.GONE);
+    }
 
     ((TextView) findViewById(R.id.status)).setText(statusStr);
     ((TextView) findViewById(R.id.status)).setTextColor(getResources().getColor(statusColor));

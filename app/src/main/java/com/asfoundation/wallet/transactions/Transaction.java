@@ -218,6 +218,8 @@ public class Transaction implements Parcelable {
           return IAP_OFFCHAIN;
         case 4:
           return ADS_OFFCHAIN;
+        case 5:
+          return BONUS;
         default:
           return STANDARD;
       }
