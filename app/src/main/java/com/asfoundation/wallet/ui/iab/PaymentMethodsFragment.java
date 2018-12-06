@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,10 +11,12 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -77,6 +81,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private TextView errorMessage;
   private View errorView;
   private View processingDialog;
+  private ImageView appIcon;
   private Button buyButton;
   private Button cancelButton;
   private IabView iabView;
@@ -184,6 +189,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     errorView = view.findViewById(R.id.error_message);
     errorMessage = view.findViewById(R.id.activity_iab_error_message);
     processingDialog = view.findViewById(R.id.processing_loading);
+    appIcon = view.findViewById(R.id.app_icon);
     buyButton = view.findViewById(R.id.buy_button);
     cancelButton = view.findViewById(R.id.cancel_button);
     errorDismissButton = view.findViewById(R.id.activity_iab_error_ok_button);
@@ -199,7 +205,38 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     appcCreditsRadioButton = view.findViewById(R.id.appc_credits);
     appcCreditsView = view.findViewById(R.id.appc_credits_view);
 
+    setupAppNameAndIcon();
+
     presenter.present(transactionValue, currency, savedInstanceState);
+  }
+
+  private void setupAppNameAndIcon() {
+    compositeDisposable.add(Single.defer(() -> Single.just(getAppPackage()))
+        .observeOn(Schedulers.io())
+        .map(packageName -> new Pair<>(getApplicationName(packageName),
+            getContext().getPackageManager()
+                .getApplicationIcon(packageName)))
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(pair -> {
+          appNameTv.setText(pair.first);
+          appIcon.setImageDrawable(pair.second);
+        }, throwable -> {
+          throwable.printStackTrace();
+        }));
+  }
+
+  public String getAppPackage() {
+    if (getArguments().containsKey(APP_PACKAGE)) {
+      return getArguments().getString(APP_PACKAGE);
+    }
+    throw new IllegalArgumentException("previous app package name not found");
+  }
+
+  private CharSequence getApplicationName(String appPackage)
+      throws PackageManager.NameNotFoundException {
+    PackageManager packageManager = getContext().getPackageManager();
+    ApplicationInfo packageInfo = packageManager.getApplicationInfo(appPackage, 0);
+    return packageManager.getApplicationLabel(packageInfo);
   }
 
   @Override public void showError() {
@@ -280,7 +317,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
       appSkuDescriptionTv.setText(getResources().getString(R.string.item_donation));
       appNameTv.setText(getResources().getString(R.string.item_donation));
     } else if (productName != null) {
-      appNameTv.setText(String.format(getString(R.string.buying), productName));
       appSkuDescriptionTv.setText(productName);
     }
 
