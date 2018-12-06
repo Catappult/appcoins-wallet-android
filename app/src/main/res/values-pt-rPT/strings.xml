@@ -5,7 +5,7 @@
   <string name="title_send">Enviar</string>
   <string name="title_send_with_token">Enviar %s</string>
   <string name="title_request">Receber</string>
-  <string name="title_import">Importar Carteira</string>
+  <string name="title_import">Importar Wallet</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Password</string>
   <string name="action_sign_in_short">Create</string>
@@ -14,16 +14,16 @@
   <string name="action_send">Enviar</string>
   <string name="error_field_required">Este campo é obrigatório</string>
   <string name="action_settings">Definições</string>
-  <string name="title_account_list">Carteiras</string>
+  <string name="title_account_list">Wallets</string>
   <string name="cancel">cancelar</string>
-  <string name="confirm_delete_account">Certifique-se que tem uma cópia de segurança desta carteira.</string>
+  <string name="confirm_delete_account">Certifique-se que tem uma cópia de segurança desta wallet.</string>
   <string name="action_import">Importar</string>
-  <string name="copy">Copy to clipboard</string>
-  <string name="close">Close</string>
-  <string name="title_activity_settings">Settings</string>
-  <string name="network_label">Network</string>
-  <string name="credits">Credits</string>
-  <string name="low_storage_error">Not enough storage space</string>
+  <string name="copy">Copiar para a área de transferência</string>
+  <string name="close">Fechar</string>
+  <string name="title_activity_settings">Definições</string>
+  <string name="network_label">Rede</string>
+  <string name="credits">Créditos</string>
+  <string name="low_storage_error">Espaço de armazenamento insuficiente</string>
   <string name="no_camera_permission">AppCoins BDS Wallet needs permission to access your camera to scan QR codes.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Invalid barcode format: %s</string>
