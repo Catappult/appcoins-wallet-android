@@ -51,6 +51,7 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.DEVELOPER_PAYLOAD;
 import static com.asfoundation.wallet.ui.iab.IabActivity.PRODUCT_NAME;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_CURRENCY;
+import static com.asfoundation.wallet.ui.iab.IabActivity.URI;
 
 public class PaymentMethodsFragment extends DaggerFragment implements PaymentMethodsView {
 
@@ -99,9 +100,10 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private FiatValue fiatValue;
   private String developerPayload;
   private boolean isBds;
+  private String uri;
 
   public static Fragment newInstance(TransactionBuilder transaction, String currency,
-      String productName, boolean isBds, String developerPayload) {
+      String productName, boolean isBds, String developerPayload, String uri) {
     Bundle bundle = new Bundle();
     bundle.putParcelable(TRANSACTION, transaction);
     bundle.putSerializable(TRANSACTION_AMOUNT, transaction.amount());
@@ -109,6 +111,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     bundle.putString(APP_PACKAGE, transaction.getDomain());
     bundle.putString(PRODUCT_NAME, productName);
     bundle.putString(DEVELOPER_PAYLOAD, developerPayload);
+    bundle.putString(URI, uri);
     bundle.putBoolean(IS_BDS, isBds);
     Fragment fragment = new PaymentMethodsFragment();
     fragment.setArguments(bundle);
@@ -150,11 +153,12 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     productName = getArguments().getString(PRODUCT_NAME);
     String appPackage = getArguments().getString(APP_PACKAGE);
     developerPayload = getArguments().getString(DEVELOPER_PAYLOAD);
+    uri = getArguments().getString(URI);
 
     presenter = new PaymentMethodsPresenter(this, appPackage, AndroidSchedulers.mainThread(),
         Schedulers.io(), new CompositeDisposable(), inAppPurchaseInteractor,
         inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing,
-        analytics, isBds, Single.just(transaction), developerPayload);
+        analytics, isBds, Single.just(transaction), developerPayload, uri);
   }
 
   @Override public void onDestroyView() {
@@ -212,7 +216,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     bundle.putString(INAPP_DATA_SIGNATURE, purchase.getSignature()
         .getValue());
     bundle.putString(INAPP_PURCHASE_ID, purchase.getUid());
-    close(bundle);
+    iabView.finish(bundle);
   }
 
   @Override public void showLoading() {

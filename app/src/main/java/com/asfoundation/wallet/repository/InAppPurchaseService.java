@@ -70,8 +70,7 @@ public class InAppPurchaseService {
                   return action;
               }
             }))
-        .onErrorResumeNext(throwable -> cache.save(
-            transactionIdHelper.computeId(paymentTransaction.getTransactionBuilder()),
+        .onErrorResumeNext(throwable -> cache.save(paymentTransaction.getUri(),
             new PaymentTransaction(paymentTransaction, errorMapper.map(throwable))));
   }
 
@@ -178,18 +177,15 @@ public class InAppPurchaseService {
         .flatMapCompletable(paymentTransactions -> Observable.fromIterable(paymentTransactions)
             .flatMapCompletable(approveTransaction -> mapTransactionToPaymentTransaction(
                 approveTransaction).flatMap(paymentTransaction -> cache.save(
-                transactionIdHelper.computeId(paymentTransaction.getTransactionBuilder()),
+                paymentTransaction.getUri(),
                 paymentTransaction)
                 .toSingleDefault(paymentTransaction))
                 .filter(transaction -> transaction.getState()
                     .equals(PaymentTransaction.PaymentState.APPROVED))
-                .flatMapCompletable(transaction -> approveService.remove(
-                    transactionIdHelper.computeId(transaction.getTransactionBuilder()))
-                    .andThen(buyService.buy(
-                        transactionIdHelper.computeId(transaction.getTransactionBuilder()),
+                .flatMapCompletable(transaction -> approveService.remove(transaction.getUri())
+                    .andThen(buyService.buy(transaction.getUri(),
                         transaction)
-                        .onErrorResumeNext(throwable -> cache.save(
-                            transactionIdHelper.computeId(transaction.getTransactionBuilder()),
+                        .onErrorResumeNext(throwable -> cache.save(transaction.getUri(),
                             new PaymentTransaction(transaction, errorMapper.map(throwable))))))))
         .subscribe();
 
@@ -203,17 +199,15 @@ public class InAppPurchaseService {
                         .toSingleDefault(paymentTransaction))
                 .filter(transaction -> transaction.getState()
                     .equals(PaymentTransaction.PaymentState.BOUGHT))
-                .flatMapCompletable(transaction -> buyService.remove(
-                    transactionIdHelper.computeId(buyTransaction.getTransactionBuilder()))
-                    .andThen(cache.save(
-                        transactionIdHelper.computeId(buyTransaction.getTransactionBuilder()),
+                .flatMapCompletable(transaction -> buyService.remove(transaction.getUri())
+                    .andThen(cache.save(transaction.getUri(),
                         new PaymentTransaction(transaction,
                             PaymentTransaction.PaymentState.COMPLETED))))))
         .subscribe();
   }
 
-  public Observable<PaymentTransaction> getTransactionState(TransactionBuilder transactionBuilder) {
-    return cache.get(transactionIdHelper.computeId(transactionBuilder));
+  public Observable<PaymentTransaction> getTransactionState(String key) {
+    return cache.get(key);
   }
   public Completable remove(String key) {
     return buyService.remove(key)

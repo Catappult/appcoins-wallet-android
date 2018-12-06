@@ -32,27 +32,23 @@ public class BdsInAppPurchaseInteractor {
     return inAppPurchaseInteractor.parseTransaction(uri);
   }
 
-  public Completable send(TransactionBuilder transactionBuilder,
-      AsfInAppPurchaseInteractor.TransactionType transactionType,
+  public Completable send(String uri, AsfInAppPurchaseInteractor.TransactionType transactionType,
       String packageName, String productName, BigDecimal channelBudget, String developerPayload) {
-    return inAppPurchaseInteractor.send(transactionBuilder, transactionType, packageName,
-        productName,
+    return inAppPurchaseInteractor.send(uri, transactionType, packageName, productName,
         channelBudget, developerPayload);
   }
 
-  public Completable resume(TransactionBuilder transactionBuilder,
-      AsfInAppPurchaseInteractor.TransactionType transactionType,
+  public Completable resume(String uri, AsfInAppPurchaseInteractor.TransactionType transactionType,
       String packageName, String productName, String developerPayload) {
     return approveKeyProvider.getKey(packageName, productName)
         .doOnSuccess(billingPaymentProofSubmission::saveTransactionId)
         .flatMapCompletable(
-            approveKey -> inAppPurchaseInteractor.resume(transactionBuilder, transactionType,
-                packageName,
+            approveKey -> inAppPurchaseInteractor.resume(uri, transactionType, packageName,
                 productName, approveKey, developerPayload));
   }
 
-  public Observable<Payment> getTransactionState(TransactionBuilder transactionBuilder) {
-    return inAppPurchaseInteractor.getTransactionState(transactionBuilder);
+  public Observable<Payment> getTransactionState(String uri) {
+    return inAppPurchaseInteractor.getTransactionState(uri);
   }
 
   public Completable remove(String uri) {

@@ -71,25 +71,24 @@ public class AsfInAppPurchaseInteractor {
     this.transactionIdHelper = transactionIdHelper;
   }
 
-  public Completable send(TransactionBuilder transactionBuilder, TransactionType transactionType,
-      String packageName, String productName, BigDecimal channelBudget, String developerPayload) {
+  public Completable send(String uri, TransactionType transactionType, String packageName,
+      String productName, BigDecimal channelBudget, String developerPayload) {
     switch (transactionType) {
       case NORMAL:
-        return buildPaymentTransaction(transactionBuilder, packageName, productName,
-            developerPayload).flatMapCompletable(paymentTransaction -> inAppPurchaseService.send(
-            transactionIdHelper.computeId(paymentTransaction.getTransactionBuilder()),
+        return buildPaymentTransaction(uri, packageName, productName,
+            developerPayload).flatMapCompletable(
+            paymentTransaction -> inAppPurchaseService.send(paymentTransaction.getUri(),
                 paymentTransaction));
     }
     return Completable.error(new UnsupportedOperationException(
         "Transaction type " + transactionType + " not supported"));
   }
 
-  public Completable resume(TransactionBuilder transactionBuilder, TransactionType transactionType,
-      String packageName,
+  public Completable resume(String uri, TransactionType transactionType, String packageName,
       String productName, String approveKey, String developerPayload) {
     switch (transactionType) {
       case NORMAL:
-        return buildPaymentTransaction(transactionBuilder, packageName, productName,
+        return buildPaymentTransaction(uri, packageName, productName,
             developerPayload).flatMapCompletable(
             paymentTransaction -> billing.getSkuTransaction(packageName,
                 paymentTransaction.getTransactionBuilder()
@@ -106,13 +105,11 @@ public class AsfInAppPurchaseInteractor {
       Transaction transaction) {
     switch (transaction.getStatus()) {
       case PENDING_SERVICE_AUTHORIZATION:
-        return inAppPurchaseService.resume(
-            transactionIdHelper.computeId(paymentTransaction.getTransactionBuilder()),
+        return inAppPurchaseService.resume(paymentTransaction.getUri(),
             new PaymentTransaction(paymentTransaction, PaymentTransaction.PaymentState.APPROVED,
                 approveKey));
       case PROCESSING:
-        return trackTransactionService.trackTransaction(
-            transactionIdHelper.computeId(paymentTransaction.getTransactionBuilder()),
+        return trackTransactionService.trackTransaction(paymentTransaction.getUri(),
             paymentTransaction.getPackageName(), paymentTransaction.getTransactionBuilder()
                 .getSkuId(), transaction.getUid());
       case PENDING:
@@ -126,16 +123,15 @@ public class AsfInAppPurchaseInteractor {
     }
   }
 
-  public Observable<Payment> getTransactionState(TransactionBuilder transactionBuilder) {
-    return Observable.merge(inAppPurchaseService.getTransactionState(transactionBuilder)
-        .map(this::mapToPayment), trackTransactionService.getTransaction(transactionBuilder)
-        .map(transaction -> map(transaction, transactionBuilder)));
+  public Observable<Payment> getTransactionState(String uri) {
+    return Observable.merge(inAppPurchaseService.getTransactionState(uri)
+        .map(this::mapToPayment), trackTransactionService.getTransaction(uri)
+        .map(this::map));
   }
 
-  private Payment map(BdsTransactionService.BdsTransaction transaction,
-      TransactionBuilder transactionBuilder) {
+  private Payment map(BdsTransactionService.BdsTransaction transaction) {
     return new Payment(transaction.getKey(), mapStatus(transaction.getStatus()), null, null,
-        transaction.getPackageName(), null, transaction.getSkuId(), transactionBuilder);
+        transaction.getPackageName(), null, transaction.getSkuId());
   }
 
   private Payment.Status mapStatus(BdsTransactionService.BdsTransaction.Status status) {
@@ -152,12 +148,11 @@ public class AsfInAppPurchaseInteractor {
   }
 
   @NonNull private Payment mapToPayment(PaymentTransaction paymentTransaction) {
-    return new Payment(transactionIdHelper.computeId(paymentTransaction.getTransactionBuilder()),
+    return new Payment(paymentTransaction.getUri(),
         mapStatus(paymentTransaction.getState()),
         paymentTransaction.getTransactionBuilder()
             .fromAddress(), paymentTransaction.getBuyHash(), paymentTransaction.getPackageName(),
-        paymentTransaction.getProductName(), paymentTransaction.getProductId(),
-        paymentTransaction.getTransactionBuilder());
+        paymentTransaction.getProductName(), paymentTransaction.getProductId());
   }
 
   private Payment.Status mapStatus(PaymentTransaction.PaymentState state) {
@@ -195,19 +190,17 @@ public class AsfInAppPurchaseInteractor {
         .andThen(trackTransactionService.remove(uri));
   }
 
-  private Single<PaymentTransaction> buildPaymentTransaction(TransactionBuilder transactionBuilder,
-      String packageName,
+  private Single<PaymentTransaction> buildPaymentTransaction(String uri, String packageName,
       String productName, String developerPayload) {
-    return Single.zip(Single.just(transactionBuilder)
-        .observeOn(scheduler), defaultWalletInteract.find()
+    return Single.zip(parseTransaction(uri).observeOn(scheduler), defaultWalletInteract.find()
         .observeOn(scheduler), (transaction, wallet) -> transaction.fromAddress(wallet.address))
-        .flatMap(transactionBuilder1 -> gasSettingsInteract.fetch(true)
-            .map(gasSettings -> transactionBuilder1.gasSettings(
+        .flatMap(transactionBuilder -> gasSettingsInteract.fetch(true)
+            .map(gasSettings -> transactionBuilder.gasSettings(
                 new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
                     paymentGasLimit))))
-        .map(transactionBuilder1 -> new PaymentTransaction(transactionBuilder1, packageName,
-            productName, transactionBuilder1.getSkuId(), developerPayload,
-            transactionBuilder1.getCallbackUrl()));
+        .map(transactionBuilder -> new PaymentTransaction(uri, transactionBuilder, packageName,
+            productName, transactionBuilder.getSkuId(), developerPayload,
+            transactionBuilder.getCallbackUrl()));
   }
 
   public void start() {
@@ -218,12 +211,11 @@ public class AsfInAppPurchaseInteractor {
   public Observable<List<Payment>> getAll() {
     return inAppPurchaseService.getAll()
         .flatMapSingle(paymentTransactions -> Observable.fromIterable(paymentTransactions)
-            .map(paymentTransaction -> new Payment(
-                transactionIdHelper.computeId(paymentTransaction.getTransactionBuilder()),
+            .map(paymentTransaction -> new Payment(paymentTransaction.getUri(),
                 mapStatus(paymentTransaction.getState()), paymentTransaction.getTransactionBuilder()
                 .fromAddress(), paymentTransaction.getBuyHash(),
                 paymentTransaction.getPackageName(), paymentTransaction.getProductName(),
-                paymentTransaction.getProductId(), paymentTransaction.getTransactionBuilder()))
+                paymentTransaction.getProductId()))
             .toList());
   }
 

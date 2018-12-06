@@ -33,13 +33,14 @@ public class PaymentMethodsPresenter {
   private final boolean isBds;
   private final Single<TransactionBuilder> transactionBuilder;
   private final String developerPayload;
+  private final String uri;
 
   public PaymentMethodsPresenter(PaymentMethodsView view, String appPackage,
       Scheduler viewScheduler, Scheduler networkThread, CompositeDisposable disposables,
       InAppPurchaseInteractor inAppPurchaseInteractor, BillingMessagesMapper billingMessagesMapper,
       BdsPendingTransactionService bdsPendingTransactionService, Billing billing,
       BillingAnalytics analytics, boolean isBds, Single<TransactionBuilder> transactionBuilder,
-      String developerPayload) {
+      String developerPayload, String uri) {
     this.view = view;
     this.appPackage = appPackage;
     this.viewScheduler = viewScheduler;
@@ -53,6 +54,7 @@ public class PaymentMethodsPresenter {
     this.isBds = isBds;
     this.transactionBuilder = transactionBuilder;
     this.developerPayload = developerPayload;
+    this.uri = uri;
   }
 
   public void present(double transactionValue, String currency, Bundle savedInstanceState) {
@@ -110,7 +112,7 @@ public class PaymentMethodsPresenter {
         transaction -> inAppPurchaseInteractor.getCurrentPaymentStep(appPackage, transaction)
             .filter(currentPaymentStep -> currentPaymentStep.equals(
                 AsfInAppPurchaseInteractor.CurrentPaymentStep.PAUSED_ON_CHAIN))
-            .doOnSuccess(currentPaymentStep -> inAppPurchaseInteractor.resume(transaction,
+            .doOnSuccess(currentPaymentStep -> inAppPurchaseInteractor.resume(uri,
                 AsfInAppPurchaseInteractor.TransactionType.NORMAL, appPackage,
                 transaction.getSkuId(), developerPayload, isBds)))
         .subscribe();

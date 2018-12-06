@@ -27,6 +27,7 @@ import static com.appcoins.wallet.billing.AppcoinsBillingBinder.EXTRA_BDS_IAP;
 
 public class IabActivity extends BaseActivity implements IabView, UriNavigator {
 
+  public static final String URI = "uri";
   public static final String RESPONSE_CODE = "RESPONSE_CODE";
   public static final int RESULT_USER_CANCELED = 1;
   public static final String SKU_DETAILS = "sku_details";
@@ -53,6 +54,7 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   private boolean isBds;
   private PublishRelay<Uri> results;
   private String developerPayload;
+  private String uri;
 
   public static Intent newIntent(Activity activity, Intent previousIntent,
       TransactionBuilder transaction, Boolean isBds, String developerPayload) {
@@ -64,6 +66,8 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     intent.putExtra(TRANSACTION_EXTRA, transaction);
     intent.putExtra(IS_BDS_EXTRA, isBds);
     intent.putExtra(DEVELOPER_PAYLOAD, developerPayload);
+    intent.putExtra(URI, intent.getData()
+        .toString());
     intent.putExtra(APP_PACKAGE, transaction.getDomain());
     return intent;
   }
@@ -76,6 +80,7 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     this.savedInstanceState = savedInstanceState;
     isBds = getIntent().getBooleanExtra(IS_BDS_EXTRA, false);
     developerPayload = getIntent().getStringExtra(DEVELOPER_PAYLOAD);
+    uri = getIntent().getStringExtra(URI);
     transaction = getIntent().getParcelableExtra(TRANSACTION_EXTRA);
     isBackEnable = true;
     presenter = new IabPresenter(this);
@@ -145,7 +150,7 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction, currency,
             getIntent().getExtras()
-                .getString(PRODUCT_NAME), isBds, developerPayload))
+                .getString(PRODUCT_NAME), isBds, developerPayload, uri))
         .commit();
   }
 

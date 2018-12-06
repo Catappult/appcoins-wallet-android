@@ -1,8 +1,6 @@
 package com.asfoundation.wallet.repository;
 
 import com.appcoins.wallet.commons.Repository;
-import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.util.TransactionIdHelper;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -14,19 +12,16 @@ public class BdsTransactionService {
   private final CompositeDisposable disposables;
   private final BdsPendingTransactionService transactionService;
 
-  private final TransactionIdHelper transactionIdHelper;
   public BdsTransactionService(Scheduler scheduler, Repository<String, BdsTransaction> cache,
-      CompositeDisposable disposables, BdsPendingTransactionService transactionService,
-      TransactionIdHelper transactionIdHelper) {
+      CompositeDisposable disposables, BdsPendingTransactionService transactionService) {
     this.scheduler = scheduler;
     this.cache = cache;
     this.disposables = disposables;
     this.transactionService = transactionService;
-    this.transactionIdHelper = transactionIdHelper;
   }
 
-  public Observable<BdsTransaction> getTransaction(TransactionBuilder transactionBuilder) {
-    return cache.get(transactionIdHelper.computeId(transactionBuilder))
+  public Observable<BdsTransaction> getTransaction(String key) {
+    return cache.get(key)
         .filter(transaction -> !transaction.getStatus()
             .equals(BdsTransaction.Status.WAITING));
   }

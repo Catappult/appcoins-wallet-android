@@ -308,7 +308,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new BdsTransactionService(Schedulers.io(),
         new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()), new CompositeDisposable(),
         new BdsPendingTransactionService(billing, Schedulers.io(), 5,
-            billingPaymentProofSubmission), transactionIdHelper);
+            billingPaymentProofSubmission));
   }
 
   @Singleton @Provides BdsInAppPurchaseInteractor provideBdsInAppPurchaseInteractor(

@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.iab;
 
-import com.asfoundation.wallet.entity.TransactionBuilder;
 import javax.annotation.Nullable;
 
 public class Payment {
@@ -28,8 +27,7 @@ public class Payment {
     this.productId = null;
   }
   public Payment(String uri, Status status, @Nullable String fromAddress, @Nullable String buyHash,
-      @Nullable String packageName, @Nullable String productName, @Nullable String productId,
-      TransactionBuilder transactionBuilder) {
+      @Nullable String packageName, @Nullable String productName, @Nullable String productId) {
     this.status = status;
     this.uri = uri;
     this.fromAddress = fromAddress;
