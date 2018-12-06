@@ -82,11 +82,11 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
             .flatMapIterable { tokens: Array<Token> -> tokens.toCollection(ArrayList()) }
             .filter { token: Token -> token.tokenInfo.address.equals(tokenAddress, true) }
             .toList()
-      }.map { tokens ->
+      }.flatMap { tokens ->
         if (tokens.isEmpty()) {
-          error(UnknownTokenException())
+          Single.error(UnknownTokenException())
         } else {
-          tokens[0]
+          Single.just(tokens[0])
         }
       }
     }
