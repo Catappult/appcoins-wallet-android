@@ -165,7 +165,7 @@
   <string name="token_name">%1$s (%2$s)</string>
   <string name="new_transaction_value">-%1$s %2$s</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the AppCoins wallet development. We considered it the best alternative regarding already implemented functionalities. We forked it with the intention of contributing back with implementations and work that would be considered relevant.</string>
+  <string name="settings_fragment_credits">Stworzyliśmy rozwidlenie projektu Trust Wallet dla Androida aby skupić się na rozwoju portfela AppCoins. Uważamy to za najlepszą alternatywę względem zaimplementowanych już funkcjonalności. Mamy zamiar wrócić do projektu z implementacjami i funkcjami które byłyby adekwatne.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">Transakcja w toku</string>
   <string name="activity_aib_loading_message">To może potrwać chwilę…</string>
