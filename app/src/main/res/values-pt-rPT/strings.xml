@@ -81,66 +81,66 @@
   <string name="hint_keystore">Keystore</string>
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
-  <string name="tab_private_key">Private key</string>
+  <string name="tab_private_key">Chave secreta</string>
   <!-- Dialog titles -->
-  <string name="title_dialog_error">Error</string>
-  <string name="title_dialog_handling">Processing…</string>
-  <string name="title_dialog_add_account">Add wallet</string>
+  <string name="title_dialog_error">Erro</string>
+  <string name="title_dialog_handling">A processar…</string>
+  <string name="title_dialog_add_account">Adicionar uma wallet</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Set a password to encrypt your wallet</string>
-  <string name="toast_message_wallet_imported">The wallet was imported</string>
-  <string name="toast_message_wallet_exported">A backup was created</string>
-  <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
+  <string name="dialog_message">Defina uma password para criptografar a sua wallet</string>
+  <string name="toast_message_wallet_imported">A wallet foi importada</string>
+  <string name="toast_message_wallet_exported">Backup efetuado</string>
+  <string name="toast_qr_code_no_address">Código QR não contém um endereço válido</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins BDS Wallet</string>
-  <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
-  <string name="intro_title_third_page">Simple &amp; Easy</string>
-  <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
-  <string name="intro_message_second_page">Private keys never leave your device.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
+  <string name="intro_title_second_page"><![CDATA[Privado e seguro]]></string>
+  <string name="intro_title_third_page">Simples &amp; Fácil</string>
+  <string name="intro_message_first_page">Bem-vindo à revolução da economia das apps.</string>
+  <string name="intro_message_second_page">Chaves secretas nunca desaparecem do seu dispositivo.</string>
+  <string name="intro_message_third_page">Processe todos os seus pagamentos e recompensas in-app em APPC.</string>
   <!-- Menus -->
   <!-- Labels -->
-  <string name="label_from">From</string>
-  <string name="label_to">To</string>
-  <string name="label_gas_limit">Gas Limit</string>
-  <string name="label_gas_price">Gas Price</string>
-  <string name="label_network_fee">Network Fee</string>
+  <string name="label_from">De</string>
+  <string name="label_to">Para</string>
+  <string name="label_gas_limit">Limite do gás</string>
+  <string name="label_gas_price">Preço do gás</string>
+  <string name="label_network_fee">Taxa de rede</string>
   <string name="button_ok">OK</string>
-  <string name="hint_recipient_address">Recipient Address</string>
-  <string name="hint_amount">Amount</string>
-  <string name="hint_amount_with_token">Amount %s</string>
-  <string name="hint_contract_address">Contract address</string>
-  <string name="hint_contract_symbol">Symbol</string>
-  <string name="hint_contract_decimals">Decimals</string>
-  <string name="button_cancel">CANCEL</string>
-  <string name="button_yes">YES</string>
+  <string name="hint_recipient_address">Endereço do destinatário</string>
+  <string name="hint_amount">Quantidade</string>
+  <string name="hint_amount_with_token">Quantidade %s</string>
+  <string name="hint_contract_address">Endereço do contrato</string>
+  <string name="hint_contract_symbol">Símbolo</string>
+  <string name="hint_contract_decimals">Casas decimais</string>
+  <string name="button_cancel">Cancelar</string>
+  <string name="button_yes">SIM</string>
   <!-- Subtitles -->
-  <string name="subtitle_from">From</string>
-  <string name="subtitle_gas_fee">Fee</string>
-  <string name="subtitle_transaction_num">Transaction</string>
+  <string name="subtitle_from">De</string>
+  <string name="subtitle_gas_fee">Taxa</string>
+  <string name="subtitle_transaction_num">Transação</string>
   <!-- Actions -->
-  <string name="action_more_details">More</string>
-  <string name="action_add_wallet">Add wallet</string>
+  <string name="action_more_details">Mais</string>
+  <string name="action_add_wallet">Adicionar uma wallet</string>
   <string name="action_coinbase">Coinbase</string>
   <string name="action_shapeshift">Shapeshift (Crypto only)</string>
   <string name="action_changelly">Changelly</string>
   <string name="action_wallets">Wallets</string>
-  <string name="action_next">Next</string>
-  <string name="action_edit">Edit</string>
-  <string name="action_save">Save</string>
+  <string name="action_next">Próximo</string>
+  <string name="action_edit">Editar</string>
+  <string name="action_save">Salvar</string>
   <!-- Subject -->
-  <string name="error_fail_generate_qr">Could not generate QR code.</string>
-  <string name="error_invalid_address">Invalid address</string>
-  <string name="error_invalid_amount">Invalid amount</string>
-  <string name="error_transaction_failed">Transaction error</string>
-  <string name="error_must_numeric">It must be a numeric value.</string>
-  <string name="transaction_succeeded">Transaction successful</string>
+  <string name="error_fail_generate_qr">Não foi possível gerar o código QR.</string>
+  <string name="error_invalid_address">Endereço inválido</string>
+  <string name="error_invalid_amount">Valor inválido</string>
+  <string name="error_transaction_failed">Erro de transação</string>
+  <string name="error_must_numeric">Deve ser um valor numérico.</string>
+  <string name="transaction_succeeded">Transação bem sucedida</string>
   <string name="NA">N/A</string>
-  <string name="error_wallet_not_selected">Wallet is not selected</string>
-  <string name="no_transactions_yet">Get some test APPC so you can see how AppCoins payments will work</string>
+  <string name="error_wallet_not_selected">Wallet não selecionada</string>
+  <string name="no_transactions_yet">Obtenha APPC de teste para perceber como os pagamentos com AppCoins vão funcionar</string>
   <string name="no_transactions_yet_main">No transactions yet!</string>
   <string name="unknown_balance_with_symbol">-- ETH</string>
   <string name="unknown_balance_without_symbol">--</string>
@@ -259,6 +259,6 @@
   <string name="gamification_a_moon_subtitle">Um satélite natural</string>
   <string name="gamification_planet_subtitle">Girando em torno de uma grande estrela</string>
   <string name="gamification_star_subtitle">Brilhante, grande e cheio de vida!</string>
-  <string name="gamification_galaxy_subtitle">The biggest system out there!</string>
+  <string name="gamification_galaxy_subtitle">O maior sistema de todos!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
 </resources>
