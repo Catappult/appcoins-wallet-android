@@ -75,10 +75,10 @@
   <!-- Suggestions -->
   <string name="suggestion_private_key">A chave secreta tem que ter 64 caracteres</string>
   <string name="suggestion_empty_password_available">A password pode ser deixada em branco.</string>
-  <string name="suggestion_this_is_your_address">My public %s wallet address</string>
+  <string name="suggestion_this_is_your_address">Endereço público da minha wallet %s</string>
   <!-- Hints -->
-  <string name="hint_private_key_field">Private key *</string>
-  <string name="hint_keystore">Keystore *</string>
+  <string name="hint_private_key_field">Chave secreta *</string>
+  <string name="hint_keystore">Keystore</string>
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
   <string name="tab_private_key">Private key</string>
@@ -193,16 +193,16 @@
   <string name="notification_not_available_poa">This rewards campaign is no longer available</string>
   <string name="notification_not_available_for_country_poa">This rewards campaign isn\'t available in your country</string>
   <string name="notification_already_rewarded_poa">You were already rewarded in this campaign</string>
-  <string name="notification_submit_error_poa">Sorry, there was an error. Try again!</string>
+  <string name="notification_submit_error_poa">Ocorreu um erro. Tente novamente!</string>
   <!-- transaction details -->
-  <string name="transaction_status_success">Success</string>
-  <string name="transaction_status_pending">Pending</string>
-  <string name="transaction_status_failed">Failed</string>
-  <string name="transaction_type_iab">In-App Purchase</string>
+  <string name="transaction_status_success">Sucesso</string>
+  <string name="transaction_status_pending">Pendente</string>
+  <string name="transaction_status_failed">Falhou</string>
+  <string name="transaction_type_iab">Compras Integradas</string>
   <string name="transaction_type_poa">Proof of Attention</string>
   <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
-  <string name="transaction_type_standard">Transfer</string>
-  <string name="transaction_type_bonus">Bonus</string>
+  <string name="transaction_type_standard">Transferência</string>
+  <string name="transaction_type_bonus">Bônus</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -211,8 +211,8 @@
   <string name="miuraiden_trans_details_close">µRaiden channel closed</string>
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">Status</string>
-  <string name="transaction_category_label">Category</string>
-  <string name="transaction_details_label">Details</string>
+  <string name="transaction_category_label">Categoria</string>
+  <string name="transaction_details_label">Detalhes</string>
   <string name="transaction_to_label">To</string>
   <string name="dialog_credit_card_remember">Remember Card</string>
   <string name="notification_payment_refused">Payment Refused</string>
@@ -223,11 +223,11 @@
   <string name="activity_airdrop_details">This is just a security thing.</string>
   <string name="activity_airdrop_hint">Type the words in the image</string>
   <string name="activity_airdrop_submit_btn">Submit</string>
-  <string name="activity_airdrop_wrong_captcha">Wrong captcha</string>
+  <string name="activity_airdrop_wrong_captcha">Captcha errado</string>
   <string name="activity_airdrop_ok">ok</string>
   <string name="activity_airdrop_message_title">Airdrop</string>
-  <string name="activity_airdrop_success_message">Airdrop completed</string>
-  <string name="activity_airdrop_generic_error_message">An error has occurred</string>
+  <string name="activity_airdrop_success_message">AirDrop concluído</string>
+  <string name="activity_airdrop_generic_error_message">Ocorreu um erro</string>
   <string name="notification_generic_error">@string/unknown_error</string>
   <string name="iab_activity_micro_raiden_wallet">Wallet</string>
   <string name="iab_activity_raiden_channel_label">Create µRaiden channel</string>
@@ -237,7 +237,7 @@
   <string name="proceed">proceed</string>
   <string name="iab_activity_raiden_channel_no_funds_message">You don\'t have enough funds on your µRainden payment channel. Go to your wallet and close the channel to create a new one.  Do you still want to complete this purchase with a standard payment?</string>
   <string name="iab_activity_raiden_channel_no_funds_title">Payment Channel Funds</string>
-  <string name="spend_your_appcoins">Spend your AppCoins</string>
+  <string name="spend_your_appcoins">Gaste suas AppCoins</string>
   <!-- Billing -->
   <string name="action_skip_backup_wallet">SKIP BACKUP</string>
   <string name="item_donation">Donation</string>
