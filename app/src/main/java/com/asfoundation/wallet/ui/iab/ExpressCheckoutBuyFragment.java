@@ -226,20 +226,22 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     itemPrice.setText(valueText);
     itemFinalPrice.setText(spannable, TextView.BufferType.SPANNABLE);
     fiatValue = response;
-    int buyButtonText = isDonation? R.string.action_donate : R.string.action_buy;
+    int buyButtonText = isDonation ? R.string.action_donate : R.string.action_buy;
     buyButton.setText(getResources().getString(buyButtonText));
 
     if (isDonation) {
       itemListDescription.setText(getResources().getString(R.string.item_donation));
       itemHeaderDescription.setText(getResources().getString(R.string.item_donation));
-    } else if (extras.containsKey(PRODUCT_NAME)) {
-      itemHeaderDescription.setText(String.format(getString(R.string.buying), extras.getString(PRODUCT_NAME)));
+    } else if (extras.containsKey(PRODUCT_NAME) && extras.getString(PRODUCT_NAME) != null) {
+      itemHeaderDescription.setText(
+          String.format(getString(R.string.buying), extras.getString(PRODUCT_NAME)));
       itemListDescription.setText(extras.getString(PRODUCT_NAME));
     }
 
     presenter.sendPurchaseDetails(PAYMENT_METHOD_CC);
 
     compositeDisposable.add(walletService.getWalletAddress()
+        .observeOn(AndroidSchedulers.mainThread())
         .doOnSuccess(address -> walletAddressView.setText(address))
         .subscribe(__ -> {
         }, Throwable::printStackTrace));
