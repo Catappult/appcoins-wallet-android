@@ -725,6 +725,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     list.add(BillingAnalytics.PURCHASE_DETAILS);
     list.add(BillingAnalytics.PAYMENT_METHOD_DETAILS);
     list.add(BillingAnalytics.PAYMENT);
+    list.add(BillingAnalytics.REVENUE);
     return list;
   }
 

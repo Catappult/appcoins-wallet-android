@@ -256,6 +256,12 @@ public class OnChainBuyPresenter {
     statusDisposable.dispose();
   }
 
+  public void sendRevenueEvent() {
+    disposables.add(transactionBuilder.subscribe(transactionBuilder -> analytics.sendRevenueEvent(
+        transactionBuilder.amount()
+            .toString())));
+  }
+
   public static class BuyData {
     private final boolean isRaiden;
     private final String uri;
