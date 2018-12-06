@@ -178,10 +178,9 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     if (savedInstanceState == null) {
       getSupportFragmentManager().beginTransaction()
           .replace(R.id.fragment_container,
-              AppcoinsRewardsBuyFragment.newInstance(amount, transaction.getDomain(),
-                  getIntent().getData()
-                      .toString(), getIntent().getExtras()
-                      .getString(PRODUCT_NAME, ""), isBds))
+              AppcoinsRewardsBuyFragment.newInstance(amount, transaction, getIntent().getData()
+                  .toString(), getIntent().getExtras()
+                  .getString(PRODUCT_NAME, ""), isBds))
           .commit();
     }
   }
@@ -216,25 +215,21 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     bundle.putString(PRODUCT_NAME, getIntent().getExtras()
         .getString(PRODUCT_NAME));
     bundle.putString(TRANSACTION_DATA, getIntent().getDataString());
-    String developerPayloadStr = getIntent().getExtras()
-        .getString(EXTRA_DEVELOPER_PAYLOAD);
-    String developerPayload = "unknown".equals(developerPayloadStr) ? null
-        : PayloadHelper.INSTANCE.getPayload(getIntent().getExtras()
-            .getString(EXTRA_DEVELOPER_PAYLOAD));
-    if (developerPayload != null) {
-      bundle.putString(EXTRA_DEVELOPER_PAYLOAD, developerPayload);
-    } else {
-      bundle.putString(EXTRA_DEVELOPER_PAYLOAD, transaction.getPayload());
-    }
+    loadPayload(bundle);
     skuDetails = bundle;
     return bundle;
   }
 
-  public String getAppPackage() {
-    if (getIntent().hasExtra(APP_PACKAGE)) {
-      return getIntent().getStringExtra(APP_PACKAGE);
+  private void loadPayload(Bundle bundle) {
+    try {
+      PayloadHelper.INSTANCE.getPayload(getIntent().getExtras()
+          .getString(EXTRA_DEVELOPER_PAYLOAD));
+      bundle.putString(EXTRA_DEVELOPER_PAYLOAD, PayloadHelper.INSTANCE.getPayload(
+          getIntent().getExtras()
+              .getString(EXTRA_DEVELOPER_PAYLOAD)));
+    } catch (IllegalArgumentException ex) {
+      bundle.putString(EXTRA_DEVELOPER_PAYLOAD, transaction.getPayload());
     }
-    throw new IllegalArgumentException("previous app package name not found");
   }
 
   public boolean isBds() {
