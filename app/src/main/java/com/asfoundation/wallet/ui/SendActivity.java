@@ -162,7 +162,9 @@ public class SendActivity extends BaseActivity {
   }
 
   private void onSymbol(String symbol) {
-    setTitle(getString(R.string.title_send) + " " + symbol);
-    amountInputLayout.setHint(getString(R.string.hint_amount) + " " + symbol);
+    if (symbol != null) {
+      setTitle(String.format(getString(R.string.title_send_with_token), symbol));
+      amountInputLayout.setHint(String.format(getString(R.string.hint_amount_with_token), symbol));
+    }
   }
 }

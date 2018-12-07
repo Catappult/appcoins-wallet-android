@@ -105,12 +105,12 @@
 
 
   </PreferenceCategory>
-  <PreferenceCategory android:title="Credits">
+  <PreferenceCategory android:title="@string/credits">
     <Preference
         android:icon="@drawable/ic_description_black_24dp"
         android:iconSpaceReserved="true"
         android:key="pref_credits"
-        android:title="Credits"/>
+        android:title="@string/credits"/>
   </PreferenceCategory>
   <Preference
       android:iconSpaceReserved="true"
