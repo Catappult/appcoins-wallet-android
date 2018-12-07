@@ -3,6 +3,9 @@ package com.asfoundation.wallet.ui.iab;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +14,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +36,7 @@ import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.view.RxView;
+import com.squareup.picasso.Picasso;
 import dagger.android.support.DaggerFragment;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -42,9 +47,12 @@ import io.reactivex.subjects.PublishSubject;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Collection;
 import java.util.Formatter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import javax.inject.Inject;
 import kotlin.NotImplementedError;
 import org.jetbrains.annotations.NotNull;
@@ -315,6 +323,17 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     processingDialog.setVisibility(View.VISIBLE);
   }
 
+  private final Map<String, Bitmap> loadedBitmaps = new HashMap<>();
+
+  @Override public void onDestroy() {
+    super.onDestroy();
+
+    for (Bitmap bitmap : loadedBitmaps.values()) {
+      bitmap.recycle();
+    }
+    loadedBitmaps.clear();
+  }
+
   @Override
   public void showPaymentMethods(@NotNull List<PaymentMethod> paymentMethods, FiatValue fiatValue,
       boolean isDonation, String currency) {
@@ -343,8 +362,52 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
     presenter.sendPurchaseDetails(PAYMENT_METHOD_CC);
 
+    setupPaymentMethods(paymentMethods);
     showAvailable(paymentMethods);
     setupSubject.onNext(true);
+  }
+
+  public void loadIcons(PaymentMethod paymentMethod, RadioButton radioButton) {
+    compositeDisposable.add(Single.fromCallable(() -> {
+      try {
+        Bitmap bitmap = Picasso.with(getContext())
+            .load(paymentMethod.getIconUrl())
+            .get();
+        loadedBitmaps.put(paymentMethod.getId(), bitmap);
+
+        BitmapDrawable drawable = new BitmapDrawable(getContext().getResources(), bitmap);
+
+        return drawable.getCurrent();
+      } catch (IOException e) {
+        Log.w(TAG, "setupPaymentMethods: Failed to load icons!");
+        throw new RuntimeException(e);
+      }
+    })
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .doOnSuccess(
+            drawable -> radioButton.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null,
+                null))
+        .subscribe(__ -> {
+        }, Throwable::printStackTrace));
+  }
+
+  private void setupPaymentMethods(List<PaymentMethod> paymentMethods) {
+    for (PaymentMethod paymentMethod : paymentMethods) {
+      if (paymentMethod.getId()
+          .equals("appcoins")) {
+        loadIcons(paymentMethod, appcRadioButton);
+      } else if (paymentMethod.getId()
+          .equals("appcoins_credits")) {
+        loadIcons(paymentMethod, appcCreditsRadioButton);
+      } else if (paymentMethod.getId()
+          .equals("credit_card")) {
+        loadIcons(paymentMethod, creditCardRadioButton);
+      } else if (paymentMethod.getId()
+          .equals("paypal")) {
+        loadIcons(paymentMethod, paypalRadioButton);
+      }
+    }
   }
 
   private void showAvailable(List<PaymentMethod> paymentMethods) {
@@ -352,20 +415,16 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
       for (PaymentMethod paymentMethod : paymentMethods) {
         if (paymentMethod.getId()
             .equals("appcoins")) {
-          appcRadioButton.setText(paymentMethod.getLabel());
           appcRadioButton.setEnabled(true);
         } else if (paymentMethod.getId()
             .equals("appcoins_credits")) {
           appcCreditsRadioButton.setEnabled(true);
-          appcRadioButton.setText(paymentMethod.getLabel());
         } else if (paymentMethod.getId()
             .equals("credit_card")) {
           creditCardRadioButton.setEnabled(true);
-          appcRadioButton.setText(paymentMethod.getLabel());
         } else if (paymentMethod.getId()
             .equals("paypal")) {
           paypalRadioButton.setEnabled(true);
-          appcRadioButton.setText(paymentMethod.getLabel());
         }
       }
     } else {
