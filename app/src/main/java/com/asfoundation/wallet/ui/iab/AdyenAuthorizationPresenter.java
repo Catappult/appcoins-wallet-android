@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static com.asfoundation.wallet.analytics.FacebookEventLogger.EVENT_REVENUE_CURRENCY;
 import static com.asfoundation.wallet.billing.analytics.BillingAnalytics.PAYMENT_METHOD_CC;
 
 /**
@@ -198,6 +199,7 @@ public class AdyenAuthorizationPresenter {
             .doOnSuccess(bundle -> {
               waitingResult = false;
               sendPaymentEvent();
+              sendRevenueEvent();
               navigator.popView(bundle);
             })
             .doOnSuccess(__ -> view.showSuccess()))
@@ -337,6 +339,16 @@ public class AdyenAuthorizationPresenter {
         transactionBuilder -> analytics.sendPaymentEvent(appPackage, transactionBuilder.getSkuId(),
             transactionBuilder.amount()
                 .toString(), PAYMENT_METHOD_CC, transactionBuilder.getType())));
+  }
+
+  public void sendRevenueEvent() {
+    disposables.add(transactionBuilder.subscribe(transactionBuilder -> analytics.sendRevenueEvent(
+        new BigDecimal(inAppPurchaseInteractor.convertToFiat((new BigDecimal(
+            transactionBuilder.amount()
+                .toString())).doubleValue(), EVENT_REVENUE_CURRENCY)
+            .blockingGet()
+            .getAmount()).setScale(2, BigDecimal.ROUND_UP)
+            .toString())));
   }
 
   void onSaveInstanceState(Bundle outState) {
