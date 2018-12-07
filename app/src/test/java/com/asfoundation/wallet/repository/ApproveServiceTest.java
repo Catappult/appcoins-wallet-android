@@ -71,7 +71,7 @@ public class ApproveServiceTest {
         .subscribe(observer);
     scheduler.triggerActions();
     approveService.approve(uri,
-        new PaymentTransaction(transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
+        new PaymentTransaction(uri, transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
             "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD, null, null))
         .subscribe();
     scheduler.triggerActions();
@@ -103,7 +103,7 @@ public class ApproveServiceTest {
         .subscribe(observer);
     scheduler.triggerActions();
     approveService.approve(uri,
-        new PaymentTransaction(transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
+        new PaymentTransaction(uri, transactionBuilder, PaymentTransaction.PaymentState.APPROVED,
             "", null, PACKAGE_NAME, PRODUCT_NAME, DEVELOPER_PAYLOAD, null, null))
         .subscribe();
     scheduler.triggerActions();
