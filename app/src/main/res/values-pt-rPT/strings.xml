@@ -52,7 +52,7 @@
   <string name="no_repeat">Não, repetir</string>
   <string name="skip">Saltar</string>
   <string name="root_title">DISPOSITIVO DE SEGURANÇA COMPROMETIDA</string>
-  <string name="root_body">Any \'rooted\' app can access AppCoins Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
+  <string name="root_body">Qualquer \'root\' app consegue aceder aos dados da keychain da Wallet da AppCoins e roubar a sua wallet! Apague esta wallet imediatamente e escolha um dispositivo seguro para restaurá-la.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
   <string name="buying">Comprar %s</string>
   <string name="action_buy">Comprar</string>
