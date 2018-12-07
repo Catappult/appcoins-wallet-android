@@ -22,7 +22,7 @@ repositories {
 
 android {
   compileSdkVersion 27
-  buildToolsVersion '28.0.2'
+  buildToolsVersion '28.0.3'
   defaultConfig {
 
     def inputFile = new File("appcoins-services.json")
@@ -247,6 +247,7 @@ dependencies {
   implementation "aptoide-client-v8:aptoide-analytics-core:1.0.3"
   implementation project(path: ':appcoinsRewards')
   implementation project(path: ':commons')
+  implementation project(path: ':gamification')
 
   implementation 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:27.1.0'
 }
