@@ -73,6 +73,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   @Inject BdsRepository bdsRepository;
   @Inject BdsApiSecondary BdsApiSecondary;
   @Inject Billing billing;
+  @Inject BillingAnalytics analytics;
   private Bundle extras;
   private PublishRelay<Snackbar> buyButtonClick;
   private IabView iabView;
@@ -94,13 +95,15 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   private PublishSubject<Boolean> setupSubject;
   private View processingDialog;
   private TextView walletAddressView;
-  @Inject BillingAnalytics analytics;
+  private String paymentType;
 
-  public static ExpressCheckoutBuyFragment newInstance(Bundle extras, boolean isBds) {
+  public static ExpressCheckoutBuyFragment newInstance(Bundle extras, boolean isBds,
+      String paymentType) {
     ExpressCheckoutBuyFragment fragment = new ExpressCheckoutBuyFragment();
     Bundle bundle = new Bundle();
     bundle.putBundle("extras", extras);
     bundle.putBoolean("isBds", isBds);
+    bundle.putString("paymentType", paymentType);
     fragment.setArguments(bundle);
     return fragment;
   }
@@ -122,6 +125,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     String uriString = extras.getString(TRANSACTION_DATA);
 
     boolean isBds = getArguments().getBoolean("isBds");
+    paymentType = getArguments().getString("paymentType");
 
     presenter = new ExpressCheckoutBuyPresenter(this, getAppPackage(), inAppPurchaseInteractor,
         AndroidSchedulers.mainThread(), new CompositeDisposable(),
@@ -167,10 +171,14 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
           throwable.printStackTrace();
         });
 
-    buyButton.setOnClickListener(v -> iabView.navigateToCreditCardAuthorization(presenter.isBds()));
+    buyButton.setOnClickListener(
+        v -> iabView.navigateToAdyenAuthorization(presenter.isBds(), fiatValue.getCurrency(),
+            paymentType));
     presenter.present(extras.getString(TRANSACTION_DATA),
         ((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue(),
         extras.getString(TRANSACTION_CURRENCY));
+
+    showLoading();
   }
 
   @Override public void onDestroyView() {
@@ -226,7 +234,8 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     itemPrice.setText(valueText);
     itemFinalPrice.setText(spannable, TextView.BufferType.SPANNABLE);
     fiatValue = response;
-    int buyButtonText = isDonation ? R.string.action_donate : R.string.action_buy;
+    buyButton.performClick();
+    int buyButtonText = isDonation? R.string.action_donate : R.string.action_buy;
     buyButton.setText(getResources().getString(buyButtonText));
 
     if (isDonation) {
@@ -246,6 +255,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
         .subscribe(__ -> {
         }, Throwable::printStackTrace));
     setupSubject.onNext(true);
+    hideLoading();
   }
 
   @Override public void showError() {

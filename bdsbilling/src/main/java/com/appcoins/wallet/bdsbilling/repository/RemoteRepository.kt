@@ -79,8 +79,8 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
         paymentProof)
   }
 
-  internal fun getGateways(): Single<List<Gateway>> {
-    return api.getGateways().map { responseMapper.map(it) }
+  internal fun getPaymentMethods(): Single<List<PaymentMethod>> {
+    return api.getPaymentMethods().map { responseMapper.map(it) }
   }
 
   fun patchTransaction(uid: String, walletAddress: String, walletSignature: String,
@@ -169,8 +169,8 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                         @Query("wallet.signature") walletSignature: String,
                         @Body data: Consumed): Single<Void>
 
-    @GET("inapp/8.20180518/gateways")
-    fun getGateways(): Single<GetGatewaysResponse>
+    @GET("broker/8.20180518/methods")
+    fun getPaymentMethods(): Single<GetMethodsResponse>
 
     @FormUrlEncoded
     @PATCH("broker/8.20180518/gateways/{gateway}/transactions/{uid}")

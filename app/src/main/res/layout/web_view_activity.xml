@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    >
+
+  <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      android:id="@+id/container"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginTop="?android:attr/actionBarSize"
+      android:layout_marginBottom="?android:attr/actionBarSize"
+      android:descendantFocusability="beforeDescendants"
+      android:focusableInTouchMode="true"
+      >
+  </FrameLayout>
+</android.support.design.widget.CoordinatorLayout>

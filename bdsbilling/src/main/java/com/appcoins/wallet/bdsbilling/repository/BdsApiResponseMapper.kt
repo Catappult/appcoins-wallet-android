@@ -19,7 +19,7 @@ class BdsApiResponseMapper {
         return purchasesResponse.items
     }
 
-  fun map(gatewaysResponse: GetGatewaysResponse): List<Gateway> {
+  fun map(gatewaysResponse: GetMethodsResponse): List<PaymentMethod> {
     return gatewaysResponse.items
   }
 

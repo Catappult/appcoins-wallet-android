@@ -4,13 +4,17 @@ import android.os.Bundle;
 import android.util.Log;
 import cm.aptoide.analytics.AnalyticsManager;
 import cm.aptoide.analytics.EventLogger;
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.facebook.appevents.AppEventsLogger;
+import java.math.BigDecimal;
+import java.util.Currency;
 import java.util.HashMap;
 import java.util.Map;
 
 public class FacebookEventLogger implements EventLogger {
 
   public static final String TAG = AnalyticsManager.class.getSimpleName();
+  public static final String EVENT_REVENUE_CURRENCY = "EUR";
   private final AppEventsLogger eventLogger;
 
   public FacebookEventLogger(AppEventsLogger eventLogger) {
@@ -45,7 +49,12 @@ public class FacebookEventLogger implements EventLogger {
         + context
         + "]");
     Bundle bundle = flatten(data);
-    eventLogger.logEvent(eventName, bundle);
+    if (eventName.equals(BillingAnalytics.REVENUE)) {
+      eventLogger.logPurchase(new BigDecimal(bundle.getString("value")),
+          Currency.getInstance(EVENT_REVENUE_CURRENCY));
+    } else {
+      eventLogger.logEvent(eventName, bundle);
+    }
   }
 
   @Override public void setup() {

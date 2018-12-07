@@ -180,6 +180,8 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     presenter.present(data, getAppPackage(), extras.getString(PRODUCT_NAME, ""),
         (BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT),
         extras.getString(EXTRA_DEVELOPER_PAYLOAD));
+
+    buyButton.performClick();
   }
 
   @Override public void onResume() {
@@ -234,6 +236,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
 
   @Override public void finish(Bundle data) {
     presenter.sendPaymentEvent(PAYMENT_METHOD_APPC);
+    presenter.sendRevenueEvent();
     iabView.finish(data);
   }
 

@@ -20,6 +20,7 @@ import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.asfoundation.wallet.util.TransferParser;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -37,10 +38,11 @@ import static com.asfoundation.wallet.billing.analytics.BillingAnalytics.PAYMENT
 public class AppcoinsRewardsBuyFragment extends DaggerFragment implements AppcoinsRewardsBuyView {
 
   public static final String AMOUNT_KEY = "amount";
-  public static final String PACKAGE_NAME_KEY = "packageName";
   public static final String URI_KEY = "uri_key";
   public static final String PRODUCT_NAME = "product_name";
   public static final String IS_BDS = "is_bds";
+  public static final String TRANSACTION_KEY = "transaction_key";
+
   @Inject RewardsManager rewardsManager;
   @Inject BdsPendingTransactionService bdsPendingTransactionService;
   @Inject TransactionIdRepository transactionIdRepository;
@@ -68,12 +70,12 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   @Inject BillingAnalytics analytics;
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
 
-  public static Fragment newInstance(BigDecimal amount, String packageName, String uri,
-      String productName, boolean isBds) {
+  public static Fragment newInstance(BigDecimal amount, TransactionBuilder transactionBuilder,
+      String uri, String productName, boolean isBds) {
     AppcoinsRewardsBuyFragment fragment = new AppcoinsRewardsBuyFragment();
     Bundle bundle = new Bundle();
     bundle.putString(AMOUNT_KEY, amount.toString());
-    bundle.putString(PACKAGE_NAME_KEY, packageName);
+    bundle.putParcelable(TRANSACTION_KEY, transactionBuilder);
     bundle.putString(URI_KEY, uri);
     bundle.putString(PRODUCT_NAME, productName);
     bundle.putBoolean(IS_BDS, isBds);
@@ -111,13 +113,15 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     appIcon = view.findViewById(R.id.app_icon);
     transactionErrorLayout = view.findViewById(R.id.error_message);
     okErrorButton = view.findViewById(R.id.activity_iab_error_ok_button);
-    presenter = new AppcoinsRewardsBuyPresenter(transactionIdRepository, this, rewardsManager,
-        AndroidSchedulers.mainThread(),
+    TransactionBuilder transactionBuilder = getArguments().getParcelable(TRANSACTION_KEY);
+    String callerPackageName = transactionBuilder.getDomain();
+    presenter =
+        new AppcoinsRewardsBuyPresenter(this, rewardsManager, AndroidSchedulers.mainThread(),
             new CompositeDisposable(), amount, BuildConfig.DEFAULT_STORE_ADDRESS,
-            BuildConfig.DEFAULT_OEM_ADDRESS, uri, getCallerPackageName(), transferParser,
-            getProductName(), isBds, analytics, inAppPurchaseInteractor);
+            BuildConfig.DEFAULT_OEM_ADDRESS, uri, callerPackageName, transferParser,
+            getProductName(), isBds, analytics, transactionBuilder);
 
-    Single.defer(() -> Single.just(getCallerPackageName()))
+    Single.defer(() -> Single.just(callerPackageName))
         .observeOn(Schedulers.io())
         .map(packageName -> new Pair<>(getApplicationName(packageName),
             getContext().getPackageManager()
@@ -129,16 +133,16 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
         }, throwable -> {
           throwable.printStackTrace();
         });
-  }
 
-  @Override public void onStart() {
-    super.onStart();
     presenter.present();
+
+    buyButton.performClick();
   }
 
-  @Override public void onStop() {
+  @Override public void onDestroyView() {
     presenter.stop();
-    super.onStop();
+
+    super.onDestroyView();
   }
 
   private CharSequence getApplicationName(String appPackage)
@@ -154,10 +158,6 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     return getArguments().getString(PRODUCT_NAME, "");
   }
 
-  private String getCallerPackageName() {
-    return getArguments().getString(PACKAGE_NAME_KEY);
-  }
-
   @Override public Observable<Object> getBuyClick() {
     return RxView.clicks(buyButton);
   }
@@ -167,10 +167,11 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     paymentDetailsView.setVisibility(View.INVISIBLE);
   }
 
-  @Override public void setupView(String amount, String productName, String packageName, boolean isDonation) {
+  @Override
+  public void setupView(String amount, String productName, String packageName, boolean isDonation) {
     amountView.setText(String.format(getString(R.string.credits_purchase_value), amount));
     totalAmountView.setText(String.format(getString(R.string.credits_purchase_value), amount));
-    int buyButtonText = isDonation? R.string.action_donate : R.string.action_buy;
+    int buyButtonText = isDonation ? R.string.action_donate : R.string.action_buy;
     ((Button) buyButton).setText(getResources().getString(buyButtonText));
     if (isDonation) {
       productHeaderDescription.setText(getResources().getString(R.string.item_donation));
@@ -194,6 +195,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
 
   @Override public void finish(Purchase purchase) {
     presenter.sendPaymentEvent(PAYMENT_METHOD_REWARDS);
+    presenter.sendRevenueEvent();
     iabView.finish(billingMessagesMapper.mapPurchase(purchase));
   }
 
@@ -239,6 +241,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
 
   @Override public void finish(String uid) {
     presenter.sendPaymentEvent(PAYMENT_METHOD_REWARDS);
+    presenter.sendRevenueEvent();
     iabView.finish(billingMessagesMapper.successBundle(uid));
   }
 
