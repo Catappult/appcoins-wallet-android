@@ -289,8 +289,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       @Named("BUY_SERVICE_BDS") BuyService buyService, BalanceService balanceService,
       ErrorMapper errorMapper) {
     return new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-        approveService, buyService, balanceService, Schedulers.io(), errorMapper,
-        transactionIdHelper);
+        approveService, buyService, balanceService, Schedulers.io(), errorMapper);
   }
 
   @Singleton @Provides @Named("ASF_IN_APP_PURCHASE_SERVICE")
@@ -299,8 +298,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       @Named("BUY_SERVICE_ON_CHAIN") BuyService buyService, BalanceService balanceService,
       ErrorMapper errorMapper) {
     return new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
-        approveService, buyService, balanceService, Schedulers.io(), errorMapper,
-        transactionIdHelper);
+        approveService, buyService, balanceService, Schedulers.io(), errorMapper);
   }
 
   @Singleton @Provides BdsTransactionService providesBdsTransactionService(Billing billing,

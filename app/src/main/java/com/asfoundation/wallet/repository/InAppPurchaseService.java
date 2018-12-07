@@ -3,7 +3,6 @@ package com.asfoundation.wallet.repository;
 import android.support.annotation.NonNull;
 import com.appcoins.wallet.commons.Repository;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.util.TransactionIdHelper;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -25,22 +24,19 @@ public class InAppPurchaseService {
   private final Scheduler scheduler;
   private final ErrorMapper errorMapper;
 
-  private final TransactionIdHelper transactionIdHelper;
-
   public Completable send(String key, PaymentTransaction paymentTransaction) {
     return checkFunds(key, paymentTransaction, approveService.approve(key, paymentTransaction));
   }
 
   public InAppPurchaseService(Repository<String, PaymentTransaction> cache,
       ApproveService approveService, BuyService buyService, BalanceService balanceService,
-      Scheduler scheduler, ErrorMapper errorMapper, TransactionIdHelper transactionIdHelper) {
+      Scheduler scheduler, ErrorMapper errorMapper) {
     this.cache = cache;
     this.approveService = approveService;
     this.buyService = buyService;
     this.balanceService = balanceService;
     this.scheduler = scheduler;
     this.errorMapper = errorMapper;
-    this.transactionIdHelper = transactionIdHelper;
   }
 
   public Completable resume(String key, PaymentTransaction paymentTransaction) {

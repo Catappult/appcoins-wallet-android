@@ -96,7 +96,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private TextView appSkuDescriptionTv;
   private TextView walletAddressTv;
   private RadioButton appcRadioButton;
-  private View appcView;
   private RadioButton appcCreditsRadioButton;
   private View appcCreditsView;
   private String productName;
@@ -201,7 +200,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     walletAddressTv = view.findViewById(R.id.wallet_address_footer);
 
     appcRadioButton = view.findViewById(R.id.appc);
-    appcView = view.findViewById(R.id.appc_view);
     appcCreditsRadioButton = view.findViewById(R.id.appc_credits);
     appcCreditsView = view.findViewById(R.id.appc_credits_view);
 
