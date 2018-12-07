@@ -29,7 +29,6 @@ public class WebViewActivity extends AppCompatActivity {
     if (savedInstanceState == null) {
       String url = getIntent().getStringExtra(URL);
       BillingWebViewFragment billingWebViewFragment = BillingWebViewFragment.newInstance(url);
-      billingWebViewFragment.setRetainInstance(true);
 
       getSupportFragmentManager().beginTransaction()
           .add(R.id.container, billingWebViewFragment)

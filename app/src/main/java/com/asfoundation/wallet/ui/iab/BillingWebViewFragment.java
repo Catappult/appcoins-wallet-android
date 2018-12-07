@@ -49,6 +49,7 @@ public class BillingWebViewFragment extends DaggerFragment {
     args.putString(URL, url);
     BillingWebViewFragment fragment = new BillingWebViewFragment();
     fragment.setArguments(args);
+    fragment.setRetainInstance(true);
     return fragment;
   }
 
