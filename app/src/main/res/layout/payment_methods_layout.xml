@@ -170,11 +170,13 @@
               android:drawablePadding="18dp"
               android:drawableStart="@drawable/ic_payment_method_paypal"
               android:paddingLeft="4dp"
+              android:enabled="false"
               android:text="@string/paypal"
               style="@style/PaymentMethodsRadioButton"
               />
 
           <View
+              android:id="@+id/paypal_view"
               android:layout_width="match_parent"
               android:layout_height="2dp"
               android:background="#eaeaea"
@@ -188,10 +190,12 @@
               android:drawablePadding="12dp"
               android:drawableStart="@drawable/ic_payment_method_credit_card"
               android:paddingLeft="4dp"
+              android:enabled="false"
               android:text="@string/credit_card"
               style="@style/PaymentMethodsRadioButton"
               />
           <View
+              android:id="@+id/credit_card_view"
               android:layout_width="match_parent"
               android:layout_height="2dp"
               android:background="#eaeaea"

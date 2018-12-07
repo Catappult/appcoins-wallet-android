@@ -96,7 +96,12 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private TextView walletAddressTv;
   private RadioButton appcRadioButton;
   private RadioButton appcCreditsRadioButton;
+  private RadioButton creditCardRadioButton;
+  private RadioButton paypalRadioButton;
+  private View appcView;
   private View appcCreditsView;
+  private View creditCardView;
+  private View paypalView;
   private String productName;
   private static final String DEFAULT_CURRENCY = "EUR";
   private RadioGroup radioGroup;
@@ -200,7 +205,12 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
     appcRadioButton = view.findViewById(R.id.appc);
     appcCreditsRadioButton = view.findViewById(R.id.appc_credits);
+    creditCardRadioButton = view.findViewById(R.id.credit_card);
+    paypalRadioButton = view.findViewById(R.id.paypal);
+    appcView = view.findViewById(R.id.appc_view);
     appcCreditsView = view.findViewById(R.id.appc_credits_view);
+    creditCardView = view.findViewById(R.id.cc_info_view);
+    paypalView = view.findViewById(R.id.paypal_view);
 
     setupAppNameAndIcon();
 
@@ -349,15 +359,45 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   }
 
   private void showAvailable(List<PaymentMethod> paymentMethods) {
-    for (PaymentMethod paymentMethod : paymentMethods) {
-      if (paymentMethod.getId()
-          .equals("appcoins")) {
-        appcRadioButton.setEnabled(true);
-      } else if (paymentMethod.getId()
-          .equals("appcoins_credits")) {
-        appcCreditsRadioButton.setEnabled(true);
+    if (isBds) {
+      for (PaymentMethod paymentMethod : paymentMethods) {
+        if (paymentMethod.getId()
+            .equals("appcoins")) {
+          appcRadioButton.setEnabled(true);
+        } else if (paymentMethod.getId()
+            .equals("appcoins_credits")) {
+          appcCreditsRadioButton.setEnabled(true);
+        } else if (paymentMethod.getId()
+            .equals("credit_card")) {
+          creditCardRadioButton.setEnabled(true);
+        } else if (paymentMethod.getId()
+            .equals("paypal")) {
+          paypalRadioButton.setEnabled(true);
+        }
+      }
+    } else {
+      for (PaymentMethod paymentMethod : paymentMethods) {
+        hideAllPayments();
+
+        if (paymentMethod.getId()
+            .equals("appcoins")) {
+          appcRadioButton.setVisibility(View.VISIBLE);
+          appcView.setVisibility(View.VISIBLE);
+          appcView.setEnabled(true);
+        }
       }
     }
+  }
+
+  private void hideAllPayments() {
+    appcRadioButton.setVisibility(View.GONE);
+    appcView.setVisibility(View.GONE);
+    appcCreditsRadioButton.setVisibility(View.GONE);
+    appcCreditsView.setVisibility(View.GONE);
+    creditCardRadioButton.setVisibility(View.GONE);
+    creditCardView.setVisibility(View.GONE);
+    paypalRadioButton.setVisibility(View.GONE);
+    paypalView.setVisibility(View.GONE);
   }
 
   @Override public void setWalletAddress(String address) {
