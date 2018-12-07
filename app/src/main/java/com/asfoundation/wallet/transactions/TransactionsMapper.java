@@ -8,7 +8,6 @@ import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperation;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.util.BalanceUtils;
-import com.bds.microraidenj.ws.ChannelHistoryResponse;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import java.math.BigDecimal;
@@ -50,11 +49,6 @@ public class TransactionsMapper {
         .observeOn(scheduler);
   }
 
-  public Single<List<Transaction>> map(List<ChannelHistoryResponse.MicroTransaction> transactions) {
-    return Single.just(mapMicroTransactions(transactions))
-        .observeOn(scheduler);
-  }
-
   private List<Transaction> map(String address, RawTransaction[] transactions) {
     List<Transaction> transactionList = new ArrayList<>();
     for (int i = transactions.length - 1; i >= 0; i--) {
@@ -72,26 +66,6 @@ public class TransactionsMapper {
       } else {
         transactionList.add(0, mapStandardTransaction(transaction));
       }
-    }
-    return transactionList;
-  }
-
-  private List<Transaction> mapMicroTransactions(
-      List<ChannelHistoryResponse.MicroTransaction> transactions) {
-    List<Transaction> transactionList = new ArrayList<>();
-    for (int i = transactions.size() - 1; i >= 0; i--) {
-      ChannelHistoryResponse.MicroTransaction transaction = transactions.get(i);
-
-      Transaction.TransactionType txType =
-          "IAP OffChain".equals(transaction.getType()) ? IAP_OFFCHAIN : MICRO_IAB;
-
-      transactionList.add(0, new Transaction(transaction.getTxID(), txType, null,
-          transaction.getTs()
-              .getTime() / 1000,
-          com.asfoundation.wallet.transactions.Transaction.TransactionStatus.SUCCESS,
-          transaction.getAmount()
-              .toString(), transaction.getSender(), transaction.getReceiver(),
-          getTransactionDetails(txType, transaction.getTxID()), "APPC", null));
     }
     return transactionList;
   }

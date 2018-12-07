@@ -51,8 +51,7 @@ public class GetDefaultWalletBalance implements BalanceService {
 
   public Single<Balance> getCredits(Wallet wallet) {
     return fetchCreditsInteract.getBalance(wallet)
-        .flatMapSingle(credits -> getCreditsBalance(credits))
-        .firstOrError();
+        .flatMap(credits -> getCreditsBalance(credits));
   }
 
   private Single<Balance> getTokenBalance(Token token) {

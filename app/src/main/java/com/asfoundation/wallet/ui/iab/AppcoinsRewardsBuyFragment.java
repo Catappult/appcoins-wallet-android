@@ -194,6 +194,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
 
   @Override public void finish(Purchase purchase) {
     presenter.sendPaymentEvent(PAYMENT_METHOD_REWARDS);
+    presenter.sendRevenueEvent();
     iabView.finish(billingMessagesMapper.mapPurchase(purchase));
   }
 
@@ -239,6 +240,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
 
   @Override public void finish(String uid) {
     presenter.sendPaymentEvent(PAYMENT_METHOD_REWARDS);
+    presenter.sendRevenueEvent();
     iabView.finish(billingMessagesMapper.successBundle(uid));
   }
 

@@ -9,6 +9,7 @@ import com.asfoundation.wallet.billing.CreditCardBilling;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
 import com.asfoundation.wallet.billing.payment.Adyen;
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
@@ -22,6 +23,7 @@ import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static com.asfoundation.wallet.analytics.FacebookEventLogger.EVENT_REVENUE_CURRENCY;
 import static com.asfoundation.wallet.billing.analytics.BillingAnalytics.PAYMENT_METHOD_CC;
 import static com.asfoundation.wallet.ui.iab.ExpressCheckoutBuyFragment.serializeJson;
 
@@ -54,6 +56,7 @@ public class CreditCardAuthorizationPresenter {
   private CreditCardAuthorizationView view;
   private FindDefaultWalletInteract defaultWalletInteract;
   private BillingAnalytics analytics;
+  private final Single<TransactionBuilder> transactionBuilder;
 
   public CreditCardAuthorizationPresenter(CreditCardAuthorizationView view, String appPackage,
       FindDefaultWalletInteract defaultWalletInteract, Scheduler viewScheduler,
@@ -81,6 +84,7 @@ public class CreditCardAuthorizationPresenter {
     this.amount = amount;
     this.currency = currency;
     this.analytics = analytics;
+    this.transactionBuilder = inAppPurchaseInteractor.parseTransaction(transactionData, true);
   }
 
   public void present() {
@@ -149,18 +153,17 @@ public class CreditCardAuthorizationPresenter {
 
   private void onViewCreatedCreatePayment() {
     disposables.add(Completable.fromAction(() -> view.showLoading())
-        .andThen(inAppPurchaseInteractor.parseTransaction(transactionData, true)
-            .flatMapCompletable(
-                transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
-                    transaction.toAddress(), developerPayload, origin, convertAmount(currency),
-                    currency, type)
-                    .observeOn(viewScheduler)
-                    .filter(payment -> payment.isPendingAuthorization())
-                    .firstOrError()
-                    .map(payment -> payment)
-                    .flatMapCompletable(
-                        authorization -> adyen.createPayment(authorization.getSession()))
-                    .observeOn(viewScheduler)))
+        .andThen(transactionBuilder.flatMapCompletable(
+            transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
+                transaction.toAddress(), developerPayload, origin, convertAmount(currency),
+                currency, type, transaction.getCallbackUrl())
+                .observeOn(viewScheduler)
+                .filter(payment -> payment.isPendingAuthorization())
+                .firstOrError()
+                .map(payment -> payment)
+                .flatMapCompletable(
+                    authorization -> adyen.createPayment(authorization.getSession()))
+                .observeOn(viewScheduler)))
         .subscribe(() -> {
         }, throwable -> showError(throwable)));
   }
@@ -182,16 +185,17 @@ public class CreditCardAuthorizationPresenter {
   }
 
   private void onViewCreatedCheckAuthorizationActive() {
-    disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
-        .flatMap(transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
+    disposables.add(transactionBuilder.flatMap(
+        transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
             transaction.toAddress(), developerPayload, origin, convertAmount(currency), currency,
-            type)
+            type, transaction.getCallbackUrl())
             .filter(payment -> payment.isCompleted())
             .firstOrError()
             .flatMap(adyenAuthorization -> buildBundle(billing))
             .observeOn(viewScheduler)
             .doOnSuccess(bundle -> {
-              sendPaymentEvent(PAYMENT_METHOD_CC);
+              sendPaymentEvent();
+              sendRevenueEvent();
               navigator.popView(bundle);
             })
             .doOnSuccess(__ -> view.showSuccess()))
@@ -228,10 +232,10 @@ public class CreditCardAuthorizationPresenter {
   }
 
   private void onViewCreatedCheckAuthorizationFailed() {
-    disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
-        .flatMap(transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
+    disposables.add(transactionBuilder.flatMap(
+        transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
             transaction.toAddress(), developerPayload, origin, convertAmount(currency), currency,
-            type)
+            type, transaction.getCallbackUrl())
             .filter(payment -> payment.isFailed())
             .firstOrError()
             .observeOn(viewScheduler)
@@ -245,10 +249,10 @@ public class CreditCardAuthorizationPresenter {
   }
 
   private void onViewCreatedCheckAuthorizationProcessing() {
-    disposables.add(inAppPurchaseInteractor.parseTransaction(transactionData, true)
-        .flatMapObservable(transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
+    disposables.add(transactionBuilder.flatMapObservable(
+        transaction -> creditCardBilling.getAuthorization(transaction.getSkuId(),
             transaction.toAddress(), developerPayload, origin, convertAmount(currency), currency,
-            type)
+            type, transaction.getCallbackUrl())
             .filter(payment -> payment.isProcessing())
             .observeOn(viewScheduler)
             .doOnNext(__ -> view.showLoading()))
@@ -338,11 +342,27 @@ public class CreditCardAuthorizationPresenter {
     disposables.clear();
   }
 
-  public void sendCCDetailsEvent() {
-    analytics.sendCreditCardDetailsEvent(appPackage, skuId, amount);
+  public void sendPaymentMethodDetailsEvent() {
+    disposables.add(transactionBuilder.subscribe(
+        transactionBuilder -> analytics.sendPaymentMethodDetailsEvent(appPackage,
+            transactionBuilder.getSkuId(), transactionBuilder.amount()
+                .toString(), PAYMENT_METHOD_CC, transactionBuilder.getType())));
   }
 
-  public void sendPaymentEvent(String purchaseDetails) {
-    analytics.sendPaymentEvent(appPackage, skuId, amount, purchaseDetails);
+  public void sendPaymentEvent() {
+    disposables.add(transactionBuilder.subscribe(
+        transactionBuilder -> analytics.sendPaymentEvent(appPackage, transactionBuilder.getSkuId(),
+            transactionBuilder.amount()
+                .toString(), PAYMENT_METHOD_CC, transactionBuilder.getType())));
+  }
+
+  public void sendRevenueEvent() {
+    disposables.add(transactionBuilder.subscribe(transactionBuilder -> analytics.sendRevenueEvent(
+        new BigDecimal(inAppPurchaseInteractor.convertToFiat((new BigDecimal(
+            transactionBuilder.amount()
+                .toString())).doubleValue(), EVENT_REVENUE_CURRENCY)
+            .blockingGet()
+            .getAmount()).setScale(2, BigDecimal.ROUND_UP)
+            .toString())));
   }
 }

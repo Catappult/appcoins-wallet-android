@@ -14,7 +14,7 @@ interface Billing {
 
   fun isInAppSupported(merchantName: String): Single<BillingSupportType>
 
-  fun getProducts(merchantName: String, skus: List<String>, type: String): Single<List<Product>>
+  fun getProducts(merchantName: String, skus: List<String>): Single<List<Product>>
 
   fun getAppcoinsTransaction(uid: String, scheduler: Scheduler): Single<Transaction>
 

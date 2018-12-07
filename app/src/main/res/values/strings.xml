@@ -226,7 +226,7 @@
   <string name="dialog_credit_card_number">Card Number</string>
   <string name="dialog_credit_card_expiration">Expiration Date</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  
+
 
 
   <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
@@ -253,7 +253,7 @@
   <!-- Billing -->
   <string name="action_skip_backup_wallet">SKIP BACKUP</string>
   <string name="item_donation">Donation</string>
-  
+
     <!-- Gamification -->
   <string name="gamification_level_title">What\'s My Level?</string>
   <string name="gamification_level_header">Congrats, you\'re %s!</string>

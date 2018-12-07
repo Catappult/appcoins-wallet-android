@@ -12,13 +12,13 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 class AppcoinsRewards(
-        private val repository: AppcoinsRewardsRepository,
-        private val walletService: WalletService,
-        private val cache: Repository<String, Transaction>,
-        private val scheduler: Scheduler,
-        private val billing: Billing,
-        private val errorMapper: ErrorMapper,
-        private val transactionIdRepository: TransactionIdRepository) {
+    private val repository: AppcoinsRewardsRepository,
+    private val walletService: WalletService,
+    private val cache: Repository<String, Transaction>,
+    private val scheduler: Scheduler,
+    private val billing: Billing,
+    private val errorMapper: ErrorMapper,
+    private val transactionIdRepository: TransactionIdRepository) {
 
   fun getBalance(address: String): Single<BigDecimal> {
     return repository.getBalance(address)
@@ -29,15 +29,17 @@ class AppcoinsRewards(
   }
 
   fun pay(amount: BigDecimal,
-          origin: Transaction.Origin, sku: String,
+          origin: Transaction.Origin, sku: String?,
           type: String,
           developerAddress: String,
           storeAddress: String,
           oemAddress: String,
-          packageName: String): Completable {
-    return cache.save(getKey(sku, packageName),
+          packageName: String,
+          payload: String?,
+          callbackUrl: String?): Completable {
+    return cache.save(getKey(amount.toString(), sku, packageName),
         Transaction(sku, type, developerAddress, storeAddress, oemAddress, packageName, amount,
-                origin, Transaction.Status.PENDING, null))
+            origin, Transaction.Status.PENDING, null, payload, callbackUrl))
   }
 
   fun start() {
@@ -56,23 +58,24 @@ class AppcoinsRewards(
                         getOrigin(transaction),
                         transaction.sku,
                         transaction.type, transaction.developerAddress, transaction.storeAddress,
-                            transaction.oemAddress, transaction.packageName)
+                        transaction.oemAddress, transaction.packageName, transaction.payload,
+                        transaction.callback)
                   }
-                          .flatMapCompletable { transaction1 ->
-                              waitTransactionCompletion(transaction1).andThen(
-                                      if (!transaction.origin.equals("BDS")) {
-                                          transactionIdRepository.getTransactionUid(transaction1.uid)
-                                                  .flatMapCompletable { txId ->
-                                                      val tx = Transaction(transaction, Transaction.Status.COMPLETED)
-                                                      tx.txId = txId
-                                                      cache.save(getKey(tx), tx)
-                                                  }
-                                      } else {
-                                          val tx = Transaction(transaction, Transaction.Status.COMPLETED)
-                                          cache.save(getKey(tx), tx)
-                                      }
-                              )
-                          }
+                      .flatMapCompletable { transaction1 ->
+                        waitTransactionCompletion(transaction1).andThen(
+                            if (!transaction.origin.equals("BDS")) {
+                              transactionIdRepository.getTransactionUid(transaction1.uid)
+                                  .flatMapCompletable { txId ->
+                                    val tx = Transaction(transaction, Transaction.Status.COMPLETED)
+                                    tx.txId = txId
+                                    cache.save(getKey(tx), tx)
+                                  }
+                            } else {
+                              val tx = Transaction(transaction, Transaction.Status.COMPLETED)
+                              cache.save(getKey(tx), tx)
+                            }
+                        )
+                      }
                 }
                 .onErrorResumeNext {
                   it.printStackTrace()
@@ -100,11 +103,12 @@ class AppcoinsRewards(
 
   }
 
-  fun getPayment(packageName: String, sku: String): Observable<Transaction> =
-      cache.get(getKey(sku, packageName)).filter { it.status != Transaction.Status.PENDING }
+  fun getPayment(packageName: String, sku: String? = "", amount: String? = ""): Observable<Transaction> =
+      cache.get(getKey(amount, sku, packageName)).filter { it.status != Transaction.Status.PENDING }
 
   private fun getKey(transaction: Transaction): String =
-      getKey(transaction.sku, transaction.packageName)
+      getKey(transaction.amount.toString(), transaction.sku, transaction.packageName)
 
-  private fun getKey(sku: String, packageName: String): String = sku + packageName
+  private fun getKey(amount: String? = "", sku: String? = "", packageName: String): String =
+      amount + sku + packageName
 }
