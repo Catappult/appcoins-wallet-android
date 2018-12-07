@@ -149,7 +149,7 @@ public class TransactionDetailActivity extends BaseActivity {
         button = findViewById(R.id.more_detail);
         button.setVisibility(View.VISIBLE);
         to = transaction.getTo();
-        typeStr = R.string.gamification_level_bonus;
+        typeStr = R.string.transaction_type_bonus;
         typeIcon = -1;
         id = getString(R.string.gamification_level_bonus, transaction.getDetails()
             .getSourceName());
