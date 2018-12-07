@@ -129,11 +129,7 @@ public class PaymentTransaction {
   }
 
   @Override public String toString() {
-    return "PaymentTransaction{"
-        + "uri='"
-        + uri
-        + '\''
-        + ", approveHash='"
+    return "PaymentTransaction{" + "uri='" + uri + '\'' + ", approveHash='"
         + approveHash
         + '\''
         + ", buyHash='"

@@ -1,7 +1,7 @@
 package com.appcoins.wallet.bdsbilling
 
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
-import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
+import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethod
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.billing.repository.entity.Product
@@ -75,9 +75,12 @@ class BdsBilling(private val repository: BillingRepository,
     }.onErrorReturn { false }
   }
 
-  override fun getGateways(): Single<List<Gateway>> {
-    return repository.getGateways().map { it }
-        .onErrorReturn { ArrayList() }
+  override fun getPaymentMethods(): Single<List<PaymentMethod>> {
+    return repository.getPaymentMethods()
+        .onErrorReturn {
+          it.printStackTrace()
+          ArrayList()
+        }
   }
 
   private fun map(it: Boolean) =

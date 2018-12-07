@@ -2,4 +2,5 @@
 <resources>
   <dimen name="intro_height">230dp</dimen>
   <dimen name="intro_img_size">120dp</dimen>
+  <dimen name="payment_methods_width">420dp</dimen>
 </resources>

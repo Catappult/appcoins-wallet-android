@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
   private BdsTransactionService bdsPendingTransactionService;
   private TestScheduler scheduler;
 
-  @Before public void setUp() throws Exception {
+  @Before public void setUp() {
     when(transactionService.checkTransactionStateFromTransactionId(UID)).thenReturn(
         Observable.just(new PendingTransaction(KEY, true), new PendingTransaction(KEY, false)));
 

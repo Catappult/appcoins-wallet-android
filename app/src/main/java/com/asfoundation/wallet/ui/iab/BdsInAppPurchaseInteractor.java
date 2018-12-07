@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.iab;
 
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
+import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethod;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
@@ -89,5 +90,9 @@ public class BdsInAppPurchaseInteractor {
 
   public Single<String> getWallet(String packageName) {
     return billing.getWallet(packageName);
+  }
+
+  public Single<List<PaymentMethod>> getPaymentMethods() {
+    return billing.getPaymentMethods();
   }
 }

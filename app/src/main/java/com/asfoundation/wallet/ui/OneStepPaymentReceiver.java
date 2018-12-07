@@ -3,8 +3,10 @@ package com.asfoundation.wallet.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.ui.iab.IabActivity;
+import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.util.TransferParser;
 import dagger.android.AndroidInjection;
 import io.reactivex.disposables.Disposable;
@@ -15,6 +17,7 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.PRODUCT_NAME;
 public class OneStepPaymentReceiver extends BaseActivity {
 
   public static final int REQUEST_CODE = 234;
+  @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject FindDefaultWalletInteract walletInteract;
   @Inject TransferParser transferParser;
   private Disposable disposable;
@@ -24,13 +27,12 @@ public class OneStepPaymentReceiver extends BaseActivity {
     super.onCreate(savedInstanceState);
     if (savedInstanceState == null) {
       disposable = walletInteract.find()
-          .flatMap(__ -> transferParser.parse(getIntent().getDataString()))
-          .subscribe(transaction -> {
-            String callingPackage = transaction.getDomain();
-            if (callingPackage == null) {
-              callingPackage = getCallingPackage();
-            }
-            startOneStepTransfer(callingPackage, transaction.getSkuId());
+          .flatMap(__ -> transferParser.parse(getIntent().getDataString())
+              .flatMap(
+                  transaction -> inAppPurchaseInteractor.isWalletFromBds(transaction.getDomain(),
+                      transaction.toAddress())
+                      .doOnSuccess(isBds -> startOneStepTransfer(transaction, isBds))))
+          .subscribe(__ -> {
           }, throwable -> startApp(throwable));
     }
   }
@@ -41,9 +43,9 @@ public class OneStepPaymentReceiver extends BaseActivity {
     finish();
   }
 
-  private void startOneStepTransfer(String callingPackage, String productName) {
-    Intent intent = IabActivity.newIntent(this, getIntent(), callingPackage);
-    intent.putExtra(PRODUCT_NAME, productName);
+  private void startOneStepTransfer(TransactionBuilder transaction, boolean isBds) {
+    Intent intent = IabActivity.newIntent(this, getIntent(), transaction, isBds, null);
+    intent.putExtra(PRODUCT_NAME, transaction.getSkuId());
     startActivityForResult(intent, REQUEST_CODE);
   }
 

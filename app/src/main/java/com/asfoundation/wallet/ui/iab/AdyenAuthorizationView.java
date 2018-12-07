@@ -11,7 +11,7 @@ import io.reactivex.Observable;
  * Created by franciscocalado on 30/07/2018.
  */
 
-public interface CreditCardAuthorizationView {
+public interface AdyenAuthorizationView {
 
   void showProduct();
 
@@ -21,7 +21,7 @@ public interface CreditCardAuthorizationView {
 
   Observable<Object> errorDismisses();
 
-  Observable<PaymentDetails> creditCardDetailsEvent();
+  Observable<PaymentDetails> paymentMethodDetailsEvent();
 
   void showNetworkError();
 
@@ -39,4 +39,6 @@ public interface CreditCardAuthorizationView {
   void showSuccess();
 
   void showPaymentRefusedError(AdyenAuthorization adyenAuthorization);
+
+  void showGenericError();
 }

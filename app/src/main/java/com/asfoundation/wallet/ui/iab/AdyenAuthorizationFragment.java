@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.util.Log;
@@ -26,11 +27,12 @@ import com.adyen.core.utils.StringUtils;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.billing.adyen.Adyen;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
-import com.asfoundation.wallet.billing.payment.Adyen;
-import com.asfoundation.wallet.billing.purchase.CreditCardBillingFactory;
+import com.asfoundation.wallet.billing.purchase.BillingFactory;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
+import com.asfoundation.wallet.navigator.UriNavigator;
 import com.asfoundation.wallet.util.KeyboardUtils;
 import com.asfoundation.wallet.view.rx.RxAlertDialog;
 import com.braintreepayments.cardform.view.CardForm;
@@ -58,14 +60,14 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_DATA;
  * Created by franciscocalado on 30/07/2018.
  */
 
-public class CreditCardAuthorizationFragment extends DaggerFragment
-    implements CreditCardAuthorizationView {
+public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenAuthorizationView {
 
-  private static final String TAG = CreditCardAuthorizationFragment.class.getSimpleName();
+  private static final String TAG = AdyenAuthorizationFragment.class.getSimpleName();
 
   private static final String SKU_ID = "sku_id";
   private static final String TYPE = "type";
   private static final String ORIGIN = "origin";
+  private static final String PAYMENT_TYPE = "paymentType";
   private static final String PACKAGE_NAME = "packageName";
   private static final String APP_NAME = "appName";
   private static final String APP_DESCRIPTION = "appDescription";
@@ -73,12 +75,14 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   private static final String APPC_VALUE = "appcValue";
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject FindDefaultWalletInteract defaultWalletInteract;
-  @Inject CreditCardBillingFactory creditCardBillingFactory;
+  @Inject BillingFactory billingFactory;
   @Inject Adyen adyen;
   @Inject Billing billing;
+  @Inject BillingAnalytics analytics;
   private View progressBar;
   private View ccInfoView;
   private IabView iabView;
+  private RxAlertDialog genericErrorDialog;
   private RxAlertDialog networkErrorDialog;
   private RxAlertDialog paymentRefusedDialog;
   private CardForm cardForm;
@@ -96,20 +100,25 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   private TextView preAuthorizedCardText;
   private TextView walletAddressFooter;
   private CheckBox rememberCardCheckBox;
-  private CreditCardAuthorizationPresenter presenter;
-  private PublishRelay<Void> backButton;
-  private PublishRelay<Void> keyboardBuyRelay;
-  private CreditCardFragmentNavigator navigator;
-  @Inject BillingAnalytics analytics;
+  private AdyenAuthorizationPresenter presenter;
+  private PublishRelay<Boolean> backButton;
+  private PublishRelay<Boolean> keyboardBuyRelay;
+  private FragmentNavigator navigator;
 
-  public static CreditCardAuthorizationFragment newInstance(Bundle skuDetails, String skuId,
-      String type, String origin) {
-
-    final CreditCardAuthorizationFragment fragment = new CreditCardAuthorizationFragment();
-    skuDetails.putString(SKU_ID, skuId);
-    skuDetails.putString(TYPE, type);
-    skuDetails.putString(ORIGIN, origin);
-    fragment.setArguments(skuDetails);
+  public static AdyenAuthorizationFragment newInstance(String skuId, String type, String origin,
+      String paymentType, String domain, String transactionData, BigDecimal amount,
+      String currency) {
+    Bundle bundle = new Bundle();
+    bundle.putString(SKU_ID, skuId);
+    bundle.putString(TYPE, type);
+    bundle.putString(ORIGIN, origin);
+    bundle.putString(PAYMENT_TYPE, paymentType);
+    bundle.putString(APP_PACKAGE, domain);
+    bundle.putString(TRANSACTION_DATA, transactionData);
+    bundle.putSerializable(TRANSACTION_AMOUNT, amount);
+    bundle.putString(TRANSACTION_CURRENCY, currency);
+    AdyenAuthorizationFragment fragment = new AdyenAuthorizationFragment();
+    fragment.setArguments(bundle);
     return fragment;
   }
 
@@ -118,19 +127,14 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
     backButton = PublishRelay.create();
     keyboardBuyRelay = PublishRelay.create();
 
-    navigator = new CreditCardFragmentNavigator(getFragmentManager(), iabView);
+    navigator = new FragmentNavigator((UriNavigator) getActivity(), iabView);
 
-    presenter = new CreditCardAuthorizationPresenter(this, getAppPackage(), defaultWalletInteract,
+    presenter = new AdyenAuthorizationPresenter(this, getAppPackage(), defaultWalletInteract,
         AndroidSchedulers.mainThread(), new CompositeDisposable(), adyen,
-        creditCardBillingFactory.getBilling(getAppPackage()), navigator,
+        billingFactory.getBilling(getAppPackage()), navigator,
         inAppPurchaseInteractor.getBillingMessagesMapper(), inAppPurchaseInteractor,
         getTransactionData(), getDeveloperPayload(), billing, getSkuId(), getType(), getOrigin(),
-        getAmount().toString(), getCurrency(), analytics);
-  }
-
-  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
-    return inflater.inflate(R.layout.dialog_credit_card_authorization, container, false);
+        getAmount().toString(), getCurrency(), getPaymentType(), analytics);
   }
 
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -163,18 +167,24 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
 
     cardForm.setOnCardFormValidListener(valid -> {
       if (valid) {
-        if (getView() != null) {
-          KeyboardUtils.hideKeyboard(getView());
-        }
         buyButton.setVisibility(View.VISIBLE);
       } else {
         buyButton.setVisibility(View.INVISIBLE);
       }
     });
     cardForm.setOnCardFormSubmitListener(() -> {
-
+      if (cardForm.isValid()) {
+        keyboardBuyRelay.accept(true);
+        if (getView() != null) {
+          KeyboardUtils.hideKeyboard(getView());
+        }
+      }
     });
 
+    genericErrorDialog = new RxAlertDialog.Builder(getContext()).setMessage(
+        R.string.fragment_adyen_generic_error_message)
+            .setPositiveButton(R.string.ok)
+            .build();
     networkErrorDialog =
         new RxAlertDialog.Builder(getContext()).setMessage(R.string.notification_no_network_poa)
             .setPositiveButton(R.string.ok)
@@ -188,7 +198,18 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
         .subscribe(dialogInterface -> navigator.popViewWithError(), Throwable::printStackTrace);
 
     showProduct();
-    presenter.present();
+    presenter.present(savedInstanceState);
+  }
+
+  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
+      Bundle savedInstanceState) {
+    return inflater.inflate(R.layout.dialog_credit_card_authorization, container, false);
+  }
+
+  @Override public void onSaveInstanceState(@NonNull Bundle outState) {
+    super.onSaveInstanceState(outState);
+
+    presenter.onSaveInstanceState(outState);
   }
 
   @Override public void onDestroyView() {
@@ -261,7 +282,7 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
         .map(dialogInterface -> new Object());
   }
 
-  @Override public Observable<PaymentDetails> creditCardDetailsEvent() {
+  @Override public Observable<PaymentDetails> paymentMethodDetailsEvent() {
     return Observable.merge(keyboardBuyRelay, RxView.clicks(buyButton))
         .map(__ -> getPaymentDetails(publicKey, generationTime));
   }
@@ -273,7 +294,8 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   }
 
   @Override public Observable<Object> cancelEvent() {
-    return RxView.clicks(cancelButton);
+    return RxView.clicks(cancelButton)
+        .mergeWith(backButton);
   }
 
   @Override public void showCvcView(Amount amount, PaymentMethod paymentMethod) {
@@ -335,6 +357,12 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
   @Override public void showPaymentRefusedError(AdyenAuthorization adyenAuthorization) {
     if (!paymentRefusedDialog.isShowing()) {
       paymentRefusedDialog.show();
+    }
+  }
+
+  @Override public void showGenericError() {
+    if (!genericErrorDialog.isShowing()) {
+      genericErrorDialog.show();
     }
   }
 
@@ -438,6 +466,13 @@ public class CreditCardAuthorizationFragment extends DaggerFragment
       return (BigDecimal) getArguments().getSerializable(TRANSACTION_AMOUNT);
     }
     throw new IllegalArgumentException("transaction currency not found");
+  }
+
+  private String getPaymentType() {
+    if (getArguments().containsKey(PAYMENT_TYPE)) {
+      return getArguments().getString(PAYMENT_TYPE);
+    }
+    throw new IllegalArgumentException("Payment Type not found");
   }
 
   public String getDeveloperPayload() {

@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.billing.payment;
+package com.asfoundation.wallet.billing.adyen;
 
 import com.adyen.core.PaymentRequest;
 import com.adyen.core.interfaces.PaymentDataCallback;
@@ -10,10 +10,6 @@ import com.adyen.core.models.PaymentRequestResult;
 import java.util.List;
 
 public class AdyenPaymentStatus {
-
-  public static final AdyenPaymentStatus NULL_PAYMENT_STATUS =
-      new AdyenPaymentStatus(null, null, null, null, null, null, null, null, null, null);
-
   private final String token;
   private final PaymentDataCallback dataCallback;
   private final PaymentRequestResult result;
@@ -40,6 +36,15 @@ public class AdyenPaymentStatus {
     this.paymentRequest = paymentRequest;
     this.redirectUrl = redirectUrl;
     this.uriCallback = uriCallback;
+  }
+
+  public static AdyenPaymentStatus from(Adyen.PaymentStatus paymentStatus,
+      Adyen.DetailsStatus detailsStatus) {
+    return new AdyenPaymentStatus(paymentStatus.getToken(), paymentStatus.getDataCallback(),
+        paymentStatus.getResult(), detailsStatus.getServiceCallback(),
+        detailsStatus.getRecurringServices(), detailsStatus.getServices(),
+        detailsStatus.getDetailsCallback(), detailsStatus.getPaymentRequest(),
+        detailsStatus.getRedirectUrl(), detailsStatus.getUriCallback());
   }
 
   public List<PaymentMethod> getServices() {
