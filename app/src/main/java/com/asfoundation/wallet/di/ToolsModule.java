@@ -23,6 +23,9 @@ import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.commons.MemoryCache;
+import com.appcoins.wallet.gamification.Gamification;
+import com.appcoins.wallet.gamification.repository.BdsGamificationRepository;
+import com.appcoins.wallet.gamification.repository.GamificationApi;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxyBuilder;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk;
 import com.asf.wallet.BuildConfig;
@@ -107,6 +110,7 @@ import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper;
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor;
 import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService;
+import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationMapper;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository;
 import com.asfoundation.wallet.ui.iab.AppInfoProvider;
@@ -321,9 +325,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       BdsTransactionService bdsTransactionService, BillingMessagesMapper billingMessagesMapper) {
     return new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
-        billingMessagesMapper, billing,
-        new ExternalBillingSerializer(), expressCheckoutBuyService, bdsTransactionService,
-        Schedulers.io());
+        billingMessagesMapper, billing, new ExternalBillingSerializer(), expressCheckoutBuyService,
+        bdsTransactionService, Schedulers.io());
   }
 
   @Singleton @Provides @Named("ASF_IN_APP_INTERACTOR")
@@ -334,9 +337,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       BdsTransactionService bdsTransactionService, BillingMessagesMapper billingMessagesMapper) {
     return new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
-        billingMessagesMapper, billing,
-        new ExternalBillingSerializer(), expressCheckoutBuyService, bdsTransactionService,
-        Schedulers.io());
+        billingMessagesMapper, billing, new ExternalBillingSerializer(), expressCheckoutBuyService,
+        bdsTransactionService, Schedulers.io());
   }
 
   @Singleton @Provides TransactionIdRepository provideTransactionIdRepository(
@@ -681,6 +683,17 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new PoASubmissionService(api);
   }
 
+  @Singleton @Provides Gamification provideGamification(OkHttpClient client) {
+    String baseUrl = PoASubmissionService.SERVICE_HOST;
+    GamificationApi api = new Retrofit.Builder().baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(GamificationApi.class);
+    return new Gamification(new BdsGamificationRepository(api));
+  }
+
   @Singleton @Provides BackendApi provideBackendApi(OkHttpClient client, Gson gson) {
     return new Retrofit.Builder().baseUrl(BuildConfig.BACKEND_HOST)
         .client(client)
@@ -743,5 +756,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides BillingAnalytics provideBillingAnalytics(AnalyticsManager analytics) {
     return new BillingAnalytics(analytics);
+  }
+
+  @Singleton @Provides GamificationInteractor provideGamificationInteractor(
+      Gamification gamification, FindDefaultWalletInteract defaultWallet) {
+    return new GamificationInteractor(gamification, defaultWallet);
   }
 }
