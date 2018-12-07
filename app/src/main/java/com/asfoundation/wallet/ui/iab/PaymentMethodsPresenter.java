@@ -58,10 +58,10 @@ public class PaymentMethodsPresenter {
   }
 
   public void present(double transactionValue, String currency, Bundle savedInstanceState) {
+    handleCancelClick();
+    handleErrorDismisses();
     if (savedInstanceState == null) {
-      handleCancelClick();
       setupUi(transactionValue, currency);
-      handleErrorDismisses();
       handleOnGoingPurchases();
     }
   }
