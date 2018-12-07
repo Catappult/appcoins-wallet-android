@@ -116,15 +116,16 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     switch (item.getItemId()) {
       case R.id.action_settings: {
         viewModel.showSettings(this);
+        break;
       }
       case R.id.action_level: {
         viewModel.showRewardsLevel(this);
+        break;
       }
-      break;
       case R.id.action_deposit: {
         openExchangeDialog();
+        break;
       }
-      break;
     }
     return super.onOptionsItemSelected(item);
   }

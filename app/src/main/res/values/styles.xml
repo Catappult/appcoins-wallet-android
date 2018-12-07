@@ -147,7 +147,7 @@
     <item name="android:textColor">@color/black_87_alpha</item>
     <item name="android:textSize">16sp</item>
   </style>
-
+  
   <style name="TextAppearance.AppCompat.Headline.Roboto.Medium" parent="TextAppearance.AppCompat.Headline">
     <item name="android:textSize">20sp</item>
     <item name="android:fontFamily">sans-serif</item>
@@ -158,5 +158,13 @@
     <item name="android:textSize">16sp</item>
     <item name="android:textColor">#828282</item>
     <item name="android:fontFamily">sans-serif</item>
+  </style>
+
+   <style name="RewardsLevelTextStyle">
+    <item name="android:fontFamily">sans-serif</item>
+    <item name="android:gravity">center</item>
+    <item name="android:textColor">@color/level_text_color</item>
+    <item name="android:textSize">10sp</item>
+    <item name="android:textStyle">bold</item>
   </style>
 </resources>
