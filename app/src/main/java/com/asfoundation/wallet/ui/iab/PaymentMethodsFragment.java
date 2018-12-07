@@ -96,9 +96,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private TextView walletAddressTv;
   private RadioButton appcRadioButton;
   private RadioButton appcCreditsRadioButton;
-  private View appcCreditsView;
   private String productName;
-  private static final String DEFAULT_CURRENCY = "EUR";
   private RadioGroup radioGroup;
   private FiatValue fiatValue;
   private String developerPayload;
@@ -200,7 +198,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
     appcRadioButton = view.findViewById(R.id.appc);
     appcCreditsRadioButton = view.findViewById(R.id.appc_credits);
-    appcCreditsView = view.findViewById(R.id.appc_credits_view);
 
     setupAppNameAndIcon();
 
@@ -318,34 +315,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
     presenter.sendPurchaseDetails(PAYMENT_METHOD_CC);
 
-    setupPaymentMethods(paymentMethods);
-    setupSubject.onNext(true);
-  }
-
-  private void setupPaymentMethods(List<PaymentMethod> paymentMethods) {
     showAvailable(paymentMethods);
-
-    compositeDisposable.add(RxView.clicks(buyButton)
-        .subscribe(__ -> {
-          switch (radioGroup.getCheckedRadioButtonId()) {
-            case R.id.paypal:
-              iabView.showAdyenPayment(BigDecimal.valueOf(fiatValue.getAmount()), currency, isBds,
-                  com.adyen.core.models.PaymentMethod.Type.PAYPAL);
-              break;
-            case R.id.credit_card:
-              iabView.showAdyenPayment(BigDecimal.valueOf(fiatValue.getAmount()), currency, isBds,
-                  com.adyen.core.models.PaymentMethod.Type.CARD);
-              break;
-            case R.id.appc:
-              iabView.showOnChain(transaction.amount(), isBds);
-              break;
-            case R.id.appc_credits:
-              iabView.showAppcoinsCreditsPayment(transaction.amount());
-              break;
-            default:
-              throw new NotImplementedError();
-          }
-        }));
+    setupSubject.onNext(true);
   }
 
   private void showAvailable(List<PaymentMethod> paymentMethods) {
@@ -362,5 +333,41 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override public void setWalletAddress(String address) {
     walletAddressTv.setText(address);
+  }
+
+  @Override public Observable<SelectedPaymentMethod> getBuyClick() {
+    return RxView.clicks(buyButton)
+        .map(__ -> {
+          switch (radioGroup.getCheckedRadioButtonId()) {
+            case R.id.paypal:
+              return SelectedPaymentMethod.PAYPAL;
+            case R.id.credit_card:
+              return SelectedPaymentMethod.CREDIT_CARD;
+            case R.id.appc:
+              return SelectedPaymentMethod.APPC;
+            case R.id.appc_credits:
+              return SelectedPaymentMethod.APPC_CREDITS;
+            default:
+              throw new NotImplementedError();
+          }
+        });
+  }
+
+  @Override public void showPaypal() {
+    iabView.showAdyenPayment(BigDecimal.valueOf(fiatValue.getAmount()), currency, isBds,
+        com.adyen.core.models.PaymentMethod.Type.PAYPAL);
+  }
+
+  @Override public void showCreditCard() {
+    iabView.showAdyenPayment(BigDecimal.valueOf(fiatValue.getAmount()), currency, isBds,
+        com.adyen.core.models.PaymentMethod.Type.CARD);
+  }
+
+  @Override public void showAppCoins() {
+    iabView.showOnChain(transaction.amount(), isBds);
+  }
+
+  @Override public void showCredits() {
+    iabView.showAppcoinsCreditsPayment(transaction.amount());
   }
 }
