@@ -6,17 +6,28 @@ import io.reactivex.Observable
 import java.io.IOException
 
 interface PaymentMethodsView {
-    fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue, isDonation: Boolean, currency: String)
-    fun showError()
-    @Throws(IOException::class)
-    fun finish(purchase: Purchase)
+  fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue,
+                         isDonation: Boolean, currency: String)
 
-    fun showLoading()
-    fun hideLoading()
-    fun getCancelClick(): Observable<Any>
-    fun close(bundle: Bundle)
-    fun errorDismisses(): Observable<Any>
-    fun setupUiCompleted(): Observable<Boolean>
-    fun showProcessingLoadingDialog()
-    fun setWalletAddress(address: String)
+  fun showError()
+  @Throws(IOException::class)
+  fun finish(purchase: Purchase)
+
+  fun showLoading()
+  fun hideLoading()
+  fun getCancelClick(): Observable<Any>
+  fun close(bundle: Bundle)
+  fun errorDismisses(): Observable<Any>
+  fun setupUiCompleted(): Observable<Boolean>
+  fun showProcessingLoadingDialog()
+  fun setWalletAddress(address: String)
+  fun getBuyClick(): Observable<SelectedPaymentMethod>
+  fun showPaypal()
+  fun showCreditCard()
+  fun showAppCoins()
+  fun showCredits()
+
+  enum class SelectedPaymentMethod {
+    PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS
+  }
 }

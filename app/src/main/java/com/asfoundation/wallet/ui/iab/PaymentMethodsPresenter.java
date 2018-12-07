@@ -68,6 +68,29 @@ public class PaymentMethodsPresenter {
       setupUi(transactionValue, currency);
       handleOnGoingPurchases();
     }
+    handleBuyClick();
+  }
+
+  private void handleBuyClick() {
+    disposables.add(view.getBuyClick()
+        .observeOn(viewScheduler)
+        .doOnNext(selectedPaymentMethod -> {
+          switch (selectedPaymentMethod) {
+            case PAYPAL:
+              view.showPaypal();
+              break;
+            case CREDIT_CARD:
+              view.showCreditCard();
+              break;
+            case APPC:
+              view.showAppCoins();
+              break;
+            case APPC_CREDITS:
+              view.showCredits();
+              break;
+          }
+        })
+        .subscribe());
   }
 
   private void handleOnGoingPurchases() {
