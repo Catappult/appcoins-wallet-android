@@ -42,7 +42,6 @@ import io.reactivex.subjects.PublishSubject;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.Currency;
 import java.util.Formatter;
 import java.util.List;
 import java.util.Locale;
@@ -162,7 +161,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     presenter = new PaymentMethodsPresenter(this, appPackage, AndroidSchedulers.mainThread(),
         Schedulers.io(), new CompositeDisposable(), inAppPurchaseInteractor,
         inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing,
-        analytics, isBds, Single.just(transaction), developerPayload, uri);
+        analytics, isBds, Single.just(transaction), developerPayload, uri, walletService);
   }
 
   @Override public void onDestroyView() {
@@ -293,13 +292,12 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override
   public void showPaymentMethods(@NotNull List<PaymentMethod> paymentMethods, FiatValue fiatValue,
-      boolean isDonation) {
+      boolean isDonation, String currency) {
     this.fiatValue = fiatValue;
     Formatter formatter = new Formatter();
     String valueText = formatter.format(Locale.getDefault(), "%(,.2f", transaction.amount())
         .toString() + " APPC";
     DecimalFormat decimalFormat = new DecimalFormat("0.00");
-    String currency = mapCurrencyCodeToSymbol(fiatValue.getCurrency());
     String priceText = decimalFormat.format(fiatValue.getAmount()) + ' ' + currency;
     String finalString = priceText;
     Spannable spannable = new SpannableString(finalString);
@@ -320,10 +318,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
     presenter.sendPurchaseDetails(PAYMENT_METHOD_CC);
 
-    compositeDisposable.add(walletService.getWalletAddress()
-        .doOnSuccess(address -> walletAddressTv.setText(address))
-        .subscribe(__ -> {
-        }, Throwable::printStackTrace));
     setupPaymentMethods(paymentMethods);
     setupSubject.onNext(true);
   }
@@ -366,8 +360,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     }
   }
 
-  public String mapCurrencyCodeToSymbol(String currencyCode) {
-    return Currency.getInstance(currencyCode)
-        .getCurrencyCode();
+  @Override public void setWalletAddress(String address) {
+    walletAddressTv.setText(address);
   }
 }

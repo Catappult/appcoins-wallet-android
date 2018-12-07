@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.iab;
 
 import android.os.Bundle;
 import com.appcoins.wallet.bdsbilling.Billing;
+import com.appcoins.wallet.bdsbilling.WalletService;
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
@@ -17,6 +18,7 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import java.util.Currency;
 
 public class PaymentMethodsPresenter {
   private final PaymentMethodsView view;
@@ -34,13 +36,14 @@ public class PaymentMethodsPresenter {
   private final Single<TransactionBuilder> transactionBuilder;
   private final String developerPayload;
   private final String uri;
+  private final WalletService walletService;
 
   public PaymentMethodsPresenter(PaymentMethodsView view, String appPackage,
       Scheduler viewScheduler, Scheduler networkThread, CompositeDisposable disposables,
       InAppPurchaseInteractor inAppPurchaseInteractor, BillingMessagesMapper billingMessagesMapper,
       BdsPendingTransactionService bdsPendingTransactionService, Billing billing,
       BillingAnalytics analytics, boolean isBds, Single<TransactionBuilder> transactionBuilder,
-      String developerPayload, String uri) {
+      String developerPayload, String uri, WalletService walletService) {
     this.view = view;
     this.appPackage = appPackage;
     this.viewScheduler = viewScheduler;
@@ -55,6 +58,7 @@ public class PaymentMethodsPresenter {
     this.transactionBuilder = transactionBuilder;
     this.developerPayload = developerPayload;
     this.uri = uri;
+    this.walletService = walletService;
   }
 
   public void present(double transactionValue, String currency, Bundle savedInstanceState) {
@@ -141,6 +145,7 @@ public class PaymentMethodsPresenter {
   }
 
   private void setupUi(double transactionValue, String currency) {
+    setWalletAddress();
     disposables.add(Single.zip(transactionBuilder.flatMap(
         transaction -> inAppPurchaseInteractor.getPaymentMethods(transaction)
             .subscribeOn(networkThread)
@@ -154,11 +159,23 @@ public class PaymentMethodsPresenter {
             () -> view.showPaymentMethods(paymentMethods, fiatValue,
                 TransactionData.TransactionType.DONATION.name()
                     .equalsIgnoreCase(transactionBuilder.blockingGet()
-                        .getType())))
+                        .getType()), mapCurrencyCodeToSymbol(fiatValue.getCurrency())))
             .subscribeOn(AndroidSchedulers.mainThread()))
         .flatMapCompletable(completable -> completable)
         .subscribe(() -> {
         }, this::showError));
+  }
+
+  public String mapCurrencyCodeToSymbol(String currencyCode) {
+    return Currency.getInstance(currencyCode)
+        .getCurrencyCode();
+  }
+
+  private void setWalletAddress() {
+    disposables.add(walletService.getWalletAddress()
+        .doOnSuccess(view::setWalletAddress)
+        .subscribe(__ -> {
+        }, Throwable::printStackTrace));
   }
 
   private void handleCancelClick() {

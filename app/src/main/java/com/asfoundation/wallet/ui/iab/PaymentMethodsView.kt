@@ -6,7 +6,7 @@ import io.reactivex.Observable
 import java.io.IOException
 
 interface PaymentMethodsView {
-    fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue, isDonation: Boolean)
+    fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue, isDonation: Boolean, currency: String)
     fun showError()
     @Throws(IOException::class)
     fun finish(purchase: Purchase)
@@ -18,4 +18,5 @@ interface PaymentMethodsView {
     fun errorDismisses(): Observable<Any>
     fun setupUiCompleted(): Observable<Boolean>
     fun showProcessingLoadingDialog()
+    fun setWalletAddress(address: String)
 }
