@@ -165,7 +165,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   @Override public void onDestroyView() {
     presenter.stop();
     super.onDestroyView();
-    compositeDisposable.dispose();
+    compositeDisposable.clear();
 
     cancelButton = null;
   }
@@ -173,6 +173,24 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   @Override public void onDetach() {
     super.onDetach();
     iabView = null;
+    radioGroup = null;
+    loadingView = null;
+    dialog = null;
+    addressFooter = null;
+    errorView = null;
+    errorMessage = null;
+    processingDialog = null;
+    appIcon = null;
+    buyButton = null;
+    cancelButton = null;
+    errorDismissButton = null;
+    appcPriceTv = null;
+    fiatPriceTv = null;
+    appNameTv = null;
+    appSkuDescriptionTv = null;
+    walletAddressTv = null;
+    appcRadioButton = null;
+    appcCreditsRadioButton = null;
   }
 
   @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
