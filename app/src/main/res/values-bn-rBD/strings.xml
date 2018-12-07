@@ -24,15 +24,15 @@
   <string name="network_label">নেটওয়ার্ক</string>
   <string name="credits">জমা সমূহ</string>
   <string name="low_storage_error">পর্যাপ্ত সংরক্ষণযোগ্য জায়গা নেই</string>
-  <string name="no_camera_permission">AppCoins BDS Wallet needs permission to access your camera to scan QR codes.</string>
-  <string name="ok">Ok</string>
-  <string name="barcode_error_format">Invalid barcode format: %s</string>
-  <string name="title_delete_account">Are you sure you want to delete this wallet?</string>
-  <string name="twitter">Twitter</string>
-  <string name="telegram">Telegram Group</string>
+  <string name="no_camera_permission">কিউআর কোডসমূহ স্ক্যাণ করার জন্য আপনার ক্যামারটিকে নিয়ন্ত্রণ করতে AppCoins BDS Wallet এর অনুমতি প্রয়োজন।</string>
+  <string name="ok">ঠিক আছে</string>
+  <string name="barcode_error_format">অকার্যকর বারকোড বিন্যাস: %s</string>
+  <string name="title_delete_account">এই ওয়ালেটকে মুছে ফেলার বিষয়টিতে আপনি কি নিশ্চিত?</string>
+  <string name="twitter">টুইটার</string>
+  <string name="telegram">টেলিগ্রাম গোষ্ঠী</string>
   <!-- TODO: Remove or change this placeholder text -->
-  <string name="title_community">Community</string>
-  <string name="title_opensource">Open Source Development</string>
+  <string name="title_community">সমাজ</string>
+  <string name="title_opensource">উন্মুক্ত উৎসের উন্নয়ন</string>
   <string name="title_source_code">Source code</string>
   <string name="title_report_bug">Report a bug</string>
   <string name="title_support">Support</string>
