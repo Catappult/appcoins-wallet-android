@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -53,6 +54,21 @@ public class BillingWebViewFragment extends DaggerFragment {
 
   public BillingWebViewFragment() {
     this.timeoutReference = new AtomicReference<>();
+  }
+
+  private AndroidBug5497Workaround androidBug5497Workaround;
+
+  @Override public void onAttach(Context context) {
+    super.onAttach(context);
+
+    androidBug5497Workaround = new AndroidBug5497Workaround(getActivity());
+    androidBug5497Workaround.addListener();
+  }
+
+  @Override public void onDetach() {
+    androidBug5497Workaround.removeListener();
+
+    super.onDetach();
   }
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
