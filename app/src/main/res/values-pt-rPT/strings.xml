@@ -150,7 +150,7 @@
   <string name="welcome.erc20.label.title">Compatível com ERC20</string>
   <string name="welcome.erc20.label.description">Suporta tokens de ERC20 por default.</string>
   <string name="scan_qr">Obter endereço de QR Code</string>
-  <string name="info_gas_price">The higher the gas price, the more expensive your transaction fee will be, but the quicker your transaction will be processed by the Ethereum network.</string>
+  <string name="info_gas_price">Quanto mais alto for o preço do gás, mais caro será a sua taxa de transação, e mais rapidamente esta será processada pela rede Ethereum.</string>
   <string name="info_gas_limit">O limite do gás ajuda a impedir que os contratos inteligentes consumam todo o seu Ethereum. Vamos tentar calcular o limite de gás de forma automática, no entanto saiba que alguns contratos inteligentes podem exigir um limite de gás personalizado.</string>
   <string name="title_send_settings">Avançado</string>
   <string name="title_activity_barcode">Verificação de código de barras</string>
