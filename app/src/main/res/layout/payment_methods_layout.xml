@@ -111,7 +111,6 @@
             android:layout_toEndOf="@id/app_icon"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="Gems"
             android:textColor="@color/grey_8a_alpha"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@id/app_name"

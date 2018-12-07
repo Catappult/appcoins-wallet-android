@@ -224,7 +224,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     paypalRadioButton = view.findViewById(R.id.paypal);
     appcView = view.findViewById(R.id.appc_view);
     appcCreditsView = view.findViewById(R.id.appc_credits_view);
-    creditCardView = view.findViewById(R.id.cc_info_view);
+    creditCardView = view.findViewById(R.id.credit_card_view);
     paypalView = view.findViewById(R.id.paypal_view);
 
     setupAppNameAndIcon();
@@ -352,16 +352,20 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
       for (PaymentMethod paymentMethod : paymentMethods) {
         if (paymentMethod.getId()
             .equals("appcoins")) {
+          appcRadioButton.setText(paymentMethod.getLabel());
           appcRadioButton.setEnabled(true);
         } else if (paymentMethod.getId()
             .equals("appcoins_credits")) {
           appcCreditsRadioButton.setEnabled(true);
+          appcRadioButton.setText(paymentMethod.getLabel());
         } else if (paymentMethod.getId()
             .equals("credit_card")) {
           creditCardRadioButton.setEnabled(true);
+          appcRadioButton.setText(paymentMethod.getLabel());
         } else if (paymentMethod.getId()
             .equals("paypal")) {
           paypalRadioButton.setEnabled(true);
+          appcRadioButton.setText(paymentMethod.getLabel());
         }
       }
     } else {
@@ -372,7 +376,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
             .equals("appcoins")) {
           appcRadioButton.setVisibility(View.VISIBLE);
           appcView.setVisibility(View.VISIBLE);
-          appcView.setEnabled(true);
+          appcRadioButton.setEnabled(true);
         }
       }
     }
