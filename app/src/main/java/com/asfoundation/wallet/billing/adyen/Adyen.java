@@ -133,11 +133,6 @@ public class Adyen {
         .take(1);
   }
 
-  private Observable<PaymentMethod> getRecurringPaymentService(List<PaymentMethod> services) {
-    return Observable.fromIterable(services)
-        .take(1);
-  }
-
   private Observable<AdyenPaymentStatus> getStatus() {
     return status.subscribeOn(scheduler);
   }

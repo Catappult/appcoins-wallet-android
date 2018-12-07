@@ -1,20 +1,17 @@
 package com.asfoundation.wallet.ui.iab;
 
 import com.appcoins.wallet.appcoins.rewards.Transaction;
-import com.appcoins.wallet.appcoins.rewards.TransactionIdRepository;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
-import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class AppcoinsRewardsBuyPresenter {
-  private static final String TAG = AppcoinsRewardsBuyPresenter.class.getSimpleName();
   private final AppcoinsRewardsBuyView view;
   private final RewardsManager rewardsManager;
   private final Scheduler scheduler;
@@ -28,17 +25,13 @@ public class AppcoinsRewardsBuyPresenter {
   private final String productName;
   private final boolean isBds;
   private final BillingAnalytics analytics;
-  private final InAppPurchaseInteractor inAppPurchaseInteractor;
-  private final Single<TransactionBuilder> transactionBuilder;
+  private final TransactionBuilder transactionBuilder;
 
-  private final TransactionIdRepository transactionIdRepository;
-
-  public AppcoinsRewardsBuyPresenter(TransactionIdRepository transactionIdRepository,
-      AppcoinsRewardsBuyView view, RewardsManager rewardsManager, Scheduler scheduler,
-      CompositeDisposable disposables, BigDecimal amount, String storeAddress, String oemAddress,
-      String uri, String packageName, TransferParser transferParser, String productName,
-      boolean isBds, BillingAnalytics analytics, InAppPurchaseInteractor inAppPurchaseInteractor) {
-    this.transactionIdRepository = transactionIdRepository;
+  public AppcoinsRewardsBuyPresenter(AppcoinsRewardsBuyView view, RewardsManager rewardsManager,
+      Scheduler scheduler, CompositeDisposable disposables, BigDecimal amount, String storeAddress,
+      String oemAddress, String uri, String packageName, TransferParser transferParser,
+      String productName, boolean isBds, BillingAnalytics analytics,
+      TransactionBuilder transactionBuilder) {
     this.view = view;
     this.rewardsManager = rewardsManager;
     this.scheduler = scheduler;
@@ -52,8 +45,7 @@ public class AppcoinsRewardsBuyPresenter {
     this.productName = productName;
     this.isBds = isBds;
     this.analytics = analytics;
-    this.inAppPurchaseInteractor = inAppPurchaseInteractor;
-    this.transactionBuilder = inAppPurchaseInteractor.parseTransaction(uri, isBds);
+    this.transactionBuilder = transactionBuilder;
   }
 
   public void present() {
@@ -95,14 +87,17 @@ public class AppcoinsRewardsBuyPresenter {
             transaction.toAddress(), storeAddress, oemAddress, packageName,
             isBds ? Transaction.Origin.BDS : Transaction.Origin.UNKNOWN, transaction.getType(),
             transaction.getPayload(), transaction.getCallbackUrl())
-            .andThen(rewardsManager.getPaymentStatus(packageName, transaction.getSkuId(), transaction.amount()))
+            .andThen(rewardsManager.getPaymentStatus(packageName, transaction.getSkuId(),
+                transaction.amount()))
             .observeOn(scheduler)
             .flatMapCompletable(
-                paymentStatus -> handlePaymentStatus(paymentStatus, transaction.getSkuId(), transaction.amount())))
+                paymentStatus -> handlePaymentStatus(paymentStatus, transaction.getSkuId(),
+                    transaction.amount())))
         .subscribe());
   }
 
-  private Completable handlePaymentStatus(RewardsManager.RewardPayment transaction, String sku, BigDecimal amount) {
+  private Completable handlePaymentStatus(RewardsManager.RewardPayment transaction, String sku,
+      BigDecimal amount) {
     switch (transaction.getStatus()) {
       case PROCESSING:
         return Completable.fromAction(() -> {
@@ -110,7 +105,8 @@ public class AppcoinsRewardsBuyPresenter {
           view.showProcessingLoading();
         });
       case COMPLETED:
-        if (isBds) {
+        if (isBds && transactionBuilder.getType()
+            .equalsIgnoreCase(TransactionData.TransactionType.INAPP.name())) {
           return rewardsManager.getPaymentCompleted(packageName, sku)
               .doOnSuccess(view::finish)
               .ignoreElement()
@@ -121,10 +117,11 @@ public class AppcoinsRewardsBuyPresenter {
                 view.hideGenericLoading();
               }));
         }
-        return Completable.fromAction(() -> view.finish(
-            rewardsManager.getTransaction(packageName, sku, amount)
-                .map(Transaction::getTxId)
-                .blockingFirst()));
+        return rewardsManager.getTransaction(packageName, sku, amount)
+            .firstOrError()
+            .map(Transaction::getTxId)
+            .doOnSuccess(view::finish)
+            .ignoreElement();
       case ERROR:
         return Completable.fromAction(() -> {
           view.showGenericError();
@@ -145,22 +142,19 @@ public class AppcoinsRewardsBuyPresenter {
   }
 
   public void sendPurchaseDetails(String purchaseDetails) {
-    disposables.add(transactionBuilder.subscribe(
-        transactionBuilder -> analytics.sendPurchaseDetailsEvent(packageName,
-            transactionBuilder.getSkuId(), transactionBuilder.amount()
-                .toString(), purchaseDetails, transactionBuilder.getType())));
+    analytics.sendPurchaseDetailsEvent(packageName, transactionBuilder.getSkuId(),
+        transactionBuilder.amount()
+            .toString(), purchaseDetails, transactionBuilder.getType());
   }
 
   public void sendPaymentEvent(String purchaseDetails) {
-    disposables.add(transactionBuilder.subscribe(
-        transactionBuilder -> analytics.sendPaymentEvent(packageName, transactionBuilder.getSkuId(),
-            transactionBuilder.amount()
-                .toString(), purchaseDetails, transactionBuilder.getType())));
+    analytics.sendPaymentEvent(packageName, transactionBuilder.getSkuId(),
+        transactionBuilder.amount()
+            .toString(), purchaseDetails, transactionBuilder.getType());
   }
 
   public void sendRevenueEvent() {
-    disposables.add(transactionBuilder.subscribe(transactionBuilder -> analytics.sendRevenueEvent(
-        transactionBuilder.amount()
-            .toString())));
+    analytics.sendRevenueEvent(transactionBuilder.amount()
+        .toString());
   }
 }
