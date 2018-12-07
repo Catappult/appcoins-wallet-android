@@ -165,7 +165,7 @@
   <string name="token_name">%1$s (%2$s)</string>
   <string name="new_transaction_value">-%1$s %2$s</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the AppCoins wallet development. We considered it the best alternative regarding already implemented functionalities. We forked it with the intention of contributing back with implementations and work that would be considered relevant.</string>
+  <string name="settings_fragment_credits">Demos início ao desenvolvimento da Wallet da AppCoins a partir do projeto da Trust Wallet para Android. Consideramos que esta seria a melhor alternativa tendo em conta as funcionalidades que já haviam sido implementadas no projeto anterior. Fizemos isto com o intuito de contribuir com novas implementações que poderiam vir a ser consideradas relevantes para o sucesso do projeto.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">A sua transação está a ser efetuada</string>
   <string name="activity_aib_loading_message">Isto pode demorar um pouco…</string>
@@ -237,7 +237,7 @@
   <string name="proceed">proceed</string>
   <string name="iab_activity_raiden_channel_no_funds_message">You don\'t have enough funds on your µRainden payment channel. Go to your wallet and close the channel to create a new one.  Do you still want to complete this purchase with a standard payment?</string>
   <string name="iab_activity_raiden_channel_no_funds_title">Payment Channel Funds</string>
-  <string name="spend_your_appcoins">Gaste suas AppCoins</string>
+  <string name="spend_your_appcoins">Gaste as suas AppCoins</string>
   <!-- Billing -->
   <string name="action_skip_backup_wallet">IGNORAR BACKUP</string>
   <string name="item_donation">Doação</string>
