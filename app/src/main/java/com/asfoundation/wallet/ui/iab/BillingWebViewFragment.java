@@ -14,6 +14,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.WalletService;
 import com.asf.wallet.R;
@@ -41,6 +42,7 @@ public class BillingWebViewFragment extends DaggerFragment {
 
   private final AtomicReference<ScheduledFuture<?>> timeoutReference;
   private WebView webView;
+  private ProgressBar webviewProgressBar;
   private String currentUrl;
   private ScheduledExecutorService executorService;
 
@@ -96,21 +98,8 @@ public class BillingWebViewFragment extends DaggerFragment {
       @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.webview_fragment, container, false);
 
-    int visibility = View.GONE;
-    if (webView != null) {
-      visibility = webView.getVisibility();
-    }
-
-    ScheduledFuture<?> lastFuture = timeoutReference.getAndSet(
-        executorService.schedule(this::showWebView, 10, TimeUnit.SECONDS));
-
-    if (lastFuture != null) {
-      lastFuture.cancel(false);
-    }
-
     webView = view.findViewById(R.id.webview);
-
-    webView.setVisibility(visibility);
+    webviewProgressBar = view.findViewById(R.id.webview_progress_bar);
 
     webView.setWebViewClient(new WebViewClient() {
 
@@ -142,7 +131,7 @@ public class BillingWebViewFragment extends DaggerFragment {
           if (timeout != null) {
             timeout.cancel(false);
           }
-          webView.setVisibility(View.VISIBLE);
+          webviewProgressBar.setVisibility(View.GONE);
         }
       }
     });
@@ -159,10 +148,6 @@ public class BillingWebViewFragment extends DaggerFragment {
     executorService.shutdown();
 
     super.onDestroy();
-  }
-
-  public void showWebView() {
-    getActivity().runOnUiThread(() -> webView.setVisibility(View.VISIBLE));
   }
 
   @Override public void onSaveInstanceState(@NonNull Bundle outState) {
