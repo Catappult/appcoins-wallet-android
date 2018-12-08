@@ -58,16 +58,16 @@
   <string name="action_buy">Mua</string>
   <string name="empty"></string>
   <string name="try_again">Vui lòng thử lại</string>
-  <string name="already_have_account">Already have a wallet?</string>
+  <string name="already_have_account">Bạn đã có ví?</string>
   <string name="action_create_new_account">Tạo ví mới</string>
   <string name="unknown_error">Đã xảy ra lỗi.</string>
-  <string name="action_backup_wallet">Backup Wallet</string>
-  <string name="no_tokens">You haven\'t added any custom token yet.</string>
-  <string name="title_email">Email us</string>
-  <string name="action_donate">Donate</string>
+  <string name="action_backup_wallet">Ví dự phòng</string>
+  <string name="no_tokens">Bạn chưa thêm bất kỳ token tùy chỉnh nào.</string>
+  <string name="title_email">Gửi email cho chúng tôi</string>
+  <string name="action_donate">Đóng góp</string>
   <!-- Titles -->
-  <string name="title_my_address">Receive</string>
-  <string name="title_my_tokens">My Tokens</string>
+  <string name="title_my_address">Nhận</string>
+  <string name="title_my_tokens">Token của tôi</string>
   <string name="title_activity_send">Send</string>
   <string name="title_activity_confirmation">Confirm</string>
   <string name="title_add_token">Add Custom Token</string>
