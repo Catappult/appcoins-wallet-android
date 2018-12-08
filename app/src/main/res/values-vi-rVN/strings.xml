@@ -60,7 +60,7 @@
   <string name="try_again">Vui lòng thử lại</string>
   <string name="already_have_account">Already have a wallet?</string>
   <string name="action_create_new_account">Tạo ví mới</string>
-  <string name="unknown_error">An error has occurred.</string>
+  <string name="unknown_error">Đã xảy ra lỗi.</string>
   <string name="action_backup_wallet">Backup Wallet</string>
   <string name="no_tokens">You haven\'t added any custom token yet.</string>
   <string name="title_email">Email us</string>
