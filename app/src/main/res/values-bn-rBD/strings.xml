@@ -148,9 +148,9 @@
   <string name="dummy_transaction_value">-- ETH</string>
   <string name="title_dialog_sending">প্রেরণরত...</string>
   <string name="welcome.erc20.label.title">ইআরসি২০ উপযোগী</string>
-  <string name="welcome.erc20.label.description">Supports ERC20 tokens by default.</string>
-  <string name="scan_qr">Get address from QR Code</string>
-  <string name="info_gas_price">The higher the gas price, the more expensive your transaction fee will be, but the quicker your transaction will be processed by the Ethereum network.</string>
+  <string name="welcome.erc20.label.description">সয়ংক্রিয়ভাবে ইআরসি২০ টোকেন সমর্থিত।</string>
+  <string name="scan_qr">কিউআর কোড থেকে ঠিকানা নিন</string>
+  <string name="info_gas_price">গ্যাসের দাম যতো বেশী হবে, আপনার লেনদেন মাসুল ততো বেশী হবে, তবে ততো দ্রুত আপনার ইথারিয়াম নেটওয়ার্কে লেনদেন কার্যক্রম সম্পাদিত হবে।</string>
   <string name="info_gas_limit">The gas limit prevents smart contracts from consuming all your Ethereum. We will try to calculate the gas limit automatically for you, but some smart contracts may require a custom gas limit.</string>
   <string name="title_send_settings">Advanced</string>
   <string name="title_activity_barcode">Barcode Scan</string>
