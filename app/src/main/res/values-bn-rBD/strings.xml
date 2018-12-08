@@ -38,7 +38,7 @@
   <string name="title_support">সহায়তা</string>
   <string name="error_import">প্রধান স্টোর আমদানীতে ত্রুটি</string>
   <string name="message_this_is_your_address">আমার পাবলিক ইথারিয়াম ওয়ালেট ঠিকানা</string>
-  <string name="backup_warning_text">Since only you control your money, you\'ll need to save a backup of your keystore in case this app is deleted.\n\nYour wallet is never saved to cloud storage or standard device backups.</string>
+  <string name="backup_warning_text">আপনার টাকার নিয়ন্ত্রক যেহেতু শুধু আপনি, আপনার উচিৎ হবে আপনার কিস্টোরের একটি ব্যাকআপ রাখা অ্যাপটি মুছে যায় যদি সেজন্য।\n\nআপনার ওয়ালেট ক্লাউড সংরক্ষনাগারে বা স্ট্যান্ডার্ড ব্যাকআপ ডিভাইসে কখনই সংরক্ষিত হয় না।</string>
   <string name="message_no_backup">No backup, no Ethereum</string>
   <string name="error_deleting_account">Error deleting wallet</string>
   <string name="title_privacy_policy">Privacy Policy</string>
