@@ -135,11 +135,11 @@
   <string name="error_fail_generate_qr">কিউআর কোড তৈরি করতে পারেনি।</string>
   <string name="error_invalid_address">ভূল ঠিকানা</string>
   <string name="error_invalid_amount">ভূল পরিমান</string>
-  <string name="error_transaction_failed">Transaction error</string>
-  <string name="error_must_numeric">It must be a numeric value.</string>
-  <string name="transaction_succeeded">Transaction successful</string>
-  <string name="NA">N/A</string>
-  <string name="error_wallet_not_selected">Wallet is not selected</string>
+  <string name="error_transaction_failed">লেনদেনের ত্রুটি</string>
+  <string name="error_must_numeric">এটিকে অবশ্যই সংখ্যাতাত্ত্বিক মান সম্পন্ন হতে হবে।</string>
+  <string name="transaction_succeeded">সফল লেনদেন</string>
+  <string name="NA">প্র/ন</string>
+  <string name="error_wallet_not_selected">ওয়ালেট নির্বাচন করা হয়নি</string>
   <string name="no_transactions_yet">Get some test APPC so you can see how AppCoins payments will work</string>
   <string name="no_transactions_yet_main">No transactions yet!</string>
   <string name="unknown_balance_with_symbol">-- ETH</string>
