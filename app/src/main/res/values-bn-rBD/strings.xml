@@ -84,22 +84,22 @@
   <string name="tab_private_key">গোপন চাবি</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">ত্রুটি</string>
-  <string name="title_dialog_handling">Processing…</string>
-  <string name="title_dialog_add_account">Add wallet</string>
+  <string name="title_dialog_handling">প্রক্রিয়ারত…</string>
+  <string name="title_dialog_add_account">ওয়ালেট যুক্ত করুন</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Set a password to encrypt your wallet</string>
-  <string name="toast_message_wallet_imported">The wallet was imported</string>
-  <string name="toast_message_wallet_exported">A backup was created</string>
-  <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
+  <string name="dialog_message">আপনার ওয়ালেট সংকেতায়িত করতে একটি পাসওয়ার্ড সেট করুন</string>
+  <string name="toast_message_wallet_imported">ওয়ালেটটি আমদানি করা হয়েছে</string>
+  <string name="toast_message_wallet_exported">একটি ব্যাকআপ তৈরি করা হয়েছে</string>
+  <string name="toast_qr_code_no_address">কিউআর কোডে কোন সঠিক ঠিকানা অন্তর্ভূক্ত নেই</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins BDS Wallet</string>
-  <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
-  <string name="intro_title_third_page">Simple &amp; Easy</string>
-  <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
-  <string name="intro_message_second_page">Private keys never leave your device.</string>
+  <string name="intro_title_second_page"><![CDATA[ব্যক্তিগত এবং নিরাপদ]]></string>
+  <string name="intro_title_third_page">সরল &amp; সহজ</string>
+  <string name="intro_message_first_page">অ্যাপ অর্থনীতির বিপ্লবে স্বাগত জানাই।</string>
+  <string name="intro_message_second_page">ব্যাক্তিগত চাবিসমূহ আপনার যন্ত্রকে কখনও ত্যাগ করে না।</string>
   <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
   <!-- Menus -->
   <!-- Labels -->
@@ -167,7 +167,7 @@
   <string name="gas_price_value">%1$s %2$s</string>
   <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the AppCoins wallet development. We considered it the best alternative regarding already implemented functionalities. We forked it with the intention of contributing back with implementations and work that would be considered relevant.</string>
   <string name="appcoins_symbol">APPC</string>
-  <string name="activity_aib_loading_title">Transaction in progress</string>
+  <string name="activity_aib_loading_title">লেনদেন কার্যক্রম প্রক্রিয়ারত রয়েছে</string>
   <string name="activity_aib_loading_message">This may take a while…</string>
   <string name="activity_iab_transaction_completed_title">Transaction Completed</string>
   <string name="activity_iab_error_title">Error</string>
