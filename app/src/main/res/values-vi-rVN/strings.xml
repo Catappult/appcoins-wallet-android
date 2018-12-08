@@ -52,7 +52,7 @@
   <string name="no_repeat">Không, lặp lại</string>
   <string name="skip">Bỏ qua</string>
   <string name="root_title">DEVICE SECURITY COMPROMISED</string>
-  <string name="root_body">Any \'rooted\' app can access AppCoins Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
+  <string name="root_body">Bất kỳ ứng dụng \'đã root\' nào cũng có thể truy cập dữ liệu chuỗi khóa của AppCoins Wallet và đánh cắp ví của bạn! Xóa ví này ngay lập tức và khôi phục trên một thiết bị an toàn.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
   <string name="buying">Đang mua %s</string>
   <string name="action_buy">Mua</string>
@@ -122,7 +122,7 @@
   <string name="subtitle_gas_fee">Phí</string>
   <string name="subtitle_transaction_num">Giao dịch</string>
   <!-- Actions -->
-  <string name="action_more_details">More</string>
+  <string name="action_more_details">Xem thêm</string>
   <string name="action_add_wallet">Thêm ví</string>
   <string name="action_coinbase">Coinbase</string>
   <string name="action_shapeshift">Shapeshift (Crypto only)</string>
@@ -140,7 +140,7 @@
   <string name="transaction_succeeded">Giao dịch thành công</string>
   <string name="NA">Không có</string>
   <string name="error_wallet_not_selected">Ví không được chọn</string>
-  <string name="no_transactions_yet">Get some test APPC so you can see how AppCoins payments will work</string>
+  <string name="no_transactions_yet">Thử một vài thử nghiệm APPC để bạn có thể thấy cách mà các thanh toán AppCoin hoạt động</string>
   <string name="no_transactions_yet_main">Chưa có giao dịch nào!</string>
   <string name="unknown_balance_with_symbol">-- ETH</string>
   <string name="unknown_balance_without_symbol">--</string>
@@ -165,7 +165,7 @@
   <string name="token_name">%1$s (%2$s)</string>
   <string name="new_transaction_value">-%1$s %2$s</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">We forked the Trust Wallet for Android project to bootstrap the AppCoins wallet development. We considered it the best alternative regarding already implemented functionalities. We forked it with the intention of contributing back with implementations and work that would be considered relevant.</string>
+  <string name="settings_fragment_credits">Chúng tôi đã tách Trust Wallet cho Android để khởi động quá trình phát triển ví AppCoin. Chúng tôi coi đó là sự thay thế tốt nhất liên quan đến các chức năng đã được triển khai. Chúng tôi đã tách nó với ý định đóng góp trở lại với việc triển khai và công việc sẽ được coi là có liên quan.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">Giao dịch đang diễn ra</string>
   <string name="activity_aib_loading_message">Việc này có thể mất một lúc…</string>
