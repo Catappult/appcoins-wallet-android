@@ -16,13 +16,13 @@
   <string name="action_settings">Cài đặt</string>
   <string name="title_account_list">Ví</string>
   <string name="cancel">hủy</string>
-  <string name="confirm_delete_account">Hãy chắc chắn rằng bạn có một bản sao lưu của ví này.</string>
+  <string name="confirm_delete_account">Hãy chắc rằng bạn có một bản sao lưu của ví này.</string>
   <string name="action_import">Nhập</string>
-  <string name="copy">Sao chép vào clipboard</string>
+  <string name="copy">Sao chép vào bộ nhớ tạm</string>
   <string name="close">Đóng</string>
   <string name="title_activity_settings">Cài đặt</string>
   <string name="network_label">Mạng lưới</string>
-  <string name="credits">Credits</string>
+  <string name="credits">Thông tin</string>
   <string name="low_storage_error">Không đủ dung lượng lưu trữ</string>
   <string name="no_camera_permission">AppCoins BDS Wallet cần quyền truy cập vào máy ảnh của bạn để quét mã QR.</string>
   <string name="ok">Ok</string>
@@ -38,7 +38,7 @@
   <string name="title_support">Hỗ trợ</string>
   <string name="error_import">Lỗi khi nhập kho khóa</string>
   <string name="message_this_is_your_address">Địa chỉ ví Ethereum công khai của tôi</string>
-  <string name="backup_warning_text">Since only you control your money, you\'ll need to save a backup of your keystore in case this app is deleted.\n\nYour wallet is never saved to cloud storage or standard device backups.</string>
+  <string name="backup_warning_text">Vì chỉ có bạn kiểm soát tiền của mình, bạn sẽ cần lưu một bản sao lưu của kho khóa trong trường hợp ứng dụng này bị xóa.\n\nVí của bạn không bao giờ được lưu vào bộ nhớ đám mây hoặc sao lưu thiết bị tiêu chuẩn.</string>
   <string name="message_no_backup">Không sao lưu, không Ethereum</string>
   <string name="error_deleting_account">Lỗi xóa ví</string>
   <string name="title_privacy_policy">Chính sách bảo mật</string>
@@ -51,7 +51,7 @@
   <string name="yes_continue">Có, tiếp tục</string>
   <string name="no_repeat">Không, lặp lại</string>
   <string name="skip">Bỏ qua</string>
-  <string name="root_title">DEVICE SECURITY COMPROMISED</string>
+  <string name="root_title">BẢO MẬT THIẾT BỊ BỊ XÂM PHẠM</string>
   <string name="root_body">Bất kỳ ứng dụng \'đã root\' nào cũng có thể truy cập dữ liệu chuỗi khóa của AppCoins Wallet và đánh cắp ví của bạn! Xóa ví này ngay lập tức và khôi phục trên một thiết bị an toàn.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
   <string name="buying">Đang mua %s</string>
