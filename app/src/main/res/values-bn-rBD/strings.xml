@@ -100,11 +100,11 @@
   <string name="intro_title_third_page">সরল &amp; সহজ</string>
   <string name="intro_message_first_page">অ্যাপ অর্থনীতির বিপ্লবে স্বাগত জানাই।</string>
   <string name="intro_message_second_page">ব্যাক্তিগত চাবিসমূহ আপনার যন্ত্রকে কখনও ত্যাগ করে না।</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
+  <string name="intro_message_third_page">আপনার সকল আন্ত-অ্যাপ মূল্য পরিশোধ এবং পুরস্কার সমূহের প্রক্রিয়া করুন এপিপিসি তে।</string>
   <!-- Menus -->
   <!-- Labels -->
-  <string name="label_from">From</string>
-  <string name="label_to">To</string>
+  <string name="label_from">থেকে</string>
+  <string name="label_to">প্রতি</string>
   <string name="label_gas_limit">Gas Limit</string>
   <string name="label_gas_price">Gas Price</string>
   <string name="label_network_fee">Network Fee</string>
