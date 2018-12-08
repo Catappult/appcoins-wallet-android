@@ -38,7 +38,7 @@
   <string name="title_support">সহায়তা</string>
   <string name="error_import">কিস্টোর আমদানীতে ত্রুটি</string>
   <string name="message_this_is_your_address">আমার পাবলিক ইথারিয়াম ওয়ালেট ঠিকানা</string>
-  <string name="backup_warning_text">আপনার টাকার নিয়ন্ত্রক যেহেতু শুধু আপনি, আপনার উচিৎ হবে আপনার কিস্টোরের একটি ব্যাকআপ রাখা অ্যাপটি মুছে যায় যদি সেজন্য।\n\nআপনার ওয়ালেট ক্লাউড সংরক্ষনাগারে বা স্ট্যান্ডার্ড ব্যাকআপ ডিভাইসে কখনই সংরক্ষিত হয় না।</string>
+  <string name="backup_warning_text">অ্যাপটি মুছে যেতে পারে বিধায় এবং আপনার টাকার নিয়ন্ত্রক যেহেতু শুধু আপনি, আপনার উচিৎ হবে আপনার কিস্টোরের একটি ব্যাকআপ রাখা।\n\nআপনার ওয়ালেট ক্লাউড সংরক্ষনাগারে বা স্ট্যান্ডার্ড ব্যাকআপ ডিভাইসে কখনই এটি সংরক্ষিত হয় না।</string>
   <string name="message_no_backup">কোনরুপ ব্যাকআপ বিহীন, ইথারিয়াম বিহীন</string>
   <string name="error_deleting_account">ওয়ালেট মুছে ফেলায় ত্রুটি</string>
   <string name="title_privacy_policy">গোপনীয়তা নীতি</string>
