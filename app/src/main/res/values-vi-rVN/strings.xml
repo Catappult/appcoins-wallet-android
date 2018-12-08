@@ -29,14 +29,14 @@
   <string name="barcode_error_format">Định dạng mã vạch không hợp lệ: %s</string>
   <string name="title_delete_account">Bạn có chắc muốn xóa ví này?</string>
   <string name="twitter">Twitter</string>
-  <string name="telegram">Telegram Group</string>
+  <string name="telegram">Nhóm Telegram</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Cộng đồng</string>
   <string name="title_opensource">Phát triển nguồn mở</string>
   <string name="title_source_code">Mã nguồn</string>
   <string name="title_report_bug">Báo cáo lỗi</string>
   <string name="title_support">Hỗ trợ</string>
-  <string name="error_import">Error importing keystore</string>
+  <string name="error_import">Lỗi khi nhập kho khóa</string>
   <string name="message_this_is_your_address">Địa chỉ ví Ethereum công khai của tôi</string>
   <string name="backup_warning_text">Since only you control your money, you\'ll need to save a backup of your keystore in case this app is deleted.\n\nYour wallet is never saved to cloud storage or standard device backups.</string>
   <string name="message_no_backup">Không sao lưu, không Ethereum</string>
@@ -78,9 +78,9 @@
   <string name="suggestion_this_is_your_address">Địa chỉ ví %s công khai của tôi</string>
   <!-- Hints -->
   <string name="hint_private_key_field">Khóa cá nhân *</string>
-  <string name="hint_keystore">Keystore *</string>
+  <string name="hint_keystore">Kho khóa *</string>
   <!-- Tabs labels-->
-  <string name="tab_keystore">Keystore</string>
+  <string name="tab_keystore">Kho khóa</string>
   <string name="tab_private_key">Khóa cá nhân</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Lỗi</string>
@@ -105,13 +105,13 @@
   <!-- Labels -->
   <string name="label_from">Từ</string>
   <string name="label_to">Đến</string>
-  <string name="label_gas_limit">Gas Limit</string>
-  <string name="label_gas_price">Gas Price</string>
+  <string name="label_gas_limit">Giới hạn gas</string>
+  <string name="label_gas_price">Giá gas</string>
   <string name="label_network_fee">Phí mạng</string>
   <string name="button_ok">OK</string>
   <string name="hint_recipient_address">Địa chỉ người nhận</string>
-  <string name="hint_amount">Amount</string>
-  <string name="hint_amount_with_token">Amount %s</string>
+  <string name="hint_amount">Số tiền</string>
+  <string name="hint_amount_with_token">Số tiền %s</string>
   <string name="hint_contract_address">Địa chỉ hợp đồng</string>
   <string name="hint_contract_symbol">Biểu tượng</string>
   <string name="hint_contract_decimals">Số thập phân</string>
@@ -150,8 +150,8 @@
   <string name="welcome.erc20.label.title">Tương thích ERC20</string>
   <string name="welcome.erc20.label.description">Mặc định hỗ trợ các token ERC20.</string>
   <string name="scan_qr">Lấy địa chỉ từ mã QR</string>
-  <string name="info_gas_price">The higher the gas price, the more expensive your transaction fee will be, but the quicker your transaction will be processed by the Ethereum network.</string>
-  <string name="info_gas_limit">The gas limit prevents smart contracts from consuming all your Ethereum. We will try to calculate the gas limit automatically for you, but some smart contracts may require a custom gas limit.</string>
+  <string name="info_gas_price">Giá gas càng cao, phí giao dịch của bạn sẽ càng đắt, tuy nhiên giao dịch của bạn sẽ được xử lý nhanh hơn bởi mạng Ethereum.</string>
+  <string name="info_gas_limit">Giới hạn gas ngăn chặn các hợp đồng thông minh tiêu thụ tất cả Ethereum của bạn. Chúng tôi sẽ cố gắng tự động tính toán giới hạn gas cho bạn, nhưng một số hợp đồng thông minh có thể yêu cầu giới hạn gas tùy chỉnh.</string>
   <string name="title_send_settings">Nâng cao</string>
   <string name="title_activity_barcode">Quét mã vạch</string>
   <string name="error_add_token">Không thể thêm token.</string>
@@ -179,7 +179,7 @@
   <string name="activity_iab_no_token_funds_message">Không đủ AppCoin</string>
   <string name="activity_iab_wrong_network_message">Mạng Ethereum sai hoặc token không xác định</string>
   <string name="activity_iab_no_network_message">Không có quyền truy cập mạng</string>
-  <string name="activity_iab_nonce_message">An error with blockchain occurred, please try again later.</string>
+  <string name="activity_iab_nonce_message">Đã xảy ra lỗi với blockchain, vui lòng thử lại sau.</string>
   <string name="activity_iab_approving_message">Kiểm tra tất cả các chi tiết: số dư, vật phẩm, mạng…</string>
   <string name="activity_iab_buying_message">Đã kiểm tra các chi tiết \nĐang nhận vật phẩm của bạn…</string>
   <string name="notification_ongoing_poa">Đang xử lý phần thưởng của bạn</string>
