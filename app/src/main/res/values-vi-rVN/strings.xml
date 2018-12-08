@@ -68,52 +68,52 @@
   <!-- Titles -->
   <string name="title_my_address">Nhận</string>
   <string name="title_my_tokens">Token của tôi</string>
-  <string name="title_activity_send">Send</string>
-  <string name="title_activity_confirmation">Confirm</string>
-  <string name="title_add_token">Add Custom Token</string>
+  <string name="title_activity_send">Gửi</string>
+  <string name="title_activity_confirmation">Xác nhận</string>
+  <string name="title_add_token">Thêm token tùy chỉnh</string>
   <string name="title_airdrop">Airdrop</string>
   <!-- Suggestions -->
-  <string name="suggestion_private_key">Private key has to be 64 characters long</string>
-  <string name="suggestion_empty_password_available">The password can be left blank.</string>
-  <string name="suggestion_this_is_your_address">My public %s wallet address</string>
+  <string name="suggestion_private_key">Khóa cá nhân phải dài 64 ký tự</string>
+  <string name="suggestion_empty_password_available">Mật khẩu có thể để trống.</string>
+  <string name="suggestion_this_is_your_address">Địa chỉ ví %s công khai của tôi</string>
   <!-- Hints -->
-  <string name="hint_private_key_field">Private key *</string>
+  <string name="hint_private_key_field">Khóa cá nhân *</string>
   <string name="hint_keystore">Keystore *</string>
   <!-- Tabs labels-->
   <string name="tab_keystore">Keystore</string>
-  <string name="tab_private_key">Private key</string>
+  <string name="tab_private_key">Khóa cá nhân</string>
   <!-- Dialog titles -->
-  <string name="title_dialog_error">Error</string>
-  <string name="title_dialog_handling">Processing…</string>
-  <string name="title_dialog_add_account">Add wallet</string>
+  <string name="title_dialog_error">Lỗi</string>
+  <string name="title_dialog_handling">Đang xử lý…</string>
+  <string name="title_dialog_add_account">Thêm ví</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Set a password to encrypt your wallet</string>
-  <string name="toast_message_wallet_imported">The wallet was imported</string>
-  <string name="toast_message_wallet_exported">A backup was created</string>
-  <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
+  <string name="dialog_message">Đặt mật khẩu để mã hóa ví của bạn</string>
+  <string name="toast_message_wallet_imported">Ví đã được nhập</string>
+  <string name="toast_message_wallet_exported">Một bản sao lưu đã được tạo</string>
+  <string name="toast_qr_code_no_address">Mã QR không chứa địa chỉ hợp lệ</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins BDS Wallet</string>
-  <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
-  <string name="intro_title_third_page">Simple &amp; Easy</string>
-  <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
-  <string name="intro_message_second_page">Private keys never leave your device.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
+  <string name="intro_title_second_page"><![CDATA[Riêng tư và An toàn]]></string>
+  <string name="intro_title_third_page">Đơn giản và Dễ dàng</string>
+  <string name="intro_message_first_page">Chào mừng đến với cuộc cách mạng của nền kinh tế ứng dụng.</string>
+  <string name="intro_message_second_page">Khóa cá nhân không bao giờ rời khỏi thiết bị của bạn.</string>
+  <string name="intro_message_third_page">Xử lý tất cả các khoản thanh toán trong ứng dụng và phần thưởng của bạn bằng APPC.</string>
   <!-- Menus -->
   <!-- Labels -->
-  <string name="label_from">From</string>
-  <string name="label_to">To</string>
+  <string name="label_from">Từ</string>
+  <string name="label_to">Đến</string>
   <string name="label_gas_limit">Gas Limit</string>
   <string name="label_gas_price">Gas Price</string>
-  <string name="label_network_fee">Network Fee</string>
+  <string name="label_network_fee">Phí mạng</string>
   <string name="button_ok">OK</string>
-  <string name="hint_recipient_address">Recipient Address</string>
+  <string name="hint_recipient_address">Địa chỉ người nhận</string>
   <string name="hint_amount">Amount</string>
   <string name="hint_amount_with_token">Amount %s</string>
-  <string name="hint_contract_address">Contract address</string>
-  <string name="hint_contract_symbol">Symbol</string>
+  <string name="hint_contract_address">Địa chỉ hợp đồng</string>
+  <string name="hint_contract_symbol">Biểu tượng</string>
   <string name="hint_contract_decimals">Số thập phân</string>
   <string name="button_cancel">HỦY</string>
   <string name="button_yes">CÓ</string>
@@ -193,15 +193,15 @@
   <string name="notification_not_available_poa">This rewards campaign is no longer available</string>
   <string name="notification_not_available_for_country_poa">This rewards campaign isn\'t available in your country</string>
   <string name="notification_already_rewarded_poa">You were already rewarded in this campaign</string>
-  <string name="notification_submit_error_poa">Sorry, there was an error. Try again!</string>
+  <string name="notification_submit_error_poa">Rất tiếc, đã xảy ra lỗi. Vui lòng thử lại!</string>
   <!-- transaction details -->
-  <string name="transaction_status_success">Success</string>
-  <string name="transaction_status_pending">Pending</string>
-  <string name="transaction_status_failed">Failed</string>
-  <string name="transaction_type_iab">In-App Purchase</string>
+  <string name="transaction_status_success">Thành công</string>
+  <string name="transaction_status_pending">Chờ xử lý</string>
+  <string name="transaction_status_failed">Thất bại</string>
+  <string name="transaction_type_iab">Mua hàng trong ứng dụng</string>
   <string name="transaction_type_poa">Proof of Attention</string>
   <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
-  <string name="transaction_type_standard">Transfer</string>
+  <string name="transaction_type_standard">Chuyển khoản</string>
   <string name="transaction_type_bonus">Bonus</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
@@ -210,15 +210,15 @@
   <string name="miuraiden_trans_details_topup">µRaiden channel top up</string>
   <string name="miuraiden_trans_details_close">µRaiden channel closed</string>
   <string name="ellipsize">\u0020• • •</string>
-  <string name="transaction_status_label">Status</string>
+  <string name="transaction_status_label">Trạng thái</string>
   <string name="transaction_category_label">Category</string>
-  <string name="transaction_details_label">Details</string>
+  <string name="transaction_details_label">Chi tiết</string>
   <string name="transaction_to_label">To</string>
   <string name="dialog_credit_card_remember">Remember Card</string>
   <string name="notification_payment_refused">Payment Refused</string>
   <string name="dialog_credit_card_number">Card Number</string>
-  <string name="dialog_credit_card_expiration">Expiration Date</string>
-  <string name="dialog_credit_card_cvv">CVV</string>
+  <string name="dialog_credit_card_expiration">Ngày hết hạn</string>
+  <string name="dialog_credit_card_cvv">Mã CVV</string>
   <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
   <string name="activity_airdrop_details">This is just a security thing.</string>
   <string name="activity_airdrop_hint">Type the words in the image</string>
