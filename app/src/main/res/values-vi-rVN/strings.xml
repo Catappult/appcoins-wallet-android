@@ -180,11 +180,11 @@
   <string name="activity_iab_wrong_network_message">Mạng Ethereum sai hoặc token không xác định</string>
   <string name="activity_iab_no_network_message">Không có quyền truy cập mạng</string>
   <string name="activity_iab_nonce_message">An error with blockchain occurred, please try again later.</string>
-  <string name="activity_iab_approving_message">Checking all details: balance, items, network…</string>
-  <string name="activity_iab_buying_message">Details checked \nReceiving your item…</string>
+  <string name="activity_iab_approving_message">Kiểm tra tất cả các chi tiết: số dư, vật phẩm, mạng…</string>
+  <string name="activity_iab_buying_message">Đã kiểm tra các chi tiết \nĐang nhận vật phẩm của bạn…</string>
   <string name="notification_ongoing_poa">Đang xử lý phần thưởng của bạn</string>
-  <string name="notification_completed_poa">Reward received, enjoy!</string>
-  <string name="notification_submitting_poa">Submitting your request to the blockchain</string>
+  <string name="notification_completed_poa">Đã nhận phần thưởng, hãy tận hưởng!</string>
+  <string name="notification_submitting_poa">Đang gửi yêu cầu của bạn đến blockchain</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">Không có kết nối mạng</string>
   <string name="notification_error_poa">Đã xảy ra lỗi</string>
@@ -227,7 +227,7 @@
   <string name="activity_airdrop_ok">ok</string>
   <string name="activity_airdrop_message_title">Airdrop</string>
   <string name="activity_airdrop_success_message">Airdrop completed</string>
-  <string name="activity_airdrop_generic_error_message">An error has occurred</string>
+  <string name="activity_airdrop_generic_error_message">Đã xảy ra lỗi</string>
   <string name="notification_generic_error">@string/unknown_error</string>
   <string name="iab_activity_micro_raiden_wallet">Wallet</string>
   <string name="iab_activity_raiden_channel_label">Create µRaiden channel</string>
@@ -237,18 +237,18 @@
   <string name="proceed">proceed</string>
   <string name="iab_activity_raiden_channel_no_funds_message">You don\'t have enough funds on your µRainden payment channel. Go to your wallet and close the channel to create a new one.  Do you still want to complete this purchase with a standard payment?</string>
   <string name="iab_activity_raiden_channel_no_funds_title">Payment Channel Funds</string>
-  <string name="spend_your_appcoins">Spend your AppCoins</string>
+  <string name="spend_your_appcoins">Xài AppCoin của bạn</string>
   <!-- Billing -->
-  <string name="action_skip_backup_wallet">SKIP BACKUP</string>
-  <string name="item_donation">Donation</string>
+  <string name="action_skip_backup_wallet">BỎ QUA SAO LƯU</string>
+  <string name="item_donation">Đóng góp</string>
   <!-- Gamification -->
-  <string name="gamification_level_title">What\'s My Level?</string>
+  <string name="gamification_level_title">Cấp của tôi là gì?</string>
   <string name="gamification_level_header">Xin chúc mừng, bạn là %s!</string>
-  <string name="gamification_level_earned">EARNED:</string>
+  <string name="gamification_level_earned">KIẾM ĐƯỢC:</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
-  <string name="gamification_level_button_how">HOW IT WORKS</string>
+  <string name="gamification_level_button_how">CÁCH THỨC HOẠT ĐỘNG</string>
   <string name="gamification_how_header">Làm thế nào để lên cấp?</string>
-  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games</string>
+  <string name="gamification_how_body">Bạn sẽ kiếm được APPC Credits khi mua vật phẩm trong các các ứng dụng và các trò chơi yêu thích của mình</string>
   <string name="gamification_how_spend">Gửi %s APPC</string>
   <string name="gamification_a_comet_title">một sao chổi</string>
   <string name="gamification_a_moon_title">một mặt trăng</string>
