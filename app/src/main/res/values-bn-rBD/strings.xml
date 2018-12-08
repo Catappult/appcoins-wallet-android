@@ -62,28 +62,28 @@
   <string name="action_create_new_account">নতুন ওয়ালেট তৈরি করুন</string>
   <string name="unknown_error">একটি ত্রুটি সংঘটিত হয়েছে।</string>
   <string name="action_backup_wallet">ব্যাকআপ ওয়ালেট</string>
-  <string name="no_tokens">You haven\'t added any custom token yet.</string>
-  <string name="title_email">Email us</string>
-  <string name="action_donate">Donate</string>
+  <string name="no_tokens">আপনি অদ্যবধি কোন টোকেন যুক্ত করেন নি।</string>
+  <string name="title_email">আমাদের ই-মেইল করুন</string>
+  <string name="action_donate">দান করুন</string>
   <!-- Titles -->
-  <string name="title_my_address">Receive</string>
-  <string name="title_my_tokens">My Tokens</string>
-  <string name="title_activity_send">Send</string>
-  <string name="title_activity_confirmation">Confirm</string>
-  <string name="title_add_token">Add Custom Token</string>
-  <string name="title_airdrop">Airdrop</string>
+  <string name="title_my_address">গ্রহণ করুন</string>
+  <string name="title_my_tokens">আমার টোকেনসমূহ</string>
+  <string name="title_activity_send">প্রেরণ করুন</string>
+  <string name="title_activity_confirmation">নিশ্চিত করুন</string>
+  <string name="title_add_token">কাস্টম টোকেন যুক্ত করুন</string>
+  <string name="title_airdrop">এয়ারড্রপ</string>
   <!-- Suggestions -->
-  <string name="suggestion_private_key">Private key has to be 64 characters long</string>
-  <string name="suggestion_empty_password_available">The password can be left blank.</string>
-  <string name="suggestion_this_is_your_address">My public %s wallet address</string>
+  <string name="suggestion_private_key">ব্যাক্তিগত চাবি ৬৪ অক্ষর বিশিষ্ট হতে হবে</string>
+  <string name="suggestion_empty_password_available">পাসওয়ার্ড খালি রাখা যেতে পারে</string>
+  <string name="suggestion_this_is_your_address">আমার পাবলিক %s ওয়ালেট ঠিকানা</string>
   <!-- Hints -->
-  <string name="hint_private_key_field">Private key *</string>
-  <string name="hint_keystore">Keystore *</string>
+  <string name="hint_private_key_field">গোপন চাবি *</string>
+  <string name="hint_keystore">চাবিস্টোর *</string>
   <!-- Tabs labels-->
-  <string name="tab_keystore">Keystore</string>
-  <string name="tab_private_key">Private key</string>
+  <string name="tab_keystore">চাবিস্টোর</string>
+  <string name="tab_private_key">গোপন চাবি</string>
   <!-- Dialog titles -->
-  <string name="title_dialog_error">Error</string>
+  <string name="title_dialog_error">ত্রুটি</string>
   <string name="title_dialog_handling">Processing…</string>
   <string name="title_dialog_add_account">Add wallet</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
