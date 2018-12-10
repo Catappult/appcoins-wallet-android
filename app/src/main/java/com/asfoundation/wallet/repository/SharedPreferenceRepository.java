@@ -12,6 +12,9 @@ public class SharedPreferenceRepository implements PreferenceRepositoryType {
   private static final String GAS_LIMIT_KEY = "gas_limit";
   private static final String GAS_LIMIT_FOR_TOKENS_KEY = "gas_limit_for_tokens";
   private static final String SHOULD_SHOW_RAIDEN_DIALOG = "should_show_raiden_dialog";
+  private static final String CURRENT_GAMIFICATION_LEVEL_KEY = "gamification_level";
+  private static final String CURRENT_GAMIFICATION_BONUS_KEY = "gamification_bonus";
+
 
   private final SharedPreferences pref;
 

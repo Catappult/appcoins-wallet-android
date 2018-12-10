@@ -2,7 +2,7 @@ package com.asfoundation.wallet.router
 
 import android.content.Context
 import android.content.Intent
-import com.asfoundation.wallet.ui.rewards.RewardsLevelActivity
+import com.asfoundation.wallet.ui.gamification.RewardsLevelActivity
 
 class RewardsLeverRouter {
   fun open(context: Context) {

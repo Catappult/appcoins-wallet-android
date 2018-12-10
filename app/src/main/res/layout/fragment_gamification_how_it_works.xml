@@ -25,6 +25,7 @@
         android:animateLayoutChanges="true"
         android:background="@drawable/background_card"
         android:padding="24dp"
+        android:clipToPadding="false"
         >
 
       <ImageView
@@ -92,6 +93,7 @@
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/fragment_gamification_how_it_works_levels_layout"
           style="@style/ButtonStyle"
+
           />
 
     </android.support.constraint.ConstraintLayout>

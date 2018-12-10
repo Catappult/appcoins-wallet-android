@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.rewards
+package com.asfoundation.wallet.ui.gamification
 
 import android.view.animation.Animation
 import android.view.animation.Transformation

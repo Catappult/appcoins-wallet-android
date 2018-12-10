@@ -12,7 +12,7 @@
       android:layout_height="@dimen/rewards_level_lock_size"
       android:layout_centerInParent="true"
       android:scaleType="centerInside"
-      android:src="@drawable/ic_level_locked"
+      android:src="@drawable/ic_locked"
       android:visibility="visible"
       />
 

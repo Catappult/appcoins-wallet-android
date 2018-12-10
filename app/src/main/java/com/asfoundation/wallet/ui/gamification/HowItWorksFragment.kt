@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.gamification
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -23,13 +22,13 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   lateinit var gamificationInteractor: GamificationInteractor
   private lateinit var presenter: HowItWorksPresenter
   private lateinit var gamificationView: GamificationView
-  private lateinit var levelIconMapper: LevelIconMapper
+  private lateinit var levelResourcesMapper: LevelResourcesMapper
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter = HowItWorksPresenter(this, gamificationInteractor, Schedulers.io(),
         AndroidSchedulers.mainThread())
-    levelIconMapper = LevelIconMapper()
+    levelResourcesMapper = LevelResourcesMapper()
   }
 
   override fun getOkClick(): Observable<Any> {
@@ -56,18 +55,16 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
       view.findViewById<TextView>(R.id.message).text =
           getString(R.string.gamification_how_spend
               , level.amount)
-      @SuppressLint(
-          "StringFormatMatches") //this format is working, i don't know if there is a bug with "%%"
       view.findViewById<TextView>(R.id.bonus).text =
-          getString(R.string.gamification_level_bonus, level.bonus)
-      view.findViewById<ImageView>(R.id.ic_level).setImageResource(levelIconMapper.map(level))
+          getString(R.string.gamification_level_bonus, level.bonus.toString())
+      view.findViewById<ImageView>(R.id.ic_level).setImageResource(levelResourcesMapper.mapDarkIcons(level))
       (fragment_gamification_how_it_works_levels_layout as LinearLayout).addView(view)
     }
     view?.findViewById<View>(R.id.divider)?.visibility = View.GONE
   }
 
   override fun close() {
-    gamificationView.close()
+    gamificationView.closeHowItWorksView()
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

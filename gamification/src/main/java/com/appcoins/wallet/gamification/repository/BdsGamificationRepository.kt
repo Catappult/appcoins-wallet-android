@@ -12,17 +12,18 @@ class BdsGamificationRepository(private val api: GamificationApi) :
   }
 
   private fun map(throwable: Throwable): UserStats {
+    throwable.printStackTrace()
     return when (throwable) {
       is UnknownHostException -> UserStats(UserStats.Status.NO_NETWORK)
       else -> {
-        throw throwable
+        UserStats(UserStats.Status.UNKNOWN_ERROR)
       }
     }
   }
 
   private fun map(response: UserStatusResponse): UserStats {
     return UserStats(UserStats.Status.OK, response.level,
-        response.nextLevelAmount, response.bonus, response.totalSpend)
+        response.nextLevelAmount, response.bonus, response.totalSpend, response.totalEarned)
   }
 
   override fun getLevels(): Single<Levels> {
@@ -30,10 +31,11 @@ class BdsGamificationRepository(private val api: GamificationApi) :
   }
 
   private fun mapLevelsError(throwable: Throwable): Levels {
+    throwable.printStackTrace()
     return when (throwable) {
       is UnknownHostException -> Levels(Levels.Status.NO_NETWORK)
       else -> {
-        throw throwable
+        Levels(Levels.Status.UNKNOWN_ERROR)
       }
     }
   }

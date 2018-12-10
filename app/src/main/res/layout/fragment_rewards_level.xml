@@ -16,6 +16,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintVertical_chainStyle="packed"
+      android:visibility="invisible"
       />
 
   <TextView
@@ -34,6 +35,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/level_img"
       app:layout_constraintVertical_chainStyle="packed"
+      android:visibility="invisible"
       />
   <TextView
       android:id="@+id/level_description"
@@ -50,6 +52,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/level_title"
       app:layout_constraintVertical_chainStyle="packed"
+      android:visibility="invisible"
       />
 
   <TextView
@@ -57,7 +60,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="4dp"
-      android:text="EARNED:"
+      android:text="@string/gamification_level_earned"
       android:textColor="#828282"
       android:textSize="10dp"
       app:layout_constraintBottom_toBottomOf="@id/earned_value"
@@ -74,8 +77,8 @@
       android:layout_marginTop="10dp"
       android:background="@drawable/earned_value_background"
       android:padding="4dp"
-      android:text="150 Credits"
       android:textColor="#ffffff"
+      android:visibility="invisible"
       app:layout_constraintBottom_toTopOf="@id/level_progress_container"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_chainStyle="packed"

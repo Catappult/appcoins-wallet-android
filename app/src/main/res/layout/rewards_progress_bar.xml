@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/level_progress_container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    >
 
   <ProgressBar
       android:id="@+id/progress_bar"
@@ -34,7 +35,6 @@
       android:layout_width="@dimen/rewards_level_icon_size"
       android:layout_height="wrap_content"
       android:layout_marginTop="4dp"
-      android:text="20%"
       android:enabled="false"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/level_1"
@@ -56,7 +56,6 @@
       android:layout_width="@dimen/rewards_level_icon_size"
       android:layout_height="wrap_content"
       android:layout_marginTop="4dp"
-      android:text="22.5%"
       android:enabled="false"
       app:layout_constraintEnd_toStartOf="@id/level_3_text"
       app:layout_constraintStart_toEndOf="@id/level_1_text"
@@ -81,7 +80,6 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="4dp"
       android:enabled="false"
-      android:text="25%"
       app:layout_constraintEnd_toStartOf="@id/level_4_text"
       app:layout_constraintStart_toEndOf="@id/level_2_text"
       app:layout_constraintTop_toBottomOf="@id/level_2"
@@ -104,7 +102,6 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="4dp"
       android:enabled="false"
-      android:text="30%"
       app:layout_constraintEnd_toStartOf="@id/level_5_text"
       app:layout_constraintStart_toEndOf="@id/level_3_text"
       app:layout_constraintTop_toBottomOf="@id/level_4"
@@ -126,7 +123,6 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="4dp"
       android:enabled="false"
-      android:text="40%"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@id/level_5"
       style="@style/RewardsLevelTextStyle"

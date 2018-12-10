@@ -115,7 +115,7 @@
         android:screenOrientation="portrait"/>
 
     <activity
-        android:name="com.asfoundation.wallet.ui.rewards.RewardsLevelActivity"
+        android:name="com.asfoundation.wallet.ui.gamification.RewardsLevelActivity"
         android:label="@string/title_rewards_level"
         android:screenOrientation="portrait"/>
 
