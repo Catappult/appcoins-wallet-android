@@ -333,8 +333,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     loadedBitmaps.clear();
   }
 
-  @Override
-  public void showPaymentMethods(@NotNull List<PaymentMethod> paymentMethods, FiatValue fiatValue,
+  @Override public void showPaymentMethods(@NotNull List<PaymentMethod> paymentMethods,
+      @NotNull List<PaymentMethod> availablePaymentMethods, FiatValue fiatValue,
       boolean isDonation, String currency) {
     this.fiatValue = fiatValue;
     Formatter formatter = new Formatter();
@@ -362,7 +362,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     presenter.sendPurchaseDetails(PAYMENT_METHOD_CC);
 
     setupPaymentMethods(paymentMethods);
-    showAvailable(paymentMethods);
+    showAvailable(availablePaymentMethods);
     setupSubject.onNext(true);
   }
 
