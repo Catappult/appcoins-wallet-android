@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import com.appcoins.wallet.billing.util.PayloadHelper;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.navigator.UriNavigator;
 import com.asfoundation.wallet.ui.BaseActivity;
@@ -132,8 +133,8 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     finish();
   }
 
-  @Override
-  public void navigateToAdyenAuthorization(boolean isBds, String currency, String paymentType) {
+  @Override public void navigateToAdyenAuthorization(boolean isBds, String currency,
+      PaymentType paymentType) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container,
             AdyenAuthorizationFragment.newInstance(transaction.getSkuId(), transaction.getType(),
@@ -165,7 +166,7 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   }
 
   @Override public void showAdyenPayment(BigDecimal amount, String currency, boolean isBds,
-      String paymentType) {
+      PaymentType paymentType) {
     if (savedInstanceState == null) {
       getSupportFragmentManager().beginTransaction()
           .replace(R.id.fragment_container, ExpressCheckoutBuyFragment.newInstance(

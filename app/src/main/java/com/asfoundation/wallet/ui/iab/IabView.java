@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.os.Bundle;
+import com.asfoundation.wallet.billing.adyen.PaymentType;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -16,13 +17,13 @@ public interface IabView {
 
   void close(Bundle bundle);
 
-  void navigateToAdyenAuthorization(boolean isBds, String currency, String paymentType);
+  void navigateToAdyenAuthorization(boolean isBds, String currency, PaymentType paymentType);
 
   void navigateToWebViewAuthorization(String url);
 
   void showOnChain(BigDecimal amount, boolean isBds);
 
-  void showAdyenPayment(BigDecimal amount, String currency, boolean isBds, String paymentType);
+  void showAdyenPayment(BigDecimal amount, String currency, boolean isBds, PaymentType paymentType);
 
   void showAppcoinsCreditsPayment(BigDecimal amount);
 

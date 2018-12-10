@@ -5,7 +5,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -30,6 +29,7 @@ import com.appcoins.wallet.bdsbilling.WalletService;
 import com.appcoins.wallet.bdsbilling.repository.entity.DeveloperPurchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
@@ -47,7 +47,6 @@ import io.reactivex.subjects.PublishSubject;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.Collection;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.List;
@@ -476,12 +475,12 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override public void showPaypal() {
     iabView.showAdyenPayment(BigDecimal.valueOf(fiatValue.getAmount()), currency, isBds,
-        com.adyen.core.models.PaymentMethod.Type.PAYPAL);
+        PaymentType.PAYPAL);
   }
 
   @Override public void showCreditCard() {
     iabView.showAdyenPayment(BigDecimal.valueOf(fiatValue.getAmount()), currency, isBds,
-        com.adyen.core.models.PaymentMethod.Type.CARD);
+        PaymentType.CARD);
   }
 
   @Override public void showAppCoins() {
