@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.billing.payment;
+package com.asfoundation.wallet.billing.adyen;
 
 import android.content.Context;
 import android.net.Uri;
@@ -14,7 +14,8 @@ import com.adyen.core.models.PaymentMethod;
 import com.adyen.core.models.PaymentRequestResult;
 import com.adyen.core.models.paymentdetails.InputDetail;
 import com.adyen.core.models.paymentdetails.PaymentDetails;
-import com.jakewharton.rxrelay2.PublishRelay;
+import com.jakewharton.rxrelay2.BehaviorRelay;
+import com.jakewharton.rxrelay2.Relay;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -30,27 +31,26 @@ public class Adyen {
   private final Charset dataCharset;
   private final Scheduler scheduler;
 
-  private PublishRelay<AdyenPaymentStatus> status;
-  private PaymentRequest paymentRequest;
-  private DetailsStatus detailsStatus;
-  private PaymentStatus paymentStatus;
+  private volatile BehaviorRelay<AdyenPaymentStatus> status;
+  private volatile PaymentRequest paymentRequest;
+  private volatile DetailsStatus detailsStatus;
+  private volatile PaymentStatus paymentStatus;
 
   public Adyen(Context context, Charset dataCharset, Scheduler scheduler,
-      PublishRelay<AdyenPaymentStatus> paymentRequestStatus) {
+      BehaviorRelay<AdyenPaymentStatus> paymentRequestStatus) {
     this.context = context;
     this.dataCharset = dataCharset;
     this.scheduler = scheduler;
     this.status = paymentRequestStatus;
   }
 
-  public Single<String> createToken() {
-    cancelPreviousToken();
+  public Single<String> getToken() {
     return getStatus().filter(status -> status.getToken() != null)
-        .map(status -> status.getToken())
+        .map(AdyenPaymentStatus::getToken)
         .firstOrError();
   }
 
-  public Completable createPayment(String session) {
+  public Completable completePayment(String session) {
     return getStatus().firstOrError()
         .flatMapCompletable(status -> {
           if (status.getDataCallback() == null) {
@@ -104,58 +104,46 @@ public class Adyen {
 
   public Single<PaymentRequestResult> getPaymentResult() {
     return getStatus().filter(status -> status.getResult() != null)
-        .map(status -> status.getResult())
+        .map(AdyenPaymentStatus::getResult)
         .firstOrError();
   }
 
-  public Single<PaymentRequest> getPaymentData() {
+  public Single<PaymentRequest> getPaymentRequest() {
     return getStatus().filter(status -> status.getPaymentRequest() != null)
-        .map(status -> status.getPaymentRequest())
+        .map(AdyenPaymentStatus::getPaymentRequest)
         .firstOrError();
   }
 
   public Single<String> getRedirectUrl() {
     return getStatus().filter(status -> status.getRedirectUrl() != null)
-        .map(status -> status.getRedirectUrl())
+        .map(AdyenPaymentStatus::getRedirectUrl)
         .firstOrError();
   }
 
-  public Single<PaymentMethod> getCreditCardPaymentService() {
-    return getStatus().flatMap(
-        status -> getRecurringPaymentService(status.getRecurringServices()).switchIfEmpty(
-            getPaymentService(status.getServices(), PaymentMethod.Type.CARD)))
+  public Single<PaymentMethod> getPaymentMethod(PaymentType paymentType) {
+    return getStatus().filter(status -> status.getServices() != null)
+        .flatMap(status -> getPaymentMethod(status.getServices(), status.getRecurringServices(),
+            paymentType))
         .firstOrError();
   }
 
-  private Observable<PaymentMethod> getPaymentService(List<PaymentMethod> services,
-      String paymentType) {
-    return Observable.fromIterable(services)
-        .filter(service -> paymentType.equals(service.getType()))
-        .take(1);
-  }
-
-  private Observable<PaymentMethod> getRecurringPaymentService(List<PaymentMethod> services) {
-    return Observable.fromIterable(services)
+  private Observable<PaymentMethod> getPaymentMethod(List<PaymentMethod> services,
+      List<PaymentMethod> recurringServices, PaymentType paymentType) {
+    return Observable.fromIterable(paymentType.getSubTypes())
+        .concatMap(subType -> Observable.fromIterable(recurringServices)
+            .concatWith(Observable.fromIterable(services))
+            .filter(service -> subType.equals(service.getType())))
         .take(1);
   }
 
   private Observable<AdyenPaymentStatus> getStatus() {
-    return status.startWith(AdyenPaymentStatus.NULL_PAYMENT_STATUS)
-        .map(event -> new AdyenPaymentStatus(paymentStatus.getToken(),
-            paymentStatus.getDataCallback(), paymentStatus.getResult(),
-            detailsStatus.getServiceCallback(), detailsStatus.getRecurringServices(),
-            detailsStatus.getServices(), detailsStatus.getDetailsCallback(),
-            detailsStatus.getPaymentRequest(), detailsStatus.getRedirectUrl(),
-            detailsStatus.getUriCallback()))
-        .subscribeOn(scheduler);
+    return status.subscribeOn(scheduler);
   }
 
-  private void cancelPreviousToken() {
+  public void createNewPayment() {
 
-    if (paymentRequest != null) {
-      detailsStatus.clearStatus();
-      paymentStatus.clearStatus();
-      paymentRequest.cancel();
+    if (isOngoingPayment(paymentRequest)) {
+      cancelPayment();
     }
 
     paymentStatus = new PaymentStatus(status);
@@ -164,14 +152,29 @@ public class Adyen {
     paymentRequest.start();
   }
 
-  public static class PaymentStatus implements PaymentRequestListener {
+  private boolean isOngoingPayment(PaymentRequest paymentRequest) {
+    return paymentRequest != null;
+  }
 
-    private PublishRelay<AdyenPaymentStatus> status;
+  private void publish() {
+    status.accept(AdyenPaymentStatus.from(paymentStatus, detailsStatus));
+  }
+
+  private void cancelPayment() {
+    detailsStatus.clear();
+    paymentStatus.clear();
+    paymentRequest.cancel();
+    paymentRequest = null;
+  }
+
+  public class PaymentStatus implements PaymentRequestListener {
+
+    private Relay<AdyenPaymentStatus> status;
     private String token;
     private PaymentDataCallback dataCallback;
     private PaymentRequestResult result;
 
-    public PaymentStatus(PublishRelay<AdyenPaymentStatus> status) {
+    public PaymentStatus(Relay<AdyenPaymentStatus> status) {
       this.status = status;
     }
 
@@ -200,20 +203,23 @@ public class Adyen {
       return result;
     }
 
-    public void clearStatus() {
-      this.status = null;
-    }
-
     private void notifyStatus() {
       if (status != null) {
-        this.status.accept(AdyenPaymentStatus.NULL_PAYMENT_STATUS);
+        publish();
       }
+    }
+
+    public void clear() {
+      status = null;
+      token = null;
+      dataCallback = null;
+      result = null;
     }
   }
 
-  public static class DetailsStatus implements PaymentRequestDetailsListener {
+  public class DetailsStatus implements PaymentRequestDetailsListener {
 
-    private PublishRelay<AdyenPaymentStatus> status;
+    private Relay<AdyenPaymentStatus> status;
     private PaymentMethodCallback serviceCallback;
     private List<PaymentMethod> services;
     private List<PaymentMethod> recurringServices;
@@ -222,7 +228,7 @@ public class Adyen {
     private UriCallback uriCallback;
     private String redirectUrl;
 
-    public DetailsStatus(PublishRelay<AdyenPaymentStatus> status, List<PaymentMethod> services,
+    public DetailsStatus(Relay<AdyenPaymentStatus> status, List<PaymentMethod> services,
         List<PaymentMethod> recurringServices) {
       this.status = status;
       this.services = services;
@@ -282,14 +288,21 @@ public class Adyen {
       return redirectUrl;
     }
 
-    public void clearStatus() {
-      this.status = null;
-    }
-
     private void notifyStatus() {
       if (status != null) {
-        this.status.accept(AdyenPaymentStatus.NULL_PAYMENT_STATUS);
+        publish();
       }
+    }
+
+    public void clear() {
+      status = null;
+      serviceCallback = null;
+      services = null;
+      recurringServices = null;
+      detailsCallback = null;
+      paymentRequest = null;
+      uriCallback = null;
+      redirectUrl = null;
     }
   }
 }

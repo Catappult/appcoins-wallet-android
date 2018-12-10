@@ -47,26 +47,26 @@ class LevelResourcesMapper {
 
   fun mapTitle(level: Int): Int {
     return when (level) {
-      0 -> R.string.gamification_comet_title
-      1 -> R.string.gamification_moon_title
-      2 -> R.string.gamification_planet_title
-      3 -> R.string.gamification_star_title
-      4 -> R.string.gamification_galaxy_title
+      0 -> R.string.gamification_a_comet_title
+      1 -> R.string.gamification_a_moon_title
+      2 -> R.string.gamification_a_planet_title
+      3 -> R.string.gamification_a_star_title
+      4 -> R.string.gamification_a_galaxy_title
       else -> {
-        R.string.gamification_comet_title
+        R.string.gamification_a_comet_title
       }
     }
   }
 
   fun mapSubtitle(level: Int): Int {
     return when (level) {
-      0 -> R.string.gamification_comet_subtitle
-      1 -> R.string.gamification_moon_subtitle
+      0 -> R.string.gamification_a_comet_subtitle
+      1 -> R.string.gamification_a_moon_subtitle
       2 -> R.string.gamification_planet_subtitle
       3 -> R.string.gamification_star_subtitle
       4 -> R.string.gamification_galaxy_subtitle
       else -> {
-        R.string.gamification_comet_subtitle
+        R.string.gamification_a_comet_subtitle
       }
     }
   }

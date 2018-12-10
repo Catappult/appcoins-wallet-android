@@ -25,8 +25,6 @@
   <string name="title_activity_settings">Settings</string>
   <string name="network_label">Network</string>
   <string name="credits">Credits</string>
-  <string name="app_intro">Intro</string>
-  <string name="action_level">My Level</string>
 
   <string name="low_storage_error">Not enough storage space</string>
   <string name="no_camera_permission">AppCoins BDS Wallet needs permission to access your camera to scan QR codes.</string>
@@ -80,7 +78,6 @@
   <string name="title_activity_confirmation">Confirm</string>
   <string name="title_add_token">Add Custom Token</string>
   <string name="title_airdrop">Airdrop</string>
-  <string name="title_rewards_level">My Rewards Level</string>
   <!-- Suggestions -->
   <string name="suggestion_private_key">Private key has to be 64 characters long</string>
   <string name="suggestion_empty_password_available">The password can be left blank.</string>
@@ -212,6 +209,7 @@
   <string name="transaction_type_poa">Proof of Attention</string>
   <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
   <string name="transaction_type_standard">Transfer</string>
+  <string name="transaction_type_bonus">Bonus</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -228,7 +226,6 @@
   <string name="dialog_credit_card_number">Card Number</string>
   <string name="dialog_credit_card_expiration">Expiration Date</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-
 
   <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
   <string name="activity_airdrop_details">This is just a security thing.</string>
@@ -255,24 +252,33 @@
   <string name="action_skip_backup_wallet">SKIP BACKUP</string>
   <string name="item_donation">Donation</string>
 
-  <!-- Gamification -->
+
+  <!-- Payment Selection Screen -->
+  <string name="paypal">Paypal</string>
+  <string name="credit_card">Credit Card</string>
+  <string name="appcoins_appc">AppCoins (APPC)</string>
+  <string name="appc_credits">APPC Credits</string>
+
+    <!-- Gamification -->
   <string name="gamification_level_title">What\'s My Level?</string>
-  <string name="gamification_level_header">Congrats, you\'re a %s!</string>
+  <string name="gamification_level_header">Congrats, you\'re %s!</string>
   <string name="gamification_level_earned">EARNED:</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">HOW IT WORKS</string>
   <string name="gamification_how_header">How to Level Up?</string>
   <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games</string>
   <string name="gamification_how_spend">SPEND %s APPC</string>
-  <string name="gamification_comet_title">Comet</string>
-  <string name="gamification_moon_title">Moon</string>
-  <string name="gamification_planet_title">Planet</string>
-  <string name="gamification_star_title">Star</string>
-  <string name="gamification_galaxy_title">Galaxy</string>
-  <string name="gamification_comet_subtitle">Be careful and don\'t hit a planet!</string>
-  <string name="gamification_moon_subtitle">A natural satellite</string>
+  <string name="gamification_a_comet_title">a Comet</string>
+  <string name="gamification_a_moon_title">a Moon</string>
+  <string name="gamification_a_planet_title">a Planet</string>
+  <string name="gamification_a_star_title">a Star</string>
+  <string name="gamification_a_galaxy_title">a Galaxy</string>
+  <string name="gamification_a_comet_subtitle">Be careful and don\'t hit a planet!</string>
+  <string name="gamification_a_moon_subtitle">A natural satellite</string>
   <string name="gamification_planet_subtitle">Spinning around a big star</string>
   <string name="gamification_star_subtitle">Shinny, big and full of life!</string>
   <string name="gamification_galaxy_subtitle">The biggest system out there!</string>
+  <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
+  <string name="action_level">My Level</string>
 
 </resources>

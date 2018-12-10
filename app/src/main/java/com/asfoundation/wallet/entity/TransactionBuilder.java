@@ -135,6 +135,10 @@ public class TransactionBuilder implements Parcelable {
     return decimals;
   }
 
+  public void setDomain(String domain) {
+    this.domain = domain;
+  }
+
   public TransactionBuilder shouldSendToken(boolean shouldSendToken) {
     this.shouldSendToken = shouldSendToken;
     return this;
