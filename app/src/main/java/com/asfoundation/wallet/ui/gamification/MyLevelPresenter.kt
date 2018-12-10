@@ -43,7 +43,7 @@ class MyLevelPresenter(private val view: MyLevelView,
         list.add(level.bonus)
       }
       status =
-          UserRewardsStatus(userStats.level, userStats.totalEaned.setScale(2, RoundingMode.HALF_UP),
+          UserRewardsStatus(userStats.level, userStats.totalEarned.setScale(2, RoundingMode.HALF_UP),
               list)
     }
     return status
