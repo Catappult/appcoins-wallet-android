@@ -255,13 +255,6 @@
   <string name="item_donation">Donation</string>
   <string name="fragment_adyen_generic_error_message">An error has occurred</string>
 
-
-  <!-- Payment Selection Screen -->
-  <string name="paypal">Paypal</string>
-  <string name="credit_card">Credit Card</string>
-  <string name="appcoins_appc">AppCoins (APPC)</string>
-  <string name="appc_credits">APPC Credits</string>
-
     <!-- Gamification -->
   <string name="gamification_level_title">What\'s My Level?</string>
   <string name="gamification_level_header">Congrats, you\'re %s!</string>
