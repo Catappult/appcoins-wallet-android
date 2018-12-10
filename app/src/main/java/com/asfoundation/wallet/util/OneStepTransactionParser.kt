@@ -71,23 +71,23 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
     return uri.parameters[Parameters.CURRENCY]
   }
 
-  private fun getChainId(uri: OneStepUri): Long? {
+  private fun getChainId(uri: OneStepUri): Long {
     return if (uri.host == BuildConfig.PAYMENT_HOST_MAIN_NETWORK)
       Parameters.NETWORK_ID_MAIN else Parameters.NETWORK_ID_ROPSTEN
   }
 
-  private fun getToken(): Single<Token>? {
+  private fun getToken(): Single<Token> {
     return proxyService.getAppCoinsAddress(BuildConfig.DEBUG).flatMap { tokenAddress ->
       findDefaultWalletInteract.find().flatMap { wallet: Wallet ->
         tokenRepositoryType.fetchAll(wallet.address)
             .flatMapIterable { tokens: Array<Token> -> tokens.toCollection(ArrayList()) }
             .filter { token: Token -> token.tokenInfo.address.equals(tokenAddress, true) }
             .toList()
-      }.map { tokens ->
+      }.flatMap { tokens ->
         if (tokens.isEmpty()) {
-          throw UnknownTokenException()
+          Single.error(UnknownTokenException())
         } else {
-          tokens[0]
+          Single.just(tokens[0])
         }
       }
     }
@@ -105,7 +105,7 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
     val domain = getDomain(uri)
     val toAddressWallet = getToAddress(uri)
     if (domain == null && toAddressWallet == null) {
-      throw MissingWalletException()
+      return Single.error(MissingWalletException())
     }
 
     return if (domain != null) {
@@ -122,7 +122,7 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
       billing.getProducts(packageName, listOf(skuId))
           .map { products -> products[0] }.map { product -> BigDecimal(product.price.amount) }
     } else {
-      throw MissingProductException()
+      Single.error(MissingProductException())
     }
   }
 
