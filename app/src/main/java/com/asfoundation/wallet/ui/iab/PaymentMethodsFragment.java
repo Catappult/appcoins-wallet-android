@@ -111,7 +111,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private RadioButton creditCardRadioButton;
   private RadioButton paypalRadioButton;
   private View appcView;
-  private View appcCreditsView;
   private View creditCardView;
   private View paypalView;
   private String productName;
@@ -235,7 +234,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     creditCardRadioButton = view.findViewById(R.id.credit_card);
     paypalRadioButton = view.findViewById(R.id.paypal);
     appcView = view.findViewById(R.id.appc_view);
-    appcCreditsView = view.findViewById(R.id.appc_credits_view);
     creditCardView = view.findViewById(R.id.credit_card_view);
     paypalView = view.findViewById(R.id.paypal_view);
 
@@ -454,7 +452,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     appcRadioButton.setVisibility(View.GONE);
     appcView.setVisibility(View.GONE);
     appcCreditsRadioButton.setVisibility(View.GONE);
-    appcCreditsView.setVisibility(View.GONE);
     creditCardRadioButton.setVisibility(View.GONE);
     creditCardView.setVisibility(View.GONE);
     paypalRadioButton.setVisibility(View.GONE);
