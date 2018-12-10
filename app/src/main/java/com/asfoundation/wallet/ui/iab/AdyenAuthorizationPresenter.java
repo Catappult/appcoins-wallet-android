@@ -8,6 +8,7 @@ import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asfoundation.wallet.billing.BillingService;
 import com.asfoundation.wallet.billing.adyen.Adyen;
+import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -51,7 +52,7 @@ public class AdyenAuthorizationPresenter {
   private final String amount;
   private final String currency;
   private final String appPackage;
-  private final String paymentType;
+  private final PaymentType paymentType;
   private AdyenAuthorizationView view;
   private FindDefaultWalletInteract defaultWalletInteract;
   private BillingAnalytics analytics;
@@ -64,7 +65,7 @@ public class AdyenAuthorizationPresenter {
       Navigator navigator, BillingMessagesMapper billingMessagesMapper,
       InAppPurchaseInteractor inAppPurchaseInteractor, String transactionData,
       String developerPayload, Billing billing, String skuId, String type, String origin,
-      String amount, String currency, String paymentType, BillingAnalytics analytics) {
+      String amount, String currency, PaymentType paymentType, BillingAnalytics analytics) {
     this.view = view;
     this.appPackage = appPackage;
     this.defaultWalletInteract = defaultWalletInteract;

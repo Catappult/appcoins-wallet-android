@@ -27,6 +27,7 @@ import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
 import com.appcoins.wallet.bdsbilling.repository.entity.DeveloperPurchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -95,15 +96,15 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   private PublishSubject<Boolean> setupSubject;
   private View processingDialog;
   private TextView walletAddressView;
-  private String paymentType;
+  private PaymentType paymentType;
 
   public static ExpressCheckoutBuyFragment newInstance(Bundle extras, boolean isBds,
-      String paymentType) {
+      PaymentType paymentType) {
     ExpressCheckoutBuyFragment fragment = new ExpressCheckoutBuyFragment();
     Bundle bundle = new Bundle();
     bundle.putBundle("extras", extras);
     bundle.putBoolean("isBds", isBds);
-    bundle.putString("paymentType", paymentType);
+    bundle.putString("paymentType", paymentType.name());
     fragment.setArguments(bundle);
     return fragment;
   }
@@ -125,7 +126,8 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     String uriString = extras.getString(TRANSACTION_DATA);
 
     boolean isBds = getArguments().getBoolean("isBds");
-    paymentType = getArguments().getString("paymentType");
+
+    paymentType = PaymentType.valueOf(getArguments().getString("paymentType"));
 
     presenter = new ExpressCheckoutBuyPresenter(this, getAppPackage(), inAppPurchaseInteractor,
         AndroidSchedulers.mainThread(), new CompositeDisposable(),

@@ -190,12 +190,16 @@ public class InAppPurchaseInteractor {
     return transactionIdRepository.getTransactionUid(uid);
   }
 
-  public Single<List<PaymentMethod>> getPaymentMethods(TransactionBuilder transaction) {
-    return bdsInAppPurchaseInteractor.getPaymentMethods()
-        .flatMap(paymentMethods -> getFilteredGateways(transaction).map(filteredGateways -> {
+  public Single<List<PaymentMethod>> getAvailablePaymentMethods(TransactionBuilder transaction) {
+    return getPaymentMethods().flatMap(
+        paymentMethods -> getFilteredGateways(transaction).map(filteredGateways -> {
           removeUnavailable(paymentMethods, filteredGateways);
           return paymentMethods;
         }));
+  }
+
+  public Single<List<PaymentMethod>> getPaymentMethods() {
+    return bdsInAppPurchaseInteractor.getPaymentMethods();
   }
 
   private void removeUnavailable(List<PaymentMethod> paymentMethods,

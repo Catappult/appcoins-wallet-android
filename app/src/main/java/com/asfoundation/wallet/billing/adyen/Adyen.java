@@ -120,16 +120,19 @@ public class Adyen {
         .firstOrError();
   }
 
-  public Single<PaymentMethod> getPaymentMethod(String paymentType) {
+  public Single<PaymentMethod> getPaymentMethod(PaymentType paymentType) {
     return getStatus().filter(status -> status.getServices() != null)
-        .flatMap(status -> getPaymentMethod(status.getServices(), paymentType))
+        .flatMap(status -> getPaymentMethod(status.getServices(), status.getRecurringServices(),
+            paymentType))
         .firstOrError();
   }
 
   private Observable<PaymentMethod> getPaymentMethod(List<PaymentMethod> services,
-      String paymentType) {
-    return Observable.fromIterable(services)
-        .filter(service -> paymentType.equals(service.getType()))
+      List<PaymentMethod> recurringServices, PaymentType paymentType) {
+    return Observable.fromIterable(paymentType.getSubTypes())
+        .concatMap(subType -> Observable.fromIterable(recurringServices)
+            .concatWith(Observable.fromIterable(services))
+            .filter(service -> subType.equals(service.getType())))
         .take(1);
   }
 
@@ -147,8 +150,6 @@ public class Adyen {
     detailsStatus = new DetailsStatus(status, Collections.emptyList(), Collections.emptyList());
     paymentRequest = new PaymentRequest(context, paymentStatus, detailsStatus);
     paymentRequest.start();
-
-    publish();
   }
 
   private boolean isOngoingPayment(PaymentRequest paymentRequest) {
@@ -164,8 +165,6 @@ public class Adyen {
     paymentStatus.clear();
     paymentRequest.cancel();
     paymentRequest = null;
-
-    publish();
   }
 
   public class PaymentStatus implements PaymentRequestListener {

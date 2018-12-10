@@ -170,7 +170,13 @@ public class PaymentMethodsPresenter {
   private void setupUi(double transactionValue, String currency) {
     setWalletAddress();
     disposables.add(Single.zip(transactionBuilder.flatMap(
-        transaction -> inAppPurchaseInteractor.getPaymentMethods(transaction)
+        transaction -> inAppPurchaseInteractor.getPaymentMethods()
+            .subscribeOn(networkThread)
+            .flatMap(paymentMethods -> Observable.fromIterable(paymentMethods)
+                .map(paymentMethod -> new PaymentMethod(paymentMethod.getId(),
+                    paymentMethod.getLabel(), paymentMethod.getIconUrl(), true))
+                .toList())), transactionBuilder.flatMap(
+        transaction -> inAppPurchaseInteractor.getAvailablePaymentMethods(transaction)
             .subscribeOn(networkThread)
             .flatMap(paymentMethods -> Observable.fromIterable(paymentMethods)
                 .map(paymentMethod -> new PaymentMethod(paymentMethod.getId(),
@@ -178,8 +184,8 @@ public class PaymentMethodsPresenter {
                 .toList()))
             .observeOn(viewScheduler),
         inAppPurchaseInteractor.convertToFiat(transactionValue, currency),
-        (paymentMethods, fiatValue) -> Completable.fromAction(
-            () -> view.showPaymentMethods(paymentMethods, fiatValue,
+        (paymentMethods, availablePaymentMethods, fiatValue) -> Completable.fromAction(
+            () -> view.showPaymentMethods(paymentMethods, availablePaymentMethods, fiatValue,
                 TransactionData.TransactionType.DONATION.name()
                     .equalsIgnoreCase(transactionBuilder.blockingGet()
                         .getType()), mapCurrencyCodeToSymbol(fiatValue.getCurrency())))

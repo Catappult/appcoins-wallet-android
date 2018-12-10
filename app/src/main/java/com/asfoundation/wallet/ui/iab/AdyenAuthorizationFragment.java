@@ -28,6 +28,7 @@ import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.adyen.Adyen;
+import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
 import com.asfoundation.wallet.billing.purchase.BillingFactory;
@@ -106,13 +107,13 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   private FragmentNavigator navigator;
 
   public static AdyenAuthorizationFragment newInstance(String skuId, String type, String origin,
-      String paymentType, String domain, String transactionData, BigDecimal amount,
+      PaymentType paymentType, String domain, String transactionData, BigDecimal amount,
       String currency) {
     Bundle bundle = new Bundle();
     bundle.putString(SKU_ID, skuId);
     bundle.putString(TYPE, type);
     bundle.putString(ORIGIN, origin);
-    bundle.putString(PAYMENT_TYPE, paymentType);
+    bundle.putString(PAYMENT_TYPE, paymentType.name());
     bundle.putString(APP_PACKAGE, domain);
     bundle.putString(TRANSACTION_DATA, transactionData);
     bundle.putSerializable(TRANSACTION_AMOUNT, amount);
@@ -468,9 +469,9 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     throw new IllegalArgumentException("transaction currency not found");
   }
 
-  private String getPaymentType() {
+  private PaymentType getPaymentType() {
     if (getArguments().containsKey(PAYMENT_TYPE)) {
-      return getArguments().getString(PAYMENT_TYPE);
+      return PaymentType.valueOf(getArguments().getString(PAYMENT_TYPE));
     }
     throw new IllegalArgumentException("Payment Type not found");
   }
