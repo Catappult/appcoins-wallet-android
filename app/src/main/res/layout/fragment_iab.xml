@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="296dp"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
@@ -12,15 +11,5 @@
   <include layout="@layout/fragment_iab_transaction_completed"/>
   <include layout="@layout/fragment_iab_error"/>
   <include layout="@layout/fragment_express_checkout_buy"/>
-
-  <include
-      layout="@layout/iab_activity_raiden"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:visibility="gone"
-      app:layout_constraintTop_toBottomOf="@+id/iab_activity_buy_layout"
-      />
-
-
 </android.support.constraint.ConstraintLayout>
 
