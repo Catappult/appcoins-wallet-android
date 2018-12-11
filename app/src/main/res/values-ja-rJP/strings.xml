@@ -63,41 +63,41 @@
   <string name="unknown_error">エラーが発生しました。</string>
   <string name="action_backup_wallet">ウォレットをバックアップする</string>
   <string name="no_tokens">すべてのカスタム トークンをまだ追加していません。</string>
-  <string name="title_email">Email us</string>
-  <string name="action_donate">Donate</string>
+  <string name="title_email">私たちにメールで問い合わせる</string>
+  <string name="action_donate">寄付する</string>
   <!-- Titles -->
-  <string name="title_my_address">Receive</string>
-  <string name="title_my_tokens">My Tokens</string>
-  <string name="title_activity_send">Send</string>
-  <string name="title_activity_confirmation">Confirm</string>
-  <string name="title_add_token">Add Custom Token</string>
-  <string name="title_airdrop">Airdrop</string>
+  <string name="title_my_address">受け取る</string>
+  <string name="title_my_tokens">私のトークン</string>
+  <string name="title_activity_send">送信する</string>
+  <string name="title_activity_confirmation">承認する</string>
+  <string name="title_add_token">カスタム トークンを追加する</string>
+  <string name="title_airdrop">エアドロップ</string>
   <!-- Suggestions -->
-  <string name="suggestion_private_key">Private key has to be 64 characters long</string>
-  <string name="suggestion_empty_password_available">The password can be left blank.</string>
-  <string name="suggestion_this_is_your_address">My public %s wallet address</string>
+  <string name="suggestion_private_key">プライベートキーは、64 文字の長さでなければなりません</string>
+  <string name="suggestion_empty_password_available">パスワードは空白のままにすることができます。</string>
+  <string name="suggestion_this_is_your_address">私の公式 %s ウォレットアドレス</string>
   <!-- Hints -->
-  <string name="hint_private_key_field">Private key *</string>
-  <string name="hint_keystore">Keystore *</string>
+  <string name="hint_private_key_field">プライベートキー *</string>
+  <string name="hint_keystore">キーストア *</string>
   <!-- Tabs labels-->
-  <string name="tab_keystore">Keystore</string>
-  <string name="tab_private_key">Private key</string>
+  <string name="tab_keystore">キーストア</string>
+  <string name="tab_private_key">プライベートキー</string>
   <!-- Dialog titles -->
-  <string name="title_dialog_error">Error</string>
-  <string name="title_dialog_handling">Processing…</string>
-  <string name="title_dialog_add_account">Add wallet</string>
+  <string name="title_dialog_error">エラー</string>
+  <string name="title_dialog_handling">処理しています...</string>
+  <string name="title_dialog_add_account">ウォレットを追加する</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Set a password to encrypt your wallet</string>
-  <string name="toast_message_wallet_imported">The wallet was imported</string>
-  <string name="toast_message_wallet_exported">A backup was created</string>
-  <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
+  <string name="dialog_message">あなたのウォレットを暗号化するためのパスワードを設定する</string>
+  <string name="toast_message_wallet_imported">ウォレットがインポートされました</string>
+  <string name="toast_message_wallet_exported">バックアップを作成しました。</string>
+  <string name="toast_qr_code_no_address">QR コードに有効なアドレスが含まれていません。</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">AppCoins BDS Wallet</string>
-  <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
-  <string name="intro_title_third_page">Simple &amp; Easy</string>
+  <string name="intro_title_first_page">AppCoins BDS ウォレット</string>
+  <string name="intro_title_second_page"><![CDATA[プライベート ・安全]]></string>
+  <string name="intro_title_third_page">単純な &amp; 簡単</string>
   <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
   <string name="intro_message_second_page">Private keys never leave your device.</string>
   <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
