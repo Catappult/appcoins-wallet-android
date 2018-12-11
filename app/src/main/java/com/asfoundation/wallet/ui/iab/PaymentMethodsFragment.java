@@ -119,6 +119,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private String developerPayload;
   private boolean isBds;
   private String uri;
+  private View bonusView;
+  private TextView bonusValue;
 
   public static Fragment newInstance(TransactionBuilder transaction, String currency,
       String productName, boolean isBds, String developerPayload, String uri) {
@@ -176,36 +178,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     presenter = new PaymentMethodsPresenter(this, appPackage, AndroidSchedulers.mainThread(),
         Schedulers.io(), new CompositeDisposable(), inAppPurchaseInteractor,
         inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing,
-        analytics, isBds, Single.just(transaction), developerPayload, uri, walletService);
-  }
-
-  @Override public void onDestroyView() {
-    presenter.stop();
-    compositeDisposable.clear();
-    radioGroup = null;
-    loadingView = null;
-    dialog = null;
-    addressFooter = null;
-    errorView = null;
-    errorMessage = null;
-    processingDialog = null;
-    appIcon = null;
-    buyButton = null;
-    cancelButton = null;
-    errorDismissButton = null;
-    appcPriceTv = null;
-    fiatPriceTv = null;
-    appNameTv = null;
-    appSkuDescriptionTv = null;
-    walletAddressTv = null;
-    appcRadioButton = null;
-    appcCreditsRadioButton = null;
-    super.onDestroyView();
-  }
-
-  @Override public void onDetach() {
-    super.onDetach();
-    iabView = null;
+        analytics, isBds, Single.just(transaction), developerPayload, uri, walletService,
+        new Gamification());
   }
 
   @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -236,10 +210,41 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     appcView = view.findViewById(R.id.appc_view);
     creditCardView = view.findViewById(R.id.credit_card_view);
     paypalView = view.findViewById(R.id.paypal_view);
-
+    bonusView = view.findViewById(R.id.bonus_layout);
+    bonusValue = view.findViewById(R.id.bonus_value);
     setupAppNameAndIcon();
 
     presenter.present(transactionValue, currency, savedInstanceState);
+  }
+
+  @Override public void onDetach() {
+    super.onDetach();
+    iabView = null;
+  }
+
+  @Override public void onDestroyView() {
+    presenter.stop();
+    compositeDisposable.clear();
+    radioGroup = null;
+    loadingView = null;
+    dialog = null;
+    addressFooter = null;
+    errorView = null;
+    errorMessage = null;
+    processingDialog = null;
+    appIcon = null;
+    buyButton = null;
+    cancelButton = null;
+    errorDismissButton = null;
+    appcPriceTv = null;
+    fiatPriceTv = null;
+    appNameTv = null;
+    appSkuDescriptionTv = null;
+    walletAddressTv = null;
+    appcRadioButton = null;
+    appcCreditsRadioButton = null;
+    bonusView = null;
+    super.onDestroyView();
   }
 
   private void setupAppNameAndIcon() {
@@ -496,5 +501,15 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override public void showCredits() {
     iabView.showAppcoinsCreditsPayment(transaction.amount());
+  }
+
+  @Override public void hideBonus() {
+    bonusView.setVisibility(View.GONE);
+  }
+
+  @Override public void showBonus(@NotNull BigDecimal bonus) {
+    bonusValue.setText(getString(R.string.gamification_purchase_body, bonus.stripTrailingZeros()
+        .toPlainString()));
+    bonusView.setVisibility(View.VISIBLE);
   }
 }

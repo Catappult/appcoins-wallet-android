@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import io.reactivex.Observable
 import java.io.IOException
+import java.math.BigDecimal
 
 interface PaymentMethodsView {
   fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, availablePaymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue,
@@ -26,6 +27,8 @@ interface PaymentMethodsView {
   fun showCreditCard()
   fun showAppCoins()
   fun showCredits()
+  fun hideBonus()
+  fun showBonus(bonus: BigDecimal)
 
   enum class SelectedPaymentMethod {
     PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS

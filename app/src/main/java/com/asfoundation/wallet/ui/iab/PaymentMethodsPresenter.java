@@ -18,6 +18,7 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import java.math.BigDecimal;
 import java.util.Currency;
 
 public class PaymentMethodsPresenter {
@@ -37,13 +38,14 @@ public class PaymentMethodsPresenter {
   private final String developerPayload;
   private final String uri;
   private final WalletService walletService;
+  private final Gamification gamification;
 
   public PaymentMethodsPresenter(PaymentMethodsView view, String appPackage,
       Scheduler viewScheduler, Scheduler networkThread, CompositeDisposable disposables,
       InAppPurchaseInteractor inAppPurchaseInteractor, BillingMessagesMapper billingMessagesMapper,
       BdsPendingTransactionService bdsPendingTransactionService, Billing billing,
       BillingAnalytics analytics, boolean isBds, Single<TransactionBuilder> transactionBuilder,
-      String developerPayload, String uri, WalletService walletService) {
+      String developerPayload, String uri, WalletService walletService, Gamification gamification) {
     this.view = view;
     this.appPackage = appPackage;
     this.viewScheduler = viewScheduler;
@@ -59,6 +61,7 @@ public class PaymentMethodsPresenter {
     this.developerPayload = developerPayload;
     this.uri = uri;
     this.walletService = walletService;
+    this.gamification = gamification;
   }
 
   public void present(double transactionValue, String currency, Bundle savedInstanceState) {
@@ -69,6 +72,20 @@ public class PaymentMethodsPresenter {
       handleOnGoingPurchases();
     }
     handleBuyClick();
+    showBonus();
+  }
+
+  private void showBonus() {
+    disposables.add(gamification.getEarningBonus()
+        .observeOn(viewScheduler)
+        .doOnSuccess(bonus -> {
+          if (bonus.compareTo(BigDecimal.ZERO) <= 0) {
+            view.hideBonus();
+          } else {
+            view.showBonus(bonus);
+          }
+        })
+        .subscribe());
   }
 
   private void handleBuyClick() {
