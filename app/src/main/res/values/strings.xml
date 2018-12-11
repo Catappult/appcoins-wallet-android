@@ -252,13 +252,6 @@
   <string name="action_skip_backup_wallet">SKIP BACKUP</string>
   <string name="item_donation">Donation</string>
 
-
-  <!-- Payment Selection Screen -->
-  <string name="paypal">Paypal</string>
-  <string name="credit_card">Credit Card</string>
-  <string name="appcoins_appc">AppCoins (APPC)</string>
-  <string name="appc_credits">APPC Credits</string>
-
     <!-- Gamification -->
   <string name="gamification_level_title">What\'s My Level?</string>
   <string name="gamification_level_header">Congrats, you\'re %s!</string>
