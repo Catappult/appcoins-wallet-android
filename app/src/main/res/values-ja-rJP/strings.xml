@@ -63,73 +63,73 @@
   <string name="unknown_error">エラーが発生しました。</string>
   <string name="action_backup_wallet">ウォレットをバックアップする</string>
   <string name="no_tokens">すべてのカスタム トークンをまだ追加していません。</string>
-  <string name="title_email">Email us</string>
-  <string name="action_donate">Donate</string>
+  <string name="title_email">私たちにメールで問い合わせる</string>
+  <string name="action_donate">寄付する</string>
   <!-- Titles -->
-  <string name="title_my_address">Receive</string>
-  <string name="title_my_tokens">My Tokens</string>
-  <string name="title_activity_send">Send</string>
-  <string name="title_activity_confirmation">Confirm</string>
-  <string name="title_add_token">Add Custom Token</string>
-  <string name="title_airdrop">Airdrop</string>
+  <string name="title_my_address">受け取る</string>
+  <string name="title_my_tokens">私のトークン</string>
+  <string name="title_activity_send">送信する</string>
+  <string name="title_activity_confirmation">承認する</string>
+  <string name="title_add_token">カスタム トークンを追加する</string>
+  <string name="title_airdrop">エアドロップ</string>
   <!-- Suggestions -->
-  <string name="suggestion_private_key">Private key has to be 64 characters long</string>
-  <string name="suggestion_empty_password_available">The password can be left blank.</string>
-  <string name="suggestion_this_is_your_address">My public %s wallet address</string>
+  <string name="suggestion_private_key">プライベートキーは、64 文字の長さでなければなりません</string>
+  <string name="suggestion_empty_password_available">パスワードは空白のままにすることができます。</string>
+  <string name="suggestion_this_is_your_address">私の公式 %s ウォレットアドレス</string>
   <!-- Hints -->
-  <string name="hint_private_key_field">Private key *</string>
-  <string name="hint_keystore">Keystore *</string>
+  <string name="hint_private_key_field">プライベートキー *</string>
+  <string name="hint_keystore">キーストア *</string>
   <!-- Tabs labels-->
-  <string name="tab_keystore">Keystore</string>
-  <string name="tab_private_key">Private key</string>
+  <string name="tab_keystore">キーストア</string>
+  <string name="tab_private_key">プライベートキー</string>
   <!-- Dialog titles -->
-  <string name="title_dialog_error">Error</string>
-  <string name="title_dialog_handling">Processing…</string>
-  <string name="title_dialog_add_account">Add wallet</string>
+  <string name="title_dialog_error">エラー</string>
+  <string name="title_dialog_handling">処理しています...</string>
+  <string name="title_dialog_add_account">ウォレットを追加する</string>
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Set a password to encrypt your wallet</string>
-  <string name="toast_message_wallet_imported">The wallet was imported</string>
-  <string name="toast_message_wallet_exported">A backup was created</string>
-  <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
+  <string name="dialog_message">あなたのウォレットを暗号化するためのパスワードを設定する</string>
+  <string name="toast_message_wallet_imported">ウォレットがインポートされました</string>
+  <string name="toast_message_wallet_exported">バックアップを作成しました。</string>
+  <string name="toast_qr_code_no_address">QR コードに有効なアドレスが含まれていません。</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">AppCoins BDS Wallet</string>
-  <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
-  <string name="intro_title_third_page">Simple &amp; Easy</string>
-  <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
-  <string name="intro_message_second_page">Private keys never leave your device.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
+  <string name="intro_title_first_page">AppCoins BDS ウォレット</string>
+  <string name="intro_title_second_page"><![CDATA[プライベート ・安全]]></string>
+  <string name="intro_title_third_page">単純な &amp; 簡単</string>
+  <string name="intro_message_first_page">アプリ経済革命へようこそ。</string>
+  <string name="intro_message_second_page">プライベートキーを、お使いのデバイスにて放置したままにしないでください。</string>
+  <string name="intro_message_third_page">すべてのアプリ内の支払いと APPC で報酬を処理します。</string>
   <!-- Menus -->
   <!-- Labels -->
-  <string name="label_from">From</string>
-  <string name="label_to">To</string>
-  <string name="label_gas_limit">Gas Limit</string>
-  <string name="label_gas_price">Gas Price</string>
-  <string name="label_network_fee">Network Fee</string>
-  <string name="button_ok">OK</string>
-  <string name="hint_recipient_address">Recipient Address</string>
-  <string name="hint_amount">Amount</string>
-  <string name="hint_amount_with_token">Amount %s</string>
-  <string name="hint_contract_address">Contract address</string>
-  <string name="hint_contract_symbol">Symbol</string>
-  <string name="hint_contract_decimals">Decimals</string>
-  <string name="button_cancel">CANCEL</string>
-  <string name="button_yes">YES</string>
+  <string name="label_from">差出人</string>
+  <string name="label_to">受取人</string>
+  <string name="label_gas_limit">ガスの制限</string>
+  <string name="label_gas_price">ガスの価格</string>
+  <string name="label_network_fee">ネットワーク料</string>
+  <string name="button_ok">わかりました</string>
+  <string name="hint_recipient_address">受取人のアドレス</string>
+  <string name="hint_amount">量</string>
+  <string name="hint_amount_with_token">量 %s</string>
+  <string name="hint_contract_address">契約アドレス</string>
+  <string name="hint_contract_symbol">シンボル</string>
+  <string name="hint_contract_decimals">小数点以下の桁数</string>
+  <string name="button_cancel">キャンセルする</string>
+  <string name="button_yes">はい</string>
   <!-- Subtitles -->
-  <string name="subtitle_from">From</string>
-  <string name="subtitle_gas_fee">Fee</string>
-  <string name="subtitle_transaction_num">Transaction</string>
+  <string name="subtitle_from">差出人</string>
+  <string name="subtitle_gas_fee">料金</string>
+  <string name="subtitle_transaction_num">取引</string>
   <!-- Actions -->
-  <string name="action_more_details">More</string>
-  <string name="action_add_wallet">Add wallet</string>
+  <string name="action_more_details">もっと</string>
+  <string name="action_add_wallet">ウォレットを追加する</string>
   <string name="action_coinbase">Coinbase</string>
   <string name="action_shapeshift">Shapeshift (Crypto only)</string>
   <string name="action_changelly">Changelly</string>
-  <string name="action_wallets">Wallets</string>
-  <string name="action_next">Next</string>
-  <string name="action_edit">Edit</string>
+  <string name="action_wallets">ウォレット</string>
+  <string name="action_next">次に</string>
+  <string name="action_edit">編集する</string>
   <string name="action_save">保存する</string>
   <!-- Subject -->
   <string name="error_fail_generate_qr">QR コードを生成できませんでした。</string>
@@ -261,6 +261,6 @@
   <string name="gamification_star_subtitle">輝き、大きい、いっぱいの人生！</string>
   <string name="gamification_galaxy_subtitle">史上最大のシステムです！</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Purchase Bonus:</string>
-  <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
+  <string name="gamification_purchase_header">購入特典:</string>
+  <string name="gamification_purchase_body">%s APPC クレジットはウォレットに加算されます。</string>
 </resources>
