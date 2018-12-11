@@ -111,6 +111,7 @@ import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper;
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor;
 import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService;
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
+import com.asfoundation.wallet.ui.gamification.LevelResourcesMapper;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationMapper;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository;
 import com.asfoundation.wallet.ui.iab.AppInfoProvider;
@@ -768,5 +769,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Singleton @Provides GamificationInteractor provideGamificationInteractor(
       Gamification gamification, FindDefaultWalletInteract defaultWallet) {
     return new GamificationInteractor(gamification, defaultWallet);
+  }
+
+  @Singleton @Provides LevelResourcesMapper providesLevelResourcesMapper() {
+    return new LevelResourcesMapper();
   }
 }

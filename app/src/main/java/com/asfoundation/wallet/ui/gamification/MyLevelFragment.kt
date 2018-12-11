@@ -24,9 +24,11 @@ import javax.inject.Inject
 class MyLevelFragment : DaggerFragment(), MyLevelView {
   @Inject
   lateinit var gamificationInteractor: GamificationInteractor
+  @Inject
+  lateinit var levelResourcesMapper: LevelResourcesMapper
+
   private lateinit var presenter: MyLevelPresenter
   private lateinit var gamificationView: GamificationView
-  private lateinit var levelResourcesMapper: LevelResourcesMapper
   private var currentLevel = 0
   private var step = 100
 
@@ -34,7 +36,6 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     super.onCreate(savedInstanceState)
     presenter = MyLevelPresenter(this, gamificationInteractor, Schedulers.io(),
         AndroidSchedulers.mainThread())
-    levelResourcesMapper = LevelResourcesMapper()
   }
 
   override fun onAttach(context: Context?) {
@@ -53,11 +54,10 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    setupLayout()
     presenter.present(savedInstanceState)
   }
 
-  private fun setupLayout() {
+  override fun setupLayout() {
     setLevelIcons(0)
     setLevelIcons(1)
     setLevelIcons(2)
@@ -143,16 +143,6 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     }
   }
 
-  private fun levelDown(level: Int) {
-    when (level) {
-      0 -> animateLevelDown(level_1, level_1_text)
-      1 -> animateLevelDown(level_2, level_2_text)
-      2 -> animateLevelDown(level_3, level_3_text)
-      3 -> animateLevelDown(level_4, level_4_text)
-      4 -> animateLevelDown(level_5, level_5_text)
-    }
-  }
-
   private fun levelShow(level: Int) {
     when (level) {
       0 -> animateLevelShow(level_1, level_1_text)
@@ -202,13 +192,6 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
         listener)
   }
 
-  private fun animateLevelDown(levelIcon: View?, levelText: TextView?) {
-    val activeIcon = levelIcon?.findViewById(R.id.level_active_icon) as ImageView
-    startReduceAnimation(activeIcon)
-    levelText?.isEnabled = false
-    levelText?.visibility = View.INVISIBLE
-  }
-
   private fun animateLevelToLock(levelIcon: View?, levelText: TextView?) {
     var icon: ImageView = levelIcon?.findViewById(R.id.level_active_icon) as ImageView
     startShrinkAnimation(icon)
@@ -234,12 +217,6 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   private fun startRebounceAnimation(view: View?, listener: AnimationListener) {
     val animation = AnimationUtils.loadAnimation(activity, R.anim.rebounce_animation)
     animation.setAnimationListener(listener)
-    animation.fillAfter = true
-    view?.startAnimation(animation)
-  }
-
-  private fun startReduceAnimation(view: View?) {
-    val animation = AnimationUtils.loadAnimation(activity, R.anim.reduce_animation)
     animation.fillAfter = true
     view?.startAnimation(animation)
   }

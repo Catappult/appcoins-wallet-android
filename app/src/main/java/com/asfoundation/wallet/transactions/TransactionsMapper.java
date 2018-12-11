@@ -103,7 +103,7 @@ public class TransactionsMapper {
   }
 
   /**
-   * Method to mapDarkIcons a raw transaction to an Ads transaction. In this case the raw transaction value
+   * Method to map a raw transaction to an Ads transaction. In this case the raw transaction value
    * does not contain the value of the transfer, that information is in the operations contained in
    * the raw transaction.
    * NOTE: For the value of this transaction we are considering the value of the first operation,
@@ -149,7 +149,7 @@ public class TransactionsMapper {
   }
 
   /**
-   * Method to mapDarkIcons a raw transaction to a closeHowItWorksView channel transaction. In this case most probably the
+   * Method to map a raw transaction to a close channel transaction. In this case most probably the
    * raw transaction value contains the value of the transfer, but to make sure that is the case, we
    * confirm that there is no operation inside the raw transaction. In case the operations list is
    * not empty we make the assumption that the value on the first operation of the list is the one
@@ -191,7 +191,7 @@ public class TransactionsMapper {
   }
 
   /**
-   * Method to mapDarkIcons a raw transaction to a standard transaction. In this case most probably the raw
+   * Method to map a raw transaction to a standard transaction. In this case most probably the raw
    * transaction value contains the value of the transfer, but to make sure that is the case, we
    * confirm that there is no operation inside the raw transaction. In case the operations list is
    * not empty we make the assumption that the value on the first operation of the list is the one
@@ -228,7 +228,7 @@ public class TransactionsMapper {
   }
 
   /**
-   * Method to mapDarkIcons a raw transaction to an IAB transaction. In this case all the transfer mentioned
+   * Method to map a raw transaction to an IAB transaction. In this case all the transfer mentioned
    * in the operations list on the raw transaction need to be summed to obtained the value of the
    * transaction, since the user transfer the value that afterwards is split between all the parties
    * included in the iab transaction.

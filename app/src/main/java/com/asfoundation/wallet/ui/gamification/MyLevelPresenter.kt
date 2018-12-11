@@ -17,6 +17,7 @@ class MyLevelPresenter(private val view: MyLevelView,
   fun present(savedInstanceState: Bundle?) {
     handleShowLevels()
     handleButtonClick()
+    view.setupLayout()
   }
 
   private fun handleButtonClick() {

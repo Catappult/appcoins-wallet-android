@@ -20,15 +20,16 @@ import javax.inject.Inject
 class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   @Inject
   lateinit var gamificationInteractor: GamificationInteractor
+  @Inject
+  lateinit var levelResourcesMapper: LevelResourcesMapper
+
   private lateinit var presenter: HowItWorksPresenter
   private lateinit var gamificationView: GamificationView
-  private lateinit var levelResourcesMapper: LevelResourcesMapper
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter = HowItWorksPresenter(this, gamificationInteractor, Schedulers.io(),
         AndroidSchedulers.mainThread())
-    levelResourcesMapper = LevelResourcesMapper()
   }
 
   override fun getOkClick(): Observable<Any> {
