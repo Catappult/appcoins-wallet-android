@@ -98,38 +98,38 @@
   <string name="intro_title_first_page">AppCoins BDS ウォレット</string>
   <string name="intro_title_second_page"><![CDATA[プライベート ・安全]]></string>
   <string name="intro_title_third_page">単純な &amp; 簡単</string>
-  <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
-  <string name="intro_message_second_page">Private keys never leave your device.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
+  <string name="intro_message_first_page">アプリ経済革命へようこそ。</string>
+  <string name="intro_message_second_page">プライベートキーを、お使いのデバイスにて放置したままにしないでください。</string>
+  <string name="intro_message_third_page">すべてのアプリ内の支払いと APPC で報酬を処理します。</string>
   <!-- Menus -->
   <!-- Labels -->
-  <string name="label_from">From</string>
-  <string name="label_to">To</string>
-  <string name="label_gas_limit">Gas Limit</string>
-  <string name="label_gas_price">Gas Price</string>
-  <string name="label_network_fee">Network Fee</string>
-  <string name="button_ok">OK</string>
-  <string name="hint_recipient_address">Recipient Address</string>
-  <string name="hint_amount">Amount</string>
-  <string name="hint_amount_with_token">Amount %s</string>
-  <string name="hint_contract_address">Contract address</string>
-  <string name="hint_contract_symbol">Symbol</string>
-  <string name="hint_contract_decimals">Decimals</string>
-  <string name="button_cancel">CANCEL</string>
-  <string name="button_yes">YES</string>
+  <string name="label_from">差出人</string>
+  <string name="label_to">受取人</string>
+  <string name="label_gas_limit">ガスの制限</string>
+  <string name="label_gas_price">ガスの価格</string>
+  <string name="label_network_fee">ネットワーク料</string>
+  <string name="button_ok">わかりました</string>
+  <string name="hint_recipient_address">受取人のアドレス</string>
+  <string name="hint_amount">量</string>
+  <string name="hint_amount_with_token">量 %s</string>
+  <string name="hint_contract_address">契約アドレス</string>
+  <string name="hint_contract_symbol">シンボル</string>
+  <string name="hint_contract_decimals">小数点以下の桁数</string>
+  <string name="button_cancel">キャンセルする</string>
+  <string name="button_yes">はい</string>
   <!-- Subtitles -->
-  <string name="subtitle_from">From</string>
-  <string name="subtitle_gas_fee">Fee</string>
-  <string name="subtitle_transaction_num">Transaction</string>
+  <string name="subtitle_from">差出人</string>
+  <string name="subtitle_gas_fee">料金</string>
+  <string name="subtitle_transaction_num">取引</string>
   <!-- Actions -->
-  <string name="action_more_details">More</string>
-  <string name="action_add_wallet">Add wallet</string>
+  <string name="action_more_details">もっと</string>
+  <string name="action_add_wallet">ウォレットを追加する</string>
   <string name="action_coinbase">Coinbase</string>
   <string name="action_shapeshift">Shapeshift (Crypto only)</string>
   <string name="action_changelly">Changelly</string>
-  <string name="action_wallets">Wallets</string>
-  <string name="action_next">Next</string>
-  <string name="action_edit">Edit</string>
+  <string name="action_wallets">ウォレット</string>
+  <string name="action_next">次に</string>
+  <string name="action_edit">編集する</string>
   <string name="action_save">保存する</string>
   <!-- Subject -->
   <string name="error_fail_generate_qr">QR コードを生成できませんでした。</string>
@@ -261,6 +261,6 @@
   <string name="gamification_star_subtitle">輝き、大きい、いっぱいの人生！</string>
   <string name="gamification_galaxy_subtitle">史上最大のシステムです！</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Purchase Bonus:</string>
-  <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
+  <string name="gamification_purchase_header">購入特典:</string>
+  <string name="gamification_purchase_body">%s APPC クレジットはウォレットに加算されます。</string>
 </resources>
