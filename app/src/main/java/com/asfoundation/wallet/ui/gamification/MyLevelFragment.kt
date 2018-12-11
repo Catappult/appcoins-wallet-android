@@ -83,11 +83,15 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
 
   override fun getButtonClicks(): Observable<Any> {
     return RxView.clicks(details_button)
-
   }
 
   override fun showHowItWorksScreen() {
     gamificationView.showHowItWorksView()
+  }
+
+  override fun showHowItWorksButton() {
+    details_button.visibility = View.VISIBLE
+    gamificationView.showHowItWorksButton()
   }
 
   private fun animateProgress(fromLevel: Int, toLevel: Int) {
@@ -98,8 +102,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
       return
     }
 
-    var currentLevel = fromLevel
-    var nextLevel = currentLevel + 1
+    val nextLevel = fromLevel + 1
     val to = (nextLevel) * step
     val animation = ProgressAnimation(progress_bar,
         progress_bar?.progress!!.toFloat(), to.toFloat())
@@ -109,19 +112,19 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
       }
 
       override fun onAnimationEnd(animation: Animation?) {
-        if (currentLevel <= nextLevel) {
+        if (fromLevel <= nextLevel) {
           levelUp(nextLevel)
         } else {
           levelReUp(nextLevel)
         }
-        animateProgress(currentLevel + 1, toLevel)
+        animateProgress(fromLevel + 1, toLevel)
       }
 
       override fun onAnimationStart(animation: Animation?) {
-        if (currentLevel <= nextLevel) {
-          levelShow(currentLevel)
+        if (fromLevel <= nextLevel) {
+          levelShow(fromLevel)
         } else {
-          levelLock(currentLevel)
+          levelLock(fromLevel)
         }
       }
 
@@ -188,6 +191,8 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
 
       override fun onAnimationEnd(animation: Animation?) {
         activeIcon.visibility = View.VISIBLE
+        levelText?.isEnabled = true
+        levelText?.visibility = View.VISIBLE
       }
 
       override fun onAnimationStart(animation: Animation?) {
@@ -195,8 +200,6 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     }
     if (newLevel) startBounceAnimation(activeIcon, listener) else startRebounceAnimation(activeIcon,
         listener)
-    levelText?.isEnabled = true
-    levelText?.visibility = View.VISIBLE
   }
 
   private fun animateLevelDown(levelIcon: View?, levelText: TextView?) {

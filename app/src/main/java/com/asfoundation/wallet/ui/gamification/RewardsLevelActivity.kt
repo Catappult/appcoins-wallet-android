@@ -9,6 +9,8 @@ import com.asfoundation.wallet.ui.BaseActivity
 
 class RewardsLevelActivity : BaseActivity(), GamificationView {
 
+  lateinit var menu: Menu
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
@@ -49,6 +51,7 @@ class RewardsLevelActivity : BaseActivity(), GamificationView {
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
     menuInflater.inflate(R.menu.menu_info, menu)
+    this.menu = menu
     return super.onCreateOptionsMenu(menu)
   }
 
@@ -70,5 +73,9 @@ class RewardsLevelActivity : BaseActivity(), GamificationView {
         .add(R.id.fragment_container, HowItWorksFragment.newInstance())
         .addToBackStack(HowItWorksFragment.javaClass.simpleName)
         .commit()
+  }
+
+  override fun showHowItWorksButton() {
+    menu.findItem(R.id.action_info).isVisible = true
   }
 }

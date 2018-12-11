@@ -8,4 +8,7 @@ interface MyLevelView {
   fun getButtonClicks(): Observable<Any>
 
   fun showHowItWorksScreen()
+
+  fun showHowItWorksButton()
+
 }

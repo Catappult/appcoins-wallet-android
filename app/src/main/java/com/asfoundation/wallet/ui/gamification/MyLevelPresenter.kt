@@ -31,7 +31,10 @@ class MyLevelPresenter(private val view: MyLevelView,
             })
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
-            .doOnSuccess { view.updateLevel(it) }
+            .doOnSuccess {
+              view.updateLevel(it)
+              if (it.bonus.isNotEmpty()) view.showHowItWorksButton()
+            }
             .subscribe())
   }
 
@@ -40,10 +43,13 @@ class MyLevelPresenter(private val view: MyLevelView,
     if (levels.status == Levels.Status.OK && userStats.status == UserStats.Status.OK) {
       val list = mutableListOf<Double>()
       for (level in levels.list) {
-        list.add(level.bonus)
+        if (level.bonus > 0.0) {
+          list.add(level.bonus)
+        }
       }
       status =
-          UserRewardsStatus(userStats.level, userStats.totalEarned.setScale(2, RoundingMode.HALF_UP),
+          UserRewardsStatus(userStats.level,
+              userStats.totalEarned.setScale(2, RoundingMode.HALF_UP),
               list)
     }
     return status

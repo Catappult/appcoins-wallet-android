@@ -111,7 +111,7 @@
       app:layout_constraintTop_toBottomOf="@+id/level_progress_container"
       app:layout_constraintVertical_chainStyle="packed"
       style="@style/ButtonStyle"
-
+      android:visibility="invisible"
       />
 
 </android.support.constraint.ConstraintLayout>

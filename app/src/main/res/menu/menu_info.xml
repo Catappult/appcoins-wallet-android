@@ -9,5 +9,6 @@
       android:orderInCategory="20"
       android:title="@string/action_add_wallet"
       app:showAsAction="always"
+      android:visible="false"
       />
 </menu>
