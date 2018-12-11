@@ -183,7 +183,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     });
 
     genericErrorDialog = new RxAlertDialog.Builder(getContext()).setMessage(
-        R.string.fragment_adyen_generic_error_message)
+        R.string.unknown_error)
             .setPositiveButton(R.string.ok)
             .build();
     networkErrorDialog =

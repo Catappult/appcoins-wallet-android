@@ -4,10 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
   <item
-      android:id="@+id/action_settings"
-      android:icon="@drawable/ic_settings_white_24dp"
+      android:id="@+id/action_info"
+      android:icon="@drawable/ic_info"
       android:orderInCategory="20"
-      android:title="@string/action_settings"
+      android:title="@string/action_add_wallet"
       app:showAsAction="always"
+      android:visible="false"
       />
 </menu>

@@ -247,6 +247,7 @@ dependencies {
   implementation "aptoide-client-v8:aptoide-analytics-core:1.0.3"
   implementation project(path: ':appcoinsRewards')
   implementation project(path: ':commons')
+  implementation project(path: ':gamification')
 
   implementation 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:27.1.0'
 }

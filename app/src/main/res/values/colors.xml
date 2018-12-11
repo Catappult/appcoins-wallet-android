@@ -53,4 +53,10 @@
   <color name="dialog_buy_total_value">#fe677b</color>
   <color name="dialog_fiat_price">#828282</color>
 
+  <color name="rewards_level_main_color">#001727</color>
+  <color name="level_icon_bg_color">#001727</color>
+
+  <color name="level_text_enabled_color">@color/rewards_level_main_color</color>
+  <color name="level_text_disabled_color">#d4d4d4</color>
+
 </resources>
