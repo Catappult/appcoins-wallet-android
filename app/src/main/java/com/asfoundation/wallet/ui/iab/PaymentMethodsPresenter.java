@@ -21,6 +21,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.Currency;
 
 public class PaymentMethodsPresenter {
@@ -209,18 +210,19 @@ public class PaymentMethodsPresenter {
   private void setupUi(double transactionValue, String currency) {
     setWalletAddress();
     disposables.add(Single.zip(transactionBuilder.flatMap(
-        transaction -> inAppPurchaseInteractor.getPaymentMethods()
+        transaction -> isBds ? inAppPurchaseInteractor.getPaymentMethods()
             .subscribeOn(networkThread)
             .flatMap(paymentMethods -> Observable.fromIterable(paymentMethods)
                 .map(paymentMethod -> new PaymentMethod(paymentMethod.getId(),
                     paymentMethod.getLabel(), paymentMethod.getIconUrl(), true))
-                .toList())), transactionBuilder.flatMap(
-        transaction -> inAppPurchaseInteractor.getAvailablePaymentMethods(transaction)
+                .toList()) : Single.just(Collections.singletonList(PaymentMethod.APPC))),
+        transactionBuilder.flatMap(
+            transaction -> isBds ? inAppPurchaseInteractor.getAvailablePaymentMethods(transaction)
             .subscribeOn(networkThread)
             .flatMap(paymentMethods -> Observable.fromIterable(paymentMethods)
                 .map(paymentMethod -> new PaymentMethod(paymentMethod.getId(),
                     paymentMethod.getLabel(), paymentMethod.getIconUrl(), true))
-                .toList()))
+                .toList()) : Single.just(Collections.singletonList(PaymentMethod.APPC)))
             .observeOn(viewScheduler),
         inAppPurchaseInteractor.convertToFiat(transactionValue, currency),
         (paymentMethods, availablePaymentMethods, fiatValue) -> Completable.fromAction(
