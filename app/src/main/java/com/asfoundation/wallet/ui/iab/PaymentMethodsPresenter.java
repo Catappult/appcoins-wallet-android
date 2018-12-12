@@ -77,11 +77,24 @@ public class PaymentMethodsPresenter {
       handleOnGoingPurchases();
     }
     handleBuyClick();
-    showBonus();
+    handlePaymentSelection();
   }
 
-  private void showBonus() {
-    disposables.add(gamification.getEarningBonus(transaction.getDomain(), transaction.amount())
+  private void handlePaymentSelection() {
+    disposables.add(view.getPaymentSelection()
+        .flatMapCompletable(selectedPaymentMethod -> {
+          if (selectedPaymentMethod.equals(PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS)) {
+            return Completable.fromAction(view::hideBonus)
+                .subscribeOn(viewScheduler);
+          } else {
+            return loadBonusIntoView().ignoreElement();
+          }
+        })
+        .subscribe());
+  }
+
+  private Single<ForecastBonus> loadBonusIntoView() {
+    return gamification.getEarningBonus(transaction.getDomain(), transaction.amount())
         .observeOn(viewScheduler)
         .doOnSuccess(bonus -> {
           if (!bonus.getStatus()
@@ -92,8 +105,7 @@ public class PaymentMethodsPresenter {
           } else {
             view.showBonus(bonus.getAmount());
           }
-        })
-        .subscribe());
+        });
   }
 
   private void handleBuyClick() {

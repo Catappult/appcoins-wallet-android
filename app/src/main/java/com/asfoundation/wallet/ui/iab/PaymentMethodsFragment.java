@@ -38,6 +38,7 @@ import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.view.RxView;
+import com.jakewharton.rxbinding2.widget.RxRadioGroup;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
@@ -471,20 +472,12 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override public Observable<SelectedPaymentMethod> getBuyClick() {
     return RxView.clicks(buyButton)
-        .map(__ -> {
-          switch (radioGroup.getCheckedRadioButtonId()) {
-            case R.id.paypal:
-              return SelectedPaymentMethod.PAYPAL;
-            case R.id.credit_card:
-              return SelectedPaymentMethod.CREDIT_CARD;
-            case R.id.appc:
-              return SelectedPaymentMethod.APPC;
-            case R.id.appc_credits:
-              return SelectedPaymentMethod.APPC_CREDITS;
-            default:
-              throw new NotImplementedError();
-          }
-        });
+        .map(__ -> getSelectedPaymentMethod(radioGroup.getCheckedRadioButtonId()));
+  }
+
+  @NotNull @Override public Observable<SelectedPaymentMethod> getPaymentSelection() {
+    return RxRadioGroup.checkedChanges(radioGroup)
+        .map(this::getSelectedPaymentMethod);
   }
 
   @Override public void showPaypal() {
@@ -513,5 +506,20 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     bonusValue.setText(getString(R.string.gamification_purchase_body, bonus.stripTrailingZeros()
         .toPlainString()));
     bonusView.setVisibility(View.VISIBLE);
+  }
+
+  @NonNull private SelectedPaymentMethod getSelectedPaymentMethod(int checkedRadioButtonId) {
+    switch (checkedRadioButtonId) {
+      case R.id.paypal:
+        return SelectedPaymentMethod.PAYPAL;
+      case R.id.credit_card:
+        return SelectedPaymentMethod.CREDIT_CARD;
+      case R.id.appc:
+        return SelectedPaymentMethod.APPC;
+      case R.id.appc_credits:
+        return SelectedPaymentMethod.APPC_CREDITS;
+      default:
+        throw new NotImplementedError();
+    }
   }
 }
