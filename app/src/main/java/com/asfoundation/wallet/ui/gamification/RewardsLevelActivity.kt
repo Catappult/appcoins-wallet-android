@@ -59,12 +59,14 @@ class RewardsLevelActivity : BaseActivity(), GamificationView {
     val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
 
     if (supportFragmentManager.backStackEntryCount > 0) {
-      val fragment = supportFragmentManager.findFragmentByTag(HowItWorksFragment.javaClass.simpleName)
+      val fragment =
+          supportFragmentManager.findFragmentByTag(HowItWorksFragment.javaClass.simpleName)
       if (fragment != null && fragment.javaClass.name.equals(
               HowItWorksFragment.javaClass.name, false)) {
         supportFragmentManager.beginTransaction().remove(currentFragment).commit()
       }
       supportFragmentManager.popBackStackImmediate()
+      menu.findItem(R.id.action_info).isVisible = true
     }
   }
 
@@ -73,6 +75,8 @@ class RewardsLevelActivity : BaseActivity(), GamificationView {
         .add(R.id.fragment_container, HowItWorksFragment.newInstance())
         .addToBackStack(HowItWorksFragment.javaClass.simpleName)
         .commit()
+    menu.findItem(R.id.action_info).isVisible = false
+
   }
 
   override fun showHowItWorksButton() {
