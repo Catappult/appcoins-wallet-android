@@ -112,8 +112,8 @@ android {
       buildConfigField 'String', 'PAYMENT_HOST',
           "\"" + project.PAYMENT_HOST + "\""
       manifestPlaceholders.secondPaymentHost = "${project.SECOND_PAYMENT_HOST}"
-      buildConfigField 'String', 'PAYMENT_HOST',
-          "\"" + project.PAYMENT_HOST + "\""
+      buildConfigField 'String', 'SECOND_PAYMENT_HOST',
+          "\"" + project.SECOND_PAYMENT_HOST + "\""
     }
     debug {
       minifyEnabled false
