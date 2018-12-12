@@ -18,6 +18,8 @@ import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.Nullable;
 
+import static com.asfoundation.wallet.analytics.FacebookEventLogger.EVENT_REVENUE_CURRENCY;
+
 /**
  * Created by franciscocalado on 19/07/2018.
  */
@@ -250,7 +252,11 @@ public class OnChainBuyPresenter {
 
   public void sendRevenueEvent() {
     disposables.add(transactionBuilder.subscribe(transactionBuilder -> analytics.sendRevenueEvent(
-        transactionBuilder.amount()
+        new BigDecimal(inAppPurchaseInteractor.convertToFiat((new BigDecimal(
+            transactionBuilder.amount()
+                .toString())).doubleValue(), EVENT_REVENUE_CURRENCY)
+            .blockingGet()
+            .getAmount()).setScale(2, BigDecimal.ROUND_UP)
             .toString())));
   }
 
