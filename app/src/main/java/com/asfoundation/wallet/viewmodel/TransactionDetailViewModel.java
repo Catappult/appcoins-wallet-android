@@ -6,6 +6,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
@@ -70,7 +71,10 @@ public class TransactionDetailViewModel extends BaseViewModel {
   }
 
   private Uri buildBdsUri(Transaction transaction) {
-    return Uri.parse("https://appcexplorer.io/transaction/")
+    NetworkInfo networkInfo = defaultNetwork.getValue();
+    String url = networkInfo.chainId == 3 ? BuildConfig.TRANSACTION_DETAILS_HOST_ROPSTEN
+        : BuildConfig.TRANSACTION_DETAILS_HOST;
+    return Uri.parse(url)
         .buildUpon()
         .appendEncodedPath(transaction.getTransactionId())
         .build();

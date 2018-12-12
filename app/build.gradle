@@ -81,6 +81,11 @@ android {
         "\"" + project.PAYMENT_HOST_DEV + "\""
 
     resValue "string", "facebook_app_id", project.FACEBOOK_APP_KEY
+
+    buildConfigField 'String', 'TRANSACTION_DETAILS_HOST',
+        "\"" + project.TRANSACTION_DETAILS_HOST + "\""
+    buildConfigField 'String', 'TRANSACTION_DETAILS_HOST_ROPSTEN',
+        "\"" + project.TRANSACTION_DETAILS_HOST_ROPSTEN + "\""
   }
 
   signingConfigs {
