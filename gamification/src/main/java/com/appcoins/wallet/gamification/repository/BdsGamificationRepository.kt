@@ -25,7 +25,7 @@ class BdsGamificationRepository(private val api: GamificationApi) :
   }
 
   private fun map(bonusResponse: ForecastBonusResponse): ForecastBonus {
-    if (bonusResponse.status.equals("ACTIVE", true)) {
+    if (bonusResponse.status == ForecastBonusResponse.Status.ACTIVE) {
       return ForecastBonus(ForecastBonus.Status.OK, bonusResponse.bonus)
     }
     println("ERROR: unknown bonus status: " + bonusResponse.status)

@@ -58,7 +58,7 @@ class GamificationTest {
   @Test
   fun getBonus() {
     api.bonusResponse = Single.just(
-        ForecastBonusResponse(BigDecimal.ONE, 0, "ACTIVE"))
+        ForecastBonusResponse(BigDecimal.ONE, 0, ForecastBonusResponse.Status.ACTIVE))
     val testObserver = gamification.getEarningBonus(wallet, packageName, BigDecimal.ONE).test()
     testObserver.assertValue(ForecastBonus(ForecastBonus.Status.OK, BigDecimal.ONE))
   }
