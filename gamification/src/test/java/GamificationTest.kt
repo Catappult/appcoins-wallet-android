@@ -25,10 +25,10 @@ class GamificationTest {
 
   @Test
   fun getUserStatsTest() {
-    api.userStatusResponse = Single.just(UserStatusResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 1, BigDecimal.TEN))
+    api.userStatusResponse = Single.just(UserStatusResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 1, BigDecimal.TEN, "ACTIVE"))
     val testObserver = gamification.getUserStatus(wallet).test()
     testObserver.assertValue(
-        UserStats(UserStats.Status.OK, 1, BigDecimal.TEN, 2.2, BigDecimal.ONE, BigDecimal.ZERO))
+        UserStats(UserStats.Status.OK, 1, BigDecimal.TEN, 2.2, BigDecimal.ONE, BigDecimal.ZERO, true))
   }
 
   @Test
@@ -41,11 +41,11 @@ class GamificationTest {
   @Test
   fun getLevels() {
     api.levelsResponse = Single.just(
-        LevelsResponse(listOf(Level(BigDecimal.ONE, 2.0, 1), Level(BigDecimal.TEN, 20.0, 2))))
+        LevelsResponse(listOf(Level(BigDecimal.ONE, 2.0, 1), Level(BigDecimal.TEN, 20.0, 2)), "ACTIVE"))
     val testObserver = gamification.getLevels().test()
     testObserver.assertValue(
         Levels(Levels.Status.OK,
-            listOf(Levels.Level(BigDecimal.ONE, 2.0, 1), Levels.Level(BigDecimal.TEN, 20.0, 2))))
+            listOf(Levels.Level(BigDecimal.ONE, 2.0, 1), Levels.Level(BigDecimal.TEN, 20.0, 2)), true))
   }
 
   @Test
