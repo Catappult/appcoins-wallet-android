@@ -251,30 +251,10 @@ public class OnChainBuyPresenter {
   }
 
   public void sendRevenueEvent() {
-    disposables.add(transactionBuilder.subscribe(transactionBuilder -> analytics.sendRevenueEvent(
-        new BigDecimal(inAppPurchaseInteractor.convertToFiat((new BigDecimal(
-            transactionBuilder.amount()
-                .toString())).doubleValue(), EVENT_REVENUE_CURRENCY)
-            .blockingGet()
-            .getAmount()).setScale(2, BigDecimal.ROUND_UP)
-            .toString())));
-  }
-
-  public static class BuyData {
-    private final String uri;
-    private final BigDecimal channelBudget;
-
-    public BuyData(String uri, BigDecimal channelBudget) {
-      this.uri = uri;
-      this.channelBudget = channelBudget;
-    }
-
-    public String getUri() {
-      return uri;
-    }
-
-    public BigDecimal getChannelBudget() {
-      return channelBudget;
-    }
+    disposables.add(transactionBuilder.flatMap(
+        transaction -> inAppPurchaseInteractor.convertToFiat((transaction.amount()).doubleValue(),
+            EVENT_REVENUE_CURRENCY))
+        .doOnSuccess(fiatValue -> analytics.sendRevenueEvent(String.valueOf(fiatValue.getAmount())))
+        .subscribe());
   }
 }
