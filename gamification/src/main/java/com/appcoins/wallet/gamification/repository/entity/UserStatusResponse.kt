@@ -11,9 +11,8 @@ data class UserStatusResponse(val bonus: Double,
                               val level: Int,
                               @SerializedName("next_level_amount")
                               val nextLevelAmount: BigDecimal,
-                              val status: String) {
-  companion object {
-    val ACTIVE = "ACTIVE"
-    val INACTIVE = "INACTIVE"
+                              val status: Status) {
+  enum class Status {
+    ACTIVE, INACTIVE
   }
 }
