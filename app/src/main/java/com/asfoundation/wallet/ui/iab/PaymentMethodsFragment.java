@@ -451,6 +451,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
           appcRadioButton.setVisibility(View.VISIBLE);
           appcView.setVisibility(View.VISIBLE);
           appcRadioButton.setEnabled(true);
+          appcRadioButton.setChecked(true);
         }
       }
     }
