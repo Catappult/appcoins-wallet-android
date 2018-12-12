@@ -34,6 +34,7 @@ import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
+import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -86,6 +87,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   @Inject BdsPendingTransactionService bdsPendingTransactionService;
   @Inject Billing billing;
   @Inject WalletService walletService;
+  @Inject GamificationInteractor gamification;
   private ProgressBar loadingView;
   private View dialog;
   private View addressFooter;
@@ -179,7 +181,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         Schedulers.io(), new CompositeDisposable(), inAppPurchaseInteractor,
         inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing,
         analytics, isBds, Single.just(transaction), developerPayload, uri, walletService,
-        new Gamification());
+        gamification, transaction);
   }
 
   @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -342,8 +344,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   }
 
   @Override public void showPaymentMethods(@NotNull List<PaymentMethod> paymentMethods,
-      @NotNull List<PaymentMethod> availablePaymentMethods, FiatValue fiatValue,
-      boolean isDonation, String currency) {
+      @NotNull List<PaymentMethod> availablePaymentMethods, FiatValue fiatValue, boolean isDonation,
+      String currency) {
     this.fiatValue = fiatValue;
     Formatter formatter = new Formatter();
     String valueText = formatter.format(Locale.getDefault(), "%(,.2f", transaction.amount())

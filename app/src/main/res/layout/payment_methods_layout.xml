@@ -178,7 +178,6 @@
               android:drawablePadding="18dp"
               android:enabled="false"
               android:paddingStart="4dp"
-              android:text="@string/paypal"
               style="@style/PaymentMethodsRadioButton"
               />
 
@@ -197,7 +196,6 @@
               android:drawablePadding="12dp"
               android:enabled="false"
               android:paddingStart="4dp"
-              android:text="@string/credit_card"
               style="@style/PaymentMethodsRadioButton"
               />
           <View
@@ -214,7 +212,6 @@
               android:drawablePadding="18dp"
               android:enabled="false"
               android:paddingStart="4dp"
-              android:text="@string/appcoins_appc"
               android:visibility="visible"
               style="@style/PaymentMethodsRadioButton"
               />
@@ -233,7 +230,6 @@
               android:drawablePadding="18dp"
               android:enabled="false"
               android:paddingStart="4dp"
-              android:text="@string/appc_credits"
               android:visibility="visible"
               style="@style/PaymentMethodsRadioButton"
               />
@@ -243,6 +239,7 @@
             android:id="@+id/bonus_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/dialog_buy_buttons_payment_methods"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

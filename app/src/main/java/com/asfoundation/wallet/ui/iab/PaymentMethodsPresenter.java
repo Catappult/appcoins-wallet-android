@@ -8,9 +8,11 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
+import com.appcoins.wallet.gamification.repository.ForecastBonus;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
+import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -38,14 +40,16 @@ public class PaymentMethodsPresenter {
   private final String developerPayload;
   private final String uri;
   private final WalletService walletService;
-  private final Gamification gamification;
+  private final GamificationInteractor gamification;
+  private final TransactionBuilder transaction;
 
   public PaymentMethodsPresenter(PaymentMethodsView view, String appPackage,
       Scheduler viewScheduler, Scheduler networkThread, CompositeDisposable disposables,
       InAppPurchaseInteractor inAppPurchaseInteractor, BillingMessagesMapper billingMessagesMapper,
       BdsPendingTransactionService bdsPendingTransactionService, Billing billing,
       BillingAnalytics analytics, boolean isBds, Single<TransactionBuilder> transactionBuilder,
-      String developerPayload, String uri, WalletService walletService, Gamification gamification) {
+      String developerPayload, String uri, WalletService walletService,
+      GamificationInteractor gamification, TransactionBuilder transaction) {
     this.view = view;
     this.appPackage = appPackage;
     this.viewScheduler = viewScheduler;
@@ -62,6 +66,7 @@ public class PaymentMethodsPresenter {
     this.uri = uri;
     this.walletService = walletService;
     this.gamification = gamification;
+    this.transaction = transaction;
   }
 
   public void present(double transactionValue, String currency, Bundle savedInstanceState) {
@@ -76,8 +81,9 @@ public class PaymentMethodsPresenter {
   }
 
   private void showBonus() {
-    disposables.add(gamification.getEarningBonus()
+    disposables.add(gamification.getEarningBonus(transaction.getDomain(), transaction.amount())
         .observeOn(viewScheduler)
+        .map(ForecastBonus::getAmount)
         .doOnSuccess(bonus -> {
           if (bonus.compareTo(BigDecimal.ZERO) <= 0) {
             view.hideBonus();
