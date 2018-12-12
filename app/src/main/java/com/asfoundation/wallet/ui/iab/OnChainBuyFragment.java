@@ -30,7 +30,6 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-import io.reactivex.subjects.BehaviorSubject;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Formatter;
@@ -50,10 +49,7 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
 public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView {
 
   public static final String APP_PACKAGE = "app_package";
-  public static final String TRANSACTION_HASH = "transaction_hash";
-  private static final String TAG = OnChainBuyFragment.class.getSimpleName();
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
-  private BehaviorSubject<Boolean> createChannelClick;
   private PublishRelay<String> buyButtonClick;
   private Button buyButton;
   private Button cancelButton;
@@ -69,7 +65,6 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   private View transactionCompletedLayout;
   private View transactionErrorLayout;
   private View buyLayout;
-  private boolean isBackEnable;
   private TextView errorTextView;
   private TextView loadingMessage;
   private ProgressBar buyDialogLoading;
@@ -94,9 +89,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    createChannelClick = BehaviorSubject.create();
     buyButtonClick = PublishRelay.create();
-    isBackEnable = true;
     extras = getArguments().getBundle("extras");
     data = getArguments().getString("data");
     isBds = getArguments().getBoolean("isBds");
@@ -252,14 +245,6 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     transactionCompletedLayout.setVisibility(View.VISIBLE);
   }
 
-  @Override public void showBuy() {
-    loadingView.setVisibility(View.GONE);
-    transactionErrorLayout.setVisibility(View.GONE);
-    transactionCompletedLayout.setVisibility(View.GONE);
-    buyLayout.setVisibility(View.VISIBLE);
-    isBackEnable = true;
-  }
-
   @Override public void showWrongNetworkError() {
     showError(R.string.activity_iab_wrong_network_message);
   }
@@ -311,7 +296,6 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   }
 
   private void showLoading(@StringRes int message) {
-    isBackEnable = false;
     loadingView.setVisibility(View.VISIBLE);
     transactionErrorLayout.setVisibility(View.GONE);
     transactionCompletedLayout.setVisibility(View.GONE);
@@ -326,7 +310,6 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     transactionErrorLayout.setVisibility(View.VISIBLE);
     transactionCompletedLayout.setVisibility(View.GONE);
     buyLayout.setVisibility(View.GONE);
-    isBackEnable = true;
     errorTextView.setText(error_message);
   }
 

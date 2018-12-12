@@ -104,7 +104,7 @@ public class OnChainBuyPresenter {
   private void handleOkErrorClick(String uriString) {
     disposables.add(view.getOkErrorClick()
         .flatMapSingle(__ -> inAppPurchaseInteractor.parseTransaction(uriString, isBds))
-        .subscribe(click -> showBuy(), throwable -> close()));
+        .subscribe(click -> close(), throwable -> close()));
   }
 
   private void handleCancelClick() {
@@ -140,10 +140,6 @@ public class OnChainBuyPresenter {
     disposables.add(inAppPurchaseInteractor.getWalletAddress()
         .observeOn(viewScheduler)
         .subscribe(view::showWallet, Throwable::printStackTrace));
-  }
-
-  private void showBuy() {
-    view.showBuy();
   }
 
   private void close() {
