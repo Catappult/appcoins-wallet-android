@@ -26,10 +26,9 @@ class BdsGamificationRepository(private val api: GamificationApi) :
 
   private fun map(bonusResponse: ForecastBonusResponse): ForecastBonus {
     if (bonusResponse.status == ForecastBonusResponse.Status.ACTIVE) {
-      return ForecastBonus(ForecastBonus.Status.OK, bonusResponse.bonus)
+      return ForecastBonus(ForecastBonus.Status.ACTIVE, bonusResponse.bonus)
     }
-    println("ERROR: unknown bonus status: " + bonusResponse.status)
-    return ForecastBonus(ForecastBonus.Status.UNKNOWN_ERROR)
+    return ForecastBonus(ForecastBonus.Status.INACTIVE)
   }
 
   override fun getUserStatus(wallet: String): Single<UserStats> {

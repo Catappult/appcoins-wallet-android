@@ -83,12 +83,14 @@ public class PaymentMethodsPresenter {
   private void showBonus() {
     disposables.add(gamification.getEarningBonus(transaction.getDomain(), transaction.amount())
         .observeOn(viewScheduler)
-        .map(ForecastBonus::getAmount)
         .doOnSuccess(bonus -> {
-          if (bonus.compareTo(BigDecimal.ZERO) <= 0) {
+          if (!bonus.getStatus()
+              .equals(ForecastBonus.Status.ACTIVE)
+              || bonus.getAmount()
+              .compareTo(BigDecimal.ZERO) <= 0) {
             view.hideBonus();
           } else {
-            view.showBonus(bonus);
+            view.showBonus(bonus.getAmount());
           }
         })
         .subscribe());

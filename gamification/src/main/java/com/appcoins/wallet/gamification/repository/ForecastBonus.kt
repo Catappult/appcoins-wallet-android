@@ -7,6 +7,6 @@ data class ForecastBonus(
     val amount: BigDecimal = BigDecimal.ZERO) {
 
   enum class Status {
-    OK, NO_NETWORK, UNKNOWN_ERROR
+    ACTIVE, INACTIVE, NO_NETWORK, UNKNOWN_ERROR
   }
 }
