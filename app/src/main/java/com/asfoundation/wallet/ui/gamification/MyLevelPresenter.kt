@@ -43,8 +43,8 @@ class MyLevelPresenter(private val view: MyLevelView,
     var status = UserRewardsStatus()
     if (levels.status == Levels.Status.OK && userStats.status == UserStats.Status.OK) {
       val list = mutableListOf<Double>()
-      for (level in levels.list) {
-        if (level.bonus > 0.0) {
+      if (levels.isActive) {
+        for (level in levels.list) {
           list.add(level.bonus)
         }
       }

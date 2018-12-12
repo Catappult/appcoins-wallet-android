@@ -23,7 +23,8 @@ class BdsGamificationRepository(private val api: GamificationApi) :
 
   private fun map(response: UserStatusResponse): UserStats {
     return UserStats(UserStats.Status.OK, response.level,
-        response.nextLevelAmount, response.bonus, response.totalSpend, response.totalEarned)
+        response.nextLevelAmount, response.bonus, response.totalSpend, response.totalEarned,
+        UserStatusResponse.ACTIVE == response.status)
   }
 
   override fun getLevels(): Single<Levels> {
@@ -45,6 +46,6 @@ class BdsGamificationRepository(private val api: GamificationApi) :
     for (level in response.list) {
       list.add(Levels.Level(level.amount, level.bonus, level.level))
     }
-    return Levels(Levels.Status.OK, list.toList())
+    return Levels(Levels.Status.OK, list.toList(), LevelsResponse.ACTIVE == response.status)
   }
 }

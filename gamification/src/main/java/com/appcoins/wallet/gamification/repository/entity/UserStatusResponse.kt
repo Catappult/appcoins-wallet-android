@@ -10,4 +10,10 @@ data class UserStatusResponse(val bonus: Double,
                               val totalEarned: BigDecimal,
                               val level: Int,
                               @SerializedName("next_level_amount")
-                              val nextLevelAmount: BigDecimal)
+                              val nextLevelAmount: BigDecimal,
+                              val status: String) {
+  companion object {
+    val ACTIVE = "ACTIVE"
+    val INACTIVE = "INACTIVE"
+  }
+}
