@@ -11,6 +11,8 @@ import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import static com.asfoundation.wallet.analytics.FacebookEventLogger.EVENT_REVENUE_CURRENCY;
+
 public class AppcoinsRewardsBuyPresenter {
   private final AppcoinsRewardsBuyView view;
   private final RewardsManager rewardsManager;
@@ -26,12 +28,13 @@ public class AppcoinsRewardsBuyPresenter {
   private final boolean isBds;
   private final BillingAnalytics analytics;
   private final TransactionBuilder transactionBuilder;
+  private final InAppPurchaseInteractor inAppPurchaseInteractor;
 
   public AppcoinsRewardsBuyPresenter(AppcoinsRewardsBuyView view, RewardsManager rewardsManager,
       Scheduler scheduler, CompositeDisposable disposables, BigDecimal amount, String storeAddress,
       String oemAddress, String uri, String packageName, TransferParser transferParser,
       String productName, boolean isBds, BillingAnalytics analytics,
-      TransactionBuilder transactionBuilder) {
+      TransactionBuilder transactionBuilder, InAppPurchaseInteractor inAppPurchaseInteractor) {
     this.view = view;
     this.rewardsManager = rewardsManager;
     this.scheduler = scheduler;
@@ -46,6 +49,7 @@ public class AppcoinsRewardsBuyPresenter {
     this.isBds = isBds;
     this.analytics = analytics;
     this.transactionBuilder = transactionBuilder;
+    this.inAppPurchaseInteractor = inAppPurchaseInteractor;
   }
 
   public void present() {
@@ -154,7 +158,11 @@ public class AppcoinsRewardsBuyPresenter {
   }
 
   public void sendRevenueEvent() {
-    analytics.sendRevenueEvent(transactionBuilder.amount()
+    analytics.sendRevenueEvent(new BigDecimal(inAppPurchaseInteractor.convertToFiat((new BigDecimal(
+        transactionBuilder.amount()
+            .toString())).doubleValue(), EVENT_REVENUE_CURRENCY)
+        .blockingGet()
+        .getAmount()).setScale(2, BigDecimal.ROUND_UP)
         .toString());
   }
 }
