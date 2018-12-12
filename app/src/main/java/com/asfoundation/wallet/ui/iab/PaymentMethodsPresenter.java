@@ -8,9 +8,11 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
+import com.appcoins.wallet.gamification.repository.ForecastBonus;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
+import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -18,6 +20,7 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import java.math.BigDecimal;
 import java.util.Currency;
 
 public class PaymentMethodsPresenter {
@@ -37,13 +40,16 @@ public class PaymentMethodsPresenter {
   private final String developerPayload;
   private final String uri;
   private final WalletService walletService;
+  private final GamificationInteractor gamification;
+  private final TransactionBuilder transaction;
 
   public PaymentMethodsPresenter(PaymentMethodsView view, String appPackage,
       Scheduler viewScheduler, Scheduler networkThread, CompositeDisposable disposables,
       InAppPurchaseInteractor inAppPurchaseInteractor, BillingMessagesMapper billingMessagesMapper,
       BdsPendingTransactionService bdsPendingTransactionService, Billing billing,
       BillingAnalytics analytics, boolean isBds, Single<TransactionBuilder> transactionBuilder,
-      String developerPayload, String uri, WalletService walletService) {
+      String developerPayload, String uri, WalletService walletService,
+      GamificationInteractor gamification, TransactionBuilder transaction) {
     this.view = view;
     this.appPackage = appPackage;
     this.viewScheduler = viewScheduler;
@@ -59,6 +65,8 @@ public class PaymentMethodsPresenter {
     this.developerPayload = developerPayload;
     this.uri = uri;
     this.walletService = walletService;
+    this.gamification = gamification;
+    this.transaction = transaction;
   }
 
   public void present(double transactionValue, String currency, Bundle savedInstanceState) {
@@ -69,6 +77,35 @@ public class PaymentMethodsPresenter {
       handleOnGoingPurchases();
     }
     handleBuyClick();
+    handlePaymentSelection();
+  }
+
+  private void handlePaymentSelection() {
+    disposables.add(view.getPaymentSelection()
+        .flatMapCompletable(selectedPaymentMethod -> {
+          if (selectedPaymentMethod.equals(PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS)) {
+            return Completable.fromAction(view::hideBonus)
+                .subscribeOn(viewScheduler);
+          } else {
+            return loadBonusIntoView().ignoreElement();
+          }
+        })
+        .subscribe());
+  }
+
+  private Single<ForecastBonus> loadBonusIntoView() {
+    return gamification.getEarningBonus(transaction.getDomain(), transaction.amount())
+        .observeOn(viewScheduler)
+        .doOnSuccess(bonus -> {
+          if (!bonus.getStatus()
+              .equals(ForecastBonus.Status.ACTIVE)
+              || bonus.getAmount()
+              .compareTo(BigDecimal.ZERO) <= 0) {
+            view.hideBonus();
+          } else {
+            view.showBonus(bonus.getAmount());
+          }
+        });
   }
 
   private void handleBuyClick() {
