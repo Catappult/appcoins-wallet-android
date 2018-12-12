@@ -70,8 +70,8 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     String to = extractTo(transaction);
     String from = extractFrom(transaction);
 
-    fill(transaction.getType(), from, to, currency, transaction.getValue(), ETHER_DECIMALS,
-        transaction.getStatus(), transaction.getDetails());
+    fill(from, to, currency, transaction.getValue(), ETHER_DECIMALS, transaction.getStatus(),
+        transaction.getDetails());
   }
 
   private String extractTo(Transaction transaction) {
@@ -104,26 +104,10 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     }
   }
 
-  private void fill(Transaction.TransactionType type, String from, String to, String currencySymbol,
-      String valueStr, long decimals, Transaction.TransactionStatus transactionStatus,
-      TransactionDetails details) {
+  private void fill(String from, String to, String currencySymbol, String valueStr, long decimals,
+      Transaction.TransactionStatus transactionStatus, TransactionDetails details) {
     boolean isSent = from.toLowerCase()
         .equals(defaultAddress);
-
-    int transactionTypeIcon = R.drawable.ic_transaction_peer;
-
-    if (type == Transaction.TransactionType.ADS
-        || type == Transaction.TransactionType.ADS_OFFCHAIN) {
-      transactionTypeIcon = R.drawable.ic_transaction_poa;
-    } else if (type == Transaction.TransactionType.IAB
-        || type == Transaction.TransactionType.MICRO_IAB
-        || type == Transaction.TransactionType.IAP_OFFCHAIN) {
-      transactionTypeIcon = R.drawable.ic_transaction_iab;
-    } else if (type == Transaction.TransactionType.OPEN_CHANNEL
-        || type == Transaction.TransactionType.TOP_UP_CHANNEL
-        || type == Transaction.TransactionType.CLOSE_CHANNEL) {
-      transactionTypeIcon = R.drawable.ic_transaction_miu;
-    }
 
     TransactionDetails.Icon icon;
     String uri = null;
@@ -138,17 +122,45 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
           break;
       }
     }
-    int finalTransactionTypeIcon = transactionTypeIcon;
-    if (uri == null || details.getSourceName() == null) {
-      typeIcon.setVisibility(View.GONE);
-    } else {
-      typeIcon.setVisibility(View.VISIBLE);
+
+    int transactionTypeIcon;
+    switch (transaction.getType()) {
+      case IAB:
+      case IAP_OFFCHAIN:
+        transactionTypeIcon = R.drawable.ic_transaction_iab;
+        setTypeIconVisibilityBasedOnDescription(details, uri);
+        break;
+      case ADS:
+      case ADS_OFFCHAIN:
+        transactionTypeIcon = R.drawable.ic_transaction_poa;
+        setTypeIconVisibilityBasedOnDescription(details, uri);
+        break;
+      case BONUS:
+        typeIcon.setVisibility(View.GONE);
+        transactionTypeIcon = R.drawable.ic_transaction_peer;
+
+        break;
+      default:
+        transactionTypeIcon = R.drawable.ic_transaction_peer;
+        setTypeIconVisibilityBasedOnDescription(details, uri);
     }
+
+    if (details != null) {
+      address.setText(
+          details.getSourceName() == null ? isSent ? to : from : getSourceText(transaction));
+      description.setText(details.getDescription() == null ? "" : details.getDescription());
+    } else {
+      address.setText(isSent ? to : from);
+      description.setText("");
+    }
+
+    int finalTransactionTypeIcon = transactionTypeIcon;
     Picasso.with(getContext())
         .load(uri)
         .transform(new CircleTransformation())
         .placeholder(finalTransactionTypeIcon)
-        .error(transactionTypeIcon).fit()
+        .error(transactionTypeIcon)
+        .fit()
         .into(srcImage, new Callback() {
           @Override public void onSuccess() {
             ((ImageView) typeIcon.findViewById(R.id.icon)).setImageResource(
@@ -177,31 +189,6 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     status.setText(statusText);
     status.setTextColor(ContextCompat.getColor(getContext(), statusColor));
 
-    switch (type) {
-      case OPEN_CHANNEL:
-        address.setText(R.string.miuraiden_trans_details_open);
-        description.setText(isSent ? to : from);
-        break;
-      case TOP_UP_CHANNEL:
-        address.setText(R.string.miuraiden_trans_details_topup);
-        description.setText(isSent ? to : from);
-        break;
-      case CLOSE_CHANNEL:
-        address.setText(R.string.miuraiden_trans_details_close);
-        description.setText(isSent ? to : from);
-        break;
-      default:
-        if (details != null) {
-          address.setText(
-              details.getSourceName() == null ? isSent ? to : from : details.getSourceName());
-          description.setText(details.getDescription() == null ? "" : details.getDescription());
-        } else {
-          address.setText(isSent ? to : from);
-          description.setText("");
-        }
-        break;
-    }
-
     if (valueStr.equals("0")) {
       valueStr = "0 ";
     } else {
@@ -211,6 +198,25 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     currency.setText(currencySymbol);
 
     this.value.setText(valueStr);
+  }
+
+  private String getSourceText(Transaction transaction) {
+    if (transaction.getType()
+        .equals(Transaction.TransactionType.BONUS)) {
+      return getContext().getString(R.string.gamification_transaction_title,
+          transaction.getDetails()
+              .getSourceName());
+    }
+    return transaction.getDetails()
+        .getSourceName();
+  }
+
+  private void setTypeIconVisibilityBasedOnDescription(TransactionDetails details, String uri) {
+    if (uri == null || details.getSourceName() == null) {
+      typeIcon.setVisibility(View.GONE);
+    } else {
+      typeIcon.setVisibility(View.VISIBLE);
+    }
   }
 
   private String getScaledValue(String valueStr, long decimals) {

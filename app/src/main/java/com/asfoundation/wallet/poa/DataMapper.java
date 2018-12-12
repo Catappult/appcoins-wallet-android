@@ -57,7 +57,7 @@ public class DataMapper {
   public byte[] convertCountryCode(String countryCode) {
     byte[] data = new byte[2];
     char[] chars = countryCode.toCharArray();
-    //map country code for contract's format
+    //mapDarkIcons country code for contract's format
     int index = ((int) chars[0] - 65) * 26 + ((int) chars[1] - 65);
 
     data[0] = (byte) ((index >>> 8) & 0xFF);

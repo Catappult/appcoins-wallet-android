@@ -35,8 +35,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 27
-    versionCode 46
-    versionName "1.2.0.19"
+    versionCode 49
+    versionName "1.3.0.2"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     vectorDrawables.useSupportLibrary = true
     multiDexEnabled = true
@@ -247,6 +247,7 @@ dependencies {
   implementation "aptoide-client-v8:aptoide-analytics-core:1.0.3"
   implementation project(path: ':appcoinsRewards')
   implementation project(path: ':commons')
+  implementation project(path: ':gamification')
 
   implementation 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:27.1.0'
 }

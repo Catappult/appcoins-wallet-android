@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.util
 
-data class OneStepUri(
-    var scheme: String? = null,
-    var host: String? = null,
-    var path: String? = null,
-    var parameters: MutableMap<String, String> = mutableMapOf()
+data class OneStepUri   (
+    var scheme: String,
+    var host: String,
+    var path: String,
+    var parameters: MutableMap<String, String>
 )

@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.os.Bundle;
+import com.jakewharton.rxrelay2.PublishRelay;
 import io.reactivex.Observable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  */
 
 public interface OnChainBuyView {
-  Observable<OnChainBuyPresenter.BuyData> getBuyClick();
+  PublishRelay<String> getBuyClick();
 
   Observable<Object> getCancelClick();
 
@@ -48,19 +49,5 @@ public interface OnChainBuyView {
 
   void showRaidenChannelValues(List<BigDecimal> values);
 
-  Observable<Boolean> getCreateChannelClick();
-
-  void showRaidenInfo();
-
-  Observable<Object> getDontShowAgainClick();
-
-  void showChannelAmount();
-
-  void hideChannelAmount();
-
-  void showDefaultAsDefaultPayment();
-
   void showWallet(String wallet);
-
-  void showNoChannelFundsError();
 }

@@ -16,6 +16,7 @@ import com.asfoundation.wallet.repository.ExpressCheckoutBuyService;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.PaymentTransaction;
 import com.asfoundation.wallet.repository.TransactionNotFoundException;
+import com.asfoundation.wallet.util.TransactionIdHelper;
 import com.asfoundation.wallet.util.TransferParser;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -42,13 +43,20 @@ public class AsfInAppPurchaseInteractor {
   private final BdsTransactionService trackTransactionService;
   private final Scheduler scheduler;
 
+  private final TransactionIdHelper transactionIdHelper;
+
+  public Single<TransactionBuilder> parseTransaction(String uri) {
+    return parser.parse(uri);
+  }
+
   public AsfInAppPurchaseInteractor(InAppPurchaseService inAppPurchaseService,
       FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
       BigDecimal paymentGasLimit, TransferParser parser,
       BillingMessagesMapper billingMessagesMapper, Billing billing,
       ExternalBillingSerializer billingSerializer,
       ExpressCheckoutBuyService expressCheckoutBuyService,
-      BdsTransactionService trackTransactionService, Scheduler scheduler) {
+      BdsTransactionService trackTransactionService, Scheduler scheduler,
+      TransactionIdHelper transactionIdHelper) {
     this.inAppPurchaseService = inAppPurchaseService;
     this.defaultWalletInteract = defaultWalletInteract;
     this.gasSettingsInteract = gasSettingsInteract;
@@ -60,10 +68,7 @@ public class AsfInAppPurchaseInteractor {
     this.expressCheckoutBuyService = expressCheckoutBuyService;
     this.trackTransactionService = trackTransactionService;
     this.scheduler = scheduler;
-  }
-
-  public Single<TransactionBuilder> parseTransaction(String uri) {
-    return parser.parse(uri);
+    this.transactionIdHelper = transactionIdHelper;
   }
 
   public Completable send(String uri, TransactionType transactionType, String packageName,
@@ -143,7 +148,8 @@ public class AsfInAppPurchaseInteractor {
   }
 
   @NonNull private Payment mapToPayment(PaymentTransaction paymentTransaction) {
-    return new Payment(paymentTransaction.getUri(), mapStatus(paymentTransaction.getState()),
+    return new Payment(paymentTransaction.getUri(),
+        mapStatus(paymentTransaction.getState()),
         paymentTransaction.getTransactionBuilder()
             .fromAddress(), paymentTransaction.getBuyHash(), paymentTransaction.getPackageName(),
         paymentTransaction.getProductName(), paymentTransaction.getProductId());
@@ -193,7 +199,8 @@ public class AsfInAppPurchaseInteractor {
                 new GasSettings(gasSettings.gasPrice.multiply(new BigDecimal(GAS_PRICE_MULTIPLIER)),
                     paymentGasLimit))))
         .map(transactionBuilder -> new PaymentTransaction(uri, transactionBuilder, packageName,
-            productName, transactionBuilder.getSkuId(), developerPayload, transactionBuilder.getCallbackUrl()));
+            productName, transactionBuilder.getSkuId(), developerPayload,
+            transactionBuilder.getCallbackUrl()));
   }
 
   public void start() {

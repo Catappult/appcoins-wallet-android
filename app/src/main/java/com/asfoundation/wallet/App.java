@@ -5,7 +5,6 @@ import android.app.Service;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.Fragment;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
-import com.appcoins.wallet.bdsbilling.BillingFactory;
 import com.appcoins.wallet.bdsbilling.ProxyService;
 import com.appcoins.wallet.bdsbilling.WalletService;
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary;
@@ -14,7 +13,7 @@ import com.appcoins.wallet.billing.BillingDependenciesProvider;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk;
 import com.asf.wallet.BuildConfig;
-import com.asfoundation.wallet.billing.payment.Adyen;
+import com.asfoundation.wallet.billing.adyen.Adyen;
 import com.asfoundation.wallet.di.DaggerAppComponent;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
@@ -25,7 +24,7 @@ import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
-import com.jakewharton.rxrelay2.PublishRelay;
+import com.jakewharton.rxrelay2.BehaviorRelay;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
@@ -97,7 +96,7 @@ public class App extends MultiDexApplication
 
   public Adyen getAdyen() {
     if (adyen == null) {
-      adyen = new Adyen(this, Charset.forName("UTF-8"), Schedulers.io(), PublishRelay.create());
+      adyen = new Adyen(this, Charset.forName("UTF-8"), Schedulers.io(), BehaviorRelay.create());
     }
     return adyen;
   }

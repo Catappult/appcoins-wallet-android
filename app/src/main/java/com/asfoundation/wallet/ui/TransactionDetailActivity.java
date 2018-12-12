@@ -21,7 +21,6 @@ import com.asfoundation.wallet.transactions.TransactionDetails;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsDetailsAdapter;
 import com.asfoundation.wallet.util.BalanceUtils;
-import com.asfoundation.wallet.util.StringUtils;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModel;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModelFactory;
 import com.asfoundation.wallet.widget.CircleTransformation;
@@ -47,7 +46,6 @@ public class TransactionDetailActivity extends BaseActivity {
   private RecyclerView detailsList;
 
   private Dialog dialog;
-  private String walletAddr;
   private CompositeDisposable disposables;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,7 +86,6 @@ public class TransactionDetailActivity extends BaseActivity {
   }
 
   private void onDefaultWallet(Wallet wallet) {
-    walletAddr = wallet.address;
     adapter.setDefaultWallet(wallet);
     adapter.addOperations(transaction.getOperations());
 
@@ -124,7 +121,6 @@ public class TransactionDetailActivity extends BaseActivity {
 
     @StringRes int typeStr = R.string.transaction_type_standard;
     @DrawableRes int typeIcon = R.drawable.ic_transaction_peer;
-    boolean showCloseButton = false;
 
     switch (transaction.getType()) {
       case ADS:
@@ -140,42 +136,23 @@ public class TransactionDetailActivity extends BaseActivity {
         button.setOnClickListener(
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
         break;
-      case MICRO_IAB:
-        to = transaction.getTo();
-      case IAB:
-        typeStr = R.string.transaction_type_iab;
-        typeIcon = R.drawable.ic_transaction_iab;
-        break;
-      case OPEN_CHANNEL:
-        typeStr = R.string.transaction_type_miuraiden;
-        typeIcon = R.drawable.ic_transaction_miu;
-        id = getString(R.string.miuraiden_trans_details_open);
-        description =
-            StringUtils.resizeString(isSent ? transaction.getTo() : transaction.getFrom(), 7,
-                getString(R.string.ellipsize));
-        break;
-      case TOP_UP_CHANNEL:
-        typeStr = R.string.transaction_type_miuraiden;
-        typeIcon = R.drawable.ic_transaction_miu;
-        id = getString(R.string.miuraiden_trans_details_topup);
-        description =
-            StringUtils.resizeString(isSent ? transaction.getTo() : transaction.getFrom(), 7,
-                getString(R.string.ellipsize));
-        break;
-      case CLOSE_CHANNEL:
-        typeStr = R.string.transaction_type_miuraiden;
-        typeIcon = R.drawable.ic_transaction_miu;
-        id = getString(R.string.miuraiden_trans_details_close);
-        description =
-            StringUtils.resizeString(isSent ? transaction.getTo() : transaction.getFrom(), 7,
-                getString(R.string.ellipsize));
-        break;
       case IAP_OFFCHAIN:
         button = findViewById(R.id.more_detail);
         button.setVisibility(View.VISIBLE);
         to = transaction.getTo();
         typeStr = R.string.transaction_type_iab;
         typeIcon = R.drawable.ic_transaction_iab;
+        button.setOnClickListener(
+            view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        break;
+      case BONUS:
+        button = findViewById(R.id.more_detail);
+        button.setVisibility(View.VISIBLE);
+        to = transaction.getTo();
+        typeStr = R.string.transaction_type_bonus;
+        typeIcon = -1;
+        id = getString(R.string.gamification_level_bonus, transaction.getDetails()
+            .getSourceName());
         button.setOnClickListener(
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
         break;
@@ -196,7 +173,7 @@ public class TransactionDetailActivity extends BaseActivity {
     }
 
     setUIContent(transaction.getTimeStamp(), rawValue, symbol, icon, id, description, typeStr,
-        typeIcon, statusStr, statusColor, showCloseButton, to);
+        typeIcon, statusStr, statusColor, to);
   }
 
   private void onDefaultNetwork(NetworkInfo networkInfo) {
@@ -225,8 +202,7 @@ public class TransactionDetailActivity extends BaseActivity {
   }
 
   private void setUIContent(long timeStamp, String value, String symbol, String icon, String id,
-      String description, int typeStr, int typeIcon, int statusStr, int statusColor,
-      boolean showCloseBtn, String to) {
+      String description, int typeStr, int typeIcon, int statusStr, int statusColor, String to) {
     ((TextView) findViewById(R.id.transaction_timestamp)).setText(getDate(timeStamp));
     findViewById(R.id.transaction_timestamp).setVisibility(View.VISIBLE);
 
@@ -235,6 +211,7 @@ public class TransactionDetailActivity extends BaseActivity {
 
     amount.setText(BalanceUtils.formatBalance(value, symbol, smallTitleSize, color));
 
+    ImageView typeIconImageView = findViewById(R.id.img);
     if (icon != null) {
       String path;
       if (icon.startsWith("http://") || icon.startsWith("https://")) {
@@ -247,9 +224,14 @@ public class TransactionDetailActivity extends BaseActivity {
           .load(path)
           .transform(new CircleTransformation())
           .fit()
-          .into((ImageView) findViewById(R.id.img));
+          .into(typeIconImageView);
     } else {
-      ((ImageView) findViewById(R.id.img)).setImageResource(typeIcon);
+      if (typeIcon != -1) {
+        typeIconImageView.setImageResource(typeIcon);
+        typeIconImageView.setVisibility(View.VISIBLE);
+      } else {
+        typeIconImageView.setVisibility(View.GONE);
+      }
     }
 
     ((TextView) findViewById(R.id.app_id)).setText(id);
@@ -258,7 +240,14 @@ public class TransactionDetailActivity extends BaseActivity {
       findViewById(R.id.item_id).setVisibility(View.VISIBLE);
     }
     ((TextView) findViewById(R.id.category_name)).setText(typeStr);
-    ((ImageView) findViewById(R.id.category_icon)).setImageResource(typeIcon);
+
+    if (typeIcon != -1) {
+      ((ImageView) findViewById(R.id.category_icon)).setImageResource(typeIcon);
+      findViewById(R.id.category_icon).setVisibility(View.VISIBLE);
+      findViewById(R.id.category_icon_background).setVisibility(View.VISIBLE);
+    } else {
+      findViewById(R.id.category_icon_background).setVisibility(View.GONE);
+    }
 
     ((TextView) findViewById(R.id.status)).setText(statusStr);
     ((TextView) findViewById(R.id.status)).setTextColor(getResources().getColor(statusColor));
