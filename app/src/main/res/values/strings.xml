@@ -252,7 +252,7 @@
   <string name="action_skip_backup_wallet">SKIP BACKUP</string>
   <string name="item_donation">Donation</string>
 
-    <!-- Gamification -->
+  <!-- Gamification -->
   <string name="gamification_level_title">What\'s My Level?</string>
   <string name="gamification_level_header">Congrats, you\'re %s!</string>
   <string name="gamification_level_earned">EARNED:</string>
@@ -275,7 +275,4 @@
   <string name="gamification_purchase_header">Purchase Bonus:</string>
   <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
   <string name="action_level">My Level</string>
-  <string name="gamification_purchase_header">Purchase Bonus:</string>
-  <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
-
 </resources>
