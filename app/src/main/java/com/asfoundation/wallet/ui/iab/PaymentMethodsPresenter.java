@@ -77,7 +77,9 @@ public class PaymentMethodsPresenter {
       handleOnGoingPurchases();
     }
     handleBuyClick();
-    handlePaymentSelection();
+    if (isBds) {
+      handlePaymentSelection();
+    }
   }
 
   private void handlePaymentSelection() {
