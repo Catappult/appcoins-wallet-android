@@ -75,8 +75,6 @@ android {
 
     manifestPlaceholders.facebookKey = "${project.FACEBOOK_APP_KEY}"
 
-    buildConfigField 'String', 'PAYMENT_HOST_MAIN_NETWORK',
-        "\"" + project.PAYMENT_HOST + "\""
     buildConfigField 'String', 'PAYMENT_HOST_ROPSTEN_NETWORK',
         "\"" + project.PAYMENT_HOST_DEV + "\""
 
@@ -113,6 +111,9 @@ android {
       manifestPlaceholders.paymentHost = "${project.PAYMENT_HOST}"
       buildConfigField 'String', 'PAYMENT_HOST',
           "\"" + project.PAYMENT_HOST + "\""
+      manifestPlaceholders.secondPaymentHost = "${project.SECOND_PAYMENT_HOST}"
+      buildConfigField 'String', 'PAYMENT_HOST',
+          "\"" + project.PAYMENT_HOST + "\""
     }
     debug {
       minifyEnabled false
@@ -129,6 +130,9 @@ android {
           "\"" + project.BDS_BASE_HOST_DEV + "\""
       manifestPlaceholders.paymentHost = "${project.PAYMENT_HOST_DEV}"
       buildConfigField 'String', 'PAYMENT_HOST',
+          "\"" + project.PAYMENT_HOST_DEV + "\""
+      manifestPlaceholders.secondPaymentHost = "${project.PAYMENT_HOST_DEV}"
+      buildConfigField 'String', 'SECOND_PAYMENT_HOST',
           "\"" + project.PAYMENT_HOST_DEV + "\""
       applicationVariants.all { variant -> renameArtifact(defaultConfig)
       }
