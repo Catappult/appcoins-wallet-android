@@ -401,15 +401,19 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     for (PaymentMethod paymentMethod : paymentMethods) {
       if (paymentMethod.getId()
           .equals("appcoins")) {
+        appcRadioButton.setText(paymentMethod.getLabel());
         loadIcons(paymentMethod, appcRadioButton);
       } else if (paymentMethod.getId()
           .equals("appcoins_credits")) {
+        appcCreditsRadioButton.setText(paymentMethod.getLabel());
         loadIcons(paymentMethod, appcCreditsRadioButton);
       } else if (paymentMethod.getId()
           .equals("credit_card")) {
+        creditCardRadioButton.setText(paymentMethod.getLabel());
         loadIcons(paymentMethod, creditCardRadioButton);
       } else if (paymentMethod.getId()
           .equals("paypal")) {
+        paypalRadioButton.setText(paymentMethod.getLabel());
         loadIcons(paymentMethod, paypalRadioButton);
       }
     }
