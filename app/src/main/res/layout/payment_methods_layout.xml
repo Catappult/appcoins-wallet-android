@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/payment_methods_width"
-    android:layout_gravity="center"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_margin="16dp"
     android:animateLayoutChanges="true"
     android:background="@drawable/background_card"
-    android:layout_margin="16dp"
     android:orientation="vertical"
     >
   <ProgressBar
@@ -73,11 +73,10 @@
 
       <android.support.constraint.ConstraintLayout
           android:id="@+id/payment_methods"
-          android:layout_height="wrap_content"
           android:layout_width="match_parent"
+          android:layout_height="wrap_content"
           android:background="@drawable/background_card"
           android:elevation="2dp"
-          android:padding="16dp"
           android:visibility="invisible"
           >
 
@@ -85,8 +84,11 @@
             android:id="@+id/app_icon"
             android:layout_width="42dp"
             android:layout_height="42dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:src="@drawable/ic_appc"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             />
         <TextView
             android:id="@+id/app_name"
@@ -121,6 +123,7 @@
             android:id="@+id/appc_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:fontFamily="@font/roboto_bolt"
             android:textColor="@color/black"
             android:textSize="15sp"
@@ -135,8 +138,9 @@
             android:id="@+id/fiat_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:layout_marginEnd="16dp"
             android:textColor="#828282"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintStart_toStartOf="parent"
@@ -159,7 +163,12 @@
             android:id="@+id/payment_methods_radio_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
             android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/bonus_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/header_separator"
             >
           <RadioButton
@@ -167,8 +176,8 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:drawablePadding="18dp"
-              android:paddingLeft="4dp"
               android:enabled="false"
+              android:paddingStart="4dp"
               style="@style/PaymentMethodsRadioButton"
               />
 
@@ -181,12 +190,12 @@
 
           <RadioButton
               android:id="@+id/credit_card"
-              android:checked="true"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:checked="true"
               android:drawablePadding="12dp"
-              android:paddingLeft="4dp"
               android:enabled="false"
+              android:paddingStart="4dp"
               style="@style/PaymentMethodsRadioButton"
               />
           <View
@@ -201,8 +210,8 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:drawablePadding="18dp"
-              android:paddingLeft="4dp"
               android:enabled="false"
+              android:paddingStart="4dp"
               android:visibility="visible"
               style="@style/PaymentMethodsRadioButton"
               />
@@ -220,19 +229,22 @@
               android:layout_height="wrap_content"
               android:drawablePadding="18dp"
               android:enabled="false"
+              android:paddingStart="4dp"
               android:visibility="visible"
-              android:paddingLeft="4dp"
               style="@style/PaymentMethodsRadioButton"
               />
-          <View
-              android:id="@+id/appc_credits_view"
-              android:layout_width="match_parent"
-              android:layout_height="2dp"
-              android:background="#eaeaea"
-              android:visibility="visible"
-              />
-
         </RadioGroup>
+        <include
+            layout="@layout/dialog_buy_bonus"
+            android:id="@+id/bonus_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/dialog_buy_buttons_payment_methods"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/payment_methods_radio_group"
+            />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline"
@@ -247,10 +259,13 @@
             android:id="@+id/dialog_buy_buttons_payment_methods"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginTop="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="@id/guideline"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/payment_methods_radio_group"
+            app:layout_constraintTop_toBottomOf="@id/bonus_layout"
             />
 
       </android.support.constraint.ConstraintLayout>
@@ -258,7 +273,6 @@
           android:id="@+id/address_footer"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_below="@id/payment_methods"
           android:layout_marginBottom="2dp"
           android:layout_marginTop="2dp"
           android:visibility="invisible"

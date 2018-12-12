@@ -691,7 +691,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new PoASubmissionService(api);
   }
 
-  @Singleton @Provides Gamification provideGamification(OkHttpClient client) {
+  @Provides Gamification provideGamification(OkHttpClient client) {
     String baseUrl = PoASubmissionService.SERVICE_HOST;
     GamificationApi api = new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
@@ -766,7 +766,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new BillingAnalytics(analytics);
   }
 
-  @Singleton @Provides GamificationInteractor provideGamificationInteractor(
+  @Provides GamificationInteractor provideGamificationInteractor(
       Gamification gamification, FindDefaultWalletInteract defaultWallet) {
     return new GamificationInteractor(gamification, defaultWallet);
   }
