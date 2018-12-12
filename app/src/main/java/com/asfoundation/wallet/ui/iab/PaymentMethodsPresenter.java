@@ -37,7 +37,6 @@ public class PaymentMethodsPresenter {
   private final Billing billing;
   private final BillingAnalytics analytics;
   private final boolean isBds;
-  private final Single<TransactionBuilder> transactionBuilder;
   private final String developerPayload;
   private final String uri;
   private final WalletService walletService;
@@ -48,9 +47,9 @@ public class PaymentMethodsPresenter {
       Scheduler viewScheduler, Scheduler networkThread, CompositeDisposable disposables,
       InAppPurchaseInteractor inAppPurchaseInteractor, BillingMessagesMapper billingMessagesMapper,
       BdsPendingTransactionService bdsPendingTransactionService, Billing billing,
-      BillingAnalytics analytics, boolean isBds, Single<TransactionBuilder> transactionBuilder,
-      String developerPayload, String uri, WalletService walletService,
-      GamificationInteractor gamification, TransactionBuilder transaction) {
+      BillingAnalytics analytics, boolean isBds, String developerPayload, String uri,
+      WalletService walletService, GamificationInteractor gamification,
+      TransactionBuilder transaction) {
     this.view = view;
     this.appPackage = appPackage;
     this.viewScheduler = viewScheduler;
@@ -62,7 +61,6 @@ public class PaymentMethodsPresenter {
     this.billing = billing;
     this.analytics = analytics;
     this.isBds = isBds;
-    this.transactionBuilder = transactionBuilder;
     this.developerPayload = developerPayload;
     this.uri = uri;
     this.walletService = walletService;
@@ -134,15 +132,10 @@ public class PaymentMethodsPresenter {
   }
 
   private void handleOnGoingPurchases() {
-    disposables.add(transactionBuilder.flatMapCompletable(transactionBuilder -> {
-      String skuId = transactionBuilder.getSkuId();
-      if (skuId == null) {
-        return Completable.complete();
-      } else {
-        return waitForUi(skuId);
-      }
-    })
-        .observeOn(viewScheduler)
+    if (transaction.getSkuId() == null) {
+      return;
+    }
+    disposables.add(waitForUi(transaction.getSkuId()).observeOn(viewScheduler)
         .subscribe(view::hideLoading, throwable -> {
           view.showError();
           throwable.printStackTrace();
@@ -175,14 +168,13 @@ public class PaymentMethodsPresenter {
   }
 
   private void handleProcessing() {
-    transactionBuilder.flatMapMaybe(
-        transaction -> inAppPurchaseInteractor.getCurrentPaymentStep(appPackage, transaction)
-            .filter(currentPaymentStep -> currentPaymentStep.equals(
-                AsfInAppPurchaseInteractor.CurrentPaymentStep.PAUSED_ON_CHAIN))
-            .doOnSuccess(currentPaymentStep -> inAppPurchaseInteractor.resume(uri,
-                AsfInAppPurchaseInteractor.TransactionType.NORMAL, appPackage,
-                transaction.getSkuId(), developerPayload, isBds)))
-        .subscribe();
+    disposables.add(inAppPurchaseInteractor.getCurrentPaymentStep(appPackage, transaction)
+        .filter(currentPaymentStep -> currentPaymentStep.equals(
+            AsfInAppPurchaseInteractor.CurrentPaymentStep.PAUSED_ON_CHAIN))
+        .doOnSuccess(currentPaymentStep -> inAppPurchaseInteractor.resume(uri,
+            AsfInAppPurchaseInteractor.TransactionType.NORMAL, appPackage, transaction.getSkuId(),
+            developerPayload, isBds))
+        .subscribe());
   }
 
   private Completable finishProcess(String skuId) {
@@ -209,27 +201,25 @@ public class PaymentMethodsPresenter {
 
   private void setupUi(double transactionValue, String currency) {
     setWalletAddress();
-    disposables.add(Single.zip(transactionBuilder.flatMap(
-        transaction -> isBds ? inAppPurchaseInteractor.getPaymentMethods()
+    disposables.add(Single.zip(isBds ? inAppPurchaseInteractor.getPaymentMethods()
             .subscribeOn(networkThread)
             .flatMap(paymentMethods -> Observable.fromIterable(paymentMethods)
                 .map(paymentMethod -> new PaymentMethod(paymentMethod.getId(),
                     paymentMethod.getLabel(), paymentMethod.getIconUrl(), true))
-                .toList()) : Single.just(Collections.singletonList(PaymentMethod.APPC))),
-        transactionBuilder.flatMap(
-            transaction -> isBds ? inAppPurchaseInteractor.getAvailablePaymentMethods(transaction)
+                .toList()) : Single.just(Collections.singletonList(PaymentMethod.APPC)),
+        isBds ? inAppPurchaseInteractor.getAvailablePaymentMethods(transaction)
             .subscribeOn(networkThread)
             .flatMap(paymentMethods -> Observable.fromIterable(paymentMethods)
                 .map(paymentMethod -> new PaymentMethod(paymentMethod.getId(),
                     paymentMethod.getLabel(), paymentMethod.getIconUrl(), true))
-                .toList()) : Single.just(Collections.singletonList(PaymentMethod.APPC)))
+                .toList()) : Single.just(Collections.singletonList(PaymentMethod.APPC))
             .observeOn(viewScheduler),
         inAppPurchaseInteractor.convertToFiat(transactionValue, currency),
         (paymentMethods, availablePaymentMethods, fiatValue) -> Completable.fromAction(
             () -> view.showPaymentMethods(paymentMethods, availablePaymentMethods, fiatValue,
                 TransactionData.TransactionType.DONATION.name()
-                    .equalsIgnoreCase(transactionBuilder.blockingGet()
-                        .getType()), mapCurrencyCodeToSymbol(fiatValue.getCurrency())))
+                    .equalsIgnoreCase(transaction.getType()),
+                mapCurrencyCodeToSymbol(fiatValue.getCurrency())))
             .subscribeOn(AndroidSchedulers.mainThread()))
         .flatMapCompletable(completable -> completable)
         .subscribe(() -> {
@@ -270,10 +260,8 @@ public class PaymentMethodsPresenter {
   }
 
   public void sendPurchaseDetails(String purchaseDetails) {
-    disposables.add(transactionBuilder.subscribe(
-        transactionBuilder -> analytics.sendPurchaseDetailsEvent(appPackage,
-            transactionBuilder.getSkuId(), transactionBuilder.amount()
-                .toString(), purchaseDetails, transactionBuilder.getType())));
+    analytics.sendPurchaseDetailsEvent(appPackage, transaction.getSkuId(), transaction.amount()
+        .toString(), purchaseDetails, transaction.getType());
   }
 
   public void stop() {

@@ -24,7 +24,6 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.WalletService;
 import com.appcoins.wallet.bdsbilling.repository.entity.DeveloperPurchase;
@@ -40,9 +39,13 @@ import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxRadioGroup;
 import com.squareup.picasso.Picasso;
-
-import org.jetbrains.annotations.NotNull;
-
+import dagger.android.support.DaggerFragment;
+import io.reactivex.Observable;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.PublishSubject;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -51,17 +54,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
 import javax.inject.Inject;
-
-import dagger.android.support.DaggerFragment;
-import io.reactivex.Observable;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
-import io.reactivex.subjects.PublishSubject;
 import kotlin.NotImplementedError;
+import org.jetbrains.annotations.NotNull;
 
 import static com.asfoundation.wallet.billing.analytics.BillingAnalytics.PAYMENT_METHOD_CC;
 import static com.asfoundation.wallet.ui.iab.IabActivity.DEVELOPER_PAYLOAD;
@@ -181,8 +176,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     presenter = new PaymentMethodsPresenter(this, appPackage, AndroidSchedulers.mainThread(),
         Schedulers.io(), new CompositeDisposable(), inAppPurchaseInteractor,
         inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing,
-        analytics, isBds, Single.just(transaction), developerPayload, uri, walletService,
-        gamification, transaction);
+        analytics, isBds, developerPayload, uri, walletService, gamification, transaction);
   }
 
   @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -375,18 +369,19 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     setupPaymentMethods(paymentMethods);
     showAvailable(availablePaymentMethods);
     setupSubject.onNext(true);
+    hideLoading();
   }
 
   public void loadIcons(PaymentMethod paymentMethod, RadioButton radioButton) {
     compositeDisposable.add(Observable.fromCallable(() -> {
       try {
-          Context context = getContext();
-          Bitmap bitmap = Picasso.with(context)
+        Context context = getContext();
+        Bitmap bitmap = Picasso.with(context)
             .load(paymentMethod.getIconUrl())
             .get();
         loadedBitmaps.put(paymentMethod.getId(), bitmap);
 
-          BitmapDrawable drawable = new BitmapDrawable(context.getResources(), bitmap);
+        BitmapDrawable drawable = new BitmapDrawable(context.getResources(), bitmap);
 
         return drawable.getCurrent();
       } catch (IOException e) {
@@ -396,7 +391,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     })
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-            .doOnNext(
+        .doOnNext(
             drawable -> radioButton.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null,
                 null))
         .subscribe(__ -> {
