@@ -88,9 +88,13 @@ public class TransactionsMapper {
 
       String sourceName;
       if (txType.equals(BONUS)) {
-        sourceName = transaction.getBonus()
-            .stripTrailingZeros()
-            .toPlainString();
+        if (transaction.getBonus() == null) {
+          sourceName = null;
+        } else {
+          sourceName = transaction.getBonus()
+              .stripTrailingZeros()
+              .toPlainString();
+        }
       } else {
         sourceName = transaction.getApp();
       }
