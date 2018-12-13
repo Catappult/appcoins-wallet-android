@@ -244,6 +244,7 @@
   <!-- Gamification -->
   <string name="gamification_level_title">Qual o meu nível?</string>
   <string name="gamification_level_header">Parabéns, você é %s!</string>
+  <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">ACUMULADO:</string>
   <string name="gamification_level_bonus">%s%% BÔNUS</string>
   <string name="gamification_level_button_how">COMO FUNCIONA</string>
