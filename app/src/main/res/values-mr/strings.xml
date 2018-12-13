@@ -244,6 +244,7 @@
   <!-- Gamification -->
   <string name="gamification_level_title">माझी पातळी काय आहे?</string>
   <string name="gamification_level_header">अभिनंदन, आपण %s आहात!</string>
+  <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">कमावले:</string>
   <string name="gamification_level_bonus">%s%% बोनस</string>
   <string name="gamification_level_button_how">हे कसे काम करते</string>
