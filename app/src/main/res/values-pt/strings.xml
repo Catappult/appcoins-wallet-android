@@ -58,7 +58,7 @@
   <string name="action_buy">Comprar</string>
   <string name="empty"></string>
   <string name="try_again">Tentar novamente</string>
-  <string name="already_have_account">Já tem uma wallet?</string>
+  <string name="already_have_account">Já tens uma wallet?</string>
   <string name="action_create_new_account">Criar nova wallet</string>
   <string name="unknown_error">Ocorreu um erro.</string>
   <string name="action_backup_wallet">Fazer backup da Wallet</string>
@@ -73,7 +73,7 @@
   <string name="title_add_token">Adicionar Custom Token</string>
   <string name="title_airdrop">Airdrop</string>
   <!-- Suggestions -->
-  <string name="suggestion_private_key">A chave secreta tem que ter 64 caracteres</string>
+  <string name="suggestion_private_key">A chave secreta tem que conter 64 caracteres</string>
   <string name="suggestion_empty_password_available">A password pode ser deixada em branco.</string>
   <string name="suggestion_this_is_your_address">Endereço público da minha wallet %s</string>
   <!-- Hints -->
