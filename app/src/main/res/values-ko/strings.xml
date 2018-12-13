@@ -261,7 +261,7 @@
   <string name="gamification_star_subtitle">빛나고, 크고 생명으로 가득차있는!</string>
   <string name="gamification_galaxy_subtitle">지금까지 없었던 가장 큰 시스템</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="action_level">My Level</string>
   <string name="gamification_purchase_header">Purchase Bonus:</string>
   <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
+  <string name="action_level">My Level</string>
 </resources>
