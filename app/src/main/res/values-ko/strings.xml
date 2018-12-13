@@ -244,6 +244,7 @@
   <!-- Gamification -->
   <string name="gamification_level_title">저의 레벨은 무엇인가요?</string>
   <string name="gamification_level_header">축하합니다. 귀하는 %s 입니다!</string>
+  <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">획득:</string>
   <string name="gamification_level_bonus">%s%% 보너스</string>
   <string name="gamification_level_button_how">동작 방식</string>
