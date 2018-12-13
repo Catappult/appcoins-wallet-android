@@ -244,6 +244,7 @@
   <!-- Gamification -->
   <string name="gamification_level_title">আমার স্তর কোনটি?</string>
   <string name="gamification_level_header">অভিনন্দন, আপনি হলেন %s!</string>
+  <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">অর্জিত:</string>
   <string name="gamification_level_bonus">%s%% বোনাস</string>
   <string name="gamification_level_button_how">এটি কিভাবে কার্যরত</string>
