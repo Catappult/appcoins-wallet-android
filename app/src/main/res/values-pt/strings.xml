@@ -46,7 +46,7 @@
   <string name="title_version">Versão</string>
   <string name="title_tokens">Meus Tokens</string>
   <string name="unlock_screen_title_android">Desbloqueie a tela</string>
-  <string name="unlock_screen_prompt_android">Desbloqueie o seu dispositivo Android para continuar.</string>
+  <string name="unlock_screen_prompt_android">Desbloqueia o teu dispositivo Android para continuares.</string>
   <string name="do_manage_make_backup">Conseguiste efetuar o backup com sucesso?</string>
   <string name="yes_continue">Sim, continuar</string>
   <string name="no_repeat">Não, repetir</string>
