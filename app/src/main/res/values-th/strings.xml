@@ -244,6 +244,7 @@
   <!-- Gamification -->
   <string name="gamification_level_title">ระดับของฉันคืออะไร</string>
   <string name="gamification_level_header">ขอแสดงความยินดี คุณ %s!</string>
+  <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">ได้รับ:</string>
   <string name="gamification_level_bonus">%s%% โบนัส</string>
   <string name="gamification_level_button_how">วิธีการทำงาน</string>
