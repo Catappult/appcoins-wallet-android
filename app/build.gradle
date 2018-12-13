@@ -35,8 +35,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 27
-    versionCode 55
-    versionName "1.4.0.5"
+    versionCode 56
+    versionName "1.4.0.6"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     vectorDrawables.useSupportLibrary = true
     multiDexEnabled = true
