@@ -219,9 +219,9 @@
   <string name="dialog_credit_card_number">Número do cartão</string>
   <string name="dialog_credit_card_expiration">Data de validade</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="activity_airdrop_title">Confirma que és uma pessoa para receberes AppCoins</string>
+  <string name="activity_airdrop_title">Confirma que não és um robô para receberes AppCoins</string>
   <string name="activity_airdrop_details">Isto é apenas uma questão de segurança.</string>
-  <string name="activity_airdrop_hint">Digita as palavras que estão na imagem</string>
+  <string name="activity_airdrop_hint">Digite as palavras que estão na imagem</string>
   <string name="activity_airdrop_submit_btn">Enviar</string>
   <string name="activity_airdrop_wrong_captcha">Captcha errado</string>
   <string name="activity_airdrop_ok">ok</string>
