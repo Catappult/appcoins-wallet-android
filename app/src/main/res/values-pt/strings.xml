@@ -27,7 +27,7 @@
   <string name="no_camera_permission">A AppCoins BDS Wallet precisa de permissão para aceder à tua câmera e digitalizar códigos QR.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Código de barras inválido: %s</string>
-  <string name="title_delete_account">Tens a certeza que pretendes eliminar esta wallet?</string>
+  <string name="title_delete_account">Tens a certeza de que pretendes eliminar esta wallet?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Telegram</string>
   <!-- TODO: Remove or change this placeholder text -->
