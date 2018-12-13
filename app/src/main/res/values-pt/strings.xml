@@ -24,10 +24,10 @@
   <string name="network_label">Rede</string>
   <string name="credits">Créditos</string>
   <string name="low_storage_error">Espaço de armazenamento insuficiente</string>
-  <string name="no_camera_permission">A AppCoins BDS Wallet precisa de permissão para aceder a sua câmera e digitalizar códigos QR.</string>
+  <string name="no_camera_permission">A AppCoins BDS Wallet precisa de permissão para aceder à tua câmera e digitalizar códigos QR.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Código de barras inválido: %s</string>
-  <string name="title_delete_account">Tem a certeza que pretende eliminar esta wallet?</string>
+  <string name="title_delete_account">Tens a certeza que pretendes eliminar esta wallet?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Telegram</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -38,7 +38,7 @@
   <string name="title_support">Ajuda</string>
   <string name="error_import">Erro ao importar a keystore</string>
   <string name="message_this_is_your_address">Endereço público da minha wallet Ethereum</string>
-  <string name="backup_warning_text">Visto que o seu dinheiro é apenas controlado por si, aconselhamos que efetue um backup da sua keystore no caso desta app ser eliminada.\n\nA sua wallet nunca é guardada no armazenamento da cloud ou em backups de dispositivos padrão.</string>
+  <string name="backup_warning_text">Visto que o teu dinheiro é apenas controlado por ti, aconselhamos que efetues um backup da tua keystore no caso desta app ser eliminada.\n\nA tua wallet nunca é guardada no armazenamento da cloud ou em backups de dispositivos padrão.</string>
   <string name="message_no_backup">Sem backup, sem Ethereum</string>
   <string name="error_deleting_account">Erro ao eliminar a wallet</string>
   <string name="title_privacy_policy">Política de Privacidade</string>
@@ -46,13 +46,13 @@
   <string name="title_version">Versão</string>
   <string name="title_tokens">Meus Tokens</string>
   <string name="unlock_screen_title_android">Desbloqueie a tela</string>
-  <string name="unlock_screen_prompt_android">Por favor, desbloqueie o seu dispositivo Android para continuar.</string>
-  <string name="do_manage_make_backup">Conseguiu efetuar o backup com sucesso?</string>
+  <string name="unlock_screen_prompt_android">Desbloqueie o seu dispositivo Android para continuar.</string>
+  <string name="do_manage_make_backup">Conseguiste efetuar o backup com sucesso?</string>
   <string name="yes_continue">Sim, continuar</string>
   <string name="no_repeat">Não, repetir</string>
   <string name="skip">Saltar</string>
   <string name="root_title">DISPOSITIVO DE SEGURANÇA COMPROMETIDA</string>
-  <string name="root_body">Qualquer \'root\' app consegue aceder aos dados da keychain da Wallet da AppCoins e roubar a sua wallet! Apague esta wallet imediatamente e escolha um dispositivo seguro para restaurá-la.</string>
+  <string name="root_body">Qualquer \'root\' app consegue aceder aos dados da keychain da Wallet da AppCoins, e roubar a tua wallet! Apaga esta wallet imediatamente e escolhe um dispositivo seguro para restaurá-la.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
   <string name="buying">Comprar %s</string>
   <string name="action_buy">Comprar</string>
@@ -62,7 +62,7 @@
   <string name="action_create_new_account">Criar nova wallet</string>
   <string name="unknown_error">Ocorreu um erro.</string>
   <string name="action_backup_wallet">Fazer backup da Wallet</string>
-  <string name="no_tokens">Ainda não adicionou nenhum custom token.</string>
+  <string name="no_tokens">Ainda não adicionaste nenhum custom token.</string>
   <string name="title_email">Enviar e-mail</string>
   <string name="action_donate">Doar</string>
   <!-- Titles -->
@@ -89,7 +89,7 @@
   <string name="title_dialog_deposit">How would you like to buy?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
-  <string name="dialog_message">Defina uma password para criptografar a sua wallet</string>
+  <string name="dialog_message">Define uma password para criptografar a tua wallet</string>
   <string name="toast_message_wallet_imported">A wallet foi importada</string>
   <string name="toast_message_wallet_exported">Backup efetuado</string>
   <string name="toast_qr_code_no_address">Código QR não contém um endereço válido</string>
@@ -99,8 +99,8 @@
   <string name="intro_title_second_page"><![CDATA[Privado e seguro]]></string>
   <string name="intro_title_third_page">Simples &amp; Fácil</string>
   <string name="intro_message_first_page">Bem-vindo à revolução da economia das apps.</string>
-  <string name="intro_message_second_page">Chaves secretas nunca desaparecem do seu dispositivo.</string>
-  <string name="intro_message_third_page">Processe todos os seus pagamentos e recompensas in-app em APPC.</string>
+  <string name="intro_message_second_page">Chaves secretas nunca desaparecem do teu dispositivo.</string>
+  <string name="intro_message_third_page">Processa todos os teus pagamentos e recompensas in-app em APPC.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">De</string>
