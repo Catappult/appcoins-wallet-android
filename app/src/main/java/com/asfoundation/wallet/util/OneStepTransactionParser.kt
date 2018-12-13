@@ -72,8 +72,8 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
   }
 
   private fun getChainId(uri: OneStepUri): Long {
-    return if (uri.host == BuildConfig.PAYMENT_HOST_MAIN_NETWORK)
-      Parameters.NETWORK_ID_MAIN else Parameters.NETWORK_ID_ROPSTEN
+    return if (uri.host == BuildConfig.PAYMENT_HOST_ROPSTEN_NETWORK)
+      Parameters.NETWORK_ID_ROPSTEN else Parameters.NETWORK_ID_MAIN
   }
 
   private fun getToken(): Single<Token> {

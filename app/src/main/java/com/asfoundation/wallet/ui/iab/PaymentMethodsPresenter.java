@@ -8,9 +8,11 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
+import com.appcoins.wallet.gamification.repository.ForecastBonus;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
+import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -18,6 +20,8 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.Currency;
 
 public class PaymentMethodsPresenter {
@@ -33,17 +37,19 @@ public class PaymentMethodsPresenter {
   private final Billing billing;
   private final BillingAnalytics analytics;
   private final boolean isBds;
-  private final Single<TransactionBuilder> transactionBuilder;
   private final String developerPayload;
   private final String uri;
   private final WalletService walletService;
+  private final GamificationInteractor gamification;
+  private final TransactionBuilder transaction;
 
   public PaymentMethodsPresenter(PaymentMethodsView view, String appPackage,
       Scheduler viewScheduler, Scheduler networkThread, CompositeDisposable disposables,
       InAppPurchaseInteractor inAppPurchaseInteractor, BillingMessagesMapper billingMessagesMapper,
       BdsPendingTransactionService bdsPendingTransactionService, Billing billing,
-      BillingAnalytics analytics, boolean isBds, Single<TransactionBuilder> transactionBuilder,
-      String developerPayload, String uri, WalletService walletService) {
+      BillingAnalytics analytics, boolean isBds, String developerPayload, String uri,
+      WalletService walletService, GamificationInteractor gamification,
+      TransactionBuilder transaction) {
     this.view = view;
     this.appPackage = appPackage;
     this.viewScheduler = viewScheduler;
@@ -55,10 +61,11 @@ public class PaymentMethodsPresenter {
     this.billing = billing;
     this.analytics = analytics;
     this.isBds = isBds;
-    this.transactionBuilder = transactionBuilder;
     this.developerPayload = developerPayload;
     this.uri = uri;
     this.walletService = walletService;
+    this.gamification = gamification;
+    this.transaction = transaction;
   }
 
   public void present(double transactionValue, String currency, Bundle savedInstanceState) {
@@ -69,6 +76,37 @@ public class PaymentMethodsPresenter {
       handleOnGoingPurchases();
     }
     handleBuyClick();
+    if (isBds) {
+      handlePaymentSelection();
+    }
+  }
+
+  private void handlePaymentSelection() {
+    disposables.add(view.getPaymentSelection()
+        .flatMapCompletable(selectedPaymentMethod -> {
+          if (selectedPaymentMethod.equals(PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS)) {
+            return Completable.fromAction(view::hideBonus)
+                .subscribeOn(viewScheduler);
+          } else {
+            return loadBonusIntoView().ignoreElement();
+          }
+        })
+        .subscribe());
+  }
+
+  private Single<ForecastBonus> loadBonusIntoView() {
+    return gamification.getEarningBonus(transaction.getDomain(), transaction.amount())
+        .observeOn(viewScheduler)
+        .doOnSuccess(bonus -> {
+          if (!bonus.getStatus()
+              .equals(ForecastBonus.Status.ACTIVE)
+              || bonus.getAmount()
+              .compareTo(BigDecimal.ZERO) <= 0) {
+            view.hideBonus();
+          } else {
+            view.showBonus(bonus.getAmount());
+          }
+        });
   }
 
   private void handleBuyClick() {
@@ -94,15 +132,10 @@ public class PaymentMethodsPresenter {
   }
 
   private void handleOnGoingPurchases() {
-    disposables.add(transactionBuilder.flatMapCompletable(transactionBuilder -> {
-      String skuId = transactionBuilder.getSkuId();
-      if (skuId == null) {
-        return Completable.complete();
-      } else {
-        return waitForUi(skuId);
-      }
-    })
-        .observeOn(viewScheduler)
+    if (transaction.getSkuId() == null) {
+      return;
+    }
+    disposables.add(waitForUi(transaction.getSkuId()).observeOn(viewScheduler)
         .subscribe(view::hideLoading, throwable -> {
           view.showError();
           throwable.printStackTrace();
@@ -135,14 +168,13 @@ public class PaymentMethodsPresenter {
   }
 
   private void handleProcessing() {
-    transactionBuilder.flatMapMaybe(
-        transaction -> inAppPurchaseInteractor.getCurrentPaymentStep(appPackage, transaction)
-            .filter(currentPaymentStep -> currentPaymentStep.equals(
-                AsfInAppPurchaseInteractor.CurrentPaymentStep.PAUSED_ON_CHAIN))
-            .doOnSuccess(currentPaymentStep -> inAppPurchaseInteractor.resume(uri,
-                AsfInAppPurchaseInteractor.TransactionType.NORMAL, appPackage,
-                transaction.getSkuId(), developerPayload, isBds)))
-        .subscribe();
+    disposables.add(inAppPurchaseInteractor.getCurrentPaymentStep(appPackage, transaction)
+        .filter(currentPaymentStep -> currentPaymentStep.equals(
+            AsfInAppPurchaseInteractor.CurrentPaymentStep.PAUSED_ON_CHAIN))
+        .doOnSuccess(currentPaymentStep -> inAppPurchaseInteractor.resume(uri,
+            AsfInAppPurchaseInteractor.TransactionType.NORMAL, appPackage, transaction.getSkuId(),
+            developerPayload, isBds))
+        .subscribe());
   }
 
   private Completable finishProcess(String skuId) {
@@ -169,26 +201,25 @@ public class PaymentMethodsPresenter {
 
   private void setupUi(double transactionValue, String currency) {
     setWalletAddress();
-    disposables.add(Single.zip(transactionBuilder.flatMap(
-        transaction -> inAppPurchaseInteractor.getPaymentMethods()
+    disposables.add(Single.zip(isBds ? inAppPurchaseInteractor.getPaymentMethods()
             .subscribeOn(networkThread)
             .flatMap(paymentMethods -> Observable.fromIterable(paymentMethods)
                 .map(paymentMethod -> new PaymentMethod(paymentMethod.getId(),
                     paymentMethod.getLabel(), paymentMethod.getIconUrl(), true))
-                .toList())), transactionBuilder.flatMap(
-        transaction -> inAppPurchaseInteractor.getAvailablePaymentMethods(transaction)
+                .toList()) : Single.just(Collections.singletonList(PaymentMethod.APPC)),
+        isBds ? inAppPurchaseInteractor.getAvailablePaymentMethods(transaction)
             .subscribeOn(networkThread)
             .flatMap(paymentMethods -> Observable.fromIterable(paymentMethods)
                 .map(paymentMethod -> new PaymentMethod(paymentMethod.getId(),
                     paymentMethod.getLabel(), paymentMethod.getIconUrl(), true))
-                .toList()))
+                .toList()) : Single.just(Collections.singletonList(PaymentMethod.APPC))
             .observeOn(viewScheduler),
         inAppPurchaseInteractor.convertToFiat(transactionValue, currency),
         (paymentMethods, availablePaymentMethods, fiatValue) -> Completable.fromAction(
             () -> view.showPaymentMethods(paymentMethods, availablePaymentMethods, fiatValue,
                 TransactionData.TransactionType.DONATION.name()
-                    .equalsIgnoreCase(transactionBuilder.blockingGet()
-                        .getType()), mapCurrencyCodeToSymbol(fiatValue.getCurrency())))
+                    .equalsIgnoreCase(transaction.getType()),
+                mapCurrencyCodeToSymbol(fiatValue.getCurrency())))
             .subscribeOn(AndroidSchedulers.mainThread()))
         .flatMapCompletable(completable -> completable)
         .subscribe(() -> {
@@ -229,10 +260,8 @@ public class PaymentMethodsPresenter {
   }
 
   public void sendPurchaseDetails(String purchaseDetails) {
-    disposables.add(transactionBuilder.subscribe(
-        transactionBuilder -> analytics.sendPurchaseDetailsEvent(appPackage,
-            transactionBuilder.getSkuId(), transactionBuilder.amount()
-                .toString(), purchaseDetails, transactionBuilder.getType())));
+    analytics.sendPurchaseDetailsEvent(appPackage, transaction.getSkuId(), transaction.amount()
+        .toString(), purchaseDetails, transaction.getType());
   }
 
   public void stop() {

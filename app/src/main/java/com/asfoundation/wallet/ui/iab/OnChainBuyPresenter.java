@@ -18,6 +18,8 @@ import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.Nullable;
 
+import static com.asfoundation.wallet.analytics.FacebookEventLogger.EVENT_REVENUE_CURRENCY;
+
 /**
  * Created by franciscocalado on 19/07/2018.
  */
@@ -102,7 +104,7 @@ public class OnChainBuyPresenter {
   private void handleOkErrorClick(String uriString) {
     disposables.add(view.getOkErrorClick()
         .flatMapSingle(__ -> inAppPurchaseInteractor.parseTransaction(uriString, isBds))
-        .subscribe(click -> showBuy(), throwable -> close()));
+        .subscribe(click -> close(), throwable -> close()));
   }
 
   private void handleCancelClick() {
@@ -138,10 +140,6 @@ public class OnChainBuyPresenter {
     disposables.add(inAppPurchaseInteractor.getWalletAddress()
         .observeOn(viewScheduler)
         .subscribe(view::showWallet, Throwable::printStackTrace));
-  }
-
-  private void showBuy() {
-    view.showBuy();
   }
 
   private void close() {
@@ -249,26 +247,10 @@ public class OnChainBuyPresenter {
   }
 
   public void sendRevenueEvent() {
-    disposables.add(transactionBuilder.subscribe(transactionBuilder -> analytics.sendRevenueEvent(
-        transactionBuilder.amount()
-            .toString())));
-  }
-
-  public static class BuyData {
-    private final String uri;
-    private final BigDecimal channelBudget;
-
-    public BuyData(String uri, BigDecimal channelBudget) {
-      this.uri = uri;
-      this.channelBudget = channelBudget;
-    }
-
-    public String getUri() {
-      return uri;
-    }
-
-    public BigDecimal getChannelBudget() {
-      return channelBudget;
-    }
+    disposables.add(transactionBuilder.flatMap(
+        transaction -> inAppPurchaseInteractor.convertToFiat((transaction.amount()).doubleValue(),
+            EVENT_REVENUE_CURRENCY))
+        .doOnSuccess(fiatValue -> analytics.sendRevenueEvent(String.valueOf(fiatValue.getAmount())))
+        .subscribe());
   }
 }

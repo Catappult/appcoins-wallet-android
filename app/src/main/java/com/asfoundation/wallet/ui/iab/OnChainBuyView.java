@@ -29,8 +29,6 @@ public interface OnChainBuyView {
 
   void showTransactionCompleted();
 
-  void showBuy();
-
   void showWrongNetworkError();
 
   void showNoNetworkError();

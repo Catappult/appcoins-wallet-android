@@ -3,10 +3,34 @@ package com.appcoins.wallet.gamification.repository
 import com.appcoins.wallet.gamification.repository.entity.LevelsResponse
 import com.appcoins.wallet.gamification.repository.entity.UserStatusResponse
 import io.reactivex.Single
+import java.math.BigDecimal
 import java.net.UnknownHostException
 
 class BdsGamificationRepository(private val api: GamificationApi) :
     GamificationRepository {
+  override fun getForecastBonus(wallet: String, packageName: String,
+                                amount: BigDecimal): Single<ForecastBonus> {
+    return api.getForecastBonus(wallet, packageName, amount, "APPC").map { map(it) }
+        .onErrorReturn { mapForecastError(it) }
+  }
+
+  private fun mapForecastError(throwable: Throwable): ForecastBonus {
+    throwable.printStackTrace()
+    return when (throwable) {
+      is UnknownHostException -> ForecastBonus(ForecastBonus.Status.NO_NETWORK)
+      else -> {
+        ForecastBonus(ForecastBonus.Status.UNKNOWN_ERROR)
+      }
+    }
+  }
+
+  private fun map(bonusResponse: ForecastBonusResponse): ForecastBonus {
+    if (bonusResponse.status == ForecastBonusResponse.Status.ACTIVE) {
+      return ForecastBonus(ForecastBonus.Status.ACTIVE, bonusResponse.bonus)
+    }
+    return ForecastBonus(ForecastBonus.Status.INACTIVE)
+  }
+
   override fun getUserStatus(wallet: String): Single<UserStats> {
     return api.getUserStatus(wallet).map { map(it) }.onErrorReturn { map(it) }
   }
@@ -23,7 +47,8 @@ class BdsGamificationRepository(private val api: GamificationApi) :
 
   private fun map(response: UserStatusResponse): UserStats {
     return UserStats(UserStats.Status.OK, response.level,
-        response.nextLevelAmount, response.bonus, response.totalSpend, response.totalEarned)
+        response.nextLevelAmount, response.bonus, response.totalSpend, response.totalEarned,
+        UserStatusResponse.Status.ACTIVE == response.status)
   }
 
   override fun getLevels(): Single<Levels> {
@@ -45,6 +70,6 @@ class BdsGamificationRepository(private val api: GamificationApi) :
     for (level in response.list) {
       list.add(Levels.Level(level.amount, level.bonus, level.level))
     }
-    return Levels(Levels.Status.OK, list.toList())
+    return Levels(Levels.Status.OK, list.toList(), LevelsResponse.Status.ACTIVE == response.status)
   }
 }

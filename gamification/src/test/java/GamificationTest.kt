@@ -1,8 +1,6 @@
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.GamificationApiTest
-import com.appcoins.wallet.gamification.repository.BdsGamificationRepository
-import com.appcoins.wallet.gamification.repository.Levels
-import com.appcoins.wallet.gamification.repository.UserStats
+import com.appcoins.wallet.gamification.repository.*
 import com.appcoins.wallet.gamification.repository.entity.Level
 import com.appcoins.wallet.gamification.repository.entity.LevelsResponse
 import com.appcoins.wallet.gamification.repository.entity.UserStatusResponse
@@ -16,6 +14,7 @@ class GamificationTest {
   private lateinit var gamification: Gamification
   private val api = GamificationApiTest()
   private val wallet = "wallet1"
+  private val packageName = "packageName"
 
   @Before
   @Throws(Exception::class)
@@ -25,10 +24,13 @@ class GamificationTest {
 
   @Test
   fun getUserStatsTest() {
-    api.userStatusResponse = Single.just(UserStatusResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 1, BigDecimal.TEN))
+    api.userStatusResponse = Single.just(
+        UserStatusResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 1, BigDecimal.TEN,
+            UserStatusResponse.Status.ACTIVE))
     val testObserver = gamification.getUserStatus(wallet).test()
     testObserver.assertValue(
-        UserStats(UserStats.Status.OK, 1, BigDecimal.TEN, 2.2, BigDecimal.ONE, BigDecimal.ZERO))
+        UserStats(UserStats.Status.OK, 1, BigDecimal.TEN, 2.2, BigDecimal.ONE, BigDecimal.ZERO,
+            true))
   }
 
   @Test
@@ -41,11 +43,13 @@ class GamificationTest {
   @Test
   fun getLevels() {
     api.levelsResponse = Single.just(
-        LevelsResponse(listOf(Level(BigDecimal.ONE, 2.0, 1), Level(BigDecimal.TEN, 20.0, 2))))
+        LevelsResponse(listOf(Level(BigDecimal.ONE, 2.0, 1), Level(BigDecimal.TEN, 20.0, 2)),
+            LevelsResponse.Status.ACTIVE))
     val testObserver = gamification.getLevels().test()
     testObserver.assertValue(
         Levels(Levels.Status.OK,
-            listOf(Levels.Level(BigDecimal.ONE, 2.0, 1), Levels.Level(BigDecimal.TEN, 20.0, 2))))
+            listOf(Levels.Level(BigDecimal.ONE, 2.0, 1), Levels.Level(BigDecimal.TEN, 20.0, 2)),
+            true))
   }
 
   @Test
@@ -53,5 +57,20 @@ class GamificationTest {
     api.levelsResponse = Single.error(UnknownHostException())
     val testObserver = gamification.getLevels().test()
     testObserver.assertValue(Levels(Levels.Status.NO_NETWORK))
+  }
+
+  @Test
+  fun getBonus() {
+    api.bonusResponse = Single.just(
+        ForecastBonusResponse(BigDecimal.ONE, 0, ForecastBonusResponse.Status.ACTIVE))
+    val testObserver = gamification.getEarningBonus(wallet, packageName, BigDecimal.ONE).test()
+    testObserver.assertValue(ForecastBonus(ForecastBonus.Status.ACTIVE, BigDecimal.ONE))
+  }
+
+  @Test
+  fun getBonusNoNetwork() {
+    api.bonusResponse = Single.error(UnknownHostException())
+    val testObserver = gamification.getEarningBonus(wallet, packageName, BigDecimal.ONE).test()
+    testObserver.assertValue(ForecastBonus(ForecastBonus.Status.NO_NETWORK))
   }
 }
