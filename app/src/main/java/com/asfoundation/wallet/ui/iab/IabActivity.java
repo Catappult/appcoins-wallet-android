@@ -49,7 +49,6 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   private boolean isBackEnable;
   private IabPresenter presenter;
-  private Bundle savedInstanceState;
   private Bundle skuDetails;
   private TransactionBuilder transaction;
   private boolean isBds;
@@ -78,7 +77,6 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     super.onCreate(savedInstanceState);
     results = PublishRelay.create();
     setContentView(R.layout.activity_iab);
-    this.savedInstanceState = savedInstanceState;
     isBds = getIntent().getBooleanExtra(IS_BDS_EXTRA, false);
     developerPayload = getIntent().getStringExtra(DEVELOPER_PAYLOAD);
     uri = getIntent().getStringExtra(URI);
@@ -156,34 +154,28 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   }
 
   @Override public void showOnChain(BigDecimal amount, boolean isBds) {
-    if (savedInstanceState == null) {
-      getSupportFragmentManager().beginTransaction()
-          .replace(R.id.fragment_container, OnChainBuyFragment.newInstance(createBundle(amount),
-              getIntent().getData()
-                  .toString(), isBds))
-          .commit();
-    }
+    getSupportFragmentManager().beginTransaction()
+        .replace(R.id.fragment_container, OnChainBuyFragment.newInstance(createBundle(amount),
+            getIntent().getData()
+                .toString(), isBds))
+        .commit();
   }
 
   @Override public void showAdyenPayment(BigDecimal amount, String currency, boolean isBds,
       PaymentType paymentType) {
-    if (savedInstanceState == null) {
-      getSupportFragmentManager().beginTransaction()
-          .replace(R.id.fragment_container, ExpressCheckoutBuyFragment.newInstance(
-              createBundle(BigDecimal.valueOf(amount.doubleValue()), currency), isBds, paymentType))
-          .commit();
-    }
+    getSupportFragmentManager().beginTransaction()
+        .replace(R.id.fragment_container, ExpressCheckoutBuyFragment.newInstance(
+            createBundle(BigDecimal.valueOf(amount.doubleValue()), currency), isBds, paymentType))
+        .commit();
   }
 
   @Override public void showAppcoinsCreditsPayment(BigDecimal amount) {
-    if (savedInstanceState == null) {
-      getSupportFragmentManager().beginTransaction()
-          .replace(R.id.fragment_container,
-              AppcoinsRewardsBuyFragment.newInstance(amount, transaction, getIntent().getData()
-                  .toString(), getIntent().getExtras()
-                  .getString(PRODUCT_NAME, ""), isBds))
-          .commit();
-    }
+    getSupportFragmentManager().beginTransaction()
+        .replace(R.id.fragment_container,
+            AppcoinsRewardsBuyFragment.newInstance(amount, transaction, getIntent().getData()
+                .toString(), getIntent().getExtras()
+                .getString(PRODUCT_NAME, ""), isBds))
+        .commit();
   }
 
   @Override public void showPaymentMethods(
