@@ -244,6 +244,7 @@
   <!-- Gamification -->
   <string name="gamification_level_title">Какво е моето ниво?</string>
   <string name="gamification_level_header">Поздравления, ти си %s!</string>
+  <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">СПЕЧЕЛЕНИ:</string>
   <string name="gamification_level_bonus">%s%% БОНУС</string>
   <string name="gamification_level_button_how">КАК РАБОТИ</string>
