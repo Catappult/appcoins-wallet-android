@@ -244,6 +244,7 @@
   <!-- Gamification -->
   <string name="gamification_level_title">我的等级是什么？</string>
   <string name="gamification_level_header">恭喜，你是%s！</string>
+  <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">已挣：</string>
   <string name="gamification_level_bonus">%s%%奖励</string>
   <string name="gamification_level_button_how">工作原理</string>
