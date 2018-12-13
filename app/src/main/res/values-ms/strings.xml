@@ -244,6 +244,7 @@
   <!-- Gamification -->
   <string name="gamification_level_title">Apa Tahap Saya?</string>
   <string name="gamification_level_header">Tahniah, anda ialah %s!</string>
+  <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">DIPEROLEH:</string>
   <string name="gamification_level_bonus">BONUS %s%%</string>
   <string name="gamification_level_button_how">CARA IA BERFUNGSI</string>
