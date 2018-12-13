@@ -244,6 +244,7 @@
   <!-- Gamification -->
   <string name="gamification_level_title">Seviyem Ne?</string>
   <string name="gamification_level_header">Tebrikler, %s oldunuz!</string>
+  <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">KAZANILAN:</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">NASIL ÇALIŞIR</string>
