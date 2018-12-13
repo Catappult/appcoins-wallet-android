@@ -243,7 +243,8 @@
   <string name="item_donation">Doação</string>
   <!-- Gamification -->
   <string name="gamification_level_title">Qual o meu nível?</string>
-  <string name="gamification_level_header">Parabéns, você é %s!</string>
+  <string name="gamification_level_header">Parabéns, és %s!</string>
+  <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">GANHOU:</string>
   <string name="gamification_level_bonus">%s%% bónus</string>
   <string name="gamification_level_button_how">COMO FUNCIONA</string>
@@ -255,7 +256,7 @@
   <string name="gamification_a_planet_title">um Planeta</string>
   <string name="gamification_a_star_title">uma Estrela</string>
   <string name="gamification_a_galaxy_title">uma Galáxia</string>
-  <string name="gamification_a_comet_subtitle">Cuidado para não colidir com outro planeta!</string>
+  <string name="gamification_a_comet_subtitle">Cuidado, não colidas com outro planeta!</string>
   <string name="gamification_a_moon_subtitle">Um satélite natural</string>
   <string name="gamification_planet_subtitle">Que orbita uma grande estrela</string>
   <string name="gamification_star_subtitle">Grande, brilhante e cheio de vida!</string>
