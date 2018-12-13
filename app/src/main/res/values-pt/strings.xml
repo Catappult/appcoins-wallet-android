@@ -249,7 +249,7 @@
   <string name="gamification_level_bonus">%s%% bónus</string>
   <string name="gamification_level_button_how">COMO FUNCIONA</string>
   <string name="gamification_how_header">Como subir de nível?</string>
-  <string name="gamification_how_body">Ganha créditos APPC quando comprares itens nos teus jogos e apps favoritos</string>
+  <string name="gamification_how_body">Ganha créditos APPC ao comprares itens nos teus jogos e apps favoritos</string>
   <string name="gamification_how_spend">GASTAR %s APPC</string>
   <string name="gamification_a_comet_title">um Cometa</string>
   <string name="gamification_a_moon_title">uma Lua</string>
