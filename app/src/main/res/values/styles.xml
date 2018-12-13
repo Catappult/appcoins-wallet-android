@@ -2,8 +2,8 @@
 
 
   <style name="PaymentMethodsRadioButton" parent="Theme.AppCompat.Light">
-    <item name="android:buttonTint">#b4b4b4</item>
-    <item name="android:textColor">#8a000000</item>
+    <item name="android:buttonTint">@color/radio_button_color</item>
+    <item name="android:textColor">@color/radio_button_text_color</item>
     <item name="android:textSize">12sp</item>
     <item name="android:padding">12dp</item>
   </style>
