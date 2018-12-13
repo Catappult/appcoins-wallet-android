@@ -146,8 +146,13 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
     }
 
     if (details != null) {
-      address.setText(
-          details.getSourceName() == null ? isSent ? to : from : getSourceText(transaction));
+      if (transaction.getType()
+          .equals(Transaction.TransactionType.BONUS)) {
+        address.setText(R.string.transaction_type_bonus);
+      } else {
+        address.setText(
+            details.getSourceName() == null ? isSent ? to : from : getSourceText(transaction));
+      }
       description.setText(details.getDescription() == null ? "" : details.getDescription());
     } else {
       address.setText(isSent ? to : from);
