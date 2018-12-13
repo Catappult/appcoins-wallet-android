@@ -244,6 +244,7 @@
   <!-- Gamification -->
   <string name="gamification_level_title">私のレベルは?</string>
   <string name="gamification_level_header">おめでとう、あなたは %s です!</string>
+  <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">達成額：</string>
   <string name="gamification_level_bonus">%s%% ボーナス</string>
   <string name="gamification_level_button_how">操作仕組み</string>
