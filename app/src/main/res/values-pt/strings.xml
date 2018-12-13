@@ -137,9 +137,9 @@
   <string name="error_invalid_amount">Valor inválido</string>
   <string name="error_transaction_failed">Erro de transação</string>
   <string name="error_must_numeric">Deve ser um valor numérico.</string>
-  <string name="transaction_succeeded">Transação bem sucedida</string>
+  <string name="transaction_succeeded">Transação bem-sucedida</string>
   <string name="NA">N/A</string>
-  <string name="error_wallet_not_selected">Wallet não selecionada</string>
+  <string name="error_wallet_not_selected">Wallet não foi selecionada</string>
   <string name="no_transactions_yet">Obtém APPC de teste para perceberes como os pagamentos com AppCoins vão funcionar</string>
   <string name="no_transactions_yet_main">Nenhuma transação ainda!</string>
   <string name="unknown_balance_with_symbol">-- ETH</string>
@@ -152,7 +152,7 @@
   <string name="scan_qr">Obtém endereço de QR Code</string>
   <string name="info_gas_price">Quanto mais alto for o preço do gás, mais caro será a tua taxa de transação, e mais rapidamente esta será processada pela rede Ethereum.</string>
   <string name="info_gas_limit">O limite do gás ajuda a impedir que os contratos inteligentes consumam todo o teu Ethereum. Vamos tentar calcular o limite de gás de forma automática, no entanto alguns contratos inteligentes podem exigir um limite de gás personalizado.</string>
-  <string name="title_send_settings">Avançado</string>
+  <string name="title_send_settings">Configurações avançadas</string>
   <string name="title_activity_barcode">Verificação de código de barras</string>
   <string name="error_add_token">Não foi possível adicionar o token.</string>
   <string name="facebook">Facebook</string>
