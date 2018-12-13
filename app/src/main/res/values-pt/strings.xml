@@ -99,8 +99,8 @@
   <string name="intro_title_second_page"><![CDATA[Privado e seguro]]></string>
   <string name="intro_title_third_page">Simples &amp; Fácil</string>
   <string name="intro_message_first_page">Bem-vindo à revolução da economia das apps.</string>
-  <string name="intro_message_second_page">Chaves secretas nunca desaparecem do teu dispositivo.</string>
-  <string name="intro_message_third_page">Processa todos os teus pagamentos e recompensas in-app em APPC.</string>
+  <string name="intro_message_second_page">As chaves secretas nunca desaparecem do teu dispositivo.</string>
+  <string name="intro_message_third_page">Processa todos os teus pagamentos integrados e recompensas em APPC.</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">De</string>
@@ -123,14 +123,14 @@
   <string name="subtitle_transaction_num">Transação</string>
   <!-- Actions -->
   <string name="action_more_details">Mais</string>
-  <string name="action_add_wallet">Adicionar uma wallet</string>
+  <string name="action_add_wallet">Adicionar wallet</string>
   <string name="action_coinbase">Coinbase</string>
   <string name="action_shapeshift">Shapeshift (Crypto only)</string>
   <string name="action_changelly">Changelly</string>
   <string name="action_wallets">Wallets</string>
   <string name="action_next">Próximo</string>
   <string name="action_edit">Editar</string>
-  <string name="action_save">Salvar</string>
+  <string name="action_save">Guardar</string>
   <!-- Subject -->
   <string name="error_fail_generate_qr">Não foi possível gerar o código QR.</string>
   <string name="error_invalid_address">Endereço inválido</string>
