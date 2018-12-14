@@ -244,7 +244,10 @@
   <!-- Gamification -->
   <string name="gamification_level_title">ما هو مستواي؟</string>
   <string name="gamification_level_header">مبروك، أنت %s!</string>
+  <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">مكتسب:</string>
+  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">علاوة %s%%</string>
   <string name="gamification_level_button_how">كيف يعمل</string>
   <string name="gamification_how_header">كيف أنتقل للمستوى التالي؟</string>
@@ -261,7 +264,7 @@
   <string name="gamification_star_subtitle">تسلُّق، كبير ومفعم بالحياة!</string>
   <string name="gamification_galaxy_subtitle">أكبر نظام على الإطلاق!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="action_level">My Level</string>
   <string name="gamification_purchase_header">Purchase Bonus:</string>
   <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
+  <string name="action_level">My Level</string>
 </resources>

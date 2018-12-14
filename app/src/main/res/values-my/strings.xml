@@ -244,7 +244,10 @@
   <!-- Gamification -->
   <string name="gamification_level_title">ကၽြႏ္ုုပ္၏အဆင့္က ဘယ္ေလာက္လဲ။</string>
   <string name="gamification_level_header">ဂုဏ္ယူပါသည္။ သင္သည္ %s ျဖစ္ပါသည္။</string>
+  <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">ရရွိခဲ့သည္မွာ -</string>
+  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% ေဘာနပ္စ္</string>
   <string name="gamification_level_button_how">အလုပ္လုပ္ပံု</string>
   <string name="gamification_how_header">အဆင့္တက္ပံု။</string>
@@ -261,7 +264,7 @@
   <string name="gamification_star_subtitle">ေျပာင္လက္ႀကီးမားၿပီး လံုုးဝအသက္ဝင္သည္။</string>
   <string name="gamification_galaxy_subtitle">ယင္းေနရာတြင္ရွိေသာ အႀကီးမားဆံုးစနစ္။</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="action_level">My Level</string>
   <string name="gamification_purchase_header">Purchase Bonus:</string>
   <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
+  <string name="action_level">My Level</string>
 </resources>

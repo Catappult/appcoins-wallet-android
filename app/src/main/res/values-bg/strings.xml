@@ -244,7 +244,10 @@
   <!-- Gamification -->
   <string name="gamification_level_title">Какво е моето ниво?</string>
   <string name="gamification_level_header">Поздравления, ти си %s!</string>
+  <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">СПЕЧЕЛЕНИ:</string>
+  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% БОНУС</string>
   <string name="gamification_level_button_how">КАК РАБОТИ</string>
   <string name="gamification_how_header">Как да отида на горно ниво?</string>
@@ -261,7 +264,7 @@
   <string name="gamification_star_subtitle">Блестяща, голяма и пълна с живот!</string>
   <string name="gamification_galaxy_subtitle">Най-голямата съществуваща система!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="action_level">My Level</string>
   <string name="gamification_purchase_header">Purchase Bonus:</string>
   <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
+  <string name="action_level">My Level</string>
 </resources>

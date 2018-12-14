@@ -244,7 +244,10 @@
   <!-- Gamification -->
   <string name="gamification_level_title">私のレベルは?</string>
   <string name="gamification_level_header">おめでとう、あなたは %s です!</string>
+  <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">達成額：</string>
+  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% ボーナス</string>
   <string name="gamification_level_button_how">操作仕組み</string>
   <string name="gamification_how_header">レベルアップする方法?</string>
@@ -261,7 +264,7 @@
   <string name="gamification_star_subtitle">輝き、大きい、いっぱいの人生！</string>
   <string name="gamification_galaxy_subtitle">史上最大のシステムです！</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="action_level">My Level</string>
   <string name="gamification_purchase_header">購入特典:</string>
   <string name="gamification_purchase_body">%s APPC クレジットはウォレットに加算されます。</string>
+  <string name="action_level">My Level</string>
 </resources>

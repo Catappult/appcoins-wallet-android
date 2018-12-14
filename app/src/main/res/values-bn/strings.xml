@@ -244,7 +244,10 @@
   <!-- Gamification -->
   <string name="gamification_level_title">আমার স্তর কোনটি?</string>
   <string name="gamification_level_header">অভিনন্দন, আপনি হলেন %s!</string>
+  <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">অর্জিত:</string>
+  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% বোনাস</string>
   <string name="gamification_level_button_how">এটি কিভাবে কার্যরত</string>
   <string name="gamification_how_header">কিভাবে লেভেল পূর্ণ করে?</string>
@@ -261,7 +264,7 @@
   <string name="gamification_star_subtitle">শিননি, বড় এবং জীবণে পরিপূর্ণ!</string>
   <string name="gamification_galaxy_subtitle">সেখানে থাকা সবচেয়ে বড় পদ্ধতি!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="action_level">My Level</string>
   <string name="gamification_purchase_header">Purchase Bonus:</string>
   <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
+  <string name="action_level">My Level</string>
 </resources>

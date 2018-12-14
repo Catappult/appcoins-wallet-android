@@ -244,7 +244,10 @@
   <!-- Gamification -->
   <string name="gamification_level_title">¿Cuál es mi nivel?</string>
   <string name="gamification_level_header">¡Enhorabuena, eres %s!</string>
+  <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">GANADO:</string>
+  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">CÓMO FUNCIONA</string>
   <string name="gamification_how_header">¿Cómo subir de nivel?</string>
@@ -261,7 +264,7 @@
   <string name="gamification_star_subtitle">¡Brillante, enorme y lleno de vida!</string>
   <string name="gamification_galaxy_subtitle">¡El sistema más grande de ahí fuera!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="action_level">My Level</string>
   <string name="gamification_purchase_header">Purchase Bonus:</string>
   <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
+  <string name="action_level">My Level</string>
 </resources>
