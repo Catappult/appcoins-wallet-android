@@ -108,7 +108,7 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     }
 
     return try {
-      val serializedProducts: List<String> = billing.getProducts(skus, type).onErrorResumeNext {
+      val serializedProducts: List<String> = billing.getProducts(skus).onErrorResumeNext {
         it.printStackTrace()
         Single.error(billingMessagesMapper.mapException(it))
       }
@@ -136,7 +136,7 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
         .subscribeOn(Schedulers.io())
     val getIabContractAddress = proxyService.getIabAddress(BuildConfig.DEBUG)
         .subscribeOn(Schedulers.io())
-    val getSkuDetails = billing.getProducts(listOf(sku), type)
+    val getSkuDetails = billing.getProducts(listOf(sku))
         .subscribeOn(Schedulers.io())
 
     return Single.zip(getTokenContractAddress,

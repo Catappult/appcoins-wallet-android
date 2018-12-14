@@ -19,6 +19,7 @@ import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.ManageWalletsRouter;
 import com.asfoundation.wallet.router.MyAddressRouter;
 import com.asfoundation.wallet.router.MyTokensRouter;
+import com.asfoundation.wallet.router.RewardsLeverRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
@@ -26,7 +27,6 @@ import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenExplorerClientType;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
 import com.asfoundation.wallet.ui.AppcoinsApps;
-import com.asfoundation.wallet.ui.MicroRaidenInteractor;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.viewmodel.TransactionsViewModelFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -53,14 +53,13 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
       TransactionDetailRouter transactionDetailRouter, MyAddressRouter myAddressRouter,
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
-      TransactionsMapper transactionsMapper, AirdropRouter airdropRouter,
-      MicroRaidenInteractor microRaidenInteractor, AppcoinsApps applications,
-      OffChainTransactions offChainTransactions) {
+      TransactionsMapper transactionsMapper, AirdropRouter airdropRouter, AppcoinsApps applications,
+      OffChainTransactions offChainTransactions, RewardsLeverRouter rewardsLeverRouter) {
     return new TransactionsViewModelFactory(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, manageWalletsRouter, settingsRouter, sendRouter,
         transactionDetailRouter, myAddressRouter, myTokensRouter, externalBrowserRouter,
         defaultTokenProvider, getDefaultWalletBalance, transactionsMapper, airdropRouter,
-        microRaidenInteractor, applications, offChainTransactions);
+        applications, offChainTransactions, rewardsLeverRouter);
   }
 
   @Provides FetchTransactionsInteract provideFetchTransactionsInteract(
@@ -142,5 +141,9 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
   private String getVersionCode() {
     return String.valueOf(com.asf.wallet.BuildConfig.VERSION_CODE);
+  }
+
+  @Provides RewardsLeverRouter providerRewardsLevelRouter() {
+    return new RewardsLeverRouter();
   }
 }

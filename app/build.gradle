@@ -22,7 +22,7 @@ repositories {
 
 android {
   compileSdkVersion 27
-  buildToolsVersion '28.0.2'
+  buildToolsVersion '28.0.3'
   defaultConfig {
 
     def inputFile = new File("appcoins-services.json")
@@ -35,8 +35,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 27
-    versionCode 46
-    versionName "1.2.0.19"
+    versionCode 56
+    versionName "1.4.0.6"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     vectorDrawables.useSupportLibrary = true
     multiDexEnabled = true
@@ -73,7 +73,17 @@ android {
     buildConfigField 'String', 'PAYMENT_GAS_LIMIT',
         "\"" + project.PAYMENT_GAS_LIMIT + "\""
 
+    manifestPlaceholders.facebookKey = "${project.FACEBOOK_APP_KEY}"
+
+    buildConfigField 'String', 'PAYMENT_HOST_ROPSTEN_NETWORK',
+        "\"" + project.PAYMENT_HOST_DEV + "\""
+
     resValue "string", "facebook_app_id", project.FACEBOOK_APP_KEY
+
+    buildConfigField 'String', 'TRANSACTION_DETAILS_HOST',
+        "\"" + project.TRANSACTION_DETAILS_HOST + "\""
+    buildConfigField 'String', 'TRANSACTION_DETAILS_HOST_ROPSTEN',
+        "\"" + project.TRANSACTION_DETAILS_HOST_ROPSTEN + "\""
   }
 
   signingConfigs {
@@ -98,6 +108,12 @@ android {
           "\"" + project.BACKEND_HOST_PROD + "\""
       buildConfigField 'String', 'BDS_BASE_HOST',
           "\"" + project.BDS_BASE_HOST_PROD + "\""
+      manifestPlaceholders.paymentHost = "${project.PAYMENT_HOST}"
+      buildConfigField 'String', 'PAYMENT_HOST',
+          "\"" + project.PAYMENT_HOST + "\""
+      manifestPlaceholders.secondPaymentHost = "${project.SECOND_PAYMENT_HOST}"
+      buildConfigField 'String', 'SECOND_PAYMENT_HOST',
+          "\"" + project.SECOND_PAYMENT_HOST + "\""
     }
     debug {
       minifyEnabled false
@@ -112,6 +128,12 @@ android {
 
       buildConfigField 'String', 'BDS_BASE_HOST',
           "\"" + project.BDS_BASE_HOST_DEV + "\""
+      manifestPlaceholders.paymentHost = "${project.PAYMENT_HOST_DEV}"
+      buildConfigField 'String', 'PAYMENT_HOST',
+          "\"" + project.PAYMENT_HOST_DEV + "\""
+      manifestPlaceholders.secondPaymentHost = "${project.PAYMENT_HOST_DEV}"
+      buildConfigField 'String', 'SECOND_PAYMENT_HOST',
+          "\"" + project.PAYMENT_HOST_DEV + "\""
       applicationVariants.all { variant -> renameArtifact(defaultConfig)
       }
     }
@@ -203,7 +225,7 @@ dependencies {
   implementation project(":tn")
   implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  implementation "com.asfoundation:microraidenj-bds:$project.appcoinsSdkVersion"
+  implementation "com.asfoundation:ethereumj-android:$project.appcoinsSdkVersion"
 
   implementation "android.arch.persistence.room:runtime:$project.roomVersion"
   annotationProcessor "android.arch.persistence.room:compiler:$project.roomVersion"
@@ -234,6 +256,7 @@ dependencies {
   implementation "aptoide-client-v8:aptoide-analytics-core:1.0.3"
   implementation project(path: ':appcoinsRewards')
   implementation project(path: ':commons')
+  implementation project(path: ':gamification')
 
   implementation 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:27.1.0'
 }

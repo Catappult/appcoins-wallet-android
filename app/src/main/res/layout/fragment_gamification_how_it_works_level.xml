@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="8dp"
+    >
+  <ImageView
+      android:id="@+id/ic_level"
+      android:layout_width="16dp"
+      android:layout_height="16dp"
+      android:layout_marginBottom="8dp"
+      android:src="@drawable/ic_appc"
+      app:layout_constraintBottom_toTopOf="@+id/divider"
+      app:layout_constraintEnd_toStartOf="@id/guideline1"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+  <android.support.constraint.Guideline
+      android:id="@+id/guideline1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent="0.15"
+      />
+  <TextView
+      android:id="@+id/message"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="8dp"
+      android:textSize="12sp"
+      app:layout_constraintBottom_toTopOf="@+id/divider"
+      app:layout_constraintEnd_toStartOf="@id/guideline2"
+      app:layout_constraintHorizontal_bias=".0"
+      app:layout_constraintStart_toEndOf="@+id/guideline1"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="SPEND 0 APPC"
+      />
+  <android.support.constraint.Guideline
+      android:id="@+id/guideline2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent="0.63"
+      />
+
+  <TextView
+      android:id="@+id/bonus"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="8dp"
+      android:textColor="@color/black"
+      android:textSize="12sp"
+      app:layout_constraintBottom_toTopOf="@+id/divider"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias=".0"
+      app:layout_constraintStart_toEndOf="@id/guideline2"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="20% BONUS"
+      />
+  <View
+      android:id="@+id/divider"
+      android:layout_width="0dp"
+      android:layout_height="1dp"
+      android:layout_marginTop="8dp"
+      android:background="#e6e6e6"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintHorizontal_bias="1"
+      />
+</android.support.constraint.ConstraintLayout>

@@ -9,10 +9,12 @@ interface RemoteRepository {
   fun getBalance(address: String): Single<BackendApi.RewardBalanceResponse>
   fun pay(walletAddress: String, signature: String, amount: BigDecimal,
           origin: String?,
-          sku: String,
+          sku: String?,
           type: String,
           developerAddress: String,
           storeAddress: String,
           oemAddress: String,
-          packageName: String): Single<Transaction>
+          packageName: String,
+          payload: String?,
+          callback: String?): Single<Transaction>
 }

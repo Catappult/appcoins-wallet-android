@@ -107,17 +107,19 @@ class AppcoinsRewardsTest {
         SKU, TYPE, DEVELOPER_ADDRESS,
         STORE_ADDRESS,
         OEM_ADDRESS,
-        PACKAGE_NAME).subscribe(testObserver)
+        PACKAGE_NAME,
+        null,
+        null).subscribe(testObserver)
     val statusObserver = TestObserver<Transaction>()
-    appcoinsRewards.getPayment(PACKAGE_NAME, SKU).subscribe(statusObserver)
+    appcoinsRewards.getPayment(PACKAGE_NAME, SKU, PRICE.toString()).subscribe(statusObserver)
 
     scheduler.triggerActions()
     testObserver.assertNoErrors().assertComplete()
     val mutableListOf = mutableListOf(
         Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-                PRICE, ORIGIN, Transaction.Status.PROCESSING, null),
+                PRICE, ORIGIN, Transaction.Status.PROCESSING, null, null, null),
         Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-                PRICE, ORIGIN, Transaction.Status.COMPLETED, "0x32453134"))
+                PRICE, ORIGIN, Transaction.Status.COMPLETED, "0x32453134", null, null))
     statusObserver.assertNoErrors().assertValueSequence(mutableListOf)
   }
 

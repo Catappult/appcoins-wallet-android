@@ -1,30 +1,24 @@
 package com.asfoundation.wallet.ui.iab;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.support.constraint.Group;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.util.Pair;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
@@ -36,7 +30,6 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-import io.reactivex.subjects.BehaviorSubject;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Formatter;
@@ -56,12 +49,8 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
 public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView {
 
   public static final String APP_PACKAGE = "app_package";
-  public static final String TRANSACTION_HASH = "transaction_hash";
-  private static final String TAG = OnChainBuyFragment.class.getSimpleName();
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
-  private BehaviorSubject<Object> raidenMoreInfoOkButtonClick;
-  private BehaviorSubject<Boolean> createChannelClick;
-  private PublishRelay<OnChainBuyPresenter.BuyData> buyButtonClick;
+  private PublishRelay<String> buyButtonClick;
   private Button buyButton;
   private Button cancelButton;
   private Button okErrorButton;
@@ -76,20 +65,12 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   private View transactionCompletedLayout;
   private View transactionErrorLayout;
   private View buyLayout;
-  private boolean isBackEnable;
   private TextView errorTextView;
   private TextView loadingMessage;
-  private Spinner dropdown;
   private ProgressBar buyDialogLoading;
   private ArrayAdapter<BigDecimal> adapter;
-  private CheckBox checkbox;
-  private View raidenMoreInfoView;
-  private Group amountGroup;
-  private View raidenLayout;
   private View infoDialog;
-  private Group createChannelGroup;
   private TextView walletAddressTextView;
-  private View channelNoFundsView;
   private IabView iabView;
   private Bundle extras;
   private String data;
@@ -108,10 +89,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    createChannelClick = BehaviorSubject.create();
     buyButtonClick = PublishRelay.create();
-    raidenMoreInfoOkButtonClick = BehaviorSubject.create();
-    isBackEnable = true;
     extras = getArguments().getBundle("extras");
     data = getArguments().getString("data");
     isBds = getArguments().getBoolean("isBds");
@@ -142,10 +120,6 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     itemHeaderDescription = view.findViewById(R.id.app_sku_description);
     itemPrice = view.findViewById(R.id.sku_price);
     itemFinalPrice = view.findViewById(R.id.total_price);
-    dropdown = view.findViewById(R.id.channel_amount_dropdown);
-    amountGroup = view.findViewById(R.id.amount_group);
-    createChannelGroup = view.findViewById(R.id.create_channel_group);
-    raidenLayout = view.findViewById(R.id.raiden_layout);
     walletAddressTextView = view.findViewById(R.id.wallet_address_footer);
 
     presenter =
@@ -155,11 +129,6 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     adapter =
         new ArrayAdapter<>(getContext().getApplicationContext(), R.layout.iab_raiden_dropdown_item,
             R.id.item, new ArrayList<>());
-    dropdown.setAdapter(adapter);
-    checkbox = view.findViewById(R.id.iab_activity_create_channel);
-    channelNoFundsView = inflateView(R.layout.iab_activity_no_channel_funds);
-    raidenMoreInfoView = inflateView(R.layout.iab_activity_raiden_more_info);
-
     Single.defer(() -> Single.just(getAppPackage()))
         .observeOn(Schedulers.io())
         .map(packageName -> new Pair<>(getApplicationName(packageName),
@@ -175,23 +144,26 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
           showError();
         });
 
-    buyButton.setOnClickListener(v -> buyButtonClick.accept(
-        new OnChainBuyPresenter.BuyData(checkbox.isChecked(), data, getChannelBudget())));
-  }
-
-  @Override public void onStart() {
-    super.onStart();
+    buyButton.setOnClickListener(v -> buyButtonClick.accept(data));
     presenter.present(data, getAppPackage(), extras.getString(PRODUCT_NAME, ""),
         (BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT),
         extras.getString(EXTRA_DEVELOPER_PAYLOAD));
+
+    buyButton.performClick();
   }
 
-  @Override public void onStop() {
-    presenter.stop();
-    super.onStop();
+  @Override public void onResume() {
+    super.onResume();
+    presenter.resume();
+  }
+
+  @Override public void onPause() {
+    presenter.pause();
+    super.onPause();
   }
 
   @Override public void onDestroyView() {
+    presenter.stop();
     super.onDestroyView();
   }
 
@@ -210,7 +182,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
             getContext().getDrawable(R.drawable.purchase_placeholder)));
   }
 
-  @Override public Observable<OnChainBuyPresenter.BuyData> getBuyClick() {
+  @Override public PublishRelay<String> getBuyClick() {
     return buyButtonClick;
   }
 
@@ -232,6 +204,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
 
   @Override public void finish(Bundle data) {
     presenter.sendPaymentEvent(PAYMENT_METHOD_APPC);
+    presenter.sendRevenueEvent();
     iabView.finish(data);
   }
 
@@ -244,7 +217,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     String formatedPrice = formatter.format(Locale.getDefault(), "%(,.2f",
         ((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue())
         .toString() + " APPC";
-    int buyButtonText = isDonation? R.string.action_donate : R.string.action_buy;
+    int buyButtonText = isDonation ? R.string.action_donate : R.string.action_buy;
     buyButton.setText(getResources().getString(buyButtonText));
     itemPrice.setText(formatedPrice);
     Spannable spannable = new SpannableString(formatedPrice);
@@ -270,14 +243,6 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     transactionErrorLayout.setVisibility(View.GONE);
     buyLayout.setVisibility(View.GONE);
     transactionCompletedLayout.setVisibility(View.VISIBLE);
-  }
-
-  @Override public void showBuy() {
-    loadingView.setVisibility(View.GONE);
-    transactionErrorLayout.setVisibility(View.GONE);
-    transactionCompletedLayout.setVisibility(View.GONE);
-    buyLayout.setVisibility(View.VISIBLE);
-    isBackEnable = true;
   }
 
   @Override public void showWrongNetworkError() {
@@ -318,69 +283,8 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     adapter.notifyDataSetChanged();
   }
 
-  @Override public Observable<Boolean> getCreateChannelClick() {
-    return createChannelClick;
-  }
-
-  @Override public void showRaidenInfo() {
-    AlertDialog dialog = new AlertDialog.Builder(getContext()).setView(raidenMoreInfoView)
-        .show();
-
-    raidenMoreInfoView.findViewById(R.id.iab_activity_raiden_ok_button)
-        .setOnClickListener(v -> {
-          dialog.dismiss();
-          ((ViewGroup) raidenMoreInfoView.getParent()).removeView(raidenMoreInfoView);
-          raidenMoreInfoOkButtonClick.onNext(new Object());
-        });
-  }
-
-  @Override public Observable<Object> getDontShowAgainClick() {
-    return raidenMoreInfoOkButtonClick.filter(o -> ((CheckBox) raidenMoreInfoView.findViewById(
-        R.id.iab_activity_raiden_dont_show_again)).isChecked());
-  }
-
-  @Override public void showChannelAmount() {
-    amountGroup.setVisibility(View.VISIBLE);
-  }
-
-  @Override public void hideChannelAmount() {
-    amountGroup.setVisibility(View.GONE);
-  }
-
-  @Override public void showChannelAsDefaultPayment() {
-    checkbox.setChecked(true);
-    checkbox.setOnCheckedChangeListener(
-        (buttonView, isChecked) -> createChannelClick.onNext(isChecked));
-    createChannelGroup.setVisibility(View.VISIBLE);
-  }
-
-  @Override public void showDefaultAsDefaultPayment() {
-    checkbox.setChecked(false);
-    checkbox.setOnCheckedChangeListener(
-        (buttonView, isChecked) -> createChannelClick.onNext(isChecked));
-    createChannelGroup.setVisibility(View.VISIBLE);
-  }
-
   @Override public void showWallet(String wallet) {
     walletAddressTextView.setText(wallet);
-  }
-
-  @Override public void showNoChannelFundsError() {
-    showBuy();
-    AlertDialog dialog = new AlertDialog.Builder(getContext()).setView(channelNoFundsView)
-        .show();
-
-    channelNoFundsView.findViewById(R.id.iab_activity_raiden_no_funds_ok_button)
-        .setOnClickListener(v -> {
-          dialog.dismiss();
-          ((ViewGroup) channelNoFundsView.getParent()).removeView(channelNoFundsView);
-          buyButtonClick.accept(new OnChainBuyPresenter.BuyData(false, data, getChannelBudget()));
-        });
-    channelNoFundsView.findViewById(R.id.iab_activity_raiden_no_funds_cancel_button)
-        .setOnClickListener(v -> {
-          dialog.dismiss();
-          ((ViewGroup) channelNoFundsView.getParent()).removeView(channelNoFundsView);
-        });
   }
 
   @Override public void onAttach(Context context) {
@@ -391,13 +295,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     iabView = ((IabView) context);
   }
 
-  @NonNull private BigDecimal getChannelBudget() {
-    return new BigDecimal(dropdown.getSelectedItem() == null ? "0" : dropdown.getSelectedItem()
-        .toString());
-  }
-
   private void showLoading(@StringRes int message) {
-    isBackEnable = false;
     loadingView.setVisibility(View.VISIBLE);
     transactionErrorLayout.setVisibility(View.GONE);
     transactionCompletedLayout.setVisibility(View.GONE);
@@ -412,7 +310,6 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     transactionErrorLayout.setVisibility(View.VISIBLE);
     transactionCompletedLayout.setVisibility(View.GONE);
     buyLayout.setVisibility(View.GONE);
-    isBackEnable = true;
     errorTextView.setText(error_message);
   }
 
@@ -428,11 +325,5 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
       return extras.getString(APP_PACKAGE);
     }
     throw new IllegalArgumentException("previous app package name not found");
-  }
-
-  private View inflateView(int resourceId) {
-    return View.inflate(
-        new ContextThemeWrapper(getContext().getApplicationContext(), R.style.AppTheme), resourceId,
-        null);
   }
 }

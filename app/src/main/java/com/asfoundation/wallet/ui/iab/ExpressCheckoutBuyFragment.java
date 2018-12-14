@@ -27,6 +27,7 @@ import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
 import com.appcoins.wallet.bdsbilling.repository.entity.DeveloperPurchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -73,6 +74,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   @Inject BdsRepository bdsRepository;
   @Inject BdsApiSecondary BdsApiSecondary;
   @Inject Billing billing;
+  @Inject BillingAnalytics analytics;
   private Bundle extras;
   private PublishRelay<Snackbar> buyButtonClick;
   private IabView iabView;
@@ -94,13 +96,15 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   private PublishSubject<Boolean> setupSubject;
   private View processingDialog;
   private TextView walletAddressView;
-  @Inject BillingAnalytics analytics;
+  private PaymentType paymentType;
 
-  public static ExpressCheckoutBuyFragment newInstance(Bundle extras, boolean isBds) {
+  public static ExpressCheckoutBuyFragment newInstance(Bundle extras, boolean isBds,
+      PaymentType paymentType) {
     ExpressCheckoutBuyFragment fragment = new ExpressCheckoutBuyFragment();
     Bundle bundle = new Bundle();
     bundle.putBundle("extras", extras);
     bundle.putBoolean("isBds", isBds);
+    bundle.putString("paymentType", paymentType.name());
     fragment.setArguments(bundle);
     return fragment;
   }
@@ -122,6 +126,8 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     String uriString = extras.getString(TRANSACTION_DATA);
 
     boolean isBds = getArguments().getBoolean("isBds");
+
+    paymentType = PaymentType.valueOf(getArguments().getString("paymentType"));
 
     presenter = new ExpressCheckoutBuyPresenter(this, getAppPackage(), inAppPurchaseInteractor,
         AndroidSchedulers.mainThread(), new CompositeDisposable(),
@@ -167,10 +173,14 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
           throwable.printStackTrace();
         });
 
-    buyButton.setOnClickListener(v -> iabView.navigateToCreditCardAuthorization(presenter.isBds()));
+    buyButton.setOnClickListener(
+        v -> iabView.navigateToAdyenAuthorization(presenter.isBds(), fiatValue.getCurrency(),
+            paymentType));
     presenter.present(extras.getString(TRANSACTION_DATA),
         ((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue(),
         extras.getString(TRANSACTION_CURRENCY));
+
+    showLoading();
   }
 
   @Override public void onDestroyView() {
@@ -226,24 +236,28 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     itemPrice.setText(valueText);
     itemFinalPrice.setText(spannable, TextView.BufferType.SPANNABLE);
     fiatValue = response;
+    buyButton.performClick();
     int buyButtonText = isDonation? R.string.action_donate : R.string.action_buy;
     buyButton.setText(getResources().getString(buyButtonText));
 
     if (isDonation) {
       itemListDescription.setText(getResources().getString(R.string.item_donation));
       itemHeaderDescription.setText(getResources().getString(R.string.item_donation));
-    } else if (extras.containsKey(PRODUCT_NAME)) {
-      itemHeaderDescription.setText(String.format(getString(R.string.buying), extras.getString(PRODUCT_NAME)));
+    } else if (extras.containsKey(PRODUCT_NAME) && extras.getString(PRODUCT_NAME) != null) {
+      itemHeaderDescription.setText(
+          String.format(getString(R.string.buying), extras.getString(PRODUCT_NAME)));
       itemListDescription.setText(extras.getString(PRODUCT_NAME));
     }
 
     presenter.sendPurchaseDetails(PAYMENT_METHOD_CC);
 
     compositeDisposable.add(walletService.getWalletAddress()
+        .observeOn(AndroidSchedulers.mainThread())
         .doOnSuccess(address -> walletAddressView.setText(address))
         .subscribe(__ -> {
         }, Throwable::printStackTrace));
     setupSubject.onNext(true);
+    hideLoading();
   }
 
   @Override public void showError() {

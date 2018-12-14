@@ -17,10 +17,11 @@ public class PaymentTransaction {
   private final String productName;
   private final String productId;
   private final String developerPayload;
+  private final String callbackUrl;
 
   public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, PaymentState state,
       @Nullable String approveHash, @Nullable String buyHash, String packageName,
-      String productName, String productId, String developerPayload) {
+      String productName, String productId, String developerPayload, String callbackUrl) {
     this.uri = uri;
     this.transactionBuilder = transactionBuilder;
     this.state = state;
@@ -30,18 +31,20 @@ public class PaymentTransaction {
     this.productName = productName;
     this.productId = productId;
     this.developerPayload = developerPayload;
+    this.callbackUrl = callbackUrl;
   }
 
   public PaymentTransaction(PaymentTransaction paymentTransaction, PaymentState state) {
     this(paymentTransaction.getUri(), paymentTransaction.getTransactionBuilder(), state,
         paymentTransaction.getApproveHash(), paymentTransaction.getBuyHash(),
         paymentTransaction.getPackageName(), paymentTransaction.getProductName(),
-        paymentTransaction.getProductId(), paymentTransaction.getDeveloperPayload());
+        paymentTransaction.getProductId(), paymentTransaction.getDeveloperPayload(),
+        paymentTransaction.getCallbackUrl());
   }
 
   public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, PaymentState state,
       @Nullable String approveHash, String packageName, String productName, String productId,
-      String developerPayload) {
+      String developerPayload, String callbackUrl) {
     this.approveHash = approveHash;
     this.packageName = packageName;
     this.uri = uri;
@@ -51,13 +54,15 @@ public class PaymentTransaction {
     this.productId = productId;
     this.buyHash = null;
     this.developerPayload = developerPayload;
+    this.callbackUrl = callbackUrl;
   }
 
   public PaymentTransaction(PaymentTransaction paymentTransaction, PaymentState state,
       String approveHash) {
     this(paymentTransaction.getUri(), paymentTransaction.getTransactionBuilder(), state,
         approveHash, null, paymentTransaction.getPackageName(), paymentTransaction.getProductName(),
-        paymentTransaction.getProductId(), paymentTransaction.getDeveloperPayload());
+        paymentTransaction.getProductId(), paymentTransaction.getDeveloperPayload(),
+        paymentTransaction.getCallbackUrl());
   }
 
   public PaymentTransaction(PaymentTransaction paymentTransaction, PaymentState state,
@@ -65,13 +70,13 @@ public class PaymentTransaction {
     this(paymentTransaction.getUri(), paymentTransaction.getTransactionBuilder(), state,
         approveHash, buyHash, paymentTransaction.getPackageName(),
         paymentTransaction.getProductName(), paymentTransaction.getProductId(),
-        paymentTransaction.getDeveloperPayload());
+        paymentTransaction.getDeveloperPayload(), paymentTransaction.getCallbackUrl());
   }
 
   public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, String packageName,
-      String productName, String productId, String developerPayload) {
+      String productName, String productId, String developerPayload, String callbackUrl) {
     this(uri, transactionBuilder, PaymentState.PENDING, null, packageName, productName, productId,
-        developerPayload);
+        developerPayload, callbackUrl);
   }
 
   public String getPackageName() {
@@ -124,11 +129,7 @@ public class PaymentTransaction {
   }
 
   @Override public String toString() {
-    return "PaymentTransaction{"
-        + "uri='"
-        + uri
-        + '\''
-        + ", approveHash='"
+    return "PaymentTransaction{" + "uri='" + uri + '\'' + ", approveHash='"
         + approveHash
         + '\''
         + ", buyHash='"
@@ -150,6 +151,9 @@ public class PaymentTransaction {
         + ", developerPayload='"
         + developerPayload
         + '\''
+        + ", callbackUrl='"
+        + callbackUrl
+        + '\''
         + '}';
   }
 
@@ -163,6 +167,10 @@ public class PaymentTransaction {
 
   public String getDeveloperPayload() {
     return developerPayload;
+  }
+
+  public String getCallbackUrl() {
+    return callbackUrl;
   }
 
   public enum PaymentState {
