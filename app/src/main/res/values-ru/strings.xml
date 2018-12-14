@@ -246,6 +246,8 @@
   <string name="gamification_level_header">Поздравляем, вы %s!</string>
   <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">ЗАРАБОТАНО:</string>
+  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% БОНУС</string>
   <string name="gamification_level_button_how">КАК ЭТО РАБОТАЕТ</string>
   <string name="gamification_how_header">Как повысить уровень?</string>
