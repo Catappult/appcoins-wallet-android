@@ -246,6 +246,8 @@
   <string name="gamification_level_header">Gefeliciteerd, je bent %s!</string>
   <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">VERDIEND:</string>
+  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">ZO WERKT HET</string>
   <string name="gamification_how_header">Hoe kun je een niveau omhoog gaan?</string>
