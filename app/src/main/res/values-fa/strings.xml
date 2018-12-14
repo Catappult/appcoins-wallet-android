@@ -246,6 +246,8 @@
   <string name="gamification_level_header">تبریک, شما %s هستید!</string>
   <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">به دست آورده:</string>
+  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">بونوس %s%%</string>
   <string name="gamification_level_button_how">چگونه کار می کند</string>
   <string name="gamification_how_header">چگونه سطح بالاتری بروید؟</string>
