@@ -167,8 +167,8 @@
   <string name="gas_price_value">%1$s %2$s</string>
   <string name="settings_fragment_credits">Demos início ao desenvolvimento da Wallet da AppCoins a partir do projeto da Trust Wallet para Android. Consideramos que esta seria a melhor alternativa tendo em conta as funcionalidades que já haviam sido implementadas no projeto anterior. Fizemos isto com o intuito de contribuir com novas implementações que poderiam vir a ser consideradas relevantes para o sucesso do projeto.</string>
   <string name="appcoins_symbol">APPC</string>
-  <string name="activity_aib_loading_title">Transação a ser processada</string>
-  <string name="activity_aib_loading_message">Isto pode demorar…</string>
+  <string name="activity_aib_loading_title">A sua transação está a ser efetuada</string>
+  <string name="activity_aib_loading_message">Isto pode demorar um pouco…</string>
   <string name="activity_iab_transaction_completed_title">Transação concluída</string>
   <string name="activity_iab_error_title">Erro</string>
   <string name="activity_iab_error_message">Ocorreu um erro, por favor tente novamente</string>
@@ -202,7 +202,7 @@
   <string name="transaction_type_poa">Proof of Attention</string>
   <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
   <string name="transaction_type_standard">Transferência</string>
-  <string name="transaction_type_bonus">Bónus</string>
+  <string name="transaction_type_bonus">Bônus</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
