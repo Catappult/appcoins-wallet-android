@@ -246,6 +246,8 @@
   <string name="gamification_level_header">अभिनंदन, आपण %s आहात!</string>
   <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">कमावले:</string>
+  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% बोनस</string>
   <string name="gamification_level_button_how">हे कसे काम करते</string>
   <string name="gamification_how_header">पातळी कशी वाढवायची?</string>
