@@ -246,6 +246,8 @@
   <string name="gamification_level_header">ဂုဏ္ယူပါသည္။ သင္သည္ %s ျဖစ္ပါသည္။</string>
   <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">ရရွိခဲ့သည္မွာ -</string>
+  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% ေဘာနပ္စ္</string>
   <string name="gamification_level_button_how">အလုပ္လုပ္ပံု</string>
   <string name="gamification_how_header">အဆင့္တက္ပံု။</string>
