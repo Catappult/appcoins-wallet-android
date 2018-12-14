@@ -13,16 +13,11 @@ files:
         my: my
         pt-PT: pt
         de: de
-        fi: fi
         fil: fil
         fr: fr
-        he: he
         it: it
         ja: ja
-        km: km
         ko: ko
-        lo: lo
-        lt: lt
         nl: nl
         ru: ru
         th: th
@@ -33,10 +28,9 @@ files:
         mr: mr
         pa-IN: pa
         pl: pl
-        ka: ka
         fa: fa
         hu: hu
-        hr: hr
+        zh-CN: zh-CN
         el: el
-        cs: cs
-        az: az
+        pt-BR: pt-BR
+        sr-CS: sr-CS
