@@ -246,6 +246,8 @@
   <string name="gamification_level_header">مبروك، أنت %s!</string>
   <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">مكتسب:</string>
+  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">علاوة %s%%</string>
   <string name="gamification_level_button_how">كيف يعمل</string>
   <string name="gamification_how_header">كيف أنتقل للمستوى التالي؟</string>
