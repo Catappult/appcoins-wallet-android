@@ -246,6 +246,8 @@
   <string name="gamification_level_header">Xin chúc mừng, bạn là %s!</string>
   <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">KIẾM ĐƯỢC:</string>
+  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% TIỀN THƯỞNG</string>
   <string name="gamification_level_button_how">CÁCH THỨC HOẠT ĐỘNG</string>
   <string name="gamification_how_header">Làm thế nào để lên cấp?</string>
