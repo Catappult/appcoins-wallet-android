@@ -7,6 +7,7 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
+import java.math.BigDecimal
 import java.math.RoundingMode
 
 class MyLevelPresenter(private val view: MyLevelView,
@@ -48,10 +49,10 @@ class MyLevelPresenter(private val view: MyLevelView,
           list.add(level.bonus)
         }
       }
+      val nextLevelAmount = userStats.nextLevelAmount?.minus(
+          userStats.totalSpend)?.setScale(2, RoundingMode.HALF_UP)?: BigDecimal.ZERO
       status =
-          UserRewardsStatus(userStats.level,
-              userStats.totalEarned.setScale(2, RoundingMode.HALF_UP),
-              list)
+          UserRewardsStatus(userStats.level, nextLevelAmount, list)
     }
     return status
   }

@@ -151,8 +151,13 @@ public class TransactionDetailActivity extends BaseActivity {
         to = transaction.getTo();
         typeStr = R.string.transaction_type_bonus;
         typeIcon = -1;
-        id = getString(R.string.gamification_level_bonus, transaction.getDetails()
-            .getSourceName());
+        if (transaction.getDetails()
+            .getSourceName() == null) {
+          id = getString(R.string.transaction_type_bonus);
+        } else {
+          id = getString(R.string.gamification_level_bonus, transaction.getDetails()
+              .getSourceName());
+        }
         button.setOnClickListener(
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
         break;

@@ -71,10 +71,8 @@ public class PaymentMethodsPresenter {
   public void present(double transactionValue, String currency, Bundle savedInstanceState) {
     handleCancelClick();
     handleErrorDismisses();
-    if (savedInstanceState == null) {
-      setupUi(transactionValue, currency);
-      handleOnGoingPurchases();
-    }
+    setupUi(transactionValue, currency);
+    handleOnGoingPurchases();
     handleBuyClick();
     if (isBds) {
       handlePaymentSelection();

@@ -19,6 +19,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_rewards_level.*
 import kotlinx.android.synthetic.main.level_component.view.*
 import kotlinx.android.synthetic.main.rewards_progress_bar.*
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class MyLevelFragment : DaggerFragment(), MyLevelView {
@@ -70,9 +71,15 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
 
     setLevelResources(userStatus.level)
 
-    earned_value.text = getString(R.string.credits_purchase_value, userStatus.receivedAmount)
-    earned_value.visibility = View.VISIBLE
-
+    if (userStatus.toNextLevelAmount > BigDecimal.ZERO) {
+      earned_label.visibility = View.VISIBLE
+      earned_value.text =
+          getString(R.string.gamification_level_next_lvl_value, userStatus.toNextLevelAmount)
+      earned_value.visibility = View.VISIBLE
+    } else {
+      earned_label.visibility = View.INVISIBLE
+      earned_value.visibility = View.INVISIBLE
+    }
     animateProgress(currentLevel, userStatus.level)
 
     for (value in userStatus.bonus) {
