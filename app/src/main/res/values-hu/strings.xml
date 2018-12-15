@@ -32,7 +32,7 @@
   <string name="telegram">Telegram csoport</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Közösség</string>
-  <string name="title_opensource">Nyílt forráskódú fejlesztési</string>
+  <string name="title_opensource">Nyílt forráskódú fejlesztés</string>
   <string name="title_source_code">Forráskód</string>
   <string name="title_report_bug">Hibabejelentés</string>
   <string name="title_support">Támogatás</string>
@@ -109,7 +109,7 @@
   <string name="label_gas_price">Gáz ára</string>
   <string name="label_network_fee">Hálózati költség</string>
   <string name="button_ok">OK</string>
-  <string name="hint_recipient_address">Címzett címe</string>
+  <string name="hint_recipient_address">Kedvezményezett címe</string>
   <string name="hint_amount">Összeg</string>
   <string name="hint_amount_with_token">%s összeg</string>
   <string name="hint_contract_address">Szerződés címe</string>
