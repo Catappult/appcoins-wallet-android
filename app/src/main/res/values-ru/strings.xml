@@ -61,7 +61,7 @@
   <string name="already_have_account">Уже есть кошелек?</string>
   <string name="action_create_new_account">Создать новый кошелек</string>
   <string name="unknown_error">Произошла ошибка.</string>
-  <string name="action_backup_wallet">Резервный бумажник</string>
+  <string name="action_backup_wallet">Сделать бэкап бумажника</string>
   <string name="no_tokens">Вы еще не добавили ни одного произвольного токена.</string>
   <string name="title_email">Напишите нам</string>
   <string name="action_donate">Пожертвовать</string>
