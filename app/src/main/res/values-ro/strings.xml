@@ -244,9 +244,9 @@
   <!-- Gamification -->
   <string name="gamification_level_title">Care este nivelul meu?</string>
   <string name="gamification_level_header">Felicitări, ești %s!</string>
-  <string name="gamification_level_to_next">To next level:</string>
+  <string name="gamification_level_to_next">La nivelul următor:</string>
   <string name="gamification_level_earned">AI CÂȘTIGAT:</string>
-  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl">LA NIVELUL URMĂTOR:</string>
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">CUM FUNCȚIONEAZĂ</string>
