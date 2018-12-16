@@ -244,9 +244,9 @@
   <!-- Gamification -->
   <string name="gamification_level_title">Apa Tingkat Saya?</string>
   <string name="gamification_level_header">Selamat, Anda adalah %s!</string>
-  <string name="gamification_level_to_next">To next level:</string>
+  <string name="gamification_level_to_next">Ke level selanjutnya:</string>
   <string name="gamification_level_earned">DIPEROLEH:</string>
-  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl">KE LEVEL SELANJUTNYA:</string>
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">BONUS %s%%</string>
   <string name="gamification_level_button_how">CARA KERJANYA</string>
