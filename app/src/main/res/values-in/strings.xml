@@ -165,7 +165,7 @@
   <string name="token_name">%1$s (%2$s)</string>
   <string name="new_transaction_value">-%1$s %2$s</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">Kami mengeluarkan Trust Wallet untuk proyek Android demi membantu pengembangan dompet AppCoin. Kami menganggapnya sebagai alternatif terbaik dalam hal fungsionalitas yang telah dilaksanakan. Kami membuatnya dengan maksud berkontribusi berupa penerapan dan karya yang dianggap relevan.</string>
+  <string name="settings_fragment_credits">Kami mengembangkan Trust Wallet untuk proyek Android demi membantu pengembangan dompet AppCoin. Kami menganggapnya sebagai alternatif terbaik dalam hal fungsionalitas yang telah dilaksanakan. Kami mengembangkannya dengan maksud berkontribusi dalam bentuk penerapan dan karya yang dianggap relevan.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">Transaksi sedang berlangsung</string>
   <string name="activity_aib_loading_message">Ini mungkin memakan waktu…</string>
@@ -173,7 +173,7 @@
   <string name="activity_iab_error_title">Kesalahan</string>
   <string name="activity_iab_error_message">Terjadi kesalahan, silakan coba lagi</string>
   <string name="action_try">coba</string>
-  <string name="activity_transactions_learn_more">Pelajari lainnya</string>
+  <string name="activity_transactions_learn_more">Pelajari yang lainnya</string>
   <string name="activity_iab_no_funds_message">ETH dan APPC tidak cukup</string>
   <string name="activity_iab_no_ethereum_funds_message">Ethereum tidak cukup</string>
   <string name="activity_iab_no_token_funds_message">AppCoin tidak cukup</string>
