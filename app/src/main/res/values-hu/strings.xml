@@ -202,7 +202,7 @@
   <string name="transaction_type_poa">Proof of Attention</string>
   <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
   <string name="transaction_type_standard">Tranzakció</string>
-  <string name="transaction_type_bonus">Bonus</string>
+  <string name="transaction_type_bonus">Bónusz</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
   <string name="transaction_details_brand_txt">Ethereum-mal hajtva</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -244,9 +244,9 @@
   <!-- Gamification -->
   <string name="gamification_level_title">Hanyas szintű vagyok?</string>
   <string name="gamification_level_header">Gratulálunk. %s vagy!</string>
-  <string name="gamification_level_to_next">To next level:</string>
+  <string name="gamification_level_to_next">Köv. szintig:</string>
   <string name="gamification_level_earned">FOGADVA:</string>
-  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl">KÖV. SZINTIG:</string>
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% BÓNUSZ</string>
   <string name="gamification_level_button_how">HOGYAN MŰKÖDIK</string>
@@ -264,7 +264,7 @@
   <string name="gamification_star_subtitle">Fényes, nagy és élettel teli!</string>
   <string name="gamification_galaxy_subtitle">A létező legnagyobb rendszer!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Purchase Bonus:</string>
-  <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
-  <string name="action_level">My Level</string>
+  <string name="gamification_purchase_header">Vásárlási bónusz:</string>
+  <string name="gamification_purchase_body">%s APPC Credit kerül számodra jóváírásra</string>
+  <string name="action_level">Saját szintem</string>
 </resources>
