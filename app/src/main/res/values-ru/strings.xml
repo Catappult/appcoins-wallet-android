@@ -61,7 +61,7 @@
   <string name="already_have_account">Уже есть кошелек?</string>
   <string name="action_create_new_account">Создать новый кошелек</string>
   <string name="unknown_error">Произошла ошибка.</string>
-  <string name="action_backup_wallet">Резервный бумажник</string>
+  <string name="action_backup_wallet">Сделать бэкап бумажника</string>
   <string name="no_tokens">Вы еще не добавили ни одного произвольного токена.</string>
   <string name="title_email">Напишите нам</string>
   <string name="action_donate">Пожертвовать</string>
@@ -202,7 +202,7 @@
   <string name="transaction_type_poa">Proof of Attention</string>
   <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
   <string name="transaction_type_standard">Перевод</string>
-  <string name="transaction_type_bonus">Bonus</string>
+  <string name="transaction_type_bonus">Бонус</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
   <string name="transaction_details_brand_txt">Работает на Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -244,9 +244,9 @@
   <!-- Gamification -->
   <string name="gamification_level_title">Какой у меня уровень?</string>
   <string name="gamification_level_header">Поздравляем, вы %s!</string>
-  <string name="gamification_level_to_next">To next level:</string>
+  <string name="gamification_level_to_next">На следующий уровень:</string>
   <string name="gamification_level_earned">ЗАРАБОТАНО:</string>
-  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl">НА СЛЕДУЮЩИЙ УРОВЕНЬ:</string>
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% БОНУС</string>
   <string name="gamification_level_button_how">КАК ЭТО РАБОТАЕТ</string>
@@ -264,7 +264,7 @@
   <string name="gamification_star_subtitle">Сияющая, огромная, полная жизни!</string>
   <string name="gamification_galaxy_subtitle">Крупнейшая из систем!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Purchase Bonus:</string>
-  <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
-  <string name="action_level">My Level</string>
+  <string name="gamification_purchase_header">Бонус за покупку:</string>
+  <string name="gamification_purchase_body">%s кредитов APPC будет переведено на ваш кошелёк</string>
+  <string name="action_level">Мой уровень</string>
 </resources>

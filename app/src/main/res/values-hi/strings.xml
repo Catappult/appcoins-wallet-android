@@ -202,7 +202,7 @@
   <string name="transaction_type_poa">Proof of Attention</string>
   <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
   <string name="transaction_type_standard">अंतरण करें</string>
-  <string name="transaction_type_bonus">Bonus</string>
+  <string name="transaction_type_bonus">बोनस</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
   <string name="transaction_details_brand_txt">इथीरियम द्वारा संचालित</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -244,9 +244,9 @@
   <!-- Gamification -->
   <string name="gamification_level_title">मेरा लेवल क्या है?</string>
   <string name="gamification_level_header">बधाई हो, आप %s हैं!</string>
-  <string name="gamification_level_to_next">To next level:</string>
+  <string name="gamification_level_to_next">अगले लेवल के लिए:</string>
   <string name="gamification_level_earned">कमाए:</string>
-  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl">अगले लेवल के लिए:</string>
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% बोनस</string>
   <string name="gamification_level_button_how">यह कैसे काम करता है</string>
@@ -264,7 +264,7 @@
   <string name="gamification_star_subtitle">चमकीला, बड़ा और जीवन से भरा हुआ!</string>
   <string name="gamification_galaxy_subtitle">वहाँ की सबसे बड़ी प्रणाली!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Purchase Bonus:</string>
-  <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
-  <string name="action_level">My Level</string>
+  <string name="gamification_purchase_header">बोनस खरीदें:</string>
+  <string name="gamification_purchase_body">%s APPC क्रेडिट आपके वॉलेट में जमा किये जाएँगे</string>
+  <string name="action_level">मेरा लेवल</string>
 </resources>
