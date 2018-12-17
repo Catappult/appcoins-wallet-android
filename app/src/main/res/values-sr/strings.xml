@@ -244,9 +244,9 @@
   <!-- Gamification -->
   <string name="gamification_level_title">Na kom sam nivou?</string>
   <string name="gamification_level_header">Čestitamo, vi ste %s!</string>
-  <string name="gamification_level_to_next">To next level:</string>
+  <string name="gamification_level_to_next">Do sledećeg nivoa:</string>
   <string name="gamification_level_earned">ZARAĐENO:</string>
-  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl">DO SLEDEĆEG NIVOA:</string>
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">KAKO OVO FUNKCIONIŠE</string>
@@ -264,7 +264,7 @@
   <string name="gamification_star_subtitle">Sjajna, velika i puna života!</string>
   <string name="gamification_galaxy_subtitle">Najveći sistem koji postoji!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Purchase Bonus:</string>
-  <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
-  <string name="action_level">My Level</string>
+  <string name="gamification_purchase_header">Bonus za kupovinu:</string>
+  <string name="gamification_purchase_body">Kredit od %s APPC će biti dodat u vaš novčanik</string>
+  <string name="action_level">Moj nivo</string>
 </resources>
