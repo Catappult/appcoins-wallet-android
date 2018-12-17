@@ -33,18 +33,18 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">คอมมิวนิตี้</string>
   <string name="title_opensource">พัฒนาแบบเปิด</string>
-  <string name="title_source_code">แหล่งที่มีรหัส</string>
+  <string name="title_source_code">รหัสที่มา</string>
   <string name="title_report_bug">รายงานจุดบกพร่อง</string>
   <string name="title_support">การสนับสนุน</string>
   <string name="error_import">ข้อผิดพลาดในการนำคีย์สโตร์</string>
-  <string name="message_this_is_your_address">ที่อยู่กระเป๋าสตางค์ Ethereum สาธารณะของฉัน</string>
+  <string name="message_this_is_your_address">ที่อยู่กระเป๋าสตางค์เอธิเรียมสาธารณะของฉัน</string>
   <string name="backup_warning_text">เนื่องจากคุณควบคุมเงินของคุณ คุณจะต้องบันทึกสำเนาสำรองคีย์สโตร์ของคุณ ในกรณีนี้เป็นกระเป๋าสตางค์ถูกลบ\n\n กระเป๋าสตางค์ของคุณไม่มีการบันทึกการสำรองข้อมูลอุปกรณ์มาตรฐานหรือจัดเก็บสำรองแบบมาตรฐาน</string>
-  <string name="message_no_backup">ไม่มีสำรองข้อมูล ไม่มีEthereum</string>
+  <string name="message_no_backup">ไม่มีสำรองข้อมูล ไม่มีเอธิเรียม</string>
   <string name="error_deleting_account">มีข้อผิดพลาดในการลบกระเป๋าสตางค์</string>
   <string name="title_privacy_policy">นโยบายการเก็บข้อมูลส่วนบุคคล</string>
   <string name="title_terms">ข้อกำหนดและเงื่อนไข</string>
   <string name="title_version">เวอร์ชัน</string>
-  <string name="title_tokens">โทเค็นของฉัน</string>
+  <string name="title_tokens">โทเคนของฉัน</string>
   <string name="unlock_screen_title_android">ปลดล็อคหน้าจอ</string>
   <string name="unlock_screen_prompt_android">โปรดปลดล็อกอุปกรณ์แอนดรอย์ของคุณเพื่อดำเนินต่อ</string>
   <string name="do_manage_make_backup">คุณทำการสำรองข้อมูลเสร็จเรียบร้อยแล้วหรือไม่?</string>
@@ -62,20 +62,20 @@
   <string name="action_create_new_account">สร้างกระเป๋าสตางค์ใหม่</string>
   <string name="unknown_error">มีข้อผิดพลาดเกิดขึ้น</string>
   <string name="action_backup_wallet">กระเป๋าสตางค์ที่สำรอง</string>
-  <string name="no_tokens">คุณยังไม่ได้เพิ่มการโทเค็นที่กำหนดเองได้</string>
-  <string name="title_email">ส่งอีเมล์ถึงเรา</string>
+  <string name="no_tokens">คุณยังไม่ได้เพิ่มการโทเคนที่กำหนดเองได้</string>
+  <string name="title_email">ส่งอีเมลถึงเรา</string>
   <string name="action_donate">บริจาค</string>
   <!-- Titles -->
   <string name="title_my_address">ได้รับ</string>
-  <string name="title_my_tokens">โทเค็นของฉัน</string>
+  <string name="title_my_tokens">โทเคนของฉัน</string>
   <string name="title_activity_send">ส่ง</string>
   <string name="title_activity_confirmation">ยืนยัน</string>
-  <string name="title_add_token">เพิ่มโทเค็นที่กำหนดเอง</string>
+  <string name="title_add_token">เพิ่มโทเคนที่กำหนดเอง</string>
   <string name="title_airdrop">Airdrop</string>
   <!-- Suggestions -->
   <string name="suggestion_private_key">คีย์ส่วนตัวมีความยาวได้ไม่เกิน 64 อักขระ</string>
   <string name="suggestion_empty_password_available">รหัสผ่านสามารถเว้นว่างได้</string>
-  <string name="suggestion_this_is_your_address">ที่อยู่กระเป๋าสตางค์ Ethereum สาธารณะของฉัน</string>
+  <string name="suggestion_this_is_your_address">ที่อยู่กระเป๋าสตางค์ %s สาธารณะของฉัน</string>
   <!-- Hints -->
   <string name="hint_private_key_field">คีย์ส่วนตัว *</string>
   <string name="hint_keystore">คีย์สโตร์*</string>
@@ -150,15 +150,15 @@
   <string name="welcome.erc20.label.title">ERC20 ที่เข้ากันได้</string>
   <string name="welcome.erc20.label.description">รองรับสัญญาณ ERC20 เป็นค่าเริ่มต้น</string>
   <string name="scan_qr">รับที่อยู่จาก QR Code</string>
-  <string name="info_gas_price">ราคาGasสูงขึ้น ค่าธรรมเนียมก็ยิ่งเพิ่มขึ้น แต่การดำเนินธุรกรรมของคุณที่เร็วกว่าจะถูกดำเนินการโดยเครือข่าย Ethereum</string>
-  <string name="info_gas_limit">การจำกัดGasป้องกันไม่ให้ใช้ Ethereum ของคุณสัญญาสมาร์ท เราจะพยายามคำนวณวงเงินGasโดยอัตโนมัติสำหรับคุณ แต่บางสัญญาสมาร์ทอาจกำหนดการจำกัด Gasเอง</string>
+  <string name="info_gas_price">ราคาGasสูงขึ้น ค่าธรรมเนียมก็ยิ่งเพิ่มขึ้น แต่การดำเนินธุรกรรมของคุณที่เร็วกว่าจะถูกดำเนินการโดยเครือข่ายเอธิเรียม</string>
+  <string name="info_gas_limit">การจำกัดGasป้องกันไม่ให้ใช้เอธิเรียมของคุณสัญญาสมาร์ท เราจะพยายามคำนวณวงเงินGasโดยอัตโนมัติสำหรับคุณ แต่บางสัญญาสมาร์ทอาจกำหนดการจำกัด Gasเอง</string>
   <string name="title_send_settings">ขั้นสูง</string>
   <string name="title_activity_barcode">สแกนบาร์โค้ด</string>
-  <string name="error_add_token">ไม่ได้เพิ่มโทเค่น</string>
+  <string name="error_add_token">ไม่ได้เพิ่มโทเคน</string>
   <string name="facebook">เฟสบุ๊ค</string>
   <string name="error_already_added">เพิ่มแล้ว</string>
   <string name="error_export">การนำกระเป๋าสตางค์ออกล้มเหลว</string>
-  <string name="error_fail_load_tokens">ไม่สามารถโหลดรายการโทเค็น</string>
+  <string name="error_fail_load_tokens">ไม่สามารถโหลดรายการโทเคน</string>
   <string name="error_create_wallet">ไม่สามารถสร้างกระเป๋าสตางค์</string>
   <string name="token_balance">%1$s%2$s %3$s</string>
   <string name="action_edit_tokens">แก้ไขโทเค่น</string>
@@ -175,9 +175,9 @@
   <string name="action_try">ลอง</string>
   <string name="activity_transactions_learn_more">เรียนรู้เพิ่มเติม</string>
   <string name="activity_iab_no_funds_message">ETH และ APPC ไม่เพียงพอ</string>
-  <string name="activity_iab_no_ethereum_funds_message">Ethereum ไม่เพียงพอ</string>
+  <string name="activity_iab_no_ethereum_funds_message">เอธิเรียมไม่เพียงพอ</string>
   <string name="activity_iab_no_token_funds_message">AppCoins ไม่เพียงพอ</string>
-  <string name="activity_iab_wrong_network_message">เครือข่าย Ethereum ผิดหรือโทเค็นที่ไม่รู้จัก</string>
+  <string name="activity_iab_wrong_network_message">เครือข่าย Ethereum ผิดหรือโทเคนที่ไม่รู้จัก</string>
   <string name="activity_iab_no_network_message">ไม่สามารถเข้าถึงเครือข่าย</string>
   <string name="activity_iab_nonce_message">เกิดข้อผิดพลาดกับ blockchain โปรดลองอีกครั้ง</string>
   <string name="activity_iab_approving_message">ตรวจสอบรายละเอียดทั้งหมด: ยอดคงเหลือ สินค้า เครือข่าย...</string>
@@ -202,9 +202,9 @@
   <string name="transaction_type_poa">Proof of Attention</string>
   <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
   <string name="transaction_type_standard">โอนย้าย</string>
-  <string name="transaction_type_bonus">Bonus</string>
+  <string name="transaction_type_bonus">โบนัส</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
-  <string name="transaction_details_brand_txt">ขับเคลื่อน โดย Ethereum</string>
+  <string name="transaction_details_brand_txt">สนับสนุนโดยเอธิเรียม</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
   <string name="miuraiden_trans_details_topup">µRaiden channel top up</string>
@@ -243,10 +243,10 @@
   <string name="item_donation">บริจาค</string>
   <!-- Gamification -->
   <string name="gamification_level_title">ระดับของฉันคืออะไร</string>
-  <string name="gamification_level_header">ขอแสดงความยินดี คุณ %s!</string>
-  <string name="gamification_level_to_next">To next level:</string>
+  <string name="gamification_level_header">ขอแสดงความยินดี คุณคือ%s!</string>
+  <string name="gamification_level_to_next">ไประดับถัดไป:</string>
   <string name="gamification_level_earned">ได้รับ:</string>
-  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl">ไประดับถัดไป:</string>
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% โบนัส</string>
   <string name="gamification_level_button_how">วิธีการทำงาน</string>
@@ -258,13 +258,13 @@
   <string name="gamification_a_planet_title">ดาวเคราะห์</string>
   <string name="gamification_a_star_title">ดาว</string>
   <string name="gamification_a_galaxy_title">กาแลคซี่</string>
-  <string name="gamification_a_comet_subtitle">ระมัดระวัง และอย่ากระทบดาวเคราะห์!</string>
+  <string name="gamification_a_comet_subtitle">ระมัดระวังและอย่ากระทบดาวเคราะห์!</string>
   <string name="gamification_a_moon_subtitle">ดาวเทียมธรรมชาติ</string>
   <string name="gamification_planet_subtitle">หมุนรอบดาวใหญ่</string>
   <string name="gamification_star_subtitle">ส่องแสง ใหญ่และเต็มรูปแบบของชีวิต</string>
   <string name="gamification_galaxy_subtitle">ระบบที่ใหญ่ที่สุดที่มี!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Purchase Bonus:</string>
-  <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
-  <string name="action_level">My Level</string>
+  <string name="gamification_purchase_header">ซื้อโบนัส:</string>
+  <string name="gamification_purchase_body">เครดิต %s APPC จะถูกเก็บเป็นเครดิตในกระเป๋าสตางค์ของคุณ</string>
+  <string name="action_level">ระดับของฉัน</string>
 </resources>
