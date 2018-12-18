@@ -2,6 +2,7 @@ package com.asfoundation.wallet.view.rx;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -107,15 +108,32 @@ public class RxAlertDialog implements DialogInterface {
       return this;
     }
 
+    public Builder setMessage(@Nullable CharSequence message) {
+      builder.setMessage(message);
+      return this;
+    }
+
     public Builder setPositiveButton(@StringRes int textId) {
       positiveClick = new DialogClick(DialogInterface.BUTTON_POSITIVE, PublishRelay.create());
       builder.setPositiveButton(textId, positiveClick);
       return this;
     }
 
+    public Builder setPositiveButton(CharSequence text) {
+      positiveClick = new DialogClick(DialogInterface.BUTTON_POSITIVE, PublishRelay.create());
+      builder.setPositiveButton(text, positiveClick);
+      return this;
+    }
+
     public Builder setNegativeButton(@StringRes int textId) {
       negativeClick = new DialogClick(DialogInterface.BUTTON_NEGATIVE, PublishRelay.create());
       builder.setNegativeButton(textId, negativeClick);
+      return this;
+    }
+
+    public Builder setNegativeButton(CharSequence text) {
+      negativeClick = new DialogClick(DialogInterface.BUTTON_NEGATIVE, PublishRelay.create());
+      builder.setNegativeButton(text, negativeClick);
       return this;
     }
 

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
@@ -13,10 +14,7 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
-import com.asfoundation.wallet.ui.MicroRaidenInteractor;
-import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class TransactionDetailViewModel extends BaseViewModel {
 
@@ -25,13 +23,10 @@ public class TransactionDetailViewModel extends BaseViewModel {
   private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
   private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
 
-  private final MicroRaidenInteractor microRaidenInteractor;
-
   TransactionDetailViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
-      ExternalBrowserRouter externalBrowserRouter, MicroRaidenInteractor interactor) {
+      ExternalBrowserRouter externalBrowserRouter) {
     this.externalBrowserRouter = externalBrowserRouter;
-    this.microRaidenInteractor = interactor;
     findDefaultNetworkInteract.find()
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(defaultNetwork::postValue, t -> {
@@ -68,11 +63,6 @@ public class TransactionDetailViewModel extends BaseViewModel {
     return defaultWallet;
   }
 
-  public Completable closeChannel(String fromAddress) {
-      return microRaidenInteractor.closeChannel(fromAddress)
-          .subscribeOn(Schedulers.io());
-  }
-
   public void showMoreDetailsBds(Context context, Transaction transaction) {
     Uri uri = buildBdsUri(transaction);
     if (uri != null) {
@@ -81,7 +71,10 @@ public class TransactionDetailViewModel extends BaseViewModel {
   }
 
   private Uri buildBdsUri(Transaction transaction) {
-    return Uri.parse("https://appcexplorer.io/transaction/")
+    NetworkInfo networkInfo = defaultNetwork.getValue();
+    String url = networkInfo.chainId == 3 ? BuildConfig.TRANSACTION_DETAILS_HOST_ROPSTEN
+        : BuildConfig.TRANSACTION_DETAILS_HOST;
+    return Uri.parse(url)
         .buildUpon()
         .appendEncodedPath(transaction.getTransactionId())
         .build();

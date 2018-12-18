@@ -15,14 +15,16 @@ class BdsRemoteApi(private val backendApi: BackendApi, private val bdsApi: BdsAp
   override fun pay(walletAddress: String, signature: String,
                    amount: BigDecimal,
                    origin: String?,
-                   sku: String,
+                   sku: String?,
                    type: String,
                    developerAddress: String,
                    storeAddress: String,
                    oemAddress: String,
-                   packageName: String): Single<Transaction> {
+                   packageName: String,
+                   payload: String?,
+                   callback: String?): Single<Transaction> {
     return bdsApi.pay(walletAddress, signature,
-        BdsApi.PayBody(amount.toPlainString(), origin, sku, type, developerAddress, storeAddress,
+        BdsApi.PayBody(amount.toPlainString(), origin, sku, type, payload, callback, developerAddress, storeAddress,
             oemAddress, "APPC", packageName))
   }
 }

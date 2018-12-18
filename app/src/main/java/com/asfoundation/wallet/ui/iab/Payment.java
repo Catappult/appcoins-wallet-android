@@ -1,9 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
-import java.io.UnsupportedEncodingException;
 import javax.annotation.Nullable;
-import org.kethereum.erc681.ERC681ParserKt;
-import org.spongycastle.util.encoders.Hex;
 
 public class Payment {
   private final Status status;

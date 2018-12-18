@@ -21,21 +21,21 @@ public class RewardsManager {
 
   public Completable pay(String sku, BigDecimal amount, String developerAddress,
       String storeAddress, String oemAddress, String packageName, Transaction.Origin origin,
-      String type) {
+      String type, String payload, String callbackUrl) {
     return appcoinsRewards.pay(amount, origin, sku, type, developerAddress, storeAddress,
-        oemAddress, packageName);
+        oemAddress, packageName, payload, callbackUrl);
   }
 
   public Single<Purchase> getPaymentCompleted(String packageName, String sku) {
     return billing.getSkuPurchase(packageName, sku, Schedulers.io());
   }
 
-  public Observable<Transaction> getTransaction(String packageName, String sku) {
-    return appcoinsRewards.getPayment(packageName, sku);
+  public Observable<Transaction> getTransaction(String packageName, String sku, BigDecimal amount) {
+    return appcoinsRewards.getPayment(packageName, sku, amount.toString());
   }
 
-  public Observable<RewardPayment> getPaymentStatus(String packageName, String sku) {
-    return appcoinsRewards.getPayment(packageName, sku)
+  public Observable<RewardPayment> getPaymentStatus(String packageName, String sku, BigDecimal amount) {
+    return appcoinsRewards.getPayment(packageName, sku, amount.toString())
         .flatMap(this::map);
   }
 

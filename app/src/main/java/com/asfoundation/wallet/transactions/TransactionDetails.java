@@ -2,6 +2,7 @@ package com.asfoundation.wallet.transactions;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import javax.annotation.Nullable;
 
 /**
  * Created by Joao Raimundo on 18/05/2018.
@@ -21,7 +22,7 @@ public class TransactionDetails implements Parcelable {
   Icon icon;
   String description;
 
-  public TransactionDetails(String sourceName, Icon icon, String description) {
+  public TransactionDetails(@Nullable String sourceName, Icon icon, String description) {
     this.sourceName = sourceName;
     this.icon = icon;
     this.description = description;

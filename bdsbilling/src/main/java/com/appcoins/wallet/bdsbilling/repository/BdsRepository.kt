@@ -1,7 +1,7 @@
 package com.appcoins.wallet.bdsbilling.repository
 
 import com.appcoins.wallet.bdsbilling.BillingRepository
-import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
+import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethod
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.billing.repository.entity.Product
@@ -17,7 +17,7 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
   override fun registerAuthorizationProof(id: String, paymentType: String,
                                           walletAddress: String,
                                           walletSignature: String,
-                                          productName: String,
+                                          productName: String?,
                                           packageName: String,
                                           priceValue: BigDecimal,
                                           developerWallet: String,
@@ -25,11 +25,12 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
                                           origin: String,
                                           type: String,
                                           oemWallet: String,
-                                          developerPayload: String?): Single<String> {
+                                          developerPayload: String?,
+                                          callback: String?): Single<String> {
     return remoteRepository.registerAuthorizationProof(origin, type, oemWallet, id, paymentType,
         walletAddress,
         walletSignature, productName, packageName, priceValue, developerWallet, storeWallet,
-        developerPayload)
+        developerPayload, callback)
         .map { it.uid }
   }
 
@@ -43,9 +44,8 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     return remoteRepository.isBillingSupported(packageName, type)
   }
 
-  override fun getSkuDetails(packageName: String, skus: List<String>,
-                             type: BillingRepository.BillingType): Single<List<Product>> {
-    return remoteRepository.getSkuDetails(packageName, skus, type.name)
+  override fun getSkuDetails(packageName: String, skus: List<String>): Single<List<Product>> {
+    return remoteRepository.getSkuDetails(packageName, skus)
   }
 
   override fun getSkuPurchase(packageName: String, skuId: String, walletAddress: String,
@@ -76,8 +76,8 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
         walletSignature)
   }
 
-  override fun getGateways(): Single<List<Gateway>> {
-    return remoteRepository.getGateways()
+  override fun getPaymentMethods(): Single<List<PaymentMethod>> {
+    return remoteRepository.getPaymentMethods()
   }
 
   override fun getAppcoinsTransaction(uid: String, address: String,

@@ -23,13 +23,13 @@ import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.ManageWalletsRouter;
 import com.asfoundation.wallet.router.MyAddressRouter;
 import com.asfoundation.wallet.router.MyTokensRouter;
+import com.asfoundation.wallet.router.RewardsLeverRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
 import com.asfoundation.wallet.ui.AppcoinsApps;
-import com.asfoundation.wallet.ui.MicroRaidenInteractor;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -58,12 +58,12 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MyAddressRouter myAddressRouter;
   private final MyTokensRouter myTokensRouter;
   private final ExternalBrowserRouter externalBrowserRouter;
+  private final RewardsLeverRouter rewardsLeverRouter;
   private final CompositeDisposable disposables;
   private final DefaultTokenProvider defaultTokenProvider;
   private final GetDefaultWalletBalance getDefaultWalletBalance;
   private final TransactionsMapper transactionsMapper;
   private final AirdropRouter airdropRouter;
-  private final MicroRaidenInteractor microRaidenInteractor;
   private final AppcoinsApps applications;
   private final OffChainTransactions offChainTransactions;
   private Handler handler = new Handler();
@@ -79,9 +79,8 @@ public class TransactionsViewModel extends BaseViewModel {
       TransactionDetailRouter transactionDetailRouter, MyAddressRouter myAddressRouter,
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
-      TransactionsMapper transactionsMapper, AirdropRouter airdropRouter,
-      MicroRaidenInteractor microRaidenInteractor, AppcoinsApps applications,
-      OffChainTransactions offChainTransactions) {
+      TransactionsMapper transactionsMapper, AirdropRouter airdropRouter, AppcoinsApps applications,
+      OffChainTransactions offChainTransactions, RewardsLeverRouter rewardsLeverRouter) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchTransactionsInteract = fetchTransactionsInteract;
@@ -92,11 +91,11 @@ public class TransactionsViewModel extends BaseViewModel {
     this.myAddressRouter = myAddressRouter;
     this.myTokensRouter = myTokensRouter;
     this.externalBrowserRouter = externalBrowserRouter;
+    this.rewardsLeverRouter = rewardsLeverRouter;
     this.defaultTokenProvider = defaultTokenProvider;
     this.getDefaultWalletBalance = getDefaultWalletBalance;
     this.transactionsMapper = transactionsMapper;
     this.airdropRouter = airdropRouter;
-    this.microRaidenInteractor = microRaidenInteractor;
     this.applications = applications;
     this.offChainTransactions = offChainTransactions;
     this.disposables = new CompositeDisposable();
@@ -143,18 +142,11 @@ public class TransactionsViewModel extends BaseViewModel {
     handler.removeCallbacks(startFetchTransactionsTask);
     progress.postValue(shouldShowProgress);
     /*For specific address use: new Wallet("0x60f7a1cbc59470b74b1df20b133700ec381f15d3")*/
-    disposables.add(Observable.merge(findDefaultNetworkInteract.find()
-            .filter(networkInfo -> networkInfo.chainId == 3)
-            .flatMapObservable(
-                networkInfo -> microRaidenInteractor.listTransactions(defaultWallet.getValue())
-                    .toObservable()
-                    .filter(microTransactions -> !microTransactions.isEmpty())
-                    .flatMapSingle(transactionsMapper::map)),
-        fetchTransactionsInteract.fetch(defaultWallet.getValue())
-            .flatMapSingle(transactionsMapper::map), findDefaultNetworkInteract.find()
-            .filter(this::shouldShowOffChainInfo)
-            .flatMapObservable(__ -> offChainTransactions.getTransactions()
-                .toObservable()))
+    disposables.add(Observable.merge(fetchTransactionsInteract.fetch(defaultWallet.getValue())
+        .flatMapSingle(transactionsMapper::map), findDefaultNetworkInteract.find()
+        .filter(this::shouldShowOffChainInfo)
+        .flatMapObservable(__ -> offChainTransactions.getTransactions()
+            .toObservable()))
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(this::onTransactions, this::onError, this::onTransactionsFetchCompleted));
 
@@ -195,11 +187,11 @@ public class TransactionsViewModel extends BaseViewModel {
     disposables.add(findDefaultNetworkInteract.find()
         .filter(this::shouldShowOffChainInfo)
         .flatMapSingle(__ -> getDefaultWalletBalance.getCredits(defaultWallet.getValue()))
-            .subscribe(value -> {
-              defaultWalletCreditBalance.postValue(value);
-              handler.removeCallbacks(startGetCreditsBalanceTask);
-              handler.postDelayed(startGetCreditsBalanceTask, GET_BALANCE_INTERVAL);
-            }, Throwable::printStackTrace));
+        .subscribe(value -> {
+          defaultWalletCreditBalance.postValue(value);
+          handler.removeCallbacks(startGetCreditsBalanceTask);
+          handler.postDelayed(startGetCreditsBalanceTask, GET_BALANCE_INTERVAL);
+        }, Throwable::printStackTrace));
   }
 
   private void onDefaultNetwork(NetworkInfo networkInfo) {
@@ -284,7 +276,11 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public void onAppClick(AppcoinsApplication appcoinsApplication, Context context) {
     externalBrowserRouter.open(context, Uri.parse(
-        "https://www.appstorefoundation.org/offer-wall#spendAppCoinsList-"
+        "https://www.appstorefoundation.org/offer-wall?application=spendAppCoinsList-"
             + appcoinsApplication.getPackageName()));
+  }
+
+  public void showRewardsLevel(Context context) {
+    rewardsLeverRouter.open(context);
   }
 }

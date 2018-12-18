@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.os.Bundle;
-import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.jakewharton.rxrelay2.PublishRelay;
 import io.reactivex.Observable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
  */
 
 public interface OnChainBuyView {
-  Observable<OnChainBuyPresenter.BuyData> getBuyClick();
+  PublishRelay<String> getBuyClick();
 
   Observable<Object> getCancelClick();
 
@@ -28,8 +28,6 @@ public interface OnChainBuyView {
   void setup(String productName, boolean isDonation);
 
   void showTransactionCompleted();
-
-  void showBuy();
 
   void showWrongNetworkError();
 
@@ -49,21 +47,5 @@ public interface OnChainBuyView {
 
   void showRaidenChannelValues(List<BigDecimal> values);
 
-  Observable<Boolean> getCreateChannelClick();
-
-  void showRaidenInfo();
-
-  Observable<Object> getDontShowAgainClick();
-
-  void showChannelAmount();
-
-  void hideChannelAmount();
-
-  void showChannelAsDefaultPayment();
-
-  void showDefaultAsDefaultPayment();
-
   void showWallet(String wallet);
-
-  void showNoChannelFundsError();
 }
