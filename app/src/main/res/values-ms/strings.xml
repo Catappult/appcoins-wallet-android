@@ -244,9 +244,9 @@
   <!-- Gamification -->
   <string name="gamification_level_title">Apa Tahap Saya?</string>
   <string name="gamification_level_header">Tahniah, anda ialah %s!</string>
-  <string name="gamification_level_to_next">To next level:</string>
+  <string name="gamification_level_to_next">Ke tahap seterusnya:</string>
   <string name="gamification_level_earned">DIPEROLEH:</string>
-  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl">KE TAHAP SETERUSNYA:</string>
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">BONUS %s%%</string>
   <string name="gamification_level_button_how">CARA IA BERFUNGSI</string>
@@ -264,7 +264,7 @@
   <string name="gamification_star_subtitle">Bersinar, besar dan penuh tenaga!</string>
   <string name="gamification_galaxy_subtitle">Sistem terbesar di angkasa!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Purchase Bonus:</string>
-  <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
-  <string name="action_level">My Level</string>
+  <string name="gamification_purchase_header">Bonus Pembelian:</string>
+  <string name="gamification_purchase_body">%s Kredit APPC akan dikreditkan ke dalam dompet anda</string>
+  <string name="action_level">Tahap Saya</string>
 </resources>
