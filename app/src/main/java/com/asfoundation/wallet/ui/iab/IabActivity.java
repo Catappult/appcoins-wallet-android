@@ -137,7 +137,7 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
         .replace(R.id.fragment_container,
             AdyenAuthorizationFragment.newInstance(transaction.getSkuId(), transaction.getType(),
                 isBds ? BDS : null, paymentType, transaction.getDomain(),
-                getIntent().getDataString(), transaction.amount(), currency))
+                getIntent().getDataString(), transaction.amount(), currency, developerPayload))
         .commit();
   }
 
