@@ -108,7 +108,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
 
   public static AdyenAuthorizationFragment newInstance(String skuId, String type, String origin,
       PaymentType paymentType, String domain, String transactionData, BigDecimal amount,
-      String currency) {
+      String currency, String payload) {
     Bundle bundle = new Bundle();
     bundle.putString(SKU_ID, skuId);
     bundle.putString(TYPE, type);
@@ -118,6 +118,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     bundle.putString(TRANSACTION_DATA, transactionData);
     bundle.putSerializable(TRANSACTION_AMOUNT, amount);
     bundle.putString(TRANSACTION_CURRENCY, currency);
+    bundle.putString(EXTRA_DEVELOPER_PAYLOAD, payload);
     AdyenAuthorizationFragment fragment = new AdyenAuthorizationFragment();
     fragment.setArguments(bundle);
     return fragment;

@@ -123,7 +123,6 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     setupSubject = PublishSubject.create();
 
     extras = getArguments().getBundle("extras");
-    String uriString = extras.getString(TRANSACTION_DATA);
 
     boolean isBds = getArguments().getBoolean("isBds");
 
@@ -216,7 +215,6 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
 
   @Override public void setup(FiatValue response, boolean isDonation) {
     Formatter formatter = new Formatter();
-    StringBuilder builder = new StringBuilder();
     String valueText = formatter.format(Locale.getDefault(), "%(,.2f",
         (BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT))
         .toString() + " APPC";
