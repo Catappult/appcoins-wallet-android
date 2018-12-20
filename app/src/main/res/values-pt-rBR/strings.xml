@@ -202,7 +202,7 @@
   <string name="transaction_type_poa">Proof of Attention</string>
   <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
   <string name="transaction_type_standard">Transferir</string>
-  <string name="transaction_type_bonus">Bonus</string>
+  <string name="transaction_type_bonus">Bônus</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
   <string name="transaction_details_brand_txt">Powered by Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -244,10 +244,10 @@
   <!-- Gamification -->
   <string name="gamification_level_title">Qual o meu nível?</string>
   <string name="gamification_level_header">Parabéns, você é %s!</string>
-  <string name="gamification_level_to_next">To next level:</string>
+  <string name="gamification_level_to_next">Para o próximo nível:</string>
   <string name="gamification_level_earned">ACUMULADO:</string>
-  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
-  <string name="gamification_level_next_lvl_value">%s APPC</string>
+  <string name="gamification_level_next_lvl">PARA O PRÓXIMO NÍVEL:</string>
+  <string name="gamification_level_next_lvl_value">%s APPCs</string>
   <string name="gamification_level_bonus">%s%% BÔNUS</string>
   <string name="gamification_level_button_how">COMO FUNCIONA</string>
   <string name="gamification_how_header">Como subir de nível?</string>
@@ -264,7 +264,7 @@
   <string name="gamification_star_subtitle">Brilhante, enorme e cheia de vida!</string>
   <string name="gamification_galaxy_subtitle">O maior sistema que existe!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Purchase Bonus:</string>
-  <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
-  <string name="action_level">My Level</string>
+  <string name="gamification_purchase_header">Bônus de Compra:</string>
+  <string name="gamification_purchase_body">%s Créditos APPC serão creditados em sua wallet</string>
+  <string name="action_level">Meu Nível</string>
 </resources>

@@ -202,7 +202,7 @@
   <string name="transaction_type_poa">Proof of Attention</string>
   <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
   <string name="transaction_type_standard">انتقال</string>
-  <string name="transaction_type_bonus">Bonus</string>
+  <string name="transaction_type_bonus">جایزه</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
   <string name="transaction_details_brand_txt">طراحی شده توسط Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -244,9 +244,9 @@
   <!-- Gamification -->
   <string name="gamification_level_title">سطح من چیست؟</string>
   <string name="gamification_level_header">تبریک, شما %s هستید!</string>
-  <string name="gamification_level_to_next">To next level:</string>
+  <string name="gamification_level_to_next">به سطح بعدی:</string>
   <string name="gamification_level_earned">به دست آورده:</string>
-  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl">به سطح بعدی:</string>
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">بونوس %s%%</string>
   <string name="gamification_level_button_how">چگونه کار می کند</string>
@@ -264,7 +264,7 @@
   <string name="gamification_star_subtitle">درخشان، بزرگ و پر از زندگی!</string>
   <string name="gamification_galaxy_subtitle">بزرگترین سیستم که اینجا وجود دارد!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Purchase Bonus:</string>
-  <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
-  <string name="action_level">My Level</string>
+  <string name="gamification_purchase_header">جایزه خرید:</string>
+  <string name="gamification_purchase_body">%s اعتبار APPC به کیف پول شما اضافه می شود</string>
+  <string name="action_level">سطح من</string>
 </resources>
