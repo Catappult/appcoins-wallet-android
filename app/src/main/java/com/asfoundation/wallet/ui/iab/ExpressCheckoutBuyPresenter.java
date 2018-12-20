@@ -161,13 +161,6 @@ public class ExpressCheckoutBuyPresenter {
         }, this::showError));
   }
 
-  public void sendPurchaseDetails(String purchaseDetails) {
-    disposables.add(transactionBuilder.subscribe(
-        transactionBuilder -> analytics.sendPurchaseDetailsEvent(appPackage,
-            transactionBuilder.getSkuId(), transactionBuilder.amount()
-                .toString(), purchaseDetails, transactionBuilder.getType())));
-  }
-
   public boolean isBds() {
     return isBds;
   }

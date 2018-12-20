@@ -364,7 +364,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
       appSkuDescriptionTv.setText(productName);
     }
 
-    presenter.sendPurchaseDetails(PAYMENT_METHOD_CC);
+    presenter.sendPurchaseDetailsEvent();
 
     setupPaymentMethods(paymentMethods);
     showAvailable(availablePaymentMethods);

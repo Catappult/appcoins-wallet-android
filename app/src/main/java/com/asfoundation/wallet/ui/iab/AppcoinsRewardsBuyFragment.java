@@ -181,7 +181,6 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
       productDescription.setText(productName);
     }
     loadingView.setVisibility(View.GONE);
-    presenter.sendPurchaseDetails(PAYMENT_METHOD_REWARDS);
   }
 
   @Override public void showPaymentDetails() {

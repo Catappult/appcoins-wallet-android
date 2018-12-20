@@ -19,6 +19,7 @@ public class BillingAnalytics implements EventSender {
   public static final String PAYMENT_METHOD_APPC = "APPC";
   public static final String PAYMENT_METHOD_CC = "CREDIT_CARD";
   public static final String PAYMENT_METHOD_REWARDS = "REWARDS";
+  public static final String PAYMENT_METHOD_PAYPAL = "PAYPAL";
 
   private final AnalyticsManager analytics;
 
@@ -28,7 +29,7 @@ public class BillingAnalytics implements EventSender {
 
   @Override
   public void sendPurchaseDetailsEvent(String packageName, String skuDetails, String value,
-      String purchaseDetails, String transactionType) {
+      String transactionType) {
     Map<String, Object> eventData = new HashMap<>();
     Map<String, Object> purchaseData = new HashMap<>();
 
@@ -37,7 +38,6 @@ public class BillingAnalytics implements EventSender {
     purchaseData.put(EVENT_VALUE, value);
 
     eventData.put(EVENT_PURCHASE, purchaseData);
-    eventData.put(EVENT_PAYMENT_METHOD, purchaseDetails);
     eventData.put(EVENT_TRANSACTION_TYPE, transactionType);
 
     analytics.logEvent(eventData, PURCHASE_DETAILS, AnalyticsManager.Action.CLICK, WALLET);

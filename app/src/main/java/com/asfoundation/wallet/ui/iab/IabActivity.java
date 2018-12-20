@@ -142,7 +142,7 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   }
 
   @Override public void navigateToWebViewAuthorization(String url) {
-    startActivityForResult(WebViewActivity.newIntent(this, url), WEB_VIEW_REQUEST_CODE);
+    startActivityForResult(WebViewActivity.newIntent(this, url, transaction), WEB_VIEW_REQUEST_CODE);
   }
 
   @Override public void showPaymentMethodsView(String currency) {

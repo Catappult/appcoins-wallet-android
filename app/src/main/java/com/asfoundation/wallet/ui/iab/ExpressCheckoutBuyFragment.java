@@ -249,7 +249,6 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
       itemListDescription.setText(extras.getString(PRODUCT_NAME));
     }
 
-    presenter.sendPurchaseDetails(PAYMENT_METHOD_CC);
 
     compositeDisposable.add(walletService.getWalletAddress()
         .observeOn(AndroidSchedulers.mainThread())
