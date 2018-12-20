@@ -257,9 +257,10 @@ public class PaymentMethodsPresenter {
         }, this::showError));
   }
 
-  public void sendPurchaseDetails(String purchaseDetails) {
-    analytics.sendPurchaseDetailsEvent(appPackage, transaction.getSkuId(), transaction.amount()
-        .toString(), purchaseDetails, transaction.getType());
+  public void sendPurchaseDetailsEvent() {
+    analytics.sendPurchaseDetailsEvent(appPackage,
+            transaction.getSkuId(), transaction.amount()
+                .toString(), transaction.getType());
   }
 
   public void stop() {

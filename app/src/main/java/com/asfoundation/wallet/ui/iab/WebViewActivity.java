@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import dagger.android.AndroidInjection;
 
 public class WebViewActivity extends AppCompatActivity {
@@ -15,9 +16,12 @@ public class WebViewActivity extends AppCompatActivity {
 
   private static final String URL = "url";
 
-  public static Intent newIntent(Activity activity, String url) {
+  private static TransactionBuilder transactionBuilder;
+
+  public static Intent newIntent(Activity activity, String url, TransactionBuilder transaction) {
     Intent intent = new Intent(activity, WebViewActivity.class);
     intent.putExtra(URL, url);
+    transactionBuilder = transaction;
     return intent;
   }
 
@@ -28,7 +32,7 @@ public class WebViewActivity extends AppCompatActivity {
 
     if (savedInstanceState == null) {
       String url = getIntent().getStringExtra(URL);
-      BillingWebViewFragment billingWebViewFragment = BillingWebViewFragment.newInstance(url);
+      BillingWebViewFragment billingWebViewFragment = BillingWebViewFragment.newInstance(url, transactionBuilder);
 
       getSupportFragmentManager().beginTransaction()
           .add(R.id.container, billingWebViewFragment)

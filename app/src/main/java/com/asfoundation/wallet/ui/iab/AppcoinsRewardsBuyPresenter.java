@@ -145,12 +145,6 @@ public class AppcoinsRewardsBuyPresenter {
     disposables.clear();
   }
 
-  public void sendPurchaseDetails(String purchaseDetails) {
-    analytics.sendPurchaseDetailsEvent(packageName, transactionBuilder.getSkuId(),
-        transactionBuilder.amount()
-            .toString(), purchaseDetails, transactionBuilder.getType());
-  }
-
   public void sendPaymentEvent(String purchaseDetails) {
     analytics.sendPaymentEvent(packageName, transactionBuilder.getSkuId(),
         transactionBuilder.amount()
