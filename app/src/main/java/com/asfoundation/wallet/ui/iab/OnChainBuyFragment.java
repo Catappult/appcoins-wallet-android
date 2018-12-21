@@ -234,8 +234,6 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     }
     buyDialogLoading.setVisibility(View.GONE);
     infoDialog.setVisibility(View.VISIBLE);
-
-    presenter.sendPurchaseDetails(PAYMENT_METHOD_APPC);
   }
 
   @Override public void showTransactionCompleted() {

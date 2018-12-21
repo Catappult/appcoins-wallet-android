@@ -19,14 +19,18 @@ import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.WalletService;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.TransactionService;
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.billing.purchase.BillingFactory;
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import dagger.android.support.DaggerFragment;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 import javax.inject.Inject;
+
+import static com.asfoundation.wallet.analytics.FacebookEventLogger.EVENT_REVENUE_CURRENCY;
+import static com.asfoundation.wallet.billing.analytics.BillingAnalytics.PAYMENT_METHOD_PAYPAL;
 
 public class BillingWebViewFragment extends DaggerFragment {
 
@@ -34,6 +38,7 @@ public class BillingWebViewFragment extends DaggerFragment {
 
   private static final String URL = "url";
   private static final String CURRENT_URL = "currentUrl";
+  private static TransactionBuilder transaction;
 
   @Inject Billing billing;
   @Inject BillingFactory billingFactory;
@@ -45,13 +50,17 @@ public class BillingWebViewFragment extends DaggerFragment {
   private ProgressBar webviewProgressBar;
   private String currentUrl;
   private ScheduledExecutorService executorService;
+  @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
+  @Inject BillingAnalytics analytics;
 
-  public static BillingWebViewFragment newInstance(String url) {
+
+  public static BillingWebViewFragment newInstance(String url, TransactionBuilder transactionBuilder) {
     Bundle args = new Bundle();
     args.putString(URL, url);
     BillingWebViewFragment fragment = new BillingWebViewFragment();
     fragment.setArguments(args);
     fragment.setRetainInstance(true);
+    transaction = transactionBuilder;
     return fragment;
   }
 
@@ -110,6 +119,8 @@ public class BillingWebViewFragment extends DaggerFragment {
           Intent intent = new Intent(getContext(), IabActivity.class);
           intent.setData(Uri.parse(clickUrl));
           getActivity().setResult(WebViewActivity.SUCCESS);
+          sendPaymentEvent();
+          sendRevenueEvent();
           getActivity().finish();
           getContext().startActivity(intent);
 
@@ -144,6 +155,13 @@ public class BillingWebViewFragment extends DaggerFragment {
     return view;
   }
 
+  @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+    if (savedInstanceState == null) {
+      sendPaymentMethodDetailsEvent();
+    }
+  }
+
   @Override public void onDestroy() {
     executorService.shutdown();
 
@@ -154,5 +172,24 @@ public class BillingWebViewFragment extends DaggerFragment {
     super.onSaveInstanceState(outState);
 
     outState.putString(CURRENT_URL, currentUrl);
+  }
+
+  public void sendPaymentMethodDetailsEvent() {
+    analytics.sendPaymentMethodDetailsEvent(transaction.getDomain(), transaction.getSkuId(),
+        transaction.amount()
+            .toString(), PAYMENT_METHOD_PAYPAL ,transaction.getType());
+  }
+
+  public void sendPaymentEvent() {
+    analytics.sendPaymentEvent(transaction.getDomain(), transaction.getSkuId(),
+        transaction.amount()
+            .toString(), PAYMENT_METHOD_PAYPAL, transaction.getType());
+  }
+
+  public void sendRevenueEvent() {
+    inAppPurchaseInteractor.convertToFiat(transaction.amount().doubleValue(),
+            EVENT_REVENUE_CURRENCY)
+        .doOnSuccess(fiatValue -> analytics.sendRevenueEvent(String.valueOf(fiatValue.getAmount())))
+        .subscribe();
   }
 }

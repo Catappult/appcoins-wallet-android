@@ -224,13 +224,6 @@ public class OnChainBuyPresenter {
     view.showRaidenChannelValues(inAppPurchaseInteractor.getTopUpChannelSuggestionValues(amount));
   }
 
-  public void sendPurchaseDetails(String purchaseDetails) {
-    disposables.add(transactionBuilder.subscribe(
-        transactionBuilder -> analytics.sendPurchaseDetailsEvent(appPackage,
-            transactionBuilder.getSkuId(), transactionBuilder.amount()
-                .toString(), purchaseDetails, transactionBuilder.getType())));
-  }
-
   public void sendPaymentEvent(String purchaseDetails) {
     disposables.add(transactionBuilder.subscribe(
         transactionBuilder -> analytics.sendPaymentEvent(appPackage, transactionBuilder.getSkuId(),
