@@ -38,7 +38,7 @@
   <string name="title_support">پشتیبانی</string>
   <string name="error_import">خطای واردکردن keystore</string>
   <string name="message_this_is_your_address">آدزس کیف پول عمومی Ethereum من</string>
-  <string name="backup_warning_text">از آنجا که تنها شما می توانید پول خود را کنترل کنید، باید یک بک‌آپ از kyestore خود را ذخیره کنید برای زمانی که این اپلیکیشن پاک شده باشد.\n\n کیف پول شما هیچ گاه در ابر یا در دستگاه‌. های استاندارد بک‌آپ ذخیره نمی‌شود.</string>
+  <string name="backup_warning_text">از آنجا که تنها شما می توانید پول خود را کنترل کنید، باید یک بک‌آپ از kyestore خود ذخیره کنید برای زمانی که احیانا دیگر این اپلیکیشن وجود نداشته باشد.\n\n کیف پول شما هیچ گاه در ابر یا در دستگاه‌ های استاندارد بک‌آپ ذخیره نمی‌شود.</string>
   <string name="message_no_backup">بدون بک‌آپ، بدون Ethereum</string>
   <string name="error_deleting_account">خطا در حذف کیف پول</string>
   <string name="title_privacy_policy">سیاست حفظ حریم خصوصی</string>
@@ -74,7 +74,7 @@
   <string name="title_airdrop">Airdrop</string>
   <!-- Suggestions -->
   <string name="suggestion_private_key">کلید خصوصی باید 64 کاراکتر باشد</string>
-  <string name="suggestion_empty_password_available">رمز عبور می توانید خالی گذاشته شود.</string>
+  <string name="suggestion_empty_password_available">رمز عبور می تواند خالی گذاشته شود.</string>
   <string name="suggestion_this_is_your_address">آدزس کیف پول عمومی %s من</string>
   <!-- Hints -->
   <string name="hint_private_key_field">کلید خصوصی *</string>
@@ -98,7 +98,7 @@
   <string name="intro_title_first_page">AppCoins BDS Wallet</string>
   <string name="intro_title_second_page"><![CDATA[خصوصی و امن]]></string>
   <string name="intro_title_third_page">ساده و آسان</string>
-  <string name="intro_message_first_page">به انقلابی در اقتصاد اپلیکیشن خوش آمدید.</string>
+  <string name="intro_message_first_page">به یک انقلاب در اقتصاد اپلیکیشن خوش آمدید.</string>
   <string name="intro_message_second_page">کلیدهای خصوصی هرگز دستگاه شما را ترک نمی‌کنند.</string>
   <string name="intro_message_third_page">همه پرداخت‌های داخل اپلیکیشنی و جایزه‌های APPC خود را پردازش کنید.</string>
   <!-- Menus -->
