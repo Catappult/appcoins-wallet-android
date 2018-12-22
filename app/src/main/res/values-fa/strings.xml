@@ -141,7 +141,7 @@
   <string name="NA">N/A</string>
   <string name="error_wallet_not_selected">کیف پول انتخاب نشده است</string>
   <string name="no_transactions_yet">مقداری APPC دریافت کنید تا بتوانید ببینید پرداخت‌های AppCoins چگونه کار می کند</string>
-  <string name="no_transactions_yet_main">کماکان بدون جابجایی مالی!</string>
+  <string name="no_transactions_yet_main">کماکان بدون تراکنش مالی!</string>
   <string name="unknown_balance_with_symbol">-- ETH</string>
   <string name="unknown_balance_without_symbol">--</string>
   <string name="dummy">-</string>
