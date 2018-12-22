@@ -37,7 +37,7 @@
   <string name="title_report_bug">گزارش اشکال</string>
   <string name="title_support">پشتیبانی</string>
   <string name="error_import">خطای واردکردن keystore</string>
-  <string name="message_this_is_your_address">آدزس کیف پول عمومی Ethereum من</string>
+  <string name="message_this_is_your_address">آدرس کیف پول عمومی Ethereum من</string>
   <string name="backup_warning_text">از آنجا که تنها شما می توانید پول خود را کنترل کنید، باید یک بک‌آپ از kyestore خود ذخیره کنید برای زمانی که احیانا دیگر این اپلیکیشن وجود نداشته باشد.\n\n کیف پول شما هیچ گاه در ابر یا در دستگاه‌ های استاندارد بک‌آپ ذخیره نمی‌شود.</string>
   <string name="message_no_backup">بدون بک‌آپ، بدون Ethereum</string>
   <string name="error_deleting_account">خطا در حذف کیف پول</string>
