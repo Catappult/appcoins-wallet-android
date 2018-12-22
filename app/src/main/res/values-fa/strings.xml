@@ -109,7 +109,7 @@
   <string name="label_gas_price">قیمت گاز</string>
   <string name="label_network_fee">هزینه شبکه</string>
   <string name="button_ok">اوکی</string>
-  <string name="hint_recipient_address">نشاني گيرنده</string>
+  <string name="hint_recipient_address">نشانی گيرنده</string>
   <string name="hint_amount">مقدار</string>
   <string name="hint_amount_with_token">مقدار %s</string>
   <string name="hint_contract_address">آدرس قرارداد</string>
