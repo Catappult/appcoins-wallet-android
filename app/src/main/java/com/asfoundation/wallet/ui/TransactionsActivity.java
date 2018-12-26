@@ -3,6 +3,8 @@ package com.asfoundation.wallet.ui;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -59,6 +61,11 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private Dialog dialog;
   private EmptyTransactionsView emptyView;
   private RecyclerView list;
+
+  public static Intent newPendingIntent(Context context) {
+    Intent intent = new Intent(context, TransactionsActivity.class);
+    return intent;
+  }
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     AndroidInjection.inject(this);
