@@ -284,7 +284,7 @@ public class WalletPoAService extends Service {
 
   public void setTimeout(String packageName) {
     disposeDisposable(timerDisposable);
-    timerDisposable = Observable.timer(30, TimeUnit.SECONDS)
+    timerDisposable = Observable.timer(2, TimeUnit.MINUTES)
         .subscribe(__ -> {
           disposeDisposable(requirementsDisposable);
           proofOfAttentionService.cancel(packageName);
