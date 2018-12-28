@@ -2,7 +2,6 @@ package com.appcoins.wallet.billing.util
 
 import android.net.Uri
 import com.appcoins.billing.AppcoinsBilling
-import io.reactivex.annotations.NonNull
 
 /**
  * Intent payload helper class that provide a way to send the developers wallet address together
@@ -17,6 +16,7 @@ import io.reactivex.annotations.NonNull
 object PayloadHelper {
   private const val SCHEME = "appcoins"
   private const val ADDRESS_PARAMETER = "address"
+  private const val ORDER_PARAMETER = "order_reference"
   private const val PAYLOAD_PARAMETER = "payload"
 
   /**
@@ -26,14 +26,14 @@ object PayloadHelper {
    *
    * @return The final developers payload to be sent
    */
-  fun buildIntentPayload(@NonNull developerAddress: String, developerPayload: String?): String {
+  fun buildIntentPayload(developerAddress: String? = null, developerPayload: String? = null,
+                         orderReference: String? = null): String {
     val builder = Uri.Builder()
     builder.scheme(SCHEME)
         .authority("appcoins.io")
-        .appendQueryParameter(ADDRESS_PARAMETER, developerAddress)
-    if (developerPayload != null) {
-      builder.appendQueryParameter(PAYLOAD_PARAMETER, developerPayload)
-    }
+    developerAddress?.let { builder.appendQueryParameter(ADDRESS_PARAMETER, it) }
+    developerPayload?.let { builder.appendQueryParameter(PAYLOAD_PARAMETER, it) }
+    orderReference?.let { builder.appendQueryParameter(ORDER_PARAMETER, it) }
     return builder.toString()
   }
 
@@ -49,6 +49,15 @@ object PayloadHelper {
     val uri = Uri.parse(uriString)
     return if (uri.scheme.equals(SCHEME, ignoreCase = true)) {
       uri.getQueryParameter(ADDRESS_PARAMETER)
+    } else {
+      throw IllegalArgumentException()
+    }
+  }
+
+  fun getOrderReference(uriString: String): String? {
+    val uri = Uri.parse(uriString)
+    return if (uri.scheme.equals(SCHEME, ignoreCase = true)) {
+      uri.getQueryParameter(ORDER_PARAMETER)
     } else {
       throw IllegalArgumentException()
     }

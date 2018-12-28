@@ -79,7 +79,11 @@ public class EIPTransactionParser {
             payment.getChainId(), getReceiverAddress(payment),
             getTokenTransferAmount(payment, token.tokenInfo.decimals), getSkuId(payment),
             token.tokenInfo.decimals, getIabContract(payment), getType(payment), getOrigin(payment),
-            getPayload(payment), null).shouldSendToken(true));
+            getPayload(payment), null, getOrderReference(payment)).shouldSendToken(true));
+  }
+
+  private String getOrderReference(ERC681 payment) throws UnsupportedEncodingException {
+    return retrieveData(payment).getOrderReference();
   }
 
   private String getIabContract(ERC681 payment) {

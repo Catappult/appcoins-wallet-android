@@ -36,6 +36,7 @@ class BillingPaymentProofSubmissionTest {
     val currency = "APPC"
     val type = "APPC"
     val callback = "callback_url"
+    val orderReference = "order_reference"
   }
 
   @Mock
@@ -59,7 +60,7 @@ class BillingPaymentProofSubmissionTest {
     `when`(
         api.createTransaction(paymentType, origin, packageName, priceValue, currency, productName,
             type, developerAddress, storeAddress, oemAddress, paymentId, developerPayload,
-            callback, walletAddress,
+            callback, orderReference, walletAddress,
             signedContent)).thenReturn(
         Single.just(TransactionStatus(paymentId, "status")))
 
@@ -74,7 +75,7 @@ class BillingPaymentProofSubmissionTest {
     billing.processAuthorizationProof(
         AuthorizationProof(paymentType, paymentId, productName, packageName, BigDecimal.ONE,
             storeAddress,
-            oemAddress, developerAddress, type, origin, developerPayload, callback))
+            oemAddress, developerAddress, type, origin, developerPayload, callback, orderReference))
         .subscribe(authorizationDisposable)
     scheduler.triggerActions()
 
@@ -87,7 +88,7 @@ class BillingPaymentProofSubmissionTest {
     purchaseDisposable.assertNoErrors().assertComplete()
     verify(api, times(1)).createTransaction(paymentType, origin, packageName, priceValue, currency,
         productName, type, developerAddress, storeAddress, oemAddress, paymentId, developerPayload,
-        callback, walletAddress, signedContent)
+        callback, orderReference, walletAddress, signedContent)
     verify(api, times(1)).patchTransaction(paymentType, paymentId, walletAddress, signedContent,
         paymentToken)
 

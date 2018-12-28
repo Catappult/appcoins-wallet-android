@@ -32,7 +32,8 @@ class BillingPaymentProofSubmissionImpl internal constructor(
         authorizationProof.developerAddress, authorizationProof.storeAddress,
         authorizationProof.origin,
         authorizationProof.type, authorizationProof.oemAddress, authorizationProof.developerPayload,
-        authorizationProof.callback)
+        authorizationProof.callback,
+        authorizationProof.orderReference)
         .doOnSuccess { paymentId -> transactionIdsFromApprove[authorizationProof.id] = paymentId }
         .toCompletable()
   }
@@ -49,7 +50,8 @@ class BillingPaymentProofSubmissionImpl internal constructor(
         }.andThen(Completable.fromAction { transactionIdsFromBuy[paymentProof] = paymentId })
   }
 
-  override fun registerAuthorizationProof(id: String, paymentType: String, productName: String?,
+  override fun registerAuthorizationProof(id: String, paymentType: String,
+                                          productName: String?,
                                           packageName: String,
                                           priceValue: BigDecimal,
                                           developerWallet: String,
@@ -58,12 +60,13 @@ class BillingPaymentProofSubmissionImpl internal constructor(
                                           type: String,
                                           oemWallet: String,
                                           developerPayload: String?,
-                                          callback: String?): Single<String> {
+                                          callback: String?,
+                                          orderReference: String?): Single<String> {
     return walletService.getWalletAddress().observeOn(networkScheduler).flatMap { walletAddress ->
       walletService.signContent(walletAddress).observeOn(networkScheduler).flatMap { signedData ->
         repository.registerAuthorizationProof(id, paymentType, walletAddress, signedData,
             productName, packageName, priceValue, developerWallet, storeWallet, origin, type,
-            oemWallet, developerPayload, callback)
+            oemWallet, developerPayload, callback, orderReference)
 
       }
     }
@@ -125,7 +128,8 @@ data class AuthorizationProof(val paymentType: String,
                               val type: String,
                               val origin: String,
                               val developerPayload: String?,
-                              val callback: String?)
+                              val callback: String?,
+                              val orderReference: String?)
 
 data class PaymentProof(val paymentType: String,
                         val approveProof: String,

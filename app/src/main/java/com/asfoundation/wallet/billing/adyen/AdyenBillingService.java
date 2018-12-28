@@ -38,10 +38,10 @@ public class AdyenBillingService implements BillingService {
 
   @Override public Observable<AdyenAuthorization> getAuthorization(String productName,
       String developerAddress, String payload, String origin, BigDecimal priceValue,
-      String priceCurrency, String type, String callback) {
+      String priceCurrency, String type, String callback, String orderReference) {
     return relay.doOnSubscribe(
         disposable -> startPaymentIfNeeded(productName, developerAddress, payload, origin,
-            priceValue, priceCurrency, type, callback))
+            priceValue, priceCurrency, type, callback, orderReference))
         .doOnNext(this::resetProcessingFlag);
   }
 
@@ -82,7 +82,8 @@ public class AdyenBillingService implements BillingService {
   }
 
   private void startPaymentIfNeeded(String productName, String developerAddress, String payload,
-      String origin, BigDecimal priceValue, String priceCurrency, String type, String callback) {
+      String origin, BigDecimal priceValue, String priceCurrency, String type, String callback,
+      String orderReference) {
     if (!processingPayment.getAndSet(true)) {
       this.adyenAuthorization = walletService.getWalletAddress()
           .flatMap(walletAddress -> walletService.signContent(walletAddress)
@@ -91,7 +92,8 @@ public class AdyenBillingService implements BillingService {
                       token -> transactionService.createTransaction(walletAddress, signedContent,
                           token, merchantName, payload, productName, developerAddress,
                           BuildConfig.DEFAULT_STORE_ADDRESS, BuildConfig.DEFAULT_OEM_ADDRESS,
-                          origin, walletAddress, priceValue, priceCurrency, type, callback))
+                          origin, walletAddress, priceValue, priceCurrency, type, callback,
+                          orderReference))
                   .doOnSuccess(transactionUid -> this.transactionUid = transactionUid)
                   .flatMap(
                       transactionUid -> transactionService.getSession(walletAddress, signedContent,
