@@ -56,7 +56,7 @@ class BillingIntentBuilder(val context: Context) {
   }
 
   private fun buildUriString(tokenContractAddress: String, iabContractAddress: String,
-                             amount: BigDecimal, developerAddress: String,
+                             amount: BigDecimal, developerAddress: String?,
                              skuId: String,
                              networkId: Int, packageName: String,
                              developerPayload: String?,
@@ -65,7 +65,7 @@ class BillingIntentBuilder(val context: Context) {
     try {
       Formatter(stringBuilder).use { formatter ->
         formatter.format("ethereum:%s@%d/buy?uint256=%s&address=%s&data=%s&iabContractAddress=%s",
-            tokenContractAddress, networkId, amount.toString(), developerAddress,
+            tokenContractAddress, networkId, amount.toString(), developerAddress ?: "",
             buildUriData(skuId, packageName, developerPayload, orderReference), iabContractAddress)
       }
     } catch (e: UnsupportedEncodingException) {
