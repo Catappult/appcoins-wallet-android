@@ -215,9 +215,9 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
 
   private void loadPayload(Bundle bundle) {
     try {
-      PayloadHelper.INSTANCE.getPayload(getIntent().getExtras()
+      PayloadHelper.getPayload(getIntent().getExtras()
           .getString(EXTRA_DEVELOPER_PAYLOAD));
-      bundle.putString(EXTRA_DEVELOPER_PAYLOAD, PayloadHelper.INSTANCE.getPayload(
+      bundle.putString(EXTRA_DEVELOPER_PAYLOAD, PayloadHelper.getPayload(
           getIntent().getExtras()
               .getString(EXTRA_DEVELOPER_PAYLOAD)));
     } catch (IllegalArgumentException ex) {
