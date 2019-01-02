@@ -62,19 +62,11 @@ class AppcoinsRewards(
                         transaction.callback)
                   }
                       .flatMapCompletable { transaction1 ->
-                        waitTransactionCompletion(transaction1).andThen(
-                            if (!transaction.origin.equals("BDS")) {
-                              transactionIdRepository.getTransactionUid(transaction1.uid)
-                                  .flatMapCompletable { txId ->
-                                    val tx = Transaction(transaction, Transaction.Status.COMPLETED)
-                                    tx.txId = txId
-                                    cache.save(getKey(tx), tx)
-                                  }
-                            } else {
-                              val tx = Transaction(transaction, Transaction.Status.COMPLETED)
-                              cache.save(getKey(tx), tx)
-                            }
-                        )
+                        waitTransactionCompletion(transaction1).andThen{
+                            val tx = Transaction(transaction, Transaction.Status.COMPLETED)
+                            tx.txId = transaction1.hash
+                            cache.save(getKey(tx), tx)
+                        }
                       }
                 }
                 .onErrorResumeNext {
