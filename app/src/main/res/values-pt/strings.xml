@@ -136,7 +136,7 @@
   <string name="error_invalid_address">Endereço inválido</string>
   <string name="error_invalid_amount">Valor inválido</string>
   <string name="error_transaction_failed">Erro de transação</string>
-  <string name="error_must_numeric">Deve ser um valor numérico.</string>
+  <string name="error_must_numeric">Deve ser um valor numérico</string>
   <string name="transaction_succeeded">Transação bem-sucedida</string>
   <string name="NA">N/A</string>
   <string name="error_wallet_not_selected">Wallet não foi selecionada</string>
