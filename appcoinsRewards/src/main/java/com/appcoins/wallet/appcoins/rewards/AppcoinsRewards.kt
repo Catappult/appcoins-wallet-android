@@ -17,8 +17,7 @@ class AppcoinsRewards(
     private val cache: Repository<String, Transaction>,
     private val scheduler: Scheduler,
     private val billing: Billing,
-    private val errorMapper: ErrorMapper,
-    private val transactionIdRepository: TransactionIdRepository) {
+    private val errorMapper: ErrorMapper) {
 
   fun getBalance(address: String): Single<BigDecimal> {
     return repository.getBalance(address)
