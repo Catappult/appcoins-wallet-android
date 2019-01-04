@@ -14,7 +14,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.billing.repository.entity.Product
 import io.reactivex.Single
-import io.reactivex.functions.Function3
+import io.reactivex.functions.Function4
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
@@ -138,18 +138,20 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
         .subscribeOn(Schedulers.io())
     val getSkuDetails = billing.getProducts(listOf(sku))
         .subscribeOn(Schedulers.io())
+    val getDeveloperAddress = billing.getDeveloperAddress(packageName)
+        .subscribeOn(Schedulers.io())
 
     return Single.zip(getTokenContractAddress,
-        getIabContractAddress, getSkuDetails,
-        Function3 { tokenContractAddress: String, iabContractAddress: String, skuDetails: List<Product> ->
+        getIabContractAddress, getSkuDetails, getDeveloperAddress,
+        Function4 { tokenContractAddress: String, iabContractAddress: String, skuDetails: List<Product>, developerAddress: String ->
           try {
             intentBuilder.buildBuyIntentBundle(serializer.mapProduct(skuDetails[0]),
                 tokenContractAddress,
-                iabContractAddress, developerPayload, true, packageName)
+                iabContractAddress, developerPayload, true, packageName,
+                developerAddress)
           } catch (exception: Exception) {
             billingMessagesMapper.mapBuyIntentError(exception)
           }
-
         }).onErrorReturn { throwable ->
       billingMessagesMapper.mapBuyIntentError(
           throwable as Exception)

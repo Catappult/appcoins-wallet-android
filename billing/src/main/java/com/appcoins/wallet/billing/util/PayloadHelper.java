@@ -1,7 +1,6 @@
 package com.appcoins.wallet.billing.util;
 
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import com.appcoins.billing.AppcoinsBilling;
 
@@ -17,26 +16,23 @@ import com.appcoins.billing.AppcoinsBilling;
  */
 public class PayloadHelper {
   private static final String SCHEME = "appcoins";
-  private static final String ADDRESS_PARAMETER = "address";
   private static final String PAYLOAD_PARAMETER = "payload";
   private static final String ORDER_PARAMETER = "order_reference";
 
   /**
    * Method to build the payload required on the {@link AppcoinsBilling#getBuyIntent} method.
    *
-   * @param developerAddress The developer's ethereum address
    * @param developerPayload The additional payload to be sent
    * @param orderReference a reference that allows the developers to identify this order in
    * server-to-server communication
    *
    * @return The final developers payload to be sent
    */
-  public static String buildIntentPayload(@NonNull String developerAddress,
-      @Nullable String developerPayload, @Nullable String orderReference) {
+  public static String buildIntentPayload(@Nullable String orderReference,
+      @Nullable String developerPayload) {
     Uri.Builder builder = new Uri.Builder();
     builder.scheme(SCHEME)
-        .authority("appcoins.io")
-        .appendQueryParameter(ADDRESS_PARAMETER, developerAddress);
+        .authority("appcoins.io");
     if (developerPayload != null) {
       builder.appendQueryParameter(PAYLOAD_PARAMETER, developerPayload);
     }
@@ -48,27 +44,6 @@ public class PayloadHelper {
 
   /**
    * Given a uri string validate if it is part of the expected scheme and if so return the
-   * developer's ethereum address.
-   *
-   * @param uriString The payload uri content
-   *
-   * @return The developers ethereum address
-   */
-  public static String getAddress(String uriString) {
-    if (uriString == null) {
-      return null;
-    }
-    Uri uri = Uri.parse(uriString);
-    if (uri.getScheme()
-        .equalsIgnoreCase(SCHEME)) {
-      return uri.getQueryParameter(ADDRESS_PARAMETER);
-    } else {
-      throw new IllegalArgumentException();
-    }
-  }
-
-  /**
-   * Given a uri string validate if it is part of the expected scheme and if so return the
    * addition payload content.
    *
    * @param uriString The payload uri content
@@ -76,9 +51,6 @@ public class PayloadHelper {
    * @return The additional payload content
    */
   public static String getPayload(String uriString) {
-    if (uriString == null) {
-      return null;
-    }
     Uri uri = Uri.parse(uriString);
     if (uri.getScheme()
         .equalsIgnoreCase(SCHEME)) {
@@ -89,9 +61,6 @@ public class PayloadHelper {
   }
 
   public static String getOrderReference(String uriString) {
-    if (uriString == null) {
-      return null;
-    }
     Uri uri = Uri.parse(uriString);
     if (uri.getScheme()
         .equalsIgnoreCase(SCHEME)) {
