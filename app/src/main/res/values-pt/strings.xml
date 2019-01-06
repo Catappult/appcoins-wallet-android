@@ -96,7 +96,7 @@
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins BDS Wallet</string>
-  <string name="intro_title_second_page"><![CDATA[Privado e seguro]]></string>
+  <string name="intro_title_second_page"><![CDATA[Privado & Seguro]]></string>
   <string name="intro_title_third_page">Simples &amp; Fácil</string>
   <string name="intro_message_first_page">Bem-vindo à revolução da economia das apps.</string>
   <string name="intro_message_second_page">As chaves secretas nunca desaparecem do teu dispositivo.</string>
