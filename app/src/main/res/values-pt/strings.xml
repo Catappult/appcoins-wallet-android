@@ -39,7 +39,7 @@
   <string name="error_import">Erro ao importar a keystore</string>
   <string name="message_this_is_your_address">Endereço público da minha wallet Ethereum</string>
   <string name="backup_warning_text">Visto que o teu dinheiro é apenas controlado por ti, aconselhamos que efetues um backup da tua keystore no caso desta app ser eliminada.\n\nA tua wallet nunca é guardada no armazenamento da cloud ou em backups de dispositivos padrão.</string>
-  <string name="message_no_backup">Sem backup, sem Ethereum</string>
+  <string name="message_no_backup">Sem Backup, sem Ethereum</string>
   <string name="error_deleting_account">Erro ao eliminar a wallet</string>
   <string name="title_privacy_policy">Política de Privacidade</string>
   <string name="title_terms">Termos e Condições</string>
