@@ -15,7 +15,7 @@
   <string name="error_field_required">Este campo é obrigatório</string>
   <string name="action_settings">Definições</string>
   <string name="title_account_list">Wallets</string>
-  <string name="cancel">cancelar</string>
+  <string name="cancel">Cancelar</string>
   <string name="confirm_delete_account">Certifique-se que tem uma cópia de segurança desta wallet.</string>
   <string name="action_import">Importar</string>
   <string name="copy">Copiar para a área de transferência</string>
