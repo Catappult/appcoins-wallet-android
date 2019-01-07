@@ -125,8 +125,7 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
                             developerPayload: String?): Bundle {
 
 
-    if (apiVersion != supportedApiVersion || type == null || type.isBlank() || sku == null
-        || developerPayload == null || developerPayload.isBlank()) {
+    if (apiVersion != supportedApiVersion || type == null || type.isBlank() || sku == null) {
       val result = Bundle()
       result.putInt(RESPONSE_CODE, RESULT_DEVELOPER_ERROR)
       return result

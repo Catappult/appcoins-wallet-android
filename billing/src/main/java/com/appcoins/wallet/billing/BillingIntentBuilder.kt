@@ -22,7 +22,7 @@ class BillingIntentBuilder(val context: Context) {
   @Throws(Exception::class)
   fun buildBuyIntentBundle(sku: SKU,
                            tokenContractAddress: String,
-                           iabContractAddress: String, payload: String,
+                           iabContractAddress: String, payload: String?,
                            bdsIap: Boolean,
                            packageName: String,
                            developerAddress: String?): Bundle {
@@ -40,7 +40,7 @@ class BillingIntentBuilder(val context: Context) {
 
   private fun buildPaymentIntent(sku: SKU,
                                  tokenContractAddress: String,
-                                 iabContractAddress: String, payload: String,
+                                 iabContractAddress: String, payload: String?,
                                  bdsIap: Boolean, packageName: String,
                                  developerAddress: String?): PendingIntent {
 
