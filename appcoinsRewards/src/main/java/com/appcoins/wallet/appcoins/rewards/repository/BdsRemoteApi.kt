@@ -22,9 +22,11 @@ class BdsRemoteApi(private val backendApi: BackendApi, private val bdsApi: BdsAp
                    oemAddress: String,
                    packageName: String,
                    payload: String?,
-                   callback: String?): Single<Transaction> {
+                   callback: String?,
+                   orderReference: String?): Single<Transaction> {
     return bdsApi.pay(walletAddress, signature,
-        BdsApi.PayBody(amount.toPlainString(), origin, sku, type, payload, callback, developerAddress, storeAddress,
+        BdsApi.PayBody(amount.toPlainString(), origin, sku, type, payload, callback,
+            developerAddress, storeAddress,
             oemAddress, "APPC", packageName))
   }
 }

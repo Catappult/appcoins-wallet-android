@@ -55,6 +55,9 @@ public class PayloadHelper {
    * @return The developers ethereum address
    */
   public static String getAddress(String uriString) {
+    if (uriString == null) {
+      return null;
+    }
     Uri uri = Uri.parse(uriString);
     if (uri.getScheme()
         .equalsIgnoreCase(SCHEME)) {
@@ -73,6 +76,9 @@ public class PayloadHelper {
    * @return The additional payload content
    */
   public static String getPayload(String uriString) {
+    if (uriString == null) {
+      return null;
+    }
     Uri uri = Uri.parse(uriString);
     if (uri.getScheme()
         .equalsIgnoreCase(SCHEME)) {
@@ -83,6 +89,9 @@ public class PayloadHelper {
   }
 
   public static String getOrderReference(String uriString) {
+    if (uriString == null) {
+      return null;
+    }
     Uri uri = Uri.parse(uriString);
     if (uri.getScheme()
         .equalsIgnoreCase(SCHEME)) {

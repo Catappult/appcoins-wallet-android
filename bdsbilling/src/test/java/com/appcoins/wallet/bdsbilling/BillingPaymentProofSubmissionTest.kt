@@ -4,7 +4,8 @@ import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.appcoins.wallet.bdsbilling.repository.Data
 import com.appcoins.wallet.bdsbilling.repository.GetWalletResponse
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
-import com.appcoins.wallet.bdsbilling.repository.entity.TransactionStatus
+import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
@@ -62,7 +63,8 @@ class BillingPaymentProofSubmissionTest {
             type, developerAddress, storeAddress, oemAddress, paymentId, developerPayload,
             callback, orderReference, walletAddress,
             signedContent)).thenReturn(
-        Single.just(TransactionStatus(paymentId, "status")))
+        Single.just(Transaction(paymentId, Transaction.Status.FAILED,
+            Gateway(Gateway.Name.appcoins_credits, "APPC C", "icon"), null)))
 
     `when`(api.patchTransaction(paymentType, paymentId, walletAddress, signedContent,
         paymentToken)).thenReturn(Completable.complete())

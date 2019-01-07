@@ -14,5 +14,6 @@ interface AppcoinsRewardsRepository {
           oemAddress: String,
           packageName: String,
           payload: String?,
-          callback: String?): Single<Transaction>
+          callback: String?,
+          orderReference: String?): Single<Transaction>
 }
