@@ -188,11 +188,11 @@
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">네트워크 연결 없음</string>
   <string name="notification_error_poa">오류가 발생 했습니다</string>
-  <string name="notification_no_wallet_poa">지갑 구성이 아직 되어 있지 않습니다</string>
+  <string name="notification_no_wallet_poa">지갑이 아직 구성되어 있지 않았습니다</string>
   <string name="notification_cancelled_poa">보상 취소됨</string>
   <string name="notification_not_available_poa">이 보상 캠페인은 유효하지 않습니다</string>
   <string name="notification_not_available_for_country_poa">이 보상 캠페인은 귀하의 국가에서 유효하지 않습니다</string>
-  <string name="notification_already_rewarded_poa">이 캠페인의 보상은 이미 받으셨습니다</string>
+  <string name="notification_already_rewarded_poa">이 캠페인의 보상을 이미 받으셨습니다</string>
   <string name="notification_submit_error_poa">죄송합니다. 오류가 발생했습니다. 다시 시도해주십시오!</string>
   <!-- transaction details -->
   <string name="transaction_status_success">성공</string>
@@ -202,7 +202,7 @@
   <string name="transaction_type_poa">Proof of Attention</string>
   <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
   <string name="transaction_type_standard">전송</string>
-  <string name="transaction_type_bonus">Bonus</string>
+  <string name="transaction_type_bonus">보너스</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -214,7 +214,7 @@
   <string name="transaction_category_label">카테고리</string>
   <string name="transaction_details_label">상세내용</string>
   <string name="transaction_to_label">수신</string>
-  <string name="dialog_credit_card_remember">리멤버 카드</string>
+  <string name="dialog_credit_card_remember">카드 기억하기</string>
   <string name="notification_payment_refused">지불 거절됨</string>
   <string name="dialog_credit_card_number">카드번호</string>
   <string name="dialog_credit_card_expiration">만료일</string>
@@ -244,9 +244,9 @@
   <!-- Gamification -->
   <string name="gamification_level_title">저의 레벨은 무엇인가요?</string>
   <string name="gamification_level_header">축하합니다. 귀하는 %s 입니다!</string>
-  <string name="gamification_level_to_next">To next level:</string>
+  <string name="gamification_level_to_next">다음 레벨까지:</string>
   <string name="gamification_level_earned">획득:</string>
-  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl">다음 레벨까지:</string>
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% 보너스</string>
   <string name="gamification_level_button_how">동작 방식</string>
@@ -264,7 +264,7 @@
   <string name="gamification_star_subtitle">빛나고, 크고 생명으로 가득차있는!</string>
   <string name="gamification_galaxy_subtitle">지금까지 없었던 가장 큰 시스템</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Purchase Bonus:</string>
-  <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
-  <string name="action_level">My Level</string>
+  <string name="gamification_purchase_header">보너스 구매</string>
+  <string name="gamification_purchase_body">%s APPC 크레딧이 지갑에 입급될 것 입니다.</string>
+  <string name="action_level">나의 레벨</string>
 </resources>
