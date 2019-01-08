@@ -15,7 +15,7 @@
   <string name="error_field_required">Este campo é obrigatório</string>
   <string name="action_settings">Definições</string>
   <string name="title_account_list">Wallets</string>
-  <string name="cancel">cancelar</string>
+  <string name="cancel">Cancelar</string>
   <string name="confirm_delete_account">Certifique-se que tem uma cópia de segurança desta wallet.</string>
   <string name="action_import">Importar</string>
   <string name="copy">Copiar para a área de transferência</string>
@@ -39,7 +39,7 @@
   <string name="error_import">Erro ao importar a keystore</string>
   <string name="message_this_is_your_address">Endereço público da minha wallet Ethereum</string>
   <string name="backup_warning_text">Visto que o teu dinheiro é apenas controlado por ti, aconselhamos que efetues um backup da tua keystore no caso desta app ser eliminada.\n\nA tua wallet nunca é guardada no armazenamento da cloud ou em backups de dispositivos padrão.</string>
-  <string name="message_no_backup">Sem backup, sem Ethereum</string>
+  <string name="message_no_backup">Sem Backup, sem Ethereum</string>
   <string name="error_deleting_account">Erro ao eliminar a wallet</string>
   <string name="title_privacy_policy">Política de Privacidade</string>
   <string name="title_terms">Termos e Condições</string>
@@ -96,7 +96,7 @@
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins BDS Wallet</string>
-  <string name="intro_title_second_page"><![CDATA[Privado e seguro]]></string>
+  <string name="intro_title_second_page"><![CDATA[Privado & Seguro]]></string>
   <string name="intro_title_third_page">Simples &amp; Fácil</string>
   <string name="intro_message_first_page">Bem-vindo à revolução da economia das apps.</string>
   <string name="intro_message_second_page">As chaves secretas nunca desaparecem do teu dispositivo.</string>
@@ -136,7 +136,7 @@
   <string name="error_invalid_address">Endereço inválido</string>
   <string name="error_invalid_amount">Valor inválido</string>
   <string name="error_transaction_failed">Erro de transação</string>
-  <string name="error_must_numeric">Deve ser um valor numérico.</string>
+  <string name="error_must_numeric">Deve ser um valor numérico</string>
   <string name="transaction_succeeded">Transação bem-sucedida</string>
   <string name="NA">N/A</string>
   <string name="error_wallet_not_selected">Wallet não foi selecionada</string>
@@ -165,7 +165,7 @@
   <string name="token_name">%1$s (%2$s)</string>
   <string name="new_transaction_value">-%1$s %2$s</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">Demos início ao desenvolvimento da Wallet da AppCoins a partir do projeto da Trust Wallet para Android. Consideramos que esta seria a melhor alternativa tendo em conta as funcionalidades que já haviam sido implementadas no projeto anterior. Fizemos isto com o intuito de contribuir com novas implementações que poderiam vir a ser consideradas relevantes para o sucesso do projeto.</string>
+  <string name="settings_fragment_credits">O desenvolvimento da AppCoins Wallet teve como base o projeto da Trust Wallet para Android. Consideramos que esta seria a melhor alternativa tendo em conta as funcionalidades que já haviam sido implementadas no projeto anterior. Fizemos isto com o intuito de contribuir com novas implementações que poderiam vir a ser consideradas relevantes para o sucesso do projeto.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">A sua transação está a ser efetuada</string>
   <string name="activity_aib_loading_message">Isto pode demorar um pouco…</string>
