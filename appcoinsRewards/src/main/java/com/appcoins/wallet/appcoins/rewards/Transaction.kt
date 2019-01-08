@@ -13,11 +13,12 @@ data class Transaction(val sku: String?,
                        val status: Status,
                        var txId: String?,
                        val payload: String?,
-                       val callback: String?) {
+                       val callback: String?,
+                       val orderReference: String?) {
   constructor(transaction: Transaction, status: Status) : this(transaction.sku, transaction.type,
       transaction.developerAddress, transaction.storeAddress, transaction.oemAddress,
       transaction.packageName, transaction.amount, transaction.origin, status, transaction.txId,
-      transaction.payload, transaction.callback)
+      transaction.payload, transaction.callback, transaction.orderReference)
 
 
   enum class Origin {

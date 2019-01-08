@@ -159,16 +159,16 @@ public class AdyenAuthorizationPresenter {
   private void onViewCreatedCompletePayment() {
     disposables.add(Completable.fromAction(() -> view.showLoading())
         .andThen(transactionBuilder.flatMapCompletable(
-                transaction -> billingService.getAuthorization(transaction.getSkuId(),
-                    transaction.toAddress(), developerPayload, origin, convertAmount(currency),
-                    currency, type, transaction.getCallbackUrl())
-                    .observeOn(viewScheduler)
-                    .filter(payment -> payment.isPendingAuthorization())
-                    .firstOrError()
-                    .map(payment -> payment)
-                    .flatMapCompletable(
-                        authorization -> adyen.completePayment(authorization.getSession()))
-                    .observeOn(viewScheduler)))
+            transaction -> billingService.getAuthorization(transaction.getSkuId(),
+                transaction.toAddress(), developerPayload, origin, convertAmount(currency),
+                currency, type, transaction.getCallbackUrl(), transaction.getOrderReference())
+                .observeOn(viewScheduler)
+                .filter(payment -> payment.isPendingAuthorization())
+                .firstOrError()
+                .map(payment -> payment)
+                .flatMapCompletable(
+                    authorization -> adyen.completePayment(authorization.getSession()))
+                .observeOn(viewScheduler)))
         .subscribe(() -> {
         }, throwable -> showError(throwable)));
   }
@@ -190,9 +190,10 @@ public class AdyenAuthorizationPresenter {
   }
 
   private void onViewCreatedCheckAuthorizationActive() {
-    disposables.add(transactionBuilder.flatMap(transaction -> billingService.getAuthorization(transaction.getSkuId(),
+    disposables.add(transactionBuilder.flatMap(
+        transaction -> billingService.getAuthorization(transaction.getSkuId(),
             transaction.toAddress(), developerPayload, origin, convertAmount(currency), currency,
-            type, transaction.getCallbackUrl())
+            type, transaction.getCallbackUrl(), transaction.getOrderReference())
             .filter(adyenAuthorization -> adyenAuthorization.isCompleted())
             .firstOrError()
             .flatMap(adyenAuthorization -> createBundle())
@@ -229,9 +230,10 @@ public class AdyenAuthorizationPresenter {
   }
 
   private void onViewCreatedCheckAuthorizationFailed() {
-    disposables.add(transactionBuilder.flatMap(transaction -> billingService.getAuthorization(transaction.getSkuId(),
+    disposables.add(transactionBuilder.flatMap(
+        transaction -> billingService.getAuthorization(transaction.getSkuId(),
             transaction.toAddress(), developerPayload, origin, convertAmount(currency), currency,
-            type, transaction.getCallbackUrl())
+            type, transaction.getCallbackUrl(), transaction.getOrderReference())
             .filter(payment -> payment.isFailed())
             .firstOrError()
             .observeOn(viewScheduler)
@@ -245,9 +247,10 @@ public class AdyenAuthorizationPresenter {
   }
 
   private void onViewCreatedCheckAuthorizationProcessing() {
-    disposables.add(transactionBuilder.flatMapObservable(transaction -> billingService.getAuthorization(transaction.getSkuId(),
+    disposables.add(transactionBuilder.flatMapObservable(
+        transaction -> billingService.getAuthorization(transaction.getSkuId(),
             transaction.toAddress(), developerPayload, origin, convertAmount(currency), currency,
-            type, transaction.getCallbackUrl())
+            type, transaction.getCallbackUrl(), transaction.getOrderReference())
             .filter(payment -> payment.isProcessing())
             .observeOn(viewScheduler)
             .doOnNext(__ -> view.showLoading()))
