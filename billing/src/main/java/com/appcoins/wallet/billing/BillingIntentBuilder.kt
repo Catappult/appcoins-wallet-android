@@ -20,14 +20,17 @@ import java.util.*
 class BillingIntentBuilder(val context: Context) {
 
   @Throws(Exception::class)
-  fun buildBuyIntentBundle(sku: SKU, tokenContractAddress: String,
-                           iabContractAddress: String, payload: String, bdsIap: Boolean,
-                           packageName: String): Bundle {
+  fun buildBuyIntentBundle(sku: SKU,
+                           tokenContractAddress: String,
+                           iabContractAddress: String, payload: String?,
+                           bdsIap: Boolean,
+                           packageName: String,
+                           developerAddress: String?): Bundle {
     val result = Bundle()
 
     val intent =
         buildPaymentIntent(sku, tokenContractAddress, iabContractAddress, payload, bdsIap,
-            packageName)
+            packageName, developerAddress)
 
     result.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
     result.putParcelable(AppcoinsBillingBinder.BUY_INTENT, intent)
@@ -35,16 +38,18 @@ class BillingIntentBuilder(val context: Context) {
     return result
   }
 
-  private fun buildPaymentIntent(sku: SKU, tokenContractAddress: String,
-                                 iabContractAddress: String, payload: String,
-                                 bdsIap: Boolean, packageName: String): PendingIntent {
+  private fun buildPaymentIntent(sku: SKU,
+                                 tokenContractAddress: String,
+                                 iabContractAddress: String, payload: String?,
+                                 bdsIap: Boolean, packageName: String,
+                                 developerAddress: String?): PendingIntent {
 
     val amount = BigDecimal(sku.amount)
     val value = amount.multiply(BigDecimal.TEN.pow(18))
 
     val intent = Intent(Intent.ACTION_VIEW)
     val data = Uri.parse(buildUriString(tokenContractAddress, iabContractAddress, value,
-        PayloadHelper.getAddress(payload), sku.productId, BuildConfig.NETWORK_ID, packageName,
+        developerAddress, sku.productId, BuildConfig.NETWORK_ID, packageName,
         PayloadHelper.getPayload(payload), PayloadHelper.getOrderReference(payload)))
     intent.data = data
 
@@ -56,7 +61,7 @@ class BillingIntentBuilder(val context: Context) {
   }
 
   private fun buildUriString(tokenContractAddress: String, iabContractAddress: String,
-                             amount: BigDecimal, developerAddress: String,
+                             amount: BigDecimal, developerAddress: String?,
                              skuId: String,
                              networkId: Int, packageName: String,
                              developerPayload: String?,
@@ -65,7 +70,7 @@ class BillingIntentBuilder(val context: Context) {
     try {
       Formatter(stringBuilder).use { formatter ->
         formatter.format("ethereum:%s@%d/buy?uint256=%s&address=%s&data=%s&iabContractAddress=%s",
-            tokenContractAddress, networkId, amount.toString(), developerAddress,
+            tokenContractAddress, networkId, amount.toString(), developerAddress ?: "",
             buildUriData(skuId, packageName, developerPayload, orderReference), iabContractAddress)
       }
     } catch (e: UnsupportedEncodingException) {

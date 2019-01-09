@@ -51,7 +51,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import static com.asfoundation.wallet.ui.iab.IabActivity.APP_PACKAGE;
-import static com.asfoundation.wallet.ui.iab.IabActivity.EXTRA_DEVELOPER_PAYLOAD;
 import static com.asfoundation.wallet.ui.iab.IabActivity.PRODUCT_NAME;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_CURRENCY;
@@ -69,11 +68,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   private static final String TYPE = "type";
   private static final String ORIGIN = "origin";
   private static final String PAYMENT_TYPE = "paymentType";
-  private static final String PACKAGE_NAME = "packageName";
-  private static final String APP_NAME = "appName";
-  private static final String APP_DESCRIPTION = "appDescription";
-  private static final String FIAT_VALUE = "fiatValue";
-  private static final String APPC_VALUE = "appcValue";
+  private static final String DEVELOPER_PAYLOAD_KEY = "developer_payload";
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject FindDefaultWalletInteract defaultWalletInteract;
   @Inject BillingFactory billingFactory;
@@ -118,7 +113,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     bundle.putString(TRANSACTION_DATA, transactionData);
     bundle.putSerializable(TRANSACTION_AMOUNT, amount);
     bundle.putString(TRANSACTION_CURRENCY, currency);
-    bundle.putString(EXTRA_DEVELOPER_PAYLOAD, payload);
+    bundle.putString(DEVELOPER_PAYLOAD_KEY, payload);
     AdyenAuthorizationFragment fragment = new AdyenAuthorizationFragment();
     fragment.setArguments(bundle);
     return fragment;
@@ -183,10 +178,9 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
       }
     });
 
-    genericErrorDialog = new RxAlertDialog.Builder(getContext()).setMessage(
-        R.string.unknown_error)
-            .setPositiveButton(R.string.ok)
-            .build();
+    genericErrorDialog = new RxAlertDialog.Builder(getContext()).setMessage(R.string.unknown_error)
+        .setPositiveButton(R.string.ok)
+        .build();
     networkErrorDialog =
         new RxAlertDialog.Builder(getContext()).setMessage(R.string.notification_no_network_poa)
             .setPositiveButton(R.string.ok)
@@ -478,6 +472,6 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   }
 
   public String getDeveloperPayload() {
-    return getArguments().getString(EXTRA_DEVELOPER_PAYLOAD);
+    return getArguments().getString(DEVELOPER_PAYLOAD_KEY);
   }
 }

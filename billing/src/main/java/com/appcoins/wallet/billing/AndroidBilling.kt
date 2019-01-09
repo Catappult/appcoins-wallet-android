@@ -28,4 +28,8 @@ class AndroidBilling(private val merchantName: String, private val billing: Bill
     return billing.consumePurchases(merchantName, purchaseToken, Schedulers.io())
   }
 
+  fun getDeveloperAddress(packageName: String): Single<String> {
+    return billing.getWallet(packageName)
+  }
+
 }
