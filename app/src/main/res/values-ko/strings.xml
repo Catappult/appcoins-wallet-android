@@ -36,6 +36,9 @@
   <string name="title_source_code">소스 코드</string>
   <string name="title_report_bug">버그 리포트하기</string>
   <string name="title_support">지원</string>
+  <string name="title_permissions">Permissions</string>
+  <string name="permissions_title">Permissions</string>
+  <string name="permissions_active_wallet_short">Current active wallet</string>
   <string name="error_import">키스토어 불러오기 오류</string>
   <string name="message_this_is_your_address">나의 공개 이더리움 지갑 주소</string>
   <string name="backup_warning_text">귀하만이 귀하의 돈을 관리할 수 있기때문에, 이 앱이 삭제된 경우를 대비하여 키스토어를 백업하실 필요가 있습니다.\n\n 귀하의 지갑은 클라우드 저장공간이나 표준 기기 백업에 절대로 저장되지 않습니다.</string>
@@ -267,4 +270,13 @@
   <string name="gamification_purchase_header">보너스 구매</string>
   <string name="gamification_purchase_body">%s APPC 크레딧이 지갑에 입급될 것 입니다.</string>
   <string name="action_level">나의 레벨</string>
+  <!-- Provide wallet address -->
+  <string name="provide_wallet_body">Allow AppCoins BDS Wallet to provide your wallet address to Aptoide.</string>
+  <string name="provide_wallet_always_allow_button">Always allow</string>
+  <string name="provide_wallet_allow_once_button">Allow once</string>
+  <string name="provide_wallet_completed_header">Wallet associated to Aptoide!</string>
+  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the AppCoins BDS Wallet.</string>
+  <string name="provide_wallet_create_wallet_button">CREATE</string>
+  <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
+  <string name="provide_wallet_created_header">Wallet address created!</string>
 </resources>
