@@ -36,6 +36,9 @@
   <string name="title_source_code">ရင္းျမစ္ကုဒ္</string>
   <string name="title_report_bug">အမွားကို သတင္းေပးမည္</string>
   <string name="title_support">ပံ့ပိုးေရး</string>
+  <string name="title_permissions">Permissions</string>
+  <string name="permissions_title">Permissions</string>
+  <string name="permissions_active_wallet_short">Current active wallet</string>
   <string name="error_import">ကီးစတိုးကို ထည့္သြင္းရာတြင္ ခ်ိဳ႕ယြင္းခ်က္</string>
   <string name="message_this_is_your_address">ကၽြႏ္ုပ္၏ အမ်ားျမင္ႏိုင္္ေသာ Ethereum ပိုက္ဆံအိတ္လိပ္စာ</string>
   <string name="backup_warning_text">သင့္ေငြကို သင္ထိန္းခ်ဳပ္ျခင္းသာ ျဖစ္ေသာေၾကာင့္ ဤအက္ပ္ကို ဖ်က္မည္ဆိုလွ်င္ သင့္ကီးစတိုုးကို အရန္ျပဳလုုပ္ထားရန္ လုိအပ္မည္ ျဖစ္ပါသည္။ \n\nသင့္ပိုက္ဆံအိတ္အား cloud သိမ္းဆည္းမႈ သို႔မဟုတ္ စက္ကိရိယာ၏ သာမန္အရန္ျပဳလုုပ္မႈမ်ားတြင္ လံုးဝသိမ္းဆည္းမည္ မဟုတ္ပါ။</string>
@@ -267,4 +270,13 @@
   <string name="gamification_purchase_header">Purchase Bonus:</string>
   <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
   <string name="action_level">My Level</string>
+  <!-- Provide wallet address -->
+  <string name="provide_wallet_body">Allow AppCoins BDS Wallet to provide your wallet address to Aptoide.</string>
+  <string name="provide_wallet_always_allow_button">Always allow</string>
+  <string name="provide_wallet_allow_once_button">Allow once</string>
+  <string name="provide_wallet_completed_header">Wallet associated to Aptoide!</string>
+  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the AppCoins BDS Wallet.</string>
+  <string name="provide_wallet_create_wallet_button">CREATE</string>
+  <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
+  <string name="provide_wallet_created_header">Wallet address created!</string>
 </resources>
