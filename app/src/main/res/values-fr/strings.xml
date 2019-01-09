@@ -36,6 +36,9 @@
   <string name="title_source_code">Code source</string>
   <string name="title_report_bug">Signaler un bug</string>
   <string name="title_support">Support</string>
+  <string name="title_permissions">Permissions</string>
+  <string name="permissions_title">Permissions</string>
+  <string name="permissions_active_wallet_short">Current active wallet</string>
   <string name="error_import">Erreur importation keystore</string>
   <string name="message_this_is_your_address">Mon adresse publique Ethereum</string>
   <string name="backup_warning_text">Étant donné que seulement vous contrôlez votre argent, vous devrez enregistrer une sauvegarde de votre fichier dans le cas où cette application est supprimée.\n\nVotre portefeuille n’est jamais enregistré dans le cloud ou dans les sauvegardes standard de l’appareil.</string>
@@ -267,4 +270,13 @@
   <string name="gamification_purchase_header">Bonus d’achat :</string>
   <string name="gamification_purchase_body">%s APPC crédits seront crédités dans votre portefeuille</string>
   <string name="action_level">Mon niveau</string>
+  <!-- Provide wallet address -->
+  <string name="provide_wallet_body">Allow AppCoins BDS Wallet to provide your wallet address to Aptoide.</string>
+  <string name="provide_wallet_always_allow_button">Always allow</string>
+  <string name="provide_wallet_allow_once_button">Allow once</string>
+  <string name="provide_wallet_completed_header">Wallet associated to Aptoide!</string>
+  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the AppCoins BDS Wallet.</string>
+  <string name="provide_wallet_create_wallet_button">CREATE</string>
+  <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
+  <string name="provide_wallet_created_header">Wallet address created!</string>
 </resources>
