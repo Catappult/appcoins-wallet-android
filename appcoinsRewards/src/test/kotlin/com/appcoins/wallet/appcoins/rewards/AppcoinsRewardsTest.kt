@@ -71,15 +71,6 @@ class AppcoinsRewardsTest {
             com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
             Gateway.unknown(), "0x32453134")))
 
-    val transactionIdRepositoryApi = Mockito.mock(TransactionIdRepository.Api::class.java)
-    val transactionIdRepository = TransactionIdRepository(transactionIdRepositoryApi)
-    val getTransactionIdResponse = GetTransactionIdResponse()
-    getTransactionIdResponse.status = "PENDING"
-    getTransactionIdResponse.txid = "0x32453134"
-
-    `when`(transactionIdRepositoryApi.getTransactionId(ArgumentMatchers.anyString())).thenReturn(
-        Single.just(getTransactionIdResponse))
-
     scheduler.advanceTimeBy(1, TimeUnit.DAYS)
     scheduler.triggerActions()
 

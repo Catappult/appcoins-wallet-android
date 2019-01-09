@@ -66,7 +66,7 @@ class AppcoinsRewards(
                         waitTransactionCompletion(transaction1).andThen{
                             val tx = Transaction(transaction, Transaction.Status.COMPLETED)
                             tx.txId = transaction1.hash
-                            cache.save(getKey(tx), tx)
+                            cache.saveSync(getKey(tx), tx)
                         }
                       }
                 }
