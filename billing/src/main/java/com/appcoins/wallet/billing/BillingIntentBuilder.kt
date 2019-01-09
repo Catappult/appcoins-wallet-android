@@ -45,7 +45,7 @@ class BillingIntentBuilder(val context: Context) {
     val intent = Intent(Intent.ACTION_VIEW)
     val data = Uri.parse(buildUriString(tokenContractAddress, iabContractAddress, value,
         PayloadHelper.getAddress(payload), sku.productId, BuildConfig.NETWORK_ID, packageName,
-        PayloadHelper.getPayload(payload)))
+        PayloadHelper.getPayload(payload), PayloadHelper.getOrderReference(payload)))
     intent.data = data
 
     intent.putExtra(AppcoinsBillingBinder.PRODUCT_NAME, sku.title)
@@ -56,16 +56,17 @@ class BillingIntentBuilder(val context: Context) {
   }
 
   private fun buildUriString(tokenContractAddress: String, iabContractAddress: String,
-                             amount: BigDecimal, developerAddress: String, skuId: String,
+                             amount: BigDecimal, developerAddress: String,
+                             skuId: String,
                              networkId: Int, packageName: String,
-                             developerPayload: String?): String {
-
+                             developerPayload: String?,
+                             orderReference: String?): String {
     val stringBuilder = StringBuilder(4)
     try {
       Formatter(stringBuilder).use { formatter ->
         formatter.format("ethereum:%s@%d/buy?uint256=%s&address=%s&data=%s&iabContractAddress=%s",
             tokenContractAddress, networkId, amount.toString(), developerAddress,
-            buildUriData(skuId, packageName, developerPayload), iabContractAddress)
+            buildUriData(skuId, packageName, developerPayload, orderReference), iabContractAddress)
       }
     } catch (e: UnsupportedEncodingException) {
       throw RuntimeException("UTF-8 not supported!", e)
@@ -73,10 +74,11 @@ class BillingIntentBuilder(val context: Context) {
     return stringBuilder.toString()
   }
 
-  private fun buildUriData(skuId: String, packageName: String, developerPayload: String?): String {
+  private fun buildUriData(skuId: String, packageName: String,
+                           developerPayload: String?, orderReference: String?): String {
     return "0x" + Hex.toHexString(
-        Gson().toJson(TransactionData(_type = "INAPP", _domain = packageName, _skuId = skuId,
-            _payload = developerPayload)).toByteArray(
-            charset("UTF-8")))
+        Gson().toJson(
+            TransactionData("INAPP", packageName, skuId, developerPayload,
+                orderReference)).toByteArray(charset("UTF-8")))
   }
 }

@@ -21,9 +21,9 @@ public class RewardsManager {
 
   public Completable pay(String sku, BigDecimal amount, String developerAddress,
       String storeAddress, String oemAddress, String packageName, Transaction.Origin origin,
-      String type, String payload, String callbackUrl) {
+      String type, String payload, String callbackUrl, String orderReference) {
     return appcoinsRewards.pay(amount, origin, sku, type, developerAddress, storeAddress,
-        oemAddress, packageName, payload, callbackUrl);
+        oemAddress, packageName, payload, callbackUrl, orderReference);
   }
 
   public Single<Purchase> getPaymentCompleted(String packageName, String sku) {
@@ -34,7 +34,8 @@ public class RewardsManager {
     return appcoinsRewards.getPayment(packageName, sku, amount.toString());
   }
 
-  public Observable<RewardPayment> getPaymentStatus(String packageName, String sku, BigDecimal amount) {
+  public Observable<RewardPayment> getPaymentStatus(String packageName, String sku,
+      BigDecimal amount) {
     return appcoinsRewards.getPayment(packageName, sku, amount.toString())
         .flatMap(this::map);
   }

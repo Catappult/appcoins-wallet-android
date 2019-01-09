@@ -36,12 +36,15 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
               iabContract,
               Parameters.PAYMENT_TYPE_INAPP_UNMANAGED.toUpperCase(), getDomain(uri),
               getPayload(uri),
-              getCallback(uri)).shouldSendToken(true)
+              getCallback(uri), getOrderReference(uri)).shouldSendToken(true)
         }).doOnSuccess { transactionBuilder ->
       cache.saveSync(uri.toString(), transactionBuilder)
     }.subscribeOn(Schedulers.io())
   }
 
+  private fun getOrderReference(uri: OneStepUri): String? {
+    return uri.parameters["order_reference"]
+  }
 
   private fun getAmount(uri: OneStepUri): Single<BigDecimal> {
     return if (uri.parameters[Parameters.VALUE] == null) {

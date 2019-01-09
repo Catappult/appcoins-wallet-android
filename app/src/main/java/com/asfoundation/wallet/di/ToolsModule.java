@@ -5,7 +5,6 @@ import android.content.Context;
 import cm.aptoide.analytics.AnalyticsManager;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.appcoins.rewards.repository.BdsAppcoinsRewardsRepository;
-import com.appcoins.wallet.appcoins.rewards.repository.BdsRemoteApi;
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi;
 import com.appcoins.wallet.appcoins.rewards.repository.bds.BdsApi;
 import com.appcoins.wallet.bdsbilling.BdsBilling;
@@ -41,6 +40,7 @@ import com.asfoundation.wallet.analytics.KeysNormalizer;
 import com.asfoundation.wallet.analytics.LogcatAnalyticsLogger;
 import com.asfoundation.wallet.apps.Applications;
 import com.asfoundation.wallet.billing.BDSTransactionService;
+import com.asfoundation.wallet.billing.CreditsRemoteRepository;
 import com.asfoundation.wallet.billing.TransactionService;
 import com.asfoundation.wallet.billing.adyen.Adyen;
 import com.asfoundation.wallet.billing.adyen.AdyenBillingService;
@@ -329,9 +329,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       BdsTransactionService bdsTransactionService, BillingMessagesMapper billingMessagesMapper) {
     return new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
-        billingMessagesMapper, billing,
-        new ExternalBillingSerializer(), expressCheckoutBuyService, bdsTransactionService,
-        Schedulers.io(), transactionIdHelper);
+        billingMessagesMapper, billing, new ExternalBillingSerializer(), expressCheckoutBuyService,
+        bdsTransactionService, Schedulers.io(), transactionIdHelper);
   }
 
   @Singleton @Provides @Named("ASF_IN_APP_INTERACTOR")
@@ -342,9 +341,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       BdsTransactionService bdsTransactionService, BillingMessagesMapper billingMessagesMapper) {
     return new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
-        billingMessagesMapper, billing,
-        new ExternalBillingSerializer(), expressCheckoutBuyService, bdsTransactionService,
-        Schedulers.io(), transactionIdHelper);
+        billingMessagesMapper, billing, new ExternalBillingSerializer(), expressCheckoutBuyService,
+        bdsTransactionService, Schedulers.io(), transactionIdHelper);
   }
 
   @Singleton @Provides InAppPurchaseInteractor provideDualInAppPurchaseInteractor(
@@ -583,11 +581,14 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         new SignDataStandardNormalizer());
   }
 
-  @Singleton @Provides Billing provideBillingFactory(RemoteRepository.BdsApi bdsApi,
-      WalletService walletService, BdsApiSecondary api) {
-    return new BdsBilling(
-        new BdsRepository(new RemoteRepository(bdsApi, new BdsApiResponseMapper(), api)),
-        walletService, new BillingThrowableCodeMapper());
+  @Singleton @Provides Billing provideBillingFactory(WalletService walletService,
+      BdsRepository bdsRepository) {
+    return new BdsBilling(bdsRepository, walletService, new BillingThrowableCodeMapper());
+  }
+
+  @Singleton @Provides RemoteRepository provideRemoteRepository(RemoteRepository.BdsApi bdsApi,
+      BdsApiSecondary api) {
+    return new RemoteRepository(bdsApi, new BdsApiResponseMapper(), api);
   }
 
   @Singleton @Provides ProxyService provideProxyService(AppCoinsAddressProxySdk proxySdk) {
@@ -609,9 +610,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new Adyen(context, Charset.forName("UTF-8"), Schedulers.io(), BehaviorRelay.create());
   }
 
-  @Singleton @Provides TransactionService provideTransactionService(RemoteRepository.BdsApi bdsApi,
-      BdsApiSecondary api) {
-    return new BDSTransactionService(new RemoteRepository(bdsApi, new BdsApiResponseMapper(), api));
+  @Singleton @Provides TransactionService provideTransactionService(
+      RemoteRepository remoteRepository) {
+    return new BDSTransactionService(remoteRepository);
   }
 
   @Singleton @Provides BillingFactory provideCreditCardBillingFactory(
@@ -626,14 +627,13 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         billingPaymentProofSubmission);
   }
 
-  @Singleton @Provides BdsRepository provideBdsRepository(RemoteRepository.BdsApi bdsApi,
-      BdsApiSecondary api) {
-    return new BdsRepository(new RemoteRepository(bdsApi, new BdsApiResponseMapper(), api));
+  @Singleton @Provides BdsRepository provideBdsRepository(RemoteRepository repository) {
+    return new BdsRepository(repository);
   }
 
   @Singleton @Provides AppcoinsRewards provideAppcoinsRewards(OkHttpClient client, Gson gson,
       WalletService walletService, Billing billing,
-      BackendApi backendApi) {
+      BackendApi backendApi, RemoteRepository remoteRepository) {
     BdsApi bdsApi = new Retrofit.Builder().baseUrl(BuildConfig.BASE_HOST)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
@@ -641,7 +641,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .build()
         .create(BdsApi.class);
     return new AppcoinsRewards(
-        new BdsAppcoinsRewardsRepository(new BdsRemoteApi(backendApi, bdsApi)),
+        new BdsAppcoinsRewardsRepository(new CreditsRemoteRepository(backendApi, remoteRepository)),
         new com.appcoins.wallet.appcoins.rewards.repository.WalletService() {
           @NotNull @Override public Single<String> getWalletAddress() {
             return walletService.getWalletAddress();
@@ -749,8 +749,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new BillingAnalytics(analytics);
   }
 
-  @Provides GamificationInteractor provideGamificationInteractor(
-      Gamification gamification, FindDefaultWalletInteract defaultWallet) {
+  @Provides GamificationInteractor provideGamificationInteractor(Gamification gamification,
+      FindDefaultWalletInteract defaultWallet) {
     return new GamificationInteractor(gamification, defaultWallet);
   }
 

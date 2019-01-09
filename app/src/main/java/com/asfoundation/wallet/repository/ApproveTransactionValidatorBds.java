@@ -33,7 +33,9 @@ public class ApproveTransactionValidatorBds implements TransactionValidator {
         paymentTransaction.getTransactionBuilder())
         .map(hash -> new AuthorizationProof("appcoins", hash, productName, packageName, priceValue,
             storeAddress, oemAddress, developerAddress, type, "BDS",
-            paymentTransaction.getDeveloperPayload(), paymentTransaction.getCallbackUrl()))
+            paymentTransaction.getDeveloperPayload(), paymentTransaction.getCallbackUrl(),
+            paymentTransaction.getTransactionBuilder()
+                .getOrderReference()))
         .flatMapCompletable(billingPaymentProofSubmission::processAuthorizationProof);
   }
 }
