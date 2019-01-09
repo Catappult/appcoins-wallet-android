@@ -36,6 +36,9 @@
   <string name="title_source_code">सोर्स कोड</string>
   <string name="title_report_bug">त्रुटि सूचित करें</string>
   <string name="title_support">सहायता</string>
+  <string name="title_permissions">Permissions</string>
+  <string name="permissions_title">Permissions</string>
+  <string name="permissions_active_wallet_short">Current active wallet</string>
   <string name="error_import">कीस्टोर आयात करने में त्रुटि</string>
   <string name="message_this_is_your_address">मेरा सार्वजनिक इथीरियम वॉलेट पता</string>
   <string name="backup_warning_text">क्योंकि आप केवल अपने पैसे को नियंत्रित करते हैं, तो यह एप्प हटाए जाने पर आपको अपने कीस्टोर के बैकअप को सहेजने की जरूरत होगी।\n\nआपका वॉलेट कभी भी क्लाउड स्टोरेज या मानक डिवाइस बैकअप में सहेजा नहीं जाता है।</string>
@@ -267,4 +270,13 @@
   <string name="gamification_purchase_header">बोनस खरीदें:</string>
   <string name="gamification_purchase_body">%s APPC क्रेडिट आपके वॉलेट में जमा किये जाएँगे</string>
   <string name="action_level">मेरा लेवल</string>
+  <!-- Provide wallet address -->
+  <string name="provide_wallet_body">Allow AppCoins BDS Wallet to provide your wallet address to Aptoide.</string>
+  <string name="provide_wallet_always_allow_button">Always allow</string>
+  <string name="provide_wallet_allow_once_button">Allow once</string>
+  <string name="provide_wallet_completed_header">Wallet associated to Aptoide!</string>
+  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the AppCoins BDS Wallet.</string>
+  <string name="provide_wallet_create_wallet_button">CREATE</string>
+  <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
+  <string name="provide_wallet_created_header">Wallet address created!</string>
 </resources>
