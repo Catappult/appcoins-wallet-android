@@ -254,7 +254,12 @@
   <string name="gamification_level_bonus">%s%% ေဘာနပ္စ္</string>
   <string name="gamification_level_button_how">အလုပ္လုပ္ပံု</string>
   <string name="gamification_how_header">အဆင့္တက္ပံု။</string>
-  <string name="gamification_how_body">သင့္စိတ္ႀကိဳက္ အက္ပ္မ်ားႏွင့္ ဂိမ္းမ်ားတြင္ ပစၥည္းမ်ားကို ဝယ္ယူပါက APPC ခရက္ဒစ္မ်ားကို ရရွိပါမည္။</string>
+  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_table_a1">SPEND</string>
+  <string name="gamification_how_table_b1">BONUS</string>
+  <string name="gamification_how_table_a2">%s APPC</string>
+  <string name="gamification_how_table_b2">%s %%</string>
+  <string name="gamification_how_terms_and_conditions">Conditions</string>
   <string name="gamification_how_spend">%s APPC ကို သံုးစြဲပါ</string>
   <string name="gamification_a_comet_title">ၾကယ္တံခြန္တစ္ခု</string>
   <string name="gamification_a_moon_title">လတစ္စင္း</string>
