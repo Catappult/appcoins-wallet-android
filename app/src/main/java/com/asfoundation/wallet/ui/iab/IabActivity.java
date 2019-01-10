@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import com.appcoins.wallet.billing.util.PayloadHelper;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -35,7 +34,6 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   public static final String APP_PACKAGE = "app_package";
   public static final String TRANSACTION_EXTRA = "transaction_extra";
   public static final String PRODUCT_NAME = "product_name";
-  public static final String EXTRA_DEVELOPER_PAYLOAD = "developer_payload";
   public static final String TRANSACTION_DATA = "transaction_data";
   public static final String TRANSACTION_HASH = "transaction_hash";
   public static final String TRANSACTION_AMOUNT = "transaction_amount";
@@ -142,7 +140,8 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   }
 
   @Override public void navigateToWebViewAuthorization(String url) {
-    startActivityForResult(WebViewActivity.newIntent(this, url, transaction), WEB_VIEW_REQUEST_CODE);
+    startActivityForResult(WebViewActivity.newIntent(this, url, transaction),
+        WEB_VIEW_REQUEST_CODE);
   }
 
   @Override public void showPaymentMethodsView(String currency) {
@@ -157,7 +156,7 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container, OnChainBuyFragment.newInstance(createBundle(amount),
             getIntent().getData()
-                .toString(), isBds))
+                .toString(), isBds, transaction))
         .commit();
   }
 
@@ -208,21 +207,9 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     bundle.putString(PRODUCT_NAME, getIntent().getExtras()
         .getString(PRODUCT_NAME));
     bundle.putString(TRANSACTION_DATA, getIntent().getDataString());
-    loadPayload(bundle);
+    bundle.putString(DEVELOPER_PAYLOAD, transaction.getPayload());
     skuDetails = bundle;
     return bundle;
-  }
-
-  private void loadPayload(Bundle bundle) {
-    try {
-      PayloadHelper.INSTANCE.getPayload(getIntent().getExtras()
-          .getString(EXTRA_DEVELOPER_PAYLOAD));
-      bundle.putString(EXTRA_DEVELOPER_PAYLOAD, PayloadHelper.INSTANCE.getPayload(
-          getIntent().getExtras()
-              .getString(EXTRA_DEVELOPER_PAYLOAD)));
-    } catch (IllegalArgumentException ex) {
-      bundle.putString(EXTRA_DEVELOPER_PAYLOAD, transaction.getPayload());
-    }
   }
 
   public boolean isBds() {
