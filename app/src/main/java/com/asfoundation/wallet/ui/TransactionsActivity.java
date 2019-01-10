@@ -62,7 +62,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private EmptyTransactionsView emptyView;
   private RecyclerView list;
 
-  public static Intent newPendingIntent(Context context) {
+  public static Intent newIntent(Context context) {
     Intent intent = new Intent(context, TransactionsActivity.class);
     return intent;
   }

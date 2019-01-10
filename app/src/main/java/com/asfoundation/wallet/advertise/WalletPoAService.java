@@ -194,7 +194,7 @@ public class WalletPoAService extends Service {
             createDefaultNotificationBuilder(R.string.notification_submitting_poa).build());
         break;
       case COMPLETED:
-        Intent intent = TransactionsActivity.newPendingIntent(this);
+        Intent intent = TransactionsActivity.newIntent(this);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         notificationManager.notify(SERVICE_ID,
