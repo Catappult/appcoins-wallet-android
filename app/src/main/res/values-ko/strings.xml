@@ -254,7 +254,12 @@
   <string name="gamification_level_bonus">%s%% 보너스</string>
   <string name="gamification_level_button_how">동작 방식</string>
   <string name="gamification_how_header">레벨을 올리는 방법은?</string>
-  <string name="gamification_how_body">좋아하는 앱과 게임에서 아이템을 구매할 때 APPC 크리딧을 받게 됩니다.</string>
+  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_table_a1">SPEND</string>
+  <string name="gamification_how_table_b1">BONUS</string>
+  <string name="gamification_how_table_a2">%s APPC</string>
+  <string name="gamification_how_table_b2">%s %%</string>
+  <string name="gamification_how_terms_and_conditions">Conditions</string>
   <string name="gamification_how_spend">%s APPC 지출</string>
   <string name="gamification_a_comet_title">혜성</string>
   <string name="gamification_a_moon_title">달</string>
