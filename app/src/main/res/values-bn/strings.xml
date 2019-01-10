@@ -254,7 +254,12 @@
   <string name="gamification_level_bonus">%s%% বোনাস</string>
   <string name="gamification_level_button_how">এটি কিভাবে কার্যরত</string>
   <string name="gamification_how_header">কিভাবে লেভেল পূর্ণ করে?</string>
-  <string name="gamification_how_body">যখন আপনার পছন্দের অ্যাপস এবং গেমস কিনবেন তখন আপনি এপিপিসি ক্রেডিট অর্জন করবেন</string>
+  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_table_a1">SPEND</string>
+  <string name="gamification_how_table_b1">BONUS</string>
+  <string name="gamification_how_table_a2">%s APPC</string>
+  <string name="gamification_how_table_b2">%s %%</string>
+  <string name="gamification_how_terms_and_conditions">Conditions</string>
   <string name="gamification_how_spend">খরচ করুন %s এপিপিসি</string>
   <string name="gamification_a_comet_title">একটি কর্ণেট</string>
   <string name="gamification_a_moon_title">একটি চাঁদ</string>
