@@ -254,7 +254,12 @@
   <string name="gamification_level_bonus">BONUS %s%%</string>
   <string name="gamification_level_button_how">CARA KERJANYA</string>
   <string name="gamification_how_header">Bagaimana Cara Naik Tingkat?</string>
-  <string name="gamification_how_body">Anda akan mendapatkan APPC credits saat membeli item aplikasi dan permainan favorit</string>
+  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_table_a1">SPEND</string>
+  <string name="gamification_how_table_b1">BONUS</string>
+  <string name="gamification_how_table_a2">%s APPC</string>
+  <string name="gamification_how_table_b2">%s %%</string>
+  <string name="gamification_how_terms_and_conditions">Conditions</string>
   <string name="gamification_how_spend">GUNAKAN %s APPC</string>
   <string name="gamification_a_comet_title">Komet</string>
   <string name="gamification_a_moon_title">Bulan</string>
