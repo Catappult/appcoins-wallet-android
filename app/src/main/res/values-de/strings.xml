@@ -254,7 +254,12 @@
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">SO FUNKTIONIERT ES</string>
   <string name="gamification_how_header">So können Sie im Rang aufsteigen?</string>
-  <string name="gamification_how_body">Beim Kauf von Produkten in Ihrer bevorzugten Apps und Spielen erhalten Sie APPC Gutschriften</string>
+  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_table_a1">SPEND</string>
+  <string name="gamification_how_table_b1">BONUS</string>
+  <string name="gamification_how_table_a2">%s APPC</string>
+  <string name="gamification_how_table_b2">%s %%</string>
+  <string name="gamification_how_terms_and_conditions">Conditions</string>
   <string name="gamification_how_spend">GEBEN SIE %s APPC AUS</string>
   <string name="gamification_a_comet_title">ein Komet</string>
   <string name="gamification_a_moon_title">ein Mond</string>
