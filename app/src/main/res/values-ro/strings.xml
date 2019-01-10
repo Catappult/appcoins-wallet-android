@@ -254,7 +254,12 @@
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">CUM FUNCȚIONEAZĂ</string>
   <string name="gamification_how_header">Cum îți crești nivelul?</string>
-  <string name="gamification_how_body">Vei câștiga Credite APPC când cumperi articole în aplicațiile și jocurile tale favorite</string>
+  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_table_a1">SPEND</string>
+  <string name="gamification_how_table_b1">BONUS</string>
+  <string name="gamification_how_table_a2">%s APPC</string>
+  <string name="gamification_how_table_b2">%s %%</string>
+  <string name="gamification_how_terms_and_conditions">Conditions</string>
   <string name="gamification_how_spend">CHELTUIEȘTE %s APPC</string>
   <string name="gamification_a_comet_title">o Cometă</string>
   <string name="gamification_a_moon_title">o Lună</string>
