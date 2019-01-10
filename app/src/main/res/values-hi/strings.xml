@@ -254,7 +254,12 @@
   <string name="gamification_level_bonus">%s%% बोनस</string>
   <string name="gamification_level_button_how">यह कैसे काम करता है</string>
   <string name="gamification_how_header">लेवल से ऊपर कैसे जाएँ?</string>
-  <string name="gamification_how_body">आप अपने पसंदीदा एप्प और गेम्स में वस्तुएं खरीदते समय APPC क्रेडिट अर्जित करेंगे</string>
+  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_table_a1">SPEND</string>
+  <string name="gamification_how_table_b1">BONUS</string>
+  <string name="gamification_how_table_a2">%s APPC</string>
+  <string name="gamification_how_table_b2">%s %%</string>
+  <string name="gamification_how_terms_and_conditions">Conditions</string>
   <string name="gamification_how_spend">%s APPC खर्च करें</string>
   <string name="gamification_a_comet_title">एक धूमकेतु</string>
   <string name="gamification_a_moon_title">एक चन्द्रमा</string>
