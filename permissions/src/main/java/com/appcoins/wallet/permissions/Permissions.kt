@@ -10,10 +10,7 @@ class Permissions(private val repository: Repository<String, Application>) {
   @Throws(SecurityException::class)
   fun grantPermission(packageName: String, apkSignature: String,
                       permission: PermissionName) {
-    repository.getSync(packageName)?.let {
-      if (it.apkSignature != apkSignature) {
-        throw SecurityException("apk signature doesn't match")
-      }
+    getApplication(packageName, apkSignature)?.let {
       val oldPermissions = it.permissions.toMutableList()
       oldPermissions.add(permission)
       repository.saveSync(packageName,
@@ -27,10 +24,23 @@ class Permissions(private val repository: Repository<String, Application>) {
    */
   @Throws(SecurityException::class)
   fun getPermissions(packageName: String, apkSignature: String): List<PermissionName> {
-    val permission = repository.getSync(packageName) ?: return emptyList()
-    if (permission.packageName != packageName || permission.apkSignature != apkSignature) {
+    return getApplication(packageName, apkSignature)?.permissions ?: return emptyList()
+  }
+
+  @Throws(SecurityException::class)
+  private fun getApplication(packageName: String, apkSignature: String): Application? {
+    val application = repository.getSync(packageName)
+    if (application != null && (application.packageName != packageName || application.apkSignature != apkSignature)) {
       throw SecurityException("apk signature doesn't match")
     }
-    return permission.permissions
+    return application
+  }
+
+  fun revokePermission(packageName: String, permissionName: PermissionName) {
+    repository.getSync(packageName)?.let {
+      val permissions = it.permissions.toMutableList()
+      permissions.remove(permissionName)
+      repository.saveSync(packageName, Application(it, permissions))
+    }
   }
 }

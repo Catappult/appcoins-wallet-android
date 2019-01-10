@@ -48,4 +48,19 @@ class PermissionsTest {
     Assert.assertEquals(emptyList<PermissionName>(),
         permissions.getPermissions(PACKAGE_NAME, WRONG_APK_SIGNATURE))
   }
+
+  @Test
+  fun revokePermission() {
+    permissions.grantPermission(PACKAGE_NAME, APK_SIGNATURE, PermissionName.WALLET)
+    permissions.revokePermission(PACKAGE_NAME, PermissionName.WALLET)
+    Assert.assertEquals(emptyList<PermissionName>(),
+        permissions.getPermissions(PACKAGE_NAME, APK_SIGNATURE))
+  }
+
+  @Test
+  fun revokePermissionNotExistentApp() {
+    permissions.revokePermission(PACKAGE_NAME, PermissionName.WALLET)
+    Assert.assertEquals(emptyList<PermissionName>(),
+        permissions.getPermissions(PACKAGE_NAME, APK_SIGNATURE))
+  }
 }
