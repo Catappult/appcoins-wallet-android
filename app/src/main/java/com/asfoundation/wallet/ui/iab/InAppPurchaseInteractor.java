@@ -167,8 +167,7 @@ public class InAppPurchaseInteractor {
   }
 
   private List<Gateway.Name> getNewPaymentGateways(BigDecimal creditsBalance,
-      Boolean hasAppcoinsFunds,
-      BigDecimal amount) {
+      Boolean hasAppcoinsFunds, BigDecimal amount) {
     List<Gateway.Name> list = new LinkedList<>();
 
     if (creditsBalance.compareTo(amount) >= 0) {

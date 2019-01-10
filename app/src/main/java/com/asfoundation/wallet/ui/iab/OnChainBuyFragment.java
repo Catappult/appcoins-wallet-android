@@ -22,6 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
+import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxrelay2.PublishRelay;
 import dagger.android.support.DaggerFragment;
@@ -38,7 +39,6 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import static com.asfoundation.wallet.billing.analytics.BillingAnalytics.PAYMENT_METHOD_APPC;
-import static com.asfoundation.wallet.ui.iab.IabActivity.EXTRA_DEVELOPER_PAYLOAD;
 import static com.asfoundation.wallet.ui.iab.IabActivity.PRODUCT_NAME;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
 
@@ -49,6 +49,7 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
 public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView {
 
   public static final String APP_PACKAGE = "app_package";
+  public static final String TRANSACTION_BUILDER_KEY = "transaction_builder";
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   private PublishRelay<String> buyButtonClick;
   private Button buyButton;
@@ -76,13 +77,16 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   private String data;
   private boolean isBds;
   @Inject BillingAnalytics analytics;
+  private TransactionBuilder transaction;
 
-  public static OnChainBuyFragment newInstance(Bundle extras, String data, boolean bdsIap) {
+  public static OnChainBuyFragment newInstance(Bundle extras, String data, boolean bdsIap,
+      TransactionBuilder transaction) {
     OnChainBuyFragment fragment = new OnChainBuyFragment();
     Bundle bundle = new Bundle();
     bundle.putBundle("extras", extras);
     bundle.putString("data", data);
     bundle.putBoolean("isBds", bdsIap);
+    bundle.putParcelable(TRANSACTION_BUILDER_KEY, transaction);
     fragment.setArguments(bundle);
     return fragment;
   }
@@ -93,6 +97,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     extras = getArguments().getBundle("extras");
     data = getArguments().getString("data");
     isBds = getArguments().getBoolean("isBds");
+    transaction = getArguments().getParcelable(TRANSACTION_BUILDER_KEY);
   }
 
   @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -146,8 +151,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
 
     buyButton.setOnClickListener(v -> buyButtonClick.accept(data));
     presenter.present(data, getAppPackage(), extras.getString(PRODUCT_NAME, ""),
-        (BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT),
-        extras.getString(EXTRA_DEVELOPER_PAYLOAD));
+        (BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT), transaction.getPayload());
 
     buyButton.performClick();
   }
