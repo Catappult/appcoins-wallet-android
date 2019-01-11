@@ -20,14 +20,17 @@ import java.util.*
 class BillingIntentBuilder(val context: Context) {
 
   @Throws(Exception::class)
-  fun buildBuyIntentBundle(sku: SKU, tokenContractAddress: String,
-                           iabContractAddress: String, payload: String, bdsIap: Boolean,
-                           packageName: String): Bundle {
+  fun buildBuyIntentBundle(sku: SKU,
+                           tokenContractAddress: String,
+                           iabContractAddress: String, payload: String?,
+                           bdsIap: Boolean,
+                           packageName: String,
+                           developerAddress: String?): Bundle {
     val result = Bundle()
 
     val intent =
         buildPaymentIntent(sku, tokenContractAddress, iabContractAddress, payload, bdsIap,
-            packageName)
+            packageName, developerAddress)
 
     result.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
     result.putParcelable(AppcoinsBillingBinder.BUY_INTENT, intent)
@@ -35,17 +38,19 @@ class BillingIntentBuilder(val context: Context) {
     return result
   }
 
-  private fun buildPaymentIntent(sku: SKU, tokenContractAddress: String,
-                                 iabContractAddress: String, payload: String,
-                                 bdsIap: Boolean, packageName: String): PendingIntent {
+  private fun buildPaymentIntent(sku: SKU,
+                                 tokenContractAddress: String,
+                                 iabContractAddress: String, payload: String?,
+                                 bdsIap: Boolean, packageName: String,
+                                 developerAddress: String?): PendingIntent {
 
     val amount = BigDecimal(sku.amount)
     val value = amount.multiply(BigDecimal.TEN.pow(18))
 
     val intent = Intent(Intent.ACTION_VIEW)
     val data = Uri.parse(buildUriString(tokenContractAddress, iabContractAddress, value,
-        PayloadHelper.getAddress(payload), sku.productId, BuildConfig.NETWORK_ID, packageName,
-        PayloadHelper.getPayload(payload)))
+        developerAddress, sku.productId, BuildConfig.NETWORK_ID, packageName,
+        PayloadHelper.getPayload(payload), PayloadHelper.getOrderReference(payload)))
     intent.data = data
 
     intent.putExtra(AppcoinsBillingBinder.PRODUCT_NAME, sku.title)
@@ -56,16 +61,17 @@ class BillingIntentBuilder(val context: Context) {
   }
 
   private fun buildUriString(tokenContractAddress: String, iabContractAddress: String,
-                             amount: BigDecimal, developerAddress: String, skuId: String,
+                             amount: BigDecimal, developerAddress: String?,
+                             skuId: String,
                              networkId: Int, packageName: String,
-                             developerPayload: String?): String {
-
+                             developerPayload: String?,
+                             orderReference: String?): String {
     val stringBuilder = StringBuilder(4)
     try {
       Formatter(stringBuilder).use { formatter ->
         formatter.format("ethereum:%s@%d/buy?uint256=%s&address=%s&data=%s&iabContractAddress=%s",
-            tokenContractAddress, networkId, amount.toString(), developerAddress,
-            buildUriData(skuId, packageName, developerPayload), iabContractAddress)
+            tokenContractAddress, networkId, amount.toString(), developerAddress ?: "",
+            buildUriData(skuId, packageName, developerPayload, orderReference), iabContractAddress)
       }
     } catch (e: UnsupportedEncodingException) {
       throw RuntimeException("UTF-8 not supported!", e)
@@ -73,10 +79,11 @@ class BillingIntentBuilder(val context: Context) {
     return stringBuilder.toString()
   }
 
-  private fun buildUriData(skuId: String, packageName: String, developerPayload: String?): String {
+  private fun buildUriData(skuId: String, packageName: String,
+                           developerPayload: String?, orderReference: String?): String {
     return "0x" + Hex.toHexString(
-        Gson().toJson(TransactionData(_type = "INAPP", _domain = packageName, _skuId = skuId,
-            _payload = developerPayload)).toByteArray(
-            charset("UTF-8")))
+        Gson().toJson(
+            TransactionData("INAPP", packageName, skuId, developerPayload,
+                orderReference)).toByteArray(charset("UTF-8")))
   }
 }

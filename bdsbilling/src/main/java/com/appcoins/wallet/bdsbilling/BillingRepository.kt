@@ -32,7 +32,8 @@ interface BillingRepository {
                                  priceValue: BigDecimal,
                                  developerWallet: String, storeWallet: String, origin: String,
                                  type: String, oemWallet: String,
-                                 developerPayload: String?, callback: String?): Single<String>
+                                 developerPayload: String?, callback: String?,
+                                 orderReference: String?): Single<String>
 
   fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
                            signedData: String, paymentProof: String): Completable
@@ -43,10 +44,4 @@ interface BillingRepository {
                              signedContent: String): Single<Transaction>
 
   fun getWallet(packageName: String): Single<String>
-
-  enum class BillingType {
-    inapp, subs
-  }
-
-
 }

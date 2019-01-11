@@ -62,25 +62,26 @@ class AppcoinsRewardsTest {
                        payBody: BdsApi.PayBody): Single<com.appcoins.wallet.bdsbilling.repository.entity.Transaction> {
         return Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
             com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
-                Gateway.unknown(), "0x32453134"))
+            Gateway.unknown(), "0x32453134"))
       }
     }
 
     `when`(billing.getAppcoinsTransaction(UID, scheduler)).thenReturn(
         Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
             com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
-                Gateway.unknown(), "0x32453134")))
+            Gateway.unknown(), "0x32453134")))
 
-      val transactionIdRepositoryApi = Mockito.mock(TransactionIdRepository.Api::class.java)
-      val transactionIdRepository = TransactionIdRepository(transactionIdRepositoryApi)
-      val getTransactionIdResponse = GetTransactionIdResponse()
-      getTransactionIdResponse.status = "PENDING"
-      getTransactionIdResponse.txid = "0x32453134"
+    val transactionIdRepositoryApi = Mockito.mock(TransactionIdRepository.Api::class.java)
+    val transactionIdRepository = TransactionIdRepository(transactionIdRepositoryApi)
+    val getTransactionIdResponse = GetTransactionIdResponse()
+    getTransactionIdResponse.status = "PENDING"
+    getTransactionIdResponse.txid = "0x32453134"
 
-      `when`(transactionIdRepositoryApi.getTransactionId(ArgumentMatchers.anyString())).thenReturn(Single.just(getTransactionIdResponse))
+    `when`(transactionIdRepositoryApi.getTransactionId(ArgumentMatchers.anyString())).thenReturn(
+        Single.just(getTransactionIdResponse))
 
-      scheduler.advanceTimeBy(1, TimeUnit.DAYS)
-      scheduler.triggerActions()
+    scheduler.advanceTimeBy(1, TimeUnit.DAYS)
+    scheduler.triggerActions()
 
     appcoinsRewards =
         AppcoinsRewards(
@@ -95,7 +96,7 @@ class AppcoinsRewardsTest {
 
           }
         }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), scheduler, billing
-                , ErrorMapper(), transactionIdRepository)
+            , ErrorMapper(), transactionIdRepository)
     appcoinsRewards.start()
   }
 
@@ -109,7 +110,7 @@ class AppcoinsRewardsTest {
         OEM_ADDRESS,
         PACKAGE_NAME,
         null,
-        null).subscribe(testObserver)
+        null, null).subscribe(testObserver)
     val statusObserver = TestObserver<Transaction>()
     appcoinsRewards.getPayment(PACKAGE_NAME, SKU, PRICE.toString()).subscribe(statusObserver)
 
@@ -117,9 +118,9 @@ class AppcoinsRewardsTest {
     testObserver.assertNoErrors().assertComplete()
     val mutableListOf = mutableListOf(
         Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-                PRICE, ORIGIN, Transaction.Status.PROCESSING, null, null, null),
+            PRICE, ORIGIN, Transaction.Status.PROCESSING, null, null, null, null),
         Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-                PRICE, ORIGIN, Transaction.Status.COMPLETED, "0x32453134", null, null))
+            PRICE, ORIGIN, Transaction.Status.COMPLETED, "0x32453134", null, null, null))
     statusObserver.assertNoErrors().assertValueSequence(mutableListOf)
   }
 

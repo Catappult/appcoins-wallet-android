@@ -58,18 +58,19 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
         .map { responseMapper.map(it) }
   }
 
-  fun registerAuthorizationProof(origin: String, type: String, oemWallet: String, id: String,
-                                 paymentType: String, walletAddress: String,
-                                 walletSignature: String, productName: String?, packageName: String,
+  fun registerAuthorizationProof(origin: String?, type: String,
+                                 oemWallet: String, id: String?,
+                                 gateway: String, walletAddress: String,
+                                 walletSignature: String, productName: String?,
+                                 packageName: String,
                                  priceValue: BigDecimal,
                                  developerWallet: String, storeWallet: String,
                                  developerPayload: String?,
-                                 callback: String?): Single<TransactionStatus> {
-    return api.createTransaction(paymentType, origin, packageName, priceValue.toPlainString(),
-        "APPC",
-        productName,
-        type, developerWallet, storeWallet, oemWallet, id, developerPayload, callback, walletAddress,
-        walletSignature)
+                                 callback: String?,
+                                 orderReference: String?): Single<Transaction> {
+    return api.createTransaction(gateway, origin, packageName, priceValue.toPlainString(),
+        "APPC", productName, type, developerWallet, storeWallet, oemWallet, id, developerPayload,
+        callback, orderReference, walletAddress, walletSignature)
   }
 
   fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
@@ -96,17 +97,17 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
 
   fun createAdyenTransaction(origin: String?, walletAddress: String,
                              walletSignature: String, token: String,
-                             packageName: String, priceValue: BigDecimal, priceCurrency: String,
+                             packageName: String, priceValue: BigDecimal,
+                             priceCurrency: String,
                              productName: String?, type: String,
                              walletDeveloper: String,
                              walletStore: String, walletOem: String,
                              developerPayload: String?,
-                             callback: String?): Single<TransactionStatus> {
+                             callback: String?,
+                             orderReference: String?): Single<Transaction> {
     return api.createTransaction(ADYEN_GATEWAY, origin, packageName, priceValue.toPlainString(),
-        priceCurrency,
-        productName, type, walletDeveloper, walletStore, walletOem, token, developerPayload, callback,
-        walletAddress,
-        walletSignature)
+        priceCurrency, productName, type, walletDeveloper, walletStore, walletOem, token,
+        developerPayload, callback, orderReference, walletAddress, walletSignature)
   }
 
   fun getAppcoinsTransaction(uid: String, address: String,
@@ -197,12 +198,13 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                           @Field("wallets.developer") walletsDeveloper: String,
                           @Field("wallets.store") walletsStore: String,
                           @Field("wallets.oem") walletsOem: String,
-                          @Field("token") token: String,
+                          @Field("token") token: String?,
                           @Field("metadata") developerPayload: String?,
                           @Field("callback_url") callback: String?,
+                          @Field("reference") orderReference: String?,
                           @Query("wallet.address") walletAddress: String,
                           @Query("wallet.signature")
-                          walletSignature: String): Single<TransactionStatus>
+                          walletSignature: String): Single<Transaction>
   }
 
   data class Consumed(val status: String = "CONSUMED")
