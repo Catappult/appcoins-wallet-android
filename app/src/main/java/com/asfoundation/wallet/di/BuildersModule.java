@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.di;
 
 import com.asfoundation.wallet.advertise.WalletPoAService;
+import com.asfoundation.wallet.permissions.PermissionFragment;
 import com.asfoundation.wallet.ui.AddTokenActivity;
 import com.asfoundation.wallet.ui.ConfirmationActivity;
 import com.asfoundation.wallet.ui.Erc681Receiver;
@@ -18,13 +19,13 @@ import com.asfoundation.wallet.ui.TransactionsActivity;
 import com.asfoundation.wallet.ui.WalletsActivity;
 import com.asfoundation.wallet.ui.airdrop.AirdropFragment;
 import com.asfoundation.wallet.ui.gamification.HowItWorksFragment;
+import com.asfoundation.wallet.ui.gamification.MyLevelFragment;
 import com.asfoundation.wallet.ui.iab.AdyenAuthorizationFragment;
 import com.asfoundation.wallet.ui.iab.AppcoinsRewardsBuyFragment;
 import com.asfoundation.wallet.ui.iab.BillingWebViewFragment;
 import com.asfoundation.wallet.ui.iab.ExpressCheckoutBuyFragment;
 import com.asfoundation.wallet.ui.iab.IabActivity;
 import com.asfoundation.wallet.ui.iab.OnChainBuyFragment;
-import com.asfoundation.wallet.ui.gamification.MyLevelFragment;
 import com.asfoundation.wallet.ui.iab.PaymentMethodsFragment;
 import com.asfoundation.wallet.ui.iab.WebViewActivity;
 import dagger.Module;
@@ -102,4 +103,6 @@ import dagger.android.ContributesAndroidInjector;
   abstract AppcoinsRewardsBuyFragment bindAppcoinsRewardsBuyFragment();
 
   @ContributesAndroidInjector() abstract PaymentMethodsFragment bindPaymentMethodsFragment();
+
+  @ContributesAndroidInjector() abstract PermissionFragment bindPermissionFragment();
 }

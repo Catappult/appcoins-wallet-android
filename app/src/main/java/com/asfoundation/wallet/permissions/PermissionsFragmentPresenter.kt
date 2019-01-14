@@ -1,0 +1,3 @@
+package com.asfoundation.wallet.permissions
+
+class PermissionsFragmentPresenter(val permissionsIntereactor: PermissionsInteractor)

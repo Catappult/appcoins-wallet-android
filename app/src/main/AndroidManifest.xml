@@ -97,16 +97,27 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="https" />
+
+        <data android:scheme="https"/>
         <data android:host="${paymentHost}"/>
         <data android:host="${secondPaymentHost}"/>
-        <data android:pathPrefix="/transaction" />
+        <data android:pathPrefix="/transaction"/>
       </intent-filter>
     </activity>
 
     <activity
         android:name="com.asfoundation.wallet.ui.iab.WebViewActivity"
         android:theme="@style/Theme.AppCompat.Transparent"/>
+
+    <activity
+        android:name="com.asfoundation.wallet.permissions.PermissionsActivity"
+        android:theme="@style/Theme.AppCompat.Transparent">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data android:scheme="appcoins"/>
+      </intent-filter>
+    </activity>
 
     <activity
         android:name="com.asfoundation.wallet.ui.iab.IabActivity"
