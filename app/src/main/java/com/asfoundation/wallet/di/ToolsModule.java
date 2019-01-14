@@ -782,9 +782,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new Permissions(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()));
   }
 
-  @Singleton @Provides PermissionsInteractor providesPermissionsInteractor(
-      Permissions permissions) {
-    return new PermissionsInteractor(permissions);
+  @Singleton @Provides PermissionsInteractor providesPermissionsInteractor(Permissions permissions,
+      FindDefaultWalletInteract walletService) {
+    return new PermissionsInteractor(permissions, walletService);
   }
 
   @Singleton @Provides AddressService providesAddressService(InstallerService installerService,
