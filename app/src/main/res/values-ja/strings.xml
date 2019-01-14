@@ -100,7 +100,7 @@
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins BDS ウォレット</string>
   <string name="intro_title_second_page"><![CDATA[プライベート ・安全]]></string>
-  <string name="intro_title_third_page">単純な &amp; 簡単</string>
+  <string name="intro_title_third_page">シンプル&amp;簡単</string>
   <string name="intro_message_first_page">アプリ経済革命へようこそ。</string>
   <string name="intro_message_second_page">プライベートキーを、お使いのデバイスにて放置したままにしないでください。</string>
   <string name="intro_message_third_page">すべてのアプリ内の支払いと APPC で報酬を処理します。</string>
@@ -114,7 +114,7 @@
   <string name="button_ok">わかりました</string>
   <string name="hint_recipient_address">受取人のアドレス</string>
   <string name="hint_amount">量</string>
-  <string name="hint_amount_with_token">量 %s</string>
+  <string name="hint_amount_with_token">%s 量</string>
   <string name="hint_contract_address">契約アドレス</string>
   <string name="hint_contract_symbol">シンボル</string>
   <string name="hint_contract_decimals">小数点以下の桁数</string>
