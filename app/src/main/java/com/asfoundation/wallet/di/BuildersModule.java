@@ -2,6 +2,7 @@ package com.asfoundation.wallet.di;
 
 import com.asfoundation.wallet.advertise.WalletPoAService;
 import com.asfoundation.wallet.permissions.PermissionFragment;
+import com.asfoundation.wallet.permissions.PermissionsActivity;
 import com.asfoundation.wallet.ui.AddTokenActivity;
 import com.asfoundation.wallet.ui.ConfirmationActivity;
 import com.asfoundation.wallet.ui.Erc681Receiver;
@@ -54,6 +55,8 @@ import dagger.android.ContributesAndroidInjector;
 
   @ActivityScope @ContributesAndroidInjector(modules = MyAddressModule.class)
   abstract MyAddressActivity bindMyAddressModule();
+
+  @ActivityScope @ContributesAndroidInjector abstract PermissionsActivity bindPermissionsActivity();
 
   @ActivityScope @ContributesAndroidInjector(modules = ConfirmationModule.class)
   abstract ConfirmationActivity bindConfirmationModule();

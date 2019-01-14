@@ -17,4 +17,19 @@ class PermissionsInteractor(private val permissions: Permissions,
           .andThen(Single.just(it.address))
     }
   }
+
+  fun hasPermission(packageName: String, apkSignature: String,
+                    permission: PermissionName): Single<Permission> {
+    return walletInteract.find()
+        .flatMap { wallet ->
+          Single.just(permissions.getPermissions(wallet.address, packageName, apkSignature)).map {
+            for (permissionName in it) {
+              if (permissionName == permission) {
+                return@map Permission(wallet.address, true)
+              }
+            }
+            return@map Permission(wallet.address, false)
+          }
+        }
+  }
 }

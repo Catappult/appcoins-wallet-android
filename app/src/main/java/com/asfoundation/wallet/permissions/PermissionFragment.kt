@@ -43,7 +43,8 @@ class PermissionFragment : DaggerFragment(), PermissionFragmentView {
     super.onCreate(savedInstanceState)
     val permission: PermissionName = arguments?.getSerializable(PERMISSION_KEY) as PermissionName
     presenter = PermissionsFragmentPresenter(this, permissionsInteractor,
-        arguments?.getString(CALLING_PACKAGE)!!, permission, "", CompositeDisposable(),
+        arguments?.getString(CALLING_PACKAGE)!!, permission,
+        arguments?.getString(APK_SIGNATURE_KEY)!!, CompositeDisposable(),
         AndroidSchedulers.mainThread())
   }
 
@@ -71,6 +72,11 @@ class PermissionFragment : DaggerFragment(), PermissionFragmentView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    presenter.present(savedInstanceState == null)
+    presenter.present()
+  }
+
+  override fun onDestroyView() {
+    presenter.stop()
+    super.onDestroyView()
   }
 }

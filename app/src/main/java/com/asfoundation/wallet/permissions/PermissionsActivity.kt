@@ -7,6 +7,9 @@ import android.os.Bundle
 import com.appcoins.wallet.permissions.PermissionName
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
+import dagger.android.AndroidInjection
+import io.reactivex.disposables.CompositeDisposable
+import javax.inject.Inject
 
 
 class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionFragmentNavigator {
@@ -15,14 +18,22 @@ class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionF
     private const val PERMISSION_NAME_KEY = "PERMISSION_NAME_KEY"
   }
 
-  private lateinit var permissionsActivityPresenter: PermissionsActivityPresenter
+  @Inject
+  lateinit var permissionsInteractor: PermissionsInteractor
+  private lateinit var presenter: PermissionsActivityPresenter
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_permissions_layout)
-    permissionsActivityPresenter =
-        PermissionsActivityPresenter(this, callingPackage, getSignature(callingPackage),
-            getPermission())
-    permissionsActivityPresenter.present(savedInstanceState == null)
+    AndroidInjection.inject(this)
+    presenter =
+        PermissionsActivityPresenter(this, permissionsInteractor, callingPackage,
+            getSignature(callingPackage), getPermission(), CompositeDisposable())
+    presenter.present(savedInstanceState == null)
+  }
+
+  override fun onDestroy() {
+    presenter.stop()
+    super.onDestroy()
   }
 
   private fun getSignature(callingPackage: String): String {
