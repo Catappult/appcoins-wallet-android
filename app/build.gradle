@@ -257,6 +257,7 @@ dependencies {
   implementation project(path: ':appcoinsRewards')
   implementation project(path: ':commons')
   implementation project(path: ':gamification')
+  implementation project(path: ':permissions')
 
   implementation 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:27.1.0'
 }

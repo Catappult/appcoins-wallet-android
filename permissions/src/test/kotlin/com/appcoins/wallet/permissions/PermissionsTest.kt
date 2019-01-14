@@ -20,47 +20,53 @@ class PermissionsTest {
     private const val PACKAGE_NAME = "com.appcoins.wallet"
     private const val APK_SIGNATURE = "apk signature"
     private const val WRONG_APK_SIGNATURE = "wrong apk signature"
+    private const val WALLET_ADDRESS = "wallet_address"
   }
 
   @Test
   fun grantPermission() {
-    permissions.grantPermission(PACKAGE_NAME, APK_SIGNATURE, PermissionName.WALLET)
-    permissions.grantPermission(PACKAGE_NAME, APK_SIGNATURE, PermissionName.LEVEL)
+    permissions.grantPermission(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE,
+        PermissionName.WALLET)
+    permissions.grantPermission(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE, PermissionName.LEVEL)
     Assert.assertEquals("permissions different from expected",
         listOf(PermissionName.WALLET, PermissionName.LEVEL),
-        permissions.getPermissions(PACKAGE_NAME, APK_SIGNATURE))
+        permissions.getPermissions(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE))
   }
 
   @Test(expected = SecurityException::class)
   fun grantPermissionWrongApkSignature() {
-    permissions.grantPermission(PACKAGE_NAME, APK_SIGNATURE, PermissionName.WALLET)
-    permissions.grantPermission(PACKAGE_NAME, WRONG_APK_SIGNATURE, PermissionName.LEVEL)
+    permissions.grantPermission(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE,
+        PermissionName.WALLET)
+    permissions.grantPermission(WALLET_ADDRESS, PACKAGE_NAME, WRONG_APK_SIGNATURE,
+        PermissionName.LEVEL)
   }
 
   @Test(expected = SecurityException::class)
   fun getPermissionWrongApkSignature() {
-    permissions.grantPermission(PACKAGE_NAME, APK_SIGNATURE, PermissionName.WALLET)
-    permissions.getPermissions(PACKAGE_NAME, WRONG_APK_SIGNATURE)
+    permissions.grantPermission(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE,
+        PermissionName.WALLET)
+    permissions.getPermissions(WALLET_ADDRESS, PACKAGE_NAME, WRONG_APK_SIGNATURE)
   }
 
   @Test
   fun getPermissionNotExistentApp() {
     Assert.assertEquals(emptyList<PermissionName>(),
-        permissions.getPermissions(PACKAGE_NAME, WRONG_APK_SIGNATURE))
+        permissions.getPermissions(WALLET_ADDRESS, PACKAGE_NAME, WRONG_APK_SIGNATURE))
   }
 
   @Test
   fun revokePermission() {
-    permissions.grantPermission(PACKAGE_NAME, APK_SIGNATURE, PermissionName.WALLET)
-    permissions.revokePermission(PACKAGE_NAME, PermissionName.WALLET)
+    permissions.grantPermission(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE,
+        PermissionName.WALLET)
+    permissions.revokePermission(WALLET_ADDRESS, PACKAGE_NAME, PermissionName.WALLET)
     Assert.assertEquals(emptyList<PermissionName>(),
-        permissions.getPermissions(PACKAGE_NAME, APK_SIGNATURE))
+        permissions.getPermissions(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE))
   }
 
   @Test
   fun revokePermissionNotExistentApp() {
-    permissions.revokePermission(PACKAGE_NAME, PermissionName.WALLET)
+    permissions.revokePermission(WALLET_ADDRESS, PACKAGE_NAME, PermissionName.WALLET)
     Assert.assertEquals(emptyList<PermissionName>(),
-        permissions.getPermissions(PACKAGE_NAME, APK_SIGNATURE))
+        permissions.getPermissions(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE))
   }
 }

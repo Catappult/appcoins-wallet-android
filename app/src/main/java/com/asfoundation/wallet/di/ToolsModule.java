@@ -23,6 +23,7 @@ import com.appcoins.wallet.commons.MemoryCache;
 import com.appcoins.wallet.gamification.Gamification;
 import com.appcoins.wallet.gamification.repository.BdsGamificationRepository;
 import com.appcoins.wallet.gamification.repository.GamificationApi;
+import com.appcoins.wallet.permissions.Permissions;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxyBuilder;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk;
 import com.asf.wallet.BuildConfig;
@@ -774,6 +775,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides LevelResourcesMapper providesLevelResourcesMapper() {
     return new LevelResourcesMapper();
+  }
+
+  @Singleton @Provides Permissions providesPermissions() {
+    return new Permissions(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()));
   }
 
   @Singleton @Provides AddressService providesAddressService(InstallerService installerService,
