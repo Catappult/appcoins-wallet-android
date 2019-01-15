@@ -168,7 +168,7 @@
   <string name="token_name">%1$s (%2$s)</string>
   <string name="new_transaction_value">-%1$s %2$s</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">我々はAppCoinsウォレットの開発をブートストラップするために、Android用Trust Walletプロジェクトを立ち上げました。 私たちは、既に実装されている機能に関して、これを最善の選択肢と考えました。 私たちは、関連性があるとみなされる実装と作業に貢献する意図でそれをフォークしました。</string>
+  <string name="settings_fragment_credits">我々はAppCoins Wallet開発をブートストラップするために、Android用のTrust Walletプロジェクトを分岐しました。すでに実装されている機能に関しては、こちらを最善の方法と見なしました。関連性があると考えられる実装と作業に貢献するという意図で、分岐決断をしました。</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">進行中の取引</string>
   <string name="activity_aib_loading_message">これは、処理には時間がかかることがあります...</string>
