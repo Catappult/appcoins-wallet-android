@@ -54,14 +54,13 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
       view = layoutInflater.inflate(R.layout.fragment_gamification_how_it_works_level,
           fragment_gamification_how_it_works_levels_layout, false)
       view.findViewById<TextView>(R.id.message).text =
-          getString(R.string.gamification_how_spend
+          getString(R.string.gamification_how_table_a2
               , level.amount)
       view.findViewById<TextView>(R.id.bonus).text =
-          getString(R.string.gamification_level_bonus, level.bonus.toString())
+          getString(R.string.gamification_how_table_b2, level.bonus.toString())
       view.findViewById<ImageView>(R.id.ic_level).setImageResource(levelResourcesMapper.mapDarkIcons(level))
       (fragment_gamification_how_it_works_levels_layout as LinearLayout).addView(view)
     }
-    view?.findViewById<View>(R.id.divider)?.visibility = View.GONE
   }
 
   override fun close() {
