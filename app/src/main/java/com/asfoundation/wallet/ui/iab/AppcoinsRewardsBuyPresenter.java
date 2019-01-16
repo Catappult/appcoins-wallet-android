@@ -19,7 +19,6 @@ public class AppcoinsRewardsBuyPresenter {
   private final Scheduler scheduler;
   private final CompositeDisposable disposables;
   private final BigDecimal amount;
-  private final String storeAddress;
   private final String oemAddress;
   private final String uri;
   private final String packageName;
@@ -31,16 +30,15 @@ public class AppcoinsRewardsBuyPresenter {
   private final InAppPurchaseInteractor inAppPurchaseInteractor;
 
   public AppcoinsRewardsBuyPresenter(AppcoinsRewardsBuyView view, RewardsManager rewardsManager,
-      Scheduler scheduler, CompositeDisposable disposables, BigDecimal amount, String storeAddress,
-      String oemAddress, String uri, String packageName, TransferParser transferParser,
-      String productName, boolean isBds, BillingAnalytics analytics,
-      TransactionBuilder transactionBuilder, InAppPurchaseInteractor inAppPurchaseInteractor) {
+      Scheduler scheduler, CompositeDisposable disposables, BigDecimal amount, String oemAddress,
+      String uri, String packageName, TransferParser transferParser, String productName,
+      boolean isBds, BillingAnalytics analytics, TransactionBuilder transactionBuilder,
+      InAppPurchaseInteractor inAppPurchaseInteractor) {
     this.view = view;
     this.rewardsManager = rewardsManager;
     this.scheduler = scheduler;
     this.disposables = disposables;
     this.amount = amount;
-    this.storeAddress = storeAddress;
     this.oemAddress = oemAddress;
     this.uri = uri;
     this.packageName = packageName;
@@ -88,7 +86,7 @@ public class AppcoinsRewardsBuyPresenter {
     disposables.add(view.getBuyClick()
         .flatMapSingle(__ -> transferParser.parse(uri))
         .flatMapCompletable(transaction -> rewardsManager.pay(transaction.getSkuId(), amount,
-            transaction.toAddress(), storeAddress, oemAddress, packageName,
+            transaction.toAddress(), oemAddress, packageName,
             isBds ? Transaction.Origin.BDS : Transaction.Origin.UNKNOWN, transaction.getType(),
             transaction.getPayload(), transaction.getCallbackUrl(), transaction.getOrderReference())
             .andThen(rewardsManager.getPaymentStatus(packageName, transaction.getSkuId(),

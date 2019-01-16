@@ -1,5 +1,6 @@
 package com.appcoins.wallet.appcoins.rewards
 
+import com.appcoins.wallet.appcoins.rewards.repository.AddressService
 import com.appcoins.wallet.appcoins.rewards.repository.BdsAppcoinsRewardsRepository
 import com.appcoins.wallet.appcoins.rewards.repository.BdsRemoteApi
 import com.appcoins.wallet.appcoins.rewards.repository.WalletService
@@ -96,7 +97,11 @@ class AppcoinsRewardsTest {
 
           }
         }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), scheduler, billing
-            , ErrorMapper(), transactionIdRepository)
+            , ErrorMapper(), transactionIdRepository, object : AddressService {
+          override fun getWalletAddress(packageName: String): Single<String> {
+            return Single.just(STORE_ADDRESS)
+          }
+        })
     appcoinsRewards.start()
   }
 
@@ -106,7 +111,6 @@ class AppcoinsRewardsTest {
     appcoinsRewards.pay(PRICE,
         ORIGIN,
         SKU, TYPE, DEVELOPER_ADDRESS,
-        STORE_ADDRESS,
         OEM_ADDRESS,
         PACKAGE_NAME,
         null,
@@ -117,9 +121,9 @@ class AppcoinsRewardsTest {
     scheduler.triggerActions()
     testObserver.assertNoErrors().assertComplete()
     val mutableListOf = mutableListOf(
-        Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
+        Transaction(SKU, TYPE, DEVELOPER_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
             PRICE, ORIGIN, Transaction.Status.PROCESSING, null, null, null, null),
-        Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
+        Transaction(SKU, TYPE, DEVELOPER_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
             PRICE, ORIGIN, Transaction.Status.COMPLETED, "0x32453134", null, null, null))
     statusObserver.assertNoErrors().assertValueSequence(mutableListOf)
   }

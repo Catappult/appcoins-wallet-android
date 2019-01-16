@@ -3,23 +3,27 @@ package com.asfoundation.wallet.repository;
 import com.appcoins.wallet.bdsbilling.AuthorizationProof;
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
 import com.asf.wallet.BuildConfig;
+import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import io.reactivex.Completable;
+import io.reactivex.Single;
 import java.math.BigDecimal;
 
 public class ApproveTransactionValidatorBds implements TransactionValidator {
   private final SendTransactionInteract sendTransactionInteract;
   private final BillingPaymentProofSubmission billingPaymentProofSubmission;
+  private final AddressService partnerAddressService;
 
   public ApproveTransactionValidatorBds(SendTransactionInteract sendTransactionInteract,
-      BillingPaymentProofSubmission billingPaymentProofSubmission) {
+      BillingPaymentProofSubmission billingPaymentProofSubmission,
+      AddressService partnerAddressService) {
     this.sendTransactionInteract = sendTransactionInteract;
     this.billingPaymentProofSubmission = billingPaymentProofSubmission;
+    this.partnerAddressService = partnerAddressService;
   }
 
   @Override public Completable validate(PaymentTransaction paymentTransaction) {
     String packageName = paymentTransaction.getPackageName();
-    String storeAddress = BuildConfig.DEFAULT_STORE_ADDRESS;
     String oemAddress = BuildConfig.DEFAULT_OEM_ADDRESS;
     String developerAddress = paymentTransaction.getTransactionBuilder()
         .toAddress();
@@ -29,10 +33,14 @@ public class ApproveTransactionValidatorBds implements TransactionValidator {
         .getType();
     BigDecimal priceValue = paymentTransaction.getTransactionBuilder()
         .amount();
-    return sendTransactionInteract.computeApproveTransactionHash(
-        paymentTransaction.getTransactionBuilder())
-        .map(hash -> new AuthorizationProof("appcoins", hash, productName, packageName, priceValue,
-            storeAddress, oemAddress, developerAddress, type, "BDS",
+    Single<String> getTransactionHash = sendTransactionInteract.computeApproveTransactionHash(
+        paymentTransaction.getTransactionBuilder());
+    Single<String> getStoreAddress =
+        partnerAddressService.getStoreAddressForPackage(paymentTransaction.getPackageName());
+
+    return Single.zip(getTransactionHash, getStoreAddress,
+        (hash, storeAddress) -> new AuthorizationProof("appcoins", hash, productName, packageName,
+            priceValue, storeAddress, oemAddress, developerAddress, type, "BDS",
             paymentTransaction.getDeveloperPayload(), paymentTransaction.getCallbackUrl(),
             paymentTransaction.getTransactionBuilder()
                 .getOrderReference()))
