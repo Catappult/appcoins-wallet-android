@@ -4,10 +4,12 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import com.appcoins.wallet.permissions.PermissionName
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
 import dagger.android.AndroidInjection
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
@@ -27,7 +29,8 @@ class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionF
     AndroidInjection.inject(this)
     presenter =
         PermissionsActivityPresenter(this, permissionsInteractor, callingPackage,
-            getSignature(callingPackage), getPermission(), CompositeDisposable())
+            getSignature(callingPackage), getPermission(), CompositeDisposable(),
+            AndroidSchedulers.mainThread())
     presenter.present(savedInstanceState == null)
   }
 
@@ -64,10 +67,15 @@ class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionF
 
   override fun showPermissionFragment(callingPackage: String,
                                       permission: PermissionName, apkSignature: String) {
-    supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container,
-            PermissionFragment.newInstance(callingPackage, apkSignature, permission))
-        .commit()
+    showFragment(PermissionFragment.newInstance(callingPackage, apkSignature, permission))
+  }
+
+  override fun showWalletCreation() {
+    showFragment(CreateWalletFragment.newInstance())
+  }
+
+  private fun showFragment(fragment: Fragment) {
+    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit()
   }
 
 }

@@ -7,4 +7,5 @@ interface PermissionsActivityView {
                              apkSignature: String)
 
   fun closeSuccess(walletAddress: String)
+  fun showWalletCreation()
 }
