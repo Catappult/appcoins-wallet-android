@@ -58,6 +58,7 @@ import com.asfoundation.wallet.billing.purchase.BillingFactory;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.BalanceGetter;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
+import com.asfoundation.wallet.interact.CreateWalletInteract;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchCreditsInteract;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
@@ -755,6 +756,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .setDebugLogger(new LogcatAnalyticsLogger())
         .setKnockLogger(new HttpClientKnockLogger(okHttpClient))
         .build();
+  }
+
+  @Provides CreateWalletInteract provideCreateAccountInteract(
+      WalletRepositoryType accountRepository, PasswordStore passwordStore) {
+    return new CreateWalletInteract(accountRepository, passwordStore);
   }
 
   @Singleton @Provides BillingAnalytics provideBillingAnalytics(AnalyticsManager analytics) {
