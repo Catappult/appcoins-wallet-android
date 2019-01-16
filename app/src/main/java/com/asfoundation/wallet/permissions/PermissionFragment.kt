@@ -14,8 +14,11 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_permissions_layout.*
+import kotlinx.android.synthetic.main.provide_wallet_always_allow_wallet_apps_layout.*
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class PermissionFragment : DaggerFragment(), PermissionFragmentView {
@@ -60,18 +63,24 @@ class PermissionFragment : DaggerFragment(), PermissionFragmentView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    main_view.visibility = View.INVISIBLE
     presenter.present()
   }
 
   override fun showAppData(packageName: String) {
     disposable?.dispose()
-    disposable = Single.fromCallable { appDateProvider.getAppInfo(packageName) }
-        .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-        .subscribe { app ->
+    disposable = Single.zip(Single.timer(500, TimeUnit.MILLISECONDS),
+        Single.fromCallable { appDateProvider.getAppInfo(packageName) },
+        BiFunction { _: Long, app: AndroidAppDateProvider.ApplicationInfo -> app })
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .doOnSuccess { app ->
           provide_wallet_always_allow_app_icon.setImageDrawable(app.icon)
           provide_wallet_always_allow_body.text =
               getString(R.string.provide_wallet_body, app.appName)
-        }
+          progress.visibility = View.GONE
+          main_view.visibility = View.VISIBLE
+        }.subscribe()
   }
 
   override fun showWalletAddress(wallet: String) {

@@ -2,25 +2,32 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/background_card"
     >
-  <ImageView
-      android:id="@+id/provide_wallet_always_allow_app_icon"
-      android:layout_width="200dp"
-      android:layout_height="200dp"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+  <include
+      layout="@layout/provide_wallet_always_allow_wallet_apps_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
       />
+
   <TextView
       android:id="@+id/provide_wallet_always_allow_body"
-      android:layout_width="wrap_content"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="16dp"
+      android:ellipsize="end"
+      android:gravity="center"
+      android:maxLines="3"
+      app:layout_constraintBottom_toTopOf="@id/provide_wallet_always_allow_button"
+      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/provide_wallet_always_allow_app_icon"
+      app:layout_constraintTop_toBottomOf="@id/provide_wallet_always_allow_wallet_icon"
+      tools:text="@string/provide_wallet_body"
       style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
       />
 
@@ -28,39 +35,92 @@
       android:id="@+id/provide_wallet_always_allow_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
       android:text="@string/provide_wallet_always_allow_button"
-      app:layout_constraintBottom_toTopOf="@+id/provide_wallet_allow_once_button"
+      app:layout_constraintBottom_toTopOf="@id/provide_wallet_allow_once_button"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/provide_wallet_always_allow_body"
+      style="@style/ButtonStyle"
       />
   <Button
       android:id="@+id/provide_wallet_allow_once_button"
-      android:layout_width="wrap_content"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
       android:text="@string/provide_wallet_allow_once_button"
       app:layout_constraintBottom_toTopOf="@id/provide_wallet_cancel"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="@id/provide_wallet_always_allow_button"
+      app:layout_constraintStart_toStartOf="@id/provide_wallet_always_allow_button"
       app:layout_constraintTop_toBottomOf="@id/provide_wallet_always_allow_button"
+      style="@style/ButtonStyle.Light"
       />
 
   <Button
       android:id="@+id/provide_wallet_cancel"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_marginEnd="8dp"
+      android:layout_marginTop="16dp"
       android:text="@string/provide_wallet_cancel"
+      app:layout_constraintBottom_toTopOf="@id/footer_layout"
       app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="1"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/provide_wallet_allow_once_button"
+      style="@style/CancelButtonStyle"
       />
 
-  <TextView
-      android:id="@+id/provide_wallet_always_allow_app_wallet_address"
-      android:layout_width="wrap_content"
+  <RelativeLayout
+      android:id="@+id/footer_layout"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/provide_wallet_always_allow_app_icon"
+      app:layout_constraintTop_toBottomOf="@id/provide_wallet_cancel"
+      >
+    <ImageView
+        android:id="@+id/logo_wallet"
+        android:layout_width="76dp"
+        android:layout_height="16dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="7dp"
+        android:src="@drawable/logo_appc_wallet"
+        />
+
+    <TextView
+        android:id="@+id/provide_wallet_always_allow_app_wallet_address"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@id/logo_wallet"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:textColor="@color/grey_8a_alpha"
+        android:textSize="12sp"
+        tools:text="0x0eebe100e4866204497d78d93a1071941dce70a4"
+        />
+  </RelativeLayout>
+
+  <android.support.constraint.Group
+      android:id="@+id/main_view"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:constraint_referenced_ids="provide_wallet_always_allow_wallet_icon,dot1,dot2,dot3,dot4,provide_wallet_always_allow_app_icon,provide_wallet_always_allow_body,provide_wallet_always_allow_button,provide_wallet_allow_once_button,provide_wallet_cancel,footer_layout"
+      />
+
+  <ProgressBar
+      android:id="@+id/progress"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       />
 </android.support.constraint.ConstraintLayout>

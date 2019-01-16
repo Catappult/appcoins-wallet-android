@@ -10,7 +10,7 @@ class PermissionsFragmentPresenter(
     private val packageName: String,
     private val permissionName: PermissionName,
     private val apkSignature: String,
-    private val disposables: CompositeDisposable, private val scheduler: Scheduler) {
+    private val disposables: CompositeDisposable, private val viewScheduler: Scheduler) {
 
   fun present() {
     handleAllowButtonClick()
@@ -21,9 +21,12 @@ class PermissionsFragmentPresenter(
 
   private fun setupUi() {
     disposables.add(
-        permissionsInteractor.getWalletAddress().subscribe { wallet ->
-          view.showWalletAddress(wallet)
-        })
+        permissionsInteractor.getWalletAddress()
+            .observeOn(viewScheduler)
+            .subscribe { wallet ->
+              view.showWalletAddress(wallet)
+            })
+
     view.showAppData(packageName)
   }
 
@@ -37,15 +40,18 @@ class PermissionsFragmentPresenter(
     disposables.add(
         view.getAllowOnceClick().flatMapSingle {
           permissionsInteractor.getWalletAddress()
+              .observeOn(viewScheduler)
         }.doOnNext { view.closeSuccess(it) }
             .subscribe())
   }
 
   private fun handleAllowButtonClick() {
-    disposables.add(view.getAllowButtonClick().flatMapSingle {
-      permissionsInteractor.grantPermission(packageName, apkSignature, permissionName)
-    }.observeOn(scheduler).doOnNext { view.closeSuccess(it) }.subscribe()
-    )
+    disposables.add(view.getAllowButtonClick()
+        .flatMapSingle {
+          permissionsInteractor.grantPermission(packageName, apkSignature, permissionName)
+        }.observeOn(viewScheduler)
+        .doOnNext { view.closeSuccess(it) }
+        .subscribe())
   }
 
   fun stop() {
