@@ -52,6 +52,12 @@ class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionF
     finish()
   }
 
+  override fun closeCancel() {
+    val intent = Intent()
+    setResult(Activity.RESULT_CANCELED, intent)
+    finish()
+  }
+
   private fun getPermission(): PermissionName {
     return PermissionName.valueOf(intent.extras[PERMISSION_NAME_KEY] as String)
   }

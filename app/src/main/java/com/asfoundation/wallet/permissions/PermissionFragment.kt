@@ -52,6 +52,18 @@ class PermissionFragment : DaggerFragment(), PermissionFragmentView {
     return RxView.clicks(provide_wallet_always_allow_button)
   }
 
+  override fun getAllowOnceClick(): Observable<Any> {
+    return RxView.clicks(provide_wallet_allow_once_button)
+  }
+
+  override fun getCancelClick(): Observable<Any> {
+    return RxView.clicks(provide_wallet_cancel)
+  }
+
+  override fun closeCancel() {
+    navigator.closeCancel()
+  }
+
   override fun onAttach(context: Context?) {
     super.onAttach(context)
     when (context) {

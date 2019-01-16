@@ -14,6 +14,22 @@ class PermissionsFragmentPresenter(
 
   fun present() {
     handleAllowButtonClick()
+    handleAllowOnceClick()
+    handleCancelClick()
+  }
+
+  private fun handleCancelClick() {
+    disposables.add(
+        view.getCancelClick().doOnNext { view.closeCancel() }
+            .subscribe())
+  }
+
+  private fun handleAllowOnceClick() {
+    disposables.add(
+        view.getAllowOnceClick().flatMapSingle {
+          permissionsInteractor.getWalletAddress()
+        }.doOnNext { view.closeSuccess(it) }
+            .subscribe())
   }
 
   private fun handleAllowButtonClick() {

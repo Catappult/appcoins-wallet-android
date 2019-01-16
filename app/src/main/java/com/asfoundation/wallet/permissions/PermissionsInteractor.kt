@@ -32,4 +32,8 @@ class PermissionsInteractor(private val permissions: Permissions,
           }
         }
   }
+
+  fun getWalletAddress(): Single<String> {
+    return walletInteract.find().map { it.address }
+  }
 }
