@@ -2,6 +2,7 @@ package com.asfoundation.wallet.advertise;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
@@ -19,6 +20,7 @@ import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofSubmissionFeeData;
+import com.asfoundation.wallet.ui.TransactionsActivity;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
@@ -192,8 +194,13 @@ public class WalletPoAService extends Service {
             createDefaultNotificationBuilder(R.string.notification_submitting_poa).build());
         break;
       case COMPLETED:
+        Intent intent = TransactionsActivity.newIntent(this);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         notificationManager.notify(SERVICE_ID,
-            createDefaultNotificationBuilder(R.string.notification_completed_poa).build());
+            createDefaultNotificationBuilder(R.string.notification_completed_poa).setContentIntent(
+                pendingIntent)
+                .build());
         break;
       case NO_INTERNET:
         notificationManager.notify(SERVICE_ID,
