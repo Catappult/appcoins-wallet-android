@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.permissions
 
+import com.jakewharton.rxrelay2.BehaviorRelay
 import io.reactivex.Observable
 
 interface CreateWalletView {
@@ -7,4 +8,7 @@ interface CreateWalletView {
   fun closeSuccess()
   fun getCancelClick(): Observable<Any>
   fun closeCancel()
+  fun showLoading()
+  fun getFinishAnimationFinishEvent(): BehaviorRelay<Any>
+  fun showFinishAnimation()
 }

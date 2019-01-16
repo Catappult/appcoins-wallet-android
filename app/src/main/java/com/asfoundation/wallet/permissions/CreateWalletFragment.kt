@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.permissions
 
+import android.animation.Animator
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +9,10 @@ import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.CreateWalletInteract
 import com.jakewharton.rxbinding2.view.RxView
+import com.jakewharton.rxrelay2.BehaviorRelay
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_create_wallet_layout.*
 import javax.inject.Inject
@@ -25,11 +28,13 @@ class CreateWalletFragment : DaggerFragment(), CreateWalletView {
   lateinit var interactor: CreateWalletInteract
 
   private lateinit var presenter: CreateWalletPresenter
-
   private lateinit var navigator: CreateWalletNavigator
+  private lateinit var finishAnimationFinishEvent: BehaviorRelay<Any>
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = CreateWalletPresenter(this, CompositeDisposable(), interactor)
+    presenter = CreateWalletPresenter(this, CompositeDisposable(), interactor,
+        AndroidSchedulers.mainThread())
+    finishAnimationFinishEvent = BehaviorRelay.create()
   }
 
   override fun onAttach(context: Context?) {
@@ -53,6 +58,9 @@ class CreateWalletFragment : DaggerFragment(), CreateWalletView {
 
   override fun onDestroyView() {
     presenter.stop()
+    create_wallet_animation.removeAllAnimatorListeners()
+    create_wallet_animation.removeAllUpdateListeners()
+    create_wallet_animation.removeAllLottieOnCompositionLoadedListener()
     super.onDestroyView()
   }
 
@@ -68,7 +76,37 @@ class CreateWalletFragment : DaggerFragment(), CreateWalletView {
     navigator.closeSuccess()
   }
 
+  override fun showFinishAnimation() {
+    create_wallet_animation.setAnimation(R.raw.create_wallet_finish_animation)
+    create_wallet_animation.playAnimation()
+    create_wallet_animation.repeatCount = 0
+    create_wallet_animation.addAnimatorListener(object : Animator.AnimatorListener {
+      override fun onAnimationRepeat(animation: Animator?) {
+      }
+
+      override fun onAnimationEnd(animation: Animator?) {
+        finishAnimationFinishEvent.accept(Any())
+      }
+
+      override fun onAnimationCancel(animation: Animator?) {
+      }
+
+      override fun onAnimationStart(animation: Animator?) {
+      }
+    })
+  }
+
+  override fun getFinishAnimationFinishEvent(): BehaviorRelay<Any> {
+    return finishAnimationFinishEvent
+  }
+
   override fun closeCancel() {
     navigator.closeCancel()
+  }
+
+  override fun showLoading() {
+    create_wallet_group.visibility = View.INVISIBLE
+    create_wallet_animation.visibility = View.VISIBLE
+    create_wallet_animation.playAnimation()
   }
 }

@@ -51,6 +51,7 @@ project.ext {
   roomVersion = "1.1.1"
   appcoinsSdkVersion = "0.4.5.19b"
   jacksonVersion = "2.9.6"
+  lottieVersion = "2.7.0"
 }
 
 task clean(type: Delete) {

@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
     android:background="@drawable/background_card"
     android:padding="16dp"
     >
@@ -63,5 +64,24 @@
       app:layout_constraintTop_toTopOf="@id/provide_wallet_create_wallet_button"
       style="@style/CancelButtonStyle"
       />
+  <android.support.constraint.Group
+      android:id="@+id/create_wallet_group"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:constraint_referenced_ids="provide_wallet_create_wallet_icon,provide_wallet_create_body,provide_wallet_create_wallet_button,provide_wallet_cancel"
+      />
 
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/create_wallet_animation"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/create_wallet_loading_animation"
+      />
 </android.support.constraint.ConstraintLayout>

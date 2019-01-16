@@ -260,6 +260,7 @@ dependencies {
   implementation project(path: ':permissions')
 
   implementation 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:27.1.0'
+  implementation "com.airbnb.android:lottie:$lottieVersion"
 }
 
 def renameArtifact(defaultConfig) {
