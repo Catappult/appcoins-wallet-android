@@ -6,6 +6,24 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_card"
     >
+  <ImageView
+      android:id="@+id/provide_wallet_always_allow_app_icon"
+      android:layout_width="200dp"
+      android:layout_height="200dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+  <TextView
+      android:id="@+id/provide_wallet_always_allow_body"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/provide_wallet_always_allow_app_icon"
+      style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
+      />
+
   <Button
       android:id="@+id/provide_wallet_always_allow_button"
       android:layout_width="wrap_content"
@@ -35,5 +53,14 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/provide_wallet_allow_once_button"
+      />
+
+  <TextView
+      android:id="@+id/provide_wallet_always_allow_app_wallet_address"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/provide_wallet_always_allow_app_icon"
       />
 </android.support.constraint.ConstraintLayout>

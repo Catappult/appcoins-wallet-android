@@ -10,8 +10,11 @@ import com.asf.wallet.R
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_permissions_layout.*
 import javax.inject.Inject
 
@@ -34,10 +37,12 @@ class PermissionFragment : DaggerFragment(), PermissionFragmentView {
     }
   }
 
+  lateinit var appDateProvider: AndroidAppDateProvider
   @Inject
   lateinit var permissionsInteractor: PermissionsInteractor
-  lateinit var navigator: PermissionFragmentNavigator
+  private lateinit var navigator: PermissionFragmentNavigator
   private lateinit var presenter: PermissionsFragmentPresenter
+  private var disposable: Disposable? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -46,6 +51,31 @@ class PermissionFragment : DaggerFragment(), PermissionFragmentView {
         arguments?.getString(CALLING_PACKAGE)!!, permission,
         arguments?.getString(APK_SIGNATURE_KEY)!!, CompositeDisposable(),
         AndroidSchedulers.mainThread())
+  }
+
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                            savedInstanceState: Bundle?): View? {
+    return inflater.inflate(R.layout.fragment_permissions_layout, container, false)
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    presenter.present()
+  }
+
+  override fun showAppData(packageName: String) {
+    disposable?.dispose()
+    disposable = Single.fromCallable { appDateProvider.getAppInfo(packageName) }
+        .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        .subscribe { app ->
+          provide_wallet_always_allow_app_icon.setImageDrawable(app.icon)
+          provide_wallet_always_allow_body.text =
+              getString(R.string.provide_wallet_body, app.appName)
+        }
+  }
+
+  override fun showWalletAddress(wallet: String) {
+    provide_wallet_always_allow_app_wallet_address.text = wallet
   }
 
   override fun getAllowButtonClick(): Observable<Any> {
@@ -67,7 +97,10 @@ class PermissionFragment : DaggerFragment(), PermissionFragmentView {
   override fun onAttach(context: Context?) {
     super.onAttach(context)
     when (context) {
-      is PermissionFragmentNavigator -> navigator = context
+      is PermissionFragmentNavigator -> {
+        navigator = context
+        appDateProvider = AndroidAppDateProvider(context)
+      }
       else -> throw IllegalArgumentException(
           "${PermissionFragment::class} has to be attached to an activity that implements ${PermissionFragmentNavigator::class}")
     }
@@ -77,18 +110,9 @@ class PermissionFragment : DaggerFragment(), PermissionFragmentView {
     navigator.closeSuccess(walletAddress)
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_permissions_layout, container, false)
-  }
-
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    presenter.present()
-  }
-
   override fun onDestroyView() {
     presenter.stop()
+    disposable?.dispose()
     super.onDestroyView()
   }
 }

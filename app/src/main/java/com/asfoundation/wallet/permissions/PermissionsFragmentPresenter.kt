@@ -16,6 +16,15 @@ class PermissionsFragmentPresenter(
     handleAllowButtonClick()
     handleAllowOnceClick()
     handleCancelClick()
+    setupUi()
+  }
+
+  private fun setupUi() {
+    disposables.add(
+        permissionsInteractor.getWalletAddress().subscribe { wallet ->
+          view.showWalletAddress(wallet)
+        })
+    view.showAppData(packageName)
   }
 
   private fun handleCancelClick() {
