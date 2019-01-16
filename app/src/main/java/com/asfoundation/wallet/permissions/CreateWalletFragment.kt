@@ -78,6 +78,7 @@ class CreateWalletFragment : DaggerFragment(), CreateWalletView {
 
   override fun showFinishAnimation() {
     create_wallet_animation.setAnimation(R.raw.create_wallet_finish_animation)
+    create_wallet_text.text = getText(R.string.provide_wallet_created_header)
     create_wallet_animation.playAnimation()
     create_wallet_animation.repeatCount = 0
     create_wallet_animation.addAnimatorListener(object : Animator.AnimatorListener {
@@ -107,6 +108,7 @@ class CreateWalletFragment : DaggerFragment(), CreateWalletView {
   override fun showLoading() {
     create_wallet_group.visibility = View.INVISIBLE
     create_wallet_animation.visibility = View.VISIBLE
+    create_wallet_text.visibility = View.VISIBLE
     create_wallet_animation.playAnimation()
   }
 }
