@@ -153,8 +153,8 @@
   <string name="welcome.erc20.label.title">Compatibel met ERC20</string>
   <string name="welcome.erc20.label.description">Ondersteunt standaard ERC20-tokens.</string>
   <string name="scan_qr">Adres via QR-code verkrijgen</string>
-  <string name="info_gas_price">Hoe hoger de gasprijs, hoe duurder de transactiekosten zijn. Maar in dat geval wordt je transactie sneller door het Ethereum-netwerk verwerkt.</string>
-  <string name="info_gas_limit">De gaslimiet voorkomt dat smart contracts al je Ethereum verbruiken. We zullen proberen om de gaslimiet automatisch voor je te berekenen, maar voor sommige smart contracts is mogelijk een aangepaste gaslimiet vereist.</string>
+  <string name="info_gas_price">Hoe hoger de gasprijs, hoe hoger de transactiekosten zullen zijn. Maar hogere transactiekosten zorgen ervoor dat je transactie sneller door het Ethereum-netwerk wordt verwerkt.</string>
+  <string name="info_gas_limit">De gaslimiet voorkomt dat smart contracts al je Ethereum verbruiken. We zullen proberen om de gaslimiet automatisch voor je te berekenen, maar voor sommige smart contracts geldt mogelijk een aangepaste gaslimiet.</string>
   <string name="title_send_settings">Geavanceerd</string>
   <string name="title_activity_barcode">Barcode scannen</string>
   <string name="error_add_token">Kan token niet toevoegen.</string>
@@ -168,7 +168,7 @@
   <string name="token_name">%1$s (%2$s)</string>
   <string name="new_transaction_value">-%1$s %2$s</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">We hebben een \'fork\' voor het Trust Wallet voor Android-project uitgevoerd om de ontwikkeling van AppCoins-wallet op te starten. We vonden dit het beste alternatief in verband met reeds geïmplementeerde functionaliteiten. We hebben de \'fork\' uitgevoerd met de bedoeling in de andere richting te kunnen bijdragen in de vorm van implementaties en werk dat als relevant wordt beschouwd.</string>
+  <string name="settings_fragment_credits">We hebben een \'fork\' voor het Trust Wallet voor Android-project uitgevoerd om de ontwikkeling van de AppCoins Wallet te kunnen beginnen. We vonden dit het beste alternatief in verband met reeds geïmplementeerde functionaliteiten. We hebben de \'fork\' uitgevoerd met de bedoeling een bijdrage te kunnen leveren in de vorm van implementaties en werk dat als relevant wordt beschouwd.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">Transactie in uitvoering</string>
   <string name="activity_aib_loading_message">Dit kan even duren…</string>
@@ -180,14 +180,14 @@
   <string name="activity_iab_no_funds_message">Niet genoeg ETH en APPC</string>
   <string name="activity_iab_no_ethereum_funds_message">Niet genoeg Ethereum</string>
   <string name="activity_iab_no_token_funds_message">Niet genoeg AppCoins</string>
-  <string name="activity_iab_wrong_network_message">Onjuist Ethereum-netwerk of ongeldige token</string>
+  <string name="activity_iab_wrong_network_message">Onjuist Ethereum-netwerk of onbekende token</string>
   <string name="activity_iab_no_network_message">Geen netwerktoegang</string>
   <string name="activity_iab_nonce_message">Er is een fout in de blockchain opgetreden, probeer het later opnieuw.</string>
   <string name="activity_iab_approving_message">Alle gegevens controleren: saldo, items, netwerk…</string>
   <string name="activity_iab_buying_message">Gegevens gecontroleerd \nJe item wordt ontvangen…</string>
   <string name="notification_ongoing_poa">Je beloning wordt verwerkt</string>
   <string name="notification_completed_poa">Beloning ontvangen, veel plezier!</string>
-  <string name="notification_submitting_poa">Je verzoek wordt bij de blockchain ingediend</string>
+  <string name="notification_submitting_poa">Je verzoek wordt naar de blockchain verzonden</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">Geen netwerkverbinding</string>
   <string name="notification_error_poa">Er is een fout opgetreden</string>
@@ -222,9 +222,9 @@
   <string name="dialog_credit_card_number">Kaartnummer</string>
   <string name="dialog_credit_card_expiration">Vervaldatum</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="activity_airdrop_title">Bevestig dat je geen robot bent om AppCoins te ontvangen</string>
+  <string name="activity_airdrop_title">Bevestig dat je geen robot bent om AppCoins te kunnen ontvangen</string>
   <string name="activity_airdrop_details">Dit is alleen voor de veiligheid.</string>
-  <string name="activity_airdrop_hint">Voer de karakter is die in de afbeelding worden weergegeven</string>
+  <string name="activity_airdrop_hint">Voer de tekens in die worden weergegeven</string>
   <string name="activity_airdrop_submit_btn">Versturen</string>
   <string name="activity_airdrop_wrong_captcha">Onjuiste captcha</string>
   <string name="activity_airdrop_ok">OK</string>
@@ -270,7 +270,7 @@
   <string name="gamification_a_moon_subtitle">Een natuurlijke satelliet</string>
   <string name="gamification_planet_subtitle">Je bent een echte ster</string>
   <string name="gamification_star_subtitle">Groot, glanzend en zeer levendig!</string>
-  <string name="gamification_galaxy_subtitle">Het grootste systeem van allemaal!</string>
+  <string name="gamification_galaxy_subtitle">De grootste van allemaal!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Purchase Bonus:</string>
   <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
