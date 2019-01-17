@@ -129,7 +129,6 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
     fun getPackages(@Path("packageName") packageName: String,
                     @Query("names") names: String): Single<DetailsResponseBody>
 
-    @Headers("Content-Type: application/json")
     @GET("inapp/8.20180518/packages/{packageName}/products/{skuId}/purchase")
     fun getSkuPurchase(@Path("packageName") packageName: String,
                        @Path("skuId") skuId: String,
