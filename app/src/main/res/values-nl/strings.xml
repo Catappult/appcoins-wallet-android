@@ -24,7 +24,7 @@
   <string name="network_label">Netwerk</string>
   <string name="credits">Credits</string>
   <string name="low_storage_error">Er is onvoldoende opslagruimte</string>
-  <string name="no_camera_permission">Om QR codes te scannen heeft AppCoins BDS Wallet toestemming nodig om toegang tot je camera te krijgen.</string>
+  <string name="no_camera_permission">Om QR-codes te scannen heeft AppCoins BDS Wallet toestemming nodig om toegang tot je camera te krijgen.</string>
   <string name="ok">OK</string>
   <string name="barcode_error_format">Ongeldig formaat barcode: %s</string>
   <string name="title_delete_account">Weet je zeker dat je deze wallet wilt verwijderen?</string>
@@ -54,8 +54,8 @@
   <string name="yes_continue">Ja, doorgaan</string>
   <string name="no_repeat">Nee, opnieuw</string>
   <string name="skip">Overslaan</string>
-  <string name="root_title">DE VEILIGHEID VAN HET APPARAAT IS GEVAAR</string>
-  <string name="root_body">Elke \'geroote\' app kan toegang tot de keychain-gegevens van AppCoins Wallet krijgen en je wallet stelen! Wis deze wallet meteen en herstel deze op een veilig apparaat.</string>
+  <string name="root_title">DE VEILIGHEID VAN HET APPARAAT IS IN GEVAAR</string>
+  <string name="root_body">Elke \'geroote\' app kan toegang tot de keychain-gegevens van de AppCoins Wallet krijgen en je wallet stelen! Wis deze wallet meteen en herstel deze op een veilig apparaat.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
   <string name="buying">%s kopen</string>
   <string name="action_buy">Kopen</string>
@@ -65,7 +65,7 @@
   <string name="action_create_new_account">Nieuwe wallet aanmaken</string>
   <string name="unknown_error">Er is een fout opgetreden.</string>
   <string name="action_backup_wallet">Back-up van wallet maken</string>
-  <string name="no_tokens">Je heb nog geen persoonlijke token toegevoegd.</string>
+  <string name="no_tokens">Je heb nog geen persoonlijke tokens toegevoegd.</string>
   <string name="title_email">Stuur ons een e-mail</string>
   <string name="action_donate">Doneren</string>
   <!-- Titles -->
@@ -102,7 +102,7 @@
   <string name="intro_title_second_page"><![CDATA[Persoonlijk & veilig]]></string>
   <string name="intro_title_third_page">Simpel &amp; eenvoudig</string>
   <string name="intro_message_first_page">Welkom bij de revolutionaire app-economie.</string>
-  <string name="intro_message_second_page">Privésleutels zullen je apparaat nooit verlaten.</string>
+  <string name="intro_message_second_page">Alleen jouw apparaat bevat de privésleutels.</string>
   <string name="intro_message_third_page">Verwerk al je in-app betalingen en beloningen in APPC.</string>
   <!-- Menus -->
   <!-- Labels -->
