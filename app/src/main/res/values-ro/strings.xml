@@ -104,6 +104,17 @@
   <string name="intro_message_first_page">Bine ai venit la revoluția economiei aplicației.</string>
   <string name="intro_message_second_page">Cheile private nu părăsesc niciodată dispozitivul tău.</string>
   <string name="intro_message_third_page">Procesează-ți toate plățile și recompensele tale in-app în APPC.</string>
+  <string name="intro_1_body">Welcome to the revolution of the app economy.</string>
+  <string name="intro_2_title">Play More, Pay Less</string>
+  <string name="intro_2_body">Get rewarded for buying items in your favorite apps and games.</string>
+  <string name="intro_3_title">Simple and Easy</string>
+  <string name="intro_3_body">Process all your in-app purchases using your favorite payment method.</string>
+  <string name="intro_4_title">Secure and Private</string>
+  <string name="intro_4_body">Your private keys will never leave your device, so your AppCoins are safe at all times.</string>
+  <string name="intro_creating_wallet_short">We are creating a wallet for you&#8230;</string>
+  <string name="intro_wallet_created_short">Wallet created!</string>
+  <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
+  <string name="intro_skip_button">SKIP</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Din</string>
