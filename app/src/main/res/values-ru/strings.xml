@@ -289,7 +289,7 @@
   <string name="gamification_star_subtitle">Сияющая, огромная, полная жизни!</string>
   <string name="gamification_galaxy_subtitle">Крупнейшая из систем!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Бонус за покупку:</string>
+  <string name="gamification_purchase_header">You\'ve got a Bonus!</string>
   <string name="gamification_purchase_body">%s кредитов APPC будет переведено на ваш кошелёк</string>
   <string name="action_level">Мой уровень</string>
   <!-- Provide wallet address -->
