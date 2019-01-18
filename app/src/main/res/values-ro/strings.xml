@@ -245,6 +245,8 @@
   <string name="action_skip_backup_wallet">IGNORĂ COPIE DE REZERVĂ</string>
   <string name="item_donation">Donație</string>
   <!-- Gamification -->
+  <string name="gamification_home_body">Earn up to %s Bonus in your favorite apps and games!</string>
+  <string name="gamification_home_button">START EARNING</string>
   <string name="gamification_level_title">Care este nivelul meu?</string>
   <string name="gamification_level_title_new">Get APPC Credits!</string>
   <string name="gamification_level_header">Felicitări, ești %s!</string>
