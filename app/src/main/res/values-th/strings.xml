@@ -185,6 +185,7 @@
   <string name="activity_iab_nonce_message">เกิดข้อผิดพลาดกับ blockchain โปรดลองอีกครั้ง</string>
   <string name="activity_iab_approving_message">ตรวจสอบรายละเอียดทั้งหมด: ยอดคงเหลือ สินค้า เครือข่าย...</string>
   <string name="activity_iab_buying_message">รายละเอียดการตรวจสอบ \nการได้รับสินค้าของคุณ...</string>
+  <string name="activity_iab_change_card">CHANGE CARD</string>
   <string name="notification_ongoing_poa">การประมวลผลรางวัลของคุณ</string>
   <string name="notification_completed_poa">ได้รับรางวัล เพลิดเพลิน!</string>
   <string name="notification_submitting_poa">การส่งการร้องขอ blockchain</string>
