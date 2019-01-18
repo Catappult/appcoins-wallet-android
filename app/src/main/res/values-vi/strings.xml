@@ -185,6 +185,7 @@
   <string name="activity_iab_nonce_message">Đã xảy ra lỗi với blockchain, vui lòng thử lại sau.</string>
   <string name="activity_iab_approving_message">Kiểm tra tất cả các chi tiết: số dư, vật phẩm, mạng…</string>
   <string name="activity_iab_buying_message">Đã kiểm tra các chi tiết \nĐang nhận vật phẩm của bạn…</string>
+  <string name="activity_iab_change_card">CHANGE CARD</string>
   <string name="notification_ongoing_poa">Đang xử lý phần thưởng của bạn</string>
   <string name="notification_completed_poa">Đã nhận phần thưởng, hãy tận hưởng!</string>
   <string name="notification_submitting_poa">Đang gửi yêu cầu của bạn đến blockchain</string>
