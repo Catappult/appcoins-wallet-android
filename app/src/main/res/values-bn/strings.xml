@@ -289,7 +289,7 @@
   <string name="gamification_star_subtitle">শিননি, বড় এবং জীবণে পরিপূর্ণ!</string>
   <string name="gamification_galaxy_subtitle">সেখানে থাকা সবচেয়ে বড় পদ্ধতি!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Purchase Bonus:</string>
+  <string name="gamification_purchase_header">You\'ve got a Bonus!</string>
   <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
   <string name="action_level">My Level</string>
   <!-- Provide wallet address -->
