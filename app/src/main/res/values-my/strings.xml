@@ -185,6 +185,7 @@
   <string name="activity_iab_nonce_message">Blockchain တြင္ ခ်ိဳ႕ယြင္းမႈတစ္ခု ျဖစ္ခဲ့ပါသည္။ ေနာက္မွျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="activity_iab_approving_message">အေသးစိတ္မ်ား အားလံုးကို စစ္ေဆးေနပါသည္ - ဟန္ခ်က္၊ ပစၥည္းမ်ား။ ကြန္ရက္…</string>
   <string name="activity_iab_buying_message">အေသးစိတ္မ်ားကို စစ္ေဆးၿပီးပါၿပီ \nသင့္ပစၥည္းကို ရယူေနပါသည္…</string>
+  <string name="activity_iab_change_card">CHANGE CARD</string>
   <string name="notification_ongoing_poa">သင့္ဆုကို စီစဥ္ေဆာင္ရြက္ေနပါသည္</string>
   <string name="notification_completed_poa">ဆုကို ရရွိပါသည္။ ခံစားလိုက္ပါ။</string>
   <string name="notification_submitting_poa">သင့္ေတာင္္းဆိုမႈအား blockchain သို႔ ေပးပို႔ေနပါသည္</string>
