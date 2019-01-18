@@ -246,6 +246,7 @@
   <string name="item_donation">기부</string>
   <!-- Gamification -->
   <string name="gamification_level_title">저의 레벨은 무엇인가요?</string>
+  <string name="gamification_level_title_new">Get APPC Credits!</string>
   <string name="gamification_level_header">축하합니다. 귀하는 %s 입니다!</string>
   <string name="gamification_level_to_next">다음 레벨까지:</string>
   <string name="gamification_level_earned">획득:</string>
@@ -253,8 +254,10 @@
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% 보너스</string>
   <string name="gamification_level_button_how">동작 방식</string>
+  <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_header">레벨을 올리는 방법은?</string>
   <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_body_new">The more AppCoins you spend in your favorite apps, the bigger the Bonus!</string>
   <string name="gamification_how_table_a1">SPEND</string>
   <string name="gamification_how_table_b1">BONUS</string>
   <string name="gamification_how_table_a2">%s APPC</string>
