@@ -245,6 +245,8 @@
   <string name="action_skip_backup_wallet">ব্যাকআপ স্কিপ করুন</string>
   <string name="item_donation">দান</string>
   <!-- Gamification -->
+  <string name="gamification_home_body">Earn up to %s Bonus in your favorite apps and games!</string>
+  <string name="gamification_home_button">START EARNING</string>
   <string name="gamification_level_title">আমার স্তর কোনটি?</string>
   <string name="gamification_level_title_new">Get APPC Credits!</string>
   <string name="gamification_level_header">অভিনন্দন, আপনি হলেন %s!</string>
