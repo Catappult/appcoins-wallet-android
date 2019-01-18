@@ -185,6 +185,7 @@
   <string name="activity_iab_nonce_message">Възникна грешка с блокчейна, моля, опитай отново по-късно.</string>
   <string name="activity_iab_approving_message">Проверка на всички детайли: баланс, елементи, мрежа...</string>
   <string name="activity_iab_buying_message">Детайли проверени \nПолучаване на твоя елемент…</string>
+  <string name="activity_iab_change_card">CHANGE CARD</string>
   <string name="notification_ongoing_poa">Обработка на твоята награда</string>
   <string name="notification_completed_poa">Наградата е получена, наслади се!</string>
   <string name="notification_submitting_poa">Подаване на твоята заявка към блокчейна</string>
