@@ -289,7 +289,7 @@
   <string name="gamification_star_subtitle">빛나고, 크고 생명으로 가득차있는!</string>
   <string name="gamification_galaxy_subtitle">지금까지 없었던 가장 큰 시스템</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">보너스 구매</string>
+  <string name="gamification_purchase_header">You\'ve got a Bonus!</string>
   <string name="gamification_purchase_body">%s APPC 크레딧이 지갑에 입급될 것 입니다.</string>
   <string name="action_level">나의 레벨</string>
   <!-- Provide wallet address -->
