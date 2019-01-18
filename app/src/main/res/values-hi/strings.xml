@@ -185,6 +185,7 @@
   <string name="activity_iab_nonce_message">ब्लॉकचेन के साथ एक त्रुटि हुई, कृपया बाद में पुनः प्रयास करें।</string>
   <string name="activity_iab_approving_message">सभी विवरण जाँच रहा है: शेष राशि, वस्तुएं, नेटवर्क…</string>
   <string name="activity_iab_buying_message">विवरण जांचे गए \nआपकी वस्तु प्राप्त कर रहा है…</string>
+  <string name="activity_iab_change_card">CHANGE CARD</string>
   <string name="notification_ongoing_poa">आपका इनाम संसाधित कर रहा है</string>
   <string name="notification_completed_poa">इनाम प्राप्त हुआ, मजा लें!</string>
   <string name="notification_submitting_poa">ब्लॉकचैन को आपका अनुरोध जमा कर रहा है</string>
