@@ -185,6 +185,7 @@
   <string name="activity_iab_nonce_message">ブロックチェーンのエラーが発生しました。後でやり直してください。</string>
   <string name="activity_iab_approving_message">すべての詳細をチェックする：残高、商品、ネットワーク...</string>
   <string name="activity_iab_buying_message">詳細をチェック \nあなたの商品を受け取っています...</string>
+  <string name="activity_iab_change_card">CHANGE CARD</string>
   <string name="notification_ongoing_poa">報酬を処理しています</string>
   <string name="notification_completed_poa">報酬を得ました、楽しんで！</string>
   <string name="notification_submitting_poa">リクエストをブロックチェーンに送信する</string>
