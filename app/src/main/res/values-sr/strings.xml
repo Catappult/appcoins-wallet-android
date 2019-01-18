@@ -185,6 +185,7 @@
   <string name="activity_iab_nonce_message">Došlo je do greške sa lancem blokova, pokušajte ponovo.</string>
   <string name="activity_iab_approving_message">Provera svih detalja: stanje, stavke, mreža…</string>
   <string name="activity_iab_buying_message">Detalji su provereni\nPrijem vaše stavke…</string>
+  <string name="activity_iab_change_card">CHANGE CARD</string>
   <string name="notification_ongoing_poa">Obrada vaše nagrade</string>
   <string name="notification_completed_poa">Nagrada je primljena, uživajte!</string>
   <string name="notification_submitting_poa">Slanje vašeg zahteva lancu blokova</string>
