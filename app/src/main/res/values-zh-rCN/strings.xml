@@ -185,6 +185,7 @@
   <string name="activity_iab_nonce_message">出现区块链错误，请稍后重试。</string>
   <string name="activity_iab_approving_message">正在检查所有详细信息：余额、产品、网络…</string>
   <string name="activity_iab_buying_message">已检查的详细信息\n正在接收你的产品…</string>
+  <string name="activity_iab_change_card">CHANGE CARD</string>
   <string name="notification_ongoing_poa">正在处理奖励</string>
   <string name="notification_completed_poa">收到奖励，好好享用！</string>
   <string name="notification_submitting_poa">向区块链提交请求</string>
