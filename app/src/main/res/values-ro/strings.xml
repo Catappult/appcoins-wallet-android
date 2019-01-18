@@ -246,6 +246,7 @@
   <string name="item_donation">Donație</string>
   <!-- Gamification -->
   <string name="gamification_level_title">Care este nivelul meu?</string>
+  <string name="gamification_level_title_new">Get APPC Credits!</string>
   <string name="gamification_level_header">Felicitări, ești %s!</string>
   <string name="gamification_level_to_next">La nivelul următor:</string>
   <string name="gamification_level_earned">AI CÂȘTIGAT:</string>
@@ -253,8 +254,10 @@
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">CUM FUNCȚIONEAZĂ</string>
+  <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_header">Cum îți crești nivelul?</string>
   <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_body_new">The more AppCoins you spend in your favorite apps, the bigger the Bonus!</string>
   <string name="gamification_how_table_a1">SPEND</string>
   <string name="gamification_how_table_b1">BONUS</string>
   <string name="gamification_how_table_a2">%s APPC</string>
