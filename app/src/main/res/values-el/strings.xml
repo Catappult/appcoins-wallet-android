@@ -185,6 +185,7 @@
   <string name="activity_iab_nonce_message">Παρουσιάστηκε σφάλμα με το blockchain, παρακαλούμε προσπαθήστε ξανά αργότερα.</string>
   <string name="activity_iab_approving_message">Γίνεται έλεγχος όλων των λεπτομερειών: υπόλοιπο, αντικείμενα, δίκτυο…</string>
   <string name="activity_iab_buying_message">Οι λεπτομέρειες ελέγχθηκαν \nΓίνεται λήψη του αντικειμένου σας…</string>
+  <string name="activity_iab_change_card">CHANGE CARD</string>
   <string name="notification_ongoing_poa">Γίνεται επεξεργασία της αμοιβής σας</string>
   <string name="notification_completed_poa">Η αμοιβή ελήφθη. Απολαύστε τη!</string>
   <string name="notification_submitting_poa">Γίνεται υποβολή του αιτήματος σας στο blockchain</string>
