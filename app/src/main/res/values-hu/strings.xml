@@ -245,6 +245,8 @@
   <string name="action_skip_backup_wallet">BIZT. MENTÉS KIHAGYÁSA</string>
   <string name="item_donation">Adományozás</string>
   <!-- Gamification -->
+  <string name="gamification_home_body">Earn up to %s Bonus in your favorite apps and games!</string>
+  <string name="gamification_home_button">START EARNING</string>
   <string name="gamification_level_title">Hanyas szintű vagyok?</string>
   <string name="gamification_level_title_new">Get APPC Credits!</string>
   <string name="gamification_level_header">Gratulálunk. %s vagy!</string>
