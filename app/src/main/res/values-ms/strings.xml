@@ -185,6 +185,7 @@
   <string name="activity_iab_nonce_message">Ralat dengan rantaian blok berlaki, sila cuba lagi nanti.</string>
   <string name="activity_iab_approving_message">Menyemak semua butiran; baki, item, rangkaian…</string>
   <string name="activity_iab_buying_message">Butiran telah disemak \nMenerima item anda…</string>
+  <string name="activity_iab_change_card">CHANGE CARD</string>
   <string name="notification_ongoing_poa">Memproses ganjaran anda</string>
   <string name="notification_completed_poa">Ganjaran diterima. Berseronoklah!</string>
   <string name="notification_submitting_poa">Menghantar permintaan anda ke blok rantai</string>
