@@ -185,6 +185,7 @@
   <string name="activity_iab_nonce_message">حدث خطأ في blockchain، يرجى المحاولة مرة أخرى.</string>
   <string name="activity_iab_approving_message">جاري التحقق من كل التفاصيل: التوازن، العناصر، الشبكة…</string>
   <string name="activity_iab_buying_message">تم التحقق من التفاصيل \nجاري استقبال العنصر الخاص بك…</string>
+  <string name="activity_iab_change_card">CHANGE CARD</string>
   <string name="notification_ongoing_poa">جاري تنفيذ مكافأتك</string>
   <string name="notification_completed_poa">تم استقبال المكافأة، استمتع!</string>
   <string name="notification_submitting_poa">جاري إرسال طلبك إلى blockchain</string>
