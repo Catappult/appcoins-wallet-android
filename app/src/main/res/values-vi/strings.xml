@@ -246,6 +246,7 @@
   <string name="item_donation">Đóng góp</string>
   <!-- Gamification -->
   <string name="gamification_level_title">Cấp của tôi là gì?</string>
+  <string name="gamification_level_title_new">Get APPC Credits!</string>
   <string name="gamification_level_header">Xin chúc mừng, bạn là %s!</string>
   <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">KIẾM ĐƯỢC:</string>
@@ -253,8 +254,10 @@
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% TIỀN THƯỞNG</string>
   <string name="gamification_level_button_how">CÁCH THỨC HOẠT ĐỘNG</string>
+  <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_header">Làm thế nào để lên cấp?</string>
   <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_body_new">The more AppCoins you spend in your favorite apps, the bigger the Bonus!</string>
   <string name="gamification_how_table_a1">SPEND</string>
   <string name="gamification_how_table_b1">BONUS</string>
   <string name="gamification_how_table_a2">%s APPC</string>
