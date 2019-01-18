@@ -99,7 +99,7 @@
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins BDS портфейл</string>
-  <string name="intro_title_second_page"><![CDATA[Частен & защитен]]></string>
+  <string name="intro_title_second_page"><![CDATA[Частно и защитено]]></string>
   <string name="intro_title_third_page">Просто &amp; Лесно</string>
   <string name="intro_message_first_page">Добре дошли в революцията на ап икономиката.</string>
   <string name="intro_message_second_page">Частните ключове никога не напускат устройството ти.</string>
