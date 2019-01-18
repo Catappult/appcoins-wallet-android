@@ -185,6 +185,7 @@
   <string name="activity_iab_nonce_message">Blok zinciriyle ilgili bir hata oluştu, lütfen daha sonra tekrar deneyin.</string>
   <string name="activity_iab_approving_message">Tüm bilgiler kontrol ediliyor: Bakiye, öğeler, ağ…</string>
   <string name="activity_iab_buying_message">Bilgiler kontrol edildi \nÖğeniz alınıyor…</string>
+  <string name="activity_iab_change_card">CHANGE CARD</string>
   <string name="notification_ongoing_poa">Ödülünüz işleniyor</string>
   <string name="notification_completed_poa">Ödül alındı, keyfini çıkarın!</string>
   <string name="notification_submitting_poa">İsteğiniz blok zincirine gönderiliyor</string>
