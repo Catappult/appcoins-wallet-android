@@ -185,6 +185,7 @@
   <string name="activity_iab_nonce_message">ब्लॉकचेनची त्रुटी आली, कृपया नंतर पुन्हा प्रयत्न करा.</string>
   <string name="activity_iab_approving_message">तपशील तपासत आहे: शिल्लक, वस्तु, नेटवर्क…</string>
   <string name="activity_iab_buying_message">तपशील तपासले \nआपली वस्तु मिळवित आहे…</string>
+  <string name="activity_iab_change_card">CHANGE CARD</string>
   <string name="notification_ongoing_poa">आपले बक्षीस प्रक्रियारत आहे</string>
   <string name="notification_completed_poa">बक्षीस मिळाले, मजा करा!</string>
   <string name="notification_submitting_poa">आपली विनंत ब्लॉकचेनला पाठवित आहे</string>
