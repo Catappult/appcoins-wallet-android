@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.billing.partners
 
-import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.asf.wallet.BuildConfig
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
@@ -19,7 +18,7 @@ class PartnerAddressServiceTest {
   @Mock
   lateinit var walletAddressService: WalletAddressService
   @Mock
-  lateinit var api: BdsApiSecondary
+  lateinit var api: BdsPartnersApi
 
   private lateinit var scheduler: TestScheduler
   private lateinit var partnerAddressService: AddressService

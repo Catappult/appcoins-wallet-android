@@ -46,6 +46,7 @@ import com.asfoundation.wallet.billing.adyen.Adyen;
 import com.asfoundation.wallet.billing.adyen.AdyenBillingService;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.billing.partners.AddressService;
+import com.asfoundation.wallet.billing.partners.BdsPartnersApi;
 import com.asfoundation.wallet.billing.partners.InstallerService;
 import com.asfoundation.wallet.billing.partners.InstallerSourceService;
 import com.asfoundation.wallet.billing.partners.PartnerAddressService;
@@ -787,7 +788,17 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new InstallerSourceService(context);
   }
 
-  @Singleton @Provides WalletAddressService providesWalletAddressService(BdsApiSecondary api) {
+  @Singleton @Provides WalletAddressService providesWalletAddressService(BdsPartnersApi api) {
     return new PartnerWalletAddressService(api, BuildConfig.DEFAULT_STORE_ADDRESS);
+  }
+
+  @Singleton @Provides BdsPartnersApi provideBdsPartnersApi(OkHttpClient client, Gson gson) {
+    String baseUrl = BuildConfig.BASE_HOST;
+    return new Retrofit.Builder().baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(BdsPartnersApi.class);
   }
 }
