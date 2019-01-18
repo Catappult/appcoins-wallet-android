@@ -185,6 +185,7 @@
   <string name="activity_iab_nonce_message">블록체인 오류가 발생했습니다. 다시 시도해주십시오.</string>
   <string name="activity_iab_approving_message">모든 상세내용 검토중: 잔액, 항목, 네트워크...</string>
   <string name="activity_iab_buying_message">상세내용 체크됨 \n귀하의 항목 수신중...</string>
+  <string name="activity_iab_change_card">CHANGE CARD</string>
   <string name="notification_ongoing_poa">귀하의 보상 처리중</string>
   <string name="notification_completed_poa">보상 받음, 즐겨보세요!</string>
   <string name="notification_submitting_poa">블록체인으로 요청 제출중</string>
