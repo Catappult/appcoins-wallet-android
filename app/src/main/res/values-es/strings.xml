@@ -185,6 +185,7 @@
   <string name="activity_iab_nonce_message">Ha ocurrido un error en el blockchain, por favor, inténtalo más tarde.</string>
   <string name="activity_iab_approving_message">Comprobando los datos: saldo, items, red…</string>
   <string name="activity_iab_buying_message">Todo en orden \nRecibiendo tu item…</string>
+  <string name="activity_iab_change_card">CHANGE CARD</string>
   <string name="notification_ongoing_poa">Procesando la recompensa</string>
   <string name="notification_completed_poa">¡Recompensa recibida, disfruta!</string>
   <string name="notification_submitting_poa">Procesando tu solicitud en el blockchain</string>
