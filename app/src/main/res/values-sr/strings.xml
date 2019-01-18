@@ -289,7 +289,7 @@
   <string name="gamification_star_subtitle">Sjajna, velika i puna života!</string>
   <string name="gamification_galaxy_subtitle">Najveći sistem koji postoji!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Bonus za kupovinu:</string>
+  <string name="gamification_purchase_header">You\'ve got a Bonus!</string>
   <string name="gamification_purchase_body">Kredit od %s APPC će biti dodat u vaš novčanik</string>
   <string name="action_level">Moj nivo</string>
   <!-- Provide wallet address -->
