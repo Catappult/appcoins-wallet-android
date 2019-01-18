@@ -185,6 +185,7 @@
   <string name="activity_iab_nonce_message">Terjadi kesalahan dengan blockchain, silakan coba lagi nanti.</string>
   <string name="activity_iab_approving_message">Memeriksa semua rincian: saldo, item, jaringan…</string>
   <string name="activity_iab_buying_message">Rincian sudah diperiksa \nMenerima item Anda…</string>
+  <string name="activity_iab_change_card">CHANGE CARD</string>
   <string name="notification_ongoing_poa">Memproses hadiah Anda</string>
   <string name="notification_completed_poa">Hadiah diterima, nikmatilah!</string>
   <string name="notification_submitting_poa">Mengirimkan permintaan Anda ke blockchain</string>
