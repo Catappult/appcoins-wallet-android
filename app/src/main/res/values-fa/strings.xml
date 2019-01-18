@@ -246,6 +246,7 @@
   <string name="item_donation">کمک مالی</string>
   <!-- Gamification -->
   <string name="gamification_level_title">سطح من چیست؟</string>
+  <string name="gamification_level_title_new">Get APPC Credits!</string>
   <string name="gamification_level_header">تبریک, شما %s هستید!</string>
   <string name="gamification_level_to_next">به سطح بعدی:</string>
   <string name="gamification_level_earned">به دست آورده:</string>
@@ -253,8 +254,10 @@
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">بونوس %s%%</string>
   <string name="gamification_level_button_how">چگونه کار می کند</string>
+  <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_header">چگونه سطح بالاتری بروید؟</string>
   <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_body_new">The more AppCoins you spend in your favorite apps, the bigger the Bonus!</string>
   <string name="gamification_how_table_a1">SPEND</string>
   <string name="gamification_how_table_b1">BONUS</string>
   <string name="gamification_how_table_a2">%s APPC</string>
