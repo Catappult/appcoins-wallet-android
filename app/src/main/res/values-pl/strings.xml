@@ -245,6 +245,8 @@
   <string name="action_skip_backup_wallet">POMIŃ TWORZENIE KOPII ZAPASOWEJ</string>
   <string name="item_donation">Darowizny</string>
   <!-- Gamification -->
+  <string name="gamification_home_body">Earn up to %s Bonus in your favorite apps and games!</string>
+  <string name="gamification_home_button">START EARNING</string>
   <string name="gamification_level_title">Jaki jest mój poziom?</string>
   <string name="gamification_level_title_new">Get APPC Credits!</string>
   <string name="gamification_level_header">Gratulacje, jesteś %s!</string>
