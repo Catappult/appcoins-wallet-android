@@ -185,6 +185,7 @@
   <string name="activity_iab_nonce_message">A apărut o eroare la blockchain, încearcă din nou mai târziu.</string>
   <string name="activity_iab_approving_message">Se verifică toate detaliile: balanță, articole, rețea…</string>
   <string name="activity_iab_buying_message">Detalii verificate \nSe primește articolul tău…</string>
+  <string name="activity_iab_change_card">CHANGE CARD</string>
   <string name="notification_ongoing_poa">Se procesează recompensa ta</string>
   <string name="notification_completed_poa">Recompensă primită, bucură-te de ea!</string>
   <string name="notification_submitting_poa">Se trimite cererea ta la blockchain</string>
