@@ -185,6 +185,7 @@
   <string name="activity_iab_nonce_message">A blockchain hiba történt, kérjük, próbáld újra később.</string>
   <string name="activity_iab_approving_message">Részletek ellenőrzése: egyenleg, tételek, hálózat…</string>
   <string name="activity_iab_buying_message">Részletek áttekintve \nTétel fogadása…</string>
+  <string name="activity_iab_change_card">CHANGE CARD</string>
   <string name="notification_ongoing_poa">Jutalom feldolgozása folyamatban</string>
   <string name="notification_completed_poa">Jutalmat kaptál, használd egészséggel!</string>
   <string name="notification_submitting_poa">Kérelmed elküldése a blokkláncnak</string>
