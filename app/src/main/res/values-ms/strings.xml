@@ -257,7 +257,7 @@
   <string name="action_skip_backup_wallet">LANGKAU SANDARAN</string>
   <string name="item_donation">Sumbangan</string>
   <!-- Gamification -->
-  <string name="gamification_home_body">Earn up to %s Bonus in your favorite apps and games!</string>
+  <string name="gamification_home_body">Earn up to %s%% Bonus in your favorite apps and games!</string>
   <string name="gamification_home_button">START EARNING</string>
   <string name="gamification_level_title">Apa Tahap Saya?</string>
   <string name="gamification_level_title_new">Get APPC Credits!</string>
@@ -293,11 +293,11 @@
   <string name="gamification_purchase_body">%s Kredit APPC akan dikreditkan ke dalam dompet anda</string>
   <string name="action_level">Tahap Saya</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow AppCoins BDS Wallet to provide your wallet address to Aptoide.</string>
+  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to Aptoide.</string>
   <string name="provide_wallet_always_allow_button">Always allow</string>
   <string name="provide_wallet_allow_once_button">Allow once</string>
   <string name="provide_wallet_completed_header">Wallet associated to Aptoide!</string>
-  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the AppCoins BDS Wallet.</string>
+  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the AppCoins Wallet.</string>
   <string name="provide_wallet_create_wallet_button">CREATE</string>
   <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
   <string name="provide_wallet_created_header">Wallet address created!</string>
