@@ -256,6 +256,8 @@
   <string name="item_donation">Donation</string>
 
   <!-- Gamification -->
+  <string name="gamification_home_body">Earn up to %s Bonus in your favorite apps and games!</string>
+  <string name="gamification_home_button">START EARNING</string>
   <string name="gamification_level_title">What\'s My Level?</string>
   <string name="gamification_level_title_new">Get APPC Credits!</string>
   <string name="gamification_level_header">Congrats, you\'re %s!</string>
