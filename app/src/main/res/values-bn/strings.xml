@@ -185,6 +185,7 @@
   <string name="activity_iab_nonce_message">ব্লকচেইনে একটি ত্রুটি সংঘটিত হয়েছে, অনুগ্রহপূর্বক পুনরায় চেষ্টা করুন।</string>
   <string name="activity_iab_approving_message">সকল বিবরণ পরীক্ষা করা হচ্ছে: স্থিতি, ধরণ, নেটওয়ার্ক…</string>
   <string name="activity_iab_buying_message">বিবরণ পরীক্ষাকৃত\nআপনার ধরণ গ্রহণ করছে…</string>
+  <string name="activity_iab_change_card">CHANGE CARD</string>
   <string name="notification_ongoing_poa">আপনার পুরস্কার প্রক্রিয়ারত</string>
   <string name="notification_completed_poa">পুরস্কার গৃহীত, উপভোগ করুন!</string>
   <string name="notification_submitting_poa">ব্লকচেইনে আপনার অনুরোধ দাখিল করা হচ্ছে</string>
