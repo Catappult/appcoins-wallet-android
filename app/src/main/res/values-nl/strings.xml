@@ -293,12 +293,12 @@
   <string name="gamification_purchase_body">Er worden %s APPC-credits aan je wallet toegevoegd</string>
   <string name="action_level">Mijn niveau</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to Aptoide.</string>
-  <string name="provide_wallet_always_allow_button">Always allow</string>
-  <string name="provide_wallet_allow_once_button">Allow once</string>
-  <string name="provide_wallet_completed_header">Wallet associated to Aptoide!</string>
-  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the AppCoins Wallet.</string>
-  <string name="provide_wallet_create_wallet_button">CREATE</string>
-  <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
-  <string name="provide_wallet_created_header">Wallet address created!</string>
+  <string name="provide_wallet_body">Geef AppCoins Wallet toestemming om je wallet-adres aan Aptoide door te geven.</string>
+  <string name="provide_wallet_always_allow_button">Altijd toestaan</string>
+  <string name="provide_wallet_allow_once_button">Eenmalig toestaan</string>
+  <string name="provide_wallet_completed_header">Wallet is aan Aptoide gekoppeld!</string>
+  <string name="provide_wallet_create_body">Je hebt een wallet-adres nodig! Volg deze stappen om via de AppCoins Wallet een adres aan te maken.</string>
+  <string name="provide_wallet_create_wallet_button">AANMAKEN</string>
+  <string name="provide_wallet_creating_wallet_header">Wallet-adres wordt aangemaakt&#8230;</string>
+  <string name="provide_wallet_created_header">Wallet-adres is aangemaakt!</string>
 </resources>
