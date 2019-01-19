@@ -38,7 +38,7 @@
   <string name="title_support">지원</string>
   <string name="title_permissions">사용권한</string>
   <string name="permissions_title">사용권한</string>
-  <string name="permissions_active_wallet_short">Current active wallet</string>
+  <string name="permissions_active_wallet_short">현재 활성 지갑</string>
   <string name="error_import">키스토어 불러오기 오류</string>
   <string name="message_this_is_your_address">나의 공개 이더리움 지갑 주소</string>
   <string name="backup_warning_text">귀하만이 귀하의 돈을 관리할 수 있기때문에, 이 앱이 삭제된 경우를 대비하여 키스토어를 백업하실 필요가 있습니다.\n\n 귀하의 지갑은 클라우드 저장공간이나 표준 기기 백업에 절대로 저장되지 않습니다.</string>
@@ -104,17 +104,17 @@
   <string name="intro_message_first_page">앱 경제의 혁명에 오신것을 환영합니다.</string>
   <string name="intro_message_second_page">비밀 키는 귀하의 기기에서 절대 떠나지 않습니다.</string>
   <string name="intro_message_third_page">귀하의 모든 앱내 지불과 APPC 보상 처리.</string>
-  <string name="intro_1_body">Welcome to the revolution of the app economy.</string>
-  <string name="intro_2_title">Play More, Pay Less</string>
-  <string name="intro_2_body">Get rewarded for buying items in your favorite apps and games.</string>
-  <string name="intro_3_title">Simple and Easy</string>
-  <string name="intro_3_body">Process all your in-app purchases using your favorite payment method.</string>
-  <string name="intro_4_title">Secure and Private</string>
-  <string name="intro_4_body">Your private keys will never leave your device, so your AppCoins are safe at all times.</string>
-  <string name="intro_creating_wallet_short">We are creating a wallet for you&#8230;</string>
-  <string name="intro_wallet_created_short">Wallet created!</string>
-  <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
-  <string name="intro_skip_button">SKIP</string>
+  <string name="intro_1_body">앱 경제의 혁명에 오신것을 환영합니다.</string>
+  <string name="intro_2_title">더 많이 플레이, 보다 적은 지불</string>
+  <string name="intro_2_body">좋아하는 앱과 게임에서 아이템을 구매하여 보상을 받으세요.</string>
+  <string name="intro_3_title">간단하고 쉬움</string>
+  <string name="intro_3_body">선호하는 지불 방식을 사용하여 앱내 구매를 처리하십시오.</string>
+  <string name="intro_4_title">안전하고 비공개</string>
+  <string name="intro_4_body">개인 키는 기기에서 절대로 전송되지 않으므로, AppCoins는 항상 안전합니다.</string>
+  <string name="intro_creating_wallet_short">귀하를 위해 지갑을 생성하고 있습니다&#8230;</string>
+  <string name="intro_wallet_created_short">지갑이 생성되었습니다!</string>
+  <string name="intro_agree_terms_and_conditions_body">건너뛰기를 탭하는 것으로, AppCoins 지갑의 %1$s 그리고 %2$s에 동의합니다</string>
+  <string name="intro_skip_button">건너뛰기</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">송신</string>
@@ -196,7 +196,7 @@
   <string name="activity_iab_nonce_message">블록체인 오류가 발생했습니다. 다시 시도해주십시오.</string>
   <string name="activity_iab_approving_message">모든 상세내용 검토중: 잔액, 항목, 네트워크...</string>
   <string name="activity_iab_buying_message">상세내용 체크됨 \n귀하의 항목 수신중...</string>
-  <string name="activity_iab_change_card">CHANGE CARD</string>
+  <string name="activity_iab_change_card">카드 변경</string>
   <string name="notification_ongoing_poa">귀하의 보상 처리중</string>
   <string name="notification_completed_poa">보상 받음, 즐겨보세요!</string>
   <string name="notification_submitting_poa">블록체인으로 요청 제출중</string>
@@ -257,10 +257,10 @@
   <string name="action_skip_backup_wallet">백업 건너뛰기</string>
   <string name="item_donation">기부</string>
   <!-- Gamification -->
-  <string name="gamification_home_body">Earn up to %s%% Bonus in your favorite apps and games!</string>
-  <string name="gamification_home_button">START EARNING</string>
+  <string name="gamification_home_body">좋아하는 앱과 게임에서 최대 %s%%까지 보너스를 적립합니다.</string>
+  <string name="gamification_home_button">적립 시작하기</string>
   <string name="gamification_level_title">저의 레벨은 무엇인가요?</string>
-  <string name="gamification_level_title_new">Get APPC Credits!</string>
+  <string name="gamification_level_title_new">APPC 크레딧 받기!</string>
   <string name="gamification_level_header">축하합니다. 귀하는 %s 입니다!</string>
   <string name="gamification_level_to_next">다음 레벨까지:</string>
   <string name="gamification_level_earned">획득:</string>
@@ -268,15 +268,15 @@
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% 보너스</string>
   <string name="gamification_level_button_how">동작 방식</string>
-  <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">좋아하는 앱과 게임에서 아이템을 구매할 때 APPC 크레딧을 받게 됩니다.</string>
   <string name="gamification_how_header">레벨을 올리는 방법은?</string>
-  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
-  <string name="gamification_how_body_new">The more AppCoins you spend in your favorite apps, the bigger the Bonus!</string>
-  <string name="gamification_how_table_a1">SPEND</string>
-  <string name="gamification_how_table_b1">BONUS</string>
+  <string name="gamification_how_body">좋아하는 앱과 게임에서 아이템을 구매할 때 APPC 크레딧을 받게 됩니다.</string>
+  <string name="gamification_how_body_new">좋아하는 앱에서 AppCoins를 더 많이 사용하면 할 수록 더 큰 보너스를 받게됩니다!</string>
+  <string name="gamification_how_table_a1">지출</string>
+  <string name="gamification_how_table_b1">보너스</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s %%</string>
-  <string name="gamification_how_terms_and_conditions">Conditions</string>
+  <string name="gamification_how_terms_and_conditions">조건</string>
   <string name="gamification_how_spend">%s APPC 지출</string>
   <string name="gamification_a_comet_title">혜성</string>
   <string name="gamification_a_moon_title">달</string>
@@ -289,7 +289,7 @@
   <string name="gamification_star_subtitle">빛나고, 크고 생명으로 가득차있는!</string>
   <string name="gamification_galaxy_subtitle">지금까지 없었던 가장 큰 시스템</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">You\'ve got a Bonus!</string>
+  <string name="gamification_purchase_header">보너스를 받았습니다!</string>
   <string name="gamification_purchase_body">%s APPC 크레딧이 지갑에 입급될 것 입니다.</string>
   <string name="action_level">나의 레벨</string>
   <!-- Provide wallet address -->
