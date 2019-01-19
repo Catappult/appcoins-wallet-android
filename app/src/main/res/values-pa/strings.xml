@@ -273,10 +273,10 @@
   <string name="gamification_how_body">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਅਤੇ ਗੇਮਾਂ ਵਿੱਚ ਚੀਜ਼ਾਂ ਖਰੀਦਣ ਵੇਲੇ ਤੁਸੀਂ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋਗੇ|</string>
   <string name="gamification_how_body_new">ਤੁਸੀਂ ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਵਿਚ ਜਿੰਨੇ ਜ਼ਿਆਦਾ ਐਪ ਸਿੱਕੇ ਖਰਚਦੇ ਹੋ, ਓਨਾ ਵੱਡਾ ਤੁਹਾਨੂੰ ਬੋਨਸ ਮਿਲਦਾ ਹੈ!</string>
   <string name="gamification_how_table_a1">ਖਰਚ ਕਰੋ</string>
-  <string name="gamification_how_table_b1">BONUS</string>
-  <string name="gamification_how_table_a2">%s APPC</string>
+  <string name="gamification_how_table_b1">ਬੋਨਸ</string>
+  <string name="gamification_how_table_a2">%s ਐਪ ਸਿੱਕੇ</string>
   <string name="gamification_how_table_b2">%s %%</string>
-  <string name="gamification_how_terms_and_conditions">Conditions</string>
+  <string name="gamification_how_terms_and_conditions">ਸ਼ਰਤਾਂ</string>
   <string name="gamification_how_spend">%s ਏਪੀਪੀਸੀ ਖਰਚੋ</string>
   <string name="gamification_a_comet_title">ਇੱਕ ਧੂਮਲ</string>
   <string name="gamification_a_moon_title">ਇੱਕ ਚੰਦਰਮਾ</string>
@@ -289,16 +289,16 @@
   <string name="gamification_star_subtitle">ਚਮਕਦਾਰ, ਵੱਡਾ ਅਤੇ ਜੀਵਨ ਨਾਲ ਭਰਿਆ!</string>
   <string name="gamification_galaxy_subtitle">ਇੱਥੇ ਸਭ ਤੋਂ ਵੱਡੀ ਪ੍ਰਣਾਲੀ!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">You\'ve got a Bonus!</string>
-  <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
-  <string name="action_level">My Level</string>
+  <string name="gamification_purchase_header">ਤੁਹਾਨੂੰ ਇੱਕ ਬੋਨਸ ਮਿਲਿਆ ਹੈ!</string>
+  <string name="gamification_purchase_body">%s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਤੁਹਾਡੇ ਬਟੂਏ ਵਿੱਚ ਪਾਏ ਜਾਣਗੇ</string>
+  <string name="action_level">ਮੇਰਾ ਪੱਧਰ</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to Aptoide.</string>
-  <string name="provide_wallet_always_allow_button">Always allow</string>
-  <string name="provide_wallet_allow_once_button">Allow once</string>
-  <string name="provide_wallet_completed_header">Wallet associated to Aptoide!</string>
-  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the AppCoins Wallet.</string>
-  <string name="provide_wallet_create_wallet_button">CREATE</string>
-  <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
-  <string name="provide_wallet_created_header">Wallet address created!</string>
+  <string name="provide_wallet_body">ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਐਪਟਾਇਡ ਨੂੰ ਬਟੂਏ ਦਾ ਪਤਾ ਦੱਸਣ ਦੀ ਆਗਿਆ ਦਿਓ|</string>
+  <string name="provide_wallet_always_allow_button">ਹਮੇਸ਼ਾ ਦੀ ਇਜਾਜ਼ਤ ਦਿਉ</string>
+  <string name="provide_wallet_allow_once_button">ਇੱਕ ਵਾਰ ਮਨਜ਼ੂਰੀ ਦਿਓ</string>
+  <string name="provide_wallet_completed_header">ਬਟੂਆ ਐਪਟਾਇਡ ਨਾਲ ਜੋੜਿਆ ਗਿਆ!</string>
+  <string name="provide_wallet_create_body">ਤੁਹਾਨੂੰ ਬਟੂਏ ਦੇ ਇੱਕ ਪਤੇ ਦੀ ਲੋੜ ਹੈ! ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਵਿੱਚ ਇੱਕ ਬਣਾਉਣ ਲਈ ਇਨ੍ਹਾਂ ਚਰਣਾਂ ​​ਦੀ ਪਾਲਣਾ ਕਰੋ|</string>
+  <string name="provide_wallet_create_wallet_button">ਬਣਾਓ</string>
+  <string name="provide_wallet_creating_wallet_header">ਬਟੂਏ ਦਾ ਪਤਾ ਬਣਾਇਆ ਜਾ ਰਿਹਾ ਹੈ&#8230;</string>
+  <string name="provide_wallet_created_header">ਬਟੂਏ ਦਾ ਪਤਾ ਬਣਾਇਆ ਗਿਆ!</string>
 </resources>
