@@ -257,10 +257,10 @@
   <string name="action_skip_backup_wallet">IGNORĂ COPIE DE REZERVĂ</string>
   <string name="item_donation">Donație</string>
   <!-- Gamification -->
-  <string name="gamification_home_body">Câștigă un Bonus de până la %s%% în aplicațiile și jocurile tale preferate!</string>
-  <string name="gamification_home_button">START EARNING</string>
+  <string name="gamification_home_body">Câștigă un Bonus de până la %s%% în aplicațiile și jocurile tale favorite!</string>
+  <string name="gamification_home_button">ÎNCEPE SĂ CÂȘTIGI</string>
   <string name="gamification_level_title">Care este nivelul meu?</string>
-  <string name="gamification_level_title_new">Get APPC Credits!</string>
+  <string name="gamification_level_title_new">Obține Credite APPC!</string>
   <string name="gamification_level_header">Felicitări, ești %s!</string>
   <string name="gamification_level_to_next">La nivelul următor:</string>
   <string name="gamification_level_earned">AI CÂȘTIGAT:</string>
@@ -268,15 +268,15 @@
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">CUM FUNCȚIONEAZĂ</string>
-  <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">Vei câștiga Credite APPC când cumperi articole în aplicațiile și jocurile tale favorite.</string>
   <string name="gamification_how_header">Cum îți crești nivelul?</string>
-  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
-  <string name="gamification_how_body_new">The more AppCoins you spend in your favorite apps, the bigger the Bonus!</string>
-  <string name="gamification_how_table_a1">SPEND</string>
+  <string name="gamification_how_body">Vei câștiga Credite APPC când cumperi articole în aplicațiile și jocurile tale favorite.</string>
+  <string name="gamification_how_body_new">Cu cât mai multe AppCoins cheltuiești în aplicațiile tale preferate, cu atât mai mare va fi Bonusul!</string>
+  <string name="gamification_how_table_a1">CHELTUIEȘTI</string>
   <string name="gamification_how_table_b1">BONUS</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s %%</string>
-  <string name="gamification_how_terms_and_conditions">Conditions</string>
+  <string name="gamification_how_terms_and_conditions">Condiții</string>
   <string name="gamification_how_spend">CHELTUIEȘTE %s APPC</string>
   <string name="gamification_a_comet_title">o Cometă</string>
   <string name="gamification_a_moon_title">o Lună</string>
@@ -289,16 +289,16 @@
   <string name="gamification_star_subtitle">Strălucitoare, mare și plină de viață!</string>
   <string name="gamification_galaxy_subtitle">Cel mai mare sistem existent!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">You\'ve got a Bonus!</string>
+  <string name="gamification_purchase_header">Ai primit un Bonus!</string>
   <string name="gamification_purchase_body">%s Credite APPC vor fi creditate în portofelul tău</string>
   <string name="action_level">Nivelul meu</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to Aptoide.</string>
-  <string name="provide_wallet_always_allow_button">Always allow</string>
-  <string name="provide_wallet_allow_once_button">Allow once</string>
-  <string name="provide_wallet_completed_header">Wallet associated to Aptoide!</string>
-  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the AppCoins Wallet.</string>
-  <string name="provide_wallet_create_wallet_button">CREATE</string>
-  <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
-  <string name="provide_wallet_created_header">Wallet address created!</string>
+  <string name="provide_wallet_body">Permite Portofelului AppCoins să furnizeze adresa portofelului tău către Aptoide.</string>
+  <string name="provide_wallet_always_allow_button">Permite întotdeauna</string>
+  <string name="provide_wallet_allow_once_button">Permite o dată</string>
+  <string name="provide_wallet_completed_header">Portofel asociat cu Aptoide!</string>
+  <string name="provide_wallet_create_body">Ai nevoie de o adresă de portofel! Urmează acești pași să creezi una în Portofelul AppCoins.</string>
+  <string name="provide_wallet_create_wallet_button">CREEAZĂ</string>
+  <string name="provide_wallet_creating_wallet_header">Se creează adresă portofel&#8230;</string>
+  <string name="provide_wallet_created_header">Adresă portofel creată!</string>
 </resources>
