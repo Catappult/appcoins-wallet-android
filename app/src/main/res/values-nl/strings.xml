@@ -110,11 +110,11 @@
   <string name="intro_3_title">Simpel en eenvoudig</string>
   <string name="intro_3_body">Verwerk al je in-app aankopen met je favoriete betaalmethode.</string>
   <string name="intro_4_title">Veilig en persoonlijk</string>
-  <string name="intro_4_body">Your private keys will never leave your device, so your AppCoins are safe at all times.</string>
-  <string name="intro_creating_wallet_short">We are creating a wallet for you&#8230;</string>
-  <string name="intro_wallet_created_short">Wallet created!</string>
-  <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
-  <string name="intro_skip_button">SKIP</string>
+  <string name="intro_4_body">Je persoonlijke sleutels staan alleen op jouw apparaat waardoor je AppCoins altijd veilig zijn.</string>
+  <string name="intro_creating_wallet_short">We zijn een wallet voor je aan het aanmaken&#8230;</string>
+  <string name="intro_wallet_created_short">Wallet is aangemaakt!</string>
+  <string name="intro_agree_terms_and_conditions_body">Door op Overslaan te tikken, ga je akkoord met de %1$s en het %2$s van AppCoins Wallet</string>
+  <string name="intro_skip_button">OVERSLAAN</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Van</string>
@@ -196,7 +196,7 @@
   <string name="activity_iab_nonce_message">Er is een fout in de blockchain opgetreden, probeer het later opnieuw.</string>
   <string name="activity_iab_approving_message">Alle gegevens controleren: saldo, items, netwerk…</string>
   <string name="activity_iab_buying_message">Gegevens gecontroleerd \nJe item wordt ontvangen…</string>
-  <string name="activity_iab_change_card">CHANGE CARD</string>
+  <string name="activity_iab_change_card">KAART WIJZIGEN</string>
   <string name="notification_ongoing_poa">Je beloning wordt verwerkt</string>
   <string name="notification_completed_poa">Beloning ontvangen, veel plezier!</string>
   <string name="notification_submitting_poa">Je verzoek wordt naar de blockchain verzonden</string>
@@ -257,8 +257,8 @@
   <string name="action_skip_backup_wallet">BACK-UP OVERSLAAN</string>
   <string name="item_donation">Donatie</string>
   <!-- Gamification -->
-  <string name="gamification_home_body">Earn up to %s%% Bonus in your favorite apps and games!</string>
-  <string name="gamification_home_button">START EARNING</string>
+  <string name="gamification_home_body">Verdien in je favoriete apps en games tot %s%% bonus!</string>
+  <string name="gamification_home_button">BEGIN MET VERDIENEN</string>
   <string name="gamification_level_title">Wat is mijn niveau?</string>
   <string name="gamification_level_title_new">Get APPC Credits!</string>
   <string name="gamification_level_header">Gefeliciteerd, je bent %s!</string>
