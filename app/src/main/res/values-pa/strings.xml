@@ -196,7 +196,7 @@
   <string name="activity_iab_nonce_message">ਬਲਾਕਚੈਨ ਵਿੱਚ ਇੱਕ ਗਲਤੀ ਆਈ ਹੈ, ਕਿਰਪਾ ਕਰਕੇ ਬਾਅਦ ਵਿੱਚ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
   <string name="activity_iab_approving_message">ਸਾਰੇ ਵੇਰਵਿਆਂ ਦੀ ਜਾਂਚ ਹੋ ਰਹੀ ਹੈ: ਬਚੀ ਰਕਮ, ਚੀਜ਼ਾਂ, ਨੈਟਵਰਕ…</string>
   <string name="activity_iab_buying_message">ਵੇਰਵੇ ਚੈੱਕ ਕੀਤੇ ਗਏ \nਤੁਹਾਡੀ ਆਈਟਮ ਪ੍ਰਾਪਤ ਹੋ ਰਹੀ ਹੈ…</string>
-  <string name="activity_iab_change_card">CHANGE CARD</string>
+  <string name="activity_iab_change_card">ਕਾਰਡ ਬਦਲੋ</string>
   <string name="notification_ongoing_poa">ਤੁਹਾਡੇ ਇਨਾਮ ਦੀ ਪ੍ਰੋਸੈਸਿੰਗ ਹੋ ਰਹੀ ਹੈ</string>
   <string name="notification_completed_poa">ਇਨਾਮ ਪ੍ਰਾਪਤ ਹੋ ਗਿਆ, ਆਨੰਦ ਮਾਣੋ!</string>
   <string name="notification_submitting_poa">ਬਲਾਕਚੈਨ ਨੂੰ ਤੁਹਾਡੀ ਬੇਨਤੀ ਜਮ੍ਹਾਂ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ</string>
@@ -217,7 +217,7 @@
   <string name="transaction_type_poa">Proof of Attention</string>
   <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
   <string name="transaction_type_standard">ਟ੍ਰਾਂਸਫਰ</string>
-  <string name="transaction_type_bonus">Bonus</string>
+  <string name="transaction_type_bonus">ਬੋਨਸ</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
   <string name="transaction_details_brand_txt">ਇਥਿਰਿਅਮ ਦੁਆਰਾ ਸੰਚਾਲਿਤ</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -257,20 +257,20 @@
   <string name="action_skip_backup_wallet">ਬੈਕਅੱਪ ਛੱਡੋ</string>
   <string name="item_donation">ਦਾਨ</string>
   <!-- Gamification -->
-  <string name="gamification_home_body">Earn up to %s%% Bonus in your favorite apps and games!</string>
-  <string name="gamification_home_button">START EARNING</string>
+  <string name="gamification_home_body">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਅਤੇ ਖੇਡਾਂ ਵਿੱਚ %s%% ਤੱਕ ਬੋਨਸ ਕਮਾਓ!</string>
+  <string name="gamification_home_button">ਕਮਾਉਣਾ ਸ਼ੁਰੂ ਕਰੋ</string>
   <string name="gamification_level_title">ਮੇਰਾ ਪੱਧਰ ਕੀ ਹੈ?</string>
-  <string name="gamification_level_title_new">Get APPC Credits!</string>
+  <string name="gamification_level_title_new">ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪਾਓ!</string>
   <string name="gamification_level_header">ਵਧਾਈਆਂ, ਤੁਸੀਂ %s ਹੋ!</string>
-  <string name="gamification_level_to_next">To next level:</string>
+  <string name="gamification_level_to_next">ਅਗਲੇ ਪੱਧਰ ਤੱਕ:</string>
   <string name="gamification_level_earned">ਕਮਾਇਆ:</string>
-  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
-  <string name="gamification_level_next_lvl_value">%s APPC</string>
+  <string name="gamification_level_next_lvl">ਅਗਲੇ ਪੱਧਰ ਤੱਕ:</string>
+  <string name="gamification_level_next_lvl_value">%s ਐਪ ਸਿੱਕੇ</string>
   <string name="gamification_level_bonus">%s%% ਬੋਨਸ</string>
   <string name="gamification_level_button_how">ਇਹ ਕਿਵੇਂ ਚਲਦਾ ਹੈ</string>
-  <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਅਤੇ ਗੇਮਾਂ ਵਿੱਚ ਚੀਜ਼ਾਂ ਖਰੀਦਣ ਵੇਲੇ ਤੁਸੀਂ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋਗੇ|</string>
   <string name="gamification_how_header">ਪੱਧਰ ਉੱਪਰ ਕਿਵੇਂ ਪਹੁੰਚਾਉਣਾ ਹੈ?</string>
-  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_body">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਅਤੇ ਗੇਮਾਂ ਵਿੱਚ ਚੀਜ਼ਾਂ ਖਰੀਦਣ ਵੇਲੇ ਤੁਸੀਂ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋਗੇ|</string>
   <string name="gamification_how_body_new">The more AppCoins you spend in your favorite apps, the bigger the Bonus!</string>
   <string name="gamification_how_table_a1">SPEND</string>
   <string name="gamification_how_table_b1">BONUS</string>
