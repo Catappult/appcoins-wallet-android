@@ -260,7 +260,7 @@
   <string name="gamification_home_body">Verdien in je favoriete apps en games tot %s%% bonus!</string>
   <string name="gamification_home_button">BEGIN MET VERDIENEN</string>
   <string name="gamification_level_title">Wat is mijn niveau?</string>
-  <string name="gamification_level_title_new">Krijg APPC Credits!</string>
+  <string name="gamification_level_title_new">Krijg APPC-credits!</string>
   <string name="gamification_level_header">Gefeliciteerd, je bent %s!</string>
   <string name="gamification_level_to_next">Tot volgende niveau:</string>
   <string name="gamification_level_earned">VERDIEND:</string>
@@ -268,15 +268,15 @@
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">ZO WERKT HET</string>
-  <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">Je verdient APPC-credits als je items in je favoriete apps en games koopt.</string>
   <string name="gamification_how_header">Hoe kun je een niveau omhoog gaan?</string>
-  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
-  <string name="gamification_how_body_new">The more AppCoins you spend in your favorite apps, the bigger the Bonus!</string>
-  <string name="gamification_how_table_a1">SPEND</string>
+  <string name="gamification_how_body">Je verdient APPC-credits als je items in je favoriete apps en games koopt.</string>
+  <string name="gamification_how_body_new">Hoe meer AppCoins je in je favoriete apps besteedt, hoe groter de bonus!</string>
+  <string name="gamification_how_table_a1">BESTEDEN</string>
   <string name="gamification_how_table_b1">BONUS</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s %%</string>
-  <string name="gamification_how_terms_and_conditions">Conditions</string>
+  <string name="gamification_how_terms_and_conditions">Voorwaarden</string>
   <string name="gamification_how_spend">%s APPC besteden</string>
   <string name="gamification_a_comet_title">een Komeet</string>
   <string name="gamification_a_moon_title">een Maan</string>
@@ -289,9 +289,9 @@
   <string name="gamification_star_subtitle">Groot, glanzend en zeer levendig!</string>
   <string name="gamification_galaxy_subtitle">De grootste van allemaal!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">You\'ve got a Bonus!</string>
-  <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
-  <string name="action_level">My Level</string>
+  <string name="gamification_purchase_header">Je hebt een bonus!</string>
+  <string name="gamification_purchase_body">Er worden %s APPC-credits aan je wallet toegevoegd</string>
+  <string name="action_level">Mijn niveau</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to Aptoide.</string>
   <string name="provide_wallet_always_allow_button">Always allow</string>
