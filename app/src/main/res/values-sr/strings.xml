@@ -106,7 +106,7 @@
   <string name="intro_message_third_page">Obradite sva plaćanja u aplikacijama i nagrade u APPC.</string>
   <string name="intro_1_body">Dobro došli u revoluciju u ekonomiji aplikacija.</string>
   <string name="intro_2_title">Igrajte više, platite manje</string>
-  <string name="intro_2_body">Dobijte nagrade za kupovinu artikala u svojim omiljenim aplikacijama i igrama.</string>
+  <string name="intro_2_body">Dobijte nagrade za kupovinu u svojim omiljenim aplikacijama i igrama.</string>
   <string name="intro_3_title">Jednostavno i lako</string>
   <string name="intro_3_body">Obradite sve kupovine u aplikacijama pomoću omiljenog načina plaćanja.</string>
   <string name="intro_4_title">Bezbedno i privatno</string>
@@ -271,12 +271,12 @@
   <string name="gamification_level_body">Zaradićete APPC kredit kada kupujete u omiljenim aplikacijama i igrama.</string>
   <string name="gamification_how_header">Kako da pređem na viši nivo?</string>
   <string name="gamification_how_body">Zaradićete APPC kredit kada kupujete u omiljenim aplikacijama i igrama.</string>
-  <string name="gamification_how_body_new">The more AppCoins you spend in your favorite apps, the bigger the Bonus!</string>
-  <string name="gamification_how_table_a1">SPEND</string>
+  <string name="gamification_how_body_new">Što više AppCoins potrošite u omiljenim aplikacijama, bonus će biti veći!</string>
+  <string name="gamification_how_table_a1">POTROŠITE</string>
   <string name="gamification_how_table_b1">BONUS</string>
   <string name="gamification_how_table_a2">%s APPC</string>
-  <string name="gamification_how_table_b2">%s %%</string>
-  <string name="gamification_how_terms_and_conditions">Conditions</string>
+  <string name="gamification_how_table_b2">%s%%</string>
+  <string name="gamification_how_terms_and_conditions">Uslovi</string>
   <string name="gamification_how_spend">POTROŠITE %s APPC</string>
   <string name="gamification_a_comet_title">Kometa</string>
   <string name="gamification_a_moon_title">Mesec</string>
@@ -289,16 +289,16 @@
   <string name="gamification_star_subtitle">Sjajna, velika i puna života!</string>
   <string name="gamification_galaxy_subtitle">Najveći sistem koji postoji!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">You\'ve got a Bonus!</string>
+  <string name="gamification_purchase_header">Dobili ste bonus!</string>
   <string name="gamification_purchase_body">Kredit od %s APPC će biti dodat u vaš novčanik</string>
   <string name="action_level">Moj nivo</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to Aptoide.</string>
-  <string name="provide_wallet_always_allow_button">Always allow</string>
-  <string name="provide_wallet_allow_once_button">Allow once</string>
-  <string name="provide_wallet_completed_header">Wallet associated to Aptoide!</string>
-  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the AppCoins Wallet.</string>
-  <string name="provide_wallet_create_wallet_button">CREATE</string>
-  <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
-  <string name="provide_wallet_created_header">Wallet address created!</string>
+  <string name="provide_wallet_body">Dozvolite aplikaciji AppCoins Wallet da adresu vašeg novčanika pošalje aplikaciji Aptoide.</string>
+  <string name="provide_wallet_always_allow_button">Dozvoli uvek</string>
+  <string name="provide_wallet_allow_once_button">Dozvoli jednom</string>
+  <string name="provide_wallet_completed_header">Novčanik je povezan sa aplikacijom Aptoide!</string>
+  <string name="provide_wallet_create_body">Treba vam adresa novčanika! Pratite ove korake da biste je napravili u aplikaciji AppCoins Wallet.</string>
+  <string name="provide_wallet_create_wallet_button">NAPRAVI</string>
+  <string name="provide_wallet_creating_wallet_header">Pravljenje adrese novčanika&#8230;</string>
+  <string name="provide_wallet_created_header">Adresa novčanika je napravljena!</string>
 </resources>
