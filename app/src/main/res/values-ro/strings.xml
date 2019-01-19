@@ -24,7 +24,7 @@
   <string name="network_label">Reţea</string>
   <string name="credits">Credite</string>
   <string name="low_storage_error">Spațiu de stocare insuficient</string>
-  <string name="no_camera_permission">Portofelul AppCoins BDS are nevoie de permisiune pentru a-ți accesa camera ca să scaneze coduri QR.</string>
+  <string name="no_camera_permission">AppCoins BDS Wallet are nevoie de permisiune pentru a-ți accesa camera ca să scaneze coduri QR.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Format cod de bare nevalid: %s</string>
   <string name="title_delete_account">Ești sigur că vrei să ștergi acest portofel?</string>
@@ -234,7 +234,7 @@
   <string name="dialog_credit_card_number">Număr card</string>
   <string name="dialog_credit_card_expiration">Data de expirare</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="activity_airdrop_title">Confirmă că ești o ființă umană pentru a primi AppCoin-uri</string>
+  <string name="activity_airdrop_title">Confirmă că ești o ființă umană pentru a primi AppCoins</string>
   <string name="activity_airdrop_details">Acest lucru este doar pentru securitate.</string>
   <string name="activity_airdrop_hint">Introdu cuvintele din imagine</string>
   <string name="activity_airdrop_submit_btn">Trimite</string>
@@ -252,7 +252,7 @@
   <string name="proceed">proceed</string>
   <string name="iab_activity_raiden_channel_no_funds_message">You don\'t have enough funds on your µRainden payment channel. Go to your wallet and close the channel to create a new one.  Do you still want to complete this purchase with a standard payment?</string>
   <string name="iab_activity_raiden_channel_no_funds_title">Payment Channel Funds</string>
-  <string name="spend_your_appcoins">Cheltuiește AppCoin-urile tale</string>
+  <string name="spend_your_appcoins">Cheltuiește AppCoins</string>
   <!-- Billing -->
   <string name="action_skip_backup_wallet">IGNORĂ COPIE DE REZERVĂ</string>
   <string name="item_donation">Donație</string>
