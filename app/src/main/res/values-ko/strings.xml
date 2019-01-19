@@ -36,8 +36,8 @@
   <string name="title_source_code">소스 코드</string>
   <string name="title_report_bug">버그 리포트하기</string>
   <string name="title_support">지원</string>
-  <string name="title_permissions">Permissions</string>
-  <string name="permissions_title">Permissions</string>
+  <string name="title_permissions">사용권한</string>
+  <string name="permissions_title">사용권한</string>
   <string name="permissions_active_wallet_short">Current active wallet</string>
   <string name="error_import">키스토어 불러오기 오류</string>
   <string name="message_this_is_your_address">나의 공개 이더리움 지갑 주소</string>
