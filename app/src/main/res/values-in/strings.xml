@@ -113,7 +113,7 @@
   <string name="intro_4_body">Kunci pribadi Anda tidak akan pernah meninggalkan perangkat, jadi AppCoins Anda selalu aman.</string>
   <string name="intro_creating_wallet_short">Kami membuat dompet untuk Anda&#8230;</string>
   <string name="intro_wallet_created_short">Dompet sudah dibuat!</string>
-  <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
+  <string name="intro_agree_terms_and_conditions_body">Dengan mengetuk Lewatkan, Anda menyetujui %1$s dan %2$s Dompet AppCoins</string>
   <string name="intro_skip_button">LEWATKAN</string>
   <!-- Menus -->
   <!-- Labels -->
@@ -257,7 +257,7 @@
   <string name="action_skip_backup_wallet">LEWATKAN CADANGAN</string>
   <string name="item_donation">Donasi</string>
   <!-- Gamification -->
-  <string name="gamification_home_body">Earn up to %s%% Bonus in your favorite apps and games!</string>
+  <string name="gamification_home_body">Dapatkan Bonus hingga %s%% di aplikasi dan permainan favorit Anda!</string>
   <string name="gamification_home_button">MULAI BERPENGHASILAN</string>
   <string name="gamification_level_title">Apa Tingkat Saya?</string>
   <string name="gamification_level_title_new">Dapatkan Kredit APPC!</string>
@@ -268,9 +268,9 @@
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">BONUS %s%%</string>
   <string name="gamification_level_button_how">CARA KERJANYA</string>
-  <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">Anda akan mendapatkan Kredit APPC saat membeli item di aplikasi dan permainan favorit.</string>
   <string name="gamification_how_header">Bagaimana Cara Naik Tingkat?</string>
-  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_body">Anda akan mendapatkan Kredit APPC saat membeli item di aplikasi dan permainan favorit.</string>
   <string name="gamification_how_body_new">Semakin banyak AppCoins yang Anda habiskan di aplikasi favorit, semakin besar Bonusnya!</string>
   <string name="gamification_how_table_a1">HABISKAN</string>
   <string name="gamification_how_table_b1">BONUS</string>
@@ -290,7 +290,7 @@
   <string name="gamification_galaxy_subtitle">Sistem terbesar yang ada saat ini!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Anda mendapatkan Bonus!</string>
-  <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
+  <string name="gamification_purchase_body">%s Kredit APPC akan dimasukkan ke dompet Anda</string>
   <string name="action_level">Tingkat Saya</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Izinkan Dompet AppCoins untuk menyediakan alamat dompet Anda ke Aptoide.</string>
