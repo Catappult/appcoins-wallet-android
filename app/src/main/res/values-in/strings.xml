@@ -104,17 +104,17 @@
   <string name="intro_message_first_page">Selamat datang di revolusi ekonomi aplikasi.</string>
   <string name="intro_message_second_page">Kunci rahasia tidak pernah tertinggal dari perangkat Anda.</string>
   <string name="intro_message_third_page">Proses semua pembayaran dan hadiah in-app Anda di APPC.</string>
-  <string name="intro_1_body">Welcome to the revolution of the app economy.</string>
-  <string name="intro_2_title">Play More, Pay Less</string>
-  <string name="intro_2_body">Get rewarded for buying items in your favorite apps and games.</string>
-  <string name="intro_3_title">Simple and Easy</string>
-  <string name="intro_3_body">Process all your in-app purchases using your favorite payment method.</string>
-  <string name="intro_4_title">Secure and Private</string>
-  <string name="intro_4_body">Your private keys will never leave your device, so your AppCoins are safe at all times.</string>
-  <string name="intro_creating_wallet_short">We are creating a wallet for you&#8230;</string>
-  <string name="intro_wallet_created_short">Wallet created!</string>
+  <string name="intro_1_body">Selamat datang di revolusi ekonomi aplikasi.</string>
+  <string name="intro_2_title">Mainkan Lebih Sering, Bayar Kurang</string>
+  <string name="intro_2_body">Dapatkan imbalan untuk pembelian item di aplikasi dan permainan favorit Anda.</string>
+  <string name="intro_3_title">Sederhana dan Mudah</string>
+  <string name="intro_3_body">Proses semua pembelian in-app Anda dengan metode pembayaran favorit.</string>
+  <string name="intro_4_title">Aman dan Pribadi</string>
+  <string name="intro_4_body">Kunci pribadi Anda tidak akan pernah meninggalkan perangkat, jadi AppCoins Anda selalu aman.</string>
+  <string name="intro_creating_wallet_short">Kami membuat dompet untuk Anda&#8230;</string>
+  <string name="intro_wallet_created_short">Dompet sudah dibuat!</string>
   <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
-  <string name="intro_skip_button">SKIP</string>
+  <string name="intro_skip_button">LEWATKAN</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Dari</string>
@@ -196,7 +196,7 @@
   <string name="activity_iab_nonce_message">Terjadi kesalahan dengan blockchain, silakan coba lagi nanti.</string>
   <string name="activity_iab_approving_message">Memeriksa semua rincian: saldo, item, jaringan…</string>
   <string name="activity_iab_buying_message">Rincian sudah diperiksa \nMenerima item Anda…</string>
-  <string name="activity_iab_change_card">CHANGE CARD</string>
+  <string name="activity_iab_change_card">GANTI KARTU</string>
   <string name="notification_ongoing_poa">Memproses hadiah Anda</string>
   <string name="notification_completed_poa">Hadiah diterima, nikmatilah!</string>
   <string name="notification_submitting_poa">Mengirimkan permintaan Anda ke blockchain</string>
@@ -258,9 +258,9 @@
   <string name="item_donation">Donasi</string>
   <!-- Gamification -->
   <string name="gamification_home_body">Earn up to %s%% Bonus in your favorite apps and games!</string>
-  <string name="gamification_home_button">START EARNING</string>
+  <string name="gamification_home_button">MULAI BERPENGHASILAN</string>
   <string name="gamification_level_title">Apa Tingkat Saya?</string>
-  <string name="gamification_level_title_new">Get APPC Credits!</string>
+  <string name="gamification_level_title_new">Dapatkan Kredit APPC!</string>
   <string name="gamification_level_header">Selamat, Anda adalah %s!</string>
   <string name="gamification_level_to_next">Ke tingkat selanjutnya:</string>
   <string name="gamification_level_earned">DIPEROLEH:</string>
@@ -271,8 +271,8 @@
   <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_header">Bagaimana Cara Naik Tingkat?</string>
   <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
-  <string name="gamification_how_body_new">The more AppCoins you spend in your favorite apps, the bigger the Bonus!</string>
-  <string name="gamification_how_table_a1">SPEND</string>
+  <string name="gamification_how_body_new">Semakin banyak AppCoins yang Anda habiskan di aplikasi favorit, semakin besar Bonusnya!</string>
+  <string name="gamification_how_table_a1">HABISKAN</string>
   <string name="gamification_how_table_b1">BONUS</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s %%</string>
@@ -293,12 +293,12 @@
   <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
   <string name="action_level">Tingkat Saya</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to Aptoide.</string>
+  <string name="provide_wallet_body">Izinkan Dompet AppCoins untuk menyediakan alamat dompet Anda ke Aptoide.</string>
   <string name="provide_wallet_always_allow_button">Izinkan selamanya</string>
   <string name="provide_wallet_allow_once_button">Izinkan sekali</string>
-  <string name="provide_wallet_completed_header">Wallet associated to Aptoide!</string>
-  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the AppCoins Wallet.</string>
-  <string name="provide_wallet_create_wallet_button">CREATE</string>
-  <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
-  <string name="provide_wallet_created_header">Wallet address created!</string>
+  <string name="provide_wallet_completed_header">Dompet terkait dengan Aptoide!</string>
+  <string name="provide_wallet_create_body">Anda membutuhkan alamat dompet! Ikuti langkah-langkah berikut ini untuk membuatnya di Dompet AppCoins.</string>
+  <string name="provide_wallet_create_wallet_button">BUAT</string>
+  <string name="provide_wallet_creating_wallet_header">Membuat alamat dompet&#8230;</string>
+  <string name="provide_wallet_created_header">Alamat dompet sudah dibuat!</string>
 </resources>
