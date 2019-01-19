@@ -107,14 +107,14 @@
   <string name="intro_1_body">ยินดีต้อนรับสู่แอปปฏิวัติเศรษฐกิจ</string>
   <string name="intro_2_title">เล่นเมาก จ่ายน้อยลง</string>
   <string name="intro_2_body">รับรางวัลสำหรับการซื้อสินค้าในแอปพลิเคชันที่ชื่นชอบและเกมของคุณ</string>
-  <string name="intro_3_title">Simple and Easy</string>
-  <string name="intro_3_body">Process all your in-app purchases using your favorite payment method.</string>
-  <string name="intro_4_title">Secure and Private</string>
-  <string name="intro_4_body">Your private keys will never leave your device, so your AppCoins are safe at all times.</string>
-  <string name="intro_creating_wallet_short">We are creating a wallet for you&#8230;</string>
-  <string name="intro_wallet_created_short">Wallet created!</string>
-  <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
-  <string name="intro_skip_button">SKIP</string>
+  <string name="intro_3_title">ไม่ซับซ้อน ง่าย</string>
+  <string name="intro_3_body">ดำเนินการการซื้อของในแอปทั้งหมดโดยใช้วิธีการชำระเงินที่คุณชื่นชอบ</string>
+  <string name="intro_4_title">ปลอดภัยและเป็นส่วนตัว</string>
+  <string name="intro_4_body">คีย์ส่วนตัวของคุณจะไม่เคยออกจากอุปกรณ์ของคุณ เพื่อ AppCoins ของคุณจะปลอดภัยตลอดเวลา</string>
+  <string name="intro_creating_wallet_short">เรากำลังสร้างกระเป๋าสตางค์คุณ&#8230;</string>
+  <string name="intro_wallet_created_short">สร้างกระเป๋าสตางค์!</string>
+  <string name="intro_agree_terms_and_conditions_body">โดยการแตะที่ข้าม คุณตกลงที่จะใช้กระเป๋าสตางค์ AppCoins %1$s และ %2$s</string>
+  <string name="intro_skip_button">ข้าม</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">จาก</string>
@@ -196,7 +196,7 @@
   <string name="activity_iab_nonce_message">เกิดข้อผิดพลาดกับ blockchain โปรดลองอีกครั้ง</string>
   <string name="activity_iab_approving_message">ตรวจสอบรายละเอียดทั้งหมด: ยอดคงเหลือ สินค้า เครือข่าย...</string>
   <string name="activity_iab_buying_message">รายละเอียดการตรวจสอบ \nการได้รับสินค้าของคุณ...</string>
-  <string name="activity_iab_change_card">CHANGE CARD</string>
+  <string name="activity_iab_change_card">เปลี่ยนบัตร</string>
   <string name="notification_ongoing_poa">การประมวลผลรางวัลของคุณ</string>
   <string name="notification_completed_poa">ได้รับรางวัล เพลิดเพลิน!</string>
   <string name="notification_submitting_poa">การส่งการร้องขอ blockchain</string>
@@ -257,10 +257,10 @@
   <string name="action_skip_backup_wallet">ข้ามการสำรองข้อมูล</string>
   <string name="item_donation">บริจาค</string>
   <!-- Gamification -->
-  <string name="gamification_home_body">Earn up to %s%% Bonus in your favorite apps and games!</string>
-  <string name="gamification_home_button">START EARNING</string>
+  <string name="gamification_home_body">รับไม่เกินโบนัสในแอปพลิเคชันที่ชื่นชอบและเกมของคุณสูงสุด %s%%!</string>
+  <string name="gamification_home_button">เริ่มสร้างรายได้</string>
   <string name="gamification_level_title">ระดับของฉันคืออะไร</string>
-  <string name="gamification_level_title_new">Get APPC Credits!</string>
+  <string name="gamification_level_title_new">รับเครดิต APPC!</string>
   <string name="gamification_level_header">ขอแสดงความยินดี คุณคือ%s!</string>
   <string name="gamification_level_to_next">ไประดับถัดไป:</string>
   <string name="gamification_level_earned">ได้รับ:</string>
@@ -268,15 +268,15 @@
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% โบนัส</string>
   <string name="gamification_level_button_how">วิธีการทำงาน</string>
-  <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">คุณสามารถได้รับเครดิต APPC ได้เมื่อคุณซื้อสินค้าในแอปหรือเกมส์ที่คุณชื่นชอบ</string>
   <string name="gamification_how_header">วิธีการเพิ่มระดับ?</string>
-  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
-  <string name="gamification_how_body_new">The more AppCoins you spend in your favorite apps, the bigger the Bonus!</string>
-  <string name="gamification_how_table_a1">SPEND</string>
-  <string name="gamification_how_table_b1">BONUS</string>
+  <string name="gamification_how_body">คุณจะสามารถได้รับเครดิต APPC ได้เมื่อคุณซื้อสินค้าในแอปหรือเกมส์ที่คุณชื่นชอบ</string>
+  <string name="gamification_how_body_new">AppCoins เพิ่มเติมที่คุณใช้ในแอปที่คุณโปรดปราน โบนัสที่มากกว่า!</string>
+  <string name="gamification_how_table_a1">ใช้จ่าย</string>
+  <string name="gamification_how_table_b1">โบนัส</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s %%</string>
-  <string name="gamification_how_terms_and_conditions">Conditions</string>
+  <string name="gamification_how_terms_and_conditions">เงื่อนไข</string>
   <string name="gamification_how_spend">ใช้ %s APPC</string>
   <string name="gamification_a_comet_title">ดาวหาง</string>
   <string name="gamification_a_moon_title">ดวงจันทร์</string>
@@ -289,16 +289,16 @@
   <string name="gamification_star_subtitle">ส่องแสง ใหญ่และเต็มรูปแบบของชีวิต</string>
   <string name="gamification_galaxy_subtitle">ระบบที่ใหญ่ที่สุดที่มี!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">You\'ve got a Bonus!</string>
+  <string name="gamification_purchase_header">คุณได้รับโบนัส</string>
   <string name="gamification_purchase_body">เครดิต %s APPC จะถูกเก็บเป็นเครดิตในกระเป๋าสตางค์ของคุณ</string>
   <string name="action_level">ระดับของฉัน</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to Aptoide.</string>
-  <string name="provide_wallet_always_allow_button">Always allow</string>
-  <string name="provide_wallet_allow_once_button">Allow once</string>
-  <string name="provide_wallet_completed_header">Wallet associated to Aptoide!</string>
-  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the AppCoins Wallet.</string>
-  <string name="provide_wallet_create_wallet_button">CREATE</string>
-  <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
-  <string name="provide_wallet_created_header">Wallet address created!</string>
+  <string name="provide_wallet_body">อนุญาตให้กระเป๋าสตางค์ AppCoins อยู่ในกระเป๋าสตางค์ของคุณให้ Aptoide</string>
+  <string name="provide_wallet_always_allow_button">อนุญาตเสมอ</string>
+  <string name="provide_wallet_allow_once_button">อนุญาตให้ครั้งเดียว</string>
+  <string name="provide_wallet_completed_header">กระเป๋าสตางค์ที่เกี่ยวข้องกับ Aptoide!</string>
+  <string name="provide_wallet_create_body">คุณต้องมีที่อยู่กระเป๋าสตางค์! ทำตามขั้นตอนเหล่านี้เพื่อกระเป๋าสตางค์ AppCoins ใบเดียว</string>
+  <string name="provide_wallet_create_wallet_button">สร้าง</string>
+  <string name="provide_wallet_creating_wallet_header">สร้างที่อยู่กระเป๋าสตางค์ &#8230;</string>
+  <string name="provide_wallet_created_header">ที่อยู่กระเป๋าสตางค์ที่สร้าง!</string>
 </resources>
