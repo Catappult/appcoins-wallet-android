@@ -106,15 +106,15 @@
   <string name="intro_message_third_page">Procesează-ți toate plățile și recompensele tale in-app în APPC.</string>
   <string name="intro_1_body">Bine ai venit la revoluția economiei aplicației.</string>
   <string name="intro_2_title">Joci mai mult, plătești mai puțin</string>
-  <string name="intro_2_body">Get rewarded for buying items in your favorite apps and games.</string>
-  <string name="intro_3_title">Simple and Easy</string>
-  <string name="intro_3_body">Process all your in-app purchases using your favorite payment method.</string>
-  <string name="intro_4_title">Secure and Private</string>
-  <string name="intro_4_body">Your private keys will never leave your device, so your AppCoins are safe at all times.</string>
-  <string name="intro_creating_wallet_short">We are creating a wallet for you&#8230;</string>
-  <string name="intro_wallet_created_short">Wallet created!</string>
-  <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
-  <string name="intro_skip_button">SKIP</string>
+  <string name="intro_2_body">Primești recompense pentru cumpărarea articolelor în aplicațiile și jocurile preferate.</string>
+  <string name="intro_3_title">Simplu și Ușor</string>
+  <string name="intro_3_body">Procesează-ți toate cumpărăturile in-app folosind metoda ta de plată preferată.</string>
+  <string name="intro_4_title">Sigur și Privat</string>
+  <string name="intro_4_body">Cheile tale private nu vor părăsi niciodată dispozitivul tău, așa că AppCoins sunt sigure în orice moment.</string>
+  <string name="intro_creating_wallet_short">Se creează un portofel pentru tine&#8230;</string>
+  <string name="intro_wallet_created_short">Portofel creat!</string>
+  <string name="intro_agree_terms_and_conditions_body">Apăsând pe Ignoră, ești de acord cu %1$s și %2$s Portofelului AppCoins</string>
+  <string name="intro_skip_button">IGNORĂ</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Din</string>
@@ -196,7 +196,7 @@
   <string name="activity_iab_nonce_message">A apărut o eroare la blockchain, încearcă din nou mai târziu.</string>
   <string name="activity_iab_approving_message">Se verifică toate detaliile: balanță, articole, rețea…</string>
   <string name="activity_iab_buying_message">Detalii verificate \nSe primește articolul tău…</string>
-  <string name="activity_iab_change_card">CHANGE CARD</string>
+  <string name="activity_iab_change_card">SCHIMBĂ CARD</string>
   <string name="notification_ongoing_poa">Se procesează recompensa ta</string>
   <string name="notification_completed_poa">Recompensă primită, bucură-te de ea!</string>
   <string name="notification_submitting_poa">Se trimite cererea ta la blockchain</string>
@@ -257,7 +257,7 @@
   <string name="action_skip_backup_wallet">IGNORĂ COPIE DE REZERVĂ</string>
   <string name="item_donation">Donație</string>
   <!-- Gamification -->
-  <string name="gamification_home_body">Earn up to %s%% Bonus in your favorite apps and games!</string>
+  <string name="gamification_home_body">Câștigă un Bonus de până la %s%% în aplicațiile și jocurile tale preferate!</string>
   <string name="gamification_home_button">START EARNING</string>
   <string name="gamification_level_title">Care este nivelul meu?</string>
   <string name="gamification_level_title_new">Get APPC Credits!</string>
