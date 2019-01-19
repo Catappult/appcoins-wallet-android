@@ -36,9 +36,9 @@
   <string name="title_source_code">Izvorni kod</string>
   <string name="title_report_bug">Prijavite grešku</string>
   <string name="title_support">Podrška</string>
-  <string name="title_permissions">Permissions</string>
-  <string name="permissions_title">Permissions</string>
-  <string name="permissions_active_wallet_short">Current active wallet</string>
+  <string name="title_permissions">Dozvole</string>
+  <string name="permissions_title">Dozvole</string>
+  <string name="permissions_active_wallet_short">Trenutno aktivan novčanik</string>
   <string name="error_import">Greška pri uvozu skladišta ključeva</string>
   <string name="message_this_is_your_address">Javna adresa mog Ethereum novčanika</string>
   <string name="backup_warning_text">Pošto samo vi kontrolišete svoj novac, moraćete da sačuvate rezervnu kopiju svog skladišta ključeva za slučaj da ova aplikacija bude izbrisana.\n\nVaš novčanik se nikad ne čuva u memoriji na oblaku ili kao standardna rezervna kopija sa uređaja.</string>
@@ -104,17 +104,17 @@
   <string name="intro_message_first_page">Dobro došli u revoluciju u ekonomiji aplikacija.</string>
   <string name="intro_message_second_page">Privatni ključevi nikad ne napuštaju vaš uređaj.</string>
   <string name="intro_message_third_page">Obradite sva plaćanja u aplikacijama i nagrade u APPC.</string>
-  <string name="intro_1_body">Welcome to the revolution of the app economy.</string>
-  <string name="intro_2_title">Play More, Pay Less</string>
-  <string name="intro_2_body">Get rewarded for buying items in your favorite apps and games.</string>
-  <string name="intro_3_title">Simple and Easy</string>
-  <string name="intro_3_body">Process all your in-app purchases using your favorite payment method.</string>
-  <string name="intro_4_title">Secure and Private</string>
-  <string name="intro_4_body">Your private keys will never leave your device, so your AppCoins are safe at all times.</string>
-  <string name="intro_creating_wallet_short">We are creating a wallet for you&#8230;</string>
-  <string name="intro_wallet_created_short">Wallet created!</string>
-  <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
-  <string name="intro_skip_button">SKIP</string>
+  <string name="intro_1_body">Dobro došli u revoluciju u ekonomiji aplikacija.</string>
+  <string name="intro_2_title">Igrajte više, platite manje</string>
+  <string name="intro_2_body">Dobijte nagrade za kupovinu artikala u svojim omiljenim aplikacijama i igrama.</string>
+  <string name="intro_3_title">Jednostavno i lako</string>
+  <string name="intro_3_body">Obradite sve kupovine u aplikacijama pomoću omiljenog načina plaćanja.</string>
+  <string name="intro_4_title">Bezbedno i privatno</string>
+  <string name="intro_4_body">Vaši privatni ključevi nikad neće napuštati uređaj, tako da su vaši AppCoins uvek bezbedni.</string>
+  <string name="intro_creating_wallet_short">Pravimo vam novčanik&#8230;</string>
+  <string name="intro_wallet_created_short">Novčanik je napravljen!</string>
+  <string name="intro_agree_terms_and_conditions_body">Ako dodirnete Preskoči, prihvatate %1$s i %2$s aplikacije AppCoins Wallet</string>
+  <string name="intro_skip_button">PRESKOČI</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Od</string>
