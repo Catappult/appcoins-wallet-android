@@ -271,8 +271,8 @@
   <string name="gamification_level_body">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਅਤੇ ਗੇਮਾਂ ਵਿੱਚ ਚੀਜ਼ਾਂ ਖਰੀਦਣ ਵੇਲੇ ਤੁਸੀਂ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋਗੇ|</string>
   <string name="gamification_how_header">ਪੱਧਰ ਉੱਪਰ ਕਿਵੇਂ ਪਹੁੰਚਾਉਣਾ ਹੈ?</string>
   <string name="gamification_how_body">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਅਤੇ ਗੇਮਾਂ ਵਿੱਚ ਚੀਜ਼ਾਂ ਖਰੀਦਣ ਵੇਲੇ ਤੁਸੀਂ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋਗੇ|</string>
-  <string name="gamification_how_body_new">The more AppCoins you spend in your favorite apps, the bigger the Bonus!</string>
-  <string name="gamification_how_table_a1">SPEND</string>
+  <string name="gamification_how_body_new">ਤੁਸੀਂ ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਵਿਚ ਜਿੰਨੇ ਜ਼ਿਆਦਾ ਐਪ ਸਿੱਕੇ ਖਰਚਦੇ ਹੋ, ਓਨਾ ਵੱਡਾ ਤੁਹਾਨੂੰ ਬੋਨਸ ਮਿਲਦਾ ਹੈ!</string>
+  <string name="gamification_how_table_a1">ਖਰਚ ਕਰੋ</string>
   <string name="gamification_how_table_b1">BONUS</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s %%</string>
