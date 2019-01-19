@@ -258,9 +258,9 @@
   <string name="item_donation">Donacija</string>
   <!-- Gamification -->
   <string name="gamification_home_body">Zaradite do %s%% bonusa u omiljenim aplikacijama i igrama!</string>
-  <string name="gamification_home_button">START EARNING</string>
+  <string name="gamification_home_button">POČNITE DA ZARAĐUJETE</string>
   <string name="gamification_level_title">Na kom sam nivou?</string>
-  <string name="gamification_level_title_new">Get APPC Credits!</string>
+  <string name="gamification_level_title_new">Dobijte APPC kredit!</string>
   <string name="gamification_level_header">Čestitamo, vi ste %s!</string>
   <string name="gamification_level_to_next">Do sledećeg nivoa:</string>
   <string name="gamification_level_earned">ZARAĐENO:</string>
@@ -268,9 +268,9 @@
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">KAKO OVO FUNKCIONIŠE</string>
-  <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">Zaradićete APPC kredit kada kupujete u omiljenim aplikacijama i igrama.</string>
   <string name="gamification_how_header">Kako da pređem na viši nivo?</string>
-  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_body">Zaradićete APPC kredit kada kupujete u omiljenim aplikacijama i igrama.</string>
   <string name="gamification_how_body_new">The more AppCoins you spend in your favorite apps, the bigger the Bonus!</string>
   <string name="gamification_how_table_a1">SPEND</string>
   <string name="gamification_how_table_b1">BONUS</string>
