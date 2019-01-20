@@ -300,5 +300,5 @@
   <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the AppCoins Wallet.</string>
   <string name="provide_wallet_create_wallet_button">TẠO</string>
   <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
-  <string name="provide_wallet_created_header">Wallet address created!</string>
+  <string name="provide_wallet_created_header">Đã tạo địa chỉ ví!</string>
 </resources>
