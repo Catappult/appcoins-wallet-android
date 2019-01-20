@@ -1,6 +1,7 @@
 package com.appcoins.wallet.permissions
 
 import com.appcoins.wallet.commons.Repository
+import io.reactivex.Observable
 
 class Permissions(private val repository: Repository<String, ApplicationPermission>) {
 
@@ -59,4 +60,8 @@ class Permissions(private val repository: Repository<String, ApplicationPermissi
 
   private fun getKey(walletAddress: String, packageName: String) =
       walletAddress + packageName
+
+  fun getPermissions(): Observable<List<ApplicationPermission>> {
+    return repository.all
+  }
 }

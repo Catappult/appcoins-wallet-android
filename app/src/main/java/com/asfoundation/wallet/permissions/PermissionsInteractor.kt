@@ -1,9 +1,11 @@
 package com.asfoundation.wallet.permissions
 
+import com.appcoins.wallet.permissions.ApplicationPermission
 import com.appcoins.wallet.permissions.PermissionName
 import com.appcoins.wallet.permissions.Permissions
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Single
 
 class PermissionsInteractor(private val permissions: Permissions,
@@ -35,5 +37,9 @@ class PermissionsInteractor(private val permissions: Permissions,
 
   fun getWalletAddress(): Single<String> {
     return walletInteract.find().map { it.address }
+  }
+
+  fun getPermissions(): Observable<List<ApplicationPermission>> {
+    return permissions.getPermissions()
   }
 }
