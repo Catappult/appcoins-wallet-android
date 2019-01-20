@@ -268,15 +268,15 @@
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% BÓNUSZ</string>
   <string name="gamification_level_button_how">HOGYAN MŰKÖDIK</string>
-  <string name="gamification_level_body">APPC-krediteket kapsz, ha vásárolsz kedvenc appjaidon és játékaidon belül.</string>
+  <string name="gamification_level_body">APPC-krediteket kapsz, ha vásárolsz kedvenc appjaiban és játékaidban.</string>
   <string name="gamification_how_header">Hogy lépek szintet?</string>
-  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
-  <string name="gamification_how_body_new">The more AppCoins you spend in your favorite apps, the bigger the Bonus!</string>
-  <string name="gamification_how_table_a1">SPEND</string>
-  <string name="gamification_how_table_b1">BONUS</string>
+  <string name="gamification_how_body">APPC-krediteket kapsz, ha vásárolsz kedvenc appjaiban és játékaidban.</string>
+  <string name="gamification_how_body_new">Minél több AppCoins-ot költesz kedvenc appjaidban, annál nagyobb bónuszokat kapsz!</string>
+  <string name="gamification_how_table_a1">KIADÁS</string>
+  <string name="gamification_how_table_b1">BÓNUSZ</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s %%</string>
-  <string name="gamification_how_terms_and_conditions">Conditions</string>
+  <string name="gamification_how_terms_and_conditions">Feltételek</string>
   <string name="gamification_how_spend">%s APPC ELKÖLTÉSE</string>
   <string name="gamification_a_comet_title">Üstökös</string>
   <string name="gamification_a_moon_title">Hold</string>
@@ -289,7 +289,7 @@
   <string name="gamification_star_subtitle">Fényes, nagy és élettel teli!</string>
   <string name="gamification_galaxy_subtitle">A létező legnagyobb rendszer!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">You\'ve got a Bonus!</string>
+  <string name="gamification_purchase_header">Bónuszt kaptál!</string>
   <string name="gamification_purchase_body">%s APPC Credit kerül számodra jóváírásra</string>
   <string name="action_level">Saját szintem</string>
   <!-- Provide wallet address -->
