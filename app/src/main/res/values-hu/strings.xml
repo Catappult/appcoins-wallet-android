@@ -36,9 +36,9 @@
   <string name="title_source_code">Forráskód</string>
   <string name="title_report_bug">Hibabejelentés</string>
   <string name="title_support">Támogatás</string>
-  <string name="title_permissions">Permissions</string>
-  <string name="permissions_title">Permissions</string>
-  <string name="permissions_active_wallet_short">Current active wallet</string>
+  <string name="title_permissions">Engedélyek</string>
+  <string name="permissions_title">Engedélyek</string>
+  <string name="permissions_active_wallet_short">Épp aktív tárca</string>
   <string name="error_import">Keystore importálása sikertelen</string>
   <string name="message_this_is_your_address">Saját nyilvános Ethereum tárca-címed</string>
   <string name="backup_warning_text">Mivel a pénzedet kizárólagosan te kezeled, nagyon erősen ajánljuk, hogy készíts biztonsági mentést keystore-odról. \n\nErre azért van szükség, mert tárcádat sose mentjük felhőbe vagy az eszközöd hagyományos biztonsági mentéseibe, így az app törlése esetén elveszhet.</string>
@@ -104,10 +104,10 @@
   <string name="intro_message_first_page">Üdvözöljük az alkalmazások gazdasági forradalmában.</string>
   <string name="intro_message_second_page">A privát kulcsok sose hagyják el eszközödet.</string>
   <string name="intro_message_third_page">Minden alkalmazáson belüli fizetésedet és jutalmadat APPC-al végezheted.</string>
-  <string name="intro_1_body">Welcome to the revolution of the app economy.</string>
-  <string name="intro_2_title">Play More, Pay Less</string>
-  <string name="intro_2_body">Get rewarded for buying items in your favorite apps and games.</string>
-  <string name="intro_3_title">Simple and Easy</string>
+  <string name="intro_1_body">Üdvözöljük az alkalmazások gazdasági forradalmában.</string>
+  <string name="intro_2_title">Játsszon többet, fizessen kevesebbet</string>
+  <string name="intro_2_body">Jutalmakat kaphat, ha kedvenc appjaiban és játékaiban vásárol.</string>
+  <string name="intro_3_title">Egyszerű és könnyű</string>
   <string name="intro_3_body">Process all your in-app purchases using your favorite payment method.</string>
   <string name="intro_4_title">Secure and Private</string>
   <string name="intro_4_body">Your private keys will never leave your device, so your AppCoins are safe at all times.</string>
