@@ -21,9 +21,8 @@ class Permissions(private val repository: Repository<String, ApplicationPermissi
   }
 
   private fun saveApplicationPermission(walletAddress: String, packageName: String,
-                                        applicationPermission: ApplicationPermission
-  ) {
-    repository.saveSync(walletAddress + packageName, applicationPermission)
+                                        applicationPermission: ApplicationPermission) {
+    repository.saveSync(getKey(walletAddress, packageName), applicationPermission)
   }
 
   /**
@@ -56,5 +55,8 @@ class Permissions(private val repository: Repository<String, ApplicationPermissi
 
   private fun getApplicationPermission(walletAddress: String,
                                        packageName: String) =
-      repository.getSync(walletAddress + packageName)
+      repository.getSync(getKey(walletAddress, packageName))
+
+  private fun getKey(walletAddress: String, packageName: String) =
+      walletAddress + packageName
 }

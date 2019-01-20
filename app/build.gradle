@@ -14,6 +14,7 @@ apply plugin: 'io.fabric'
 apply plugin: 'realm-android'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 repositories {
   maven { url 'https://maven.fabric.io/public' }
@@ -197,6 +198,8 @@ dependencies {
   // Dagger core
   implementation "com.google.dagger:dagger:$project.daggerVersion"
   annotationProcessor "com.google.dagger:dagger-compiler:$project.daggerVersion"
+  kapt "com.google.dagger:dagger-android-processor:$project.daggerVersion"
+  kapt "com.google.dagger:dagger-compiler:$project.daggerVersion"
   // Dagger Android
   implementation "com.google.dagger:dagger-android-support:$project.daggerVersion"
   annotationProcessor "com.google.dagger:dagger-android-processor:$project.daggerVersion"
@@ -229,6 +232,7 @@ dependencies {
 
   implementation "android.arch.persistence.room:runtime:$project.roomVersion"
   annotationProcessor "android.arch.persistence.room:compiler:$project.roomVersion"
+  kapt "android.arch.persistence.room:compiler:$project.roomVersion"
   // RxJava support for Room
   implementation "android.arch.persistence.room:rxjava2:$project.roomVersion"
   // Pincode Lollipin

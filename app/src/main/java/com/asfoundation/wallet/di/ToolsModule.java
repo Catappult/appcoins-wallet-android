@@ -68,6 +68,8 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.permissions.PermissionsInteractor;
+import com.asfoundation.wallet.permissions.repository.PermissionRepository;
+import com.asfoundation.wallet.permissions.repository.PermissionsDatabase;
 import com.asfoundation.wallet.poa.BackEndErrorMapper;
 import com.asfoundation.wallet.poa.Calculator;
 import com.asfoundation.wallet.poa.CountryCodeProvider;
@@ -784,8 +786,12 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new LevelResourcesMapper();
   }
 
-  @Singleton @Provides Permissions providesPermissions() {
-    return new Permissions(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()));
+  @Singleton @Provides Permissions providesPermissions(Context context) {
+    return new Permissions(new PermissionRepository(
+        Room.databaseBuilder(context.getApplicationContext(), PermissionsDatabase.class,
+            "permissions_database")
+            .build()
+            .permissionsDao()));
   }
 
   @Singleton @Provides PermissionsInteractor providesPermissionsInteractor(Permissions permissions,
