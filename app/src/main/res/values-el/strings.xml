@@ -36,9 +36,9 @@
   <string name="title_source_code">Πηγαίος κώδικας</string>
   <string name="title_report_bug">Αναφορά σφάλματος</string>
   <string name="title_support">Υποστήριξη</string>
-  <string name="title_permissions">Permissions</string>
-  <string name="permissions_title">Permissions</string>
-  <string name="permissions_active_wallet_short">Current active wallet</string>
+  <string name="title_permissions">Δικαιώματα</string>
+  <string name="permissions_title">Δικαιώματα</string>
+  <string name="permissions_active_wallet_short">Τρέχον ενεργό wallet</string>
   <string name="error_import">Σφάλμα κατά την εισαγωγή keystore</string>
   <string name="message_this_is_your_address">Η δημόσια διεύθυνσή μου Ethereum wallet</string>
   <string name="backup_warning_text">Καθώς μόνο εσείς διαχειρίζεστε τα χρήματά σας, θα πρέπει να αποθηκεύσετε ένα αντίγραφο ασφαλείας του keystore σας, σε περίπτωση που διαγραφεί αυτή η εφαρμογή.\n\nΤο wallet σας δεν αποθηκεύεται ποτέ στο cloud ή στα συνηθισμένα αντίγραφα ασφαλείας της συσκευής.</string>
@@ -104,8 +104,8 @@
   <string name="intro_message_first_page">Καλώς ήρθατε στην επανάσταση της οικονομίας των εφαρμογών.</string>
   <string name="intro_message_second_page">Τα ιδιωτικά κλειδιά δε θα φύγουν ποτέ από τη συσκευή σας.</string>
   <string name="intro_message_third_page">Διαχειριστείτε όλες τις πληρωμές εντός εφαρμογών και τις αμοιβές σε APPC.</string>
-  <string name="intro_1_body">Welcome to the revolution of the app economy.</string>
-  <string name="intro_2_title">Play More, Pay Less</string>
+  <string name="intro_1_body">Καλώς ήρθατε στην επανάσταση της οικονομίας των εφαρμογών.</string>
+  <string name="intro_2_title">Παίξτε Περισσότερο, Πληρώστε Λιγότερα</string>
   <string name="intro_2_body">Get rewarded for buying items in your favorite apps and games.</string>
   <string name="intro_3_title">Simple and Easy</string>
   <string name="intro_3_body">Process all your in-app purchases using your favorite payment method.</string>
