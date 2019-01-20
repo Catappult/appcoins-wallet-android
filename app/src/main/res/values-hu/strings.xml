@@ -297,8 +297,8 @@
   <string name="provide_wallet_always_allow_button">Mindig engedje</string>
   <string name="provide_wallet_allow_once_button">Csak most engedje</string>
   <string name="provide_wallet_completed_header">Tárca társítva az Aptoide-hez!</string>
-  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the AppCoins Wallet.</string>
-  <string name="provide_wallet_create_wallet_button">CREATE</string>
-  <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
-  <string name="provide_wallet_created_header">Wallet address created!</string>
+  <string name="provide_wallet_create_body">Szükséged van egy tárcacímre! Az alábbi lépéseket követve hozz létre egyet az AppCoins Wallet-ben.</string>
+  <string name="provide_wallet_create_wallet_button">LÉTREHOZÁS</string>
+  <string name="provide_wallet_creating_wallet_header">Tárcacím létrehozása&#8230;</string>
+  <string name="provide_wallet_created_header">Tárcacím létrehozva!</string>
 </resources>
