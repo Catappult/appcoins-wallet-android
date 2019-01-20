@@ -107,14 +107,14 @@
   <string name="intro_1_body">Welcome to the revolution of the app economy.</string>
   <string name="intro_2_title">Play More, Pay Less</string>
   <string name="intro_2_body">Get rewarded for buying items in your favorite apps and games.</string>
-  <string name="intro_3_title">Simple and Easy</string>
+  <string name="intro_3_title">Đơn giản và Dễ dàng</string>
   <string name="intro_3_body">Process all your in-app purchases using your favorite payment method.</string>
-  <string name="intro_4_title">Secure and Private</string>
+  <string name="intro_4_title">Bảo mật và Riêng tư</string>
   <string name="intro_4_body">Your private keys will never leave your device, so your AppCoins are safe at all times.</string>
   <string name="intro_creating_wallet_short">We are creating a wallet for you&#8230;</string>
-  <string name="intro_wallet_created_short">Wallet created!</string>
+  <string name="intro_wallet_created_short">Đã tạo ví!</string>
   <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
-  <string name="intro_skip_button">SKIP</string>
+  <string name="intro_skip_button">BỎ QUA</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Từ</string>
@@ -196,7 +196,7 @@
   <string name="activity_iab_nonce_message">Đã xảy ra lỗi với blockchain, vui lòng thử lại sau.</string>
   <string name="activity_iab_approving_message">Kiểm tra tất cả các chi tiết: số dư, vật phẩm, mạng…</string>
   <string name="activity_iab_buying_message">Đã kiểm tra các chi tiết \nĐang nhận vật phẩm của bạn…</string>
-  <string name="activity_iab_change_card">CHANGE CARD</string>
+  <string name="activity_iab_change_card">THAY ĐỔI THẺ</string>
   <string name="notification_ongoing_poa">Đang xử lý phần thưởng của bạn</string>
   <string name="notification_completed_poa">Đã nhận phần thưởng, hãy tận hưởng!</string>
   <string name="notification_submitting_poa">Đang gửi yêu cầu của bạn đến blockchain</string>
@@ -294,11 +294,11 @@
   <string name="action_level">My Level</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to Aptoide.</string>
-  <string name="provide_wallet_always_allow_button">Always allow</string>
-  <string name="provide_wallet_allow_once_button">Allow once</string>
+  <string name="provide_wallet_always_allow_button">Luôn luôn cho phép</string>
+  <string name="provide_wallet_allow_once_button">Cho phép một lần</string>
   <string name="provide_wallet_completed_header">Wallet associated to Aptoide!</string>
   <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the AppCoins Wallet.</string>
-  <string name="provide_wallet_create_wallet_button">CREATE</string>
+  <string name="provide_wallet_create_wallet_button">TẠO</string>
   <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
   <string name="provide_wallet_created_header">Wallet address created!</string>
 </resources>
