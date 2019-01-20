@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.permissions
+package com.asfoundation.wallet.permissions.request.view
 
 import android.animation.Animator
 import android.content.Context

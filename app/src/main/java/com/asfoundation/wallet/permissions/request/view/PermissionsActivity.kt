@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.permissions
+package com.asfoundation.wallet.permissions.request.view
 
 import android.app.Activity
 import android.content.Intent
@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.appcoins.wallet.permissions.PermissionName
 import com.asf.wallet.R
+import com.asfoundation.wallet.permissions.PermissionsInteractor
 import com.asfoundation.wallet.ui.BaseActivity
 import com.jakewharton.rxrelay2.BehaviorRelay
 import dagger.android.AndroidInjection

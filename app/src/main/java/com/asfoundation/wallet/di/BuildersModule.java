@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.di;
 
 import com.asfoundation.wallet.advertise.WalletPoAService;
-import com.asfoundation.wallet.permissions.CreateWalletFragment;
-import com.asfoundation.wallet.permissions.PermissionFragment;
-import com.asfoundation.wallet.permissions.PermissionsActivity;
+import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment;
+import com.asfoundation.wallet.permissions.request.view.PermissionFragment;
+import com.asfoundation.wallet.permissions.request.view.PermissionsActivity;
 import com.asfoundation.wallet.ui.AddTokenActivity;
 import com.asfoundation.wallet.ui.ConfirmationActivity;
 import com.asfoundation.wallet.ui.Erc681Receiver;

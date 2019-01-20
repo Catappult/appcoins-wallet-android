@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.permissions
+package com.asfoundation.wallet.permissions.request.view
 
 import com.jakewharton.rxrelay2.BehaviorRelay
 import io.reactivex.Observable

@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.permissions
+package com.asfoundation.wallet.permissions.request.view
 
 import android.content.Context
 import android.os.Bundle
@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.appcoins.wallet.permissions.PermissionName
 import com.asf.wallet.R
+import com.asfoundation.wallet.permissions.AndroidAppDateProvider
+import com.asfoundation.wallet.permissions.PermissionsInteractor
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable

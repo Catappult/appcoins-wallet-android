@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.permissions
+package com.asfoundation.wallet.permissions.request.view
 
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.CreateWalletInteract

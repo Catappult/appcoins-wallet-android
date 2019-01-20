@@ -1,6 +1,8 @@
-package com.asfoundation.wallet.permissions
+package com.asfoundation.wallet.permissions.request.view
 
 import com.appcoins.wallet.permissions.PermissionName
+import com.asfoundation.wallet.permissions.Permission
+import com.asfoundation.wallet.permissions.PermissionsInteractor
 import com.asfoundation.wallet.repository.WalletNotFoundException
 import io.reactivex.Scheduler
 import io.reactivex.Single
