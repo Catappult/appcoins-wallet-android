@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.di;
 
 import com.asfoundation.wallet.advertise.WalletPoAService;
+import com.asfoundation.wallet.permissions.manage.view.PermissionsListFragment;
 import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment;
 import com.asfoundation.wallet.permissions.request.view.PermissionFragment;
 import com.asfoundation.wallet.permissions.request.view.PermissionsActivity;
@@ -111,4 +112,6 @@ import dagger.android.ContributesAndroidInjector;
   @ContributesAndroidInjector() abstract PermissionFragment bindPermissionFragment();
 
   @ContributesAndroidInjector() abstract CreateWalletFragment bindCreateWalletFragment();
+
+  @ContributesAndroidInjector() abstract PermissionsListFragment bindPermissionsListFragment();
 }

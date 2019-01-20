@@ -19,6 +19,7 @@
     <meta-data
         android:name="com.facebook.sdk.ApplicationId"
         android:value="@string/facebook_app_id"/>
+
     <activity
         android:name="com.asfoundation.wallet.ui.SplashActivity"
         android:theme="@style/SplashTheme">
@@ -95,6 +96,7 @@
         android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
+
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
 
@@ -118,6 +120,8 @@
         <data android:scheme="appcoins"/>
       </intent-filter>
     </activity>
+
+    <activity android:name="com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity"/>
 
     <activity
         android:name="com.asfoundation.wallet.ui.iab.IabActivity"
