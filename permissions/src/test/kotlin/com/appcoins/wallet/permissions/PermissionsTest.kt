@@ -33,6 +33,18 @@ class PermissionsTest {
         permissions.getPermissions(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE))
   }
 
+  @Test
+  fun grantPermissionMultipleTimes() {
+    permissions.grantPermission(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE,
+        PermissionName.WALLET)
+    permissions.grantPermission(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE,
+        PermissionName.WALLET)
+    permissions.grantPermission(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE, PermissionName.LEVEL)
+    Assert.assertEquals("permissions different from expected",
+        listOf(PermissionName.WALLET, PermissionName.LEVEL),
+        permissions.getPermissions(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE))
+  }
+
   @Test(expected = SecurityException::class)
   fun grantPermissionWrongApkSignature() {
     permissions.grantPermission(WALLET_ADDRESS, PACKAGE_NAME, APK_SIGNATURE,

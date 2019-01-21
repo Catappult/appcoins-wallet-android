@@ -13,7 +13,7 @@ class Permissions(private val repository: Repository<String, ApplicationPermissi
                       apkSignature: String,
                       permission: PermissionName) {
     getApplication(walletAddress, packageName, apkSignature)?.let {
-      val oldPermissions = it.permissions.toMutableList()
+      val oldPermissions = it.permissions.toMutableSet()
       oldPermissions.add(permission)
       saveApplicationPermission(walletAddress, packageName,
           ApplicationPermission(it, oldPermissions.toList()))
