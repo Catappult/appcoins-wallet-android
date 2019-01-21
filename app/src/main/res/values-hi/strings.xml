@@ -113,8 +113,8 @@
   <string name="intro_4_body">आपकी निजी कुंजी आपकी डिवाइस को कभी नहीं छोड़ेगी, इसलिए आपके AppCoins हर समय सुरक्षित हैं।</string>
   <string name="intro_creating_wallet_short">हम आपके लिए एक वॉलेट बना रहे हैं&#8230;</string>
   <string name="intro_wallet_created_short">वॉलेट बनाया गया!</string>
-  <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
-  <string name="intro_skip_button">SKIP</string>
+  <string name="intro_agree_terms_and_conditions_body">छोड़ें पर टैप करते हुए, आप AppCoins Wallet के %1$s और %2$s से सहमत हैं</string>
+  <string name="intro_skip_button">छोड़ें</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">से</string>
@@ -196,7 +196,7 @@
   <string name="activity_iab_nonce_message">ब्लॉकचेन के साथ एक त्रुटि हुई, कृपया बाद में पुनः प्रयास करें।</string>
   <string name="activity_iab_approving_message">सभी विवरण जाँच रहा है: शेष राशि, वस्तुएं, नेटवर्क…</string>
   <string name="activity_iab_buying_message">विवरण जांचे गए \nआपकी वस्तु प्राप्त कर रहा है…</string>
-  <string name="activity_iab_change_card">CHANGE CARD</string>
+  <string name="activity_iab_change_card">कार्ड बदलें</string>
   <string name="notification_ongoing_poa">आपका इनाम संसाधित कर रहा है</string>
   <string name="notification_completed_poa">इनाम प्राप्त हुआ, मजा लें!</string>
   <string name="notification_submitting_poa">ब्लॉकचैन को आपका अनुरोध जमा कर रहा है</string>
@@ -257,10 +257,10 @@
   <string name="action_skip_backup_wallet">बैकअप छोड़ें</string>
   <string name="item_donation">दान</string>
   <!-- Gamification -->
-  <string name="gamification_home_body">Earn up to %s%% Bonus in your favorite apps and games!</string>
-  <string name="gamification_home_button">START EARNING</string>
+  <string name="gamification_home_body">अपनी पसंदीदा ऐप्स और गेम्स में %s%% तक का बोनस कमाएँ!</string>
+  <string name="gamification_home_button">कमाना शुरू करें</string>
   <string name="gamification_level_title">मेरा लेवल क्या है?</string>
-  <string name="gamification_level_title_new">Get APPC Credits!</string>
+  <string name="gamification_level_title_new">APPC क्रेडिट पाएँ!</string>
   <string name="gamification_level_header">बधाई हो, आप %s हैं!</string>
   <string name="gamification_level_to_next">अगले लेवल के लिए:</string>
   <string name="gamification_level_earned">कमाए:</string>
@@ -268,12 +268,12 @@
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% बोनस</string>
   <string name="gamification_level_button_how">यह कैसे काम करता है</string>
-  <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">आप अपने पसंदीदा ऐप्स और गेम्स में वस्तुएं खरीदते समय APPC क्रेडिट अर्जित करेंगे।</string>
   <string name="gamification_how_header">लेवल से ऊपर कैसे जाएँ?</string>
-  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
-  <string name="gamification_how_body_new">The more AppCoins you spend in your favorite apps, the bigger the Bonus!</string>
-  <string name="gamification_how_table_a1">SPEND</string>
-  <string name="gamification_how_table_b1">BONUS</string>
+  <string name="gamification_how_body">आप अपने पसंदीदा ऐप्स और गेम्स में वस्तुएं खरीदते समय APPC क्रेडिट अर्जित करेंगे।</string>
+  <string name="gamification_how_body_new">जितने अधिक AppCoins आप अपनी पसंदीदा ऐप्स में खर्च करते हैं, उतना बड़ा बोनस!</string>
+  <string name="gamification_how_table_a1">खर्च करें</string>
+  <string name="gamification_how_table_b1">बोनस</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s %%</string>
   <string name="gamification_how_terms_and_conditions">Conditions</string>
