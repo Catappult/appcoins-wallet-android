@@ -36,9 +36,9 @@
   <string name="title_source_code">Kaynak kodu</string>
   <string name="title_report_bug">Hata bildirin</string>
   <string name="title_support">Destek</string>
-  <string name="title_permissions">Permissions</string>
-  <string name="permissions_title">Permissions</string>
-  <string name="permissions_active_wallet_short">Current active wallet</string>
+  <string name="title_permissions">İzinler</string>
+  <string name="permissions_title">İzinler</string>
+  <string name="permissions_active_wallet_short">Geçerli aktif cüzdan</string>
   <string name="error_import">Anahtar deposu aktarılırken hata oluştu</string>
   <string name="message_this_is_your_address">Herkese açık Ethereum cüzdanı adresim</string>
   <string name="backup_warning_text">Paranızı sadece siz kontrol edebileceğinizden, bu uygulamanın silinmesi ihtimaline karşı anahtar deponuzun bir yedeğini saklamanız gerekir.\n\nCüzdanınız asla bulut deposuna veya standart cihaz yedeklemelerine kaydedilmez.</string>
@@ -104,17 +104,17 @@
   <string name="intro_message_first_page">Uygulama ekonomisinin evrimine hoş geldiniz.</string>
   <string name="intro_message_second_page">Özel anahtarlar cihazınızı asla bırakmaz.</string>
   <string name="intro_message_third_page">Tüm uygulama içi ödemelerinizi ve ödüllerinizi APPC cinsinden işleyin.</string>
-  <string name="intro_1_body">Welcome to the revolution of the app economy.</string>
-  <string name="intro_2_title">Play More, Pay Less</string>
-  <string name="intro_2_body">Get rewarded for buying items in your favorite apps and games.</string>
-  <string name="intro_3_title">Simple and Easy</string>
-  <string name="intro_3_body">Process all your in-app purchases using your favorite payment method.</string>
-  <string name="intro_4_title">Secure and Private</string>
-  <string name="intro_4_body">Your private keys will never leave your device, so your AppCoins are safe at all times.</string>
-  <string name="intro_creating_wallet_short">We are creating a wallet for you&#8230;</string>
-  <string name="intro_wallet_created_short">Wallet created!</string>
+  <string name="intro_1_body">Uygulama ekonomisinin evrimine hoş geldiniz.</string>
+  <string name="intro_2_title">Daha Fazla Oynayın, Daha Az Ödeyin</string>
+  <string name="intro_2_body">En sevdiğiniz uygulama ve oyunlarda ürün satın aldığınızda ödül kazanın.</string>
+  <string name="intro_3_title">Basit ve Kolay</string>
+  <string name="intro_3_body">Favori ödeme yönteminizi kullanarak tüm uygulama için satın alımlarınızı işleyin.</string>
+  <string name="intro_4_title">Güvenli ve Gizli</string>
+  <string name="intro_4_body">Özel anahtarlarınız asla cihazınızı terk etmez, dolayısıyla AppCoin\'leriniz her zaman güvendedir.</string>
+  <string name="intro_creating_wallet_short">Sizin için bir cüzdan oluşturuyoruz&#8230;</string>
+  <string name="intro_wallet_created_short">Cüzdan oluşturuldu!</string>
   <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
-  <string name="intro_skip_button">SKIP</string>
+  <string name="intro_skip_button">ATLA</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Kimden</string>
@@ -196,7 +196,7 @@
   <string name="activity_iab_nonce_message">Blok zinciriyle ilgili bir hata oluştu, lütfen daha sonra tekrar deneyin.</string>
   <string name="activity_iab_approving_message">Tüm bilgiler kontrol ediliyor: Bakiye, öğeler, ağ…</string>
   <string name="activity_iab_buying_message">Bilgiler kontrol edildi \nÖğeniz alınıyor…</string>
-  <string name="activity_iab_change_card">CHANGE CARD</string>
+  <string name="activity_iab_change_card">KARTI DEĞİŞTİR</string>
   <string name="notification_ongoing_poa">Ödülünüz işleniyor</string>
   <string name="notification_completed_poa">Ödül alındı, keyfini çıkarın!</string>
   <string name="notification_submitting_poa">İsteğiniz blok zincirine gönderiliyor</string>
