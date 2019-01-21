@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.permissions.manage.view
 
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +8,7 @@ import com.asf.wallet.R
 import com.jakewharton.rxrelay2.BehaviorRelay
 
 class PermissionsListAdapter(
-    private val permissions: MutableList<ApplicationPermissionViewData>,
+    private var permissions: MutableList<ApplicationPermissionViewData>,
     private val permissionClick: BehaviorRelay<ApplicationPermissionViewData>) :
     RecyclerView.Adapter<PermissionViewHolder>() {
 
@@ -26,8 +27,30 @@ class PermissionsListAdapter(
   }
 
   fun setPermissions(permissions: List<ApplicationPermissionViewData>) {
-    this.permissions.clear()
-    this.permissions.addAll(permissions)
-    notifyDataSetChanged()
+    val oldList = this.permissions
+    this.permissions = permissions.toMutableList()
+    notifyChanges(oldList, this.permissions)
+  }
+
+  private fun notifyChanges(
+      oldList: List<ApplicationPermissionViewData>, newList: List<ApplicationPermissionViewData>) {
+
+    DiffUtil.calculateDiff(object : DiffUtil.Callback() {
+      override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        return oldList[oldItemPosition].packageName == newList[newItemPosition].packageName
+      }
+
+      override fun getOldListSize(): Int {
+        return oldList.size
+      }
+
+      override fun getNewListSize(): Int {
+        return newList.size
+      }
+
+      override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        return oldList[oldItemPosition] == newList[newItemPosition]
+      }
+    }).dispatchUpdatesTo(this)
   }
 }
