@@ -3,6 +3,7 @@ package com.asfoundation.wallet.permissions
 import com.appcoins.wallet.permissions.ApplicationPermission
 import com.appcoins.wallet.permissions.PermissionName
 import com.appcoins.wallet.permissions.Permissions
+import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -41,5 +42,10 @@ class PermissionsInteractor(private val permissions: Permissions,
 
   fun getPermissions(): Observable<List<ApplicationPermission>> {
     return permissions.getPermissions()
+  }
+
+  fun revokePermission(packageName: String, permissionName: PermissionName): Single<Wallet> {
+    return walletInteract.find()
+        .doOnSuccess { permissions.revokePermission(it.address, packageName, permissionName) }
   }
 }

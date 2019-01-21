@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.permissions.manage.view
 
+import com.appcoins.wallet.permissions.PermissionName
 import com.asfoundation.wallet.permissions.PermissionsInteractor
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -8,9 +9,25 @@ import io.reactivex.schedulers.Schedulers
 class PermissionsListPresenter(private val view: PermissionsListView,
                                private val permissionsInteractor: PermissionsInteractor,
                                private val viewScheduler: Scheduler,
+                               private val ioScheduler: Scheduler,
                                private val disposables: CompositeDisposable) {
   fun present() {
     showPermissionsList()
+    handlePermissionClick()
+  }
+
+  private fun handlePermissionClick() {
+    disposables.add(view.getPermissionClick()
+        .observeOn(ioScheduler)
+        .flatMapSingle {
+          return@flatMapSingle if (it.hasPermission) {
+            permissionsInteractor.grantPermission(it.packageName, it.apkSignature,
+                PermissionName.WALLET)
+          } else {
+            permissionsInteractor.revokePermission(it.packageName, PermissionName.WALLET)
+          }
+        }
+        .subscribe())
   }
 
   private fun showPermissionsList() {

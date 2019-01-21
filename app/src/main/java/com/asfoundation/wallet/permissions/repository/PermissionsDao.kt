@@ -1,9 +1,6 @@
 package com.asfoundation.wallet.permissions.repository
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Delete
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.Query
+import android.arch.persistence.room.*
 import io.reactivex.Flowable
 
 @Dao
@@ -20,7 +17,7 @@ interface PermissionsDao {
   @Query("select * from PermissionEntity")
   fun getAll(): List<PermissionEntity>
 
-  @Insert
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
   fun insert(roomPermission: PermissionEntity)
 
   @Delete
