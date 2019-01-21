@@ -3,7 +3,7 @@ package com.asfoundation.wallet.permissions
 import android.content.Context
 import android.graphics.drawable.Drawable
 
-class AndroidAppDateProvider(private val context: Context) {
+class AndroidAppDataProvider(private val context: Context) {
   fun getAppInfo(packageName: String): ApplicationInfo {
     val packageInfo = context.packageManager.getApplicationInfo(packageName, 0)
     val appName = context.packageManager.getApplicationLabel(packageInfo)

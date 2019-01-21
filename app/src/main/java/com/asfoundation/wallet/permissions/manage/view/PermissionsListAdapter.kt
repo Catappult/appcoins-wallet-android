@@ -3,10 +3,9 @@ package com.asfoundation.wallet.permissions.manage.view
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.appcoins.wallet.permissions.ApplicationPermission
 import com.asf.wallet.R
 
-class PermissionsListAdapter(private val permissions: MutableList<ApplicationPermission>) :
+class PermissionsListAdapter(private val permissions: MutableList<ApplicationPermissionViewData>) :
     RecyclerView.Adapter<PermissionViewHolder>() {
 
 
@@ -23,7 +22,7 @@ class PermissionsListAdapter(private val permissions: MutableList<ApplicationPer
     holder.bindPermission(permissions[position])
   }
 
-  fun setPermissions(permissions: List<ApplicationPermission>) {
+  fun setPermissions(permissions: List<ApplicationPermissionViewData>) {
     this.permissions.clear()
     this.permissions.addAll(permissions)
     notifyDataSetChanged()

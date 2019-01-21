@@ -15,8 +15,11 @@ class PermissionsListPresenter(private val view: PermissionsListView,
 
   private fun showPermissionsList() {
     disposables.add(
-        permissionsInteractor.getPermissions().subscribeOn(Schedulers.io()).observeOn(viewScheduler)
-            .doOnNext { view.showPermissions(it) }.subscribe())
+        permissionsInteractor.getPermissions()
+            .subscribeOn(Schedulers.io())
+            .observeOn(viewScheduler)
+            .flatMapCompletable { view.showPermissions(it) }
+            .subscribe())
   }
 
   fun stop() {

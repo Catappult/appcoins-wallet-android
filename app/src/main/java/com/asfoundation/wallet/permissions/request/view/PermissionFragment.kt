@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.appcoins.wallet.permissions.PermissionName
 import com.asf.wallet.R
-import com.asfoundation.wallet.permissions.AndroidAppDateProvider
+import com.asfoundation.wallet.permissions.AndroidAppDataProvider
 import com.asfoundation.wallet.permissions.PermissionsInteractor
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
@@ -42,7 +42,7 @@ class PermissionFragment : DaggerFragment(), PermissionFragmentView {
     }
   }
 
-  lateinit var appDateProvider: AndroidAppDateProvider
+  lateinit var appDateProvider: AndroidAppDataProvider
   @Inject
   lateinit var permissionsInteractor: PermissionsInteractor
   private lateinit var navigator: PermissionFragmentNavigator
@@ -73,7 +73,7 @@ class PermissionFragment : DaggerFragment(), PermissionFragmentView {
     disposable?.dispose()
     disposable = Single.zip(Single.timer(500, TimeUnit.MILLISECONDS),
         Single.fromCallable { appDateProvider.getAppInfo(packageName) },
-        BiFunction { _: Long, app: AndroidAppDateProvider.ApplicationInfo -> app })
+        BiFunction { _: Long, app: AndroidAppDataProvider.ApplicationInfo -> app })
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnSuccess { app ->
@@ -110,7 +110,7 @@ class PermissionFragment : DaggerFragment(), PermissionFragmentView {
     when (context) {
       is PermissionFragmentNavigator -> {
         navigator = context
-        appDateProvider = AndroidAppDateProvider(context)
+        appDateProvider = AndroidAppDataProvider(context)
       }
       else -> throw IllegalArgumentException(
           "${PermissionFragment::class} has to be attached to an activity that implements ${PermissionFragmentNavigator::class}")
