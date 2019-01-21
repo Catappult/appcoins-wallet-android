@@ -291,7 +291,7 @@ public class WalletPoAService extends Service {
 
   public void setTimeout(String packageName) {
     disposeDisposable(timerDisposable);
-    timerDisposable = Observable.timer(30, TimeUnit.SECONDS)
+    timerDisposable = Observable.timer(3, TimeUnit.MINUTES)
         .subscribe(__ -> {
           disposeDisposable(requirementsDisposable);
           proofOfAttentionService.cancel(packageName);
@@ -332,8 +332,7 @@ public class WalletPoAService extends Service {
               .getInt("networkId"));
           break;
         case MSG_STOP_PROCESS:
-          Log.d(TAG, "MSG_STOP_PROCESS");
-          proofOfAttentionService.cancel(packageName);
+          Log.d(TAG, "Ignoring MSG_STOP_PROCESS message.");
           break;
         default:
           super.handleMessage(msg);
