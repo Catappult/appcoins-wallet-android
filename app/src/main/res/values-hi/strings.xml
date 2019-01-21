@@ -276,7 +276,7 @@
   <string name="gamification_how_table_b1">बोनस</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s %%</string>
-  <string name="gamification_how_terms_and_conditions">Conditions</string>
+  <string name="gamification_how_terms_and_conditions">शर्तें</string>
   <string name="gamification_how_spend">%s APPC खर्च करें</string>
   <string name="gamification_a_comet_title">एक धूमकेतु</string>
   <string name="gamification_a_moon_title">एक चन्द्रमा</string>
@@ -289,7 +289,7 @@
   <string name="gamification_star_subtitle">चमकीला, बड़ा और जीवन से भरा हुआ!</string>
   <string name="gamification_galaxy_subtitle">वहाँ की सबसे बड़ी प्रणाली!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">You\'ve got a Bonus!</string>
+  <string name="gamification_purchase_header">आपको बोनस मिला है!</string>
   <string name="gamification_purchase_body">%s APPC क्रेडिट आपके वॉलेट में जमा किये जाएँगे</string>
   <string name="action_level">मेरा लेवल</string>
   <!-- Provide wallet address -->
