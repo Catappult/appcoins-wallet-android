@@ -260,7 +260,7 @@
   <string name="gamification_home_body">Akár %s%% bónuszt kaphatsz kedvenc appjaiban és játékaiban!</string>
   <string name="gamification_home_button">KEZDJ PÉNZT KERESNI</string>
   <string name="gamification_level_title">Hanyas szintű vagyok?</string>
-  <string name="gamification_level_title_new">Get APPC Credits!</string>
+  <string name="gamification_level_title_new">Szerezz APPC Kreditet!</string>
   <string name="gamification_level_header">Gratulálunk. %s vagy!</string>
   <string name="gamification_level_to_next">Köv. szintig:</string>
   <string name="gamification_level_earned">FOGADVA:</string>
