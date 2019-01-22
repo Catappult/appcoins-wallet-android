@@ -2,6 +2,7 @@ package com.appcoins.wallet.appcoins.rewards
 
 import com.appcoins.wallet.appcoins.rewards.repository.WalletService
 import com.appcoins.wallet.bdsbilling.Billing
+import com.appcoins.wallet.bdsbilling.repository.TransactionType
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import com.appcoins.wallet.commons.Repository
 import io.reactivex.Completable
@@ -65,7 +66,7 @@ class AppcoinsRewards(
                   }
                       .flatMapCompletable { transaction1 ->
                         waitTransactionCompletion(transaction1).andThen(
-                            if (!transaction.isBds()) {
+                            if (!transaction.isBds() && transaction.type == TransactionType.INAPP.name) {
                               transactionIdRepository.getTransactionUid(transaction1.uid)
                                   .flatMapCompletable { txId ->
                                     val tx = Transaction(transaction, Transaction.Status.COMPLETED)
