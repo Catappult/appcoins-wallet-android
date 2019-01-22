@@ -272,11 +272,11 @@
   <string name="gamification_how_header">Nasıl Seviye Atlanır?</string>
   <string name="gamification_how_body">Favori uygulama ve oyunlarınızda öğe satın alırken APPC Kredisi kazanırsınız.</string>
   <string name="gamification_how_body_new">Favori uygulamalarınızda ne kadar AppCoins harcarsanız o kadar fazla Bonus kazanırsınız!</string>
-  <string name="gamification_how_table_a1">SPEND</string>
+  <string name="gamification_how_table_a1">HARCA</string>
   <string name="gamification_how_table_b1">BONUS</string>
   <string name="gamification_how_table_a2">%s APPC</string>
-  <string name="gamification_how_table_b2">%s %%</string>
-  <string name="gamification_how_terms_and_conditions">Conditions</string>
+  <string name="gamification_how_table_b2">%%%s</string>
+  <string name="gamification_how_terms_and_conditions">Koşullar</string>
   <string name="gamification_how_spend">%s APPC HARCAYIN</string>
   <string name="gamification_a_comet_title">bir Kuyrukluyıldız</string>
   <string name="gamification_a_moon_title">bir Ay</string>
@@ -289,7 +289,7 @@
   <string name="gamification_star_subtitle">Parlak, büyük ve hayat dolu!</string>
   <string name="gamification_galaxy_subtitle">Mevcut en büyük sistem!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">You\'ve got a Bonus!</string>
+  <string name="gamification_purchase_header">Bonus kazandınız!</string>
   <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
   <string name="action_level">My Level</string>
   <!-- Provide wallet address -->
