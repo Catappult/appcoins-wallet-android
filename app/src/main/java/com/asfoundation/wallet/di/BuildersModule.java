@@ -51,13 +51,14 @@ import dagger.android.ContributesAndroidInjector;
   @ActivityScope @ContributesAndroidInjector(modules = SendModule.class)
   abstract SendActivity bindSendModule();
 
+  @ActivityScope @ContributesAndroidInjector(modules = MyAddressModule.class)
+  abstract MyAddressActivity bindMyAddressModule();
+
   @ActivityScope @ContributesAndroidInjector(modules = ConfirmationModule.class)
   abstract ConfirmationActivity bindConfirmationModule();
 
   @ActivityScope @ContributesAndroidInjector(modules = ConfirmationModule.class)
   abstract IabActivity bindIabModule();
-
-  @ContributesAndroidInjector abstract MyAddressActivity bindMyAddressModule();
 
   @ActivityScope @ContributesAndroidInjector(modules = TokensModule.class)
   abstract TokensActivity bindTokensModule();
