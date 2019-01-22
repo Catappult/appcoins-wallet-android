@@ -257,14 +257,14 @@
   <string name="action_skip_backup_wallet">IGNORAR BACKUP</string>
   <string name="item_donation">Doação</string>
   <!-- Gamification -->
-  <string name="gamification_home_body">Earn up to %s%% Bonus in your favorite apps and games!</string>
+  <string name="gamification_home_body">Recebe até %s%% de bónus nas tuas apps e jogos preferidos!</string>
   <string name="gamification_home_button">START EARNING</string>
   <string name="gamification_level_title">Qual o meu nível?</string>
   <string name="gamification_level_title_new">Get APPC Credits!</string>
   <string name="gamification_level_header">Parabéns, és %s!</string>
-  <string name="gamification_level_to_next">To next level:</string>
+  <string name="gamification_level_to_next">Para o próximo nível:</string>
   <string name="gamification_level_earned">GANHASTE:</string>
-  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl">PARA O PRÓXIMO NÍVEL:</string>
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% bónus</string>
   <string name="gamification_level_button_how">COMO FUNCIONA</string>
@@ -272,11 +272,11 @@
   <string name="gamification_how_header">Como subir de nível?</string>
   <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_body_new">The more AppCoins you spend in your favorite apps, the bigger the Bonus!</string>
-  <string name="gamification_how_table_a1">SPEND</string>
-  <string name="gamification_how_table_b1">BONUS</string>
+  <string name="gamification_how_table_a1">GASTA</string>
+  <string name="gamification_how_table_b1">BÓNUS</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s %%</string>
-  <string name="gamification_how_terms_and_conditions">Conditions</string>
+  <string name="gamification_how_terms_and_conditions">Condições</string>
   <string name="gamification_how_spend">GASTAR %s APPC</string>
   <string name="gamification_a_comet_title">um Cometa</string>
   <string name="gamification_a_moon_title">uma Lua</string>
