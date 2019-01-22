@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
-import com.appcoins.wallet.appcoins.rewards.TransactionIdRepository;
+import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethod;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
@@ -15,10 +15,13 @@ import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status;
 
 public class InAppPurchaseInteractor {
 
@@ -26,17 +29,17 @@ public class InAppPurchaseInteractor {
   private final BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor;
   private final ExternalBillingSerializer billingSerializer;
   private final AppcoinsRewards appcoinsRewards;
-  private final TransactionIdRepository transactionIdRepository;
+  private final Billing billing;
 
   public InAppPurchaseInteractor(AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
       BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
       ExternalBillingSerializer billingSerializer, AppcoinsRewards appcoinsRewards,
-      TransactionIdRepository transactionIdRepository) {
+      Billing billing) {
     this.asfInAppPurchaseInteractor = asfInAppPurchaseInteractor;
     this.bdsInAppPurchaseInteractor = bdsInAppPurchaseInteractor;
     this.billingSerializer = billingSerializer;
     this.appcoinsRewards = appcoinsRewards;
-    this.transactionIdRepository = transactionIdRepository;
+    this.billing = billing;
   }
 
   public Single<TransactionBuilder> parseTransaction(String uri, boolean isBds) {
@@ -186,7 +189,13 @@ public class InAppPurchaseInteractor {
   }
 
   Single<String> getTransactionUid(String uid) {
-    return transactionIdRepository.getTransactionUid(uid);
+    return Observable.interval(0, 5, TimeUnit.SECONDS, Schedulers.io())
+        .timeInterval()
+        .switchMap(longTimed -> billing.getAppcoinsTransaction(uid, Schedulers.io())
+            .toObservable())
+        .takeUntil(pendingTransaction -> pendingTransaction.getStatus() != Status.COMPLETED)
+        .map(transaction -> transaction.getHash())
+        .firstOrError();
   }
 
   public Single<List<PaymentMethod>> getAvailablePaymentMethods(TransactionBuilder transaction) {

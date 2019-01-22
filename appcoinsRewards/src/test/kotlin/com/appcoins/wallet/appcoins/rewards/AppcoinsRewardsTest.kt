@@ -6,7 +6,6 @@ import com.appcoins.wallet.appcoins.rewards.repository.WalletService
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi
 import com.appcoins.wallet.appcoins.rewards.repository.bds.BdsApi
 import com.appcoins.wallet.bdsbilling.Billing
-import com.appcoins.wallet.bdsbilling.repository.GetTransactionIdResponse
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
 import com.appcoins.wallet.commons.MemoryCache
 import io.reactivex.Single
@@ -16,9 +15,7 @@ import io.reactivex.subjects.BehaviorSubject
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 import java.math.BigDecimal
@@ -71,15 +68,6 @@ class AppcoinsRewardsTest {
             com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
             Gateway.unknown(), "0x32453134", "orderReference")))
 
-    val transactionIdRepositoryApi = Mockito.mock(TransactionIdRepository.Api::class.java)
-    val transactionIdRepository = TransactionIdRepository(transactionIdRepositoryApi)
-    val getTransactionIdResponse = GetTransactionIdResponse()
-    getTransactionIdResponse.status = "PENDING"
-    getTransactionIdResponse.txid = "0xAppcTx"
-
-    `when`(transactionIdRepositoryApi.getTransactionId(ArgumentMatchers.anyString())).thenReturn(
-        Single.just(getTransactionIdResponse))
-
     scheduler.advanceTimeBy(1, TimeUnit.DAYS)
     scheduler.triggerActions()
 
@@ -96,7 +84,7 @@ class AppcoinsRewardsTest {
 
           }
         }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), scheduler, billing
-            , ErrorMapper(), transactionIdRepository)
+            , ErrorMapper())
     appcoinsRewards.start()
   }
 
@@ -170,7 +158,7 @@ class AppcoinsRewardsTest {
         Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
             PRICE, origin, Transaction.Status.PROCESSING, null, null, null, null),
         Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-            PRICE, origin, Transaction.Status.COMPLETED, "0xAppcTx", null, null, null))
+            PRICE, origin, Transaction.Status.COMPLETED, "0x32453134", null, null, null))
     statusObserver.assertNoErrors().assertValueSequence(mutableListOf)
   }
 
