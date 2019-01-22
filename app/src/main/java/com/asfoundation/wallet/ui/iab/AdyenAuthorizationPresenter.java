@@ -210,13 +210,14 @@ public class AdyenAuthorizationPresenter {
   }
 
   private Single<Bundle> createBundle() {
-    return Single.defer(() -> {
+    return transactionBuilder.flatMap(transaction -> {
       if (type.equals("INAPP")) {
         return billing.getSkuPurchase(appPackage, skuId, Schedulers.io())
             .retryWhen(throwableFlowable -> throwableFlowable.delay(3, TimeUnit.SECONDS)
                 .map(throwable -> 0)
                 .timeout(3, TimeUnit.MINUTES))
-            .map(billingMessagesMapper::mapPurchase);
+            .map(purchase -> billingMessagesMapper.mapPurchase(purchase,
+                transaction.getOrderReference()));
       } else {
         return inAppPurchaseInteractor.getTransactionUid(billingService.getTransactionUid())
             .retryWhen(errors -> {

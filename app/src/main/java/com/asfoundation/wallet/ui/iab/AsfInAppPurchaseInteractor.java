@@ -111,7 +111,7 @@ public class AsfInAppPurchaseInteractor {
       case PROCESSING:
         return trackTransactionService.trackTransaction(paymentTransaction.getUri(),
             paymentTransaction.getPackageName(), paymentTransaction.getTransactionBuilder()
-                .getSkuId(), transaction.getUid());
+                .getSkuId(), transaction.getUid(), transaction.getOrderReference());
       case PENDING:
       case COMPLETED:
       case INVALID_TRANSACTION:
@@ -131,7 +131,8 @@ public class AsfInAppPurchaseInteractor {
 
   private Payment map(BdsTransactionService.BdsTransaction transaction) {
     return new Payment(transaction.getKey(), mapStatus(transaction.getStatus()), null, null,
-        transaction.getPackageName(), null, transaction.getSkuId());
+        transaction.getPackageName(), null, transaction.getSkuId(),
+        transaction.getOrderReference());
   }
 
   private Payment.Status mapStatus(BdsTransactionService.BdsTransaction.Status status) {
@@ -148,11 +149,11 @@ public class AsfInAppPurchaseInteractor {
   }
 
   @NonNull private Payment mapToPayment(PaymentTransaction paymentTransaction) {
-    return new Payment(paymentTransaction.getUri(),
-        mapStatus(paymentTransaction.getState()),
+    return new Payment(paymentTransaction.getUri(), mapStatus(paymentTransaction.getState()),
         paymentTransaction.getTransactionBuilder()
             .fromAddress(), paymentTransaction.getBuyHash(), paymentTransaction.getPackageName(),
-        paymentTransaction.getProductName(), paymentTransaction.getProductId());
+        paymentTransaction.getProductName(), paymentTransaction.getProductId(),
+        paymentTransaction.getOrderReference());
   }
 
   private Payment.Status mapStatus(PaymentTransaction.PaymentState state) {
@@ -200,7 +201,7 @@ public class AsfInAppPurchaseInteractor {
                     paymentGasLimit))))
         .map(transactionBuilder -> new PaymentTransaction(uri, transactionBuilder, packageName,
             productName, transactionBuilder.getSkuId(), developerPayload,
-            transactionBuilder.getCallbackUrl()));
+            transactionBuilder.getCallbackUrl(), transactionBuilder.getOrderReference()));
   }
 
   public void start() {
@@ -215,7 +216,7 @@ public class AsfInAppPurchaseInteractor {
                 mapStatus(paymentTransaction.getState()), paymentTransaction.getTransactionBuilder()
                 .fromAddress(), paymentTransaction.getBuyHash(),
                 paymentTransaction.getPackageName(), paymentTransaction.getProductName(),
-                paymentTransaction.getProductId()))
+                paymentTransaction.getProductId(), null))
             .toList());
   }
 

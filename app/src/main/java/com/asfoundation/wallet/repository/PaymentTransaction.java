@@ -18,10 +18,12 @@ public class PaymentTransaction {
   private final String productId;
   private final String developerPayload;
   private final String callbackUrl;
+  private final String orderReference;
 
   public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, PaymentState state,
       @Nullable String approveHash, @Nullable String buyHash, String packageName,
-      String productName, String productId, String developerPayload, String callbackUrl) {
+      String productName, String productId, String developerPayload, String callbackUrl,
+      @Nullable String orderReference) {
     this.uri = uri;
     this.transactionBuilder = transactionBuilder;
     this.state = state;
@@ -32,6 +34,7 @@ public class PaymentTransaction {
     this.productId = productId;
     this.developerPayload = developerPayload;
     this.callbackUrl = callbackUrl;
+    this.orderReference = orderReference;
   }
 
   public PaymentTransaction(PaymentTransaction paymentTransaction, PaymentState state) {
@@ -39,12 +42,12 @@ public class PaymentTransaction {
         paymentTransaction.getApproveHash(), paymentTransaction.getBuyHash(),
         paymentTransaction.getPackageName(), paymentTransaction.getProductName(),
         paymentTransaction.getProductId(), paymentTransaction.getDeveloperPayload(),
-        paymentTransaction.getCallbackUrl());
+        paymentTransaction.getCallbackUrl(), paymentTransaction.getOrderReference());
   }
 
   public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, PaymentState state,
       @Nullable String approveHash, String packageName, String productName, String productId,
-      String developerPayload, String callbackUrl) {
+      String developerPayload, String callbackUrl, String orderReference) {
     this.approveHash = approveHash;
     this.packageName = packageName;
     this.uri = uri;
@@ -55,6 +58,7 @@ public class PaymentTransaction {
     this.buyHash = null;
     this.developerPayload = developerPayload;
     this.callbackUrl = callbackUrl;
+    this.orderReference = orderReference;
   }
 
   public PaymentTransaction(PaymentTransaction paymentTransaction, PaymentState state,
@@ -62,7 +66,7 @@ public class PaymentTransaction {
     this(paymentTransaction.getUri(), paymentTransaction.getTransactionBuilder(), state,
         approveHash, null, paymentTransaction.getPackageName(), paymentTransaction.getProductName(),
         paymentTransaction.getProductId(), paymentTransaction.getDeveloperPayload(),
-        paymentTransaction.getCallbackUrl());
+        paymentTransaction.getCallbackUrl(), paymentTransaction.getOrderReference());
   }
 
   public PaymentTransaction(PaymentTransaction paymentTransaction, PaymentState state,
@@ -70,13 +74,19 @@ public class PaymentTransaction {
     this(paymentTransaction.getUri(), paymentTransaction.getTransactionBuilder(), state,
         approveHash, buyHash, paymentTransaction.getPackageName(),
         paymentTransaction.getProductName(), paymentTransaction.getProductId(),
-        paymentTransaction.getDeveloperPayload(), paymentTransaction.getCallbackUrl());
+        paymentTransaction.getDeveloperPayload(), paymentTransaction.getCallbackUrl(),
+        paymentTransaction.getOrderReference());
   }
 
   public PaymentTransaction(String uri, TransactionBuilder transactionBuilder, String packageName,
-      String productName, String productId, String developerPayload, String callbackUrl) {
+      String productName, String productId, String developerPayload, String callbackUrl,
+      String orderReference) {
     this(uri, transactionBuilder, PaymentState.PENDING, null, packageName, productName, productId,
-        developerPayload, callbackUrl);
+        developerPayload, callbackUrl, orderReference);
+  }
+
+  public String getOrderReference() {
+    return orderReference;
   }
 
   public String getPackageName() {
@@ -174,6 +184,7 @@ public class PaymentTransaction {
   }
 
   public enum PaymentState {
-    PENDING, APPROVING, APPROVED, BUYING, BOUGHT, COMPLETED, ERROR, WRONG_NETWORK, NONCE_ERROR, UNKNOWN_TOKEN, NO_TOKENS, NO_ETHER, NO_FUNDS, NO_INTERNET
+    PENDING, APPROVING, APPROVED, BUYING, BOUGHT, COMPLETED, ERROR, WRONG_NETWORK, NONCE_ERROR,
+    UNKNOWN_TOKEN, NO_TOKENS, NO_ETHER, NO_FUNDS, NO_INTERNET
   }
 }

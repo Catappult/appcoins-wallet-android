@@ -49,8 +49,9 @@ public class BdsTransactionService {
     disposables.clear();
   }
 
-  public Completable trackTransaction(String key, String packageName, String skuId, String uid) {
-    return cache.save(key, new BdsTransaction(uid, key, packageName, skuId));
+  public Completable trackTransaction(String key, String packageName, String skuId, String uid,
+      String orderReference) {
+    return cache.save(key, new BdsTransaction(uid, key, packageName, skuId, orderReference));
   }
 
   public Completable remove(String uri) {
@@ -63,12 +64,15 @@ public class BdsTransactionService {
     private final String packageName;
     private final Status status;
     private final String uid;
+    private final String orderReference;
 
-    public BdsTransaction(String uid, String key, String packageName, String skuId) {
+    public BdsTransaction(String uid, String key, String packageName, String skuId,
+        String orderReference) {
       this.uid = uid;
       this.key = key;
       this.packageName = packageName;
       this.skuId = skuId;
+      this.orderReference = orderReference;
       this.status = Status.WAITING;
     }
 
@@ -78,6 +82,7 @@ public class BdsTransactionService {
       this.packageName = transaction.getPackageName();
       this.uid = transaction.getUid();
       this.status = status;
+      this.orderReference = transaction.orderReference;
     }
 
     @Override public int hashCode() {
@@ -122,6 +127,10 @@ public class BdsTransactionService {
 
     public String getPackageName() {
       return packageName;
+    }
+
+    public String getOrderReference() {
+      return orderReference;
     }
 
     public String getSkuId() {

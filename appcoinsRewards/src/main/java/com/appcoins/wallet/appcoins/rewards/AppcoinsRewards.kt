@@ -2,6 +2,7 @@ package com.appcoins.wallet.appcoins.rewards
 
 import com.appcoins.wallet.appcoins.rewards.repository.WalletService
 import com.appcoins.wallet.bdsbilling.Billing
+import com.appcoins.wallet.bdsbilling.repository.TransactionType
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import com.appcoins.wallet.commons.Repository
 import io.reactivex.Completable
@@ -29,7 +30,7 @@ class AppcoinsRewards(
   }
 
   fun pay(amount: BigDecimal,
-          origin: Transaction.Origin, sku: String?,
+          origin: String, sku: String?,
           type: String,
           developerAddress: String,
           storeAddress: String,
@@ -65,7 +66,7 @@ class AppcoinsRewards(
                   }
                       .flatMapCompletable { transaction1 ->
                         waitTransactionCompletion(transaction1).andThen(
-                            if (!transaction.origin.equals("BDS")) {
+                            if (!transaction.isBds() && transaction.type == TransactionType.INAPP.name) {
                               transactionIdRepository.getTransactionUid(transaction1.uid)
                                   .flatMapCompletable { txId ->
                                     val tx = Transaction(transaction, Transaction.Status.COMPLETED)
@@ -74,6 +75,7 @@ class AppcoinsRewards(
                                   }
                             } else {
                               val tx = Transaction(transaction, Transaction.Status.COMPLETED)
+                              tx.txId = transaction1.txId
                               cache.save(getKey(tx), tx)
                             }
                         )
@@ -90,7 +92,7 @@ class AppcoinsRewards(
 
   private fun getOrigin(
       transaction: Transaction) =
-      if (transaction.origin.isBds()) transaction.origin.name else null
+      if (transaction.isBds()) transaction.origin else null
 
   private fun waitTransactionCompletion(
       createdTransaction: com.appcoins.wallet.bdsbilling.repository.entity.Transaction): Completable {

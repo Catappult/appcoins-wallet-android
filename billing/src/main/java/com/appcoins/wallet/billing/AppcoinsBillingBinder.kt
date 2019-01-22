@@ -48,6 +48,7 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
 
     internal const val INAPP_PURCHASE_DATA = "INAPP_PURCHASE_DATA"
     internal const val INAPP_DATA_SIGNATURE = "INAPP_DATA_SIGNATURE"
+    internal const val INAPP_ORDER_REFERENCE = "order_reference"
     internal const val INAPP_CONTINUATION_TOKEN = "INAPP_CONTINUATION_TOKEN"
     internal const val INAPP_PURCHASE_ID = "INAPP_PURCHASE_ID"
 

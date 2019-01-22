@@ -13,8 +13,10 @@ public class Payment {
   private @Nullable final String signature;
   private @Nullable final String signatureData;
   private @Nullable final String productId;
+  private @Nullable final String orderReference;
 
-  public Payment(String uri, Status status, String uid, String signature, String signatureData) {
+  public Payment(String uri, Status status, String uid, String signature, String signatureData,
+      String orderReference) {
     this.status = status;
     this.uri = uri;
     this.fromAddress = null;
@@ -25,9 +27,12 @@ public class Payment {
     this.signature = signature;
     this.signatureData = signatureData;
     this.productId = null;
+    this.orderReference = orderReference;
   }
+
   public Payment(String uri, Status status, @Nullable String fromAddress, @Nullable String buyHash,
-      @Nullable String packageName, @Nullable String productName, @Nullable String productId) {
+      @Nullable String packageName, @Nullable String productName, @Nullable String productId,
+      @Nullable String orderReference) {
     this.status = status;
     this.uri = uri;
     this.fromAddress = fromAddress;
@@ -38,7 +43,9 @@ public class Payment {
     this.signature = null;
     this.signatureData = null;
     this.productId = productId;
+    this.orderReference = orderReference;
   }
+
   public Payment(String uri, Status status) {
     this.uri = uri;
     this.status = status;
@@ -50,6 +57,11 @@ public class Payment {
     this.signature = null;
     this.signatureData = null;
     this.productId = null;
+    this.orderReference = null;
+  }
+
+  @Nullable public String getOrderReference() {
+    return orderReference;
   }
 
   @Nullable public String getFromAddress() {
