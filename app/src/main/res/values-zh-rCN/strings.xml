@@ -22,7 +22,7 @@
   <string name="close">关闭</string>
   <string name="title_activity_settings">设置</string>
   <string name="network_label">网络</string>
-  <string name="credits">信用</string>
+  <string name="credits">制作组</string>
   <string name="low_storage_error">存储空间不足</string>
   <string name="no_camera_permission">AppCoins BDS Wallet需要访问相机以扫描二维码的权限。</string>
   <string name="ok">确定</string>
@@ -36,9 +36,9 @@
   <string name="title_source_code">源代码</string>
   <string name="title_report_bug">报告错误</string>
   <string name="title_support">支持</string>
-  <string name="title_permissions">Permissions</string>
-  <string name="permissions_title">Permissions</string>
-  <string name="permissions_active_wallet_short">Current active wallet</string>
+  <string name="title_permissions">权限</string>
+  <string name="permissions_title">权限</string>
+  <string name="permissions_active_wallet_short">当前有效钱包</string>
   <string name="error_import">导入密钥库时出错</string>
   <string name="message_this_is_your_address">我的公共以太币钱包地址</string>
   <string name="backup_warning_text">因为只有你能控制自己的资产，你需要保存你的密钥库备份，以防这个应用被删除。\n\n你的钱包永远不会保存到云存储空间或标准设备备份空间。</string>
@@ -104,16 +104,16 @@
   <string name="intro_message_first_page">欢迎体验应用经济的革命。</string>
   <string name="intro_message_second_page">私钥永远不会离开你的设备。</string>
   <string name="intro_message_third_page">在APPC中处理你的所有应用内付款和奖励。</string>
-  <string name="intro_1_body">Welcome to the revolution of the app economy.</string>
-  <string name="intro_2_title">Play More, Pay Less</string>
-  <string name="intro_2_body">Get rewarded for buying items in your favorite apps and games.</string>
-  <string name="intro_3_title">Simple and Easy</string>
-  <string name="intro_3_body">Process all your in-app purchases using your favorite payment method.</string>
-  <string name="intro_4_title">Secure and Private</string>
+  <string name="intro_1_body">欢迎加入应用经济的革命。</string>
+  <string name="intro_2_title">少花钱，多玩乐</string>
+  <string name="intro_2_body">在你最喜爱的应用和游戏中购买物品即可获得奖励。</string>
+  <string name="intro_3_title">简单易用</string>
+  <string name="intro_3_body">使用你最喜爱的付款方式处理所有应用内购买。</string>
+  <string name="intro_4_title">安全私密</string>
   <string name="intro_4_body">Your private keys will never leave your device, so your AppCoins are safe at all times.</string>
   <string name="intro_creating_wallet_short">We are creating a wallet for you&#8230;</string>
   <string name="intro_wallet_created_short">Wallet created!</string>
-  <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
+  <string name="intro_agree_terms_and_conditions_body">点击“跳过”，即表示你同意AppCoins钱包的%1$s和%2$s</string>
   <string name="intro_skip_button">SKIP</string>
   <!-- Menus -->
   <!-- Labels -->
@@ -260,7 +260,7 @@
   <string name="gamification_home_body">Earn up to %s%% Bonus in your favorite apps and games!</string>
   <string name="gamification_home_button">START EARNING</string>
   <string name="gamification_level_title">我的等级是什么？</string>
-  <string name="gamification_level_title_new">Get APPC Credits!</string>
+  <string name="gamification_level_title_new">获取APPC积分！</string>
   <string name="gamification_level_header">恭喜，你是%s！</string>
   <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">已挣：</string>
