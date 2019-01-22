@@ -113,7 +113,7 @@
   <string name="intro_4_body">As tuas private keys nunca deixarão o teu dispositivo, e por isso as tuas AppCoins estão sempre seguras.</string>
   <string name="intro_creating_wallet_short">Estamos a criar uma wallet para ti&#8230;</string>
   <string name="intro_wallet_created_short">Wallet criada!</string>
-  <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
+  <string name="intro_agree_terms_and_conditions_body">Ao selecionar Saltar, estará a concordar com os %1$s e com a %2$s da AppCoins Wallet</string>
   <string name="intro_skip_button">Saltar</string>
   <!-- Menus -->
   <!-- Labels -->
@@ -196,7 +196,7 @@
   <string name="activity_iab_nonce_message">Ocorreu um erro blockchain, tente novamente mais tarde.</string>
   <string name="activity_iab_approving_message">A verificar todos os detalhes: balanço, itens, rede…</string>
   <string name="activity_iab_buying_message">Detalhes verificados \nA receber o teu item…</string>
-  <string name="activity_iab_change_card">CHANGE CARD</string>
+  <string name="activity_iab_change_card">ALTERAR CARTÃO</string>
   <string name="notification_ongoing_poa">A processar a tua recompensa</string>
   <string name="notification_completed_poa">Recompensa recebida, aproveita!</string>
   <string name="notification_submitting_poa">A submeter o teu pedido à blockchain</string>
