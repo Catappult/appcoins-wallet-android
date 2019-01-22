@@ -20,7 +20,7 @@ public class RewardsManager {
   }
 
   public Completable pay(String sku, BigDecimal amount, String developerAddress,
-      String storeAddress, String oemAddress, String packageName, Transaction.Origin origin,
+      String storeAddress, String oemAddress, String packageName, String origin,
       String type, String payload, String callbackUrl, String orderReference) {
     return appcoinsRewards.pay(amount, origin, sku, type, developerAddress, storeAddress,
         oemAddress, packageName, payload, callbackUrl, orderReference);

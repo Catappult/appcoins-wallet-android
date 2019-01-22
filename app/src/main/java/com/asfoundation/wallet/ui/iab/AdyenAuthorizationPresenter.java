@@ -210,8 +210,10 @@ public class AdyenAuthorizationPresenter {
   }
 
   private Single<Bundle> createBundle() {
-    return Single.defer(() -> {
-      if (type.equals("INAPP")) {
+    return transactionBuilder.flatMap(transaction -> {
+      if (transaction.getOrigin()
+          .equals("BDS") || transaction.getOrigin()
+          .equals("UNITY")) {
         return billing.getSkuPurchase(appPackage, skuId, Schedulers.io())
             .retryWhen(throwableFlowable -> throwableFlowable.delay(3, TimeUnit.SECONDS)
                 .map(throwable -> 0)

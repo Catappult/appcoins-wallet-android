@@ -134,9 +134,17 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container,
             AdyenAuthorizationFragment.newInstance(transaction.getSkuId(), transaction.getType(),
-                isBds ? BDS : null, paymentType, transaction.getDomain(),
-                getIntent().getDataString(), transaction.amount(), currency, developerPayload))
+                getOrigin(isBds), paymentType, transaction.getDomain(), getIntent().getDataString(),
+                transaction.amount(), currency, developerPayload))
         .commit();
+  }
+
+  @Nullable private String getOrigin(boolean isBds) {
+    if (transaction.getOrigin() == null) {
+      return isBds ? BDS : null;
+    } else {
+      return transaction.getOrigin();
+    }
   }
 
   @Override public void navigateToWebViewAuthorization(String url) {

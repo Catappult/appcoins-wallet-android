@@ -36,7 +36,7 @@ class AppcoinsRewardsTest {
     private val BALANCE: BigDecimal = BigDecimal(2)
     private const val TYPE: String = "INAPP"
     private const val PACKAGE_NAME = "PACKAGE_NAME"
-    private val ORIGIN = Transaction.Origin.BDS
+    private val ORIGIN = "BDS"
     private val PRICE = BigDecimal("1700000000000000000")
     private const val UID = "UID"
 
@@ -75,7 +75,7 @@ class AppcoinsRewardsTest {
     val transactionIdRepository = TransactionIdRepository(transactionIdRepositoryApi)
     val getTransactionIdResponse = GetTransactionIdResponse()
     getTransactionIdResponse.status = "PENDING"
-    getTransactionIdResponse.txid = "0x32453134"
+    getTransactionIdResponse.txid = "0xAppcTx"
 
     `when`(transactionIdRepositoryApi.getTransactionId(ArgumentMatchers.anyString())).thenReturn(
         Single.just(getTransactionIdResponse))
@@ -121,6 +121,56 @@ class AppcoinsRewardsTest {
             PRICE, ORIGIN, Transaction.Status.PROCESSING, null, null, null, null),
         Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
             PRICE, ORIGIN, Transaction.Status.COMPLETED, "0x32453134", null, null, null))
+    statusObserver.assertNoErrors().assertValueSequence(mutableListOf)
+  }
+
+  @Test
+  fun makePaymentUnityOrigin() {
+    val testObserver = TestObserver<Any>()
+    val origin = "UNITY"
+    appcoinsRewards.pay(PRICE,
+        origin,
+        SKU, TYPE, DEVELOPER_ADDRESS,
+        STORE_ADDRESS,
+        OEM_ADDRESS,
+        PACKAGE_NAME,
+        null,
+        null, null).subscribe(testObserver)
+    val statusObserver = TestObserver<Transaction>()
+    appcoinsRewards.getPayment(PACKAGE_NAME, SKU, PRICE.toString()).subscribe(statusObserver)
+
+    scheduler.triggerActions()
+    testObserver.assertNoErrors().assertComplete()
+    val mutableListOf = mutableListOf(
+        Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
+            PRICE, origin, Transaction.Status.PROCESSING, null, null, null, null),
+        Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
+            PRICE, origin, Transaction.Status.COMPLETED, "0x32453134", null, null, null))
+    statusObserver.assertNoErrors().assertValueSequence(mutableListOf)
+  }
+
+  @Test
+  fun makePaymentUnknownOrigin() {
+    val testObserver = TestObserver<Any>()
+    val origin = "unknown"
+    appcoinsRewards.pay(PRICE,
+        origin,
+        SKU, TYPE, DEVELOPER_ADDRESS,
+        STORE_ADDRESS,
+        OEM_ADDRESS,
+        PACKAGE_NAME,
+        null,
+        null, null).subscribe(testObserver)
+    val statusObserver = TestObserver<Transaction>()
+    appcoinsRewards.getPayment(PACKAGE_NAME, SKU, PRICE.toString()).subscribe(statusObserver)
+
+    scheduler.triggerActions()
+    testObserver.assertNoErrors().assertComplete()
+    val mutableListOf = mutableListOf(
+        Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
+            PRICE, origin, Transaction.Status.PROCESSING, null, null, null, null),
+        Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
+            PRICE, origin, Transaction.Status.COMPLETED, "0xAppcTx", null, null, null))
     statusObserver.assertNoErrors().assertValueSequence(mutableListOf)
   }
 
