@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
+import android.support.annotation.Nullable;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import io.reactivex.Observable;
 
@@ -35,4 +36,6 @@ interface AppcoinsRewardsBuyView {
   void finish(String uid);
 
   void errorClose();
+
+  void finish(Purchase purchase, @Nullable String orderReference);
 }

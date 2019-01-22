@@ -218,7 +218,8 @@ public class AdyenAuthorizationPresenter {
             .retryWhen(throwableFlowable -> throwableFlowable.delay(3, TimeUnit.SECONDS)
                 .map(throwable -> 0)
                 .timeout(3, TimeUnit.MINUTES))
-            .map(billingMessagesMapper::mapPurchase);
+            .map(purchase -> billingMessagesMapper.mapPurchase(purchase,
+                transaction.getOrderReference()));
       } else {
         return inAppPurchaseInteractor.getTransactionUid(billingService.getTransactionUid())
             .retryWhen(errors -> {

@@ -62,14 +62,14 @@ class AppcoinsRewardsTest {
                        payBody: BdsApi.PayBody): Single<com.appcoins.wallet.bdsbilling.repository.entity.Transaction> {
         return Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
             com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
-            Gateway.unknown(), "0x32453134"))
+            Gateway.unknown(), "0x32453134", "orderReference"))
       }
     }
 
     `when`(billing.getAppcoinsTransaction(UID, scheduler)).thenReturn(
         Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
             com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
-            Gateway.unknown(), "0x32453134")))
+            Gateway.unknown(), "0x32453134", "orderReference")))
 
     val transactionIdRepositoryApi = Mockito.mock(TransactionIdRepository.Api::class.java)
     val transactionIdRepository = TransactionIdRepository(transactionIdRepositoryApi)

@@ -121,7 +121,7 @@ public class AppcoinsRewardsBuyPresenter {
         if (isBds && transactionBuilder.getType()
             .equalsIgnoreCase(TransactionData.TransactionType.INAPP.name())) {
           return rewardsManager.getPaymentCompleted(packageName, sku)
-              .doOnSuccess(view::finish)
+              .doOnSuccess(purchase -> view.finish(purchase, transaction.getOrderReference()))
               .ignoreElement()
               .observeOn(scheduler)
               .onErrorResumeNext(throwable -> Completable.fromAction(() -> {
