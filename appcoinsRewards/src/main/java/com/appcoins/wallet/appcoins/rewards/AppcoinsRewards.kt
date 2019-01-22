@@ -2,6 +2,7 @@ package com.appcoins.wallet.appcoins.rewards
 
 import com.appcoins.wallet.appcoins.rewards.repository.WalletService
 import com.appcoins.wallet.bdsbilling.Billing
+import com.appcoins.wallet.bdsbilling.repository.TransactionType
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import com.appcoins.wallet.commons.Repository
 import io.reactivex.Completable
@@ -28,7 +29,7 @@ class AppcoinsRewards(
   }
 
   fun pay(amount: BigDecimal,
-          origin: Transaction.Origin, sku: String?,
+          origin: String, sku: String?,
           type: String,
           developerAddress: String,
           storeAddress: String,
@@ -63,10 +64,10 @@ class AppcoinsRewards(
                         transaction.orderReference)
                   }
                       .flatMapCompletable { transaction1 ->
-                        waitTransactionCompletion(transaction1).andThen{
-                            val tx = Transaction(transaction, Transaction.Status.COMPLETED)
-                            tx.txId = transaction1.hash
-                            cache.saveSync(getKey(tx), tx)
+                        waitTransactionCompletion(transaction1).andThen {
+                          val tx = Transaction(transaction, Transaction.Status.COMPLETED)
+                          tx.txId = transaction1.hash
+                          cache.saveSync(getKey(tx), tx)
                         }
                       }
                 }
@@ -81,7 +82,7 @@ class AppcoinsRewards(
 
   private fun getOrigin(
       transaction: Transaction) =
-      if (transaction.origin.isBds()) transaction.origin.name else null
+      if (transaction.isBds()) transaction.origin else null
 
   private fun waitTransactionCompletion(
       createdTransaction: com.appcoins.wallet.bdsbilling.repository.entity.Transaction): Completable {

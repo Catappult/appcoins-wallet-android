@@ -143,7 +143,8 @@ public class InAppPurchaseInteractor {
   private Payment mapToBdsPayment(Payment transaction, Purchase purchase) {
     return new Payment(transaction.getUri(), transaction.getStatus(), purchase.getUid(),
         purchase.getSignature()
-            .getValue(), billingSerializer.serializeSignatureData(purchase));
+            .getValue(), billingSerializer.serializeSignatureData(purchase),
+        transaction.getOrderReference());
   }
 
   public Single<Boolean> isWalletFromBds(String packageName, String wallet) {
@@ -155,8 +156,7 @@ public class InAppPurchaseInteractor {
         .onErrorReturn(throwable -> false);
   }
 
-  public Single<List<Gateway.Name>> getFilteredGateways(
-      TransactionBuilder transactionBuilder) {
+  public Single<List<Gateway.Name>> getFilteredGateways(TransactionBuilder transactionBuilder) {
     return Single.zip(getRewardsBalance(), hasAppcoinsFunds(transactionBuilder),
         (creditsBalance, hasAppcoinsFunds) -> getNewPaymentGateways(creditsBalance,
             hasAppcoinsFunds, transactionBuilder.amount()));

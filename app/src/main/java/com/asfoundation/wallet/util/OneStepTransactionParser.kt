@@ -33,10 +33,9 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
                     amount: BigDecimal ->
           TransactionBuilder(token.tokenInfo.symbol, tokenContract,
               getChainId(uri), walletAddress, amount, getSkuId(uri), token.tokenInfo.decimals,
-              iabContract,
-              Parameters.PAYMENT_TYPE_INAPP_UNMANAGED.toUpperCase(), getDomain(uri),
-              getPayload(uri),
-              getCallback(uri), getOrderReference(uri)).shouldSendToken(true)
+              iabContract, Parameters.PAYMENT_TYPE_INAPP_UNMANAGED.toUpperCase(), null,
+              getDomain(uri), getPayload(uri), getCallback(uri),
+              getOrderReference(uri)).shouldSendToken(true)
         }).doOnSuccess { transactionBuilder ->
       cache.saveSync(uri.toString(), transactionBuilder)
     }.subscribeOn(Schedulers.io())

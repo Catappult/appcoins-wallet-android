@@ -179,8 +179,7 @@ public class InAppPurchaseService {
                 .filter(transaction -> transaction.getState()
                     .equals(PaymentTransaction.PaymentState.APPROVED))
                 .flatMapCompletable(transaction -> approveService.remove(transaction.getUri())
-                    .andThen(buyService.buy(transaction.getUri(),
-                        transaction)
+                    .andThen(buyService.buy(transaction.getUri(), transaction)
                         .onErrorResumeNext(throwable -> cache.save(transaction.getUri(),
                             new PaymentTransaction(transaction, errorMapper.map(throwable))))))))
         .subscribe();

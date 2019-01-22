@@ -191,9 +191,13 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   }
 
   @Override public void finish(Purchase purchase) {
+    finish(purchase, null);
+  }
+
+  @Override public void finish(Purchase purchase, @Nullable String orderReference) {
     presenter.sendPaymentEvent(PAYMENT_METHOD_REWARDS);
     presenter.sendRevenueEvent();
-    iabView.finish(billingMessagesMapper.mapPurchase(purchase));
+    iabView.finish(billingMessagesMapper.mapPurchase(purchase, orderReference));
   }
 
   @Override public void hideGenericLoading() {
