@@ -110,11 +110,11 @@
   <string name="intro_3_title">简单易用</string>
   <string name="intro_3_body">使用你最喜爱的付款方式处理所有应用内购买。</string>
   <string name="intro_4_title">安全私密</string>
-  <string name="intro_4_body">Your private keys will never leave your device, so your AppCoins are safe at all times.</string>
-  <string name="intro_creating_wallet_short">We are creating a wallet for you&#8230;</string>
-  <string name="intro_wallet_created_short">Wallet created!</string>
+  <string name="intro_4_body">你的私钥永远不会离开你的设备，因此你的AppCoins始终安全。</string>
+  <string name="intro_creating_wallet_short">我们正在为你创建钱包&#8230;</string>
+  <string name="intro_wallet_created_short">钱包已创建！</string>
   <string name="intro_agree_terms_and_conditions_body">点击“跳过”，即表示你同意AppCoins钱包的%1$s和%2$s</string>
-  <string name="intro_skip_button">SKIP</string>
+  <string name="intro_skip_button">跳过</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">发送方</string>
@@ -196,7 +196,7 @@
   <string name="activity_iab_nonce_message">出现区块链错误，请稍后重试。</string>
   <string name="activity_iab_approving_message">正在检查所有详细信息：余额、产品、网络…</string>
   <string name="activity_iab_buying_message">已检查的详细信息\n正在接收你的产品…</string>
-  <string name="activity_iab_change_card">CHANGE CARD</string>
+  <string name="activity_iab_change_card">更换银行卡</string>
   <string name="notification_ongoing_poa">正在处理奖励</string>
   <string name="notification_completed_poa">收到奖励，好好享用！</string>
   <string name="notification_submitting_poa">向区块链提交请求</string>
@@ -217,7 +217,7 @@
   <string name="transaction_type_poa">Proof of Attention</string>
   <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
   <string name="transaction_type_standard">转移</string>
-  <string name="transaction_type_bonus">Bonus</string>
+  <string name="transaction_type_bonus">奖励</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
   <string name="transaction_details_brand_txt">采用以太网技术</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
