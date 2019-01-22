@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -7,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,6 +17,8 @@ import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
+import com.asfoundation.wallet.viewmodel.MyAddressViewModel;
+import com.asfoundation.wallet.viewmodel.MyAddressViewModelFactory;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
@@ -29,6 +33,8 @@ public class MyAddressActivity extends BaseActivity implements View.OnClickListe
   public static final String KEY_ADDRESS = "key_address";
   private static final float QR_IMAGE_WIDTH_RATIO = 0.9f;
   @Inject protected EthereumNetworkRepositoryType ethereumNetworkRepository;
+  @Inject MyAddressViewModelFactory myAddressViewModelFactory;
+  MyAddressViewModel viewModel;
 
   private Wallet wallet;
 
@@ -41,6 +47,8 @@ public class MyAddressActivity extends BaseActivity implements View.OnClickListe
 
     toolbar();
 
+    viewModel = ViewModelProviders.of(this, myAddressViewModelFactory)
+        .get(MyAddressViewModel.class);
     wallet = getIntent().getParcelableExtra(WALLET);
     NetworkInfo networkInfo = ethereumNetworkRepository.getDefaultNetwork();
     String suggestion = getString(R.string.suggestion_this_is_your_address, networkInfo.name);
@@ -77,5 +85,19 @@ public class MyAddressActivity extends BaseActivity implements View.OnClickListe
     }
     Toast.makeText(this, "Copied to clipboard", Toast.LENGTH_SHORT)
         .show();
+  }
+
+  @Override public void onBackPressed() {
+    viewModel.showTransactions(this);
+  }
+
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case android.R.id.home: {
+        viewModel.showTransactions(this);
+        break;
+      }
+    }
+    return super.onOptionsItemSelected(item);
   }
 }

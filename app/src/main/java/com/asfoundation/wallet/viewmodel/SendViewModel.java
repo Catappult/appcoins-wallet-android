@@ -3,6 +3,7 @@ package com.asfoundation.wallet.viewmodel;
 import android.app.Activity;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import com.asfoundation.wallet.entity.Address;
@@ -13,6 +14,7 @@ import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.router.ConfirmationRouter;
 import com.asfoundation.wallet.router.Result;
+import com.asfoundation.wallet.router.TransactionsRouter;
 import com.asfoundation.wallet.util.QRUri;
 import com.asfoundation.wallet.util.TransferParser;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -31,14 +33,16 @@ public class SendViewModel extends BaseViewModel {
   private final TransferParser transferParser;
   private final CompositeDisposable disposables;
   private TransactionBuilder transactionBuilder;
+  private final TransactionsRouter transactionsRouter;
 
   SendViewModel(FindDefaultWalletInteract findDefaultWalletInteract,
       FetchGasSettingsInteract fetchGasSettingsInteract, ConfirmationRouter confirmationRouter,
-      TransferParser transferParser) {
+      TransferParser transferParser, TransactionsRouter transactionsRouter) {
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchGasSettingsInteract = fetchGasSettingsInteract;
     this.confirmationRouter = confirmationRouter;
     this.transferParser = transferParser;
+    this.transactionsRouter = transactionsRouter;
     disposables = new CompositeDisposable();
   }
 
@@ -140,5 +144,9 @@ public class SendViewModel extends BaseViewModel {
 
   public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
     return confirmationRouter.onActivityResult(requestCode, resultCode, data);
+  }
+
+  public void showTransactions(Context context) {
+    transactionsRouter.open(context, true);
   }
 }
