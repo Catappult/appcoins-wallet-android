@@ -258,9 +258,9 @@
   <string name="item_donation">Doação</string>
   <!-- Gamification -->
   <string name="gamification_home_body">Recebe até %s%% de bónus nas tuas apps e jogos preferidos!</string>
-  <string name="gamification_home_button">START EARNING</string>
+  <string name="gamification_home_button">COMEÇAR A GANHAR</string>
   <string name="gamification_level_title">Qual o meu nível?</string>
-  <string name="gamification_level_title_new">Get APPC Credits!</string>
+  <string name="gamification_level_title_new">Receber Créditos APPC!</string>
   <string name="gamification_level_header">Parabéns, és %s!</string>
   <string name="gamification_level_to_next">Para o próximo nível:</string>
   <string name="gamification_level_earned">GANHASTE:</string>
@@ -268,10 +268,10 @@
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% bónus</string>
   <string name="gamification_level_button_how">COMO FUNCIONA</string>
-  <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">Ganha Créditos APPC ao comprares itens nas tuas apps e jogos preferidos.</string>
   <string name="gamification_how_header">Como subir de nível?</string>
-  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
-  <string name="gamification_how_body_new">The more AppCoins you spend in your favorite apps, the bigger the Bonus!</string>
+  <string name="gamification_how_body">Ganha Créditos APPC ao comprares itens nas tuas apps e jogos preferidos.</string>
+  <string name="gamification_how_body_new">Quanto mais AppCoins gastares nas tuas apps e jogos preferidos, maior será o teu Bónus!</string>
   <string name="gamification_how_table_a1">GASTA</string>
   <string name="gamification_how_table_b1">BÓNUS</string>
   <string name="gamification_how_table_a2">%s APPC</string>
@@ -289,16 +289,16 @@
   <string name="gamification_star_subtitle">Grande, brilhante e cheio de vida!</string>
   <string name="gamification_galaxy_subtitle">O maior sistema de todos!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">You\'ve got a Bonus!</string>
-  <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
+  <string name="gamification_purchase_header">Recebeste um bónus!</string>
+  <string name="gamification_purchase_body">%s Créditos APPC serão creditados na tua wallet</string>
   <string name="action_level">O meu nível</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to Aptoide.</string>
+  <string name="provide_wallet_body">Permitir que a Wallet da AppCoins forneça o teu endereço wallet para a Aptoide.</string>
   <string name="provide_wallet_always_allow_button">Permitir sempre</string>
   <string name="provide_wallet_allow_once_button">Permitir agora</string>
-  <string name="provide_wallet_completed_header">Wallet associated to Aptoide!</string>
-  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the AppCoins Wallet.</string>
-  <string name="provide_wallet_create_wallet_button">CREATE</string>
-  <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
-  <string name="provide_wallet_created_header">Wallet address created!</string>
+  <string name="provide_wallet_completed_header">Wallet associada à Aptoide!</string>
+  <string name="provide_wallet_create_body">Precisas de um endereço da wallet! Segue estes passos para criares um na Wallet da AppCoins.</string>
+  <string name="provide_wallet_create_wallet_button">CRIAR</string>
+  <string name="provide_wallet_creating_wallet_header">A criar o endereço da wallet&#8230;</string>
+  <string name="provide_wallet_created_header">Endereço da wallet criado!</string>
 </resources>
