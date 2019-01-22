@@ -36,6 +36,9 @@
   <string name="title_source_code">ਸੋਰਸ ਕੋਡ</string>
   <string name="title_report_bug">ਇੱਕ ਬੱਗ ਦੀ ਰਿਪੋਰਟ ਕਰੋ</string>
   <string name="title_support">ਸਪੋਰਟ</string>
+  <string name="title_permissions">ਅਧਿਕਾਰ</string>
+  <string name="permissions_title">ਅਧਿਕਾਰ</string>
+  <string name="permissions_active_wallet_short">ਮੌਜੂਦਾ ਬਟੂਆ</string>
   <string name="error_import">ਕੀਸਟੋਰ ਇਮਪੋਰਟ ਕਰਨ ਵਿੱਚ ਗਲਤੀ</string>
   <string name="message_this_is_your_address">ਮੇਰੇ ਜਨਤਕ ਇਥਿਰਿਅਮ ਬਟੂਏ ਦਾ ਪਤਾ</string>
   <string name="backup_warning_text">ਕਿਉਂਕਿ ਸਿਰਫ ਤੁਸੀਂ ਆਪਣੇ ਪੈਸੇ ਨੂੰ ਕਾਬੂ ਕਰਦੇ ਹੋ, ਇਸ ਐਪ ਨੂੰ ਮਿਟਾਉਣ ਦੇ ਮਾਮਲੇ ਵਿੱਚ ਤੁਹਾਨੂੰ ਆਪਣੇ ਕੀਕੇਸਟੋਰ ਦਾ ਬੈਕਅੱਪ ਬਚਾਉਣ ਦੀ ਲੋੜ ਹੋਵੇਗੀ|\n\nਤੁਹਾਡੇ ਬਟੂਏ ਨੂੰ ਕਦੇ ਸਟੋਰੇਜ ਜਾਂ ਸਟੈਂਡਰਡ ਡਿਵਾਈਸ ਬੈਕਅਪਸ ਵਿੱਚ ਨਹੀਂ ਰੱਖਿਆ ਜਾਂਦਾ|</string>
@@ -101,6 +104,17 @@
   <string name="intro_message_first_page">ਐਪ ਅਰਥ-ਵਿਵਸਥਾ ਦੀ ਕ੍ਰਾਂਤੀ ਵਿੱਚ ਸੁਆਗਤ ਹੈ|</string>
   <string name="intro_message_second_page">ਪ੍ਰਾਈਵੇਟ ਕੀ ਤੁਹਾਡੀ ਡਿਵਾਈਸ ਨੂੰ ਕਦੇ ਨਹੀਂ ਛੱਡਦੀਆਂ|</string>
   <string name="intro_message_third_page">ਏਪੀਪੀਸੀ ਵਿਚ ਆਪਣੇ ਇਨ-ਐਪ ਭੁਗਤਾਨ ਅਤੇ ਇਨਾਮਾਂ ਦੀ ਪ੍ਰਕਿਰਿਆ ਕਰੋ|</string>
+  <string name="intro_1_body">ਐਪ ਅਰਥ-ਵਿਵਸਥਾ ਦੀ ਕ੍ਰਾਂਤੀ ਵਿੱਚ ਸੁਆਗਤ ਹੈ|</string>
+  <string name="intro_2_title">ਪੈਸੇ ਘੱਟ ਦਿਓ, ਖੇਡੋ ਜ਼ਿਆਦਾ</string>
+  <string name="intro_2_body">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਅਤੇ ਖੇਡਾਂ ਵਿੱਚ ਆਈਟਮਾਂ ਖਰੀਦਣ ਤੇ ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰੋ|</string>
+  <string name="intro_3_title">ਆਸਾਨ ਅਤੇ ਸੌਖਾ</string>
+  <string name="intro_3_body">ਆਪਣੀ ਮਨਪਸੰਦ ਭੁਗਤਾਨ ਵਿਧੀ ਵਰਤਦੇ ਹੋਏ ਆਪਣੀਆਂ ਸਾਰੀਆਂ ਇਨ-ਐਪ ਖ਼ਰੀਦਾਂ ਕਰੋ|</string>
+  <string name="intro_4_title">ਸੁਰੱਖਿਅਤ ਅਤੇ ਨਿੱਜੀ</string>
+  <string name="intro_4_body">ਤੁਹਾਡੀਆਂ ਨਿੱਜੀ ਚਾਬੀਆਂ ਕਦੇ ਵੀ ਤੁਹਾਡੇ ਫੋਨ ਨੂੰ ਨਹੀਂ ਛੱਡਣਗੀਆਂ, ਤਾਂ ਜੋ ਤੁਹਾਡੇ ਐਪ ਸਿੱਕੇ ਹਰ ਸਮੇਂ ਸੁਰੱਖਿਅਤ ਰਹਿਣ|</string>
+  <string name="intro_creating_wallet_short">ਅਸੀਂ ਤੁਹਾਡੇ ਲਈ ਇੱਕ ਬਟੂਆ ਬਣਾ ਰਹੇ ਹਾਂ&#8230;</string>
+  <string name="intro_wallet_created_short">ਬਟੂਆ ਬਣਾਇਆ ਗਿਆ!</string>
+  <string name="intro_agree_terms_and_conditions_body">ਛੱਡੋ ਤੇ ਟੈਪ ਕਰਕੇ, ਤੁਸੀਂ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਦੇ %1$s ਅਤੇ %2$s ਨਾਲ ਸਹਿਮਤ ਹੁੰਦੇ ਹੋ</string>
+  <string name="intro_skip_button">ਛੱਡੋ</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">ਵੱਲੋਂ</string>
@@ -182,6 +196,7 @@
   <string name="activity_iab_nonce_message">ਬਲਾਕਚੈਨ ਵਿੱਚ ਇੱਕ ਗਲਤੀ ਆਈ ਹੈ, ਕਿਰਪਾ ਕਰਕੇ ਬਾਅਦ ਵਿੱਚ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
   <string name="activity_iab_approving_message">ਸਾਰੇ ਵੇਰਵਿਆਂ ਦੀ ਜਾਂਚ ਹੋ ਰਹੀ ਹੈ: ਬਚੀ ਰਕਮ, ਚੀਜ਼ਾਂ, ਨੈਟਵਰਕ…</string>
   <string name="activity_iab_buying_message">ਵੇਰਵੇ ਚੈੱਕ ਕੀਤੇ ਗਏ \nਤੁਹਾਡੀ ਆਈਟਮ ਪ੍ਰਾਪਤ ਹੋ ਰਹੀ ਹੈ…</string>
+  <string name="activity_iab_change_card">ਕਾਰਡ ਬਦਲੋ</string>
   <string name="notification_ongoing_poa">ਤੁਹਾਡੇ ਇਨਾਮ ਦੀ ਪ੍ਰੋਸੈਸਿੰਗ ਹੋ ਰਹੀ ਹੈ</string>
   <string name="notification_completed_poa">ਇਨਾਮ ਪ੍ਰਾਪਤ ਹੋ ਗਿਆ, ਆਨੰਦ ਮਾਣੋ!</string>
   <string name="notification_submitting_poa">ਬਲਾਕਚੈਨ ਨੂੰ ਤੁਹਾਡੀ ਬੇਨਤੀ ਜਮ੍ਹਾਂ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ</string>
@@ -202,7 +217,7 @@
   <string name="transaction_type_poa">Proof of Attention</string>
   <string name="transaction_type_poa_offchain">Proof of Attention Hybrid</string>
   <string name="transaction_type_standard">ਟ੍ਰਾਂਸਫਰ</string>
-  <string name="transaction_type_bonus">Bonus</string>
+  <string name="transaction_type_bonus">ਬੋਨਸ</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
   <string name="transaction_details_brand_txt">ਇਥਿਰਿਅਮ ਦੁਆਰਾ ਸੰਚਾਲਿਤ</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -242,16 +257,26 @@
   <string name="action_skip_backup_wallet">ਬੈਕਅੱਪ ਛੱਡੋ</string>
   <string name="item_donation">ਦਾਨ</string>
   <!-- Gamification -->
+  <string name="gamification_home_body">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਅਤੇ ਖੇਡਾਂ ਵਿੱਚ %s%% ਤੱਕ ਬੋਨਸ ਕਮਾਓ!</string>
+  <string name="gamification_home_button">ਕਮਾਉਣਾ ਸ਼ੁਰੂ ਕਰੋ</string>
   <string name="gamification_level_title">ਮੇਰਾ ਪੱਧਰ ਕੀ ਹੈ?</string>
+  <string name="gamification_level_title_new">ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪਾਓ!</string>
   <string name="gamification_level_header">ਵਧਾਈਆਂ, ਤੁਸੀਂ %s ਹੋ!</string>
-  <string name="gamification_level_to_next">To next level:</string>
+  <string name="gamification_level_to_next">ਅਗਲੇ ਪੱਧਰ ਤੱਕ:</string>
   <string name="gamification_level_earned">ਕਮਾਇਆ:</string>
-  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
-  <string name="gamification_level_next_lvl_value">%s APPC</string>
+  <string name="gamification_level_next_lvl">ਅਗਲੇ ਪੱਧਰ ਤੱਕ:</string>
+  <string name="gamification_level_next_lvl_value">%s ਐਪ ਸਿੱਕੇ</string>
   <string name="gamification_level_bonus">%s%% ਬੋਨਸ</string>
   <string name="gamification_level_button_how">ਇਹ ਕਿਵੇਂ ਚਲਦਾ ਹੈ</string>
+  <string name="gamification_level_body">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਅਤੇ ਗੇਮਾਂ ਵਿੱਚ ਚੀਜ਼ਾਂ ਖਰੀਦਣ ਵੇਲੇ ਤੁਸੀਂ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋਗੇ|</string>
   <string name="gamification_how_header">ਪੱਧਰ ਉੱਪਰ ਕਿਵੇਂ ਪਹੁੰਚਾਉਣਾ ਹੈ?</string>
-  <string name="gamification_how_body">ਆਪਣੇ ਮਨਪਸੰਦ ਐਪਸ ਅਤੇ ਗੇਮਸ ਵਿੱਚ ਚੀਜ਼ਾਂ ਖਰੀਦਣ ਵੇਲੇ ਤੁਸੀਂ ਏਪੀਪੀਸੀ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋਗੇ</string>
+  <string name="gamification_how_body">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਅਤੇ ਗੇਮਾਂ ਵਿੱਚ ਚੀਜ਼ਾਂ ਖਰੀਦਣ ਵੇਲੇ ਤੁਸੀਂ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋਗੇ|</string>
+  <string name="gamification_how_body_new">ਤੁਸੀਂ ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਵਿਚ ਜਿੰਨੇ ਜ਼ਿਆਦਾ ਐਪ ਸਿੱਕੇ ਖਰਚਦੇ ਹੋ, ਓਨਾ ਵੱਡਾ ਤੁਹਾਨੂੰ ਬੋਨਸ ਮਿਲਦਾ ਹੈ!</string>
+  <string name="gamification_how_table_a1">ਖਰਚ ਕਰੋ</string>
+  <string name="gamification_how_table_b1">ਬੋਨਸ</string>
+  <string name="gamification_how_table_a2">%s ਐਪ ਸਿੱਕੇ</string>
+  <string name="gamification_how_table_b2">%s %%</string>
+  <string name="gamification_how_terms_and_conditions">ਸ਼ਰਤਾਂ</string>
   <string name="gamification_how_spend">%s ਏਪੀਪੀਸੀ ਖਰਚੋ</string>
   <string name="gamification_a_comet_title">ਇੱਕ ਧੂਮਲ</string>
   <string name="gamification_a_moon_title">ਇੱਕ ਚੰਦਰਮਾ</string>
@@ -264,7 +289,16 @@
   <string name="gamification_star_subtitle">ਚਮਕਦਾਰ, ਵੱਡਾ ਅਤੇ ਜੀਵਨ ਨਾਲ ਭਰਿਆ!</string>
   <string name="gamification_galaxy_subtitle">ਇੱਥੇ ਸਭ ਤੋਂ ਵੱਡੀ ਪ੍ਰਣਾਲੀ!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Purchase Bonus:</string>
-  <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
-  <string name="action_level">My Level</string>
+  <string name="gamification_purchase_header">ਤੁਹਾਨੂੰ ਇੱਕ ਬੋਨਸ ਮਿਲਿਆ ਹੈ!</string>
+  <string name="gamification_purchase_body">%s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਤੁਹਾਡੇ ਬਟੂਏ ਵਿੱਚ ਪਾਏ ਜਾਣਗੇ</string>
+  <string name="action_level">ਮੇਰਾ ਪੱਧਰ</string>
+  <!-- Provide wallet address -->
+  <string name="provide_wallet_body">ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਐਪਟਾਇਡ ਨੂੰ ਬਟੂਏ ਦਾ ਪਤਾ ਦੱਸਣ ਦੀ ਆਗਿਆ ਦਿਓ|</string>
+  <string name="provide_wallet_always_allow_button">ਹਮੇਸ਼ਾ ਦੀ ਇਜਾਜ਼ਤ ਦਿਉ</string>
+  <string name="provide_wallet_allow_once_button">ਇੱਕ ਵਾਰ ਮਨਜ਼ੂਰੀ ਦਿਓ</string>
+  <string name="provide_wallet_completed_header">ਬਟੂਆ ਐਪਟਾਇਡ ਨਾਲ ਜੋੜਿਆ ਗਿਆ!</string>
+  <string name="provide_wallet_create_body">ਤੁਹਾਨੂੰ ਬਟੂਏ ਦੇ ਇੱਕ ਪਤੇ ਦੀ ਲੋੜ ਹੈ! ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਵਿੱਚ ਇੱਕ ਬਣਾਉਣ ਲਈ ਇਨ੍ਹਾਂ ਚਰਣਾਂ ​​ਦੀ ਪਾਲਣਾ ਕਰੋ|</string>
+  <string name="provide_wallet_create_wallet_button">ਬਣਾਓ</string>
+  <string name="provide_wallet_creating_wallet_header">ਬਟੂਏ ਦਾ ਪਤਾ ਬਣਾਇਆ ਜਾ ਰਿਹਾ ਹੈ&#8230;</string>
+  <string name="provide_wallet_created_header">ਬਟੂਏ ਦਾ ਪਤਾ ਬਣਾਇਆ ਗਿਆ!</string>
 </resources>

@@ -36,6 +36,9 @@
   <string name="title_source_code">Code source</string>
   <string name="title_report_bug">Signaler un bug</string>
   <string name="title_support">Support</string>
+  <string name="title_permissions">Permissions</string>
+  <string name="permissions_title">Permissions</string>
+  <string name="permissions_active_wallet_short">Current active wallet</string>
   <string name="error_import">Erreur importation keystore</string>
   <string name="message_this_is_your_address">Mon adresse publique Ethereum</string>
   <string name="backup_warning_text">Étant donné que seulement vous contrôlez votre argent, vous devrez enregistrer une sauvegarde de votre fichier dans le cas où cette application est supprimée.\n\nVotre portefeuille n’est jamais enregistré dans le cloud ou dans les sauvegardes standard de l’appareil.</string>
@@ -101,6 +104,17 @@
   <string name="intro_message_first_page">Bienvenue dans la révolution de l’économie des apps.</string>
   <string name="intro_message_second_page">Les clés privées ne quittent jamais votre appareil.</string>
   <string name="intro_message_third_page">Traitez tous vos paiements in-app et récompenses dans l’APPC.</string>
+  <string name="intro_1_body">Welcome to the revolution of the app economy.</string>
+  <string name="intro_2_title">Play More, Pay Less</string>
+  <string name="intro_2_body">Get rewarded for buying items in your favorite apps and games.</string>
+  <string name="intro_3_title">Simple and Easy</string>
+  <string name="intro_3_body">Process all your in-app purchases using your favorite payment method.</string>
+  <string name="intro_4_title">Secure and Private</string>
+  <string name="intro_4_body">Your private keys will never leave your device, so your AppCoins are safe at all times.</string>
+  <string name="intro_creating_wallet_short">We are creating a wallet for you&#8230;</string>
+  <string name="intro_wallet_created_short">Wallet created!</string>
+  <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
+  <string name="intro_skip_button">SKIP</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">De</string>
@@ -182,6 +196,7 @@
   <string name="activity_iab_nonce_message">Une erreur s’est produite avec Blockchain, veuillez réessayer ultérieurement.</string>
   <string name="activity_iab_approving_message">Vérifier tous les détails : balance, éléments, réseau…</string>
   <string name="activity_iab_buying_message">Détails vérifiés \nRéception de votre article…</string>
+  <string name="activity_iab_change_card">CHANGE CARD</string>
   <string name="notification_ongoing_poa">Récompense en cours de traitement</string>
   <string name="notification_completed_poa">Récompense reçue, Profitez-en !</string>
   <string name="notification_submitting_poa">Soumission de votre demande à blockchain</string>
@@ -242,7 +257,10 @@
   <string name="action_skip_backup_wallet">PASSER LA SAUVEGARDE</string>
   <string name="item_donation">Don</string>
   <!-- Gamification -->
+  <string name="gamification_home_body">Earn up to %s%% Bonus in your favorite apps and games!</string>
+  <string name="gamification_home_button">START EARNING</string>
   <string name="gamification_level_title">Quel est mon niveau ?</string>
+  <string name="gamification_level_title_new">Get APPC Credits!</string>
   <string name="gamification_level_header">Félicitations, vous êtes %s !</string>
   <string name="gamification_level_to_next">Pour niveau suivant :</string>
   <string name="gamification_level_earned">GAGNÉ :</string>
@@ -250,8 +268,15 @@
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">COMMENT ÇA MARCHE</string>
+  <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_header">Comment monter de niveau ?</string>
-  <string name="gamification_how_body">Vous gagnerez des crédits APPC lors d’achats d\'éléments dans vos applications et jeux préférés</string>
+  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_body_new">The more AppCoins you spend in your favorite apps, the bigger the Bonus!</string>
+  <string name="gamification_how_table_a1">SPEND</string>
+  <string name="gamification_how_table_b1">BONUS</string>
+  <string name="gamification_how_table_a2">%s APPC</string>
+  <string name="gamification_how_table_b2">%s %%</string>
+  <string name="gamification_how_terms_and_conditions">Conditions</string>
   <string name="gamification_how_spend">DEPENSER %s APPC</string>
   <string name="gamification_a_comet_title">une Comète</string>
   <string name="gamification_a_moon_title">une Lune</string>
@@ -264,7 +289,16 @@
   <string name="gamification_star_subtitle">Brillante, grande et pleine de vie !</string>
   <string name="gamification_galaxy_subtitle">Le plus grand système qui existe !</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Bonus d’achat :</string>
+  <string name="gamification_purchase_header">You\'ve got a Bonus!</string>
   <string name="gamification_purchase_body">%s APPC crédits seront crédités dans votre portefeuille</string>
   <string name="action_level">Mon niveau</string>
+  <!-- Provide wallet address -->
+  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to Aptoide.</string>
+  <string name="provide_wallet_always_allow_button">Always allow</string>
+  <string name="provide_wallet_allow_once_button">Allow once</string>
+  <string name="provide_wallet_completed_header">Wallet associated to Aptoide!</string>
+  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the AppCoins Wallet.</string>
+  <string name="provide_wallet_create_wallet_button">CREATE</string>
+  <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
+  <string name="provide_wallet_created_header">Wallet address created!</string>
 </resources>

@@ -36,6 +36,9 @@
   <string name="title_source_code">Исходный код</string>
   <string name="title_report_bug">Сообщить об ошибке</string>
   <string name="title_support">Поддержка</string>
+  <string name="title_permissions">Разрешения</string>
+  <string name="permissions_title">Разрешения</string>
+  <string name="permissions_active_wallet_short">Активный кошелёк</string>
   <string name="error_import">Ошибка при импорте ключей</string>
   <string name="message_this_is_your_address">Мой публичный адрес кошелька Ethereum</string>
   <string name="backup_warning_text">Так как только вы контролируете свои средства, вам нужно будет сохранить резервную копию ваших ключей на случай, если это приложение будет удалено.\n\nВаш кошелёк никогда не сохраняется в облако или на стандартные устройства резервного копирования.</string>
@@ -101,6 +104,17 @@
   <string name="intro_message_first_page">Добро пожаловать в революцию экономики приложений.</string>
   <string name="intro_message_second_page">Закрытые ключи никогда не покидают ваше устройство.</string>
   <string name="intro_message_third_page">Обрабатывайте все ваши встроенные платежи и награды в APPC.</string>
+  <string name="intro_1_body">Добро пожаловать в революцию экономики приложений.</string>
+  <string name="intro_2_title">Играй больше, плати меньше</string>
+  <string name="intro_2_body">Получите награду для покупок в ваших любимых приложениях и играх.</string>
+  <string name="intro_3_title">Простой в использовании</string>
+  <string name="intro_3_body">Производите все встроенные покупки с использованием предпочтительного метода оплаты.</string>
+  <string name="intro_4_title">Безопасно и конфиденциально</string>
+  <string name="intro_4_body">Ваши приватные ключи никогда не покидают устройство, поэтому ваши AppCoins всегда в безопасности.</string>
+  <string name="intro_creating_wallet_short">Мы создаем кошелёк для вас&#8230;</string>
+  <string name="intro_wallet_created_short">Кошелёк создан!</string>
+  <string name="intro_agree_terms_and_conditions_body">Нажимая на Пропустить, вы соглашаетесь с %1$s и %2$s AppCoins Wallet</string>
+  <string name="intro_skip_button">ПРОПУСТИТЬ</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">От</string>
@@ -182,6 +196,7 @@
   <string name="activity_iab_nonce_message">Произошла ошибка взаимодействия с блокчейном, повторите попытку позже.</string>
   <string name="activity_iab_approving_message">Проверяем все детали: баланс, товары, сеть…</string>
   <string name="activity_iab_buying_message">Детали проверены \nПолучаем ваш товар…</string>
+  <string name="activity_iab_change_card">ИЗМЕНИТЬ КАРТУ</string>
   <string name="notification_ongoing_poa">Обработка вашего вознаграждения</string>
   <string name="notification_completed_poa">Награда получена, наслаждайтесь!</string>
   <string name="notification_submitting_poa">Отправка запроса в блокчейн</string>
@@ -242,7 +257,10 @@
   <string name="action_skip_backup_wallet">ПРОПУСТИТЬ РЕЗЕРВНОЕ КОПИРОВАНИЕ</string>
   <string name="item_donation">Пожертвование</string>
   <!-- Gamification -->
+  <string name="gamification_home_body">Заработайте бонус до %s%% в ваших любимых приложениях и играх!</string>
+  <string name="gamification_home_button">НАЧАТЬ ЗАРАБАТЫВАТЬ</string>
   <string name="gamification_level_title">Какой у меня уровень?</string>
+  <string name="gamification_level_title_new">Получите кредиты APPC!</string>
   <string name="gamification_level_header">Поздравляем, вы %s!</string>
   <string name="gamification_level_to_next">На следующий уровень:</string>
   <string name="gamification_level_earned">ЗАРАБОТАНО:</string>
@@ -250,8 +268,15 @@
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% БОНУС</string>
   <string name="gamification_level_button_how">КАК ЭТО РАБОТАЕТ</string>
+  <string name="gamification_level_body">Вы будете зарабатывать кредиты APPC при покупке товаров в своих любимых приложениях и играх.</string>
   <string name="gamification_how_header">Как повысить уровень?</string>
-  <string name="gamification_how_body">Вы будете зарабатывать кредиты APPC при покупке товаров в своих любимых приложениях и играх</string>
+  <string name="gamification_how_body">Вы будете зарабатывать кредиты APPC при покупке товаров в своих любимых приложениях и играх.</string>
+  <string name="gamification_how_body_new">Чем больше AppCoins вы тратите в ваших любимых приложениях – тем больше бонус!</string>
+  <string name="gamification_how_table_a1">ПОТРАТИТЬ</string>
+  <string name="gamification_how_table_b1">БОНУС</string>
+  <string name="gamification_how_table_a2">%s APPC</string>
+  <string name="gamification_how_table_b2">%s %%</string>
+  <string name="gamification_how_terms_and_conditions">Условия</string>
   <string name="gamification_how_spend">ПОТРАТЬТЕ %s APPC</string>
   <string name="gamification_a_comet_title">комета</string>
   <string name="gamification_a_moon_title">луна</string>
@@ -264,7 +289,16 @@
   <string name="gamification_star_subtitle">Сияющая, огромная, полная жизни!</string>
   <string name="gamification_galaxy_subtitle">Крупнейшая из систем!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Бонус за покупку:</string>
+  <string name="gamification_purchase_header">Вы получили бонус!</string>
   <string name="gamification_purchase_body">%s кредитов APPC будет переведено на ваш кошелёк</string>
   <string name="action_level">Мой уровень</string>
+  <!-- Provide wallet address -->
+  <string name="provide_wallet_body">Разрешите AppCoins Wallet предоставлять Aptoide адрес вашего кошелька.</string>
+  <string name="provide_wallet_always_allow_button">Всегда разрешать</string>
+  <string name="provide_wallet_allow_once_button">Разрешить один раз</string>
+  <string name="provide_wallet_completed_header">Кошелёк связан с Aptoide!</string>
+  <string name="provide_wallet_create_body">Вам нужен адрес кошелька! Выполните следующие действия, чтобы создать его в AppCoins Wallet.</string>
+  <string name="provide_wallet_create_wallet_button">СОЗДАТЬ</string>
+  <string name="provide_wallet_creating_wallet_header">Создание адреса кошелька&#8230;</string>
+  <string name="provide_wallet_created_header">Адрес кошелька создан!</string>
 </resources>

@@ -36,6 +36,9 @@
   <string name="title_source_code">ရင္းျမစ္ကုဒ္</string>
   <string name="title_report_bug">အမွားကို သတင္းေပးမည္</string>
   <string name="title_support">ပံ့ပိုးေရး</string>
+  <string name="title_permissions">Permissions</string>
+  <string name="permissions_title">Permissions</string>
+  <string name="permissions_active_wallet_short">Current active wallet</string>
   <string name="error_import">ကီးစတိုးကို ထည့္သြင္းရာတြင္ ခ်ိဳ႕ယြင္းခ်က္</string>
   <string name="message_this_is_your_address">ကၽြႏ္ုပ္၏ အမ်ားျမင္ႏိုင္္ေသာ Ethereum ပိုက္ဆံအိတ္လိပ္စာ</string>
   <string name="backup_warning_text">သင့္ေငြကို သင္ထိန္းခ်ဳပ္ျခင္းသာ ျဖစ္ေသာေၾကာင့္ ဤအက္ပ္ကို ဖ်က္မည္ဆိုလွ်င္ သင့္ကီးစတိုုးကို အရန္ျပဳလုုပ္ထားရန္ လုိအပ္မည္ ျဖစ္ပါသည္။ \n\nသင့္ပိုက္ဆံအိတ္အား cloud သိမ္းဆည္းမႈ သို႔မဟုတ္ စက္ကိရိယာ၏ သာမန္အရန္ျပဳလုုပ္မႈမ်ားတြင္ လံုးဝသိမ္းဆည္းမည္ မဟုတ္ပါ။</string>
@@ -101,6 +104,17 @@
   <string name="intro_message_first_page">အက္ပ္စီးပြားေရး၏ ေတာ္လွန္ဆန္းသစ္မႈမွ ႀကိဳဆိုပါသည္။</string>
   <string name="intro_message_second_page">သီးသန္႔ကီးမ်ားတြင္ သင့္ကိရိယာမွ ေပ်ာက္သြားမည္ မဟုတ္ပါ။</string>
   <string name="intro_message_third_page">သင့္အက္ပ္အတြင္း ေငြေပးေခ်မႈမ်ားႏွင့္ ဆုမ်ားအားလံုးကို APPC ျဖင့္ ေဆာင္ရြက္လိုက္ပါ။</string>
+  <string name="intro_1_body">Welcome to the revolution of the app economy.</string>
+  <string name="intro_2_title">Play More, Pay Less</string>
+  <string name="intro_2_body">Get rewarded for buying items in your favorite apps and games.</string>
+  <string name="intro_3_title">Simple and Easy</string>
+  <string name="intro_3_body">Process all your in-app purchases using your favorite payment method.</string>
+  <string name="intro_4_title">Secure and Private</string>
+  <string name="intro_4_body">Your private keys will never leave your device, so your AppCoins are safe at all times.</string>
+  <string name="intro_creating_wallet_short">We are creating a wallet for you&#8230;</string>
+  <string name="intro_wallet_created_short">Wallet created!</string>
+  <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
+  <string name="intro_skip_button">SKIP</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">မွ</string>
@@ -182,6 +196,7 @@
   <string name="activity_iab_nonce_message">Blockchain တြင္ ခ်ိဳ႕ယြင္းမႈတစ္ခု ျဖစ္ခဲ့ပါသည္။ ေနာက္မွျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="activity_iab_approving_message">အေသးစိတ္မ်ား အားလံုးကို စစ္ေဆးေနပါသည္ - ဟန္ခ်က္၊ ပစၥည္းမ်ား။ ကြန္ရက္…</string>
   <string name="activity_iab_buying_message">အေသးစိတ္မ်ားကို စစ္ေဆးၿပီးပါၿပီ \nသင့္ပစၥည္းကို ရယူေနပါသည္…</string>
+  <string name="activity_iab_change_card">CHANGE CARD</string>
   <string name="notification_ongoing_poa">သင့္ဆုကို စီစဥ္ေဆာင္ရြက္ေနပါသည္</string>
   <string name="notification_completed_poa">ဆုကို ရရွိပါသည္။ ခံစားလိုက္ပါ။</string>
   <string name="notification_submitting_poa">သင့္ေတာင္္းဆိုမႈအား blockchain သို႔ ေပးပို႔ေနပါသည္</string>
@@ -242,7 +257,10 @@
   <string name="action_skip_backup_wallet">အရန္ထားရွိမႈကို ေက်ာ္မည္</string>
   <string name="item_donation">ေငြေၾကးကူညီမႈ</string>
   <!-- Gamification -->
+  <string name="gamification_home_body">Earn up to %s%% Bonus in your favorite apps and games!</string>
+  <string name="gamification_home_button">START EARNING</string>
   <string name="gamification_level_title">ကၽြႏ္ုုပ္၏အဆင့္က ဘယ္ေလာက္လဲ။</string>
+  <string name="gamification_level_title_new">Get APPC Credits!</string>
   <string name="gamification_level_header">ဂုဏ္ယူပါသည္။ သင္သည္ %s ျဖစ္ပါသည္။</string>
   <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">ရရွိခဲ့သည္မွာ -</string>
@@ -250,8 +268,15 @@
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% ေဘာနပ္စ္</string>
   <string name="gamification_level_button_how">အလုပ္လုပ္ပံု</string>
+  <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_header">အဆင့္တက္ပံု။</string>
-  <string name="gamification_how_body">သင့္စိတ္ႀကိဳက္ အက္ပ္မ်ားႏွင့္ ဂိမ္းမ်ားတြင္ ပစၥည္းမ်ားကို ဝယ္ယူပါက APPC ခရက္ဒစ္မ်ားကို ရရွိပါမည္။</string>
+  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_body_new">The more AppCoins you spend in your favorite apps, the bigger the Bonus!</string>
+  <string name="gamification_how_table_a1">SPEND</string>
+  <string name="gamification_how_table_b1">BONUS</string>
+  <string name="gamification_how_table_a2">%s APPC</string>
+  <string name="gamification_how_table_b2">%s %%</string>
+  <string name="gamification_how_terms_and_conditions">Conditions</string>
   <string name="gamification_how_spend">%s APPC ကို သံုးစြဲပါ</string>
   <string name="gamification_a_comet_title">ၾကယ္တံခြန္တစ္ခု</string>
   <string name="gamification_a_moon_title">လတစ္စင္း</string>
@@ -264,7 +289,16 @@
   <string name="gamification_star_subtitle">ေျပာင္လက္ႀကီးမားၿပီး လံုုးဝအသက္ဝင္သည္။</string>
   <string name="gamification_galaxy_subtitle">ယင္းေနရာတြင္ရွိေသာ အႀကီးမားဆံုးစနစ္။</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Purchase Bonus:</string>
+  <string name="gamification_purchase_header">You\'ve got a Bonus!</string>
   <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
   <string name="action_level">My Level</string>
+  <!-- Provide wallet address -->
+  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to Aptoide.</string>
+  <string name="provide_wallet_always_allow_button">Always allow</string>
+  <string name="provide_wallet_allow_once_button">Allow once</string>
+  <string name="provide_wallet_completed_header">Wallet associated to Aptoide!</string>
+  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the AppCoins Wallet.</string>
+  <string name="provide_wallet_create_wallet_button">CREATE</string>
+  <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
+  <string name="provide_wallet_created_header">Wallet address created!</string>
 </resources>

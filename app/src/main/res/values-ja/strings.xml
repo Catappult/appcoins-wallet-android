@@ -36,6 +36,9 @@
   <string name="title_source_code">ソース コード</string>
   <string name="title_report_bug">バグを報告する。</string>
   <string name="title_support">サポート</string>
+  <string name="title_permissions">アクセス許可</string>
+  <string name="permissions_title">アクセス許可</string>
+  <string name="permissions_active_wallet_short">現在アクティブなウォレット</string>
   <string name="error_import">キーストアをインポート中にエラーが発生</string>
   <string name="message_this_is_your_address">私の公式 Ethereum ウォレットアドレス</string>
   <string name="backup_warning_text">あなたがお金をコントロールするので、万が一、アプリが削除された場合に備えて、キーストアのバックアップを保存する必要があります。\n\nあなたのウォレットは、決してクラウドストレージまたは標準デバイスのバックアップに保存されません。</string>
@@ -97,10 +100,22 @@
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins BDS ウォレット</string>
   <string name="intro_title_second_page"><![CDATA[プライベート ・安全]]></string>
-  <string name="intro_title_third_page">単純な &amp; 簡単</string>
+  <string name="intro_title_third_page">シンプル&amp;簡単</string>
   <string name="intro_message_first_page">アプリ経済革命へようこそ。</string>
   <string name="intro_message_second_page">プライベートキーを、お使いのデバイスにて放置したままにしないでください。</string>
   <string name="intro_message_third_page">すべてのアプリ内の支払いと APPC で報酬を処理します。</string>
+  <string name="intro_1_body">アプリ経済の革命へようこそ</string>
+  <string name="intro_2_title">支払いを減らして、もっとプレーする</string>
+  <string name="intro_2_body">あなたのお気に入りのアプリやゲーム内のアイテムを購入するために報酬を手に入れる</string>
+  <string name="intro_3_title">シンプルで簡単</string>
+  <string name="intro_3_body">お気に入りの支払い方法を使用して、アプリ内購入をすべて処理します。</string>
+  <string name="intro_4_title">安全でプレイベート</string>
+  <string name="intro_4_body">あなたのプライベート鍵がデバイスから消えることはありませんので、あなたのAppCoinsは常に安全です。</string>
+  <string name="intro_creating_wallet_short">私たちはあなたのためのウォレットを作っています&#8230;</string>
+  <string name="intro_wallet_created_short">ウォレットの作成ができました！</string>
+  <string name="intro_agree_terms_and_conditions_body">スキップをタップすることで、AppCoinウォレットの %1$s と %2$s に同意します
+ </string>
+  <string name="intro_skip_button">スキップ</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">差出人</string>
@@ -111,7 +126,7 @@
   <string name="button_ok">わかりました</string>
   <string name="hint_recipient_address">受取人のアドレス</string>
   <string name="hint_amount">量</string>
-  <string name="hint_amount_with_token">量 %s</string>
+  <string name="hint_amount_with_token">%s 量</string>
   <string name="hint_contract_address">契約アドレス</string>
   <string name="hint_contract_symbol">シンボル</string>
   <string name="hint_contract_decimals">小数点以下の桁数</string>
@@ -165,7 +180,7 @@
   <string name="token_name">%1$s (%2$s)</string>
   <string name="new_transaction_value">-%1$s %2$s</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">我々はAppCoinsウォレットの開発をブートストラップするために、Android用Trust Walletプロジェクトを立ち上げました。 私たちは、既に実装されている機能に関して、これを最善の選択肢と考えました。 私たちは、関連性があるとみなされる実装と作業に貢献する意図でそれをフォークしました。</string>
+  <string name="settings_fragment_credits">我々はAppCoins Wallet開発をブートストラップするために、Android用のTrust Walletプロジェクトを分岐しました。すでに実装されている機能に関しては、こちらを最善の方法と見なしました。関連性があると考えられる実装と作業に貢献するという意図で、分岐決断をしました。</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">進行中の取引</string>
   <string name="activity_aib_loading_message">これは、処理には時間がかかることがあります...</string>
@@ -182,6 +197,7 @@
   <string name="activity_iab_nonce_message">ブロックチェーンのエラーが発生しました。後でやり直してください。</string>
   <string name="activity_iab_approving_message">すべての詳細をチェックする：残高、商品、ネットワーク...</string>
   <string name="activity_iab_buying_message">詳細をチェック \nあなたの商品を受け取っています...</string>
+  <string name="activity_iab_change_card">カードの変更</string>
   <string name="notification_ongoing_poa">報酬を処理しています</string>
   <string name="notification_completed_poa">報酬を得ました、楽しんで！</string>
   <string name="notification_submitting_poa">リクエストをブロックチェーンに送信する</string>
@@ -242,16 +258,26 @@
   <string name="action_skip_backup_wallet">バックアップのスキップ</string>
   <string name="item_donation">寄付</string>
   <!-- Gamification -->
+  <string name="gamification_home_body">あなたのお気に入りのアプリとゲームで最大 %s%% のボーナスを獲得できます。</string>
+  <string name="gamification_home_button">収益を開始する</string>
   <string name="gamification_level_title">私のレベルは?</string>
+  <string name="gamification_level_title_new">APPC のクレジットを取得する！</string>
   <string name="gamification_level_header">おめでとう、あなたは %s です!</string>
-  <string name="gamification_level_to_next">To next level:</string>
+  <string name="gamification_level_to_next">次のレベル：</string>
   <string name="gamification_level_earned">達成額：</string>
-  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl">次のレベルへ：</string>
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% ボーナス</string>
   <string name="gamification_level_button_how">操作仕組み</string>
+  <string name="gamification_level_body">お気に入りのアプリやゲームでアイテムを購入すると、APPCクレジットを獲得できます。</string>
   <string name="gamification_how_header">レベルアップする方法?</string>
-  <string name="gamification_how_body">あなたのお気に入りのアプリケーションやゲームでアイテムを購入する APPC クレジットを獲得します。</string>
+  <string name="gamification_how_body">お気に入りのアプリやゲームでアイテムを購入すると、APPCクレジットを獲得できます。</string>
+  <string name="gamification_how_body_new">お気に入りのアプリでもっとAppCoinsを使うほど、より大きなボーナスを獲得できます！</string>
+  <string name="gamification_how_table_a1">使う</string>
+  <string name="gamification_how_table_b1">ボーナス</string>
+  <string name="gamification_how_table_a2">%s APPC</string>
+  <string name="gamification_how_table_b2">%s %%</string>
+  <string name="gamification_how_terms_and_conditions">条件</string>
   <string name="gamification_how_spend">APPC %s を使う</string>
   <string name="gamification_a_comet_title">彗星</string>
   <string name="gamification_a_moon_title">月</string>
@@ -264,7 +290,16 @@
   <string name="gamification_star_subtitle">輝き、大きい、いっぱいの人生！</string>
   <string name="gamification_galaxy_subtitle">史上最大のシステムです！</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">購入特典:</string>
+  <string name="gamification_purchase_header">あなたはボーナスを獲得しました！</string>
   <string name="gamification_purchase_body">%s APPC クレジットはウォレットに加算されます。</string>
-  <string name="action_level">My Level</string>
+  <string name="action_level">私のレベル</string>
+  <!-- Provide wallet address -->
+  <string name="provide_wallet_body">AppCoins ウォレットアドレスを Aptoide に提供するを許可します。</string>
+  <string name="provide_wallet_always_allow_button">常に許可する</string>
+  <string name="provide_wallet_allow_once_button">一度許可する</string>
+  <string name="provide_wallet_completed_header">ウォレットがAptoideと結合しました！</string>
+  <string name="provide_wallet_create_body">あなたはウォレットアドレスが必要です！ AppCoins ウォレットで作成するには、次の手順に従ってください。</string>
+  <string name="provide_wallet_create_wallet_button">作成する</string>
+  <string name="provide_wallet_creating_wallet_header">ウォレットアドレスを作成中です&#8230;</string>
+  <string name="provide_wallet_created_header">ウォレットアドレスが作成されました！</string>
 </resources>

@@ -36,6 +36,9 @@
   <string name="title_source_code">सोर्स कोड</string>
   <string name="title_report_bug">त्रुटि सूचित करें</string>
   <string name="title_support">सहायता</string>
+  <string name="title_permissions">अनुमतियां</string>
+  <string name="permissions_title">अनुमतियां</string>
+  <string name="permissions_active_wallet_short">वर्तमान सक्रिय वॉलेट</string>
   <string name="error_import">कीस्टोर आयात करने में त्रुटि</string>
   <string name="message_this_is_your_address">मेरा सार्वजनिक इथीरियम वॉलेट पता</string>
   <string name="backup_warning_text">क्योंकि आप केवल अपने पैसे को नियंत्रित करते हैं, तो यह एप्प हटाए जाने पर आपको अपने कीस्टोर के बैकअप को सहेजने की जरूरत होगी।\n\nआपका वॉलेट कभी भी क्लाउड स्टोरेज या मानक डिवाइस बैकअप में सहेजा नहीं जाता है।</string>
@@ -101,6 +104,17 @@
   <string name="intro_message_first_page">एप्प अर्थव्यवस्था की क्रांति में आपका स्वागत है।</string>
   <string name="intro_message_second_page">निजी कुंजी कभी भी आपकी डिवाइस नहीं छोड़ती।</string>
   <string name="intro_message_third_page">APPC में अपने सभी इन-एप्प भुगतानों एवं पुरस्कारों को संसाधित करें।</string>
+  <string name="intro_1_body">एप्प अर्थव्यवस्था की क्रांति में आपका स्वागत है।</string>
+  <string name="intro_2_title">अधिक खेलें, कम भुगतान करें</string>
+  <string name="intro_2_body">अपनी पसंदीदा ऐप्स और गेम्स में चीजें खरीदने के लिए पुरस्कार पाएँ।</string>
+  <string name="intro_3_title">सरल एवं आसान</string>
+  <string name="intro_3_body">अपनी पसंदीदा भुगतान विधि का उपयोग कर अपने सभी इन-एप्प खरीद संसाधित करें।</string>
+  <string name="intro_4_title">सुरक्षित एवं निजी</string>
+  <string name="intro_4_body">आपकी निजी कुंजी आपकी डिवाइस को कभी नहीं छोड़ेगी, इसलिए आपके AppCoins हर समय सुरक्षित हैं।</string>
+  <string name="intro_creating_wallet_short">हम आपके लिए एक वॉलेट बना रहे हैं&#8230;</string>
+  <string name="intro_wallet_created_short">वॉलेट बनाया गया!</string>
+  <string name="intro_agree_terms_and_conditions_body">छोड़ें पर टैप करते हुए, आप AppCoins Wallet के %1$s और %2$s से सहमत हैं</string>
+  <string name="intro_skip_button">छोड़ें</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">से</string>
@@ -182,6 +196,7 @@
   <string name="activity_iab_nonce_message">ब्लॉकचेन के साथ एक त्रुटि हुई, कृपया बाद में पुनः प्रयास करें।</string>
   <string name="activity_iab_approving_message">सभी विवरण जाँच रहा है: शेष राशि, वस्तुएं, नेटवर्क…</string>
   <string name="activity_iab_buying_message">विवरण जांचे गए \nआपकी वस्तु प्राप्त कर रहा है…</string>
+  <string name="activity_iab_change_card">कार्ड बदलें</string>
   <string name="notification_ongoing_poa">आपका इनाम संसाधित कर रहा है</string>
   <string name="notification_completed_poa">इनाम प्राप्त हुआ, मजा लें!</string>
   <string name="notification_submitting_poa">ब्लॉकचैन को आपका अनुरोध जमा कर रहा है</string>
@@ -242,7 +257,10 @@
   <string name="action_skip_backup_wallet">बैकअप छोड़ें</string>
   <string name="item_donation">दान</string>
   <!-- Gamification -->
+  <string name="gamification_home_body">अपनी पसंदीदा ऐप्स और गेम्स में %s%% तक का बोनस कमाएँ!</string>
+  <string name="gamification_home_button">कमाना शुरू करें</string>
   <string name="gamification_level_title">मेरा लेवल क्या है?</string>
+  <string name="gamification_level_title_new">APPC क्रेडिट पाएँ!</string>
   <string name="gamification_level_header">बधाई हो, आप %s हैं!</string>
   <string name="gamification_level_to_next">अगले लेवल के लिए:</string>
   <string name="gamification_level_earned">कमाए:</string>
@@ -250,8 +268,15 @@
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% बोनस</string>
   <string name="gamification_level_button_how">यह कैसे काम करता है</string>
+  <string name="gamification_level_body">आप अपने पसंदीदा ऐप्स और गेम्स में वस्तुएं खरीदते समय APPC क्रेडिट अर्जित करेंगे।</string>
   <string name="gamification_how_header">लेवल से ऊपर कैसे जाएँ?</string>
-  <string name="gamification_how_body">आप अपने पसंदीदा एप्प और गेम्स में वस्तुएं खरीदते समय APPC क्रेडिट अर्जित करेंगे</string>
+  <string name="gamification_how_body">आप अपने पसंदीदा ऐप्स और गेम्स में वस्तुएं खरीदते समय APPC क्रेडिट अर्जित करेंगे।</string>
+  <string name="gamification_how_body_new">जितने अधिक AppCoins आप अपनी पसंदीदा ऐप्स में खर्च करते हैं, उतना बड़ा बोनस!</string>
+  <string name="gamification_how_table_a1">खर्च करें</string>
+  <string name="gamification_how_table_b1">बोनस</string>
+  <string name="gamification_how_table_a2">%s APPC</string>
+  <string name="gamification_how_table_b2">%s %%</string>
+  <string name="gamification_how_terms_and_conditions">शर्तें</string>
   <string name="gamification_how_spend">%s APPC खर्च करें</string>
   <string name="gamification_a_comet_title">एक धूमकेतु</string>
   <string name="gamification_a_moon_title">एक चन्द्रमा</string>
@@ -264,7 +289,16 @@
   <string name="gamification_star_subtitle">चमकीला, बड़ा और जीवन से भरा हुआ!</string>
   <string name="gamification_galaxy_subtitle">वहाँ की सबसे बड़ी प्रणाली!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">बोनस खरीदें:</string>
+  <string name="gamification_purchase_header">आपको बोनस मिला है!</string>
   <string name="gamification_purchase_body">%s APPC क्रेडिट आपके वॉलेट में जमा किये जाएँगे</string>
   <string name="action_level">मेरा लेवल</string>
+  <!-- Provide wallet address -->
+  <string name="provide_wallet_body">AppCoins वॉलेट को अपना वॉलेट पता Aptoide को देने की अनुमति दें।</string>
+  <string name="provide_wallet_always_allow_button">हमेशा अनुमति दें</string>
+  <string name="provide_wallet_allow_once_button">एक बार अनुमति दें</string>
+  <string name="provide_wallet_completed_header">वॉलेट Aptoide से संबद्ध हुआ!</string>
+  <string name="provide_wallet_create_body">आपको एक वॉलेट पते की जरूरत है! AppCoins वॉलेट में यह बनाने के लिए इन चरणों का पालन करें।</string>
+  <string name="provide_wallet_create_wallet_button">बनाएँ</string>
+  <string name="provide_wallet_creating_wallet_header">वॉलेट पता बना रहा है&#8230;</string>
+  <string name="provide_wallet_created_header">वॉलेट पता बनाया गया!</string>
 </resources>

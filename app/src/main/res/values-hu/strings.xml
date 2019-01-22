@@ -36,6 +36,9 @@
   <string name="title_source_code">Forráskód</string>
   <string name="title_report_bug">Hibabejelentés</string>
   <string name="title_support">Támogatás</string>
+  <string name="title_permissions">Engedélyek</string>
+  <string name="permissions_title">Engedélyek</string>
+  <string name="permissions_active_wallet_short">Épp aktív tárca</string>
   <string name="error_import">Keystore importálása sikertelen</string>
   <string name="message_this_is_your_address">Saját nyilvános Ethereum tárca-címed</string>
   <string name="backup_warning_text">Mivel a pénzedet kizárólagosan te kezeled, nagyon erősen ajánljuk, hogy készíts biztonsági mentést keystore-odról. \n\nErre azért van szükség, mert tárcádat sose mentjük felhőbe vagy az eszközöd hagyományos biztonsági mentéseibe, így az app törlése esetén elveszhet.</string>
@@ -101,6 +104,17 @@
   <string name="intro_message_first_page">Üdvözöljük az alkalmazások gazdasági forradalmában.</string>
   <string name="intro_message_second_page">A privát kulcsok sose hagyják el eszközödet.</string>
   <string name="intro_message_third_page">Minden alkalmazáson belüli fizetésedet és jutalmadat APPC-al végezheted.</string>
+  <string name="intro_1_body">Üdvözlünk az alkalmazások gazdasági forradalmában.</string>
+  <string name="intro_2_title">Játssz többet, fizess kevesebbet</string>
+  <string name="intro_2_body">Jutalmakat kaphat, ha kedvenc appjaiban és játékaiban vásárol.</string>
+  <string name="intro_3_title">Egyszerű és könnyű</string>
+  <string name="intro_3_body">Alkalmazáson belüli vásárlásaidat a kedvenc fizetési módszereddel hajthatod végre.</string>
+  <string name="intro_4_title">Biztonságos és privát</string>
+  <string name="intro_4_body">Privát kulcsaid sose hagyják el eszközödet, így AppCoin-jaid mindig biztonságban lesznek.</string>
+  <string name="intro_creating_wallet_short">Létrehozunk neked egy tárcát&#8230;</string>
+  <string name="intro_wallet_created_short">Tárca létrehozva!</string>
+  <string name="intro_agree_terms_and_conditions_body">A Kihagyás gombra bökve elfogadod az AppCoins Wallet %1$s és %2$s dokumentumait</string>
+  <string name="intro_skip_button">KIHAGYÁS</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Feladó</string>
@@ -182,6 +196,7 @@
   <string name="activity_iab_nonce_message">A blockchain hiba történt, kérjük, próbáld újra később.</string>
   <string name="activity_iab_approving_message">Részletek ellenőrzése: egyenleg, tételek, hálózat…</string>
   <string name="activity_iab_buying_message">Részletek áttekintve \nTétel fogadása…</string>
+  <string name="activity_iab_change_card">KÁRTYA MÓDOSÍTÁSA</string>
   <string name="notification_ongoing_poa">Jutalom feldolgozása folyamatban</string>
   <string name="notification_completed_poa">Jutalmat kaptál, használd egészséggel!</string>
   <string name="notification_submitting_poa">Kérelmed elküldése a blokkláncnak</string>
@@ -242,7 +257,10 @@
   <string name="action_skip_backup_wallet">BIZT. MENTÉS KIHAGYÁSA</string>
   <string name="item_donation">Adományozás</string>
   <!-- Gamification -->
+  <string name="gamification_home_body">Akár %s%% bónuszt kaphatsz kedvenc appjaiban és játékaiban!</string>
+  <string name="gamification_home_button">KEZDJ PÉNZT KERESNI</string>
   <string name="gamification_level_title">Hanyas szintű vagyok?</string>
+  <string name="gamification_level_title_new">Get APPC Credits!</string>
   <string name="gamification_level_header">Gratulálunk. %s vagy!</string>
   <string name="gamification_level_to_next">Köv. szintig:</string>
   <string name="gamification_level_earned">FOGADVA:</string>
@@ -250,8 +268,15 @@
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% BÓNUSZ</string>
   <string name="gamification_level_button_how">HOGYAN MŰKÖDIK</string>
+  <string name="gamification_level_body">APPC-krediteket kapsz, ha vásárolsz kedvenc appjaiban és játékaidban.</string>
   <string name="gamification_how_header">Hogy lépek szintet?</string>
-  <string name="gamification_how_body">APPC-krediteket kapsz, ha vásárolsz kedvenc appjaidon és játékaidon belül</string>
+  <string name="gamification_how_body">APPC-krediteket kapsz, ha vásárolsz kedvenc appjaiban és játékaidban.</string>
+  <string name="gamification_how_body_new">Minél több AppCoins-ot költesz kedvenc appjaidban, annál nagyobb bónuszokat kapsz!</string>
+  <string name="gamification_how_table_a1">KIADÁS</string>
+  <string name="gamification_how_table_b1">BÓNUSZ</string>
+  <string name="gamification_how_table_a2">%s APPC</string>
+  <string name="gamification_how_table_b2">%s %%</string>
+  <string name="gamification_how_terms_and_conditions">Feltételek</string>
   <string name="gamification_how_spend">%s APPC ELKÖLTÉSE</string>
   <string name="gamification_a_comet_title">Üstökös</string>
   <string name="gamification_a_moon_title">Hold</string>
@@ -264,7 +289,16 @@
   <string name="gamification_star_subtitle">Fényes, nagy és élettel teli!</string>
   <string name="gamification_galaxy_subtitle">A létező legnagyobb rendszer!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Vásárlási bónusz:</string>
+  <string name="gamification_purchase_header">Bónuszt kaptál!</string>
   <string name="gamification_purchase_body">%s APPC Credit kerül számodra jóváírásra</string>
   <string name="action_level">Saját szintem</string>
+  <!-- Provide wallet address -->
+  <string name="provide_wallet_body">Engedélyezd az AppCoins Wallet-nek, hogy tárcacímedet megadja az Aptoide-nek.</string>
+  <string name="provide_wallet_always_allow_button">Mindig engedje</string>
+  <string name="provide_wallet_allow_once_button">Csak most engedje</string>
+  <string name="provide_wallet_completed_header">Tárca társítva az Aptoide-hez!</string>
+  <string name="provide_wallet_create_body">Szükséged van egy tárcacímre! Az alábbi lépéseket követve hozz létre egyet az AppCoins Wallet-ben.</string>
+  <string name="provide_wallet_create_wallet_button">LÉTREHOZÁS</string>
+  <string name="provide_wallet_creating_wallet_header">Tárcacím létrehozása&#8230;</string>
+  <string name="provide_wallet_created_header">Tárcacím létrehozva!</string>
 </resources>

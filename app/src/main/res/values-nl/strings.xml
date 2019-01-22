@@ -24,7 +24,7 @@
   <string name="network_label">Netwerk</string>
   <string name="credits">Credits</string>
   <string name="low_storage_error">Er is onvoldoende opslagruimte</string>
-  <string name="no_camera_permission">Om QR codes te scannen heeft AppCoins BDS Wallet toestemming nodig om toegang tot je camera te krijgen.</string>
+  <string name="no_camera_permission">Om QR-codes te scannen heeft AppCoins BDS Wallet toestemming nodig om toegang tot je camera te krijgen.</string>
   <string name="ok">OK</string>
   <string name="barcode_error_format">Ongeldig formaat barcode: %s</string>
   <string name="title_delete_account">Weet je zeker dat je deze wallet wilt verwijderen?</string>
@@ -36,6 +36,9 @@
   <string name="title_source_code">Broncode</string>
   <string name="title_report_bug">Meld een bug</string>
   <string name="title_support">Ondersteuning</string>
+  <string name="title_permissions">Toestemmingen</string>
+  <string name="permissions_title">Toestemmingen</string>
+  <string name="permissions_active_wallet_short">Huidige actieve wallet</string>
   <string name="error_import">Fout bij importeren keystore</string>
   <string name="message_this_is_your_address">Adres van mijn openbare Ethereum-wallet</string>
   <string name="backup_warning_text">Omdat alleen jij je geld beheert, dien je een back-up van je keystore op te slaan voor het geval deze app wordt verwijderd.\n\nJe wallet wordt nooit in de cloudopslag of standaard back-ups van apparaten opgeslagen.</string>
@@ -51,8 +54,8 @@
   <string name="yes_continue">Ja, doorgaan</string>
   <string name="no_repeat">Nee, opnieuw</string>
   <string name="skip">Overslaan</string>
-  <string name="root_title">DE VEILIGHEID VAN HET APPARAAT IS GEVAAR</string>
-  <string name="root_body">Elke \'geroote\' app kan toegang tot de keychain-gegevens van AppCoins Wallet krijgen en je wallet stelen! Wis deze wallet meteen en herstel deze op een veilig apparaat.</string>
+  <string name="root_title">DE VEILIGHEID VAN HET APPARAAT IS IN GEVAAR</string>
+  <string name="root_body">Elke \'geroote\' app kan toegang tot de keychain-gegevens van de AppCoins Wallet krijgen en je wallet stelen! Wis deze wallet meteen en herstel deze op een veilig apparaat.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
   <string name="buying">%s kopen</string>
   <string name="action_buy">Kopen</string>
@@ -62,7 +65,7 @@
   <string name="action_create_new_account">Nieuwe wallet aanmaken</string>
   <string name="unknown_error">Er is een fout opgetreden.</string>
   <string name="action_backup_wallet">Back-up van wallet maken</string>
-  <string name="no_tokens">Je heb nog geen persoonlijke token toegevoegd.</string>
+  <string name="no_tokens">Je heb nog geen persoonlijke tokens toegevoegd.</string>
   <string name="title_email">Stuur ons een e-mail</string>
   <string name="action_donate">Doneren</string>
   <!-- Titles -->
@@ -99,8 +102,19 @@
   <string name="intro_title_second_page"><![CDATA[Persoonlijk & veilig]]></string>
   <string name="intro_title_third_page">Simpel &amp; eenvoudig</string>
   <string name="intro_message_first_page">Welkom bij de revolutionaire app-economie.</string>
-  <string name="intro_message_second_page">Privésleutels zullen je apparaat nooit verlaten.</string>
+  <string name="intro_message_second_page">Alleen jouw apparaat bevat de privésleutels.</string>
   <string name="intro_message_third_page">Verwerk al je in-app betalingen en beloningen in APPC.</string>
+  <string name="intro_1_body">Welkom bij de revolutionaire app-economie.</string>
+  <string name="intro_2_title">Speel meer, betaal minder</string>
+  <string name="intro_2_body">Krijg een beloning door items in je favoriete apps en games te kopen.</string>
+  <string name="intro_3_title">Simpel en eenvoudig</string>
+  <string name="intro_3_body">Verwerk al je in-app aankopen met je favoriete betaalmethode.</string>
+  <string name="intro_4_title">Veilig en persoonlijk</string>
+  <string name="intro_4_body">Je privésleutels staan alleen op jouw apparaat waardoor je AppCoins altijd beveiligd zijn.</string>
+  <string name="intro_creating_wallet_short">We zijn een wallet voor je aan het aanmaken&#8230;</string>
+  <string name="intro_wallet_created_short">Wallet is aangemaakt!</string>
+  <string name="intro_agree_terms_and_conditions_body">Door op Overslaan te tikken, ga je akkoord met de %1$s en het %2$s van AppCoins Wallet</string>
+  <string name="intro_skip_button">OVERSLAAN</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Van</string>
@@ -150,8 +164,8 @@
   <string name="welcome.erc20.label.title">Compatibel met ERC20</string>
   <string name="welcome.erc20.label.description">Ondersteunt standaard ERC20-tokens.</string>
   <string name="scan_qr">Adres via QR-code verkrijgen</string>
-  <string name="info_gas_price">Hoe hoger de gasprijs, hoe duurder de transactiekosten zijn. Maar in dat geval wordt je transactie sneller door het Ethereum-netwerk verwerkt.</string>
-  <string name="info_gas_limit">De gaslimiet voorkomt dat smart contracts al je Ethereum verbruiken. We zullen proberen om de gaslimiet automatisch voor je te berekenen, maar voor sommige smart contracts is mogelijk een aangepaste gaslimiet vereist.</string>
+  <string name="info_gas_price">Hoe hoger de gasprijs, hoe hoger de transactiekosten zullen zijn. Maar hogere transactiekosten zorgen ervoor dat je transactie sneller door het Ethereum-netwerk wordt verwerkt.</string>
+  <string name="info_gas_limit">De gaslimiet voorkomt dat smart contracts al je Ethereum verbruiken. We zullen proberen om de gaslimiet automatisch voor je te berekenen, maar voor sommige smart contracts geldt mogelijk een aangepaste gaslimiet.</string>
   <string name="title_send_settings">Geavanceerd</string>
   <string name="title_activity_barcode">Barcode scannen</string>
   <string name="error_add_token">Kan token niet toevoegen.</string>
@@ -165,7 +179,7 @@
   <string name="token_name">%1$s (%2$s)</string>
   <string name="new_transaction_value">-%1$s %2$s</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">We hebben een \'fork\' voor het Trust Wallet voor Android-project uitgevoerd om de ontwikkeling van AppCoins-wallet op te starten. We vonden dit het beste alternatief in verband met reeds geïmplementeerde functionaliteiten. We hebben de \'fork\' uitgevoerd met de bedoeling in de andere richting te kunnen bijdragen in de vorm van implementaties en werk dat als relevant wordt beschouwd.</string>
+  <string name="settings_fragment_credits">We hebben een \'fork\' voor het Trust Wallet voor Android-project uitgevoerd om de ontwikkeling van de AppCoins Wallet te kunnen beginnen. We vonden dit het beste alternatief in verband met reeds geïmplementeerde functionaliteiten. We hebben de \'fork\' uitgevoerd met de bedoeling een bijdrage te kunnen leveren in de vorm van implementaties en werk dat als relevant wordt beschouwd.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">Transactie in uitvoering</string>
   <string name="activity_aib_loading_message">Dit kan even duren…</string>
@@ -177,14 +191,15 @@
   <string name="activity_iab_no_funds_message">Niet genoeg ETH en APPC</string>
   <string name="activity_iab_no_ethereum_funds_message">Niet genoeg Ethereum</string>
   <string name="activity_iab_no_token_funds_message">Niet genoeg AppCoins</string>
-  <string name="activity_iab_wrong_network_message">Onjuist Ethereum-netwerk of ongeldige token</string>
+  <string name="activity_iab_wrong_network_message">Onjuist Ethereum-netwerk of onbekende token</string>
   <string name="activity_iab_no_network_message">Geen netwerktoegang</string>
   <string name="activity_iab_nonce_message">Er is een fout in de blockchain opgetreden, probeer het later opnieuw.</string>
   <string name="activity_iab_approving_message">Alle gegevens controleren: saldo, items, netwerk…</string>
   <string name="activity_iab_buying_message">Gegevens gecontroleerd \nJe item wordt ontvangen…</string>
+  <string name="activity_iab_change_card">KAART WIJZIGEN</string>
   <string name="notification_ongoing_poa">Je beloning wordt verwerkt</string>
   <string name="notification_completed_poa">Beloning ontvangen, veel plezier!</string>
-  <string name="notification_submitting_poa">Je verzoek wordt bij de blockchain ingediend</string>
+  <string name="notification_submitting_poa">Je verzoek wordt naar de blockchain verzonden</string>
   <string name="notification_no_funds_poa">You don\'t have enough funds to get rewarded</string>
   <string name="notification_no_network_poa">Geen netwerkverbinding</string>
   <string name="notification_error_poa">Er is een fout opgetreden</string>
@@ -219,9 +234,9 @@
   <string name="dialog_credit_card_number">Kaartnummer</string>
   <string name="dialog_credit_card_expiration">Vervaldatum</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="activity_airdrop_title">Bevestig dat je geen robot bent om AppCoins te ontvangen</string>
+  <string name="activity_airdrop_title">Bevestig dat je geen robot bent om AppCoins te kunnen ontvangen</string>
   <string name="activity_airdrop_details">Dit is alleen voor de veiligheid.</string>
-  <string name="activity_airdrop_hint">Voer de karakter is die in de afbeelding worden weergegeven</string>
+  <string name="activity_airdrop_hint">Voer de tekens in die worden weergegeven</string>
   <string name="activity_airdrop_submit_btn">Versturen</string>
   <string name="activity_airdrop_wrong_captcha">Onjuiste captcha</string>
   <string name="activity_airdrop_ok">OK</string>
@@ -242,16 +257,26 @@
   <string name="action_skip_backup_wallet">BACK-UP OVERSLAAN</string>
   <string name="item_donation">Donatie</string>
   <!-- Gamification -->
+  <string name="gamification_home_body">Verdien in je favoriete apps en games tot %s%% bonus!</string>
+  <string name="gamification_home_button">BEGIN MET VERDIENEN</string>
   <string name="gamification_level_title">Wat is mijn niveau?</string>
+  <string name="gamification_level_title_new">Krijg APPC-credits!</string>
   <string name="gamification_level_header">Gefeliciteerd, je bent %s!</string>
-  <string name="gamification_level_to_next">To next level:</string>
+  <string name="gamification_level_to_next">Tot volgende niveau:</string>
   <string name="gamification_level_earned">VERDIEND:</string>
-  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl">TOT VOLGENDE NIVEAU:</string>
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">ZO WERKT HET</string>
+  <string name="gamification_level_body">Je verdient APPC-credits als je items in je favoriete apps en games koopt.</string>
   <string name="gamification_how_header">Hoe kun je een niveau omhoog gaan?</string>
-  <string name="gamification_how_body">Je verdient APPC-credits als je items in je favoriete apps en games koopt</string>
+  <string name="gamification_how_body">Je verdient APPC-credits als je items in je favoriete apps en games koopt.</string>
+  <string name="gamification_how_body_new">Hoe meer AppCoins je in je favoriete apps besteedt, hoe groter de bonus!</string>
+  <string name="gamification_how_table_a1">BESTEDEN</string>
+  <string name="gamification_how_table_b1">BONUS</string>
+  <string name="gamification_how_table_a2">%s APPC</string>
+  <string name="gamification_how_table_b2">%s %%</string>
+  <string name="gamification_how_terms_and_conditions">Voorwaarden</string>
   <string name="gamification_how_spend">%s APPC besteden</string>
   <string name="gamification_a_comet_title">een Komeet</string>
   <string name="gamification_a_moon_title">een Maan</string>
@@ -262,9 +287,18 @@
   <string name="gamification_a_moon_subtitle">Een natuurlijke satelliet</string>
   <string name="gamification_planet_subtitle">Je bent een echte ster</string>
   <string name="gamification_star_subtitle">Groot, glanzend en zeer levendig!</string>
-  <string name="gamification_galaxy_subtitle">Het grootste systeem van allemaal!</string>
+  <string name="gamification_galaxy_subtitle">De grootste van allemaal!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Purchase Bonus:</string>
-  <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
-  <string name="action_level">My Level</string>
+  <string name="gamification_purchase_header">Je hebt een bonus!</string>
+  <string name="gamification_purchase_body">Er worden %s APPC-credits aan je wallet toegevoegd</string>
+  <string name="action_level">Mijn niveau</string>
+  <!-- Provide wallet address -->
+  <string name="provide_wallet_body">Geef AppCoins Wallet toestemming om je wallet-adres aan Aptoide door te geven.</string>
+  <string name="provide_wallet_always_allow_button">Altijd toestaan</string>
+  <string name="provide_wallet_allow_once_button">Eenmalig toestaan</string>
+  <string name="provide_wallet_completed_header">Wallet is aan Aptoide gekoppeld!</string>
+  <string name="provide_wallet_create_body">Je hebt een wallet-adres nodig! Volg deze stappen om via de AppCoins Wallet een adres aan te maken.</string>
+  <string name="provide_wallet_create_wallet_button">AANMAKEN</string>
+  <string name="provide_wallet_creating_wallet_header">Wallet-adres wordt aangemaakt&#8230;</string>
+  <string name="provide_wallet_created_header">Wallet-adres is aangemaakt!</string>
 </resources>

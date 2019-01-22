@@ -24,7 +24,7 @@
   <string name="network_label">Reţea</string>
   <string name="credits">Credite</string>
   <string name="low_storage_error">Spațiu de stocare insuficient</string>
-  <string name="no_camera_permission">Portofelul AppCoins BDS are nevoie de permisiune pentru a-ți accesa camera ca să scaneze coduri QR.</string>
+  <string name="no_camera_permission">AppCoins BDS Wallet are nevoie de permisiune pentru a-ți accesa camera ca să scaneze coduri QR.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Format cod de bare nevalid: %s</string>
   <string name="title_delete_account">Ești sigur că vrei să ștergi acest portofel?</string>
@@ -36,6 +36,9 @@
   <string name="title_source_code">Cod sursă</string>
   <string name="title_report_bug">Raportează o eroare</string>
   <string name="title_support">Asistență</string>
+  <string name="title_permissions">Permisiuni</string>
+  <string name="permissions_title">Permisiuni</string>
+  <string name="permissions_active_wallet_short">Portofel activ curent</string>
   <string name="error_import">Eroare la importarea keystore-ului</string>
   <string name="message_this_is_your_address">Adresa mea publică a portofelului Ethereum</string>
   <string name="backup_warning_text">Din moment ce doar tu îți controlezi banii, vei avea nevoie de o copie de rezervă a keystore-ului tău, în cazul în care această aplicație este ștearsă.\n\nPortofelul tău nu este niciodată salvat în spațiul de stocare din Cloud sau pe dispozitive standard pentru copii de rezervă.</string>
@@ -101,6 +104,17 @@
   <string name="intro_message_first_page">Bine ai venit la revoluția economiei aplicației.</string>
   <string name="intro_message_second_page">Cheile private nu părăsesc niciodată dispozitivul tău.</string>
   <string name="intro_message_third_page">Procesează-ți toate plățile și recompensele tale in-app în APPC.</string>
+  <string name="intro_1_body">Bine ai venit la revoluția economiei aplicației.</string>
+  <string name="intro_2_title">Joci mai mult, plătești mai puțin</string>
+  <string name="intro_2_body">Primești recompense pentru cumpărarea articolelor în aplicațiile și jocurile preferate.</string>
+  <string name="intro_3_title">Simplu și Ușor</string>
+  <string name="intro_3_body">Procesează-ți toate cumpărăturile in-app folosind metoda ta de plată preferată.</string>
+  <string name="intro_4_title">Sigur și Privat</string>
+  <string name="intro_4_body">Cheile tale private nu vor părăsi niciodată dispozitivul tău, așa că AppCoins sunt sigure în orice moment.</string>
+  <string name="intro_creating_wallet_short">Se creează un portofel pentru tine&#8230;</string>
+  <string name="intro_wallet_created_short">Portofel creat!</string>
+  <string name="intro_agree_terms_and_conditions_body">Apăsând pe Ignoră, ești de acord cu %1$s și %2$s Portofelului AppCoins</string>
+  <string name="intro_skip_button">IGNORĂ</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Din</string>
@@ -182,6 +196,7 @@
   <string name="activity_iab_nonce_message">A apărut o eroare la blockchain, încearcă din nou mai târziu.</string>
   <string name="activity_iab_approving_message">Se verifică toate detaliile: balanță, articole, rețea…</string>
   <string name="activity_iab_buying_message">Detalii verificate \nSe primește articolul tău…</string>
+  <string name="activity_iab_change_card">SCHIMBĂ CARD</string>
   <string name="notification_ongoing_poa">Se procesează recompensa ta</string>
   <string name="notification_completed_poa">Recompensă primită, bucură-te de ea!</string>
   <string name="notification_submitting_poa">Se trimite cererea ta la blockchain</string>
@@ -219,7 +234,7 @@
   <string name="dialog_credit_card_number">Număr card</string>
   <string name="dialog_credit_card_expiration">Data de expirare</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="activity_airdrop_title">Confirmă că ești o ființă umană pentru a primi AppCoin-uri</string>
+  <string name="activity_airdrop_title">Confirmă că ești o ființă umană pentru a primi AppCoins</string>
   <string name="activity_airdrop_details">Acest lucru este doar pentru securitate.</string>
   <string name="activity_airdrop_hint">Introdu cuvintele din imagine</string>
   <string name="activity_airdrop_submit_btn">Trimite</string>
@@ -237,12 +252,15 @@
   <string name="proceed">proceed</string>
   <string name="iab_activity_raiden_channel_no_funds_message">You don\'t have enough funds on your µRainden payment channel. Go to your wallet and close the channel to create a new one.  Do you still want to complete this purchase with a standard payment?</string>
   <string name="iab_activity_raiden_channel_no_funds_title">Payment Channel Funds</string>
-  <string name="spend_your_appcoins">Cheltuiește AppCoin-urile tale</string>
+  <string name="spend_your_appcoins">Cheltuiește AppCoins</string>
   <!-- Billing -->
   <string name="action_skip_backup_wallet">IGNORĂ COPIE DE REZERVĂ</string>
   <string name="item_donation">Donație</string>
   <!-- Gamification -->
+  <string name="gamification_home_body">Câștigă un Bonus de până la %s%% în aplicațiile și jocurile tale favorite!</string>
+  <string name="gamification_home_button">ÎNCEPE SĂ CÂȘTIGI</string>
   <string name="gamification_level_title">Care este nivelul meu?</string>
+  <string name="gamification_level_title_new">Obține Credite APPC!</string>
   <string name="gamification_level_header">Felicitări, ești %s!</string>
   <string name="gamification_level_to_next">La nivelul următor:</string>
   <string name="gamification_level_earned">AI CÂȘTIGAT:</string>
@@ -250,8 +268,15 @@
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">CUM FUNCȚIONEAZĂ</string>
+  <string name="gamification_level_body">Vei câștiga Credite APPC când cumperi articole în aplicațiile și jocurile tale favorite.</string>
   <string name="gamification_how_header">Cum îți crești nivelul?</string>
-  <string name="gamification_how_body">Vei câștiga Credite APPC când cumperi articole în aplicațiile și jocurile tale favorite</string>
+  <string name="gamification_how_body">Vei câștiga Credite APPC când cumperi articole în aplicațiile și jocurile tale favorite.</string>
+  <string name="gamification_how_body_new">Cu cât mai multe AppCoins cheltuiești în aplicațiile tale preferate, cu atât mai mare va fi Bonusul!</string>
+  <string name="gamification_how_table_a1">CHELTUIEȘTI</string>
+  <string name="gamification_how_table_b1">BONUS</string>
+  <string name="gamification_how_table_a2">%s APPC</string>
+  <string name="gamification_how_table_b2">%s %%</string>
+  <string name="gamification_how_terms_and_conditions">Condiții</string>
   <string name="gamification_how_spend">CHELTUIEȘTE %s APPC</string>
   <string name="gamification_a_comet_title">o Cometă</string>
   <string name="gamification_a_moon_title">o Lună</string>
@@ -264,7 +289,16 @@
   <string name="gamification_star_subtitle">Strălucitoare, mare și plină de viață!</string>
   <string name="gamification_galaxy_subtitle">Cel mai mare sistem existent!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Bonus la cumpărare:</string>
+  <string name="gamification_purchase_header">Ai primit un Bonus!</string>
   <string name="gamification_purchase_body">%s Credite APPC vor fi creditate în portofelul tău</string>
   <string name="action_level">Nivelul meu</string>
+  <!-- Provide wallet address -->
+  <string name="provide_wallet_body">Permite Portofelului AppCoins să furnizeze adresa portofelului tău către Aptoide.</string>
+  <string name="provide_wallet_always_allow_button">Permite întotdeauna</string>
+  <string name="provide_wallet_allow_once_button">Permite o dată</string>
+  <string name="provide_wallet_completed_header">Portofel asociat cu Aptoide!</string>
+  <string name="provide_wallet_create_body">Ai nevoie de o adresă de portofel! Urmează acești pași să creezi una în Portofelul AppCoins.</string>
+  <string name="provide_wallet_create_wallet_button">CREEAZĂ</string>
+  <string name="provide_wallet_creating_wallet_header">Se creează adresă portofel&#8230;</string>
+  <string name="provide_wallet_created_header">Adresă portofel creată!</string>
 </resources>
