@@ -36,9 +36,9 @@
   <string name="title_source_code">Изходен код</string>
   <string name="title_report_bug">Докладвай за бъг</string>
   <string name="title_support">Поддръжка</string>
-  <string name="title_permissions">Permissions</string>
-  <string name="permissions_title">Permissions</string>
-  <string name="permissions_active_wallet_short">Current active wallet</string>
+  <string name="title_permissions">Разрешения</string>
+  <string name="permissions_title">Разрешения</string>
+  <string name="permissions_active_wallet_short">Текущ активен портфейл</string>
   <string name="error_import">Грешка при импортиране на хранилище</string>
   <string name="message_this_is_your_address">Моят публичен адрес на Ethereum портфейл</string>
   <string name="backup_warning_text">Тъй като само ти контролираш парите си, трябва да направиш бекъп на твоето хранилище в случай, че това приложение бъде изтрито.\n\nТвоят портфейл никога не се записва в облак или стандартно устройство за архивиране.</string>
@@ -104,15 +104,15 @@
   <string name="intro_message_first_page">Добре дошли в революцията на ап икономиката.</string>
   <string name="intro_message_second_page">Частните ключове никога не напускат устройството ти.</string>
   <string name="intro_message_third_page">Обработва всички твои плащания и дава награди в APPC.</string>
-  <string name="intro_1_body">Welcome to the revolution of the app economy.</string>
-  <string name="intro_2_title">Play More, Pay Less</string>
-  <string name="intro_2_body">Get rewarded for buying items in your favorite apps and games.</string>
-  <string name="intro_3_title">Simple and Easy</string>
-  <string name="intro_3_body">Process all your in-app purchases using your favorite payment method.</string>
-  <string name="intro_4_title">Secure and Private</string>
-  <string name="intro_4_body">Your private keys will never leave your device, so your AppCoins are safe at all times.</string>
-  <string name="intro_creating_wallet_short">We are creating a wallet for you&#8230;</string>
-  <string name="intro_wallet_created_short">Wallet created!</string>
+  <string name="intro_1_body">Добре дошли в революцията на ап икономиката.</string>
+  <string name="intro_2_title">Играй повече, плащай по-малко</string>
+  <string name="intro_2_body">Получи награда при купуване на артикули в любимите си приложения и игри.</string>
+  <string name="intro_3_title">Просто и Лесно</string>
+  <string name="intro_3_body">Обработи всичките си покупки в приложението, използвайки любимия си метод за плащане.</string>
+  <string name="intro_4_title">Сигурно и Частно</string>
+  <string name="intro_4_body">Твоите частни ключове никога няма да напуснат устройството ти, така че твоите AppCoins са в безопасност по всяко време.</string>
+  <string name="intro_creating_wallet_short">Създаваме портфейл за теб&#8230;</string>
+  <string name="intro_wallet_created_short">Портфейл създаден!</string>
   <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
   <string name="intro_skip_button">SKIP</string>
   <!-- Menus -->
