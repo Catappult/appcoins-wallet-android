@@ -113,7 +113,7 @@
   <string name="intro_4_body">Özel anahtarlarınız asla cihazınızı terk etmez, dolayısıyla AppCoin\'leriniz her zaman güvendedir.</string>
   <string name="intro_creating_wallet_short">Sizin için bir cüzdan oluşturuyoruz&#8230;</string>
   <string name="intro_wallet_created_short">Cüzdan oluşturuldu!</string>
-  <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
+  <string name="intro_agree_terms_and_conditions_body">Atla\'ya dokunarak AppCoins Cüzdanının %1$s ve %2$s\'nı kabul etmiş olursunuz</string>
   <string name="intro_skip_button">ATLA</string>
   <!-- Menus -->
   <!-- Labels -->
@@ -290,15 +290,15 @@
   <string name="gamification_galaxy_subtitle">Mevcut en büyük sistem!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Bonus kazandınız!</string>
-  <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
-  <string name="action_level">My Level</string>
+  <string name="gamification_purchase_body">%s APPC Kredisi cüzdanınıza eklenecek</string>
+  <string name="action_level">Seviyem</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to Aptoide.</string>
-  <string name="provide_wallet_always_allow_button">Always allow</string>
-  <string name="provide_wallet_allow_once_button">Allow once</string>
-  <string name="provide_wallet_completed_header">Wallet associated to Aptoide!</string>
-  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the AppCoins Wallet.</string>
-  <string name="provide_wallet_create_wallet_button">CREATE</string>
-  <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
-  <string name="provide_wallet_created_header">Wallet address created!</string>
+  <string name="provide_wallet_body">AppCoins Cüzdanın Aptoide\'e cüzdan adresini vermesine izin verin.</string>
+  <string name="provide_wallet_always_allow_button">Her zaman izin ver</string>
+  <string name="provide_wallet_allow_once_button">Bir kez izin ver</string>
+  <string name="provide_wallet_completed_header">Cüzdan Aptoide\'le ilişkilendirildi!</string>
+  <string name="provide_wallet_create_body">Bir cüzdan adresine ihtiyacınız var! AppCoins Cüzdanda bir cüzdan adresi oluşturmak için aşağıdaki adımları izleyin.</string>
+  <string name="provide_wallet_create_wallet_button">OLUŞTUR</string>
+  <string name="provide_wallet_creating_wallet_header">Cüzdan adresi oluşturuluyor&#8230;</string>
+  <string name="provide_wallet_created_header">Cüzdan adresi oluşturuldu!</string>
 </resources>
