@@ -145,10 +145,12 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
         getIabContractAddress, getSkuDetails, getDeveloperAddress,
         Function4 { tokenContractAddress: String, iabContractAddress: String, skuDetails: List<Product>, developerAddress: String ->
           try {
-            intentBuilder.buildBuyIntentBundle(serializer.mapProduct(skuDetails[0]),
-                tokenContractAddress,
-                iabContractAddress, developerPayload, true, packageName,
-                developerAddress)
+            intentBuilder.buildBuyIntentBundle(tokenContractAddress,
+                iabContractAddress,
+                developerPayload, true, packageName, developerAddress,
+                skuDetails[0].sku,
+                skuDetails[0].price.appcoinsAmount,
+                skuDetails[0].title)
           } catch (exception: Exception) {
             billingMessagesMapper.mapBuyIntentError(exception)
           }
