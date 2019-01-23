@@ -258,11 +258,11 @@
   <string name="item_donation">Đóng góp</string>
   <!-- Gamification -->
   <string name="gamification_home_body">Nhận đến %s%% tiền thưởng trong các ứng dụng và trò chơi yêu thích của bạn!</string>
-  <string name="gamification_home_button">START EARNING</string>
+  <string name="gamification_home_button">BẮT ĐẦU NHẬN</string>
   <string name="gamification_level_title">Cấp của tôi là gì?</string>
-  <string name="gamification_level_title_new">Get APPC Credits!</string>
+  <string name="gamification_level_title_new">Nhận APPC Credits!</string>
   <string name="gamification_level_header">Xin chúc mừng, bạn là %s!</string>
-  <string name="gamification_level_to_next">To next level:</string>
+  <string name="gamification_level_to_next">Đến cấp kế tiếp:</string>
   <string name="gamification_level_earned">KIẾM ĐƯỢC:</string>
   <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
   <string name="gamification_level_next_lvl_value">%s APPC</string>
