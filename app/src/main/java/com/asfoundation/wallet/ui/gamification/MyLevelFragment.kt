@@ -58,6 +58,11 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     presenter.present(savedInstanceState)
   }
 
+  override fun onDestroyView() {
+    presenter.stop()
+    super.onDestroyView()
+  }
+
   override fun setupLayout() {
     setLevelIcons(0)
     setLevelIcons(1)
