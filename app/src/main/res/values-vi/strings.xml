@@ -110,7 +110,7 @@
   <string name="intro_3_title">Đơn giản và Dễ dàng</string>
   <string name="intro_3_body">Xử lý tất cả các giao dịch mua trong ứng dụng của bạn bằng phương thức thanh toán yêu thích của bạn.</string>
   <string name="intro_4_title">Bảo mật và Riêng tư</string>
-  <string name="intro_4_body">Your private keys will never leave your device, so your AppCoins are safe at all times.</string>
+  <string name="intro_4_body">Khóa cá nhân của bạn sẽ không bao giờ rời khỏi thiết bị của bạn, vì vậy AppCoin của bạn sẽ luôn an toàn.</string>
   <string name="intro_creating_wallet_short">Chúng tôi đang tạo ví cho bạn&#8230;</string>
   <string name="intro_wallet_created_short">Đã tạo ví!</string>
   <string name="intro_agree_terms_and_conditions_body">Bằng cách nhấn vào Bỏ qua, bạn đã đồng ý với %1$s và %2$s của AppCoins Wallet</string>
