@@ -34,6 +34,7 @@ public class ApproveTransactionValidatorBds implements TransactionValidator {
         .map(hash -> new AuthorizationProof("appcoins", hash, productName, packageName, priceValue,
             storeAddress, oemAddress, developerAddress, type,
             paymentTransaction.getTransactionBuilder()
+                .getOrigin() == null ? "BDS" : paymentTransaction.getTransactionBuilder()
                 .getOrigin(), paymentTransaction.getDeveloperPayload(),
             paymentTransaction.getCallbackUrl(), paymentTransaction.getTransactionBuilder()
             .getOrderReference()))
