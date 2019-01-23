@@ -36,9 +36,9 @@
   <string name="title_source_code">Código fuente</string>
   <string name="title_report_bug">Informa sobre un bug</string>
   <string name="title_support">Apoyo</string>
-  <string name="title_permissions">Permissions</string>
-  <string name="permissions_title">Permissions</string>
-  <string name="permissions_active_wallet_short">Current active wallet</string>
+  <string name="title_permissions">Permisos</string>
+  <string name="permissions_title">Permisos</string>
+  <string name="permissions_active_wallet_short">Wallet activa</string>
   <string name="error_import">Error al importar el keystore</string>
   <string name="message_this_is_your_address">La dirección pública de mi wallet Ethereum</string>
   <string name="backup_warning_text">Solo tú controlas tu dinero, y por eso deberías hacer una copia de seguridad de tu keystore en caso de que esta app sea eliminada.\n\nTu wallet nunca será almacenada en la nube ni en dispositivos de backup estándar.</string>
