@@ -264,16 +264,16 @@
   <string name="gamification_level_header">Xin chúc mừng, bạn là %s!</string>
   <string name="gamification_level_to_next">Đến cấp kế tiếp:</string>
   <string name="gamification_level_earned">KIẾM ĐƯỢC:</string>
-  <string name="gamification_level_next_lvl">TO NEXT LEVEL:</string>
+  <string name="gamification_level_next_lvl">ĐẾN CẤP KẾ TIẾP:</string>
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% TIỀN THƯỞNG</string>
   <string name="gamification_level_button_how">CÁCH THỨC HOẠT ĐỘNG</string>
-  <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">Bạn sẽ nhận được APPC Credits khi mua vật phẩm trong các ứng dụng và trò chơi yêu thích của mình.</string>
   <string name="gamification_how_header">Làm thế nào để lên cấp?</string>
-  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_body">Bạn sẽ nhận được APPC Credits khi mua vật phẩm trong các ứng dụng và trò chơi yêu thích của mình.</string>
   <string name="gamification_how_body_new">Bạn càng dùng nhiều AppCoin trong các ứng dụng ưa thích của mình, tiền thưởng sẽ càng lớn!</string>
-  <string name="gamification_how_table_a1">SPEND</string>
-  <string name="gamification_how_table_b1">BONUS</string>
+  <string name="gamification_how_table_a1">DÙNG</string>
+  <string name="gamification_how_table_b1">TIỀN THƯỞNG</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s %%</string>
   <string name="gamification_how_terms_and_conditions">Điều kiện</string>
@@ -290,7 +290,7 @@
   <string name="gamification_galaxy_subtitle">Hệ thống lớn nhất ngoài kia!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Bạn đã nhận được một khoản tiền thưởng!</string>
-  <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
+  <string name="gamification_purchase_body">%s APPC Credits sẽ được ghi có vào ví của bạn</string>
   <string name="action_level">Cấp của tôi</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Cho phép AppCoins Wallet cung cấp địa chỉ ví của bạn cho Apptoide.</string>
