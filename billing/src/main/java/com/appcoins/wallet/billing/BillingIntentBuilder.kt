@@ -25,13 +25,13 @@ class BillingIntentBuilder(val context: Context) {
                            packageName: String,
                            developerAddress: String?,
                            skuId: String,
-                           appcAmount: Double,
+                           appcAmount: BigDecimal,
                            skuTitle: String): Bundle {
     val result = Bundle()
 
     val intent =
         buildPaymentIntent(tokenContractAddress, iabContractAddress, payload, bdsIap, packageName,
-            developerAddress, skuId, BigDecimal(appcAmount), skuTitle)
+            developerAddress, skuId, appcAmount, skuTitle)
 
     result.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
     result.putParcelable(AppcoinsBillingBinder.BUY_INTENT, intent)
@@ -44,10 +44,9 @@ class BillingIntentBuilder(val context: Context) {
                                  payload: String?, bdsIap: Boolean,
                                  packageName: String, developerAddress: String?,
                                  skuId: String,
-                                 appcAmount: BigDecimal,
+                                 amount: BigDecimal,
                                  skuTitle: String): PendingIntent {
 
-    val amount = appcAmount
     val value = amount.multiply(BigDecimal.TEN.pow(18))
 
     val intent = Intent(Intent.ACTION_VIEW)

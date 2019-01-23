@@ -16,6 +16,7 @@ import com.appcoins.wallet.billing.repository.entity.Product
 import io.reactivex.Single
 import io.reactivex.functions.Function4
 import io.reactivex.schedulers.Schedulers
+import java.math.BigDecimal
 import java.util.*
 
 
@@ -145,12 +146,9 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
         getIabContractAddress, getSkuDetails, getDeveloperAddress,
         Function4 { tokenContractAddress: String, iabContractAddress: String, skuDetails: List<Product>, developerAddress: String ->
           try {
-            intentBuilder.buildBuyIntentBundle(tokenContractAddress,
-                iabContractAddress,
-                developerPayload, true, packageName, developerAddress,
-                skuDetails[0].sku,
-                skuDetails[0].price.appcoinsAmount,
-                skuDetails[0].title)
+            intentBuilder.buildBuyIntentBundle(tokenContractAddress, iabContractAddress,
+                developerPayload, true, packageName, developerAddress, skuDetails[0].sku,
+                BigDecimal(skuDetails[0].price.appcoinsAmount), skuDetails[0].title)
           } catch (exception: Exception) {
             billingMessagesMapper.mapBuyIntentError(exception)
           }
