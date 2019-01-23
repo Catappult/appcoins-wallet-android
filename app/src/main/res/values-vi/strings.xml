@@ -257,7 +257,7 @@
   <string name="action_skip_backup_wallet">BỎ QUA SAO LƯU</string>
   <string name="item_donation">Đóng góp</string>
   <!-- Gamification -->
-  <string name="gamification_home_body">Earn up to %s%% Bonus in your favorite apps and games!</string>
+  <string name="gamification_home_body">Nhận đến %s%% tiền thưởng trong các ứng dụng và trò chơi yêu thích của bạn!</string>
   <string name="gamification_home_button">START EARNING</string>
   <string name="gamification_level_title">Cấp của tôi là gì?</string>
   <string name="gamification_level_title_new">Get APPC Credits!</string>
