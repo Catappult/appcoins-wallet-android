@@ -24,7 +24,7 @@
   <string name="network_label">Rede</string>
   <string name="credits">Créditos</string>
   <string name="low_storage_error">Não há espaço de armazenamento livre</string>
-  <string name="no_camera_permission">A Wallet AppCoins BDS precisa permissão para acessar sua câmera para escanear QR Codes.</string>
+  <string name="no_camera_permission">A BDS da AppCoins Wallet precisa permissão para acessar sua câmera para escanear QR Codes.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Formato de código de barras inválido: %s</string>
   <string name="title_delete_account">Tem certeza que deseja excluir esta wallet?</string>
@@ -36,9 +36,9 @@
   <string name="title_source_code">Código-fonte</string>
   <string name="title_report_bug">Reportar um bug</string>
   <string name="title_support">Suporte</string>
-  <string name="title_permissions">Permissions</string>
-  <string name="permissions_title">Permissions</string>
-  <string name="permissions_active_wallet_short">Current active wallet</string>
+  <string name="title_permissions">Permissões</string>
+  <string name="permissions_title">Permissões</string>
+  <string name="permissions_active_wallet_short">Carteira ativa atual</string>
   <string name="error_import">Erro ao importar o KeyStore</string>
   <string name="message_this_is_your_address">Meu endereço público da wallet Ethereum</string>
   <string name="backup_warning_text">Como só você controla seu dinheiro, é necessário fazer um backup do seu KeyStore caso esse aplicativo seja excluído.\n\nSua carteira nunca é salva em um armazenamento em nuvem ou em dispositivos de backup padrão.</string>
@@ -98,23 +98,23 @@
   <string name="toast_qr_code_no_address">O QR Code não contém um endereço válido</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
-  <string name="intro_title_first_page">Wallet AppCoins BDS</string>
+  <string name="intro_title_first_page">AppCoins BDS Wallet</string>
   <string name="intro_title_second_page"><![CDATA[Privacidade e Segurança]]></string>
   <string name="intro_title_third_page">Simples e Fácil</string>
   <string name="intro_message_first_page">Bem-vindo a revolução da economia de aplicativos.</string>
   <string name="intro_message_second_page">Chaves privadas jamais são removidas do seu dispositivo.</string>
   <string name="intro_message_third_page">Processe todos seus pagamentos em aplicativos e recompensas em APPC.</string>
-  <string name="intro_1_body">Welcome to the revolution of the app economy.</string>
-  <string name="intro_2_title">Play More, Pay Less</string>
-  <string name="intro_2_body">Get rewarded for buying items in your favorite apps and games.</string>
-  <string name="intro_3_title">Simple and Easy</string>
-  <string name="intro_3_body">Process all your in-app purchases using your favorite payment method.</string>
-  <string name="intro_4_title">Secure and Private</string>
-  <string name="intro_4_body">Your private keys will never leave your device, so your AppCoins are safe at all times.</string>
-  <string name="intro_creating_wallet_short">We are creating a wallet for you&#8230;</string>
-  <string name="intro_wallet_created_short">Wallet created!</string>
-  <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
-  <string name="intro_skip_button">SKIP</string>
+  <string name="intro_1_body">Bem-vindo a revolução da economia de aplicativos.</string>
+  <string name="intro_2_title">Jogue Mais, Pague Menos</string>
+  <string name="intro_2_body">Seja recompensado por comprar itens em seus games e apps favoritos.</string>
+  <string name="intro_3_title">Simples e Fácil</string>
+  <string name="intro_3_body">Processe todas as suas compras dentro do aplicativo utilizando seu método de pagamento favorito.</string>
+  <string name="intro_4_title">Seguro e Privado</string>
+  <string name="intro_4_body">Suas chaves privadas nunca deixam seu dispositivo, e por isso suas AppCoins estão sempre seguras.</string>
+  <string name="intro_creating_wallet_short">Estamos criando uma wallet para você&#8230;</string>
+  <string name="intro_wallet_created_short">Wallet criada!</string>
+  <string name="intro_agree_terms_and_conditions_body">Ao selecionar Pular, você concorda com os %1$s e a %2$s da sua Wallet AppCoins</string>
+  <string name="intro_skip_button">PULAR</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">De</string>
@@ -196,7 +196,7 @@
   <string name="activity_iab_nonce_message">Ocorreu um erro com a blockchain, tente novamente mais tarde.</string>
   <string name="activity_iab_approving_message">Verificando todos os detalhes: saldo, itens, rede…</string>
   <string name="activity_iab_buying_message">Detalhes verificados \nRecebendo seu item…</string>
-  <string name="activity_iab_change_card">CHANGE CARD</string>
+  <string name="activity_iab_change_card">ALTERAR CARTÃO</string>
   <string name="notification_ongoing_poa">Processando sua recompensa</string>
   <string name="notification_completed_poa">Recompensa recebida, aproveite!</string>
   <string name="notification_submitting_poa">Enviando seu pedido para a blockchain</string>
@@ -257,10 +257,10 @@
   <string name="action_skip_backup_wallet">PULAR BACKUP</string>
   <string name="item_donation">Doação</string>
   <!-- Gamification -->
-  <string name="gamification_home_body">Earn up to %s%% Bonus in your favorite apps and games!</string>
-  <string name="gamification_home_button">START EARNING</string>
+  <string name="gamification_home_body">Receba até %s%% de bônus em seus apps e games favoritos!</string>
+  <string name="gamification_home_button">COMECE A RECEBER</string>
   <string name="gamification_level_title">Qual o meu nível?</string>
-  <string name="gamification_level_title_new">Get APPC Credits!</string>
+  <string name="gamification_level_title_new">Ganhe Créditos APPC!</string>
   <string name="gamification_level_header">Parabéns, você é %s!</string>
   <string name="gamification_level_to_next">Para o próximo nível:</string>
   <string name="gamification_level_earned">ACUMULADO:</string>
@@ -268,15 +268,15 @@
   <string name="gamification_level_next_lvl_value">%s APPCs</string>
   <string name="gamification_level_bonus">%s%% BÔNUS</string>
   <string name="gamification_level_button_how">COMO FUNCIONA</string>
-  <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">Você ganhará Créditos APPC ao comprar itens em seus apps e games favoritos.</string>
   <string name="gamification_how_header">Como subir de nível?</string>
-  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
-  <string name="gamification_how_body_new">The more AppCoins you spend in your favorite apps, the bigger the Bonus!</string>
-  <string name="gamification_how_table_a1">SPEND</string>
-  <string name="gamification_how_table_b1">BONUS</string>
+  <string name="gamification_how_body">Você ganhará Créditos APPC ao comprar itens em seus apps e games favoritos.</string>
+  <string name="gamification_how_body_new">Quanto mais AppCoins você gastar em seus apps favoritos, maiores são os bônus!</string>
+  <string name="gamification_how_table_a1">GASTAR</string>
+  <string name="gamification_how_table_b1">BÔNUS</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s %%</string>
-  <string name="gamification_how_terms_and_conditions">Conditions</string>
+  <string name="gamification_how_terms_and_conditions">Condições</string>
   <string name="gamification_how_spend">GASTAR %s APPC</string>
   <string name="gamification_a_comet_title">um Cometa</string>
   <string name="gamification_a_moon_title">uma Lua</string>
@@ -289,16 +289,16 @@
   <string name="gamification_star_subtitle">Brilhante, enorme e cheia de vida!</string>
   <string name="gamification_galaxy_subtitle">O maior sistema que existe!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">You\'ve got a Bonus!</string>
+  <string name="gamification_purchase_header">Você recebeu um bônus!</string>
   <string name="gamification_purchase_body">%s Créditos APPC serão creditados em sua wallet</string>
   <string name="action_level">Meu Nível</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to Aptoide.</string>
-  <string name="provide_wallet_always_allow_button">Always allow</string>
-  <string name="provide_wallet_allow_once_button">Allow once</string>
-  <string name="provide_wallet_completed_header">Wallet associated to Aptoide!</string>
-  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the AppCoins Wallet.</string>
-  <string name="provide_wallet_create_wallet_button">CREATE</string>
-  <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
-  <string name="provide_wallet_created_header">Wallet address created!</string>
+  <string name="provide_wallet_body">Permitir que a AppCoins Wallet forneça o endereço da sua carteira para a Aptoide.</string>
+  <string name="provide_wallet_always_allow_button">Sempre permitir</string>
+  <string name="provide_wallet_allow_once_button">Permitir uma vez</string>
+  <string name="provide_wallet_completed_header">Carteira associada à Aptoide!</string>
+  <string name="provide_wallet_create_body">Você precisa de um endereço da carteira! Siga estes passos para criar uma na AppCoins Wallet.</string>
+  <string name="provide_wallet_create_wallet_button">CRIAR</string>
+  <string name="provide_wallet_creating_wallet_header">Criando o endereço da sua carteira&#8230;</string>
+  <string name="provide_wallet_created_header">Endereço da carteira criado!</string>
 </resources>
