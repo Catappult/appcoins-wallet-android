@@ -45,6 +45,7 @@ import com.asfoundation.wallet.billing.TransactionService;
 import com.asfoundation.wallet.billing.adyen.Adyen;
 import com.asfoundation.wallet.billing.adyen.AdyenBillingService;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
+import com.asfoundation.wallet.billing.analytics.PoAAnalytics;
 import com.asfoundation.wallet.billing.purchase.BillingFactory;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.BalanceGetter;
@@ -747,6 +748,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides BillingAnalytics provideBillingAnalytics(AnalyticsManager analytics) {
     return new BillingAnalytics(analytics);
+  }
+
+  @Singleton @Provides PoAAnalytics providePoAAnalytics(AnalyticsManager analytics) {
+    return new PoAAnalytics(analytics);
   }
 
   @Provides GamificationInteractor provideGamificationInteractor(Gamification gamification,
