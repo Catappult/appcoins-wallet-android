@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.billing.analytics;
 
 import cm.aptoide.analytics.AnalyticsManager;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PoAAnalytics implements PoAEventSender {
 
@@ -18,5 +20,11 @@ public class PoAAnalytics implements PoAEventSender {
 
   @Override
   public void sendPoAStartedEvent(String packageName, String campaignId, String networkId) {
+    Map<String, Object> eventData = new HashMap<>();
+    eventData.put(EVENT_PACKAGE_NAME, packageName);
+    eventData.put(EVENT_CAMPAIGN_ID, campaignId);
+    eventData.put(EVENT_NETWORK_ID, networkId);
+
+    analytics.logEvent(eventData, POA_STARTED, AnalyticsManager.Action.AUTO, WALLET);
   }
 }

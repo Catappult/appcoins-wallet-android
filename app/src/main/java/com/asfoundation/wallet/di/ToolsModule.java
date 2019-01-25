@@ -722,6 +722,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     list.add(BillingAnalytics.PURCHASE_DETAILS);
     list.add(BillingAnalytics.PAYMENT_METHOD_DETAILS);
     list.add(BillingAnalytics.PAYMENT);
+    list.add(PoAAnalytics.POA_STARTED);
     return list;
   }
 
@@ -731,6 +732,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     list.add(BillingAnalytics.PAYMENT_METHOD_DETAILS);
     list.add(BillingAnalytics.PAYMENT);
     list.add(BillingAnalytics.REVENUE);
+    list.add(PoAAnalytics.POA_STARTED);
     return list;
   }
 
