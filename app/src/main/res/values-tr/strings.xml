@@ -293,7 +293,7 @@
   <string name="gamification_purchase_body">%s APPC Kredisi cüzdanınıza eklenecek</string>
   <string name="action_level">Seviyem</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">AppCoins Cüzdanın Aptoide\'e cüzdan adresini vermesine izin verin.</string>
+  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to %s.</string>
   <string name="provide_wallet_always_allow_button">Her zaman izin ver</string>
   <string name="provide_wallet_allow_once_button">Bir kez izin ver</string>
   <string name="provide_wallet_completed_header">Cüzdan Aptoide\'le ilişkilendirildi!</string>
