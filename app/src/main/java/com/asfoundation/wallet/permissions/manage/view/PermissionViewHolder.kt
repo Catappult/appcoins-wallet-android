@@ -16,13 +16,13 @@ class PermissionViewHolder(itemView: View,
   private val hasPermission: Switch = itemView.findViewById(R.id.has_permission)
 
   fun bindPermission(permission: ApplicationPermissionViewData) {
+    hasPermission.setOnCheckedChangeListener(null)
+    itemView.setOnClickListener(null)
     appIcon.setImageDrawable(permission.icon)
     appNameTextView.text = permission.appName
     hasPermission.isChecked = permission.hasPermission
     itemView.setOnClickListener {
-      permissionClick.accept(
-          ApplicationPermissionViewData(permission.packageName, permission.appName,
-              !permission.hasPermission, permission.icon, permission.apkSignature))
+      hasPermission.isChecked = !hasPermission.isChecked
     }
     hasPermission.setOnCheckedChangeListener { _, isChecked ->
       permissionClick.accept(

@@ -11,10 +11,10 @@ interface PermissionsDao {
   @Query("select * from PermissionEntity where `key` like :key")
   fun getPermission(key: String): Flowable<PermissionEntity>
 
-  @Query("select * from PermissionEntity")
+  @Query("select * from PermissionEntity order by `key`")
   fun getAllAsFlowable(): Flowable<List<PermissionEntity>>
 
-  @Query("select * from PermissionEntity")
+  @Query("select * from PermissionEntity order by `key`")
   fun getAll(): List<PermissionEntity>
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)

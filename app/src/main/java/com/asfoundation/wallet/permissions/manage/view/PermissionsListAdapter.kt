@@ -32,8 +32,8 @@ class PermissionsListAdapter(
     notifyChanges(oldList, this.permissions)
   }
 
-  private fun notifyChanges(
-      oldList: List<ApplicationPermissionViewData>, newList: List<ApplicationPermissionViewData>) {
+  private fun notifyChanges(oldList: List<ApplicationPermissionViewData>,
+                            newList: List<ApplicationPermissionViewData>) {
 
     DiffUtil.calculateDiff(object : DiffUtil.Callback() {
       override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
@@ -49,7 +49,10 @@ class PermissionsListAdapter(
       }
 
       override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition] == newList[newItemPosition]
+        return oldList[oldItemPosition].packageName == newList[newItemPosition].packageName
+            && oldList[oldItemPosition].appName == newList[newItemPosition].appName
+            && oldList[oldItemPosition].apkSignature == newList[newItemPosition].apkSignature
+            && oldList[oldItemPosition].hasPermission == newList[newItemPosition].hasPermission
       }
     }).dispatchUpdatesTo(this)
   }
