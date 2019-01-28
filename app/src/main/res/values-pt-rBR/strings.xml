@@ -293,7 +293,7 @@
   <string name="gamification_purchase_body">%s Créditos APPC serão creditados em sua wallet</string>
   <string name="action_level">Meu Nível</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Permitir que a AppCoins Wallet forneça o endereço da sua carteira para a Aptoide.</string>
+  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to %s.</string>
   <string name="provide_wallet_always_allow_button">Sempre permitir</string>
   <string name="provide_wallet_allow_once_button">Permitir uma vez</string>
   <string name="provide_wallet_completed_header">Carteira associada à Aptoide!</string>
