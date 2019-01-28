@@ -1,7 +1,11 @@
 package com.asfoundation.wallet.permissions.request.view
 
 import android.content.Context
+import android.graphics.Typeface.BOLD
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,8 +82,18 @@ class PermissionFragment : DaggerFragment(), PermissionFragmentView {
         .observeOn(AndroidSchedulers.mainThread())
         .doOnSuccess { app ->
           provide_wallet_always_allow_app_icon.setImageDrawable(app.icon)
-          provide_wallet_always_allow_body.text =
-              getString(R.string.provide_wallet_body, app.appName)
+
+          val message = getString(R.string.provide_wallet_body, app.appName)
+          val spannedMessage = SpannableString(message)
+          val walletAppName = getString(R.string.app_name)
+
+          spannedMessage.setSpan(StyleSpan(BOLD), message.indexOf(walletAppName),
+              message.indexOf(walletAppName) + walletAppName.length,
+              Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+          spannedMessage.setSpan(StyleSpan(BOLD), message.indexOf(app.appName.toString()),
+              message.indexOf(app.appName.toString()) + app.appName.length,
+              Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+          provide_wallet_always_allow_body.text = spannedMessage
           progress.visibility = View.GONE
           main_view.visibility = View.VISIBLE
         }.subscribe()
