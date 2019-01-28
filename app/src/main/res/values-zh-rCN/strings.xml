@@ -293,7 +293,7 @@
   <string name="gamification_purchase_body">%s APPC积分将计入你的钱包</string>
   <string name="action_level">我的等级</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">允许AppCoins钱包向Aptoide提供你的钱包地址。</string>
+  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to %s.</string>
   <string name="provide_wallet_always_allow_button">始终允许</string>
   <string name="provide_wallet_allow_once_button">允许一次</string>
   <string name="provide_wallet_completed_header">钱包已关联到Aptoide！</string>

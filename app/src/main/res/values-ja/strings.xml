@@ -294,7 +294,7 @@
   <string name="gamification_purchase_body">%s APPC クレジットはウォレットに加算されます。</string>
   <string name="action_level">私のレベル</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">AppCoins ウォレットアドレスを Aptoide に提供するを許可します。</string>
+  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to %s.</string>
   <string name="provide_wallet_always_allow_button">常に許可する</string>
   <string name="provide_wallet_allow_once_button">一度許可する</string>
   <string name="provide_wallet_completed_header">ウォレットがAptoideと結合しました！</string>
