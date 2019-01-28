@@ -293,7 +293,7 @@
   <string name="gamification_purchase_body">%s Kredit APPC akan dikreditkan ke dalam dompet anda</string>
   <string name="action_level">Tahap Saya</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Izinkan Dompet AppCoins untuk memberikan alamat dompet anda kepada Aptoide.</string>
+  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to %s.</string>
   <string name="provide_wallet_always_allow_button">Sentiasa izin</string>
   <string name="provide_wallet_allow_once_button">Izin sekali</string>
   <string name="provide_wallet_completed_header">Dompet dipautkan dengan Aptoide!</string>
