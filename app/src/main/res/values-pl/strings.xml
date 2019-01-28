@@ -293,7 +293,7 @@
   <string name="gamification_purchase_body">%s APPC będą zapisane do Twojego portfelu</string>
   <string name="action_level">Mój poziom</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Pozwól portfelowi AppCoins podać adres portfela do Aptoide.</string>
+  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to %s.</string>
   <string name="provide_wallet_always_allow_button">Zawsze Zezwalaj</string>
   <string name="provide_wallet_allow_once_button">Zezwól raz</string>
   <string name="provide_wallet_completed_header">Portfel powiązany z Aptoide!</string>
