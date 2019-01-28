@@ -6,12 +6,17 @@ import android.os.Bundle
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
 
-class ManagePermissionsActivity : BaseActivity(), ManagePermissionsView {
+class ManagePermissionsActivity : BaseActivity(), ManagePermissionsView, ToolbarManager {
   companion object {
     @JvmStatic
     fun newIntent(context: Context): Intent {
       return Intent(context, ManagePermissionsActivity::class.java)
     }
+  }
+
+  override fun setupToolbar() {
+    setTitle(R.string.permissions_title)
+    toolbar()
   }
 
   private lateinit var presenter: ManagePermissionsPresenter

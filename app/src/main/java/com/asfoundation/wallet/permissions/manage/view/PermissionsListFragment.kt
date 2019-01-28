@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.permissions.manage.view
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -35,6 +36,7 @@ class PermissionsListFragment : DaggerFragment(), PermissionsListView {
   private lateinit var adapter: PermissionsListAdapter
   private lateinit var appInfoProvider: AndroidAppDataProvider
   private lateinit var permissionClick: BehaviorRelay<ApplicationPermissionViewData>
+  private var toolbarManager: ToolbarManager? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -51,6 +53,20 @@ class PermissionsListFragment : DaggerFragment(), PermissionsListView {
       PermissionsListView.ApplicationPermissionToggle(it.packageName, it.hasPermission,
           it.apkSignature)
     }
+  }
+
+  override fun onAttach(context: Context?) {
+    super.onAttach(context)
+    when (context) {
+      is ToolbarManager -> toolbarManager = context
+      else -> throw IllegalArgumentException(
+          "${PermissionsListFragment::class} has to be attached to an activity that implements ${ToolbarManager::class}")
+    }
+  }
+
+  override fun onDetach() {
+    toolbarManager = null
+    super.onDetach()
   }
 
   override fun showPermissions(permissions: List<ApplicationPermission>): Completable {
@@ -78,6 +94,7 @@ class PermissionsListFragment : DaggerFragment(), PermissionsListView {
     super.onViewCreated(view, savedInstanceState)
     recycler_view.adapter = adapter
     recycler_view.layoutManager = LinearLayoutManager(context)
+    toolbarManager?.setupToolbar()
     presenter.present()
   }
 

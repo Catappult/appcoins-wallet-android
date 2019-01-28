@@ -10,6 +10,7 @@
       android:id="@+id/app_icon"
       android:layout_width="40dp"
       android:layout_height="40dp"
+      android:layout_margin="16dp"
       android:src="@drawable/ic_appc"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@id/permission_app_name"
@@ -19,10 +20,11 @@
 
   <TextView
       android:id="@+id/permission_app_name"
-      android:layout_width="wrap_content"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
       app:layout_constraintBottom_toBottomOf="@id/app_icon"
       app:layout_constraintEnd_toStartOf="@id/has_permission"
+      app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toEndOf="@id/app_icon"
       app:layout_constraintTop_toTopOf="@id/app_icon"
       tools:text="Aptoide"
@@ -32,6 +34,7 @@
       android:id="@+id/has_permission"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_margin="16dp"
       app:layout_constraintBottom_toBottomOf="@id/app_icon"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/permission_app_name"
