@@ -57,7 +57,7 @@ interface AppcoinsBilling {
         *                        '{ "productId" : "exampleSku",
         *                           "type" : "inapp",
         *                           "price" : "$5.00",
-        *                           "price_currency": "USD",
+        *                           "price_currency_code": "USD",
         *                           "price_amount_micros": 5000000,
         *                           "title : "Example Title",
         *                           "description" : "This is an example description" }'
