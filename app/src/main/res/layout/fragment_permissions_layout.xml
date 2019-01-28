@@ -7,68 +7,87 @@
     android:layout_height="wrap_content"
     android:background="@drawable/background_card"
     >
-  <include
-      layout="@layout/provide_wallet_always_allow_wallet_apps_layout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      />
 
-  <TextView
-      android:id="@+id/provide_wallet_always_allow_body"
+  <android.support.constraint.ConstraintLayout
+      android:id="@+id/permissionLayout"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="16dp"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="16dp"
-      android:ellipsize="end"
-      android:gravity="center"
-      android:maxLines="3"
-      app:layout_constraintBottom_toTopOf="@id/provide_wallet_always_allow_button"
+      android:layout_height="0dp"
+      android:background="@drawable/background_card"
+      android:elevation="2dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/provide_wallet_always_allow_wallet_icon"
-      tools:text="@string/provide_wallet_body"
-      style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
-      />
+      app:layout_constraintTop_toTopOf="parent"
+      >
+    <include
+        layout="@layout/provide_wallet_always_allow_wallet_apps_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 
-  <Button
-      android:id="@+id/provide_wallet_always_allow_button"
+    <TextView
+        android:id="@+id/provide_wallet_always_allow_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="3"
+        app:layout_constraintBottom_toTopOf="@id/provide_wallet_always_allow_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/provide_wallet_always_allow_wallet_icon"
+        tools:text="@string/provide_wallet_body"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
+        />
+
+    <Button
+        android:id="@+id/provide_wallet_always_allow_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/provide_wallet_always_allow_button"
+        app:layout_constraintBottom_toTopOf="@id/provide_wallet_allow_once_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/provide_wallet_always_allow_body"
+        style="@style/ButtonStyle"
+        />
+    <Button
+        android:id="@+id/provide_wallet_allow_once_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/provide_wallet_allow_once_button"
+        app:layout_constraintBottom_toTopOf="@id/provide_wallet_cancel"
+        app:layout_constraintEnd_toEndOf="@id/provide_wallet_always_allow_button"
+        app:layout_constraintStart_toStartOf="@id/provide_wallet_always_allow_button"
+        app:layout_constraintTop_toBottomOf="@id/provide_wallet_always_allow_button"
+        style="@style/ButtonStyle.Light"
+        />
+
+    <Button
+        android:id="@+id/provide_wallet_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/provide_wallet_cancel"
+        app:layout_constraintBottom_toTopOf="@id/footer_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/provide_wallet_allow_once_button"
+        style="@style/CancelButtonStyle"
+        />
+  </android.support.constraint.ConstraintLayout>
+
+  <android.support.constraint.Group
+      android:id="@+id/main_view"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
-      android:text="@string/provide_wallet_always_allow_button"
-      app:layout_constraintBottom_toTopOf="@id/provide_wallet_allow_once_button"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/provide_wallet_always_allow_body"
-      style="@style/ButtonStyle"
-      />
-  <Button
-      android:id="@+id/provide_wallet_allow_once_button"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
-      android:text="@string/provide_wallet_allow_once_button"
-      app:layout_constraintBottom_toTopOf="@id/provide_wallet_cancel"
-      app:layout_constraintEnd_toEndOf="@id/provide_wallet_always_allow_button"
-      app:layout_constraintStart_toStartOf="@id/provide_wallet_always_allow_button"
-      app:layout_constraintTop_toBottomOf="@id/provide_wallet_always_allow_button"
-      style="@style/ButtonStyle.Light"
-      />
-
-  <Button
-      android:id="@+id/provide_wallet_cancel"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="8dp"
-      android:layout_marginTop="16dp"
-      android:text="@string/provide_wallet_cancel"
-      app:layout_constraintBottom_toTopOf="@id/footer_layout"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="1"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/provide_wallet_allow_once_button"
-      style="@style/CancelButtonStyle"
+      app:constraint_referenced_ids="permissionLayout,footer_layout"
       />
 
   <RelativeLayout
@@ -78,8 +97,9 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/provide_wallet_cancel"
+      app:layout_constraintTop_toBottomOf="@id/permissionLayout"
       >
+
     <ImageView
         android:id="@+id/logo_wallet"
         android:layout_width="76dp"
@@ -107,17 +127,11 @@
         />
   </RelativeLayout>
 
-  <android.support.constraint.Group
-      android:id="@+id/main_view"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      app:constraint_referenced_ids="provide_wallet_always_allow_wallet_icon,dot1,dot2,dot3,dot4,provide_wallet_always_allow_app_icon,provide_wallet_always_allow_body,provide_wallet_always_allow_button,provide_wallet_allow_once_button,provide_wallet_cancel,footer_layout"
-      />
-
   <ProgressBar
       android:id="@+id/progress"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:elevation="2dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
