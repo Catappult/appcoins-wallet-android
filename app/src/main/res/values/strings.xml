@@ -306,7 +306,7 @@
   <string name="action_level">My Level</string>
 
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to Aptoide.</string>
+  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to %s.</string>
   <string name="provide_wallet_always_allow_button">Always allow</string>
   <string name="provide_wallet_allow_once_button">Allow once</string>
   <string name="provide_wallet_completed_header">Wallet associated to Aptoide!</string>
