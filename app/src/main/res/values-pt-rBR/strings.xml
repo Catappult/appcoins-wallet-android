@@ -301,4 +301,6 @@
   <string name="provide_wallet_create_wallet_button">CRIAR</string>
   <string name="provide_wallet_creating_wallet_header">Criando o endereço da sua carteira&#8230;</string>
   <string name="provide_wallet_created_header">Endereço da carteira criado!</string>
+  <string name="provide_wallet_empty_state">You haven\'t allowed AppCoins Wallet to provide your address to any other app yet.</string>
+  <string name="provide_wallet_status">Allow access to wallet address</string>
 </resources>
