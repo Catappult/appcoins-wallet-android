@@ -6,9 +6,9 @@ import java.util.Map;
 
 public class PoAAnalytics implements PoAEventSender {
 
-  private static final String EVENT_PACKAGE_NAME = "packageName";
-  private static final String EVENT_CAMPAIGN_ID = "campaignId";
-  private static final String EVENT_NETWORK_ID = "networkId";
+  private static final String EVENT_PACKAGE_NAME = "package_name";
+  private static final String EVENT_CAMPAIGN_ID = "campaign_id";
+  private static final String EVENT_NETWORK_ID = "network_id";
   private static final String WALLET = "WALLET";
   public static final String POA_STARTED = "POA_STARTED";
 

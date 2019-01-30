@@ -1,9 +1,7 @@
 package com.asfoundation.wallet.poa;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 import com.appcoins.wallet.commons.Repository;
-import com.asfoundation.wallet.billing.analytics.PoAAnalytics;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -24,13 +22,12 @@ public class ProofOfAttentionService {
   private final BackEndErrorMapper errorMapper;
   private final TaggedCompositeDisposable disposables;
   private final CountryCodeProvider countryCodeProvider;
-  private final PoAAnalytics analytics;
 
   public ProofOfAttentionService(Repository<String, Proof> cache, String walletPackage,
       HashCalculator hashCalculator, CompositeDisposable compositeDisposable,
       ProofWriter proofWriter, Scheduler computationScheduler, int maxNumberProofComponents,
       BackEndErrorMapper errorMapper, TaggedCompositeDisposable disposables,
-      CountryCodeProvider countryCodeProvider, PoAAnalytics analytics) {
+      CountryCodeProvider countryCodeProvider) {
     this.cache = cache;
     this.walletPackage = walletPackage;
     this.hashCalculator = hashCalculator;
@@ -41,7 +38,6 @@ public class ProofOfAttentionService {
     this.errorMapper = errorMapper;
     this.disposables = disposables;
     this.countryCodeProvider = countryCodeProvider;
-    this.analytics = analytics;
   }
 
   public void start() {
@@ -151,10 +147,6 @@ public class ProofOfAttentionService {
               walletPackage, ProofStatus.PROCESSING, chainId, proof.getOemAddress(),
               proof.getStoreAddress(), proof.getGasPrice(), proof.getGasLimit(), proof.getHash(),
               proof.getCountryCode()));
-      if (getPreviousProofSync(packageName).getProofComponentList()
-          .size() != 0) {
-        sendPoAStartedEvent(getPreviousProofSync(packageName));
-      }
     }
   }
 
@@ -176,10 +168,6 @@ public class ProofOfAttentionService {
           createProofComponentList(timeStamp, nonce, proof), walletPackage, ProofStatus.PROCESSING,
           proof.getChainId(), proof.getOemAddress(), proof.getStoreAddress(), proof.getGasPrice(),
           proof.getGasLimit(), proof.getHash(), proof.getCountryCode()));
-    }
-    if (getPreviousProofSync(packageName)
-        .getChainId() != 0) {
-      sendPoAStartedEvent(getPreviousProofSync(packageName));
     }
   }
 
@@ -332,9 +320,5 @@ public class ProofOfAttentionService {
     disposables.add(packageName,
         Completable.fromAction(() -> setGasSettingsSync(packageName, gasPrice, gasLimit))
             .subscribe());
-  }
-
-  public void sendPoAStartedEvent(Proof proof) {
-    analytics.sendPoAStartedEvent(proof.getPackageName(), proof.getCampaignId(), Integer.toString(proof.getChainId()));
   }
 }
