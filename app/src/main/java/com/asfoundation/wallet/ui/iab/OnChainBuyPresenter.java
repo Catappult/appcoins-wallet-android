@@ -164,7 +164,7 @@ public class OnChainBuyPresenter {
         Log.d(TAG, "showPendingTransaction: addevent can be here");
         return inAppPurchaseInteractor.getCompletedPurchase(transaction, isBds)
             .observeOn(AndroidSchedulers.mainThread())
-            .map(this::buildBundle)
+            .map(payment -> buildBundle(payment, transaction.getOrderReference()))
             .flatMapCompletable(bundle -> Completable.fromAction(view::showTransactionCompleted)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .andThen(Completable.timer(1, TimeUnit.SECONDS))
@@ -199,12 +199,12 @@ public class OnChainBuyPresenter {
     }
   }
 
-  private Bundle buildBundle(Payment payment) {
+  private Bundle buildBundle(Payment payment, String orderReference) {
     if (payment.getUid() != null
         && payment.getSignature() != null
         && payment.getSignatureData() != null) {
       return billingMessagesMapper.mapPurchase(payment.getUid(), payment.getSignature(),
-          payment.getSignatureData());
+          payment.getSignatureData(), orderReference);
     } else {
       Bundle bundle = new Bundle();
       bundle.putInt(IabActivity.RESPONSE_CODE, 0);

@@ -74,11 +74,13 @@ class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerial
     return bundle
   }
 
-  fun mapPurchase(purchaseId: String, signature: String, signatureData: String): Bundle {
+  fun mapPurchase(purchaseId: String, signature: String, signatureData: String,
+                  orderReference: String?): Bundle {
     val intent = Bundle()
     intent.putString(AppcoinsBillingBinder.INAPP_PURCHASE_ID, purchaseId)
     intent.putString(AppcoinsBillingBinder.INAPP_PURCHASE_DATA, signatureData)
     intent.putString(AppcoinsBillingBinder.INAPP_DATA_SIGNATURE, signature)
+    intent.putString(AppcoinsBillingBinder.INAPP_ORDER_REFERENCE, orderReference)
     intent.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
     return intent
   }
@@ -101,9 +103,9 @@ class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerial
     }
   }
 
-  fun mapPurchase(purchase: Purchase): Bundle {
+  fun mapPurchase(purchase: Purchase, orderReference: String?): Bundle {
     return mapPurchase(purchase.uid, purchase.signature.value,
-        billingSerializer.serializeSignatureData(purchase))
+        billingSerializer.serializeSignatureData(purchase), orderReference)
   }
 
   fun genericError(): Bundle {

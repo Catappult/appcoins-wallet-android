@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import com.appcoins.wallet.bdsbilling.repository.entity.SKU
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_DEVELOPER_PAYLOAD
 import com.appcoins.wallet.billing.repository.entity.TransactionData
@@ -20,17 +19,19 @@ import java.util.*
 class BillingIntentBuilder(val context: Context) {
 
   @Throws(Exception::class)
-  fun buildBuyIntentBundle(sku: SKU,
-                           tokenContractAddress: String,
-                           iabContractAddress: String, payload: String?,
-                           bdsIap: Boolean,
+  fun buildBuyIntentBundle(tokenContractAddress: String,
+                           iabContractAddress: String,
+                           payload: String?, bdsIap: Boolean,
                            packageName: String,
-                           developerAddress: String?): Bundle {
+                           developerAddress: String?,
+                           skuId: String,
+                           appcAmount: BigDecimal,
+                           skuTitle: String): Bundle {
     val result = Bundle()
 
     val intent =
-        buildPaymentIntent(sku, tokenContractAddress, iabContractAddress, payload, bdsIap,
-            packageName, developerAddress)
+        buildPaymentIntent(tokenContractAddress, iabContractAddress, payload, bdsIap, packageName,
+            developerAddress, skuId, appcAmount, skuTitle)
 
     result.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
     result.putParcelable(AppcoinsBillingBinder.BUY_INTENT, intent)
@@ -38,22 +39,24 @@ class BillingIntentBuilder(val context: Context) {
     return result
   }
 
-  private fun buildPaymentIntent(sku: SKU,
-                                 tokenContractAddress: String,
-                                 iabContractAddress: String, payload: String?,
-                                 bdsIap: Boolean, packageName: String,
-                                 developerAddress: String?): PendingIntent {
+  private fun buildPaymentIntent(tokenContractAddress: String,
+                                 iabContractAddress: String,
+                                 payload: String?, bdsIap: Boolean,
+                                 packageName: String, developerAddress: String?,
+                                 skuId: String,
+                                 amount: BigDecimal,
+                                 skuTitle: String): PendingIntent {
 
-    val amount = BigDecimal(sku.amount)
     val value = amount.multiply(BigDecimal.TEN.pow(18))
 
     val intent = Intent(Intent.ACTION_VIEW)
     val data = Uri.parse(buildUriString(tokenContractAddress, iabContractAddress, value,
-        developerAddress, sku.productId, BuildConfig.NETWORK_ID, packageName,
-        PayloadHelper.getPayload(payload), PayloadHelper.getOrderReference(payload)))
+        developerAddress, skuId, BuildConfig.NETWORK_ID, packageName,
+        PayloadHelper.getPayload(payload), PayloadHelper.getOrderReference(payload),
+        PayloadHelper.getOrigin(payload)))
     intent.data = data
 
-    intent.putExtra(AppcoinsBillingBinder.PRODUCT_NAME, sku.title)
+    intent.putExtra(AppcoinsBillingBinder.PRODUCT_NAME, skuTitle)
     intent.putExtra(EXTRA_DEVELOPER_PAYLOAD, payload)
     intent.putExtra(EXTRA_BDS_IAP, bdsIap)
 
@@ -65,13 +68,15 @@ class BillingIntentBuilder(val context: Context) {
                              skuId: String,
                              networkId: Int, packageName: String,
                              developerPayload: String?,
-                             orderReference: String?): String {
+                             orderReference: String?,
+                             origin: String?): String {
     val stringBuilder = StringBuilder(4)
     try {
       Formatter(stringBuilder).use { formatter ->
         formatter.format("ethereum:%s@%d/buy?uint256=%s&address=%s&data=%s&iabContractAddress=%s",
             tokenContractAddress, networkId, amount.toString(), developerAddress ?: "",
-            buildUriData(skuId, packageName, developerPayload, orderReference), iabContractAddress)
+            buildUriData(skuId, packageName, developerPayload, orderReference, origin),
+            iabContractAddress)
       }
     } catch (e: UnsupportedEncodingException) {
       throw RuntimeException("UTF-8 not supported!", e)
@@ -79,11 +84,11 @@ class BillingIntentBuilder(val context: Context) {
     return stringBuilder.toString()
   }
 
-  private fun buildUriData(skuId: String, packageName: String,
-                           developerPayload: String?, orderReference: String?): String {
+  private fun buildUriData(skuId: String, packageName: String, developerPayload: String?,
+                           orderReference: String?, origin: String?): String {
     return "0x" + Hex.toHexString(
         Gson().toJson(
             TransactionData("INAPP", packageName, skuId, developerPayload,
-                orderReference)).toByteArray(charset("UTF-8")))
+                orderReference, origin)).toByteArray(charset("UTF-8")))
   }
 }

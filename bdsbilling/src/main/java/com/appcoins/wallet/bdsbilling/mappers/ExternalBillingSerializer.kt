@@ -18,16 +18,18 @@ class ExternalBillingSerializer {
   }
 
   fun mapProduct(product: Product): SKU {
-    return SKU(product.sku, "inapp", getPrice(product),
-        product.price
-            .currency, product.price
-        .appcoinsAmount, product.title, product.description)
+    return SKU(product.sku, "inapp", getPrice(product), product.price.currency,
+        getPriceInMicro(product), product.title, product.description)
   }
 
   private fun getPrice(product: Product): String {
-    return String.format(Locale.US, "%s %.2s", product.price
+    return String.format(Locale.US, "%s %s", product.price
         .currencySymbol, product.price
         .amount)
+  }
+
+  private fun getPriceInMicro(product: Product): Int {
+    return (product.price.amount * 1000000).toInt()
   }
 
   fun serializeSignatureData(purchase: Purchase): String {

@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.appcoins.wallet.appcoins.rewards.TransactionIdRepository;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asf.wallet.BuildConfig;
@@ -45,7 +44,6 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
 
   @Inject RewardsManager rewardsManager;
   @Inject BdsPendingTransactionService bdsPendingTransactionService;
-  @Inject TransactionIdRepository transactionIdRepository;
   @Inject TransferParser transferParser;
   @Inject BillingMessagesMapper billingMessagesMapper;
   private View buyButton;
@@ -193,9 +191,13 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   }
 
   @Override public void finish(Purchase purchase) {
+    finish(purchase, null);
+  }
+
+  @Override public void finish(Purchase purchase, @Nullable String orderReference) {
     presenter.sendPaymentEvent(PAYMENT_METHOD_REWARDS);
     presenter.sendRevenueEvent();
-    iabView.finish(billingMessagesMapper.mapPurchase(purchase));
+    iabView.finish(billingMessagesMapper.mapPurchase(purchase, orderReference));
   }
 
   @Override public void hideGenericLoading() {

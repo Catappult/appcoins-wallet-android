@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
+import android.support.annotation.Nullable;
 import com.appcoins.wallet.appcoins.rewards.Transaction;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
@@ -87,8 +88,8 @@ public class AppcoinsRewardsBuyPresenter {
         .flatMapSingle(__ -> transferParser.parse(uri))
         .flatMapCompletable(transaction -> rewardsManager.pay(transaction.getSkuId(), amount,
             transaction.toAddress(), oemAddress, packageName,
-            isBds ? Transaction.Origin.BDS : Transaction.Origin.UNKNOWN, transaction.getType(),
-            transaction.getPayload(), transaction.getCallbackUrl(), transaction.getOrderReference())
+            getOrigin(isBds, transaction), transaction.getType(), transaction.getPayload(),
+            transaction.getCallbackUrl(), transaction.getOrderReference())
             .andThen(rewardsManager.getPaymentStatus(packageName, transaction.getSkuId(),
                 transaction.amount()))
             .observeOn(scheduler)
@@ -96,6 +97,14 @@ public class AppcoinsRewardsBuyPresenter {
                 paymentStatus -> handlePaymentStatus(paymentStatus, transaction.getSkuId(),
                     transaction.amount())))
         .subscribe());
+  }
+
+  @Nullable private String getOrigin(boolean isBds, TransactionBuilder transaction) {
+    if (transaction.getOrigin() == null) {
+      return isBds ? "BDS" : null;
+    } else {
+      return transaction.getOrigin();
+    }
   }
 
   private Completable handlePaymentStatus(RewardsManager.RewardPayment transaction, String sku,
@@ -110,7 +119,7 @@ public class AppcoinsRewardsBuyPresenter {
         if (isBds && transactionBuilder.getType()
             .equalsIgnoreCase(TransactionData.TransactionType.INAPP.name())) {
           return rewardsManager.getPaymentCompleted(packageName, sku)
-              .doOnSuccess(view::finish)
+              .doOnSuccess(purchase -> view.finish(purchase, transaction.getOrderReference()))
               .ignoreElement()
               .observeOn(scheduler)
               .onErrorResumeNext(throwable -> Completable.fromAction(() -> {

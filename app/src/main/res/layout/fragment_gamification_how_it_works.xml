@@ -20,7 +20,7 @@
       app:layout_constraintTop_toTopOf="parent"
       >
     <android.support.constraint.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
         android:background="@drawable/background_card"
@@ -60,6 +60,47 @@
           app:layout_constraintTop_toBottomOf="@+id/fragment_gamification_how_it_works_title"
           style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
           />
+      <android.support.constraint.Guideline
+          android:id="@+id/guideline1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          app:layout_constraintGuide_percent="0.21"
+          />
+      <TextView
+          android:id="@+id/spend"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="30dp"
+          android:textSize="14sp"
+          android:text="@string/gamification_how_table_a1"
+          app:layout_constraintEnd_toStartOf="@id/guideline2"
+          app:layout_constraintHorizontal_bias=".0"
+          app:layout_constraintStart_toEndOf="@+id/guideline1"
+          app:layout_constraintTop_toBottomOf="@id/fragment_gamification_how_it_works_message"
+          style="@style/RewardsLevelTextStyle"
+          />
+      <android.support.constraint.Guideline
+          android:id="@+id/guideline2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          app:layout_constraintGuide_percent="0.69"
+          />
+
+      <TextView
+          android:id="@+id/bonus"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="30dp"
+          android:textSize="14sp"
+          android:text="@string/gamification_how_table_b1"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias=".0"
+          app:layout_constraintStart_toEndOf="@id/guideline2"
+          app:layout_constraintTop_toBottomOf="@+id/fragment_gamification_how_it_works_message"
+          style="@style/RewardsLevelTextStyle"
+          />
       <ProgressBar
           android:id="@+id/fragment_gamification_how_it_works_loading"
           android:layout_width="wrap_content"
@@ -75,25 +116,25 @@
           android:id="@+id/fragment_gamification_how_it_works_levels_layout"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginTop="16dp"
+          android:layout_marginTop="8dp"
           android:orientation="vertical"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/fragment_gamification_how_it_works_message"
+          app:layout_constraintTop_toBottomOf="@id/bonus"
           />
       <Button
           android:id="@+id/fragment_gamification_how_it_works_ok_button"
-          android:layout_width="wrap_content"
-          android:layout_height="40dp"
+          android:layout_width="80dp"
+          android:layout_height="36dp"
           android:layout_marginTop="24dp"
           android:minWidth="71dp"
           android:text="@string/ok"
           android:visibility="gone"
+          app:layout_constraintHorizontal_bias="1.0"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/fragment_gamification_how_it_works_levels_layout"
           style="@style/ButtonStyle"
-
           />
 
     </android.support.constraint.ConstraintLayout>

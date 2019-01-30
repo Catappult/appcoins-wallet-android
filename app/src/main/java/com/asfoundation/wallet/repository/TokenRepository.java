@@ -101,7 +101,7 @@ public class TokenRepository implements TokenRepositoryType {
       String data, BigDecimal amount, String tokenAddress, String packageName, byte[] countryCode) {
     Uint256 amountParam = new Uint256(amount.toBigInteger());
     Utf8String packageNameType = new Utf8String(packageName);
-    Utf8String dataParam = data == null? new Utf8String("") : new Utf8String(data);
+    Utf8String dataParam = data == null ? new Utf8String("") : new Utf8String(data);
     Address contractAddress = new Address(tokenAddress);
     Address developerAddressParam = new Address(developerAddress);
     Address storeAddressParam = new Address(storeAddress);
@@ -295,7 +295,6 @@ public class TokenRepository implements TokenRepositoryType {
         .compose(updateBalance(network, wallet))
         .toList()
         .map(list -> list.toArray(new Token[list.size()]))
-        .compose(attachTicker(network, wallet))
         .compose(attachEthereum(network, wallet));
   }
 
@@ -305,13 +304,7 @@ public class TokenRepository implements TokenRepositoryType {
           TokenInfo info =
               new TokenInfo(wallet.address, network.name, network.symbol, 18, true, false);
           return new Token(info, balance, System.currentTimeMillis());
-        })
-        .flatMap(token -> ethereumNetworkRepository.getTicker()
-            .map(ticker -> {
-              token.ticker = new TokenTicker("", "", ticker.price, ticker.percentChange24h, null);
-              return token;
-            })
-            .onErrorResumeNext(throwable -> Single.just(token)));
+        });
   }
 
   private BigDecimal getBalance(Wallet wallet, TokenInfo tokenInfo) throws Exception {

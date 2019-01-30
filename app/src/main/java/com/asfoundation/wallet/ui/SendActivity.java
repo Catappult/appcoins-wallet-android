@@ -104,8 +104,12 @@ public class SendActivity extends BaseActivity {
     switch (item.getItemId()) {
       case R.id.action_next: {
         onNext();
+        break;
       }
-      break;
+      case android.R.id.home: {
+        viewModel.showTransactions(this);
+        break;
+      }
     }
     return super.onOptionsItemSelected(item);
   }
@@ -166,5 +170,9 @@ public class SendActivity extends BaseActivity {
       setTitle(String.format(getString(R.string.title_send_with_token), symbol));
       amountInputLayout.setHint(String.format(getString(R.string.hint_amount_with_token), symbol));
     }
+  }
+
+  @Override public void onBackPressed() {
+    viewModel.showTransactions(this);
   }
 }

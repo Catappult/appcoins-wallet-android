@@ -7,9 +7,9 @@ import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import io.reactivex.Single;
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import org.kethereum.erc681.ERC681;
 import org.spongycastle.util.encoders.Hex;
@@ -79,10 +79,15 @@ public class EIPTransactionParser {
             payment.getChainId(), getReceiverAddress(payment),
             getTokenTransferAmount(payment, token.tokenInfo.decimals), getSkuId(payment),
             token.tokenInfo.decimals, getIabContract(payment), getType(payment), getOrigin(payment),
-            getPayload(payment), null, getOrderReference(payment)).shouldSendToken(true));
+            getDomain(payment), getPayload(payment), null,
+            getOrderReference(payment)).shouldSendToken(true));
   }
 
-  private String getOrderReference(ERC681 payment) throws UnsupportedEncodingException {
+  private String getOrigin(ERC681 payment) {
+    return retrieveData(payment).getOrigin();
+  }
+
+  private String getOrderReference(ERC681 payment) {
     return retrieveData(payment).getOrderReference();
   }
 
@@ -107,27 +112,27 @@ public class EIPTransactionParser {
     }
   }
 
-  private String getSkuId(ERC681 payment) throws UnsupportedEncodingException {
+  private String getSkuId(ERC681 payment) {
     return retrieveData(payment).getSkuId();
   }
 
-  private String getType(ERC681 payment) throws UnsupportedEncodingException {
+  private String getType(ERC681 payment) {
     return retrieveData(payment).getType();
   }
 
-  private String getOrigin(ERC681 payment) throws UnsupportedEncodingException {
+  private String getDomain(ERC681 payment) {
     return retrieveData(payment).getDomain();
   }
 
-  private String getPayload(ERC681 payment) throws UnsupportedEncodingException {
+  private String getPayload(ERC681 payment) {
     return retrieveData(payment).getPayload();
   }
 
-  private TransactionData retrieveData(ERC681 payment) throws UnsupportedEncodingException {
+  private TransactionData retrieveData(ERC681 payment) {
     String data = new String(Hex.decode(payment.getFunctionParams()
         .get("data")
         .substring(2)
-        .getBytes("UTF-8")));
+        .getBytes(StandardCharsets.UTF_8)));
     try {
       return new Gson().fromJson(data, TransactionData.class);
     } catch (JsonSyntaxException e) {

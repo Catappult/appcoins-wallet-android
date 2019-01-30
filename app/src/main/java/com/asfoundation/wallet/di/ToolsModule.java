@@ -4,7 +4,6 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 import cm.aptoide.analytics.AnalyticsManager;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
-import com.appcoins.wallet.appcoins.rewards.TransactionIdRepository;
 import com.appcoins.wallet.appcoins.rewards.repository.BdsAppcoinsRewardsRepository;
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi;
 import com.appcoins.wallet.bdsbilling.BdsBilling;
@@ -354,17 +353,12 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         bdsTransactionService, Schedulers.io(), transactionIdHelper);
   }
 
-  @Singleton @Provides TransactionIdRepository provideTransactionIdRepository(
-      TransactionIdRepository.Api api) {
-    return new TransactionIdRepository(api);
-  }
-
   @Singleton @Provides InAppPurchaseInteractor provideDualInAppPurchaseInteractor(
       BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
       @Named("ASF_IN_APP_INTERACTOR") AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
-      AppcoinsRewards appcoinsRewards, TransactionIdRepository transactionIdRepository) {
+      AppcoinsRewards appcoinsRewards, Billing billing) {
     return new InAppPurchaseInteractor(asfInAppPurchaseInteractor, bdsInAppPurchaseInteractor,
-        new ExternalBillingSerializer(), appcoinsRewards, transactionIdRepository);
+        new ExternalBillingSerializer(), appcoinsRewards, billing);
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(
@@ -563,17 +557,6 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .create(RemoteRepository.BdsApi.class);
   }
 
-  @Singleton @Provides TransactionIdRepository.Api provideTransactionIdRepositoryApi(
-      OkHttpClient client) {
-    String baseUrl = BuildConfig.BACKEND_HOST;
-    return new Retrofit.Builder().baseUrl(baseUrl)
-        .client(client)
-        .addConverterFactory(JacksonConverterFactory.create())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build()
-        .create(TransactionIdRepository.Api.class);
-  }
-
   @Singleton @Provides BdsApiSecondary provideBdsApiSecondary(OkHttpClient client, Gson gson) {
     String baseUrl = BuildConfig.BDS_BASE_HOST;
     return new Retrofit.Builder().baseUrl(baseUrl)
@@ -657,9 +640,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new BdsRepository(repository);
   }
 
-  @Singleton @Provides AppcoinsRewards provideAppcoinsRewards(WalletService walletService,
-      Billing billing, TransactionIdRepository transactionIdRepository, BackendApi backendApi,
-      RemoteRepository remoteRepository, AddressService addressService) {
+  @Singleton @Provides AppcoinsRewards provideAppcoinsRewards(OkHttpClient client, Gson gson,
+      WalletService walletService, Billing billing,
+      BackendApi backendApi, RemoteRepository remoteRepository,  AddressService addressService) {
     return new AppcoinsRewards(
         new BdsAppcoinsRewardsRepository(new CreditsRemoteRepository(backendApi, remoteRepository)),
         new com.appcoins.wallet.appcoins.rewards.repository.WalletService() {
@@ -671,8 +654,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
             return walletService.signContent(content);
           }
         }, new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), Schedulers.io(),
-        billing, new com.appcoins.wallet.appcoins.rewards.ErrorMapper(), transactionIdRepository,
-        addressService::getStoreAddressForPackage);
+        billing, new com.appcoins.wallet.appcoins.rewards.ErrorMapper(), addressService::getStoreAddressForPackage);
   }
 
   @Singleton @Provides RewardsManager provideRewardsManager(AppcoinsRewards appcoinsRewards,

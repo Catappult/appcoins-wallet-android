@@ -8,7 +8,7 @@ data class Transaction(val sku: String?,
                        val oemAddress: String,
                        val packageName: String,
                        val amount: BigDecimal,
-                       val origin: Origin,
+                       val origin: String,
                        val status: Status,
                        var txId: String?,
                        val payload: String?,
@@ -19,12 +19,7 @@ data class Transaction(val sku: String?,
       transaction.packageName, transaction.amount, transaction.origin, status, transaction.txId,
       transaction.payload, transaction.callback, transaction.orderReference)
 
-
-  enum class Origin {
-    BDS, UNKNOWN;
-
-    fun isBds(): Boolean = this == BDS
-  }
+  fun isBds(): Boolean = this.origin == "BDS" || this.origin == "UNITY"
 
   enum class Status {
     PENDING, PROCESSING, COMPLETED, ERROR, NO_NETWORK

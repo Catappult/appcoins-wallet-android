@@ -3,6 +3,7 @@ package com.appcoins.wallet.appcoins.rewards
 import com.appcoins.wallet.appcoins.rewards.repository.AddressService
 import com.appcoins.wallet.appcoins.rewards.repository.WalletService
 import com.appcoins.wallet.bdsbilling.Billing
+import com.appcoins.wallet.bdsbilling.repository.TransactionType
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import com.appcoins.wallet.commons.Repository
 import io.reactivex.Completable
@@ -19,7 +20,6 @@ class AppcoinsRewards(
     private val scheduler: Scheduler,
     private val billing: Billing,
     private val errorMapper: ErrorMapper,
-    private val transactionIdRepository: TransactionIdRepository,
     private val partnerAddressService: AddressService) {
 
   fun getBalance(address: String): Single<BigDecimal> {
@@ -31,7 +31,7 @@ class AppcoinsRewards(
   }
 
   fun pay(amount: BigDecimal,
-          origin: Transaction.Origin, sku: String?,
+          origin: String, sku: String?,
           type: String,
           developerAddress: String,
           oemAddress: String,
@@ -68,19 +68,11 @@ class AppcoinsRewards(
                         }
                   }
                       .flatMapCompletable { transaction1 ->
-                        waitTransactionCompletion(transaction1).andThen(
-                            if (!transaction.origin.equals("BDS")) {
-                              transactionIdRepository.getTransactionUid(transaction1.uid)
-                                  .flatMapCompletable { txId ->
-                                    val tx = Transaction(transaction, Transaction.Status.COMPLETED)
-                                    tx.txId = txId
-                                    cache.save(getKey(tx), tx)
-                                  }
-                            } else {
-                              val tx = Transaction(transaction, Transaction.Status.COMPLETED)
-                              cache.save(getKey(tx), tx)
-                            }
-                        )
+                        waitTransactionCompletion(transaction1).andThen {
+                          val tx = Transaction(transaction, Transaction.Status.COMPLETED)
+                          tx.txId = transaction1.hash
+                          cache.saveSync(getKey(tx), tx)
+                        }
                       }
                 }
                 .onErrorResumeNext {
@@ -94,7 +86,7 @@ class AppcoinsRewards(
 
   private fun getOrigin(
       transaction: Transaction) =
-      if (transaction.origin.isBds()) transaction.origin.name else null
+      if (transaction.isBds()) transaction.origin else null
 
   private fun waitTransactionCompletion(
       createdTransaction: com.appcoins.wallet.bdsbilling.repository.entity.Transaction): Completable {

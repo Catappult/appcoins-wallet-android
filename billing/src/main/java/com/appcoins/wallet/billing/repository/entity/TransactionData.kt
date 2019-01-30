@@ -10,13 +10,16 @@ class TransactionData @JvmOverloads constructor(@SerializedName("type")
                                                 @SerializedName("payload")
                                                 private val _payload: String? = null,
                                                 @SerializedName("order_reference")
-                                                private val _orderReference: String? = null) {
+                                                private val _orderReference: String? = null,
+                                                @SerializedName("origin")
+                                                private val _origin: String? = null) {
 
   val type get() = _type ?: UNKNOWN
   val domain get() = _domain ?: UNKNOWN
   val skuId get() = _skuId
   val payload get() = _payload
   val orderReference get() = _orderReference
+  val origin get() = _origin
 
   companion object {
     const val UNKNOWN = "unknown"

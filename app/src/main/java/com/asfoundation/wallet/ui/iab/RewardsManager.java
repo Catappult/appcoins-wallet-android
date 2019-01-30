@@ -20,10 +20,10 @@ public class RewardsManager {
   }
 
   public Completable pay(String sku, BigDecimal amount, String developerAddress, String oemAddress,
-      String packageName, Transaction.Origin origin, String type, String payload,
-      String callbackUrl, String orderReference) {
-    return appcoinsRewards.pay(amount, origin, sku, type, developerAddress,
-        oemAddress, packageName, payload, callbackUrl, orderReference);
+      String packageName, String origin, String type, String payload, String callbackUrl,
+      String orderReference) {
+    return appcoinsRewards.pay(amount, origin, sku, type, developerAddress, oemAddress, packageName,
+        payload, callbackUrl, orderReference);
   }
 
   public Single<Purchase> getPaymentCompleted(String packageName, String sku) {
@@ -43,13 +43,17 @@ public class RewardsManager {
   private Observable<RewardPayment> map(Transaction transaction) {
     switch (transaction.getStatus()) {
       case PROCESSING:
-        return Observable.just(new RewardPayment(RewardPayment.Status.PROCESSING));
+        return Observable.just(
+            new RewardPayment(transaction.getOrderReference(), RewardPayment.Status.PROCESSING));
       case COMPLETED:
-        return Observable.just(new RewardPayment(RewardPayment.Status.COMPLETED));
+        return Observable.just(
+            new RewardPayment(transaction.getOrderReference(), RewardPayment.Status.COMPLETED));
       case ERROR:
-        return Observable.just(new RewardPayment(RewardPayment.Status.ERROR));
+        return Observable.just(
+            new RewardPayment(transaction.getOrderReference(), RewardPayment.Status.ERROR));
       case NO_NETWORK:
-        return Observable.just(new RewardPayment(RewardPayment.Status.NO_NETWORK));
+        return Observable.just(
+            new RewardPayment(transaction.getOrderReference(), RewardPayment.Status.NO_NETWORK));
     }
     throw new UnsupportedOperationException(
         "Transaction status " + transaction.getStatus() + " not supported");
@@ -57,9 +61,15 @@ public class RewardsManager {
 
   static class RewardPayment {
     private final Status status;
+    private final String orderReference;
 
-    RewardPayment(Status status) {
+    RewardPayment(String orderReference, Status status) {
+      this.orderReference = orderReference;
       this.status = status;
+    }
+
+    public String getOrderReference() {
+      return orderReference;
     }
 
     public Status getStatus() {

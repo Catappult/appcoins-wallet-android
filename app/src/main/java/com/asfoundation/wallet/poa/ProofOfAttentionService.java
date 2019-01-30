@@ -174,12 +174,15 @@ public class ProofOfAttentionService {
   }
 
   public void registerProof(String packageName, long timeStamp) {
-    disposables.add(packageName, Observable.fromCallable(
-        () -> hashCalculator.calculateNonce(new NonceData(timeStamp, packageName)))
-        .doOnNext(nonce -> setSetProofSync(packageName, timeStamp, nonce))
-        .ignoreElements()
-        .subscribeOn(computationScheduler)
-        .subscribe());
+    Proof proof = getPreviousProofSync(packageName);
+    if (areComponentsMissing(proof)) {
+      disposables.add(packageName, Observable.fromCallable(
+          () -> hashCalculator.calculateNonce(new NonceData(timeStamp, packageName)))
+          .doOnNext(nonce -> setSetProofSync(packageName, timeStamp, nonce))
+          .ignoreElements()
+          .subscribeOn(computationScheduler)
+          .subscribe());
+    }
   }
 
   @NonNull
@@ -238,6 +241,11 @@ public class ProofOfAttentionService {
         && proof.getProofStatus()
         .equals(ProofStatus.PROCESSING)
         && proof.getCountryCode() == null;
+  }
+
+  private boolean areComponentsMissing(Proof proof) {
+    return proof.getProofComponentList()
+        .size() < maxNumberProofComponents;
   }
 
   public Observable<List<Proof>> get() {
