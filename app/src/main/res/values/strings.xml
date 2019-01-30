@@ -316,6 +316,5 @@
   <string name="provide_wallet_created_header">Wallet address created!</string>
   <string name="provide_wallet_cancel">@string/cancel</string>
   <string name="provide_wallet_empty_state">You haven\'t allowed AppCoins Wallet to provide your address to any other app yet.</string>
-
-
+  <string name="provide_wallet_status">Allow access to wallet address</string>
 </resources>
