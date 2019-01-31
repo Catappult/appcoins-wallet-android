@@ -27,18 +27,24 @@ class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionF
   @Inject
   lateinit var permissionsInteractor: PermissionsInteractor
   private lateinit var createWalletCompleteEvent: BehaviorRelay<Any>
-  private lateinit var presenter: PermissionsActivityPresenter
+  private var presenter: PermissionsActivityPresenter? = null
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_permissions_layout)
     AndroidInjection.inject(this)
 
     createWalletCompleteEvent = BehaviorRelay.create()
-    presenter =
-        PermissionsActivityPresenter(this, permissionsInteractor, callingPackage,
-            getSignature(callingPackage), getPermission(), CompositeDisposable(),
-            AndroidSchedulers.mainThread())
-    presenter.present(savedInstanceState == null)
+    try {
+      val permissionName = getPermission()
+      presenter =
+          PermissionsActivityPresenter(this, permissionsInteractor, callingPackage,
+              getSignature(callingPackage), permissionName, CompositeDisposable(),
+              AndroidSchedulers.mainThread())
+      presenter?.present(savedInstanceState == null)
+    } catch (e: IllegalArgumentException) {
+      closeError(
+          "Unknown permission name. \nKnown permissions: " + PermissionName.WALLET_ADDRESS.name)
+    }
   }
 
   override fun getWalletCreatedEvent(): Observable<Any> {
@@ -46,7 +52,7 @@ class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionF
   }
 
   override fun onDestroy() {
-    presenter.stop()
+    presenter?.stop()
     super.onDestroy()
   }
 
@@ -72,6 +78,14 @@ class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionF
     finish()
   }
 
+  private fun closeError(message: String) {
+    val intent = Intent()
+    intent.putExtra("ERROR_MESSAGE", message)
+    setResult(Activity.RESULT_CANCELED, intent)
+    finish()
+  }
+
+  @Throws(IllegalArgumentException::class)
   private fun getPermission(): PermissionName {
     return PermissionName.valueOf(intent.extras[PERMISSION_NAME_KEY] as String)
   }

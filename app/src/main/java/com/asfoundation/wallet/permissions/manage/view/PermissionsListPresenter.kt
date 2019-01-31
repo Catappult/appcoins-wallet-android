@@ -22,9 +22,9 @@ class PermissionsListPresenter(private val view: PermissionsListView,
         .flatMapSingle {
           return@flatMapSingle if (it.hasPermission) {
             permissionsInteractor.grantPermission(it.packageName, it.apkSignature,
-                PermissionName.WALLET)
+                PermissionName.WALLET_ADDRESS)
           } else {
-            permissionsInteractor.revokePermission(it.packageName, PermissionName.WALLET)
+            permissionsInteractor.revokePermission(it.packageName, PermissionName.WALLET_ADDRESS)
           }
         }
         .subscribe())

@@ -81,7 +81,7 @@ class PermissionsListFragment : DaggerFragment(), PermissionsListView {
     return permissions.map {
       val appInfo = appInfoProvider.getAppInfo(it.packageName)
       ApplicationPermissionViewData(it.packageName, appInfo.appName.toString(),
-          it.permissions.contains(PermissionName.WALLET), appInfo.icon, it.apkSignature)
+          it.permissions.contains(PermissionName.WALLET_ADDRESS), appInfo.icon, it.apkSignature)
     }
   }
 
