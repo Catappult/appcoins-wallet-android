@@ -4,6 +4,7 @@ import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.appcoins.rewards.Transaction;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
+import com.asfoundation.wallet.billing.partners.AddressService;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -13,17 +14,22 @@ import java.math.BigDecimal;
 public class RewardsManager {
   private final AppcoinsRewards appcoinsRewards;
   private final Billing billing;
+  private final AddressService partnerAddressService;
 
-  public RewardsManager(AppcoinsRewards appcoinsRewards, Billing billing) {
+  public RewardsManager(AppcoinsRewards appcoinsRewards, Billing billing,
+      AddressService partnerAddressService) {
     this.appcoinsRewards = appcoinsRewards;
     this.billing = billing;
+    this.partnerAddressService = partnerAddressService;
   }
 
   public Completable pay(String sku, BigDecimal amount, String developerAddress, String oemAddress,
       String packageName, String origin, String type, String payload, String callbackUrl,
       String orderReference) {
-    return appcoinsRewards.pay(amount, origin, sku, type, developerAddress, oemAddress, packageName,
-        payload, callbackUrl, orderReference);
+    return partnerAddressService.getStoreAddressForPackage(packageName)
+        .flatMapCompletable(
+            storeAddress -> appcoinsRewards.pay(amount, origin, sku, type, developerAddress,
+                storeAddress, oemAddress, packageName, payload, callbackUrl, orderReference));
   }
 
   public Single<Purchase> getPaymentCompleted(String packageName, String sku) {

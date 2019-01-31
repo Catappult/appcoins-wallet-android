@@ -1,9 +1,7 @@
 package com.appcoins.wallet.appcoins.rewards
 
-import com.appcoins.wallet.appcoins.rewards.repository.AddressService
 import com.appcoins.wallet.appcoins.rewards.repository.WalletService
 import com.appcoins.wallet.bdsbilling.Billing
-import com.appcoins.wallet.bdsbilling.repository.TransactionType
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import com.appcoins.wallet.commons.Repository
 import io.reactivex.Completable
@@ -19,8 +17,7 @@ class AppcoinsRewards(
     private val cache: Repository<String, Transaction>,
     private val scheduler: Scheduler,
     private val billing: Billing,
-    private val errorMapper: ErrorMapper,
-    private val partnerAddressService: AddressService) {
+    private val errorMapper: ErrorMapper) {
 
   fun getBalance(address: String): Single<BigDecimal> {
     return repository.getBalance(address)
@@ -34,13 +31,14 @@ class AppcoinsRewards(
           origin: String, sku: String?,
           type: String,
           developerAddress: String,
+          storeAddress: String,
           oemAddress: String,
           packageName: String,
           payload: String?,
           callbackUrl: String?,
           orderReference: String?): Completable {
     return cache.save(getKey(amount.toString(), sku, packageName),
-        Transaction(sku, type, developerAddress, oemAddress, packageName, amount,
+        Transaction(sku, type, developerAddress, storeAddress, oemAddress, packageName, amount,
             origin, Transaction.Status.PENDING, null, payload, callbackUrl, orderReference))
   }
 
@@ -56,16 +54,12 @@ class AppcoinsRewards(
             walletService.getWalletAddress()
                 .flatMapCompletable { walletAddress ->
                   walletService.signContent(walletAddress).flatMap { signature ->
-                    partnerAddressService.getWalletAddress(transaction.packageName)
-                        .flatMap { storeAddress ->
-                          repository.pay(walletAddress, signature, transaction.amount,
-                              getOrigin(transaction),
-                              transaction.sku,
-                              transaction.type, transaction.developerAddress, storeAddress,
-                              transaction.oemAddress, transaction.packageName, transaction.payload,
-                              transaction.callback,
-                              transaction.orderReference)
-                        }
+                    repository.pay(walletAddress, signature, transaction.amount,
+                        getOrigin(transaction), transaction.sku, transaction.type,
+                        transaction.developerAddress, transaction.storeAddress,
+                        transaction.oemAddress, transaction.packageName, transaction.payload,
+                        transaction.callback, transaction.orderReference)
+
                   }
                       .flatMapCompletable { transaction1 ->
                         waitTransactionCompletion(transaction1).andThen {

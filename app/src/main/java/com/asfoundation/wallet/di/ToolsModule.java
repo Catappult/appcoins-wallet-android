@@ -640,9 +640,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new BdsRepository(repository);
   }
 
-  @Singleton @Provides AppcoinsRewards provideAppcoinsRewards(OkHttpClient client, Gson gson,
-      WalletService walletService, Billing billing,
-      BackendApi backendApi, RemoteRepository remoteRepository,  AddressService addressService) {
+  @Singleton @Provides AppcoinsRewards provideAppcoinsRewards(WalletService walletService,
+      Billing billing, BackendApi backendApi, RemoteRepository remoteRepository) {
     return new AppcoinsRewards(
         new BdsAppcoinsRewardsRepository(new CreditsRemoteRepository(backendApi, remoteRepository)),
         new com.appcoins.wallet.appcoins.rewards.repository.WalletService() {
@@ -654,12 +653,12 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
             return walletService.signContent(content);
           }
         }, new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()), Schedulers.io(),
-        billing, new com.appcoins.wallet.appcoins.rewards.ErrorMapper(), addressService::getStoreAddressForPackage);
+        billing, new com.appcoins.wallet.appcoins.rewards.ErrorMapper());
   }
 
   @Singleton @Provides RewardsManager provideRewardsManager(AppcoinsRewards appcoinsRewards,
-      Billing billing) {
-    return new RewardsManager(appcoinsRewards, billing);
+      Billing billing, AddressService addressService) {
+    return new RewardsManager(appcoinsRewards, billing, addressService);
   }
 
   @Singleton @Provides BillingMessagesMapper provideBillingMessagesMapper() {
