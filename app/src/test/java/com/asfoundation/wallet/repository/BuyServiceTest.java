@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.repository;
 
 import com.appcoins.wallet.commons.MemoryCache;
+import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -37,6 +38,8 @@ import static org.mockito.Mockito.when;
   public static final String PRODUCT_NAME = "product_name";
   public static final String PRODUCT_ID = "product_id";
   public static final String DEVELOPER_PAYLOAD = "developer_payload";
+  public static final String STORE_ADDRESS = "0xc41b4160b63d1f9488937f7b66640d2babdbf8ad";
+
   @Mock SendTransactionInteract sendTransactionInteract;
   @Mock TrackTransactionService trackTransactionService;
 
@@ -51,6 +54,7 @@ import static org.mockito.Mockito.when;
   private Observable<PendingTransaction> pendingTransactionState;
   private String uri;
   private DataMapper dataMapper;
+  @Mock AddressService addressService;
 
   @Before public void setup() {
 
@@ -78,8 +82,10 @@ import static org.mockito.Mockito.when;
     when(trackTransactionService.checkTransactionState(anyString())).thenReturn(
         pendingTransactionState);
 
+    when(addressService.getStoreAddressForPackage(any())).thenReturn(Single.just(STORE_ADDRESS));
+
     buyService = new BuyService(transactionService, transactionValidator, defaultTokenProvider,
-        countryCodeProvider, dataMapper);
+        countryCodeProvider, dataMapper, addressService);
     uri = "uri";
   }
 
@@ -112,7 +118,7 @@ import static org.mockito.Mockito.when;
 
     BuyService buyService =
         new BuyService(transactionService, transactionValidator, defaultTokenProvider,
-            countryCodeProvider, dataMapper);
+            countryCodeProvider, dataMapper, addressService);
     buyService.start();
     TestObserver<BuyService.BuyTransaction> observer = new TestObserver<>();
     buyService.getBuy(uri)

@@ -2,6 +2,7 @@ package com.asfoundation.wallet.repository;
 
 import android.support.annotation.NonNull;
 import com.asf.wallet.BuildConfig;
+import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
@@ -22,15 +23,18 @@ public class BuyService {
   private final DefaultTokenProvider defaultTokenProvider;
   private final CountryCodeProvider countryCodeProvider;
   private final DataMapper dataMapper;
+  private final AddressService partnerAddressService;
 
   public BuyService(WatchedTransactionService transactionService,
       TransactionValidator transactionValidator, DefaultTokenProvider defaultTokenProvider,
-      CountryCodeProvider countryCodeProvider, DataMapper dataMapper) {
+      CountryCodeProvider countryCodeProvider, DataMapper dataMapper,
+      AddressService partnerAddressService) {
     this.transactionService = transactionService;
     this.transactionValidator = transactionValidator;
     this.defaultTokenProvider = defaultTokenProvider;
     this.countryCodeProvider = countryCodeProvider;
     this.dataMapper = dataMapper;
+    this.partnerAddressService = partnerAddressService;
   }
 
   public void start() {
@@ -40,10 +44,12 @@ public class BuyService {
   public Completable buy(String key, PaymentTransaction paymentTransaction) {
     TransactionBuilder transactionBuilder = paymentTransaction.getTransactionBuilder();
     return countryCodeProvider.getCountryCode()
-        .flatMap(countryCode -> defaultTokenProvider.getDefaultToken()
-            .map(tokenInfo -> transactionBuilder.appcoinsData(
-                getBuyData(transactionBuilder, tokenInfo, paymentTransaction.getPackageName(),
-                    countryCode))))
+        .flatMap(countryCode -> partnerAddressService.getStoreAddressForPackage(
+            paymentTransaction.getPackageName())
+            .flatMap(storeAddress -> defaultTokenProvider.getDefaultToken()
+                .map(tokenInfo -> transactionBuilder.appcoinsData(
+                    getBuyData(transactionBuilder, tokenInfo, paymentTransaction.getPackageName(),
+                        countryCode, storeAddress)))))
         .map(transaction -> updateTransactionBuilderData(paymentTransaction, transaction))
         .flatMapCompletable(
             payment -> Completable.defer(() -> transactionValidator.validate(payment))
@@ -78,9 +84,9 @@ public class BuyService {
   }
 
   private byte[] getBuyData(TransactionBuilder transactionBuilder, TokenInfo tokenInfo,
-      String packageName, String countryCode) {
+      String packageName, String countryCode, String storeAddress) {
     return TokenRepository.buyData(transactionBuilder.toAddress(),
-        BuildConfig.DEFAULT_STORE_ADDRESS, BuildConfig.DEFAULT_OEM_ADDRESS,
+        storeAddress, BuildConfig.DEFAULT_OEM_ADDRESS,
         transactionBuilder.getSkuId(), transactionBuilder.amount()
             .multiply(new BigDecimal("10").pow(transactionBuilder.decimals())), tokenInfo.address,
         packageName, dataMapper.convertCountryCode(countryCode));

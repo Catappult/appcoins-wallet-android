@@ -91,23 +91,17 @@ class AppcoinsRewardsTest {
   @Test
   fun makePayment() {
     val testObserver = TestObserver<Any>()
-    appcoinsRewards.pay(PRICE,
-        ORIGIN,
-        SKU, TYPE, DEVELOPER_ADDRESS,
-        STORE_ADDRESS,
-        OEM_ADDRESS,
-        PACKAGE_NAME,
-        null,
-        null, null).subscribe(testObserver)
+    appcoinsRewards.pay(PRICE, ORIGIN, SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS,
+        PACKAGE_NAME, null, null, null).subscribe(testObserver)
     val statusObserver = TestObserver<Transaction>()
     appcoinsRewards.getPayment(PACKAGE_NAME, SKU, PRICE.toString()).subscribe(statusObserver)
 
     scheduler.triggerActions()
     testObserver.assertNoErrors().assertComplete()
     val mutableListOf = mutableListOf(
-        Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
+        Transaction(SKU, TYPE, STORE_ADDRESS, DEVELOPER_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
             PRICE, ORIGIN, Transaction.Status.PROCESSING, null, null, null, null),
-        Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
+        Transaction(SKU, TYPE, STORE_ADDRESS, DEVELOPER_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
             PRICE, ORIGIN, Transaction.Status.COMPLETED, "0x32453134", null, null, null))
     statusObserver.assertNoErrors().assertValueSequence(mutableListOf)
   }
@@ -116,14 +110,8 @@ class AppcoinsRewardsTest {
   fun makePaymentUnityOrigin() {
     val testObserver = TestObserver<Any>()
     val origin = "UNITY"
-    appcoinsRewards.pay(PRICE,
-        origin,
-        SKU, TYPE, DEVELOPER_ADDRESS,
-        STORE_ADDRESS,
-        OEM_ADDRESS,
-        PACKAGE_NAME,
-        null,
-        null, null).subscribe(testObserver)
+    appcoinsRewards.pay(PRICE, origin, SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS,
+        PACKAGE_NAME, null, null, null).subscribe(testObserver)
     val statusObserver = TestObserver<Transaction>()
     appcoinsRewards.getPayment(PACKAGE_NAME, SKU, PRICE.toString()).subscribe(statusObserver)
 
@@ -141,14 +129,8 @@ class AppcoinsRewardsTest {
   fun makePaymentUnknownOrigin() {
     val testObserver = TestObserver<Any>()
     val origin = "unknown"
-    appcoinsRewards.pay(PRICE,
-        origin,
-        SKU, TYPE, DEVELOPER_ADDRESS,
-        STORE_ADDRESS,
-        OEM_ADDRESS,
-        PACKAGE_NAME,
-        null,
-        null, null).subscribe(testObserver)
+    appcoinsRewards.pay(PRICE, origin, SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS,
+        PACKAGE_NAME, null, null, null).subscribe(testObserver)
     val statusObserver = TestObserver<Transaction>()
     appcoinsRewards.getPayment(PACKAGE_NAME, SKU, PRICE.toString()).subscribe(statusObserver)
 

@@ -8,6 +8,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.commons.MemoryCache;
+import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.Token;
@@ -84,6 +85,8 @@ public class InAppPurchaseInteractorTest {
   public static final String SKU = "sku";
   public static final String UID = "uid";
   public static final String DEVELOPER_PAYLOAD = "developer_payload";
+  public static final String STORE_ADDRESS = "0xc41b4160b63d1f9488937f7b66640d2babdbf8ad";
+
   @Mock FetchGasSettingsInteract gasSettingsInteract;
   @Mock BdsTransactionProvider transactionProvider;
   @Mock SendTransactionInteract sendTransactionInteract;
@@ -112,6 +115,7 @@ public class InAppPurchaseInteractorTest {
   private EIPTransactionParser eipTransactionParser;
   private OneStepTransactionParser oneStepTransactionParser;
   private TransactionIdHelper transactionIdHelper = new TransactionIdHelper();
+  @Mock AddressService addressService;
 
   @Before public void before()
       throws AppInfoProvider.UnknownApplicationException, ImageSaver.SaveException {
@@ -167,11 +171,13 @@ public class InAppPurchaseInteractorTest {
 
     when(transactionValidator.validate(any())).thenReturn(Completable.complete());
 
+    when(addressService.getStoreAddressForPackage(any())).thenReturn(Single.just(STORE_ADDRESS));
+
     inAppPurchaseService =
         new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
             new ApproveService(approveTransactionService, transactionValidator),
             new BuyService(buyTransactionService, transactionValidator, defaultTokenProvider,
-                countryCodeProvider, dataMapper), balanceService, scheduler, new ErrorMapper());
+                countryCodeProvider, dataMapper, addressService), balanceService, scheduler, new ErrorMapper());
 
     proofPublishSubject = PublishSubject.create();
     when(proofOfAttentionService.get()).thenReturn(proofPublishSubject);

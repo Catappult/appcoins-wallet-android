@@ -10,7 +10,7 @@ public interface BillingService {
 
   Observable<AdyenAuthorization> getAuthorization(String productName, String developerAddress,
       String payload, String origin, BigDecimal priceValue, String priceCurrency, String type,
-      String callback, String orderReference);
+      String callback, String orderReference, String appPackageName);
 
   Completable authorize(Payment payment, String paykey);
 

@@ -115,9 +115,9 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     String callerPackageName = transactionBuilder.getDomain();
     presenter =
         new AppcoinsRewardsBuyPresenter(this, rewardsManager, AndroidSchedulers.mainThread(),
-            new CompositeDisposable(), amount, BuildConfig.DEFAULT_STORE_ADDRESS,
-            BuildConfig.DEFAULT_OEM_ADDRESS, uri, callerPackageName, transferParser,
-            getProductName(), isBds, analytics, transactionBuilder, inAppPurchaseInteractor);
+            new CompositeDisposable(), amount, BuildConfig.DEFAULT_OEM_ADDRESS, uri,
+            callerPackageName, transferParser, getProductName(), isBds, analytics,
+            transactionBuilder, inAppPurchaseInteractor);
 
     Single.defer(() -> Single.just(callerPackageName))
         .observeOn(Schedulers.io())

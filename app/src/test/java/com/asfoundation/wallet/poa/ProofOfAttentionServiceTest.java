@@ -2,12 +2,12 @@ package com.asfoundation.wallet.poa;
 
 import com.appcoins.wallet.commons.MemoryCache;
 import com.asf.wallet.BuildConfig;
+import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.repository.BdsBackEndWriter;
 import com.asfoundation.wallet.repository.WalletNotFoundException;
 import com.asfoundation.wallet.service.PoASubmissionService;
-import com.asfoundation.wallet.repository.BlockChainWriter;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.TestObserver;
@@ -36,6 +36,8 @@ import static org.mockito.Mockito.when;
 public class ProofOfAttentionServiceTest {
 
   public static final String SUBMIT_HASH = "hash";
+  public static final String STORE_ADDRESS = "store_address";
+
   @Mock FindDefaultWalletInteract defaultWalletInteract;
   @Mock PoASubmissionService poaSubmissionService;
   @Mock HashCalculator hashCalculator;
@@ -47,6 +49,7 @@ public class ProofOfAttentionServiceTest {
   private BehaviorSubject<Wallet> hasWallet;
   private ProofWriter proofWriter;
   private String wallet;
+  @Mock AddressService addressService;
 
   @Before public void before() throws NoSuchAlgorithmException {
     MockitoAnnotations.initMocks(this);
@@ -58,7 +61,7 @@ public class ProofOfAttentionServiceTest {
         new ProofOfAttentionService(cache, BuildConfig.APPLICATION_ID, hashCalculator,
             new CompositeDisposable(), proofWriter, testScheduler, maxNumberProofComponents,
             new BackEndErrorMapper(), new TaggedCompositeDisposable(new HashMap<>()),
-            () -> Single.just("PT"));
+            () -> Single.just("PT"), addressService);
 
     nonce = 1L;
     wallet = "wallet_address";
@@ -66,6 +69,8 @@ public class ProofOfAttentionServiceTest {
     when(poaSubmissionService.submitProof(any(Proof.class), eq(wallet))).thenReturn(
         Single.just(SUBMIT_HASH));
     when(hashCalculator.calculateNonce(any(NonceData.class))).thenReturn(nonce);
+
+    when(addressService.getStoreAddressForPackage(any())).thenReturn(Single.just(STORE_ADDRESS));
   }
 
   @Test public void setCampaignId() {
