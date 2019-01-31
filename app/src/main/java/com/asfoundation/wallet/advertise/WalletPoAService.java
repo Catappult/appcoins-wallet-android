@@ -17,7 +17,7 @@ import android.util.Log;
 import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.Logger;
-import com.asfoundation.wallet.billing.analytics.PoAAnalytics;
+import com.asfoundation.wallet.billing.analytics.PoaAnalytics;
 import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofSubmissionFeeData;
@@ -60,12 +60,12 @@ public class WalletPoAService extends Service {
   @Inject ProofOfAttentionService proofOfAttentionService;
   @Inject @Named("MAX_NUMBER_PROOF_COMPONENTS") int maxNumberProofComponents;
   @Inject Logger logger;
-  @Inject PoAAnalytics analytics;
+  @Inject PoaAnalytics analytics;
+  @Inject PoaAnalyticsController analyticsController;
   private Disposable disposable;
   private NotificationManager notificationManager;
   private Disposable timerDisposable;
   private Disposable requirementsDisposable;
-  volatile boolean isPoAStartedEventSent = false;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -181,7 +181,10 @@ public class WalletPoAService extends Service {
           .doOnNext(this::updateNotification)
           .filter(proof -> proof.getProofStatus()
               .isTerminate())
-          .doOnNext(proof -> proofOfAttentionService.remove(proof.getPackageName()))
+          .doOnNext(proof -> {
+            proofOfAttentionService.remove(proof.getPackageName());
+            analyticsController.cleanStateFor(proof.getPackageName());
+          })
           .flatMapSingle(proof -> proofOfAttentionService.get()
               .firstOrError())
           .filter(List::isEmpty)
@@ -299,7 +302,7 @@ public class WalletPoAService extends Service {
         .subscribe(__ -> {
           disposeDisposable(requirementsDisposable);
           proofOfAttentionService.cancel(packageName);
-          isPoAStartedEventSent = false;
+          analyticsController.cleanStateFor(packageName);
         });
   }
 
@@ -348,18 +351,22 @@ public class WalletPoAService extends Service {
   public void handlePoAStartToSendEvent() {
     proofOfAttentionService.get()
         .flatMap(proofs -> Observable.fromIterable(proofs)
-            .filter(this::isReadyToSendStartEvent))
+            .filter(this::shouldSendStartEvent))
         .doOnNext(proof -> {
-          Log.d(TAG, "Sending STARTED EVENT");
-          isPoAStartedEventSent = true;
-          analytics.sendPoAStartedEvent(proof.getPackageName(), proof.getCampaignId(),
+          analyticsController.setStartedEventSentFor(proof.getPackageName());
+          analytics.sendPoaStartedEvent(proof.getPackageName(), proof.getCampaignId(),
               Integer.toString(proof.getChainId()));
-        }).subscribe();
+        })
+        .subscribe();
   }
 
-  private boolean isReadyToSendStartEvent(Proof proof) {
-    return proof.getCampaignId() != null && !proof.getCampaignId()
-        .isEmpty() && !proof.getProofComponentList()
-        .isEmpty() && !isPoAStartedEventSent && proof.getChainId() > 0;
+  private boolean shouldSendStartEvent(Proof proof) {
+    return !analyticsController.wasStartedEventSent(proof.getPackageName())
+        && proof.getCampaignId() != null
+        && !proof.getCampaignId()
+        .isEmpty()
+        && !proof.getProofComponentList()
+        .isEmpty()
+        && proof.getChainId() > 0;
   }
 }

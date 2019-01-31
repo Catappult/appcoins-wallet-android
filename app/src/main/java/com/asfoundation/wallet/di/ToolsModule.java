@@ -32,6 +32,7 @@ import com.asfoundation.wallet.AirdropService;
 import com.asfoundation.wallet.App;
 import com.asfoundation.wallet.FabricLogger;
 import com.asfoundation.wallet.Logger;
+import com.asfoundation.wallet.advertise.PoaAnalyticsController;
 import com.asfoundation.wallet.analytics.AnalyticsAPI;
 import com.asfoundation.wallet.analytics.BackendEventLogger;
 import com.asfoundation.wallet.analytics.FacebookEventLogger;
@@ -45,7 +46,7 @@ import com.asfoundation.wallet.billing.TransactionService;
 import com.asfoundation.wallet.billing.adyen.Adyen;
 import com.asfoundation.wallet.billing.adyen.AdyenBillingService;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
-import com.asfoundation.wallet.billing.analytics.PoAAnalytics;
+import com.asfoundation.wallet.billing.analytics.PoaAnalytics;
 import com.asfoundation.wallet.billing.purchase.BillingFactory;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.BalanceGetter;
@@ -722,7 +723,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     list.add(BillingAnalytics.PURCHASE_DETAILS);
     list.add(BillingAnalytics.PAYMENT_METHOD_DETAILS);
     list.add(BillingAnalytics.PAYMENT);
-    list.add(PoAAnalytics.POA_STARTED);
+    list.add(PoaAnalytics.POA_STARTED);
     return list;
   }
 
@@ -732,7 +733,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     list.add(BillingAnalytics.PAYMENT_METHOD_DETAILS);
     list.add(BillingAnalytics.PAYMENT);
     list.add(BillingAnalytics.REVENUE);
-    list.add(PoAAnalytics.POA_STARTED);
+    list.add(PoaAnalytics.POA_STARTED);
     return list;
   }
 
@@ -752,8 +753,12 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new BillingAnalytics(analytics);
   }
 
-  @Singleton @Provides PoAAnalytics providePoAAnalytics(AnalyticsManager analytics) {
-    return new PoAAnalytics(analytics);
+  @Singleton @Provides PoaAnalytics providePoAAnalytics(AnalyticsManager analytics) {
+    return new PoaAnalytics(analytics);
+  }
+
+  @Singleton @Provides PoaAnalyticsController providesPoaAnalyticsController() {
+    return new PoaAnalyticsController();
   }
 
   @Provides GamificationInteractor provideGamificationInteractor(Gamification gamification,
