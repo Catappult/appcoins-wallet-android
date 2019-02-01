@@ -20,7 +20,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.item_appcoins_application_list.*
+import kotlinx.android.synthetic.main.fragment_permissions_list_layout.*
 import javax.inject.Inject
 
 class PermissionsListFragment : DaggerFragment(), PermissionsListView {
@@ -37,7 +37,6 @@ class PermissionsListFragment : DaggerFragment(), PermissionsListView {
   private lateinit var appInfoProvider: AndroidAppDataProvider
   private lateinit var permissionClick: BehaviorRelay<ApplicationPermissionViewData>
   private var toolbarManager: ToolbarManager? = null
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter =
@@ -69,6 +68,10 @@ class PermissionsListFragment : DaggerFragment(), PermissionsListView {
     super.onDetach()
   }
 
+  override fun showEmptyState() {
+    empty_state_view.visibility = View.VISIBLE
+  }
+
   override fun showPermissions(permissions: List<ApplicationPermission>): Completable {
     return Single.fromCallable { map(permissions) }
         .subscribeOn(Schedulers.io())
@@ -92,8 +95,8 @@ class PermissionsListFragment : DaggerFragment(), PermissionsListView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    recycler_view.adapter = adapter
-    recycler_view.layoutManager = LinearLayoutManager(context)
+    permissions_recycler_view.adapter = adapter
+    permissions_recycler_view.layoutManager = LinearLayoutManager(context)
     toolbarManager?.setupToolbar()
     presenter.present()
   }

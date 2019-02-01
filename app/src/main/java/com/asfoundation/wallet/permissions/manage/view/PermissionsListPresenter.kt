@@ -2,6 +2,7 @@ package com.asfoundation.wallet.permissions.manage.view
 
 import com.appcoins.wallet.permissions.PermissionName
 import com.asfoundation.wallet.permissions.PermissionsInteractor
+import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -35,7 +36,13 @@ class PermissionsListPresenter(private val view: PermissionsListView,
         permissionsInteractor.getPermissions()
             .subscribeOn(Schedulers.io())
             .observeOn(viewScheduler)
-            .flatMapCompletable { view.showPermissions(it) }
+            .flatMapCompletable {
+              if (it.isEmpty()) {
+                Completable.fromAction { view.showEmptyState() }
+              } else {
+                view.showPermissions(it)
+              }
+            }
             .subscribe())
   }
 
