@@ -19,7 +19,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="?actionBarSize"
-      android:src="@drawable/permissions_on_boarding"
+      android:src="@drawable/img_permissions_empty_state"
       app:layout_constraintBottom_toTopOf="@+id/on_boarding_message"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"

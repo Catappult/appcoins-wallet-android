@@ -17,7 +17,7 @@
       android:title="@string/network_label"/>
 
   <Preference
-      android:icon="@drawable/ic_lock_outline_black_24dp"
+      android:icon="@drawable/ic_settings_permissions"
       android:key="pref_permissions"
       android:title="@string/permissions_title"
       />
