@@ -2,7 +2,6 @@ package com.appcoins.wallet.appcoins.rewards
 
 import com.appcoins.wallet.appcoins.rewards.repository.WalletService
 import com.appcoins.wallet.bdsbilling.Billing
-import com.appcoins.wallet.bdsbilling.repository.TransactionType
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import com.appcoins.wallet.commons.Repository
 import io.reactivex.Completable
@@ -56,12 +55,11 @@ class AppcoinsRewards(
                 .flatMapCompletable { walletAddress ->
                   walletService.signContent(walletAddress).flatMap { signature ->
                     repository.pay(walletAddress, signature, transaction.amount,
-                        getOrigin(transaction),
-                        transaction.sku,
-                        transaction.type, transaction.developerAddress, transaction.storeAddress,
+                        getOrigin(transaction), transaction.sku, transaction.type,
+                        transaction.developerAddress, transaction.storeAddress,
                         transaction.oemAddress, transaction.packageName, transaction.payload,
-                        transaction.callback,
-                        transaction.orderReference)
+                        transaction.callback, transaction.orderReference)
+
                   }
                       .flatMapCompletable { transaction1 ->
                         waitTransactionCompletion(transaction1).andThen {

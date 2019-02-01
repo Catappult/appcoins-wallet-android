@@ -16,7 +16,7 @@ data class Transaction(val sku: String?,
                        val callback: String?,
                        val orderReference: String?) {
   constructor(transaction: Transaction, status: Status) : this(transaction.sku, transaction.type,
-      transaction.developerAddress, transaction.storeAddress, transaction.oemAddress,
+      transaction.developerAddress, transaction.oemAddress, transaction.storeAddress,
       transaction.packageName, transaction.amount, transaction.origin, status, transaction.txId,
       transaction.payload, transaction.callback, transaction.orderReference)
 

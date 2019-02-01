@@ -2,6 +2,7 @@ package com.asfoundation.wallet.poa;
 
 import android.support.annotation.NonNull;
 import com.appcoins.wallet.commons.Repository;
+import com.asfoundation.wallet.billing.partners.AddressService;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -22,12 +23,13 @@ public class ProofOfAttentionService {
   private final BackEndErrorMapper errorMapper;
   private final TaggedCompositeDisposable disposables;
   private final CountryCodeProvider countryCodeProvider;
+  private final AddressService partnerAddressService;
 
   public ProofOfAttentionService(Repository<String, Proof> cache, String walletPackage,
       HashCalculator hashCalculator, CompositeDisposable compositeDisposable,
       ProofWriter proofWriter, Scheduler computationScheduler, int maxNumberProofComponents,
       BackEndErrorMapper errorMapper, TaggedCompositeDisposable disposables,
-      CountryCodeProvider countryCodeProvider) {
+      CountryCodeProvider countryCodeProvider, AddressService partnerAddressService) {
     this.cache = cache;
     this.walletPackage = walletPackage;
     this.hashCalculator = hashCalculator;
@@ -38,6 +40,7 @@ public class ProofOfAttentionService {
     this.errorMapper = errorMapper;
     this.disposables = disposables;
     this.countryCodeProvider = countryCodeProvider;
+    this.partnerAddressService = partnerAddressService;
   }
 
   public void start() {
@@ -290,11 +293,12 @@ public class ProofOfAttentionService {
     }
   }
 
-  public void setStoreAddress(String packageName, String address) {
-    disposables.add(packageName,
-        Completable.fromAction(() -> setStoreAddressSync(packageName, address))
-            .subscribeOn(computationScheduler)
-            .subscribe());
+  public void setStoreAddress(String packageName) {
+    disposables.add(packageName, partnerAddressService.getStoreAddressForPackage(packageName)
+        .flatMapCompletable(
+            address -> Completable.fromAction(() -> setStoreAddressSync(packageName, address)))
+        .subscribeOn(computationScheduler)
+        .subscribe());
   }
 
   private void setStoreAddressSync(String packageName, String address) {
