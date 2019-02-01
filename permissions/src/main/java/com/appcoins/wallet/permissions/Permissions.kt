@@ -61,7 +61,10 @@ class Permissions(private val repository: Repository<String, ApplicationPermissi
   private fun getKey(walletAddress: String, packageName: String) =
       walletAddress + packageName
 
-  fun getPermissions(): Observable<List<ApplicationPermission>> {
-    return repository.all
+  fun getPermissions(walletAddress: String): Observable<List<ApplicationPermission>> {
+    return repository.all.flatMapSingle {
+      Observable.fromIterable(it).filter { permission -> permission.walletAddress == walletAddress }
+          .toList()
+    }
   }
 }

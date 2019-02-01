@@ -41,7 +41,7 @@ class PermissionsInteractor(private val permissions: Permissions,
   }
 
   fun getPermissions(): Observable<List<ApplicationPermission>> {
-    return permissions.getPermissions()
+    return getWalletAddress().flatMapObservable { permissions.getPermissions(it) }
   }
 
   fun revokePermission(packageName: String, permissionName: PermissionName): Single<Wallet> {
