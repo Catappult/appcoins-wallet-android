@@ -154,6 +154,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -726,6 +728,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     list.add(BillingAnalytics.PAYMENT_METHOD_DETAILS);
     list.add(BillingAnalytics.PAYMENT);
     list.add(PoaAnalytics.POA_STARTED);
+    list.add(PoaAnalytics.POA_COMPLETED);
     return list;
   }
 
@@ -736,6 +739,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     list.add(BillingAnalytics.PAYMENT);
     list.add(BillingAnalytics.REVENUE);
     list.add(PoaAnalytics.POA_STARTED);
+    list.add(PoaAnalytics.POA_COMPLETED);
     return list;
   }
 
@@ -760,7 +764,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides PoaAnalyticsController providesPoaAnalyticsController() {
-    return new PoaAnalyticsController();
+    return new PoaAnalyticsController(new CopyOnWriteArrayList<String>());
   }
 
   @Provides GamificationInteractor provideGamificationInteractor(Gamification gamification,

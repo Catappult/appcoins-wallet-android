@@ -1,10 +1,8 @@
 package com.asfoundation.wallet.advertise
 
-class PoaAnalyticsController {
+import java.util.concurrent.CopyOnWriteArrayList
 
-  @Volatile
-  private var poaStartedEventList = mutableListOf<String>()
-
+class PoaAnalyticsController(private val poaStartedEventList: CopyOnWriteArrayList<String>) {
 
   fun wasStartedEventSent(packageName: String): Boolean {
     return poaStartedEventList.contains(packageName)
