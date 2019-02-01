@@ -70,9 +70,12 @@ class PermissionsListFragment : DaggerFragment(), PermissionsListView {
 
   override fun showEmptyState() {
     empty_state_view.visibility = View.VISIBLE
+    permissions_recycler_view.visibility = View.GONE
   }
 
   override fun showPermissions(permissions: List<ApplicationPermission>): Completable {
+    empty_state_view.visibility = View.GONE
+    permissions_recycler_view.visibility = View.VISIBLE
     return Single.fromCallable { map(permissions) }
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())

@@ -24,12 +24,24 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:clickable="false"
-      app:layout_constraintBottom_toBottomOf="@id/app_icon"
+      android:textSize="16sp"
+      app:layout_constraintBottom_toTopOf="@+id/permission_description"
       app:layout_constraintEnd_toStartOf="@id/has_permission"
-      app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toEndOf="@id/app_icon"
       app:layout_constraintTop_toTopOf="@id/app_icon"
       tools:text="Aptoide"
+      style="@style/Base.TextAppearance.AppCompat.Body1"
+      />
+
+  <TextView
+      android:id="@+id/permission_description"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:text="@string/provide_wallet_status"
+      app:layout_constraintBottom_toBottomOf="@id/app_icon"
+      app:layout_constraintEnd_toEndOf="@id/permission_app_name"
+      app:layout_constraintStart_toStartOf="@id/permission_app_name"
+      app:layout_constraintTop_toBottomOf="@id/permission_app_name"
       />
 
   <Switch

@@ -85,7 +85,7 @@ class PermissionFragment : DaggerFragment(), PermissionFragmentView {
 
           val message = getString(R.string.provide_wallet_body, app.appName)
           val spannedMessage = SpannableString(message)
-          val walletAppName = getString(R.string.app_name)
+          val walletAppName = "AppCoins Wallet"
 
           spannedMessage.setSpan(StyleSpan(BOLD), message.indexOf(walletAppName),
               message.indexOf(walletAppName) + walletAppName.length,
