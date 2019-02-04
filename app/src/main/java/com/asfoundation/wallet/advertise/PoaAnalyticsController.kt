@@ -1,8 +1,6 @@
 package com.asfoundation.wallet.advertise
 
-import java.util.concurrent.CopyOnWriteArrayList
-
-class PoaAnalyticsController(private val poaStartedEventList: CopyOnWriteArrayList<String>) {
+class PoaAnalyticsController(private val poaStartedEventList: MutableList<String>) {
 
   fun wasStartedEventSent(packageName: String): Boolean {
     return poaStartedEventList.contains(packageName)
