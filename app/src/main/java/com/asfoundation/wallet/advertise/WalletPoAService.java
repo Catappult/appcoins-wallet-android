@@ -17,6 +17,7 @@ import android.util.Log;
 import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.Logger;
+import com.asfoundation.wallet.billing.analytics.PoaAnalytics;
 import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofSubmissionFeeData;
@@ -59,6 +60,8 @@ public class WalletPoAService extends Service {
   @Inject ProofOfAttentionService proofOfAttentionService;
   @Inject @Named("MAX_NUMBER_PROOF_COMPONENTS") int maxNumberProofComponents;
   @Inject Logger logger;
+  @Inject PoaAnalytics analytics;
+  @Inject PoaAnalyticsController analyticsController;
   private Disposable disposable;
   private NotificationManager notificationManager;
   private Disposable timerDisposable;
@@ -73,6 +76,7 @@ public class WalletPoAService extends Service {
   @Override public int onStartCommand(Intent intent, int flags, int startId) {
     if (intent != null && intent.hasExtra(PARAM_APP_PACKAGE_NAME)) {
       startNotifications();
+      handlePoAStartToSendEvent();
       if (!isBound) {
         // set the chain id received from the application. If not received, it is set as the main
         String packageName = intent.getStringExtra(PARAM_APP_PACKAGE_NAME);
@@ -177,7 +181,10 @@ public class WalletPoAService extends Service {
           .doOnNext(this::updateNotification)
           .filter(proof -> proof.getProofStatus()
               .isTerminate())
-          .doOnNext(proof -> proofOfAttentionService.remove(proof.getPackageName()))
+          .doOnNext(proof -> {
+            proofOfAttentionService.remove(proof.getPackageName());
+            analyticsController.cleanStateFor(proof.getPackageName());
+          })
           .flatMapSingle(proof -> proofOfAttentionService.get()
               .firstOrError())
           .filter(List::isEmpty)
@@ -295,6 +302,7 @@ public class WalletPoAService extends Service {
         .subscribe(__ -> {
           disposeDisposable(requirementsDisposable);
           proofOfAttentionService.cancel(packageName);
+          analyticsController.cleanStateFor(packageName);
         });
   }
 
@@ -338,5 +346,27 @@ public class WalletPoAService extends Service {
           super.handleMessage(msg);
       }
     }
+  }
+
+  public void handlePoAStartToSendEvent() {
+    proofOfAttentionService.get()
+        .flatMap(proofs -> Observable.fromIterable(proofs)
+            .filter(this::shouldSendStartEvent))
+        .doOnNext(proof -> {
+          analyticsController.setStartedEventSentFor(proof.getPackageName());
+          analytics.sendPoaStartedEvent(proof.getPackageName(), proof.getCampaignId(),
+              Integer.toString(proof.getChainId()));
+        })
+        .subscribe();
+  }
+
+  private boolean shouldSendStartEvent(Proof proof) {
+    return !analyticsController.wasStartedEventSent(proof.getPackageName())
+        && proof.getCampaignId() != null
+        && !proof.getCampaignId()
+        .isEmpty()
+        && !proof.getProofComponentList()
+        .isEmpty()
+        && proof.getChainId() > 0;
   }
 }

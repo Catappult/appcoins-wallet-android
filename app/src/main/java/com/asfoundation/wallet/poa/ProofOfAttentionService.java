@@ -134,6 +134,7 @@ public class ProofOfAttentionService {
               proof.getStoreAddress(), proof.getGasPrice(), proof.getGasLimit(), proof.getHash(),
               proof.getCountryCode()));
     }
+
   }
 
   public void setChainId(String packageName, int chainId) {
