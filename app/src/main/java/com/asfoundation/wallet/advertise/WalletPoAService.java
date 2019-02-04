@@ -322,6 +322,10 @@ public class WalletPoAService extends Service {
             analytics.sendPoaStartedEvent(proof.getPackageName(), proof.getCampaignId(),
                 Integer.toString(proof.getChainId()));
           })
+          .flatMapSingle(proof -> proofOfAttentionService.get()
+              .firstOrError())
+          .filter(List::isEmpty)
+          .take(1)
           .subscribe();
     }
   }
@@ -350,6 +354,10 @@ public class WalletPoAService extends Service {
                   Integer.toString(proof.getChainId()));
             }
           })
+          .flatMapSingle(proof -> proofOfAttentionService.get()
+              .firstOrError())
+          .filter(List::isEmpty)
+          .take(1)
           .subscribe();
     }
   }
