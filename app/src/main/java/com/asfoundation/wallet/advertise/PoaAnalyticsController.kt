@@ -1,10 +1,6 @@
 package com.asfoundation.wallet.advertise
 
-class PoaAnalyticsController {
-
-  @Volatile
-  private var poaStartedEventList = mutableListOf<String>()
-
+class PoaAnalyticsController(private val poaStartedEventList: MutableList<String>) {
 
   fun wasStartedEventSent(packageName: String): Boolean {
     return poaStartedEventList.contains(packageName)
