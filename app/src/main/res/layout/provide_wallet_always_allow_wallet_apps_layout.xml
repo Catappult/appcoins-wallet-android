@@ -8,7 +8,6 @@
       android:id="@+id/provide_wallet_always_allow_wallet_icon"
       android:layout_width="50dp"
       android:layout_height="50dp"
-      android:layout_marginTop="32dp"
       android:src="@drawable/ic_appc"
       app:layout_constraintBottom_toTopOf="@id/provide_wallet_always_allow_body"
       app:layout_constraintEnd_toStartOf="@id/dot1"

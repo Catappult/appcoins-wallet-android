@@ -113,7 +113,7 @@
 
     <activity
         android:name="com.asfoundation.wallet.permissions.request.view.PermissionsActivity"
-        android:theme="@style/Theme.AppCompat.Transparent">
+        android:theme="@style/Theme.AppCompat.Transparent.NoFloating">
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
