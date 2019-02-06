@@ -293,7 +293,7 @@
   <string name="gamification_purchase_body">Kredit od %s APPC će biti dodat u vaš novčanik</string>
   <string name="action_level">Moj nivo</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to %s.</string>
+  <string name="provide_wallet_body">Dozvolite aplikaciji AppCoins Wallet da adresu vašeg novčanika pošalje aplikaciji %s.</string>
   <string name="provide_wallet_always_allow_button">Dozvoli uvek</string>
   <string name="provide_wallet_allow_once_button">Dozvoli jednom</string>
   <string name="provide_wallet_completed_header">Novčanik je povezan sa aplikacijom Aptoide!</string>
@@ -301,6 +301,6 @@
   <string name="provide_wallet_create_wallet_button">NAPRAVI</string>
   <string name="provide_wallet_creating_wallet_header">Pravljenje adrese novčanika&#8230;</string>
   <string name="provide_wallet_created_header">Adresa novčanika je napravljena!</string>
-  <string name="provide_wallet_empty_state">You haven\'t allowed AppCoins Wallet to provide your address to any other app yet.</string>
-  <string name="provide_wallet_status">Allow access to wallet address</string>
+  <string name="provide_wallet_empty_state">Još niste dozvolili aplikaciji AppCoins Wallet da vašu adresu pošalje bilo kojoj drugoj aplikaciji.</string>
+  <string name="provide_wallet_status">Dozvoli pristup adresi novčanika</string>
 </resources>
