@@ -36,9 +36,9 @@
   <string name="title_source_code">Quell-Code</string>
   <string name="title_report_bug">Einen Bug melden</string>
   <string name="title_support">Support</string>
-  <string name="title_permissions">Permissions</string>
-  <string name="permissions_title">Permissions</string>
-  <string name="permissions_active_wallet_short">Current active wallet</string>
+  <string name="title_permissions">Berechtigungen</string>
+  <string name="permissions_title">Berechtigungen</string>
+  <string name="permissions_active_wallet_short">Aktuell aktives Wallet</string>
   <string name="error_import">Fehler beim Importieren von Keystore</string>
   <string name="message_this_is_your_address">Meine öffentliche Ethereum-Wallet Adresse</string>
   <string name="backup_warning_text">Da nur Sie ihr geld kontrollieren, müssen Sie selbst, für den Fall der Löschung dieser App, ein Backup ihres Keystores anlegen. \n\n Ihr Wallet wird niemals in der Cloud oder auf einem Standard-Speichermedium gespeichert.</string>
