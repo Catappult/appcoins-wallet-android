@@ -2,8 +2,9 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
     android:background="@drawable/background_card"
     android:padding="16dp"
     >
@@ -27,6 +28,7 @@
       android:layout_marginEnd="16dp"
       android:layout_marginStart="16dp"
       android:gravity="center"
+      android:maxWidth="400dp"
       android:text="@string/provide_wallet_create_body"
       app:layout_constraintBottom_toTopOf="@+id/provide_wallet_create_wallet_button"
       app:layout_constraintEnd_toEndOf="parent"
