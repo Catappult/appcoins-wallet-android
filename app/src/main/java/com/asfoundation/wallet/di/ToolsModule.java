@@ -23,6 +23,7 @@ import com.appcoins.wallet.commons.MemoryCache;
 import com.appcoins.wallet.gamification.Gamification;
 import com.appcoins.wallet.gamification.repository.BdsGamificationRepository;
 import com.appcoins.wallet.gamification.repository.GamificationApi;
+import com.appcoins.wallet.permissions.Permissions;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxyBuilder;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk;
 import com.asf.wallet.BuildConfig;
@@ -57,6 +58,7 @@ import com.asfoundation.wallet.billing.purchase.BillingFactory;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.BalanceGetter;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
+import com.asfoundation.wallet.interact.CreateWalletInteract;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchCreditsInteract;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
@@ -65,6 +67,9 @@ import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
+import com.asfoundation.wallet.permissions.PermissionsInteractor;
+import com.asfoundation.wallet.permissions.repository.PermissionRepository;
+import com.asfoundation.wallet.permissions.repository.PermissionsDatabase;
 import com.asfoundation.wallet.poa.BackEndErrorMapper;
 import com.asfoundation.wallet.poa.Calculator;
 import com.asfoundation.wallet.poa.CountryCodeProvider;
@@ -755,6 +760,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .build();
   }
 
+  @Provides CreateWalletInteract provideCreateAccountInteract(
+      WalletRepositoryType accountRepository, PasswordStore passwordStore) {
+    return new CreateWalletInteract(accountRepository, passwordStore);
+  }
+
   @Singleton @Provides BillingAnalytics provideBillingAnalytics(AnalyticsManager analytics) {
     return new BillingAnalytics(analytics);
   }
@@ -774,6 +784,19 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides LevelResourcesMapper providesLevelResourcesMapper() {
     return new LevelResourcesMapper();
+  }
+
+  @Singleton @Provides Permissions providesPermissions(Context context) {
+    return new Permissions(new PermissionRepository(
+        Room.databaseBuilder(context.getApplicationContext(), PermissionsDatabase.class,
+            "permissions_database")
+            .build()
+            .permissionsDao()));
+  }
+
+  @Singleton @Provides PermissionsInteractor providesPermissionsInteractor(Permissions permissions,
+      FindDefaultWalletInteract walletService) {
+    return new PermissionsInteractor(permissions, walletService);
   }
 
   @Singleton @Provides AddressService providesAddressService(InstallerService installerService,

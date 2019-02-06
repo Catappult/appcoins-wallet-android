@@ -36,9 +36,9 @@
   <string name="title_source_code">کد منبع</string>
   <string name="title_report_bug">گزارش اشکال</string>
   <string name="title_support">پشتیبانی</string>
-  <string name="title_permissions">Permissions</string>
-  <string name="permissions_title">Permissions</string>
-  <string name="permissions_active_wallet_short">Current active wallet</string>
+  <string name="title_permissions">مجوزها</string>
+  <string name="permissions_title">مجوزها</string>
+  <string name="permissions_active_wallet_short">کیف پول فعال فعلی</string>
   <string name="error_import">خطای واردکردن keystore</string>
   <string name="message_this_is_your_address">آدرس کیف پول عمومی Ethereum من</string>
   <string name="backup_warning_text">از آنجا که تنها شما می توانید پول خود را کنترل کنید، باید یک بک‌آپ از kyestore خود ذخیره کنید برای زمانی که احیانا دیگر این اپلیکیشن وجود نداشته باشد.\n\n کیف پول شما هیچ گاه در ابر یا در دستگاه‌ های استاندارد بک‌آپ ذخیره نمی‌شود.</string>
@@ -104,17 +104,17 @@
   <string name="intro_message_first_page">به یک انقلاب در اقتصاد اپلیکیشن خوش آمدید.</string>
   <string name="intro_message_second_page">کلیدهای خصوصی هرگز دستگاه شما را ترک نمی‌کنند.</string>
   <string name="intro_message_third_page">همه پرداخت‌های داخل اپلیکیشنی و جایزه‌های APPC خود را پردازش کنید.</string>
-  <string name="intro_1_body">Welcome to the revolution of the app economy.</string>
-  <string name="intro_2_title">Play More, Pay Less</string>
-  <string name="intro_2_body">Get rewarded for buying items in your favorite apps and games.</string>
-  <string name="intro_3_title">Simple and Easy</string>
-  <string name="intro_3_body">Process all your in-app purchases using your favorite payment method.</string>
-  <string name="intro_4_title">Secure and Private</string>
-  <string name="intro_4_body">Your private keys will never leave your device, so your AppCoins are safe at all times.</string>
-  <string name="intro_creating_wallet_short">We are creating a wallet for you&#8230;</string>
-  <string name="intro_wallet_created_short">Wallet created!</string>
-  <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
-  <string name="intro_skip_button">SKIP</string>
+  <string name="intro_1_body">به یک انقلاب در اقتصاد اپلیکیشن خوش آمدید.</string>
+  <string name="intro_2_title">بیشتر بازی کن، کمتر پرداخت کن</string>
+  <string name="intro_2_body">برای خرید کردن در بازی‌ها و اپلیکیشن‌های مورد علاقه خود پاداش بگیر.</string>
+  <string name="intro_3_title">ساده و آسان</string>
+  <string name="intro_3_body">برای همه خریدهای داخل اپلیکیشن از روش پرداخت مورد علاقه خود استفاده کن.</string>
+  <string name="intro_4_title">امن و خصوصی</string>
+  <string name="intro_4_body">کلیدهای خصوصی شما هرگز دستگاه شما را ترک نخواهد کرد، بنابراین AppCoins همیشه امن هستند.</string>
+  <string name="intro_creating_wallet_short">ما یک کیف پول برای شما می سازیم&#8230;</string>
+  <string name="intro_wallet_created_short">کیف پول ساخته شد!</string>
+  <string name="intro_agree_terms_and_conditions_body">با کلیک روی دکمه پرش، شما با %1$s و %2$s کیف پول AppCoins موافقت می کنید</string>
+  <string name="intro_skip_button">پرش</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">از</string>
@@ -196,7 +196,7 @@
   <string name="activity_iab_nonce_message">خطایی در ارتباط با blockchain رخ داد، لطفا بعدا دوباره امتحان کنید.</string>
   <string name="activity_iab_approving_message">بررسی همه جزییات: بالانس، موارد، شبکه…</string>
   <string name="activity_iab_buying_message">جزییات بررسی شد\nدرحال دریافت مورد شما…</string>
-  <string name="activity_iab_change_card">CHANGE CARD</string>
+  <string name="activity_iab_change_card">تغییر کارت</string>
   <string name="notification_ongoing_poa">درحال پردازش جایزه شما</string>
   <string name="notification_completed_poa">جایزه دریافت شد، لذت ببرید!</string>
   <string name="notification_submitting_poa">درحال ارسال درخواست شما به blockchain</string>
@@ -257,10 +257,10 @@
   <string name="action_skip_backup_wallet">پرش از گرفتن بک‌آپ</string>
   <string name="item_donation">کمک مالی</string>
   <!-- Gamification -->
-  <string name="gamification_home_body">Earn up to %s%% Bonus in your favorite apps and games!</string>
-  <string name="gamification_home_button">START EARNING</string>
+  <string name="gamification_home_body">کسب درآمد تا %s%% بونوس در بازی‌ها و اپلیکیشن‌های مورد علاقه خود!</string>
+  <string name="gamification_home_button">شروع به کسب درآمد</string>
   <string name="gamification_level_title">سطح من چیست؟</string>
-  <string name="gamification_level_title_new">Get APPC Credits!</string>
+  <string name="gamification_level_title_new">اعتبار APPC بگیرید!</string>
   <string name="gamification_level_header">تبریک, شما %s هستید!</string>
   <string name="gamification_level_to_next">به سطح بعدی:</string>
   <string name="gamification_level_earned">به دست آورده:</string>
@@ -268,15 +268,15 @@
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">بونوس %s%%</string>
   <string name="gamification_level_button_how">چگونه کار می کند</string>
-  <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">شما اعتبار APPC بدست خواهید آورد زمانی که در اپلیکیشن‌های و بازی‌های محبوب خود خرید کنید.</string>
   <string name="gamification_how_header">چگونه سطح بالاتری بروید؟</string>
-  <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
-  <string name="gamification_how_body_new">The more AppCoins you spend in your favorite apps, the bigger the Bonus!</string>
-  <string name="gamification_how_table_a1">SPEND</string>
-  <string name="gamification_how_table_b1">BONUS</string>
+  <string name="gamification_how_body">شما اعتبار APPC بدست خواهید آورد زمانی که در اپلیکیشن‌های و بازی‌های محبوب خود خرید کنید.</string>
+  <string name="gamification_how_body_new">هر چه AppCoins بیشتری در اپلیکیشن‌های محبوب خود مصرف کنید، بونوس بزرگتری بدست می‌آورید!</string>
+  <string name="gamification_how_table_a1">خرج کردن</string>
+  <string name="gamification_how_table_b1">بونوس</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s %%</string>
-  <string name="gamification_how_terms_and_conditions">Conditions</string>
+  <string name="gamification_how_terms_and_conditions">شرایط</string>
   <string name="gamification_how_spend">خرج کردن %s APPC</string>
   <string name="gamification_a_comet_title">یک ستاره دنباله دار</string>
   <string name="gamification_a_moon_title">یک ماه</string>
@@ -289,16 +289,16 @@
   <string name="gamification_star_subtitle">درخشان، بزرگ و پر از زندگی!</string>
   <string name="gamification_galaxy_subtitle">بزرگترین سیستم که اینجا وجود دارد!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">You\'ve got a Bonus!</string>
+  <string name="gamification_purchase_header">یک بونوس گرفتی!</string>
   <string name="gamification_purchase_body">%s اعتبار APPC به کیف پول شما اضافه می شود</string>
   <string name="action_level">سطح من</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to Aptoide.</string>
-  <string name="provide_wallet_always_allow_button">Always allow</string>
-  <string name="provide_wallet_allow_once_button">Allow once</string>
-  <string name="provide_wallet_completed_header">Wallet associated to Aptoide!</string>
-  <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the AppCoins Wallet.</string>
-  <string name="provide_wallet_create_wallet_button">CREATE</string>
-  <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
-  <string name="provide_wallet_created_header">Wallet address created!</string>
+  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to %s.</string>
+  <string name="provide_wallet_always_allow_button">همیشه اجازه بده</string>
+  <string name="provide_wallet_allow_once_button">یک بار اجازه بده</string>
+  <string name="provide_wallet_completed_header">کیف پول مربوط به Aptoide!</string>
+  <string name="provide_wallet_create_body">شما نیاز به یک آدرس کیف پول دارید! این مراحل را برای ایجاد یک در کیف پول AppCoins دنبال کنید.</string>
+  <string name="provide_wallet_create_wallet_button">ساختن</string>
+  <string name="provide_wallet_creating_wallet_header">ایجاد آدرس کیف پول&#8230;</string>
+  <string name="provide_wallet_created_header">کیف پول ساخته شد!</string>
 </resources>

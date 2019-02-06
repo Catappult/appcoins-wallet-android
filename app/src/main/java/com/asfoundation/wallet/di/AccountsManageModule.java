@@ -30,11 +30,6 @@ import dagger.Provides;
         importWalletRouter, transactionsRouter, addTokenInteract, defaultTokenProvider);
   }
 
-  @Provides CreateWalletInteract provideCreateAccountInteract(
-      WalletRepositoryType accountRepository, PasswordStore passwordStore) {
-    return new CreateWalletInteract(accountRepository, passwordStore);
-  }
-
   @Provides SetDefaultWalletInteract provideSetDefaultAccountInteract(
       WalletRepositoryType accountRepository) {
     return new SetDefaultWalletInteract(accountRepository);

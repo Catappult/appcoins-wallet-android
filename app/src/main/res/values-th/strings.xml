@@ -293,7 +293,7 @@
   <string name="gamification_purchase_body">เครดิต %s APPC จะถูกเก็บเป็นเครดิตในกระเป๋าสตางค์ของคุณ</string>
   <string name="action_level">ระดับของฉัน</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">อนุญาตให้กระเป๋าสตางค์ AppCoins อยู่ในกระเป๋าสตางค์ของคุณให้ Aptoide</string>
+  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to %s.</string>
   <string name="provide_wallet_always_allow_button">อนุญาตเสมอ</string>
   <string name="provide_wallet_allow_once_button">อนุญาตให้ครั้งเดียว</string>
   <string name="provide_wallet_completed_header">กระเป๋าสตางค์ที่เกี่ยวข้องกับ Aptoide!</string>

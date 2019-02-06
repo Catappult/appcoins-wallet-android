@@ -19,6 +19,7 @@
     <meta-data
         android:name="com.facebook.sdk.ApplicationId"
         android:value="@string/facebook_app_id"/>
+
     <activity
         android:name="com.asfoundation.wallet.ui.SplashActivity"
         android:theme="@style/SplashTheme">
@@ -95,18 +96,35 @@
         android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>
+
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="https" />
+
+        <data android:scheme="https"/>
         <data android:host="${paymentHost}"/>
         <data android:host="${secondPaymentHost}"/>
-        <data android:pathPrefix="/transaction" />
+        <data android:pathPrefix="/transaction"/>
       </intent-filter>
     </activity>
 
     <activity
         android:name="com.asfoundation.wallet.ui.iab.WebViewActivity"
         android:theme="@style/Theme.AppCompat.Transparent"/>
+
+    <activity
+        android:name="com.asfoundation.wallet.permissions.request.view.PermissionsActivity"
+        android:theme="@style/Theme.AppCompat.Transparent.NoFloating">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data
+            android:host="wallet"
+            android:path="/permissions/1"
+            android:scheme="appcoins"/>
+      </intent-filter>
+    </activity>
+
+    <activity android:name="com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity"/>
 
     <activity
         android:name="com.asfoundation.wallet.ui.iab.IabActivity"

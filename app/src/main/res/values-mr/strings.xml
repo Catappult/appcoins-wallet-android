@@ -293,7 +293,7 @@
   <string name="gamification_purchase_body">%s एपीपीसी क्रेडीटस आपल्या वॉलेटमध्ये जमा झाले आहेत</string>
   <string name="action_level">माझी पातळी</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">आपला वॉलेट पत्ता Aptoide ला पुरविण्यासाठी अॅपकॉइन्स वॉलेटला परवानगी द्या.</string>
+  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to %s.</string>
   <string name="provide_wallet_always_allow_button">नेहमीच परवानगी द्या</string>
   <string name="provide_wallet_allow_once_button">एकदाच परवानगी द्या</string>
   <string name="provide_wallet_completed_header">वॉलेटला Aptoide सोबत जोडले गेले!</string>

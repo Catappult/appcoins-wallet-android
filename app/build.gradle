@@ -11,9 +11,10 @@ buildscript {
 }
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
-apply plugin: 'realm-android'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'realm-android'
 
 repositories {
   maven { url 'https://maven.fabric.io/public' }
@@ -197,6 +198,8 @@ dependencies {
   // Dagger core
   implementation "com.google.dagger:dagger:$project.daggerVersion"
   annotationProcessor "com.google.dagger:dagger-compiler:$project.daggerVersion"
+  kapt "com.google.dagger:dagger-android-processor:$project.daggerVersion"
+  kapt "com.google.dagger:dagger-compiler:$project.daggerVersion"
   // Dagger Android
   implementation "com.google.dagger:dagger-android-support:$project.daggerVersion"
   annotationProcessor "com.google.dagger:dagger-android-processor:$project.daggerVersion"
@@ -229,6 +232,7 @@ dependencies {
 
   implementation "android.arch.persistence.room:runtime:$project.roomVersion"
   annotationProcessor "android.arch.persistence.room:compiler:$project.roomVersion"
+  kapt "android.arch.persistence.room:compiler:$project.roomVersion"
   // RxJava support for Room
   implementation "android.arch.persistence.room:rxjava2:$project.roomVersion"
   // Pincode Lollipin
@@ -257,8 +261,10 @@ dependencies {
   implementation project(path: ':appcoinsRewards')
   implementation project(path: ':commons')
   implementation project(path: ':gamification')
+  implementation project(path: ':permissions')
 
   implementation 'com.hendraanggrian:collapsingtoolbarlayout-subtitle:27.1.0'
+  implementation "com.airbnb.android:lottie:$lottieVersion"
 }
 
 def renameArtifact(defaultConfig) {
