@@ -32,9 +32,4 @@ class ManagePermissionsActivity : BaseActivity(), ManagePermissionsView, Toolbar
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, PermissionsListFragment.newInstance()).commit()
   }
-
-  override fun onDestroy() {
-    presenter.stop()
-    super.onDestroy()
-  }
 }

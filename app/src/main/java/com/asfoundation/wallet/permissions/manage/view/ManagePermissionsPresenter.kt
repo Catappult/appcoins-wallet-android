@@ -6,9 +6,4 @@ class ManagePermissionsPresenter(private val view: ManagePermissionsView) {
       view.showPermissionsList()
     }
   }
-
-  fun stop() {
-
-  }
-
 }
