@@ -51,6 +51,7 @@
 
   <style name="Theme.AppCompat.Transparent.NoFloating" parent="Theme.AppCompat.Transparent">
     <item name="android:windowIsFloating">false</item>
+    <item name="android:statusBarColor">@android:color/transparent</item>
   </style>
 
   <style name="Theme.AppCompat.Transparent.NoDisplay" parent="Theme.AppCompat.Transparent">
