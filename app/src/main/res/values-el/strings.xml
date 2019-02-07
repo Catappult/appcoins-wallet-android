@@ -293,7 +293,7 @@
   <string name="gamification_purchase_body">Θα προστεθούν στο wallet σας %s APPC Credits</string>
   <string name="action_level">Το επίπεδό μου</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to %s.</string>
+  <string name="provide_wallet_body">Επιτρέψτε στο AppCoins Wallet να παρέχει τη διεύθυνση wallet σας στο %s.</string>
   <string name="provide_wallet_always_allow_button">Να επιτρέπεται πάντα</string>
   <string name="provide_wallet_allow_once_button">Να επιτραπεί μία φορά</string>
   <string name="provide_wallet_completed_header">Το wallet συσχετίστηκε με το Aptoide!</string>
@@ -301,4 +301,6 @@
   <string name="provide_wallet_create_wallet_button">ΔΗΜΙΟΥΡΓΙΑ</string>
   <string name="provide_wallet_creating_wallet_header">Δημιουργία διεύθυνσης wallet&#8230;</string>
   <string name="provide_wallet_created_header">Η διεύθυνση wallet δημιουργήθηκε!</string>
+  <string name="provide_wallet_empty_state">Δεν έχετε δώσει ακόμη άδεια στο AppCoins Wallet να παρέχει τη διεύθυνσή σας σε άλλη εφαρμογή.</string>
+  <string name="provide_wallet_status">Επιτρέψτε την πρόσβαση στη διεύθυνση wallet</string>
 </resources>

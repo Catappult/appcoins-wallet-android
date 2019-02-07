@@ -293,7 +293,7 @@
   <string name="gamification_purchase_body">%s Kredit APPC akan dimasukkan ke dompet Anda</string>
   <string name="action_level">Tingkat Saya</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to %s.</string>
+  <string name="provide_wallet_body">Izinkan Dompet AppCoins untuk menginformasikan alamat dompet Anda ke %s.</string>
   <string name="provide_wallet_always_allow_button">Izinkan selamanya</string>
   <string name="provide_wallet_allow_once_button">Izinkan sekali</string>
   <string name="provide_wallet_completed_header">Dompet terkait dengan Aptoide!</string>
@@ -301,4 +301,6 @@
   <string name="provide_wallet_create_wallet_button">BUAT</string>
   <string name="provide_wallet_creating_wallet_header">Membuat alamat dompet&#8230;</string>
   <string name="provide_wallet_created_header">Alamat dompet sudah dibuat!</string>
+  <string name="provide_wallet_empty_state">Anda belum mengiizinkan Dompet AppCoins untuk menginformasikan alamat Anda ke aplikasi lain.</string>
+  <string name="provide_wallet_status">Izinkan akses ke alamat dompet</string>
 </resources>

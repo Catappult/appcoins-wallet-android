@@ -293,7 +293,7 @@
   <string name="gamification_purchase_body">%s APPC Credit kerül számodra jóváírásra</string>
   <string name="action_level">Saját szintem</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to %s.</string>
+  <string name="provide_wallet_body">Engedélyezd az AppCoins Wallet-nek, hogy tárcacímedet megadja a(z) %s számára.</string>
   <string name="provide_wallet_always_allow_button">Mindig engedje</string>
   <string name="provide_wallet_allow_once_button">Csak most engedje</string>
   <string name="provide_wallet_completed_header">Tárca társítva az Aptoide-hez!</string>
@@ -301,4 +301,6 @@
   <string name="provide_wallet_create_wallet_button">LÉTREHOZÁS</string>
   <string name="provide_wallet_creating_wallet_header">Tárcacím létrehozása&#8230;</string>
   <string name="provide_wallet_created_header">Tárcacím létrehozva!</string>
+  <string name="provide_wallet_empty_state">Még nem adtad meg az engedélyt az AppCoins Wallet-nek, hogy más appoknak biztosítsa tárcád címét.</string>
+  <string name="provide_wallet_status">Tárcacímhez való hozzáférés engedélyezése</string>
 </resources>
