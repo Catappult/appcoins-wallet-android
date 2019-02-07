@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.viewmodel;
 
+import android.app.Activity;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
@@ -26,6 +27,7 @@ import com.asfoundation.wallet.router.MyTokensRouter;
 import com.asfoundation.wallet.router.RewardsLeverRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
+import com.asfoundation.wallet.router.TopUpRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
@@ -65,6 +67,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final TransactionsMapper transactionsMapper;
   private final AirdropRouter airdropRouter;
   private final AppcoinsApps applications;
+  private final TopUpRouter topUpRouter;
   private final OffChainTransactions offChainTransactions;
   private Handler handler = new Handler();
   private final Runnable startFetchTransactionsTask = () -> this.fetchTransactions(false);
@@ -80,7 +83,8 @@ public class TransactionsViewModel extends BaseViewModel {
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
       TransactionsMapper transactionsMapper, AirdropRouter airdropRouter, AppcoinsApps applications,
-      OffChainTransactions offChainTransactions, RewardsLeverRouter rewardsLeverRouter) {
+      OffChainTransactions offChainTransactions, RewardsLeverRouter rewardsLeverRouter,
+      TopUpRouter topUpRouter) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchTransactionsInteract = fetchTransactionsInteract;
@@ -98,6 +102,7 @@ public class TransactionsViewModel extends BaseViewModel {
     this.airdropRouter = airdropRouter;
     this.applications = applications;
     this.offChainTransactions = offChainTransactions;
+    this.topUpRouter = topUpRouter;
     this.disposables = new CompositeDisposable();
   }
 
@@ -282,5 +287,9 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public void showRewardsLevel(Context context) {
     rewardsLeverRouter.open(context);
+  }
+
+  public void showTopUp(Activity activity) {
+    topUpRouter.open(activity);
   }
 }

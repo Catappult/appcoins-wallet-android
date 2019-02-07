@@ -148,16 +148,16 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private void onTokenBalanceChanged(Balance balance) {
     if (balance != null) {
-        String currency = balance.getSymbol();
-        String value = balance.getValue();
-        int smallTitleSize = (int) getResources().getDimension(R.dimen.title_small_text);
-        int color = getResources().getColor(R.color.appbar_subtitle_color);
-        setCollapsingTitle(BalanceUtils.formatBalance(value, currency, smallTitleSize, color));
-      }
+      String currency = balance.getSymbol();
+      String value = balance.getValue();
+      int smallTitleSize = (int) getResources().getDimension(R.dimen.title_small_text);
+      int color = getResources().getColor(R.color.appbar_subtitle_color);
+      setCollapsingTitle(BalanceUtils.formatBalance(value, currency, smallTitleSize, color));
+    }
   }
 
   private void onCreditsBalanceChanged(Balance balance) {
-      setSubtitle(balance.getValue() + " " + balance.getSymbol());
+    setSubtitle(balance.getValue() + " " + balance.getSymbol());
   }
 
   private void onTransactionClick(View view, Transaction transaction) {
@@ -225,6 +225,10 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       }
       case R.id.action_send: {
         viewModel.showSend(this);
+        return true;
+      }
+      case R.id.action_my_topup: {
+        viewModel.showTopUp(this);
         return true;
       }
     }

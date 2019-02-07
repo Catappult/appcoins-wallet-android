@@ -158,6 +158,8 @@
         android:label="@string/gamification_level_title"
         android:screenOrientation="portrait"/>
 
+    <activity android:name="com.asfoundation.wallet.topup.TopUpActivity"/>
+
     <meta-data
         android:name="io.fabric.ApiKey"
         android:value="${fabricApiKey}"/>

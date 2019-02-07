@@ -22,6 +22,7 @@ import com.asfoundation.wallet.router.MyTokensRouter;
 import com.asfoundation.wallet.router.RewardsLeverRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
+import com.asfoundation.wallet.router.TopUpRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenExplorerClientType;
@@ -54,12 +55,13 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
       TransactionsMapper transactionsMapper, AirdropRouter airdropRouter, AppcoinsApps applications,
-      OffChainTransactions offChainTransactions, RewardsLeverRouter rewardsLeverRouter) {
+      OffChainTransactions offChainTransactions, RewardsLeverRouter rewardsLeverRouter,
+      TopUpRouter topUpRouter) {
     return new TransactionsViewModelFactory(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, manageWalletsRouter, settingsRouter, sendRouter,
         transactionDetailRouter, myAddressRouter, myTokensRouter, externalBrowserRouter,
         defaultTokenProvider, getDefaultWalletBalance, transactionsMapper, airdropRouter,
-        applications, offChainTransactions, rewardsLeverRouter);
+        applications, offChainTransactions, rewardsLeverRouter, topUpRouter);
   }
 
   @Provides FetchTransactionsInteract provideFetchTransactionsInteract(
@@ -77,6 +79,10 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
   @Provides SendRouter provideSendRouter() {
     return new SendRouter();
+  }
+
+  @Provides TopUpRouter provideSendRouterTopUpRouter() {
+    return new TopUpRouter();
   }
 
   @Provides TransactionDetailRouter provideTransactionDetailRouter() {
