@@ -114,6 +114,7 @@ import com.asfoundation.wallet.service.AccountWalletService;
 import com.asfoundation.wallet.service.AppsApi;
 import com.asfoundation.wallet.service.BDSAppsApi;
 import com.asfoundation.wallet.service.CurrencyConversionService;
+import com.asfoundation.wallet.service.LocalCurrencyConversionService;
 import com.asfoundation.wallet.service.PoASubmissionService;
 import com.asfoundation.wallet.service.RealmManager;
 import com.asfoundation.wallet.service.TickerService;
@@ -585,6 +586,18 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .build()
         .create(CurrencyConversionService.TokenToFiatApi.class);
     return new CurrencyConversionService(api);
+  }
+
+  @Singleton @Provides LocalCurrencyConversionService provideTokenToLocalFiatService(
+      OkHttpClient client) {
+    String baseUrl = LocalCurrencyConversionService.CONVERSION_HOST;
+    LocalCurrencyConversionService.TokenToLocalFiatApi api = new Retrofit.Builder().baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(JacksonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(LocalCurrencyConversionService.TokenToLocalFiatApi.class);
+    return new LocalCurrencyConversionService(api);
   }
 
   @Singleton @Provides ExpressCheckoutBuyService provideExpressCheckoutBuyService(
