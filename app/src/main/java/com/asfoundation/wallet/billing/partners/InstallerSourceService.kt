@@ -6,6 +6,10 @@ import io.reactivex.Single
 class InstallerSourceService(val context: Context) : InstallerService {
 
   override fun getInstallerPackageName(appPackageName: String): Single<String> {
-    return Single.just(context.packageManager.getInstallerPackageName(appPackageName)?:"")
+    return try {
+      Single.just(context.packageManager.getInstallerPackageName(appPackageName) ?: "")
+    } catch (e: IllegalArgumentException) {
+      Single.error(e)
+    }
   }
 }

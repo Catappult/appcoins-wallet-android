@@ -4,4 +4,5 @@ import io.reactivex.Single
 
 interface WalletAddressService {
   fun getWalletAddressForPackage(packageName: String): Single<String>
+  fun getDefaultAddress(): Single<String>
 }
