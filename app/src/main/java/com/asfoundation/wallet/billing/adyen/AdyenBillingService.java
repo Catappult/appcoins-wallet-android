@@ -113,4 +113,7 @@ public class AdyenBillingService implements BillingService {
   private AdyenAuthorization newDefaultAdyenAuthorization(String session) {
     return new AdyenAuthorization(session, AdyenAuthorization.Status.PENDING);
   }
+
+
+
 }
