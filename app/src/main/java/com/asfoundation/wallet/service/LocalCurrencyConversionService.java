@@ -10,7 +10,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public class LocalCurrencyConversionService {
-  public static final String CONVERSION_HOST = BuildConfig.BACKEND_HOST;
+  public static final String CONVERSION_HOST = BuildConfig.BASE_HOST;
 
   private final LocalCurrencyConversionService.TokenToLocalFiatApi tokenToLocalFiatApi;
 
