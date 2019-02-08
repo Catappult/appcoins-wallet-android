@@ -293,7 +293,7 @@
   <string name="gamification_purchase_body">%s APPC积分将计入你的钱包</string>
   <string name="action_level">我的等级</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to %s.</string>
+  <string name="provide_wallet_body">允许AppCoins钱包向%s提供你的钱包地址。</string>
   <string name="provide_wallet_always_allow_button">始终允许</string>
   <string name="provide_wallet_allow_once_button">允许一次</string>
   <string name="provide_wallet_completed_header">钱包已关联到Aptoide！</string>
@@ -301,6 +301,6 @@
   <string name="provide_wallet_create_wallet_button">创建</string>
   <string name="provide_wallet_creating_wallet_header">正在创建钱包地址&#8230;</string>
   <string name="provide_wallet_created_header">钱包地址已创建！</string>
-  <string name="provide_wallet_empty_state">You haven\'t allowed AppCoins Wallet to provide your address to any other app yet.</string>
-  <string name="provide_wallet_status">Allow access to wallet address</string>
+  <string name="provide_wallet_empty_state">你还没有允许AppCoins钱包向任何其他应用提供你的地址。</string>
+  <string name="provide_wallet_status">允许访问钱包地址</string>
 </resources>
