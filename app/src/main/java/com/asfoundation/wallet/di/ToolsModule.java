@@ -87,10 +87,10 @@ import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.BuyTransactionValidatorBds;
+import com.asfoundation.wallet.repository.CurrencyConversionService;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.EthereumNetworkRepository;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
-import com.asfoundation.wallet.repository.ExpressCheckoutBuyService;
 import com.asfoundation.wallet.repository.GasSettingsRepository;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
@@ -342,11 +342,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   AsfInAppPurchaseInteractor provideAsfBdsInAppPurchaseInteractor(
       @Named("IN_APP_PURCHASE_SERVICE") InAppPurchaseService inAppPurchaseService,
       FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
-      TransferParser parser, Billing billing, ExpressCheckoutBuyService expressCheckoutBuyService,
+      TransferParser parser, Billing billing, CurrencyConversionService currencyConversionService,
       BdsTransactionService bdsTransactionService, BillingMessagesMapper billingMessagesMapper) {
     return new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
-        billingMessagesMapper, billing, new ExternalBillingSerializer(), expressCheckoutBuyService,
+        billingMessagesMapper, billing, new ExternalBillingSerializer(), currencyConversionService,
         bdsTransactionService, Schedulers.io(), transactionIdHelper);
   }
 
@@ -354,11 +354,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   AsfInAppPurchaseInteractor provideAsfInAppPurchaseInteractor(
       @Named("ASF_IN_APP_PURCHASE_SERVICE") InAppPurchaseService inAppPurchaseService,
       FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
-      TransferParser parser, Billing billing, ExpressCheckoutBuyService expressCheckoutBuyService,
+      TransferParser parser, Billing billing, CurrencyConversionService currencyConversionService,
       BdsTransactionService bdsTransactionService, BillingMessagesMapper billingMessagesMapper) {
     return new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
-        billingMessagesMapper, billing, new ExternalBillingSerializer(), expressCheckoutBuyService,
+        billingMessagesMapper, billing, new ExternalBillingSerializer(), currencyConversionService,
         bdsTransactionService, Schedulers.io(), transactionIdHelper);
   }
 
@@ -599,10 +599,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new LocalCurrencyConversionService(api);
   }
 
-  @Singleton @Provides ExpressCheckoutBuyService provideExpressCheckoutBuyService(
+  @Singleton @Provides CurrencyConversionService provideExpressCheckoutBuyService(
       EventCurrencyConversionService eventCurrencyConversionService,
       LocalCurrencyConversionService localCurrencyConversionService) {
-    return new ExpressCheckoutBuyService(eventCurrencyConversionService, localCurrencyConversionService);
+    return new CurrencyConversionService(eventCurrencyConversionService, localCurrencyConversionService);
   }
 
   @Singleton @Provides WalletService provideWalletService(FindDefaultWalletInteract walletInteract,

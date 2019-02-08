@@ -9,12 +9,12 @@ import io.reactivex.Single;
  * Created by franciscocalado on 24/07/2018.
  */
 
-public class ExpressCheckoutBuyService {
+public class CurrencyConversionService {
 
   private final EventCurrencyConversionService eventCurrencyConversionService;
   private final LocalCurrencyConversionService localCurrencyConversionService;
 
-  public ExpressCheckoutBuyService(EventCurrencyConversionService eventCurrencyConversionService,
+  public CurrencyConversionService(EventCurrencyConversionService eventCurrencyConversionService,
       LocalCurrencyConversionService localCurrencyConversionService) {
     this.eventCurrencyConversionService = eventCurrencyConversionService;
     this.localCurrencyConversionService = localCurrencyConversionService;
