@@ -8,7 +8,7 @@ import com.asfoundation.wallet.entity.TokenInfo
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.repository.TokenRepositoryType
-import com.asfoundation.wallet.service.CurrencyConversionService
+import com.asfoundation.wallet.service.EventCurrencyConversionService
 import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -26,7 +26,7 @@ class OneStepTransactionParserTest {
   private lateinit var findDefaultWalletInteract: FindDefaultWalletInteract
   private lateinit var proxyService: ProxyService
   private lateinit var billing: Billing
-  private lateinit var conversionService: CurrencyConversionService
+  private lateinit var conversionService: EventCurrencyConversionService
 
   companion object {
     val contractAddress = "contract_address"
@@ -49,7 +49,7 @@ class OneStepTransactionParserTest {
         mock<FindDefaultWalletInteract>(FindDefaultWalletInteract::class.java)
     proxyService = mock<ProxyService>(ProxyService::class.java)
     billing = mock<Billing>(Billing::class.java)
-    conversionService = mock<CurrencyConversionService>(CurrencyConversionService::class.java)
+    conversionService = mock<EventCurrencyConversionService>(EventCurrencyConversionService::class.java)
 
     `when`<Single<Wallet>>(findDefaultWalletInteract.find()).thenReturn(
         Single.just(Wallet(contractAddress)))

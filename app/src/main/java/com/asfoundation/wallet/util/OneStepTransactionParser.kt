@@ -9,7 +9,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.repository.TokenRepositoryType
-import com.asfoundation.wallet.service.CurrencyConversionService
+import com.asfoundation.wallet.service.EventCurrencyConversionService
 import io.reactivex.Single
 import io.reactivex.functions.Function5
 import io.reactivex.schedulers.Schedulers
@@ -21,7 +21,7 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
                                private val tokenRepositoryType: TokenRepositoryType,
                                private val proxyService: ProxyService,
                                private val billing: Billing,
-                               private val conversionService: CurrencyConversionService,
+                               private val conversionService: EventCurrencyConversionService,
                                private val cache: Repository<String, TransactionBuilder>) {
 
   fun buildTransaction(uri: OneStepUri): Single<TransactionBuilder> {

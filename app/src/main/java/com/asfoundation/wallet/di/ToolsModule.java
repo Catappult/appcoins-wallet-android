@@ -113,7 +113,7 @@ import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.AccountWalletService;
 import com.asfoundation.wallet.service.AppsApi;
 import com.asfoundation.wallet.service.BDSAppsApi;
-import com.asfoundation.wallet.service.CurrencyConversionService;
+import com.asfoundation.wallet.service.EventCurrencyConversionService;
 import com.asfoundation.wallet.service.LocalCurrencyConversionService;
 import com.asfoundation.wallet.service.PoASubmissionService;
 import com.asfoundation.wallet.service.RealmManager;
@@ -160,7 +160,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Named;
@@ -407,7 +406,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Provides OneStepTransactionParser provideOneStepTransferParser(
       FindDefaultWalletInteract provideFindDefaultWalletInteract,
       TokenRepositoryType tokenRepositoryType, ProxyService proxyService, Billing billing,
-      CurrencyConversionService conversionService) {
+      EventCurrencyConversionService conversionService) {
     return new OneStepTransactionParser(provideFindDefaultWalletInteract, tokenRepositoryType,
         proxyService, billing, conversionService,
         new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()));
@@ -577,15 +576,15 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .create(BdsApiSecondary.class);
   }
 
-  @Singleton @Provides CurrencyConversionService provideTokenToFiatService(OkHttpClient client) {
-    String baseUrl = CurrencyConversionService.CONVERSION_HOST;
-    CurrencyConversionService.TokenToFiatApi api = new Retrofit.Builder().baseUrl(baseUrl)
+  @Singleton @Provides EventCurrencyConversionService provideTokenToFiatService(OkHttpClient client) {
+    String baseUrl = EventCurrencyConversionService.CONVERSION_HOST;
+    EventCurrencyConversionService.TokenToFiatApi api = new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(JacksonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-        .create(CurrencyConversionService.TokenToFiatApi.class);
-    return new CurrencyConversionService(api);
+        .create(EventCurrencyConversionService.TokenToFiatApi.class);
+    return new EventCurrencyConversionService(api);
   }
 
   @Singleton @Provides LocalCurrencyConversionService provideTokenToLocalFiatService(
@@ -601,9 +600,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides ExpressCheckoutBuyService provideExpressCheckoutBuyService(
-      CurrencyConversionService currencyConversionService,
+      EventCurrencyConversionService eventCurrencyConversionService,
       LocalCurrencyConversionService localCurrencyConversionService) {
-    return new ExpressCheckoutBuyService(currencyConversionService, localCurrencyConversionService);
+    return new ExpressCheckoutBuyService(eventCurrencyConversionService, localCurrencyConversionService);
   }
 
   @Singleton @Provides WalletService provideWalletService(FindDefaultWalletInteract walletInteract,
