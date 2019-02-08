@@ -176,7 +176,7 @@ public class AdyenAuthorizationPresenter {
 
   @NonNull private BigDecimal convertAmount(String currency) {
     return BigDecimal.valueOf(
-        inAppPurchaseInteractor.convertToFiat((new BigDecimal(amount)).doubleValue(), currency)
+        inAppPurchaseInteractor.convertToLocalFiat((new BigDecimal(amount)).doubleValue())
             .blockingGet()
             .getAmount())
         .setScale(2, BigDecimal.ROUND_UP);
