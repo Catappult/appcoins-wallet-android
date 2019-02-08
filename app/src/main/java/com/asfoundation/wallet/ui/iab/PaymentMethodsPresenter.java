@@ -211,8 +211,7 @@ public class PaymentMethodsPresenter {
                 .map(paymentMethod -> new PaymentMethod(paymentMethod.getId(),
                     paymentMethod.getLabel(), paymentMethod.getIconUrl(), true))
                 .toList()) : Single.just(Collections.singletonList(PaymentMethod.APPC))
-            .observeOn(viewScheduler),
-        inAppPurchaseInteractor.convertToFiat(transactionValue, currency),
+            .observeOn(viewScheduler), inAppPurchaseInteractor.convertToLocalFiat(transactionValue),
         (paymentMethods, availablePaymentMethods, fiatValue) -> Completable.fromAction(
             () -> view.showPaymentMethods(paymentMethods, availablePaymentMethods, fiatValue,
                 TransactionData.TransactionType.DONATION.name()

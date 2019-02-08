@@ -288,6 +288,10 @@ public class AsfInAppPurchaseInteractor {
         .map(fiatValueConvertion -> calculateValue(fiatValueConvertion, appcValue));
   }
 
+  public Single<FiatValue> convertToLocalFiat(double appcValue) {
+    return expressCheckoutBuyService.getLocalFiatAmount(Double.toString(appcValue));
+  }
+
   private FiatValue calculateValue(FiatValue fiatValue, double appcValue) {
     return new FiatValue(fiatValue.getAmount() * appcValue, fiatValue.getCurrency());
   }

@@ -601,8 +601,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides ExpressCheckoutBuyService provideExpressCheckoutBuyService(
-      CurrencyConversionService currencyConversionService) {
-    return new ExpressCheckoutBuyService(currencyConversionService);
+      CurrencyConversionService currencyConversionService,
+      LocalCurrencyConversionService localCurrencyConversionService) {
+    return new ExpressCheckoutBuyService(currencyConversionService, localCurrencyConversionService);
   }
 
   @Singleton @Provides WalletService provideWalletService(FindDefaultWalletInteract walletInteract,
