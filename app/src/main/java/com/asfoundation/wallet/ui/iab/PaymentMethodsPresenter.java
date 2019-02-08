@@ -68,10 +68,10 @@ public class PaymentMethodsPresenter {
     this.transaction = transaction;
   }
 
-  public void present(double transactionValue, String currency, Bundle savedInstanceState) {
+  public void present(double transactionValue, Bundle savedInstanceState) {
     handleCancelClick();
     handleErrorDismisses();
-    setupUi(transactionValue, currency);
+    setupUi(transactionValue);
     handleOnGoingPurchases();
     handleBuyClick();
     if (isBds) {
@@ -197,7 +197,7 @@ public class PaymentMethodsPresenter {
         .ignoreElements();
   }
 
-  private void setupUi(double transactionValue, String currency) {
+  private void setupUi(double transactionValue) {
     setWalletAddress();
     disposables.add(Single.zip(isBds ? inAppPurchaseInteractor.getPaymentMethods()
             .subscribeOn(networkThread)

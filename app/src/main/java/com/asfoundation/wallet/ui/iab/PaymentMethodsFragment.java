@@ -120,12 +120,11 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private View bonusView;
   private TextView bonusValue;
 
-  public static Fragment newInstance(TransactionBuilder transaction, String currency,
+  public static Fragment newInstance(TransactionBuilder transaction,
       String productName, boolean isBds, String developerPayload, String uri) {
     Bundle bundle = new Bundle();
     bundle.putParcelable(TRANSACTION, transaction);
     bundle.putSerializable(TRANSACTION_AMOUNT, transaction.amount());
-    bundle.putString(TRANSACTION_CURRENCY, currency);
     bundle.putString(APP_PACKAGE, transaction.getDomain());
     bundle.putString(PRODUCT_NAME, productName);
     bundle.putString(DEVELOPER_PAYLOAD, developerPayload);
@@ -211,7 +210,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     bonusValue = view.findViewById(R.id.bonus_value);
     setupAppNameAndIcon();
 
-    presenter.present(transactionValue, currency, savedInstanceState);
+    presenter.present(transactionValue, savedInstanceState);
   }
 
   @Override public void onDetach() {
