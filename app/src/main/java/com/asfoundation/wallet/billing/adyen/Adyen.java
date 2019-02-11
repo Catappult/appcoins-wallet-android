@@ -105,10 +105,9 @@ public class Adyen {
         });
   }
 
-  public Single<PaymentRequestResult> getPaymentResult() {
+  public Observable<PaymentRequestResult> getPaymentResult() {
     return getStatus().filter(status -> status.getResult() != null)
-        .map(AdyenPaymentStatus::getResult)
-        .firstOrError();
+        .map(AdyenPaymentStatus::getResult);
   }
 
   public Observable<PaymentRequest> getPaymentRequest() {
@@ -191,6 +190,7 @@ public class Adyen {
     @Override public void onPaymentResult(@NonNull PaymentRequest paymentRequest,
         @NonNull PaymentRequestResult paymentRequestResult) {
       this.result = paymentRequestResult;
+      Adyen.this.paymentRequest = paymentRequest;
       notifyStatus();
     }
 
@@ -271,15 +271,15 @@ public class Adyen {
         for (PaymentMethod service : services) {
           if (subtype.equals(service.getType())) {
             Log.d(this.getClass()
-                .getSimpleName(), "Subtype: " + subtype + " and service type: " + service.getType() );
-            AdyenPaymentStatus aps = status.blockingFirst();
-            if (aps.getServiceCallback() != null) {
-              aps.getServiceCallback()
-                  .completionWithPaymentMethod(service);
-            }
+                    .getSimpleName(),
+                "Subtype: " + subtype + " and service type: " + service.getType());
+            detailsStatus.clear();
+            paymentRequest = null;
+            selectPaymentService(service).blockingAwait();
           }
         }
       }
+      publish();
     }
 
     @Override public void onFail() {

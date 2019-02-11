@@ -18,7 +18,6 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.adyen.core.PaymentRequest;
 import com.adyen.core.models.Amount;
 import com.adyen.core.models.PaymentMethod;
 import com.adyen.core.models.paymentdetails.CreditCardPaymentDetails;
@@ -289,7 +288,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   }
 
   @Override public Observable<PaymentMethod> changeCardMethodDetailsEvent() {
-    return Observable.merge(keyboardBuyRelay, RxView.clicks(changeCardButton))
+    return RxView.clicks(changeCardButton)
         .map(__ -> paymentMethod);
   }
 

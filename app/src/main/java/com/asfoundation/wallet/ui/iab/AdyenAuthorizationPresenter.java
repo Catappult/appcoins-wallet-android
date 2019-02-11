@@ -132,10 +132,6 @@ public class AdyenAuthorizationPresenter {
   private void onViewCreatedShowPaymentMethodInputView() {
     disposables.add(adyen.getPaymentRequest()
         .filter(paymentRequest -> paymentRequest.getPaymentMethod() != null)
-        .distinctUntilChanged((paymentRequest, paymentRequest2) -> paymentRequest.getPaymentMethod()
-            .getType()
-            .equals(paymentRequest2.getPaymentMethod()
-                .getType()))
         .observeOn(viewScheduler)
         .doOnNext(data -> {
           if (data.getPaymentMethod()
@@ -279,7 +275,12 @@ public class AdyenAuthorizationPresenter {
   private void handleChangeCardMethodResults() {
     disposables.add(view.changeCardMethodDetailsEvent()
         .doOnNext(__ -> view.showLoading())
-        .flatMapCompletable(adyen::deletePaymentMethod)
+        .flatMapCompletable(paymentMethod -> transactionBuilder.flatMapCompletable(
+            transaction -> billingService.deletePaymentMethod(paymentMethod, transaction.getSkuId(),
+                transaction.toAddress(), developerPayload, origin, convertAmount(currency),
+                currency, type, transaction.getCallbackUrl(), transaction.getOrderReference(),
+                appPackage)))
+        .observeOn(viewScheduler)
         .subscribe(() -> {
         }, throwable -> showError(throwable)));
   }
