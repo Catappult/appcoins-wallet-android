@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.poa;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.appcoins.wallet.commons.Repository;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import io.reactivex.Completable;

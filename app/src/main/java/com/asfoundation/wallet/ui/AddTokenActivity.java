@@ -1,20 +1,20 @@
 package com.asfoundation.wallet.ui;
 
 import android.app.Dialog;
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.lifecycle.ViewModelProviders;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.Address;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.viewmodel.AddTokenViewModel;
 import com.asfoundation.wallet.viewmodel.AddTokenViewModelFactory;
 import com.asfoundation.wallet.widget.SystemView;
+import com.google.android.material.textfield.TextInputLayout;
 import dagger.android.AndroidInjection;
 import javax.inject.Inject;
 

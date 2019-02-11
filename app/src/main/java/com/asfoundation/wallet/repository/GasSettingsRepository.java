@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.repository;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.asfoundation.wallet.entity.GasSettings;
 import io.reactivex.Observable;
 import io.reactivex.Single;
