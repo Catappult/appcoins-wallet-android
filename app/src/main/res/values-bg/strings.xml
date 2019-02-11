@@ -293,7 +293,7 @@
   <string name="gamification_purchase_body">%s APPC кредитите ще бъдат кредитирани в портфейла ти</string>
   <string name="action_level">Моето ниво</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to %s.</string>
+  <string name="provide_wallet_body">Позволи на AppCoins портфейла да предоставите твоя портфейл адрес на %s.</string>
   <string name="provide_wallet_always_allow_button">Позволи винаги</string>
   <string name="provide_wallet_allow_once_button">Позволи веднъж</string>
   <string name="provide_wallet_completed_header">Портфейл, свързан с Aptoide!</string>
@@ -301,6 +301,6 @@
   <string name="provide_wallet_create_wallet_button">СЪЗДАЙ</string>
   <string name="provide_wallet_creating_wallet_header">Създаване на адрес на портфейла&#8230;</string>
   <string name="provide_wallet_created_header">Адрес на портфейла създаден!</string>
-  <string name="provide_wallet_empty_state">You haven\'t allowed AppCoins Wallet to provide your address to any other app yet.</string>
-  <string name="provide_wallet_status">Allow access to wallet address</string>
+  <string name="provide_wallet_empty_state">Не си разрешил на AppCoins портфейла да предостави твоя адрес на никое друго приложение все още.</string>
+  <string name="provide_wallet_status">Разреши достъп до портфейл адреса</string>
 </resources>
