@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.billing.adyen;
 
 import com.adyen.core.models.Payment;
-import com.adyen.core.models.PaymentMethod;
 import com.appcoins.wallet.bdsbilling.WalletService;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.billing.BillingService;
@@ -68,19 +67,6 @@ public class AdyenBillingService implements BillingService {
 
   @Override public String getTransactionUid() {
     return transactionUid;
-  }
-
-  @Override public Completable deletePaymentMethod(PaymentMethod paymentMethod, String skuId,
-      String developerAddress, String developerPayload, String origin, BigDecimal priceValue,
-      String priceCurrency, String type, String callback, String orderReference,
-      String appPackageName) {
-    return adyen.deletePaymentMethod(paymentMethod)
-        .doOnComplete(() -> {
-          processingPayment.set(false);
-          startPaymentIfNeeded(skuId, developerAddress, developerPayload, origin, priceValue,
-              priceCurrency, type, callback, orderReference, appPackageName);
-          resetProcessingFlag(adyenAuthorization);
-        });
   }
 
   private void callRelay(boolean authorized) {

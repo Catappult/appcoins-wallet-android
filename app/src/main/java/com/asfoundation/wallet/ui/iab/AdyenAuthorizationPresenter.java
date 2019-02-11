@@ -275,11 +275,7 @@ public class AdyenAuthorizationPresenter {
   private void handleChangeCardMethodResults() {
     disposables.add(view.changeCardMethodDetailsEvent()
         .doOnNext(__ -> view.showLoading())
-        .flatMapCompletable(paymentMethod -> transactionBuilder.flatMapCompletable(
-            transaction -> billingService.deletePaymentMethod(paymentMethod, transaction.getSkuId(),
-                transaction.toAddress(), developerPayload, origin, convertAmount(currency),
-                currency, type, transaction.getCallbackUrl(), transaction.getOrderReference(),
-                appPackage)))
+        .flatMapCompletable(adyen::deletePaymentMethod)
         .observeOn(viewScheduler)
         .subscribe(() -> {
         }, throwable -> showError(throwable)));
