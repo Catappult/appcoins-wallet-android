@@ -6,8 +6,13 @@ import io.reactivex.Single
 import java.math.BigDecimal
 import java.net.UnknownHostException
 
-class BdsGamificationRepository(private val api: GamificationApi) :
+class BdsGamificationRepository(private val api: GamificationApi,
+                                private val local: GamificationLocalData) :
     GamificationRepository {
+  override fun getLastShownLevel(wallet: String): Single<Int> {
+    return local.getLastShownLevel(wallet)
+  }
+
   override fun getForecastBonus(wallet: String, packageName: String,
                                 amount: BigDecimal): Single<ForecastBonus> {
     return api.getForecastBonus(wallet, packageName, amount, "APPC").map { map(it) }

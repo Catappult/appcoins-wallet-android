@@ -5,6 +5,7 @@ import com.appcoins.wallet.gamification.repository.GamificationRepository
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.UserStats
 import io.reactivex.Single
+import io.reactivex.functions.BiFunction
 import java.math.BigDecimal
 
 class Gamification(private val repository: GamificationRepository) {
@@ -24,5 +25,12 @@ class Gamification(private val repository: GamificationRepository) {
           .doOnSuccess { this.forecastBonus = it }
     }
     return Single.just(forecastBonus)
+  }
+
+  fun hasNewLevel(wallet: String): Single<Boolean> {
+    return Single.zip(repository.getLastShownLevel(wallet), getUserStatus(wallet),
+        BiFunction { lastShownLevel: Int, userStats: UserStats ->
+          userStats.status == UserStats.Status.OK && lastShownLevel < userStats.level
+        })
   }
 }

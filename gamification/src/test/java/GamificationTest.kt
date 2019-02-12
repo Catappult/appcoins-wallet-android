@@ -1,5 +1,6 @@
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.GamificationApiTest
+import com.appcoins.wallet.gamification.GamificationLocalDataTest
 import com.appcoins.wallet.gamification.repository.*
 import com.appcoins.wallet.gamification.repository.entity.Level
 import com.appcoins.wallet.gamification.repository.entity.LevelsResponse
@@ -13,13 +14,14 @@ import java.net.UnknownHostException
 class GamificationTest {
   private lateinit var gamification: Gamification
   private val api = GamificationApiTest()
+  private val local = GamificationLocalDataTest()
   private val wallet = "wallet1"
   private val packageName = "packageName"
 
   @Before
   @Throws(Exception::class)
   fun setUp() {
-    gamification = Gamification(BdsGamificationRepository(api))
+    gamification = Gamification(BdsGamificationRepository(api, local))
   }
 
   @Test
@@ -72,5 +74,33 @@ class GamificationTest {
     api.bonusResponse = Single.error(UnknownHostException())
     val testObserver = gamification.getEarningBonus(wallet, packageName, BigDecimal.ONE).test()
     testObserver.assertValue(ForecastBonus(ForecastBonus.Status.NO_NETWORK))
+  }
+
+  @Test
+  fun hasNewLevelNoNewLevel() {
+    api.userStatusResponse = Single.just(
+        UserStatusResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 0, BigDecimal.TEN,
+            UserStatusResponse.Status.ACTIVE))
+    local.lastShownLevelResponse = Single.just(0)
+    val test = gamification.hasNewLevel(wallet).test()
+    test.assertValue(false).assertNoErrors().assertComplete()
+  }
+
+  @Test
+  fun hasNewLevelNewLevel() {
+    api.userStatusResponse = Single.just(
+        UserStatusResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 0, BigDecimal.TEN,
+            UserStatusResponse.Status.ACTIVE))
+    local.lastShownLevelResponse = Single.just(-1)
+    val test = gamification.hasNewLevel(wallet).test()
+    test.assertValue(true).assertNoErrors().assertComplete()
+  }
+
+  @Test
+  fun hasNewLevelNetworkError() {
+    api.userStatusResponse = Single.error(UnknownHostException())
+    local.lastShownLevelResponse = Single.just(-1)
+    val test = gamification.hasNewLevel(wallet).test()
+    test.assertValue(false).assertNoErrors().assertComplete()
   }
 }
