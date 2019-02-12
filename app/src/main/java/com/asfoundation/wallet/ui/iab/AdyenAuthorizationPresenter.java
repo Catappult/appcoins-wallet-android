@@ -132,6 +132,12 @@ public class AdyenAuthorizationPresenter {
   private void onViewCreatedShowPaymentMethodInputView() {
     disposables.add(adyen.getPaymentRequest()
         .filter(paymentRequest -> paymentRequest.getPaymentMethod() != null)
+        .map(paymentRequest -> paymentRequest.getPaymentMethod()
+            .getType())
+        .distinctUntilChanged(
+            (paymentRequest, paymentRequest2) -> paymentRequest.equals(paymentRequest2))
+        .flatMapMaybe(type -> adyen.getPaymentRequest()
+            .firstElement())
         .observeOn(viewScheduler)
         .doOnNext(data -> {
           if (data.getPaymentMethod()
