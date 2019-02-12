@@ -11,13 +11,9 @@
       android:layout_margin="@dimen/big_margin"
       android:orientation="vertical"
       >
-    <com.asfoundation.wallet.widget.HelperTextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:helperText="@string/suggestion_private_key"
-        app:hintAnimationEnabled="true"
-        app:hintEnabled="true"
-        app:passwordToggleEnabled="true"
         >
       <EditText
           android:id="@+id/private_key"
@@ -30,7 +26,7 @@
           android:maxLines="1"
           android:singleLine="true"
           />
-    </com.asfoundation.wallet.widget.HelperTextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
     <Button
         android:id="@+id/import_action"
         android:layout_width="match_parent"
