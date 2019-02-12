@@ -6,6 +6,7 @@ import com.appcoins.wallet.gamification.repository.entity.Level
 import com.appcoins.wallet.gamification.repository.entity.LevelsResponse
 import com.appcoins.wallet.gamification.repository.entity.UserStatusResponse
 import io.reactivex.Single
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import java.math.BigDecimal
@@ -102,5 +103,14 @@ class GamificationTest {
     local.lastShownLevelResponse = Single.just(-1)
     val test = gamification.hasNewLevel(wallet).test()
     test.assertValue(false).assertNoErrors().assertComplete()
+  }
+
+  @Test
+  fun levelShown() {
+    val shownLevel = 1
+    val test = gamification.levelShown(wallet, shownLevel).test()
+    test.assertNoErrors().assertComplete()
+    local.lastShownLevelResponse!!.test().assertValue(shownLevel)
+    Assert.assertEquals("the updated wallet was not the expected one", wallet, local.getWallet())
   }
 }

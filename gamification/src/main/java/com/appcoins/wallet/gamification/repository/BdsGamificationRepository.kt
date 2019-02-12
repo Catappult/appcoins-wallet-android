@@ -2,6 +2,7 @@ package com.appcoins.wallet.gamification.repository
 
 import com.appcoins.wallet.gamification.repository.entity.LevelsResponse
 import com.appcoins.wallet.gamification.repository.entity.UserStatusResponse
+import io.reactivex.Completable
 import io.reactivex.Single
 import java.math.BigDecimal
 import java.net.UnknownHostException
@@ -11,6 +12,10 @@ class BdsGamificationRepository(private val api: GamificationApi,
     GamificationRepository {
   override fun getLastShownLevel(wallet: String): Single<Int> {
     return local.getLastShownLevel(wallet)
+  }
+
+  override fun shownLevel(wallet: String, level: Int): Completable {
+    return local.saveShownLevel(wallet, level)
   }
 
   override fun getForecastBonus(wallet: String, packageName: String,
