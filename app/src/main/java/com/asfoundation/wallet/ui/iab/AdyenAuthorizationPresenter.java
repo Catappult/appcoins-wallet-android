@@ -116,6 +116,8 @@ public class AdyenAuthorizationPresenter {
 
     handlePaymentMethodResults();
 
+    handleChangeCardMethodResults();
+
     handleAdyenUriRedirect();
 
     handleAdyenUriResult();
@@ -129,8 +131,15 @@ public class AdyenAuthorizationPresenter {
 
   private void onViewCreatedShowPaymentMethodInputView() {
     disposables.add(adyen.getPaymentRequest()
+        .filter(paymentRequest -> paymentRequest.getPaymentMethod() != null)
+        .map(paymentRequest -> paymentRequest.getPaymentMethod()
+            .getType())
+        .distinctUntilChanged(
+            (paymentRequest, paymentRequest2) -> paymentRequest.equals(paymentRequest2))
+        .flatMapMaybe(type -> adyen.getPaymentRequest()
+            .firstElement())
         .observeOn(viewScheduler)
-        .doOnSuccess(data -> {
+        .doOnNext(data -> {
           if (data.getPaymentMethod()
               .getType()
               .equals(PaymentMethod.Type.CARD)) {
@@ -142,7 +151,7 @@ public class AdyenAuthorizationPresenter {
         })
         .observeOn(viewScheduler)
         .subscribe(__ -> {
-        }, throwable -> showError(throwable)));
+        }, this::showError));
   }
 
   private void showError(Throwable throwable) {
@@ -263,7 +272,16 @@ public class AdyenAuthorizationPresenter {
   private void handlePaymentMethodResults() {
     disposables.add(view.paymentMethodDetailsEvent()
         .doOnNext(__ -> view.showLoading())
-        .flatMapCompletable(details -> adyen.finishPayment(details))
+        .flatMapCompletable(adyen::finishPayment)
+        .observeOn(viewScheduler)
+        .subscribe(() -> {
+        }, throwable -> showError(throwable)));
+  }
+
+  private void handleChangeCardMethodResults() {
+    disposables.add(view.changeCardMethodDetailsEvent()
+        .doOnNext(__ -> view.showLoading())
+        .flatMapCompletable(adyen::deletePaymentMethod)
         .observeOn(viewScheduler)
         .subscribe(() -> {
         }, throwable -> showError(throwable)));
