@@ -303,4 +303,11 @@
   <string name="provide_wallet_created_header">钱包地址已创建！</string>
   <string name="provide_wallet_empty_state">你还没有允许AppCoins钱包向任何其他应用提供你的地址。</string>
   <string name="provide_wallet_status">允许访问钱包地址</string>
+  <!-- Top Up -->
+  <string name="topup_home_button">Top Up</string>
+  <string name="topup_title">Top Up</string>
+  <string name="topup_amount">%s APPC-C</string>
+  <string name="topup_bonus_header">You\'ve got a Bonus!</string>
+  <string name="topup_bonus_message">%s APPC-C extra will be credited in your wallet.</string>
+  <string name="topup_completed">%1$s APPC Credits\n\nwere credited in your account.</string>
 </resources>
