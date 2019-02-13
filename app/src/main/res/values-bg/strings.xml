@@ -303,4 +303,11 @@
   <string name="provide_wallet_created_header">Адрес на портфейла създаден!</string>
   <string name="provide_wallet_empty_state">Не си разрешил на AppCoins портфейла да предостави твоя адрес на никое друго приложение все още.</string>
   <string name="provide_wallet_status">Разреши достъп до портфейл адреса</string>
+  <!-- Top Up -->
+  <string name="topup_home_button">Top Up</string>
+  <string name="topup_title">Top Up</string>
+  <string name="topup_amount">%s APPC-C</string>
+  <string name="topup_bonus_header">You\'ve got a Bonus!</string>
+  <string name="topup_bonus_message">%s APPC-C extra will be credited in your wallet.</string>
+  <string name="topup_completed">%1$s APPC Credits\n\nwere credited in your account.</string>
 </resources>
