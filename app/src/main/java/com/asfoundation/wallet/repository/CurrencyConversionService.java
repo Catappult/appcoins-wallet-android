@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.repository;
 
-import com.asfoundation.wallet.service.EventCurrencyConversionService;
+import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.LocalCurrencyConversionService;
 import com.asfoundation.wallet.ui.iab.FiatValue;
 import io.reactivex.Single;
@@ -11,17 +11,17 @@ import io.reactivex.Single;
 
 public class CurrencyConversionService {
 
-  private final EventCurrencyConversionService eventCurrencyConversionService;
+  private final TokenRateService tokenRateService;
   private final LocalCurrencyConversionService localCurrencyConversionService;
 
-  public CurrencyConversionService(EventCurrencyConversionService eventCurrencyConversionService,
+  public CurrencyConversionService(TokenRateService tokenRateService,
       LocalCurrencyConversionService localCurrencyConversionService) {
-    this.eventCurrencyConversionService = eventCurrencyConversionService;
+    this.tokenRateService = tokenRateService;
     this.localCurrencyConversionService = localCurrencyConversionService;
   }
 
   public Single<FiatValue> getTokenValue(String currency) {
-    return eventCurrencyConversionService.getAppcRate(currency);
+    return tokenRateService.getAppcRate(currency);
   }
 
   public Single<FiatValue> getLocalFiatAmount(String appcValue) {

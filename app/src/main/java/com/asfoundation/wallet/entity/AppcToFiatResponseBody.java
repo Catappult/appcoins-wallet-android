@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL) @JsonPropertyOrder({
     "Datetime", "APPC"
-}) public class AppcToEventFiatResponseBody {
+}) public class AppcToFiatResponseBody {
 
   @JsonProperty("Datetime") private String datetime;
   @JsonProperty("APPC") private Double fiatValue;

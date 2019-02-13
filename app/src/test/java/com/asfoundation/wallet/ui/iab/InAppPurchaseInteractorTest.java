@@ -38,7 +38,7 @@ import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.TransactionSender;
 import com.asfoundation.wallet.repository.TransactionValidator;
 import com.asfoundation.wallet.repository.WatchedTransactionService;
-import com.asfoundation.wallet.service.EventCurrencyConversionService;
+import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.LocalCurrencyConversionService;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationEntity;
 import com.asfoundation.wallet.util.EIPTransactionParser;
@@ -105,7 +105,7 @@ public class InAppPurchaseInteractorTest {
   @Mock BdsPendingTransactionService transactionService;
   private BdsInAppPurchaseInteractor inAppPurchaseInteractor;
   @Mock ProxyService proxyService;
-  @Mock EventCurrencyConversionService conversionService;
+  @Mock TokenRateService conversionService;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
   private PublishSubject<GetDefaultWalletBalance.BalanceState> balance;
@@ -217,7 +217,7 @@ public class InAppPurchaseInteractorTest {
             new TransferParser(eipTransactionParser, oneStepTransactionParser),
             new BillingMessagesMapper(new ExternalBillingSerializer()), billing,
             new ExternalBillingSerializer(),
-            new CurrencyConversionService(Mockito.mock(EventCurrencyConversionService.class), Mockito.mock(LocalCurrencyConversionService.class)),
+            new CurrencyConversionService(Mockito.mock(TokenRateService.class), Mockito.mock(LocalCurrencyConversionService.class)),
             new BdsTransactionService(scheduler,
                 new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
                 new CompositeDisposable(), transactionService), scheduler,
