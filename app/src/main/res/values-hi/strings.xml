@@ -303,4 +303,11 @@
   <string name="provide_wallet_created_header">वॉलेट पता बनाया गया!</string>
   <string name="provide_wallet_empty_state">आपने AppCoins वॉलेट को अभी तक किसी भी अन्य एप्प को अपना पता देने की अनुमति नहीं दी है।</string>
   <string name="provide_wallet_status">वॉलेट पते तक पहुँच की अनुमति दें</string>
+  <!-- Top Up -->
+  <string name="topup_home_button">Top Up</string>
+  <string name="topup_title">Top Up</string>
+  <string name="topup_amount">%s APPC-C</string>
+  <string name="topup_bonus_header">You\'ve got a Bonus!</string>
+  <string name="topup_bonus_message">%s APPC-C extra will be credited in your wallet.</string>
+  <string name="topup_completed">%1$s APPC Credits\n\nwere credited in your account.</string>
 </resources>
