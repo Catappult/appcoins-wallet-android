@@ -29,5 +29,5 @@ public interface IabView {
 
   void showPaymentMethods(List<PaymentMethod> paymentMethods);
 
-  void showPaymentMethodsView(String currency);
+  void showPaymentMethodsView();
 }

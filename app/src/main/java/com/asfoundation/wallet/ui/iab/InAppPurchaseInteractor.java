@@ -109,6 +109,10 @@ public class InAppPurchaseInteractor {
     return asfInAppPurchaseInteractor.convertToFiat(appcValue, currency);
   }
 
+  public Single<FiatValue> convertToLocalFiat(double appcValue) {
+    return asfInAppPurchaseInteractor.convertToLocalFiat(appcValue);
+  }
+
   public BillingMessagesMapper getBillingMessagesMapper() {
     return bdsInAppPurchaseInteractor.getBillingMessagesMapper();
   }
