@@ -10,6 +10,8 @@ import java.net.UnknownHostException
 class BdsGamificationRepository(private val api: GamificationApi,
                                 private val local: GamificationLocalData) :
     GamificationRepository {
+  private var forecastBonus: ForecastBonus? = null
+
   override fun getLastShownLevel(wallet: String): Single<Int> {
     return local.getLastShownLevel(wallet)
   }
@@ -20,8 +22,10 @@ class BdsGamificationRepository(private val api: GamificationApi,
 
   override fun getForecastBonus(wallet: String, packageName: String,
                                 amount: BigDecimal): Single<ForecastBonus> {
-    return api.getForecastBonus(wallet, packageName, amount, "APPC").map { map(it) }
-        .onErrorReturn { mapForecastError(it) }
+    return forecastBonus?.let {
+      Single.just(it)
+    } ?: api.getForecastBonus(wallet, packageName, amount, "APPC").map { map(it) }
+        .onErrorReturn { mapForecastError(it) }.doOnSuccess { this.forecastBonus = it }
   }
 
   private fun mapForecastError(throwable: Throwable): ForecastBonus {

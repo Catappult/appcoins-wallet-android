@@ -10,7 +10,6 @@ import io.reactivex.functions.BiFunction
 import java.math.BigDecimal
 
 class Gamification(private val repository: GamificationRepository) {
-  private var forecastBonus: ForecastBonus? = null
   fun getUserStatus(wallet: String): Single<UserStats> {
     return repository.getUserStatus(wallet)
   }
@@ -21,11 +20,7 @@ class Gamification(private val repository: GamificationRepository) {
 
   fun getEarningBonus(wallet: String, packageName: String,
                       amount: BigDecimal): Single<ForecastBonus> {
-    if (forecastBonus == null) {
       return repository.getForecastBonus(wallet, packageName, amount)
-          .doOnSuccess { this.forecastBonus = it }
-    }
-    return Single.just(forecastBonus)
   }
 
   fun hasNewLevel(wallet: String): Single<Boolean> {
