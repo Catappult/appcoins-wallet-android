@@ -2,8 +2,8 @@ package com.asfoundation.wallet;
 
 import android.app.Activity;
 import android.app.Service;
-import android.support.multidex.MultiDexApplication;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
+import androidx.multidex.MultiDexApplication;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.bdsbilling.ProxyService;
 import com.appcoins.wallet.bdsbilling.WalletService;

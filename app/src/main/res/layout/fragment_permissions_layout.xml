@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-  <android.support.constraint.ConstraintLayout
+  <androidx.constraintlayout.widget.ConstraintLayout
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
       android:layout_width="wrap_content"
@@ -14,7 +14,7 @@
       android:background="@drawable/background_card"
       >
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/permissionLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -88,9 +88,9 @@
           app:layout_constraintTop_toBottomOf="@id/provide_wallet_allow_once_button"
           style="@style/CancelButtonStyle"
           />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <android.support.constraint.Group
+    <androidx.constraintlayout.widget.Group
         android:id="@+id/main_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -144,5 +144,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
-  </android.support.constraint.ConstraintLayout>
+  </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

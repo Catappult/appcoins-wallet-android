@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/payment_methods_width"
     android:layout_height="wrap_content"
@@ -11,4 +11,4 @@
 
   <include layout="@layout/fragment_iab_loading"/>
   <include layout="@layout/fragment_express_checkout_buy"/>
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.repository;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.appcoins.wallet.commons.Repository;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import io.reactivex.Completable;

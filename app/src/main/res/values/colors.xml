@@ -46,6 +46,8 @@
 
   <color name="btn_start_gradient_color">#fc9d48</color>
   <color name="btn_end_gradient_color">#ff578c</color>
+  <color name="floating_btn_start_gradient_color">#0e1d4d</color>
+  <color name="floating_btn_end_gradient_color">#161616</color>
   <color name="btn_light_enabled_color">#e44b46</color>
   <color name="btn_light_disable_color">#42000000</color>
 
@@ -58,5 +60,9 @@
 
   <color name="level_text_enabled_color">@color/rewards_level_main_color</color>
   <color name="level_text_disabled_color">#d4d4d4</color>
+
+  <color name="top_up_grey">#9e9e9e</color>
+  <color name="top_up_bonus_title">#030303</color>
+  <color name="top_up_bonus_text">#727272</color>
 
 </resources>

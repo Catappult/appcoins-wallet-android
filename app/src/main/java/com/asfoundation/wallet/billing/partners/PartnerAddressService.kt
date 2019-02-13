@@ -11,6 +11,6 @@ class PartnerAddressService(private val installerService: InstallerService,
     return installerService.getInstallerPackageName(packageName)
         .flatMap { installerPackageName ->
           walletAddressService.getWalletAddressForPackage(installerPackageName)
-        }
+        }.onErrorResumeNext { walletAddressService.getDefaultAddress() }
   }
 }

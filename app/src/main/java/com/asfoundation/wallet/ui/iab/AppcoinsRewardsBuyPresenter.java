@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import com.appcoins.wallet.appcoins.rewards.Transaction;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;

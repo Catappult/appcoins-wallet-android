@@ -15,9 +15,4 @@
       android:icon="@drawable/ic_bottom_nav_tokens"
       android:title="@string/title_tokens"
       />
-  <item
-      android:id="@+id/action_my_topup"
-      android:icon="@android:drawable/ic_menu_add"
-      android:title="@string/title_tokens"
-      />
 </menu>

@@ -41,6 +41,7 @@
 
     <activity
         android:name="com.asfoundation.wallet.ui.TransactionsActivity"
+        android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
         android:label="@string/title_import"/>
 
     <activity
@@ -158,7 +159,9 @@
         android:label="@string/gamification_level_title"
         android:screenOrientation="portrait"/>
 
-    <activity android:name="com.asfoundation.wallet.topup.TopUpActivity"/>
+    <activity android:name="com.asfoundation.wallet.topup.TopUpActivity"
+        android:label="@string/title_opensource"
+        />
 
     <meta-data
         android:name="io.fabric.ApiKey"

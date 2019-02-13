@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -20,7 +20,7 @@
       app:layout_anchorGravity="start|top"
       />
 
-  <android.support.v4.widget.SwipeRefreshLayout
+  <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
       android:id="@+id/refresh_layout"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
@@ -28,7 +28,7 @@
       android:background="@color/activity_background_color"
       app:layout_behavior="@string/appbar_scrolling_view_behavior"
       >
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -38,7 +38,7 @@
         android:paddingBottom="@dimen/big_padding"
         android:visibility="gone"
         />
-  </android.support.v4.widget.SwipeRefreshLayout>
+  </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
   <com.asfoundation.wallet.widget.SystemView
       android:id="@+id/system_view"
       android:layout_width="match_parent"
@@ -47,13 +47,44 @@
       app:layout_behavior="@string/appbar_scrolling_view_behavior"
       tools:visibility="gone"
       />
-  <android.support.design.widget.BottomNavigationView
-      android:id="@+id/bottom_navigation"
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/bottom_content"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_gravity="bottom"
-      android:background="?android:attr/windowBackground"
-      app:itemIconTint="@color/gray_alpha_8a"
-      app:itemTextColor="@color/gray_alpha_8a"
-      />
-</android.support.design.widget.CoordinatorLayout>
+      >
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/top_up_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/floating_btn_start_gradient_color"
+        android:minHeight="48dp"
+        android:onClick="onClick"
+        android:text="top up"
+        app:cornerRadius="56dp"
+        app:icon="@drawable/ic_add_white_24dp"
+        app:iconGravity="textStart"
+        app:iconTint="#ffffff"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/windowBackground"
+        app:itemIconTint="@color/gray_alpha_8a"
+        app:itemTextColor="@color/gray_alpha_8a"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

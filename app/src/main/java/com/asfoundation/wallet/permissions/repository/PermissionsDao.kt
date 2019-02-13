@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.permissions.repository
 
-import android.arch.persistence.room.*
+import androidx.room.*
 import io.reactivex.Flowable
 
 @Dao

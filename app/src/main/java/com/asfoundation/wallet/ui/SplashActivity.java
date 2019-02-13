@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.ui;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import androidx.lifecycle.ViewModelProviders;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.router.ManageWalletsRouter;
 import com.asfoundation.wallet.router.TransactionsRouter;
