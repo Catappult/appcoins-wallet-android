@@ -303,4 +303,11 @@
   <string name="provide_wallet_created_header">Adresa novčanika je napravljena!</string>
   <string name="provide_wallet_empty_state">Još niste dozvolili aplikaciji AppCoins Wallet da vašu adresu pošalje bilo kojoj drugoj aplikaciji.</string>
   <string name="provide_wallet_status">Dozvoli pristup adresi novčanika</string>
+  <!-- Top Up -->
+  <string name="topup_home_button">Top Up</string>
+  <string name="topup_title">Top Up</string>
+  <string name="topup_amount">%s APPC-C</string>
+  <string name="topup_bonus_header">You\'ve got a Bonus!</string>
+  <string name="topup_bonus_message">%s APPC-C extra will be credited in your wallet.</string>
+  <string name="topup_completed">%1$s APPC Credits\n\nwere credited in your account.</string>
 </resources>
