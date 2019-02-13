@@ -6,6 +6,8 @@ import com.asfoundation.wallet.ui.iab.FiatValue;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
@@ -23,7 +25,9 @@ public class LocalCurrencyConversionService {
   public Single<FiatValue> getAppcToLocalFiat(String appcValue) {
     return tokenToLocalFiatApi.getAppcToLocalFiat(appcValue)
         .map(appcToFiatResponseBody -> appcToFiatResponseBody)
-        .map(response -> new FiatValue(response.getAppcValue(), response.getCurrency()))
+        .map(response -> new FiatValue(
+            new BigDecimal(response.getAppcValue()).setScale(2, RoundingMode.CEILING)
+                .doubleValue(), response.getCurrency()))
         .subscribeOn(Schedulers.io())
         .singleOrError();
   }
