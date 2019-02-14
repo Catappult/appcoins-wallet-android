@@ -84,6 +84,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   private CardForm cardForm;
   private Button buyButton;
   private Button cancelButton;
+  private Button changeCardButton;
   private ImageView productIcon;
   private TextView productName;
   private TextView productDescription;
@@ -149,6 +150,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     appcPrice = view.findViewById(R.id.appc_price);
     cancelButton = view.findViewById(R.id.cancel_button);
     buyButton = view.findViewById(R.id.buy_button);
+    changeCardButton = view.findViewById(R.id.change_card_button);
     cardForm = view.findViewById(R.id.fragment_braintree_credit_card_form);
     walletAddressFooter = view.findViewById(R.id.wallet_address_footer);
     rememberCardCheckBox =
@@ -225,6 +227,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     cardForm.setOnCardFormSubmitListener(null);
     cardForm.setOnCardFormValidListener(null);
     cardForm = null;
+    changeCardButton = null;
     super.onDestroyView();
   }
 
@@ -264,6 +267,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     ccInfoView.setVisibility(View.INVISIBLE);
     buyButton.setVisibility(View.INVISIBLE);
     cancelButton.setVisibility(View.INVISIBLE);
+    changeCardButton.setVisibility(View.INVISIBLE);
   }
 
   @Override public void hideLoading() {
@@ -281,6 +285,11 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   @Override public Observable<PaymentDetails> paymentMethodDetailsEvent() {
     return Observable.merge(keyboardBuyRelay, RxView.clicks(buyButton))
         .map(__ -> getPaymentDetails(publicKey, generationTime));
+  }
+
+  @Override public Observable<PaymentMethod> changeCardMethodDetailsEvent() {
+    return RxView.clicks(changeCardButton)
+        .map(__ -> paymentMethod);
   }
 
   @Override public void showNetworkError() {
@@ -302,6 +311,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     showProductPrice(amount);
     preAuthorizedCardText.setVisibility(View.VISIBLE);
     preAuthorizedCardText.setText(paymentMethod.getName());
+    changeCardButton.setVisibility(View.VISIBLE);
     rememberCardCheckBox.setVisibility(View.GONE);
     cardForm.cardRequired(false)
         .expirationRequired(false)
@@ -323,6 +333,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     this.generationTime = generationTime;
     cvcOnly = false;
     preAuthorizedCardText.setVisibility(View.GONE);
+    changeCardButton.setVisibility(View.GONE);
     rememberCardCheckBox.setVisibility(View.VISIBLE);
     showProductPrice(amount);
     cardForm.setCardNumberIcon(0);

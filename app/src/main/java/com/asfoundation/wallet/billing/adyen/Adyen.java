@@ -2,8 +2,10 @@ package com.asfoundation.wallet.billing.adyen;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import com.adyen.core.PaymentRequest;
+import com.adyen.core.interfaces.DeletePreferredPaymentMethodListener;
 import com.adyen.core.interfaces.PaymentDataCallback;
 import com.adyen.core.interfaces.PaymentDetailsCallback;
 import com.adyen.core.interfaces.PaymentMethodCallback;
@@ -35,6 +37,7 @@ public class Adyen {
   private volatile PaymentRequest paymentRequest;
   private volatile DetailsStatus detailsStatus;
   private volatile PaymentStatus paymentStatus;
+  private volatile PaymentType paymentType;
 
   public Adyen(Context context, Charset dataCharset, Scheduler scheduler,
       BehaviorRelay<AdyenPaymentStatus> paymentRequestStatus) {
@@ -102,16 +105,14 @@ public class Adyen {
         });
   }
 
-  public Single<PaymentRequestResult> getPaymentResult() {
+  public Observable<PaymentRequestResult> getPaymentResult() {
     return getStatus().filter(status -> status.getResult() != null)
-        .map(AdyenPaymentStatus::getResult)
-        .firstOrError();
+        .map(AdyenPaymentStatus::getResult);
   }
 
-  public Single<PaymentRequest> getPaymentRequest() {
+  public Observable<PaymentRequest> getPaymentRequest() {
     return getStatus().filter(status -> status.getPaymentRequest() != null)
-        .map(AdyenPaymentStatus::getPaymentRequest)
-        .firstOrError();
+        .map(adyenPaymentStatus -> adyenPaymentStatus.getPaymentRequest());
   }
 
   public Single<String> getRedirectUrl() {
@@ -121,6 +122,7 @@ public class Adyen {
   }
 
   public Single<PaymentMethod> getPaymentMethod(PaymentType paymentType) {
+    this.paymentType = paymentType;
     return getStatus().filter(status -> status.getServices() != null)
         .flatMap(status -> getPaymentMethod(status.getServices(), status.getRecurringServices(),
             paymentType))
@@ -188,6 +190,7 @@ public class Adyen {
     @Override public void onPaymentResult(@NonNull PaymentRequest paymentRequest,
         @NonNull PaymentRequestResult paymentRequestResult) {
       this.result = paymentRequestResult;
+      Adyen.this.paymentRequest = paymentRequest;
       notifyStatus();
     }
 
@@ -217,7 +220,8 @@ public class Adyen {
     }
   }
 
-  public class DetailsStatus implements PaymentRequestDetailsListener {
+  public class DetailsStatus
+      implements PaymentRequestDetailsListener, DeletePreferredPaymentMethodListener {
 
     private Relay<AdyenPaymentStatus> status;
     private PaymentMethodCallback serviceCallback;
@@ -257,6 +261,30 @@ public class Adyen {
         @NonNull PaymentDetailsCallback paymentDetailsCallback) {
       this.detailsCallback = paymentDetailsCallback;
       this.paymentRequest = paymentRequest;
+      notifyStatus();
+    }
+
+    @Override public void onSuccess() {
+      Log.d(this.getClass()
+          .getSimpleName(), "onSuccess");
+      for (String subtype : paymentType.getSubTypes()) {
+        for (PaymentMethod service : services) {
+          if (subtype.equals(service.getType())) {
+            Log.d(this.getClass()
+                    .getSimpleName(),
+                "Subtype: " + subtype + " and service type: " + service.getType());
+            detailsStatus.clear();
+            paymentRequest = null;
+            selectPaymentService(service).blockingAwait();
+          }
+        }
+      }
+      publish();
+    }
+
+    @Override public void onFail() {
+      Log.d(this.getClass()
+          .getSimpleName(), "onFail");
       notifyStatus();
     }
 
@@ -304,5 +332,11 @@ public class Adyen {
       uriCallback = null;
       redirectUrl = null;
     }
+  }
+
+  public Completable deletePaymentMethod(PaymentMethod paymentMethod) {
+    return Completable.fromRunnable(() -> detailsStatus.getPaymentRequest()
+        .deletePreferredPaymentMethod(detailsStatus.getPaymentRequest()
+            .getPaymentMethod(), detailsStatus));
   }
 }

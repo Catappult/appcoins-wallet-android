@@ -152,9 +152,9 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
         WEB_VIEW_REQUEST_CODE);
   }
 
-  @Override public void showPaymentMethodsView(String currency) {
+  @Override public void showPaymentMethodsView() {
     getSupportFragmentManager().beginTransaction()
-        .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction, currency,
+        .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
             getIntent().getExtras()
                 .getString(PRODUCT_NAME), isBds, developerPayload, uri))
         .commit();
