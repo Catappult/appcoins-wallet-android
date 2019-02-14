@@ -9,6 +9,11 @@ import com.google.gson.GsonBuilder
 import java.util.*
 
 class ExternalBillingSerializer {
+
+  companion object {
+    internal const val APPC = "APPC"
+  }
+
   fun serializeProducts(products: List<Product>): List<String> {
     val serializedProducts = ArrayList<String>()
     for (product in products) {
@@ -18,18 +23,49 @@ class ExternalBillingSerializer {
   }
 
   fun mapProduct(product: Product): SKU {
-    return SKU(product.sku, "inapp", getPrice(product), product.price.currency,
-        getPriceInMicro(product), product.title, product.description)
+      return SKU(product.sku, "inapp", getBasePrice(product), getBaseCurrency(product),
+              getBasePriceInMicro(product), getAppcPrice(product), APPC,
+              getAppcPriceInMicro(product), getFiatPrice(product), product.price.currency,
+              getFiatPriceInMicro(product), product.title, product.description)
   }
 
-  private fun getPrice(product: Product): String {
+  private fun getBasePrice(product: Product): String {
+    return if (product.price.base == "appc")
+      getAppcPrice(product)
+    else
+      getFiatPrice(product)
+  }
+
+  private fun getBasePriceInMicro(product: Product): Int {
+    return if (product.price.base == "appc")
+      getAppcPriceInMicro(product)
+    else
+      getFiatPriceInMicro(product)
+  }
+
+  private fun getBaseCurrency(product: Product): String {
+    return if (product.price.base == "appc")
+      APPC
+    else
+      product.price.currency
+  }
+
+  private fun getFiatPrice(product: Product): String {
     return String.format(Locale.US, "%s %s", product.price
         .currencySymbol, product.price
         .amount)
   }
 
-  private fun getPriceInMicro(product: Product): Int {
+  private fun getFiatPriceInMicro(product: Product): Int {
     return (product.price.amount * 1000000).toInt()
+  }
+
+  private fun getAppcPrice(product: Product): String {
+    return String.format("%s %s", APPC, product.price.appcoinsAmount)
+  }
+
+  private fun getAppcPriceInMicro(product: Product): Int {
+    return (product.price.appcoinsAmount * 1000000).toInt()
   }
 
   fun serializeSignatureData(purchase: Purchase): String {
