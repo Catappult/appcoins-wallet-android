@@ -16,7 +16,7 @@ class SharedPreferencesGamificationLocalData(private val preferences: SharedPref
   }
 
   override fun saveShownLevel(wallet: String, level: Int): Completable {
-    return Completable.fromCallable { preferences.edit().putInt(getKey(wallet), level) }
+    return Completable.fromCallable { preferences.edit().putInt(getKey(wallet), level).apply() }
   }
 
   private fun getKey(wallet: String) = SHOWN_LEVEL + wallet
