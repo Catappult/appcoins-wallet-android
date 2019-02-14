@@ -13,12 +13,12 @@ import retrofit2.http.Query;
  * Created by franciscocalado on 24/07/2018.
  */
 
-public class CurrencyConversionService {
+public class TokenRateService {
   public static final String CONVERSION_HOST = BuildConfig.BACKEND_HOST;
 
   private final TokenToFiatApi tokenToFiatApi;
 
-  public CurrencyConversionService(TokenToFiatApi tokenToFiatApi) {
+  public TokenRateService(TokenToFiatApi tokenToFiatApi) {
 
     this.tokenToFiatApi = tokenToFiatApi;
   }

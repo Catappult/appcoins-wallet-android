@@ -91,18 +91,17 @@ public class AdyenBillingService implements BillingService {
     if (!processingPayment.getAndSet(true)) {
       this.adyenAuthorization = walletService.getWalletAddress()
           .flatMap(walletAddress -> walletService.signContent(walletAddress)
-              .flatMap(signedContent -> partnerAddressService.getStoreAddressForPackage(appPackageName)
-                  .flatMap(storeAddress -> adyen.getToken()
-                  .flatMap(
-                      token -> transactionService.createTransaction(walletAddress, signedContent,
-                          token, merchantName, payload, productName, developerAddress,
-                          storeAddress, BuildConfig.DEFAULT_OEM_ADDRESS,
-                          origin, walletAddress, priceValue, priceCurrency, type, callback,
-                          orderReference))
-                  .doOnSuccess(transactionUid -> this.transactionUid = transactionUid)
-                  .flatMap(
-                      transactionUid -> transactionService.getSession(walletAddress, signedContent,
-                          transactionUid)))))
+              .flatMap(
+                  signedContent -> partnerAddressService.getStoreAddressForPackage(appPackageName)
+                      .flatMap(storeAddress -> adyen.getToken()
+                          .flatMap(token -> transactionService.createTransaction(walletAddress,
+                              signedContent, token, merchantName, payload, productName,
+                              developerAddress, storeAddress, BuildConfig.DEFAULT_OEM_ADDRESS,
+                              origin, walletAddress, priceValue, priceCurrency, type, callback,
+                              orderReference))
+                          .doOnSuccess(transactionUid -> this.transactionUid = transactionUid)
+                          .flatMap(transactionUid -> transactionService.getSession(walletAddress,
+                              signedContent, transactionUid)))))
           .map(this::newDefaultAdyenAuthorization)
           .blockingGet();
 
