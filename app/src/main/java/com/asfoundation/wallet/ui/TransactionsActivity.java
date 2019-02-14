@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import com.airbnb.lottie.LottieAnimationView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.Balance;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
@@ -61,6 +62,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private Dialog dialog;
   private EmptyTransactionsView emptyView;
   private RecyclerView list;
+  private MenuItem levelMenuItem;
 
   public static Intent newIntent(Context context) {
     Intent intent = new Intent(context, TransactionsActivity.class);
@@ -148,16 +150,16 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private void onTokenBalanceChanged(Balance balance) {
     if (balance != null) {
-        String currency = balance.getSymbol();
-        String value = balance.getValue();
-        int smallTitleSize = (int) getResources().getDimension(R.dimen.title_small_text);
-        int color = getResources().getColor(R.color.appbar_subtitle_color);
-        setCollapsingTitle(BalanceUtils.formatBalance(value, currency, smallTitleSize, color));
-      }
+      String currency = balance.getSymbol();
+      String value = balance.getValue();
+      int smallTitleSize = (int) getResources().getDimension(R.dimen.title_small_text);
+      int color = getResources().getColor(R.color.appbar_subtitle_color);
+      setCollapsingTitle(BalanceUtils.formatBalance(value, currency, smallTitleSize, color));
+    }
   }
 
   private void onCreditsBalanceChanged(Balance balance) {
-      setSubtitle(balance.getValue() + " " + balance.getSymbol());
+    setSubtitle(balance.getValue() + " " + balance.getSymbol());
   }
 
   private void onTransactionClick(View view, Transaction transaction) {
@@ -190,6 +192,18 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     if (networkInfo != null && networkInfo.name.equals(ETHEREUM_NETWORK_NAME)) {
       getMenuInflater().inflate(R.menu.menu_deposit, menu);
     }
+    LottieAnimationView view = menu.findItem(R.id.action_level)
+        .getActionView()
+        .findViewById(R.id.gamification_highlight_animation_view);
+    viewModel.shouldShowGamificationAnimation()
+        .observe(this, shouldShow -> {
+          if (shouldShow) {
+            view.playAnimation();
+          } else {
+            view.cancelAnimation();
+          }
+        });
+    view.setOnClickListener(v -> viewModel.showRewardsLevel(this));
     return super.onCreateOptionsMenu(menu);
   }
 

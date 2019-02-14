@@ -22,4 +22,8 @@ class GamificationInteractor(private val gamification: Gamification,
     return defaultWallet.find()
         .flatMap { gamification.getEarningBonus(it.address, packageName, amount) }
   }
+
+  fun hasNewLevel(): Single<Boolean> {
+    return defaultWallet.find().flatMap { gamification.hasNewLevel(it.address) }
+  }
 }
