@@ -23,6 +23,7 @@
   <string name="title_activity_settings">Beállítások</string>
   <string name="network_label">Hálózat</string>
   <string name="credits">Információ</string>
+  <string name="new">New</string>
   <string name="low_storage_error">Nincs elegendő tárhely</string>
   <string name="no_camera_permission">Az AppCoins BDS Wallet engedélyt kér a kamera használatára, hogy QR-kódokat tudjon beolvasni.</string>
   <string name="ok">Ok</string>
@@ -290,7 +291,7 @@
   <string name="gamification_galaxy_subtitle">A létező legnagyobb rendszer!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Bónuszt kaptál!</string>
-  <string name="gamification_purchase_body">%s APPC Credit kerül számodra jóváírásra</string>
+  <string name="gamification_purchase_body">You\'ll get 3.10 APPC Credits for this purchase.</string>
   <string name="action_level">Saját szintem</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Engedélyezd az AppCoins Wallet-nek, hogy tárcacímedet megadja a(z) %s számára.</string>
@@ -311,4 +312,22 @@
   <string name="topup_bonus_message">%s APPC-C extra will be credited in your wallet.</string>
   <string name="topup_completed_1">%1$s APPC Credits</string>
   <string name="topup_completed_2">were credited in your account.</string>
+  <!--Balance-->
+  <string name="balance_title">Balance</string>
+  <string name="balance_total_body">Total Balance in %s</string>
+  <string name="balance_topup_body">You can top up your wallet with AppCoins Credits.</string>
+  <string name="balance_ethereum_body">Ethereum is the cryptocurrency that AppCoins are based on. You can buy and sell them in most exchanges, it\'s very popular!</string>
+  <string name="balance_appcoins_body">AppCoins is the cryptocurrency for the app economy. You can buy and sell it on several exchanges and use it to purchase in-app items.</string>
+  <string name="balance_appccreditos_body">The token to buy in-app items! Top up APPC-C from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
+  <!--Ask a friend for funds-->
+  <string name="askafriend_payment_option_button">Ask a friend</string>
+  <string name="askafriend_share_body">Share the link with your friend so they can send you the funds!</string>
+  <string name="askafriend_share_add_message_body">Add Message (Optional)</string>
+  <string name="askafriend_share_button">Share</string>
+  <string name="askafriend_received_body">You just received %s APPC-C</string>
+  <string name="askafriend_received_title">Transfer Received</string>
+  <!--P2P Send-->
+  <string name="p2p_send_title">Send Funds</string>
+  <string name="p2p_send_body">Scan or enter your friend\'s wallet address.</string>
+  <string name="p2p_send_confirmation_message">%1$s %2$s were sent to the following address:</string>
 </resources>
