@@ -228,6 +228,7 @@
   <string name="transaction_type_standard">Transfer</string>
   <string name="transaction_type_bonus">Bonus</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
+  <string name="transaction_type_p2p">P2P Transfer</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
@@ -303,7 +304,7 @@
   <string name="gamification_galaxy_subtitle">The biggest system out there!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">You\'ve got a Bonus!</string>
-  <string name="gamification_purchase_body">You'll get 3.10 APPC Credits for this purchase.</string>
+  <string name="gamification_purchase_body">You'll get %s APPC Credits for this purchase.</string>
   <string name="action_level">My Level</string>
 
   <!-- Provide wallet address -->
@@ -343,6 +344,7 @@
   <string name="askafriend_share_button">Share</string>
   <string name="askafriend_received_body">You just received %s APPC-C</string>
   <string name="askafriend_received_title">Transfer Received</string>
+  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on World Jungle. Link: %2$s</string>
 
   <!--P2P Send-->
   <string name="p2p_send_title">Send Funds</string>
