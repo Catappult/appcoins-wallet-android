@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;

@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.di;
 
-import android.arch.persistence.room.Room;
 import android.content.Context;
+import androidx.room.Room;
 import cm.aptoide.analytics.AnalyticsManager;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.appcoins.rewards.repository.BdsAppcoinsRewardsRepository;

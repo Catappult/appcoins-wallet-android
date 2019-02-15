@@ -2,8 +2,8 @@ package com.asfoundation.wallet.billing.adyen;
 
 import android.content.Context;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.util.Log;
+import androidx.annotation.NonNull;
 import com.adyen.core.PaymentRequest;
 import com.adyen.core.interfaces.DeletePreferredPaymentMethodListener;
 import com.adyen.core.interfaces.PaymentDataCallback;

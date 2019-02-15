@@ -1,4 +1,4 @@
-<android.support.design.widget.CoordinatorLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -36,14 +36,14 @@
         />
   </FrameLayout>
 
-  <android.support.v4.widget.NestedScrollView
+  <androidx.core.widget.NestedScrollView
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:fillViewport="true"
       app:layout_behavior="@string/appbar_scrolling_view_behavior"
       android:paddingBottom="40dp"
       >
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipChildren="false"
@@ -52,7 +52,7 @@
         android:paddingTop="@dimen/half_large_margin"
         >
 
-      <android.support.constraint.Guideline
+      <androidx.constraintlayout.widget.Guideline
           android:id="@+id/guideline_start"
           android:layout_width="1dp"
           android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
           app:layout_constraintGuide_percent="0.12"
           />
 
-      <android.support.constraint.Guideline
+      <androidx.constraintlayout.widget.Guideline
           android:id="@+id/guideline_end"
           android:layout_width="1dp"
           android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
           app:layout_constraintGuide_percent="0.88"
           />
 
-      <android.support.constraint.Guideline
+      <androidx.constraintlayout.widget.Guideline
           android:id="@+id/guideline_mid"
           android:layout_width="1dp"
           android:layout_height="wrap_content"
@@ -224,7 +224,7 @@
           style="@style/TransactionDetailsTextStyle"
           />
 
-      <android.support.v7.widget.RecyclerView
+      <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/details_list"
           android:layout_width="match_parent"
           android:layout_height="@dimen/transaction_details_height"
@@ -235,7 +235,7 @@
           android:orientation="horizontal"
           android:paddingEnd="@dimen/small_padding"
           android:paddingStart="@dimen/small_padding"
-          app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+          app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/details_label"
@@ -305,6 +305,6 @@
 
           style="@style/Widget.AppCompat.Button.Borderless.Colored"
           />
-    </android.support.constraint.ConstraintLayout>
-  </android.support.v4.widget.NestedScrollView>
-</android.support.design.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

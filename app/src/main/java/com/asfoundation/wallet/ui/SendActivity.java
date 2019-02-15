@@ -1,18 +1,17 @@
 package com.asfoundation.wallet.ui;
 
 import android.app.Activity;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProviders;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.router.Result;
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity;
@@ -21,6 +20,7 @@ import com.asfoundation.wallet.viewmodel.SendViewModel;
 import com.asfoundation.wallet.viewmodel.SendViewModelFactory;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
+import com.google.android.material.textfield.TextInputLayout;
 import dagger.android.AndroidInjection;
 import java.math.BigDecimal;
 import java.text.NumberFormat;

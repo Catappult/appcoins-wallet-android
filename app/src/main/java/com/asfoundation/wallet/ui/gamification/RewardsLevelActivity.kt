@@ -20,7 +20,7 @@ class RewardsLevelActivity : BaseActivity(), GamificationView {
     // Display the fragment as the main content.
     supportFragmentManager.beginTransaction()
         .add(R.id.fragment_container, fragment)
-        .addToBackStack(fragment.javaClass.simpleName)
+        .addToBackStack(fragment::class.java.simpleName)
         .commit()
   }
 
@@ -58,11 +58,11 @@ class RewardsLevelActivity : BaseActivity(), GamificationView {
   override fun closeHowItWorksView() {
     val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
 
-    if (supportFragmentManager.backStackEntryCount > 0) {
+    if (currentFragment  != null && supportFragmentManager.backStackEntryCount > 0) {
       val fragment =
-          supportFragmentManager.findFragmentByTag(HowItWorksFragment.javaClass.simpleName)
-      if (fragment != null && fragment.javaClass.name.equals(
-              HowItWorksFragment.javaClass.name, false)) {
+          supportFragmentManager.findFragmentByTag(HowItWorksFragment::class.java.simpleName)
+      if (fragment != null && fragment::class.java.name.equals(
+              HowItWorksFragment::class.java.name, false)) {
         supportFragmentManager.beginTransaction().remove(currentFragment).commit()
       }
       supportFragmentManager.popBackStackImmediate()
@@ -73,7 +73,7 @@ class RewardsLevelActivity : BaseActivity(), GamificationView {
   override fun showHowItWorksView() {
     supportFragmentManager.beginTransaction()
         .add(R.id.fragment_container, HowItWorksFragment.newInstance())
-        .addToBackStack(HowItWorksFragment.javaClass.simpleName)
+        .addToBackStack(HowItWorksFragment::class.java.simpleName)
         .commit()
     menu.findItem(R.id.action_info).isVisible = false
 

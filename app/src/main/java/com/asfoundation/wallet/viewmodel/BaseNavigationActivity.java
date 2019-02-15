@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.viewmodel;
 
-import android.support.annotation.MenuRes;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
+import androidx.annotation.MenuRes;
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import android.view.MenuItem;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.ui.BaseActivity;
