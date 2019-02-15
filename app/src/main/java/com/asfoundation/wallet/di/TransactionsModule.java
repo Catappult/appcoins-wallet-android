@@ -29,6 +29,7 @@ import com.asfoundation.wallet.transactions.TransactionsMapper;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.viewmodel.TransactionsViewModelFactory;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dagger.Module;
 import dagger.Provides;
@@ -120,6 +121,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
     DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
     objectMapper.setDateFormat(df);
+    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     Retrofit retrofit =
         new Retrofit.Builder().addCallAdapterFactory(RxJava2CallAdapterFactory.create())

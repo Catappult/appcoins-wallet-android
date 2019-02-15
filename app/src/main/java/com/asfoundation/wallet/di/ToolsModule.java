@@ -113,11 +113,11 @@ import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.AccountWalletService;
 import com.asfoundation.wallet.service.AppsApi;
 import com.asfoundation.wallet.service.BDSAppsApi;
-import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.LocalCurrencyConversionService;
 import com.asfoundation.wallet.service.PoASubmissionService;
 import com.asfoundation.wallet.service.RealmManager;
 import com.asfoundation.wallet.service.TickerService;
+import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.TrustWalletTickerService;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper;
@@ -145,6 +145,8 @@ import com.asfoundation.wallet.util.OneStepTransactionParser;
 import com.asfoundation.wallet.util.TransactionIdHelper;
 import com.asfoundation.wallet.util.TransferParser;
 import com.facebook.appevents.AppEventsLogger;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.jakewharton.rxrelay2.BehaviorRelay;
 import dagger.Module;
@@ -576,11 +578,12 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .create(BdsApiSecondary.class);
   }
 
-  @Singleton @Provides TokenRateService provideTokenRateService(OkHttpClient client) {
+  @Singleton @Provides TokenRateService provideTokenRateService(OkHttpClient client,
+      ObjectMapper objectMapper) {
     String baseUrl = TokenRateService.CONVERSION_HOST;
     TokenRateService.TokenToFiatApi api = new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
-        .addConverterFactory(JacksonConverterFactory.create())
+        .addConverterFactory(JacksonConverterFactory.create(objectMapper))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(TokenRateService.TokenToFiatApi.class);
@@ -588,11 +591,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides LocalCurrencyConversionService provideLocalCurrencyConversionService(
-      OkHttpClient client) {
+      OkHttpClient client, ObjectMapper objectMapper) {
     String baseUrl = LocalCurrencyConversionService.CONVERSION_HOST;
     LocalCurrencyConversionService.TokenToLocalFiatApi api = new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
-        .addConverterFactory(JacksonConverterFactory.create())
+        .addConverterFactory(JacksonConverterFactory.create(objectMapper))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(LocalCurrencyConversionService.TokenToLocalFiatApi.class);
@@ -687,11 +690,12 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new BillingMessagesMapper(new ExternalBillingSerializer());
   }
 
-  @Singleton @Provides PoASubmissionService providePoASubmissionService(OkHttpClient client) {
+  @Singleton @Provides PoASubmissionService providePoASubmissionService(OkHttpClient client,
+      ObjectMapper objectMapper) {
     String baseUrl = PoASubmissionService.SERVICE_HOST;
     PoASubmissionService.PoASubmissionApi api = new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
-        .addConverterFactory(JacksonConverterFactory.create())
+        .addConverterFactory(JacksonConverterFactory.create(objectMapper))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(PoASubmissionService.PoASubmissionApi.class);
@@ -731,10 +735,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     };
   }
 
-  @Singleton @Provides AnalyticsAPI provideAnalyticsAPI(OkHttpClient client) {
+  @Singleton @Provides AnalyticsAPI provideAnalyticsAPI(OkHttpClient client, ObjectMapper objectMapper) {
     return new Retrofit.Builder().baseUrl("http://ws75.aptoide.com/api/7/")
         .client(client)
-        .addConverterFactory(JacksonConverterFactory.create())
+        .addConverterFactory(JacksonConverterFactory.create(objectMapper))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(AnalyticsAPI.class);
@@ -833,5 +837,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(BdsPartnersApi.class);
+  }
+
+  @Provides ObjectMapper providesObjectMapper() {
+    return new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
   }
 }
