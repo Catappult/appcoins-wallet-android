@@ -23,7 +23,7 @@
   <string name="title_activity_settings">Beállítások</string>
   <string name="network_label">Hálózat</string>
   <string name="credits">Információ</string>
-  <string name="new">New</string>
+  <string name="new">Új</string>
   <string name="low_storage_error">Nincs elegendő tárhely</string>
   <string name="no_camera_permission">Az AppCoins BDS Wallet engedélyt kér a kamera használatára, hogy QR-kódokat tudjon beolvasni.</string>
   <string name="ok">Ok</string>
@@ -220,6 +220,7 @@
   <string name="transaction_type_standard">Tranzakció</string>
   <string name="transaction_type_bonus">Bónusz</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
+  <string name="transaction_type_p2p">Közvetlen utalás</string>
   <string name="transaction_details_brand_txt">Ethereum-mal hajtva</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
@@ -291,7 +292,7 @@
   <string name="gamification_galaxy_subtitle">A létező legnagyobb rendszer!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Bónuszt kaptál!</string>
-  <string name="gamification_purchase_body">You\'ll get 3.10 APPC Credits for this purchase.</string>
+  <string name="gamification_purchase_body">%s APPC kreditet kapsz ezért a vásárlásért.</string>
   <string name="action_level">Saját szintem</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Engedélyezd az AppCoins Wallet-nek, hogy tárcacímedet megadja a(z) %s számára.</string>
@@ -305,29 +306,30 @@
   <string name="provide_wallet_empty_state">Még nem adtad meg az engedélyt az AppCoins Wallet-nek, hogy más appoknak biztosítsa tárcád címét.</string>
   <string name="provide_wallet_status">Tárcacímhez való hozzáférés engedélyezése</string>
   <!-- Top Up -->
-  <string name="topup_home_button">Top Up</string>
-  <string name="topup_title">Top Up</string>
+  <string name="topup_home_button">Befizetés</string>
+  <string name="topup_title">Befizetés</string>
   <string name="topup_amount">%s APPC-C</string>
-  <string name="topup_bonus_header">You\'ve got a Bonus!</string>
-  <string name="topup_bonus_message">%s APPC-C extra will be credited in your wallet.</string>
-  <string name="topup_completed_1">%1$s APPC Credits</string>
-  <string name="topup_completed_2">were credited in your account.</string>
+  <string name="topup_bonus_header">Bónuszt kaptál!</string>
+  <string name="topup_bonus_message">%s bónusz APPC-C kerül számodra jóváírásra.</string>
+  <string name="topup_completed_1">%1$s APPC kredit</string>
+  <string name="topup_completed_2">került jóváírásra a számládon.</string>
   <!--Balance-->
-  <string name="balance_title">Balance</string>
-  <string name="balance_total_body">Total Balance in %s</string>
-  <string name="balance_topup_body">You can top up your wallet with AppCoins Credits.</string>
-  <string name="balance_ethereum_body">Ethereum is the cryptocurrency that AppCoins are based on. You can buy and sell them in most exchanges, it\'s very popular!</string>
-  <string name="balance_appcoins_body">AppCoins is the cryptocurrency for the app economy. You can buy and sell it on several exchanges and use it to purchase in-app items.</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up APPC-C from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_title">Egyenleg</string>
+  <string name="balance_total_body">Teljes egyenleg %s-ban</string>
+  <string name="balance_topup_body">Feltöltheted tárcádat AppCoins kreditekkel.</string>
+  <string name="balance_ethereum_body">Az Ethereum kriptovalután alapulnak az AppCoins-ok. Mivel nagyon népszerű, a legtöbb váltónál adható és vehető!</string>
+  <string name="balance_appcoins_body">Az AppCoins az alkalmazások gazdaságának kriptovalutája. Bizonyos váltóknál adható-vehető, fizetésre pedig alkalmazásokon belüli vásárlásoknál használható.</string>
+  <string name="balance_appccreditos_body">Alkalmazásokon belüli vásárlások tokenje! Töltsd fel tárcádat APPC-kredittel, vagy szerezd meg őket appok használatával. Ezek mellett barátok is küldhetik egymásnak!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Ask a friend</string>
-  <string name="askafriend_share_body">Share the link with your friend so they can send you the funds!</string>
-  <string name="askafriend_share_add_message_body">Add Message (Optional)</string>
-  <string name="askafriend_share_button">Share</string>
-  <string name="askafriend_received_body">You just received %s APPC-C</string>
-  <string name="askafriend_received_title">Transfer Received</string>
+  <string name="askafriend_payment_option_button">Megkérek egy barátot</string>
+  <string name="askafriend_share_body">Oszd meg egy barátoddal a linket, hogy elküldhessék az összeget!</string>
+  <string name="askafriend_share_add_message_body">Üzenet küldése (opcionális)</string>
+  <string name="askafriend_share_button">Megosztás</string>
+  <string name="askafriend_received_body">%s APPC-kreditet kaptál</string>
+  <string name="askafriend_received_title">Beérkezett átutalás</string>
+  <string name="askafriend_share_note_to_friend">Hali! Légy szíves, küldj nekem %1$s AppCoins kreditet, hogy megvásárolhassak egy cuccot a World Jungle játékban. Link: %2$s</string>
   <!--P2P Send-->
-  <string name="p2p_send_title">Send Funds</string>
-  <string name="p2p_send_body">Scan or enter your friend\'s wallet address.</string>
-  <string name="p2p_send_confirmation_message">%1$s %2$s were sent to the following address:</string>
+  <string name="p2p_send_title">Pénzküldés</string>
+  <string name="p2p_send_body">Olvasd be vagy írd be barátod tárcacímét.</string>
+  <string name="p2p_send_confirmation_message">%1$s %2$s lett elküldve az alábbi címre:</string>
 </resources>
