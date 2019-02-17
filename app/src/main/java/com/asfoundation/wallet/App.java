@@ -94,13 +94,6 @@ public class App extends MultiDexApplication
             .subscribe());
   }
 
-  public Adyen getAdyen() {
-    if (adyen == null) {
-      adyen = new Adyen(this, Charset.forName("UTF-8"), Schedulers.io(), BehaviorRelay.create());
-    }
-    return adyen;
-  }
-
   private void setupRxJava() {
     RxJavaPlugins.setErrorHandler(throwable -> {
       if (throwable instanceof UndeliverableException) {

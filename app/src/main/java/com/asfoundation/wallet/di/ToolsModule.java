@@ -87,10 +87,10 @@ import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.BuyTransactionValidatorBds;
+import com.asfoundation.wallet.repository.CurrencyConversionService;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.EthereumNetworkRepository;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
-import com.asfoundation.wallet.repository.ExpressCheckoutBuyService;
 import com.asfoundation.wallet.repository.GasSettingsRepository;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
@@ -113,10 +113,11 @@ import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.AccountWalletService;
 import com.asfoundation.wallet.service.AppsApi;
 import com.asfoundation.wallet.service.BDSAppsApi;
-import com.asfoundation.wallet.service.CurrencyConversionService;
+import com.asfoundation.wallet.service.LocalCurrencyConversionService;
 import com.asfoundation.wallet.service.PoASubmissionService;
 import com.asfoundation.wallet.service.RealmManager;
 import com.asfoundation.wallet.service.TickerService;
+import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.TrustWalletTickerService;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper;
@@ -144,6 +145,8 @@ import com.asfoundation.wallet.util.OneStepTransactionParser;
 import com.asfoundation.wallet.util.TransactionIdHelper;
 import com.asfoundation.wallet.util.TransferParser;
 import com.facebook.appevents.AppEventsLogger;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.jakewharton.rxrelay2.BehaviorRelay;
 import dagger.Module;
@@ -341,11 +344,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   AsfInAppPurchaseInteractor provideAsfBdsInAppPurchaseInteractor(
       @Named("IN_APP_PURCHASE_SERVICE") InAppPurchaseService inAppPurchaseService,
       FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
-      TransferParser parser, Billing billing, ExpressCheckoutBuyService expressCheckoutBuyService,
+      TransferParser parser, Billing billing, CurrencyConversionService currencyConversionService,
       BdsTransactionService bdsTransactionService, BillingMessagesMapper billingMessagesMapper) {
     return new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
-        billingMessagesMapper, billing, new ExternalBillingSerializer(), expressCheckoutBuyService,
+        billingMessagesMapper, billing, new ExternalBillingSerializer(), currencyConversionService,
         bdsTransactionService, Schedulers.io(), transactionIdHelper);
   }
 
@@ -353,11 +356,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   AsfInAppPurchaseInteractor provideAsfInAppPurchaseInteractor(
       @Named("ASF_IN_APP_PURCHASE_SERVICE") InAppPurchaseService inAppPurchaseService,
       FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
-      TransferParser parser, Billing billing, ExpressCheckoutBuyService expressCheckoutBuyService,
+      TransferParser parser, Billing billing, CurrencyConversionService currencyConversionService,
       BdsTransactionService bdsTransactionService, BillingMessagesMapper billingMessagesMapper) {
     return new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
-        billingMessagesMapper, billing, new ExternalBillingSerializer(), expressCheckoutBuyService,
+        billingMessagesMapper, billing, new ExternalBillingSerializer(), currencyConversionService,
         bdsTransactionService, Schedulers.io(), transactionIdHelper);
   }
 
@@ -405,9 +408,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Provides OneStepTransactionParser provideOneStepTransferParser(
       FindDefaultWalletInteract provideFindDefaultWalletInteract,
       TokenRepositoryType tokenRepositoryType, ProxyService proxyService, Billing billing,
-      CurrencyConversionService conversionService) {
+      TokenRateService tokenRateService) {
     return new OneStepTransactionParser(provideFindDefaultWalletInteract, tokenRepositoryType,
-        proxyService, billing, conversionService,
+        proxyService, billing, tokenRateService,
         new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()));
   }
 
@@ -575,20 +578,34 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .create(BdsApiSecondary.class);
   }
 
-  @Singleton @Provides CurrencyConversionService provideTokenToFiatService(OkHttpClient client) {
-    String baseUrl = CurrencyConversionService.CONVERSION_HOST;
-    CurrencyConversionService.TokenToFiatApi api = new Retrofit.Builder().baseUrl(baseUrl)
+  @Singleton @Provides TokenRateService provideTokenRateService(OkHttpClient client,
+      ObjectMapper objectMapper) {
+    String baseUrl = TokenRateService.CONVERSION_HOST;
+    TokenRateService.TokenToFiatApi api = new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
-        .addConverterFactory(JacksonConverterFactory.create())
+        .addConverterFactory(JacksonConverterFactory.create(objectMapper))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-        .create(CurrencyConversionService.TokenToFiatApi.class);
-    return new CurrencyConversionService(api);
+        .create(TokenRateService.TokenToFiatApi.class);
+    return new TokenRateService(api);
   }
 
-  @Singleton @Provides ExpressCheckoutBuyService provideExpressCheckoutBuyService(
-      CurrencyConversionService currencyConversionService) {
-    return new ExpressCheckoutBuyService(currencyConversionService);
+  @Singleton @Provides LocalCurrencyConversionService provideLocalCurrencyConversionService(
+      OkHttpClient client, ObjectMapper objectMapper) {
+    String baseUrl = LocalCurrencyConversionService.CONVERSION_HOST;
+    LocalCurrencyConversionService.TokenToLocalFiatApi api = new Retrofit.Builder().baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(JacksonConverterFactory.create(objectMapper))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(LocalCurrencyConversionService.TokenToLocalFiatApi.class);
+    return new LocalCurrencyConversionService(api);
+  }
+
+  @Singleton @Provides CurrencyConversionService provideCurrencyConversionService(
+      TokenRateService tokenRateService,
+      LocalCurrencyConversionService localCurrencyConversionService) {
+    return new CurrencyConversionService(tokenRateService, localCurrencyConversionService);
   }
 
   @Singleton @Provides WalletService provideWalletService(FindDefaultWalletInteract walletInteract,
@@ -673,11 +690,12 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new BillingMessagesMapper(new ExternalBillingSerializer());
   }
 
-  @Singleton @Provides PoASubmissionService providePoASubmissionService(OkHttpClient client) {
+  @Singleton @Provides PoASubmissionService providePoASubmissionService(OkHttpClient client,
+      ObjectMapper objectMapper) {
     String baseUrl = PoASubmissionService.SERVICE_HOST;
     PoASubmissionService.PoASubmissionApi api = new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
-        .addConverterFactory(JacksonConverterFactory.create())
+        .addConverterFactory(JacksonConverterFactory.create(objectMapper))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(PoASubmissionService.PoASubmissionApi.class);
@@ -717,10 +735,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     };
   }
 
-  @Singleton @Provides AnalyticsAPI provideAnalyticsAPI(OkHttpClient client) {
+  @Singleton @Provides AnalyticsAPI provideAnalyticsAPI(OkHttpClient client, ObjectMapper objectMapper) {
     return new Retrofit.Builder().baseUrl("http://ws75.aptoide.com/api/7/")
         .client(client)
-        .addConverterFactory(JacksonConverterFactory.create())
+        .addConverterFactory(JacksonConverterFactory.create(objectMapper))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(AnalyticsAPI.class);
@@ -819,5 +837,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(BdsPartnersApi.class);
+  }
+
+  @Provides ObjectMapper providesObjectMapper() {
+    return new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
   }
 }
