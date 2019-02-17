@@ -307,29 +307,29 @@
   <string name="provide_wallet_status">Разрешить доступ к адресу кошелька</string>
   <!-- Top Up -->
   <string name="topup_home_button">Пополнить</string>
-  <string name="topup_title">Top Up</string>
+  <string name="topup_title">Пополнить</string>
   <string name="topup_amount">%s APPC-C</string>
-  <string name="topup_bonus_header">You\'ve got a Bonus!</string>
-  <string name="topup_bonus_message">%s APPC-C extra will be credited in your wallet.</string>
-  <string name="topup_completed_1">%1$s APPC Credits</string>
-  <string name="topup_completed_2">were credited in your account.</string>
+  <string name="topup_bonus_header">Вы получили бонус!</string>
+  <string name="topup_bonus_message">%s дополнительных APPC-C будет переведено на ваш кошелёк.</string>
+  <string name="topup_completed_1">%1$s APPC кредитов</string>
+  <string name="topup_completed_2">были зачислены на ваш аккаунт.</string>
   <!--Balance-->
-  <string name="balance_title">Balance</string>
-  <string name="balance_total_body">Total Balance in %s</string>
-  <string name="balance_topup_body">You can top up your wallet with AppCoins Credits.</string>
-  <string name="balance_ethereum_body">Ethereum is the cryptocurrency that AppCoins are based on. You can buy and sell them in most exchanges, it\'s very popular!</string>
-  <string name="balance_appcoins_body">AppCoins is the cryptocurrency for the app economy. You can buy and sell it on several exchanges and use it to purchase in-app items.</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up APPC-C from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_title">Баланс</string>
+  <string name="balance_total_body">Общий баланс в %s</string>
+  <string name="balance_topup_body">Вы можете пополнить ваш кошелек кредитами AppCoins.</string>
+  <string name="balance_ethereum_body">Ethereum это криптовалюта, на основе которой работают AppCoins. Вы можете купить и продать её на большинстве бирж, она очень популярна!</string>
+  <string name="balance_appcoins_body">AppCoins – криптовалюта экономики приложений. Вы можете купить и продать их на нескольких биржах и использовать для встроенных покупок в приложениях.</string>
+  <string name="balance_appccreditos_body">Токен для встроенных покупок в приложениях! Пополните APPC-C из вашего бумажника или получите их бесплатно, пользуясь приложениями. Их также можно переводить друзьям!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Ask a friend</string>
-  <string name="askafriend_share_body">Share the link with your friend so they can send you the funds!</string>
-  <string name="askafriend_share_add_message_body">Add Message (Optional)</string>
-  <string name="askafriend_share_button">Share</string>
-  <string name="askafriend_received_body">You just received %s APPC-C</string>
-  <string name="askafriend_received_title">Transfer Received</string>
-  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on World Jungle. Link: %2$s</string>
+  <string name="askafriend_payment_option_button">Попросить друга</string>
+  <string name="askafriend_share_body">Поделитесь ссылкой с вашим другом, чтобы он мог отправить вам средства!</string>
+  <string name="askafriend_share_add_message_body">Добавить сообщение (необязательно)</string>
+  <string name="askafriend_share_button">Поделиться</string>
+  <string name="askafriend_received_body">Вы только что получили %s APPC-C</string>
+  <string name="askafriend_received_title">Средства получены</string>
+  <string name="askafriend_share_note_to_friend">Эй, привет! Пожалуйста, пришли мне %1$s кредитов AppCoins на покупку в World Jungle. Ссылка: %2$s</string>
   <!--P2P Send-->
-  <string name="p2p_send_title">Send Funds</string>
-  <string name="p2p_send_body">Scan or enter your friend\'s wallet address.</string>
-  <string name="p2p_send_confirmation_message">%1$s %2$s were sent to the following address:</string>
+  <string name="p2p_send_title">Отправить средства</string>
+  <string name="p2p_send_body">Сканируйте или введите адрес бумажника вашего друга.</string>
+  <string name="p2p_send_confirmation_message">%1$s %2$s были отправлены на следующий адрес:</string>
 </resources>
