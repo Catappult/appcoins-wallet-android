@@ -72,7 +72,7 @@
         android:orientation="vertical"
         >
 
-      <android.support.constraint.ConstraintLayout
+      <androidx.constraintlayout.widget.ConstraintLayout
           android:id="@+id/payment_methods"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -247,7 +247,7 @@
             app:layout_constraintTop_toBottomOf="@+id/payment_methods_radio_group"
             />
 
-        <android.support.constraint.Guideline
+        <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -269,7 +269,7 @@
             app:layout_constraintTop_toBottomOf="@id/bonus_layout"
             />
 
-      </android.support.constraint.ConstraintLayout>
+      </androidx.constraintlayout.widget.ConstraintLayout>
       <RelativeLayout
           android:id="@+id/address_footer"
           android:layout_width="match_parent"

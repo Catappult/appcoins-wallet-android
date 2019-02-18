@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.repository;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.TokenInfo;

@@ -15,20 +15,17 @@
       android:text="@string/dialog_message"
       android:textSize="16sp"
       />
-  <com.asfoundation.wallet.widget.HelperTextInputLayout
+  <com.google.android.material.textfield.TextInputLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="20dp"
-      app:errorEnabled="true"
-      app:helperText="@string/suggestion_empty_password_available"
-      app:hintEnabled="false"
-      app:passwordToggleEnabled="true"
       >
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
+        android:hint="@string/suggestion_empty_password_available"
         />
-  </com.asfoundation.wallet.widget.HelperTextInputLayout>
+  </com.google.android.material.textfield.TextInputLayout>
 </LinearLayout>

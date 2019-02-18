@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.iab.database;
 
-import android.arch.persistence.room.Database;
-import android.arch.persistence.room.RoomDatabase;
+import androidx.room.Database;
+import androidx.room.RoomDatabase;
 
 @Database(entities = AppCoinsOperationEntity.class, version = 1)
 public abstract class AppCoinsOperationDatabase extends RoomDatabase {
