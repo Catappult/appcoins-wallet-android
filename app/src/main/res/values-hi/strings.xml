@@ -23,6 +23,7 @@
   <string name="title_activity_settings">सेटिंग्स</string>
   <string name="network_label">नेटवर्क</string>
   <string name="credits">क्रेडिट</string>
+  <string name="new">नया</string>
   <string name="low_storage_error">स्टोर करने के लिए पर्याप्त जगह नहीं</string>
   <string name="no_camera_permission">क्यूआर कोड स्कैन के लिए AppCoins BDS Wallet को आपका कैमरा उपयोग करने की अनुमति की जरूरत है।</string>
   <string name="ok">ठीक</string>
@@ -219,6 +220,7 @@
   <string name="transaction_type_standard">अंतरण करें</string>
   <string name="transaction_type_bonus">बोनस</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
+  <string name="transaction_type_p2p">P2P अंतरण</string>
   <string name="transaction_details_brand_txt">इथीरियम द्वारा संचालित</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
@@ -290,7 +292,7 @@
   <string name="gamification_galaxy_subtitle">वहाँ की सबसे बड़ी प्रणाली!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">आपको बोनस मिला है!</string>
-  <string name="gamification_purchase_body">%s APPC क्रेडिट आपके वॉलेट में जमा किये जाएँगे</string>
+  <string name="gamification_purchase_body">इस खरीद के लिए आपको %s APPC क्रेडिट मिलेगा।</string>
   <string name="action_level">मेरा लेवल</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">AppCoins वॉलेट को अपना वॉलेट पता %s को देने की अनुमति दें।</string>
@@ -303,4 +305,31 @@
   <string name="provide_wallet_created_header">वॉलेट पता बनाया गया!</string>
   <string name="provide_wallet_empty_state">आपने AppCoins वॉलेट को अभी तक किसी भी अन्य एप्प को अपना पता देने की अनुमति नहीं दी है।</string>
   <string name="provide_wallet_status">वॉलेट पते तक पहुँच की अनुमति दें</string>
+  <!-- Top Up -->
+  <string name="topup_home_button">टॉप अप</string>
+  <string name="topup_title">टॉप अप</string>
+  <string name="topup_amount">%s APPC-C</string>
+  <string name="topup_bonus_header">आपको बोनस मिला है!</string>
+  <string name="topup_bonus_message">%s APPC-C अतिरिक्त आपके वॉलेट में जमा किये जाएँगे।</string>
+  <string name="topup_completed_1">%1$s APPC क्रेडिट</string>
+  <string name="topup_completed_2">आपके खाते में जमा किये गए थे।</string>
+  <!--Balance-->
+  <string name="balance_title">बैलेंस</string>
+  <string name="balance_total_body">%s में कुल बैलेंस</string>
+  <string name="balance_topup_body">AppCoins क्रेडिट के साथ आप अपना वॉलेट टॉप अप कर सकते हैं।</string>
+  <string name="balance_ethereum_body">AppCoins इथीरियम क्रिप्टोकरेंसी पर आधारित है। आप अधिकतम एक्सचेंजों में उन्हें खरीद और बेच सकते हैं, यह बहुत लोकप्रिय है!</string>
+  <string name="balance_appcoins_body">AppCoins एप्प अर्थव्यवस्था के लिए क्रिप्टोकरेंसी है। आप इसे कई एक्सचेंजों पर खरीदने और बेचने के साथ ही इन-एप्प खरीद के लिए इसका उपयोग कर सकते हैं।</string>
+  <string name="balance_appccreditos_body">इन-एप्प चीजें खरीदने के लिए टोकन! APPC-C को अपने वॉलेट से टॉप अप करें या एप्प उपयोग करके उन्हें मुफ्त में प्राप्त करें। उन्हें मित्रों के बीच स्थानांतरित भी किया जा सकता है!</string>
+  <!--Ask a friend for funds-->
+  <string name="askafriend_payment_option_button">मित्र से पूछें</string>
+  <string name="askafriend_share_body">लिंक अपने मित्रों के साथ साझा करें ताकि आप उन्हें फंड भेज सकें!</string>
+  <string name="askafriend_share_add_message_body">संदेश जोड़ें (वैकल्पिक)</string>
+  <string name="askafriend_share_button">साझा करें</string>
+  <string name="askafriend_received_body">आपने अभी %s APPC-C प्राप्त किये</string>
+  <string name="askafriend_received_title">अंतरण प्राप्त हुआ</string>
+  <string name="askafriend_share_note_to_friend">सुनो! कृपया, मुझे वर्ल्ड जंगल में एक वस्तु खरीदने के लिए %1$s AppCoins क्रेडिट भेजें। लिंक:%2$s</string>
+  <!--P2P Send-->
+  <string name="p2p_send_title">फंड भेजें</string>
+  <string name="p2p_send_body">अपने मित्र का वॉलेट पता स्कैन करें या लिखें।</string>
+  <string name="p2p_send_confirmation_message">%1$s %2$s इस पते पर भेजे गए थे:</string>
 </resources>

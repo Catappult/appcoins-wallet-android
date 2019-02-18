@@ -23,6 +23,7 @@
   <string name="title_activity_settings">Параметры</string>
   <string name="network_label">Сеть</string>
   <string name="credits">Информация</string>
+  <string name="new">Новое</string>
   <string name="low_storage_error">Недостаточно места для хранения</string>
   <string name="no_camera_permission">AppCoins BDS Wallet необходимо разрешение на доступ к вашей камере, чтобы сканировать QR-коды.</string>
   <string name="ok">Ок</string>
@@ -219,6 +220,7 @@
   <string name="transaction_type_standard">Перевод</string>
   <string name="transaction_type_bonus">Бонус</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
+  <string name="transaction_type_p2p">Передача P2P</string>
   <string name="transaction_details_brand_txt">Работает на Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
@@ -290,7 +292,7 @@
   <string name="gamification_galaxy_subtitle">Крупнейшая из систем!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Вы получили бонус!</string>
-  <string name="gamification_purchase_body">%s кредитов APPC будет переведено на ваш кошелёк</string>
+  <string name="gamification_purchase_body">Вы получите %s кредитов APPC за эту покупку.</string>
   <string name="action_level">Мой уровень</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Разрешите AppCoins Wallet предоставлять %s адрес вашего кошелька.</string>
@@ -303,4 +305,31 @@
   <string name="provide_wallet_created_header">Адрес кошелька создан!</string>
   <string name="provide_wallet_empty_state">Вы пока не разрешили кошельку AppCoins предоставлять ваш адрес другим приложениям.</string>
   <string name="provide_wallet_status">Разрешить доступ к адресу кошелька</string>
+  <!-- Top Up -->
+  <string name="topup_home_button">Пополнить</string>
+  <string name="topup_title">Пополнить</string>
+  <string name="topup_amount">%s APPC-C</string>
+  <string name="topup_bonus_header">Вы получили бонус!</string>
+  <string name="topup_bonus_message">%s дополнительных APPC-C будет переведено на ваш кошелёк.</string>
+  <string name="topup_completed_1">%1$s APPC кредитов</string>
+  <string name="topup_completed_2">были зачислены на ваш аккаунт.</string>
+  <!--Balance-->
+  <string name="balance_title">Баланс</string>
+  <string name="balance_total_body">Общий баланс в %s</string>
+  <string name="balance_topup_body">Вы можете пополнить ваш кошелек кредитами AppCoins.</string>
+  <string name="balance_ethereum_body">Ethereum это криптовалюта, на основе которой работают AppCoins. Вы можете купить и продать её на большинстве бирж, она очень популярна!</string>
+  <string name="balance_appcoins_body">AppCoins – криптовалюта экономики приложений. Вы можете купить и продать их на нескольких биржах и использовать для встроенных покупок в приложениях.</string>
+  <string name="balance_appccreditos_body">Токен для встроенных покупок в приложениях! Пополните APPC-C из вашего бумажника или получите их бесплатно, пользуясь приложениями. Их также можно переводить друзьям!</string>
+  <!--Ask a friend for funds-->
+  <string name="askafriend_payment_option_button">Попросить друга</string>
+  <string name="askafriend_share_body">Поделитесь ссылкой с вашим другом, чтобы он мог отправить вам средства!</string>
+  <string name="askafriend_share_add_message_body">Добавить сообщение (необязательно)</string>
+  <string name="askafriend_share_button">Поделиться</string>
+  <string name="askafriend_received_body">Вы только что получили %s APPC-C</string>
+  <string name="askafriend_received_title">Средства получены</string>
+  <string name="askafriend_share_note_to_friend">Эй, привет! Пожалуйста, пришли мне %1$s кредитов AppCoins на покупку в World Jungle. Ссылка: %2$s</string>
+  <!--P2P Send-->
+  <string name="p2p_send_title">Отправить средства</string>
+  <string name="p2p_send_body">Сканируйте или введите адрес бумажника вашего друга.</string>
+  <string name="p2p_send_confirmation_message">%1$s %2$s были отправлены на следующий адрес:</string>
 </resources>

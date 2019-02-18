@@ -23,6 +23,7 @@
   <string name="title_activity_settings">सेटिंग्ज</string>
   <string name="network_label">नेटवर्क</string>
   <string name="credits">क्रेडीट्स</string>
+  <string name="new">New</string>
   <string name="low_storage_error">पुरेसे स्टोरेज नाही</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ला आपल्या कॅमेरात प्रवेश आणि ‍क्युआर कोड स्कॅन करण्याची परवानगी हवी आहे.</string>
   <string name="ok">ठीक आहे</string>
@@ -219,6 +220,7 @@
   <string name="transaction_type_standard">हस्तांतरण</string>
   <string name="transaction_type_bonus">बोनस</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
+  <string name="transaction_type_p2p">P2P Transfer</string>
   <string name="transaction_details_brand_txt">एथरियमने पावर्ड</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
@@ -290,7 +292,7 @@
   <string name="gamification_galaxy_subtitle">तिथे असलेली मोठी प्रणाली!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">आपल्याला बोनस मिळाला आहे!</string>
-  <string name="gamification_purchase_body">%s एपीपीसी क्रेडीटस आपल्या वॉलेटमध्ये जमा झाले आहेत</string>
+  <string name="gamification_purchase_body">You\'ll get %s APPC Credits for this purchase.</string>
   <string name="action_level">माझी पातळी</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">आपला वॉलेट पत्ता %s ला पुरविण्यासाठी अॅपकॉइन्स वॉलेटला परवानगी द्या.</string>
@@ -303,4 +305,31 @@
   <string name="provide_wallet_created_header">वॉलेट पत्ता तयार केला!</string>
   <string name="provide_wallet_empty_state">इतर कोणत्याही अॅपला आपला पत्ता पुरविण्यासाठी आपण अॅपकॉइन्स वॉलेटला परवानगी दिलेली नाही.</string>
   <string name="provide_wallet_status">वॉलेट पत्त्यात प्रवेश द्या</string>
+  <!-- Top Up -->
+  <string name="topup_home_button">Top Up</string>
+  <string name="topup_title">Top Up</string>
+  <string name="topup_amount">%s APPC-C</string>
+  <string name="topup_bonus_header">You\'ve got a Bonus!</string>
+  <string name="topup_bonus_message">%s APPC-C extra will be credited in your wallet.</string>
+  <string name="topup_completed_1">%1$s APPC Credits</string>
+  <string name="topup_completed_2">were credited in your account.</string>
+  <!--Balance-->
+  <string name="balance_title">Balance</string>
+  <string name="balance_total_body">Total Balance in %s</string>
+  <string name="balance_topup_body">You can top up your wallet with AppCoins Credits.</string>
+  <string name="balance_ethereum_body">Ethereum is the cryptocurrency that AppCoins are based on. You can buy and sell them in most exchanges, it\'s very popular!</string>
+  <string name="balance_appcoins_body">AppCoins is the cryptocurrency for the app economy. You can buy and sell it on several exchanges and use it to purchase in-app items.</string>
+  <string name="balance_appccreditos_body">The token to buy in-app items! Top up APPC-C from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
+  <!--Ask a friend for funds-->
+  <string name="askafriend_payment_option_button">Ask a friend</string>
+  <string name="askafriend_share_body">Share the link with your friend so they can send you the funds!</string>
+  <string name="askafriend_share_add_message_body">Add Message (Optional)</string>
+  <string name="askafriend_share_button">Share</string>
+  <string name="askafriend_received_body">You just received %s APPC-C</string>
+  <string name="askafriend_received_title">Transfer Received</string>
+  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on World Jungle. Link: %2$s</string>
+  <!--P2P Send-->
+  <string name="p2p_send_title">Send Funds</string>
+  <string name="p2p_send_body">Scan or enter your friend\'s wallet address.</string>
+  <string name="p2p_send_confirmation_message">%1$s %2$s were sent to the following address:</string>
 </resources>

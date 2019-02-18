@@ -23,6 +23,7 @@
   <string name="title_activity_settings">Instellingen</string>
   <string name="network_label">Netwerk</string>
   <string name="credits">Credits</string>
+  <string name="new">Nieuw</string>
   <string name="low_storage_error">Er is onvoldoende opslagruimte</string>
   <string name="no_camera_permission">Om QR-codes te scannen heeft AppCoins BDS Wallet toestemming nodig om toegang tot je camera te krijgen.</string>
   <string name="ok">OK</string>
@@ -219,6 +220,7 @@
   <string name="transaction_type_standard">Overboeking</string>
   <string name="transaction_type_bonus">Bonus</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
+  <string name="transaction_type_p2p">P2P-overdracht</string>
   <string name="transaction_details_brand_txt">Mogelijk gemaakt door Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
@@ -290,7 +292,7 @@
   <string name="gamification_galaxy_subtitle">De grootste van allemaal!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Je hebt een bonus!</string>
-  <string name="gamification_purchase_body">Er worden %s APPC-credits aan je wallet toegevoegd</string>
+  <string name="gamification_purchase_body">Voor deze aankoop krijg je %s APPC Credits.</string>
   <string name="action_level">Mijn niveau</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Geef AppCoins Wallet toestemming om je wallet-adres aan %s door te geven.</string>
@@ -303,4 +305,31 @@
   <string name="provide_wallet_created_header">Wallet-adres is aangemaakt!</string>
   <string name="provide_wallet_empty_state">Je hebt AppCoins Wallet nog geen toestemming gegeven om je adres aan een andere app door te geven.</string>
   <string name="provide_wallet_status">Toestemming voor toegang tot wallet-adres geven</string>
+  <!-- Top Up -->
+  <string name="topup_home_button">Opwaarderen</string>
+  <string name="topup_title">Opwaarderen</string>
+  <string name="topup_amount">%s APPC-C</string>
+  <string name="topup_bonus_header">Je hebt een bonus!</string>
+  <string name="topup_bonus_message">Er worden %s APPC-C aan je wallet toegevoegd.</string>
+  <string name="topup_completed_1">%1$s APPC Credits</string>
+  <string name="topup_completed_2">zijn aan je account toegevoegd.</string>
+  <!--Balance-->
+  <string name="balance_title">Saldo</string>
+  <string name="balance_total_body">Totale saldo in %s</string>
+  <string name="balance_topup_body">Je kunt je wallet met AppCoins Credits opwaarderen.</string>
+  <string name="balance_ethereum_body">Ethereum is de cryptovaluta waarop AppCoins zijn gebaseerd. Je kunt deze populaire cryptovaluta via de meeste platforms kopen!</string>
+  <string name="balance_appcoins_body">AppCoins is de cryptovaluta voor de app-economie. Je kunt deze cryptovaluta via verschillende platforms kopen en verkopen en gebruiken om in-app items te kopen.</string>
+  <string name="balance_appccreditos_body">De token om in-app items te kopen! Waardeer APPC-C op via je wallet of krijg ze gratis door apps te gebruiken. Deze tokens kunnen ook tussen vrienden worden overgedragen!</string>
+  <!--Ask a friend for funds-->
+  <string name="askafriend_payment_option_button">Vraag een vriend</string>
+  <string name="askafriend_share_body">Deel de link met je vriend, zodat hij of zij je cryptovaluta kan sturen!</string>
+  <string name="askafriend_share_add_message_body">Bericht toevoegen (optioneel)</string>
+  <string name="askafriend_share_button">Delen</string>
+  <string name="askafriend_received_body">Je hebt zojuist %s APPC-C ontvangen</string>
+  <string name="askafriend_received_title">Overdracht ontvangen</string>
+  <string name="askafriend_share_note_to_friend">Hallo! Zou je me %1$s AppCoins Credits willen sturen om een item voor World Jungle te kopen. Link: %2$s</string>
+  <!--P2P Send-->
+  <string name="p2p_send_title">Cryptovaluta verzenden</string>
+  <string name="p2p_send_body">Scan of voer het wallet-adres van je vriend(in) in.</string>
+  <string name="p2p_send_confirmation_message">Er zijn %1$s %2$s naar het volgende adres verzonden:</string>
 </resources>
