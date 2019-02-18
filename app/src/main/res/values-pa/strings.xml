@@ -23,7 +23,7 @@
   <string name="title_activity_settings">ਸੈਟਿੰਗਾਂ</string>
   <string name="network_label">ਨੈੱਟਵਰਕ</string>
   <string name="credits">ਕ੍ਰੈਡਿਟ</string>
-  <string name="new">New</string>
+  <string name="new">ਨਵਾਂ</string>
   <string name="low_storage_error">ਸਟੋਰੇਜ ਲਈ ਕਾਫ਼ੀ ਜਗ੍ਹਾ ਕਾਫੀ ਨਹੀਂ ਹੈ</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ਨੂੰ QR ਕੋਡ ਨੂੰ ਸਕੈਨ ਕਰਨ ਲਈ ਤੁਹਾਡੇ ਕੈਮਰੇ ਤੱਕ ਪਹੁੰਚ ਦੀ ਇਜਾਜ਼ਤ ਦੀ ਲੋੜ ਹੈ|</string>
   <string name="ok">ਠੀਕ ਹੈ</string>
@@ -220,7 +220,7 @@
   <string name="transaction_type_standard">ਟ੍ਰਾਂਸਫਰ</string>
   <string name="transaction_type_bonus">ਬੋਨਸ</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
-  <string name="transaction_type_p2p">P2P Transfer</string>
+  <string name="transaction_type_p2p">ਪੀ2ਪੀ ਟ੍ਰਾਂਸਫਰ</string>
   <string name="transaction_details_brand_txt">ਇਥਿਰਿਅਮ ਦੁਆਰਾ ਸੰਚਾਲਿਤ</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
@@ -292,7 +292,7 @@
   <string name="gamification_galaxy_subtitle">ਇੱਥੇ ਸਭ ਤੋਂ ਵੱਡੀ ਪ੍ਰਣਾਲੀ!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">ਤੁਹਾਨੂੰ ਇੱਕ ਬੋਨਸ ਮਿਲਿਆ ਹੈ!</string>
-  <string name="gamification_purchase_body">You\'ll get %s APPC Credits for this purchase.</string>
+  <string name="gamification_purchase_body">ਤੁਸੀ ਇਸ ਖਰੀਦ ਲਈ %s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋਗੇ|</string>
   <string name="action_level">ਮੇਰਾ ਪੱਧਰ</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ %s ਨੂੰ ਬਟੂਏ ਦਾ ਪਤਾ ਦੱਸਣ ਦੀ ਆਗਿਆ ਦਿਓ|</string>
@@ -306,30 +306,30 @@
   <string name="provide_wallet_empty_state">ਤੁਸੀ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਕਿਸੇ ਵੀ ਹੋਰ ਐਪ ਨੂੰ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਦਾ ਪਤਾ ਦੱਸਣ ਦੀ ਆਗਿਆ ਨਹੀਂ ਦਿੱਤੀ|</string>
   <string name="provide_wallet_status">ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਦੇ ਪਤੇ ਤੱਕ ਪਹੁੰਚ ਦੀ ਆਗਿਆ ਦਿਓ</string>
   <!-- Top Up -->
-  <string name="topup_home_button">Top Up</string>
-  <string name="topup_title">Top Up</string>
-  <string name="topup_amount">%s APPC-C</string>
-  <string name="topup_bonus_header">You\'ve got a Bonus!</string>
-  <string name="topup_bonus_message">%s APPC-C extra will be credited in your wallet.</string>
-  <string name="topup_completed_1">%1$s APPC Credits</string>
-  <string name="topup_completed_2">were credited in your account.</string>
+  <string name="topup_home_button">ਟੋਪ ਅੱਪ</string>
+  <string name="topup_title">ਟੋਪ ਅੱਪ</string>
+  <string name="topup_amount">%s ਐਪ ਸਿੱਕੇ</string>
+  <string name="topup_bonus_header">ਤੁਹਾਨੂੰ ਇੱਕ ਬੋਨਸ ਮਿਲਿਆ ਹੈ!</string>
+  <string name="topup_bonus_message">%s ਵੱਧ ਐਪ ਸਿੱਕੇ-ਕ੍ਰੈਡਿਟ ਤੁਹਾਡੇ ਬਟੂਏ ਵਿੱਚ ਪਾਏ ਜਾਣਗੇ</string>
+  <string name="topup_completed_1">%1$s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ</string>
+  <string name="topup_completed_2">ਤੁਹਾਡੇ ਖਾਤੇ ਵਿੱਚ ਪਾਏ ਗਏ|</string>
   <!--Balance-->
-  <string name="balance_title">Balance</string>
-  <string name="balance_total_body">Total Balance in %s</string>
-  <string name="balance_topup_body">You can top up your wallet with AppCoins Credits.</string>
-  <string name="balance_ethereum_body">Ethereum is the cryptocurrency that AppCoins are based on. You can buy and sell them in most exchanges, it\'s very popular!</string>
-  <string name="balance_appcoins_body">AppCoins is the cryptocurrency for the app economy. You can buy and sell it on several exchanges and use it to purchase in-app items.</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up APPC-C from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_title">ਰਕਮ</string>
+  <string name="balance_total_body">%s ਵਿੱਚ ਕੁੱਲ ਰਕਮ</string>
+  <string name="balance_topup_body">ਤੁਸੀਂ ਐਪ ਸਿੱਕੇ ਕਰੈਡਿਟਾਂ ਨਾਲ ਆਪਣੇ ਬਟੂਏ ਦਾ ਰਿਚਾਰਜ ਕਰ ਸਕਦੇ ਹੋ|</string>
+  <string name="balance_ethereum_body">ਇਥਿਰਿਅਮ ਕਰਿਪਟੋ ਕਰੰਸੀ ਹੈ ਜਿਸ ਤੇ ਐਪ ਸਿੱਕੇ ਅਧਾਰਤ ਹਨ| ਤੁਸੀਂ ਇਨ੍ਹਾਂ ਨੂੰ ਜ਼ਿਆਦਾਤਰ ਐਕਸਚੇਂਜਾਂ ਵਿੱਚ ਖਰੀਦ ਅਤੇ ਵੇਚ ਸਕਦੇ ਹੋ, ਇਹ ਬਹੁਤ ਮਸ਼ਹੂਰ ਹੈ!</string>
+  <string name="balance_appcoins_body">ਐਪ ਸਿੱਕੇ ਐਪ ਦੇ ਖਰਚਿਆਂ ਲਈ ਕਰਿਪਟੋ ਕਰੰਸੀ ਹੈ| ਤੁਸੀਂ ਇਸ ਨੂੰ ਕਈ ਐਕਸਚੇਂਜਾਂ ਤੇ ਖਰੀਦ ਅਤੇ ਵੇਚ ਸਕਦੇ ਹੋ ਅਤੇ ਇਨ-ਐਪ ਆਈਟਮਾਂ ਖਰੀਦਣ ਲਈ ਇਸਦੀ ਵਰਤੋਂ ਕਰ ਸਕਦੇ ਹੋ|</string>
+  <string name="balance_appccreditos_body">ਤੇ ਟੋਕਨ ਤੋ ਬਾਇ ਇਨ-ਅੱਪ ਆਇਟਮ੍ਸ! ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਆਪਣੇ ਬਟੂਏ ਨੂੰ ਰਿਚਾਰਜ ਕਰਕੇ ਜਾਂ ਮੁਫਤ ਵਿੱਚ ਲੈਣ ਲਈ ਐਪਾਂ ਵਰਤ ਕੇ ਪਾਓ| ਇਹ ਦੋਸਤਾਂ ਵਿੱਚ ਵੀ ਟ੍ਰਾਂਸਫਰ ਕੀਤੇ ਜਾ ਸਕਦੇ ਹਨ!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Ask a friend</string>
-  <string name="askafriend_share_body">Share the link with your friend so they can send you the funds!</string>
-  <string name="askafriend_share_add_message_body">Add Message (Optional)</string>
-  <string name="askafriend_share_button">Share</string>
-  <string name="askafriend_received_body">You just received %s APPC-C</string>
-  <string name="askafriend_received_title">Transfer Received</string>
-  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on World Jungle. Link: %2$s</string>
+  <string name="askafriend_payment_option_button">ਕਿਸੇ ਦੋਸਤ ਨੂੰ ਪੁੱਛੋ</string>
+  <string name="askafriend_share_body">ਆਪਣੇ ਦੋਸਤ ਨਾਲ ਲਿੰਕ ਸਾਂਝਾ ਕਰੋ ਤਾਂ ਜੋ ਉਹ ਤੁਹਾਨੂੰ ਪੈਸੇ ਭੇਜ ਸਕਣ!</string>
+  <string name="askafriend_share_add_message_body">ਸੁਨੇਹਾ ਜੋੜੋ (ਵਿਕਲਪਿਕ)</string>
+  <string name="askafriend_share_button">ਸ਼ੇਅਰ</string>
+  <string name="askafriend_received_body">ਤੁਸੀਂ ਹੁਣੇ %s ਐਪ ਸਿੱਕੇ-ਕਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕੀਤੇ</string>
+  <string name="askafriend_received_title">ਟ੍ਰਾਂਸਫਰ ਪ੍ਰਾਪਤ</string>
+  <string name="askafriend_share_note_to_friend">ਸਤ ਸ੍ਰੀ ਅਕਾਲ ਜੀ! ਕਿਰਪਾ ਕਰਕੇ ਮੈਨੂੰ ਵਿਸ਼ਵ ਜੰਗਲ ਤੇ ਇਕ ਆਈਟਮ ਖਰੀਦਣ ਲਈ %1$s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਭੇਜੋ| ਲਿੰਕ: %2$s</string>
   <!--P2P Send-->
-  <string name="p2p_send_title">Send Funds</string>
-  <string name="p2p_send_body">Scan or enter your friend\'s wallet address.</string>
-  <string name="p2p_send_confirmation_message">%1$s %2$s were sent to the following address:</string>
+  <string name="p2p_send_title">ਫੰਡ ਭੇਜੋ</string>
+  <string name="p2p_send_body">ਆਪਣੇ ਦੋਸਤ ਦੇ ਬਟੂਏ ਦਾ ਪਤਾ ਭਰੋ ਜਾਂ ਸਕੈਨ ਕਰੋ|</string>
+  <string name="p2p_send_confirmation_message">%1$s %2$s ਹੇਠ ਲਿਖੇ ਪਤੇ ਤੇ ਭੇਜੇ ਗਏ:</string>
 </resources>
