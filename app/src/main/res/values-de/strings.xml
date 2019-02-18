@@ -23,7 +23,7 @@
   <string name="title_activity_settings">Einstellungen</string>
   <string name="network_label">Netzwerk</string>
   <string name="credits">Das Team</string>
-  <string name="new">New</string>
+  <string name="new">Neu</string>
   <string name="low_storage_error">Nicht genügend Speicherplatz</string>
   <string name="no_camera_permission">Zum Lesen des QR-Codes benötigt AppCoins BDS Wallet Zugriff auf deine Kamera.</string>
   <string name="ok">Okay</string>
@@ -220,7 +220,7 @@
   <string name="transaction_type_standard">Transfer</string>
   <string name="transaction_type_bonus">Bonus</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
-  <string name="transaction_type_p2p">P2P Transfer</string>
+  <string name="transaction_type_p2p">P2P-Transfer</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
@@ -292,7 +292,7 @@
   <string name="gamification_galaxy_subtitle">Das größte System hier draußen!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Sie erhalten einen Bonus!</string>
-  <string name="gamification_purchase_body">You\'ll get %s APPC Credits for this purchase.</string>
+  <string name="gamification_purchase_body">Für diesen Kauf erhalten Sie einen Betrag von %s APPC.</string>
   <string name="action_level">Mein Level</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Erlauben Sie dem AppCoinsWallet ihre Wallet Adresse an %s weiterzureichen.</string>
@@ -306,18 +306,18 @@
   <string name="provide_wallet_empty_state">Sie haben dem AppCoins-Wallet nicht erlaubt ihre Adresse einer anderen App zur Verfügung zu stellen.</string>
   <string name="provide_wallet_status">Zugriff auf Wallet Adresse erlauben</string>
   <!-- Top Up -->
-  <string name="topup_home_button">Top Up</string>
-  <string name="topup_title">Top Up</string>
+  <string name="topup_home_button">Aufladen</string>
+  <string name="topup_title">Aufladen</string>
   <string name="topup_amount">%s APPC-C</string>
-  <string name="topup_bonus_header">You\'ve got a Bonus!</string>
-  <string name="topup_bonus_message">%s APPC-C extra will be credited in your wallet.</string>
-  <string name="topup_completed_1">%1$s APPC Credits</string>
-  <string name="topup_completed_2">were credited in your account.</string>
+  <string name="topup_bonus_header">Sie erhalten einen Bonus!</string>
+  <string name="topup_bonus_message">Ihnen werden %s APPC-C zusätzlich auf ihr Wallet gutgeschrieben.</string>
+  <string name="topup_completed_1">%1$s -APPC-Credits</string>
+  <string name="topup_completed_2">wurden auf ihr Konto gutgeschrieben.</string>
   <!--Balance-->
-  <string name="balance_title">Balance</string>
-  <string name="balance_total_body">Total Balance in %s</string>
-  <string name="balance_topup_body">You can top up your wallet with AppCoins Credits.</string>
-  <string name="balance_ethereum_body">Ethereum is the cryptocurrency that AppCoins are based on. You can buy and sell them in most exchanges, it\'s very popular!</string>
+  <string name="balance_title">Guthaben</string>
+  <string name="balance_total_body">Gesamguthaben in %s</string>
+  <string name="balance_topup_body">Sie können ihr Wallet mit AppCoins Credits aufladen.</string>
+  <string name="balance_ethereum_body">AppCoins basiert auf der Kryptowährung Ethereum. Sie kann in den Kryptobörsen gekauft und verkauft werden da sie sehr beleibt ist!</string>
   <string name="balance_appcoins_body">AppCoins is the cryptocurrency for the app economy. You can buy and sell it on several exchanges and use it to purchase in-app items.</string>
   <string name="balance_appccreditos_body">The token to buy in-app items! Top up APPC-C from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
   <!--Ask a friend for funds-->
