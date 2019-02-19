@@ -318,18 +318,18 @@
   <string name="balance_total_body">Gesamguthaben in %s</string>
   <string name="balance_topup_body">Sie können ihr Wallet mit AppCoins Credits aufladen.</string>
   <string name="balance_ethereum_body">AppCoins basiert auf der Kryptowährung Ethereum. Sie kann in den Kryptobörsen gekauft und verkauft werden da sie sehr beleibt ist!</string>
-  <string name="balance_appcoins_body">AppCoins is the cryptocurrency for the app economy. You can buy and sell it on several exchanges and use it to purchase in-app items.</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up APPC-C from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_appcoins_body">AppCoins ist die Kryptowährung für die App-Economy. Sie können AppCoins an mehreren Börsen kaufen und verkaufen und sie für den In-App Kauf von Artikeln verwenden.</string>
+  <string name="balance_appccreditos_body">Das Token für den In-App Einkauf von Artikeln. Laden Sie APPC-Credits auf ihr Wallet und erhalten Sie sie gratis für die Verwendung von Apps. Sie können aber auch unter Freunden übertragen werden!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Ask a friend</string>
-  <string name="askafriend_share_body">Share the link with your friend so they can send you the funds!</string>
-  <string name="askafriend_share_add_message_body">Add Message (Optional)</string>
-  <string name="askafriend_share_button">Share</string>
-  <string name="askafriend_received_body">You just received %s APPC-C</string>
-  <string name="askafriend_received_title">Transfer Received</string>
-  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on World Jungle. Link: %2$s</string>
+  <string name="askafriend_payment_option_button">Fragen Sie einen Freund</string>
+  <string name="askafriend_share_body">Teilen Sie diesen Link mit ihren Freunden damit sie ihnen Geld überweisen können!</string>
+  <string name="askafriend_share_add_message_body">Nachricht hinzufügen (Optional)</string>
+  <string name="askafriend_share_button">Teilen</string>
+  <string name="askafriend_received_body">Sie haben gerade %s APPC-Cs erhalten</string>
+  <string name="askafriend_received_title">Überweisung erhalten</string>
+  <string name="askafriend_share_note_to_friend">Hallo! Bitte senden Sie mit %1$s AppCoins Credits, um ein Artikel bei World Jungle zu kaufen. Link %2$s</string>
   <!--P2P Send-->
-  <string name="p2p_send_title">Send Funds</string>
-  <string name="p2p_send_body">Scan or enter your friend\'s wallet address.</string>
-  <string name="p2p_send_confirmation_message">%1$s %2$s were sent to the following address:</string>
+  <string name="p2p_send_title">Guthaben senden</string>
+  <string name="p2p_send_body">Wallet-Adresse ihres Freundes eingeben oder scannen.</string>
+  <string name="p2p_send_confirmation_message">%1$s %2$s wurden an die folgende Adresse übertragen:</string>
 </resources>
