@@ -23,7 +23,7 @@
   <string name="title_activity_settings">Tetapan</string>
   <string name="network_label">Rangkaian</string>
   <string name="credits">Kredit</string>
-  <string name="new">New</string>
+  <string name="new">Baharu</string>
   <string name="low_storage_error">Tidak cukup ruang simpanan</string>
   <string name="no_camera_permission">AppCoins BDS Wallet memerlukan kebenaran untuk mengakses kamera anda untuk mengimbas kod QR.</string>
   <string name="ok">Ok</string>
@@ -220,7 +220,7 @@
   <string name="transaction_type_standard">Pemindahan</string>
   <string name="transaction_type_bonus">Bonus</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
-  <string name="transaction_type_p2p">P2P Transfer</string>
+  <string name="transaction_type_p2p">Pindahan P2P</string>
   <string name="transaction_details_brand_txt">Dikuasakan Oleh Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
@@ -292,7 +292,7 @@
   <string name="gamification_galaxy_subtitle">Sistem terbesar di angkasa!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Anda dapat Bonus!</string>
-  <string name="gamification_purchase_body">You\'ll get %s APPC Credits for this purchase.</string>
+  <string name="gamification_purchase_body">Anda akan dapat %s Kredit APPC untuk pembelian ini.</string>
   <string name="action_level">Tahap Saya</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Izinkan Dompet AppCoins untuk berikan alamat dompet anda kepada %s.</string>
@@ -306,30 +306,30 @@
   <string name="provide_wallet_empty_state">Anda belum izinkan Dompet AppCoins untuk berikan alamat anda kepada mana-mana aplikasi.</string>
   <string name="provide_wallet_status">Izinkan akses kepada alamat dompet</string>
   <!-- Top Up -->
-  <string name="topup_home_button">Top Up</string>
-  <string name="topup_title">Top Up</string>
+  <string name="topup_home_button">Tambah Nilai</string>
+  <string name="topup_title">Tambah Nilai</string>
   <string name="topup_amount">%s APPC-C</string>
-  <string name="topup_bonus_header">You\'ve got a Bonus!</string>
-  <string name="topup_bonus_message">%s APPC-C extra will be credited in your wallet.</string>
-  <string name="topup_completed_1">%1$s APPC Credits</string>
-  <string name="topup_completed_2">were credited in your account.</string>
+  <string name="topup_bonus_header">Anda dapat Bonus!</string>
+  <string name="topup_bonus_message">%s tambahan APPC-C akan dikreditkan dalam dompet anda.</string>
+  <string name="topup_completed_1">%1$s Kredit APPC</string>
+  <string name="topup_completed_2">telah dikreditkan dalam akaun anda.</string>
   <!--Balance-->
-  <string name="balance_title">Balance</string>
-  <string name="balance_total_body">Total Balance in %s</string>
-  <string name="balance_topup_body">You can top up your wallet with AppCoins Credits.</string>
-  <string name="balance_ethereum_body">Ethereum is the cryptocurrency that AppCoins are based on. You can buy and sell them in most exchanges, it\'s very popular!</string>
-  <string name="balance_appcoins_body">AppCoins is the cryptocurrency for the app economy. You can buy and sell it on several exchanges and use it to purchase in-app items.</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up APPC-C from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_title">Baki</string>
+  <string name="balance_total_body">Jumlah Baki dalam %s</string>
+  <string name="balance_topup_body">Anda boleh tambah nilai dompet anda dengan Kredit AppCoins.</string>
+  <string name="balance_ethereum_body">Ethereum ialah mata wang kripto yang digunakan dalam AppCoins. Anda boleh membeli dan menjualnya dalam pelbagai urus niaga, ia sangat popular!</string>
+  <string name="balance_appcoins_body">AppCoins ialah mata wang kripto untuk ekonomi aplikasi. Anda boleh membeli dan menjualnya dalam pelbagai urus niaga dan menggunakannya untuk membeli item dalam aplikasi.</string>
+  <string name="balance_appccreditos_body">Token untuk membeli item dalam aplikasi! Tambah nilai APPC-C daripada dompet anda atau dapatkannya secara percuma dengan menggunakan aplikasi. Ia juga boleh dipindahkan antara rakan!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Ask a friend</string>
-  <string name="askafriend_share_body">Share the link with your friend so they can send you the funds!</string>
-  <string name="askafriend_share_add_message_body">Add Message (Optional)</string>
-  <string name="askafriend_share_button">Share</string>
-  <string name="askafriend_received_body">You just received %s APPC-C</string>
-  <string name="askafriend_received_title">Transfer Received</string>
-  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on World Jungle. Link: %2$s</string>
+  <string name="askafriend_payment_option_button">Minta daripada rakan</string>
+  <string name="askafriend_share_body">Kongsi pautan ini dengan rakan anda supaya mereka boleh hantar dana tersebut kepada anda!</string>
+  <string name="askafriend_share_add_message_body">Tambah Mesej (Pilihan)</string>
+  <string name="askafriend_share_button">Kongsi</string>
+  <string name="askafriend_received_body">Anda baru saja terima %s APPC-C</string>
+  <string name="askafriend_received_title">Pindahan Diterima</string>
+  <string name="askafriend_share_note_to_friend">Hai! Sila hantarkan %1$s Kredit AppCoins kepada saya untuk membeli item dalam World Jungle. Pautan: %2$s</string>
   <!--P2P Send-->
-  <string name="p2p_send_title">Send Funds</string>
-  <string name="p2p_send_body">Scan or enter your friend\'s wallet address.</string>
-  <string name="p2p_send_confirmation_message">%1$s %2$s were sent to the following address:</string>
+  <string name="p2p_send_title">Hantar Dana</string>
+  <string name="p2p_send_body">Imbas atau masukkan alamat dompet rakan anda.</string>
+  <string name="p2p_send_confirmation_message">%1$s %2$s telah dihantar ke alamat yang berikut:</string>
 </resources>
