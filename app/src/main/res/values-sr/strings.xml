@@ -23,7 +23,7 @@
   <string name="title_activity_settings">Podešavanja</string>
   <string name="network_label">Mreža</string>
   <string name="credits">Autori</string>
-  <string name="new">New</string>
+  <string name="new">Novo</string>
   <string name="low_storage_error">Nema dovoljno prostora u memoriji</string>
   <string name="no_camera_permission">Aplikaciji AppCoins BDS Wallet je potrebna dozvola za pristup kameri kako bi skenirala QR kodove.</string>
   <string name="ok">U redu</string>
@@ -220,7 +220,7 @@
   <string name="transaction_type_standard">Prenos</string>
   <string name="transaction_type_bonus">Bonus</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
-  <string name="transaction_type_p2p">P2P Transfer</string>
+  <string name="transaction_type_p2p">Prenos P2P</string>
   <string name="transaction_details_brand_txt">Omogućuje Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
@@ -292,7 +292,7 @@
   <string name="gamification_galaxy_subtitle">Najveći sistem koji postoji!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Dobili ste bonus!</string>
-  <string name="gamification_purchase_body">You\'ll get %s APPC Credits for this purchase.</string>
+  <string name="gamification_purchase_body">Dobićete APPC kredit (%s) za ovu kupovinu.</string>
   <string name="action_level">Moj nivo</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Dozvolite aplikaciji AppCoins Wallet da adresu vašeg novčanika pošalje aplikaciji %s.</string>
@@ -306,30 +306,30 @@
   <string name="provide_wallet_empty_state">Još niste dozvolili aplikaciji AppCoins Wallet da vašu adresu pošalje bilo kojoj drugoj aplikaciji.</string>
   <string name="provide_wallet_status">Dozvoli pristup adresi novčanika</string>
   <!-- Top Up -->
-  <string name="topup_home_button">Top Up</string>
-  <string name="topup_title">Top Up</string>
+  <string name="topup_home_button">Dopunite</string>
+  <string name="topup_title">Dopunite</string>
   <string name="topup_amount">%s APPC-C</string>
-  <string name="topup_bonus_header">You\'ve got a Bonus!</string>
-  <string name="topup_bonus_message">%s APPC-C extra will be credited in your wallet.</string>
-  <string name="topup_completed_1">%1$s APPC Credits</string>
-  <string name="topup_completed_2">were credited in your account.</string>
+  <string name="topup_bonus_header">Dobili ste bonus!</string>
+  <string name="topup_bonus_message">Dodatak od %s APPC-C će biti dodat u vaš novčanik.</string>
+  <string name="topup_completed_1">APPC kredit (%1$s)</string>
+  <string name="topup_completed_2">dodat je na vaš nalog.</string>
   <!--Balance-->
-  <string name="balance_title">Balance</string>
-  <string name="balance_total_body">Total Balance in %s</string>
-  <string name="balance_topup_body">You can top up your wallet with AppCoins Credits.</string>
-  <string name="balance_ethereum_body">Ethereum is the cryptocurrency that AppCoins are based on. You can buy and sell them in most exchanges, it\'s very popular!</string>
-  <string name="balance_appcoins_body">AppCoins is the cryptocurrency for the app economy. You can buy and sell it on several exchanges and use it to purchase in-app items.</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up APPC-C from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_title">Stanje</string>
+  <string name="balance_total_body">Ukupno stanje u %s</string>
+  <string name="balance_topup_body">Možete da dopunite novčanik AppCoins kreditom.</string>
+  <string name="balance_ethereum_body">Ethereum je kriptovaluta na kojoj su zasnovani AppCoins. Možete da je kupite i prodate na većini berzi – veoma je popularna!</string>
+  <string name="balance_appcoins_body">AppCoins je kriptovaluta za ekonomiju aplikacija. Možete da je kupite i prodate na nekoliko berzi i koristite je za kupovine u aplikacijama.</string>
+  <string name="balance_appccreditos_body">Token za kupovine u aplikacijama! Dopunite APPC-C iz novčanika ili ih dobijte besplatno tako što ćete koristiti aplikacije. Možete i da ih prenesete prijateljima, kao i oni vama!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Ask a friend</string>
-  <string name="askafriend_share_body">Share the link with your friend so they can send you the funds!</string>
-  <string name="askafriend_share_add_message_body">Add Message (Optional)</string>
-  <string name="askafriend_share_button">Share</string>
-  <string name="askafriend_received_body">You just received %s APPC-C</string>
-  <string name="askafriend_received_title">Transfer Received</string>
-  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on World Jungle. Link: %2$s</string>
+  <string name="askafriend_payment_option_button">Zatražite od prijatelja</string>
+  <string name="askafriend_share_body">Podelite ovaj link sa prijateljem da bi mogao da vam pošalje sredstva!</string>
+  <string name="askafriend_share_add_message_body">Dodajte poruku (izborno)</string>
+  <string name="askafriend_share_button">Podeli</string>
+  <string name="askafriend_received_body">Upravo ste dobili %s APPC-C</string>
+  <string name="askafriend_received_title">Prenos je primljen</string>
+  <string name="askafriend_share_note_to_friend">Zdravo! Molim te da mi pošalješ AppCoins kredit (%1$s) da kupim nešto u igri World Jungle. Link: %2$s</string>
   <!--P2P Send-->
-  <string name="p2p_send_title">Send Funds</string>
-  <string name="p2p_send_body">Scan or enter your friend\'s wallet address.</string>
-  <string name="p2p_send_confirmation_message">%1$s %2$s were sent to the following address:</string>
+  <string name="p2p_send_title">Pošaljite sredstva</string>
+  <string name="p2p_send_body">Skenirajte ili unesite adresu novčanika svog prijatelja.</string>
+  <string name="p2p_send_confirmation_message">%1$s %2$s – poslato na sledeću adresu:</string>
 </resources>
