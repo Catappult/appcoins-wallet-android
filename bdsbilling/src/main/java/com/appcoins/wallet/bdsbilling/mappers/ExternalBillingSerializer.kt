@@ -30,21 +30,21 @@ class ExternalBillingSerializer {
   }
 
   private fun getBasePrice(product: Product): String {
-    return if (product.price.base == "appc")
+    return if (product.price.base.equals(APPC, true))
       getAppcPrice(product)
     else
       getFiatPrice(product)
   }
 
   private fun getBasePriceInMicro(product: Product): Int {
-    return if (product.price.base == "appc")
+    return if (product.price.base.equals(APPC, true))
       getAppcPriceInMicro(product)
     else
       getFiatPriceInMicro(product)
   }
 
   private fun getBaseCurrency(product: Product): String {
-    return if (product.price.base == "appc")
+    return if (product.price.base.equals(APPC, true))
       APPC
     else
       product.price.currency
