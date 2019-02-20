@@ -62,7 +62,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private Dialog dialog;
   private EmptyTransactionsView emptyView;
   private RecyclerView list;
-  private MenuItem levelMenuItem;
 
   public static Intent newIntent(Context context) {
     Intent intent = new Intent(context, TransactionsActivity.class);
