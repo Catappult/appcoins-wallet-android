@@ -37,6 +37,7 @@ class MyLevelPresenter(private val view: MyLevelView,
               view.updateLevel(it)
               if (it.bonus.isNotEmpty()) view.showHowItWorksButton()
             }
+            .flatMapCompletable { gamification.levelShown(it.level) }
             .subscribe())
   }
 
@@ -50,7 +51,7 @@ class MyLevelPresenter(private val view: MyLevelView,
         }
       }
       val nextLevelAmount = userStats.nextLevelAmount?.minus(
-          userStats.totalSpend)?.setScale(2, RoundingMode.HALF_UP)?: BigDecimal.ZERO
+          userStats.totalSpend)?.setScale(2, RoundingMode.HALF_UP) ?: BigDecimal.ZERO
       status =
           UserRewardsStatus(userStats.level, nextLevelAmount, list)
     }
