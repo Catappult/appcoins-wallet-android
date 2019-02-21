@@ -1,3 +1,7 @@
 package com.asfoundation.wallet.ui.transact
 
-interface TransactFragmentView
+import io.reactivex.Observable
+
+interface TransactFragmentView {
+  fun getSendClick(): Observable<Any>
+}

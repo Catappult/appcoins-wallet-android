@@ -44,6 +44,7 @@
   </com.google.android.material.textfield.TextInputLayout>
 
   <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/transact_fragment_amount_layout"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginEnd="32dp"
@@ -61,4 +62,17 @@
         />
   </com.google.android.material.textfield.TextInputLayout>
 
+  <Button
+      android:id="@+id/send_button"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="32dp"
+      android:layout_marginStart="32dp"
+      android:layout_marginTop="128dp"
+      android:text="@string/action_send"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/transact_fragment_amount_layout"
+      style="@style/ButtonStyle"
+      />
 </androidx.constraintlayout.widget.ConstraintLayout>
