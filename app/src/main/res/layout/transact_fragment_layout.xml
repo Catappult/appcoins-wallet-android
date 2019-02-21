@@ -57,11 +57,14 @@
     <EditText
         android:id="@+id/transact_fragment_amount"
         android:layout_width="match_parent"
+        android:inputType="numberDecimal"
         android:layout_height="wrap_content"
         android:hint="@string/hint_amount"
         />
   </com.google.android.material.textfield.TextInputLayout>
-
+  <include
+      layout="@layout/currency_choose_layout"
+      />
   <Button
       android:id="@+id/send_button"
       android:layout_width="0dp"
