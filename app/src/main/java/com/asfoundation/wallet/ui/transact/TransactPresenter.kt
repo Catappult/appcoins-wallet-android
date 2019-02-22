@@ -4,7 +4,8 @@ import android.util.Log
 import io.reactivex.disposables.CompositeDisposable
 
 class TransactPresenter(private val view: TransactFragmentView,
-                        private val disposables: CompositeDisposable) {
+                        private val disposables: CompositeDisposable,
+                        private val interactor: TransferInteractor) {
   companion object {
     private val TAG = TransactPresenter::class.java.simpleName
   }

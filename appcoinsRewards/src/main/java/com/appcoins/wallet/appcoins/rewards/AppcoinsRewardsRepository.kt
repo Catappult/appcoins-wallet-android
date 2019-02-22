@@ -1,6 +1,7 @@
 package com.appcoins.wallet.appcoins.rewards
 
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
+import io.reactivex.Completable
 import io.reactivex.Single
 import java.math.BigDecimal
 
@@ -16,4 +17,8 @@ interface AppcoinsRewardsRepository {
           payload: String?,
           callback: String?,
           orderReference: String?): Single<Transaction>
+
+  fun sendCredits(toAddress: String, walletAddress: String, signature: String, amount: BigDecimal,
+                  origin: String,
+                  type: String, packageName: String): Completable
 }

@@ -11,6 +11,7 @@ import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.currency_choose_layout.*
 import kotlinx.android.synthetic.main.transact_fragment_layout.*
+import javax.inject.Inject
 
 class TransactFragment : DaggerFragment(), TransactFragmentView {
   companion object {
@@ -20,10 +21,12 @@ class TransactFragment : DaggerFragment(), TransactFragmentView {
   }
 
   private lateinit var presenter: TransactPresenter
+  @Inject
+  lateinit var interactor: TransferInteractor
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = TransactPresenter(this, CompositeDisposable())
+    presenter = TransactPresenter(this, CompositeDisposable(), interactor)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

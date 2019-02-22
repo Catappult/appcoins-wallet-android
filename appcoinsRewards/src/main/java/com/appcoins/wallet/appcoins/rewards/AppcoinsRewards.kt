@@ -104,4 +104,14 @@ class AppcoinsRewards(
 
   private fun getKey(amount: String? = "", sku: String? = "", packageName: String): String =
       amount + sku + packageName
+
+  fun sendCredits(toWallet: String, amount: BigDecimal, packageName: String): Completable {
+    return walletService.getWalletAddress()
+        .flatMapCompletable { walletAddress ->
+          walletService.signContent(walletAddress).flatMapCompletable { signature ->
+            repository.sendCredits(toWallet, walletAddress, signature, amount, "BDS", "TRANSFER",
+                packageName)
+          }
+        }
+  }
 }

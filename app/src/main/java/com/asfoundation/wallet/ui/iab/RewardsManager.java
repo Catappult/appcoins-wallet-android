@@ -10,6 +10,7 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
+import org.jetbrains.annotations.NotNull;
 
 public class RewardsManager {
   private final AppcoinsRewards appcoinsRewards;
@@ -63,6 +64,10 @@ public class RewardsManager {
     }
     throw new UnsupportedOperationException(
         "Transaction status " + transaction.getStatus() + " not supported");
+  }
+
+  public Completable sendCredits(@NotNull String toWallet, BigDecimal amount, String packageName) {
+    return appcoinsRewards.sendCredits(toWallet, amount, packageName);
   }
 
   static class RewardPayment {

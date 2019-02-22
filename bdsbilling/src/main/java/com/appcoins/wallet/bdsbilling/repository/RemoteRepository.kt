@@ -119,6 +119,15 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
     return bdsApiSecondary.getWallet(packageName)
   }
 
+  fun transferCredits(toWallet: String, origin: String, type: String, gateway: String,
+                      walletAddress: String, signature: String, packageName: String,
+                      amount: BigDecimal): Completable {
+    return api.createTransaction(gateway, origin, packageName, amount.toPlainString(),
+        "APPC", null, type, toWallet, null, null, null,
+        null, null, null, walletAddress, signature).toCompletable()
+
+  }
+
   interface BdsApi {
 
     @GET("inapp/8.20180518/packages/{packageName}")
@@ -194,9 +203,9 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                           @Field("price.currency") priceCurrency: String,
                           @Field("product") product: String?,
                           @Field("type") type: String,
-                          @Field("wallets.developer") walletsDeveloper: String,
-                          @Field("wallets.store") walletsStore: String,
-                          @Field("wallets.oem") walletsOem: String,
+                          @Field("wallets.developer") walletsDeveloper: String?,
+                          @Field("wallets.store") walletsStore: String?,
+                          @Field("wallets.oem") walletsOem: String?,
                           @Field("token") token: String?,
                           @Field("metadata") developerPayload: String?,
                           @Field("callback_url") callback: String?,

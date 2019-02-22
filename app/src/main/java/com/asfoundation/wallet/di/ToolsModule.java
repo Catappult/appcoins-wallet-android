@@ -142,6 +142,7 @@ import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase;
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer;
 import com.asfoundation.wallet.ui.iab.raiden.NonceObtainerFactory;
 import com.asfoundation.wallet.ui.iab.raiden.Web3jNonceProvider;
+import com.asfoundation.wallet.ui.transact.TransferInteractor;
 import com.asfoundation.wallet.util.EIPTransactionParser;
 import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.OneStepTransactionParser;
@@ -436,6 +437,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides Calculator provideMessageDigest() {
     return new Calculator();
+  }
+
+  @Singleton @Provides TransferInteractor provideTransferInteractor(
+      @NotNull RewardsManager rewardsManager) {
+    return new TransferInteractor(rewardsManager);
   }
 
   @Singleton @Provides GasSettingsRepositoryType provideGasSettingsRepository(
