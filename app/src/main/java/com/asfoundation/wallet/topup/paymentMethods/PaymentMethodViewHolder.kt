@@ -1,28 +1,21 @@
 package com.asfoundation.wallet.topup.paymentMethods
 
 import android.view.View
-import android.widget.ImageView
-import android.widget.RadioButton
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import com.asf.wallet.R
+import kotlinx.android.synthetic.main.top_up_payment_method_item.view.*
 
-/**
- * Created by Joao Raimundo on 13/02/2019.
- */
-class PaymentMethodViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-  private val radioButton: RadioButton = itemView.findViewById(R.id.radio_button)
-  private val icon: ImageView = itemView.findViewById(R.id.payment_method_ic)
-  private val text: TextView = itemView.findViewById(R.id.payment_method_description)
+class PaymentMethodViewHolder(itemView: View) :
+    RecyclerView.ViewHolder(itemView) {
 
-  fun bind(data: PaymentMethodData) {
+  fun bind(data: PaymentMethodData, checked: Boolean, listener: View.OnClickListener) {
     Picasso.with(itemView.context)
         .load(data.imageSrc)
-        .into(icon)
-    text.text = data.description
-    radioButton.isEnabled = true
+        .into(itemView.payment_method_ic)
+    itemView.payment_method_description.text = data.description
+    itemView.radio_button.isChecked = checked
+    itemView.radio_button.setOnClickListener(listener)
   }
 }
 
-class PaymentMethodData(val imageSrc: String, val description: String)
+data class PaymentMethodData(val imageSrc: String, val description: String)

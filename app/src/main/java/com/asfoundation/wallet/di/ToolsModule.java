@@ -119,6 +119,7 @@ import com.asfoundation.wallet.service.RealmManager;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.TrustWalletTickerService;
+import com.asfoundation.wallet.topup.TopUpInteractor;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper;
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor;
@@ -735,7 +736,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     };
   }
 
-  @Singleton @Provides AnalyticsAPI provideAnalyticsAPI(OkHttpClient client, ObjectMapper objectMapper) {
+  @Singleton @Provides AnalyticsAPI provideAnalyticsAPI(OkHttpClient client,
+      ObjectMapper objectMapper) {
     return new Retrofit.Builder().baseUrl("http://ws75.aptoide.com/api/7/")
         .client(client)
         .addConverterFactory(JacksonConverterFactory.create(objectMapper))
@@ -841,5 +843,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Provides ObjectMapper providesObjectMapper() {
     return new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+  }
+
+  @Singleton @Provides TopUpInteractor providesTopUpInteractor(BdsRepository repository,
+      LocalCurrencyConversionService conversionService) {
+    return new TopUpInteractor(repository, conversionService);
   }
 }
