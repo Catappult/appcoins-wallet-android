@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
+import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository;
 import com.appcoins.wallet.appcoins.rewards.Transaction;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
@@ -66,7 +67,8 @@ public class RewardsManager {
         "Transaction status " + transaction.getStatus() + " not supported");
   }
 
-  public Completable sendCredits(@NotNull String toWallet, BigDecimal amount, String packageName) {
+  public Single<AppcoinsRewardsRepository.Status> sendCredits(@NotNull String toWallet,
+      BigDecimal amount, String packageName) {
     return appcoinsRewards.sendCredits(toWallet, amount, packageName);
   }
 

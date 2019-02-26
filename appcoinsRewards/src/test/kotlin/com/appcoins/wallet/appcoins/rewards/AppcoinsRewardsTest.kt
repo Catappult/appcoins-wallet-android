@@ -12,12 +12,15 @@ import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import io.reactivex.schedulers.TestScheduler
 import io.reactivex.subjects.BehaviorSubject
+import okhttp3.ResponseBody
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
+import retrofit2.HttpException
+import retrofit2.Response
 import java.math.BigDecimal
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
@@ -172,6 +175,29 @@ class AppcoinsRewardsTest {
   fun transferCredits() {
     val test = appcoinsRewards.sendCredits(DEVELOPER_ADDRESS, PRICE, PACKAGE_NAME).test()
     scheduler.triggerActions()
+    test.assertNoErrors().assertComplete().assertValue(AppcoinsRewardsRepository.Status.SUCCESS)
+  }
+
+  @Test
+  fun transferCreditsNetworkError() {
+    `when`(remoteApi.sendCredits(DEVELOPER_ADDRESS, USER_ADDRESS, USER_ADDRESS_SIGANTURE, PRICE,
+        BDS_ORIGIN, TYPE_TRANSFER, PACKAGE_NAME)).thenReturn(
+        Completable.error(HttpException(
+            Response.error<AppcoinsRewardsRepository.Status>(400, ResponseBody.create(null, "")))))
+    val test = appcoinsRewards.sendCredits(DEVELOPER_ADDRESS, PRICE, PACKAGE_NAME).test()
+    scheduler.triggerActions()
     test.assertNoErrors().assertComplete()
+        .assertValue(AppcoinsRewardsRepository.Status.API_ERROR)
+  }
+
+  @Test
+  fun transferCreditsUnknownError() {
+    `when`(remoteApi.sendCredits(DEVELOPER_ADDRESS, USER_ADDRESS, USER_ADDRESS_SIGANTURE, PRICE,
+        BDS_ORIGIN, TYPE_TRANSFER, PACKAGE_NAME)).thenReturn(
+        Completable.error(NullPointerException()))
+    val test = appcoinsRewards.sendCredits(DEVELOPER_ADDRESS, PRICE, PACKAGE_NAME).test()
+    scheduler.triggerActions()
+    test.assertNoErrors().assertComplete()
+        .assertValue(AppcoinsRewardsRepository.Status.UNKNOWN_ERROR)
   }
 }
