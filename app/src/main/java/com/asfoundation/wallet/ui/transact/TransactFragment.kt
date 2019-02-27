@@ -42,6 +42,7 @@ class TransactFragment : DaggerFragment(), TransactFragmentView {
   @Inject
   lateinit var defaultTokenInfoProvider: DefaultTokenProvider
 
+  lateinit var navigator: TransactNavigator
   lateinit var activityResultSharer: ActivityResultSharer
   private var disposable: Disposable? = null
 
@@ -78,6 +79,10 @@ class TransactFragment : DaggerFragment(), TransactFragmentView {
     }.ignoreElement()
   }
 
+  override fun openAppcCreditsConfirmationView(): Completable {
+    return Completable.fromAction { navigator.openAppcoinsCreditsSuccess() }
+  }
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
     return inflater.inflate(R.layout.transact_fragment_layout, container, false)
@@ -92,6 +97,11 @@ class TransactFragment : DaggerFragment(), TransactFragmentView {
     super.onAttach(context)
     when (context) {
       is ActivityResultSharer -> activityResultSharer = context
+      else -> throw IllegalArgumentException(
+          "${this.javaClass.simpleName} has to be attached to an activity that implements ${ActivityResultSharer::class}")
+    }
+    when (context) {
+      is TransactNavigator -> navigator = context
       else -> throw IllegalArgumentException(
           "${this.javaClass.simpleName} has to be attached to an activity that implements ${ActivityResultSharer::class}")
     }

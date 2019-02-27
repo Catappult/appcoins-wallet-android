@@ -31,6 +31,7 @@ import com.asfoundation.wallet.ui.iab.IabActivity;
 import com.asfoundation.wallet.ui.iab.OnChainBuyFragment;
 import com.asfoundation.wallet.ui.iab.PaymentMethodsFragment;
 import com.asfoundation.wallet.ui.iab.WebViewActivity;
+import com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransactSuccessFragment;
 import com.asfoundation.wallet.ui.transact.TransactFragment;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -118,4 +119,7 @@ import dagger.android.ContributesAndroidInjector;
 
   @ContributesAndroidInjector(modules = ConfirmationModule.class)
   abstract TransactFragment bindTransactFragment();
+
+  @ContributesAndroidInjector()
+  abstract AppcoinsCreditsTransactSuccessFragment bindAppcoinsCreditsTransactSuccessFragment();
 }

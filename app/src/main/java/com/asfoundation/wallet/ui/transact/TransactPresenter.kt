@@ -26,7 +26,8 @@ class TransactPresenter(private val view: TransactFragmentView,
         .flatMapCompletable {
           return@flatMapCompletable when (it.currency) {
             TransactFragmentView.Currency.APPC_C -> interactor.transferCredits(it.walletAddress,
-                it.amount, packageName).ignoreElement()
+                it.amount,
+                packageName).flatMapCompletable { view.openAppcCreditsConfirmationView() }
             TransactFragmentView.Currency.ETH -> walletInteract.find().flatMapCompletable { wallet ->
               view.openEthConfirmationView(wallet.address, it.walletAddress, it.amount)
             }

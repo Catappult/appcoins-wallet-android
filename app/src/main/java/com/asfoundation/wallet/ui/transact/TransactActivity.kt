@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
 
-class TransactActivity : BaseActivity(), TransactActivityView {
+class TransactActivity : BaseActivity(), TransactActivityView, TransactNavigator {
   private lateinit var presenter: TransactActivityPresenter
 
   companion object {
@@ -27,5 +27,11 @@ class TransactActivity : BaseActivity(), TransactActivityView {
   override fun showTransactFragment() {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, TransactFragment.newInstance()).commit()
+  }
+
+  override fun openAppcoinsCreditsSuccess() {
+    supportFragmentManager.beginTransaction()
+        .replace(R.id.fragment_container, AppcoinsCreditsTransactSuccessFragment.newInstance())
+        .commit()
   }
 }
