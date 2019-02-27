@@ -263,6 +263,8 @@
   <string name="gamification_home_button">COMENZAR A GANAR</string>
   <string name="gamification_level_title">¿Cuál es mi nivel?</string>
   <string name="gamification_level_title_new">¡Obtén APPC Credits!</string>
+  <string name="gamification_level_on_graphic">Level %s</string>
+  <string name="gamification_APPCapps_button">Apps &amp; games</string>
   <string name="gamification_level_header">¡Enhorabuena, eres %s!</string>
   <string name="gamification_level_to_next">Para el siguiente nivel:</string>
   <string name="gamification_level_earned">GANADO:</string>
@@ -332,4 +334,14 @@
   <string name="p2p_send_title">Envío de Fondos</string>
   <string name="p2p_send_body">Escanea o introduce la dirección de la wallet de tu amigo.</string>
   <string name="p2p_send_confirmation_message">Se enviaron %1$s %2$s a la siguiente dirección:</string>
+  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s&gt;</string>
+  <string name="p2p_send_error_address">Invalid address</string>
+  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
+  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
+  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <!--Common-->
+  <string name="error_general">Something went wrong</string>
+  <string name="error_missing_field">Mandatory field</string>
+  <!--Onboarding-->
+  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
 </resources>
