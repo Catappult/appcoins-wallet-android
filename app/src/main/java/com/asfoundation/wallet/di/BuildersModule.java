@@ -116,5 +116,6 @@ import dagger.android.ContributesAndroidInjector;
 
   @ContributesAndroidInjector() abstract PermissionsListFragment bindPermissionsListFragment();
 
-  @ContributesAndroidInjector() abstract TransactFragment bindTransactFragment();
+  @ContributesAndroidInjector(modules = ConfirmationModule.class)
+  abstract TransactFragment bindTransactFragment();
 }

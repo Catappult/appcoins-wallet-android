@@ -1,7 +1,8 @@
 package com.asfoundation.wallet.ui.transact
 
+import com.asfoundation.wallet.interact.FindDefaultWalletInteract
+import io.reactivex.Completable
 import io.reactivex.Scheduler
-import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 
 class TransactPresenter(private val view: TransactFragmentView,
@@ -9,6 +10,7 @@ class TransactPresenter(private val view: TransactFragmentView,
                         private val interactor: TransferInteractor,
                         private val ioScheduler: Scheduler,
                         private val viewScheduler: Scheduler,
+                        private val walletInteract: FindDefaultWalletInteract,
                         private val packageName: String) {
   companion object {
     private val TAG = TransactPresenter::class.java.simpleName
@@ -22,11 +24,16 @@ class TransactPresenter(private val view: TransactFragmentView,
     disposables.add(view.getSendClick()
         .subscribeOn(viewScheduler)
         .observeOn(ioScheduler)
-        .flatMapSingle {
-          return@flatMapSingle when (it.currency) {
+        .flatMapCompletable {
+          return@flatMapCompletable when (it.currency) {
             TransactFragmentView.Currency.APPC_C -> interactor.transferCredits(it.walletAddress,
-                it.amount, packageName)
-            else -> Single.error { UnsupportedOperationException("${it.currency} not supported") }
+                it.amount, packageName).ignoreElement()
+            TransactFragmentView.Currency.ETH -> walletInteract.find().flatMapCompletable { wallet ->
+              view.openEthConfirmationView(wallet.address, it.walletAddress, it.amount)
+            }
+            else -> Completable.error {
+              UnsupportedOperationException("${it.currency} not supported")
+            }
           }
 
         }.doOnError { error -> error.printStackTrace() }

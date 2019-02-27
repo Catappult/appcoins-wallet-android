@@ -5,14 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
+import com.asfoundation.wallet.entity.TokenInfo
+import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.interact.FindDefaultWalletInteract
+import com.asfoundation.wallet.router.ConfirmationRouter
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.currency_choose_layout.*
 import kotlinx.android.synthetic.main.transact_fragment_layout.*
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class TransactFragment : DaggerFragment(), TransactFragmentView {
@@ -25,11 +31,26 @@ class TransactFragment : DaggerFragment(), TransactFragmentView {
   private lateinit var presenter: TransactPresenter
   @Inject
   lateinit var interactor: TransferInteractor
+  @Inject
+  lateinit var confirmationRouter: ConfirmationRouter
+  @Inject
+  lateinit var findDefaultWalletInteract: FindDefaultWalletInteract
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter = TransactPresenter(this, CompositeDisposable(), interactor, Schedulers.io(),
-        AndroidSchedulers.mainThread(), context!!.packageName)
+        AndroidSchedulers.mainThread(), findDefaultWalletInteract, context!!.packageName)
+  }
+
+  override fun openEthConfirmationView(walletAddress: String, toWalletAddress: String,
+                                       amount: BigDecimal): Completable {
+    return Completable.fromAction {
+      val transaction = TransactionBuilder(TokenInfo(null, "Ethereum", "ETH", 18, true, false))
+      transaction.amount(amount)
+      transaction.toAddress(toWalletAddress)
+      transaction.fromAddress(walletAddress)
+      confirmationRouter.open(activity, transaction)
+    }
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
