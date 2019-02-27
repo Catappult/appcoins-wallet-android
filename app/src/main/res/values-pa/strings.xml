@@ -263,6 +263,8 @@
   <string name="gamification_home_button">ਕਮਾਉਣਾ ਸ਼ੁਰੂ ਕਰੋ</string>
   <string name="gamification_level_title">ਮੇਰਾ ਪੱਧਰ ਕੀ ਹੈ?</string>
   <string name="gamification_level_title_new">ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪਾਓ!</string>
+  <string name="gamification_level_on_graphic">Level %s</string>
+  <string name="gamification_APPCapps_button">Apps &amp; games</string>
   <string name="gamification_level_header">ਵਧਾਈਆਂ, ਤੁਸੀਂ %s ਹੋ!</string>
   <string name="gamification_level_to_next">ਅਗਲੇ ਪੱਧਰ ਤੱਕ:</string>
   <string name="gamification_level_earned">ਕਮਾਇਆ:</string>
@@ -332,4 +334,14 @@
   <string name="p2p_send_title">ਫੰਡ ਭੇਜੋ</string>
   <string name="p2p_send_body">ਆਪਣੇ ਦੋਸਤ ਦੇ ਬਟੂਏ ਦਾ ਪਤਾ ਭਰੋ ਜਾਂ ਸਕੈਨ ਕਰੋ|</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s ਹੇਠ ਲਿਖੇ ਪਤੇ ਤੇ ਭੇਜੇ ਗਏ:</string>
+  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s&gt;</string>
+  <string name="p2p_send_error_address">Invalid address</string>
+  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
+  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
+  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <!--Common-->
+  <string name="error_general">Something went wrong</string>
+  <string name="error_missing_field">Mandatory field</string>
+  <!--Onboarding-->
+  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
 </resources>
