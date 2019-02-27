@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TokenInfo
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.router.ConfirmationRouter
 import com.jakewharton.rxbinding2.view.RxView
@@ -35,6 +36,8 @@ class TransactFragment : DaggerFragment(), TransactFragmentView {
   lateinit var confirmationRouter: ConfirmationRouter
   @Inject
   lateinit var findDefaultWalletInteract: FindDefaultWalletInteract
+  @Inject
+  lateinit var defaultTokenInfoProvider: DefaultTokenProvider
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -51,6 +54,18 @@ class TransactFragment : DaggerFragment(), TransactFragmentView {
       transaction.fromAddress(walletAddress)
       confirmationRouter.open(activity, transaction)
     }
+  }
+
+  override fun openAppcConfirmationView(walletAddress: String, toWalletAddress: String,
+                                        amount: BigDecimal): Completable {
+
+    return defaultTokenInfoProvider.defaultToken.doOnSuccess {
+      val transaction = TransactionBuilder(it)
+      transaction.amount(amount)
+      transaction.toAddress(toWalletAddress)
+      transaction.fromAddress(walletAddress)
+      confirmationRouter.open(activity, transaction)
+    }.ignoreElement()
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

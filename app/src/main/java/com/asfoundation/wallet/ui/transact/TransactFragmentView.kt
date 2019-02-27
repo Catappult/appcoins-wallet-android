@@ -9,6 +9,9 @@ interface TransactFragmentView {
   fun openEthConfirmationView(walletAddress: String, toWalletAddress: String,
                               amount: BigDecimal): Completable
 
+  fun openAppcConfirmationView(walletAddress: String, toWalletAddress: String,
+                               amount: BigDecimal): Completable
+
   data class TransactData(val walletAddress: String, val currency: Currency, val amount: BigDecimal)
 
   enum class Currency {
