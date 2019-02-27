@@ -263,6 +263,8 @@
   <string name="gamification_home_button">MULA PEROLEH</string>
   <string name="gamification_level_title">Apa Tahap Saya?</string>
   <string name="gamification_level_title_new">Dapatkan Kredit APPC!</string>
+  <string name="gamification_level_on_graphic">Level %s</string>
+  <string name="gamification_APPCapps_button">Apps &amp; games</string>
   <string name="gamification_level_header">Tahniah, anda ialah %s!</string>
   <string name="gamification_level_to_next">Ke tahap seterusnya:</string>
   <string name="gamification_level_earned">DIPEROLEH:</string>
@@ -332,4 +334,14 @@
   <string name="p2p_send_title">Hantar Dana</string>
   <string name="p2p_send_body">Imbas atau masukkan alamat dompet rakan anda.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s telah dihantar ke alamat yang berikut:</string>
+  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s&gt;</string>
+  <string name="p2p_send_error_address">Invalid address</string>
+  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
+  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
+  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <!--Common-->
+  <string name="error_general">Something went wrong</string>
+  <string name="error_missing_field">Mandatory field</string>
+  <!--Onboarding-->
+  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
 </resources>
