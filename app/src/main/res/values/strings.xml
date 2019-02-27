@@ -363,5 +363,7 @@
   <string name="error_general">Something went wrong</string>
   <string name="error_missing_field">Mandatory field</string>
 
+  <!--Onboarding-->
+  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
 
 </resources>
