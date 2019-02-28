@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.adyen.core.models.PaymentMethod;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
@@ -116,6 +116,8 @@ public class AdyenAuthorizationPresenter {
 
     handlePaymentMethodResults();
 
+    handleChangeCardMethodResults();
+
     handleAdyenUriRedirect();
 
     handleAdyenUriResult();
@@ -129,8 +131,15 @@ public class AdyenAuthorizationPresenter {
 
   private void onViewCreatedShowPaymentMethodInputView() {
     disposables.add(adyen.getPaymentRequest()
+        .filter(paymentRequest -> paymentRequest.getPaymentMethod() != null)
+        .map(paymentRequest -> paymentRequest.getPaymentMethod()
+            .getType())
+        .distinctUntilChanged(
+            (paymentRequest, paymentRequest2) -> paymentRequest.equals(paymentRequest2))
+        .flatMapMaybe(type -> adyen.getPaymentRequest()
+            .firstElement())
         .observeOn(viewScheduler)
-        .doOnSuccess(data -> {
+        .doOnNext(data -> {
           if (data.getPaymentMethod()
               .getType()
               .equals(PaymentMethod.Type.CARD)) {
@@ -142,7 +151,7 @@ public class AdyenAuthorizationPresenter {
         })
         .observeOn(viewScheduler)
         .subscribe(__ -> {
-        }, throwable -> showError(throwable)));
+        }, this::showError));
   }
 
   private void showError(Throwable throwable) {
@@ -161,7 +170,8 @@ public class AdyenAuthorizationPresenter {
         .andThen(transactionBuilder.flatMapCompletable(
             transaction -> billingService.getAuthorization(transaction.getSkuId(),
                 transaction.toAddress(), developerPayload, origin, convertAmount(currency),
-                currency, type, transaction.getCallbackUrl(), transaction.getOrderReference())
+                currency, type, transaction.getCallbackUrl(), transaction.getOrderReference(),
+                appPackage)
                 .observeOn(viewScheduler)
                 .filter(payment -> payment.isPendingAuthorization())
                 .firstOrError()
@@ -175,7 +185,7 @@ public class AdyenAuthorizationPresenter {
 
   @NonNull private BigDecimal convertAmount(String currency) {
     return BigDecimal.valueOf(
-        inAppPurchaseInteractor.convertToFiat((new BigDecimal(amount)).doubleValue(), currency)
+        inAppPurchaseInteractor.convertToLocalFiat((new BigDecimal(amount)).doubleValue())
             .blockingGet()
             .getAmount())
         .setScale(2, BigDecimal.ROUND_UP);
@@ -193,7 +203,7 @@ public class AdyenAuthorizationPresenter {
     disposables.add(transactionBuilder.flatMap(
         transaction -> billingService.getAuthorization(transaction.getSkuId(),
             transaction.toAddress(), developerPayload, origin, convertAmount(currency), currency,
-            type, transaction.getCallbackUrl(), transaction.getOrderReference())
+            type, transaction.getCallbackUrl(), transaction.getOrderReference(), appPackage)
             .filter(adyenAuthorization -> adyenAuthorization.isCompleted())
             .firstOrError()
             .flatMap(adyenAuthorization -> createBundle())
@@ -234,7 +244,7 @@ public class AdyenAuthorizationPresenter {
     disposables.add(transactionBuilder.flatMap(
         transaction -> billingService.getAuthorization(transaction.getSkuId(),
             transaction.toAddress(), developerPayload, origin, convertAmount(currency), currency,
-            type, transaction.getCallbackUrl(), transaction.getOrderReference())
+            type, transaction.getCallbackUrl(), transaction.getOrderReference(), appPackage)
             .filter(payment -> payment.isFailed())
             .firstOrError()
             .observeOn(viewScheduler)
@@ -251,7 +261,7 @@ public class AdyenAuthorizationPresenter {
     disposables.add(transactionBuilder.flatMapObservable(
         transaction -> billingService.getAuthorization(transaction.getSkuId(),
             transaction.toAddress(), developerPayload, origin, convertAmount(currency), currency,
-            type, transaction.getCallbackUrl(), transaction.getOrderReference())
+            type, transaction.getCallbackUrl(), transaction.getOrderReference(), appPackage)
             .filter(payment -> payment.isProcessing())
             .observeOn(viewScheduler)
             .doOnNext(__ -> view.showLoading()))
@@ -262,7 +272,16 @@ public class AdyenAuthorizationPresenter {
   private void handlePaymentMethodResults() {
     disposables.add(view.paymentMethodDetailsEvent()
         .doOnNext(__ -> view.showLoading())
-        .flatMapCompletable(details -> adyen.finishPayment(details))
+        .flatMapCompletable(adyen::finishPayment)
+        .observeOn(viewScheduler)
+        .subscribe(() -> {
+        }, throwable -> showError(throwable)));
+  }
+
+  private void handleChangeCardMethodResults() {
+    disposables.add(view.changeCardMethodDetailsEvent()
+        .doOnNext(__ -> view.showLoading())
+        .flatMapCompletable(adyen::deletePaymentMethod)
         .observeOn(viewScheduler)
         .subscribe(() -> {
         }, throwable -> showError(throwable)));

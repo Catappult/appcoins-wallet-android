@@ -56,7 +56,7 @@ public class ExpressCheckoutBuyPresenter {
 
   public void present(String uri, double transactionValue, String currency) {
     handleCancelClick();
-    setupUi(transactionValue, currency, uri);
+    setupUi(transactionValue, uri);
     handleErrorDismisses();
     handleOnGoingPurchases();
   }
@@ -123,9 +123,9 @@ public class ExpressCheckoutBuyPresenter {
         .ignoreElements();
   }
 
-  private void setupUi(double transactionValue, String currency, String uri) {
+  private void setupUi(double transactionValue, String uri) {
     disposables.add(Single.zip(transactionBuilder,
-        inAppPurchaseInteractor.convertToFiat(transactionValue, currency),
+        inAppPurchaseInteractor.convertToLocalFiat(transactionValue),
         (transactionBuilder, fiatValue) -> Completable.fromAction(() -> view.setup(fiatValue,
             TransactionData.TransactionType.DONATION.name()
                 .equalsIgnoreCase(transactionBuilder.getType())))

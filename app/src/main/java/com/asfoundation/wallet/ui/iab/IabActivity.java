@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -152,9 +152,9 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
         WEB_VIEW_REQUEST_CODE);
   }
 
-  @Override public void showPaymentMethodsView(String currency) {
+  @Override public void showPaymentMethodsView() {
     getSupportFragmentManager().beginTransaction()
-        .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction, currency,
+        .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
             getIntent().getExtras()
                 .getString(PRODUCT_NAME), isBds, developerPayload, uri))
         .commit();

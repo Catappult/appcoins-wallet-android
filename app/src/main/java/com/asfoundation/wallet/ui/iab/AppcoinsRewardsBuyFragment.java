@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.appcoins.wallet.appcoins.rewards.TransactionIdRepository;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asf.wallet.BuildConfig;
@@ -45,7 +44,6 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
 
   @Inject RewardsManager rewardsManager;
   @Inject BdsPendingTransactionService bdsPendingTransactionService;
-  @Inject TransactionIdRepository transactionIdRepository;
   @Inject TransferParser transferParser;
   @Inject BillingMessagesMapper billingMessagesMapper;
   private View buyButton;
@@ -117,9 +115,9 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     String callerPackageName = transactionBuilder.getDomain();
     presenter =
         new AppcoinsRewardsBuyPresenter(this, rewardsManager, AndroidSchedulers.mainThread(),
-            new CompositeDisposable(), amount, BuildConfig.DEFAULT_STORE_ADDRESS,
-            BuildConfig.DEFAULT_OEM_ADDRESS, uri, callerPackageName, transferParser,
-            getProductName(), isBds, analytics, transactionBuilder, inAppPurchaseInteractor);
+            new CompositeDisposable(), amount, BuildConfig.DEFAULT_OEM_ADDRESS, uri,
+            callerPackageName, transferParser, getProductName(), isBds, analytics,
+            transactionBuilder, inAppPurchaseInteractor);
 
     Single.defer(() -> Single.just(callerPackageName))
         .observeOn(Schedulers.io())

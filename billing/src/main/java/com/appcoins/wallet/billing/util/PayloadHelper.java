@@ -1,8 +1,8 @@
 package com.appcoins.wallet.billing.util;
 
 import android.net.Uri;
-import android.support.annotation.Nullable;
 import com.appcoins.billing.AppcoinsBilling;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Intent payload helper class that provide a way to send the developers wallet address together
@@ -41,7 +41,7 @@ public class PayloadHelper {
     if (orderReference != null) {
       builder.appendQueryParameter(ORDER_PARAMETER, orderReference);
     }
-    if (orderReference != null) {
+    if (origin != null) {
       builder.appendQueryParameter(ORIGIN_PARAMETER, origin);
     }
     return builder.toString();

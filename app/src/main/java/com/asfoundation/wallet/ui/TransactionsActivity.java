@@ -2,26 +2,24 @@ package com.asfoundation.wallet.ui;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import com.airbnb.lottie.LottieAnimationView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.Balance;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
@@ -41,6 +39,9 @@ import com.asfoundation.wallet.viewmodel.TransactionsViewModelFactory;
 import com.asfoundation.wallet.widget.DepositView;
 import com.asfoundation.wallet.widget.EmptyTransactionsView;
 import com.asfoundation.wallet.widget.SystemView;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import dagger.android.AndroidInjection;
 import java.util.List;
 import javax.inject.Inject;
@@ -148,16 +149,16 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private void onTokenBalanceChanged(Balance balance) {
     if (balance != null) {
-        String currency = balance.getSymbol();
-        String value = balance.getValue();
-        int smallTitleSize = (int) getResources().getDimension(R.dimen.title_small_text);
-        int color = getResources().getColor(R.color.appbar_subtitle_color);
-        setCollapsingTitle(BalanceUtils.formatBalance(value, currency, smallTitleSize, color));
-      }
+      String currency = balance.getSymbol();
+      String value = balance.getValue();
+      int smallTitleSize = (int) getResources().getDimension(R.dimen.title_small_text);
+      int color = getResources().getColor(R.color.appbar_subtitle_color);
+      setCollapsingTitle(BalanceUtils.formatBalance(value, currency, smallTitleSize, color));
+    }
   }
 
   private void onCreditsBalanceChanged(Balance balance) {
-      setSubtitle(balance.getValue() + " " + balance.getSymbol());
+    setSubtitle(balance.getValue() + " " + balance.getSymbol());
   }
 
   private void onTransactionClick(View view, Transaction transaction) {
@@ -190,6 +191,18 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     if (networkInfo != null && networkInfo.name.equals(ETHEREUM_NETWORK_NAME)) {
       getMenuInflater().inflate(R.menu.menu_deposit, menu);
     }
+    LottieAnimationView view = menu.findItem(R.id.action_level)
+        .getActionView()
+        .findViewById(R.id.gamification_highlight_animation_view);
+    viewModel.shouldShowGamificationAnimation()
+        .observe(this, shouldShow -> {
+          if (shouldShow) {
+            view.playAnimation();
+          } else {
+            view.cancelAnimation();
+          }
+        });
+    view.setOnClickListener(v -> viewModel.showRewardsLevel(this));
     return super.onCreateOptionsMenu(menu);
   }
 

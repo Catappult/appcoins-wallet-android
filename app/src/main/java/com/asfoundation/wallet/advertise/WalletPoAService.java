@@ -11,14 +11,16 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
-import android.support.annotation.IntRange;
-import android.support.v4.app.NotificationCompat;
+import androidx.annotation.IntRange;
+import androidx.core.app.NotificationCompat;
 import android.util.Log;
 import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.Logger;
+import com.asfoundation.wallet.billing.analytics.PoaAnalytics;
 import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
+import com.asfoundation.wallet.poa.ProofStatus;
 import com.asfoundation.wallet.poa.ProofSubmissionFeeData;
 import com.asfoundation.wallet.ui.TransactionsActivity;
 import dagger.android.AndroidInjection;
@@ -59,10 +61,14 @@ public class WalletPoAService extends Service {
   @Inject ProofOfAttentionService proofOfAttentionService;
   @Inject @Named("MAX_NUMBER_PROOF_COMPONENTS") int maxNumberProofComponents;
   @Inject Logger logger;
+  @Inject PoaAnalytics analytics;
+  @Inject PoaAnalyticsController analyticsController;
   private Disposable disposable;
   private NotificationManager notificationManager;
   private Disposable timerDisposable;
   private Disposable requirementsDisposable;
+  private Disposable startedEventDisposable;
+  private Disposable completedEventDisposable;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -73,6 +79,8 @@ public class WalletPoAService extends Service {
   @Override public int onStartCommand(Intent intent, int flags, int startId) {
     if (intent != null && intent.hasExtra(PARAM_APP_PACKAGE_NAME)) {
       startNotifications();
+      handlePoaStartToSendEvent();
+      handlePoaCompletedToSendEvent();
       if (!isBound) {
         // set the chain id received from the application. If not received, it is set as the main
         String packageName = intent.getStringExtra(PARAM_APP_PACKAGE_NAME);
@@ -304,6 +312,56 @@ public class WalletPoAService extends Service {
     }
   }
 
+  public void handlePoaStartToSendEvent() {
+    if (startedEventDisposable == null || startedEventDisposable.isDisposed()) {
+      startedEventDisposable = proofOfAttentionService.get()
+          .flatMap(proofs -> Observable.fromIterable(proofs)
+              .filter(this::shouldSendStartEvent))
+          .doOnNext(proof -> {
+            analyticsController.setStartedEventSentFor(proof.getPackageName());
+            analytics.sendPoaStartedEvent(proof.getPackageName(), proof.getCampaignId(),
+                Integer.toString(proof.getChainId()));
+          })
+          .flatMapSingle(proof -> proofOfAttentionService.get()
+              .firstOrError())
+          .filter(List::isEmpty)
+          .take(1)
+          .subscribe();
+    }
+  }
+
+  private boolean shouldSendStartEvent(Proof proof) {
+    return !analyticsController.wasStartedEventSent(proof.getPackageName())
+        && proof.getCampaignId() != null
+        && !proof.getCampaignId()
+        .isEmpty()
+        && !proof.getProofComponentList()
+        .isEmpty()
+        && proof.getChainId() > 0;
+  }
+
+  public void handlePoaCompletedToSendEvent() {
+    if (completedEventDisposable == null || completedEventDisposable.isDisposed()) {
+      completedEventDisposable = proofOfAttentionService.get()
+          .flatMapIterable(proofs -> proofs)
+          .filter(proof -> proof.getProofStatus()
+              .isTerminate())
+          .doOnNext(proof -> {
+            analyticsController.cleanStateFor(proof.getPackageName());
+            if (proof.getProofStatus()
+                .equals(ProofStatus.COMPLETED)) {
+              analytics.sendPoaCompletedEvent(proof.getPackageName(), proof.getCampaignId(),
+                  Integer.toString(proof.getChainId()));
+            }
+          })
+          .flatMapSingle(proof -> proofOfAttentionService.get()
+              .firstOrError())
+          .filter(List::isEmpty)
+          .take(1)
+          .subscribe();
+    }
+  }
+
   /**
    * Handler of incoming messages from clients.
    */
@@ -319,7 +377,7 @@ public class WalletPoAService extends Service {
           proofOfAttentionService.setCampaignId(packageName, msg.getData()
               .getString("campaignId"));
           proofOfAttentionService.setOemAddress(packageName, BuildConfig.DEFAULT_OEM_ADDRESS);
-          proofOfAttentionService.setStoreAddress(packageName, BuildConfig.DEFAULT_STORE_ADDRESS);
+          proofOfAttentionService.setStoreAddress(packageName);
           break;
         case MSG_SEND_PROOF:
           Log.d(TAG, "MSG_SEND_PROOF");

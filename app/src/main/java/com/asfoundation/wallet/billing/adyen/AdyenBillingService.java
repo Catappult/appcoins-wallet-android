@@ -6,6 +6,7 @@ import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.billing.BillingService;
 import com.asfoundation.wallet.billing.TransactionService;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
+import com.asfoundation.wallet.billing.partners.AddressService;
 import com.jakewharton.rxrelay2.BehaviorRelay;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -24,24 +25,27 @@ public class AdyenBillingService implements BillingService {
   private final String merchantName;
   private volatile AdyenAuthorization adyenAuthorization;
   private volatile String transactionUid;
+  private final AddressService partnerAddressService;
 
   public AdyenBillingService(String merchantName, TransactionService transactionService,
-      WalletService walletService, Adyen adyen) {
+      WalletService walletService, Adyen adyen, AddressService partnerAddressService) {
     this.merchantName = merchantName;
     this.adyen = adyen;
     this.relay = BehaviorRelay.create();
     this.transactionService = transactionService;
     this.walletService = walletService;
+    this.partnerAddressService = partnerAddressService;
 
     this.processingPayment = new AtomicBoolean();
   }
 
   @Override public Observable<AdyenAuthorization> getAuthorization(String productName,
       String developerAddress, String payload, String origin, BigDecimal priceValue,
-      String priceCurrency, String type, String callback, String orderReference) {
+      String priceCurrency, String type, String callback, String orderReference,
+      String appPackageName) {
     return relay.doOnSubscribe(
         disposable -> startPaymentIfNeeded(productName, developerAddress, payload, origin,
-            priceValue, priceCurrency, type, callback, orderReference))
+            priceValue, priceCurrency, type, callback, orderReference, appPackageName))
         .doOnNext(this::resetProcessingFlag);
   }
 
@@ -83,21 +87,21 @@ public class AdyenBillingService implements BillingService {
 
   private void startPaymentIfNeeded(String productName, String developerAddress, String payload,
       String origin, BigDecimal priceValue, String priceCurrency, String type, String callback,
-      String orderReference) {
+      String orderReference, String appPackageName) {
     if (!processingPayment.getAndSet(true)) {
       this.adyenAuthorization = walletService.getWalletAddress()
           .flatMap(walletAddress -> walletService.signContent(walletAddress)
-              .flatMap(signedContent -> adyen.getToken()
-                  .flatMap(
-                      token -> transactionService.createTransaction(walletAddress, signedContent,
-                          token, merchantName, payload, productName, developerAddress,
-                          BuildConfig.DEFAULT_STORE_ADDRESS, BuildConfig.DEFAULT_OEM_ADDRESS,
-                          origin, walletAddress, priceValue, priceCurrency, type, callback,
-                          orderReference))
-                  .doOnSuccess(transactionUid -> this.transactionUid = transactionUid)
-                  .flatMap(
-                      transactionUid -> transactionService.getSession(walletAddress, signedContent,
-                          transactionUid))))
+              .flatMap(
+                  signedContent -> partnerAddressService.getStoreAddressForPackage(appPackageName)
+                      .flatMap(storeAddress -> adyen.getToken()
+                          .flatMap(token -> transactionService.createTransaction(walletAddress,
+                              signedContent, token, merchantName, payload, productName,
+                              developerAddress, storeAddress, BuildConfig.DEFAULT_OEM_ADDRESS,
+                              origin, walletAddress, priceValue, priceCurrency, type, callback,
+                              orderReference))
+                          .doOnSuccess(transactionUid -> this.transactionUid = transactionUid)
+                          .flatMap(transactionUid -> transactionService.getSession(walletAddress,
+                              signedContent, transactionUid)))))
           .map(this::newDefaultAdyenAuthorization)
           .blockingGet();
 

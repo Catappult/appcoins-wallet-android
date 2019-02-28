@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import io.reactivex.Observable;
 

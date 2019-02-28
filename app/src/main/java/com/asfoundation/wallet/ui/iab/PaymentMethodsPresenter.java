@@ -68,10 +68,10 @@ public class PaymentMethodsPresenter {
     this.transaction = transaction;
   }
 
-  public void present(double transactionValue, String currency, Bundle savedInstanceState) {
+  public void present(double transactionValue, Bundle savedInstanceState) {
     handleCancelClick();
     handleErrorDismisses();
-    setupUi(transactionValue, currency);
+    setupUi(transactionValue);
     handleOnGoingPurchases();
     handleBuyClick();
     if (isBds) {
@@ -197,13 +197,13 @@ public class PaymentMethodsPresenter {
         .ignoreElements();
   }
 
-  private void setupUi(double transactionValue, String currency) {
+  private void setupUi(double transactionValue) {
     setWalletAddress();
     disposables.add(Single.zip(isBds ? inAppPurchaseInteractor.getPaymentMethods()
             .subscribeOn(networkThread)
             .flatMap(paymentMethods -> Observable.fromIterable(paymentMethods)
-                .map(paymentMethod -> new PaymentMethod(paymentMethod.getId(),
-                    paymentMethod.getLabel(), paymentMethod.getIconUrl(), true))
+                .map(paymentMethod -> new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
+                    paymentMethod.getIconUrl(), true))
                 .toList()) : Single.just(Collections.singletonList(PaymentMethod.APPC)),
         isBds ? inAppPurchaseInteractor.getAvailablePaymentMethods(transaction)
             .subscribeOn(networkThread)
@@ -211,8 +211,7 @@ public class PaymentMethodsPresenter {
                 .map(paymentMethod -> new PaymentMethod(paymentMethod.getId(),
                     paymentMethod.getLabel(), paymentMethod.getIconUrl(), true))
                 .toList()) : Single.just(Collections.singletonList(PaymentMethod.APPC))
-            .observeOn(viewScheduler),
-        inAppPurchaseInteractor.convertToFiat(transactionValue, currency),
+            .observeOn(viewScheduler), inAppPurchaseInteractor.convertToLocalFiat(transactionValue),
         (paymentMethods, availablePaymentMethods, fiatValue) -> Completable.fromAction(
             () -> view.showPaymentMethods(paymentMethods, availablePaymentMethods, fiatValue,
                 TransactionData.TransactionType.DONATION.name()
@@ -225,8 +224,8 @@ public class PaymentMethodsPresenter {
   }
 
   public String mapCurrencyCodeToSymbol(String currencyCode) {
-    return Currency.getInstance(currencyCode)
-        .getCurrencyCode();
+    return currencyCode.equalsIgnoreCase("APPC") ?
+        currencyCode : Currency.getInstance(currencyCode).getCurrencyCode();
   }
 
   private void setWalletAddress() {
@@ -258,9 +257,8 @@ public class PaymentMethodsPresenter {
   }
 
   public void sendPurchaseDetailsEvent() {
-    analytics.sendPurchaseDetailsEvent(appPackage,
-            transaction.getSkuId(), transaction.amount()
-                .toString(), transaction.getType());
+    analytics.sendPurchaseDetailsEvent(appPackage, transaction.getSkuId(), transaction.amount()
+        .toString(), transaction.getType());
   }
 
   public void stop() {

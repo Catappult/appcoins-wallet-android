@@ -1,13 +1,11 @@
 package com.asf.wallet.views;
 
-import android.support.test.espresso.Espresso;
-import android.support.test.espresso.ViewInteraction;
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import androidx.test.espresso.Espresso;
+import androidx.test.espresso.ViewInteraction;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.ui.SplashActivity;
 import org.hamcrest.Description;
@@ -18,16 +16,20 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import tools.fastlane.screengrab.Screengrab;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.scrollTo;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
-import static android.support.test.espresso.matcher.ViewMatchers.withContentDescription;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.is;
+
+.Espresso;
+    .ViewInteraction;
+    .rule.ActivityTestRule;
+    .runner.AndroidJUnit4;
+    .Espresso.onView;
+    .action.ViewActions.click;
+    .action.ViewActions.scrollTo;
+    .matcher.ViewMatchers.isDisplayed;
+    .matcher.ViewMatchers.withClassName;
+    .matcher.ViewMatchers.withContentDescription;
+    .matcher.ViewMatchers.withId;
+    .matcher.ViewMatchers.withText;
 
 @LargeTest @RunWith(AndroidJUnit4.class) public class ScreengrabTest {
 
@@ -68,7 +70,7 @@ import static org.hamcrest.Matchers.is;
 
     ViewInteraction appCompatImageButton = onView(allOf(withContentDescription("Navigate up"),
         childAtPosition(allOf(withId(R.id.toolbar),
-            childAtPosition(withClassName(is("android.support.design.widget.AppBarLayout")), 0)),
+            childAtPosition(withClassName(is("com.google.android.material.appbar.AppBarLayout")), 0)),
             1), isDisplayed()));
     appCompatImageButton.perform(click());
 
@@ -120,22 +122,5 @@ import static org.hamcrest.Matchers.is;
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-
-    //ViewInteraction bottomNavigationItemView2 = onView(allOf(withId(R.id.navigation_tokens),
-    //    childAtPosition(childAtPosition(withId(R.id.navigation), 0), 2), isDisplayed()));
-    //bottomNavigationItemView2.perform(click());
-    //
-    //try {
-    //  Thread.sleep(1000);
-    //} catch (InterruptedException e) {
-    //  e.printStackTrace();
-    //}
-    //Screengrab.screenshot("5");
-    //
-    //ViewInteraction appCompatImageButton3 = onView(allOf(withContentDescription("Navigate up"),
-    //    childAtPosition(allOf(withId(R.id.toolbar),
-    //        childAtPosition(withClassName(is("android.support.design.widget.AppBarLayout")), 0)),
-    //        1), isDisplayed()));
-    //appCompatImageButton3.perform(click());
   }
 }

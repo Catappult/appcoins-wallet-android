@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
@@ -12,7 +12,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.repository.BdsTransactionService;
-import com.asfoundation.wallet.repository.ExpressCheckoutBuyService;
+import com.asfoundation.wallet.repository.CurrencyConversionService;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.PaymentTransaction;
 import com.asfoundation.wallet.repository.TransactionNotFoundException;
@@ -32,7 +32,7 @@ public class AsfInAppPurchaseInteractor {
   public static final double GAS_PRICE_MULTIPLIER = 1.25;
   private static final String TAG = InAppPurchaseInteractor.class.getSimpleName();
   private final InAppPurchaseService inAppPurchaseService;
-  private final ExpressCheckoutBuyService expressCheckoutBuyService;
+  private final CurrencyConversionService currencyConversionService;
   private final FindDefaultWalletInteract defaultWalletInteract;
   private final FetchGasSettingsInteract gasSettingsInteract;
   private final BigDecimal paymentGasLimit;
@@ -54,7 +54,7 @@ public class AsfInAppPurchaseInteractor {
       BigDecimal paymentGasLimit, TransferParser parser,
       BillingMessagesMapper billingMessagesMapper, Billing billing,
       ExternalBillingSerializer billingSerializer,
-      ExpressCheckoutBuyService expressCheckoutBuyService,
+      CurrencyConversionService currencyConversionService,
       BdsTransactionService trackTransactionService, Scheduler scheduler,
       TransactionIdHelper transactionIdHelper) {
     this.inAppPurchaseService = inAppPurchaseService;
@@ -65,7 +65,7 @@ public class AsfInAppPurchaseInteractor {
     this.billingMessagesMapper = billingMessagesMapper;
     this.billing = billing;
     this.billingSerializer = billingSerializer;
-    this.expressCheckoutBuyService = expressCheckoutBuyService;
+    this.currencyConversionService = currencyConversionService;
     this.trackTransactionService = trackTransactionService;
     this.scheduler = scheduler;
     this.transactionIdHelper = transactionIdHelper;
@@ -284,8 +284,12 @@ public class AsfInAppPurchaseInteractor {
   }
 
   public Single<FiatValue> convertToFiat(double appcValue, String currency) {
-    return expressCheckoutBuyService.getTokenValue(currency)
+    return currencyConversionService.getTokenValue(currency)
         .map(fiatValueConvertion -> calculateValue(fiatValueConvertion, appcValue));
+  }
+
+  public Single<FiatValue> convertToLocalFiat(double appcValue) {
+    return currencyConversionService.getLocalFiatAmount(Double.toString(appcValue));
   }
 
   private FiatValue calculateValue(FiatValue fiatValue, double appcValue) {

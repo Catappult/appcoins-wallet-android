@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public class AppCoinsOperation {
   private final String transactionId;

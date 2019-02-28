@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.os.Bundle;
+import com.adyen.core.PaymentRequest;
 import com.adyen.core.models.Amount;
 import com.adyen.core.models.PaymentMethod;
 import com.adyen.core.models.paymentdetails.PaymentDetails;
@@ -22,6 +23,8 @@ public interface AdyenAuthorizationView {
   Observable<Object> errorDismisses();
 
   Observable<PaymentDetails> paymentMethodDetailsEvent();
+
+  Observable<PaymentMethod> changeCardMethodDetailsEvent();
 
   void showNetworkError();
 

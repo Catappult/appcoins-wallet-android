@@ -2,7 +2,6 @@ package com.appcoins.wallet.appcoins.rewards
 
 import com.appcoins.wallet.appcoins.rewards.repository.WalletService
 import com.appcoins.wallet.bdsbilling.Billing
-import com.appcoins.wallet.bdsbilling.repository.TransactionType
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import com.appcoins.wallet.commons.Repository
 import io.reactivex.Completable
@@ -18,8 +17,7 @@ class AppcoinsRewards(
     private val cache: Repository<String, Transaction>,
     private val scheduler: Scheduler,
     private val billing: Billing,
-    private val errorMapper: ErrorMapper,
-    private val transactionIdRepository: TransactionIdRepository) {
+    private val errorMapper: ErrorMapper) {
 
   fun getBalance(address: String): Single<BigDecimal> {
     return repository.getBalance(address)
@@ -57,28 +55,18 @@ class AppcoinsRewards(
                 .flatMapCompletable { walletAddress ->
                   walletService.signContent(walletAddress).flatMap { signature ->
                     repository.pay(walletAddress, signature, transaction.amount,
-                        getOrigin(transaction),
-                        transaction.sku,
-                        transaction.type, transaction.developerAddress, transaction.storeAddress,
+                        getOrigin(transaction), transaction.sku, transaction.type,
+                        transaction.developerAddress, transaction.storeAddress,
                         transaction.oemAddress, transaction.packageName, transaction.payload,
-                        transaction.callback,
-                        transaction.orderReference)
+                        transaction.callback, transaction.orderReference)
+
                   }
                       .flatMapCompletable { transaction1 ->
-                        waitTransactionCompletion(transaction1).andThen(
-                            if (!transaction.isBds() && transaction.type == TransactionType.INAPP.name) {
-                              transactionIdRepository.getTransactionUid(transaction1.uid)
-                                  .flatMapCompletable { txId ->
-                                    val tx = Transaction(transaction, Transaction.Status.COMPLETED)
-                                    tx.txId = txId
-                                    cache.save(getKey(tx), tx)
-                                  }
-                            } else {
-                              val tx = Transaction(transaction, Transaction.Status.COMPLETED)
-                              tx.txId = transaction1.txId
-                              cache.save(getKey(tx), tx)
-                            }
-                        )
+                        waitTransactionCompletion(transaction1).andThen {
+                          val tx = Transaction(transaction, Transaction.Status.COMPLETED)
+                          tx.txId = transaction1.hash
+                          cache.saveSync(getKey(tx), tx)
+                        }
                       }
                 }
                 .onErrorResumeNext {
