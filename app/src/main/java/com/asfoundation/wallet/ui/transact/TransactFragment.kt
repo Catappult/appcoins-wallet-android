@@ -43,7 +43,7 @@ class TransactFragment : DaggerFragment(), TransactFragmentView {
   lateinit var defaultTokenInfoProvider: DefaultTokenProvider
 
   lateinit var navigator: TransactNavigator
-  lateinit var activityResultSharer: ActivityResultSharer
+  private lateinit var activityResultSharer: ActivityResultSharer
   private var disposable: Disposable? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {

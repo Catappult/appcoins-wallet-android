@@ -16,6 +16,6 @@ class AppcoinsCreditsTransactSuccessFragment : DaggerFragment() {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.transaction_activity_layout, container, false)
+    return inflater.inflate(R.layout.transact_success_fragment_layout, container, false)
   }
 }
