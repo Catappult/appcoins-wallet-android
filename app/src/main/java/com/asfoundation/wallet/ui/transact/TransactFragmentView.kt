@@ -13,6 +13,8 @@ interface TransactFragmentView {
                                amount: BigDecimal): Completable
 
   fun openAppcCreditsConfirmationView(): Completable
+  fun showLoading()
+  fun hideLoading()
 
   data class TransactData(val walletAddress: String, val currency: Currency, val amount: BigDecimal)
 

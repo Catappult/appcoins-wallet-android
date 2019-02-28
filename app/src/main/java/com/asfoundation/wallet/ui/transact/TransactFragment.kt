@@ -116,6 +116,14 @@ class TransactFragment : DaggerFragment(), TransactFragmentView {
     }
   }
 
+  override fun showLoading() {
+    navigator.showLoading()
+  }
+
+  override fun hideLoading() {
+    navigator.hideLoading()
+  }
+
   override fun onDetach() {
     activityResultSharer.remove(confirmationRouter)
     super.onDetach()

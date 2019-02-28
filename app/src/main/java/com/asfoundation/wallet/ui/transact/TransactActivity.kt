@@ -29,6 +29,20 @@ class TransactActivity : BaseActivity(), TransactActivityView, TransactNavigator
         .replace(R.id.fragment_container, TransactFragment.newInstance()).commit()
   }
 
+  override fun showLoading() {
+    supportFragmentManager.beginTransaction()
+        .add(android.R.id.content, LoadingFragment.newInstance(),
+            LoadingFragment::class.java.name).commit()
+  }
+
+  override fun hideLoading() {
+    val fragment =
+        supportFragmentManager.findFragmentByTag(LoadingFragment::class.java.name)
+    if (fragment != null) {
+      supportFragmentManager.beginTransaction().remove(fragment).commit()
+    }
+  }
+
   override fun openAppcoinsCreditsSuccess() {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, AppcoinsCreditsTransactSuccessFragment.newInstance())
