@@ -23,7 +23,7 @@
   <string name="title_activity_settings">設定</string>
   <string name="network_label">ネットワーク</string>
   <string name="credits">クレジット</string>
-  <string name="new">New</string>
+  <string name="label_new">New</string>
   <string name="low_storage_error">空き容量が不足しています</string>
   <string name="no_camera_permission">AppCoins BDS のウォレットには、QR コードをスキャンしてお使いのカメラへのアクセスを許可する必要があります。</string>
   <string name="ok">わかりました</string>
