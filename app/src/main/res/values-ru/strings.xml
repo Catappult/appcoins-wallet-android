@@ -23,7 +23,7 @@
   <string name="title_activity_settings">Параметры</string>
   <string name="network_label">Сеть</string>
   <string name="credits">Информация</string>
-  <string name="new">Новое</string>
+  <string name="label_new">New</string>
   <string name="low_storage_error">Недостаточно места для хранения</string>
   <string name="no_camera_permission">AppCoins BDS Wallet необходимо разрешение на доступ к вашей камере, чтобы сканировать QR-коды.</string>
   <string name="ok">Ок</string>
