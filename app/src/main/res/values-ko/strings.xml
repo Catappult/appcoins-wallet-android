@@ -23,7 +23,7 @@
   <string name="title_activity_settings">설정</string>
   <string name="network_label">네트워크</string>
   <string name="credits">크레딧</string>
-  <string name="new">New</string>
+  <string name="label_new">New</string>
   <string name="low_storage_error">저장 공간이 부족합니다</string>
   <string name="no_camera_permission">AppCoins BDS Wallet은 QR 코드 스캔을 위해 카메라 접근 권한이 필요합니다.</string>
   <string name="ok">확인</string>
