@@ -23,7 +23,7 @@
   <string name="title_activity_settings">Настройки</string>
   <string name="network_label">Мрежа</string>
   <string name="credits">Кредити</string>
-  <string name="new">Ново</string>
+  <string name="label_new">New</string>
   <string name="low_storage_error">Няма достатъчно място за съхранение</string>
   <string name="no_camera_permission">AppCoins BDS портфейлът се нуждае от разрешение за достъп до твоята камера, за да сканира QR кодове.</string>
   <string name="ok">OK</string>
