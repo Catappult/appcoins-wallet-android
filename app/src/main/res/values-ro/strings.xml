@@ -23,7 +23,7 @@
   <string name="title_activity_settings">Setări</string>
   <string name="network_label">Reţea</string>
   <string name="credits">Credite</string>
-  <string name="new">Nou</string>
+  <string name="label_new">New</string>
   <string name="low_storage_error">Spațiu de stocare insuficient</string>
   <string name="no_camera_permission">AppCoins BDS Wallet are nevoie de permisiune pentru a-ți accesa camera ca să scaneze coduri QR.</string>
   <string name="ok">Ok</string>
