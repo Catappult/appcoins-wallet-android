@@ -23,7 +23,7 @@
   <string name="title_activity_settings">Ayarlar</string>
   <string name="network_label">Ağ</string>
   <string name="credits">Tanıtım</string>
-  <string name="new">Yeni</string>
+  <string name="label_new">New</string>
   <string name="low_storage_error">Yeterli saklama alanı yok</string>
   <string name="no_camera_permission">AppCoin BDS Wallet\'ın QR kodlarını taramak için kameranıza erişim izni olması gerekir.</string>
   <string name="ok">Tamam</string>
