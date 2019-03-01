@@ -23,7 +23,7 @@
   <string name="title_activity_settings">Beállítások</string>
   <string name="network_label">Hálózat</string>
   <string name="credits">Információ</string>
-  <string name="new">Új</string>
+  <string name="label_new">New</string>
   <string name="low_storage_error">Nincs elegendő tárhely</string>
   <string name="no_camera_permission">Az AppCoins BDS Wallet engedélyt kér a kamera használatára, hogy QR-kódokat tudjon beolvasni.</string>
   <string name="ok">Ok</string>
