@@ -23,7 +23,7 @@
   <string name="title_activity_settings">ਸੈਟਿੰਗਾਂ</string>
   <string name="network_label">ਨੈੱਟਵਰਕ</string>
   <string name="credits">ਕ੍ਰੈਡਿਟ</string>
-  <string name="new">ਨਵਾਂ</string>
+  <string name="label_new">New</string>
   <string name="low_storage_error">ਸਟੋਰੇਜ ਲਈ ਕਾਫ਼ੀ ਜਗ੍ਹਾ ਕਾਫੀ ਨਹੀਂ ਹੈ</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ਨੂੰ QR ਕੋਡ ਨੂੰ ਸਕੈਨ ਕਰਨ ਲਈ ਤੁਹਾਡੇ ਕੈਮਰੇ ਤੱਕ ਪਹੁੰਚ ਦੀ ਇਜਾਜ਼ਤ ਦੀ ਲੋੜ ਹੈ|</string>
   <string name="ok">ਠੀਕ ਹੈ</string>
