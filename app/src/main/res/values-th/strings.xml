@@ -23,7 +23,7 @@
   <string name="title_activity_settings">การตั้งค่า</string>
   <string name="network_label">เครือข่าย</string>
   <string name="credits">เครดิต</string>
-  <string name="new">ใหม่</string>
+  <string name="label_new">New</string>
   <string name="low_storage_error">พื้นที่จัดเก็บไม่เพียงพอ</string>
   <string name="no_camera_permission">กระเป๋าสตางค์ BDS AppCoins ต้องการสิทธิ์การเข้าถึงกล้องของคุณเพื่อสแกนรหัส QR</string>
   <string name="ok">ตกลง</string>
