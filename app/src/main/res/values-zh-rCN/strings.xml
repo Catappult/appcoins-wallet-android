@@ -23,7 +23,7 @@
   <string name="title_activity_settings">设置</string>
   <string name="network_label">网络</string>
   <string name="credits">制作组</string>
-  <string name="new">新</string>
+  <string name="label_new">New</string>
   <string name="low_storage_error">存储空间不足</string>
   <string name="no_camera_permission">AppCoins BDS Wallet需要访问相机以扫描二维码的权限。</string>
   <string name="ok">确定</string>
