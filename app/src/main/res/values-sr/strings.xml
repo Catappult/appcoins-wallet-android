@@ -23,7 +23,7 @@
   <string name="title_activity_settings">Podešavanja</string>
   <string name="network_label">Mreža</string>
   <string name="credits">Autori</string>
-  <string name="new">Novo</string>
+  <string name="label_new">New</string>
   <string name="low_storage_error">Nema dovoljno prostora u memoriji</string>
   <string name="no_camera_permission">Aplikaciji AppCoins BDS Wallet je potrebna dozvola za pristup kameri kako bi skenirala QR kodove.</string>
   <string name="ok">U redu</string>
