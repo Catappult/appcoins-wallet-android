@@ -23,7 +23,7 @@
   <string name="title_activity_settings">Definições</string>
   <string name="network_label">Rede</string>
   <string name="credits">Créditos</string>
-  <string name="new">New</string>
+  <string name="label_new">New</string>
   <string name="low_storage_error">Espaço de armazenamento insuficiente</string>
   <string name="no_camera_permission">A AppCoins BDS Wallet precisa de permissão para aceder à tua câmera e digitalizar códigos QR.</string>
   <string name="ok">Ok</string>
