@@ -23,7 +23,7 @@
   <string name="title_activity_settings">Einstellungen</string>
   <string name="network_label">Netzwerk</string>
   <string name="credits">Das Team</string>
-  <string name="new">Neu</string>
+  <string name="label_new">New</string>
   <string name="low_storage_error">Nicht genügend Speicherplatz</string>
   <string name="no_camera_permission">Zum Lesen des QR-Codes benötigt AppCoins BDS Wallet Zugriff auf deine Kamera.</string>
   <string name="ok">Okay</string>
