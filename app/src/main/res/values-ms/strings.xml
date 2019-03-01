@@ -23,7 +23,7 @@
   <string name="title_activity_settings">Tetapan</string>
   <string name="network_label">Rangkaian</string>
   <string name="credits">Kredit</string>
-  <string name="new">Baharu</string>
+  <string name="label_new">New</string>
   <string name="low_storage_error">Tidak cukup ruang simpanan</string>
   <string name="no_camera_permission">AppCoins BDS Wallet memerlukan kebenaran untuk mengakses kamera anda untuk mengimbas kod QR.</string>
   <string name="ok">Ok</string>
