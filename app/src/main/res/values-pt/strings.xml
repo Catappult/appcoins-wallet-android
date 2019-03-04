@@ -307,6 +307,7 @@
   <string name="provide_wallet_created_header">Endereço da wallet criado!</string>
   <string name="provide_wallet_empty_state">Ainda não permitiste que a Wallet da AppCoins fornecesse o teu endereço para nenhuma app.</string>
   <string name="provide_wallet_status">Permitir acesso ao endereço da wallet</string>
+  <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_home_button">Top Up</string>
   <string name="topup_title">Top Up</string>
@@ -342,6 +343,7 @@
   <!--Common-->
   <string name="error_general">Something went wrong</string>
   <string name="error_missing_field">Mandatory field</string>
+  <string name="cancel_button">Cancel</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
 </resources>
