@@ -225,8 +225,7 @@ public final class BarcodeCaptureActivity extends AppCompatActivity
           }
         };
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Multitracker sample")
-            .setMessage(R.string.no_camera_permission)
+        builder.setMessage(R.string.no_camera_permission)
             .setPositiveButton(R.string.ok, listener)
             .show();
       }
