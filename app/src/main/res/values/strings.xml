@@ -360,7 +360,7 @@
   <string name="p2p_send_confirmation_header">Transfer Details</string>
   <string name="p2p_send_currency_eth" translatable="false">ETH</string>
   <string name="p2p_send_currency_appc" translatable="false">APPC</string>
-  <string name="p2p_send_currency_appc-c" translatable="false">APPC-C</string>
+  <string name="p2p_send_currency_appc_c" translatable="false">APPC-C</string>
 
   <!--Common-->
   <string name="error_general">Something went wrong</string>
