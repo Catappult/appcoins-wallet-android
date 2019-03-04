@@ -335,7 +335,7 @@
   <string name="p2p_send_title">Envío de Fondos</string>
   <string name="p2p_send_body">Escanea o introduce la dirección de la wallet de tu amigo.</string>
   <string name="p2p_send_confirmation_message">Se enviaron %1$s %2$s a la siguiente dirección:</string>
-  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s&gt;</string>
+  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
   <string name="p2p_send_error_address">Invalid address</string>
   <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
   <string name="p2p_send_error_amount_zero">It must be more than zero</string>
