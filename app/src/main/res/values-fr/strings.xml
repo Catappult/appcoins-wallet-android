@@ -307,6 +307,7 @@
   <string name="provide_wallet_created_header">Adresse de portefeuille créé !</string>
   <string name="provide_wallet_empty_state">Vous n’avez pas encore autorisé le portefeuille AppCoins à fournir votre adresse à n’importe quelle autre application.</string>
   <string name="provide_wallet_status">Autoriser l’accès à l’adresse de portefeuille</string>
+  <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_home_button">Recharger</string>
   <string name="topup_title">Recharger</string>
@@ -334,7 +335,7 @@
   <string name="p2p_send_title">Envoyez des fonds</string>
   <string name="p2p_send_body">Scannez ou entrez l\'adresse du portefeuille de votre ami.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s ont été envoyés à l’adresse suivante :</string>
-  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s&gt;</string>
+  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
   <string name="p2p_send_error_address">Invalid address</string>
   <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
   <string name="p2p_send_error_amount_zero">It must be more than zero</string>
@@ -342,6 +343,7 @@
   <!--Common-->
   <string name="error_general">Something went wrong</string>
   <string name="error_missing_field">Mandatory field</string>
+  <string name="cancel_button">Cancel</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
 </resources>

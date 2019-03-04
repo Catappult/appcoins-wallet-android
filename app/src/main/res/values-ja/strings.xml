@@ -308,6 +308,7 @@
   <string name="provide_wallet_created_header">ウォレットアドレスが作成されました！</string>
   <string name="provide_wallet_empty_state">あなたはまだAppCoins ウォレットによりアドレスを他のアプリに提供することを許可していません。</string>
   <string name="provide_wallet_status">ウォレットアドレスへのアクセスを許可します。</string>
+  <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_home_button">Top Up</string>
   <string name="topup_title">Top Up</string>
@@ -335,7 +336,7 @@
   <string name="p2p_send_title">Send Funds</string>
   <string name="p2p_send_body">Scan or enter your friend\'s wallet address.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s were sent to the following address:</string>
-  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s&gt;</string>
+  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
   <string name="p2p_send_error_address">Invalid address</string>
   <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
   <string name="p2p_send_error_amount_zero">It must be more than zero</string>
@@ -343,6 +344,7 @@
   <!--Common-->
   <string name="error_general">Something went wrong</string>
   <string name="error_missing_field">Mandatory field</string>
+  <string name="cancel_button">Cancel</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
 </resources>
