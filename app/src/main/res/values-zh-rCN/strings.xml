@@ -335,7 +335,7 @@
   <string name="p2p_send_title">发送基金</string>
   <string name="p2p_send_body">扫描或输入好友的钱包地址。</string>
   <string name="p2p_send_confirmation_message">向以下地址发送了%1$s %2$s：</string>
-  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s&gt;</string>
+  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
   <string name="p2p_send_error_address">Invalid address</string>
   <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
   <string name="p2p_send_error_amount_zero">It must be more than zero</string>
