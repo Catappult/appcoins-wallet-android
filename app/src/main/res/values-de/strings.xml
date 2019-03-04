@@ -335,7 +335,7 @@
   <string name="p2p_send_title">Guthaben senden</string>
   <string name="p2p_send_body">Wallet-Adresse ihres Freundes eingeben oder scannen.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s wurden an die folgende Adresse übertragen:</string>
-  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s&gt;</string>
+  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
   <string name="p2p_send_error_address">Invalid address</string>
   <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
   <string name="p2p_send_error_amount_zero">It must be more than zero</string>
