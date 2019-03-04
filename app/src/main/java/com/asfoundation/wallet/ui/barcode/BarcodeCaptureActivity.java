@@ -211,8 +211,6 @@ public final class BarcodeCaptureActivity extends AppCompatActivity
       if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
         Log.d(TAG, "Camera permission granted - initialize the camera source");
         // we have permission, so create the camerasource
-        boolean autoFocus = true;
-        boolean useFlash = false;
         createCameraSource(autoFocus, useFlash);
       } else {
         Log.e(TAG,
