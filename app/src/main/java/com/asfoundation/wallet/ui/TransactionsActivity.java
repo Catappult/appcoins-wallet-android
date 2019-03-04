@@ -247,7 +247,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private void onTransactions(List<Transaction> transaction) {
     adapter.addTransactions(transaction);
     showList();
-    invalidateOptionsMenu();
   }
 
   private void showList() {
