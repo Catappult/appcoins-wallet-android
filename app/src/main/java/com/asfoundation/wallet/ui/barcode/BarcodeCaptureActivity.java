@@ -57,8 +57,8 @@ public final class BarcodeCaptureActivity extends AppCompatActivity
   private static final int RC_HANDLE_GMS = 9001;
   // Permission request codes need to be < 256
   private static final int RC_HANDLE_CAMERA_PERM = 2;
-  private static final boolean autoFocus = true;
-  private static final boolean useFlash = false;
+  private static final boolean AUTO_FOCUS = true;
+  private static final boolean USE_FLASH = false;
   private CameraSource mCameraSource;
   private CameraSourcePreview mPreview;
 
@@ -75,7 +75,7 @@ public final class BarcodeCaptureActivity extends AppCompatActivity
     // permission is not granted yet, request permission.
     if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
         == PackageManager.PERMISSION_GRANTED) {
-      createCameraSource(autoFocus, useFlash);
+      createCameraSource(AUTO_FOCUS, USE_FLASH);
     } else {
       requestCameraPermission();
     }
@@ -211,7 +211,7 @@ public final class BarcodeCaptureActivity extends AppCompatActivity
       if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
         Log.d(TAG, "Camera permission granted - initialize the camera source");
         // we have permission, so create the camerasource
-        createCameraSource(autoFocus, useFlash);
+        createCameraSource(AUTO_FOCUS, USE_FLASH);
       } else {
         Log.e(TAG,
             "Permission not granted: results len = " + grantResults.length + " Result code = " + (
