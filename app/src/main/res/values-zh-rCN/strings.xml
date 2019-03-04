@@ -23,7 +23,7 @@
   <string name="title_activity_settings">设置</string>
   <string name="network_label">网络</string>
   <string name="credits">制作组</string>
-  <string name="new">新</string>
+  <string name="label_new">New</string>
   <string name="low_storage_error">存储空间不足</string>
   <string name="no_camera_permission">AppCoins BDS Wallet需要访问相机以扫描二维码的权限。</string>
   <string name="ok">确定</string>
@@ -263,6 +263,8 @@
   <string name="gamification_home_button">开始赚取</string>
   <string name="gamification_level_title">我的等级是什么？</string>
   <string name="gamification_level_title_new">获取APPC积分！</string>
+  <string name="gamification_level_on_graphic">Level %s</string>
+  <string name="gamification_APPCapps_button">Apps &amp; games</string>
   <string name="gamification_level_header">恭喜，你是%s！</string>
   <string name="gamification_level_to_next">到下一等级：</string>
   <string name="gamification_level_earned">已挣：</string>
@@ -332,4 +334,14 @@
   <string name="p2p_send_title">发送基金</string>
   <string name="p2p_send_body">扫描或输入好友的钱包地址。</string>
   <string name="p2p_send_confirmation_message">向以下地址发送了%1$s %2$s：</string>
+  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s&gt;</string>
+  <string name="p2p_send_error_address">Invalid address</string>
+  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
+  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
+  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <!--Common-->
+  <string name="error_general">Something went wrong</string>
+  <string name="error_missing_field">Mandatory field</string>
+  <!--Onboarding-->
+  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
 </resources>

@@ -23,7 +23,7 @@
   <string name="title_activity_settings">Paramètres</string>
   <string name="network_label">Réseau</string>
   <string name="credits">Crédits</string>
-  <string name="new">New</string>
+  <string name="label_new">New</string>
   <string name="low_storage_error">Pas assez d\'espace de stockage</string>
   <string name="no_camera_permission">AppCoins BDS Wallet nécessite l\'autorisation pour accéder à votre caméra pour scanner les codes QR.</string>
   <string name="ok">Ok</string>
@@ -220,7 +220,7 @@
   <string name="transaction_type_standard">Transfert</string>
   <string name="transaction_type_bonus">Bonus</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
-  <string name="transaction_type_p2p">P2P Transfer</string>
+  <string name="transaction_type_p2p">Transfert P2P</string>
   <string name="transaction_details_brand_txt">Présenté par Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
@@ -263,6 +263,8 @@
   <string name="gamification_home_button">COMMENCEZ À GAGNER</string>
   <string name="gamification_level_title">Quel est mon niveau ?</string>
   <string name="gamification_level_title_new">Obtenez des crédits APPC !</string>
+  <string name="gamification_level_on_graphic">Level %s</string>
+  <string name="gamification_APPCapps_button">Apps &amp; games</string>
   <string name="gamification_level_header">Félicitations, vous êtes %s !</string>
   <string name="gamification_level_to_next">Pour niveau suivant :</string>
   <string name="gamification_level_earned">GAGNÉ :</string>
@@ -292,7 +294,7 @@
   <string name="gamification_galaxy_subtitle">Le plus grand système qui existe !</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Vous avez un Bonus !</string>
-  <string name="gamification_purchase_body">You\'ll get %s APPC Credits for this purchase.</string>
+  <string name="gamification_purchase_body">Vous obtiendrez %s crédits APPC pour cet achat.</string>
   <string name="action_level">Mon niveau</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Autoriser le portefeuille AppCoins à fournir votre adresse de portefeuille à %s.</string>
@@ -306,30 +308,40 @@
   <string name="provide_wallet_empty_state">Vous n’avez pas encore autorisé le portefeuille AppCoins à fournir votre adresse à n’importe quelle autre application.</string>
   <string name="provide_wallet_status">Autoriser l’accès à l’adresse de portefeuille</string>
   <!-- Top Up -->
-  <string name="topup_home_button">Top Up</string>
-  <string name="topup_title">Top Up</string>
+  <string name="topup_home_button">Recharger</string>
+  <string name="topup_title">Recharger</string>
   <string name="topup_amount">%s APPC-C</string>
-  <string name="topup_bonus_header">You\'ve got a Bonus!</string>
-  <string name="topup_bonus_message">%s APPC-C extra will be credited in your wallet.</string>
-  <string name="topup_completed_1">%1$s APPC Credits</string>
-  <string name="topup_completed_2">were credited in your account.</string>
+  <string name="topup_bonus_header">Vous avez un Bonus !</string>
+  <string name="topup_bonus_message">%s APPC-C supplémentaires seront crédités dans votre portefeuille.</string>
+  <string name="topup_completed_1">%1$s crédits APPC</string>
+  <string name="topup_completed_2">ont été crédités sur votre compte.</string>
   <!--Balance-->
-  <string name="balance_title">Balance</string>
-  <string name="balance_total_body">Total Balance in %s</string>
-  <string name="balance_topup_body">You can top up your wallet with AppCoins Credits.</string>
-  <string name="balance_ethereum_body">Ethereum is the cryptocurrency that AppCoins are based on. You can buy and sell them in most exchanges, it\'s very popular!</string>
-  <string name="balance_appcoins_body">AppCoins is the cryptocurrency for the app economy. You can buy and sell it on several exchanges and use it to purchase in-app items.</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up APPC-C from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_title">Solde</string>
+  <string name="balance_total_body">Solde final %s</string>
+  <string name="balance_topup_body">Vous pouvez recharger votre portefeuille grâce à des crédits AppCoins.</string>
+  <string name="balance_ethereum_body">Ethereum est la cryptomonnaie sur laquelle est basée AppCoins. Vous pouvez l\'acheter et la vendre dans la plupart des échanges, elle est très populaire !</string>
+  <string name="balance_appcoins_body">AppCoins est la cryptomonnaie de l’économie de l’application. Vous pouvez acheter et vendre sur plusieurs échanges et l\'utiliser pour acheter des articles in-app.</string>
+  <string name="balance_appccreditos_body">Les jetons pour acheter des articles in-app ! Rechargez l’APPC-C de votre porte-monnaie ou obtenez-les gratuitement en utilisant des applications. Ils peuvent aussi être transférés entre amis !</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Ask a friend</string>
-  <string name="askafriend_share_body">Share the link with your friend so they can send you the funds!</string>
-  <string name="askafriend_share_add_message_body">Add Message (Optional)</string>
-  <string name="askafriend_share_button">Share</string>
-  <string name="askafriend_received_body">You just received %s APPC-C</string>
-  <string name="askafriend_received_title">Transfer Received</string>
-  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on World Jungle. Link: %2$s</string>
+  <string name="askafriend_payment_option_button">Demandez à un ami</string>
+  <string name="askafriend_share_body">Partagez le lien avec votre ami afin qu’ils puisse vous envoyer des fonds !</string>
+  <string name="askafriend_share_add_message_body">Ajoutez un Message (facultatif)</string>
+  <string name="askafriend_share_button">Partagez</string>
+  <string name="askafriend_received_body">Vous venez de recevoir %s APPC-C</string>
+  <string name="askafriend_received_title">Transfert reçu</string>
+  <string name="askafriend_share_note_to_friend">Salut ! S’il vous plaît, envoyez-moi %1$s crédits AppCoins pour acheter un article sur World Jungle. Lien : %2$s</string>
   <!--P2P Send-->
-  <string name="p2p_send_title">Send Funds</string>
-  <string name="p2p_send_body">Scan or enter your friend\'s wallet address.</string>
-  <string name="p2p_send_confirmation_message">%1$s %2$s were sent to the following address:</string>
+  <string name="p2p_send_title">Envoyez des fonds</string>
+  <string name="p2p_send_body">Scannez ou entrez l\'adresse du portefeuille de votre ami.</string>
+  <string name="p2p_send_confirmation_message">%1$s %2$s ont été envoyés à l’adresse suivante :</string>
+  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s&gt;</string>
+  <string name="p2p_send_error_address">Invalid address</string>
+  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
+  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
+  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <!--Common-->
+  <string name="error_general">Something went wrong</string>
+  <string name="error_missing_field">Mandatory field</string>
+  <!--Onboarding-->
+  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
 </resources>

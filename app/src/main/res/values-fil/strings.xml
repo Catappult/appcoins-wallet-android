@@ -23,7 +23,7 @@
   <string name="title_activity_settings">Settings</string>
   <string name="network_label">Network</string>
   <string name="credits">Credits</string>
-  <string name="new">New</string>
+  <string name="label_new">New</string>
   <string name="low_storage_error">Not enough storage space</string>
   <string name="no_camera_permission">AppCoins BDS Wallet needs permission to access your camera to scan QR codes.</string>
   <string name="ok">Ok</string>
@@ -263,6 +263,8 @@
   <string name="gamification_home_button">START EARNING</string>
   <string name="gamification_level_title">What\'s My Level?</string>
   <string name="gamification_level_title_new">Get APPC Credits!</string>
+  <string name="gamification_level_on_graphic">Level %s</string>
+  <string name="gamification_APPCapps_button">Apps &amp; games</string>
   <string name="gamification_level_header">Congrats, you\'re %s!</string>
   <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">EARNED:</string>
@@ -332,4 +334,14 @@
   <string name="p2p_send_title">Send Funds</string>
   <string name="p2p_send_body">Scan or enter your friend\'s wallet address.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s were sent to the following address:</string>
+  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s&gt;</string>
+  <string name="p2p_send_error_address">Invalid address</string>
+  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
+  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
+  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <!--Common-->
+  <string name="error_general">Something went wrong</string>
+  <string name="error_missing_field">Mandatory field</string>
+  <!--Onboarding-->
+  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
 </resources>
