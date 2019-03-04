@@ -307,6 +307,7 @@
   <string name="provide_wallet_created_header">ပိုက္ဆံအိတ္လိပ္စာကို ျပဳလုပ္ၿပီးပါၿပီ။</string>
   <string name="provide_wallet_empty_state">သင့္လိပ္စာကို အျခားမည္သည့္ အက္ပ္သို႔မဆိုေပးရန္ AppCoins ပိုက္ဆံအိတ္ကို သင္ခြင့္မျပဳရေသးပါ။</string>
   <string name="provide_wallet_status">ပိုက္ဆံအိတ္လိပ္စာကို ရယူရန္ ခြင့္ျပဳမည္</string>
+  <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_home_button">ေငြျဖည့္မည္</string>
   <string name="topup_title">ေငြျဖည့္မည္</string>
@@ -342,6 +343,7 @@
   <!--Common-->
   <string name="error_general">Something went wrong</string>
   <string name="error_missing_field">Mandatory field</string>
+  <string name="cancel_button">Cancel</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
 </resources>
