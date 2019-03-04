@@ -307,6 +307,7 @@
   <string name="provide_wallet_created_header">지갑 주소 생성 됨!</string>
   <string name="provide_wallet_empty_state">다른 앱으로 귀하의 주소를 제공하기 위해 AppCoins 지갑을 아직 허용하지 않았습니다.</string>
   <string name="provide_wallet_status">지갑 주소로 접근 허용</string>
+  <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_home_button">Top Up</string>
   <string name="topup_title">Top Up</string>
@@ -342,6 +343,7 @@
   <!--Common-->
   <string name="error_general">Something went wrong</string>
   <string name="error_missing_field">Mandatory field</string>
+  <string name="cancel_button">Cancel</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
 </resources>
