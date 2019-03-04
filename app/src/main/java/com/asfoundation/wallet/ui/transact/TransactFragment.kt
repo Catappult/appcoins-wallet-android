@@ -79,8 +79,17 @@ class TransactFragment : DaggerFragment(), TransactFragmentView {
     }.ignoreElement()
   }
 
-  override fun openAppcCreditsConfirmationView(): Completable {
-    return Completable.fromAction { navigator.openAppcoinsCreditsSuccess() }
+  override fun openAppcCreditsConfirmationView(walletAddress: String,
+                                               amount: BigDecimal,
+                                               currency: TransactFragmentView.Currency): Completable {
+    return Completable.fromAction {
+      val currencyName = when (currency) {
+        TransactFragmentView.Currency.APPC_C -> getString(R.string.p2p_send_currency_appc_c)
+        TransactFragmentView.Currency.APPC -> getString(R.string.p2p_send_currency_appc)
+        TransactFragmentView.Currency.ETH -> getString(R.string.p2p_send_currency_eth)
+      }
+      navigator.openAppcoinsCreditsSuccess(walletAddress, amount, currencyName)
+    }
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

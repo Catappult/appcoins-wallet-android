@@ -27,7 +27,7 @@ class TransactPresenter(private val view: TransactFragmentView,
         .flatMapCompletable {
           return@flatMapCompletable when (it.currency) {
             TransactFragmentView.Currency.APPC_C -> handleCreditsTransfer(it.walletAddress,
-                it.amount)
+                it.amount, TransactFragmentView.Currency.APPC_C)
             TransactFragmentView.Currency.ETH -> walletInteract.find().flatMapCompletable { wallet ->
               view.openEthConfirmationView(wallet.address, it.walletAddress, it.amount)
             }
@@ -45,12 +45,13 @@ class TransactPresenter(private val view: TransactFragmentView,
         .subscribe { })
   }
 
-  private fun handleCreditsTransfer(walletAddress: String, amount: BigDecimal): Completable {
+  private fun handleCreditsTransfer(walletAddress: String, amount: BigDecimal,
+                                    currency: TransactFragmentView.Currency): Completable {
     return Completable.mergeArray(
         Completable.timer(1, TimeUnit.SECONDS),
         interactor.transferCredits(walletAddress, amount, packageName).ignoreElement())
         .observeOn(viewScheduler)
-        .andThen(view.openAppcCreditsConfirmationView())
+        .andThen(view.openAppcCreditsConfirmationView(walletAddress, amount, currency))
         .andThen { view.hideLoading() }
   }
 

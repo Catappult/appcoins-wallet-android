@@ -12,7 +12,8 @@ interface TransactFragmentView {
   fun openAppcConfirmationView(walletAddress: String, toWalletAddress: String,
                                amount: BigDecimal): Completable
 
-  fun openAppcCreditsConfirmationView(): Completable
+  fun openAppcCreditsConfirmationView(walletAddress: String, amount: BigDecimal,
+                                      currency: Currency): Completable
   fun showLoading()
   fun hideLoading()
 

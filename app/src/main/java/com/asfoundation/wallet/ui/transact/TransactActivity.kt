@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
+import java.math.BigDecimal
 
 class TransactActivity : BaseActivity(), TransactActivityView, TransactNavigator {
   private lateinit var presenter: TransactActivityPresenter
@@ -14,6 +15,10 @@ class TransactActivity : BaseActivity(), TransactActivityView, TransactNavigator
     fun newIntent(context: Context): Intent {
       return Intent(context, TransactActivity::class.java)
     }
+  }
+
+  override fun closeScreen() {
+    finish()
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,9 +48,11 @@ class TransactActivity : BaseActivity(), TransactActivityView, TransactNavigator
     }
   }
 
-  override fun openAppcoinsCreditsSuccess() {
+  override fun openAppcoinsCreditsSuccess(walletAddress: String,
+                                          amount: BigDecimal, currency: String) {
     supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, AppcoinsCreditsTransactSuccessFragment.newInstance())
+        .replace(R.id.fragment_container,
+            AppcoinsCreditsTransactSuccessFragment.newInstance(amount, currency, walletAddress))
         .commit()
   }
 }
