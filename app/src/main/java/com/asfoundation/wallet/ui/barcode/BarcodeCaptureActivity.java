@@ -57,6 +57,8 @@ public final class BarcodeCaptureActivity extends AppCompatActivity
   private static final int RC_HANDLE_GMS = 9001;
   // Permission request codes need to be < 256
   private static final int RC_HANDLE_CAMERA_PERM = 2;
+  private static final boolean autoFocus = true;
+  private static final boolean useFlash = false;
   private CameraSource mCameraSource;
   private CameraSourcePreview mPreview;
 
@@ -68,9 +70,6 @@ public final class BarcodeCaptureActivity extends AppCompatActivity
     setContentView(R.layout.layout_barcode_capture);
 
     mPreview = findViewById(R.id.preview);
-
-    boolean autoFocus = true;
-    boolean useFlash = false;
 
     // Check for the camera permission before accessing the camera.  If the
     // permission is not granted yet, request permission.
