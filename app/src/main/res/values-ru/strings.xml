@@ -307,6 +307,7 @@
   <string name="provide_wallet_created_header">Адрес кошелька создан!</string>
   <string name="provide_wallet_empty_state">Вы пока не разрешили кошельку AppCoins предоставлять ваш адрес другим приложениям.</string>
   <string name="provide_wallet_status">Разрешить доступ к адресу кошелька</string>
+  <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_home_button">Пополнить</string>
   <string name="topup_title">Пополнить</string>
@@ -342,6 +343,7 @@
   <!--Common-->
   <string name="error_general">Something went wrong</string>
   <string name="error_missing_field">Mandatory field</string>
+  <string name="cancel_button">Cancel</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
 </resources>
