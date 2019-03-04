@@ -307,6 +307,7 @@
   <string name="provide_wallet_created_header">Alamat dompet sudah dibuat!</string>
   <string name="provide_wallet_empty_state">Anda belum mengiizinkan Dompet AppCoins untuk menginformasikan alamat Anda ke aplikasi lain.</string>
   <string name="provide_wallet_status">Izinkan akses ke alamat dompet</string>
+  <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_home_button">Isi Ulang</string>
   <string name="topup_title">Isi Ulang</string>
@@ -342,6 +343,7 @@
   <!--Common-->
   <string name="error_general">Something went wrong</string>
   <string name="error_missing_field">Mandatory field</string>
+  <string name="cancel_button">Cancel</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
 </resources>
