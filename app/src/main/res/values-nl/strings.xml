@@ -25,6 +25,7 @@
   <string name="credits">Credits</string>
   <string name="label_new">New</string>
   <string name="low_storage_error">Er is onvoldoende opslagruimte</string>
+  <string name="no_camera_permission_title">Camera Permission</string>
   <string name="no_camera_permission">Om QR-codes te scannen heeft AppCoins BDS Wallet toestemming nodig om toegang tot je camera te krijgen.</string>
   <string name="ok">OK</string>
   <string name="barcode_error_format">Ongeldig formaat barcode: %s</string>
