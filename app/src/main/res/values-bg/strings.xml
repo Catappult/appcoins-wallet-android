@@ -25,6 +25,7 @@
   <string name="credits">Кредити</string>
   <string name="label_new">New</string>
   <string name="low_storage_error">Няма достатъчно място за съхранение</string>
+  <string name="no_camera_permission_title">Camera Permission</string>
   <string name="no_camera_permission">AppCoins BDS портфейлът се нуждае от разрешение за достъп до твоята камера, за да сканира QR кодове.</string>
   <string name="ok">OK</string>
   <string name="barcode_error_format">Невалиден баркод формат: %s</string>
