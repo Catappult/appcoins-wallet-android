@@ -25,6 +25,7 @@
   <string name="credits">Credite</string>
   <string name="label_new">New</string>
   <string name="low_storage_error">Spațiu de stocare insuficient</string>
+  <string name="no_camera_permission_title">Camera Permission</string>
   <string name="no_camera_permission">AppCoins BDS Wallet are nevoie de permisiune pentru a-ți accesa camera ca să scaneze coduri QR.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Format cod de bare nevalid: %s</string>
