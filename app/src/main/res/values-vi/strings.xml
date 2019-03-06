@@ -25,6 +25,7 @@
   <string name="credits">Thông tin</string>
   <string name="label_new">New</string>
   <string name="low_storage_error">Không đủ dung lượng lưu trữ</string>
+  <string name="no_camera_permission_title">Camera Permission</string>
   <string name="no_camera_permission">AppCoins BDS Wallet cần quyền truy cập vào máy ảnh của bạn để quét mã QR.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Định dạng mã vạch không hợp lệ: %s</string>
