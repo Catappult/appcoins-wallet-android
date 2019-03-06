@@ -25,6 +25,7 @@
   <string name="credits">Crédits</string>
   <string name="label_new">New</string>
   <string name="low_storage_error">Pas assez d\'espace de stockage</string>
+  <string name="no_camera_permission_title">Camera Permission</string>
   <string name="no_camera_permission">AppCoins BDS Wallet nécessite l\'autorisation pour accéder à votre caméra pour scanner les codes QR.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Format de code à barres non valide : %s</string>
