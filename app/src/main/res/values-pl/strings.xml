@@ -25,6 +25,7 @@
   <string name="credits">Kredyty</string>
   <string name="label_new">New</string>
   <string name="low_storage_error">Nie ma wystarczająco dużo miejsca</string>
+  <string name="no_camera_permission_title">Camera Permission</string>
   <string name="no_camera_permission">Portfel BDS AppCoins wymaga zgody na dostęp do aparatu do skanowania kodów QR.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Nieprawidłowy format kodu kreskowego: %s</string>
