@@ -25,6 +25,7 @@
   <string name="credits">制作组</string>
   <string name="label_new">New</string>
   <string name="low_storage_error">存储空间不足</string>
+  <string name="no_camera_permission_title">Camera Permission</string>
   <string name="no_camera_permission">AppCoins BDS Wallet需要访问相机以扫描二维码的权限。</string>
   <string name="ok">确定</string>
   <string name="barcode_error_format">无效条形码格式：%s</string>
