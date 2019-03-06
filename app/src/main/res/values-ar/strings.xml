@@ -25,6 +25,7 @@
   <string name="credits">الأرصدة</string>
   <string name="label_new">New</string>
   <string name="low_storage_error">لا توجد مساحة كافية للتخزين</string>
+  <string name="no_camera_permission_title">Camera Permission</string>
   <string name="no_camera_permission">AppCoins BDS Wallet يحتاج إلى إذن للدخول إلى الكاميرا لمسح شيفرة QR.</string>
   <string name="ok">موافق</string>
   <string name="barcode_error_format">باركود غير صالح: %s</string>
