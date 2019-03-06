@@ -25,6 +25,7 @@
   <string name="credits">Das Team</string>
   <string name="label_new">New</string>
   <string name="low_storage_error">Nicht genügend Speicherplatz</string>
+  <string name="no_camera_permission_title">Camera Permission</string>
   <string name="no_camera_permission">Zum Lesen des QR-Codes benötigt AppCoins BDS Wallet Zugriff auf deine Kamera.</string>
   <string name="ok">Okay</string>
   <string name="barcode_error_format">Ungültiges Barcode-Format: %s</string>
