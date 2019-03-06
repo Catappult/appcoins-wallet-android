@@ -25,6 +25,7 @@
   <string name="credits">クレジット</string>
   <string name="label_new">New</string>
   <string name="low_storage_error">空き容量が不足しています</string>
+  <string name="no_camera_permission_title">Camera Permission</string>
   <string name="no_camera_permission">AppCoins BDS のウォレットには、QR コードをスキャンしてお使いのカメラへのアクセスを許可する必要があります。</string>
   <string name="ok">わかりました</string>
   <string name="barcode_error_format">無効なバーコード形式: %s</string>
