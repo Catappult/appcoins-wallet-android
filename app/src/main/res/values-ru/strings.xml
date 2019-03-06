@@ -25,6 +25,7 @@
   <string name="credits">Информация</string>
   <string name="label_new">New</string>
   <string name="low_storage_error">Недостаточно места для хранения</string>
+  <string name="no_camera_permission_title">Camera Permission</string>
   <string name="no_camera_permission">AppCoins BDS Wallet необходимо разрешение на доступ к вашей камере, чтобы сканировать QR-коды.</string>
   <string name="ok">Ок</string>
   <string name="barcode_error_format">Недопустимый формат штрих-кода: %s</string>
