@@ -25,6 +25,7 @@
   <string name="credits">اعتبارات</string>
   <string name="label_new">New</string>
   <string name="low_storage_error">فضای ذخیره سازی کافی نیست</string>
+  <string name="no_camera_permission_title">Camera Permission</string>
   <string name="no_camera_permission">AppCoins BDS Wallet نیازمند اجازه شما برای دسترسی به دوربین شما برای اسکن کردن کدهای QR است.</string>
   <string name="ok">تایید</string>
   <string name="barcode_error_format">قالب غیرمعتبر بارکد: %s</string>
