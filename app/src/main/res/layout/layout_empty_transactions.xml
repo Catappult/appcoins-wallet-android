@@ -26,24 +26,48 @@
       android:textAllCaps="true"
       android:paddingStart="@dimen/half_large_margin"
       android:paddingEnd="@dimen/half_large_margin"
-      app:layout_constraintBottom_toTopOf="@id/action_learn_more"
+      app:layout_constraintBottom_toTopOf="@id/transactions_empty_screen_animation"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/no_transactions_text"
       style="@style/ButtonStyle"
       />
 
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/transactions_empty_screen_animation"
+      android:layout_width="180dp"
+      android:layout_height="180dp"
+      app:layout_constraintBottom_toTopOf="@id/earn_bonus_text"
+      app:layout_constraintEnd_toStartOf="@+id/guideline2"
+      app:layout_constraintStart_toStartOf="@+id/guideline"
+      app:layout_constraintTop_toBottomOf="@id/action_air_drop"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/transactions_empty_screen_animation"
+      />
+
+  <TextView
+      android:id="@+id/earn_bonus_text"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:text="@string/gamification_home_body"
+      app:layout_constraintBottom_toTopOf="@id/action_learn_more"
+      app:layout_constraintEnd_toStartOf="@+id/guideline2"
+      app:layout_constraintStart_toStartOf="@+id/guideline"
+      app:layout_constraintTop_toBottomOf="@id/transactions_empty_screen_animation"
+      />
+
   <TextView
       android:id="@+id/action_learn_more"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
-      android:text="@string/activity_transactions_learn_more"
+      android:text="@string/gamification_home_button"
       android:textColor="@color/colorAccent"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/action_air_drop"
+      app:layout_constraintTop_toBottomOf="@id/earn_bonus_text"
       style="@style/Widget.AppCompat.Button.Borderless"
       />
   <androidx.constraintlayout.widget.Guideline
