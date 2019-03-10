@@ -6,12 +6,28 @@ import io.reactivex.Observable
 
 interface TopUpFragmentView {
 
-  fun setupUiElements(data: UiData)
-
   fun getChangeCurrencyClick(): Observable<Any>
 
   fun getEditTextChanges(): InitialValueObservable<TextViewAfterTextChangeEvent>
 
-  fun changeCurrency(data: CurrencyData)
+  fun getPaymentMethodClick(): Observable<String>
+
+  fun getEditTextFocusChanges(): InitialValueObservable<Boolean>
+
+  fun getNextClick(): Observable<Any>
+
+  fun setupUiElements(data: UiData)
+
+  fun updateCurrencyData(data: CurrencyData)
+
+  fun setNextButtonState(enabled: Boolean)
+
+  fun hideKeyboard()
+
+  fun showLoading()
+
+  fun showPaymentDetailsForm()
+
+  fun showPaymentMethods()
 
 }

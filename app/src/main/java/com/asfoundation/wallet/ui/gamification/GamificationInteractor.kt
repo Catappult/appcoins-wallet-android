@@ -5,6 +5,7 @@ import com.appcoins.wallet.gamification.repository.ForecastBonus
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.UserStats
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
+import io.reactivex.Completable
 import io.reactivex.Single
 import java.math.BigDecimal
 
@@ -21,5 +22,13 @@ class GamificationInteractor(private val gamification: Gamification,
   fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonus> {
     return defaultWallet.find()
         .flatMap { gamification.getEarningBonus(it.address, packageName, amount) }
+  }
+
+  fun hasNewLevel(): Single<Boolean> {
+    return defaultWallet.find().flatMap { gamification.hasNewLevel(it.address) }
+  }
+
+  fun levelShown(level: Int): Completable {
+    return defaultWallet.find().flatMapCompletable { gamification.levelShown(it.address, level) }
   }
 }

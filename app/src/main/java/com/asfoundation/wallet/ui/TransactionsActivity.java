@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import com.airbnb.lottie.LottieAnimationView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.Balance;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
@@ -41,6 +42,7 @@ import com.asfoundation.wallet.widget.SystemView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import dagger.android.AndroidInjection;
 import java.util.List;
 import javax.inject.Inject;
@@ -82,6 +84,12 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
               ((float) Math.abs(verticalOffset) / appBarLayout.getTotalScrollRange());
           findViewById(R.id.toolbar_layout_logo).setAlpha(1 - (percentage * 1.20f));
           ((ToolbarArcBackground) findViewById(R.id.toolbar_background_arc)).setScale(percentage);
+
+          if (percentage == 0) {
+            ((ExtendedFloatingActionButton) findViewById(R.id.top_up_btn)).extend();
+          } else {
+            ((ExtendedFloatingActionButton) findViewById(R.id.top_up_btn)).shrink();
+          }
         });
 
     setCollapsingTitle(new SpannableString(getString(R.string.unknown_balance_with_symbol)));
@@ -190,6 +198,18 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     if (networkInfo != null && networkInfo.name.equals(ETHEREUM_NETWORK_NAME)) {
       getMenuInflater().inflate(R.menu.menu_deposit, menu);
     }
+    LottieAnimationView view = menu.findItem(R.id.action_level)
+        .getActionView()
+        .findViewById(R.id.gamification_highlight_animation_view);
+    viewModel.shouldShowGamificationAnimation()
+        .observe(this, shouldShow -> {
+          if (shouldShow) {
+            view.playAnimation();
+          } else {
+            view.cancelAnimation();
+          }
+        });
+    view.setOnClickListener(v -> viewModel.showRewardsLevel(this));
     return super.onCreateOptionsMenu(menu);
   }
 
@@ -238,7 +258,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private void onTransactions(List<Transaction> transaction) {
     adapter.addTransactions(transaction);
     showList();
-    invalidateOptionsMenu();
   }
 
   private void showList() {

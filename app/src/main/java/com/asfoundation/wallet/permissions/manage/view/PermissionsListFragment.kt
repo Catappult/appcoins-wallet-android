@@ -54,7 +54,7 @@ class PermissionsListFragment : DaggerFragment(), PermissionsListView {
     }
   }
 
-  override fun onAttach(context: Context?) {
+  override fun onAttach(context: Context) {
     super.onAttach(context)
     when (context) {
       is ToolbarManager -> toolbarManager = context

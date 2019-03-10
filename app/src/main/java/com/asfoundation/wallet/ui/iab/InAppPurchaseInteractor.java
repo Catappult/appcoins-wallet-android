@@ -192,7 +192,7 @@ public class InAppPurchaseInteractor {
         .map(BalanceUtils::weiToEth);
   }
 
-  Single<String> getTransactionUid(String uid) {
+  public Single<String> getTransactionUid(String uid) {
     return Observable.interval(0, 5, TimeUnit.SECONDS, Schedulers.io())
         .timeInterval()
         .switchMap(longTimed -> billing.getAppcoinsTransaction(uid, Schedulers.io())

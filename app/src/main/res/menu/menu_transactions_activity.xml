@@ -5,16 +5,16 @@
     >
   <item
       android:id="@+id/action_level"
-      android:icon="@drawable/ic_action_rocket"
-      android:orderInCategory="20"
+      android:orderInCategory="1"
       android:title="@string/action_level"
+      app:actionLayout="@layout/gamification_highlight_layout"
       app:showAsAction="always"
       />
 
   <item
       android:id="@+id/action_settings"
       android:icon="@drawable/ic_settings_white_24dp"
-      android:orderInCategory="20"
+      android:orderInCategory="2"
       android:title="@string/action_settings"
       app:showAsAction="always"
       />

@@ -6,6 +6,9 @@ import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment;
 import com.asfoundation.wallet.permissions.request.view.PermissionFragment;
 import com.asfoundation.wallet.permissions.request.view.PermissionsActivity;
 import com.asfoundation.wallet.topup.TopUpFragment;
+import com.asfoundation.wallet.topup.TopUpSuccessFragment;
+import com.asfoundation.wallet.topup.payment.PaymentAuthFragment;
+import com.asfoundation.wallet.topup.payment.TopUpPaymentFragment;
 import com.asfoundation.wallet.ui.AddTokenActivity;
 import com.asfoundation.wallet.ui.ConfirmationActivity;
 import com.asfoundation.wallet.ui.Erc681Receiver;
@@ -117,4 +120,13 @@ import dagger.android.ContributesAndroidInjector;
   @ContributesAndroidInjector() abstract PermissionsListFragment bindPermissionsListFragment();
 
   @ContributesAndroidInjector() abstract TopUpFragment bindTopUpFragment();
+
+  @ContributesAndroidInjector()
+  abstract TopUpPaymentFragment bindTopUpPaymentFragment();
+
+  @ContributesAndroidInjector()
+  abstract PaymentAuthFragment bindPaymentAuthFragment();
+
+  @ContributesAndroidInjector()
+  abstract TopUpSuccessFragment bindTopUpSuccessFragment();
 }

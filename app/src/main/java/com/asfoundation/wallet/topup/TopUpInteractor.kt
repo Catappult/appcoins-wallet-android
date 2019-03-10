@@ -36,7 +36,7 @@ class TopUpInteractor(private val repository: BdsRepository,
     var paymentMethodsData: MutableList<PaymentMethodData> = mutableListOf()
     paymentMethods.forEach {
       if (it.gateway.name == Gateway.Name.adyen) {
-        paymentMethodsData.add(PaymentMethodData(it.iconUrl, it.label))
+        paymentMethodsData.add(PaymentMethodData(it.iconUrl, it.label, it.id))
       }
     }
     return paymentMethodsData

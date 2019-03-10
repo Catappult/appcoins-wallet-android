@@ -21,6 +21,7 @@ import com.asfoundation.wallet.router.TopUpRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
 import com.asfoundation.wallet.ui.AppcoinsApps;
+import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
 
 public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
 
@@ -41,6 +42,7 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
   private final AppcoinsApps applications;
   private final OffChainTransactions offChainTransactions;
   private final RewardsLeverRouter rewardsLeverRouter;
+  private final GamificationInteractor gamificationInteractor;
   private final TopUpRouter topUpRouter;
 
   public TransactionsViewModelFactory(FindDefaultNetworkInteract findDefaultNetworkInteract,
@@ -52,7 +54,7 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
       TransactionsMapper transactionsMapper, AirdropRouter airdropRouter, AppcoinsApps applications,
       OffChainTransactions offChainTransactions, RewardsLeverRouter rewardsLeverRouter,
-      TopUpRouter topUpRouter) {
+      GamificationInteractor gamificationInteractor, TopUpRouter topUpRouter) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchTransactionsInteract = fetchTransactionsInteract;
@@ -70,6 +72,7 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
     this.applications = applications;
     this.offChainTransactions = offChainTransactions;
     this.rewardsLeverRouter = rewardsLeverRouter;
+    this.gamificationInteractor = gamificationInteractor;
     this.topUpRouter = topUpRouter;
   }
 
@@ -78,6 +81,6 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
         fetchTransactionsInteract, manageWalletsRouter, settingsRouter, sendRouter,
         transactionDetailRouter, myAddressRouter, myTokensRouter, externalBrowserRouter,
         defaultTokenProvider, getDefaultWalletBalance, transactionsMapper, airdropRouter,
-        applications, offChainTransactions, rewardsLeverRouter, topUpRouter);
+        applications, offChainTransactions, rewardsLeverRouter, gamificationInteractor, topUpRouter);
   }
 }

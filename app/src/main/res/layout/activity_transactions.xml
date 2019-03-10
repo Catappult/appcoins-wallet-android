@@ -53,10 +53,12 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_gravity="bottom"
+      android:clipChildren="false"
+      android:clipToPadding="false"
       >
 
 
-    <com.google.android.material.button.MaterialButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/top_up_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -66,13 +68,12 @@
         android:minHeight="48dp"
         android:onClick="onClick"
         android:text="top up"
-        app:cornerRadius="56dp"
         app:icon="@drawable/ic_add_white_24dp"
-        app:iconGravity="textStart"
         app:iconTint="#ffffff"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        style="@style/Widget.MaterialComponents.Button.Icon"
+        app:rippleColor="#00ffffff"
         />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

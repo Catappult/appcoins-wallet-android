@@ -5,9 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
+import com.jakewharton.rxrelay2.PublishRelay
 
 
-class TopUpPaymentMethodAdapter(private var paymentMethods: List<PaymentMethodData>) :
+class TopUpPaymentMethodAdapter(
+    private var paymentMethods: List<PaymentMethodData>,
+    private var paymentMethodClick: PublishRelay<String>) :
     RecyclerView.Adapter<PaymentMethodViewHolder>() {
   private var selectedItem = -1
 
@@ -22,7 +25,9 @@ class TopUpPaymentMethodAdapter(private var paymentMethods: List<PaymentMethodDa
 
   override fun onBindViewHolder(holder: PaymentMethodViewHolder, position: Int) {
     holder.bind(paymentMethods[position], selectedItem == position, View.OnClickListener {
+      it.requestFocusFromTouch()
       selectedItem = position
+      paymentMethodClick.accept(paymentMethods[position].id)
       notifyDataSetChanged()
     })
   }

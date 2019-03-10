@@ -28,11 +28,13 @@ import com.asfoundation.wallet.router.RewardsLeverRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TopUpRouter;
+import com.asfoundation.wallet.router.TopUpRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
+import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -46,6 +48,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
   private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
   private final MutableLiveData<List<Transaction>> transactions = new MutableLiveData<>();
+  private final MutableLiveData<Boolean> showAnimation = new MutableLiveData<>();
   private final MutableLiveData<List<AppcoinsApplication>> appcoinsApplications =
       new MutableLiveData<>();
   private final MutableLiveData<Balance> defaultWalletTokenBalance = new MutableLiveData<>();
@@ -69,6 +72,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final AppcoinsApps applications;
   private final TopUpRouter topUpRouter;
   private final OffChainTransactions offChainTransactions;
+  private final GamificationInteractor gamificationInteractor;
   private Handler handler = new Handler();
   private final Runnable startFetchTransactionsTask = () -> this.fetchTransactions(false);
   private final Runnable startGetTokenBalanceTask = this::getTokenBalance;
@@ -84,7 +88,7 @@ public class TransactionsViewModel extends BaseViewModel {
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
       TransactionsMapper transactionsMapper, AirdropRouter airdropRouter, AppcoinsApps applications,
       OffChainTransactions offChainTransactions, RewardsLeverRouter rewardsLeverRouter,
-      TopUpRouter topUpRouter) {
+      GamificationInteractor gamificationInteractor, TopUpRouter topUpRouter) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchTransactionsInteract = fetchTransactionsInteract;
@@ -102,6 +106,7 @@ public class TransactionsViewModel extends BaseViewModel {
     this.airdropRouter = airdropRouter;
     this.applications = applications;
     this.offChainTransactions = offChainTransactions;
+    this.gamificationInteractor = gamificationInteractor;
     this.topUpRouter = topUpRouter;
     this.disposables = new CompositeDisposable();
   }
@@ -141,6 +146,8 @@ public class TransactionsViewModel extends BaseViewModel {
     progress.postValue(true);
     disposables.add(findDefaultNetworkInteract.find()
         .subscribe(this::onDefaultNetwork, this::onError));
+    disposables.add(gamificationInteractor.hasNewLevel()
+        .subscribe(showAnimation::postValue, this::onError));
   }
 
   public void fetchTransactions(boolean shouldShowProgress) {
@@ -287,6 +294,10 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public void showRewardsLevel(Context context) {
     rewardsLeverRouter.open(context);
+  }
+
+  public MutableLiveData<Boolean> shouldShowGamificationAnimation() {
+    return showAnimation;
   }
 
   public void showTopUp(Activity activity) {

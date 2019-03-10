@@ -28,6 +28,7 @@ import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenExplorerClientType;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
 import com.asfoundation.wallet.ui.AppcoinsApps;
+import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.viewmodel.TransactionsViewModelFactory;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -57,12 +58,12 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
       TransactionsMapper transactionsMapper, AirdropRouter airdropRouter, AppcoinsApps applications,
       OffChainTransactions offChainTransactions, RewardsLeverRouter rewardsLeverRouter,
-      TopUpRouter topUpRouter) {
+      GamificationInteractor gamificationInteractor, TopUpRouter topUpRouter) {
     return new TransactionsViewModelFactory(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, manageWalletsRouter, settingsRouter, sendRouter,
         transactionDetailRouter, myAddressRouter, myTokensRouter, externalBrowserRouter,
         defaultTokenProvider, getDefaultWalletBalance, transactionsMapper, airdropRouter,
-        applications, offChainTransactions, rewardsLeverRouter, topUpRouter);
+        applications, offChainTransactions, rewardsLeverRouter, gamificationInteractor, topUpRouter);
   }
 
   @Provides FetchTransactionsInteract provideFetchTransactionsInteract(

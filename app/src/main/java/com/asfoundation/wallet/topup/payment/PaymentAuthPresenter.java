@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.iab;
+package com.asfoundation.wallet.topup.payment;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -13,6 +13,8 @@ import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
+import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
+import com.asfoundation.wallet.ui.iab.Navigator;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
@@ -24,15 +26,12 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.reactivestreams.Publisher;
 
 import static com.asfoundation.wallet.analytics.FacebookEventLogger.EVENT_REVENUE_CURRENCY;
 import static com.asfoundation.wallet.billing.analytics.BillingAnalytics.PAYMENT_METHOD_CC;
 
-/**
- * Created by franciscocalado on 30/07/2018.
- */
-
-public class AdyenAuthorizationPresenter {
+public class PaymentAuthPresenter {
 
   private static final String WAITING_RESULT = "WAITING_RESULT";
 
@@ -53,19 +52,18 @@ public class AdyenAuthorizationPresenter {
   private final String currency;
   private final String appPackage;
   private final PaymentType paymentType;
-  private AdyenAuthorizationView view;
+  private PaymentAuthView view;
   private FindDefaultWalletInteract defaultWalletInteract;
-  private BillingAnalytics analytics;
   private final Single<TransactionBuilder> transactionBuilder;
   private boolean waitingResult;
 
-  public AdyenAuthorizationPresenter(AdyenAuthorizationView view, String appPackage,
+  public PaymentAuthPresenter(PaymentAuthView view, String appPackage,
       FindDefaultWalletInteract defaultWalletInteract, Scheduler viewScheduler,
       CompositeDisposable disposables, Adyen adyen, BillingService billingService,
       Navigator navigator, BillingMessagesMapper billingMessagesMapper,
       InAppPurchaseInteractor inAppPurchaseInteractor, String transactionData,
       String developerPayload, Billing billing, String skuId, String type, String origin,
-      String amount, String currency, PaymentType paymentType, BillingAnalytics analytics) {
+      String amount, String currency, PaymentType paymentType) {
     this.view = view;
     this.appPackage = appPackage;
     this.defaultWalletInteract = defaultWalletInteract;
@@ -85,7 +83,6 @@ public class AdyenAuthorizationPresenter {
     this.amount = amount;
     this.currency = currency;
     this.paymentType = paymentType;
-    this.analytics = analytics;
     this.transactionBuilder = inAppPurchaseInteractor.parseTransaction(transactionData, true);
   }
 
@@ -98,7 +95,6 @@ public class AdyenAuthorizationPresenter {
 
     disposables.add(defaultWalletInteract.find()
         .observeOn(viewScheduler)
-        .doOnSuccess(wallet -> view.showWalletAddress(wallet.address))
         .subscribe(wallet -> {
         }, this::showError));
 
@@ -210,8 +206,6 @@ public class AdyenAuthorizationPresenter {
             .observeOn(viewScheduler)
             .doOnSuccess(bundle -> {
               waitingResult = false;
-              sendPaymentEvent();
-              sendRevenueEvent();
               navigator.popView(bundle);
             })
             .doOnSuccess(__ -> view.showSuccess()))
@@ -223,7 +217,7 @@ public class AdyenAuthorizationPresenter {
     return transactionBuilder.flatMap(transaction -> {
       if (type.equals("INAPP")) {
         return billing.getSkuPurchase(appPackage, skuId, Schedulers.io())
-            .retryWhen(throwableFlowable -> throwableFlowable.delay(3, TimeUnit.SECONDS)
+            .retryWhen(flowable -> flowable.delay(3, TimeUnit.SECONDS)
                 .map(throwable -> 0)
                 .timeout(3, TimeUnit.MINUTES))
             .map(purchase -> billingMessagesMapper.mapPurchase(purchase,
@@ -332,47 +326,21 @@ public class AdyenAuthorizationPresenter {
   }
 
   private void handleCancel() {
-    disposables.add(view.cancelEvent()
-        .observeOn(viewScheduler)
-        .doOnNext(__ -> {
-          //analytics.sendAuthorizationCancelEvent(serviceName);
-          //navigator.popView();
-          close();
-        })
-        .subscribe(__ -> {
-        }, throwable -> showError(throwable)));
+    //disposables.add(view.cancelEvent()
+    //    .observeOn(viewScheduler)
+    //    .doOnNext(__ -> {
+    //      close();
+    //    })
+    //    .subscribe(__ -> {
+    //    }, throwable -> showError(throwable)));
   }
 
   private void close() {
-    view.close(billingMessagesMapper.mapCancellation());
+    view.close();
   }
 
   public void stop() {
     disposables.clear();
-  }
-
-  public void sendPaymentMethodDetailsEvent() {
-    disposables.add(transactionBuilder.subscribe(
-        transactionBuilder -> analytics.sendPaymentMethodDetailsEvent(appPackage,
-            transactionBuilder.getSkuId(), transactionBuilder.amount()
-                .toString(), PAYMENT_METHOD_CC, transactionBuilder.getType())));
-  }
-
-  public void sendPaymentEvent() {
-    disposables.add(transactionBuilder.subscribe(
-        transactionBuilder -> analytics.sendPaymentEvent(appPackage, transactionBuilder.getSkuId(),
-            transactionBuilder.amount()
-                .toString(), PAYMENT_METHOD_CC, transactionBuilder.getType())));
-  }
-
-  public void sendRevenueEvent() {
-    disposables.add(transactionBuilder.subscribe(transactionBuilder -> analytics.sendRevenueEvent(
-        new BigDecimal(inAppPurchaseInteractor.convertToFiat((new BigDecimal(
-            transactionBuilder.amount()
-                .toString())).doubleValue(), EVENT_REVENUE_CURRENCY)
-            .blockingGet()
-            .getAmount()).setScale(2, BigDecimal.ROUND_UP)
-            .toString())));
   }
 
   void onSaveInstanceState(Bundle outState) {

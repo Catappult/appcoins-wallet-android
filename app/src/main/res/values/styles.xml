@@ -104,6 +104,11 @@
     <item name="android:minWidth">64dp</item>
   </style>
 
+  <style name="ButtonStyle.Alternative">
+    <item name="android:background">@drawable/button_snd_background</item>
+    <item name="android:textColor">@color/btn_text_enable_color</item>
+  </style>
+
   <style name="FloatingButtonStyle" parent="Widget.MaterialComponents.Button">
     <!--<item name="android:background">@draw~able/floating_button_background</item>-->
     <item name="android:backgroundTint">@color/floating_btn_start_gradient_color</item>
@@ -246,4 +251,10 @@
   <style name="TopUpTextStyle.PaymentOptionText">
     <item name="android:textColor">@color/grey_8a_alpha</item>
   </style>
+
+  <style name="TopUpTextStyle.PaymentDetails">
+    <item name="android:textColor">@color/top_up_payment_details_text</item>
+    <item name="android:gravity">start</item>
+  </style>
+
 </resources>

@@ -2,6 +2,7 @@ package com.asfoundation.wallet.topup.paymentMethods
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.jakewharton.rxrelay2.PublishRelay
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.top_up_payment_method_item.view.*
 
@@ -18,4 +19,4 @@ class PaymentMethodViewHolder(itemView: View) :
   }
 }
 
-data class PaymentMethodData(val imageSrc: String, val description: String)
+data class PaymentMethodData(val imageSrc: String, val description: String, val id: String)

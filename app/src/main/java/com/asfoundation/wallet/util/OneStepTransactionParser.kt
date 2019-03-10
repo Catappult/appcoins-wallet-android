@@ -122,7 +122,7 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
   private fun getProductValue(packageName: String?, skuId: String?): Single<BigDecimal> {
     return if (packageName != null && skuId != null) {
       billing.getProducts(packageName, listOf(skuId))
-          .map { products -> products[0] }.map { product -> BigDecimal(product.price.amount) }
+          .map { products -> products[0] }.map { product -> BigDecimal(product.price.appcoinsAmount) }
     } else {
       Single.error(MissingProductException())
     }
