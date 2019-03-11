@@ -43,6 +43,7 @@
       app:layout_constraintTop_toBottomOf="@id/action_air_drop"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="true"
+      app:lottie_autoPlay="true"
       app:lottie_rawRes="@raw/transactions_empty_screen_animation"
       />
 
