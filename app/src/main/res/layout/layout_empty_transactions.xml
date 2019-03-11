@@ -35,8 +35,8 @@
 
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/transactions_empty_screen_animation"
-      android:layout_width="180dp"
-      android:layout_height="180dp"
+      android:layout_width="140dp"
+      android:layout_height="140dp"
       app:layout_constraintBottom_toTopOf="@id/earn_bonus_text"
       app:layout_constraintEnd_toStartOf="@+id/guideline2"
       app:layout_constraintStart_toStartOf="@+id/guideline"
