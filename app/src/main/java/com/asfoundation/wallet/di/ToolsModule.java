@@ -142,6 +142,7 @@ import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase;
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer;
 import com.asfoundation.wallet.ui.iab.raiden.NonceObtainerFactory;
 import com.asfoundation.wallet.ui.iab.raiden.Web3jNonceProvider;
+import com.asfoundation.wallet.ui.transact.TransactionDataValidator;
 import com.asfoundation.wallet.ui.transact.TransferInteractor;
 import com.asfoundation.wallet.util.EIPTransactionParser;
 import com.asfoundation.wallet.util.LogInterceptor;
@@ -441,7 +442,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides TransferInteractor provideTransferInteractor(
       @NotNull RewardsManager rewardsManager) {
-    return new TransferInteractor(rewardsManager);
+    return new TransferInteractor(rewardsManager, new TransactionDataValidator());
   }
 
   @Singleton @Provides GasSettingsRepositoryType provideGasSettingsRepository(
@@ -749,7 +750,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     };
   }
 
-  @Singleton @Provides AnalyticsAPI provideAnalyticsAPI(OkHttpClient client, ObjectMapper objectMapper) {
+  @Singleton @Provides AnalyticsAPI provideAnalyticsAPI(OkHttpClient client,
+      ObjectMapper objectMapper) {
     return new Retrofit.Builder().baseUrl("http://ws75.aptoide.com/api/7/")
         .client(client)
         .addConverterFactory(JacksonConverterFactory.create(objectMapper))

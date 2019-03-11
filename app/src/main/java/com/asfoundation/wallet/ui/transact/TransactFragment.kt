@@ -12,6 +12,7 @@ import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.router.ConfirmationRouter
 import com.asfoundation.wallet.ui.ActivityResultSharer
+import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Completable
@@ -119,10 +120,32 @@ class TransactFragment : DaggerFragment(), TransactFragmentView {
 
   override fun getSendClick(): Observable<TransactFragmentView.TransactData> {
     return RxView.clicks(send_button).map {
+      var amount = BigDecimal.ZERO
+      if (!transact_fragment_amount.text.toString().isEmpty()) {
+        amount = transact_fragment_amount.text.toString().toBigDecimal()
+      }
       TransactFragmentView.TransactData(transact_fragment_recipient_address.text.toString(),
-          map(currency_selector.checkedRadioButtonId),
-          transact_fragment_amount.text.toString().toBigDecimal())
+          map(currency_selector.checkedRadioButtonId), amount)
     }
+  }
+
+  override fun showInvalidWalletAddress() {
+    transact_fragment_amount_layout.error = null
+    transact_fragment_recipient_address_layout.error = getString(R.string.p2p_send_error_address)
+  }
+
+  override fun showUnknownError() {
+    Snackbar.make(title, R.string.error_general, Snackbar.LENGTH_LONG).show()
+  }
+
+  override fun showInvalidAmountError() {
+    transact_fragment_recipient_address_layout.error = null
+    transact_fragment_amount_layout.error = getString(R.string.p2p_send_error_amount_zero)
+  }
+
+  override fun showNotEnoughFunds() {
+    transact_fragment_recipient_address_layout.error = null
+    transact_fragment_amount_layout.error = getString(R.string.p2p_send_error_not_enough_funds)
   }
 
   override fun showLoading() {

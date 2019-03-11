@@ -22,6 +22,7 @@ interface AppcoinsRewardsRepository {
                   type: String, packageName: String): Single<Status>
 
   enum class Status {
-    API_ERROR, UNKNOWN_ERROR, SUCCESS
+    API_ERROR, UNKNOWN_ERROR, SUCCESS, INVALID_AMOUNT, INVALID_WALLET_ADDRESS, NOT_ENOUGH_FUNDS,
+    NO_INTERNET
   }
 }

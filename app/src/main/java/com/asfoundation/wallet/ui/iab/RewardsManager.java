@@ -72,6 +72,10 @@ public class RewardsManager {
     return appcoinsRewards.sendCredits(toWallet, amount, packageName);
   }
 
+  public Single<BigDecimal> getBalance() {
+    return appcoinsRewards.getBalance();
+  }
+
   static class RewardPayment {
     private final Status status;
     private final String orderReference;

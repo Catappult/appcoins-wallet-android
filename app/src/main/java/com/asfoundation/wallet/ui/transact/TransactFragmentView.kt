@@ -16,6 +16,10 @@ interface TransactFragmentView {
                                       currency: Currency): Completable
   fun showLoading()
   fun hideLoading()
+  fun showInvalidAmountError()
+  fun showInvalidWalletAddress()
+  fun showNotEnoughFunds()
+  fun showUnknownError()
 
   data class TransactData(val walletAddress: String, val currency: Currency, val amount: BigDecimal)
 
