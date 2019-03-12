@@ -2,9 +2,12 @@ package com.asfoundation.wallet.ui.transact
 
 import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TokenInfo
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -21,6 +24,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.currency_choose_layout.*
 import kotlinx.android.synthetic.main.transact_fragment_layout.*
 import java.math.BigDecimal
@@ -45,10 +49,12 @@ class TransactFragment : DaggerFragment(), TransactFragmentView {
 
   lateinit var navigator: TransactNavigator
   private lateinit var activityResultSharer: ActivityResultSharer
+  private lateinit var doneClick: PublishSubject<Any>
   private var disposable: Disposable? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    doneClick = PublishSubject.create()
     disposable =
         confirmationRouter.transactionResult
             .doOnNext { activity?.onBackPressed() }
@@ -98,6 +104,19 @@ class TransactFragment : DaggerFragment(), TransactFragmentView {
     return inflater.inflate(R.layout.transact_fragment_layout, container, false)
   }
 
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    transact_fragment_amount.setOnEditorActionListener(
+        TextView.OnEditorActionListener { _: TextView?, actionId: Int, _: KeyEvent? ->
+          if (actionId == EditorInfo.IME_ACTION_DONE) {
+            navigator.hideKeyboard()
+            doneClick.onNext(Any())
+            return@OnEditorActionListener true
+          }
+          return@OnEditorActionListener false
+        })
+  }
+
   override fun onResume() {
     super.onResume()
     presenter.present()
@@ -119,7 +138,7 @@ class TransactFragment : DaggerFragment(), TransactFragmentView {
   }
 
   override fun getSendClick(): Observable<TransactFragmentView.TransactData> {
-    return RxView.clicks(send_button).map {
+    return Observable.merge(doneClick, RxView.clicks(send_button)).map {
       var amount = BigDecimal.ZERO
       if (!transact_fragment_amount.text.toString().isEmpty()) {
         amount = transact_fragment_amount.text.toString().toBigDecimal()

@@ -8,4 +8,5 @@ interface TransactNavigator {
   fun showLoading()
   fun hideLoading()
   fun closeScreen()
+  fun hideKeyboard()
 }

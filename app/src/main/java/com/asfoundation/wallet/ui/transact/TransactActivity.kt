@@ -1,8 +1,11 @@
 package com.asfoundation.wallet.ui.transact
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
 import java.math.BigDecimal
@@ -55,4 +58,15 @@ class TransactActivity : BaseActivity(), TransactActivityView, TransactNavigator
             AppcoinsCreditsTransactSuccessFragment.newInstance(amount, currency, walletAddress))
         .commit()
   }
+
+  override fun hideKeyboard() {
+    val inputMethodManager =
+        this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    var view = this.currentFocus
+    if (view == null) {
+      view = View(this)
+    }
+    inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+  }
+
 }
