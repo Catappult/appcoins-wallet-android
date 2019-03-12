@@ -246,7 +246,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   }
 
   private fun setLevelResources(level: Int) {
-    animateImageSwap(level_img, levelResourcesMapper.mapImage(level))
+    setLevelIdleAnimation(level)
     level_title.text = getString(R.string.gamification_level_header,
         getString(levelResourcesMapper.mapTitle(level)))
     level_title.visibility = View.VISIBLE
@@ -292,6 +292,16 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     } else {
       imageView.setImageResource(newImage)
       fadeInAnimation(imageView, null)
+    }
+  }
+
+  private fun setLevelIdleAnimation(level: Int) {
+    when (level) {
+      0 -> gamification_current_level_animation.setMinAndMaxFrame(30, 150)
+      1 -> gamification_current_level_animation.setMinAndMaxFrame(210, 330)
+      2 -> gamification_current_level_animation.setMinAndMaxFrame(390, 510)
+      3 -> gamification_current_level_animation.setMinAndMaxFrame(570, 690)
+      4 -> gamification_current_level_animation.setMinAndMaxFrame(750, 870)
     }
   }
 
