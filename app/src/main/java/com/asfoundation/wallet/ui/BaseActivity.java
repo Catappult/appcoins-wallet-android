@@ -21,9 +21,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Activity
   private List<ActivityResultListener> activityResultListeners;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
+    activityResultListeners = new ArrayList<>();
     super.onCreate(savedInstanceState);
     Window window = getWindow();
-    activityResultListeners = new ArrayList<>();
 
     // clear FLAG_TRANSLUCENT_STATUS flag:
     window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);

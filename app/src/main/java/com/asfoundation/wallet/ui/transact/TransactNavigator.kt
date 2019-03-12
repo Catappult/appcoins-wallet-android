@@ -9,4 +9,5 @@ interface TransactNavigator {
   fun hideLoading()
   fun closeScreen()
   fun hideKeyboard()
+  fun openQrCodeScreen()
 }

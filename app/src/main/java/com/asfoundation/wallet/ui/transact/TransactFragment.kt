@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.transact
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -15,6 +16,9 @@ import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.router.ConfirmationRouter
 import com.asfoundation.wallet.ui.ActivityResultSharer
+import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
+import com.google.android.gms.common.api.CommonStatusCodes
+import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
@@ -24,6 +28,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.currency_choose_layout.*
 import kotlinx.android.synthetic.main.transact_fragment_layout.*
@@ -50,11 +55,13 @@ class TransactFragment : DaggerFragment(), TransactFragmentView {
   lateinit var navigator: TransactNavigator
   private lateinit var activityResultSharer: ActivityResultSharer
   private lateinit var doneClick: PublishSubject<Any>
+  private lateinit var qrCodeResult: BehaviorSubject<Barcode>
   private var disposable: Disposable? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     doneClick = PublishSubject.create()
+    qrCodeResult = BehaviorSubject.create()
     disposable =
         confirmationRouter.transactionResult
             .doOnNext { activity?.onBackPressed() }
@@ -135,6 +142,28 @@ class TransactFragment : DaggerFragment(), TransactFragmentView {
           "${this.javaClass.simpleName} has to be attached to an activity that implements ${ActivityResultSharer::class}")
     }
     activityResultSharer.addOnActivityListener(confirmationRouter)
+    activityResultSharer.addOnActivityListener(object :
+        ActivityResultSharer.ActivityResultListener {
+      override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
+        if (resultCode == CommonStatusCodes.SUCCESS) {
+          data?.let {
+            val barcode = it.getParcelableExtra<Barcode>(BarcodeCaptureActivity.BarcodeObject)
+            println(barcode)
+            qrCodeResult.onNext(barcode)
+            return true
+          }
+        }
+        return false
+      }
+    })
+  }
+
+  override fun showAddress(address: String) {
+    transact_fragment_recipient_address.setText(address)
+  }
+
+  override fun getQrCodeResult(): Observable<Barcode> {
+    return qrCodeResult
   }
 
   override fun getSendClick(): Observable<TransactFragmentView.TransactData> {
@@ -151,6 +180,14 @@ class TransactFragment : DaggerFragment(), TransactFragmentView {
   override fun showInvalidWalletAddress() {
     transact_fragment_amount_layout.error = null
     transact_fragment_recipient_address_layout.error = getString(R.string.p2p_send_error_address)
+  }
+
+  override fun getQrCodeButtonClick(): Observable<Any> {
+    return RxView.clicks(scan_barcode_button)
+  }
+
+  override fun showQrCodeScreen() {
+    navigator.openQrCodeScreen()
   }
 
   override fun showUnknownError() {

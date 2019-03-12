@@ -8,12 +8,14 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
+import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
 import java.math.BigDecimal
 
 class TransactActivity : BaseActivity(), TransactActivityView, TransactNavigator {
   private lateinit var presenter: TransactActivityPresenter
 
   companion object {
+    const val BARCODE_READER_REQUEST_CODE = 1
     @JvmStatic
     fun newIntent(context: Context): Intent {
       return Intent(context, TransactActivity::class.java)
@@ -57,6 +59,11 @@ class TransactActivity : BaseActivity(), TransactActivityView, TransactNavigator
         .replace(R.id.fragment_container,
             AppcoinsCreditsTransactSuccessFragment.newInstance(amount, currency, walletAddress))
         .commit()
+  }
+
+  override fun openQrCodeScreen() {
+    val intent = Intent(this, BarcodeCaptureActivity::class.java)
+    startActivityForResult(intent, BARCODE_READER_REQUEST_CODE)
   }
 
   override fun hideKeyboard() {

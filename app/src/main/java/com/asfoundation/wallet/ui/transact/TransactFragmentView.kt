@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.transact
 
+import com.google.android.gms.vision.barcode.Barcode
 import io.reactivex.Completable
 import io.reactivex.Observable
 import java.math.BigDecimal
@@ -20,6 +21,10 @@ interface TransactFragmentView {
   fun showInvalidWalletAddress()
   fun showNotEnoughFunds()
   fun showUnknownError()
+  fun getQrCodeButtonClick(): Observable<Any>
+  fun showQrCodeScreen()
+  fun getQrCodeResult(): Observable<Barcode>
+  fun showAddress(address: String)
 
   data class TransactData(val walletAddress: String, val currency: Currency, val amount: BigDecimal)
 

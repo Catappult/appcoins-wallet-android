@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.transact
 
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
+import com.asfoundation.wallet.util.QRUri
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -20,6 +21,28 @@ class TransactPresenter(private val view: TransactFragmentView,
 
   fun present() {
     handleButtonClick()
+    handleQrCodeButtonClick()
+    handleQrCodeResult()
+  }
+
+  private fun handleQrCodeResult() {
+    disposables.add(
+        view.getQrCodeResult()
+            .observeOn(ioScheduler)
+            .map {
+              QRUri.parse(it.displayValue)
+            }
+            .observeOn(viewScheduler)
+            .doOnNext { qrCode ->
+              qrCode?.let { view.showAddress(it.address) }
+            }
+            .subscribe())
+  }
+
+  private fun handleQrCodeButtonClick() {
+    disposables.add(view.getQrCodeButtonClick()
+        .doOnNext { view.showQrCodeScreen() }
+        .subscribe())
   }
 
   private fun handleButtonClick() {
