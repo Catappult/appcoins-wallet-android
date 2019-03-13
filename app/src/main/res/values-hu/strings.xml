@@ -23,7 +23,7 @@
   <string name="title_activity_settings">Beállítások</string>
   <string name="network_label">Hálózat</string>
   <string name="credits">Információ</string>
-  <string name="new">Új</string>
+  <string name="label_new">New</string>
   <string name="low_storage_error">Nincs elegendő tárhely</string>
   <string name="no_camera_permission">Az AppCoins BDS Wallet engedélyt kér a kamera használatára, hogy QR-kódokat tudjon beolvasni.</string>
   <string name="ok">Ok</string>
@@ -263,6 +263,8 @@
   <string name="gamification_home_button">KEZDJ PÉNZT KERESNI</string>
   <string name="gamification_level_title">Hanyas szintű vagyok?</string>
   <string name="gamification_level_title_new">Szerezz APPC Kreditet!</string>
+  <string name="gamification_level_on_graphic">Level %s</string>
+  <string name="gamification_APPCapps_button">Apps &amp; games</string>
   <string name="gamification_level_header">Gratulálunk. %s vagy!</string>
   <string name="gamification_level_to_next">Köv. szintig:</string>
   <string name="gamification_level_earned">FOGADVA:</string>
@@ -305,6 +307,7 @@
   <string name="provide_wallet_created_header">Tárcacím létrehozva!</string>
   <string name="provide_wallet_empty_state">Még nem adtad meg az engedélyt az AppCoins Wallet-nek, hogy más appoknak biztosítsa tárcád címét.</string>
   <string name="provide_wallet_status">Tárcacímhez való hozzáférés engedélyezése</string>
+  <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_home_button">Befizetés</string>
   <string name="topup_title">Befizetés</string>
@@ -332,4 +335,15 @@
   <string name="p2p_send_title">Pénzküldés</string>
   <string name="p2p_send_body">Olvasd be vagy írd be barátod tárcacímét.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s lett elküldve az alábbi címre:</string>
+  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
+  <string name="p2p_send_error_address">Invalid address</string>
+  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
+  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
+  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <!--Common-->
+  <string name="error_general">Something went wrong</string>
+  <string name="error_missing_field">Mandatory field</string>
+  <string name="cancel_button">Cancel</string>
+  <!--Onboarding-->
+  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
 </resources>
