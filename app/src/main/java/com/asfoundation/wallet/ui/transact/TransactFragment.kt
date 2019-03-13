@@ -21,6 +21,7 @@ import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
+import com.jakewharton.rxbinding2.widget.RxRadioGroup
 import dagger.android.support.DaggerFragment
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -109,6 +110,18 @@ class TransactFragment : DaggerFragment(), TransactFragmentView {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
     return inflater.inflate(R.layout.transact_fragment_layout, container, false)
+  }
+
+  override fun getCurrencyChange(): Observable<TransactFragmentView.Currency> {
+    return RxRadioGroup.checkedChanges(currency_selector)
+        .map { map(currency_selector.checkedRadioButtonId) }
+  }
+
+  override fun showBalance(balance: BigDecimal,
+                           currency: TransactFragmentView.Currency) {
+    transact_fragment_balance.text =
+        getString(R.string.p2p_send_current_balance_message,
+            balance.stripTrailingZeros().toPlainString(), map(currency))
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -229,6 +242,14 @@ class TransactFragment : DaggerFragment(), TransactFragmentView {
       R.id.ethereum_credits_radio_button -> TransactFragmentView.Currency.ETH
       else -> throw UnsupportedOperationException("Unknown selected currency")
     }
+  }
+
+  private fun map(currency: TransactFragmentView.Currency): String {
+    return getString(when (currency) {
+      TransactFragmentView.Currency.APPC_C -> R.string.p2p_send_currency_appc_c
+      TransactFragmentView.Currency.APPC -> R.string.p2p_send_currency_appc
+      TransactFragmentView.Currency.ETH -> R.string.p2p_send_currency_eth
+    })
   }
 
   override fun onDestroy() {

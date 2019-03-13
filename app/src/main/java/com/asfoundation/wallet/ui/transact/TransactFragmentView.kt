@@ -25,6 +25,8 @@ interface TransactFragmentView {
   fun showQrCodeScreen()
   fun getQrCodeResult(): Observable<Barcode>
   fun showAddress(address: String)
+  fun getCurrencyChange(): Observable<Currency>
+  fun showBalance(balance: BigDecimal, currency: Currency)
 
   data class TransactData(val walletAddress: String, val currency: Currency, val amount: BigDecimal)
 

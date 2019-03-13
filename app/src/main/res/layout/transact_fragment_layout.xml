@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_card"
@@ -86,6 +87,20 @@
     <include
         layout="@layout/currency_choose_layout"
         />
+
+    <TextView
+        android:id="@+id/transact_fragment_balance"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@id/send_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currency_selector"
+        tools:text="Current balance: 867 APPC-C"
+        />
     <Button
         android:id="@+id/send_button"
         android:layout_width="0dp"
@@ -93,12 +108,12 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="48dp"
         android:text="@string/action_send"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currency_selector"
+        app:layout_constraintTop_toBottomOf="@+id/transact_fragment_balance"
         style="@style/ButtonStyle"
         />
   </androidx.constraintlayout.widget.ConstraintLayout>

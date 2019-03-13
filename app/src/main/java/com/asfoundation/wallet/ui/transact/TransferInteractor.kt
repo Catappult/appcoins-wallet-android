@@ -1,13 +1,17 @@
 package com.asfoundation.wallet.ui.transact
 
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository
+import com.asfoundation.wallet.interact.FindDefaultWalletInteract
+import com.asfoundation.wallet.interact.GetDefaultWalletBalance
 import com.asfoundation.wallet.ui.iab.RewardsManager
 import io.reactivex.Single
 import java.math.BigDecimal
 import java.net.UnknownHostException
 
 class TransferInteractor(private val rewardsManager: RewardsManager,
-                         private val transactionDataValidator: TransactionDataValidator) {
+                         private val transactionDataValidator: TransactionDataValidator,
+                         private val balanceInteractor: GetDefaultWalletBalance,
+                         private val findDefaultWalletInteract: FindDefaultWalletInteract) {
 
   fun transferCredits(toWallet: String, amount: BigDecimal,
                       packageName: String): Single<AppcoinsRewardsRepository.Status> {
@@ -33,5 +37,19 @@ class TransferInteractor(private val rewardsManager: RewardsManager,
       is UnknownHostException -> return AppcoinsRewardsRepository.Status.NO_INTERNET
       else -> AppcoinsRewardsRepository.Status.UNKNOWN_ERROR
     }
+  }
+
+  fun getCreditsBalance(): Single<BigDecimal> {
+    return rewardsManager.balance
+  }
+
+  fun getAppcoinsBalance(): Single<BigDecimal> {
+    return findDefaultWalletInteract.find().flatMap { balanceInteractor.getTokens(it) }
+        .map { BigDecimal(it.value) }
+  }
+
+  fun getEthBalance(): Single<BigDecimal> {
+    return findDefaultWalletInteract.find().flatMap { balanceInteractor.getEthereumBalance(it) }
+        .map { BigDecimal(it.value) }
   }
 }

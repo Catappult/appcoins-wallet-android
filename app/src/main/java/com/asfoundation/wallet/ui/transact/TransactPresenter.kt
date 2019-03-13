@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.transact
 
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
+import com.asfoundation.wallet.util.BalanceUtils
 import com.asfoundation.wallet.util.QRUri
 import io.reactivex.Completable
 import io.reactivex.Scheduler
@@ -23,6 +24,29 @@ class TransactPresenter(private val view: TransactFragmentView,
     handleButtonClick()
     handleQrCodeButtonClick()
     handleQrCodeResult()
+    handleCurrencyChange()
+  }
+
+  private fun handleCurrencyChange() {
+    disposables.add(view.getCurrencyChange()
+        .subscribeOn(viewScheduler)
+        .observeOn(ioScheduler)
+        .flatMapSingle {
+          getBalance(it).map { balance -> BalanceUtils.weiToEth(balance) }
+              .observeOn(viewScheduler)
+              .doOnSuccess { balance -> view.showBalance(balance, it) }
+        }
+        .doOnError { it.printStackTrace() }
+        .retry()
+        .subscribe())
+  }
+
+  private fun getBalance(currency: TransactFragmentView.Currency): Single<BigDecimal> {
+    return when (currency) {
+      TransactFragmentView.Currency.APPC_C -> interactor.getCreditsBalance()
+      TransactFragmentView.Currency.APPC -> interactor.getAppcoinsBalance()
+      TransactFragmentView.Currency.ETH -> interactor.getEthBalance()
+    }
   }
 
   private fun handleQrCodeResult() {

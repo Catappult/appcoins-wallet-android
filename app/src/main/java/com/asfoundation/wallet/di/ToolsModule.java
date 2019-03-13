@@ -441,8 +441,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides TransferInteractor provideTransferInteractor(
-      @NotNull RewardsManager rewardsManager) {
-    return new TransferInteractor(rewardsManager, new TransactionDataValidator());
+      @NotNull RewardsManager rewardsManager, @NotNull GetDefaultWalletBalance balance,
+      @NotNull FindDefaultWalletInteract findWallet) {
+    return new TransferInteractor(rewardsManager, new TransactionDataValidator(), balance,
+        findWallet);
   }
 
   @Singleton @Provides GasSettingsRepositoryType provideGasSettingsRepository(
