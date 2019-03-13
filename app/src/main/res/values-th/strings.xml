@@ -23,6 +23,7 @@
   <string name="title_activity_settings">การตั้งค่า</string>
   <string name="network_label">เครือข่าย</string>
   <string name="credits">เครดิต</string>
+  <string name="new">ใหม่</string>
   <string name="low_storage_error">พื้นที่จัดเก็บไม่เพียงพอ</string>
   <string name="no_camera_permission">กระเป๋าสตางค์ BDS AppCoins ต้องการสิทธิ์การเข้าถึงกล้องของคุณเพื่อสแกนรหัส QR</string>
   <string name="ok">ตกลง</string>
@@ -219,6 +220,7 @@
   <string name="transaction_type_standard">โอนย้าย</string>
   <string name="transaction_type_bonus">โบนัส</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
+  <string name="transaction_type_p2p">การโอน P2P</string>
   <string name="transaction_details_brand_txt">สนับสนุนโดยเอธิเรียม</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
@@ -290,10 +292,10 @@
   <string name="gamification_galaxy_subtitle">ระบบที่ใหญ่ที่สุดที่มี!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">คุณได้รับโบนัส</string>
-  <string name="gamification_purchase_body">เครดิต %s APPC จะถูกเก็บเป็นเครดิตในกระเป๋าสตางค์ของคุณ</string>
+  <string name="gamification_purchase_body">คุณจะได้รับ %s APPC เครดิตสำหรับการซื้อนี้</string>
   <string name="action_level">ระดับของฉัน</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to %s.</string>
+  <string name="provide_wallet_body">อนุญาตให้ AppCoins กระเป๋าเพื่อให้กระเป๋าสตางค์ที่อยู่ %s</string>
   <string name="provide_wallet_always_allow_button">อนุญาตเสมอ</string>
   <string name="provide_wallet_allow_once_button">อนุญาตให้ครั้งเดียว</string>
   <string name="provide_wallet_completed_header">กระเป๋าสตางค์ที่เกี่ยวข้องกับ Aptoide!</string>
@@ -301,4 +303,33 @@
   <string name="provide_wallet_create_wallet_button">สร้าง</string>
   <string name="provide_wallet_creating_wallet_header">สร้างที่อยู่กระเป๋าสตางค์ &#8230;</string>
   <string name="provide_wallet_created_header">ที่อยู่กระเป๋าสตางค์ที่สร้าง!</string>
+  <string name="provide_wallet_empty_state">คุณไม่อนุญาตให้กระเป๋าสตางค์ AppCoins ใที่ห้อยู่ของคุณกับแอปอื่นๆ ได้</string>
+  <string name="provide_wallet_status">อนุญาตให้เข้าถึงที่อยู่กระเป๋าสตางค์</string>
+  <!-- Top Up -->
+  <string name="topup_home_button">เติม</string>
+  <string name="topup_title">เติม</string>
+  <string name="topup_amount">%s APPC-C</string>
+  <string name="topup_bonus_header">คุณได้รับโบนัส</string>
+  <string name="topup_bonus_message">เครดิต %s APPC=C จะถูกเก็บเป็นเครดิตในกระเป๋าสตางค์ของคุณ.</string>
+  <string name="topup_completed_1">เครดิต %1$s APPC</string>
+  <string name="topup_completed_2">มีเครดิตในบัญชีของคุณ</string>
+  <!--Balance-->
+  <string name="balance_title">ยอดคงเหลือ</string>
+  <string name="balance_total_body">ยอดดุลรวมใน %s</string>
+  <string name="balance_topup_body">คุณสามารถเติมกระเป๋าสตางค์ด้วยเครดิต AppCoins</string>
+  <string name="balance_ethereum_body">Ethereum เป็นสกุลเงินคริปโตซึ่งมี AppCoins เป็นหลัก คุณสามารถซื้อและขายแลกเปลี่ยนมันได้เป็นส่วนใหญ่ มันเป็นที่นิยมมาก!</string>
+  <string name="balance_appcoins_body">AppCoins เป็นสกุลเงินคริปโตสำหรับเศรษฐกิจแอป คุณสามารถซื้อ ขาย แลกเปลี่ยนต่าง ๆ และใช้ในการซื้อสินค้าในแอปได้</string>
+  <string name="balance_appccreditos_body">โทเค็นเพื่อใช้ซื้อสินค้าในแอป! เติม APPC-C จากกระเป๋าสตางค์หรือรับมันเพื่อการใช้งานแอปฟรี มันยังสามารถถ่ายโอนได้ระหว่างเพื่อน!</string>
+  <!--Ask a friend for funds-->
+  <string name="askafriend_payment_option_button">ถามเพื่อน</string>
+  <string name="askafriend_share_body">แบ่งปันลิงก์กับเพื่อนของคุณเพื่อให้พวกเขาสามารถส่งเงินให้คุณได้!</string>
+  <string name="askafriend_share_add_message_body">เพิ่มข้อความ (ถ้ามี)</string>
+  <string name="askafriend_share_button">ใช้ร่วมกัน</string>
+  <string name="askafriend_received_body">คุณเพิ่งได้รับ %s APPC-C</string>
+  <string name="askafriend_received_title">รับการโอน</string>
+  <string name="askafriend_share_note_to_friend">สวัสดี! โปรดส่งเครดิต %1$s AppCoins ให้ฉันเพื่อซื้อสินค้าใน World Jungle ลิงค์: %2$s</string>
+  <!--P2P Send-->
+  <string name="p2p_send_title">ส่งเงิน</string>
+  <string name="p2p_send_body">แสกนหรือใส่ที่อยู่กระเป๋าสตางค์ของเพื่อน</string>
+  <string name="p2p_send_confirmation_message">%1$s %2$s ถูกส่งไปยังที่อยู่ต่อไปนี้:</string>
 </resources>
