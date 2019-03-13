@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.gamification
 
+import android.animation.Animator
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -71,7 +72,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     setLevelIcons(4)
   }
 
-  override fun updateLevel(userStatus: UserRewardsStatus) {
+  override fun updateLevel(userStatus: UserRewardsStatus, hasNewLevel: Boolean) {
     step = 100 / (userStatus.bonus.size - 1)
 
     setLevelResources(userStatus.level)
@@ -86,6 +87,10 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
       earned_value.visibility = View.INVISIBLE
     }
     animateProgress(currentLevel, userStatus.level)
+
+    if (hasNewLevel) {
+      levelUpAnimation(userStatus.level)
+    }
 
     for (value in userStatus.bonus) {
       setLevelBonus(userStatus.bonus.indexOf(value), value.toString())
@@ -303,6 +308,32 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
       3 -> gamification_current_level_animation.setMinAndMaxFrame(570, 690)
       4 -> gamification_current_level_animation.setMinAndMaxFrame(750, 870)
     }
+  }
+
+  private fun setLevelTransitionAnimation(toLevel: Int) {
+    when (toLevel) {
+      0 -> gamification_current_level_animation.setMinAndMaxFrame(0, 30)
+      1 -> gamification_current_level_animation.setMinAndMaxFrame(30, 210)
+      2 -> gamification_current_level_animation.setMinAndMaxFrame(210, 390)
+      3 -> gamification_current_level_animation.setMinAndMaxFrame(390, 570)
+      4 -> gamification_current_level_animation.setMinAndMaxFrame(570, 750)
+    }
+  }
+
+  private fun levelUpAnimation(level: Int) {
+    setLevelTransitionAnimation(level)
+    gamification_current_level_animation.playAnimation()
+    gamification_current_level_animation.addAnimatorListener(object : Animator.AnimatorListener {
+      override fun onAnimationRepeat(animation: Animator?) {
+        setLevelIdleAnimation(level)
+      }
+      override fun onAnimationEnd(animation: Animator?) {
+      }
+      override fun onAnimationCancel(animation: Animator?) {
+      }
+      override fun onAnimationStart(animation: Animator?) {
+      }
+    })
   }
 
   private fun fadeOutAnimation(view: View, listener: AnimationListener?) {

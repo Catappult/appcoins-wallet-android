@@ -6,7 +6,7 @@ import com.appcoins.wallet.gamification.repository.UserStats
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.BiFunction
+import io.reactivex.functions.Function3
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -27,21 +27,21 @@ class MyLevelPresenter(private val view: MyLevelView,
 
   private fun handleShowLevels() {
     disposables.add(
-        Single.zip(gamification.getLevels(), gamification.getUserStatus(),
-            BiFunction { levels: Levels, userStats: UserStats ->
-              mapToUserStatus(levels, userStats)
+        Single.zip(gamification.getLevels(), gamification.getUserStatus(), gamification.hasNewLevel(),
+            Function3 { levels: Levels, userStats: UserStats, hasNewLevel: Boolean ->
+              mapToUserStatus(levels, userStats, hasNewLevel)
             })
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess {
-              view.updateLevel(it)
+              view.updateLevel(it, it.hasNewLevel)
               if (it.bonus.isNotEmpty()) view.showHowItWorksButton()
             }
             .flatMapCompletable { gamification.levelShown(it.level) }
             .subscribe())
   }
 
-  private fun mapToUserStatus(levels: Levels, userStats: UserStats): UserRewardsStatus {
+  private fun mapToUserStatus(levels: Levels, userStats: UserStats, hasNewLevel: Boolean): UserRewardsStatus {
     var status = UserRewardsStatus()
     if (levels.status == Levels.Status.OK && userStats.status == UserStats.Status.OK) {
       val list = mutableListOf<Double>()
@@ -53,7 +53,7 @@ class MyLevelPresenter(private val view: MyLevelView,
       val nextLevelAmount = userStats.nextLevelAmount?.minus(
           userStats.totalSpend)?.setScale(2, RoundingMode.HALF_UP) ?: BigDecimal.ZERO
       status =
-          UserRewardsStatus(userStats.level, nextLevelAmount, list)
+          UserRewardsStatus(userStats.level, nextLevelAmount, list, hasNewLevel)
     }
     return status
   }
