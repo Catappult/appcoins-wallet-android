@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.transact
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -40,6 +41,7 @@ class TransactActivity : BaseActivity(), TransactActivityView, TransactNavigator
   }
 
   override fun showLoading() {
+    lockOrientation()
     supportFragmentManager.beginTransaction()
         .add(android.R.id.content, LoadingFragment.newInstance(),
             LoadingFragment::class.java.name).commit()
@@ -51,6 +53,15 @@ class TransactActivity : BaseActivity(), TransactActivityView, TransactNavigator
     if (fragment != null) {
       supportFragmentManager.beginTransaction().remove(fragment).commit()
     }
+    unlockOrientation()
+  }
+
+  private fun lockOrientation() {
+    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_NOSENSOR
+  }
+
+  private fun unlockOrientation() {
+    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
   }
 
   override fun openAppcoinsCreditsSuccess(walletAddress: String,
