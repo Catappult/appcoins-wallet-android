@@ -31,7 +31,7 @@ class TransactPresenter(private val view: TransactFragmentView,
     disposables.add(view.getCurrencyChange()
         .subscribeOn(viewScheduler)
         .observeOn(ioScheduler)
-        .flatMapSingle {
+        .switchMapSingle {
           getBalance(it).map { balance -> BalanceUtils.weiToEth(balance) }
               .observeOn(viewScheduler)
               .doOnSuccess { balance -> view.showBalance(balance, it) }
