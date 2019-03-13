@@ -23,6 +23,7 @@
   <string name="title_activity_settings">设置</string>
   <string name="network_label">网络</string>
   <string name="credits">制作组</string>
+  <string name="new">新</string>
   <string name="low_storage_error">存储空间不足</string>
   <string name="no_camera_permission">AppCoins BDS Wallet需要访问相机以扫描二维码的权限。</string>
   <string name="ok">确定</string>
@@ -219,6 +220,7 @@
   <string name="transaction_type_standard">转移</string>
   <string name="transaction_type_bonus">奖励</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
+  <string name="transaction_type_p2p">P2P传输</string>
   <string name="transaction_details_brand_txt">采用以太网技术</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
@@ -290,10 +292,10 @@
   <string name="gamification_galaxy_subtitle">太空最大的星系！</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">你获得了一个奖励！</string>
-  <string name="gamification_purchase_body">%s APPC积分将计入你的钱包</string>
+  <string name="gamification_purchase_body">通过此购买，你可以获取%s APPC积金。</string>
   <string name="action_level">我的等级</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to %s.</string>
+  <string name="provide_wallet_body">允许AppCoins钱包向%s提供你的钱包地址。</string>
   <string name="provide_wallet_always_allow_button">始终允许</string>
   <string name="provide_wallet_allow_once_button">允许一次</string>
   <string name="provide_wallet_completed_header">钱包已关联到Aptoide！</string>
@@ -301,4 +303,33 @@
   <string name="provide_wallet_create_wallet_button">创建</string>
   <string name="provide_wallet_creating_wallet_header">正在创建钱包地址&#8230;</string>
   <string name="provide_wallet_created_header">钱包地址已创建！</string>
+  <string name="provide_wallet_empty_state">你还没有允许AppCoins钱包向任何其他应用提供你的地址。</string>
+  <string name="provide_wallet_status">允许访问钱包地址</string>
+  <!-- Top Up -->
+  <string name="topup_home_button">充值</string>
+  <string name="topup_title">充值</string>
+  <string name="topup_amount">%s APPC-C</string>
+  <string name="topup_bonus_header">你获得了奖励！</string>
+  <string name="topup_bonus_message">你的钱包将额外获得%s APPC-C。</string>
+  <string name="topup_completed_1">%1$s APPC积金</string>
+  <string name="topup_completed_2">将存入你的账户。</string>
+  <!--Balance-->
+  <string name="balance_title">余额</string>
+  <string name="balance_total_body">总余额(%s)</string>
+  <string name="balance_topup_body">你可以使用AppCoins积金为钱包充值。</string>
+  <string name="balance_ethereum_body">以太币是AppCoins采用的加密货币。你可以在大多数交易平台交易以太币，以太币是现今非常热门的加密货币！</string>
+  <string name="balance_appcoins_body">AppCoins是应用经济的加密货币。你可以在多个交易平台交易，用它来购买应用内物品。</string>
+  <string name="balance_appccreditos_body">购买应用内物品的代币！从钱包充值APPC-C或使用应用免费获取。好友之间也可交易！</string>
+  <!--Ask a friend for funds-->
+  <string name="askafriend_payment_option_button">询问好友</string>
+  <string name="askafriend_share_body">与好友分享链接，他们便可以向你发送基金！</string>
+  <string name="askafriend_share_add_message_body">添加消息（可选）</string>
+  <string name="askafriend_share_button">分享</string>
+  <string name="askafriend_received_body">你刚刚接收了%s APPC-C</string>
+  <string name="askafriend_received_title">已接收的转账</string>
+  <string name="askafriend_share_note_to_friend">你好！请向我发送%1$s AppCoins积金以购买World Jungle上的物品。链接：%2$s</string>
+  <!--P2P Send-->
+  <string name="p2p_send_title">发送基金</string>
+  <string name="p2p_send_body">扫描或输入好友的钱包地址。</string>
+  <string name="p2p_send_confirmation_message">向以下地址发送了%1$s %2$s：</string>
 </resources>
