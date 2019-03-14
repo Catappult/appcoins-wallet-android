@@ -251,12 +251,13 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   }
 
   private fun setLevelResources(level: Int) {
-    setLevelIdleAnimation(level)
+    levelIdleAnimation(level)
     level_title.text = getString(R.string.gamification_level_header,
         getString(levelResourcesMapper.mapTitle(level)))
     level_title.visibility = View.VISIBLE
     level_description.text = getString(levelResourcesMapper.mapSubtitle(level))
     level_description.visibility = View.VISIBLE
+    current_level.text = getString(R.string.gamification_level_on_graphic, Integer.toString(level + 1))
   }
 
   private fun setLevelBonus(level: Int, text: String) {
@@ -322,6 +323,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
 
   private fun levelUpAnimation(level: Int) {
     setLevelTransitionAnimation(level)
+    gamification_current_level_animation.visibility = View.VISIBLE
     gamification_current_level_animation.playAnimation()
     gamification_current_level_animation.addAnimatorListener(object : Animator.AnimatorListener {
       override fun onAnimationRepeat(animation: Animator?) {
@@ -334,6 +336,12 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
       override fun onAnimationStart(animation: Animator?) {
       }
     })
+  }
+
+  private fun levelIdleAnimation(level: Int) {
+    setLevelIdleAnimation(level)
+    gamification_current_level_animation.visibility = View.VISIBLE
+    gamification_current_level_animation.playAnimation()
   }
 
   private fun fadeOutAnimation(view: View, listener: AnimationListener?) {

@@ -15,8 +15,8 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintVertical_chainStyle="packed"
-      app:lottie_autoPlay="true"
       app:lottie_loop="true"
+      android:visibility="invisible"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_rawRes="@raw/gamification_current_level_animation"
       />
