@@ -23,7 +23,7 @@
   <string name="title_activity_settings">Cài đặt</string>
   <string name="network_label">Mạng lưới</string>
   <string name="credits">Thông tin</string>
-  <string name="new">New</string>
+  <string name="label_new">New</string>
   <string name="low_storage_error">Không đủ dung lượng lưu trữ</string>
   <string name="no_camera_permission">AppCoins BDS Wallet cần quyền truy cập vào máy ảnh của bạn để quét mã QR.</string>
   <string name="ok">Ok</string>
@@ -263,6 +263,8 @@
   <string name="gamification_home_button">BẮT ĐẦU NHẬN</string>
   <string name="gamification_level_title">Cấp của tôi là gì?</string>
   <string name="gamification_level_title_new">Nhận APPC Credits!</string>
+  <string name="gamification_level_on_graphic">Level %s</string>
+  <string name="gamification_APPCapps_button">Apps &amp; games</string>
   <string name="gamification_level_header">Xin chúc mừng, bạn là %s!</string>
   <string name="gamification_level_to_next">Đến cấp kế tiếp:</string>
   <string name="gamification_level_earned">KIẾM ĐƯỢC:</string>
@@ -305,6 +307,7 @@
   <string name="provide_wallet_created_header">Đã tạo địa chỉ ví!</string>
   <string name="provide_wallet_empty_state">Bạn chưa cho phép AppCoins Wallet cung cấp địa chỉ của bạn cho bất kỳ ứng dụng nào khác.</string>
   <string name="provide_wallet_status">Cho phép truy cập vào địa chỉ ví</string>
+  <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_home_button">Top Up</string>
   <string name="topup_title">Top Up</string>
@@ -332,4 +335,15 @@
   <string name="p2p_send_title">Send Funds</string>
   <string name="p2p_send_body">Scan or enter your friend\'s wallet address.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s were sent to the following address:</string>
+  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
+  <string name="p2p_send_error_address">Invalid address</string>
+  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
+  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
+  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <!--Common-->
+  <string name="error_general">Something went wrong</string>
+  <string name="error_missing_field">Mandatory field</string>
+  <string name="cancel_button">Cancel</string>
+  <!--Onboarding-->
+  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
 </resources>
