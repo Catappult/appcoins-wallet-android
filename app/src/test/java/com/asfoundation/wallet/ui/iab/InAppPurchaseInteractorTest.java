@@ -191,20 +191,20 @@ public class InAppPurchaseInteractorTest {
 
     when(transactionProvider.get(PACKAGE_NAME, SKU)).thenReturn(Single.just(
         new Transaction(UID, Transaction.Status.PROCESSING,
-            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference")), Single.just(
+            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null)), Single.just(
         new Transaction(UID, Transaction.Status.COMPLETED,
-            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference")));
+            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null)));
 
     when(billing.getSkuTransaction(anyString(), anyString(), any(Scheduler.class))).thenReturn(
         Single.just(new Transaction(UID, Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
-            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference")));
+            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null)));
 
     when(proxyService.getAppCoinsAddress(anyBoolean())).thenReturn(
         Single.just("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3"));
     when(proxyService.getIabAddress(anyBoolean())).thenReturn(
         Single.just("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3"));
     when(conversionService.getAppcRate(anyString())).thenReturn(
-        Single.just(new FiatValue(2.0, "EUR")));
+        Single.just(new FiatValue(2.0, "EUR", "")));
 
     eipTransactionParser = new EIPTransactionParser(defaultWalletInteract, tokenRepository);
     oneStepTransactionParser =
