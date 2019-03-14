@@ -5,10 +5,12 @@ data class Transaction(val uid: String,
                        val status: Status,
                        val gateway: Gateway?,
                        var hash: String?,
-                       val orderReference: String?) {
+                       val orderReference: String?,
+                       val price: Price?) {
+
   companion object {
     fun notFound(): Transaction {
-      return Transaction("", Status.INVALID_TRANSACTION, Gateway.unknown(), null, null)
+      return Transaction("", Status.INVALID_TRANSACTION, Gateway.unknown(), null, null, null)
     }
 
   }
@@ -19,3 +21,5 @@ data class Transaction(val uid: String,
   }
 
 }
+
+data class Price(val currency: String, val value: String, val appc: String)

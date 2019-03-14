@@ -6,26 +6,36 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
+import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
+import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_top_up_success.*
 
+class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
 
-/**
- * Created by Joao Raimundo on 04/03/2019.
- */
-class TopUpSuccessFragment : DaggerFragment() {
   companion object {
     @JvmStatic
     fun newInstance(amount: Double): TopUpSuccessFragment {
       val fragment = TopUpSuccessFragment()
       val bundle = Bundle()
-      bundle.putDouble("amount", amount)
+      bundle.putDouble(PARAM_AMOUNT, amount)
       fragment.arguments = bundle
       return fragment
     }
+
+    private const val PARAM_AMOUNT = "amount"
   }
 
+  private lateinit var presenter: TopUpSuccessPresenter
+
   private lateinit var topUpActivityView: TopUpActivityView
+  val amount: String?
+    get() {
+      if (arguments!!.containsKey(PARAM_AMOUNT)) {
+        return arguments!!.getDouble(PARAM_AMOUNT).toString()
+      }
+      throw IllegalArgumentException("product name not found")
+    }
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
@@ -36,24 +46,47 @@ class TopUpSuccessFragment : DaggerFragment() {
     topUpActivityView = context
   }
 
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    presenter = TopUpSuccessPresenter(this)
+  }
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_top_up_success, container, false);
+    return inflater.inflate(R.layout.fragment_top_up_success, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    presenter.present()
+  }
+
+  override fun onDestroyView() {
+    presenter.stop()
+    super.onDestroyView()
+  }
+
+  override fun show() {
     top_up_success_animation.setAnimation(R.raw.top_up_success_animation)
     top_up_success_animation.playAnimation()
     top_up_success_animation.repeatCount = 0
 
-    button.setOnClickListener { topUpActivityView.close() }
+    value.text = String.format("%s APPC Credits", amount)
   }
 
-  override fun onDestroy() {
-    super.onDestroy()
+  override fun clean() {
     top_up_success_animation.removeAllAnimatorListeners()
     top_up_success_animation.removeAllUpdateListeners()
     top_up_success_animation.removeAllLottieOnCompositionLoadedListener()
+  }
+
+
+  override fun close() {
+    topUpActivityView.close()
+  }
+
+  override fun getOKClicks(): Observable<Any> {
+    return RxView.clicks(button)
   }
 
 }

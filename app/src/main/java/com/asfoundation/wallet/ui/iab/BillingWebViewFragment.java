@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +13,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.WalletService;
 import com.asf.wallet.R;
@@ -22,6 +22,7 @@ import com.asfoundation.wallet.billing.TransactionService;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.billing.purchase.BillingFactory;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.navigator.UriNavigator;
 import dagger.android.support.DaggerFragment;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -39,6 +40,7 @@ public class BillingWebViewFragment extends DaggerFragment {
   private static final String URL = "url";
   private static final String CURRENT_URL = "currentUrl";
   private static TransactionBuilder transaction;
+  private static UriNavigator navigator;
 
   @Inject Billing billing;
   @Inject BillingFactory billingFactory;
@@ -53,14 +55,15 @@ public class BillingWebViewFragment extends DaggerFragment {
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject BillingAnalytics analytics;
 
-
-  public static BillingWebViewFragment newInstance(String url, TransactionBuilder transactionBuilder) {
+  public static BillingWebViewFragment newInstance(String url,
+      TransactionBuilder transactionBuilder, UriNavigator uriNavigator) {
     Bundle args = new Bundle();
     args.putString(URL, url);
     BillingWebViewFragment fragment = new BillingWebViewFragment();
     fragment.setArguments(args);
     fragment.setRetainInstance(true);
     transaction = transactionBuilder;
+    navigator = uriNavigator;
     return fragment;
   }
 
@@ -116,7 +119,8 @@ public class BillingWebViewFragment extends DaggerFragment {
         currentUrl = clickUrl;
 
         if (clickUrl.startsWith(BILLING_SCHEMA)) {
-          Intent intent = new Intent(getContext(), IabActivity.class);
+          //Intent intent = new Intent(getContext(), TopUpActivity.class);
+          Intent intent = navigator.getActivityIntent();
           intent.setData(Uri.parse(clickUrl));
           getActivity().setResult(WebViewActivity.SUCCESS);
           sendPaymentEvent();

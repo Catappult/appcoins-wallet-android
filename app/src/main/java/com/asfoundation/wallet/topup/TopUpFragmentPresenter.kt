@@ -1,8 +1,10 @@
 package com.asfoundation.wallet.topup
 
-import com.adyen.core.models.PaymentMethod
-import com.asfoundation.wallet.billing.adyen.Adyen
+import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.topup.TopUpActivity.Companion.APPC_C
+import com.asfoundation.wallet.topup.TopUpActivity.Companion.LOCAL_CURRENCY
 import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -10,40 +12,44 @@ import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
 import java.io.IOException
+import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 
 class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                              private val activity: TopUpActivityView?,
                              private val interactor: TopUpInteractor,
-                             private val paymentHandler: Adyen,
                              private val viewScheduler: Scheduler,
-                             private val networkScheduler: Scheduler) {
+                             private val networkScheduler: Scheduler,
+                             private val packageName: String) {
 
   companion object {
-    val LOCAL_CURRENCY = "LOCAL_CURRENCY"
-    val APPC_C = "APPC_C"
+    const val DEFAULT_VALUE = "--"
+    const val NETWORK_ID_ROPSTEN = 3L
+    const val NETWORK_ID_MAIN = 1L
   }
 
+  private lateinit var currentData: TopUpData
+  private lateinit var paymentMethod: PaymentType
+  private lateinit var transaction: TransactionBuilder
   private val disposables: CompositeDisposable = CompositeDisposable()
-  private lateinit var currentData: UiData
-
   private var currentCurrency = LOCAL_CURRENCY
 
   fun present() {
     setupUi()
     handleChangeCurrencyClick()
+    handlePaymentMethodSelection()
     handleNextClick()
     handleValuesChange()
     handleAmountFocusChange()
-    handlePaymentDetailsRequired()
   }
 
   private fun setupUi() {
     disposables.add(Single.zip(interactor.getPaymentMethods(), interactor.getLocalCurrency(),
         BiFunction { paymentMethods: List<PaymentMethodData>, currency: LocalCurrency ->
-          UiData(paymentMethods,
-              CurrencyData(currency.code, currency.symbol, "", "APPC-C", "APPC-C", "--"))
+          TopUpData(paymentMethods,
+              CurrencyData(currency.code, currency.symbol, DEFAULT_VALUE, "APPC-C", "APPC-C",
+                  DEFAULT_VALUE))
         }).subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess {
@@ -57,6 +63,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   private fun handleChangeCurrencyClick() {
     disposables.add(
         view.getChangeCurrencyClick().doOnNext {
+          view.rotateChangeCurrencyButton()
           currentCurrency = if (currentCurrency == LOCAL_CURRENCY) APPC_C else LOCAL_CURRENCY
           updateValues()
         }.subscribe())
@@ -66,9 +73,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     disposables.add(
         view.getNextClick().doOnNext {
           view.showLoading()
-          activity?.navigateToAdyen(true, "EUR", PaymentType.CARD)
-//          paymentHandler.createNewPayment()
-//          selectPaymentMethod(PaymentType.CARD)
+          transaction = buildTransaction(currentData.currency.appcValue, packageName)
+          activity?.navigateToPayment(paymentMethod, currentData, currentCurrency, transaction)
         }.subscribe())
   }
 
@@ -120,10 +126,21 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     view.updateCurrencyData(currencyData)
   }
 
+
+  private fun handlePaymentMethodSelection() {
+    view.getPaymentMethodClick().map {
+      paymentMethod = if (PaymentType.PAYPAL.subTypes.contains(it)) {
+        PaymentType.PAYPAL
+      } else {
+        PaymentType.CARD
+      }
+    }.subscribe()
+  }
+
   private fun handleValuesChange() {
     val amountChanged: Observable<Double> =
         view.getEditTextChanges().map {
-          if (it.view().text.isNotEmpty())
+          if (it.view().text.isNotEmpty() && it.view().text != DEFAULT_VALUE)
             it.view().text.toString().toDouble()
           else
             0.0
@@ -139,47 +156,24 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
             }).subscribe())
   }
 
-  private fun handlePaymentDetailsRequired() {
-    disposables.add(paymentHandler.paymentRequest
-        .filter { paymentRequest -> paymentRequest.paymentMethod != null }
-        .map { paymentRequest ->
-          paymentRequest.paymentMethod!!.type
-        }
-        .distinctUntilChanged { paymentRequest, paymentRequest2 -> paymentRequest == paymentRequest2 }
-        .flatMapMaybe {
-          paymentHandler.paymentRequest.firstElement()
-        }
-        .observeOn(viewScheduler)
-        .doOnNext { data ->
-          if (data.paymentMethod!!.type == PaymentMethod.Type.CARD) {
-            view.showPaymentDetailsForm()
-            // data.getPaymentMethod(), data.getAmount(), true,
-            //            data.getShopperReference() != null, data.getPublicKey(), data.getGenerationTime())
-          } else {
-            view.showPaymentDetailsForm()
-            //showCvcView(data.getAmount(), data.getPaymentMethod())
-          }
-        }
-        .observeOn(viewScheduler)
-        .subscribe({ }, { throwable -> showError(throwable) }))
-  }
-
-  private fun selectPaymentMethod(paymentType: PaymentType) {
-    disposables.add(paymentHandler.getPaymentMethod(paymentType)
-        .flatMapCompletable {
-          paymentMethod -> paymentHandler.selectPaymentService(paymentMethod)
-        }.observeOn(viewScheduler)
-        .subscribe({ }, { throwable -> showError(throwable) }))
-  }
-
   private fun showError(throwable: Throwable) {
     throwable.printStackTrace()
 
     if (throwable is IOException) {
-//      view.hideLoading()
 //      view.showNetworkError()
     } else {
 //      view.showGenericError()
     }
+  }
+
+  private fun buildTransaction(amount: String, packageName: String): TransactionBuilder {
+    return TransactionBuilder("APPC", null, getNetworkId(),
+        null, BigDecimal(amount), null, 0, null,
+        "TOPUP", "BDS", packageName, null, null, null)
+        .shouldSendToken(true)
+  }
+
+  private fun getNetworkId(): Long {
+    return if (BuildConfig.DEBUG) NETWORK_ID_ROPSTEN else NETWORK_ID_MAIN
   }
 }

@@ -16,7 +16,7 @@ interface TopUpFragmentView {
 
   fun getNextClick(): Observable<Any>
 
-  fun setupUiElements(data: UiData)
+  fun setupUiElements(data: TopUpData)
 
   fun updateCurrencyData(data: CurrencyData)
 
@@ -29,5 +29,7 @@ interface TopUpFragmentView {
   fun showPaymentDetailsForm()
 
   fun showPaymentMethods()
+
+  fun rotateChangeCurrencyButton()
 
 }

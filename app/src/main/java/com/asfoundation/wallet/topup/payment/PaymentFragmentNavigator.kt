@@ -2,9 +2,9 @@ package com.asfoundation.wallet.topup.payment
 
 import android.net.Uri
 import android.os.Bundle
+import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.topup.TopUpActivityView
-import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.Navigator
 import io.reactivex.Observable
 
@@ -19,8 +19,9 @@ class PaymentFragmentNavigator(private val uriNavigator: UriNavigator,
     topUpView.close()
   }
 
-  override fun navigateToUriForResult(redirectUrl: String, transactionUid: String) {
-    uriNavigator.navigateToUri(redirectUrl)
+  override fun navigateToUriForResult(redirectUrl: String, transactionUid: String,
+                                      transaction: TransactionBuilder) {
+    uriNavigator.navigateToUri(redirectUrl, transaction)
   }
 
   override fun uriResults(): Observable<Uri> {

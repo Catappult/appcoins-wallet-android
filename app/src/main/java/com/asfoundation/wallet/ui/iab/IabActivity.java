@@ -148,7 +148,7 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   }
 
   @Override public void navigateToWebViewAuthorization(String url) {
-    startActivityForResult(WebViewActivity.newIntent(this, url, transaction),
+    startActivityForResult(WebViewActivity.newIntent(this, url, transaction, this),
         WEB_VIEW_REQUEST_CODE);
   }
 
@@ -224,11 +224,15 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     return getIntent().getBooleanExtra(EXTRA_BDS_IAP, false);
   }
 
-  @Override public void navigateToUri(String url) {
+  @Override public void navigateToUri(String url, TransactionBuilder transaction) {
     navigateToWebViewAuthorization(url);
   }
 
   @Override public Observable<Uri> uriResults() {
     return results;
+  }
+
+  @Override public Intent getActivityIntent() {
+    return new Intent(this, IabActivity.class);
   }
 }

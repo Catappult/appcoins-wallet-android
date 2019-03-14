@@ -27,10 +27,11 @@
       app:layout_constraintBottom_toTopOf="@id/button"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      android:text="1 APPC Credits"
+      android:text="%s APPC Credits"
       android:layout_marginTop="28dp"
       app:layout_constraintVertical_bias="0"
-      style="@style/TopUpTextStyle.Small.BonusTitle"/>
+      style="@style/TopUpTextStyle.SuccessTitle"
+      />
 
   <TextView
       android:id="@+id/description"
@@ -42,7 +43,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       android:text="were credited in your account."
-      style="@style/TopUpTextStyle.Small.BonusText"
+      style="@style/TopUpTextStyle.SuccessText"
       />
   <Button
       android:id="@+id/button"

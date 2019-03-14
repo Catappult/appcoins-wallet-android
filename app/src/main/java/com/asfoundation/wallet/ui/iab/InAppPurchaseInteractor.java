@@ -6,6 +6,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethod;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
@@ -21,7 +22,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status;
 
 public class InAppPurchaseInteractor {
 
@@ -199,6 +199,17 @@ public class InAppPurchaseInteractor {
             .toObservable())
         .takeUntil(pendingTransaction -> pendingTransaction.getStatus() != Status.COMPLETED)
         .map(transaction -> transaction.getHash())
+        .firstOrError();
+  }
+
+  public Single<Double> getTransactionAmount(String uid) {
+    return Observable.interval(0, 5, TimeUnit.SECONDS, Schedulers.io())
+        .timeInterval()
+        .switchMap(longTimed -> billing.getAppcoinsTransaction(uid, Schedulers.io())
+            .toObservable())
+        .takeUntil(pendingTransaction -> pendingTransaction.getStatus() != Status.COMPLETED)
+        .map(transaction -> Double.parseDouble(transaction.getPrice()
+            .getAppc()))
         .firstOrError();
   }
 

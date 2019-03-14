@@ -1,7 +1,5 @@
 package com.asfoundation.wallet.topup.payment
 
-import android.os.Bundle
-import com.adyen.core.models.Amount
 import com.adyen.core.models.PaymentMethod
 import com.adyen.core.models.paymentdetails.PaymentDetails
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization
@@ -9,7 +7,7 @@ import io.reactivex.Observable
 
 interface PaymentAuthView {
 
-  fun showProduct()
+  fun showValues()
 
   fun showLoading()
 
@@ -23,10 +21,10 @@ interface PaymentAuthView {
 
   fun showNetworkError()
 
-  fun showCvcView(amount: Amount, paymentMethod: PaymentMethod)
+  fun showCvcView(paymentMethod: PaymentMethod)
 
-  fun showCreditCardView(paymentMethod: PaymentMethod, amount: Amount, cvcStatus: Boolean,
-                         allowSave: Boolean, publicKey: String, generationTime: String)
+  fun showCreditCardView(paymentMethod: PaymentMethod, cvcStatus: Boolean, allowSave: Boolean,
+                         publicKey: String, generationTime: String)
 
   fun close()
 

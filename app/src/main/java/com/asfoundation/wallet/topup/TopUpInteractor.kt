@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.topup
 
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
-import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethod
 import com.asfoundation.wallet.service.LocalCurrencyConversionService
 import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
@@ -13,7 +12,7 @@ class TopUpInteractor(private val repository: BdsRepository,
                       private val conversionService: LocalCurrencyConversionService) {
 
   fun getPaymentMethods(): Single<List<PaymentMethodData>> {
-    return repository.getPaymentMethods().map { methods ->
+    return repository.getPaymentMethods("fiat").map { methods ->
       mapPaymentMethods(methods)
     }
   }
@@ -35,9 +34,7 @@ class TopUpInteractor(private val repository: BdsRepository,
   private fun mapPaymentMethods(paymentMethods: List<PaymentMethod>): List<PaymentMethodData> {
     var paymentMethodsData: MutableList<PaymentMethodData> = mutableListOf()
     paymentMethods.forEach {
-      if (it.gateway.name == Gateway.Name.adyen) {
-        paymentMethodsData.add(PaymentMethodData(it.iconUrl, it.label, it.id))
-      }
+      paymentMethodsData.add(PaymentMethodData(it.iconUrl, it.label, it.id))
     }
     return paymentMethodsData
   }

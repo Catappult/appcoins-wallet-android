@@ -35,7 +35,7 @@
         android:background="@color/activity_background_color"
         android:clipChildren="false"
         android:clipToPadding="false"
-        android:paddingBottom="@dimen/big_padding"
+        android:paddingBottom="@dimen/large_padding"
         android:visibility="gone"
         />
   </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
@@ -65,7 +65,6 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/floating_btn_start_gradient_color"
-        android:minHeight="48dp"
         android:onClick="onClick"
         android:text="top up"
         app:icon="@drawable/ic_add_white_24dp"

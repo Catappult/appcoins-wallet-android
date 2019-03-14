@@ -9,26 +9,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
 import android.widget.LinearLayout
-import android.widget.TextView
-import com.adyen.core.models.Amount
 import com.adyen.core.models.PaymentMethod
 import com.adyen.core.models.paymentdetails.CreditCardPaymentDetails
 import com.adyen.core.models.paymentdetails.PaymentDetails
-import com.adyen.core.utils.AmountUtil
-import com.adyen.core.utils.StringUtils
 import com.appcoins.wallet.bdsbilling.Billing
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.Adyen
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization
 import com.asfoundation.wallet.billing.purchase.BillingFactory
+import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.topup.TopUpActivityView
-import com.asfoundation.wallet.ui.iab.IabActivity.*
+import com.asfoundation.wallet.topup.TopUpData
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.view.rx.RxAlertDialog
@@ -78,31 +73,23 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     }
 
 
-  val transactionData: String?
+  val transaction: TransactionBuilder?
     get() {
-      if (arguments!!.containsKey(TRANSACTION_DATA)) {
-        return arguments!!.getString(TRANSACTION_DATA)
+      if (arguments!!.containsKey(PAYMENT_TRANSACTION_DATA)) {
+        return arguments!!.getParcelable(PAYMENT_TRANSACTION_DATA)
       }
       throw IllegalArgumentException("previous transaction data not found")
     }
 
-  val currency: String?
+  val data: TopUpData?
     get() {
-      if (arguments!!.containsKey(TRANSACTION_CURRENCY)) {
-        return arguments!!.getString(TRANSACTION_CURRENCY)
+      if (arguments!!.containsKey(PAYMENT_DATA)) {
+        return arguments!!.getSerializable(PAYMENT_DATA) as TopUpData?
       }
-      throw IllegalArgumentException("transaction currency not found")
+      throw IllegalArgumentException("previous payment data not found")
     }
 
-  val amount: BigDecimal
-    get() {
-      if (arguments!!.containsKey(TRANSACTION_AMOUNT)) {
-        return arguments!!.getSerializable(TRANSACTION_AMOUNT) as BigDecimal
-      }
-      throw IllegalArgumentException("transaction currency not found")
-    }
-
-  private val paymentType: PaymentType
+  val paymentType: PaymentType
     get() {
       if (arguments!!.containsKey(PAYMENT_TYPE)) {
         return PaymentType.valueOf(arguments!!.getString(PAYMENT_TYPE))
@@ -110,18 +97,41 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
       throw IllegalArgumentException("Payment Type not found")
     }
 
+  companion object {
+
+    private val TAG = PaymentAuthFragment::class.java.simpleName
+
+    private const val PAYMENT_TYPE = "paymentType"
+    private const val PAYMENT_TRANSACTION_DATA = "transaction"
+    private const val PAYMENT_DATA = "data"
+    private const val PAYMENT_CURRENT_CURRENCY = "currenCurrency"
+
+    fun newInstance(paymentType: PaymentType, transactionData: TransactionBuilder,
+                    data: TopUpData, currentCurrency: String): PaymentAuthFragment {
+      val bundle = Bundle()
+      bundle.putString(PAYMENT_TYPE, paymentType.name)
+      bundle.putParcelable(PAYMENT_TRANSACTION_DATA, transactionData)
+      bundle.putSerializable(PAYMENT_DATA, data)
+      bundle.putString(PAYMENT_CURRENT_CURRENCY, currentCurrency)
+      val fragment = PaymentAuthFragment()
+      fragment.arguments = bundle
+      return fragment
+    }
+  }
+
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     keyboardTopUpRelay = PublishRelay.create()
 
     navigator = PaymentFragmentNavigator((activity as UriNavigator?)!!, topUpView!!)
 
-    presenter = PaymentAuthPresenter(this, "com.appcoins.trivialdrivesample.test", defaultWalletInteract,
-        AndroidSchedulers.mainThread(), CompositeDisposable(), adyen,
-        billingFactory.getBilling("com.appcoins.trivialdrivesample.test"), navigator,
-        inAppPurchaseInteractor.billingMessagesMapper, inAppPurchaseInteractor,
-        transactionData, "", billing, "", "TOPUP", "BDS",
-        amount.toString(), currency, paymentType)
+    presenter =
+        PaymentAuthPresenter(this, appPackage, defaultWalletInteract,
+            AndroidSchedulers.mainThread(), CompositeDisposable(), adyen,
+            billingFactory.getBilling(appPackage), navigator,
+            inAppPurchaseInteractor.billingMessagesMapper, inAppPurchaseInteractor, transaction,
+            data?.currency?.appcValue, data?.currency?.fiatCurrencyCode, paymentType)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -130,14 +140,14 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
 
     button.isEnabled = false
 
-    button.setText(R.string.action_buy)
+    button.setText(R.string.topup_button_text)
 
     fragment_braintree_credit_card_form.setOnCardFormValidListener { valid ->
       button.isEnabled = valid
     }
     fragment_braintree_credit_card_form.setOnCardFormSubmitListener {
       if (fragment_braintree_credit_card_form.isValid) {
-        keyboardTopUpRelay!!.accept(true)
+        keyboardTopUpRelay.accept(true)
         if (getView() != null) {
           KeyboardUtils.hideKeyboard(getView()!!)
         }
@@ -147,19 +157,24 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     genericErrorDialog = RxAlertDialog.Builder(context).setMessage(R.string.unknown_error)
         .setPositiveButton(R.string.ok)
         .build()
+    genericErrorDialog.positiveClicks()
+        .subscribe({ navigator.popViewWithError() }, { it.printStackTrace() })
+
     networkErrorDialog =
         RxAlertDialog.Builder(context).setMessage(R.string.notification_no_network_poa)
             .setPositiveButton(R.string.ok)
             .build()
+    networkErrorDialog.positiveClicks()
+        .subscribe({ navigator.popViewWithError() }, { it.printStackTrace() })
+
     paymentRefusedDialog =
         RxAlertDialog.Builder(context).setMessage(R.string.notification_payment_refused)
             .setPositiveButton(R.string.ok)
             .build()
-
     paymentRefusedDialog.positiveClicks()
         .subscribe({ navigator.popViewWithError() }, { it.printStackTrace() })
 
-    showProduct()
+    showValues()
     presenter.present(savedInstanceState)
   }
 
@@ -192,12 +207,16 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     topUpView = context
   }
 
-  override fun showProduct() {
+  override fun showValues() {
     val formatter = Formatter()
     val appcValue = formatter.format(Locale.getDefault(), "%(,.2f",
-        (arguments!!.getSerializable(TRANSACTION_AMOUNT) as BigDecimal).toDouble())
-        .toString() + " APPC"
-    converted_value.text = appcValue
+        BigDecimal(data?.currency?.appcValue).toDouble()).toString()
+    converted_value.text = "$appcValue ${data?.currency?.appcCode}"
+    val fiatValue = BigDecimal(data?.currency?.fiatValue).toDouble().toString()
+    main_value.setText(fiatValue)
+    main_value_currency.text = data?.currency?.fiatCurrencySymbol
+    currency_code.text = data?.currency?.fiatCurrencyCode
+
   }
 
   override fun showLoading() {
@@ -215,7 +234,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
   }
 
   override fun errorDismisses(): Observable<Any> {
-    return Observable.merge<DialogInterface>(networkErrorDialog!!.dismisses(),
+    return Observable.merge<DialogInterface>(networkErrorDialog.dismisses(),
         paymentRefusedDialog.dismisses())
         .map { Any() }
   }
@@ -236,13 +255,12 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     }
   }
 
-  override fun showCvcView(amount: Amount, paymentMethod: PaymentMethod) {
+  override fun showCvcView(paymentMethod: PaymentMethod) {
     cvcOnly = true
     fragment_braintree_credit_card_form.findViewById<View>(
         com.braintreepayments.cardform.R.id.bt_card_form_card_number_icon)
         .visibility = View.GONE
     this.paymentMethod = paymentMethod
-    showProductPrice(amount)
     card_details.visibility = View.VISIBLE
     card_details.text = paymentMethod.name
     change_card_button.visibility = View.VISIBLE
@@ -259,7 +277,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     finishSetupView()
   }
 
-  override fun showCreditCardView(paymentMethod: PaymentMethod, amount: Amount, cvcStatus: Boolean,
+  override fun showCreditCardView(paymentMethod: PaymentMethod, cvcStatus: Boolean,
                                   allowSave: Boolean, publicKey: String, generationTime: String) {
     this.paymentMethod = paymentMethod
     this.publicKey = publicKey
@@ -268,7 +286,6 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     card_details.visibility = View.GONE
     change_card_button.visibility = View.GONE
     remember_card.visibility = View.VISIBLE
-    showProductPrice(amount)
     fragment_braintree_credit_card_form.setCardNumberIcon(0)
     fragment_braintree_credit_card_form.cardRequired(true)
         .expirationRequired(true)
@@ -303,7 +320,8 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
   }
 
   private fun finishSetupView() {
-    fragment_braintree_credit_card_form.findViewById<View>(R.id.bt_card_form_card_number_icon).visibility = View.GONE
+    fragment_braintree_credit_card_form.findViewById<View>(R.id.bt_card_form_card_number_icon)
+        .visibility = View.GONE
     (fragment_braintree_credit_card_form.findViewById<View>(R.id.bt_card_form_card_number)
         .parent
         .parent as TextInputLayout).setPadding(24, 50, 0, 0)
@@ -315,12 +333,12 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
 
   private fun getPaymentDetails(publicKey: String?, generationTime: String?): PaymentDetails {
     if (cvcOnly) {
-      val paymentDetails = PaymentDetails(paymentMethod!!.inputDetails)
+      val paymentDetails = PaymentDetails(paymentMethod.inputDetails)
       paymentDetails.fill("cardDetails.cvc", fragment_braintree_credit_card_form.cvv)
       return paymentDetails
     }
 
-    val creditCardPaymentDetails = CreditCardPaymentDetails(paymentMethod!!.inputDetails)
+    val creditCardPaymentDetails = CreditCardPaymentDetails(paymentMethod.inputDetails)
     try {
       val sensitiveData = JSONObject()
 
@@ -340,30 +358,5 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
 
     creditCardPaymentDetails.fillStoreDetails(remember_card.isChecked)
     return creditCardPaymentDetails
-  }
-
-  private fun showProductPrice(amount: Amount) {
-    main_value.setText(AmountUtil.format(amount, true, StringUtils.getLocale(activity!!)))
-  }
-
-  companion object {
-
-    private val TAG = PaymentAuthFragment::class.java.simpleName
-
-    private const val PAYMENT_TYPE = "paymentType"
-
-    fun newInstance(paymentType: PaymentType, domain: String, transactionData: String,
-                    amount: BigDecimal,
-                    currency: String): PaymentAuthFragment {
-      val bundle = Bundle()
-      bundle.putString(PAYMENT_TYPE, paymentType.name)
-      bundle.putString(APP_PACKAGE, domain)
-      bundle.putString(TRANSACTION_DATA, transactionData)
-      bundle.putSerializable(TRANSACTION_AMOUNT, amount)
-      bundle.putString(TRANSACTION_CURRENCY, currency)
-      val fragment = PaymentAuthFragment()
-      fragment.arguments = bundle
-      return fragment
-    }
   }
 }

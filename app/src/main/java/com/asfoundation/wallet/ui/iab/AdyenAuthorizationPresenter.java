@@ -301,7 +301,8 @@ public class AdyenAuthorizationPresenter {
         .filter(s -> !waitingResult)
         .doOnSuccess(redirectUrl -> {
           view.showLoading();
-          navigator.navigateToUriForResult(redirectUrl, billingService.getTransactionUid());
+          navigator.navigateToUriForResult(redirectUrl, billingService.getTransactionUid(),
+              transactionBuilder.blockingGet());
           waitingResult = true;
         })
         .subscribe(__ -> {
