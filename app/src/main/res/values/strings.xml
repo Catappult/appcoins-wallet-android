@@ -25,8 +25,10 @@
   <string name="title_activity_settings">Settings</string>
   <string name="network_label">Network</string>
   <string name="credits">Credits</string>
+  <string name="label_new">New</string>
 
   <string name="low_storage_error">Not enough storage space</string>
+  <string name="no_camera_permission_title">Camera Permission</string>
   <string name="no_camera_permission">AppCoins BDS Wallet needs permission to access your camera to scan QR codes.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Invalid barcode format: %s</string>
@@ -227,6 +229,7 @@
   <string name="transaction_type_standard">Transfer</string>
   <string name="transaction_type_bonus">Bonus</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
+  <string name="transaction_type_p2p">P2P Transfer</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
@@ -273,6 +276,8 @@
   <string name="gamification_home_button">START EARNING</string>
   <string name="gamification_level_title">What\'s My Level?</string>
   <string name="gamification_level_title_new">Get APPC Credits!</string>
+  <string name="gamification_level_on_graphic">Level %s</string>
+  <string name="gamification_APPCapps_button">Apps &amp; games</string>
   <string name="gamification_level_header">Congrats, you\'re %s!</string>
   <string name="gamification_level_to_next">To next level:</string>
   <string name="gamification_level_earned">EARNED:</string>
@@ -302,8 +307,9 @@
   <string name="gamification_galaxy_subtitle">The biggest system out there!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">You\'ve got a Bonus!</string>
-  <string name="gamification_purchase_body">%s APPC Credits will be credited in your wallet</string>
+  <string name="gamification_purchase_body">You\'ll get %s APPC Credits for this purchase.</string>
   <string name="action_level">My Level</string>
+
 
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to %s.</string>
@@ -314,16 +320,56 @@
   <string name="provide_wallet_create_wallet_button">CREATE</string>
   <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
   <string name="provide_wallet_created_header">Wallet address created!</string>
-  <string name="provide_wallet_cancel">@string/cancel</string>
   <string name="provide_wallet_empty_state">You haven\'t allowed AppCoins Wallet to provide your address to any other app yet.</string>
   <string name="provide_wallet_status">Allow access to wallet address</string>
+  <string name="provide_wallet_cancel">@string/cancel_button</string>
 
-  <!-- TOP UP -->
+  <!-- Top Up -->
+  <string name="topup_home_button">Top Up</string>
   <string name="topup_title">Top Up</string>
-  <string name="topup_button_text">Top Up</string>
-  <string name="topup_appc_credit_currency">APPC-C</string>
-  <string name="topup_bonus_title">You\'ve got a Bonus!</string>
-  <string name="topup_bonus_text">An extra %s APPC-C will be credited in your wallet</string>
-  <string name="topup_next_button_text">Next</string>
+  <string name="topup_amount">%s APPC-C</string>
+  <string name="topup_bonus_header">You\'ve got a Bonus!</string>
+  <string name="topup_bonus_message">%s APPC-C extra will be credited in your wallet.</string>
+  <string name="topup_completed_1">%1$s APPC Credits</string>
+  <string name="topup_completed_2">were credited in your account.</string>
+
+  <!--Balance-->
+  <string name="balance_title">Balance</string>
+  <string name="balance_total_body">Total Balance in %s</string>
+  <string name="balance_topup_body">You can top up your wallet with AppCoins Credits.</string>
+  <string name="balance_ethereum_body">Ethereum is the cryptocurrency that AppCoins are based on. You can buy and sell them in most exchanges, it\'s very popular!</string>
+  <string name="balance_appcoins_body">AppCoins is the cryptocurrency for the app economy. You can buy and sell it on several exchanges and use it to purchase in-app items.</string>
+  <string name="balance_appccreditos_body">The token to buy in-app items! Top up APPC-C from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
+
+  <!--Ask a friend for funds-->
+  <string name="askafriend_payment_option_button">Ask a friend</string>
+  <string name="askafriend_share_body">Share the link with your friend so they can send you the funds!</string>
+  <string name="askafriend_share_add_message_body">Add Message (Optional)</string>
+  <string name="askafriend_share_button">Share</string>
+  <string name="askafriend_received_body">You just received %s APPC-C</string>
+  <string name="askafriend_received_title">Transfer Received</string>
+  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on World Jungle. Link: %2$s</string>
+
+  <!--P2P Send-->
+  <string name="p2p_send_title">Send Funds</string>
+  <string name="p2p_send_body">Scan or enter your friend\'s wallet address.</string>
+  <string name="p2p_send_confirmation_message">%1$s %2$s were sent to the following address:</string>
+  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
+  <string name="p2p_send_error_address">Invalid address</string>
+  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
+  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
+  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <string name="p2p_send_currency_eth" translatable="false">ETH</string>
+  <string name="p2p_send_currency_appc" translatable="false">APPC</string>
+  <string name="p2p_send_currency_appc_c" translatable="false">APPC-C</string>
+
+  <!--Common-->
+  <string name="error_general">Something went wrong</string>
+  <string name="error_missing_field">Mandatory field</string>
+  <string name="cancel_button">Cancel</string>
+
+  <!--Onboarding-->
+  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
+  <string name="terms_and_conditions_error">Please accept our Terms and Conditions to continue</string>
 
 </resources>

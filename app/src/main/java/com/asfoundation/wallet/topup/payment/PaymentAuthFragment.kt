@@ -140,7 +140,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
 
     button.isEnabled = false
 
-    button.setText(R.string.topup_button_text)
+    button.setText(R.string.topup_home_button)
 
     fragment_braintree_credit_card_form.setOnCardFormValidListener { valid ->
       button.isEnabled = valid

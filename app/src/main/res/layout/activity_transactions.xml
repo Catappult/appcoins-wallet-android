@@ -66,7 +66,7 @@
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/floating_btn_start_gradient_color"
         android:onClick="onClick"
-        android:text="top up"
+        android:text="@string/topup_home_button"
         app:icon="@drawable/ic_add_white_24dp"
         app:iconTint="#ffffff"
         android:textColor="#ffffff"
