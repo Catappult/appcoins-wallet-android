@@ -10,6 +10,8 @@ import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_top_up_success.*
+import java.math.BigDecimal
+import java.util.*
 
 class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
 
@@ -71,7 +73,10 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
     top_up_success_animation.playAnimation()
     top_up_success_animation.repeatCount = 0
 
-    value.text = String.format("%s APPC Credits", amount)
+    val formatter = Formatter()
+    val appcValue = formatter.format(Locale.getDefault(), "%(,.2f",
+        BigDecimal(amount).toDouble()).toString()
+    value.text = String.format("%s APPC Credits", appcValue)
   }
 
   override fun clean() {

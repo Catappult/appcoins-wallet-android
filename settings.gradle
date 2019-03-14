@@ -1,1 +1,1 @@
-include ':app', ':airdrop', ':billing', ':appcoinsRewards', ':bdsbilling', ':commons', ':gamification', ':permissions'
+include ':app', ':tn', ':airdrop', ':billing', ':appcoinsRewards', ':bdsbilling', ':commons', ':gamification', ':permissions'

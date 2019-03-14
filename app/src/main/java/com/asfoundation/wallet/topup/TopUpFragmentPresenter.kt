@@ -156,16 +156,6 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
             }).subscribe())
   }
 
-  private fun showError(throwable: Throwable) {
-    throwable.printStackTrace()
-
-    if (throwable is IOException) {
-//      view.showNetworkError()
-    } else {
-//      view.showGenericError()
-    }
-  }
-
   private fun buildTransaction(amount: String, packageName: String): TransactionBuilder {
     return TransactionBuilder("APPC", null, getNetworkId(),
         null, BigDecimal(amount), null, 0, null,
