@@ -23,9 +23,9 @@
   <string name="title_activity_settings">Instellingen</string>
   <string name="network_label">Netwerk</string>
   <string name="credits">Credits</string>
-  <string name="label_new">New</string>
+  <string name="label_new">Nieuw</string>
   <string name="low_storage_error">Er is onvoldoende opslagruimte</string>
-  <string name="no_camera_permission_title">Camera Permission</string>
+  <string name="no_camera_permission_title">Toestemming voor camera</string>
   <string name="no_camera_permission">Om QR-codes te scannen heeft AppCoins BDS Wallet toestemming nodig om toegang tot je camera te krijgen.</string>
   <string name="ok">OK</string>
   <string name="barcode_error_format">Ongeldig formaat barcode: %s</string>
@@ -264,7 +264,7 @@
   <string name="gamification_home_button">BEGIN MET VERDIENEN</string>
   <string name="gamification_level_title">Wat is mijn niveau?</string>
   <string name="gamification_level_title_new">Krijg APPC-credits!</string>
-  <string name="gamification_level_on_graphic">Level %s</string>
+  <string name="gamification_level_on_graphic">Niveau %s</string>
   <string name="gamification_APPCapps_button">Apps &amp; games</string>
   <string name="gamification_level_header">Gefeliciteerd, je bent %s!</string>
   <string name="gamification_level_to_next">Tot volgende niveau:</string>
@@ -336,16 +336,16 @@
   <string name="p2p_send_title">Cryptovaluta verzenden</string>
   <string name="p2p_send_body">Scan of voer het wallet-adres van je vriend(in) in.</string>
   <string name="p2p_send_confirmation_message">Er zijn %1$s %2$s naar het volgende adres verzonden:</string>
-  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
-  <string name="p2p_send_error_address">Invalid address</string>
-  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
-  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
-  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <string name="p2p_send_current_balance_message">Huidig saldo: %1$s %2$s</string>
+  <string name="p2p_send_error_address">Ongeldig adres</string>
+  <string name="p2p_send_error_not_enough_funds">Onvoldoende saldo</string>
+  <string name="p2p_send_error_amount_zero">Bedrag dient meer dan nul te zijn</string>
+  <string name="p2p_send_confirmation_header">Gegevens voor overdracht</string>
   <!--Common-->
-  <string name="error_general">Something went wrong</string>
-  <string name="error_missing_field">Mandatory field</string>
-  <string name="cancel_button">Cancel</string>
+  <string name="error_general">Er iets fout gegaan</string>
+  <string name="error_missing_field">Dit veld is verplicht</string>
+  <string name="cancel_button">Annuleren</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions to continue</string>
+  <string name="terms_and_conditions_tickbox">Ik ga akkoord met de algemene voorwaarden en het privacybeleid van AppCoins Wallet</string>
+  <string name="terms_and_conditions_error">Accepteer onze algemene voorwaarden om door te gaan</string>
 </resources>
