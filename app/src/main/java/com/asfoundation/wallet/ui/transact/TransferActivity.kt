@@ -12,14 +12,14 @@ import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
 import java.math.BigDecimal
 
-class TransactActivity : BaseActivity(), TransactActivityView, TransactNavigator {
-  private lateinit var presenter: TransactActivityPresenter
+class TransferActivity : BaseActivity(), TransferActivityView, TransactNavigator {
+  private lateinit var presenter: TransferActivityPresenter
 
   companion object {
     const val BARCODE_READER_REQUEST_CODE = 1
     @JvmStatic
     fun newIntent(context: Context): Intent {
-      return Intent(context, TransactActivity::class.java)
+      return Intent(context, TransferActivity::class.java)
     }
   }
 
@@ -30,14 +30,14 @@ class TransactActivity : BaseActivity(), TransactActivityView, TransactNavigator
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.transaction_activity_layout)
-    presenter = TransactActivityPresenter(this)
+    presenter = TransferActivityPresenter(this)
     presenter.present(savedInstanceState == null)
     toolbar()
   }
 
   override fun showTransactFragment() {
     supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, TransactFragment.newInstance()).commit()
+        .replace(R.id.fragment_container, TransferFragment.newInstance()).commit()
   }
 
   override fun showLoading() {
@@ -68,7 +68,7 @@ class TransactActivity : BaseActivity(), TransactActivityView, TransactNavigator
                                           amount: BigDecimal, currency: String) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            AppcoinsCreditsTransactSuccessFragment.newInstance(amount, currency, walletAddress))
+            AppcoinsCreditsTransferSuccessFragment.newInstance(amount, currency, walletAddress))
         .commit()
   }
 

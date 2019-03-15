@@ -160,7 +160,7 @@
         android:screenOrientation="portrait"/>
 
     <activity
-        android:name="com.asfoundation.wallet.ui.transact.TransactActivity"
+        android:name="com.asfoundation.wallet.ui.transact.TransferActivity"
         android:label="@string/title_activity_send"/>
 
     <meta-data

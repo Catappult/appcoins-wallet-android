@@ -14,7 +14,7 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.transact_success_fragment_layout.*
 import java.math.BigDecimal
 
-class AppcoinsCreditsTransactSuccessFragment : DaggerFragment(),
+class AppcoinsCreditsTransferSuccessFragment : DaggerFragment(),
     AppcoinsCreditsTransactSuccessView {
   companion object {
     private const val AMOUNT_SENT_KEY = "AMOUNT_SENT"
@@ -22,8 +22,8 @@ class AppcoinsCreditsTransactSuccessFragment : DaggerFragment(),
     private const val TO_ADDRESS_KEY = "TO_ADDRESS"
 
     fun newInstance(amount: BigDecimal, currency: String,
-                    toAddress: String): AppcoinsCreditsTransactSuccessFragment =
-        AppcoinsCreditsTransactSuccessFragment().apply {
+                    toAddress: String): AppcoinsCreditsTransferSuccessFragment =
+        AppcoinsCreditsTransferSuccessFragment().apply {
           arguments = Bundle(3).apply {
             putSerializable(AMOUNT_SENT_KEY, amount)
             putString(CURRENCY_KEY, currency)

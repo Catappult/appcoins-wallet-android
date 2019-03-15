@@ -12,7 +12,7 @@ import io.reactivex.functions.BiFunction
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
-class TransactPresenter(private val view: TransactFragmentView,
+class TransactPresenter(private val view: TransferFragmentView,
                         private val disposables: CompositeDisposable,
                         private val interactor: TransferInteractor,
                         private val ioScheduler: Scheduler,
@@ -41,11 +41,11 @@ class TransactPresenter(private val view: TransactFragmentView,
         .subscribe())
   }
 
-  private fun getBalance(currency: TransactFragmentView.Currency): Single<BigDecimal> {
+  private fun getBalance(currency: TransferFragmentView.Currency): Single<BigDecimal> {
     return when (currency) {
-      TransactFragmentView.Currency.APPC_C -> interactor.getCreditsBalance()
-      TransactFragmentView.Currency.APPC -> interactor.getAppcoinsBalance()
-      TransactFragmentView.Currency.ETH -> interactor.getEthBalance()
+      TransferFragmentView.Currency.APPC_C -> interactor.getCreditsBalance()
+      TransferFragmentView.Currency.APPC -> interactor.getAppcoinsBalance()
+      TransferFragmentView.Currency.ETH -> interactor.getEthBalance()
     }
   }
 
@@ -89,17 +89,17 @@ class TransactPresenter(private val view: TransactFragmentView,
   }
 
   private fun makeTransaction(
-      data: TransactFragmentView.TransactData): Single<AppcoinsRewardsRepository.Status> {
+      data: TransferFragmentView.TransferData): Single<AppcoinsRewardsRepository.Status> {
     return when (data.currency) {
-      TransactFragmentView.Currency.APPC_C -> handleCreditsTransfer(data.walletAddress,
+      TransferFragmentView.Currency.APPC_C -> handleCreditsTransfer(data.walletAddress,
           data.amount)
-      TransactFragmentView.Currency.ETH -> Single.just(AppcoinsRewardsRepository.Status.SUCCESS)
-      TransactFragmentView.Currency.APPC -> Single.just(AppcoinsRewardsRepository.Status.SUCCESS)
+      TransferFragmentView.Currency.ETH -> Single.just(AppcoinsRewardsRepository.Status.SUCCESS)
+      TransferFragmentView.Currency.APPC -> Single.just(AppcoinsRewardsRepository.Status.SUCCESS)
     }
   }
 
   private fun handleTransferResult(
-      currency: TransactFragmentView.Currency,
+      currency: TransferFragmentView.Currency,
       status: AppcoinsRewardsRepository.Status,
       walletAddress: String,
       amount: BigDecimal): Completable {
@@ -122,16 +122,16 @@ class TransactPresenter(private val view: TransactFragmentView,
   }
 
   private fun handleSuccess(
-      currency: TransactFragmentView.Currency,
+      currency: TransferFragmentView.Currency,
       walletAddress: String, amount: BigDecimal): Completable {
     return when (currency) {
-      TransactFragmentView.Currency.APPC_C ->
+      TransferFragmentView.Currency.APPC_C ->
         view.openAppcCreditsConfirmationView(walletAddress, amount, currency)
-      TransactFragmentView.Currency.APPC -> walletInteract.find()
+      TransferFragmentView.Currency.APPC -> walletInteract.find()
           .flatMapCompletable { wallet ->
             view.openAppcConfirmationView(wallet.address, walletAddress, amount)
           }
-      TransactFragmentView.Currency.ETH -> walletInteract.find()
+      TransferFragmentView.Currency.ETH -> walletInteract.find()
           .flatMapCompletable { wallet ->
             view.openEthConfirmationView(wallet.address, walletAddress, amount)
           }

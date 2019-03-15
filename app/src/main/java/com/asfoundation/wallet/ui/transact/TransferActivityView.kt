@@ -1,5 +1,5 @@
 package com.asfoundation.wallet.ui.transact
 
-interface TransactActivityView {
+interface TransferActivityView {
   fun showTransactFragment()
 }

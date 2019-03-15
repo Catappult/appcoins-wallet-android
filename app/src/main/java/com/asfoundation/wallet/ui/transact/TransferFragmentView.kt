@@ -5,8 +5,8 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import java.math.BigDecimal
 
-interface TransactFragmentView {
-  fun getSendClick(): Observable<TransactData>
+interface TransferFragmentView {
+  fun getSendClick(): Observable<TransferData>
   fun openEthConfirmationView(walletAddress: String, toWalletAddress: String,
                               amount: BigDecimal): Completable
 
@@ -28,7 +28,7 @@ interface TransactFragmentView {
   fun getCurrencyChange(): Observable<Currency>
   fun showBalance(balance: BigDecimal, currency: Currency)
 
-  data class TransactData(val walletAddress: String, val currency: Currency, val amount: BigDecimal)
+  data class TransferData(val walletAddress: String, val currency: Currency, val amount: BigDecimal)
 
   enum class Currency {
     APPC_C, APPC, ETH

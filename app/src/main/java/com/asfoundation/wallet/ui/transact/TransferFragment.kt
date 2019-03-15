@@ -36,10 +36,10 @@ import kotlinx.android.synthetic.main.transact_fragment_layout.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
-class TransactFragment : DaggerFragment(), TransactFragmentView {
+class TransferFragment : DaggerFragment(), TransferFragmentView {
   companion object {
-    fun newInstance(): TransactFragment {
-      return TransactFragment()
+    fun newInstance(): TransferFragment {
+      return TransferFragment()
     }
   }
 
@@ -96,12 +96,12 @@ class TransactFragment : DaggerFragment(), TransactFragmentView {
 
   override fun openAppcCreditsConfirmationView(walletAddress: String,
                                                amount: BigDecimal,
-                                               currency: TransactFragmentView.Currency): Completable {
+                                               currency: TransferFragmentView.Currency): Completable {
     return Completable.fromAction {
       val currencyName = when (currency) {
-        TransactFragmentView.Currency.APPC_C -> getString(R.string.p2p_send_currency_appc_c)
-        TransactFragmentView.Currency.APPC -> getString(R.string.p2p_send_currency_appc)
-        TransactFragmentView.Currency.ETH -> getString(R.string.p2p_send_currency_eth)
+        TransferFragmentView.Currency.APPC_C -> getString(R.string.p2p_send_currency_appc_c)
+        TransferFragmentView.Currency.APPC -> getString(R.string.p2p_send_currency_appc)
+        TransferFragmentView.Currency.ETH -> getString(R.string.p2p_send_currency_eth)
       }
       navigator.openAppcoinsCreditsSuccess(walletAddress, amount, currencyName)
     }
@@ -112,13 +112,13 @@ class TransactFragment : DaggerFragment(), TransactFragmentView {
     return inflater.inflate(R.layout.transact_fragment_layout, container, false)
   }
 
-  override fun getCurrencyChange(): Observable<TransactFragmentView.Currency> {
+  override fun getCurrencyChange(): Observable<TransferFragmentView.Currency> {
     return RxRadioGroup.checkedChanges(currency_selector)
         .map { map(currency_selector.checkedRadioButtonId) }
   }
 
   override fun showBalance(balance: BigDecimal,
-                           currency: TransactFragmentView.Currency) {
+                           currency: TransferFragmentView.Currency) {
     transact_fragment_balance.text =
         getString(R.string.p2p_send_current_balance_message,
             balance.stripTrailingZeros().toPlainString(), map(currency))
@@ -179,13 +179,13 @@ class TransactFragment : DaggerFragment(), TransactFragmentView {
     return qrCodeResult
   }
 
-  override fun getSendClick(): Observable<TransactFragmentView.TransactData> {
+  override fun getSendClick(): Observable<TransferFragmentView.TransferData> {
     return Observable.merge(doneClick, RxView.clicks(send_button)).map {
       var amount = BigDecimal.ZERO
       if (!transact_fragment_amount.text.toString().isEmpty()) {
         amount = transact_fragment_amount.text.toString().toBigDecimal()
       }
-      TransactFragmentView.TransactData(transact_fragment_recipient_address.text.toString(),
+      TransferFragmentView.TransferData(transact_fragment_recipient_address.text.toString(),
           map(currency_selector.checkedRadioButtonId), amount)
     }
   }
@@ -235,20 +235,20 @@ class TransactFragment : DaggerFragment(), TransactFragmentView {
     super.onPause()
   }
 
-  private fun map(checkedRadioButtonId: Int): TransactFragmentView.Currency {
+  private fun map(checkedRadioButtonId: Int): TransferFragmentView.Currency {
     return when (checkedRadioButtonId) {
-      R.id.appcoins_credits_radio_button -> TransactFragmentView.Currency.APPC_C
-      R.id.appcoins_radio_button -> TransactFragmentView.Currency.APPC
-      R.id.ethereum_credits_radio_button -> TransactFragmentView.Currency.ETH
+      R.id.appcoins_credits_radio_button -> TransferFragmentView.Currency.APPC_C
+      R.id.appcoins_radio_button -> TransferFragmentView.Currency.APPC
+      R.id.ethereum_credits_radio_button -> TransferFragmentView.Currency.ETH
       else -> throw UnsupportedOperationException("Unknown selected currency")
     }
   }
 
-  private fun map(currency: TransactFragmentView.Currency): String {
+  private fun map(currency: TransferFragmentView.Currency): String {
     return getString(when (currency) {
-      TransactFragmentView.Currency.APPC_C -> R.string.p2p_send_currency_appc_c
-      TransactFragmentView.Currency.APPC -> R.string.p2p_send_currency_appc
-      TransactFragmentView.Currency.ETH -> R.string.p2p_send_currency_eth
+      TransferFragmentView.Currency.APPC_C -> R.string.p2p_send_currency_appc_c
+      TransferFragmentView.Currency.APPC -> R.string.p2p_send_currency_appc
+      TransferFragmentView.Currency.ETH -> R.string.p2p_send_currency_eth
     })
   }
 
