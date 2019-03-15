@@ -134,7 +134,7 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
     } else {
       conversionService.getAppcRate(getCurrency(uri)!!.toUpperCase()).map {
         BigDecimal(uri.parameters[Parameters.VALUE])
-            .divide(BigDecimal(it.amount.toString()), 18, RoundingMode.UP)
+            .divide(it.amount, 18, RoundingMode.UP)
       }
     }
   }
