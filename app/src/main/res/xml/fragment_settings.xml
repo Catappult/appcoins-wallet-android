@@ -21,7 +21,12 @@
       android:key="pref_permissions"
       android:title="@string/permissions_title"
       />
-
+  <Preference
+      android:iconSpaceReserved="true"
+      android:key="pref_redeem"
+      android:title="@string/title_redeem"
+      >
+  </Preference>
   <PreferenceCategory
       android:key="pref_opensource_links"
       android:title="@string/title_opensource">
