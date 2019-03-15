@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui.transact
 
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
-import com.asfoundation.wallet.util.BalanceUtils
 import com.asfoundation.wallet.util.QRUri
 import io.reactivex.Completable
 import io.reactivex.Scheduler
@@ -12,7 +11,7 @@ import io.reactivex.functions.BiFunction
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
-class TransactPresenter(private val view: TransferFragmentView,
+class TransferPresenter(private val view: TransferFragmentView,
                         private val disposables: CompositeDisposable,
                         private val interactor: TransferInteractor,
                         private val ioScheduler: Scheduler,
@@ -32,7 +31,7 @@ class TransactPresenter(private val view: TransferFragmentView,
         .subscribeOn(viewScheduler)
         .observeOn(ioScheduler)
         .switchMapSingle {
-          getBalance(it).map { balance -> BalanceUtils.weiToEth(balance) }
+          getBalance(it)
               .observeOn(viewScheduler)
               .doOnSuccess { balance -> view.showBalance(balance, it) }
         }

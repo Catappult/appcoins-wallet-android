@@ -4,8 +4,10 @@ import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.GetDefaultWalletBalance
 import com.asfoundation.wallet.ui.iab.RewardsManager
+import com.asfoundation.wallet.util.BalanceUtils
 import io.reactivex.Single
 import java.math.BigDecimal
+import java.math.RoundingMode
 import java.net.UnknownHostException
 
 class TransferInteractor(private val rewardsManager: RewardsManager,
@@ -40,7 +42,9 @@ class TransferInteractor(private val rewardsManager: RewardsManager,
   }
 
   fun getCreditsBalance(): Single<BigDecimal> {
-    return rewardsManager.balance
+    return rewardsManager.balance.map {
+      BalanceUtils.weiToEth(it).setScale(4, RoundingMode.HALF_UP)
+    }
   }
 
   fun getAppcoinsBalance(): Single<BigDecimal> {

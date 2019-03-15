@@ -43,7 +43,7 @@ class TransferFragment : DaggerFragment(), TransferFragmentView {
     }
   }
 
-  private lateinit var presenter: TransactPresenter
+  private lateinit var presenter: TransferPresenter
   @Inject
   lateinit var interactor: TransferInteractor
   @Inject
@@ -67,7 +67,7 @@ class TransferFragment : DaggerFragment(), TransferFragmentView {
         confirmationRouter.transactionResult
             .doOnNext { activity?.onBackPressed() }
             .subscribe()
-    presenter = TransactPresenter(this, CompositeDisposable(), interactor, Schedulers.io(),
+    presenter = TransferPresenter(this, CompositeDisposable(), interactor, Schedulers.io(),
         AndroidSchedulers.mainThread(), findDefaultWalletInteract, context!!.packageName)
   }
 
