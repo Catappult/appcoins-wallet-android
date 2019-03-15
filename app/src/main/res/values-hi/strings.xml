@@ -23,9 +23,9 @@
   <string name="title_activity_settings">सेटिंग्स</string>
   <string name="network_label">नेटवर्क</string>
   <string name="credits">क्रेडिट</string>
-  <string name="label_new">New</string>
+  <string name="label_new">नया</string>
   <string name="low_storage_error">स्टोर करने के लिए पर्याप्त जगह नहीं</string>
-  <string name="no_camera_permission_title">Camera Permission</string>
+  <string name="no_camera_permission_title">कैमरा अनुमति</string>
   <string name="no_camera_permission">क्यूआर कोड स्कैन के लिए AppCoins BDS Wallet को आपका कैमरा उपयोग करने की अनुमति की जरूरत है।</string>
   <string name="ok">ठीक</string>
   <string name="barcode_error_format">अमान्य बारकोड प्रारूप: %s</string>
@@ -264,8 +264,8 @@
   <string name="gamification_home_button">कमाना शुरू करें</string>
   <string name="gamification_level_title">मेरा लेवल क्या है?</string>
   <string name="gamification_level_title_new">APPC क्रेडिट पाएँ!</string>
-  <string name="gamification_level_on_graphic">Level %s</string>
-  <string name="gamification_APPCapps_button">Apps &amp; games</string>
+  <string name="gamification_level_on_graphic">स्तर %s</string>
+  <string name="gamification_APPCapps_button">ऐप्स एवं गेम्स</string>
   <string name="gamification_level_header">बधाई हो, आप %s हैं!</string>
   <string name="gamification_level_to_next">अगले लेवल के लिए:</string>
   <string name="gamification_level_earned">कमाए:</string>
@@ -336,16 +336,16 @@
   <string name="p2p_send_title">फंड भेजें</string>
   <string name="p2p_send_body">अपने मित्र का वॉलेट पता स्कैन करें या लिखें।</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s इस पते पर भेजे गए थे:</string>
-  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
-  <string name="p2p_send_error_address">Invalid address</string>
-  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
-  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
-  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <string name="p2p_send_current_balance_message">वर्तमान शेष: %1$s %2$s</string>
+  <string name="p2p_send_error_address">अमान्य पता</string>
+  <string name="p2p_send_error_not_enough_funds">पर्याप्त राशि नहीं</string>
+  <string name="p2p_send_error_amount_zero">यह शून्य से अधिक होना चाहिए</string>
+  <string name="p2p_send_confirmation_header">अंतरण विवरण</string>
   <!--Common-->
-  <string name="error_general">Something went wrong</string>
-  <string name="error_missing_field">Mandatory field</string>
-  <string name="cancel_button">Cancel</string>
+  <string name="error_general">कुछ गलत हो गया</string>
+  <string name="error_missing_field">अनिवार्य क्षेत्र</string>
+  <string name="cancel_button">रद्द करें</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions to continue</string>
+  <string name="terms_and_conditions_tickbox">मैं AppCoins वॉलेट के नियमों एवं शर्तों तथा गोपनीयता नीति से सहमत हूँ</string>
+  <string name="terms_and_conditions_error">जारी रखने के लिए कृपया हमारे नियम एवं शर्तों को स्वीकार करें</string>
 </resources>
