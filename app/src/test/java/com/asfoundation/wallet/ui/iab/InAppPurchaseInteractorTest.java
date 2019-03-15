@@ -204,7 +204,7 @@ public class InAppPurchaseInteractorTest {
     when(proxyService.getIabAddress(anyBoolean())).thenReturn(
         Single.just("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3"));
     when(conversionService.getAppcRate(anyString())).thenReturn(
-        Single.just(new FiatValue(2.0, "EUR", "")));
+        Single.just(new FiatValue(new BigDecimal(2.0), "EUR", "")));
 
     eipTransactionParser = new EIPTransactionParser(defaultWalletInteract, tokenRepository);
     oneStepTransactionParser =

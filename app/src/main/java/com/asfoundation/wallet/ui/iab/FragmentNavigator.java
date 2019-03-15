@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.navigator.UriNavigator;
 import io.reactivex.Observable;
+import java.math.BigDecimal;
 
 public class FragmentNavigator implements Navigator {
 
@@ -25,8 +26,9 @@ public class FragmentNavigator implements Navigator {
   }
 
   @Override public void navigateToUriForResult(String redirectUrl, String transactionUid,
-      TransactionBuilder transaction) {
-    uriNavigator.navigateToUri(redirectUrl, null);
+      String domain, String skuId, BigDecimal amount, String type) {
+    uriNavigator.navigateToUri(redirectUrl, domain, skuId,
+        amount, type);
   }
 
   @Override public Observable<Uri> uriResults() {

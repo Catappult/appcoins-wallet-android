@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:state_enabled="false">
+    <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+      <item
+          android:left="-4dp"
+          android:right="-4dp"
+          android:top="-4dp">
+        <shape android:shape="rectangle">
+          <stroke
+              android:color="@color/btn_disable_snd_color"
+              android:width="2dp"/>
+        </shape>
+      </item>
+    </layer-list>
+  </item>
+  <item android:state_enabled="true">
+    <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+      <item
+          android:left="-4dp"
+          android:right="-4dp"
+          android:top="-4dp">
+        <shape android:shape="rectangle">
+          <stroke
+              android:color="@color/colorAccent"
+              android:width="2dp"/>
+        </shape>
+      </item>
+    </layer-list>
+  </item>
+  <item android:state_focused="true">
+    <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+      <item
+          android:left="-4dp"
+          android:right="-4dp"
+          android:top="-4dp">
+        <shape android:shape="rectangle">
+          <stroke
+              android:color="@color/colorAccent"
+              android:width="2dp"/>
+        </shape>
+      </item>
+    </layer-list>
+  </item>
+</selector>

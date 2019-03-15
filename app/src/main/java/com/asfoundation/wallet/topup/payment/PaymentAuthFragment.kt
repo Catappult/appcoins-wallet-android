@@ -19,7 +19,6 @@ import com.asfoundation.wallet.billing.adyen.Adyen
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization
 import com.asfoundation.wallet.billing.purchase.BillingFactory
-import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.topup.TopUpActivityView
@@ -72,15 +71,6 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
       throw IllegalArgumentException("previous app package name not found")
     }
 
-
-  val transaction: TransactionBuilder?
-    get() {
-      if (arguments!!.containsKey(PAYMENT_TRANSACTION_DATA)) {
-        return arguments!!.getParcelable(PAYMENT_TRANSACTION_DATA)
-      }
-      throw IllegalArgumentException("previous transaction data not found")
-    }
-
   val data: TopUpData?
     get() {
       if (arguments!!.containsKey(PAYMENT_DATA)) {
@@ -97,20 +87,46 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
       throw IllegalArgumentException("Payment Type not found")
     }
 
+  val origin: String
+    get() {
+      if (arguments!!.containsKey(PAYMENT_ORIGIN)) {
+        return arguments!!.getString(PAYMENT_ORIGIN)
+      }
+      throw IllegalArgumentException("Payment origin not found")
+    }
+
+  private val transactionType: String
+    get() {
+      if (arguments!!.containsKey(PAYMENT_TRANSACTION_TYPE)) {
+        return arguments!!.getString(PAYMENT_TRANSACTION_TYPE)
+      }
+      throw IllegalArgumentException("Transaction type not found")
+    }
+
+  val currentCurrency: String
+    get() {
+      if (arguments!!.containsKey(PAYMENT_CURRENT_CURRENCY)) {
+        return arguments!!.getString(PAYMENT_CURRENT_CURRENCY)
+      }
+      throw IllegalArgumentException("Payment main currency not found")
+    }
+
   companion object {
 
     private val TAG = PaymentAuthFragment::class.java.simpleName
 
     private const val PAYMENT_TYPE = "paymentType"
-    private const val PAYMENT_TRANSACTION_DATA = "transaction"
+    private const val PAYMENT_ORIGIN = "origin"
+    private const val PAYMENT_TRANSACTION_TYPE = "transactionType"
     private const val PAYMENT_DATA = "data"
-    private const val PAYMENT_CURRENT_CURRENCY = "currenCurrency"
+    private const val PAYMENT_CURRENT_CURRENCY = "currentCurrency"
 
-    fun newInstance(paymentType: PaymentType, transactionData: TransactionBuilder,
-                    data: TopUpData, currentCurrency: String): PaymentAuthFragment {
+    fun newInstance(paymentType: PaymentType, data: TopUpData, currentCurrency: String,
+                    origin: String, transactionType: String): PaymentAuthFragment {
       val bundle = Bundle()
       bundle.putString(PAYMENT_TYPE, paymentType.name)
-      bundle.putParcelable(PAYMENT_TRANSACTION_DATA, transactionData)
+      bundle.putString(PAYMENT_ORIGIN, origin)
+      bundle.putString(PAYMENT_TRANSACTION_TYPE, transactionType)
       bundle.putSerializable(PAYMENT_DATA, data)
       bundle.putString(PAYMENT_CURRENT_CURRENCY, currentCurrency)
       val fragment = PaymentAuthFragment()
@@ -118,7 +134,6 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
       return fragment
     }
   }
-
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -130,8 +145,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
         PaymentAuthPresenter(this, appPackage, defaultWalletInteract,
             AndroidSchedulers.mainThread(), CompositeDisposable(), adyen,
             billingFactory.getBilling(appPackage), navigator,
-            inAppPurchaseInteractor.billingMessagesMapper, inAppPurchaseInteractor, transaction,
-            data?.currency?.appcValue, data?.currency?.fiatCurrencyCode, paymentType)
+            inAppPurchaseInteractor.billingMessagesMapper, inAppPurchaseInteractor)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -175,7 +189,8 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
         .subscribe({ navigator.popViewWithError() }, { it.printStackTrace() })
 
     showValues()
-    presenter.present(savedInstanceState)
+    presenter.present(savedInstanceState, origin, data?.currency?.appcValue,
+        data?.currency?.fiatCurrencyCode, transactionType, paymentType)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

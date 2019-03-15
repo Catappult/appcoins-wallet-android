@@ -35,4 +35,5 @@
   <dimen name="rewards_level_icon_small_size">32dp</dimen>
   <dimen name="rewards_level_lock_size">16dp</dimen>
 
+  <dimen name="topup_main_value_min_size">16sp</dimen>
 </resources>

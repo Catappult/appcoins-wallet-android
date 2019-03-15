@@ -1,11 +1,12 @@
 package com.asfoundation.wallet.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.math.BigDecimal;
 
 public class ConversionResponseBody {
 
   private String currency;
-  @JsonProperty("value") private Double appcValue;
+  @JsonProperty("value") private BigDecimal appcValue;
   private String label;
   @JsonProperty("sign") private String symbol;
 
@@ -13,16 +14,8 @@ public class ConversionResponseBody {
     return currency;
   }
 
-  public void setCurrency(String currency) {
-    this.currency = currency;
-  }
-
-  public Double getAppcValue() {
+  public BigDecimal getAppcValue() {
     return appcValue;
-  }
-
-  public void setAppcValue(Double appcValue) {
-    this.appcValue = appcValue;
   }
 
   public String getLabel() {

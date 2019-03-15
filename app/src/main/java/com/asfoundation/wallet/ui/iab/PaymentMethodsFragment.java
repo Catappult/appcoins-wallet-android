@@ -476,12 +476,12 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   }
 
   @Override public void showPaypal() {
-    iabView.showAdyenPayment(BigDecimal.valueOf(fiatValue.getAmount()), currency, isBds,
+    iabView.showAdyenPayment(fiatValue.getAmount(), currency, isBds,
         PaymentType.PAYPAL);
   }
 
   @Override public void showCreditCard() {
-    iabView.showAdyenPayment(BigDecimal.valueOf(fiatValue.getAmount()), currency, isBds,
+    iabView.showAdyenPayment(fiatValue.getAmount(), currency, isBds,
         PaymentType.CARD);
   }
 

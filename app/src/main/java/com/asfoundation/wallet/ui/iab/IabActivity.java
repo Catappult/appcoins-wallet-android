@@ -148,8 +148,9 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   }
 
   @Override public void navigateToWebViewAuthorization(String url) {
-    startActivityForResult(WebViewActivity.newIntent(this, url, transaction, this),
-        WEB_VIEW_REQUEST_CODE);
+    startActivityForResult(
+        WebViewActivity.newIntent(this, url, transaction.getDomain(), transaction.getSkuId(),
+            transaction.amount(), transaction.getType(), this), WEB_VIEW_REQUEST_CODE);
   }
 
   @Override public void showPaymentMethodsView() {
@@ -224,7 +225,8 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     return getIntent().getBooleanExtra(EXTRA_BDS_IAP, false);
   }
 
-  @Override public void navigateToUri(String url, TransactionBuilder transaction) {
+  @Override public void navigateToUri(String url, String domain, String skuId, BigDecimal amount,
+      String type) {
     navigateToWebViewAuthorization(url);
   }
 

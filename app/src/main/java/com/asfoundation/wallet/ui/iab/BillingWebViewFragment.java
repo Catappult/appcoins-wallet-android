@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.WalletService;
+import com.appcoins.wallet.bdsbilling.repository.entity.SKU;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.TransactionService;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
@@ -24,6 +25,7 @@ import com.asfoundation.wallet.billing.purchase.BillingFactory;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.navigator.UriNavigator;
 import dagger.android.support.DaggerFragment;
+import java.math.BigDecimal;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -38,8 +40,11 @@ public class BillingWebViewFragment extends DaggerFragment {
   private static final String BILLING_SCHEMA = "billing://";
 
   private static final String URL = "url";
+  private static final String DOMAIN = "domain";
+  private static final String SKUID = "skuid";
+  private static final String AMOUNT = "amount";
+  private static final String TYPE = "type";
   private static final String CURRENT_URL = "currentUrl";
-  private static TransactionBuilder transaction;
   private static UriNavigator navigator;
 
   @Inject Billing billing;
@@ -51,18 +56,25 @@ public class BillingWebViewFragment extends DaggerFragment {
   private WebView webView;
   private ProgressBar webviewProgressBar;
   private String currentUrl;
+  private String currentDomain;
+  private String currentSkuId;
+  private BigDecimal currentAmount;
+  private String currentType;
   private ScheduledExecutorService executorService;
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject BillingAnalytics analytics;
 
-  public static BillingWebViewFragment newInstance(String url,
-      TransactionBuilder transactionBuilder, UriNavigator uriNavigator) {
+  public static BillingWebViewFragment newInstance(String url, String domain, String skuId,
+      BigDecimal amount, String type, UriNavigator uriNavigator) {
     Bundle args = new Bundle();
     args.putString(URL, url);
+    args.putString(DOMAIN, domain);
+    args.putString(SKUID, skuId);
+    args.putSerializable(AMOUNT, amount);
+    args.putString(TYPE, type);
     BillingWebViewFragment fragment = new BillingWebViewFragment();
     fragment.setArguments(args);
     fragment.setRetainInstance(true);
-    transaction = transactionBuilder;
     navigator = uriNavigator;
     return fragment;
   }
@@ -97,8 +109,16 @@ public class BillingWebViewFragment extends DaggerFragment {
 
     if (savedInstanceState == null) {
       currentUrl = getArguments().getString(URL);
+      currentDomain = getArguments().getString(DOMAIN);
+      currentSkuId = getArguments().getString(SKUID);
+      currentAmount = (BigDecimal) getArguments().getSerializable(AMOUNT);
+      currentType = getArguments().getString(TYPE);
     } else {
       currentUrl = savedInstanceState.getString(CURRENT_URL);
+      currentDomain = savedInstanceState.getString(DOMAIN);
+      currentSkuId = savedInstanceState.getString(SKUID);
+      currentAmount = (BigDecimal) savedInstanceState.getSerializable(AMOUNT);
+      currentType = savedInstanceState.getString(TYPE);
     }
 
     CookieManager.getInstance()
@@ -176,23 +196,26 @@ public class BillingWebViewFragment extends DaggerFragment {
     super.onSaveInstanceState(outState);
 
     outState.putString(CURRENT_URL, currentUrl);
+    outState.putString(DOMAIN, currentDomain);
+    outState.putString(SKUID, currentSkuId);
+    outState.putSerializable(AMOUNT, currentAmount);
+    outState.putString(TYPE, currentType);
   }
 
   public void sendPaymentMethodDetailsEvent() {
-    analytics.sendPaymentMethodDetailsEvent(transaction.getDomain(), transaction.getSkuId(),
-        transaction.amount()
-            .toString(), PAYMENT_METHOD_PAYPAL ,transaction.getType());
+    analytics.sendPaymentMethodDetailsEvent(currentDomain, currentSkuId,
+        currentAmount
+            .toString(), PAYMENT_METHOD_PAYPAL, currentType);
   }
 
   public void sendPaymentEvent() {
-    analytics.sendPaymentEvent(transaction.getDomain(), transaction.getSkuId(),
-        transaction.amount()
-            .toString(), PAYMENT_METHOD_PAYPAL, transaction.getType());
+    analytics.sendPaymentEvent(currentDomain, currentSkuId, currentAmount
+        .toString(), PAYMENT_METHOD_PAYPAL, currentType);
   }
 
   public void sendRevenueEvent() {
-    inAppPurchaseInteractor.convertToFiat(transaction.amount().doubleValue(),
-            EVENT_REVENUE_CURRENCY)
+    inAppPurchaseInteractor.convertToFiat(currentAmount
+        .doubleValue(), EVENT_REVENUE_CURRENCY)
         .doOnSuccess(fiatValue -> analytics.sendRevenueEvent(String.valueOf(fiatValue.getAmount())))
         .subscribe();
   }

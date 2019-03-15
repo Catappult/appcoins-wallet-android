@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import io.reactivex.Observable;
+import java.math.BigDecimal;
 
 public interface Navigator {
 
@@ -12,7 +13,7 @@ public interface Navigator {
   void popViewWithError();
 
   void navigateToUriForResult(String redirectUrl, String transactionUid,
-      TransactionBuilder transaction);
+      String domain, String skuId, BigDecimal amount, String type);
 
   Observable<Uri> uriResults();
 }

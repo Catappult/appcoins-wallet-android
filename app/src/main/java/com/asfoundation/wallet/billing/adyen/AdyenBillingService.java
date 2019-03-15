@@ -49,6 +49,13 @@ public class AdyenBillingService implements BillingService {
         .doOnNext(this::resetProcessingFlag);
   }
 
+  @Override
+  public Observable<AdyenAuthorization> getAuthorization(String origin, BigDecimal priceValue,
+      String priceCurrency, String type, String appPackageName) {
+    return getAuthorization(null, null, null, origin,
+        priceValue, priceCurrency, type, null, null, appPackageName);
+  }
+
   @Override public Completable authorize(Payment payment, String paykey) {
     return Single.fromCallable(() -> payment.getPaymentStatus()
         .equals(Payment.PaymentStatus.AUTHORISED))

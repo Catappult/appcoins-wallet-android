@@ -1,10 +1,7 @@
 package com.asfoundation.wallet.topup
 
 class TopUpActivityPresenter(private val view: TopUpActivityView) {
-  fun present(isCreating: Boolean) {
-    if (isCreating) {
+  fun present() {
       view.showTopUpScreen()
-    }
   }
-
 }

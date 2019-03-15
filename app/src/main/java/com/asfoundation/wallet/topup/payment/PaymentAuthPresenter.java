@@ -9,7 +9,6 @@ import com.asfoundation.wallet.billing.BillingService;
 import com.asfoundation.wallet.billing.adyen.Adyen;
 import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
-import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.Navigator;
@@ -35,21 +34,16 @@ public class PaymentAuthPresenter {
   private final Navigator navigator;
   private final BillingMessagesMapper billingMessagesMapper;
   private final InAppPurchaseInteractor inAppPurchaseInteractor;
-  private final String amount;
-  private final String currency;
   private final String appPackage;
-  private final PaymentType paymentType;
   private PaymentAuthView view;
   private FindDefaultWalletInteract defaultWalletInteract;
-  private TransactionBuilder transactionBuilder;
   private boolean waitingResult;
 
   public PaymentAuthPresenter(PaymentAuthView view, String appPackage,
       FindDefaultWalletInteract defaultWalletInteract, Scheduler viewScheduler,
       CompositeDisposable disposables, Adyen adyen, BillingService billingService,
       Navigator navigator, BillingMessagesMapper billingMessagesMapper,
-      InAppPurchaseInteractor inAppPurchaseInteractor, TransactionBuilder transactionBuilder,
-      String amount, String currency, PaymentType paymentType) {
+      InAppPurchaseInteractor inAppPurchaseInteractor) {
     this.view = view;
     this.appPackage = appPackage;
     this.defaultWalletInteract = defaultWalletInteract;
@@ -60,13 +54,10 @@ public class PaymentAuthPresenter {
     this.navigator = navigator;
     this.billingMessagesMapper = billingMessagesMapper;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
-    this.amount = amount;
-    this.currency = currency;
-    this.paymentType = paymentType;
-    this.transactionBuilder = transactionBuilder;
   }
 
-  public void present(@Nullable Bundle savedInstanceState) {
+  public void present(@Nullable Bundle savedInstanceState, String transactionOrigin, String amount,
+      String currency, String transactionType, PaymentType paymentType) {
     adyen.createNewPayment();
 
     if (savedInstanceState != null) {
@@ -78,23 +69,23 @@ public class PaymentAuthPresenter {
         .subscribe(wallet -> {
         }, this::showError));
 
-    onViewCreatedCompletePayment();
+    onViewCreatedCompletePayment(transactionOrigin, amount, currency, transactionType);
 
-    onViewCreatedSelectPaymentMethod();
+    onViewCreatedSelectPaymentMethod(paymentType);
 
     onViewCreatedShowPaymentMethodInputView();
 
-    onViewCreatedCheckAuthorizationActive();
+    onViewCreatedCheckAuthorizationActive(transactionOrigin, amount, currency, transactionType);
 
-    onViewCreatedCheckAuthorizationFailed();
+    onViewCreatedCheckAuthorizationFailed(transactionOrigin, amount, currency, transactionType);
 
-    onViewCreatedCheckAuthorizationProcessing();
+    onViewCreatedCheckAuthorizationProcessing(transactionOrigin, amount, currency, transactionType);
 
     handlePaymentMethodResults();
 
     handleChangeCardMethodResults();
 
-    handleAdyenUriRedirect();
+    handleAdyenUriRedirect(appPackage, amount, transactionType);
 
     handleAdyenUriResult();
 
@@ -139,12 +130,11 @@ public class PaymentAuthPresenter {
     }
   }
 
-  private void onViewCreatedCompletePayment() {
+  private void onViewCreatedCompletePayment(String transactionOrigin, String amount,
+      String currency, String transactionType) {
     disposables.add(Completable.fromAction(() -> view.showLoading())
-        .andThen(billingService.getAuthorization(transactionBuilder.getSkuId(),
-            transactionBuilder.toAddress(), transactionBuilder.getPayload(),
-            transactionBuilder.getOrigin(), convertAmount(), currency, transactionBuilder.getType(),
-            transactionBuilder.getCallbackUrl(), transactionBuilder.getOrderReference(), appPackage)
+        .andThen(billingService.getAuthorization(transactionOrigin, convertAmount(amount), currency,
+            transactionType, appPackage)
             .observeOn(viewScheduler)
             .filter(payment -> payment.isPendingAuthorization())
             .firstOrError()
@@ -155,15 +145,14 @@ public class PaymentAuthPresenter {
         }, throwable -> showError(throwable)));
   }
 
-  @NonNull private BigDecimal convertAmount() {
-    return BigDecimal.valueOf(
-        inAppPurchaseInteractor.convertToLocalFiat((new BigDecimal(amount)).doubleValue())
-            .blockingGet()
-            .getAmount())
+  @NonNull private BigDecimal convertAmount(String amount) {
+    return inAppPurchaseInteractor.convertToLocalFiat((new BigDecimal(amount)).doubleValue())
+        .blockingGet()
+        .getAmount()
         .setScale(2, BigDecimal.ROUND_UP);
   }
 
-  private void onViewCreatedSelectPaymentMethod() {
+  private void onViewCreatedSelectPaymentMethod(PaymentType paymentType) {
     disposables.add(adyen.getPaymentMethod(paymentType)
         .flatMapCompletable(paymentMethod -> adyen.selectPaymentService(paymentMethod))
         .observeOn(viewScheduler)
@@ -171,22 +160,22 @@ public class PaymentAuthPresenter {
         }, throwable -> showError(throwable)));
   }
 
-  private void onViewCreatedCheckAuthorizationActive() {
-    disposables.add(billingService.getAuthorization(transactionBuilder.getSkuId(),
-        transactionBuilder.toAddress(), transactionBuilder.getPayload(),
-        transactionBuilder.getOrigin(), convertAmount(), currency, transactionBuilder.getType(),
-        transactionBuilder.getCallbackUrl(), transactionBuilder.getOrderReference(), appPackage)
-        .filter(adyenAuthorization -> adyenAuthorization.isCompleted())
-        .firstOrError()
-        .flatMap(adyenAuthorization -> createBundle())
-        .observeOn(viewScheduler)
-        .doOnSuccess(bundle -> {
-          waitingResult = false;
-          navigator.popView(bundle);
-        })
-        .doOnSuccess(__ -> view.showSuccess())
-        .subscribe(__ -> {
-        }, throwable -> showError(throwable)));
+  private void onViewCreatedCheckAuthorizationActive(String transactionOrigin, String amount,
+      String currency, String transactionType) {
+    disposables.add(
+        billingService.getAuthorization(transactionOrigin, convertAmount(amount), currency,
+            transactionType, appPackage)
+            .filter(adyenAuthorization -> adyenAuthorization.isCompleted())
+            .firstOrError()
+            .flatMap(adyenAuthorization -> createBundle())
+            .observeOn(viewScheduler)
+            .doOnSuccess(bundle -> {
+              waitingResult = false;
+              navigator.popView(bundle);
+            })
+            .doOnSuccess(__ -> view.showSuccess())
+            .subscribe(__ -> {
+            }, throwable -> showError(throwable)));
   }
 
   private Single<Bundle> createBundle() {
@@ -199,33 +188,33 @@ public class PaymentAuthPresenter {
         .map(billingMessagesMapper::topUpBundle);
   }
 
-  private void onViewCreatedCheckAuthorizationFailed() {
-    disposables.add(billingService.getAuthorization(transactionBuilder.getSkuId(),
-        transactionBuilder.toAddress(), transactionBuilder.getPayload(),
-        transactionBuilder.getOrigin(), convertAmount(), currency, transactionBuilder.getType(),
-        transactionBuilder.getCallbackUrl(), transactionBuilder.getOrderReference(), appPackage)
-        .filter(AdyenAuthorization::isFailed)
-        .firstOrError()
-        .observeOn(viewScheduler)
-        .doOnSuccess(this::showError)
-        .subscribe(__ -> {
-        }, this::showError));
+  private void onViewCreatedCheckAuthorizationFailed(String transactionOrigin, String amount,
+      String currency, String transactionType) {
+    disposables.add(
+        billingService.getAuthorization(transactionOrigin, convertAmount(amount), currency,
+            transactionType, appPackage)
+            .filter(AdyenAuthorization::isFailed)
+            .firstOrError()
+            .observeOn(viewScheduler)
+            .doOnSuccess(this::showError)
+            .subscribe(__ -> {
+            }, this::showError));
   }
 
   private void showError(AdyenAuthorization adyenAuthorization) {
     view.showPaymentRefusedError(adyenAuthorization);
   }
 
-  private void onViewCreatedCheckAuthorizationProcessing() {
-    disposables.add(billingService.getAuthorization(transactionBuilder.getSkuId(),
-        transactionBuilder.toAddress(), transactionBuilder.getPayload(),
-        transactionBuilder.getOrigin(), convertAmount(), currency, transactionBuilder.getType(),
-        transactionBuilder.getCallbackUrl(), transactionBuilder.getOrderReference(), appPackage)
-        .filter(AdyenAuthorization::isProcessing)
-        .observeOn(viewScheduler)
-        .doOnNext(__ -> view.showLoading())
-        .subscribe(__ -> {
-        }, this::showError));
+  private void onViewCreatedCheckAuthorizationProcessing(String transactionOrigin, String amount,
+      String currency, String transactionType) {
+    disposables.add(
+        billingService.getAuthorization(transactionOrigin, convertAmount(amount), currency,
+            transactionType, appPackage)
+            .filter(AdyenAuthorization::isProcessing)
+            .observeOn(viewScheduler)
+            .doOnNext(__ -> view.showLoading())
+            .subscribe(__ -> {
+            }, this::showError));
   }
 
   private void handlePaymentMethodResults() {
@@ -254,14 +243,14 @@ public class PaymentAuthPresenter {
         }, this::showError));
   }
 
-  private void handleAdyenUriRedirect() {
+  private void handleAdyenUriRedirect(String domain, String amount, String transactionType) {
     disposables.add(adyen.getRedirectUrl()
         .observeOn(viewScheduler)
         .filter(s -> !waitingResult)
         .doOnSuccess(redirectUrl -> {
           view.showLoading();
-          navigator.navigateToUriForResult(redirectUrl, billingService.getTransactionUid(),
-              transactionBuilder);
+          navigator.navigateToUriForResult(redirectUrl, billingService.getTransactionUid(), domain,
+              "", new BigDecimal(amount), transactionType);
           waitingResult = true;
         })
         .subscribe(__ -> {

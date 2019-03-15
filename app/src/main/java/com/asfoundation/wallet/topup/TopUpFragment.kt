@@ -95,6 +95,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   override fun setupUiElements(data: TopUpData) {
     updateCurrencyData(data.currency)
     main_value.isEnabled = true
+    main_value.setMinTextSize(
+        resources.getDimensionPixelSize(R.dimen.topup_main_value_min_size).toFloat())
 
     adapter = TopUpPaymentMethodAdapter(data.methods, paymentMethodClick)
     payment_methods.adapter = adapter
@@ -130,7 +132,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     currency_code.text = data.fiatCurrencyCode
     if (data.fiatValue != DEFAULT_VALUE && main_value.text.toString() != data.fiatValue) {
       main_value.setText(data.fiatValue)
-      main_value.setSelection(main_value.text.length)
+      main_value.setSelection(main_value.text!!.length)
     }
     main_value_currency.text = data.fiatCurrencySymbol
 

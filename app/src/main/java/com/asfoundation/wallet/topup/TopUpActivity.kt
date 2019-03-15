@@ -16,6 +16,7 @@ import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
+import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
 
@@ -44,9 +45,12 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.top_up_activity_layout)
-    TopUpActivityPresenter(this).present(savedInstanceState == null)
-    results = PublishRelay.create()
+  }
 
+  override fun onResume() {
+    super.onResume()
+    TopUpActivityPresenter(this).present()
+    results = PublishRelay.create()
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -71,14 +75,15 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   }
 
   override fun navigateToPayment(paymentType: PaymentType, data: TopUpData,
-                                 selectedCurrency: String, transaction: TransactionBuilder) {
+                                 selectedCurrency: String, origin: String, transactionType: String) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             PaymentAuthFragment.newInstance(
                 paymentType,
-                transaction,
                 data,
-                selectedCurrency))
+                selectedCurrency,
+                origin,
+                transactionType))
         .commit()
   }
 
@@ -98,8 +103,9 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     finish()
   }
 
-  override fun navigateToUri(url: String?, transaction: TransactionBuilder) {
-    startActivityForResult(WebViewActivity.newIntent(this, url, transaction, this),
+  override fun navigateToUri(url: String?, domain: String, skuId: String, amount: BigDecimal,
+                             type: String) {
+    startActivityForResult(WebViewActivity.newIntent(this, url, domain, skuId, amount, type, this),
         WEB_VIEW_REQUEST_CODE)
   }
 

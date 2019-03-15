@@ -29,16 +29,16 @@ public class LocalCurrencyConversionService {
   public Observable<FiatValue> getAppcToLocalFiat(String value) {
     return tokenToLocalFiatApi.getAppcToLocalFiat(value)
         .map(response -> new FiatValue(
-            new BigDecimal(response.getAppcValue()).setScale(2, RoundingMode.CEILING)
-                .doubleValue(), response.getCurrency(), response.getSymbol()))
+            response.getAppcValue().setScale(2, RoundingMode.CEILING),
+            response.getCurrency(), response.getSymbol()))
         .subscribeOn(Schedulers.io());
   }
 
   public Observable<FiatValue> getLocalToAppc(String currency, String value) {
     return tokenToLocalFiatApi.convertLocalToAppc(currency, value)
         .map(response -> new FiatValue(
-            new BigDecimal(response.getAppcValue()).setScale(2, RoundingMode.CEILING)
-                .doubleValue(), response.getCurrency(), response.getSymbol()))
+            response.getAppcValue().setScale(2, RoundingMode.CEILING),
+            response.getCurrency(), response.getSymbol()))
         .subscribeOn(Schedulers.io());
   }
 

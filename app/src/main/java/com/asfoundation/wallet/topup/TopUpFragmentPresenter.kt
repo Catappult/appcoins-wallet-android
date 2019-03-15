@@ -2,7 +2,6 @@ package com.asfoundation.wallet.topup
 
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.topup.TopUpActivity.Companion.APPC_C
 import com.asfoundation.wallet.topup.TopUpActivity.Companion.LOCAL_CURRENCY
 import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
@@ -11,8 +10,6 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
-import java.io.IOException
-import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 
@@ -31,7 +28,6 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
 
   private lateinit var currentData: TopUpData
   private lateinit var paymentMethod: PaymentType
-  private lateinit var transaction: TransactionBuilder
   private val disposables: CompositeDisposable = CompositeDisposable()
   private var currentCurrency = LOCAL_CURRENCY
 
@@ -73,13 +69,12 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     disposables.add(
         view.getNextClick().doOnNext {
           view.showLoading()
-          transaction = buildTransaction(currentData.currency.appcValue, packageName)
-          activity?.navigateToPayment(paymentMethod, currentData, currentCurrency, transaction)
+          activity?.navigateToPayment(paymentMethod, currentData, currentCurrency, "BDS", "TOPUP")
         }.subscribe())
   }
 
   private fun handleAmountChange() {
-    disposables.add(view.getEditTextChanges().debounce(500, TimeUnit.MILLISECONDS)
+    disposables.add(view.getEditTextChanges().debounce(800, TimeUnit.MILLISECONDS)
         .map { it.view().text.toString() }
         .filter { isValueChanged(it) }.switchMap {
           if (currentCurrency == LOCAL_CURRENCY) {
@@ -156,12 +151,12 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
             }).subscribe())
   }
 
-  private fun buildTransaction(amount: String, packageName: String): TransactionBuilder {
-    return TransactionBuilder("APPC", null, getNetworkId(),
-        null, BigDecimal(amount), null, 0, null,
-        "TOPUP", "BDS", packageName, null, null, null)
-        .shouldSendToken(true)
-  }
+//  private fun buildTransaction(amount: String, packageName: String): TransactionBuilder {
+//    return TransactionBuilder("APPC", null, getNetworkId(),
+//        null, BigDecimal(amount), null, 0, null,
+//        "TOPUP", "BDS", packageName, null, null, null)
+//        .shouldSendToken(true)
+//  }
 
   private fun getNetworkId(): Long {
     return if (BuildConfig.DEBUG) NETWORK_ID_ROPSTEN else NETWORK_ID_MAIN
