@@ -339,7 +339,7 @@
   <string name="p2p_send_current_balance_message">Số dư hiện tại: %1$s %2$s</string>
   <string name="p2p_send_error_address">Địa chỉ không hợp lệ</string>
   <string name="p2p_send_error_not_enough_funds">Không đủ tiền</string>
-  <string name="p2p_send_error_amount_zero">Nó phải nhiều hơn 0</string>
+  <string name="p2p_send_error_amount_zero">Số tiền phải nhiều hơn 0</string>
   <string name="p2p_send_confirmation_header">Chi tiết chuyển khoản</string>
   <!--Common-->
   <string name="error_general">Đã xảy ra lỗi</string>
