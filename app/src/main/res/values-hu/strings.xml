@@ -264,8 +264,8 @@
   <string name="gamification_home_button">KEZDJ PÉNZT KERESNI</string>
   <string name="gamification_level_title">Hanyas szintű vagyok?</string>
   <string name="gamification_level_title_new">Szerezz APPC Kreditet!</string>
-  <string name="gamification_level_on_graphic">Level %s</string>
-  <string name="gamification_APPCapps_button">Apps &amp; games</string>
+  <string name="gamification_level_on_graphic">%s. szint</string>
+  <string name="gamification_APPCapps_button">Appok és játékok</string>
   <string name="gamification_level_header">Gratulálunk. %s vagy!</string>
   <string name="gamification_level_to_next">Köv. szintig:</string>
   <string name="gamification_level_earned">FOGADVA:</string>
@@ -336,16 +336,16 @@
   <string name="p2p_send_title">Pénzküldés</string>
   <string name="p2p_send_body">Olvasd be vagy írd be barátod tárcacímét.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s lett elküldve az alábbi címre:</string>
-  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
-  <string name="p2p_send_error_address">Invalid address</string>
-  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
-  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
-  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <string name="p2p_send_current_balance_message">Aktuális egyenleg: %1$s %2$s</string>
+  <string name="p2p_send_error_address">Érvénytelen cím</string>
+  <string name="p2p_send_error_not_enough_funds">Nem elegendő a fedezet</string>
+  <string name="p2p_send_error_amount_zero">Az érték nem lehet nulla</string>
+  <string name="p2p_send_confirmation_header">Utalás részletei</string>
   <!--Common-->
-  <string name="error_general">Something went wrong</string>
-  <string name="error_missing_field">Mandatory field</string>
-  <string name="cancel_button">Cancel</string>
+  <string name="error_general">Valami hiba történt</string>
+  <string name="error_missing_field">Kötelező mező</string>
+  <string name="cancel_button">Mégse</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions to continue</string>
+  <string name="terms_and_conditions_tickbox">Egyetértek az AppCoins Wallet felhasználási feltételeivel és adatvédelmi szabályzatával</string>
+  <string name="terms_and_conditions_error">A folytatáshoz kérjük, fogadd el a felhasználási feltételeket</string>
 </resources>
