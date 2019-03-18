@@ -280,27 +280,6 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     }
   }
 
-  private fun animateImageSwap(imageView: ImageView, newImage: Int) {
-    if (imageView.visibility == View.VISIBLE) {
-      fadeOutAnimation(imageView, object : AnimationListener {
-        override fun onAnimationRepeat(animation: Animation?) {
-        }
-
-        override fun onAnimationEnd(animation: Animation?) {
-          imageView.setImageResource(newImage)
-          fadeInAnimation(imageView, null)
-        }
-
-        override fun onAnimationStart(animation: Animation?) {
-        }
-
-      })
-    } else {
-      imageView.setImageResource(newImage)
-      fadeInAnimation(imageView, null)
-    }
-  }
-
   private fun setLevelIdleAnimation(level: Int) {
     when (level) {
       0 -> gamification_current_level_animation.setMinAndMaxFrame(30, 150)
