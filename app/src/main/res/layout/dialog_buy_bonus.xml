@@ -5,16 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
-    android:background="#45e2e1e2"
+    android:background="#f7f7f7"
     >
   <ImageView
       android:id="@+id/gift_icon"
-      android:layout_width="32dp"
-      android:layout_height="32dp"
-      android:layout_marginBottom="8dp"
-      android:layout_marginStart="24dp"
-      android:layout_marginTop="8dp"
-      android:src="@drawable/ic_gift"
+      android:layout_width="54dp"
+      android:layout_height="48dp"
+      android:src="@drawable/ic_bonus_highlight"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@id/bonus_title"
       app:layout_constraintHorizontal_bias="0"
@@ -27,14 +24,15 @@
       android:id="@+id/bonus_title"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
+      android:layout_marginStart="10dp"
       android:text="@string/gamification_purchase_header"
       app:layout_constraintBottom_toTopOf="@id/bonus_value"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/gift_icon"
       app:layout_constraintTop_toTopOf="@id/gift_icon"
-      style="@style/TransactionDetailsTextStyle"
+      style="@style/BonusDialogTitleTextStyle"
       />
+
   <TextView
       android:id="@+id/bonus_value"
       android:layout_width="0dp"
