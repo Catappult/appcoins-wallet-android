@@ -34,7 +34,7 @@ class MyLevelPresenter(private val view: MyLevelView,
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess {
-              view.updateLevel(it, it.hasNewLevel)
+              view.updateLevel(it)
               if (it.bonus.isNotEmpty()) view.showHowItWorksButton()
             }
             .flatMapCompletable { gamification.levelShown(it.level) }

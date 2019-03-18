@@ -72,7 +72,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     setLevelIcons(4)
   }
 
-  override fun updateLevel(userStatus: UserRewardsStatus, hasNewLevel: Boolean) {
+  override fun updateLevel(userStatus: UserRewardsStatus) {
     step = 100 / (userStatus.bonus.size - 1)
 
     setLevelResources(userStatus.level)
@@ -88,7 +88,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     }
     animateProgress(currentLevel, userStatus.level)
 
-    if (hasNewLevel) {
+    if (userStatus.hasNewLevel) {
       levelUpAnimation(userStatus.level)
     }
 

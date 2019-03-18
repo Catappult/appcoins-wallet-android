@@ -5,7 +5,7 @@ import io.reactivex.Observable
 interface MyLevelView {
   fun setupLayout()
 
-  fun updateLevel(userStatus: UserRewardsStatus, hasNewLevel: Boolean)
+  fun updateLevel(userStatus: UserRewardsStatus)
 
   fun getButtonClicks(): Observable<Any>
 
