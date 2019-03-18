@@ -14,6 +14,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.view.View;
 import androidx.annotation.Nullable;
+import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
@@ -43,8 +44,8 @@ public class SettingsFragment extends PreferenceFragment
     final Preference redeem = findPreference("pref_redeem");
     redeem.setOnPreferenceClickListener(preference -> {
       findDefaultWalletInteract.find()
-          .subscribe(wallet -> startActivity(new Intent(Intent.ACTION_VIEW,
-              Uri.parse("https://dev.myappcoins.com/redeem?wallet_address=" + wallet.address))));
+          .subscribe(wallet -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(
+              BuildConfig.MY_APPCOINS_BASE_HOST + "redeem?wallet_address=" + wallet.address))));
       return false;
     });
     final Preference wallets = findPreference("pref_wallet");
