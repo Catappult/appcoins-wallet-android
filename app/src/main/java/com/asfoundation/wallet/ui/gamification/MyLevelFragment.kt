@@ -31,7 +31,6 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
 
   private lateinit var presenter: MyLevelPresenter
   private lateinit var gamificationView: GamificationView
-  private var currentLevel = 0
   private var step = 100
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,6 +74,8 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   override fun updateLevel(userStatus: UserRewardsStatus) {
     step = 100 / (userStatus.bonus.size - 1)
 
+    gamification_loading.visibility = View.GONE
+
     setLevelResources(userStatus.level)
 
     if (userStatus.toNextLevelAmount > BigDecimal.ZERO) {
@@ -86,9 +87,9 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
       earned_label.visibility = View.INVISIBLE
       earned_value.visibility = View.INVISIBLE
     }
-    animateProgress(currentLevel, userStatus.level)
+    animateProgress(userStatus.lastShownLevel, userStatus.level)
 
-    if (userStatus.hasNewLevel) {
+    if (userStatus.level > userStatus.lastShownLevel) {
       levelUpAnimation(userStatus.level)
     }
 
@@ -254,6 +255,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     levelIdleAnimation(level)
     level_title.text = getString(R.string.gamification_level_header,
         getString(levelResourcesMapper.mapTitle(level)))
+    current_level_card_group.visibility = View.VISIBLE
     level_title.visibility = View.VISIBLE
     level_description.text = getString(levelResourcesMapper.mapSubtitle(level))
     level_description.visibility = View.VISIBLE

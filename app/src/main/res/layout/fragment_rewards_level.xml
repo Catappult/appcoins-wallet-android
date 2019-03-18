@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     >
 
   <com.airbnb.lottie.LottieAnimationView
@@ -19,6 +20,14 @@
       android:visibility="invisible"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_rawRes="@raw/gamification_current_level_animation"
+      />
+
+  <androidx.constraintlayout.widget.Group
+      android:id="@+id/current_level_card_group"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:visibility="gone"
+      app:constraint_referenced_ids="current_level_card,current_level,rewards_progress_bar,earned_value,earned_label"
       />
 
   <View
@@ -109,7 +118,7 @@
       android:layout_marginTop="12dp"
       android:fontFamily="sans-serif-medium"
       android:gravity="center"
-      android:text="Congrats, you are a Moon!"
+      tools:text="Congrats, you are a Moon!"
       android:textColor="#001727"
       android:textSize="20sp"
       app:layout_constraintBottom_toTopOf="@id/level_description"
@@ -127,7 +136,7 @@
       android:layout_marginStart="16dp"
       android:fontFamily="sans-serif"
       android:gravity="center"
-      android:text="A natural Satellite"
+      tools:text="A natural Satellite"
       android:textColor="#828282"
       android:textSize="16sp"
       app:layout_constraintBottom_toTopOf="@id/current_level_card"
@@ -151,6 +160,16 @@
       app:layout_constraintVertical_chainStyle="packed"
       style="@style/ButtonStyle"
       android:visibility="invisible"
+      />
+
+  <ProgressBar
+      android:id="@+id/gamification_loading"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

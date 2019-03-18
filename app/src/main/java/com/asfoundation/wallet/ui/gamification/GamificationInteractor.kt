@@ -31,4 +31,8 @@ class GamificationInteractor(private val gamification: Gamification,
   fun levelShown(level: Int): Completable {
     return defaultWallet.find().flatMapCompletable { gamification.levelShown(it.address, level) }
   }
+
+  fun getLastShownLevel(): Single<Int> {
+    return defaultWallet.find().flatMap { gamification.getLastShownLevel(it.address) }
+  }
 }
