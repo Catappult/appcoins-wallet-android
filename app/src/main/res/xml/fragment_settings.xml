@@ -22,7 +22,7 @@
       android:title="@string/permissions_title"
       />
   <Preference
-      android:iconSpaceReserved="true"
+      android:icon="@drawable/ic_settings_redeem"
       android:key="pref_redeem"
       android:title="@string/title_redeem"
       >
