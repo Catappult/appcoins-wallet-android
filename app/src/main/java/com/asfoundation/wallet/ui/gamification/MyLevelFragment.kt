@@ -191,6 +191,45 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     }
   }
 
+  override fun setStaringLevel(userStatus: UserRewardsStatus) {
+    progress_bar.progress = userStatus.level * (100 / (userStatus.bonus.size - 1))
+    levelUpAnimation(userStatus.level)
+    for (i in 0..userStatus.level) {
+      showPreviousLevelIcons(i, i < userStatus.level)
+    }
+  }
+
+  private fun showPreviousLevelIcons(level: Int, shouldHideLabel: Boolean) {
+    when (level) {
+      0 -> {
+        noAnimationLevelUpdate(level, shouldHideLabel, level_1, level_1_text)
+      }
+      1 -> {
+        noAnimationLevelUpdate(level, shouldHideLabel, level_2, level_2_text)
+      }
+      2 -> {
+        noAnimationLevelUpdate(level, shouldHideLabel, level_3, level_3_text)
+      }
+      3 -> {
+        noAnimationLevelUpdate(level, shouldHideLabel, level_4, level_4_text)
+      }
+      4 -> {
+        noAnimationLevelUpdate(level, shouldHideLabel, level_5, level_5_text)
+      }
+    }
+  }
+
+  private fun noAnimationLevelUpdate(level: Int, shouldHideLabel: Boolean, iconView: View,
+                                     labelView: TextView) {
+    iconView.level_inactive_icon.setImageResource(levelResourcesMapper.mapIcons(level))
+    iconView.level_inactive_icon.visibility = View.VISIBLE
+    if (shouldHideLabel) {
+      labelView.visibility = View.INVISIBLE
+    } else {
+      labelView.isEnabled = true
+    }
+  }
+
   private fun animateLevelUp(levelIcon: View?, levelText: TextView?, newLevel: Boolean) {
     val activeIcon = levelIcon?.findViewById(R.id.level_active_icon) as ImageView
     val listener = object : AnimationListener {
@@ -259,7 +298,8 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     level_title.visibility = View.VISIBLE
     level_description.text = getString(levelResourcesMapper.mapSubtitle(level))
     level_description.visibility = View.VISIBLE
-    current_level.text = getString(R.string.gamification_level_on_graphic, Integer.toString(level + 1))
+    current_level.text =
+        getString(R.string.gamification_level_on_graphic, Integer.toString(level + 1))
   }
 
   private fun setLevelBonus(level: Int, text: String) {

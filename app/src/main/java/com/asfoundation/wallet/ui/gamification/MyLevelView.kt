@@ -13,4 +13,6 @@ interface MyLevelView {
 
   fun showHowItWorksButton()
 
+  fun setStaringLevel(userStatus: UserRewardsStatus)
+
 }

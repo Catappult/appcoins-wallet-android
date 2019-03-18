@@ -27,13 +27,17 @@ class MyLevelPresenter(private val view: MyLevelView,
 
   private fun handleShowLevels() {
     disposables.add(
-        Single.zip(gamification.getLevels(), gamification.getUserStatus(), gamification.getLastShownLevel(),
+        Single.zip(gamification.getLevels(), gamification.getUserStatus(),
+            gamification.getLastShownLevel(),
             Function3 { levels: Levels, userStats: UserStats, lastShownLevel: Int ->
               mapToUserStatus(levels, userStats, lastShownLevel)
             })
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess {
+              if (it.lastShownLevel > 0 || it.lastShownLevel == 0 && it.level == 0) {
+                view.setStaringLevel(it)
+              }
               view.updateLevel(it)
               if (it.bonus.isNotEmpty()) view.showHowItWorksButton()
             }
@@ -41,7 +45,8 @@ class MyLevelPresenter(private val view: MyLevelView,
             .subscribe())
   }
 
-  private fun mapToUserStatus(levels: Levels, userStats: UserStats, lastShownLevel: Int): UserRewardsStatus {
+  private fun mapToUserStatus(levels: Levels, userStats: UserStats,
+                              lastShownLevel: Int): UserRewardsStatus {
     if (levels.status == Levels.Status.OK && userStats.status == UserStats.Status.OK) {
       val list = mutableListOf<Double>()
       if (levels.isActive) {
