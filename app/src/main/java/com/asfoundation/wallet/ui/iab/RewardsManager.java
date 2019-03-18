@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab;
 
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
+import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository;
 import com.appcoins.wallet.appcoins.rewards.Transaction;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
@@ -10,6 +11,7 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
+import org.jetbrains.annotations.NotNull;
 
 public class RewardsManager {
   private final AppcoinsRewards appcoinsRewards;
@@ -63,6 +65,15 @@ public class RewardsManager {
     }
     throw new UnsupportedOperationException(
         "Transaction status " + transaction.getStatus() + " not supported");
+  }
+
+  public Single<AppcoinsRewardsRepository.Status> sendCredits(@NotNull String toWallet,
+      BigDecimal amount, String packageName) {
+    return appcoinsRewards.sendCredits(toWallet, amount, packageName);
+  }
+
+  public Single<BigDecimal> getBalance() {
+    return appcoinsRewards.getBalance();
   }
 
   static class RewardPayment {
