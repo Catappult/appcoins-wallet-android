@@ -372,4 +372,7 @@
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions to continue</string>
 
+  <!--Settings-->
+  <string name="title_redeem">Redeem Code</string>
+
 </resources>
