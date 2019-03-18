@@ -192,4 +192,12 @@
     <item name="android:textSize">10sp</item>
     <item name="android:textStyle">bold</item>
   </style>
+
+  <style name="BonusDialogTitleTextStyle">
+    <item name="android:fontFamily">sans-serif</item>
+    <item name="android:gravity">center</item>
+    <item name="android:textColor">@color/level_text_color</item>
+    <item name="android:textSize">12sp</item>
+    <item name="android:textStyle">bold</item>
+  </style>
 </resources>
