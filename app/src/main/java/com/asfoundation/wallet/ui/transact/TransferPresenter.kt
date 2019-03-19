@@ -92,8 +92,10 @@ class TransferPresenter(private val view: TransferFragmentView,
     return when (data.currency) {
       TransferFragmentView.Currency.APPC_C -> handleCreditsTransfer(data.walletAddress,
           data.amount)
-      TransferFragmentView.Currency.ETH -> Single.just(AppcoinsRewardsRepository.Status.SUCCESS)
-      TransferFragmentView.Currency.APPC -> Single.just(AppcoinsRewardsRepository.Status.SUCCESS)
+      TransferFragmentView.Currency.ETH -> interactor.validateEthTransferData(data.walletAddress,
+          data.amount)
+      TransferFragmentView.Currency.APPC -> interactor.validateAppcTransferData(data.walletAddress,
+          data.amount)
     }
   }
 
