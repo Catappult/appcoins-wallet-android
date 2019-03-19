@@ -21,17 +21,23 @@ class TransferInteractor(private val rewardsManager: RewardsManager,
       transactionDataValidator.validateData(toWallet, amount.multiply(BigDecimal.TEN.pow(18)), it)
     }
         .flatMap {
-          when (it) {
-            TransactionDataValidator.DataStatus.OK -> rewardsManager.sendCredits(toWallet, amount,
-                packageName)
-            TransactionDataValidator.DataStatus.INVALID_AMOUNT -> Single.just(
-                AppcoinsRewardsRepository.Status.INVALID_AMOUNT)
-            TransactionDataValidator.DataStatus.INVALID_WALLET_ADDRESS -> Single.just(
-                AppcoinsRewardsRepository.Status.INVALID_WALLET_ADDRESS)
-            TransactionDataValidator.DataStatus.NOT_ENOUGH_FUNDS -> Single.just(
-                AppcoinsRewardsRepository.Status.NOT_ENOUGH_FUNDS)
+          val validateStatus = validateData(it)
+          if (validateStatus == AppcoinsRewardsRepository.Status.SUCCESS) {
+            return@flatMap rewardsManager.sendCredits(toWallet, amount, packageName)
+                .map { validateStatus }
           }
+          return@flatMap Single.just(validateStatus)
         }.onErrorReturn { map(it) }
+  }
+
+  private fun validateData(
+      data: TransactionDataValidator.DataStatus): AppcoinsRewardsRepository.Status {
+    return when (data) {
+      TransactionDataValidator.DataStatus.OK -> AppcoinsRewardsRepository.Status.INVALID_AMOUNT
+      TransactionDataValidator.DataStatus.INVALID_AMOUNT -> AppcoinsRewardsRepository.Status.INVALID_AMOUNT
+      TransactionDataValidator.DataStatus.INVALID_WALLET_ADDRESS -> AppcoinsRewardsRepository.Status.INVALID_WALLET_ADDRESS
+      TransactionDataValidator.DataStatus.NOT_ENOUGH_FUNDS -> AppcoinsRewardsRepository.Status.NOT_ENOUGH_FUNDS
+    }
   }
 
   private fun map(throwable: Throwable): AppcoinsRewardsRepository.Status {
@@ -55,5 +61,19 @@ class TransferInteractor(private val rewardsManager: RewardsManager,
   fun getEthBalance(): Single<BigDecimal> {
     return findDefaultWalletInteract.find().flatMap { balanceInteractor.getEthereumBalance(it) }
         .map { BigDecimal(it.value) }
+  }
+
+  fun validateEthTransferData(walletAddress: String,
+                              amount: BigDecimal): Single<AppcoinsRewardsRepository.Status> {
+    return getEthBalance().map {
+      validateData(transactionDataValidator.validateData(walletAddress, amount, it))
+    }
+  }
+
+  fun validateAppcTransferData(walletAddress: String,
+                               amount: BigDecimal): Single<AppcoinsRewardsRepository.Status> {
+    return getAppcoinsBalance().map {
+      validateData(transactionDataValidator.validateData(walletAddress, amount, it))
+    }
   }
 }
