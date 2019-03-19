@@ -12,12 +12,15 @@ import android.view.animation.RotateAnimation
 import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asf.wallet.R
-import com.asfoundation.wallet.topup.TopUpFragmentPresenter.Companion.DEFAULT_VALUE
+import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.topup.TopUpData.Companion.APPC_C_CURRENCY
+import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
+import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
+import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
 import com.asfoundation.wallet.topup.paymentMethods.TopUpPaymentMethodAdapter
 import com.jakewharton.rxbinding2.InitialValueObservable
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
-import com.jakewharton.rxbinding2.widget.TextViewAfterTextChangeEvent
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -36,9 +39,14 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   private lateinit var paymentMethodClick: PublishRelay<String>
   private lateinit var fragmentContainer: ViewGroup
   private var topUpActivityView: TopUpActivityView? = null
+  private lateinit var paymentMethods: List<PaymentMethodData>
+  private var localCurrency: LocalCurrency = LocalCurrency()
+  private var selectedCurrency: String = FIAT_CURRENCY
+  private var switchingCurrency: Boolean = false
 
   companion object {
     private const val PARAM_APP_PACKAGE = "APP_PACKAGE"
+    private const val APPC_C_SYMBOL = "APPC-C"
 
     @JvmStatic
     fun newInstance(packageName: String): TopUpFragment {
@@ -77,7 +85,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     paymentMethodClick = PublishRelay.create()
     presenter =
         TopUpFragmentPresenter(this, topUpActivityView, interactor, AndroidSchedulers.mainThread(),
-            Schedulers.io(), appPackage)
+            Schedulers.io())
 
   }
 
@@ -90,29 +98,42 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     presenter.present()
+
   }
 
-  override fun setupUiElements(data: TopUpData) {
-    updateCurrencyData(data.currency)
+  override fun setupUiElements(paymentMethods: List<PaymentMethodData>,
+                               localCurrency: LocalCurrency) {
+    this@TopUpFragment.paymentMethods = paymentMethods
+    this@TopUpFragment.localCurrency = localCurrency
+    setupCurrencyData(selectedCurrency, localCurrency.code, localCurrency.symbol, DEFAULT_VALUE,
+        APPC_C_SYMBOL, APPC_C_SYMBOL, DEFAULT_VALUE)
     main_value.isEnabled = true
     main_value.setMinTextSize(
         resources.getDimensionPixelSize(R.dimen.topup_main_value_min_size).toFloat())
 
-    adapter = TopUpPaymentMethodAdapter(data.methods, paymentMethodClick)
+    adapter = TopUpPaymentMethodAdapter(paymentMethods, paymentMethodClick)
     payment_methods.adapter = adapter
     payment_methods.layoutManager = LinearLayoutManager(context)
     payment_methods.visibility = View.VISIBLE
     swap_value_button.isEnabled = true
     swap_value_button.visibility = View.VISIBLE
-    swap_value_lable.visibility = View.VISIBLE
+    swap_value_label.visibility = View.VISIBLE
+  }
+
+  override fun onDestroy() {
+    presenter.stop()
+    super.onDestroy()
   }
 
   override fun getChangeCurrencyClick(): Observable<Any> {
     return RxView.clicks(swap_value_button)
   }
 
-  override fun getEditTextChanges(): InitialValueObservable<TextViewAfterTextChangeEvent> {
+  override fun getEditTextChanges(): Observable<TopUpData> {
     return RxTextView.afterTextChangeEvents(main_value)
+        .filter {!switchingCurrency }.map {
+      TopUpData(getCurrencyData(), selectedCurrency, getSelectedPaymentMethod())
+    }
   }
 
   override fun getPaymentMethodClick(): Observable<String> {
@@ -123,21 +144,9 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     return RxView.focusChanges(main_value)
   }
 
-  override fun getNextClick(): Observable<Any> {
+  override fun getNextClick(): Observable<TopUpData> {
     return RxView.clicks(button)
-  }
-
-
-  override fun updateCurrencyData(data: CurrencyData) {
-    currency_code.text = data.fiatCurrencyCode
-    if (data.fiatValue != DEFAULT_VALUE && main_value.text.toString() != data.fiatValue) {
-      main_value.setText(data.fiatValue)
-      main_value.setSelection(main_value.text!!.length)
-    }
-    main_value_currency.text = data.fiatCurrencySymbol
-
-    swap_value_lable.text = data.appcCode
-    converted_value.text = "${data.appcValue} ${data.appcSymbol}"
+        .map { TopUpData(getCurrencyData(), selectedCurrency, getSelectedPaymentMethod()) }
   }
 
   override fun setNextButtonState(enabled: Boolean) {
@@ -179,5 +188,101 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     rotateAnimation.duration = 250
     rotateAnimation.interpolator = AccelerateDecelerateInterpolator()
     swap_value_button.startAnimation(rotateAnimation)
+  }
+
+  override fun switchCurrencyData() {
+    switchingCurrency = true
+    val currencyData = getCurrencyData()
+    selectedCurrency =
+        if (selectedCurrency == TopUpData.APPC_C_CURRENCY) FIAT_CURRENCY else TopUpData.APPC_C_CURRENCY
+    // We just have to switch the current information being shown
+    setupCurrencyData(selectedCurrency, currencyData.fiatCurrencyCode,
+        currencyData.fiatCurrencySymbol, currencyData.fiatValue, currencyData.appcCode,
+        currencyData.appcSymbol, currencyData.appcValue)
+    switchingCurrency = false
+
+  }
+
+  override fun setConversionValue(topUpData: TopUpData) {
+    if (topUpData.selectedCurrency == selectedCurrency) {
+      when (selectedCurrency) {
+        FIAT_CURRENCY -> {
+          converted_value.text = "${topUpData.currency.appcValue} ${topUpData.currency.appcSymbol}"
+        }
+        APPC_C_CURRENCY -> {
+          converted_value.text =
+              "${topUpData.currency.fiatCurrencySymbol}${topUpData.currency.fiatValue}"
+        }
+      }
+    } else {
+      when (selectedCurrency) {
+        FIAT_CURRENCY -> {
+          main_value.setText(topUpData.currency.fiatValue)
+        }
+        APPC_C_CURRENCY -> {
+          main_value.setText(topUpData.currency.appcValue)
+        }
+      }
+    }
+  }
+
+  private fun setupCurrencyData(selectedCurrency: String, fiatCode: String, fiatSymbol: String,
+                                fiatValue: String, appcCode: String, appcSymbol: String,
+                                appcValue: String) {
+
+    when (selectedCurrency) {
+      FIAT_CURRENCY -> {
+        setCurrencyInfo(fiatCode, fiatSymbol, fiatValue,
+            "$appcValue $appcSymbol", appcCode)
+      }
+      APPC_C_CURRENCY -> {
+        setCurrencyInfo(appcCode, appcSymbol, appcValue,
+            "$fiatSymbol$fiatValue", fiatCode)
+      }
+    }
+  }
+
+  private fun setCurrencyInfo(mainCode: String, mainSymbol: String, mainValue: String,
+                              conversionValue: String, conversionCode: String) {
+    main_currency_code.text = mainCode
+    if (mainValue != DEFAULT_VALUE) {
+      main_value.setText(mainValue)
+      main_value.setSelection(main_value.text!!.length)
+    }
+    main_value_currency.text = mainSymbol
+
+    swap_value_label.text = conversionCode
+    converted_value.text = conversionValue
+  }
+
+  private fun getSelectedPaymentMethod(): PaymentType {
+    return if (payment_methods.adapter != null) {
+      val data = (payment_methods.adapter as TopUpPaymentMethodAdapter).getSelectedItemData()
+      if (PaymentType.PAYPAL.subTypes.contains(data.id)) {
+        PaymentType.PAYPAL
+      } else {
+        PaymentType.CARD
+      }
+    } else {
+      PaymentType.CARD
+    }
+  }
+
+  private fun getCurrencyData(): CurrencyData {
+    return if (selectedCurrency == FIAT_CURRENCY) {
+      val appcValue = converted_value.text.toString()
+          .replace(APPC_C_SYMBOL, "")
+          .replace(" ", "")
+      val localCurrencyValue =
+          if (main_value.text.toString().isEmpty()) DEFAULT_VALUE else main_value.text.toString()
+      CurrencyData(localCurrency.code, localCurrency.symbol, localCurrencyValue,
+          APPC_C_SYMBOL, APPC_C_SYMBOL, appcValue)
+    } else {
+      val localCurrencyValue = converted_value.text.toString().replace(localCurrency.symbol, "")
+      val appcValue =
+          if (main_value.text.toString().isEmpty()) DEFAULT_VALUE else main_value.text.toString()
+      CurrencyData(localCurrency.code, localCurrency.symbol, localCurrencyValue,
+          APPC_C_SYMBOL, APPC_C_SYMBOL, appcValue)
+    }
   }
 }

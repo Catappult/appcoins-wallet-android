@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.navigator;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -12,6 +13,6 @@ public interface UriNavigator {
 
   Observable<Uri> uriResults();
 
-  Intent getActivityIntent();
+  Intent getActivityIntent(String url);
 
 }

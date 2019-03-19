@@ -19,7 +19,7 @@ class TopUpInteractor(private val repository: BdsRepository,
 
   fun getLocalCurrency(): Single<LocalCurrency> {
     return conversionService.localCurrency.map { value ->
-      LocalCurrency("\u20ac", value.currency)
+      LocalCurrency(value.symbol , value.currency)
     }
   }
 

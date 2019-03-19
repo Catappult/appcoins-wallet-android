@@ -12,7 +12,7 @@
       android:focusableInTouchMode="true"
       >
     <TextView
-        android:id="@+id/currency_code"
+        android:id="@+id/main_currency_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="33dp"
@@ -37,7 +37,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/currency_code"
+        app:layout_constraintTop_toBottomOf="@id/main_currency_code"
         app:layout_constraintEnd_toEndOf="parent"
         style="@style/TopUpTextStyle.MainValue"
         android:maxLength="152"
@@ -86,7 +86,7 @@
         />
 
     <TextView
-        android:id="@+id/swap_value_lable"
+        android:id="@+id/swap_value_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="--"

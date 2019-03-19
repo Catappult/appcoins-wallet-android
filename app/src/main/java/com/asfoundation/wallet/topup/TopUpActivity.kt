@@ -6,7 +6,6 @@ import android.net.Uri
 import android.os.Bundle
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
 import com.asfoundation.wallet.topup.payment.PaymentAuthFragment
@@ -26,7 +25,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
 
   private lateinit var results: PublishRelay<Uri>
-  private lateinit var transactionData: String
+  private lateinit var presenter: TopUpActivityPresenter
 
   companion object {
     @JvmStatic
@@ -34,10 +33,14 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
       return Intent(context, TopUpActivity::class.java)
     }
 
-    private const val WEB_VIEW_REQUEST_CODE = 1234
+    fun newIntent(context: Context, url: String): Intent {
+      val intent = Intent(context, TopUpActivity::class.java)
+      intent.data = Uri.parse(url)
+      return intent
+    }
+
+    const val WEB_VIEW_REQUEST_CODE = 1234
     private const val TOP_UP_AMOUNT = "top_up_amount"
-    val LOCAL_CURRENCY = "LOCAL_CURRENCY"
-    val APPC_C = "APPC_C"
   }
 
 
@@ -45,22 +48,14 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.top_up_activity_layout)
-  }
-
-  override fun onResume() {
-    super.onResume()
-    TopUpActivityPresenter(this).present()
+    presenter = TopUpActivityPresenter(this)
+    presenter.present()
     results = PublishRelay.create()
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
-
-    if (requestCode == WEB_VIEW_REQUEST_CODE) {
-      if (resultCode == WebViewActivity.FAIL) {
-        finish()
-      }
-    }
+    presenter.processActivityResult(requestCode, resultCode)
   }
 
   override fun onNewIntent(intent: Intent) {
@@ -103,7 +98,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     finish()
   }
 
-  override fun navigateToUri(url: String?, domain: String, skuId: String, amount: BigDecimal,
+  override fun navigateToUri(url: String, domain: String, skuId: String, amount: BigDecimal,
                              type: String) {
     startActivityForResult(WebViewActivity.newIntent(this, url, domain, skuId, amount, type, this),
         WEB_VIEW_REQUEST_CODE)
@@ -113,7 +108,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     return results
   }
 
-  override fun getActivityIntent(): Intent {
-    return TopUpActivity.newIntent(this)
+  override fun getActivityIntent(url: String): Intent {
+    return TopUpActivity.newIntent(this, url)
   }
 }

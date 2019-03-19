@@ -70,6 +70,12 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     return intent;
   }
 
+  public static Intent newIntent(Activity activity, String url) {
+    Intent intent = new Intent(activity, IabActivity.class);
+    intent.setData(Uri.parse(url));
+    return intent;
+  }
+
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     AndroidInjection.inject(this);
     super.onCreate(savedInstanceState);
@@ -234,7 +240,7 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     return results;
   }
 
-  @Override public Intent getActivityIntent() {
-    return new Intent(this, IabActivity.class);
+  @Override public Intent getActivityIntent(String url) {
+    return IabActivity.newIntent(this, url);
   }
 }

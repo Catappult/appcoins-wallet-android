@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.topup
 
+import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
 import com.jakewharton.rxbinding2.InitialValueObservable
 import com.jakewharton.rxbinding2.widget.TextViewAfterTextChangeEvent
 import io.reactivex.Observable
@@ -8,17 +9,19 @@ interface TopUpFragmentView {
 
   fun getChangeCurrencyClick(): Observable<Any>
 
-  fun getEditTextChanges(): InitialValueObservable<TextViewAfterTextChangeEvent>
+  fun getEditTextChanges(): Observable<TopUpData>
 
   fun getPaymentMethodClick(): Observable<String>
 
   fun getEditTextFocusChanges(): InitialValueObservable<Boolean>
 
-  fun getNextClick(): Observable<Any>
+  fun getNextClick(): Observable<TopUpData>
 
-  fun setupUiElements(data: TopUpData)
+  fun setupUiElements(paymentMethods: List<PaymentMethodData>, localCurrency: LocalCurrency)
 
-  fun updateCurrencyData(data: CurrencyData)
+  fun setConversionValue(topUpData: TopUpData)
+
+  fun switchCurrencyData()
 
   fun setNextButtonState(enabled: Boolean)
 
@@ -31,5 +34,4 @@ interface TopUpFragmentView {
   fun showPaymentMethods()
 
   fun rotateChangeCurrencyButton()
-
 }

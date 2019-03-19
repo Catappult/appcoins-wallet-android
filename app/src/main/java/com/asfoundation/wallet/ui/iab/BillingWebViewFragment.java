@@ -109,17 +109,14 @@ public class BillingWebViewFragment extends DaggerFragment {
 
     if (savedInstanceState == null) {
       currentUrl = getArguments().getString(URL);
-      currentDomain = getArguments().getString(DOMAIN);
-      currentSkuId = getArguments().getString(SKUID);
-      currentAmount = (BigDecimal) getArguments().getSerializable(AMOUNT);
-      currentType = getArguments().getString(TYPE);
     } else {
       currentUrl = savedInstanceState.getString(CURRENT_URL);
-      currentDomain = savedInstanceState.getString(DOMAIN);
-      currentSkuId = savedInstanceState.getString(SKUID);
-      currentAmount = (BigDecimal) savedInstanceState.getSerializable(AMOUNT);
-      currentType = savedInstanceState.getString(TYPE);
     }
+
+    currentDomain = getArguments().getString(DOMAIN);
+    currentSkuId = getArguments().getString(SKUID);
+    currentAmount = (BigDecimal) getArguments().getSerializable(AMOUNT);
+    currentType = getArguments().getString(TYPE);
 
     CookieManager.getInstance()
         .setAcceptCookie(true);
@@ -139,9 +136,7 @@ public class BillingWebViewFragment extends DaggerFragment {
         currentUrl = clickUrl;
 
         if (clickUrl.startsWith(BILLING_SCHEMA)) {
-          //Intent intent = new Intent(getContext(), TopUpActivity.class);
-          Intent intent = navigator.getActivityIntent();
-          intent.setData(Uri.parse(clickUrl));
+          Intent intent = navigator.getActivityIntent(clickUrl);
           getActivity().setResult(WebViewActivity.SUCCESS);
           sendPaymentEvent();
           sendRevenueEvent();
@@ -196,10 +191,6 @@ public class BillingWebViewFragment extends DaggerFragment {
     super.onSaveInstanceState(outState);
 
     outState.putString(CURRENT_URL, currentUrl);
-    outState.putString(DOMAIN, currentDomain);
-    outState.putString(SKUID, currentSkuId);
-    outState.putSerializable(AMOUNT, currentAmount);
-    outState.putString(TYPE, currentType);
   }
 
   public void sendPaymentMethodDetailsEvent() {

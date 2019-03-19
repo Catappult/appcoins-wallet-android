@@ -12,7 +12,7 @@ class TopUpPaymentMethodAdapter(
     private var paymentMethods: List<PaymentMethodData>,
     private var paymentMethodClick: PublishRelay<String>) :
     RecyclerView.Adapter<PaymentMethodViewHolder>() {
-  private var selectedItem = -1
+  private var selectedItem = 0
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentMethodViewHolder {
     return PaymentMethodViewHolder(LayoutInflater.from(parent.context)
@@ -30,5 +30,9 @@ class TopUpPaymentMethodAdapter(
       paymentMethodClick.accept(paymentMethods[position].id)
       notifyDataSetChanged()
     })
+  }
+
+  fun getSelectedItemData(): PaymentMethodData {
+    return paymentMethods[selectedItem]
   }
 }

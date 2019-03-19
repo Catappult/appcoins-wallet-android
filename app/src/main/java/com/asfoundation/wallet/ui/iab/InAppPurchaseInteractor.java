@@ -193,23 +193,13 @@ public class InAppPurchaseInteractor {
   }
 
   public Single<String> getTransactionUid(String uid) {
-    return Observable.interval(0, 5, TimeUnit.SECONDS, Schedulers.io())
-        .timeInterval()
-        .switchMap(longTimed -> billing.getAppcoinsTransaction(uid, Schedulers.io())
-            .toObservable())
-        .takeUntil(pendingTransaction -> pendingTransaction.getStatus() != Status.COMPLETED)
-        .map(transaction -> transaction.getHash())
+    return getTransaction(uid).map(transaction -> transaction.getHash())
         .firstOrError();
   }
 
   public Single<Double> getTransactionAmount(String uid) {
-    return Observable.interval(0, 5, TimeUnit.SECONDS, Schedulers.io())
-        .timeInterval()
-        .switchMap(longTimed -> billing.getAppcoinsTransaction(uid, Schedulers.io())
-            .toObservable())
-        .takeUntil(pendingTransaction -> pendingTransaction.getStatus() != Status.COMPLETED)
-        .map(transaction -> Double.parseDouble(transaction.getPrice()
-            .getAppc()))
+    return getTransaction(uid).map(transaction -> Double.parseDouble(transaction.getPrice()
+        .getAppc()))
         .firstOrError();
   }
 
@@ -219,6 +209,14 @@ public class InAppPurchaseInteractor {
           removeUnavailable(paymentMethods, filteredGateways);
           return paymentMethods;
         }));
+  }
+
+  private Observable<Transaction> getTransaction(String uid) {
+    return Observable.interval(0, 5, TimeUnit.SECONDS, Schedulers.io())
+        .timeInterval()
+        .switchMap(longTimed -> billing.getAppcoinsTransaction(uid, Schedulers.io())
+            .toObservable())
+        .takeUntil(pendingTransaction -> pendingTransaction.getStatus() != Status.COMPLETED);
   }
 
   public Single<List<PaymentMethod>> getPaymentMethods() {

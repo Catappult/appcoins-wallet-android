@@ -23,6 +23,7 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpData
+import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.view.rx.RxAlertDialog
@@ -71,10 +72,10 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
       throw IllegalArgumentException("previous app package name not found")
     }
 
-  val data: TopUpData?
+  val data: TopUpData
     get() {
       if (arguments!!.containsKey(PAYMENT_DATA)) {
-        return arguments!!.getSerializable(PAYMENT_DATA) as TopUpData?
+        return arguments!!.getSerializable(PAYMENT_DATA) as TopUpData
       }
       throw IllegalArgumentException("previous payment data not found")
     }
@@ -223,14 +224,26 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
   }
 
   override fun showValues() {
-    val formatter = Formatter()
-    val appcValue = formatter.format(Locale.getDefault(), "%(,.2f",
-        BigDecimal(data?.currency?.appcValue).toDouble()).toString()
-    converted_value.text = "$appcValue ${data?.currency?.appcCode}"
-    val fiatValue = BigDecimal(data?.currency?.fiatValue).toDouble().toString()
-    main_value.setText(fiatValue)
-    main_value_currency.text = data?.currency?.fiatCurrencySymbol
-    currency_code.text = data?.currency?.fiatCurrencyCode
+    var mainValue = ""
+    var convertedValue = ""
+    var currencyCode = ""
+    var currencySymbol = ""
+    if (currentCurrency == FIAT_CURRENCY) {
+      mainValue = data.currency.fiatValue
+      convertedValue = "${data.currency.appcValue} ${data.currency.appcSymbol}"
+      currencyCode = data.currency.fiatCurrencyCode
+      currencySymbol = data.currency.fiatCurrencySymbol
+    } else {
+      mainValue = data.currency.appcValue
+      convertedValue = "${data.currency.fiatCurrencySymbol}${data.currency.fiatValue}"
+      currencyCode = data.currency.appcCode
+      currencySymbol = data.currency.appcSymbol
+    }
+
+    main_value.setText(mainValue)
+    main_value_currency.text = currencySymbol
+    main_currency_code.text = currencyCode
+    converted_value.text = convertedValue
 
   }
 
