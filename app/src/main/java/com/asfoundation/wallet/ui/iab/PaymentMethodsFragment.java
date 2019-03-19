@@ -6,9 +6,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -24,6 +21,9 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.WalletService;
 import com.appcoins.wallet.bdsbilling.repository.entity.DeveloperPurchase;
@@ -58,7 +58,6 @@ import javax.inject.Inject;
 import kotlin.NotImplementedError;
 import org.jetbrains.annotations.NotNull;
 
-import static com.asfoundation.wallet.billing.analytics.BillingAnalytics.PAYMENT_METHOD_CC;
 import static com.asfoundation.wallet.ui.iab.IabActivity.DEVELOPER_PAYLOAD;
 import static com.asfoundation.wallet.ui.iab.IabActivity.PRODUCT_NAME;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
@@ -120,8 +119,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private View bonusView;
   private TextView bonusValue;
 
-  public static Fragment newInstance(TransactionBuilder transaction,
-      String productName, boolean isBds, String developerPayload, String uri) {
+  public static Fragment newInstance(TransactionBuilder transaction, String productName,
+      boolean isBds, String developerPayload, String uri) {
     Bundle bundle = new Bundle();
     bundle.putParcelable(TRANSACTION, transaction);
     bundle.putSerializable(TRANSACTION_AMOUNT, transaction.amount());
@@ -499,6 +498,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override public void showBonus(@NotNull BigDecimal bonus) {
     bonusValue.setText(getString(R.string.gamification_purchase_body, bonus.stripTrailingZeros()
+        .setScale(2, BigDecimal.ROUND_DOWN)
         .toPlainString()));
     bonusView.setVisibility(View.VISIBLE);
   }
