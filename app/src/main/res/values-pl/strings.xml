@@ -23,9 +23,9 @@
   <string name="title_activity_settings">Ustawienia</string>
   <string name="network_label">Sieć</string>
   <string name="credits">Kredyty</string>
-  <string name="label_new">New</string>
+  <string name="label_new">Nowość</string>
   <string name="low_storage_error">Nie ma wystarczająco dużo miejsca</string>
-  <string name="no_camera_permission_title">Camera Permission</string>
+  <string name="no_camera_permission_title">Zezwolenie na używanie aparatu</string>
   <string name="no_camera_permission">Portfel BDS AppCoins wymaga zgody na dostęp do aparatu do skanowania kodów QR.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Nieprawidłowy format kodu kreskowego: %s</string>
@@ -264,8 +264,8 @@
   <string name="gamification_home_button">ZACZNIJ ZARABIAĆ</string>
   <string name="gamification_level_title">Jaki jest mój poziom?</string>
   <string name="gamification_level_title_new">Uzyskaj kredyty APPC!</string>
-  <string name="gamification_level_on_graphic">Level %s</string>
-  <string name="gamification_APPCapps_button">Apps &amp; games</string>
+  <string name="gamification_level_on_graphic">Poziom %s</string>
+  <string name="gamification_APPCapps_button">Aplikacje &amp; gry</string>
   <string name="gamification_level_header">Gratulacje, jesteś %s!</string>
   <string name="gamification_level_to_next">Do następnego poziomu:</string>
   <string name="gamification_level_earned">ZAROBIONE:</string>
@@ -336,16 +336,16 @@
   <string name="p2p_send_title">Wysyłanie funduszy</string>
   <string name="p2p_send_body">Zeskanuj lub wprowadź adres portfela znajomego.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s zostały wysłane na adres:</string>
-  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
-  <string name="p2p_send_error_address">Invalid address</string>
-  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
-  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
-  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <string name="p2p_send_current_balance_message">Aktualne saldo: %1$s %2$s</string>
+  <string name="p2p_send_error_address">Nieprawidłowy adres</string>
+  <string name="p2p_send_error_not_enough_funds">Nie ma wystarczającej ilości środków</string>
+  <string name="p2p_send_error_amount_zero">Wartość musi być większa niż zero</string>
+  <string name="p2p_send_confirmation_header">Dane do przelewu</string>
   <!--Common-->
-  <string name="error_general">Something went wrong</string>
-  <string name="error_missing_field">Mandatory field</string>
-  <string name="cancel_button">Cancel</string>
+  <string name="error_general">Coś poszło nie tak</string>
+  <string name="error_missing_field">Pole obowiązkowe</string>
+  <string name="cancel_button">Anuluj</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions to continue</string>
+  <string name="terms_and_conditions_tickbox">Zgadzam się na warunki portfela AppCoins i Politykę prywatności</string>
+  <string name="terms_and_conditions_error">Proszę zaakceptować nasz regulamin aby kontynuować</string>
 </resources>
