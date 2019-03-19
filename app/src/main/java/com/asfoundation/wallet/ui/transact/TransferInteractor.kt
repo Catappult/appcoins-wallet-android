@@ -33,7 +33,7 @@ class TransferInteractor(private val rewardsManager: RewardsManager,
   private fun validateData(
       data: TransactionDataValidator.DataStatus): AppcoinsRewardsRepository.Status {
     return when (data) {
-      TransactionDataValidator.DataStatus.OK -> AppcoinsRewardsRepository.Status.INVALID_AMOUNT
+      TransactionDataValidator.DataStatus.OK -> AppcoinsRewardsRepository.Status.SUCCESS
       TransactionDataValidator.DataStatus.INVALID_AMOUNT -> AppcoinsRewardsRepository.Status.INVALID_AMOUNT
       TransactionDataValidator.DataStatus.INVALID_WALLET_ADDRESS -> AppcoinsRewardsRepository.Status.INVALID_WALLET_ADDRESS
       TransactionDataValidator.DataStatus.NOT_ENOUGH_FUNDS -> AppcoinsRewardsRepository.Status.NOT_ENOUGH_FUNDS
