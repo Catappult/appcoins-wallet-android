@@ -56,7 +56,7 @@ class MyLevelPresenter(private val view: MyLevelView,
       }
       val nextLevelAmount = userStats.nextLevelAmount?.minus(
           userStats.totalSpend)?.setScale(2, RoundingMode.HALF_UP) ?: BigDecimal.ZERO
-      return UserRewardsStatus(lastShownLevel, userStats.level, nextLevelAmount, list)
+      return UserRewardsStatus(3, 4, nextLevelAmount, list)
     }
     return UserRewardsStatus(lastShownLevel)
   }

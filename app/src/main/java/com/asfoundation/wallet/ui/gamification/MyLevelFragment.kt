@@ -192,10 +192,10 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   }
 
   override fun setStaringLevel(userStatus: UserRewardsStatus) {
-    progress_bar.progress = userStatus.level * (100 / (userStatus.bonus.size - 1))
+    progress_bar.progress = userStatus.lastShownLevel * (100 / (userStatus.bonus.size - 1))
     levelUpAnimation(userStatus.level)
-    for (i in 0..userStatus.level) {
-      showPreviousLevelIcons(i, i < userStatus.level)
+    for (i in 0..userStatus.lastShownLevel) {
+      showPreviousLevelIcons(i, i < userStatus.lastShownLevel)
     }
   }
 
