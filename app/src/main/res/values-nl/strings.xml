@@ -325,7 +325,7 @@
   <string name="balance_appcoins_body">AppCoins is de cryptovaluta voor de app-economie. Je kunt deze cryptovaluta via verschillende platforms kopen en verkopen en gebruiken om in-app items te kopen.</string>
   <string name="balance_appccreditos_body">De token om in-app items te kopen! Waardeer APPC-C op via je wallet of krijg ze gratis door apps te gebruiken. Deze tokens kunnen ook tussen vrienden worden overgedragen!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Vraag een vriend</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_share_body">Deel de link met je vriend, zodat hij of zij je cryptovaluta kan sturen!</string>
   <string name="askafriend_share_add_message_body">Bericht toevoegen (optioneel)</string>
   <string name="askafriend_share_button">Delen</string>
