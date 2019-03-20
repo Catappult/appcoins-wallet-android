@@ -325,7 +325,7 @@
   <string name="balance_appcoins_body">AppCoins là tiền điện tử dành cho nền kinh tế ứng dụng. Bạn có thể mua và bán chúng trên một số sàn giao dịch cũng như có thể sử dụng chúng để mua các vật phẩm trong ứng dụng.</string>
   <string name="balance_appccreditos_body">Token để mua các vật phẩm trong ứng dụng! Nạp APPC-C từ ví của bạn hoặc nhận chúng miễn phí bằng cách sử dụng các ứng dụng. Chúng cũng có thể được chuyển giao giữa những người bạn!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Nhờ bạn bè</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_share_body">Chia sẻ liên kết với bạn bè để họ có thể gửi tiền cho bạn!</string>
   <string name="askafriend_share_add_message_body">Thêm lời nhắn (Tùy chọn)</string>
   <string name="askafriend_share_button">Chia sẻ</string>
