@@ -325,7 +325,7 @@
   <string name="balance_appcoins_body">AppCoins, uygulama ekonomisinin kripto para birimidir. Birçok borsada alıp satabilir ve uygulama içi öğeleri satın almak için kullanabilirsiniz.</string>
   <string name="balance_appccreditos_body">Uygulama içi öğe satın alma jetonu! Cüzdanınızdan APPC-C yükleyin veya uygulama kullanarak ücretsiz edinin. Arkadaşlar arasında da transfer edilebilir!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Bir arkadaşınıza sorun</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_share_body">Size fon gönderebilmeleri için bağlantıyı arkadaşınızla paylaşın!</string>
   <string name="askafriend_share_add_message_body">Mesaj Ekleyin (İsteğe Bağlı)</string>
   <string name="askafriend_share_button">Paylaş</string>
