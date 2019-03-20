@@ -23,9 +23,9 @@
   <string name="title_activity_settings">الإعدادات</string>
   <string name="network_label">الشبكة</string>
   <string name="credits">الأرصدة</string>
-  <string name="label_new">New</string>
+  <string name="label_new">جديد</string>
   <string name="low_storage_error">لا توجد مساحة كافية للتخزين</string>
-  <string name="no_camera_permission_title">Camera Permission</string>
+  <string name="no_camera_permission_title">تفعيل إذن الكاميرا</string>
   <string name="no_camera_permission">AppCoins BDS Wallet يحتاج إلى إذن للدخول إلى الكاميرا لمسح شيفرة QR.</string>
   <string name="ok">موافق</string>
   <string name="barcode_error_format">باركود غير صالح: %s</string>
@@ -264,8 +264,8 @@
   <string name="gamification_home_button">ابدأ الربح</string>
   <string name="gamification_level_title">ما هو مستواي؟</string>
   <string name="gamification_level_title_new">احصل على رصيد APPC!</string>
-  <string name="gamification_level_on_graphic">Level %s</string>
-  <string name="gamification_APPCapps_button">Apps &amp; games</string>
+  <string name="gamification_level_on_graphic">المستوى %s</string>
+  <string name="gamification_APPCapps_button">تطبيقات &amp; ألعاب</string>
   <string name="gamification_level_header">مبروك، أنت %s!</string>
   <string name="gamification_level_to_next">إلى المستوى التالي:</string>
   <string name="gamification_level_earned">مكتسب:</string>
@@ -325,7 +325,7 @@
   <string name="balance_appcoins_body">AppCoins هي عملة مشفرة من أجل العمليات الاقتصادية في التطبيق. يمكنك بيعها وشراؤها في عدة تبادلات واستخدامها لشراء العناصر داخل التطبيقات.</string>
   <string name="balance_appccreditos_body">التوكن لشراء العناصر داخل التطبيق! أعد تعبئة APPC-C من محفظتك أو احصل عليها مجانًا من خلال استخدام التطبيقات. يمكنك أيضًا تبادلها مع الأصدقاء!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">اطلب من صديق</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_share_body">شارك الرابط مع أصدقائك ليتمكنوا من إرسال الرصيد لك!</string>
   <string name="askafriend_share_add_message_body">أضف رسالة (اختياري)</string>
   <string name="askafriend_share_button">مشاركة</string>
@@ -336,16 +336,16 @@
   <string name="p2p_send_title">أرسل رصيد</string>
   <string name="p2p_send_body">مسح أو إدخال عنوان محفظة صديقك.</string>
   <string name="p2p_send_confirmation_message">أُرسِلَت %1$s %2$s إلى العنوان التالي:</string>
-  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
-  <string name="p2p_send_error_address">Invalid address</string>
-  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
-  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
-  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <string name="p2p_send_current_balance_message">الرصيد الحالي: %1$s %2$s</string>
+  <string name="p2p_send_error_address">عنوان غير صالح</string>
+  <string name="p2p_send_error_not_enough_funds">رصيد غير كافٍ</string>
+  <string name="p2p_send_error_amount_zero">يجب أن تكون أكثر من صفر</string>
+  <string name="p2p_send_confirmation_header">بيانات التحويل</string>
   <!--Common-->
-  <string name="error_general">Something went wrong</string>
-  <string name="error_missing_field">Mandatory field</string>
-  <string name="cancel_button">Cancel</string>
+  <string name="error_general">حدث خطأ</string>
+  <string name="error_missing_field">حقل إجباري</string>
+  <string name="cancel_button">إلغاء</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions to continue</string>
+  <string name="terms_and_conditions_tickbox">أوافق على الشروط وسياسة الخصوصية لمحفظة AppCoins</string>
+  <string name="terms_and_conditions_error">يرجى الموافقة على الشروط وسياسة الخصوصية للمتابعة</string>
 </resources>
