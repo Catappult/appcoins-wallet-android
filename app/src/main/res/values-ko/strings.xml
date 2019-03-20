@@ -325,7 +325,7 @@
   <string name="balance_appcoins_body">AppCoins 은 앱 경제를 위한 암호화폐 입니다. 몇 개의 거래소에서 매수와 매도를 할 수 있으며 AppCoins로 앱내 아이템을 구매 할 수 있습니다.</string>
   <string name="balance_appccreditos_body">앱내 아이템 구매를 위한 토큰입니다! 지갑에서 APPC-C를 충전하거나 앱을 사용하여 무료로 얻을 수 있습니다. 또한 친구들 간에 전송할 수 있습니다.</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">친구에게 물어보기</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_share_body">친구들이 자금을 전송할 수 있도록 친구에게 링크를 공유하십시오!</string>
   <string name="askafriend_share_add_message_body">메시지 추가(선택)</string>
   <string name="askafriend_share_button">공유</string>
