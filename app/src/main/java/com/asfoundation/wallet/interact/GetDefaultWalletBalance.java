@@ -49,6 +49,10 @@ public class GetDefaultWalletBalance implements BalanceService {
         .firstOrError();
   }
 
+  public Single<Balance> getEthereumBalance(Wallet wallet) {
+    return getEtherBalance(wallet);
+  }
+
   public Single<Balance> getCredits(Wallet wallet) {
     return fetchCreditsInteract.getBalance(wallet)
         .flatMap(credits -> getCreditsBalance(credits));
@@ -87,7 +91,7 @@ public class GetDefaultWalletBalance implements BalanceService {
             transactionBuilder.contractAddress()), this::mapToState);
   }
 
-  public BalanceState mapToState(Boolean enoughEther, boolean enoughTokens) {
+  private BalanceState mapToState(Boolean enoughEther, boolean enoughTokens) {
     if (enoughTokens && enoughEther) {
       return BalanceState.OK;
     } else if (!enoughTokens && !enoughEther) {

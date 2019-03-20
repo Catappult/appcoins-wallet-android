@@ -6,7 +6,7 @@ import com.appcoins.wallet.gamification.repository.UserStats
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.BiFunction
+import io.reactivex.functions.Function3
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -28,12 +28,16 @@ class MyLevelPresenter(private val view: MyLevelView,
   private fun handleShowLevels() {
     disposables.add(
         Single.zip(gamification.getLevels(), gamification.getUserStatus(),
-            BiFunction { levels: Levels, userStats: UserStats ->
-              mapToUserStatus(levels, userStats)
+            gamification.getLastShownLevel(),
+            Function3 { levels: Levels, userStats: UserStats, lastShownLevel: Int ->
+              mapToUserStatus(levels, userStats, lastShownLevel)
             })
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess {
+              if (it.lastShownLevel > 0 || it.lastShownLevel == 0 && it.level == 0) {
+                view.setStaringLevel(it)
+              }
               view.updateLevel(it)
               if (it.bonus.isNotEmpty()) view.showHowItWorksButton()
             }
@@ -41,8 +45,8 @@ class MyLevelPresenter(private val view: MyLevelView,
             .subscribe())
   }
 
-  private fun mapToUserStatus(levels: Levels, userStats: UserStats): UserRewardsStatus {
-    var status = UserRewardsStatus()
+  private fun mapToUserStatus(levels: Levels, userStats: UserStats,
+                              lastShownLevel: Int): UserRewardsStatus {
     if (levels.status == Levels.Status.OK && userStats.status == UserStats.Status.OK) {
       val list = mutableListOf<Double>()
       if (levels.isActive) {
@@ -52,10 +56,9 @@ class MyLevelPresenter(private val view: MyLevelView,
       }
       val nextLevelAmount = userStats.nextLevelAmount?.minus(
           userStats.totalSpend)?.setScale(2, RoundingMode.HALF_UP) ?: BigDecimal.ZERO
-      status =
-          UserRewardsStatus(userStats.level, nextLevelAmount, list)
+      return UserRewardsStatus(lastShownLevel, userStats.level, nextLevelAmount, list)
     }
-    return status
+    return UserRewardsStatus(lastShownLevel)
   }
 
   fun stop() {

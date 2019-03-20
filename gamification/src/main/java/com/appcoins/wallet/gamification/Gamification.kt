@@ -20,7 +20,7 @@ class Gamification(private val repository: GamificationRepository) {
 
   fun getEarningBonus(wallet: String, packageName: String,
                       amount: BigDecimal): Single<ForecastBonus> {
-      return repository.getForecastBonus(wallet, packageName, amount)
+    return repository.getForecastBonus(wallet, packageName, amount)
   }
 
   fun hasNewLevel(wallet: String): Single<Boolean> {
@@ -32,5 +32,9 @@ class Gamification(private val repository: GamificationRepository) {
 
   fun levelShown(wallet: String, level: Int): Completable {
     return repository.shownLevel(wallet, level)
+  }
+
+  fun getLastShownLevel(wallet: String): Single<Int> {
+    return repository.getLastShownLevel(wallet)
   }
 }
