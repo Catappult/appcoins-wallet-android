@@ -325,7 +325,7 @@
   <string name="balance_appcoins_body">AppCoins е криптовалутата на икономиката на приложението. Можеш да я купуваш и продаваш на няколко борси и да я използваш за закупуване на различни неща в приложението.</string>
   <string name="balance_appccreditos_body">Токен за закупуване на покупки вътре в приложението! Допълни APPC-C от портфейла си или да ги получи безплатно, използвайки приложения. Те също могат и да се прехвърлят между приятели!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Попитай приятел</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_share_body">Сподели линка с твой приятел, така че той да може да ти изпрати средствата!</string>
   <string name="askafriend_share_add_message_body">Добави съобщение (по избор)</string>
   <string name="askafriend_share_button">Сподели</string>
