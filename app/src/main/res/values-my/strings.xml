@@ -325,7 +325,7 @@
   <string name="balance_appcoins_body">AppCoins သည္ အက္ပ္စီးပြားေရးနယ္ပယ္အတြက္ ခရစ္ပ္တိုေငြေၾကးပံုစံ ျဖစ္ပါသည္။ သင္သည္ယင္းအား အိတ္ခ်ိန္းအမ်ားအျပားတြင္ ေရာင္းဝယ္နိုင္သလို အက္ပ္အတြင္း ပစၥည္းမ်ား ဝယ္ယူရန္အတြက္လည္း အသံုးျပဳနိုင္ပါသည္။</string>
   <string name="balance_appccreditos_body">အက္ပ္အတြင္း ပစၥည္းမ်ားကို ဝယ္ယူရန္အတြက္ တိုကင္ျဖစ္ပါသည္။ သင့္ပိုက္ဆံအိတ္မွ APPC-C ျဖင့္ ေငြျဖည့္ပါ သို႔မဟုတ္ အက္ပ္မ်ားကို အသံုးျပဳျခင္းျဖင့္ ယင္းတို႔ကို အခမဲ့ ရယူပါ။ သူငယ္ခ်င္းမ်ား အၾကားတြင္လည္း ယင္းတို႔ကို လႊဲေပးနိုင္ပါသည္။</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">သူငယ္ခ်င္းတစ္ဦးကို ေမးမည္</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_share_body">သူငယ္ခ်င္းမ်ားက သင့္ကို ေငြပို႔ေပးနိုင္ရန္အတြက္ လင့္ခ္ကို သူတို႔နွင့္ မွ်ေဝလိုက္ပါ။</string>
   <string name="askafriend_share_add_message_body">မက္ေဆ့ဂ်္ထည့္မည္ (မထည့္လည္းရပါသည္)</string>
   <string name="askafriend_share_button">မွ်ေဝမည္</string>
