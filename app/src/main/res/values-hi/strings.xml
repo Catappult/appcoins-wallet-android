@@ -325,7 +325,7 @@
   <string name="balance_appcoins_body">AppCoins एप्प अर्थव्यवस्था के लिए क्रिप्टोकरेंसी है। आप इसे कई एक्सचेंजों पर खरीदने और बेचने के साथ ही इन-एप्प खरीद के लिए इसका उपयोग कर सकते हैं।</string>
   <string name="balance_appccreditos_body">इन-एप्प चीजें खरीदने के लिए टोकन! APPC-C को अपने वॉलेट से टॉप अप करें या एप्प उपयोग करके उन्हें मुफ्त में प्राप्त करें। उन्हें मित्रों के बीच स्थानांतरित भी किया जा सकता है!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">मित्र से पूछें</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_share_body">लिंक अपने मित्रों के साथ साझा करें ताकि आप उन्हें फंड भेज सकें!</string>
   <string name="askafriend_share_add_message_body">संदेश जोड़ें (वैकल्पिक)</string>
   <string name="askafriend_share_button">साझा करें</string>
