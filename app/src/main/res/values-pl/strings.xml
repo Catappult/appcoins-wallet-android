@@ -325,7 +325,7 @@
   <string name="balance_appcoins_body">AppCoins to kryptowaluta dla gospodarki aplikacji. Można je kupić i sprzedać na kilku giełdach i używać ich do zakupu przedmiotów i usług w aplikacjach.</string>
   <string name="balance_appccreditos_body">Token do kupowania przedmiotów w aplikacji! Doładuj APPC-C z portfela lub uzyskaj je za darmo za pomocą aplikacji. Mogą być również przelewane między przyjaciółmi!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Poproś znajomego</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_share_body">Podziel się linkiem z Twoim przyjacielem, aby mógł wysłać fundusze!</string>
   <string name="askafriend_share_add_message_body">Dodaj wiadomość (opcjonalnie)</string>
   <string name="askafriend_share_button">Udostępnij</string>
