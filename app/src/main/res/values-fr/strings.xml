@@ -325,7 +325,7 @@
   <string name="balance_appcoins_body">AppCoins est la cryptomonnaie de l’économie de l’application. Vous pouvez acheter et vendre sur plusieurs échanges et l\'utiliser pour acheter des articles in-app.</string>
   <string name="balance_appccreditos_body">Les jetons pour acheter des articles in-app ! Rechargez l’APPC-C de votre porte-monnaie ou obtenez-les gratuitement en utilisant des applications. Ils peuvent aussi être transférés entre amis !</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Demandez à un ami</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_share_body">Partagez le lien avec votre ami afin qu’ils puisse vous envoyer des fonds !</string>
   <string name="askafriend_share_add_message_body">Ajoutez un Message (facultatif)</string>
   <string name="askafriend_share_button">Partagez</string>
