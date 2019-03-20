@@ -12,8 +12,9 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import androidx.annotation.Nullable;
 import android.view.View;
+import androidx.annotation.Nullable;
+import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
@@ -39,6 +40,14 @@ public class SettingsFragment extends PreferenceFragment
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     // Load the preferences from an XML resource
     addPreferencesFromResource(R.xml.fragment_settings);
+
+    final Preference redeem = findPreference("pref_redeem");
+    redeem.setOnPreferenceClickListener(preference -> {
+      findDefaultWalletInteract.find()
+          .subscribe(wallet -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(
+              BuildConfig.MY_APPCOINS_BASE_HOST + "redeem?wallet_address=" + wallet.address))));
+      return false;
+    });
     final Preference wallets = findPreference("pref_wallet");
 
     wallets.setOnPreferenceClickListener(preference -> {
@@ -78,7 +87,8 @@ public class SettingsFragment extends PreferenceFragment
         // get the Twitter app if possible
         getActivity().getPackageManager()
             .getPackageInfo("com.twitter.android", 0);
-        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?user_id=915531221551255552"));
+        intent =
+            new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?user_id=915531221551255552"));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
       } catch (Exception e) {
         // no Twitter app, revert to browser
@@ -90,7 +100,8 @@ public class SettingsFragment extends PreferenceFragment
 
     final Preference facebook = findPreference("pref_facebook");
     facebook.setOnPreferenceClickListener(preference -> {
-      Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/AppCoinsOfficial"));
+      Intent intent =
+          new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/AppCoinsOfficial"));
       startActivity(intent);
       return false;
     });
@@ -112,7 +123,8 @@ public class SettingsFragment extends PreferenceFragment
 
     final Preference credits = findPreference("pref_credits");
     credits.setOnPreferenceClickListener(preference -> {
-      new AlertDialog.Builder(getActivity()).setPositiveButton(R.string.close, (dialog, which) -> dialog.dismiss())
+      new AlertDialog.Builder(getActivity()).setPositiveButton(R.string.close,
+          (dialog, which) -> dialog.dismiss())
           .setMessage(R.string.settings_fragment_credits)
           .create()
           .show();

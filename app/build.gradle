@@ -36,8 +36,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 28
-    versionCode 69
-    versionName "1.5.1.0"
+    versionCode 73
+    versionName "1.5.2.3"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -108,6 +108,7 @@ android {
           "\"" + project.BACKEND_HOST_PROD + "\""
       buildConfigField 'String', 'BDS_BASE_HOST',
           "\"" + project.BDS_BASE_HOST_PROD + "\""
+      buildConfigField 'String', 'MY_APPCOINS_BASE_HOST', project.MY_APPCOINS_BASE_HOST
       manifestPlaceholders.paymentHost = "${project.PAYMENT_HOST}"
       buildConfigField 'String', 'PAYMENT_HOST',
           "\"" + project.PAYMENT_HOST + "\""
@@ -128,6 +129,7 @@ android {
 
       buildConfigField 'String', 'BDS_BASE_HOST',
           "\"" + project.BDS_BASE_HOST_DEV + "\""
+      buildConfigField 'String', 'MY_APPCOINS_BASE_HOST', project.MY_APPCOINS_BASE_HOST_DEV
       manifestPlaceholders.paymentHost = "${project.PAYMENT_HOST_DEV}"
       buildConfigField 'String', 'PAYMENT_HOST',
           "\"" + project.PAYMENT_HOST_DEV + "\""

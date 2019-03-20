@@ -222,6 +222,27 @@
   <item name="android:textStyle">bold</item>
   </style>
 
+  <style name="BonusDialogTitleTextStyle">
+    <item name="android:fontFamily">sans-serif</item>
+    <item name="android:gravity">center</item>
+    <item name="android:textColor">@color/level_text_color</item>
+    <item name="android:textSize">12sp</item>
+    <item name="android:textStyle">bold</item>
+  </style>
+
+  <style name="GamificationCurrentLevelTextStyle">
+    <item name="android:fontFamily">@font/roboto_regular</item>
+    <item name="android:textColor">@color/level_text_color</item>
+    <item name="android:textSize">20sp</item>
+  </style>
+
+  <style name="GamificationToNextLevelTextStyle">
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:gravity">center</item>
+    <item name="android:textColor">@color/level_text_color</item>
+    <item name="android:textSize">10sp</item>
+  </style>
+
   <style name="TopUpTextStyle">
     <item name="android:fontFamily">sans-serif</item>
     <item name="android:gravity">center</item>
@@ -277,5 +298,4 @@
     <item name="android:textColor">@color/top_up_payment_details_text</item>
     <item name="android:gravity">start</item>
   </style>
-
 </resources>
