@@ -325,7 +325,7 @@
   <string name="balance_appcoins_body">Az AppCoins az alkalmazások gazdaságának kriptovalutája. Bizonyos váltóknál adható-vehető, fizetésre pedig alkalmazásokon belüli vásárlásoknál használható.</string>
   <string name="balance_appccreditos_body">Alkalmazásokon belüli vásárlások tokenje! Töltsd fel tárcádat APPC-kredittel, vagy szerezd meg őket appok használatával. Ezek mellett barátok is küldhetik egymásnak!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Megkérek egy barátot</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_share_body">Oszd meg egy barátoddal a linket, hogy elküldhessék az összeget!</string>
   <string name="askafriend_share_add_message_body">Üzenet küldése (opcionális)</string>
   <string name="askafriend_share_button">Megosztás</string>
