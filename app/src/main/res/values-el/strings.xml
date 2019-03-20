@@ -325,7 +325,7 @@
   <string name="balance_appcoins_body">Τα AppCoins αποτελούν το κρυπτονόμισμα της οικονομίας των εφαρμογών. Μπορείτε να τα αγοράζετε και να τα πουλάτε σε διάφορα ανταλλακτήρια και να τα χρησιμοποιείτε για αγορές εντός εφαρμογών.</string>
   <string name="balance_appccreditos_body">Το token για την αγορά αντικειμένων εντός εφαρμογών! Λάβετε APPC-C από το wallet σας ή πραγματοποιήστε δωρεάν λήψη μέσω της χρήσης εφαρμογών. Επίσης, υπάρχει δυνατότητα μεταφοράς μεταξύ φίλων!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Ρωτήστε έναν φίλο</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_share_body">Μοιραστείτε τον σύνδεσμο με τον φίλο σας, ώστε να μπορεί να σας στείλει τα χρήματα!</string>
   <string name="askafriend_share_add_message_body">Προσθήκη μηνύματος (προαιρετικά)</string>
   <string name="askafriend_share_button">Κοινοποίηση</string>
