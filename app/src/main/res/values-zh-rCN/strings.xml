@@ -325,7 +325,7 @@
   <string name="balance_appcoins_body">AppCoins是应用经济的加密货币。你可以在多个交易平台交易，用它来购买应用内物品。</string>
   <string name="balance_appccreditos_body">购买应用内物品的代币！从钱包充值APPC-C或使用应用免费获取。好友之间也可交易！</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">询问好友</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_share_body">与好友分享链接，他们便可以向你发送基金！</string>
   <string name="askafriend_share_add_message_body">添加消息（可选）</string>
   <string name="askafriend_share_button">分享</string>
