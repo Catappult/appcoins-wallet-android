@@ -325,7 +325,7 @@
   <string name="balance_appcoins_body">AppCoins ialah mata wang kripto untuk ekonomi aplikasi. Anda boleh membeli dan menjualnya dalam pelbagai urus niaga dan menggunakannya untuk membeli item dalam aplikasi.</string>
   <string name="balance_appccreditos_body">Token untuk membeli item dalam aplikasi! Tambah nilai APPC-C daripada dompet anda atau dapatkannya secara percuma dengan menggunakan aplikasi. Ia juga boleh dipindahkan antara rakan!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Minta daripada rakan</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_share_body">Kongsi pautan ini dengan rakan anda supaya mereka boleh hantar dana tersebut kepada anda!</string>
   <string name="askafriend_share_add_message_body">Tambah Mesej (Pilihan)</string>
   <string name="askafriend_share_button">Kongsi</string>
