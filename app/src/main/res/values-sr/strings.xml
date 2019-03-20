@@ -325,7 +325,7 @@
   <string name="balance_appcoins_body">AppCoins je kriptovaluta za ekonomiju aplikacija. Možete da je kupite i prodate na nekoliko berzi i koristite je za kupovine u aplikacijama.</string>
   <string name="balance_appccreditos_body">Token za kupovine u aplikacijama! Dopunite APPC-C iz novčanika ili ih dobijte besplatno tako što ćete koristiti aplikacije. Možete i da ih prenesete prijateljima, kao i oni vama!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Zatražite od prijatelja</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_share_body">Podelite ovaj link sa prijateljem da bi mogao da vam pošalje sredstva!</string>
   <string name="askafriend_share_add_message_body">Dodajte poruku (izborno)</string>
   <string name="askafriend_share_button">Podeli</string>
