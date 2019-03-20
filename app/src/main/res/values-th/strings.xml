@@ -325,7 +325,7 @@
   <string name="balance_appcoins_body">AppCoins เป็นสกุลเงินคริปโตสำหรับเศรษฐกิจแอป คุณสามารถซื้อ ขาย แลกเปลี่ยนต่าง ๆ และใช้ในการซื้อสินค้าในแอปได้</string>
   <string name="balance_appccreditos_body">โทเค็นเพื่อใช้ซื้อสินค้าในแอป! เติม APPC-C จากกระเป๋าสตางค์หรือรับมันเพื่อการใช้งานแอปฟรี มันยังสามารถถ่ายโอนได้ระหว่างเพื่อน!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">ถามเพื่อน</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_share_body">แบ่งปันลิงก์กับเพื่อนของคุณเพื่อให้พวกเขาสามารถส่งเงินให้คุณได้!</string>
   <string name="askafriend_share_add_message_body">เพิ่มข้อความ (ถ้ามี)</string>
   <string name="askafriend_share_button">ใช้ร่วมกัน</string>
