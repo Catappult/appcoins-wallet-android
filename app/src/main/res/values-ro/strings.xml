@@ -325,7 +325,7 @@
   <string name="balance_appcoins_body">AppCoins este criptomoneda pentru economia aplicației. O poți cumpăra și vinde pe diferite burse și o poți folosi pentru a face cumpărături in-app.</string>
   <string name="balance_appccreditos_body">Token-ul pentru a cumpăra articole in-app! Alimentează cu APPC-C din portofelul tău sau primește-le gratuit folosind aplicații. De asemenea, acestea pot fi și transferate între prieteni!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Roagă un prieten</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_share_body">Distribuie linkul prietenului tău ca să îți poată trimite fondurile!</string>
   <string name="askafriend_share_add_message_body">Adaugă un mesaj (opțional)</string>
   <string name="askafriend_share_button">Distribuie</string>
