@@ -142,7 +142,7 @@ class TransferFragment : DaggerFragment(), TransferFragmentView {
     presenter.present()
   }
 
-  override fun onAttach(context: Context?) {
+  override fun onAttach(context: Context) {
     super.onAttach(context)
     when (context) {
       is ActivityResultSharer -> activityResultSharer = context
