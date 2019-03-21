@@ -176,6 +176,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   @Override protected void onResume() {
     super.onResume();
+    emptyView = null;
     setCollapsingTitle(new SpannableString(getString(R.string.unknown_balance_without_symbol)));
     adapter.clear();
     list.setVisibility(View.GONE);
@@ -253,6 +254,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     // the value is 1 because apps list item is always added, so if there is at least 1
     // transaction, the list is shown
     if (adapter.getItemCount() > 1) {
+      systemView.setVisibility(View.GONE);
       list.setVisibility(View.VISIBLE);
     }
   }
@@ -273,10 +275,9 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
           .observe(this, info -> isMainNet[0] = info.isMainNetwork);
 
       if (emptyView == null) {
-
         emptyView = new EmptyTransactionsView(this, this, isMainNet[0]);
+        systemView.showEmpty(emptyView);
       }
-      systemView.showEmpty(emptyView);
     }
   }
 
