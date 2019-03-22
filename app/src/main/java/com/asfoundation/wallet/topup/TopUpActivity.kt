@@ -55,12 +55,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
-    presenter.processActivityResult(requestCode, resultCode)
-  }
-
-  override fun onNewIntent(intent: Intent) {
-    super.onNewIntent(intent)
-    results.accept(Objects.requireNonNull(intent.data, "Intent data cannot be null!"))
+    presenter.processActivityResult(requestCode, resultCode, data)
   }
 
   override fun showTopUpScreen() {
@@ -98,17 +93,17 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     finish()
   }
 
+  override fun acceptResult(uri: Uri) {
+    results.accept(Objects.requireNonNull(uri, "Intent data cannot be null!"))
+  }
+
   override fun navigateToUri(url: String, domain: String, skuId: String, amount: BigDecimal,
                              type: String) {
-    startActivityForResult(WebViewActivity.newIntent(this, url, domain, skuId, amount, type, this),
+    startActivityForResult(WebViewActivity.newIntent(this, url, domain, skuId, amount, type),
         WEB_VIEW_REQUEST_CODE)
   }
 
   override fun uriResults(): Observable<Uri> {
     return results
-  }
-
-  override fun getActivityIntent(url: String): Intent {
-    return TopUpActivity.newIntent(this, url)
   }
 }

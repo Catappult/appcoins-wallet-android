@@ -31,6 +31,7 @@ import javax.inject.Inject
 
 
 class TopUpFragment : DaggerFragment(), TopUpFragmentView {
+
   @Inject
   lateinit var interactor: TopUpInteractor
 
@@ -58,12 +59,12 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     }
   }
 
-  val appPackage: String
-    get() {
+  val appPackage: String by lazy {
       if (arguments!!.containsKey(PARAM_APP_PACKAGE)) {
-        return arguments!!.getString(PARAM_APP_PACKAGE)
+        arguments!!.getString(PARAM_APP_PACKAGE)
+      } else {
+        throw IllegalArgumentException("application package name data not found")
       }
-      throw IllegalArgumentException("application package name data not found")
     }
 
   override fun onDetach() {
@@ -191,7 +192,6 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   override fun switchCurrencyData() {
-    switchingCurrency = true
     val currencyData = getCurrencyData()
     selectedCurrency =
         if (selectedCurrency == TopUpData.APPC_C_CURRENCY) FIAT_CURRENCY else TopUpData.APPC_C_CURRENCY
@@ -199,8 +199,6 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     setupCurrencyData(selectedCurrency, currencyData.fiatCurrencyCode,
         currencyData.fiatCurrencySymbol, currencyData.fiatValue, currencyData.appcCode,
         currencyData.appcSymbol, currencyData.appcValue)
-    switchingCurrency = false
-
   }
 
   override fun setConversionValue(topUpData: TopUpData) {
@@ -225,6 +223,15 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       }
     }
   }
+
+  override fun toggleSwitchCurrencyOn() {
+    switchingCurrency = true
+  }
+
+  override fun toggleSwitchCurrencyOff() {
+    switchingCurrency = false
+  }
+
 
   private fun setupCurrencyData(selectedCurrency: String, fiatCode: String, fiatSymbol: String,
                                 fiatValue: String, appcCode: String, appcSymbol: String,

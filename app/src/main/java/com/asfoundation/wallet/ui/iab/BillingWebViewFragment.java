@@ -17,12 +17,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.WalletService;
-import com.appcoins.wallet.bdsbilling.repository.entity.SKU;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.TransactionService;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.billing.purchase.BillingFactory;
-import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.navigator.UriNavigator;
 import dagger.android.support.DaggerFragment;
 import java.math.BigDecimal;
@@ -45,7 +43,6 @@ public class BillingWebViewFragment extends DaggerFragment {
   private static final String AMOUNT = "amount";
   private static final String TYPE = "type";
   private static final String CURRENT_URL = "currentUrl";
-  private static UriNavigator navigator;
 
   @Inject Billing billing;
   @Inject BillingFactory billingFactory;
@@ -65,7 +62,7 @@ public class BillingWebViewFragment extends DaggerFragment {
   @Inject BillingAnalytics analytics;
 
   public static BillingWebViewFragment newInstance(String url, String domain, String skuId,
-      BigDecimal amount, String type, UriNavigator uriNavigator) {
+      BigDecimal amount, String type) {
     Bundle args = new Bundle();
     args.putString(URL, url);
     args.putString(DOMAIN, domain);
@@ -75,7 +72,6 @@ public class BillingWebViewFragment extends DaggerFragment {
     BillingWebViewFragment fragment = new BillingWebViewFragment();
     fragment.setArguments(args);
     fragment.setRetainInstance(true);
-    navigator = uriNavigator;
     return fragment;
   }
 
@@ -136,12 +132,12 @@ public class BillingWebViewFragment extends DaggerFragment {
         currentUrl = clickUrl;
 
         if (clickUrl.startsWith(BILLING_SCHEMA)) {
-          Intent intent = navigator.getActivityIntent(clickUrl);
-          getActivity().setResult(WebViewActivity.SUCCESS);
+          Intent intent = new Intent();
+          intent.setData(Uri.parse(clickUrl));
+          getActivity().setResult(WebViewActivity.SUCCESS, intent);
           sendPaymentEvent();
           sendRevenueEvent();
           getActivity().finish();
-          getContext().startActivity(intent);
 
           return true;
         } else {

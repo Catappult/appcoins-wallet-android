@@ -24,6 +24,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     handleNextClick()
     handleValuesChange()
     handleAmountFocusChange()
+    handleAmountChange()
   }
 
   fun stop() {
@@ -35,18 +36,17 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         interactor.getPaymentMethods().subscribeOn(networkScheduler).observeOn(viewScheduler),
         interactor.getLocalCurrency().subscribeOn(networkScheduler).observeOn(viewScheduler),
         BiFunction { paymentMethods: List<PaymentMethodData>, currency: LocalCurrency ->
-          view.setupUiElements(paymentMethods, currency)
-        }).doOnSuccess {
-      handleAmountChange()
-    }
-        .subscribe())
+          view.setupUiElements(filterPaymentMethods(paymentMethods), currency)
+        }).subscribe())
   }
 
   private fun handleChangeCurrencyClick() {
     disposables.add(
         view.getChangeCurrencyClick().doOnNext {
+          view.toggleSwitchCurrencyOn()
           view.rotateChangeCurrencyButton()
           view.switchCurrencyData()
+          view.toggleSwitchCurrencyOff()
         }.subscribe())
   }
 
@@ -91,12 +91,16 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   private fun handleValuesChange() {
-    view.getEditTextChanges().map {
+    disposables.add(view.getEditTextChanges().map {
       it.currency.fiatValue.isNotEmpty()
           && it.currency.fiatValue != DEFAULT_VALUE
           && BigDecimal(it.currency.fiatValue) > BigDecimal.ZERO
           && it.paymentMethod != null
-    }.map { view.setNextButtonState(it) }.subscribe()
+    }.map { view.setNextButtonState(it) }.subscribe())
 
+  }
+
+  private fun filterPaymentMethods(methods: List<PaymentMethodData>): List<PaymentMethodData> {
+    return methods.filter { it.id == "paypal" || it.id == "credit_card" }
   }
 }

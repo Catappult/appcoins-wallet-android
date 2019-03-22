@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.topup
 
+import android.net.Uri
 import android.os.Bundle
 import com.asfoundation.wallet.billing.adyen.PaymentType
 
@@ -12,4 +13,6 @@ interface TopUpActivityView {
   fun finish(data: Bundle)
 
   fun close()
+
+  fun acceptResult(uri: Uri)
 }

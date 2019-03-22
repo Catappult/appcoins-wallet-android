@@ -21,17 +21,14 @@ public class WebViewActivity extends AppCompatActivity {
   private static final String AMOUNT = "amount";
   private static final String TYPE = "type";
 
-  private static UriNavigator navigator;
-
   public static Intent newIntent(Activity activity, String url, String domain, String skuId,
-      BigDecimal amount, String type, UriNavigator uriNavigator) {
+      BigDecimal amount, String type) {
     Intent intent = new Intent(activity, WebViewActivity.class);
     intent.putExtra(URL, url);
-    intent.putExtra(DOMAIN, amount);
+    intent.putExtra(DOMAIN, domain);
     intent.putExtra(SKUID, skuId);
     intent.putExtra(AMOUNT, amount);
     intent.putExtra(TYPE, type);
-    navigator = uriNavigator;
     return intent;
   }
 
@@ -47,7 +44,7 @@ public class WebViewActivity extends AppCompatActivity {
       BigDecimal amount = (BigDecimal) getIntent().getSerializableExtra(AMOUNT);
       String type = getIntent().getStringExtra(TYPE);
       BillingWebViewFragment billingWebViewFragment =
-          BillingWebViewFragment.newInstance(url, domain, skuId, amount, type, navigator);
+          BillingWebViewFragment.newInstance(url, domain, skuId, amount, type);
 
       getSupportFragmentManager().beginTransaction()
           .add(R.id.container, billingWebViewFragment)

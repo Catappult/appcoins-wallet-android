@@ -64,52 +64,52 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
   private var publicKey: String? = null
   private var generationTime: String? = null
 
-  val appPackage: String
-    get () {
+  val appPackage: String by lazy {
       if (activity != null) {
-        return activity!!.packageName
+        activity!!.packageName
+      } else {
+        throw IllegalArgumentException("previous app package name not found")
       }
-      throw IllegalArgumentException("previous app package name not found")
     }
 
-  val data: TopUpData
-    get() {
+  val data: TopUpData by lazy {
       if (arguments!!.containsKey(PAYMENT_DATA)) {
-        return arguments!!.getSerializable(PAYMENT_DATA) as TopUpData
+        arguments!!.getSerializable(PAYMENT_DATA) as TopUpData
+      } else {
+        throw IllegalArgumentException("previous payment data not found")
       }
-      throw IllegalArgumentException("previous payment data not found")
     }
 
-  val paymentType: PaymentType
-    get() {
+  val paymentType: PaymentType by lazy {
       if (arguments!!.containsKey(PAYMENT_TYPE)) {
-        return PaymentType.valueOf(arguments!!.getString(PAYMENT_TYPE))
+        PaymentType.valueOf(arguments!!.getString(PAYMENT_TYPE))
+      } else {
+        throw IllegalArgumentException("Payment Type not found")
       }
-      throw IllegalArgumentException("Payment Type not found")
     }
 
-  val origin: String
-    get() {
+  val origin: String by lazy {
       if (arguments!!.containsKey(PAYMENT_ORIGIN)) {
-        return arguments!!.getString(PAYMENT_ORIGIN)
+        arguments!!.getString(PAYMENT_ORIGIN)
+      } else {
+        throw IllegalArgumentException("Payment origin not found")
       }
-      throw IllegalArgumentException("Payment origin not found")
     }
 
-  private val transactionType: String
-    get() {
+  private val transactionType: String by lazy {
       if (arguments!!.containsKey(PAYMENT_TRANSACTION_TYPE)) {
-        return arguments!!.getString(PAYMENT_TRANSACTION_TYPE)
+        arguments!!.getString(PAYMENT_TRANSACTION_TYPE)
+      } else {
+        throw IllegalArgumentException("Transaction type not found")
       }
-      throw IllegalArgumentException("Transaction type not found")
     }
 
-  val currentCurrency: String
-    get() {
+  private val currentCurrency: String by lazy {
       if (arguments!!.containsKey(PAYMENT_CURRENT_CURRENCY)) {
-        return arguments!!.getString(PAYMENT_CURRENT_CURRENCY)
+        arguments!!.getString(PAYMENT_CURRENT_CURRENCY)
+      } else {
+        throw IllegalArgumentException("Payment main currency not found")
       }
-      throw IllegalArgumentException("Payment main currency not found")
     }
 
   companion object {
@@ -139,8 +139,6 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     keyboardTopUpRelay = PublishRelay.create()
-
-    navigator = PaymentFragmentNavigator((activity as UriNavigator?)!!, topUpView!!)
 
     presenter =
         PaymentAuthPresenter(this, appPackage, defaultWalletInteract,
@@ -221,6 +219,8 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
       throw IllegalStateException("Regular buy fragment must be attached to IAB activity")
     }
     topUpView = context
+    navigator = PaymentFragmentNavigator((activity as UriNavigator?)!!, topUpView!!)
+
   }
 
   override fun showValues() {

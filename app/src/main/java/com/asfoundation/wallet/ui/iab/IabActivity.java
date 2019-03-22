@@ -20,6 +20,7 @@ import java.util.Objects;
 import javax.inject.Inject;
 
 import static com.appcoins.wallet.billing.AppcoinsBillingBinder.EXTRA_BDS_IAP;
+import static com.asfoundation.wallet.ui.iab.WebViewActivity.SUCCESS;
 
 /**
  * Created by franciscocalado on 20/07/2018.
@@ -156,7 +157,7 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   @Override public void navigateToWebViewAuthorization(String url) {
     startActivityForResult(
         WebViewActivity.newIntent(this, url, transaction.getDomain(), transaction.getSkuId(),
-            transaction.amount(), transaction.getType(), this), WEB_VIEW_REQUEST_CODE);
+            transaction.amount(), transaction.getType()), WEB_VIEW_REQUEST_CODE);
   }
 
   @Override public void showPaymentMethodsView() {
@@ -203,6 +204,8 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     if (requestCode == WEB_VIEW_REQUEST_CODE) {
       if (resultCode == WebViewActivity.FAIL) {
         finish();
+      } else if (resultCode == SUCCESS) {
+        results.accept(Objects.requireNonNull(data.getData(), "Intent data cannot be null!"));
       }
     }
   }
@@ -238,9 +241,5 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
 
   @Override public Observable<Uri> uriResults() {
     return results;
-  }
-
-  @Override public Intent getActivityIntent(String url) {
-    return IabActivity.newIntent(this, url);
   }
 }

@@ -31,12 +31,12 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
   private lateinit var presenter: TopUpSuccessPresenter
 
   private lateinit var topUpActivityView: TopUpActivityView
-  val amount: String?
-    get() {
+  val amount: String? by lazy {
       if (arguments!!.containsKey(PARAM_AMOUNT)) {
-        return arguments!!.getDouble(PARAM_AMOUNT).toString()
+        arguments!!.getDouble(PARAM_AMOUNT).toString()
+      } else {
+        throw IllegalArgumentException("product name not found")
       }
-      throw IllegalArgumentException("product name not found")
     }
 
   override fun onAttach(context: Context) {

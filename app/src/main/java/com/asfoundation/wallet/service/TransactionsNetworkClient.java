@@ -63,9 +63,9 @@ public class TransactionsNetworkClient implements TransactionsNetworkClientType 
   }
 
   @Override public Observable<RawTransaction[]> fetchLastTransactions(Wallet wallet,
-      RawTransaction lastTransaction) {
+      RawTransaction lastTransaction, NetworkInfo networkInfo) {
     return Observable.fromCallable(() -> {
-      if (!BuildConfig.DEBUG) {
+      if (networkInfo.isMainNetwork) {
         @NonNull String lastTransactionHash = lastTransaction == null ? "" : lastTransaction.hash;
         List<RawTransaction> result = new ArrayList<>();
         int pages = 0;

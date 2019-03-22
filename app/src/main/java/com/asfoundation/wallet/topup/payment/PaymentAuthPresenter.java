@@ -18,6 +18,7 @@ import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.exceptions.OnErrorNotImplementedException;
+import io.reactivex.schedulers.Schedulers;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
@@ -147,6 +148,7 @@ public class PaymentAuthPresenter {
 
   @NonNull private BigDecimal convertAmount(String amount) {
     return inAppPurchaseInteractor.convertToLocalFiat((new BigDecimal(amount)).doubleValue())
+        .subscribeOn(Schedulers.io())
         .blockingGet()
         .getAmount()
         .setScale(2, BigDecimal.ROUND_UP);

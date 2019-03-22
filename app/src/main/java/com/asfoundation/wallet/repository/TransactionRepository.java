@@ -200,9 +200,9 @@ public class TransactionRepository implements TransactionRepositoryType {
       Wallet wallet) {
     return inDiskCache.findLast(networkInfo, wallet)
         .flatMap(lastTransaction -> Single.fromObservable(
-            blockExplorerClient.fetchLastTransactions(wallet, lastTransaction)))
+            blockExplorerClient.fetchLastTransactions(wallet, lastTransaction, networkInfo)))
         .onErrorResumeNext(throwable -> Single.fromObservable(
-            blockExplorerClient.fetchLastTransactions(wallet, null)))
+            blockExplorerClient.fetchLastTransactions(wallet, null, networkInfo)))
         .flatMapCompletable(
             transactions -> inDiskCache.putTransactions(networkInfo, wallet, transactions))
         .andThen(inDiskCache.fetchTransaction(networkInfo, wallet));

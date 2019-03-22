@@ -34,4 +34,8 @@ interface TopUpFragmentView {
   fun showPaymentMethods()
 
   fun rotateChangeCurrencyButton()
+
+  fun toggleSwitchCurrencyOn()
+
+  fun toggleSwitchCurrencyOff()
 }
