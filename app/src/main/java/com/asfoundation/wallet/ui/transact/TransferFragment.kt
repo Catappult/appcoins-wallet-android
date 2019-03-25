@@ -185,7 +185,8 @@ class TransferFragment : DaggerFragment(), TransferFragmentView {
       if (!transact_fragment_amount.text.toString().isEmpty()) {
         amount = transact_fragment_amount.text.toString().toBigDecimal()
       }
-      TransferFragmentView.TransferData(transact_fragment_recipient_address.text.toString(),
+      TransferFragmentView.TransferData(
+          transact_fragment_recipient_address.text.toString().toLowerCase(),
           map(currency_selector.checkedRadioButtonId), amount)
     }
   }

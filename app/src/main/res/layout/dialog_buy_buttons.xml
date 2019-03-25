@@ -20,6 +20,7 @@
       android:text="@string/cancel"
       android:textColor="@color/dialog_buy_value_text"
       android:textSize="14sp"
+      android:visibility="gone"
       style="?android:attr/borderlessButtonStyle"
       />
   <View
@@ -36,6 +37,7 @@
       android:layout_weight="0.3"
       android:textColor="@color/white"
       android:textSize="14sp"
+      android:visibility="gone"
       style="@style/ButtonStyle"
       />
 </LinearLayout>
