@@ -149,9 +149,8 @@ public class TransactionsViewModel extends BaseViewModel {
     handler.removeCallbacks(startFetchTransactionsTask);
     progress.postValue(shouldShowProgress);
     /*For specific address use: new Wallet("0x60f7a1cbc59470b74b1df20b133700ec381f15d3")*/
-    disposables.add(Observable.merge(BuildConfig.DEBUG ? Observable.just(Collections.EMPTY_LIST)
-        : fetchTransactionsInteract.fetch(defaultWallet.getValue())
-            .flatMapSingle(transactionsMapper::map), findDefaultNetworkInteract.find()
+    disposables.add(Observable.merge(fetchTransactionsInteract.fetch(defaultWallet.getValue())
+        .flatMapSingle(transactionsMapper::map), findDefaultNetworkInteract.find()
         .filter(this::shouldShowOffChainInfo)
         .flatMapObservable(__ -> offChainTransactions.getTransactions()
             .toObservable()))
