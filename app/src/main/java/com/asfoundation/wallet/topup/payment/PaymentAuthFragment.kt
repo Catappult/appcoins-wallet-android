@@ -140,10 +140,10 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     keyboardTopUpRelay = PublishRelay.create()
 
     presenter =
-        PaymentAuthPresenter(this, appPackage, defaultWalletInteract,
-            AndroidSchedulers.mainThread(), CompositeDisposable(), adyen,
-            billingFactory.getBilling(appPackage), navigator,
-            inAppPurchaseInteractor.billingMessagesMapper, inAppPurchaseInteractor)
+        PaymentAuthPresenter(this, appPackage, AndroidSchedulers.mainThread(),
+            CompositeDisposable(), adyen, billingFactory.getBilling(appPackage),
+            navigator, inAppPurchaseInteractor.billingMessagesMapper,
+            inAppPurchaseInteractor)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

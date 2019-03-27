@@ -9,7 +9,6 @@ import com.asfoundation.wallet.billing.BillingService;
 import com.asfoundation.wallet.billing.adyen.Adyen;
 import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.Navigator;
 import io.reactivex.Completable;
@@ -37,17 +36,14 @@ public class PaymentAuthPresenter {
   private final InAppPurchaseInteractor inAppPurchaseInteractor;
   private final String appPackage;
   private PaymentAuthView view;
-  private FindDefaultWalletInteract defaultWalletInteract;
   private boolean waitingResult;
 
-  public PaymentAuthPresenter(PaymentAuthView view, String appPackage,
-      FindDefaultWalletInteract defaultWalletInteract, Scheduler viewScheduler,
+  public PaymentAuthPresenter(PaymentAuthView view, String appPackage, Scheduler viewScheduler,
       CompositeDisposable disposables, Adyen adyen, BillingService billingService,
       Navigator navigator, BillingMessagesMapper billingMessagesMapper,
       InAppPurchaseInteractor inAppPurchaseInteractor) {
     this.view = view;
     this.appPackage = appPackage;
-    this.defaultWalletInteract = defaultWalletInteract;
     this.viewScheduler = viewScheduler;
     this.disposables = disposables;
     this.adyen = adyen;

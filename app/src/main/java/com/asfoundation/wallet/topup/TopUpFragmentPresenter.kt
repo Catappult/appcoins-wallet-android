@@ -52,7 +52,10 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
 
   private fun handleNextClick() {
     disposables.add(
-        view.getNextClick().doOnNext {
+        view.getNextClick()
+            .filter {
+              it.currency.appcValue != DEFAULT_VALUE && it.currency.fiatValue != DEFAULT_VALUE
+            }.doOnNext {
           view.showLoading()
           activity?.navigateToPayment(it.paymentMethod!!, it, it.selectedCurrency, "BDS", "TOPUP")
         }.subscribe())
