@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ShareCompat
+import androidx.core.content.res.ResourcesCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.IabView
 import com.jakewharton.rxbinding2.view.RxView
@@ -24,7 +25,7 @@ class SharePaymentLinkFragment : DaggerFragment(),
   lateinit var interactor: ShareLinkInteractor
 
   lateinit var presenter: SharePaymentLinkPresenter
-  private lateinit var iabView: IabView
+  private var iabView: IabView? = null
 
   companion object {
 
@@ -81,11 +82,16 @@ class SharePaymentLinkFragment : DaggerFragment(),
   }
 
   override fun onAttach(context: Context) {
-    if (!(context is IabView)) {
+    if (context !is IabView) {
       throw IllegalStateException("Regular buy fragment must be attached to IAB activity")
     }
     iabView = context
     super.onAttach(context)
+  }
+
+  override fun onDetach() {
+    iabView = null
+    super.onDetach()
   }
 
   override fun onDestroyView() {
@@ -93,10 +99,10 @@ class SharePaymentLinkFragment : DaggerFragment(),
     super.onDestroyView()
   }
 
-  override fun getShareButtonClick(): Observable<SharePaymentData> {
+  override fun getShareButtonClick(): Observable<SharePaymentLinkFragmentView.SharePaymentData> {
     return RxView.clicks(share_btn).map {
       val message = if (note.text.isNotEmpty()) note.text.toString() else null
-      SharePaymentData(domain, skuId, message)
+      SharePaymentLinkFragmentView.SharePaymentData(domain, skuId, message)
     }
   }
 
@@ -106,33 +112,34 @@ class SharePaymentLinkFragment : DaggerFragment(),
 
   override fun showFetchingLinkInfo() {
     share_link_title.text = "We are generating your link..."
-    share_link_title.setTextColor(resources.getColor(R.color.share_link_title_color))
+    share_link_title.setTextColor(
+        ResourcesCompat.getColor(resources, R.color.share_link_title_color, null))
     close_btn.visibility = View.INVISIBLE
     share_btn.visibility = View.INVISIBLE
   }
 
   override fun showErrorInfo() {
     share_link_title.text = "Something went wrong, please try again"
-    share_link_title.setTextColor(resources.getColor(R.color.share_link_error_text_color))
+    share_link_title.setTextColor(
+        ResourcesCompat.getColor(resources, R.color.share_link_error_text_color, null))
     close_btn.visibility = View.VISIBLE
     share_btn.visibility = View.VISIBLE
   }
 
   override fun shareLink(url: String) {
     share_link_title.text = getString(R.string.askafriend_share_body)
-    share_link_title.setTextColor(resources.getColor(R.color.share_link_title_color))
+    share_link_title.setTextColor(
+        ResourcesCompat.getColor(resources, R.color.share_link_title_color, null))
     close_btn.visibility = View.VISIBLE
     share_btn.visibility = View.VISIBLE
 
-    ShareCompat.IntentBuilder.from(activity).setText(note.text.toString() + "\n" + url)
+    ShareCompat.IntentBuilder.from(activity).setText(url)
         .setType("text/plain")
         .setChooserTitle("Ask someone via:")
         .startChooser()
   }
 
   override fun close() {
-    iabView.close(Bundle())
+    iabView?.close(Bundle())
   }
 }
-
-data class SharePaymentData(val domain: String, val skuId: String, val message: String?)

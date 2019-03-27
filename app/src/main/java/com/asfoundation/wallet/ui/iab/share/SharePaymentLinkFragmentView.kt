@@ -15,4 +15,6 @@ interface SharePaymentLinkFragmentView {
   fun showErrorInfo()
 
   fun close()
+
+  data class SharePaymentData(val domain: String, val skuId: String, val message: String?)
 }

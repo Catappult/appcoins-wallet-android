@@ -1,7 +1,10 @@
 package com.asfoundation.wallet.ui.iab.share
 
 import io.reactivex.Scheduler
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.functions.BiFunction
+import java.util.concurrent.TimeUnit
 
 class SharePaymentLinkPresenter(private val view: SharePaymentLinkFragmentView,
                                 private val interactor: ShareLinkInteractor,
@@ -19,21 +22,26 @@ class SharePaymentLinkPresenter(private val view: SharePaymentLinkFragmentView,
     disposables.add(view.getShareButtonClick()
         .doOnNext { view.showFetchingLinkInfo() }
         .flatMapSingle {
-          interactor.getLinkToShare(it.domain, it.skuId, it.message).subscribeOn(
-              networkScheduler)
+          getLink(it)
         }.observeOn(viewScheduler).doOnNext {
           view.shareLink(it)
         }.subscribe({}, { view.showErrorInfo() }))
   }
 
   private fun handleStop() {
-    disposables.add(view.getCancelButtonClick().map {
+    disposables.add(view.getCancelButtonClick().doOnNext {
       view.close()
     }.subscribe())
   }
 
   fun stop() {
     disposables.clear()
+  }
+
+  private fun getLink(data: SharePaymentLinkFragmentView.SharePaymentData): Single<String> {
+    return Single.zip(Single.timer(1, TimeUnit.SECONDS),
+        interactor.getLinkToShare(data.domain, data.skuId, data.message).subscribeOn(
+            networkScheduler), BiFunction { _: Long, url: String -> url })
   }
 
 }
