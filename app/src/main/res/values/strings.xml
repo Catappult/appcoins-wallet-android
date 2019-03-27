@@ -346,7 +346,9 @@
   <string name="askafriend_share_body">Share the link with your friend so they can send you the funds!</string>
   <string name="askafriend_share_add_message_body">Add Message (Optional)</string>
   <string name="askafriend_share_button">Share</string>
+  <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">You just received %s APPC-C</string>
+
   <string name="askafriend_received_title">Transfer Received</string>
   <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on World Jungle. Link: %2$s</string>
 
