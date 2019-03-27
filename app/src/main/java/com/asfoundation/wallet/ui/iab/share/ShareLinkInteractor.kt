@@ -10,7 +10,6 @@ class ShareLinkInteractor(private val remoteRepository: ShareLinkRepository,
   fun getLinkToShare(domain: String, skuId: String, message: String?): Single<String> {
     return walletInteractor.find()
         .flatMap { remoteRepository.getLink(domain, skuId, message, it.address) }
-        .doOnError { throw it }
   }
 
 }
