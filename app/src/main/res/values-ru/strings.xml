@@ -23,8 +23,9 @@
   <string name="title_activity_settings">Параметры</string>
   <string name="network_label">Сеть</string>
   <string name="credits">Информация</string>
-  <string name="label_new">New</string>
+  <string name="label_new">Новое</string>
   <string name="low_storage_error">Недостаточно места для хранения</string>
+  <string name="no_camera_permission_title">Разрешение использовать камеру</string>
   <string name="no_camera_permission">AppCoins BDS Wallet необходимо разрешение на доступ к вашей камере, чтобы сканировать QR-коды.</string>
   <string name="ok">Ок</string>
   <string name="barcode_error_format">Недопустимый формат штрих-кода: %s</string>
@@ -263,8 +264,8 @@
   <string name="gamification_home_button">НАЧАТЬ ЗАРАБАТЫВАТЬ</string>
   <string name="gamification_level_title">Какой у меня уровень?</string>
   <string name="gamification_level_title_new">Получите кредиты APPC!</string>
-  <string name="gamification_level_on_graphic">Level %s</string>
-  <string name="gamification_APPCapps_button">Apps &amp; games</string>
+  <string name="gamification_level_on_graphic">Уровень %s</string>
+  <string name="gamification_APPCapps_button">Приложения и игры</string>
   <string name="gamification_level_header">Поздравляем, вы %s!</string>
   <string name="gamification_level_to_next">На следующий уровень:</string>
   <string name="gamification_level_earned">ЗАРАБОТАНО:</string>
@@ -324,7 +325,7 @@
   <string name="balance_appcoins_body">AppCoins – криптовалюта экономики приложений. Вы можете купить и продать их на нескольких биржах и использовать для встроенных покупок в приложениях.</string>
   <string name="balance_appccreditos_body">Токен для встроенных покупок в приложениях! Пополните APPC-C из вашего бумажника или получите их бесплатно, пользуясь приложениями. Их также можно переводить друзьям!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Попросить друга</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_share_body">Поделитесь ссылкой с вашим другом, чтобы он мог отправить вам средства!</string>
   <string name="askafriend_share_add_message_body">Добавить сообщение (необязательно)</string>
   <string name="askafriend_share_button">Поделиться</string>
@@ -335,15 +336,16 @@
   <string name="p2p_send_title">Отправить средства</string>
   <string name="p2p_send_body">Сканируйте или введите адрес бумажника вашего друга.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s были отправлены на следующий адрес:</string>
-  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
-  <string name="p2p_send_error_address">Invalid address</string>
-  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
-  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
-  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <string name="p2p_send_current_balance_message">Текущий баланс: %1$s %2$s</string>
+  <string name="p2p_send_error_address">Неверный адрес</string>
+  <string name="p2p_send_error_not_enough_funds">Недостаточно средств</string>
+  <string name="p2p_send_error_amount_zero">Должно быть больше нуля</string>
+  <string name="p2p_send_confirmation_header">Детали перевода</string>
   <!--Common-->
-  <string name="error_general">Something went wrong</string>
-  <string name="error_missing_field">Mandatory field</string>
-  <string name="cancel_button">Cancel</string>
+  <string name="error_general">Что-то пошло неправильно</string>
+  <string name="error_missing_field">Обязательное поле</string>
+  <string name="cancel_button">Отменить</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
+  <string name="terms_and_conditions_tickbox">Я согласен с условиями использования и политикой конфиденциальности кошелька AppCoins</string>
+  <string name="terms_and_conditions_error">Пожалуйста, примите наши условия использования, чтобы продолжить</string>
 </resources>

@@ -25,6 +25,7 @@
   <string name="credits">Acerca de nosotros</string>
   <string name="label_new">New</string>
   <string name="low_storage_error">No hay suficiente espacio de almacenamiento</string>
+  <string name="no_camera_permission_title">Camera Permission</string>
   <string name="no_camera_permission">AppCoins BDS Wallet necesita permiso para acceder a la cámara para poder escanear códigos QR.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Formato de código no válido: %s</string>
@@ -324,7 +325,7 @@
   <string name="balance_appcoins_body">AppCoins es la criptomoneda para la economía de las apps. Puedes comprarla y venderla en varios exchanges y utilizarla para comprar cosas en apps.</string>
   <string name="balance_appccreditos_body">¡El token para hacer compras en apps! Recarga APPC-C desde tu wallet o recíbelos gratis por usar apps. ¡También se pueden transferir entre amigos!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Pedir a un amigo</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_share_body">¡Comparte este enlace con tus amigos para que puedan mandarte los fondos!</string>
   <string name="askafriend_share_add_message_body">Añadir mensaje (opcional)</string>
   <string name="askafriend_share_button">Compartir</string>
@@ -346,4 +347,5 @@
   <string name="cancel_button">Cancel</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
+  <string name="terms_and_conditions_error">Please accept our Terms and Conditions to continue</string>
 </resources>

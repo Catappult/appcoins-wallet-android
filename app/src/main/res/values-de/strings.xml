@@ -23,8 +23,9 @@
   <string name="title_activity_settings">Einstellungen</string>
   <string name="network_label">Netzwerk</string>
   <string name="credits">Das Team</string>
-  <string name="label_new">New</string>
+  <string name="label_new">Neu</string>
   <string name="low_storage_error">Nicht genügend Speicherplatz</string>
+  <string name="no_camera_permission_title">Kamera-Berechtigung</string>
   <string name="no_camera_permission">Zum Lesen des QR-Codes benötigt AppCoins BDS Wallet Zugriff auf deine Kamera.</string>
   <string name="ok">Okay</string>
   <string name="barcode_error_format">Ungültiges Barcode-Format: %s</string>
@@ -264,7 +265,7 @@
   <string name="gamification_level_title">Was ist mein Level?</string>
   <string name="gamification_level_title_new">Erhalten Sie APPC-Gutschriften!</string>
   <string name="gamification_level_on_graphic">Level %s</string>
-  <string name="gamification_APPCapps_button">Apps &amp; games</string>
+  <string name="gamification_APPCapps_button">Apps &amp; Spiele</string>
   <string name="gamification_level_header">Herzlichen Glückwunsch, Sie sind %s!</string>
   <string name="gamification_level_to_next">Zum nächsten Level:</string>
   <string name="gamification_level_earned">VERDIENT:</string>
@@ -324,7 +325,7 @@
   <string name="balance_appcoins_body">AppCoins ist die Kryptowährung für die App-Economy. Sie können AppCoins an mehreren Börsen kaufen und verkaufen und sie für den In-App Kauf von Artikeln verwenden.</string>
   <string name="balance_appccreditos_body">Das Token für den In-App Einkauf von Artikeln. Laden Sie APPC-Credits auf ihr Wallet und erhalten Sie sie gratis für die Verwendung von Apps. Sie können aber auch unter Freunden übertragen werden!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Fragen Sie einen Freund</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_share_body">Teilen Sie diesen Link mit ihren Freunden damit sie ihnen Geld überweisen können!</string>
   <string name="askafriend_share_add_message_body">Nachricht hinzufügen (Optional)</string>
   <string name="askafriend_share_button">Teilen</string>
@@ -335,15 +336,16 @@
   <string name="p2p_send_title">Guthaben senden</string>
   <string name="p2p_send_body">Wallet-Adresse ihres Freundes eingeben oder scannen.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s wurden an die folgende Adresse übertragen:</string>
-  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
-  <string name="p2p_send_error_address">Invalid address</string>
-  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
-  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
-  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <string name="p2p_send_current_balance_message">Aktuelles Guthaben: %1$s %2$s</string>
+  <string name="p2p_send_error_address">Ungültige Adresse</string>
+  <string name="p2p_send_error_not_enough_funds">Guthaben nicht ausreichend</string>
+  <string name="p2p_send_error_amount_zero">Betrag muss größer als Null sein</string>
+  <string name="p2p_send_confirmation_header">Überweisungsdetails</string>
   <!--Common-->
-  <string name="error_general">Something went wrong</string>
-  <string name="error_missing_field">Mandatory field</string>
-  <string name="cancel_button">Cancel</string>
+  <string name="error_general">Etwas ist schief gelaufen</string>
+  <string name="error_missing_field">Pflichtfeld</string>
+  <string name="cancel_button">Abbrechen</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
+  <string name="terms_and_conditions_tickbox">Hiermit stimme ich den AGBs und den Datenschutzrichtlinien des AppCoins Wallets zu</string>
+  <string name="terms_and_conditions_error">Bevor Sie weiter machen akzeptieren Sie bitte unsere Allgemeinen Geschäftsbedingungen</string>
 </resources>

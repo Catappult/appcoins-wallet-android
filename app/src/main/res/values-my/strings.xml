@@ -23,8 +23,9 @@
   <string name="title_activity_settings">ဆက္တင္</string>
   <string name="network_label">ကြန္ရက္</string>
   <string name="credits">ခရက္ဒစ္မ်ား</string>
-  <string name="label_new">New</string>
+  <string name="label_new">အသစ္</string>
   <string name="low_storage_error">သိမ္းဆည္းရန္ေနရာ မလံုေလာက္ပါ</string>
+  <string name="no_camera_permission_title">ကင္မရာ ခြင့္ျပဳခ်က္</string>
   <string name="no_camera_permission">QR ကုဒ္ကို စကန္ဖတ္ရန္အတြက္ AppCoins BDS Wallet သည္ သင့္ကင္မရာကို အသံုးျပဳခြင့္ရရန္ လိုအပ္ပါသည္။</string>
   <string name="ok">အိုေက</string>
   <string name="barcode_error_format">ဘားကုဒ္ပံုစံ မမွန္ကန္ပါ - %s</string>
@@ -263,8 +264,8 @@
   <string name="gamification_home_button">ရယူမႈကို စတင္လိုက္ပါ</string>
   <string name="gamification_level_title">ကၽြႏ္ုုပ္၏အဆင့္က ဘယ္ေလာက္လဲ။</string>
   <string name="gamification_level_title_new">APPC ခရက္ဒစ္မ်ားကို ရယူလိုက္ပါ။</string>
-  <string name="gamification_level_on_graphic">Level %s</string>
-  <string name="gamification_APPCapps_button">Apps &amp; games</string>
+  <string name="gamification_level_on_graphic">အဆင့္ %s</string>
+  <string name="gamification_APPCapps_button">အက္ပ္မ်ား &amp; ဂိမ္းမ်ား</string>
   <string name="gamification_level_header">ဂုဏ္ယူပါသည္။ သင္သည္ %s ျဖစ္ပါသည္။</string>
   <string name="gamification_level_to_next">ေနာက္အဆင့္သို႔ -</string>
   <string name="gamification_level_earned">ရရွိခဲ့သည္မွာ -</string>
@@ -324,7 +325,7 @@
   <string name="balance_appcoins_body">AppCoins သည္ အက္ပ္စီးပြားေရးနယ္ပယ္အတြက္ ခရစ္ပ္တိုေငြေၾကးပံုစံ ျဖစ္ပါသည္။ သင္သည္ယင္းအား အိတ္ခ်ိန္းအမ်ားအျပားတြင္ ေရာင္းဝယ္နိုင္သလို အက္ပ္အတြင္း ပစၥည္းမ်ား ဝယ္ယူရန္အတြက္လည္း အသံုးျပဳနိုင္ပါသည္။</string>
   <string name="balance_appccreditos_body">အက္ပ္အတြင္း ပစၥည္းမ်ားကို ဝယ္ယူရန္အတြက္ တိုကင္ျဖစ္ပါသည္။ သင့္ပိုက္ဆံအိတ္မွ APPC-C ျဖင့္ ေငြျဖည့္ပါ သို႔မဟုတ္ အက္ပ္မ်ားကို အသံုးျပဳျခင္းျဖင့္ ယင္းတို႔ကို အခမဲ့ ရယူပါ။ သူငယ္ခ်င္းမ်ား အၾကားတြင္လည္း ယင္းတို႔ကို လႊဲေပးနိုင္ပါသည္။</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">သူငယ္ခ်င္းတစ္ဦးကို ေမးမည္</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_share_body">သူငယ္ခ်င္းမ်ားက သင့္ကို ေငြပို႔ေပးနိုင္ရန္အတြက္ လင့္ခ္ကို သူတို႔နွင့္ မွ်ေဝလိုက္ပါ။</string>
   <string name="askafriend_share_add_message_body">မက္ေဆ့ဂ်္ထည့္မည္ (မထည့္လည္းရပါသည္)</string>
   <string name="askafriend_share_button">မွ်ေဝမည္</string>
@@ -335,15 +336,16 @@
   <string name="p2p_send_title">ေငြေပးပို႔မည္</string>
   <string name="p2p_send_body">သင့္သူငယ္ခ်င္း၏ ပိုက္ဆံအိတ္လိပ္စာကို စကန္ဖတ္ပါ သို႔မဟုတ္ ဝင္ပါ။</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s တို႔ကို ေအာက္ပါလိပ္စာသို႔ ေပးပို႔လိုက္ပါသည္ -</string>
-  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
-  <string name="p2p_send_error_address">Invalid address</string>
-  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
-  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
-  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <string name="p2p_send_current_balance_message">လက္ရွိလက္က်န္ေငြ - %1$s %2$s</string>
+  <string name="p2p_send_error_address">လိပ္စာ မမွန္ကန္ပါ</string>
+  <string name="p2p_send_error_not_enough_funds">ေငြေၾကးမလံုေလာက္ပါ</string>
+  <string name="p2p_send_error_amount_zero">ယင္းသည္ သုညထက္ ပိုရပါမည္</string>
+  <string name="p2p_send_confirmation_header">လႊဲေျပာင္းမႈ အေသးစိတ္မ်ား</string>
   <!--Common-->
-  <string name="error_general">Something went wrong</string>
-  <string name="error_missing_field">Mandatory field</string>
-  <string name="cancel_button">Cancel</string>
+  <string name="error_general">တခုခု မွားသြားပါသည္</string>
+  <string name="error_missing_field">လိုအပ္ေသာအကြက္</string>
+  <string name="cancel_button">ပယ္ဖ်က္မည္</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
+  <string name="terms_and_conditions_tickbox">AppCoins Wallet ၏ စည္းမ်ဥ္းစည္းကမ္းမ်ားႏွင့္ ကိုယ္ေရးလံုျခံဳမႈ မူ၀ါဒတို႔ကို ကၽြႏ္ုပ္သေဘာတူပါသည္</string>
+  <string name="terms_and_conditions_error">ဆက္လုပ္ႏိုင္ရန္ ကၽြႏ္ုပ္တို႔၏ စည္းမ်ဥ္းစည္းကမ္းမ်ားကို လက္ခံေပးပါ</string>
 </resources>

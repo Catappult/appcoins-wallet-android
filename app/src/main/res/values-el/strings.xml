@@ -23,8 +23,9 @@
   <string name="title_activity_settings">Ρυθμίσεις</string>
   <string name="network_label">Δίκτυο</string>
   <string name="credits">Σχετικά με εμάς</string>
-  <string name="label_new">New</string>
+  <string name="label_new">Νέο</string>
   <string name="low_storage_error">Ο αποθηκευτικός χώρος δεν είναι επαρκής</string>
+  <string name="no_camera_permission_title">Δικαίωμα Κάμερας</string>
   <string name="no_camera_permission">Το AppCoins BDS Wallet χρειάζεται άδεια πρόσβασης στην κάμερα για τη σάρωση κωδικών QR.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Μη έγκυρη μορφή barcode: %s</string>
@@ -263,8 +264,8 @@
   <string name="gamification_home_button">ΞΕΚΙΝΗΣΤΕ ΝΑ ΚΕΡΔΙΖΕΤΕ</string>
   <string name="gamification_level_title">Σε ποιο επίπεδο βρίσκομαι;</string>
   <string name="gamification_level_title_new">Λάβετε APPC Credits!</string>
-  <string name="gamification_level_on_graphic">Level %s</string>
-  <string name="gamification_APPCapps_button">Apps &amp; games</string>
+  <string name="gamification_level_on_graphic">Επίπεδο %s</string>
+  <string name="gamification_APPCapps_button">Εφαρμογές &amp; παιχνίδια</string>
   <string name="gamification_level_header">Συγχαρητήρια, είστε %s!</string>
   <string name="gamification_level_to_next">Για το επόμενο επίπεδο:</string>
   <string name="gamification_level_earned">ΚΕΡΔΗΘΗΚΑΝ:</string>
@@ -324,7 +325,7 @@
   <string name="balance_appcoins_body">Τα AppCoins αποτελούν το κρυπτονόμισμα της οικονομίας των εφαρμογών. Μπορείτε να τα αγοράζετε και να τα πουλάτε σε διάφορα ανταλλακτήρια και να τα χρησιμοποιείτε για αγορές εντός εφαρμογών.</string>
   <string name="balance_appccreditos_body">Το token για την αγορά αντικειμένων εντός εφαρμογών! Λάβετε APPC-C από το wallet σας ή πραγματοποιήστε δωρεάν λήψη μέσω της χρήσης εφαρμογών. Επίσης, υπάρχει δυνατότητα μεταφοράς μεταξύ φίλων!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Ρωτήστε έναν φίλο</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_share_body">Μοιραστείτε τον σύνδεσμο με τον φίλο σας, ώστε να μπορεί να σας στείλει τα χρήματα!</string>
   <string name="askafriend_share_add_message_body">Προσθήκη μηνύματος (προαιρετικά)</string>
   <string name="askafriend_share_button">Κοινοποίηση</string>
@@ -335,15 +336,16 @@
   <string name="p2p_send_title">Αποστολή Χρημάτων</string>
   <string name="p2p_send_body">Σαρώστε ή εισαγάγετε τη διεύθυνση wallet του φίλου σας.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s στάλθηκαν στην ακόλουθη διεύθυνση:</string>
-  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
-  <string name="p2p_send_error_address">Invalid address</string>
-  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
-  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
-  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <string name="p2p_send_current_balance_message">Τρέχον υπόλοιπο: %1$s %2$s</string>
+  <string name="p2p_send_error_address">Μη έγκυρη διεύθυνση</string>
+  <string name="p2p_send_error_not_enough_funds">Τα χρήματα δεν επαρκούν</string>
+  <string name="p2p_send_error_amount_zero">Πρέπει να είναι πάνω από μηδέν</string>
+  <string name="p2p_send_confirmation_header">Λεπτομέρειες Μεταφοράς</string>
   <!--Common-->
-  <string name="error_general">Something went wrong</string>
-  <string name="error_missing_field">Mandatory field</string>
-  <string name="cancel_button">Cancel</string>
+  <string name="error_general">Κάτι πήγε στραβά</string>
+  <string name="error_missing_field">Υποχρεωτικό πεδίο</string>
+  <string name="cancel_button">Ακύρωση</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
+  <string name="terms_and_conditions_tickbox">Συμφωνώ με τους Όρους και Προϋποθέσεις και την Πολιτική Απορρήτου του AppCoins Wallet</string>
+  <string name="terms_and_conditions_error">Παρακαλούμε αποδεχτείτε τους Όρους και Προϋποθέσεις για να συνεχίσετε</string>
 </resources>

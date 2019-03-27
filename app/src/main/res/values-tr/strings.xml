@@ -23,8 +23,9 @@
   <string name="title_activity_settings">Ayarlar</string>
   <string name="network_label">Ağ</string>
   <string name="credits">Tanıtım</string>
-  <string name="label_new">New</string>
+  <string name="label_new">Yeni</string>
   <string name="low_storage_error">Yeterli saklama alanı yok</string>
+  <string name="no_camera_permission_title">Kamera İzni</string>
   <string name="no_camera_permission">AppCoin BDS Wallet\'ın QR kodlarını taramak için kameranıza erişim izni olması gerekir.</string>
   <string name="ok">Tamam</string>
   <string name="barcode_error_format">Geçersiz barkod formatı: %s</string>
@@ -263,8 +264,8 @@
   <string name="gamification_home_button">KAZANMAYA BAŞLAYIN</string>
   <string name="gamification_level_title">Seviyem Ne?</string>
   <string name="gamification_level_title_new">APPC Kredisi kazanın!</string>
-  <string name="gamification_level_on_graphic">Level %s</string>
-  <string name="gamification_APPCapps_button">Apps &amp; games</string>
+  <string name="gamification_level_on_graphic">%s. Seviye</string>
+  <string name="gamification_APPCapps_button">Uygulamalar ve oyunlar</string>
   <string name="gamification_level_header">Tebrikler, %s oldunuz!</string>
   <string name="gamification_level_to_next">Sonraki seviyeye kalan:</string>
   <string name="gamification_level_earned">KAZANILAN:</string>
@@ -324,7 +325,7 @@
   <string name="balance_appcoins_body">AppCoins, uygulama ekonomisinin kripto para birimidir. Birçok borsada alıp satabilir ve uygulama içi öğeleri satın almak için kullanabilirsiniz.</string>
   <string name="balance_appccreditos_body">Uygulama içi öğe satın alma jetonu! Cüzdanınızdan APPC-C yükleyin veya uygulama kullanarak ücretsiz edinin. Arkadaşlar arasında da transfer edilebilir!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Bir arkadaşınıza sorun</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_share_body">Size fon gönderebilmeleri için bağlantıyı arkadaşınızla paylaşın!</string>
   <string name="askafriend_share_add_message_body">Mesaj Ekleyin (İsteğe Bağlı)</string>
   <string name="askafriend_share_button">Paylaş</string>
@@ -335,15 +336,16 @@
   <string name="p2p_send_title">Fon Gönder</string>
   <string name="p2p_send_body">Arkadaşınızın cüzdan adresini tarayın veya girin.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s aşağıdaki adrese gönderildi:</string>
-  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
-  <string name="p2p_send_error_address">Invalid address</string>
-  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
-  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
-  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <string name="p2p_send_current_balance_message">Mevcut bakiye: %1$s %2$s</string>
+  <string name="p2p_send_error_address">Geçersiz adres</string>
+  <string name="p2p_send_error_not_enough_funds">Yetersiz fon</string>
+  <string name="p2p_send_error_amount_zero">Sıfırın üzerinde olmalı</string>
+  <string name="p2p_send_confirmation_header">Transfer Bilgileri</string>
   <!--Common-->
-  <string name="error_general">Something went wrong</string>
-  <string name="error_missing_field">Mandatory field</string>
-  <string name="cancel_button">Cancel</string>
+  <string name="error_general">Bir şeyler ters gitti</string>
+  <string name="error_missing_field">Zorunlu alan</string>
+  <string name="cancel_button">İptal et</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
+  <string name="terms_and_conditions_tickbox">AppCoins Cüzdanın Şartları ve Koşulları ile Gizlilik Politikasını kabul ediyorum</string>
+  <string name="terms_and_conditions_error">Devam etmek için lütfen Şartlarımızı ve Koşullarımızı kabul edin</string>
 </resources>

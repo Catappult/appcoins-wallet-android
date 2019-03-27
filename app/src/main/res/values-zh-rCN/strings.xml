@@ -23,8 +23,9 @@
   <string name="title_activity_settings">设置</string>
   <string name="network_label">网络</string>
   <string name="credits">制作组</string>
-  <string name="label_new">New</string>
+  <string name="label_new">新</string>
   <string name="low_storage_error">存储空间不足</string>
+  <string name="no_camera_permission_title">相机权限</string>
   <string name="no_camera_permission">AppCoins BDS Wallet需要访问相机以扫描二维码的权限。</string>
   <string name="ok">确定</string>
   <string name="barcode_error_format">无效条形码格式：%s</string>
@@ -263,8 +264,8 @@
   <string name="gamification_home_button">开始赚取</string>
   <string name="gamification_level_title">我的等级是什么？</string>
   <string name="gamification_level_title_new">获取APPC积分！</string>
-  <string name="gamification_level_on_graphic">Level %s</string>
-  <string name="gamification_APPCapps_button">Apps &amp; games</string>
+  <string name="gamification_level_on_graphic">第%s级</string>
+  <string name="gamification_APPCapps_button">应用和游戏</string>
   <string name="gamification_level_header">恭喜，你是%s！</string>
   <string name="gamification_level_to_next">到下一等级：</string>
   <string name="gamification_level_earned">已挣：</string>
@@ -324,7 +325,7 @@
   <string name="balance_appcoins_body">AppCoins是应用经济的加密货币。你可以在多个交易平台交易，用它来购买应用内物品。</string>
   <string name="balance_appccreditos_body">购买应用内物品的代币！从钱包充值APPC-C或使用应用免费获取。好友之间也可交易！</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">询问好友</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_share_body">与好友分享链接，他们便可以向你发送基金！</string>
   <string name="askafriend_share_add_message_body">添加消息（可选）</string>
   <string name="askafriend_share_button">分享</string>
@@ -335,15 +336,16 @@
   <string name="p2p_send_title">发送基金</string>
   <string name="p2p_send_body">扫描或输入好友的钱包地址。</string>
   <string name="p2p_send_confirmation_message">向以下地址发送了%1$s %2$s：</string>
-  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
-  <string name="p2p_send_error_address">Invalid address</string>
-  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
-  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
-  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <string name="p2p_send_current_balance_message">当前余额：%1$s %2$s</string>
+  <string name="p2p_send_error_address">无效地址</string>
+  <string name="p2p_send_error_not_enough_funds">资金不足</string>
+  <string name="p2p_send_error_amount_zero">必须大于零</string>
+  <string name="p2p_send_confirmation_header">转账详情</string>
   <!--Common-->
-  <string name="error_general">Something went wrong</string>
-  <string name="error_missing_field">Mandatory field</string>
-  <string name="cancel_button">Cancel</string>
+  <string name="error_general">出现错误</string>
+  <string name="error_missing_field">必填字段</string>
+  <string name="cancel_button">取消</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
+  <string name="terms_and_conditions_tickbox">我同意AppCoins钱包的条款和条件以及隐私政策</string>
+  <string name="terms_and_conditions_error">请接受我们的条款和条件以继续</string>
 </resources>

@@ -23,8 +23,9 @@
   <string name="title_activity_settings">Podešavanja</string>
   <string name="network_label">Mreža</string>
   <string name="credits">Autori</string>
-  <string name="label_new">New</string>
+  <string name="label_new">Novo</string>
   <string name="low_storage_error">Nema dovoljno prostora u memoriji</string>
+  <string name="no_camera_permission_title">Dozvola za kameru</string>
   <string name="no_camera_permission">Aplikaciji AppCoins BDS Wallet je potrebna dozvola za pristup kameri kako bi skenirala QR kodove.</string>
   <string name="ok">U redu</string>
   <string name="barcode_error_format">Neispravan format bar-koda: %s</string>
@@ -263,8 +264,8 @@
   <string name="gamification_home_button">POČNITE DA ZARAĐUJETE</string>
   <string name="gamification_level_title">Na kom sam nivou?</string>
   <string name="gamification_level_title_new">Dobijte APPC kredit!</string>
-  <string name="gamification_level_on_graphic">Level %s</string>
-  <string name="gamification_APPCapps_button">Apps &amp; games</string>
+  <string name="gamification_level_on_graphic">%s. nivo</string>
+  <string name="gamification_APPCapps_button">Aplikacije i igre</string>
   <string name="gamification_level_header">Čestitamo, vi ste %s!</string>
   <string name="gamification_level_to_next">Do sledećeg nivoa:</string>
   <string name="gamification_level_earned">ZARAĐENO:</string>
@@ -324,7 +325,7 @@
   <string name="balance_appcoins_body">AppCoins je kriptovaluta za ekonomiju aplikacija. Možete da je kupite i prodate na nekoliko berzi i koristite je za kupovine u aplikacijama.</string>
   <string name="balance_appccreditos_body">Token za kupovine u aplikacijama! Dopunite APPC-C iz novčanika ili ih dobijte besplatno tako što ćete koristiti aplikacije. Možete i da ih prenesete prijateljima, kao i oni vama!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Zatražite od prijatelja</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_share_body">Podelite ovaj link sa prijateljem da bi mogao da vam pošalje sredstva!</string>
   <string name="askafriend_share_add_message_body">Dodajte poruku (izborno)</string>
   <string name="askafriend_share_button">Podeli</string>
@@ -335,15 +336,16 @@
   <string name="p2p_send_title">Pošaljite sredstva</string>
   <string name="p2p_send_body">Skenirajte ili unesite adresu novčanika svog prijatelja.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s – poslato na sledeću adresu:</string>
-  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
-  <string name="p2p_send_error_address">Invalid address</string>
-  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
-  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
-  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <string name="p2p_send_current_balance_message">Trenutno stanje: %1$s %2$s</string>
+  <string name="p2p_send_error_address">Neispravna adresa</string>
+  <string name="p2p_send_error_not_enough_funds">Nema dovoljno sredstava</string>
+  <string name="p2p_send_error_amount_zero">Mora da bude više od nula</string>
+  <string name="p2p_send_confirmation_header">Informacije o prenosu</string>
   <!--Common-->
-  <string name="error_general">Something went wrong</string>
-  <string name="error_missing_field">Mandatory field</string>
-  <string name="cancel_button">Cancel</string>
+  <string name="error_general">Došlo je do greške</string>
+  <string name="error_missing_field">Obavezno polje</string>
+  <string name="cancel_button">Otkaži</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
+  <string name="terms_and_conditions_tickbox">Prihvatam Uslove i odredbe i Smernice za privatnost aplikacije AppCoins Wallet</string>
+  <string name="terms_and_conditions_error">Prihvatite naše Uslove i odredbe da biste nastavili</string>
 </resources>

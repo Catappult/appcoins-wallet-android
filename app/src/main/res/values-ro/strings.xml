@@ -23,8 +23,9 @@
   <string name="title_activity_settings">Setări</string>
   <string name="network_label">Reţea</string>
   <string name="credits">Credite</string>
-  <string name="label_new">New</string>
+  <string name="label_new">Nou</string>
   <string name="low_storage_error">Spațiu de stocare insuficient</string>
+  <string name="no_camera_permission_title">Permisiune cameră foto</string>
   <string name="no_camera_permission">AppCoins BDS Wallet are nevoie de permisiune pentru a-ți accesa camera ca să scaneze coduri QR.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Format cod de bare nevalid: %s</string>
@@ -263,8 +264,8 @@
   <string name="gamification_home_button">ÎNCEPE SĂ CÂȘTIGI</string>
   <string name="gamification_level_title">Care este nivelul meu?</string>
   <string name="gamification_level_title_new">Obține Credite APPC!</string>
-  <string name="gamification_level_on_graphic">Level %s</string>
-  <string name="gamification_APPCapps_button">Apps &amp; games</string>
+  <string name="gamification_level_on_graphic">Nivel %s</string>
+  <string name="gamification_APPCapps_button">Aplicații &amp; jocuri</string>
   <string name="gamification_level_header">Felicitări, ești %s!</string>
   <string name="gamification_level_to_next">La nivelul următor:</string>
   <string name="gamification_level_earned">AI CÂȘTIGAT:</string>
@@ -324,7 +325,7 @@
   <string name="balance_appcoins_body">AppCoins este criptomoneda pentru economia aplicației. O poți cumpăra și vinde pe diferite burse și o poți folosi pentru a face cumpărături in-app.</string>
   <string name="balance_appccreditos_body">Token-ul pentru a cumpăra articole in-app! Alimentează cu APPC-C din portofelul tău sau primește-le gratuit folosind aplicații. De asemenea, acestea pot fi și transferate între prieteni!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Roagă un prieten</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_share_body">Distribuie linkul prietenului tău ca să îți poată trimite fondurile!</string>
   <string name="askafriend_share_add_message_body">Adaugă un mesaj (opțional)</string>
   <string name="askafriend_share_button">Distribuie</string>
@@ -335,15 +336,16 @@
   <string name="p2p_send_title">Trimite fonduri</string>
   <string name="p2p_send_body">Scanează sau introdu adresa portofelului prietenului tău.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s au fost trimise către următoarea adresă:</string>
-  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
-  <string name="p2p_send_error_address">Invalid address</string>
-  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
-  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
-  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <string name="p2p_send_current_balance_message">Sold curent: %1$s %2$s</string>
+  <string name="p2p_send_error_address">Adresă nevalidă</string>
+  <string name="p2p_send_error_not_enough_funds">Fonduri insuficiente</string>
+  <string name="p2p_send_error_amount_zero">Trebuie să fie mai mare de zero</string>
+  <string name="p2p_send_confirmation_header">Detalii transfer</string>
   <!--Common-->
-  <string name="error_general">Something went wrong</string>
-  <string name="error_missing_field">Mandatory field</string>
-  <string name="cancel_button">Cancel</string>
+  <string name="error_general">Ceva nu a mers cum trebuie</string>
+  <string name="error_missing_field">Câmp obligatoriu</string>
+  <string name="cancel_button">Anulează</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
+  <string name="terms_and_conditions_tickbox">Sunt de acord cu Termenii și condițiile și Politica de confidențialitate AppCoins Wallet</string>
+  <string name="terms_and_conditions_error">Te rugăm să accepți Termenii și condițiile pentru a continua</string>
 </resources>
