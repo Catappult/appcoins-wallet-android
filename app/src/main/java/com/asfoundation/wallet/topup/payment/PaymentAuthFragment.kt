@@ -37,8 +37,6 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_top_up.*
 import org.json.JSONException
 import org.json.JSONObject
-import java.math.BigDecimal
-import java.util.*
 import javax.inject.Inject
 
 class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
@@ -63,6 +61,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
   private lateinit var navigator: PaymentFragmentNavigator
   private var publicKey: String? = null
   private var generationTime: String? = null
+  private var disposables = CompositeDisposable()
 
   val appPackage: String by lazy {
       if (activity != null) {
@@ -170,26 +169,26 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     genericErrorDialog = RxAlertDialog.Builder(context).setMessage(R.string.unknown_error)
         .setPositiveButton(R.string.ok)
         .build()
-    genericErrorDialog.positiveClicks()
-        .subscribe({ navigator.popViewWithError() }, { it.printStackTrace() })
+    disposables.add(genericErrorDialog.positiveClicks()
+        .subscribe({ navigator.popViewWithError() }, { it.printStackTrace() }))
 
     networkErrorDialog =
         RxAlertDialog.Builder(context).setMessage(R.string.notification_no_network_poa)
             .setPositiveButton(R.string.ok)
             .build()
-    networkErrorDialog.positiveClicks()
-        .subscribe({ navigator.popViewWithError() }, { it.printStackTrace() })
+    disposables.add(networkErrorDialog.positiveClicks()
+        .subscribe({ navigator.popViewWithError() }, { it.printStackTrace() }))
 
     paymentRefusedDialog =
         RxAlertDialog.Builder(context).setMessage(R.string.notification_payment_refused)
             .setPositiveButton(R.string.ok)
             .build()
-    paymentRefusedDialog.positiveClicks()
-        .subscribe({ navigator.popViewWithError() }, { it.printStackTrace() })
+    disposables.add(paymentRefusedDialog.positiveClicks()
+        .subscribe({ navigator.popViewWithError() }, { it.printStackTrace() }))
 
     showValues()
-    presenter.present(savedInstanceState, origin, data?.currency?.appcValue,
-        data?.currency?.fiatCurrencyCode, transactionType, paymentType)
+    presenter.present(savedInstanceState, origin, data.currency.appcValue,
+        data.currency.fiatCurrencyCode, transactionType, paymentType)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -205,6 +204,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
 
   override fun onDestroyView() {
     presenter.stop()
+    disposables.dispose()
     super.onDestroyView()
   }
 

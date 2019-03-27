@@ -65,11 +65,6 @@ public class PaymentAuthPresenter {
       waitingResult = savedInstanceState.getBoolean(WAITING_RESULT);
     }
 
-    disposables.add(defaultWalletInteract.find()
-        .observeOn(viewScheduler)
-        .subscribe(wallet -> {
-        }, this::showError));
-
     onViewCreatedCompletePayment(transactionOrigin, amount, currency, transactionType);
 
     onViewCreatedSelectPaymentMethod(paymentType);
