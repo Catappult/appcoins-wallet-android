@@ -58,7 +58,7 @@ class AppcoinsCreditsTransferSuccessFragment : DaggerFragment(),
     return RxView.clicks(transfer_success_ok_button)
   }
 
-  override fun onAttach(context: Context?) {
+  override fun onAttach(context: Context) {
     super.onAttach(context)
     when (context) {
       is TransactNavigator -> navigator = context

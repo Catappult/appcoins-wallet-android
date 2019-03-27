@@ -59,4 +59,8 @@
   <color name="level_text_enabled_color">@color/rewards_level_main_color</color>
   <color name="level_text_disabled_color">#d4d4d4</color>
 
+  <color name="share_link_title_color">#070707</color>
+  <color name="share_link_note_color">#bbbbbb</color>
+  <color name="share_link_error_text_color">#fe7b6a</color>
+
 </resources>

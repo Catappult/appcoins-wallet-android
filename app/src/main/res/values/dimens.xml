@@ -34,4 +34,6 @@
   <dimen name="rewards_level_icon_small_size">32dp</dimen>
   <dimen name="rewards_level_lock_size">16dp</dimen>
 
+  <dimen name="payment_method_icon_size">24dp</dimen>
+
 </resources>

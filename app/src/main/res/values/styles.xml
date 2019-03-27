@@ -1,13 +1,4 @@
 <resources>
-
-
-  <style name="PaymentMethodsRadioButton" parent="Theme.AppCompat.Light">
-    <item name="android:buttonTint">@color/radio_button_color</item>
-    <item name="android:textColor">@color/radio_button_text_color</item>
-    <item name="android:textSize">12sp</item>
-    <item name="android:padding">12dp</item>
-  </style>
-
   <!-- Base application theme. -->
   <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
     <!-- Customize your theme here. -->
@@ -213,4 +204,26 @@
     <item name="android:textColor">@color/level_text_color</item>
     <item name="android:textSize">10sp</item>
   </style>
+
+  <style name="PaymentMethodsRadioButton" parent="Theme.AppCompat.Light">
+    <item name="android:buttonTint">@color/radio_button_color</item>
+    <item name="android:textColor">@color/radio_button_text_color</item>
+    <item name="android:textSize">12sp</item>
+    <item name="android:paddingTop">12dp</item>
+    <item name="android:paddingBottom">12dp</item>
+    <item name="android:drawablePadding">16dp</item>
+    <item name="android:paddingStart">12dp</item>
+  </style>
+
+  <style name="ShareLinkTextStyle">
+    <item name="android:fontFamily">sans-serif</item>
+    <item name="android:textColor">@color/share_link_note_color</item>
+    <item name="android:textSize">12sp</item>
+  </style>
+
+  <style name="ShareLinkTextStyle.Title">
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textColor">@color/share_link_title_color</item>
+  </style>
+
 </resources>
