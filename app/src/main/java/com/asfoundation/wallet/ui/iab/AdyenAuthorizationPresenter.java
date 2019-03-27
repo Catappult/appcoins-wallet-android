@@ -151,7 +151,7 @@ public class AdyenAuthorizationPresenter {
         })
         .observeOn(viewScheduler)
         .subscribe(__ -> {
-        }, this::showError));
+        }, throwable -> showError(throwable)));
   }
 
   private void showError(Throwable throwable) {
@@ -184,10 +184,9 @@ public class AdyenAuthorizationPresenter {
   }
 
   @NonNull private BigDecimal convertAmount(String currency) {
-    return BigDecimal.valueOf(
-        inAppPurchaseInteractor.convertToLocalFiat((new BigDecimal(amount)).doubleValue())
-            .blockingGet()
-            .getAmount())
+    return inAppPurchaseInteractor.convertToLocalFiat((new BigDecimal(amount)).doubleValue())
+        .blockingGet()
+        .getAmount()
         .setScale(2, BigDecimal.ROUND_UP);
   }
 
@@ -299,11 +298,13 @@ public class AdyenAuthorizationPresenter {
     disposables.add(adyen.getRedirectUrl()
         .observeOn(viewScheduler)
         .filter(s -> !waitingResult)
-        .doOnSuccess(redirectUrl -> {
+        .doOnSuccess(redirectUrl -> transactionBuilder.doOnSuccess(transaction -> {
           view.showLoading();
-          navigator.navigateToUriForResult(redirectUrl, billingService.getTransactionUid());
+          navigator.navigateToUriForResult(redirectUrl, billingService.getTransactionUid(),
+              transaction.getDomain(), transaction.getSkuId(), transaction.amount(),
+              transaction.getType());
           waitingResult = true;
-        })
+        }))
         .subscribe(__ -> {
         }, throwable -> showError(throwable)));
   }
@@ -367,11 +368,11 @@ public class AdyenAuthorizationPresenter {
 
   public void sendRevenueEvent() {
     disposables.add(transactionBuilder.subscribe(transactionBuilder -> analytics.sendRevenueEvent(
-        new BigDecimal(inAppPurchaseInteractor.convertToFiat((new BigDecimal(
-            transactionBuilder.amount()
-                .toString())).doubleValue(), EVENT_REVENUE_CURRENCY)
+        inAppPurchaseInteractor.convertToFiat(transactionBuilder.amount()
+            .doubleValue(), EVENT_REVENUE_CURRENCY)
             .blockingGet()
-            .getAmount()).setScale(2, BigDecimal.ROUND_UP)
+            .getAmount()
+            .setScale(2, BigDecimal.ROUND_UP)
             .toString())));
   }
 

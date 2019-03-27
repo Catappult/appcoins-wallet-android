@@ -84,6 +84,10 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
     return api.getPaymentMethods().map { responseMapper.map(it) }
   }
 
+  internal fun getPaymentMethodsForType(type: String): Single<List<PaymentMethod>> {
+    return api.getPaymentMethods(type).map { responseMapper.map(it) }
+  }
+
   fun patchTransaction(uid: String, walletAddress: String, walletSignature: String,
                        paykey: String): Completable {
     return api.patchTransaction(ADYEN_GATEWAY, uid, walletAddress, walletSignature, paykey)
@@ -100,7 +104,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                              packageName: String, priceValue: BigDecimal,
                              priceCurrency: String,
                              productName: String?, type: String,
-                             walletDeveloper: String,
+                             walletDeveloper: String?,
                              walletStore: String, walletOem: String,
                              developerPayload: String?,
                              callback: String?,
@@ -179,7 +183,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                         @Body data: Consumed): Single<Void>
 
     @GET("broker/8.20180518/methods")
-    fun getPaymentMethods(): Single<GetMethodsResponse>
+    fun getPaymentMethods(@Query("currency.type") type: String? = null): Single<GetMethodsResponse>
 
     @FormUrlEncoded
     @PATCH("broker/8.20180518/gateways/{gateway}/transactions/{uid}")

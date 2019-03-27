@@ -182,7 +182,7 @@ dependencies {
   implementation "androidx.cardview:cardview:$project.androidxViewVersion"
   implementation "androidx.constraintlayout:constraintlayout:$project.androidxConstraintLayoutVersion"
   implementation "androidx.palette:palette:$project.androidxViewVersion"
-  implementation "com.google.android.material:material:$project.androidxViewVersion"
+  implementation "com.google.android.material:material:$project.androidxMaterialVersion"
 
   implementation "androidx.multidex:multidex:$project.multidexVersion"
   // Bar code scanning
