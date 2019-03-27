@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.text.format.DateUtils;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import com.appcoins.wallet.gamification.repository.Levels;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.Balance;
@@ -50,6 +51,7 @@ public class TransactionsViewModel extends BaseViewModel {
       new MutableLiveData<>();
   private final MutableLiveData<Balance> defaultWalletTokenBalance = new MutableLiveData<>();
   private final MutableLiveData<Balance> defaultWalletCreditBalance = new MutableLiveData<>();
+  private final MutableLiveData<Double> gamificationMaxBonus = new MutableLiveData<>();
   private final FindDefaultNetworkInteract findDefaultNetworkInteract;
   private final FindDefaultWalletInteract findDefaultWalletInteract;
   private final FetchTransactionsInteract fetchTransactionsInteract;
@@ -143,6 +145,21 @@ public class TransactionsViewModel extends BaseViewModel {
         .subscribe(this::onDefaultNetwork, this::onError));
     disposables.add(gamificationInteractor.hasNewLevel()
         .subscribe(showAnimation::postValue, this::onError));
+    disposables.add(gamificationInteractor.getLevels()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(levels -> {
+          if (levels.getStatus()
+              .equals(Levels.Status.OK)) {
+            gamificationMaxBonus.postValue(levels.getList()
+                .get(levels.getList()
+                    .size() - 1)
+                .getBonus());
+          } else {
+            onError(new IllegalStateException(levels.getStatus()
+                .name()));
+          }
+        }, this::onError));
   }
 
   public void fetchTransactions(boolean shouldShowProgress) {
@@ -293,5 +310,9 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public MutableLiveData<Boolean> shouldShowGamificationAnimation() {
     return showAnimation;
+  }
+
+  public MutableLiveData<Double> gamificationMaxBonus() {
+    return gamificationMaxBonus;
   }
 }

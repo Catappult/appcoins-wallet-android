@@ -13,10 +13,11 @@ public class EmptyTransactionsView extends FrameLayout {
 
   private final Button airdropButton;
   private final TextView noTransactionsTextView;
+  private final TextView earnBonusTextView;
   private final LottieAnimationView noTransactionsAnimationView;
 
   public EmptyTransactionsView(@NonNull Context context, OnClickListener onClickListener,
-      boolean isMainNetwork) {
+      boolean isMainNetwork, String bonus) {
     super(context);
 
     LayoutInflater.from(getContext())
@@ -25,6 +26,8 @@ public class EmptyTransactionsView extends FrameLayout {
     noTransactionsTextView = findViewById(R.id.no_transactions_text);
     airdropButton = findViewById(R.id.action_air_drop);
     noTransactionsAnimationView = findViewById(R.id.transactions_empty_screen_animation);
+    earnBonusTextView = findViewById(R.id.earn_bonus_text);
+    earnBonusTextView.setText(getResources().getString(R.string.gamification_home_body, bonus));
 
     findViewById(R.id.action_learn_more).setOnClickListener(onClickListener);
 

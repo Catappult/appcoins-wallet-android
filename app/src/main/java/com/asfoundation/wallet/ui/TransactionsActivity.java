@@ -53,6 +53,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   public static final String LEARN_MORE_INFO_URL = "https://appcoins.io/";
   private static final String TAG = TransactionsActivity.class.getSimpleName();
+  private static String maxBonusEmptyScreen;
   @Inject TransactionsViewModelFactory transactionsViewModelFactory;
   @Inject AddTokenInteract addTokenInteract;
   @Inject TransactionFactory transactionFactory;
@@ -115,6 +116,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::onDefaultWallet);
     viewModel.transactions()
         .observe(this, this::onTransactions);
+    viewModel.gamificationMaxBonus()
+        .observe(this, this::gamificationMaxBonus);
     viewModel.applications()
         .observe(this, this::onApplications);
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
@@ -275,10 +278,14 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
           .observe(this, info -> isMainNet[0] = info.isMainNetwork);
 
       if (emptyView == null) {
-        emptyView = new EmptyTransactionsView(this, this, isMainNet[0]);
+        emptyView = new EmptyTransactionsView(this, this, isMainNet[0], maxBonusEmptyScreen);
         systemView.showEmpty(emptyView);
       }
     }
+  }
+
+  private void gamificationMaxBonus(double bonus) {
+    maxBonusEmptyScreen = Double.toString(bonus);
   }
 
   private void checkRoot() {
