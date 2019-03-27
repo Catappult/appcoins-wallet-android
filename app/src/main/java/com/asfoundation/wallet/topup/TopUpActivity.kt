@@ -49,7 +49,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     super.onCreate(savedInstanceState)
     setContentView(R.layout.top_up_activity_layout)
     presenter = TopUpActivityPresenter(this)
-    presenter.present()
+    presenter.present(savedInstanceState == null)
     results = PublishRelay.create()
   }
 

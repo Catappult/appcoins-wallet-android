@@ -4,8 +4,10 @@ import android.content.Intent
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 
 class TopUpActivityPresenter(private val view: TopUpActivityView) {
-  fun present() {
+  fun present(isCreating: Boolean) {
+    if (isCreating) {
       view.showTopUpScreen()
+    }
   }
 
   fun processActivityResult(requestCode: Int, resultCode: Int,
