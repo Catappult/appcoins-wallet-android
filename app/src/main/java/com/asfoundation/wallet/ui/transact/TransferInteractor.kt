@@ -24,7 +24,6 @@ class TransferInteractor(private val rewardsManager: RewardsManager,
           val validateStatus = validateData(it)
           if (validateStatus == AppcoinsRewardsRepository.Status.SUCCESS) {
             return@flatMap rewardsManager.sendCredits(toWallet, amount, packageName)
-                .map { validateStatus }
           }
           return@flatMap Single.just(validateStatus)
         }.onErrorReturn { map(it) }
