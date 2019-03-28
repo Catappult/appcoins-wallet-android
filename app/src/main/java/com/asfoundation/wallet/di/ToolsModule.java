@@ -57,6 +57,8 @@ import com.asfoundation.wallet.billing.partners.PartnerAddressService;
 import com.asfoundation.wallet.billing.partners.PartnerWalletAddressService;
 import com.asfoundation.wallet.billing.partners.WalletAddressService;
 import com.asfoundation.wallet.billing.purchase.BillingFactory;
+import com.asfoundation.wallet.billing.share.BdsShareLinkRepository;
+import com.asfoundation.wallet.billing.share.ShareLinkRepository;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.BalanceGetter;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
@@ -143,6 +145,7 @@ import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase;
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer;
 import com.asfoundation.wallet.ui.iab.raiden.NonceObtainerFactory;
 import com.asfoundation.wallet.ui.iab.raiden.Web3jNonceProvider;
+import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor;
 import com.asfoundation.wallet.ui.transact.TransactionDataValidator;
 import com.asfoundation.wallet.ui.transact.TransferInteractor;
 import com.asfoundation.wallet.util.EIPTransactionParser;
@@ -861,6 +864,28 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Provides ObjectMapper providesObjectMapper() {
     return new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
   }
+
+  @Provides ShareLinkInteractor providesShareLinkInteractor(ShareLinkRepository repository,
+      FindDefaultWalletInteract interactor) {
+    return new ShareLinkInteractor(repository, interactor);
+  }
+
+  @Singleton @Provides ShareLinkRepository providesShareLinkRepository(
+      BdsShareLinkRepository.BdsShareLinkApi api) {
+    return new BdsShareLinkRepository(api);
+  }
+
+  @Singleton @Provides BdsShareLinkRepository.BdsShareLinkApi provideBdsShareLinkApi(
+      OkHttpClient client, Gson gson) {
+    String baseUrl = BuildConfig.CATAPPULT_BASE_HOST;
+    return new Retrofit.Builder().baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(BdsShareLinkRepository.BdsShareLinkApi.class);
+  }
+
 
   @Singleton @Provides TopUpInteractor providesTopUpInteractor(BdsRepository repository,
       LocalCurrencyConversionService conversionService) {

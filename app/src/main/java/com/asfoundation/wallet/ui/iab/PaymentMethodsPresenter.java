@@ -124,6 +124,9 @@ public class PaymentMethodsPresenter {
             case APPC_CREDITS:
               view.showCredits();
               break;
+            case SHARE_LINK:
+              view.showShareLink();
+              break;
           }
         })
         .subscribe());

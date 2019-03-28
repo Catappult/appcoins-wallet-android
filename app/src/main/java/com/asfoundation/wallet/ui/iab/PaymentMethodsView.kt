@@ -28,11 +28,12 @@ interface PaymentMethodsView {
   fun showCreditCard()
   fun showAppCoins()
   fun showCredits()
+  fun showShareLink()
   fun hideBonus()
   fun showBonus(bonus: BigDecimal)
   fun getPaymentSelection(): Observable<SelectedPaymentMethod>
 
   enum class SelectedPaymentMethod {
-    PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS
+    PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, SHARE_LINK
   }
 }

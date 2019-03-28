@@ -11,6 +11,7 @@ import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.navigator.UriNavigator;
 import com.asfoundation.wallet.ui.BaseActivity;
+import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment;
 import com.jakewharton.rxrelay2.PublishRelay;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
@@ -190,6 +191,14 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
             AppcoinsRewardsBuyFragment.newInstance(amount, transaction, getIntent().getData()
                 .toString(), getIntent().getExtras()
                 .getString(PRODUCT_NAME, ""), isBds))
+        .commit();
+  }
+
+  @Override
+  public void showShareLinkPayment(String domain, String skuId, String amount, String currency) {
+    getSupportFragmentManager().beginTransaction()
+        .replace(R.id.fragment_container,
+            SharePaymentLinkFragment.newInstance(domain, skuId, amount, currency))
         .commit();
   }
 
