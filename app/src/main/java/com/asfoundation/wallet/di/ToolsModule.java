@@ -123,6 +123,8 @@ import com.asfoundation.wallet.service.RealmManager;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.TrustWalletTickerService;
+import com.asfoundation.wallet.topup.TopUpInteractor;
+import com.asfoundation.wallet.topup.TopUpInteractor;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper;
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor;
@@ -883,5 +885,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(BdsShareLinkRepository.BdsShareLinkApi.class);
+  }
+
+
+  @Singleton @Provides TopUpInteractor providesTopUpInteractor(BdsRepository repository,
+      LocalCurrencyConversionService conversionService) {
+    return new TopUpInteractor(repository, conversionService);
   }
 }

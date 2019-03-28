@@ -139,7 +139,7 @@ public class OnChainBuyPresenter {
 
     disposables.add(inAppPurchaseInteractor.getWalletAddress()
         .observeOn(viewScheduler)
-        .subscribe(view::showWallet, Throwable::printStackTrace));
+        .subscribe(wallet -> view.showWallet(wallet), throwable -> throwable.printStackTrace()));
   }
 
   private void close() {

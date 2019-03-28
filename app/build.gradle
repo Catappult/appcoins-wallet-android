@@ -36,8 +36,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 28
-    versionCode 73
-    versionName "1.5.2.3"
+    versionCode 74
+    versionName "1.5.3.0"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -182,7 +182,7 @@ dependencies {
   implementation "androidx.cardview:cardview:$project.androidxViewVersion"
   implementation "androidx.constraintlayout:constraintlayout:$project.androidxConstraintLayoutVersion"
   implementation "androidx.palette:palette:$project.androidxViewVersion"
-  implementation "com.google.android.material:material:$project.androidxViewVersion"
+  implementation "com.google.android.material:material:$project.androidxMaterialVersion"
 
   implementation "androidx.multidex:multidex:$project.multidexVersion"
   // Bar code scanning

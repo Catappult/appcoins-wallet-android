@@ -8,6 +8,18 @@
     <item name="android:statusBarColor">@color/statusBarColor</item>
   </style>
 
+  <style name="MaterialAppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <!-- Customize your theme here. -->
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+    <item name="android:statusBarColor">@color/statusBarColor</item>
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+    <item name="actionMenuTextColor">@color/white</item>
+    <item name="android:windowContentOverlay">@null</item>
+  </style>
+
   <style name="AppTheme.NoActionBar" parent="AppTheme">
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
@@ -86,6 +98,23 @@
 
   <style name="ButtonStyle" parent="Base.Widget.AppCompat.ImageButton">
     <item name="android:background">@drawable/button_background</item>
+    <item name="android:textAllCaps">true</item>
+    <item name="android:textColor">@drawable/btn_text_color</item>
+    <item name="android:fontFamily">@font/roboto_regular</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:paddingStart">@dimen/big_padding</item>
+    <item name="android:paddingEnd">@dimen/big_padding</item>
+    <item name="android:minWidth">64dp</item>
+  </style>
+
+  <style name="ButtonStyle.Alternative">
+    <item name="android:background">@drawable/button_snd_background</item>
+    <item name="android:textColor">@color/btn_text_enable_color</item>
+  </style>
+
+  <style name="FloatingButtonStyle" parent="Widget.MaterialComponents.Button">
+    <!--<item name="android:background">@draw~able/floating_button_background</item>-->
+    <item name="android:backgroundTint">@color/floating_btn_start_gradient_color</item>
     <item name="android:textAllCaps">true</item>
     <item name="android:textColor">@drawable/btn_text_color</item>
     <item name="android:fontFamily">@font/roboto_regular</item>
@@ -226,4 +255,60 @@
     <item name="android:textColor">@color/share_link_title_color</item>
   </style>
 
+
+  <style name="TopUpTextStyle">
+    <item name="android:fontFamily">sans-serif</item>
+    <item name="android:gravity">center</item>
+    <item name="android:textColor">@color/black</item>
+    <item name="android:textSize">12sp</item>
+  </style>
+
+  <style name="TopUpTextStyle.Small">
+    <item name="android:textSize">10sp</item>
+  </style>
+
+  <style name="TopUpTextStyle.MainValue">
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textSize">40sp</item>
+  </style>
+
+  <style name="TopUpTextStyle.MainValueCurrency">
+    <item name="android:textSize">8sp</item>
+  </style>
+
+  <style name="TopUpTextStyle.ConvertedValue">
+    <item name="android:textColor">@color/top_up_grey</item>
+  </style>
+
+  <style name="TopUpTextStyle.SwapCurrency">
+    <item name="android:textSize">8sp</item>
+    <item name="android:textColor">@color/top_up_grey</item>
+  </style>
+
+  <style name="TopUpTextStyle.Small.BonusTitle">
+    <item name="android:textColor">@color/top_up_bonus_title</item>
+    <item name="android:fontFamily">sans-serif-medium</item>
+  </style>
+
+  <style name="TopUpTextStyle.Small.BonusText">
+    <item name="android:textColor">@color/top_up_bonus_text</item>
+  </style>
+
+  <style name="TopUpTextStyle.SuccessTitle">
+    <item name="android:textColor">@color/top_up_bonus_title</item>
+    <item name="android:fontFamily">sans-serif-medium</item>
+  </style>
+
+  <style name="TopUpTextStyle.SuccessText">
+    <item name="android:textColor">@color/top_up_bonus_text</item>
+  </style>
+
+  <style name="TopUpTextStyle.PaymentOptionText">
+    <item name="android:textColor">@color/grey_8a_alpha</item>
+  </style>
+
+  <style name="TopUpTextStyle.PaymentDetails">
+    <item name="android:textColor">@color/top_up_payment_details_text</item>
+    <item name="android:gravity">start</item>
+  </style>
 </resources>

@@ -42,10 +42,13 @@
   <color name="details_address_text_color">#e44b46</color>
   <color name="btn_disable_color">#00000000</color>
   <color name="btn_text_disable_color">#42000000</color>
+  <color name="btn_disable_snd_color">#c9c9c9</color>
   <color name="btn_text_enable_color">#ffffff</color>
 
   <color name="btn_start_gradient_color">#fc9d48</color>
   <color name="btn_end_gradient_color">#ff578c</color>
+  <color name="floating_btn_start_gradient_color">#0e1d4d</color>
+  <color name="floating_btn_end_gradient_color">#161616</color>
   <color name="btn_light_enabled_color">#e44b46</color>
   <color name="btn_light_disable_color">#42000000</color>
 
@@ -62,5 +65,10 @@
   <color name="share_link_title_color">#070707</color>
   <color name="share_link_note_color">#bbbbbb</color>
   <color name="share_link_error_text_color">#fe7b6a</color>
+
+  <color name="top_up_grey">#9e9e9e</color>
+  <color name="top_up_bonus_title">#030303</color>
+  <color name="top_up_bonus_text">#727272</color>
+  <color name="top_up_payment_details_text">#4a4a4a</color>
 
 </resources>

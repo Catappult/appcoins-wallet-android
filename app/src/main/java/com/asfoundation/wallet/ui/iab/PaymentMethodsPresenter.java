@@ -214,21 +214,22 @@ public class PaymentMethodsPresenter {
                 .map(paymentMethod -> new PaymentMethod(paymentMethod.getId(),
                     paymentMethod.getLabel(), paymentMethod.getIconUrl(), true))
                 .toList()) : Single.just(Collections.singletonList(PaymentMethod.APPC))
-            .observeOn(viewScheduler), inAppPurchaseInteractor.convertToLocalFiat(transactionValue),
+            .observeOn(viewScheduler), inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
+            .subscribeOn(networkThread),
         (paymentMethods, availablePaymentMethods, fiatValue) -> Completable.fromAction(
             () -> view.showPaymentMethods(paymentMethods, availablePaymentMethods, fiatValue,
                 TransactionData.TransactionType.DONATION.name()
                     .equalsIgnoreCase(transaction.getType()),
                 mapCurrencyCodeToSymbol(fiatValue.getCurrency())))
-            .subscribeOn(AndroidSchedulers.mainThread()))
+            .subscribeOn(viewScheduler))
         .flatMapCompletable(completable -> completable)
         .subscribe(() -> {
         }, this::showError));
   }
 
   public String mapCurrencyCodeToSymbol(String currencyCode) {
-    return currencyCode.equalsIgnoreCase("APPC") ?
-        currencyCode : Currency.getInstance(currencyCode).getCurrencyCode();
+    return currencyCode.equalsIgnoreCase("APPC") ? currencyCode : Currency.getInstance(currencyCode)
+        .getCurrencyCode();
   }
 
   private void setWalletAddress() {

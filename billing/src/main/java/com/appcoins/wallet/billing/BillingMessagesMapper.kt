@@ -15,6 +15,7 @@ class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerial
 
   companion object {
     internal const val TRANSACTION_HASH = "transaction_hash"
+    internal const val TOP_UP_AMOUNT = "top_up_amount"
   }
 
 
@@ -119,6 +120,14 @@ class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerial
     bundle.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
 
     bundle.putString(TRANSACTION_HASH, uid)
+
+    return bundle
+  }
+
+  fun topUpBundle(amount: Double): Bundle {
+    val bundle = Bundle()
+    bundle.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
+    bundle.putDouble(TOP_UP_AMOUNT, amount)
 
     return bundle
   }
