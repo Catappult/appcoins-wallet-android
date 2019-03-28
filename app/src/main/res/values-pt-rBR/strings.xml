@@ -326,9 +326,12 @@
   <string name="balance_appccreditos_body">O token para comprar itens dentro de aplicativos! Abasteça seus APPC-C a partir da sua wallet ou receba gratuitamente utilizando nossos apps! Eles também podem ser transferidos entre amigos!</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Ask someone to pay</string>
+  <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
+  <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
   <string name="askafriend_share_body">Compartilhe o link com seu amigo para que ele possa enviar fundos para você!</string>
   <string name="askafriend_share_add_message_body">Enviar Mensagem (opcional)</string>
   <string name="askafriend_share_button">Compartilhar</string>
+  <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">Você acaba de receber %s APPC-C</string>
   <string name="askafriend_received_title">Transferência Recebida</string>
   <string name="askafriend_share_note_to_friend">Olá! Por favor, me envie %1$s em créditos AppCoins para comprar um item em World Jungle. Link: %2$s</string>
