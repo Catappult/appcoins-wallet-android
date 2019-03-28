@@ -302,7 +302,7 @@ public class AdyenAuthorizationPresenter {
     disposables.add(adyen.getRedirectUrl()
         .observeOn(viewScheduler)
         .filter(s -> !waitingResult)
-        .doOnSuccess(redirectUrl -> transactionBuilder.doOnSuccess(transaction -> {
+        .flatMapSingle(redirectUrl -> transactionBuilder.doOnSuccess(transaction -> {
           view.showLoading();
           navigator.navigateToUriForResult(redirectUrl, billingService.getTransactionUid(),
               transaction.getDomain(), transaction.getSkuId(), transaction.amount(),
