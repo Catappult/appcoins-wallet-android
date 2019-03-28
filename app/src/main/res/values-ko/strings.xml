@@ -326,9 +326,12 @@
   <string name="balance_appccreditos_body">앱내 아이템 구매를 위한 토큰입니다! 지갑에서 APPC-C를 충전하거나 앱을 사용하여 무료로 얻을 수 있습니다. 또한 친구들 간에 전송할 수 있습니다.</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Ask someone to pay</string>
+  <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
+  <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
   <string name="askafriend_share_body">친구들이 자금을 전송할 수 있도록 친구에게 링크를 공유하십시오!</string>
   <string name="askafriend_share_add_message_body">메시지 추가(선택)</string>
   <string name="askafriend_share_button">공유</string>
+  <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">방금 %s APPC-C 를 받았습니다</string>
   <string name="askafriend_received_title">전송 수신됨</string>
   <string name="askafriend_share_note_to_friend">안녕하세요! World Jungle 에서 아이템을 구매하기 위해 %1$s AppCoins 크레딧을 저에게 보내십시오. 링크:%2$s</string>
