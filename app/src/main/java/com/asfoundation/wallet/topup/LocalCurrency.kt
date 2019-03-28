@@ -1,3 +1,5 @@
 package com.asfoundation.wallet.topup
 
-data class LocalCurrency(val symbol: String = "", val code: String = "")
+import java.io.Serializable
+
+data class LocalCurrency(val symbol: String = "", val code: String = "") : Serializable

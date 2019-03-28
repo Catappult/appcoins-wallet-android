@@ -39,15 +39,19 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   private lateinit var presenter: TopUpFragmentPresenter
   private lateinit var paymentMethodClick: PublishRelay<String>
   private lateinit var fragmentContainer: ViewGroup
-  private var topUpActivityView: TopUpActivityView? = null
   private lateinit var paymentMethods: List<PaymentMethodData>
-  private var localCurrency: LocalCurrency = LocalCurrency()
-  private var selectedCurrency: String = FIAT_CURRENCY
-  private var switchingCurrency: Boolean = false
+  private var topUpActivityView: TopUpActivityView? = null
+  private var selectedCurrency = FIAT_CURRENCY
+  private var switchingCurrency = false
+  private var localCurrency = LocalCurrency()
 
   companion object {
     private const val PARAM_APP_PACKAGE = "APP_PACKAGE"
     private const val APPC_C_SYMBOL = "APPC-C"
+
+    private const val SELECTED_CURRENCY_PARAM = "SELECTED_CURRENCY"
+    private const val LOCAL_CURRENCY_PARAM = "LOCAL_CURRENCY"
+
 
     @JvmStatic
     fun newInstance(packageName: String): TopUpFragment {
@@ -98,8 +102,19 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    if (savedInstanceState?.containsKey(SELECTED_CURRENCY_PARAM) == true) {
+      selectedCurrency = savedInstanceState.getString(SELECTED_CURRENCY_PARAM) ?: FIAT_CURRENCY
+      localCurrency = savedInstanceState.getSerializable(LOCAL_CURRENCY_PARAM) as LocalCurrency
+    }
+    topUpActivityView?.showToolbar()
     presenter.present()
 
+  }
+
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+    outState.putString(SELECTED_CURRENCY_PARAM, selectedCurrency)
+    outState.putSerializable(LOCAL_CURRENCY_PARAM, localCurrency)
   }
 
   override fun setupUiElements(paymentMethods: List<PaymentMethodData>,

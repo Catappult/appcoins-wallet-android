@@ -15,4 +15,6 @@ interface TopUpActivityView {
   fun close()
 
   fun acceptResult(uri: Uri)
+
+  fun showToolbar()
 }

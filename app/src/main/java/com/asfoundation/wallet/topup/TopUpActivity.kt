@@ -4,10 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.MenuItem
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
+import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.topup.payment.PaymentAuthFragment
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -64,6 +66,22 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
         .replace(R.id.fragment_container, TopUpFragment.newInstance(packageName)).commit()
   }
 
+  override fun onBackPressed() {
+    TransactionsRouter().open(this, true)
+    finish()
+  }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    when (item.itemId) {
+      android.R.id.home -> {
+        TransactionsRouter().open(this, true)
+        finish()
+        return true
+      }
+    }
+    return super.onOptionsItemSelected(item)
+  }
+
   override fun navigateToPayment(paymentType: PaymentType, data: TopUpData,
                                  selectedCurrency: String, origin: String, transactionType: String) {
     supportFragmentManager.beginTransaction()
@@ -78,7 +96,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   }
 
   override fun setupToolbar() {
-    setTitle(R.string.topup_title)
     toolbar()
   }
 
@@ -101,6 +118,10 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
                              type: String) {
     startActivityForResult(WebViewActivity.newIntent(this, url, domain, skuId, amount, type),
         WEB_VIEW_REQUEST_CODE)
+  }
+
+  override fun showToolbar() {
+    setupToolbar()
   }
 
   override fun uriResults(): Observable<Uri> {

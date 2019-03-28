@@ -1,13 +1,4 @@
 <resources>
-
-
-  <style name="PaymentMethodsRadioButton" parent="Theme.AppCompat.Light">
-    <item name="android:buttonTint">@color/radio_button_color</item>
-    <item name="android:textColor">@color/radio_button_text_color</item>
-    <item name="android:textSize">12sp</item>
-    <item name="android:padding">12dp</item>
-  </style>
-
   <!-- Base application theme. -->
   <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
     <!-- Customize your theme here. -->
@@ -215,11 +206,11 @@
   </style>
 
   <style name="RewardsLevelTextStyle">
-  <item name="android:fontFamily">sans-serif</item>
-  <item name="android:gravity">center</item>
-  <item name="android:textColor">@color/level_text_color</item>
-  <item name="android:textSize">10sp</item>
-  <item name="android:textStyle">bold</item>
+    <item name="android:fontFamily">sans-serif</item>
+    <item name="android:gravity">center</item>
+    <item name="android:textColor">@color/level_text_color</item>
+    <item name="android:textSize">10sp</item>
+    <item name="android:textStyle">bold</item>
   </style>
 
   <style name="BonusDialogTitleTextStyle">
@@ -298,4 +289,15 @@
     <item name="android:textColor">@color/top_up_payment_details_text</item>
     <item name="android:gravity">start</item>
   </style>
+
+  <style name="PaymentMethodsRadioButton" parent="Theme.AppCompat.Light">
+    <item name="android:buttonTint">@color/radio_button_color</item>
+    <item name="android:textColor">@color/radio_button_text_color</item>
+    <item name="android:textSize">12sp</item>
+    <item name="android:paddingTop">12dp</item>
+    <item name="android:paddingBottom">12dp</item>
+    <item name="android:drawablePadding">16dp</item>
+    <item name="android:paddingStart">12dp</item>
+  </style>
+
 </resources>
