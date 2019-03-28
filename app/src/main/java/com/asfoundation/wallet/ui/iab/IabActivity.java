@@ -194,9 +194,11 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
         .commit();
   }
 
-  @Override public void showShareLinkPayment(String domain, String skuId) {
+  @Override
+  public void showShareLinkPayment(String domain, String skuId, String amount, String currency) {
     getSupportFragmentManager().beginTransaction()
-        .replace(R.id.fragment_container, SharePaymentLinkFragment.newInstance(domain, skuId))
+        .replace(R.id.fragment_container,
+            SharePaymentLinkFragment.newInstance(domain, skuId, amount, currency))
         .commit();
   }
 

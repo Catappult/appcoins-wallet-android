@@ -31,5 +31,6 @@ public interface IabView {
 
   void showPaymentMethodsView();
 
-  void showShareLinkPayment(String domain, String skuId);
+  void showShareLinkPayment(String domain, String skuId, String amount, String currency);
+
 }

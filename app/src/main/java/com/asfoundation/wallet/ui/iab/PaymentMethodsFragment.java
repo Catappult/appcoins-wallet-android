@@ -479,13 +479,11 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   }
 
   @Override public void showPaypal() {
-    iabView.showAdyenPayment(fiatValue.getAmount(), currency, isBds,
-        PaymentType.PAYPAL);
+    iabView.showAdyenPayment(fiatValue.getAmount(), currency, isBds, PaymentType.PAYPAL);
   }
 
   @Override public void showCreditCard() {
-    iabView.showAdyenPayment(fiatValue.getAmount(), currency, isBds,
-        PaymentType.CARD);
+    iabView.showAdyenPayment(fiatValue.getAmount(), currency, isBds, PaymentType.CARD);
   }
 
   @Override public void showAppCoins() {
@@ -497,7 +495,11 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   }
 
   @Override public void showShareLink() {
-    iabView.showShareLinkPayment(transaction.getDomain(), transaction.getSkuId());
+    boolean isOneStep = transaction.getType()
+        .equalsIgnoreCase("INAPP_UNMANAGED");
+    iabView.showShareLinkPayment(transaction.getDomain(), transaction.getSkuId(),
+        isOneStep ? transaction.getOriginalOneStepValue() : null,
+        isOneStep ? transaction.getOriginalOneStepCurrency() : null);
   }
 
   @Override public void hideBonus() {

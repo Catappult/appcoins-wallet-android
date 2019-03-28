@@ -34,15 +34,22 @@ class SharePaymentLinkFragment : DaggerFragment(),
 
     private const val PARAM_DOMAIN = "AMOUNT_DOMAIN"
     private const val PARAM_SKUID = "AMOUNT_SKUID"
+    private const val PARAM_AMOUNT = "PARAM_AMOUNT"
+    private const val PARAM_CURRENCY = "PARAM_CURRENCY"
 
     @JvmStatic
-    fun newInstance(domain: String, skuId: String): SharePaymentLinkFragment =
+    fun newInstance(domain: String, skuId: String, originalAmount: String?,
+                    originalCurrency: String?): SharePaymentLinkFragment =
         SharePaymentLinkFragment().apply {
           arguments = Bundle(2).apply {
             putString(
                 PARAM_DOMAIN, domain)
             putString(
                 PARAM_SKUID, skuId)
+            putString(
+                PARAM_AMOUNT, originalAmount)
+            putString(
+                PARAM_CURRENCY, originalCurrency)
           }
         }
   }
@@ -52,6 +59,26 @@ class SharePaymentLinkFragment : DaggerFragment(),
             PARAM_DOMAIN)) {
       arguments!!.getString(
           PARAM_DOMAIN)
+    } else {
+      throw IllegalArgumentException("Domain not found")
+    }
+  }
+
+  private val originalAmount: String? by lazy {
+    if (arguments!!.containsKey(
+            PARAM_AMOUNT)) {
+      arguments!!.getString(
+          PARAM_AMOUNT)
+    } else {
+      throw IllegalArgumentException("Domain not found")
+    }
+  }
+
+  private val originalCurrency: String? by lazy {
+    if (arguments!!.containsKey(
+            PARAM_CURRENCY)) {
+      arguments!!.getString(
+          PARAM_CURRENCY)
     } else {
       throw IllegalArgumentException("Domain not found")
     }
@@ -109,7 +136,8 @@ class SharePaymentLinkFragment : DaggerFragment(),
   override fun getShareButtonClick(): Observable<SharePaymentLinkFragmentView.SharePaymentData> {
     return RxView.clicks(share_btn).map {
       val message = if (note.text.isNotEmpty()) note.text.toString() else null
-      SharePaymentLinkFragmentView.SharePaymentData(domain, skuId, message)
+      SharePaymentLinkFragmentView.SharePaymentData(domain, skuId, message, originalAmount,
+          originalCurrency)
     }
   }
 

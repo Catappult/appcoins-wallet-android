@@ -36,7 +36,15 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
               iabContract, Parameters.PAYMENT_TYPE_INAPP_UNMANAGED.toUpperCase(), null,
               getDomain(uri), getPayload(uri), getCallback(uri),
               getOrderReference(uri)).shouldSendToken(true)
-        }).doOnSuccess { transactionBuilder ->
+        }).map {
+      it.originalOneStepValue = uri.parameters[Parameters.VALUE]
+      var currency = uri.parameters[Parameters.CURRENCY]
+      if (currency == null) {
+        currency = "APPC"
+      }
+      it.originalOneStepCurrency = currency
+      return@map it
+    }.doOnSuccess { transactionBuilder ->
       cache.saveSync(uri.toString(), transactionBuilder)
     }.subscribeOn(Schedulers.io())
   }
@@ -122,7 +130,8 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
   private fun getProductValue(packageName: String?, skuId: String?): Single<BigDecimal> {
     return if (packageName != null && skuId != null) {
       billing.getProducts(packageName, listOf(skuId))
-          .map { products -> products[0] }.map { product -> BigDecimal(product.price.appcoinsAmount) }
+          .map { products -> products[0] }
+          .map { product -> BigDecimal(product.price.appcoinsAmount) }
     } else {
       Single.error(MissingProductException())
     }

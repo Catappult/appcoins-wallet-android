@@ -124,7 +124,6 @@ import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.TrustWalletTickerService;
 import com.asfoundation.wallet.topup.TopUpInteractor;
-import com.asfoundation.wallet.topup.TopUpInteractor;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper;
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor;
@@ -878,7 +877,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides BdsShareLinkRepository.BdsShareLinkApi provideBdsShareLinkApi(
       OkHttpClient client, Gson gson) {
-    String baseUrl = BuildConfig.BASE_HOST;
+    String baseUrl = BuildConfig.CATAPPULT_BASE_HOST;
     return new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))

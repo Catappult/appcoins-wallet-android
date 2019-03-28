@@ -25,7 +25,10 @@ class SharePaymentLinkPresenter(private val view: SharePaymentLinkFragmentView,
           getLink(it)
         }.observeOn(viewScheduler).doOnNext {
           view.shareLink(it)
-        }.subscribe({}, { view.showErrorInfo() }))
+        }.subscribe({}, {
+          it.printStackTrace()
+          view.showErrorInfo()
+        }))
   }
 
   private fun handleStop() {
@@ -40,7 +43,8 @@ class SharePaymentLinkPresenter(private val view: SharePaymentLinkFragmentView,
 
   private fun getLink(data: SharePaymentLinkFragmentView.SharePaymentData): Single<String> {
     return Single.zip(Single.timer(1, TimeUnit.SECONDS),
-        interactor.getLinkToShare(data.domain, data.skuId, data.message).subscribeOn(
+        interactor.getLinkToShare(data.domain, data.skuId, data.message, data.originalAmount,
+            data.originalCurrency).subscribeOn(
             networkScheduler), BiFunction { _: Long, url: String -> url })
   }
 

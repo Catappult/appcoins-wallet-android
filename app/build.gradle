@@ -115,6 +115,7 @@ android {
       manifestPlaceholders.secondPaymentHost = "${project.SECOND_PAYMENT_HOST}"
       buildConfigField 'String', 'SECOND_PAYMENT_HOST',
           "\"" + project.SECOND_PAYMENT_HOST + "\""
+      buildConfigField 'String', 'CATAPPULT_BASE_HOST', project.CATAPPULT_BASE_HOST_PROD
     }
     debug {
       minifyEnabled false
@@ -130,6 +131,7 @@ android {
       buildConfigField 'String', 'BDS_BASE_HOST',
           "\"" + project.BDS_BASE_HOST_DEV + "\""
       buildConfigField 'String', 'MY_APPCOINS_BASE_HOST', project.MY_APPCOINS_BASE_HOST_DEV
+      buildConfigField 'String', 'CATAPPULT_BASE_HOST', project.CATAPPULT_BASE_HOST_DEV
       manifestPlaceholders.paymentHost = "${project.PAYMENT_HOST_DEV}"
       buildConfigField 'String', 'PAYMENT_HOST',
           "\"" + project.PAYMENT_HOST_DEV + "\""
