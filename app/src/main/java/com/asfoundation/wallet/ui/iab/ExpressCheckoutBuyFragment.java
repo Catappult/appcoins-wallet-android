@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import com.google.android.material.snackbar.Snackbar;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -19,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import androidx.annotation.Nullable;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.WalletService;
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary;
@@ -31,6 +30,7 @@ import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxrelay2.PublishRelay;
@@ -49,7 +49,6 @@ import java.util.Formatter;
 import java.util.Locale;
 import javax.inject.Inject;
 
-import static com.asfoundation.wallet.billing.analytics.BillingAnalytics.PAYMENT_METHOD_CC;
 import static com.asfoundation.wallet.ui.iab.IabActivity.PRODUCT_NAME;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_CURRENCY;
@@ -131,7 +130,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     presenter = new ExpressCheckoutBuyPresenter(this, getAppPackage(), inAppPurchaseInteractor,
         AndroidSchedulers.mainThread(), new CompositeDisposable(),
         inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing,
-        analytics, isBds, extras.getString(TRANSACTION_DATA));
+        analytics, isBds, extras.getString(TRANSACTION_DATA), Schedulers.io());
   }
 
   @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,

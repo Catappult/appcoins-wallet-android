@@ -58,6 +58,7 @@ public class AdyenAuthorizationPresenter {
   private BillingAnalytics analytics;
   private final Single<TransactionBuilder> transactionBuilder;
   private boolean waitingResult;
+  private Scheduler ioScheduler;
 
   public AdyenAuthorizationPresenter(AdyenAuthorizationView view, String appPackage,
       FindDefaultWalletInteract defaultWalletInteract, Scheduler viewScheduler,
@@ -65,7 +66,8 @@ public class AdyenAuthorizationPresenter {
       Navigator navigator, BillingMessagesMapper billingMessagesMapper,
       InAppPurchaseInteractor inAppPurchaseInteractor, String transactionData,
       String developerPayload, Billing billing, String skuId, String type, String origin,
-      String amount, String currency, PaymentType paymentType, BillingAnalytics analytics) {
+      String amount, String currency, PaymentType paymentType, BillingAnalytics analytics,
+      Scheduler ioScheduler) {
     this.view = view;
     this.appPackage = appPackage;
     this.defaultWalletInteract = defaultWalletInteract;
@@ -87,6 +89,7 @@ public class AdyenAuthorizationPresenter {
     this.paymentType = paymentType;
     this.analytics = analytics;
     this.transactionBuilder = inAppPurchaseInteractor.parseTransaction(transactionData, true);
+    this.ioScheduler = ioScheduler;
   }
 
   public void present(@Nullable Bundle savedInstanceState) {
@@ -185,6 +188,7 @@ public class AdyenAuthorizationPresenter {
 
   @NonNull private BigDecimal convertAmount(String currency) {
     return inAppPurchaseInteractor.convertToLocalFiat((new BigDecimal(amount)).doubleValue())
+        .subscribeOn(ioScheduler)
         .blockingGet()
         .getAmount()
         .setScale(2, BigDecimal.ROUND_UP);

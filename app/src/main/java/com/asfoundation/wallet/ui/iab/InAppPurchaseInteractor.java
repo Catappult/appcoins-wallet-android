@@ -216,7 +216,8 @@ public class InAppPurchaseInteractor {
         .timeInterval()
         .switchMap(longTimed -> billing.getAppcoinsTransaction(uid, Schedulers.io())
             .toObservable())
-        .takeUntil(pendingTransaction -> pendingTransaction.getStatus() != Status.COMPLETED);
+        .filter(transaction -> transaction.getStatus()
+            .equals(Status.COMPLETED));
   }
 
   public Single<List<PaymentMethod>> getPaymentMethods() {

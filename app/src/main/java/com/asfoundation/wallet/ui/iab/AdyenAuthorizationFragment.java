@@ -6,9 +6,6 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.textfield.TextInputLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +15,8 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.adyen.core.models.Amount;
 import com.adyen.core.models.PaymentMethod;
 import com.adyen.core.models.paymentdetails.CreditCardPaymentDetails;
@@ -37,12 +36,14 @@ import com.asfoundation.wallet.navigator.UriNavigator;
 import com.asfoundation.wallet.util.KeyboardUtils;
 import com.asfoundation.wallet.view.rx.RxAlertDialog;
 import com.braintreepayments.cardform.view.CardForm;
+import com.google.android.material.textfield.TextInputLayout;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxrelay2.PublishRelay;
 import dagger.android.support.DaggerFragment;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.util.Formatter;
 import java.util.Locale;
@@ -132,7 +133,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
         billingFactory.getBilling(getAppPackage()), navigator,
         inAppPurchaseInteractor.getBillingMessagesMapper(), inAppPurchaseInteractor,
         getTransactionData(), getDeveloperPayload(), billing, getSkuId(), getType(), getOrigin(),
-        getAmount().toString(), getCurrency(), getPaymentType(), analytics);
+        getAmount().toString(), getCurrency(), getPaymentType(), analytics, Schedulers.io());
   }
 
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
