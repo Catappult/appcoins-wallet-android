@@ -4,8 +4,8 @@ import io.reactivex.Single
 
 interface ShareLinkRepository {
 
-  fun getLink(domain: String, skuId: String, message: String?,
+  fun getLink(domain: String, skuId: String?, message: String?,
               walletAddress: String,
-              amount: String?,
+              originalAmount: String?,
               originalCurrency: String?): Single<String>
 }

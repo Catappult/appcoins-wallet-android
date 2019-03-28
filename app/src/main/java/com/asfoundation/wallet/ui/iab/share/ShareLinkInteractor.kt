@@ -7,7 +7,7 @@ import io.reactivex.Single
 class ShareLinkInteractor(private val remoteRepository: ShareLinkRepository,
                           private val walletInteractor: FindDefaultWalletInteract) {
 
-  fun getLinkToShare(domain: String, skuId: String, message: String?,
+  fun getLinkToShare(domain: String, skuId: String?, message: String?,
                      originalAmount: String?, originalCurrency: String?): Single<String> {
     return walletInteractor.find()
         .flatMap {

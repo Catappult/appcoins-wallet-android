@@ -7,7 +7,7 @@ import retrofit2.http.POST
 
 class BdsShareLinkRepository(private var api: BdsShareLinkApi) : ShareLinkRepository {
 
-  override fun getLink(domain: String, skuId: String, message: String?,
+  override fun getLink(domain: String, skuId: String?, message: String?,
                        walletAddress: String,
                        originalAmount: String?,
                        originalCurrency: String?): Single<String> {
@@ -23,7 +23,7 @@ class BdsShareLinkRepository(private var api: BdsShareLinkApi) : ShareLinkReposi
   }
 }
 
-data class ShareLinkData(@SerializedName("package") var packageName: String, var sku: String,
+data class ShareLinkData(@SerializedName("package") var packageName: String, var sku: String?,
                          @SerializedName("wallet_address")
                          var walletAddress: String,
                          var message: String?,

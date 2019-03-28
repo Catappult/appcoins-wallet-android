@@ -38,7 +38,7 @@ class SharePaymentLinkFragment : DaggerFragment(),
     private const val PARAM_CURRENCY = "PARAM_CURRENCY"
 
     @JvmStatic
-    fun newInstance(domain: String, skuId: String, originalAmount: String?,
+    fun newInstance(domain: String, skuId: String?, originalAmount: String?,
                     originalCurrency: String?): SharePaymentLinkFragment =
         SharePaymentLinkFragment().apply {
           arguments = Bundle(2).apply {
@@ -84,11 +84,12 @@ class SharePaymentLinkFragment : DaggerFragment(),
     }
   }
 
-  val skuId: String by lazy {
+  val skuId: String? by lazy {
     if (arguments!!.containsKey(
             PARAM_SKUID)) {
-      arguments!!.getString(
-          PARAM_SKUID)
+      val value = arguments!!.getString(
+          PARAM_SKUID) ?: return@lazy null
+      value
     } else {
       throw IllegalArgumentException("SkuId not found")
     }
