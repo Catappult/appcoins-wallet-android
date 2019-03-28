@@ -326,9 +326,12 @@
   <string name="balance_appccreditos_body">इन-एप्प चीजें खरीदने के लिए टोकन! APPC-C को अपने वॉलेट से टॉप अप करें या एप्प उपयोग करके उन्हें मुफ्त में प्राप्त करें। उन्हें मित्रों के बीच स्थानांतरित भी किया जा सकता है!</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Ask someone to pay</string>
+  <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
+  <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
   <string name="askafriend_share_body">लिंक अपने मित्रों के साथ साझा करें ताकि आप उन्हें फंड भेज सकें!</string>
   <string name="askafriend_share_add_message_body">संदेश जोड़ें (वैकल्पिक)</string>
   <string name="askafriend_share_button">साझा करें</string>
+  <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">आपने अभी %s APPC-C प्राप्त किये</string>
   <string name="askafriend_received_title">अंतरण प्राप्त हुआ</string>
   <string name="askafriend_share_note_to_friend">सुनो! कृपया, मुझे वर्ल्ड जंगल में एक वस्तु खरीदने के लिए %1$s AppCoins क्रेडिट भेजें। लिंक:%2$s</string>
