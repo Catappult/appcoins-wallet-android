@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.app.ShareCompat
 import androidx.core.content.res.ResourcesCompat
 import com.asf.wallet.R
+import com.asfoundation.wallet.ui.iab.AndroidBug5497Workaround
 import com.asfoundation.wallet.ui.iab.IabView
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
@@ -26,6 +27,8 @@ class SharePaymentLinkFragment : DaggerFragment(),
 
   lateinit var presenter: SharePaymentLinkPresenter
   private var iabView: IabView? = null
+
+  private lateinit var androidBug5497Workaround: AndroidBug5497Workaround
 
   companion object {
 
@@ -87,10 +90,14 @@ class SharePaymentLinkFragment : DaggerFragment(),
     }
     iabView = context
     super.onAttach(context)
+
+    androidBug5497Workaround = AndroidBug5497Workaround(activity!!)
+    androidBug5497Workaround.addListener()
   }
 
   override fun onDetach() {
     iabView = null
+    androidBug5497Workaround.removeListener()
     super.onDetach()
   }
 
