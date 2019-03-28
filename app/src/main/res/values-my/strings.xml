@@ -326,9 +326,12 @@
   <string name="balance_appccreditos_body">အက္ပ္အတြင္း ပစၥည္းမ်ားကို ဝယ္ယူရန္အတြက္ တိုကင္ျဖစ္ပါသည္။ သင့္ပိုက္ဆံအိတ္မွ APPC-C ျဖင့္ ေငြျဖည့္ပါ သို႔မဟုတ္ အက္ပ္မ်ားကို အသံုးျပဳျခင္းျဖင့္ ယင္းတို႔ကို အခမဲ့ ရယူပါ။ သူငယ္ခ်င္းမ်ား အၾကားတြင္လည္း ယင္းတို႔ကို လႊဲေပးနိုင္ပါသည္။</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Ask someone to pay</string>
+  <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
+  <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
   <string name="askafriend_share_body">သူငယ္ခ်င္းမ်ားက သင့္ကို ေငြပို႔ေပးနိုင္ရန္အတြက္ လင့္ခ္ကို သူတို႔နွင့္ မွ်ေဝလိုက္ပါ။</string>
   <string name="askafriend_share_add_message_body">မက္ေဆ့ဂ်္ထည့္မည္ (မထည့္လည္းရပါသည္)</string>
   <string name="askafriend_share_button">မွ်ေဝမည္</string>
+  <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">%s APPC-C ကို သင္ရရွိလိုက္ပါသည္</string>
   <string name="askafriend_received_title">လႊဲေပးမႈကို လက္ခံရရွိခဲ့ပါသည္</string>
   <string name="askafriend_share_note_to_friend">ေဟး World Jungle မွာ ပစၥည္းတစ္ခုဝယ္ဖို႔ %1$s AppCoins ခရက္ဒစ္ကို ပို႔ေပးပါလား။ လင့္ခ္ - %2$s</string>
