@@ -82,7 +82,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/main_value"
         app:layout_constraintTop_toTopOf="@id/main_value"
-        android:visibility="visible"
+        android:visibility="invisible"
         />
 
     <TextView

@@ -36,4 +36,6 @@
   <dimen name="rewards_level_lock_size">16dp</dimen>
 
   <dimen name="topup_main_value_min_size">16sp</dimen>
+
+  <dimen name="payment_method_icon_size">24dp</dimen>
 </resources>
