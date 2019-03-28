@@ -326,9 +326,12 @@
   <string name="balance_appccreditos_body">购买应用内物品的代币！从钱包充值APPC-C或使用应用免费获取。好友之间也可交易！</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Ask someone to pay</string>
+  <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
+  <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
   <string name="askafriend_share_body">与好友分享链接，他们便可以向你发送基金！</string>
   <string name="askafriend_share_add_message_body">添加消息（可选）</string>
   <string name="askafriend_share_button">分享</string>
+  <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">你刚刚接收了%s APPC-C</string>
   <string name="askafriend_received_title">已接收的转账</string>
   <string name="askafriend_share_note_to_friend">你好！请向我发送%1$s AppCoins积金以购买World Jungle上的物品。链接：%2$s</string>
