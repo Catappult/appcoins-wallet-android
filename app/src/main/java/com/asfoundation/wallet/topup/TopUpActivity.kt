@@ -67,15 +67,13 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   }
 
   override fun onBackPressed() {
-    TransactionsRouter().open(this, true)
-    finish()
+    close()
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     when (item.itemId) {
       android.R.id.home -> {
-        TransactionsRouter().open(this, true)
-        finish()
+        close()
         return true
       }
     }
@@ -107,6 +105,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   }
 
   override fun close() {
+    TransactionsRouter().open(this, true)
     finish()
   }
 

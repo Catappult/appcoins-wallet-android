@@ -61,6 +61,7 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     presenter.present()
+    topUpActivityView.showToolbar()
   }
 
   override fun onDestroyView() {
