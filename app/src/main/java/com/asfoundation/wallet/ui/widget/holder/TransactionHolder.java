@@ -1,14 +1,14 @@
 package com.asfoundation.wallet.ui.widget.holder;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionDetails;
@@ -138,7 +138,14 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
       case BONUS:
         typeIcon.setVisibility(View.GONE);
         transactionTypeIcon = R.drawable.ic_transaction_peer;
-
+        break;
+      case TOP_UP:
+        typeIcon.setVisibility(View.GONE);
+        transactionTypeIcon = R.drawable.transaction_type_top_up;
+        break;
+      case TRANSFER_OFF_CHAIN:
+        typeIcon.setVisibility(View.GONE);
+        transactionTypeIcon = R.drawable.transaction_type_transfer_off_chain;
         break;
       default:
         transactionTypeIcon = R.drawable.ic_transaction_peer;
@@ -149,9 +156,17 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
       if (transaction.getType()
           .equals(Transaction.TransactionType.BONUS)) {
         address.setText(R.string.transaction_type_bonus);
+      }
+      if (transaction.getType()
+          .equals(Transaction.TransactionType.TOP_UP)) {
+        address.setText(R.string.topup_home_button);
+        currencySymbol = getString(R.string.p2p_send_currency_appc_c);
+      } else if (transaction.getType()
+          .equals(Transaction.TransactionType.TRANSFER_OFF_CHAIN)) {
+        address.setText(R.string.transaction_type_p2p);
+        currencySymbol = getString(R.string.p2p_send_currency_appc_c);
       } else {
-        address.setText(
-            details.getSourceName() == null ? isSent ? to : from : getSourceText(transaction));
+        address.setText(details.getSourceName() == null ? isSent ? to : from : getSourceText(transaction));
       }
       description.setText(details.getDescription() == null ? "" : details.getDescription());
     } else {
