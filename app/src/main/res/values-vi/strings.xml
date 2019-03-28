@@ -326,9 +326,12 @@
   <string name="balance_appccreditos_body">Token để mua các vật phẩm trong ứng dụng! Nạp APPC-C từ ví của bạn hoặc nhận chúng miễn phí bằng cách sử dụng các ứng dụng. Chúng cũng có thể được chuyển giao giữa những người bạn!</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Ask someone to pay</string>
+  <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
+  <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
   <string name="askafriend_share_body">Chia sẻ liên kết với bạn bè để họ có thể gửi tiền cho bạn!</string>
   <string name="askafriend_share_add_message_body">Thêm lời nhắn (Tùy chọn)</string>
   <string name="askafriend_share_button">Chia sẻ</string>
+  <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">Bạn vừa nhận được %s APPC-C</string>
   <string name="askafriend_received_title">Đã nhận tiền</string>
   <string name="askafriend_share_note_to_friend">Chào bạn! Vui lòng gửi cho tôi %1$s AppCoins Credits để mua vật phẩm trong World Jungle. Liên kết: %2$s</string>
