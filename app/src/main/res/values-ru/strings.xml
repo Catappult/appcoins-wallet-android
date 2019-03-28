@@ -326,9 +326,12 @@
   <string name="balance_appccreditos_body">Токен для встроенных покупок в приложениях! Пополните APPC-C из вашего бумажника или получите их бесплатно, пользуясь приложениями. Их также можно переводить друзьям!</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Ask someone to pay</string>
+  <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
+  <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
   <string name="askafriend_share_body">Поделитесь ссылкой с вашим другом, чтобы он мог отправить вам средства!</string>
   <string name="askafriend_share_add_message_body">Добавить сообщение (необязательно)</string>
   <string name="askafriend_share_button">Поделиться</string>
+  <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">Вы только что получили %s APPC-C</string>
   <string name="askafriend_received_title">Средства получены</string>
   <string name="askafriend_share_note_to_friend">Эй, привет! Пожалуйста, пришли мне %1$s кредитов AppCoins на покупку в World Jungle. Ссылка: %2$s</string>
