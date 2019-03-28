@@ -6,6 +6,7 @@
     android:background="@drawable/background_card"
     android:minWidth="296dp"
     android:layout_gravity="center"
+    android:layout_marginBottom="16dp"
     >
   <RelativeLayout
       android:layout_width="match_parent"
