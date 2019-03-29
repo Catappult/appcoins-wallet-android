@@ -328,13 +328,13 @@
   <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
   <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
-  <string name="askafriend_share_body">แบ่งปันลิงก์กับเพื่อนของคุณเพื่อให้พวกเขาสามารถส่งเงินให้คุณได้!</string>
+  <string name="askafriend_share_body">Share the link so you can get the funds sent to you!</string>
   <string name="askafriend_share_add_message_body">เพิ่มข้อความ (ถ้ามี)</string>
   <string name="askafriend_share_button">ใช้ร่วมกัน</string>
   <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">คุณเพิ่งได้รับ %s APPC-C</string>
   <string name="askafriend_received_title">รับการโอน</string>
-  <string name="askafriend_share_note_to_friend">สวัสดี! โปรดส่งเครดิต %1$s AppCoins ให้ฉันเพื่อซื้อสินค้าใน World Jungle ลิงค์: %2$s</string>
+  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">ส่งเงิน</string>
   <string name="p2p_send_body">แสกนหรือใส่ที่อยู่กระเป๋าสตางค์ของเพื่อน</string>
@@ -350,5 +350,5 @@
   <string name="cancel_button">ยกเลิก</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันยอมรับข้อกำหนด เงื่อนไข และนโยบายความเป็นส่วนตัวของกระเป๋าสตางค์ AppCoins</string>
-  <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
+  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
 </resources>
