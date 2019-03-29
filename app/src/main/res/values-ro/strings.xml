@@ -328,13 +328,13 @@
   <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
   <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
-  <string name="askafriend_share_body">Distribuie linkul prietenului tău ca să îți poată trimite fondurile!</string>
+  <string name="askafriend_share_body">Share the link so you can get the funds sent to you!</string>
   <string name="askafriend_share_add_message_body">Adaugă un mesaj (opțional)</string>
   <string name="askafriend_share_button">Distribuie</string>
   <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">Tocmai ai primit %s APPC-C</string>
   <string name="askafriend_received_title">Transfer primit</string>
-  <string name="askafriend_share_note_to_friend">Bună! Te rog să îmi trimiți %1$s Credite AppCoins ca să îmi cumpăr un articol în World Jungle. Link: %2$s</string>
+  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Trimite fonduri</string>
   <string name="p2p_send_body">Scanează sau introdu adresa portofelului prietenului tău.</string>
@@ -350,5 +350,5 @@
   <string name="cancel_button">Anulează</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Sunt de acord cu Termenii și condițiile și Politica de confidențialitate AppCoins Wallet</string>
-  <string name="terms_and_conditions_error">Te rugăm să accepți Termenii și condițiile pentru a continua</string>
+  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
 </resources>
