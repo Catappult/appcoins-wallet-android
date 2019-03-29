@@ -328,13 +328,13 @@
   <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
   <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
-  <string name="askafriend_share_body">Deel de link met je vriend, zodat hij of zij je cryptovaluta kan sturen!</string>
+  <string name="askafriend_share_body">Share the link so you can get the funds sent to you!</string>
   <string name="askafriend_share_add_message_body">Bericht toevoegen (optioneel)</string>
   <string name="askafriend_share_button">Delen</string>
   <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">Je hebt zojuist %s APPC-C ontvangen</string>
   <string name="askafriend_received_title">Overdracht ontvangen</string>
-  <string name="askafriend_share_note_to_friend">Hallo! Zou je me %1$s AppCoins Credits willen sturen om een item voor World Jungle te kopen. Link: %2$s</string>
+  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Cryptovaluta verzenden</string>
   <string name="p2p_send_body">Scan of voer het wallet-adres van je vriend(in) in.</string>
@@ -350,5 +350,5 @@
   <string name="cancel_button">Annuleren</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ik ga akkoord met de algemene voorwaarden en het privacybeleid van AppCoins Wallet</string>
-  <string name="terms_and_conditions_error">Accepteer onze algemene voorwaarden om door te gaan</string>
+  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
 </resources>
