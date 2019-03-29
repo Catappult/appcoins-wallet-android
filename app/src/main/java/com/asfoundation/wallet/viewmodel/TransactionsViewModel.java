@@ -25,7 +25,7 @@ import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.ManageWalletsRouter;
 import com.asfoundation.wallet.router.MyAddressRouter;
 import com.asfoundation.wallet.router.MyTokensRouter;
-import com.asfoundation.wallet.router.RewardsLeverRouter;
+import com.asfoundation.wallet.router.RewardsLevelRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TopUpRouter;
@@ -64,7 +64,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MyAddressRouter myAddressRouter;
   private final MyTokensRouter myTokensRouter;
   private final ExternalBrowserRouter externalBrowserRouter;
-  private final RewardsLeverRouter rewardsLeverRouter;
+  private final RewardsLevelRouter rewardsLevelRouter;
   private final CompositeDisposable disposables;
   private final DefaultTokenProvider defaultTokenProvider;
   private final GetDefaultWalletBalance getDefaultWalletBalance;
@@ -88,7 +88,7 @@ public class TransactionsViewModel extends BaseViewModel {
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
       TransactionsMapper transactionsMapper, AirdropRouter airdropRouter, AppcoinsApps applications,
-      OffChainTransactions offChainTransactions, RewardsLeverRouter rewardsLeverRouter,
+      OffChainTransactions offChainTransactions, RewardsLevelRouter rewardsLevelRouter,
       GamificationInteractor gamificationInteractor, TopUpRouter topUpRouter) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
@@ -100,7 +100,7 @@ public class TransactionsViewModel extends BaseViewModel {
     this.myAddressRouter = myAddressRouter;
     this.myTokensRouter = myTokensRouter;
     this.externalBrowserRouter = externalBrowserRouter;
-    this.rewardsLeverRouter = rewardsLeverRouter;
+    this.rewardsLevelRouter = rewardsLevelRouter;
     this.defaultTokenProvider = defaultTokenProvider;
     this.getDefaultWalletBalance = getDefaultWalletBalance;
     this.transactionsMapper = transactionsMapper;
@@ -305,7 +305,7 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void showRewardsLevel(Context context) {
-    rewardsLeverRouter.open(context);
+    rewardsLevelRouter.open(context);
   }
 
   public MutableLiveData<Boolean> shouldShowGamificationAnimation() {
