@@ -119,7 +119,7 @@ class PermissionFragment : DaggerFragment(), PermissionFragmentView {
     navigator.closeCancel()
   }
 
-  override fun onAttach(context: Context?) {
+  override fun onAttach(context: Context) {
     super.onAttach(context)
     when (context) {
       is PermissionFragmentNavigator -> {

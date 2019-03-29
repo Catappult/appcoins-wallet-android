@@ -36,7 +36,7 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
     return RxView.clicks(fragment_gamification_how_it_works_ok_button)
   }
 
-  override fun onAttach(context: Context?) {
+  override fun onAttach(context: Context) {
     super.onAttach(context)
     if (context !is GamificationView) {
       throw IllegalArgumentException(
@@ -48,7 +48,7 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   override fun showLevels(levels: List<ViewLevel>) {
     fragment_gamification_how_it_works_loading.visibility = View.GONE
     fragment_gamification_how_it_works_ok_button.visibility = View.VISIBLE
-    var view: View? = null
+    var view: View?
 
     for (level in levels) {
       view = layoutInflater.inflate(R.layout.fragment_gamification_how_it_works_level,

@@ -12,6 +12,8 @@
     android:paddingTop="6dp"
     android:orientation="horizontal"
     tools:showIn="@layout/fragment_express_checkout_buy"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     >
   <Button
       android:id="@+id/cancel_button"

@@ -42,6 +42,7 @@ import com.asfoundation.wallet.widget.SystemView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import dagger.android.AndroidInjection;
 import java.util.List;
 import javax.inject.Inject;
@@ -84,6 +85,12 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
               ((float) Math.abs(verticalOffset) / appBarLayout.getTotalScrollRange());
           findViewById(R.id.toolbar_layout_logo).setAlpha(1 - (percentage * 1.20f));
           ((ToolbarArcBackground) findViewById(R.id.toolbar_background_arc)).setScale(percentage);
+
+          if (percentage == 0) {
+            ((ExtendedFloatingActionButton) findViewById(R.id.top_up_btn)).extend();
+          } else {
+            ((ExtendedFloatingActionButton) findViewById(R.id.top_up_btn)).shrink();
+          }
         });
 
     setCollapsingTitle(new SpannableString(getString(R.string.unknown_balance_with_symbol)));
@@ -220,9 +227,13 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         viewModel.showAirDrop(this);
         break;
       }
-      case R.id.action_learn_more:
+      case R.id.action_learn_more: {
         openLearnMore();
         break;
+      }
+      case R.id.top_up_btn: {
+        viewModel.showTopUp(this);
+      }
     }
   }
 

@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.viewmodel;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
@@ -27,6 +28,8 @@ import com.asfoundation.wallet.router.MyTokensRouter;
 import com.asfoundation.wallet.router.RewardsLeverRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
+import com.asfoundation.wallet.router.TopUpRouter;
+import com.asfoundation.wallet.router.TopUpRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
@@ -69,6 +72,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final TransactionsMapper transactionsMapper;
   private final AirdropRouter airdropRouter;
   private final AppcoinsApps applications;
+  private final TopUpRouter topUpRouter;
   private final OffChainTransactions offChainTransactions;
   private final GamificationInteractor gamificationInteractor;
   private Handler handler = new Handler();
@@ -86,7 +90,7 @@ public class TransactionsViewModel extends BaseViewModel {
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
       TransactionsMapper transactionsMapper, AirdropRouter airdropRouter, AppcoinsApps applications,
       OffChainTransactions offChainTransactions, RewardsLeverRouter rewardsLeverRouter,
-      GamificationInteractor gamificationInteractor) {
+      GamificationInteractor gamificationInteractor, TopUpRouter topUpRouter) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchTransactionsInteract = fetchTransactionsInteract;
@@ -105,6 +109,7 @@ public class TransactionsViewModel extends BaseViewModel {
     this.applications = applications;
     this.offChainTransactions = offChainTransactions;
     this.gamificationInteractor = gamificationInteractor;
+    this.topUpRouter = topUpRouter;
     this.disposables = new CompositeDisposable();
   }
 
@@ -310,6 +315,10 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public MutableLiveData<Boolean> shouldShowGamificationAnimation() {
     return showAnimation;
+  }
+
+  public void showTopUp(Activity activity) {
+    topUpRouter.open(activity);
   }
 
   public MutableLiveData<Double> gamificationMaxBonus() {

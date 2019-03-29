@@ -149,17 +149,6 @@
             tools:text="0,09 EUR"
             />
 
-        <View
-            android:id="@+id/header_separator"
-            android:layout_width="0dp"
-            android:layout_height="5dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/dashed_line"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fiat_price"
-            />
-
         <RadioGroup
             android:id="@+id/payment_methods_radio_group"
             android:layout_width="match_parent"
@@ -170,23 +159,23 @@
             app:layout_constraintBottom_toTopOf="@id/bonus_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/header_separator"
+            app:layout_constraintTop_toBottomOf="@id/fiat_price"
             >
+
+          <RadioButton
+              android:id="@+id/share_link"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:enabled="false"
+              style="@style/PaymentMethodsRadioButton"
+              />
+
           <RadioButton
               android:id="@+id/paypal"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:drawablePadding="18dp"
               android:enabled="false"
-              android:paddingStart="4dp"
               style="@style/PaymentMethodsRadioButton"
-              />
-
-          <View
-              android:id="@+id/paypal_view"
-              android:layout_width="match_parent"
-              android:layout_height="2dp"
-              android:background="#eaeaea"
               />
 
           <RadioButton
@@ -194,43 +183,24 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:checked="true"
-              android:drawablePadding="12dp"
               android:enabled="false"
-              android:paddingStart="4dp"
               style="@style/PaymentMethodsRadioButton"
-              />
-          <View
-              android:id="@+id/credit_card_view"
-              android:layout_width="match_parent"
-              android:layout_height="2dp"
-              android:background="#eaeaea"
               />
 
           <RadioButton
               android:id="@+id/appc"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:drawablePadding="18dp"
               android:enabled="false"
-              android:paddingStart="4dp"
               android:visibility="visible"
               style="@style/PaymentMethodsRadioButton"
-              />
-          <View
-              android:id="@+id/appc_view"
-              android:layout_width="match_parent"
-              android:layout_height="2dp"
-              android:background="#eaeaea"
-              android:visibility="visible"
               />
 
           <RadioButton
               android:id="@+id/appc_credits"
-              android:layout_width="wrap_content"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:drawablePadding="18dp"
               android:enabled="false"
-              android:paddingStart="4dp"
               android:visibility="visible"
               style="@style/PaymentMethodsRadioButton"
               />
@@ -240,7 +210,8 @@
             android:id="@+id/bonus_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:layout_marginTop="8dp"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/dialog_buy_buttons_payment_methods"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

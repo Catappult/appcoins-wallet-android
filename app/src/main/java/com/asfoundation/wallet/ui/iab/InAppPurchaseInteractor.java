@@ -6,6 +6,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethod;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
@@ -21,7 +22,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status;
 
 public class InAppPurchaseInteractor {
 
@@ -192,13 +192,14 @@ public class InAppPurchaseInteractor {
         .map(BalanceUtils::weiToEth);
   }
 
-  Single<String> getTransactionUid(String uid) {
-    return Observable.interval(0, 5, TimeUnit.SECONDS, Schedulers.io())
-        .timeInterval()
-        .switchMap(longTimed -> billing.getAppcoinsTransaction(uid, Schedulers.io())
-            .toObservable())
-        .takeUntil(pendingTransaction -> pendingTransaction.getStatus() != Status.COMPLETED)
-        .map(transaction -> transaction.getHash())
+  public Single<String> getTransactionUid(String uid) {
+    return getTransaction(uid).map(transaction -> transaction.getHash())
+        .firstOrError();
+  }
+
+  public Single<Double> getTransactionAmount(String uid) {
+    return getTransaction(uid).map(transaction -> Double.parseDouble(transaction.getPrice()
+        .getAppc()))
         .firstOrError();
   }
 
@@ -208,6 +209,15 @@ public class InAppPurchaseInteractor {
           removeUnavailable(paymentMethods, filteredGateways);
           return paymentMethods;
         }));
+  }
+
+  private Observable<Transaction> getTransaction(String uid) {
+    return Observable.interval(0, 5, TimeUnit.SECONDS, Schedulers.io())
+        .timeInterval()
+        .switchMap(longTimed -> billing.getAppcoinsTransaction(uid, Schedulers.io())
+            .toObservable())
+        .filter(transaction -> transaction.getStatus()
+            .equals(Status.COMPLETED));
   }
 
   public Single<List<PaymentMethod>> getPaymentMethods() {

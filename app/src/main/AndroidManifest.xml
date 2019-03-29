@@ -42,6 +42,7 @@
 
     <activity
         android:name="com.asfoundation.wallet.ui.TransactionsActivity"
+        android:theme="@style/MaterialAppTheme"
         android:label="@string/title_import"/>
 
     <activity
@@ -162,6 +163,26 @@
     <activity
         android:name="com.asfoundation.wallet.ui.transact.TransferActivity"
         android:label="@string/title_activity_send"/>
+
+    <activity android:name="com.asfoundation.wallet.topup.TopUpActivity"
+        android:label="@string/topup_title"
+        android:launchMode="singleInstance">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+
+        <data
+            android:host="aptoide.com"
+            android:pathPrefix="/adyen"
+            android:scheme="billing2"/>
+        <data
+            android:host="aptoide.com"
+            android:pathPrefix="/adyen"
+            android:scheme="billing"/>
+      </intent-filter>
+    </activity>
 
     <meta-data
         android:name="io.fabric.ApiKey"

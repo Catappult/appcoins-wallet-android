@@ -17,7 +17,7 @@
       app:layout_constraintStart_toStartOf="@+id/guideline"
       app:layout_constraintTop_toTopOf="parent"
       />
-  <Button
+  <android.widget.Button
       android:id="@+id/action_air_drop"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/button_height"

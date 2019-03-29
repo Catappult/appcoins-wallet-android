@@ -121,6 +121,8 @@ public class TransactionDetailActivity extends BaseActivity {
 
     @StringRes int typeStr = R.string.transaction_type_standard;
     @DrawableRes int typeIcon = R.drawable.ic_transaction_peer;
+    View button = findViewById(R.id.more_detail);
+    View categorybackground = findViewById(R.id.category_icon_background);
 
     switch (transaction.getType()) {
       case ADS:
@@ -130,14 +132,11 @@ public class TransactionDetailActivity extends BaseActivity {
       case ADS_OFFCHAIN:
         typeStr = R.string.transaction_type_poa_offchain;
         typeIcon = R.drawable.ic_transaction_poa;
-
-        View button = findViewById(R.id.more_detail);
         button.setVisibility(View.VISIBLE);
         button.setOnClickListener(
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
         break;
       case IAP_OFFCHAIN:
-        button = findViewById(R.id.more_detail);
         button.setVisibility(View.VISIBLE);
         to = transaction.getTo();
         typeStr = R.string.transaction_type_iab;
@@ -146,7 +145,6 @@ public class TransactionDetailActivity extends BaseActivity {
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
         break;
       case BONUS:
-        button = findViewById(R.id.more_detail);
         button.setVisibility(View.VISIBLE);
         to = transaction.getTo();
         typeStr = R.string.transaction_type_bonus;
@@ -160,6 +158,27 @@ public class TransactionDetailActivity extends BaseActivity {
         }
         button.setOnClickListener(
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        break;
+      case TOP_UP:
+        typeStr = R.string.topup_title;
+        id = getString(R.string.topup_title);
+        categorybackground.setBackground(null);
+        typeIcon = R.drawable.transaction_type_top_up;
+        to = transaction.getTo();
+        button.setVisibility(View.VISIBLE);
+        button.setOnClickListener(
+            view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        break;
+      case TRANSFER_OFF_CHAIN:
+        typeStr = R.string.transaction_type_p2p;
+        id = getString(R.string.askafriend_received_title);
+        typeIcon = R.drawable.transaction_type_transfer_off_chain;
+        categorybackground.setBackground(null);
+        to = transaction.getTo();
+        button.setVisibility(View.VISIBLE);
+        button.setOnClickListener(
+            view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+
         break;
     }
 

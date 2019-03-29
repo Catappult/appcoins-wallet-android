@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.service;
 
+import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.Wallet;
@@ -62,33 +63,36 @@ public class TransactionsNetworkClient implements TransactionsNetworkClientType 
   }
 
   @Override public Observable<RawTransaction[]> fetchLastTransactions(Wallet wallet,
-      RawTransaction lastTransaction) {
+      RawTransaction lastTransaction, NetworkInfo networkInfo) {
     return Observable.fromCallable(() -> {
-      @NonNull String lastTransactionHash = lastTransaction == null ? "" : lastTransaction.hash;
-      List<RawTransaction> result = new ArrayList<>();
-      int pages = 0;
-      int page = 0;
-      boolean hasMore = true;
-      do {
-        page++;
-        Call<ApiClientResponse> call =
-            apiClient.fetchTransactions(PAGE_LIMIT, page, wallet.address);
-        Response<ApiClientResponse> response = call.execute();
-        if (response.isSuccessful()) {
-          ApiClientResponse body = response.body();
-          if (body != null) {
-            pages = body.pages;
-            for (RawTransaction transaction : body.docs) {
-              if (lastTransactionHash.equals(transaction.hash)) {
-                hasMore = false;
-                break;
+      if (networkInfo.isMainNetwork) {
+        @NonNull String lastTransactionHash = lastTransaction == null ? "" : lastTransaction.hash;
+        List<RawTransaction> result = new ArrayList<>();
+        int pages = 0;
+        int page = 0;
+        boolean hasMore = true;
+        do {
+          page++;
+          Call<ApiClientResponse> call = apiClient.fetchTransactions(PAGE_LIMIT, page, wallet.address);
+          Response<ApiClientResponse> response = call.execute();
+          if (response.isSuccessful()) {
+            ApiClientResponse body = response.body();
+            if (body != null) {
+              pages = body.pages;
+              for (RawTransaction transaction : body.docs) {
+                if (lastTransactionHash.equals(transaction.hash)) {
+                  hasMore = false;
+                  break;
+                }
+                result.add(transaction);
               }
-              result.add(transaction);
             }
           }
-        }
-      } while (page < pages && hasMore);
-      return result.toArray(new RawTransaction[result.size()]);
+        } while (page < pages && hasMore);
+        return result.toArray(new RawTransaction[result.size()]);
+      } else {
+        return new RawTransaction[0];
+      }
     })
         .subscribeOn(Schedulers.io());
   }

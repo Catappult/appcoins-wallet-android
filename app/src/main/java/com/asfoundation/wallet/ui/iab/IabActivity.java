@@ -11,6 +11,7 @@ import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.navigator.UriNavigator;
 import com.asfoundation.wallet.ui.BaseActivity;
+import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment;
 import com.jakewharton.rxrelay2.PublishRelay;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
@@ -20,6 +21,7 @@ import java.util.Objects;
 import javax.inject.Inject;
 
 import static com.appcoins.wallet.billing.AppcoinsBillingBinder.EXTRA_BDS_IAP;
+import static com.asfoundation.wallet.ui.iab.WebViewActivity.SUCCESS;
 
 /**
  * Created by franciscocalado on 20/07/2018.
@@ -67,6 +69,12 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     intent.putExtra(URI, intent.getData()
         .toString());
     intent.putExtra(APP_PACKAGE, transaction.getDomain());
+    return intent;
+  }
+
+  public static Intent newIntent(Activity activity, String url) {
+    Intent intent = new Intent(activity, IabActivity.class);
+    intent.setData(Uri.parse(url));
     return intent;
   }
 
@@ -148,8 +156,9 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   }
 
   @Override public void navigateToWebViewAuthorization(String url) {
-    startActivityForResult(WebViewActivity.newIntent(this, url, transaction),
-        WEB_VIEW_REQUEST_CODE);
+    startActivityForResult(
+        WebViewActivity.newIntent(this, url, transaction.getDomain(), transaction.getSkuId(),
+            transaction.amount(), transaction.getType()), WEB_VIEW_REQUEST_CODE);
   }
 
   @Override public void showPaymentMethodsView() {
@@ -185,6 +194,14 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
         .commit();
   }
 
+  @Override
+  public void showShareLinkPayment(String domain, String skuId, String amount, String currency) {
+    getSupportFragmentManager().beginTransaction()
+        .replace(R.id.fragment_container,
+            SharePaymentLinkFragment.newInstance(domain, skuId, amount, currency))
+        .commit();
+  }
+
   @Override public void showPaymentMethods(
       List<com.asfoundation.wallet.ui.iab.PaymentMethod> paymentMethods) {
 
@@ -196,6 +213,8 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     if (requestCode == WEB_VIEW_REQUEST_CODE) {
       if (resultCode == WebViewActivity.FAIL) {
         finish();
+      } else if (resultCode == SUCCESS) {
+        results.accept(Objects.requireNonNull(data.getData(), "Intent data cannot be null!"));
       }
     }
   }
@@ -224,7 +243,8 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     return getIntent().getBooleanExtra(EXTRA_BDS_IAP, false);
   }
 
-  @Override public void navigateToUri(String url) {
+  @Override public void navigateToUri(String url, String domain, String skuId, BigDecimal amount,
+      String type) {
     navigateToWebViewAuthorization(url);
   }
 

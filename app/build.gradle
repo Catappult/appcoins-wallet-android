@@ -36,8 +36,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 28
-    versionCode 74
-    versionName "1.5.3.0"
+    versionCode 78
+    versionName "1.6.0.3"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -115,6 +115,7 @@ android {
       manifestPlaceholders.secondPaymentHost = "${project.SECOND_PAYMENT_HOST}"
       buildConfigField 'String', 'SECOND_PAYMENT_HOST',
           "\"" + project.SECOND_PAYMENT_HOST + "\""
+      buildConfigField 'String', 'CATAPPULT_BASE_HOST', project.CATAPPULT_BASE_HOST_PROD
     }
     debug {
       minifyEnabled false
@@ -130,6 +131,7 @@ android {
       buildConfigField 'String', 'BDS_BASE_HOST',
           "\"" + project.BDS_BASE_HOST_DEV + "\""
       buildConfigField 'String', 'MY_APPCOINS_BASE_HOST', project.MY_APPCOINS_BASE_HOST_DEV
+      buildConfigField 'String', 'CATAPPULT_BASE_HOST', project.CATAPPULT_BASE_HOST_DEV
       manifestPlaceholders.paymentHost = "${project.PAYMENT_HOST_DEV}"
       buildConfigField 'String', 'PAYMENT_HOST',
           "\"" + project.PAYMENT_HOST_DEV + "\""
@@ -182,7 +184,7 @@ dependencies {
   implementation "androidx.cardview:cardview:$project.androidxViewVersion"
   implementation "androidx.constraintlayout:constraintlayout:$project.androidxConstraintLayoutVersion"
   implementation "androidx.palette:palette:$project.androidxViewVersion"
-  implementation "com.google.android.material:material:$project.androidxViewVersion"
+  implementation "com.google.android.material:material:$project.androidxMaterialVersion"
 
   implementation "androidx.multidex:multidex:$project.multidexVersion"
   // Bar code scanning
