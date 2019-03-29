@@ -326,12 +326,15 @@
   <string name="balance_appccreditos_body">Token untuk membeli barang in-app! Isi ulang APPC-C dari dompet Anda atau dapatkan secara gratis dengan menggunakan aplikasi. Token juga dapat ditransfer di antara teman!</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Ask someone to pay</string>
-  <string name="askafriend_share_body">Bagikan tautan dengan teman-teman agar mereka dapat mengirimkan dana pada Anda!</string>
+  <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
+  <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
+  <string name="askafriend_share_body">Share the link so you can get the funds sent to you!</string>
   <string name="askafriend_share_add_message_body">Tambahkan Pesan (Opsional)</string>
   <string name="askafriend_share_button">Berbagi</string>
+  <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">Anda baru saja menerima %s APPC-C</string>
   <string name="askafriend_received_title">Transfer yang Diterima</string>
-  <string name="askafriend_share_note_to_friend">Halo! Tolong kirimi saya %1$s Kredit AppCoins untuk membeli item di World Jungle. Tautan: %2$s</string>
+  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Kirim Dana</string>
   <string name="p2p_send_body">Pindai atau masukkan alamat dompet teman Anda.</string>
@@ -347,5 +350,5 @@
   <string name="cancel_button">Batal</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan Syarat dan Ketentuan serta Kebijakan Privasi dari Dompet AppCoins</string>
-  <string name="terms_and_conditions_error">Harap menerima Syarat dan Ketentuan kami untuk melanjutkan</string>
+  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
 </resources>

@@ -327,12 +327,15 @@
   <string name="balance_appccreditos_body">アプリ内アイテムを購入するトークンです! 無料のアプリを使用して、取得またはあなたのウォレットから APPC-C を補充してください。友人間でも転送することができます!</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">誰かに支払いをしてもらう</string>
-  <string name="askafriend_share_body">あなたの資金を友達が送ることのできるように、あなたの友人にリンクを共有する!</string>
+  <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
+  <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
+  <string name="askafriend_share_body">Share the link so you can get the funds sent to you!</string>
   <string name="askafriend_share_add_message_body">メッセージ (必須ではございません) を追加する。</string>
   <string name="askafriend_share_button">共有する</string>
+  <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">ちょうど %s APPC-C を受け取りました</string>
   <string name="askafriend_received_title">受取完了</string>
-  <string name="askafriend_share_note_to_friend">やぁ！世界のジャングルでアイテムを購入するために %1$s AppCoins クレジットを送ってください。リンク: %2$s</string>
+  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">資金を送る</string>
   <string name="p2p_send_body">スキャンまたはあなたの友人のウォレットのアドレスを入力します。</string>
@@ -348,5 +351,5 @@
   <string name="cancel_button">キャンセルする</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins ウォレットの利用規約およびプライバシー ポリシーに同意します。</string>
-  <string name="terms_and_conditions_error">利用規約に同意して続けてください。</string>
+  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
 </resources>
