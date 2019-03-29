@@ -124,7 +124,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     viewModel.transactions()
         .observe(this, this::onTransactions);
     viewModel.gamificationMaxBonus()
-        .observe(this, this::gamificationMaxBonus);
+        .observe(this, this::onGamificationMaxBonus);
     viewModel.applications()
         .observe(this, this::onApplications);
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
@@ -291,7 +291,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     }
   }
 
-  private void gamificationMaxBonus(double bonus) {
+  private void onGamificationMaxBonus(double bonus) {
     maxBonusEmptyScreen = Double.toString(bonus);
   }
 
