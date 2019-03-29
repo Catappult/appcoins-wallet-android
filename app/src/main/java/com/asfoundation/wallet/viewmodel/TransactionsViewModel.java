@@ -29,7 +29,6 @@ import com.asfoundation.wallet.router.RewardsLeverRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TopUpRouter;
-import com.asfoundation.wallet.router.TopUpRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
@@ -293,10 +292,6 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public void showAirDrop(Context context) {
     airdropRouter.open(context);
-  }
-
-  public void onLearnMoreClick(Context context, Uri uri) {
-    openDeposit(context, uri);
   }
 
   public LiveData<List<AppcoinsApplication>> applications() {

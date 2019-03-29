@@ -228,17 +228,13 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         break;
       }
       case R.id.action_learn_more: {
-        openLearnMore();
+        viewModel.showRewardsLevel(this);
         break;
       }
       case R.id.top_up_btn: {
         viewModel.showTopUp(this);
       }
     }
-  }
-
-  private void openLearnMore() {
-    viewModel.onLearnMoreClick(this, Uri.parse(LEARN_MORE_INFO_URL));
   }
 
   @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
