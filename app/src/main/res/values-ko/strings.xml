@@ -328,13 +328,13 @@
   <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
   <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
-  <string name="askafriend_share_body">친구들이 자금을 전송할 수 있도록 친구에게 링크를 공유하십시오!</string>
+  <string name="askafriend_share_body">Share the link so you can get the funds sent to you!</string>
   <string name="askafriend_share_add_message_body">메시지 추가(선택)</string>
   <string name="askafriend_share_button">공유</string>
   <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">방금 %s APPC-C 를 받았습니다</string>
   <string name="askafriend_received_title">전송 수신됨</string>
-  <string name="askafriend_share_note_to_friend">안녕하세요! World Jungle 에서 아이템을 구매하기 위해 %1$s AppCoins 크레딧을 저에게 보내십시오. 링크:%2$s</string>
+  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">자금 전송</string>
   <string name="p2p_send_body">스캔하거나 친구의 지갑 주소를 입력하세요.</string>
@@ -350,5 +350,5 @@
   <string name="cancel_button">취소</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins 지갑의 이용 약관 및 개인정보 보호정책에 동의합니다.</string>
-  <string name="terms_and_conditions_error">계속하시려면 당사의 이용약관을 동의하여 주십시오</string>
+  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
 </resources>
