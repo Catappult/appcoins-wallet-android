@@ -328,13 +328,13 @@
   <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
   <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
-  <string name="askafriend_share_body">Size fon gönderebilmeleri için bağlantıyı arkadaşınızla paylaşın!</string>
+  <string name="askafriend_share_body">Share the link so you can get the funds sent to you!</string>
   <string name="askafriend_share_add_message_body">Mesaj Ekleyin (İsteğe Bağlı)</string>
   <string name="askafriend_share_button">Paylaş</string>
   <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">%s APPC-C aldınız</string>
   <string name="askafriend_received_title">Transfer Alındı</string>
-  <string name="askafriend_share_note_to_friend">Merhaba! World Jungle\'dan bir ürün alabilmem için lütfen bana %1$s AppCoins Kredisi gönder. Bağlantı: %2$s</string>
+  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Fon Gönder</string>
   <string name="p2p_send_body">Arkadaşınızın cüzdan adresini tarayın veya girin.</string>
@@ -350,5 +350,5 @@
   <string name="cancel_button">İptal et</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Cüzdanın Şartları ve Koşulları ile Gizlilik Politikasını kabul ediyorum</string>
-  <string name="terms_and_conditions_error">Devam etmek için lütfen Şartlarımızı ve Koşullarımızı kabul edin</string>
+  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
 </resources>
