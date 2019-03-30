@@ -310,8 +310,8 @@
   <string name="provide_wallet_status">Permitir acesso ao endereço da wallet</string>
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
-  <string name="topup_home_button">Completar</string>
-  <string name="topup_title">Completar</string>
+  <string name="topup_home_button">Depositar</string>
+  <string name="topup_title">Depositar</string>
   <string name="topup_amount">%s APPC-C</string>
   <string name="topup_bonus_header">Você recebeu um bônus!</string>
   <string name="topup_bonus_message">%s APPC-C extras serão creditados em sua wallet.</string>
@@ -320,7 +320,7 @@
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Saldo total em %s</string>
-  <string name="balance_topup_body">Você pode completar sua wallet com Créditos AppCoins.</string>
+  <string name="balance_topup_body">Você pode depositar AppCoins Credits na sua wallet.</string>
   <string name="balance_ethereum_body">Ethereum é a criptomoeda com a qual a AppCoins se baseia. Você pode comprar e vendê-la na maioria das exchanges, é super popular!</string>
   <string name="balance_appcoins_body">AppCoins é a criptomoeda voltada à economia de aplicativos. Você pode comprar e vender em diversas exchanges e usá para fazer compras dentro dos aplicativos.</string>
   <string name="balance_appccreditos_body">O token para comprar itens dentro de aplicativos! Abasteça seus APPC-C a partir da sua wallet ou receba gratuitamente utilizando nossos apps! Eles também podem ser transferidos entre amigos!</string>
