@@ -156,10 +156,6 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     return paymentMethodClick
   }
 
-  override fun getEditTextFocusChanges(): InitialValueObservable<Boolean> {
-    return RxView.focusChanges(main_value)
-  }
-
   override fun getNextClick(): Observable<TopUpData> {
     return RxView.clicks(button)
         .map { TopUpData(getCurrencyData(), selectedCurrency, getSelectedPaymentMethod()) }
@@ -173,6 +169,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   override fun hideKeyboard() {
     val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
     imm?.hideSoftInputFromWindow(fragmentContainer.windowToken, 0)
+    payment_methods.requestFocus()
   }
 
   override fun showLoading() {

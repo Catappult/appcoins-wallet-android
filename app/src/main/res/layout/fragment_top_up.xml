@@ -5,12 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:descendantFocusability="beforeDescendants"
     >
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:descendantFocusability="beforeDescendants"
-      android:focusableInTouchMode="true"
       >
     <TextView
         android:id="@+id/main_currency_code"
@@ -193,6 +192,7 @@
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           android:overScrollMode="never"
+          android:focusable="true"
           />
 
       <ProgressBar

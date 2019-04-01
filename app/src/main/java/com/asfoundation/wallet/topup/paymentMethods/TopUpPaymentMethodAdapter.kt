@@ -25,7 +25,6 @@ class TopUpPaymentMethodAdapter(
 
   override fun onBindViewHolder(holder: PaymentMethodViewHolder, position: Int) {
     holder.bind(paymentMethods[position], selectedItem == position, View.OnClickListener {
-      it.requestFocusFromTouch()
       selectedItem = position
       paymentMethodClick.accept(paymentMethods[position].id)
       notifyDataSetChanged()

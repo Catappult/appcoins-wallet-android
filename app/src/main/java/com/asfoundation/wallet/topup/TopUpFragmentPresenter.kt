@@ -29,8 +29,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     handleChangeCurrencyClick()
     handleNextClick()
     handleValuesChange()
-    handleAmountFocusChange()
     handleAmountChange()
+    handlePaymentMethodSelected()
   }
 
   fun stop() {
@@ -99,14 +99,6 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     }
   }
 
-  private fun handleAmountFocusChange() {
-    disposables.add(view.getEditTextFocusChanges().map {
-      if (!it) {
-        view.hideKeyboard()
-      }
-    }.subscribe())
-  }
-
   private fun handleValuesChange() {
     disposables.add(
         view.getEditTextChanges().map { view.setNextButtonState(hasValidData(it)) }.subscribe())
@@ -142,5 +134,9 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     } else {
       Observable.just(FiatValue(BigDecimal.ZERO, ""))
     }
+  }
+
+  private fun handlePaymentMethodSelected() {
+    disposables.add(view.getPaymentMethodClick().doOnNext {  view.hideKeyboard() }.subscribe())
   }
 }
