@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/item_root"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="12dp"
     android:paddingBottom="12dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?android:attr/selectableItemBackground"
     >
 
-  <RadioButton
+  <androidx.appcompat.widget.AppCompatRadioButton
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:id="@+id/radio_button"
@@ -17,7 +21,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintBottom_toBottomOf="parent"
-      android:focusable="true"
+      android:clickable="false"
       />
 
   <ImageView

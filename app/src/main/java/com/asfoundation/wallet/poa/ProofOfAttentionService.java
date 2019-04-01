@@ -157,7 +157,7 @@ public class ProofOfAttentionService {
     synchronized (this) {
       Proof proof = getPreviousProofSync(packageName);
       cache.saveSync(packageName,
-          new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
+    new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
               walletPackage, proofStatus, proof.getChainId(), proof.getOemAddress(),
               proof.getStoreAddress(), proof.getGasPrice(), proof.getGasLimit(), proof.getHash(),
               proof.getCountryCode()));

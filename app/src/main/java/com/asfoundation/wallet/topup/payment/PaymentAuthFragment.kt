@@ -187,6 +187,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
         .subscribe({ navigator.popViewWithError() }, { it.printStackTrace() }))
 
     showValues()
+    topUpView?.showToolbar()
     presenter.present(savedInstanceState, origin, data.currency.appcValue,
         data.currency.fiatCurrencyCode, transactionType, paymentType)
   }

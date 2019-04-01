@@ -28,8 +28,6 @@ class SharePaymentLinkFragment : DaggerFragment(),
   lateinit var presenter: SharePaymentLinkPresenter
   private var iabView: IabView? = null
 
-  private lateinit var androidBug5497Workaround: AndroidBug5497Workaround
-
   companion object {
 
     private const val PARAM_DOMAIN = "AMOUNT_DOMAIN"
@@ -118,14 +116,10 @@ class SharePaymentLinkFragment : DaggerFragment(),
     }
     iabView = context
     super.onAttach(context)
-
-    androidBug5497Workaround = AndroidBug5497Workaround(activity!!)
-    androidBug5497Workaround.addListener()
   }
 
   override fun onDetach() {
     iabView = null
-    androidBug5497Workaround.removeListener()
     super.onDetach()
   }
 

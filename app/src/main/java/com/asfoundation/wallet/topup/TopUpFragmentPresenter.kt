@@ -18,8 +18,11 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                              private val viewScheduler: Scheduler,
                              private val networkScheduler: Scheduler) {
 
-  private val NUMERIC_REGEX = "-?\\d+(\\.\\d+)?"
   private val disposables: CompositeDisposable = CompositeDisposable()
+
+  companion object {
+    private const val NUMERIC_REGEX = "-?\\d+(\\.\\d+)?"
+  }
 
   fun present() {
     setupUi()

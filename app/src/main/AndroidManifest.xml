@@ -43,7 +43,7 @@
     <activity
         android:name="com.asfoundation.wallet.ui.TransactionsActivity"
         android:theme="@style/MaterialAppTheme"
-        android:label="@string/title_import"/>
+        android:label="@string/app_name"/>
 
     <activity
         android:name="com.asfoundation.wallet.ui.SettingsActivity"
@@ -168,11 +168,6 @@
         android:label="@string/topup_title"
         android:launchMode="singleInstance">
       <intent-filter>
-        <action android:name="android.intent.action.VIEW"/>
-
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
-
         <data
             android:host="aptoide.com"
             android:pathPrefix="/adyen"

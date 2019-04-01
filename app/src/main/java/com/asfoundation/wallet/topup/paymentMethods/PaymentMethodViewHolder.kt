@@ -16,7 +16,7 @@ class PaymentMethodViewHolder(itemView: View) :
         .into(itemView.payment_method_ic)
     itemView.payment_method_description.text = data.description
     itemView.radio_button.isChecked = checked
-    itemView.radio_button.setOnClickListener(listener)
+    itemView.setOnClickListener(listener)
   }
 }
 

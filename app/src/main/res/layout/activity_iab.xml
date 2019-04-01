@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:descendantFocusability="beforeDescendants"
-    android:focusableInTouchMode="true"
+    android:fillViewport="true"
+    android:layout_margin="16dp"
     >
 
   <FrameLayout
       android:id="@+id/fragment_container"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="wrap_content"
+      android:descendantFocusability="beforeDescendants"
+      android:focusableInTouchMode="true"
       />
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</ScrollView>
