@@ -82,7 +82,8 @@ public class PaymentMethodsPresenter {
   private void handlePaymentSelection() {
     disposables.add(view.getPaymentSelection()
         .flatMapCompletable(selectedPaymentMethod -> {
-          if (selectedPaymentMethod.equals(PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS)) {
+          if (selectedPaymentMethod.equals(PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS)
+              || selectedPaymentMethod.equals(PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK)) {
             return Completable.fromAction(view::hideBonus)
                 .subscribeOn(viewScheduler);
           } else {
