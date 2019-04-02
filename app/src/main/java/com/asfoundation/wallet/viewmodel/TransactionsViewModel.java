@@ -35,7 +35,9 @@ import com.asfoundation.wallet.transactions.TransactionsMapper;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
+import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -54,6 +56,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<Balance> defaultWalletTokenBalance = new MutableLiveData<>();
   private final MutableLiveData<Balance> defaultWalletCreditBalance = new MutableLiveData<>();
   private final MutableLiveData<Double> gamificationMaxBonus = new MutableLiveData<>();
+  private final MutableLiveData<Double> fetchTransactionsError = new MutableLiveData<>();
   private final FindDefaultNetworkInteract findDefaultNetworkInteract;
   private final FindDefaultWalletInteract findDefaultWalletInteract;
   private final FetchTransactionsInteract fetchTransactionsInteract;
@@ -149,21 +152,27 @@ public class TransactionsViewModel extends BaseViewModel {
         .subscribe(this::onDefaultNetwork, this::onError));
     disposables.add(gamificationInteractor.hasNewLevel()
         .subscribe(showAnimation::postValue, this::onError));
-    disposables.add(gamificationInteractor.getLevels()
+  }
+
+  private Completable publishMaxBonus() {
+    if (fetchTransactionsError.getValue() != null) {
+      return Completable.complete();
+    }
+    return gamificationInteractor.getLevels()
         .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(levels -> {
+        .flatMap(levels -> {
           if (levels.getStatus()
               .equals(Levels.Status.OK)) {
-            gamificationMaxBonus.postValue(levels.getList()
+            return Single.just(levels.getList()
                 .get(levels.getList()
                     .size() - 1)
                 .getBonus());
-          } else {
-            onError(new IllegalStateException(levels.getStatus()
-                .name()));
           }
-        }, this::onError));
+          return Single.error(new IllegalStateException(levels.getStatus()
+              .name()));
+        })
+        .doOnSuccess(bonus -> fetchTransactionsError.postValue(bonus))
+        .ignoreElement();
   }
 
   public void fetchTransactions(boolean shouldShowProgress) {
@@ -176,13 +185,12 @@ public class TransactionsViewModel extends BaseViewModel {
         .flatMapObservable(__ -> offChainTransactions.getTransactions()
             .toObservable()))
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(this::onTransactions, this::onError, this::onTransactionsFetchCompleted));
-
-    Observable<List<Transaction>> fetch = fetchTransactionsInteract.fetch(defaultWallet.getValue())
-        .flatMapSingle(transactionsMapper::map)
-        .observeOn(AndroidSchedulers.mainThread());
-    disposables.add(
-        fetch.subscribe(this::onTransactions, this::onError, this::onTransactionsFetchCompleted));
+        .flatMapCompletable(
+            transactions -> publishMaxBonus().observeOn(AndroidSchedulers.mainThread())
+                .andThen(onTransactions(transactions)))
+        .onErrorResumeNext(throwable -> publishMaxBonus())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(this::onTransactionsFetchCompleted, this::onError));
 
     if (shouldShowProgress) {
       disposables.add(applications.getApps()
@@ -236,18 +244,19 @@ public class TransactionsViewModel extends BaseViewModel {
     fetchTransactions(true);
   }
 
-  private void onTransactions(List<Transaction> transactions) {
-    hasTransactions = (transactions != null && !transactions.isEmpty()) || hasTransactions;
-    this.transactions.setValue(transactions);
-    Boolean last = progress.getValue();
-    if (transactions != null && transactions.size() > 0 && last != null && last) {
-      progress.postValue(true);
-    }
+  private Completable onTransactions(List<Transaction> transactions) {
+    return Completable.fromAction(() -> {
+      hasTransactions = (transactions != null && !transactions.isEmpty()) || hasTransactions;
+      this.transactions.setValue(transactions);
+      Boolean last = progress.getValue();
+      if (transactions != null && transactions.size() > 0 && last != null && last) {
+        progress.postValue(true);
+      }
+    });
   }
 
   private void onTransactionsFetchCompleted() {
     progress.postValue(false);
-    List<Transaction> transactions = this.transactions.getValue();
     if (!hasTransactions) {
       error.postValue(new ErrorEnvelope(C.ErrorCode.EMPTY_COLLECTION, "empty collection"));
     }
@@ -318,5 +327,9 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public MutableLiveData<Double> gamificationMaxBonus() {
     return gamificationMaxBonus;
+  }
+
+  public MutableLiveData<Double> onFetchTransactionsError() {
+    return fetchTransactionsError;
   }
 }

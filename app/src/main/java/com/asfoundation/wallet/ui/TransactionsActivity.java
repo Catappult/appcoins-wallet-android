@@ -107,6 +107,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .get(TransactionsViewModel.class);
     viewModel.progress()
         .observe(this, systemView::showProgress);
+    viewModel.onFetchTransactionsError()
+        .observe(this, this::onFetchTransactionsError);
     viewModel.error()
         .observe(this, this::onError);
     viewModel.defaultNetwork()
@@ -124,6 +126,16 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     viewModel.applications()
         .observe(this, this::onApplications);
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
+  }
+
+  private void onFetchTransactionsError(Double maxBonus) {
+    if (emptyView == null) {
+      final boolean[] isMainNet = { false };
+      viewModel.defaultNetwork()
+          .observe(this, info -> isMainNet[0] = info.isMainNetwork);
+      emptyView = new EmptyTransactionsView(this, this, isMainNet[0], String.valueOf(maxBonus));
+      systemView.showEmpty(emptyView);
+    }
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
