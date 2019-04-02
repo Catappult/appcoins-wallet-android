@@ -23,8 +23,9 @@
   <string name="title_activity_settings">Настройки</string>
   <string name="network_label">Мрежа</string>
   <string name="credits">Кредити</string>
-  <string name="label_new">New</string>
+  <string name="label_new">Ново</string>
   <string name="low_storage_error">Няма достатъчно място за съхранение</string>
+  <string name="no_camera_permission_title">Разрешение за камера</string>
   <string name="no_camera_permission">AppCoins BDS портфейлът се нуждае от разрешение за достъп до твоята камера, за да сканира QR кодове.</string>
   <string name="ok">OK</string>
   <string name="barcode_error_format">Невалиден баркод формат: %s</string>
@@ -263,8 +264,8 @@
   <string name="gamification_home_button">ЗАПОЧНИ ДА ПЕЧЕЛИШ</string>
   <string name="gamification_level_title">Какво е моето ниво?</string>
   <string name="gamification_level_title_new">Получи APPC кредити!</string>
-  <string name="gamification_level_on_graphic">Level %s</string>
-  <string name="gamification_APPCapps_button">Apps &amp; games</string>
+  <string name="gamification_level_on_graphic">Ниво %s</string>
+  <string name="gamification_APPCapps_button">Приложения &amp; игри</string>
   <string name="gamification_level_header">Поздравления, ти си %s!</string>
   <string name="gamification_level_to_next">До следващото ниво:</string>
   <string name="gamification_level_earned">СПЕЧЕЛЕНИ:</string>
@@ -324,26 +325,30 @@
   <string name="balance_appcoins_body">AppCoins е криптовалутата на икономиката на приложението. Можеш да я купуваш и продаваш на няколко борси и да я използваш за закупуване на различни неща в приложението.</string>
   <string name="balance_appccreditos_body">Токен за закупуване на покупки вътре в приложението! Допълни APPC-C от портфейла си или да ги получи безплатно, използвайки приложения. Те също могат и да се прехвърлят между приятели!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Попитай приятел</string>
-  <string name="askafriend_share_body">Сподели линка с твой приятел, така че той да може да ти изпрати средствата!</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
+  <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
+  <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
+  <string name="askafriend_share_body">Share the link so you can get the funds sent to you!</string>
   <string name="askafriend_share_add_message_body">Добави съобщение (по избор)</string>
   <string name="askafriend_share_button">Сподели</string>
+  <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">Току-що получи %s APPC-C</string>
   <string name="askafriend_received_title">Получен трансфер</string>
-  <string name="askafriend_share_note_to_friend">Хей! Моля, изпрати ми %1$s AppCoins кредити, за да си купя артикул в World Jungle. Линк: %2$s</string>
+  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Изпрати средства</string>
   <string name="p2p_send_body">Сканирай или въведи адреса на портфейла на своя приятел.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s бяха изпратени на следния адрес:</string>
-  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
-  <string name="p2p_send_error_address">Invalid address</string>
-  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
-  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
-  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <string name="p2p_send_current_balance_message">Текущ баланс: %1$s %2$s</string>
+  <string name="p2p_send_error_address">Невалиден адрес</string>
+  <string name="p2p_send_error_not_enough_funds">Недостатъчно средства</string>
+  <string name="p2p_send_error_amount_zero">Трябва да бъде повече от нула</string>
+  <string name="p2p_send_confirmation_header">Детайли за трансфера</string>
   <!--Common-->
-  <string name="error_general">Something went wrong</string>
-  <string name="error_missing_field">Mandatory field</string>
-  <string name="cancel_button">Cancel</string>
+  <string name="error_general">Нещо се обърка</string>
+  <string name="error_missing_field">Задължително поле</string>
+  <string name="cancel_button">Отказ</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
+  <string name="terms_and_conditions_tickbox">Съгласявам се с Общите условия и Политиката за поверителност на AppCoins портфейла</string>
+  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
 </resources>

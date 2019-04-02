@@ -23,8 +23,9 @@
   <string name="title_activity_settings">Tetapan</string>
   <string name="network_label">Rangkaian</string>
   <string name="credits">Kredit</string>
-  <string name="label_new">New</string>
+  <string name="label_new">Baharu</string>
   <string name="low_storage_error">Tidak cukup ruang simpanan</string>
+  <string name="no_camera_permission_title">Kebenaran Kamera</string>
   <string name="no_camera_permission">AppCoins BDS Wallet memerlukan kebenaran untuk mengakses kamera anda untuk mengimbas kod QR.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Format kod bar tidak sah: %s</string>
@@ -263,8 +264,8 @@
   <string name="gamification_home_button">MULA PEROLEH</string>
   <string name="gamification_level_title">Apa Tahap Saya?</string>
   <string name="gamification_level_title_new">Dapatkan Kredit APPC!</string>
-  <string name="gamification_level_on_graphic">Level %s</string>
-  <string name="gamification_APPCapps_button">Apps &amp; games</string>
+  <string name="gamification_level_on_graphic">Tahap %s</string>
+  <string name="gamification_APPCapps_button">Aplikasi &amp; permainan</string>
   <string name="gamification_level_header">Tahniah, anda ialah %s!</string>
   <string name="gamification_level_to_next">Ke tahap seterusnya:</string>
   <string name="gamification_level_earned">DIPEROLEH:</string>
@@ -324,26 +325,30 @@
   <string name="balance_appcoins_body">AppCoins ialah mata wang kripto untuk ekonomi aplikasi. Anda boleh membeli dan menjualnya dalam pelbagai urus niaga dan menggunakannya untuk membeli item dalam aplikasi.</string>
   <string name="balance_appccreditos_body">Token untuk membeli item dalam aplikasi! Tambah nilai APPC-C daripada dompet anda atau dapatkannya secara percuma dengan menggunakan aplikasi. Ia juga boleh dipindahkan antara rakan!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Minta daripada rakan</string>
-  <string name="askafriend_share_body">Kongsi pautan ini dengan rakan anda supaya mereka boleh hantar dana tersebut kepada anda!</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
+  <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
+  <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
+  <string name="askafriend_share_body">Share the link so you can get the funds sent to you!</string>
   <string name="askafriend_share_add_message_body">Tambah Mesej (Pilihan)</string>
   <string name="askafriend_share_button">Kongsi</string>
+  <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">Anda baru saja terima %s APPC-C</string>
   <string name="askafriend_received_title">Pindahan Diterima</string>
-  <string name="askafriend_share_note_to_friend">Hai! Sila hantarkan %1$s Kredit AppCoins kepada saya untuk membeli item dalam World Jungle. Pautan: %2$s</string>
+  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Hantar Dana</string>
   <string name="p2p_send_body">Imbas atau masukkan alamat dompet rakan anda.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s telah dihantar ke alamat yang berikut:</string>
-  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
-  <string name="p2p_send_error_address">Invalid address</string>
-  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
-  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
-  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <string name="p2p_send_current_balance_message">Baki semasa: %1$s %2$s</string>
+  <string name="p2p_send_error_address">Alamat tidak sah</string>
+  <string name="p2p_send_error_not_enough_funds">Dana tidak cukup</string>
+  <string name="p2p_send_error_amount_zero">Mesti lebih daripada sifar</string>
+  <string name="p2p_send_confirmation_header">Butiran Pindahan</string>
   <!--Common-->
-  <string name="error_general">Something went wrong</string>
-  <string name="error_missing_field">Mandatory field</string>
-  <string name="cancel_button">Cancel</string>
+  <string name="error_general">Sesuatu tidak kena</string>
+  <string name="error_missing_field">Ruang wajib diisi</string>
+  <string name="cancel_button">Batal</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
+  <string name="terms_and_conditions_tickbox">Saya setuju dengan Terma dan Syarat serta Dasar Privasi Dompet AppCoins</string>
+  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
 </resources>

@@ -23,8 +23,9 @@
   <string name="title_activity_settings">Ustawienia</string>
   <string name="network_label">Sieć</string>
   <string name="credits">Kredyty</string>
-  <string name="label_new">New</string>
+  <string name="label_new">Nowość</string>
   <string name="low_storage_error">Nie ma wystarczająco dużo miejsca</string>
+  <string name="no_camera_permission_title">Zezwolenie na używanie aparatu</string>
   <string name="no_camera_permission">Portfel BDS AppCoins wymaga zgody na dostęp do aparatu do skanowania kodów QR.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Nieprawidłowy format kodu kreskowego: %s</string>
@@ -263,8 +264,8 @@
   <string name="gamification_home_button">ZACZNIJ ZARABIAĆ</string>
   <string name="gamification_level_title">Jaki jest mój poziom?</string>
   <string name="gamification_level_title_new">Uzyskaj kredyty APPC!</string>
-  <string name="gamification_level_on_graphic">Level %s</string>
-  <string name="gamification_APPCapps_button">Apps &amp; games</string>
+  <string name="gamification_level_on_graphic">Poziom %s</string>
+  <string name="gamification_APPCapps_button">Aplikacje &amp; gry</string>
   <string name="gamification_level_header">Gratulacje, jesteś %s!</string>
   <string name="gamification_level_to_next">Do następnego poziomu:</string>
   <string name="gamification_level_earned">ZAROBIONE:</string>
@@ -324,26 +325,30 @@
   <string name="balance_appcoins_body">AppCoins to kryptowaluta dla gospodarki aplikacji. Można je kupić i sprzedać na kilku giełdach i używać ich do zakupu przedmiotów i usług w aplikacjach.</string>
   <string name="balance_appccreditos_body">Token do kupowania przedmiotów w aplikacji! Doładuj APPC-C z portfela lub uzyskaj je za darmo za pomocą aplikacji. Mogą być również przelewane między przyjaciółmi!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Poproś znajomego</string>
-  <string name="askafriend_share_body">Podziel się linkiem z Twoim przyjacielem, aby mógł wysłać fundusze!</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
+  <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
+  <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
+  <string name="askafriend_share_body">Share the link so you can get the funds sent to you!</string>
   <string name="askafriend_share_add_message_body">Dodaj wiadomość (opcjonalnie)</string>
   <string name="askafriend_share_button">Udostępnij</string>
+  <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">Właśnie otrzymałeś/aś %s APPC-C</string>
   <string name="askafriend_received_title">Przelew Odebrany</string>
-  <string name="askafriend_share_note_to_friend">Hej! Proszę wyślij mi %1$s AppCoins na zakup przedmiotu w World Jungle. Link: %2$s</string>
+  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Wysyłanie funduszy</string>
   <string name="p2p_send_body">Zeskanuj lub wprowadź adres portfela znajomego.</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s zostały wysłane na adres:</string>
-  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
-  <string name="p2p_send_error_address">Invalid address</string>
-  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
-  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
-  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <string name="p2p_send_current_balance_message">Aktualne saldo: %1$s %2$s</string>
+  <string name="p2p_send_error_address">Nieprawidłowy adres</string>
+  <string name="p2p_send_error_not_enough_funds">Nie ma wystarczającej ilości środków</string>
+  <string name="p2p_send_error_amount_zero">Wartość musi być większa niż zero</string>
+  <string name="p2p_send_confirmation_header">Dane do przelewu</string>
   <!--Common-->
-  <string name="error_general">Something went wrong</string>
-  <string name="error_missing_field">Mandatory field</string>
-  <string name="cancel_button">Cancel</string>
+  <string name="error_general">Coś poszło nie tak</string>
+  <string name="error_missing_field">Pole obowiązkowe</string>
+  <string name="cancel_button">Anuluj</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
+  <string name="terms_and_conditions_tickbox">Zgadzam się na warunki portfela AppCoins i Politykę prywatności</string>
+  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
 </resources>

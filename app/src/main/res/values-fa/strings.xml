@@ -23,8 +23,9 @@
   <string name="title_activity_settings">تنظیمات</string>
   <string name="network_label">شبکه</string>
   <string name="credits">اعتبارات</string>
-  <string name="label_new">New</string>
+  <string name="label_new">جدید</string>
   <string name="low_storage_error">فضای ذخیره سازی کافی نیست</string>
+  <string name="no_camera_permission_title">اجازه دوربین</string>
   <string name="no_camera_permission">AppCoins BDS Wallet نیازمند اجازه شما برای دسترسی به دوربین شما برای اسکن کردن کدهای QR است.</string>
   <string name="ok">تایید</string>
   <string name="barcode_error_format">قالب غیرمعتبر بارکد: %s</string>
@@ -263,8 +264,8 @@
   <string name="gamification_home_button">شروع به کسب درآمد</string>
   <string name="gamification_level_title">سطح من چیست؟</string>
   <string name="gamification_level_title_new">اعتبار APPC بگیرید!</string>
-  <string name="gamification_level_on_graphic">Level %s</string>
-  <string name="gamification_APPCapps_button">Apps &amp; games</string>
+  <string name="gamification_level_on_graphic">سطح %s</string>
+  <string name="gamification_APPCapps_button">اپلیکیشن‌ها و بازی‌ها</string>
   <string name="gamification_level_header">تبریک, شما %s هستید!</string>
   <string name="gamification_level_to_next">به سطح بعدی:</string>
   <string name="gamification_level_earned">به دست آورده:</string>
@@ -324,26 +325,30 @@
   <string name="balance_appcoins_body">AppCoins همان cryptocurrency برای اقتصاد اپلیکیشن است. شما می توانید خرید و فروش آن را در مبادلات مختلف انجام دهید و از آن برای خریدهای داخل اپلیکیشنی استفاده کنید.</string>
   <string name="balance_appccreditos_body">ژتون برای خرید آیتم‌های داخل اپلیکیشنی! APPC-C را از کیف پول خود افزایش دهید یا آن ها را بصورت رایگان با استفاده کردن از اپلیکیشن‌ها بدست آورید. آن همچنین قابل انتقال در میان دوستان نیز می‌باشد!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">درخواست از یک دوست</string>
-  <string name="askafriend_share_body">لینک را با دوستی به اشتراک بگذارید تا بتوانند برای شما اعتبار ارسال کنند!</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
+  <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
+  <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
+  <string name="askafriend_share_body">Share the link so you can get the funds sent to you!</string>
   <string name="askafriend_share_add_message_body">پیام (اختیاری)</string>
   <string name="askafriend_share_button">اشتراک‌گذاری</string>
+  <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">شما هم اکنون %s APPC-C دریافت کردید</string>
   <string name="askafriend_received_title">انتقال دریافت شد</string>
-  <string name="askafriend_share_note_to_friend">سلام! لطفا %1$s اعتبار AppCoins برای خرید یک آیتم در World Jungle برای من بفرستید. لینک: %2$s</string>
+  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">ارسال پول</string>
   <string name="p2p_send_body">آدرس کیف پول دوست خود را وارد یا اسکن کنید.</string>
   <string name="p2p_send_confirmation_message">%1$s%2$s به آدرس زیر ارسال شد:</string>
-  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
-  <string name="p2p_send_error_address">Invalid address</string>
-  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
-  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
-  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <string name="p2p_send_current_balance_message">تراز فعلی: %1$s %2$s</string>
+  <string name="p2p_send_error_address">آدرس نامعتبر</string>
+  <string name="p2p_send_error_not_enough_funds">بودجه کافی نیست</string>
+  <string name="p2p_send_error_amount_zero">باید بیش از صفر باشد</string>
+  <string name="p2p_send_confirmation_header">جزییات انتقال‌ها</string>
   <!--Common-->
-  <string name="error_general">Something went wrong</string>
-  <string name="error_missing_field">Mandatory field</string>
-  <string name="cancel_button">Cancel</string>
+  <string name="error_general">مشکلی پیش آمده است</string>
+  <string name="error_missing_field">فیلد اجباری</string>
+  <string name="cancel_button">لغو</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
+  <string name="terms_and_conditions_tickbox">من با شرایط و سیاست حفظ حریم خصوصی کیف پول AppCoins موافقت می‌کنم</string>
+  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
 </resources>

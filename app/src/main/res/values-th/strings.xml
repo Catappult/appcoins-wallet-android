@@ -23,8 +23,9 @@
   <string name="title_activity_settings">การตั้งค่า</string>
   <string name="network_label">เครือข่าย</string>
   <string name="credits">เครดิต</string>
-  <string name="label_new">New</string>
+  <string name="label_new">ใหม่</string>
   <string name="low_storage_error">พื้นที่จัดเก็บไม่เพียงพอ</string>
+  <string name="no_camera_permission_title">สิทธิ์กล้อง</string>
   <string name="no_camera_permission">กระเป๋าสตางค์ BDS AppCoins ต้องการสิทธิ์การเข้าถึงกล้องของคุณเพื่อสแกนรหัส QR</string>
   <string name="ok">ตกลง</string>
   <string name="barcode_error_format">รูปแบบบาร์โค้ดไม่ถูกต้อง: %s</string>
@@ -263,8 +264,8 @@
   <string name="gamification_home_button">เริ่มสร้างรายได้</string>
   <string name="gamification_level_title">ระดับของฉันคืออะไร</string>
   <string name="gamification_level_title_new">รับเครดิต APPC!</string>
-  <string name="gamification_level_on_graphic">Level %s</string>
-  <string name="gamification_APPCapps_button">Apps &amp; games</string>
+  <string name="gamification_level_on_graphic">ระดับ %s</string>
+  <string name="gamification_APPCapps_button">แอพ &amp; เกมส์</string>
   <string name="gamification_level_header">ขอแสดงความยินดี คุณคือ%s!</string>
   <string name="gamification_level_to_next">ไประดับถัดไป:</string>
   <string name="gamification_level_earned">ได้รับ:</string>
@@ -324,26 +325,30 @@
   <string name="balance_appcoins_body">AppCoins เป็นสกุลเงินคริปโตสำหรับเศรษฐกิจแอป คุณสามารถซื้อ ขาย แลกเปลี่ยนต่าง ๆ และใช้ในการซื้อสินค้าในแอปได้</string>
   <string name="balance_appccreditos_body">โทเค็นเพื่อใช้ซื้อสินค้าในแอป! เติม APPC-C จากกระเป๋าสตางค์หรือรับมันเพื่อการใช้งานแอปฟรี มันยังสามารถถ่ายโอนได้ระหว่างเพื่อน!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">ถามเพื่อน</string>
-  <string name="askafriend_share_body">แบ่งปันลิงก์กับเพื่อนของคุณเพื่อให้พวกเขาสามารถส่งเงินให้คุณได้!</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
+  <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
+  <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
+  <string name="askafriend_share_body">Share the link so you can get the funds sent to you!</string>
   <string name="askafriend_share_add_message_body">เพิ่มข้อความ (ถ้ามี)</string>
   <string name="askafriend_share_button">ใช้ร่วมกัน</string>
+  <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">คุณเพิ่งได้รับ %s APPC-C</string>
   <string name="askafriend_received_title">รับการโอน</string>
-  <string name="askafriend_share_note_to_friend">สวัสดี! โปรดส่งเครดิต %1$s AppCoins ให้ฉันเพื่อซื้อสินค้าใน World Jungle ลิงค์: %2$s</string>
+  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">ส่งเงิน</string>
   <string name="p2p_send_body">แสกนหรือใส่ที่อยู่กระเป๋าสตางค์ของเพื่อน</string>
   <string name="p2p_send_confirmation_message">%1$s %2$s ถูกส่งไปยังที่อยู่ต่อไปนี้:</string>
-  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
-  <string name="p2p_send_error_address">Invalid address</string>
-  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
-  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
-  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <string name="p2p_send_current_balance_message">ยอดคงเหลือปัจจุบัน: %1$s %2$s</string>
+  <string name="p2p_send_error_address">ที่อยู่ไม่ถูกต้อง</string>
+  <string name="p2p_send_error_not_enough_funds">เงินไม่พอ</string>
+  <string name="p2p_send_error_amount_zero">มันต้องมากกว่าศูนย์</string>
+  <string name="p2p_send_confirmation_header">รายละเอียดโอน</string>
   <!--Common-->
-  <string name="error_general">Something went wrong</string>
-  <string name="error_missing_field">Mandatory field</string>
-  <string name="cancel_button">Cancel</string>
+  <string name="error_general">มีบางสิ่งที่ผิด</string>
+  <string name="error_missing_field">ฟิลด์บังคับ</string>
+  <string name="cancel_button">ยกเลิก</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
+  <string name="terms_and_conditions_tickbox">ฉันยอมรับข้อกำหนด เงื่อนไข และนโยบายความเป็นส่วนตัวของกระเป๋าสตางค์ AppCoins</string>
+  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
 </resources>
