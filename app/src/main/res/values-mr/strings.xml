@@ -23,8 +23,9 @@
   <string name="title_activity_settings">सेटिंग्ज</string>
   <string name="network_label">नेटवर्क</string>
   <string name="credits">क्रेडीट्स</string>
-  <string name="label_new">New</string>
+  <string name="label_new">नविन</string>
   <string name="low_storage_error">पुरेसे स्टोरेज नाही</string>
+  <string name="no_camera_permission_title">कॅमेराची परवानगी</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ला आपल्या कॅमेरात प्रवेश आणि ‍क्युआर कोड स्कॅन करण्याची परवानगी हवी आहे.</string>
   <string name="ok">ठीक आहे</string>
   <string name="barcode_error_format">अवैध बारकोड फोरमॅट: %s</string>
@@ -263,8 +264,8 @@
   <string name="gamification_home_button">कमावणे सुरु करा</string>
   <string name="gamification_level_title">माझी पातळी काय आहे?</string>
   <string name="gamification_level_title_new">एपीपीसी क्रेडीटस मिळवा!</string>
-  <string name="gamification_level_on_graphic">Level %s</string>
-  <string name="gamification_APPCapps_button">Apps &amp; games</string>
+  <string name="gamification_level_on_graphic">लेव्हल %s</string>
+  <string name="gamification_APPCapps_button">अॅप्स &amp; खेळ</string>
   <string name="gamification_level_header">अभिनंदन, आपण %s आहात!</string>
   <string name="gamification_level_to_next">पुढच्या पातळीवर:</string>
   <string name="gamification_level_earned">कमावले:</string>
@@ -324,26 +325,30 @@
   <string name="balance_appcoins_body">अॅप इकॉनॉमीसाठी अॅपकॉइन्स ही क्रिप्टोकरंसी आहे. आपण ह्याचा विनिमय पुष्कळशा एक्सचेंजेसवर करु शकता आणि अॅपमधील वस्तु खरेदीसाठी करु शकता.</string>
   <string name="balance_appccreditos_body">अॅपमधील खरेदी करण्याचे टोकन! आपल्या वॉलेटमधुन एपीपीसी-सीत भरणा करा किंवा अॅप वापरुन त्यांना मोफत मिळवा. स्नेह्यांमध्ये ह्याचे हस्तांतरणही केले जाऊ शकते!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">स्नेह्याला विचारा</string>
-  <string name="askafriend_share_body">आपल्या स्नेह्यांबरोबर लिंक शेयर करा म्हणजे ते आपल्याला पैसे पाठवु शकतील!</string>
+  <string name="askafriend_payment_option_button">Ask someone to pay</string>
+  <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
+  <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
+  <string name="askafriend_share_body">Share the link so you can get the funds sent to you!</string>
   <string name="askafriend_share_add_message_body">संदेश जोडा (पर्यायी)</string>
   <string name="askafriend_share_button">शेयर</string>
+  <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">आपल्याला आत्ताच %s एपीपीसी-सी मिळाले</string>
   <string name="askafriend_received_title">हस्तांतरण मिळाले</string>
-  <string name="askafriend_share_note_to_friend">ऐकलत का! कृपया मला वर्ल्ड जंगलमधील वस्तु खरेदीसाठी %1$s अॅपकॉईन्स क्रेडीट पाठवा. लिंक: %2$s</string>
+  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">पैसे पाठवा</string>
   <string name="p2p_send_body">आपल्या स्नेह्याचा वॉलेट पत्ता स्कॅन करा किंवा भरा.</string>
   <string name="p2p_send_confirmation_message">खालील पत्त्यावर %1$s %2$s पाठविले:</string>
-  <string name="p2p_send_current_balance_message">Current balance: %1$s %2$s</string>
-  <string name="p2p_send_error_address">Invalid address</string>
-  <string name="p2p_send_error_not_enough_funds">Not enough funds</string>
-  <string name="p2p_send_error_amount_zero">It must be more than zero</string>
-  <string name="p2p_send_confirmation_header">Transfer Details</string>
+  <string name="p2p_send_current_balance_message">सद्य शिल्लक: %1$s %2$s</string>
+  <string name="p2p_send_error_address">अवैध पत्ता</string>
+  <string name="p2p_send_error_not_enough_funds">पुरेसे पैसे नाहीत</string>
+  <string name="p2p_send_error_amount_zero">हे शून्यापेक्षा मोठे हवे</string>
+  <string name="p2p_send_confirmation_header">हस्तांतरण तपशील</string>
   <!--Common-->
-  <string name="error_general">Something went wrong</string>
-  <string name="error_missing_field">Mandatory field</string>
-  <string name="cancel_button">Cancel</string>
+  <string name="error_general">काहीतरी चूक झाली</string>
+  <string name="error_missing_field">अनिवार्य जागा</string>
+  <string name="cancel_button">रद्द करा</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s Terms and Conditions and Privacy Policy</string>
+  <string name="terms_and_conditions_tickbox">अॅप कॉइन्सच्या अटी आणि शर्ती आणि गोपनीयता धोरण मंजुर आहे</string>
+  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
 </resources>
