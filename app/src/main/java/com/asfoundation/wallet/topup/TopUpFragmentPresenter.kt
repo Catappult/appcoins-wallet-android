@@ -43,7 +43,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         interactor.getLocalCurrency().subscribeOn(networkScheduler).observeOn(viewScheduler),
         BiFunction { paymentMethods: List<PaymentMethodData>, currency: LocalCurrency ->
           view.setupUiElements(filterPaymentMethods(paymentMethods), currency)
-        }).subscribe())
+        }).subscribe({ }, { throwable -> throwable.printStackTrace() }))
   }
 
   private fun handleChangeCurrencyClick() {
@@ -137,6 +137,6 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   private fun handlePaymentMethodSelected() {
-    disposables.add(view.getPaymentMethodClick().doOnNext {  view.hideKeyboard() }.subscribe())
+    disposables.add(view.getPaymentMethodClick().doOnNext { view.hideKeyboard() }.subscribe())
   }
 }

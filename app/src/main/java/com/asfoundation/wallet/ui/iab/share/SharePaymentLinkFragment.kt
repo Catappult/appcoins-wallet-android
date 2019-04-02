@@ -141,7 +141,7 @@ class SharePaymentLinkFragment : DaggerFragment(),
   }
 
   override fun showFetchingLinkInfo() {
-    share_link_title.text = "We are generating your link..."
+    share_link_title.text = getString(R.string.askafriend_generating_link_message)
     share_link_title.setTextColor(
         ResourcesCompat.getColor(resources, R.color.share_link_title_color, null))
     close_btn.visibility = View.INVISIBLE
@@ -149,7 +149,7 @@ class SharePaymentLinkFragment : DaggerFragment(),
   }
 
   override fun showErrorInfo() {
-    share_link_title.text = "Something went wrong, please try again"
+    share_link_title.text = getString(R.string.askafriend_generating_link_error_message)
     share_link_title.setTextColor(
         ResourcesCompat.getColor(resources, R.color.share_link_error_text_color, null))
     close_btn.visibility = View.VISIBLE
@@ -165,7 +165,7 @@ class SharePaymentLinkFragment : DaggerFragment(),
 
     ShareCompat.IntentBuilder.from(activity).setText(url)
         .setType("text/plain")
-        .setChooserTitle("Ask someone via:")
+        .setChooserTitle(R.string.askafriend_share_popup_title)
         .startChooser()
   }
 
