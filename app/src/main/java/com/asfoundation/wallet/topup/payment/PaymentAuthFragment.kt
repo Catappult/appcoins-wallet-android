@@ -264,7 +264,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
 
   override fun errorDismisses(): Observable<Any> {
     return Observable.merge<DialogInterface>(networkErrorDialog.dismisses(),
-        paymentRefusedDialog.dismisses())
+        paymentRefusedDialog.dismisses(), genericErrorDialog.dismisses())
         .map { Any() }
   }
 

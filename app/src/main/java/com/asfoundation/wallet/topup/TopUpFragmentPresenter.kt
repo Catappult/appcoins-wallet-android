@@ -82,7 +82,10 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                   topUpData.currency.fiatValue =
                       if (value.amount == BigDecimal.ZERO) DEFAULT_VALUE else value.amount.toString()
                 }
-              }.observeOn(viewScheduler).map {
+              }
+              .doOnError { it.printStackTrace() }
+              .onErrorResumeNext(Observable.empty())
+              .observeOn(viewScheduler).map {
                 view.setConversionValue(topUpData)
               }
         }
