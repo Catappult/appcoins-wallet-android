@@ -13,8 +13,6 @@ interface TopUpFragmentView {
 
   fun getPaymentMethodClick(): Observable<String>
 
-  fun getEditTextFocusChanges(): InitialValueObservable<Boolean>
-
   fun getNextClick(): Observable<TopUpData>
 
   fun setupUiElements(paymentMethods: List<PaymentMethodData>, localCurrency: LocalCurrency)

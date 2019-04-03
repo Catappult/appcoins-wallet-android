@@ -18,16 +18,19 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                              private val viewScheduler: Scheduler,
                              private val networkScheduler: Scheduler) {
 
-  private val NUMERIC_REGEX = "-?\\d+(\\.\\d+)?"
   private val disposables: CompositeDisposable = CompositeDisposable()
+
+  companion object {
+    private const val NUMERIC_REGEX = "-?\\d+(\\.\\d+)?"
+  }
 
   fun present() {
     setupUi()
     handleChangeCurrencyClick()
     handleNextClick()
     handleValuesChange()
-    handleAmountFocusChange()
     handleAmountChange()
+    handlePaymentMethodSelected()
   }
 
   fun stop() {
@@ -40,7 +43,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         interactor.getLocalCurrency().subscribeOn(networkScheduler).observeOn(viewScheduler),
         BiFunction { paymentMethods: List<PaymentMethodData>, currency: LocalCurrency ->
           view.setupUiElements(filterPaymentMethods(paymentMethods), currency)
-        }).subscribe())
+        }).subscribe({ }, { throwable -> throwable.printStackTrace() }))
   }
 
   private fun handleChangeCurrencyClick() {
@@ -96,14 +99,6 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     }
   }
 
-  private fun handleAmountFocusChange() {
-    disposables.add(view.getEditTextFocusChanges().map {
-      if (!it) {
-        view.hideKeyboard()
-      }
-    }.subscribe())
-  }
-
   private fun handleValuesChange() {
     disposables.add(
         view.getEditTextChanges().map { view.setNextButtonState(hasValidData(it)) }.subscribe())
@@ -139,5 +134,9 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     } else {
       Observable.just(FiatValue(BigDecimal.ZERO, ""))
     }
+  }
+
+  private fun handlePaymentMethodSelected() {
+    disposables.add(view.getPaymentMethodClick().doOnNext { view.hideKeyboard() }.subscribe())
   }
 }

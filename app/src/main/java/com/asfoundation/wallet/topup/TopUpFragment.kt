@@ -64,12 +64,12 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   val appPackage: String by lazy {
-      if (arguments!!.containsKey(PARAM_APP_PACKAGE)) {
-        arguments!!.getString(PARAM_APP_PACKAGE)
-      } else {
-        throw IllegalArgumentException("application package name data not found")
-      }
+    if (arguments!!.containsKey(PARAM_APP_PACKAGE)) {
+      arguments!!.getString(PARAM_APP_PACKAGE)
+    } else {
+      throw IllegalArgumentException("application package name data not found")
     }
+  }
 
   override fun onDetach() {
     super.onDetach()
@@ -147,17 +147,13 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   override fun getEditTextChanges(): Observable<TopUpData> {
     return RxTextView.afterTextChangeEvents(main_value)
-        .filter {!switchingCurrency }.map {
-      TopUpData(getCurrencyData(), selectedCurrency, getSelectedPaymentMethod())
-    }
+        .filter { !switchingCurrency }.map {
+          TopUpData(getCurrencyData(), selectedCurrency, getSelectedPaymentMethod())
+        }
   }
 
   override fun getPaymentMethodClick(): Observable<String> {
     return paymentMethodClick
-  }
-
-  override fun getEditTextFocusChanges(): InitialValueObservable<Boolean> {
-    return RxView.focusChanges(main_value)
   }
 
   override fun getNextClick(): Observable<TopUpData> {
@@ -173,6 +169,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   override fun hideKeyboard() {
     val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
     imm?.hideSoftInputFromWindow(fragmentContainer.windowToken, 0)
+    payment_methods.requestFocus()
   }
 
   override fun showLoading() {
@@ -230,10 +227,12 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     } else {
       when (selectedCurrency) {
         FIAT_CURRENCY -> {
-          main_value.setText(topUpData.currency.fiatValue)
+          if (topUpData.currency.fiatValue != DEFAULT_VALUE) main_value.setText(
+              topUpData.currency.fiatValue) else main_value.setText("")
         }
         APPC_C_CURRENCY -> {
-          main_value.setText(topUpData.currency.appcValue)
+          if (topUpData.currency.appcValue != DEFAULT_VALUE) main_value.setText(
+              topUpData.currency.appcValue) else main_value.setText("")
         }
       }
     }
