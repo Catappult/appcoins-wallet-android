@@ -312,4 +312,11 @@
     <item name="android:gravity">start</item>
   </style>
 
+  <style name="TransferAddressTextStyle">
+    <item name="android:fontFamily">sans-serif</item>
+    <item name="android:gravity">center</item>
+    <item name="android:textColor">@color/level_text_color</item>
+    <item name="android:textSize">10sp</item>
+  </style>
+
 </resources>
