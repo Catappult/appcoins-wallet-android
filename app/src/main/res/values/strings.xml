@@ -352,6 +352,8 @@
   <string name="askafriend_received_body">You just received %s APPC-C</string>
 
   <string name="askafriend_received_title">Transfer Received</string>
+  <string name="askafriend_send_title">Transfer Sent</string>
+
   <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
 
   <!--P2P Send-->
