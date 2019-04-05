@@ -144,6 +144,7 @@ public class TransactionDetailActivity extends BaseActivity {
         button.setVisibility(View.VISIBLE);
         button.setOnClickListener(
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        symbol = getString(R.string.p2p_send_currency_appc_c);
         break;
       case IAP_OFFCHAIN:
         button.setVisibility(View.VISIBLE);
@@ -166,6 +167,7 @@ public class TransactionDetailActivity extends BaseActivity {
         }
         button.setOnClickListener(
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        symbol = getString(R.string.p2p_send_currency_appc_c);
         break;
       case TOP_UP:
         typeStr = R.string.topup_title;
@@ -175,6 +177,7 @@ public class TransactionDetailActivity extends BaseActivity {
         button.setVisibility(View.VISIBLE);
         button.setOnClickListener(
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
+        symbol = getString(R.string.p2p_send_currency_appc_c);
         break;
       case TRANSFER_OFF_CHAIN:
         typeStr = R.string.transaction_type_p2p;
@@ -185,7 +188,7 @@ public class TransactionDetailActivity extends BaseActivity {
         button.setVisibility(View.VISIBLE);
         button.setOnClickListener(
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
-
+        symbol = getString(R.string.p2p_send_currency_appc_c);
         break;
     }
 
