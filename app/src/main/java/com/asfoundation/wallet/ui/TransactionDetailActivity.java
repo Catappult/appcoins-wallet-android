@@ -24,6 +24,7 @@ import com.asfoundation.wallet.util.BalanceUtils;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModel;
 import com.asfoundation.wallet.viewmodel.TransactionDetailViewModelFactory;
 import com.asfoundation.wallet.widget.CircleTransformation;
+import com.google.android.material.appbar.AppBarLayout;
 import com.squareup.picasso.Picasso;
 import dagger.android.AndroidInjection;
 import io.reactivex.disposables.CompositeDisposable;
@@ -77,6 +78,14 @@ public class TransactionDetailActivity extends BaseActivity {
         .observe(this, this::onDefaultNetwork);
     viewModel.defaultWallet()
         .observe(this, this::onDefaultWallet);
+
+    ((AppBarLayout) findViewById(R.id.app_bar)).addOnOffsetChangedListener(
+        (appBarLayout, verticalOffset) -> {
+          float percentage =
+              1 - ((float) Math.abs(verticalOffset) / appBarLayout.getTotalScrollRange());
+          findViewById(R.id.src_img).setScaleX(percentage);
+          findViewById(R.id.src_img).setScaleY(percentage);
+        });
   }
 
   @Override protected void onStop() {
@@ -146,7 +155,6 @@ public class TransactionDetailActivity extends BaseActivity {
         break;
       case BONUS:
         button.setVisibility(View.VISIBLE);
-        to = transaction.getTo();
         typeStr = R.string.transaction_type_bonus;
         typeIcon = -1;
         if (transaction.getDetails()
@@ -164,14 +172,13 @@ public class TransactionDetailActivity extends BaseActivity {
         id = getString(R.string.topup_title);
         categorybackground.setBackground(null);
         typeIcon = R.drawable.transaction_type_top_up;
-        to = transaction.getTo();
         button.setVisibility(View.VISIBLE);
         button.setOnClickListener(
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
         break;
       case TRANSFER_OFF_CHAIN:
         typeStr = R.string.transaction_type_p2p;
-        id = getString(R.string.askafriend_received_title);
+        id = isSent ? "Transfer Sent" : getString(R.string.askafriend_received_title);
         typeIcon = R.drawable.transaction_type_transfer_off_chain;
         categorybackground.setBackground(null);
         to = transaction.getTo();
@@ -197,7 +204,7 @@ public class TransactionDetailActivity extends BaseActivity {
     }
 
     setUIContent(transaction.getTimeStamp(), rawValue, symbol, icon, id, description, typeStr,
-        typeIcon, statusStr, statusColor, to);
+        typeIcon, statusStr, statusColor, to, isSent);
   }
 
   private void onDefaultNetwork(NetworkInfo networkInfo) {
@@ -226,7 +233,8 @@ public class TransactionDetailActivity extends BaseActivity {
   }
 
   private void setUIContent(long timeStamp, String value, String symbol, String icon, String id,
-      String description, int typeStr, int typeIcon, int statusStr, int statusColor, String to) {
+      String description, int typeStr, int typeIcon, int statusStr, int statusColor, String to,
+      boolean isSent) {
     ((TextView) findViewById(R.id.transaction_timestamp)).setText(getDate(timeStamp));
     findViewById(R.id.transaction_timestamp).setVisibility(View.VISIBLE);
 
@@ -277,11 +285,13 @@ public class TransactionDetailActivity extends BaseActivity {
     ((TextView) findViewById(R.id.status)).setTextColor(getResources().getColor(statusColor));
 
     if (to != null) {
+      ((TextView) findViewById(R.id.to)).setText(
+          isSent ? getString(R.string.label_to) : getString(R.string.label_from));
+      findViewById(R.id.to_label).setVisibility(View.VISIBLE);
       ((TextView) findViewById(R.id.to)).setText(to);
+      findViewById(R.id.to).setVisibility(View.VISIBLE);
       detailsList.setVisibility(View.GONE);
       findViewById(R.id.details_label).setVisibility(View.GONE);
-      findViewById(R.id.to_label).setVisibility(View.VISIBLE);
-      findViewById(R.id.to).setVisibility(View.VISIBLE);
     }
   }
 

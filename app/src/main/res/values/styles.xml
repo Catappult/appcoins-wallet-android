@@ -126,8 +126,12 @@
 
   <style name="TransactionDetailsTextStyle">
     <item name="android:fontFamily">@font/roboto_regular</item>
-    <item name="android:textColor">@color/black_87_alpha</item>
+    <item name="android:textColor">@color/color_grey_9e</item>
     <item name="android:textSize">12sp</item>
+  </style>
+
+  <style name="TransactionDetailsTextStyle.Dark">
+    <item name="android:textColor">#000000</item>
   </style>
 
   <style name="TransactionDetailsTextStyle.AppBar">
@@ -136,10 +140,12 @@
 
   <style name="TransactionDetailsTextStyle.Heading">
     <item name="android:textSize">24sp</item>
+    <item name="android:textColor">#000000</item>
   </style>
 
   <style name="TransactionDetailsTextStyle.Title">
     <item name="android:textSize">16sp</item>
+    <item name="android:textColor">#000000</item>
   </style>
 
   <style name="ButtonStyle.Light" parent="Base.Widget.AppCompat.ImageButton">
@@ -171,7 +177,7 @@
 
   <style name="TransactionDetailsTextStyle.Content">
     <item name="android:textSize">14sp</item>
-    <item name="android:textColor">@color/gray_alpha_8a</item>
+    <item name="android:textColor">#000000</item>
   </style>
 
   <style name="TransactionDetailsTextStyle.Content.Address">
@@ -183,6 +189,11 @@
     <item name="android:textColor">@color/gray_alpha_61</item>
   </style>
 
+  <style name="TransactionDetailsButtonStyle" parent="@style/Widget.AppCompat.Button.Borderless.Colored">
+    <item name="android:textColor">@color/transaction_details_button_color</item>
+    <item name="android:textSize">12sp</item>
+  </style>
+  
   <style name="DialogTextStyle">
     <item name="android:textColor">@color/gray_alpha_8a</item>
     <item name="android:textSize">12sp</item>
@@ -277,12 +288,12 @@
   </style>
 
   <style name="TopUpTextStyle.ConvertedValue">
-    <item name="android:textColor">@color/top_up_grey</item>
+    <item name="android:textColor">@color/color_grey_9e</item>
   </style>
 
   <style name="TopUpTextStyle.SwapCurrency">
     <item name="android:textSize">8sp</item>
-    <item name="android:textColor">@color/top_up_grey</item>
+    <item name="android:textColor">@color/color_grey_9e</item>
   </style>
 
   <style name="TopUpTextStyle.Small.BonusTitle">
