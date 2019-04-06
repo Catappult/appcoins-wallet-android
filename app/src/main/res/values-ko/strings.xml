@@ -334,6 +334,7 @@
   <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">방금 %s APPC-C 를 받았습니다</string>
   <string name="askafriend_received_title">전송 수신됨</string>
+  <string name="askafriend_send_title">Transfer Sent</string>
   <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">자금 전송</string>
