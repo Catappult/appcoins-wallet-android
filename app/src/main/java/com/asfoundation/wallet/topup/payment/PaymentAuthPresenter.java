@@ -155,7 +155,7 @@ public class PaymentAuthPresenter {
 
   private void onViewCreatedCheckAuthorizationActive(String transactionOrigin, String amount,
       String currency, String transactionType) {
-    disposables.add(convertAmount(amount).map(
+    disposables.add(convertAmount(amount).flatMap(
         value -> billingService.getAuthorization(transactionOrigin, value, currency,
             transactionType, appPackage)
             .filter(adyenAuthorization -> adyenAuthorization.isCompleted())

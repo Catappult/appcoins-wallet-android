@@ -332,10 +332,6 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     topUpView?.close()
   }
 
-  override fun showSuccess() {
-
-  }
-
   override fun showPaymentRefusedError(adyenAuthorization: AdyenAuthorization) {
     if (!paymentRefusedDialog.isShowing) {
       paymentRefusedDialog.show()
