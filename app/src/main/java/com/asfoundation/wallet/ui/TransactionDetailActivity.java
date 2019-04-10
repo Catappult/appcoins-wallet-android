@@ -42,12 +42,15 @@ public class TransactionDetailActivity extends BaseActivity {
   private TransactionDetailViewModel viewModel;
 
   private Transaction transaction;
+  private boolean isSent = false;
   private TextView amount;
   private TransactionsDetailsAdapter adapter;
   private RecyclerView detailsList;
 
   private Dialog dialog;
   private CompositeDisposable disposables;
+
+  private static final int DECIMALS = 18;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -96,20 +99,19 @@ public class TransactionDetailActivity extends BaseActivity {
 
   private void onDefaultWallet(Wallet wallet) {
     adapter.setDefaultWallet(wallet);
-    adapter.addOperations(transaction.getOperations());
 
-    boolean isSent = transaction.getFrom()
+    if (!transaction.getOperations().isEmpty()) {
+      adapter.addOperations(transaction.getOperations());
+      detailsList.setVisibility(View.VISIBLE);
+    }
+
+    isSent = transaction.getFrom()
         .toLowerCase()
         .equals(wallet.address);
 
-    long decimals = 18;
     NetworkInfo networkInfo = viewModel.defaultNetwork()
         .getValue();
 
-    String rawValue = transaction.getValue();
-    if (!rawValue.equals("0")) {
-      rawValue = (isSent ? "-" : "+") + getScaledValue(rawValue, decimals);
-    }
 
     String symbol =
         transaction.getCurrency() == null ? (networkInfo == null ? "" : networkInfo.symbol)
@@ -206,18 +208,23 @@ public class TransactionDetailActivity extends BaseActivity {
         break;
     }
 
-    setUIContent(transaction.getTimeStamp(), rawValue, symbol, icon, id, description, typeStr,
+    setUIContent(transaction.getTimeStamp(), getValue(), symbol, icon, id, description, typeStr,
         typeIcon, statusStr, statusColor, to, isSent);
   }
 
   private void onDefaultNetwork(NetworkInfo networkInfo) {
     adapter.setDefaultNetwork(networkInfo);
+
+    String symbol =
+        transaction.getCurrency() == null ? (networkInfo == null ? "" : networkInfo.symbol)
+            : transaction.getCurrency();
+    formatValue(getValue(), symbol);
   }
 
-  private String getScaledValue(String valueStr, long decimals) {
+  private String getScaledValue(String valueStr) {
     // Perform decimal conversion
     BigDecimal value = new BigDecimal(valueStr);
-    value = value.divide(new BigDecimal(Math.pow(10, decimals)));
+    value = value.divide(new BigDecimal(Math.pow(10, DECIMALS)));
     int scale = 3 - value.precision() + value.scale();
     return value.setScale(scale, RoundingMode.HALF_UP)
         .stripTrailingZeros()
@@ -241,10 +248,7 @@ public class TransactionDetailActivity extends BaseActivity {
     ((TextView) findViewById(R.id.transaction_timestamp)).setText(getDate(timeStamp));
     findViewById(R.id.transaction_timestamp).setVisibility(View.VISIBLE);
 
-    int smallTitleSize = (int) getResources().getDimension(R.dimen.small_text);
-    int color = getResources().getColor(R.color.gray_alpha_8a);
-
-    amount.setText(BalanceUtils.formatBalance(value, symbol, smallTitleSize, color));
+    formatValue(value, symbol);
 
     ImageView typeIconImageView = findViewById(R.id.img);
     if (icon != null) {
@@ -303,5 +307,20 @@ public class TransactionDetailActivity extends BaseActivity {
       dialog.dismiss();
       dialog = null;
     }
+  }
+
+  private void formatValue(String value, String symbol) {
+    int smallTitleSize = (int) getResources().getDimension(R.dimen.small_text);
+    int color = getResources().getColor(R.color.gray_alpha_8a);
+
+    amount.setText(BalanceUtils.formatBalance(value, symbol, smallTitleSize, color));
+  }
+
+  private String getValue() {
+    String rawValue = transaction.getValue();
+    if (!rawValue.equals("0")) {
+      rawValue = (isSent ? "-" : "+") + getScaledValue(rawValue);
+    }
+    return rawValue;
   }
 }
