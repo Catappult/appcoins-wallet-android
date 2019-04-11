@@ -11,18 +11,24 @@
   <ScrollView
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+      android:background="@drawable/background_fragment"
       >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:orientation="vertical"
-        android:padding="@dimen/big_padding"
+        android:padding="16dp"
         >
 
       <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:paddingEnd="16dp"
+          android:paddingStart="16dp"
           >
 
         <TextView
@@ -32,6 +38,7 @@
             android:layout_alignParentStart="true"
             android:text="@string/label_gas_price"
             android:textAppearance="?android:textAppearanceListItem"
+            style="@style/GasSettingsTextStyle"
             />
 
         <TextView
@@ -42,6 +49,7 @@
             android:layout_alignParentRight="true"
             android:text="--"
             tools:text="30 (Gwei)"
+            style="@style/DialogTitleStyle"
             />
 
       </RelativeLayout>
@@ -50,22 +58,32 @@
           android:id="@+id/gas_price_slider"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginBottom="@dimen/normal_margin"
-          android:layout_marginTop="@dimen/big_margin"
+          android:layout_marginEnd="16dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="26dp"
+          android:progressBackgroundTint="@color/seekbar_background_tint"
+          android:secondaryProgressTint="@color/seekbar_tint"
+          android:thumbTint="@color/seekbar_tint"
           />
 
       <TextView
           android:id="@+id/gas_price_info_text"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginEnd="16dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="18dp"
           android:text="@string/info_gas_price"
           android:textAppearance="?android:textAppearanceSmall"
+          style="@style/GasSettingsTextStyle.Body"
           />
 
       <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:paddingTop="@dimen/big_margin"
+          android:paddingEnd="16dp"
+          android:paddingStart="16dp"
+          android:paddingTop="32dp"
           >
 
         <TextView
@@ -75,6 +93,7 @@
             android:layout_alignParentStart="true"
             android:text="@string/label_gas_limit"
             android:textAppearance="?android:textAppearanceListItem"
+            style="@style/GasSettingsTextStyle"
             />
 
         <TextView
@@ -85,6 +104,7 @@
             android:layout_alignParentRight="true"
             android:text="--"
             tools:text="90000"
+            style="@style/DialogTitleStyle"
             />
       </RelativeLayout>
 
@@ -92,22 +112,33 @@
           android:id="@+id/gas_limit_slider"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginBottom="@dimen/normal_margin"
-          android:layout_marginTop="@dimen/big_margin"
+          android:layout_marginEnd="16dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="26dp"
+          android:progressBackgroundTint="@color/seekbar_background_tint"
+          android:secondaryProgressTint="@color/seekbar_tint"
+          android:thumbTint="@color/seekbar_tint"
           />
 
       <TextView
           android:id="@+id/gas_limit_info_text"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginEnd="16dp"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="18dp"
           android:text="@string/info_gas_limit"
           android:textAppearance="?android:textAppearanceSmall"
+          style="@style/GasSettingsTextStyle.Body"
           />
 
       <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:paddingTop="@dimen/big_margin"
+          android:paddingBottom="50dp"
+          android:paddingEnd="16dp"
+          android:paddingStart="16dp"
+          android:paddingTop="32dp"
           >
 
         <TextView
@@ -117,6 +148,7 @@
             android:layout_alignParentStart="true"
             android:text="@string/label_network_fee"
             android:textAppearance="?android:textAppearanceListItem"
+            style="@style/GasSettingsTextStyle"
             />
 
         <TextView
@@ -127,6 +159,7 @@
             android:layout_alignParentRight="true"
             android:text="--"
             tools:text="0.0027 ETH"
+            style="@style/DialogTitleStyle"
             />
       </RelativeLayout>
     </LinearLayout>
