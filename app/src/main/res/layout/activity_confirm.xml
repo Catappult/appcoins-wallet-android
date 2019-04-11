@@ -10,16 +10,16 @@
 
   <ScrollView
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="match_parent"
+      android:background="@drawable/background_fragment"
       >
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="47dp"
-        android:background="@drawable/background_fragment"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:paddingBottom="35dp"
         >
 
       <TextView
@@ -47,30 +47,14 @@
           style="@style/DialogTitleStyle"
           />
 
-      <androidx.constraintlayout.widget.Guideline
-          android:id="@+id/guideline1"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:orientation="vertical"
-          app:layout_constraintGuide_percent="0.06"
-          />
-
-      <androidx.constraintlayout.widget.Guideline
-          android:id="@+id/guideline2"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:orientation="vertical"
-          app:layout_constraintGuide_percent="0.94"
-          />
-
       <View
           android:id="@+id/divider1"
           android:layout_width="0dp"
           android:layout_height="1dp"
           android:layout_marginTop="25dp"
           android:background="#e6e6e6"
-          app:layout_constraintEnd_toEndOf="@id/guideline2"
-          app:layout_constraintStart_toStartOf="@id/guideline1"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/confirmation_header"
           />
 
@@ -80,7 +64,7 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="27dp"
           android:text="@string/label_from"
-          app:layout_constraintStart_toStartOf="@id/guideline1"
+          app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="@id/divider1"
           style="@style/TopUpTextStyle.ConvertedValue"
           />
@@ -94,7 +78,7 @@
           android:textAppearance="?attr/textAppearanceListItemSmall"
           android:textIsSelectable="true"
           app:layout_constraintBottom_toBottomOf="@id/from_textview"
-          app:layout_constraintEnd_toEndOf="@id/guideline2"
+          app:layout_constraintEnd_toEndOf="parent"
           style="@style/TransferAddressTextStyle"
           />
 
@@ -104,7 +88,7 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="24dp"
           android:text="@string/label_to"
-          app:layout_constraintStart_toStartOf="@id/guideline1"
+          app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/text_from"
           style="@style/TopUpTextStyle.ConvertedValue"
           />
@@ -118,7 +102,7 @@
           android:textAppearance="?attr/textAppearanceListItemSmall"
           android:textIsSelectable="true"
           app:layout_constraintBottom_toBottomOf="@id/to_textview"
-          app:layout_constraintEnd_toEndOf="@id/guideline2"
+          app:layout_constraintEnd_toEndOf="parent"
           style="@style/TransferAddressTextStyle"
           />
 
@@ -127,7 +111,7 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="24dp"
           android:text="@string/label_gas_price"
-          app:layout_constraintStart_toStartOf="@id/guideline1"
+          app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/text_to"
           style="@style/TopUpTextStyle.ConvertedValue"
           />
@@ -140,7 +124,7 @@
           android:text="@string/dummy"
           android:textAppearance="?attr/textAppearanceListItemSmall"
           android:textIsSelectable="true"
-          app:layout_constraintEnd_toEndOf="@id/guideline2"
+          app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@id/text_to"
           style="@style/TransactionDetailsTextStyle"
           />
@@ -150,7 +134,7 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="24dp"
           android:text="@string/label_gas_limit"
-          app:layout_constraintStart_toStartOf="@id/guideline1"
+          app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/text_gas_price"
           style="@style/TopUpTextStyle.ConvertedValue"
           />
@@ -164,7 +148,7 @@
           android:textAppearance="?attr/textAppearanceListItemSmall"
           android:textIsSelectable="true"
           android:textSize="12sp"
-          app:layout_constraintEnd_toEndOf="@id/guideline2"
+          app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@id/text_gas_price"
           style="@style/TransactionDetailsTextStyle"
           />
@@ -174,7 +158,7 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="24dp"
           android:text="@string/label_network_fee"
-          app:layout_constraintStart_toStartOf="@id/guideline1"
+          app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/text_gas_limit"
           style="@style/TopUpTextStyle.ConvertedValue"
           />
@@ -188,7 +172,7 @@
           android:textAppearance="?attr/textAppearanceListItemSmall"
           android:textIsSelectable="true"
           android:textSize="12sp"
-          app:layout_constraintEnd_toEndOf="@id/guideline2"
+          app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@id/text_gas_limit"
           style="@style/TransactionDetailsTextStyle"
           />
@@ -199,8 +183,8 @@
           android:layout_height="1dp"
           android:layout_marginTop="25dp"
           android:background="#e6e6e6"
-          app:layout_constraintEnd_toEndOf="@id/guideline2"
-          app:layout_constraintStart_toStartOf="@id/guideline1"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/text_network_fee"
           />
 
@@ -208,10 +192,12 @@
           android:id="@+id/send_button"
           android:layout_width="match_parent"
           android:layout_height="@dimen/button_height"
+          android:layout_marginBottom="12dp"
           android:layout_marginEnd="20dp"
           android:layout_marginStart="20dp"
           android:layout_marginTop="47dp"
           android:text="@string/action_send"
+          app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintTop_toBottomOf="@id/divider2"
           style="@style/ButtonStyle"
           />
