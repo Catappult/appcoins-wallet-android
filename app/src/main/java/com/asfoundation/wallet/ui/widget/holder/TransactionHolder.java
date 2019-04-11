@@ -134,18 +134,22 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
       case ADS_OFFCHAIN:
         transactionTypeIcon = R.drawable.ic_transaction_poa;
         setTypeIconVisibilityBasedOnDescription(details, uri);
+        currencySymbol = getString(R.string.p2p_send_currency_appc_c);
         break;
       case BONUS:
         typeIcon.setVisibility(View.GONE);
         transactionTypeIcon = R.drawable.ic_transaction_peer;
+        currencySymbol = getString(R.string.p2p_send_currency_appc_c);
         break;
       case TOP_UP:
         typeIcon.setVisibility(View.GONE);
         transactionTypeIcon = R.drawable.transaction_type_top_up;
+        currencySymbol = getString(R.string.p2p_send_currency_appc_c);
         break;
       case TRANSFER_OFF_CHAIN:
         typeIcon.setVisibility(View.GONE);
         transactionTypeIcon = R.drawable.transaction_type_transfer_off_chain;
+        currencySymbol = getString(R.string.p2p_send_currency_appc_c);
         break;
       default:
         transactionTypeIcon = R.drawable.ic_transaction_peer;
@@ -156,15 +160,12 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
       if (transaction.getType()
           .equals(Transaction.TransactionType.BONUS)) {
         address.setText(R.string.transaction_type_bonus);
-      }
-      if (transaction.getType()
+      } else if (transaction.getType()
           .equals(Transaction.TransactionType.TOP_UP)) {
         address.setText(R.string.topup_home_button);
-        currencySymbol = getString(R.string.p2p_send_currency_appc_c);
       } else if (transaction.getType()
           .equals(Transaction.TransactionType.TRANSFER_OFF_CHAIN)) {
         address.setText(R.string.transaction_type_p2p);
-        currencySymbol = getString(R.string.p2p_send_currency_appc_c);
       } else {
         address.setText(details.getSourceName() == null ? isSent ? to : from : getSourceText(transaction));
       }

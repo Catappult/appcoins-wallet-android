@@ -167,6 +167,7 @@ public class PaymentAuthPresenter {
               navigator.popView(bundle);
             })
             .doOnSuccess(__ -> view.showSuccess())
+
             .subscribe(__ -> {
             }, throwable -> showError(throwable)));
   }
