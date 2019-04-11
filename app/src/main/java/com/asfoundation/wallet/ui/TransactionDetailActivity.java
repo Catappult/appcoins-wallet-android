@@ -311,7 +311,7 @@ public class TransactionDetailActivity extends BaseActivity {
 
   private void formatValue(String value, String symbol) {
     int smallTitleSize = (int) getResources().getDimension(R.dimen.small_text);
-    int color = getResources().getColor(R.color.gray_alpha_b3);
+    int color = getResources().getColor(R.color.color_grey_9e);
 
     amount.setText(BalanceUtils.formatBalance(value, symbol, smallTitleSize, color));
   }

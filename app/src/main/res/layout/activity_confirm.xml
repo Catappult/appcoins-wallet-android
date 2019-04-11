@@ -126,7 +126,7 @@
           android:textIsSelectable="true"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@id/text_to"
-          style="@style/TransactionDetailsTextStyle"
+          style="@style/TransactionDetailsTextStyle.Dark"
           />
 
       <TextView
@@ -150,7 +150,7 @@
           android:textSize="12sp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@id/text_gas_price"
-          style="@style/TransactionDetailsTextStyle"
+          style="@style/TransactionDetailsTextStyle.Dark"
           />
 
       <TextView
@@ -174,7 +174,7 @@
           android:textSize="12sp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@id/text_gas_limit"
-          style="@style/TransactionDetailsTextStyle"
+          style="@style/TransactionDetailsTextStyle.Dark"
           />
 
       <View
@@ -193,8 +193,6 @@
           android:layout_width="match_parent"
           android:layout_height="@dimen/button_height"
           android:layout_marginBottom="12dp"
-          android:layout_marginEnd="20dp"
-          android:layout_marginStart="20dp"
           android:layout_marginTop="47dp"
           android:text="@string/action_send"
           app:layout_constraintBottom_toBottomOf="parent"
