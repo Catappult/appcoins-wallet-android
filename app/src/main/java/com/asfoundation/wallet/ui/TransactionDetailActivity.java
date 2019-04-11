@@ -100,7 +100,8 @@ public class TransactionDetailActivity extends BaseActivity {
   private void onDefaultWallet(Wallet wallet) {
     adapter.setDefaultWallet(wallet);
 
-    if (!transaction.getOperations().isEmpty()) {
+    if (!transaction.getOperations()
+        .isEmpty()) {
       adapter.addOperations(transaction.getOperations());
       detailsList.setVisibility(View.VISIBLE);
     }
@@ -111,7 +112,6 @@ public class TransactionDetailActivity extends BaseActivity {
 
     NetworkInfo networkInfo = viewModel.defaultNetwork()
         .getValue();
-
 
     String symbol =
         transaction.getCurrency() == null ? (networkInfo == null ? "" : networkInfo.symbol)
@@ -311,7 +311,7 @@ public class TransactionDetailActivity extends BaseActivity {
 
   private void formatValue(String value, String symbol) {
     int smallTitleSize = (int) getResources().getDimension(R.dimen.small_text);
-    int color = getResources().getColor(R.color.gray_alpha_8a);
+    int color = getResources().getColor(R.color.gray_alpha_b3);
 
     amount.setText(BalanceUtils.formatBalance(value, symbol, smallTitleSize, color));
   }
