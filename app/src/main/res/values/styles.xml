@@ -332,7 +332,7 @@
 
   <style name="GasSettingsTextStyle">
     <item name="android:fontFamily">sans-serif</item>
-    <item name="android:textColor">@color/top_up_grey</item>
+    <item name="android:textColor">@color/grey_8a_alpha</item>
     <item name="android:textSize">16sp</item>
   </style>
 
