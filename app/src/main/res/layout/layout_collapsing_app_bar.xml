@@ -12,7 +12,6 @@
       android:id="@+id/toolbar_layout"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@drawable/appbar_background_color"
       android:fitsSystemWindows="false"
       android:theme="@style/AppTheme.AppBarOverlay"
       app:collapsedSubtitleTextAppearance="@style/ToolbarTextAppearance.Subtitle"
@@ -22,6 +21,7 @@
       app:expandedTitleTextAppearance="@style/ToolbarTextAppearance.Title.Expanded"
       app:layout_scrollFlags="scroll|exitUntilCollapsed"
       app:toolbarId="@+id/toolbar"
+      android:background="@drawable/appbar_background_color"
       >
 
     <androidx.appcompat.widget.Toolbar
