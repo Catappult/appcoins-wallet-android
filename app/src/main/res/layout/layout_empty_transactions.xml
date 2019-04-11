@@ -21,25 +21,10 @@
           android:layout_marginTop="@dimen/half_large_margin"
           android:gravity="center"
           android:text="@string/no_transactions_yet"
-          app:layout_constraintBottom_toTopOf="@id/action_air_drop"
+          app:layout_constraintBottom_toTopOf="@id/transactions_empty_screen_animation"
           app:layout_constraintEnd_toStartOf="@+id/guideline2"
           app:layout_constraintStart_toStartOf="@+id/guideline"
           app:layout_constraintTop_toTopOf="parent"
-          />
-      <android.widget.Button
-          android:id="@+id/action_air_drop"
-          android:layout_width="wrap_content"
-          android:layout_height="@dimen/button_height"
-          android:layout_marginTop="24dp"
-          android:paddingEnd="@dimen/half_large_margin"
-          android:paddingStart="@dimen/half_large_margin"
-          android:text="@string/action_try"
-          android:textAllCaps="true"
-          app:layout_constraintBottom_toTopOf="@id/transactions_empty_screen_animation"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/no_transactions_text"
-          style="@style/ButtonStyle"
           />
 
       <com.airbnb.lottie.LottieAnimationView
@@ -49,7 +34,7 @@
           app:layout_constraintBottom_toTopOf="@id/earn_bonus_text"
           app:layout_constraintEnd_toStartOf="@+id/guideline2"
           app:layout_constraintStart_toStartOf="@+id/guideline"
-          app:layout_constraintTop_toBottomOf="@id/action_air_drop"
+          app:layout_constraintTop_toBottomOf="@id/no_transactions_text"
           app:lottie_autoPlay="true"
           app:lottie_enableMergePathsForKitKatAndAbove="true"
           app:lottie_loop="true"

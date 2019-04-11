@@ -231,10 +231,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         viewModel.fetchTransactions(true);
         break;
       }
-      case R.id.action_air_drop: {
-        viewModel.showAirDrop(this);
-        break;
-      }
       case R.id.action_learn_more: {
         viewModel.showRewardsLevel(this);
         break;
