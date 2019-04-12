@@ -287,8 +287,8 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void onAppClick(AppcoinsApplication appcoinsApplication, Context context) {
-    String uri = "https://" + appcoinsApplication.getUniqueName() + ".en.aptoide.com/";
-    externalBrowserRouter.open(context, Uri.parse(uri));
+    externalBrowserRouter.open(context,
+        Uri.parse("https://" + appcoinsApplication.getUniqueName() + ".en.aptoide.com/"));
   }
 
   public void showRewardsLevel(Context context) {

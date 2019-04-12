@@ -72,10 +72,6 @@ public class AppcoinsApplication {
     return featuredGraphic;
   }
 
-  public String getPackageName() {
-    return packageName;
-  }
-
   public String getUniqueName() {
     return uniqueName;
   }
