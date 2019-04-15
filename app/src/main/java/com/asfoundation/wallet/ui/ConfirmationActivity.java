@@ -78,9 +78,12 @@ public class ConfirmationActivity extends BaseActivity {
     fromAddressText.setText(transactionBuilder.fromAddress());
     toAddressText.setText(transactionBuilder.toAddress());
 
-    valueText.setText(getString(R.string.new_transaction_value, transactionBuilder.amount(),
-        transactionBuilder.symbol()));
-    valueText.setTextColor(ContextCompat.getColor(this, R.color.red));
+    String value = "-" + transactionBuilder.amount()
+        .toString();
+    String symbol = transactionBuilder.symbol();
+    int smallTitleSize = (int) getResources().getDimension(R.dimen.small_text);
+    int color = getResources().getColor(R.color.color_grey_9e);
+    valueText.setText(BalanceUtils.formatBalance(value, symbol, smallTitleSize, color));
     BigDecimal gasPrice = transactionBuilder.gasSettings().gasPrice;
     BigDecimal gasLimit = transactionBuilder.gasSettings().gasLimit;
     gasPriceText.setText(
