@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.core.app.ShareCompat
 import androidx.core.content.res.ResourcesCompat
 import com.asf.wallet.R
-import com.asfoundation.wallet.ui.iab.AndroidBug5497Workaround
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.ui.iab.IabView
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
@@ -17,6 +17,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_share_payment_link.*
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class SharePaymentLinkFragment : DaggerFragment(),
@@ -27,27 +28,31 @@ class SharePaymentLinkFragment : DaggerFragment(),
 
   lateinit var presenter: SharePaymentLinkPresenter
   private var iabView: IabView? = null
+  @Inject
+  lateinit var analytics: BillingAnalytics
 
   companion object {
 
     private const val PARAM_DOMAIN = "AMOUNT_DOMAIN"
     private const val PARAM_SKUID = "AMOUNT_SKUID"
+    private const val PARAM_ORIGINAL_AMOUNT = "PARAM_ORIGINAL_AMOUNT"
     private const val PARAM_AMOUNT = "PARAM_AMOUNT"
-    private const val PARAM_CURRENCY = "PARAM_CURRENCY"
+    private const val PARAM_ORIGINAL_CURRENCY = "PARAM_ORIGINAL_CURRENCY"
+    private const val PARAM_TRANSACTION_TYPE = "PARAM_TRANSACTION_TYPE"
+    private const val PAYMENT_METHOD_NAME = "ASK_SOMEONE"
 
     @JvmStatic
     fun newInstance(domain: String, skuId: String?, originalAmount: String?,
-                    originalCurrency: String?): SharePaymentLinkFragment =
+                    originalCurrency: String?, amount: BigDecimal,
+                    type: String): SharePaymentLinkFragment =
         SharePaymentLinkFragment().apply {
           arguments = Bundle(2).apply {
-            putString(
-                PARAM_DOMAIN, domain)
-            putString(
-                PARAM_SKUID, skuId)
-            putString(
-                PARAM_AMOUNT, originalAmount)
-            putString(
-                PARAM_CURRENCY, originalCurrency)
+            putString(PARAM_DOMAIN, domain)
+            putString(PARAM_SKUID, skuId)
+            putString(PARAM_ORIGINAL_AMOUNT, originalAmount)
+            putString(PARAM_ORIGINAL_CURRENCY, originalCurrency)
+            putString(PARAM_TRANSACTION_TYPE, type)
+            putSerializable(PARAM_AMOUNT, amount)
           }
         }
   }
@@ -62,11 +67,19 @@ class SharePaymentLinkFragment : DaggerFragment(),
     }
   }
 
+  val type: String by lazy {
+    if (arguments!!.containsKey(PARAM_TRANSACTION_TYPE)) {
+      arguments!!.getString(PARAM_TRANSACTION_TYPE)
+    } else {
+      throw IllegalArgumentException("Domain not found")
+    }
+  }
+
   private val originalAmount: String? by lazy {
     if (arguments!!.containsKey(
-            PARAM_AMOUNT)) {
+            PARAM_ORIGINAL_AMOUNT)) {
       arguments!!.getString(
-          PARAM_AMOUNT)
+          PARAM_ORIGINAL_AMOUNT)
     } else {
       throw IllegalArgumentException("Domain not found")
     }
@@ -74,9 +87,9 @@ class SharePaymentLinkFragment : DaggerFragment(),
 
   private val originalCurrency: String? by lazy {
     if (arguments!!.containsKey(
-            PARAM_CURRENCY)) {
+            PARAM_ORIGINAL_CURRENCY)) {
       arguments!!.getString(
-          PARAM_CURRENCY)
+          PARAM_ORIGINAL_CURRENCY)
     } else {
       throw IllegalArgumentException("Domain not found")
     }
@@ -93,8 +106,23 @@ class SharePaymentLinkFragment : DaggerFragment(),
     }
   }
 
+  val amount: BigDecimal by lazy {
+    if (arguments!!.containsKey(
+            PARAM_AMOUNT)) {
+      val value = arguments!!.getSerializable(
+          PARAM_AMOUNT) as BigDecimal
+      value
+    } else {
+      throw IllegalArgumentException("SkuId not found")
+    }
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    if (savedInstanceState == null) {
+      analytics.sendPaymentMethodDetailsEvent(domain, skuId, amount.toString(), PAYMENT_METHOD_NAME,
+          type)
+    }
     presenter =
         SharePaymentLinkPresenter(this, interactor, AndroidSchedulers.mainThread(), Schedulers.io(),
             CompositeDisposable())
