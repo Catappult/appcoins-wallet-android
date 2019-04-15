@@ -75,4 +75,8 @@ public class AppcoinsApplication {
   public String getUniqueName() {
     return uniqueName;
   }
+
+  public String getPackageName() {
+    return packageName;
+  }
 }

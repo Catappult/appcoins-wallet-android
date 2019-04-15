@@ -124,6 +124,7 @@ import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.TrustWalletTickerService;
 import com.asfoundation.wallet.topup.TopUpInteractor;
+import com.asfoundation.wallet.transactions.TransactionsAnalytics;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper;
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor;
@@ -784,6 +785,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     list.add(BillingAnalytics.REVENUE);
     list.add(PoaAnalytics.POA_STARTED);
     list.add(PoaAnalytics.POA_COMPLETED);
+    list.add(TransactionsAnalytics.OPEN_APPLICATION);
     return list;
   }
 
@@ -886,9 +888,13 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .create(BdsShareLinkRepository.BdsShareLinkApi.class);
   }
 
-
   @Singleton @Provides TopUpInteractor providesTopUpInteractor(BdsRepository repository,
       LocalCurrencyConversionService conversionService) {
     return new TopUpInteractor(repository, conversionService);
+  }
+
+  @Singleton @Provides TransactionsAnalytics providesTransactionsAnalytics(
+      @NotNull AnalyticsManager analytics) {
+    return new TransactionsAnalytics(analytics);
   }
 }

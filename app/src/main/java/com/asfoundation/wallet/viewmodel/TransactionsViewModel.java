@@ -28,9 +28,9 @@ import com.asfoundation.wallet.router.RewardsLeverRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TopUpRouter;
-import com.asfoundation.wallet.router.TopUpRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.transactions.Transaction;
+import com.asfoundation.wallet.transactions.TransactionsAnalytics;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
@@ -77,6 +77,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final Runnable startFetchTransactionsTask = () -> this.fetchTransactions(false);
   private final Runnable startGetTokenBalanceTask = this::getTokenBalance;
   private final Runnable startGetCreditsBalanceTask = this::getCreditsBalance;
+  private final TransactionsAnalytics analytics;
   private boolean hasTransactions = false;
 
   TransactionsViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract,
@@ -88,7 +89,8 @@ public class TransactionsViewModel extends BaseViewModel {
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
       TransactionsMapper transactionsMapper, AirdropRouter airdropRouter, AppcoinsApps applications,
       OffChainTransactions offChainTransactions, RewardsLeverRouter rewardsLeverRouter,
-      GamificationInteractor gamificationInteractor, TopUpRouter topUpRouter) {
+      GamificationInteractor gamificationInteractor, TopUpRouter topUpRouter,
+      TransactionsAnalytics analytics) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchTransactionsInteract = fetchTransactionsInteract;
@@ -108,6 +110,7 @@ public class TransactionsViewModel extends BaseViewModel {
     this.offChainTransactions = offChainTransactions;
     this.gamificationInteractor = gamificationInteractor;
     this.topUpRouter = topUpRouter;
+    this.analytics = analytics;
     this.disposables = new CompositeDisposable();
   }
 
@@ -289,6 +292,7 @@ public class TransactionsViewModel extends BaseViewModel {
   public void onAppClick(AppcoinsApplication appcoinsApplication, Context context) {
     externalBrowserRouter.open(context,
         Uri.parse("https://" + appcoinsApplication.getUniqueName() + ".en.aptoide.com/"));
+    analytics.openApp(appcoinsApplication.getUniqueName(), appcoinsApplication.getPackageName());
   }
 
   public void showRewardsLevel(Context context) {
