@@ -72,5 +72,7 @@
   <color name="top_up_payment_details_text">#4a4a4a</color>
 
   <color name="transaction_details_button_color">#fe7073</color>
+  <color name="purchase_bonus_background_color">#efefef</color>
+  <color name="layout_separator_color">#eaeaea</color>
 
 </resources>

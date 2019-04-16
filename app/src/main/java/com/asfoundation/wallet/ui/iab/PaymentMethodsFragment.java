@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Outline;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -16,6 +18,7 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -24,6 +27,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.WalletService;
@@ -203,6 +207,25 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     paypalRadioButton = view.findViewById(R.id.paypal);
     shareLinkRadioButton = view.findViewById(R.id.share_link);
     bonusView = view.findViewById(R.id.bonus_layout);
+
+    // Transformation applied only for the landscape layout
+    // For the moment this transformation is not  possible through xml
+    // Please update as soon as it is possible to be done in the xml
+    ImageView bonusImg = bonusView.findViewById(R.id.gift_icon_landscape);
+    if (bonusImg != null) {
+      float curveRadius = getResources().getDimension(R.dimen.card_view_corner_radius);
+      bonusImg.setOutlineProvider(new ViewOutlineProvider() {
+        @RequiresApi(Build.VERSION_CODES.LOLLIPOP) @Override
+        public void getOutline(View view, Outline outline) {
+          if (outline != null) {
+            outline.setRoundRect(0, (int) -curveRadius, (int) (view.getWidth() + curveRadius),
+                view.getHeight(), curveRadius);
+          }
+        }
+      });
+
+      bonusImg.setClipToOutline(true);
+    }
     bonusValue = view.findViewById(R.id.bonus_value);
     setupAppNameAndIcon();
 

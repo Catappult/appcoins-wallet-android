@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/payment_methods_width_landscape"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:animateLayoutChanges="true"
+    android:background="@drawable/background_card"
+    >
+  <ProgressBar
+      android:id="@+id/loading_view"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
+      android:visibility="visible"
+      />
+
+  <LinearLayout
+      android:id="@+id/processing_loading"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:visibility="gone"
+      >
+    <TextView
+        android:id="@+id/loading_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:lineSpacingExtra="8sp"
+        android:text="@string/activity_aib_loading_title"
+        android:textColor="@color/black_87_alpha"
+        android:textSize="24sp"
+        />
+    <TextView
+        android:id="@+id/loading_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="@string/activity_aib_loading_message"
+        android:textColor="@color/iab_activity_gray"
+        />
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="38dp"
+        android:layout_marginTop="44dp"
+        android:indeterminateDrawable="@drawable/gradient_progress"
+        />
+  </LinearLayout>
+
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/payment_methods"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/background_card"
+      android:elevation="2dp"
+      android:visibility="invisible"
+      >
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/mid_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.46"
+        />
+
+    <View
+        android:id="@+id/top_separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/big_margin"
+        android:background="@color/layout_separator_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/app_icon"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginTop="37dp"
+        android:src="@drawable/ic_appc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_separator"
+        />
+    <TextView
+        android:id="@+id/app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="13dp"
+        android:layout_toEndOf="@id/app_icon"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/black_87_alpha"
+        android:textSize="16sp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="@id/mid_guideline"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@id/app_icon"
+        app:layout_constraintTop_toTopOf="@id/app_icon"
+        tools:text="Application Name"
+        />
+
+    <TextView
+        android:id="@+id/app_sku_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/app_name"
+        android:layout_toEndOf="@id/app_icon"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/grey_8a_alpha"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/mid_guideline"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@id/app_name"
+        app:layout_constraintTop_toBottomOf="@id/app_name"
+        tools:text="Item Name"
+        />
+
+    <View
+        android:id="@+id/app_separator"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginEnd="@dimen/big_margin"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginTop="14dp"
+        android:background="@color/layout_separator_color"
+        app:layout_constraintEnd_toEndOf="@+id/mid_guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_sku_description"
+        />
+
+    <TextView
+        android:id="@+id/appc_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/big_margin"
+        android:layout_marginTop="22dp"
+        android:fontFamily="@font/roboto_bolt"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@id/mid_guideline"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_separator"
+        tools:text="0,99 APPC"
+        />
+
+    <TextView
+        android:id="@+id/fiat_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/big_margin"
+        android:textColor="#828282"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/mid_guideline"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appc_price"
+        tools:text="0,09 EUR"
+        />
+
+    <ImageView
+        android:id="@+id/mid_separator"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="@drawable/dashed_vertical_line"
+        app:layout_constraintStart_toEndOf="@id/mid_guideline"
+        app:layout_constraintTop_toBottomOf="@id/top_separator"
+        app:layout_constraintBottom_toTopOf="@id/bottom_separator"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="8dp"
+        />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/payment_methods_radio_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerInParent="true"
+        app:layout_constraintBottom_toTopOf="@id/bottom_separator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/mid_guideline"
+        app:layout_constraintTop_toBottomOf="@id/top_separator"
+        >
+      <RadioGroup
+          android:id="@+id/payment_methods_radio_group"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="16dp"
+          android:layout_marginStart="16dp"
+          android:orientation="vertical"
+          >
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/share_link"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            style="@style/PaymentMethodsRadioButton"
+            />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/paypal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            style="@style/PaymentMethodsRadioButton"
+            />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/credit_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:enabled="false"
+            style="@style/PaymentMethodsRadioButton"
+            />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/appc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:visibility="visible"
+            style="@style/PaymentMethodsRadioButton"
+            />
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/appc_credits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:visibility="visible"
+            style="@style/PaymentMethodsRadioButton"
+            />
+      </RadioGroup>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <View
+        android:id="@+id/bottom_separator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/layout_separator_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_separator"
+        android:layout_marginTop="227dp"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/bottom_mid_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.55"
+        />
+
+    <include
+        layout="@layout/view_purchase_bonus_landscape"
+        android:id="@+id/bonus_layout"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/bottom_mid_guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/bottom_separator"
+        app:layout_constraintVertical_bias="1"
+        />
+
+    <include
+        layout="@layout/dialog_buy_buttons_payment_methods"
+        android:id="@+id/dialog_buy_buttons_payment_methods"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="@dimen/normal_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/bottom_mid_guideline"
+        app:layout_constraintTop_toBottomOf="@id/bottom_separator"
+
+        />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+  <RelativeLayout
+      android:id="@+id/address_footer"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/payment_methods"
+      android:layout_marginBottom="2dp"
+      android:layout_marginTop="2dp"
+      android:visibility="invisible"
+      >
+    <ImageView
+        android:id="@+id/logo_wallet"
+        android:layout_width="76dp"
+        android:layout_height="16dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/logo_appc_wallet"
+        />
+
+    <TextView
+        android:id="@+id/wallet_address_footer"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_toEndOf="@id/logo_wallet"
+        android:ellipsize="end"
+        android:gravity="center_vertical|end"
+        android:maxLines="1"
+        android:layout_alignTop="@id/logo_wallet"
+        android:layout_alignBottom="@id/logo_wallet"
+        android:text="0x1a78a81235dls019sk291id"
+        android:textColor="@color/grey_8a_alpha"
+        android:textSize="12sp"
+
+        />
+  </RelativeLayout>
+
+  <include
+      layout="@layout/fragment_iab_error"
+      android:id="@+id/error_message"
+      />
+
+</RelativeLayout>

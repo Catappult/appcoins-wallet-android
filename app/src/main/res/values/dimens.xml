@@ -30,6 +30,7 @@
 
   <dimen name="button_height">40dp</dimen>
   <dimen name="payment_methods_width">340dp</dimen>
+  <dimen name="payment_methods_width_landscape">544dp</dimen>
 
   <dimen name="rewards_level_icon_size">42dp</dimen>
   <dimen name="rewards_level_icon_small_size">32dp</dimen>
@@ -38,4 +39,6 @@
   <dimen name="payment_method_icon_size">24dp</dimen>
 
   <dimen name="topup_main_value_min_size">16sp</dimen>
+
+  <dimen name="card_view_corner_radius">7dp</dimen>
 </resources>
