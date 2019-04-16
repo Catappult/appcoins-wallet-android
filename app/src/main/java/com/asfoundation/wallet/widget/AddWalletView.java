@@ -9,8 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
+import com.airbnb.lottie.LottieAnimationView;
 import com.asf.wallet.R;
 
 public class AddWalletView extends FrameLayout implements View.OnClickListener {
@@ -30,13 +30,15 @@ public class AddWalletView extends FrameLayout implements View.OnClickListener {
   private void init(@LayoutRes int layoutId) {
     LayoutInflater.from(getContext())
         .inflate(layoutId, this, true);
-    findViewById(R.id.new_account_action).setOnClickListener(this);
+    findViewById(R.id.skip_action).setOnClickListener(this);
     findViewById(R.id.import_account_action).setOnClickListener(this);
 
     ViewPager viewPager = findViewById(R.id.intro);
     if (viewPager != null) {
       viewPager.setPageTransformer(false, new DepthPageTransformer());
       viewPager.setAdapter(new IntroPagerAdapter());
+      viewPager.addOnPageChangeListener(
+          new PageChangeListener(findViewById(R.id.lottie_onboarding)));
     }
   }
 
@@ -76,16 +78,11 @@ public class AddWalletView extends FrameLayout implements View.OnClickListener {
 
   private static class IntroPagerAdapter extends PagerAdapter {
     private int[] titles = new int[] {
-        R.string.intro_title_first_page, R.string.welcome_erc20_label_title,
-        R.string.intro_title_second_page, R.string.intro_title_third_page,
+        R.string.intro_title_first_page, R.string.intro_2_title, R.string.intro_3_title,
+        R.string.intro_4_title,
     };
     private int[] messages = new int[] {
-        R.string.intro_message_first_page, R.string.welcome_erc20_label_description,
-        R.string.intro_message_second_page, R.string.intro_message_third_page,
-    };
-    private int[] images = new int[] {
-        R.drawable.space_man, R.mipmap.onboarding_erc20, R.mipmap.onboarding_open_source,
-        R.mipmap.onboarding_rocket
+        R.string.intro_1_body, R.string.intro_2_body, R.string.intro_3_body, R.string.intro_4_body,
     };
 
     @Override public int getCount() {
@@ -97,7 +94,6 @@ public class AddWalletView extends FrameLayout implements View.OnClickListener {
           .inflate(R.layout.layout_page_intro, container, false);
       ((TextView) view.findViewById(R.id.title)).setText(titles[position]);
       ((TextView) view.findViewById(R.id.message)).setText(messages[position]);
-      ((ImageView) view.findViewById(R.id.img)).setImageResource(images[position]);
       container.addView(view);
       return view;
     }
@@ -142,6 +138,28 @@ public class AddWalletView extends FrameLayout implements View.OnClickListener {
         // This page is way off-screen to the right.
         view.setAlpha(0);
       }
+    }
+  }
+
+  private static class PageChangeListener implements ViewPager.OnPageChangeListener {
+
+    private LottieAnimationView lottieView;
+
+    PageChangeListener(LottieAnimationView lottieView) {
+      this.lottieView = lottieView;
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+      lottieView.setProgress((position * (1f / 3)) + (positionOffset * (1f / 3)));
+    }
+
+    @Override public void onPageSelected(int position) {
+
+    }
+
+    @Override public void onPageScrollStateChanged(int state) {
+
     }
   }
 }
