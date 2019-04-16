@@ -71,7 +71,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   private fun handleAmountChange() {
     disposables.add(view.getEditTextChanges().filter {
       isNumericOrEmpty(it)
-    }.debounce(700, TimeUnit.MILLISECONDS)
+    }.doOnNext { view.setNextButtonState(false) }.debounce(700, TimeUnit.MILLISECONDS)
         .switchMap { topUpData ->
           getConvertedValue(topUpData)
               .subscribeOn(networkScheduler).map { value ->
@@ -82,11 +82,13 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                   topUpData.currency.fiatValue =
                       if (value.amount == BigDecimal.ZERO) DEFAULT_VALUE else value.amount.toString()
                 }
+                return@map topUpData
               }
               .doOnError { it.printStackTrace() }
               .onErrorResumeNext(Observable.empty())
-              .observeOn(viewScheduler).map {
-                view.setConversionValue(topUpData)
+              .observeOn(viewScheduler).doOnNext {
+                view.setConversionValue(it)
+                view.setNextButtonState(true)
               }
         }
         .subscribe())
