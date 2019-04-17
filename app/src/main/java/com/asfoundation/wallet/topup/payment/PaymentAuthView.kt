@@ -28,8 +28,6 @@ interface PaymentAuthView {
 
   fun close()
 
-  fun showSuccess()
-
   fun showPaymentRefusedError(adyenAuthorization: AdyenAuthorization)
 
   fun showGenericError()
