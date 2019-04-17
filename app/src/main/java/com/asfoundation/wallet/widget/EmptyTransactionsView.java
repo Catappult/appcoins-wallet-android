@@ -16,7 +16,7 @@ public class EmptyTransactionsView extends FrameLayout {
   private final LottieAnimationView noTransactionsAnimationView;
 
   public EmptyTransactionsView(@NonNull Context context, OnClickListener onClickListener,
-      boolean isMainNetwork, String bonus) {
+      String bonus) {
     super(context);
 
     LayoutInflater.from(getContext())

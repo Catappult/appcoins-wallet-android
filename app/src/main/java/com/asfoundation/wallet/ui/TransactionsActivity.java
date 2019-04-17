@@ -130,10 +130,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private void onFetchTransactionsError(Double maxBonus) {
     if (emptyView == null) {
-      final boolean[] isMainNet = { false };
-      viewModel.defaultNetwork()
-          .observe(this, info -> isMainNet[0] = info.isMainNetwork);
-      emptyView = new EmptyTransactionsView(this, this, isMainNet[0], String.valueOf(maxBonus));
+      emptyView = new EmptyTransactionsView(this, this, String.valueOf(maxBonus));
       systemView.showEmpty(emptyView);
     }
   }
@@ -284,12 +281,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private void onError(ErrorEnvelope errorEnvelope) {
     if ((errorEnvelope.code == EMPTY_COLLECTION || adapter.getItemCount() == 0)) {
-      final boolean[] isMainNet = { false };
-      viewModel.defaultNetwork()
-          .observe(this, info -> isMainNet[0] = info.isMainNetwork);
-
       if (emptyView == null) {
-        emptyView = new EmptyTransactionsView(this, this, isMainNet[0], maxBonusEmptyScreen);
+        emptyView = new EmptyTransactionsView(this, this, maxBonusEmptyScreen);
         systemView.showEmpty(emptyView);
       }
     }
