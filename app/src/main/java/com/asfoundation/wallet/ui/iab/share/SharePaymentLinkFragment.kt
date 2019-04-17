@@ -120,8 +120,7 @@ class SharePaymentLinkFragment : DaggerFragment(),
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     if (savedInstanceState == null) {
-      analytics.sendPaymentMethodDetailsEvent(domain, skuId, amount.toString(), PAYMENT_METHOD_NAME,
-          type)
+      analytics.sendPaymentEvent(domain, skuId, amount.toString(), PAYMENT_METHOD_NAME, type)
     }
     presenter =
         SharePaymentLinkPresenter(this, interactor, AndroidSchedulers.mainThread(), Schedulers.io(),
