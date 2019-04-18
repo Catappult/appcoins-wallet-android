@@ -2,13 +2,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#fafafa"
+    android:layout_height="match_parent"
     >
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/lottie_onboarding"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:scaleType="centerCrop"
+      app:layout_constraintBottom_toTopOf="@id/animation_guideline"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
@@ -17,11 +18,27 @@
   <androidx.viewpager.widget.ViewPager
       android:id="@+id/intro"
       android:layout_width="match_parent"
-      android:layout_height="110dp"
-      android:layout_marginTop="24dp"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toTopOf="@id/text_guideline"
       app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="1.0"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/lottie_onboarding"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="1.0"
+      />
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/animation_guideline"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.5"
+      />
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/text_guideline"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.7"
       />
   <com.rd.PageIndicatorView
       android:id="@+id/page_indicator"
@@ -71,13 +88,9 @@
       android:id="@+id/skip_action"
       android:layout_width="120dp"
       android:layout_height="@dimen/button_height"
-      android:layout_gravity="center_horizontal"
       android:layout_marginBottom="20dp"
-      android:layout_marginEnd="@dimen/big_margin"
-      android:layout_marginStart="@dimen/big_margin"
       android:layout_marginTop="17dp"
       android:text="@string/skip"
-      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/terms_conditions_layout"
