@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:background="#fafafa"
     >
-
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/lottie_onboarding"
       android:layout_width="match_parent"
@@ -15,7 +14,6 @@
       app:layout_constraintTop_toTopOf="parent"
       app:lottie_rawRes="@raw/intro_onboarding_animation"
       />
-
   <androidx.viewpager.widget.ViewPager
       android:id="@+id/intro"
       android:layout_width="match_parent"
@@ -40,21 +38,6 @@
       app:piv_selectedColor="@color/selection_dot_selected"
       app:piv_unselectedColor="@color/selection_dot_unselected"
       app:piv_viewPager="@id/intro"
-      />
-
-  <Button
-      android:id="@+id/import_account_action"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/button_height"
-      android:layout_gravity="center_horizontal"
-      android:layout_marginEnd="@dimen/big_margin"
-      android:layout_marginStart="@dimen/big_margin"
-      android:layout_marginTop="@dimen/big_margin"
-      android:gravity="center_horizontal|center_vertical"
-      android:text="@string/already_have_account"
-      android:visibility="gone"
-      app:layout_constraintTop_toBottomOf="@id/new_account_action"
-      style="@style/ButtonStyle.Light"
       />
   <LinearLayout
       android:id="@+id/terms_conditions_layout"

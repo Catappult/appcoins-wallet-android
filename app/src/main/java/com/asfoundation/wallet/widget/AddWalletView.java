@@ -31,7 +31,9 @@ public class AddWalletView extends FrameLayout implements View.OnClickListener {
     LayoutInflater.from(getContext())
         .inflate(layoutId, this, true);
     findViewById(R.id.skip_action).setOnClickListener(this);
-    findViewById(R.id.import_account_action).setOnClickListener(this);
+    if (layoutId == R.layout.layout_dialog_add_account) {
+      findViewById(R.id.import_account_action).setOnClickListener(this);
+    }
 
     ViewPager viewPager = findViewById(R.id.intro);
     if (viewPager != null) {
