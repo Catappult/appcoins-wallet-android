@@ -162,7 +162,6 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   override fun setNextButtonState(enabled: Boolean) {
-    Log.e(this.javaClass.simpleName, "setNextButtonState: $enabled")
     button.isEnabled = enabled
   }
 
