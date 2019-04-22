@@ -350,6 +350,8 @@
   <string name="error_missing_field">Dit veld is verplicht</string>
   <string name="cancel_button">Annuleren</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">Ik ga akkoord met de algemene voorwaarden en het privacybeleid van AppCoins Wallet</string>
+  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions">Terms and Conditions</string>
+  <string name="privacy_policy">Privacy Policy</string>
 </resources>
