@@ -350,6 +350,8 @@
   <string name="error_missing_field">Kötelező mező</string>
   <string name="cancel_button">Mégse</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">Egyetértek az AppCoins Wallet felhasználási feltételeivel és adatvédelmi szabályzatával</string>
+  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions">Terms and Conditions</string>
+  <string name="privacy_policy">Privacy Policy</string>
 </resources>
