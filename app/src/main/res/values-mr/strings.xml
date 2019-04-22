@@ -350,6 +350,8 @@
   <string name="error_missing_field">अनिवार्य जागा</string>
   <string name="cancel_button">रद्द करा</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">अॅप कॉइन्सच्या अटी आणि शर्ती आणि गोपनीयता धोरण मंजुर आहे</string>
+  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions">Terms and Conditions</string>
+  <string name="privacy_policy">Privacy Policy</string>
 </resources>
