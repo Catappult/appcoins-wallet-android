@@ -350,6 +350,8 @@
   <string name="error_missing_field">Ruang wajib diisi</string>
   <string name="cancel_button">Batal</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">Saya setuju dengan Terma dan Syarat serta Dasar Privasi Dompet AppCoins</string>
+  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions">Terms and Conditions</string>
+  <string name="privacy_policy">Privacy Policy</string>
 </resources>
