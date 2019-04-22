@@ -351,6 +351,8 @@
   <string name="error_missing_field">必須項目</string>
   <string name="cancel_button">キャンセルする</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">AppCoins ウォレットの利用規約およびプライバシー ポリシーに同意します。</string>
+  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions">Terms and Conditions</string>
+  <string name="privacy_policy">Privacy Policy</string>
 </resources>
