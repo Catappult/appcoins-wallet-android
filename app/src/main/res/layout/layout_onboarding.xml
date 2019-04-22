@@ -54,6 +54,19 @@
       app:piv_unselectedColor="@color/selection_dot_unselected"
       app:piv_viewPager="@id/intro"
       />
+  <TextView
+      android:id="@+id/terms_conditions_warning"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="15dp"
+      android:gravity="center"
+      android:text="@string/terms_and_conditions_error"
+      android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/page_indicator"
+      style="@style/OnboardingTermsConditionsTextStyle.Warning"
+      />
   <LinearLayout
       android:id="@+id/terms_conditions_layout"
       android:layout_width="match_parent"
@@ -75,10 +88,10 @@
         android:id="@+id/terms_conditions_body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/terms_and_conditions_tickbox"
-        android:textSize="9sp"
         android:gravity="center"
+        android:text="@string/terms_and_conditions_tickbox"
         app:layout_constraintTop_toBottomOf="@id/page_indicator"
+        style="@style/OnboardingTermsConditionsTextStyle"
         />
   </LinearLayout>
   <Button
@@ -88,6 +101,19 @@
       android:layout_marginBottom="20dp"
       android:layout_marginTop="17dp"
       android:text="@string/skip"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/terms_conditions_layout"
+      style="@style/ButtonStyle"
+      />
+  <Button
+      android:id="@+id/ok_action"
+      android:layout_width="120dp"
+      android:layout_height="@dimen/button_height"
+      android:layout_marginBottom="20dp"
+      android:layout_marginTop="17dp"
+      android:text="@string/button_ok"
+      android:visibility="gone"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/terms_conditions_layout"

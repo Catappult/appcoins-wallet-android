@@ -14,8 +14,11 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.asf.wallet.R;
 
 public class AddWalletView extends FrameLayout implements View.OnClickListener {
+
+  public static int ANIMATION_TRANSITIONS = 3;
   private OnNewWalletClickListener onNewWalletClickListener;
   private OnImportWalletClickListener onImportWalletClickListener;
+  private ViewPager viewPager;
 
   public AddWalletView(Context context) {
     this(context, R.layout.layout_dialog_add_account);
@@ -30,12 +33,15 @@ public class AddWalletView extends FrameLayout implements View.OnClickListener {
   private void init(@LayoutRes int layoutId) {
     LayoutInflater.from(getContext())
         .inflate(layoutId, this, true);
-    findViewById(R.id.skip_action).setOnClickListener(this);
     if (layoutId == R.layout.layout_dialog_add_account) {
       findViewById(R.id.import_account_action).setOnClickListener(this);
+      findViewById(R.id.new_account_action).setOnClickListener(this);
     }
-
-    ViewPager viewPager = findViewById(R.id.intro);
+    if (layoutId == R.layout.layout_onboarding) {
+      findViewById(R.id.skip_action).setOnClickListener(this);
+      findViewById(R.id.ok_action).setOnClickListener(this);
+    }
+    viewPager = findViewById(R.id.intro);
     if (viewPager != null) {
       viewPager.setPageTransformer(false, new DepthPageTransformer());
       viewPager.setAdapter(new IntroPagerAdapter());
@@ -56,6 +62,10 @@ public class AddWalletView extends FrameLayout implements View.OnClickListener {
         if (onImportWalletClickListener != null) {
           onImportWalletClickListener.onImportWallet(view);
         }
+      }
+      break;
+      case R.id.skip_action: {
+        viewPager.setCurrentItem(ANIMATION_TRANSITIONS);
       }
       break;
     }
@@ -153,7 +163,8 @@ public class AddWalletView extends FrameLayout implements View.OnClickListener {
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-      lottieView.setProgress((position * (1f / 3)) + (positionOffset * (1f / 3)));
+      lottieView.setProgress((position * (1f / ANIMATION_TRANSITIONS)) + (positionOffset * (1f
+          / ANIMATION_TRANSITIONS)));
     }
 
     @Override public void onPageSelected(int position) {
