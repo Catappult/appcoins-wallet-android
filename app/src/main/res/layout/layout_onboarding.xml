@@ -22,10 +22,8 @@
       android:layout_height="0dp"
       app:layout_constraintBottom_toTopOf="@id/text_guideline"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="1.0"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintVertical_bias="1.0"
       />
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/animation_guideline"
@@ -45,7 +43,6 @@
       android:id="@+id/page_indicator"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_gravity="bottom|center"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/intro"
@@ -80,8 +77,7 @@
         android:layout_height="wrap_content"
         android:text="@string/terms_and_conditions_tickbox"
         android:textSize="9sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/page_indicator"
         />
   </LinearLayout>

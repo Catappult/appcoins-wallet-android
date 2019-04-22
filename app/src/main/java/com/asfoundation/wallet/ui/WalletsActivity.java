@@ -253,7 +253,7 @@ public class WalletsActivity extends BaseActivity
       disableDisplayHomeAsUp();
       SwipeRefreshLayout refreshLayout = findViewById(R.id.refresh_layout);
       refreshLayout.setVisibility(View.GONE);
-      AddWalletView addWalletView = new AddWalletView(this, R.layout.layout_empty_add_account);
+      AddWalletView addWalletView = new AddWalletView(this, R.layout.layout_onboarding);
       addWalletView.setOnNewWalletClickListener(this);
       addWalletView.setOnImportWalletClickListener(this);
       systemView.showEmpty(addWalletView);
