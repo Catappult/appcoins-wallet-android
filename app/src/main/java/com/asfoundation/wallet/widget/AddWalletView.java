@@ -1,6 +1,14 @@
 package com.asfoundation.wallet.widget;
 
 import android.content.Context;
+import android.graphics.Typeface;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.StyleSpan;
+import android.util.Log;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
@@ -40,13 +48,29 @@ public class AddWalletView extends FrameLayout implements View.OnClickListener {
     if (layoutId == R.layout.layout_onboarding) {
       findViewById(R.id.skip_action).setOnClickListener(this);
       findViewById(R.id.ok_action).setOnClickListener(this);
-    }
-    viewPager = findViewById(R.id.intro);
-    if (viewPager != null) {
-      viewPager.setPageTransformer(false, new DepthPageTransformer());
-      viewPager.setAdapter(new IntroPagerAdapter());
-      viewPager.addOnPageChangeListener(
-          new PageChangeListener(findViewById(R.id.lottie_onboarding)));
+
+      String termsConditions = getResources().getString(R.string.terms_and_conditions);
+      String privacyPolicy = getResources().getString(R.string.privacy_policy);
+      String termsPolicyTickBox =
+          getResources().getString(R.string.terms_and_conditions_tickbox, termsConditions,
+              privacyPolicy);
+
+      SpannableString spannableString = new SpannableString(termsPolicyTickBox);
+      setLinkToString(spannableString, termsConditions, "");
+      setLinkToString(spannableString, privacyPolicy, "");
+
+      TextView textView = findViewById(R.id.terms_conditions_body);
+      textView.setText(spannableString);
+      textView.setClickable(true);
+      textView.setMovementMethod(LinkMovementMethod.getInstance());
+
+      viewPager = findViewById(R.id.intro);
+      if (viewPager != null) {
+        viewPager.setPageTransformer(false, new DepthPageTransformer());
+        viewPager.setAdapter(new IntroPagerAdapter());
+        viewPager.addOnPageChangeListener(
+            new PageChangeListener(findViewById(R.id.lottie_onboarding)));
+      }
     }
   }
 
@@ -71,6 +95,27 @@ public class AddWalletView extends FrameLayout implements View.OnClickListener {
     }
   }
 
+  private void setLinkToString(SpannableString spannableString, String highlightString,
+      String link) {
+    ClickableSpan clickableSpan = new ClickableSpan() {
+      @Override public void onClick(@NonNull View widget) {
+        Log.d("", "onClick: STRING CLICKED");
+      }
+
+      @Override public void updateDrawState(@NonNull TextPaint ds) {
+        ds.setColor(getResources().getColor(R.color.grey_8a_alpha));
+        ds.setUnderlineText(true);
+      }
+    };
+    int indexHighlightString = spannableString.toString()
+        .indexOf(highlightString);
+    int highlightStringLength = highlightString.length();
+    spannableString.setSpan(clickableSpan, indexHighlightString,
+        indexHighlightString + highlightStringLength, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    spannableString.setSpan(new StyleSpan(Typeface.BOLD), indexHighlightString,
+        indexHighlightString + highlightStringLength, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+  }
+
   public void setOnNewWalletClickListener(OnNewWalletClickListener onNewWalletClickListener) {
     this.onNewWalletClickListener = onNewWalletClickListener;
   }
@@ -91,10 +136,10 @@ public class AddWalletView extends FrameLayout implements View.OnClickListener {
   private static class IntroPagerAdapter extends PagerAdapter {
     private int[] titles = new int[] {
         R.string.intro_title_first_page, R.string.intro_2_title, R.string.intro_3_title,
-        R.string.intro_4_title,
+        R.string.intro_4_title
     };
     private int[] messages = new int[] {
-        R.string.intro_1_body, R.string.intro_2_body, R.string.intro_3_body, R.string.intro_4_body,
+        R.string.intro_1_body, R.string.intro_2_body, R.string.intro_3_body, R.string.intro_4_body
     };
 
     @Override public int getCount() {
