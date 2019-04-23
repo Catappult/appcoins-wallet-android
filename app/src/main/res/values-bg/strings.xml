@@ -294,7 +294,7 @@
   <string name="gamification_star_subtitle">Блестяща, голяма и пълна с живот!</string>
   <string name="gamification_galaxy_subtitle">Най-голямата съществуваща система!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Имаш Бонус!</string>
+  <string name="gamification_purchase_header">Get a Bonus!</string>
   <string name="gamification_purchase_body">Ще получиш %s APPC кредити за тази покупка.</string>
   <string name="action_level">Моето ниво</string>
   <!-- Provide wallet address -->
