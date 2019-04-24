@@ -10,6 +10,8 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.StyleSpan;
+import android.widget.Button;
+import android.widget.CheckBox;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
@@ -27,7 +29,6 @@ public class AddWalletView extends FrameLayout implements View.OnClickListener {
   public static int ANIMATION_TRANSITIONS = 3;
   private OnNewWalletClickListener onNewWalletClickListener;
   private OnImportWalletClickListener onImportWalletClickListener;
-  private ViewPager viewPager;
 
   public AddWalletView(Context context) {
     this(context, R.layout.layout_dialog_add_account);
@@ -40,7 +41,7 @@ public class AddWalletView extends FrameLayout implements View.OnClickListener {
   }
 
   private void init(@LayoutRes int layoutId) {
-    LayoutInflater.from(getContext())
+    View addWalletView = LayoutInflater.from(getContext())
         .inflate(layoutId, this, true);
     if (layoutId == R.layout.layout_dialog_add_account) {
       findViewById(R.id.import_account_action).setOnClickListener(this);
@@ -65,12 +66,11 @@ public class AddWalletView extends FrameLayout implements View.OnClickListener {
       textView.setClickable(true);
       textView.setMovementMethod(LinkMovementMethod.getInstance());
 
-      viewPager = findViewById(R.id.intro);
+      ViewPager viewPager = findViewById(R.id.intro);
       if (viewPager != null) {
         viewPager.setPageTransformer(false, new DepthPageTransformer());
         viewPager.setAdapter(new IntroPagerAdapter());
-        viewPager.addOnPageChangeListener(
-            new PageChangeListener(findViewById(R.id.lottie_onboarding)));
+        viewPager.addOnPageChangeListener(new PageChangeListener(addWalletView));
       }
     }
   }
@@ -90,6 +90,7 @@ public class AddWalletView extends FrameLayout implements View.OnClickListener {
       }
       break;
       case R.id.skip_action: {
+        ViewPager viewPager = findViewById(R.id.intro);
         viewPager.setCurrentItem(ANIMATION_TRANSITIONS);
       }
       break;
@@ -202,16 +203,62 @@ public class AddWalletView extends FrameLayout implements View.OnClickListener {
 
   private static class PageChangeListener implements ViewPager.OnPageChangeListener {
 
+    private View view;
     private LottieAnimationView lottieView;
+    private Button skipButton;
+    private Button okButton;
+    private CheckBox checkBox;
+    private TextView warningText;
 
-    PageChangeListener(LottieAnimationView lottieView) {
-      this.lottieView = lottieView;
+    PageChangeListener(View view) {
+      this.view = view;
+      init();
+    }
+
+    public void init() {
+      lottieView = view.findViewById(R.id.lottie_onboarding);
+      skipButton = view.findViewById(R.id.skip_action);
+      okButton = view.findViewById(R.id.ok_action);
+      checkBox = view.findViewById(R.id.onboarding_checkbox);
+      warningText = view.findViewById(R.id.terms_conditions_warning);
+    }
+
+    private void showWarningText(int position) {
+      if (!checkBox.isChecked() && position == 3) {
+        warningText.setVisibility(VISIBLE);
+      } else {
+        warningText.setVisibility(GONE);
+      }
+    }
+
+    private void showSkipButton(int position) {
+      if (position != 3 && checkBox.isChecked()) {
+        skipButton.setVisibility(VISIBLE);
+      } else {
+        skipButton.setVisibility(GONE);
+      }
+    }
+
+    private void showOkButton(int position) {
+      if (checkBox.isChecked() && position == 3) {
+        okButton.setVisibility(VISIBLE);
+      } else {
+        okButton.setVisibility(GONE);
+      }
     }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
       lottieView.setProgress((position * (1f / ANIMATION_TRANSITIONS)) + (positionOffset * (1f
           / ANIMATION_TRANSITIONS)));
+      checkBox.setOnClickListener(view -> {
+        showWarningText(position);
+        showSkipButton(position);
+        showOkButton(position);
+      });
+      showWarningText(position);
+      showSkipButton(position);
+      showOkButton(position);
     }
 
     @Override public void onPageSelected(int position) {

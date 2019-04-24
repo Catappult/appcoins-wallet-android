@@ -77,7 +77,8 @@
       android:orientation="horizontal"
       app:layout_constraintTop_toBottomOf="@id/page_indicator"
       >
-    <androidx.appcompat.widget.AppCompatCheckBox
+    <CheckBox
+        android:id="@+id/onboarding_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:buttonTint="@color/selection_dot_selected"
@@ -104,6 +105,7 @@
       android:layout_marginBottom="20dp"
       android:layout_marginTop="17dp"
       android:text="@string/skip"
+      android:visibility="gone"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/terms_conditions_layout"
