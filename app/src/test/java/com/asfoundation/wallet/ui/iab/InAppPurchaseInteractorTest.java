@@ -87,6 +87,7 @@ public class InAppPurchaseInteractorTest {
   public static final String UID = "uid";
   public static final String DEVELOPER_PAYLOAD = "developer_payload";
   public static final String STORE_ADDRESS = "0xc41b4160b63d1f9488937f7b66640d2babdbf8ad";
+  public static final String OEM_ADDRESS = "0x0965b2a3e664690315ad20b9e5b0336c19cf172e";
 
   @Mock FetchGasSettingsInteract gasSettingsInteract;
   @Mock BdsTransactionProvider transactionProvider;
@@ -173,6 +174,8 @@ public class InAppPurchaseInteractorTest {
     when(transactionValidator.validate(any())).thenReturn(Completable.complete());
 
     when(addressService.getStoreAddressForPackage(any())).thenReturn(Single.just(STORE_ADDRESS));
+
+    when(addressService.getOemAddressForPackage(any())).thenReturn(Single.just(OEM_ADDRESS));
 
     inAppPurchaseService =
         new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),

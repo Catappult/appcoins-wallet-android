@@ -848,7 +848,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides WalletAddressService providesWalletAddressService(BdsPartnersApi api) {
-    return new PartnerWalletAddressService(api, BuildConfig.DEFAULT_STORE_ADDRESS);
+    return new PartnerWalletAddressService(api, BuildConfig.DEFAULT_STORE_ADDRESS,
+        BuildConfig.DEFAULT_OEM_ADDRESS);
   }
 
   @Singleton @Provides BdsPartnersApi provideBdsPartnersApi(OkHttpClient client, Gson gson) {
@@ -885,7 +886,6 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .build()
         .create(BdsShareLinkRepository.BdsShareLinkApi.class);
   }
-
 
   @Singleton @Provides TopUpInteractor providesTopUpInteractor(BdsRepository repository,
       LocalCurrencyConversionService conversionService) {

@@ -25,13 +25,14 @@ public class RewardsManager {
     this.partnerAddressService = partnerAddressService;
   }
 
-  public Completable pay(String sku, BigDecimal amount, String developerAddress, String oemAddress,
-      String packageName, String origin, String type, String payload, String callbackUrl,
-      String orderReference) {
-    return partnerAddressService.getStoreAddressForPackage(packageName)
-        .flatMapCompletable(
-            storeAddress -> appcoinsRewards.pay(amount, origin, sku, type, developerAddress,
-                storeAddress, oemAddress, packageName, payload, callbackUrl, orderReference));
+  public Completable pay(String sku, BigDecimal amount, String developerAddress, String packageName,
+      String origin, String type, String payload, String callbackUrl, String orderReference) {
+    return Single.zip(partnerAddressService.getStoreAddressForPackage(packageName),
+        partnerAddressService.getOemAddressForPackage(packageName),
+        (storeAddress, oemAddress) -> appcoinsRewards.pay(amount, origin, sku, type,
+            developerAddress, storeAddress, oemAddress, packageName, payload, callbackUrl,
+            orderReference))
+        .toCompletable();
   }
 
   public Single<Purchase> getPaymentCompleted(String packageName, String sku) {

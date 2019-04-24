@@ -87,7 +87,7 @@ public class AppcoinsRewardsBuyPresenter {
     disposables.add(view.getBuyClick()
         .flatMapSingle(__ -> transferParser.parse(uri))
         .flatMapCompletable(transaction -> rewardsManager.pay(transaction.getSkuId(), amount,
-            transaction.toAddress(), oemAddress, packageName, getOrigin(isBds, transaction),
+            transaction.toAddress(), packageName, getOrigin(isBds, transaction),
             transaction.getType(), transaction.getPayload(), transaction.getCallbackUrl(),
             transaction.getOrderReference())
             .andThen(rewardsManager.getPaymentStatus(packageName, transaction.getSkuId(),
