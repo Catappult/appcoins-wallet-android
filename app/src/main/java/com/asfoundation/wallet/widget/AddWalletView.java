@@ -1,14 +1,15 @@
 package com.asfoundation.wallet.widget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
@@ -56,8 +57,8 @@ public class AddWalletView extends FrameLayout implements View.OnClickListener {
               privacyPolicy);
 
       SpannableString spannableString = new SpannableString(termsPolicyTickBox);
-      setLinkToString(spannableString, termsConditions, "");
-      setLinkToString(spannableString, privacyPolicy, "");
+      setLinkToString(spannableString, termsConditions, "https://appcoins.io/");
+      setLinkToString(spannableString, privacyPolicy, "https://appcoins.io/");
 
       TextView textView = findViewById(R.id.terms_conditions_body);
       textView.setText(spannableString);
@@ -96,10 +97,11 @@ public class AddWalletView extends FrameLayout implements View.OnClickListener {
   }
 
   private void setLinkToString(SpannableString spannableString, String highlightString,
-      String link) {
+      String uri) {
     ClickableSpan clickableSpan = new ClickableSpan() {
       @Override public void onClick(@NonNull View widget) {
-        Log.d("", "onClick: STRING CLICKED");
+        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        getContext().startActivity(launchBrowser);
       }
 
       @Override public void updateDrawState(@NonNull TextPaint ds) {
