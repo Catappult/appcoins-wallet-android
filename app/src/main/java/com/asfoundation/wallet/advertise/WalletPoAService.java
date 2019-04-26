@@ -376,7 +376,7 @@ public class WalletPoAService extends Service {
           Log.d(TAG, "MSG_REGISTER_CAMPAIGN");
           proofOfAttentionService.setCampaignId(packageName, msg.getData()
               .getString("campaignId"));
-          proofOfAttentionService.setOemAddress(packageName, BuildConfig.DEFAULT_OEM_ADDRESS);
+          proofOfAttentionService.setOemAddress(packageName);
           proofOfAttentionService.setStoreAddress(packageName);
           break;
         case MSG_SEND_PROOF:

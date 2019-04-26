@@ -2,6 +2,7 @@ package com.asfoundation.wallet.di;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import androidx.room.Room;
 import cm.aptoide.analytics.AnalyticsManager;
@@ -149,6 +150,7 @@ import com.asfoundation.wallet.ui.iab.raiden.Web3jNonceProvider;
 import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor;
 import com.asfoundation.wallet.ui.transact.TransactionDataValidator;
 import com.asfoundation.wallet.ui.transact.TransferInteractor;
+import com.asfoundation.wallet.util.DeviceInfo;
 import com.asfoundation.wallet.util.EIPTransactionParser;
 import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.OneStepTransactionParser;
@@ -842,7 +844,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides AddressService providesAddressService(InstallerService installerService,
       WalletAddressService addressService) {
-    return new PartnerAddressService(installerService, addressService);
+    return new PartnerAddressService(installerService, addressService,
+        new DeviceInfo(Build.MANUFACTURER, Build.MODEL));
   }
 
   @Singleton @Provides InstallerService providesInstallerService(Context context) {
@@ -850,7 +853,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides WalletAddressService providesWalletAddressService(BdsPartnersApi api) {
-    return new PartnerWalletAddressService(api, BuildConfig.DEFAULT_STORE_ADDRESS);
+    return new PartnerWalletAddressService(api, BuildConfig.DEFAULT_STORE_ADDRESS,
+        BuildConfig.DEFAULT_OEM_ADDRESS);
   }
 
   @Singleton @Provides BdsPartnersApi provideBdsPartnersApi(OkHttpClient client, Gson gson) {
