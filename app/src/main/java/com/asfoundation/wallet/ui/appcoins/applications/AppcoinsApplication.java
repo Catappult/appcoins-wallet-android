@@ -7,14 +7,16 @@ public class AppcoinsApplication {
   private final String iconUrl;
   private final String featuredGraphic;
   private final String packageName;
+  private final String uniqueName;
 
   public AppcoinsApplication(String name, double rating, String iconUrl, String featuredGraphic,
-      String packageName) {
+      String packageName, String uniqueName) {
     this.name = name;
     this.rating = rating;
     this.iconUrl = iconUrl;
     this.featuredGraphic = featuredGraphic;
     this.packageName = packageName;
+    this.uniqueName = uniqueName;
   }
 
   @Override public int hashCode() {
@@ -68,6 +70,10 @@ public class AppcoinsApplication {
 
   public String getFeaturedGraphic() {
     return featuredGraphic;
+  }
+
+  public String getUniqueName() {
+    return uniqueName;
   }
 
   public String getPackageName() {

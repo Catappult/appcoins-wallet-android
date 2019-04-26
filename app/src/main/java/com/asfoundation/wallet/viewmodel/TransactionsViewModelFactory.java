@@ -19,6 +19,7 @@ import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TopUpRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
+import com.asfoundation.wallet.transactions.TransactionsAnalytics;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
@@ -44,6 +45,7 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
   private final RewardsLevelRouter rewardsLevelRouter;
   private final GamificationInteractor gamificationInteractor;
   private final TopUpRouter topUpRouter;
+  private final TransactionsAnalytics analytics;
 
   public TransactionsViewModelFactory(FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
@@ -54,7 +56,8 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
       TransactionsMapper transactionsMapper, AirdropRouter airdropRouter, AppcoinsApps applications,
       OffChainTransactions offChainTransactions, RewardsLevelRouter rewardsLevelRouter,
-      GamificationInteractor gamificationInteractor, TopUpRouter topUpRouter) {
+      GamificationInteractor gamificationInteractor, TopUpRouter topUpRouter,
+      TransactionsAnalytics analytics) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchTransactionsInteract = fetchTransactionsInteract;
@@ -74,6 +77,7 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
     this.rewardsLevelRouter = rewardsLevelRouter;
     this.gamificationInteractor = gamificationInteractor;
     this.topUpRouter = topUpRouter;
+    this.analytics = analytics;
   }
 
   @NonNull @Override public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
@@ -81,6 +85,7 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
         fetchTransactionsInteract, manageWalletsRouter, settingsRouter, sendRouter,
         transactionDetailRouter, myAddressRouter, myTokensRouter, externalBrowserRouter,
         defaultTokenProvider, getDefaultWalletBalance, transactionsMapper, airdropRouter,
-        applications, offChainTransactions, rewardsLevelRouter, gamificationInteractor, topUpRouter);
+        applications, offChainTransactions, rewardsLevelRouter, gamificationInteractor, topUpRouter,
+        analytics);
   }
 }
