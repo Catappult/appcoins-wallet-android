@@ -295,7 +295,7 @@
   <string name="gamification_star_subtitle">輝き、大きい、いっぱいの人生！</string>
   <string name="gamification_galaxy_subtitle">史上最大のシステムです！</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">あなたはボーナスを獲得しました！</string>
+  <string name="gamification_purchase_header">Get a Bonus!</string>
   <string name="gamification_purchase_body">あなたは、この購入にて %s APPC クレジットを取得します。</string>
   <string name="action_level">私のレベル</string>
   <!-- Provide wallet address -->
@@ -335,6 +335,7 @@
   <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">ちょうど %s APPC-C を受け取りました</string>
   <string name="askafriend_received_title">受取完了</string>
+  <string name="askafriend_send_title">Transfer Sent</string>
   <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">資金を送る</string>
@@ -350,6 +351,8 @@
   <string name="error_missing_field">必須項目</string>
   <string name="cancel_button">キャンセルする</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">AppCoins ウォレットの利用規約およびプライバシー ポリシーに同意します。</string>
+  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions">Terms and Conditions</string>
+  <string name="privacy_policy">Privacy Policy</string>
 </resources>
