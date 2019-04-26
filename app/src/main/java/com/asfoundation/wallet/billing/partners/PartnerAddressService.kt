@@ -1,12 +1,12 @@
 package com.asfoundation.wallet.billing.partners
 
-import com.asfoundation.wallet.util.DeviceUtils
+import com.asfoundation.wallet.util.DeviceInfo
 import io.reactivex.Single
 
 
 class PartnerAddressService(private val installerService: InstallerService,
                             private val walletAddressService: WalletAddressService,
-                            private val utils: DeviceUtils) :
+                            private val deviceInfo: DeviceInfo) :
     AddressService {
 
   override fun getStoreAddressForPackage(packageName: String): Single<String> {
@@ -20,7 +20,7 @@ class PartnerAddressService(private val installerService: InstallerService,
     return installerService.getInstallerPackageName(packageName)
         .flatMap { installerPackageName ->
           walletAddressService.getOemWalletForPackage(installerPackageName,
-              utils.deviceManufacturer, utils.deviceModel)
+              deviceInfo.manufacturer, deviceInfo.model)
         }.onErrorResumeNext { walletAddressService.getOemDefaultAddress() }
   }
 }

@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.billing.partners
 
 import com.asf.wallet.BuildConfig
-import com.asfoundation.wallet.util.DeviceUtils
+import com.asfoundation.wallet.util.DeviceInfo
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import io.reactivex.schedulers.TestScheduler
@@ -21,7 +21,7 @@ class PartnerAddressServiceTest {
   @Mock
   lateinit var api: BdsPartnersApi
   @Mock
-  lateinit var utils: DeviceUtils
+  lateinit var deviceInfo: DeviceInfo
 
   private lateinit var scheduler: TestScheduler
   private lateinit var partnerAddressService: AddressService
@@ -36,8 +36,8 @@ class PartnerAddressServiceTest {
 
   @Before
   fun setUp() {
-    `when`(utils.deviceManufacturer).thenReturn(DEVICE_MANUFACTURER)
-    `when`(utils.deviceModel).thenReturn(DEVICE_MODEL)
+    `when`(deviceInfo.manufacturer).thenReturn(DEVICE_MANUFACTURER)
+    `when`(deviceInfo.model).thenReturn(DEVICE_MODEL)
 
     `when`(installerService.getInstallerPackageName(APP_PACKAGE_NAME)).thenReturn(
         Single.just(INSTALLER_PACKAGE_NAME))
@@ -46,12 +46,12 @@ class PartnerAddressServiceTest {
         Single.just(INSTALLER_WALLET_ADDRESS))
 
     `when`(walletAddressService.getOemWalletForPackage(INSTALLER_PACKAGE_NAME,
-        utils.deviceManufacturer,
-        utils.deviceModel)).thenReturn(
+        deviceInfo.manufacturer,
+        deviceInfo.model)).thenReturn(
         Single.just(INSTALLER_WALLET_ADDRESS))
 
     scheduler = TestScheduler()
-    partnerAddressService = PartnerAddressService(installerService, walletAddressService, utils)
+    partnerAddressService = PartnerAddressService(installerService, walletAddressService, deviceInfo)
   }
 
   @Test
@@ -82,7 +82,7 @@ class PartnerAddressServiceTest {
 
     walletAddressService = PartnerWalletAddressService(api, BuildConfig.DEFAULT_STORE_ADDRESS,
         BuildConfig.DEFAULT_OEM_ADDRESS)
-    partnerAddressService = PartnerAddressService(installerService, walletAddressService, utils)
+    partnerAddressService = PartnerAddressService(installerService, walletAddressService, deviceInfo)
 
     val testStoreWalletAddress = TestObserver<String>()
     partnerAddressService.getStoreAddressForPackage(APP_PACKAGE_NAME).subscribe(testStoreWalletAddress)
