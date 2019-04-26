@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.text.format.DateUtils;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import com.appcoins.wallet.gamification.repository.Levels;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.Balance;
@@ -24,10 +25,9 @@ import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.ManageWalletsRouter;
 import com.asfoundation.wallet.router.MyAddressRouter;
 import com.asfoundation.wallet.router.MyTokensRouter;
-import com.asfoundation.wallet.router.RewardsLeverRouter;
+import com.asfoundation.wallet.router.RewardsLevelRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
-import com.asfoundation.wallet.router.TopUpRouter;
 import com.asfoundation.wallet.router.TopUpRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
 import com.asfoundation.wallet.transactions.Transaction;
@@ -35,7 +35,9 @@ import com.asfoundation.wallet.transactions.TransactionsMapper;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
+import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -53,6 +55,8 @@ public class TransactionsViewModel extends BaseViewModel {
       new MutableLiveData<>();
   private final MutableLiveData<Balance> defaultWalletTokenBalance = new MutableLiveData<>();
   private final MutableLiveData<Balance> defaultWalletCreditBalance = new MutableLiveData<>();
+  private final MutableLiveData<Double> gamificationMaxBonus = new MutableLiveData<>();
+  private final MutableLiveData<Double> fetchTransactionsError = new MutableLiveData<>();
   private final FindDefaultNetworkInteract findDefaultNetworkInteract;
   private final FindDefaultWalletInteract findDefaultWalletInteract;
   private final FetchTransactionsInteract fetchTransactionsInteract;
@@ -63,7 +67,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MyAddressRouter myAddressRouter;
   private final MyTokensRouter myTokensRouter;
   private final ExternalBrowserRouter externalBrowserRouter;
-  private final RewardsLeverRouter rewardsLeverRouter;
+  private final RewardsLevelRouter rewardsLevelRouter;
   private final CompositeDisposable disposables;
   private final DefaultTokenProvider defaultTokenProvider;
   private final GetDefaultWalletBalance getDefaultWalletBalance;
@@ -87,7 +91,7 @@ public class TransactionsViewModel extends BaseViewModel {
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
       TransactionsMapper transactionsMapper, AirdropRouter airdropRouter, AppcoinsApps applications,
-      OffChainTransactions offChainTransactions, RewardsLeverRouter rewardsLeverRouter,
+      OffChainTransactions offChainTransactions, RewardsLevelRouter rewardsLevelRouter,
       GamificationInteractor gamificationInteractor, TopUpRouter topUpRouter) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
@@ -99,7 +103,7 @@ public class TransactionsViewModel extends BaseViewModel {
     this.myAddressRouter = myAddressRouter;
     this.myTokensRouter = myTokensRouter;
     this.externalBrowserRouter = externalBrowserRouter;
-    this.rewardsLeverRouter = rewardsLeverRouter;
+    this.rewardsLevelRouter = rewardsLevelRouter;
     this.defaultTokenProvider = defaultTokenProvider;
     this.getDefaultWalletBalance = getDefaultWalletBalance;
     this.transactionsMapper = transactionsMapper;
@@ -150,6 +154,28 @@ public class TransactionsViewModel extends BaseViewModel {
         .subscribe(showAnimation::postValue, this::onError));
   }
 
+  private Completable publishMaxBonus() {
+    if (fetchTransactionsError.getValue() != null) {
+      return Completable.fromAction(
+          () -> fetchTransactionsError.postValue(fetchTransactionsError.getValue()));
+    }
+    return gamificationInteractor.getLevels()
+        .subscribeOn(Schedulers.io())
+        .flatMap(levels -> {
+          if (levels.getStatus()
+              .equals(Levels.Status.OK)) {
+            return Single.just(levels.getList()
+                .get(levels.getList()
+                    .size() - 1)
+                .getBonus());
+          }
+          return Single.error(new IllegalStateException(levels.getStatus()
+              .name()));
+        })
+        .doOnSuccess(bonus -> fetchTransactionsError.postValue(bonus))
+        .ignoreElement();
+  }
+
   public void fetchTransactions(boolean shouldShowProgress) {
     handler.removeCallbacks(startFetchTransactionsTask);
     progress.postValue(shouldShowProgress);
@@ -160,13 +186,12 @@ public class TransactionsViewModel extends BaseViewModel {
         .flatMapObservable(__ -> offChainTransactions.getTransactions()
             .toObservable()))
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(this::onTransactions, this::onError, this::onTransactionsFetchCompleted));
-
-    Observable<List<Transaction>> fetch = fetchTransactionsInteract.fetch(defaultWallet.getValue())
-        .flatMapSingle(transactionsMapper::map)
-        .observeOn(AndroidSchedulers.mainThread());
-    disposables.add(
-        fetch.subscribe(this::onTransactions, this::onError, this::onTransactionsFetchCompleted));
+        .flatMapCompletable(
+            transactions -> publishMaxBonus().observeOn(AndroidSchedulers.mainThread())
+                .andThen(onTransactions(transactions)))
+        .onErrorResumeNext(throwable -> publishMaxBonus())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(this::onTransactionsFetchCompleted, this::onError));
 
     if (shouldShowProgress) {
       disposables.add(applications.getApps()
@@ -220,18 +245,19 @@ public class TransactionsViewModel extends BaseViewModel {
     fetchTransactions(true);
   }
 
-  private void onTransactions(List<Transaction> transactions) {
-    hasTransactions = (transactions != null && !transactions.isEmpty()) || hasTransactions;
-    this.transactions.setValue(transactions);
-    Boolean last = progress.getValue();
-    if (transactions != null && transactions.size() > 0 && last != null && last) {
-      progress.postValue(true);
-    }
+  private Completable onTransactions(List<Transaction> transactions) {
+    return Completable.fromAction(() -> {
+      hasTransactions = (transactions != null && !transactions.isEmpty()) || hasTransactions;
+      this.transactions.setValue(transactions);
+      Boolean last = progress.getValue();
+      if (transactions != null && transactions.size() > 0 && last != null && last) {
+        progress.postValue(true);
+      }
+    });
   }
 
   private void onTransactionsFetchCompleted() {
     progress.postValue(false);
-    List<Transaction> transactions = this.transactions.getValue();
     if (!hasTransactions) {
       error.postValue(new ErrorEnvelope(C.ErrorCode.EMPTY_COLLECTION, "empty collection"));
     }
@@ -278,10 +304,6 @@ public class TransactionsViewModel extends BaseViewModel {
     airdropRouter.open(context);
   }
 
-  public void onLearnMoreClick(Context context, Uri uri) {
-    openDeposit(context, uri);
-  }
-
   public LiveData<List<AppcoinsApplication>> applications() {
     return appcoinsApplications;
   }
@@ -293,7 +315,7 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void showRewardsLevel(Context context) {
-    rewardsLeverRouter.open(context);
+    rewardsLevelRouter.open(context);
   }
 
   public MutableLiveData<Boolean> shouldShowGamificationAnimation() {
@@ -302,5 +324,13 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public void showTopUp(Activity activity) {
     topUpRouter.open(activity);
+  }
+
+  public MutableLiveData<Double> gamificationMaxBonus() {
+    return gamificationMaxBonus;
+  }
+
+  public MutableLiveData<Double> onFetchTransactionsError() {
+    return fetchTransactionsError;
   }
 }
