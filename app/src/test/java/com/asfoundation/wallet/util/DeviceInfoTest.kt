@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.util
 
-import io.reactivex.observers.TestObserver
 import junit.framework.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
