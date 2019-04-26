@@ -156,7 +156,8 @@ public class TransactionsViewModel extends BaseViewModel {
 
   private Completable publishMaxBonus() {
     if (fetchTransactionsError.getValue() != null) {
-      return Completable.complete();
+      return Completable.fromAction(
+          () -> fetchTransactionsError.postValue(fetchTransactionsError.getValue()));
     }
     return gamificationInteractor.getLevels()
         .subscribeOn(Schedulers.io())
