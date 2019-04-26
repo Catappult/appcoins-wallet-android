@@ -20,6 +20,8 @@ class PartnerAddressServiceTest {
   lateinit var walletAddressService: WalletAddressService
   @Mock
   lateinit var api: BdsPartnersApi
+  @Mock
+  lateinit var utils: DeviceUtils
 
   private lateinit var scheduler: TestScheduler
   private lateinit var partnerAddressService: AddressService
@@ -28,10 +30,15 @@ class PartnerAddressServiceTest {
     private const val APP_PACKAGE_NAME = "com.game.app"
     private const val INSTALLER_PACKAGE_NAME = "com.store.app"
     private const val INSTALLER_WALLET_ADDRESS = "0xc41b4160b63d1f9488937c41b4160b63d1f94889"
+    private const val DEVICE_MANUFACTURER = "manufacturer"
+    private const val DEVICE_MODEL = "model"
   }
 
   @Before
   fun setUp() {
+    `when`(utils.deviceManufacturer).thenReturn(DEVICE_MANUFACTURER)
+    `when`(utils.deviceModel).thenReturn(DEVICE_MODEL)
+
     `when`(installerService.getInstallerPackageName(APP_PACKAGE_NAME)).thenReturn(
         Single.just(INSTALLER_PACKAGE_NAME))
 
@@ -39,12 +46,12 @@ class PartnerAddressServiceTest {
         Single.just(INSTALLER_WALLET_ADDRESS))
 
     `when`(walletAddressService.getOemWalletForPackage(INSTALLER_PACKAGE_NAME,
-        DeviceUtils.getDeviceManufacturer(),
-        DeviceUtils.getDeviceModel())).thenReturn(
+        utils.deviceManufacturer,
+        utils.deviceModel)).thenReturn(
         Single.just(INSTALLER_WALLET_ADDRESS))
 
     scheduler = TestScheduler()
-    partnerAddressService = PartnerAddressService(installerService, walletAddressService)
+    partnerAddressService = PartnerAddressService(installerService, walletAddressService, utils)
   }
 
   @Test
@@ -75,7 +82,7 @@ class PartnerAddressServiceTest {
 
     walletAddressService = PartnerWalletAddressService(api, BuildConfig.DEFAULT_STORE_ADDRESS,
         BuildConfig.DEFAULT_OEM_ADDRESS)
-    partnerAddressService = PartnerAddressService(installerService, walletAddressService)
+    partnerAddressService = PartnerAddressService(installerService, walletAddressService, utils)
 
     val testStoreWalletAddress = TestObserver<String>()
     partnerAddressService.getStoreAddressForPackage(APP_PACKAGE_NAME).subscribe(testStoreWalletAddress)

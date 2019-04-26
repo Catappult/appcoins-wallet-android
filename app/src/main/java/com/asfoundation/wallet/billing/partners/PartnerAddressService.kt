@@ -5,7 +5,8 @@ import io.reactivex.Single
 
 
 class PartnerAddressService(private val installerService: InstallerService,
-                            private val walletAddressService: WalletAddressService) :
+                            private val walletAddressService: WalletAddressService,
+                            private val utils: DeviceUtils) :
     AddressService {
 
   override fun getStoreAddressForPackage(packageName: String): Single<String> {
@@ -19,7 +20,7 @@ class PartnerAddressService(private val installerService: InstallerService,
     return installerService.getInstallerPackageName(packageName)
         .flatMap { installerPackageName ->
           walletAddressService.getOemWalletForPackage(installerPackageName,
-              DeviceUtils.getDeviceManufacturer(), DeviceUtils.getDeviceModel())
+              utils.deviceManufacturer, utils.deviceModel)
         }.onErrorResumeNext { walletAddressService.getOemDefaultAddress() }
   }
 }

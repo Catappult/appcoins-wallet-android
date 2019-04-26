@@ -148,6 +148,7 @@ import com.asfoundation.wallet.ui.iab.raiden.Web3jNonceProvider;
 import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor;
 import com.asfoundation.wallet.ui.transact.TransactionDataValidator;
 import com.asfoundation.wallet.ui.transact.TransferInteractor;
+import com.asfoundation.wallet.util.DeviceUtils;
 import com.asfoundation.wallet.util.EIPTransactionParser;
 import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.OneStepTransactionParser;
@@ -840,7 +841,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides AddressService providesAddressService(InstallerService installerService,
       WalletAddressService addressService) {
-    return new PartnerAddressService(installerService, addressService);
+    return new PartnerAddressService(installerService, addressService, new DeviceUtils());
   }
 
   @Singleton @Provides InstallerService providesInstallerService(Context context) {
