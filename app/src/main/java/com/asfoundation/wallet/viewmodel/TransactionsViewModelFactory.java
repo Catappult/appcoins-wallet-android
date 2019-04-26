@@ -14,7 +14,7 @@ import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.ManageWalletsRouter;
 import com.asfoundation.wallet.router.MyAddressRouter;
 import com.asfoundation.wallet.router.MyTokensRouter;
-import com.asfoundation.wallet.router.RewardsLeverRouter;
+import com.asfoundation.wallet.router.RewardsLevelRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TopUpRouter;
@@ -42,7 +42,7 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
   private final AirdropRouter airdropRouter;
   private final AppcoinsApps applications;
   private final OffChainTransactions offChainTransactions;
-  private final RewardsLeverRouter rewardsLeverRouter;
+  private final RewardsLevelRouter rewardsLevelRouter;
   private final GamificationInteractor gamificationInteractor;
   private final TopUpRouter topUpRouter;
   private final TransactionsAnalytics analytics;
@@ -55,7 +55,7 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
       MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
       TransactionsMapper transactionsMapper, AirdropRouter airdropRouter, AppcoinsApps applications,
-      OffChainTransactions offChainTransactions, RewardsLeverRouter rewardsLeverRouter,
+      OffChainTransactions offChainTransactions, RewardsLevelRouter rewardsLevelRouter,
       GamificationInteractor gamificationInteractor, TopUpRouter topUpRouter,
       TransactionsAnalytics analytics) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
@@ -74,7 +74,7 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
     this.airdropRouter = airdropRouter;
     this.applications = applications;
     this.offChainTransactions = offChainTransactions;
-    this.rewardsLeverRouter = rewardsLeverRouter;
+    this.rewardsLevelRouter = rewardsLevelRouter;
     this.gamificationInteractor = gamificationInteractor;
     this.topUpRouter = topUpRouter;
     this.analytics = analytics;
@@ -85,7 +85,7 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
         fetchTransactionsInteract, manageWalletsRouter, settingsRouter, sendRouter,
         transactionDetailRouter, myAddressRouter, myTokensRouter, externalBrowserRouter,
         defaultTokenProvider, getDefaultWalletBalance, transactionsMapper, airdropRouter,
-        applications, offChainTransactions, rewardsLeverRouter, gamificationInteractor, topUpRouter,
+        applications, offChainTransactions, rewardsLevelRouter, gamificationInteractor, topUpRouter,
         analytics);
   }
 }

@@ -1,63 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-  <TextView
-      android:id="@+id/no_transactions_text"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/half_large_margin"
-      android:gravity="center"
-      android:text="@string/no_transactions_yet"
-      app:layout_constraintBottom_toTopOf="@id/action_air_drop"
-      app:layout_constraintEnd_toStartOf="@+id/guideline2"
-      app:layout_constraintStart_toStartOf="@+id/guideline"
-      app:layout_constraintTop_toTopOf="parent"
-      />
-  <android.widget.Button
-      android:id="@+id/action_air_drop"
-      android:layout_width="wrap_content"
-      android:layout_height="@dimen/button_height"
-      android:layout_marginTop="24dp"
-      android:text="@string/action_try"
-      android:textAllCaps="true"
-      android:paddingStart="@dimen/half_large_margin"
-      android:paddingEnd="@dimen/half_large_margin"
-      app:layout_constraintBottom_toTopOf="@id/action_learn_more"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/no_transactions_text"
-      style="@style/ButtonStyle"
-      />
+  <androidx.core.widget.NestedScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="55dp"
+        >
+      <TextView
+          android:id="@+id/no_transactions_text"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/half_large_margin"
+          android:gravity="center"
+          android:text="@string/no_transactions_yet"
+          app:layout_constraintBottom_toTopOf="@id/transactions_empty_screen_animation"
+          app:layout_constraintEnd_toStartOf="@+id/guideline2"
+          app:layout_constraintStart_toStartOf="@+id/guideline"
+          app:layout_constraintTop_toTopOf="parent"
+          />
 
-  <TextView
-      android:id="@+id/action_learn_more"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
-      android:text="@string/activity_transactions_learn_more"
-      android:textColor="@color/colorAccent"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/action_air_drop"
-      style="@style/Widget.AppCompat.Button.Borderless"
-      />
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/guideline"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      app:layout_constraintGuide_begin="80dp"
-      />
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/guideline2"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      app:layout_constraintGuide_end="80dp"
-      />
-</androidx.constraintlayout.widget.ConstraintLayout>
+      <com.airbnb.lottie.LottieAnimationView
+          android:id="@+id/transactions_empty_screen_animation"
+          android:layout_width="140dp"
+          android:layout_height="140dp"
+          app:layout_constraintBottom_toTopOf="@id/earn_bonus_text"
+          app:layout_constraintEnd_toStartOf="@+id/guideline2"
+          app:layout_constraintStart_toStartOf="@+id/guideline"
+          app:layout_constraintTop_toBottomOf="@id/no_transactions_text"
+          app:lottie_autoPlay="true"
+          app:lottie_enableMergePathsForKitKatAndAbove="true"
+          app:lottie_loop="true"
+          app:lottie_rawRes="@raw/transactions_empty_screen_animation"
+          />
+
+      <TextView
+          android:id="@+id/earn_bonus_text"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          app:layout_constraintBottom_toTopOf="@id/action_learn_more"
+          app:layout_constraintEnd_toStartOf="@+id/guideline2"
+          app:layout_constraintStart_toStartOf="@+id/guideline"
+          app:layout_constraintTop_toBottomOf="@id/transactions_empty_screen_animation"
+          tools:text="Earn up to 30.0% Bonus in your favorite apps and games!"
+          />
+
+      <TextView
+          android:id="@+id/action_learn_more"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/gamification_home_button"
+          android:textColor="@color/colorAccent"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/earn_bonus_text"
+          style="@style/Widget.AppCompat.Button.Borderless"
+          />
+      <androidx.constraintlayout.widget.Guideline
+          android:id="@+id/guideline"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          app:layout_constraintGuide_begin="80dp"
+          />
+      <androidx.constraintlayout.widget.Guideline
+          android:id="@+id/guideline2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          app:layout_constraintGuide_end="80dp"
+          />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
