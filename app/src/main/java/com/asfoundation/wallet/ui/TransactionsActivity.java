@@ -50,8 +50,6 @@ import static com.asfoundation.wallet.C.ErrorCode.EMPTY_COLLECTION;
 
 public class TransactionsActivity extends BaseNavigationActivity implements View.OnClickListener {
 
-  public static final String LEARN_MORE_INFO_URL = "https://appcoins.io/";
-  private static final String TAG = TransactionsActivity.class.getSimpleName();
   private static String maxBonusEmptyScreen;
   @Inject TransactionsViewModelFactory transactionsViewModelFactory;
   private TransactionsViewModel viewModel;
@@ -282,7 +280,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private void onError(ErrorEnvelope errorEnvelope) {
     if ((errorEnvelope.code == EMPTY_COLLECTION || adapter.getItemCount() == 0)) {
       if (emptyView == null) {
-        emptyView = new EmptyTransactionsView(this, this, maxBonusEmptyScreen);
+        emptyView = new EmptyTransactionsView(this, this, String.valueOf(maxBonusEmptyScreen));
         systemView.showEmpty(emptyView);
       }
     }

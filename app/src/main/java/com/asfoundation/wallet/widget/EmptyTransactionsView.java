@@ -1,11 +1,10 @@
 package com.asfoundation.wallet.widget;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
 import android.view.LayoutInflater;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import com.airbnb.lottie.LottieAnimationView;
 import com.asf.wallet.R;
 
@@ -16,7 +15,7 @@ public class EmptyTransactionsView extends FrameLayout {
   private final LottieAnimationView noTransactionsAnimationView;
 
   public EmptyTransactionsView(@NonNull Context context, OnClickListener onClickListener,
-      String bonus) {
+      @NonNull String bonus) {
     super(context);
 
     LayoutInflater.from(getContext())
