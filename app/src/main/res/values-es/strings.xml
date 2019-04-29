@@ -294,7 +294,7 @@
   <string name="gamification_star_subtitle">¡Brillante, enorme y lleno de vida!</string>
   <string name="gamification_galaxy_subtitle">¡El sistema más grande de ahí fuera!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">¡Tienes un bonus!</string>
+  <string name="gamification_purchase_header">Get a Bonus!</string>
   <string name="gamification_purchase_body">Recibirás %s APPC Credits por esta compra.</string>
   <string name="action_level">Mi Nivel</string>
   <!-- Provide wallet address -->
@@ -334,6 +334,7 @@
   <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">Has recibido %s APPC-C</string>
   <string name="askafriend_received_title">Transferencia Recibida</string>
+  <string name="askafriend_send_title">Transfer Sent</string>
   <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Envío de Fondos</string>
@@ -349,6 +350,8 @@
   <string name="error_missing_field">Campo obligatorio</string>
   <string name="cancel_button">Cancelar</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">Acepto los Términos y Condiciones y la Política de Privacidad de AppCoins Wallet</string>
+  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions">Terms and Conditions</string>
+  <string name="privacy_policy">Privacy Policy</string>
 </resources>

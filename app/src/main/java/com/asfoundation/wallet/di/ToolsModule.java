@@ -2,6 +2,7 @@ package com.asfoundation.wallet.di;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import androidx.room.Room;
 import cm.aptoide.analytics.AnalyticsManager;
@@ -124,6 +125,7 @@ import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.TrustWalletTickerService;
 import com.asfoundation.wallet.topup.TopUpInteractor;
+import com.asfoundation.wallet.transactions.TransactionsAnalytics;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper;
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor;
@@ -148,6 +150,7 @@ import com.asfoundation.wallet.ui.iab.raiden.Web3jNonceProvider;
 import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor;
 import com.asfoundation.wallet.ui.transact.TransactionDataValidator;
 import com.asfoundation.wallet.ui.transact.TransferInteractor;
+import com.asfoundation.wallet.util.DeviceInfo;
 import com.asfoundation.wallet.util.EIPTransactionParser;
 import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.OneStepTransactionParser;
@@ -784,6 +787,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     list.add(BillingAnalytics.REVENUE);
     list.add(PoaAnalytics.POA_STARTED);
     list.add(PoaAnalytics.POA_COMPLETED);
+    list.add(TransactionsAnalytics.OPEN_APPLICATION);
     return list;
   }
 
@@ -840,7 +844,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides AddressService providesAddressService(InstallerService installerService,
       WalletAddressService addressService) {
-    return new PartnerAddressService(installerService, addressService);
+    return new PartnerAddressService(installerService, addressService,
+        new DeviceInfo(Build.MANUFACTURER, Build.MODEL));
   }
 
   @Singleton @Provides InstallerService providesInstallerService(Context context) {
@@ -848,7 +853,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides WalletAddressService providesWalletAddressService(BdsPartnersApi api) {
-    return new PartnerWalletAddressService(api, BuildConfig.DEFAULT_STORE_ADDRESS);
+    return new PartnerWalletAddressService(api, BuildConfig.DEFAULT_STORE_ADDRESS,
+        BuildConfig.DEFAULT_OEM_ADDRESS);
   }
 
   @Singleton @Provides BdsPartnersApi provideBdsPartnersApi(OkHttpClient client, Gson gson) {
@@ -886,9 +892,13 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .create(BdsShareLinkRepository.BdsShareLinkApi.class);
   }
 
-
   @Singleton @Provides TopUpInteractor providesTopUpInteractor(BdsRepository repository,
       LocalCurrencyConversionService conversionService) {
     return new TopUpInteractor(repository, conversionService);
+  }
+
+  @Singleton @Provides TransactionsAnalytics providesTransactionsAnalytics(
+      @NotNull AnalyticsManager analytics) {
+    return new TransactionsAnalytics(analytics);
   }
 }

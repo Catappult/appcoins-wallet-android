@@ -243,7 +243,7 @@ dependencies {
   //        transitive = true
   //    }
   implementation project(path: ':airdrop')
-  implementation 'com.asfoundation:applications:3'
+  implementation 'com.asfoundation:applications:6'
   implementation "com.asfoundation:appcoins-contract-proxy:$project.appcoinsSdkVersion"
   implementation project(path: ':billing')
 

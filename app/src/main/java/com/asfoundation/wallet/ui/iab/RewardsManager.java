@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
+import android.util.Pair;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository;
 import com.appcoins.wallet.appcoins.rewards.Transaction;
@@ -25,13 +26,15 @@ public class RewardsManager {
     this.partnerAddressService = partnerAddressService;
   }
 
-  public Completable pay(String sku, BigDecimal amount, String developerAddress, String oemAddress,
-      String packageName, String origin, String type, String payload, String callbackUrl,
-      String orderReference) {
-    return partnerAddressService.getStoreAddressForPackage(packageName)
+  public Completable pay(String sku, BigDecimal amount, String developerAddress, String packageName,
+      String origin, String type, String payload, String callbackUrl, String orderReference) {
+    return Single.zip(partnerAddressService.getStoreAddressForPackage(packageName),
+        partnerAddressService.getOemAddressForPackage(packageName),
+        (storeAddress, oemAddress) -> new Pair<>(storeAddress, oemAddress))
         .flatMapCompletable(
-            storeAddress -> appcoinsRewards.pay(amount, origin, sku, type, developerAddress,
-                storeAddress, oemAddress, packageName, payload, callbackUrl, orderReference));
+            partnersAddresses -> appcoinsRewards.pay(amount, origin, sku, type, developerAddress,
+                partnersAddresses.first, partnersAddresses.second, packageName, payload,
+                callbackUrl, orderReference));
   }
 
   public Single<Purchase> getPaymentCompleted(String packageName, String sku) {

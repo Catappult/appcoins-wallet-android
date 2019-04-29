@@ -25,8 +25,6 @@ import com.asfoundation.wallet.entity.Balance;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
-import com.asfoundation.wallet.interact.AddTokenInteract;
-import com.asfoundation.wallet.poa.TransactionFactory;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
@@ -52,11 +50,8 @@ import static com.asfoundation.wallet.C.ErrorCode.EMPTY_COLLECTION;
 
 public class TransactionsActivity extends BaseNavigationActivity implements View.OnClickListener {
 
-  public static final String LEARN_MORE_INFO_URL = "https://appcoins.io/";
-  private static final String TAG = TransactionsActivity.class.getSimpleName();
+  private static String maxBonusEmptyScreen;
   @Inject TransactionsViewModelFactory transactionsViewModelFactory;
-  @Inject AddTokenInteract addTokenInteract;
-  @Inject TransactionFactory transactionFactory;
   private TransactionsViewModel viewModel;
   private SystemView systemView;
   private TransactionsAdapter adapter;
@@ -110,6 +105,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .get(TransactionsViewModel.class);
     viewModel.progress()
         .observe(this, systemView::showProgress);
+    viewModel.onFetchTransactionsError()
+        .observe(this, this::onFetchTransactionsError);
     viewModel.error()
         .observe(this, this::onError);
     viewModel.defaultNetwork()
@@ -122,9 +119,18 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::onDefaultWallet);
     viewModel.transactions()
         .observe(this, this::onTransactions);
+    viewModel.gamificationMaxBonus()
+        .observe(this, this::onGamificationMaxBonus);
     viewModel.applications()
         .observe(this, this::onApplications);
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
+  }
+
+  private void onFetchTransactionsError(Double maxBonus) {
+    if (emptyView == null) {
+      emptyView = new EmptyTransactionsView(this, this, String.valueOf(maxBonus));
+      systemView.showEmpty(emptyView);
+    }
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
@@ -183,6 +189,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   @Override protected void onResume() {
     super.onResume();
+    emptyView = null;
     setCollapsingTitle(new SpannableString(getString(R.string.unknown_balance_without_symbol)));
     adapter.clear();
     list.setVisibility(View.GONE);
@@ -219,22 +226,14 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         viewModel.fetchTransactions(true);
         break;
       }
-      case R.id.action_air_drop: {
-        viewModel.showAirDrop(this);
-        break;
-      }
       case R.id.action_learn_more: {
-        openLearnMore();
+        viewModel.showRewardsLevel(this);
         break;
       }
       case R.id.top_up_btn: {
         viewModel.showTopUp(this);
       }
     }
-  }
-
-  private void openLearnMore() {
-    viewModel.onLearnMoreClick(this, Uri.parse(LEARN_MORE_INFO_URL));
   }
 
   @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -264,6 +263,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     // the value is 1 because apps list item is always added, so if there is at least 1
     // transaction, the list is shown
     if (adapter.getItemCount() > 1) {
+      systemView.setVisibility(View.GONE);
       list.setVisibility(View.VISIBLE);
     }
   }
@@ -279,16 +279,15 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private void onError(ErrorEnvelope errorEnvelope) {
     if ((errorEnvelope.code == EMPTY_COLLECTION || adapter.getItemCount() == 0)) {
-      final boolean[] isMainNet = { false };
-      viewModel.defaultNetwork()
-          .observe(this, info -> isMainNet[0] = info.isMainNetwork);
-
       if (emptyView == null) {
-
-        emptyView = new EmptyTransactionsView(this, this, isMainNet[0]);
+        emptyView = new EmptyTransactionsView(this, this, String.valueOf(maxBonusEmptyScreen));
+        systemView.showEmpty(emptyView);
       }
-      systemView.showEmpty(emptyView);
     }
+  }
+
+  private void onGamificationMaxBonus(double bonus) {
+    maxBonusEmptyScreen = Double.toString(bonus);
   }
 
   private void checkRoot() {

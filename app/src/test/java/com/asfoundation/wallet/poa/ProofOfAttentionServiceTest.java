@@ -37,6 +37,7 @@ public class ProofOfAttentionServiceTest {
 
   public static final String SUBMIT_HASH = "hash";
   public static final String STORE_ADDRESS = "store_address";
+  public static final String OEM_ADDRESS = "oem_address";
 
   @Mock FindDefaultWalletInteract defaultWalletInteract;
   @Mock PoASubmissionService poaSubmissionService;
@@ -71,6 +72,8 @@ public class ProofOfAttentionServiceTest {
     when(hashCalculator.calculateNonce(any(NonceData.class))).thenReturn(nonce);
 
     when(addressService.getStoreAddressForPackage(any())).thenReturn(Single.just(STORE_ADDRESS));
+
+    when(addressService.getOemAddressForPackage(any())).thenReturn(Single.just(OEM_ADDRESS));
   }
 
   @Test public void setCampaignId() {

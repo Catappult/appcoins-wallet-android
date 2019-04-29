@@ -4,6 +4,7 @@ import android.os.Bundle;
 import com.asfoundation.wallet.billing.adyen.PaymentType;
 import java.math.BigDecimal;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Created by franciscocalado on 20/07/2018.
@@ -31,6 +32,7 @@ public interface IabView {
 
   void showPaymentMethodsView();
 
-  void showShareLinkPayment(String domain, String skuId, String amount, String currency);
+  void showShareLinkPayment(String domain, String skuId, String originalAmount,
+      String originalCurrency, BigDecimal amount, @NotNull String type);
 
 }

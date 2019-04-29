@@ -294,7 +294,7 @@
   <string name="gamification_star_subtitle">ਚਮਕਦਾਰ, ਵੱਡਾ ਅਤੇ ਜੀਵਨ ਨਾਲ ਭਰਿਆ!</string>
   <string name="gamification_galaxy_subtitle">ਇੱਥੇ ਸਭ ਤੋਂ ਵੱਡੀ ਪ੍ਰਣਾਲੀ!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">ਤੁਹਾਨੂੰ ਇੱਕ ਬੋਨਸ ਮਿਲਿਆ ਹੈ!</string>
+  <string name="gamification_purchase_header">Get a Bonus!</string>
   <string name="gamification_purchase_body">ਤੁਸੀ ਇਸ ਖਰੀਦ ਲਈ %s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋਗੇ|</string>
   <string name="action_level">ਮੇਰਾ ਪੱਧਰ</string>
   <!-- Provide wallet address -->
@@ -334,6 +334,7 @@
   <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">ਤੁਸੀਂ ਹੁਣੇ %s ਐਪ ਸਿੱਕੇ-ਕਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕੀਤੇ</string>
   <string name="askafriend_received_title">ਟ੍ਰਾਂਸਫਰ ਪ੍ਰਾਪਤ</string>
+  <string name="askafriend_send_title">Transfer Sent</string>
   <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">ਫੰਡ ਭੇਜੋ</string>
@@ -349,6 +350,8 @@
   <string name="error_missing_field">ਜ਼ਰੂਰੀ ਫੀਲਡ</string>
   <string name="cancel_button">ਕੈਂਸਲ</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">ਮੈਂ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਦੇ ਨਿਯਮਾਂ ਅਤੇ ਸ਼ਰਤਾਂ ਅਤੇ ਗੋਪਨੀਯਤਾ ਨੀਤੀ ਨਾਲ ਸਹਿਮਤ ਹਾਂ</string>
+  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions">Terms and Conditions</string>
+  <string name="privacy_policy">Privacy Policy</string>
 </resources>
