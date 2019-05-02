@@ -10,14 +10,14 @@ import java.math.BigDecimal
 import java.net.UnknownHostException
 
 open class BdsBackEndWriter(private val defaultWalletInteract: FindDefaultWalletInteract,
-                       private val service: PoASubmissionService) : ProofWriter {
+                            private val service: PoASubmissionService) : ProofWriter {
 
   override fun writeProof(proof: Proof): Single<String> {
     return defaultWalletInteract.find()
         .flatMap { wallet -> service.submitProof(proof, wallet.address) }
   }
 
-  override fun hasEnoughFunds(chainId: Int): Single<ProofSubmissionFeeData> {
+  override fun hasEnoughFunds(): Single<ProofSubmissionFeeData> {
     return defaultWalletInteract.find().map {
       ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY,
           BigDecimal.ZERO, BigDecimal.ZERO)

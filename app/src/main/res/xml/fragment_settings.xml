@@ -10,12 +10,6 @@
       android:title="@string/action_wallets"
       />
 
-  <ListPreference
-      android:dialogTitle="@string/network_label"
-      android:icon="@mipmap/settings_server"
-      android:key="pref_rpcServer"
-      android:title="@string/network_label"/>
-
   <Preference
       android:icon="@drawable/ic_settings_permissions"
       android:key="pref_permissions"

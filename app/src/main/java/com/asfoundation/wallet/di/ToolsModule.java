@@ -60,6 +60,7 @@ import com.asfoundation.wallet.billing.partners.WalletAddressService;
 import com.asfoundation.wallet.billing.purchase.BillingFactory;
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository;
 import com.asfoundation.wallet.billing.share.ShareLinkRepository;
+import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.BalanceGetter;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
@@ -209,8 +210,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides EthereumNetworkRepositoryType provideEthereumNetworkRepository(
-      PreferenceRepositoryType preferenceRepository, TickerService tickerService) {
-    return new EthereumNetworkRepository(preferenceRepository, tickerService);
+      PreferenceRepositoryType preferenceRepository, NetworkInfo defaultNetworkInfo) {
+    return new EthereumNetworkRepository(preferenceRepository, defaultNetworkInfo);
   }
 
   @Singleton @Provides SharedPreferenceRepository providePreferenceRepository(Context context) {

@@ -42,6 +42,7 @@ public class ProofOfAttentionServiceTest {
   @Mock FindDefaultWalletInteract defaultWalletInteract;
   @Mock PoASubmissionService poaSubmissionService;
   @Mock HashCalculator hashCalculator;
+  @Mock AddressService addressService;
   private ProofOfAttentionService proofOfAttentionService;
   private MemoryCache<String, Proof> cache;
   private int maxNumberProofComponents = 3;
@@ -50,7 +51,6 @@ public class ProofOfAttentionServiceTest {
   private BehaviorSubject<Wallet> hasWallet;
   private ProofWriter proofWriter;
   private String wallet;
-  @Mock AddressService addressService;
 
   @Before public void before() throws NoSuchAlgorithmException {
     MockitoAnnotations.initMocks(this);
@@ -298,7 +298,7 @@ public class ProofOfAttentionServiceTest {
   }
 
   @Test public void isWalletReady() {
-    TestObserver<ProofSubmissionFeeData> ready = proofOfAttentionService.isWalletReady(1)
+    TestObserver<ProofSubmissionFeeData> ready = proofOfAttentionService.isWalletReady()
         .subscribeOn(testScheduler)
         .test();
     ProofSubmissionFeeData readyFee =
@@ -312,7 +312,7 @@ public class ProofOfAttentionServiceTest {
   }
 
   @Test public void noWalletReady() {
-    TestObserver<ProofSubmissionFeeData> noWallet = proofOfAttentionService.isWalletReady(1)
+    TestObserver<ProofSubmissionFeeData> noWallet = proofOfAttentionService.isWalletReady()
         .subscribeOn(testScheduler)
         .test();
     ProofSubmissionFeeData noWalletFee =
@@ -326,7 +326,7 @@ public class ProofOfAttentionServiceTest {
   }
 
   @Test public void noNetwork() {
-    TestObserver<ProofSubmissionFeeData> noFunds = proofOfAttentionService.isWalletReady(1)
+    TestObserver<ProofSubmissionFeeData> noFunds = proofOfAttentionService.isWalletReady()
         .subscribeOn(testScheduler)
         .test();
     ProofSubmissionFeeData noFundsFee =

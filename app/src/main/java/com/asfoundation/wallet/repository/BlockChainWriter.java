@@ -19,19 +19,16 @@ public class BlockChainWriter implements ProofWriter {
   private final FindDefaultWalletInteract defaultWalletInteract;
   private final GasSettingsRepositoryType gasSettingsRepository;
   private final BigDecimal registerPoaGasLimit;
-  private final EthereumNetworkRepositoryType ethereumNetwork;
 
   public BlockChainWriter(Web3jProvider web3jProvider, TransactionFactory transactionFactory,
       WalletRepositoryType walletRepositoryType, FindDefaultWalletInteract defaultWalletInteract,
-      GasSettingsRepositoryType gasSettingsRepository, BigDecimal registerPoaGasLimit,
-      EthereumNetworkRepositoryType ethereumNetwork) {
+      GasSettingsRepositoryType gasSettingsRepository, BigDecimal registerPoaGasLimit) {
     this.web3jProvider = web3jProvider;
     this.transactionFactory = transactionFactory;
     this.walletRepositoryType = walletRepositoryType;
     this.defaultWalletInteract = defaultWalletInteract;
     this.gasSettingsRepository = gasSettingsRepository;
     this.registerPoaGasLimit = registerPoaGasLimit;
-    this.ethereumNetwork = ethereumNetwork;
   }
 
   @Override public Single<String> writeProof(Proof proof) {
@@ -39,10 +36,10 @@ public class BlockChainWriter implements ProofWriter {
         .flatMap(this::sendTransaction);
   }
 
-  @Override public Single<ProofSubmissionFeeData> hasEnoughFunds(int chainId) {
+  @Override public Single<ProofSubmissionFeeData> hasEnoughFunds() {
     return defaultWalletInteract.find()
-        .flatMap(wallet -> walletRepositoryType.balanceInWei(wallet, chainId))
-        .flatMap(balance -> gasSettingsRepository.getGasSettings(true, chainId)
+        .flatMap(walletRepositoryType::balanceInWei)
+        .flatMap(balance -> gasSettingsRepository.getGasSettings(true)
             .map(gasSettings -> getFeeData(
                 balance.compareTo(registerPoaGasLimit.multiply(gasSettings.gasPrice)) >= 1,
                 gasSettings)))

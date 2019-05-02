@@ -1,14 +1,12 @@
 package com.asfoundation.wallet.ui;
 
 import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
@@ -16,7 +14,6 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
@@ -67,13 +64,6 @@ public class SettingsFragment extends PreferenceFragment
         }, t -> {
         });
 
-    final ListPreference listPreference = (ListPreference) findPreference("pref_rpcServer");
-    // THIS IS REQUIRED IF YOU DON'T HAVE 'entries' and 'entryValues' in your XML
-    setRpcServerPreferenceData(listPreference);
-    listPreference.setOnPreferenceClickListener(preference -> {
-      setRpcServerPreferenceData(listPreference);
-      return false;
-    });
     String versionString = getVersion();
     Preference version = findPreference("pref_version");
     version.setSummary(versionString);
@@ -137,55 +127,8 @@ public class SettingsFragment extends PreferenceFragment
     return true;
   }
 
-  private void rateThisApp() {
-    Uri uri = Uri.parse("market://details?id=" + getActivity().getPackageName());
-    Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-    // To count with Play market backstack, After pressing back button,
-    // to taken back to our application, we need to add following flags to intent.
-    goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-    try {
-      startActivity(goToMarket);
-    } catch (ActivityNotFoundException e) {
-      startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(
-          "http://play.google.com/store/apps/details?id=" + getActivity().getPackageName())));
-    }
-  }
-
   public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-    if (key.equals("pref_rpcServer")) {
-      Preference rpcServerPref = findPreference(key);
-      // Set summary
-      String selectedRpcServer = sharedPreferences.getString(key, "");
-      rpcServerPref.setSummary(selectedRpcServer);
-      NetworkInfo[] networks = ethereumNetworkRepository.getAvailableNetworkList();
-      for (NetworkInfo networkInfo : networks) {
-        if (networkInfo.name.equals(selectedRpcServer)) {
-          ethereumNetworkRepository.setDefaultNetworkInfo(networkInfo);
-          return;
-        }
-      }
-    }
-  }
 
-  private void setRpcServerPreferenceData(ListPreference lp) {
-    NetworkInfo[] networks = ethereumNetworkRepository.getAvailableNetworkList();
-    CharSequence[] entries = new CharSequence[networks.length];
-    for (int ii = 0; ii < networks.length; ii++) {
-      entries[ii] = networks[ii].name;
-    }
-
-    CharSequence[] entryValues = new CharSequence[networks.length];
-    for (int ii = 0; ii < networks.length; ii++) {
-      entryValues[ii] = networks[ii].name;
-    }
-
-    String currentValue = ethereumNetworkRepository.getDefaultNetwork().name;
-
-    lp.setEntries(entries);
-    lp.setDefaultValue(currentValue);
-    lp.setValue(currentValue);
-    lp.setSummary(currentValue);
-    lp.setEntryValues(entryValues);
   }
 
   public String getVersion() {

@@ -152,11 +152,9 @@ public class TransactionRepository implements TransactionRepositoryType {
           if (transactionBuilder.getChainId() != TransactionBuilder.NO_CHAIN_ID
               && transactionBuilder.getChainId() != networkRepository.getDefaultNetwork().chainId) {
             String requestedNetwork = "unknown";
-            for (NetworkInfo networkInfo : networkRepository.getAvailableNetworkList()) {
-              if (networkInfo.chainId == transactionBuilder.getChainId()) {
-                requestedNetwork = networkInfo.name;
-                break;
-              }
+            NetworkInfo networkInfo = networkRepository.getDefaultNetwork();
+            if (networkInfo != null) {
+              requestedNetwork = networkInfo.name;
             }
             return Single.error(new WrongNetworkException(
                 "Default network is different from the intended on transaction\nCurrent network: "

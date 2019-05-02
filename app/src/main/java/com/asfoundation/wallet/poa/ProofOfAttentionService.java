@@ -267,8 +267,8 @@ public class ProofOfAttentionService {
     disposables.add(packageName, partnerAddressService.getOemAddressForPackage(packageName)
         .flatMapCompletable(
             address -> Completable.fromAction(() -> setOemAddressSync(packageName, address)))
-                .subscribeOn(computationScheduler)
-                .subscribe());
+        .subscribeOn(computationScheduler)
+        .subscribe());
   }
 
   private void setOemAddressSync(String packageName, String address) {
@@ -312,10 +312,10 @@ public class ProofOfAttentionService {
     }
   }
 
-  public Single<ProofSubmissionFeeData> isWalletReady(int chainId) {
+  public Single<ProofSubmissionFeeData> isWalletReady() {
     return Single.defer(() -> {
       synchronized (this) {
-        return proofWriter.hasEnoughFunds(chainId);
+        return proofWriter.hasEnoughFunds();
       }
     });
   }

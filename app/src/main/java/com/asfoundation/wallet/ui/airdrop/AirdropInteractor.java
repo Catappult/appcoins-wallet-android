@@ -37,13 +37,7 @@ public class AirdropInteractor {
   }
 
   public Observable<AirdropData> getStatus() {
-    return airdrop.getStatus()
-        .doOnNext(airdropData -> {
-          if (airdropData.getStatus()
-              .equals(AirdropData.AirdropStatus.SUCCESS)) {
-            repository.setDefaultNetworkInfo(airdropData.getNetworkId());
-          }
-        });
+    return airdrop.getStatus();
   }
 
   public void terminateStateConsumed() {

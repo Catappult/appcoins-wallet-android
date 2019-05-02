@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.poa;
 
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk;
-import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
@@ -36,27 +35,16 @@ public class TransactionFactory {
   }
 
   public Single<byte[]> createTransaction(Proof proof) {
-    return Single.just(networkRepositoryType.getDefaultNetwork()).subscribeOn(Schedulers.io())
+    return Single.just(networkRepositoryType.getDefaultNetwork())
+        .subscribeOn(Schedulers.io())
         .flatMap(defaultNetworkInfo -> adsContractAddressSdk.getAdsAddress(proof.getChainId())
-            .observeOn(Schedulers.io())
-            .doOnSubscribe(disposable -> setNetwork(proof.getChainId()))
-            .flatMap(adsAddress -> walletRepositoryType.getDefaultWallet()
-                .flatMap(wallet -> passwordStore.getPassword(wallet)
-                    .flatMap(
-                        password -> accountKeystoreService.signTransaction(wallet.address, password,
-                            adsAddress, BigDecimal.ZERO, proof.getGasPrice(), proof.getGasLimit(),
-                            getNonce(wallet.address), dataMapper.getData(proof),
-                            proof.getChainId()))))
-            .doAfterTerminate(
-                () -> networkRepositoryType.setDefaultNetworkInfo(defaultNetworkInfo)));
-  }
-
-  public void setNetwork(int chainId) {
-    for (NetworkInfo networkInfo : networkRepositoryType.getAvailableNetworkList()) {
-      if (chainId == networkInfo.chainId) {
-        networkRepositoryType.setDefaultNetworkInfo(networkInfo);
-      }
-    }
+            .observeOn(Schedulers.io()))
+        .flatMap(adsAddress -> walletRepositoryType.getDefaultWallet()
+            .flatMap(wallet -> passwordStore.getPassword(wallet)
+                .flatMap(
+                    password -> accountKeystoreService.signTransaction(wallet.address, password,
+                        adsAddress, BigDecimal.ZERO, proof.getGasPrice(), proof.getGasLimit(),
+                        getNonce(wallet.address), dataMapper.getData(proof), proof.getChainId()))));
   }
 
   private long getNonce(String address) throws IOException {
