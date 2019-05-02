@@ -10,8 +10,11 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.StyleSpan;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
@@ -209,6 +212,7 @@ public class AddWalletView extends FrameLayout implements View.OnClickListener {
     private Button okButton;
     private CheckBox checkBox;
     private TextView warningText;
+    private LinearLayout termsConditionsLayout;
 
     PageChangeListener(View view) {
       this.view = view;
@@ -221,30 +225,87 @@ public class AddWalletView extends FrameLayout implements View.OnClickListener {
       okButton = view.findViewById(R.id.ok_action);
       checkBox = view.findViewById(R.id.onboarding_checkbox);
       warningText = view.findViewById(R.id.terms_conditions_warning);
+      termsConditionsLayout = view.findViewById(R.id.terms_conditions_layout);
     }
 
     private void showWarningText(int position) {
       if (!checkBox.isChecked() && position == 3) {
+        animateShowWarning(warningText);
         warningText.setVisibility(VISIBLE);
       } else {
-        warningText.setVisibility(GONE);
+        if (warningText.getVisibility() == VISIBLE) {
+          animateHideWarning(warningText);
+          warningText.setVisibility(GONE);
+        }
       }
     }
 
     private void showSkipButton(int position) {
-      if (position != 3 && checkBox.isChecked()) {
-        skipButton.setVisibility(VISIBLE);
+      if (Math.floor(position) != 3 && checkBox.isChecked()) {
+        if (skipButton.getVisibility() != VISIBLE) {
+          animateShowButton(skipButton);
+          animateCheckboxUp(termsConditionsLayout);
+          skipButton.setVisibility(VISIBLE);
+        }
       } else {
-        skipButton.setVisibility(GONE);
+        if (skipButton.getVisibility() == VISIBLE) {
+          animateHideButton(skipButton);
+          animateCheckboxDown(termsConditionsLayout);
+          skipButton.setVisibility(GONE);
+        }
       }
     }
 
     private void showOkButton(int position) {
       if (checkBox.isChecked() && position == 3) {
+        animateShowButton(okButton);
+        animateCheckboxUp(termsConditionsLayout);
         okButton.setVisibility(VISIBLE);
       } else {
-        okButton.setVisibility(GONE);
+        if (okButton.getVisibility() == VISIBLE) {
+          animateHideButton(okButton);
+          animateCheckboxDown(termsConditionsLayout);
+          okButton.setVisibility(GONE);
+        }
       }
+    }
+
+    private void animateCheckboxUp(LinearLayout layout) {
+      Animation animation =
+          AnimationUtils.loadAnimation(view.getContext(), R.anim.minor_translate_up);
+      animation.setFillAfter(true);
+      layout.setAnimation(animation);
+    }
+
+    private void animateCheckboxDown(LinearLayout layout) {
+      Animation animation =
+          AnimationUtils.loadAnimation(view.getContext(), R.anim.minor_translate_down);
+      animation.setFillAfter(true);
+      layout.setAnimation(animation);
+    }
+
+    private void animateShowButton(Button button) {
+      Animation animation =
+          AnimationUtils.loadAnimation(view.getContext(), R.anim.bottom_translate_in);
+      button.setAnimation(animation);
+    }
+
+    private void animateShowWarning(TextView textView) {
+      Animation animation =
+          AnimationUtils.loadAnimation(view.getContext(), R.anim.fast_fade_in_animation);
+      textView.setAnimation(animation);
+    }
+
+    private void animateHideButton(Button button) {
+      Animation animation =
+          AnimationUtils.loadAnimation(view.getContext(), R.anim.bottom_translate_out);
+      button.setAnimation(animation);
+    }
+
+    private void animateHideWarning(TextView textView) {
+      Animation animation =
+          AnimationUtils.loadAnimation(view.getContext(), R.anim.fast_fade_out_animation);
+      textView.setAnimation(animation);
     }
 
     @Override
