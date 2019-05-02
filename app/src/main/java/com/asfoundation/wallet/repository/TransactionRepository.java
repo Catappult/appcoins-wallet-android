@@ -26,6 +26,9 @@ import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Numeric;
 
+import static com.asfoundation.wallet.C.ETHEREUM_NETWORK_NAME;
+import static com.asfoundation.wallet.C.ROPSTEN_NETWORK_NAME;
+
 public class TransactionRepository implements TransactionRepositoryType {
 
   private final NetworkInfo defaultNetwork;
@@ -150,8 +153,10 @@ public class TransactionRepository implements TransactionRepositoryType {
           if (transactionBuilder.getChainId() != TransactionBuilder.NO_CHAIN_ID
               && transactionBuilder.getChainId() != defaultNetwork.chainId) {
             String requestedNetwork = "unknown";
-            if (defaultNetwork.chainId == transactionBuilder.getChainId()) {
-              requestedNetwork = defaultNetwork.name;
+            if (transactionBuilder.getChainId() == 1) {
+              requestedNetwork = ETHEREUM_NETWORK_NAME;
+            } else if (transactionBuilder.getChainId() == 3) {
+              requestedNetwork = ROPSTEN_NETWORK_NAME;
             }
             return Single.error(new WrongNetworkException(
                 "Default network is different from the intended on transaction\nCurrent network: "
