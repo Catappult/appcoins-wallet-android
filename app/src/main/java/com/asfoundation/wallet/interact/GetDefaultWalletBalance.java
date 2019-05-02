@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.interact;
 
-import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.entity.Balance;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.NetworkInfo;
@@ -149,11 +148,6 @@ public class GetDefaultWalletBalance implements BalanceService {
     } catch (NumberFormatException ex) {
       return BigDecimal.ZERO;
     }
-  }
-
-  private boolean shouldShowCredits(NetworkInfo networkInfo) {
-    return networkInfo.chainId == 3 && BuildConfig.DEBUG
-        || networkInfo.chainId == 1 && !BuildConfig.DEBUG;
   }
 
   public enum BalanceState {
