@@ -83,20 +83,22 @@ public class WalletPoAService extends Service {
       if (!isBound) {
         // set the chain id received from the application. If not received, it is set as the main
         String packageName = intent.getStringExtra(PARAM_APP_PACKAGE_NAME);
-        requirementsDisposable = proofOfAttentionService.isWalletReady()
-            // network chain id
-            .doOnSuccess(requirementsStatus -> proofOfAttentionService.setChainId(packageName,
-                intent.getIntExtra(PARAM_NETWORK_ID, 1)))
-            .doOnSuccess(
-                proofSubmissionFeeData -> proofOfAttentionService.setGasSettings(packageName,
-                    proofSubmissionFeeData.getGasPrice(), proofSubmissionFeeData.getGasLimit()))
-            .doOnSuccess(
-                requirementsStatus -> processWalletSate(requirementsStatus.getStatus(), intent))
-            .subscribe(requirementsStatus -> {
-            }, throwable -> {
-              logger.log(throwable);
-              showGenericErrorNotificationAndStopForeground();
-            });
+        requirementsDisposable =
+            proofOfAttentionService.isWalletReady(intent.getIntExtra(PARAM_NETWORK_ID, -1))
+                // network chain id
+                .doOnSuccess(requirementsStatus -> proofOfAttentionService.setChainId(packageName,
+                    intent.getIntExtra(PARAM_NETWORK_ID, -1)))
+                .doOnSuccess(
+                    proofSubmissionFeeData -> proofOfAttentionService.setGasSettings(packageName,
+                        proofSubmissionFeeData.getGasPrice(), proofSubmissionFeeData.getGasLimit()))
+                .doOnSuccess(
+                    requirementsStatus -> processWalletState(requirementsStatus.getStatus(),
+                        intent))
+                .subscribe(requirementsStatus -> {
+                }, throwable -> {
+                  logger.log(throwable);
+                  showGenericErrorNotificationAndStopForeground();
+                });
       }
       setTimeout(intent.getStringExtra(PARAM_APP_PACKAGE_NAME));
     }
@@ -129,7 +131,7 @@ public class WalletPoAService extends Service {
     stopTimeout();
   }
 
-  private void processWalletSate(ProofSubmissionFeeData.RequirementsStatus requirementsStatus,
+  private void processWalletState(ProofSubmissionFeeData.RequirementsStatus requirementsStatus,
       Intent intent) {
     switch (requirementsStatus) {
       case READY:

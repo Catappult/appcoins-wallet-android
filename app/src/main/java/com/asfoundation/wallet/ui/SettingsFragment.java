@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui;
 
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -17,15 +16,12 @@ import com.asf.wallet.R;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity;
 import com.asfoundation.wallet.router.ManageWalletsRouter;
-import com.asfoundation.wallet.router.SendRouter;
 import dagger.android.AndroidInjection;
 import javax.inject.Inject;
 
-public class SettingsFragment extends PreferenceFragment
-    implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class SettingsFragment extends PreferenceFragment {
   @Inject FindDefaultWalletInteract findDefaultWalletInteract;
   @Inject ManageWalletsRouter manageWalletsRouter;
-  SendRouter sendRouter = new SendRouter();
 
   @Override public void onCreate(Bundle savedInstanceState) {
     AndroidInjection.inject(this);
@@ -65,8 +61,6 @@ public class SettingsFragment extends PreferenceFragment
     String versionString = getVersion();
     Preference version = findPreference("pref_version");
     version.setSummary(versionString);
-    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-    preferences.registerOnSharedPreferenceChangeListener(SettingsFragment.this);
 
     final Preference twitter = findPreference("pref_twitter");
     twitter.setOnPreferenceClickListener(preference -> {
@@ -123,10 +117,6 @@ public class SettingsFragment extends PreferenceFragment
   private boolean openPermissionScreen() {
     startActivity(ManagePermissionsActivity.newIntent(getActivity()));
     return true;
-  }
-
-  public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-
   }
 
   public String getVersion() {

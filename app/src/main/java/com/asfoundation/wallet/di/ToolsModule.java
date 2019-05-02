@@ -84,7 +84,6 @@ import com.asfoundation.wallet.poa.HashCalculator;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofWriter;
 import com.asfoundation.wallet.poa.TaggedCompositeDisposable;
-import com.asfoundation.wallet.poa.TransactionFactory;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.ApproveTransactionValidatorBds;
 import com.asfoundation.wallet.repository.BalanceService;
@@ -429,9 +428,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Provides DefaultTokenProvider provideDefaultTokenProvider(
-      FindDefaultNetworkInteract defaultNetworkInteract,
-      FindDefaultWalletInteract findDefaultWalletInteract) {
-    return new BuildConfigDefaultTokenProvider(defaultNetworkInteract, findDefaultWalletInteract);
+      FindDefaultWalletInteract findDefaultWalletInteract, NetworkInfo networkInfo) {
+    return new BuildConfigDefaultTokenProvider(findDefaultWalletInteract, networkInfo);
   }
 
   @Singleton @Provides Calculator provideMessageDigest() {
@@ -456,14 +454,6 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides @Named("REGISTER_PROOF_GAS_LIMIT") BigDecimal provideRegisterPoaGasLimit() {
     return new BigDecimal(BuildConfig.REGISTER_PROOF_GAS_LIMIT);
-  }
-
-  @Singleton @Provides TransactionFactory provideTransactionFactory(Web3jProvider web3jProvider,
-      WalletRepositoryType walletRepository, AccountKeystoreService accountKeystoreService,
-      PasswordStore passwordStore, DataMapper dataMapper,
-      AppCoinsAddressProxySdk adsContractAddressProvider) {
-    return new TransactionFactory(web3jProvider, walletRepository, accountKeystoreService,
-        passwordStore, dataMapper, adsContractAddressProvider);
   }
 
   @Singleton @Provides ProofWriter provideBdsBackEndWriter(
@@ -531,9 +521,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return operationSources.getSources();
   }
 
-  @Provides AirdropChainIdMapper provideAirdropChainIdMapper(
-      FindDefaultNetworkInteract defaultNetworkInteract) {
-    return new AirdropChainIdMapper(defaultNetworkInteract);
+  @Provides AirdropChainIdMapper provideAirdropChainIdMapper(NetworkInfo networkInfo) {
+    return new AirdropChainIdMapper(networkInfo);
   }
 
   @Provides AirdropService provideAirdropService(OkHttpClient client, Gson gson) {

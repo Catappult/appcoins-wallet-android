@@ -298,7 +298,7 @@ public class ProofOfAttentionServiceTest {
   }
 
   @Test public void isWalletReady() {
-    TestObserver<ProofSubmissionFeeData> ready = proofOfAttentionService.isWalletReady()
+    TestObserver<ProofSubmissionFeeData> ready = proofOfAttentionService.isWalletReady(1)
         .subscribeOn(testScheduler)
         .test();
     ProofSubmissionFeeData readyFee =
@@ -312,7 +312,7 @@ public class ProofOfAttentionServiceTest {
   }
 
   @Test public void noWalletReady() {
-    TestObserver<ProofSubmissionFeeData> noWallet = proofOfAttentionService.isWalletReady()
+    TestObserver<ProofSubmissionFeeData> noWallet = proofOfAttentionService.isWalletReady(1)
         .subscribeOn(testScheduler)
         .test();
     ProofSubmissionFeeData noWalletFee =
@@ -326,7 +326,7 @@ public class ProofOfAttentionServiceTest {
   }
 
   @Test public void noNetwork() {
-    TestObserver<ProofSubmissionFeeData> noFunds = proofOfAttentionService.isWalletReady()
+    TestObserver<ProofSubmissionFeeData> noFunds = proofOfAttentionService.isWalletReady(1)
         .subscribeOn(testScheduler)
         .test();
     ProofSubmissionFeeData noFundsFee =
