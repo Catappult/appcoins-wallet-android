@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.gamification
 import android.os.Bundle
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.UserStats
+import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -12,11 +13,12 @@ import java.math.RoundingMode
 
 class MyLevelPresenter(private val view: MyLevelView,
                        private val gamification: GamificationInteractor,
+                       private val analytics: GamificationAnalytics,
                        private val networkScheduler: Scheduler,
                        private val viewScheduler: Scheduler) {
   val disposables = CompositeDisposable()
   fun present(savedInstanceState: Bundle?) {
-    handleShowLevels()
+    handleShowLevels(savedInstanceState == null)
     handleButtonClick()
     view.setupLayout()
   }
@@ -25,7 +27,7 @@ class MyLevelPresenter(private val view: MyLevelView,
     disposables.add(view.getButtonClicks().doOnNext { view.showHowItWorksScreen() }.subscribe())
   }
 
-  private fun handleShowLevels() {
+  private fun handleShowLevels(sendEvent: Boolean) {
     disposables.add(
         Single.zip(gamification.getLevels(), gamification.getUserStatus(),
             gamification.getLastShownLevel(),
@@ -39,6 +41,9 @@ class MyLevelPresenter(private val view: MyLevelView,
                 view.setStaringLevel(it)
               }
               view.updateLevel(it)
+              if (sendEvent) {
+                analytics.sendMainScreenViewEvent(it.level + 1)
+              }
               if (it.bonus.isNotEmpty()) view.showHowItWorksButton()
             }
             .flatMapCompletable { gamification.levelShown(it.level) }
@@ -64,5 +69,7 @@ class MyLevelPresenter(private val view: MyLevelView,
   fun stop() {
     disposables.clear()
   }
+
+
 
 }
