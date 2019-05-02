@@ -16,13 +16,10 @@ import static com.asfoundation.wallet.C.DEFAULT_GAS_PRICE;
 public class GasSettingsRepository implements GasSettingsRepositoryType {
 
   private final static long FETCH_GAS_PRICE_INTERVAL = 60;
-  private final EthereumNetworkRepositoryType networkRepository;
   private final Web3jProvider web3jProvider;
   private BigDecimal cachedGasPrice;
 
-  public GasSettingsRepository(EthereumNetworkRepositoryType networkRepository,
-      Web3jProvider web3jProvider) {
-    this.networkRepository = networkRepository;
+  public GasSettingsRepository(Web3jProvider web3jProvider) {
     this.web3jProvider = web3jProvider;
 
     cachedGasPrice = new BigDecimal(DEFAULT_GAS_PRICE);

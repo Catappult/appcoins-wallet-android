@@ -5,7 +5,6 @@ import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.poa.BlockchainErrorMapper;
-import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.NotTrackTransactionService;
 import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.PreferenceRepositoryType;
@@ -100,11 +99,10 @@ import static com.asfoundation.wallet.C.ROPSTEN_NETWORK_NAME;
   }
 
   @Singleton @Provides TransactionRepositoryType provideTransactionRepository(
-      EthereumNetworkRepositoryType networkRepository,
-      AccountKeystoreService accountKeystoreService,
+      NetworkInfo networkInfo, AccountKeystoreService accountKeystoreService,
       TransactionsNetworkClientType blockExplorerClient, TransactionLocalSource inDiskCache,
       DefaultTokenProvider defaultTokenProvider, MultiWalletNonceObtainer nonceObtainer) {
-    return new TransactionRepository(networkRepository, accountKeystoreService, inDiskCache,
+    return new TransactionRepository(networkInfo, accountKeystoreService, inDiskCache,
         blockExplorerClient, defaultTokenProvider, new BlockchainErrorMapper(), nonceObtainer,
         Schedulers.io());
   }

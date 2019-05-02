@@ -16,7 +16,6 @@ import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity;
-import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.router.ManageWalletsRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import dagger.android.AndroidInjection;
@@ -24,7 +23,6 @@ import javax.inject.Inject;
 
 public class SettingsFragment extends PreferenceFragment
     implements SharedPreferences.OnSharedPreferenceChangeListener {
-  @Inject EthereumNetworkRepositoryType ethereumNetworkRepository;
   @Inject FindDefaultWalletInteract findDefaultWalletInteract;
   @Inject ManageWalletsRouter manageWalletsRouter;
   SendRouter sendRouter = new SendRouter();
