@@ -12,6 +12,7 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import com.asf.wallet.R
+import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -28,6 +29,9 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   lateinit var gamificationInteractor: GamificationInteractor
   @Inject
   lateinit var levelResourcesMapper: LevelResourcesMapper
+  @Inject
+  lateinit var analytics: GamificationAnalytics
+
 
   private lateinit var presenter: MyLevelPresenter
   private lateinit var gamificationView: GamificationView
@@ -35,7 +39,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = MyLevelPresenter(this, gamificationInteractor, Schedulers.io(),
+    presenter = MyLevelPresenter(this, gamificationInteractor, analytics, Schedulers.io(),
         AndroidSchedulers.mainThread())
   }
 

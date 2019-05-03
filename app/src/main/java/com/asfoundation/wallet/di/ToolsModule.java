@@ -42,6 +42,7 @@ import com.asfoundation.wallet.analytics.FacebookEventLogger;
 import com.asfoundation.wallet.analytics.HttpClientKnockLogger;
 import com.asfoundation.wallet.analytics.KeysNormalizer;
 import com.asfoundation.wallet.analytics.LogcatAnalyticsLogger;
+import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics;
 import com.asfoundation.wallet.apps.Applications;
 import com.asfoundation.wallet.billing.BDSTransactionService;
 import com.asfoundation.wallet.billing.CreditsRemoteRepository;
@@ -788,6 +789,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     list.add(PoaAnalytics.POA_STARTED);
     list.add(PoaAnalytics.POA_COMPLETED);
     list.add(TransactionsAnalytics.OPEN_APPLICATION);
+    list.add(GamificationAnalytics.GAMIFICATION);
+    list.add(GamificationAnalytics.GAMIFICATION_MORE_INFO);
     return list;
   }
 
@@ -900,5 +903,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Singleton @Provides TransactionsAnalytics providesTransactionsAnalytics(
       @NotNull AnalyticsManager analytics) {
     return new TransactionsAnalytics(analytics);
+  }
+
+  @Singleton @Provides GamificationAnalytics provideGamificationAnalytics(
+      AnalyticsManager analytics) {
+    return new GamificationAnalytics(analytics);
   }
 }
