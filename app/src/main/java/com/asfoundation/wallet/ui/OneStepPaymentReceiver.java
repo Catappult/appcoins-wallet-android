@@ -5,13 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import androidx.annotation.Nullable;
 import com.airbnb.lottie.LottieAnimationView;
-import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.entity.Wallet;
-import com.asfoundation.wallet.interact.AddTokenInteract;
-import com.asfoundation.wallet.interact.CreateWalletInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
+import com.asfoundation.wallet.interact.PaymentReceiverInteract;
 import com.asfoundation.wallet.repository.WalletNotFoundException;
 import com.asfoundation.wallet.ui.iab.IabActivity;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
@@ -28,8 +26,7 @@ public class OneStepPaymentReceiver extends BaseActivity {
   public static final int REQUEST_CODE = 234;
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject FindDefaultWalletInteract walletInteract;
-  @Inject CreateWalletInteract createWalletInteract;
-  @Inject AddTokenInteract addTokenInteract;
+  @Inject PaymentReceiverInteract paymentReceiverInteract;
   @Inject TransferParser transferParser;
   private Disposable disposable;
   private View walletCreationCard;
@@ -94,12 +91,7 @@ public class OneStepPaymentReceiver extends BaseActivity {
 
   private Single<Wallet> createWallet() {
     showLoadingAnimation();
-    return createWalletInteract.create()
-        .flatMap(wallet -> createWalletInteract.setDefaultWallet(wallet)
-            .andThen(addTokenInteract.add(BuildConfig.ROPSTEN_DEFAULT_TOKEN_ADDRESS,
-                BuildConfig.ROPSTEN_DEFAULT_TOKEN_SYMBOL,
-                BuildConfig.ROPSTEN_DEFAULT_TOKEN_DECIMALS))
-            .andThen(Single.just(wallet)));
+    return paymentReceiverInteract.createWallet();
   }
 
   private void endAnimation() {
