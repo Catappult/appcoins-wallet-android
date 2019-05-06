@@ -30,6 +30,10 @@ import com.asf.wallet.R;
 public class AddWalletView extends FrameLayout implements View.OnClickListener {
 
   public static int ANIMATION_TRANSITIONS = 3;
+  public static final String TERMS_CONDITIONS_URL =
+      "https://catappult.io/appcois-wallet/terms-conditions";
+  public static final String PRIVACY_POLICY_URL =
+      "https://catappult.io/appcois-wallet/privacy-policy";
   private OnNewWalletClickListener onNewWalletClickListener;
   private OnImportWalletClickListener onImportWalletClickListener;
 
@@ -61,8 +65,8 @@ public class AddWalletView extends FrameLayout implements View.OnClickListener {
               privacyPolicy);
 
       SpannableString spannableString = new SpannableString(termsPolicyTickBox);
-      setLinkToString(spannableString, termsConditions, "https://appcoins.io/");
-      setLinkToString(spannableString, privacyPolicy, "https://appcoins.io/");
+      setLinkToString(spannableString, termsConditions, TERMS_CONDITIONS_URL);
+      setLinkToString(spannableString, privacyPolicy, PRIVACY_POLICY_URL);
 
       TextView textView = findViewById(R.id.terms_conditions_body);
       textView.setText(spannableString);
