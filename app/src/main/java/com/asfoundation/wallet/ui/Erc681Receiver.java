@@ -7,9 +7,8 @@ import androidx.annotation.Nullable;
 import com.airbnb.lottie.LottieAnimationView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.interact.AddTokenInteract;
-import com.asfoundation.wallet.interact.CreateWalletInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
+import com.asfoundation.wallet.interact.PaymentReceiverInteract;
 import com.asfoundation.wallet.ui.iab.IabActivity;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.util.TransferParser;
@@ -26,8 +25,7 @@ public class Erc681Receiver extends BaseActivity implements Erc681ReceiverView {
   @Inject FindDefaultWalletInteract walletInteract;
   @Inject TransferParser transferParser;
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
-  @Inject CreateWalletInteract createWalletInteract;
-  @Inject AddTokenInteract addTokenInteract;
+  @Inject PaymentReceiverInteract paymentReceiverInteract;
   private Erc681ReceiverPresenter presenter;
   private LottieAnimationView walletCreationAnimation;
   private View walletCreationCard;
@@ -42,7 +40,7 @@ public class Erc681Receiver extends BaseActivity implements Erc681ReceiverView {
     walletCreationText = findViewById(R.id.create_wallet_text);
     presenter =
         new Erc681ReceiverPresenter(this, transferParser, inAppPurchaseInteractor, walletInteract,
-            getIntent().getDataString(), createWalletInteract, addTokenInteract);
+            getIntent().getDataString(), paymentReceiverInteract);
     presenter.present(savedInstanceState);
   }
 

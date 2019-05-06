@@ -1,11 +1,9 @@
 package com.asfoundation.wallet.ui;
 
 import android.os.Bundle;
-import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.entity.Wallet;
-import com.asfoundation.wallet.interact.AddTokenInteract;
-import com.asfoundation.wallet.interact.CreateWalletInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
+import com.asfoundation.wallet.interact.PaymentReceiverInteract;
 import com.asfoundation.wallet.repository.WalletNotFoundException;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.util.TransferParser;
@@ -18,20 +16,18 @@ class Erc681ReceiverPresenter {
   private final InAppPurchaseInteractor inAppPurchaseInteractor;
   private final FindDefaultWalletInteract walletInteract;
   private final String data;
-  private final CreateWalletInteract createWalletInteract;
-  private final AddTokenInteract addTokenInteract;
+  private final PaymentReceiverInteract paymentReceiverInteract;
   private Disposable disposable;
 
   public Erc681ReceiverPresenter(Erc681ReceiverView view, TransferParser transferParser,
       InAppPurchaseInteractor inAppPurchaseInteractor, FindDefaultWalletInteract walletInteract,
-      String data, CreateWalletInteract createWalletInteract, AddTokenInteract addTokenInteract) {
+      String data, PaymentReceiverInteract paymentReceiverInteract) {
     this.view = view;
     this.transferParser = transferParser;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.walletInteract = walletInteract;
     this.data = data;
-    this.createWalletInteract = createWalletInteract;
-    this.addTokenInteract = addTokenInteract;
+    this.paymentReceiverInteract = paymentReceiverInteract;
   }
 
   public void present(Bundle savedInstanceState) {
@@ -65,11 +61,6 @@ class Erc681ReceiverPresenter {
 
   private Single<Wallet> createWallet() {
     view.showLoadingAnimation();
-    return createWalletInteract.create()
-        .flatMap(wallet -> createWalletInteract.setDefaultWallet(wallet)
-            .andThen(addTokenInteract.add(BuildConfig.ROPSTEN_DEFAULT_TOKEN_ADDRESS,
-                BuildConfig.ROPSTEN_DEFAULT_TOKEN_SYMBOL,
-                BuildConfig.ROPSTEN_DEFAULT_TOKEN_DECIMALS))
-            .andThen(Single.just(wallet)));
+    return paymentReceiverInteract.createWallet();
   }
 }

@@ -71,6 +71,7 @@ import com.asfoundation.wallet.interact.FetchTokensInteract;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
+import com.asfoundation.wallet.interact.PaymentReceiverInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.permissions.PermissionsInteractor;
 import com.asfoundation.wallet.permissions.repository.PermissionRepository;
@@ -806,6 +807,13 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Provides CreateWalletInteract provideCreateAccountInteract(
       WalletRepositoryType accountRepository, PasswordStore passwordStore) {
     return new CreateWalletInteract(accountRepository, passwordStore);
+  }
+
+  @Provides PaymentReceiverInteract providePaymentReceiverInteract(
+      CreateWalletInteract createWalletInteract, AddTokenInteract addTokenInteract,
+      DefaultTokenProvider defaultTokenProvider) {
+    return new PaymentReceiverInteract(createWalletInteract, addTokenInteract,
+        defaultTokenProvider);
   }
 
   @Singleton @Provides BillingAnalytics provideBillingAnalytics(AnalyticsManager analytics) {
