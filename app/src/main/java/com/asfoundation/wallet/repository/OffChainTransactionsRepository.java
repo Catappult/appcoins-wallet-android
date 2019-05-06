@@ -12,13 +12,21 @@ public class OffChainTransactionsRepository {
     this.api = api;
   }
 
-  public Single<WalletHistory> getTransactions(String wallet, String versionCode) {
-    return api.transactionHistory(wallet, versionCode, "offchain");
+  public Single<WalletHistory> getTransactions(String wallet, String versionCode,
+      boolean offChainOnly) {
+    if (offChainOnly) {
+      return api.transactionHistory(wallet, versionCode, "offchain");
+    } else {
+      return api.transactionHistory(wallet, versionCode);
+    }
   }
 
   public interface TransactionsApi {
     @GET("appc/wallethistory") Single<WalletHistory> transactionHistory(
         @Query("wallet") String wallet, @Query("version_code") String versionCode,
         @Query("type") String transactionType);
+
+    @GET("appc/wallethistory") Single<WalletHistory> transactionHistory(
+        @Query("wallet") String wallet, @Query("version_code") String versionCode);
   }
 }

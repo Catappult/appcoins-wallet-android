@@ -4,7 +4,7 @@ import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperation;
-import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
+import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository;
 import com.google.gson.Gson;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;
@@ -22,7 +22,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class) public class TransactionsMapperTest {
 
   @Mock DefaultTokenProvider defaultTokenProvider;
-  @Mock AppcoinsOperationsDataSaver appcoinsOperationsDataSaver;
+  @Mock AppCoinsOperationRepository appcoinsOperationsDataSaver;
 
   private TestScheduler scheduler;
 
@@ -35,7 +35,7 @@ import org.mockito.junit.MockitoJUnitRunner;
   }
 
   @Test public void standardTransactions() {
-    RawTransaction[] transactions = getData(JsonResources.STANDARD_JSON).docs;
+    List<RawTransaction> transactions = getData(JsonResources.STANDARD_JSON).docs;
     TransactionsMapper mapper =
         new TransactionsMapper(defaultTokenProvider, appcoinsOperationsDataSaver, scheduler);
     TestObserver<List<Transaction>> test = mapper.map(transactions)
@@ -78,7 +78,7 @@ import org.mockito.junit.MockitoJUnitRunner;
             "0xfddcbb2776d74ed5bc4c831ddb2210c624ecbb7af0864cf1dc8ab6ad5943307a",
             "com.packagename.test", "Test App", "/img/path/icon", "test item"));
 
-    RawTransaction[] transactions = getData(JsonResources.STANDARD_AND_ADS_JSON).docs;
+    List<RawTransaction> transactions = getData(JsonResources.STANDARD_AND_ADS_JSON).docs;
     TransactionsMapper mapper =
         new TransactionsMapper(defaultTokenProvider, appcoinsOperationsDataSaver, scheduler);
     TestObserver<List<Transaction>> test = mapper.map(transactions)
@@ -134,7 +134,7 @@ import org.mockito.junit.MockitoJUnitRunner;
             "0xfddcbb2776d74ed5bc4c831ddb2210c624ecbb7af0864cf1dc8ab6ad5943307a",
             "com.packagename.test2", "Test App 2", "/img/path/icon2", "test item 2"));
 
-    RawTransaction[] transactions = getData(JsonResources.STANDARD_AND_IAB_JSON).docs;
+    List<RawTransaction> transactions = getData(JsonResources.STANDARD_AND_IAB_JSON).docs;
     TransactionsMapper mapper =
         new TransactionsMapper(defaultTokenProvider, appcoinsOperationsDataSaver, scheduler);
     TestObserver<List<Transaction>> test = mapper.map(transactions)
@@ -196,7 +196,7 @@ import org.mockito.junit.MockitoJUnitRunner;
   }
 
   private final static class ApiClientResponse {
-    RawTransaction[] docs;
+    List<RawTransaction> docs;
     int pages;
   }
 }

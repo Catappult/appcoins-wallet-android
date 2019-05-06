@@ -15,6 +15,8 @@ import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.Sort;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TransactionsRealmCache implements TransactionLocalSource {
 
@@ -25,7 +27,7 @@ public class TransactionsRealmCache implements TransactionLocalSource {
   }
 
   @Override
-  public Single<RawTransaction[]> fetchTransaction(NetworkInfo networkInfo, Wallet wallet) {
+  public Single<List<RawTransaction>> fetchTransaction(NetworkInfo networkInfo, Wallet wallet) {
     return Single.fromCallable(() -> {
       Realm instance = null;
       try {
@@ -137,11 +139,11 @@ public class TransactionsRealmCache implements TransactionLocalSource {
     return false;
   }
 
-  private RawTransaction[] convert(RealmResults<RealmTransaction> items) {
+  private List<RawTransaction> convert(RealmResults<RealmTransaction> items) {
     int len = items.size();
-    RawTransaction[] result = new RawTransaction[len];
+    List<RawTransaction> result = new ArrayList<>(len);
     for (int i = 0; i < len; i++) {
-      result[i] = convert(items.get(i));
+      result.add(convert(items.get(i)));
     }
     return result;
   }

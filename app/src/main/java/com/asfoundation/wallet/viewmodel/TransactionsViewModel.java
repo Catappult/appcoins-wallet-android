@@ -177,11 +177,11 @@ public class TransactionsViewModel extends BaseViewModel {
     handler.removeCallbacks(startFetchTransactionsTask);
     progress.postValue(shouldShowProgress);
     /*For specific address use: new Wallet("0x60f7a1cbc59470b74b1df20b133700ec381f15d3")*/
-    disposables.add(Observable.merge(fetchTransactionsInteract.fetch(defaultWallet.getValue())
-        .flatMapSingle(transactionsMapper::map), findDefaultNetworkInteract.find()
-        .filter(this::shouldShowOffChainInfo)
-        .flatMapObservable(__ -> offChainTransactions.getTransactions()
-            .toObservable()))
+    disposables.add(Observable.merge(fetchTransactionsInteract.fetch(defaultWallet.getValue()),
+        findDefaultNetworkInteract.find()
+            .filter(this::shouldShowOffChainInfo)
+            .flatMapObservable(__ -> offChainTransactions.getTransactions(true)
+                .toObservable()))
         .observeOn(AndroidSchedulers.mainThread())
         .flatMapCompletable(
             transactions -> publishMaxBonus().observeOn(AndroidSchedulers.mainThread())

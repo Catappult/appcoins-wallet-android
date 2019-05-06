@@ -6,7 +6,7 @@ import com.asfoundation.wallet.entity.TransactionOperation;
 import com.asfoundation.wallet.entity.WalletHistory;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperation;
-import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
+import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository;
 import com.asfoundation.wallet.util.BalanceUtils;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
@@ -28,37 +28,31 @@ public class TransactionsMapper {
   public static final String BUY_METHOD_ID = "0xb7a2e1f2";
   public static final String ADS_METHOD_ID = "0xd5bde837";
   private final DefaultTokenProvider defaultTokenProvider;
-  private final AppcoinsOperationsDataSaver operationsDataSaver;
+  private final AppCoinsOperationRepository repository;
   private final Scheduler scheduler;
 
   public TransactionsMapper(DefaultTokenProvider defaultTokenProvider,
-      AppcoinsOperationsDataSaver operationsDataSaver, Scheduler scheduler) {
+      AppCoinsOperationRepository repository, Scheduler scheduler) {
     this.defaultTokenProvider = defaultTokenProvider;
-    this.operationsDataSaver = operationsDataSaver;
+    this.repository = repository;
     this.scheduler = scheduler;
   }
 
-  public Single<List<Transaction>> map(RawTransaction[] transactions) {
+  public Single<List<Transaction>> map(List<RawTransaction> transactions) {
     return defaultTokenProvider.getDefaultToken()
         .observeOn(scheduler)
         .map(tokenInfo -> map(tokenInfo.address, transactions));
   }
 
-  public Single<List<Transaction>> mapFromWalletHistory(
-      List<WalletHistory.Transaction> transactions) {
-    return Single.just(mapTransactionsFromWalletHistory(transactions))
-        .observeOn(scheduler);
-  }
-
-  private List<Transaction> map(String address, RawTransaction[] transactions) {
+  private List<Transaction> map(String address, List<RawTransaction> transactions) {
     List<Transaction> transactionList = new ArrayList<>();
-    for (int i = transactions.length - 1; i >= 0; i--) {
-      RawTransaction transaction = transactions[i];
+    for (int i = transactions.size() - 1; i >= 0; i--) {
+      RawTransaction transaction = transactions.get(i);
       if (isAppcoinsTransaction(transaction, address)
           && isApprovedTransaction(transaction)
           && i > 0
-          && isTransactionWithApprove(transactions[i - 1])) {
-        transactionList.add(0, mapTransactionWithApprove(transaction, transactions[i - 1]));
+          && isTransactionWithApprove(transactions.get(i - 1))) {
+        transactionList.add(0, mapTransactionWithApprove(transaction, transactions.get(i - 1)));
         i--;
       } else if (isAdsTransaction(transaction)) {
         transactionList.add(0, mapAdsTransaction(transaction));
@@ -67,6 +61,12 @@ public class TransactionsMapper {
       }
     }
     return transactionList;
+  }
+
+  public Single<List<Transaction>> mapFromWalletHistory(
+      List<WalletHistory.Transaction> transactions) {
+    return Single.just(mapTransactionsFromWalletHistory(transactions))
+        .observeOn(scheduler);
   }
 
   private List<Transaction> mapTransactionsFromWalletHistory(
@@ -206,10 +206,8 @@ public class TransactionsMapper {
       operations.add(new Operation(transaction.hash, transaction.from, transaction.to, fee));
     }
 
-    return new Transaction(transaction.hash,
-        com.asfoundation.wallet.transactions.Transaction.TransactionType.STANDARD, null,
-        transaction.timeStamp, getError(transaction), value, transaction.from, transaction.to, null,
-        currency, operations);
+    return new Transaction(transaction.hash, STANDARD, null, transaction.timeStamp,
+        getError(transaction), value, transaction.from, transaction.to, null, currency, operations);
   }
 
   /**
@@ -298,12 +296,11 @@ public class TransactionsMapper {
   @Nullable private TransactionDetails getTransactionDetails(Transaction.TransactionType type,
       String transactionId) {
     TransactionDetails details = null;
-    AppCoinsOperation operationDetails = operationsDataSaver.getSync(transactionId);
+    AppCoinsOperation operationDetails = repository.getSync(transactionId);
     if (operationDetails != null) {
       String productName = null;
       if (!com.asfoundation.wallet.transactions.Transaction.TransactionType.ADS.equals(type)
-          && !com.asfoundation.wallet.transactions.Transaction.TransactionType.ADS_OFFCHAIN.equals(
-          type)) {
+          && !ADS_OFFCHAIN.equals(type)) {
         productName = operationDetails.getProductName();
       }
       details = new TransactionDetails(operationDetails.getApplicationName(),
@@ -314,8 +311,7 @@ public class TransactionsMapper {
   }
 
   private Transaction.TransactionType getTransactionType(RawTransaction transaction) {
-    Transaction.TransactionType type =
-        com.asfoundation.wallet.transactions.Transaction.TransactionType.STANDARD;
+    Transaction.TransactionType type = STANDARD;
     if (isIabTransaction(transaction)) {
       type = com.asfoundation.wallet.transactions.Transaction.TransactionType.IAB;
     }

@@ -23,10 +23,10 @@ public class OffChainTransactions {
     this.scheduler = scheduler;
   }
 
-  public Single<List<Transaction>> getTransactions() {
+  public Single<List<Transaction>> getTransactions(boolean offChainOnly) {
     return defaultWalletInteract.find()
         .observeOn(scheduler)
-        .flatMap(wallet -> repository.getTransactions(wallet.address, versionCode))
+        .flatMap(wallet -> repository.getTransactions(wallet.address, versionCode, offChainOnly))
         .flatMap(channelHistoryResponse -> mapper.mapFromWalletHistory(
             channelHistoryResponse.getResult()));
   }

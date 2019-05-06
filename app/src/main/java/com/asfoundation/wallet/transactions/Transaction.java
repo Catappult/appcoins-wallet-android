@@ -231,7 +231,7 @@ public class Transaction implements Parcelable {
   }
 
   public enum TransactionStatus {
-    SUCCESS, FAILED, PENDING, PENDING_USER_PAYMENT;
+    SUCCESS, FAILED, PENDING;
 
     static TransactionStatus fromInt(int status) {
       switch (status) {
@@ -241,8 +241,6 @@ public class Transaction implements Parcelable {
           return FAILED;
         case 2:
           return PENDING;
-        case 3:
-          return PENDING_USER_PAYMENT;
         default:
           return SUCCESS;
       }
