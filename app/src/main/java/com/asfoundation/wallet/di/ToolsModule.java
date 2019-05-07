@@ -104,13 +104,13 @@ import com.asfoundation.wallet.repository.GasSettingsRepository;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.IpCountryCodeProvider;
-import com.asfoundation.wallet.repository.MainTransactionRepository;
 import com.asfoundation.wallet.repository.NoValidateTransactionValidator;
 import com.asfoundation.wallet.repository.OffChainTransactions;
 import com.asfoundation.wallet.repository.OffChainTransactionsRepository;
 import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.PreferenceRepositoryType;
+import com.asfoundation.wallet.repository.ProdTransactionRepository;
 import com.asfoundation.wallet.repository.SharedPreferenceRepository;
 import com.asfoundation.wallet.repository.SignDataStandardNormalizer;
 import com.asfoundation.wallet.repository.SmsValidationRepositoryType;
@@ -984,10 +984,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       NetworkInfo networkInfo, AccountKeystoreService accountKeystoreService,
       TransactionsNetworkClientType blockExplorerClient, TransactionLocalSource inDiskCache,
       DefaultTokenProvider defaultTokenProvider, MultiWalletNonceObtainer nonceObtainer,
-      @NotNull TransactionsMapper mapper) {
-    return new MainTransactionRepository(networkInfo, accountKeystoreService, inDiskCache,
+      OffChainTransactions transactionsNetworkRepository, @NotNull TransactionsMapper mapper) {
+    return new ProdTransactionRepository(networkInfo, accountKeystoreService, inDiskCache,
         blockExplorerClient, defaultTokenProvider, new BlockchainErrorMapper(), nonceObtainer,
-        Schedulers.io(), mapper);
+        Schedulers.io(), mapper, transactionsNetworkRepository);
   }
 
   @Singleton @Provides SmsValidationApi provideSmsValidationApi(OkHttpClient client, Gson gson) {
