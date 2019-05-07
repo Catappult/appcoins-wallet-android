@@ -15,7 +15,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_centerInParent="true"
-      android:visibility="visible"
+      android:visibility="gone"
       />
 
   <LinearLayout
@@ -67,7 +67,7 @@
       >
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         >
 
@@ -77,7 +77,7 @@
           android:layout_height="wrap_content"
           android:background="@drawable/background_card"
           android:elevation="2dp"
-          android:visibility="invisible"
+          android:visibility="visible"
           >
 
         <ImageView
@@ -89,6 +89,12 @@
             android:src="@drawable/ic_appc"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/app_name"
+            app:layout_constraintBottom_toTopOf="@+id/appc_price"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintHorizontal_chainStyle="packed"
             />
         <TextView
             android:id="@+id/app_name"
@@ -102,6 +108,9 @@
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@id/app_icon"
             app:layout_constraintTop_toTopOf="@id/app_icon"
+            app:layout_constraintBottom_toTopOf="@id/app_sku_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
             tools:text="Application Name"
             />
 
@@ -117,6 +126,7 @@
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@id/app_name"
             app:layout_constraintTop_toBottomOf="@id/app_name"
+            app:layout_constraintBottom_toBottomOf="@id/app_icon"
             />
 
         <TextView
@@ -130,7 +140,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/app_sku_description"
+            app:layout_constraintTop_toBottomOf="@id/app_icon"
+            app:layout_constraintBottom_toTopOf="@id/fiat_price"
             tools:text="0,99 APPC"
             />
 
@@ -145,6 +156,7 @@
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appc_price"
+            app:layout_constraintBottom_toTopOf="@id/payment_methods_radio_group"
             tools:text="0,09 EUR"
             />
 
@@ -209,12 +221,45 @@
             android:id="@+id/bonus_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/dialog_buy_buttons_payment_methods"
+            app:layout_constraintBottom_toTopOf="@+id/bonus_msg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/payment_methods_radio_group"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintVertical_chainStyle="packed"
+            android:layout_marginEnd="@dimen/big_margin"
+            android:layout_marginStart="@dimen/big_margin"
+            />
+
+        <TextView
+            android:id="@+id/bonus_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="21dp"
+            android:layout_marginEnd="@dimen/big_margin"
+            android:layout_marginStart="@dimen/big_margin"
+            android:layout_marginTop="11dp"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/bottom_separator"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
+            app:layout_constraintVertical_bias="0"
+            android:text="You can use this bonus in your next purchase."
+            style="@style/TopUpTextStyle.Small.BonusText"
+            />
+
+        <View
+            android:id="@+id/bottom_separator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/layout_separator_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bonus_msg"
+            app:layout_constraintBottom_toTopOf="@id/dialog_buy_buttons_payment_methods"
+            android:layout_marginBottom="7dp"
             />
 
         <include
@@ -222,13 +267,12 @@
             android:id="@+id/dialog_buy_buttons_payment_methods"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:layout_marginStart="@dimen/normal_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bonus_layout"
+            app:layout_constraintTop_toBottomOf="@id/bottom_separator"
             />
 
       </androidx.constraintlayout.widget.ConstraintLayout>

@@ -44,6 +44,7 @@
   <color name="btn_text_disable_color">#42000000</color>
   <color name="btn_disable_snd_color">#c9c9c9</color>
   <color name="btn_text_enable_color">#ffffff</color>
+  <color name="btn_cancel_text">#8f000000</color>
 
   <color name="btn_start_gradient_color">#fc9d48</color>
   <color name="btn_end_gradient_color">#ff578c</color>
@@ -72,7 +73,7 @@
   <color name="top_up_payment_details_text">#4a4a4a</color>
 
   <color name="transaction_details_button_color">#fe7073</color>
-  <color name="purchase_bonus_background_color">#efefef</color>
+  <color name="purchase_bonus_background_color">#001727</color>
   <color name="layout_separator_color">#eaeaea</color>
 
 </resources>
