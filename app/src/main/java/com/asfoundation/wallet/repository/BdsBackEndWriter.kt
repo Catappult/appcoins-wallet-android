@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.repository
 
+import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.poa.Proof
 import com.asfoundation.wallet.poa.ProofSubmissionFeeData
@@ -34,4 +35,7 @@ open class BdsBackEndWriter(private val defaultWalletInteract: FindDefaultWallet
     }
   }
 
+  private fun isCorrectNetwork(chainId: Int): Boolean {
+    return chainId == 3 && BuildConfig.DEBUG || chainId == 1 && !BuildConfig.DEBUG
+  }
 }
