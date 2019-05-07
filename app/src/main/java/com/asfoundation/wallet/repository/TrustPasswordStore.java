@@ -18,9 +18,11 @@ import java.util.Map;
 public class TrustPasswordStore implements PasswordStore {
 
   private final Context context;
+  private final String defaultAddress;
 
-  public TrustPasswordStore(Context context) {
+  public TrustPasswordStore(Context context, String defaultAddress) {
     this.context = context;
+    this.defaultAddress = defaultAddress;
 
     migrate();
   }
@@ -48,32 +50,21 @@ public class TrustPasswordStore implements PasswordStore {
   @Override public Single<String> getPassword(Wallet wallet) {
     return Single.fromCallable(() -> {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        try {
-          return new String(KS.get(context, wallet.address));
-        } catch (Exception ex) {
-          Crashlytics.logException(ex);
-          throw new ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR,
-              "Failed to get the password from the store.");
-        }
+        return new String(KS.get(context, wallet.address));
       } else {
-        try {
-          return PasswordManager.getPassword(wallet.address, context);
-        } catch (Exception ex) {
-          Crashlytics.logException(ex);
-          throw new ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR,
-              "Failed to get the password from the password manager.");
-        }
+        return PasswordManager.getPassword(wallet.address, context);
       }
-    });
+    })
+        .onErrorResumeNext(throwable -> getPasswordFallBack(wallet.address));
   }
 
-  @Override public Completable setPassword(Wallet wallet, String password) {
+  @Override public Completable setPassword(String address, String password) {
     return Completable.fromAction(() -> {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        KS.put(context, wallet.address, password);
+        KS.put(context, address, password);
       } else {
         try {
-          PasswordManager.setPassword(wallet.address, password, context);
+          PasswordManager.setPassword(address, password, context);
         } catch (Exception e) {
           throw new ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR);
         }
@@ -88,5 +79,28 @@ public class TrustPasswordStore implements PasswordStore {
       random.nextBytes(bytes);
       return new String(bytes);
     });
+  }
+
+  private Single<String> getPasswordFallBack(String walletAddress) {
+    return Single.fromCallable(() -> {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        try {
+          return new String(KS.get(context, defaultAddress));
+        } catch (Exception ex) {
+          Crashlytics.logException(ex);
+          throw new ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR,
+              "Failed to get the password from the store.");
+        }
+      } else {
+        try {
+          return PasswordManager.getPassword(defaultAddress, context);
+        } catch (Exception ex) {
+          Crashlytics.logException(ex);
+          throw new ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR,
+              "Failed to get the password from the password manager.");
+        }
+      }
+    })
+        .flatMap(password -> setPassword(walletAddress, password).andThen(Single.just(password)));
   }
 }
