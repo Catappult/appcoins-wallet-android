@@ -11,7 +11,6 @@ import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.StyleSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +32,7 @@ import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.layout_onboarding.*
+import kotlinx.android.synthetic.main.activity_onboarding.*
 import javax.inject.Inject
 
 class OnboardingActivity : BaseActivity(), OnboardingView {
@@ -56,7 +55,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     AndroidInjection.inject(this)
-    setContentView(R.layout.layout_onboarding)
+    setContentView(R.layout.activity_onboarding)
     presenter = OnboardingPresenter(CompositeDisposable(), this, interactor, service,
         AndroidSchedulers.mainThread())
   }
