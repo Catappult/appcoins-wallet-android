@@ -345,11 +345,28 @@ public class ProofOfAttentionServiceTest {
   }
 
   @Test public void wrongNetwork() {
+    int wrongChainId = -1;
+    wrongChainId = chainId == 3 ? 1 : 3;
+    TestObserver<ProofSubmissionFeeData> noFunds =
+        proofOfAttentionService.isWalletReady(wrongChainId)
+            .subscribeOn(testScheduler)
+            .test();
+    ProofSubmissionFeeData wrongNetwork =
+        new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.WRONG_NETWORK,
+            BigDecimal.ZERO, BigDecimal.ZERO);
+    hasWallet.onError(new UnknownHostException());
+    testScheduler.triggerActions();
+    noFunds.assertComplete()
+        .assertNoErrors()
+        .assertValue(wrongNetwork);
+  }
+
+  @Test public void unknownNetwork() {
     TestObserver<ProofSubmissionFeeData> noFunds = proofOfAttentionService.isWalletReady(-1)
         .subscribeOn(testScheduler)
         .test();
     ProofSubmissionFeeData wrongNetwork =
-        new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.WRONG_NETWORK,
+        new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.UNKNOWN_NETWORK,
             BigDecimal.ZERO, BigDecimal.ZERO);
     hasWallet.onError(new UnknownHostException());
     testScheduler.triggerActions();

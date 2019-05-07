@@ -21,6 +21,7 @@ import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofStatus;
 import com.asfoundation.wallet.poa.ProofSubmissionFeeData;
+import com.asfoundation.wallet.repository.WrongNetworkException;
 import com.asfoundation.wallet.ui.TransactionsActivity;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
@@ -169,6 +170,15 @@ public class WalletPoAService extends Service {
         stopForeground(false);
         stopTimeout();
         break;
+      case WRONG_NETWORK:
+        //TODO change string
+        notificationManager.notify(SERVICE_ID,
+            createDefaultNotificationBuilder(R.string.activity_iab_wrong_network_message).build());
+        stopForeground(false);
+        stopTimeout();
+        logger.log(new Throwable(new WrongNetworkException("Not on the correct network")));
+      case UNKNOWN_NETWORK:
+        logger.log(new Throwable(new WrongNetworkException("Unknown network")));
     }
   }
 

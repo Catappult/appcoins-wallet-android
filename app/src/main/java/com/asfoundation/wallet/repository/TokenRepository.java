@@ -51,7 +51,7 @@ public class TokenRepository implements TokenRepositoryType {
   private final TransactionLocalSource transactionsLocalCache;
   private final TickerService tickerService;
   private final NetworkInfo network;
-  private Web3j web3j;
+  private final Web3j web3j;
 
   public TokenRepository(WalletRepositoryType walletRepository,
       TokenExplorerClientType tokenNetworkService, TokenLocalSource localSource,
@@ -62,7 +62,7 @@ public class TokenRepository implements TokenRepositoryType {
     this.localSource = localSource;
     this.transactionsLocalCache = transactionsLocalCache;
     this.tickerService = tickerService;
-    web3j = web3jProvider.get();
+    this.web3j = web3jProvider.get();
     this.network = network;
   }
 

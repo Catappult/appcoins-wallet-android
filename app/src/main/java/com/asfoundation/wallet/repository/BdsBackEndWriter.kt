@@ -21,9 +21,16 @@ open class BdsBackEndWriter(
 
   override fun hasWalletPrepared(chainId: Int): Single<ProofSubmissionFeeData> {
     if (!isCorrectNetwork(chainId)) {
-      return Single.just(
-          ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.WRONG_NETWORK,
-              BigDecimal.ZERO, BigDecimal.ZERO));
+      if (isKnownNetwork(chainId)) {
+        return Single.just(
+            ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.WRONG_NETWORK,
+                BigDecimal.ZERO, BigDecimal.ZERO));
+      } else {
+        return Single.just(
+            ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.UNKNOWN_NETWORK,
+                BigDecimal.ZERO, BigDecimal.ZERO));
+      }
+
     }
     return defaultWalletInteract.find().map {
       ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY,
@@ -39,6 +46,10 @@ open class BdsBackEndWriter(
         else -> throw it
       }
     }
+  }
+
+  private fun isKnownNetwork(chainId: Int): Boolean {
+    return chainId == 1 || chainId == 3;
   }
 
   private fun isCorrectNetwork(chainId: Int): Boolean {
