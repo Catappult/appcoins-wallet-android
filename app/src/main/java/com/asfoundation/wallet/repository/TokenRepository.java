@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.repository;
 
-import androidx.annotation.NonNull;
 import android.text.format.DateUtils;
+import androidx.annotation.NonNull;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.Token;
@@ -9,6 +9,7 @@ import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TokenTicker;
 import com.asfoundation.wallet.entity.TransactionOperation;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenExplorerClientType;
 import io.reactivex.Completable;
@@ -55,13 +56,14 @@ public class TokenRepository implements TokenRepositoryType {
   private final EthereumNetworkRepositoryType ethereumNetworkRepository;
   private final TransactionLocalSource transactionsLocalCache;
   private final TickerService tickerService;
+  private final DefaultTokenProvider defaultTokenProvider;
   private Web3j web3j;
 
   public TokenRepository(OkHttpClient okHttpClient,
       EthereumNetworkRepositoryType ethereumNetworkRepository,
       WalletRepositoryType walletRepository, TokenExplorerClientType tokenNetworkService,
       TokenLocalSource localSource, TransactionLocalSource transactionsLocalCache,
-      TickerService tickerService) {
+      TickerService tickerService, DefaultTokenProvider defaultTokenProvider) {
     this.httpClient = okHttpClient;
     this.ethereumNetworkRepository = ethereumNetworkRepository;
     this.walletRepository = walletRepository;
@@ -69,6 +71,7 @@ public class TokenRepository implements TokenRepositoryType {
     this.localSource = localSource;
     this.transactionsLocalCache = transactionsLocalCache;
     this.tickerService = tickerService;
+    this.defaultTokenProvider = defaultTokenProvider;
     this.ethereumNetworkRepository.addOnChangeDefaultNetwork(this::buildWeb3jClient);
     buildWeb3jClient(ethereumNetworkRepository.getDefaultNetwork());
   }
@@ -134,6 +137,14 @@ public class TokenRepository implements TokenRepositoryType {
     NetworkInfo network = ethereumNetworkRepository.getDefaultNetwork();
     Wallet wallet = new Wallet(walletAddress);
     return localSource.fetchAllTokens(network, wallet)
+        .flatMap(tokens -> {
+          if (tokens.length == 0) {
+            return defaultTokenProvider.getDefaultToken()
+                .flatMap(token -> addToken(wallet, token.address, token.symbol, token.decimals,
+                    true).andThen(localSource.fetchAllTokens(network, wallet)));
+          }
+          return Single.just(tokens);
+        })
         .toObservable();
   }
 

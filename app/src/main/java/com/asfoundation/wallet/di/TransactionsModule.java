@@ -65,8 +65,8 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
         fetchTransactionsInteract, manageWalletsRouter, settingsRouter, sendRouter,
         transactionDetailRouter, myAddressRouter, myTokensRouter, externalBrowserRouter,
         defaultTokenProvider, getDefaultWalletBalance, transactionsMapper, airdropRouter,
-        applications, offChainTransactions, rewardsLevelRouter, gamificationInteractor,
-        topUpRouter, analytics);
+        applications, offChainTransactions, rewardsLevelRouter, gamificationInteractor, topUpRouter,
+        analytics);
   }
 
   @Provides FetchTransactionsInteract provideFetchTransactionsInteract(
@@ -110,9 +110,10 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
       EthereumNetworkRepositoryType ethereumNetworkRepository,
       WalletRepositoryType walletRepository, TokenExplorerClientType tokenExplorerClientType,
       TokenLocalSource tokenLocalSource, TransactionLocalSource inDiskCache,
-      TickerService tickerService) {
+      TickerService tickerService, DefaultTokenProvider defaultTokenProvider) {
     return new TokenRepository(okHttpClient, ethereumNetworkRepository, walletRepository,
-        tokenExplorerClientType, tokenLocalSource, inDiskCache, tickerService);
+        tokenExplorerClientType, tokenLocalSource, inDiskCache, tickerService,
+        defaultTokenProvider);
   }
 
   @Provides TransactionsMapper provideTransactionsMapper(DefaultTokenProvider defaultTokenProvider,

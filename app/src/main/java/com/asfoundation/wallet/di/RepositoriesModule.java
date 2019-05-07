@@ -107,9 +107,10 @@ import okhttp3.OkHttpClient;
       EthereumNetworkRepositoryType ethereumNetworkRepository,
       WalletRepositoryType walletRepository, TokenExplorerClientType tokenExplorerClientType,
       TokenLocalSource tokenLocalSource, TransactionLocalSource inDiskCache,
-      TickerService tickerService) {
+      TickerService tickerService, DefaultTokenProvider defaultTokenProvider) {
     return new TokenRepository(okHttpClient, ethereumNetworkRepository, walletRepository,
-        tokenExplorerClientType, tokenLocalSource, inDiskCache, tickerService);
+        tokenExplorerClientType, tokenLocalSource, inDiskCache, tickerService,
+        defaultTokenProvider);
   }
 
   @Singleton @Provides TokenExplorerClientType provideTokenService(OkHttpClient okHttpClient,

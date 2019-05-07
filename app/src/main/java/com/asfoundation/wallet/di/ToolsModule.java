@@ -810,10 +810,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Provides PaymentReceiverInteract providePaymentReceiverInteract(
-      CreateWalletInteract createWalletInteract, AddTokenInteract addTokenInteract,
-      DefaultTokenProvider defaultTokenProvider) {
-    return new PaymentReceiverInteract(createWalletInteract, addTokenInteract,
-        defaultTokenProvider);
+      CreateWalletInteract createWalletInteract) {
+    return new PaymentReceiverInteract(createWalletInteract);
   }
 
   @Singleton @Provides BillingAnalytics provideBillingAnalytics(AnalyticsManager analytics) {
