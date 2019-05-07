@@ -294,7 +294,7 @@
   <string name="gamification_star_subtitle">闪闪发光，巨大无比，活力四射！</string>
   <string name="gamification_galaxy_subtitle">太空最大的星系！</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">你获得了一个奖励！</string>
+  <string name="gamification_purchase_header">Get a Bonus!</string>
   <string name="gamification_purchase_body">通过此购买，你可以获取%s APPC积金。</string>
   <string name="action_level">我的等级</string>
   <!-- Provide wallet address -->
@@ -334,6 +334,7 @@
   <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">你刚刚接收了%s APPC-C</string>
   <string name="askafriend_received_title">已接收的转账</string>
+  <string name="askafriend_send_title">Transfer Sent</string>
   <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">发送基金</string>
@@ -349,6 +350,8 @@
   <string name="error_missing_field">必填字段</string>
   <string name="cancel_button">取消</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">我同意AppCoins钱包的条款和条件以及隐私政策</string>
+  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions">Terms and Conditions</string>
+  <string name="privacy_policy">Privacy Policy</string>
 </resources>
