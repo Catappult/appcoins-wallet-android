@@ -294,7 +294,8 @@
   <string name="gamification_star_subtitle">ေျပာင္လက္ႀကီးမားၿပီး လံုုးဝအသက္ဝင္သည္။</string>
   <string name="gamification_galaxy_subtitle">ယင္းေနရာတြင္ရွိေသာ အႀကီးမားဆံုးစနစ္။</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Get a Bonus!</string>
+  <string name="gamification_purchase_header_part_1">Purchase Bonus:</string>
+  <string name="gamification_purchase_header_part_2">%s in APPC Credits</string>
   <string name="gamification_purchase_body">ဤဝယ္ယူမႈအတြက္ %s APPC ခရက္ဒစ္ကို သင္ရရွိပါသည္။</string>
   <string name="action_level">ကၽြန္ုပ္၏အဆင့္</string>
   <!-- Provide wallet address -->
