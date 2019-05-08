@@ -294,7 +294,8 @@
   <string name="gamification_star_subtitle">Shinny, big and full of life!</string>
   <string name="gamification_galaxy_subtitle">The biggest system out there!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Get a Bonus!</string>
+  <string name="gamification_purchase_header_part_1">Purchase Bonus:</string>
+  <string name="gamification_purchase_header_part_2">%s in APPC Credits</string>
   <string name="gamification_purchase_body">You\'ll get %s APPC Credits for this purchase.</string>
   <string name="action_level">My Level</string>
   <!-- Provide wallet address -->
