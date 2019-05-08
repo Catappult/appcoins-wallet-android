@@ -134,7 +134,6 @@ public class ProofOfAttentionService {
               proof.getStoreAddress(), proof.getGasPrice(), proof.getGasLimit(), proof.getHash(),
               proof.getCountryCode()));
     }
-
   }
 
   public void setChainId(String packageName, int chainId) {
@@ -157,7 +156,7 @@ public class ProofOfAttentionService {
     synchronized (this) {
       Proof proof = getPreviousProofSync(packageName);
       cache.saveSync(packageName,
-    new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
+          new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
               walletPackage, proofStatus, proof.getChainId(), proof.getOemAddress(),
               proof.getStoreAddress(), proof.getGasPrice(), proof.getGasLimit(), proof.getHash(),
               proof.getCountryCode()));
@@ -264,11 +263,12 @@ public class ProofOfAttentionService {
     updateProofStatus(packageName, ProofStatus.CANCELLED);
   }
 
-  public void setOemAddress(String packageName, String address) {
-    disposables.add(packageName,
-        Completable.fromAction(() -> setOemAddressSync(packageName, address))
-            .subscribeOn(computationScheduler)
-            .subscribe());
+  public void setOemAddress(String packageName) {
+    disposables.add(packageName, partnerAddressService.getOemAddressForPackage(packageName)
+        .flatMapCompletable(
+            address -> Completable.fromAction(() -> setOemAddressSync(packageName, address)))
+                .subscribeOn(computationScheduler)
+                .subscribe());
   }
 
   private void setOemAddressSync(String packageName, String address) {

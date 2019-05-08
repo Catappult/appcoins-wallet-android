@@ -502,7 +502,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         .equalsIgnoreCase("INAPP_UNMANAGED");
     iabView.showShareLinkPayment(transaction.getDomain(), transaction.getSkuId(),
         isOneStep ? transaction.getOriginalOneStepValue() : null,
-        isOneStep ? transaction.getOriginalOneStepCurrency() : null);
+        isOneStep ? transaction.getOriginalOneStepCurrency() : null, transaction.amount(),
+        transaction.getType());
   }
 
   @Override public void hideBonus() {

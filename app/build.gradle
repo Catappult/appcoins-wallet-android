@@ -36,8 +36,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 28
-    versionCode 79
-    versionName "1.6.1.0"
+    versionCode 81
+    versionName "1.6.2.1"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -231,7 +231,7 @@ dependencies {
   implementation project(":tn")
   implementation 'com.jakewharton.rxbinding2:rxbinding:2.1.1'
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  implementation "com.asfoundation:ethereumj-android:$project.appcoinsSdkVersion"
+  implementation "com.asfoundation:ethereumj-android:$project.ethereumjSdkVersion"
 
   implementation "androidx.room:room-runtime:$project.roomVersion"
   annotationProcessor "androidx.room:room-compiler:$project.roomVersion"
@@ -243,7 +243,7 @@ dependencies {
   //        transitive = true
   //    }
   implementation project(path: ':airdrop')
-  implementation 'com.asfoundation:applications:3'
+  implementation 'com.asfoundation:applications:6'
   implementation "com.asfoundation:appcoins-contract-proxy:$project.appcoinsSdkVersion"
   implementation project(path: ':billing')
 

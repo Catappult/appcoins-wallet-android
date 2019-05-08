@@ -260,6 +260,7 @@ public class WalletsActivity extends BaseActivity
     } else {
       enableDisplayHomeAsUp();
       adapter.setWallets(wallets);
+      systemView.setVisibility(View.GONE);
     }
     invalidateOptionsMenu();
   }

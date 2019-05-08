@@ -2,7 +2,6 @@ package com.asfoundation.wallet.repository;
 
 import com.appcoins.wallet.bdsbilling.AuthorizationProof;
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
-import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import io.reactivex.Completable;
@@ -24,7 +23,6 @@ public class ApproveTransactionValidatorBds implements TransactionValidator {
 
   @Override public Completable validate(PaymentTransaction paymentTransaction) {
     String packageName = paymentTransaction.getPackageName();
-    String oemAddress = BuildConfig.DEFAULT_OEM_ADDRESS;
     String developerAddress = paymentTransaction.getTransactionBuilder()
         .toAddress();
     String productName = paymentTransaction.getTransactionBuilder()
@@ -37,15 +35,17 @@ public class ApproveTransactionValidatorBds implements TransactionValidator {
         paymentTransaction.getTransactionBuilder());
     Single<String> getStoreAddress =
         partnerAddressService.getStoreAddressForPackage(paymentTransaction.getPackageName());
+    Single<String> getOemAddress =
+        partnerAddressService.getOemAddressForPackage(paymentTransaction.getPackageName());
 
-    return Single.zip(getTransactionHash, getStoreAddress,
-        (hash, storeAddress) -> new AuthorizationProof("appcoins", hash, productName, packageName,
-            priceValue, storeAddress, oemAddress, developerAddress, type, paymentTransaction.getTransactionBuilder()
-            .getOrigin() == null ? "BDS" : paymentTransaction.getTransactionBuilder()
-            .getOrigin(),
-            paymentTransaction.getDeveloperPayload(), paymentTransaction.getCallbackUrl(),
+    return Single.zip(getTransactionHash, getStoreAddress, getOemAddress,
+        (hash, storeAddress, oemAddress) -> new AuthorizationProof("appcoins", hash, productName,
+            packageName, priceValue, storeAddress, oemAddress, developerAddress, type,
             paymentTransaction.getTransactionBuilder()
-                .getOrderReference()))
+                .getOrigin() == null ? "BDS" : paymentTransaction.getTransactionBuilder()
+                .getOrigin(), paymentTransaction.getDeveloperPayload(),
+            paymentTransaction.getCallbackUrl(), paymentTransaction.getTransactionBuilder()
+            .getOrderReference()))
         .flatMapCompletable(billingPaymentProofSubmission::processAuthorizationProof);
   }
 }
