@@ -294,7 +294,9 @@
   <string name="gamification_star_subtitle">闪闪发光，巨大无比，活力四射！</string>
   <string name="gamification_galaxy_subtitle">太空最大的星系！</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Get a Bonus!</string>
+  <string name="gamification_purchase_header">This purchase has a bonus!</string>
+  <string name="gamification_purchase_header_part_1">Purchase Bonus:</string>
+  <string name="gamification_purchase_header_part_2">%s in APPC Credits</string>
   <string name="gamification_purchase_body">通过此购买，你可以获取%s APPC积金。</string>
   <string name="action_level">我的等级</string>
   <!-- Provide wallet address -->
