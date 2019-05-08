@@ -246,7 +246,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
             app:layout_constraintVertical_bias="0"
-            android:text="You can use this bonus in your next purchase."
+            android:text="@string/gamification_purchase_body"
             style="@style/TopUpTextStyle.Small.BonusText"
             />
 
@@ -259,7 +259,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/bonus_msg"
             app:layout_constraintBottom_toTopOf="@id/dialog_buy_buttons_payment_methods"
-            android:layout_marginBottom="7dp"
             />
 
         <include

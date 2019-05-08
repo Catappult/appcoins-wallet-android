@@ -4,10 +4,8 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Outline;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -18,7 +16,6 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewOutlineProvider;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -27,7 +24,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.WalletService;
@@ -514,10 +510,16 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     bonusMsg.setVisibility(View.INVISIBLE);
   }
 
-  @Override public void showBonus(@NotNull BigDecimal bonus) {
-    //bonusValue.setText(getString(R.string.gamification_purchase_body, bonus.stripTrailingZeros()
-    //    .setScale(2, BigDecimal.ROUND_DOWN)
-    //    .toPlainString()));
+  @Override public void showBonus(@NotNull BigDecimal bonus, String currency) {
+    BigDecimal scaledBonus = bonus.stripTrailingZeros()
+        .setScale(2, BigDecimal.ROUND_DOWN);
+    if (scaledBonus.compareTo(new BigDecimal(0.01)) < 0) {
+      currency = "~" + currency;
+    }
+    scaledBonus = scaledBonus.max(new BigDecimal("0.01"));
+
+    bonusValue.setText(getString(R.string.gamification_purchase_header_part_2,
+        currency + scaledBonus.toPlainString()));
     bonusView.setVisibility(View.VISIBLE);
     bonusMsg.setVisibility(View.VISIBLE);
   }

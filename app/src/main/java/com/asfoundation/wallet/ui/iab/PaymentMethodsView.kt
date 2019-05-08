@@ -30,7 +30,7 @@ interface PaymentMethodsView {
   fun showCredits()
   fun showShareLink()
   fun hideBonus()
-  fun showBonus(bonus: BigDecimal)
+  fun showBonus(bonus: BigDecimal, currency: String)
   fun getPaymentSelection(): Observable<SelectedPaymentMethod>
 
   enum class SelectedPaymentMethod {
