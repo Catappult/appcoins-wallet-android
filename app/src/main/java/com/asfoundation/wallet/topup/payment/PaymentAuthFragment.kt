@@ -34,6 +34,7 @@ import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_top_up.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -57,59 +58,60 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
   private lateinit var paymentMethod: PaymentMethod
   private var cvcOnly: Boolean = false
   private lateinit var presenter: PaymentAuthPresenter
-  private lateinit var keyboardTopUpRelay: PublishRelay<Boolean>
+  private var keyboardTopUpRelay: PublishRelay<Boolean>? = null
+  private var validationSubject: PublishSubject<Boolean>? = null
   private lateinit var navigator: PaymentFragmentNavigator
   private var publicKey: String? = null
   private var generationTime: String? = null
   private var disposables = CompositeDisposable()
 
   val appPackage: String by lazy {
-      if (activity != null) {
-        activity!!.packageName
-      } else {
-        throw IllegalArgumentException("previous app package name not found")
-      }
+    if (activity != null) {
+      activity!!.packageName
+    } else {
+      throw IllegalArgumentException("previous app package name not found")
     }
+  }
 
   val data: TopUpData by lazy {
-      if (arguments!!.containsKey(PAYMENT_DATA)) {
-        arguments!!.getSerializable(PAYMENT_DATA) as TopUpData
-      } else {
-        throw IllegalArgumentException("previous payment data not found")
-      }
+    if (arguments!!.containsKey(PAYMENT_DATA)) {
+      arguments!!.getSerializable(PAYMENT_DATA) as TopUpData
+    } else {
+      throw IllegalArgumentException("previous payment data not found")
     }
+  }
 
   val paymentType: PaymentType by lazy {
-      if (arguments!!.containsKey(PAYMENT_TYPE)) {
-        PaymentType.valueOf(arguments!!.getString(PAYMENT_TYPE))
-      } else {
-        throw IllegalArgumentException("Payment Type not found")
-      }
+    if (arguments!!.containsKey(PAYMENT_TYPE)) {
+      PaymentType.valueOf(arguments!!.getString(PAYMENT_TYPE))
+    } else {
+      throw IllegalArgumentException("Payment Type not found")
     }
+  }
 
   val origin: String by lazy {
-      if (arguments!!.containsKey(PAYMENT_ORIGIN)) {
-        arguments!!.getString(PAYMENT_ORIGIN)
-      } else {
-        throw IllegalArgumentException("Payment origin not found")
-      }
+    if (arguments!!.containsKey(PAYMENT_ORIGIN)) {
+      arguments!!.getString(PAYMENT_ORIGIN)
+    } else {
+      throw IllegalArgumentException("Payment origin not found")
     }
+  }
 
   private val transactionType: String by lazy {
-      if (arguments!!.containsKey(PAYMENT_TRANSACTION_TYPE)) {
-        arguments!!.getString(PAYMENT_TRANSACTION_TYPE)
-      } else {
-        throw IllegalArgumentException("Transaction type not found")
-      }
+    if (arguments!!.containsKey(PAYMENT_TRANSACTION_TYPE)) {
+      arguments!!.getString(PAYMENT_TRANSACTION_TYPE)
+    } else {
+      throw IllegalArgumentException("Transaction type not found")
     }
+  }
 
   private val currentCurrency: String by lazy {
-      if (arguments!!.containsKey(PAYMENT_CURRENT_CURRENCY)) {
-        arguments!!.getString(PAYMENT_CURRENT_CURRENCY)
-      } else {
-        throw IllegalArgumentException("Payment main currency not found")
-      }
+    if (arguments!!.containsKey(PAYMENT_CURRENT_CURRENCY)) {
+      arguments!!.getString(PAYMENT_CURRENT_CURRENCY)
+    } else {
+      throw IllegalArgumentException("Payment main currency not found")
     }
+  }
 
   companion object {
 
@@ -138,6 +140,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     keyboardTopUpRelay = PublishRelay.create()
+    validationSubject = PublishSubject.create()
 
     presenter =
         PaymentAuthPresenter(this, appPackage, AndroidSchedulers.mainThread(),
@@ -155,11 +158,12 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     button.setText(R.string.topup_home_button)
 
     fragment_braintree_credit_card_form.setOnCardFormValidListener { valid ->
-      button.isEnabled = valid
+      validationSubject?.onNext(valid)
     }
+
     fragment_braintree_credit_card_form.setOnCardFormSubmitListener {
       if (fragment_braintree_credit_card_form.isValid) {
-        keyboardTopUpRelay.accept(true)
+        keyboardTopUpRelay?.accept(true)
         if (getView() != null) {
           KeyboardUtils.hideKeyboard(getView()!!)
         }
@@ -199,7 +203,6 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
-
     presenter.onSaveInstanceState(outState)
   }
 
@@ -207,6 +210,12 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     presenter.stop()
     disposables.dispose()
     super.onDestroyView()
+  }
+
+  override fun onDestroy() {
+    validationSubject = null
+    keyboardTopUpRelay = null
+    super.onDestroy()
   }
 
   override fun onDetach() {
@@ -259,6 +268,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
   override fun hideLoading() {
     loading.visibility = View.GONE
     fragment_braintree_credit_card_form.visibility = View.VISIBLE
+    button.isEnabled = fragment_braintree_credit_card_form.isValid
     credit_card_info_container.visibility = View.VISIBLE
   }
 
@@ -342,6 +352,14 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     if (!genericErrorDialog.isShowing) {
       genericErrorDialog.show()
     }
+  }
+
+  override fun onValidFieldStateChange(): Observable<Boolean>? {
+    return validationSubject
+  }
+
+  override fun updateTopUpButton(valid: Boolean) {
+    button.isEnabled = valid
   }
 
   private fun finishSetupView() {
