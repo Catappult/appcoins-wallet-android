@@ -211,6 +211,7 @@
   <string name="notification_not_available_for_country_poa">此奖励活动在你的国家/地区不可用</string>
   <string name="notification_already_rewarded_poa">你已获得此活动中的奖励</string>
   <string name="notification_submit_error_poa">抱歉，出现错误。请重试！</string>
+  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
   <!-- transaction details -->
   <string name="transaction_status_success">成功</string>
   <string name="transaction_status_pending">待处理</string>
