@@ -271,6 +271,9 @@
     <item name="android:textColor">@color/share_link_title_color</item>
   </style>
 
+  <style name="ShareLinkTextStyle.Title.Landscape">
+    <item name="android:textSize">16sp</item>
+  </style>
 
   <style name="TopUpTextStyle">
     <item name="android:fontFamily">sans-serif</item>
