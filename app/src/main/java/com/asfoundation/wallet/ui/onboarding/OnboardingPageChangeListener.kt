@@ -18,7 +18,6 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
 
   companion object {
     var ANIMATION_TRANSITIONS = 3
-    const val ANIMATION_LENGHT: Long = 200
   }
 
   private var lottieView: LottieAnimationView? = null
@@ -26,7 +25,6 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
   private var checkBox: CheckBox? = null
   private var warningText: TextView? = null
   private var termsConditionsLayout: LinearLayout? = null
-  private var isCheckBoxUp: Boolean = false
 
   init {
     init()
@@ -56,17 +54,13 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
     if (checkBox!!.isChecked) {
       if (skipButton!!.visibility != View.VISIBLE) {
         animateShowButton(skipButton!!)
-        if (!isCheckBoxUp) {
-          animateCheckboxUp(termsConditionsLayout!!)
-        }
+        animateCheckboxUp(termsConditionsLayout!!)
         skipButton!!.visibility = View.VISIBLE
       }
     } else {
       if (skipButton!!.visibility == View.VISIBLE) {
         animateHideButton(skipButton!!)
-        if (isCheckBoxUp) {
-          animateCheckboxDown(termsConditionsLayout!!)
-        }
+        animateCheckboxDown(termsConditionsLayout!!)
         skipButton!!.visibility = View.GONE
       }
     }
@@ -88,7 +82,6 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
       setTarget(layout)
       start()
     }
-    isCheckBoxUp = true
   }
 
   private fun animateCheckboxDown(layout: LinearLayout) {
@@ -96,7 +89,6 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
       setTarget(layout)
       start()
     }
-    isCheckBoxUp = false
   }
 
   private fun animateShowButton(button: Button) {
