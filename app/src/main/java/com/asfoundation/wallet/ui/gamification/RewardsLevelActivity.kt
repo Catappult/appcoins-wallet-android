@@ -66,7 +66,6 @@ class RewardsLevelActivity : BaseActivity(), GamificationView {
         supportFragmentManager.beginTransaction().remove(currentFragment).commit()
       }
       supportFragmentManager.popBackStackImmediate()
-      menu.findItem(R.id.action_info).isVisible = true
     }
   }
 

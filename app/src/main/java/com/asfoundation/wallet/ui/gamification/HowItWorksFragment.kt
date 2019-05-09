@@ -82,6 +82,7 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   }
 
   override fun onDestroyView() {
+    gamificationView.showHowItWorksButton()
     presenter.stop()
     super.onDestroyView()
   }
