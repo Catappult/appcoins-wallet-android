@@ -211,6 +211,7 @@
   <string name="notification_not_available_for_country_poa">Тази кампания за награди не е достъпна в твоята страна</string>
   <string name="notification_already_rewarded_poa">Вече си получил награда в тази кампания</string>
   <string name="notification_submit_error_poa">Съжаляваме, възникна грешка. Опитай отново!</string>
+  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
   <!-- transaction details -->
   <string name="transaction_status_success">Успех</string>
   <string name="transaction_status_pending">В процес на чакане</string>
