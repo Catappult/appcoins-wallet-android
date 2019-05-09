@@ -211,6 +211,7 @@
   <string name="notification_not_available_for_country_poa">Această campanie de recompense nu este disponibilă în țara ta</string>
   <string name="notification_already_rewarded_poa">Ai fost deja recompensat în această campanie</string>
   <string name="notification_submit_error_poa">Ne pare rău, a apărut o eroare. Încearcă din nou!</string>
+  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
   <!-- transaction details -->
   <string name="transaction_status_success">Reușită</string>
   <string name="transaction_status_pending">În așteptare</string>
