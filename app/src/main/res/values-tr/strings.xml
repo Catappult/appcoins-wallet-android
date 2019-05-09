@@ -211,6 +211,7 @@
   <string name="notification_not_available_for_country_poa">Bu ödül kampanyası ülkeniz için kullanılamıyor</string>
   <string name="notification_already_rewarded_poa">Bu kampanyadan zaten ödül aldınız</string>
   <string name="notification_submit_error_poa">Üzgünüz, bir hata oluştu. Tekrar deneyin!</string>
+  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
   <!-- transaction details -->
   <string name="transaction_status_success">Başarılı</string>
   <string name="transaction_status_pending">Beklemede</string>
