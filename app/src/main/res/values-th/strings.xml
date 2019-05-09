@@ -211,6 +211,7 @@
   <string name="notification_not_available_for_country_poa">รางวัลการส่งเสริมการขายนี้ไม่มีในประเทศของคุณ</string>
   <string name="notification_already_rewarded_poa">คุณได้รับรางวัลในแคมเปญนี้แล้ว</string>
   <string name="notification_submit_error_poa">ขออภัย มีข้อผิดพลาดเกิดขึ้น ลองอีกครั้ง!</string>
+  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
   <!-- transaction details -->
   <string name="transaction_status_success">สำเร็จ</string>
   <string name="transaction_status_pending">ค้างอยู่</string>
