@@ -11,17 +11,7 @@ import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.StyleSpan
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.viewpager.widget.PagerAdapter
-import androidx.viewpager.widget.ViewPager
-import com.airbnb.lottie.LottieAnimationView
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.CreateWalletInteract
@@ -89,13 +79,9 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     terms_conditions_body.isClickable = true
     terms_conditions_body.movementMethod = LinkMovementMethod.getInstance()
 
-    intro.setPageTransformer(false, DepthPageTransformer())
-    intro.adapter = IntroPagerAdapter()
-    intro.addOnPageChangeListener(PageChangeListener(onboarding_content))
-  }
-
-  override fun getOkClick(): Observable<Any> {
-    return RxView.clicks(ok_action)
+    intro.setPageTransformer(false, OnboardingPageTransformer())
+    intro.adapter = OnboardingPagerAdapter()
+    intro.addOnPageChangeListener(OnboardingPageChangeListener(onboarding_content))
   }
 
   override fun getSkipClick(): Observable<Any> {
@@ -110,7 +96,6 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     onboarding_content.visibility = View.GONE
     wallet_creation_animation.visibility = View.VISIBLE
     create_wallet_animation.playAnimation()
-
   }
 
   override fun finishOnboarding() {
@@ -155,197 +140,5 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
         indexHighlightString + highlightStringLength, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
     spannableString.setSpan(StyleSpan(Typeface.BOLD), indexHighlightString,
         indexHighlightString + highlightStringLength, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-  }
-}
-
-class DepthPageTransformer : ViewPager.PageTransformer {
-
-  override fun transformPage(view: View, position: Float) {
-    val pageWidth = view.width
-
-    when {
-      position < -1 -> // [-Infinity,-1)
-        // This page is way off-screen to the left.
-        view.alpha = 0f
-      position <= 0 -> { // [-1,0]
-        // Use the default slide transition when moving to the left page
-        view.alpha = 1f
-        view.translationX = 0f
-        view.scaleX = 1f
-        view.scaleY = 1f
-      }
-      position <= 1 -> { // (0,1]
-        // Fade the page out.
-        view.alpha = 1 - position
-
-        // Counteract the default slide transition
-        view.translationX = pageWidth * -position
-
-        // Scale the page down (between MIN_SCALE and 1)
-        val scaleFactor = MIN_SCALE + (1 - MIN_SCALE) * (1 - Math.abs(position))
-        view.scaleX = scaleFactor
-        view.scaleY = scaleFactor
-      }
-      else -> // (1,+Infinity]
-        // This page is way off-screen to the right.
-        view.alpha = 0f
-    }
-  }
-
-  companion object {
-    private const val MIN_SCALE = 0.75f
-  }
-}
-
-class IntroPagerAdapter : PagerAdapter() {
-  private val titles =
-      intArrayOf(R.string.intro_title_first_page, R.string.intro_2_title, R.string.intro_3_title,
-          R.string.intro_4_title)
-  private val messages =
-      intArrayOf(R.string.intro_1_body, R.string.intro_2_body, R.string.intro_3_body,
-          R.string.intro_4_body)
-
-  override fun getCount(): Int {
-    return titles.size
-  }
-
-  override fun instantiateItem(container: ViewGroup, position: Int): Any {
-    val view = LayoutInflater.from(container.context)
-        .inflate(R.layout.layout_page_intro, container, false)
-    (view.findViewById<View>(R.id.title) as TextView).setText(titles[position])
-    (view.findViewById<View>(R.id.message) as TextView).setText(messages[position])
-    container.addView(view)
-    return view
-  }
-
-  override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-    container.removeView(`object` as View)
-  }
-
-  override fun isViewFromObject(view: View, `object`: Any): Boolean {
-    return view === `object`
-  }
-}
-
-class PageChangeListener internal constructor(private val view: View) :
-    ViewPager.OnPageChangeListener {
-
-  companion object {
-    var ANIMATION_TRANSITIONS = 3
-  }
-
-  private var lottieView: LottieAnimationView? = null
-  private var skipButton: Button? = null
-  private var okButton: Button? = null
-  private var checkBox: CheckBox? = null
-  private var warningText: TextView? = null
-  private var termsConditionsLayout: LinearLayout? = null
-
-  init {
-    init()
-  }
-
-  fun init() {
-    lottieView = view.findViewById(R.id.lottie_onboarding)
-    skipButton = view.findViewById(R.id.skip_action)
-    okButton = view.findViewById(R.id.ok_action)
-    checkBox = view.findViewById(R.id.onboarding_checkbox)
-    warningText = view.findViewById(R.id.terms_conditions_warning)
-    termsConditionsLayout = view.findViewById(R.id.terms_conditions_layout)
-  }
-
-  private fun showWarningText(position: Int) {
-    if (!checkBox!!.isChecked && position == 3) {
-      animateShowWarning(warningText!!)
-      warningText!!.visibility = View.VISIBLE
-    } else {
-      if (warningText!!.visibility == View.VISIBLE) {
-        animateHideWarning(warningText!!)
-        warningText!!.visibility = View.GONE
-      }
-    }
-  }
-
-  private fun showSkipButton(position: Int) {
-    if (Math.floor(position.toDouble()) != 3.0 && checkBox!!.isChecked) {
-      if (skipButton!!.visibility != View.VISIBLE) {
-        animateShowButton(skipButton!!)
-        animateCheckboxUp(termsConditionsLayout!!)
-        skipButton!!.visibility = View.VISIBLE
-      }
-    } else {
-      if (skipButton!!.visibility == View.VISIBLE) {
-        animateHideButton(skipButton!!)
-        animateCheckboxDown(termsConditionsLayout!!)
-        skipButton!!.visibility = View.GONE
-      }
-    }
-  }
-
-  private fun showOkButton(position: Int) {
-    if (checkBox!!.isChecked && position == 3) {
-      animateShowButton(okButton!!)
-      animateCheckboxUp(termsConditionsLayout!!)
-      okButton!!.visibility = View.VISIBLE
-    } else {
-      if (okButton!!.visibility == View.VISIBLE) {
-        animateHideButton(okButton!!)
-        animateCheckboxDown(termsConditionsLayout!!)
-        okButton!!.visibility = View.GONE
-      }
-    }
-  }
-
-  private fun animateCheckboxUp(layout: LinearLayout) {
-    val animation = AnimationUtils.loadAnimation(view.context, R.anim.minor_translate_up)
-    animation.fillAfter = true
-    layout.animation = animation
-  }
-
-  private fun animateCheckboxDown(layout: LinearLayout) {
-    val animation = AnimationUtils.loadAnimation(view.context, R.anim.minor_translate_down)
-    animation.fillAfter = true
-    layout.animation = animation
-  }
-
-  private fun animateShowButton(button: Button) {
-    val animation = AnimationUtils.loadAnimation(view.context, R.anim.bottom_translate_in)
-    button.animation = animation
-  }
-
-  private fun animateShowWarning(textView: TextView) {
-    val animation = AnimationUtils.loadAnimation(view.context, R.anim.fast_fade_in_animation)
-    textView.animation = animation
-  }
-
-  private fun animateHideButton(button: Button) {
-    val animation = AnimationUtils.loadAnimation(view.context, R.anim.bottom_translate_out)
-    button.animation = animation
-  }
-
-  private fun animateHideWarning(textView: TextView) {
-    val animation = AnimationUtils.loadAnimation(view.context, R.anim.fast_fade_out_animation)
-    textView.animation = animation
-  }
-
-  override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-    lottieView!!.progress =
-        position * (1f / ANIMATION_TRANSITIONS) + positionOffset * (1f / ANIMATION_TRANSITIONS)
-    checkBox!!.setOnClickListener { view ->
-      showWarningText(position)
-      showSkipButton(position)
-      showOkButton(position)
-    }
-    showWarningText(position)
-    showSkipButton(position)
-    showOkButton(position)
-  }
-
-  override fun onPageSelected(position: Int) {
-
-  }
-
-  override fun onPageScrollStateChanged(state: Int) {
-
   }
 }

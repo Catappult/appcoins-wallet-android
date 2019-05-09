@@ -16,7 +16,6 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
 
   fun present() {
     view.setupUi()
-    handleOkClick()
     handleCheckboxClick()
     handlePageScroll()
     handleOnBoardingFinish()
@@ -24,10 +23,6 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
 
   fun stop() {
     disposables.clear()
-  }
-
-  private fun handleOkClick() {
-    disposables.add(view.getOkClick().subscribe())
   }
 
   private fun handleSkipClick(): Observable<Any> {
@@ -62,5 +57,4 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
         }
         .toObservable()
   }
-
 }

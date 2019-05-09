@@ -10,8 +10,6 @@ interface OnboardingView {
 
   fun finishOnboarding()
 
-  fun getOkClick(): Observable<Any>
-
   fun getSkipClick(): Observable<Any>
 
   fun getCheckboxClick(): Observable<Any>
