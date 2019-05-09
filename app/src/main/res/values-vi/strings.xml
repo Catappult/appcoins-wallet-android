@@ -211,6 +211,7 @@
   <string name="notification_not_available_for_country_poa">Chiến dịch phần thưởng này không khả dụng ở quốc gia của bạn</string>
   <string name="notification_already_rewarded_poa">Bạn đã được thưởng trong chiến dịch này</string>
   <string name="notification_submit_error_poa">Rất tiếc, đã xảy ra lỗi. Vui lòng thử lại!</string>
+  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
   <!-- transaction details -->
   <string name="transaction_status_success">Thành công</string>
   <string name="transaction_status_pending">Chờ xử lý</string>
