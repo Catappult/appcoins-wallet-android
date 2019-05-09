@@ -211,6 +211,7 @@
   <string name="notification_not_available_for_country_poa">আপনার দেশে পুরস্কার প্রচারণা সুপ্রাপ্য নেই</string>
   <string name="notification_already_rewarded_poa">আপনি ইতিমধ্য এই প্রচরনার আওতায় পুরস্কৃত হয়েছেন</string>
   <string name="notification_submit_error_poa">দুঃখিত, একটি ত্রুটি দেখা দিয়েছে। আবার চেষ্টা করুন!</string>
+  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
   <!-- transaction details -->
   <string name="transaction_status_success">সাফল্য</string>
   <string name="transaction_status_pending">মুলতুবি</string>
