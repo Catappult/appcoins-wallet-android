@@ -211,6 +211,7 @@
   <string name="notification_not_available_for_country_poa">Diese Belohnungsaktion ist in ihrem Land nicht verfügbar</string>
   <string name="notification_already_rewarded_poa">Sie haben ihre Belohnung für die Aktion bereits erhalten</string>
   <string name="notification_submit_error_poa">Leider ist ein Fehler aufgetreten. Versuchen Sie es erneut!</string>
+  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
   <!-- transaction details -->
   <string name="transaction_status_success">Geschafft</string>
   <string name="transaction_status_pending">Ausstehend</string>
