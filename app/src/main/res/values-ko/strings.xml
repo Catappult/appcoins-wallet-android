@@ -211,6 +211,7 @@
   <string name="notification_not_available_for_country_poa">이 보상 캠페인은 귀하의 국가에서 유효하지 않습니다</string>
   <string name="notification_already_rewarded_poa">이 캠페인의 보상을 이미 받으셨습니다</string>
   <string name="notification_submit_error_poa">죄송합니다. 오류가 발생했습니다. 다시 시도해주십시오!</string>
+  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
   <!-- transaction details -->
   <string name="transaction_status_success">성공</string>
   <string name="transaction_status_pending">대기중</string>
