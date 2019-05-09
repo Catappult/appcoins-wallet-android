@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.onboarding
 
+import android.animation.ObjectAnimator
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
@@ -16,6 +17,7 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
 
   companion object {
     var ANIMATION_TRANSITIONS = 3
+    const val ANIMATION_LENGHT: Long = 200
   }
 
   private var lottieView: LottieAnimationView? = null
@@ -23,6 +25,7 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
   private var checkBox: CheckBox? = null
   private var warningText: TextView? = null
   private var termsConditionsLayout: LinearLayout? = null
+  private var isCheckBoxUp: Boolean = false
 
   init {
     init()
@@ -52,14 +55,17 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
     if (checkBox!!.isChecked) {
       if (skipButton!!.visibility != View.VISIBLE) {
         animateShowButton(skipButton!!)
-        animateCheckboxUp(termsConditionsLayout!!)
+        if (!isCheckBoxUp) {
+          animateCheckboxUp(termsConditionsLayout!!)
+        }
         skipButton!!.visibility = View.VISIBLE
       }
     } else {
       if (skipButton!!.visibility == View.VISIBLE) {
-        animateCheckboxDown(termsConditionsLayout!!)
         animateHideButton(skipButton!!)
-        animateCheckboxDown(termsConditionsLayout!!)
+        if (isCheckBoxUp) {
+          animateCheckboxDown(termsConditionsLayout!!)
+        }
         skipButton!!.visibility = View.GONE
       }
     }
@@ -77,15 +83,21 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
   }
 
   private fun animateCheckboxUp(layout: LinearLayout) {
-    val animation = AnimationUtils.loadAnimation(view.context, R.anim.minor_translate_up)
-    animation.fillAfter = true
-    layout.animation = animation
+
+    ObjectAnimator.ofFloat(layout, View.TRANSLATION_Y, 0f, -20f).apply {
+      duration = ANIMATION_LENGHT
+      start()
+    }
+    isCheckBoxUp = true
   }
 
   private fun animateCheckboxDown(layout: LinearLayout) {
-    val animation = AnimationUtils.loadAnimation(view.context, R.anim.minor_translate_down)
-    animation.fillAfter = true
-    layout.animation = animation
+
+    ObjectAnimator.ofFloat(layout, View.TRANSLATION_Y, -20f, 0f).apply {
+      duration = ANIMATION_LENGHT
+      start()
+    }
+    isCheckBoxUp = false
   }
 
   private fun animateShowButton(button: Button) {
@@ -111,7 +123,7 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
   override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
     lottieView!!.progress =
         position * (1f / ANIMATION_TRANSITIONS) + positionOffset * (1f / ANIMATION_TRANSITIONS)
-    checkBox!!.setOnClickListener { view ->
+    checkBox!!.setOnClickListener {
       showWarningText(position)
       showButton(position)
     }
