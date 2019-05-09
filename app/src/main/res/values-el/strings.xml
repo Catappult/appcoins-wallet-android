@@ -211,6 +211,7 @@
   <string name="notification_not_available_for_country_poa">Αυτή η καμπάνια αμοιβών δεν είναι διαθέσιμη στη χώρα σας</string>
   <string name="notification_already_rewarded_poa">Έχετε ήδη λάβει αμοιβή σε αυτήν την καμπάνια</string>
   <string name="notification_submit_error_poa">Δυστυχώς, παρουσιάστηκε ένα σφάλμα. Προσπαθήστε ξανά!</string>
+  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
   <!-- transaction details -->
   <string name="transaction_status_success">Επιτυχία</string>
   <string name="transaction_status_pending">Σε εκκρεμότητα</string>
