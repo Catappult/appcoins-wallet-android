@@ -211,6 +211,7 @@
   <string name="notification_not_available_for_country_poa">Kampanye hadiah ini tidak tersedia di negara Anda</string>
   <string name="notification_already_rewarded_poa">Anda sudah diberi hadiah pada kampanye ini</string>
   <string name="notification_submit_error_poa">Maaf, ada kesalahan. Coba lagi!</string>
+  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
   <!-- transaction details -->
   <string name="transaction_status_success">Berhasil</string>
   <string name="transaction_status_pending">Ditangguhkan</string>
