@@ -9,4 +9,5 @@
     android:layout_marginTop="@dimen/big_margin"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
+    android:layout_margin="8dp"
     />
