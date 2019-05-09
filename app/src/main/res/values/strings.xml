@@ -218,6 +218,7 @@
   <string name="notification_not_available_for_country_poa">This rewards campaign isn\'t available in your country</string>
   <string name="notification_already_rewarded_poa">You were already rewarded in this campaign</string>
   <string name="notification_submit_error_poa">Sorry, there was an error. Try again!</string>
+  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
 
   <!-- transaction details -->
   <string name="transaction_status_success">Success</string>
@@ -306,8 +307,10 @@
   <string name="gamification_star_subtitle">Shinny, big and full of life!</string>
   <string name="gamification_galaxy_subtitle">The biggest system out there!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Get a Bonus!</string>
-  <string name="gamification_purchase_body">You\'ll get %s APPC Credits for this purchase.</string>
+  <string name="gamification_purchase_header">This purchase has a bonus!</string>
+  <string name="gamification_purchase_header_part_1">Purchase Bonus:</string>
+  <string name="gamification_purchase_header_part_2">%s in APPC Credits</string>
+  <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
   <string name="action_level">My Level</string>
 
 

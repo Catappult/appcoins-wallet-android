@@ -294,7 +294,9 @@
   <string name="gamification_star_subtitle">ਚਮਕਦਾਰ, ਵੱਡਾ ਅਤੇ ਜੀਵਨ ਨਾਲ ਭਰਿਆ!</string>
   <string name="gamification_galaxy_subtitle">ਇੱਥੇ ਸਭ ਤੋਂ ਵੱਡੀ ਪ੍ਰਣਾਲੀ!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">Get a Bonus!</string>
+  <string name="gamification_purchase_header">This purchase has a bonus!</string>
+  <string name="gamification_purchase_header_part_1">Purchase Bonus:</string>
+  <string name="gamification_purchase_header_part_2">%s in APPC Credits</string>
   <string name="gamification_purchase_body">ਤੁਸੀ ਇਸ ਖਰੀਦ ਲਈ %s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋਗੇ|</string>
   <string name="action_level">ਮੇਰਾ ਪੱਧਰ</string>
   <!-- Provide wallet address -->
