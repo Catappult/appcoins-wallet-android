@@ -211,6 +211,7 @@
   <string name="notification_not_available_for_country_poa">این کمپین جوایز دیگر در کشور شما موجود نیست</string>
   <string name="notification_already_rewarded_poa">شما قبلا در این کمپین جایزه‌ای دریافت کرده‌اید</string>
   <string name="notification_submit_error_poa">متاسفیم، خطایی رخ داده است. دوباره امنحان کنید!</string>
+  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
   <!-- transaction details -->
   <string name="transaction_status_success">موفقیت</string>
   <string name="transaction_status_pending">در حال انتظار</string>
