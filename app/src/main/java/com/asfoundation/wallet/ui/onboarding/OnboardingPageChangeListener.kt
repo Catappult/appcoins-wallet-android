@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.onboarding
 
-import android.animation.ObjectAnimator
+import android.animation.AnimatorInflater
+import android.animation.AnimatorSet
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
@@ -83,18 +84,16 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
   }
 
   private fun animateCheckboxUp(layout: LinearLayout) {
-
-    ObjectAnimator.ofFloat(layout, View.TRANSLATION_Y, 0f, -20f).apply {
-      duration = ANIMATION_LENGHT
+    (AnimatorInflater.loadAnimator(view.context, R.animator.minor_translate_up) as AnimatorSet).apply {
+      setTarget(layout)
       start()
     }
     isCheckBoxUp = true
   }
 
   private fun animateCheckboxDown(layout: LinearLayout) {
-
-    ObjectAnimator.ofFloat(layout, View.TRANSLATION_Y, -20f, 0f).apply {
-      duration = ANIMATION_LENGHT
+    (AnimatorInflater.loadAnimator(view.context, R.animator.minor_translate_down) as AnimatorSet).apply {
+      setTarget(layout)
       start()
     }
     isCheckBoxUp = false
