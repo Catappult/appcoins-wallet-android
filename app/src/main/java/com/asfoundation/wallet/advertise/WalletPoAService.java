@@ -171,9 +171,8 @@ public class WalletPoAService extends Service {
         stopTimeout();
         break;
       case WRONG_NETWORK:
-        //TODO change string
         notificationManager.notify(SERVICE_ID,
-            createDefaultNotificationBuilder(R.string.activity_iab_wrong_network_message).build());
+            createDefaultNotificationBuilder(R.string.notification_wrong_network_poa).build());
         stopForeground(false);
         stopTimeout();
         logger.log(new Throwable(new WrongNetworkException("Not on the correct network")));
