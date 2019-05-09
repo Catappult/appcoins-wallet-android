@@ -211,6 +211,7 @@
   <string name="notification_not_available_for_country_poa">Cette campagne de récompenses n’est pas disponible dans votre pays</string>
   <string name="notification_already_rewarded_poa">Vous avez déjà été récompensé dans cette campagne</string>
   <string name="notification_submit_error_poa">Désolé, il y a eu une erreur. Réessayez !</string>
+  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
   <!-- transaction details -->
   <string name="transaction_status_success">Réussite</string>
   <string name="transaction_status_pending">En attente</string>
