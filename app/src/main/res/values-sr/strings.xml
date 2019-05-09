@@ -211,6 +211,7 @@
   <string name="notification_not_available_for_country_poa">Ova nagradna kampanja nije dostupna u vašoj zemlji</string>
   <string name="notification_already_rewarded_poa">Već ste nagrađeni u ovoj kampanji</string>
   <string name="notification_submit_error_poa">Izvinite, došlo je do greške. Pokušajte ponovo!</string>
+  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
   <!-- transaction details -->
   <string name="transaction_status_success">Uspelo</string>
   <string name="transaction_status_pending">Na čekanju</string>
