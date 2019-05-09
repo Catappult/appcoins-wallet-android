@@ -16,7 +16,6 @@ import com.jakewharton.rxrelay2.PublishRelay;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Objects;
 import javax.inject.Inject;
 
@@ -203,10 +202,6 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
         .commit();
   }
 
-  @Override public void showPaymentMethods(
-      List<com.asfoundation.wallet.ui.iab.PaymentMethod> paymentMethods) {
-
-  }
 
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);

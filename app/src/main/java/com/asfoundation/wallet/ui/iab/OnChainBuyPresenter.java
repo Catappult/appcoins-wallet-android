@@ -34,11 +34,11 @@ public class OnChainBuyPresenter {
   private final BillingMessagesMapper billingMessagesMapper;
   private final boolean isBds;
   private final String productName;
-  private BillingAnalytics analytics;
   private final String appPackage;
   private final String uriString;
-  private Disposable statusDisposable;
   private final Single<TransactionBuilder> transactionBuilder;
+  private BillingAnalytics analytics;
+  private Disposable statusDisposable;
 
   public OnChainBuyPresenter(OnChainBuyView view, InAppPurchaseInteractor inAppPurchaseInteractor,
       Scheduler viewScheduler, CompositeDisposable disposables,
@@ -66,14 +66,6 @@ public class OnChainBuyPresenter {
     handleOkErrorClick(uriString);
 
     handleBuyEvent(appPackage, productName, developerPayload, isBds);
-
-    handleDontShowMicroRaidenInfo();
-  }
-
-  private void handleDontShowMicroRaidenInfo() {
-    //disposables.add(view.getDontShowAgainClick()
-    //    .doOnNext(__ -> inAppPurchaseInteractor.dontShowAgain())
-    //    .subscribe());
   }
 
   private void showTransactionState(String uriString) {
@@ -84,7 +76,7 @@ public class OnChainBuyPresenter {
         .observeOn(viewScheduler)
         .flatMapCompletable(this::showPendingTransaction)
         .subscribe(() -> {
-        }, throwable -> throwable.printStackTrace());
+        }, this::showError);
   }
 
   private void handleBuyEvent(String appPackage, String productName, String developerPayload,
@@ -95,10 +87,10 @@ public class OnChainBuyPresenter {
         .flatMapCompletable(buyData -> inAppPurchaseInteractor.send(buyData,
             AsfInAppPurchaseInteractor.TransactionType.NORMAL, appPackage, productName,
             BigDecimal.ZERO, developerPayload, isBds)
-            .observeOn(viewScheduler)
-            .doOnError(this::showError))
+            .observeOn(viewScheduler))
         .retry()
-        .subscribe());
+        .subscribe(() -> {
+        }, this::showError));
   }
 
   private void handleOkErrorClick(String uriString) {
@@ -135,11 +127,12 @@ public class OnChainBuyPresenter {
                           "Cannot resume from " + currentPaymentStep.name() + " status"));
                   }
                 }))
-        .subscribe());
+        .subscribe(() -> {
+        }, this::showError));
 
     disposables.add(inAppPurchaseInteractor.getWalletAddress()
         .observeOn(viewScheduler)
-        .subscribe(wallet -> view.showWallet(wallet), throwable -> throwable.printStackTrace()));
+        .subscribe(wallet -> view.showWallet(wallet), this::showError));
   }
 
   private void close() {
@@ -244,6 +237,7 @@ public class OnChainBuyPresenter {
         transaction -> inAppPurchaseInteractor.convertToFiat((transaction.amount()).doubleValue(),
             EVENT_REVENUE_CURRENCY))
         .doOnSuccess(fiatValue -> analytics.sendRevenueEvent(String.valueOf(fiatValue.getAmount())))
-        .subscribe());
+        .subscribe(__ -> {
+        }, this::showError));
   }
 }
