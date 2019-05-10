@@ -278,8 +278,8 @@ public class PaymentAuthPresenter {
 
   private void handleFieldValidationStateChange() {
     disposables.add(view.onValidFieldStateChange()
+        .observeOn(viewScheduler)
         .doOnNext(valid -> view.updateTopUpButton(valid))
-        .subscribeOn(viewScheduler)
         .subscribe());
   }
 
