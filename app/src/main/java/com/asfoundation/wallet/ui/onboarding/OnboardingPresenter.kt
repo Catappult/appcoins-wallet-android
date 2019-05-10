@@ -16,8 +16,6 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
 
   fun present() {
     view.setupUi()
-    handleCheckboxClick()
-    handlePageScroll()
     handleOnBoardingFinish()
   }
 
@@ -25,25 +23,17 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
     disposables.clear()
   }
 
-  private fun handleSkipClick(): Observable<Any> {
-    return view.getSkipClick().doOnNext {
+  private fun handleSkipButtonClick(): Observable<Any> {
+    return view.getSkipButtonClick().doOnNext {
       view.showLoading()
     }.delay(1, TimeUnit.SECONDS)
   }
 
-  private fun handleCheckboxClick() {
-    disposables.add(view.getCheckboxClick().subscribe())
-  }
-
-  private fun handlePageScroll() {
-
-  }
-
   private fun handleOnBoardingFinish() {
     disposables.add(Observable.zip(handleGetWalletAddress().observeOn(viewScheduler),
-        handleSkipClick().observeOn(viewScheduler),
+        handleSkipButtonClick().observeOn(viewScheduler),
         BiFunction { walletAddress: String, _: Any ->
-          if (!walletAddress.isNullOrEmpty()) {
+          if (!walletAddress.isEmpty()) {
             view.finishOnboarding()
           }
         }).subscribe())

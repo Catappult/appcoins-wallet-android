@@ -84,12 +84,8 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     intro.addOnPageChangeListener(OnboardingPageChangeListener(onboarding_content))
   }
 
-  override fun getSkipClick(): Observable<Any> {
-    return RxView.clicks(skip_action)
-  }
-
-  override fun getCheckboxClick(): Observable<Any> {
-    return RxView.clicks(onboarding_checkbox)
+  override fun getSkipButtonClick(): Observable<Any> {
+    return RxView.clicks(skip_button)
   }
 
   override fun showLoading() {

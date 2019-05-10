@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.repository
 
-import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.poa.Proof
 import com.asfoundation.wallet.poa.ProofSubmissionFeeData
@@ -11,7 +10,7 @@ import java.math.BigDecimal
 import java.net.UnknownHostException
 
 open class BdsBackEndWriter(private val defaultWalletInteract: FindDefaultWalletInteract,
-                       private val service: PoASubmissionService) : ProofWriter {
+                            private val service: PoASubmissionService) : ProofWriter {
 
   override fun writeProof(proof: Proof): Single<String> {
     return defaultWalletInteract.find()
@@ -33,9 +32,5 @@ open class BdsBackEndWriter(private val defaultWalletInteract: FindDefaultWallet
         else -> throw it
       }
     }
-  }
-
-  private fun isCorrectNetwork(chainId: Int): Boolean {
-    return chainId == 3 && BuildConfig.DEBUG || chainId == 1 && !BuildConfig.DEBUG
   }
 }

@@ -32,7 +32,7 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
 
   fun init() {
     lottieView = view.findViewById(R.id.lottie_onboarding)
-    skipButton = view.findViewById(R.id.skip_action)
+    skipButton = view.findViewById(R.id.skip_button)
     checkBox = view.findViewById(R.id.onboarding_checkbox)
     warningText = view.findViewById(R.id.terms_conditions_warning)
     termsConditionsLayout = view.findViewById(R.id.terms_conditions_layout)

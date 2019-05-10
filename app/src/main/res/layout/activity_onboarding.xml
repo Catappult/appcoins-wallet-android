@@ -137,7 +137,7 @@
         />
   </LinearLayout>
   <Button
-      android:id="@+id/skip_action"
+      android:id="@+id/skip_button"
       android:layout_width="120dp"
       android:layout_height="@dimen/button_height"
       android:layout_marginBottom="20dp"
