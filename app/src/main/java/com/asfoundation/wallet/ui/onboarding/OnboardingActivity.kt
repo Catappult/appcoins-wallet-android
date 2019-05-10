@@ -79,9 +79,9 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     terms_conditions_body.isClickable = true
     terms_conditions_body.movementMethod = LinkMovementMethod.getInstance()
 
-    intro.setPageTransformer(false, OnboardingPageTransformer())
-    intro.adapter = OnboardingPagerAdapter()
-    intro.addOnPageChangeListener(OnboardingPageChangeListener(onboarding_content))
+    onboarding_viewpager.setPageTransformer(false, OnboardingPageTransformer())
+    onboarding_viewpager.adapter = OnboardingPagerAdapter()
+    onboarding_viewpager.addOnPageChangeListener(OnboardingPageChangeListener(onboarding_content))
   }
 
   override fun getSkipButtonClick(): Observable<Any> {
