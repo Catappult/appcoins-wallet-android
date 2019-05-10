@@ -132,17 +132,8 @@ public class SystemView extends FrameLayout implements View.OnClickListener {
     }
   }
 
-  public void showEmpty() {
-    showEmpty("");
-  }
-
   public void showEmpty(@NonNull String message) {
     showError(message, null);
-  }
-
-  public void showEmpty(@LayoutRes int emptyLayout) {
-    showEmpty(LayoutInflater.from(getContext())
-        .inflate(emptyLayout, emptyBox, false));
   }
 
   public void showEmpty(View view) {
