@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.onboarding
 
+import android.net.Uri
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.interact.CreateWalletInteract
 import io.reactivex.Observable
@@ -17,6 +18,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
   fun present() {
     view.setupUi()
     handleOnBoardingFinish()
+    handleLinkClick()
   }
 
   fun stop() {
@@ -27,6 +29,12 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
     return view.getSkipButtonClick().doOnNext {
       view.showLoading()
     }.delay(1, TimeUnit.SECONDS)
+  }
+
+  private fun handleLinkClick() {
+    view.getLinkClick()?.doOnNext { uri ->
+      view.navigateToBrowser(Uri.parse(uri))
+    }?.subscribe()?.let { disposables.add(it) }
   }
 
   private fun handleOnBoardingFinish() {

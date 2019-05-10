@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.ui.onboarding
 
 import android.animation.Animator
-import android.content.Intent
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
@@ -15,6 +14,7 @@ import android.view.View
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.CreateWalletInteract
+import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
 import com.jakewharton.rxbinding2.view.RxView
@@ -22,6 +22,7 @@ import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_onboarding.*
 import javax.inject.Inject
 
@@ -31,7 +32,9 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
   lateinit var interactor: CreateWalletInteract
   @Inject
   lateinit var service: WalletService
+  private lateinit var browserRouter: ExternalBrowserRouter
   private lateinit var presenter: OnboardingPresenter
+  private var linkSubject: PublishSubject<String>? = null
 
   companion object {
     fun newInstance(): OnboardingActivity {
@@ -46,12 +49,10 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     super.onCreate(savedInstanceState)
     AndroidInjection.inject(this)
     setContentView(R.layout.activity_onboarding)
+    browserRouter = ExternalBrowserRouter()
+    linkSubject = PublishSubject.create()
     presenter = OnboardingPresenter(CompositeDisposable(), this, interactor, service,
         AndroidSchedulers.mainThread())
-  }
-
-  override fun onResume() {
-    super.onResume()
     presenter.present()
   }
 
@@ -60,6 +61,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     create_wallet_animation.removeAllAnimatorListeners()
     create_wallet_animation.removeAllUpdateListeners()
     create_wallet_animation.removeAllLottieOnCompositionLoadedListener()
+    linkSubject = null
     super.onDestroy()
   }
 
@@ -86,6 +88,10 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
 
   override fun getSkipButtonClick(): Observable<Any> {
     return RxView.clicks(skip_button)
+  }
+
+  override fun getLinkClick(): Observable<String>? {
+    return linkSubject
   }
 
   override fun showLoading() {
@@ -120,8 +126,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
                               uri: String) {
     val clickableSpan = object : ClickableSpan() {
       override fun onClick(widget: View) {
-        val launchBrowser = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
-        startActivity(launchBrowser)
+        linkSubject?.onNext(uri)
       }
 
       override fun updateDrawState(ds: TextPaint) {
@@ -136,5 +141,9 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
         indexHighlightString + highlightStringLength, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
     spannableString.setSpan(StyleSpan(Typeface.BOLD), indexHighlightString,
         indexHighlightString + highlightStringLength, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+  }
+
+  override fun navigateToBrowser(uri: Uri) {
+    browserRouter.open(this, uri)
   }
 }
