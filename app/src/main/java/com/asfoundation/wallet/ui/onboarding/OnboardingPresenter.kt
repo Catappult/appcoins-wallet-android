@@ -39,8 +39,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
         handleSkipButtonClick().observeOn(viewScheduler),
         BiFunction { walletAddress: String, _: Any ->
           if (!walletAddress.isEmpty()) {
-            onboardingInteract.finishOnboarding()
-            view.finishOnboarding()
+            finishOnBoarding()
           }
         }).subscribe())
   }
@@ -51,5 +50,10 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
           onboardingInteract.createWallet()
         }
         .toObservable()
+  }
+
+  private fun finishOnBoarding() {
+    onboardingInteract.finishOnboarding()
+    view.finishOnboarding()
   }
 }
