@@ -10,7 +10,7 @@ import java.math.BigDecimal
 import java.net.UnknownHostException
 
 open class BdsBackEndWriter(private val defaultWalletInteract: FindDefaultWalletInteract,
-                       private val service: PoASubmissionService) : ProofWriter {
+                            private val service: PoASubmissionService) : ProofWriter {
 
   override fun writeProof(proof: Proof): Single<String> {
     return defaultWalletInteract.find()
@@ -33,5 +33,4 @@ open class BdsBackEndWriter(private val defaultWalletInteract: FindDefaultWallet
       }
     }
   }
-
 }
