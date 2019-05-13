@@ -1,5 +1,5 @@
 <resources>
-  <string name="app_name">AppCoins BDS Wallet</string>
+  <string name="app_name">AppCoins Wallet</string>
   <string name="title_send">Send</string>
   <string name="title_send_with_token">Send %s</string>
   <string name="title_request">Receive</string>
