@@ -84,7 +84,6 @@
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="true"
       app:lottie_rawRes="@raw/create_wallet_loading_animation"
-
       />
   <TextView
       android:id="@+id/create_wallet_text"

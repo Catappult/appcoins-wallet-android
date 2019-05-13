@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.lifecycle.ViewModelProviders;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.router.ManageWalletsRouter;
+import com.asfoundation.wallet.router.OnboardingRouter;
 import com.asfoundation.wallet.router.TransactionsRouter;
 import com.asfoundation.wallet.viewmodel.SplashViewModel;
 import com.asfoundation.wallet.viewmodel.SplashViewModelFactory;
@@ -34,7 +35,7 @@ public class SplashActivity extends BaseActivity {
   private void onWallets(Wallet[] wallets) {
     // Start home activity
     if (wallets.length == 0) {
-      new ManageWalletsRouter().open(this, true);
+      new OnboardingRouter().open(this, true);
     } else {
       new TransactionsRouter().open(this, true);
     }
