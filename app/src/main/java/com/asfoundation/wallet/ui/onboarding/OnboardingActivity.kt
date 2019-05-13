@@ -13,7 +13,6 @@ import android.text.style.StyleSpan
 import android.view.View
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asf.wallet.R
-import com.asfoundation.wallet.interact.CreateWalletInteract
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
@@ -29,7 +28,7 @@ import javax.inject.Inject
 class OnboardingActivity : BaseActivity(), OnboardingView {
 
   @Inject
-  lateinit var interactor: CreateWalletInteract
+  lateinit var interactor: OnboardingInteract
   @Inject
   lateinit var service: WalletService
   private lateinit var browserRouter: ExternalBrowserRouter
@@ -51,7 +50,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     setContentView(R.layout.activity_onboarding)
     browserRouter = ExternalBrowserRouter()
     linkSubject = PublishSubject.create()
-    presenter = OnboardingPresenter(CompositeDisposable(), this, interactor, service,
+    presenter = OnboardingPresenter(CompositeDisposable(), this, interactor,
         AndroidSchedulers.mainThread())
     presenter.present()
   }

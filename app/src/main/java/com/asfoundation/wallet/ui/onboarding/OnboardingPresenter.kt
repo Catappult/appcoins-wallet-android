@@ -1,8 +1,6 @@
 package com.asfoundation.wallet.ui.onboarding
 
 import android.net.Uri
-import com.appcoins.wallet.bdsbilling.WalletService
-import com.asfoundation.wallet.interact.CreateWalletInteract
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -11,8 +9,7 @@ import java.util.concurrent.TimeUnit
 
 class OnboardingPresenter(private val disposables: CompositeDisposable,
                           private val view: OnboardingView,
-                          private val walletCreateInteractor: CreateWalletInteract,
-                          private val walletService: WalletService,
+                          private val onboardingInteract: OnboardingInteract,
                           private val viewScheduler: Scheduler) {
 
   fun present() {
@@ -42,16 +39,16 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
         handleSkipButtonClick().observeOn(viewScheduler),
         BiFunction { walletAddress: String, _: Any ->
           if (!walletAddress.isEmpty()) {
+            onboardingInteract.finishOnboarding()
             view.finishOnboarding()
           }
         }).subscribe())
   }
 
   private fun handleGetWalletAddress(): Observable<String> {
-    return walletService.getWalletAddress()
+    return onboardingInteract.getWalletAddress()
         .onErrorResumeNext {
-          walletCreateInteractor.create()
-              .map { wallet -> wallet.address }
+          onboardingInteract.createWallet()
         }
         .toObservable()
   }
