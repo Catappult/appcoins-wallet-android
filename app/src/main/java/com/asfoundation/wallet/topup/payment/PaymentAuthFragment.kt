@@ -157,10 +157,6 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
 
     button.setText(R.string.topup_home_button)
 
-    fragment_braintree_credit_card_form.setOnCardFormValidListener { valid ->
-      validationSubject?.onNext(valid)
-    }
-
     fragment_braintree_credit_card_form.setOnCardFormSubmitListener {
       if (fragment_braintree_credit_card_form.isValid) {
         keyboardTopUpRelay?.accept(true)
@@ -267,8 +263,11 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
 
   override fun hideLoading() {
     loading.visibility = View.GONE
-    fragment_braintree_credit_card_form.visibility = View.VISIBLE
     button.isEnabled = fragment_braintree_credit_card_form.isValid
+    fragment_braintree_credit_card_form.visibility = View.VISIBLE
+    fragment_braintree_credit_card_form.setOnCardFormValidListener { valid ->
+      validationSubject?.onNext(valid)
+    }
     credit_card_info_container.visibility = View.VISIBLE
   }
 
