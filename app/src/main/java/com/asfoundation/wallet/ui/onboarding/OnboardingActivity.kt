@@ -40,8 +40,8 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
       return OnboardingActivity()
     }
 
-    const val TERMS_CONDITIONS_URL = "https://catappult.io/appcois-wallet/terms-conditions"
-    const val PRIVACY_POLICY_URL = "https://catappult.io/appcois-wallet/privacy-policy"
+    const val TERMS_CONDITIONS_URL = "https://catappult.io/terms"
+    const val PRIVACY_POLICY_URL = "https://catappult.io/privacy-policy"
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
