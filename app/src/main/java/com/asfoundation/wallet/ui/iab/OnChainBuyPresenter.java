@@ -87,10 +87,10 @@ public class OnChainBuyPresenter {
         .flatMapCompletable(buyData -> inAppPurchaseInteractor.send(buyData,
             AsfInAppPurchaseInteractor.TransactionType.NORMAL, appPackage, productName,
             BigDecimal.ZERO, developerPayload, isBds)
-            .observeOn(viewScheduler))
+            .observeOn(viewScheduler)
+            .doOnError(this::showError))
         .retry()
-        .subscribe(() -> {
-        }, this::showError));
+        .subscribe());
   }
 
   private void handleOkErrorClick(String uriString) {
