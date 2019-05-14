@@ -4,8 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.lifecycle.ViewModelProviders;
-import com.asfoundation.wallet.entity.Wallet;
-import com.asfoundation.wallet.router.ManageWalletsRouter;
+import com.asfoundation.wallet.repository.PreferenceRepositoryType;
 import com.asfoundation.wallet.router.OnboardingRouter;
 import com.asfoundation.wallet.router.TransactionsRouter;
 import com.asfoundation.wallet.viewmodel.SplashViewModel;
@@ -16,6 +15,7 @@ import javax.inject.Inject;
 public class SplashActivity extends BaseActivity {
 
   @Inject SplashViewModelFactory splashViewModelFactory;
+  @Inject PreferenceRepositoryType preferenceRepositoryType;
   SplashViewModel splashViewModel;
 
   public static Intent newIntent(Context context) {
@@ -28,17 +28,19 @@ public class SplashActivity extends BaseActivity {
 
     splashViewModel = ViewModelProviders.of(this, splashViewModelFactory)
         .get(SplashViewModel.class);
-    splashViewModel.wallets()
-        .observe(this, this::onWallets);
+    firstScreenNavigation();
   }
 
-  private void onWallets(Wallet[] wallets) {
-    // Start home activity
-    if (wallets.length == 0) {
+  private void firstScreenNavigation() {
+    if (shouldShowOnboarding()) {
       new OnboardingRouter().open(this, true);
     } else {
       new TransactionsRouter().open(this, true);
     }
     finish();
+  }
+
+  private boolean shouldShowOnboarding() {
+    return !preferenceRepositoryType.hasAcceptedTCAndPP();
   }
 }

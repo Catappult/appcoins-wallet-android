@@ -84,6 +84,8 @@ public class PaymentAuthPresenter {
     handleErrorDismissEvent();
 
     handleAdyenPaymentResult();
+
+    handleFieldValidationStateChange();
   }
 
   private void onViewCreatedShowPaymentMethodInputView() {
@@ -272,6 +274,13 @@ public class PaymentAuthPresenter {
         .observeOn(viewScheduler)
         .subscribe(() -> {
         }, throwable -> showError(throwable)));
+  }
+
+  private void handleFieldValidationStateChange() {
+    disposables.add(view.onValidFieldStateChange()
+        .observeOn(viewScheduler)
+        .doOnNext(valid -> view.updateTopUpButton(valid))
+        .subscribe());
   }
 
   public void stop() {

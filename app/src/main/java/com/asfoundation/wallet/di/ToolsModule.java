@@ -147,6 +147,7 @@ import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer;
 import com.asfoundation.wallet.ui.iab.raiden.NonceObtainerFactory;
 import com.asfoundation.wallet.ui.iab.raiden.Web3jNonceProvider;
 import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor;
+import com.asfoundation.wallet.ui.onboarding.OnboardingInteract;
 import com.asfoundation.wallet.ui.transact.TransactionDataValidator;
 import com.asfoundation.wallet.ui.transact.TransferInteractor;
 import com.asfoundation.wallet.util.DeviceInfo;
@@ -789,6 +790,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Provides CreateWalletInteract provideCreateAccountInteract(
       WalletRepositoryType accountRepository, PasswordStore passwordStore) {
     return new CreateWalletInteract(accountRepository, passwordStore);
+  }
+
+  @Provides OnboardingInteract provideOnboardingInteract(CreateWalletInteract createWalletInteract,
+      WalletService walletService, PreferenceRepositoryType preferenceRepositoryType) {
+    return new OnboardingInteract(createWalletInteract, walletService, preferenceRepositoryType);
   }
 
   @Singleton @Provides BillingAnalytics provideBillingAnalytics(AnalyticsManager analytics) {
