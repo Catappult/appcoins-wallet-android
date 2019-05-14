@@ -11,7 +11,6 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.StyleSpan
 import android.view.View
-import com.appcoins.wallet.bdsbilling.WalletService
 import com.asf.wallet.R
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.router.TransactionsRouter
@@ -29,8 +28,6 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
 
   @Inject
   lateinit var interactor: OnboardingInteract
-  @Inject
-  lateinit var service: WalletService
   private lateinit var browserRouter: ExternalBrowserRouter
   private lateinit var presenter: OnboardingPresenter
   private var linkSubject: PublishSubject<String>? = null
