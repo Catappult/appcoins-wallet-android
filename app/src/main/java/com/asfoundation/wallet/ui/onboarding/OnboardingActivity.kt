@@ -11,9 +11,7 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.StyleSpan
 import android.view.View
-import com.appcoins.wallet.bdsbilling.WalletService
 import com.asf.wallet.R
-import com.asfoundation.wallet.interact.CreateWalletInteract
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
@@ -29,9 +27,7 @@ import javax.inject.Inject
 class OnboardingActivity : BaseActivity(), OnboardingView {
 
   @Inject
-  lateinit var interactor: CreateWalletInteract
-  @Inject
-  lateinit var service: WalletService
+  lateinit var interactor: OnboardingInteract
   private lateinit var browserRouter: ExternalBrowserRouter
   private lateinit var presenter: OnboardingPresenter
   private var linkSubject: PublishSubject<String>? = null
@@ -41,8 +37,8 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
       return OnboardingActivity()
     }
 
-    const val TERMS_CONDITIONS_URL = "https://catappult.io/appcois-wallet/terms-conditions"
-    const val PRIVACY_POLICY_URL = "https://catappult.io/appcois-wallet/privacy-policy"
+    const val TERMS_CONDITIONS_URL = "https://catappult.io/appcoins-wallet/terms-conditions"
+    const val PRIVACY_POLICY_URL = "https://catappult.io/appcoins-wallet/privacy-policy"
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +47,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     setContentView(R.layout.activity_onboarding)
     browserRouter = ExternalBrowserRouter()
     linkSubject = PublishSubject.create()
-    presenter = OnboardingPresenter(CompositeDisposable(), this, interactor, service,
+    presenter = OnboardingPresenter(CompositeDisposable(), this, interactor,
         AndroidSchedulers.mainThread())
     presenter.present()
   }
