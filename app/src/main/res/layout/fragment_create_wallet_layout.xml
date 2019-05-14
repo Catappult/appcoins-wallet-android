@@ -5,7 +5,10 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+    android:layout_margin="8dp"
     android:background="@drawable/background_card"
+    android:clipToPadding="false"
+    android:minWidth="296dp"
     android:padding="16dp"
     >
   <ImageView
@@ -23,7 +26,7 @@
 
   <TextView
       android:id="@+id/provide_wallet_create_body"
-      android:layout_width="match_parent"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginEnd="16dp"
       android:layout_marginStart="16dp"
