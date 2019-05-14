@@ -15,11 +15,11 @@ public class SharedPreferenceRepository implements PreferenceRepositoryType {
     pref = PreferenceManager.getDefaultSharedPreferences(context);
   }
 
-  @Override public boolean hasAcceptedTCAndPP() {
+  @Override public boolean hasCompletedOnboarding() {
     return pref.getBoolean(ONBOARDING_COMPLETE_KEY, false);
   }
 
-  @Override public void setAcceptedTCAndPP() {
+  @Override public void setOnboardingComplete() {
     pref.edit()
         .putBoolean(ONBOARDING_COMPLETE_KEY, true)
         .apply();
