@@ -5,7 +5,6 @@ import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchTransactionsInteract;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
-import com.asfoundation.wallet.repository.OffChainTransactions;
 import com.asfoundation.wallet.repository.TokenLocalSource;
 import com.asfoundation.wallet.repository.TokenRepository;
 import com.asfoundation.wallet.repository.TransactionLocalSource;
@@ -44,14 +43,13 @@ import javax.inject.Singleton;
       MyAddressRouter myAddressRouter, BalanceRouter balanceRouter,
       ExternalBrowserRouter externalBrowserRouter, DefaultTokenProvider defaultTokenProvider,
       TransactionsMapper transactionsMapper, AppcoinsApps applications,
-      OffChainTransactions offChainTransactions, RewardsLevelRouter rewardsLevelRouter,
-      GamificationInteractor gamificationInteractor, TopUpRouter topUpRouter,
-      TransactionsAnalytics analytics, BalanceInteract balanceInteract) {
+      RewardsLevelRouter rewardsLevelRouter, GamificationInteractor gamificationInteractor,
+      TopUpRouter topUpRouter, TransactionsAnalytics analytics, BalanceInteract balanceInteract) {
     return new TransactionsViewModelFactory(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, settingsRouter, sendRouter, transactionDetailRouter,
         myAddressRouter, balanceRouter, externalBrowserRouter, defaultTokenProvider,
-        transactionsMapper, applications, offChainTransactions, rewardsLevelRouter,
-        gamificationInteractor, topUpRouter, analytics, balanceInteract);
+        transactionsMapper, applications, rewardsLevelRouter, gamificationInteractor, topUpRouter,
+        analytics, balanceInteract);
   }
 
   @Provides FetchTransactionsInteract provideFetchTransactionsInteract(

@@ -1,14 +1,13 @@
 package com.asfoundation.wallet.repository;
 
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.transactions.Transaction;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import java.util.List;
 
 public interface TransactionRepositoryType {
-  Observable<List<Transaction>> fetchTransaction(Wallet wallet);
+  Observable<List<Transaction>> fetchTransaction(String wallet);
 
   Single<String> createTransaction(TransactionBuilder transactionBuilder, String password);
 
@@ -20,4 +19,6 @@ public interface TransactionRepositoryType {
       String password);
 
   Single<String> computeBuyTransactionHash(TransactionBuilder transactionBuilder, String password);
+
+  void stop();
 }

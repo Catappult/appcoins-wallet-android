@@ -99,6 +99,7 @@ import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.BuyTransactionValidatorBds;
 import com.asfoundation.wallet.repository.CurrencyConversionService;
+import com.asfoundation.wallet.repository.DevTransactionRepository;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.GasSettingsRepository;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
@@ -117,7 +118,10 @@ import com.asfoundation.wallet.repository.SmsValidationRepositoryType;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.TrackTransactionService;
 import com.asfoundation.wallet.repository.TransactionLocalSource;
+import com.asfoundation.wallet.repository.TransactionMapper;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
+import com.asfoundation.wallet.repository.TransactionsDao;
+import com.asfoundation.wallet.repository.TransactionsDatabase;
 import com.asfoundation.wallet.repository.TrustPasswordStore;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.repository.WatchedTransactionService;
@@ -964,10 +968,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Provides OffChainTransactions providesOffChainTransactions(
-      OffChainTransactionsRepository repository, TransactionsMapper mapper,
-      FindDefaultWalletInteract walletFinder) {
-    return new OffChainTransactions(repository, mapper, walletFinder, getVersionCode(),
-        Schedulers.io());
+      OffChainTransactionsRepository repository, TransactionsMapper mapper) {
+    return new OffChainTransactions(repository, mapper, getVersionCode(), Schedulers.io());
   }
 
   private String getVersionCode() {
@@ -984,10 +986,23 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       NetworkInfo networkInfo, AccountKeystoreService accountKeystoreService,
       TransactionsNetworkClientType blockExplorerClient, TransactionLocalSource inDiskCache,
       DefaultTokenProvider defaultTokenProvider, MultiWalletNonceObtainer nonceObtainer,
-      OffChainTransactions transactionsNetworkRepository, @NotNull TransactionsMapper mapper) {
-    return new ProdTransactionRepository(networkInfo, accountKeystoreService, inDiskCache,
-        blockExplorerClient, defaultTokenProvider, new BlockchainErrorMapper(), nonceObtainer,
-        Schedulers.io(), mapper, transactionsNetworkRepository);
+      OffChainTransactions transactionsNetworkRepository, @NotNull TransactionsMapper mapper,
+      Context context) {
+    if (BuildConfig.DEBUG) {
+      TransactionsDao localRepository =
+          Room.databaseBuilder(context.getApplicationContext(), TransactionsDatabase.class,
+              "transactions_database")
+              .build()
+              .transactionsDao();
+      return new DevTransactionRepository(networkInfo, accountKeystoreService, defaultTokenProvider,
+          new BlockchainErrorMapper(), nonceObtainer, Schedulers.io(),
+          transactionsNetworkRepository, localRepository, new TransactionMapper(),
+          new CompositeDisposable());
+    } else {
+      return new ProdTransactionRepository(networkInfo, accountKeystoreService, inDiskCache,
+          blockExplorerClient, defaultTokenProvider, new BlockchainErrorMapper(), nonceObtainer,
+          Schedulers.io(), mapper, transactionsNetworkRepository);
+    }
   }
 
   @Singleton @Provides SmsValidationApi provideSmsValidationApi(OkHttpClient client, Gson gson) {
