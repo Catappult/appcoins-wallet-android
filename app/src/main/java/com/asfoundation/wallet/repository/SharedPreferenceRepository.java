@@ -7,7 +7,7 @@ import android.preference.PreferenceManager;
 public class SharedPreferenceRepository implements PreferenceRepositoryType {
 
   private static final String CURRENT_ACCOUNT_ADDRESS_KEY = "current_account_address";
-  private static final String TC_PP_ACCEPTED_KEY = "tc_pp_accepted";
+  private static final String ONBOARDING_COMPLETE_KEY = "onboarding_complete";
 
   private final SharedPreferences pref;
 
@@ -16,12 +16,12 @@ public class SharedPreferenceRepository implements PreferenceRepositoryType {
   }
 
   @Override public boolean hasAcceptedTCAndPP() {
-    return pref.getBoolean(TC_PP_ACCEPTED_KEY, false);
+    return pref.getBoolean(ONBOARDING_COMPLETE_KEY, false);
   }
 
   @Override public void setAcceptedTCAndPP() {
     pref.edit()
-        .putBoolean(TC_PP_ACCEPTED_KEY, true)
+        .putBoolean(ONBOARDING_COMPLETE_KEY, true)
         .apply();
   }
 
