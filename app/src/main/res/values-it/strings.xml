@@ -106,13 +106,14 @@
   <string name="intro_message_first_page">Benvenuto nella rivoluzione della app economy.</string>
   <string name="intro_message_second_page">Le chiavi private non lasciano mai il tuo dispositivo.</string>
   <string name="intro_message_third_page">Elabora tutti i pagamenti in-app e i premi in APPC.</string>
+  <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Your app for in-app purchases.</string>
   <string name="intro_2_title">Gioca di più, paga di meno</string>
   <string name="intro_2_body">Fatti premiare per i tuoi acquisti sulle app e i giochi che preferisci.</string>
   <string name="intro_3_title">Semplice e lineare</string>
   <string name="intro_3_body">Processa tutti i tuoi acquisti in-app con il tuo metodo di pagamento preferito.</string>
   <string name="intro_4_title">Sicuro e privato</string>
-  <string name="intro_4_body">Le tue chiavi private non lasceranno mai il tuo dispositivo, rendendo le AppCoins sicure in ogni momento.</string>
+  <string name="intro_4_body">Your private info will never leave your device, so your AppCoins are safe at all times.</string>
   <string name="intro_creating_wallet_short">Creazione del tuo portafoglio in corso&#8230;</string>
   <string name="intro_wallet_created_short">Portafoglio creato!</string>
   <string name="intro_agree_terms_and_conditions_body">Premendo \'Salta\' accetti i %1$s e l\'%2$s di AppCoins Wallet</string>
