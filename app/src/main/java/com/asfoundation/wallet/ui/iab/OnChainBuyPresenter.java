@@ -154,7 +154,6 @@ public class OnChainBuyPresenter {
     Log.d(TAG, "present: " + transaction);
     switch (transaction.getStatus()) {
       case COMPLETED:
-        Log.d(TAG, "showPendingTransaction: addevent can be here");
         return inAppPurchaseInteractor.getCompletedPurchase(transaction, isBds)
             .observeOn(AndroidSchedulers.mainThread())
             .map(payment -> buildBundle(payment, transaction.getOrderReference()))
@@ -238,6 +237,6 @@ public class OnChainBuyPresenter {
             EVENT_REVENUE_CURRENCY))
         .doOnSuccess(fiatValue -> analytics.sendRevenueEvent(String.valueOf(fiatValue.getAmount())))
         .subscribe(__ -> {
-        }, this::showError));
+        }, Throwable::printStackTrace));
   }
 }
