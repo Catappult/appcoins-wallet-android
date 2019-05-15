@@ -106,13 +106,14 @@
   <string name="intro_message_first_page">Üdvözöljük az alkalmazások gazdasági forradalmában.</string>
   <string name="intro_message_second_page">A privát kulcsok sose hagyják el eszközödet.</string>
   <string name="intro_message_third_page">Minden alkalmazáson belüli fizetésedet és jutalmadat APPC-al végezheted.</string>
+  <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Your app for in-app purchases.</string>
   <string name="intro_2_title">Játssz többet, fizess kevesebbet</string>
   <string name="intro_2_body">Jutalmakat kaphat, ha kedvenc appjaiban és játékaiban vásárol.</string>
   <string name="intro_3_title">Egyszerű és könnyű</string>
   <string name="intro_3_body">Alkalmazáson belüli vásárlásaidat a kedvenc fizetési módszereddel hajthatod végre.</string>
   <string name="intro_4_title">Biztonságos és privát</string>
-  <string name="intro_4_body">Privát kulcsaid sose hagyják el eszközödet, így AppCoin-jaid mindig biztonságban lesznek.</string>
+  <string name="intro_4_body">Your private info will never leave your device, so your AppCoins are safe at all times.</string>
   <string name="intro_creating_wallet_short">Létrehozunk neked egy tárcát&#8230;</string>
   <string name="intro_wallet_created_short">Tárca létrehozva!</string>
   <string name="intro_agree_terms_and_conditions_body">A Kihagyás gombra bökve elfogadod az AppCoins Wallet %1$s és %2$s dokumentumait</string>
