@@ -20,7 +20,6 @@ repositories {
   maven { url 'https://maven.fabric.io/public' }
 }
 
-
 android {
   compileSdkVersion 28
   buildToolsVersion '28.0.3'
@@ -36,8 +35,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion 21
     targetSdkVersion 28
-    versionCode 79
-    versionName "1.6.1.0"
+    versionCode 81
+    versionName "1.6.2.1"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -123,6 +122,7 @@ android {
           project.LEADING_ZEROS_ON_PROOF_OF_ATTENTION_DEBUG
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       applicationIdSuffix ".dev"
+      versionNameSuffix ".dev"
       buildConfigField 'String', 'BASE_HOST',
           "\"" + project.BASE_HOST_DEV + "\""
       buildConfigField 'String', 'BACKEND_HOST',
@@ -161,7 +161,6 @@ android {
     sourceCompatibility 1.8
   }
 }
-
 
 dependencies {
   // Etherium client

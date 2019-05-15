@@ -14,8 +14,8 @@ public class AppcoinsTransactionService implements TransactionService {
     this.pendingTransactionService = pendingTransactionService;
   }
 
-  @Override public Completable waitForTransactionToComplete(String transactionHash, int chainId) {
-    return pendingTransactionService.checkTransactionState(transactionHash, chainId)
+  @Override public Completable waitForTransactionToComplete(String transactionHash) {
+    return pendingTransactionService.checkTransactionState(transactionHash)
         .retryWhen(throwableObservable -> throwableObservable.flatMap(throwable -> {
           if (throwable instanceof TransactionNotFoundException) {
             return Observable.timer(5, TimeUnit.SECONDS);

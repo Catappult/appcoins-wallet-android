@@ -1,12 +1,12 @@
 package com.asfoundation.wallet.di;
 
 import com.appcoins.wallet.billing.BuildConfig;
+import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchTransactionsInteract;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
-import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.OffChainTransactions;
 import com.asfoundation.wallet.repository.OffChainTransactionsRepository;
 import com.asfoundation.wallet.repository.TokenLocalSource;
@@ -14,6 +14,7 @@ import com.asfoundation.wallet.repository.TokenRepository;
 import com.asfoundation.wallet.repository.TransactionLocalSource;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
+import com.asfoundation.wallet.repository.Web3jProvider;
 import com.asfoundation.wallet.router.AirdropRouter;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.ManageWalletsRouter;
@@ -106,14 +107,12 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
     return new ExternalBrowserRouter();
   }
 
-  @Provides TokenRepository provideTokenRepository(OkHttpClient okHttpClient,
-      EthereumNetworkRepositoryType ethereumNetworkRepository,
-      WalletRepositoryType walletRepository, TokenExplorerClientType tokenExplorerClientType,
-      TokenLocalSource tokenLocalSource, TransactionLocalSource inDiskCache,
-      TickerService tickerService, DefaultTokenProvider defaultTokenProvider) {
-    return new TokenRepository(okHttpClient, ethereumNetworkRepository, walletRepository,
-        tokenExplorerClientType, tokenLocalSource, inDiskCache, tickerService,
-        defaultTokenProvider);
+  @Provides TokenRepository provideTokenRepository(WalletRepositoryType walletRepository,
+      TokenExplorerClientType tokenExplorerClientType, TokenLocalSource tokenLocalSource,
+      TransactionLocalSource inDiskCache, TickerService tickerService, Web3jProvider web3j,
+      NetworkInfo networkInfo, DefaultTokenProvider defaultTokenProvider) {
+    return new TokenRepository(walletRepository, tokenExplorerClientType, tokenLocalSource,
+        inDiskCache, tickerService, web3j, networkInfo, defaultTokenProvider);
   }
 
   @Provides TransactionsMapper provideTransactionsMapper(DefaultTokenProvider defaultTokenProvider,

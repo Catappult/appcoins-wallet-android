@@ -1,44 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     >
-  <LinearLayout
+  <TextView
+      android:id="@+id/title"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_gravity="center_vertical"
-      android:background="@color/white"
-      android:orientation="vertical"
-      >
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/big_margin"
-        android:textColor="@color/black"
-        android:textSize="28sp"
-        tools:text="@string/intro_title_first_page"
-        />
-    <ImageView
-        android:id="@+id/img"
-        android:layout_width="@dimen/intro_img_size"
-        android:layout_height="@dimen/intro_img_size"
-        android:layout_gravity="center_horizontal"
-        android:contentDescription="@string/empty"
-        android:src="@drawable/onboarding_asf_ic"
-        />
-    <TextView
-        android:id="@+id/message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/big_margin"
-        android:gravity="center_horizontal"
-        android:textSize="16sp"
-        tools:text="Please note this app is a beta version and you should not use it with important accounts yet!"
-        />
-  </LinearLayout>
-</ScrollView>
+      android:layout_marginBottom="11dp"
+      android:gravity="center"
+      android:textStyle="bold"
+      app:layout_constraintBottom_toTopOf="@id/message"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      tools:text="@string/intro_title_first_page"
+      style="@style/GasSettingsTextStyle"
+      />
+  <TextView
+      android:id="@+id/message"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="21dp"
+      android:gravity="center_horizontal"
+      android:paddingEnd="50dp"
+      android:paddingStart="50dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      tools:text="Please note this app is a beta version and you should not use it with important accounts yet!"
+      style="@style/GasSettingsTextStyle.Body"
+      />
+</androidx.constraintlayout.widget.ConstraintLayout>

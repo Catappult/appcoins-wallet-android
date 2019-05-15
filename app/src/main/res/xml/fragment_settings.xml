@@ -10,12 +10,6 @@
       android:title="@string/action_wallets"
       />
 
-  <ListPreference
-      android:dialogTitle="@string/network_label"
-      android:icon="@mipmap/settings_server"
-      android:key="pref_rpcServer"
-      android:title="@string/network_label"/>
-
   <Preference
       android:icon="@drawable/ic_settings_permissions"
       android:key="pref_permissions"
@@ -77,7 +71,7 @@
         android:title="@string/telegram">
       <intent
           android:action="android.intent.action.VIEW"
-          android:data="https://t.me/joinchat/G337zg6z0ACm6QTvUU9_Yw"/>
+          android:data="https://t.me/appcoinsofficial"/>
     </Preference>
 
     <Preference
