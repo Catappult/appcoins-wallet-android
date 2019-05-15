@@ -106,13 +106,14 @@
   <string name="intro_message_first_page">Selamat datang di revolusi ekonomi aplikasi.</string>
   <string name="intro_message_second_page">Kunci rahasia tidak pernah tertinggal dari perangkat Anda.</string>
   <string name="intro_message_third_page">Proses semua pembayaran dan hadiah in-app Anda di APPC.</string>
+  <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Your app for in-app purchases.</string>
   <string name="intro_2_title">Mainkan Lebih Sering, Bayar Kurang</string>
   <string name="intro_2_body">Dapatkan imbalan untuk pembelian item di aplikasi dan permainan favorit Anda.</string>
   <string name="intro_3_title">Sederhana dan Mudah</string>
   <string name="intro_3_body">Proses semua pembelian in-app Anda dengan metode pembayaran favorit.</string>
   <string name="intro_4_title">Aman dan Pribadi</string>
-  <string name="intro_4_body">Kunci pribadi Anda tidak akan pernah meninggalkan perangkat, jadi AppCoins Anda selalu aman.</string>
+  <string name="intro_4_body">Your private info will never leave your device, so your AppCoins are safe at all times.</string>
   <string name="intro_creating_wallet_short">Kami membuat dompet untuk Anda&#8230;</string>
   <string name="intro_wallet_created_short">Dompet sudah dibuat!</string>
   <string name="intro_agree_terms_and_conditions_body">Dengan mengetuk Lewatkan, Anda menyetujui %1$s dan %2$s Dompet AppCoins</string>
