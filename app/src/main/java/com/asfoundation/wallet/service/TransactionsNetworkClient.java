@@ -1,10 +1,8 @@
 package com.asfoundation.wallet.service;
 
-import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.Wallet;
-import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.google.gson.Gson;
 import io.reactivex.Observable;
 import io.reactivex.ObservableOperator;
@@ -32,13 +30,10 @@ public class TransactionsNetworkClient implements TransactionsNetworkClientType 
 
   private ApiClient apiClient;
 
-  public TransactionsNetworkClient(OkHttpClient httpClient, Gson gson,
-      EthereumNetworkRepositoryType networkRepository) {
+  public TransactionsNetworkClient(OkHttpClient httpClient, Gson gson, NetworkInfo networkInfo) {
     this.httpClient = httpClient;
     this.gson = gson;
 
-    networkRepository.addOnChangeDefaultNetwork(this::onNetworkChanged);
-    NetworkInfo networkInfo = networkRepository.getDefaultNetwork();
     onNetworkChanged(networkInfo);
   }
 
@@ -73,7 +68,8 @@ public class TransactionsNetworkClient implements TransactionsNetworkClientType 
         boolean hasMore = true;
         do {
           page++;
-          Call<ApiClientResponse> call = apiClient.fetchTransactions(PAGE_LIMIT, page, wallet.address);
+          Call<ApiClientResponse> call =
+              apiClient.fetchTransactions(PAGE_LIMIT, page, wallet.address);
           Response<ApiClientResponse> response = call.execute();
           if (response.isSuccessful()) {
             ApiClientResponse body = response.body();

@@ -27,10 +27,6 @@ public class BdsPendingTransactionService implements TrackTransactionService {
         billingPaymentProofSubmission.getTransactionId(hash));
   }
 
-  @Override public Observable<PendingTransaction> checkTransactionState(String hash, int chainId) {
-    return Observable.error(new UnsupportedOperationException("Chain id no supported by bds flow"));
-  }
-
   public Observable<PendingTransaction> checkTransactionStateFromTransactionId(String uid) {
     return Observable.interval(period, TimeUnit.SECONDS, scheduler)
         .timeInterval()

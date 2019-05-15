@@ -150,7 +150,7 @@
   <Button
       android:id="@+id/details_button"
       android:layout_width="wrap_content"
-      android:layout_height="32dp"
+      android:layout_height="@dimen/button_height"
       android:layout_marginTop="36dp"
       android:text="@string/gamification_level_button_how"
       app:layout_constraintBottom_toBottomOf="parent"

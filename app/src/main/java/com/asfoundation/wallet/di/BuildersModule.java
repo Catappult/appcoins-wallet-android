@@ -36,6 +36,7 @@ import com.asfoundation.wallet.ui.iab.OnChainBuyFragment;
 import com.asfoundation.wallet.ui.iab.PaymentMethodsFragment;
 import com.asfoundation.wallet.ui.iab.WebViewActivity;
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment;
+import com.asfoundation.wallet.ui.onboarding.OnboardingActivity;
 import com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment;
 import com.asfoundation.wallet.ui.transact.TransferFragment;
 import dagger.Module;
@@ -92,6 +93,8 @@ import dagger.android.ContributesAndroidInjector;
   abstract OneStepPaymentReceiver bindOneStepPaymentReceiver();
 
   @ActivityScope @ContributesAndroidInjector abstract TopUpActivity bindTopUpActivity();
+
+  @ActivityScope @ContributesAndroidInjector abstract OnboardingActivity bindOnboardingModule();
 
   @ContributesAndroidInjector() abstract WalletPoAService bindWalletPoAService();
 

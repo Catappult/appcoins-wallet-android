@@ -194,7 +194,7 @@
     <item name="android:textColor">@color/transaction_details_button_color</item>
     <item name="android:textSize">12sp</item>
   </style>
-  
+
   <style name="DialogTextStyle">
     <item name="android:textColor">@color/gray_alpha_8a</item>
     <item name="android:textSize">12sp</item>
@@ -215,6 +215,10 @@
     <item name="android:textSize">16sp</item>
     <item name="android:textColor">#828282</item>
     <item name="android:fontFamily">sans-serif</item>
+  </style>
+
+  <style name="TextAppearance.AppCompat.Body1.Roboto.Medium.White">
+    <item name="android:textColor">#ffffff</item>
   </style>
 
   <style name="RewardsLevelTextStyle">
@@ -342,6 +346,15 @@
 
   <style name="GasSettingsTextStyle.Body">
     <item name="android:textSize">12sp</item>
+  </style>
+
+  <style name="OnboardingTermsConditionsTextStyle">
+    <item name="android:fontFamily">sans-serif</item>
+    <item name="android:textSize">9sp</item>
+  </style>
+
+  <style name="OnboardingTermsConditionsTextStyle.Warning">
+    <item name="android:textColor">@color/selection_dot_selected</item>
   </style>
 
 </resources>

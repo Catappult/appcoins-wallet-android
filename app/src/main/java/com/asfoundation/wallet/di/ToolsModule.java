@@ -61,6 +61,7 @@ import com.asfoundation.wallet.billing.partners.WalletAddressService;
 import com.asfoundation.wallet.billing.purchase.BillingFactory;
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository;
 import com.asfoundation.wallet.billing.share.ShareLinkRepository;
+import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.BalanceGetter;
 import com.asfoundation.wallet.interact.BuildConfigDefaultTokenProvider;
@@ -72,6 +73,7 @@ import com.asfoundation.wallet.interact.FetchTokensInteract;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
+import com.asfoundation.wallet.interact.PaymentReceiverInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.permissions.PermissionsInteractor;
 import com.asfoundation.wallet.permissions.repository.PermissionRepository;
@@ -84,7 +86,6 @@ import com.asfoundation.wallet.poa.HashCalculator;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofWriter;
 import com.asfoundation.wallet.poa.TaggedCompositeDisposable;
-import com.asfoundation.wallet.poa.TransactionFactory;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.ApproveTransactionValidatorBds;
 import com.asfoundation.wallet.repository.BalanceService;
@@ -95,8 +96,6 @@ import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.BuyTransactionValidatorBds;
 import com.asfoundation.wallet.repository.CurrencyConversionService;
 import com.asfoundation.wallet.repository.ErrorMapper;
-import com.asfoundation.wallet.repository.EthereumNetworkRepository;
-import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.GasSettingsRepository;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
@@ -149,6 +148,7 @@ import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer;
 import com.asfoundation.wallet.ui.iab.raiden.NonceObtainerFactory;
 import com.asfoundation.wallet.ui.iab.raiden.Web3jNonceProvider;
 import com.asfoundation.wallet.ui.iab.share.ShareLinkInteractor;
+import com.asfoundation.wallet.ui.onboarding.OnboardingInteract;
 import com.asfoundation.wallet.ui.transact.TransactionDataValidator;
 import com.asfoundation.wallet.ui.transact.TransferInteractor;
 import com.asfoundation.wallet.util.DeviceInfo;
@@ -207,11 +207,6 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .readTimeout(30, TimeUnit.MINUTES)
         .writeTimeout(30, TimeUnit.MINUTES)
         .build();
-  }
-
-  @Singleton @Provides EthereumNetworkRepositoryType provideEthereumNetworkRepository(
-      PreferenceRepositoryType preferenceRepository, TickerService tickerService) {
-    return new EthereumNetworkRepository(preferenceRepository, tickerService);
   }
 
   @Singleton @Provides SharedPreferenceRepository providePreferenceRepository(Context context) {
@@ -386,12 +381,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(
-      WalletRepositoryType walletRepository,
-      EthereumNetworkRepositoryType ethereumNetworkRepository,
-      FetchTokensInteract fetchTokensInteract, FindDefaultWalletInteract defaultWalletInteract,
-      FetchCreditsInteract fetchCreditsInteract) {
-    return new GetDefaultWalletBalance(walletRepository, ethereumNetworkRepository,
-        fetchTokensInteract, defaultWalletInteract, fetchCreditsInteract);
+      WalletRepositoryType walletRepository, FetchTokensInteract fetchTokensInteract,
+      FindDefaultWalletInteract defaultWalletInteract, FetchCreditsInteract fetchCreditsInteract,
+      NetworkInfo networkInfo) {
+    return new GetDefaultWalletBalance(walletRepository, fetchTokensInteract, defaultWalletInteract,
+        fetchCreditsInteract, networkInfo);
   }
 
   @Provides FetchTokensInteract provideFetchTokensInteract(TokenRepositoryType tokenRepository,
@@ -432,16 +426,13 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new TransferParser(eipTransactionParser, oneStepTransactionParser);
   }
 
-  @Provides FindDefaultNetworkInteract provideFindDefaultNetworkInteract(
-      EthereumNetworkRepositoryType ethereumNetworkRepositoryType) {
-    return new FindDefaultNetworkInteract(ethereumNetworkRepositoryType,
-        AndroidSchedulers.mainThread());
+  @Provides FindDefaultNetworkInteract provideFindDefaultNetworkInteract(NetworkInfo networkInfo) {
+    return new FindDefaultNetworkInteract(networkInfo, AndroidSchedulers.mainThread());
   }
 
   @Provides DefaultTokenProvider provideDefaultTokenProvider(
-      FindDefaultNetworkInteract defaultNetworkInteract,
-      FindDefaultWalletInteract findDefaultWalletInteract) {
-    return new BuildConfigDefaultTokenProvider(defaultNetworkInteract, findDefaultWalletInteract);
+      FindDefaultWalletInteract findDefaultWalletInteract, NetworkInfo networkInfo) {
+    return new BuildConfigDefaultTokenProvider(findDefaultWalletInteract, networkInfo);
   }
 
   @Singleton @Provides Calculator provideMessageDigest() {
@@ -456,8 +447,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides GasSettingsRepositoryType provideGasSettingsRepository(
-      EthereumNetworkRepositoryType ethereumNetworkRepository, Web3jProvider web3jProvider) {
-    return new GasSettingsRepository(ethereumNetworkRepository, web3jProvider);
+      Web3jProvider web3jProvider) {
+    return new GasSettingsRepository(web3jProvider);
   }
 
   @Singleton @Provides DataMapper provideDataMapper() {
@@ -466,14 +457,6 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides @Named("REGISTER_PROOF_GAS_LIMIT") BigDecimal provideRegisterPoaGasLimit() {
     return new BigDecimal(BuildConfig.REGISTER_PROOF_GAS_LIMIT);
-  }
-
-  @Singleton @Provides TransactionFactory provideTransactionFactory(Web3jProvider web3jProvider,
-      WalletRepositoryType walletRepository, AccountKeystoreService accountKeystoreService,
-      PasswordStore passwordStore, EthereumNetworkRepositoryType ethereumNetworkRepository,
-      DataMapper dataMapper, AppCoinsAddressProxySdk adsContractAddressProvider) {
-    return new TransactionFactory(web3jProvider, walletRepository, accountKeystoreService,
-        passwordStore, ethereumNetworkRepository, dataMapper, adsContractAddressProvider);
   }
 
   @Singleton @Provides ProofWriter provideBdsBackEndWriter(
@@ -541,9 +524,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return operationSources.getSources();
   }
 
-  @Provides AirdropChainIdMapper provideAirdropChainIdMapper(
-      FindDefaultNetworkInteract defaultNetworkInteract) {
-    return new AirdropChainIdMapper(defaultNetworkInteract);
+  @Provides AirdropChainIdMapper provideAirdropChainIdMapper(NetworkInfo networkInfo) {
+    return new AirdropChainIdMapper(networkInfo);
   }
 
   @Provides AirdropService provideAirdropService(OkHttpClient client, Gson gson) {
@@ -557,13 +539,13 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides AirdropInteractor provideAirdropInteractor(
-      PendingTransactionService pendingTransactionService, EthereumNetworkRepositoryType repository,
-      AirdropService airdropService, FindDefaultWalletInteract findDefaultWalletInteract,
+      PendingTransactionService pendingTransactionService, AirdropService airdropService,
+      FindDefaultWalletInteract findDefaultWalletInteract,
       AirdropChainIdMapper airdropChainIdMapper) {
     return new AirdropInteractor(
         new Airdrop(new AppcoinsTransactionService(pendingTransactionService),
             BehaviorSubject.create(), airdropService), findDefaultWalletInteract,
-        airdropChainIdMapper, repository);
+        airdropChainIdMapper);
   }
 
   @Singleton @Provides AppcoinsApps provideAppcoinsApps(OkHttpClient client, Gson gson) {
@@ -809,6 +791,16 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Provides CreateWalletInteract provideCreateAccountInteract(
       WalletRepositoryType accountRepository, PasswordStore passwordStore) {
     return new CreateWalletInteract(accountRepository, passwordStore);
+  }
+
+  @Provides PaymentReceiverInteract providePaymentReceiverInteract(
+      CreateWalletInteract createWalletInteract) {
+    return new PaymentReceiverInteract(createWalletInteract);
+  }
+
+  @Provides OnboardingInteract provideOnboardingInteract(CreateWalletInteract createWalletInteract,
+      WalletService walletService, PreferenceRepositoryType preferenceRepositoryType) {
+    return new OnboardingInteract(createWalletInteract, walletService, preferenceRepositoryType);
   }
 
   @Singleton @Provides BillingAnalytics provideBillingAnalytics(AnalyticsManager analytics) {
