@@ -106,13 +106,14 @@
   <string name="intro_message_first_page">ਐਪ ਅਰਥ-ਵਿਵਸਥਾ ਦੀ ਕ੍ਰਾਂਤੀ ਵਿੱਚ ਸੁਆਗਤ ਹੈ|</string>
   <string name="intro_message_second_page">ਪ੍ਰਾਈਵੇਟ ਕੀ ਤੁਹਾਡੀ ਡਿਵਾਈਸ ਨੂੰ ਕਦੇ ਨਹੀਂ ਛੱਡਦੀਆਂ|</string>
   <string name="intro_message_third_page">ਏਪੀਪੀਸੀ ਵਿਚ ਆਪਣੇ ਇਨ-ਐਪ ਭੁਗਤਾਨ ਅਤੇ ਇਨਾਮਾਂ ਦੀ ਪ੍ਰਕਿਰਿਆ ਕਰੋ|</string>
+  <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Your app for in-app purchases.</string>
   <string name="intro_2_title">ਪੈਸੇ ਘੱਟ ਦਿਓ, ਖੇਡੋ ਜ਼ਿਆਦਾ</string>
   <string name="intro_2_body">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਅਤੇ ਖੇਡਾਂ ਵਿੱਚ ਆਈਟਮਾਂ ਖਰੀਦਣ ਤੇ ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰੋ|</string>
   <string name="intro_3_title">ਆਸਾਨ ਅਤੇ ਸੌਖਾ</string>
   <string name="intro_3_body">ਆਪਣੀ ਮਨਪਸੰਦ ਭੁਗਤਾਨ ਵਿਧੀ ਵਰਤਦੇ ਹੋਏ ਆਪਣੀਆਂ ਸਾਰੀਆਂ ਇਨ-ਐਪ ਖ਼ਰੀਦਾਂ ਕਰੋ|</string>
   <string name="intro_4_title">ਸੁਰੱਖਿਅਤ ਅਤੇ ਨਿੱਜੀ</string>
-  <string name="intro_4_body">ਤੁਹਾਡੀਆਂ ਨਿੱਜੀ ਚਾਬੀਆਂ ਕਦੇ ਵੀ ਤੁਹਾਡੇ ਫੋਨ ਨੂੰ ਨਹੀਂ ਛੱਡਣਗੀਆਂ, ਤਾਂ ਜੋ ਤੁਹਾਡੇ ਐਪ ਸਿੱਕੇ ਹਰ ਸਮੇਂ ਸੁਰੱਖਿਅਤ ਰਹਿਣ|</string>
+  <string name="intro_4_body">Your private info will never leave your device, so your AppCoins are safe at all times.</string>
   <string name="intro_creating_wallet_short">ਅਸੀਂ ਤੁਹਾਡੇ ਲਈ ਇੱਕ ਬਟੂਆ ਬਣਾ ਰਹੇ ਹਾਂ&#8230;</string>
   <string name="intro_wallet_created_short">ਬਟੂਆ ਬਣਾਇਆ ਗਿਆ!</string>
   <string name="intro_agree_terms_and_conditions_body">ਛੱਡੋ ਤੇ ਟੈਪ ਕਰਕੇ, ਤੁਸੀਂ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਦੇ %1$s ਅਤੇ %2$s ਨਾਲ ਸਹਿਮਤ ਹੁੰਦੇ ਹੋ</string>
