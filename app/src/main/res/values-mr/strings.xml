@@ -106,13 +106,14 @@
   <string name="intro_message_first_page">अॅप अर्थकारण क्रांतीत स्वागत आहे.</string>
   <string name="intro_message_second_page">खासगी कीज आपल्या डिव्हाइसबाहेर जात नाहीत.</string>
   <string name="intro_message_third_page">एपीपीसीमध्ये आपले इन-अॅप पेमेंटस आणि बक्षीसे प्रक्रियारत करा.</string>
+  <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Your app for in-app purchases.</string>
   <string name="intro_2_title">जास्त खेळा, कमी पैसे भरा</string>
   <string name="intro_2_body">आपल्या आवडत्या अॅप्स आणि खेळातील वस्तु खरेदी करुन बक्षिसे मिळवा.</string>
   <string name="intro_3_title">साधे आणि सोपे</string>
   <string name="intro_3_body">आपली आवडती पेमेंट पद्धत वापरुन आपली इन-अॅप खरेदी प्रक्रिया पूर्ण करा.</string>
   <string name="intro_4_title">सुरक्षित आणि खासगी</string>
-  <string name="intro_4_body">आपल्या खासगी कीज आपल्या डिव्हाइसच्या बाहेर जाणार नाहीत. त्यामुळे आपल्या अॅपकॉइन्स नेहमीच सुरक्षित रहातील.</string>
+  <string name="intro_4_body">Your private info will never leave your device, so your AppCoins are safe at all times.</string>
   <string name="intro_creating_wallet_short">आम्ही आपल्यासाठी वॉलेट तयार करीत आहोत&#8230;</string>
   <string name="intro_wallet_created_short">वॉलेट बनविले!</string>
   <string name="intro_agree_terms_and_conditions_body">वगळा वर टॅप करुन आपण अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s ना मान्यता देता</string>
