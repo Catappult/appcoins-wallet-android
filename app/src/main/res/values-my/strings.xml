@@ -106,13 +106,14 @@
   <string name="intro_message_first_page">အက္ပ္စီးပြားေရး၏ ေတာ္လွန္ဆန္းသစ္မႈမွ ႀကိဳဆိုပါသည္။</string>
   <string name="intro_message_second_page">သီးသန္႔ကီးမ်ားတြင္ သင့္ကိရိယာမွ ေပ်ာက္သြားမည္ မဟုတ္ပါ။</string>
   <string name="intro_message_third_page">သင့္အက္ပ္အတြင္း ေငြေပးေခ်မႈမ်ားႏွင့္ ဆုမ်ားအားလံုးကို APPC ျဖင့္ ေဆာင္ရြက္လိုက္ပါ။</string>
+  <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Your app for in-app purchases.</string>
   <string name="intro_2_title">မ်ားမ်ားကစားပါ၊ နည္းနည္းပဲေပးပါ</string>
   <string name="intro_2_body">သင့္စိတ္ႀကိဳက္ အက္ပ္မ်ားနွင့္ ဂိမ္းမ်ားတြင္ ပစၥည္းမ်ားကို ဝယ္ယူျခင္းအတြက္ ဆုရယူလိုက္ပါ။</string>
   <string name="intro_3_title">႐ိုးရွင္းၿပီး လြယ္ကူပါသည္</string>
   <string name="intro_3_body">သင့္စိတ္ႀကိဳက္ ေငြေပးေခ်မႈ နည္းလမ္းကို အသံုးျပဳ၍ အက္ပ္အတြင္း ဝယ္ယူမႈမ်ား အားလံုးကို စီစဥ္ေဆာင္ရြက္လိုက္ပါ။</string>
   <string name="intro_4_title">ေဘးကင္းၿပီး လံုျခံဳပါသည္</string>
-  <string name="intro_4_body">သင့္သီးသန္႔ကီးမ်ားသည္ သင့္စက္ပစၥည္းတြင္သာ ရွိေနမည္ ျဖစ္ေသာေၾကာင့္ သင့္ AppCoins မ်ားမွာ အခ်ိန္ျပည့္ လံုျခံဳပါသည္။</string>
+  <string name="intro_4_body">Your private info will never leave your device, so your AppCoins are safe at all times.</string>
   <string name="intro_creating_wallet_short">သင့္အတြက္ ပိုက္ဆံအိတ္တစ္ခုကို ကၽြႏ္ုပ္တုိ႔ ျပဳလုပ္ေနပါသည္&#8230;</string>
   <string name="intro_wallet_created_short">ပိုက္ဆံအိတ္ကို ျပဳလုပ္ၿပီးပါၿပီ။</string>
   <string name="intro_agree_terms_and_conditions_body">ေက်ာ္မည္ကို နွိပ္ျခင္းျဖင့္ သင္သည္ AppCoins ပိုက္ဆံအိတ္၏ %1$s ႏွင့္ %2$s ကို သေဘာတူျခင္း ျဖစ္ပါသည္</string>
