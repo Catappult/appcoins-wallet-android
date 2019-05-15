@@ -106,13 +106,14 @@
   <string name="intro_message_first_page">ยินดีต้อนรับสู่การปฏิวัติของเศรษฐกิจ</string>
   <string name="intro_message_second_page">คีย์ส่วนตัวไม่เคยออกจากอุปกรณ์ของคุณ</string>
   <string name="intro_message_third_page">กระบวนการในการตรวจสอบการชำระเงินและรางวัลใน APPC ทั้งหมด</string>
+  <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Your app for in-app purchases.</string>
   <string name="intro_2_title">เล่นเมาก จ่ายน้อยลง</string>
   <string name="intro_2_body">รับรางวัลสำหรับการซื้อสินค้าในแอปพลิเคชันที่ชื่นชอบและเกมของคุณ</string>
   <string name="intro_3_title">ไม่ซับซ้อน ง่าย</string>
   <string name="intro_3_body">ดำเนินการการซื้อของในแอปทั้งหมดโดยใช้วิธีการชำระเงินที่คุณชื่นชอบ</string>
   <string name="intro_4_title">ปลอดภัยและเป็นส่วนตัว</string>
-  <string name="intro_4_body">คีย์ส่วนตัวของคุณจะไม่เคยออกจากอุปกรณ์ของคุณ เพื่อ AppCoins ของคุณจะปลอดภัยตลอดเวลา</string>
+  <string name="intro_4_body">Your private info will never leave your device, so your AppCoins are safe at all times.</string>
   <string name="intro_creating_wallet_short">เรากำลังสร้างกระเป๋าสตางค์คุณ&#8230;</string>
   <string name="intro_wallet_created_short">สร้างกระเป๋าสตางค์!</string>
   <string name="intro_agree_terms_and_conditions_body">โดยการแตะที่ข้าม คุณตกลงที่จะใช้กระเป๋าสตางค์ AppCoins %1$s และ %2$s</string>
