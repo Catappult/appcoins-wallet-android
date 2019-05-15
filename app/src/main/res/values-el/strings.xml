@@ -336,6 +336,8 @@
   <string name="askafriend_share_button">Κοινοποίηση</string>
   <string name="askafriend_share_popup_title">Ask someone via:</string>
   <string name="askafriend_received_body">Μόλις λάβατε %s APPC-C</string>
+  <string name="askafriend_notification_received_title">New Transfer Received</string>
+  <string name="askafriend_notification_received_body">%1$s %2$s were credited to your wallet.</string>
   <string name="askafriend_received_title">Η Μεταφορά Πραγματοποιήθηκε</string>
   <string name="askafriend_send_title">Transfer Sent</string>
   <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
