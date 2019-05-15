@@ -106,13 +106,14 @@
   <string name="intro_message_first_page">एप्प अर्थव्यवस्था की क्रांति में आपका स्वागत है।</string>
   <string name="intro_message_second_page">निजी कुंजी कभी भी आपकी डिवाइस नहीं छोड़ती।</string>
   <string name="intro_message_third_page">APPC में अपने सभी इन-एप्प भुगतानों एवं पुरस्कारों को संसाधित करें।</string>
+  <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Your app for in-app purchases.</string>
   <string name="intro_2_title">अधिक खेलें, कम भुगतान करें</string>
   <string name="intro_2_body">अपनी पसंदीदा ऐप्स और गेम्स में चीजें खरीदने के लिए पुरस्कार पाएँ।</string>
   <string name="intro_3_title">सरल एवं आसान</string>
   <string name="intro_3_body">अपनी पसंदीदा भुगतान विधि का उपयोग कर अपने सभी इन-एप्प खरीद संसाधित करें।</string>
   <string name="intro_4_title">सुरक्षित एवं निजी</string>
-  <string name="intro_4_body">आपकी निजी कुंजी आपकी डिवाइस को कभी नहीं छोड़ेगी, इसलिए आपके AppCoins हर समय सुरक्षित हैं।</string>
+  <string name="intro_4_body">Your private info will never leave your device, so your AppCoins are safe at all times.</string>
   <string name="intro_creating_wallet_short">हम आपके लिए एक वॉलेट बना रहे हैं&#8230;</string>
   <string name="intro_wallet_created_short">वॉलेट बनाया गया!</string>
   <string name="intro_agree_terms_and_conditions_body">छोड़ें पर टैप करते हुए, आप AppCoins Wallet के %1$s और %2$s से सहमत हैं</string>
