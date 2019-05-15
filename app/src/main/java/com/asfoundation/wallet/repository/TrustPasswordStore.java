@@ -18,11 +18,10 @@ import java.util.Map;
 public class TrustPasswordStore implements PasswordStore {
 
   private final Context context;
-  private final String defaultAddress;
+  private final String defaultAddress = "0x123456789";
 
-  public TrustPasswordStore(Context context, String defaultAddress) {
+  public TrustPasswordStore(Context context) {
     this.context = context;
-    this.defaultAddress = defaultAddress;
 
     migrate();
   }
@@ -79,6 +78,10 @@ public class TrustPasswordStore implements PasswordStore {
       random.nextBytes(bytes);
       return new String(bytes);
     });
+  }
+
+  @Override public Completable setBackUpPassword(String masterPassword) {
+    return setPassword(defaultAddress, masterPassword);
   }
 
   private Single<String> getPasswordFallBack(String walletAddress) {

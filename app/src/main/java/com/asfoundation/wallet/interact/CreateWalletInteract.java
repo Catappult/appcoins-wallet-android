@@ -13,18 +13,15 @@ public class CreateWalletInteract {
 
   private final WalletRepositoryType walletRepository;
   private final PasswordStore passwordStore;
-  private final String defaultAddress;
 
-  public CreateWalletInteract(WalletRepositoryType walletRepository, PasswordStore passwordStore,
-      String defaultAddress) {
+  public CreateWalletInteract(WalletRepositoryType walletRepository, PasswordStore passwordStore) {
     this.walletRepository = walletRepository;
     this.passwordStore = passwordStore;
-    this.defaultAddress = defaultAddress;
   }
 
   public Single<Wallet> create() {
     return passwordStore.generatePassword()
-        .flatMap(masterPassword -> passwordStore.setPassword(defaultAddress, masterPassword)
+        .flatMap(masterPassword -> passwordStore.setBackUpPassword(masterPassword)
             .andThen(walletRepository.createWallet(masterPassword)
                 .compose(Operators.savePassword(passwordStore, walletRepository, masterPassword))
                 .flatMap(wallet -> passwordVerification(wallet, masterPassword))));

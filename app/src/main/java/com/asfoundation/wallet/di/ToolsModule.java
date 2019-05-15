@@ -192,7 +192,6 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 @Module class ToolsModule {
 
   private final TransactionIdHelper transactionIdHelper = new TransactionIdHelper();
-  private final String defaultAddress = "0x123456789";
 
   @Provides Context provideContext(App application) {
     return application.getApplicationContext();
@@ -229,7 +228,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides PasswordStore passwordStore(Context context) {
-    return new TrustPasswordStore(context, defaultAddress);
+    return new TrustPasswordStore(context);
   }
 
   @Singleton @Provides Logger provideLogger() {
@@ -791,7 +790,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Provides CreateWalletInteract provideCreateAccountInteract(
       WalletRepositoryType accountRepository, PasswordStore passwordStore) {
-    return new CreateWalletInteract(accountRepository, passwordStore, defaultAddress);
+    return new CreateWalletInteract(accountRepository, passwordStore);
   }
 
   @Provides PaymentReceiverInteract providePaymentReceiverInteract(

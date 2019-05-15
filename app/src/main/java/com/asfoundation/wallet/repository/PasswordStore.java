@@ -10,4 +10,6 @@ public interface PasswordStore {
   Completable setPassword(String address, String password);
 
   Single<String> generatePassword();
+
+  Completable setBackUpPassword(String masterPassword);
 }
