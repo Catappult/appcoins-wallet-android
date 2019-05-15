@@ -79,4 +79,6 @@
   <color name="purchase_bonus_background_color">#001727</color>
   <color name="layout_separator_color">#eaeaea</color>
 
+  <color name="selection_dot_unselected">#d8d8d8</color>
+  <color name="selection_dot_selected">#fe647f</color>
 </resources>

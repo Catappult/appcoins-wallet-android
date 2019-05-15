@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/create_wallet_card"
+    android:layout_width="296dp"
+    android:layout_height="254dp"
+    android:layout_gravity="center"
+    android:background="@drawable/background_card"
+    android:visibility="gone"
+    tools:visibility="visible"
+    >
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/create_wallet_animation"
+      android:layout_width="96dp"
+      android:layout_height="96dp"
+      android:layout_centerInParent="true"
+      android:visibility="gone"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/create_wallet_loading_animation"
+      tools:visibility="visible"
+      />
+
+  <TextView
+      android:id="@+id/create_wallet_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/create_wallet_animation"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="10dp"
+      android:maxLines="1"
+      android:text="@string/provide_wallet_creating_wallet_header"
+      android:visibility="gone"
+      tools:visibility="visible"
+      style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
+      />
+
+</RelativeLayout>

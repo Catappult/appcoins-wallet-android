@@ -31,4 +31,8 @@ interface PaymentAuthView {
   fun showPaymentRefusedError(adyenAuthorization: AdyenAuthorization)
 
   fun showGenericError()
+
+  fun onValidFieldStateChange(): Observable<Boolean>?
+
+  fun updateTopUpButton(valid: Boolean)
 }

@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.interact;
 
-import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.entity.Balance;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.NetworkInfo;
@@ -9,7 +8,6 @@ import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.repository.BalanceService;
-import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.util.UnknownTokenException;
 import io.reactivex.Single;
@@ -21,20 +19,19 @@ import static com.asfoundation.wallet.util.BalanceUtils.weiToEth;
 
 public class GetDefaultWalletBalance implements BalanceService {
   private final WalletRepositoryType walletRepository;
-  private final EthereumNetworkRepositoryType ethereumNetworkRepository;
   private final FetchTokensInteract fetchTokensInteract;
   private final FindDefaultWalletInteract defaultWalletInteract;
   private final FetchCreditsInteract fetchCreditsInteract;
+  private final NetworkInfo defaultNetwork;
 
   public GetDefaultWalletBalance(WalletRepositoryType walletRepository,
-      EthereumNetworkRepositoryType ethereumNetworkRepository,
       FetchTokensInteract fetchTokensInteract, FindDefaultWalletInteract defaultWalletInteract,
-      FetchCreditsInteract fetchCreditsInteract) {
+      FetchCreditsInteract fetchCreditsInteract, NetworkInfo defaultNetwork) {
     this.walletRepository = walletRepository;
-    this.ethereumNetworkRepository = ethereumNetworkRepository;
     this.fetchTokensInteract = fetchTokensInteract;
     this.defaultWalletInteract = defaultWalletInteract;
     this.fetchCreditsInteract = fetchCreditsInteract;
+    this.defaultNetwork = defaultNetwork;
   }
 
   public Single<Balance> getTokens(Wallet wallet) {
@@ -74,7 +71,7 @@ public class GetDefaultWalletBalance implements BalanceService {
   private Single<Balance> getEtherBalance(Wallet wallet) {
     return walletRepository.balanceInWei(wallet)
         .flatMap(ethBalance -> {
-          return Single.just(new Balance(ethereumNetworkRepository.getDefaultNetwork().symbol,
+          return Single.just(new Balance(defaultNetwork.symbol,
               weiToEth(ethBalance).setScale(4, RoundingMode.HALF_UP)
                   .stripTrailingZeros()
                   .toPlainString()));
@@ -151,11 +148,6 @@ public class GetDefaultWalletBalance implements BalanceService {
     } catch (NumberFormatException ex) {
       return BigDecimal.ZERO;
     }
-  }
-
-  private boolean shouldShowCredits(NetworkInfo networkInfo) {
-    return networkInfo.chainId == 3 && BuildConfig.DEBUG
-        || networkInfo.chainId == 1 && !BuildConfig.DEBUG;
   }
 
   public enum BalanceState {
