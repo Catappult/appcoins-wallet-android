@@ -110,9 +110,9 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
   @Provides TokenRepository provideTokenRepository(WalletRepositoryType walletRepository,
       TokenExplorerClientType tokenExplorerClientType, TokenLocalSource tokenLocalSource,
       TransactionLocalSource inDiskCache, TickerService tickerService, Web3jProvider web3j,
-      NetworkInfo networkInfo) {
+      NetworkInfo networkInfo, DefaultTokenProvider defaultTokenProvider) {
     return new TokenRepository(walletRepository, tokenExplorerClientType, tokenLocalSource,
-        inDiskCache, tickerService, web3j, networkInfo);
+        inDiskCache, tickerService, web3j, networkInfo, defaultTokenProvider);
   }
 
   @Provides TransactionsMapper provideTransactionsMapper(DefaultTokenProvider defaultTokenProvider,

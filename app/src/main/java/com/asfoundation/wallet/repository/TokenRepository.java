@@ -9,6 +9,7 @@ import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TokenTicker;
 import com.asfoundation.wallet.entity.TransactionOperation;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenExplorerClientType;
 import io.reactivex.Completable;
@@ -50,18 +51,20 @@ public class TokenRepository implements TokenRepositoryType {
   private final TokenLocalSource localSource;
   private final TransactionLocalSource transactionsLocalCache;
   private final TickerService tickerService;
+  private final DefaultTokenProvider defaultTokenProvider;
   private final NetworkInfo network;
   private final Web3j web3j;
 
   public TokenRepository(WalletRepositoryType walletRepository,
       TokenExplorerClientType tokenNetworkService, TokenLocalSource localSource,
       TransactionLocalSource transactionsLocalCache, TickerService tickerService,
-      Web3jProvider web3jProvider, NetworkInfo network) {
+      Web3jProvider web3jProvider, NetworkInfo network, DefaultTokenProvider defaultTokenProvider) {
     this.walletRepository = walletRepository;
     this.tokenNetworkService = tokenNetworkService;
     this.localSource = localSource;
     this.transactionsLocalCache = transactionsLocalCache;
     this.tickerService = tickerService;
+    this.defaultTokenProvider = defaultTokenProvider;
     this.web3j = web3jProvider.get();
     this.network = network;
   }
@@ -121,6 +124,14 @@ public class TokenRepository implements TokenRepositoryType {
   @Override public Observable<Token[]> fetchAll(String walletAddress) {
     Wallet wallet = new Wallet(walletAddress);
     return localSource.fetchAllTokens(network, wallet)
+        .flatMap(tokens -> {
+          if (tokens.length == 0) {
+            return defaultTokenProvider.getDefaultToken()
+                .flatMap(token -> addToken(wallet, token.address, token.symbol, token.decimals,
+                    true).andThen(localSource.fetchAllTokens(network, wallet)));
+          }
+          return Single.just(tokens);
+        })
         .toObservable();
   }
 

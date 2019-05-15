@@ -120,9 +120,10 @@ import static com.asfoundation.wallet.C.ROPSTEN_NETWORK_NAME;
   @Singleton @Provides TokenRepositoryType provideTokenRepository(
       WalletRepositoryType walletRepository, TokenExplorerClientType tokenExplorerClientType,
       TokenLocalSource tokenLocalSource, TransactionLocalSource inDiskCache,
-      TickerService tickerService, Web3jProvider web3j, NetworkInfo networkInfo) {
+      TickerService tickerService, Web3jProvider web3j, NetworkInfo networkInfo,
+      DefaultTokenProvider defaultTokenProvider) {
     return new TokenRepository(walletRepository, tokenExplorerClientType, tokenLocalSource,
-        inDiskCache, tickerService, web3j, networkInfo);
+        inDiskCache, tickerService, web3j, networkInfo, defaultTokenProvider);
   }
 
   @Singleton @Provides TokenExplorerClientType provideTokenService(OkHttpClient okHttpClient,
