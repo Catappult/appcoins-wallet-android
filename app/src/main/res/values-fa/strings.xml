@@ -106,13 +106,14 @@
   <string name="intro_message_first_page">به یک انقلاب در اقتصاد اپلیکیشن خوش آمدید.</string>
   <string name="intro_message_second_page">کلیدهای خصوصی هرگز دستگاه شما را ترک نمی‌کنند.</string>
   <string name="intro_message_third_page">همه پرداخت‌های داخل اپلیکیشنی و جایزه‌های APPC خود را پردازش کنید.</string>
+  <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Your app for in-app purchases.</string>
   <string name="intro_2_title">بیشتر بازی کن، کمتر پرداخت کن</string>
   <string name="intro_2_body">برای خرید کردن در بازی‌ها و اپلیکیشن‌های مورد علاقه خود پاداش بگیر.</string>
   <string name="intro_3_title">ساده و آسان</string>
   <string name="intro_3_body">برای همه خریدهای داخل اپلیکیشن از روش پرداخت مورد علاقه خود استفاده کن.</string>
   <string name="intro_4_title">امن و خصوصی</string>
-  <string name="intro_4_body">کلیدهای خصوصی شما هرگز دستگاه شما را ترک نخواهد کرد، بنابراین AppCoins همیشه امن هستند.</string>
+  <string name="intro_4_body">Your private info will never leave your device, so your AppCoins are safe at all times.</string>
   <string name="intro_creating_wallet_short">ما یک کیف پول برای شما می سازیم&#8230;</string>
   <string name="intro_wallet_created_short">کیف پول ساخته شد!</string>
   <string name="intro_agree_terms_and_conditions_body">با کلیک روی دکمه پرش، شما با %1$s و %2$s کیف پول AppCoins موافقت می کنید</string>
