@@ -8,21 +8,31 @@
     android:theme="@style/AppTheme.AppBarOverlay"
     >
 
-  <com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
+  <com.google.android.material.appbar.CollapsingToolbarLayout
       android:id="@+id/toolbar_layout"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
+      android:background="@drawable/appbar_background_color"
       android:fitsSystemWindows="false"
       android:theme="@style/AppTheme.AppBarOverlay"
-      app:collapsedSubtitleTextAppearance="@style/ToolbarTextAppearance.Subtitle"
+      app:collapsedTitleGravity="start|center"
       app:collapsedTitleTextAppearance="@style/ToolbarTextAppearance.Title"
-      app:expandedSubtitleTextAppearance="@style/ToolbarTextAppearance.Subtitle.Expanded"
-      app:expandedTitleGravity="bottom|center_horizontal"
+      app:expandedTitleGravity="center"
       app:expandedTitleTextAppearance="@style/ToolbarTextAppearance.Title.Expanded"
       app:layout_scrollFlags="scroll|exitUntilCollapsed"
       app:toolbarId="@+id/toolbar"
-      android:background="@drawable/appbar_background_color"
       >
+
+    <TextView
+        android:id="@+id/toolbar_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="55dp"
+        android:layout_marginTop="87dp"
+        app:layout_collapseMode="parallax"
+        style="@style/TransactionDetailsTextStyle.AppBar"
+        />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -50,5 +60,5 @@
         android:layout_height="match_parent"
         />
 
-  </com.google.android.material.appbar.SubtitleCollapsingToolbarLayout>
+  </com.google.android.material.appbar.CollapsingToolbarLayout>
 </com.google.android.material.appbar.AppBarLayout>

@@ -12,6 +12,7 @@ import android.text.SpannableString;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -58,6 +59,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private Dialog dialog;
   private EmptyTransactionsView emptyView;
   private RecyclerView list;
+  private TextView subtitle;
 
   public static Intent newIntent(Context context) {
     Intent intent = new Intent(context, TransactionsActivity.class);
@@ -73,11 +75,14 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     toolbar();
     enableDisplayHomeAsUp();
 
+    subtitle = findViewById(R.id.toolbar_subtitle);
     ((AppBarLayout) findViewById(R.id.app_bar)).addOnOffsetChangedListener(
         (appBarLayout, verticalOffset) -> {
           float percentage =
               ((float) Math.abs(verticalOffset) / appBarLayout.getTotalScrollRange());
-          findViewById(R.id.toolbar_layout_logo).setAlpha(1 - (percentage * 1.20f));
+          float alpha = 1 - (percentage * 1.20f);
+          findViewById(R.id.toolbar_layout_logo).setAlpha(alpha);
+          subtitle.setAlpha(alpha);
           ((ToolbarArcBackground) findViewById(R.id.toolbar_background_arc)).setScale(percentage);
 
           if (percentage == 0) {
@@ -126,13 +131,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
   }
 
-  private void onFetchTransactionsError(Double maxBonus) {
-    if (emptyView == null) {
-      emptyView = new EmptyTransactionsView(this, this, String.valueOf(maxBonus));
-      systemView.showEmpty(emptyView);
-    }
-  }
-
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.action_settings: {
@@ -149,6 +147,13 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       }
     }
     return super.onOptionsItemSelected(item);
+  }
+
+  private void onFetchTransactionsError(Double maxBonus) {
+    if (emptyView == null) {
+      emptyView = new EmptyTransactionsView(this, this, String.valueOf(maxBonus));
+      systemView.showEmpty(emptyView);
+    }
   }
 
   private void onApplicationClick(AppcoinsApplication appcoinsApplication) {
@@ -171,7 +176,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void onCreditsBalanceChanged(Balance balance) {
-    setSubtitle(balance.getValue() + " " + balance.getSymbol());
+    subtitle.setText(balance.getValue() + " " + balance.getSymbol());
   }
 
   private void onTransactionClick(View view, Transaction transaction) {
@@ -302,6 +307,11 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
           })
           .show();
     }
+  }
+
+  @Override protected void onDestroy() {
+    subtitle = null;
+    super.onDestroy();
   }
 
   private void openExchangeDialog() {
