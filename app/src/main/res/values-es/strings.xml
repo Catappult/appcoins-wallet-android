@@ -359,4 +359,7 @@
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
   <string name="terms_and_conditions">Términos y Condiciones</string>
   <string name="privacy_policy">Política de Privacidad</string>
+  <!--Home-->
+  <string name="home_empty_discover_apps_body">The best Android apps are waiting for you.</string>
+  <string name="home_empty_discover_apps_button">DISCOVER TOP APPS</string>
 </resources>
