@@ -14,7 +14,6 @@ import android.os.Messenger;
 import androidx.annotation.IntRange;
 import androidx.core.app.NotificationCompat;
 import android.util.Log;
-import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.billing.analytics.PoaAnalytics;
@@ -206,7 +205,7 @@ public class WalletPoAService extends Service {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         notificationManager.notify(SERVICE_ID,
-            createDefaultNotificationBuilder(R.string.notification_completed_poa).setContentIntent(
+            createHeadsUpNotificationBuilder(R.string.notification_completed_poa).setContentIntent(
                 pendingIntent)
                 .build());
         break;
@@ -275,10 +274,34 @@ public class WalletPoAService extends Service {
     return progress * 100 / (maxNumberProofComponents + 3);
   }
 
+  private NotificationCompat.Builder createHeadsUpNotificationBuilder(int notificationText){
+    NotificationCompat.Builder builder;
+    String channelId = "notification_channel_heads_up_id";
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+      CharSequence channelName = "Notification channel";
+      int importance = NotificationManager.IMPORTANCE_HIGH;
+      NotificationChannel notificationChannel =
+              new NotificationChannel(channelId, channelName, importance);
+      builder = new NotificationCompat.Builder(this, channelId);
+
+      NotificationManager notificationManager =
+              (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+      notificationManager.createNotificationChannel(notificationChannel);
+    } else {
+      builder = new NotificationCompat.Builder(this, channelId);
+      builder.setVibrate(new long[0]);
+    }
+
+    return builder.setContentTitle(getString(R.string.app_name))
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setPriority(NotificationCompat.PRIORITY_MAX)
+            .setContentText(getString(notificationText));
+  }
+
   private NotificationCompat.Builder createDefaultNotificationBuilder(int notificationText) {
     NotificationCompat.Builder builder;
+    String channelId = "notification_channel_id";
     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-      String channelId = "notification_channel_id";
       CharSequence channelName = "Notification channel";
       int importance = NotificationManager.IMPORTANCE_LOW;
       NotificationChannel notificationChannel =
@@ -289,7 +312,7 @@ public class WalletPoAService extends Service {
           (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
       notificationManager.createNotificationChannel(notificationChannel);
     } else {
-      builder = new NotificationCompat.Builder(this);
+      builder = new NotificationCompat.Builder(this, channelId);
     }
 
     return builder.setContentTitle(getString(R.string.app_name))
