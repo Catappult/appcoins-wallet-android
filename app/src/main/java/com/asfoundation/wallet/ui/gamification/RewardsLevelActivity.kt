@@ -10,7 +10,7 @@ import com.asfoundation.wallet.ui.BaseActivity
 class RewardsLevelActivity : BaseActivity(), GamificationView {
 
   lateinit var menu: Menu
-  private var gameficationAvailable = false
+  private var gamificationAvailable = false
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -81,13 +81,13 @@ class RewardsLevelActivity : BaseActivity(), GamificationView {
   }
 
   override fun onHowItWorksClosed() {
-    if (gameficationAvailable) {
+    if (gamificationAvailable) {
       menu.findItem(R.id.action_info).isVisible = true
     }
   }
 
   override fun showHowItWorksButton() {
-    gameficationAvailable = true
+    gamificationAvailable = true
     menu.findItem(R.id.action_info).isVisible = true
   }
 }
