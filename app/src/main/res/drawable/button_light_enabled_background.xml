@@ -3,7 +3,7 @@
     android:color="@color/colorPrimary">
   <item android:id="@android:id/mask">
     <shape android:shape="rectangle">
-      <corners android:radius="32dp"/>
+      <corners android:radius="18dp"/>
       <solid android:color="@android:color/transparent"/>
       <stroke
           android:color="@color/colorPrimary"
@@ -16,7 +16,7 @@
       <stroke
           android:color="@color/btn_light_enabled_color"
           android:width="2dp"/>
-      <corners android:radius="32dp"/>
+      <corners android:radius="18dp"/>
     </shape>
   </item>
 </ripple>

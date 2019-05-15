@@ -75,5 +75,8 @@
   <color name="seekbar_background_tint">#fe7871</color>
 
   <color name="transaction_details_button_color">#fe7073</color>
+  <color name="layout_separator_color">#eaeaea</color>
 
+  <color name="selection_dot_unselected">#d8d8d8</color>
+  <color name="selection_dot_selected">#fe647f</color>
 </resources>

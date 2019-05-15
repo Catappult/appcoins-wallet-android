@@ -9,4 +9,8 @@ interface Erc681ReceiverView {
       String developerPayload);
 
   void startApp(Throwable throwable);
+
+  void endAnimation();
+
+  void showLoadingAnimation();
 }

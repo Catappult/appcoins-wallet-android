@@ -42,6 +42,8 @@ public class ProofOfAttentionServiceTest {
   @Mock FindDefaultWalletInteract defaultWalletInteract;
   @Mock PoASubmissionService poaSubmissionService;
   @Mock HashCalculator hashCalculator;
+  @Mock AddressService addressService;
+  private int chainId;
   private ProofOfAttentionService proofOfAttentionService;
   private MemoryCache<String, Proof> cache;
   private int maxNumberProofComponents = 3;
@@ -50,7 +52,6 @@ public class ProofOfAttentionServiceTest {
   private BehaviorSubject<Wallet> hasWallet;
   private ProofWriter proofWriter;
   private String wallet;
-  @Mock AddressService addressService;
 
   @Before public void before() throws NoSuchAlgorithmException {
     MockitoAnnotations.initMocks(this);
@@ -63,7 +64,11 @@ public class ProofOfAttentionServiceTest {
             new CompositeDisposable(), proofWriter, testScheduler, maxNumberProofComponents,
             new BackEndErrorMapper(), new TaggedCompositeDisposable(new HashMap<>()),
             () -> Single.just("PT"), addressService);
-
+    if (BuildConfig.DEBUG) {
+      chainId = 3;
+    } else {
+      chainId = 1;
+    }
     nonce = 1L;
     wallet = "wallet_address";
     when(defaultWalletInteract.find()).thenReturn(hasWallet.firstOrError());
@@ -298,7 +303,7 @@ public class ProofOfAttentionServiceTest {
   }
 
   @Test public void isWalletReady() {
-    TestObserver<ProofSubmissionFeeData> ready = proofOfAttentionService.isWalletReady(1)
+    TestObserver<ProofSubmissionFeeData> ready = proofOfAttentionService.isWalletReady(chainId)
         .subscribeOn(testScheduler)
         .test();
     ProofSubmissionFeeData readyFee =
@@ -312,7 +317,7 @@ public class ProofOfAttentionServiceTest {
   }
 
   @Test public void noWalletReady() {
-    TestObserver<ProofSubmissionFeeData> noWallet = proofOfAttentionService.isWalletReady(1)
+    TestObserver<ProofSubmissionFeeData> noWallet = proofOfAttentionService.isWalletReady(chainId)
         .subscribeOn(testScheduler)
         .test();
     ProofSubmissionFeeData noWalletFee =
@@ -326,7 +331,7 @@ public class ProofOfAttentionServiceTest {
   }
 
   @Test public void noNetwork() {
-    TestObserver<ProofSubmissionFeeData> noFunds = proofOfAttentionService.isWalletReady(1)
+    TestObserver<ProofSubmissionFeeData> noFunds = proofOfAttentionService.isWalletReady(chainId)
         .subscribeOn(testScheduler)
         .test();
     ProofSubmissionFeeData noFundsFee =
@@ -337,5 +342,36 @@ public class ProofOfAttentionServiceTest {
     noFunds.assertComplete()
         .assertNoErrors()
         .assertValue(noFundsFee);
+  }
+
+  @Test public void wrongNetwork() {
+    int wrongChainId = -1;
+    wrongChainId = chainId == 3 ? 1 : 3;
+    TestObserver<ProofSubmissionFeeData> noFunds =
+        proofOfAttentionService.isWalletReady(wrongChainId)
+            .subscribeOn(testScheduler)
+            .test();
+    ProofSubmissionFeeData wrongNetwork =
+        new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.WRONG_NETWORK,
+            BigDecimal.ZERO, BigDecimal.ZERO);
+    hasWallet.onError(new UnknownHostException());
+    testScheduler.triggerActions();
+    noFunds.assertComplete()
+        .assertNoErrors()
+        .assertValue(wrongNetwork);
+  }
+
+  @Test public void unknownNetwork() {
+    TestObserver<ProofSubmissionFeeData> noFunds = proofOfAttentionService.isWalletReady(-1)
+        .subscribeOn(testScheduler)
+        .test();
+    ProofSubmissionFeeData wrongNetwork =
+        new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.UNKNOWN_NETWORK,
+            BigDecimal.ZERO, BigDecimal.ZERO);
+    hasWallet.onError(new UnknownHostException());
+    testScheduler.triggerActions();
+    noFunds.assertComplete()
+        .assertNoErrors()
+        .assertValue(wrongNetwork);
   }
 }

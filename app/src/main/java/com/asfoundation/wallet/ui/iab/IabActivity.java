@@ -16,7 +16,6 @@ import com.jakewharton.rxrelay2.PublishRelay;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Objects;
 import javax.inject.Inject;
 
@@ -41,7 +40,6 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   public static final String TRANSACTION_AMOUNT = "transaction_amount";
   public static final String TRANSACTION_CURRENCY = "transaction_currency";
   public static final String DEVELOPER_PAYLOAD = "developer_payload";
-  public static final String FIAT_VALUE = "fiat_value";
   private static final String BDS = "BDS";
   private static final String TAG = IabActivity.class.getSimpleName();
   private static final int WEB_VIEW_REQUEST_CODE = 1234;
@@ -98,6 +96,18 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     presenter.present(savedInstanceState);
   }
 
+  @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+
+    if (requestCode == WEB_VIEW_REQUEST_CODE) {
+      if (resultCode == WebViewActivity.FAIL) {
+        finish();
+      } else if (resultCode == SUCCESS) {
+        results.accept(Objects.requireNonNull(data.getData(), "Intent data cannot be null!"));
+      }
+    }
+  }
+
   @Override public void onBackPressed() {
     if (isBackEnable) {
       Bundle bundle = new Bundle();
@@ -147,26 +157,10 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
         .commit();
   }
 
-  @Nullable private String getOrigin(boolean isBds) {
-    if (transaction.getOrigin() == null) {
-      return isBds ? BDS : null;
-    } else {
-      return transaction.getOrigin();
-    }
-  }
-
   @Override public void navigateToWebViewAuthorization(String url) {
     startActivityForResult(
         WebViewActivity.newIntent(this, url, transaction.getDomain(), transaction.getSkuId(),
             transaction.amount(), transaction.getType()), WEB_VIEW_REQUEST_CODE);
-  }
-
-  @Override public void showPaymentMethodsView() {
-    getSupportFragmentManager().beginTransaction()
-        .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
-            getIntent().getExtras()
-                .getString(PRODUCT_NAME), isBds, developerPayload, uri))
-        .commit();
   }
 
   @Override public void showOnChain(BigDecimal amount, boolean isBds) {
@@ -194,6 +188,14 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
         .commit();
   }
 
+  @Override public void showPaymentMethodsView() {
+    getSupportFragmentManager().beginTransaction()
+        .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
+            getIntent().getExtras()
+                .getString(PRODUCT_NAME), isBds, developerPayload, uri))
+        .commit();
+  }
+
   @Override public void showShareLinkPayment(String domain, String skuId, String originalAmount,
       String originalCurrency, BigDecimal amount, String type) {
     getSupportFragmentManager().beginTransaction()
@@ -203,20 +205,11 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
         .commit();
   }
 
-  @Override public void showPaymentMethods(
-      List<com.asfoundation.wallet.ui.iab.PaymentMethod> paymentMethods) {
-
-  }
-
-  @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
-
-    if (requestCode == WEB_VIEW_REQUEST_CODE) {
-      if (resultCode == WebViewActivity.FAIL) {
-        finish();
-      } else if (resultCode == SUCCESS) {
-        results.accept(Objects.requireNonNull(data.getData(), "Intent data cannot be null!"));
-      }
+  @Nullable private String getOrigin(boolean isBds) {
+    if (transaction.getOrigin() == null) {
+      return isBds ? BDS : null;
+    } else {
+      return transaction.getOrigin();
     }
   }
 

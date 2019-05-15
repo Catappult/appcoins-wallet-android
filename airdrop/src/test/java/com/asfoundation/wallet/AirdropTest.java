@@ -10,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -29,7 +28,7 @@ import static org.mockito.Mockito.when;
 
   @Before public void setUp() {
     when(airdropService.requestCaptcha(WALLET_ADDRESS)).thenReturn(Single.just(CAPTCHA));
-    when(transactionService.waitForTransactionToComplete(anyString(), anyInt())).thenReturn(
+    when(transactionService.waitForTransactionToComplete(anyString())).thenReturn(
         Completable.complete());
     airdrop = new Airdrop(transactionService, BehaviorSubject.create(), airdropService);
   }

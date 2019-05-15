@@ -2,10 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+    android:layout_margin="8dp"
     android:background="@drawable/background_card"
+    android:clipToPadding="false"
+    android:maxWidth="400dp"
     android:padding="16dp"
     >
   <ImageView
@@ -23,7 +26,7 @@
 
   <TextView
       android:id="@+id/provide_wallet_create_body"
-      android:layout_width="match_parent"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginEnd="16dp"
       android:layout_marginStart="16dp"
@@ -40,7 +43,7 @@
   <Button
       android:id="@+id/provide_wallet_create_wallet_button"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_height="@dimen/button_height"
       android:layout_marginEnd="16dp"
       android:layout_marginTop="32dp"
       android:text="@string/provide_wallet_create_wallet_button"
@@ -55,7 +58,7 @@
   <Button
       android:id="@+id/provide_wallet_cancel"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_height="@dimen/button_height"
       android:layout_marginEnd="8dp"
       android:text="@string/cancel"
       app:layout_constraintBottom_toBottomOf="@id/provide_wallet_create_wallet_button"
@@ -84,7 +87,6 @@
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="true"
       app:lottie_rawRes="@raw/create_wallet_loading_animation"
-
       />
   <TextView
       android:id="@+id/create_wallet_text"
