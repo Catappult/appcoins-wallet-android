@@ -106,13 +106,14 @@
   <string name="intro_message_first_page">Uygulama ekonomisinin evrimine hoş geldiniz.</string>
   <string name="intro_message_second_page">Özel anahtarlar cihazınızı asla bırakmaz.</string>
   <string name="intro_message_third_page">Tüm uygulama içi ödemelerinizi ve ödüllerinizi APPC cinsinden işleyin.</string>
+  <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Your app for in-app purchases.</string>
   <string name="intro_2_title">Daha Fazla Oynayın, Daha Az Ödeyin</string>
   <string name="intro_2_body">En sevdiğiniz uygulama ve oyunlarda ürün satın aldığınızda ödül kazanın.</string>
   <string name="intro_3_title">Basit ve Kolay</string>
   <string name="intro_3_body">Favori ödeme yönteminizi kullanarak tüm uygulama için satın alımlarınızı işleyin.</string>
   <string name="intro_4_title">Güvenli ve Gizli</string>
-  <string name="intro_4_body">Özel anahtarlarınız asla cihazınızı terk etmez, dolayısıyla AppCoin\'leriniz her zaman güvendedir.</string>
+  <string name="intro_4_body">Your private info will never leave your device, so your AppCoins are safe at all times.</string>
   <string name="intro_creating_wallet_short">Sizin için bir cüzdan oluşturuyoruz&#8230;</string>
   <string name="intro_wallet_created_short">Cüzdan oluşturuldu!</string>
   <string name="intro_agree_terms_and_conditions_body">Atla\'ya dokunarak AppCoins Cüzdanının %1$s ve %2$s\'nı kabul etmiş olursunuz</string>
