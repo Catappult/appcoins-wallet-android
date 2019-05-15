@@ -106,13 +106,14 @@
   <string name="intro_message_first_page">Добро пожаловать в революцию экономики приложений.</string>
   <string name="intro_message_second_page">Закрытые ключи никогда не покидают ваше устройство.</string>
   <string name="intro_message_third_page">Обрабатывайте все ваши встроенные платежи и награды в APPC.</string>
+  <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Your app for in-app purchases.</string>
   <string name="intro_2_title">Играй больше, плати меньше</string>
   <string name="intro_2_body">Получите награду для покупок в ваших любимых приложениях и играх.</string>
   <string name="intro_3_title">Простой в использовании</string>
   <string name="intro_3_body">Производите все встроенные покупки с использованием предпочтительного метода оплаты.</string>
   <string name="intro_4_title">Безопасно и конфиденциально</string>
-  <string name="intro_4_body">Ваши приватные ключи никогда не покидают устройство, поэтому ваши AppCoins всегда в безопасности.</string>
+  <string name="intro_4_body">Your private info will never leave your device, so your AppCoins are safe at all times.</string>
   <string name="intro_creating_wallet_short">Мы создаем кошелёк для вас&#8230;</string>
   <string name="intro_wallet_created_short">Кошелёк создан!</string>
   <string name="intro_agree_terms_and_conditions_body">Нажимая на Пропустить, вы соглашаетесь с %1$s и %2$s AppCoins Wallet</string>
