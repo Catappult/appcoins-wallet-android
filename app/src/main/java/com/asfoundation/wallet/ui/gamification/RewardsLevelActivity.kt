@@ -10,6 +10,7 @@ import com.asfoundation.wallet.ui.BaseActivity
 class RewardsLevelActivity : BaseActivity(), GamificationView {
 
   lateinit var menu: Menu
+  private var gameficationAvailable = false
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -55,10 +56,11 @@ class RewardsLevelActivity : BaseActivity(), GamificationView {
     return super.onCreateOptionsMenu(menu)
   }
 
+
   override fun closeHowItWorksView() {
     val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
 
-    if (currentFragment  != null && supportFragmentManager.backStackEntryCount > 0) {
+    if (currentFragment != null && supportFragmentManager.backStackEntryCount > 0) {
       val fragment =
           supportFragmentManager.findFragmentByTag(HowItWorksFragment::class.java.simpleName)
       if (fragment != null && fragment::class.java.name.equals(
@@ -78,7 +80,12 @@ class RewardsLevelActivity : BaseActivity(), GamificationView {
 
   }
 
+  override fun onHowItWorksClosed() {
+    if (gameficationAvailable) menu.findItem(R.id.action_info).isVisible = true
+  }
+
   override fun showHowItWorksButton() {
+    gameficationAvailable = true
     menu.findItem(R.id.action_info).isVisible = true
   }
 }
