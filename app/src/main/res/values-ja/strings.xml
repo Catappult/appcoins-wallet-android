@@ -106,13 +106,14 @@
   <string name="intro_message_first_page">アプリ経済革命へようこそ。</string>
   <string name="intro_message_second_page">プライベートキーを、お使いのデバイスにて放置したままにしないでください。</string>
   <string name="intro_message_third_page">すべてのアプリ内の支払いと APPC で報酬を処理します。</string>
+  <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Your app for in-app purchases.</string>
   <string name="intro_2_title">支払いを減らして、もっとプレーする</string>
   <string name="intro_2_body">あなたのお気に入りのアプリやゲーム内のアイテムを購入するために報酬を手に入れる</string>
   <string name="intro_3_title">シンプルで簡単</string>
   <string name="intro_3_body">お気に入りの支払い方法を使用して、アプリ内購入をすべて処理します。</string>
   <string name="intro_4_title">安全でプレイベート</string>
-  <string name="intro_4_body">あなたのプライベート鍵がデバイスから消えることはありませんので、あなたのAppCoinsは常に安全です。</string>
+  <string name="intro_4_body">Your private info will never leave your device, so your AppCoins are safe at all times.</string>
   <string name="intro_creating_wallet_short">私たちはあなたのためのウォレットを作っています&#8230;</string>
   <string name="intro_wallet_created_short">ウォレットの作成ができました！</string>
   <string name="intro_agree_terms_and_conditions_body">スキップをタップすることで、AppCoinウォレットの %1$s と %2$s に同意します
