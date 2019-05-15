@@ -81,7 +81,9 @@ class RewardsLevelActivity : BaseActivity(), GamificationView {
   }
 
   override fun onHowItWorksClosed() {
-    if (gameficationAvailable) menu.findItem(R.id.action_info).isVisible = true
+    if (gameficationAvailable) {
+      menu.findItem(R.id.action_info).isVisible = true
+    }
   }
 
   override fun showHowItWorksButton() {
