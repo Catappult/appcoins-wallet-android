@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.repository;
 
-import androidx.annotation.NonNull;
 import android.text.format.DateUtils;
+import androidx.annotation.NonNull;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.Token;
@@ -25,7 +25,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import okhttp3.OkHttpClient;
 import org.web3j.abi.FunctionEncoder;
 import org.web3j.abi.FunctionReturnDecoder;
 import org.web3j.abi.TypeReference;
@@ -37,10 +36,8 @@ import org.web3j.abi.datatypes.Utf8String;
 import org.web3j.abi.datatypes.generated.Bytes2;
 import org.web3j.abi.datatypes.generated.Uint256;
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.Web3jFactory;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.protocol.core.methods.response.EthCall;
-import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Numeric;
 
 import static org.web3j.protocol.core.methods.request.Transaction.createEthCallTransaction;
@@ -51,26 +48,22 @@ public class TokenRepository implements TokenRepositoryType {
   private final TokenExplorerClientType tokenNetworkService;
   private final WalletRepositoryType walletRepository;
   private final TokenLocalSource localSource;
-  private final OkHttpClient httpClient;
-  private final EthereumNetworkRepositoryType ethereumNetworkRepository;
   private final TransactionLocalSource transactionsLocalCache;
   private final TickerService tickerService;
-  private Web3j web3j;
+  private final NetworkInfo network;
+  private final Web3j web3j;
 
-  public TokenRepository(OkHttpClient okHttpClient,
-      EthereumNetworkRepositoryType ethereumNetworkRepository,
-      WalletRepositoryType walletRepository, TokenExplorerClientType tokenNetworkService,
-      TokenLocalSource localSource, TransactionLocalSource transactionsLocalCache,
-      TickerService tickerService) {
-    this.httpClient = okHttpClient;
-    this.ethereumNetworkRepository = ethereumNetworkRepository;
+  public TokenRepository(WalletRepositoryType walletRepository,
+      TokenExplorerClientType tokenNetworkService, TokenLocalSource localSource,
+      TransactionLocalSource transactionsLocalCache, TickerService tickerService,
+      Web3jProvider web3jProvider, NetworkInfo network) {
     this.walletRepository = walletRepository;
     this.tokenNetworkService = tokenNetworkService;
     this.localSource = localSource;
     this.transactionsLocalCache = transactionsLocalCache;
     this.tickerService = tickerService;
-    this.ethereumNetworkRepository.addOnChangeDefaultNetwork(this::buildWeb3jClient);
-    buildWeb3jClient(ethereumNetworkRepository.getDefaultNetwork());
+    this.web3j = web3jProvider.get();
+    this.network = network;
   }
 
   private static Function balanceOf(String owner) {
@@ -116,12 +109,7 @@ public class TokenRepository implements TokenRepositoryType {
     return Numeric.hexStringToByteArray(Numeric.cleanHexPrefix(encodedFunction));
   }
 
-  private void buildWeb3jClient(NetworkInfo defaultNetwork) {
-    web3j = Web3jFactory.build(new HttpService(defaultNetwork.rpcServerUrl, httpClient, false));
-  }
-
   @Override public Observable<Token[]> fetchActive(String walletAddress) {
-    NetworkInfo network = ethereumNetworkRepository.getDefaultNetwork();
     Wallet wallet = new Wallet(walletAddress);
     return Single.merge(fetchCachedEnabledTokens(network, wallet), // Immediately show the cache.
         updateTokens(network, wallet) // Looking for new tokens
@@ -131,7 +119,6 @@ public class TokenRepository implements TokenRepositoryType {
   }
 
   @Override public Observable<Token[]> fetchAll(String walletAddress) {
-    NetworkInfo network = ethereumNetworkRepository.getDefaultNetwork();
     Wallet wallet = new Wallet(walletAddress);
     return localSource.fetchAllTokens(network, wallet)
         .toObservable();
@@ -139,21 +126,17 @@ public class TokenRepository implements TokenRepositoryType {
 
   @Override public Completable addToken(Wallet wallet, String address, String symbol, int decimals,
       boolean isAddedManually) {
-    return localSource.saveTokens(ethereumNetworkRepository.getDefaultNetwork(), wallet,
-        new Token[] {
-            new Token(
-                new TokenInfo(address, "", symbol.toLowerCase(), decimals, true, isAddedManually),
-                null, 0)
-        });
+    return localSource.saveTokens(network, wallet, new Token[] {
+        new Token(new TokenInfo(address, "", symbol.toLowerCase(), decimals, true, isAddedManually),
+            null, 0)
+    });
   }
 
   @Override public Completable setEnable(Wallet wallet, Token token, boolean isEnabled) {
-    NetworkInfo network = ethereumNetworkRepository.getDefaultNetwork();
     return Completable.fromAction(() -> localSource.setEnable(network, wallet, token, isEnabled));
   }
 
   @Override public Completable delete(Wallet wallet, Token token) {
-    NetworkInfo network = ethereumNetworkRepository.getDefaultNetwork();
     return localSource.delete(network, wallet, token);
   }
 

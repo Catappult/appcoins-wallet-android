@@ -11,10 +11,9 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
+import android.util.Log;
 import androidx.annotation.IntRange;
 import androidx.core.app.NotificationCompat;
-import android.util.Log;
-import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.billing.analytics.PoaAnalytics;
@@ -22,6 +21,7 @@ import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofStatus;
 import com.asfoundation.wallet.poa.ProofSubmissionFeeData;
+import com.asfoundation.wallet.repository.WrongNetworkException;
 import com.asfoundation.wallet.ui.TransactionsActivity;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
@@ -85,15 +85,16 @@ public class WalletPoAService extends Service {
         // set the chain id received from the application. If not received, it is set as the main
         String packageName = intent.getStringExtra(PARAM_APP_PACKAGE_NAME);
         requirementsDisposable =
-            proofOfAttentionService.isWalletReady(intent.getIntExtra(PARAM_NETWORK_ID, 1))
+            proofOfAttentionService.isWalletReady(intent.getIntExtra(PARAM_NETWORK_ID, -1))
                 // network chain id
                 .doOnSuccess(requirementsStatus -> proofOfAttentionService.setChainId(packageName,
-                    intent.getIntExtra(PARAM_NETWORK_ID, 1)))
+                    intent.getIntExtra(PARAM_NETWORK_ID, -1)))
                 .doOnSuccess(
                     proofSubmissionFeeData -> proofOfAttentionService.setGasSettings(packageName,
                         proofSubmissionFeeData.getGasPrice(), proofSubmissionFeeData.getGasLimit()))
                 .doOnSuccess(
-                    requirementsStatus -> processWalletSate(requirementsStatus.getStatus(), intent))
+                    requirementsStatus -> processWalletState(requirementsStatus.getStatus(),
+                        intent))
                 .subscribe(requirementsStatus -> {
                 }, throwable -> {
                   logger.log(throwable);
@@ -131,7 +132,7 @@ public class WalletPoAService extends Service {
     stopTimeout();
   }
 
-  private void processWalletSate(ProofSubmissionFeeData.RequirementsStatus requirementsStatus,
+  private void processWalletState(ProofSubmissionFeeData.RequirementsStatus requirementsStatus,
       Intent intent) {
     switch (requirementsStatus) {
       case READY:
@@ -169,6 +170,14 @@ public class WalletPoAService extends Service {
         stopForeground(false);
         stopTimeout();
         break;
+      case WRONG_NETWORK:
+        notificationManager.notify(SERVICE_ID,
+            createDefaultNotificationBuilder(R.string.notification_wrong_network_poa).build());
+        stopForeground(false);
+        stopTimeout();
+        logger.log(new Throwable(new WrongNetworkException("Not on the correct network")));
+      case UNKNOWN_NETWORK:
+        logger.log(new Throwable(new WrongNetworkException("Unknown network")));
     }
   }
 

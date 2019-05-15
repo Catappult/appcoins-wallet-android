@@ -5,6 +5,4 @@ import io.reactivex.Observable;
 
 public interface TrackTransactionService {
   Observable<PendingTransaction> checkTransactionState(String hash);
-
-  Observable<PendingTransaction> checkTransactionState(String hash, int chainId);
 }

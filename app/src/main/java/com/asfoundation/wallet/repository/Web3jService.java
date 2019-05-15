@@ -41,10 +41,6 @@ public class Web3jService implements EthereumService {
     return Single.defer(() -> getTransaction(hash, web3j.getDefault()));
   }
 
-  @Override public Single<PendingTransaction> getTransaction(String hash, int chainId) {
-    return Single.defer(() -> getTransaction(hash, web3j.get(chainId)));
-  }
-
   private boolean isPending(EthTransaction ethTransaction) {
     org.web3j.protocol.core.methods.response.Transaction transaction =
         ethTransaction.getTransaction();

@@ -7,8 +7,7 @@ import android.preference.PreferenceManager;
 public class SharedPreferenceRepository implements PreferenceRepositoryType {
 
   private static final String CURRENT_ACCOUNT_ADDRESS_KEY = "current_account_address";
-  private static final String DEFAULT_NETWORK_NAME_KEY = "default_network_name";
-  private static final String TC_PP_ACCEPTED_KEY = "tc_pp_accepted";
+  private static final String ONBOARDING_COMPLETE_KEY = "onboarding_complete";
 
   private final SharedPreferences pref;
 
@@ -16,13 +15,13 @@ public class SharedPreferenceRepository implements PreferenceRepositoryType {
     pref = PreferenceManager.getDefaultSharedPreferences(context);
   }
 
-  @Override public boolean hasAcceptedTCAndPP() {
-    return pref.getBoolean(TC_PP_ACCEPTED_KEY, false);
+  @Override public boolean hasCompletedOnboarding() {
+    return pref.getBoolean(ONBOARDING_COMPLETE_KEY, false);
   }
 
-  @Override public void setAcceptedTCAndPP() {
+  @Override public void setOnboardingComplete() {
     pref.edit()
-        .putBoolean(TC_PP_ACCEPTED_KEY, true)
+        .putBoolean(ONBOARDING_COMPLETE_KEY, true)
         .apply();
   }
 
@@ -33,16 +32,6 @@ public class SharedPreferenceRepository implements PreferenceRepositoryType {
   @Override public void setCurrentWalletAddress(String address) {
     pref.edit()
         .putString(CURRENT_ACCOUNT_ADDRESS_KEY, address)
-        .apply();
-  }
-
-  @Override public String getDefaultNetwork() {
-    return pref.getString(DEFAULT_NETWORK_NAME_KEY, null);
-  }
-
-  @Override public void setDefaultNetwork(String netName) {
-    pref.edit()
-        .putString(DEFAULT_NETWORK_NAME_KEY, netName)
         .apply();
   }
 }

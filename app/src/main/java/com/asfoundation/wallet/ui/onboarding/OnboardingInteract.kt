@@ -18,6 +18,6 @@ class OnboardingInteract(private val walletInteract: CreateWalletInteract,
   }
 
   fun finishOnboarding() {
-    preferenceRepositoryType.setAcceptedTCAndPP()
+    preferenceRepositoryType.setOnboardingComplete()
   }
 }

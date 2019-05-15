@@ -41,6 +41,6 @@ public class SplashActivity extends BaseActivity {
   }
 
   private boolean shouldShowOnboarding() {
-    return !preferenceRepositoryType.hasAcceptedTCAndPP();
+    return !preferenceRepositoryType.hasCompletedOnboarding();
   }
 }
