@@ -352,7 +352,9 @@
   <string name="askafriend_share_add_message_body">Add Message (Optional)</string>
   <string name="askafriend_share_button">Share</string>
   <string name="askafriend_share_popup_title">Ask someone via:</string>
-  <string name="askafriend_received_body">You just received %s APPC-C</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
+  <string name="askafriend_notification_received_title">New Transfer Received</string>
+  <string name="askafriend_notification_received_body">%1$s %2$s were credited to your wallet.</string>
 
   <string name="askafriend_received_title">Transfer Received</string>
   <string name="askafriend_send_title">Transfer Sent</string>
@@ -379,7 +381,7 @@
 
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions_error">Please accept our %1$s and %2$s to continue</string>
   <string name="terms_and_conditions">Terms and Conditions</string>
   <string name="privacy_policy">Privacy Policy</string>
 
