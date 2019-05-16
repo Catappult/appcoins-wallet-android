@@ -36,12 +36,8 @@ class DevTransactionRepository(
           .map { it.timeStamp }
           .defaultIfEmpty(0)
           .subscribeOn(ioScheduler)
-          .flatMapObservable { timeStamp ->
-            getTransactions(wallet, dateFormatter.format(timeStamp))
-                .buffer(2, TimeUnit.SECONDS)
-                .doOnNext {
-                  localRepository.insertAll(it.flatten())
-                }
+          .flatMapObservable { startingDate ->
+            fetchTransactions(wallet, startingDate = startingDate)
           }
           .subscribe({}, { it.printStackTrace() })
     }
@@ -53,9 +49,21 @@ class DevTransactionRepository(
         .distinctUntilChanged()
   }
 
+  private fun fetchTransactions(wallet: String,
+                                startingDate: Long? = null,
+                                endDate: Long? = null): Observable<MutableList<MutableList<TransactionEntity>>>? {
+    return getTransactions(wallet, startingDate?.let { dateFormatter.format(it) },
+        endDate?.let { dateFormatter.format(it) })
+        .buffer(2, TimeUnit.SECONDS)
+        .doOnNext {
+          localRepository.insertAll(it.flatten())
+        }
+  }
+
   private fun getTransactions(wallet: String,
-                              startingDate: String? = null): Observable<MutableList<TransactionEntity>> {
-    return TransactionsLoadObservable(offChainTransactions, wallet, startingDate)
+                              startingDate: String? = null,
+                              endDate: String? = null): Observable<MutableList<TransactionEntity>> {
+    return TransactionsLoadObservable(offChainTransactions, wallet, startingDate, endDate)
         .flatMapSingle { transactions ->
           Observable.fromIterable(transactions)
               .map { mapper.map(it, wallet) }
