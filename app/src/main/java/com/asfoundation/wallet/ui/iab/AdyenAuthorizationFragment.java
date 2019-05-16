@@ -153,6 +153,13 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     buyButton = view.findViewById(R.id.buy_button);
     changeCardButton = view.findViewById(R.id.change_card_button);
     cardForm = view.findViewById(R.id.fragment_braintree_credit_card_form);
+
+    // removing additional margin top of the credit card form to help in the layout build
+    View cardNumberParent = (View) cardForm.findViewById(R.id.bt_card_form_card_number).getParent();
+    ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) cardNumberParent.getLayoutParams();
+    lp.setMargins(0,0,0,0);
+    cardNumberParent.setLayoutParams(lp);
+
     walletAddressFooter = view.findViewById(R.id.wallet_address_footer);
     rememberCardCheckBox =
         view.findViewById(R.id.fragment_credit_card_authorization_remember_card_check_box);

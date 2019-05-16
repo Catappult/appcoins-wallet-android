@@ -816,8 +816,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Provides GamificationInteractor provideGamificationInteractor(Gamification gamification,
-      FindDefaultWalletInteract defaultWallet) {
-    return new GamificationInteractor(gamification, defaultWallet);
+      FindDefaultWalletInteract defaultWallet, LocalCurrencyConversionService conversionService) {
+    return new GamificationInteractor(gamification, defaultWallet, conversionService);
   }
 
   @Singleton @Provides LevelResourcesMapper providesLevelResourcesMapper() {
