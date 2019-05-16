@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.di;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -99,6 +100,7 @@ import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.BuyTransactionValidatorBds;
 import com.asfoundation.wallet.repository.CurrencyConversionService;
+import com.asfoundation.wallet.repository.DateFormatter;
 import com.asfoundation.wallet.repository.DevTransactionRepository;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.GasSettingsRepository;
@@ -994,10 +996,15 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
               "transactions_database")
               .build()
               .transactionsDao();
+      DateFormatter dateFormatter = timeInSeconds -> {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat =
+            new SimpleDateFormat("yyyy-MM-dd");
+        return simpleDateFormat.format(TimeUnit.SECONDS.toMillis(timeInSeconds));
+      };
       return new DevTransactionRepository(networkInfo, accountKeystoreService, defaultTokenProvider,
           new BlockchainErrorMapper(), nonceObtainer, Schedulers.io(),
           transactionsNetworkRepository, localRepository, new TransactionMapper(),
-          new CompositeDisposable(), Schedulers.io());
+          new CompositeDisposable(), Schedulers.io(), dateFormatter);
     } else {
       return new ProdTransactionRepository(networkInfo, accountKeystoreService, inDiskCache,
           blockExplorerClient, defaultTokenProvider, new BlockchainErrorMapper(), nonceObtainer,
