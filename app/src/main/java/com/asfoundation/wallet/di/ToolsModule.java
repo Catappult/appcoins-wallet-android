@@ -997,7 +997,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       return new DevTransactionRepository(networkInfo, accountKeystoreService, defaultTokenProvider,
           new BlockchainErrorMapper(), nonceObtainer, Schedulers.io(),
           transactionsNetworkRepository, localRepository, new TransactionMapper(),
-          new CompositeDisposable());
+          new CompositeDisposable(), Schedulers.io());
     } else {
       return new ProdTransactionRepository(networkInfo, accountKeystoreService, inDiskCache,
           blockExplorerClient, defaultTokenProvider, new BlockchainErrorMapper(), nonceObtainer,

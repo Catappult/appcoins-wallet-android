@@ -9,6 +9,7 @@ import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 class DevTransactionRepository(
     networkInfo: NetworkInfo,
@@ -20,18 +21,27 @@ class DevTransactionRepository(
     private val offChainTransactions: OffChainTransactions,
     private val localRepository: TransactionsDao,
     private val mapper: TransactionMapper,
-    private val disposables: CompositeDisposable) :
+    private val disposables: CompositeDisposable, private val ioScheduler: Scheduler) :
     TransactionRepository(networkInfo, accountKeystoreService,
         defaultTokenProvider, errorMapper, nonceObtainer, scheduler) {
-  override fun fetchTransaction(wallet: String): Observable<List<Transaction>> {
 
-    disposables.add(offChainTransactions.getTransactions(wallet, false)
-        .toObservable()
-        .flatMapIterable { it }
-        .map { mapper.map(it, wallet) }
-        .toList()
-        .doOnSuccess { localRepository.insertAll(it) }
-        .subscribe({}, { it.printStackTrace() }))
+  lateinit var disposable: Disposable
+  override fun fetchTransaction(wallet: String): Observable<List<Transaction>> {
+    if (!::disposable.isInitialized || disposable.isDisposed) {
+      disposable =
+          TransactionsLoadObservable(offChainTransactions, wallet, "0001-01-01", "2999-12-31")
+              .subscribeOn(ioScheduler)
+              .flatMap { transactions ->
+                Observable.fromIterable(transactions)
+                    .map { mapper.map(it, wallet) }
+                    .toList()
+                    .doOnSuccess { localRepository.insertAll(it) }
+                    .toObservable()
+              }
+              .subscribe({}, { it.printStackTrace() })
+    }
+
+    disposables.add(disposable)
 
     return localRepository.getAllAsFlowable(wallet)
         .map { mapper.map(it) }

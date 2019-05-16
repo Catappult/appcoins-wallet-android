@@ -69,7 +69,7 @@ public class TransactionsMapper {
         .observeOn(scheduler);
   }
 
-  private List<Transaction> mapTransactionsFromWalletHistory(
+  public List<Transaction> mapTransactionsFromWalletHistory(
       List<WalletHistory.Transaction> transactions) {
     List<Transaction> transactionList = new ArrayList<>(transactions.size());
     for (int i = transactions.size() - 1; i >= 0; i--) {
