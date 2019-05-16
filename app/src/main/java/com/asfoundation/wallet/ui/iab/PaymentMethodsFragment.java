@@ -116,6 +116,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private boolean isBds;
   private String uri;
   private View bonusView;
+  private View bonusMsg;
   private TextView bonusValue;
 
   public static Fragment newInstance(TransactionBuilder transaction, String productName,
@@ -203,6 +204,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     paypalRadioButton = view.findViewById(R.id.paypal);
     shareLinkRadioButton = view.findViewById(R.id.share_link);
     bonusView = view.findViewById(R.id.bonus_layout);
+    bonusMsg = view.findViewById(R.id.bonus_msg);
+
     bonusValue = view.findViewById(R.id.bonus_value);
     setupAppNameAndIcon();
 
@@ -504,14 +507,22 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   }
 
   @Override public void hideBonus() {
-    bonusView.setVisibility(View.GONE);
+    bonusView.setVisibility(View.INVISIBLE);
+    bonusMsg.setVisibility(View.INVISIBLE);
   }
 
-  @Override public void showBonus(@NotNull BigDecimal bonus) {
-    bonusValue.setText(getString(R.string.gamification_purchase_body, bonus.stripTrailingZeros()
-        .setScale(2, BigDecimal.ROUND_DOWN)
-        .toPlainString()));
+  @Override public void showBonus(@NotNull BigDecimal bonus, String currency) {
+    BigDecimal scaledBonus = bonus.stripTrailingZeros()
+        .setScale(2, BigDecimal.ROUND_DOWN);
+    if (scaledBonus.compareTo(new BigDecimal(0.01)) < 0) {
+      currency = "~" + currency;
+    }
+    scaledBonus = scaledBonus.max(new BigDecimal("0.01"));
+
+    bonusValue.setText(getString(R.string.gamification_purchase_header_part_2,
+        currency + scaledBonus.toPlainString()));
     bonusView.setVisibility(View.VISIBLE);
+    bonusMsg.setVisibility(View.VISIBLE);
   }
 
   @NonNull private SelectedPaymentMethod getSelectedPaymentMethod(int checkedRadioButtonId) {

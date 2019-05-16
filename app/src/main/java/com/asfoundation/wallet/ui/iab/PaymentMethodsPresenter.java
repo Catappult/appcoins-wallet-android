@@ -83,7 +83,8 @@ public class PaymentMethodsPresenter {
     disposables.add(view.getPaymentSelection()
         .flatMapCompletable(selectedPaymentMethod -> {
           if (selectedPaymentMethod.equals(PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS)
-              || selectedPaymentMethod.equals(PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK)) {
+              || selectedPaymentMethod.equals(
+              PaymentMethodsView.SelectedPaymentMethod.SHARE_LINK)) {
             return Completable.fromAction(view::hideBonus)
                 .subscribeOn(viewScheduler);
           } else {
@@ -95,6 +96,7 @@ public class PaymentMethodsPresenter {
 
   private Single<ForecastBonus> loadBonusIntoView() {
     return gamification.getEarningBonus(transaction.getDomain(), transaction.amount())
+        .subscribeOn(networkThread)
         .observeOn(viewScheduler)
         .doOnSuccess(bonus -> {
           if (!bonus.getStatus()
@@ -103,7 +105,7 @@ public class PaymentMethodsPresenter {
               .compareTo(BigDecimal.ZERO) <= 0) {
             view.hideBonus();
           } else {
-            view.showBonus(bonus.getAmount());
+            view.showBonus(bonus.getAmount(), bonus.getCurrency());
           }
         });
   }

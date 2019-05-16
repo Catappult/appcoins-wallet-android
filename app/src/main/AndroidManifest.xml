@@ -137,7 +137,7 @@
     <activity
         android:name="com.asfoundation.wallet.ui.iab.IabActivity"
         android:launchMode="singleInstance"
-        android:theme="@style/Theme.AppCompat.Transparent"
+        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow"
         >
       <intent-filter>
         <action android:name="android.intent.action.VIEW"/>

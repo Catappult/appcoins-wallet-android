@@ -4,11 +4,10 @@
     android:layout_width="@dimen/payment_methods_width_landscape"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_marginBottom="@dimen/normal_margin"
-    android:layout_marginTop="@dimen/normal_margin"
     android:background="@drawable/background_card"
     android:clipChildren="false"
     android:clipToPadding="false"
+    android:maxHeight="300dp"
     >
 
   <com.airbnb.lottie.LottieAnimationView
@@ -62,7 +61,7 @@
       android:gravity="start|center_vertical"
       android:hint="@string/askafriend_share_add_message_body"
       android:maxLength="50"
-      android:maxLines="2"
+      android:maxLines="1"
       android:textColorHint="@color/grey_alpha_6b"
       app:layout_constraintBottom_toBottomOf="@id/bottom_separator"
       app:layout_constraintEnd_toEndOf="parent"
@@ -70,6 +69,7 @@
       app:layout_constraintTop_toBottomOf="@id/share_link_title"
       app:layout_constraintVertical_chainStyle="packed"
       style="@style/ShareLinkTextStyle"
+      android:inputType="text"
       />
 
   <View

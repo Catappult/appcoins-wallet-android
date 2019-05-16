@@ -1,0 +1,39 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bonus_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bonus_img_background"
+    android:gravity="center"
+    android:paddingBottom="6dp"
+    android:paddingEnd="@dimen/normal_margin"
+    android:paddingStart="@dimen/normal_margin"
+    android:paddingTop="6dp"
+    >
+
+  <ImageView
+      android:layout_width="12dp"
+      android:layout_height="12dp"
+      android:src="@drawable/ic_bonus"
+      android:layout_marginEnd="2dp"
+      />
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/gamification_purchase_header_part_1"
+      style="@style/BonusTextStyle"
+      android:layout_marginEnd="4dp"
+      />
+
+  <TextView
+      android:id="@+id/bonus_value"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/gamification_purchase_header_part_2"
+      style="@style/BonusTextStyle.Value"
+      android:ellipsize="end"
+      android:singleLine="true"
+      />
+
+</LinearLayout>
