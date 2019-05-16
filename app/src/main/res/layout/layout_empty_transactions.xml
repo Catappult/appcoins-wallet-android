@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/half_large_margin"
         android:gravity="center"
-        android:text="@string/no_transactions_yet"
+        android:text="@string/no_transactions_yet_main"
         app:layout_constraintBottom_toTopOf="@id/transactions_empty_screen_animation"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
