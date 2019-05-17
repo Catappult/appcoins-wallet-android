@@ -330,11 +330,17 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void setSubtitle(GlobalBalance globalBalance) {
-    String subtitle = "";
     Balance appcoinsBalance = globalBalance.getAppcoinsBalance();
     Balance creditsBalance = globalBalance.getCreditsBalance();
     Balance ethereumBalance = globalBalance.getEtherBalance();
+    String subtitle =
+        buildCurrencyString(appcoinsBalance, creditsBalance, ethereumBalance, globalBalance);
+    subtitleView.setText(Html.fromHtml(subtitle));
+  }
 
+  private String buildCurrencyString(Balance appcoinsBalance, Balance creditsBalance,
+      Balance ethereumBalance, GlobalBalance globalBalance) {
+    String subtitle = "";
     String bullet = " \u2022 ";
     if (shouldShow(Double.valueOf(creditsBalance.getValue()), globalBalance.getCreditsFiatValue()
         .getAmount(), 0.01)) {
@@ -351,9 +357,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     if (subtitle.length() > 0) {
       subtitle = subtitle.substring(0, subtitle.length() - bullet.length());
     }
-    String correctColorSubtitle =
-        subtitle.replace(bullet, "<font color='#ffffff'>" + bullet + "</font>");
-    subtitleView.setText(Html.fromHtml(correctColorSubtitle));
+    return subtitle.replace(bullet, "<font color='#ffffff'>" + bullet + "</font>");
   }
 
   private BigDecimal sumBalances(BigDecimal appcoinsFiatValue, BigDecimal creditsFiatValue,
