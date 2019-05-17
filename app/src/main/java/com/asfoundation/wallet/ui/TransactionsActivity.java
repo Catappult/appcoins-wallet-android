@@ -335,14 +335,18 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     Balance appcoinsBalance = globalBalance.getAppcoinsBalance();
     Balance creditsBalance = globalBalance.getCreditsBalance();
     Balance ethereumBalance = globalBalance.getEtherBalance();
+
     String bullet = " \u2022 ";
-    if (Double.valueOf(creditsBalance.getValue()) >= 0.01) {
+    if (shouldShow(Double.valueOf(creditsBalance.getValue()), globalBalance.getCreditsFiatValue()
+        .getAmount(), 0.01)) {
       subtitle += creditsBalance.toString() + bullet;
     }
-    if (Double.valueOf(appcoinsBalance.getValue()) >= 0.01) {
+    if (shouldShow(Double.valueOf(appcoinsBalance.getValue()), globalBalance.getAppcoinsFiatValue()
+        .getAmount(), 0.01)) {
       subtitle += appcoinsBalance.toString() + bullet;
     }
-    if (Double.valueOf(ethereumBalance.getValue()) >= 0.0001) {
+    if (shouldShow(Double.valueOf(ethereumBalance.getValue()), globalBalance.getEtherFiatValue()
+        .getAmount(), 0.0001)) {
       subtitle += ethereumBalance.toString() + bullet;
     }
     if (subtitle.length() > 0) {
@@ -356,5 +360,9 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private BigDecimal sumBalances(BigDecimal appcoinsFiatValue, BigDecimal creditsFiatValue,
       BigDecimal etherFiatValue) {
     return appcoinsFiatValue.add(creditsFiatValue.add(etherFiatValue));
+  }
+
+  private boolean shouldShow(Double currencyValue, BigDecimal fiatValue, Double threshold) {
+    return currencyValue >= threshold && fiatValue.doubleValue() >= threshold;
   }
 }
