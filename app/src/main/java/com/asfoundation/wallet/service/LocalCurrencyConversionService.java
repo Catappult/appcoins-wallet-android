@@ -5,7 +5,6 @@ import com.asfoundation.wallet.entity.ConversionResponseBody;
 import com.asfoundation.wallet.ui.iab.FiatValue;
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import retrofit2.http.GET;
@@ -28,16 +27,25 @@ public class LocalCurrencyConversionService {
 
   public Observable<FiatValue> getAppcToLocalFiat(String value) {
     return tokenToLocalFiatApi.getAppcToLocalFiat(value)
-        .map(response -> new FiatValue(
-            response.getAppcValue().setScale(2, RoundingMode.CEILING),
-            response.getCurrency(), response.getSymbol()));
+        .map(response -> new FiatValue(response.getAppcValue()
+            .setScale(2, RoundingMode.CEILING), response.getCurrency(), response.getSymbol()));
+  }
+
+  public Observable<FiatValue> getCreditsToLocalFiat(String value) {
+    return tokenToLocalFiatApi.getAppcToLocalFiat(value)
+        .map(response -> new FiatValue(response.getAppcValue()
+            .setScale(2, RoundingMode.CEILING), response.getCurrency(), response.getSymbol()));
+  }
+
+  public Observable<FiatValue> getEtherToLocalFiat(String value) {
+    //TODO Mocked value while webservice is not up
+    return Observable.just(new FiatValue(new BigDecimal(20), "EUR", "€"));
   }
 
   public Observable<FiatValue> getLocalToAppc(String currency, String value) {
     return tokenToLocalFiatApi.convertLocalToAppc(currency, value)
-        .map(response -> new FiatValue(
-            response.getAppcValue().setScale(2, RoundingMode.CEILING),
-            response.getCurrency(), response.getSymbol()));
+        .map(response -> new FiatValue(response.getAppcValue()
+            .setScale(2, RoundingMode.CEILING), response.getCurrency(), response.getSymbol()));
   }
 
   public interface TokenToLocalFiatApi {

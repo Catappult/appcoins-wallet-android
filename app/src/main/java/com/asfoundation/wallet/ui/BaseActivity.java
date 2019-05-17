@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.SpannableString;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
@@ -49,7 +48,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Activity
     }
   }
 
-  protected void setCollapsingTitle(SpannableString title) {
+  protected void setCollapsingTitle(String title) {
     CollapsingToolbarLayout collapsing = findViewById(R.id.toolbar_layout);
     if (collapsing != null) {
       collapsing.setTitle(title);

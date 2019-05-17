@@ -8,7 +8,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.text.SpannableString;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,13 +24,13 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.Balance;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
+import com.asfoundation.wallet.entity.GlobalBalance;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsAdapter;
-import com.asfoundation.wallet.util.BalanceUtils;
 import com.asfoundation.wallet.util.RootUtil;
 import com.asfoundation.wallet.viewmodel.BaseNavigationActivity;
 import com.asfoundation.wallet.viewmodel.TransactionsViewModel;
@@ -43,6 +43,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import dagger.android.AndroidInjection;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -59,7 +60,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private Dialog dialog;
   private EmptyTransactionsView emptyView;
   private RecyclerView list;
-  private TextView subtitle;
+  private TextView subtitleView;
 
   public static Intent newIntent(Context context) {
     Intent intent = new Intent(context, TransactionsActivity.class);
@@ -75,14 +76,14 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     toolbar();
     enableDisplayHomeAsUp();
 
-    subtitle = findViewById(R.id.toolbar_subtitle);
+    subtitleView = findViewById(R.id.toolbar_subtitle);
     ((AppBarLayout) findViewById(R.id.app_bar)).addOnOffsetChangedListener(
         (appBarLayout, verticalOffset) -> {
           float percentage =
               ((float) Math.abs(verticalOffset) / appBarLayout.getTotalScrollRange());
           float alpha = 1 - (percentage * 1.20f);
           findViewById(R.id.toolbar_layout_logo).setAlpha(alpha);
-          subtitle.setAlpha(alpha);
+          subtitleView.setAlpha(alpha);
           ((ToolbarArcBackground) findViewById(R.id.toolbar_background_arc)).setScale(percentage);
 
           if (percentage == 0) {
@@ -92,7 +93,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
           }
         });
 
-    setCollapsingTitle(new SpannableString(getString(R.string.unknown_balance_with_symbol)));
+    setCollapsingTitle(getString(R.string.unknown_balance_with_symbol));
     initBottomNavigation();
     disableDisplayHomeAsUp();
 
@@ -116,10 +117,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::onError);
     viewModel.defaultNetwork()
         .observe(this, this::onDefaultNetwork);
-    viewModel.defaultWalletTokenBalance()
-        .observe(this, this::onTokenBalanceChanged);
-    viewModel.defaultWalletCreditsBalance()
-        .observe(this, this::onCreditsBalanceChanged);
+    viewModel.getDefaultWalletBalance()
+        .observe(this, this::onBalanceChanged);
     viewModel.defaultWallet()
         .observe(this, this::onDefaultWallet);
     viewModel.transactions()
@@ -165,20 +164,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     showList();
   }
 
-  private void onTokenBalanceChanged(Balance balance) {
-    if (balance != null) {
-      String currency = balance.getSymbol();
-      String value = balance.getValue();
-      int smallTitleSize = (int) getResources().getDimension(R.dimen.title_small_text);
-      int color = getResources().getColor(R.color.appbar_subtitle_color);
-      setCollapsingTitle(BalanceUtils.formatBalance(value, currency, smallTitleSize, color));
-    }
-  }
-
-  private void onCreditsBalanceChanged(Balance balance) {
-    subtitle.setText(balance.getValue() + " " + balance.getSymbol());
-  }
-
   private void onTransactionClick(View view, Transaction transaction) {
     viewModel.showDetails(view.getContext(), transaction);
   }
@@ -195,7 +180,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   @Override protected void onResume() {
     super.onResume();
     emptyView = null;
-    setCollapsingTitle(new SpannableString(getString(R.string.unknown_balance_without_symbol)));
+    setCollapsingTitle(getString(R.string.unknown_balance_without_symbol));
     adapter.clear();
     list.setVisibility(View.GONE);
     viewModel.prepare();
@@ -310,7 +295,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   @Override protected void onDestroy() {
-    subtitle = null;
+    subtitleView = null;
     super.onDestroy();
   }
 
@@ -334,5 +319,42 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private void onDepositClick(View view, Uri uri) {
     viewModel.openDeposit(view.getContext(), uri);
+  }
+
+  private void onBalanceChanged(GlobalBalance globalBalance) {
+    setCollapsingTitle(globalBalance.getCreditsFiatValue()
+        .getSymbol() + sumBalances(globalBalance.getAppcoinsFiatValue()
+        .getAmount(), globalBalance.getCreditsFiatValue()
+        .getAmount(), globalBalance.getEtherFiatValue()
+        .getAmount()).toString());
+    setSubtitle(globalBalance);
+  }
+
+  private void setSubtitle(GlobalBalance globalBalance) {
+    String subtitle = "";
+    Balance appcoinsBalance = globalBalance.getAppcoinsBalance();
+    Balance creditsBalance = globalBalance.getCreditsBalance();
+    Balance ethereumBalance = globalBalance.getEtherBalance();
+    String bullet = " \u2022 ";
+    if (Double.valueOf(creditsBalance.getValue()) > 0) {
+      subtitle += creditsBalance.toString() + bullet;
+    }
+    if (Double.valueOf(appcoinsBalance.getValue()) > 0) {
+      subtitle += appcoinsBalance.toString() + bullet;
+    }
+    if (Double.valueOf(ethereumBalance.getValue()) > 0) {
+      subtitle += ethereumBalance.toString() + bullet;
+    }
+    if (subtitle.length() > 0) {
+      subtitle = subtitle.substring(0, subtitle.length() - bullet.length());
+    }
+    String correctColorSubtitle =
+        subtitle.replace(bullet, "<font color='#ffffff'>" + bullet + "</font>");
+    subtitleView.setText(Html.fromHtml(correctColorSubtitle));
+  }
+
+  private BigDecimal sumBalances(BigDecimal appcoinsFiatValue, BigDecimal creditsFiatValue,
+      BigDecimal etherFiatValue) {
+    return appcoinsFiatValue.add(creditsFiatValue.add(etherFiatValue));
   }
 }

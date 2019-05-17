@@ -5,6 +5,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
 import android.text.format.DateUtils;
+import android.util.Pair;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.appcoins.wallet.gamification.repository.Levels;
@@ -12,6 +13,7 @@ import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.Balance;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
+import com.asfoundation.wallet.entity.GlobalBalance;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
@@ -22,7 +24,6 @@ import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.repository.OffChainTransactions;
 import com.asfoundation.wallet.router.AirdropRouter;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
-import com.asfoundation.wallet.router.ManageWalletsRouter;
 import com.asfoundation.wallet.router.MyAddressRouter;
 import com.asfoundation.wallet.router.MyTokensRouter;
 import com.asfoundation.wallet.router.RewardsLevelRouter;
@@ -30,12 +31,14 @@ import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TopUpRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
+import com.asfoundation.wallet.service.LocalCurrencyConversionService;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionsAnalytics;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
+import com.asfoundation.wallet.ui.iab.FiatValue;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -54,14 +57,12 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<Boolean> showAnimation = new MutableLiveData<>();
   private final MutableLiveData<List<AppcoinsApplication>> appcoinsApplications =
       new MutableLiveData<>();
-  private final MutableLiveData<Balance> defaultWalletTokenBalance = new MutableLiveData<>();
-  private final MutableLiveData<Balance> defaultWalletCreditBalance = new MutableLiveData<>();
+  private final MutableLiveData<GlobalBalance> defaultWalletBalance = new MutableLiveData<>();
   private final MutableLiveData<Double> gamificationMaxBonus = new MutableLiveData<>();
   private final MutableLiveData<Double> fetchTransactionsError = new MutableLiveData<>();
   private final FindDefaultNetworkInteract findDefaultNetworkInteract;
   private final FindDefaultWalletInteract findDefaultWalletInteract;
   private final FetchTransactionsInteract fetchTransactionsInteract;
-  private final ManageWalletsRouter manageWalletsRouter;
   private final SettingsRouter settingsRouter;
   private final SendRouter sendRouter;
   private final TransactionDetailRouter transactionDetailRouter;
@@ -78,28 +79,28 @@ public class TransactionsViewModel extends BaseViewModel {
   private final TopUpRouter topUpRouter;
   private final OffChainTransactions offChainTransactions;
   private final GamificationInteractor gamificationInteractor;
-  private Handler handler = new Handler();
-  private final Runnable startFetchTransactionsTask = () -> this.fetchTransactions(false);
-  private final Runnable startGetTokenBalanceTask = this::getTokenBalance;
-  private final Runnable startGetCreditsBalanceTask = this::getCreditsBalance;
   private final TransactionsAnalytics analytics;
+  private final LocalCurrencyConversionService localCurrencyConversionService;
+  private Handler handler = new Handler();
+  private final Runnable startGlobalBalanceTask = this::getGlobalBalance;
   private boolean hasTransactions = false;
+  private final Runnable startFetchTransactionsTask = () -> this.fetchTransactions(false);
 
   TransactionsViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
-      FetchTransactionsInteract fetchTransactionsInteract, ManageWalletsRouter manageWalletsRouter,
-      SettingsRouter settingsRouter, SendRouter sendRouter,
-      TransactionDetailRouter transactionDetailRouter, MyAddressRouter myAddressRouter,
-      MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
-      DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
-      TransactionsMapper transactionsMapper, AirdropRouter airdropRouter, AppcoinsApps applications,
+      FetchTransactionsInteract fetchTransactionsInteract, SettingsRouter settingsRouter,
+      SendRouter sendRouter, TransactionDetailRouter transactionDetailRouter,
+      MyAddressRouter myAddressRouter, MyTokensRouter myTokensRouter,
+      ExternalBrowserRouter externalBrowserRouter, DefaultTokenProvider defaultTokenProvider,
+      GetDefaultWalletBalance getDefaultWalletBalance, TransactionsMapper transactionsMapper,
+      AirdropRouter airdropRouter, AppcoinsApps applications,
       OffChainTransactions offChainTransactions, RewardsLevelRouter rewardsLevelRouter,
       GamificationInteractor gamificationInteractor, TopUpRouter topUpRouter,
-      TransactionsAnalytics analytics) {
+      TransactionsAnalytics analytics,
+      LocalCurrencyConversionService localCurrencyConversionService) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchTransactionsInteract = fetchTransactionsInteract;
-    this.manageWalletsRouter = manageWalletsRouter;
     this.settingsRouter = settingsRouter;
     this.sendRouter = sendRouter;
     this.transactionDetailRouter = transactionDetailRouter;
@@ -116,6 +117,7 @@ public class TransactionsViewModel extends BaseViewModel {
     this.gamificationInteractor = gamificationInteractor;
     this.topUpRouter = topUpRouter;
     this.analytics = analytics;
+    this.localCurrencyConversionService = localCurrencyConversionService;
     this.disposables = new CompositeDisposable();
   }
 
@@ -126,8 +128,7 @@ public class TransactionsViewModel extends BaseViewModel {
       disposables.dispose();
     }
     handler.removeCallbacks(startFetchTransactionsTask);
-    handler.removeCallbacks(startGetTokenBalanceTask);
-    handler.removeCallbacks(startGetCreditsBalanceTask);
+    handler.removeCallbacks(startGlobalBalanceTask);
   }
 
   public LiveData<NetworkInfo> defaultNetwork() {
@@ -142,12 +143,8 @@ public class TransactionsViewModel extends BaseViewModel {
     return transactions;
   }
 
-  public MutableLiveData<Balance> defaultWalletTokenBalance() {
-    return defaultWalletTokenBalance;
-  }
-
-  public MutableLiveData<Balance> defaultWalletCreditsBalance() {
-    return defaultWalletCreditBalance;
+  public MutableLiveData<GlobalBalance> getDefaultWalletBalance() {
+    return defaultWalletBalance;
   }
 
   public void prepare() {
@@ -215,24 +212,52 @@ public class TransactionsViewModel extends BaseViewModel {
         || networkInfo.chainId == 1 && !BuildConfig.DEBUG;
   }
 
-  private void getTokenBalance() {
-    disposables.add(getDefaultWalletBalance.getTokens(defaultWallet.getValue())
-        .subscribe(value -> {
-          defaultWalletTokenBalance.postValue(value);
-          handler.removeCallbacks(startGetTokenBalanceTask);
-          handler.postDelayed(startGetTokenBalanceTask, GET_BALANCE_INTERVAL);
-        }, Throwable::printStackTrace));
+  private void getGlobalBalance() {
+    disposables.add(Observable.zip(getTokenBalance(), getCreditsBalance(), getEthereumBalance(),
+        this::updateWalletValue)
+        .subscribe(globalBalance -> {
+          handler.removeCallbacks(startGlobalBalanceTask);
+          handler.postDelayed(startGlobalBalanceTask, GET_BALANCE_INTERVAL);
+        }, throwable -> throwable.printStackTrace()));
   }
 
-  private void getCreditsBalance() {
-    disposables.add(findDefaultNetworkInteract.find()
+  private GlobalBalance updateWalletValue(Pair<Balance, FiatValue> tokenBalance,
+      Pair<Balance, FiatValue> creditsBalance, Pair<Balance, FiatValue> ethereumBalance) {
+    GlobalBalance currentGlobalBalance = defaultWalletBalance.getValue();
+    GlobalBalance newGlobalBalance =
+        new GlobalBalance(tokenBalance.first, tokenBalance.second, creditsBalance.first,
+            creditsBalance.second, ethereumBalance.first, ethereumBalance.second);
+    if (currentGlobalBalance != null) {
+      if (currentGlobalBalance.changesOccured(currentGlobalBalance, newGlobalBalance)) {
+        defaultWalletBalance.postValue(newGlobalBalance);
+      }
+    } else {
+      defaultWalletBalance.postValue(newGlobalBalance);
+    }
+    return newGlobalBalance;
+  }
+
+  private Observable<Pair<Balance, FiatValue>> getTokenBalance() {
+    return getDefaultWalletBalance.getTokens(defaultWallet.getValue(), 2)
+        .flatMapObservable(
+            balance -> localCurrencyConversionService.getAppcToLocalFiat(balance.getValue())
+                .flatMap(fiatValue -> Observable.just(new Pair<>(balance, fiatValue))));
+  }
+
+  private Observable<Pair<Balance, FiatValue>> getEthereumBalance() {
+    return getDefaultWalletBalance.getEthereumBalance(defaultWallet.getValue())
+        .flatMapObservable(
+            balance -> localCurrencyConversionService.getEtherToLocalFiat(balance.getValue())
+                .flatMap(fiatValue -> Observable.just(new Pair<>(balance, fiatValue))));
+  }
+
+  private Observable<Pair<Balance, FiatValue>> getCreditsBalance() {
+    return findDefaultNetworkInteract.find()
         .filter(this::shouldShowOffChainInfo)
         .flatMapSingle(__ -> getDefaultWalletBalance.getCredits(defaultWallet.getValue()))
-        .subscribe(value -> {
-          defaultWalletCreditBalance.postValue(value);
-          handler.removeCallbacks(startGetCreditsBalanceTask);
-          handler.postDelayed(startGetCreditsBalanceTask, GET_BALANCE_INTERVAL);
-        }, Throwable::printStackTrace));
+        .flatMapObservable(
+            balance -> localCurrencyConversionService.getCreditsToLocalFiat(balance.getValue())
+                .flatMap(fiatValue -> Observable.just(new Pair<>(balance, fiatValue))));
   }
 
   private void onDefaultNetwork(NetworkInfo networkInfo) {
@@ -244,8 +269,7 @@ public class TransactionsViewModel extends BaseViewModel {
 
   private void onDefaultWallet(Wallet wallet) {
     defaultWallet.setValue(wallet);
-    getTokenBalance();
-    getCreditsBalance();
+    getGlobalBalance();
     fetchTransactions(true);
   }
 
@@ -266,10 +290,6 @@ public class TransactionsViewModel extends BaseViewModel {
       error.postValue(new ErrorEnvelope(C.ErrorCode.EMPTY_COLLECTION, "empty collection"));
     }
     handler.postDelayed(startFetchTransactionsTask, FETCH_TRANSACTIONS_INTERVAL);
-  }
-
-  public void showWallets(Context context) {
-    manageWalletsRouter.open(context, false);
   }
 
   public void showSettings(Context context) {
@@ -296,8 +316,7 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public void pause() {
     handler.removeCallbacks(startFetchTransactionsTask);
-    handler.removeCallbacks(startGetTokenBalanceTask);
-    handler.removeCallbacks(startGetCreditsBalanceTask);
+    handler.removeCallbacks(startGlobalBalanceTask);
   }
 
   public void openDeposit(Context context, Uri uri) {
