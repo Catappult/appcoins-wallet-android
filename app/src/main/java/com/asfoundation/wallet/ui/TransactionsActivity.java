@@ -43,7 +43,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import dagger.android.AndroidInjection;
-import java.math.BigDecimal;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -321,51 +320,34 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void onBalanceChanged(GlobalBalance globalBalance) {
-    setCollapsingTitle(globalBalance.getCreditsFiatValue()
-        .getSymbol() + sumBalances(globalBalance.getAppcoinsFiatValue()
-        .getAmount(), globalBalance.getCreditsFiatValue()
-        .getAmount(), globalBalance.getEtherFiatValue()
-        .getAmount()).toString());
+    setCollapsingTitle(globalBalance.getFiatSymbol() + globalBalance.getFiatValue());
     setSubtitle(globalBalance);
   }
 
   private void setSubtitle(GlobalBalance globalBalance) {
-    Balance appcoinsBalance = globalBalance.getAppcoinsBalance();
-    Balance creditsBalance = globalBalance.getCreditsBalance();
-    Balance ethereumBalance = globalBalance.getEtherBalance();
     String subtitle =
-        buildCurrencyString(appcoinsBalance, creditsBalance, ethereumBalance, globalBalance);
+        buildCurrencyString(globalBalance.getAppcoinsBalance(), globalBalance.getCreditsBalance(),
+            globalBalance.getEtherBalance(), globalBalance.getShowAppcoins(),
+            globalBalance.getShowCredits(), globalBalance.getShowEthereum());
     subtitleView.setText(Html.fromHtml(subtitle));
   }
 
   private String buildCurrencyString(Balance appcoinsBalance, Balance creditsBalance,
-      Balance ethereumBalance, GlobalBalance globalBalance) {
+      Balance ethereumBalance, boolean showAppcoins, boolean showCredits, boolean showEthereum) {
     String subtitle = "";
     String bullet = " \u2022 ";
-    if (shouldShow(Double.valueOf(creditsBalance.getValue()), globalBalance.getCreditsFiatValue()
-        .getAmount(), 0.01)) {
+    if (showCredits) {
       subtitle += creditsBalance.toString() + bullet;
     }
-    if (shouldShow(Double.valueOf(appcoinsBalance.getValue()), globalBalance.getAppcoinsFiatValue()
-        .getAmount(), 0.01)) {
+    if (showAppcoins) {
       subtitle += appcoinsBalance.toString() + bullet;
     }
-    if (shouldShow(Double.valueOf(ethereumBalance.getValue()), globalBalance.getEtherFiatValue()
-        .getAmount(), 0.0001)) {
+    if (showEthereum) {
       subtitle += ethereumBalance.toString() + bullet;
     }
-    if (subtitle.length() > 0) {
+    if (subtitle.length() > bullet.length()) {
       subtitle = subtitle.substring(0, subtitle.length() - bullet.length());
     }
     return subtitle.replace(bullet, "<font color='#ffffff'>" + bullet + "</font>");
-  }
-
-  private BigDecimal sumBalances(BigDecimal appcoinsFiatValue, BigDecimal creditsFiatValue,
-      BigDecimal etherFiatValue) {
-    return appcoinsFiatValue.add(creditsFiatValue.add(etherFiatValue));
-  }
-
-  private boolean shouldShow(Double currencyValue, BigDecimal fiatValue, Double threshold) {
-    return currencyValue >= threshold && fiatValue.doubleValue() >= threshold;
   }
 }

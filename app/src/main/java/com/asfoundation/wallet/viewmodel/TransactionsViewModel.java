@@ -45,6 +45,7 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 
@@ -218,15 +219,18 @@ public class TransactionsViewModel extends BaseViewModel {
         .subscribe(globalBalance -> {
           handler.removeCallbacks(startGlobalBalanceTask);
           handler.postDelayed(startGlobalBalanceTask, GET_BALANCE_INTERVAL);
-        }, throwable -> throwable.printStackTrace()));
+        }, Throwable::printStackTrace));
   }
 
   private GlobalBalance updateWalletValue(Pair<Balance, FiatValue> tokenBalance,
       Pair<Balance, FiatValue> creditsBalance, Pair<Balance, FiatValue> ethereumBalance) {
+    String fiatValue = sumFiat(tokenBalance.second.getAmount(), creditsBalance.second.getAmount(),
+        ethereumBalance.second.getAmount()).toString();
     GlobalBalance currentGlobalBalance = defaultWalletBalance.getValue();
     GlobalBalance newGlobalBalance =
-        new GlobalBalance(tokenBalance.first, tokenBalance.second, creditsBalance.first,
-            creditsBalance.second, ethereumBalance.first, ethereumBalance.second);
+        new GlobalBalance(tokenBalance.first, creditsBalance.first, ethereumBalance.first,
+            tokenBalance.second.getSymbol(), fiatValue, shouldShow(tokenBalance, 0.01),
+            shouldShow(creditsBalance, 0.01), shouldShow(ethereumBalance, 0.0001));
     if (currentGlobalBalance != null) {
       if (!currentGlobalBalance.equals(newGlobalBalance)) {
         defaultWalletBalance.postValue(newGlobalBalance);
@@ -258,6 +262,17 @@ public class TransactionsViewModel extends BaseViewModel {
         .flatMapObservable(
             balance -> localCurrencyConversionService.getCreditsToLocalFiat(balance.getValue())
                 .flatMap(fiatValue -> Observable.just(new Pair<>(balance, fiatValue))));
+  }
+
+  private boolean shouldShow(Pair<Balance, FiatValue> balance, Double threshold) {
+    return Double.valueOf(balance.first.getValue()) >= threshold
+        && balance.second.getAmount()
+        .doubleValue() >= threshold;
+  }
+
+  private BigDecimal sumFiat(BigDecimal appcoinsFiatValue, BigDecimal creditsFiatValue,
+      BigDecimal etherFiatValue) {
+    return appcoinsFiatValue.add(creditsFiatValue.add(etherFiatValue));
   }
 
   private void onDefaultNetwork(NetworkInfo networkInfo) {
