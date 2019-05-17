@@ -334,19 +334,23 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private String buildCurrencyString(Balance appcoinsBalance, Balance creditsBalance,
       Balance ethereumBalance, boolean showAppcoins, boolean showCredits, boolean showEthereum) {
-    String subtitle = "";
+    StringBuilder stringBuilder = new StringBuilder();
     String bullet = " \u2022 ";
     if (showCredits) {
-      subtitle += creditsBalance.toString() + bullet;
+      stringBuilder.append(creditsBalance.toString())
+          .append(bullet);
     }
     if (showAppcoins) {
-      subtitle += appcoinsBalance.toString() + bullet;
+      stringBuilder.append(appcoinsBalance.toString())
+          .append(bullet);
     }
     if (showEthereum) {
-      subtitle += ethereumBalance.toString() + bullet;
+      stringBuilder.append(ethereumBalance.toString())
+          .append(bullet);
     }
-    if (subtitle.length() > bullet.length()) {
-      subtitle = subtitle.substring(0, subtitle.length() - bullet.length());
+    String subtitle = stringBuilder.toString();
+    if (stringBuilder.length() > bullet.length()) {
+      subtitle = stringBuilder.substring(0, stringBuilder.length() - bullet.length());
     }
     return subtitle.replace(bullet, "<font color='#ffffff'>" + bullet + "</font>");
   }
