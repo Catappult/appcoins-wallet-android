@@ -93,7 +93,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
           }
         });
 
-    setCollapsingTitle(getString(R.string.unknown_balance_with_symbol));
+    setCollapsingTitle(getString(R.string.unknown_balance_without_symbol));
     initBottomNavigation();
     disableDisplayHomeAsUp();
 
@@ -180,7 +180,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   @Override protected void onResume() {
     super.onResume();
     emptyView = null;
-    setCollapsingTitle(getString(R.string.unknown_balance_without_symbol));
     adapter.clear();
     list.setVisibility(View.GONE);
     viewModel.prepare();
