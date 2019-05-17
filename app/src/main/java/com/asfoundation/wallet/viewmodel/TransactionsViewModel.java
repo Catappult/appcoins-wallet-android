@@ -228,7 +228,7 @@ public class TransactionsViewModel extends BaseViewModel {
         new GlobalBalance(tokenBalance.first, tokenBalance.second, creditsBalance.first,
             creditsBalance.second, ethereumBalance.first, ethereumBalance.second);
     if (currentGlobalBalance != null) {
-      if (currentGlobalBalance.changesOccured(currentGlobalBalance, newGlobalBalance)) {
+      if (!currentGlobalBalance.equals(newGlobalBalance)) {
         defaultWalletBalance.postValue(newGlobalBalance);
       }
     } else {
