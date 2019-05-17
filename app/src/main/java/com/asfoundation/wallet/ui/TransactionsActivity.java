@@ -336,13 +336,13 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     Balance creditsBalance = globalBalance.getCreditsBalance();
     Balance ethereumBalance = globalBalance.getEtherBalance();
     String bullet = " \u2022 ";
-    if (Double.valueOf(creditsBalance.getValue()) > 0) {
+    if (Double.valueOf(creditsBalance.getValue()) >= 0.01) {
       subtitle += creditsBalance.toString() + bullet;
     }
-    if (Double.valueOf(appcoinsBalance.getValue()) > 0) {
+    if (Double.valueOf(appcoinsBalance.getValue()) >= 0.01) {
       subtitle += appcoinsBalance.toString() + bullet;
     }
-    if (Double.valueOf(ethereumBalance.getValue()) > 0) {
+    if (Double.valueOf(ethereumBalance.getValue()) >= 0.0001) {
       subtitle += ethereumBalance.toString() + bullet;
     }
     if (subtitle.length() > 0) {
