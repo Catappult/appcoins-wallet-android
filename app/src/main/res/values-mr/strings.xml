@@ -107,13 +107,13 @@
   <string name="intro_message_second_page">खासगी कीज आपल्या डिव्हाइसबाहेर जात नाहीत.</string>
   <string name="intro_message_third_page">एपीपीसीमध्ये आपले इन-अॅप पेमेंटस आणि बक्षीसे प्रक्रियारत करा.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
-  <string name="intro_1_body">Your app for in-app purchases.</string>
+  <string name="intro_1_body">अॅपमधील खरेदीसाठीचे आपले अॅप.</string>
   <string name="intro_2_title">जास्त खेळा, कमी पैसे भरा</string>
   <string name="intro_2_body">आपल्या आवडत्या अॅप्स आणि खेळातील वस्तु खरेदी करुन बक्षिसे मिळवा.</string>
   <string name="intro_3_title">साधे आणि सोपे</string>
   <string name="intro_3_body">आपली आवडती पेमेंट पद्धत वापरुन आपली इन-अॅप खरेदी प्रक्रिया पूर्ण करा.</string>
   <string name="intro_4_title">सुरक्षित आणि खासगी</string>
-  <string name="intro_4_body">Your private info will never leave your device, so your AppCoins are safe at all times.</string>
+  <string name="intro_4_body">आपली खासगी माहिती आपल्या डिव्हाइसच्या बाहेर जाणार नाही, त्यामुळे आपल्या अॅपकॉइन्स नेहमीच सुरक्षित रहातील.</string>
   <string name="intro_creating_wallet_short">आम्ही आपल्यासाठी वॉलेट तयार करीत आहोत&#8230;</string>
   <string name="intro_wallet_created_short">वॉलेट बनविले!</string>
   <string name="intro_agree_terms_and_conditions_body">वगळा वर टॅप करुन आपण अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s ना मान्यता देता</string>
@@ -212,7 +212,7 @@
   <string name="notification_not_available_for_country_poa">ही बक्षीस मोहिम आपल्या देशात उपलब्ध नाही</string>
   <string name="notification_already_rewarded_poa">आपल्याला ह्या मोहिमेत पूर्वीच बक्षीस मिळाले आहे</string>
   <string name="notification_submit_error_poa">माफ करा, त्रुटी आली. पुन्हा प्रयत्न करा!</string>
-  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
+  <string name="notification_wrong_network_poa">आपण अॅपकॉइन्स वॉलेटसची डेव्ह आवृत्ती वापरत आहात. बक्षिसाची प्रक्रिया पूर्ण करण्यासाठी कृपया ऑफिशियल रिलीज डाऊनलोड करा.</string>
   <!-- transaction details -->
   <string name="transaction_status_success">यशस्वी</string>
   <string name="transaction_status_pending">प्रलंबित आहे</string>
@@ -297,8 +297,8 @@
   <string name="gamification_galaxy_subtitle">तिथे असलेली मोठी प्रणाली!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
-  <string name="gamification_purchase_header_part_1">Purchase Bonus:</string>
-  <string name="gamification_purchase_header_part_2">%s in APPC Credits</string>
+  <string name="gamification_purchase_header_part_1">खरेदी बोनस:</string>
+  <string name="gamification_purchase_header_part_2">%s एपीपीसी क्रेडीटस</string>
   <string name="gamification_purchase_body">ह्या खरेदीसाठी आपल्याला %s एपीपीसी क्रेडीटस मिळतील.</string>
   <string name="action_level">माझी पातळी</string>
   <!-- Provide wallet address -->
@@ -329,19 +329,19 @@
   <string name="balance_appcoins_body">अॅप इकॉनॉमीसाठी अॅपकॉइन्स ही क्रिप्टोकरंसी आहे. आपण ह्याचा विनिमय पुष्कळशा एक्सचेंजेसवर करु शकता आणि अॅपमधील वस्तु खरेदीसाठी करु शकता.</string>
   <string name="balance_appccreditos_body">अॅपमधील खरेदी करण्याचे टोकन! आपल्या वॉलेटमधुन एपीपीसी-सीत भरणा करा किंवा अॅप वापरुन त्यांना मोफत मिळवा. स्नेह्यांमध्ये ह्याचे हस्तांतरणही केले जाऊ शकते!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Ask someone to pay</string>
-  <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
-  <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
-  <string name="askafriend_share_body">Share the link so you can get the funds sent to you!</string>
+  <string name="askafriend_payment_option_button">कोणालातरी पैसे भरायला सांगा</string>
+  <string name="askafriend_generating_link_message">आम्ही आपली पेमेंट लिंक&#8230; तयार करीत आहोत</string>
+  <string name="askafriend_generating_link_error_message">अरेरे, काहीतरी त्रुटी आली. कृपया पुन्हा प्रयत्न करा!</string>
+  <string name="askafriend_share_body">लिंक शेयर करा म्हणजे आपल्याला पाठविलेले पैसे मिळतील!</string>
   <string name="askafriend_share_add_message_body">संदेश जोडा (पर्यायी)</string>
   <string name="askafriend_share_button">शेयर</string>
-  <string name="askafriend_share_popup_title">Ask someone via:</string>
+  <string name="askafriend_share_popup_title">कोणालातरी ह्याद्वारे विचारा:</string>
   <string name="askafriend_received_body">आपल्याला आत्ताच %s एपीपीसी-सी मिळाले</string>
-  <string name="askafriend_notification_received_title">New Transfer Received</string>
-  <string name="askafriend_notification_received_body">%1$s %2$s were credited to your wallet.</string>
+  <string name="askafriend_notification_received_title">नविन हस्तांतरण मिळाले</string>
+  <string name="askafriend_notification_received_body">%1$s %2$s आपल्या वॉलेटमध्ये जमा केले.</string>
   <string name="askafriend_received_title">हस्तांतरण मिळाले</string>
-  <string name="askafriend_send_title">Transfer Sent</string>
-  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
+  <string name="askafriend_send_title">हस्तांतरण पाठविले</string>
+  <string name="askafriend_share_note_to_friend">अहो! कृपया मला %1$s अॅपकॉइन्सचे क्रेडीट %2$s तील वस्तु खरेदीसाठी पाठवा. लिंक: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">पैसे पाठवा</string>
   <string name="p2p_send_body">आपल्या स्नेह्याचा वॉलेट पत्ता स्कॅन करा किंवा भरा.</string>
@@ -356,11 +356,11 @@
   <string name="error_missing_field">अनिवार्य जागा</string>
   <string name="cancel_button">रद्द करा</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
+  <string name="terms_and_conditions_tickbox">मला अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s मान्य आहेत.</string>
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
-  <string name="terms_and_conditions">Terms and Conditions</string>
-  <string name="privacy_policy">Privacy Policy</string>
+  <string name="terms_and_conditions">अटी आणि शर्ती</string>
+  <string name="privacy_policy">गोपनीयता धोरण</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">The best Android apps are waiting for you.</string>
-  <string name="home_empty_discover_apps_button">DISCOVER TOP APPS</string>
+  <string name="home_empty_discover_apps_body">उत्कृष्ट अँड्रॉइड अॅप्स आपली वाट बघताहेत.</string>
+  <string name="home_empty_discover_apps_button">उच्चीची अॅप्स शोधा</string>
 </resources>
