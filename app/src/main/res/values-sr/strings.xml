@@ -107,13 +107,13 @@
   <string name="intro_message_second_page">Privatni ključevi nikad ne napuštaju vaš uređaj.</string>
   <string name="intro_message_third_page">Obradite sva plaćanja u aplikacijama i nagrade u APPC.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
-  <string name="intro_1_body">Your app for in-app purchases.</string>
+  <string name="intro_1_body">Vaša aplikacija za kupovine u aplikacijama.</string>
   <string name="intro_2_title">Igrajte više, platite manje</string>
   <string name="intro_2_body">Dobijte nagrade za kupovinu u svojim omiljenim aplikacijama i igrama.</string>
   <string name="intro_3_title">Jednostavno i lako</string>
   <string name="intro_3_body">Obradite sve kupovine u aplikacijama pomoću omiljenog načina plaćanja.</string>
   <string name="intro_4_title">Bezbedno i privatno</string>
-  <string name="intro_4_body">Your private info will never leave your device, so your AppCoins are safe at all times.</string>
+  <string name="intro_4_body">Vaše privatne informacije nikad neće napuštati uređaj, tako da su vaši AppCoins uvek bezbedni.</string>
   <string name="intro_creating_wallet_short">Pravimo vam novčanik&#8230;</string>
   <string name="intro_wallet_created_short">Novčanik je napravljen!</string>
   <string name="intro_agree_terms_and_conditions_body">Ako dodirnete Preskoči, prihvatate %1$s i %2$s aplikacije AppCoins Wallet</string>
@@ -212,7 +212,7 @@
   <string name="notification_not_available_for_country_poa">Ova nagradna kampanja nije dostupna u vašoj zemlji</string>
   <string name="notification_already_rewarded_poa">Već ste nagrađeni u ovoj kampanji</string>
   <string name="notification_submit_error_poa">Izvinite, došlo je do greške. Pokušajte ponovo!</string>
-  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
+  <string name="notification_wrong_network_poa">Koristite razvojnu verziju aplikacije AppCoins Wallet. Preuzmite zvaničnu verziju da bi vaša nagrada mogla da se obradi.</string>
   <!-- transaction details -->
   <string name="transaction_status_success">Uspelo</string>
   <string name="transaction_status_pending">Na čekanju</string>
@@ -265,7 +265,7 @@
   <string name="gamification_home_body">Zaradite do %s%% bonusa u omiljenim aplikacijama i igrama!</string>
   <string name="gamification_home_button">POČNITE DA ZARAĐUJETE</string>
   <string name="gamification_level_title">Na kom sam nivou?</string>
-  <string name="gamification_level_title_new">Dobijte APPC kredit!</string>
+  <string name="gamification_level_title_new">Dobijte APPC Credits!</string>
   <string name="gamification_level_on_graphic">%s. nivo</string>
   <string name="gamification_APPCapps_button">Aplikacije i igre</string>
   <string name="gamification_level_header">Čestitamo, vi ste %s!</string>
@@ -275,9 +275,9 @@
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">KAKO OVO FUNKCIONIŠE</string>
-  <string name="gamification_level_body">Zaradićete APPC kredit kada kupujete u omiljenim aplikacijama i igrama.</string>
+  <string name="gamification_level_body">Zaradićete APPC Credits kada kupujete u omiljenim aplikacijama i igrama.</string>
   <string name="gamification_how_header">Kako da pređem na viši nivo?</string>
-  <string name="gamification_how_body">Zaradićete APPC kredit kada kupujete u omiljenim aplikacijama i igrama.</string>
+  <string name="gamification_how_body">Zaradićete APPC Credits kada kupujete u omiljenim aplikacijama i igrama.</string>
   <string name="gamification_how_body_new">Što više AppCoins potrošite u omiljenim aplikacijama, bonus će biti veći!</string>
   <string name="gamification_how_table_a1">POTROŠITE</string>
   <string name="gamification_how_table_b1">BONUS</string>
@@ -297,8 +297,8 @@
   <string name="gamification_galaxy_subtitle">Najveći sistem koji postoji!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
-  <string name="gamification_purchase_header_part_1">Purchase Bonus:</string>
-  <string name="gamification_purchase_header_part_2">%s in APPC Credits</string>
+  <string name="gamification_purchase_header_part_1">Bonus za kupovinu:</string>
+  <string name="gamification_purchase_header_part_2">%s APPC Credits</string>
   <string name="gamification_purchase_body">Dobićete APPC kredit (%s) za ovu kupovinu.</string>
   <string name="action_level">Moj nivo</string>
   <!-- Provide wallet address -->
@@ -319,29 +319,29 @@
   <string name="topup_amount">%s APPC-C</string>
   <string name="topup_bonus_header">Dobili ste bonus!</string>
   <string name="topup_bonus_message">Dodatak od %s APPC-C će biti dodat u vaš novčanik.</string>
-  <string name="topup_completed_1">APPC kredit (%1$s)</string>
+  <string name="topup_completed_1">%1$s APPC Credits</string>
   <string name="topup_completed_2">dodat je na vaš nalog.</string>
   <!--Balance-->
   <string name="balance_title">Stanje</string>
   <string name="balance_total_body">Ukupno stanje u %s</string>
-  <string name="balance_topup_body">Možete da dopunite novčanik AppCoins kreditom.</string>
+  <string name="balance_topup_body">Možete da dopunite novčanik pomoću AppCoins Credits.</string>
   <string name="balance_ethereum_body">Ethereum je kriptovaluta na kojoj su zasnovani AppCoins. Možete da je kupite i prodate na većini berzi – veoma je popularna!</string>
   <string name="balance_appcoins_body">AppCoins je kriptovaluta za ekonomiju aplikacija. Možete da je kupite i prodate na nekoliko berzi i koristite je za kupovine u aplikacijama.</string>
   <string name="balance_appccreditos_body">Token za kupovine u aplikacijama! Dopunite APPC-C iz novčanika ili ih dobijte besplatno tako što ćete koristiti aplikacije. Možete i da ih prenesete prijateljima, kao i oni vama!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Ask someone to pay</string>
-  <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
-  <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
-  <string name="askafriend_share_body">Share the link so you can get the funds sent to you!</string>
+  <string name="askafriend_payment_option_button">Zatražite od nekoga da plati</string>
+  <string name="askafriend_generating_link_message">Generišemo vam link za plaćanje&#8230;</string>
+  <string name="askafriend_generating_link_error_message">Ups, došlo je do greške. Pokušajte ponovo!</string>
+  <string name="askafriend_share_body">Podelite link da bi prijatelj mogao da vam pošalje sredstva!</string>
   <string name="askafriend_share_add_message_body">Dodajte poruku (izborno)</string>
   <string name="askafriend_share_button">Podeli</string>
-  <string name="askafriend_share_popup_title">Ask someone via:</string>
-  <string name="askafriend_received_body">Upravo ste dobili %s APPC-C</string>
-  <string name="askafriend_notification_received_title">New Transfer Received</string>
-  <string name="askafriend_notification_received_body">%1$s %2$s were credited to your wallet.</string>
+  <string name="askafriend_share_popup_title">Zatražite preko:</string>
+  <string name="askafriend_received_body">Upravo ste dobili %s AppCoins Credits</string>
+  <string name="askafriend_notification_received_title">Novi prenos je primljen</string>
+  <string name="askafriend_notification_received_body">U vaš novčanik je dodato %1$s %2$s.</string>
   <string name="askafriend_received_title">Prenos je primljen</string>
-  <string name="askafriend_send_title">Transfer Sent</string>
-  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
+  <string name="askafriend_send_title">Prenos je poslat</string>
+  <string name="askafriend_share_note_to_friend">Zdravo! Molim te da mi pošalješ AppCoins Credits (%1$s) da kupim nešto u igri %2$s. Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Pošaljite sredstva</string>
   <string name="p2p_send_body">Skenirajte ili unesite adresu novčanika svog prijatelja.</string>
@@ -356,11 +356,11 @@
   <string name="error_missing_field">Obavezno polje</string>
   <string name="cancel_button">Otkaži</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
+  <string name="terms_and_conditions_tickbox">Prihvatam dokumente %1$s i %2$s aplikacije AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
-  <string name="terms_and_conditions">Terms and Conditions</string>
-  <string name="privacy_policy">Privacy Policy</string>
+  <string name="terms_and_conditions">Uslovi i odredbe</string>
+  <string name="privacy_policy">Smernice za privatnost</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">The best Android apps are waiting for you.</string>
-  <string name="home_empty_discover_apps_button">DISCOVER TOP APPS</string>
+  <string name="home_empty_discover_apps_body">Čekaju vas najbolje aplikacije za Android.</string>
+  <string name="home_empty_discover_apps_button">OTKRIJTE NAJPOPULARNIJE APLIKACIJE</string>
 </resources>
