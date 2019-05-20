@@ -340,7 +340,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private String buildCurrencyString(Balance appcoinsBalance, Balance creditsBalance,
       Balance ethereumBalance, boolean showAppcoins, boolean showCredits, boolean showEthereum) {
     StringBuilder stringBuilder = new StringBuilder();
-    String bullet = " \u2022 ";
+    String bullet = "\u00A0\u00A0\u00A0\u2022\u00A0\u00A0\u00A0";
     if (showCredits) {
       stringBuilder.append(creditsBalance.toString())
           .append(bullet);
