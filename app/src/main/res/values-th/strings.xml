@@ -303,6 +303,7 @@
   <string name="action_level">ระดับของฉัน</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">อนุญาตให้ AppCoins กระเป๋าเพื่อให้กระเป๋าสตางค์ที่อยู่ %s</string>
+  <string name="provide_wallet_body_placeholders">Allow %1$s to provide your wallet address to %2$s.</string>
   <string name="provide_wallet_always_allow_button">อนุญาตเสมอ</string>
   <string name="provide_wallet_allow_once_button">อนุญาตให้ครั้งเดียว</string>
   <string name="provide_wallet_completed_header">กระเป๋าสตางค์ที่เกี่ยวข้องกับ Aptoide!</string>
