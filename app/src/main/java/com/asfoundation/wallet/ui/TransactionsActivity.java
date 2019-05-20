@@ -77,6 +77,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     enableDisplayHomeAsUp();
 
     balanceSkeloton = findViewById(R.id.balance_skeloton);
+    balanceSkeloton.setVisibility(View.VISIBLE);
     balanceSkeloton.playAnimation();
     subtitleView = findViewById(R.id.toolbar_subtitle);
     ((AppBarLayout) findViewById(R.id.app_bar)).addOnOffsetChangedListener(
