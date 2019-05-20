@@ -219,10 +219,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         viewModel.fetchTransactions(true);
         break;
       }
-      case R.id.action_learn_more: {
-        viewModel.showRewardsLevel(this);
-        break;
-      }
       case R.id.top_up_btn: {
         viewModel.showTopUp(this);
         break;

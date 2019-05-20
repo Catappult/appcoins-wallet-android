@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_constraintVertical_chainStyle="packed"
+    >
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/transactions_empty_screen_animation"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:scaleType="centerInside"
+      app:layout_constraintBottom_toTopOf="@id/animation_guideline"
+      app:layout_constraintEnd_toStartOf="@id/vertical_guideline2"
+      app:layout_constraintStart_toEndOf="@id/vertical_guideline1"
+      app:layout_constraintTop_toTopOf="parent"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/transactions_empty_screen_animation"
+      />
+  <TextView
+      android:id="@+id/empty_body_text"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="14dp"
+      android:gravity="center"
+      app:layout_constraintEnd_toEndOf="@id/vertical_guideline2"
+      app:layout_constraintStart_toStartOf="@id/vertical_guideline1"
+      app:layout_constraintTop_toBottomOf="@id/animation_guideline"
+      tools:text="Earn up to 30.0% Bonus in your favorite apps and games!"
+      />
+  <TextView
+      android:id="@+id/empty_action_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/large_margin"
+      android:layout_marginTop="4dp"
+      android:text="@string/gamification_home_button"
+      android:textColor="@color/colorAccent"
+      app:layout_constraintEnd_toEndOf="@id/vertical_guideline1"
+      app:layout_constraintStart_toStartOf="@id/vertical_guideline2"
+      app:layout_constraintTop_toBottomOf="@id/empty_body_text"
+      style="@style/Widget.AppCompat.Button.Borderless"
+      />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/animation_guideline"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.4"
+      />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/vertical_guideline1"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent="0.2"
+      />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/vertical_guideline2"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent="0.8"
+      />
+</androidx.constraintlayout.widget.ConstraintLayout>
