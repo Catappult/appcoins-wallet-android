@@ -32,6 +32,18 @@
         style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular.Transparency"
         />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/balance_skeloton"
+        android:layout_width="wrap_content"
+        android:layout_height="57dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        app:layout_collapseMode="parallax"
+        app:lottie_enableMergePathsForKitKatAndAbove="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/balance_skeleton"
+        />
+
     <FrameLayout
         android:id="@+id/empty_clickable_view"
         android:layout_width="200dp"

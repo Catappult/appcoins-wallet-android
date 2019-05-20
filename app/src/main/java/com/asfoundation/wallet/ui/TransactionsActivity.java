@@ -60,6 +60,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private EmptyTransactionsView emptyView;
   private RecyclerView list;
   private TextView subtitleView;
+  private LottieAnimationView balanceSkeloton;
 
   public static Intent newIntent(Context context) {
     Intent intent = new Intent(context, TransactionsActivity.class);
@@ -75,6 +76,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     toolbar();
     enableDisplayHomeAsUp();
 
+    balanceSkeloton = findViewById(R.id.balance_skeloton);
+    balanceSkeloton.playAnimation();
     subtitleView = findViewById(R.id.toolbar_subtitle);
     ((AppBarLayout) findViewById(R.id.app_bar)).addOnOffsetChangedListener(
         (appBarLayout, verticalOffset) -> {
@@ -83,6 +86,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
           float alpha = 1 - (percentage * 1.20f);
           findViewById(R.id.toolbar_layout_logo).setAlpha(alpha);
           subtitleView.setAlpha(alpha);
+          balanceSkeloton.setAlpha(alpha);
           ((ToolbarArcBackground) findViewById(R.id.toolbar_background_arc)).setScale(percentage);
 
           if (percentage == 0) {
@@ -92,7 +96,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
           }
         });
 
-    setCollapsingTitle(getString(R.string.unknown_balance_without_symbol));
+    setCollapsingTitle(" ");
     initBottomNavigation();
     disableDisplayHomeAsUp();
 
@@ -299,6 +303,9 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   @Override protected void onDestroy() {
     subtitleView = null;
+    balanceSkeloton.removeAllAnimatorListeners();
+    balanceSkeloton.removeAllUpdateListeners();
+    balanceSkeloton.removeAllLottieOnCompositionLoadedListener();
     super.onDestroy();
   }
 
@@ -325,6 +332,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void onBalanceChanged(GlobalBalance globalBalance) {
+    balanceSkeloton.setVisibility(View.GONE);
     setCollapsingTitle(globalBalance.getFiatSymbol() + globalBalance.getFiatValue());
     setSubtitle(globalBalance);
   }

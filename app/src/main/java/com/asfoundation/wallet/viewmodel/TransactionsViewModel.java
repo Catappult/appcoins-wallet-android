@@ -48,6 +48,7 @@ import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class TransactionsViewModel extends BaseViewModel {
   private static final long GET_BALANCE_INTERVAL = 10 * DateUtils.SECOND_IN_MILLIS;
@@ -215,7 +216,11 @@ public class TransactionsViewModel extends BaseViewModel {
 
   private void getGlobalBalance() {
     disposables.add(Observable.zip(getTokenBalance(), getCreditsBalance(), getEthereumBalance(),
-        this::updateWalletValue)
+        Observable.timer(1, TimeUnit.SECONDS),
+        (tokenBalance, creditsBalance, ethereumBalance, time) -> updateWalletValue(tokenBalance,
+            creditsBalance, ethereumBalance))
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
         .subscribe(globalBalance -> {
           handler.removeCallbacks(startGlobalBalanceTask);
           handler.postDelayed(startGlobalBalanceTask, GET_BALANCE_INTERVAL);
