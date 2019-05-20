@@ -219,8 +219,6 @@ public class TransactionsViewModel extends BaseViewModel {
         Observable.timer(1, TimeUnit.SECONDS),
         (tokenBalance, creditsBalance, ethereumBalance, time) -> updateWalletValue(tokenBalance,
             creditsBalance, ethereumBalance))
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
         .subscribe(globalBalance -> {
           handler.removeCallbacks(startGlobalBalanceTask);
           handler.postDelayed(startGlobalBalanceTask, GET_BALANCE_INTERVAL);
@@ -248,6 +246,7 @@ public class TransactionsViewModel extends BaseViewModel {
 
   private Observable<Pair<Balance, FiatValue>> getTokenBalance() {
     return getDefaultWalletBalance.getTokens(defaultWallet.getValue(), 2)
+        .observeOn(Schedulers.io())
         .flatMapObservable(
             balance -> localCurrencyConversionService.getAppcToLocalFiat(balance.getValue())
                 .flatMap(fiatValue -> Observable.just(new Pair<>(balance, fiatValue))));
@@ -255,6 +254,7 @@ public class TransactionsViewModel extends BaseViewModel {
 
   private Observable<Pair<Balance, FiatValue>> getEthereumBalance() {
     return getDefaultWalletBalance.getEthereumBalance(defaultWallet.getValue())
+        .observeOn(Schedulers.io())
         .flatMapObservable(
             balance -> localCurrencyConversionService.getEtherToLocalFiat(balance.getValue())
                 .flatMap(fiatValue -> Observable.just(new Pair<>(balance, fiatValue))));
@@ -264,6 +264,7 @@ public class TransactionsViewModel extends BaseViewModel {
     return findDefaultNetworkInteract.find()
         .filter(this::shouldShowOffChainInfo)
         .flatMapSingle(__ -> getDefaultWalletBalance.getCredits(defaultWallet.getValue()))
+        .observeOn(Schedulers.io())
         .flatMapObservable(
             balance -> localCurrencyConversionService.getCreditsToLocalFiat(balance.getValue())
                 .flatMap(fiatValue -> Observable.just(new Pair<>(balance, fiatValue))));
