@@ -303,6 +303,7 @@
   <string name="action_level">Моето ниво</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Позволи на AppCoins портфейла да предоставите твоя портфейл адрес на %s.</string>
+  <string name="provide_wallet_body_placeholders">Allow %1$s to provide your wallet address to %2$s.</string>
   <string name="provide_wallet_always_allow_button">Позволи винаги</string>
   <string name="provide_wallet_allow_once_button">Позволи веднъж</string>
   <string name="provide_wallet_completed_header">Портфейл, свързан с Aptoide!</string>
