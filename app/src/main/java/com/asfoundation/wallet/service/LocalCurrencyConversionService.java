@@ -30,12 +30,6 @@ public class LocalCurrencyConversionService {
             .setScale(2, RoundingMode.CEILING), response.getCurrency(), response.getSymbol()));
   }
 
-  public Observable<FiatValue> getCreditsToLocalFiat(String value) {
-    return tokenToLocalFiatApi.getValueToLocalFiat(value, "APPC")
-        .map(response -> new FiatValue(response.getAppcValue()
-            .setScale(2, RoundingMode.CEILING), response.getCurrency(), response.getSymbol()));
-  }
-
   public Observable<FiatValue> getEtherToLocalFiat(String value) {
     //TODO REPLACE APPC FOR ETH
     return tokenToLocalFiatApi.getValueToLocalFiat(value, "APPC")

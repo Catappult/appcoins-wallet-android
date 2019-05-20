@@ -266,7 +266,7 @@ public class TransactionsViewModel extends BaseViewModel {
         .flatMapSingle(__ -> getDefaultWalletBalance.getCredits(defaultWallet.getValue()))
         .observeOn(Schedulers.io())
         .flatMapObservable(
-            balance -> localCurrencyConversionService.getCreditsToLocalFiat(balance.getValue())
+            balance -> localCurrencyConversionService.getAppcToLocalFiat(balance.getValue())
                 .flatMap(fiatValue -> Observable.just(new Pair<>(balance, fiatValue))));
   }
 
