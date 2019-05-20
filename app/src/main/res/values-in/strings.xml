@@ -107,13 +107,13 @@
   <string name="intro_message_second_page">Kunci rahasia tidak pernah tertinggal dari perangkat Anda.</string>
   <string name="intro_message_third_page">Proses semua pembayaran dan hadiah in-app Anda di APPC.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
-  <string name="intro_1_body">Your app for in-app purchases.</string>
+  <string name="intro_1_body">Aplikasi Anda untuk pembelian in-app.</string>
   <string name="intro_2_title">Mainkan Lebih Sering, Bayar Kurang</string>
   <string name="intro_2_body">Dapatkan imbalan untuk pembelian item di aplikasi dan permainan favorit Anda.</string>
   <string name="intro_3_title">Sederhana dan Mudah</string>
   <string name="intro_3_body">Proses semua pembelian in-app Anda dengan metode pembayaran favorit.</string>
   <string name="intro_4_title">Aman dan Pribadi</string>
-  <string name="intro_4_body">Your private info will never leave your device, so your AppCoins are safe at all times.</string>
+  <string name="intro_4_body">Info pribadi Anda tidak akan pernah meninggalkan perangkat, jadi AppCoins Anda selalu aman.</string>
   <string name="intro_creating_wallet_short">Kami membuat dompet untuk Anda&#8230;</string>
   <string name="intro_wallet_created_short">Dompet sudah dibuat!</string>
   <string name="intro_agree_terms_and_conditions_body">Dengan mengetuk Lewatkan, Anda menyetujui %1$s dan %2$s Dompet AppCoins</string>
@@ -212,7 +212,7 @@
   <string name="notification_not_available_for_country_poa">Kampanye hadiah ini tidak tersedia di negara Anda</string>
   <string name="notification_already_rewarded_poa">Anda sudah diberi hadiah pada kampanye ini</string>
   <string name="notification_submit_error_poa">Maaf, ada kesalahan. Coba lagi!</string>
-  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
+  <string name="notification_wrong_network_poa">Anda menggunakan versi pengembangan dari AppCoins Wallet. Silakan unduh rilis resmi untuk memproses hadiah.</string>
   <!-- transaction details -->
   <string name="transaction_status_success">Berhasil</string>
   <string name="transaction_status_pending">Ditangguhkan</string>
@@ -297,12 +297,13 @@
   <string name="gamification_galaxy_subtitle">Sistem terbesar yang ada saat ini!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
-  <string name="gamification_purchase_header_part_1">Purchase Bonus:</string>
-  <string name="gamification_purchase_header_part_2">%s in APPC Credits</string>
+  <string name="gamification_purchase_header_part_1">Bonus Pembelian:</string>
+  <string name="gamification_purchase_header_part_2">%s dalam Kredit APPC</string>
   <string name="gamification_purchase_body">Anda akan mendapatkan %s Kredit APPC untuk pembelian ini.</string>
   <string name="action_level">Tingkat Saya</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Izinkan Dompet AppCoins untuk menginformasikan alamat dompet Anda ke %s.</string>
+  <string name="provide_wallet_body_placeholders">Allow %1$s to provide your wallet address to %2$s.</string>
   <string name="provide_wallet_always_allow_button">Izinkan selamanya</string>
   <string name="provide_wallet_allow_once_button">Izinkan sekali</string>
   <string name="provide_wallet_completed_header">Dompet terkait dengan Aptoide!</string>
@@ -329,19 +330,19 @@
   <string name="balance_appcoins_body">AppCoins adalah mata uang kripto bagi perekonomian aplikasi. Anda dapat memperjualbelikannya di beberapa bursa dan menggunakannya untuk membeli barang in-app.</string>
   <string name="balance_appccreditos_body">Token untuk membeli barang in-app! Isi ulang APPC-C dari dompet Anda atau dapatkan secara gratis dengan menggunakan aplikasi. Token juga dapat ditransfer di antara teman!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Ask someone to pay</string>
-  <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
-  <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
-  <string name="askafriend_share_body">Share the link so you can get the funds sent to you!</string>
+  <string name="askafriend_payment_option_button">Minta seseorang untuk membayar</string>
+  <string name="askafriend_generating_link_message">Kami sedang membuat tautan pembayaran Anda &#8230;</string>
+  <string name="askafriend_generating_link_error_message">Ups, ada kesalahan. Silakan coba lagi!</string>
+  <string name="askafriend_share_body">Bagikan tautannya agar dana Anda dikirimkan kepada Anda!</string>
   <string name="askafriend_share_add_message_body">Tambahkan Pesan (Opsional)</string>
   <string name="askafriend_share_button">Berbagi</string>
-  <string name="askafriend_share_popup_title">Ask someone via:</string>
+  <string name="askafriend_share_popup_title">Tanya seseorang via:</string>
   <string name="askafriend_received_body">Anda baru saja menerima %s APPC-C</string>
-  <string name="askafriend_notification_received_title">New Transfer Received</string>
-  <string name="askafriend_notification_received_body">%1$s %2$s were credited to your wallet.</string>
+  <string name="askafriend_notification_received_title">Transfer Baru Diterima</string>
+  <string name="askafriend_notification_received_body">%1$s %2$s dimasukkan ke dompet Anda.</string>
   <string name="askafriend_received_title">Transfer yang Diterima</string>
-  <string name="askafriend_send_title">Transfer Sent</string>
-  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
+  <string name="askafriend_send_title">Transfer Terkirim</string>
+  <string name="askafriend_share_note_to_friend">Halo! Tolong kirimi saya %1$s AppCoins Credits untuk membeli item di %2$s. Tautan: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Kirim Dana</string>
   <string name="p2p_send_body">Pindai atau masukkan alamat dompet teman Anda.</string>
@@ -356,11 +357,11 @@
   <string name="error_missing_field">Wajib diisi</string>
   <string name="cancel_button">Batal</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
+  <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
-  <string name="terms_and_conditions">Terms and Conditions</string>
-  <string name="privacy_policy">Privacy Policy</string>
+  <string name="terms_and_conditions">Syarat dan Ketentuan</string>
+  <string name="privacy_policy">Kebijakan Privasi</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">The best Android apps are waiting for you.</string>
-  <string name="home_empty_discover_apps_button">DISCOVER TOP APPS</string>
+  <string name="home_empty_discover_apps_body">Aplikasi Android terbaik menunggu Anda.</string>
+  <string name="home_empty_discover_apps_button">TEMUKAN APLIKASI TERATAS</string>
 </resources>
