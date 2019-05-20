@@ -303,6 +303,7 @@
   <string name="action_level">Meu Nível</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Permitir que a AppCoins Wallet forneça o endereço de sua wallet para %s.</string>
+  <string name="provide_wallet_body_placeholders">Allow %1$s to provide your wallet address to %2$s.</string>
   <string name="provide_wallet_always_allow_button">Sempre permitir</string>
   <string name="provide_wallet_allow_once_button">Permitir uma vez</string>
   <string name="provide_wallet_completed_header">Carteira associada à Aptoide!</string>
