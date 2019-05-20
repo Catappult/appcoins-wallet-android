@@ -303,6 +303,7 @@
   <string name="action_level">माझी पातळी</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">आपला वॉलेट पत्ता %s ला पुरविण्यासाठी अॅपकॉइन्स वॉलेटला परवानगी द्या.</string>
+  <string name="provide_wallet_body_placeholders">Allow %1$s to provide your wallet address to %2$s.</string>
   <string name="provide_wallet_always_allow_button">नेहमीच परवानगी द्या</string>
   <string name="provide_wallet_allow_once_button">एकदाच परवानगी द्या</string>
   <string name="provide_wallet_completed_header">वॉलेटला Aptoide सोबत जोडले गेले!</string>
