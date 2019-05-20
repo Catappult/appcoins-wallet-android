@@ -5,7 +5,6 @@
     android:id="@+id/app_bar"
     android:layout_width="match_parent"
     android:layout_height="@dimen/app_bar_height"
-    android:theme="@style/AppTheme.AppBarOverlay"
     >
 
   <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -14,7 +13,6 @@
       android:layout_height="match_parent"
       android:background="@drawable/appbar_background_color"
       android:fitsSystemWindows="false"
-      android:theme="@style/AppTheme.AppBarOverlay"
       app:collapsedTitleGravity="start|center_vertical"
       app:collapsedTitleTextAppearance="@style/ToolbarTextAppearance.Title"
       app:expandedTitleGravity="center"
@@ -34,13 +32,23 @@
         style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular.Transparency"
         />
 
+    <FrameLayout
+        android:id="@+id/empty_clickable_view"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="55dp"
+        android:layout_marginTop="50dp"
+        android:onClick="onClick"
+        android:visibility="visible"
+        />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:fitsSystemWindows="false"
         app:layout_collapseMode="pin"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
         >
       <TextView
           android:id="@+id/transaction_timestamp"

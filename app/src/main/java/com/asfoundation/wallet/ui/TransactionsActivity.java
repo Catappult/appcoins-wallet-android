@@ -220,6 +220,11 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       }
       case R.id.top_up_btn: {
         viewModel.showTopUp(this);
+        break;
+      }
+      case R.id.empty_clickable_view: {
+        viewModel.showTokens(this);
+        break;
       }
     }
   }
