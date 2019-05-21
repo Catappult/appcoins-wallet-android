@@ -23,7 +23,7 @@ class SMSValidationRepository(
         return api.validateCode(phoneNumber, validationCode, walletAddress)
     }
 
-    private fun handleErrors(walletStatus: WalletStatus){
+    private fun handleErrors(walletStatus: WalletStatus) {
         if (!walletStatus.verified) Exceptions.propagate(Throwable("Wallet is not verified"))
     }
 

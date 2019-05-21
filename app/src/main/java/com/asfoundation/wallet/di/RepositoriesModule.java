@@ -139,8 +139,7 @@ import static com.asfoundation.wallet.C.ROPSTEN_NETWORK_NAME;
   }
 
   @Singleton @Provides SMSValidationRepositoryType provideSMSValidationRepository(
-     SMSValidationApi smsValidationApi
-  ) {
+      SMSValidationApi smsValidationApi) {
     return new SMSValidationRepository(smsValidationApi);
   }
 }

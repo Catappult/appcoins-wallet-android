@@ -916,8 +916,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides SMSValidationInteract provideSMSValidationInteract(
-      SMSValidationRepository smsValidationRepository
-  ) {
+      SMSValidationRepository smsValidationRepository) {
     return new SMSValidationInteract(smsValidationRepository);
   }
 }
