@@ -1,3 +1,3 @@
 package com.asfoundation.wallet.entity
 
-class ValidationCodeResponse(val phone: String)
+data class ValidationCodeResponse(val phone: String)

@@ -8,8 +8,8 @@ import com.asfoundation.wallet.poa.BlockchainErrorMapper;
 import com.asfoundation.wallet.repository.NotTrackTransactionService;
 import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.PreferenceRepositoryType;
-import com.asfoundation.wallet.repository.SMSValidationRepository;
-import com.asfoundation.wallet.repository.SMSValidationRepositoryType;
+import com.asfoundation.wallet.repository.SmsValidationRepository;
+import com.asfoundation.wallet.repository.SmsValidationRepositoryType;
 import com.asfoundation.wallet.repository.TokenLocalSource;
 import com.asfoundation.wallet.repository.TokenRepository;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
@@ -28,7 +28,7 @@ import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.EthplorerTokenService;
 import com.asfoundation.wallet.service.KeyStoreFileManager;
 import com.asfoundation.wallet.service.RealmManager;
-import com.asfoundation.wallet.service.SMSValidationApi;
+import com.asfoundation.wallet.service.SmsValidationApi;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenExplorerClientType;
 import com.asfoundation.wallet.service.TransactionsNetworkClient;
@@ -138,8 +138,8 @@ import static com.asfoundation.wallet.C.ROPSTEN_NETWORK_NAME;
     return new TokensRealmSource(realmManager);
   }
 
-  @Singleton @Provides SMSValidationRepositoryType provideSMSValidationRepository(
-      SMSValidationApi smsValidationApi) {
-    return new SMSValidationRepository(smsValidationApi);
+  @Singleton @Provides SmsValidationRepositoryType provideSmsValidationRepository(
+      SmsValidationApi smsValidationApi) {
+    return new SmsValidationRepository(smsValidationApi);
   }
 }

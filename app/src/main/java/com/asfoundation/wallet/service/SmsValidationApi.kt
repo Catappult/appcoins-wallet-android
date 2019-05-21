@@ -8,19 +8,19 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 
-interface SMSValidationApi {
+interface SmsValidationApi {
 
-    @GET("transaction/verified_wallet")
-    fun validateWallet(@Query("wallet") wallet: String): Single<WalletStatus>
+  @GET("transaction/verified_wallet")
+  fun isValid(@Query("wallet") wallet: String): Single<WalletStatus>
 
-    @POST("transaction/request_code")
-    fun requestValidationCode(@Field("phone") phoneNumber: String): Single<ValidationCodeResponse>
+  @POST("transaction/request_code")
+  fun requestValidationCode(@Field("phone") phoneNumber: String): Single<ValidationCodeResponse>
 
-    @POST("transaction/verify_code")
-    fun validateCode(
-            @Field("phone") phoneNumber: String,
-            @Field("code") validationCode: String,
-            @Field("wallet") walletAddress: String
-    ): Single<WalletStatus>
+  @POST("transaction/verify_code")
+  fun validateCode(
+      @Field("phone") phoneNumber: String,
+      @Field("code") validationCode: String,
+      @Field("wallet") walletAddress: String
+  ): Single<WalletStatus>
 
 }

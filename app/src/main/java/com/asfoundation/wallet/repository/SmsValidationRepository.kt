@@ -2,29 +2,50 @@ package com.asfoundation.wallet.repository
 
 import com.asfoundation.wallet.entity.ValidationCodeResponse
 import com.asfoundation.wallet.entity.WalletStatus
-import com.asfoundation.wallet.service.SMSValidationApi
+import com.asfoundation.wallet.service.SmsValidationApi
 import io.reactivex.Single
-import rx.exceptions.Exceptions
+import retrofit2.HttpException
 
-class SMSValidationRepository(
-        private val api: SMSValidationApi
-) : SMSValidationRepositoryType {
+class SmsValidationRepository(
+    private val api: SmsValidationApi
+) : SmsValidationRepositoryType {
 
-    override fun validateWallet(walletAddress: String): Single<WalletStatus> {
-        return api.validateWallet(walletAddress)
-                .doOnSuccess(this::handleErrors)
+  override fun isValid(walletAddress: String): Single<Status> {
+    return api.isValid(walletAddress)
+        .map(this::mapResponse)
+        .onErrorReturn(this::mapError)
+  }
+
+  override fun requestValidationCode(phoneNumber: String): Single<ValidationCodeResponse> {
+    return api.requestValidationCode(phoneNumber)
+  }
+
+  override fun validateCode(phoneNumber: String, walletAddress: String,
+                            validationCode: String): Single<Status> {
+    return api.validateCode(phoneNumber, walletAddress, validationCode)
+        .map(this::mapResponse)
+        .onErrorReturn(this::mapError)
+  }
+
+  enum class Status {
+    VERIFIED, UNVERIFIED, INVALID_PARAMS, TOO_MANY_REQUESTS, GENERAL_ERROR
+  }
+
+  private fun mapResponse(walletStatus: WalletStatus): Status {
+    return if (walletStatus.verified) Status.VERIFIED else Status.UNVERIFIED
+  }
+
+  private fun mapError(throwable: Throwable): Status {
+    return when (throwable) {
+      is HttpException -> {
+        when {
+          throwable.code() == 400 -> Status.INVALID_PARAMS
+          throwable.code() == 429 -> Status.TOO_MANY_REQUESTS
+          else -> Status.GENERAL_ERROR
+        }
+      }
+      else -> Status.GENERAL_ERROR
     }
-
-    override fun requestValidationCode(phoneNumber: String): Single<ValidationCodeResponse> {
-        return api.requestValidationCode(phoneNumber)
-    }
-
-    override fun validateCode(phoneNumber: String, walletAddress: String, validationCode: String): Single<WalletStatus> {
-        return api.validateCode(phoneNumber, validationCode, walletAddress)
-    }
-
-    private fun handleErrors(walletStatus: WalletStatus) {
-        if (!walletStatus.verified) Exceptions.propagate(Throwable("Wallet is not verified"))
-    }
+  }
 
 }

@@ -74,8 +74,8 @@ import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.interact.PaymentReceiverInteract;
-import com.asfoundation.wallet.interact.SMSValidationInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
+import com.asfoundation.wallet.interact.SmsValidationInteract;
 import com.asfoundation.wallet.permissions.PermissionsInteractor;
 import com.asfoundation.wallet.permissions.repository.PermissionRepository;
 import com.asfoundation.wallet.permissions.repository.PermissionsDatabase;
@@ -105,9 +105,9 @@ import com.asfoundation.wallet.repository.NoValidateTransactionValidator;
 import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.PreferenceRepositoryType;
-import com.asfoundation.wallet.repository.SMSValidationRepository;
 import com.asfoundation.wallet.repository.SharedPreferenceRepository;
 import com.asfoundation.wallet.repository.SignDataStandardNormalizer;
+import com.asfoundation.wallet.repository.SmsValidationRepositoryType;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.TrackTransactionService;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
@@ -123,7 +123,7 @@ import com.asfoundation.wallet.service.BDSAppsApi;
 import com.asfoundation.wallet.service.LocalCurrencyConversionService;
 import com.asfoundation.wallet.service.PoASubmissionService;
 import com.asfoundation.wallet.service.RealmManager;
-import com.asfoundation.wallet.service.SMSValidationApi;
+import com.asfoundation.wallet.service.SmsValidationApi;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.TrustWalletTickerService;
@@ -905,18 +905,18 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new GamificationAnalytics(analytics);
   }
 
-  @Singleton @Provides SMSValidationApi provideSMSValidationApi(OkHttpClient client, Gson gson) {
+  @Singleton @Provides SmsValidationApi provideSmsValidationApi(OkHttpClient client, Gson gson) {
     String baseUrl = BuildConfig.BACKEND_HOST;
     return new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-        .create(SMSValidationApi.class);
+        .create(SmsValidationApi.class);
   }
 
-  @Singleton @Provides SMSValidationInteract provideSMSValidationInteract(
-      SMSValidationRepository smsValidationRepository) {
-    return new SMSValidationInteract(smsValidationRepository);
+  @Singleton @Provides SmsValidationInteract provideSmsValidationInteract(
+      SmsValidationRepositoryType smsValidationRepository) {
+    return new SmsValidationInteract(smsValidationRepository);
   }
 }
