@@ -284,7 +284,12 @@ public class TokenRepository implements TokenRepositoryType {
   }
 
   private Single<Token[]> fetchCachedEnabledTokens(NetworkInfo network, Wallet wallet) {
-    return localSource.fetchEnabledTokens(network, wallet)
+    return Single.zip(localSource.fetchEnabledTokens(network, wallet),
+        defaultTokenProvider.getDefaultToken(), (tokens, defaultToken) -> {
+          Token[] tokensList = Arrays.copyOf(tokens, tokens.length + 1);
+          tokensList[tokensList.length - 1] = new Token(defaultToken, null, 0);
+          return tokensList;
+        })
         .flatMapObservable(Observable::fromArray)
         .compose(updateBalance(network, wallet))
         .toList()
