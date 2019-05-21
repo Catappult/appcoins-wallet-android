@@ -245,34 +245,33 @@
   </androidx.constraintlayout.widget.ConstraintLayout>
   <RelativeLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="24dp"
       android:layout_below="@id/payment_info"
       >
     <ImageView
         android:id="@+id/logo_wallet"
-        android:layout_width="76dp"
+        android:layout_width="wrap_content"
         android:layout_height="16dp"
-        android:layout_marginBottom="3dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="5dp"
         android:src="@drawable/logo_appc_wallet"
+        android:layout_centerVertical="true"
         />
 
     <TextView
         android:id="@+id/wallet_address_footer"
         android:layout_width="match_parent"
-        android:layout_height="16dp"
-        android:layout_alignBottom="@id/logo_wallet"
-        android:layout_alignTop="@id/logo_wallet"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_toEndOf="@id/logo_wallet"
+        android:layout_centerVertical="true"
         android:ellipsize="end"
-        android:gravity="end|center_vertical"
+        android:gravity="end"
         android:maxLines="1"
         android:text="0x1a78a81235dls019sk291id"
         android:textColor="@color/grey_8a_alpha"
         android:textSize="12sp"
+        tools:text="0x1a78a81235dls019sk291id"
         />
   </RelativeLayout>
 

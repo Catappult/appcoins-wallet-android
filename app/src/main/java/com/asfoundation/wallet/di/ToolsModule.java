@@ -106,6 +106,7 @@ import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.PreferenceRepositoryType;
 import com.asfoundation.wallet.repository.SharedPreferenceRepository;
 import com.asfoundation.wallet.repository.SignDataStandardNormalizer;
+import com.asfoundation.wallet.repository.TokenRepository;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.TrackTransactionService;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
@@ -799,7 +800,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Provides OnboardingInteract provideOnboardingInteract(CreateWalletInteract createWalletInteract,
-      WalletService walletService, PreferenceRepositoryType preferenceRepositoryType) {
+      WalletService walletService, PreferenceRepositoryType preferenceRepositoryType,
+      TokenRepositoryType tokenRepository) {
     return new OnboardingInteract(createWalletInteract, walletService, preferenceRepositoryType);
   }
 

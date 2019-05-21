@@ -9,7 +9,7 @@ import com.asf.wallet.R
 
 class OnboardingPagerAdapter : PagerAdapter() {
   private val titles =
-      intArrayOf(R.string.intro_title_first_page, R.string.intro_2_title, R.string.intro_3_title,
+      intArrayOf(R.string.intro_1_title, R.string.intro_2_title, R.string.intro_3_title,
           R.string.intro_4_title)
   private val messages =
       intArrayOf(R.string.intro_1_body, R.string.intro_2_body, R.string.intro_3_body,
