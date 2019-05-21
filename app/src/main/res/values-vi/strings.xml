@@ -212,7 +212,7 @@
   <string name="notification_not_available_for_country_poa">Chiến dịch phần thưởng này không khả dụng ở quốc gia của bạn</string>
   <string name="notification_already_rewarded_poa">Bạn đã được thưởng trong chiến dịch này</string>
   <string name="notification_submit_error_poa">Rất tiếc, đã xảy ra lỗi. Vui lòng thử lại!</string>
-  <string name="notification_wrong_network_poa">Bạn đang sử dụng phiên bản phát triển của AppCoins Wallet. Vui lòng tải về bản phát hành chính thức để được nhận reward.</string>
+  <string name="notification_wrong_network_poa">Bạn đang sử dụng phiên bản phát triển của AppCoins Wallet. Vui lòng tải về bản phát hành chính thức để được nhận phần thưởng.</string>
   <!-- transaction details -->
   <string name="transaction_status_success">Thành công</string>
   <string name="transaction_status_pending">Chờ xử lý</string>
@@ -297,13 +297,13 @@
   <string name="gamification_galaxy_subtitle">Hệ thống lớn nhất ngoài kia!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
-  <string name="gamification_purchase_header_part_1">Purchase Bonus:</string>
-  <string name="gamification_purchase_header_part_2">%s in APPC Credits</string>
+  <string name="gamification_purchase_header_part_1">Tiền thưởng mua hàng:</string>
+  <string name="gamification_purchase_header_part_2">%s bằng APPC Credits</string>
   <string name="gamification_purchase_body">Bạn sẽ nhận được %s APPC Credits cho giao dịch mua này.</string>
   <string name="action_level">Cấp của tôi</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Cho phép AppCoins Wallet cung cấp địa chỉ ví của bạn cho %s.</string>
-  <string name="provide_wallet_body_placeholders">Allow %1$s to provide your wallet address to %2$s.</string>
+  <string name="provide_wallet_body_placeholders">Cho phép %1$s cung cấp địa chỉ ví của bạn cho %2$s.</string>
   <string name="provide_wallet_always_allow_button">Luôn luôn cho phép</string>
   <string name="provide_wallet_allow_once_button">Cho phép một lần</string>
   <string name="provide_wallet_completed_header">Ví đã được liên kết với Aptoide!</string>
@@ -341,8 +341,8 @@
   <string name="askafriend_notification_received_title">Chuyển khoản mới nhận</string>
   <string name="askafriend_notification_received_body">%1$s %2$s đã được ghi có vào ví của bạn.</string>
   <string name="askafriend_received_title">Đã nhận tiền</string>
-  <string name="askafriend_send_title">Transfer Sent</string>
-  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
+  <string name="askafriend_send_title">Chuyển khoản đã gửi</string>
+  <string name="askafriend_share_note_to_friend">Chào bạn! Vui lòng gửi cho tôi %1$s AppCoins Credits để mua một vật phẩm trong %2$s. Liên kết: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Gửi tiền</string>
   <string name="p2p_send_body">Quét hoặc nhập địa chỉ ví bạn bè của bạn.</string>
