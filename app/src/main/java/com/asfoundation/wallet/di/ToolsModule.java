@@ -802,8 +802,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Provides OnboardingInteract provideOnboardingInteract(CreateWalletInteract createWalletInteract,
       WalletService walletService, PreferenceRepositoryType preferenceRepositoryType,
       TokenRepositoryType tokenRepository) {
-    return new OnboardingInteract(createWalletInteract, walletService, preferenceRepositoryType,
-        tokenRepository);
+    return new OnboardingInteract(createWalletInteract, walletService, preferenceRepositoryType);
   }
 
   @Singleton @Provides BillingAnalytics provideBillingAnalytics(AnalyticsManager analytics) {
