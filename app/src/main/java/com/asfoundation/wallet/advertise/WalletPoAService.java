@@ -176,8 +176,10 @@ public class WalletPoAService extends Service {
         stopForeground(false);
         stopTimeout();
         logger.log(new Throwable(new WrongNetworkException("Not on the correct network")));
+        break;
       case UNKNOWN_NETWORK:
         logger.log(new Throwable(new WrongNetworkException("Unknown network")));
+        break;
     }
   }
 
