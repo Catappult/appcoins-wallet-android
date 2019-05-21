@@ -303,7 +303,7 @@
   <string name="action_level">Tingkat Saya</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Izinkan Dompet AppCoins untuk menginformasikan alamat dompet Anda ke %s.</string>
-  <string name="provide_wallet_body_placeholders">Allow %1$s to provide your wallet address to %2$s.</string>
+  <string name="provide_wallet_body_placeholders">Izinkan %1$s untuk menginformasikan alamat dompet Anda ke %2$s.</string>
   <string name="provide_wallet_always_allow_button">Izinkan selamanya</string>
   <string name="provide_wallet_allow_once_button">Izinkan sekali</string>
   <string name="provide_wallet_completed_header">Dompet terkait dengan Aptoide!</string>
