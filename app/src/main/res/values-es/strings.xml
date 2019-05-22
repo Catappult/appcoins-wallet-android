@@ -284,7 +284,7 @@
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s %%</string>
   <string name="gamification_how_terms_and_conditions">Condiciones</string>
-  <string name="gamification_how_spend">GASTA %S APPC</string>
+  <string name="gamification_how_spend">GASTA %s APPC</string>
   <string name="gamification_a_comet_title">un Cometa</string>
   <string name="gamification_a_moon_title">una Luna</string>
   <string name="gamification_a_planet_title">un Planeta</string>
@@ -358,7 +358,7 @@
   <string name="cancel_button">Cancelar</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acepto los %1$s y la %2$s de la AppCoins Wallet.</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions_error">Por favor, acepta nuestros Términos y Condiciones y Política de Privacidad para continuar</string>
   <string name="terms_and_conditions">Términos y Condiciones</string>
   <string name="privacy_policy">Política de Privacidad</string>
   <!--Home-->
