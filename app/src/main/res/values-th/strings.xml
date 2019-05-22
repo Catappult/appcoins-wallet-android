@@ -113,7 +113,7 @@
   <string name="intro_3_title">ไม่ซับซ้อน ง่าย</string>
   <string name="intro_3_body">ดำเนินการการซื้อของในแอปทั้งหมดโดยใช้วิธีการชำระเงินที่คุณชื่นชอบ</string>
   <string name="intro_4_title">ปลอดภัยและเป็นส่วนตัว</string>
-  <string name="intro_4_body">ข้อมูลส่วนตัวของคุณจะไม่หลุดออกจากอุปกรณ์ของคุณ ดังนั้น AppCoins ของคุณจะปลอดภัยตลอดเวลา</string>
+  <string name="intro_4_body">คีย์ส่วนตัวของคุณจะไม่เคยออกจากอุปกรณ์ของคุณ เพื่อ AppCoins ของคุณจะปลอดภัยตลอดเวลา</string>
   <string name="intro_creating_wallet_short">เรากำลังสร้างกระเป๋าสตางค์คุณ&#8230;</string>
   <string name="intro_wallet_created_short">สร้างกระเป๋าสตางค์!</string>
   <string name="intro_agree_terms_and_conditions_body">โดยการแตะที่ข้าม คุณตกลงที่จะใช้กระเป๋าสตางค์ AppCoins %1$s และ %2$s</string>
