@@ -358,7 +358,7 @@
   <string name="cancel_button">取消</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我同意AppCoins Wallet的%1$s和%2$s。</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions_error">Please accept our %1$s and %2$s to continue</string>
   <string name="terms_and_conditions">条款与条件</string>
   <string name="privacy_policy">隐私政策</string>
   <!--Home-->
