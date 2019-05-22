@@ -113,7 +113,7 @@
   <string name="intro_3_title">Απλό και Εύκολο</string>
   <string name="intro_3_body">Πραγματοποιήστε όλες σας τις πληρωμές σας εντός εφαρμογών, χρησιμοποιώντας την αγαπημένη σας μέθοδο πληρωμής.</string>
   <string name="intro_4_title">Ασφαλές και Ιδιωτικό</string>
-  <string name="intro_4_body">Οι ιδιωτικές σας πληροφορίες δε θα φύγουν ποτέ από τη συσκευή σας, έτσι ώστε τα AppCoins σας να είναι πάντα ασφαλή.</string>
+  <string name="intro_4_body">Τα ιδιωτικά σας κλειδιά δε θα φύγουν ποτέ από τη συσκευή σας, επομένως τα AppCoins σας θα είναι πάντα ασφαλή.</string>
   <string name="intro_creating_wallet_short">Δημιουργούμε ένα wallet για εσάς&#8230;</string>
   <string name="intro_wallet_created_short">Το wallet δημιουργήθηκε!</string>
   <string name="intro_agree_terms_and_conditions_body">Εάν πατήσετε Παράλειψη, συμφωνείτε με %1$s και %2$s του AppCoins Wallet</string>
