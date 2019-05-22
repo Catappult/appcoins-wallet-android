@@ -106,6 +106,7 @@
   <string name="intro_message_first_page">Welcome to the revolution of the app economy.</string>
   <string name="intro_message_second_page">Private keys never leave your device.</string>
   <string name="intro_message_third_page">Process all your in-app payments and rewards in APPC.</string>
+  <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Your app for in-app purchases.</string>
   <string name="intro_2_title">Play More, Pay Less</string>
   <string name="intro_2_body">Get rewarded for buying items in your favorite apps and games.</string>
@@ -302,6 +303,7 @@
   <string name="action_level">My Level</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Allow AppCoins Wallet to provide your wallet address to %s.</string>
+  <string name="provide_wallet_body_placeholders">Allow %1$s to provide your wallet address to %2$s.</string>
   <string name="provide_wallet_always_allow_button">Always allow</string>
   <string name="provide_wallet_allow_once_button">Allow once</string>
   <string name="provide_wallet_completed_header">Wallet associated to Aptoide!</string>
@@ -359,4 +361,7 @@
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
   <string name="terms_and_conditions">Terms and Conditions</string>
   <string name="privacy_policy">Privacy Policy</string>
+  <!--Home-->
+  <string name="home_empty_discover_apps_body">The best Android apps are waiting for you.</string>
+  <string name="home_empty_discover_apps_button">DISCOVER TOP APPS</string>
 </resources>

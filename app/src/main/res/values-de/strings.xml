@@ -106,7 +106,8 @@
   <string name="intro_message_first_page">Herzlich Willkommen bei der Revolution der App-Wirtschaft.</string>
   <string name="intro_message_second_page">Private Schlüssel verlassen nie Ihr Gerät.</string>
   <string name="intro_message_third_page">Erledigen Sie ihre In-App-Zahlungen und Belohnungen in APPC.</string>
-  <string name="intro_1_body">Your app for in-app purchases.</string>
+  <string name="intro_1_title">AppCoins Wallet</string>
+  <string name="intro_1_body">Ihre App für In-App Einkäufe.</string>
   <string name="intro_2_title">Mehr spielen, weniger zahlen</string>
   <string name="intro_2_body">Erhalten Sie einen Bonus, wenn Sie Artikel in ihren Lieblings-Apps und -Spielen kaufen.</string>
   <string name="intro_3_title">Leicht und Einfach</string>
@@ -211,7 +212,7 @@
   <string name="notification_not_available_for_country_poa">Diese Belohnungsaktion ist in ihrem Land nicht verfügbar</string>
   <string name="notification_already_rewarded_poa">Sie haben ihre Belohnung für die Aktion bereits erhalten</string>
   <string name="notification_submit_error_poa">Leider ist ein Fehler aufgetreten. Versuchen Sie es erneut!</string>
-  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
+  <string name="notification_wrong_network_poa">Sie verwenden eine Beta-Version des AppCoins-Wallets. Bitte laden Sie die offiziell freigegebene Version herunter, dann kann die Prämie verarbeitet werden.</string>
   <!-- transaction details -->
   <string name="transaction_status_success">Geschafft</string>
   <string name="transaction_status_pending">Ausstehend</string>
@@ -296,12 +297,13 @@
   <string name="gamification_galaxy_subtitle">Das größte System hier draußen!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
-  <string name="gamification_purchase_header_part_1">Purchase Bonus:</string>
-  <string name="gamification_purchase_header_part_2">%s in APPC Credits</string>
+  <string name="gamification_purchase_header_part_1">Einkaufsprämie:</string>
+  <string name="gamification_purchase_header_part_2">%s in AppCoins</string>
   <string name="gamification_purchase_body">Für diesen Kauf erhalten Sie einen Betrag von %s APPC.</string>
   <string name="action_level">Mein Level</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Erlauben Sie dem AppCoinsWallet ihre Wallet Adresse an %s weiterzureichen.</string>
+  <string name="provide_wallet_body_placeholders">Erlauben Sie %1$s ihre Wallet-Adresse für %2$s zur Verfügung zu stellen.</string>
   <string name="provide_wallet_always_allow_button">Immer erlauben</string>
   <string name="provide_wallet_allow_once_button">Einmal erlauben</string>
   <string name="provide_wallet_completed_header">Wallet wurde Aptoide zugeordnet!</string>
@@ -328,19 +330,19 @@
   <string name="balance_appcoins_body">AppCoins ist die Kryptowährung für die App-Economy. Sie können AppCoins an mehreren Börsen kaufen und verkaufen und sie für den In-App Kauf von Artikeln verwenden.</string>
   <string name="balance_appccreditos_body">Das Token für den In-App Einkauf von Artikeln. Laden Sie APPC-Credits auf ihr Wallet und erhalten Sie sie gratis für die Verwendung von Apps. Sie können aber auch unter Freunden übertragen werden!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Ask someone to pay</string>
-  <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
-  <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
-  <string name="askafriend_share_body">Share the link so you can get the funds sent to you!</string>
+  <string name="askafriend_payment_option_button">Bitten Sie jemanden die Bezahlung zu übernehmen</string>
+  <string name="askafriend_generating_link_message">Wir generieren ihren Bezahlungslink&#8230;</string>
+  <string name="askafriend_generating_link_error_message">Upps scheinbar ist etwas schief gegangen. Bitte versuchen Sie es erneut!</string>
+  <string name="askafriend_share_body">Teilen Sie diesen Link damit das Guthaben an Sie überwiesen werden kann!</string>
   <string name="askafriend_share_add_message_body">Nachricht hinzufügen (Optional)</string>
   <string name="askafriend_share_button">Teilen</string>
-  <string name="askafriend_share_popup_title">Ask someone via:</string>
+  <string name="askafriend_share_popup_title">Anfrage versenden über:</string>
   <string name="askafriend_received_body">Sie haben gerade %s APPC-Cs erhalten</string>
-  <string name="askafriend_notification_received_title">New Transfer Received</string>
-  <string name="askafriend_notification_received_body">%1$s %2$s were credited to your wallet.</string>
+  <string name="askafriend_notification_received_title">Neue Überweisung Erhalten</string>
+  <string name="askafriend_notification_received_body">%1$s %2$s AppCoins wurden gutgeschrieben.</string>
   <string name="askafriend_received_title">Überweisung erhalten</string>
-  <string name="askafriend_send_title">Transfer Sent</string>
-  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
+  <string name="askafriend_send_title">Überweisung Übertragen</string>
+  <string name="askafriend_share_note_to_friend">Hallo! Bitte überweise mir %1$s AppCoins damit ich einen Artikel bei %2$s kaufen kann. Hier ist der Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Guthaben senden</string>
   <string name="p2p_send_body">Wallet-Adresse ihres Freundes eingeben oder scannen.</string>
@@ -355,8 +357,11 @@
   <string name="error_missing_field">Pflichtfeld</string>
   <string name="cancel_button">Abbrechen</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
+  <string name="terms_and_conditions_tickbox">Ich stimme den %1$s und der %2$s des AppCoins Wallets zu.</string>
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
-  <string name="terms_and_conditions">Terms and Conditions</string>
-  <string name="privacy_policy">Privacy Policy</string>
+  <string name="terms_and_conditions">Allgemeinen Geschäftsbedingungen</string>
+  <string name="privacy_policy">Datenschutzrichtlinie</string>
+  <!--Home-->
+  <string name="home_empty_discover_apps_body">Die besten Android-Apps warten auf Sie.</string>
+  <string name="home_empty_discover_apps_button">ENTDECKEN SIE DIE BESTEN APPS</string>
 </resources>
