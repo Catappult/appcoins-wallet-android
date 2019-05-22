@@ -113,7 +113,7 @@
   <string name="intro_3_title">Просто и Лесно</string>
   <string name="intro_3_body">Обработи всичките си покупки в приложението, използвайки любимия си метод за плащане.</string>
   <string name="intro_4_title">Сигурно и Частно</string>
-  <string name="intro_4_body">Твоята лична информация никога няма да напусне устройството ти, така че твоите AppCoins са в безопасност по всяко време.</string>
+  <string name="intro_4_body">Твоите частни ключове никога няма да напуснат устройството ти, така че твоите AppCoins са в безопасност по всяко време.</string>
   <string name="intro_creating_wallet_short">Създаваме портфейл за теб&#8230;</string>
   <string name="intro_wallet_created_short">Портфейл създаден!</string>
   <string name="intro_agree_terms_and_conditions_body">Кликвайки на Пропусни, ти се съгласяваш с  %1$s и %2$s на AppCoins портфейла</string>
