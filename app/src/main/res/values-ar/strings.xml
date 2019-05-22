@@ -113,7 +113,7 @@
   <string name="intro_3_title">بسيط وسهل</string>
   <string name="intro_3_body">قم بكل عمليات الشراء داخل التطبيقات باستخدام وسيلة الدفع المفضلة لديك.</string>
   <string name="intro_4_title">آمن وسرّي</string>
-  <string name="intro_4_body">Your private info will never leave your device, so your AppCoins are safe at all times.</string>
+  <string name="intro_4_body">مفاتيحك السرية لن تفارق الجهاز، ما يبقي الأبكوينز الخاصو بك آمنة طوال الوقت.</string>
   <string name="intro_creating_wallet_short">نحن نُنشئ محفظة لك&#8230;</string>
   <string name="intro_wallet_created_short">تم إنشاء المحفظة!</string>
   <string name="intro_agree_terms_and_conditions_body">بالضغط على تخطّي، أنت توافق على محفظة AppCoins %1$s و%2$s</string>
