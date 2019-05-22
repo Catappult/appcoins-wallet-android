@@ -113,7 +113,7 @@
   <string name="intro_3_title">ساده و آسان</string>
   <string name="intro_3_body">برای همه خریدهای داخل اپلیکیشن از روش پرداخت مورد علاقه خود استفاده کن.</string>
   <string name="intro_4_title">امن و خصوصی</string>
-  <string name="intro_4_body">اطلاعات خصوصی شما هرگز دستگاه شما را ترک نخواهد کرد، بنابراین AppCoins شما همیشه امن است.</string>
+  <string name="intro_4_body">کلیدهای خصوصی شما هرگز دستگاه شما را ترک نخواهد کرد، بنابراین AppCoins همیشه امن هستند.</string>
   <string name="intro_creating_wallet_short">ما یک کیف پول برای شما می سازیم&#8230;</string>
   <string name="intro_wallet_created_short">کیف پول ساخته شد!</string>
   <string name="intro_agree_terms_and_conditions_body">با کلیک روی دکمه پرش، شما با %1$s و %2$s کیف پول AppCoins موافقت می کنید</string>
