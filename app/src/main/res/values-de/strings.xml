@@ -113,7 +113,7 @@
   <string name="intro_3_title">Leicht und Einfach</string>
   <string name="intro_3_body">Erledigen Sie alle ihre In-App Einkäufe durch ihre bevorzugte Bezahlmethode.</string>
   <string name="intro_4_title">Sicher und Privat</string>
-  <string name="intro_4_body">Ihre privaten Daten werden nie ihr Gerät verlassen, ihre AppCoins sind also zu jedem Zeitpunkt sicher.</string>
+  <string name="intro_4_body">Ihre privaten Schlüssel werden nie ihr Gerät verlassen, ihre AppCoins sind also zu jeder Zeit sicher.</string>
   <string name="intro_creating_wallet_short">Wir erstellen für Sie ein Wallet&#8230;</string>
   <string name="intro_wallet_created_short">Wallet erstellt!</string>
   <string name="intro_agree_terms_and_conditions_body">Durch das Drücken auf Weiter erklären Sie sich mit %1$s und %2$s des AppCoins Wallet einverstanden</string>
@@ -303,7 +303,7 @@
   <string name="action_level">Mein Level</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Erlauben Sie dem AppCoinsWallet ihre Wallet Adresse an %s weiterzureichen.</string>
-  <string name="provide_wallet_body_placeholders">Allow %1$s to provide your wallet address to %2$s.</string>
+  <string name="provide_wallet_body_placeholders">Erlauben Sie %1$s ihre Wallet-Adresse für %2$s zur Verfügung zu stellen.</string>
   <string name="provide_wallet_always_allow_button">Immer erlauben</string>
   <string name="provide_wallet_allow_once_button">Einmal erlauben</string>
   <string name="provide_wallet_completed_header">Wallet wurde Aptoide zugeordnet!</string>
