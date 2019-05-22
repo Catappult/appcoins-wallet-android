@@ -113,7 +113,7 @@
   <string name="intro_3_title">Egyszerű és könnyű</string>
   <string name="intro_3_body">Alkalmazáson belüli vásárlásaidat a kedvenc fizetési módszereddel hajthatod végre.</string>
   <string name="intro_4_title">Biztonságos és privát</string>
-  <string name="intro_4_body">Your private info will never leave your device, so your AppCoins are safe at all times.</string>
+  <string name="intro_4_body">Privát kulcsaid sose hagyják el eszközödet, így AppCoin-jaid mindig biztonságban lesznek.</string>
   <string name="intro_creating_wallet_short">Létrehozunk neked egy tárcát&#8230;</string>
   <string name="intro_wallet_created_short">Tárca létrehozva!</string>
   <string name="intro_agree_terms_and_conditions_body">A Kihagyás gombra bökve elfogadod az AppCoins Wallet %1$s és %2$s dokumentumait</string>
