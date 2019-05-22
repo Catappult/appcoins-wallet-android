@@ -22,12 +22,23 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
     disposables.clear()
   }
 
+  private fun handleSkip(): Observable<Any> {
+    return Observable.fromCallable { onboardingInteract.hasClickedSkipOnboarding() }
+        .flatMap {
+          if (it) {
+            view.showLoading()
+            return@flatMap Observable.just(true)
+          }
+          return@flatMap handleSkipButtonClick()
+        }
+  }
+
   private fun handleSkipButtonClick(): Observable<Any> {
     return view.getSkipButtonClick()
         .doOnNext {
+          onboardingInteract.clickSkipOnboarding()
           view.showLoading()
         }
-        .delay(1, TimeUnit.SECONDS)
   }
 
   private fun handleLinkClick() {
@@ -40,13 +51,13 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
   }
 
   private fun handleOnBoardingFinish() {
-    disposables.add(Observable.zip(handleGetWalletAddress().observeOn(viewScheduler),
-        handleSkipButtonClick().observeOn(viewScheduler),
-        BiFunction { walletAddress: String, _: Any ->
-          if (walletAddress.isNotEmpty()) {
-            finishOnBoarding()
-          }
-        }).subscribe())
+    disposables.add(
+        Observable.zip(handleGetWalletAddress(), handleSkip(),
+            BiFunction { _: String, _: Any -> true })
+            .delay(1, TimeUnit.SECONDS)
+            .observeOn(viewScheduler)
+            .subscribe({ finishOnBoarding() }, {})
+    )
   }
 
   private fun handleGetWalletAddress(): Observable<String> {

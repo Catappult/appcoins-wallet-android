@@ -8,6 +8,7 @@ public class SharedPreferenceRepository implements PreferenceRepositoryType {
 
   private static final String CURRENT_ACCOUNT_ADDRESS_KEY = "current_account_address";
   private static final String ONBOARDING_COMPLETE_KEY = "onboarding_complete";
+  private static final String ONBOARDING_SKIP_CLICKED_KEY = "onboarding_skip_clicked";
 
   private final SharedPreferences pref;
 
@@ -22,6 +23,16 @@ public class SharedPreferenceRepository implements PreferenceRepositoryType {
   @Override public void setOnboardingComplete() {
     pref.edit()
         .putBoolean(ONBOARDING_COMPLETE_KEY, true)
+        .apply();
+  }
+
+  @Override public boolean hasClickedSkipOnboarding() {
+    return pref.getBoolean(ONBOARDING_SKIP_CLICKED_KEY, false);
+  }
+
+  @Override public void setOnboardingSkipClicked() {
+    pref.edit()
+        .putBoolean(ONBOARDING_SKIP_CLICKED_KEY, true)
         .apply();
   }
 

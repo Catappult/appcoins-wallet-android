@@ -58,14 +58,14 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
 
   override fun onPause() {
     presenter.stop()
+    create_wallet_animation.removeAllAnimatorListeners()
     super.onPause()
   }
 
   override fun onDestroy() {
-    create_wallet_animation.removeAllAnimatorListeners()
+    linkSubject = null
     create_wallet_animation.removeAllUpdateListeners()
     create_wallet_animation.removeAllLottieOnCompositionLoadedListener()
-    linkSubject = null
     super.onDestroy()
   }
 
