@@ -106,7 +106,8 @@
   <string name="intro_message_first_page">Bienvenido a la revolución de la economía de las apps.</string>
   <string name="intro_message_second_page">Las private keys nunca salen de tu dispositivo.</string>
   <string name="intro_message_third_page">Procesa todos los pagos in-app y recompensas en APPC.</string>
-  <string name="intro_1_body">Your app for in-app purchases.</string>
+  <string name="intro_1_title">AppCoins Wallet</string>
+  <string name="intro_1_body">La app para compras in-app.</string>
   <string name="intro_2_title">Juega Más, Paga Menos</string>
   <string name="intro_2_body">Obtén recompensas al hacer compras en tus juegos favoritos.</string>
   <string name="intro_3_title">Fácil y Sencillo</string>
@@ -211,7 +212,7 @@
   <string name="notification_not_available_for_country_poa">Esta campaña de recompensas no está disponible en tu país</string>
   <string name="notification_already_rewarded_poa">Ya has recibido una recompensa por esta campaña</string>
   <string name="notification_submit_error_poa">Lo sentimos, hubo un error. ¡Vuelve a intentarlo!</string>
-  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
+  <string name="notification_wrong_network_poa">Estás usando una versión dev de la AppCoins Wallet. Instala la versión oficial para procesar la recompensa.</string>
   <!-- transaction details -->
   <string name="transaction_status_success">Transacción realizada con éxito</string>
   <string name="transaction_status_pending">Transacción pendiente</string>
@@ -302,6 +303,7 @@
   <string name="action_level">Mi Nivel</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Permite que la AppCoins Wallet proporcione tu wallet address a %s.</string>
+  <string name="provide_wallet_body_placeholders">Permitir a %1$s proporcionar tu wallet address a %2$s.</string>
   <string name="provide_wallet_always_allow_button">Permitir siempre</string>
   <string name="provide_wallet_allow_once_button">Permitir una vez</string>
   <string name="provide_wallet_completed_header">¡Wallet asociada a Aptoide!</string>
@@ -329,18 +331,18 @@
   <string name="balance_appccreditos_body">¡El token para hacer compras en apps! Recarga APPC-C desde tu wallet o recíbelos gratis por usar apps. ¡También se pueden transferir entre amigos!</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Pedir a alguien</string>
-  <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
-  <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
-  <string name="askafriend_share_body">Share the link so you can get the funds sent to you!</string>
+  <string name="askafriend_generating_link_message">Estamos generando el enlace de pago&#8230;</string>
+  <string name="askafriend_generating_link_error_message">Ups, algo salió mal. ¡Prueba de nuevo!</string>
+  <string name="askafriend_share_body">¡Comparte el enlace para te manden los fondos!</string>
   <string name="askafriend_share_add_message_body">Añadir mensaje (opcional)</string>
   <string name="askafriend_share_button">Compartir</string>
-  <string name="askafriend_share_popup_title">Ask someone via:</string>
+  <string name="askafriend_share_popup_title">Pedir a través de:</string>
   <string name="askafriend_received_body">Has recibido %s APPC-C</string>
-  <string name="askafriend_notification_received_title">New Transfer Received</string>
-  <string name="askafriend_notification_received_body">%1$s %2$s were credited to your wallet.</string>
+  <string name="askafriend_notification_received_title">Nueva transferencia recibida</string>
+  <string name="askafriend_notification_received_body">%1$s %2$s fueron abonados en tu wallet.</string>
   <string name="askafriend_received_title">Transferencia Recibida</string>
-  <string name="askafriend_send_title">Transfer Sent</string>
-  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
+  <string name="askafriend_send_title">Transferencia enviada</string>
+  <string name="askafriend_share_note_to_friend">¡Hola! Por favor, envíame %1$s AppCoins Credits para hacer una compra en %2$s. Enlace: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Envío de Fondos</string>
   <string name="p2p_send_body">Escanea o introduce la dirección de la wallet de tu amigo.</string>
@@ -355,8 +357,11 @@
   <string name="error_missing_field">Campo obligatorio</string>
   <string name="cancel_button">Cancelar</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
+  <string name="terms_and_conditions_tickbox">Acepto los %1$s y la %2$s de la AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
   <string name="terms_and_conditions">Términos y Condiciones</string>
   <string name="privacy_policy">Política de Privacidad</string>
+  <!--Home-->
+  <string name="home_empty_discover_apps_body">Las mejores apps de Android te esperan.</string>
+  <string name="home_empty_discover_apps_button">DESCUBRIR APPS</string>
 </resources>

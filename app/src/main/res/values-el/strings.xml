@@ -106,7 +106,8 @@
   <string name="intro_message_first_page">Καλώς ήρθατε στην επανάσταση της οικονομίας των εφαρμογών.</string>
   <string name="intro_message_second_page">Τα ιδιωτικά κλειδιά δε θα φύγουν ποτέ από τη συσκευή σας.</string>
   <string name="intro_message_third_page">Διαχειριστείτε όλες τις πληρωμές εντός εφαρμογών και τις αμοιβές σε APPC.</string>
-  <string name="intro_1_body">Your app for in-app purchases.</string>
+  <string name="intro_1_title">AppCoins Wallet</string>
+  <string name="intro_1_body">Η εφαρμογή σας για αγορές εντός εφαρμογών.</string>
   <string name="intro_2_title">Παίξτε Περισσότερο, Πληρώστε Λιγότερα</string>
   <string name="intro_2_body">Λάβετε ανταμοιβές για την αγορά αντικειμένων στις αγαπημένες σας εφαρμογές και παιχνίδια.</string>
   <string name="intro_3_title">Απλό και Εύκολο</string>
@@ -211,7 +212,7 @@
   <string name="notification_not_available_for_country_poa">Αυτή η καμπάνια αμοιβών δεν είναι διαθέσιμη στη χώρα σας</string>
   <string name="notification_already_rewarded_poa">Έχετε ήδη λάβει αμοιβή σε αυτήν την καμπάνια</string>
   <string name="notification_submit_error_poa">Δυστυχώς, παρουσιάστηκε ένα σφάλμα. Προσπαθήστε ξανά!</string>
-  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
+  <string name="notification_wrong_network_poa">Χρησιμοποιείτε την έκδοση του AppCoins Wallet για προγραμματιστές. Παρακαλούμε πραγματοποιήστε λήψη της επίσημης έκδοσης για να επεξεργαστείτε την αμοιβή.</string>
   <!-- transaction details -->
   <string name="transaction_status_success">Επιτυχία</string>
   <string name="transaction_status_pending">Σε εκκρεμότητα</string>
@@ -296,12 +297,13 @@
   <string name="gamification_galaxy_subtitle">Το μεγαλύτερο σύστημα εκεί έξω!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
-  <string name="gamification_purchase_header_part_1">Purchase Bonus:</string>
-  <string name="gamification_purchase_header_part_2">%s in APPC Credits</string>
+  <string name="gamification_purchase_header_part_1">Bonus Αγοράς:</string>
+  <string name="gamification_purchase_header_part_2">%s σε APPC Credits</string>
   <string name="gamification_purchase_body">Θα λάβετε %s APPC Credits για αυτήν την αγορά.</string>
   <string name="action_level">Το επίπεδό μου</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Επιτρέψτε στο AppCoins Wallet να παρέχει τη διεύθυνση wallet σας στο %s.</string>
+  <string name="provide_wallet_body_placeholders">Επιτρέψτε στο %1$s να παρέχει τη διεύθυνση wallet σας στο %2$s.</string>
   <string name="provide_wallet_always_allow_button">Να επιτρέπεται πάντα</string>
   <string name="provide_wallet_allow_once_button">Να επιτραπεί μία φορά</string>
   <string name="provide_wallet_completed_header">Το wallet συσχετίστηκε με το Aptoide!</string>
@@ -328,19 +330,19 @@
   <string name="balance_appcoins_body">Τα AppCoins αποτελούν το κρυπτονόμισμα της οικονομίας των εφαρμογών. Μπορείτε να τα αγοράζετε και να τα πουλάτε σε διάφορα ανταλλακτήρια και να τα χρησιμοποιείτε για αγορές εντός εφαρμογών.</string>
   <string name="balance_appccreditos_body">Το token για την αγορά αντικειμένων εντός εφαρμογών! Λάβετε APPC-C από το wallet σας ή πραγματοποιήστε δωρεάν λήψη μέσω της χρήσης εφαρμογών. Επίσης, υπάρχει δυνατότητα μεταφοράς μεταξύ φίλων!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Ask someone to pay</string>
-  <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
-  <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
-  <string name="askafriend_share_body">Share the link so you can get the funds sent to you!</string>
+  <string name="askafriend_payment_option_button">Ζητήστε από άλλον να πληρώσει</string>
+  <string name="askafriend_generating_link_message">Δημιουργούμε τον σύνδεσμο πληρωμής σας&#8230;</string>
+  <string name="askafriend_generating_link_error_message">Ωχ, κάτι πήγε στραβά. Παρακαλούμε προσπαθήστε ξανά!</string>
+  <string name="askafriend_share_body">Κοινοποιήστε τον σύνδεσμο ώστε να μπορούν να σας αποσταλούν τα χρήματα!</string>
   <string name="askafriend_share_add_message_body">Προσθήκη μηνύματος (προαιρετικά)</string>
   <string name="askafriend_share_button">Κοινοποίηση</string>
-  <string name="askafriend_share_popup_title">Ask someone via:</string>
+  <string name="askafriend_share_popup_title">Ρωτήστε κάποιον μέσω:</string>
   <string name="askafriend_received_body">Μόλις λάβατε %s APPC-C</string>
-  <string name="askafriend_notification_received_title">New Transfer Received</string>
-  <string name="askafriend_notification_received_body">%1$s %2$s were credited to your wallet.</string>
+  <string name="askafriend_notification_received_title">Πραγματοποιήθηκε νέα μεταφορά</string>
+  <string name="askafriend_notification_received_body">%1$s %2$s πιστώθηκαν στο wallet σας.</string>
   <string name="askafriend_received_title">Η Μεταφορά Πραγματοποιήθηκε</string>
-  <string name="askafriend_send_title">Transfer Sent</string>
-  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
+  <string name="askafriend_send_title">Η μεταφορά πραγματοποιήθηκε</string>
+  <string name="askafriend_share_note_to_friend">Γεια! Σε παρακαλώ, στείλε μου %1$s AppCoins Credits για να κάνω μια αγορά στο %2$s. Σύνδεσμος: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Αποστολή Χρημάτων</string>
   <string name="p2p_send_body">Σαρώστε ή εισαγάγετε τη διεύθυνση wallet του φίλου σας.</string>
@@ -355,8 +357,11 @@
   <string name="error_missing_field">Υποχρεωτικό πεδίο</string>
   <string name="cancel_button">Ακύρωση</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
+  <string name="terms_and_conditions_tickbox">Συμφωνώ με %1$s και %2$s του AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
-  <string name="terms_and_conditions">Terms and Conditions</string>
-  <string name="privacy_policy">Privacy Policy</string>
+  <string name="terms_and_conditions">Όροι και Προϋποθέσεις</string>
+  <string name="privacy_policy">Πολιτική Απορρήτου</string>
+  <!--Home-->
+  <string name="home_empty_discover_apps_body">Οι καλύτερες Android εφαρμογές σάς περιμένουν.</string>
+  <string name="home_empty_discover_apps_button">ΑΝΑΚΑΛΥΨΤΕ ΚΟΡΥΦΑΙΕΣ ΕΦΑΡΜΟΓΕΣ</string>
 </resources>
