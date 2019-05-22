@@ -358,7 +358,7 @@
   <string name="cancel_button">Отказ</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Съгласявам се с %1$s и %2$s на AppCoins Wallet.</string>
-  <string name="terms_and_conditions_error">Please accept our %1$s and %2$s to continue</string>
+  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
   <string name="terms_and_conditions">Общи условия</string>
   <string name="privacy_policy">Политика за поверителност</string>
   <!--Home-->

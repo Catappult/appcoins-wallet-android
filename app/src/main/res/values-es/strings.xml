@@ -358,7 +358,7 @@
   <string name="cancel_button">Cancelar</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acepto los %1$s y la %2$s de la AppCoins Wallet.</string>
-  <string name="terms_and_conditions_error">Por favor, acepta los %1$s y la %2$s para continuar</string>
+  <string name="terms_and_conditions_error">Por favor, acepta nuestros Términos y Condiciones y Política de Privacidad para continuar</string>
   <string name="terms_and_conditions">Términos y Condiciones</string>
   <string name="privacy_policy">Política de Privacidad</string>
   <!--Home-->

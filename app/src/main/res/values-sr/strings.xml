@@ -358,7 +358,7 @@
   <string name="cancel_button">Otkaži</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Prihvatam dokumente %1$s i %2$s aplikacije AppCoins Wallet.</string>
-  <string name="terms_and_conditions_error">Please accept our %1$s and %2$s to continue</string>
+  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
   <string name="terms_and_conditions">Uslovi i odredbe</string>
   <string name="privacy_policy">Smernice za privatnost</string>
   <!--Home-->

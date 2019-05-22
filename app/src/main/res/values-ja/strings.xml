@@ -116,8 +116,8 @@
   <string name="intro_4_body">あなたのプライベート鍵がデバイスから消えることはありませんので、あなたのAppCoinsは常に安全です。</string>
   <string name="intro_creating_wallet_short">私たちはあなたのためのウォレットを作っています&#8230;</string>
   <string name="intro_wallet_created_short">ウォレットの作成ができました！</string>
-  <string name="intro_agree_terms_and_conditions_body">"スキップをタップすることで、AppCoinウォレットの %1$s と %2$s に同意します
- "</string>
+  <string name="intro_agree_terms_and_conditions_body">"\"スキップをタップすることで、AppCoinウォレットの %1$s と %2$s に同意します
+ \""</string>
   <string name="intro_skip_button">スキップ</string>
   <!-- Menus -->
   <!-- Labels -->
@@ -359,7 +359,7 @@
   <string name="cancel_button">キャンセルする</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
-  <string name="terms_and_conditions_error">Please accept our %1$s and %2$s to continue</string>
+  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
   <string name="terms_and_conditions">Terms and Conditions</string>
   <string name="privacy_policy">Privacy Policy</string>
   <!--Home-->
