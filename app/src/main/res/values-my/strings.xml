@@ -106,7 +106,8 @@
   <string name="intro_message_first_page">အက္ပ္စီးပြားေရး၏ ေတာ္လွန္ဆန္းသစ္မႈမွ ႀကိဳဆိုပါသည္။</string>
   <string name="intro_message_second_page">သီးသန္႔ကီးမ်ားတြင္ သင့္ကိရိယာမွ ေပ်ာက္သြားမည္ မဟုတ္ပါ။</string>
   <string name="intro_message_third_page">သင့္အက္ပ္အတြင္း ေငြေပးေခ်မႈမ်ားႏွင့္ ဆုမ်ားအားလံုးကို APPC ျဖင့္ ေဆာင္ရြက္လိုက္ပါ။</string>
-  <string name="intro_1_body">Your app for in-app purchases.</string>
+  <string name="intro_1_title">AppCoins Wallet</string>
+  <string name="intro_1_body">အက္ပ္အတြင္း ၀ယ္ယူမႈမ်ားအတြက္ သင့္အက္ပ္။</string>
   <string name="intro_2_title">မ်ားမ်ားကစားပါ၊ နည္းနည္းပဲေပးပါ</string>
   <string name="intro_2_body">သင့္စိတ္ႀကိဳက္ အက္ပ္မ်ားနွင့္ ဂိမ္းမ်ားတြင္ ပစၥည္းမ်ားကို ဝယ္ယူျခင္းအတြက္ ဆုရယူလိုက္ပါ။</string>
   <string name="intro_3_title">႐ိုးရွင္းၿပီး လြယ္ကူပါသည္</string>
@@ -211,7 +212,7 @@
   <string name="notification_not_available_for_country_poa">ဤဆုအစီအစဥ္ကို သင့္ႏိုင္ငံတြင္ မရရွိႏိုင္ပါ</string>
   <string name="notification_already_rewarded_poa">ဤအစီအစဥ္တြင္ သင့္အား ဆုေပးထားၿပီး ျဖစ္ပါသည္</string>
   <string name="notification_submit_error_poa">စိတ္မေကာင္းပါ။ ခ်ိဳ႕ယြင္းမႈတစ္ခု ျဖစ္ခဲ့ပါသည္။ ျပန္ႀကိဳးစားပါ။</string>
-  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
+  <string name="notification_wrong_network_poa">သင္သည္ AppCoins Wallet ၏ ထုတ္လုပ္သူဗားရွင္းကို အသံုးျပဳေနျခင္း ျဖစ္ပါသည္။ ဆုကို စီစဥ္ေဆာင္ရြက္ရန္ တရား၀င္ ထုတ္ေပးထားသည္ကို ေဒါင္းလုဒ္ဆြဲေပးပါ။</string>
   <!-- transaction details -->
   <string name="transaction_status_success">ေအာင္ျမင္ပါသည္</string>
   <string name="transaction_status_pending">စိစစ္ဆဲျဖစ္ပါသည္</string>
@@ -296,12 +297,13 @@
   <string name="gamification_galaxy_subtitle">ယင္းေနရာတြင္ရွိေသာ အႀကီးမားဆံုးစနစ္။</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
-  <string name="gamification_purchase_header_part_1">Purchase Bonus:</string>
-  <string name="gamification_purchase_header_part_2">%s in APPC Credits</string>
+  <string name="gamification_purchase_header_part_1">၀ယ္ယူမႈေဘာနပ္စ္ -</string>
+  <string name="gamification_purchase_header_part_2">APPC Credit မ်ားတြင္ %s</string>
   <string name="gamification_purchase_body">ဤဝယ္ယူမႈအတြက္ %s APPC ခရက္ဒစ္ကို သင္ရရွိပါသည္။</string>
   <string name="action_level">ကၽြန္ုပ္၏အဆင့္</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">%s သို႔ သင့္ပိုက္ဆံအိတ္ လိပ္စာကိုေပးရန္ AppCoins ပိုက္ဆံအိတ္ကို ခြင့္ျပဳပါ။</string>
+  <string name="provide_wallet_body_placeholders">Allow %1$s to provide your wallet address to %2$s.</string>
   <string name="provide_wallet_always_allow_button">အၿမဲတမ္းခြင့္ျပဳမည္</string>
   <string name="provide_wallet_allow_once_button">တစ္ႀကိမ္သာ ခြင့္ျပဳမည္</string>
   <string name="provide_wallet_completed_header">ပိုက္ဆံအိတ္ကို Aptoide နွင့္ တြဲဖက္လိုက္ပါၿပီ။</string>
@@ -328,19 +330,19 @@
   <string name="balance_appcoins_body">AppCoins သည္ အက္ပ္စီးပြားေရးနယ္ပယ္အတြက္ ခရစ္ပ္တိုေငြေၾကးပံုစံ ျဖစ္ပါသည္။ သင္သည္ယင္းအား အိတ္ခ်ိန္းအမ်ားအျပားတြင္ ေရာင္းဝယ္နိုင္သလို အက္ပ္အတြင္း ပစၥည္းမ်ား ဝယ္ယူရန္အတြက္လည္း အသံုးျပဳနိုင္ပါသည္။</string>
   <string name="balance_appccreditos_body">အက္ပ္အတြင္း ပစၥည္းမ်ားကို ဝယ္ယူရန္အတြက္ တိုကင္ျဖစ္ပါသည္။ သင့္ပိုက္ဆံအိတ္မွ APPC-C ျဖင့္ ေငြျဖည့္ပါ သို႔မဟုတ္ အက္ပ္မ်ားကို အသံုးျပဳျခင္းျဖင့္ ယင္းတို႔ကို အခမဲ့ ရယူပါ။ သူငယ္ခ်င္းမ်ား အၾကားတြင္လည္း ယင္းတို႔ကို လႊဲေပးနိုင္ပါသည္။</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Ask someone to pay</string>
-  <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
-  <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
-  <string name="askafriend_share_body">Share the link so you can get the funds sent to you!</string>
+  <string name="askafriend_payment_option_button">ေပးေခ်ရန္ တစံုတေယာက္ကို ေျပာပါ</string>
+  <string name="askafriend_generating_link_message">သင့္ေငြေပးေခ်မႈလင့္္ခ္ &#8230; ကို ထုတ္ေပးေနပါသည္</string>
+  <string name="askafriend_generating_link_error_message">အိုး တခုခုမွားသြားပါသည္။ ျပန္ႀကိဳးစားေပးပါ။</string>
+  <string name="askafriend_share_body">သင့္ထံသို႔ေပးပို႔ေသာ ေငြမ်ားကို ရရွိႏိုင္ရန္ လင့္ခ္ကို မွ်ေ၀ေပးပါ။</string>
   <string name="askafriend_share_add_message_body">မက္ေဆ့ဂ်္ထည့္မည္ (မထည့္လည္းရပါသည္)</string>
   <string name="askafriend_share_button">မွ်ေဝမည္</string>
-  <string name="askafriend_share_popup_title">Ask someone via:</string>
+  <string name="askafriend_share_popup_title">မွတဆင့္ တစံုတေယာက္ကိုေျပာရန္ -</string>
   <string name="askafriend_received_body">%s APPC-C ကို သင္ရရွိလိုက္ပါသည္</string>
-  <string name="askafriend_notification_received_title">New Transfer Received</string>
-  <string name="askafriend_notification_received_body">%1$s %2$s were credited to your wallet.</string>
+  <string name="askafriend_notification_received_title">လႊဲေပးမႈအသစ္ကို လက္ခံရရွိခဲ့ပါသည္</string>
+  <string name="askafriend_notification_received_body">%1$s %2$s တို႔ကို သင့္ပိုက္ဆံအိတ္တြင္ ထည့္ေပးလိုက္ပါသည္။</string>
   <string name="askafriend_received_title">လႊဲေပးမႈကို လက္ခံရရွိခဲ့ပါသည္</string>
-  <string name="askafriend_send_title">Transfer Sent</string>
-  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
+  <string name="askafriend_send_title">လႊဲေပးမႈကို ေပးပို႔ခဲ့သည္</string>
+  <string name="askafriend_share_note_to_friend">ေဟး %2$s မွာ ပစၥည္းတစ္ခု၀ယ္ဖို႔ %1$s AppCoins Credits ကို ပို႔ေပးပါလား။ လင့္ခ္ - %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">ေငြေပးပို႔မည္</string>
   <string name="p2p_send_body">သင့္သူငယ္ခ်င္း၏ ပိုက္ဆံအိတ္လိပ္စာကို စကန္ဖတ္ပါ သို႔မဟုတ္ ဝင္ပါ။</string>
@@ -355,8 +357,11 @@
   <string name="error_missing_field">လိုအပ္ေသာအကြက္</string>
   <string name="cancel_button">ပယ္ဖ်က္မည္</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
-  <string name="terms_and_conditions">Terms and Conditions</string>
-  <string name="privacy_policy">Privacy Policy</string>
+  <string name="terms_and_conditions_tickbox">AppCoins Wallet ၏ %1$s ႏွင့္ %2$s ကို သေဘာတူပါသည္။</string>
+  <string name="terms_and_conditions_error">Please accept our %1$s and %2$s to continue</string>
+  <string name="terms_and_conditions">စည္းမ်ဥ္းစည္းကမ္းမ်ား</string>
+  <string name="privacy_policy">ကိုယ္ေရးလံုျခံဳမႈ မူဝါဒ</string>
+  <!--Home-->
+  <string name="home_empty_discover_apps_body">အေကာင္းဆံုး အန္းဒ႐ိုက္အက္ပ္မ်ားက သင့္ကိုေစာင့္ေနပါသည္။</string>
+  <string name="home_empty_discover_apps_button">ထိပ္တန္းအက္ပ္မ်ားကို ရွာေဖြလိုက္ပါ</string>
 </resources>

@@ -106,7 +106,8 @@
   <string name="intro_message_first_page">Chào mừng bạn đến với cuộc cách mạng của nền kinh tế ứng dụng.</string>
   <string name="intro_message_second_page">Khóa cá nhân không bao giờ rời khỏi thiết bị của bạn.</string>
   <string name="intro_message_third_page">Xử lý tất cả các khoản thanh toán trong ứng dụng và phần thưởng của bạn bằng APPC.</string>
-  <string name="intro_1_body">Your app for in-app purchases.</string>
+  <string name="intro_1_title">AppCoins Wallet</string>
+  <string name="intro_1_body">Ứng dụng để mua hàng trong ứng dụng của bạn.</string>
   <string name="intro_2_title">Chơi nhiều hơn, trả ít hơn</string>
   <string name="intro_2_body">Nhận thưởng khi mua vật phẩm trong các ứng dụng và trò chơi yêu thích của bạn.</string>
   <string name="intro_3_title">Đơn giản và Dễ dàng</string>
@@ -211,7 +212,7 @@
   <string name="notification_not_available_for_country_poa">Chiến dịch phần thưởng này không khả dụng ở quốc gia của bạn</string>
   <string name="notification_already_rewarded_poa">Bạn đã được thưởng trong chiến dịch này</string>
   <string name="notification_submit_error_poa">Rất tiếc, đã xảy ra lỗi. Vui lòng thử lại!</string>
-  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
+  <string name="notification_wrong_network_poa">Bạn đang sử dụng phiên bản phát triển của Ví AppCoins. Vui lòng tải về bản phát hành chính thức để được nhận phần thưởng.</string>
   <!-- transaction details -->
   <string name="transaction_status_success">Thành công</string>
   <string name="transaction_status_pending">Chờ xử lý</string>
@@ -296,12 +297,13 @@
   <string name="gamification_galaxy_subtitle">Hệ thống lớn nhất ngoài kia!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
-  <string name="gamification_purchase_header_part_1">Purchase Bonus:</string>
-  <string name="gamification_purchase_header_part_2">%s in APPC Credits</string>
+  <string name="gamification_purchase_header_part_1">Tiền thưởng mua hàng:</string>
+  <string name="gamification_purchase_header_part_2">%s bằng APPC Credits</string>
   <string name="gamification_purchase_body">Bạn sẽ nhận được %s APPC Credits cho giao dịch mua này.</string>
   <string name="action_level">Cấp của tôi</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Cho phép AppCoins Wallet cung cấp địa chỉ ví của bạn cho %s.</string>
+  <string name="provide_wallet_body_placeholders">Cho phép %1$s cung cấp địa chỉ ví của bạn cho %2$s.</string>
   <string name="provide_wallet_always_allow_button">Luôn luôn cho phép</string>
   <string name="provide_wallet_allow_once_button">Cho phép một lần</string>
   <string name="provide_wallet_completed_header">Ví đã được liên kết với Aptoide!</string>
@@ -328,19 +330,19 @@
   <string name="balance_appcoins_body">AppCoins là tiền điện tử dành cho nền kinh tế ứng dụng. Bạn có thể mua và bán chúng trên một số sàn giao dịch cũng như có thể sử dụng chúng để mua các vật phẩm trong ứng dụng.</string>
   <string name="balance_appccreditos_body">Token để mua các vật phẩm trong ứng dụng! Nạp APPC-C từ ví của bạn hoặc nhận chúng miễn phí bằng cách sử dụng các ứng dụng. Chúng cũng có thể được chuyển giao giữa những người bạn!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Ask someone to pay</string>
-  <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
-  <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
-  <string name="askafriend_share_body">Share the link so you can get the funds sent to you!</string>
+  <string name="askafriend_payment_option_button">Nhờ ai đó thanh toán</string>
+  <string name="askafriend_generating_link_message">Chúng tôi đang tạo liên kết thanh toán của bạn&#8230;</string>
+  <string name="askafriend_generating_link_error_message">Rất tiếc, đã xảy ra lỗi. Vui lòng thử lại!</string>
+  <string name="askafriend_share_body">Chia sẻ liên kết để nhận được tiền gửi cho bạn!</string>
   <string name="askafriend_share_add_message_body">Thêm lời nhắn (Tùy chọn)</string>
   <string name="askafriend_share_button">Chia sẻ</string>
-  <string name="askafriend_share_popup_title">Ask someone via:</string>
+  <string name="askafriend_share_popup_title">Nhờ ai đó qua:</string>
   <string name="askafriend_received_body">Bạn vừa nhận được %s APPC-C</string>
-  <string name="askafriend_notification_received_title">New Transfer Received</string>
-  <string name="askafriend_notification_received_body">%1$s %2$s were credited to your wallet.</string>
+  <string name="askafriend_notification_received_title">Chuyển khoản mới nhận</string>
+  <string name="askafriend_notification_received_body">%1$s %2$s đã được ghi có vào ví của bạn.</string>
   <string name="askafriend_received_title">Đã nhận tiền</string>
-  <string name="askafriend_send_title">Transfer Sent</string>
-  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
+  <string name="askafriend_send_title">Chuyển khoản đã gửi</string>
+  <string name="askafriend_share_note_to_friend">Chào bạn! Vui lòng gửi cho tôi %1$s AppCoins Credits để mua một vật phẩm trong %2$s. Liên kết: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Gửi tiền</string>
   <string name="p2p_send_body">Quét hoặc nhập địa chỉ ví bạn bè của bạn.</string>
@@ -355,8 +357,11 @@
   <string name="error_missing_field">Trường bắt buộc</string>
   <string name="cancel_button">Hủy</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
-  <string name="terms_and_conditions">Terms and Conditions</string>
-  <string name="privacy_policy">Privacy Policy</string>
+  <string name="terms_and_conditions_tickbox">Tôi đồng ý với %1$s và %2$s của Ví AppCoins.</string>
+  <string name="terms_and_conditions_error">Please accept our %1$s and %2$s to continue</string>
+  <string name="terms_and_conditions">Điều khoản và Điều kiện</string>
+  <string name="privacy_policy">Chính sách riêng tư</string>
+  <!--Home-->
+  <string name="home_empty_discover_apps_body">Các ứng dụng Android tốt nhất đang chờ bạn.</string>
+  <string name="home_empty_discover_apps_button">KHÁM PHÁ CÁC ỨNG DỤNG HÀNG ĐẦU</string>
 </resources>

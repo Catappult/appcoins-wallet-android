@@ -106,7 +106,8 @@
   <string name="intro_message_first_page">Selamat datang ke revolusi ekonomi aplikasi.</string>
   <string name="intro_message_second_page">Kunci peribadi tidak akan meninggalkan dompet anda.</string>
   <string name="intro_message_third_page">Proses semua bayaran dan ganjaran dalam aplikasi anda dengan APPC.</string>
-  <string name="intro_1_body">Your app for in-app purchases.</string>
+  <string name="intro_1_title">AppCoins Wallet</string>
+  <string name="intro_1_body">Aplikasi anda untuk pembelian dalam aplikasi.</string>
   <string name="intro_2_title">Main Banyak, Bayar Sedikit</string>
   <string name="intro_2_body">Dapatkan ganjaran kerana membeli item dalam aplikasi dan permainan kegemaran anda.</string>
   <string name="intro_3_title">Ringkas dan Mudah</string>
@@ -211,7 +212,7 @@
   <string name="notification_not_available_for_country_poa">Kempen ganjaran ini tidak tersedia di negara anda</string>
   <string name="notification_already_rewarded_poa">Anda sudah menerima ganjaran dalam kempen ini</string>
   <string name="notification_submit_error_poa">Maaf, ada ralat tadi. Cuba lagi!</string>
-  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
+  <string name="notification_wrong_network_poa">Anda sedang gunakan Dompet AppCoins versi pembangun. Sila muat turun versi rasmi untuk memproses ganjaran.</string>
   <!-- transaction details -->
   <string name="transaction_status_success">Berjaya</string>
   <string name="transaction_status_pending">Belum selesai</string>
@@ -296,12 +297,13 @@
   <string name="gamification_galaxy_subtitle">Sistem terbesar di angkasa!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
-  <string name="gamification_purchase_header_part_1">Purchase Bonus:</string>
-  <string name="gamification_purchase_header_part_2">%s in APPC Credits</string>
+  <string name="gamification_purchase_header_part_1">Beli Bonus:</string>
+  <string name="gamification_purchase_header_part_2">%s dalam Kredit APPC</string>
   <string name="gamification_purchase_body">Anda akan dapat %s Kredit APPC untuk pembelian ini.</string>
   <string name="action_level">Tahap Saya</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Izinkan Dompet AppCoins untuk berikan alamat dompet anda kepada %s.</string>
+  <string name="provide_wallet_body_placeholders">Izinkan %1$s untuk berikan alamat dompet anda kepada %2$s.</string>
   <string name="provide_wallet_always_allow_button">Sentiasa izin</string>
   <string name="provide_wallet_allow_once_button">Izin sekali</string>
   <string name="provide_wallet_completed_header">Dompet dipautkan dengan Aptoide!</string>
@@ -328,19 +330,19 @@
   <string name="balance_appcoins_body">AppCoins ialah mata wang kripto untuk ekonomi aplikasi. Anda boleh membeli dan menjualnya dalam pelbagai urus niaga dan menggunakannya untuk membeli item dalam aplikasi.</string>
   <string name="balance_appccreditos_body">Token untuk membeli item dalam aplikasi! Tambah nilai APPC-C daripada dompet anda atau dapatkannya secara percuma dengan menggunakan aplikasi. Ia juga boleh dipindahkan antara rakan!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Ask someone to pay</string>
-  <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
-  <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
-  <string name="askafriend_share_body">Share the link so you can get the funds sent to you!</string>
+  <string name="askafriend_payment_option_button">Minta seseorang bayarkan</string>
+  <string name="askafriend_generating_link_message">Kami sedang menjana pautan pembayaran anda&#8230;</string>
+  <string name="askafriend_generating_link_error_message">Oops, ada sesuatu yang tidak kena. Sila cuba lagi!</string>
+  <string name="askafriend_share_body">Kongsi pautan agar anda dapat dana yang telah dihantar kepada anda!</string>
   <string name="askafriend_share_add_message_body">Tambah Mesej (Pilihan)</string>
   <string name="askafriend_share_button">Kongsi</string>
-  <string name="askafriend_share_popup_title">Ask someone via:</string>
+  <string name="askafriend_share_popup_title">Tanya seseorang melalui:</string>
   <string name="askafriend_received_body">Anda baru saja terima %s APPC-C</string>
-  <string name="askafriend_notification_received_title">New Transfer Received</string>
-  <string name="askafriend_notification_received_body">%1$s %2$s were credited to your wallet.</string>
+  <string name="askafriend_notification_received_title">Pindahan Baharu Diterima</string>
+  <string name="askafriend_notification_received_body">%1$s %2$s telah dikreditkan ke dompet anda.</string>
   <string name="askafriend_received_title">Pindahan Diterima</string>
-  <string name="askafriend_send_title">Transfer Sent</string>
-  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
+  <string name="askafriend_send_title">Pindahan Dihantar</string>
+  <string name="askafriend_share_note_to_friend">Hai awak! Boleh hantar %1$s Kredit AppCoins kepada saya untuk beli item dalam %2$s. Pautan: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Hantar Dana</string>
   <string name="p2p_send_body">Imbas atau masukkan alamat dompet rakan anda.</string>
@@ -355,8 +357,11 @@
   <string name="error_missing_field">Ruang wajib diisi</string>
   <string name="cancel_button">Batal</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
-  <string name="terms_and_conditions">Terms and Conditions</string>
-  <string name="privacy_policy">Privacy Policy</string>
+  <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s Dompet AppCoins.</string>
+  <string name="terms_and_conditions_error">Please accept our %1$s and %2$s to continue</string>
+  <string name="terms_and_conditions">Terma dan Syarat</string>
+  <string name="privacy_policy">Dasar Privasi</string>
+  <!--Home-->
+  <string name="home_empty_discover_apps_body">Aplikasi Android terbaik sedang menanti anda.</string>
+  <string name="home_empty_discover_apps_button">TEMUI APLIKASI HEBAT</string>
 </resources>
