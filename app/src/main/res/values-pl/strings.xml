@@ -113,7 +113,7 @@
   <string name="intro_3_title">Prosto i łatwo</string>
   <string name="intro_3_body">Zapłać za wszystkie transakcje w aplikacjach używając Twojej ulubionej metody płatności.</string>
   <string name="intro_4_title">Bezpieczeństwo i prywatność</string>
-  <string name="intro_4_body">Your private info will never leave your device, so your AppCoins are safe at all times.</string>
+  <string name="intro_4_body">Twoje prywatne klucze nigdy nie opuszczą Twojego urządzenia, więc Twoje AppCoins są zawsze bezpieczne.</string>
   <string name="intro_creating_wallet_short">Tworzymy dla Ciebie portfel&#8230;</string>
   <string name="intro_wallet_created_short">Stworzono portfel!</string>
   <string name="intro_agree_terms_and_conditions_body">Naciskając na Pomiń, zgadzasz się na %1$s i %2$s portfela AppCoins</string>
