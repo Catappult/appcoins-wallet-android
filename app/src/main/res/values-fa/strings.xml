@@ -358,7 +358,7 @@
   <string name="cancel_button">لغو</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">با %1$s و %2$s کیف پول AppCoins موافقم.</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions_error">Please accept our %1$s and %2$s to continue</string>
   <string name="terms_and_conditions">شرایط و ضوابط</string>
   <string name="privacy_policy">سیاست حفظ حریم خصوصی</string>
   <!--Home-->

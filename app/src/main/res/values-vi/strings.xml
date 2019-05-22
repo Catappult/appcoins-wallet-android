@@ -358,7 +358,7 @@
   <string name="cancel_button">Hủy</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Tôi đồng ý với %1$s và %2$s của Ví AppCoins.</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions_error">Please accept our %1$s and %2$s to continue</string>
   <string name="terms_and_conditions">Điều khoản và Điều kiện</string>
   <string name="privacy_policy">Chính sách riêng tư</string>
   <!--Home-->

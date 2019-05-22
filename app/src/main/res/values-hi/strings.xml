@@ -358,7 +358,7 @@
   <string name="cancel_button">रद्द करें</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मैं AppCoins Wallet के %1$s और %2$s से सहमत हूँ।</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions_error">Please accept our %1$s and %2$s to continue</string>
   <string name="terms_and_conditions">नियम एवं शर्तें</string>
   <string name="privacy_policy">गोपनीयता नीति</string>
   <!--Home-->
