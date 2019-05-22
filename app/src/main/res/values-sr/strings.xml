@@ -113,7 +113,7 @@
   <string name="intro_3_title">Jednostavno i lako</string>
   <string name="intro_3_body">Obradite sve kupovine u aplikacijama pomoću omiljenog načina plaćanja.</string>
   <string name="intro_4_title">Bezbedno i privatno</string>
-  <string name="intro_4_body">Vaše privatne informacije nikad neće napuštati uređaj, tako da su vaši AppCoins uvek bezbedni.</string>
+  <string name="intro_4_body">Vaši privatni ključevi nikad neće napuštati uređaj, tako da su vaši AppCoins uvek bezbedni.</string>
   <string name="intro_creating_wallet_short">Pravimo vam novčanik&#8230;</string>
   <string name="intro_wallet_created_short">Novčanik je napravljen!</string>
   <string name="intro_agree_terms_and_conditions_body">Ako dodirnete Preskoči, prihvatate %1$s i %2$s aplikacije AppCoins Wallet</string>
