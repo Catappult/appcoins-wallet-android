@@ -113,7 +113,7 @@
   <string name="intro_3_title">Simples e Fácil</string>
   <string name="intro_3_body">Processa todas as tuas compras integradas utilizando o teu método de pagamento preferido.</string>
   <string name="intro_4_title">Seguro e Privado</string>
-  <string name="intro_4_body">Your private info will never leave your device, so your AppCoins are safe at all times.</string>
+  <string name="intro_4_body">As tuas private keys nunca deixarão o teu dispositivo, e por isso as tuas AppCoins estão sempre seguras.</string>
   <string name="intro_creating_wallet_short">Estamos a criar uma wallet para ti&#8230;</string>
   <string name="intro_wallet_created_short">Wallet criada!</string>
   <string name="intro_agree_terms_and_conditions_body">Ao selecionar Saltar, estará a concordar com os %1$s e com a %2$s da AppCoins Wallet</string>
