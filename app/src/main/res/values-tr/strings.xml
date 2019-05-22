@@ -113,7 +113,7 @@
   <string name="intro_3_title">Basit ve Kolay</string>
   <string name="intro_3_body">Favori ödeme yönteminizi kullanarak tüm uygulama için satın alımlarınızı işleyin.</string>
   <string name="intro_4_title">Güvenli ve Gizli</string>
-  <string name="intro_4_body">Özel bilgileriniz asla cihazınızı terk etmez, dolayısıyla AppCoins\'iniz her zaman güvendedir.</string>
+  <string name="intro_4_body">Özel anahtarlarınız asla cihazınızı terk etmez, dolayısıyla AppCoin\'leriniz her zaman güvendedir.</string>
   <string name="intro_creating_wallet_short">Sizin için bir cüzdan oluşturuyoruz&#8230;</string>
   <string name="intro_wallet_created_short">Cüzdan oluşturuldu!</string>
   <string name="intro_agree_terms_and_conditions_body">Atla\'ya dokunarak AppCoins Cüzdanının %1$s ve %2$s\'nı kabul etmiş olursunuz</string>
