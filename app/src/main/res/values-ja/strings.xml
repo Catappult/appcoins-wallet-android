@@ -303,7 +303,7 @@
   <string name="gamification_purchase_body">あなたは、この購入にて %s APPC クレジットを取得します。</string>
   <string name="action_level">私のレベル</string>
   <!-- Provide wallet address -->
-  <string name="provide_wallet_body">AppCoins ウォレットアドレスを % に提供することをを許可します。</string>
+  <string name="provide_wallet_body">AppCoins ウォレットアドレスを %s に提供することをを許可します。</string>
   <string name="provide_wallet_body_placeholders">Allow %1$s to provide your wallet address to %2$s.</string>
   <string name="provide_wallet_always_allow_button">常に許可する</string>
   <string name="provide_wallet_allow_once_button">一度許可する</string>
@@ -359,7 +359,7 @@
   <string name="cancel_button">キャンセルする</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions_error">Please accept our %1$s and %2$s to continue</string>
   <string name="terms_and_conditions">Terms and Conditions</string>
   <string name="privacy_policy">Privacy Policy</string>
   <!--Home-->
