@@ -113,7 +113,7 @@
   <string name="intro_3_title">Simpel en eenvoudig</string>
   <string name="intro_3_body">Verwerk al je in-app aankopen met je favoriete betaalmethode.</string>
   <string name="intro_4_title">Veilig en persoonlijk</string>
-  <string name="intro_4_body">Je persoonlijke gegevens staan alleen op jouw apparaat waardoor je AppCoins altijd beveiligd zijn.</string>
+  <string name="intro_4_body">Je privésleutels staan alleen op jouw apparaat waardoor je AppCoins altijd beveiligd zijn.</string>
   <string name="intro_creating_wallet_short">We zijn een wallet voor je aan het aanmaken&#8230;</string>
   <string name="intro_wallet_created_short">Wallet is aangemaakt!</string>
   <string name="intro_agree_terms_and_conditions_body">Door op Overslaan te tikken, ga je akkoord met de %1$s en het %2$s van AppCoins Wallet</string>
