@@ -113,7 +113,7 @@
   <string name="intro_3_title">Simples e Fácil</string>
   <string name="intro_3_body">Processe todas as suas compras dentro do aplicativo utilizando seu método de pagamento favorito.</string>
   <string name="intro_4_title">Seguro e Privado</string>
-  <string name="intro_4_body">Suas informações pessoais nunca sairão do seu dispositivo, por isso suas AppCoins estarão seguras o tempo todo.</string>
+  <string name="intro_4_body">Suas chaves privadas nunca deixam seu dispositivo, e por isso suas AppCoins estão sempre seguras.</string>
   <string name="intro_creating_wallet_short">Estamos criando uma wallet para você&#8230;</string>
   <string name="intro_wallet_created_short">Wallet criada!</string>
   <string name="intro_agree_terms_and_conditions_body">Ao selecionar Pular, você concorda com os %1$s e a %2$s da sua Wallet AppCoins</string>
