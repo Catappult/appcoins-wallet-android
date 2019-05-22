@@ -358,7 +358,7 @@
   <string name="cancel_button">रद्द करा</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मला अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s मान्य आहेत.</string>
-  <string name="terms_and_conditions_error">Please accept our %1$s and %2$s to continue</string>
+  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
   <string name="terms_and_conditions">अटी आणि शर्ती</string>
   <string name="privacy_policy">गोपनीयता धोरण</string>
   <!--Home-->

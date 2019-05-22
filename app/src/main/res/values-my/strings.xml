@@ -358,7 +358,7 @@
   <string name="cancel_button">ပယ္ဖ်က္မည္</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet ၏ %1$s ႏွင့္ %2$s ကို သေဘာတူပါသည္။</string>
-  <string name="terms_and_conditions_error">Please accept our %1$s and %2$s to continue</string>
+  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
   <string name="terms_and_conditions">စည္းမ်ဥ္းစည္းကမ္းမ်ား</string>
   <string name="privacy_policy">ကိုယ္ေရးလံုျခံဳမႈ မူဝါဒ</string>
   <!--Home-->

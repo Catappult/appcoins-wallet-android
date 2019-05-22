@@ -358,7 +358,7 @@
   <string name="cancel_button">İptal et</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet\'ın %1$s ve %2$s\'nı kabul ediyorum.</string>
-  <string name="terms_and_conditions_error">Please accept our %1$s and %2$s to continue</string>
+  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
   <string name="terms_and_conditions">Şartlar ve Koşullar</string>
   <string name="privacy_policy">Gizlilik Politikası</string>
   <!--Home-->

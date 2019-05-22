@@ -358,7 +358,7 @@
   <string name="cancel_button">Annuleren</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ik ga akkoord met de %1$s en het %2$s van AppCoins Wallet.</string>
-  <string name="terms_and_conditions_error">Please accept our %1$s and %2$s to continue</string>
+  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
   <string name="terms_and_conditions">Algemene voorwaarden</string>
   <string name="privacy_policy">Privacybeleid</string>
   <!--Home-->

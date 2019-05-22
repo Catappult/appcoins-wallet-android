@@ -358,7 +358,7 @@
   <string name="cancel_button">Ακύρωση</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Συμφωνώ με %1$s και %2$s του AppCoins Wallet.</string>
-  <string name="terms_and_conditions_error">Please accept our %1$s and %2$s to continue</string>
+  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
   <string name="terms_and_conditions">Όροι και Προϋποθέσεις</string>
   <string name="privacy_policy">Πολιτική Απορρήτου</string>
   <!--Home-->
