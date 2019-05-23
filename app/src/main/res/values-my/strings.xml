@@ -299,7 +299,7 @@
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">၀ယ္ယူမႈေဘာနပ္စ္ -</string>
   <string name="gamification_purchase_header_part_2">APPC Credit မ်ားတြင္ %s</string>
-  <string name="gamification_purchase_body">ဤဝယ္ယူမႈအတြက္ %s APPC ခရက္ဒစ္ကို သင္ရရွိပါသည္။</string>
+  <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
   <string name="action_level">ကၽြန္ုပ္၏အဆင့္</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">%s သို႔ သင့္ပိုက္ဆံအိတ္ လိပ္စာကိုေပးရန္ AppCoins ပိုက္ဆံအိတ္ကို ခြင့္ျပဳပါ။</string>
