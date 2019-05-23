@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/payment_methods_width_landscape"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:animateLayoutChanges="true"
     android:background="@drawable/background_card"
@@ -201,12 +201,12 @@
         android:layout_marginStart="@dimen/big_margin"
         android:layout_marginTop="11dp"
         android:gravity="center_vertical"
+        android:text="@string/gamification_purchase_body"
         app:layout_constraintBottom_toTopOf="@id/bottom_separator"
         app:layout_constraintEnd_toEndOf="@id/mid_guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
         app:layout_constraintVertical_bias="1"
-        android:text="@string/gamification_purchase_body"
         style="@style/TopUpTextStyle.Small.BonusText"
         />
 
@@ -323,38 +323,35 @@
   <RelativeLayout
       android:id="@+id/address_footer"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="24dp"
       android:layout_below="@+id/payment_methods"
-      android:layout_marginBottom="2dp"
-      android:layout_marginTop="2dp"
       android:visibility="invisible"
       >
     <ImageView
         android:id="@+id/logo_wallet"
-        android:layout_width="76dp"
+        android:layout_width="wrap_content"
         android:layout_height="16dp"
-        android:layout_marginBottom="3dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="5dp"
         android:src="@drawable/logo_appc_wallet"
+        android:layout_centerVertical="true"
         />
 
     <TextView
         android:id="@+id/wallet_address_footer"
         android:layout_width="match_parent"
-        android:layout_height="16dp"
+        android:layout_height="wrap_content"
         android:layout_alignBottom="@id/logo_wallet"
         android:layout_alignTop="@id/logo_wallet"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_toEndOf="@id/logo_wallet"
         android:ellipsize="end"
-        android:gravity="center_vertical|end"
+        android:gravity="end|center_vertical"
         android:maxLines="1"
         android:text="0x1a78a81235dls019sk291id"
         android:textColor="@color/grey_8a_alpha"
         android:textSize="12sp"
-
+        tools:text="0x1a78a81235dls019sk291id"
         />
   </RelativeLayout>
 

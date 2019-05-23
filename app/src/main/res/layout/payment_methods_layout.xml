@@ -279,9 +279,7 @@
       <RelativeLayout
           android:id="@+id/address_footer"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="2dp"
-          android:layout_marginTop="2dp"
+          android:layout_height="24dp"
           android:visibility="invisible"
           >
         <ImageView
@@ -290,6 +288,7 @@
             android:layout_height="16dp"
             android:layout_marginStart="16dp"
             android:src="@drawable/logo_appc_wallet"
+            android:layout_centerVertical="true"
             />
 
         <TextView

@@ -802,7 +802,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Provides OnboardingInteract provideOnboardingInteract(CreateWalletInteract createWalletInteract,
-      WalletService walletService, PreferenceRepositoryType preferenceRepositoryType) {
+      WalletService walletService, PreferenceRepositoryType preferenceRepositoryType,
+      TokenRepositoryType tokenRepository) {
     return new OnboardingInteract(createWalletInteract, walletService, preferenceRepositoryType);
   }
 
