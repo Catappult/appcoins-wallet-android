@@ -19,13 +19,16 @@ import rx.functions.Action1;
 public class AppcoinsApplicationListViewHolder extends BinderViewHolder<List<AppcoinsApplication>> {
   public static final int VIEW_TYPE = 1006;
   private final AppcoinsApplicationAdapter adapter;
-  private final View appcoinsAppsList;
+  private final RecyclerView recyclerView;
+  private final View title;
+  private final View icon;
 
   public AppcoinsApplicationListViewHolder(int resId, ViewGroup parent,
       Action1<AppcoinsApplication> applicationClickListener) {
     super(resId, parent);
-    RecyclerView recyclerView = findViewById(R.id.recycler_view);
-    appcoinsAppsList = findViewById(R.id.appcoins_application_list);
+    recyclerView = findViewById(R.id.recycler_view);
+    title = findViewById(R.id.title);
+    icon = findViewById(R.id.icon);
     int space = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8,
         getContext().getResources()
             .getDisplayMetrics());
@@ -37,11 +40,15 @@ public class AppcoinsApplicationListViewHolder extends BinderViewHolder<List<App
   }
 
   @Override public void bind(@Nullable List<AppcoinsApplication> data, @NonNull Bundle addition) {
-    if (data == null || data.isEmpty()) {
-      appcoinsAppsList.setVisibility(View.GONE);
+    if (data.isEmpty()) {
+      recyclerView.setVisibility(View.GONE);
+      title.setVisibility(View.GONE);
+      icon.setVisibility(View.GONE);
     } else {
       adapter.setApplications(data);
-      appcoinsAppsList.setVisibility(View.VISIBLE);
+      title.setVisibility(View.VISIBLE);
+      recyclerView.setVisibility(View.VISIBLE);
+      icon.setVisibility(View.VISIBLE);
     }
   }
 }

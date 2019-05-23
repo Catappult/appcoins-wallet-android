@@ -51,6 +51,7 @@
         android:textColorHint="@color/grey_alpha_6b"
         android:layout_below="@id/share_link_title"
         style="@style/ShareLinkTextStyle"
+        android:inputType="text"
         />
 
     <Button

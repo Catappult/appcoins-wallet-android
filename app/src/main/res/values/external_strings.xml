@@ -1,0 +1,10 @@
+<resources>
+
+<!-- SDK - Purchasing when wallet is not installed -->
+<string name="iab_wallet_not_installed_popup_body">To buy this item you first need to get the %s.</string>
+<string name="appcoins_wallet">AppCoins Wallet</string>
+<string name="iab_wallet_not_installed_popup_close_button">CLOSE</string>
+<string name="iab_wallet_not_installed_popup_close_install">INSTALL WALLET</string>
+
+
+</resources>
