@@ -299,7 +299,7 @@
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">Bonus za kupovinu:</string>
   <string name="gamification_purchase_header_part_2">%s APPC Credits</string>
-  <string name="gamification_purchase_body">Dobićete APPC kredit (%s) za ovu kupovinu.</string>
+  <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
   <string name="action_level">Moj nivo</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Dozvolite aplikaciji AppCoins Wallet da adresu vašeg novčanika pošalje aplikaciji %s.</string>
