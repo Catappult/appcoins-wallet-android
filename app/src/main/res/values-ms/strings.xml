@@ -364,4 +364,5 @@
   <!--Home-->
   <string name="home_empty_discover_apps_body">Aplikasi Android terbaik sedang menanti anda.</string>
   <string name="home_empty_discover_apps_button">TEMUI APLIKASI HEBAT</string>
+  <!--Tokens-->
 </resources>

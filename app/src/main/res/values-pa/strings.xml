@@ -364,4 +364,5 @@
   <!--Home-->
   <string name="home_empty_discover_apps_body">ਵਧੀਆ ਐਂਡਰਾਇਡ ਐਪਾਂ ਤੁਹਾਡੀ ਉਡੀਕ ਕਰ ਰਹੀਆਂ ਹਨ|</string>
   <string name="home_empty_discover_apps_button">ਵਧੀਆ ਐਪਸ ਲੱਭੋ</string>
+  <!--Tokens-->
 </resources>

@@ -364,4 +364,5 @@
   <!--Home-->
   <string name="home_empty_discover_apps_body">最精彩的安卓应用正等你去探索。</string>
   <string name="home_empty_discover_apps_button">探索最佳应用</string>
+  <!--Tokens-->
 </resources>

@@ -364,4 +364,5 @@
   <!--Home-->
   <string name="home_empty_discover_apps_body">แอปแอนดรอยด์ที่ดีที่สุดกำลังรอคุณอยู่</string>
   <string name="home_empty_discover_apps_button">ค้นพบแอปยอดนิยม</string>
+  <!--Tokens-->
 </resources>

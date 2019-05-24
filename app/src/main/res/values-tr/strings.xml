@@ -364,4 +364,5 @@
   <!--Home-->
   <string name="home_empty_discover_apps_body">En iyi Android uygulamaları sizi bekliyor.</string>
   <string name="home_empty_discover_apps_button">EN İYİ UYGULAMALARI KEŞFEDİN</string>
+  <!--Tokens-->
 </resources>

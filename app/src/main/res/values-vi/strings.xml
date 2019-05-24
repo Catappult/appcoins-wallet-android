@@ -364,4 +364,5 @@
   <!--Home-->
   <string name="home_empty_discover_apps_body">Các ứng dụng Android tốt nhất đang chờ bạn.</string>
   <string name="home_empty_discover_apps_button">KHÁM PHÁ CÁC ỨNG DỤNG HÀNG ĐẦU</string>
+  <!--Tokens-->
 </resources>

@@ -364,4 +364,5 @@
   <!--Home-->
   <string name="home_empty_discover_apps_body">सबसे अच्छे एंड्रॉयड एप्प आपकी प्रतीक्षा कर रहे हैं।</string>
   <string name="home_empty_discover_apps_button">शीर्ष ऐप्स का पता लगाएँ</string>
+  <!--Tokens-->
 </resources>
