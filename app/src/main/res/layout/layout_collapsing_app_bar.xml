@@ -23,13 +23,17 @@
 
     <TextView
         android:id="@+id/toolbar_subtitle"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular.Transparency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="55dp"
         android:layout_marginTop="87dp"
+        android:layout_marginBottom="55dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
         app:layout_collapseMode="parallax"
-        style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular.Transparency"
         />
 
     <com.airbnb.lottie.LottieAnimationView
@@ -50,8 +54,8 @@
         android:layout_width="200dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="55dp"
         android:layout_marginTop="50dp"
+        android:layout_marginBottom="55dp"
         android:onClick="onClick"
         android:visibility="visible"
         />
@@ -65,13 +69,13 @@
         >
       <TextView
           android:id="@+id/transaction_timestamp"
+          style="@style/TransactionDetailsTextStyle.AppBar"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_gravity="end"
-          android:layout_marginEnd="16dp"
           android:layout_marginTop="20dp"
+          android:layout_marginEnd="16dp"
           android:visibility="gone"
-          style="@style/TransactionDetailsTextStyle.AppBar"
           />
     </androidx.appcompat.widget.Toolbar>
 
