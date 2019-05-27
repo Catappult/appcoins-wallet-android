@@ -49,20 +49,28 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     linkSubject = PublishSubject.create()
     presenter = OnboardingPresenter(CompositeDisposable(), this, interactor,
         AndroidSchedulers.mainThread())
+    setupUi()
+  }
+
+  override fun onResume() {
     presenter.present()
+    super.onResume()
+  }
+
+  override fun onPause() {
+    presenter.stop()
+    create_wallet_animation.removeAllAnimatorListeners()
+    super.onPause()
   }
 
   override fun onDestroy() {
-    presenter.stop()
-    create_wallet_animation.removeAllAnimatorListeners()
+    linkSubject = null
     create_wallet_animation.removeAllUpdateListeners()
     create_wallet_animation.removeAllLottieOnCompositionLoadedListener()
-    linkSubject = null
     super.onDestroy()
   }
 
   override fun setupUi() {
-
     val termsConditions = resources.getString(R.string.terms_and_conditions)
     val privacyPolicy = resources.getString(R.string.privacy_policy)
     val termsPolicyTickBox =
