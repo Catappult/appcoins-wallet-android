@@ -71,9 +71,6 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
   }
 
   override fun setupUi() {
-    onboarding_content.visibility = View.VISIBLE
-    wallet_creation_animation.visibility = View.GONE
-
     val termsConditions = resources.getString(R.string.terms_and_conditions)
     val privacyPolicy = resources.getString(R.string.privacy_policy)
     val termsPolicyTickBox =
