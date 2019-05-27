@@ -13,7 +13,6 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
                           private val viewScheduler: Scheduler) {
 
   fun present() {
-    view.setupUi()
     handleOnBoardingFinish()
     handleLinkClick()
   }

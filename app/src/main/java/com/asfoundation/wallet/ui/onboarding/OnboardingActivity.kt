@@ -49,6 +49,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     linkSubject = PublishSubject.create()
     presenter = OnboardingPresenter(CompositeDisposable(), this, interactor,
         AndroidSchedulers.mainThread())
+    setupUi()
   }
 
   override fun onResume() {
