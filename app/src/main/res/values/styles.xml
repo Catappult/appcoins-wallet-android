@@ -68,11 +68,8 @@
   </style>
 
   <style name="ToolbarTextAppearance">
-    <item name="android:textColor">@android:color/white</item>
-    <item name="android:shadowDx">1</item>
-    <item name="android:shadowDy">1</item>
-    <item name="android:shadowRadius">2</item>
-    <item name="android:shadowColor">?colorAccent</item>
+    <item name="android:textColor">#ffffff</item>
+    <item name="android:textStyle">bold</item>
   </style>
 
   <style name="ToolbarTextAppearance.Title">
@@ -80,7 +77,7 @@
   </style>
 
   <style name="ToolbarTextAppearance.Title.Expanded">
-    <item name="android:textSize">34sp</item>
+    <item name="android:textSize">32sp</item>
   </style>
 
   <style name="ToolbarTextAppearance.Subtitle">
@@ -221,6 +218,16 @@
     <item name="android:textSize">16sp</item>
     <item name="android:textColor">#828282</item>
     <item name="android:fontFamily">sans-serif</item>
+  </style>
+
+  <style name="TextAppearance.AppCompat.Body1.Roboto.Regular" parent="TextAppearance.AppCompat.Body1">
+    <item name="android:textSize">12sp</item>
+    <item name="android:textColor">#828282</item>
+    <item name="android:fontFamily">sans-serif</item>
+  </style>
+
+  <style name="TextAppearance.AppCompat.Body1.Roboto.Regular.Transparency">
+    <item name="android:textColor">#ccffffff</item>
   </style>
 
   <style name="TextAppearance.AppCompat.Body1.Roboto.Medium.White">

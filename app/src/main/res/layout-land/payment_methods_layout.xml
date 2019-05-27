@@ -147,33 +147,33 @@
         />
 
     <TextView
-        android:id="@+id/appc_price"
+        android:id="@+id/fiat_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/big_margin"
         android:layout_marginTop="11dp"
-        android:fontFamily="@font/roboto_bolt"
-        android:textColor="@color/black"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/dialog_buy_fiat_value"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="@id/mid_guideline"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/app_separator"
-        tools:text="0,99 APPC"
+        tools:text="0,99 EUR"
         />
 
     <TextView
-        android:id="@+id/fiat_price"
+        android:id="@+id/appc_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/big_margin"
-        android:textColor="#828282"
+        android:textColor="@color/dialog_secondary_price"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@id/mid_guideline"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appc_price"
-        tools:text="0,09 EUR"
+        app:layout_constraintTop_toBottomOf="@+id/fiat_price"
+        tools:text="0,09 APPC"
         />
 
     <include
@@ -187,7 +187,7 @@
         app:layout_constraintBottom_toTopOf="@id/bonus_msg"
         app:layout_constraintEnd_toEndOf="@id/mid_guideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fiat_price"
+        app:layout_constraintTop_toBottomOf="@+id/appc_price"
         app:layout_constraintVertical_bias="1"
         app:layout_constraintVertical_chainStyle="packed"
         />
