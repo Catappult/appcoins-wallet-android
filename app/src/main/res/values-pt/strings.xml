@@ -23,9 +23,9 @@
   <string name="title_activity_settings">Definições</string>
   <string name="network_label">Rede</string>
   <string name="credits">Créditos</string>
-  <string name="label_new">New</string>
+  <string name="label_new">Novo</string>
   <string name="low_storage_error">Espaço de armazenamento insuficiente</string>
-  <string name="no_camera_permission_title">Camera Permission</string>
+  <string name="no_camera_permission_title">Permitir câmara</string>
   <string name="no_camera_permission">A AppCoins BDS Wallet precisa de permissão para aceder à tua câmera e digitalizar códigos QR.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Código de barras inválido: %s</string>
@@ -107,7 +107,7 @@
   <string name="intro_message_second_page">As chaves secretas nunca desaparecem do teu dispositivo.</string>
   <string name="intro_message_third_page">Processa todos os teus pagamentos integrados e recompensas em APPC.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
-  <string name="intro_1_body">Your app for in-app purchases.</string>
+  <string name="intro_1_body">A tua app para compras in-app.</string>
   <string name="intro_2_title">Jogue Mais, Pague Menos</string>
   <string name="intro_2_body">Recebe recompensas ao comprares itens nas tuas apps e jogos preferidos.</string>
   <string name="intro_3_title">Simples e Fácil</string>
@@ -212,7 +212,7 @@
   <string name="notification_not_available_for_country_poa">Esta campanha de recompensas não está disponível no teu país</string>
   <string name="notification_already_rewarded_poa">Já foste recompensado nesta campanha</string>
   <string name="notification_submit_error_poa">Ocorreu um erro. Tenta novamente!</string>
-  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
+  <string name="notification_wrong_network_poa">Estás a usar a versão dev da AppCoins Wallet. Por favor descarrega a versão oficial para processar o prémio.</string>
   <!-- transaction details -->
   <string name="transaction_status_success">Sucesso</string>
   <string name="transaction_status_pending">Pendente</string>
@@ -223,7 +223,7 @@
   <string name="transaction_type_standard">Transferência</string>
   <string name="transaction_type_bonus">Bônus</string>
   <string name="transaction_type_miuraiden">µRaiden channel</string>
-  <string name="transaction_type_p2p">P2P Transfer</string>
+  <string name="transaction_type_p2p">Transferência P2P</string>
   <string name="transaction_details_brand_txt">Powered By Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
@@ -266,8 +266,8 @@
   <string name="gamification_home_button">COMEÇAR A GANHAR</string>
   <string name="gamification_level_title">Qual o meu nível?</string>
   <string name="gamification_level_title_new">Receber Créditos APPC!</string>
-  <string name="gamification_level_on_graphic">Level %s</string>
-  <string name="gamification_APPCapps_button">Apps &amp; games</string>
+  <string name="gamification_level_on_graphic">Nível %s</string>
+  <string name="gamification_APPCapps_button">Apps &amp; jogos</string>
   <string name="gamification_level_header">Parabéns, és %s!</string>
   <string name="gamification_level_to_next">Para o próximo nível:</string>
   <string name="gamification_level_earned">GANHASTE:</string>
@@ -297,7 +297,7 @@
   <string name="gamification_galaxy_subtitle">O maior sistema de todos!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
-  <string name="gamification_purchase_header_part_1">Purchase Bonus:</string>
+  <string name="gamification_purchase_header_part_1">Bónus de compra:</string>
   <string name="gamification_purchase_header_part_2">%s in APPC Credits</string>
   <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
   <string name="action_level">O meu nível</string>
