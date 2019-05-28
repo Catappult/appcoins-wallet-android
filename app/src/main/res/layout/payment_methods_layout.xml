@@ -54,8 +54,8 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="38dp"
         android:layout_marginTop="44dp"
+        android:layout_marginBottom="38dp"
         android:indeterminateDrawable="@drawable/gradient_progress"
         />
   </LinearLayout>
@@ -136,7 +136,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:fontFamily="sans-serif-medium"
-            android:gravity="end"
             android:textColor="@color/dialog_buy_fiat_value"
             android:textSize="15sp"
             app:layout_constraintBottom_toTopOf="@id/appc_price"
@@ -152,7 +151,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:gravity="end"
             android:textColor="@color/dialog_secondary_price"
             android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@id/payment_methods_radio_group"
@@ -167,8 +165,8 @@
             android:id="@+id/payment_methods_radio_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toTopOf="@id/bonus_layout"
             app:layout_constraintEnd_toEndOf="parent"
@@ -178,50 +176,50 @@
 
           <androidx.appcompat.widget.AppCompatRadioButton
               android:id="@+id/share_link"
+              style="@style/PaymentMethodsRadioButton"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:enabled="false"
-              style="@style/PaymentMethodsRadioButton"
               />
 
           <androidx.appcompat.widget.AppCompatRadioButton
               android:id="@+id/paypal"
+              style="@style/PaymentMethodsRadioButton"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:enabled="false"
-              style="@style/PaymentMethodsRadioButton"
               />
 
           <androidx.appcompat.widget.AppCompatRadioButton
               android:id="@+id/credit_card"
+              style="@style/PaymentMethodsRadioButton"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:checked="true"
               android:enabled="false"
-              style="@style/PaymentMethodsRadioButton"
               />
 
           <androidx.appcompat.widget.AppCompatRadioButton
               android:id="@+id/appc"
+              style="@style/PaymentMethodsRadioButton"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:enabled="false"
               android:visibility="visible"
-              style="@style/PaymentMethodsRadioButton"
               />
 
           <androidx.appcompat.widget.AppCompatRadioButton
               android:id="@+id/appc_credits"
+              style="@style/PaymentMethodsRadioButton"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:enabled="false"
               android:visibility="visible"
-              style="@style/PaymentMethodsRadioButton"
               />
         </RadioGroup>
         <include
-            layout="@layout/view_purchase_bonus"
             android:id="@+id/bonus_layout"
+            layout="@layout/view_purchase_bonus"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/big_margin"
@@ -238,19 +236,19 @@
 
         <TextView
             android:id="@+id/bonus_msg"
+            style="@style/TopUpTextStyle.Small.BonusText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="21dp"
-            android:layout_marginEnd="@dimen/big_margin"
             android:layout_marginStart="@dimen/big_margin"
             android:layout_marginTop="11dp"
+            android:layout_marginEnd="@dimen/big_margin"
+            android:layout_marginBottom="21dp"
             android:gravity="center"
             android:text="@string/gamification_purchase_body"
             app:layout_constraintBottom_toTopOf="@id/bottom_separator"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
             app:layout_constraintVertical_bias="0"
-            style="@style/TopUpTextStyle.Small.BonusText"
             />
 
         <View
@@ -265,12 +263,12 @@
             />
 
         <include
-            layout="@layout/dialog_buy_buttons_payment_methods"
             android:id="@+id/dialog_buy_buttons_payment_methods"
+            layout="@layout/dialog_buy_buttons_payment_methods"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/normal_margin"
             android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginEnd="@dimen/normal_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -288,19 +286,19 @@
             android:id="@+id/logo_wallet"
             android:layout_width="wrap_content"
             android:layout_height="16dp"
+            android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
             android:src="@drawable/logo_appc_wallet"
-            android:layout_centerVertical="true"
             />
 
         <TextView
             android:id="@+id/wallet_address_footer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/logo_wallet"
             android:layout_alignTop="@id/logo_wallet"
-            android:layout_marginEnd="16dp"
+            android:layout_alignBottom="@id/logo_wallet"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_toEndOf="@id/logo_wallet"
             android:ellipsize="end"
             android:gravity="end|center_vertical"
@@ -316,8 +314,8 @@
   </ScrollView>
 
   <include
-      layout="@layout/fragment_iab_error"
       android:id="@+id/error_message"
+      layout="@layout/fragment_iab_error"
       />
 
 </RelativeLayout>

@@ -24,8 +24,8 @@
         >
 
       <include
-          android:id="@+id/info_header"
           layout="@layout/dialog_buy_app_info_header"
+          android:id="@+id/info_header"
           android:layout_width="190dp"
           android:layout_height="wrap_content"
           android:layout_gravity="start"
@@ -172,9 +172,7 @@
           android:layout_height="wrap_content"
           android:layout_alignTop="@id/logo_wallet"
           android:layout_alignBottom="@id/logo_wallet"
-          android:layout_alignParentEnd="true"
           android:layout_marginStart="16dp"
-          android:layout_marginTop="4dp"
           android:layout_marginEnd="16dp"
           android:layout_toEndOf="@id/logo_wallet"
           android:ellipsize="end"

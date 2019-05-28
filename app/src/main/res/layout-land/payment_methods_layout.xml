@@ -177,13 +177,13 @@
         />
 
     <include
-        layout="@layout/view_purchase_bonus"
         android:id="@+id/bonus_layout"
+        layout="@layout/view_purchase_bonus"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/big_margin"
         android:layout_marginStart="@dimen/big_margin"
         android:layout_marginTop="19dp"
+        android:layout_marginEnd="@dimen/big_margin"
         app:layout_constraintBottom_toTopOf="@id/bonus_msg"
         app:layout_constraintEnd_toEndOf="@id/mid_guideline"
         app:layout_constraintStart_toStartOf="parent"
@@ -307,8 +307,8 @@
         />
 
     <include
-        layout="@layout/dialog_buy_buttons_payment_methods"
         android:id="@+id/dialog_buy_buttons_payment_methods"
+        layout="@layout/dialog_buy_buttons_payment_methods"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginEnd="@dimen/normal_margin"
@@ -348,7 +348,6 @@
         android:ellipsize="end"
         android:gravity="end|center_vertical"
         android:maxLines="1"
-        android:text="0x1a78a81235dls019sk291id"
         android:textColor="@color/grey_8a_alpha"
         android:textSize="12sp"
         tools:text="0x1a78a81235dls019sk291id"
@@ -356,8 +355,8 @@
   </RelativeLayout>
 
   <include
-      layout="@layout/fragment_iab_error"
       android:id="@+id/error_message"
+      layout="@layout/fragment_iab_error"
       />
 
 </RelativeLayout>
