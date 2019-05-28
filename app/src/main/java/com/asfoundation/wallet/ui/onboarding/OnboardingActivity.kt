@@ -101,6 +101,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
   override fun showLoading() {
     onboarding_content.visibility = View.GONE
     wallet_creation_animation.visibility = View.VISIBLE
+    create_wallet_animation.setAnimation(R.raw.create_wallet_loading_animation)
     create_wallet_animation.playAnimation()
   }
 
