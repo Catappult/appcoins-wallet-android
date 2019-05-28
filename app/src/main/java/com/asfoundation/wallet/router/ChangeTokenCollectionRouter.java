@@ -10,6 +10,9 @@ import static com.asfoundation.wallet.C.Key.WALLET;
 public class ChangeTokenCollectionRouter {
 
   public void open(Context context, Wallet wallet) {
+    if (wallet == null) {
+      return;
+    }
     Intent intent = new Intent(context, TokenChangeCollectionActivity.class);
     intent.putExtra(WALLET, wallet);
     context.startActivity(intent);
