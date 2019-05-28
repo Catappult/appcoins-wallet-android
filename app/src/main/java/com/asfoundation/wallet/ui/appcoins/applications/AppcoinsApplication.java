@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.ui.appcoins.applications;
 
+import java.util.Objects;
+
 public class AppcoinsApplication {
 
   private final String name;
@@ -37,10 +39,10 @@ public class AppcoinsApplication {
     AppcoinsApplication that = (AppcoinsApplication) o;
 
     if (Double.compare(that.rating, rating) != 0) return false;
-    if (!name.equals(that.name)) return false;
-    if (!iconUrl.equals(that.iconUrl)) return false;
-    if (!featuredGraphic.equals(that.featuredGraphic)) return false;
-    return packageName.equals(that.packageName);
+    if (!Objects.equals(name, that.name)) return false;
+    if (!Objects.equals(iconUrl, that.iconUrl)) return false;
+    if (!Objects.equals(featuredGraphic, that.featuredGraphic)) return false;
+    return Objects.equals(packageName, that.packageName);
   }
 
   @Override public String toString() {
