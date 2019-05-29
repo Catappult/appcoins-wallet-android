@@ -57,13 +57,13 @@ public class GetDefaultWalletBalance implements BalanceService {
 
   private Single<Balance> getTokenBalance(Token token, int scale) {
     return Single.just(new Balance(token.tokenInfo.symbol.toUpperCase(),
-        weiToEth(token.balance).setScale(scale, RoundingMode.HALF_DOWN)
+        weiToEth(token.balance).setScale(scale, RoundingMode.FLOOR)
             .stripTrailingZeros()
             .toPlainString()));
   }
 
   private Single<Balance> getCreditsBalance(BigDecimal value) {
-    return Single.just(new Balance("APPC-C", weiToEth(value).setScale(2, RoundingMode.HALF_DOWN)
+    return Single.just(new Balance("APPC-C", weiToEth(value).setScale(2, RoundingMode.FLOOR)
         .stripTrailingZeros()
         .toPlainString()));
   }
@@ -72,7 +72,7 @@ public class GetDefaultWalletBalance implements BalanceService {
     return walletRepository.balanceInWei(wallet)
         .flatMap(ethBalance -> {
           return Single.just(new Balance(defaultNetwork.symbol,
-              weiToEth(ethBalance).setScale(4, RoundingMode.HALF_DOWN)
+              weiToEth(ethBalance).setScale(4, RoundingMode.FLOOR)
                   .stripTrailingZeros()
                   .toPlainString()));
         })
