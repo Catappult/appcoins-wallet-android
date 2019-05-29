@@ -27,13 +27,13 @@ public class LocalCurrencyConversionService {
   public Observable<FiatValue> getAppcToLocalFiat(String value) {
     return tokenToLocalFiatApi.getValueToLocalFiat(value, "APPC")
         .map(response -> new FiatValue(response.getAppcValue()
-            .setScale(2, RoundingMode.CEILING), response.getCurrency(), response.getSymbol()));
+            .setScale(2, RoundingMode.FLOOR), response.getCurrency(), response.getSymbol()));
   }
 
   public Observable<FiatValue> getEtherToLocalFiat(String value) {
     return tokenToLocalFiatApi.getValueToLocalFiat(value, "ETH")
         .map(response -> new FiatValue(response.getAppcValue()
-            .setScale(2, RoundingMode.CEILING), response.getCurrency(), response.getSymbol()));
+            .setScale(2, RoundingMode.FLOOR), response.getCurrency(), response.getSymbol()));
   }
 
   public Observable<FiatValue> getLocalToAppc(String currency, String value) {
