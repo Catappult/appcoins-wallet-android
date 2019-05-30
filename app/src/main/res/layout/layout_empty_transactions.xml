@@ -25,7 +25,7 @@
         />
 
     <com.rd.PageIndicatorView
-        android:id="@+id/page_indicator"
+        android:id="@+id/empty_transactions_pageindicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
@@ -50,7 +50,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/page_indicator"
+        app:layout_constraintTop_toBottomOf="@id/empty_transactions_pageindicator"
         />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

@@ -10,13 +10,13 @@ import com.asfoundation.wallet.ui.widget.adapter.EmptyTransactionPageAdapter;
 
 public class EmptyTransactionsView extends FrameLayout {
 
+  private static final int MAX_BONUS_STRING_RESOURCE = R.string.gamification_home_body;
+  private static final int NUMBER_PAGES = 2;
   private final int anim[] =
-      { R.raw.transactions_empty_screen_animation, R.raw.intro_onboarding_animation };
+      { R.raw.carousel_empty_screen_animation, R.raw.transactions_empty_screen_animation };
   private final int body[] = { R.string.home_empty_discover_apps_body, MAX_BONUS_STRING_RESOURCE };
   private final int action[] =
       { R.string.home_empty_discover_apps_button, R.string.gamification_home_button };
-  private static final int MAX_BONUS_STRING_RESOURCE = R.string.gamification_home_body;
-  private static final int NUMBER_PAGES = 2;
 
   public EmptyTransactionsView(@NonNull Context context, OnClickListener onClickListener,
       @NonNull String bonus) {
@@ -27,7 +27,7 @@ public class EmptyTransactionsView extends FrameLayout {
     ViewPager viewPager = findViewById(R.id.empty_transactions_viewpager);
     EmptyTransactionPageAdapter pageAdapter =
         new EmptyTransactionPageAdapter(anim, transformBodyResourceToString(body, bonus), action,
-            NUMBER_PAGES);
+            NUMBER_PAGES, viewPager);
     pageAdapter.randomizeCarouselContent();
     viewPager.setAdapter(pageAdapter);
   }

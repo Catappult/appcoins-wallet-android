@@ -6,14 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.airbnb.lottie.LottieAnimationView
 import com.asf.wallet.R
-import org.jetbrains.annotations.NotNull
 
 class EmptyTransactionPageAdapter(private val anim: IntArray,
-                                  private val body: Array<@NotNull String>,
+                                  private val body: Array<String?>,
                                   private val action: IntArray,
-                                  private val numberPages: Int) : PagerAdapter() {
+                                  private val numberPages: Int,
+                                  private val viewPager: ViewPager) : PagerAdapter() {
+
 
   override fun getCount(): Int {
     return numberPages
@@ -25,13 +27,25 @@ class EmptyTransactionPageAdapter(private val anim: IntArray,
     (view.findViewById<View>(R.id.transactions_empty_screen_animation) as LottieAnimationView).setAnimation(anim[position])
     (view.findViewById<View>(R.id.empty_body_text) as TextView).text = body[position]
     (view.findViewById<View>(R.id.empty_action_text) as TextView).setText(action[position])
-    when (action[position]) {
-      R.string.home_empty_discover_apps_button -> (view.findViewById<View>(R.id.empty_action_text) as TextView).setOnClickListener {
-        Log.d("TransactionsActivity", "onClick: APTOIDE")
-      }
 
-      R.string.gamification_home_button -> (view.findViewById<View>(R.id.empty_action_text) as TextView).setOnClickListener {
-        Log.d("TransactionsActivity", "onClick: GAMIFICATION")
+    viewPager.addOnPageChangeListener(EmptyTransactionsPageChangeListener(view))
+
+    when (action[position]) {
+      R.string.home_empty_discover_apps_button -> {
+        (view.findViewById<View>(R.id.empty_action_text) as TextView).setOnClickListener {
+          Log.d("Lottie Animation", "onClick: APTOIDE")
+        }
+        (view.findViewById<View>(R.id.transactions_empty_screen_animation) as LottieAnimationView).setOnClickListener {
+          Log.d("Lottie Animation", "onClick: APTOIDE")
+        }
+      }
+      R.string.gamification_home_button -> {
+        (view.findViewById<View>(R.id.empty_action_text) as TextView).setOnClickListener {
+          Log.d("Lottie Animation", "onClick: GAMIFICATION")
+        }
+        (view.findViewById<View>(R.id.transactions_empty_screen_animation) as LottieAnimationView).setOnClickListener {
+          Log.d("Lottie Animation", "onClick: GAMIFICATION")
+        }
       }
     }
     container.addView(view)
@@ -61,7 +75,7 @@ class EmptyTransactionPageAdapter(private val anim: IntArray,
     animContent[1] = tempAnim
   }
 
-  private fun invertBodyContent(bodyContent: Array<String>) {
+  private fun invertBodyContent(bodyContent: Array<String?>) {
     val tempBody = bodyContent[0]
     bodyContent[0] = bodyContent[1]
     bodyContent[1] = tempBody
