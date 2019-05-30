@@ -6,12 +6,17 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.ui.TransactionsActivity;
 import com.asfoundation.wallet.ui.widget.adapter.EmptyTransactionPageAdapter;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.subjects.PublishSubject;
 
 public class EmptyTransactionsView extends FrameLayout {
 
   private static final int MAX_BONUS_STRING_RESOURCE = R.string.gamification_home_body;
   private static final int NUMBER_PAGES = 2;
+  private final TransactionsActivity transactionsActivity;
+  private final CompositeDisposable disposables;
   private final int anim[] =
       { R.raw.carousel_empty_screen_animation, R.raw.transactions_empty_screen_animation };
   private final int body[] = { R.string.home_empty_discover_apps_body, MAX_BONUS_STRING_RESOURCE };
@@ -19,17 +24,32 @@ public class EmptyTransactionsView extends FrameLayout {
       { R.string.home_empty_discover_apps_button, R.string.gamification_home_button };
 
   public EmptyTransactionsView(@NonNull Context context, OnClickListener onClickListener,
-      @NonNull String bonus) {
+      @NonNull String bonus, PublishSubject<String> emptyTransactionsSubject,
+      TransactionsActivity transactionsActivity) {
     super(context);
+
+    this.transactionsActivity = transactionsActivity;
+    disposables = new CompositeDisposable();
 
     LayoutInflater.from(getContext())
         .inflate(R.layout.layout_empty_transactions, this, true);
     ViewPager viewPager = findViewById(R.id.empty_transactions_viewpager);
     EmptyTransactionPageAdapter pageAdapter =
         new EmptyTransactionPageAdapter(anim, transformBodyResourceToString(body, bonus), action,
-            NUMBER_PAGES, viewPager);
+            NUMBER_PAGES, viewPager, emptyTransactionsSubject);
     pageAdapter.randomizeCarouselContent();
     viewPager.setAdapter(pageAdapter);
+
+    disposables.add(transactionsActivity.getEmptyScreenClick()
+        .doOnNext(string -> {
+          if (string.equals(EmptyTransactionPageAdapter.CAROUSEL_GAMIFICATION)) {
+            transactionsActivity.navigateToGamification();
+          }
+          if (string.equals(EmptyTransactionPageAdapter.CAROUSEL_TOP_APPS)) {
+            transactionsActivity.navigateToTopApps();
+          }
+        })
+        .subscribe());
   }
 
   private String setMaxBonusOnString(String bonus) {

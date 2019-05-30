@@ -362,6 +362,11 @@ public class TransactionsViewModel extends BaseViewModel {
     rewardsLevelRouter.open(context);
   }
 
+  public void showTopApps(Context context) {
+    externalBrowserRouter.open(context,
+        Uri.parse("https://en.aptoide.com/store/bds-store/group/group-10867"));
+  }
+
   public MutableLiveData<Boolean> shouldShowGamificationAnimation() {
     return showAnimation;
   }

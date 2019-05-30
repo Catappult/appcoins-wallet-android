@@ -43,6 +43,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import dagger.android.AndroidInjection;
+import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -61,6 +63,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private RecyclerView list;
   private TextView subtitleView;
   private LottieAnimationView balanceSkeloton;
+  private PublishSubject<String> emptyTransactionsSubject;
 
   public static Intent newIntent(Context context) {
     Intent intent = new Intent(context, TransactionsActivity.class);
@@ -100,6 +103,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     setCollapsingTitle(" ");
     initBottomNavigation();
     disableDisplayHomeAsUp();
+
+    emptyTransactionsSubject = PublishSubject.create();
 
     adapter = new TransactionsAdapter(this::onTransactionClick, this::onApplicationClick);
     SwipeRefreshLayout refreshLayout = findViewById(R.id.refresh_layout);
@@ -154,7 +159,9 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private void onFetchTransactionsError(Double maxBonus) {
     if (emptyView == null) {
-      emptyView = new EmptyTransactionsView(this, this, String.valueOf(maxBonus));
+      emptyView =
+          new EmptyTransactionsView(this, this, String.valueOf(maxBonus), emptyTransactionsSubject,
+              this);
       systemView.showEmpty(emptyView);
     }
   }
@@ -274,7 +281,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private void onError(ErrorEnvelope errorEnvelope) {
     if ((errorEnvelope.code == EMPTY_COLLECTION || adapter.getItemCount() == 0)) {
       if (emptyView == null) {
-        emptyView = new EmptyTransactionsView(this, this, String.valueOf(maxBonusEmptyScreen));
+        emptyView = new EmptyTransactionsView(this, this, String.valueOf(maxBonusEmptyScreen),
+            emptyTransactionsSubject, this);
         systemView.showEmpty(emptyView);
       }
     }
@@ -303,6 +311,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     balanceSkeloton.removeAllAnimatorListeners();
     balanceSkeloton.removeAllUpdateListeners();
     balanceSkeloton.removeAllLottieOnCompositionLoadedListener();
+    emptyTransactionsSubject = null;
     super.onDestroy();
   }
 
@@ -363,5 +372,17 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       subtitle = stringBuilder.substring(0, stringBuilder.length() - bullet.length());
     }
     return subtitle.replace(bullet, "<font color='#ffffff'>" + bullet + "</font>");
+  }
+
+  public Observable<String> getEmptyScreenClick() {
+    return emptyTransactionsSubject;
+  }
+
+  public void navigateToTopApps() {
+    viewModel.showTopApps(this);
+  }
+
+  public void navigateToGamification() {
+    viewModel.showRewardsLevel(this);
   }
 }

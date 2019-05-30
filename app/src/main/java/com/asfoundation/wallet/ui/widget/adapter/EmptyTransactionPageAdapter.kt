@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.widget.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,13 +8,15 @@ import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.airbnb.lottie.LottieAnimationView
 import com.asf.wallet.R
+import io.reactivex.subjects.PublishSubject
+import org.jetbrains.annotations.NotNull
 
 class EmptyTransactionPageAdapter(private val anim: IntArray,
-                                  private val body: Array<String?>,
+                                  private val body: Array<@NotNull String>,
                                   private val action: IntArray,
                                   private val numberPages: Int,
-                                  private val viewPager: ViewPager) : PagerAdapter() {
-
+                                  private val viewPager: @NotNull ViewPager,
+                                  private val emptyTransactionsSubject: PublishSubject<String>) : PagerAdapter() {
 
   override fun getCount(): Int {
     return numberPages
@@ -33,18 +34,18 @@ class EmptyTransactionPageAdapter(private val anim: IntArray,
     when (action[position]) {
       R.string.home_empty_discover_apps_button -> {
         (view.findViewById<View>(R.id.empty_action_text) as TextView).setOnClickListener {
-          Log.d("Lottie Animation", "onClick: APTOIDE")
+          emptyTransactionsSubject.onNext(CAROUSEL_TOP_APPS)
         }
         (view.findViewById<View>(R.id.transactions_empty_screen_animation) as LottieAnimationView).setOnClickListener {
-          Log.d("Lottie Animation", "onClick: APTOIDE")
+          emptyTransactionsSubject.onNext(CAROUSEL_TOP_APPS)
         }
       }
       R.string.gamification_home_button -> {
         (view.findViewById<View>(R.id.empty_action_text) as TextView).setOnClickListener {
-          Log.d("Lottie Animation", "onClick: GAMIFICATION")
+          emptyTransactionsSubject.onNext(CAROUSEL_GAMIFICATION)
         }
         (view.findViewById<View>(R.id.transactions_empty_screen_animation) as LottieAnimationView).setOnClickListener {
-          Log.d("Lottie Animation", "onClick: GAMIFICATION")
+          emptyTransactionsSubject.onNext(CAROUSEL_GAMIFICATION)
         }
       }
     }
@@ -75,7 +76,7 @@ class EmptyTransactionPageAdapter(private val anim: IntArray,
     animContent[1] = tempAnim
   }
 
-  private fun invertBodyContent(bodyContent: Array<String?>) {
+  private fun invertBodyContent(bodyContent: Array<@NotNull String>) {
     val tempBody = bodyContent[0]
     bodyContent[0] = bodyContent[1]
     bodyContent[1] = tempBody
@@ -85,5 +86,10 @@ class EmptyTransactionPageAdapter(private val anim: IntArray,
     val tempAction = actionContent[0]
     actionContent[0] = actionContent[1]
     actionContent[1] = tempAction
+  }
+
+  companion object {
+    public const val CAROUSEL_TOP_APPS: String = "bundle"
+    public const val CAROUSEL_GAMIFICATION: String = "gamification"
   }
 }
