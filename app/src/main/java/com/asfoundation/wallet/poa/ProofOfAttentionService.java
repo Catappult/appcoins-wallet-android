@@ -3,6 +3,8 @@ package com.asfoundation.wallet.poa;
 import androidx.annotation.NonNull;
 import com.appcoins.wallet.commons.Repository;
 import com.asfoundation.wallet.billing.partners.AddressService;
+import com.asfoundation.wallet.interact.CreateWalletInteract;
+import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -24,12 +26,16 @@ public class ProofOfAttentionService {
   private final TaggedCompositeDisposable disposables;
   private final CountryCodeProvider countryCodeProvider;
   private final AddressService partnerAddressService;
+  private final CreateWalletInteract walletInteract;
+  private final FindDefaultWalletInteract findDefaultWalletInteract;
 
   public ProofOfAttentionService(Repository<String, Proof> cache, String walletPackage,
       HashCalculator hashCalculator, CompositeDisposable compositeDisposable,
       ProofWriter proofWriter, Scheduler computationScheduler, int maxNumberProofComponents,
       BackEndErrorMapper errorMapper, TaggedCompositeDisposable disposables,
-      CountryCodeProvider countryCodeProvider, AddressService partnerAddressService) {
+      CountryCodeProvider countryCodeProvider, AddressService partnerAddressService,
+      CreateWalletInteract createWalletInteract,
+      FindDefaultWalletInteract findDefaultWalletInteract) {
     this.cache = cache;
     this.walletPackage = walletPackage;
     this.hashCalculator = hashCalculator;
@@ -41,6 +47,8 @@ public class ProofOfAttentionService {
     this.disposables = disposables;
     this.countryCodeProvider = countryCodeProvider;
     this.partnerAddressService = partnerAddressService;
+    this.walletInteract = createWalletInteract;
+    this.findDefaultWalletInteract = findDefaultWalletInteract;
   }
 
   public void start() {
@@ -324,5 +332,14 @@ public class ProofOfAttentionService {
     disposables.add(packageName,
         Completable.fromAction(() -> setGasSettingsSync(packageName, gasPrice, gasLimit))
             .subscribe());
+  }
+
+  public void handleCreateWallet() {
+    compositeDisposable.add(findDefaultWalletInteract.find()
+        .onErrorResumeNext(walletInteract.create()
+            .flatMap(wallet -> walletInteract.setDefaultWallet(wallet)
+                .andThen(Single.just(wallet))))
+        .subscribeOn(computationScheduler)
+        .subscribe());
   }
 }
