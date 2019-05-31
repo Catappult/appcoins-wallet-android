@@ -15,7 +15,6 @@ public class EmptyTransactionsView extends FrameLayout {
 
   private static final int MAX_BONUS_STRING_RESOURCE = R.string.gamification_home_body;
   private static final int NUMBER_PAGES = 2;
-  private final TransactionsActivity transactionsActivity;
   private final CompositeDisposable disposables;
   private final int anim[] =
       { R.raw.carousel_empty_screen_animation, R.raw.transactions_empty_screen_animation };
@@ -23,12 +22,10 @@ public class EmptyTransactionsView extends FrameLayout {
   private final int action[] =
       { R.string.home_empty_discover_apps_button, R.string.gamification_home_button };
 
-  public EmptyTransactionsView(@NonNull Context context, OnClickListener onClickListener,
-      @NonNull String bonus, PublishSubject<String> emptyTransactionsSubject,
-      TransactionsActivity transactionsActivity) {
+  public EmptyTransactionsView(@NonNull Context context, @NonNull String bonus,
+      PublishSubject<String> emptyTransactionsSubject, TransactionsActivity transactionsActivity) {
     super(context);
 
-    this.transactionsActivity = transactionsActivity;
     disposables = new CompositeDisposable();
 
     LayoutInflater.from(getContext())
@@ -40,7 +37,7 @@ public class EmptyTransactionsView extends FrameLayout {
     pageAdapter.randomizeCarouselContent();
     viewPager.setAdapter(pageAdapter);
 
-    disposables.add(transactionsActivity.getEmptyScreenClick()
+    disposables.add(transactionsActivity.getEmptyTransactionsScreenClick()
         .doOnNext(string -> {
           if (string.equals(EmptyTransactionPageAdapter.CAROUSEL_GAMIFICATION)) {
             transactionsActivity.navigateToGamification();

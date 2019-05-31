@@ -89,7 +89,7 @@ class EmptyTransactionPageAdapter(private val anim: IntArray,
   }
 
   companion object {
-    public const val CAROUSEL_TOP_APPS: String = "bundle"
-    public const val CAROUSEL_GAMIFICATION: String = "gamification"
+    const val CAROUSEL_TOP_APPS: String = "bundle"
+    const val CAROUSEL_GAMIFICATION: String = "gamification"
   }
 }

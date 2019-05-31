@@ -160,8 +160,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private void onFetchTransactionsError(Double maxBonus) {
     if (emptyView == null) {
       emptyView =
-          new EmptyTransactionsView(this, this, String.valueOf(maxBonus), emptyTransactionsSubject,
-              this);
+          new EmptyTransactionsView(this, String.valueOf(maxBonus), emptyTransactionsSubject, this);
       systemView.showEmpty(emptyView);
     }
   }
@@ -281,7 +280,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private void onError(ErrorEnvelope errorEnvelope) {
     if ((errorEnvelope.code == EMPTY_COLLECTION || adapter.getItemCount() == 0)) {
       if (emptyView == null) {
-        emptyView = new EmptyTransactionsView(this, this, String.valueOf(maxBonusEmptyScreen),
+        emptyView = new EmptyTransactionsView(this, String.valueOf(maxBonusEmptyScreen),
             emptyTransactionsSubject, this);
         systemView.showEmpty(emptyView);
       }
@@ -374,7 +373,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     return subtitle.replace(bullet, "<font color='#ffffff'>" + bullet + "</font>");
   }
 
-  public Observable<String> getEmptyScreenClick() {
+  public Observable<String> getEmptyTransactionsScreenClick() {
     return emptyTransactionsSubject;
   }
 

@@ -344,10 +344,6 @@ public class TransactionsViewModel extends BaseViewModel {
     externalBrowserRouter.open(context, uri);
   }
 
-  public void showAirDrop(Context context) {
-    airdropRouter.open(context);
-  }
-
   public LiveData<List<AppcoinsApplication>> applications() {
     return appcoinsApplications;
   }
