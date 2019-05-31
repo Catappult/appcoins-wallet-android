@@ -188,6 +188,11 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
         .commit();
   }
 
+  @Override public void showLocalPayment(BigDecimal amount, String currency, boolean isBds,
+      PaymentMethodsView.SelectedPaymentMethod selectedPaymentMethod) {
+    //TODO
+  }
+
   @Override public void showPaymentMethodsView() {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,

@@ -172,60 +172,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/appc_price"
-            >
-
-          <androidx.appcompat.widget.AppCompatRadioButton
-              android:id="@+id/share_link"
-              style="@style/PaymentMethodsRadioButton"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:enabled="false"
-              />
-
-          <androidx.appcompat.widget.AppCompatRadioButton
-              android:id="@+id/paypal"
-              style="@style/PaymentMethodsRadioButton"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:enabled="false"
-              />
-
-          <androidx.appcompat.widget.AppCompatRadioButton
-              android:id="@+id/credit_card"
-              style="@style/PaymentMethodsRadioButton"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:checked="true"
-              android:enabled="false"
-              />
-
-          <androidx.appcompat.widget.AppCompatRadioButton
-              android:id="@+id/appc"
-              style="@style/PaymentMethodsRadioButton"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:enabled="false"
-              android:visibility="visible"
-              />
-
-          <androidx.appcompat.widget.AppCompatRadioButton
-              android:id="@+id/appc_credits"
-              style="@style/PaymentMethodsRadioButton"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:enabled="false"
-              android:visibility="visible"
-              />
-        </RadioGroup>
+            />
         <include
             android:id="@+id/bonus_layout"
             layout="@layout/view_purchase_bonus"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/big_margin"
             android:layout_marginStart="@dimen/big_margin"
             android:layout_marginTop="16dp"
-            android:visibility="visible"
+            android:layout_marginEnd="@dimen/big_margin"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/bonus_msg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -245,6 +201,7 @@
             android:layout_marginBottom="21dp"
             android:gravity="center"
             android:text="@string/gamification_purchase_body"
+            android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@id/bottom_separator"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bonus_layout"

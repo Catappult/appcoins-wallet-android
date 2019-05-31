@@ -20,6 +20,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.fragment.app.Fragment;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.WalletService;
@@ -46,13 +47,13 @@ import io.reactivex.subjects.PublishSubject;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import javax.inject.Inject;
-import kotlin.NotImplementedError;
 import org.jetbrains.annotations.NotNull;
 
 import static com.asfoundation.wallet.ui.iab.IabActivity.DEVELOPER_PAYLOAD;
@@ -72,7 +73,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private static final String INAPP_PURCHASE_ID = "INAPP_PURCHASE_ID";
 
   private final CompositeDisposable compositeDisposable = new CompositeDisposable();
-  private final Map<String, Bitmap> loadedBitmaps = new HashMap<>();
+  private final Map<SelectedPaymentMethod, Bitmap> loadedBitmaps = new HashMap<>();
   PaymentMethodsPresenter presenter;
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject BillingAnalytics analytics;
@@ -80,6 +81,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   @Inject Billing billing;
   @Inject WalletService walletService;
   @Inject GamificationInteractor gamification;
+  private List<SelectedPaymentMethod> paymentMethodList = new ArrayList<>();
   private ProgressBar loadingView;
   private View dialog;
   private View addressFooter;
@@ -100,11 +102,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private TextView appNameTv;
   private TextView appSkuDescriptionTv;
   private TextView walletAddressTv;
-  private RadioButton appcRadioButton;
-  private RadioButton appcCreditsRadioButton;
-  private RadioButton creditCardRadioButton;
-  private RadioButton paypalRadioButton;
-  private RadioButton shareLinkRadioButton;
   private String productName;
   private RadioGroup radioGroup;
   private FiatValue fiatValue;
@@ -148,7 +145,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     super.onCreate(savedInstanceState);
 
     setupSubject = PublishSubject.create();
-
     isBds = getArguments().getBoolean(IS_BDS);
     transaction = getArguments().getParcelable(TRANSACTION);
     transactionValue =
@@ -162,7 +158,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     presenter = new PaymentMethodsPresenter(this, appPackage, AndroidSchedulers.mainThread(),
         Schedulers.io(), new CompositeDisposable(), inAppPurchaseInteractor,
         inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing,
-        analytics, isBds, developerPayload, uri, walletService, gamification, transaction);
+        analytics, isBds, developerPayload, uri, walletService, gamification, transaction,
+        new PaymentMethodsMapper());
   }
 
   @Nullable @Override
@@ -192,18 +189,13 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     appSkuDescriptionTv = view.findViewById(R.id.app_sku_description);
     walletAddressTv = view.findViewById(R.id.wallet_address_footer);
 
-    appcRadioButton = view.findViewById(R.id.appc);
-    appcCreditsRadioButton = view.findViewById(R.id.appc_credits);
-    creditCardRadioButton = view.findViewById(R.id.credit_card);
-    paypalRadioButton = view.findViewById(R.id.paypal);
-    shareLinkRadioButton = view.findViewById(R.id.share_link);
     bonusView = view.findViewById(R.id.bonus_layout);
     bonusMsg = view.findViewById(R.id.bonus_msg);
 
     bonusValue = view.findViewById(R.id.bonus_value);
     setupAppNameAndIcon();
 
-    presenter.present(transactionValue, savedInstanceState);
+    presenter.present(transactionValue);
   }
 
   @Override public void onDestroyView() {
@@ -225,9 +217,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     appNameTv = null;
     appSkuDescriptionTv = null;
     walletAddressTv = null;
-    appcRadioButton = null;
-    appcCreditsRadioButton = null;
-    shareLinkRadioButton = null;
     bonusView = null;
     super.onDestroyView();
   }
@@ -298,8 +287,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
     presenter.sendPurchaseDetailsEvent();
 
-    setupPaymentMethods(paymentMethods);
-    showAvailable(availablePaymentMethods);
+    setupPaymentMethods(paymentMethods, availablePaymentMethods, SelectedPaymentMethod.CREDIT_CARD);
     setupSubject.onNext(true);
     hideLoading();
   }
@@ -364,7 +352,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override public Observable<SelectedPaymentMethod> getBuyClick() {
     return RxView.clicks(buyButton)
-        .map(__ -> getSelectedPaymentMethod(radioGroup.getCheckedRadioButtonId()));
+        .map(__ -> paymentMethodList.get(radioGroup.getCheckedRadioButtonId()));
   }
 
   @Override public void showPaypal() {
@@ -413,10 +401,15 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @NotNull @Override public Observable<SelectedPaymentMethod> getPaymentSelection() {
     return RxRadioGroup.checkedChanges(radioGroup)
-        .map(this::getSelectedPaymentMethod);
+        .filter(checkedRadioButtonId -> checkedRadioButtonId >= 0)
+        .map(checkedRadioButtonId -> paymentMethodList.get(checkedRadioButtonId));
   }
 
-  public void loadIcons(PaymentMethod paymentMethod, RadioButton radioButton, boolean showNew) {
+  @Override public void showLocalPayment(@NotNull SelectedPaymentMethod selectedPaymentMethod) {
+    iabView.showLocalPayment(fiatValue.getAmount(), currency, isBds, selectedPaymentMethod);
+  }
+
+  private void loadIcons(PaymentMethod paymentMethod, RadioButton radioButton, boolean showNew) {
     compositeDisposable.add(Observable.fromCallable(() -> {
       try {
         Context context = getContext();
@@ -439,93 +432,58 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
           Drawable newOptionIcon = showNew ? getContext().getResources()
               .getDrawable(R.drawable.ic_new_option) : null;
           radioButton.setCompoundDrawablesWithIntrinsicBounds(drawable, null, newOptionIcon, null);
+          radioButton.setVisibility(View.VISIBLE);
         })
         .subscribe(__ -> {
-        }, Throwable::printStackTrace));
+        }, throwable -> {
+          radioButton.setVisibility(View.VISIBLE);
+          throwable.printStackTrace();
+        }));
   }
 
-  private void setupPaymentMethods(List<PaymentMethod> paymentMethods) {
-    for (PaymentMethod paymentMethod : paymentMethods) {
-      if (paymentMethod.getId()
-          .equals("appcoins")) {
-        appcRadioButton.setText(paymentMethod.getLabel());
-        loadIcons(paymentMethod, appcRadioButton, false);
-      } else if (paymentMethod.getId()
-          .equals("appcoins_credits")) {
-        appcCreditsRadioButton.setText(paymentMethod.getLabel());
-        loadIcons(paymentMethod, appcCreditsRadioButton, false);
-      } else if (paymentMethod.getId()
-          .equals("credit_card")) {
-        creditCardRadioButton.setText(paymentMethod.getLabel());
-        loadIcons(paymentMethod, creditCardRadioButton, false);
-      } else if (paymentMethod.getId()
-          .equals("paypal")) {
-        paypalRadioButton.setText(paymentMethod.getLabel());
-        loadIcons(paymentMethod, paypalRadioButton, false);
-      } else if (paymentMethod.getId()
-          .equals("ask_friend")) {
-        shareLinkRadioButton.setText(getText(R.string.askafriend_payment_option_button));
-        loadIcons(paymentMethod, shareLinkRadioButton, true);
-      }
-    }
-  }
-
-  private void showAvailable(List<PaymentMethod> paymentMethods) {
+  private void setupPaymentMethods(List<PaymentMethod> paymentMethods,
+      @NotNull List<PaymentMethod> availablePaymentMethods,
+      SelectedPaymentMethod preSelectedMethod) {
+    AppCompatRadioButton radioButton;
     if (isBds) {
-      for (PaymentMethod paymentMethod : paymentMethods) {
-        if (paymentMethod.getId()
-            .equals("appcoins")) {
-          appcRadioButton.setEnabled(true);
-        } else if (paymentMethod.getId()
-            .equals("appcoins_credits")) {
-          appcCreditsRadioButton.setEnabled(true);
-        } else if (paymentMethod.getId()
-            .equals("credit_card")) {
-          creditCardRadioButton.setEnabled(true);
-        } else if (paymentMethod.getId()
-            .equals("paypal")) {
-          paypalRadioButton.setEnabled(true);
-        } else if (paymentMethod.getId()
-            .equals("ask_friend")) {
-          shareLinkRadioButton.setEnabled(true);
-        }
+      for (int index = 0; index < paymentMethods.size(); index++) {
+        PaymentMethod paymentMethod = paymentMethods.get(index);
+        radioButton = createPaymentRadioButton(paymentMethod, index);
+        radioButton.setEnabled(isEnabled(paymentMethod, availablePaymentMethods));
+        if (paymentMethod.getId() == preSelectedMethod) radioButton.setChecked(true);
+        paymentMethodList.add(paymentMethod.getId());
+        radioGroup.addView(radioButton);
       }
     } else {
       for (PaymentMethod paymentMethod : paymentMethods) {
-        hideAllPayments();
-
-        if (paymentMethod.getId()
-            .equals("appcoins")) {
-          appcRadioButton.setVisibility(View.VISIBLE);
-          appcRadioButton.setEnabled(true);
-          appcRadioButton.setChecked(true);
+        if (paymentMethod.getId() == SelectedPaymentMethod.APPC) {
+          radioButton = createPaymentRadioButton(paymentMethod, 0);
+          radioButton.setEnabled(true);
+          radioButton.setChecked(true);
+          paymentMethodList.add(paymentMethod.getId());
+          radioGroup.addView(radioButton);
         }
       }
     }
   }
 
-  private void hideAllPayments() {
-    appcRadioButton.setVisibility(View.GONE);
-    appcCreditsRadioButton.setVisibility(View.GONE);
-    creditCardRadioButton.setVisibility(View.GONE);
-    paypalRadioButton.setVisibility(View.GONE);
-    shareLinkRadioButton.setVisibility(View.GONE);
+  private AppCompatRadioButton createPaymentRadioButton(PaymentMethod paymentMethod, int index) {
+    AppCompatRadioButton radioButton = (AppCompatRadioButton) getActivity().getLayoutInflater()
+        .inflate(R.layout.payment_radio_button, null);
+    radioButton.setVisibility(View.GONE);
+    radioButton.setText(paymentMethod.getLabel());
+    radioButton.setId(index);
+    loadIcons(paymentMethod, radioButton, false);
+    return radioButton;
   }
 
-  @NonNull private SelectedPaymentMethod getSelectedPaymentMethod(int checkedRadioButtonId) {
-    switch (checkedRadioButtonId) {
-      case R.id.paypal:
-        return SelectedPaymentMethod.PAYPAL;
-      case R.id.credit_card:
-        return SelectedPaymentMethod.CREDIT_CARD;
-      case R.id.appc:
-        return SelectedPaymentMethod.APPC;
-      case R.id.appc_credits:
-        return SelectedPaymentMethod.APPC_CREDITS;
-      case R.id.share_link:
-        return SelectedPaymentMethod.SHARE_LINK;
-      default:
-        throw new NotImplementedError();
+  private boolean isEnabled(PaymentMethod paymentMethod,
+      List<PaymentMethod> availablePaymentMethods) {
+    for (PaymentMethod availablePaymentMethod : availablePaymentMethods) {
+      if (availablePaymentMethod.getId() == paymentMethod.getId()) {
+        return true;
+      }
     }
+    return false;
   }
 }

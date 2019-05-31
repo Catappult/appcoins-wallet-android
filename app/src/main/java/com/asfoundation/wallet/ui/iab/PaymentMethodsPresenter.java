@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.iab;
 
-import android.os.Bundle;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.WalletService;
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType;
@@ -42,6 +41,7 @@ public class PaymentMethodsPresenter {
   private final WalletService walletService;
   private final GamificationInteractor gamification;
   private final TransactionBuilder transaction;
+  private final PaymentMethodsMapper paymentsMapper;
 
   public PaymentMethodsPresenter(PaymentMethodsView view, String appPackage,
       Scheduler viewScheduler, Scheduler networkThread, CompositeDisposable disposables,
@@ -49,7 +49,7 @@ public class PaymentMethodsPresenter {
       BdsPendingTransactionService bdsPendingTransactionService, Billing billing,
       BillingAnalytics analytics, boolean isBds, String developerPayload, String uri,
       WalletService walletService, GamificationInteractor gamification,
-      TransactionBuilder transaction) {
+      TransactionBuilder transaction, PaymentMethodsMapper paymentsMapper) {
     this.view = view;
     this.appPackage = appPackage;
     this.viewScheduler = viewScheduler;
@@ -66,9 +66,10 @@ public class PaymentMethodsPresenter {
     this.walletService = walletService;
     this.gamification = gamification;
     this.transaction = transaction;
+    this.paymentsMapper = paymentsMapper;
   }
 
-  public void present(double transactionValue, Bundle savedInstanceState) {
+  public void present(double transactionValue) {
     handleCancelClick();
     handleErrorDismisses();
     setupUi(transactionValue);
@@ -130,6 +131,10 @@ public class PaymentMethodsPresenter {
             case SHARE_LINK:
               view.showShareLink();
               break;
+            case ALFAMART:
+            case GOPAY:
+            case BANK_TRANSFER:
+              view.showLocalPayment(selectedPaymentMethod);
           }
         })
         .subscribe());
@@ -208,14 +213,14 @@ public class PaymentMethodsPresenter {
     disposables.add(Single.zip(isBds ? inAppPurchaseInteractor.getPaymentMethods()
             .subscribeOn(networkThread)
             .flatMap(paymentMethods -> Observable.fromIterable(paymentMethods)
-                .map(paymentMethod -> new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
-                    paymentMethod.getIconUrl(), true))
+                .map(paymentMethod -> new PaymentMethod(paymentsMapper.map(paymentMethod.getId()),
+                    paymentMethod.getLabel(), paymentMethod.getIconUrl()))
                 .toList()) : Single.just(Collections.singletonList(PaymentMethod.APPC)),
         isBds ? inAppPurchaseInteractor.getAvailablePaymentMethods(transaction)
             .subscribeOn(networkThread)
             .flatMap(paymentMethods -> Observable.fromIterable(paymentMethods)
-                .map(paymentMethod -> new PaymentMethod(paymentMethod.getId(),
-                    paymentMethod.getLabel(), paymentMethod.getIconUrl(), true))
+                .map(paymentMethod -> new PaymentMethod(paymentsMapper.map(paymentMethod.getId()),
+                    paymentMethod.getLabel(), paymentMethod.getIconUrl()))
                 .toList()) : Single.just(Collections.singletonList(PaymentMethod.APPC))
             .observeOn(viewScheduler), inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
             .subscribeOn(networkThread),

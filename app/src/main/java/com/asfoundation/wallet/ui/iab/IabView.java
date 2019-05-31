@@ -27,6 +27,9 @@ public interface IabView {
 
   void showAppcoinsCreditsPayment(BigDecimal amount);
 
+  void showLocalPayment(BigDecimal amount, String currency, boolean isBds,
+      PaymentMethodsView.SelectedPaymentMethod selectedPaymentMethod);
+
   void showPaymentMethodsView();
 
   void showShareLinkPayment(String domain, String skuId, String originalAmount,

@@ -230,12 +230,17 @@ public class InAppPurchaseInteractor {
 
     while (iterator.hasNext()) {
       PaymentMethod paymentMethod = iterator.next();
-
       String id = paymentMethod.getId();
       if (id.equals("appcoins") && !filteredGateways.contains(Gateway.Name.appcoins)) {
         iterator.remove();
       } else if (id.equals("appcoins_credits") && !filteredGateways.contains(
           Gateway.Name.appcoins_credits)) {
+        iterator.remove();
+      } else if (paymentMethod.getGateway()
+          .getName() == (Gateway.Name.myappcoins)
+          && paymentMethod.getAvailability() != null
+          && paymentMethod.getAvailability()
+          .equals("UNAVAILABLE")) {
         iterator.remove();
       }
     }
