@@ -153,7 +153,7 @@
             android:layout_marginEnd="16dp"
             android:textColor="@color/dialog_secondary_price"
             android:textSize="12sp"
-            app:layout_constraintBottom_toTopOf="@id/payment_methods_radio_group"
+            app:layout_constraintBottom_toTopOf="@id/payment_methods_radio_list"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1"
             app:layout_constraintStart_toStartOf="parent"
@@ -161,18 +161,47 @@
             tools:text="0,09 APPC"
             />
 
-        <RadioGroup
-            android:id="@+id/payment_methods_radio_group"
+        <View
+            android:id="@+id/top_separator"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:orientation="vertical"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/layout_separator_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appc_price"
+            />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/payment_methods_radio_list"
+            android:layout_width="0dp"
+            android:layout_height="256dp"
+            android:layout_centerInParent="true"
             app:layout_constraintBottom_toTopOf="@id/bonus_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/appc_price"
+            app:layout_constraintTop_toBottomOf="@id/top_separator"
+            >
+          <RadioGroup
+              android:id="@+id/payment_methods_radio_group"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginStart="16dp"
+              android:layout_marginEnd="16dp"
+              android:orientation="vertical"
+              />
+        </androidx.core.widget.NestedScrollView>
+
+        <View
+            android:id="@+id/bottom_separator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/layout_separator_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/payment_methods_radio_list"
             />
+
         <include
             android:id="@+id/bonus_layout"
             layout="@layout/view_purchase_bonus"
@@ -185,7 +214,7 @@
             app:layout_constraintBottom_toTopOf="@+id/bonus_msg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/payment_methods_radio_group"
+            app:layout_constraintTop_toBottomOf="@+id/payment_methods_radio_list"
             app:layout_constraintVertical_bias="0"
             app:layout_constraintVertical_chainStyle="packed"
             />
@@ -198,25 +227,14 @@
             android:layout_marginStart="@dimen/big_margin"
             android:layout_marginTop="11dp"
             android:layout_marginEnd="@dimen/big_margin"
-            android:layout_marginBottom="21dp"
+            android:layout_marginBottom="8dp"
             android:gravity="center"
             android:text="@string/gamification_purchase_body"
             android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@id/bottom_separator"
+            app:layout_constraintBottom_toTopOf="@id/dialog_buy_buttons_payment_methods"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
             app:layout_constraintVertical_bias="0"
-            />
-
-        <View
-            android:id="@+id/bottom_separator"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/layout_separator_color"
-            app:layout_constraintBottom_toTopOf="@id/dialog_buy_buttons_payment_methods"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bonus_msg"
             />
 
         <include
@@ -229,7 +247,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bottom_separator"
+            app:layout_constraintTop_toBottomOf="parent"
             />
 
       </androidx.constraintlayout.widget.ConstraintLayout>
@@ -260,7 +278,6 @@
             android:ellipsize="end"
             android:gravity="end|center_vertical"
             android:maxLines="1"
-            android:text="0x1a78a81235dls019sk291id"
             android:textColor="@color/grey_8a_alpha"
             android:textSize="12sp"
             tools:text="0x1a78a81235dls019sk291id"

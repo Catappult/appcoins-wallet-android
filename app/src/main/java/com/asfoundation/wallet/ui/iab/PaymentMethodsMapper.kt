@@ -18,5 +18,4 @@ class PaymentMethodsMapper {
       else -> throw OnErrorNotImplementedException(Throwable("Method not implemented"))
     }
   }
-
 }

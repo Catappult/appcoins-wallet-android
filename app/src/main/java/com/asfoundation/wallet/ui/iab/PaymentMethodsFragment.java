@@ -432,11 +432,9 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
           Drawable newOptionIcon = showNew ? getContext().getResources()
               .getDrawable(R.drawable.ic_new_option) : null;
           radioButton.setCompoundDrawablesWithIntrinsicBounds(drawable, null, newOptionIcon, null);
-          radioButton.setVisibility(View.VISIBLE);
         })
         .subscribe(__ -> {
         }, throwable -> {
-          radioButton.setVisibility(View.VISIBLE);
           throwable.printStackTrace();
         }));
   }
@@ -470,7 +468,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private AppCompatRadioButton createPaymentRadioButton(PaymentMethod paymentMethod, int index) {
     AppCompatRadioButton radioButton = (AppCompatRadioButton) getActivity().getLayoutInflater()
         .inflate(R.layout.payment_radio_button, null);
-    radioButton.setVisibility(View.GONE);
     radioButton.setText(paymentMethod.getLabel());
     radioButton.setId(index);
     loadIcons(paymentMethod, radioButton, false);
