@@ -11,12 +11,12 @@ import com.asf.wallet.R
 import io.reactivex.subjects.PublishSubject
 import org.jetbrains.annotations.NotNull
 
-class EmptyTransactionPageAdapter(private val anim: IntArray,
-                                  private val body: Array<@NotNull String>,
-                                  private val action: IntArray,
-                                  private val numberPages: Int,
-                                  private val viewPager: @NotNull ViewPager,
-                                  private val emptyTransactionsSubject: PublishSubject<String>) : PagerAdapter() {
+class EmptyTransactionPagerAdapter(private val anim: IntArray,
+                                   private val body: Array<@NotNull String>,
+                                   private val action: IntArray,
+                                   private val numberPages: Int,
+                                   private val viewPager: @NotNull ViewPager,
+                                   private val emptyTransactionsSubject: PublishSubject<String>) : PagerAdapter() {
 
   override fun getCount(): Int {
     return numberPages

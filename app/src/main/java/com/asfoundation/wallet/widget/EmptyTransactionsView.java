@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.ui.TransactionsActivity;
-import com.asfoundation.wallet.ui.widget.adapter.EmptyTransactionPageAdapter;
+import com.asfoundation.wallet.ui.widget.adapter.EmptyTransactionPagerAdapter;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.subjects.PublishSubject;
 
@@ -31,18 +31,18 @@ public class EmptyTransactionsView extends FrameLayout {
     LayoutInflater.from(getContext())
         .inflate(R.layout.layout_empty_transactions, this, true);
     ViewPager viewPager = findViewById(R.id.empty_transactions_viewpager);
-    EmptyTransactionPageAdapter pageAdapter =
-        new EmptyTransactionPageAdapter(anim, transformBodyResourceToString(body, bonus), action,
+    EmptyTransactionPagerAdapter pageAdapter =
+        new EmptyTransactionPagerAdapter(anim, transformBodyResourceToString(body, bonus), action,
             NUMBER_PAGES, viewPager, emptyTransactionsSubject);
     pageAdapter.randomizeCarouselContent();
     viewPager.setAdapter(pageAdapter);
 
     disposables.add(transactionsActivity.getEmptyTransactionsScreenClick()
         .doOnNext(string -> {
-          if (string.equals(EmptyTransactionPageAdapter.CAROUSEL_GAMIFICATION)) {
+          if (string.equals(EmptyTransactionPagerAdapter.CAROUSEL_GAMIFICATION)) {
             transactionsActivity.navigateToGamification();
           }
-          if (string.equals(EmptyTransactionPageAdapter.CAROUSEL_TOP_APPS)) {
+          if (string.equals(EmptyTransactionPagerAdapter.CAROUSEL_TOP_APPS)) {
             transactionsActivity.navigateToTopApps();
           }
         })
