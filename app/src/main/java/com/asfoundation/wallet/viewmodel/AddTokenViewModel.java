@@ -5,22 +5,22 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
-import com.asfoundation.wallet.router.MyTokensRouter;
+import com.asfoundation.wallet.router.BalanceRouter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class AddTokenViewModel extends BaseViewModel {
 
   private final AddTokenInteract addTokenInteract;
   private final FindDefaultWalletInteract findDefaultWalletInteract;
-  private final MyTokensRouter myTokensRouter;
+  private final BalanceRouter balanceRouter;
 
   private final MutableLiveData<Boolean> result = new MutableLiveData<>();
 
   AddTokenViewModel(AddTokenInteract addTokenInteract,
-      FindDefaultWalletInteract findDefaultWalletInteract, MyTokensRouter myTokensRouter) {
+      FindDefaultWalletInteract findDefaultWalletInteract, BalanceRouter balanceRouter) {
     this.addTokenInteract = addTokenInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
-    this.myTokensRouter = myTokensRouter;
+    this.balanceRouter = balanceRouter;
   }
 
   public void save(String address, String symbol, int decimals) {
@@ -40,6 +40,6 @@ public class AddTokenViewModel extends BaseViewModel {
   public void showTokens(Context context) {
     findDefaultWalletInteract.find()
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(w -> myTokensRouter.open(context, w), this::onError);
+        .subscribe(w -> balanceRouter.open(context, w), this::onError);
   }
 }

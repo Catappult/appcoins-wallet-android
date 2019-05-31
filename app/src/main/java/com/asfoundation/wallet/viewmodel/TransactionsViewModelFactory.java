@@ -13,7 +13,7 @@ import com.asfoundation.wallet.router.AirdropRouter;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.ManageWalletsRouter;
 import com.asfoundation.wallet.router.MyAddressRouter;
-import com.asfoundation.wallet.router.MyTokensRouter;
+import com.asfoundation.wallet.router.BalanceRouter;
 import com.asfoundation.wallet.router.RewardsLevelRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
@@ -34,7 +34,7 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
   private final SendRouter sendRouter;
   private final TransactionDetailRouter transactionDetailRouter;
   private final MyAddressRouter myAddressRouter;
-  private final MyTokensRouter myTokensRouter;
+  private final BalanceRouter balanceRouter;
   private final ExternalBrowserRouter externalBrowserRouter;
   private final DefaultTokenProvider defaultTokenProvider;
   private final GetDefaultWalletBalance getDefaultWalletBalance;
@@ -52,7 +52,7 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
       FetchTransactionsInteract fetchTransactionsInteract, ManageWalletsRouter manageWalletsRouter,
       SettingsRouter settingsRouter, SendRouter sendRouter,
       TransactionDetailRouter transactionDetailRouter, MyAddressRouter myAddressRouter,
-      MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
+      BalanceRouter balanceRouter, ExternalBrowserRouter externalBrowserRouter,
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
       TransactionsMapper transactionsMapper, AirdropRouter airdropRouter, AppcoinsApps applications,
       OffChainTransactions offChainTransactions, RewardsLevelRouter rewardsLevelRouter,
@@ -66,7 +66,7 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
     this.sendRouter = sendRouter;
     this.transactionDetailRouter = transactionDetailRouter;
     this.myAddressRouter = myAddressRouter;
-    this.myTokensRouter = myTokensRouter;
+    this.balanceRouter = balanceRouter;
     this.externalBrowserRouter = externalBrowserRouter;
     this.defaultTokenProvider = defaultTokenProvider;
     this.getDefaultWalletBalance = getDefaultWalletBalance;
@@ -83,7 +83,7 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
   @NonNull @Override public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
     return (T) new TransactionsViewModel(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, manageWalletsRouter, settingsRouter, sendRouter,
-        transactionDetailRouter, myAddressRouter, myTokensRouter, externalBrowserRouter,
+        transactionDetailRouter, myAddressRouter, balanceRouter, externalBrowserRouter,
         defaultTokenProvider, getDefaultWalletBalance, transactionsMapper, airdropRouter,
         applications, offChainTransactions, rewardsLevelRouter, gamificationInteractor, topUpRouter,
         analytics);

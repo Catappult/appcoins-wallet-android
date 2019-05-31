@@ -106,11 +106,12 @@
     <item name="android:background">@drawable/button_background</item>
     <item name="android:textAllCaps">true</item>
     <item name="android:textColor">@drawable/btn_text_color</item>
-    <item name="android:fontFamily">@font/roboto_regular</item>
+    <item name="android:fontFamily">sans-serif-medium</item>
     <item name="android:textSize">14sp</item>
     <item name="android:paddingStart">@dimen/big_padding</item>
     <item name="android:paddingEnd">@dimen/big_padding</item>
     <item name="android:minWidth">64dp</item>
+    <item name="android:letterSpacing">.09</item>
   </style>
 
   <style name="ButtonStyle.Alternative">

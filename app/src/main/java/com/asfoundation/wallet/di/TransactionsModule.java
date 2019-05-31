@@ -19,7 +19,7 @@ import com.asfoundation.wallet.router.AirdropRouter;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.ManageWalletsRouter;
 import com.asfoundation.wallet.router.MyAddressRouter;
-import com.asfoundation.wallet.router.MyTokensRouter;
+import com.asfoundation.wallet.router.BalanceRouter;
 import com.asfoundation.wallet.router.RewardsLevelRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
@@ -56,7 +56,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
       FetchTransactionsInteract fetchTransactionsInteract, ManageWalletsRouter manageWalletsRouter,
       SettingsRouter settingsRouter, SendRouter sendRouter,
       TransactionDetailRouter transactionDetailRouter, MyAddressRouter myAddressRouter,
-      MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
+      BalanceRouter balanceRouter, ExternalBrowserRouter externalBrowserRouter,
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
       TransactionsMapper transactionsMapper, AirdropRouter airdropRouter, AppcoinsApps applications,
       OffChainTransactions offChainTransactions, RewardsLevelRouter rewardsLevelRouter,
@@ -64,7 +64,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
       TransactionsAnalytics analytics) {
     return new TransactionsViewModelFactory(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, manageWalletsRouter, settingsRouter, sendRouter,
-        transactionDetailRouter, myAddressRouter, myTokensRouter, externalBrowserRouter,
+        transactionDetailRouter, myAddressRouter, balanceRouter, externalBrowserRouter,
         defaultTokenProvider, getDefaultWalletBalance, transactionsMapper, airdropRouter,
         applications, offChainTransactions, rewardsLevelRouter, gamificationInteractor, topUpRouter,
         analytics);
@@ -99,8 +99,8 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
     return new MyAddressRouter();
   }
 
-  @Provides MyTokensRouter provideMyTokensRouter() {
-    return new MyTokensRouter();
+  @Provides BalanceRouter provideMyTokensRouter() {
+    return new BalanceRouter();
   }
 
   @Provides ExternalBrowserRouter provideExternalBrowserRouter() {

@@ -242,7 +242,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         viewModel.showMyAddress(this);
         return true;
       }
-      case R.id.action_my_tokens: {
+      case R.id.action_balance: {
         viewModel.showTokens(this);
         return true;
       }

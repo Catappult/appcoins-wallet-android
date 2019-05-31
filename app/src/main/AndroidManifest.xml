@@ -62,8 +62,8 @@
         android:name="com.asfoundation.wallet.ui.MyAddressActivity"
         android:label="@string/title_my_address"/>
     <activity
-        android:name="com.asfoundation.wallet.ui.TokensActivity"
-        android:label="@string/title_my_tokens"/>
+        android:name="com.asfoundation.wallet.ui.BalanceActivity"
+        android:label="@string/balance_title"/>
 
     <activity
         android:name="com.asfoundation.wallet.ui.SendActivity"

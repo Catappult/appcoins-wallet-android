@@ -10,6 +10,7 @@ import com.asfoundation.wallet.topup.TopUpFragment;
 import com.asfoundation.wallet.topup.TopUpSuccessFragment;
 import com.asfoundation.wallet.topup.payment.PaymentAuthFragment;
 import com.asfoundation.wallet.ui.AddTokenActivity;
+import com.asfoundation.wallet.ui.BalanceFragment;
 import com.asfoundation.wallet.ui.ConfirmationActivity;
 import com.asfoundation.wallet.ui.Erc681Receiver;
 import com.asfoundation.wallet.ui.GasSettingsActivity;
@@ -140,5 +141,7 @@ import dagger.android.ContributesAndroidInjector;
   @ContributesAndroidInjector() abstract TopUpSuccessFragment bindTopUpSuccessFragment();
 
   @ContributesAndroidInjector() abstract SharePaymentLinkFragment bindSharePaymentLinkFragment();
+
+  @ContributesAndroidInjector() abstract BalanceFragment bindBalanceFragment();
 
 }

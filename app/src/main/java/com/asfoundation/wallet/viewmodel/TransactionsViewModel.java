@@ -24,7 +24,7 @@ import com.asfoundation.wallet.router.AirdropRouter;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.ManageWalletsRouter;
 import com.asfoundation.wallet.router.MyAddressRouter;
-import com.asfoundation.wallet.router.MyTokensRouter;
+import com.asfoundation.wallet.router.BalanceRouter;
 import com.asfoundation.wallet.router.RewardsLevelRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
@@ -66,7 +66,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final SendRouter sendRouter;
   private final TransactionDetailRouter transactionDetailRouter;
   private final MyAddressRouter myAddressRouter;
-  private final MyTokensRouter myTokensRouter;
+  private final BalanceRouter balanceRouter;
   private final ExternalBrowserRouter externalBrowserRouter;
   private final RewardsLevelRouter rewardsLevelRouter;
   private final CompositeDisposable disposables;
@@ -90,7 +90,7 @@ public class TransactionsViewModel extends BaseViewModel {
       FetchTransactionsInteract fetchTransactionsInteract, ManageWalletsRouter manageWalletsRouter,
       SettingsRouter settingsRouter, SendRouter sendRouter,
       TransactionDetailRouter transactionDetailRouter, MyAddressRouter myAddressRouter,
-      MyTokensRouter myTokensRouter, ExternalBrowserRouter externalBrowserRouter,
+      BalanceRouter balanceRouter, ExternalBrowserRouter externalBrowserRouter,
       DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
       TransactionsMapper transactionsMapper, AirdropRouter airdropRouter, AppcoinsApps applications,
       OffChainTransactions offChainTransactions, RewardsLevelRouter rewardsLevelRouter,
@@ -104,7 +104,7 @@ public class TransactionsViewModel extends BaseViewModel {
     this.sendRouter = sendRouter;
     this.transactionDetailRouter = transactionDetailRouter;
     this.myAddressRouter = myAddressRouter;
-    this.myTokensRouter = myTokensRouter;
+    this.balanceRouter = balanceRouter;
     this.externalBrowserRouter = externalBrowserRouter;
     this.rewardsLevelRouter = rewardsLevelRouter;
     this.defaultTokenProvider = defaultTokenProvider;
@@ -291,7 +291,7 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void showTokens(Context context) {
-    myTokensRouter.open(context, defaultWallet.getValue());
+    balanceRouter.open(context, defaultWallet.getValue());
   }
 
   public void pause() {

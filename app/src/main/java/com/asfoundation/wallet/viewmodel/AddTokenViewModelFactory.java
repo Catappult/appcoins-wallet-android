@@ -5,22 +5,22 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import com.asfoundation.wallet.interact.AddTokenInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
-import com.asfoundation.wallet.router.MyTokensRouter;
+import com.asfoundation.wallet.router.BalanceRouter;
 
 public class AddTokenViewModelFactory implements ViewModelProvider.Factory {
 
   private final AddTokenInteract addTokenInteract;
   private final FindDefaultWalletInteract findDefaultWalletInteract;
-  private final MyTokensRouter myTokensRouter;
+  private final BalanceRouter balanceRouter;
 
   public AddTokenViewModelFactory(AddTokenInteract addTokenInteract,
-      FindDefaultWalletInteract findDefaultWalletInteract, MyTokensRouter myTokensRouter) {
+      FindDefaultWalletInteract findDefaultWalletInteract, BalanceRouter balanceRouter) {
     this.addTokenInteract = addTokenInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
-    this.myTokensRouter = myTokensRouter;
+    this.balanceRouter = balanceRouter;
   }
 
   @NonNull @Override public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-    return (T) new AddTokenViewModel(addTokenInteract, findDefaultWalletInteract, myTokensRouter);
+    return (T) new AddTokenViewModel(addTokenInteract, findDefaultWalletInteract, balanceRouter);
   }
 }
