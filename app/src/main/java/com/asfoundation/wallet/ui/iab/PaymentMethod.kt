@@ -3,7 +3,8 @@ package com.asfoundation.wallet.ui.iab
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod
 
 data class PaymentMethod(val id: SelectedPaymentMethod, val label: String,
-                         val iconUrl: String) {
+                         val iconUrl: String, val isEnabled: Boolean = true) {
+
   companion object {
     @JvmField
     val APPC: PaymentMethod =

@@ -158,8 +158,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     presenter = new PaymentMethodsPresenter(this, appPackage, AndroidSchedulers.mainThread(),
         Schedulers.io(), new CompositeDisposable(), inAppPurchaseInteractor,
         inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing,
-        analytics, isBds, developerPayload, uri, walletService, gamification, transaction,
-        new PaymentMethodsMapper());
+        analytics, isBds, developerPayload, uri, walletService, gamification, transaction);
   }
 
   @Nullable @Override
@@ -264,9 +263,9 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     return packageManager.getApplicationLabel(packageInfo);
   }
 
-  @Override public void showPaymentMethods(@NotNull List<PaymentMethod> paymentMethods,
-      @NotNull List<PaymentMethod> availablePaymentMethods, FiatValue fiatValue, boolean isDonation,
-      String currency) {
+  @Override
+  public void showPaymentMethods(@NotNull List<PaymentMethod> paymentMethods, FiatValue fiatValue,
+      boolean isDonation, String currency) {
     this.fiatValue = fiatValue;
     Formatter formatter = new Formatter();
     String valueText = formatter.format(Locale.getDefault(), "%(,.2f", transaction.amount())
@@ -287,7 +286,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
     presenter.sendPurchaseDetailsEvent();
 
-    setupPaymentMethods(paymentMethods, availablePaymentMethods, SelectedPaymentMethod.CREDIT_CARD);
+    setupPaymentMethods(paymentMethods, SelectedPaymentMethod.CREDIT_CARD);
     setupSubject.onNext(true);
     hideLoading();
   }
@@ -440,14 +439,13 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   }
 
   private void setupPaymentMethods(List<PaymentMethod> paymentMethods,
-      @NotNull List<PaymentMethod> availablePaymentMethods,
       SelectedPaymentMethod preSelectedMethod) {
     AppCompatRadioButton radioButton;
     if (isBds) {
       for (int index = 0; index < paymentMethods.size(); index++) {
         PaymentMethod paymentMethod = paymentMethods.get(index);
         radioButton = createPaymentRadioButton(paymentMethod, index);
-        radioButton.setEnabled(isEnabled(paymentMethod, availablePaymentMethods));
+        radioButton.setEnabled(paymentMethod.isEnabled());
         if (paymentMethod.getId() == preSelectedMethod) radioButton.setChecked(true);
         paymentMethodList.add(paymentMethod.getId());
         radioGroup.addView(radioButton);
@@ -472,15 +470,5 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     radioButton.setId(index);
     loadIcons(paymentMethod, radioButton, false);
     return radioButton;
-  }
-
-  private boolean isEnabled(PaymentMethod paymentMethod,
-      List<PaymentMethod> availablePaymentMethods) {
-    for (PaymentMethod availablePaymentMethod : availablePaymentMethods) {
-      if (availablePaymentMethod.getId() == paymentMethod.getId()) {
-        return true;
-      }
-    }
-    return false;
   }
 }

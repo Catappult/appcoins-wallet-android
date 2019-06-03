@@ -7,8 +7,7 @@ import java.io.IOException
 import java.math.BigDecimal
 
 interface PaymentMethodsView {
-  fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>,
-                         availablePaymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue,
+  fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue,
                          isDonation: Boolean, currency: String)
 
   fun showError()

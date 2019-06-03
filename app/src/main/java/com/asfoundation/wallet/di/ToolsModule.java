@@ -145,6 +145,7 @@ import com.asfoundation.wallet.ui.iab.AsfInAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.BdsInAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.ImageSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
+import com.asfoundation.wallet.ui.iab.PaymentMethodsMapper;
 import com.asfoundation.wallet.ui.iab.RewardsManager;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase;
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer;
@@ -380,7 +381,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       @Named("ASF_IN_APP_INTERACTOR") AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
       AppcoinsRewards appcoinsRewards, Billing billing) {
     return new InAppPurchaseInteractor(asfInAppPurchaseInteractor, bdsInAppPurchaseInteractor,
-        new ExternalBillingSerializer(), appcoinsRewards, billing);
+        new ExternalBillingSerializer(), appcoinsRewards, billing, new PaymentMethodsMapper());
   }
 
   @Provides GetDefaultWalletBalance provideGetDefaultWalletBalance(

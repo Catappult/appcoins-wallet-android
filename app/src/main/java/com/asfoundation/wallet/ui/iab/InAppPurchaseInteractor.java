@@ -18,6 +18,7 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,16 +31,18 @@ public class InAppPurchaseInteractor {
   private final ExternalBillingSerializer billingSerializer;
   private final AppcoinsRewards appcoinsRewards;
   private final Billing billing;
+  private final PaymentMethodsMapper paymentMethodsMapper;
 
   public InAppPurchaseInteractor(AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
       BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
-      ExternalBillingSerializer billingSerializer, AppcoinsRewards appcoinsRewards,
-      Billing billing) {
+      ExternalBillingSerializer billingSerializer, AppcoinsRewards appcoinsRewards, Billing billing,
+      PaymentMethodsMapper paymentMethodsMapper) {
     this.asfInAppPurchaseInteractor = asfInAppPurchaseInteractor;
     this.bdsInAppPurchaseInteractor = bdsInAppPurchaseInteractor;
     this.billingSerializer = billingSerializer;
     this.appcoinsRewards = appcoinsRewards;
     this.billing = billing;
+    this.paymentMethodsMapper = paymentMethodsMapper;
   }
 
   public Single<TransactionBuilder> parseTransaction(String uri, boolean isBds) {
@@ -203,12 +206,10 @@ public class InAppPurchaseInteractor {
         .firstOrError();
   }
 
-  public Single<List<PaymentMethod>> getAvailablePaymentMethods(TransactionBuilder transaction) {
-    return getPaymentMethods().flatMap(
-        paymentMethods -> getFilteredGateways(transaction).map(filteredGateways -> {
-          removeUnavailable(paymentMethods, filteredGateways);
-          return paymentMethods;
-        }));
+  public Single<List<PaymentMethod>> getAvailablePaymentMethods(TransactionBuilder transaction,
+      List<PaymentMethod> paymentMethods) {
+    return getFilteredGateways(transaction).map(
+        filteredGateways -> removeUnavailable(paymentMethods, filteredGateways));
   }
 
   private Observable<Transaction> getTransaction(String uid) {
@@ -220,13 +221,19 @@ public class InAppPurchaseInteractor {
             .equals(Status.COMPLETED));
   }
 
-  public Single<List<PaymentMethod>> getPaymentMethods() {
-    return bdsInAppPurchaseInteractor.getPaymentMethods();
+  public Single<List<com.asfoundation.wallet.ui.iab.PaymentMethod>> getPaymentMethods(
+      TransactionBuilder transaction) {
+    return bdsInAppPurchaseInteractor.getPaymentMethods()
+        .flatMap(paymentMethods -> getAvailablePaymentMethods(transaction, paymentMethods).flatMap(
+            availablePaymentMethods -> Observable.fromIterable(paymentMethods)
+                .map(paymentMethod -> mapPaymentMethods(paymentMethod, availablePaymentMethods))
+                .toList()));
   }
 
-  private void removeUnavailable(List<PaymentMethod> paymentMethods,
+  private List<PaymentMethod> removeUnavailable(List<PaymentMethod> paymentMethods,
       List<Gateway.Name> filteredGateways) {
-    Iterator<PaymentMethod> iterator = paymentMethods.iterator();
+    List<PaymentMethod> clonedPaymentMethods = new ArrayList<>(paymentMethods);
+    Iterator<PaymentMethod> iterator = clonedPaymentMethods.iterator();
 
     while (iterator.hasNext()) {
       PaymentMethod paymentMethod = iterator.next();
@@ -244,5 +251,21 @@ public class InAppPurchaseInteractor {
         iterator.remove();
       }
     }
+    return clonedPaymentMethods;
+  }
+
+  private com.asfoundation.wallet.ui.iab.PaymentMethod mapPaymentMethods(
+      PaymentMethod paymentMethod, List<PaymentMethod> availablePaymentMethods) {
+    for (PaymentMethod availablePaymentMethod : availablePaymentMethods) {
+      if (paymentMethod.getId()
+          .equals(availablePaymentMethod.getId())) {
+        return new com.asfoundation.wallet.ui.iab.PaymentMethod(
+            paymentMethodsMapper.map(paymentMethod.getId()), paymentMethod.getLabel(),
+            paymentMethod.getIconUrl(), true);
+      }
+    }
+    return new com.asfoundation.wallet.ui.iab.PaymentMethod(
+        paymentMethodsMapper.map(paymentMethod.getId()), paymentMethod.getLabel(),
+        paymentMethod.getIconUrl(), false);
   }
 }
