@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.iab;
 
-import android.os.Bundle;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.WalletService;
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType;
@@ -68,7 +67,7 @@ public class PaymentMethodsPresenter {
     this.transaction = transaction;
   }
 
-  public void present(double transactionValue, Bundle savedInstanceState) {
+  public void present(double transactionValue) {
     handleCancelClick();
     handleErrorDismisses();
     setupUi(transactionValue);
@@ -130,6 +129,10 @@ public class PaymentMethodsPresenter {
             case SHARE_LINK:
               view.showShareLink();
               break;
+            case ALFAMART:
+            case GOPAY:
+            case BANK_TRANSFER:
+              view.showLocalPayment(selectedPaymentMethod);
           }
         })
         .subscribe());
@@ -205,22 +208,13 @@ public class PaymentMethodsPresenter {
 
   private void setupUi(double transactionValue) {
     setWalletAddress();
-    disposables.add(Single.zip(isBds ? inAppPurchaseInteractor.getPaymentMethods()
-            .subscribeOn(networkThread)
-            .flatMap(paymentMethods -> Observable.fromIterable(paymentMethods)
-                .map(paymentMethod -> new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
-                    paymentMethod.getIconUrl(), true))
-                .toList()) : Single.just(Collections.singletonList(PaymentMethod.APPC)),
-        isBds ? inAppPurchaseInteractor.getAvailablePaymentMethods(transaction)
-            .subscribeOn(networkThread)
-            .flatMap(paymentMethods -> Observable.fromIterable(paymentMethods)
-                .map(paymentMethod -> new PaymentMethod(paymentMethod.getId(),
-                    paymentMethod.getLabel(), paymentMethod.getIconUrl(), true))
-                .toList()) : Single.just(Collections.singletonList(PaymentMethod.APPC))
-            .observeOn(viewScheduler), inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
-            .subscribeOn(networkThread),
-        (paymentMethods, availablePaymentMethods, fiatValue) -> Completable.fromAction(
-            () -> view.showPaymentMethods(paymentMethods, availablePaymentMethods, fiatValue,
+    disposables.add(Single.zip(isBds ? inAppPurchaseInteractor.getPaymentMethods(transaction)
+            .subscribeOn(networkThread) :
+            Single.just(Collections.singletonList(PaymentMethod.APPC)),
+        inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
+            .observeOn(viewScheduler)
+            .subscribeOn(networkThread), (paymentMethods, fiatValue) -> Completable.fromAction(
+            () -> view.showPaymentMethods(paymentMethods, fiatValue,
                 TransactionData.TransactionType.DONATION.name()
                     .equalsIgnoreCase(transaction.getType()),
                 mapCurrencyCodeToSymbol(fiatValue.getCurrency())))

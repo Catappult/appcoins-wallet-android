@@ -3,7 +3,7 @@ package com.asfoundation.wallet.ui.iab;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
-import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethod;
+import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status;
@@ -18,6 +18,7 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,16 +31,18 @@ public class InAppPurchaseInteractor {
   private final ExternalBillingSerializer billingSerializer;
   private final AppcoinsRewards appcoinsRewards;
   private final Billing billing;
+  private final PaymentMethodsMapper paymentMethodsMapper;
 
   public InAppPurchaseInteractor(AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
       BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
-      ExternalBillingSerializer billingSerializer, AppcoinsRewards appcoinsRewards,
-      Billing billing) {
+      ExternalBillingSerializer billingSerializer, AppcoinsRewards appcoinsRewards, Billing billing,
+      PaymentMethodsMapper paymentMethodsMapper) {
     this.asfInAppPurchaseInteractor = asfInAppPurchaseInteractor;
     this.bdsInAppPurchaseInteractor = bdsInAppPurchaseInteractor;
     this.billingSerializer = billingSerializer;
     this.appcoinsRewards = appcoinsRewards;
     this.billing = billing;
+    this.paymentMethodsMapper = paymentMethodsMapper;
   }
 
   public Single<TransactionBuilder> parseTransaction(String uri, boolean isBds) {
@@ -203,12 +206,10 @@ public class InAppPurchaseInteractor {
         .firstOrError();
   }
 
-  public Single<List<PaymentMethod>> getAvailablePaymentMethods(TransactionBuilder transaction) {
-    return getPaymentMethods().flatMap(
-        paymentMethods -> getFilteredGateways(transaction).map(filteredGateways -> {
-          removeUnavailable(paymentMethods, filteredGateways);
-          return paymentMethods;
-        }));
+  public Single<List<PaymentMethodEntity>> getAvailablePaymentMethods(
+      TransactionBuilder transaction, List<PaymentMethodEntity> paymentMethods) {
+    return getFilteredGateways(transaction).map(
+        filteredGateways -> removeUnavailable(paymentMethods, filteredGateways));
   }
 
   private Observable<Transaction> getTransaction(String uid) {
@@ -220,24 +221,48 @@ public class InAppPurchaseInteractor {
             .equals(Status.COMPLETED));
   }
 
-  public Single<List<PaymentMethod>> getPaymentMethods() {
-    return bdsInAppPurchaseInteractor.getPaymentMethods();
+  public Single<List<PaymentMethod>> getPaymentMethods(TransactionBuilder transaction) {
+    return bdsInAppPurchaseInteractor.getPaymentMethods()
+        .flatMap(paymentMethods -> getAvailablePaymentMethods(transaction, paymentMethods).flatMap(
+            availablePaymentMethods -> Observable.fromIterable(paymentMethods)
+                .map(paymentMethod -> mapPaymentMethods(paymentMethod, availablePaymentMethods))
+                .toList()));
   }
 
-  private void removeUnavailable(List<PaymentMethod> paymentMethods,
+  private List<PaymentMethodEntity> removeUnavailable(List<PaymentMethodEntity> paymentMethods,
       List<Gateway.Name> filteredGateways) {
-    Iterator<PaymentMethod> iterator = paymentMethods.iterator();
+    List<PaymentMethodEntity> clonedPaymentMethods = new ArrayList<>(paymentMethods);
+    Iterator<PaymentMethodEntity> iterator = clonedPaymentMethods.iterator();
 
     while (iterator.hasNext()) {
-      PaymentMethod paymentMethod = iterator.next();
-
+      PaymentMethodEntity paymentMethod = iterator.next();
       String id = paymentMethod.getId();
       if (id.equals("appcoins") && !filteredGateways.contains(Gateway.Name.appcoins)) {
         iterator.remove();
       } else if (id.equals("appcoins_credits") && !filteredGateways.contains(
           Gateway.Name.appcoins_credits)) {
         iterator.remove();
+      } else if (paymentMethod.getGateway()
+          .getName() == (Gateway.Name.myappcoins)
+          && paymentMethod.getAvailability() != null
+          && paymentMethod.getAvailability()
+          .equals("UNAVAILABLE")) {
+        iterator.remove();
       }
     }
+    return clonedPaymentMethods;
+  }
+
+  private PaymentMethod mapPaymentMethods(PaymentMethodEntity paymentMethod,
+      List<PaymentMethodEntity> availablePaymentMethods) {
+    for (PaymentMethodEntity availablePaymentMethod : availablePaymentMethods) {
+      if (paymentMethod.getId()
+          .equals(availablePaymentMethod.getId())) {
+        return new PaymentMethod(paymentMethodsMapper.map(paymentMethod.getId()),
+            paymentMethod.getLabel(), paymentMethod.getIconUrl(), true);
+      }
+    }
+    return new PaymentMethod(paymentMethodsMapper.map(paymentMethod.getId()),
+        paymentMethod.getLabel(), paymentMethod.getIconUrl(), false);
   }
 }
