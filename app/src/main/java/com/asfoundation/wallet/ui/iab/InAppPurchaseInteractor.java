@@ -3,7 +3,7 @@ package com.asfoundation.wallet.ui.iab;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
-import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethod;
+import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status;
@@ -206,8 +206,8 @@ public class InAppPurchaseInteractor {
         .firstOrError();
   }
 
-  public Single<List<PaymentMethod>> getAvailablePaymentMethods(TransactionBuilder transaction,
-      List<PaymentMethod> paymentMethods) {
+  public Single<List<PaymentMethodEntity>> getAvailablePaymentMethods(
+      TransactionBuilder transaction, List<PaymentMethodEntity> paymentMethods) {
     return getFilteredGateways(transaction).map(
         filteredGateways -> removeUnavailable(paymentMethods, filteredGateways));
   }
@@ -221,8 +221,7 @@ public class InAppPurchaseInteractor {
             .equals(Status.COMPLETED));
   }
 
-  public Single<List<com.asfoundation.wallet.ui.iab.PaymentMethod>> getPaymentMethods(
-      TransactionBuilder transaction) {
+  public Single<List<PaymentMethod>> getPaymentMethods(TransactionBuilder transaction) {
     return bdsInAppPurchaseInteractor.getPaymentMethods()
         .flatMap(paymentMethods -> getAvailablePaymentMethods(transaction, paymentMethods).flatMap(
             availablePaymentMethods -> Observable.fromIterable(paymentMethods)
@@ -230,13 +229,13 @@ public class InAppPurchaseInteractor {
                 .toList()));
   }
 
-  private List<PaymentMethod> removeUnavailable(List<PaymentMethod> paymentMethods,
+  private List<PaymentMethodEntity> removeUnavailable(List<PaymentMethodEntity> paymentMethods,
       List<Gateway.Name> filteredGateways) {
-    List<PaymentMethod> clonedPaymentMethods = new ArrayList<>(paymentMethods);
-    Iterator<PaymentMethod> iterator = clonedPaymentMethods.iterator();
+    List<PaymentMethodEntity> clonedPaymentMethods = new ArrayList<>(paymentMethods);
+    Iterator<PaymentMethodEntity> iterator = clonedPaymentMethods.iterator();
 
     while (iterator.hasNext()) {
-      PaymentMethod paymentMethod = iterator.next();
+      PaymentMethodEntity paymentMethod = iterator.next();
       String id = paymentMethod.getId();
       if (id.equals("appcoins") && !filteredGateways.contains(Gateway.Name.appcoins)) {
         iterator.remove();
@@ -254,18 +253,16 @@ public class InAppPurchaseInteractor {
     return clonedPaymentMethods;
   }
 
-  private com.asfoundation.wallet.ui.iab.PaymentMethod mapPaymentMethods(
-      PaymentMethod paymentMethod, List<PaymentMethod> availablePaymentMethods) {
-    for (PaymentMethod availablePaymentMethod : availablePaymentMethods) {
+  private PaymentMethod mapPaymentMethods(PaymentMethodEntity paymentMethod,
+      List<PaymentMethodEntity> availablePaymentMethods) {
+    for (PaymentMethodEntity availablePaymentMethod : availablePaymentMethods) {
       if (paymentMethod.getId()
           .equals(availablePaymentMethod.getId())) {
-        return new com.asfoundation.wallet.ui.iab.PaymentMethod(
-            paymentMethodsMapper.map(paymentMethod.getId()), paymentMethod.getLabel(),
-            paymentMethod.getIconUrl(), true);
+        return new PaymentMethod(paymentMethodsMapper.map(paymentMethod.getId()),
+            paymentMethod.getLabel(), paymentMethod.getIconUrl(), true);
       }
     }
-    return new com.asfoundation.wallet.ui.iab.PaymentMethod(
-        paymentMethodsMapper.map(paymentMethod.getId()), paymentMethod.getLabel(),
-        paymentMethod.getIconUrl(), false);
+    return new PaymentMethod(paymentMethodsMapper.map(paymentMethod.getId()),
+        paymentMethod.getLabel(), paymentMethod.getIconUrl(), false);
   }
 }
