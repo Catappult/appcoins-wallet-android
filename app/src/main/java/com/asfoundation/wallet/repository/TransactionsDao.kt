@@ -32,5 +32,9 @@ interface TransactionsDao {
 
   @Query(
       "select * from TransactionEntity where relatedWallet like :relatedWallet order by timeStamp desc limit 1")
-  fun getLastTransaction(relatedWallet: String): Maybe<TransactionEntity>
+  fun getNewestTransaction(relatedWallet: String): Maybe<TransactionEntity>
+
+  @Query(
+      "select * from TransactionEntity where relatedWallet like :relatedWallet order by timeStamp asc limit 1")
+  fun getOlderTransaction(relatedWallet: String): Maybe<TransactionEntity>
 }

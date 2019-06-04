@@ -9,7 +9,9 @@ import java.util.concurrent.atomic.AtomicBoolean
 class TransactionsLoadObservable(private val offChainTransactions: OffChainTransactions,
                                  private val wallet: String,
                                  private val startingDate: String? = null,
-                                 private val endDate: String? = null) :
+                                 private val endDate: String? = null,
+                                 private val sort: OffChainTransactions.Sort? = null,
+                                 private val limit: Int = 10) :
     Observable<List<Transaction>>() {
 
   override fun subscribeActual(observer: Observer<in List<Transaction>>) {
@@ -19,11 +21,11 @@ class TransactionsLoadObservable(private val offChainTransactions: OffChainTrans
       var i = 0
       var list: List<Transaction>? = null
       while (!transactionDisposable.isDisposed && (list == null || list.isNotEmpty())) {
-        list = offChainTransactions.getTransactions(wallet, startingDate, endDate, i)
+        list = offChainTransactions.getTransactions(wallet, startingDate, endDate, i, sort, limit)
         if (!transactionDisposable.isDisposed) {
           observer.onNext(list)
         }
-        i++
+        i += limit
       }
       observer.onComplete()
     } catch (ex: Exception) {

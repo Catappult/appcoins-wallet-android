@@ -29,15 +29,21 @@ class DevTransactionRepository(
     TransactionRepository(networkInfo, accountKeystoreService,
         defaultTokenProvider, errorMapper, nonceObtainer, scheduler) {
 
-  lateinit var disposable: Disposable
+  private lateinit var disposable: Disposable
   override fun fetchTransaction(wallet: String): Observable<List<Transaction>> {
     if (!::disposable.isInitialized || disposable.isDisposed) {
-      disposable = localRepository.getLastTransaction(wallet)
+      disposable = localRepository.getNewestTransaction(wallet)
           .map { it.timeStamp }
           .defaultIfEmpty(0)
           .subscribeOn(ioScheduler)
           .flatMapObservable { startingDate ->
-            fetchTransactions(wallet, startingDate = startingDate)
+            return@flatMapObservable Observable.merge(
+                fetchNewTransactions(wallet, startingDate = startingDate),
+                fetchOldTransactions(wallet, startingDate = startingDate))
+          }
+          .buffer(2, TimeUnit.SECONDS)
+          .doOnNext {
+            localRepository.insertAll(it.flatten())
           }
           .subscribe({}, { it.printStackTrace() })
     }
@@ -49,21 +55,39 @@ class DevTransactionRepository(
         .distinctUntilChanged()
   }
 
+
+  private fun fetchNewTransactions(wallet: String,
+                                   startingDate: Long): Observable<MutableList<TransactionEntity>> {
+    var sort = OffChainTransactions.Sort.DESC
+    if (startingDate != 0L) {
+      sort = OffChainTransactions.Sort.ASC
+    }
+    return fetchTransactions(wallet, startingDate = startingDate, sort = sort)
+  }
+
+  private fun fetchOldTransactions(wallet: String,
+                                   startingDate: Long): Observable<MutableList<TransactionEntity>> {
+    if (startingDate == 0L) {
+      return Observable.empty()
+    }
+    return localRepository.getOlderTransaction(wallet)
+        .map { it.timeStamp }
+        .flatMapObservable { fetchTransactions(wallet, 0L, it, OffChainTransactions.Sort.DESC) }
+  }
+
   private fun fetchTransactions(wallet: String,
                                 startingDate: Long? = null,
-                                endDate: Long? = null): Observable<MutableList<MutableList<TransactionEntity>>>? {
+                                endDate: Long? = null,
+                                sort: OffChainTransactions.Sort? = null): Observable<MutableList<TransactionEntity>> {
     return getTransactions(wallet, startingDate?.let { dateFormatter.format(it) },
-        endDate?.let { dateFormatter.format(it) })
-        .buffer(2, TimeUnit.SECONDS)
-        .doOnNext {
-          localRepository.insertAll(it.flatten())
-        }
+        endDate?.let { dateFormatter.format(it) }, sort)
   }
 
   private fun getTransactions(wallet: String,
                               startingDate: String? = null,
-                              endDate: String? = null): Observable<MutableList<TransactionEntity>> {
-    return TransactionsLoadObservable(offChainTransactions, wallet, startingDate, endDate)
+                              endDate: String? = null,
+                              sort: OffChainTransactions.Sort? = null): Observable<MutableList<TransactionEntity>> {
+    return TransactionsLoadObservable(offChainTransactions, wallet, startingDate, endDate, sort)
         .flatMapSingle { transactions ->
           Observable.fromIterable(transactions)
               .map { mapper.map(it, wallet) }

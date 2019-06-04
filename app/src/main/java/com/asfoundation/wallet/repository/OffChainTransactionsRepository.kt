@@ -18,9 +18,10 @@ class OffChainTransactionsRepository(private val api: TransactionsApi) {
   }
 
   fun getTransactionsSync(wallet: String, versionCode: String, startingDate: String? = null,
-                          endingDate: String? = null, offset: Int): Call<WalletHistory> {
+                          endingDate: String? = null, offset: Int,
+                          sort: String?, limit: Int): Call<WalletHistory> {
     return api.transactionHistorySync(wallet, versionCode, startingDate = startingDate,
-        endingDate = endingDate, offset = offset)
+        endingDate = endingDate, offset = offset, sort = sort, limit = limit)
   }
 
   interface TransactionsApi {
@@ -42,6 +43,7 @@ class OffChainTransactionsRepository(private val api: TransactionsApi) {
         @Query("offset") offset: Int = 0,
         @Query("from") startingDate: String? = null,
         @Query("to") endingDate: String? = null,
-        @Query("sort") sort: String? = "desc"): Call<WalletHistory>
+        @Query("sort") sort: String? = "desc",
+        @Query("limit") limit: Int): Call<WalletHistory>
   }
 }
