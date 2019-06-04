@@ -82,8 +82,9 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
         paymentProof)
   }
 
-  internal fun getPaymentMethods(): Single<List<PaymentMethodEntity>> {
-    return api.getPaymentMethods()
+  internal fun getPaymentMethods(value: String?,
+                                 currency: String?): Single<List<PaymentMethodEntity>> {
+    return api.getPaymentMethods(value, currency)
         .map { responseMapper.map(it) }
   }
 
@@ -188,7 +189,9 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                         @Body data: Consumed): Single<Void>
 
     @GET("broker/8.20180518/methods")
-    fun getPaymentMethods(@Query("currency.type") type: String? = null): Single<GetMethodsResponse>
+    fun getPaymentMethods(@Query("price.value") value: String? = null, @Query("price.currency")
+    currency: String? = null, @Query("currency.type")
+                          type: String? = null): Single<GetMethodsResponse>
 
     @FormUrlEncoded
     @PATCH("broker/8.20180518/gateways/{gateway}/transactions/{uid}")

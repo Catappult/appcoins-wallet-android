@@ -94,8 +94,9 @@ class BdsBilling(private val repository: BillingRepository,
         .onErrorReturn { false }
   }
 
-  override fun getPaymentMethods(): Single<List<PaymentMethodEntity>> {
-    return repository.getPaymentMethods()
+  override fun getPaymentMethods(value: String,
+                                 currency: String): Single<List<PaymentMethodEntity>> {
+    return repository.getPaymentMethods(value, currency)
         .onErrorReturn {
           it.printStackTrace()
           ArrayList()

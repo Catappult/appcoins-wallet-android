@@ -211,9 +211,10 @@ public class PaymentMethodsPresenter {
 
   private void setupUi(double transactionValue) {
     setWalletAddress();
-    disposables.add(Single.zip(isBds ? inAppPurchaseInteractor.getPaymentMethods(transaction)
-            .subscribeOn(networkThread) :
-            Single.just(Collections.singletonList(PaymentMethod.APPC)),
+    disposables.add(Single.zip(
+        isBds ? inAppPurchaseInteractor.getPaymentMethods(transaction, transactionValue, "APPC")
+            .subscribeOn(networkThread)
+            : Single.just(Collections.singletonList(PaymentMethod.APPC)),
         inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
             .observeOn(viewScheduler)
             .subscribeOn(networkThread), (paymentMethods, fiatValue) -> Completable.fromAction(

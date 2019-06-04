@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -101,8 +100,6 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   }
 
   override fun showLink(link: String) {
-    Log.d("TAG123", amount + currency + uri + paymentId)
-    Log.d("TAG123", link)
     initial_test_value.text = link
   }
 }
