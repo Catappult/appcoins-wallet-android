@@ -1,59 +1,60 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
-import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.navigator.UriNavigator
+import com.asfoundation.wallet.router.ExternalBrowserRouter
 import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.local_payment_layout.*
-import java.math.BigDecimal
 import javax.inject.Inject
 
 class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
-
   companion object {
 
+    private const val DOMAIN_KEY = "domain"
+    private const val SKU_ID_KEY = "skuId"
     private const val AMOUNT_KEY = "amount"
     private const val CURRENCY_KEY = "currency"
-    private const val URI_KEY = "uri_key"
     private const val PAYMENT_KEY = "payment_name"
-    private const val IS_BDS = "is_bds"
-    private const val TRANSACTION_KEY = "transaction_key"
 
     @JvmStatic
-    fun newInstance(amount: BigDecimal, currency: String?,
-                    transaction: TransactionBuilder,
-                    data: String, isBds: Boolean,
+    fun newInstance(domain: String, skudId: String, amount: String?, currency: String?,
                     selectedPaymentMethod: String): LocalPaymentFragment {
       val fragment = LocalPaymentFragment()
       val bundle = Bundle()
-      bundle.putString(AMOUNT_KEY, amount.toString())
+      bundle.putString(DOMAIN_KEY, domain)
+      bundle.putString(SKU_ID_KEY, skudId)
+      bundle.putString(AMOUNT_KEY, amount)
       bundle.putString(CURRENCY_KEY, currency)
-      bundle.putParcelable(TRANSACTION_KEY, transaction)
-      bundle.putString(URI_KEY, data)
-      bundle.putBoolean(IS_BDS, isBds)
       bundle.putString(PAYMENT_KEY, selectedPaymentMethod)
       fragment.arguments = bundle
       return fragment
     }
   }
 
-  val amount: String by lazy {
+  val domain: String by lazy {
+    if (arguments!!.containsKey(DOMAIN_KEY)) {
+      arguments!!.getString(DOMAIN_KEY)
+    } else {
+      throw IllegalArgumentException("domain data not found")
+    }
+  }
+  val skudId: String by lazy {
+    if (arguments!!.containsKey(SKU_ID_KEY)) {
+      arguments!!.getString(SKU_ID_KEY)
+    } else {
+      throw IllegalArgumentException("skuId data not found")
+    }
+  }
+  val amount: String? by lazy {
     if (arguments!!.containsKey(AMOUNT_KEY)) {
       arguments!!.getString(AMOUNT_KEY)
     } else {
       throw IllegalArgumentException("amount data not found")
-    }
-  }
-
-  val uri: String by lazy {
-    if (arguments!!.containsKey(URI_KEY)) {
-      arguments!!.getString(URI_KEY)
-    } else {
-      throw IllegalArgumentException("uri data not found")
     }
   }
 
@@ -75,18 +76,27 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
   @Inject
   lateinit var localPaymentInteractor: LocalPaymentInteractor
-  private lateinit var localPaymentPresenter: LocalPaymentPresenter
-  private var transaction: TransactionBuilder? = null
-  private var isBds: Boolean = true
 
+  private lateinit var iabView: IabView
+  private lateinit var navigator: FragmentNavigator
+  private lateinit var browserRouter: ExternalBrowserRouter
+  private lateinit var localPaymentPresenter: LocalPaymentPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    transaction = arguments?.let { it.getParcelable(TRANSACTION_KEY) }
-    isBds = arguments?.let { it.getBoolean(IS_BDS) }!!
+    navigator = FragmentNavigator(activity as UriNavigator?, iabView)
+    browserRouter = ExternalBrowserRouter()
     localPaymentPresenter =
-        LocalPaymentPresenter(this, amount, currency, transaction!!.domain, transaction!!.skuId,
-            uri, isBds, paymentId, localPaymentInteractor, CompositeDisposable())
+        LocalPaymentPresenter(this, amount, currency, domain, skudId,
+            paymentId, localPaymentInteractor, navigator, CompositeDisposable())
+  }
+
+  override fun onAttach(context: Context) {
+    super.onAttach(context)
+    if (context !is IabView) {
+      throw IllegalStateException("Regular buy fragment must be attached to IAB activity")
+    }
+    iabView = context
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -99,7 +109,4 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     return inflater.inflate(R.layout.local_payment_layout, container, false)
   }
 
-  override fun showLink(link: String) {
-    initial_test_value.text = link
-  }
 }

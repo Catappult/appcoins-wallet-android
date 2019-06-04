@@ -27,7 +27,8 @@ public interface IabView {
 
   void showAppcoinsCreditsPayment(BigDecimal amount);
 
-  void showLocalPayment(BigDecimal amount, String currency, String selectedPaymentMethod);
+  void showLocalPayment(String domain, String skuId, String amount, String currency,
+      String selectedPaymentMethod);
 
   void showPaymentMethodsView();
 

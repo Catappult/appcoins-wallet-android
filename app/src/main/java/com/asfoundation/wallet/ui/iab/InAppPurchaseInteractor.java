@@ -222,8 +222,8 @@ public class InAppPurchaseInteractor {
   }
 
   public Single<List<PaymentMethod>> getPaymentMethods(TransactionBuilder transaction,
-      double transactionValue, String currency) {
-    return bdsInAppPurchaseInteractor.getPaymentMethods(String.valueOf(transactionValue), currency)
+      String transactionValue, String currency) {
+    return bdsInAppPurchaseInteractor.getPaymentMethods(transactionValue, currency)
         .flatMap(paymentMethods -> getAvailablePaymentMethods(transaction, paymentMethods).flatMap(
             availablePaymentMethods -> Observable.fromIterable(paymentMethods)
                 .map(paymentMethod -> mapPaymentMethods(paymentMethod, availablePaymentMethods))

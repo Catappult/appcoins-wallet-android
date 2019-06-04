@@ -1,16 +1,17 @@
 package com.asfoundation.wallet.ui.iab
 
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
 class LocalPaymentPresenter(private val view: LocalPaymentView,
-                            private val amount: String,
+                            private val amount: String?,
                             private val currency: String?,
                             private val domain: String,
                             private val skuId: String,
-                            private val uri: String?,
-                            private val isBds: Boolean,
                             private val paymentId: String,
                             private val localPaymentInteractor: LocalPaymentInteractor,
+                            private val navigator: FragmentNavigator,
                             private val disposables: CompositeDisposable) {
   fun present() {
     onViewCreatedRequestLink()
@@ -23,7 +24,9 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
   private fun onViewCreatedRequestLink() {
     disposables.add(
         localPaymentInteractor.getPaymentLink(domain, skuId, amount, currency,
-            paymentId).doOnSuccess { view.showLink(it) }.subscribe())
+            paymentId).observeOn(AndroidSchedulers.mainThread()).doOnSuccess {
+          //   navigator.navigateToUriForResult(it, "", domain, skuId, null, "")
+        }.subscribeOn(Schedulers.io()).subscribe())
   }
 
 }

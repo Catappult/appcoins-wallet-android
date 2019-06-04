@@ -22,6 +22,7 @@ import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Currency;
+import java.util.List;
 
 public class PaymentMethodsPresenter {
   private final PaymentMethodsView view;
@@ -211,19 +212,15 @@ public class PaymentMethodsPresenter {
 
   private void setupUi(double transactionValue) {
     setWalletAddress();
-    disposables.add(Single.zip(
-        isBds ? inAppPurchaseInteractor.getPaymentMethods(transaction, transactionValue, "APPC")
-            .subscribeOn(networkThread)
-            : Single.just(Collections.singletonList(PaymentMethod.APPC)),
-        inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
+    disposables.add(inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
+        .flatMapCompletable(fiatValue -> getPaymentMethods(fiatValue).subscribeOn(networkThread)
             .observeOn(viewScheduler)
-            .subscribeOn(networkThread), (paymentMethods, fiatValue) -> Completable.fromAction(
-            () -> view.showPaymentMethods(paymentMethods, fiatValue,
-                TransactionData.TransactionType.DONATION.name()
-                    .equalsIgnoreCase(transaction.getType()),
-                mapCurrencyCodeToSymbol(fiatValue.getCurrency())))
-            .subscribeOn(viewScheduler))
-        .flatMapCompletable(completable -> completable)
+            .flatMapCompletable(paymentMethods -> Completable.fromAction(
+                () -> view.showPaymentMethods(paymentMethods, fiatValue,
+                    TransactionData.TransactionType.DONATION.name()
+                        .equalsIgnoreCase(transaction.getType()),
+                    mapCurrencyCodeToSymbol(fiatValue.getCurrency())))))
+        .subscribeOn(viewScheduler)
         .subscribe(() -> {
         }, this::showError));
   }
@@ -268,5 +265,14 @@ public class PaymentMethodsPresenter {
 
   public void stop() {
     disposables.clear();
+  }
+
+  private Single<List<PaymentMethod>> getPaymentMethods(FiatValue fiatValue) {
+    if (isBds) {
+      return inAppPurchaseInteractor.getPaymentMethods(transaction, fiatValue.getAmount()
+          .toString(), fiatValue.getCurrency());
+    } else {
+      return Single.just(Collections.singletonList(PaymentMethod.APPC));
+    }
   }
 }
