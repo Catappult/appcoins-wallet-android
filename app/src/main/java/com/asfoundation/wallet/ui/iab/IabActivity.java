@@ -45,6 +45,7 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   private static final int WEB_VIEW_REQUEST_CODE = 1234;
   private static final String IS_BDS_EXTRA = "is_bds_extra";
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
+  @Inject PaymentMethodsMapper paymentMethodsMapper;
   private boolean isBackEnable;
   private IabPresenter presenter;
   private Bundle skuDetails;
@@ -188,9 +189,13 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
         .commit();
   }
 
-  @Override public void showLocalPayment(BigDecimal amount, String currency, boolean isBds,
-      PaymentMethodsView.SelectedPaymentMethod selectedPaymentMethod) {
-    //TODO
+  @Override
+  public void showLocalPayment(BigDecimal amount, String currency, String selectedPaymentMethod) {
+    getSupportFragmentManager().beginTransaction()
+        .replace(R.id.fragment_container,
+            LocalPaymentFragment.newInstance(amount, currency, transaction, getIntent().getData()
+                .toString(), isBds, selectedPaymentMethod))
+        .commit();
   }
 
   @Override public void showPaymentMethodsView() {
@@ -202,11 +207,11 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   }
 
   @Override public void showShareLinkPayment(String domain, String skuId, String originalAmount,
-      String originalCurrency, BigDecimal amount, String type) {
+      String originalCurrency, BigDecimal amount, String type, String selectedPaymentMethod) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container,
             SharePaymentLinkFragment.newInstance(domain, skuId, originalAmount, originalCurrency,
-                amount, type))
+                amount, type, selectedPaymentMethod))
         .commit();
   }
 

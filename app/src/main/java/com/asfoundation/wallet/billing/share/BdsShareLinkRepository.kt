@@ -10,9 +10,10 @@ class BdsShareLinkRepository(private var api: BdsShareLinkApi) : ShareLinkReposi
   override fun getLink(domain: String, skuId: String?, message: String?,
                        walletAddress: String,
                        originalAmount: String?,
-                       originalCurrency: String?): Single<String> {
+                       originalCurrency: String?, paymentMethod: String): Single<String> {
     return api.getPaymentLink(
-        ShareLinkData(domain, skuId, walletAddress, message, originalAmount, originalCurrency))
+        ShareLinkData(domain, skuId, walletAddress, message, originalAmount, originalCurrency,
+            paymentMethod))
         .map { it.url }
   }
 
@@ -28,4 +29,5 @@ data class ShareLinkData(@SerializedName("package") var packageName: String, var
                          var walletAddress: String,
                          var message: String?,
                          @SerializedName("price.value") var amount: String?,
-                         @SerializedName("price.currency") var currency: String?)
+                         @SerializedName("price.currency") var currency: String?,
+                         var method: String)

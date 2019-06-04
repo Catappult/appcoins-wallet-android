@@ -6,16 +6,29 @@ import io.reactivex.exceptions.OnErrorNotImplementedException
 class PaymentMethodsMapper {
 
   fun map(paymentId: String): SelectedPaymentMethod {
-    when (paymentId) {
-      "ask_friend" -> return SelectedPaymentMethod.SHARE_LINK
-      "paypal" -> return SelectedPaymentMethod.PAYPAL
-      "credit_card" -> return SelectedPaymentMethod.CREDIT_CARD
-      "alfamart" -> return SelectedPaymentMethod.ALFAMART
-      "bank_transfer" -> return SelectedPaymentMethod.BANK_TRANSFER
-      "gopay" -> return SelectedPaymentMethod.GOPAY
-      "appcoins" -> return SelectedPaymentMethod.APPC
-      "appcoins_credits" -> return SelectedPaymentMethod.APPC_CREDITS
+    return when (paymentId) {
+      "ask_friend" -> SelectedPaymentMethod.SHARE_LINK
+      "paypal" -> SelectedPaymentMethod.PAYPAL
+      "credit_card" -> SelectedPaymentMethod.CREDIT_CARD
+      "alfamart" -> SelectedPaymentMethod.ALFAMART
+      "bank_transfer" -> SelectedPaymentMethod.BANK_TRANSFER
+      "gopay" -> SelectedPaymentMethod.GOPAY
+      "appcoins" -> SelectedPaymentMethod.APPC
+      "appcoins_credits" -> SelectedPaymentMethod.APPC_CREDITS
       else -> throw OnErrorNotImplementedException(Throwable("Method not implemented"))
+    }
+  }
+
+  fun map(selectedPaymentMethod: SelectedPaymentMethod): String {
+    return when (selectedPaymentMethod) {
+      SelectedPaymentMethod.SHARE_LINK -> "ask_friend"
+      SelectedPaymentMethod.PAYPAL -> "paypal"
+      SelectedPaymentMethod.CREDIT_CARD -> "credit_card"
+      SelectedPaymentMethod.ALFAMART -> "alfamart"
+      SelectedPaymentMethod.BANK_TRANSFER -> "bank_transfer"
+      SelectedPaymentMethod.GOPAY -> "gopay"
+      SelectedPaymentMethod.APPC -> "appcoins"
+      SelectedPaymentMethod.APPC_CREDITS -> "appcoins_credits"
     }
   }
 }

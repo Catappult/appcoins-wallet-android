@@ -81,6 +81,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   @Inject Billing billing;
   @Inject WalletService walletService;
   @Inject GamificationInteractor gamification;
+  @Inject PaymentMethodsMapper paymentMethodsMapper;
   private List<SelectedPaymentMethod> paymentMethodList = new ArrayList<>();
   private ProgressBar loadingView;
   private View dialog;
@@ -158,7 +159,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     presenter = new PaymentMethodsPresenter(this, appPackage, AndroidSchedulers.mainThread(),
         Schedulers.io(), new CompositeDisposable(), inAppPurchaseInteractor,
         inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing,
-        analytics, isBds, developerPayload, uri, walletService, gamification, transaction);
+        analytics, isBds, developerPayload, uri, walletService, gamification, transaction,
+        paymentMethodsMapper);
   }
 
   @Nullable @Override
@@ -370,13 +372,13 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     iabView.showAppcoinsCreditsPayment(transaction.amount());
   }
 
-  @Override public void showShareLink() {
+  @Override public void showShareLink(String selectedPaymentMethod) {
     boolean isOneStep = transaction.getType()
         .equalsIgnoreCase("INAPP_UNMANAGED");
     iabView.showShareLinkPayment(transaction.getDomain(), transaction.getSkuId(),
         isOneStep ? transaction.getOriginalOneStepValue() : null,
         isOneStep ? transaction.getOriginalOneStepCurrency() : null, transaction.amount(),
-        transaction.getType());
+        transaction.getType(), selectedPaymentMethod);
   }
 
   @Override public void hideBonus() {
@@ -404,8 +406,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         .map(checkedRadioButtonId -> paymentMethodList.get(checkedRadioButtonId));
   }
 
-  @Override public void showLocalPayment(@NotNull SelectedPaymentMethod selectedPaymentMethod) {
-    iabView.showLocalPayment(fiatValue.getAmount(), currency, isBds, selectedPaymentMethod);
+  @Override public void showLocalPayment(@NotNull String selectedPaymentMethod) {
+    iabView.showLocalPayment(fiatValue.getAmount(), fiatValue.getCurrency(), selectedPaymentMethod);
   }
 
   private void loadIcons(PaymentMethod paymentMethod, RadioButton radioButton, boolean showNew) {
