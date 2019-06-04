@@ -10,19 +10,25 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import retrofit2.http.*
 
-class PoASubmissionService(private val poaSubmissionApi: PoASubmissionService.PoASubmissionApi) {
+class CampaignService(private val campaignApi: CampaignApi) {
 
   companion object {
     const val SERVICE_HOST = BuildConfig.BACKEND_HOST
   }
 
   fun submitProof(proof: Proof, wallet: String): Single<String> {
-    return poaSubmissionApi.submitProof(
+    return campaignApi.submitProof(
         SerializedProof(proof.campaignId, proof.packageName, wallet, proof.proofComponentList,
             proof.storeAddress, proof.oemAddress))
         .map { response -> handleResponse(response) }
         .subscribeOn(Schedulers.io())
         .singleOrError()
+  }
+
+  fun getCampaign(address: String, packageName: String, versionCode: Int): Single<String> {
+    return campaignApi.getCampaign(address, packageName, versionCode)
+        .map { response -> handleResponse(response) }
+        .subscribeOn(Schedulers.io()).singleOrError()
   }
 
   private fun handleResponse(response: SubmitPoAResponse): String {
@@ -33,10 +39,25 @@ class PoASubmissionService(private val poaSubmissionApi: PoASubmissionService.Po
     }
   }
 
-  interface PoASubmissionApi {
+  private fun handleResponse(response: GetCampaignResponse): String {
+    return if (!response.status.equals(GetCampaignResponse.EligibleResponseStatus.NOT_ELIGIBLE)
+        && response.bidId != null) {
+      response.bidId
+    } else {
+      ""
+    }
+  }
+
+
+  interface CampaignApi {
     @Headers("Content-Type: application/json")
     @POST("/campaign/submitpoa")
     fun submitProof(@Body body: SerializedProof?): Observable<SubmitPoAResponse>
+
+    @GET("/campaign/eligible")
+    fun getCampaign(@Query("address") address: String,
+                    @Query("package_name") packageName: String,
+                    @Query("vercode") versionCode: Int): Observable<GetCampaignResponse>
   }
 }
 

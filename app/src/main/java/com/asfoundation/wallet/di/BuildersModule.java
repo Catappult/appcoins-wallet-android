@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.di;
 
+import com.asfoundation.wallet.advertise.AdvertisingService;
 import com.asfoundation.wallet.advertise.WalletPoAService;
 import com.asfoundation.wallet.permissions.manage.view.PermissionsListFragment;
 import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment;
@@ -140,5 +141,8 @@ import dagger.android.ContributesAndroidInjector;
   @ContributesAndroidInjector() abstract TopUpSuccessFragment bindTopUpSuccessFragment();
 
   @ContributesAndroidInjector() abstract SharePaymentLinkFragment bindSharePaymentLinkFragment();
+
+  @ActivityScope @ContributesAndroidInjector abstract AdvertisingService bindAdvertisingService();
+
 
 }

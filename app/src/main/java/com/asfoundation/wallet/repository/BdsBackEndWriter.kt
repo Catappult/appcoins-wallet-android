@@ -5,14 +5,14 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.poa.Proof
 import com.asfoundation.wallet.poa.ProofSubmissionFeeData
 import com.asfoundation.wallet.poa.ProofWriter
-import com.asfoundation.wallet.service.PoASubmissionService
+import com.asfoundation.wallet.service.CampaignService
 import io.reactivex.Single
 import java.math.BigDecimal
 import java.net.UnknownHostException
 
 open class BdsBackEndWriter(
     private val defaultWalletInteract: FindDefaultWalletInteract,
-    private val service: PoASubmissionService) : ProofWriter {
+    private val service: CampaignService) : ProofWriter {
 
   override fun writeProof(proof: Proof): Single<String> {
     return defaultWalletInteract.find()

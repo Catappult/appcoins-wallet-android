@@ -198,6 +198,15 @@
       </intent-filter>
     </service>
 
+    <service
+        android:name="com.asfoundation.wallet.advertise.AdvertisingService"
+        android:enabled="true"
+        android:exported="true">
+      <intent-filter>
+        <action android:name="com.appcoins.wallet.advertising.action.BIND"/>
+      </intent-filter>
+    </service>
+
     <receiver
         android:name="com.asfoundation.wallet.advertise.PoAHandshakeReceiver"
         android:enabled="true"

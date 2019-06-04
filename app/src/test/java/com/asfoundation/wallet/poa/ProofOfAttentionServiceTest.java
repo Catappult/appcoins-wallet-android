@@ -7,7 +7,7 @@ import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.repository.BdsBackEndWriter;
 import com.asfoundation.wallet.repository.WalletNotFoundException;
-import com.asfoundation.wallet.service.PoASubmissionService;
+import com.asfoundation.wallet.service.CampaignService;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.TestObserver;
@@ -40,7 +40,7 @@ public class ProofOfAttentionServiceTest {
   public static final String OEM_ADDRESS = "oem_address";
 
   @Mock FindDefaultWalletInteract defaultWalletInteract;
-  @Mock PoASubmissionService poaSubmissionService;
+  @Mock CampaignService poaSubmissionService;
   @Mock HashCalculator hashCalculator;
   @Mock AddressService addressService;
   private int chainId;
