@@ -19,6 +19,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -231,7 +232,37 @@ public class InAppPurchaseInteractor {
         .flatMap(paymentMethods -> getAvailablePaymentMethods(transaction, paymentMethods).flatMap(
             availablePaymentMethods -> Observable.fromIterable(paymentMethods)
                 .map(paymentMethod -> mapPaymentMethods(paymentMethod, availablePaymentMethods))
-                .toList()));
+                .toList()))
+        .map(this::swapDisabledPositions);
+  }
+
+  private List<PaymentMethod> swapDisabledPositions(List<PaymentMethod> paymentMethods) {
+    int appcoinsPosition = -1;
+    int creditsPosition = -1;
+    boolean appcoinsEnabled = false;
+    boolean creditsEnabled = false;
+    for (int position = 0; position < paymentMethods.size(); position++) {
+      PaymentMethod paymentMethod = paymentMethods.get(position);
+      if (paymentMethod.getId()
+          .equals(paymentMethodsMapper.map("appcoins"))) {
+        appcoinsPosition = position;
+        if (paymentMethod.isEnabled()) appcoinsEnabled = true;
+      } else if (paymentMethod.getId()
+          .equals(paymentMethodsMapper.map("appcoins_credits"))) {
+        creditsPosition = position;
+        if (paymentMethod.isEnabled()) creditsEnabled = true;
+      }
+    }
+    if (shouldSwap(appcoinsPosition, creditsPosition, appcoinsEnabled, creditsEnabled)) {
+      Collections.swap(paymentMethods, appcoinsPosition, creditsPosition);
+    }
+    return paymentMethods;
+  }
+
+  private boolean shouldSwap(int appcoinsPosition, int creditsPosition, boolean appcoinsEnabled,
+      boolean creditsEnabled) {
+    return appcoinsPosition > creditsPosition && appcoinsEnabled && !creditsEnabled
+        || creditsPosition > appcoinsPosition && creditsEnabled && !appcoinsEnabled;
   }
 
   private List<PaymentMethodEntity> removeUnavailable(List<PaymentMethodEntity> paymentMethods,
