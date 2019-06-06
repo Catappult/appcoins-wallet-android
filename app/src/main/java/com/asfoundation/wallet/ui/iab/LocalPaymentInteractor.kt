@@ -1,11 +1,17 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.net.Uri
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.asfoundation.wallet.billing.share.ShareLinkRepository
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
+import io.reactivex.Observable
 import io.reactivex.Single
 
 class LocalPaymentInteractor(private val remoteRepository: ShareLinkRepository,
-                             private val walletInteractor: FindDefaultWalletInteract) {
+                             private val walletInteractor: FindDefaultWalletInteract,
+                             private val inAppPurchaseInteractor: InAppPurchaseInteractor
+) {
+
   fun getPaymentLink(domain: String, skuId: String?,
                      originalAmount: String?, originalCurrency: String?,
                      paymentMethod: String): Single<String> {
@@ -14,6 +20,13 @@ class LocalPaymentInteractor(private val remoteRepository: ShareLinkRepository,
         .flatMap {
           remoteRepository.getLink(domain, skuId, null, it.address, originalAmount,
               originalCurrency, paymentMethod)
+        }
+  }
+
+  fun getTransaction(uri: Uri): Observable<Transaction> {
+    return inAppPurchaseInteractor.getTransaction(uri.lastPathSegment)
+        .filter {
+          it.status == Transaction.Status.COMPLETED || it.status == Transaction.Status.PENDING_USER_PAYMENT
         }
   }
 }

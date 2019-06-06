@@ -1,18 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
+    android:layout_width="296dp"
+    android:layout_height="254dp"
+    android:layout_gravity="center"
     android:orientation="vertical"
     >
 
-  <TextView
-      android:id="@+id/initial_test_value"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+  <LinearLayout
+      android:id="@+id/local_payment_layout"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@drawable/background_card"
       android:gravity="center"
-      android:textColor="@color/black"
-      tools:text="ngidfhnidgnhiugnhhiunjdngf"
+      android:visibility="invisible"
+      tools:visibility="visible"
+      >
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:visibility="visible"
+        />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/pending_user_payment_view"
+        android:layout_width="148dp"
+        android:layout_height="127dp"
+        android:visibility="gone"
+        app:lottie_autoPlay="true"
+        app:lottie_enableMergePathsForKitKatAndAbove="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/create_wallet_loading_animation"
+        />
+  </LinearLayout>
+
+  <include
+      android:id="@+id/error_view"
+      layout="@layout/fragment_iab_error"
+      android:layout_width="match_parent"
+      android:layout_height="160dp"
+      android:layout_gravity="center"
+      android:visibility="gone"
       />
 </LinearLayout>

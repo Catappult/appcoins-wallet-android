@@ -124,7 +124,8 @@ public class InAppPurchaseInteractor {
     return bdsInAppPurchaseInteractor.getBillingSerializer();
   }
 
-  public Single<Transaction> getTransaction(String packageName, String productName, String type) {
+  public Single<Transaction> getCompletedTransaction(String packageName, String productName,
+      String type) {
     return asfInAppPurchaseInteractor.getTransaction(packageName, productName, type);
   }
 
@@ -196,12 +197,12 @@ public class InAppPurchaseInteractor {
   }
 
   public Single<String> getTransactionUid(String uid) {
-    return getTransaction(uid).map(transaction -> transaction.getHash())
+    return getCompletedTransaction(uid).map(transaction -> transaction.getHash())
         .firstOrError();
   }
 
   public Single<Double> getTransactionAmount(String uid) {
-    return getTransaction(uid).map(transaction -> Double.parseDouble(transaction.getPrice()
+    return getCompletedTransaction(uid).map(transaction -> Double.parseDouble(transaction.getPrice()
         .getAppc()))
         .firstOrError();
   }
@@ -212,13 +213,16 @@ public class InAppPurchaseInteractor {
         filteredGateways -> removeUnavailable(paymentMethods, filteredGateways));
   }
 
-  private Observable<Transaction> getTransaction(String uid) {
+  private Observable<Transaction> getCompletedTransaction(String uid) {
+    return getTransaction(uid).filter(transaction -> transaction.getStatus()
+        .equals(Status.COMPLETED));
+  }
+
+  public Observable<Transaction> getTransaction(String uid) {
     return Observable.interval(0, 5, TimeUnit.SECONDS, Schedulers.io())
         .timeInterval()
         .switchMap(longTimed -> billing.getAppcoinsTransaction(uid, Schedulers.io())
-            .toObservable())
-        .filter(transaction -> transaction.getStatus()
-            .equals(Status.COMPLETED));
+            .toObservable());
   }
 
   public Single<List<PaymentMethod>> getPaymentMethods(TransactionBuilder transaction,

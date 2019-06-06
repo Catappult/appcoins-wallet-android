@@ -386,8 +386,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Provides LocalPaymentInteractor provideLocalPaymentInteractor(ShareLinkRepository repository,
-      FindDefaultWalletInteract interactor) {
-    return new LocalPaymentInteractor(repository, interactor);
+      FindDefaultWalletInteract interactor, InAppPurchaseInteractor inAppPurchaseInteractor) {
+    return new LocalPaymentInteractor(repository, interactor, inAppPurchaseInteractor);
   }
 
   @Provides PaymentMethodsMapper providePaymentMethodsMapper() {

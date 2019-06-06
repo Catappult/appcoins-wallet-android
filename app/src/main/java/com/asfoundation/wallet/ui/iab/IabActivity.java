@@ -18,6 +18,7 @@ import io.reactivex.Observable;
 import java.math.BigDecimal;
 import java.util.Objects;
 import javax.inject.Inject;
+import org.jetbrains.annotations.NotNull;
 
 import static com.appcoins.wallet.billing.AppcoinsBillingBinder.EXTRA_BDS_IAP;
 import static com.asfoundation.wallet.ui.iab.WebViewActivity.SUCCESS;
@@ -208,7 +209,8 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   }
 
   @Override public void showShareLinkPayment(String domain, String skuId, String originalAmount,
-      String originalCurrency, BigDecimal amount, String type, String selectedPaymentMethod) {
+      String originalCurrency, BigDecimal amount, @NotNull String type,
+      String selectedPaymentMethod) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container,
             SharePaymentLinkFragment.newInstance(domain, skuId, originalAmount, originalCurrency,

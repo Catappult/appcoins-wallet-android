@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.ui.iab
 
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
+import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -15,9 +17,11 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
                             private val disposables: CompositeDisposable) {
   fun present() {
     onViewCreatedRequestLink()
+    handlePaymentRedirect()
+    handleOkErrorButtonClick()
   }
 
-  private fun handleStop() {
+  fun handleStop() {
     disposables.clear()
   }
 
@@ -25,8 +29,45 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
     disposables.add(
         localPaymentInteractor.getPaymentLink(domain, skuId, amount, currency,
             paymentId).observeOn(AndroidSchedulers.mainThread()).doOnSuccess {
-          //   navigator.navigateToUriForResult(it, "", domain, skuId, null, "")
-        }.subscribeOn(Schedulers.io()).subscribe())
+          navigator.navigateToUriForResult(it, "", domain, skuId, null, "")
+        }.subscribeOn(Schedulers.io()).subscribe({ }, { showError(it) }))
   }
 
+  private fun handlePaymentRedirect() {
+    disposables.add(
+        navigator.uriResults().doOnNext {
+          view.showProcessingLoading()
+        }.flatMap {
+          localPaymentInteractor.getTransaction(it)
+        }
+            .observeOn(AndroidSchedulers.mainThread())
+            .flatMapCompletable { handleTransactionStatus(it) }
+            .subscribe({ }, { showError(it) }))
+  }
+
+  private fun handleOkErrorButtonClick() {
+    disposables.add(view.getOkErrorClick().doOnNext { view.dismissError() }.subscribe())
+  }
+
+  private fun handleTransactionStatus(transaction: Transaction): Completable {
+    return when (transaction.status) {
+      Transaction.Status.COMPLETED -> {
+        Completable.fromAction {
+          view.hideLoading()
+        }
+      }
+      Transaction.Status.PENDING_USER_PAYMENT -> Completable.fromAction {
+        view.showPendingUserPayment()
+      }
+      else -> Completable.fromAction {
+        view.showError()
+      }
+    }
+  }
+
+  private fun showError(throwable: Throwable) {
+    throwable.printStackTrace()
+    view.showError()
+  }
 }
+

@@ -89,7 +89,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
   }
 
   internal fun getPaymentMethodsForType(type: String): Single<List<PaymentMethodEntity>> {
-    return api.getPaymentMethods(type)
+    return api.getPaymentMethods(type = type)
         .map { responseMapper.map(it) }
   }
 
