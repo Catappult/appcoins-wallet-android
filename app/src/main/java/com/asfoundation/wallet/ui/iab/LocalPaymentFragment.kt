@@ -92,7 +92,12 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     navigator = FragmentNavigator(activity as UriNavigator?, iabView)
     localPaymentPresenter =
         LocalPaymentPresenter(this, amount, currency, domain, skudId,
-            paymentId, localPaymentInteractor, navigator, CompositeDisposable())
+            paymentId, localPaymentInteractor, navigator, savedInstanceState, CompositeDisposable())
+  }
+
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+    localPaymentPresenter.onSaveInstanceState(outState)
   }
 
   override fun onAttach(context: Context) {
@@ -157,7 +162,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
   override fun dismissError() {
     error_view.visibility = View.GONE
-    iabView.close(Bundle())
+    iabView.showError()
   }
 
   override fun close() {
