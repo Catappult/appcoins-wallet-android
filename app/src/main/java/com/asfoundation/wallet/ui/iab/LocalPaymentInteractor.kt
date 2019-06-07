@@ -23,10 +23,12 @@ class LocalPaymentInteractor(private val remoteRepository: ShareLinkRepository,
         }
   }
 
-  fun getTransaction(uri: Uri): Observable<Transaction> {
+  fun getTransaction(uri: Uri): Observable<Transaction.Status> {
     return inAppPurchaseInteractor.getTransaction(uri.lastPathSegment)
+        .map { it.status }
         .filter {
-          it.status == Transaction.Status.COMPLETED || it.status == Transaction.Status.PENDING_USER_PAYMENT
+          it == Transaction.Status.COMPLETED || it == Transaction.Status.PENDING_USER_PAYMENT
         }
+        .distinctUntilChanged()
   }
 }

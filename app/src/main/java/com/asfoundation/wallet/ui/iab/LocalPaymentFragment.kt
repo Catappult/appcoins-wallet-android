@@ -7,13 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.navigator.UriNavigator
-import com.asfoundation.wallet.view.rx.RxAlertDialog
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.fragment_iab_error.*
+import kotlinx.android.synthetic.main.fragment_iab_error.view.*
 import kotlinx.android.synthetic.main.local_payment_layout.*
+import kotlinx.android.synthetic.main.pending_user_payment_view.*
+import kotlinx.android.synthetic.main.pending_user_payment_view.view.*
 import javax.inject.Inject
 
 class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
@@ -79,13 +80,6 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     }
   }
 
-  private val genericErrorDialog: RxAlertDialog by lazy {
-    RxAlertDialog.Builder(context)
-        .setMessage(R.string.unknown_error)
-        .setPositiveButton(R.string.ok)
-        .build()
-  }
-
   @Inject
   lateinit var localPaymentInteractor: LocalPaymentInteractor
 
@@ -125,43 +119,52 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   }
 
   override fun getOkErrorClick(): Observable<Any> {
-    return RxView.clicks(activity_iab_error_ok_button)
+    return RxView.clicks(error_view.activity_iab_error_ok_button)
+  }
+
+
+  override fun getOkBuyClick(): Observable<Any> {
+    return RxView.clicks(buy_button)
   }
 
   override fun showProcessingLoading() {
-    local_payment_layout.visibility = View.VISIBLE
     progress_bar.visibility = View.VISIBLE
     error_view.visibility = View.GONE
     pending_user_payment_view.visibility = View.GONE
-    pending_user_payment_view.cancelAnimation()
+    pending_user_payment_view.in_progress_animation.cancelAnimation()
   }
 
   override fun hideLoading() {
     progress_bar.visibility = View.GONE
     error_view.visibility = View.GONE
-    pending_user_payment_view.cancelAnimation()
+    pending_user_payment_view.in_progress_animation.cancelAnimation()
     pending_user_payment_view.visibility = View.GONE
-    local_payment_layout.visibility = View.INVISIBLE
   }
 
   override fun showPendingUserPayment() {
-    local_payment_layout.visibility = View.VISIBLE
     pending_user_payment_view.visibility = View.VISIBLE
-    pending_user_payment_view.playAnimation()
+    pending_user_payment_view.in_progress_animation.playAnimation()
     progress_bar.visibility = View.GONE
     error_view.visibility = View.GONE
   }
 
   override fun showError() {
-    local_payment_layout.visibility = View.GONE
     pending_user_payment_view.visibility = View.GONE
-    pending_user_payment_view.cancelAnimation()
+    pending_user_payment_view.in_progress_animation.cancelAnimation()
     progress_bar.visibility = View.GONE
     error_view.visibility = View.VISIBLE
   }
 
   override fun dismissError() {
     error_view.visibility = View.GONE
+    iabView.close(Bundle())
+  }
+
+  override fun close() {
+    progress_bar.visibility = View.GONE
+    error_view.visibility = View.GONE
+    pending_user_payment_view.in_progress_animation.cancelAnimation()
+    pending_user_payment_view.visibility = View.GONE
     iabView.close(Bundle())
   }
 }

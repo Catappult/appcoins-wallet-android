@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="296dp"
+    android:layout_height="336dp"
+    android:layout_gravity="center"
+    android:background="@drawable/background_card"
+    >
+
+  <TextView
+      android:id="@+id/in_progress_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="24dp"
+      android:fontFamily="sans-serif-medium"
+      android:gravity="center_horizontal"
+      android:text="In Progress!"
+      android:textColor="@color/black_87_alpha"
+      android:textSize="16sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="In Progress!"
+      />
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/in_progress_animation"
+      android:layout_width="264dp"
+      android:layout_height="132dp"
+      android:layout_marginTop="16dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/in_progress_text"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/transact_loading_animation"
+      />
+
+  <TextView
+      android:id="@+id/explanation_text"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="12dp"
+      android:fontFamily="sans-serif"
+      android:gravity="center_horizontal"
+      android:paddingStart="20dp"
+      android:paddingEnd="20dp"
+      android:text="Complete your payment and, once you get the AppCoins Credits in your wallet, make the purchase!"
+      android:textColor="#727272"
+      android:textSize="12sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/in_progress_animation"
+      tools:text="Complete your payment and, once you get the AppCoins Credits in your wallet, make the purchase!"
+      />
+
+  <View
+      android:id="@+id/bottom_separator"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_marginBottom="7.5dp"
+      android:background="@color/layout_separator_color"
+      app:layout_constraintBottom_toTopOf="@id/buy_button"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      />
+
+  <Button
+      android:id="@+id/buy_button"
+      style="@style/ButtonStyle"
+      android:layout_width="wrap_content"
+      android:layout_height="35dp"
+      android:layout_gravity="center_vertical"
+      android:layout_marginEnd="16dp"
+      android:layout_marginBottom="7.5dp"
+      android:maxWidth="126dp"
+      android:minWidth="80dp"
+      android:text="@string/button_ok"
+      android:textColor="@color/white"
+      android:textSize="14sp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

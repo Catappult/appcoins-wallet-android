@@ -19,7 +19,9 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
     onViewCreatedRequestLink()
     handlePaymentRedirect()
     handleOkErrorButtonClick()
+    handleOkBuyButtonClick()
   }
+
 
   fun handleStop() {
     disposables.clear()
@@ -46,11 +48,17 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
   }
 
   private fun handleOkErrorButtonClick() {
-    disposables.add(view.getOkErrorClick().doOnNext { view.dismissError() }.subscribe())
+    disposables.add(view.getOkErrorClick().observeOn(
+        AndroidSchedulers.mainThread()).doOnNext { view.dismissError() }.subscribe())
   }
 
-  private fun handleTransactionStatus(transaction: Transaction): Completable {
-    return when (transaction.status) {
+  private fun handleOkBuyButtonClick() {
+    disposables.add(view.getOkBuyClick().observeOn(
+        AndroidSchedulers.mainThread()).doOnNext { view.dismissError() }.subscribe())
+  }
+
+  private fun handleTransactionStatus(transactionStatus: Transaction.Status): Completable {
+    return when (transactionStatus) {
       Transaction.Status.COMPLETED -> {
         Completable.fromAction {
           view.hideLoading()

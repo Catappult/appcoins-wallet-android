@@ -9,4 +9,6 @@ interface LocalPaymentView {
   fun showError()
   fun dismissError()
   fun getOkErrorClick(): Observable<Any>
+  fun getOkBuyClick(): Observable<Any>
+  fun close()
 }
