@@ -165,7 +165,7 @@ public class InAppPurchaseInteractor {
         .onErrorReturn(throwable -> false);
   }
 
-  public Single<List<Gateway.Name>> getFilteredGateways(TransactionBuilder transactionBuilder) {
+  private Single<List<Gateway.Name>> getFilteredGateways(TransactionBuilder transactionBuilder) {
     return Single.zip(getRewardsBalance(), hasAppcoinsFunds(transactionBuilder),
         (creditsBalance, hasAppcoinsFunds) -> getNewPaymentGateways(creditsBalance,
             hasAppcoinsFunds, transactionBuilder.amount()));
