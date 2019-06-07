@@ -237,32 +237,26 @@ public class InAppPurchaseInteractor {
   }
 
   private List<PaymentMethod> swapDisabledPositions(List<PaymentMethod> paymentMethods) {
-    int appcoinsPosition = -1;
-    int creditsPosition = -1;
-    boolean appcoinsEnabled = false;
-    boolean creditsEnabled = false;
-    for (int position = 0; position < paymentMethods.size(); position++) {
-      PaymentMethod paymentMethod = paymentMethods.get(position);
-      if (paymentMethod.getId()
-          .equals(paymentMethodsMapper.map("appcoins"))) {
-        appcoinsPosition = position;
-        if (paymentMethod.isEnabled()) appcoinsEnabled = true;
-      } else if (paymentMethod.getId()
-          .equals(paymentMethodsMapper.map("appcoins_credits"))) {
-        creditsPosition = position;
-        if (paymentMethod.isEnabled()) creditsEnabled = true;
+    boolean swapped = false;
+    if (paymentMethods.size() > 1) {
+      for (int position = 1; position < paymentMethods.size(); position++) {
+        if (shouldSwap(paymentMethods, position)) {
+          Collections.swap(paymentMethods, position, position - 1);
+          swapped = true;
+          break;
+        }
       }
-    }
-    if (shouldSwap(appcoinsPosition, creditsPosition, appcoinsEnabled, creditsEnabled)) {
-      Collections.swap(paymentMethods, appcoinsPosition, creditsPosition);
+      if (swapped) {
+        swapDisabledPositions(paymentMethods);
+      }
     }
     return paymentMethods;
   }
 
-  private boolean shouldSwap(int appcoinsPosition, int creditsPosition, boolean appcoinsEnabled,
-      boolean creditsEnabled) {
-    return appcoinsPosition > creditsPosition && appcoinsEnabled && !creditsEnabled
-        || creditsPosition > appcoinsPosition && creditsEnabled && !appcoinsEnabled;
+  private boolean shouldSwap(List<PaymentMethod> paymentMethods, int position) {
+    return paymentMethods.get(position)
+        .isEnabled() && !paymentMethods.get(position - 1)
+        .isEnabled();
   }
 
   private List<PaymentMethodEntity> removeUnavailable(List<PaymentMethodEntity> paymentMethods,
