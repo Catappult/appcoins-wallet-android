@@ -145,7 +145,7 @@ public class BillingWebViewFragment extends DaggerFragment {
 
       @Override public void onPageFinished(WebView view, String url) {
         super.onPageFinished(view, url);
-        if (!url.contains("redirect")) {
+        if (!url.contains("/redirect")) {
           ScheduledFuture<?> timeout = timeoutReference.getAndSet(null);
           if (timeout != null) {
             timeout.cancel(false);
