@@ -203,7 +203,7 @@ public class AdyenAuthorizationPresenter {
   }
 
   private void onViewCreatedCheckAuthorizationActive() {
-    disposables.add(transactionBuilder.flatMap(
+    disposables.add(transactionBuilder.flatMapCompletable(
         transaction -> billingService.getAuthorization(transaction.getSkuId(),
             transaction.toAddress(), developerPayload, origin, convertAmount(currency), currency,
             type, transaction.getCallbackUrl(), transaction.getOrderReference(), appPackage)
@@ -211,14 +211,15 @@ public class AdyenAuthorizationPresenter {
             .firstOrError()
             .flatMap(adyenAuthorization -> createBundle())
             .observeOn(viewScheduler)
-            .doOnSuccess(bundle -> {
+            .flatMapCompletable(bundle -> Completable.fromAction(() -> {
               waitingResult = false;
               sendPaymentEvent();
               sendRevenueEvent();
-              navigator.popView(bundle);
+              view.showSuccess();
             })
-            .doOnSuccess(__ -> view.showSuccess()))
-        .subscribe(__ -> {
+            .andThen(Completable.timer(1, TimeUnit.SECONDS))
+            .andThen(Completable.fromAction(() -> navigator.popView(bundle)))))
+        .subscribe(() -> {
         }, throwable -> showError(throwable)));
   }
 

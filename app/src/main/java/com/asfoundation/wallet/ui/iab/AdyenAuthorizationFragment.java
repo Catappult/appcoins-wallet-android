@@ -102,6 +102,9 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   private PublishRelay<Boolean> backButton;
   private PublishRelay<Boolean> keyboardBuyRelay;
   private FragmentNavigator navigator;
+  private View transactionCompletedLayout;
+  private View creditCardInformationsLayout;
+  private View walletInformationsFooter;
 
   public static AdyenAuthorizationFragment newInstance(String skuId, String type, String origin,
       PaymentType paymentType, String domain, String transactionData, BigDecimal amount,
@@ -153,6 +156,9 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     buyButton = view.findViewById(R.id.buy_button);
     changeCardButton = view.findViewById(R.id.change_card_button);
     cardForm = view.findViewById(R.id.fragment_braintree_credit_card_form);
+    transactionCompletedLayout = view.findViewById(R.id.iab_activity_transaction_completed);
+    creditCardInformationsLayout = view.findViewById(R.id.credit_card_info);
+    walletInformationsFooter = view.findViewById(R.id.layout_wallet_footer);
 
     // removing additional margin top of the credit card form to help in the layout build
     View cardNumberParent = (View) cardForm.findViewById(R.id.bt_card_form_card_number).getParent();
@@ -236,6 +242,9 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     cardForm.setOnCardFormValidListener(null);
     cardForm = null;
     changeCardButton = null;
+    creditCardInformationsLayout = null;
+    walletInformationsFooter = null;
+    transactionCompletedLayout = null;
     super.onDestroyView();
   }
 
@@ -366,7 +375,10 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   }
 
   @Override public void showSuccess() {
-
+    progressBar.setVisibility(View.GONE);
+    creditCardInformationsLayout.setVisibility(View.GONE);
+    walletInformationsFooter.setVisibility(View.GONE);
+    transactionCompletedLayout.setVisibility(View.VISIBLE);
   }
 
   @Override public void showPaymentRefusedError(AdyenAuthorization adyenAuthorization) {
