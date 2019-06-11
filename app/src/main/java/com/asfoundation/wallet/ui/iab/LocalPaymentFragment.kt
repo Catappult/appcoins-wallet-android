@@ -35,7 +35,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     private const val BONUS_KEY = "bonus"
 
     @JvmStatic
-    fun newInstance(domain: String, skudId: String, originalAmount: String?,
+    fun newInstance(domain: String, skudId: String?, originalAmount: String?,
                     currency: String?, bonus: String?,
                     selectedPaymentMethod: String): LocalPaymentFragment {
       val fragment = LocalPaymentFragment()
@@ -58,7 +58,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
       throw IllegalArgumentException("domain data not found")
     }
   }
-  private val skudId: String by lazy {
+  private val skudId: String? by lazy {
     if (arguments!!.containsKey(SKU_ID_KEY)) {
       arguments!!.getString(SKU_ID_KEY)
     } else {

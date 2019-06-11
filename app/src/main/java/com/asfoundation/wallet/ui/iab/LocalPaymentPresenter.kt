@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
+import android.util.Log
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import io.reactivex.Completable
 import io.reactivex.Scheduler
@@ -14,7 +15,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
                             private val originalAmount: String?,
                             private val currency: String?,
                             private val domain: String,
-                            private val skuId: String,
+                            private val skuId: String?,
                             private val paymentId: String,
                             private val localPaymentInteractor: LocalPaymentInteractor,
                             private val navigator: FragmentNavigator,
@@ -44,6 +45,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
         localPaymentInteractor.getPaymentLink(domain, skuId, originalAmount, currency,
             paymentId).filter { !waitingResult }.observeOn(
             viewScheduler).doOnSuccess {
+          Log.d("TAG123", it)
           navigator.navigateToUriForResult(it, "", domain, skuId, null, "")
           waitingResult = true
         }.subscribeOn(networkScheduler).subscribe({ }, { showError(it) }))
