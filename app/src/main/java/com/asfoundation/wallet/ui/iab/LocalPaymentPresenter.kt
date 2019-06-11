@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
 import android.util.Log
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -73,15 +73,15 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
         viewScheduler).doOnNext { view.close() }.subscribe())
   }
 
-  private fun handleTransactionStatus(transactionStatus: Transaction.Status): Completable {
+  private fun handleTransactionStatus(transactionStatus: Status): Completable {
     view.hideLoading()
     return when (transactionStatus) {
-      Transaction.Status.COMPLETED -> {
+      Status.COMPLETED -> {
         Completable.fromAction {
           view.showCompletedPayment()
         }
       }
-      Transaction.Status.PENDING_USER_PAYMENT -> Completable.fromAction {
+      Status.PENDING_USER_PAYMENT -> Completable.fromAction {
         view.showPendingUserPayment()
       }
       else -> Completable.fromAction {

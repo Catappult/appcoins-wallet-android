@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.iab
 
 import android.net.Uri
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.*
 import com.asfoundation.wallet.billing.share.ShareLinkRepository
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import io.reactivex.Observable
@@ -27,8 +28,12 @@ class LocalPaymentInteractor(private val remoteRepository: ShareLinkRepository,
     return inAppPurchaseInteractor.getTransaction(uri.lastPathSegment)
         .map { it.status }
         .filter {
-          it == Transaction.Status.COMPLETED || it == Transaction.Status.PENDING_USER_PAYMENT
+          isEndingState(it)
         }
         .distinctUntilChanged()
+  }
+
+  private fun isEndingState(status: Transaction.Status): Boolean {
+    return status == PENDING_USER_PAYMENT || status == COMPLETED || status == FAILED || status == CANCELED || status == INVALID_TRANSACTION
   }
 }
