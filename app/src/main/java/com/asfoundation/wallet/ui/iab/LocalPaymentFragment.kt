@@ -129,6 +129,11 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    setAnimationText()
+    localPaymentPresenter.present()
+  }
+
+  private fun setAnimationText() {
     val textDelegate = TextDelegate(completed_payment_view.completed_animation)
     textDelegate.setText("bonus_value",
         bonus)
@@ -140,7 +145,6 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
         return Typeface.create("sans-serif-black", Typeface.BOLD)
       }
     })
-    localPaymentPresenter.present()
   }
 
   override fun onDestroyView() {
