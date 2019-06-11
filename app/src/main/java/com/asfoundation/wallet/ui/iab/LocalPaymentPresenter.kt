@@ -74,7 +74,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
   private fun handleTransactionStatus(transactionStatus: Transaction.Status): Completable {
     view.hideLoading()
     return when (transactionStatus) {
-      Transaction.Status.PENDING_USER_PAYMENT -> {
+      Transaction.Status.COMPLETED -> {
         Completable.fromAction {
           view.showCompletedPayment()
         }
