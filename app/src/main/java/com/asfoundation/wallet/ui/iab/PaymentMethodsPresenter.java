@@ -73,6 +73,7 @@ public class PaymentMethodsPresenter {
   public void present(double transactionValue) {
     handleCancelClick();
     handleErrorDismisses();
+    loadBonusIntoView();
     setupUi(transactionValue);
     handleOnGoingPurchases();
     handleBuyClick();
@@ -90,26 +91,25 @@ public class PaymentMethodsPresenter {
             return Completable.fromAction(view::hideBonus)
                 .subscribeOn(viewScheduler);
           } else {
-            return loadBonusIntoView().ignoreElement();
+            return Completable.fromAction(view::showBonus);
           }
         })
         .subscribe());
   }
 
-  private Single<ForecastBonus> loadBonusIntoView() {
-    return gamification.getEarningBonus(transaction.getDomain(), transaction.amount())
+  private void loadBonusIntoView() {
+    disposables.add(gamification.getEarningBonus(transaction.getDomain(), transaction.amount())
         .subscribeOn(networkThread)
         .observeOn(viewScheduler)
         .doOnSuccess(bonus -> {
-          if (!bonus.getStatus()
+          if (bonus.getStatus()
               .equals(ForecastBonus.Status.ACTIVE)
-              || bonus.getAmount()
-              .compareTo(BigDecimal.ZERO) <= 0) {
-            view.hideBonus();
-          } else {
-            view.showBonus(bonus.getAmount(), bonus.getCurrency());
+              && bonus.getAmount()
+              .compareTo(BigDecimal.ZERO) > 0) {
+            view.setBonus(bonus.getAmount(), bonus.getCurrency());
           }
-        });
+        })
+        .subscribe());
   }
 
   private void handleBuyClick() {
@@ -213,14 +213,13 @@ public class PaymentMethodsPresenter {
   private void setupUi(double transactionValue) {
     setWalletAddress();
     disposables.add(inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
-        .flatMapCompletable(fiatValue -> getPaymentMethods(fiatValue).subscribeOn(networkThread)
-            .observeOn(viewScheduler)
+        .flatMapCompletable(fiatValue -> getPaymentMethods(fiatValue).observeOn(viewScheduler)
             .flatMapCompletable(paymentMethods -> Completable.fromAction(
                 () -> view.showPaymentMethods(paymentMethods, fiatValue,
                     TransactionData.TransactionType.DONATION.name()
                         .equalsIgnoreCase(transaction.getType()),
                     mapCurrencyCodeToSymbol(fiatValue.getCurrency())))))
-        .subscribeOn(viewScheduler)
+        .subscribeOn(networkThread)
         .subscribe(() -> {
         }, this::showError));
   }

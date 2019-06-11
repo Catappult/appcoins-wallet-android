@@ -3,16 +3,15 @@ package com.asfoundation.wallet.ui.iab
 import android.os.Bundle
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import io.reactivex.Completable
-import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 
 private val WAITING_RESULT = "WAITING_RESULT"
 private var waitingResult: Boolean = false
 
 
 class LocalPaymentPresenter(private val view: LocalPaymentView,
-                            private val amount: String?,
+                            private val originalAmount: String?,
                             private val currency: String?,
                             private val domain: String,
                             private val skuId: String,
@@ -20,11 +19,13 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
                             private val localPaymentInteractor: LocalPaymentInteractor,
                             private val navigator: FragmentNavigator,
                             private val savedInstance: Bundle?,
+                            private val viewScheduler: Scheduler,
+                            private val networkScheduler: Scheduler,
                             private val disposables: CompositeDisposable) {
 
   fun present() {
     if (savedInstance != null) {
-      waitingResult = savedInstance!!.getBoolean(WAITING_RESULT)
+      waitingResult = savedInstance.getBoolean(WAITING_RESULT)
     }
     onViewCreatedRequestLink()
     handlePaymentRedirect()
@@ -40,12 +41,12 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
 
   private fun onViewCreatedRequestLink() {
     disposables.add(
-        localPaymentInteractor.getPaymentLink(domain, skuId, amount, currency,
+        localPaymentInteractor.getPaymentLink(domain, skuId, originalAmount, currency,
             paymentId).filter { !waitingResult }.observeOn(
-            AndroidSchedulers.mainThread()).doOnSuccess {
+            viewScheduler).doOnSuccess {
           navigator.navigateToUriForResult(it, "", domain, skuId, null, "")
           waitingResult = true
-        }.subscribeOn(Schedulers.io()).subscribe({ }, { showError(it) }))
+        }.subscribeOn(networkScheduler).subscribe({ }, { showError(it) }))
   }
 
   private fun handlePaymentRedirect() {
@@ -55,26 +56,27 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
         }.flatMap {
           localPaymentInteractor.getTransaction(it)
         }
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(viewScheduler)
             .flatMapCompletable { handleTransactionStatus(it) }
             .subscribe({ }, { showError(it) }))
   }
 
   private fun handleOkErrorButtonClick() {
     disposables.add(view.getOkErrorClick().observeOn(
-        AndroidSchedulers.mainThread()).doOnNext { view.dismissError() }.subscribe())
+        viewScheduler).doOnNext { view.dismissError() }.subscribe())
   }
 
   private fun handleOkBuyButtonClick() {
     disposables.add(view.getOkBuyClick().observeOn(
-        AndroidSchedulers.mainThread()).doOnNext { view.close() }.subscribe())
+        viewScheduler).doOnNext { view.close() }.subscribe())
   }
 
   private fun handleTransactionStatus(transactionStatus: Transaction.Status): Completable {
+    view.hideLoading()
     return when (transactionStatus) {
-      Transaction.Status.COMPLETED -> {
+      Transaction.Status.PENDING_USER_PAYMENT -> {
         Completable.fromAction {
-          view.hideLoading()
+          view.showCompletedPayment()
         }
       }
       Transaction.Status.PENDING_USER_PAYMENT -> Completable.fromAction {
@@ -94,6 +96,5 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
   fun onSaveInstanceState(outState: Bundle) {
     outState.putBoolean(WAITING_RESULT, waitingResult)
   }
-
 }
 

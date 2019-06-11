@@ -98,6 +98,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private TransactionBuilder transaction;
   private double transactionValue;
   private String currency;
+  private String bonusMessageValue;
   private TextView appcPriceTv;
   private TextView fiatPriceTv;
   private TextView appNameTv;
@@ -110,6 +111,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private View bonusView;
   private View bonusMsg;
   private TextView bonusValue;
+  private boolean showBonus;
 
   public static Fragment newInstance(TransactionBuilder transaction, String productName,
       boolean isBds, String developerPayload, String uri) {
@@ -126,7 +128,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     return fragment;
   }
 
-  public static String serializeJson(Purchase purchase) throws IOException {
+  private static String serializeJson(Purchase purchase) throws IOException {
     ObjectMapper objectMapper = new ObjectMapper();
     DeveloperPurchase developerPurchase = objectMapper.readValue(new Gson().toJson(
         purchase.getSignature()
@@ -386,18 +388,11 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     bonusMsg.setVisibility(View.INVISIBLE);
   }
 
-  @Override public void showBonus(@NotNull BigDecimal bonus, String currency) {
-    BigDecimal scaledBonus = bonus.stripTrailingZeros()
-        .setScale(2, BigDecimal.ROUND_DOWN);
-    if (scaledBonus.compareTo(new BigDecimal(0.01)) < 0) {
-      currency = "~" + currency;
+  @Override public void showBonus() {
+    if (showBonus) {
+      bonusView.setVisibility(View.VISIBLE);
+      bonusMsg.setVisibility(View.VISIBLE);
     }
-    scaledBonus = scaledBonus.max(new BigDecimal("0.01"));
-
-    bonusValue.setText(getString(R.string.gamification_purchase_header_part_2,
-        currency + scaledBonus.toPlainString()));
-    bonusView.setVisibility(View.VISIBLE);
-    bonusMsg.setVisibility(View.VISIBLE);
   }
 
   @NotNull @Override public Observable<SelectedPaymentMethod> getPaymentSelection() {
@@ -411,7 +406,20 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         .equalsIgnoreCase("INAPP_UNMANAGED");
     iabView.showLocalPayment(transaction.getDomain(), transaction.getSkuId(),
         isOneStep ? transaction.getOriginalOneStepValue() : null,
-        isOneStep ? transaction.getOriginalOneStepCurrency() : null, selectedPaymentMethod);
+        isOneStep ? transaction.getOriginalOneStepCurrency() : null, bonusMessageValue,
+        selectedPaymentMethod);
+  }
+
+  @Override public void setBonus(@NotNull BigDecimal bonus, String currency) {
+    BigDecimal scaledBonus = bonus.stripTrailingZeros()
+        .setScale(2, BigDecimal.ROUND_DOWN);
+    if (scaledBonus.compareTo(new BigDecimal(0.01)) < 0) {
+      currency = "~" + currency;
+    }
+    scaledBonus = scaledBonus.max(new BigDecimal("0.01"));
+    bonusMessageValue = currency + scaledBonus.toPlainString();
+    showBonus = true;
+    bonusValue.setText(getString(R.string.gamification_purchase_header_part_2, bonusMessageValue));
   }
 
   private void loadIcons(PaymentMethod paymentMethod, RadioButton radioButton, boolean showNew) {
