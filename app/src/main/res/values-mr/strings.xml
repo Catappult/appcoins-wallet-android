@@ -300,6 +300,7 @@
   <string name="gamification_purchase_header_part_1">खरेदी बोनस:</string>
   <string name="gamification_purchase_header_part_2">%s एपीपीसी क्रेडीटस</string>
   <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
+  <string name="gamification_purchase_completed_bonus_received">Bonus Received</string>
   <string name="action_level">माझी पातळी</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">आपला वॉलेट पत्ता %s ला पुरविण्यासाठी अॅपकॉइन्स वॉलेटला परवानगी द्या.</string>
