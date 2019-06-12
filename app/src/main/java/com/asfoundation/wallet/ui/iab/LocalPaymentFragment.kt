@@ -6,10 +6,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.asf.wallet.R
 import com.asfoundation.wallet.navigator.UriNavigator
+import com.asfoundation.wallet.ui.iab.LocalPaymentView.ViewState
+import com.asfoundation.wallet.ui.iab.LocalPaymentView.ViewState.*
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -33,6 +36,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     private const val CURRENCY_KEY = "currency"
     private const val PAYMENT_KEY = "payment_name"
     private const val BONUS_KEY = "bonus"
+    private const val STATUS_KEY = "status"
 
     @JvmStatic
     fun newInstance(domain: String, skudId: String?, originalAmount: String?,
@@ -103,10 +107,12 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   private lateinit var iabView: IabView
   private lateinit var navigator: FragmentNavigator
   private lateinit var localPaymentPresenter: LocalPaymentPresenter
+  private lateinit var status: ViewState
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     navigator = FragmentNavigator(activity as UriNavigator?, iabView)
+    status = NONE
     localPaymentPresenter =
         LocalPaymentPresenter(this, originalAmount, currency, domain, skudId,
             paymentId, localPaymentInteractor, navigator,
@@ -114,8 +120,10 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
             CompositeDisposable())
   }
 
+
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
+    outState.putSerializable(STATUS_KEY, status)
     localPaymentPresenter.onSaveInstanceState(outState)
   }
 
@@ -131,6 +139,25 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     super.onViewCreated(view, savedInstanceState)
     setAnimationText()
     localPaymentPresenter.present()
+  }
+
+  override fun onViewStateRestored(savedInstanceState: Bundle?) {
+    if (savedInstanceState?.get(STATUS_KEY) != null) {
+      status = savedInstanceState.get(STATUS_KEY) as ViewState
+      setViewState(savedInstanceState.get(STATUS_KEY) as ViewState)
+    }
+    super.onViewStateRestored(savedInstanceState)
+  }
+
+  private fun setViewState(viewState: ViewState?) {
+    when (viewState) {
+      COMPLETED -> showCompletedPayment()
+      PENDING_USER_PAYMENT -> showPendingUserPayment()
+      ERROR -> showError()
+      LOADING -> showProcessingLoading()
+      else -> {
+      }
+    }
   }
 
   private fun setAnimationText() {
@@ -167,6 +194,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   }
 
   override fun showProcessingLoading() {
+    status = LOADING
     progress_bar.visibility = View.VISIBLE
     error_view.visibility = View.GONE
     pending_user_payment_view.visibility = View.GONE
@@ -181,15 +209,31 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   }
 
   override fun showCompletedPayment() {
+    status = COMPLETED
     progress_bar.visibility = View.GONE
     error_view.visibility = View.GONE
     pending_user_payment_view.in_progress_animation.cancelAnimation()
     pending_user_payment_view.visibility = View.GONE
     completed_payment_view.visibility = View.VISIBLE
     completed_payment_view.completed_animation.playAnimation()
+    completed_payment_view.completed_animation.animation.setAnimationListener(object :
+        Animation.AnimationListener {
+      override fun onAnimationRepeat(animation: Animation?) {
+      }
+
+      override fun onAnimationEnd(animation: Animation?) {
+        close()
+      }
+
+      override fun onAnimationStart(animation: Animation?) {
+      }
+
+    })
+
   }
 
   override fun showPendingUserPayment() {
+    status = PENDING_USER_PAYMENT
     pending_user_payment_view.visibility = View.VISIBLE
     pending_user_payment_view.in_progress_animation.playAnimation()
     progress_bar.visibility = View.GONE
@@ -197,6 +241,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   }
 
   override fun showError() {
+    status = ERROR
     pending_user_payment_view.visibility = View.GONE
     pending_user_payment_view.in_progress_animation.cancelAnimation()
     completed_payment_view.visibility = View.GONE
@@ -206,11 +251,13 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   }
 
   override fun dismissError() {
+    status = NONE
     error_view.visibility = View.GONE
     iabView.showError()
   }
 
   override fun close() {
+    status = NONE
     progress_bar.visibility = View.GONE
     error_view.visibility = View.GONE
     pending_user_payment_view.in_progress_animation.cancelAnimation()

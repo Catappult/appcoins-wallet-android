@@ -12,4 +12,8 @@ interface LocalPaymentView {
   fun getOkErrorClick(): Observable<Any>
   fun getOkBuyClick(): Observable<Any>
   fun close()
+
+  enum class ViewState {
+    NONE, COMPLETED, PENDING_USER_PAYMENT, ERROR, LOADING
+  }
 }
