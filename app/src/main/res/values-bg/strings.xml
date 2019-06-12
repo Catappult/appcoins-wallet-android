@@ -300,8 +300,10 @@
   <string name="gamification_purchase_header_part_1">Бонус от покупката:</string>
   <string name="gamification_purchase_header_part_2">%s APPC Credits</string>
   <string name="gamification_purchase_body">Можеш да използваш този бонус при следващата си покупка.</string>
+  <string name="gamification_purchase_completed_bonus_received_done">Done!</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus Received</string>
   <string name="action_level">Моето ниво</string>
+  <string name="gamification_purchase_appccredits_body">The quickest payment method!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Позволи на AppCoins портфейла да предоставите твоя портфейл адрес на %s.</string>
   <string name="provide_wallet_body_placeholders">Позволи на %1$s да предостави твоя портфейл адрес на %2$s.</string>
@@ -321,7 +323,7 @@
   <string name="topup_amount">%s APPC-C</string>
   <string name="topup_bonus_header">Получи Бонус!</string>
   <string name="topup_bonus_message">%s допълнителни APPC кредита ще бъдат кредитирани в портфейла ти.</string>
-  <string name="topup_completed_1">%1$s %1$s in AppCoins Credits</string>
+  <string name="topup_completed_1">%s in AppCoins Credits</string>
   <string name="topup_completed_2">were deposited in your account... Along with a bonus!</string>
   <string name="topup_bonus_header_part_1">Top-Up Bonus:</string>
   <string name="topup_bonus_header_part_2">%s in APPC Credits</string>
