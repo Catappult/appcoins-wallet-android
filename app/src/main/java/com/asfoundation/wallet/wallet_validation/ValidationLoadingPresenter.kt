@@ -3,10 +3,8 @@ package com.asfoundation.wallet.wallet_validation
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.SmsValidationInteract
-import com.asfoundation.wallet.repository.SmsValidationRepository
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
-import retrofit2.HttpException
 import java.util.concurrent.TimeUnit
 
 class ValidationLoadingPresenter(
@@ -40,30 +38,25 @@ class ValidationLoadingPresenter(
             .doOnSubscribe { view.show() }
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
-            .subscribe(
-                {
-                  when (it) {
-                    SmsValidationRepository.Status.VERIFIED -> activity?.showSuccess()
-                    else -> handleError(null)
-                  }
-                },
-                {
-                  handleError(it)
-                }
-            )
+            .subscribe { status ->
+              handleNext(status)
+            }
     )
   }
 
-  private fun handleError(throwable: Throwable?) {
-    var errorMessage: Int = R.string.unknown_error
-
-    if (throwable is HttpException) {
-      errorMessage = when (throwable.code()) {
-        400 -> R.string.wallet_validation_code_invalid
-        429 -> R.string.wallet_validation_many_requests
-        else -> R.string.unknown_error
-      }
+  private fun handleNext(status: WalletValidationStatus) {
+    when (status) {
+      WalletValidationStatus.SUCCESS -> activity?.showSuccess()
+      WalletValidationStatus.INVALID_INPUT,
+      WalletValidationStatus.INVALID_PHONE -> handleError(
+          R.string.wallet_validation_phone_number_invalid)
+      WalletValidationStatus.DOUBLE_SPENT -> handleError(
+          R.string.wallet_validation_used_phone)
+      WalletValidationStatus.GENERIC_ERROR -> handleError(R.string.unknown_error)
     }
+  }
+
+  private fun handleError(errorMessage: Int) {
     activity?.showCodeValidationView(validationInfo, errorMessage)
   }
 

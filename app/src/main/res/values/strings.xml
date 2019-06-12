@@ -411,6 +411,7 @@
   <string name="wallet_validation_phone_number">Phone Number</string>
   <string name="wallet_validation_phone_number_invalid">Invalid phone number</string>
   <string name="wallet_validation_many_requests">Too many requests</string>
+  <string name="wallet_validation_used_phone">Phone already used</string>
   <string name="wallet_validation_disclaimer">This is only for security reasons, we don\'t store any personal data.</string>
   <string name="wallet_validation_code_title">Insert your verification code</string>
   <string name="wallet_validation_code_resend">Resend code</string>

@@ -6,7 +6,6 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
-import retrofit2.HttpException
 
 class PhoneValidationPresenter(
     private val view: PhoneValidationView,
@@ -42,26 +41,30 @@ class PhoneValidationPresenter(
               smsValidationInteract.requestValidationCode("+${it.first}${it.second}")
                   .subscribeOn(networkScheduler)
                   .observeOn(viewScheduler)
-                  .doOnSuccess { _ -> activity?.showCodeValidationView(it.first, it.second) }
+                  .doOnSuccess { status ->
+                    onSuccess(status, it)
+                  }
             }
-            .doOnError { handleError(it) }
             .retry()
             .subscribe { }
     )
   }
 
-  private fun handleError(throwable: Throwable?) {
-    view.setButtonState(false)
-
-    var errorMessage: Int = R.string.unknown_error
-
-    if (throwable is HttpException) {
-      errorMessage = when (throwable.code()) {
-        400 -> R.string.wallet_validation_phone_number_invalid
-        429 -> R.string.wallet_validation_many_requests
-        else -> R.string.unknown_error
-      }
+  private fun onSuccess(status: WalletValidationStatus, submitInfo: Pair<String, String>) {
+    when (status) {
+      WalletValidationStatus.SUCCESS -> activity?.showCodeValidationView(submitInfo.first,
+          submitInfo.second)
+      WalletValidationStatus.INVALID_INPUT,
+      WalletValidationStatus.INVALID_PHONE -> handleError(
+          R.string.wallet_validation_phone_number_invalid)
+      WalletValidationStatus.DOUBLE_SPENT -> handleError(
+          R.string.wallet_validation_used_phone)
+      WalletValidationStatus.GENERIC_ERROR -> handleError(R.string.unknown_error)
     }
+  }
+
+  private fun handleError(errorMessage: Int) {
+    view.setButtonState(false)
     view.setError(errorMessage)
   }
 

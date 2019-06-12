@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.service
 
-import com.asfoundation.wallet.entity.ValidationCodeResponse
+import com.asfoundation.wallet.entity.WalletRequestCodeResponse
 import com.asfoundation.wallet.entity.WalletStatus
 import io.reactivex.Single
 import retrofit2.http.Field
@@ -16,7 +16,7 @@ interface SmsValidationApi {
 
   @FormUrlEncoded
   @POST("transaction/request_code")
-  fun requestValidationCode(@Field("phone") phoneNumber: String): Single<ValidationCodeResponse>
+  fun requestValidationCode(@Field("phone") phoneNumber: String): Single<WalletRequestCodeResponse>
 
   @FormUrlEncoded
   @POST("transaction/verify_code")
