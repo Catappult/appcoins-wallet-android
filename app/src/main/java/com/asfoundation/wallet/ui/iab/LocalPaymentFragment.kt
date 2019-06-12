@@ -1,12 +1,12 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.animation.Animator
 import android.content.Context
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.asf.wallet.R
@@ -216,18 +216,20 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     pending_user_payment_view.visibility = View.GONE
     completed_payment_view.visibility = View.VISIBLE
     completed_payment_view.completed_animation.playAnimation()
-    completed_payment_view.completed_animation.animation.setAnimationListener(object :
-        Animation.AnimationListener {
-      override fun onAnimationRepeat(animation: Animation?) {
+    completed_payment_view.completed_animation.addAnimatorListener(object :
+        Animator.AnimatorListener {
+      override fun onAnimationRepeat(animation: Animator?) {
       }
 
-      override fun onAnimationEnd(animation: Animation?) {
+      override fun onAnimationEnd(animation: Animator?) {
         close()
       }
 
-      override fun onAnimationStart(animation: Animation?) {
+      override fun onAnimationCancel(animation: Animator?) {
       }
 
+      override fun onAnimationStart(animation: Animator?) {
+      }
     })
 
   }
