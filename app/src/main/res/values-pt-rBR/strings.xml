@@ -300,8 +300,10 @@
   <string name="gamification_purchase_header_part_1">Bônus de Compra:</string>
   <string name="gamification_purchase_header_part_2">%s em Créditos APPC</string>
   <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
+  <string name="gamification_purchase_completed_bonus_received_done">Done!</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus Received</string>
   <string name="action_level">Meu Nível</string>
+  <string name="gamification_purchase_appccredits_body">The quickest payment method!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Permitir que a AppCoins Wallet forneça o endereço de sua wallet para %s.</string>
   <string name="provide_wallet_body_placeholders">Permitir que a %1$s forneça o endereço da sua wallet para %2$s.</string>
@@ -321,7 +323,7 @@
   <string name="topup_amount">%s APPC-C</string>
   <string name="topup_bonus_header">Você recebeu um bônus!</string>
   <string name="topup_bonus_message">%s APPC-C extras serão creditados em sua wallet.</string>
-  <string name="topup_completed_1">%1$s %1$s in AppCoins Credits</string>
+  <string name="topup_completed_1">%s in AppCoins Credits</string>
   <string name="topup_completed_2">were deposited in your account... Along with a bonus!</string>
   <string name="topup_bonus_header_part_1">Top-Up Bonus:</string>
   <string name="topup_bonus_header_part_2">%s in APPC Credits</string>
