@@ -300,8 +300,10 @@
   <string name="gamification_purchase_header_part_1">खरेदी बोनस:</string>
   <string name="gamification_purchase_header_part_2">%s एपीपीसी क्रेडीटस</string>
   <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
+  <string name="gamification_purchase_completed_bonus_received_done">Done!</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus Received</string>
   <string name="action_level">माझी पातळी</string>
+  <string name="gamification_purchase_appccredits_body">The quickest payment method!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">आपला वॉलेट पत्ता %s ला पुरविण्यासाठी अॅपकॉइन्स वॉलेटला परवानगी द्या.</string>
   <string name="provide_wallet_body_placeholders">आपला वॉलेट पत्ता %2$s ला पुरविण्यासाठी %1$s ला परवानगी द्या.</string>
@@ -321,7 +323,7 @@
   <string name="topup_amount">%s एपीपीसी-सी</string>
   <string name="topup_bonus_header">आपल्याला बोनस मिळाला आहे!</string>
   <string name="topup_bonus_message">जास्त %s एपीपीसी-सी आपल्या वॉलेटमध्ये जमा केले जातील.</string>
-  <string name="topup_completed_1">%1$s %1$s in AppCoins Credits</string>
+  <string name="topup_completed_1">%s in AppCoins Credits</string>
   <string name="topup_completed_2">were deposited in your account... Along with a bonus!</string>
   <string name="topup_bonus_header_part_1">Top-Up Bonus:</string>
   <string name="topup_bonus_header_part_2">%s in APPC Credits</string>
