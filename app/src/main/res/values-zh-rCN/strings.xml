@@ -300,6 +300,7 @@
   <string name="gamification_purchase_header_part_1">购买奖励：</string>
   <string name="gamification_purchase_header_part_2">%s APPC积金</string>
   <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
+  <string name="gamification_purchase_completed_bonus_received">Bonus Received</string>
   <string name="action_level">我的等级</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">允许AppCoins Wallet向%s提供你的钱包地址。</string>
