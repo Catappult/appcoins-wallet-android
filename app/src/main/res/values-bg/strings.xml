@@ -300,6 +300,7 @@
   <string name="gamification_purchase_header_part_1">Бонус от покупката:</string>
   <string name="gamification_purchase_header_part_2">%s APPC Credits</string>
   <string name="gamification_purchase_body">Можеш да използваш този бонус при следващата си покупка.</string>
+  <string name="gamification_purchase_completed_bonus_received">Bonus Received</string>
   <string name="action_level">Моето ниво</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Позволи на AppCoins портфейла да предоставите твоя портфейл адрес на %s.</string>
