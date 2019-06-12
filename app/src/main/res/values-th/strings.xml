@@ -300,8 +300,10 @@
   <string name="gamification_purchase_header_part_1">โบนัสการซื้อ</string>
   <string name="gamification_purchase_header_part_2">%s ในเครดิต APPC</string>
   <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
+  <string name="gamification_purchase_completed_bonus_received_done">Done!</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus Received</string>
   <string name="action_level">ระดับของฉัน</string>
+  <string name="gamification_purchase_appccredits_body">The quickest payment method!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">อนุญาตให้ AppCoins กระเป๋าเพื่อให้กระเป๋าสตางค์ที่อยู่ %s</string>
   <string name="provide_wallet_body_placeholders">Allow %1$s to provide your wallet address to %2$s.</string>
@@ -321,7 +323,7 @@
   <string name="topup_amount">%s APPC-C</string>
   <string name="topup_bonus_header">คุณได้รับโบนัส</string>
   <string name="topup_bonus_message">เครดิต %s APPC=C จะถูกเก็บเป็นเครดิตในกระเป๋าสตางค์ของคุณ.</string>
-  <string name="topup_completed_1">%1$s %1$s in AppCoins Credits</string>
+  <string name="topup_completed_1">%s in AppCoins Credits</string>
   <string name="topup_completed_2">were deposited in your account... Along with a bonus!</string>
   <string name="topup_bonus_header_part_1">Top-Up Bonus:</string>
   <string name="topup_bonus_header_part_2">%s in APPC Credits</string>
