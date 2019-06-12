@@ -300,8 +300,10 @@
   <string name="gamification_purchase_header_part_1">ਖਰੀਦ ਦਾ ਬੋਨਸ:</string>
   <string name="gamification_purchase_header_part_2">%s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ</string>
   <string name="gamification_purchase_body">ਤੁਸੀਂ ਇਸ ਬੋਨਸ ਨੂੰ ਆਪਣੀ ਅਗਲੀ ਖਰੀਦ ਵਿਚ ਵਰਤ ਸਕਦੇ ਹੋ|</string>
+  <string name="gamification_purchase_completed_bonus_received_done">Done!</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus Received</string>
   <string name="action_level">ਮੇਰਾ ਪੱਧਰ</string>
+  <string name="gamification_purchase_appccredits_body">The quickest payment method!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ %s ਨੂੰ ਬਟੂਏ ਦਾ ਪਤਾ ਦੱਸਣ ਦੀ ਆਗਿਆ ਦਿਓ|</string>
   <string name="provide_wallet_body_placeholders">%1$s ਬਟੂਏ ਨੂੰ %2$s ਨੂੰ ਬਟੂਏ ਦਾ ਪਤਾ ਦੱਸਣ ਦੀ ਆਗਿਆ ਦਿਓ|</string>
@@ -321,7 +323,7 @@
   <string name="topup_amount">%s ਐਪ ਸਿੱਕੇ</string>
   <string name="topup_bonus_header">ਤੁਹਾਨੂੰ ਇੱਕ ਬੋਨਸ ਮਿਲਿਆ ਹੈ!</string>
   <string name="topup_bonus_message">%s ਵੱਧ ਐਪ ਸਿੱਕੇ-ਕ੍ਰੈਡਿਟ ਤੁਹਾਡੇ ਬਟੂਏ ਵਿੱਚ ਪਾਏ ਜਾਣਗੇ</string>
-  <string name="topup_completed_1">%1$s %1$s in AppCoins Credits</string>
+  <string name="topup_completed_1">%s in AppCoins Credits</string>
   <string name="topup_completed_2">were deposited in your account... Along with a bonus!</string>
   <string name="topup_bonus_header_part_1">Top-Up Bonus:</string>
   <string name="topup_bonus_header_part_2">%s in APPC Credits</string>
