@@ -300,6 +300,7 @@
   <string name="gamification_purchase_header_part_1">مكافأة للمشتريات:</string>
   <string name="gamification_purchase_header_part_2">%s في رصيد APPC</string>
   <string name="gamification_purchase_body">يمكنك استخدام هذه المكافأة في عملية الشراء القادمة.</string>
+  <string name="gamification_purchase_completed_bonus_received">Bonus Received</string>
   <string name="action_level">مستواي</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">اسمح لمحفظة AppCoins بإعطاء عنوان محفظتك إلى %s.</string>
