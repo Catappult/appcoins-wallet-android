@@ -55,7 +55,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
           view.showProcessingLoading()
         }.flatMap {
           localPaymentInteractor.getTransaction(it)
-        }
+        }.firstElement()
             .observeOn(viewScheduler)
             .flatMapCompletable { handleTransactionStatus(it) }
             .subscribe({ }, { showError(it) }))

@@ -208,7 +208,7 @@ public class InAppPurchaseInteractor {
         .firstOrError();
   }
 
-  public Single<List<PaymentMethodEntity>> getAvailablePaymentMethods(
+  private Single<List<PaymentMethodEntity>> getAvailablePaymentMethods(
       TransactionBuilder transaction, List<PaymentMethodEntity> paymentMethods) {
     return getFilteredGateways(transaction).map(
         filteredGateways -> removeUnavailable(paymentMethods, filteredGateways));
