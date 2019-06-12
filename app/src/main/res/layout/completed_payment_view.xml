@@ -15,7 +15,7 @@
       android:layout_marginTop="32dp"
       android:fontFamily="sans-serif-medium"
       android:gravity="center_horizontal"
-      android:text="Done!"
+      android:text="@string/verification_completed_title"
       android:textColor="@color/black_87_alpha"
       android:textSize="16sp"
       app:layout_constraintEnd_toEndOf="parent"

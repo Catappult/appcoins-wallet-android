@@ -165,7 +165,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     textDelegate.setText("bonus_value",
         bonus)
     textDelegate.setText("bonus_received",
-        "Bonus Received") //TODO change when we have string
+        resources.getString(R.string.gamification_purchase_completed_bonus_received))
     completed_payment_view.completed_animation.setTextDelegate(textDelegate)
     completed_payment_view.completed_animation.setFontAssetDelegate(object : FontAssetDelegate() {
       override fun fetchFont(fontFamily: String?): Typeface {
