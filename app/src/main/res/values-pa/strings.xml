@@ -320,8 +320,11 @@
   <string name="topup_amount">%s ਐਪ ਸਿੱਕੇ</string>
   <string name="topup_bonus_header">ਤੁਹਾਨੂੰ ਇੱਕ ਬੋਨਸ ਮਿਲਿਆ ਹੈ!</string>
   <string name="topup_bonus_message">%s ਵੱਧ ਐਪ ਸਿੱਕੇ-ਕ੍ਰੈਡਿਟ ਤੁਹਾਡੇ ਬਟੂਏ ਵਿੱਚ ਪਾਏ ਜਾਣਗੇ</string>
-  <string name="topup_completed_1">%1$s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ</string>
-  <string name="topup_completed_2">ਤੁਹਾਡੇ ਖਾਤੇ ਵਿੱਚ ਪਾਏ ਗਏ|</string>
+  <string name="topup_completed_1">%1$s %1$s in AppCoins Credits</string>
+  <string name="topup_completed_2">were deposited in your account... Along with a bonus!</string>
+  <string name="topup_bonus_header_part_1">Top-Up Bonus:</string>
+  <string name="topup_bonus_header_part_2">%s in APPC Credits</string>
+  <string name="topup_bonus_body">You can use this bonus in your next purchase.</string>
   <!--Balance-->
   <string name="balance_title">ਰਕਮ</string>
   <string name="balance_total_body">%s ਵਿੱਚ ਕੁੱਲ ਰਕਮ</string>
@@ -356,6 +359,11 @@
   <string name="error_general">ਕੁੱਝ ਗਲਤ ਹੋ ਗਿਆ</string>
   <string name="error_missing_field">ਜ਼ਰੂਰੀ ਫੀਲਡ</string>
   <string name="cancel_button">ਕੈਂਸਲ</string>
+  <string name="submit_button">Submit</string>
+  <string name="close_button">Close</string>
+  <string name="back_button">Back</string>
+  <string name="value_fiat">%1$s%2$s</string>
+  <string name="value_crypto">%1$s %2$s</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ਮੈਂ ਐਪ ਸਿੱਕੇ ਬਟੂਏ %1$s ਅਤੇ %2$s ਨਾਲ ਸਹਿਮਤ ਹਾਂ|</string>
   <string name="terms_and_conditions_error">ਜਾਰੀ ਰੱਖਣ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਿਯਮਾਂ ਅਤੇ ਸ਼ਰਤਾਂ ਅਤੇ ਨੀਜੀ ਨੀਤੀ ਨੂੰ ਸਵੀਕਾਰ ਕਰੋ</string>
@@ -365,4 +373,25 @@
   <string name="home_empty_discover_apps_body">ਵਧੀਆ ਐਂਡਰਾਇਡ ਐਪਾਂ ਤੁਹਾਡੀ ਉਡੀਕ ਕਰ ਰਹੀਆਂ ਹਨ|</string>
   <string name="home_empty_discover_apps_button">ਵਧੀਆ ਐਪਸ ਲੱਭੋ</string>
   <!--Tokens-->
+  <!--Local Payments-->
+  <string name="local_payments_inprogress_header">In progress&#8230;</string>
+  <string name="local_payments_inprogress_body">Complete your payment and, once you get the AppCoins Credits in your wallet, make the purchase!</string>
+  <!--Wallet Verification-->
+  <string name="verification_notification_verification_needed_title">Reward ready but verification needed</string>
+  <string name="verification_notification_verification_needed_body">For security reasons, we need to verify your wallet with a SMS code.</string>
+  <string name="verification_insert_phone_title">Insert your phone number</string>
+  <string name="verification_insert_phone_body">We\'ll send you a verification code.</string>
+  <string name="verification_insert_phone_field_country">Country</string>
+  <string name="verification_insert_phone_field_number">Phone Number</string>
+  <string name="verification_insert_phone_field_number_error">Invalid phone number</string>
+  <string name="verification_insert_phone_security_disclaimer">This is only for security reasons, we don\'t store any personal data.</string>
+  <string name="verification_notification_code_title">AppCoins Wallet</string>
+  <string name="verification_notification_code_body">Your verification code is %s. Use it to verify your AppCoins Wallet address.</string>
+  <string name="verification_insert_code_title">Insert your verification code</string>
+  <string name="verification_insert_code_error">Invalid code</string>
+  <string name="verification_insert_code_resend_button">RESEND CODE</string>
+  <string name="verification_validating_title">Validating your code&#8230;</string>
+  <string name="verification_completed_title">Done!</string>
+  <string name="verification_notification_reward_received_body">Reward received, enjoy! 👌</string>
+  <string name="verification_notification_reward_already_received_body">This phone number has already been used to receive this reward 😔</string>
 </resources>
