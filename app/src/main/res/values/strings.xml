@@ -18,6 +18,8 @@
   <string name="action_settings">Settings</string>
   <string name="title_account_list">Wallets</string>
   <string name="cancel">cancel</string>
+  <string name="back">back</string>
+  <string name="submit">Submit</string>
   <string name="confirm_delete_account">Make sure that you have a backup of this wallet.</string>
   <string name="action_import">Import</string>
   <string name="copy">Copy to clipboard</string>
@@ -105,7 +107,7 @@
   <string name="toast_message_wallet_exported">A backup was created</string>
   <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
-  
+
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins Wallet</string>
   <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
@@ -221,6 +223,8 @@
   <string name="notification_already_rewarded_poa">You were already rewarded in this campaign</string>
   <string name="notification_submit_error_poa">Sorry, there was an error. Try again!</string>
   <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
+  <string name="notification_verification_needed_title">Reward ready but verification needed</string>
+  <string name="notification_verification_needed_details">For security reasons, we need to verify your wallet using a SMS code</string>
 
   <!-- transaction details -->
   <string name="transaction_status_success">Success</string>
@@ -387,11 +391,11 @@
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
   <string name="terms_and_conditions">Terms and Conditions</string>
   <string name="privacy_policy">Privacy Policy</string>
-  
+
   <!--Home-->
   <string name="home_empty_discover_apps_body">The best Android apps are waiting for you.</string>
   <string name="home_empty_discover_apps_button">DISCOVER TOP APPS</string>
-  
+
   <!--Tokens-->
   <string name="appc_token_name" translatable="false">AppCoins</string>
   <string name="appc_credits_token_name" translatable="false">AppCoins Credits</string>
@@ -399,5 +403,19 @@
 
   <!--Settings-->
   <string name="title_redeem">Redeem Code</string>
+
+  <!-- Wallet Validation  -->
+  <string name="wallet_validation_phone_title">Insert your phone number</string>
+  <string name="wallet_validation_phone_subtitle">We\'ll send you a verification code</string>
+  <string name="wallet_validation_country_code">Country</string>
+  <string name="wallet_validation_phone_number">Phone Number</string>
+  <string name="wallet_validation_phone_number_invalid">Invalid phone number</string>
+  <string name="wallet_validation_many_requests">Too many requests</string>
+  <string name="wallet_validation_disclaimer">This is only for security reasons, we don\'t store any personal data.</string>
+  <string name="wallet_validation_code_title">Insert your verification code</string>
+  <string name="wallet_validation_code_resend">Resend code</string>
+  <string name="wallet_validation_code_invalid">Invalid code</string>
+  <string name="wallet_validation_validating_title">Validating your verification code</string>
+  <string name="wallet_validation_done">Done!</string>
 
 </resources>

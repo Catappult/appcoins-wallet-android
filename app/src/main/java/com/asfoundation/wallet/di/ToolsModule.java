@@ -920,6 +920,6 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides SmsValidationInteract provideSmsValidationInteract(
       SmsValidationRepositoryType smsValidationRepository) {
-    return new SmsValidationInteract(smsValidationRepository, Schedulers.io());
+    return new SmsValidationInteract(smsValidationRepository);
   }
 }

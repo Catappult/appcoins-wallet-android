@@ -58,6 +58,7 @@ project.ext {
   ethereumjSdkVersion = "0.5.0.0"
   jacksonVersion = "2.9.6"
   lottieVersion = "2.7.0"
+  libphonenumberVersion = "8.10.13"
 }
 
 task clean(type: Delete) {

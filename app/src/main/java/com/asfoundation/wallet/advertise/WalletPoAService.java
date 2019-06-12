@@ -23,6 +23,7 @@ import com.asfoundation.wallet.poa.ProofStatus;
 import com.asfoundation.wallet.poa.ProofSubmissionFeeData;
 import com.asfoundation.wallet.repository.WrongNetworkException;
 import com.asfoundation.wallet.ui.TransactionsActivity;
+import com.asfoundation.wallet.wallet_validation.WalletValidationActivity;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
@@ -48,6 +49,8 @@ import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_WALLET_PA
 public class WalletPoAService extends Service {
 
   public static final int SERVICE_ID = 77784;
+  public static final int VERIFICATION_SERVICE_ID = 77785;
+
   static final String TAG = WalletPoAService.class.getSimpleName();
   /**
    * Target we publish for clients to send messages to IncomingHandler.Note
@@ -266,6 +269,10 @@ public class WalletPoAService extends Service {
                 progress, progress == 0 || progress == 100)
                 .build());
         break;
+      case PHONE_NOT_VERIFIED:
+        notificationManager.notify(VERIFICATION_SERVICE_ID,
+            createVerificationNotification().build());
+        break;
     }
 
     if (proof.getProofStatus()
@@ -313,6 +320,37 @@ public class WalletPoAService extends Service {
         .setSmallIcon(R.drawable.ic_launcher_foreground)
         .setPriority(NotificationCompat.PRIORITY_MAX)
         .setContentText(getString(notificationText));
+  }
+
+  private NotificationCompat.Builder createVerificationNotification() {
+    NotificationCompat.Builder builder;
+    String channelId = "notification_channel_verification_id";
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+      CharSequence channelName = "Notification Verification Channel";
+      int importance = NotificationManager.IMPORTANCE_HIGH;
+      NotificationChannel notificationChannel =
+          new NotificationChannel(channelId, channelName, importance);
+      builder = new NotificationCompat.Builder(this, channelId);
+
+      NotificationManager notificationManager =
+          (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+      notificationManager.createNotificationChannel(notificationChannel);
+    } else {
+      builder = new NotificationCompat.Builder(this, channelId);
+      builder.setVibrate(new long[0]);
+    }
+
+    Intent intent = WalletValidationActivity.newIntent(this);
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+    return builder.setContentTitle(getString(R.string.notification_verification_needed_title))
+        .setContentIntent(pendingIntent)
+        .setAutoCancel(false)
+        .setOngoing(true)
+        .setSmallIcon(R.drawable.ic_launcher_foreground)
+        .setPriority(NotificationCompat.PRIORITY_MAX)
+        .setContentText(getString(R.string.notification_verification_needed_details));
   }
 
   private NotificationCompat.Builder createDefaultNotificationBuilder(int notificationText) {
