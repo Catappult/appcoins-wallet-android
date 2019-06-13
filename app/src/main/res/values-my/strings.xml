@@ -367,6 +367,7 @@
   <string name="back_button">Back</string>
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
+  <string name="dismiss_button">Dismiss</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet ၏ %1$s ႏွင့္ %2$s ကို သေဘာတူပါသည္။</string>
   <string name="terms_and_conditions_error">ဆက္လုပ္ႏိုင္ရန္ ကၽြႏ္ုပ္တို႔၏ စည္းမ်ဥ္းစည္းကမ္းမ်ားႏွင့္ ကုိယ္ေရးလံုၿခံဳမႈ မူ၀ါဒကို လက္ခံေပးပါ</string>
