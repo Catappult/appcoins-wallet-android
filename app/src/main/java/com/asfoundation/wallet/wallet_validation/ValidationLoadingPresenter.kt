@@ -47,11 +47,13 @@ class ValidationLoadingPresenter(
   private fun handleNext(status: WalletValidationStatus) {
     when (status) {
       WalletValidationStatus.SUCCESS -> activity?.showSuccess()
-      WalletValidationStatus.INVALID_INPUT,
-      WalletValidationStatus.INVALID_PHONE -> handleError(
+      WalletValidationStatus.INVALID_INPUT -> handleError(
           R.string.verification_insert_code_error)
-      WalletValidationStatus.DOUBLE_SPENT -> handleError(
-          R.string.verification_insert_code_no_verification)
+      WalletValidationStatus.INVALID_PHONE ->
+        activity?.showPhoneValidationView(validationInfo.countryCode, validationInfo.phoneNumber,
+            R.string.verification_insert_code_error_common)
+      WalletValidationStatus.DOUBLE_SPENT ->
+        activity?.showSuccess()
       WalletValidationStatus.GENERIC_ERROR -> handleError(R.string.unknown_error)
     }
   }

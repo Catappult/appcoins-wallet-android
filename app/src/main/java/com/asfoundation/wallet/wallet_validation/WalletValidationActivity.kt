@@ -54,10 +54,11 @@ class WalletValidationActivity : BaseActivity(), WalletValidationActivityView {
     finish()
   }
 
-  override fun showPhoneValidationView(countryCode: String?, phoneNumber: String?) {
+  override fun showPhoneValidationView(countryCode: String?, phoneNumber: String?,
+                                       errorMessage: Int?) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            PhoneValidationFragment.newInstance(countryCode, phoneNumber))
+            PhoneValidationFragment.newInstance(countryCode, phoneNumber, errorMessage))
         .commit()
   }
 

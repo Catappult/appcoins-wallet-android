@@ -30,6 +30,7 @@ class PhoneValidationFragment : DaggerFragment(), PhoneValidationView {
 
   private var countryCode: String? = null
   private var phoneNumber: String? = null
+  private var errorMessage: Int? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -52,6 +53,9 @@ class PhoneValidationFragment : DaggerFragment(), PhoneValidationView {
     if (arguments?.containsKey(PHONE_NUMBER) == true) {
       phoneNumber = arguments?.getString(PHONE_NUMBER)
     }
+    if (arguments?.containsKey(ERROR_MESSAGE) == true) {
+      errorMessage = arguments?.getInt(ERROR_MESSAGE)
+    }
 
     presenter.present()
   }
@@ -69,6 +73,8 @@ class PhoneValidationFragment : DaggerFragment(), PhoneValidationView {
       country_code.setSelection(position)
     }
     phoneNumber?.let { phone_number.setText(it) }
+
+    errorMessage?.let { setError(it) }
   }
 
   override fun setError(message: Int) {
@@ -134,12 +140,16 @@ class PhoneValidationFragment : DaggerFragment(), PhoneValidationView {
 
     internal const val COUNTRY_CODE = "COUNTRY_CODE"
     internal const val PHONE_NUMBER = "PHONE_NUMBER"
+    internal const val ERROR_MESSAGE = "ERROR_MESSAGE"
 
     @JvmStatic
-    fun newInstance(countryCode: String? = null, phoneNumber: String? = null): Fragment {
+    fun newInstance(countryCode: String? = null, phoneNumber: String? = null,
+                    errorMessage: Int? = null): Fragment {
       val bundle = Bundle()
       bundle.putString(COUNTRY_CODE, countryCode)
       bundle.putString(PHONE_NUMBER, phoneNumber)
+
+      errorMessage?.let { bundle.putInt(ERROR_MESSAGE, errorMessage) }
 
       val fragment = PhoneValidationFragment()
       fragment.arguments = bundle

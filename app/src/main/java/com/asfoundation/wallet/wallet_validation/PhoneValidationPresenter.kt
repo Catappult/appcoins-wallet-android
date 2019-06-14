@@ -58,7 +58,7 @@ class PhoneValidationPresenter(
       WalletValidationStatus.INVALID_PHONE -> handleError(
           R.string.verification_insert_phone_field_number_error)
       WalletValidationStatus.DOUBLE_SPENT -> handleError(
-          R.string.verification_insert_phone_field_phone_used_already)
+          R.string.verification_insert_phone_field_phone_used_already_error)
       WalletValidationStatus.GENERIC_ERROR -> handleError(R.string.unknown_error)
     }
   }
@@ -74,7 +74,6 @@ class PhoneValidationPresenter(
             view.getCountryCode().subscribeOn(viewScheduler).observeOn(viewScheduler),
             view.getPhoneNumber().subscribeOn(viewScheduler).observeOn(viewScheduler),
             BiFunction { countryCode: String, phoneNumber: String ->
-              view.clearError()
               if (hasValidData(countryCode, phoneNumber)) {
                 view.setButtonState(true)
               } else {

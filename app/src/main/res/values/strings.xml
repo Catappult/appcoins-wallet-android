@@ -424,13 +424,11 @@
   <string name="verification_insert_phone_field_country">Country</string>
   <string name="verification_insert_phone_field_number">Phone Number</string>
   <string name="verification_insert_phone_field_number_error">Invalid phone number</string>
-  <string name="verification_insert_phone_field_phone_used_already">Phone already used</string>
   <string name="verification_insert_phone_security_disclaimer">This is only for security reasons, we don\'t store any personal data.</string>
   <string name="verification_notification_code_title">AppCoins Wallet</string>
   <string name="verification_notification_code_body">Your verification code is %s. Use it to verify your AppCoins Wallet address.</string>
   <string name="verification_insert_code_title">Insert your verification code</string>
   <string name="verification_insert_code_error">Invalid code</string>
-  <string name="verification_insert_code_no_verification">No verification pending</string>
   <string name="verification_insert_code_resend_button">RESEND CODE</string>
   <string name="verification_validating_title">Validating your code&#8230;</string>
   <string name="verification_completed_title">Done!</string>

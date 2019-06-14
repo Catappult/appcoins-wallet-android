@@ -10,7 +10,7 @@ interface WalletValidationActivityView {
 
   fun close(bundle: Bundle?)
 
-  fun showPhoneValidationView(countryCode: String?, phoneNumber: String?)
+  fun showPhoneValidationView(countryCode: String?, phoneNumber: String?, errorMessage: Int? = null)
 
   fun showCodeValidationView(countryCode: String, phoneNumber: String)
 
