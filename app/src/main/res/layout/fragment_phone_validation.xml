@@ -19,11 +19,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="34dp"
         android:layout_marginEnd="16dp"
         android:ellipsize="end"
         android:gravity="center"
-        android:text="@string/wallet_validation_phone_title"
+        android:text="@string/verification_insert_phone_title"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,42 +39,62 @@
         android:layout_marginEnd="16dp"
         android:ellipsize="end"
         android:gravity="center"
-        android:text="@string/wallet_validation_phone_subtitle"
+        android:text="@string/verification_insert_phone_body"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title"
         />
 
-    <Spinner
-        android:id="@+id/country_code"
-        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+    <LinearLayout
+        android:id="@+id/country_code_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="16dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="22dp"
-        android:layout_marginEnd="16dp"
-        android:dropDownWidth="match_parent"
-        android:gravity="bottom"
-        android:spinnerMode="dropdown"
-        android:textColor="#000000"
+        android:layout_marginEnd="40dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/subtitle"
-        />
+        >
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:paddingLeft="4dp"
+          android:paddingRight="4dp"
+          android:text="@string/verification_insert_phone_field_country"
+          android:textColor="@color/colorAccent"
+          android:textSize="12sp"
+          />
+
+      <Spinner
+          android:id="@+id/country_code"
+          style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="bottom"
+          android:backgroundTint="@color/colorAccent"
+          android:dropDownWidth="match_parent"
+          android:gravity="bottom"
+          android:spinnerMode="dropdown"
+          android:textColor="#000000"
+          />
+
+    </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/phone_number_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="22dp"
-        android:layout_marginEnd="16dp"
-        android:hint="@string/wallet_validation_phone_number"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="40dp"
+        android:hint="@string/verification_insert_phone_field_number"
         android:theme="@style/TextInputLayoutAppearance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/country_code"
+        app:layout_constraintTop_toBottomOf="@+id/country_code_layout"
         >
       <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/phone_number"
@@ -82,6 +102,7 @@
           android:layout_height="match_parent"
           android:inputType="phone"
           android:maxLines="1"
+          android:textColor="#000000"
           android:textSize="16sp"
           />
     </com.google.android.material.textfield.TextInputLayout>
@@ -90,9 +111,9 @@
         android:id="@+id/disclaimer_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/phone_number_layout"
@@ -109,7 +130,7 @@
           style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="@string/wallet_validation_disclaimer"
+          android:text="@string/verification_insert_phone_security_disclaimer"
           android:textSize="10sp"
           />
 
@@ -140,9 +161,10 @@
         android:layout_gravity="center_vertical"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="@dimen/big_margin"
+        android:layout_marginBottom="8dp"
         android:maxWidth="126dp"
         android:minWidth="80dp"
-        android:text="@string/submit"
+        android:text="@string/submit_button"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"

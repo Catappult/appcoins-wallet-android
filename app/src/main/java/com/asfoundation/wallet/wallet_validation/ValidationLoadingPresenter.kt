@@ -49,9 +49,9 @@ class ValidationLoadingPresenter(
       WalletValidationStatus.SUCCESS -> activity?.showSuccess()
       WalletValidationStatus.INVALID_INPUT,
       WalletValidationStatus.INVALID_PHONE -> handleError(
-          R.string.wallet_validation_phone_number_invalid)
+          R.string.verification_insert_code_error)
       WalletValidationStatus.DOUBLE_SPENT -> handleError(
-          R.string.wallet_validation_used_phone)
+          R.string.verification_insert_code_no_verification)
       WalletValidationStatus.GENERIC_ERROR -> handleError(R.string.unknown_error)
     }
   }

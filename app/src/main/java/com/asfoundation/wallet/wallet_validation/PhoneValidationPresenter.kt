@@ -56,9 +56,9 @@ class PhoneValidationPresenter(
           submitInfo.second)
       WalletValidationStatus.INVALID_INPUT,
       WalletValidationStatus.INVALID_PHONE -> handleError(
-          R.string.wallet_validation_phone_number_invalid)
+          R.string.verification_insert_phone_field_number_error)
       WalletValidationStatus.DOUBLE_SPENT -> handleError(
-          R.string.wallet_validation_used_phone)
+          R.string.verification_insert_phone_field_phone_used_already)
       WalletValidationStatus.GENERIC_ERROR -> handleError(R.string.unknown_error)
     }
   }

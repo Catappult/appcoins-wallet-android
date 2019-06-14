@@ -224,10 +224,9 @@ public class WalletPoAService extends Service {
         Intent intent = TransactionsActivity.newIntent(this);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-        notificationManager.notify(SERVICE_ID,
-            createHeadsUpNotificationBuilder(R.string.notification_completed_poa).setContentIntent(
-                pendingIntent)
-                .build());
+        notificationManager.notify(SERVICE_ID, createHeadsUpNotificationBuilder(
+            R.string.verification_notification_reward_received_body).setContentIntent(pendingIntent)
+            .build());
         break;
       case NO_INTERNET:
         notificationManager.notify(SERVICE_ID,
@@ -344,13 +343,14 @@ public class WalletPoAService extends Service {
     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
-    return builder.setContentTitle(getString(R.string.notification_verification_needed_title))
+    return builder.setContentTitle(
+        getString(R.string.verification_notification_verification_needed_title))
         .setContentIntent(pendingIntent)
         .setAutoCancel(false)
         .setOngoing(true)
         .setSmallIcon(R.drawable.ic_launcher_foreground)
         .setPriority(NotificationCompat.PRIORITY_MAX)
-        .setContentText(getString(R.string.notification_verification_needed_details));
+        .setContentText(getString(R.string.verification_notification_verification_needed_body));
   }
 
   private NotificationCompat.Builder createDefaultNotificationBuilder(int notificationText) {

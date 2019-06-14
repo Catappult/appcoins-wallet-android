@@ -212,7 +212,7 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
   override fun hideKeyboard() {
     val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
     imm?.hideSoftInputFromWindow(fragmentContainer.windowToken, 0)
-    text_layout.requestFocus()
+    title.requestFocus()
   }
 
   companion object {
