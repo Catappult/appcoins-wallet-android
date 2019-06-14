@@ -145,6 +145,7 @@ import com.asfoundation.wallet.ui.iab.AsfInAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.BdsInAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.ImageSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
+import com.asfoundation.wallet.ui.iab.LocalPaymentInteractor;
 import com.asfoundation.wallet.ui.iab.PaymentMethodsMapper;
 import com.asfoundation.wallet.ui.iab.RewardsManager;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDatabase;
@@ -382,6 +383,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       AppcoinsRewards appcoinsRewards, Billing billing, PaymentMethodsMapper paymentMethodsMapper) {
     return new InAppPurchaseInteractor(asfInAppPurchaseInteractor, bdsInAppPurchaseInteractor,
         new ExternalBillingSerializer(), appcoinsRewards, billing, paymentMethodsMapper);
+  }
+
+  @Provides LocalPaymentInteractor provideLocalPaymentInteractor(ShareLinkRepository repository,
+      FindDefaultWalletInteract interactor, InAppPurchaseInteractor inAppPurchaseInteractor) {
+    return new LocalPaymentInteractor(repository, interactor, inAppPurchaseInteractor);
   }
 
   @Provides PaymentMethodsMapper providePaymentMethodsMapper() {

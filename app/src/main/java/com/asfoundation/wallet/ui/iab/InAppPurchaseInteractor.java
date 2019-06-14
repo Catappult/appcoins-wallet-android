@@ -19,6 +19,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -124,7 +125,8 @@ public class InAppPurchaseInteractor {
     return bdsInAppPurchaseInteractor.getBillingSerializer();
   }
 
-  public Single<Transaction> getTransaction(String packageName, String productName, String type) {
+  public Single<Transaction> getCompletedTransaction(String packageName, String productName,
+      String type) {
     return asfInAppPurchaseInteractor.getTransaction(packageName, productName, type);
   }
 
@@ -163,7 +165,7 @@ public class InAppPurchaseInteractor {
         .onErrorReturn(throwable -> false);
   }
 
-  public Single<List<Gateway.Name>> getFilteredGateways(TransactionBuilder transactionBuilder) {
+  private Single<List<Gateway.Name>> getFilteredGateways(TransactionBuilder transactionBuilder) {
     return Single.zip(getRewardsBalance(), hasAppcoinsFunds(transactionBuilder),
         (creditsBalance, hasAppcoinsFunds) -> getNewPaymentGateways(creditsBalance,
             hasAppcoinsFunds, transactionBuilder.amount()));
@@ -196,37 +198,65 @@ public class InAppPurchaseInteractor {
   }
 
   public Single<String> getTransactionUid(String uid) {
-    return getTransaction(uid).map(transaction -> transaction.getHash())
+    return getCompletedTransaction(uid).map(transaction -> transaction.getHash())
         .firstOrError();
   }
 
   public Single<Double> getTransactionAmount(String uid) {
-    return getTransaction(uid).map(transaction -> Double.parseDouble(transaction.getPrice()
+    return getCompletedTransaction(uid).map(transaction -> Double.parseDouble(transaction.getPrice()
         .getAppc()))
         .firstOrError();
   }
 
-  public Single<List<PaymentMethodEntity>> getAvailablePaymentMethods(
+  private Single<List<PaymentMethodEntity>> getAvailablePaymentMethods(
       TransactionBuilder transaction, List<PaymentMethodEntity> paymentMethods) {
     return getFilteredGateways(transaction).map(
         filteredGateways -> removeUnavailable(paymentMethods, filteredGateways));
   }
 
-  private Observable<Transaction> getTransaction(String uid) {
+  private Observable<Transaction> getCompletedTransaction(String uid) {
+    return getTransaction(uid).filter(transaction -> transaction.getStatus()
+        .equals(Status.COMPLETED));
+  }
+
+  public Observable<Transaction> getTransaction(String uid) {
     return Observable.interval(0, 5, TimeUnit.SECONDS, Schedulers.io())
         .timeInterval()
         .switchMap(longTimed -> billing.getAppcoinsTransaction(uid, Schedulers.io())
-            .toObservable())
-        .filter(transaction -> transaction.getStatus()
-            .equals(Status.COMPLETED));
+            .toObservable());
   }
 
-  public Single<List<PaymentMethod>> getPaymentMethods(TransactionBuilder transaction) {
-    return bdsInAppPurchaseInteractor.getPaymentMethods()
+  public Single<List<PaymentMethod>> getPaymentMethods(TransactionBuilder transaction,
+      String transactionValue, String currency) {
+    return bdsInAppPurchaseInteractor.getPaymentMethods(transactionValue, currency)
         .flatMap(paymentMethods -> getAvailablePaymentMethods(transaction, paymentMethods).flatMap(
             availablePaymentMethods -> Observable.fromIterable(paymentMethods)
                 .map(paymentMethod -> mapPaymentMethods(paymentMethod, availablePaymentMethods))
-                .toList()));
+                .toList()))
+        .map(this::swapDisabledPositions);
+  }
+
+  private List<PaymentMethod> swapDisabledPositions(List<PaymentMethod> paymentMethods) {
+    boolean swapped = false;
+    if (paymentMethods.size() > 1) {
+      for (int position = 1; position < paymentMethods.size(); position++) {
+        if (shouldSwap(paymentMethods, position)) {
+          Collections.swap(paymentMethods, position, position - 1);
+          swapped = true;
+          break;
+        }
+      }
+      if (swapped) {
+        swapDisabledPositions(paymentMethods);
+      }
+    }
+    return paymentMethods;
+  }
+
+  private boolean shouldSwap(List<PaymentMethod> paymentMethods, int position) {
+    return paymentMethods.get(position)
+        .isEnabled() && !paymentMethods.get(position - 1)
+        .isEnabled();
   }
 
   private List<PaymentMethodEntity> removeUnavailable(List<PaymentMethodEntity> paymentMethods,

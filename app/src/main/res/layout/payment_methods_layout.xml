@@ -73,6 +73,7 @@
         android:background="@drawable/background_card"
         android:elevation="2dp"
         android:visibility="invisible"
+        tools:visibility="visible"
         >
 
       <ImageView
@@ -229,6 +230,24 @@
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
           app:layout_constraintVertical_bias="0"
+          />
+
+      <TextView
+          android:id="@+id/no_bonus_msg"
+          style="@style/TopUpTextStyle.BonusText"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginEnd="@dimen/big_margin"
+          android:layout_marginBottom="8dp"
+          android:gravity="center"
+          android:text="@string/gamification_purchase_appccredits_body"
+          android:visibility="invisible"
+          app:layout_constraintBottom_toTopOf="@id/dialog_buy_buttons_payment_methods"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
+          app:layout_constraintVertical_bias="0"
+          tools:visibility="visible"
           />
 
       <include

@@ -18,6 +18,7 @@ import io.reactivex.Observable;
 import java.math.BigDecimal;
 import java.util.Objects;
 import javax.inject.Inject;
+import org.jetbrains.annotations.NotNull;
 
 import static com.appcoins.wallet.billing.AppcoinsBillingBinder.EXTRA_BDS_IAP;
 import static com.asfoundation.wallet.ui.iab.WebViewActivity.SUCCESS;
@@ -45,6 +46,7 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   private static final int WEB_VIEW_REQUEST_CODE = 1234;
   private static final String IS_BDS_EXTRA = "is_bds_extra";
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
+  @Inject PaymentMethodsMapper paymentMethodsMapper;
   private boolean isBackEnable;
   private IabPresenter presenter;
   private Bundle skuDetails;
@@ -188,9 +190,14 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
         .commit();
   }
 
-  @Override public void showLocalPayment(BigDecimal amount, String currency, boolean isBds,
-      PaymentMethodsView.SelectedPaymentMethod selectedPaymentMethod) {
-    //TODO
+  @Override
+  public void showLocalPayment(String domain, String skuId, String originalAmount, String currency,
+      String bonus, String selectedPaymentMethod) {
+    getSupportFragmentManager().beginTransaction()
+        .replace(R.id.fragment_container,
+            LocalPaymentFragment.newInstance(domain, skuId, originalAmount, currency, bonus,
+                selectedPaymentMethod))
+        .commit();
   }
 
   @Override public void showPaymentMethodsView() {
@@ -202,11 +209,12 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   }
 
   @Override public void showShareLinkPayment(String domain, String skuId, String originalAmount,
-      String originalCurrency, BigDecimal amount, String type) {
+      String originalCurrency, BigDecimal amount, @NotNull String type,
+      String selectedPaymentMethod) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container,
             SharePaymentLinkFragment.newInstance(domain, skuId, originalAmount, originalCurrency,
-                amount, type))
+                amount, type, selectedPaymentMethod))
         .commit();
   }
 

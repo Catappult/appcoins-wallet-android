@@ -26,7 +26,7 @@ interface Billing {
   fun consumePurchases(merchantName: String, purchaseToken: String,
                        scheduler: Scheduler): Single<Boolean>
 
-  fun getPaymentMethods(): Single<List<PaymentMethodEntity>>
+  fun getPaymentMethods(value:String, currency:String): Single<List<PaymentMethodEntity>>
 
   enum class BillingSupportType {
     SUPPORTED, MERCHANT_NOT_FOUND, UNKNOWN_ERROR, NO_INTERNET_CONNECTION, API_ERROR

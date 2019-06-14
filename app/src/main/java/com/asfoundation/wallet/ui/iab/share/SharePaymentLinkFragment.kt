@@ -40,11 +40,12 @@ class SharePaymentLinkFragment : DaggerFragment(),
     private const val PARAM_ORIGINAL_CURRENCY = "PARAM_ORIGINAL_CURRENCY"
     private const val PARAM_TRANSACTION_TYPE = "PARAM_TRANSACTION_TYPE"
     private const val PAYMENT_METHOD_NAME = "ASK_SOMEONE"
+    private const val PARAM_PAYMENT_KEY = "PAYMENT_NAME"
 
     @JvmStatic
     fun newInstance(domain: String, skuId: String?, originalAmount: String?,
                     originalCurrency: String?, amount: BigDecimal,
-                    type: String): SharePaymentLinkFragment =
+                    type: String, paymentMethod: String): SharePaymentLinkFragment =
         SharePaymentLinkFragment().apply {
           arguments = Bundle(2).apply {
             putString(PARAM_DOMAIN, domain)
@@ -52,6 +53,7 @@ class SharePaymentLinkFragment : DaggerFragment(),
             putString(PARAM_ORIGINAL_AMOUNT, originalAmount)
             putString(PARAM_ORIGINAL_CURRENCY, originalCurrency)
             putString(PARAM_TRANSACTION_TYPE, type)
+            putString(PARAM_PAYMENT_KEY, paymentMethod)
             putSerializable(PARAM_AMOUNT, amount)
           }
         }
@@ -67,11 +69,19 @@ class SharePaymentLinkFragment : DaggerFragment(),
     }
   }
 
+  val paymentMethod: String by lazy {
+    if (arguments!!.containsKey(PARAM_PAYMENT_KEY)) {
+      arguments!!.getString(PARAM_PAYMENT_KEY)
+    } else {
+      throw IllegalArgumentException("paymentMethod not found")
+    }
+  }
+
   val type: String by lazy {
     if (arguments!!.containsKey(PARAM_TRANSACTION_TYPE)) {
       arguments!!.getString(PARAM_TRANSACTION_TYPE)
     } else {
-      throw IllegalArgumentException("Domain not found")
+      throw IllegalArgumentException("type not found")
     }
   }
 
@@ -81,7 +91,7 @@ class SharePaymentLinkFragment : DaggerFragment(),
       arguments!!.getString(
           PARAM_ORIGINAL_AMOUNT)
     } else {
-      throw IllegalArgumentException("Domain not found")
+      throw IllegalArgumentException("Original amount not found")
     }
   }
 
@@ -113,7 +123,7 @@ class SharePaymentLinkFragment : DaggerFragment(),
           PARAM_AMOUNT) as BigDecimal
       value
     } else {
-      throw IllegalArgumentException("SkuId not found")
+      throw IllegalArgumentException("amount not found")
     }
   }
 
@@ -156,11 +166,12 @@ class SharePaymentLinkFragment : DaggerFragment(),
   }
 
   override fun getShareButtonClick(): Observable<SharePaymentLinkFragmentView.SharePaymentData> {
-    return RxView.clicks(share_btn).map {
-      val message = if (note.text.isNotEmpty()) note.text.toString() else null
-      SharePaymentLinkFragmentView.SharePaymentData(domain, skuId, message, originalAmount,
-          originalCurrency)
-    }
+    return RxView.clicks(share_btn)
+        .map {
+          val message = if (note.text.isNotEmpty()) note.text.toString() else null
+          SharePaymentLinkFragmentView.SharePaymentData(domain, skuId, message, originalAmount,
+              originalCurrency, paymentMethod)
+        }
   }
 
   override fun getCancelButtonClick(): Observable<Any> {
@@ -190,7 +201,8 @@ class SharePaymentLinkFragment : DaggerFragment(),
     close_btn.visibility = View.VISIBLE
     share_btn.visibility = View.VISIBLE
 
-    ShareCompat.IntentBuilder.from(activity).setText(url)
+    ShareCompat.IntentBuilder.from(activity)
+        .setText(url)
         .setType("text/plain")
         .setChooserTitle(R.string.askafriend_share_popup_title)
         .startChooser()
