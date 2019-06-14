@@ -398,4 +398,6 @@
   <string name="verification_completed_title">Gelukt!</string>
   <string name="verification_notification_reward_received_body">Beloning ontvangen, veel plezier! 👌</string>
   <string name="verification_notification_reward_already_received_body">Dit telefoonnummer is al gebruikt om deze beloning te ontvangen 😔</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">Phone already used.</string>
+  <string name="verification_insert_code_error_common">Oops, something went wrong. Try again!</string>
 </resources>
