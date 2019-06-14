@@ -68,9 +68,10 @@ public class PaymentMethodsPresenter {
     this.transaction = transaction;
   }
 
-  public void present(double transactionValue, Bundle savedInstanceState) {
+  public void present(double transactionValue) {
     handleCancelClick();
     handleErrorDismisses();
+    loadBonusIntoView();
     setupUi(transactionValue);
     handleOnGoingPurchases();
     handleBuyClick();
@@ -88,26 +89,25 @@ public class PaymentMethodsPresenter {
             return Completable.fromAction(view::hideBonus)
                 .subscribeOn(viewScheduler);
           } else {
-            return loadBonusIntoView().ignoreElement();
+            return Completable.fromAction(view::showBonus);
           }
         })
         .subscribe());
   }
 
-  private Single<ForecastBonus> loadBonusIntoView() {
-    return gamification.getEarningBonus(transaction.getDomain(), transaction.amount())
+  private void loadBonusIntoView() {
+    disposables.add(gamification.getEarningBonus(transaction.getDomain(), transaction.amount())
         .subscribeOn(networkThread)
         .observeOn(viewScheduler)
         .doOnSuccess(bonus -> {
-          if (!bonus.getStatus()
+          if (bonus.getStatus()
               .equals(ForecastBonus.Status.ACTIVE)
-              || bonus.getAmount()
-              .compareTo(BigDecimal.ZERO) <= 0) {
-            view.hideBonus();
-          } else {
-            view.showBonus(bonus.getAmount(), bonus.getCurrency());
+              && bonus.getAmount()
+              .compareTo(BigDecimal.ZERO) > 0) {
+            view.setBonus(bonus.getAmount(), bonus.getCurrency());
           }
-        });
+        })
+        .subscribe());
   }
 
   private void handleBuyClick() {
@@ -208,7 +208,8 @@ public class PaymentMethodsPresenter {
     disposables.add(Single.zip(isBds ? inAppPurchaseInteractor.getPaymentMethods()
             .subscribeOn(networkThread)
             .flatMap(paymentMethods -> Observable.fromIterable(paymentMethods)
-                .map(paymentMethod -> new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
+                .map(paymentMethod -> new PaymentMethod(paymentMethod.getId(),
+                    paymentMethod.getLabel(),
                     paymentMethod.getIconUrl(), true))
                 .toList()) : Single.just(Collections.singletonList(PaymentMethod.APPC)),
         isBds ? inAppPurchaseInteractor.getAvailablePaymentMethods(transaction)

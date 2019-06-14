@@ -95,6 +95,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private TransactionBuilder transaction;
   private double transactionValue;
   private String currency;
+  private String bonusMessageValue;
   private TextView appcPriceTv;
   private TextView fiatPriceTv;
   private TextView appNameTv;
@@ -112,6 +113,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private View bonusView;
   private View bonusMsg;
   private TextView bonusValue;
+  private boolean showBonus;
 
   public static Fragment newInstance(TransactionBuilder transaction, String productName,
       boolean isBds, String developerPayload, String uri) {
@@ -203,7 +205,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     bonusValue = view.findViewById(R.id.bonus_value);
     setupAppNameAndIcon();
 
-    presenter.present(transactionValue, savedInstanceState);
+    presenter.present(transactionValue);
   }
 
   @Override public void onDestroyView() {
@@ -397,23 +399,28 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     bonusMsg.setVisibility(View.INVISIBLE);
   }
 
-  @Override public void showBonus(@NotNull BigDecimal bonus, String currency) {
+  @Override public void showBonus() {
+    if (showBonus) {
+      bonusView.setVisibility(View.VISIBLE);
+      bonusMsg.setVisibility(View.VISIBLE);
+    }
+  }
+
+  @NotNull @Override public Observable<SelectedPaymentMethod> getPaymentSelection() {
+    return RxRadioGroup.checkedChanges(radioGroup)
+        .map(this::getSelectedPaymentMethod);
+  }
+
+  @Override public void setBonus(@NotNull BigDecimal bonus, String currency) {
     BigDecimal scaledBonus = bonus.stripTrailingZeros()
         .setScale(2, BigDecimal.ROUND_DOWN);
     if (scaledBonus.compareTo(new BigDecimal(0.01)) < 0) {
       currency = "~" + currency;
     }
     scaledBonus = scaledBonus.max(new BigDecimal("0.01"));
-
-    bonusValue.setText(getString(R.string.gamification_purchase_header_part_2,
-        currency + scaledBonus.toPlainString()));
-    bonusView.setVisibility(View.VISIBLE);
-    bonusMsg.setVisibility(View.VISIBLE);
-  }
-
-  @NotNull @Override public Observable<SelectedPaymentMethod> getPaymentSelection() {
-    return RxRadioGroup.checkedChanges(radioGroup)
-        .map(this::getSelectedPaymentMethod);
+    bonusMessageValue = currency + scaledBonus.toPlainString();
+    showBonus = true;
+    bonusValue.setText(getString(R.string.gamification_purchase_header_part_2, bonusMessageValue));
   }
 
   public void loadIcons(PaymentMethod paymentMethod, RadioButton radioButton, boolean showNew) {
