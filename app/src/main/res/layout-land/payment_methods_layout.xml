@@ -217,7 +217,7 @@
 
     <TextView
         android:id="@+id/no_bonus_msg"
-        style="@style/TopUpTextStyle.Small.BonusText"
+        style="@style/TopUpTextStyle.BonusText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/big_margin"
@@ -225,7 +225,6 @@
         android:layout_marginEnd="@dimen/big_margin"
         android:layout_marginBottom="11dp"
         android:gravity="center_vertical"
-        android:text="@string/gamification_purchase_appccredits_body"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/bottom_separator"
         app:layout_constraintEnd_toEndOf="@id/mid_guideline"

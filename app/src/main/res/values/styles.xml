@@ -328,6 +328,10 @@
     <item name="android:textColor">@color/top_up_bonus_text</item>
   </style>
 
+  <style name="TopUpTextStyle.BonusText">
+    <item name="android:textColor">@color/top_up_bonus_text</item>
+  </style>
+
   <style name="TopUpTextStyle.SuccessTitle">
     <item name="android:textColor">@color/top_up_bonus_title</item>
     <item name="android:fontFamily">sans-serif-medium</item>

@@ -234,7 +234,7 @@
 
       <TextView
           android:id="@+id/no_bonus_msg"
-          style="@style/TopUpTextStyle.Small.BonusText"
+          style="@style/TopUpTextStyle.BonusText"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/big_margin"
