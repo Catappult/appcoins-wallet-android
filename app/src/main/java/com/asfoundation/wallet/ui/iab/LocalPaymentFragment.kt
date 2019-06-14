@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.iab
 
-import android.animation.Animator
 import android.content.Context
 import android.graphics.Typeface
 import android.os.Bundle
@@ -19,7 +18,6 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.completed_payment_view.view.*
 import kotlinx.android.synthetic.main.fragment_iab_error.view.*
 import kotlinx.android.synthetic.main.local_payment_layout.*
 import kotlinx.android.synthetic.main.pending_user_payment_view.*
@@ -161,15 +159,16 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   }
 
   private fun setAnimationText() {
-    val textDelegate = TextDelegate(completed_payment_view.completed_animation)
+    val textDelegate = TextDelegate(pending_user_payment_view.completed_bonus_animation)
     textDelegate.setText("bonus_value",
         bonus)
     textDelegate.setText("bonus_received",
         resources.getString(R.string.gamification_purchase_completed_bonus_received))
-    completed_payment_view.completed_animation.setTextDelegate(textDelegate)
-    completed_payment_view.completed_animation.setFontAssetDelegate(object : FontAssetDelegate() {
+    pending_user_payment_view.completed_bonus_animation.setTextDelegate(textDelegate)
+    pending_user_payment_view.completed_bonus_animation.setFontAssetDelegate(object :
+        FontAssetDelegate() {
       override fun fetchFont(fontFamily: String?): Typeface {
-        return Typeface.create("sans-serif-black", Typeface.BOLD)
+        return Typeface.create("sans-serif-medium", Typeface.BOLD)
       }
     })
   }
@@ -212,32 +211,20 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     status = COMPLETED
     progress_bar.visibility = View.GONE
     error_view.visibility = View.GONE
+    pending_user_payment_view.visibility = View.VISIBLE
+    pending_user_payment_view.in_progress_animation.visibility = View.INVISIBLE
+    pending_user_payment_view.completed_bonus_animation.visibility = View.VISIBLE
     pending_user_payment_view.in_progress_animation.cancelAnimation()
-    pending_user_payment_view.visibility = View.GONE
-    completed_payment_view.visibility = View.VISIBLE
-    completed_payment_view.completed_animation.playAnimation()
-    completed_payment_view.completed_animation.addAnimatorListener(object :
-        Animator.AnimatorListener {
-      override fun onAnimationRepeat(animation: Animator?) {
-      }
-
-      override fun onAnimationEnd(animation: Animator?) {
-        close()
-      }
-
-      override fun onAnimationCancel(animation: Animator?) {
-      }
-
-      override fun onAnimationStart(animation: Animator?) {
-      }
-    })
-
+    pending_user_payment_view.completed_bonus_animation.playAnimation()
   }
 
   override fun showPendingUserPayment() {
     status = PENDING_USER_PAYMENT
     pending_user_payment_view.visibility = View.VISIBLE
+    pending_user_payment_view.completed_bonus_animation.visibility = View.INVISIBLE
+    pending_user_payment_view.in_progress_animation.visibility = View.VISIBLE
     pending_user_payment_view.in_progress_animation.playAnimation()
+    pending_user_payment_view.completed_bonus_animation.cancelAnimation()
     progress_bar.visibility = View.GONE
     error_view.visibility = View.GONE
   }
@@ -246,8 +233,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     status = ERROR
     pending_user_payment_view.visibility = View.GONE
     pending_user_payment_view.in_progress_animation.cancelAnimation()
-    completed_payment_view.visibility = View.GONE
-    completed_payment_view.completed_animation.playAnimation()
+    pending_user_payment_view.completed_bonus_animation.cancelAnimation()
     progress_bar.visibility = View.GONE
     error_view.visibility = View.VISIBLE
   }
@@ -263,8 +249,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     progress_bar.visibility = View.GONE
     error_view.visibility = View.GONE
     pending_user_payment_view.in_progress_animation.cancelAnimation()
-    completed_payment_view.visibility = View.GONE
-    pending_user_payment_view.in_progress_animation.cancelAnimation()
+    pending_user_payment_view.completed_bonus_animation.cancelAnimation()
     pending_user_payment_view.visibility = View.GONE
     iabView.close(Bundle())
   }

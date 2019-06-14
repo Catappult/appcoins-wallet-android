@@ -33,12 +33,6 @@
       />
 
   <include
-      android:id="@+id/completed_payment_view"
-      layout="@layout/completed_payment_view"
-      android:visibility="gone"
-      />
-
-  <include
       android:id="@+id/error_view"
       layout="@layout/fragment_iab_error"
       android:layout_width="match_parent"
