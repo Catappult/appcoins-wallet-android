@@ -73,7 +73,7 @@ class SharePaymentLinkFragment : DaggerFragment(),
     if (arguments!!.containsKey(PARAM_PAYMENT_KEY)) {
       arguments!!.getString(PARAM_PAYMENT_KEY)
     } else {
-      throw java.lang.IllegalArgumentException("paymentMethod not found")
+      throw IllegalArgumentException("paymentMethod not found")
     }
   }
 
@@ -81,7 +81,7 @@ class SharePaymentLinkFragment : DaggerFragment(),
     if (arguments!!.containsKey(PARAM_TRANSACTION_TYPE)) {
       arguments!!.getString(PARAM_TRANSACTION_TYPE)
     } else {
-      throw IllegalArgumentException("Domain not found")
+      throw IllegalArgumentException("type not found")
     }
   }
 
@@ -91,7 +91,7 @@ class SharePaymentLinkFragment : DaggerFragment(),
       arguments!!.getString(
           PARAM_ORIGINAL_AMOUNT)
     } else {
-      throw IllegalArgumentException("Domain not found")
+      throw IllegalArgumentException("Original amount not found")
     }
   }
 
@@ -123,7 +123,7 @@ class SharePaymentLinkFragment : DaggerFragment(),
           PARAM_AMOUNT) as BigDecimal
       value
     } else {
-      throw IllegalArgumentException("SkuId not found")
+      throw IllegalArgumentException("amount not found")
     }
   }
 

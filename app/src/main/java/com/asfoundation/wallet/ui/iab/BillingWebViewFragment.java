@@ -188,17 +188,17 @@ public class BillingWebViewFragment extends DaggerFragment {
     super.onDetach();
   }
 
-  public void sendPaymentMethodDetailsEvent() {
+  private void sendPaymentMethodDetailsEvent() {
     analytics.sendPaymentMethodDetailsEvent(currentDomain, currentSkuId, currentAmount.toString(),
         PAYMENT_METHOD_PAYPAL, currentType);
   }
 
-  public void sendPaymentEvent() {
+  private void sendPaymentEvent() {
     analytics.sendPaymentEvent(currentDomain, currentSkuId, currentAmount.toString(),
         PAYMENT_METHOD_PAYPAL, currentType);
   }
 
-  public void sendRevenueEvent() {
+  private void sendRevenueEvent() {
     inAppPurchaseInteractor.convertToFiat(currentAmount.doubleValue(), EVENT_REVENUE_CURRENCY)
         .doOnSuccess(fiatValue -> analytics.sendRevenueEvent(String.valueOf(fiatValue.getAmount())))
         .subscribe();
