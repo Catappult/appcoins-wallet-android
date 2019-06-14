@@ -11,6 +11,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.advertise.WalletPoAService.VERIFICATION_SERVICE_ID
 import com.asfoundation.wallet.poa.ProofOfAttentionService
 import dagger.android.support.DaggerFragment
+import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.Subject
@@ -86,7 +87,7 @@ class ValidationSuccessFragment : DaggerFragment(), ValidationSuccessView {
     })
   }
 
-  override fun handleAnimationEnd(): Subject<Boolean> {
+  override fun handleAnimationEnd(): Observable<Boolean> {
     return animationCompleted
   }
 

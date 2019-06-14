@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.wallet_validation
 
-import io.reactivex.subjects.Subject
+import io.reactivex.Observable
 
 interface ValidationSuccessView {
 
@@ -8,6 +8,6 @@ interface ValidationSuccessView {
 
   fun clean()
 
-  fun handleAnimationEnd(): Subject<Boolean>
+  fun handleAnimationEnd(): Observable<Boolean>
 
 }
