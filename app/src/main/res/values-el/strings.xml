@@ -398,4 +398,6 @@
   <string name="verification_completed_title">Τέλος!</string>
   <string name="verification_notification_reward_received_body">Η αμοιβή ελήφθη. Καλή απόλαυση! 👌</string>
   <string name="verification_notification_reward_already_received_body">Αυτός ο αριθμός τηλεφώνου έχει ήδη χρησιμοποιηθεί για τη λήψη αυτής της αμοιβής 😔</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">Phone already used.</string>
+  <string name="verification_insert_code_error_common">Oops, something went wrong. Try again!</string>
 </resources>
