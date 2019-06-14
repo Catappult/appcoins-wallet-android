@@ -8,16 +8,15 @@ import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
 class ValidationLoadingPresenter(
-    private val view: ValidationLoadingFragmentView,
-    private val activity: WalletValidationActivityView?,
+    private val view: ValidationLoadingView,
+    private val activity: WalletValidationView?,
     private val defaultWalletInteract: FindDefaultWalletInteract,
     private val smsValidationInteract: SmsValidationInteract,
     private val validationInfo: ValidationInfo,
     private val viewScheduler: Scheduler,
-    private val networkScheduler: Scheduler
+    private val networkScheduler: Scheduler,
+    private val disposables: CompositeDisposable
 ) {
-
-  private val disposables: CompositeDisposable = CompositeDisposable()
 
   fun present() {
     view.show()
@@ -35,9 +34,9 @@ class ValidationLoadingPresenter(
                   wallet,
                   "${validationInfo.code1}${validationInfo.code2}${validationInfo.code3}${validationInfo.code4}${validationInfo.code5}${validationInfo.code6}")
             }
-            .doOnSubscribe { view.show() }
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
+            .doOnSubscribe { view.show() }
             .subscribe { status ->
               handleNext(status)
             }

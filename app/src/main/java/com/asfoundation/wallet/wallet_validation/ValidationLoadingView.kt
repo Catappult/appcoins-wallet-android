@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.wallet_validation
 
-interface ValidationLoadingFragmentView {
+interface ValidationLoadingView {
 
   fun show()
 

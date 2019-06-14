@@ -8,15 +8,14 @@ import io.reactivex.functions.Function6
 
 class CodeValidationPresenter(
     private val view: CodeValidationView,
-    private val activity: WalletValidationActivityView?,
+    private val activity: WalletValidationView?,
     private val smsValidationInteract: SmsValidationInteract,
     private val viewScheduler: Scheduler,
     private val networkScheduler: Scheduler,
     private val countryCode: String,
-    private val phoneNumber: String
+    private val phoneNumber: String,
+    private val disposables: CompositeDisposable
 ) {
-
-  private val disposables: CompositeDisposable = CompositeDisposable()
 
   fun present() {
     view.setupUI()
@@ -34,12 +33,9 @@ class CodeValidationPresenter(
               view.clearUI()
             }
             .subscribeOn(viewScheduler)
-            .observeOn(networkScheduler)
             .flatMapSingle {
               smsValidationInteract.requestValidationCode("+$countryCode$phoneNumber")
                   .subscribeOn(networkScheduler)
-                  .observeOn(viewScheduler)
-                  .doOnSuccess { view.setButtonState(true) }
             }
             .retry()
             .subscribe()
@@ -52,8 +48,6 @@ class CodeValidationPresenter(
             .doOnNext {
               activity?.showLoading(it)
             }
-            .subscribeOn(viewScheduler)
-            .observeOn(viewScheduler)
             .subscribe()
     )
   }

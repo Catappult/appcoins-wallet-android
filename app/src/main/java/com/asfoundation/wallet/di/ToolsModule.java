@@ -710,7 +710,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(PoASubmissionService.PoASubmissionApi.class);
-    return new PoASubmissionService(api);
+    return new PoASubmissionService(api, BuildConfig.VERSION_CODE);
   }
 
   @Provides Gamification provideGamification(OkHttpClient client, SharedPreferences preferences) {

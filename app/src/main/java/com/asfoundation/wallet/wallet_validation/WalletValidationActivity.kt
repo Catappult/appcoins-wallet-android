@@ -10,7 +10,7 @@ import com.asfoundation.wallet.ui.iab.IabActivity.RESPONSE_CODE
 import com.asfoundation.wallet.ui.iab.IabActivity.RESULT_USER_CANCELED
 import dagger.android.AndroidInjection
 
-class WalletValidationActivity : BaseActivity(), WalletValidationActivityView {
+class WalletValidationActivity : BaseActivity(), WalletValidationView {
 
   private lateinit var presenter: WalletValidationPresenter
 

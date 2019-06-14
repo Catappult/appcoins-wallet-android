@@ -2,7 +2,7 @@ package com.asfoundation.wallet.wallet_validation
 
 import android.os.Bundle
 
-interface WalletValidationActivityView {
+interface WalletValidationView {
 
   fun finish()
 

@@ -9,13 +9,12 @@ import io.reactivex.functions.BiFunction
 
 class PhoneValidationPresenter(
     private val view: PhoneValidationView,
-    private val activity: WalletValidationActivityView?,
+    private val activity: WalletValidationView?,
     private val smsValidationInteract: SmsValidationInteract,
     private val viewScheduler: Scheduler,
-    private val networkScheduler: Scheduler
+    private val networkScheduler: Scheduler,
+    private val disposables: CompositeDisposable
 ) {
-
-  private val disposables: CompositeDisposable = CompositeDisposable()
 
   fun present() {
     view.setupUI()
@@ -36,7 +35,6 @@ class PhoneValidationPresenter(
     disposables.add(
         view.getSubmitClicks()
             .subscribeOn(viewScheduler)
-            .observeOn(networkScheduler)
             .flatMapSingle {
               smsValidationInteract.requestValidationCode("+${it.first}${it.second}")
                   .subscribeOn(networkScheduler)
@@ -71,8 +69,8 @@ class PhoneValidationPresenter(
   private fun handleValuesChange() {
     disposables.add(
         Observable.combineLatest(
-            view.getCountryCode().subscribeOn(viewScheduler).observeOn(viewScheduler),
-            view.getPhoneNumber().subscribeOn(viewScheduler).observeOn(viewScheduler),
+            view.getCountryCode(),
+            view.getPhoneNumber(),
             BiFunction { countryCode: String, phoneNumber: String ->
               if (hasValidData(countryCode, phoneNumber)) {
                 view.setButtonState(true)

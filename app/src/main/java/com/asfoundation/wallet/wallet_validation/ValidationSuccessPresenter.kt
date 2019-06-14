@@ -1,21 +1,27 @@
 package com.asfoundation.wallet.wallet_validation
 
 import com.asfoundation.wallet.poa.ProofOfAttentionService
+import io.reactivex.Completable
 import io.reactivex.disposables.CompositeDisposable
 
 class ValidationSuccessPresenter(
-    private val view: ValidationSuccessFragment,
-    private val service: ProofOfAttentionService
+    private val view: ValidationSuccessView,
+    private val service: ProofOfAttentionService,
+    private val disposables: CompositeDisposable
 ) {
-
-  private val disposables: CompositeDisposable = CompositeDisposable()
 
   fun present() {
     view.setupUI()
+    handleAnimationEnd()
   }
 
-  fun updatePoA() {
-    service.setWalletValidated()
+  private fun handleAnimationEnd() {
+    disposables.add(
+        view.handleAnimationEnd()
+            .filter { animationCompleted -> animationCompleted }
+            .flatMapCompletable { Completable.fromAction { service.setWalletValidated() } }
+            .subscribe()
+    )
   }
 
   fun stop() {

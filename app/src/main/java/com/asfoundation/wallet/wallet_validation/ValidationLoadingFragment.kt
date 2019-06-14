@@ -10,11 +10,12 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_validation_loading.*
 import javax.inject.Inject
 
-class ValidationLoadingFragment : DaggerFragment(), ValidationLoadingFragmentView {
+class ValidationLoadingFragment : DaggerFragment(), ValidationLoadingView {
 
   companion object {
     @JvmStatic
@@ -37,7 +38,7 @@ class ValidationLoadingFragment : DaggerFragment(), ValidationLoadingFragmentVie
 
   private lateinit var presenter: ValidationLoadingPresenter
 
-  private lateinit var walletValidationActivityView: WalletValidationActivityView
+  private lateinit var walletValidationView: WalletValidationView
 
   val data: ValidationInfo by lazy {
     if (arguments!!.containsKey(VALIDATION)) {
@@ -49,19 +50,20 @@ class ValidationLoadingFragment : DaggerFragment(), ValidationLoadingFragmentVie
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    if (context !is WalletValidationActivityView) {
+    if (context !is WalletValidationView) {
       throw IllegalStateException(
           "Express checkout buy fragment must be attached to IAB activity")
     }
-    walletValidationActivityView = context
+    walletValidationView = context
   }
 
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter =
-        ValidationLoadingPresenter(this, walletValidationActivityView, findDefaultWalletInteract,
-            smsValidationInteract, data, AndroidSchedulers.mainThread(), Schedulers.io())
+        ValidationLoadingPresenter(this, walletValidationView, findDefaultWalletInteract,
+            smsValidationInteract, data, AndroidSchedulers.mainThread(), Schedulers.io(),
+            CompositeDisposable())
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -90,7 +92,7 @@ class ValidationLoadingFragment : DaggerFragment(), ValidationLoadingFragmentVie
   }
 
   override fun close() {
-    walletValidationActivityView.close(null)
+    walletValidationView.close(null)
   }
 
 }

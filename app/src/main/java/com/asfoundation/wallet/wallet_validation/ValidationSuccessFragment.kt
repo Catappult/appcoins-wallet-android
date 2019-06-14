@@ -11,25 +11,30 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.advertise.WalletPoAService.VERIFICATION_SERVICE_ID
 import com.asfoundation.wallet.poa.ProofOfAttentionService
 import dagger.android.support.DaggerFragment
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.Subject
 import kotlinx.android.synthetic.main.fragment_validation_success.*
 import javax.inject.Inject
 
-class ValidationSuccessFragment : DaggerFragment(), ValidationSuccessFragmentView {
+class ValidationSuccessFragment : DaggerFragment(), ValidationSuccessView {
 
   @Inject
   lateinit var proofOfAttentionService: ProofOfAttentionService
 
-  private lateinit var walletValidationActivityView: WalletValidationActivityView
+  private lateinit var walletValidationView: WalletValidationView
   private lateinit var presenter: ValidationSuccessPresenter
   private lateinit var notificationManager: NotificationManager
 
+  private lateinit var animationCompleted: Subject<Boolean>
+
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    if (context !is WalletValidationActivityView) {
+    if (context !is WalletValidationView) {
       throw IllegalStateException(
-          "Express checkout buy fragment must be attached to IAB activity")
+          "Express checkout buy fragment must be attached to Wallet Validation Activity")
     }
-    walletValidationActivityView = context
+    walletValidationView = context
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,8 +43,11 @@ class ValidationSuccessFragment : DaggerFragment(), ValidationSuccessFragmentVie
     notificationManager =
         context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
+
+    animationCompleted = BehaviorSubject.create()
+
     presenter =
-        ValidationSuccessPresenter(this, proofOfAttentionService)
+        ValidationSuccessPresenter(this, proofOfAttentionService, CompositeDisposable())
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -65,9 +73,9 @@ class ValidationSuccessFragment : DaggerFragment(), ValidationSuccessFragmentVie
       }
 
       override fun onAnimationEnd(animation: Animator?) {
-        presenter.updatePoA()
+        animationCompleted.onNext(true)
         notificationManager.cancel(VERIFICATION_SERVICE_ID)
-        walletValidationActivityView.finish()
+        walletValidationView.finish()
       }
 
       override fun onAnimationCancel(animation: Animator?) {
@@ -78,6 +86,10 @@ class ValidationSuccessFragment : DaggerFragment(), ValidationSuccessFragmentVie
     })
   }
 
+  override fun handleAnimationEnd(): Subject<Boolean> {
+    return animationCompleted
+  }
+
   override fun clean() {
     validation_success_animation.removeAllAnimatorListeners()
     validation_success_animation.removeAllUpdateListeners()
@@ -85,7 +97,7 @@ class ValidationSuccessFragment : DaggerFragment(), ValidationSuccessFragmentVie
   }
 
   fun close() {
-    walletValidationActivityView.close(null)
+    walletValidationView.close(null)
   }
 
   companion object {

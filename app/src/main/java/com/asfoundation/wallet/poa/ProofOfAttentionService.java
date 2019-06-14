@@ -12,7 +12,6 @@ import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.subjects.BehaviorSubject;
 import io.reactivex.subjects.Subject;
-import io.reactivex.subjects.Subject;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +65,7 @@ public class ProofOfAttentionService {
         .subscribe());
 
     compositeDisposable.add(getTerminatedValidationProcess().observeOn(computationScheduler)
-        .flatMap(aBoolean -> getReadyPoAResume().flatMapSingle(
+        .flatMap(isPoaReady -> getReadyPoAResume().flatMapSingle(
             proof -> submitProof(proof).doOnError(
                 throwable -> handleError(throwable, proof.getPackageName()))
                 .doOnSubscribe(disposable -> updateProofStatus(proof.getPackageName(),
@@ -246,8 +245,8 @@ public class ProofOfAttentionService {
   }
 
   private Observable<Boolean> getTerminatedValidationProcess() {
-    return walletValidated.map(aBoolean -> aBoolean)
-        .filter(aBoolean -> aBoolean);
+    return walletValidated.map(validated -> validated)
+        .filter(validated -> validated);
   }
 
   public void setWalletValidated() {

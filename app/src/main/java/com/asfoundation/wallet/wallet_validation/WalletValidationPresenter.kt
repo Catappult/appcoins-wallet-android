@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.wallet_validation
 
 class WalletValidationPresenter(
-    private val view: WalletValidationActivity
+    private val view: WalletValidationView
 ) {
 
   fun present() {

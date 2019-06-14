@@ -14,6 +14,7 @@ import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_sms_code.*
 import javax.inject.Inject
@@ -23,7 +24,7 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
   @Inject
   lateinit var smsValidationInteract: SmsValidationInteract
 
-  private var walletValidationActivityView: WalletValidationActivityView? = null
+  private var walletValidationView: WalletValidationView? = null
   private lateinit var presenter: CodeValidationPresenter
   private lateinit var fragmentContainer: ViewGroup
 
@@ -63,9 +64,9 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
     super.onCreate(savedInstanceState)
 
     presenter =
-        CodeValidationPresenter(this, walletValidationActivityView,
+        CodeValidationPresenter(this, walletValidationView,
             smsValidationInteract, AndroidSchedulers.mainThread(), Schedulers.io(), countryCode,
-            phoneNumber)
+            phoneNumber, CompositeDisposable())
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -196,17 +197,17 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
   override fun onAttach(context: Context) {
     super.onAttach(context)
 
-    if (context !is WalletValidationActivityView) {
+    if (context !is WalletValidationView) {
       throw IllegalStateException(
           "CodeValidationFragment must be attached to Wallet Validation activity")
     }
 
-    walletValidationActivityView = context
+    walletValidationView = context
   }
 
   override fun onDetach() {
     super.onDetach()
-    walletValidationActivityView = null
+    walletValidationView = null
   }
 
   override fun hideKeyboard() {
