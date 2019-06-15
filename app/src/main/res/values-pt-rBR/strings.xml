@@ -299,11 +299,11 @@
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">Bônus de Compra:</string>
   <string name="gamification_purchase_header_part_2">%s em Créditos APPC</string>
-  <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
-  <string name="gamification_purchase_completed_bonus_received_done">Done!</string>
-  <string name="gamification_purchase_completed_bonus_received">Bonus Received</string>
+  <string name="gamification_purchase_body">Você pode usar este bônus em sua próxima compra.</string>
+  <string name="gamification_purchase_completed_bonus_received_done">Pronto!</string>
+  <string name="gamification_purchase_completed_bonus_received">Bônus Recebido</string>
   <string name="action_level">Meu Nível</string>
-  <string name="gamification_purchase_appccredits_body">The quickest payment method!</string>
+  <string name="gamification_purchase_appccredits_body">O método de pagamento mais rápido!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Permitir que a AppCoins Wallet forneça o endereço de sua wallet para %s.</string>
   <string name="provide_wallet_body_placeholders">Permitir que a %1$s forneça o endereço da sua wallet para %2$s.</string>
@@ -323,11 +323,11 @@
   <string name="topup_amount">%s APPC-C</string>
   <string name="topup_bonus_header">Você recebeu um bônus!</string>
   <string name="topup_bonus_message">%s APPC-C extras serão creditados em sua wallet.</string>
-  <string name="topup_completed_1">%s in AppCoins Credits</string>
-  <string name="topup_completed_2">were deposited in your account... Along with a bonus!</string>
-  <string name="topup_bonus_header_part_1">Top-Up Bonus:</string>
-  <string name="topup_bonus_header_part_2">%s in APPC Credits</string>
-  <string name="topup_bonus_body">You can use this bonus in your next purchase.</string>
+  <string name="topup_completed_1">%s em Créditos AppCoins</string>
+  <string name="topup_completed_2">foram depositados em sua conta... Além de um bônus!</string>
+  <string name="topup_bonus_header_part_1">Bônus Adicional:</string>
+  <string name="topup_bonus_header_part_2">%s em Créditos APPC</string>
+  <string name="topup_bonus_body">Você pode usar este bônus em sua próxima compra.</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Saldo total em %s</string>
@@ -362,15 +362,15 @@
   <string name="error_general">Algo deu errado</string>
   <string name="error_missing_field">Campo obrigatório</string>
   <string name="cancel_button">Cancelar</string>
-  <string name="submit_button">Submit</string>
-  <string name="close_button">Close</string>
-  <string name="back_button">Back</string>
+  <string name="submit_button">Enviar</string>
+  <string name="close_button">Fechar</string>
+  <string name="back_button">Voltar</string>
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
-  <string name="dismiss_button">Dismiss</string>
+  <string name="dismiss_button">Ignorar</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Eu concordo com os %1$s e %2$s da AppCoins Wallet.</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions_error">Por favor, aceite nossos Termos e Condições e Política de Privacidade para continuar</string>
   <string name="terms_and_conditions">Termos e Condições</string>
   <string name="privacy_policy">Política de Privacidade</string>
   <!--Home-->
@@ -378,26 +378,26 @@
   <string name="home_empty_discover_apps_button">DESCUBRA OS MELHORES APPS</string>
   <!--Tokens-->
   <!--Local Payments-->
-  <string name="local_payments_inprogress_header">In progress&#8230;</string>
-  <string name="local_payments_inprogress_body">Complete your payment and, once you get the AppCoins Credits in your wallet, make the purchase!</string>
+  <string name="local_payments_inprogress_header">Em andamento&#8230;</string>
+  <string name="local_payments_inprogress_body">Complete seu pagamento e, assim que receber seus Créditos AppCoins na sua carteira, siga com a compra!</string>
   <!--Wallet Verification-->
-  <string name="verification_notification_verification_needed_title">Reward ready but verification needed</string>
-  <string name="verification_notification_verification_needed_body">For security reasons, we need to verify your wallet with a SMS code.</string>
-  <string name="verification_insert_phone_title">Insert your phone number</string>
-  <string name="verification_insert_phone_body">We\'ll send you a verification code.</string>
-  <string name="verification_insert_phone_field_country">Country</string>
-  <string name="verification_insert_phone_field_number">Phone Number</string>
-  <string name="verification_insert_phone_field_number_error">Invalid phone number</string>
-  <string name="verification_insert_phone_security_disclaimer">This is only for security reasons, we don\'t store any personal data.</string>
+  <string name="verification_notification_verification_needed_title">Recompensa disponível, mas verificação é necessária</string>
+  <string name="verification_notification_verification_needed_body">Por razões de segurança, precisamos verificar sua wallet com um código SMS.</string>
+  <string name="verification_insert_phone_title">Insira seu número de telefone</string>
+  <string name="verification_insert_phone_body">Nós enviaremos um código de verificação.</string>
+  <string name="verification_insert_phone_field_country">País</string>
+  <string name="verification_insert_phone_field_number">Número de Telefone</string>
+  <string name="verification_insert_phone_field_number_error">Número de telefone inválido</string>
+  <string name="verification_insert_phone_security_disclaimer">Este processo é apenas para questões de segurança, não armazenamos nenhum dado pessoal.</string>
   <string name="verification_notification_code_title">AppCoins Wallet</string>
-  <string name="verification_notification_code_body">Your verification code is %s. Use it to verify your AppCoins Wallet address.</string>
-  <string name="verification_insert_code_title">Insert your verification code</string>
-  <string name="verification_insert_code_error">Invalid code</string>
-  <string name="verification_insert_code_resend_button">RESEND CODE</string>
-  <string name="verification_validating_title">Validating your code&#8230;</string>
-  <string name="verification_completed_title">Done!</string>
-  <string name="verification_notification_reward_received_body">Reward received, enjoy! 👌</string>
-  <string name="verification_notification_reward_already_received_body">This phone number has already been used to receive this reward 😔</string>
+  <string name="verification_notification_code_body">Seu código de verificação é %s. Utilize-o para verificar o endereço da sua AppCoins Wallet.</string>
+  <string name="verification_insert_code_title">Insira seu código de verificação</string>
+  <string name="verification_insert_code_error">Código inválido</string>
+  <string name="verification_insert_code_resend_button">REENVIAR CÓDIGO</string>
+  <string name="verification_validating_title">Validando seu código&#8230;</string>
+  <string name="verification_completed_title">Pronto!</string>
+  <string name="verification_notification_reward_received_body">Recompensa recebida, divirta-se! 👌</string>
+  <string name="verification_notification_reward_already_received_body">Este número de telefone já foi utilizado para receber esta recompensa 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Phone already used.</string>
   <string name="verification_insert_code_error_common">Oops, something went wrong. Try again!</string>
 </resources>
