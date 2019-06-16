@@ -299,11 +299,11 @@
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">Bonus Pembelian:</string>
   <string name="gamification_purchase_header_part_2">%s dalam Kredit APPC</string>
-  <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
-  <string name="gamification_purchase_completed_bonus_received_done">Done!</string>
-  <string name="gamification_purchase_completed_bonus_received">Bonus Received</string>
+  <string name="gamification_purchase_body">Anda bisa menggunakan bonus ini di pembelian berikutnya.</string>
+  <string name="gamification_purchase_completed_bonus_received_done">Selesai!</string>
+  <string name="gamification_purchase_completed_bonus_received">Bonus Diterima</string>
   <string name="action_level">Tingkat Saya</string>
-  <string name="gamification_purchase_appccredits_body">The quickest payment method!</string>
+  <string name="gamification_purchase_appccredits_body">Metode pembayaran tercepat!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Izinkan Dompet AppCoins untuk menginformasikan alamat dompet Anda ke %s.</string>
   <string name="provide_wallet_body_placeholders">Izinkan %1$s untuk menginformasikan alamat dompet Anda ke %2$s.</string>
@@ -323,11 +323,11 @@
   <string name="topup_amount">%s APPC-C</string>
   <string name="topup_bonus_header">Anda mendapatkan Bonus!</string>
   <string name="topup_bonus_message">%s APPC-C akan dimasukkan ke dompet Anda.</string>
-  <string name="topup_completed_1">%s in AppCoins Credits</string>
-  <string name="topup_completed_2">were deposited in your account... Along with a bonus!</string>
-  <string name="topup_bonus_header_part_1">Top-Up Bonus:</string>
-  <string name="topup_bonus_header_part_2">%s in APPC Credits</string>
-  <string name="topup_bonus_body">You can use this bonus in your next purchase.</string>
+  <string name="topup_completed_1">%s dalam Kredit AppCoins</string>
+  <string name="topup_completed_2">disimpan di akun Anda... Bersama dengan bonus!</string>
+  <string name="topup_bonus_header_part_1">Bonus Isi Ulang:</string>
+  <string name="topup_bonus_header_part_2">%s dalam Kredit APPC</string>
+  <string name="topup_bonus_body">Anda bisa menggunakan bonus ini di pembelian berikutnya.</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Total Saldo dalam %s</string>
@@ -362,15 +362,15 @@
   <string name="error_general">Ada kesalahan</string>
   <string name="error_missing_field">Wajib diisi</string>
   <string name="cancel_button">Batal</string>
-  <string name="submit_button">Submit</string>
-  <string name="close_button">Close</string>
-  <string name="back_button">Back</string>
+  <string name="submit_button">Kirim</string>
+  <string name="close_button">Tutup</string>
+  <string name="back_button">Kembali</string>
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
-  <string name="dismiss_button">Dismiss</string>
+  <string name="dismiss_button">Tutup</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s AppCoins Wallet.</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions_error">Harap menerima Syarat dan Ketentuan serta Kebijakan Privasi kami untuk melanjutkan</string>
   <string name="terms_and_conditions">Syarat dan Ketentuan</string>
   <string name="privacy_policy">Kebijakan Privasi</string>
   <!--Home-->
@@ -378,26 +378,26 @@
   <string name="home_empty_discover_apps_button">TEMUKAN APLIKASI TERATAS</string>
   <!--Tokens-->
   <!--Local Payments-->
-  <string name="local_payments_inprogress_header">In progress&#8230;</string>
-  <string name="local_payments_inprogress_body">Complete your payment and, once you get the AppCoins Credits in your wallet, make the purchase!</string>
+  <string name="local_payments_inprogress_header">Sedang diproses&#8230;</string>
+  <string name="local_payments_inprogress_body">Selesaikan pembayaran Anda dan, setelah menerima Kredit AppCoins di dompet Anda, lakukan pembelian!</string>
   <!--Wallet Verification-->
-  <string name="verification_notification_verification_needed_title">Reward ready but verification needed</string>
-  <string name="verification_notification_verification_needed_body">For security reasons, we need to verify your wallet with a SMS code.</string>
-  <string name="verification_insert_phone_title">Insert your phone number</string>
-  <string name="verification_insert_phone_body">We\'ll send you a verification code.</string>
-  <string name="verification_insert_phone_field_country">Country</string>
-  <string name="verification_insert_phone_field_number">Phone Number</string>
-  <string name="verification_insert_phone_field_number_error">Invalid phone number</string>
-  <string name="verification_insert_phone_security_disclaimer">This is only for security reasons, we don\'t store any personal data.</string>
-  <string name="verification_notification_code_title">AppCoins Wallet</string>
-  <string name="verification_notification_code_body">Your verification code is %s. Use it to verify your AppCoins Wallet address.</string>
-  <string name="verification_insert_code_title">Insert your verification code</string>
-  <string name="verification_insert_code_error">Invalid code</string>
-  <string name="verification_insert_code_resend_button">RESEND CODE</string>
-  <string name="verification_validating_title">Validating your code&#8230;</string>
-  <string name="verification_completed_title">Done!</string>
-  <string name="verification_notification_reward_received_body">Reward received, enjoy! 👌</string>
-  <string name="verification_notification_reward_already_received_body">This phone number has already been used to receive this reward 😔</string>
-  <string name="verification_insert_phone_field_phone_used_already_error">Phone already used.</string>
-  <string name="verification_insert_code_error_common">Oops, something went wrong. Try again!</string>
+  <string name="verification_notification_verification_needed_title">Hadiah sudah siap tetapi diperlukan verifikasi</string>
+  <string name="verification_notification_verification_needed_body">Demi keamanan, kami perlu memverifikasi dompet Anda dengan kode lewat SMS.</string>
+  <string name="verification_insert_phone_title">Masukkan nomor telepon Anda</string>
+  <string name="verification_insert_phone_body">Kami akan mengirimkan kode verifikasi ke Anda.</string>
+  <string name="verification_insert_phone_field_country">Negara</string>
+  <string name="verification_insert_phone_field_number">Nomor Telepon</string>
+  <string name="verification_insert_phone_field_number_error">Nomor telepon tidak valid</string>
+  <string name="verification_insert_phone_security_disclaimer">Ini hanya demi alasan keamanan, kami tidak menyimpan data pribadi.</string>
+  <string name="verification_notification_code_title">Dompet AppCoins</string>
+  <string name="verification_notification_code_body">Kode verifikasi Anda adalah %s. Gunakan untuk memverifikasi alamat Dompet AppCoins Anda.</string>
+  <string name="verification_insert_code_title">Masukkan kode verifikasi</string>
+  <string name="verification_insert_code_error">Kode tidak valid</string>
+  <string name="verification_insert_code_resend_button">KIRIM ULANG KODE</string>
+  <string name="verification_validating_title">Memvalidasi kode Anda&#8230;</string>
+  <string name="verification_completed_title">Selesai!</string>
+  <string name="verification_notification_reward_received_body">Hadiah diterima, silakan dinikmati! 👌</string>
+  <string name="verification_notification_reward_already_received_body">Nomor telepon ini sudah digunakan untuk menerima hadiah ini 😔</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">Nomor telepon sudah digunakan.</string>
+  <string name="verification_insert_code_error_common">Ups, ada kesalahan. Coba lagi!</string>
 </resources>
