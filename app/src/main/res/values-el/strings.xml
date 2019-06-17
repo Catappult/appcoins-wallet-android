@@ -364,4 +364,5 @@
   <!--Home-->
   <string name="home_empty_discover_apps_body">Οι καλύτερες Android εφαρμογές σάς περιμένουν.</string>
   <string name="home_empty_discover_apps_button">ΑΝΑΚΑΛΥΨΤΕ ΚΟΡΥΦΑΙΕΣ ΕΦΑΡΜΟΓΕΣ</string>
+  <!--Tokens-->
 </resources>

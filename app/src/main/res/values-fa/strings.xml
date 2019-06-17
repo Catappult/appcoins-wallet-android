@@ -364,4 +364,5 @@
   <!--Home-->
   <string name="home_empty_discover_apps_body">بهترین اپلیکیشن‌های اندروید منتظر شما هستند.</string>
   <string name="home_empty_discover_apps_button">اپلیکیشن‌های برتر را کشف کنید</string>
+  <!--Tokens-->
 </resources>
