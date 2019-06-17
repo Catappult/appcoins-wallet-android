@@ -3,8 +3,10 @@ package com.asfoundation.wallet.ui.iab;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import android.text.Spannable;
@@ -20,6 +22,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import com.airbnb.lottie.FontAssetDelegate;
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.TextDelegate;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -50,6 +55,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
 
   public static final String APP_PACKAGE = "app_package";
   public static final String TRANSACTION_BUILDER_KEY = "transaction_builder";
+  public static final String BONUS_KEY = "bonus";
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   private PublishRelay<String> buyButtonClick;
   private Button buyButton;
@@ -78,15 +84,17 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   private boolean isBds;
   @Inject BillingAnalytics analytics;
   private TransactionBuilder transaction;
+  private LottieAnimationView lottieTransactionComplete;
 
   public static OnChainBuyFragment newInstance(Bundle extras, String data, boolean bdsIap,
-      TransactionBuilder transaction) {
+      TransactionBuilder transaction, String bonus) {
     OnChainBuyFragment fragment = new OnChainBuyFragment();
     Bundle bundle = new Bundle();
     bundle.putBundle("extras", extras);
     bundle.putString("data", data);
     bundle.putBoolean("isBds", bdsIap);
     bundle.putParcelable(TRANSACTION_BUILDER_KEY, transaction);
+    bundle.putString(BONUS_KEY, bonus);
     fragment.setArguments(bundle);
     return fragment;
   }
@@ -127,6 +135,9 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     itemFinalPrice = view.findViewById(R.id.total_price);
     walletAddressTextView = view.findViewById(R.id.wallet_address_footer);
 
+    lottieTransactionComplete =
+        transactionCompletedLayout.findViewById(R.id.lottie_transaction_success);
+
     presenter =
         new OnChainBuyPresenter(this, inAppPurchaseInteractor, AndroidSchedulers.mainThread(),
             new CompositeDisposable(), inAppPurchaseInteractor.getBillingMessagesMapper(), isBds,
@@ -154,6 +165,8 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
         (BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT), transaction.getPayload());
 
     buyButton.performClick();
+
+    setupTransactionCompleteAnimation();
   }
 
   @Override public void onResume() {
@@ -297,6 +310,10 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     iabView = ((IabView) context);
   }
 
+  @Override public long getAnimationDuration() {
+    return lottieTransactionComplete.getDuration();
+  }
+
   private void showLoading(@StringRes int message) {
     loadingView.setVisibility(View.VISIBLE);
     transactionErrorLayout.setVisibility(View.GONE);
@@ -327,5 +344,27 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
       return extras.getString(APP_PACKAGE);
     }
     throw new IllegalArgumentException("previous app package name not found");
+  }
+
+  private String getBonus() {
+    if (getArguments().containsKey(BONUS_KEY)) {
+      return getArguments().getString(BONUS_KEY);
+    } else {
+      throw new IllegalArgumentException("bonus amount data not found");
+    }
+  }
+
+  private void setupTransactionCompleteAnimation() {
+    LottieAnimationView lottieTransactionComplete =
+        transactionCompletedLayout.findViewById(R.id.lottie_transaction_success);
+    TextDelegate textDelegate = new TextDelegate(lottieTransactionComplete);
+    textDelegate.setText("bonus_value", getBonus());
+    textDelegate.setText("bonus_received", "Bonus Received");
+    lottieTransactionComplete.setTextDelegate(textDelegate);
+    lottieTransactionComplete.setFontAssetDelegate(new FontAssetDelegate() {
+      @Override public Typeface fetchFont(String fontFamily) {
+        return Typeface.create("sans-serif-medium", Typeface.BOLD);
+      }
+    });
   }
 }

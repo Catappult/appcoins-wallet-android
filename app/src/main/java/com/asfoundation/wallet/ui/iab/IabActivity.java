@@ -147,13 +147,14 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     finish();
   }
 
-  @Override public void navigateToAdyenAuthorization(boolean isBds, String currency,
-      PaymentType paymentType) {
+  @Override
+  public void navigateToAdyenAuthorization(boolean isBds, String currency, PaymentType paymentType,
+      String bonus) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container,
             AdyenAuthorizationFragment.newInstance(transaction.getSkuId(), transaction.getType(),
                 getOrigin(isBds), paymentType, transaction.getDomain(), getIntent().getDataString(),
-                transaction.amount(), currency, developerPayload))
+                transaction.amount(), currency, developerPayload, bonus))
         .commit();
   }
 
@@ -163,19 +164,20 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
             transaction.amount(), transaction.getType()), WEB_VIEW_REQUEST_CODE);
   }
 
-  @Override public void showOnChain(BigDecimal amount, boolean isBds) {
+  @Override public void showOnChain(BigDecimal amount, boolean isBds, String bonus) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container, OnChainBuyFragment.newInstance(createBundle(amount),
             getIntent().getData()
-                .toString(), isBds, transaction))
+                .toString(), isBds, transaction, bonus))
         .commit();
   }
 
   @Override public void showAdyenPayment(BigDecimal amount, String currency, boolean isBds,
-      PaymentType paymentType) {
+      PaymentType paymentType, String bonus) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container, ExpressCheckoutBuyFragment.newInstance(
-            createBundle(BigDecimal.valueOf(amount.doubleValue()), currency), isBds, paymentType))
+            createBundle(BigDecimal.valueOf(amount.doubleValue()), currency), isBds, paymentType,
+            bonus))
         .commit();
   }
 

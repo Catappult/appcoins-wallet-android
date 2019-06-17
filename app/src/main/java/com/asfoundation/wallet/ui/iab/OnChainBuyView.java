@@ -48,4 +48,6 @@ public interface OnChainBuyView {
   void showRaidenChannelValues(List<BigDecimal> values);
 
   void showWallet(String wallet);
+
+  long getAnimationDuration();
 }

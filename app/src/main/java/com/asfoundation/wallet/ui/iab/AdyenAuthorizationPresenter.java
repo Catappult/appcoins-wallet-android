@@ -217,8 +217,8 @@ public class AdyenAuthorizationPresenter {
               sendRevenueEvent();
               view.showSuccess();
             })
-            .andThen(Completable.timer(1, TimeUnit.SECONDS))
-            .andThen(Completable.fromAction(() -> navigator.popView(bundle)))))
+                .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+                .andThen(Completable.fromAction(() -> navigator.popView(bundle)))))
         .subscribe(() -> {
         }, throwable -> showError(throwable)));
   }
