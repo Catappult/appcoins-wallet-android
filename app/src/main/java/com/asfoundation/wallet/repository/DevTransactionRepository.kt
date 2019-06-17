@@ -21,7 +21,7 @@ class DevTransactionRepository(
     nonceObtainer: MultiWalletNonceObtainer,
     scheduler: Scheduler,
     private val offChainTransactions: OffChainTransactions,
-    private val localRepository: TransactionsDao,
+    private val localRepository: TransactionsRepository,
     private val mapper: TransactionMapper,
     private val disposables: CompositeDisposable,
     private val ioScheduler: Scheduler) :
@@ -38,7 +38,7 @@ class DevTransactionRepository(
           .flatMapObservable { startingDate ->
             return@flatMapObservable Observable.merge(
                 fetchNewTransactions(wallet, startingDate = startingDate),
-                fetchOldTransactions(wallet, startingDate = startingDate))
+                fetchOldTransactions(wallet))
           }
           .buffer(2, TimeUnit.SECONDS)
           .doOnNext {
@@ -64,14 +64,20 @@ class DevTransactionRepository(
     return fetchTransactions(wallet, startingDate = startingDate, sort = sort)
   }
 
-  private fun fetchOldTransactions(wallet: String,
-                                   startingDate: Long): Observable<MutableList<TransactionEntity>> {
-    if (startingDate == 0L) {
-      return localRepository.getOlderTransaction(wallet)
-          .map { it.timeStamp }
-          .flatMapObservable { fetchTransactions(wallet, 0L, it, OffChainTransactions.Sort.DESC) }
-    }
-    return Observable.empty()
+  private fun fetchOldTransactions(wallet: String): Observable<MutableList<TransactionEntity>> {
+    return localRepository.isOldTransactionsLoaded()
+        .flatMapObservable { isLoaded ->
+          if (isLoaded) {
+            return@flatMapObservable Observable.empty<MutableList<TransactionEntity>>()
+          }
+          return@flatMapObservable localRepository.getOlderTransaction(wallet)
+              .map { it.timeStamp }
+              .flatMapObservable {
+                fetchTransactions(wallet, 0L, it, OffChainTransactions.Sort.DESC)
+              }
+              .doOnComplete { localRepository.oldTransactionsLoaded() }
+        }
+
   }
 
   private fun fetchTransactions(wallet: String,

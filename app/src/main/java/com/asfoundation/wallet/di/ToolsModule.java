@@ -122,6 +122,8 @@ import com.asfoundation.wallet.repository.TransactionMapper;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
 import com.asfoundation.wallet.repository.TransactionsDao;
 import com.asfoundation.wallet.repository.TransactionsDatabase;
+import com.asfoundation.wallet.repository.TransactionsLocalRepository;
+import com.asfoundation.wallet.repository.TransactionsRepository;
 import com.asfoundation.wallet.repository.TrustPasswordStore;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.repository.WatchedTransactionService;
@@ -988,13 +990,15 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       TransactionsNetworkClientType blockExplorerClient, TransactionLocalSource inDiskCache,
       DefaultTokenProvider defaultTokenProvider, MultiWalletNonceObtainer nonceObtainer,
       OffChainTransactions transactionsNetworkRepository, @NotNull TransactionsMapper mapper,
-      Context context) {
+      Context context, SharedPreferences sharedPreferences) {
     if (BuildConfig.DEBUG) {
-      TransactionsDao localRepository =
+      TransactionsDao transactionsDao =
           Room.databaseBuilder(context.getApplicationContext(), TransactionsDatabase.class,
               "transactions_database")
               .build()
               .transactionsDao();
+      TransactionsRepository localRepository =
+          new TransactionsLocalRepository(transactionsDao, sharedPreferences);
       return new DevTransactionRepository(networkInfo, accountKeystoreService, defaultTokenProvider,
           new BlockchainErrorMapper(), nonceObtainer, Schedulers.io(),
           transactionsNetworkRepository, localRepository, new TransactionMapper(),
