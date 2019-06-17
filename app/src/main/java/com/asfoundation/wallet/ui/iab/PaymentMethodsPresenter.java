@@ -85,7 +85,8 @@ public class PaymentMethodsPresenter {
   private void handlePaymentSelection() {
     disposables.add(view.getPaymentSelection()
         .flatMapCompletable(selectedPaymentMethod -> {
-          if (selectedPaymentMethod.equals(PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS)) {
+          if (selectedPaymentMethod.equals(
+              paymentMethodsMapper.map(PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS))) {
             return Completable.fromAction(view::hideBonus)
                 .subscribeOn(viewScheduler);
           } else {
@@ -114,7 +115,7 @@ public class PaymentMethodsPresenter {
     disposables.add(view.getBuyClick()
         .observeOn(viewScheduler)
         .doOnNext(selectedPaymentMethod -> {
-          switch (selectedPaymentMethod) {
+          switch (paymentMethodsMapper.map(selectedPaymentMethod)) {
             case PAYPAL:
               view.showPaypal();
               break;
@@ -128,12 +129,10 @@ public class PaymentMethodsPresenter {
               view.showCredits();
               break;
             case SHARE_LINK:
-              view.showShareLink(paymentMethodsMapper.map(selectedPaymentMethod));
+              view.showShareLink(selectedPaymentMethod);
               break;
-            case ALFAMART:
-            case GOPAY:
-            case BANK_TRANSFER:
-              view.showLocalPayment(paymentMethodsMapper.map(selectedPaymentMethod));
+            case LOCAL_PAYMENTS:
+              view.showLocalPayment(selectedPaymentMethod);
               break;
           }
         })
