@@ -8,8 +8,8 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 class TransactionsLoadObservable(private val offChainTransactions: OffChainTransactions,
                                  private val wallet: String,
-                                 private val startingDate: String? = null,
-                                 private val endDate: String? = null,
+                                 private val startingDate: Long? = null,
+                                 private val endDate: Long? = null,
                                  private val sort: OffChainTransactions.Sort? = null,
                                  private val limit: Int = 10) :
     Observable<List<Transaction>>() {

@@ -21,8 +21,8 @@ class OffChainTransactions(private val repository: OffChainTransactionsRepositor
         }
   }
 
-  fun getTransactions(wallet: String, startingDate: String? = null,
-                      endingDate: String? = null, offset: Int, sort: Sort?,
+  fun getTransactions(wallet: String, startingDate: Long? = null,
+                      endingDate: Long? = null, offset: Int, sort: Sort?,
                       limit: Int = 10): List<Transaction> {
     @SuppressLint("DefaultLocale") val lowerCaseSort = sort?.name?.toLowerCase()
     val transactions =

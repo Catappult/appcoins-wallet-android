@@ -966,7 +966,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
             .build();
 
     return new OffChainTransactionsRepository(
-        retrofit.create(OffChainTransactionsRepository.TransactionsApi.class));
+        retrofit.create(OffChainTransactionsRepository.TransactionsApi.class),
+        new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US));
   }
 
   @Provides OffChainTransactions providesOffChainTransactions(
@@ -1004,7 +1005,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       return new DevTransactionRepository(networkInfo, accountKeystoreService, defaultTokenProvider,
           new BlockchainErrorMapper(), nonceObtainer, Schedulers.io(),
           transactionsNetworkRepository, localRepository, new TransactionMapper(),
-          new CompositeDisposable(), Schedulers.io(), dateFormatter);
+          new CompositeDisposable(), Schedulers.io());
     } else {
       return new ProdTransactionRepository(networkInfo, accountKeystoreService, inDiskCache,
           blockExplorerClient, defaultTokenProvider, new BlockchainErrorMapper(), nonceObtainer,

@@ -24,8 +24,7 @@ class DevTransactionRepository(
     private val localRepository: TransactionsDao,
     private val mapper: TransactionMapper,
     private val disposables: CompositeDisposable,
-    private val ioScheduler: Scheduler,
-    private val dateFormatter: DateFormatter) :
+    private val ioScheduler: Scheduler) :
     TransactionRepository(networkInfo, accountKeystoreService,
         defaultTokenProvider, errorMapper, nonceObtainer, scheduler) {
 
@@ -68,25 +67,17 @@ class DevTransactionRepository(
   private fun fetchOldTransactions(wallet: String,
                                    startingDate: Long): Observable<MutableList<TransactionEntity>> {
     if (startingDate == 0L) {
-      return Observable.empty()
+      return localRepository.getOlderTransaction(wallet)
+          .map { it.timeStamp }
+          .flatMapObservable { fetchTransactions(wallet, 0L, it, OffChainTransactions.Sort.DESC) }
     }
-    return localRepository.getOlderTransaction(wallet)
-        .map { it.timeStamp }
-        .flatMapObservable { fetchTransactions(wallet, 0L, it, OffChainTransactions.Sort.DESC) }
+    return Observable.empty()
   }
 
   private fun fetchTransactions(wallet: String,
                                 startingDate: Long? = null,
                                 endDate: Long? = null,
                                 sort: OffChainTransactions.Sort? = null): Observable<MutableList<TransactionEntity>> {
-    return getTransactions(wallet, startingDate?.let { dateFormatter.format(it) },
-        endDate?.let { dateFormatter.format(it) }, sort)
-  }
-
-  private fun getTransactions(wallet: String,
-                              startingDate: String? = null,
-                              endDate: String? = null,
-                              sort: OffChainTransactions.Sort? = null): Observable<MutableList<TransactionEntity>> {
     return TransactionsLoadObservable(offChainTransactions, wallet, startingDate, endDate, sort)
         .flatMapSingle { transactions ->
           Observable.fromIterable(transactions)

@@ -102,7 +102,7 @@ public class TransactionsMapper {
       }
       transactionList.add(0, new Transaction(transaction.getTxID(), txType, null,
           transaction.getTs()
-              .getTime() / 1000, status, transaction.getAmount()
+              .getTime(), status, transaction.getAmount()
           .toString(), transaction.getSender(), transaction.getReceiver(),
           new TransactionDetails(sourceName,
               new TransactionDetails.Icon(TransactionDetails.Icon.Type.URL, transaction.getIcon()),

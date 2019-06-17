@@ -5,8 +5,10 @@ import io.reactivex.Single
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
+import java.text.DateFormat
 
-class OffChainTransactionsRepository(private val api: TransactionsApi) {
+class OffChainTransactionsRepository(private val api: TransactionsApi,
+                                     private val dateFormatter: DateFormat) {
 
   fun getTransactions(wallet: String, versionCode: String,
                       offChainOnly: Boolean): Single<WalletHistory> {
@@ -17,11 +19,14 @@ class OffChainTransactionsRepository(private val api: TransactionsApi) {
     }
   }
 
-  fun getTransactionsSync(wallet: String, versionCode: String, startingDate: String? = null,
-                          endingDate: String? = null, offset: Int,
-                          sort: String?, limit: Int): Call<WalletHistory> {
-    return api.transactionHistorySync(wallet, versionCode, startingDate = startingDate,
-        endingDate = endingDate, offset = offset, sort = sort, limit = limit)
+  fun getTransactionsSync(wallet: String, versionCode: String, startingDate: Long? = null,
+                          endingDate: Long? = null, offset: Int, sort: String?,
+                          limit: Int): Call<WalletHistory> {
+
+    return api.transactionHistorySync(wallet, versionCode,
+        startingDate = startingDate?.let { dateFormatter.format(it) },
+        endingDate = endingDate?.let { dateFormatter.format(it) }, offset = offset, sort = sort,
+        limit = limit)
   }
 
   interface TransactionsApi {
