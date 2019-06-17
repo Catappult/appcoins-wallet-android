@@ -330,7 +330,8 @@
 
   <style name="TopUpTextStyle.SuccessTitle">
     <item name="android:textColor">@color/top_up_bonus_title</item>
-    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:fontFamily">sans-serif</item>
+    <item name="android:textSize">14sp</item>
   </style>
 
   <style name="TopUpTextStyle.SuccessText">

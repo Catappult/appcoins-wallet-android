@@ -57,7 +57,7 @@ project.ext {
   appcoinsSdkVersion = "0.4.5.19b"
   ethereumjSdkVersion = "0.5.0.0"
   jacksonVersion = "2.9.6"
-  lottieVersion = "2.7.0"
+  lottieVersion = "3.0.1"
 }
 
 task clean(type: Delete) {

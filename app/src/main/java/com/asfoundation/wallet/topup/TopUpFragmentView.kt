@@ -1,9 +1,8 @@
 package com.asfoundation.wallet.topup
 
 import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
-import com.jakewharton.rxbinding2.InitialValueObservable
-import com.jakewharton.rxbinding2.widget.TextViewAfterTextChangeEvent
 import io.reactivex.Observable
+import java.math.BigDecimal
 
 interface TopUpFragmentView {
 
@@ -36,4 +35,8 @@ interface TopUpFragmentView {
   fun toggleSwitchCurrencyOn()
 
   fun toggleSwitchCurrencyOff()
+
+  fun hideBonus()
+
+  fun showBonus(bonus: BigDecimal, currency: String)
 }

@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.topup
 
+import android.util.Log
+import com.appcoins.wallet.gamification.repository.ForecastBonus
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
 import com.asfoundation.wallet.ui.iab.FiatValue
@@ -24,12 +26,11 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     private const val NUMERIC_REGEX = "-?\\d+(\\.\\d+)?"
   }
 
-  fun present() {
+  fun present(appPackage: String) {
     setupUi()
     handleChangeCurrencyClick()
     handleNextClick()
-    handleValuesChange()
-    handleAmountChange()
+    handleAmountChange(appPackage)
     handlePaymentMethodSelected()
   }
 
@@ -64,17 +65,18 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
             }.doOnNext {
               view.showLoading()
               activity?.navigateToPayment(it.paymentMethod!!, it, it.selectedCurrency, "BDS",
-                  "TOPUP")
+                  "TOPUP", it.bonusValue, it.validBonus)
             }.subscribe())
   }
 
-  private fun handleAmountChange() {
+  private fun handleAmountChange(packageName: String) {
     disposables.add(view.getEditTextChanges().filter {
       isNumericOrEmpty(it)
     }.doOnNext { view.setNextButtonState(false) }.debounce(700, TimeUnit.MILLISECONDS)
         .switchMap { topUpData ->
           getConvertedValue(topUpData)
-              .subscribeOn(networkScheduler).map { value ->
+              .subscribeOn(networkScheduler)
+              .map { value ->
                 if (topUpData.selectedCurrency == TopUpData.FIAT_CURRENCY) {
                   topUpData.currency.appcValue =
                       if (value.amount == BigDecimal.ZERO) DEFAULT_VALUE else value.amount.toString()
@@ -86,9 +88,14 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
               }
               .doOnError { it.printStackTrace() }
               .onErrorResumeNext(Observable.empty())
-              .observeOn(viewScheduler).doOnNext {
-                view.setConversionValue(it)
-                view.setNextButtonState(true)
+              .observeOn(viewScheduler)
+              .filter { !it.currency.appcValue.equals("--") }
+              .flatMap {
+                loadBonusIntoView(packageName, it.currency.appcValue).toObservable()
+                    .doOnNext {
+                      view.setConversionValue(topUpData)
+                      view.setNextButtonState(hasValidData(topUpData))
+                    }
               }
         }
         .subscribe())
@@ -102,12 +109,6 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
       data.currency.appcValue == DEFAULT_VALUE || data.currency.appcValue.matches(
           NUMERIC_REGEX.toRegex())
     }
-  }
-
-  private fun handleValuesChange() {
-    disposables.add(
-        view.getEditTextChanges().map { view.setNextButtonState(hasValidData(it)) }.subscribe())
-
   }
 
   private fun hasValidData(data: TopUpData): Boolean {
@@ -143,5 +144,21 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
 
   private fun handlePaymentMethodSelected() {
     disposables.add(view.getPaymentMethodClick().doOnNext { view.hideKeyboard() }.subscribe())
+  }
+
+  private fun loadBonusIntoView(appPackage: String, amount: String): Single<ForecastBonus> {
+    Log.d("TAG123", "1st: $amount")
+    return interactor.getEarningBonus(appPackage, amount.toBigDecimal())
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          if (it.status != ForecastBonus.Status.ACTIVE || it.amount <= BigDecimal.ZERO) {
+            Log.d("TAG123", "HIDE " + it.status.toString() + " : " + it.amount)
+            view.hideBonus()
+          } else {
+            Log.d("TAG123", "SHOW " + it.status.toString() + " : " + it.amount)
+            view.showBonus(it.amount, it.currency)
+          }
+        }
   }
 }

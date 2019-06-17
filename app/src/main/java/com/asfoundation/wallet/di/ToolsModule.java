@@ -894,8 +894,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides TopUpInteractor providesTopUpInteractor(BdsRepository repository,
-      LocalCurrencyConversionService conversionService) {
-    return new TopUpInteractor(repository, conversionService);
+      LocalCurrencyConversionService conversionService,
+      GamificationInteractor gamificationInteractor) {
+    return new TopUpInteractor(repository, conversionService, gamificationInteractor);
   }
 
   @Singleton @Provides TransactionsAnalytics providesTransactionsAnalytics(

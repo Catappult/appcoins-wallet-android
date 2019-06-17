@@ -1,25 +1,31 @@
 package com.asfoundation.wallet.topup
 
+import android.util.Log
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethod
+import com.appcoins.wallet.gamification.repository.ForecastBonus
 import com.asfoundation.wallet.service.LocalCurrencyConversionService
 import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
+import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Observable
 import io.reactivex.Single
+import java.math.BigDecimal
 
 class TopUpInteractor(private val repository: BdsRepository,
-                      private val conversionService: LocalCurrencyConversionService) {
+                      private val conversionService: LocalCurrencyConversionService,
+                      private val gamificationInteractor: GamificationInteractor) {
 
   fun getPaymentMethods(): Single<List<PaymentMethodData>> {
-    return repository.getPaymentMethods("fiat").map { methods ->
-      mapPaymentMethods(methods)
-    }
+    return repository.getPaymentMethods("fiat")
+        .map { methods ->
+          mapPaymentMethods(methods)
+        }
   }
 
   fun getLocalCurrency(): Single<LocalCurrency> {
     return conversionService.localCurrency.map { value ->
-      LocalCurrency(value.symbol , value.currency)
+      LocalCurrency(value.symbol, value.currency)
     }
   }
 
@@ -38,4 +44,10 @@ class TopUpInteractor(private val repository: BdsRepository,
     }
     return paymentMethodsData
   }
+
+  fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonus> {
+    Log.d("TAG123", "2nd: ${amount.toPlainString()}")
+    return gamificationInteractor.getEarningBonus(packageName, amount)
+  }
+
 }
