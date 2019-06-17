@@ -535,7 +535,8 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   private void setupTransactionCompleteAnimation() {
     TextDelegate textDelegate = new TextDelegate(lottieTransactionComplete);
     textDelegate.setText("bonus_value", getBonus());
-    textDelegate.setText("bonus_received", "Bonus Received");
+    textDelegate.setText("bonus_received",
+        getResources().getString(R.string.gamification_purchase_completed_bonus_received));
     lottieTransactionComplete.setTextDelegate(textDelegate);
     lottieTransactionComplete.setFontAssetDelegate(new FontAssetDelegate() {
       @Override public Typeface fetchFont(String fontFamily) {
