@@ -299,11 +299,11 @@
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">پاداش خرید:</string>
   <string name="gamification_purchase_header_part_2">%s اعتبار داخل APPC</string>
-  <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
-  <string name="gamification_purchase_completed_bonus_received_done">Done!</string>
-  <string name="gamification_purchase_completed_bonus_received">Bonus Received</string>
+  <string name="gamification_purchase_body">شما می‌توانید از این پاداش در خرید بعدی خود استفاده کنید.</string>
+  <string name="gamification_purchase_completed_bonus_received_done">تمام!</string>
+  <string name="gamification_purchase_completed_bonus_received">پاداش دریافت شد</string>
   <string name="action_level">سطح من</string>
-  <string name="gamification_purchase_appccredits_body">The quickest payment method!</string>
+  <string name="gamification_purchase_appccredits_body">سریع‌ترین روش پرداخت!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">به کیف پول AppCoins اجازه دهید که آدرس کیف پول شما را به %s بدهد.</string>
   <string name="provide_wallet_body_placeholders">به %1$s اجازه دهید که آدرس کیف پول شما را به %2$s بدهد.</string>
@@ -323,11 +323,11 @@
   <string name="topup_amount">%s APPC-C</string>
   <string name="topup_bonus_header">یک پاداش گرفته اید!</string>
   <string name="topup_bonus_message">%s APPC-C اضافی به کیف پول شما اضافه می شود.</string>
-  <string name="topup_completed_1">%s in AppCoins Credits</string>
-  <string name="topup_completed_2">were deposited in your account... Along with a bonus!</string>
-  <string name="topup_bonus_header_part_1">Top-Up Bonus:</string>
-  <string name="topup_bonus_header_part_2">%s in APPC Credits</string>
-  <string name="topup_bonus_body">You can use this bonus in your next purchase.</string>
+  <string name="topup_completed_1">%s در اعتبار AppCoins</string>
+  <string name="topup_completed_2">در حساب شما قرار گرفت... به همراه یک پاداش!</string>
+  <string name="topup_bonus_header_part_1">پاداش افزایشی:</string>
+  <string name="topup_bonus_header_part_2">%s اعتبار داخل APPC</string>
+  <string name="topup_bonus_body">شما می‌توانید از این پاداش در خرید بعدی خود استفاده کنید.</string>
   <!--Balance-->
   <string name="balance_title">بالانس</string>
   <string name="balance_total_body">بالانس کلی در %s</string>
@@ -362,15 +362,15 @@
   <string name="error_general">مشکلی پیش آمده است</string>
   <string name="error_missing_field">فیلد اجباری</string>
   <string name="cancel_button">لغو</string>
-  <string name="submit_button">Submit</string>
-  <string name="close_button">Close</string>
-  <string name="back_button">Back</string>
+  <string name="submit_button">ارسال</string>
+  <string name="close_button">بستن</string>
+  <string name="back_button">بازگشت</string>
   <string name="value_fiat">%1$s%2$s</string>
-  <string name="value_crypto">%1$s %2$s</string>
-  <string name="dismiss_button">Dismiss</string>
+  <string name="value_crypto">%1$s%2$s</string>
+  <string name="dismiss_button">رد کردن</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">با %1$s و %2$s کیف پول AppCoins موافقم.</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions_error">برای ادامه، لطفا شرایط، مقررات و قوانین حریم خصوصی را تایید کنید</string>
   <string name="terms_and_conditions">شرایط و ضوابط</string>
   <string name="privacy_policy">سیاست حفظ حریم خصوصی</string>
   <!--Home-->
@@ -378,26 +378,26 @@
   <string name="home_empty_discover_apps_button">اپلیکیشن‌های برتر را کشف کنید</string>
   <!--Tokens-->
   <!--Local Payments-->
-  <string name="local_payments_inprogress_header">In progress&#8230;</string>
-  <string name="local_payments_inprogress_body">Complete your payment and, once you get the AppCoins Credits in your wallet, make the purchase!</string>
+  <string name="local_payments_inprogress_header">در حال پیش رفتن&#8230;</string>
+  <string name="local_payments_inprogress_body">پرداخت خود را کامل کنید و زمانی که اعتبار AppCoins خود را دریافت کردید، خرید خود را انجام دهید!</string>
   <!--Wallet Verification-->
-  <string name="verification_notification_verification_needed_title">Reward ready but verification needed</string>
-  <string name="verification_notification_verification_needed_body">For security reasons, we need to verify your wallet with a SMS code.</string>
-  <string name="verification_insert_phone_title">Insert your phone number</string>
-  <string name="verification_insert_phone_body">We\'ll send you a verification code.</string>
-  <string name="verification_insert_phone_field_country">Country</string>
-  <string name="verification_insert_phone_field_number">Phone Number</string>
-  <string name="verification_insert_phone_field_number_error">Invalid phone number</string>
-  <string name="verification_insert_phone_security_disclaimer">This is only for security reasons, we don\'t store any personal data.</string>
-  <string name="verification_notification_code_title">AppCoins Wallet</string>
-  <string name="verification_notification_code_body">Your verification code is %s. Use it to verify your AppCoins Wallet address.</string>
-  <string name="verification_insert_code_title">Insert your verification code</string>
-  <string name="verification_insert_code_error">Invalid code</string>
-  <string name="verification_insert_code_resend_button">RESEND CODE</string>
-  <string name="verification_validating_title">Validating your code&#8230;</string>
-  <string name="verification_completed_title">Done!</string>
-  <string name="verification_notification_reward_received_body">Reward received, enjoy! 👌</string>
-  <string name="verification_notification_reward_already_received_body">This phone number has already been used to receive this reward 😔</string>
-  <string name="verification_insert_phone_field_phone_used_already_error">Phone already used.</string>
-  <string name="verification_insert_code_error_common">Oops, something went wrong. Try again!</string>
+  <string name="verification_notification_verification_needed_title">پاداش آماده است ولی نیازمند تایید است</string>
+  <string name="verification_notification_verification_needed_body">به دلایل امنیتی، نیازمند به تایید کیف پول شما با یک کد پیامکی هستیم.</string>
+  <string name="verification_insert_phone_title">شماره تلفن خود را وارد کنید</string>
+  <string name="verification_insert_phone_body">یک کد تاییدیه به شما ارسال می‌کنیم.</string>
+  <string name="verification_insert_phone_field_country">کشور</string>
+  <string name="verification_insert_phone_field_number">شماره تلفن</string>
+  <string name="verification_insert_phone_field_number_error">شمشماره تلفن نامعتبر</string>
+  <string name="verification_insert_phone_security_disclaimer">این به دلایل امنیتی است، ما هیچ اطلاعات شخصی شما را ذخیره نمی‌کنیم.</string>
+  <string name="verification_notification_code_title">کیف پول AppCoins</string>
+  <string name="verification_notification_code_body">کد تاییدیه شما %s است. از آن برای تایید نشانی کیف پول AppCoins خود استفاده کنید.</string>
+  <string name="verification_insert_code_title">کد تاییدیه خود را وارد کنید</string>
+  <string name="verification_insert_code_error">کد نامعتبر</string>
+  <string name="verification_insert_code_resend_button">ارسال مجدد کد</string>
+  <string name="verification_validating_title">تایید اعتبار کد شما &#8230;</string>
+  <string name="verification_completed_title">تمام!</string>
+  <string name="verification_notification_reward_received_body">پاداش دریافت شد، لذت ببرید! 👌</string>
+  <string name="verification_notification_reward_already_received_body">این شماره تلفن قبلا برای دریافت این پاداش استفاده شده است 😔</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">شماره تلفن قبلا استفاده شده است.</string>
+  <string name="verification_insert_code_error_common">مشکلی پیش آمده است. دوباره امتحان کنید!</string>
 </resources>
