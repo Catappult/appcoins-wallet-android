@@ -196,6 +196,7 @@ public class WalletPoAService extends Service {
   }
 
   public void startNotifications() {
+    notificationManager.notify(VERIFICATION_SERVICE_ID, createVerificationNotification().build());
     startForeground(SERVICE_ID,
         createDefaultNotificationBuilder(R.string.notification_ongoing_poa).build());
     if (disposable == null || disposable.isDisposed()) {

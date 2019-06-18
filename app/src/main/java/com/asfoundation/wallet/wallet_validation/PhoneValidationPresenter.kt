@@ -36,7 +36,7 @@ class PhoneValidationPresenter(
         view.getSubmitClicks()
             .subscribeOn(viewScheduler)
             .flatMapSingle {
-              smsValidationInteract.requestValidationCode("+${it.first}${it.second}")
+              smsValidationInteract.requestValidationCode("${it.first}${it.second}")
                   .subscribeOn(networkScheduler)
                   .observeOn(viewScheduler)
                   .doOnSuccess { status ->

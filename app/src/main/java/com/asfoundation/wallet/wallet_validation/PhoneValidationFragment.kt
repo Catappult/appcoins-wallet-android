@@ -5,13 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.SmsValidationInteract
-import com.google.i18n.phonenumbers.PhoneNumberUtil
 import com.jakewharton.rxbinding2.view.RxView
-import com.jakewharton.rxbinding2.widget.RxAdapterView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -20,6 +17,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_phone_validation.*
 import javax.inject.Inject
+
 
 class PhoneValidationFragment : DaggerFragment(), PhoneValidationView {
 
@@ -62,20 +60,15 @@ class PhoneValidationFragment : DaggerFragment(), PhoneValidationView {
   }
 
   override fun setupUI() {
-    val arr = PhoneNumberUtil.getInstance()
-        .supportedCallingCodes.toTypedArray()
-
-    val adapter = ArrayAdapter(context!!, R.layout.spinner_item, arr)
-    adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
-    country_code?.adapter = adapter
+    ccp.registerCarrierNumberEditText(phone_number)
 
     countryCode?.let {
-      val position = arr.indexOf(it.toInt())
-      country_code.setSelection(position)
+      ccp.setCountryForPhoneCode(it.drop(0).toInt())
     }
     phoneNumber?.let { phone_number.setText(it) }
 
     errorMessage?.let { setError(it) }
+
   }
 
   override fun setError(message: Int) {
@@ -87,12 +80,7 @@ class PhoneValidationFragment : DaggerFragment(), PhoneValidationView {
   }
 
   override fun getCountryCode(): Observable<String> {
-    return RxAdapterView.itemSelections(country_code)
-        .map {
-          val arr = PhoneNumberUtil.getInstance()
-              .supportedRegions.toTypedArray()
-          arr[it]
-        }
+    return Observable.just(ccp.selectedCountryCodeWithPlus)
   }
 
   override fun getPhoneNumber(): Observable<String> {
@@ -109,7 +97,10 @@ class PhoneValidationFragment : DaggerFragment(), PhoneValidationView {
 
   override fun getSubmitClicks(): Observable<Pair<String, String>> {
     return RxView.clicks(submit_button)
-        .map { Pair(country_code.selectedItem.toString(), phone_number.text.toString()) }
+        .map {
+          Pair(ccp.selectedCountryCodeWithPlus,
+              ccp.fullNumber.substringAfter(ccp.selectedCountryCode))
+        }
   }
 
   override fun getCancelClicks(): Observable<Any> {

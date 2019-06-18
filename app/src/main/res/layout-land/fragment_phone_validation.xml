@@ -62,39 +62,24 @@
         app:layout_constraintTop_toBottomOf="@+id/subtitle"
         >
 
-      <LinearLayout
+      <com.hbb20.CountryCodePicker
+          android:id="@+id/ccp"
           android:layout_width="0dp"
           android:layout_height="match_parent"
           android:layout_marginEnd="16dp"
           android:layout_weight="1.5"
-          android:orientation="vertical"
-          >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="12dp"
-            android:gravity="top"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:text="@string/verification_insert_phone_field_country"
-            android:textColor="@color/colorAccent"
-            android:textSize="11sp"
-            />
-
-        <Spinner
-            android:id="@+id/country_code"
-            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:backgroundTint="@color/colorAccent"
-            android:dropDownWidth="match_parent"
-            android:entries="@android:array/phoneTypes"
-            android:gravity="top"
-            android:spinnerMode="dropdown"
-            android:textColor="#000000"
-            />
-
-      </LinearLayout>
+          android:gravity="bottom"
+          app:ccpDialog_backgroundColor="#FAFAFA"
+          app:ccpDialog_textColor="#000000"
+          app:ccp_arrowColor="@color/colorAccent"
+          app:ccp_arrowSize="30dp"
+          app:ccp_autoDetectCountry="true"
+          app:ccp_autoFormatNumber="true"
+          app:ccp_textSize="16sp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/subtitle"
+          />
 
       <com.google.android.material.textfield.TextInputLayout
           android:id="@+id/phone_number_layout"

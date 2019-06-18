@@ -45,43 +45,23 @@
         app:layout_constraintTop_toBottomOf="@id/title"
         />
 
-    <LinearLayout
-        android:id="@+id/country_code_layout"
+    <com.hbb20.CountryCodePicker
+        android:id="@+id/ccp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="50dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="22dp"
         android:layout_marginEnd="40dp"
-        android:orientation="vertical"
+        app:ccpDialog_backgroundColor="#FAFAFA"
+        app:ccpDialog_textColor="#000000"
+        app:ccp_arrowColor="@color/colorAccent"
+        app:ccp_arrowSize="30dp"
+        app:ccp_autoDetectCountry="true"
+        app:ccp_textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/subtitle"
-        >
-
-      <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:paddingLeft="4dp"
-          android:paddingRight="4dp"
-          android:text="@string/verification_insert_phone_field_country"
-          android:textColor="@color/colorAccent"
-          android:textSize="12sp"
-          />
-
-      <Spinner
-          android:id="@+id/country_code"
-          style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_gravity="bottom"
-          android:backgroundTint="@color/colorAccent"
-          android:dropDownWidth="match_parent"
-          android:gravity="bottom"
-          android:spinnerMode="dropdown"
-          android:textColor="#000000"
-          />
-
-    </LinearLayout>
+        />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/phone_number_layout"
@@ -94,7 +74,7 @@
         android:theme="@style/TextInputLayoutAppearance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/country_code_layout"
+        app:layout_constraintTop_toBottomOf="@+id/ccp"
         >
       <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/phone_number"
