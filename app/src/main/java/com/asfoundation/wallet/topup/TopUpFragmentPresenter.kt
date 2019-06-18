@@ -88,7 +88,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
               .doOnError { it.printStackTrace() }
               .onErrorResumeNext(Observable.empty())
               .observeOn(viewScheduler)
-              .filter { !it.currency.appcValue.equals("--") }
+              .filter { it.currency.appcValue != "--" }
               .flatMap {
                 loadBonusIntoView(packageName, it.currency.appcValue).toObservable()
                     .doOnNext {
