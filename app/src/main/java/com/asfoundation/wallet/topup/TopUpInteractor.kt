@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.topup
 
-import android.util.Log
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethod
 import com.appcoins.wallet.gamification.repository.ForecastBonus
@@ -46,7 +45,6 @@ class TopUpInteractor(private val repository: BdsRepository,
   }
 
   fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonus> {
-    Log.d("TAG123", "2nd: ${amount.toPlainString()}")
     return gamificationInteractor.getEarningBonus(packageName, amount)
   }
 

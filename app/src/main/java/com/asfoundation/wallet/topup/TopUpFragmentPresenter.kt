@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.topup
 
-import android.util.Log
 import com.appcoins.wallet.gamification.repository.ForecastBonus
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
@@ -147,16 +146,13 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   private fun loadBonusIntoView(appPackage: String, amount: String): Single<ForecastBonus> {
-    Log.d("TAG123", "1st: $amount")
     return interactor.getEarningBonus(appPackage, amount.toBigDecimal())
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess {
           if (it.status != ForecastBonus.Status.ACTIVE || it.amount <= BigDecimal.ZERO) {
-            Log.d("TAG123", "HIDE " + it.status.toString() + " : " + it.amount)
             view.hideBonus()
           } else {
-            Log.d("TAG123", "SHOW " + it.status.toString() + " : " + it.amount)
             view.showBonus(it.amount, it.currency)
           }
         }
