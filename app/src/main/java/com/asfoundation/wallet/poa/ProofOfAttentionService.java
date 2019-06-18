@@ -31,6 +31,7 @@ public class ProofOfAttentionService {
   private final CreateWalletInteract walletInteract;
   private final FindDefaultWalletInteract findDefaultWalletInteract;
   private Subject<Boolean> walletValidated;
+  private Subject<Boolean> walletCreated;
 
   public ProofOfAttentionService(Repository<String, Proof> cache, String walletPackage,
       HashCalculator hashCalculator, CompositeDisposable compositeDisposable,
@@ -53,6 +54,7 @@ public class ProofOfAttentionService {
     this.walletValidated = BehaviorSubject.create();
     this.walletInteract = createWalletInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
+    this.walletCreated = BehaviorSubject.create();
   }
 
   public void start() {
@@ -380,7 +382,13 @@ public class ProofOfAttentionService {
         .onErrorResumeNext(walletInteract.create()
             .flatMap(wallet -> walletInteract.setDefaultWallet(wallet)
                 .andThen(Single.just(wallet))))
+        .doOnSuccess(wallet -> walletCreated.onNext(true))
         .subscribeOn(computationScheduler)
         .subscribe());
+  }
+
+  public Observable<Boolean> getWalletCreated() {
+    return walletCreated.map(status -> status)
+        .filter(isCompleted -> isCompleted);
   }
 }
