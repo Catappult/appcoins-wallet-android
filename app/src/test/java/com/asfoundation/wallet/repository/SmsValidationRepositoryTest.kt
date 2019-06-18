@@ -1,8 +1,9 @@
 package com.asfoundation.wallet.repository
 
-import com.asfoundation.wallet.entity.ValidationCodeResponse
+import com.asfoundation.wallet.entity.WalletRequestCodeResponse
 import com.asfoundation.wallet.entity.WalletStatus
 import com.asfoundation.wallet.service.SmsValidationApi
+import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
@@ -41,7 +42,7 @@ class SmsValidationRepositoryTest {
         .test()
 
     testObserver.assertNoErrors()
-    testObserver.assertValue(SmsValidationRepository.Status.VERIFIED)
+    testObserver.assertValue(WalletValidationStatus.SUCCESS)
   }
 
   @Test
@@ -54,12 +55,12 @@ class SmsValidationRepositoryTest {
         .test()
 
     testObserver.assertNoErrors()
-    testObserver.assertValue(SmsValidationRepository.Status.UNVERIFIED)
+    testObserver.assertValue(WalletValidationStatus.GENERIC_ERROR)
   }
 
   @Test
   fun requestValidationCode() {
-    val requestValidationCodeResponse = ValidationCodeResponse(phoneNumber)
+    val requestValidationCodeResponse = WalletRequestCodeResponse(phoneNumber)
 
     `when`(smsValidationApi.requestValidationCode(phoneNumber)).thenReturn(
         Single.just(requestValidationCodeResponse))
@@ -68,9 +69,7 @@ class SmsValidationRepositoryTest {
         .test()
 
     testObserver.assertNoErrors()
-    testObserver.assertValue { response: ValidationCodeResponse ->
-      response.phone == phoneNumber
-    }
+    testObserver.assertValue(WalletValidationStatus.SUCCESS)
   }
 
   @Test
@@ -84,7 +83,7 @@ class SmsValidationRepositoryTest {
         .test()
 
     testObserver.assertNoErrors()
-    testObserver.assertValue(SmsValidationRepository.Status.VERIFIED)
+    testObserver.assertValue(WalletValidationStatus.SUCCESS)
   }
 
 }

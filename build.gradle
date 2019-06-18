@@ -58,6 +58,7 @@ project.ext {
   ethereumjSdkVersion = "0.5.0.0"
   jacksonVersion = "2.9.6"
   lottieVersion = "2.7.0"
+  cpp = "2.2.9"
 }
 
 task clean(type: Delete) {
