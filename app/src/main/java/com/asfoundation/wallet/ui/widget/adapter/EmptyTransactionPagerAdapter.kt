@@ -11,12 +11,13 @@ import com.asf.wallet.R
 import io.reactivex.subjects.PublishSubject
 import org.jetbrains.annotations.NotNull
 
-class EmptyTransactionPagerAdapter(private val anim: IntArray,
+class EmptyTransactionPagerAdapter(private val animation: IntArray,
                                    private val body: Array<@NotNull String>,
                                    private val action: IntArray,
                                    private val numberPages: Int,
                                    private val viewPager: @NotNull ViewPager,
-                                   private val emptyTransactionsSubject: PublishSubject<String>) : PagerAdapter() {
+                                   private val emptyTransactionsSubject: PublishSubject<String>) :
+    PagerAdapter() {
 
   override fun getCount(): Int {
     return numberPages
@@ -25,7 +26,9 @@ class EmptyTransactionPagerAdapter(private val anim: IntArray,
   override fun instantiateItem(container: ViewGroup, position: Int): Any {
     val view = LayoutInflater.from(container.context)
         .inflate(R.layout.layout_empty_transactions_viewpager, container, false)
-    (view.findViewById<View>(R.id.transactions_empty_screen_animation) as LottieAnimationView).setAnimation(anim[position])
+    (view.findViewById<View>(
+        R.id.transactions_empty_screen_animation) as LottieAnimationView).setAnimation(
+        animation[position])
     (view.findViewById<View>(R.id.empty_body_text) as TextView).text = body[position]
     (view.findViewById<View>(R.id.empty_action_text) as TextView).setText(action[position])
 
@@ -36,7 +39,8 @@ class EmptyTransactionPagerAdapter(private val anim: IntArray,
         (view.findViewById<View>(R.id.empty_action_text) as TextView).setOnClickListener {
           emptyTransactionsSubject.onNext(CAROUSEL_TOP_APPS)
         }
-        (view.findViewById<View>(R.id.transactions_empty_screen_animation) as LottieAnimationView).setOnClickListener {
+        (view.findViewById<View>(
+            R.id.transactions_empty_screen_animation) as LottieAnimationView).setOnClickListener {
           emptyTransactionsSubject.onNext(CAROUSEL_TOP_APPS)
         }
       }
@@ -44,7 +48,8 @@ class EmptyTransactionPagerAdapter(private val anim: IntArray,
         (view.findViewById<View>(R.id.empty_action_text) as TextView).setOnClickListener {
           emptyTransactionsSubject.onNext(CAROUSEL_GAMIFICATION)
         }
-        (view.findViewById<View>(R.id.transactions_empty_screen_animation) as LottieAnimationView).setOnClickListener {
+        (view.findViewById<View>(
+            R.id.transactions_empty_screen_animation) as LottieAnimationView).setOnClickListener {
           emptyTransactionsSubject.onNext(CAROUSEL_GAMIFICATION)
         }
       }
@@ -64,7 +69,7 @@ class EmptyTransactionPagerAdapter(private val anim: IntArray,
   fun randomizeCarouselContent() {
     val randomIndex = Math.random()
     if (randomIndex >= 0.5) {
-      invertAnimationContent(anim)
+      invertAnimationContent(animation)
       invertBodyContent(body)
       invertActionContent(action)
     }

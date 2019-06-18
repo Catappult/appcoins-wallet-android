@@ -15,25 +15,25 @@ public class EmptyTransactionsView extends FrameLayout {
 
   private static final int MAX_BONUS_STRING_RESOURCE = R.string.gamification_home_body;
   private static final int NUMBER_PAGES = 2;
-  private final CompositeDisposable disposables;
-  private final int anim[] =
-      { R.raw.carousel_empty_screen_animation, R.raw.transactions_empty_screen_animation };
+  private CompositeDisposable disposables;
   private final int body[] = { R.string.home_empty_discover_apps_body, MAX_BONUS_STRING_RESOURCE };
-  private final int action[] =
-      { R.string.home_empty_discover_apps_button, R.string.gamification_home_button };
 
   public EmptyTransactionsView(@NonNull Context context, @NonNull String bonus,
-      PublishSubject<String> emptyTransactionsSubject, TransactionsActivity transactionsActivity) {
+      PublishSubject<String> emptyTransactionsSubject, TransactionsActivity transactionsActivity,
+      CompositeDisposable disposables) {
     super(context);
 
-    disposables = new CompositeDisposable();
+    this.disposables = disposables;
 
     LayoutInflater.from(getContext())
         .inflate(R.layout.layout_empty_transactions, this, true);
     ViewPager viewPager = findViewById(R.id.empty_transactions_viewpager);
+    int[] action = { R.string.home_empty_discover_apps_button, R.string.gamification_home_button };
+    int[] animation =
+        { R.raw.carousel_empty_screen_animation, R.raw.transactions_empty_screen_animation };
     EmptyTransactionPagerAdapter pageAdapter =
-        new EmptyTransactionPagerAdapter(anim, transformBodyResourceToString(body, bonus), action,
-            NUMBER_PAGES, viewPager, emptyTransactionsSubject);
+        new EmptyTransactionPagerAdapter(animation, transformBodyResourceToString(body, bonus),
+            action, NUMBER_PAGES, viewPager, emptyTransactionsSubject);
     pageAdapter.randomizeCarouselContent();
     viewPager.setAdapter(pageAdapter);
 

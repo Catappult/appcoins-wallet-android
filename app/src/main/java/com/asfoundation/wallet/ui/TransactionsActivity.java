@@ -44,6 +44,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.subjects.PublishSubject;
 import java.util.List;
 import javax.inject.Inject;
@@ -64,6 +65,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private TextView subtitleView;
   private LottieAnimationView balanceSkeloton;
   private PublishSubject<String> emptyTransactionsSubject;
+  private CompositeDisposable disposables;
 
   public static Intent newIntent(Context context) {
     Intent intent = new Intent(context, TransactionsActivity.class);
@@ -78,6 +80,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
     toolbar();
     enableDisplayHomeAsUp();
+
+    disposables = new CompositeDisposable();
 
     balanceSkeloton = findViewById(R.id.balance_skeloton);
     balanceSkeloton.setVisibility(View.VISIBLE);
@@ -160,7 +164,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private void onFetchTransactionsError(Double maxBonus) {
     if (emptyView == null) {
       emptyView =
-          new EmptyTransactionsView(this, String.valueOf(maxBonus), emptyTransactionsSubject, this);
+          new EmptyTransactionsView(this, String.valueOf(maxBonus), emptyTransactionsSubject, this,
+              disposables);
       systemView.showEmpty(emptyView);
     }
   }
@@ -281,10 +286,11 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     if ((errorEnvelope.code == EMPTY_COLLECTION || adapter.getItemCount() == 0)) {
       if (emptyView == null) {
         emptyView = new EmptyTransactionsView(this, String.valueOf(maxBonusEmptyScreen),
-            emptyTransactionsSubject, this);
+            emptyTransactionsSubject, this, disposables);
         systemView.showEmpty(emptyView);
       }
     }
+    systemView.showEmpty(emptyView);
   }
 
   private void onGamificationMaxBonus(double bonus) {
