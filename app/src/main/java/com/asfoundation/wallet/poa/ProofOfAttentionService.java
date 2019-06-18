@@ -3,6 +3,7 @@ package com.asfoundation.wallet.poa;
 import androidx.annotation.NonNull;
 import com.appcoins.wallet.commons.Repository;
 import com.asfoundation.wallet.billing.partners.AddressService;
+import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.CreateWalletInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import io.reactivex.Completable;
@@ -31,7 +32,6 @@ public class ProofOfAttentionService {
   private final CreateWalletInteract walletInteract;
   private final FindDefaultWalletInteract findDefaultWalletInteract;
   private Subject<Boolean> walletValidated;
-  private Subject<Boolean> walletCreated;
 
   public ProofOfAttentionService(Repository<String, Proof> cache, String walletPackage,
       HashCalculator hashCalculator, CompositeDisposable compositeDisposable,
@@ -54,7 +54,6 @@ public class ProofOfAttentionService {
     this.walletValidated = BehaviorSubject.create();
     this.walletInteract = createWalletInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
-    this.walletCreated = BehaviorSubject.create();
   }
 
   public void start() {
@@ -377,18 +376,10 @@ public class ProofOfAttentionService {
             .subscribe());
   }
 
-  public void handleCreateWallet() {
-    compositeDisposable.add(findDefaultWalletInteract.find()
+  public Single<Wallet> handleCreateWallet() {
+    return findDefaultWalletInteract.find()
         .onErrorResumeNext(walletInteract.create()
             .flatMap(wallet -> walletInteract.setDefaultWallet(wallet)
-                .andThen(Single.just(wallet))))
-        .doOnSuccess(wallet -> walletCreated.onNext(true))
-        .subscribeOn(computationScheduler)
-        .subscribe());
-  }
-
-  public Observable<Boolean> getWalletCreated() {
-    return walletCreated.map(status -> status)
-        .filter(isCompleted -> isCompleted);
+                .andThen(Single.just(wallet))));
   }
 }
