@@ -288,11 +288,11 @@ public class InAppPurchaseInteractor {
     for (PaymentMethodEntity availablePaymentMethod : availablePaymentMethods) {
       if (paymentMethod.getId()
           .equals(availablePaymentMethod.getId())) {
-        return new PaymentMethod(paymentMethodsMapper.map(paymentMethod.getId()),
-            paymentMethod.getLabel(), paymentMethod.getIconUrl(), true);
+        return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
+            paymentMethod.getIconUrl(), true);
       }
     }
-    return new PaymentMethod(paymentMethodsMapper.map(paymentMethod.getId()),
-        paymentMethod.getLabel(), paymentMethod.getIconUrl(), false);
+    return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
+        paymentMethod.getIconUrl(), false);
   }
 }

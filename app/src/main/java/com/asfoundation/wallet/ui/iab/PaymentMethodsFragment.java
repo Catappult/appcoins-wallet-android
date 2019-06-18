@@ -73,7 +73,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private static final String INAPP_PURCHASE_ID = "INAPP_PURCHASE_ID";
 
   private final CompositeDisposable compositeDisposable = new CompositeDisposable();
-  private final Map<SelectedPaymentMethod, Bitmap> loadedBitmaps = new HashMap<>();
+  private final Map<String, Bitmap> loadedBitmaps = new HashMap<>();
   PaymentMethodsPresenter presenter;
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject BillingAnalytics analytics;
@@ -82,7 +82,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   @Inject WalletService walletService;
   @Inject GamificationInteractor gamification;
   @Inject PaymentMethodsMapper paymentMethodsMapper;
-  private List<SelectedPaymentMethod> paymentMethodList = new ArrayList<>();
+  private List<String> paymentMethodList = new ArrayList<>();
   private ProgressBar loadingView;
   private View dialog;
   private View addressFooter;
@@ -293,7 +293,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
     presenter.sendPurchaseDetailsEvent();
 
-    setupPaymentMethods(paymentMethods, SelectedPaymentMethod.CREDIT_CARD);
+    setupPaymentMethods(paymentMethods,
+        paymentMethodsMapper.map(SelectedPaymentMethod.CREDIT_CARD));
     setupSubject.onNext(true);
     hideLoading();
   }
@@ -356,7 +357,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     walletAddressTv.setText(address);
   }
 
-  @Override public Observable<SelectedPaymentMethod> getBuyClick() {
+  @Override public Observable<String> getBuyClick() {
     return RxView.clicks(buyButton)
         .map(__ -> paymentMethodList.get(radioGroup.getCheckedRadioButtonId()));
   }
@@ -400,7 +401,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     }
   }
 
-  @NotNull @Override public Observable<SelectedPaymentMethod> getPaymentSelection() {
+  @NotNull @Override public Observable<String> getPaymentSelection() {
     return RxRadioGroup.checkedChanges(radioGroup)
         .filter(checkedRadioButtonId -> checkedRadioButtonId >= 0)
         .map(checkedRadioButtonId -> paymentMethodList.get(checkedRadioButtonId));
@@ -457,21 +458,24 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         }));
   }
 
-  private void setupPaymentMethods(List<PaymentMethod> paymentMethods,
-      SelectedPaymentMethod preSelectedMethod) {
+  private void setupPaymentMethods(List<PaymentMethod> paymentMethods, String preSelectedMethod) {
     AppCompatRadioButton radioButton;
     if (isBds) {
       for (int index = 0; index < paymentMethods.size(); index++) {
         PaymentMethod paymentMethod = paymentMethods.get(index);
         radioButton = createPaymentRadioButton(paymentMethod, index);
         radioButton.setEnabled(paymentMethod.isEnabled());
-        if (paymentMethod.getId() == preSelectedMethod) radioButton.setChecked(true);
+        if (paymentMethod.getId()
+            .equals(preSelectedMethod)) {
+          radioButton.setChecked(true);
+        }
         paymentMethodList.add(paymentMethod.getId());
         radioGroup.addView(radioButton);
       }
     } else {
       for (PaymentMethod paymentMethod : paymentMethods) {
-        if (paymentMethod.getId() == SelectedPaymentMethod.APPC) {
+        if (paymentMethod.getId()
+            .equals(paymentMethodsMapper.map(SelectedPaymentMethod.APPC))) {
           radioButton = createPaymentRadioButton(paymentMethod, 0);
           radioButton.setEnabled(true);
           radioButton.setChecked(true);

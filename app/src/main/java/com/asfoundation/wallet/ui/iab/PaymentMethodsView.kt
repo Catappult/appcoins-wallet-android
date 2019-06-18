@@ -22,7 +22,7 @@ interface PaymentMethodsView {
   fun setupUiCompleted(): Observable<Boolean>
   fun showProcessingLoadingDialog()
   fun setWalletAddress(address: String)
-  fun getBuyClick(): Observable<SelectedPaymentMethod>
+  fun getBuyClick(): Observable<String>
   fun showPaypal()
   fun showCreditCard()
   fun showAppCoins()
@@ -30,11 +30,11 @@ interface PaymentMethodsView {
   fun showShareLink(selectedPaymentMethod: String)
   fun hideBonus()
   fun showBonus()
-  fun getPaymentSelection(): Observable<SelectedPaymentMethod>
+  fun getPaymentSelection(): Observable<String>
   fun showLocalPayment(selectedPaymentMethod: String)
   fun setBonus(bonus: BigDecimal, currency: String)
 
   enum class SelectedPaymentMethod {
-    PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, SHARE_LINK, ALFAMART, BANK_TRANSFER, GOPAY
+    PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, SHARE_LINK, LOCAL_PAYMENTS
   }
 }
