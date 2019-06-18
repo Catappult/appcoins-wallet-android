@@ -8,9 +8,15 @@ import com.asfoundation.wallet.poa.ProofComponent
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import retrofit2.http.*
+import org.jetbrains.annotations.NotNull
+import retrofit2.http.Body
+import retrofit2.http.Headers
+import retrofit2.http.POST
+import retrofit2.http.Query
 
-class PoASubmissionService(private val poaSubmissionApi: PoASubmissionService.PoASubmissionApi) {
+class PoASubmissionService(
+    private val poaSubmissionApi: @NotNull PoASubmissionApi,
+    private val versionCode: Int) {
 
   companion object {
     const val SERVICE_HOST = BuildConfig.BACKEND_HOST
@@ -19,7 +25,7 @@ class PoASubmissionService(private val poaSubmissionApi: PoASubmissionService.Po
   fun submitProof(proof: Proof, wallet: String): Single<String> {
     return poaSubmissionApi.submitProof(
         SerializedProof(proof.campaignId, proof.packageName, wallet, proof.proofComponentList,
-            proof.storeAddress, proof.oemAddress))
+            proof.storeAddress, proof.oemAddress), versionCode)
         .map { response -> handleResponse(response) }
         .subscribeOn(Schedulers.io())
         .singleOrError()
@@ -36,7 +42,8 @@ class PoASubmissionService(private val poaSubmissionApi: PoASubmissionService.Po
   interface PoASubmissionApi {
     @Headers("Content-Type: application/json")
     @POST("/campaign/submitpoa")
-    fun submitProof(@Body body: SerializedProof?): Observable<SubmitPoAResponse>
+    fun submitProof(@Body body: SerializedProof?, @Query("version_code")
+    versionCode: Int): Observable<SubmitPoAResponse>
   }
 }
 

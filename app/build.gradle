@@ -264,6 +264,7 @@ dependencies {
 
   implementation 'com.hendraanggrian.material:collapsingtoolbarlayout-subtitle:1.0.0'
   implementation "com.airbnb.android:lottie:$lottieVersion"
+  implementation "com.hbb20:ccp:$cpp"
 }
 
 def renameArtifact(defaultConfig) {
