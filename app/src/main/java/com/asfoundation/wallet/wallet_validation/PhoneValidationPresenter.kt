@@ -72,6 +72,7 @@ class PhoneValidationPresenter(
             view.getCountryCode(),
             view.getPhoneNumber(),
             BiFunction { countryCode: String, phoneNumber: String ->
+              view.clearError()
               if (hasValidData(countryCode, phoneNumber)) {
                 view.setButtonState(true)
               } else {
