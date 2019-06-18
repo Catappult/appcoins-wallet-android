@@ -211,6 +211,8 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     status = COMPLETED
     progress_bar.visibility = View.GONE
     error_view.visibility = View.GONE
+    pending_user_payment_view.in_progress_text.text =
+        resources.getString(R.string.gamification_purchase_completed_bonus_received_done)
     pending_user_payment_view.visibility = View.VISIBLE
     pending_user_payment_view.in_progress_animation.visibility = View.INVISIBLE
     pending_user_payment_view.completed_bonus_animation.visibility = View.VISIBLE
@@ -221,6 +223,8 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   override fun showPendingUserPayment() {
     status = PENDING_USER_PAYMENT
     pending_user_payment_view.visibility = View.VISIBLE
+    pending_user_payment_view.in_progress_text.text =
+        resources.getString(R.string.local_payments_inprogress_header)
     pending_user_payment_view.completed_bonus_animation.visibility = View.INVISIBLE
     pending_user_payment_view.in_progress_animation.visibility = View.VISIBLE
     pending_user_payment_view.in_progress_animation.playAnimation()
