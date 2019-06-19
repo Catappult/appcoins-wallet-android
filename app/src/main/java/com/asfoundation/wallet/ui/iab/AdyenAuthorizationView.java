@@ -44,4 +44,6 @@ public interface AdyenAuthorizationView {
   void showPaymentRefusedError(AdyenAuthorization adyenAuthorization);
 
   void showGenericError();
+
+  long getAnimationDuration();
 }

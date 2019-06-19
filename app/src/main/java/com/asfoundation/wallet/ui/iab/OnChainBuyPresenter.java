@@ -159,7 +159,7 @@ public class OnChainBuyPresenter {
             .map(payment -> buildBundle(payment, transaction.getOrderReference()))
             .flatMapCompletable(bundle -> Completable.fromAction(view::showTransactionCompleted)
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .andThen(Completable.timer(1, TimeUnit.SECONDS))
+                .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
                 .andThen(Completable.fromRunnable(() -> view.finish(bundle))))
             .onErrorResumeNext(throwable -> Completable.fromAction(() -> showError(throwable)));
       case NO_FUNDS:
