@@ -16,7 +16,8 @@ class TransactionMapper {
 
   private fun map(transaction: TransactionEntity): Transaction {
     return Transaction(transaction.transactionId, map(transaction.type),
-        transaction.approveTransactionId, transaction.timeStamp, map(transaction.status),
+        transaction.approveTransactionId, transaction.timeStamp, transaction.processedTime,
+        map(transaction.status),
         transaction.value, transaction.from, transaction.to, map(transaction.details),
         transaction.currency, mapToOperations(transaction.operations))
   }
@@ -67,7 +68,8 @@ class TransactionMapper {
   fun map(transaction: Transaction, relatedWallet: String): TransactionEntity {
     return TransactionEntity(transaction.transactionId, relatedWallet,
         transaction.approveTransactionId,
-        map(transaction.type), transaction.timeStamp, map(transaction.status), transaction.value,
+        map(transaction.type), transaction.timeStamp, transaction.processedTime,
+        map(transaction.status), transaction.value,
         transaction.from,
         transaction.to, map(transaction.details), transaction.currency,
         mapToOperationEntities(transaction.operations))

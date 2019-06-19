@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "8afe35a3b3b6bf06f202bad7972c4f83",
+    "identityHash": "46a7d72a6f5d72c0b136298cc30a5c4c",
     "entities": [
       {
         "tableName": "TransactionEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`transactionId` TEXT NOT NULL, `relatedWallet` TEXT NOT NULL, `approveTransactionId` TEXT, `type` TEXT NOT NULL, `timeStamp` INTEGER NOT NULL, `status` TEXT NOT NULL, `value` TEXT NOT NULL, `from` TEXT NOT NULL, `to` TEXT NOT NULL, `currency` TEXT, `operations` TEXT, `sourceName` TEXT, `description` TEXT, `iconType` TEXT, `uri` TEXT, PRIMARY KEY(`transactionId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`transactionId` TEXT NOT NULL, `relatedWallet` TEXT NOT NULL, `approveTransactionId` TEXT, `type` TEXT NOT NULL, `timeStamp` INTEGER NOT NULL, `processedTime` INTEGER NOT NULL, `status` TEXT NOT NULL, `value` TEXT NOT NULL, `from` TEXT NOT NULL, `to` TEXT NOT NULL, `currency` TEXT, `operations` TEXT, `sourceName` TEXT, `description` TEXT, `iconType` TEXT, `uri` TEXT, PRIMARY KEY(`transactionId`))",
         "fields": [
           {
             "fieldPath": "transactionId",
@@ -35,6 +35,12 @@
           {
             "fieldPath": "timeStamp",
             "columnName": "timeStamp",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "processedTime",
+            "columnName": "processedTime",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -176,7 +182,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"8afe35a3b3b6bf06f202bad7972c4f83\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"46a7d72a6f5d72c0b136298cc30a5c4c\")"
     ]
   }
 }

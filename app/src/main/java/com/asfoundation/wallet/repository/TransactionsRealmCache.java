@@ -178,7 +178,8 @@ public class TransactionsRealmCache implements TransactionLocalSource {
       operations[i] = operation;
     }
     return new RawTransaction(rawItem.getHash(), rawItem.getError(), rawItem.getBlockNumber(),
-        rawItem.getTimeStamp(), rawItem.getNonce(), rawItem.getFrom(), rawItem.getTo(),
+        rawItem.getTimeStamp(), rawItem.getTimeStamp(), rawItem.getNonce(), rawItem.getFrom(),
+        rawItem.getTo(),
         rawItem.getValue(), rawItem.getGas(), rawItem.getGasPrice(), rawItem.getInput(),
         rawItem.getGasUsed(), operations);
   }

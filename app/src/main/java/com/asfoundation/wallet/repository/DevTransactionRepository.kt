@@ -32,7 +32,7 @@ class DevTransactionRepository(
   override fun fetchTransaction(wallet: String): Observable<List<Transaction>> {
     if (!::disposable.isInitialized || disposable.isDisposed) {
       disposable = localRepository.getNewestTransaction(wallet)
-          .map { it.timeStamp }
+          .map { it.processedTime }
           .defaultIfEmpty(0)
           .subscribeOn(ioScheduler)
           .flatMapObservable { startingDate ->
@@ -71,7 +71,7 @@ class DevTransactionRepository(
             return@flatMapObservable Observable.empty<MutableList<TransactionEntity>>()
           }
           return@flatMapObservable localRepository.getOlderTransaction(wallet)
-              .map { it.timeStamp }
+              .map { it.processedTime }
               .flatMapObservable {
                 fetchTransactions(wallet, 0L, it, OffChainTransactions.Sort.DESC)
               }
