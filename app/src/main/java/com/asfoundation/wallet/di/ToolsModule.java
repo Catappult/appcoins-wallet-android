@@ -465,8 +465,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides ProofWriter provideBdsBackEndWriter(
-      FindDefaultWalletInteract defaultWalletInteract, CampaignService poaSubmissionService) {
-    return new BdsBackEndWriter(defaultWalletInteract, poaSubmissionService);
+      FindDefaultWalletInteract defaultWalletInteract, CampaignService campaignService) {
+    return new BdsBackEndWriter(defaultWalletInteract, campaignService);
   }
 
   @Singleton @Provides AppCoinsAddressProxySdk provideAdsContractAddressSdk() {

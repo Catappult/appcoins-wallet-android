@@ -40,7 +40,7 @@ public class ProofOfAttentionServiceTest {
   public static final String OEM_ADDRESS = "oem_address";
 
   @Mock FindDefaultWalletInteract defaultWalletInteract;
-  @Mock CampaignService poaSubmissionService;
+  @Mock CampaignService campaignService;
   @Mock HashCalculator hashCalculator;
   @Mock AddressService addressService;
   private int chainId;
@@ -58,7 +58,7 @@ public class ProofOfAttentionServiceTest {
     hasWallet = BehaviorSubject.create();
     cache = new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>());
     testScheduler = new TestScheduler();
-    proofWriter = new BdsBackEndWriter(defaultWalletInteract, poaSubmissionService);
+    proofWriter = new BdsBackEndWriter(defaultWalletInteract, campaignService);
     proofOfAttentionService =
         new ProofOfAttentionService(cache, BuildConfig.APPLICATION_ID, hashCalculator,
             new CompositeDisposable(), proofWriter, testScheduler, maxNumberProofComponents,
@@ -72,7 +72,7 @@ public class ProofOfAttentionServiceTest {
     nonce = 1L;
     wallet = "wallet_address";
     when(defaultWalletInteract.find()).thenReturn(hasWallet.firstOrError());
-    when(poaSubmissionService.submitProof(any(Proof.class), eq(wallet))).thenReturn(
+    when(campaignService.submitProof(any(Proof.class), eq(wallet))).thenReturn(
         Single.just(SUBMIT_HASH));
     when(hashCalculator.calculateNonce(any(NonceData.class))).thenReturn(nonce);
 
@@ -198,7 +198,7 @@ public class ProofOfAttentionServiceTest {
         .assertValueCount(7);
     Proof value = cacheObserver.values()
         .get(6);
-    verify(poaSubmissionService, times(1)).submitProof(
+    verify(campaignService, times(1)).submitProof(
         new Proof(value.getPackageName(), value.getCampaignId(), value.getProofComponentList(),
             value.getWalletPackage(), ProofStatus.SUBMITTING, 1, null, null, BigDecimal.ZERO,
             BigDecimal.ZERO, null, "PT"), wallet);
