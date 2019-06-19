@@ -44,7 +44,7 @@ class SharePaymentLinkPresenter(private val view: SharePaymentLinkFragmentView,
   private fun getLink(data: SharePaymentLinkFragmentView.SharePaymentData): Single<String> {
     return Single.zip(Single.timer(1, TimeUnit.SECONDS),
         interactor.getLinkToShare(data.domain, data.skuId, data.message, data.originalAmount,
-            data.originalCurrency).subscribeOn(
+            data.originalCurrency, data.paymentMethod).subscribeOn(
             networkScheduler), BiFunction { _: Long, url: String -> url })
   }
 

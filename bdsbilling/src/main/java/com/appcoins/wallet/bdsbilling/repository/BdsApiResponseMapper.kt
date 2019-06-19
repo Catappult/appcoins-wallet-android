@@ -13,13 +13,13 @@ class BdsApiResponseMapper {
     })
   }
 
-    fun map(productDetails: GetPackageResponse): Boolean = true
+  fun map(productDetails: GetPackageResponse): Boolean = true
 
-    fun map(purchasesResponse: GetPurchasesResponse): List<Purchase> {
-        return purchasesResponse.items
-    }
+  fun map(purchasesResponse: GetPurchasesResponse): List<Purchase> {
+    return purchasesResponse.items
+  }
 
-  fun map(gatewaysResponse: GetMethodsResponse): List<PaymentMethod> {
+  fun map(gatewaysResponse: GetMethodsResponse): List<PaymentMethodEntity> {
     return gatewaysResponse.items
   }
 

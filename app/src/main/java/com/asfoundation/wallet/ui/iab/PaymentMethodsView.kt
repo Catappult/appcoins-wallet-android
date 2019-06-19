@@ -7,8 +7,7 @@ import java.io.IOException
 import java.math.BigDecimal
 
 interface PaymentMethodsView {
-  fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>,
-                         availablePaymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue,
+  fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue,
                          isDonation: Boolean, currency: String)
 
   fun showError()
@@ -23,17 +22,19 @@ interface PaymentMethodsView {
   fun setupUiCompleted(): Observable<Boolean>
   fun showProcessingLoadingDialog()
   fun setWalletAddress(address: String)
-  fun getBuyClick(): Observable<SelectedPaymentMethod>
+  fun getBuyClick(): Observable<String>
   fun showPaypal()
   fun showCreditCard()
   fun showAppCoins()
   fun showCredits()
-  fun showShareLink()
+  fun showShareLink(selectedPaymentMethod: String)
   fun hideBonus()
-  fun showBonus(bonus: BigDecimal, currency: String)
-  fun getPaymentSelection(): Observable<SelectedPaymentMethod>
+  fun showBonus()
+  fun getPaymentSelection(): Observable<String>
+  fun showLocalPayment(selectedPaymentMethod: String)
+  fun setBonus(bonus: BigDecimal, currency: String)
 
   enum class SelectedPaymentMethod {
-    PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, SHARE_LINK
+    PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, SHARE_LINK, LOCAL_PAYMENTS
   }
 }
