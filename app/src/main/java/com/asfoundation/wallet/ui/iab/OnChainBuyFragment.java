@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import android.text.Spannable;
@@ -53,9 +52,9 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
 
 public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView {
 
-  public static final String APP_PACKAGE = "app_package";
-  public static final String TRANSACTION_BUILDER_KEY = "transaction_builder";
-  public static final String BONUS_KEY = "bonus";
+  private static final String APP_PACKAGE = "app_package";
+  private static final String TRANSACTION_BUILDER_KEY = "transaction_builder";
+  private static final String BONUS_KEY = "bonus";
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   private PublishRelay<String> buyButtonClick;
   private Button buyButton;
