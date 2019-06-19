@@ -22,10 +22,9 @@ class BdsGamificationRepository(private val api: GamificationApi,
 
   override fun getForecastBonus(wallet: String, packageName: String,
                                 amount: BigDecimal): Single<ForecastBonus> {
-    return forecastBonus?.let {
-      Single.just(it)
-    } ?: api.getForecastBonus(wallet, packageName, amount, "APPC").map { map(it) }
-        .onErrorReturn { mapForecastError(it) }.doOnSuccess { this.forecastBonus = it }
+    return api.getForecastBonus(wallet, packageName, amount, "APPC")
+        .map { map(it) }
+        .onErrorReturn { mapForecastError(it) }
   }
 
   private fun mapForecastError(throwable: Throwable): ForecastBonus {
@@ -46,7 +45,9 @@ class BdsGamificationRepository(private val api: GamificationApi,
   }
 
   override fun getUserStatus(wallet: String): Single<UserStats> {
-    return api.getUserStatus(wallet).map { map(it) }.onErrorReturn { map(it) }
+    return api.getUserStatus(wallet)
+        .map { map(it) }
+        .onErrorReturn { map(it) }
   }
 
   private fun map(throwable: Throwable): UserStats {
@@ -66,7 +67,9 @@ class BdsGamificationRepository(private val api: GamificationApi,
   }
 
   override fun getLevels(): Single<Levels> {
-    return api.getLevels().map { map(it) }.onErrorReturn { mapLevelsError(it) }
+    return api.getLevels()
+        .map { map(it) }
+        .onErrorReturn { mapLevelsError(it) }
   }
 
   private fun mapLevelsError(throwable: Throwable): Levels {
