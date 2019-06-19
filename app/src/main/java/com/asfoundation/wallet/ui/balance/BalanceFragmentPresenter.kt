@@ -19,6 +19,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
     const val APPC_CURRENCY = "APPC_CURRENCY"
     const val APPC_C_CURRENCY = "APPC_C_CURRENCY"
     const val ETH_CURRENCY = "ETH_CURRENCY"
+    val BIG_DECIMAL_MINUS_ONE = BigDecimal("-1")
   }
 
   fun present() {
@@ -44,7 +45,8 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
 
   private fun getCreditsBalance(): Observable<Balance> {
     return balanceInteract.getCreditsBalance()
-        .observeOn(viewScheduler).map { pair ->
+        .observeOn(viewScheduler)
+        .map { pair ->
           Balance(
               TokenValue(BigDecimal(pair.first.value),
                   APPC_C_CURRENCY,
@@ -56,18 +58,21 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
 
   private fun getAppcBalance(): Observable<Balance> {
     return balanceInteract.getAppcBalance()
-        .observeOn(viewScheduler).map { pair ->
+        .observeOn(viewScheduler)
+        .map { pair ->
           Balance(
               TokenValue(BigDecimal(pair.first.value),
                   APPC_CURRENCY,
                   pair.first.symbol),
               pair.second)
-        }.doOnNext { view.updateTokenValue(it) }
+        }
+        .doOnNext { view.updateTokenValue(it) }
   }
 
   private fun getEthBalance(): Observable<Balance> {
     return balanceInteract.getEthBalance()
-        .observeOn(viewScheduler).map { pair ->
+        .observeOn(viewScheduler)
+        .map { pair ->
           Balance(
               TokenValue(BigDecimal(pair.first.value),
                   ETH_CURRENCY,
@@ -79,30 +84,13 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
 
   private fun getOverallBalance(creditsBalance: Balance, appcBalance: Balance,
                                 ethBalance: Balance): FiatValue {
-    var balance = BigDecimal("-1")
-    if (creditsBalance.fiat.amount.compareTo(BigDecimal("-1")) == 1) {
-         balance = creditsBalance.fiat.amount
-    }
+    var balance = getAddBalanceValue(BIG_DECIMAL_MINUS_ONE, creditsBalance.fiat.amount)
+    balance = getAddBalanceValue(balance, appcBalance.fiat.amount)
+    balance = getAddBalanceValue(balance, ethBalance.fiat.amount)
 
-    if (appcBalance.fiat.amount.compareTo(BigDecimal("-1")) == 1) {
-      balance = if (balance.compareTo(BigDecimal("-1")) == 1) {
-        balance.add(appcBalance.fiat.amount)
-      } else {
-        appcBalance.fiat.amount
-      }
-    }
-
-    if (ethBalance.fiat.amount.compareTo(BigDecimal("-1")) == 1) {
-      balance = if (balance.compareTo(BigDecimal("-1")) == 1) {
-        balance.add(ethBalance.fiat.amount)
-      } else {
-        ethBalance.fiat.amount
-      }
-    }
-
-    if (balance.compareTo(BigDecimal("-1")) == 1) {
-     balance.stripTrailingZeros()
-        .setScale(2, BigDecimal.ROUND_DOWN)
+    if (balance.compareTo(BIG_DECIMAL_MINUS_ONE) == 1) {
+      balance.stripTrailingZeros()
+          .setScale(2, BigDecimal.ROUND_DOWN)
     }
 
     return FiatValue(balance, appcBalance.fiat.currency, appcBalance.fiat.symbol)
@@ -130,6 +118,18 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
     disposables.add(view.getTopUpClick()
         .doOnNext { view.showTopUpScreen() }
         .subscribe())
+  }
+
+  private fun getAddBalanceValue(currentValue: BigDecimal, value: BigDecimal): BigDecimal {
+    return if (value.compareTo(BIG_DECIMAL_MINUS_ONE) == 1) {
+      if (currentValue.compareTo(BIG_DECIMAL_MINUS_ONE) == 1) {
+        currentValue.add(value)
+      } else {
+        value
+      }
+    } else {
+      currentValue
+    }
   }
 }
 

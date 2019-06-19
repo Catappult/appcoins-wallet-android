@@ -5,8 +5,6 @@ import android.os.Bundle
 class BalancePresenter(private val view: BalanceActivityView) {
 
   fun present(savedInstanceState: Bundle?) {
-    if (savedInstanceState == null) {
-      view.showBalanceScreen()
-    }
+    savedInstanceState ?: view.showBalanceScreen()
   }
 }

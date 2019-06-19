@@ -9,7 +9,7 @@ import com.asfoundation.wallet.ui.balance.BalanceActivity
 class BalanceRouter {
 
   fun open(context: Context, wallet: Wallet?) {
-    if (wallet != null) {
+    wallet?.let {
       val intent = Intent(context, BalanceActivity::class.java)
       intent.putExtra(WALLET, wallet)
       intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
