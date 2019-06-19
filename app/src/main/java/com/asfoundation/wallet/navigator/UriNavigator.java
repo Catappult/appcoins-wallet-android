@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.navigator;
 
-import android.content.Intent;
 import android.net.Uri;
 import io.reactivex.Observable;
 import java.math.BigDecimal;

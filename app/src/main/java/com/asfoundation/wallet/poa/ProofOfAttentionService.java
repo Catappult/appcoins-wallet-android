@@ -3,6 +3,7 @@ package com.asfoundation.wallet.poa;
 import androidx.annotation.NonNull;
 import com.appcoins.wallet.commons.Repository;
 import com.asfoundation.wallet.billing.partners.AddressService;
+import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.CreateWalletInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import io.reactivex.Completable;
@@ -10,6 +11,8 @@ import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.subjects.BehaviorSubject;
+import io.reactivex.subjects.Subject;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,7 @@ public class ProofOfAttentionService {
   private final AddressService partnerAddressService;
   private final CreateWalletInteract walletInteract;
   private final FindDefaultWalletInteract findDefaultWalletInteract;
+  private Subject<Boolean> walletValidated;
 
   public ProofOfAttentionService(Repository<String, Proof> cache, String walletPackage,
       HashCalculator hashCalculator, CompositeDisposable compositeDisposable,
@@ -47,6 +51,7 @@ public class ProofOfAttentionService {
     this.disposables = disposables;
     this.countryCodeProvider = countryCodeProvider;
     this.partnerAddressService = partnerAddressService;
+    this.walletValidated = BehaviorSubject.create();
     this.walletInteract = createWalletInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
   }
@@ -58,6 +63,14 @@ public class ProofOfAttentionService {
             .doOnSubscribe(
                 disposable -> updateProofStatus(proof.getPackageName(), ProofStatus.SUBMITTING)))
         .retry()
+        .subscribe());
+
+    compositeDisposable.add(getTerminatedValidationProcess().observeOn(computationScheduler)
+        .flatMap(isPoaReady -> getReadyPoAResume().flatMapSingle(
+            proof -> submitProof(proof).doOnError(
+                throwable -> handleError(throwable, proof.getPackageName()))
+                .doOnSubscribe(disposable -> updateProofStatus(proof.getPackageName(),
+                    ProofStatus.SUBMITTING))))
         .subscribe());
 
     compositeDisposable.add(getReadyCountryCode().observeOn(computationScheduler)
@@ -96,6 +109,9 @@ public class ProofOfAttentionService {
         break;
       case NO_INTERNET:
         proofStatus = ProofStatus.NO_INTERNET;
+        break;
+      case BACKEND_PHONE_NOT_VERIFIED:
+        proofStatus = ProofStatus.PHONE_NOT_VERIFIED;
         break;
       case BACKEND_GENERIC_ERROR:
       default:
@@ -223,6 +239,21 @@ public class ProofOfAttentionService {
             .filter(this::isReadyToComputePoAId));
   }
 
+  private Observable<Proof> getReadyPoAResume() {
+    return cache.getAll()
+        .flatMap(proofs -> Observable.fromIterable(proofs)
+            .filter(this::isReadyToResumePoAId));
+  }
+
+  private Observable<Boolean> getTerminatedValidationProcess() {
+    return walletValidated.map(validated -> validated)
+        .filter(validated -> validated);
+  }
+
+  public void setWalletValidated() {
+    walletValidated.onNext(true);
+  }
+
   private boolean isReadyToComputePoAId(Proof proof) {
     return proof.getCampaignId() != null
         && !proof.getCampaignId()
@@ -231,6 +262,17 @@ public class ProofOfAttentionService {
         .size() == maxNumberProofComponents
         && proof.getProofStatus()
         .equals(ProofStatus.PROCESSING)
+        && proof.getCountryCode() != null;
+  }
+
+  private boolean isReadyToResumePoAId(Proof proof) {
+    return proof.getCampaignId() != null
+        && !proof.getCampaignId()
+        .isEmpty()
+        && proof.getProofComponentList()
+        .size() == maxNumberProofComponents
+        && proof.getProofStatus()
+        .equals(ProofStatus.PHONE_NOT_VERIFIED)
         && proof.getCountryCode() != null;
   }
 
@@ -334,12 +376,10 @@ public class ProofOfAttentionService {
             .subscribe());
   }
 
-  public void handleCreateWallet() {
-    compositeDisposable.add(findDefaultWalletInteract.find()
+  public Single<Wallet> handleCreateWallet() {
+    return findDefaultWalletInteract.find()
         .onErrorResumeNext(walletInteract.create()
             .flatMap(wallet -> walletInteract.setDefaultWallet(wallet)
-                .andThen(Single.just(wallet))))
-        .subscribeOn(computationScheduler)
-        .subscribe());
+                .andThen(Single.just(wallet))));
   }
 }
