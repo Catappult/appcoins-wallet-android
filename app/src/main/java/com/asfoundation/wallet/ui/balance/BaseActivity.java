@@ -1,8 +1,7 @@
-package com.asfoundation.wallet.ui;
+package com.asfoundation.wallet.ui.balance;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.SpannableString;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
@@ -11,7 +10,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import com.asf.wallet.R;
-import com.google.android.material.appbar.SubtitleCollapsingToolbarLayout;
+import com.asfoundation.wallet.ui.ActivityResultSharer;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import java.util.ArrayList;
 import java.util.List;
 import org.jetbrains.annotations.NotNull;
@@ -49,15 +49,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Activity
     }
   }
 
-  protected void setSubtitle(String subtitle) {
-    SubtitleCollapsingToolbarLayout collapsing = findViewById(R.id.toolbar_layout);
-    if (collapsing != null) {
-      collapsing.setSubtitle(subtitle);
-    }
-  }
-
-  protected void setCollapsingTitle(SpannableString title) {
-    SubtitleCollapsingToolbarLayout collapsing = findViewById(R.id.toolbar_layout);
+  protected void setCollapsingTitle(String title) {
+    CollapsingToolbarLayout collapsing = findViewById(R.id.toolbar_layout);
     if (collapsing != null) {
       collapsing.setTitle(title);
     }

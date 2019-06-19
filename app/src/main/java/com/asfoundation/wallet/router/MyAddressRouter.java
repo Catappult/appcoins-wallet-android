@@ -10,6 +10,9 @@ import static com.asfoundation.wallet.C.Key.WALLET;
 public class MyAddressRouter {
 
   public void open(Context context, Wallet wallet) {
+    if (wallet == null) {
+      return;
+    }
     Intent intent = new Intent(context, MyAddressActivity.class);
     intent.putExtra(WALLET, wallet);
     context.startActivity(intent);

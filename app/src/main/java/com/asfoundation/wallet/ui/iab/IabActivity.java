@@ -10,7 +10,7 @@ import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.navigator.UriNavigator;
-import com.asfoundation.wallet.ui.BaseActivity;
+import com.asfoundation.wallet.ui.balance.BaseActivity;
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment;
 import com.jakewharton.rxrelay2.PublishRelay;
 import dagger.android.AndroidInjection;

@@ -75,6 +75,7 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.interact.PaymentReceiverInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
+import com.asfoundation.wallet.interact.SmsValidationInteract;
 import com.asfoundation.wallet.permissions.PermissionsInteractor;
 import com.asfoundation.wallet.permissions.repository.PermissionRepository;
 import com.asfoundation.wallet.permissions.repository.PermissionsDatabase;
@@ -106,7 +107,7 @@ import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.PreferenceRepositoryType;
 import com.asfoundation.wallet.repository.SharedPreferenceRepository;
 import com.asfoundation.wallet.repository.SignDataStandardNormalizer;
-import com.asfoundation.wallet.repository.TokenRepository;
+import com.asfoundation.wallet.repository.SmsValidationRepositoryType;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.TrackTransactionService;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
@@ -122,6 +123,7 @@ import com.asfoundation.wallet.service.BDSAppsApi;
 import com.asfoundation.wallet.service.LocalCurrencyConversionService;
 import com.asfoundation.wallet.service.PoASubmissionService;
 import com.asfoundation.wallet.service.RealmManager;
+import com.asfoundation.wallet.service.SmsValidationApi;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.TrustWalletTickerService;
@@ -131,6 +133,11 @@ import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper;
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor;
 import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService;
+import com.asfoundation.wallet.ui.balance.AppcoinsBalanceRepository;
+import com.asfoundation.wallet.ui.balance.BalanceInteract;
+import com.asfoundation.wallet.ui.balance.BalanceRepository;
+import com.asfoundation.wallet.ui.balance.database.BalanceDetailsDatabase;
+import com.asfoundation.wallet.ui.balance.database.BalanceDetailsMapper;
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
 import com.asfoundation.wallet.ui.gamification.LevelResourcesMapper;
 import com.asfoundation.wallet.ui.gamification.SharedPreferencesGamificationLocalData;
@@ -484,11 +491,13 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Singleton @Provides ProofOfAttentionService provideProofOfAttentionService(
       HashCalculator hashCalculator, ProofWriter proofWriter, TaggedCompositeDisposable disposables,
       @Named("MAX_NUMBER_PROOF_COMPONENTS") int maxNumberProofComponents,
-      CountryCodeProvider countryCodeProvider, AddressService addressService) {
+      CountryCodeProvider countryCodeProvider, AddressService addressService,
+      CreateWalletInteract createWalletInteract,
+      FindDefaultWalletInteract findDefaultWalletInteract) {
     return new ProofOfAttentionService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
         BuildConfig.APPLICATION_ID, hashCalculator, new CompositeDisposable(), proofWriter,
         Schedulers.computation(), maxNumberProofComponents, new BackEndErrorMapper(), disposables,
-        countryCodeProvider, addressService);
+        countryCodeProvider, addressService, createWalletInteract, findDefaultWalletInteract);
   }
 
   @Provides @Singleton CountryCodeProvider providesCountryCodeProvider(OkHttpClient client,
@@ -902,5 +911,35 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Singleton @Provides GamificationAnalytics provideGamificationAnalytics(
       AnalyticsManager analytics) {
     return new GamificationAnalytics(analytics);
+  }
+
+  @Singleton @Provides SmsValidationApi provideSmsValidationApi(OkHttpClient client, Gson gson) {
+    String baseUrl = BuildConfig.BACKEND_HOST;
+    return new Retrofit.Builder().baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(SmsValidationApi.class);
+  }
+
+  @Singleton @Provides SmsValidationInteract provideSmsValidationInteract(
+      SmsValidationRepositoryType smsValidationRepository) {
+    return new SmsValidationInteract(smsValidationRepository, Schedulers.io());
+  }
+
+  @Singleton @Provides BalanceInteract provideBalanceInteract(
+      FindDefaultWalletInteract findDefaultWalletInteract, BalanceRepository balanceRepository) {
+    return new BalanceInteract(findDefaultWalletInteract, balanceRepository);
+  }
+
+  @Singleton @Provides BalanceRepository provideBalanceRepository(Context context,
+      LocalCurrencyConversionService localCurrencyConversionService,
+      GetDefaultWalletBalance getDefaultWalletBalance) {
+    return new AppcoinsBalanceRepository(getDefaultWalletBalance, localCurrencyConversionService,
+        Room.databaseBuilder(context.getApplicationContext(), BalanceDetailsDatabase.class,
+            "balance_details")
+            .build()
+            .balanceDetailsDao(), new BalanceDetailsMapper());
   }
 }

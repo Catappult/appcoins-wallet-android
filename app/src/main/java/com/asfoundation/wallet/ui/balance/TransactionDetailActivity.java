@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui;
+package com.asfoundation.wallet.ui.balance;
 
 import android.app.Dialog;
 import android.os.Bundle;

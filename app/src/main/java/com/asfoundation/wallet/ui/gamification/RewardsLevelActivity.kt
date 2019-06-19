@@ -5,7 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.asf.wallet.R
 import com.asfoundation.wallet.router.TransactionsRouter
-import com.asfoundation.wallet.ui.BaseActivity
+import com.asfoundation.wallet.ui.balance.BaseActivity
 
 class RewardsLevelActivity : BaseActivity(), GamificationView {
 

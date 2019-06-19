@@ -13,7 +13,6 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
                           private val viewScheduler: Scheduler) {
 
   fun present() {
-    view.setupUi()
     handleOnBoardingFinish()
     handleLinkClick()
   }
@@ -22,26 +21,42 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
     disposables.clear()
   }
 
+  private fun handleSkip(): Observable<Any> {
+    return Observable.fromCallable { onboardingInteract.hasClickedSkipOnboarding() }
+        .flatMap {
+          if (it) {
+            view.showLoading()
+            return@flatMap Observable.just(true)
+          }
+          return@flatMap handleSkipButtonClick()
+        }
+  }
+
   private fun handleSkipButtonClick(): Observable<Any> {
-    return view.getSkipButtonClick().doOnNext {
-      view.showLoading()
-    }.delay(1, TimeUnit.SECONDS)
+    return view.getSkipButtonClick()
+        .doOnNext {
+          onboardingInteract.clickSkipOnboarding()
+          view.showLoading()
+        }
   }
 
   private fun handleLinkClick() {
-    view.getLinkClick()?.doOnNext { uri ->
-      view.navigateToBrowser(Uri.parse(uri))
-    }?.subscribe()?.let { disposables.add(it) }
+    view.getLinkClick()
+        ?.doOnNext { uri ->
+          view.navigateToBrowser(Uri.parse(uri))
+        }
+        ?.subscribe()
+        ?.let { disposables.add(it) }
   }
 
   private fun handleOnBoardingFinish() {
-    disposables.add(Observable.zip(handleGetWalletAddress().observeOn(viewScheduler),
-        handleSkipButtonClick().observeOn(viewScheduler),
-        BiFunction { walletAddress: String, _: Any ->
-          if (!walletAddress.isEmpty()) {
-            finishOnBoarding()
-          }
-        }).subscribe())
+    disposables.add(
+        Observable.zip(handleGetWalletAddress(), handleSkip(),
+            BiFunction { _: String, _: Any -> true })
+            .delay(1, TimeUnit.SECONDS)
+            .observeOn(viewScheduler)
+            .subscribe({ finishOnBoarding() }, {})
+    )
   }
 
   private fun handleGetWalletAddress(): Observable<String> {

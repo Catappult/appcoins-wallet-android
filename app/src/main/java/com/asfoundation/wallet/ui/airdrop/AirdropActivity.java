@@ -6,7 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import android.view.MenuItem;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.ui.BaseActivity;
+import com.asfoundation.wallet.ui.balance.BaseActivity;
 
 public class AirdropActivity extends BaseActivity implements AirdropFragment.AirdropBack {
   public static Intent newIntent(Context context) {

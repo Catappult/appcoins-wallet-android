@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.appcoins.wallet.permissions.PermissionName
 import com.asf.wallet.R
 import com.asfoundation.wallet.permissions.PermissionsInteractor
-import com.asfoundation.wallet.ui.BaseActivity
+import com.asfoundation.wallet.ui.balance.BaseActivity
 import com.jakewharton.rxrelay2.BehaviorRelay
 import dagger.android.AndroidInjection
 import io.reactivex.Observable

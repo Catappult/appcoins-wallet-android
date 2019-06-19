@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.di;
 
-import com.appcoins.wallet.billing.BuildConfig;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchTransactionsInteract;
@@ -16,20 +15,22 @@ import com.asfoundation.wallet.repository.TransactionRepositoryType;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.repository.Web3jProvider;
 import com.asfoundation.wallet.router.AirdropRouter;
+import com.asfoundation.wallet.router.BalanceRouter;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.ManageWalletsRouter;
 import com.asfoundation.wallet.router.MyAddressRouter;
-import com.asfoundation.wallet.router.BalanceRouter;
 import com.asfoundation.wallet.router.RewardsLevelRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TopUpRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
+import com.asfoundation.wallet.service.LocalCurrencyConversionService;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenExplorerClientType;
 import com.asfoundation.wallet.transactions.TransactionsAnalytics;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
 import com.asfoundation.wallet.ui.AppcoinsApps;
+import com.asfoundation.wallet.ui.balance.BalanceInteract;
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.viewmodel.TransactionsViewModelFactory;
@@ -48,8 +49,6 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 @Module class TransactionsModule {
 
-  private static final String BASE_HOST = BuildConfig.BASE_HOST;
-
   @Provides TransactionsViewModelFactory provideTransactionsViewModelFactory(
       FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
@@ -61,13 +60,15 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
       TransactionsMapper transactionsMapper, AirdropRouter airdropRouter, AppcoinsApps applications,
       OffChainTransactions offChainTransactions, RewardsLevelRouter rewardsLevelRouter,
       GamificationInteractor gamificationInteractor, TopUpRouter topUpRouter,
-      TransactionsAnalytics analytics) {
+      TransactionsAnalytics analytics,
+      LocalCurrencyConversionService localCurrencyConversionService,
+      BalanceInteract balanceInteract) {
     return new TransactionsViewModelFactory(findDefaultNetworkInteract, findDefaultWalletInteract,
-        fetchTransactionsInteract, manageWalletsRouter, settingsRouter, sendRouter,
-        transactionDetailRouter, myAddressRouter, balanceRouter, externalBrowserRouter,
-        defaultTokenProvider, getDefaultWalletBalance, transactionsMapper, airdropRouter,
-        applications, offChainTransactions, rewardsLevelRouter, gamificationInteractor, topUpRouter,
-        analytics);
+        fetchTransactionsInteract, settingsRouter, sendRouter, transactionDetailRouter,
+        myAddressRouter, balanceRouter, externalBrowserRouter, defaultTokenProvider,
+        getDefaultWalletBalance, transactionsMapper, airdropRouter, applications,
+        offChainTransactions, rewardsLevelRouter, gamificationInteractor, topUpRouter, analytics,
+        localCurrencyConversionService, balanceInteract);
   }
 
   @Provides FetchTransactionsInteract provideFetchTransactionsInteract(

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.router.TransactionsRouter;
+import com.asfoundation.wallet.ui.balance.BaseActivity;
 import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;

@@ -34,13 +34,13 @@ public class GetDefaultWalletBalance implements BalanceService {
     this.defaultNetwork = defaultNetwork;
   }
 
-  public Single<Balance> getTokens(Wallet wallet) {
+  public Single<Balance> getTokens(Wallet wallet, int scale) {
     return fetchTokensInteract.fetchDefaultToken(wallet)
         .flatMapSingle(token -> {
           if (wallet.address.equals(token.tokenInfo.address)) {
             return getEtherBalance(wallet);
           } else {
-            return getTokenBalance(token);
+            return getTokenBalance(token, scale);
           }
         })
         .firstOrError();
@@ -55,15 +55,15 @@ public class GetDefaultWalletBalance implements BalanceService {
         .flatMap(credits -> getCreditsBalance(credits));
   }
 
-  private Single<Balance> getTokenBalance(Token token) {
-    return Single.just(new Balance(token.tokenInfo.symbol,
-        weiToEth(token.balance).setScale(4, RoundingMode.HALF_UP)
+  private Single<Balance> getTokenBalance(Token token, int scale) {
+    return Single.just(new Balance(token.tokenInfo.symbol.toUpperCase(),
+        weiToEth(token.balance).setScale(scale, RoundingMode.FLOOR)
             .stripTrailingZeros()
             .toPlainString()));
   }
 
   private Single<Balance> getCreditsBalance(BigDecimal value) {
-    return Single.just(new Balance("APPC Credits", weiToEth(value).setScale(4, RoundingMode.HALF_UP)
+    return Single.just(new Balance("APPC-C", weiToEth(value).setScale(2, RoundingMode.FLOOR)
         .stripTrailingZeros()
         .toPlainString()));
   }
@@ -72,7 +72,7 @@ public class GetDefaultWalletBalance implements BalanceService {
     return walletRepository.balanceInWei(wallet)
         .flatMap(ethBalance -> {
           return Single.just(new Balance(defaultNetwork.symbol,
-              weiToEth(ethBalance).setScale(4, RoundingMode.HALF_UP)
+              weiToEth(ethBalance).setScale(4, RoundingMode.FLOOR)
                   .stripTrailingZeros()
                   .toPlainString()));
         })

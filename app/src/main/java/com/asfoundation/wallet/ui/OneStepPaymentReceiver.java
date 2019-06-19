@@ -11,6 +11,7 @@ import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.PaymentReceiverInteract;
 import com.asfoundation.wallet.repository.WalletNotFoundException;
+import com.asfoundation.wallet.ui.balance.BaseActivity;
 import com.asfoundation.wallet.ui.iab.IabActivity;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.util.TransferParser;

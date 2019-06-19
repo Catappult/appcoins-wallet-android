@@ -15,10 +15,19 @@ class OnboardingInteract(
   }
 
   fun createWallet(): Single<String> {
-    return walletInteract.create().map { it.address }
+    return walletInteract.create()
+        .map { it.address }
   }
 
   fun finishOnboarding() {
     preferenceRepositoryType.setOnboardingComplete()
+  }
+
+  fun clickSkipOnboarding() {
+    preferenceRepositoryType.setOnboardingSkipClicked()
+  }
+
+  fun hasClickedSkipOnboarding(): Boolean {
+    return preferenceRepositoryType.hasClickedSkipOnboarding()
   }
 }

@@ -11,7 +11,7 @@ import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.topup.payment.PaymentAuthFragment
-import com.asfoundation.wallet.ui.BaseActivity
+import com.asfoundation.wallet.ui.balance.BaseActivity
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.jakewharton.rxrelay2.PublishRelay
@@ -81,7 +81,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   }
 
   override fun navigateToPayment(paymentType: PaymentType, data: TopUpData,
-                                 selectedCurrency: String, origin: String, transactionType: String) {
+                                 selectedCurrency: String, origin: String,
+                                 transactionType: String) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             PaymentAuthFragment.newInstance(
@@ -100,12 +101,15 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   override fun finish(data: Bundle) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            TopUpSuccessFragment.newInstance(data.getDouble(TOP_UP_AMOUNT)))
+            TopUpSuccessFragment.newInstance(data.getDouble(TOP_UP_AMOUNT)),
+            TopUpSuccessFragment::class.java.simpleName)
         .commit()
   }
 
   override fun close() {
-    TransactionsRouter().open(this, true)
+    if (supportFragmentManager.findFragmentByTag(TopUpSuccessFragment::class.java.simpleName) != null) {
+      TransactionsRouter().open(this, true)
+    }
     finish()
   }
 

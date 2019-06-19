@@ -10,6 +10,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.Token;
+import com.asfoundation.wallet.ui.balance.BaseActivity;
 import com.asfoundation.wallet.ui.widget.adapter.ChangeTokenCollectionAdapter;
 import com.asfoundation.wallet.viewmodel.TokenChangeCollectionViewModel;
 import com.asfoundation.wallet.viewmodel.TokenChangeCollectionViewModelFactory;

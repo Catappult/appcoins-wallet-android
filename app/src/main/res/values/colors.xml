@@ -55,7 +55,9 @@
 
   <color name="dialog_buy_value_text">#4e4e4e</color>
   <color name="dialog_buy_total_value">#fe677b</color>
+  <color name="dialog_buy_fiat_value">#000000</color>
   <color name="dialog_fiat_price">#828282</color>
+  <color name="dialog_secondary_price">#828282</color>
 
   <color name="rewards_level_main_color">#001727</color>
   <color name="level_icon_bg_color">#001727</color>
@@ -81,4 +83,6 @@
 
   <color name="selection_dot_unselected">#d8d8d8</color>
   <color name="selection_dot_selected">#fe647f</color>
+
+  <color name="transparent">#00000000</color>
 </resources>

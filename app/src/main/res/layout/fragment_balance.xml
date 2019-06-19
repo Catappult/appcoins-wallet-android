@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
@@ -49,19 +50,21 @@
       >
     <TextView
         android:id="@+id/balance_label"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="68dp"
+        android:layout_marginEnd="8dp"
         android:fontFamily="sans-serif"
         android:gravity="start"
-        android:text="Total Balance"
         android:textColor="@color/white"
         android:textSize="16sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/balance_value"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1"
+        tools:text="Total Balance"
         />
 
     <TextView
@@ -75,24 +78,42 @@
         android:text="$1328"
         android:textColor="@color/white"
         android:textSize="34sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/balance_label"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="invisible"
+        />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/balance_label_placeholder"
+        android:layout_width="120dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="68dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/balance_value_placeholder"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1"
+        app:layout_constraintHorizontal_bias="0"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/balance_label_animation"
+        android:scaleType="fitStart"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/balance_value_placeholder"
-        android:layout_width="112dp"
+        android:layout_width="120dp"
         android:layout_height="39dp"
+        android:layout_marginBottom="64dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/balance_label"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginBottom="64dp"
         app:layout_constraintHorizontal_bias="1"
-        android:visibility="visible"
+        app:layout_constraintStart_toEndOf="@id/balance_label_placeholder"
+        app:layout_constraintTop_toTopOf="parent"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/balance_overall_animation"
         />
@@ -131,10 +152,12 @@
             layout="@layout/balance_token_item"
             android:id="@+id/appcoins_credits_token"
             />
-        <include layout="@layout/balance_token_item"
+        <include
+            layout="@layout/balance_token_item"
             android:id="@+id/appcoins_token"
             />
-        <include layout="@layout/balance_token_item"
+        <include
+            layout="@layout/balance_token_item"
             android:id="@+id/ether_token"
             />
       </LinearLayout>

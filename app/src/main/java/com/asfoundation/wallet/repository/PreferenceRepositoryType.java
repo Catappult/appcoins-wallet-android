@@ -5,6 +5,10 @@ public interface PreferenceRepositoryType {
 
   void setOnboardingComplete();
 
+  boolean hasClickedSkipOnboarding();
+
+  void setOnboardingSkipClicked();
+
   String getCurrentWalletAddress();
 
   void setCurrentWalletAddress(String address);

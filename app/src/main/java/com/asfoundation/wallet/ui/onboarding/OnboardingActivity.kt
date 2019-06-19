@@ -14,7 +14,7 @@ import android.view.View
 import com.asf.wallet.R
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.router.TransactionsRouter
-import com.asfoundation.wallet.ui.BaseActivity
+import com.asfoundation.wallet.ui.balance.BaseActivity
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
@@ -49,20 +49,28 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     linkSubject = PublishSubject.create()
     presenter = OnboardingPresenter(CompositeDisposable(), this, interactor,
         AndroidSchedulers.mainThread())
+    setupUi()
+  }
+
+  override fun onResume() {
     presenter.present()
+    super.onResume()
+  }
+
+  override fun onPause() {
+    presenter.stop()
+    create_wallet_animation.removeAllAnimatorListeners()
+    super.onPause()
   }
 
   override fun onDestroy() {
-    presenter.stop()
-    create_wallet_animation.removeAllAnimatorListeners()
+    linkSubject = null
     create_wallet_animation.removeAllUpdateListeners()
     create_wallet_animation.removeAllLottieOnCompositionLoadedListener()
-    linkSubject = null
     super.onDestroy()
   }
 
   override fun setupUi() {
-
     val termsConditions = resources.getString(R.string.terms_and_conditions)
     val privacyPolicy = resources.getString(R.string.privacy_policy)
     val termsPolicyTickBox =
@@ -93,6 +101,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
   override fun showLoading() {
     onboarding_content.visibility = View.GONE
     wallet_creation_animation.visibility = View.VISIBLE
+    create_wallet_animation.setAnimation(R.raw.create_wallet_loading_animation)
     create_wallet_animation.playAnimation()
   }
 

@@ -230,10 +230,10 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
   }
 
   override fun showValues() {
-    var mainValue = ""
-    var convertedValue = ""
-    var currencyCode = ""
-    var currencySymbol = ""
+    var mainValue: String
+    var convertedValue: String
+    var currencyCode: String
+    var currencySymbol: String
     if (currentCurrency == FIAT_CURRENCY) {
       mainValue = data.currency.fiatValue
       convertedValue = "${data.currency.appcValue} ${data.currency.appcSymbol}"
@@ -335,10 +335,6 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
 
     hideLoading()
     finishSetupView()
-  }
-
-  override fun close() {
-    topUpView?.close()
   }
 
   override fun showPaymentRefusedError(adyenAuthorization: AdyenAuthorization) {

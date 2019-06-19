@@ -391,6 +391,11 @@
   <!--Home-->
   <string name="home_empty_discover_apps_body">The best Android apps are waiting for you.</string>
   <string name="home_empty_discover_apps_button">DISCOVER TOP APPS</string>
+  
+  <!--Tokens-->
+  <string name="appc_token_name" translatable="false">AppCoins</string>
+  <string name="appc_credits_token_name" translatable="false">AppCoins Credits</string>
+  <string name="ethereum_token_name" translatable="false">Ethereum</string>
 
   <!--Settings-->
   <string name="title_redeem">Redeem Code</string>

@@ -12,6 +12,7 @@ import com.asf.wallet.R;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.NetworkInfo;
+import com.asfoundation.wallet.ui.balance.BaseActivity;
 import com.asfoundation.wallet.util.BalanceUtils;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModel;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModelFactory;

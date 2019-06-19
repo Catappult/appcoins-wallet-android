@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.asfoundation.wallet.repository.PreferenceRepositoryType;
 import com.asfoundation.wallet.router.OnboardingRouter;
 import com.asfoundation.wallet.router.TransactionsRouter;
+import com.asfoundation.wallet.ui.balance.BaseActivity;
 import com.asfoundation.wallet.viewmodel.SplashViewModel;
 import com.asfoundation.wallet.viewmodel.SplashViewModelFactory;
 import dagger.android.AndroidInjection;

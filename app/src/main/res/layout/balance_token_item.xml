@@ -2,12 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_container"
     android:layout_width="match_parent"
     android:layout_height="88dp"
     android:orientation="vertical"
     android:background="?attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
+    android:transitionName="token_container_transition"
     >
 
   <ImageView
@@ -23,6 +25,7 @@
       app:layout_constraintTop_toTopOf="parent"
       android:src="@drawable/ic_appc_token"
       app:layout_constraintHorizontal_chainStyle="packed"
+      android:transitionName="token_icon_transition"
       />
 
   <TextView
@@ -40,6 +43,7 @@
       tools:text="AppCoins Credits"
       android:lines="1"
       android:ellipsize="end"
+      android:transitionName="token_name_transition"
       />
 
   <TextView

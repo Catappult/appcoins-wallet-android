@@ -43,11 +43,11 @@
             android:id="@+id/fiat_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
             android:gravity="end"
             android:lines="1"
-            android:textColor="@color/dialog_buy_total_value"
+            android:textColor="@color/dialog_buy_fiat_value"
             android:textSize="15sp"
-            android:textStyle="bold"
             tools:text="€ 6.45"
             />
 
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:gravity="end"
             android:lines="1"
-            android:textColor="@color/dialog_buy_value_text"
+            android:textColor="@color/dialog_secondary_price"
             android:textSize="12sp"
             android:textStyle="bold"
             tools:text="10 APPC"
@@ -90,8 +90,8 @@
           android:layout_height="wrap_content"
           android:layout_below="@id/line_separator"
           android:overScrollMode="never"
-          android:paddingEnd="@dimen/big_margin"
           android:paddingStart="@dimen/big_margin"
+          android:paddingEnd="@dimen/big_margin"
           android:scrollbars="none"
           >
         <RelativeLayout
@@ -103,8 +103,8 @@
               android:id="@+id/fragment_credit_card_authorization_pre_authorized_card"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_marginBottom="16dp"
               android:layout_marginEnd="16dp"
+              android:layout_marginBottom="16dp"
               android:gravity="end"
               tools:text="****8500"
               />
@@ -122,6 +122,7 @@
 
           <Button
               android:id="@+id/change_card_button"
+              style="?android:attr/borderlessButtonStyle"
               android:layout_width="126dp"
               android:layout_height="35dp"
               android:layout_below="@id/fragment_braintree_credit_card_form"
@@ -129,7 +130,6 @@
               android:text="@string/activity_iab_change_card"
               android:textColor="@color/dialog_buy_value_text"
               android:textSize="11sp"
-              style="?android:attr/borderlessButtonStyle"
               />
 
           <com.braintreepayments.cardform.view.CardForm
@@ -161,24 +161,23 @@
           android:id="@+id/logo_wallet"
           android:layout_width="wrap_content"
           android:layout_height="16dp"
+          android:layout_centerVertical="true"
           android:layout_marginStart="16dp"
           android:src="@drawable/logo_appc_wallet"
-          android:layout_centerVertical="true"
           />
 
       <TextView
           android:id="@+id/wallet_address_footer"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_alignBottom="@id/logo_wallet"
           android:layout_alignTop="@id/logo_wallet"
-          android:layout_marginEnd="16dp"
+          android:layout_alignBottom="@id/logo_wallet"
           android:layout_marginStart="16dp"
+          android:layout_marginEnd="16dp"
           android:layout_toEndOf="@id/logo_wallet"
           android:ellipsize="end"
           android:gravity="end|center_vertical"
           android:maxLines="1"
-          android:text="0x1a78a81235dls019sk291id"
           android:textColor="@color/grey_8a_alpha"
           android:textSize="12sp"
           tools:text="0x1a78a81235dls019sk291id"

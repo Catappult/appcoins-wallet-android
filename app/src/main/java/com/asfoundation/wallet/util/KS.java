@@ -184,7 +184,7 @@ import static com.asfoundation.wallet.entity.ServiceErrorException.USER_NOT_AUTH
     } catch (IOException ioe) {
       System.out.println("Exception while writing file " + ioe);
     } finally {
-      // close the streams using close method
+      // stop the streams using stop method
       try {
         if (fos != null) {
           fos.close();

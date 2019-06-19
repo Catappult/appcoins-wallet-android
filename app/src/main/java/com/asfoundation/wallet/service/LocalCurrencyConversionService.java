@@ -5,8 +5,6 @@ import com.asfoundation.wallet.entity.ConversionResponseBody;
 import com.asfoundation.wallet.ui.iab.FiatValue;
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.reactivex.schedulers.Schedulers;
-import java.math.BigDecimal;
 import java.math.RoundingMode;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -27,22 +25,27 @@ public class LocalCurrencyConversionService {
   }
 
   public Observable<FiatValue> getAppcToLocalFiat(String value) {
-    return tokenToLocalFiatApi.getAppcToLocalFiat(value)
-        .map(response -> new FiatValue(
-            response.getAppcValue().setScale(2, RoundingMode.CEILING),
-            response.getCurrency(), response.getSymbol()));
+    return tokenToLocalFiatApi.getValueToLocalFiat(value, "APPC")
+        .map(response -> new FiatValue(response.getAppcValue()
+            .setScale(2, RoundingMode.FLOOR), response.getCurrency(), response.getSymbol()));
+  }
+
+  public Observable<FiatValue> getEtherToLocalFiat(String value) {
+    return tokenToLocalFiatApi.getValueToLocalFiat(value, "ETH")
+        .map(response -> new FiatValue(response.getAppcValue()
+            .setScale(2, RoundingMode.FLOOR), response.getCurrency(), response.getSymbol()));
   }
 
   public Observable<FiatValue> getLocalToAppc(String currency, String value) {
     return tokenToLocalFiatApi.convertLocalToAppc(currency, value)
-        .map(response -> new FiatValue(
-            response.getAppcValue().setScale(2, RoundingMode.CEILING),
-            response.getCurrency(), response.getSymbol()));
+        .map(response -> new FiatValue(response.getAppcValue()
+            .setScale(2, RoundingMode.FLOOR), response.getCurrency(), response.getSymbol()));
   }
 
   public interface TokenToLocalFiatApi {
-    @GET("broker/8.20180518/exchanges/APPC/convert/{appcValue}")
-    Observable<ConversionResponseBody> getAppcToLocalFiat(@Path("appcValue") String appcValue);
+    @GET("broker/8.20180518/exchanges/{valueFrom}/convert/{appcValue}")
+    Observable<ConversionResponseBody> getValueToLocalFiat(@Path("appcValue") String appcValue,
+        @Path("valueFrom") String valueFrom);
 
     @GET("broker/8.20180518/exchanges/{localCurrency}/convert/{value}?to=APPC")
     Observable<ConversionResponseBody> convertLocalToAppc(@Path("localCurrency") String currency,
