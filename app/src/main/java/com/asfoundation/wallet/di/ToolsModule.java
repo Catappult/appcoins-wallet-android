@@ -35,6 +35,8 @@ import com.asfoundation.wallet.AirdropService;
 import com.asfoundation.wallet.App;
 import com.asfoundation.wallet.FabricLogger;
 import com.asfoundation.wallet.Logger;
+import com.asfoundation.wallet.advertise.AdvertisingThrowableCodeMapper;
+import com.asfoundation.wallet.advertise.CampaignInteract;
 import com.asfoundation.wallet.advertise.PoaAnalyticsController;
 import com.asfoundation.wallet.analytics.AnalyticsAPI;
 import com.asfoundation.wallet.analytics.BackendEventLogger;
@@ -120,8 +122,8 @@ import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.service.AccountWalletService;
 import com.asfoundation.wallet.service.AppsApi;
 import com.asfoundation.wallet.service.BDSAppsApi;
+import com.asfoundation.wallet.service.CampaignService;
 import com.asfoundation.wallet.service.LocalCurrencyConversionService;
-import com.asfoundation.wallet.service.PoASubmissionService;
 import com.asfoundation.wallet.service.RealmManager;
 import com.asfoundation.wallet.service.SmsValidationApi;
 import com.asfoundation.wallet.service.TickerService;
@@ -474,8 +476,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides ProofWriter provideBdsBackEndWriter(
-      FindDefaultWalletInteract defaultWalletInteract, PoASubmissionService poaSubmissionService) {
-    return new BdsBackEndWriter(defaultWalletInteract, poaSubmissionService);
+      FindDefaultWalletInteract defaultWalletInteract, CampaignService campaignService) {
+    return new BdsBackEndWriter(defaultWalletInteract, campaignService);
   }
 
   @Singleton @Provides AppCoinsAddressProxySdk provideAdsContractAddressSdk() {
@@ -712,20 +714,20 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return PreferenceManager.getDefaultSharedPreferences(context);
   }
 
-  @Singleton @Provides PoASubmissionService providePoASubmissionService(OkHttpClient client,
+  @Singleton @Provides CampaignService providePoASubmissionService(OkHttpClient client,
       ObjectMapper objectMapper) {
-    String baseUrl = PoASubmissionService.SERVICE_HOST;
-    PoASubmissionService.PoASubmissionApi api = new Retrofit.Builder().baseUrl(baseUrl)
+    String baseUrl = CampaignService.SERVICE_HOST;
+    CampaignService.CampaignApi api = new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(JacksonConverterFactory.create(objectMapper))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-        .create(PoASubmissionService.PoASubmissionApi.class);
-    return new PoASubmissionService(api, BuildConfig.VERSION_CODE);
+        .create(CampaignService.CampaignApi.class);
+    return new CampaignService(api, BuildConfig.VERSION_CODE);
   }
 
   @Provides Gamification provideGamification(OkHttpClient client, SharedPreferences preferences) {
-    String baseUrl = PoASubmissionService.SERVICE_HOST;
+    String baseUrl = CampaignService.SERVICE_HOST;
     GamificationApi api = new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
@@ -932,5 +934,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Singleton @Provides SmsValidationInteract provideSmsValidationInteract(
       SmsValidationRepositoryType smsValidationRepository) {
     return new SmsValidationInteract(smsValidationRepository);
+  }
+
+  @Singleton @Provides CampaignInteract provideCampaignInteract(CampaignService campaignService,
+      WalletService walletService, CreateWalletInteract createWalletInteract) {
+    return new CampaignInteract(campaignService, walletService, createWalletInteract, new AdvertisingThrowableCodeMapper());
   }
 }
