@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.balance
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.transition.Transition
 import android.view.View
 import android.view.Window
@@ -17,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_token_details.*
 
 class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
 
-  private var entering = true
+  private var contentVisible = false
   private lateinit var token: TokenDetailsId
   private lateinit var presenter: TokenDetailsPresenter
 
@@ -35,6 +36,7 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
     }
 
     private const val KEY_CONTENT = "KEY_CONTENT"
+    private const val PARAM_ENTERING = "PARAM_ENTERING"
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +44,9 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
     window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
     setContentView(R.layout.activity_token_details)
     presenter = TokenDetailsPresenter(this, CompositeDisposable())
+    savedInstanceState?.let {
+      contentVisible = it.getBoolean(PARAM_ENTERING)
+    }
     presenter.present()
   }
 
@@ -50,9 +55,9 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
     super.onDestroy()
   }
 
-  override fun onBackPressed() {
-    entering = false
-    super.onBackPressed()
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+    outState.putBoolean(PARAM_ENTERING, contentVisible)
   }
 
   private fun setContent(tokenDetailsId: TokenDetailsId) {
@@ -87,7 +92,7 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
     val sharedElementEnterTransition = window.sharedElementEnterTransition
     sharedElementEnterTransition.addListener(object : Transition.TransitionListener {
       override fun onTransitionStart(transition: Transition) {
-        if (!entering) {
+        if (contentVisible) {
           token_description.visibility = View.INVISIBLE
           close_btn.visibility = View.INVISIBLE
           topup_btn.visibility = View.INVISIBLE
@@ -95,12 +100,13 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
       }
 
       override fun onTransitionEnd(transition: Transition) {
-        if (entering) {
+        if (!contentVisible) {
           token_description.visibility = View.VISIBLE
           close_btn.visibility = View.VISIBLE
           if (token == TokenDetailsId.APPC_CREDITS) {
             topup_btn.visibility = View.VISIBLE
           }
+          contentVisible = true
         }
       }
 
@@ -113,6 +119,14 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
       override fun onTransitionResume(transition: Transition) {
       }
     })
+
+    if (contentVisible) {
+      token_description.visibility = View.VISIBLE
+      close_btn.visibility = View.VISIBLE
+      if (token == TokenDetailsId.APPC_CREDITS) {
+        topup_btn.visibility = View.VISIBLE
+      }
+    }
   }
 
   override fun getOkClick(): Observable<Any> {
