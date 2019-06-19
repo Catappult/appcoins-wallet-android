@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.topup
 
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
-import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethod
 import com.appcoins.wallet.gamification.repository.ForecastBonus
+import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
 import com.asfoundation.wallet.service.LocalCurrencyConversionService
 import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
@@ -16,7 +16,7 @@ class TopUpInteractor(private val repository: BdsRepository,
                       private val gamificationInteractor: GamificationInteractor) {
 
   fun getPaymentMethods(): Single<List<PaymentMethodData>> {
-    return repository.getPaymentMethods("fiat")
+    return repository.getPaymentMethods(type = "fiat")
         .map { methods ->
           mapPaymentMethods(methods)
         }
@@ -36,7 +36,8 @@ class TopUpInteractor(private val repository: BdsRepository,
     return conversionService.getLocalToAppc(currency, value)
   }
 
-  private fun mapPaymentMethods(paymentMethods: List<PaymentMethod>): List<PaymentMethodData> {
+  private fun mapPaymentMethods(
+      paymentMethods: List<PaymentMethodEntity>): List<PaymentMethodData> {
     var paymentMethodsData: MutableList<PaymentMethodData> = mutableListOf()
     paymentMethods.forEach {
       paymentMethodsData.add(PaymentMethodData(it.iconUrl, it.label, it.id))

@@ -3,6 +3,7 @@ package com.asfoundation.wallet.poa;
 import androidx.annotation.NonNull;
 import com.appcoins.wallet.commons.Repository;
 import com.asfoundation.wallet.billing.partners.AddressService;
+import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.CreateWalletInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import io.reactivex.Completable;
@@ -375,12 +376,10 @@ public class ProofOfAttentionService {
             .subscribe());
   }
 
-  public void handleCreateWallet() {
-    compositeDisposable.add(findDefaultWalletInteract.find()
+  public Single<Wallet> handleCreateWallet() {
+    return findDefaultWalletInteract.find()
         .onErrorResumeNext(walletInteract.create()
             .flatMap(wallet -> walletInteract.setDefaultWallet(wallet)
-                .andThen(Single.just(wallet))))
-        .subscribeOn(computationScheduler)
-        .subscribe());
+                .andThen(Single.just(wallet))));
   }
 }
