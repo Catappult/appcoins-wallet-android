@@ -43,6 +43,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import dagger.android.AndroidInjection;
+import io.reactivex.Observable;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.subjects.PublishSubject;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -61,10 +64,11 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private RecyclerView list;
   private TextView subtitleView;
   private LottieAnimationView balanceSkeloton;
+  private PublishSubject<String> emptyTransactionsSubject;
+  private CompositeDisposable disposables;
 
   public static Intent newIntent(Context context) {
-    Intent intent = new Intent(context, TransactionsActivity.class);
-    return intent;
+    return new Intent(context, TransactionsActivity.class);
   }
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,6 +79,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
     toolbar();
     enableDisplayHomeAsUp();
+
+    disposables = new CompositeDisposable();
 
     balanceSkeloton = findViewById(R.id.balance_skeloton);
     balanceSkeloton.setVisibility(View.VISIBLE);
@@ -100,6 +106,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     setCollapsingTitle(" ");
     initBottomNavigation();
     disableDisplayHomeAsUp();
+
+    emptyTransactionsSubject = PublishSubject.create();
 
     adapter = new TransactionsAdapter(this::onTransactionClick, this::onApplicationClick);
     SwipeRefreshLayout refreshLayout = findViewById(R.id.refresh_layout);
@@ -154,7 +162,9 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private void onFetchTransactionsError(Double maxBonus) {
     if (emptyView == null) {
-      emptyView = new EmptyTransactionsView(this, this, String.valueOf(maxBonus));
+      emptyView =
+          new EmptyTransactionsView(this, String.valueOf(maxBonus), emptyTransactionsSubject, this,
+              disposables);
       systemView.showEmpty(emptyView);
     }
   }
@@ -179,11 +189,13 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       dialog.dismiss();
     }
     viewModel.pause();
+    disposables.dispose();
   }
 
   @Override protected void onResume() {
     super.onResume();
     emptyView = null;
+    disposables = new CompositeDisposable();
     adapter.clear();
     list.setVisibility(View.GONE);
     viewModel.prepare();
@@ -217,10 +229,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     switch (view.getId()) {
       case R.id.try_again: {
         viewModel.fetchTransactions(true);
-        break;
-      }
-      case R.id.action_learn_more: {
-        viewModel.showRewardsLevel(this);
         break;
       }
       case R.id.top_up_btn: {
@@ -278,7 +286,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private void onError(ErrorEnvelope errorEnvelope) {
     if ((errorEnvelope.code == EMPTY_COLLECTION || adapter.getItemCount() == 0)) {
       if (emptyView == null) {
-        emptyView = new EmptyTransactionsView(this, this, String.valueOf(maxBonusEmptyScreen));
+        emptyView = new EmptyTransactionsView(this, String.valueOf(maxBonusEmptyScreen),
+            emptyTransactionsSubject, this, disposables);
         systemView.showEmpty(emptyView);
       }
     }
@@ -307,6 +316,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     balanceSkeloton.removeAllAnimatorListeners();
     balanceSkeloton.removeAllUpdateListeners();
     balanceSkeloton.removeAllLottieOnCompositionLoadedListener();
+    emptyTransactionsSubject = null;
     super.onDestroy();
   }
 
@@ -367,5 +377,17 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       subtitle = stringBuilder.substring(0, stringBuilder.length() - bullet.length());
     }
     return subtitle.replace(bullet, "<font color='#ffffff'>" + bullet + "</font>");
+  }
+
+  public Observable<String> getEmptyTransactionsScreenClick() {
+    return emptyTransactionsSubject;
+  }
+
+  public void navigateToTopApps() {
+    viewModel.showTopApps(this);
+  }
+
+  public void navigateToGamification() {
+    viewModel.showRewardsLevel(this);
   }
 }
