@@ -116,8 +116,8 @@
   <string name="intro_4_body">あなたのプライベート鍵がデバイスから消えることはありませんので、あなたのAppCoinsは常に安全です。</string>
   <string name="intro_creating_wallet_short">私たちはあなたのためのウォレットを作っています&#8230;</string>
   <string name="intro_wallet_created_short">ウォレットの作成ができました！</string>
-  <string name="intro_agree_terms_and_conditions_body">"\"スキップをタップすることで、AppCoinウォレットの %1$s と %2$s に同意します
- \""</string>
+  <string name="intro_agree_terms_and_conditions_body">\"\"\"スキップをタップすることで、AppCoinウォレットの %1$s と %2$s に同意します
+ \"\"\"</string>
   <string name="intro_skip_button">スキップ</string>
   <!-- Menus -->
   <!-- Labels -->
@@ -300,7 +300,7 @@
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">Purchase Bonus:</string>
   <string name="gamification_purchase_header_part_2">%s in APPC Credits</string>
-  <string name="gamification_purchase_body">あなたは、この購入にて %s APPC クレジットを取得します。</string>
+  <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
   <string name="action_level">私のレベル</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">AppCoins ウォレットアドレスを %s に提供することをを許可します。</string>
@@ -365,4 +365,5 @@
   <!--Home-->
   <string name="home_empty_discover_apps_body">The best Android apps are waiting for you.</string>
   <string name="home_empty_discover_apps_button">DISCOVER TOP APPS</string>
+  <!--Tokens-->
 </resources>

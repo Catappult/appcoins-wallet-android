@@ -5,7 +5,7 @@
   <string name="title_send">Invia</string>
   <string name="title_send_with_token">Invia %s</string>
   <string name="title_request">Ricevi</string>
-  <string name="title_import">Importa portafoglio</string>
+  <string name="title_import">Importa wallet</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Password</string>
   <string name="action_sign_in_short">Create</string>
@@ -14,22 +14,22 @@
   <string name="action_send">Invia</string>
   <string name="error_field_required">Questo campo è obbligatorio</string>
   <string name="action_settings">Impostazioni</string>
-  <string name="title_account_list">Portafogli</string>
+  <string name="title_account_list">Wallet</string>
   <string name="cancel">Annulla</string>
-  <string name="confirm_delete_account">Assicurati di avere un backup per questo portafoglio.</string>
+  <string name="confirm_delete_account">Assicurati di avere un backup per questo wallet.</string>
   <string name="action_import">Importa</string>
   <string name="copy">Copia negli appunti</string>
   <string name="close">Chiudi</string>
   <string name="title_activity_settings">Impostazioni</string>
   <string name="network_label">Rete</string>
-  <string name="credits">Crediti</string>
+  <string name="credits">Credits</string>
   <string name="label_new">Novità</string>
   <string name="low_storage_error">Spazio di archiviazione non sufficiente</string>
   <string name="no_camera_permission_title">Autorizzazione fotocamera</string>
-  <string name="no_camera_permission">L\'AppCoin BDS Wallet ha bisogno della tua autorizzazione per accedere alla fotocamera e scansionare i codici QR.</string>
+  <string name="no_camera_permission">L\'AppCoins BDS Wallet ha bisogno della tua autorizzazione per accedere alla fotocamera e scansionare i codici QR.</string>
   <string name="ok">Ok</string>
   <string name="barcode_error_format">Formato codice a barre non valido: %s</string>
-  <string name="title_delete_account">Sei sicuro di voler eliminare questo portafoglio?</string>
+  <string name="title_delete_account">Sei sicuro di voler eliminare questo wallet?</string>
   <string name="twitter">Twitter</string>
   <string name="telegram">Gruppo Telegram</string>
   <!-- TODO: Remove or change this placeholder text -->
@@ -40,19 +40,19 @@
   <string name="title_support">Supporto</string>
   <string name="title_permissions">Autorizzazioni</string>
   <string name="permissions_title">Autorizzazioni</string>
-  <string name="permissions_active_wallet_short">Portafoglio attivo attuale</string>
+  <string name="permissions_active_wallet_short">Wallet attivo attuale</string>
   <string name="error_import">Errore durante l\'importazione di keystore</string>
-  <string name="message_this_is_your_address">Il mio indirizzo pubblico del portafoglio Ethereum</string>
-  <string name="backup_warning_text">Dal momento che solo tu hai il controllo dei tuoi soldi avrai bisogno di salvare una copia di backup del tuo keystore nel caso in cui questa applicazione venga eliminata.\n\nIl tuo portafoglio non viene mai salvato nel cloud o nei dispositivi standard di backup.</string>
+  <string name="message_this_is_your_address">Il mio indirizzo pubblico del wallet Ethereum</string>
+  <string name="backup_warning_text">Dal momento che solo tu hai il controllo dei tuoi soldi avrai bisogno di salvare una copia di backup del tuo keystore nel caso in cui questa applicazione venga eliminata.\n\nIl tuo wallet non viene mai salvato nel cloud o nei dispositivi standard di backup.</string>
   <string name="message_no_backup">Niente backup, niente Ethereum</string>
-  <string name="error_deleting_account">Errore nell\'eliminazione del portafoglio</string>
+  <string name="error_deleting_account">Errore nell\'eliminazione del wallet</string>
   <string name="title_privacy_policy">Informativa sulla privacy</string>
   <string name="title_terms">Termini e condizioni</string>
   <string name="title_version">Versione</string>
   <string name="title_tokens">I miei token</string>
   <string name="unlock_screen_title_android">Sblocca lo schermo</string>
-  <string name="unlock_screen_prompt_android">Si prega di sbloccare il dispositivo Android per continuare.</string>
-  <string name="do_manage_make_backup">Hai fatto correttamente un backup?</string>
+  <string name="unlock_screen_prompt_android">Sblocca il dispositivo Android per continuare.</string>
+  <string name="do_manage_make_backup">Hai completato correttamente un backup?</string>
   <string name="yes_continue">Sì, continua</string>
   <string name="no_repeat">No, ripeti</string>
   <string name="skip">Salta</string>
@@ -107,7 +107,7 @@
   <string name="intro_message_second_page">Le chiavi private non lasciano mai il tuo dispositivo.</string>
   <string name="intro_message_third_page">Elabora tutti i pagamenti in-app e i premi in APPC.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
-  <string name="intro_1_body">Your app for in-app purchases.</string>
+  <string name="intro_1_body">La tua app per gli acquisti in-app.</string>
   <string name="intro_2_title">Gioca di più, paga di meno</string>
   <string name="intro_2_body">Fatti premiare per i tuoi acquisti sulle app e i giochi che preferisci.</string>
   <string name="intro_3_title">Semplice e lineare</string>
@@ -182,7 +182,7 @@
   <string name="token_name">%1$s (%2$s)</string>
   <string name="new_transaction_value">-%1$s %2$s</string>
   <string name="gas_price_value">%1$s %2$s</string>
-  <string name="settings_fragment_credits">Abbiamo creato il fork Trust Wallet per Android per portare avanti lo sviluppo del portafoglio di AppCoin. L\'abbiamo ritenuta la migliore alternativa per quanto riguarda le funzionalità già implementate. Abbiamo creato il fork con l\'intento di contribuire con implementazioni e lavori considerati rilevanti.</string>
+  <string name="settings_fragment_credits">Abbiamo creato il fork Trust Wallet per Android per portare avanti lo sviluppo dell\'AppCoins wallet. L\'abbiamo ritenuta la migliore alternativa per quanto riguarda le funzionalità già implementate. Abbiamo creato il fork con l\'intento di contribuire con implementazioni e lavori considerati rilevanti.</string>
   <string name="appcoins_symbol">APPC</string>
   <string name="activity_aib_loading_title">Transazione in corso</string>
   <string name="activity_aib_loading_message">Potrebbe volerci un po\'…</string>
@@ -212,7 +212,7 @@
   <string name="notification_not_available_for_country_poa">Questa campagna premi non è disponibile nel tuo paese</string>
   <string name="notification_already_rewarded_poa">Sei già stato premiato durante questa campagna</string>
   <string name="notification_submit_error_poa">Si è verificato un errore. Riprova!</string>
-  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
+  <string name="notification_wrong_network_poa">Stai usando una versione dev dell\'AppCoins Wallet. Scarica la versione ufficiale per ricevere il tuo premio.</string>
   <!-- transaction details -->
   <string name="transaction_status_success">Successo</string>
   <string name="transaction_status_pending">In sospeso</string>
@@ -275,9 +275,9 @@
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">COME FUNZIONA</string>
-  <string name="gamification_level_body">Potrai ricevere crediti APPC effettuando acquisti sulle tue app e sui tuoi giochi preferiti.</string>
+  <string name="gamification_level_body">Potrai ricevere APPC Credits effettuando acquisti sulle tue app e sui tuoi giochi preferiti.</string>
   <string name="gamification_how_header">Come passare di livello?</string>
-  <string name="gamification_how_body">Potrai ricevere crediti APPC effettuando acquisti sulle tue app e sui tuoi giochi preferiti.</string>
+  <string name="gamification_how_body">Potrai ricevere APPC Credits effettuando acquisti sulle tue app e sui tuoi giochi preferiti.</string>
   <string name="gamification_how_body_new">Più AppCoins spenderai sulle tue app preferite, maggiore sarà il bonus!</string>
   <string name="gamification_how_table_a1">SPESA</string>
   <string name="gamification_how_table_b1">BONUS</string>
@@ -297,13 +297,13 @@
   <string name="gamification_galaxy_subtitle">Il più grande sistema lassù!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
-  <string name="gamification_purchase_header_part_1">Purchase Bonus:</string>
+  <string name="gamification_purchase_header_part_1">Bonus acquisti:</string>
   <string name="gamification_purchase_header_part_2">%s in APPC Credits</string>
-  <string name="gamification_purchase_body">Riceverai %s crediti APPC con questo acquisto.</string>
+  <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
   <string name="action_level">Il mio livello</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Consenti ad AppCoins Wallet di fornire l\'indirizzo del tuo portafoglio a %s.</string>
-  <string name="provide_wallet_body_placeholders">Allow %1$s to provide your wallet address to %2$s.</string>
+  <string name="provide_wallet_body_placeholders">Consenti ad %1$s di fornire l\'indirizzo del tuo wallet %2$s.</string>
   <string name="provide_wallet_always_allow_button">Sempre</string>
   <string name="provide_wallet_allow_once_button">Solo questa volta</string>
   <string name="provide_wallet_completed_header">Portafoglio associato ad Aptoide!</string>
@@ -325,24 +325,24 @@
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Saldo totale in %s</string>
-  <string name="balance_topup_body">Puoi ricaricare il tuo portafoglio con crediti AppCoins.</string>
+  <string name="balance_topup_body">Puoi ricaricare il tuo wallet con AppCoins Credits.</string>
   <string name="balance_ethereum_body">Ethereum è la criptovaluta su cui si basano gli AppCoins. È molto utilizzata: potrai acquistarla e venderla nella maggior parte dei cambi!</string>
   <string name="balance_appcoins_body">AppCoins è la criptovaluta per l\'app economy. Potrai acquistarla e venderla in diversi cambi e usarla per acquisti in-app.</string>
   <string name="balance_appccreditos_body">Il token per gli acquisti in-app! Ricarica APPC-C dal tuo portafoglio o ricevine gratis usando le app. Si possono anche trasferire tra amici!</string>
   <!--Ask a friend for funds-->
-  <string name="askafriend_payment_option_button">Ask someone to pay</string>
-  <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
-  <string name="askafriend_generating_link_error_message">Oops, something went wrong. Please try again!</string>
-  <string name="askafriend_share_body">Share the link so you can get the funds sent to you!</string>
+  <string name="askafriend_payment_option_button">Chiedi a un amico</string>
+  <string name="askafriend_generating_link_message">Stiamo generando il tuo link di pagamento&#8230;</string>
+  <string name="askafriend_generating_link_error_message">Ops, qualcosa è andato storto. Riprova!</string>
+  <string name="askafriend_share_body">Condividi il link per farti inviare fondi!</string>
   <string name="askafriend_share_add_message_body">Scrivi un messaggio (facoltativo)</string>
   <string name="askafriend_share_button">Condividi</string>
-  <string name="askafriend_share_popup_title">Ask someone via:</string>
+  <string name="askafriend_share_popup_title">Chiedi a un amico tramite:</string>
   <string name="askafriend_received_body">Hai ricevuto %s APPC-C</string>
-  <string name="askafriend_notification_received_title">New Transfer Received</string>
-  <string name="askafriend_notification_received_body">%1$s %2$s were credited to your wallet.</string>
+  <string name="askafriend_notification_received_title">Nuovo trasferimento ricevuto</string>
+  <string name="askafriend_notification_received_body">%1$s %2$s sono stati accreditati sul tuo wallet.</string>
   <string name="askafriend_received_title">Trasferimento ricevuto</string>
-  <string name="askafriend_send_title">Transfer Sent</string>
-  <string name="askafriend_share_note_to_friend">Hey there! Please, send me %1$s AppCoins Credits to buy an item on %2$s. Link: %3$s</string>
+  <string name="askafriend_send_title">Trasferimento inviato</string>
+  <string name="askafriend_share_note_to_friend">Ciao! Potresti mandarmi %1$s AppCoins Credits per acquistare un articolo su %2$s? Link: %3$s</string>
   <!--P2P Send-->
   <string name="p2p_send_title">Invia fondi</string>
   <string name="p2p_send_body">Scansiona o inserisci l\'indirizzo del portafoglio del tuo amico.</string>
@@ -357,11 +357,12 @@
   <string name="error_missing_field">Campo obbligatorio</string>
   <string name="cancel_button">Annulla</string>
   <!--Onboarding-->
-  <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
-  <string name="terms_and_conditions">Terms and Conditions</string>
-  <string name="privacy_policy">Privacy Policy</string>
+  <string name="terms_and_conditions_tickbox">Acconsento ai %1$s e all\'%2$s dell\'AppCoins Wallet.</string>
+  <string name="terms_and_conditions_error">Accetta i nostri Termini e condizioni e l\'Informativa sulla privacy per continuare</string>
+  <string name="terms_and_conditions">Termini e condizioni</string>
+  <string name="privacy_policy">Informativa sulla privacy</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">The best Android apps are waiting for you.</string>
-  <string name="home_empty_discover_apps_button">DISCOVER TOP APPS</string>
+  <string name="home_empty_discover_apps_body">Le migliori app Android ti stanno aspettando!</string>
+  <string name="home_empty_discover_apps_button">SCOPRI LE MIGLIORI APP</string>
+  <!--Tokens-->
 </resources>

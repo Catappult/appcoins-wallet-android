@@ -364,4 +364,5 @@
   <!--Home-->
   <string name="home_empty_discover_apps_body">Die besten Android-Apps warten auf Sie.</string>
   <string name="home_empty_discover_apps_button">ENTDECKEN SIE DIE BESTEN APPS</string>
+  <!--Tokens-->
 </resources>

@@ -299,11 +299,11 @@
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">ਖਰੀਦ ਦਾ ਬੋਨਸ:</string>
   <string name="gamification_purchase_header_part_2">%s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ</string>
-  <string name="gamification_purchase_body">ਤੁਸੀ ਇਸ ਖਰੀਦ ਲਈ %s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋਗੇ|</string>
+  <string name="gamification_purchase_body">ਤੁਸੀਂ ਇਸ ਬੋਨਸ ਨੂੰ ਆਪਣੀ ਅਗਲੀ ਖਰੀਦ ਵਿਚ ਵਰਤ ਸਕਦੇ ਹੋ|</string>
   <string name="action_level">ਮੇਰਾ ਪੱਧਰ</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ %s ਨੂੰ ਬਟੂਏ ਦਾ ਪਤਾ ਦੱਸਣ ਦੀ ਆਗਿਆ ਦਿਓ|</string>
-  <string name="provide_wallet_body_placeholders">Allow %1$s to provide your wallet address to %2$s.</string>
+  <string name="provide_wallet_body_placeholders">%1$s ਬਟੂਏ ਨੂੰ %2$s ਨੂੰ ਬਟੂਏ ਦਾ ਪਤਾ ਦੱਸਣ ਦੀ ਆਗਿਆ ਦਿਓ|</string>
   <string name="provide_wallet_always_allow_button">ਹਮੇਸ਼ਾ ਦੀ ਇਜਾਜ਼ਤ ਦਿਉ</string>
   <string name="provide_wallet_allow_once_button">ਇੱਕ ਵਾਰ ਮਨਜ਼ੂਰੀ ਦਿਓ</string>
   <string name="provide_wallet_completed_header">ਬਟੂਆ ਐਪਟਾਇਡ ਨਾਲ ਜੋੜਿਆ ਗਿਆ!</string>
@@ -358,10 +358,11 @@
   <string name="cancel_button">ਕੈਂਸਲ</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ਮੈਂ ਐਪ ਸਿੱਕੇ ਬਟੂਏ %1$s ਅਤੇ %2$s ਨਾਲ ਸਹਿਮਤ ਹਾਂ|</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions_error">ਜਾਰੀ ਰੱਖਣ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਿਯਮਾਂ ਅਤੇ ਸ਼ਰਤਾਂ ਅਤੇ ਨੀਜੀ ਨੀਤੀ ਨੂੰ ਸਵੀਕਾਰ ਕਰੋ</string>
   <string name="terms_and_conditions">ਨਿਬੰਧਨ ਅਤੇ ਸ਼ਰਤਾਂ</string>
   <string name="privacy_policy">ਪਰਾਈਵੇਟ ਨੀਤੀ</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">ਵਧੀਆ ਐਂਡਰਾਇਡ ਐਪਾਂ ਤੁਹਾਡੀ ਉਡੀਕ ਕਰ ਰਹੀਆਂ ਹਨ|</string>
   <string name="home_empty_discover_apps_button">ਵਧੀਆ ਐਪਸ ਲੱਭੋ</string>
+  <!--Tokens-->
 </resources>

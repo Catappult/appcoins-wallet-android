@@ -364,4 +364,5 @@
   <!--Home-->
   <string name="home_empty_discover_apps_body">Čekaju vas najbolje aplikacije za Android.</string>
   <string name="home_empty_discover_apps_button">OTKRIJTE NAJPOPULARNIJE APLIKACIJE</string>
+  <!--Tokens-->
 </resources>

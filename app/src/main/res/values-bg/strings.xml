@@ -299,11 +299,11 @@
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">Бонус от покупката:</string>
   <string name="gamification_purchase_header_part_2">%s APPC Credits</string>
-  <string name="gamification_purchase_body">Ще получиш %s APPC кредити за тази покупка.</string>
+  <string name="gamification_purchase_body">Можеш да използваш този бонус при следващата си покупка.</string>
   <string name="action_level">Моето ниво</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Позволи на AppCoins портфейла да предоставите твоя портфейл адрес на %s.</string>
-  <string name="provide_wallet_body_placeholders">Allow %1$s to provide your wallet address to %2$s.</string>
+  <string name="provide_wallet_body_placeholders">Позволи на %1$s да предостави твоя портфейл адрес на %2$s.</string>
   <string name="provide_wallet_always_allow_button">Позволи винаги</string>
   <string name="provide_wallet_allow_once_button">Позволи веднъж</string>
   <string name="provide_wallet_completed_header">Портфейл, свързан с Aptoide!</string>
@@ -358,10 +358,11 @@
   <string name="cancel_button">Отказ</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Съгласявам се с %1$s и %2$s на AppCoins Wallet.</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions_error">Моля, приеми нашите Общи правила и Политика за поверителност, за да продължиш</string>
   <string name="terms_and_conditions">Общи условия</string>
   <string name="privacy_policy">Политика за поверителност</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Най-добрите Android приложения те очакват.</string>
   <string name="home_empty_discover_apps_button">ОТКРИЙ ТОП ПРИЛОЖЕНИЯ</string>
+  <!--Tokens-->
 </resources>
