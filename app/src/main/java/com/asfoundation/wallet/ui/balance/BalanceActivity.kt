@@ -13,6 +13,7 @@ import androidx.core.view.ViewCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.router.TopUpRouter
 import com.asfoundation.wallet.router.TransactionsRouter
+import com.asfoundation.wallet.ui.BaseActivity
 
 
 class BalanceActivity : BaseActivity(),

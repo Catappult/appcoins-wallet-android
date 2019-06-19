@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProviders;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.Address;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
-import com.asfoundation.wallet.ui.balance.BaseActivity;
 import com.asfoundation.wallet.viewmodel.AddTokenViewModel;
 import com.asfoundation.wallet.viewmodel.AddTokenViewModelFactory;
 import com.asfoundation.wallet.widget.SystemView;

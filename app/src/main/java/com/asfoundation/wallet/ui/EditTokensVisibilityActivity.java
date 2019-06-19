@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;
-import com.asfoundation.wallet.ui.balance.BaseActivity;
 import dagger.android.AndroidInjection;
 
 public class EditTokensVisibilityActivity extends BaseActivity {

@@ -15,7 +15,6 @@ import com.asf.wallet.R;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.Wallet;
-import com.asfoundation.wallet.ui.balance.BaseActivity;
 import com.asfoundation.wallet.ui.widget.OnImportKeystoreListener;
 import com.asfoundation.wallet.ui.widget.OnImportPrivateKeyListener;
 import com.asfoundation.wallet.ui.widget.adapter.TabPagerAdapter;

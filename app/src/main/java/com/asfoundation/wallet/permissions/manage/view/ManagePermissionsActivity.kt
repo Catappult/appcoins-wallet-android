@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.asf.wallet.R
-import com.asfoundation.wallet.ui.balance.BaseActivity
+import com.asfoundation.wallet.ui.BaseActivity
 
 class ManagePermissionsActivity : BaseActivity(), ManagePermissionsView, ToolbarManager {
   companion object {

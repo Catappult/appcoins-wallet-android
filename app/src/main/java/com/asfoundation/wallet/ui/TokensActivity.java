@@ -14,7 +14,6 @@ import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.Token;
 import com.asfoundation.wallet.entity.Wallet;
-import com.asfoundation.wallet.ui.balance.BaseActivity;
 import com.asfoundation.wallet.ui.widget.adapter.TokensAdapter;
 import com.asfoundation.wallet.viewmodel.TokensViewModel;
 import com.asfoundation.wallet.viewmodel.TokensViewModelFactory;

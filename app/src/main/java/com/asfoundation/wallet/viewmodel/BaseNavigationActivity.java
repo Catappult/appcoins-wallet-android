@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import android.view.MenuItem;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.ui.balance.BaseActivity;
+import com.asfoundation.wallet.ui.BaseActivity;
 
 public class BaseNavigationActivity extends BaseActivity
     implements BottomNavigationView.OnNavigationItemSelectedListener {

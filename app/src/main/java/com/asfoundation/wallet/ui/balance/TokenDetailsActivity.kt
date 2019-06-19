@@ -4,11 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.transition.Transition
-import android.util.Log
 import android.view.View
 import android.view.Window
 import com.asf.wallet.R
 import com.asfoundation.wallet.router.TopUpRouter
+import com.asfoundation.wallet.ui.BaseActivity
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable

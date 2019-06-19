@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.router.Result;
-import com.asfoundation.wallet.ui.balance.BaseActivity;
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity;
 import com.asfoundation.wallet.ui.iab.IabActivity;
 import com.asfoundation.wallet.viewmodel.SendViewModel;

@@ -14,7 +14,7 @@ import android.view.View
 import com.asf.wallet.R
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.router.TransactionsRouter
-import com.asfoundation.wallet.ui.balance.BaseActivity
+import com.asfoundation.wallet.ui.BaseActivity
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.AndroidInjection
 import io.reactivex.Observable

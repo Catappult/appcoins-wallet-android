@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.balance;
+package com.asfoundation.wallet.ui;
 
 import android.content.Intent;
 import android.os.Bundle;

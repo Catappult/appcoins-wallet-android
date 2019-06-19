@@ -19,7 +19,6 @@ import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.ui.balance.BaseActivity;
 import com.asfoundation.wallet.util.BalanceUtils;
 import com.asfoundation.wallet.viewmodel.ConfirmationViewModel;
 import com.asfoundation.wallet.viewmodel.ConfirmationViewModelFactory;
