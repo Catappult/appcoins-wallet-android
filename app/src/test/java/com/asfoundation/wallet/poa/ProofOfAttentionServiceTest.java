@@ -8,7 +8,7 @@ import com.asfoundation.wallet.interact.CreateWalletInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.repository.BdsBackEndWriter;
 import com.asfoundation.wallet.repository.WalletNotFoundException;
-import com.asfoundation.wallet.service.PoASubmissionService;
+import com.asfoundation.wallet.service.CampaignService;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.TestObserver;
@@ -41,7 +41,7 @@ public class ProofOfAttentionServiceTest {
   private static final String OEM_ADDRESS = "oem_address";
 
   @Mock FindDefaultWalletInteract defaultWalletInteract;
-  @Mock PoASubmissionService poaSubmissionService;
+  @Mock CampaignService campaignService;
   @Mock HashCalculator hashCalculator;
   @Mock AddressService addressService;
   @Mock CreateWalletInteract walletInteract;
@@ -61,7 +61,7 @@ public class ProofOfAttentionServiceTest {
     hasWallet = BehaviorSubject.create();
     cache = new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>());
     testScheduler = new TestScheduler();
-    proofWriter = new BdsBackEndWriter(defaultWalletInteract, poaSubmissionService);
+    proofWriter = new BdsBackEndWriter(defaultWalletInteract, campaignService);
     proofOfAttentionService =
         new ProofOfAttentionService(cache, BuildConfig.APPLICATION_ID, hashCalculator,
             new CompositeDisposable(), proofWriter, testScheduler, maxNumberProofComponents,
@@ -75,7 +75,7 @@ public class ProofOfAttentionServiceTest {
     nonce = 1L;
     wallet = "wallet_address";
     when(defaultWalletInteract.find()).thenReturn(hasWallet.firstOrError());
-    when(poaSubmissionService.submitProof(any(Proof.class), eq(wallet))).thenReturn(
+    when(campaignService.submitProof(any(Proof.class), eq(wallet))).thenReturn(
         Single.just(SUBMIT_HASH));
     when(hashCalculator.calculateNonce(any(NonceData.class))).thenReturn(nonce);
 
@@ -201,7 +201,7 @@ public class ProofOfAttentionServiceTest {
         .assertValueCount(7);
     Proof value = cacheObserver.values()
         .get(6);
-    verify(poaSubmissionService, times(1)).submitProof(
+    verify(campaignService, times(1)).submitProof(
         new Proof(value.getPackageName(), value.getCampaignId(), value.getProofComponentList(),
             value.getWalletPackage(), ProofStatus.SUBMITTING, 1, null, null, BigDecimal.ZERO,
             BigDecimal.ZERO, null, "PT"), wallet);

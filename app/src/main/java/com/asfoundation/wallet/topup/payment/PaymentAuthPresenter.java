@@ -34,6 +34,8 @@ public class PaymentAuthPresenter {
   private final Navigator navigator;
   private final BillingMessagesMapper billingMessagesMapper;
   private final InAppPurchaseInteractor inAppPurchaseInteractor;
+  private final String bonusValue;
+  private final boolean validBonus;
   private final String appPackage;
   private PaymentAuthView view;
   private boolean waitingResult;
@@ -41,7 +43,7 @@ public class PaymentAuthPresenter {
   public PaymentAuthPresenter(PaymentAuthView view, String appPackage, Scheduler viewScheduler,
       CompositeDisposable disposables, Adyen adyen, BillingService billingService,
       Navigator navigator, BillingMessagesMapper billingMessagesMapper,
-      InAppPurchaseInteractor inAppPurchaseInteractor) {
+      InAppPurchaseInteractor inAppPurchaseInteractor, String bonusValue, boolean validBonus) {
     this.view = view;
     this.appPackage = appPackage;
     this.viewScheduler = viewScheduler;
@@ -51,6 +53,8 @@ public class PaymentAuthPresenter {
     this.navigator = navigator;
     this.billingMessagesMapper = billingMessagesMapper;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
+    this.bonusValue = bonusValue;
+    this.validBonus = validBonus;
   }
 
   public void present(@Nullable Bundle savedInstanceState, String transactionOrigin, String amount,
@@ -180,7 +184,7 @@ public class PaymentAuthPresenter {
           return errors.takeWhile(e -> counter.getAndIncrement() != 3)
               .flatMap(e -> Flowable.timer(counter.get(), TimeUnit.SECONDS));
         })
-        .map(billingMessagesMapper::topUpBundle);
+        .map((Double amount) -> billingMessagesMapper.topUpBundle(amount, bonusValue, validBonus));
   }
 
   private void onViewCreatedCheckAuthorizationFailed(String transactionOrigin, String amount,
