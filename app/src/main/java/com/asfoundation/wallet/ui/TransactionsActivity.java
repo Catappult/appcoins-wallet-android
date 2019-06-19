@@ -68,8 +68,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private CompositeDisposable disposables;
 
   public static Intent newIntent(Context context) {
-    Intent intent = new Intent(context, TransactionsActivity.class);
-    return intent;
+    return new Intent(context, TransactionsActivity.class);
   }
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -190,11 +189,13 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       dialog.dismiss();
     }
     viewModel.pause();
+    disposables.dispose();
   }
 
   @Override protected void onResume() {
     super.onResume();
     emptyView = null;
+    disposables = new CompositeDisposable();
     adapter.clear();
     list.setVisibility(View.GONE);
     viewModel.prepare();
@@ -290,7 +291,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         systemView.showEmpty(emptyView);
       }
     }
-    systemView.showEmpty(emptyView);
   }
 
   private void onGamificationMaxBonus(double bonus) {
