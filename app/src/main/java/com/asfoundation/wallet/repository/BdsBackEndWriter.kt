@@ -24,32 +24,34 @@ open class BdsBackEndWriter(
       if (isKnownNetwork(chainId)) {
         return Single.just(
             ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.WRONG_NETWORK,
-                BigDecimal.ZERO, BigDecimal.ZERO));
+                BigDecimal.ZERO, BigDecimal.ZERO))
       } else {
         return Single.just(
             ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.UNKNOWN_NETWORK,
-                BigDecimal.ZERO, BigDecimal.ZERO));
+                BigDecimal.ZERO, BigDecimal.ZERO))
       }
 
     }
-    return defaultWalletInteract.find().map {
-      ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY,
-          BigDecimal.ZERO, BigDecimal.ZERO)
-    }.onErrorReturn {
-      when (it) {
-        is WalletNotFoundException -> ProofSubmissionFeeData(
-            ProofSubmissionFeeData.RequirementsStatus.NO_WALLET,
-            BigDecimal.ZERO, BigDecimal.ZERO)
-        is UnknownHostException -> ProofSubmissionFeeData(
-            ProofSubmissionFeeData.RequirementsStatus.NO_NETWORK,
-            BigDecimal.ZERO, BigDecimal.ZERO)
-        else -> throw it
-      }
-    }
+    return defaultWalletInteract.find()
+        .map {
+          ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY,
+              BigDecimal.ZERO, BigDecimal.ZERO)
+        }
+        .onErrorReturn {
+          when (it) {
+            is WalletNotFoundException -> ProofSubmissionFeeData(
+                ProofSubmissionFeeData.RequirementsStatus.NO_WALLET,
+                BigDecimal.ZERO, BigDecimal.ZERO)
+            is UnknownHostException -> ProofSubmissionFeeData(
+                ProofSubmissionFeeData.RequirementsStatus.NO_NETWORK,
+                BigDecimal.ZERO, BigDecimal.ZERO)
+            else -> throw it
+          }
+        }
   }
 
   private fun isKnownNetwork(chainId: Int): Boolean {
-    return chainId == 1 || chainId == 3;
+    return chainId == 1 || chainId == 3
   }
 
   private fun isCorrectNetwork(chainId: Int): Boolean {

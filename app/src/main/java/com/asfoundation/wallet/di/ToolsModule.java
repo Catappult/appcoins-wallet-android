@@ -488,11 +488,13 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Singleton @Provides ProofOfAttentionService provideProofOfAttentionService(
       HashCalculator hashCalculator, ProofWriter proofWriter, TaggedCompositeDisposable disposables,
       @Named("MAX_NUMBER_PROOF_COMPONENTS") int maxNumberProofComponents,
-      CountryCodeProvider countryCodeProvider, AddressService addressService) {
+      CountryCodeProvider countryCodeProvider, AddressService addressService,
+      CreateWalletInteract createWalletInteract,
+      FindDefaultWalletInteract findDefaultWalletInteract) {
     return new ProofOfAttentionService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
         BuildConfig.APPLICATION_ID, hashCalculator, new CompositeDisposable(), proofWriter,
         Schedulers.computation(), maxNumberProofComponents, new BackEndErrorMapper(), disposables,
-        countryCodeProvider, addressService);
+        countryCodeProvider, addressService, createWalletInteract, findDefaultWalletInteract);
   }
 
   @Provides @Singleton CountryCodeProvider providesCountryCodeProvider(OkHttpClient client,
@@ -710,7 +712,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(CampaignService.CampaignApi.class);
-    return new CampaignService(api);
+    return new CampaignService(api, BuildConfig.VERSION_CODE);
   }
 
   @Provides Gamification provideGamification(OkHttpClient client, SharedPreferences preferences) {
@@ -920,7 +922,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides SmsValidationInteract provideSmsValidationInteract(
       SmsValidationRepositoryType smsValidationRepository) {
-    return new SmsValidationInteract(smsValidationRepository, Schedulers.io());
+    return new SmsValidationInteract(smsValidationRepository);
   }
 
   @Singleton @Provides CampaignInteract provideCampaignInteract(CampaignService campaignService,

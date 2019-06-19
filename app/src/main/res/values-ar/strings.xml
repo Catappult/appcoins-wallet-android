@@ -212,7 +212,7 @@
   <string name="notification_not_available_for_country_poa">حملة المكافآت هذه غير متوفرة في بلدك</string>
   <string name="notification_already_rewarded_poa">لقد تمت مكافأتك بالفعل في هذه الحملة</string>
   <string name="notification_submit_error_poa">عذرًا، حدث خطأ. حاول مرة أخرى!</string>
-  <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
+  <string name="notification_wrong_network_poa">أنت تستخدم نسخة تحت التطوير من AppCoins Wallet. يرجى تنزيل النسخة الرسمية لمعالجة الجائزة.</string>
   <!-- transaction details -->
   <string name="transaction_status_success">تم بنجاح</string>
   <string name="transaction_status_pending">قيد الانتظار</string>
@@ -299,7 +299,7 @@
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">مكافأة للمشتريات:</string>
   <string name="gamification_purchase_header_part_2">%s في رصيد APPC</string>
-  <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
+  <string name="gamification_purchase_body">يمكنك استخدام هذه المكافأة في عملية الشراء القادمة.</string>
   <string name="action_level">مستواي</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">اسمح لمحفظة AppCoins بإعطاء عنوان محفظتك إلى %s.</string>
@@ -364,4 +364,5 @@
   <!--Home-->
   <string name="home_empty_discover_apps_body">أفضل تطبيقات الأندرويد بانتظارك.</string>
   <string name="home_empty_discover_apps_button">اكتشف أفضل التطبيقات</string>
+  <!--Tokens-->
 </resources>

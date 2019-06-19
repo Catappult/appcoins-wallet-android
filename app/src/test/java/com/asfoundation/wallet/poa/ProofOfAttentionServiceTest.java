@@ -4,6 +4,7 @@ import com.appcoins.wallet.commons.MemoryCache;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.interact.CreateWalletInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.repository.BdsBackEndWriter;
 import com.asfoundation.wallet.repository.WalletNotFoundException;
@@ -35,14 +36,16 @@ import static org.mockito.Mockito.when;
 
 public class ProofOfAttentionServiceTest {
 
-  public static final String SUBMIT_HASH = "hash";
-  public static final String STORE_ADDRESS = "store_address";
-  public static final String OEM_ADDRESS = "oem_address";
+  private static final String SUBMIT_HASH = "hash";
+  private static final String STORE_ADDRESS = "store_address";
+  private static final String OEM_ADDRESS = "oem_address";
 
   @Mock FindDefaultWalletInteract defaultWalletInteract;
   @Mock CampaignService campaignService;
   @Mock HashCalculator hashCalculator;
   @Mock AddressService addressService;
+  @Mock CreateWalletInteract walletInteract;
+  @Mock FindDefaultWalletInteract findDefaultWalletInteract;
   private int chainId;
   private ProofOfAttentionService proofOfAttentionService;
   private MemoryCache<String, Proof> cache;
@@ -63,7 +66,7 @@ public class ProofOfAttentionServiceTest {
         new ProofOfAttentionService(cache, BuildConfig.APPLICATION_ID, hashCalculator,
             new CompositeDisposable(), proofWriter, testScheduler, maxNumberProofComponents,
             new BackEndErrorMapper(), new TaggedCompositeDisposable(new HashMap<>()),
-            () -> Single.just("PT"), addressService);
+            () -> Single.just("PT"), addressService, walletInteract, findDefaultWalletInteract);
     if (BuildConfig.DEBUG) {
       chainId = 3;
     } else {
@@ -345,7 +348,7 @@ public class ProofOfAttentionServiceTest {
   }
 
   @Test public void wrongNetwork() {
-    int wrongChainId = -1;
+    int wrongChainId;
     wrongChainId = chainId == 3 ? 1 : 3;
     TestObserver<ProofSubmissionFeeData> noFunds =
         proofOfAttentionService.isWalletReady(wrongChainId)

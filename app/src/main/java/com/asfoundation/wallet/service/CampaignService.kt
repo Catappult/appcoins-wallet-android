@@ -8,9 +8,12 @@ import com.asfoundation.wallet.poa.ProofComponent
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import org.jetbrains.annotations.NotNull
 import retrofit2.http.*
 
-class CampaignService(private val campaignApi: CampaignApi) {
+class CampaignService(
+    private val campaignApi: @NotNull CampaignApi,
+    private val versionCode: Int) {
 
   companion object {
     const val SERVICE_HOST = BuildConfig.BACKEND_HOST
@@ -19,7 +22,7 @@ class CampaignService(private val campaignApi: CampaignApi) {
   fun submitProof(proof: Proof, wallet: String): Single<String> {
     return campaignApi.submitProof(
         SerializedProof(proof.campaignId, proof.packageName, wallet, proof.proofComponentList,
-            proof.storeAddress, proof.oemAddress))
+            proof.storeAddress, proof.oemAddress), versionCode)
         .map { response -> handleResponse(response) }
         .subscribeOn(Schedulers.io())
         .singleOrError()
@@ -52,7 +55,9 @@ class CampaignService(private val campaignApi: CampaignApi) {
   interface CampaignApi {
     @Headers("Content-Type: application/json")
     @POST("/campaign/submitpoa")
-    fun submitProof(@Body body: SerializedProof?): Observable<SubmitPoAResponse>
+    fun submitProof(@Body body: SerializedProof?, @Query("version_code")
+    versionCode: Int): Observable<SubmitPoAResponse>
+
 
     @GET("/campaign/eligible")
     fun getCampaign(@Query("address") address: String,

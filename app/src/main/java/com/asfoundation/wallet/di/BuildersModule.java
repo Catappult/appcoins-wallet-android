@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.di;
 
 import com.asfoundation.wallet.advertise.AdvertisingService;
+import com.asfoundation.wallet.advertise.AdvertisingService;
 import com.asfoundation.wallet.advertise.WalletPoAService;
 import com.asfoundation.wallet.permissions.manage.view.PermissionsListFragment;
 import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment;
@@ -40,6 +41,11 @@ import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment;
 import com.asfoundation.wallet.ui.onboarding.OnboardingActivity;
 import com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment;
 import com.asfoundation.wallet.ui.transact.TransferFragment;
+import com.asfoundation.wallet.wallet_validation.CodeValidationFragment;
+import com.asfoundation.wallet.wallet_validation.PhoneValidationFragment;
+import com.asfoundation.wallet.wallet_validation.ValidationLoadingFragment;
+import com.asfoundation.wallet.wallet_validation.ValidationSuccessFragment;
+import com.asfoundation.wallet.wallet_validation.WalletValidationActivity;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
@@ -144,5 +150,14 @@ import dagger.android.ContributesAndroidInjector;
 
   @ActivityScope @ContributesAndroidInjector abstract AdvertisingService bindAdvertisingService();
 
+  @ActivityScope @ContributesAndroidInjector
+  abstract WalletValidationActivity bindWalletValidationActivity();
 
+  @ContributesAndroidInjector() abstract PhoneValidationFragment bindPhoneValidationFragment();
+
+  @ContributesAndroidInjector() abstract CodeValidationFragment bindCodeValidationFragment();
+
+  @ContributesAndroidInjector() abstract ValidationLoadingFragment bindValidationLoadingFragment();
+
+  @ContributesAndroidInjector() abstract ValidationSuccessFragment bindValidationSuccessFragment();
 }
