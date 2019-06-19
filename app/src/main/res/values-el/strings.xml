@@ -299,8 +299,11 @@
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">Bonus Αγοράς:</string>
   <string name="gamification_purchase_header_part_2">%s σε APPC Credits</string>
-  <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
+  <string name="gamification_purchase_body">Μπορείτε να χρησιμοποιήσετε αυτό το bonus στην επόμενη αγορά σας.</string>
+  <string name="gamification_purchase_completed_bonus_received_done">Τέλος!</string>
+  <string name="gamification_purchase_completed_bonus_received">Το bonus ελήφθη</string>
   <string name="action_level">Το επίπεδό μου</string>
+  <string name="gamification_purchase_appccredits_body">Η πιο ταχεία μέθοδος πληρωμής!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Επιτρέψτε στο AppCoins Wallet να παρέχει τη διεύθυνση wallet σας στο %s.</string>
   <string name="provide_wallet_body_placeholders">Επιτρέψτε στο %1$s να παρέχει τη διεύθυνση wallet σας στο %2$s.</string>
@@ -320,8 +323,11 @@
   <string name="topup_amount">%s APPC-C</string>
   <string name="topup_bonus_header">Έχετε Bonus!</string>
   <string name="topup_bonus_message">Θα προστεθούν στο wallet σας %s APPC-C επιπλέον.</string>
-  <string name="topup_completed_1">%1$s APPC Credits</string>
-  <string name="topup_completed_2">προστέθηκαν στον λογαριασμό σας.</string>
+  <string name="topup_completed_1">%s σε AppCoins Credits</string>
+  <string name="topup_completed_2">κατατέθηκαν στον λογαριασμό σας... Μαζί με ένα bonus!</string>
+  <string name="topup_bonus_header_part_1">Bonus Φόρτισης:</string>
+  <string name="topup_bonus_header_part_2">%s σε APPC Credits</string>
+  <string name="topup_bonus_body">Μπορείτε να χρησιμοποιήσετε αυτό το bonus στην επόμενη αγορά σας.</string>
   <!--Balance-->
   <string name="balance_title">Υπόλοιπο</string>
   <string name="balance_total_body">Συνολικό Υπόλοιπο σε %s</string>
@@ -356,13 +362,42 @@
   <string name="error_general">Κάτι πήγε στραβά</string>
   <string name="error_missing_field">Υποχρεωτικό πεδίο</string>
   <string name="cancel_button">Ακύρωση</string>
+  <string name="submit_button">Υποβολή</string>
+  <string name="close_button">Κλείσιμο</string>
+  <string name="back_button">Πίσω</string>
+  <string name="value_fiat">%1$s%2$s</string>
+  <string name="value_crypto">%1$s %2$s</string>
+  <string name="dismiss_button">Απόρριψη</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Συμφωνώ με %1$s και %2$s του AppCoins Wallet.</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions_error">Παρακαλούμε αποδεχτείτε τους Όρους και Προϋποθέσεις και την Πολιτική Απορρήτου για να συνεχίσετε</string>
   <string name="terms_and_conditions">Όροι και Προϋποθέσεις</string>
   <string name="privacy_policy">Πολιτική Απορρήτου</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Οι καλύτερες Android εφαρμογές σάς περιμένουν.</string>
   <string name="home_empty_discover_apps_button">ΑΝΑΚΑΛΥΨΤΕ ΚΟΡΥΦΑΙΕΣ ΕΦΑΡΜΟΓΕΣ</string>
   <!--Tokens-->
+  <!--Local Payments-->
+  <string name="local_payments_inprogress_header">Σε εξέλιξη&#8230;</string>
+  <string name="local_payments_inprogress_body">Ολοκληρώστε την πληρωμή σας και, μόλις λάβετε τα AppCoins Credits στο wallet σας, πραγματοποιήστε την αγορά!</string>
+  <!--Wallet Verification-->
+  <string name="verification_notification_verification_needed_title">Η αμοιβή είναι έτοιμη, αλλά χρειάζεται επαλήθευση</string>
+  <string name="verification_notification_verification_needed_body">Για λόγους ασφαλείας, πρέπει να επαληθεύσουμε το wallet σας με έναν κωδικό SMS.</string>
+  <string name="verification_insert_phone_title">Εισαγάγετε τον αριθμό τηλεφώνου σας</string>
+  <string name="verification_insert_phone_body">Θα σας στείλουμε έναν κωδικό επαλήθευσης.</string>
+  <string name="verification_insert_phone_field_country">Χώρα</string>
+  <string name="verification_insert_phone_field_number">Αριθμός Τηλεφώνου</string>
+  <string name="verification_insert_phone_field_number_error">Μη έγκυρος αριθμός τηλεφώνου</string>
+  <string name="verification_insert_phone_security_disclaimer">Αυτό είναι μόνο για λόγους ασφαλείας, δεν αποθηκεύουμε προσωπικά δεδομένα.</string>
+  <string name="verification_notification_code_title">AppCoins Wallet</string>
+  <string name="verification_notification_code_body">Ο κωδικός επαλήθευσης είναι %s. Χρησιμοποιήστε τον για να επαληθεύσετε τη διεύθυνση του AppCoins Wallet σας.</string>
+  <string name="verification_insert_code_title">Εισαγάγετε τον κωδικό επαλήθευσής σας</string>
+  <string name="verification_insert_code_error">Μη έγκυρος κωδικός</string>
+  <string name="verification_insert_code_resend_button">ΕΠΑΝΑΠΟΣΤΟΛΗ ΚΩΔΙΚΟΥ</string>
+  <string name="verification_validating_title">Επιβεβαίωση του κωδικού σας&#8230;</string>
+  <string name="verification_completed_title">Τέλος!</string>
+  <string name="verification_notification_reward_received_body">Η αμοιβή ελήφθη. Καλή απόλαυση! 👌</string>
+  <string name="verification_notification_reward_already_received_body">Αυτός ο αριθμός τηλεφώνου έχει ήδη χρησιμοποιηθεί για τη λήψη αυτής της αμοιβής 😔</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">Phone already used.</string>
+  <string name="verification_insert_code_error_common">Oops, something went wrong. Try again!</string>
 </resources>

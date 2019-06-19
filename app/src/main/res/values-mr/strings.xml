@@ -299,8 +299,11 @@
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">खरेदी बोनस:</string>
   <string name="gamification_purchase_header_part_2">%s एपीपीसी क्रेडीटस</string>
-  <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
+  <string name="gamification_purchase_body">आपल्या पुढच्या खरेदीत आपण हा बोनस वापरु शकता.</string>
+  <string name="gamification_purchase_completed_bonus_received_done">झाले!</string>
+  <string name="gamification_purchase_completed_bonus_received">बोनस मिळाला</string>
   <string name="action_level">माझी पातळी</string>
+  <string name="gamification_purchase_appccredits_body">झटपट पेमेंट प्रकार!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">आपला वॉलेट पत्ता %s ला पुरविण्यासाठी अॅपकॉइन्स वॉलेटला परवानगी द्या.</string>
   <string name="provide_wallet_body_placeholders">आपला वॉलेट पत्ता %2$s ला पुरविण्यासाठी %1$s ला परवानगी द्या.</string>
@@ -320,8 +323,11 @@
   <string name="topup_amount">%s एपीपीसी-सी</string>
   <string name="topup_bonus_header">आपल्याला बोनस मिळाला आहे!</string>
   <string name="topup_bonus_message">जास्त %s एपीपीसी-सी आपल्या वॉलेटमध्ये जमा केले जातील.</string>
-  <string name="topup_completed_1">%1$s एपीपीसी क्रेडीटस</string>
-  <string name="topup_completed_2">आम्ही आपल्या खत्यात जमा केले.</string>
+  <string name="topup_completed_1">%s एपीपीसी क्रेडीटसमध्ये</string>
+  <string name="topup_completed_2">आपल्या खात्यात जमा केले गेले... बोनससह!</string>
+  <string name="topup_bonus_header_part_1">टॉप-अप बोनस:</string>
+  <string name="topup_bonus_header_part_2">%s एपीपीसी क्रेडीटसमध्ये</string>
+  <string name="topup_bonus_body">आपल्या पुढच्या खरेदीत आपण हा बोनस वापरु शकता.</string>
   <!--Balance-->
   <string name="balance_title">शिल्लक</string>
   <string name="balance_total_body">%s तील एकुण शिल्लक</string>
@@ -356,13 +362,42 @@
   <string name="error_general">काहीतरी चूक झाली</string>
   <string name="error_missing_field">अनिवार्य जागा</string>
   <string name="cancel_button">रद्द करा</string>
+  <string name="submit_button">सबमिट करा</string>
+  <string name="close_button">बंद करा</string>
+  <string name="back_button">मागे जा</string>
+  <string name="value_fiat">%1$s%2$s</string>
+  <string name="value_crypto">%1$s %2$s</string>
+  <string name="dismiss_button">डिसमिस करा</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मला अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s मान्य आहेत.</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions_error">चालू ठेवण्यासाठी कृपया आमच्या अटी आणि शर्ती मंजुर करा</string>
   <string name="terms_and_conditions">अटी आणि शर्ती</string>
   <string name="privacy_policy">गोपनीयता धोरण</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">उत्कृष्ट अँड्रॉइड अॅप्स आपली वाट बघताहेत.</string>
   <string name="home_empty_discover_apps_button">उच्चीची अॅप्स शोधा</string>
   <!--Tokens-->
+  <!--Local Payments-->
+  <string name="local_payments_inprogress_header">&#8230;चालू आहे</string>
+  <string name="local_payments_inprogress_body">आपले पेमेंट पूर्ण करा आणि, एकदा का आपल्या वॉलेटमध्ये अॅपकॉिन्स आल्या कि खरेदी करा!</string>
+  <!--Wallet Verification-->
+  <string name="verification_notification_verification_needed_title">बक्षिस तयार आहे पण व्हेरिफिकेसनची गरज आहे</string>
+  <string name="verification_notification_verification_needed_body">सुरक्षा कारणांसाठी आम्हाला आपले वॉलेट एसएमएस कोडने व्हेरिफाय करावे लागेल.</string>
+  <string name="verification_insert_phone_title">आपला फोन नंबर घाला</string>
+  <string name="verification_insert_phone_body">आम्ही आपल्याला व्हेरिफिकेशन कोड पाठवु.</string>
+  <string name="verification_insert_phone_field_country">देश</string>
+  <string name="verification_insert_phone_field_number">फोन नंबर</string>
+  <string name="verification_insert_phone_field_number_error">अवैध फोन नंबर</string>
+  <string name="verification_insert_phone_security_disclaimer">हे फक्त सुरक्षा कारणांसाठीच आहे, आम्ही आपली वैयक्तीक माहिती साठवत नाही.</string>
+  <string name="verification_notification_code_title">अॅपकॉइन्स वॉलेट</string>
+  <string name="verification_notification_code_body">आपला व्हेरिफिकेशन कोड आहे %s. हा वापरुन आपल्या अॅपकॉइन्स वॉलेटचा पत्ता व्हेरिफाय करा.</string>
+  <string name="verification_insert_code_title">आपला व्हेरिफिकेशन कोड घाला</string>
+  <string name="verification_insert_code_error">अवैध कोड</string>
+  <string name="verification_insert_code_resend_button">कोड परत पाठवा</string>
+  <string name="verification_validating_title">आपला कोड&#8230; व्हॅलिडेट करत आहोत</string>
+  <string name="verification_completed_title">झाले!</string>
+  <string name="verification_notification_reward_received_body">बक्षीस मिळाले, मजा करा! 👌</string>
+  <string name="verification_notification_reward_already_received_body">हे बक्षीस मिळविण्यासाठी फोन नंबर आधीच वापरला गेला आहे 😔</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">Phone already used.</string>
+  <string name="verification_insert_code_error_common">Oops, something went wrong. Try again!</string>
 </resources>

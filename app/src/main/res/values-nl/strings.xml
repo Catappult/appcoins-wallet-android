@@ -299,8 +299,11 @@
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">Bonus voor aankoop:</string>
   <string name="gamification_purchase_header_part_2">%s in APPC Credits</string>
-  <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
+  <string name="gamification_purchase_body">Je kunt deze bonus bij je volgende aankoop gebruiken.</string>
+  <string name="gamification_purchase_completed_bonus_received_done">Gelukt!</string>
+  <string name="gamification_purchase_completed_bonus_received">Bonus ontvangen</string>
   <string name="action_level">Mijn niveau</string>
+  <string name="gamification_purchase_appccredits_body">De snelste betaalmethode!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Geef AppCoins Wallet toestemming om je wallet-adres aan %s door te geven.</string>
   <string name="provide_wallet_body_placeholders">Geef %1$s toestemming om je wallet-adres aan %2$s door te geven.</string>
@@ -320,8 +323,11 @@
   <string name="topup_amount">%s APPC-C</string>
   <string name="topup_bonus_header">Je hebt een bonus!</string>
   <string name="topup_bonus_message">Er worden %s APPC-C aan je wallet toegevoegd.</string>
-  <string name="topup_completed_1">%1$s APPC Credits</string>
-  <string name="topup_completed_2">zijn aan je account toegevoegd.</string>
+  <string name="topup_completed_1">%s in AppCoins Credits</string>
+  <string name="topup_completed_2">zijn aan je account toegevoegd... Plus een bonus!</string>
+  <string name="topup_bonus_header_part_1">Bonus voor opwaarderen:</string>
+  <string name="topup_bonus_header_part_2">%s in APPC Credits</string>
+  <string name="topup_bonus_body">Je kunt deze bonus bij je volgende aankoop gebruiken.</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Totale saldo in %s</string>
@@ -356,13 +362,42 @@
   <string name="error_general">Er iets fout gegaan</string>
   <string name="error_missing_field">Dit veld is verplicht</string>
   <string name="cancel_button">Annuleren</string>
+  <string name="submit_button">Versturen</string>
+  <string name="close_button">Sluiten</string>
+  <string name="back_button">Terug</string>
+  <string name="value_fiat">%1$s%2$s</string>
+  <string name="value_crypto">%1$s %2$s</string>
+  <string name="dismiss_button">Niet accepteren</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ik ga akkoord met de %1$s en het %2$s van AppCoins Wallet.</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions_error">Accepteer onze algemene voorwaarden en ons privacybeleid om door te gaan</string>
   <string name="terms_and_conditions">Algemene voorwaarden</string>
   <string name="privacy_policy">Privacybeleid</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">De beste Android-apps wachten op je.</string>
   <string name="home_empty_discover_apps_button">ONTDEK DE BESTE APPS</string>
   <!--Tokens-->
+  <!--Local Payments-->
+  <string name="local_payments_inprogress_header">In behandeling&#8230;</string>
+  <string name="local_payments_inprogress_body">Voltooi je betaling en zodra de AppCoins Credits aan je wallet zijn toegevoegd, kun je de aankoop doen!</string>
+  <!--Wallet Verification-->
+  <string name="verification_notification_verification_needed_title">Beloning gereed, maar verificatie is vereist</string>
+  <string name="verification_notification_verification_needed_body">Om veiligheidsredenen moeten we je wallet met een sms-code verifiëren.</string>
+  <string name="verification_insert_phone_title">Voer je telefoonnummer in</string>
+  <string name="verification_insert_phone_body">We zullen je een verificatiecode sturen.</string>
+  <string name="verification_insert_phone_field_country">Land</string>
+  <string name="verification_insert_phone_field_number">Telefoonnummer</string>
+  <string name="verification_insert_phone_field_number_error">Ongeldig telefoonnummer</string>
+  <string name="verification_insert_phone_security_disclaimer">Dit is alleen om veiligheidsredenen, we slaan geen persoonlijke gegevens op.</string>
+  <string name="verification_notification_code_title">AppCoins Wallet</string>
+  <string name="verification_notification_code_body">Je verificatiecode is %s. Gebruik deze code om je AppCoins Wallet-adres te verifiëren.</string>
+  <string name="verification_insert_code_title">Voer je verificatiecode in</string>
+  <string name="verification_insert_code_error">Ongeldige code</string>
+  <string name="verification_insert_code_resend_button">CODE OPNIEUW VERSTUREN</string>
+  <string name="verification_validating_title">Je code wordt gecontroleerd&#8230;</string>
+  <string name="verification_completed_title">Gelukt!</string>
+  <string name="verification_notification_reward_received_body">Beloning ontvangen, veel plezier! 👌</string>
+  <string name="verification_notification_reward_already_received_body">Dit telefoonnummer is al gebruikt om deze beloning te ontvangen 😔</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">Phone already used.</string>
+  <string name="verification_insert_code_error_common">Oops, something went wrong. Try again!</string>
 </resources>

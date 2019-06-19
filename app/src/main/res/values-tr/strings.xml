@@ -299,11 +299,14 @@
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">Satın Alma Bonusu:</string>
   <string name="gamification_purchase_header_part_2">APPC Credits cinsinden %s</string>
-  <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
+  <string name="gamification_purchase_body">Bir sonraki satın alma işleminizde bu bonusu kullanabilirsiniz.</string>
+  <string name="gamification_purchase_completed_bonus_received_done">Bitti!</string>
+  <string name="gamification_purchase_completed_bonus_received">Bonus Alındı</string>
   <string name="action_level">Seviyem</string>
+  <string name="gamification_purchase_appccredits_body">En hızlı ödeme yöntemi!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">AppCoins Cüzdanın %s\'e cüzdan adresinizi vermesine izin verin.</string>
-  <string name="provide_wallet_body_placeholders">Allow %1$s to provide your wallet address to %2$s.</string>
+  <string name="provide_wallet_body_placeholders">%1$s\'ın %2$s\'e cüzdan adresinizi vermesine izin verin.</string>
   <string name="provide_wallet_always_allow_button">Her zaman izin ver</string>
   <string name="provide_wallet_allow_once_button">Bir kez izin ver</string>
   <string name="provide_wallet_completed_header">Cüzdan Aptoide\'le ilişkilendirildi!</string>
@@ -320,8 +323,11 @@
   <string name="topup_amount">%s APPC-C</string>
   <string name="topup_bonus_header">Bonus kazandınız!</string>
   <string name="topup_bonus_message">%s APPC-C ekstra, cüzdanınıza eklenecek.</string>
-  <string name="topup_completed_1">%1$s APPC Kredisi</string>
-  <string name="topup_completed_2">hesabınıza eklendi.</string>
+  <string name="topup_completed_1">AppCoins Credits cinsinden %s</string>
+  <string name="topup_completed_2">hesabınıza yattı... Bonusla birlikte!</string>
+  <string name="topup_bonus_header_part_1">Yükleme Bonusu:</string>
+  <string name="topup_bonus_header_part_2">APPC Credits cinsinden %s</string>
+  <string name="topup_bonus_body">Bir sonraki satın alma işleminizde bu bonusu kullanabilirsiniz.</string>
   <!--Balance-->
   <string name="balance_title">Bakiye</string>
   <string name="balance_total_body">%s cinsinden Toplam Bakiye</string>
@@ -356,13 +362,42 @@
   <string name="error_general">Bir şeyler ters gitti</string>
   <string name="error_missing_field">Zorunlu alan</string>
   <string name="cancel_button">İptal et</string>
+  <string name="submit_button">Gönder</string>
+  <string name="close_button">Kapat</string>
+  <string name="back_button">Geri</string>
+  <string name="value_fiat">%1$s%2$s</string>
+  <string name="value_crypto">%1$s %2$s</string>
+  <string name="dismiss_button">Kapat</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet\'ın %1$s ve %2$s\'nı kabul ediyorum.</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions_error">Devam etmek için lütfen Koşul ve Şartlarımız ile Gizlilik Politikasını kabul edin</string>
   <string name="terms_and_conditions">Şartlar ve Koşullar</string>
   <string name="privacy_policy">Gizlilik Politikası</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">En iyi Android uygulamaları sizi bekliyor.</string>
   <string name="home_empty_discover_apps_button">EN İYİ UYGULAMALARI KEŞFEDİN</string>
   <!--Tokens-->
+  <!--Local Payments-->
+  <string name="local_payments_inprogress_header">Devam ediyor&#8230;</string>
+  <string name="local_payments_inprogress_body">Ödemenizi tamamlayın, AppCoins Credits cüzdanınıza geldiğinde satın alma işlemini gerçekleştirin!</string>
+  <!--Wallet Verification-->
+  <string name="verification_notification_verification_needed_title">Ödül hazır ancak doğrulama gerekiyor</string>
+  <string name="verification_notification_verification_needed_body">Güvenlik nedeniyle cüzdanınızı bir SMS koduyla doğrulamamız gerekiyor.</string>
+  <string name="verification_insert_phone_title">Telefon numaranızı girin</string>
+  <string name="verification_insert_phone_body">Size bir doğrulama kodu göndereceğiz.</string>
+  <string name="verification_insert_phone_field_country">Ülke</string>
+  <string name="verification_insert_phone_field_number">Telefon Numarası</string>
+  <string name="verification_insert_phone_field_number_error">Geçersiz telefon numarası</string>
+  <string name="verification_insert_phone_security_disclaimer">Bu sadece güvenlik içindir, herhangi bir kişisel verinizi saklamayız.</string>
+  <string name="verification_notification_code_title">AppCoins Wallet</string>
+  <string name="verification_notification_code_body">Doğrulama kodunuz %s. AppCoins Wallet adresinizi doğrulamak için bu kodu kullanın.</string>
+  <string name="verification_insert_code_title">Doğrulama kodunuzu girin</string>
+  <string name="verification_insert_code_error">Geçersiz kod</string>
+  <string name="verification_insert_code_resend_button">KODU TEKRAR GÖNDER</string>
+  <string name="verification_validating_title">Kodunuz doğrulanıyor&#8230;</string>
+  <string name="verification_completed_title">Bitti!</string>
+  <string name="verification_notification_reward_received_body">Ödül alındı, keyfini çıkarın! 👌</string>
+  <string name="verification_notification_reward_already_received_body">Bu telefon numarası, bu ödülü almak için zaten kullanılmış 😔</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">Phone already used.</string>
+  <string name="verification_insert_code_error_common">Oops, something went wrong. Try again!</string>
 </resources>

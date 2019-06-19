@@ -299,8 +299,11 @@
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">Bonus za kupovinu:</string>
   <string name="gamification_purchase_header_part_2">%s APPC Credits</string>
-  <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
+  <string name="gamification_purchase_body">Ovaj bonus možete da upotrebite prilikom sledeće kupovine.</string>
+  <string name="gamification_purchase_completed_bonus_received_done">Gotovo!</string>
+  <string name="gamification_purchase_completed_bonus_received">bounsa je dobijeno</string>
   <string name="action_level">Moj nivo</string>
+  <string name="gamification_purchase_appccredits_body">Najbrži način plaćanja!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Dozvolite aplikaciji AppCoins Wallet da adresu vašeg novčanika pošalje aplikaciji %s.</string>
   <string name="provide_wallet_body_placeholders">Dozvolite aplikaciji %1$s da adresu vašeg novčanika pošalje aplikaciji %2$s.</string>
@@ -320,8 +323,11 @@
   <string name="topup_amount">%s APPC-C</string>
   <string name="topup_bonus_header">Dobili ste bonus!</string>
   <string name="topup_bonus_message">Dodatak od %s APPC-C će biti dodat u vaš novčanik.</string>
-  <string name="topup_completed_1">%1$s APPC Credits</string>
-  <string name="topup_completed_2">dodat je na vaš nalog.</string>
+  <string name="topup_completed_1">%s AppCoins Credits</string>
+  <string name="topup_completed_2">je deponovano na vaš nalog... Zajedno sa bonusom!</string>
+  <string name="topup_bonus_header_part_1">Bonus za dopunu:</string>
+  <string name="topup_bonus_header_part_2">%s APPC Credits</string>
+  <string name="topup_bonus_body">Ovaj bonus možete da upotrebite prilikom sledeće kupovine.</string>
   <!--Balance-->
   <string name="balance_title">Stanje</string>
   <string name="balance_total_body">Ukupno stanje u %s</string>
@@ -356,6 +362,12 @@
   <string name="error_general">Došlo je do greške</string>
   <string name="error_missing_field">Obavezno polje</string>
   <string name="cancel_button">Otkaži</string>
+  <string name="submit_button">Pošalji</string>
+  <string name="close_button">Zatvori</string>
+  <string name="back_button">Nazad</string>
+  <string name="value_fiat">%1$s%2$s</string>
+  <string name="value_crypto">%1$s%2$s</string>
+  <string name="dismiss_button">Odbaci</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Prihvatam dokumente %1$s i %2$s aplikacije AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Prihvatite naše Uslove i odredbe i Smernice za privatnost da biste nastavili</string>
@@ -365,4 +377,27 @@
   <string name="home_empty_discover_apps_body">Čekaju vas najbolje aplikacije za Android.</string>
   <string name="home_empty_discover_apps_button">OTKRIJTE NAJPOPULARNIJE APLIKACIJE</string>
   <!--Tokens-->
+  <!--Local Payments-->
+  <string name="local_payments_inprogress_header">U toku&#8230;</string>
+  <string name="local_payments_inprogress_body">Dovršite plaćanje i, kada AppCoins Credits budu u vašem novčaniku, obavite kupovinu!</string>
+  <!--Wallet Verification-->
+  <string name="verification_notification_verification_needed_title">Nagradna je spremna, ali je potrebna potvrda</string>
+  <string name="verification_notification_verification_needed_body">Iz bezbednosnih razloga, moramo da potvrdimo vaš novčanik pomoću SMS koda.</string>
+  <string name="verification_insert_phone_title">Unesite svoj broj telefona</string>
+  <string name="verification_insert_phone_body">Poslaćemo vam kod za potvrdu.</string>
+  <string name="verification_insert_phone_field_country">Zemlja</string>
+  <string name="verification_insert_phone_field_number">Broj telefona</string>
+  <string name="verification_insert_phone_field_number_error">Neispravan broj telefona</string>
+  <string name="verification_insert_phone_security_disclaimer">Ovo je samo iz bezbednosnih razloga, ne čuvamo nikakve lične podatke.</string>
+  <string name="verification_notification_code_title">AppCoins Wallet</string>
+  <string name="verification_notification_code_body">Vaš kod za potvrdu je %s. Upotrebite ga da biste verifikovali adresu svog AppCoins Wallet.</string>
+  <string name="verification_insert_code_title">Unesite kod za potvrdu</string>
+  <string name="verification_insert_code_error">Neispravan kod</string>
+  <string name="verification_insert_code_resend_button">PONOVO POŠALJI KOD</string>
+  <string name="verification_validating_title">Potvrđujemo kod&#8230;</string>
+  <string name="verification_completed_title">Gotovo!</string>
+  <string name="verification_notification_reward_received_body">Dobili ste nagradu, uživajte! 👌</string>
+  <string name="verification_notification_reward_already_received_body">Ovaj broj telefona se već koristio za ovu nagradu 😔</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">Telefon se već koristio.</string>
+  <string name="verification_insert_code_error_common">Ups, došlo je do greške. Pokušajte ponovo!</string>
 </resources>
