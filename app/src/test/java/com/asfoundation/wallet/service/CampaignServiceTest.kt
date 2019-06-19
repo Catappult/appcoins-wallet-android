@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.service
 
+import com.asf.wallet.BuildConfig
 import io.reactivex.Observable
 import io.reactivex.observers.TestObserver
 import io.reactivex.schedulers.TestScheduler
@@ -49,7 +50,7 @@ class CampaignServiceTest {
             GetCampaignResponse(GetCampaignResponse.EligibleResponseStatus.ELIGIBLE, null)))
 
     scheduler = TestScheduler()
-    campaignService = CampaignService(api)
+    campaignService = CampaignService(api, BuildConfig.VERSION_CODE)
   }
 
 

@@ -28,8 +28,8 @@ class CampaignService(
         .singleOrError()
   }
 
-  fun getCampaign(address: String, packageName: String, versionCode: Int): Single<String> {
-    return campaignApi.getCampaign(address, packageName, versionCode)
+  fun getCampaign(address: String, packageName: String, packageVersionCode: Int): Single<String> {
+    return campaignApi.getCampaign(address, packageName, packageVersionCode)
         .map { response -> handleResponse(response) }
         .subscribeOn(Schedulers.io()).singleOrError()
   }
