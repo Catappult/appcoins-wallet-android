@@ -10,6 +10,6 @@ class Gateway(val name: Name?, val label: String, val icon: String) {
   }
 
   enum class Name {
-    appcoins, adyen, unknown, appcoins_credits
+    appcoins, adyen, unknown, appcoins_credits, myappcoins
   }
 }

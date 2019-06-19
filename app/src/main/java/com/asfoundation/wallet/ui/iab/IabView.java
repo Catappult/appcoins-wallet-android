@@ -27,8 +27,12 @@ public interface IabView {
 
   void showAppcoinsCreditsPayment(BigDecimal amount);
 
+  void showLocalPayment(String domain, String skuId, String originalAmount, String currency,
+      String bonus, String selectedPaymentMethod);
+
   void showPaymentMethodsView();
 
   void showShareLinkPayment(String domain, String skuId, String originalAmount,
-      String originalCurrency, BigDecimal amount, @NotNull String type);
+      String originalCurrency, BigDecimal amount, @NotNull String type,
+      String selectedPaymentMethod);
 }
