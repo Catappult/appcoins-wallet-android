@@ -83,13 +83,15 @@ public class WalletPoAService extends Service {
     if (intent != null && intent.hasExtra(PARAM_APP_PACKAGE_NAME)) {
       startNotifications();
       handlePoaStartToSendEvent();
-      handleCreateWallet();
       handlePoaCompletedToSendEvent();
+
       if (!isBound) {
         // set the chain id received from the application. If not received, it is set as the main
         String packageName = intent.getStringExtra(PARAM_APP_PACKAGE_NAME);
-        requirementsDisposable =
-            proofOfAttentionService.isWalletReady(intent.getIntExtra(PARAM_NETWORK_ID, -1))
+
+        requirementsDisposable = proofOfAttentionService.handleCreateWallet()
+            .flatMap(aBoolean -> proofOfAttentionService.isWalletReady(
+                intent.getIntExtra(PARAM_NETWORK_ID, -1))
                 // network chain id
                 .doOnSuccess(requirementsStatus -> proofOfAttentionService.setChainId(packageName,
                     intent.getIntExtra(PARAM_NETWORK_ID, -1)))
@@ -98,12 +100,12 @@ public class WalletPoAService extends Service {
                         proofSubmissionFeeData.getGasPrice(), proofSubmissionFeeData.getGasLimit()))
                 .doOnSuccess(
                     requirementsStatus -> processWalletState(requirementsStatus.getStatus(),
-                        intent))
-                .subscribe(requirementsStatus -> {
-                }, throwable -> {
-                  logger.log(throwable);
-                  showGenericErrorNotificationAndStopForeground();
-                });
+                        intent)))
+            .subscribe(requirementsStatus -> {
+            }, throwable -> {
+              logger.log(throwable);
+              showGenericErrorNotificationAndStopForeground();
+            });
       }
       setTimeout(intent.getStringExtra(PARAM_APP_PACKAGE_NAME));
     }
@@ -127,10 +129,6 @@ public class WalletPoAService extends Service {
   @Override public void onRebind(Intent intent) {
     isBound = true;
     super.onRebind(intent);
-  }
-
-  private void handleCreateWallet() {
-    proofOfAttentionService.handleCreateWallet();
   }
 
   private void showGenericErrorNotificationAndStopForeground() {
