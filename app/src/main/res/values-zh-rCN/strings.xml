@@ -324,9 +324,10 @@
   <string name="topup_bonus_header">你获得了奖励！</string>
   <string name="topup_bonus_message">你的钱包将额外获得%s APPC-C。</string>
   <string name="topup_completed_1">%s in AppCoins Credits</string>
-  <string name="topup_completed_2">were deposited in your account... Along with a bonus!</string>
+  <string name="topup_completed_2_with_bonus">were deposited in your account... Along with a bonus!</string>
+  <string name="topup_completed_2_without_bonus">were deposited in your account.</string>
   <string name="topup_bonus_header_part_1">Top-Up Bonus:</string>
-  <string name="topup_bonus_header_part_2">%s in APPC Credits</string>
+  <string name="topup_bonus_header_part_2">%s APPC积金</string>
   <string name="topup_bonus_body">You can use this bonus in your next purchase.</string>
   <!--Balance-->
   <string name="balance_title">余额</string>
@@ -362,8 +363,8 @@
   <string name="error_general">出现错误</string>
   <string name="error_missing_field">必填字段</string>
   <string name="cancel_button">取消</string>
-  <string name="submit_button">Submit</string>
-  <string name="close_button">Close</string>
+  <string name="submit_button">提交</string>
+  <string name="close_button">关闭</string>
   <string name="back_button">Back</string>
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
