@@ -324,7 +324,8 @@
   <string name="topup_bonus_header">Je hebt een bonus!</string>
   <string name="topup_bonus_message">Er worden %s APPC-C aan je wallet toegevoegd.</string>
   <string name="topup_completed_1">%s in AppCoins Credits</string>
-  <string name="topup_completed_2">zijn aan je account toegevoegd... Plus een bonus!</string>
+  <string name="topup_completed_2_with_bonus">zijn aan je account toegevoegd... Plus een bonus!</string>
+  <string name="topup_completed_2_without_bonus">were deposited in your account.</string>
   <string name="topup_bonus_header_part_1">Bonus voor opwaarderen:</string>
   <string name="topup_bonus_header_part_2">%s in APPC Credits</string>
   <string name="topup_bonus_body">Je kunt deze bonus bij je volgende aankoop gebruiken.</string>
