@@ -300,10 +300,10 @@
   <string name="gamification_purchase_header_part_1">Бонус от покупката:</string>
   <string name="gamification_purchase_header_part_2">%s APPC Credits</string>
   <string name="gamification_purchase_body">Можеш да използваш този бонус при следващата си покупка.</string>
-  <string name="gamification_purchase_completed_bonus_received_done">Done!</string>
-  <string name="gamification_purchase_completed_bonus_received">Bonus Received</string>
+  <string name="gamification_purchase_completed_bonus_received_done">Готово!</string>
+  <string name="gamification_purchase_completed_bonus_received">Получен бонус</string>
   <string name="action_level">Моето ниво</string>
-  <string name="gamification_purchase_appccredits_body">The quickest payment method!</string>
+  <string name="gamification_purchase_appccredits_body">Най-бързият метод за плащане!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Позволи на AppCoins портфейла да предоставите твоя портфейл адрес на %s.</string>
   <string name="provide_wallet_body_placeholders">Позволи на %1$s да предостави твоя портфейл адрес на %2$s.</string>
@@ -323,11 +323,12 @@
   <string name="topup_amount">%s APPC-C</string>
   <string name="topup_bonus_header">Получи Бонус!</string>
   <string name="topup_bonus_message">%s допълнителни APPC кредита ще бъдат кредитирани в портфейла ти.</string>
-  <string name="topup_completed_1">%s in AppCoins Credits</string>
-  <string name="topup_completed_2">were deposited in your account... Along with a bonus!</string>
-  <string name="topup_bonus_header_part_1">Top-Up Bonus:</string>
-  <string name="topup_bonus_header_part_2">%s in APPC Credits</string>
-  <string name="topup_bonus_body">You can use this bonus in your next purchase.</string>
+  <string name="topup_completed_1">%s в AppCoins Credits</string>
+  <string name="topup_completed_2_with_bonus">were deposited in your account... Along with a bonus!</string>
+  <string name="topup_completed_2_without_bonus">were deposited in your account.</string>
+  <string name="topup_bonus_header_part_1">Допълващ бонус:</string>
+  <string name="topup_bonus_header_part_2">%s в APPC Credits</string>
+  <string name="topup_bonus_body">Можеш да използваш този бонус при следващата си покупка.</string>
   <!--Balance-->
   <string name="balance_title">Баланс</string>
   <string name="balance_total_body">Общ баланс в %s</string>
@@ -362,12 +363,12 @@
   <string name="error_general">Нещо се обърка</string>
   <string name="error_missing_field">Задължително поле</string>
   <string name="cancel_button">Отказ</string>
-  <string name="submit_button">Submit</string>
-  <string name="close_button">Close</string>
-  <string name="back_button">Back</string>
+  <string name="submit_button">Предай</string>
+  <string name="close_button">Затвори</string>
+  <string name="back_button">Назад</string>
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
-  <string name="dismiss_button">Dismiss</string>
+  <string name="dismiss_button">Отхвърли</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Съгласявам се с %1$s и %2$s на AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Моля, приеми нашите Общи правила и Политика за поверителност, за да продължиш</string>
@@ -378,26 +379,26 @@
   <string name="home_empty_discover_apps_button">ОТКРИЙ ТОП ПРИЛОЖЕНИЯ</string>
   <!--Tokens-->
   <!--Local Payments-->
-  <string name="local_payments_inprogress_header">In progress&#8230;</string>
-  <string name="local_payments_inprogress_body">Complete your payment and, once you get the AppCoins Credits in your wallet, make the purchase!</string>
+  <string name="local_payments_inprogress_header">В прогрес&#8230;</string>
+  <string name="local_payments_inprogress_body">Завърши плащането си и след като получиш AppCoins Credits в портфейла си, направи покупката!</string>
   <!--Wallet Verification-->
-  <string name="verification_notification_verification_needed_title">Reward ready but verification needed</string>
-  <string name="verification_notification_verification_needed_body">For security reasons, we need to verify your wallet with a SMS code.</string>
-  <string name="verification_insert_phone_title">Insert your phone number</string>
-  <string name="verification_insert_phone_body">We\'ll send you a verification code.</string>
-  <string name="verification_insert_phone_field_country">Country</string>
-  <string name="verification_insert_phone_field_number">Phone Number</string>
-  <string name="verification_insert_phone_field_number_error">Invalid phone number</string>
-  <string name="verification_insert_phone_security_disclaimer">This is only for security reasons, we don\'t store any personal data.</string>
+  <string name="verification_notification_verification_needed_title">Наградата е готова, но трябва верификация</string>
+  <string name="verification_notification_verification_needed_body">От съображения за сигурност трябва да верифицираме портфейла ти с SMS код.</string>
+  <string name="verification_insert_phone_title">Въведи телефонния си номер</string>
+  <string name="verification_insert_phone_body">Ще ти изпратим верификационен код.</string>
+  <string name="verification_insert_phone_field_country">Държава</string>
+  <string name="verification_insert_phone_field_number">Телефонен номер</string>
+  <string name="verification_insert_phone_field_number_error">Невалиден телефонен номер</string>
+  <string name="verification_insert_phone_security_disclaimer">Това е само от съображения за сигурност, ние не съхраняваме никакви лични данни.</string>
   <string name="verification_notification_code_title">AppCoins Wallet</string>
-  <string name="verification_notification_code_body">Your verification code is %s. Use it to verify your AppCoins Wallet address.</string>
-  <string name="verification_insert_code_title">Insert your verification code</string>
-  <string name="verification_insert_code_error">Invalid code</string>
-  <string name="verification_insert_code_resend_button">RESEND CODE</string>
-  <string name="verification_validating_title">Validating your code&#8230;</string>
-  <string name="verification_completed_title">Done!</string>
-  <string name="verification_notification_reward_received_body">Reward received, enjoy! 👌</string>
-  <string name="verification_notification_reward_already_received_body">This phone number has already been used to receive this reward 😔</string>
-  <string name="verification_insert_phone_field_phone_used_already_error">Phone already used.</string>
-  <string name="verification_insert_code_error_common">Oops, something went wrong. Try again!</string>
+  <string name="verification_notification_code_body">Твоят код за верификация е %s. Използвай го, за да верифицираш твоя AppCoins Wallet адрес.</string>
+  <string name="verification_insert_code_title">Въведи твоя код за верификация</string>
+  <string name="verification_insert_code_error">Невалиден код</string>
+  <string name="verification_insert_code_resend_button">ПОВТОРНО ИЗПРАЩАНЕ НА КОД</string>
+  <string name="verification_validating_title">Валидиране на твоя код&#8230;</string>
+  <string name="verification_completed_title">Готово!</string>
+  <string name="verification_notification_reward_received_body">Наградата е получена, наслади се! 👌</string>
+  <string name="verification_notification_reward_already_received_body">Този телефонен номер вече е бил използван за получаване на тази награда😔</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">Телефонът вече е бил използван.</string>
+  <string name="verification_insert_code_error_common">Опа, нещо се обърка. Опитай отново!</string>
 </resources>
