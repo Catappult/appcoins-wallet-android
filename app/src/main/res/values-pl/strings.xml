@@ -324,10 +324,11 @@
   <string name="topup_bonus_header">Masz Bonus!</string>
   <string name="topup_bonus_message">Dodatkowe %s APPC-C będą dodane do Twojego portfela.</string>
   <string name="topup_completed_1">%s in AppCoins Credits</string>
-  <string name="topup_completed_2">were deposited in your account... Along with a bonus!</string>
+  <string name="topup_completed_2_with_bonus">were deposited in your account... Along with a bonus!</string>
+  <string name="topup_completed_2_without_bonus">were deposited in your account.</string>
   <string name="topup_bonus_header_part_1">Top-Up Bonus:</string>
-  <string name="topup_bonus_header_part_2">%s in APPC Credits</string>
-  <string name="topup_bonus_body">You can use this bonus in your next purchase.</string>
+  <string name="topup_bonus_header_part_2">%s Kredytów APPC</string>
+  <string name="topup_bonus_body">Możesz wykorzystać ten bonus przy następnych zakupach.</string>
   <!--Balance-->
   <string name="balance_title">Stan konta</string>
   <string name="balance_total_body">Saldo w %s</string>
@@ -362,8 +363,8 @@
   <string name="error_general">Coś poszło nie tak</string>
   <string name="error_missing_field">Pole obowiązkowe</string>
   <string name="cancel_button">Anuluj</string>
-  <string name="submit_button">Submit</string>
-  <string name="close_button">Close</string>
+  <string name="submit_button">Wyślij</string>
+  <string name="close_button">Zamknij</string>
   <string name="back_button">Back</string>
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
@@ -389,14 +390,14 @@
   <string name="verification_insert_phone_field_number">Phone Number</string>
   <string name="verification_insert_phone_field_number_error">Invalid phone number</string>
   <string name="verification_insert_phone_security_disclaimer">This is only for security reasons, we don\'t store any personal data.</string>
-  <string name="verification_notification_code_title">AppCoins Wallet</string>
+  <string name="verification_notification_code_title">Portfel AppCoins</string>
   <string name="verification_notification_code_body">Your verification code is %s. Use it to verify your AppCoins Wallet address.</string>
   <string name="verification_insert_code_title">Insert your verification code</string>
   <string name="verification_insert_code_error">Invalid code</string>
   <string name="verification_insert_code_resend_button">RESEND CODE</string>
   <string name="verification_validating_title">Validating your code&#8230;</string>
   <string name="verification_completed_title">Done!</string>
-  <string name="verification_notification_reward_received_body">Reward received, enjoy! 👌</string>
+  <string name="verification_notification_reward_received_body">Nagroda odebrana! 👌</string>
   <string name="verification_notification_reward_already_received_body">This phone number has already been used to receive this reward 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Phone already used.</string>
   <string name="verification_insert_code_error_common">Oops, something went wrong. Try again!</string>
