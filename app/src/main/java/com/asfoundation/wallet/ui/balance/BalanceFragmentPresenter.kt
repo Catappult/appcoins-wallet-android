@@ -7,6 +7,7 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function3
 import java.math.BigDecimal
+import java.util.concurrent.TimeUnit
 
 class BalanceFragmentPresenter(private val view: BalanceFragmentView,
                                private val balanceInteract: BalanceInteract,
@@ -25,9 +26,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
   fun present() {
     view.setupUI()
     requestTokenConversion()
-    handleCreditsClick()
-    handleAppcClick()
-    handleEthClick()
+    handleTokenDetailsClick()
     handleTopUpClick()
   }
 
@@ -97,22 +96,12 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
     return FiatValue(balance, appcBalance.fiat.currency, appcBalance.fiat.symbol)
   }
 
-  private fun handleCreditsClick() {
-    disposables.add(view.getCreditClick()
-        .doOnNext { view.showCreditsDetails() }
-        .subscribe())
-  }
 
-  private fun handleAppcClick() {
-    disposables.add(view.getAppcClick()
-        .doOnNext { view.showAppcDetails() }
-        .subscribe())
-  }
-
-  private fun handleEthClick() {
-    disposables.add(view.getEthClick()
-        .doOnNext { view.showEthDetails() }
-        .subscribe())
+  private fun handleTokenDetailsClick() {
+    disposables.add(
+        Observable.merge(view.getCreditClick(), view.getAppcClick(),
+            view.getEthClick()).throttleFirst(500,
+            TimeUnit.MILLISECONDS).map { view.showTokenDetails(it) }.subscribe())
   }
 
   private fun handleTopUpClick() {

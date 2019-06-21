@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.balance
 
+import android.view.View
 import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Observable
 
@@ -11,17 +12,13 @@ interface BalanceFragmentView {
 
   fun updateOverallBalance(overallBalance: FiatValue)
 
-  fun getCreditClick(): Observable<Any>
+  fun getCreditClick(): Observable<View>
 
-  fun showCreditsDetails()
+  fun getAppcClick(): Observable<View>
 
-  fun getAppcClick(): Observable<Any>
+  fun getEthClick(): Observable<View>
 
-  fun showAppcDetails()
-
-  fun getEthClick(): Observable<Any>
-
-  fun showEthDetails()
+  fun showTokenDetails(view: View)
 
   fun getTopUpClick(): Observable<Any>
 

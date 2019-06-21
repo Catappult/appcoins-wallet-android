@@ -148,37 +148,30 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
     }
   }
 
-  override fun getCreditClick(): Observable<Any> {
+  override fun getCreditClick(): Observable<View> {
     return RxView.clicks(appcoins_credits_token)
+        .map { appcoins_credits_token }
   }
 
-  override fun showCreditsDetails() {
-    activityView?.showTokenDetailsScreen(
-        TokenDetailsActivity.TokenDetailsId.APPC_CREDITS,
-        appcoins_credits_token.token_icon, appcoins_credits_token.token_name,
-        appcoins_credits_token)
-  }
-
-  override fun getAppcClick(): Observable<Any> {
+  override fun getAppcClick(): Observable<View> {
     return RxView.clicks(appcoins_token)
+        .map { appcoins_token }
   }
 
-  override fun showAppcDetails() {
-    activityView?.showTokenDetailsScreen(
-        TokenDetailsActivity.TokenDetailsId.APPC,
-        appcoins_token.token_icon, appcoins_token.token_name,
-        appcoins_token)
-  }
-
-  override fun getEthClick(): Observable<Any> {
+  override fun getEthClick(): Observable<View> {
     return RxView.clicks(ether_token)
+        .map { ether_token }
   }
 
-  override fun showEthDetails() {
-    activityView?.showTokenDetailsScreen(
-        TokenDetailsActivity.TokenDetailsId.ETHER,
-        ether_token.token_icon, ether_token.token_name,
-        ether_token)
+  override fun showTokenDetails(view: View) {
+    lateinit var tokenId: TokenDetailsActivity.TokenDetailsId
+    when (view) {
+      appcoins_credits_token -> tokenId = TokenDetailsActivity.TokenDetailsId.APPC_CREDITS
+      appcoins_token -> tokenId = TokenDetailsActivity.TokenDetailsId.APPC
+      ether_token -> tokenId = TokenDetailsActivity.TokenDetailsId.ETHER
+    }
+
+    activityView?.showTokenDetailsScreen(tokenId, view.token_icon, view.token_name, view)
   }
 
   override fun getTopUpClick(): Observable<Any> {
