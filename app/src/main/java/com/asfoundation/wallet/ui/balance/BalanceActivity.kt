@@ -19,7 +19,7 @@ import com.asfoundation.wallet.ui.BaseActivity
 class BalanceActivity : BaseActivity(),
     BalanceActivityView {
 
-  private lateinit var presenter: BalancePresenter
+  private lateinit var activityPresenter: BalanceActivityPresenter
 
   companion object {
     @JvmStatic
@@ -36,8 +36,8 @@ class BalanceActivity : BaseActivity(),
 
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_balance)
-    presenter = BalancePresenter(this)
-    presenter.present(savedInstanceState)
+    activityPresenter = BalanceActivityPresenter(this)
+    activityPresenter.present(savedInstanceState)
   }
 
   override fun onBackPressed() {

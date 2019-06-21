@@ -11,6 +11,7 @@ import com.asfoundation.wallet.ui.balance.database.BalanceDetailsMapper
 import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 
 class AppcoinsBalanceRepository(private val balanceGetter: GetDefaultWalletBalance,
                                 private val localCurrencyConversionService: LocalCurrencyConversionService,
@@ -24,6 +25,7 @@ class AppcoinsBalanceRepository(private val balanceGetter: GetDefaultWalletBalan
   override fun getEthBalance(wallet: Wallet): Observable<Pair<Balance, FiatValue>> {
     if (ethBalanceDisposable == null || ethBalanceDisposable!!.isDisposed) {
       ethBalanceDisposable = balanceGetter.getEthereumBalance(wallet)
+          .observeOn(Schedulers.io())
           .flatMapObservable { balance ->
             localCurrencyConversionService.getEtherToLocalFiat(balance.value)
                 .map { fiatValue ->
@@ -39,6 +41,7 @@ class AppcoinsBalanceRepository(private val balanceGetter: GetDefaultWalletBalan
   override fun getAppcBalance(wallet: Wallet): Observable<Pair<Balance, FiatValue>> {
     if (appcBalanceDisposable == null || appcBalanceDisposable!!.isDisposed) {
       balanceGetter.getTokens(wallet, 2)
+          .observeOn(Schedulers.io())
           .flatMapObservable { balance ->
             localCurrencyConversionService.getAppcToLocalFiat(balance.value)
                 .map { fiatValue ->
@@ -54,6 +57,7 @@ class AppcoinsBalanceRepository(private val balanceGetter: GetDefaultWalletBalan
   override fun getCreditsBalance(wallet: Wallet): Observable<Pair<Balance, FiatValue>> {
     if (creditsBalanceDisposable == null || creditsBalanceDisposable!!.isDisposed) {
       balanceGetter.getCredits(wallet)
+          .observeOn(Schedulers.io())
           .flatMapObservable { balance ->
             localCurrencyConversionService.getAppcToLocalFiat(balance.value)
                 .map { fiatValue ->

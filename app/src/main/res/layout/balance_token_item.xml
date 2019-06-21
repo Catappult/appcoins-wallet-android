@@ -92,7 +92,6 @@
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="true"
       app:lottie_rawRes="@raw/balance_token_animation"
-      android:visibility="visible"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

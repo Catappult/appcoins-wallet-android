@@ -25,14 +25,14 @@ import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.os.Build;
 import android.os.SystemClock;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresPermission;
-import androidx.annotation.StringDef;
 import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.WindowManager;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresPermission;
+import androidx.annotation.StringDef;
 import com.google.android.gms.common.images.Size;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.Frame;
@@ -100,7 +100,7 @@ public class CameraSource {
   private int mRotation;
   private Size mPreviewSize;
   // These values may be requested by the caller.  Due to hardware limitations, we may need to
-  // select stop, but not exactly the same values for these.
+  // select close, but not exactly the same values for these.
   private float mRequestedFps = 30.0f;
   private int mRequestedPreviewWidth = 1024;
   private int mRequestedPreviewHeight = 768;

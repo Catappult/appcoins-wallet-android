@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:id="@+id/root"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_translucent"
-    android:gravity="center">
+    android:gravity="center"
+    >
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/container"
       android:layout_width="328dp"
@@ -14,9 +16,9 @@
       android:layout_gravity="center"
       android:animateLayoutChanges="true"
       android:background="@drawable/background_card"
-      android:padding="16dp"
-      android:minHeight="304dp"
       android:clipToPadding="false"
+      android:minHeight="304dp"
+      android:padding="16dp"
       android:transitionName="token_container_transition"
       >
 
@@ -26,81 +28,99 @@
         android:layout_height="56dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/ic_eth_token"
+        android:transitionName="token_icon_transition"
         app:layout_constraintBottom_toTopOf="@id/token_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0"
         app:layout_constraintVertical_chainStyle="packed"
-        android:transitionName="token_icon_transition"
         />
 
     <TextView
         android:id="@+id/token_name"
+        style="@style/TokenDetailsTitleStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/ethereum_token_name"
+        android:transitionName="token_name_transition"
         app:layout_constraintBottom_toTopOf="@+id/token_description"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/token_symbol"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/token_icon"
-        style="@style/TokenDetailsTitleStyle"
         app:layout_constraintVertical_bias="0"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        />
+
+    <TextView
+        android:id="@+id/token_symbol"
+        style="@style/TokenDetailsSubTitleStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
         android:transitionName="token_name_transition"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/token_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/token_name"
+        app:layout_constraintTop_toBottomOf="@id/token_icon"
+        app:layout_constraintVertical_bias="0"
+        tools:text="(ETH)"
         />
 
     <TextView
         android:id="@+id/token_description"
+        style="@style/TokenDetailsTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginTop="18dp"
-        android:paddingEnd="8dp"
+        android:gravity="center"
         android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:text="@string/balance_ethereum_body"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/token_name"
-        android:gravity="center"
-        style="@style/TokenDetailsTextStyle"
         app:layout_constraintVertical_bias="0"
-        android:visibility="invisible"
         />
 
     <Button
         android:id="@+id/close_btn"
+        style="@style/ButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:layout_marginTop="21dp"
         android:minWidth="104dp"
         android:text="@string/button_ok"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/token_description"
-        style="@style/ButtonStyle"
         app:layout_constraintVertical_bias="1"
-        android:visibility="invisible"
         />
 
     <Button
         android:id="@+id/topup_btn"
+        style="@style/ButtonStyle.Light"
         android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:layout_marginTop="21dp"
         android:layout_marginEnd="20dp"
         android:minWidth="104dp"
         android:text="@string/topup_home_button"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/close_btn"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/token_description"
-        style="@style/ButtonStyle.Light"
         app:layout_constraintVertical_bias="1"
-        android:visibility="invisible"
         />
   </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

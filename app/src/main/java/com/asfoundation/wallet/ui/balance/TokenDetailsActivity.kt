@@ -3,13 +3,15 @@ package com.asfoundation.wallet.ui.balance
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.transition.Transition
 import android.view.View
 import android.view.Window
 import com.asf.wallet.R
 import com.asfoundation.wallet.router.TopUpRouter
 import com.asfoundation.wallet.ui.BaseActivity
+import com.asfoundation.wallet.ui.balance.database.BalanceDetailsMapper.Companion.APPC_C_SYMBOL
+import com.asfoundation.wallet.ui.balance.database.BalanceDetailsMapper.Companion.APPC_SYMBOL
+import com.asfoundation.wallet.ui.balance.database.BalanceDetailsMapper.Companion.ETH_SYMBOL
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -65,19 +67,30 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
       TokenDetailsId.ETHER -> {
         token_icon.setImageResource(R.drawable.ic_eth_token)
         token_name.text = getString(R.string.ethereum_token_name)
+        token_symbol.text = "($ETH_SYMBOL)"
         token_description.text = getString(R.string.balance_ethereum_body)
       }
       TokenDetailsId.APPC -> {
         token_icon.setImageResource(R.drawable.ic_appc_token)
         token_name.text = getString(R.string.appc_token_name)
+        token_symbol.text = "($APPC_SYMBOL)"
         token_description.text = getString(R.string.balance_appcoins_body)
       }
       TokenDetailsId.APPC_CREDITS -> {
         token_icon.setImageResource(R.drawable.ic_appc_c_token)
         token_name.text = getString(R.string.appc_credits_token_name)
+        token_symbol.text = "($APPC_C_SYMBOL)"
         token_description.text = getString(R.string.balance_appccreditos_body)
       }
     }
+  }
+
+  override fun onBackPressed() {
+    token_symbol.visibility = View.INVISIBLE
+    token_description.visibility = View.INVISIBLE
+    close_btn.visibility = View.INVISIBLE
+    topup_btn.visibility = View.INVISIBLE
+    super.onBackPressed()
   }
 
   override fun setupUi() {
@@ -92,15 +105,11 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
     val sharedElementEnterTransition = window.sharedElementEnterTransition
     sharedElementEnterTransition.addListener(object : Transition.TransitionListener {
       override fun onTransitionStart(transition: Transition) {
-        if (contentVisible) {
-          token_description.visibility = View.INVISIBLE
-          close_btn.visibility = View.INVISIBLE
-          topup_btn.visibility = View.INVISIBLE
-        }
       }
 
       override fun onTransitionEnd(transition: Transition) {
         if (!contentVisible) {
+          token_symbol.visibility = View.VISIBLE
           token_description.visibility = View.VISIBLE
           close_btn.visibility = View.VISIBLE
           if (token == TokenDetailsId.APPC_CREDITS) {
@@ -121,6 +130,7 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
     })
 
     if (contentVisible) {
+      token_symbol.visibility = View.VISIBLE
       token_description.visibility = View.VISIBLE
       close_btn.visibility = View.VISIBLE
       if (token == TokenDetailsId.APPC_CREDITS) {

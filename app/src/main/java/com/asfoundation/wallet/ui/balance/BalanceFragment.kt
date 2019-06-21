@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui.balance
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -68,8 +67,10 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
     (app_bar as AppBarLayout).addOnOffsetChangedListener(
         AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
           val percentage = Math.abs(verticalOffset).toFloat() / appBarLayout.totalScrollRange
-          balance_label.alpha = 1 - percentage * 1.20f
-          balance_value.alpha = 1 - percentage * 1.20f
+          setAlpha(balance_label, percentage)
+          setAlpha(balance_value, percentage)
+          setAlpha(balance_label_placeholder, percentage)
+          setAlpha(balance_value_placeholder, percentage)
         })
   }
 
@@ -79,8 +80,8 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
   }
 
   override fun setupUI() {
-    (balance_value_placeholder as LottieAnimationView).playAnimation()
-    (balance_label_placeholder as LottieAnimationView).playAnimation()
+    balance_value_placeholder.playAnimation()
+    balance_label_placeholder.playAnimation()
 
     appcoins_credits_token.token_icon.setImageResource(R.drawable.ic_appc_c_token)
     appcoins_credits_token.token_name.text = getString(R.string.appc_credits_token_name)
@@ -186,5 +187,9 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
 
   override fun showTopUpScreen() {
     activityView?.showTopUpScreen()
+  }
+
+  private fun setAlpha(view: View, alphaPercentage: Float) {
+    view.alpha = 1 - alphaPercentage * 1.20f
   }
 }

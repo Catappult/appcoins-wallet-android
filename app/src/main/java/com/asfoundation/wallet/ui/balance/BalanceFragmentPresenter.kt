@@ -39,7 +39,8 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
     disposables.add(Observable.zip(getCreditsBalance(), getAppcBalance(), getEthBalance(),
         Function3 { creditsBalance: Balance, appBalance: Balance, ethBalance: Balance ->
           getOverallBalance(creditsBalance, appBalance, ethBalance)
-        }).subscribeOn(networkScheduler).observeOn(viewScheduler)
+        }).subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
         .subscribe({ view.updateOverallBalance(it) }, { it?.printStackTrace() }))
   }
 

@@ -78,20 +78,12 @@
         android:label="@string/title_activity_confirmation"/>
 
     <activity
-        android:name="com.asfoundation.wallet.ui.AddTokenActivity"
-        android:label="@string/title_add_token"/>
-
-    <activity
         android:name="com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity"
         android:label="@string/title_activity_barcode"/>
 
     <activity
         android:name="com.asfoundation.wallet.ui.GasSettingsActivity"
         android:label="@string/title_send_settings"/>
-
-    <activity
-        android:name="com.asfoundation.wallet.ui.TokenChangeCollectionActivity"
-        android:label="@string/title_tokens"/>
 
     <activity
         android:name="com.asfoundation.wallet.ui.Erc681Receiver"
