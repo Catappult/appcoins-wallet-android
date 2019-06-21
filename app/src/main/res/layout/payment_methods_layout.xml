@@ -302,6 +302,10 @@
   <include
       android:id="@+id/error_message"
       layout="@layout/fragment_iab_error"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
       />
-
 </RelativeLayout>
+
+

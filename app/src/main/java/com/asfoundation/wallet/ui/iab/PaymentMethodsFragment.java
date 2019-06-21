@@ -24,16 +24,12 @@ import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.fragment.app.Fragment;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.WalletService;
-import com.appcoins.wallet.bdsbilling.repository.entity.DeveloperPurchase;
-import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxRadioGroup;
 import com.squareup.picasso.Picasso;
@@ -68,9 +64,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private static final String APP_PACKAGE = "app_package";
   private static final String TAG = PaymentMethodsFragment.class.getSimpleName();
   private static final String TRANSACTION = "transaction";
-  private static final String INAPP_PURCHASE_DATA = "INAPP_PURCHASE_DATA";
-  private static final String INAPP_DATA_SIGNATURE = "INAPP_DATA_SIGNATURE";
-  private static final String INAPP_PURCHASE_ID = "INAPP_PURCHASE_ID";
 
   private final CompositeDisposable compositeDisposable = new CompositeDisposable();
   private final Map<String, Bitmap> loadedBitmaps = new HashMap<>();
@@ -113,6 +106,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private TextView bonusValue;
   private boolean showBonus;
   private TextView noBonusMsg;
+  private boolean itemAlreadyOwnedError = false;
 
   public static Fragment newInstance(TransactionBuilder transaction, String productName,
       boolean isBds, String developerPayload, String uri) {
@@ -127,14 +121,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     Fragment fragment = new PaymentMethodsFragment();
     fragment.setArguments(bundle);
     return fragment;
-  }
-
-  private static String serializeJson(Purchase purchase) throws IOException {
-    ObjectMapper objectMapper = new ObjectMapper();
-    DeveloperPurchase developerPurchase = objectMapper.readValue(new Gson().toJson(
-        purchase.getSignature()
-            .getMessage()), DeveloperPurchase.class);
-    return objectMapper.writeValueAsString(developerPurchase);
   }
 
   @Override public void onAttach(Context context) {
@@ -307,12 +293,19 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     errorMessage.setText(R.string.activity_iab_error_message);
   }
 
-  @Override public void finish(Purchase purchase) throws IOException {
-    Bundle bundle = new Bundle();
-    bundle.putString(INAPP_PURCHASE_DATA, serializeJson(purchase));
-    bundle.putString(INAPP_DATA_SIGNATURE, purchase.getSignature()
-        .getValue());
-    bundle.putString(INAPP_PURCHASE_ID, purchase.getUid());
+  @Override public void showItemAlreadyOwnedError() {
+    loadingView.setVisibility(View.GONE);
+    dialog.setVisibility(View.GONE);
+    addressFooter.setVisibility(View.GONE);
+    errorView.setVisibility(View.VISIBLE);
+    itemAlreadyOwnedError = true;
+    errorMessage.setText(new StringBuilder().append(
+        "It seems this purchase is already being processed. Please hold on until the ")
+        .append("transaction is completed or contact the Support Team behind this game")
+        .toString());
+  }
+
+  @Override public void finish(Bundle bundle) {
     iabView.finish(bundle);
   }
 
@@ -338,8 +331,9 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     iabView.close(data);
   }
 
-  @Override public Observable<Object> errorDismisses() {
-    return RxView.clicks(errorDismissButton);
+  @Override public Observable<Boolean> errorDismisses() {
+    return RxView.clicks(errorDismissButton)
+        .map(__ -> itemAlreadyOwnedError);
   }
 
   @Override public Observable<Boolean> setupUiCompleted() {
