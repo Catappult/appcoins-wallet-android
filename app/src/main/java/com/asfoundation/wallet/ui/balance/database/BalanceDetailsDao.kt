@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.asfoundation.wallet.ui.balance.database.BalanceDetailsEntity.TABLE_NAME
+import com.asfoundation.wallet.ui.balance.database.BalanceDetailsEntity.Companion.TABLE_NAME
 import io.reactivex.Observable
 
 
