@@ -299,7 +299,7 @@
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">Beli Bonus:</string>
   <string name="gamification_purchase_header_part_2">%s dalam Kredit APPC</string>
-  <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
+  <string name="gamification_purchase_body">Anda akan dapat %s Kredit APPC untuk pembelian ini.</string>
   <string name="action_level">Tahap Saya</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Izinkan Dompet AppCoins untuk berikan alamat dompet anda kepada %s.</string>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <com.google.android.material.appbar.AppBarLayout
+      android:id="@+id/app_bar"
+      android:layout_width="match_parent"
+      android:layout_height="184dp"
+      android:theme="@style/AppTheme.AppBarOverlay"
+      >
+
+    <com.google.android.material.appbar.CollapsingToolbarLayout
+        android:id="@+id/toolbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/appbar_background_color"
+        android:elevation="2dp"
+        android:fitsSystemWindows="false"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed"
+        app:titleEnabled="false"
+        app:toolbarId="@+id/toolbar"
+        >
+
+      <androidx.appcompat.widget.Toolbar
+          android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="?android:attr/actionBarSize"
+          android:elevation="2dp"
+          android:fitsSystemWindows="false"
+          app:layout_collapseMode="pin"
+          app:popupTheme="@style/AppTheme.PopupOverlay"
+          />
+    </com.google.android.material.appbar.CollapsingToolbarLayout>
+  </com.google.android.material.appbar.AppBarLayout>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/balance_container"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
+      android:layout_marginStart="16dp"
+      app:layout_anchor="@+id/content_container"
+      app:layout_anchorGravity="top"
+      >
+    <TextView
+        android:id="@+id/balance_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="68dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="start"
+        style="@style/BalanceTitleStyle"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/balance_value"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1"
+        tools:text="Total Balance"
+        />
+
+    <TextView
+        android:id="@+id/balance_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
+        android:gravity="end"
+        style="@style/BalanceTitleStyle.Large"
+        tools:text="$1328"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/balance_label"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/balance_label_placeholder"
+        android:layout_width="120dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="68dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/balance_value_placeholder"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1"
+        app:layout_constraintHorizontal_bias="0"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/balance_label_animation"
+        android:scaleType="fitStart"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/balance_value_placeholder"
+        android:layout_width="120dp"
+        android:layout_height="39dp"
+        android:layout_marginBottom="64dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toEndOf="@id/balance_label_placeholder"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/balance_overall_animation"
+        />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <androidx.core.widget.NestedScrollView
+      android:id="@+id/content_container"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:behavior_overlapTop="63dp"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"
+      >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:padding="16dp"
+        >
+      <LinearLayout
+          android:id="@+id/tokens_container"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="@drawable/background_card"
+          android:elevation="4dp"
+          android:orientation="vertical"
+          android:paddingBottom="16dp"
+          android:paddingTop="16dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintVertical_bias="0"
+          app:layout_constraintVertical_chainStyle="spread_inside"
+          >
+        <include
+            layout="@layout/balance_token_item"
+            android:id="@+id/appcoins_credits_token"
+            />
+        <include
+            layout="@layout/balance_token_item"
+            android:id="@+id/appcoins_token"
+            />
+        <include
+            layout="@layout/balance_token_item"
+            android:id="@+id/ether_token"
+            />
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginTop="32dp"
+          android:gravity="center"
+          android:orientation="vertical"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/tokens_container"
+          app:layout_constraintVertical_bias="1"
+          >
+        <Button
+            android:id="@+id/top_up_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginBottom="8dp"
+            android:text="@string/topup_home_button"
+            style="@style/ButtonStyle"
+            />
+        <TextView
+            android:id="@+id/top_up_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:gravity="center"
+            android:text="@string/balance_topup_body"
+
+            />
+
+      </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

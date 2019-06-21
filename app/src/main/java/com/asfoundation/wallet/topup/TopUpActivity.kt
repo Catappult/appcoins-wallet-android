@@ -108,12 +108,14 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
         .replace(R.id.fragment_container,
             TopUpSuccessFragment.newInstance(data.getDouble(TOP_UP_AMOUNT), data.getString(BONUS),
                 data.getBoolean(
-                    VALID_BONUS)))
+                    VALID_BONUS)), TopUpSuccessFragment::class.java.simpleName)
         .commit()
   }
 
   override fun close() {
-    TransactionsRouter().open(this, true)
+    if (supportFragmentManager.findFragmentByTag(TopUpSuccessFragment::class.java.simpleName) != null) {
+      TransactionsRouter().open(this, true)
+    }
     finish()
   }
 

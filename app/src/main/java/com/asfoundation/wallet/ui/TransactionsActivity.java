@@ -46,6 +46,7 @@ import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.subjects.PublishSubject;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -248,7 +249,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         viewModel.showMyAddress(this);
         return true;
       }
-      case R.id.action_my_tokens: {
+      case R.id.action_balance: {
         viewModel.showTokens(this);
         return true;
       }
@@ -343,9 +344,11 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void onBalanceChanged(GlobalBalance globalBalance) {
-    balanceSkeloton.setVisibility(View.GONE);
-    setCollapsingTitle(globalBalance.getFiatSymbol() + globalBalance.getFiatValue());
-    setSubtitle(globalBalance);
+    if (globalBalance.getFiatValue().length() > 0) {
+      balanceSkeloton.setVisibility(View.GONE);
+      setCollapsingTitle(globalBalance.getFiatSymbol() + globalBalance.getFiatValue());
+      setSubtitle(globalBalance);
+    }
   }
 
   private void setSubtitle(GlobalBalance globalBalance) {

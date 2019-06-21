@@ -299,7 +299,7 @@
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">Tiền thưởng mua hàng:</string>
   <string name="gamification_purchase_header_part_2">%s bằng APPC Credits</string>
-  <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
+  <string name="gamification_purchase_body">Bạn sẽ nhận được %s APPC Credits cho giao dịch mua này.</string>
   <string name="action_level">Cấp của tôi</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Cho phép AppCoins Wallet cung cấp địa chỉ ví của bạn cho %s.</string>

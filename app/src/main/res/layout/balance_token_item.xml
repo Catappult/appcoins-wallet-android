@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_container"
+    android:layout_width="match_parent"
+    android:layout_height="88dp"
+    android:orientation="vertical"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:transitionName="token_container_transition"
+    >
+
+  <ImageView
+      android:id="@+id/token_icon"
+      android:layout_width="40dp"
+      android:layout_height="40dp"
+      android:layout_marginStart="16dp"
+      android:scaleType="fitCenter"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/token_name"
+      app:layout_constraintHorizontal_bias="0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      android:src="@drawable/ic_appc_token"
+      app:layout_constraintHorizontal_chainStyle="packed"
+      android:transitionName="token_icon_transition"
+      />
+
+  <TextView
+      android:id="@+id/token_name"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="8dp"
+      android:layout_marginStart="8dp"
+      android:textColor="#000000"
+      android:textSize="16sp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/token_balance"
+      app:layout_constraintStart_toEndOf="@id/token_icon"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="AppCoins Credits"
+      android:lines="1"
+      android:ellipsize="end"
+      android:transitionName="token_name_transition"
+      />
+
+  <TextView
+      android:id="@+id/token_balance"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
+      android:textColor="#8f8f8f"
+      android:textSize="12sp"
+      app:layout_constraintBottom_toTopOf="@id/token_balance_converted"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="1"
+      app:layout_constraintVertical_chainStyle="packed"
+      app:layout_constraintStart_toEndOf="@id/token_name"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="10.73 APPC-C"
+      android:visibility="gone"
+      />
+
+  <TextView
+      android:id="@+id/token_balance_converted"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
+      android:textColor="#8f8f8f"
+      android:textSize="12sp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="1"
+      app:layout_constraintStart_toEndOf="@id/token_name"
+      app:layout_constraintTop_toBottomOf="@id/token_balance"
+      tools:text="€100"
+      android:visibility="gone"
+      />
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/token_balance_placeholder"
+      android:layout_width="80dp"
+      android:layout_height="30dp"
+      android:layout_marginEnd="16dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="1"
+      app:layout_constraintStart_toEndOf="@id/token_name"
+      app:layout_constraintTop_toTopOf="parent"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/balance_token_animation"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

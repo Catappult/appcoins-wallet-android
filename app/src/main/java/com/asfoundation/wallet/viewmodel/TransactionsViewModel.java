@@ -23,9 +23,9 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.repository.OffChainTransactions;
 import com.asfoundation.wallet.router.AirdropRouter;
+import com.asfoundation.wallet.router.BalanceRouter;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.MyAddressRouter;
-import com.asfoundation.wallet.router.MyTokensRouter;
 import com.asfoundation.wallet.router.RewardsLevelRouter;
 import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
@@ -37,6 +37,7 @@ import com.asfoundation.wallet.transactions.TransactionsAnalytics;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
+import com.asfoundation.wallet.ui.balance.BalanceInteract;
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
 import com.asfoundation.wallet.ui.iab.FiatValue;
 import io.reactivex.Completable;
@@ -48,11 +49,11 @@ import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class TransactionsViewModel extends BaseViewModel {
   private static final long GET_BALANCE_INTERVAL = 10 * DateUtils.SECOND_IN_MILLIS;
   private static final long FETCH_TRANSACTIONS_INTERVAL = 12 * DateUtils.SECOND_IN_MILLIS;
+  private static final BigDecimal MINUS_ONE = new BigDecimal("-1");
   private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
   private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
   private final MutableLiveData<List<Transaction>> transactions = new MutableLiveData<>();
@@ -69,7 +70,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final SendRouter sendRouter;
   private final TransactionDetailRouter transactionDetailRouter;
   private final MyAddressRouter myAddressRouter;
-  private final MyTokensRouter myTokensRouter;
+  private final BalanceRouter balanceRouter;
   private final ExternalBrowserRouter externalBrowserRouter;
   private final RewardsLevelRouter rewardsLevelRouter;
   private final CompositeDisposable disposables;
@@ -87,19 +88,21 @@ public class TransactionsViewModel extends BaseViewModel {
   private final Runnable startGlobalBalanceTask = this::getGlobalBalance;
   private boolean hasTransactions = false;
   private final Runnable startFetchTransactionsTask = () -> this.fetchTransactions(false);
+  private final BalanceInteract balanceInteract;
 
   TransactionsViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
       FetchTransactionsInteract fetchTransactionsInteract, SettingsRouter settingsRouter,
       SendRouter sendRouter, TransactionDetailRouter transactionDetailRouter,
-      MyAddressRouter myAddressRouter, MyTokensRouter myTokensRouter,
+      MyAddressRouter myAddressRouter, BalanceRouter balanceRouter,
       ExternalBrowserRouter externalBrowserRouter, DefaultTokenProvider defaultTokenProvider,
       GetDefaultWalletBalance getDefaultWalletBalance, TransactionsMapper transactionsMapper,
       AirdropRouter airdropRouter, AppcoinsApps applications,
       OffChainTransactions offChainTransactions, RewardsLevelRouter rewardsLevelRouter,
       GamificationInteractor gamificationInteractor, TopUpRouter topUpRouter,
       TransactionsAnalytics analytics,
-      LocalCurrencyConversionService localCurrencyConversionService) {
+      LocalCurrencyConversionService localCurrencyConversionService,
+      BalanceInteract balanceInteract) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchTransactionsInteract = fetchTransactionsInteract;
@@ -107,7 +110,7 @@ public class TransactionsViewModel extends BaseViewModel {
     this.sendRouter = sendRouter;
     this.transactionDetailRouter = transactionDetailRouter;
     this.myAddressRouter = myAddressRouter;
-    this.myTokensRouter = myTokensRouter;
+    this.balanceRouter = balanceRouter;
     this.externalBrowserRouter = externalBrowserRouter;
     this.rewardsLevelRouter = rewardsLevelRouter;
     this.defaultTokenProvider = defaultTokenProvider;
@@ -121,6 +124,7 @@ public class TransactionsViewModel extends BaseViewModel {
     this.analytics = analytics;
     this.localCurrencyConversionService = localCurrencyConversionService;
     this.disposables = new CompositeDisposable();
+    this.balanceInteract = balanceInteract;
   }
 
   @Override protected void onCleared() {
@@ -216,9 +220,7 @@ public class TransactionsViewModel extends BaseViewModel {
 
   private void getGlobalBalance() {
     disposables.add(Observable.zip(getTokenBalance(), getCreditsBalance(), getEthereumBalance(),
-        Observable.timer(1, TimeUnit.SECONDS),
-        (tokenBalance, creditsBalance, ethereumBalance, time) -> updateWalletValue(tokenBalance,
-            creditsBalance, ethereumBalance))
+        this::updateWalletValue)
         .subscribe(globalBalance -> {
           handler.removeCallbacks(startGlobalBalanceTask);
           handler.postDelayed(startGlobalBalanceTask, GET_BALANCE_INTERVAL);
@@ -227,8 +229,12 @@ public class TransactionsViewModel extends BaseViewModel {
 
   private GlobalBalance updateWalletValue(Pair<Balance, FiatValue> tokenBalance,
       Pair<Balance, FiatValue> creditsBalance, Pair<Balance, FiatValue> ethereumBalance) {
-    String fiatValue = sumFiat(tokenBalance.second.getAmount(), creditsBalance.second.getAmount(),
-        ethereumBalance.second.getAmount()).toString();
+    String fiatValue = "";
+    BigDecimal sumFiat = sumFiat(tokenBalance.second.getAmount(), creditsBalance.second.getAmount(),
+        ethereumBalance.second.getAmount());
+    if (sumFiat.compareTo(MINUS_ONE) > 0) {
+      fiatValue = sumFiat.toString();
+    }
     GlobalBalance currentGlobalBalance = defaultWalletBalance.getValue();
     GlobalBalance newGlobalBalance =
         new GlobalBalance(tokenBalance.first, creditsBalance.first, ethereumBalance.first,
@@ -245,40 +251,48 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   private Observable<Pair<Balance, FiatValue>> getTokenBalance() {
-    return getDefaultWalletBalance.getTokens(defaultWallet.getValue(), 2)
-        .observeOn(Schedulers.io())
-        .flatMapObservable(
-            balance -> localCurrencyConversionService.getAppcToLocalFiat(balance.getValue())
-                .flatMap(fiatValue -> Observable.just(new Pair<>(balance, fiatValue))));
+    return balanceInteract.getAppcBalance();
   }
 
   private Observable<Pair<Balance, FiatValue>> getEthereumBalance() {
-    return getDefaultWalletBalance.getEthereumBalance(defaultWallet.getValue())
-        .observeOn(Schedulers.io())
-        .flatMapObservable(
-            balance -> localCurrencyConversionService.getEtherToLocalFiat(balance.getValue())
-                .flatMap(fiatValue -> Observable.just(new Pair<>(balance, fiatValue))));
+    return balanceInteract.getEthBalance();
   }
 
   private Observable<Pair<Balance, FiatValue>> getCreditsBalance() {
-    return findDefaultNetworkInteract.find()
-        .filter(this::shouldShowOffChainInfo)
-        .flatMapSingle(__ -> getDefaultWalletBalance.getCredits(defaultWallet.getValue()))
-        .observeOn(Schedulers.io())
-        .flatMapObservable(
-            balance -> localCurrencyConversionService.getAppcToLocalFiat(balance.getValue())
-                .flatMap(fiatValue -> Observable.just(new Pair<>(balance, fiatValue))));
+    return balanceInteract.getCreditsBalance();
   }
 
   private boolean shouldShow(Pair<Balance, FiatValue> balance, Double threshold) {
-    return Double.valueOf(balance.first.getValue()) >= threshold
+    return balance.first.getValue().length() > 0
+        && Double.valueOf(balance.first.getValue()) >= threshold
+        && (balance.second.getAmount().compareTo(MINUS_ONE) > 0)
         && balance.second.getAmount()
         .doubleValue() >= threshold;
   }
 
   private BigDecimal sumFiat(BigDecimal appcoinsFiatValue, BigDecimal creditsFiatValue,
       BigDecimal etherFiatValue) {
-    return appcoinsFiatValue.add(creditsFiatValue.add(etherFiatValue));
+    BigDecimal fiatSum = MINUS_ONE;
+    if (appcoinsFiatValue.compareTo(MINUS_ONE) > 0) {
+      fiatSum = appcoinsFiatValue;
+    }
+
+    if (creditsFiatValue.compareTo(MINUS_ONE) > 0) {
+      if (fiatSum.compareTo(MINUS_ONE) > 0) {
+        fiatSum = fiatSum.add(creditsFiatValue);
+      } else {
+        fiatSum = creditsFiatValue;
+      }
+    }
+
+    if (etherFiatValue.compareTo(MINUS_ONE) > 0) {
+      if (fiatSum.compareTo(MINUS_ONE) > 0) {
+        fiatSum = fiatSum.add(etherFiatValue);
+      } else {
+        fiatSum = etherFiatValue;
+      }
+    }
+    return fiatSum;
   }
 
   private void onDefaultNetwork(NetworkInfo networkInfo) {
@@ -332,7 +346,7 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   public void showTokens(Context context) {
-    myTokensRouter.open(context, defaultWallet.getValue());
+    balanceRouter.open(context, defaultWallet.getValue());
   }
 
   public void pause() {

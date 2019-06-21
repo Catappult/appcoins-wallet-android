@@ -26,8 +26,6 @@ interface PaymentAuthView {
   fun showCreditCardView(paymentMethod: PaymentMethod, cvcStatus: Boolean, allowSave: Boolean,
                          publicKey: String, generationTime: String)
 
-  fun close()
-
   fun showPaymentRefusedError(adyenAuthorization: AdyenAuthorization)
 
   fun showGenericError()

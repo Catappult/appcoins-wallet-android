@@ -299,11 +299,11 @@
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">Bonus la cumpărătură:</string>
   <string name="gamification_purchase_header_part_2">%s în APPC Credits</string>
-  <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
+  <string name="gamification_purchase_body">Vei primi %s Credite APPC pentru această cumpărătură.</string>
   <string name="action_level">Nivelul meu</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Permite AppCoins Wallet să furnizeze adresa portofelului tău către %s.</string>
-  <string name="provide_wallet_body_placeholders">Permite %1$s să furnizeze adresa portofelului tău către %2$s.</string>
+  <string name="provide_wallet_body_placeholders">Allow %1$s to provide your wallet address to %2$s.</string>
   <string name="provide_wallet_always_allow_button">Permite întotdeauna</string>
   <string name="provide_wallet_allow_once_button">Permite o dată</string>
   <string name="provide_wallet_completed_header">Portofel asociat cu Aptoide!</string>
@@ -358,7 +358,7 @@
   <string name="cancel_button">Anulează</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Sunt de acord cu %1$s și %2$s AppCoins Wallet.</string>
-  <string name="terms_and_conditions_error">Te rugăm să accepți Termenii și condițiile și Politica de confidențialitate pentru a continua</string>
+  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
   <string name="terms_and_conditions">Termenii și condițiile</string>
   <string name="privacy_policy">Politica de confidențialitate</string>
   <!--Home-->
