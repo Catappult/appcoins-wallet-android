@@ -20,13 +20,14 @@ class GamificationInteractor(
   }
 
   fun getUserStatus(): Single<UserStats> {
-    return defaultWallet.find().flatMap { gamification.getUserStatus(it.address) }
+    return defaultWallet.find()
+        .flatMap { gamification.getUserStatus(it.address) }
   }
 
   fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonus> {
     return Single.zip(defaultWallet.find()
         .flatMap { gamification.getEarningBonus(it.address, packageName, amount) },
-        conversionService.getLocalCurrency(),
+        conversionService.localCurrency,
         BiFunction { appcBonusValue, localCurrency ->
           ForecastBonus(appcBonusValue.status,
               appcBonusValue.amount.multiply(localCurrency.amount), localCurrency.symbol)
@@ -34,14 +35,17 @@ class GamificationInteractor(
   }
 
   fun hasNewLevel(): Single<Boolean> {
-    return defaultWallet.find().flatMap { gamification.hasNewLevel(it.address) }
+    return defaultWallet.find()
+        .flatMap { gamification.hasNewLevel(it.address) }
   }
 
   fun levelShown(level: Int): Completable {
-    return defaultWallet.find().flatMapCompletable { gamification.levelShown(it.address, level) }
+    return defaultWallet.find()
+        .flatMapCompletable { gamification.levelShown(it.address, level) }
   }
 
   fun getLastShownLevel(): Single<Int> {
-    return defaultWallet.find().flatMap { gamification.getLastShownLevel(it.address) }
+    return defaultWallet.find()
+        .flatMap { gamification.getLastShownLevel(it.address) }
   }
 }

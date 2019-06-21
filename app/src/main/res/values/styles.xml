@@ -351,9 +351,14 @@
     <item name="android:textColor">@color/top_up_bonus_text</item>
   </style>
 
+  <style name="TopUpTextStyle.BonusText">
+    <item name="android:textColor">@color/top_up_bonus_text</item>
+  </style>
+
   <style name="TopUpTextStyle.SuccessTitle">
     <item name="android:textColor">@color/top_up_bonus_title</item>
-    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:fontFamily">sans-serif</item>
+    <item name="android:textSize">14sp</item>
   </style>
 
   <style name="TopUpTextStyle.SuccessText">
@@ -422,6 +427,12 @@
   <style name="HintText" parent="TextAppearance.AppCompat">
     <item name="android:textColor">@color/colorAccent</item>
     <item name="android:textSize">12sp</item>
+  </style>
+
+  <style name="TransactionSuccessTextStyle">
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textSize">16sp</item>
+    <item name="android:textColor">@color/black</item>
   </style>
 
 </resources>

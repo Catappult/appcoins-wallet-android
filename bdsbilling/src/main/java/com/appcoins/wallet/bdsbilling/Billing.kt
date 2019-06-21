@@ -1,7 +1,7 @@
 package com.appcoins.wallet.bdsbilling
 
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
-import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethod
+import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.billing.repository.entity.Product
@@ -26,7 +26,7 @@ interface Billing {
   fun consumePurchases(merchantName: String, purchaseToken: String,
                        scheduler: Scheduler): Single<Boolean>
 
-  fun getPaymentMethods(): Single<List<PaymentMethod>>
+  fun getPaymentMethods(value:String, currency:String): Single<List<PaymentMethodEntity>>
 
   enum class BillingSupportType {
     SUPPORTED, MERCHANT_NOT_FOUND, UNKNOWN_ERROR, NO_INTERNET_CONNECTION, API_ERROR

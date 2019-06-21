@@ -9,13 +9,10 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import org.jetbrains.annotations.NotNull
-import retrofit2.http.Body
-import retrofit2.http.Headers
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
-class PoASubmissionService(
-    private val poaSubmissionApi: @NotNull PoASubmissionApi,
+class CampaignService(
+    private val campaignApi: @NotNull CampaignApi,
     private val versionCode: Int) {
 
   companion object {
@@ -23,12 +20,18 @@ class PoASubmissionService(
   }
 
   fun submitProof(proof: Proof, wallet: String): Single<String> {
-    return poaSubmissionApi.submitProof(
+    return campaignApi.submitProof(
         SerializedProof(proof.campaignId, proof.packageName, wallet, proof.proofComponentList,
             proof.storeAddress, proof.oemAddress), versionCode)
         .map { response -> handleResponse(response) }
         .subscribeOn(Schedulers.io())
         .singleOrError()
+  }
+
+  fun getCampaign(address: String, packageName: String, packageVersionCode: Int): Single<String> {
+    return campaignApi.getCampaign(address, packageName, packageVersionCode)
+        .map { response -> handleResponse(response) }
+        .subscribeOn(Schedulers.io()).singleOrError()
   }
 
   private fun handleResponse(response: SubmitPoAResponse): String {
@@ -39,11 +42,27 @@ class PoASubmissionService(
     }
   }
 
-  interface PoASubmissionApi {
+  private fun handleResponse(response: GetCampaignResponse): String {
+    return if (!response.status.equals(GetCampaignResponse.EligibleResponseStatus.NOT_ELIGIBLE)
+        && response.bidId != null) {
+      response.bidId
+    } else {
+      ""
+    }
+  }
+
+
+  interface CampaignApi {
     @Headers("Content-Type: application/json")
     @POST("/campaign/submitpoa")
     fun submitProof(@Body body: SerializedProof?, @Query("version_code")
     versionCode: Int): Observable<SubmitPoAResponse>
+
+
+    @GET("/campaign/eligible")
+    fun getCampaign(@Query("address") address: String,
+                    @Query("package_name") packageName: String,
+                    @Query("vercode") versionCode: Int): Observable<GetCampaignResponse>
   }
 }
 

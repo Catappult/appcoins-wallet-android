@@ -113,6 +113,22 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     }
   }
 
+  private val bonusValue: String by lazy {
+    if (arguments!!.containsKey(BONUS)) {
+      arguments!!.getString(BONUS)
+    } else {
+      throw IllegalArgumentException("Bonus not found")
+    }
+  }
+
+  private val validBonus: Boolean by lazy {
+    if (arguments!!.containsKey(VALID_BONUS)) {
+      arguments!!.getBoolean(VALID_BONUS)
+    } else {
+      throw IllegalArgumentException("Valid bonus not found")
+    }
+  }
+
   companion object {
 
     private val TAG = PaymentAuthFragment::class.java.simpleName
@@ -122,15 +138,21 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     private const val PAYMENT_TRANSACTION_TYPE = "transactionType"
     private const val PAYMENT_DATA = "data"
     private const val PAYMENT_CURRENT_CURRENCY = "currentCurrency"
+    private const val BONUS = "bonus"
+    private const val VALID_BONUS = "valid_bonus"
 
-    fun newInstance(paymentType: PaymentType, data: TopUpData, currentCurrency: String,
-                    origin: String, transactionType: String): PaymentAuthFragment {
+    fun newInstance(paymentType: PaymentType,
+                    data: TopUpData, currentCurrency: String,
+                    origin: String, transactionType: String,
+                    bonusValue: String, validBonus: Boolean): PaymentAuthFragment {
       val bundle = Bundle()
       bundle.putString(PAYMENT_TYPE, paymentType.name)
       bundle.putString(PAYMENT_ORIGIN, origin)
       bundle.putString(PAYMENT_TRANSACTION_TYPE, transactionType)
       bundle.putSerializable(PAYMENT_DATA, data)
       bundle.putString(PAYMENT_CURRENT_CURRENCY, currentCurrency)
+      bundle.putString(BONUS, bonusValue)
+      bundle.putBoolean(VALID_BONUS, validBonus)
       val fragment = PaymentAuthFragment()
       fragment.arguments = bundle
       return fragment
@@ -146,7 +168,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
         PaymentAuthPresenter(this, appPackage, AndroidSchedulers.mainThread(),
             CompositeDisposable(), adyen, billingFactory.getBilling(appPackage),
             navigator, inAppPurchaseInteractor.billingMessagesMapper,
-            inAppPurchaseInteractor)
+            inAppPurchaseInteractor, bonusValue, validBonus)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -166,21 +188,24 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
       }
     }
 
-    genericErrorDialog = RxAlertDialog.Builder(context).setMessage(R.string.unknown_error)
+    genericErrorDialog = RxAlertDialog.Builder(context)
+        .setMessage(R.string.unknown_error)
         .setPositiveButton(R.string.ok)
         .build()
     disposables.add(genericErrorDialog.positiveClicks()
         .subscribe({ navigator.popViewWithError() }, { it.printStackTrace() }))
 
     networkErrorDialog =
-        RxAlertDialog.Builder(context).setMessage(R.string.notification_no_network_poa)
+        RxAlertDialog.Builder(context)
+            .setMessage(R.string.notification_no_network_poa)
             .setPositiveButton(R.string.ok)
             .build()
     disposables.add(networkErrorDialog.positiveClicks()
         .subscribe({ navigator.popViewWithError() }, { it.printStackTrace() }))
 
     paymentRefusedDialog =
-        RxAlertDialog.Builder(context).setMessage(R.string.notification_payment_refused)
+        RxAlertDialog.Builder(context)
+            .setMessage(R.string.notification_payment_refused)
             .setPositiveButton(R.string.ok)
             .build()
     disposables.add(paymentRefusedDialog.positiveClicks()

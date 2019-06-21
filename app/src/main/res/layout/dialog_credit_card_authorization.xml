@@ -14,6 +14,7 @@
       android:orientation="vertical"
       >
     <RelativeLayout
+        android:id="@+id/credit_card_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/background_card"
@@ -154,6 +155,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/layout_wallet_footer"
         android:layout_width="match_parent"
         android:layout_height="24dp"
         >
@@ -170,8 +172,8 @@
           android:id="@+id/wallet_address_footer"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_alignTop="@id/logo_wallet"
           android:layout_alignBottom="@id/logo_wallet"
+          android:layout_alignTop="@id/logo_wallet"
           android:layout_marginStart="16dp"
           android:layout_marginEnd="16dp"
           android:layout_toEndOf="@id/logo_wallet"
@@ -183,6 +185,8 @@
           tools:text="0x1a78a81235dls019sk291id"
           />
     </RelativeLayout>
+
+    <include layout="@layout/fragment_iab_transaction_completed"/>
 
   </LinearLayout>
 
