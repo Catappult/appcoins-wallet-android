@@ -954,7 +954,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         Room.databaseBuilder(context.getApplicationContext(), BalanceDetailsDatabase.class,
             "balance_details")
             .build()
-            .balanceDetailsDao(), new BalanceDetailsMapper());
+            .balanceDetailsDao(), new BalanceDetailsMapper(), Schedulers.io());
   }
 
   @Singleton @Provides CampaignInteract provideCampaignInteract(CampaignService campaignService,
