@@ -300,7 +300,10 @@
   <string name="gamification_purchase_header_part_1">ਖਰੀਦ ਦਾ ਬੋਨਸ:</string>
   <string name="gamification_purchase_header_part_2">%s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ</string>
   <string name="gamification_purchase_body">ਤੁਸੀਂ ਇਸ ਬੋਨਸ ਨੂੰ ਆਪਣੀ ਅਗਲੀ ਖਰੀਦ ਵਿਚ ਵਰਤ ਸਕਦੇ ਹੋ|</string>
+  <string name="gamification_purchase_completed_bonus_received_done">ਹੋ ਗਿਆ!</string>
+  <string name="gamification_purchase_completed_bonus_received">ਬੋਨਸ ਪ੍ਰਾਪਤ ਹੋਇਆ</string>
   <string name="action_level">ਮੇਰਾ ਪੱਧਰ</string>
+  <string name="gamification_purchase_appccredits_body">ਭੁਗਤਾਨ ਦੀ ਸੱਭ ਤੋਂ ਤੇਜ਼ ਵਿਧੀ!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ %s ਨੂੰ ਬਟੂਏ ਦਾ ਪਤਾ ਦੱਸਣ ਦੀ ਆਗਿਆ ਦਿਓ|</string>
   <string name="provide_wallet_body_placeholders">%1$s ਬਟੂਏ ਨੂੰ %2$s ਨੂੰ ਬਟੂਏ ਦਾ ਪਤਾ ਦੱਸਣ ਦੀ ਆਗਿਆ ਦਿਓ|</string>
@@ -320,8 +323,12 @@
   <string name="topup_amount">%s ਐਪ ਸਿੱਕੇ</string>
   <string name="topup_bonus_header">ਤੁਹਾਨੂੰ ਇੱਕ ਬੋਨਸ ਮਿਲਿਆ ਹੈ!</string>
   <string name="topup_bonus_message">%s ਵੱਧ ਐਪ ਸਿੱਕੇ-ਕ੍ਰੈਡਿਟ ਤੁਹਾਡੇ ਬਟੂਏ ਵਿੱਚ ਪਾਏ ਜਾਣਗੇ</string>
-  <string name="topup_completed_1">%1$s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ</string>
-  <string name="topup_completed_2">ਤੁਹਾਡੇ ਖਾਤੇ ਵਿੱਚ ਪਾਏ ਗਏ|</string>
+  <string name="topup_completed_1">ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟਾਂ ਵਿੱਚ %s</string>
+  <string name="topup_completed_2_with_bonus">ਤੁਹਾਡੇ ਖਾਤੇ ਵਿੱਚ ਜਮ੍ਹਾਂ ਕੀਤੇ ਗਏ... ਬੋਨਸ ਦੇ ਨਾਲ!</string>
+  <string name="topup_completed_2_without_bonus">were deposited in your account.</string>
+  <string name="topup_bonus_header_part_1">ਬੋਨਸ ਦਾ ਰਿਚਾਰਜ:</string>
+  <string name="topup_bonus_header_part_2">ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟਾਂ ਵਿੱਚ %s</string>
+  <string name="topup_bonus_body">ਤੁਸੀਂ ਇਸ ਬੋਨਸ ਨੂੰ ਆਪਣੀ ਅਗਲੀ ਖਰੀਦ ਵਿਚ ਵਰਤ ਸਕਦੇ ਹੋ|</string>
   <!--Balance-->
   <string name="balance_title">ਰਕਮ</string>
   <string name="balance_total_body">%s ਵਿੱਚ ਕੁੱਲ ਰਕਮ</string>
@@ -356,6 +363,12 @@
   <string name="error_general">ਕੁੱਝ ਗਲਤ ਹੋ ਗਿਆ</string>
   <string name="error_missing_field">ਜ਼ਰੂਰੀ ਫੀਲਡ</string>
   <string name="cancel_button">ਕੈਂਸਲ</string>
+  <string name="submit_button">ਜਮ੍ਹਾਂ ਕਰੋ</string>
+  <string name="close_button">ਬੰਦ</string>
+  <string name="back_button">ਵਾਪਸ</string>
+  <string name="value_fiat">%1$s%2$s</string>
+  <string name="value_crypto">%1$s%2$s</string>
+  <string name="dismiss_button">ਬਰਖਾਸਤ</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ਮੈਂ ਐਪ ਸਿੱਕੇ ਬਟੂਏ %1$s ਅਤੇ %2$s ਨਾਲ ਸਹਿਮਤ ਹਾਂ|</string>
   <string name="terms_and_conditions_error">ਜਾਰੀ ਰੱਖਣ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਿਯਮਾਂ ਅਤੇ ਸ਼ਰਤਾਂ ਅਤੇ ਨੀਜੀ ਨੀਤੀ ਨੂੰ ਸਵੀਕਾਰ ਕਰੋ</string>
@@ -365,4 +378,27 @@
   <string name="home_empty_discover_apps_body">ਵਧੀਆ ਐਂਡਰਾਇਡ ਐਪਾਂ ਤੁਹਾਡੀ ਉਡੀਕ ਕਰ ਰਹੀਆਂ ਹਨ|</string>
   <string name="home_empty_discover_apps_button">ਵਧੀਆ ਐਪਸ ਲੱਭੋ</string>
   <!--Tokens-->
+  <!--Local Payments-->
+  <string name="local_payments_inprogress_header">ਹੋ ਰਿਹਾ ਹੈ&#8230;</string>
+  <string name="local_payments_inprogress_body">ਆਪਣਾ ਭੁਗਤਾਨ ਪੂਰਾ ਕਰੋ ਅਤੇ, ਜਦੋਂ ਤੁਹਾਡੇ ਬਟੂਏ ਵਿੱਚ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਆ ਜਾਣ ਤਾਂ ਅੱਗੇ ਖਰੀਦ ਕਰੋ!</string>
+  <!--Wallet Verification-->
+  <string name="verification_notification_verification_needed_title">ਇਨਾਮ ਤਿਆਰ ਹੈ ਬੱਸ ਜਾਂਚ ਦੀ ਲੋੜ ਹੈ</string>
+  <string name="verification_notification_verification_needed_body">ਸੁਰੱਖਿਆ ਲਈ ਸਾਨੂੰ ਤੁਹਾਡੇ ਬਟੂਏ ਨੂੰ ਇੱਕ ਐਸਐਮਐਸ ਕੋਡ ਨਾਲ ਪ੍ਰਮਾਣਿਤ ਕਰਨ ਦੀ ਲੋੜ ਹੈ|</string>
+  <string name="verification_insert_phone_title">ਆਪਣਾ ਫੋਨ ਨੰਬਰ ਭਰੋ</string>
+  <string name="verification_insert_phone_body">ਅਸੀਂ ਤੁਹਾਨੂੰ ਇੱਕ ਪੁਸ਼ਟੀਕਰਣ ਕੋਡ ਭੇਜਾਂਗੇ|</string>
+  <string name="verification_insert_phone_field_country">ਦੇਸ਼</string>
+  <string name="verification_insert_phone_field_number">ਫੋਨ ਨੰਬਰ</string>
+  <string name="verification_insert_phone_field_number_error">ਗਲਤ ਫੋਨ ਨੰਬਰ</string>
+  <string name="verification_insert_phone_security_disclaimer">ਇਹ ਸਿਰਫ ਸੁਰੱਖਿਆ ਕਾਰਣਾਂ ਲਈ ਹੈ, ਅਸੀਂ ਕੋਈ ਨਿੱਜੀ ਡਾਟਾ ਸਟੋਰ ਨਹੀਂ ਕਰਦੇ|</string>
+  <string name="verification_notification_code_title">ਐਪ ਸਿੱਕੇ ਬਟੂਆ</string>
+  <string name="verification_notification_code_body">ਤੁਹਾਡਾ ਪੁਸ਼ਟੀਕਰਣ ਕੋਡ %s ਹੈ| ਆਪਣੇ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਦੇ ਪਤੇ ਦੀ ਤਸਦੀਕ ਕਰਨ ਲਈ ਇਸਦੀ ਵਰਤੋਂ ਕਰੋ|</string>
+  <string name="verification_insert_code_title">ਆਪਣਾ ਪੁਸ਼ਟੀਕਰਣ ਕੋਡ ਭਰੋ</string>
+  <string name="verification_insert_code_error">ਗਲਤ ਕੋਡ</string>
+  <string name="verification_insert_code_resend_button">ਕੋਡ ਦੁਬਾਰਾ ਭੇਜੋ</string>
+  <string name="verification_validating_title">ਤੁਹਾਡੇ ਕੋਡ ਨੂੰ ਪ੍ਰਮਾਣਿਤ ਹੋ ਰਿਹਾ ਹੈ&#8230;</string>
+  <string name="verification_completed_title">ਹੋ ਗਿਆ!</string>
+  <string name="verification_notification_reward_received_body">ਇਨਾਮ ਪ੍ਰਾਪਤ ਹੋਇਆ, ਆਨੰਦ ਮਾਣੋ! 👌</string>
+  <string name="verification_notification_reward_already_received_body">ਇਸ ਇਨਾਮ ਨੂੰ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਇਹ ਫੋਨ ਨੰਬਰ ਪਹਿਲਾਂ ਹੀ ਵਰਤਿਆ ਜਾ ਚੁੱਕਾ ਹੈ 😔</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">ਫੋਨ ਪਹਿਲਾਂ ਹੀ ਵਰਤਿਆ ਗਿਆ|</string>
+  <string name="verification_insert_code_error_common">ਓਹ ਹੋ, ਕੁਝ ਗ਼ਲਤ ਹੋਇਆ| ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ!</string>
 </resources>

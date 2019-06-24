@@ -299,11 +299,14 @@
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">Bonus la cumpărătură:</string>
   <string name="gamification_purchase_header_part_2">%s în APPC Credits</string>
-  <string name="gamification_purchase_body">Vei primi %s Credite APPC pentru această cumpărătură.</string>
+  <string name="gamification_purchase_body">Poți folosi acest bonus la următoarea ta cumpărătură.</string>
+  <string name="gamification_purchase_completed_bonus_received_done">Gata!</string>
+  <string name="gamification_purchase_completed_bonus_received">Bonus primit</string>
   <string name="action_level">Nivelul meu</string>
+  <string name="gamification_purchase_appccredits_body">Cea mai rapidă metodă de plată!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Permite AppCoins Wallet să furnizeze adresa portofelului tău către %s.</string>
-  <string name="provide_wallet_body_placeholders">Allow %1$s to provide your wallet address to %2$s.</string>
+  <string name="provide_wallet_body_placeholders">Permite %1$s să furnizeze adresa portofelului tău către %2$s.</string>
   <string name="provide_wallet_always_allow_button">Permite întotdeauna</string>
   <string name="provide_wallet_allow_once_button">Permite o dată</string>
   <string name="provide_wallet_completed_header">Portofel asociat cu Aptoide!</string>
@@ -320,8 +323,12 @@
   <string name="topup_amount">%s APPC-C</string>
   <string name="topup_bonus_header">Ai primit un Bonus!</string>
   <string name="topup_bonus_message">%s APPC-C suplimentare vor fi creditate în portofelul tău.</string>
-  <string name="topup_completed_1">%1$s Credite APPC</string>
-  <string name="topup_completed_2">au fost creditate în contul tău.</string>
+  <string name="topup_completed_1">%s în AppCoins Credits</string>
+  <string name="topup_completed_2_with_bonus">au fost depozitate în contul tău... Plus un bonus!</string>
+  <string name="topup_completed_2_without_bonus">were deposited in your account.</string>
+  <string name="topup_bonus_header_part_1">Bonus în plus:</string>
+  <string name="topup_bonus_header_part_2">%s în APPC Credits</string>
+  <string name="topup_bonus_body">Poți folosi acest bonus la următoarea ta cumpărătură.</string>
   <!--Balance-->
   <string name="balance_title">Balanță</string>
   <string name="balance_total_body">Balanță totală în %s</string>
@@ -356,13 +363,42 @@
   <string name="error_general">Ceva nu a mers cum trebuie</string>
   <string name="error_missing_field">Câmp obligatoriu</string>
   <string name="cancel_button">Anulează</string>
+  <string name="submit_button">Trimite</string>
+  <string name="close_button">Închide</string>
+  <string name="back_button">Înapoi</string>
+  <string name="value_fiat">%1$s%2$s</string>
+  <string name="value_crypto">%1$s %2$s</string>
+  <string name="dismiss_button">Respinge</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Sunt de acord cu %1$s și %2$s AppCoins Wallet.</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions_error">Te rugăm să accepți Termenii și condițiile și Politica de confidențialitate pentru a continua</string>
   <string name="terms_and_conditions">Termenii și condițiile</string>
   <string name="privacy_policy">Politica de confidențialitate</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Cele mai bune aplicații Android te așteaptă.</string>
   <string name="home_empty_discover_apps_button">DESCOPERĂ APLICAȚII DE TOP</string>
   <!--Tokens-->
+  <!--Local Payments-->
+  <string name="local_payments_inprogress_header">În curs&#8230;</string>
+  <string name="local_payments_inprogress_body">Finalizează plata și, odată ce vei primi AppCoins Credits în portofelul tău, fă cumpărătura!</string>
+  <!--Wallet Verification-->
+  <string name="verification_notification_verification_needed_title">Recompensa este pregătită, dar este necesară verificarea</string>
+  <string name="verification_notification_verification_needed_body">Din motive de securitate, trebuie să îți verificăm portofelul cu un cod SMS.</string>
+  <string name="verification_insert_phone_title">Introdu numărul tău de telefon</string>
+  <string name="verification_insert_phone_body">Îți vom trimite un cod de verificare.</string>
+  <string name="verification_insert_phone_field_country">Țară</string>
+  <string name="verification_insert_phone_field_number">Număr de telefon</string>
+  <string name="verification_insert_phone_field_number_error">Număr de telefon nevalid</string>
+  <string name="verification_insert_phone_security_disclaimer">Acest pas este doar pentru motive de securitate; nu stocăm date personale.</string>
+  <string name="verification_notification_code_title">AppCoins Wallet</string>
+  <string name="verification_notification_code_body">Codul tău de verificare este %s. Folosește-l pentru a-ți verifica adresa ta de AppCoins Wallet.</string>
+  <string name="verification_insert_code_title">Introdu codul tău de verificare</string>
+  <string name="verification_insert_code_error">Cod nevalid</string>
+  <string name="verification_insert_code_resend_button">RETRIMITE COD</string>
+  <string name="verification_validating_title">Codul tău este în curs de validare&#8230;</string>
+  <string name="verification_completed_title">Gata!</string>
+  <string name="verification_notification_reward_received_body">Recompensă primită! Bucură-te de ea! 👌</string>
+  <string name="verification_notification_reward_already_received_body">Acest număr de telefon a fost folosit deja pentru a primi această recompensă 😔</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">Număr de telefon deja folosit.</string>
+  <string name="verification_insert_code_error_common">Ups, ceva nu a mers cum trebuie. Încearcă din nou!</string>
 </resources>
