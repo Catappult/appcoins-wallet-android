@@ -39,9 +39,12 @@ class SmsValidationRepository(
   private fun mapError(throwable: Throwable): WalletValidationStatus {
     return when (throwable) {
       is HttpException -> {
-        val walletValidationException = gson.fromJson(throwable.response()
-            .errorBody()!!
-            .charStream(), WalletValidationException::class.java)
+        var walletValidationException = WalletValidationException("")
+        if (throwable.code() == 400) {
+          walletValidationException = gson.fromJson(throwable.response()
+              .errorBody()!!
+              .charStream(), WalletValidationException::class.java)
+        }
         when {
           throwable.code() == 400 && walletValidationException.status == "INVALID_INPUT" -> WalletValidationStatus.INVALID_INPUT
           throwable.code() == 400 && walletValidationException.status == "INVALID_PHONE" -> WalletValidationStatus.INVALID_PHONE
