@@ -44,7 +44,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   private var selectedCurrency = FIAT_CURRENCY
   private var switchingCurrency = false
   private var validBonus = false
-  private lateinit var bonusMessageValue: String
+  private var bonusMessageValue: String = ""
   private var localCurrency = LocalCurrency()
 
   companion object {
