@@ -15,7 +15,7 @@ class SmsValidationRepository(
 
   override fun isValid(walletAddress: String): Single<WalletValidationStatus> {
     return api.isValid(walletAddress)
-        .map(this::mapResponse)
+        .map(this::mapValidationResponse)
         .onErrorReturn(this::mapError)
   }
 
@@ -28,12 +28,16 @@ class SmsValidationRepository(
   override fun validateCode(phoneNumber: String, walletAddress: String,
                             validationCode: String): Single<WalletValidationStatus> {
     return api.validateCode(phoneNumber, walletAddress, validationCode)
-        .map(this::mapResponse)
+        .map(this::mapCodeValidationResponse)
         .onErrorReturn(this::mapError)
   }
 
-  private fun mapResponse(walletStatus: WalletStatus): WalletValidationStatus {
+  private fun mapValidationResponse(walletStatus: WalletStatus): WalletValidationStatus {
     return if (walletStatus.verified) WalletValidationStatus.SUCCESS else WalletValidationStatus.GENERIC_ERROR
+  }
+
+  private fun mapCodeValidationResponse(walletStatus: WalletStatus): WalletValidationStatus {
+    return if (walletStatus.verified) WalletValidationStatus.SUCCESS else WalletValidationStatus.INVALID_INPUT
   }
 
   private fun mapError(throwable: Throwable): WalletValidationStatus {
