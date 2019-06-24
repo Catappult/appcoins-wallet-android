@@ -89,10 +89,12 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
               .onErrorResumeNext(Observable.empty())
               .observeOn(viewScheduler)
               .filter { it.currency.appcValue != "--" }
+              .doOnComplete {
+                view.setConversionValue(topUpData)
+              }
               .flatMap {
                 loadBonusIntoView(packageName, it.currency.appcValue).toObservable()
                     .doOnNext {
-                      view.setConversionValue(topUpData)
                       view.setNextButtonState(hasValidData(topUpData))
                     }
               }
