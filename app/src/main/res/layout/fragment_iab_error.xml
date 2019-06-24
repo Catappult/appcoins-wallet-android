@@ -19,16 +19,17 @@
 
   <TextView
       android:id="@+id/activity_iab_error_title"
+      style="@style/Base.TextAppearance.AppCompat.Subhead"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="@string/activity_iab_error_title"
       android:textColor="@color/black_87_alpha"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      style="@style/Base.TextAppearance.AppCompat.Subhead"
       />
   <TextView
       android:id="@+id/activity_iab_error_message"
+      style="@style/Base.TextAppearance.AppCompat.Caption"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:minLines="3"
@@ -36,19 +37,19 @@
       android:textColor="@color/iab_activity_gray"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/activity_iab_error_title"
-      style="@style/Base.TextAppearance.AppCompat.Caption"
       />
 
   <Button
       android:id="@+id/activity_iab_error_ok_button"
+      style="@style/ButtonStyle"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/button_height"
       android:text="@string/ok"
+      android:layout_marginTop="8dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@id/activity_iab_error_message"
       app:layout_constraintVertical_bias="1"
-      style="@style/ButtonStyle"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
