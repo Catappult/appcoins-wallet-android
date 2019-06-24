@@ -324,7 +324,8 @@
   <string name="topup_bonus_header">ਤੁਹਾਨੂੰ ਇੱਕ ਬੋਨਸ ਮਿਲਿਆ ਹੈ!</string>
   <string name="topup_bonus_message">%s ਵੱਧ ਐਪ ਸਿੱਕੇ-ਕ੍ਰੈਡਿਟ ਤੁਹਾਡੇ ਬਟੂਏ ਵਿੱਚ ਪਾਏ ਜਾਣਗੇ</string>
   <string name="topup_completed_1">ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟਾਂ ਵਿੱਚ %s</string>
-  <string name="topup_completed_2">ਤੁਹਾਡੇ ਖਾਤੇ ਵਿੱਚ ਜਮ੍ਹਾਂ ਕੀਤੇ ਗਏ... ਬੋਨਸ ਦੇ ਨਾਲ!</string>
+  <string name="topup_completed_2_with_bonus">ਤੁਹਾਡੇ ਖਾਤੇ ਵਿੱਚ ਜਮ੍ਹਾਂ ਕੀਤੇ ਗਏ... ਬੋਨਸ ਦੇ ਨਾਲ!</string>
+  <string name="topup_completed_2_without_bonus">were deposited in your account.</string>
   <string name="topup_bonus_header_part_1">ਬੋਨਸ ਦਾ ਰਿਚਾਰਜ:</string>
   <string name="topup_bonus_header_part_2">ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟਾਂ ਵਿੱਚ %s</string>
   <string name="topup_bonus_body">ਤੁਸੀਂ ਇਸ ਬੋਨਸ ਨੂੰ ਆਪਣੀ ਅਗਲੀ ਖਰੀਦ ਵਿਚ ਵਰਤ ਸਕਦੇ ਹੋ|</string>

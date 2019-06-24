@@ -298,7 +298,7 @@
   <string name="gamification_galaxy_subtitle">史上最大のシステムです！</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
-  <string name="gamification_purchase_header_part_1">Purchase Bonus:</string>
+  <string name="gamification_purchase_header_part_1">購入特典:</string>
   <string name="gamification_purchase_header_part_2">%s in APPC Credits</string>
   <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
   <string name="gamification_purchase_completed_bonus_received_done">Done!</string>
@@ -325,7 +325,8 @@
   <string name="topup_bonus_header">あなたはボーナスを獲得しました！</string>
   <string name="topup_bonus_message">%s APPC クレジットはウォレットに加算されます。</string>
   <string name="topup_completed_1">%s in AppCoins Credits</string>
-  <string name="topup_completed_2">were deposited in your account... Along with a bonus!</string>
+  <string name="topup_completed_2_with_bonus">were deposited in your account... Along with a bonus!</string>
+  <string name="topup_completed_2_without_bonus">were deposited in your account.</string>
   <string name="topup_bonus_header_part_1">Top-Up Bonus:</string>
   <string name="topup_bonus_header_part_2">%s in APPC Credits</string>
   <string name="topup_bonus_body">You can use this bonus in your next purchase.</string>
@@ -363,8 +364,8 @@
   <string name="error_general">エラーが起こりました</string>
   <string name="error_missing_field">必須項目</string>
   <string name="cancel_button">キャンセルする</string>
-  <string name="submit_button">Submit</string>
-  <string name="close_button">Close</string>
+  <string name="submit_button">提出する</string>
+  <string name="close_button">閉じる</string>
   <string name="back_button">Back</string>
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
@@ -372,8 +373,8 @@
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
-  <string name="terms_and_conditions">Terms and Conditions</string>
-  <string name="privacy_policy">Privacy Policy</string>
+  <string name="terms_and_conditions">利用規約</string>
+  <string name="privacy_policy">プライバシー ポリシー</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">The best Android apps are waiting for you.</string>
   <string name="home_empty_discover_apps_button">DISCOVER TOP APPS</string>
