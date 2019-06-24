@@ -4,10 +4,13 @@ import com.asfoundation.wallet.entity.WalletStatus
 import com.asfoundation.wallet.entity.WalletValidationException
 import com.asfoundation.wallet.service.SmsValidationApi
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
+import com.google.gson.Gson
 import io.reactivex.Single
+import retrofit2.HttpException
 
 class SmsValidationRepository(
-    private val api: SmsValidationApi
+    private val api: SmsValidationApi,
+    private val gson: Gson
 ) : SmsValidationRepositoryType {
 
   override fun isValid(walletAddress: String): Single<WalletValidationStatus> {
@@ -35,11 +38,15 @@ class SmsValidationRepository(
 
   private fun mapError(throwable: Throwable): WalletValidationStatus {
     return when (throwable) {
-      is WalletValidationException -> {
+      is HttpException -> {
+        val walletValidationException = gson.fromJson(throwable.response()
+            .errorBody()!!
+            .charStream(), WalletValidationException::class.java)
         when {
-          throwable.status == "INVALID_INPUT" -> WalletValidationStatus.INVALID_INPUT
-          throwable.status == "INVALID_PHONE" -> WalletValidationStatus.INVALID_PHONE
-          throwable.status == "DOUBLE_SPENT" -> WalletValidationStatus.DOUBLE_SPENT
+          throwable.code() == 400 && walletValidationException.status == "INVALID_INPUT" -> WalletValidationStatus.INVALID_INPUT
+          throwable.code() == 400 && walletValidationException.status == "INVALID_PHONE" -> WalletValidationStatus.INVALID_PHONE
+          throwable.code() == 400 && walletValidationException.status == "DOUBLE_SPENT" -> WalletValidationStatus.DOUBLE_SPENT
+          throwable.code() == 429 -> WalletValidationStatus.DOUBLE_SPENT
           else -> WalletValidationStatus.GENERIC_ERROR
         }
       }
