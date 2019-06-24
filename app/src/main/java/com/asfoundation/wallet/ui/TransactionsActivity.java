@@ -46,7 +46,6 @@ import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.subjects.PublishSubject;
-import java.math.BigDecimal;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -80,8 +79,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
     toolbar();
     enableDisplayHomeAsUp();
-
-    disposables = new CompositeDisposable();
 
     balanceSkeloton = findViewById(R.id.balance_skeloton);
     balanceSkeloton.setVisibility(View.VISIBLE);
@@ -318,6 +315,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     balanceSkeloton.removeAllUpdateListeners();
     balanceSkeloton.removeAllLottieOnCompositionLoadedListener();
     emptyTransactionsSubject = null;
+    disposables = null;
     super.onDestroy();
   }
 
