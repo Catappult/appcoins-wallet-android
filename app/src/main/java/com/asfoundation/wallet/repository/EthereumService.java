@@ -9,6 +9,4 @@ import io.reactivex.Single;
 
 interface EthereumService {
   Single<PendingTransaction> getTransaction(String hash);
-
-  Single<PendingTransaction> getTransaction(String hash, int chainId);
 }

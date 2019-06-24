@@ -40,6 +40,8 @@ public class TransactionBuilder implements Parcelable {
   private String iabContract;
   private String callbackUrl;
   private String orderReference;
+  private String originalOneStepValue;
+  private String originalOneStepCurrency;
 
   public TransactionBuilder(@NonNull TokenInfo tokenInfo) {
     contractAddress(tokenInfo.address).decimals(tokenInfo.decimals)
@@ -71,6 +73,8 @@ public class TransactionBuilder implements Parcelable {
     payload = in.readString();
     callbackUrl = in.readString();
     orderReference = in.readString();
+    originalOneStepValue = in.readString();
+    originalOneStepCurrency = in.readString();
   }
 
   public TransactionBuilder(String symbol, String contractAddress, Long chainId, String toAddress,
@@ -245,6 +249,22 @@ public class TransactionBuilder implements Parcelable {
     return callbackUrl;
   }
 
+  public String getOriginalOneStepValue() {
+    return originalOneStepValue;
+  }
+
+  public void setOriginalOneStepValue(String originalOneStepValue) {
+    this.originalOneStepValue = originalOneStepValue;
+  }
+
+  public String getOriginalOneStepCurrency() {
+    return originalOneStepCurrency;
+  }
+
+  public void setOriginalOneStepCurrency(String originalOneStepCurrency) {
+    this.originalOneStepCurrency = originalOneStepCurrency;
+  }
+
   @Override public String toString() {
     return "TransactionBuilder{"
         + "contractAddress='"
@@ -316,6 +336,8 @@ public class TransactionBuilder implements Parcelable {
     dest.writeString(payload);
     dest.writeString(callbackUrl);
     dest.writeString(orderReference);
+    dest.writeString(originalOneStepValue);
+    dest.writeString(originalOneStepCurrency);
   }
 
   public byte[] approveData() {

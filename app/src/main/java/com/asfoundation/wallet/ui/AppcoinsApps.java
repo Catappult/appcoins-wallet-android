@@ -24,7 +24,7 @@ public class AppcoinsApps {
     for (Application app : apps) {
       appcoinsApplications.add(
           new AppcoinsApplication(app.getName(), app.getRating(), app.getIconUrl(),
-              app.getFeaturedGraphic(), app.getPackageName()));
+              app.getFeaturedGraphic(), app.getPackageName(), app.getUniqueName()));
     }
     return appcoinsApplications;
   }

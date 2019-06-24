@@ -87,6 +87,7 @@ public class InAppPurchaseInteractorTest {
   public static final String UID = "uid";
   public static final String DEVELOPER_PAYLOAD = "developer_payload";
   public static final String STORE_ADDRESS = "0xc41b4160b63d1f9488937f7b66640d2babdbf8ad";
+  public static final String OEM_ADDRESS = "0x0965b2a3e664690315ad20b9e5b0336c19cf172e";
 
   @Mock FetchGasSettingsInteract gasSettingsInteract;
   @Mock BdsTransactionProvider transactionProvider;
@@ -174,6 +175,8 @@ public class InAppPurchaseInteractorTest {
 
     when(addressService.getStoreAddressForPackage(any())).thenReturn(Single.just(STORE_ADDRESS));
 
+    when(addressService.getOemAddressForPackage(any())).thenReturn(Single.just(OEM_ADDRESS));
+
     inAppPurchaseService =
         new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
             new ApproveService(approveTransactionService, transactionValidator),
@@ -191,20 +194,20 @@ public class InAppPurchaseInteractorTest {
 
     when(transactionProvider.get(PACKAGE_NAME, SKU)).thenReturn(Single.just(
         new Transaction(UID, Transaction.Status.PROCESSING,
-            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference")), Single.just(
+            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null)), Single.just(
         new Transaction(UID, Transaction.Status.COMPLETED,
-            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference")));
+            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null)));
 
     when(billing.getSkuTransaction(anyString(), anyString(), any(Scheduler.class))).thenReturn(
         Single.just(new Transaction(UID, Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
-            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference")));
+            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null)));
 
     when(proxyService.getAppCoinsAddress(anyBoolean())).thenReturn(
         Single.just("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3"));
     when(proxyService.getIabAddress(anyBoolean())).thenReturn(
         Single.just("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3"));
     when(conversionService.getAppcRate(anyString())).thenReturn(
-        Single.just(new FiatValue(2.0, "EUR")));
+        Single.just(new FiatValue(new BigDecimal(2.0), "EUR", "")));
 
     eipTransactionParser = new EIPTransactionParser(defaultWalletInteract, tokenRepository);
     oneStepTransactionParser =

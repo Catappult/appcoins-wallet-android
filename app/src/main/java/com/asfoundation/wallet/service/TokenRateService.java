@@ -27,7 +27,7 @@ public class TokenRateService {
     return tokenToFiatApi.getAppcToFiatRate(currency)
         .map(appcToFiatResponseBody -> appcToFiatResponseBody)
         .map(AppcToFiatResponseBody::getFiatValue)
-        .map(value -> new FiatValue(value, currency))
+        .map(value -> new FiatValue(value, currency, ""))
         .subscribeOn(Schedulers.io())
         .singleOrError();
   }

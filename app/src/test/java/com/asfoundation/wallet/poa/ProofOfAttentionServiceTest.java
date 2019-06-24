@@ -4,10 +4,11 @@ import com.appcoins.wallet.commons.MemoryCache;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.interact.CreateWalletInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.repository.BdsBackEndWriter;
 import com.asfoundation.wallet.repository.WalletNotFoundException;
-import com.asfoundation.wallet.service.PoASubmissionService;
+import com.asfoundation.wallet.service.CampaignService;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.TestObserver;
@@ -35,12 +36,17 @@ import static org.mockito.Mockito.when;
 
 public class ProofOfAttentionServiceTest {
 
-  public static final String SUBMIT_HASH = "hash";
-  public static final String STORE_ADDRESS = "store_address";
+  private static final String SUBMIT_HASH = "hash";
+  private static final String STORE_ADDRESS = "store_address";
+  private static final String OEM_ADDRESS = "oem_address";
 
   @Mock FindDefaultWalletInteract defaultWalletInteract;
-  @Mock PoASubmissionService poaSubmissionService;
+  @Mock CampaignService campaignService;
   @Mock HashCalculator hashCalculator;
+  @Mock AddressService addressService;
+  @Mock CreateWalletInteract walletInteract;
+  @Mock FindDefaultWalletInteract findDefaultWalletInteract;
+  private int chainId;
   private ProofOfAttentionService proofOfAttentionService;
   private MemoryCache<String, Proof> cache;
   private int maxNumberProofComponents = 3;
@@ -49,28 +55,33 @@ public class ProofOfAttentionServiceTest {
   private BehaviorSubject<Wallet> hasWallet;
   private ProofWriter proofWriter;
   private String wallet;
-  @Mock AddressService addressService;
 
   @Before public void before() throws NoSuchAlgorithmException {
     MockitoAnnotations.initMocks(this);
     hasWallet = BehaviorSubject.create();
     cache = new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>());
     testScheduler = new TestScheduler();
-    proofWriter = new BdsBackEndWriter(defaultWalletInteract, poaSubmissionService);
+    proofWriter = new BdsBackEndWriter(defaultWalletInteract, campaignService);
     proofOfAttentionService =
         new ProofOfAttentionService(cache, BuildConfig.APPLICATION_ID, hashCalculator,
             new CompositeDisposable(), proofWriter, testScheduler, maxNumberProofComponents,
             new BackEndErrorMapper(), new TaggedCompositeDisposable(new HashMap<>()),
-            () -> Single.just("PT"), addressService);
-
+            () -> Single.just("PT"), addressService, walletInteract, findDefaultWalletInteract);
+    if (BuildConfig.DEBUG) {
+      chainId = 3;
+    } else {
+      chainId = 1;
+    }
     nonce = 1L;
     wallet = "wallet_address";
     when(defaultWalletInteract.find()).thenReturn(hasWallet.firstOrError());
-    when(poaSubmissionService.submitProof(any(Proof.class), eq(wallet))).thenReturn(
+    when(campaignService.submitProof(any(Proof.class), eq(wallet))).thenReturn(
         Single.just(SUBMIT_HASH));
     when(hashCalculator.calculateNonce(any(NonceData.class))).thenReturn(nonce);
 
     when(addressService.getStoreAddressForPackage(any())).thenReturn(Single.just(STORE_ADDRESS));
+
+    when(addressService.getOemAddressForPackage(any())).thenReturn(Single.just(OEM_ADDRESS));
   }
 
   @Test public void setCampaignId() {
@@ -190,7 +201,7 @@ public class ProofOfAttentionServiceTest {
         .assertValueCount(7);
     Proof value = cacheObserver.values()
         .get(6);
-    verify(poaSubmissionService, times(1)).submitProof(
+    verify(campaignService, times(1)).submitProof(
         new Proof(value.getPackageName(), value.getCampaignId(), value.getProofComponentList(),
             value.getWalletPackage(), ProofStatus.SUBMITTING, 1, null, null, BigDecimal.ZERO,
             BigDecimal.ZERO, null, "PT"), wallet);
@@ -295,7 +306,7 @@ public class ProofOfAttentionServiceTest {
   }
 
   @Test public void isWalletReady() {
-    TestObserver<ProofSubmissionFeeData> ready = proofOfAttentionService.isWalletReady(1)
+    TestObserver<ProofSubmissionFeeData> ready = proofOfAttentionService.isWalletReady(chainId)
         .subscribeOn(testScheduler)
         .test();
     ProofSubmissionFeeData readyFee =
@@ -309,7 +320,7 @@ public class ProofOfAttentionServiceTest {
   }
 
   @Test public void noWalletReady() {
-    TestObserver<ProofSubmissionFeeData> noWallet = proofOfAttentionService.isWalletReady(1)
+    TestObserver<ProofSubmissionFeeData> noWallet = proofOfAttentionService.isWalletReady(chainId)
         .subscribeOn(testScheduler)
         .test();
     ProofSubmissionFeeData noWalletFee =
@@ -323,7 +334,7 @@ public class ProofOfAttentionServiceTest {
   }
 
   @Test public void noNetwork() {
-    TestObserver<ProofSubmissionFeeData> noFunds = proofOfAttentionService.isWalletReady(1)
+    TestObserver<ProofSubmissionFeeData> noFunds = proofOfAttentionService.isWalletReady(chainId)
         .subscribeOn(testScheduler)
         .test();
     ProofSubmissionFeeData noFundsFee =
@@ -334,5 +345,36 @@ public class ProofOfAttentionServiceTest {
     noFunds.assertComplete()
         .assertNoErrors()
         .assertValue(noFundsFee);
+  }
+
+  @Test public void wrongNetwork() {
+    int wrongChainId;
+    wrongChainId = chainId == 3 ? 1 : 3;
+    TestObserver<ProofSubmissionFeeData> noFunds =
+        proofOfAttentionService.isWalletReady(wrongChainId)
+            .subscribeOn(testScheduler)
+            .test();
+    ProofSubmissionFeeData wrongNetwork =
+        new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.WRONG_NETWORK,
+            BigDecimal.ZERO, BigDecimal.ZERO);
+    hasWallet.onError(new UnknownHostException());
+    testScheduler.triggerActions();
+    noFunds.assertComplete()
+        .assertNoErrors()
+        .assertValue(wrongNetwork);
+  }
+
+  @Test public void unknownNetwork() {
+    TestObserver<ProofSubmissionFeeData> noFunds = proofOfAttentionService.isWalletReady(-1)
+        .subscribeOn(testScheduler)
+        .test();
+    ProofSubmissionFeeData wrongNetwork =
+        new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.UNKNOWN_NETWORK,
+            BigDecimal.ZERO, BigDecimal.ZERO);
+    hasWallet.onError(new UnknownHostException());
+    testScheduler.triggerActions();
+    noFunds.assertComplete()
+        .assertNoErrors()
+        .assertValue(wrongNetwork);
   }
 }

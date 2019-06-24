@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.iab;
 
-import android.os.Bundle;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.WalletService;
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType;
@@ -23,6 +22,7 @@ import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Currency;
+import java.util.List;
 
 public class PaymentMethodsPresenter {
   private final PaymentMethodsView view;
@@ -42,6 +42,7 @@ public class PaymentMethodsPresenter {
   private final WalletService walletService;
   private final GamificationInteractor gamification;
   private final TransactionBuilder transaction;
+  private final PaymentMethodsMapper paymentMethodsMapper;
 
   public PaymentMethodsPresenter(PaymentMethodsView view, String appPackage,
       Scheduler viewScheduler, Scheduler networkThread, CompositeDisposable disposables,
@@ -49,7 +50,7 @@ public class PaymentMethodsPresenter {
       BdsPendingTransactionService bdsPendingTransactionService, Billing billing,
       BillingAnalytics analytics, boolean isBds, String developerPayload, String uri,
       WalletService walletService, GamificationInteractor gamification,
-      TransactionBuilder transaction) {
+      TransactionBuilder transaction, PaymentMethodsMapper paymentMethodsMapper) {
     this.view = view;
     this.appPackage = appPackage;
     this.viewScheduler = viewScheduler;
@@ -66,11 +67,13 @@ public class PaymentMethodsPresenter {
     this.walletService = walletService;
     this.gamification = gamification;
     this.transaction = transaction;
+    this.paymentMethodsMapper = paymentMethodsMapper;
   }
 
-  public void present(double transactionValue, Bundle savedInstanceState) {
+  public void present(double transactionValue) {
     handleCancelClick();
     handleErrorDismisses();
+    loadBonusIntoView();
     setupUi(transactionValue);
     handleOnGoingPurchases();
     handleBuyClick();
@@ -82,36 +85,37 @@ public class PaymentMethodsPresenter {
   private void handlePaymentSelection() {
     disposables.add(view.getPaymentSelection()
         .flatMapCompletable(selectedPaymentMethod -> {
-          if (selectedPaymentMethod.equals(PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS)) {
+          if (selectedPaymentMethod.equals(
+              paymentMethodsMapper.map(PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS))) {
             return Completable.fromAction(view::hideBonus)
                 .subscribeOn(viewScheduler);
           } else {
-            return loadBonusIntoView().ignoreElement();
+            return Completable.fromAction(view::showBonus);
           }
         })
         .subscribe());
   }
 
-  private Single<ForecastBonus> loadBonusIntoView() {
-    return gamification.getEarningBonus(transaction.getDomain(), transaction.amount())
+  private void loadBonusIntoView() {
+    disposables.add(gamification.getEarningBonus(transaction.getDomain(), transaction.amount())
+        .subscribeOn(networkThread)
         .observeOn(viewScheduler)
         .doOnSuccess(bonus -> {
-          if (!bonus.getStatus()
+          if (bonus.getStatus()
               .equals(ForecastBonus.Status.ACTIVE)
-              || bonus.getAmount()
-              .compareTo(BigDecimal.ZERO) <= 0) {
-            view.hideBonus();
-          } else {
-            view.showBonus(bonus.getAmount());
+              && bonus.getAmount()
+              .compareTo(BigDecimal.ZERO) > 0) {
+            view.setBonus(bonus.getAmount(), bonus.getCurrency());
           }
-        });
+        })
+        .subscribe());
   }
 
   private void handleBuyClick() {
     disposables.add(view.getBuyClick()
         .observeOn(viewScheduler)
         .doOnNext(selectedPaymentMethod -> {
-          switch (selectedPaymentMethod) {
+          switch (paymentMethodsMapper.map(selectedPaymentMethod)) {
             case PAYPAL:
               view.showPaypal();
               break;
@@ -123,6 +127,12 @@ public class PaymentMethodsPresenter {
               break;
             case APPC_CREDITS:
               view.showCredits();
+              break;
+            case SHARE_LINK:
+              view.showShareLink(selectedPaymentMethod);
+              break;
+            case LOCAL_PAYMENTS:
+              view.showLocalPayment(selectedPaymentMethod);
               break;
           }
         })
@@ -199,33 +209,21 @@ public class PaymentMethodsPresenter {
 
   private void setupUi(double transactionValue) {
     setWalletAddress();
-    disposables.add(Single.zip(isBds ? inAppPurchaseInteractor.getPaymentMethods()
-            .subscribeOn(networkThread)
-            .flatMap(paymentMethods -> Observable.fromIterable(paymentMethods)
-                .map(paymentMethod -> new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
-                    paymentMethod.getIconUrl(), true))
-                .toList()) : Single.just(Collections.singletonList(PaymentMethod.APPC)),
-        isBds ? inAppPurchaseInteractor.getAvailablePaymentMethods(transaction)
-            .subscribeOn(networkThread)
-            .flatMap(paymentMethods -> Observable.fromIterable(paymentMethods)
-                .map(paymentMethod -> new PaymentMethod(paymentMethod.getId(),
-                    paymentMethod.getLabel(), paymentMethod.getIconUrl(), true))
-                .toList()) : Single.just(Collections.singletonList(PaymentMethod.APPC))
-            .observeOn(viewScheduler), inAppPurchaseInteractor.convertToLocalFiat(transactionValue),
-        (paymentMethods, availablePaymentMethods, fiatValue) -> Completable.fromAction(
-            () -> view.showPaymentMethods(paymentMethods, availablePaymentMethods, fiatValue,
-                TransactionData.TransactionType.DONATION.name()
-                    .equalsIgnoreCase(transaction.getType()),
-                mapCurrencyCodeToSymbol(fiatValue.getCurrency())))
-            .subscribeOn(AndroidSchedulers.mainThread()))
-        .flatMapCompletable(completable -> completable)
+    disposables.add(inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
+        .flatMapCompletable(fiatValue -> getPaymentMethods(fiatValue).observeOn(viewScheduler)
+            .flatMapCompletable(paymentMethods -> Completable.fromAction(
+                () -> view.showPaymentMethods(paymentMethods, fiatValue,
+                    TransactionData.TransactionType.DONATION.name()
+                        .equalsIgnoreCase(transaction.getType()),
+                    mapCurrencyCodeToSymbol(fiatValue.getCurrency())))))
+        .subscribeOn(networkThread)
         .subscribe(() -> {
         }, this::showError));
   }
 
   public String mapCurrencyCodeToSymbol(String currencyCode) {
-    return currencyCode.equalsIgnoreCase("APPC") ?
-        currencyCode : Currency.getInstance(currencyCode).getCurrencyCode();
+    return currencyCode.equalsIgnoreCase("APPC") ? currencyCode : Currency.getInstance(currencyCode)
+        .getCurrencyCode();
   }
 
   private void setWalletAddress() {
@@ -263,5 +261,14 @@ public class PaymentMethodsPresenter {
 
   public void stop() {
     disposables.clear();
+  }
+
+  private Single<List<PaymentMethod>> getPaymentMethods(FiatValue fiatValue) {
+    if (isBds) {
+      return inAppPurchaseInteractor.getPaymentMethods(transaction, fiatValue.getAmount()
+          .toString(), fiatValue.getCurrency());
+    } else {
+      return Single.just(Collections.singletonList(PaymentMethod.APPC));
+    }
   }
 }

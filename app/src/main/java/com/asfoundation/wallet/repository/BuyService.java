@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.repository;
 
 import androidx.annotation.NonNull;
-import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -10,6 +9,7 @@ import com.asfoundation.wallet.poa.CountryCodeProvider;
 import com.asfoundation.wallet.poa.DataMapper;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -43,17 +43,16 @@ public class BuyService {
 
   public Completable buy(String key, PaymentTransaction paymentTransaction) {
     TransactionBuilder transactionBuilder = paymentTransaction.getTransactionBuilder();
-    return countryCodeProvider.getCountryCode()
-        .flatMap(countryCode -> partnerAddressService.getStoreAddressForPackage(
-            paymentTransaction.getPackageName())
-            .flatMap(storeAddress -> defaultTokenProvider.getDefaultToken()
-                .map(tokenInfo -> transactionBuilder.appcoinsData(
-                    getBuyData(transactionBuilder, tokenInfo, paymentTransaction.getPackageName(),
-                        countryCode, storeAddress)))))
-        .map(transaction -> updateTransactionBuilderData(paymentTransaction, transaction))
-        .flatMapCompletable(
-            payment -> Completable.defer(() -> transactionValidator.validate(payment))
-                .andThen(transactionService.sendTransaction(key, payment.getTransactionBuilder())));
+    return Single.zip(countryCodeProvider.getCountryCode(), defaultTokenProvider.getDefaultToken(),
+        partnerAddressService.getStoreAddressForPackage(paymentTransaction.getPackageName()),
+        partnerAddressService.getOemAddressForPackage(paymentTransaction.getPackageName()),
+        (countryCode, tokenInfo, storeAddress, oemAddress) -> transactionBuilder.appcoinsData(
+              getBuyData(transactionBuilder, tokenInfo, paymentTransaction.getPackageName(),
+                  countryCode, storeAddress, oemAddress)))
+        .map(transaction -> updateTransactionBuilderData(paymentTransaction,
+        transaction)).flatMapCompletable(
+        payment -> Completable.defer(() -> transactionValidator.validate(payment))
+            .andThen(transactionService.sendTransaction(key, payment.getTransactionBuilder())));
   }
 
   public Observable<BuyTransaction> getBuy(String uri) {
@@ -84,9 +83,8 @@ public class BuyService {
   }
 
   private byte[] getBuyData(TransactionBuilder transactionBuilder, TokenInfo tokenInfo,
-      String packageName, String countryCode, String storeAddress) {
-    return TokenRepository.buyData(transactionBuilder.toAddress(),
-        storeAddress, BuildConfig.DEFAULT_OEM_ADDRESS,
+      String packageName, String countryCode, String storeAddress, String oemAddress) {
+    return TokenRepository.buyData(transactionBuilder.toAddress(), storeAddress, oemAddress,
         transactionBuilder.getSkuId(), transactionBuilder.amount()
             .multiply(new BigDecimal("10").pow(transactionBuilder.decimals())), tokenInfo.address,
         packageName, dataMapper.convertCountryCode(countryCode));
@@ -139,8 +137,7 @@ public class BuyService {
   }
 
   public enum Status {
-    BUYING, BOUGHT, ERROR, WRONG_NETWORK, NONCE_ERROR, UNKNOWN_TOKEN, NO_TOKENS, NO_ETHER,
-    NO_FUNDS, NO_INTERNET, PENDING
+    BUYING, BOUGHT, ERROR, WRONG_NETWORK, NONCE_ERROR, UNKNOWN_TOKEN, NO_TOKENS, NO_ETHER, NO_FUNDS, NO_INTERNET, PENDING
 
   }
 

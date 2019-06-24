@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.ui.appcoins.applications;
 
+import java.util.Objects;
+
 public class AppcoinsApplication {
 
   private final String name;
@@ -7,14 +9,16 @@ public class AppcoinsApplication {
   private final String iconUrl;
   private final String featuredGraphic;
   private final String packageName;
+  private final String uniqueName;
 
   public AppcoinsApplication(String name, double rating, String iconUrl, String featuredGraphic,
-      String packageName) {
+      String packageName, String uniqueName) {
     this.name = name;
     this.rating = rating;
     this.iconUrl = iconUrl;
     this.featuredGraphic = featuredGraphic;
     this.packageName = packageName;
+    this.uniqueName = uniqueName;
   }
 
   @Override public int hashCode() {
@@ -35,10 +39,10 @@ public class AppcoinsApplication {
     AppcoinsApplication that = (AppcoinsApplication) o;
 
     if (Double.compare(that.rating, rating) != 0) return false;
-    if (!name.equals(that.name)) return false;
-    if (!iconUrl.equals(that.iconUrl)) return false;
-    if (!featuredGraphic.equals(that.featuredGraphic)) return false;
-    return packageName.equals(that.packageName);
+    if (!Objects.equals(name, that.name)) return false;
+    if (!Objects.equals(iconUrl, that.iconUrl)) return false;
+    if (!Objects.equals(featuredGraphic, that.featuredGraphic)) return false;
+    return Objects.equals(packageName, that.packageName);
   }
 
   @Override public String toString() {
@@ -68,6 +72,10 @@ public class AppcoinsApplication {
 
   public String getFeaturedGraphic() {
     return featuredGraphic;
+  }
+
+  public String getUniqueName() {
+    return uniqueName;
   }
 
   public String getPackageName() {

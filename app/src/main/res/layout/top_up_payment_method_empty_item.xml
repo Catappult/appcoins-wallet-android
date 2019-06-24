@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp"
+    >
+
+  <ImageView
+      android:layout_width="16dp"
+      android:layout_height="16dp"
+      android:id="@+id/radio_button"
+      android:src="@drawable/place_holder_circle"
+      android:layout_marginStart="8dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      />
+
+  <ImageView
+      android:id="@+id/payment_method_ic"
+      android:layout_width="24dp"
+      android:layout_height="24dp"
+      android:src="@drawable/place_holder_square_round_corners"
+      android:layout_marginStart="10dp"
+      app:layout_constraintStart_toEndOf="@id/radio_button"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      />
+
+  <ImageView
+      android:id="@+id/payment_method_description"
+      android:layout_width="93dp"
+      android:layout_height="15dp"
+      android:src="@drawable/place_holder_pill"
+      android:scaleType="fitXY"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toEndOf="@id/payment_method_ic"
+      android:layout_marginStart="17dp"
+      />
+</androidx.constraintlayout.widget.ConstraintLayout>

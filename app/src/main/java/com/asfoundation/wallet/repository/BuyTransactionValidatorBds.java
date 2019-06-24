@@ -2,7 +2,6 @@ package com.asfoundation.wallet.repository;
 
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
 import com.appcoins.wallet.bdsbilling.PaymentProof;
-import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
@@ -26,7 +25,6 @@ public class BuyTransactionValidatorBds implements TransactionValidator {
 
   @Override public Completable validate(PaymentTransaction paymentTransaction) {
     String packageName = paymentTransaction.getPackageName();
-    String oemAddress = BuildConfig.DEFAULT_OEM_ADDRESS;
     String productName = paymentTransaction.getTransactionBuilder()
         .getSkuId();
     Single<String> getTransactionHash = defaultTokenProvider.getDefaultToken()
@@ -34,10 +32,13 @@ public class BuyTransactionValidatorBds implements TransactionValidator {
             paymentTransaction.getTransactionBuilder()));
     Single<String> getStoreAddress =
         partnerAddressService.getStoreAddressForPackage(paymentTransaction.getPackageName());
+    Single<String> getOemAddress =
+        partnerAddressService.getOemAddressForPackage(paymentTransaction.getPackageName());
 
-    return Single.zip(getTransactionHash, getStoreAddress,
-        (hash, storeAddress) -> new PaymentProof("appcoins", paymentTransaction.getApproveHash(),
-            hash, productName, packageName, storeAddress, oemAddress))
+    return Single.zip(getTransactionHash, getStoreAddress, getOemAddress,
+        (hash, storeAddress, oemAddress) -> new PaymentProof("appcoins",
+            paymentTransaction.getApproveHash(), hash, productName, packageName, storeAddress,
+            oemAddress))
         .flatMapCompletable(billingPaymentProofSubmission::processPurchaseProof);
   }
 }

@@ -1,38 +1,67 @@
 package com.asfoundation.wallet.widget;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
 import android.view.LayoutInflater;
-import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.ViewPager;
 import com.asf.wallet.R;
+import com.asfoundation.wallet.ui.TransactionsActivity;
+import com.asfoundation.wallet.ui.widget.adapter.EmptyTransactionPagerAdapter;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.subjects.PublishSubject;
 
 public class EmptyTransactionsView extends FrameLayout {
 
-  private final Button airdropButton;
-  private final TextView noTransactionsTextView;
+  private static final int MAX_BONUS_STRING_RESOURCE = R.string.gamification_home_body;
+  private static final int NUMBER_PAGES = 2;
+  private CompositeDisposable disposables;
+  private final int body[] = { R.string.home_empty_discover_apps_body, MAX_BONUS_STRING_RESOURCE };
 
-  public EmptyTransactionsView(@NonNull Context context, OnClickListener onClickListener,
-      boolean isMainNetwork) {
+  public EmptyTransactionsView(@NonNull Context context, @NonNull String bonus,
+      PublishSubject<String> emptyTransactionsSubject, TransactionsActivity transactionsActivity,
+      CompositeDisposable disposables) {
     super(context);
+
+    this.disposables = disposables;
 
     LayoutInflater.from(getContext())
         .inflate(R.layout.layout_empty_transactions, this, true);
+    ViewPager viewPager = findViewById(R.id.empty_transactions_viewpager);
+    int[] action = { R.string.home_empty_discover_apps_button, R.string.gamification_home_button };
+    int[] animation =
+        { R.raw.carousel_empty_screen_animation, R.raw.transactions_empty_screen_animation };
+    EmptyTransactionPagerAdapter pageAdapter =
+        new EmptyTransactionPagerAdapter(animation, transformBodyResourceToString(body, bonus),
+            action, NUMBER_PAGES, viewPager, emptyTransactionsSubject);
+    pageAdapter.randomizeCarouselContent();
+    viewPager.setAdapter(pageAdapter);
 
-    noTransactionsTextView = findViewById(R.id.no_transactions_text);
-    airdropButton = findViewById(R.id.action_air_drop);
-    findViewById(R.id.action_learn_more).setOnClickListener(onClickListener);
-
-    if (isMainNetwork) {
-      airdropButton.setVisibility(GONE);
-      noTransactionsTextView.setText(R.string.no_transactions_yet_main);
-    } else {
-      airdropButton.setOnClickListener(onClickListener);
-    }
+    disposables.add(transactionsActivity.getEmptyTransactionsScreenClick()
+        .doOnNext(string -> {
+          if (string.equals(EmptyTransactionPagerAdapter.CAROUSEL_GAMIFICATION)) {
+            transactionsActivity.navigateToGamification();
+          }
+          if (string.equals(EmptyTransactionPagerAdapter.CAROUSEL_TOP_APPS)) {
+            transactionsActivity.navigateToTopApps();
+          }
+        })
+        .subscribe());
   }
 
-  public void setAirdropButtonEnable(boolean enabled) {
-    airdropButton.setEnabled(enabled);
+  private String setMaxBonusOnString(String bonus) {
+    return getResources().getString(MAX_BONUS_STRING_RESOURCE, bonus);
+  }
+
+  private String[] transformBodyResourceToString(int[] bodyArray, String maxBonus) {
+    String[] bodyContent = new String[NUMBER_PAGES];
+    for (int i = 0; i < bodyArray.length; i++) {
+      if (bodyArray[i] == MAX_BONUS_STRING_RESOURCE) {
+        bodyContent[i] = setMaxBonusOnString(maxBonus);
+      } else {
+        bodyContent[i] = getResources().getString(body[i]);
+      }
+    }
+    return bodyContent;
   }
 }

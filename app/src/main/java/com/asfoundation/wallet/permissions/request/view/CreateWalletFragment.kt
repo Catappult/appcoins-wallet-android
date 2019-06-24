@@ -37,7 +37,7 @@ class CreateWalletFragment : DaggerFragment(), CreateWalletView {
     finishAnimationFinishEvent = BehaviorRelay.create()
   }
 
-  override fun onAttach(context: Context?) {
+  override fun onAttach(context: Context) {
     super.onAttach(context)
     when (context) {
       is CreateWalletNavigator -> navigator = context

@@ -14,10 +14,14 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.ADS_OFFCHAIN;
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.BONUS;
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.IAP_OFFCHAIN;
+import static com.asfoundation.wallet.transactions.Transaction.TransactionType.STANDARD;
+import static com.asfoundation.wallet.transactions.Transaction.TransactionType.TOP_UP;
+import static com.asfoundation.wallet.transactions.Transaction.TransactionType.TRANSFER_OFF_CHAIN;
 
 public class TransactionsMapper {
   public static final String APPROVE_METHOD_ID = "0x095ea7b3";
@@ -71,9 +75,7 @@ public class TransactionsMapper {
     for (int i = transactions.size() - 1; i >= 0; i--) {
       WalletHistory.Transaction transaction = transactions.get(i);
 
-      Transaction.TransactionType txType =
-          "IAP OffChain".equals(transaction.getType()) ? IAP_OFFCHAIN
-              : "bonus".equals(transaction.getType()) ? BONUS : ADS_OFFCHAIN;
+      Transaction.TransactionType txType = mapTransactionType(transaction);
 
       Transaction.TransactionStatus status;
       switch (transaction.getStatus()) {
@@ -107,6 +109,24 @@ public class TransactionsMapper {
               transaction.getSku()), "APPC", null));
     }
     return transactionList;
+  }
+
+  @NotNull
+  private Transaction.TransactionType mapTransactionType(WalletHistory.Transaction transaction) {
+    switch (transaction.getType()) {
+      case "Transfer OffChain":
+        return TRANSFER_OFF_CHAIN;
+      case "Topup OffChain":
+        return TOP_UP;
+      case "IAP OffChain":
+        return IAP_OFFCHAIN;
+      case "bonus":
+        return BONUS;
+      case "PoA OffChain":
+        return ADS_OFFCHAIN;
+      default:
+        return STANDARD;
+    }
   }
 
   /**

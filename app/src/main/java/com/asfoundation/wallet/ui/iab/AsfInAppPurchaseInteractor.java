@@ -293,7 +293,8 @@ public class AsfInAppPurchaseInteractor {
   }
 
   private FiatValue calculateValue(FiatValue fiatValue, double appcValue) {
-    return new FiatValue(fiatValue.getAmount() * appcValue, fiatValue.getCurrency());
+    return new FiatValue(fiatValue.getAmount()
+        .multiply(BigDecimal.valueOf(appcValue)), fiatValue.getCurrency(), fiatValue.getSymbol());
   }
 
   public BillingMessagesMapper getBillingMessagesMapper() {

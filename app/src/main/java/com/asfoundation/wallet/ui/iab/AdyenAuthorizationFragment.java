@@ -5,10 +5,8 @@ import adyen.com.adyencse.encrypter.exception.EncrypterException;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.textfield.TextInputLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,12 +16,17 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.adyen.core.models.Amount;
 import com.adyen.core.models.PaymentMethod;
 import com.adyen.core.models.paymentdetails.CreditCardPaymentDetails;
 import com.adyen.core.models.paymentdetails.PaymentDetails;
 import com.adyen.core.utils.AmountUtil;
 import com.adyen.core.utils.StringUtils;
+import com.airbnb.lottie.FontAssetDelegate;
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.TextDelegate;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asf.wallet.R;
@@ -37,12 +40,14 @@ import com.asfoundation.wallet.navigator.UriNavigator;
 import com.asfoundation.wallet.util.KeyboardUtils;
 import com.asfoundation.wallet.view.rx.RxAlertDialog;
 import com.braintreepayments.cardform.view.CardForm;
+import com.google.android.material.textfield.TextInputLayout;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxrelay2.PublishRelay;
 import dagger.android.support.DaggerFragment;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.util.Formatter;
 import java.util.Locale;
@@ -69,6 +74,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   private static final String ORIGIN = "origin";
   private static final String PAYMENT_TYPE = "paymentType";
   private static final String DEVELOPER_PAYLOAD_KEY = "developer_payload";
+  public static final String BONUS_KEY = "bonus";
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject FindDefaultWalletInteract defaultWalletInteract;
   @Inject BillingFactory billingFactory;
@@ -101,10 +107,14 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   private PublishRelay<Boolean> backButton;
   private PublishRelay<Boolean> keyboardBuyRelay;
   private FragmentNavigator navigator;
+  private View transactionCompletedLayout;
+  private View creditCardInformationsLayout;
+  private View walletInformationsFooter;
+  private LottieAnimationView lottieTransactionComplete;
 
   public static AdyenAuthorizationFragment newInstance(String skuId, String type, String origin,
       PaymentType paymentType, String domain, String transactionData, BigDecimal amount,
-      String currency, String payload) {
+      String currency, String payload, String bonus) {
     Bundle bundle = new Bundle();
     bundle.putString(SKU_ID, skuId);
     bundle.putString(TYPE, type);
@@ -115,6 +125,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     bundle.putSerializable(TRANSACTION_AMOUNT, amount);
     bundle.putString(TRANSACTION_CURRENCY, currency);
     bundle.putString(DEVELOPER_PAYLOAD_KEY, payload);
+    bundle.putString(BONUS_KEY, bonus);
     AdyenAuthorizationFragment fragment = new AdyenAuthorizationFragment();
     fragment.setArguments(bundle);
     return fragment;
@@ -132,7 +143,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
         billingFactory.getBilling(getAppPackage()), navigator,
         inAppPurchaseInteractor.getBillingMessagesMapper(), inAppPurchaseInteractor,
         getTransactionData(), getDeveloperPayload(), billing, getSkuId(), getType(), getOrigin(),
-        getAmount().toString(), getCurrency(), getPaymentType(), analytics);
+        getAmount().toString(), getCurrency(), getPaymentType(), analytics, Schedulers.io());
   }
 
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -152,6 +163,23 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     buyButton = view.findViewById(R.id.buy_button);
     changeCardButton = view.findViewById(R.id.change_card_button);
     cardForm = view.findViewById(R.id.fragment_braintree_credit_card_form);
+    transactionCompletedLayout = view.findViewById(R.id.iab_activity_transaction_completed);
+    creditCardInformationsLayout = view.findViewById(R.id.credit_card_info);
+    walletInformationsFooter = view.findViewById(R.id.layout_wallet_footer);
+
+    lottieTransactionComplete =
+        transactionCompletedLayout.findViewById(R.id.lottie_transaction_success);
+
+    setupTransactionCompleteAnimation();
+
+    // removing additional margin top of the credit card form to help in the layout build
+    View cardNumberParent = (View) cardForm.findViewById(R.id.bt_card_form_card_number)
+        .getParent();
+    ViewGroup.MarginLayoutParams lp =
+        (ViewGroup.MarginLayoutParams) cardNumberParent.getLayoutParams();
+    lp.setMargins(0, 0, 0, 0);
+    cardNumberParent.setLayoutParams(lp);
+
     walletAddressFooter = view.findViewById(R.id.wallet_address_footer);
     rememberCardCheckBox =
         view.findViewById(R.id.fragment_credit_card_authorization_remember_card_check_box);
@@ -228,6 +256,9 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     cardForm.setOnCardFormValidListener(null);
     cardForm = null;
     changeCardButton = null;
+    creditCardInformationsLayout = null;
+    walletInformationsFooter = null;
+    transactionCompletedLayout = null;
     super.onDestroyView();
   }
 
@@ -358,7 +389,10 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   }
 
   @Override public void showSuccess() {
-
+    progressBar.setVisibility(View.GONE);
+    creditCardInformationsLayout.setVisibility(View.GONE);
+    walletInformationsFooter.setVisibility(View.GONE);
+    transactionCompletedLayout.setVisibility(View.VISIBLE);
   }
 
   @Override public void showPaymentRefusedError(AdyenAuthorization adyenAuthorization) {
@@ -371,6 +405,10 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     if (!genericErrorDialog.isShowing()) {
       genericErrorDialog.show();
     }
+  }
+
+  @Override public long getAnimationDuration() {
+    return lottieTransactionComplete.getDuration();
   }
 
   private void finishSetupView() {
@@ -484,5 +522,26 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
 
   public String getDeveloperPayload() {
     return getArguments().getString(DEVELOPER_PAYLOAD_KEY);
+  }
+
+  private String getBonus() {
+    if (getArguments().containsKey(BONUS_KEY)) {
+      return getArguments().getString(BONUS_KEY);
+    } else {
+      throw new IllegalArgumentException("bonus amount data not found");
+    }
+  }
+
+  private void setupTransactionCompleteAnimation() {
+    TextDelegate textDelegate = new TextDelegate(lottieTransactionComplete);
+    textDelegate.setText("bonus_value", getBonus());
+    textDelegate.setText("bonus_received",
+        getResources().getString(R.string.gamification_purchase_completed_bonus_received));
+    lottieTransactionComplete.setTextDelegate(textDelegate);
+    lottieTransactionComplete.setFontAssetDelegate(new FontAssetDelegate() {
+      @Override public Typeface fetchFont(String fontFamily) {
+        return Typeface.create("sans-serif-medium", Typeface.BOLD);
+      }
+    });
   }
 }

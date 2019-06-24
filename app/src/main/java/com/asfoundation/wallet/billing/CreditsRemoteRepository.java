@@ -3,6 +3,7 @@ package com.asfoundation.wallet.billing;
 import com.appcoins.wallet.appcoins.rewards.repository.backend.BackendApi;
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
+import io.reactivex.Completable;
 import io.reactivex.Single;
 import java.math.BigDecimal;
 import org.jetbrains.annotations.NotNull;
@@ -32,5 +33,13 @@ public class CreditsRemoteRepository
     return remoteRepository.registerAuthorizationProof(origin, type, oemAddress, null,
         "appcoins_credits", walletAddress, signature, sku, packageName, amount, developerAddress,
         storeAddress, payload, callback, orderReference);
+  }
+
+  @NotNull @Override
+  public Completable sendCredits(@NotNull String toWallet, @NotNull String walletAddress,
+      @NotNull String signature, @NotNull BigDecimal amount, @NotNull String origin,
+      @NotNull String type, @NotNull String packageName) {
+    return remoteRepository.transferCredits(toWallet, origin, type, "appcoins_credits",
+        walletAddress, signature, packageName, amount);
   }
 }

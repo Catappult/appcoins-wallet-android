@@ -2,8 +2,10 @@ package com.asfoundation.wallet.util;
 
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
+import androidx.core.text.TextUtilsCompat;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
@@ -71,12 +73,14 @@ public class BalanceUtils {
       int currencyColor) {
     String balance = value + " " + currency.toUpperCase();
     SpannableString styledTitle = new SpannableString(balance);
-    int currencyIndex = balance.indexOf(currency.toUpperCase());
+    if (!TextUtils.isEmpty(currency)) {
+      int currencyIndex = balance.indexOf(currency.toUpperCase());
 
-    styledTitle.setSpan(new AbsoluteSizeSpan(currencySize), currencyIndex, balance.length(),
-        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-    styledTitle.setSpan(new ForegroundColorSpan(currencyColor), currencyIndex, balance.length(),
-        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      styledTitle.setSpan(new AbsoluteSizeSpan(currencySize), currencyIndex, balance.length(),
+          Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+      styledTitle.setSpan(new ForegroundColorSpan(currencyColor), currencyIndex, balance.length(),
+          Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    }
     return styledTitle;
   }
 }

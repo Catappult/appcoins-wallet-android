@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.SpannableString;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
@@ -10,11 +10,18 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import com.asf.wallet.R;
-import com.google.android.material.appbar.SubtitleCollapsingToolbarLayout;
+import com.asfoundation.wallet.ui.ActivityResultSharer;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import java.util.ArrayList;
+import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements ActivityResultSharer {
+
+  private List<ActivityResultListener> activityResultListeners;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
+    activityResultListeners = new ArrayList<>();
     super.onCreate(savedInstanceState);
     Window window = getWindow();
 
@@ -42,15 +49,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
   }
 
-  protected void setSubtitle(String subtitle) {
-    SubtitleCollapsingToolbarLayout collapsing = findViewById(R.id.toolbar_layout);
-    if (collapsing != null) {
-      collapsing.setSubtitle(subtitle);
-    }
-  }
-
-  protected void setCollapsingTitle(SpannableString title) {
-    SubtitleCollapsingToolbarLayout collapsing = findViewById(R.id.toolbar_layout);
+  protected void setCollapsingTitle(String title) {
+    CollapsingToolbarLayout collapsing = findViewById(R.id.toolbar_layout);
     if (collapsing != null) {
       collapsing.setTitle(title);
     }
@@ -91,5 +91,21 @@ public abstract class BaseActivity extends AppCompatActivity {
         break;
     }
     return true;
+  }
+
+  @Override public void addOnActivityListener(@NotNull ActivityResultListener listener) {
+    activityResultListeners.add(listener);
+  }
+
+  @Override public void remove(@NotNull ActivityResultListener listener) {
+    activityResultListeners.remove(listener);
+  }
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    for (ActivityResultListener listener : activityResultListeners) {
+      listener.onActivityResult(requestCode, resultCode, data);
+    }
   }
 }

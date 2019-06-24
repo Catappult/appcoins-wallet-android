@@ -26,9 +26,12 @@ import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Numeric;
 
+import static com.asfoundation.wallet.C.ETHEREUM_NETWORK_NAME;
+import static com.asfoundation.wallet.C.ROPSTEN_NETWORK_NAME;
+
 public class TransactionRepository implements TransactionRepositoryType {
 
-  private final EthereumNetworkRepositoryType networkRepository;
+  private final NetworkInfo defaultNetwork;
   private final AccountKeystoreService accountKeystoreService;
   private final TransactionLocalSource inDiskCache;
   private final TransactionsNetworkClientType blockExplorerClient;
@@ -37,12 +40,12 @@ public class TransactionRepository implements TransactionRepositoryType {
   private final MultiWalletNonceObtainer nonceObtainer;
   private final Scheduler scheduler;
 
-  public TransactionRepository(EthereumNetworkRepositoryType networkRepository,
+  public TransactionRepository(NetworkInfo defaultNetwork,
       AccountKeystoreService accountKeystoreService, TransactionLocalSource inDiskCache,
       TransactionsNetworkClientType blockExplorerClient, DefaultTokenProvider defaultTokenProvider,
       BlockchainErrorMapper errorMapper, MultiWalletNonceObtainer nonceObtainer,
       Scheduler scheduler) {
-    this.networkRepository = networkRepository;
+    this.defaultNetwork = defaultNetwork;
     this.accountKeystoreService = accountKeystoreService;
     this.blockExplorerClient = blockExplorerClient;
     this.inDiskCache = inDiskCache;
@@ -53,9 +56,8 @@ public class TransactionRepository implements TransactionRepositoryType {
   }
 
   @Override public Observable<RawTransaction[]> fetchTransaction(Wallet wallet) {
-    NetworkInfo networkInfo = networkRepository.getDefaultNetwork();
-    return Single.merge(fetchFromCache(networkInfo, wallet),
-        fetchAndCacheFromNetwork(networkInfo, wallet))
+    return Single.merge(fetchFromCache(defaultNetwork, wallet),
+        fetchAndCacheFromNetwork(defaultNetwork, wallet))
         .toObservable();
   }
 
@@ -115,8 +117,7 @@ public class TransactionRepository implements TransactionRepositoryType {
 
   private Single<String> createTransactionAndSend(TransactionBuilder transactionBuilder,
       String password, byte[] data, String toAddress, BigDecimal amount) {
-    final Web3j web3j =
-        Web3jFactory.build(new HttpService(networkRepository.getDefaultNetwork().rpcServerUrl));
+    final Web3j web3j = Web3jFactory.build(new HttpService(defaultNetwork.rpcServerUrl));
     return Single.fromCallable(
         () -> nonceObtainer.getNonce(new Address(transactionBuilder.fromAddress()),
             getChainId(transactionBuilder)))
@@ -142,7 +143,7 @@ public class TransactionRepository implements TransactionRepositoryType {
 
   private long getChainId(TransactionBuilder transactionBuilder) {
     return transactionBuilder.getChainId() == TransactionBuilder.NO_CHAIN_ID
-        ? networkRepository.getDefaultNetwork().chainId : transactionBuilder.getChainId();
+        ? defaultNetwork.chainId : transactionBuilder.getChainId();
   }
 
   private Single<byte[]> createRawTransaction(TransactionBuilder transactionBuilder,
@@ -150,24 +151,23 @@ public class TransactionRepository implements TransactionRepositoryType {
     return Single.just(nonce)
         .flatMap(__ -> {
           if (transactionBuilder.getChainId() != TransactionBuilder.NO_CHAIN_ID
-              && transactionBuilder.getChainId() != networkRepository.getDefaultNetwork().chainId) {
+              && transactionBuilder.getChainId() != defaultNetwork.chainId) {
             String requestedNetwork = "unknown";
-            for (NetworkInfo networkInfo : networkRepository.getAvailableNetworkList()) {
-              if (networkInfo.chainId == transactionBuilder.getChainId()) {
-                requestedNetwork = networkInfo.name;
-                break;
-              }
+            if (transactionBuilder.getChainId() == 1) {
+              requestedNetwork = ETHEREUM_NETWORK_NAME;
+            } else if (transactionBuilder.getChainId() == 3) {
+              requestedNetwork = ROPSTEN_NETWORK_NAME;
             }
             return Single.error(new WrongNetworkException(
                 "Default network is different from the intended on transaction\nCurrent network: "
-                    + networkRepository.getDefaultNetwork().name
+                    + defaultNetwork.name
                     + "\nRequested: "
                     + requestedNetwork));
           }
           return accountKeystoreService.signTransaction(transactionBuilder.fromAddress(), password,
               toAddress, amount, transactionBuilder.gasSettings().gasPrice,
               transactionBuilder.gasSettings().gasLimit, nonce.longValue(), data,
-              networkRepository.getDefaultNetwork().chainId);
+              defaultNetwork.chainId);
         });
   }
 
@@ -200,9 +200,9 @@ public class TransactionRepository implements TransactionRepositoryType {
       Wallet wallet) {
     return inDiskCache.findLast(networkInfo, wallet)
         .flatMap(lastTransaction -> Single.fromObservable(
-            blockExplorerClient.fetchLastTransactions(wallet, lastTransaction)))
+            blockExplorerClient.fetchLastTransactions(wallet, lastTransaction, networkInfo)))
         .onErrorResumeNext(throwable -> Single.fromObservable(
-            blockExplorerClient.fetchLastTransactions(wallet, null)))
+            blockExplorerClient.fetchLastTransactions(wallet, null, networkInfo)))
         .flatMapCompletable(
             transactions -> inDiskCache.putTransactions(networkInfo, wallet, transactions))
         .andThen(inDiskCache.fetchTransaction(networkInfo, wallet));

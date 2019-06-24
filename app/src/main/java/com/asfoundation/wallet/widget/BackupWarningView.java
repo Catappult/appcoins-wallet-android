@@ -39,7 +39,7 @@ public class BackupWarningView extends FrameLayout implements View.OnClickListen
     LayoutInflater.from(getContext())
         .inflate(layoutId, this, true);
     findViewById(R.id.backup_action).setOnClickListener(this);
-    findViewById(R.id.skip_action).setOnClickListener(v -> onSkipClickListener.onClick(v));
+    findViewById(R.id.skip_button).setOnClickListener(v -> onSkipClickListener.onClick(v));
     /* Disabled due to https://github.com/TrustWallet/trust-wallet-android/issues/107
      * findViewById(R.id.later_action).setOnClickListener(this);
      */

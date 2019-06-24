@@ -1,14 +1,14 @@
 package com.asfoundation.wallet.ui.widget.holder;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionDetails;
@@ -134,11 +134,22 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
       case ADS_OFFCHAIN:
         transactionTypeIcon = R.drawable.ic_transaction_poa;
         setTypeIconVisibilityBasedOnDescription(details, uri);
+        currencySymbol = getString(R.string.p2p_send_currency_appc_c);
         break;
       case BONUS:
         typeIcon.setVisibility(View.GONE);
         transactionTypeIcon = R.drawable.ic_transaction_peer;
-
+        currencySymbol = getString(R.string.p2p_send_currency_appc_c);
+        break;
+      case TOP_UP:
+        typeIcon.setVisibility(View.GONE);
+        transactionTypeIcon = R.drawable.transaction_type_top_up;
+        currencySymbol = getString(R.string.p2p_send_currency_appc_c);
+        break;
+      case TRANSFER_OFF_CHAIN:
+        typeIcon.setVisibility(View.GONE);
+        transactionTypeIcon = R.drawable.transaction_type_transfer_off_chain;
+        currencySymbol = getString(R.string.p2p_send_currency_appc_c);
         break;
       default:
         transactionTypeIcon = R.drawable.ic_transaction_peer;
@@ -149,9 +160,14 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
       if (transaction.getType()
           .equals(Transaction.TransactionType.BONUS)) {
         address.setText(R.string.transaction_type_bonus);
+      } else if (transaction.getType()
+          .equals(Transaction.TransactionType.TOP_UP)) {
+        address.setText(R.string.topup_home_button);
+      } else if (transaction.getType()
+          .equals(Transaction.TransactionType.TRANSFER_OFF_CHAIN)) {
+        address.setText(R.string.transaction_type_p2p);
       } else {
-        address.setText(
-            details.getSourceName() == null ? isSent ? to : from : getSourceText(transaction));
+        address.setText(details.getSourceName() == null ? isSent ? to : from : getSourceText(transaction));
       }
       description.setText(details.getDescription() == null ? "" : details.getDescription());
     } else {

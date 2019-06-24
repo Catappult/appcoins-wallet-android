@@ -5,8 +5,8 @@ import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import io.reactivex.Completable;
@@ -34,12 +34,13 @@ public class ExpressCheckoutBuyPresenter {
   private final boolean isBds;
   private final String uri;
   private final Single<TransactionBuilder> transactionBuilder;
+  private Scheduler ioScheduler;
 
   public ExpressCheckoutBuyPresenter(ExpressCheckoutBuyView view, String appPackage,
       InAppPurchaseInteractor inAppPurchaseInteractor, Scheduler viewScheduler,
       CompositeDisposable disposables, BillingMessagesMapper billingMessagesMapper,
       BdsPendingTransactionService bdsPendingTransactionService, Billing billing,
-      BillingAnalytics analytics, boolean isBds, String uri) {
+      BillingAnalytics analytics, boolean isBds, String uri, Scheduler ioScheduler) {
     this.view = view;
     this.appPackage = appPackage;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
@@ -51,6 +52,7 @@ public class ExpressCheckoutBuyPresenter {
     this.analytics = analytics;
     this.isBds = isBds;
     this.uri = uri;
+    this.ioScheduler = ioScheduler;
     this.transactionBuilder = inAppPurchaseInteractor.parseTransaction(uri, true);
   }
 
@@ -89,7 +91,7 @@ public class ExpressCheckoutBuyPresenter {
   }
 
   private Completable checkProcessing(String skuId) {
-    return billing.getSkuTransaction(appPackage, skuId, Schedulers.io())
+    return billing.getSkuTransaction(appPackage, skuId, ioScheduler)
         .filter(transaction -> transaction.getStatus() == Transaction.Status.PROCESSING)
         .observeOn(AndroidSchedulers.mainThread())
         .doOnSuccess(__ -> view.showProcessingLoadingDialog())
@@ -125,11 +127,12 @@ public class ExpressCheckoutBuyPresenter {
 
   private void setupUi(double transactionValue, String uri) {
     disposables.add(Single.zip(transactionBuilder,
-        inAppPurchaseInteractor.convertToLocalFiat(transactionValue),
+        inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
+            .subscribeOn(ioScheduler),
         (transactionBuilder, fiatValue) -> Completable.fromAction(() -> view.setup(fiatValue,
             TransactionData.TransactionType.DONATION.name()
                 .equalsIgnoreCase(transactionBuilder.getType())))
-            .subscribeOn(AndroidSchedulers.mainThread()))
+            .subscribeOn(viewScheduler))
         .flatMapCompletable(completable -> completable)
         .subscribe(() -> {
         }, this::showError));
@@ -141,6 +144,7 @@ public class ExpressCheckoutBuyPresenter {
   }
 
   private void showError(Throwable t) {
+    t.printStackTrace();
     view.showError();
   }
 

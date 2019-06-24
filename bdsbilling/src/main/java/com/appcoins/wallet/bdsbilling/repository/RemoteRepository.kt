@@ -17,7 +17,8 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
 
   internal fun isBillingSupported(packageName: String,
                                   type: BillingSupportedType): Single<Boolean> {
-    return api.getPackage(packageName, type.name.toLowerCase()).map { responseMapper.map(it) }
+    return api.getPackage(packageName, type.name.toLowerCase())
+        .map { responseMapper.map(it) }
   }
 
   internal fun getSkuDetails(packageName: String, skus: List<String>): Single<List<Product>> {
@@ -46,7 +47,8 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                             walletSignature: String,
                             type: BillingSupportedType): Single<List<Purchase>> {
     return api.getPurchases(packageName, walletAddress, walletSignature,
-        type.name.toLowerCase()).map { responseMapper.map(it) }
+        type.name.toLowerCase())
+        .map { responseMapper.map(it) }
   }
 
   internal fun consumePurchase(packageName: String,
@@ -69,8 +71,8 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                                  callback: String?,
                                  orderReference: String?): Single<Transaction> {
     return api.createTransaction(gateway, origin, packageName, priceValue.toPlainString(),
-        "APPC", productName, type, developerWallet, storeWallet, oemWallet, id, developerPayload,
-        callback, orderReference, walletAddress, walletSignature)
+        "APPC", productName, type, null, developerWallet, storeWallet, oemWallet, id,
+        developerPayload, callback, orderReference, walletAddress, walletSignature)
   }
 
   fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
@@ -80,8 +82,15 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
         paymentProof)
   }
 
-  internal fun getPaymentMethods(): Single<List<PaymentMethod>> {
-    return api.getPaymentMethods().map { responseMapper.map(it) }
+  internal fun getPaymentMethods(value: String?,
+                                 currency: String?): Single<List<PaymentMethodEntity>> {
+    return api.getPaymentMethods(value, currency)
+        .map { responseMapper.map(it) }
+  }
+
+  internal fun getPaymentMethodsForType(type: String): Single<List<PaymentMethodEntity>> {
+    return api.getPaymentMethods(type = type)
+        .map { responseMapper.map(it) }
   }
 
   fun patchTransaction(uid: String, walletAddress: String, walletSignature: String,
@@ -100,14 +109,14 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                              packageName: String, priceValue: BigDecimal,
                              priceCurrency: String,
                              productName: String?, type: String,
-                             walletDeveloper: String,
+                             walletDeveloper: String?,
                              walletStore: String, walletOem: String,
                              developerPayload: String?,
                              callback: String?,
                              orderReference: String?): Single<Transaction> {
     return api.createTransaction(ADYEN_GATEWAY, origin, packageName, priceValue.toPlainString(),
-        priceCurrency, productName, type, walletDeveloper, walletStore, walletOem, token,
-        developerPayload, callback, orderReference, walletAddress, walletSignature)
+        priceCurrency, productName, type, null, walletDeveloper, walletStore, walletOem,
+        token, developerPayload, callback, orderReference, walletAddress, walletSignature)
   }
 
   fun getAppcoinsTransaction(uid: String, address: String,
@@ -117,6 +126,16 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
 
   fun getWallet(packageName: String): Single<GetWalletResponse> {
     return bdsApiSecondary.getWallet(packageName)
+  }
+
+  fun transferCredits(toWallet: String, origin: String, type: String, gateway: String,
+                      walletAddress: String, signature: String, packageName: String,
+                      amount: BigDecimal): Completable {
+    return api.createTransaction(gateway, origin, packageName, amount.toPlainString(),
+        "APPC", null, type, toWallet, null, null, null,
+        null, null, null, null, walletAddress, signature)
+        .toCompletable()
+
   }
 
   interface BdsApi {
@@ -170,7 +189,9 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                         @Body data: Consumed): Single<Void>
 
     @GET("broker/8.20180518/methods")
-    fun getPaymentMethods(): Single<GetMethodsResponse>
+    fun getPaymentMethods(@Query("price.value") value: String? = null, @Query("price.currency")
+    currency: String? = null, @Query("currency.type")
+                          type: String? = null): Single<GetMethodsResponse>
 
     @FormUrlEncoded
     @PATCH("broker/8.20180518/gateways/{gateway}/transactions/{uid}")
@@ -194,9 +215,10 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
                           @Field("price.currency") priceCurrency: String,
                           @Field("product") product: String?,
                           @Field("type") type: String,
-                          @Field("wallets.developer") walletsDeveloper: String,
-                          @Field("wallets.store") walletsStore: String,
-                          @Field("wallets.oem") walletsOem: String,
+                          @Field("wallets.user") userWallet: String?,
+                          @Field("wallets.developer") walletsDeveloper: String?,
+                          @Field("wallets.store") walletsStore: String?,
+                          @Field("wallets.oem") walletsOem: String?,
                           @Field("token") token: String?,
                           @Field("metadata") developerPayload: String?,
                           @Field("callback_url") callback: String?,

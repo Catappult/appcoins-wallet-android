@@ -7,11 +7,7 @@ public abstract class C {
   public static final int SHARE_REQUEST_CODE = 1003;
 
   public static final String ETHEREUM_NETWORK_NAME = "Ethereum";
-  public static final String CLASSIC_NETWORK_NAME = "Ethereum Classic";
-  public static final String POA_NETWORK_NAME = "POA Network";
-  public static final String KOVAN_NETWORK_NAME = "Kovan (Test)";
   public static final String ROPSTEN_NETWORK_NAME = "Ropsten (Test)";
-  public static final String SOKOL_NETWORK_NAME = "Sokol (Test)";
 
   public static final String ETHEREUM_TIKER = "ethereum";
   public static final String POA_TIKER = "poa";

@@ -7,7 +7,7 @@ public class ProofSubmissionFeeData {
   private final BigDecimal gasPrice;
   private final RequirementsStatus status;
 
-  public  ProofSubmissionFeeData(RequirementsStatus status, BigDecimal gasLimit,
+  public ProofSubmissionFeeData(RequirementsStatus status, BigDecimal gasLimit,
       BigDecimal gasPrice) {
     this.gasLimit = gasLimit;
     this.gasPrice = gasPrice;
@@ -26,8 +26,11 @@ public class ProofSubmissionFeeData {
     return status;
   }
 
-  public enum RequirementsStatus {
-    READY, NO_FUNDS, NO_NETWORK, NO_WALLET
+  @Override public int hashCode() {
+    int result = getGasLimit().hashCode();
+    result = 31 * result + getGasPrice().hashCode();
+    result = 31 * result + getStatus().hashCode();
+    return result;
   }
 
   @Override public boolean equals(Object o) {
@@ -41,10 +44,7 @@ public class ProofSubmissionFeeData {
     return getStatus() == that.getStatus();
   }
 
-  @Override public int hashCode() {
-    int result = getGasLimit().hashCode();
-    result = 31 * result + getGasPrice().hashCode();
-    result = 31 * result + getStatus().hashCode();
-    return result;
+  public enum RequirementsStatus {
+    READY, NO_FUNDS, NO_NETWORK, NO_WALLET, WRONG_NETWORK, UNKNOWN_NETWORK
   }
 }

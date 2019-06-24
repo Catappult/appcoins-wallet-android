@@ -249,18 +249,9 @@ public class WalletsActivity extends BaseActivity
   }
 
   private void onFetchWallet(Wallet[] wallets) {
-    if (wallets == null || wallets.length == 0) {
-      disableDisplayHomeAsUp();
-      AddWalletView addWalletView = new AddWalletView(this, R.layout.layout_empty_add_account);
-      addWalletView.setOnNewWalletClickListener(this);
-      addWalletView.setOnImportWalletClickListener(this);
-      systemView.showEmpty(addWalletView);
-      adapter.setWallets(new Wallet[0]);
-      hideToolbar();
-    } else {
-      enableDisplayHomeAsUp();
-      adapter.setWallets(wallets);
-    }
+    enableDisplayHomeAsUp();
+    adapter.setWallets(wallets);
+    systemView.setVisibility(View.GONE);
     invalidateOptionsMenu();
   }
 

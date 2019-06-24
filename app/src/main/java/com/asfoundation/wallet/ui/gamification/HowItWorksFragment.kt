@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.asf.wallet.R
+import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -22,13 +23,15 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   lateinit var gamificationInteractor: GamificationInteractor
   @Inject
   lateinit var levelResourcesMapper: LevelResourcesMapper
+  @Inject
+  lateinit var analytics: GamificationAnalytics
 
   private lateinit var presenter: HowItWorksPresenter
   private lateinit var gamificationView: GamificationView
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = HowItWorksPresenter(this, gamificationInteractor, Schedulers.io(),
+    presenter = HowItWorksPresenter(this, gamificationInteractor, analytics, Schedulers.io(),
         AndroidSchedulers.mainThread())
   }
 
@@ -36,7 +39,7 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
     return RxView.clicks(fragment_gamification_how_it_works_ok_button)
   }
 
-  override fun onAttach(context: Context?) {
+  override fun onAttach(context: Context) {
     super.onAttach(context)
     if (context !is GamificationView) {
       throw IllegalArgumentException(
@@ -48,7 +51,7 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   override fun showLevels(levels: List<ViewLevel>) {
     fragment_gamification_how_it_works_loading.visibility = View.GONE
     fragment_gamification_how_it_works_ok_button.visibility = View.VISIBLE
-    var view: View? = null
+    var view: View?
 
     for (level in levels) {
       view = layoutInflater.inflate(R.layout.fragment_gamification_how_it_works_level,
@@ -58,7 +61,8 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
               , level.amount)
       view.findViewById<TextView>(R.id.bonus).text =
           getString(R.string.gamification_how_table_b2, level.bonus.toString())
-      view.findViewById<ImageView>(R.id.ic_level).setImageResource(levelResourcesMapper.mapDarkIcons(level))
+      view.findViewById<ImageView>(R.id.ic_level)
+          .setImageResource(levelResourcesMapper.mapDarkIcons(level))
       (fragment_gamification_how_it_works_levels_layout as LinearLayout).addView(view)
     }
   }
@@ -78,6 +82,7 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   }
 
   override fun onDestroyView() {
+    gamificationView.onHowItWorksClosed()
     presenter.stop()
     super.onDestroyView()
   }

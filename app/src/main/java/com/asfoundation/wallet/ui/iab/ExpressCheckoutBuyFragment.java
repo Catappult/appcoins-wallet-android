@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import com.google.android.material.snackbar.Snackbar;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -19,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import androidx.annotation.Nullable;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.WalletService;
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary;
@@ -31,6 +30,7 @@ import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxrelay2.PublishRelay;
@@ -49,7 +49,6 @@ import java.util.Formatter;
 import java.util.Locale;
 import javax.inject.Inject;
 
-import static com.asfoundation.wallet.billing.analytics.BillingAnalytics.PAYMENT_METHOD_CC;
 import static com.asfoundation.wallet.ui.iab.IabActivity.PRODUCT_NAME;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_CURRENCY;
@@ -66,6 +65,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   private static final String INAPP_PURCHASE_DATA = "INAPP_PURCHASE_DATA";
   private static final String INAPP_DATA_SIGNATURE = "INAPP_DATA_SIGNATURE";
   private static final String INAPP_PURCHASE_ID = "INAPP_PURCHASE_ID";
+  public static final String BONUS_KEY = "bonus";
   private final CompositeDisposable compositeDisposable = new CompositeDisposable();
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject RemoteRepository.BdsApi bdsApi;
@@ -99,12 +99,13 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   private PaymentType paymentType;
 
   public static ExpressCheckoutBuyFragment newInstance(Bundle extras, boolean isBds,
-      PaymentType paymentType) {
+      PaymentType paymentType, String bonus) {
     ExpressCheckoutBuyFragment fragment = new ExpressCheckoutBuyFragment();
     Bundle bundle = new Bundle();
     bundle.putBundle("extras", extras);
     bundle.putBoolean("isBds", isBds);
     bundle.putString("paymentType", paymentType.name());
+    bundle.putString(BONUS_KEY, bonus);
     fragment.setArguments(bundle);
     return fragment;
   }
@@ -131,7 +132,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     presenter = new ExpressCheckoutBuyPresenter(this, getAppPackage(), inAppPurchaseInteractor,
         AndroidSchedulers.mainThread(), new CompositeDisposable(),
         inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing,
-        analytics, isBds, extras.getString(TRANSACTION_DATA));
+        analytics, isBds, extras.getString(TRANSACTION_DATA), Schedulers.io());
   }
 
   @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -174,7 +175,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
 
     buyButton.setOnClickListener(
         v -> iabView.navigateToAdyenAuthorization(presenter.isBds(), fiatValue.getCurrency(),
-            paymentType));
+            paymentType, getBonus()));
     presenter.present(extras.getString(TRANSACTION_DATA),
         ((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue(),
         extras.getString(TRANSACTION_CURRENCY));
@@ -235,7 +236,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     itemFinalPrice.setText(spannable, TextView.BufferType.SPANNABLE);
     fiatValue = response;
     buyButton.performClick();
-    int buyButtonText = isDonation? R.string.action_donate : R.string.action_buy;
+    int buyButtonText = isDonation ? R.string.action_donate : R.string.action_buy;
     buyButton.setText(getResources().getString(buyButtonText));
 
     if (isDonation) {
@@ -246,7 +247,6 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
           String.format(getString(R.string.buying), extras.getString(PRODUCT_NAME)));
       itemListDescription.setText(extras.getString(PRODUCT_NAME));
     }
-
 
     compositeDisposable.add(walletService.getWalletAddress()
         .observeOn(AndroidSchedulers.mainThread())
@@ -335,5 +335,13 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
 
   public void setAnalytics(BillingAnalytics analytics) {
     this.analytics = analytics;
+  }
+
+  private String getBonus() {
+    if (getArguments().containsKey(BONUS_KEY)) {
+      return getArguments().getString(BONUS_KEY);
+    } else {
+      throw new IllegalArgumentException("bonus amount data not found");
+    }
   }
 }

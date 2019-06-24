@@ -8,10 +8,11 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.text.SpannableString;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,15 +24,13 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.Balance;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
+import com.asfoundation.wallet.entity.GlobalBalance;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
-import com.asfoundation.wallet.interact.AddTokenInteract;
-import com.asfoundation.wallet.poa.TransactionFactory;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsAdapter;
-import com.asfoundation.wallet.util.BalanceUtils;
 import com.asfoundation.wallet.util.RootUtil;
 import com.asfoundation.wallet.viewmodel.BaseNavigationActivity;
 import com.asfoundation.wallet.viewmodel.TransactionsViewModel;
@@ -42,7 +41,12 @@ import com.asfoundation.wallet.widget.SystemView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import dagger.android.AndroidInjection;
+import io.reactivex.Observable;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.subjects.PublishSubject;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -51,21 +55,21 @@ import static com.asfoundation.wallet.C.ErrorCode.EMPTY_COLLECTION;
 
 public class TransactionsActivity extends BaseNavigationActivity implements View.OnClickListener {
 
-  public static final String LEARN_MORE_INFO_URL = "https://appcoins.io/";
-  private static final String TAG = TransactionsActivity.class.getSimpleName();
+  private static String maxBonusEmptyScreen;
   @Inject TransactionsViewModelFactory transactionsViewModelFactory;
-  @Inject AddTokenInteract addTokenInteract;
-  @Inject TransactionFactory transactionFactory;
   private TransactionsViewModel viewModel;
   private SystemView systemView;
   private TransactionsAdapter adapter;
   private Dialog dialog;
   private EmptyTransactionsView emptyView;
   private RecyclerView list;
+  private TextView subtitleView;
+  private LottieAnimationView balanceSkeloton;
+  private PublishSubject<String> emptyTransactionsSubject;
+  private CompositeDisposable disposables;
 
   public static Intent newIntent(Context context) {
-    Intent intent = new Intent(context, TransactionsActivity.class);
-    return intent;
+    return new Intent(context, TransactionsActivity.class);
   }
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,17 +81,34 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     toolbar();
     enableDisplayHomeAsUp();
 
+    disposables = new CompositeDisposable();
+
+    balanceSkeloton = findViewById(R.id.balance_skeloton);
+    balanceSkeloton.setVisibility(View.VISIBLE);
+    balanceSkeloton.playAnimation();
+    subtitleView = findViewById(R.id.toolbar_subtitle);
     ((AppBarLayout) findViewById(R.id.app_bar)).addOnOffsetChangedListener(
         (appBarLayout, verticalOffset) -> {
           float percentage =
               ((float) Math.abs(verticalOffset) / appBarLayout.getTotalScrollRange());
-          findViewById(R.id.toolbar_layout_logo).setAlpha(1 - (percentage * 1.20f));
+          float alpha = 1 - (percentage * 1.20f);
+          findViewById(R.id.toolbar_layout_logo).setAlpha(alpha);
+          subtitleView.setAlpha(alpha);
+          balanceSkeloton.setAlpha(alpha);
           ((ToolbarArcBackground) findViewById(R.id.toolbar_background_arc)).setScale(percentage);
+
+          if (percentage == 0) {
+            ((ExtendedFloatingActionButton) findViewById(R.id.top_up_btn)).extend();
+          } else {
+            ((ExtendedFloatingActionButton) findViewById(R.id.top_up_btn)).shrink();
+          }
         });
 
-    setCollapsingTitle(new SpannableString(getString(R.string.unknown_balance_with_symbol)));
+    setCollapsingTitle(" ");
     initBottomNavigation();
     disableDisplayHomeAsUp();
+
+    emptyTransactionsSubject = PublishSubject.create();
 
     adapter = new TransactionsAdapter(this::onTransactionClick, this::onApplicationClick);
     SwipeRefreshLayout refreshLayout = findViewById(R.id.refresh_layout);
@@ -103,18 +124,20 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .get(TransactionsViewModel.class);
     viewModel.progress()
         .observe(this, systemView::showProgress);
+    viewModel.onFetchTransactionsError()
+        .observe(this, this::onFetchTransactionsError);
     viewModel.error()
         .observe(this, this::onError);
     viewModel.defaultNetwork()
         .observe(this, this::onDefaultNetwork);
-    viewModel.defaultWalletTokenBalance()
-        .observe(this, this::onTokenBalanceChanged);
-    viewModel.defaultWalletCreditsBalance()
-        .observe(this, this::onCreditsBalanceChanged);
+    viewModel.getDefaultWalletBalance()
+        .observe(this, this::onBalanceChanged);
     viewModel.defaultWallet()
         .observe(this, this::onDefaultWallet);
     viewModel.transactions()
         .observe(this, this::onTransactions);
+    viewModel.gamificationMaxBonus()
+        .observe(this, this::onGamificationMaxBonus);
     viewModel.applications()
         .observe(this, this::onApplications);
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
@@ -138,6 +161,15 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     return super.onOptionsItemSelected(item);
   }
 
+  private void onFetchTransactionsError(Double maxBonus) {
+    if (emptyView == null) {
+      emptyView =
+          new EmptyTransactionsView(this, String.valueOf(maxBonus), emptyTransactionsSubject, this,
+              disposables);
+      systemView.showEmpty(emptyView);
+    }
+  }
+
   private void onApplicationClick(AppcoinsApplication appcoinsApplication) {
     viewModel.onAppClick(appcoinsApplication, this);
   }
@@ -145,20 +177,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private void onApplications(List<AppcoinsApplication> appcoinsApplications) {
     adapter.setApps(appcoinsApplications);
     showList();
-  }
-
-  private void onTokenBalanceChanged(Balance balance) {
-    if (balance != null) {
-      String currency = balance.getSymbol();
-      String value = balance.getValue();
-      int smallTitleSize = (int) getResources().getDimension(R.dimen.title_small_text);
-      int color = getResources().getColor(R.color.appbar_subtitle_color);
-      setCollapsingTitle(BalanceUtils.formatBalance(value, currency, smallTitleSize, color));
-    }
-  }
-
-  private void onCreditsBalanceChanged(Balance balance) {
-    setSubtitle(balance.getValue() + " " + balance.getSymbol());
   }
 
   private void onTransactionClick(View view, Transaction transaction) {
@@ -172,11 +190,13 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       dialog.dismiss();
     }
     viewModel.pause();
+    disposables.dispose();
   }
 
   @Override protected void onResume() {
     super.onResume();
-    setCollapsingTitle(new SpannableString(getString(R.string.unknown_balance_without_symbol)));
+    emptyView = null;
+    disposables = new CompositeDisposable();
     adapter.clear();
     list.setVisibility(View.GONE);
     viewModel.prepare();
@@ -212,18 +232,15 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         viewModel.fetchTransactions(true);
         break;
       }
-      case R.id.action_air_drop: {
-        viewModel.showAirDrop(this);
+      case R.id.top_up_btn: {
+        viewModel.showTopUp(this);
         break;
       }
-      case R.id.action_learn_more:
-        openLearnMore();
+      case R.id.empty_clickable_view: {
+        viewModel.showTokens(this);
         break;
+      }
     }
-  }
-
-  private void openLearnMore() {
-    viewModel.onLearnMoreClick(this, Uri.parse(LEARN_MORE_INFO_URL));
   }
 
   @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -232,7 +249,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         viewModel.showMyAddress(this);
         return true;
       }
-      case R.id.action_my_tokens: {
+      case R.id.action_balance: {
         viewModel.showTokens(this);
         return true;
       }
@@ -247,13 +264,13 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private void onTransactions(List<Transaction> transaction) {
     adapter.addTransactions(transaction);
     showList();
-    invalidateOptionsMenu();
   }
 
   private void showList() {
     // the value is 1 because apps list item is always added, so if there is at least 1
     // transaction, the list is shown
     if (adapter.getItemCount() > 1) {
+      systemView.setVisibility(View.GONE);
       list.setVisibility(View.VISIBLE);
     }
   }
@@ -269,16 +286,16 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private void onError(ErrorEnvelope errorEnvelope) {
     if ((errorEnvelope.code == EMPTY_COLLECTION || adapter.getItemCount() == 0)) {
-      final boolean[] isMainNet = { false };
-      viewModel.defaultNetwork()
-          .observe(this, info -> isMainNet[0] = info.isMainNetwork);
-
       if (emptyView == null) {
-
-        emptyView = new EmptyTransactionsView(this, this, isMainNet[0]);
+        emptyView = new EmptyTransactionsView(this, String.valueOf(maxBonusEmptyScreen),
+            emptyTransactionsSubject, this, disposables);
+        systemView.showEmpty(emptyView);
       }
-      systemView.showEmpty(emptyView);
     }
+  }
+
+  private void onGamificationMaxBonus(double bonus) {
+    maxBonusEmptyScreen = Double.toString(bonus);
   }
 
   private void checkRoot() {
@@ -293,6 +310,15 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
           })
           .show();
     }
+  }
+
+  @Override protected void onDestroy() {
+    subtitleView = null;
+    balanceSkeloton.removeAllAnimatorListeners();
+    balanceSkeloton.removeAllUpdateListeners();
+    balanceSkeloton.removeAllLottieOnCompositionLoadedListener();
+    emptyTransactionsSubject = null;
+    super.onDestroy();
   }
 
   private void openExchangeDialog() {
@@ -315,5 +341,56 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private void onDepositClick(View view, Uri uri) {
     viewModel.openDeposit(view.getContext(), uri);
+  }
+
+  private void onBalanceChanged(GlobalBalance globalBalance) {
+    if (globalBalance.getFiatValue().length() > 0) {
+      balanceSkeloton.setVisibility(View.GONE);
+      setCollapsingTitle(globalBalance.getFiatSymbol() + globalBalance.getFiatValue());
+      setSubtitle(globalBalance);
+    }
+  }
+
+  private void setSubtitle(GlobalBalance globalBalance) {
+    String subtitle =
+        buildCurrencyString(globalBalance.getAppcoinsBalance(), globalBalance.getCreditsBalance(),
+            globalBalance.getEtherBalance(), globalBalance.getShowAppcoins(),
+            globalBalance.getShowCredits(), globalBalance.getShowEthereum());
+    subtitleView.setText(Html.fromHtml(subtitle));
+  }
+
+  private String buildCurrencyString(Balance appcoinsBalance, Balance creditsBalance,
+      Balance ethereumBalance, boolean showAppcoins, boolean showCredits, boolean showEthereum) {
+    StringBuilder stringBuilder = new StringBuilder();
+    String bullet = "\u00A0\u00A0\u00A0\u2022\u00A0\u00A0\u00A0";
+    if (showCredits) {
+      stringBuilder.append(creditsBalance.toString())
+          .append(bullet);
+    }
+    if (showAppcoins) {
+      stringBuilder.append(appcoinsBalance.toString())
+          .append(bullet);
+    }
+    if (showEthereum) {
+      stringBuilder.append(ethereumBalance.toString())
+          .append(bullet);
+    }
+    String subtitle = stringBuilder.toString();
+    if (stringBuilder.length() > bullet.length()) {
+      subtitle = stringBuilder.substring(0, stringBuilder.length() - bullet.length());
+    }
+    return subtitle.replace(bullet, "<font color='#ffffff'>" + bullet + "</font>");
+  }
+
+  public Observable<String> getEmptyTransactionsScreenClick() {
+    return emptyTransactionsSubject;
+  }
+
+  public void navigateToTopApps() {
+    viewModel.showTopApps(this);
+  }
+
+  public void navigateToGamification() {
+    viewModel.showRewardsLevel(this);
   }
 }

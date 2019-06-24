@@ -57,7 +57,7 @@
           />
 
       <Button
-          android:id="@+id/skip_action"
+          android:id="@+id/skip_button"
           android:layout_width="match_parent"
           android:layout_height="@dimen/button_height"
           android:layout_marginTop="@dimen/big_margin"

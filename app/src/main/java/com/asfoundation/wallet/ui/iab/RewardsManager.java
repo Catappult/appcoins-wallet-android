@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.ui.iab;
 
+import android.util.Pair;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
+import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository;
 import com.appcoins.wallet.appcoins.rewards.Transaction;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
@@ -10,6 +12,7 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
+import org.jetbrains.annotations.NotNull;
 
 public class RewardsManager {
   private final AppcoinsRewards appcoinsRewards;
@@ -23,13 +26,15 @@ public class RewardsManager {
     this.partnerAddressService = partnerAddressService;
   }
 
-  public Completable pay(String sku, BigDecimal amount, String developerAddress, String oemAddress,
-      String packageName, String origin, String type, String payload, String callbackUrl,
-      String orderReference) {
-    return partnerAddressService.getStoreAddressForPackage(packageName)
+  public Completable pay(String sku, BigDecimal amount, String developerAddress, String packageName,
+      String origin, String type, String payload, String callbackUrl, String orderReference) {
+    return Single.zip(partnerAddressService.getStoreAddressForPackage(packageName),
+        partnerAddressService.getOemAddressForPackage(packageName),
+        (storeAddress, oemAddress) -> new Pair<>(storeAddress, oemAddress))
         .flatMapCompletable(
-            storeAddress -> appcoinsRewards.pay(amount, origin, sku, type, developerAddress,
-                storeAddress, oemAddress, packageName, payload, callbackUrl, orderReference));
+            partnersAddresses -> appcoinsRewards.pay(amount, origin, sku, type, developerAddress,
+                partnersAddresses.first, partnersAddresses.second, packageName, payload,
+                callbackUrl, orderReference));
   }
 
   public Single<Purchase> getPaymentCompleted(String packageName, String sku) {
@@ -63,6 +68,15 @@ public class RewardsManager {
     }
     throw new UnsupportedOperationException(
         "Transaction status " + transaction.getStatus() + " not supported");
+  }
+
+  public Single<AppcoinsRewardsRepository.Status> sendCredits(@NotNull String toWallet,
+      BigDecimal amount, String packageName) {
+    return appcoinsRewards.sendCredits(toWallet, amount, packageName);
+  }
+
+  public Single<BigDecimal> getBalance() {
+    return appcoinsRewards.getBalance();
   }
 
   static class RewardPayment {

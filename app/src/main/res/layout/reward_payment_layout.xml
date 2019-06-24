@@ -7,6 +7,7 @@
     android:background="@drawable/background_card"
     android:elevation="2dp"
     android:minHeight="160dp"
+    android:layout_gravity="center"
     >
 
   <include layout="@layout/fragment_iab_loading"/>

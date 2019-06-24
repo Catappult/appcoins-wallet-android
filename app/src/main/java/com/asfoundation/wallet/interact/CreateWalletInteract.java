@@ -21,9 +21,10 @@ public class CreateWalletInteract {
 
   public Single<Wallet> create() {
     return passwordStore.generatePassword()
-        .flatMap(masterPassword -> walletRepository.createWallet(masterPassword)
-            .compose(Operators.savePassword(passwordStore, walletRepository, masterPassword))
-            .flatMap(wallet -> passwordVerification(wallet, masterPassword)));
+        .flatMap(masterPassword -> passwordStore.setBackUpPassword(masterPassword)
+            .andThen(walletRepository.createWallet(masterPassword)
+                .compose(Operators.savePassword(passwordStore, walletRepository, masterPassword))
+                .flatMap(wallet -> passwordVerification(wallet, masterPassword))));
   }
 
   private Single<Wallet> passwordVerification(Wallet wallet, String masterPassword) {

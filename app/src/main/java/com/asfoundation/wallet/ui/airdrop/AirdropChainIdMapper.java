@@ -1,19 +1,17 @@
 package com.asfoundation.wallet.ui.airdrop;
 
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import io.reactivex.Single;
 
 public class AirdropChainIdMapper {
-  private final FindDefaultNetworkInteract defaultNetworkInteract;
+  private final NetworkInfo defaultNetwork;
 
-  public AirdropChainIdMapper(FindDefaultNetworkInteract defaultNetworkInteract) {
-    this.defaultNetworkInteract = defaultNetworkInteract;
+  public AirdropChainIdMapper(NetworkInfo defaultNetwork) {
+    this.defaultNetwork = defaultNetwork;
   }
 
   public Single<Integer> getAirdropChainId() {
-    return defaultNetworkInteract.find()
-        .map(this::map);
+    return Single.just(map(defaultNetwork));
   }
 
   private Integer map(NetworkInfo networkInfo) {

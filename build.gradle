@@ -10,7 +10,7 @@ buildscript {
     jcenter()
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:3.3.0'
+    classpath 'com.android.tools.build:gradle:3.3.1'
     classpath "io.realm:realm-gradle-plugin:5.0.0"
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
@@ -40,6 +40,7 @@ project.ext {
   androidxAppCompatVersion = "1.0.2"
   androidxVectorDrawableVersion = "1.0.1"
   androidxViewVersion = "1.0.0"
+  androidxMaterialVersion = "1.1.0-alpha04"
   androidxConstraintLayoutVersion = "1.1.3"
   multidexVersion = "2.0.1"
   web3jVersion = "3.3.1-android"
@@ -52,10 +53,12 @@ project.ext {
   jetbrainsAnnotationsVersion = "15.0"
   junitVersion = "4.12"
   mockitoCoreVersion = "2.15.0"
-  roomVersion = "2.0.0"
+  roomVersion = "2.1.0"
   appcoinsSdkVersion = "0.4.5.19b"
+  ethereumjSdkVersion = "0.5.0.0"
   jacksonVersion = "2.9.6"
-  lottieVersion = "2.7.0"
+  lottieVersion = "3.0.1"
+  cpp = "2.2.9"
 }
 
 task clean(type: Delete) {

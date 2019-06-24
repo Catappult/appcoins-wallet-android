@@ -2,7 +2,6 @@ package com.asfoundation.wallet.billing.adyen;
 
 import com.adyen.core.models.Payment;
 import com.appcoins.wallet.bdsbilling.WalletService;
-import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.billing.BillingService;
 import com.asfoundation.wallet.billing.TransactionService;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
@@ -49,6 +48,13 @@ public class AdyenBillingService implements BillingService {
         .doOnNext(this::resetProcessingFlag);
   }
 
+  @Override
+  public Observable<AdyenAuthorization> getAuthorization(String origin, BigDecimal priceValue,
+      String priceCurrency, String type, String appPackageName) {
+    return getAuthorization(null, null, null, origin, priceValue, priceCurrency, type, null, null,
+        appPackageName);
+  }
+
   @Override public Completable authorize(Payment payment, String paykey) {
     return Single.fromCallable(() -> payment.getPaymentStatus()
         .equals(Payment.PaymentStatus.AUTHORISED))
@@ -91,17 +97,18 @@ public class AdyenBillingService implements BillingService {
     if (!processingPayment.getAndSet(true)) {
       this.adyenAuthorization = walletService.getWalletAddress()
           .flatMap(walletAddress -> walletService.signContent(walletAddress)
-              .flatMap(
-                  signedContent -> partnerAddressService.getStoreAddressForPackage(appPackageName)
-                      .flatMap(storeAddress -> adyen.getToken()
-                          .flatMap(token -> transactionService.createTransaction(walletAddress,
-                              signedContent, token, merchantName, payload, productName,
-                              developerAddress, storeAddress, BuildConfig.DEFAULT_OEM_ADDRESS,
-                              origin, walletAddress, priceValue, priceCurrency, type, callback,
-                              orderReference))
-                          .doOnSuccess(transactionUid -> this.transactionUid = transactionUid)
-                          .flatMap(transactionUid -> transactionService.getSession(walletAddress,
-                              signedContent, transactionUid)))))
+              .flatMap(signedContent -> adyen.getToken()
+                  .flatMap(token -> Single.zip(
+                      partnerAddressService.getStoreAddressForPackage(appPackageName),
+                      partnerAddressService.getOemAddressForPackage(appPackageName),
+                      (storeAddress, oemAddress) -> transactionService.createTransaction(
+                          walletAddress, signedContent, token, merchantName, payload, productName,
+                          developerAddress, storeAddress, oemAddress, origin, walletAddress,
+                          priceValue, priceCurrency, type, callback, orderReference))
+                      .flatMap(transactionUid -> transactionUid)
+                      .doOnSuccess(transactionUid -> this.transactionUid = transactionUid)
+                      .flatMap(transactionUid -> transactionService.getSession(walletAddress,
+                          signedContent, transactionUid)))))
           .map(this::newDefaultAdyenAuthorization)
           .blockingGet();
 

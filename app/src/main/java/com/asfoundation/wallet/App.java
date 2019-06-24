@@ -15,16 +15,11 @@ import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.billing.adyen.Adyen;
 import com.asfoundation.wallet.di.DaggerAppComponent;
-import com.asfoundation.wallet.interact.AddTokenInteract;
-import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
-import com.asfoundation.wallet.repository.EthereumNetworkRepositoryType;
-import com.asfoundation.wallet.repository.WalletNotFoundException;
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
-import com.jakewharton.rxrelay2.BehaviorRelay;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
@@ -33,9 +28,7 @@ import dagger.android.support.HasSupportFragmentInjector;
 import io.fabric.sdk.android.Fabric;
 import io.reactivex.exceptions.UndeliverableException;
 import io.reactivex.plugins.RxJavaPlugins;
-import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
-import java.nio.charset.Charset;
 import javax.inject.Inject;
 import org.jetbrains.annotations.NotNull;
 
@@ -47,9 +40,6 @@ public class App extends MultiDexApplication
   @Inject DispatchingAndroidInjector<Activity> dispatchingActivityInjector;
   @Inject DispatchingAndroidInjector<Service> dispatchingServiceInjector;
   @Inject DispatchingAndroidInjector<Fragment> dispatchingFragmentInjector;
-  @Inject EthereumNetworkRepositoryType ethereumNetworkRepository;
-  @Inject AddTokenInteract addTokenInteract;
-  @Inject DefaultTokenProvider defaultTokenProvider;
   @Inject ProofOfAttentionService proofOfAttentionService;
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject AppcoinsOperationsDataSaver appcoinsOperationsDataSaver;
@@ -80,18 +70,6 @@ public class App extends MultiDexApplication
     proofOfAttentionService.start();
     appcoinsOperationsDataSaver.start();
     appcoinsRewards.start();
-    ethereumNetworkRepository.addOnChangeDefaultNetwork(
-        networkInfo -> defaultTokenProvider.getDefaultToken()
-            .flatMapCompletable(
-                defaultToken -> addTokenInteract.add(defaultToken.address, defaultToken.symbol,
-                    defaultToken.decimals))
-            .doOnError(throwable -> {
-              if (!(throwable instanceof WalletNotFoundException)) {
-                throwable.printStackTrace();
-              }
-            })
-            .retry()
-            .subscribe());
   }
 
   private void setupRxJava() {

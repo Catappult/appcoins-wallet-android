@@ -388,7 +388,7 @@
   <string name="error_general">Something went wrong</string>
   <string name="error_missing_field">Mandatory field</string>
   <string name="cancel_button">Cancel</string>
-  <string name="submit_button">Submit</string> 
+  <string name="submit_button">Submit</string>
   <string name="close_button">Close</string>
   <string name="back_button">Back</string>
   <string name="value_fiat">%1$s%2$s</string>
@@ -410,6 +410,9 @@
   <string name="appc_credits_token_name" translatable="false">AppCoins Credits</string>
   <string name="ethereum_token_name" translatable="false">Ethereum</string>
 
+  <!--Settings-->
+  <string name="title_redeem">Redeem Code</string>
+
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">In progress&#8230;</string>
   <string name="local_payments_inprogress_body">Complete your payment and, once you get the AppCoins Credits in your wallet, make the purchase!</string>
@@ -421,7 +424,7 @@
   <string name="verification_insert_phone_body">We\'ll send you a verification code.</string>
   <string name="verification_insert_phone_field_country">Country</string>
   <string name="verification_insert_phone_field_number">Phone Number</string>
-  <string name="verification_insert_phone_field_number_error">Invalid phone number</string> 
+  <string name="verification_insert_phone_field_number_error">Invalid phone number</string>
   <string name="verification_insert_phone_security_disclaimer">This is only for security reasons, we don\'t store any personal data.</string>
   <string name="verification_notification_code_title">AppCoins Wallet</string>
   <string name="verification_notification_code_body">Your verification code is %s. Use it to verify your AppCoins Wallet address.</string>

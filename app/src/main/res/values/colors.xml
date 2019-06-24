@@ -39,19 +39,25 @@
   <color name="transaction_item_snd_text_color">#8a000000</color>
   <color name="list_separator_color">#f0f0f0</color>
 
-  <color name="details_address_text_color">#e44b46</color>
+  <color name="details_address_text_color">#000000</color>
   <color name="btn_disable_color">#00000000</color>
   <color name="btn_text_disable_color">#42000000</color>
+  <color name="btn_disable_snd_color">#c9c9c9</color>
   <color name="btn_text_enable_color">#ffffff</color>
+  <color name="btn_cancel_text">#8f000000</color>
 
   <color name="btn_start_gradient_color">#fc9d48</color>
   <color name="btn_end_gradient_color">#ff578c</color>
+  <color name="floating_btn_start_gradient_color">#0e1d4d</color>
+  <color name="floating_btn_end_gradient_color">#161616</color>
   <color name="btn_light_enabled_color">#e44b46</color>
   <color name="btn_light_disable_color">#42000000</color>
 
   <color name="dialog_buy_value_text">#4e4e4e</color>
   <color name="dialog_buy_total_value">#fe677b</color>
+  <color name="dialog_buy_fiat_value">#000000</color>
   <color name="dialog_fiat_price">#828282</color>
+  <color name="dialog_secondary_price">#828282</color>
 
   <color name="rewards_level_main_color">#001727</color>
   <color name="level_icon_bg_color">#001727</color>
@@ -59,4 +65,24 @@
   <color name="level_text_enabled_color">@color/rewards_level_main_color</color>
   <color name="level_text_disabled_color">#d4d4d4</color>
 
+  <color name="share_link_title_color">#070707</color>
+  <color name="share_link_note_color">#bbbbbb</color>
+  <color name="share_link_error_text_color">#fe7b6a</color>
+
+  <color name="color_grey_9e">#9e9e9e</color>
+  <color name="top_up_bonus_title">#030303</color>
+  <color name="top_up_bonus_text">#727272</color>
+  <color name="top_up_payment_details_text">#4a4a4a</color>
+
+  <color name="seekbar_tint">#fe756f</color>
+  <color name="seekbar_background_tint">#fe7871</color>
+
+  <color name="transaction_details_button_color">#fe7073</color>
+  <color name="purchase_bonus_background_color">#001727</color>
+  <color name="layout_separator_color">#eaeaea</color>
+
+  <color name="selection_dot_unselected">#d8d8d8</color>
+  <color name="selection_dot_selected">#fe647f</color>
+
+  <color name="transparent">#00000000</color>
 </resources>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/top_up_success_animation"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:visibility="visible"
+      app:layout_constraintBottom_toTopOf="@+id/mid_guideline"
+      app:layout_constraintDimensionRatio="W, 6:5"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHeight_max="0dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_rawRes="@raw/top_up_success_animation"
+      />
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/mid_guideline"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.5"
+      />
+  <TextView
+      android:id="@+id/value"
+      style="@style/TopUpTextStyle.SuccessTitle"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="24dp"
+      android:layout_marginEnd="24dp"
+      android:gravity="center_horizontal"
+      android:text="@string/topup_completed_2_with_bonus"
+      app:layout_constraintBottom_toTopOf="@id/button"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/mid_guideline"
+      app:layout_constraintVertical_bias="0"
+      tools:text="1,23 EUR in AppCoins Credits were deposited in your account... Along with a bonus!"
+      />
+
+  <Button
+      android:id="@+id/button"
+      style="@style/ButtonStyle.Alternative"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/button_height"
+      android:layout_marginStart="40dp"
+      android:layout_marginTop="32dp"
+      android:layout_marginEnd="40dp"
+      android:text="@string/button_ok"
+      app:layout_constraintTop_toBottomOf="@id/value"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

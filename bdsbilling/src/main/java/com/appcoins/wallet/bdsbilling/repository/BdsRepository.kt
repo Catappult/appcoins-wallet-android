@@ -1,7 +1,7 @@
 package com.appcoins.wallet.bdsbilling.repository
 
 import com.appcoins.wallet.bdsbilling.BillingRepository
-import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethod
+import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.billing.repository.entity.Product
@@ -11,7 +11,8 @@ import java.math.BigDecimal
 
 class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRepository {
   override fun getWallet(packageName: String): Single<String> {
-    return remoteRepository.getWallet(packageName).map { it.data.address }
+    return remoteRepository.getWallet(packageName)
+        .map { it.data.address }
   }
 
   override fun registerAuthorizationProof(id: String, paymentType: String,
@@ -76,8 +77,11 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
         walletSignature)
   }
 
-  override fun getPaymentMethods(): Single<List<PaymentMethod>> {
-    return remoteRepository.getPaymentMethods()
+  override fun getPaymentMethods(value: String?, currency: String?,
+                                 type: String?): Single<List<PaymentMethodEntity>> {
+    return if (type.isNullOrEmpty())
+      remoteRepository.getPaymentMethods(value,
+          currency) else remoteRepository.getPaymentMethodsForType(type)
   }
 
   override fun getAppcoinsTransaction(uid: String, address: String,

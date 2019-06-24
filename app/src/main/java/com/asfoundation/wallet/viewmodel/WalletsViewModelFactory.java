@@ -13,6 +13,7 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.interact.SetDefaultWalletInteract;
 import com.asfoundation.wallet.router.ImportWalletRouter;
 import com.asfoundation.wallet.router.TransactionsRouter;
+import com.asfoundation.wallet.service.AccountWalletService;
 import javax.inject.Inject;
 
 public class WalletsViewModelFactory implements ViewModelProvider.Factory {

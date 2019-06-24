@@ -81,6 +81,13 @@ public class SystemView extends FrameLayout implements View.OnClickListener {
     setVisibility(VISIBLE);
   }
 
+  private void hideProgressBar() {
+    if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
+      swipeRefreshLayout.setRefreshing(false);
+    }
+    progress.setVisibility(GONE);
+  }
+
   public void showProgress(boolean shouldShow) {
     if (shouldShow && swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
       return;
@@ -98,7 +105,7 @@ public class SystemView extends FrameLayout implements View.OnClickListener {
         progress.setVisibility(VISIBLE);
       }
     } else {
-      hide();
+      hideProgressBar();
     }
   }
 
@@ -125,17 +132,8 @@ public class SystemView extends FrameLayout implements View.OnClickListener {
     }
   }
 
-  public void showEmpty() {
-    showEmpty("");
-  }
-
   public void showEmpty(@NonNull String message) {
     showError(message, null);
-  }
-
-  public void showEmpty(@LayoutRes int emptyLayout) {
-    showEmpty(LayoutInflater.from(getContext())
-        .inflate(emptyLayout, emptyBox, false));
   }
 
   public void showEmpty(View view) {

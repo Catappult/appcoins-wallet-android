@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_card"
+    android:minWidth="296dp"
+    android:layout_gravity="center"
+    >
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="16dp"
+      android:clipToPadding="false"
+      android:clipChildren="false"
+      >
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/share_link_animation"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        app:lottie_autoPlay="true"
+        app:lottie_enableMergePathsForKitKatAndAbove="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/share_link_animation"
+        />
+
+    <TextView
+        android:id="@+id/share_link_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:text="@string/askafriend_share_body"
+        android:layout_below="@id/share_link_animation"
+        style="@style/ShareLinkTextStyle.Title"
+        />
+
+    <EditText
+        android:id="@+id/note"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="31dp"
+        android:background="@null"
+        android:gravity="center"
+        android:hint="@string/askafriend_share_add_message_body"
+        android:maxLength="50"
+        android:maxLines="2"
+        android:textColorHint="@color/grey_alpha_6b"
+        android:layout_below="@id/share_link_title"
+        style="@style/ShareLinkTextStyle"
+        android:inputType="text"
+        />
+
+    <Button
+        android:id="@+id/share_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginTop="36dp"
+        android:drawablePadding="8dp"
+        android:drawableStart="@drawable/ic_share"
+        android:text="@string/askafriend_share_button"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/note"
+        style="@style/ButtonStyle"
+        />
+
+    <Button
+        android:id="@+id/close_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="36dp"
+        android:layout_below="@id/note"
+        android:layout_toStartOf="@id/share_btn"
+        android:text="@string/close"
+        style="@style/CancelButtonStyle"
+        />
+
+  </RelativeLayout>
+</ScrollView>

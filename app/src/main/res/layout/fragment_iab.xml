@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
     android:background="@drawable/background_card"
+    android:layout_gravity="center"
     >
 
   <include layout="@layout/fragment_iab_loading"/>

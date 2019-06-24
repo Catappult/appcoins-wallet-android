@@ -6,25 +6,43 @@ import androidx.lifecycle.MutableLiveData;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.router.GasSettingsRouter;
 import com.crashlytics.android.Crashlytics;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 
 public class ConfirmationViewModel extends BaseViewModel {
   private final MutableLiveData<TransactionBuilder> transactionBuilder = new MutableLiveData<>();
   private final MutableLiveData<PendingTransaction> transactionHash = new MutableLiveData<>();
   private final SendTransactionInteract sendTransactionInteract;
   private final GasSettingsRouter gasSettingsRouter;
+  private final FetchGasSettingsInteract gasSettingsInteract;
+  private Disposable subscription;
 
   ConfirmationViewModel(SendTransactionInteract sendTransactionInteract,
-      GasSettingsRouter gasSettingsRouter) {
+      GasSettingsRouter gasSettingsRouter, FetchGasSettingsInteract gasSettingsInteract) {
     this.sendTransactionInteract = sendTransactionInteract;
     this.gasSettingsRouter = gasSettingsRouter;
+    this.gasSettingsInteract = gasSettingsInteract;
   }
 
   public void init(TransactionBuilder transactionBuilder) {
-    this.transactionBuilder.postValue(transactionBuilder);
+    subscription = gasSettingsInteract.fetch(transactionBuilder.shouldSendToken())
+        .doOnSuccess(gasSettings -> {
+          transactionBuilder.gasSettings(gasSettings);
+          this.transactionBuilder.postValue(transactionBuilder);
+        })
+        .subscribe(__ -> {
+        }, this::onError);
+  }
+
+  @Override protected void onCleared() {
+    if (subscription != null && !subscription.isDisposed()) {
+      subscription.dispose();
+    }
+    super.onCleared();
   }
 
   public LiveData<TransactionBuilder> transactionBuilder() {

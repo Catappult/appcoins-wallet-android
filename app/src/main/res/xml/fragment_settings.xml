@@ -10,18 +10,17 @@
       android:title="@string/action_wallets"
       />
 
-  <ListPreference
-      android:dialogTitle="@string/network_label"
-      android:icon="@mipmap/settings_server"
-      android:key="pref_rpcServer"
-      android:title="@string/network_label"/>
-
   <Preference
       android:icon="@drawable/ic_settings_permissions"
       android:key="pref_permissions"
       android:title="@string/permissions_title"
       />
-
+  <Preference
+      android:icon="@drawable/ic_settings_redeem"
+      android:key="pref_redeem"
+      android:title="@string/title_redeem"
+      >
+  </Preference>
   <PreferenceCategory
       android:key="pref_opensource_links"
       android:title="@string/title_opensource">
@@ -72,7 +71,7 @@
         android:title="@string/telegram">
       <intent
           android:action="android.intent.action.VIEW"
-          android:data="https://t.me/joinchat/G337zg6z0ACm6QTvUU9_Yw"/>
+          android:data="https://t.me/appcoinsofficial"/>
     </Preference>
 
     <Preference
@@ -98,7 +97,7 @@
         android:title="@string/title_privacy_policy">
       <intent
           android:action="android.intent.action.VIEW"
-          android:data="https://www.appstorefoundation.org"/>
+          android:data="https://catappult.io/appcoins-wallet/privacy-policy"/>
     </Preference>
 
     <Preference
@@ -106,7 +105,7 @@
         android:title="@string/title_terms">
       <intent
           android:action="android.intent.action.VIEW"
-          android:data="https://www.appstorefoundation.org"/>
+          android:data="https://catappult.io/appcoins-wallet/terms-conditions"/>
     </Preference>
 
 

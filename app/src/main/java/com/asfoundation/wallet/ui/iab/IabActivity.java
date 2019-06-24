@@ -11,15 +11,17 @@ import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.navigator.UriNavigator;
 import com.asfoundation.wallet.ui.BaseActivity;
+import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment;
 import com.jakewharton.rxrelay2.PublishRelay;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Objects;
 import javax.inject.Inject;
+import org.jetbrains.annotations.NotNull;
 
 import static com.appcoins.wallet.billing.AppcoinsBillingBinder.EXTRA_BDS_IAP;
+import static com.asfoundation.wallet.ui.iab.WebViewActivity.SUCCESS;
 
 /**
  * Created by franciscocalado on 20/07/2018.
@@ -39,12 +41,12 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   public static final String TRANSACTION_AMOUNT = "transaction_amount";
   public static final String TRANSACTION_CURRENCY = "transaction_currency";
   public static final String DEVELOPER_PAYLOAD = "developer_payload";
-  public static final String FIAT_VALUE = "fiat_value";
   private static final String BDS = "BDS";
   private static final String TAG = IabActivity.class.getSimpleName();
   private static final int WEB_VIEW_REQUEST_CODE = 1234;
   private static final String IS_BDS_EXTRA = "is_bds_extra";
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
+  @Inject PaymentMethodsMapper paymentMethodsMapper;
   private boolean isBackEnable;
   private IabPresenter presenter;
   private Bundle skuDetails;
@@ -70,6 +72,12 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     return intent;
   }
 
+  public static Intent newIntent(Activity activity, String url) {
+    Intent intent = new Intent(activity, IabActivity.class);
+    intent.setData(Uri.parse(url));
+    return intent;
+  }
+
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     AndroidInjection.inject(this);
     super.onCreate(savedInstanceState);
@@ -88,6 +96,18 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
       }
     }
     presenter.present(savedInstanceState);
+  }
+
+  @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+
+    if (requestCode == WEB_VIEW_REQUEST_CODE) {
+      if (resultCode == WebViewActivity.FAIL) {
+        finish();
+      } else if (resultCode == SUCCESS) {
+        results.accept(Objects.requireNonNull(data.getData(), "Intent data cannot be null!"));
+      }
+    }
   }
 
   @Override public void onBackPressed() {
@@ -129,50 +149,37 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     finish();
   }
 
-  @Override public void navigateToAdyenAuthorization(boolean isBds, String currency,
-      PaymentType paymentType) {
+  @Override
+  public void navigateToAdyenAuthorization(boolean isBds, String currency, PaymentType paymentType,
+      String bonus) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container,
             AdyenAuthorizationFragment.newInstance(transaction.getSkuId(), transaction.getType(),
                 getOrigin(isBds), paymentType, transaction.getDomain(), getIntent().getDataString(),
-                transaction.amount(), currency, developerPayload))
+                transaction.amount(), currency, developerPayload, bonus))
         .commit();
-  }
-
-  @Nullable private String getOrigin(boolean isBds) {
-    if (transaction.getOrigin() == null) {
-      return isBds ? BDS : null;
-    } else {
-      return transaction.getOrigin();
-    }
   }
 
   @Override public void navigateToWebViewAuthorization(String url) {
-    startActivityForResult(WebViewActivity.newIntent(this, url, transaction),
-        WEB_VIEW_REQUEST_CODE);
+    startActivityForResult(
+        WebViewActivity.newIntent(this, url, transaction.getDomain(), transaction.getSkuId(),
+            transaction.amount(), transaction.getType()), WEB_VIEW_REQUEST_CODE);
   }
 
-  @Override public void showPaymentMethodsView() {
-    getSupportFragmentManager().beginTransaction()
-        .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
-            getIntent().getExtras()
-                .getString(PRODUCT_NAME), isBds, developerPayload, uri))
-        .commit();
-  }
-
-  @Override public void showOnChain(BigDecimal amount, boolean isBds) {
+  @Override public void showOnChain(BigDecimal amount, boolean isBds, String bonus) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container, OnChainBuyFragment.newInstance(createBundle(amount),
             getIntent().getData()
-                .toString(), isBds, transaction))
+                .toString(), isBds, transaction, bonus))
         .commit();
   }
 
   @Override public void showAdyenPayment(BigDecimal amount, String currency, boolean isBds,
-      PaymentType paymentType) {
+      PaymentType paymentType, String bonus) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container, ExpressCheckoutBuyFragment.newInstance(
-            createBundle(BigDecimal.valueOf(amount.doubleValue()), currency), isBds, paymentType))
+            createBundle(BigDecimal.valueOf(amount.doubleValue()), currency), isBds, paymentType,
+            bonus))
         .commit();
   }
 
@@ -185,18 +192,39 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
         .commit();
   }
 
-  @Override public void showPaymentMethods(
-      List<com.asfoundation.wallet.ui.iab.PaymentMethod> paymentMethods) {
-
+  @Override
+  public void showLocalPayment(String domain, String skuId, String originalAmount, String currency,
+      String bonus, String selectedPaymentMethod) {
+    getSupportFragmentManager().beginTransaction()
+        .replace(R.id.fragment_container,
+            LocalPaymentFragment.newInstance(domain, skuId, originalAmount, currency, bonus,
+                selectedPaymentMethod))
+        .commit();
   }
 
-  @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
+  @Override public void showPaymentMethodsView() {
+    getSupportFragmentManager().beginTransaction()
+        .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
+            getIntent().getExtras()
+                .getString(PRODUCT_NAME), isBds, developerPayload, uri))
+        .commit();
+  }
 
-    if (requestCode == WEB_VIEW_REQUEST_CODE) {
-      if (resultCode == WebViewActivity.FAIL) {
-        finish();
-      }
+  @Override public void showShareLinkPayment(String domain, String skuId, String originalAmount,
+      String originalCurrency, BigDecimal amount, @NotNull String type,
+      String selectedPaymentMethod) {
+    getSupportFragmentManager().beginTransaction()
+        .replace(R.id.fragment_container,
+            SharePaymentLinkFragment.newInstance(domain, skuId, originalAmount, originalCurrency,
+                amount, type, selectedPaymentMethod))
+        .commit();
+  }
+
+  @Nullable private String getOrigin(boolean isBds) {
+    if (transaction.getOrigin() == null) {
+      return isBds ? BDS : null;
+    } else {
+      return transaction.getOrigin();
     }
   }
 
@@ -224,7 +252,8 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     return getIntent().getBooleanExtra(EXTRA_BDS_IAP, false);
   }
 
-  @Override public void navigateToUri(String url) {
+  @Override public void navigateToUri(String url, String domain, String skuId, BigDecimal amount,
+      String type) {
     navigateToWebViewAuthorization(url);
   }
 

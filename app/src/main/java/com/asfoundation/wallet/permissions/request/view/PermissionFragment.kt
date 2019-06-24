@@ -87,9 +87,11 @@ class PermissionFragment : DaggerFragment(), PermissionFragmentView {
           val spannedMessage = SpannableString(message)
           val walletAppName = "AppCoins Wallet"
 
-          spannedMessage.setSpan(StyleSpan(BOLD), message.indexOf(walletAppName),
-              message.indexOf(walletAppName) + walletAppName.length,
-              Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+          if (message.indexOf(walletAppName) > -1) {
+            spannedMessage.setSpan(StyleSpan(BOLD), message.indexOf(walletAppName),
+                message.indexOf(walletAppName) + walletAppName.length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+          }
           spannedMessage.setSpan(StyleSpan(BOLD), message.indexOf(app.appName.toString()),
               message.indexOf(app.appName.toString()) + app.appName.length,
               Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -119,7 +121,7 @@ class PermissionFragment : DaggerFragment(), PermissionFragmentView {
     navigator.closeCancel()
   }
 
-  override fun onAttach(context: Context?) {
+  override fun onAttach(context: Context) {
     super.onAttach(context)
     when (context) {
       is PermissionFragmentNavigator -> {

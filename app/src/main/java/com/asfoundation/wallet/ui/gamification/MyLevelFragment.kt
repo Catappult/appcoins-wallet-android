@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.gamification
 
+import android.animation.Animator
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import com.asf.wallet.R
+import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -27,19 +29,21 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   lateinit var gamificationInteractor: GamificationInteractor
   @Inject
   lateinit var levelResourcesMapper: LevelResourcesMapper
+  @Inject
+  lateinit var analytics: GamificationAnalytics
+
 
   private lateinit var presenter: MyLevelPresenter
   private lateinit var gamificationView: GamificationView
-  private var currentLevel = 0
   private var step = 100
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = MyLevelPresenter(this, gamificationInteractor, Schedulers.io(),
+    presenter = MyLevelPresenter(this, gamificationInteractor, analytics, Schedulers.io(),
         AndroidSchedulers.mainThread())
   }
 
-  override fun onAttach(context: Context?) {
+  override fun onAttach(context: Context) {
     super.onAttach(context)
     if (context !is GamificationView) {
       throw IllegalArgumentException(
@@ -74,6 +78,8 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   override fun updateLevel(userStatus: UserRewardsStatus) {
     step = 100 / (userStatus.bonus.size - 1)
 
+    gamification_loading.visibility = View.GONE
+
     setLevelResources(userStatus.level)
 
     if (userStatus.toNextLevelAmount > BigDecimal.ZERO) {
@@ -85,7 +91,11 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
       earned_label.visibility = View.INVISIBLE
       earned_value.visibility = View.INVISIBLE
     }
-    animateProgress(currentLevel, userStatus.level)
+    animateProgress(userStatus.lastShownLevel, userStatus.level)
+
+    if (userStatus.level > userStatus.lastShownLevel) {
+      levelUpAnimation(userStatus.level)
+    }
 
     for (value in userStatus.bonus) {
       setLevelBonus(userStatus.bonus.indexOf(value), value.toString())
@@ -185,6 +195,45 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     }
   }
 
+  override fun setStaringLevel(userStatus: UserRewardsStatus) {
+    progress_bar.progress = userStatus.lastShownLevel * (100 / (userStatus.bonus.size - 1))
+    levelUpAnimation(userStatus.level)
+    for (i in 0..userStatus.lastShownLevel) {
+      showPreviousLevelIcons(i, i < userStatus.lastShownLevel)
+    }
+  }
+
+  private fun showPreviousLevelIcons(level: Int, shouldHideLabel: Boolean) {
+    when (level) {
+      0 -> {
+        noAnimationLevelUpdate(level, shouldHideLabel, level_1, level_1_text)
+      }
+      1 -> {
+        noAnimationLevelUpdate(level, shouldHideLabel, level_2, level_2_text)
+      }
+      2 -> {
+        noAnimationLevelUpdate(level, shouldHideLabel, level_3, level_3_text)
+      }
+      3 -> {
+        noAnimationLevelUpdate(level, shouldHideLabel, level_4, level_4_text)
+      }
+      4 -> {
+        noAnimationLevelUpdate(level, shouldHideLabel, level_5, level_5_text)
+      }
+    }
+  }
+
+  private fun noAnimationLevelUpdate(level: Int, shouldHideLabel: Boolean, iconView: View,
+                                     labelView: TextView) {
+    iconView.level_inactive_icon.setImageResource(levelResourcesMapper.mapIcons(level))
+    iconView.level_inactive_icon.visibility = View.VISIBLE
+    if (shouldHideLabel) {
+      labelView.visibility = View.INVISIBLE
+    } else {
+      labelView.isEnabled = true
+    }
+  }
+
   private fun animateLevelUp(levelIcon: View?, levelText: TextView?, newLevel: Boolean) {
     val activeIcon = levelIcon?.findViewById(R.id.level_active_icon) as ImageView
     val listener = object : AnimationListener {
@@ -246,12 +295,15 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   }
 
   private fun setLevelResources(level: Int) {
-    animateImageSwap(level_img, levelResourcesMapper.mapImage(level))
+    levelIdleAnimation(level)
     level_title.text = getString(R.string.gamification_level_header,
         getString(levelResourcesMapper.mapTitle(level)))
+    current_level_card_group.visibility = View.VISIBLE
     level_title.visibility = View.VISIBLE
     level_description.text = getString(levelResourcesMapper.mapSubtitle(level))
     level_description.visibility = View.VISIBLE
+    current_level.text =
+        getString(R.string.gamification_level_on_graphic, Integer.toString(level + 1))
   }
 
   private fun setLevelBonus(level: Int, text: String) {
@@ -274,25 +326,47 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     }
   }
 
-  private fun animateImageSwap(imageView: ImageView, newImage: Int) {
-    if (imageView.visibility == View.VISIBLE) {
-      fadeOutAnimation(imageView, object : AnimationListener {
-        override fun onAnimationRepeat(animation: Animation?) {
-        }
-
-        override fun onAnimationEnd(animation: Animation?) {
-          imageView.setImageResource(newImage)
-          fadeInAnimation(imageView, null)
-        }
-
-        override fun onAnimationStart(animation: Animation?) {
-        }
-
-      })
-    } else {
-      imageView.setImageResource(newImage)
-      fadeInAnimation(imageView, null)
+  private fun setLevelIdleAnimation(level: Int) {
+    when (level) {
+      0 -> gamification_current_level_animation.setMinAndMaxFrame(30, 150)
+      1 -> gamification_current_level_animation.setMinAndMaxFrame(210, 330)
+      2 -> gamification_current_level_animation.setMinAndMaxFrame(390, 510)
+      3 -> gamification_current_level_animation.setMinAndMaxFrame(570, 690)
+      4 -> gamification_current_level_animation.setMinAndMaxFrame(750, 870)
     }
+  }
+
+  private fun setLevelTransitionAnimation(toLevel: Int) {
+    when (toLevel) {
+      0 -> gamification_current_level_animation.setMinAndMaxFrame(0, 30)
+      1 -> gamification_current_level_animation.setMinAndMaxFrame(30, 210)
+      2 -> gamification_current_level_animation.setMinAndMaxFrame(210, 390)
+      3 -> gamification_current_level_animation.setMinAndMaxFrame(390, 570)
+      4 -> gamification_current_level_animation.setMinAndMaxFrame(570, 750)
+    }
+  }
+
+  private fun levelUpAnimation(level: Int) {
+    setLevelTransitionAnimation(level)
+    gamification_current_level_animation.visibility = View.VISIBLE
+    gamification_current_level_animation.playAnimation()
+    gamification_current_level_animation.addAnimatorListener(object : Animator.AnimatorListener {
+      override fun onAnimationRepeat(animation: Animator?) {
+        setLevelIdleAnimation(level)
+      }
+      override fun onAnimationEnd(animation: Animator?) {
+      }
+      override fun onAnimationCancel(animation: Animator?) {
+      }
+      override fun onAnimationStart(animation: Animator?) {
+      }
+    })
+  }
+
+  private fun levelIdleAnimation(level: Int) {
+    setLevelIdleAnimation(level)
+    gamification_current_level_animation.visibility = View.VISIBLE
+    gamification_current_level_animation.playAnimation()
   }
 
   private fun fadeOutAnimation(view: View, listener: AnimationListener?) {

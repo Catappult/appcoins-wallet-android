@@ -3,9 +3,10 @@ package com.asfoundation.wallet.ui.iab;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
-import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethod;
+import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
@@ -17,11 +18,12 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status;
 
 public class InAppPurchaseInteractor {
 
@@ -30,16 +32,18 @@ public class InAppPurchaseInteractor {
   private final ExternalBillingSerializer billingSerializer;
   private final AppcoinsRewards appcoinsRewards;
   private final Billing billing;
+  private final PaymentMethodsMapper paymentMethodsMapper;
 
   public InAppPurchaseInteractor(AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
       BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
-      ExternalBillingSerializer billingSerializer, AppcoinsRewards appcoinsRewards,
-      Billing billing) {
+      ExternalBillingSerializer billingSerializer, AppcoinsRewards appcoinsRewards, Billing billing,
+      PaymentMethodsMapper paymentMethodsMapper) {
     this.asfInAppPurchaseInteractor = asfInAppPurchaseInteractor;
     this.bdsInAppPurchaseInteractor = bdsInAppPurchaseInteractor;
     this.billingSerializer = billingSerializer;
     this.appcoinsRewards = appcoinsRewards;
     this.billing = billing;
+    this.paymentMethodsMapper = paymentMethodsMapper;
   }
 
   public Single<TransactionBuilder> parseTransaction(String uri, boolean isBds) {
@@ -121,7 +125,8 @@ public class InAppPurchaseInteractor {
     return bdsInAppPurchaseInteractor.getBillingSerializer();
   }
 
-  public Single<Transaction> getTransaction(String packageName, String productName, String type) {
+  public Single<Transaction> getCompletedTransaction(String packageName, String productName,
+      String type) {
     return asfInAppPurchaseInteractor.getTransaction(packageName, productName, type);
   }
 
@@ -160,7 +165,7 @@ public class InAppPurchaseInteractor {
         .onErrorReturn(throwable -> false);
   }
 
-  public Single<List<Gateway.Name>> getFilteredGateways(TransactionBuilder transactionBuilder) {
+  private Single<List<Gateway.Name>> getFilteredGateways(TransactionBuilder transactionBuilder) {
     return Single.zip(getRewardsBalance(), hasAppcoinsFunds(transactionBuilder),
         (creditsBalance, hasAppcoinsFunds) -> getNewPaymentGateways(creditsBalance,
             hasAppcoinsFunds, transactionBuilder.amount()));
@@ -192,42 +197,102 @@ public class InAppPurchaseInteractor {
         .map(BalanceUtils::weiToEth);
   }
 
-  Single<String> getTransactionUid(String uid) {
-    return Observable.interval(0, 5, TimeUnit.SECONDS, Schedulers.io())
-        .timeInterval()
-        .switchMap(longTimed -> billing.getAppcoinsTransaction(uid, Schedulers.io())
-            .toObservable())
-        .takeUntil(pendingTransaction -> pendingTransaction.getStatus() != Status.COMPLETED)
-        .map(transaction -> transaction.getHash())
+  public Single<String> getTransactionUid(String uid) {
+    return getCompletedTransaction(uid).map(transaction -> transaction.getHash())
         .firstOrError();
   }
 
-  public Single<List<PaymentMethod>> getAvailablePaymentMethods(TransactionBuilder transaction) {
-    return getPaymentMethods().flatMap(
-        paymentMethods -> getFilteredGateways(transaction).map(filteredGateways -> {
-          removeUnavailable(paymentMethods, filteredGateways);
-          return paymentMethods;
-        }));
+  public Single<Double> getTransactionAmount(String uid) {
+    return getCompletedTransaction(uid).map(transaction -> Double.parseDouble(transaction.getPrice()
+        .getAppc()))
+        .firstOrError();
   }
 
-  public Single<List<PaymentMethod>> getPaymentMethods() {
-    return bdsInAppPurchaseInteractor.getPaymentMethods();
+  private Single<List<PaymentMethodEntity>> getAvailablePaymentMethods(
+      TransactionBuilder transaction, List<PaymentMethodEntity> paymentMethods) {
+    return getFilteredGateways(transaction).map(
+        filteredGateways -> removeUnavailable(paymentMethods, filteredGateways));
   }
 
-  private void removeUnavailable(List<PaymentMethod> paymentMethods,
+  private Observable<Transaction> getCompletedTransaction(String uid) {
+    return getTransaction(uid).filter(transaction -> transaction.getStatus()
+        .equals(Status.COMPLETED));
+  }
+
+  public Observable<Transaction> getTransaction(String uid) {
+    return Observable.interval(0, 5, TimeUnit.SECONDS, Schedulers.io())
+        .timeInterval()
+        .switchMap(longTimed -> billing.getAppcoinsTransaction(uid, Schedulers.io())
+            .toObservable());
+  }
+
+  public Single<List<PaymentMethod>> getPaymentMethods(TransactionBuilder transaction,
+      String transactionValue, String currency) {
+    return bdsInAppPurchaseInteractor.getPaymentMethods(transactionValue, currency)
+        .flatMap(paymentMethods -> getAvailablePaymentMethods(transaction, paymentMethods).flatMap(
+            availablePaymentMethods -> Observable.fromIterable(paymentMethods)
+                .map(paymentMethod -> mapPaymentMethods(paymentMethod, availablePaymentMethods))
+                .toList()))
+        .map(this::swapDisabledPositions);
+  }
+
+  private List<PaymentMethod> swapDisabledPositions(List<PaymentMethod> paymentMethods) {
+    boolean swapped = false;
+    if (paymentMethods.size() > 1) {
+      for (int position = 1; position < paymentMethods.size(); position++) {
+        if (shouldSwap(paymentMethods, position)) {
+          Collections.swap(paymentMethods, position, position - 1);
+          swapped = true;
+          break;
+        }
+      }
+      if (swapped) {
+        swapDisabledPositions(paymentMethods);
+      }
+    }
+    return paymentMethods;
+  }
+
+  private boolean shouldSwap(List<PaymentMethod> paymentMethods, int position) {
+    return paymentMethods.get(position)
+        .isEnabled() && !paymentMethods.get(position - 1)
+        .isEnabled();
+  }
+
+  private List<PaymentMethodEntity> removeUnavailable(List<PaymentMethodEntity> paymentMethods,
       List<Gateway.Name> filteredGateways) {
-    Iterator<PaymentMethod> iterator = paymentMethods.iterator();
+    List<PaymentMethodEntity> clonedPaymentMethods = new ArrayList<>(paymentMethods);
+    Iterator<PaymentMethodEntity> iterator = clonedPaymentMethods.iterator();
 
     while (iterator.hasNext()) {
-      PaymentMethod paymentMethod = iterator.next();
-
+      PaymentMethodEntity paymentMethod = iterator.next();
       String id = paymentMethod.getId();
       if (id.equals("appcoins") && !filteredGateways.contains(Gateway.Name.appcoins)) {
         iterator.remove();
       } else if (id.equals("appcoins_credits") && !filteredGateways.contains(
           Gateway.Name.appcoins_credits)) {
         iterator.remove();
+      } else if (paymentMethod.getGateway()
+          .getName() == (Gateway.Name.myappcoins)
+          && paymentMethod.getAvailability() != null
+          && paymentMethod.getAvailability()
+          .equals("UNAVAILABLE")) {
+        iterator.remove();
       }
     }
+    return clonedPaymentMethods;
+  }
+
+  private PaymentMethod mapPaymentMethods(PaymentMethodEntity paymentMethod,
+      List<PaymentMethodEntity> availablePaymentMethods) {
+    for (PaymentMethodEntity availablePaymentMethod : availablePaymentMethods) {
+      if (paymentMethod.getId()
+          .equals(availablePaymentMethod.getId())) {
+        return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
+            paymentMethod.getIconUrl(), true);
+      }
+    }
+    return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
+        paymentMethod.getIconUrl(), false);
   }
 }

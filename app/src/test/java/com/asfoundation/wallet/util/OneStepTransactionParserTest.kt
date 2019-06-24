@@ -66,7 +66,7 @@ class OneStepTransactionParserTest {
         Single.just(iabContractAddress))
 
     `when`<Single<FiatValue>>(conversionService.getAppcRate(anyString())).thenReturn(
-        Single.just(FiatValue(0.07, "EUR")))
+        Single.just(FiatValue(BigDecimal("0.07"), "EUR")))
 
     `when`<Single<String>>(billing.getWallet(anyString())).thenReturn(
         Single.just(developerAddress))

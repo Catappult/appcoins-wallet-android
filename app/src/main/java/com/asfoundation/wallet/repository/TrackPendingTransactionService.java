@@ -15,10 +15,4 @@ public class TrackPendingTransactionService implements TrackTransactionService {
         .firstOrError()
         .toObservable();
   }
-
-  @Override public Observable<PendingTransaction> checkTransactionState(String hash, int chainId) {
-    return trackTransactionService.checkTransactionState(hash, chainId)
-        .firstOrError()
-        .toObservable();
-  }
 }

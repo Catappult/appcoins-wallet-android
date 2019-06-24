@@ -6,7 +6,6 @@ import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
-import okhttp3.OkHttpClient;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 
@@ -14,18 +13,12 @@ public class WalletRepository implements WalletRepositoryType {
 
   private final PreferenceRepositoryType preferenceRepositoryType;
   private final AccountKeystoreService accountKeystoreService;
-  private final EthereumNetworkRepositoryType networkRepository;
-  private final OkHttpClient httpClient;
   private final Web3jProvider web3jProvider;
 
-  public WalletRepository(OkHttpClient okHttpClient,
-      PreferenceRepositoryType preferenceRepositoryType,
-      AccountKeystoreService accountKeystoreService,
-      EthereumNetworkRepositoryType networkRepository, Web3jProvider web3jProvider) {
-    this.httpClient = okHttpClient;
+  public WalletRepository(PreferenceRepositoryType preferenceRepositoryType,
+      AccountKeystoreService accountKeystoreService, Web3jProvider web3jProvider) {
     this.preferenceRepositoryType = preferenceRepositoryType;
     this.accountKeystoreService = accountKeystoreService;
-    this.networkRepository = networkRepository;
     this.web3jProvider = web3jProvider;
   }
 
@@ -83,11 +76,7 @@ public class WalletRepository implements WalletRepositoryType {
   }
 
   @Override public Single<BigDecimal> balanceInWei(Wallet wallet) {
-    return balanceInWei(wallet, networkRepository.getDefaultNetwork().chainId);
-  }
-
-  @Override public Single<BigDecimal> balanceInWei(Wallet wallet, int chainId) {
-    Web3j web3j = web3jProvider.get(chainId);
+    Web3j web3j = web3jProvider.get();
     return Single.fromCallable(() -> new BigDecimal(
         web3j.ethGetBalance(wallet.address, DefaultBlockParameterName.LATEST)
             .send()

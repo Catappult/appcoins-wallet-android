@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +13,16 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.WalletService;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.TransactionService;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.billing.purchase.BillingFactory;
-import com.asfoundation.wallet.entity.TransactionBuilder;
 import dagger.android.support.DaggerFragment;
+import java.math.BigDecimal;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -35,52 +35,54 @@ import static com.asfoundation.wallet.billing.analytics.BillingAnalytics.PAYMENT
 public class BillingWebViewFragment extends DaggerFragment {
 
   private static final String BILLING_SCHEMA = "billing://";
+  private static final String LOCAL_PAYMENTS_SCHEMA = "myappcoins.com/t/";
 
   private static final String URL = "url";
+  private static final String DOMAIN = "domain";
+  private static final String SKUID = "skuid";
+  private static final String AMOUNT = "amount";
+  private static final String TYPE = "type";
   private static final String CURRENT_URL = "currentUrl";
-  private static TransactionBuilder transaction;
-
+  private final AtomicReference<ScheduledFuture<?>> timeoutReference;
   @Inject Billing billing;
   @Inject BillingFactory billingFactory;
   @Inject WalletService walletService;
   @Inject TransactionService transactionService;
-
-  private final AtomicReference<ScheduledFuture<?>> timeoutReference;
+  @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
+  @Inject BillingAnalytics analytics;
   private WebView webView;
   private ProgressBar webviewProgressBar;
   private String currentUrl;
+  private String currentDomain;
+  private String currentSkuId;
+  private BigDecimal currentAmount;
+  private String currentType;
   private ScheduledExecutorService executorService;
-  @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
-  @Inject BillingAnalytics analytics;
-
-
-  public static BillingWebViewFragment newInstance(String url, TransactionBuilder transactionBuilder) {
-    Bundle args = new Bundle();
-    args.putString(URL, url);
-    BillingWebViewFragment fragment = new BillingWebViewFragment();
-    fragment.setArguments(args);
-    fragment.setRetainInstance(true);
-    transaction = transactionBuilder;
-    return fragment;
-  }
+  private AndroidBug5497Workaround androidBug5497Workaround;
 
   public BillingWebViewFragment() {
     this.timeoutReference = new AtomicReference<>();
   }
 
-  private AndroidBug5497Workaround androidBug5497Workaround;
+  public static BillingWebViewFragment newInstance(String url, String domain, String skuId,
+      BigDecimal amount, String type) {
+    Bundle args = new Bundle();
+    args.putString(URL, url);
+    args.putString(DOMAIN, domain);
+    args.putString(SKUID, skuId);
+    args.putSerializable(AMOUNT, amount);
+    args.putString(TYPE, type);
+    BillingWebViewFragment fragment = new BillingWebViewFragment();
+    fragment.setArguments(args);
+    fragment.setRetainInstance(true);
+    return fragment;
+  }
 
   @Override public void onAttach(Context context) {
     super.onAttach(context);
 
     androidBug5497Workaround = new AndroidBug5497Workaround(getActivity());
     androidBug5497Workaround.addListener();
-  }
-
-  @Override public void onDetach() {
-    androidBug5497Workaround.removeListener();
-
-    super.onDetach();
   }
 
   @Override public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,6 +100,11 @@ public class BillingWebViewFragment extends DaggerFragment {
       currentUrl = savedInstanceState.getString(CURRENT_URL);
     }
 
+    currentDomain = getArguments().getString(DOMAIN);
+    currentSkuId = getArguments().getString(SKUID);
+    currentAmount = (BigDecimal) getArguments().getSerializable(AMOUNT);
+    currentType = getArguments().getString(TYPE);
+
     CookieManager.getInstance()
         .setAcceptCookie(true);
   }
@@ -114,20 +121,22 @@ public class BillingWebViewFragment extends DaggerFragment {
 
       @Override public boolean shouldOverrideUrlLoading(WebView view, String clickUrl) {
         currentUrl = clickUrl;
-
         if (clickUrl.startsWith(BILLING_SCHEMA)) {
-          Intent intent = new Intent(getContext(), IabActivity.class);
+          Intent intent = new Intent();
           intent.setData(Uri.parse(clickUrl));
-          getActivity().setResult(WebViewActivity.SUCCESS);
+          getActivity().setResult(WebViewActivity.SUCCESS, intent);
           sendPaymentEvent();
           sendRevenueEvent();
           getActivity().finish();
-          getContext().startActivity(intent);
-
-          return true;
+        } else if (clickUrl.contains(LOCAL_PAYMENTS_SCHEMA)) {
+          Intent intent = new Intent();
+          intent.setData(Uri.parse(clickUrl));
+          getActivity().setResult(WebViewActivity.SUCCESS, intent);
+          getActivity().finish();
         } else {
           return false;
         }
+        return true;
       }
 
       @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
@@ -136,7 +145,6 @@ public class BillingWebViewFragment extends DaggerFragment {
 
       @Override public void onPageFinished(WebView view, String url) {
         super.onPageFinished(view, url);
-
         if (!url.contains("/redirect")) {
           ScheduledFuture<?> timeout = timeoutReference.getAndSet(null);
           if (timeout != null) {
@@ -162,33 +170,36 @@ public class BillingWebViewFragment extends DaggerFragment {
     }
   }
 
-  @Override public void onDestroy() {
-    executorService.shutdown();
-
-    super.onDestroy();
-  }
-
   @Override public void onSaveInstanceState(@NonNull Bundle outState) {
     super.onSaveInstanceState(outState);
 
     outState.putString(CURRENT_URL, currentUrl);
   }
 
-  public void sendPaymentMethodDetailsEvent() {
-    analytics.sendPaymentMethodDetailsEvent(transaction.getDomain(), transaction.getSkuId(),
-        transaction.amount()
-            .toString(), PAYMENT_METHOD_PAYPAL ,transaction.getType());
+  @Override public void onDestroy() {
+    executorService.shutdown();
+
+    super.onDestroy();
   }
 
-  public void sendPaymentEvent() {
-    analytics.sendPaymentEvent(transaction.getDomain(), transaction.getSkuId(),
-        transaction.amount()
-            .toString(), PAYMENT_METHOD_PAYPAL, transaction.getType());
+  @Override public void onDetach() {
+    androidBug5497Workaround.removeListener();
+
+    super.onDetach();
   }
 
-  public void sendRevenueEvent() {
-    inAppPurchaseInteractor.convertToFiat(transaction.amount().doubleValue(),
-            EVENT_REVENUE_CURRENCY)
+  private void sendPaymentMethodDetailsEvent() {
+    analytics.sendPaymentMethodDetailsEvent(currentDomain, currentSkuId, currentAmount.toString(),
+        PAYMENT_METHOD_PAYPAL, currentType);
+  }
+
+  private void sendPaymentEvent() {
+    analytics.sendPaymentEvent(currentDomain, currentSkuId, currentAmount.toString(),
+        PAYMENT_METHOD_PAYPAL, currentType);
+  }
+
+  private void sendRevenueEvent() {
+    inAppPurchaseInteractor.convertToFiat(currentAmount.doubleValue(), EVENT_REVENUE_CURRENCY)
         .doOnSuccess(fiatValue -> analytics.sendRevenueEvent(String.valueOf(fiatValue.getAmount())))
         .subscribe();
   }

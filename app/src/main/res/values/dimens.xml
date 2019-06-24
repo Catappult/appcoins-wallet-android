@@ -6,6 +6,7 @@
   <dimen name="small_padding">4dp</dimen>
   <dimen name="normal_padding">8dp</dimen>
   <dimen name="big_padding">16dp</dimen>
+  <dimen name="large_padding">76dp</dimen>
 
   <dimen name="small_margin">4dp</dimen>
   <dimen name="normal_margin">8dp</dimen>
@@ -27,11 +28,16 @@
   <dimen name="transaction_img_size">40dp</dimen>
   <dimen name="transaction_img_size_inside">50dp</dimen>
 
-  <dimen name="button_height">40dp</dimen>
+  <dimen name="button_height">36dp</dimen>
   <dimen name="payment_methods_width">340dp</dimen>
+  <dimen name="payment_methods_width_landscape">544dp</dimen>
 
   <dimen name="rewards_level_icon_size">42dp</dimen>
   <dimen name="rewards_level_icon_small_size">32dp</dimen>
   <dimen name="rewards_level_lock_size">16dp</dimen>
 
+  <dimen name="payment_method_icon_size">24dp</dimen>
+
+  <dimen name="topup_main_value_min_size">16sp</dimen>
+  <dimen name="card_view_corner_radius">7dp</dimen>
 </resources>

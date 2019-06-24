@@ -3,13 +3,15 @@ package com.asfoundation.wallet.router;
 import android.app.Activity;
 import android.content.Intent;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.ui.ActivityResultSharer;
 import com.asfoundation.wallet.ui.ConfirmationActivity;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
+import org.jetbrains.annotations.Nullable;
 
 import static com.asfoundation.wallet.C.EXTRA_TRANSACTION_BUILDER;
 
-public class ConfirmationRouter {
+public class ConfirmationRouter implements ActivityResultSharer.ActivityResultListener {
 
   public static final int TRANSACTION_CONFIRMATION_REQUEST_CODE = 12344;
   private final PublishSubject<Result> result;
@@ -24,7 +26,8 @@ public class ConfirmationRouter {
     activity.startActivityForResult(intent, TRANSACTION_CONFIRMATION_REQUEST_CODE);
   }
 
-  public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
+  @Override
+  public boolean onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
     if (requestCode == TRANSACTION_CONFIRMATION_REQUEST_CODE) {
       if (resultCode == Activity.RESULT_OK) {
         result.onNext(new Result(true, requestCode, data));

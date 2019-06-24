@@ -36,7 +36,15 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
               iabContract, Parameters.PAYMENT_TYPE_INAPP_UNMANAGED.toUpperCase(), null,
               getDomain(uri), getPayload(uri), getCallback(uri),
               getOrderReference(uri)).shouldSendToken(true)
-        }).doOnSuccess { transactionBuilder ->
+        }).map {
+      it.originalOneStepValue = uri.parameters[Parameters.VALUE]
+      var currency = uri.parameters[Parameters.CURRENCY]
+      if (currency == null) {
+        currency = "APPC"
+      }
+      it.originalOneStepCurrency = currency
+      return@map it
+    }.doOnSuccess { transactionBuilder ->
       cache.saveSync(uri.toString(), transactionBuilder)
     }.subscribeOn(Schedulers.io())
   }
@@ -135,7 +143,7 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
     } else {
       conversionService.getAppcRate(getCurrency(uri)!!.toUpperCase()).map {
         BigDecimal(uri.parameters[Parameters.VALUE])
-            .divide(BigDecimal(it.amount.toString()), 18, RoundingMode.UP)
+            .divide(it.amount, 18, RoundingMode.UP)
       }
     }
   }

@@ -57,6 +57,8 @@ public final class BarcodeCaptureActivity extends AppCompatActivity
   private static final int RC_HANDLE_GMS = 9001;
   // Permission request codes need to be < 256
   private static final int RC_HANDLE_CAMERA_PERM = 2;
+  private static final boolean AUTO_FOCUS = true;
+  private static final boolean USE_FLASH = false;
   private CameraSource mCameraSource;
   private CameraSourcePreview mPreview;
 
@@ -69,14 +71,11 @@ public final class BarcodeCaptureActivity extends AppCompatActivity
 
     mPreview = findViewById(R.id.preview);
 
-    boolean autoFocus = true;
-    boolean useFlash = false;
-
     // Check for the camera permission before accessing the camera.  If the
     // permission is not granted yet, request permission.
-    int rc = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
-    if (rc == PackageManager.PERMISSION_GRANTED) {
-      createCameraSource(autoFocus, useFlash);
+    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+        == PackageManager.PERMISSION_GRANTED) {
+      createCameraSource(AUTO_FOCUS, USE_FLASH);
     } else {
       requestCameraPermission();
     }
@@ -105,12 +104,8 @@ public final class BarcodeCaptureActivity extends AppCompatActivity
   // Handles the requesting of the camera permission.
   private void requestCameraPermission() {
     Log.w(TAG, "Camera permission is not granted. Requesting permission");
-
     final String[] permissions = new String[] { Manifest.permission.CAMERA };
-
-    if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
-      ActivityCompat.requestPermissions(this, permissions, RC_HANDLE_CAMERA_PERM);
-    }
+    ActivityCompat.requestPermissions(this, permissions, RC_HANDLE_CAMERA_PERM);
   }
 
   /**
@@ -212,36 +207,28 @@ public final class BarcodeCaptureActivity extends AppCompatActivity
    */
   @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
       @NonNull int[] grantResults) {
-    if (requestCode != RC_HANDLE_CAMERA_PERM) {
-      Log.d(TAG, "Got unexpected permission result: " + requestCode);
-      super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-      return;
-    }
-
-    if (grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-      Log.d(TAG, "Camera permission granted - initialize the camera source");
-      // we have permission, so create the camerasource
-      boolean autoFocus = true;
-      boolean useFlash = false;
-      createCameraSource(autoFocus, useFlash);
-      return;
-    }
-
-    Log.e(TAG,
-        "Permission not granted: results len = " + grantResults.length + " Result code = " + (
-            grantResults.length > 0 ? grantResults[0] : "(empty)"));
-
-    DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-      public void onClick(DialogInterface dialog, int id) {
-        finish();
+    if (requestCode == RC_HANDLE_CAMERA_PERM) {
+      if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        Log.d(TAG, "Camera permission granted - initialize the camera source");
+        // we have permission, so create the camerasource
+        createCameraSource(AUTO_FOCUS, USE_FLASH);
+      } else {
+        Log.e(TAG,
+            "Permission not granted: results len = " + grantResults.length + " Result code = " + (
+                grantResults.length > 0 ? grantResults[0] : "(empty)"));
+        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+          public void onClick(DialogInterface dialog, int id) {
+            finish();
+          }
+        };
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.no_camera_permission)
+            .setPositiveButton(R.string.ok, listener)
+            .show();
       }
-    };
-
-    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    builder.setTitle("Multitracker sample")
-        .setMessage(R.string.no_camera_permission)
-        .setPositiveButton(R.string.ok, listener)
-        .show();
+    } else {
+      super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
   }
 
   /**

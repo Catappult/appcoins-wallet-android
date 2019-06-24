@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/currency_selector"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="32dp"
+    android:layout_marginStart="32dp"
+    android:layout_marginTop="24dp"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/transact_fragment_amount_layout"
+    tools:showIn="@layout/transact_fragment_layout"
+    >
+  <androidx.appcompat.widget.AppCompatRadioButton
+      android:id="@+id/appcoins_credits_radio_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:checked="true"
+      android:text="@string/p2p_send_currency_appc_c"
+      />
+  <androidx.appcompat.widget.AppCompatRadioButton
+      android:id="@+id/appcoins_radio_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:text="@string/p2p_send_currency_appc"
+      />
+  <androidx.appcompat.widget.AppCompatRadioButton
+      android:id="@+id/ethereum_credits_radio_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:text="@string/p2p_send_currency_eth"
+      />
+</RadioGroup>

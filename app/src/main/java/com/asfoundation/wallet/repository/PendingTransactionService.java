@@ -27,12 +27,4 @@ public class PendingTransactionService implements TrackTransactionService {
             .toObservable())
         .takeUntil(pendingTransaction -> !pendingTransaction.isPending());
   }
-
-  @Override public Observable<PendingTransaction> checkTransactionState(String hash, int chainId) {
-    return Observable.interval(period, TimeUnit.SECONDS, scheduler)
-        .timeInterval()
-        .switchMap(scan -> service.getTransaction(hash, chainId)
-            .toObservable())
-        .takeUntil(pendingTransaction -> !pendingTransaction.isPending());
-  }
 }

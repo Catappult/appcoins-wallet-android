@@ -87,9 +87,9 @@ public class AppcoinsRewardsBuyPresenter {
     disposables.add(view.getBuyClick()
         .flatMapSingle(__ -> transferParser.parse(uri))
         .flatMapCompletable(transaction -> rewardsManager.pay(transaction.getSkuId(), amount,
-            transaction.toAddress(), oemAddress, packageName,
-            getOrigin(isBds, transaction), transaction.getType(), transaction.getPayload(),
-            transaction.getCallbackUrl(), transaction.getOrderReference())
+            transaction.toAddress(), packageName, getOrigin(isBds, transaction),
+            transaction.getType(), transaction.getPayload(), transaction.getCallbackUrl(),
+            transaction.getOrderReference())
             .andThen(rewardsManager.getPaymentStatus(packageName, transaction.getSkuId(),
                 transaction.amount()))
             .observeOn(scheduler)
@@ -159,11 +159,11 @@ public class AppcoinsRewardsBuyPresenter {
   }
 
   public void sendRevenueEvent() {
-    analytics.sendRevenueEvent(new BigDecimal(inAppPurchaseInteractor.convertToFiat((new BigDecimal(
-        transactionBuilder.amount()
-            .toString())).doubleValue(), EVENT_REVENUE_CURRENCY)
+    analytics.sendRevenueEvent(inAppPurchaseInteractor.convertToFiat(transactionBuilder.amount()
+        .doubleValue(), EVENT_REVENUE_CURRENCY)
         .blockingGet()
-        .getAmount()).setScale(2, BigDecimal.ROUND_UP)
+        .getAmount()
+        .setScale(2, BigDecimal.ROUND_UP)
         .toString());
   }
 }
