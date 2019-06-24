@@ -80,6 +80,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     toolbar();
     enableDisplayHomeAsUp();
 
+    disposables = new CompositeDisposable();
+
     balanceSkeleton = findViewById(R.id.balance_skeleton);
     balanceSkeleton.setVisibility(View.VISIBLE);
     balanceSkeleton.playAnimation();
@@ -193,7 +195,9 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   @Override protected void onResume() {
     super.onResume();
     emptyView = null;
-    disposables = new CompositeDisposable();
+    if (disposables.isDisposed()) {
+      disposables = new CompositeDisposable();
+    }
     adapter.clear();
     list.setVisibility(View.GONE);
     viewModel.prepare();
@@ -315,7 +319,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     balanceSkeleton.removeAllUpdateListeners();
     balanceSkeleton.removeAllLottieOnCompositionLoadedListener();
     emptyTransactionsSubject = null;
-    disposables = null;
+    disposables.dispose();
     super.onDestroy();
   }
 
