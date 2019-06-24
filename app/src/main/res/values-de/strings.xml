@@ -380,25 +380,25 @@
   <!--Tokens-->
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">Verarbeitung läuft&#8230;</string>
-  <string name="local_payments_inprogress_body">Complete your payment and, once you get the AppCoins Credits in your wallet, make the purchase!</string>
+  <string name="local_payments_inprogress_body">Schließen Sie ihre Bezahlung ab, sobald die AppCoins auf ihrem Konto gutgeschrieben sind können Sie einkaufen!</string>
   <!--Wallet Verification-->
-  <string name="verification_notification_verification_needed_title">Reward ready but verification needed</string>
-  <string name="verification_notification_verification_needed_body">For security reasons, we need to verify your wallet with a SMS code.</string>
-  <string name="verification_insert_phone_title">Insert your phone number</string>
-  <string name="verification_insert_phone_body">We\'ll send you a verification code.</string>
+  <string name="verification_notification_verification_needed_title">Die Prämie steht bereit, aber die Verifikation steht noch aus</string>
+  <string name="verification_notification_verification_needed_body">Aus Sicherheitsgründen müssen wir ihr Wallet mit einem SMS-Code verifizieren.</string>
+  <string name="verification_insert_phone_title">Geben Sie bitte ihre Telefonnummer ein</string>
+  <string name="verification_insert_phone_body">Wir senden Ihnen einen Verfizierungs-Code zu.</string>
   <string name="verification_insert_phone_field_country">Land</string>
-  <string name="verification_insert_phone_field_number">Phone Number</string>
-  <string name="verification_insert_phone_field_number_error">Invalid phone number</string>
-  <string name="verification_insert_phone_security_disclaimer">This is only for security reasons, we don\'t store any personal data.</string>
+  <string name="verification_insert_phone_field_number">Telefonnummer</string>
+  <string name="verification_insert_phone_field_number_error">Ungültige Telefonnummer</string>
+  <string name="verification_insert_phone_security_disclaimer">Dies dient nur der Sicherheit, wir speichern keine persönlichen Daten.</string>
   <string name="verification_notification_code_title">AppCoins Wallet</string>
-  <string name="verification_notification_code_body">Your verification code is %s. Use it to verify your AppCoins Wallet address.</string>
-  <string name="verification_insert_code_title">Insert your verification code</string>
-  <string name="verification_insert_code_error">Invalid code</string>
-  <string name="verification_insert_code_resend_button">RESEND CODE</string>
-  <string name="verification_validating_title">Validating your code&#8230;</string>
+  <string name="verification_notification_code_body">Ihr Verifizierungs-Code lautet: %s. Verwenden Sie ihn um dadurch die Adresse ihres AppCoins-Wallets zu verifizieren.</string>
+  <string name="verification_insert_code_title">Geben Sie ihren Verifizierungs-Code ein</string>
+  <string name="verification_insert_code_error">Ungültiger Code</string>
+  <string name="verification_insert_code_resend_button">CODE ERNEUT SENDEN</string>
+  <string name="verification_validating_title">Ihr Code wird überprüft&#8230;</string>
   <string name="verification_completed_title">Erledigt!</string>
   <string name="verification_notification_reward_received_body">Belohnung erhalten, viel Spaß! 👌</string>
-  <string name="verification_notification_reward_already_received_body">This phone number has already been used to receive this reward 😔</string>
-  <string name="verification_insert_phone_field_phone_used_already_error">Phone already used.</string>
+  <string name="verification_notification_reward_already_received_body">Diese Telefonnummer wurde bereits verwendet, um diese Prämie zu erhalten 😔</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">Telefon wurde bereits verwendet.</string>
   <string name="verification_insert_code_error_common">Upps, etwas ist schief gelaufen, Bitte versuchen Sie es erneut!</string>
 </resources>
