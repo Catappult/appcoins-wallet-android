@@ -63,7 +63,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private EmptyTransactionsView emptyView;
   private RecyclerView list;
   private TextView subtitleView;
-  private LottieAnimationView balanceSkeloton;
+  private LottieAnimationView balanceSkeleton;
   private PublishSubject<String> emptyTransactionsSubject;
   private CompositeDisposable disposables;
 
@@ -80,9 +80,9 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     toolbar();
     enableDisplayHomeAsUp();
 
-    balanceSkeloton = findViewById(R.id.balance_skeloton);
-    balanceSkeloton.setVisibility(View.VISIBLE);
-    balanceSkeloton.playAnimation();
+    balanceSkeleton = findViewById(R.id.balance_skeleton);
+    balanceSkeleton.setVisibility(View.VISIBLE);
+    balanceSkeleton.playAnimation();
     subtitleView = findViewById(R.id.toolbar_subtitle);
     ((AppBarLayout) findViewById(R.id.app_bar)).addOnOffsetChangedListener(
         (appBarLayout, verticalOffset) -> {
@@ -91,7 +91,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
           float alpha = 1 - (percentage * 1.20f);
           findViewById(R.id.toolbar_layout_logo).setAlpha(alpha);
           subtitleView.setAlpha(alpha);
-          balanceSkeloton.setAlpha(alpha);
+          balanceSkeleton.setAlpha(alpha);
           ((ToolbarArcBackground) findViewById(R.id.toolbar_background_arc)).setScale(percentage);
 
           if (percentage == 0) {
@@ -311,9 +311,9 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   @Override protected void onDestroy() {
     subtitleView = null;
-    balanceSkeloton.removeAllAnimatorListeners();
-    balanceSkeloton.removeAllUpdateListeners();
-    balanceSkeloton.removeAllLottieOnCompositionLoadedListener();
+    balanceSkeleton.removeAllAnimatorListeners();
+    balanceSkeleton.removeAllUpdateListeners();
+    balanceSkeleton.removeAllLottieOnCompositionLoadedListener();
     emptyTransactionsSubject = null;
     disposables = null;
     super.onDestroy();
@@ -343,7 +343,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private void onBalanceChanged(GlobalBalance globalBalance) {
     if (globalBalance.getFiatValue().length() > 0) {
-      balanceSkeloton.setVisibility(View.GONE);
+      balanceSkeleton.setVisibility(View.GONE);
       setCollapsingTitle(globalBalance.getFiatSymbol() + globalBalance.getFiatValue());
       setSubtitle(globalBalance);
     }
