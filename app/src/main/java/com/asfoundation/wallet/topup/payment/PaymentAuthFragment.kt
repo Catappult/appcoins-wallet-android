@@ -56,7 +56,6 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
   private lateinit var networkErrorDialog: RxAlertDialog
   private lateinit var paymentRefusedDialog: RxAlertDialog
   private lateinit var paymentMethod: PaymentMethod
-  private lateinit var fiatAmount: FiatAmount
   private var cvcOnly: Boolean = false
   private lateinit var presenter: PaymentAuthPresenter
   private var keyboardTopUpRelay: PublishRelay<Boolean>? = null
@@ -213,6 +212,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
         .subscribe({ navigator.popViewWithError() }, { it.printStackTrace() }))
 
     topUpView?.showToolbar()
+    main_value.visibility = View.INVISIBLE
     presenter.present(savedInstanceState, origin, data.currency.appcValue,
         data.currency.fiatCurrencyCode, transactionType, paymentType)
   }
@@ -256,10 +256,12 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
 
   override fun showValues(value: String, currency: String) {
     if (currentCurrency == FIAT_CURRENCY) {
+      main_value.visibility = View.VISIBLE
       main_value.setText(value)
       main_currency_code.text = currency
       converted_value.text = "${data.currency.appcValue} ${data.currency.appcSymbol}"
     } else {
+      main_value.visibility = View.VISIBLE
       main_value.setText(data.currency.appcValue)
       main_currency_code.text = data.currency.appcCode
       converted_value.text = "$value $currency"
@@ -414,5 +416,3 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     return creditCardPaymentDetails
   }
 }
-
-data class FiatAmount(var amount: Long, var currency: String)
