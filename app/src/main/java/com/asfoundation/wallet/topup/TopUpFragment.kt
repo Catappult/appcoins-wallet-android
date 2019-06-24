@@ -123,8 +123,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
                                localCurrency: LocalCurrency) {
     this@TopUpFragment.paymentMethods = paymentMethods
     this@TopUpFragment.localCurrency = localCurrency
-    setupCurrencyData(selectedCurrency, localCurrency.code, localCurrency.symbol, DEFAULT_VALUE,
-        APPC_C_SYMBOL, APPC_C_SYMBOL, DEFAULT_VALUE)
+    setupCurrencyData(selectedCurrency, localCurrency.code, DEFAULT_VALUE,
+        APPC_C_SYMBOL, DEFAULT_VALUE)
     main_value.isEnabled = true
     main_value.setMinTextSize(
         resources.getDimensionPixelSize(R.dimen.topup_main_value_min_size).toFloat())
@@ -215,11 +215,10 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   override fun switchCurrencyData() {
     val currencyData = getCurrencyData()
     selectedCurrency =
-        if (selectedCurrency == TopUpData.APPC_C_CURRENCY) FIAT_CURRENCY else TopUpData.APPC_C_CURRENCY
+        if (selectedCurrency == APPC_C_CURRENCY) FIAT_CURRENCY else APPC_C_CURRENCY
     // We just have to switch the current information being shown
-    setupCurrencyData(selectedCurrency, currencyData.fiatCurrencyCode,
-        currencyData.fiatCurrencySymbol, currencyData.fiatValue, currencyData.appcCode,
-        currencyData.appcSymbol, currencyData.appcValue)
+    setupCurrencyData(selectedCurrency, currencyData.fiatCurrencyCode, currencyData.fiatValue,
+        currencyData.appcCode, currencyData.appcValue)
   }
 
   override fun setConversionValue(topUpData: TopUpData) {
@@ -230,7 +229,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
         }
         APPC_C_CURRENCY -> {
           converted_value.text =
-              "${topUpData.currency.fiatCurrencySymbol}${topUpData.currency.fiatValue}"
+              "${topUpData.currency.fiatValue} ${topUpData.currency.fiatCurrencyCode}"
         }
       }
     } else {
@@ -283,31 +282,28 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
         currency + scaledBonus.toPlainString())
   }
 
-  private fun setupCurrencyData(selectedCurrency: String, fiatCode: String, fiatSymbol: String,
-                                fiatValue: String, appcCode: String, appcSymbol: String,
-                                appcValue: String) {
+  private fun setupCurrencyData(selectedCurrency: String, fiatCode: String, fiatValue: String,
+                                appcCode: String, appcValue: String) {
 
     when (selectedCurrency) {
       FIAT_CURRENCY -> {
-        setCurrencyInfo(fiatCode, fiatSymbol, fiatValue,
-            "$appcValue $appcSymbol", appcCode)
+        setCurrencyInfo(fiatCode, fiatValue,
+            "$appcValue $appcCode", appcCode)
       }
       APPC_C_CURRENCY -> {
-        setCurrencyInfo(appcCode, appcSymbol, appcValue,
-            "$fiatSymbol$fiatValue", fiatCode)
+        setCurrencyInfo(appcCode, appcValue,
+            "$fiatValue $fiatCode", fiatCode)
       }
     }
   }
 
-  private fun setCurrencyInfo(mainCode: String, mainSymbol: String, mainValue: String,
+  private fun setCurrencyInfo(mainCode: String, mainValue: String,
                               conversionValue: String, conversionCode: String) {
     main_currency_code.text = mainCode
     if (mainValue != DEFAULT_VALUE) {
       main_value.setText(mainValue)
       main_value.setSelection(main_value.text!!.length)
     }
-    main_value_currency.text = mainSymbol
-
     swap_value_label.text = conversionCode
     converted_value.text = conversionValue
   }
@@ -336,7 +332,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
           APPC_C_SYMBOL, APPC_C_SYMBOL, appcValue)
     } else {
       val localCurrencyValue = converted_value.text.toString()
-          .replace(localCurrency.symbol, "")
+          .replace(localCurrency.code, "")
+          .replace(" ", "")
       val appcValue =
           if (main_value.text.toString().isEmpty()) DEFAULT_VALUE else main_value.text.toString()
       CurrencyData(localCurrency.code, localCurrency.symbol, localCurrencyValue,

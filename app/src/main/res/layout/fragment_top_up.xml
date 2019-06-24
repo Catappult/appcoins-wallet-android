@@ -29,11 +29,11 @@
         style="@style/TopUpTextStyle.MainValue"
         android:layout_width="152dp"
         android:layout_height="55dp"
-        android:background="@drawable/edit_text_background"
+        android:background="@null"
         android:enabled="false"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:gravity="start|center_vertical"
+        android:gravity="center"
         android:hint="0"
         android:inputType="numberDecimal"
         android:maxWidth="152dp"
@@ -42,18 +42,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/main_currency_code"
-        />
-
-    <TextView
-        android:id="@+id/main_value_currency"
-        style="@style/TopUpTextStyle.MainValueCurrency"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:text="-"
-        app:layout_constraintBottom_toBottomOf="@id/main_value"
-        app:layout_constraintEnd_toStartOf="@id/main_value"
-        app:layout_constraintTop_toTopOf="@id/main_value"
         />
 
     <TextView

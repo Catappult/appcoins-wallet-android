@@ -56,6 +56,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
   private lateinit var networkErrorDialog: RxAlertDialog
   private lateinit var paymentRefusedDialog: RxAlertDialog
   private lateinit var paymentMethod: PaymentMethod
+  private lateinit var fiatAmount: FiatAmount
   private var cvcOnly: Boolean = false
   private lateinit var presenter: PaymentAuthPresenter
   private var keyboardTopUpRelay: PublishRelay<Boolean>? = null
@@ -211,7 +212,6 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     disposables.add(paymentRefusedDialog.positiveClicks()
         .subscribe({ navigator.popViewWithError() }, { it.printStackTrace() }))
 
-    showValues()
     topUpView?.showToolbar()
     presenter.present(savedInstanceState, origin, data.currency.appcValue,
         data.currency.fiatCurrencyCode, transactionType, paymentType)
@@ -254,28 +254,16 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
 
   }
 
-  override fun showValues() {
-    var mainValue: String
-    var convertedValue: String
-    var currencyCode: String
-    var currencySymbol: String
+  override fun showValues(value: String, currency: String) {
     if (currentCurrency == FIAT_CURRENCY) {
-      mainValue = data.currency.fiatValue
-      convertedValue = "${data.currency.appcValue} ${data.currency.appcSymbol}"
-      currencyCode = data.currency.fiatCurrencyCode
-      currencySymbol = data.currency.fiatCurrencySymbol
+      main_value.setText(value)
+      main_currency_code.text = currency
+      converted_value.text = "${data.currency.appcValue} ${data.currency.appcSymbol}"
     } else {
-      mainValue = data.currency.appcValue
-      convertedValue = "${data.currency.fiatCurrencySymbol}${data.currency.fiatValue}"
-      currencyCode = data.currency.appcCode
-      currencySymbol = data.currency.appcSymbol
+      main_value.setText(data.currency.appcValue)
+      main_currency_code.text = data.currency.appcCode
+      converted_value.text = "$value $currency"
     }
-
-    main_value.setText(mainValue)
-    main_value_currency.text = currencySymbol
-    main_currency_code.text = currencyCode
-    converted_value.text = convertedValue
-
   }
 
   override fun showLoading() {
@@ -318,7 +306,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     }
   }
 
-  override fun showCvcView(paymentMethod: PaymentMethod) {
+  override fun showCvcView(paymentMethod: PaymentMethod, value: String, currency: String) {
     cvcOnly = true
     fragment_braintree_credit_card_form.findViewById<View>(
         com.braintreepayments.cardform.R.id.bt_card_form_card_number_icon)
@@ -338,10 +326,12 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
 
     hideLoading()
     finishSetupView()
+    showValues(value, currency)
   }
 
-  override fun showCreditCardView(paymentMethod: PaymentMethod, cvcStatus: Boolean,
-                                  allowSave: Boolean, publicKey: String, generationTime: String) {
+  override fun showCreditCardView(paymentMethod: PaymentMethod, value: String, currency: String,
+                                  cvcStatus: Boolean, allowSave: Boolean, publicKey: String,
+                                  generationTime: String) {
     this.paymentMethod = paymentMethod
     this.publicKey = publicKey
     this.generationTime = generationTime
@@ -360,6 +350,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
 
     hideLoading()
     finishSetupView()
+    showValues(value, currency)
   }
 
   override fun showPaymentRefusedError(adyenAuthorization: AdyenAuthorization) {
@@ -423,3 +414,5 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     return creditCardPaymentDetails
   }
 }
+
+data class FiatAmount(var amount: Long, var currency: String)
