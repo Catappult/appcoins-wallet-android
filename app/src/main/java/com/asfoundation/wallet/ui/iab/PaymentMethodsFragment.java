@@ -97,6 +97,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private TextView appNameTv;
   private TextView appSkuDescriptionTv;
   private TextView walletAddressTv;
+  private View mainView;
   private String productName;
   private RadioGroup radioGroup;
   private FiatValue fiatValue;
@@ -161,6 +162,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
+    mainView = view.findViewById(R.id.payment_method_main_view);
     radioGroup = view.findViewById(R.id.payment_methods_radio_group);
     loadingView = view.findViewById(R.id.loading_view);
     dialog = view.findViewById(R.id.payment_methods);
@@ -192,6 +194,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   @Override public void onDestroyView() {
     presenter.stop();
     compositeDisposable.clear();
+    mainView = null;
     radioGroup = null;
     loadingView = null;
     dialog = null;
@@ -282,13 +285,13 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     setupPaymentMethods(paymentMethods,
         paymentMethodsMapper.map(SelectedPaymentMethod.CREDIT_CARD));
     setupSubject.onNext(true);
-    hideLoading();
   }
 
   @Override public void showError() {
     loadingView.setVisibility(View.GONE);
     dialog.setVisibility(View.GONE);
     addressFooter.setVisibility(View.GONE);
+    mainView.setVisibility(View.GONE);
     errorView.setVisibility(View.VISIBLE);
     errorMessage.setText(R.string.activity_iab_error_message);
   }
@@ -297,6 +300,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     loadingView.setVisibility(View.GONE);
     dialog.setVisibility(View.GONE);
     addressFooter.setVisibility(View.GONE);
+    mainView.setVisibility(View.GONE);
     errorView.setVisibility(View.VISIBLE);
     itemAlreadyOwnedError = true;
     errorMessage.setText(new StringBuilder().append(

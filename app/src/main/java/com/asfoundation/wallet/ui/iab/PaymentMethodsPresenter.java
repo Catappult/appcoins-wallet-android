@@ -141,12 +141,15 @@ public class PaymentMethodsPresenter {
 
   private void handleOnGoingPurchases() {
     if (transaction.getSkuId() == null) {
+      disposables.add(isSetupCompleted().doOnComplete(view::hideLoading)
+          .subscribeOn(viewScheduler)
+          .subscribe());
       return;
     }
     disposables.add(waitForUi(transaction.getSkuId()).observeOn(viewScheduler)
         .subscribe(view::hideLoading, throwable -> {
-          view.showError();
           throwable.printStackTrace();
+          view.showError();
         }));
   }
 
