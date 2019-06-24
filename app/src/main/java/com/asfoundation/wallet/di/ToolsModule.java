@@ -135,6 +135,11 @@ import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper;
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor;
 import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService;
+import com.asfoundation.wallet.ui.balance.AppcoinsBalanceRepository;
+import com.asfoundation.wallet.ui.balance.BalanceInteract;
+import com.asfoundation.wallet.ui.balance.BalanceRepository;
+import com.asfoundation.wallet.ui.balance.database.BalanceDetailsDatabase;
+import com.asfoundation.wallet.ui.balance.database.BalanceDetailsMapper;
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
 import com.asfoundation.wallet.ui.gamification.LevelResourcesMapper;
 import com.asfoundation.wallet.ui.gamification.SharedPreferencesGamificationLocalData;
@@ -907,8 +912,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides TopUpInteractor providesTopUpInteractor(BdsRepository repository,
-      LocalCurrencyConversionService conversionService) {
-    return new TopUpInteractor(repository, conversionService);
+      LocalCurrencyConversionService conversionService,
+      GamificationInteractor gamificationInteractor) {
+    return new TopUpInteractor(repository, conversionService, gamificationInteractor);
   }
 
   @Singleton @Provides TransactionsAnalytics providesTransactionsAnalytics(
@@ -934,6 +940,21 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Singleton @Provides SmsValidationInteract provideSmsValidationInteract(
       SmsValidationRepositoryType smsValidationRepository) {
     return new SmsValidationInteract(smsValidationRepository);
+  }
+
+  @Singleton @Provides BalanceInteract provideBalanceInteract(
+      FindDefaultWalletInteract findDefaultWalletInteract, BalanceRepository balanceRepository) {
+    return new BalanceInteract(findDefaultWalletInteract, balanceRepository);
+  }
+
+  @Singleton @Provides BalanceRepository provideBalanceRepository(Context context,
+      LocalCurrencyConversionService localCurrencyConversionService,
+      GetDefaultWalletBalance getDefaultWalletBalance) {
+    return new AppcoinsBalanceRepository(getDefaultWalletBalance, localCurrencyConversionService,
+        Room.databaseBuilder(context.getApplicationContext(), BalanceDetailsDatabase.class,
+            "balance_details")
+            .build()
+            .balanceDetailsDao(), new BalanceDetailsMapper(), Schedulers.io());
   }
 
   @Singleton @Provides CampaignInteract provideCampaignInteract(CampaignService campaignService,

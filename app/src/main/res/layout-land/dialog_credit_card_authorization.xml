@@ -12,7 +12,7 @@
     >
 
   <androidx.constraintlayout.widget.ConstraintLayout
-      android:id="@+id/payment_info"
+      android:id="@+id/credit_card_info"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:background="@drawable/background_card"
@@ -244,9 +244,10 @@
 
   </androidx.constraintlayout.widget.ConstraintLayout>
   <RelativeLayout
+      android:id="@+id/layout_wallet_footer"
       android:layout_width="match_parent"
       android:layout_height="24dp"
-      android:layout_below="@id/payment_info"
+      android:layout_below="@id/credit_card_info"
       >
     <ImageView
         android:id="@+id/logo_wallet"
@@ -274,5 +275,7 @@
         tools:text="0x1a78a81235dls019sk291id"
         />
   </RelativeLayout>
+
+  <include layout="@layout/fragment_iab_transaction_completed"/>
 
 </RelativeLayout>

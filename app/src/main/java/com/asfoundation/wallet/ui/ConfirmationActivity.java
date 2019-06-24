@@ -13,7 +13,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.C;

@@ -299,7 +299,7 @@
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">Bonus Αγοράς:</string>
   <string name="gamification_purchase_header_part_2">%s σε APPC Credits</string>
-  <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
+  <string name="gamification_purchase_body">Θα λάβετε %s APPC Credits για αυτήν την αγορά.</string>
   <string name="action_level">Το επίπεδό μου</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Επιτρέψτε στο AppCoins Wallet να παρέχει τη διεύθυνση wallet σας στο %s.</string>

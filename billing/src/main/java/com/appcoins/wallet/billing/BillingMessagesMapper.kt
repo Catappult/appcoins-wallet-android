@@ -22,6 +22,8 @@ class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerial
   companion object {
     internal const val TRANSACTION_HASH = "transaction_hash"
     internal const val TOP_UP_AMOUNT = "top_up_amount"
+    internal const val BONUS = "bonus"
+    internal const val VALID_BONUS = "valid_bonus"
   }
 
 
@@ -130,11 +132,12 @@ class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerial
     return bundle
   }
 
-  fun topUpBundle(amount: Double): Bundle {
+  fun topUpBundle(amount: Double, bonus: String, validBonus: Boolean): Bundle {
     val bundle = Bundle()
     bundle.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
     bundle.putDouble(TOP_UP_AMOUNT, amount)
-
+    bundle.putString(BONUS, bonus)
+    bundle.putBoolean(VALID_BONUS, validBonus)
     return bundle
   }
 

@@ -299,7 +299,7 @@
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">Bonus voor aankoop:</string>
   <string name="gamification_purchase_header_part_2">%s in APPC Credits</string>
-  <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
+  <string name="gamification_purchase_body">Voor deze aankoop krijg je %s APPC Credits.</string>
   <string name="action_level">Mijn niveau</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Geef AppCoins Wallet toestemming om je wallet-adres aan %s door te geven.</string>

@@ -55,27 +55,27 @@
         android:name="com.asfoundation.wallet.ui.SettingsActivity"
         android:label="@string/title_activity_settings"/>
     <activity
-        android:name="com.asfoundation.wallet.ui.TransactionDetailActivity"
+        android:name="com.asfoundation.wallet.ui.balance.TransactionDetailActivity"
         android:label=""/>
 
     <activity
         android:name="com.asfoundation.wallet.ui.MyAddressActivity"
         android:label="@string/title_my_address"/>
     <activity
-        android:name="com.asfoundation.wallet.ui.TokensActivity"
-        android:label="@string/title_my_tokens"/>
+        android:name="com.asfoundation.wallet.ui.balance.BalanceActivity"
+        android:label="@string/balance_title"/>
+    <activity
+        android:name="com.asfoundation.wallet.ui.balance.TokenDetailsActivity"
+        android:theme="@style/AppTheme.Transparent"
+        android:label="@string/balance_title"/>
 
     <activity
         android:name="com.asfoundation.wallet.ui.SendActivity"
-        android:label="@string/title_activity_send"></activity>
+        android:label="@string/title_activity_send"/>
 
     <activity
         android:name="com.asfoundation.wallet.ui.ConfirmationActivity"
         android:label="@string/title_activity_confirmation"/>
-
-    <activity
-        android:name="com.asfoundation.wallet.ui.AddTokenActivity"
-        android:label="@string/title_add_token"/>
 
     <activity
         android:name="com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity"
@@ -84,10 +84,6 @@
     <activity
         android:name="com.asfoundation.wallet.ui.GasSettingsActivity"
         android:label="@string/title_send_settings"/>
-
-    <activity
-        android:name="com.asfoundation.wallet.ui.TokenChangeCollectionActivity"
-        android:label="@string/title_tokens"/>
 
     <activity
         android:name="com.asfoundation.wallet.ui.Erc681Receiver"
@@ -172,8 +168,7 @@
 
     <activity
         android:name="com.asfoundation.wallet.topup.TopUpActivity"
-        android:label="@string/topup_title"
-        android:launchMode="singleInstance">
+        android:label="@string/topup_title">
       <intent-filter>
         <data
             android:host="aptoide.com"

@@ -43,6 +43,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
     const val WEB_VIEW_REQUEST_CODE = 1234
     private const val TOP_UP_AMOUNT = "top_up_amount"
+    private const val BONUS = "bonus"
+    private const val VALID_BONUS = "valid_bonus"
   }
 
 
@@ -63,7 +65,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   override fun showTopUpScreen() {
     setupToolbar()
     supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, TopUpFragment.newInstance(packageName)).commit()
+        .replace(R.id.fragment_container, TopUpFragment.newInstance(packageName))
+        .commit()
   }
 
   override fun onBackPressed() {
@@ -80,8 +83,11 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     return super.onOptionsItemSelected(item)
   }
 
-  override fun navigateToPayment(paymentType: PaymentType, data: TopUpData,
-                                 selectedCurrency: String, origin: String, transactionType: String) {
+  override fun navigateToPayment(paymentType: PaymentType,
+                                 data: TopUpData,
+                                 selectedCurrency: String, origin: String,
+                                 transactionType: String, bonusValue: String,
+                                 validBonus: Boolean) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             PaymentAuthFragment.newInstance(
@@ -89,7 +95,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
                 data,
                 selectedCurrency,
                 origin,
-                transactionType))
+                transactionType, bonusValue, validBonus))
         .commit()
   }
 
@@ -100,12 +106,16 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   override fun finish(data: Bundle) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            TopUpSuccessFragment.newInstance(data.getDouble(TOP_UP_AMOUNT)))
+            TopUpSuccessFragment.newInstance(data.getDouble(TOP_UP_AMOUNT), data.getString(BONUS),
+                data.getBoolean(
+                    VALID_BONUS)), TopUpSuccessFragment::class.java.simpleName)
         .commit()
   }
 
   override fun close() {
-    TransactionsRouter().open(this, true)
+    if (supportFragmentManager.findFragmentByTag(TopUpSuccessFragment::class.java.simpleName) != null) {
+      TransactionsRouter().open(this, true)
+    }
     finish()
   }
 

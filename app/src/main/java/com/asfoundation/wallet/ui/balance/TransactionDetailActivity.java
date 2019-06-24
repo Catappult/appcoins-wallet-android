@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui;
+package com.asfoundation.wallet.ui.balance;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.transactions.Operation;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionDetails;
+import com.asfoundation.wallet.ui.BaseActivity;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsDetailsAdapter;
 import com.asfoundation.wallet.util.BalanceUtils;

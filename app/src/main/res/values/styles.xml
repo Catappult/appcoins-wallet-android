@@ -6,6 +6,7 @@
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
     <item name="android:statusBarColor">@color/statusBarColor</item>
+    <item name="android:windowContentTransitions">true</item>
   </style>
 
   <style name="MaterialAppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
@@ -18,6 +19,7 @@
     <item name="windowNoTitle">true</item>
     <item name="actionMenuTextColor">@color/white</item>
     <item name="android:windowContentOverlay">@null</item>
+    <item name="android:windowContentTransitions">true</item>
   </style>
 
   <style name="AppTheme.NoActionBar" parent="AppTheme">
@@ -40,6 +42,21 @@
     <item name="android:fitsSystemWindows">true</item>
   </style>
 
+
+  <style name="AppTheme.Transparent" parent="AppTheme">
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+    <item name="android:windowIsTranslucent">true</item>
+    <item name="android:windowBackground">@android:color/transparent</item>
+    <item name="android:windowContentOverlay">@null</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:backgroundDimEnabled">true</item>
+    <!-- specify enter and exit transitions -->
+    <item name="android:windowEnterTransition">@transition/fade_transition</item>
+    <item name="android:windowExitTransition">@transition/fade_transition</item>
+    <item name="android:windowAllowEnterTransitionOverlap">true</item>
+  </style>
+
   <style name="Theme.AppCompat.Transparent" parent="Theme.AppCompat">
     <item name="android:windowIsTranslucent">true</item>
     <item name="android:windowContentOverlay">@null</item>
@@ -50,6 +67,7 @@
     <item name="android:backgroundDimEnabled">true</item>
     <item name="android:windowTranslucentStatus">true</item>
     <item name="android:fitsSystemWindows">true</item>
+    <item name="android:windowContentTransitions">true</item>
   </style>
 
   <style name="Theme.AppCompat.Transparent.FitAppWindow" parent="Theme.AppCompat.Transparent">
@@ -103,11 +121,13 @@
     <item name="android:background">@drawable/button_background</item>
     <item name="android:textAllCaps">true</item>
     <item name="android:textColor">@drawable/btn_text_color</item>
-    <item name="android:fontFamily">@font/roboto_regular</item>
+    <item name="android:fontFamily">sans-serif-medium</item>
     <item name="android:textSize">14sp</item>
     <item name="android:paddingStart">@dimen/big_padding</item>
     <item name="android:paddingEnd">@dimen/big_padding</item>
     <item name="android:minWidth">64dp</item>
+    <item name="android:minHeight">36dp</item>
+    <item name="android:letterSpacing">.09</item>
   </style>
 
   <style name="ButtonStyle.Alternative">
@@ -156,23 +176,26 @@
     <item name="android:background">@drawable/button_light_background</item>
     <item name="android:textAllCaps">true</item>
     <item name="android:textColor">@drawable/btn_light_text_color</item>
-    <item name="android:fontFamily">@font/roboto_regular</item>
+    <item name="android:fontFamily">sans-serif-medium</item>
     <item name="android:textSize">14sp</item>
     <item name="android:paddingStart">@dimen/big_padding</item>
     <item name="android:paddingEnd">@dimen/big_padding</item>
     <item name="android:minWidth">64dp</item>
+    <item name="android:minHeight">36dp</item>
+    <item name="android:letterSpacing">.09</item>
   </style>
 
   <style name="CancelButtonStyle" parent="Base.Widget.AppCompat.ImageButton">
     <item name="android:background">?attr/selectableItemBackground</item>
     <item name="android:textAllCaps">true</item>
     <item name="android:textColor">@color/btn_cancel_text</item>
-    <item name="android:fontFamily">@font/roboto_regular</item>
+    <item name="android:fontFamily">sans-serif-medium</item>
     <item name="android:textSize">14sp</item>
     <item name="android:textStyle">bold</item>
     <item name="android:paddingStart">@dimen/big_padding</item>
     <item name="android:paddingEnd">@dimen/big_padding</item>
     <item name="android:minWidth">64dp</item>
+    <item name="android:letterSpacing">.09</item>
   </style>
 
   <style name="TransactionDetailsTextStyle.Subtitle">
@@ -210,14 +233,14 @@
 
   <style name="TextAppearance.AppCompat.Headline.Roboto.Medium" parent="TextAppearance.AppCompat.Headline">
     <item name="android:textSize">20sp</item>
-    <item name="android:fontFamily">sans-serif</item>
+    <item name="android:fontFamily">sans-serif-medium</item>
     <item name="android:textColor">#001727</item>
   </style>
 
   <style name="TextAppearance.AppCompat.Body1.Roboto.Medium" parent="TextAppearance.AppCompat.Body1">
     <item name="android:textSize">16sp</item>
     <item name="android:textColor">#828282</item>
-    <item name="android:fontFamily">sans-serif</item>
+    <item name="android:fontFamily">sans-serif-medium</item>
   </style>
 
   <style name="TextAppearance.AppCompat.Body1.Roboto.Regular" parent="TextAppearance.AppCompat.Body1">
@@ -334,7 +357,8 @@
 
   <style name="TopUpTextStyle.SuccessTitle">
     <item name="android:textColor">@color/top_up_bonus_title</item>
-    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:fontFamily">sans-serif</item>
+    <item name="android:textSize">14sp</item>
   </style>
 
   <style name="TopUpTextStyle.SuccessText">
@@ -376,6 +400,28 @@
     <item name="android:textColor">@color/selection_dot_selected</item>
   </style>
 
+  <style name="TokenDetailsTitleStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
+    <item name="android:textColor">#000000</item>
+  </style>
+
+  <style name="TokenDetailsSubTitleStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
+    <item name="android:textColor">#757575</item>
+  </style>
+
+  <style name="TokenDetailsTextStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textColor">#000000</item>
+  </style>
+
+  <style name="BalanceTitleStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textSize">16sp</item>
+    <item name="android:textColor">#ffffff</item>
+  </style>
+
+  <style name="BalanceTitleStyle.Large">
+    <item name="android:textSize">34sp</item>
+    <item name="android:letterSpacing">0.1</item>
+  </style>
+
   <style name="TextInputLayoutAppearance" parent="Widget.Design.TextInputLayout">
     <!-- reference our hint & error styles -->
     <item name="hintTextAppearance">@style/HintText</item>
@@ -395,6 +441,12 @@
   <style name="HintText" parent="TextAppearance.AppCompat">
     <item name="android:textColor">@color/colorAccent</item>
     <item name="android:textSize">12sp</item>
+  </style>
+
+  <style name="TransactionSuccessTextStyle">
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textSize">16sp</item>
+    <item name="android:textColor">@color/black</item>
   </style>
 
 </resources>

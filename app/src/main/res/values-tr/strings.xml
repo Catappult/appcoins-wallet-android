@@ -299,7 +299,7 @@
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">Satın Alma Bonusu:</string>
   <string name="gamification_purchase_header_part_2">APPC Credits cinsinden %s</string>
-  <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
+  <string name="gamification_purchase_body">Bu satın alma işlemi için %s APPC Kredi kazanacaksınız.</string>
   <string name="action_level">Seviyem</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">AppCoins Cüzdanın %s\'e cüzdan adresinizi vermesine izin verin.</string>

@@ -2,7 +2,6 @@ package com.asfoundation.wallet.topup
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +17,6 @@ import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
 import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
 import com.asfoundation.wallet.topup.paymentMethods.TopUpPaymentMethodAdapter
-import com.jakewharton.rxbinding2.InitialValueObservable
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.jakewharton.rxrelay2.PublishRelay
@@ -27,6 +25,8 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_top_up.*
+import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
+import java.math.BigDecimal
 import javax.inject.Inject
 
 
@@ -43,6 +43,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   private var topUpActivityView: TopUpActivityView? = null
   private var selectedCurrency = FIAT_CURRENCY
   private var switchingCurrency = false
+  private var validBonus = false
+  private lateinit var bonusMessageValue: String
   private var localCurrency = LocalCurrency()
 
   companion object {
@@ -107,7 +109,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       localCurrency = savedInstanceState.getSerializable(LOCAL_CURRENCY_PARAM) as LocalCurrency
     }
     topUpActivityView?.showToolbar()
-    presenter.present()
+    presenter.present(appPackage)
 
   }
 
@@ -147,7 +149,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   override fun getEditTextChanges(): Observable<TopUpData> {
     return RxTextView.afterTextChangeEvents(main_value)
-        .filter { !switchingCurrency }.map {
+        .filter { !switchingCurrency }
+        .map {
           TopUpData(getCurrencyData(), selectedCurrency, getSelectedPaymentMethod())
         }
   }
@@ -158,7 +161,10 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   override fun getNextClick(): Observable<TopUpData> {
     return RxView.clicks(button)
-        .map { TopUpData(getCurrencyData(), selectedCurrency, getSelectedPaymentMethod()) }
+        .map {
+          TopUpData(getCurrencyData(), selectedCurrency, getSelectedPaymentMethod(),
+              bonusMessageValue, validBonus)
+        }
   }
 
   override fun setNextButtonState(enabled: Boolean) {
@@ -174,6 +180,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   override fun showLoading() {
     fragment_braintree_credit_card_form.visibility = View.GONE
     payment_methods.visibility = View.INVISIBLE
+    bonus_layout.visibility = View.GONE
+    bonus_msg.visibility = View.GONE
     loading.visibility = View.VISIBLE
   }
 
@@ -181,6 +189,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     payment_methods.visibility = View.GONE
     loading.visibility = View.GONE
     fragment_braintree_credit_card_form.visibility = View.VISIBLE
+    bonus_layout.visibility = View.GONE
+    bonus_msg.visibility = View.GONE
   }
 
   override fun showPaymentMethods() {
@@ -245,6 +255,33 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     switchingCurrency = false
   }
 
+  override fun hideBonus() {
+    validBonus = false
+    bonus_layout.visibility = View.INVISIBLE
+    bonus_msg.visibility = View.INVISIBLE
+  }
+
+  override fun showBonus(bonus: BigDecimal, bonusCurrency: String) {
+    validBonus = true
+    buildBonusString(bonus, bonusCurrency)
+    bonus_layout.visibility = View.VISIBLE
+    bonus_msg.visibility = View.VISIBLE
+  }
+
+  private fun buildBonusString(bonus: BigDecimal, bonusCurrency: String) {
+    var scaledBonus = bonus.stripTrailingZeros()
+        .setScale(2, BigDecimal.ROUND_DOWN)
+    var currency = bonusCurrency
+    if (scaledBonus.compareTo(BigDecimal(0.01)) < 0) {
+      currency = "~$currency"
+    }
+    scaledBonus = scaledBonus.max(BigDecimal("0.01"))
+
+    bonusMessageValue = currency + scaledBonus.toPlainString()
+    bonus_layout.bonus_header_1.text = getString(R.string.topup_bonus_header_part_1)
+    bonus_layout.bonus_value.text = getString(R.string.topup_bonus_header_part_2,
+        currency + scaledBonus.toPlainString())
+  }
 
   private fun setupCurrencyData(selectedCurrency: String, fiatCode: String, fiatSymbol: String,
                                 fiatValue: String, appcCode: String, appcSymbol: String,
@@ -298,7 +335,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       CurrencyData(localCurrency.code, localCurrency.symbol, localCurrencyValue,
           APPC_C_SYMBOL, APPC_C_SYMBOL, appcValue)
     } else {
-      val localCurrencyValue = converted_value.text.toString().replace(localCurrency.symbol, "")
+      val localCurrencyValue = converted_value.text.toString()
+          .replace(localCurrency.symbol, "")
       val appcValue =
           if (main_value.text.toString().isEmpty()) DEFAULT_VALUE else main_value.text.toString()
       CurrencyData(localCurrency.code, localCurrency.symbol, localCurrencyValue,

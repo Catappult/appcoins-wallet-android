@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
     android:descendantFocusability="beforeDescendants"
+    android:fillViewport="true"
     >
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
@@ -13,6 +13,7 @@
       >
     <TextView
         android:id="@+id/main_currency_code"
+        style="@style/TopUpTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="33dp"
@@ -21,31 +22,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        style="@style/TopUpTextStyle"
         />
 
     <com.asfoundation.wallet.ui.widget.AutoFitEditText
         android:id="@+id/main_value"
+        style="@style/TopUpTextStyle.MainValue"
         android:layout_width="152dp"
         android:layout_height="55dp"
-        android:enabled="false"
         android:background="@drawable/edit_text_background"
-        android:hint="0"
-        android:inputType="numberDecimal"
-        android:maxLines="1"
-        android:maxWidth="152dp"
+        android:enabled="false"
         android:focusable="true"
         android:focusableInTouchMode="true"
+        android:gravity="start|center_vertical"
+        android:hint="0"
+        android:inputType="numberDecimal"
+        android:maxWidth="152dp"
+        android:maxLength="152"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/main_currency_code"
-        app:layout_constraintEnd_toEndOf="parent"
-        style="@style/TopUpTextStyle.MainValue"
-        android:maxLength="152"
-        android:gravity="start|center_vertical"
         />
 
     <TextView
         android:id="@+id/main_value_currency"
+        style="@style/TopUpTextStyle.MainValueCurrency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
@@ -53,11 +54,11 @@
         app:layout_constraintBottom_toBottomOf="@id/main_value"
         app:layout_constraintEnd_toStartOf="@id/main_value"
         app:layout_constraintTop_toTopOf="@id/main_value"
-        style="@style/TopUpTextStyle.MainValueCurrency"
         />
 
     <TextView
         android:id="@+id/converted_value"
+        style="@style/TopUpTextStyle.ConvertedValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -65,45 +66,44 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/main_value"
-        style="@style/TopUpTextStyle.ConvertedValue"
         />
 
     <ImageButton
         android:id="@+id/swap_value_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
         android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:enabled="false"
         android:src="@drawable/ic_swap"
-        app:layout_constraintHorizontal_bias="1"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/main_value"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toStartOf="@id/main_value"
         app:layout_constraintTop_toTopOf="@id/main_value"
-        android:visibility="invisible"
         />
 
     <TextView
         android:id="@+id/swap_value_label"
+        style="@style/TopUpTextStyle.SwapCurrency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="--"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@id/swap_value_button"
         app:layout_constraintStart_toStartOf="@id/swap_value_button"
         app:layout_constraintTop_toBottomOf="@id/swap_value_button"
-        style="@style/TopUpTextStyle.SwapCurrency"
-        android:visibility="invisible"
         />
 
     <View
         android:id="@+id/top_separator"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="11dp"
+        android:layout_marginEnd="32dp"
         android:background="#eaeaea"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -115,8 +115,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
-        android:paddingEnd="25dp"
         android:paddingStart="25dp"
+        android:paddingEnd="25dp"
         app:layout_constraintTop_toBottomOf="@id/top_separator"
         >
 
@@ -124,18 +124,18 @@
           android:id="@+id/credit_card_info_container"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:visibility="gone"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          android:visibility="gone"
           >
 
         <TextView
             android:id="@+id/card_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:gravity="end"
             android:text="****8500"
             app:layout_constraintEnd_toEndOf="parent"
@@ -168,6 +168,7 @@
 
         <Button
             android:id="@+id/change_card_button"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="126dp"
             android:layout_height="35dp"
             android:layout_below="@id/fragment_braintree_credit_card_form"
@@ -178,7 +179,6 @@
             android:textSize="11sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fragment_braintree_credit_card_form"
-            style="?android:attr/borderlessButtonStyle"
             />
       </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -187,21 +187,21 @@
           android:id="@+id/payment_methods"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:focusable="true"
+          android:overScrollMode="never"
           android:visibility="visible"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          android:overScrollMode="never"
-          android:focusable="true"
           />
 
       <ProgressBar
           android:id="@+id/loading"
           android:layout_width="50dp"
           android:layout_height="50dp"
-          android:visibility="gone"
-          android:layout_marginBottom="50dp"
           android:layout_marginTop="50dp"
+          android:layout_marginBottom="50dp"
+          android:visibility="gone"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
@@ -213,76 +213,62 @@
         android:id="@+id/bot_separator"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="15dp"
+        android:layout_marginEnd="32dp"
         android:background="#eaeaea"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/payment_container"
         />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/bonus_container"
+    <include
+        android:id="@+id/bonus_layout"
+        layout="@layout/view_purchase_bonus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/big_margin"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/bonus_msg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bot_separator"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintVertical_chainStyle="packed"
+        />
+
+    <TextView
+        android:id="@+id/bonus_msg"
+        style="@style/TopUpTextStyle.Small.BonusText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="75dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="62dp"
-        app:layout_constraintBottom_toTopOf="@id/button"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="@dimen/big_margin"
+        android:layout_marginBottom="21dp"
+        android:gravity="center"
+        android:text="@string/gamification_purchase_body"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bot_separator"
-        android:visibility="gone"
-        >
-
-      <ImageView
-          android:id="@+id/bonus_icon"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:src="@drawable/ic_img_top_up_bonus"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          />
-
-      <TextView
-          android:id="@+id/bonus_title"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="12dp"
-          android:text="@string/topup_bonus_header"
-          app:layout_constraintStart_toEndOf="@id/bonus_icon"
-          app:layout_constraintTop_toTopOf="@id/bonus_icon"
-          style="@style/TopUpTextStyle.Small.BonusTitle"
-          />
-
-      <TextView
-          android:id="@+id/bonus_text"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="12dp"
-          android:text="@string/topup_bonus_message"
-          app:layout_constraintBottom_toBottomOf="@id/bonus_icon"
-          app:layout_constraintStart_toEndOf="@id/bonus_icon"
-          app:layout_constraintTop_toBottomOf="@id/bonus_title"
-          style="@style/TopUpTextStyle.Small.BonusText"
-          />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
+        app:layout_constraintVertical_bias="0"
+        />
 
     <Button
         android:id="@+id/button"
+        style="@style/ButtonStyle.Alternative"
         android:layout_width="match_parent"
-        android:layout_height="36dp"
-        android:layout_marginBottom="80dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="40dp"
+        android:layout_height="@dimen/button_height"
         android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="80dp"
         android:enabled="false"
         android:text="@string/action_next"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bot_separator"
-        style="@style/ButtonStyle.Alternative"
+        app:layout_constraintTop_toBottomOf="@id/bonus_msg"
         app:layout_constraintVertical_bias="1.0"
         />
 

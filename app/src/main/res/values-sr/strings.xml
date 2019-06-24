@@ -299,11 +299,11 @@
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">Bonus za kupovinu:</string>
   <string name="gamification_purchase_header_part_2">%s APPC Credits</string>
-  <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
+  <string name="gamification_purchase_body">Dobićete APPC kredit (%s) za ovu kupovinu.</string>
   <string name="action_level">Moj nivo</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Dozvolite aplikaciji AppCoins Wallet da adresu vašeg novčanika pošalje aplikaciji %s.</string>
-  <string name="provide_wallet_body_placeholders">Dozvolite aplikaciji %1$s da adresu vašeg novčanika pošalje aplikaciji %2$s.</string>
+  <string name="provide_wallet_body_placeholders">Allow %1$s to provide your wallet address to %2$s.</string>
   <string name="provide_wallet_always_allow_button">Dozvoli uvek</string>
   <string name="provide_wallet_allow_once_button">Dozvoli jednom</string>
   <string name="provide_wallet_completed_header">Novčanik je povezan sa aplikacijom Aptoide!</string>
@@ -358,7 +358,7 @@
   <string name="cancel_button">Otkaži</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Prihvatam dokumente %1$s i %2$s aplikacije AppCoins Wallet.</string>
-  <string name="terms_and_conditions_error">Prihvatite naše Uslove i odredbe i Smernice za privatnost da biste nastavili</string>
+  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
   <string name="terms_and_conditions">Uslovi i odredbe</string>
   <string name="privacy_policy">Smernice za privatnost</string>
   <!--Home-->
