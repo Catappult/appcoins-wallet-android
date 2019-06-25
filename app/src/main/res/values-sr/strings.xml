@@ -329,6 +329,7 @@
   <string name="topup_bonus_header_part_1">Bonus za dopunu:</string>
   <string name="topup_bonus_header_part_2">%s APPC Credits</string>
   <string name="topup_bonus_body">Ovaj bonus možete da upotrebite prilikom sledeće kupovine.</string>
+  <string name="topup_minimum_value">Minimum top-up value: %s</string>
   <!--Balance-->
   <string name="balance_title">Stanje</string>
   <string name="balance_total_body">Ukupno stanje u %s</string>
@@ -378,6 +379,8 @@
   <string name="home_empty_discover_apps_body">Čekaju vas najbolje aplikacije za Android.</string>
   <string name="home_empty_discover_apps_button">OTKRIJTE NAJPOPULARNIJE APLIKACIJE</string>
   <!--Tokens-->
+  <!--Settings-->
+  <string name="title_redeem">Redeem Code</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">U toku&#8230;</string>
   <string name="local_payments_inprogress_body">Dovršite plaćanje i, kada AppCoins Credits budu u vašem novčaniku, obavite kupovinu!</string>
