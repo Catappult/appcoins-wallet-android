@@ -329,6 +329,7 @@
   <string name="topup_bonus_header_part_1">Bonus voor opwaarderen:</string>
   <string name="topup_bonus_header_part_2">%s in APPC Credits</string>
   <string name="topup_bonus_body">Je kunt deze bonus bij je volgende aankoop gebruiken.</string>
+  <string name="topup_minimum_value">Minimum top-up value: %s</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Totale saldo in %s</string>
@@ -378,6 +379,8 @@
   <string name="home_empty_discover_apps_body">De beste Android-apps wachten op je.</string>
   <string name="home_empty_discover_apps_button">ONTDEK DE BESTE APPS</string>
   <!--Tokens-->
+  <!--Settings-->
+  <string name="title_redeem">Redeem Code</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">In behandeling&#8230;</string>
   <string name="local_payments_inprogress_body">Voltooi je betaling en zodra de AppCoins Credits aan je wallet zijn toegevoegd, kun je de aankoop doen!</string>
