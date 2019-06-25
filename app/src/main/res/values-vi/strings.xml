@@ -329,6 +329,7 @@
   <string name="topup_bonus_header_part_1">Tiền thưởng nạp vào:</string>
   <string name="topup_bonus_header_part_2">%s bằng APPC Credits</string>
   <string name="topup_bonus_body">Bạn có thể sử dụng tiền thưởng này trong lần mua tiếp theo của mình.</string>
+  <string name="topup_minimum_value">Minimum top-up value: %s</string>
   <!--Balance-->
   <string name="balance_title">Số dư</string>
   <string name="balance_total_body">Tổng số dư bằng %s</string>
@@ -378,6 +379,8 @@
   <string name="home_empty_discover_apps_body">Các ứng dụng Android tốt nhất đang chờ bạn.</string>
   <string name="home_empty_discover_apps_button">KHÁM PHÁ CÁC ỨNG DỤNG HÀNG ĐẦU</string>
   <!--Tokens-->
+  <!--Settings-->
+  <string name="title_redeem">Redeem Code</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">Đang xử lý&#8230;</string>
   <string name="local_payments_inprogress_body">Hoàn tất thanh toán của bạn và sau khi nhận được AppCoins Credits trong ví của mình, hãy thực hiện giao dịch mua!</string>
