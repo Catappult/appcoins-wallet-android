@@ -314,14 +314,17 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     mainView.setVisibility(View.GONE);
     itemAlreadyOwnedError = true;
     iabView.disableBack();
-    getView().setFocusableInTouchMode(true);
-    getView().requestFocus();
-    getView().setOnKeyListener((view1, keyCode, keyEvent) -> {
-      if (keyEvent.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
-        onBackPressSubject.onNext(itemAlreadyOwnedError);
-      }
-      return true;
-    });
+    View view = getView();
+    if (view != null) {
+      view.setFocusableInTouchMode(true);
+      view.requestFocus();
+      view.setOnKeyListener((view1, keyCode, keyEvent) -> {
+        if (keyEvent.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
+          onBackPressSubject.onNext(itemAlreadyOwnedError);
+        }
+        return true;
+      });
+    }
     errorView.setVisibility(View.VISIBLE);
     errorMessage.setText(new StringBuilder().append(
         "It seems this purchase is already being processed. Please hold on until the ")
