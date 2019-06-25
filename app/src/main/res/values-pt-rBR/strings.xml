@@ -329,6 +329,7 @@
   <string name="topup_bonus_header_part_1">Bônus Adicional:</string>
   <string name="topup_bonus_header_part_2">%s em Créditos APPC</string>
   <string name="topup_bonus_body">Você pode usar este bônus em sua próxima compra.</string>
+  <string name="topup_minimum_value">Minimum top-up value: %s</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Saldo total em %s</string>
@@ -378,6 +379,8 @@
   <string name="home_empty_discover_apps_body">Os melhores apps de Android estão esperando por você.</string>
   <string name="home_empty_discover_apps_button">DESCUBRA OS MELHORES APPS</string>
   <!--Tokens-->
+  <!--Settings-->
+  <string name="title_redeem">Redeem Code</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">Em andamento&#8230;</string>
   <string name="local_payments_inprogress_body">Complete seu pagamento e, assim que receber seus Créditos AppCoins na sua carteira, siga com a compra!</string>
