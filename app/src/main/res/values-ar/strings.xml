@@ -329,6 +329,7 @@
   <string name="topup_bonus_header_part_1">مكافأة شحن رصيد:</string>
   <string name="topup_bonus_header_part_2">%s في رصيد APPC</string>
   <string name="topup_bonus_body">يمكنك استخدام هذه المكافأة في عميلة الشراء القادمة.</string>
+  <string name="topup_minimum_value">Minimum top-up value: %s</string>
   <!--Balance-->
   <string name="balance_title">الرصيد</string>
   <string name="balance_total_body">الرصيد الكلّي بعملة %s</string>
@@ -378,6 +379,8 @@
   <string name="home_empty_discover_apps_body">أفضل تطبيقات الأندرويد بانتظارك.</string>
   <string name="home_empty_discover_apps_button">اكتشف أفضل التطبيقات</string>
   <!--Tokens-->
+  <!--Settings-->
+  <string name="title_redeem">Redeem Code</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">قيد العمل&#8230;</string>
   <string name="local_payments_inprogress_body">أتِمَّ عملية الدفع، وعندما تحصل على رصيد الAppCoins في محفظتك، أتِمّ عملية الشراء!</string>
