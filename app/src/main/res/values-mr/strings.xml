@@ -329,6 +329,7 @@
   <string name="topup_bonus_header_part_1">टॉप-अप बोनस:</string>
   <string name="topup_bonus_header_part_2">%s एपीपीसी क्रेडीटसमध्ये</string>
   <string name="topup_bonus_body">आपल्या पुढच्या खरेदीत आपण हा बोनस वापरु शकता.</string>
+  <string name="topup_minimum_value">Minimum top-up value: %s</string>
   <!--Balance-->
   <string name="balance_title">शिल्लक</string>
   <string name="balance_total_body">%s तील एकुण शिल्लक</string>
@@ -378,6 +379,8 @@
   <string name="home_empty_discover_apps_body">उत्कृष्ट अँड्रॉइड अॅप्स आपली वाट बघताहेत.</string>
   <string name="home_empty_discover_apps_button">उच्चीची अॅप्स शोधा</string>
   <!--Tokens-->
+  <!--Settings-->
+  <string name="title_redeem">Redeem Code</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">&#8230;चालू आहे</string>
   <string name="local_payments_inprogress_body">आपले पेमेंट पूर्ण करा आणि, एकदा का आपल्या वॉलेटमध्ये अॅपकॉिन्स आल्या कि खरेदी करा!</string>
