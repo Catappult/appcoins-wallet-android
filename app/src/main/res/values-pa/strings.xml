@@ -329,6 +329,7 @@
   <string name="topup_bonus_header_part_1">ਬੋਨਸ ਦਾ ਰਿਚਾਰਜ:</string>
   <string name="topup_bonus_header_part_2">ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟਾਂ ਵਿੱਚ %s</string>
   <string name="topup_bonus_body">ਤੁਸੀਂ ਇਸ ਬੋਨਸ ਨੂੰ ਆਪਣੀ ਅਗਲੀ ਖਰੀਦ ਵਿਚ ਵਰਤ ਸਕਦੇ ਹੋ|</string>
+  <string name="topup_minimum_value">Minimum top-up value: %s</string>
   <!--Balance-->
   <string name="balance_title">ਰਕਮ</string>
   <string name="balance_total_body">%s ਵਿੱਚ ਕੁੱਲ ਰਕਮ</string>
@@ -378,6 +379,8 @@
   <string name="home_empty_discover_apps_body">ਵਧੀਆ ਐਂਡਰਾਇਡ ਐਪਾਂ ਤੁਹਾਡੀ ਉਡੀਕ ਕਰ ਰਹੀਆਂ ਹਨ|</string>
   <string name="home_empty_discover_apps_button">ਵਧੀਆ ਐਪਸ ਲੱਭੋ</string>
   <!--Tokens-->
+  <!--Settings-->
+  <string name="title_redeem">Redeem Code</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">ਹੋ ਰਿਹਾ ਹੈ&#8230;</string>
   <string name="local_payments_inprogress_body">ਆਪਣਾ ਭੁਗਤਾਨ ਪੂਰਾ ਕਰੋ ਅਤੇ, ਜਦੋਂ ਤੁਹਾਡੇ ਬਟੂਏ ਵਿੱਚ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਆ ਜਾਣ ਤਾਂ ਅੱਗੇ ਖਰੀਦ ਕਰੋ!</string>
