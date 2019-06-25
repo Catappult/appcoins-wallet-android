@@ -10,24 +10,22 @@ class EmptyTransactionsPageChangeListener(view: View) : ViewPager.OnPageChangeLi
 
   private var lottieView: LottieAnimationView =
       view.findViewById(R.id.transactions_empty_screen_animation)
-  private var isSettled: Boolean = false
+  private var isAnimationPlaying: Boolean = false
 
 
   override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
     if (positionOffset.compareTo(0.0) != 0) {
-      lottieView.progress = 0f
-      lottieView.cancelAnimation()
+      if (isAnimationPlaying) {
+        lottieView.cancelAnimation()
+        isAnimationPlaying = false
+      }
+    } else if (!isAnimationPlaying) {
+      isAnimationPlaying = true
+      lottieView.resumeAnimation()
     }
   }
 
   override fun onPageScrollStateChanged(state: Int) {
-    if (state == ViewPager.SCROLL_STATE_SETTLING) {
-      isSettled = true
-    }
-    if (state == ViewPager.SCROLL_STATE_IDLE && isSettled) {
-      lottieView.playAnimation()
-      isSettled = false
-    }
   }
 
   override fun onPageSelected(position: Int) {
