@@ -329,6 +329,7 @@
   <string name="topup_bonus_header_part_1">टॉप-अप बोनस:</string>
   <string name="topup_bonus_header_part_2">APPC Credits में %s</string>
   <string name="topup_bonus_body">आप इस बोनस का उपयोग अपनी अगली खरीद में कर सकते हैं।</string>
+  <string name="topup_minimum_value">Minimum top-up value: %s</string>
   <!--Balance-->
   <string name="balance_title">बैलेंस</string>
   <string name="balance_total_body">%s में कुल बैलेंस</string>
@@ -378,6 +379,8 @@
   <string name="home_empty_discover_apps_body">सबसे अच्छे एंड्रॉयड एप्प आपकी प्रतीक्षा कर रहे हैं।</string>
   <string name="home_empty_discover_apps_button">शीर्ष ऐप्स का पता लगाएँ</string>
   <!--Tokens-->
+  <!--Settings-->
+  <string name="title_redeem">Redeem Code</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">प्रगति पर&#8230;</string>
   <string name="local_payments_inprogress_body">अपना भुगतान पूरा करें और, आपके वॉलेट में AppCoins Credits मिलते ही, खरीद कर लें!</string>
