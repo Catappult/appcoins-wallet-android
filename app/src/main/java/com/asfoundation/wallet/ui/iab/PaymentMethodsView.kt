@@ -31,6 +31,7 @@ interface PaymentMethodsView {
   fun getPaymentSelection(): Observable<String>
   fun showLocalPayment(selectedPaymentMethod: String)
   fun setBonus(bonus: BigDecimal, currency: String)
+  fun onBackPressed(): Observable<Boolean>
 
   enum class SelectedPaymentMethod {
     PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, SHARE_LINK, LOCAL_PAYMENTS

@@ -197,7 +197,7 @@ public class PaymentMethodsPresenter {
 
   private Completable checkAndConsumePrevious(String sku) {
     return getPurchases(sku).observeOn(viewScheduler)
-        .doOnNext(__ -> view.showItemAlreadyOwnedError())
+        .doOnNext(purchase -> view.showItemAlreadyOwnedError())
         .ignoreElements();
   }
 
@@ -256,7 +256,7 @@ public class PaymentMethodsPresenter {
   }
 
   private void handleErrorDismisses() {
-    disposables.add(view.errorDismisses()
+    disposables.add(Observable.merge(view.errorDismisses(), view.onBackPressed())
         .flatMapCompletable(itemAlreadyOwned -> {
           if (itemAlreadyOwned) {
             return getPurchases(transaction.getSkuId()).doOnNext(purchase -> finish(purchase, true))

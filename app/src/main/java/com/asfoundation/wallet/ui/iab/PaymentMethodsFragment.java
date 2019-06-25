@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +65,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private static final String APP_PACKAGE = "app_package";
   private static final String TAG = PaymentMethodsFragment.class.getSimpleName();
   private static final String TRANSACTION = "transaction";
+  private static final String ITEM_ALREADY_OWNED = "item_already_owned";
 
   private final CompositeDisposable compositeDisposable = new CompositeDisposable();
   private final Map<String, Bitmap> loadedBitmaps = new HashMap<>();
@@ -107,7 +109,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private TextView bonusValue;
   private boolean showBonus;
   private TextView noBonusMsg;
-  private boolean itemAlreadyOwnedError = false;
+  private boolean itemAlreadyOwnedError;
+  private PublishSubject<Boolean> onBackPressSubject;
 
   public static Fragment newInstance(TransactionBuilder transaction, String productName,
       boolean isBds, String developerPayload, String uri) {
@@ -142,6 +145,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         ((BigDecimal) getArguments().getSerializable(TRANSACTION_AMOUNT)).doubleValue();
     currency = getArguments().getString(TRANSACTION_CURRENCY);
     productName = getArguments().getString(PRODUCT_NAME);
+    itemAlreadyOwnedError = getArguments().getBoolean(ITEM_ALREADY_OWNED, false);
+    onBackPressSubject = PublishSubject.create();
     String appPackage = getArguments().getString(APP_PACKAGE);
     String developerPayload = getArguments().getString(DEVELOPER_PAYLOAD);
     String uri = getArguments().getString(URI);
@@ -191,9 +196,15 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     presenter.present(transactionValue);
   }
 
+  @Override public void onSaveInstanceState(@NonNull Bundle outState) {
+    super.onSaveInstanceState(outState);
+    outState.putBoolean(ITEM_ALREADY_OWNED, itemAlreadyOwnedError);
+  }
+
   @Override public void onDestroyView() {
     presenter.stop();
     compositeDisposable.clear();
+    onBackPressSubject = null;
     mainView = null;
     radioGroup = null;
     loadingView = null;
@@ -301,8 +312,17 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     dialog.setVisibility(View.GONE);
     addressFooter.setVisibility(View.GONE);
     mainView.setVisibility(View.GONE);
-    errorView.setVisibility(View.VISIBLE);
     itemAlreadyOwnedError = true;
+    iabView.disableBack();
+    getView().setFocusableInTouchMode(true);
+    getView().requestFocus();
+    getView().setOnKeyListener((view1, keyCode, keyEvent) -> {
+      if (keyEvent.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
+        onBackPressSubject.onNext(itemAlreadyOwnedError);
+      }
+      return true;
+    });
+    errorView.setVisibility(View.VISIBLE);
     errorMessage.setText(new StringBuilder().append(
         "It seems this purchase is already being processed. Please hold on until the ")
         .append("transaction is completed or contact the Support Team behind this game")
@@ -426,6 +446,10 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     bonusMessageValue = currency + scaledBonus.toPlainString();
     showBonus = true;
     bonusValue.setText(getString(R.string.gamification_purchase_header_part_2, bonusMessageValue));
+  }
+
+  @Override public Observable<Boolean> onBackPressed() {
+    return onBackPressSubject;
   }
 
   private void loadIcons(PaymentMethod paymentMethod, RadioButton radioButton, boolean showNew) {
