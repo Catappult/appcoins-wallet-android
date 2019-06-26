@@ -18,10 +18,10 @@ import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.exceptions.OnErrorNotImplementedException;
 import io.reactivex.schedulers.Schedulers;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -159,9 +159,8 @@ public class AdyenAuthorizationPresenter {
 
   private void showError(Throwable throwable) {
     throwable.printStackTrace();
-
-    if (throwable instanceof IOException) {
-      view.hideLoading();
+    if ((throwable instanceof IOException)
+        || (throwable.getCause() instanceof UnknownHostException)) {
       view.showNetworkError();
     } else {
       view.showGenericError();
@@ -316,11 +315,9 @@ public class AdyenAuthorizationPresenter {
 
   private void handleErrorDismissEvent() {
     disposables.add(view.errorDismisses()
-        //.doOnNext(__ -> popViewWithError())
+        .doOnNext(__ -> navigator.popViewWithError())
         .subscribe(__ -> {
-        }, throwable -> {
-          throw new OnErrorNotImplementedException(throwable);
-        }));
+        }, Throwable::printStackTrace));
   }
 
   private void handleAdyenPaymentResult() {
@@ -340,13 +337,9 @@ public class AdyenAuthorizationPresenter {
   private void handleCancel() {
     disposables.add(view.cancelEvent()
         .observeOn(viewScheduler)
-        .doOnNext(__ -> {
-          //analytics.sendAuthorizationCancelEvent(serviceName);
-          //navigator.popView();
-          close();
-        })
+        .doOnNext(__ -> close())
         .subscribe(__ -> {
-        }, throwable -> showError(throwable)));
+        }, this::showError));
   }
 
   private void close() {
