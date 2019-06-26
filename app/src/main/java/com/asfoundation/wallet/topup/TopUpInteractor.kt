@@ -23,9 +23,10 @@ class TopUpInteractor(private val repository: BdsRepository,
   }
 
   fun getLocalCurrency(): Single<LocalCurrency> {
-    return conversionService.localCurrency.map { value ->
-      LocalCurrency(value.symbol, value.currency)
-    }
+    return conversionService.getLocalCurrency(2)
+        .map { value ->
+          LocalCurrency(value.symbol, value.currency)
+        }
   }
 
   fun convertAppc(value: String): Observable<FiatValue> {

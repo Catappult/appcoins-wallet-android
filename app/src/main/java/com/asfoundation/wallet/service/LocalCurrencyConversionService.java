@@ -20,8 +20,8 @@ public class LocalCurrencyConversionService {
     this.tokenToLocalFiatApi = tokenToLocalFiatApi;
   }
 
-  public Single<FiatValue> getLocalCurrency() {
-    return getAppcToLocalFiat("1.0", 2).firstOrError();
+  public Single<FiatValue> getLocalCurrency(int scale) {
+    return getAppcToLocalFiat("1.0", scale).firstOrError();
   }
 
   public Observable<FiatValue> getAppcToLocalFiat(String value, int scale) {
