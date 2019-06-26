@@ -21,6 +21,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.balance_token_item.view.*
 import kotlinx.android.synthetic.main.fragment_balance.*
 import java.math.BigDecimal
+import java.math.RoundingMode
 import javax.inject.Inject
 
 class BalanceFragment : DaggerFragment(), BalanceFragmentView {
@@ -143,7 +144,8 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
 
       balance_value_placeholder.visibility = View.GONE
       (balance_value_placeholder as LottieAnimationView).cancelAnimation()
-      balance_value.text = overallBalance.symbol + overallBalance.amount
+      balance_value.text =
+          overallBalance.symbol + overallBalance.amount.setScale(2, RoundingMode.FLOOR)
       balance_value.visibility = View.VISIBLE
     }
   }

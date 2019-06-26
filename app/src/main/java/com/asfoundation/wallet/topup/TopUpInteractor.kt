@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.topup
 
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
-import com.appcoins.wallet.gamification.repository.ForecastBonus
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
+import com.appcoins.wallet.gamification.repository.ForecastBonus
 import com.asfoundation.wallet.service.LocalCurrencyConversionService
 import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
@@ -29,7 +29,7 @@ class TopUpInteractor(private val repository: BdsRepository,
   }
 
   fun convertAppc(value: String): Observable<FiatValue> {
-    return conversionService.getAppcToLocalFiat(value)
+    return conversionService.getAppcToLocalFiat(value, 2)
   }
 
   fun convertLocal(currency: String, value: String): Observable<FiatValue> {

@@ -29,12 +29,13 @@ class AppcoinsBalanceRepository(
       ethBalanceDisposable = balanceGetter.getEthereumBalance(wallet)
           .observeOn(networkScheduler)
           .flatMapObservable { balance ->
-            localCurrencyConversionService.getEtherToLocalFiat(balance.value)
+            localCurrencyConversionService.getEtherToLocalFiat(balance.getStringValue(), 4)
                 .map { fiatValue ->
-                  balanceDetailsDao.updateEthBalance(wallet.address, balance.value,
+                  balanceDetailsDao.updateEthBalance(wallet.address, balance.getStringValue(),
                       fiatValue.amount.toString(), fiatValue.currency, fiatValue.symbol)
                 }
-          }.subscribe({}, { it.printStackTrace() })
+          }
+          .subscribe({}, { it.printStackTrace() })
     }
     return getBalance(wallet.address)
         .map { balanceDetailsMapper.mapEthBalance(it) }
@@ -42,15 +43,17 @@ class AppcoinsBalanceRepository(
 
   override fun getAppcBalance(wallet: Wallet): Observable<Pair<Balance, FiatValue>> {
     if (appcBalanceDisposable == null || appcBalanceDisposable!!.isDisposed) {
-      balanceGetter.getTokens(wallet, 2)
+      balanceGetter.getTokens(wallet)
           .observeOn(networkScheduler)
           .flatMapObservable { balance ->
-            localCurrencyConversionService.getAppcToLocalFiat(balance.value)
+            localCurrencyConversionService.getAppcToLocalFiat(balance.getStringValue(), 4)
                 .map { fiatValue ->
-                  balanceDetailsDao.updateAppcBalance(wallet.address, balance.value,
+                  balanceDetailsDao.updateAppcBalance(wallet.address, balance.getStringValue(),
                       fiatValue.amount.toString(), fiatValue.currency, fiatValue.symbol)
                 }
-          }.onExceptionResumeNext {}.subscribe()
+          }
+          .onExceptionResumeNext {}
+          .subscribe()
     }
     return getBalance(wallet.address)
         .map { balanceDetailsMapper.mapAppcBalance(it) }
@@ -61,12 +64,14 @@ class AppcoinsBalanceRepository(
       balanceGetter.getCredits(wallet)
           .observeOn(networkScheduler)
           .flatMapObservable { balance ->
-            localCurrencyConversionService.getAppcToLocalFiat(balance.value)
+            localCurrencyConversionService.getAppcToLocalFiat(balance.getStringValue(), 4)
                 .map { fiatValue ->
-                  balanceDetailsDao.updateCreditsBalance(wallet.address, balance.value,
+                  balanceDetailsDao.updateCreditsBalance(wallet.address, balance.getStringValue(),
                       fiatValue.amount.toString(), fiatValue.currency, fiatValue.symbol)
                 }
-          }.onExceptionResumeNext {}.subscribe()
+          }
+          .onExceptionResumeNext {}
+          .subscribe()
     }
     return getBalance(wallet.address)
         .map { balanceDetailsMapper.mapCreditsBalance(it) }

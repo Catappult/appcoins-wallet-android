@@ -21,19 +21,19 @@ public class LocalCurrencyConversionService {
   }
 
   public Single<FiatValue> getLocalCurrency() {
-    return getAppcToLocalFiat("1.0").firstOrError();
+    return getAppcToLocalFiat("1.0", 2).firstOrError();
   }
 
-  public Observable<FiatValue> getAppcToLocalFiat(String value) {
+  public Observable<FiatValue> getAppcToLocalFiat(String value, int scale) {
     return tokenToLocalFiatApi.getValueToLocalFiat(value, "APPC")
         .map(response -> new FiatValue(response.getAppcValue()
-            .setScale(2, RoundingMode.FLOOR), response.getCurrency(), response.getSymbol()));
+            .setScale(scale, RoundingMode.FLOOR), response.getCurrency(), response.getSymbol()));
   }
 
-  public Observable<FiatValue> getEtherToLocalFiat(String value) {
+  public Observable<FiatValue> getEtherToLocalFiat(String value, int scale) {
     return tokenToLocalFiatApi.getValueToLocalFiat(value, "ETH")
         .map(response -> new FiatValue(response.getAppcValue()
-            .setScale(2, RoundingMode.FLOOR), response.getCurrency(), response.getSymbol()));
+            .setScale(scale, RoundingMode.FLOOR), response.getCurrency(), response.getSymbol()));
   }
 
   public Observable<FiatValue> getLocalToAppc(String currency, String value) {

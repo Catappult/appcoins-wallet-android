@@ -26,7 +26,8 @@ class TransferInteractor(private val rewardsManager: RewardsManager,
             return@flatMap rewardsManager.sendCredits(toWallet, amount, packageName)
           }
           return@flatMap Single.just(validateStatus)
-        }.onErrorReturn { map(it) }
+        }
+        .onErrorReturn { map(it) }
   }
 
   private fun validateData(
@@ -48,18 +49,21 @@ class TransferInteractor(private val rewardsManager: RewardsManager,
 
   fun getCreditsBalance(): Single<BigDecimal> {
     return rewardsManager.balance.map {
-      BalanceUtils.weiToEth(it).setScale(4, RoundingMode.HALF_UP)
+      BalanceUtils.weiToEth(it)
+          .setScale(4, RoundingMode.HALF_UP)
     }
   }
 
   fun getAppcoinsBalance(): Single<BigDecimal> {
-    return findDefaultWalletInteract.find().flatMap { balanceInteractor.getTokens(it, 4) }
-        .map { BigDecimal(it.value) }
+    return findDefaultWalletInteract.find()
+        .flatMap { balanceInteractor.getTokens(it) }
+        .map { it.value }
   }
 
   fun getEthBalance(): Single<BigDecimal> {
-    return findDefaultWalletInteract.find().flatMap { balanceInteractor.getEthereumBalance(it) }
-        .map { BigDecimal(it.value) }
+    return findDefaultWalletInteract.find()
+        .flatMap { balanceInteractor.getEthereumBalance(it) }
+        .map { it.value }
   }
 
   fun validateEthTransferData(walletAddress: String,
