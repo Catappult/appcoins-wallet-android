@@ -50,7 +50,7 @@ class TransferInteractor(private val rewardsManager: RewardsManager,
   fun getCreditsBalance(): Single<BigDecimal> {
     return rewardsManager.balance.map {
       BalanceUtils.weiToEth(it)
-          .setScale(4, RoundingMode.HALF_UP)
+          .setScale(4, RoundingMode.FLOOR)
     }
   }
 
