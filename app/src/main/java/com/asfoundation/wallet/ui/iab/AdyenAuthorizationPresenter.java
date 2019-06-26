@@ -21,7 +21,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -159,8 +158,8 @@ public class AdyenAuthorizationPresenter {
 
   private void showError(Throwable throwable) {
     throwable.printStackTrace();
-    if ((throwable instanceof IOException)
-        || (throwable.getCause() instanceof UnknownHostException)) {
+    if ((throwable instanceof IOException) || (throwable.getCause() != null
+        && throwable.getCause() instanceof IOException)) {
       view.showNetworkError();
     } else {
       view.showGenericError();
@@ -181,6 +180,8 @@ public class AdyenAuthorizationPresenter {
                 .flatMapCompletable(
                     authorization -> adyen.completePayment(authorization.getSession()))
                 .observeOn(viewScheduler)))
+        .observeOn(viewScheduler)
+        .doOnError(this::showError)
         .subscribe(() -> {
         }, throwable -> showError(throwable)));
   }
@@ -218,8 +219,10 @@ public class AdyenAuthorizationPresenter {
             })
                 .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
                 .andThen(Completable.fromAction(() -> navigator.popView(bundle)))))
+        .observeOn(viewScheduler)
+        .doOnError(this::showError)
         .subscribe(() -> {
-        }, throwable -> showError(throwable)));
+        }, this::showError));
   }
 
   private Single<Bundle> createBundle() {
@@ -251,9 +254,11 @@ public class AdyenAuthorizationPresenter {
             .filter(payment -> payment.isFailed())
             .firstOrError()
             .observeOn(viewScheduler)
-            .doOnSuccess(adyenAuthorization -> showError(adyenAuthorization)))
+            .doOnSuccess(this::showError))
+        .observeOn(viewScheduler)
+        .doOnError(this::showError)
         .subscribe(__ -> {
-        }, throwable -> showError(throwable)));
+        }, this::showError));
   }
 
   private void showError(AdyenAuthorization adyenAuthorization) {
@@ -268,6 +273,8 @@ public class AdyenAuthorizationPresenter {
             .filter(payment -> payment.isProcessing())
             .observeOn(viewScheduler)
             .doOnNext(__ -> view.showLoading()))
+        .observeOn(viewScheduler)
+        .doOnError(this::showError)
         .subscribe(__ -> {
         }, throwable -> showError(throwable)));
   }
