@@ -52,10 +52,10 @@ public class AdyenAuthorizationPresenter {
   private final String currency;
   private final String appPackage;
   private final PaymentType paymentType;
+  private final Single<TransactionBuilder> transactionBuilder;
   private AdyenAuthorizationView view;
   private FindDefaultWalletInteract defaultWalletInteract;
   private BillingAnalytics analytics;
-  private final Single<TransactionBuilder> transactionBuilder;
   private boolean waitingResult;
   private Scheduler ioScheduler;
 
@@ -158,12 +158,16 @@ public class AdyenAuthorizationPresenter {
 
   private void showError(Throwable throwable) {
     throwable.printStackTrace();
-    if ((throwable instanceof IOException) || (throwable.getCause() != null
-        && throwable.getCause() instanceof IOException)) {
+    if (isNoNetworkException(throwable)) {
       view.showNetworkError();
     } else {
       view.showGenericError();
     }
+  }
+
+  private boolean isNoNetworkException(Throwable throwable) {
+    return (throwable instanceof IOException) || (throwable.getCause() != null
+        && throwable.getCause() instanceof IOException);
   }
 
   private void onViewCreatedCompletePayment() {

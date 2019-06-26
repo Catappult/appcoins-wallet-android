@@ -299,12 +299,12 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     hideLoading();
   }
 
-  @Override public void showError() {
+  @Override public void showError(int message) {
     loadingView.setVisibility(View.GONE);
     dialog.setVisibility(View.GONE);
     addressFooter.setVisibility(View.GONE);
     errorView.setVisibility(View.VISIBLE);
-    errorMessage.setText(R.string.activity_iab_error_message);
+    errorMessage.setText(message);
   }
 
   @Override public void finish(Purchase purchase) throws IOException {
