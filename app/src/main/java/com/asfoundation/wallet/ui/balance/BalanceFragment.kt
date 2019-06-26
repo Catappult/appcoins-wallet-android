@@ -107,7 +107,8 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
               "${tokenBalance.token.amount} ${tokenBalance.token.symbol}"
           appcoins_credits_token.token_balance.visibility = View.VISIBLE
           appcoins_credits_token.token_balance_converted.text =
-              "${tokenBalance.fiat.symbol}${tokenBalance.fiat.amount}"
+              "${tokenBalance.fiat.symbol}${tokenBalance.fiat.amount.setScale(2,
+                  RoundingMode.FLOOR)}"
           appcoins_credits_token.token_balance_converted.visibility = View.VISIBLE
         }
         APPC_CURRENCY -> {
@@ -117,7 +118,8 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
               "${tokenBalance.token.amount} ${tokenBalance.token.symbol}"
           appcoins_token.token_balance.visibility = View.VISIBLE
           appcoins_token.token_balance_converted.text =
-              "${tokenBalance.fiat.symbol}${tokenBalance.fiat.amount}"
+              "${tokenBalance.fiat.symbol}${tokenBalance.fiat.amount.setScale(2,
+                  RoundingMode.FLOOR)}"
           appcoins_token.token_balance_converted.visibility = View.VISIBLE
         }
         ETH_CURRENCY -> {
@@ -127,7 +129,8 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
               "${tokenBalance.token.amount} ${tokenBalance.token.symbol}"
           ether_token.token_balance.visibility = View.VISIBLE
           ether_token.token_balance_converted.text =
-              "${tokenBalance.fiat.symbol}${tokenBalance.fiat.amount}"
+              "${tokenBalance.fiat.symbol}${tokenBalance.fiat.amount.setScale(2,
+                  RoundingMode.FLOOR)}"
           ether_token.token_balance_converted.visibility = View.VISIBLE
         }
       }
