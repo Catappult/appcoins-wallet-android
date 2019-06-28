@@ -271,7 +271,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     var scaledBonus = bonus.stripTrailingZeros()
         .setScale(2, BigDecimal.ROUND_DOWN)
     var currency = bonusCurrency
-    if (scaledBonus.compareTo(BigDecimal(0.01)) < 0) {
+    if (scaledBonus < BigDecimal(0.01)) {
       currency = "~$currency"
     }
     scaledBonus = scaledBonus.max(BigDecimal("0.01"))

@@ -10,7 +10,6 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import java.math.BigDecimal
-import java.math.RoundingMode
 
 class GamificationInteractor(
     private val gamification: Gamification,
@@ -31,7 +30,7 @@ class GamificationInteractor(
         conversionService.localCurrency,
         BiFunction { appcBonusValue, localCurrency ->
           ForecastBonus(appcBonusValue.status,
-              appcBonusValue.amount.multiply(localCurrency.amount).setScale(2, RoundingMode.FLOOR),
+              appcBonusValue.amount.multiply(localCurrency.amount),
               localCurrency.symbol)
         })
   }
