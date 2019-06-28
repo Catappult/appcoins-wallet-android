@@ -28,7 +28,7 @@ class GamificationInteractor(
   fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonus> {
     return Single.zip(defaultWallet.find()
         .flatMap { gamification.getEarningBonus(it.address, packageName, amount) },
-        conversionService.getLocalCurrency(8),
+        conversionService.localCurrency,
         BiFunction { appcBonusValue, localCurrency ->
           ForecastBonus(appcBonusValue.status,
               appcBonusValue.amount.multiply(localCurrency.amount).setScale(2, RoundingMode.FLOOR),

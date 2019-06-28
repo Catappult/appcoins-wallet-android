@@ -24,12 +24,17 @@ class AppcoinsBalanceRepository(
   private var appcBalanceDisposable: Disposable? = null
   private var creditsBalanceDisposable: Disposable? = null
 
+  companion object {
+    private const val SUM_FIAT_SCALE = 4
+  }
+
   override fun getEthBalance(wallet: Wallet): Observable<Pair<Balance, FiatValue>> {
     if (ethBalanceDisposable == null || ethBalanceDisposable!!.isDisposed) {
       ethBalanceDisposable = balanceGetter.getEthereumBalance(wallet)
           .observeOn(networkScheduler)
           .flatMapObservable { balance ->
-            localCurrencyConversionService.getEtherToLocalFiat(balance.getStringValue(), 4)
+            localCurrencyConversionService.getEtherToLocalFiat(balance.getStringValue(),
+                SUM_FIAT_SCALE)
                 .map { fiatValue ->
                   balanceDetailsDao.updateEthBalance(wallet.address, balance.getStringValue(),
                       fiatValue.amount.toString(), fiatValue.currency, fiatValue.symbol)
@@ -46,7 +51,8 @@ class AppcoinsBalanceRepository(
       balanceGetter.getTokens(wallet)
           .observeOn(networkScheduler)
           .flatMapObservable { balance ->
-            localCurrencyConversionService.getAppcToLocalFiat(balance.getStringValue(), 4)
+            localCurrencyConversionService.getAppcToLocalFiat(balance.getStringValue(),
+                SUM_FIAT_SCALE)
                 .map { fiatValue ->
                   balanceDetailsDao.updateAppcBalance(wallet.address, balance.getStringValue(),
                       fiatValue.amount.toString(), fiatValue.currency, fiatValue.symbol)
@@ -64,7 +70,8 @@ class AppcoinsBalanceRepository(
       balanceGetter.getCredits(wallet)
           .observeOn(networkScheduler)
           .flatMapObservable { balance ->
-            localCurrencyConversionService.getAppcToLocalFiat(balance.getStringValue(), 4)
+            localCurrencyConversionService.getAppcToLocalFiat(balance.getStringValue(),
+                SUM_FIAT_SCALE)
                 .map { fiatValue ->
                   balanceDetailsDao.updateCreditsBalance(wallet.address, balance.getStringValue(),
                       fiatValue.amount.toString(), fiatValue.currency, fiatValue.symbol)

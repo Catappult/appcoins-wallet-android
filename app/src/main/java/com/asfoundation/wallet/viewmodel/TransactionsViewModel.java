@@ -51,6 +51,7 @@ import java.util.List;
 public class TransactionsViewModel extends BaseViewModel {
   private static final long GET_BALANCE_INTERVAL = 10 * DateUtils.SECOND_IN_MILLIS;
   private static final long FETCH_TRANSACTIONS_INTERVAL = 12 * DateUtils.SECOND_IN_MILLIS;
+  private static final int FIAT_SCALE = 2;
   private static final BigDecimal MINUS_ONE = new BigDecimal("-1");
   private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
   private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
@@ -222,7 +223,7 @@ public class TransactionsViewModel extends BaseViewModel {
     BigDecimal sumFiat = sumFiat(tokenBalance.second.getAmount(), creditsBalance.second.getAmount(),
         ethereumBalance.second.getAmount());
     if (sumFiat.compareTo(MINUS_ONE) > 0) {
-      fiatValue = sumFiat.setScale(2, RoundingMode.FLOOR)
+      fiatValue = sumFiat.setScale(FIAT_SCALE, RoundingMode.FLOOR)
           .toString();
     }
     GlobalBalance currentGlobalBalance = defaultWalletBalance.getValue();
