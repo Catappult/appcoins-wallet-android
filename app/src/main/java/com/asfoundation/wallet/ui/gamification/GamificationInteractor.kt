@@ -30,7 +30,8 @@ class GamificationInteractor(
         conversionService.localCurrency,
         BiFunction { appcBonusValue, localCurrency ->
           ForecastBonus(appcBonusValue.status,
-              appcBonusValue.amount.multiply(localCurrency.amount), localCurrency.symbol)
+              appcBonusValue.amount.multiply(localCurrency.amount),
+              localCurrency.symbol)
         })
   }
 

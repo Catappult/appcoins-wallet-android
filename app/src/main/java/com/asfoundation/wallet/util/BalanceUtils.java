@@ -5,7 +5,6 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
-import androidx.core.text.TextUtilsCompat;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
@@ -20,7 +19,7 @@ public class BalanceUtils {
 
   public static String ethToUsd(String priceUsd, String ethBalance) {
     BigDecimal usd = new BigDecimal(ethBalance).multiply(new BigDecimal(priceUsd));
-    usd = usd.setScale(2, RoundingMode.HALF_UP);
+    usd = usd.setScale(2, RoundingMode.FLOOR);
     return usd.toString();
   }
 
@@ -67,7 +66,6 @@ public class BalanceUtils {
     return subunitAmount.divide(BigDecimal.valueOf(10)
         .pow(decimals));
   }
-
 
   static public SpannableString formatBalance(String value, String currency, int currencySize,
       int currencyColor) {

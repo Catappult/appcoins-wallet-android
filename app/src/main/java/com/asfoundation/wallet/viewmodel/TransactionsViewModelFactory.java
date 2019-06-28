@@ -7,9 +7,7 @@ import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchTransactionsInteract;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
-import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.repository.OffChainTransactions;
-import com.asfoundation.wallet.router.AirdropRouter;
 import com.asfoundation.wallet.router.BalanceRouter;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.MyAddressRouter;
@@ -18,7 +16,6 @@ import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TopUpRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
-import com.asfoundation.wallet.service.LocalCurrencyConversionService;
 import com.asfoundation.wallet.transactions.TransactionsAnalytics;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
 import com.asfoundation.wallet.ui.AppcoinsApps;
@@ -37,16 +34,13 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
   private final BalanceRouter balanceRouter;
   private final ExternalBrowserRouter externalBrowserRouter;
   private final DefaultTokenProvider defaultTokenProvider;
-  private final GetDefaultWalletBalance getDefaultWalletBalance;
   private final TransactionsMapper transactionsMapper;
-  private final AirdropRouter airdropRouter;
   private final AppcoinsApps applications;
   private final OffChainTransactions offChainTransactions;
   private final RewardsLevelRouter rewardsLevelRouter;
   private final GamificationInteractor gamificationInteractor;
   private final TopUpRouter topUpRouter;
   private final TransactionsAnalytics analytics;
-  private final LocalCurrencyConversionService localCurrencyConversionService;
   private final BalanceInteract balanceInteract;
 
   public TransactionsViewModelFactory(FindDefaultNetworkInteract findDefaultNetworkInteract,
@@ -55,13 +49,10 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
       SendRouter sendRouter, TransactionDetailRouter transactionDetailRouter,
       MyAddressRouter myAddressRouter, BalanceRouter balanceRouter,
       ExternalBrowserRouter externalBrowserRouter, DefaultTokenProvider defaultTokenProvider,
-      GetDefaultWalletBalance getDefaultWalletBalance, TransactionsMapper transactionsMapper,
-      AirdropRouter airdropRouter, AppcoinsApps applications,
+      TransactionsMapper transactionsMapper, AppcoinsApps applications,
       OffChainTransactions offChainTransactions, RewardsLevelRouter rewardsLevelRouter,
       GamificationInteractor gamificationInteractor, TopUpRouter topUpRouter,
-      TransactionsAnalytics analytics,
-      LocalCurrencyConversionService localCurrencyConversionService,
-      BalanceInteract balanceInteract) {
+      TransactionsAnalytics analytics, BalanceInteract balanceInteract) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchTransactionsInteract = fetchTransactionsInteract;
@@ -72,25 +63,21 @@ public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
     this.balanceRouter = balanceRouter;
     this.externalBrowserRouter = externalBrowserRouter;
     this.defaultTokenProvider = defaultTokenProvider;
-    this.getDefaultWalletBalance = getDefaultWalletBalance;
     this.transactionsMapper = transactionsMapper;
-    this.airdropRouter = airdropRouter;
     this.applications = applications;
     this.offChainTransactions = offChainTransactions;
     this.rewardsLevelRouter = rewardsLevelRouter;
     this.gamificationInteractor = gamificationInteractor;
     this.topUpRouter = topUpRouter;
     this.analytics = analytics;
-    this.localCurrencyConversionService = localCurrencyConversionService;
-    this.balanceInteract= balanceInteract;
+    this.balanceInteract = balanceInteract;
   }
 
   @NonNull @Override public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
     return (T) new TransactionsViewModel(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, settingsRouter, sendRouter, transactionDetailRouter,
         myAddressRouter, balanceRouter, externalBrowserRouter, defaultTokenProvider,
-        getDefaultWalletBalance, transactionsMapper, airdropRouter, applications,
-        offChainTransactions, rewardsLevelRouter, gamificationInteractor, topUpRouter, analytics,
-        localCurrencyConversionService, balanceInteract);
+        transactionsMapper, applications, offChainTransactions, rewardsLevelRouter,
+        gamificationInteractor, topUpRouter, analytics, balanceInteract);
   }
 }

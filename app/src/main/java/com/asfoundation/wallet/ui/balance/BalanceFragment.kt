@@ -21,6 +21,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.balance_token_item.view.*
 import kotlinx.android.synthetic.main.fragment_balance.*
 import java.math.BigDecimal
+import java.math.RoundingMode
 import javax.inject.Inject
 
 class BalanceFragment : DaggerFragment(), BalanceFragmentView {
@@ -32,6 +33,7 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
   private lateinit var presenter: BalanceFragmentPresenter
 
   companion object {
+    private const val FIAT_SCALE = 2
     @JvmStatic
     fun newInstance(): BalanceFragment {
       return BalanceFragment()
@@ -106,7 +108,8 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
               "${tokenBalance.token.amount} ${tokenBalance.token.symbol}"
           appcoins_credits_token.token_balance.visibility = View.VISIBLE
           appcoins_credits_token.token_balance_converted.text =
-              "${tokenBalance.fiat.symbol}${tokenBalance.fiat.amount}"
+              "${tokenBalance.fiat.symbol}${tokenBalance.fiat.amount.setScale(FIAT_SCALE,
+                  RoundingMode.FLOOR)}"
           appcoins_credits_token.token_balance_converted.visibility = View.VISIBLE
         }
         APPC_CURRENCY -> {
@@ -116,7 +119,8 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
               "${tokenBalance.token.amount} ${tokenBalance.token.symbol}"
           appcoins_token.token_balance.visibility = View.VISIBLE
           appcoins_token.token_balance_converted.text =
-              "${tokenBalance.fiat.symbol}${tokenBalance.fiat.amount}"
+              "${tokenBalance.fiat.symbol}${tokenBalance.fiat.amount.setScale(FIAT_SCALE,
+                  RoundingMode.FLOOR)}"
           appcoins_token.token_balance_converted.visibility = View.VISIBLE
         }
         ETH_CURRENCY -> {
@@ -126,7 +130,8 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
               "${tokenBalance.token.amount} ${tokenBalance.token.symbol}"
           ether_token.token_balance.visibility = View.VISIBLE
           ether_token.token_balance_converted.text =
-              "${tokenBalance.fiat.symbol}${tokenBalance.fiat.amount}"
+              "${tokenBalance.fiat.symbol}${tokenBalance.fiat.amount.setScale(FIAT_SCALE,
+                  RoundingMode.FLOOR)}"
           ether_token.token_balance_converted.visibility = View.VISIBLE
         }
       }
@@ -143,7 +148,8 @@ class BalanceFragment : DaggerFragment(), BalanceFragmentView {
 
       balance_value_placeholder.visibility = View.GONE
       (balance_value_placeholder as LottieAnimationView).cancelAnimation()
-      balance_value.text = overallBalance.symbol + overallBalance.amount
+      balance_value.text =
+          overallBalance.symbol + overallBalance.amount.setScale(FIAT_SCALE, RoundingMode.FLOOR)
       balance_value.visibility = View.VISIBLE
     }
   }

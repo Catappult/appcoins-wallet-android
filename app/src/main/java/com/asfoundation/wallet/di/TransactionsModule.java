@@ -5,7 +5,6 @@ import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchTransactionsInteract;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
-import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.repository.OffChainTransactions;
 import com.asfoundation.wallet.repository.OffChainTransactionsRepository;
 import com.asfoundation.wallet.repository.TokenLocalSource;
@@ -24,7 +23,6 @@ import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TopUpRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
-import com.asfoundation.wallet.service.LocalCurrencyConversionService;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenExplorerClientType;
 import com.asfoundation.wallet.transactions.TransactionsAnalytics;
@@ -52,23 +50,19 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
   @Provides TransactionsViewModelFactory provideTransactionsViewModelFactory(
       FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
-      FetchTransactionsInteract fetchTransactionsInteract, ManageWalletsRouter manageWalletsRouter,
-      SettingsRouter settingsRouter, SendRouter sendRouter,
-      TransactionDetailRouter transactionDetailRouter, MyAddressRouter myAddressRouter,
-      BalanceRouter balanceRouter, ExternalBrowserRouter externalBrowserRouter,
-      DefaultTokenProvider defaultTokenProvider, GetDefaultWalletBalance getDefaultWalletBalance,
-      TransactionsMapper transactionsMapper, AirdropRouter airdropRouter, AppcoinsApps applications,
+      FetchTransactionsInteract fetchTransactionsInteract, SettingsRouter settingsRouter,
+      SendRouter sendRouter, TransactionDetailRouter transactionDetailRouter,
+      MyAddressRouter myAddressRouter, BalanceRouter balanceRouter,
+      ExternalBrowserRouter externalBrowserRouter, DefaultTokenProvider defaultTokenProvider,
+      TransactionsMapper transactionsMapper, AppcoinsApps applications,
       OffChainTransactions offChainTransactions, RewardsLevelRouter rewardsLevelRouter,
       GamificationInteractor gamificationInteractor, TopUpRouter topUpRouter,
-      TransactionsAnalytics analytics,
-      LocalCurrencyConversionService localCurrencyConversionService,
-      BalanceInteract balanceInteract) {
+      TransactionsAnalytics analytics, BalanceInteract balanceInteract) {
     return new TransactionsViewModelFactory(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, settingsRouter, sendRouter, transactionDetailRouter,
         myAddressRouter, balanceRouter, externalBrowserRouter, defaultTokenProvider,
-        getDefaultWalletBalance, transactionsMapper, airdropRouter, applications,
-        offChainTransactions, rewardsLevelRouter, gamificationInteractor, topUpRouter, analytics,
-        localCurrencyConversionService, balanceInteract);
+        transactionsMapper, applications, offChainTransactions, rewardsLevelRouter,
+        gamificationInteractor, topUpRouter, analytics, balanceInteract);
   }
 
   @Provides FetchTransactionsInteract provideFetchTransactionsInteract(
