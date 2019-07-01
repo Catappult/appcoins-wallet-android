@@ -128,12 +128,13 @@ public class ExpressCheckoutBuyPresenter {
   private void setupUi(double transactionValue, String uri) {
     disposables.add(Single.zip(transactionBuilder,
         inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
-            .subscribeOn(ioScheduler),
-        (transactionBuilder, fiatValue) -> Completable.fromAction(() -> view.setup(fiatValue,
-            TransactionData.TransactionType.DONATION.name()
+            .subscribeOn(ioScheduler), (transactionBuilder, fiatValue) -> Completable.fromAction(
+            () -> view.setup(fiatValue, TransactionData.TransactionType.DONATION.name()
                 .equalsIgnoreCase(transactionBuilder.getType())))
             .subscribeOn(viewScheduler))
         .flatMapCompletable(completable -> completable)
+        .observeOn(viewScheduler)
+        .doOnError(this::showError)
         .subscribe(() -> {
         }, this::showError));
   }
