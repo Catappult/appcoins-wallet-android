@@ -36,10 +36,7 @@ class Erc681ReceiverPresenter {
   public void present(Bundle savedInstanceState) {
     if (savedInstanceState == null) {
       disposable = walletInteract.find()
-          .onErrorResumeNext(
-              throwable -> throwable instanceof WalletNotFoundException ? createWallet().observeOn(
-                  viewScheduler)
-                  .doAfterTerminate(view::endAnimation) : Single.error(throwable))
+          .onErrorResumeNext(this::handleWalletCreation)
           .flatMap(__ -> transferParser.parse(data))
           .map(transactionBuilder -> {
             String callingPackage = transactionBuilder.getDomain();
@@ -58,6 +55,10 @@ class Erc681ReceiverPresenter {
     }
   }
 
+  private Single<Wallet> handleWalletCreation(Throwable throwable) {
+    return throwable instanceof WalletNotFoundException ? createWallet() : Single.error(throwable);
+  }
+
   public void pause() {
     if (disposable != null && !disposable.isDisposed()) {
       disposable.dispose();
@@ -66,6 +67,8 @@ class Erc681ReceiverPresenter {
 
   private Single<Wallet> createWallet() {
     view.showLoadingAnimation();
-    return paymentReceiverInteract.createWallet();
+    return paymentReceiverInteract.createWallet()
+        .observeOn(viewScheduler)
+        .doAfterTerminate(view::endAnimation);
   }
 }
