@@ -43,7 +43,6 @@ public class OneStepPaymentReceiver extends BaseActivity {
     walletCreationText = findViewById(R.id.create_wallet_text);
     if (savedInstanceState == null) {
       disposable = walletInteract.find()
-          .retry(3)
           .onErrorResumeNext(
               throwable -> throwable instanceof WalletNotFoundException ? createWallet().observeOn(
                   AndroidSchedulers.mainThread())
