@@ -13,7 +13,7 @@ public interface ExpressCheckoutBuyView {
 
   void setup(FiatValue convertToFiatResponseBody, boolean isDonation);
 
-  void showError();
+  void showError(int notification_wrong_network_poa);
 
   Observable<Object> getCancelClick();
 

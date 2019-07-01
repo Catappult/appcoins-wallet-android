@@ -6,6 +6,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
+import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
@@ -16,6 +17,7 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import java.io.IOException;
 
 /**
  * Created by franciscocalado on 24/07/2018.
@@ -74,7 +76,7 @@ public class ExpressCheckoutBuyPresenter {
     })
         .observeOn(viewScheduler)
         .subscribe(view::hideLoading, throwable -> {
-          view.showError();
+          view.showError(R.string.notification_wrong_network_poa);
           throwable.printStackTrace();
         }));
   }
@@ -146,7 +148,16 @@ public class ExpressCheckoutBuyPresenter {
 
   private void showError(Throwable t) {
     t.printStackTrace();
-    view.showError();
+    if (isNoNetworkException(t)) {
+      view.showError(R.string.notification_no_network_poa);
+    } else {
+      view.showError(R.string.activity_iab_error_message);
+    }
+  }
+
+  private boolean isNoNetworkException(Throwable throwable) {
+    return (throwable instanceof IOException) || (throwable.getCause() != null
+        && throwable.getCause() instanceof IOException);
   }
 
   public void stop() {

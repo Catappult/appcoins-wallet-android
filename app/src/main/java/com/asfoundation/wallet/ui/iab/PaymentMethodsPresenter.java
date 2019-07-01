@@ -243,7 +243,7 @@ public class PaymentMethodsPresenter {
   private void showError(Throwable t) {
     t.printStackTrace();
     if (isNoNetworkException(t)) {
-      view.showError(R.string.notification_wrong_network_poa);
+      view.showError(R.string.notification_no_network_poa);
     } else {
       view.showError(R.string.activity_iab_error_message);
     }
