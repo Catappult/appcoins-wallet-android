@@ -57,7 +57,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginBottom="55dp"
         android:onClick="onClick"
-        android:visibility="visible"
+        android:visibility="gone"
         />
 
     <androidx.appcompat.widget.Toolbar
