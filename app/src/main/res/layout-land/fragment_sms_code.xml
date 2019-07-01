@@ -31,165 +31,30 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
-    <LinearLayout
-        android:id="@+id/text_layout"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/subtitle"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="61dp"
-        android:layout_marginEnd="80dp"
-        android:baselineAligned="false"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="16dp"
+        android:ellipsize="end"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:weightSum="6"
+        android:text="@string/verification_insert_phone_body"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintVertical_bias="0"
+        />
+
+    <include
+        android:id="@+id/text_layout"
+        layout="@layout/sms_text_input_layout"
+        app:layout_constraintTop_toBottomOf="@id/subtitle"
         >
-
-      <com.google.android.material.textfield.TextInputLayout
-          android:id="@+id/digit_layout1"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="16dp"
-          android:layout_weight="1"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/subtitle"
-          >
-        <EditText
-            android:id="@+id/code_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
-            android:inputType="number"
-            android:maxLength="1"
-            android:maxLines="1"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            />
-      </com.google.android.material.textfield.TextInputLayout>
-
-      <com.google.android.material.textfield.TextInputLayout
-          android:id="@+id/digit_layout2"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="16dp"
-          android:layout_weight="1"
-          >
-        <EditText
-            android:id="@+id/code_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
-            android:inputType="number"
-            android:maxLength="1"
-            android:maxLines="1"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            />
-      </com.google.android.material.textfield.TextInputLayout>
-
-      <com.google.android.material.textfield.TextInputLayout
-          android:id="@+id/digit_layout3"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="16dp"
-          android:layout_weight="1"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/subtitle"
-          >
-        <EditText
-            android:id="@+id/code_3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
-            android:inputType="number"
-            android:maxLength="1"
-            android:maxLines="1"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            />
-      </com.google.android.material.textfield.TextInputLayout>
-
-      <com.google.android.material.textfield.TextInputLayout
-          android:id="@+id/digit_layout4"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="16dp"
-          android:layout_weight="1"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/subtitle"
-          >
-        <EditText
-            android:id="@+id/code_4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
-            android:inputType="number"
-            android:maxLength="1"
-            android:maxLines="1"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            />
-      </com.google.android.material.textfield.TextInputLayout>
-
-      <com.google.android.material.textfield.TextInputLayout
-          android:id="@+id/digit_layout5"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="16dp"
-          android:layout_weight="1"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/subtitle"
-          >
-        <EditText
-            android:id="@+id/code_5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
-            android:inputType="number"
-            android:maxLength="1"
-            android:maxLines="1"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            />
-      </com.google.android.material.textfield.TextInputLayout>
-
-      <com.google.android.material.textfield.TextInputLayout
-          android:id="@+id/digit_layout6"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="4dp"
-          android:layout_marginEnd="4dp"
-          android:layout_weight="1"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/subtitle"
-          >
-        <EditText
-            android:id="@+id/code_6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#000000"
-            android:inputType="number"
-            android:maxLength="1"
-            android:maxLines="1"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            />
-      </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
+    </include>
 
     <TextView
         android:id="@+id/error"
