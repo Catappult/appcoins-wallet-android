@@ -326,10 +326,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
       });
     }
     errorView.setVisibility(View.VISIBLE);
-    errorMessage.setText(new StringBuilder().append(
-        "It seems this purchase is already being processed. Please hold on until the ")
-        .append("transaction is completed or contact the Support Team behind this game")
-        .toString());
+    errorMessage.setText(R.string.purchase_error_incomplete_transaction_body);
   }
 
   @Override public void finish(Bundle bundle) {
