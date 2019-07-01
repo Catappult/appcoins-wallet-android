@@ -76,7 +76,7 @@ public class ExpressCheckoutBuyPresenter {
     })
         .observeOn(viewScheduler)
         .subscribe(view::hideLoading, throwable -> {
-          view.showError(R.string.notification_wrong_network_poa);
+          showError(throwable);
           throwable.printStackTrace();
         }));
   }
