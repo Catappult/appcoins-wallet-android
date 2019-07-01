@@ -18,7 +18,6 @@ import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.exceptions.OnErrorNotImplementedException;
 import io.reactivex.schedulers.Schedulers;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -53,10 +52,10 @@ public class AdyenAuthorizationPresenter {
   private final String currency;
   private final String appPackage;
   private final PaymentType paymentType;
+  private final Single<TransactionBuilder> transactionBuilder;
   private AdyenAuthorizationView view;
   private FindDefaultWalletInteract defaultWalletInteract;
   private BillingAnalytics analytics;
-  private final Single<TransactionBuilder> transactionBuilder;
   private boolean waitingResult;
   private Scheduler ioScheduler;
 
@@ -159,13 +158,16 @@ public class AdyenAuthorizationPresenter {
 
   private void showError(Throwable throwable) {
     throwable.printStackTrace();
-
-    if (throwable instanceof IOException) {
-      view.hideLoading();
+    if (isNoNetworkException(throwable)) {
       view.showNetworkError();
     } else {
       view.showGenericError();
     }
+  }
+
+  private boolean isNoNetworkException(Throwable throwable) {
+    return (throwable instanceof IOException) || (throwable.getCause() != null
+        && throwable.getCause() instanceof IOException);
   }
 
   private void onViewCreatedCompletePayment() {
@@ -182,6 +184,8 @@ public class AdyenAuthorizationPresenter {
                 .flatMapCompletable(
                     authorization -> adyen.completePayment(authorization.getSession()))
                 .observeOn(viewScheduler)))
+        .observeOn(viewScheduler)
+        .doOnError(this::showError)
         .subscribe(() -> {
         }, throwable -> showError(throwable)));
   }
@@ -219,8 +223,10 @@ public class AdyenAuthorizationPresenter {
             })
                 .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
                 .andThen(Completable.fromAction(() -> navigator.popView(bundle)))))
+        .observeOn(viewScheduler)
+        .doOnError(this::showError)
         .subscribe(() -> {
-        }, throwable -> showError(throwable)));
+        }, this::showError));
   }
 
   private Single<Bundle> createBundle() {
@@ -252,9 +258,11 @@ public class AdyenAuthorizationPresenter {
             .filter(payment -> payment.isFailed())
             .firstOrError()
             .observeOn(viewScheduler)
-            .doOnSuccess(adyenAuthorization -> showError(adyenAuthorization)))
+            .doOnSuccess(this::showError))
+        .observeOn(viewScheduler)
+        .doOnError(this::showError)
         .subscribe(__ -> {
-        }, throwable -> showError(throwable)));
+        }, this::showError));
   }
 
   private void showError(AdyenAuthorization adyenAuthorization) {
@@ -269,6 +277,8 @@ public class AdyenAuthorizationPresenter {
             .filter(payment -> payment.isProcessing())
             .observeOn(viewScheduler)
             .doOnNext(__ -> view.showLoading()))
+        .observeOn(viewScheduler)
+        .doOnError(this::showError)
         .subscribe(__ -> {
         }, throwable -> showError(throwable)));
   }
@@ -316,11 +326,9 @@ public class AdyenAuthorizationPresenter {
 
   private void handleErrorDismissEvent() {
     disposables.add(view.errorDismisses()
-        //.doOnNext(__ -> popViewWithError())
+        .doOnNext(__ -> navigator.popViewWithError())
         .subscribe(__ -> {
-        }, throwable -> {
-          throw new OnErrorNotImplementedException(throwable);
-        }));
+        }, Throwable::printStackTrace));
   }
 
   private void handleAdyenPaymentResult() {
@@ -340,13 +348,9 @@ public class AdyenAuthorizationPresenter {
   private void handleCancel() {
     disposables.add(view.cancelEvent()
         .observeOn(viewScheduler)
-        .doOnNext(__ -> {
-          //analytics.sendAuthorizationCancelEvent(serviceName);
-          //navigator.popView();
-          close();
-        })
+        .doOnNext(__ -> close())
         .subscribe(__ -> {
-        }, throwable -> showError(throwable)));
+        }, this::showError));
   }
 
   private void close() {

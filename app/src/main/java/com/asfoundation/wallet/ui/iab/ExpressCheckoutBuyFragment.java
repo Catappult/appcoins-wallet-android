@@ -61,11 +61,10 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_DATA;
 public class ExpressCheckoutBuyFragment extends DaggerFragment implements ExpressCheckoutBuyView {
   public static final String APP_PACKAGE = "app_package";
   public static final String SKU_ID = "sku_id";
-
+  public static final String BONUS_KEY = "bonus";
   private static final String INAPP_PURCHASE_DATA = "INAPP_PURCHASE_DATA";
   private static final String INAPP_DATA_SIGNATURE = "INAPP_DATA_SIGNATURE";
   private static final String INAPP_PURCHASE_ID = "INAPP_PURCHASE_ID";
-  public static final String BONUS_KEY = "bonus";
   private final CompositeDisposable compositeDisposable = new CompositeDisposable();
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject RemoteRepository.BdsApi bdsApi;
@@ -257,11 +256,11 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     hideLoading();
   }
 
-  @Override public void showError() {
+  @Override public void showError(int messageError) {
     loadingView.setVisibility(View.GONE);
     dialog.setVisibility(View.GONE);
     errorView.setVisibility(View.VISIBLE);
-    errorMessage.setText(R.string.activity_iab_error_message);
+    errorMessage.setText(messageError);
   }
 
   @Override public Observable<Object> getCancelClick() {

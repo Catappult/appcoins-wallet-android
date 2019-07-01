@@ -7,6 +7,7 @@
     android:theme="@style/AppTheme"
     >
   <LinearLayout
+      android:id="@id/main_view"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_margin="10dp"
@@ -25,8 +26,8 @@
         >
 
       <include
-          layout="@layout/dialog_buy_app_info_header"
           android:id="@+id/info_header"
+          layout="@layout/dialog_buy_app_info_header"
           android:layout_width="190dp"
           android:layout_height="wrap_content"
           android:layout_gravity="start"
@@ -172,8 +173,8 @@
           android:id="@+id/wallet_address_footer"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_alignBottom="@id/logo_wallet"
           android:layout_alignTop="@id/logo_wallet"
+          android:layout_alignBottom="@id/logo_wallet"
           android:layout_marginStart="16dp"
           android:layout_marginEnd="16dp"
           android:layout_toEndOf="@id/logo_wallet"
@@ -189,5 +190,13 @@
     <include layout="@layout/fragment_iab_transaction_completed"/>
 
   </LinearLayout>
+
+  <include
+      android:id="@+id/fragment_iab_error"
+      layout="@layout/fragment_iab_error"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
+      />
 
 </RelativeLayout>
