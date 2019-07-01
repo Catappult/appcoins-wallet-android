@@ -89,10 +89,12 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
               .onErrorResumeNext(Observable.empty())
               .observeOn(viewScheduler)
               .filter { it.currency.appcValue != "--" }
+              .doOnComplete {
+                view.setConversionValue(topUpData)
+              }
               .flatMap {
                 loadBonusIntoView(packageName, it.currency.appcValue).toObservable()
                     .doOnNext {
-                      view.setConversionValue(topUpData)
                       view.setNextButtonState(hasValidData(topUpData))
                     }
               }
@@ -111,11 +113,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   private fun hasValidData(data: TopUpData): Boolean {
-    return if (data.selectedCurrency == TopUpData.FIAT_CURRENCY) {
-      isValidValue(data.currency.fiatValue)
-    } else {
-      isValidValue(data.currency.appcValue)
-    }
+    return isValidValue(data.currency.fiatValue) &&
+        isValidValue(data.currency.appcValue)
         && data.paymentMethod != null
   }
 

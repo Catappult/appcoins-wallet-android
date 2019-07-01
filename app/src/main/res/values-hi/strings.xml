@@ -299,8 +299,11 @@
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">खरीद बोनस:</string>
   <string name="gamification_purchase_header_part_2">APPC Credits में %s</string>
-  <string name="gamification_purchase_body">इस खरीद के लिए आपको %s APPC क्रेडिट मिलेगा।</string>
+  <string name="gamification_purchase_body">आप इस बोनस का उपयोग अपनी अगली खरीद में कर सकते हैं।</string>
+  <string name="gamification_purchase_completed_bonus_received_done">पूर्ण!</string>
+  <string name="gamification_purchase_completed_bonus_received">बोनस प्राप्त हुआ</string>
   <string name="action_level">मेरा लेवल</string>
+  <string name="gamification_purchase_appccredits_body">सबसे तेज भुगतान विधि!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">AppCoins वॉलेट को अपना वॉलेट पता %s को देने की अनुमति दें।</string>
   <string name="provide_wallet_body_placeholders">%1$s को अपना वॉलेट पता %2$s को देने की अनुमति दें।</string>
@@ -320,8 +323,12 @@
   <string name="topup_amount">%s APPC-C</string>
   <string name="topup_bonus_header">आपको बोनस मिला है!</string>
   <string name="topup_bonus_message">%s APPC-C अतिरिक्त आपके वॉलेट में जमा किये जाएँगे।</string>
-  <string name="topup_completed_1">%1$s APPC क्रेडिट</string>
-  <string name="topup_completed_2">आपके खाते में जमा किये गए थे।</string>
+  <string name="topup_completed_1">AppCoins Credits में %s</string>
+  <string name="topup_completed_2_with_bonus">आपके खाते में जमा किये गए थे... एक बोनस के साथ!</string>
+  <string name="topup_completed_2_without_bonus">were deposited in your account.</string>
+  <string name="topup_bonus_header_part_1">टॉप-अप बोनस:</string>
+  <string name="topup_bonus_header_part_2">APPC Credits में %s</string>
+  <string name="topup_bonus_body">आप इस बोनस का उपयोग अपनी अगली खरीद में कर सकते हैं।</string>
   <!--Balance-->
   <string name="balance_title">बैलेंस</string>
   <string name="balance_total_body">%s में कुल बैलेंस</string>
@@ -356,13 +363,42 @@
   <string name="error_general">कुछ गलत हो गया</string>
   <string name="error_missing_field">अनिवार्य क्षेत्र</string>
   <string name="cancel_button">रद्द करें</string>
+  <string name="submit_button">जमा करें</string>
+  <string name="close_button">बंद करें</string>
+  <string name="back_button">पीछे</string>
+  <string name="value_fiat">%1$s%2$s</string>
+  <string name="value_crypto">%1$s %2$s</string>
+  <string name="dismiss_button">निकालें</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मैं AppCoins Wallet के %1$s और %2$s से सहमत हूँ।</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions_error">जारी रखने के लिए कृपया हमारे नियम एवं शर्तों तथा गोपनीयता नीति को स्वीकार करें</string>
   <string name="terms_and_conditions">नियम एवं शर्तें</string>
   <string name="privacy_policy">गोपनीयता नीति</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">सबसे अच्छे एंड्रॉयड एप्प आपकी प्रतीक्षा कर रहे हैं।</string>
   <string name="home_empty_discover_apps_button">शीर्ष ऐप्स का पता लगाएँ</string>
   <!--Tokens-->
+  <!--Local Payments-->
+  <string name="local_payments_inprogress_header">प्रगति पर&#8230;</string>
+  <string name="local_payments_inprogress_body">अपना भुगतान पूरा करें और, आपके वॉलेट में AppCoins Credits मिलते ही, खरीद कर लें!</string>
+  <!--Wallet Verification-->
+  <string name="verification_notification_verification_needed_title">इनाम तैयार लेकिन सत्यापन आवश्यक है</string>
+  <string name="verification_notification_verification_needed_body">सुरक्षा कारणों से, हमें आपके वॉलेट को एक एसएमएस कोड से सत्यापित करना होगा।</string>
+  <string name="verification_insert_phone_title">अपना फोन नंबर डालें</string>
+  <string name="verification_insert_phone_body">हम आपको एक सत्यापन कोड भेजेंगे।</string>
+  <string name="verification_insert_phone_field_country">देश</string>
+  <string name="verification_insert_phone_field_number">फोन नंबर</string>
+  <string name="verification_insert_phone_field_number_error">अमान्य फोन नंबर</string>
+  <string name="verification_insert_phone_security_disclaimer">यह केवल सुरक्षा कारणों के लिए है, हम कोई भी निजी डाटा स्टोर नहीं करते हैं।</string>
+  <string name="verification_notification_code_title">AppCoins Wallet</string>
+  <string name="verification_notification_code_body">आपका सत्यापन कोड %s है। अपने AppCoins Wallet पता सत्यापित करने के लिए इसका उपयोग करें।</string>
+  <string name="verification_insert_code_title">अपना सत्यापन कोड डालें</string>
+  <string name="verification_insert_code_error">अमान्य कोड</string>
+  <string name="verification_insert_code_resend_button">कोड पुनः भेजें</string>
+  <string name="verification_validating_title">आपके कोड को सत्यापित कर रहा है&#8230;</string>
+  <string name="verification_completed_title">पूर्ण!</string>
+  <string name="verification_notification_reward_received_body">इनाम प्राप्त हुआ, मजा लें! 👌</string>
+  <string name="verification_notification_reward_already_received_body">इस फोन नंबर का उपयोग यह इनाम पाने के लिए पहले ही किया जा चुका है 😔</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">फोन पहले से ही उपयोग किया है।</string>
+  <string name="verification_insert_code_error_common">अरे, कुछ गलत हो गया है। पुन: प्रयास करें!</string>
 </resources>

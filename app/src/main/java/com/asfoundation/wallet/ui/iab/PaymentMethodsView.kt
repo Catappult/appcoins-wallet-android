@@ -8,7 +8,7 @@ interface PaymentMethodsView {
   fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue,
                          isDonation: Boolean, currency: String)
 
-  fun showError()
+  fun showError(message: Int)
   fun showItemAlreadyOwnedError()
   fun finish(bundle: Bundle)
 

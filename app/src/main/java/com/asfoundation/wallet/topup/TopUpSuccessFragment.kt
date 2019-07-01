@@ -142,7 +142,7 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
         .toString()
     val formattedInitialString = String.format(
         resources.getString(R.string.topup_completed_1), appcValue)
-    val topUpString = formattedInitialString + " " + resources.getString(R.string.topup_completed_2)
+    val topUpString = formattedInitialString + " " + resources.getString(R.string.topup_completed_2_with_bonus)
     val boldStyle = StyleSpan(Typeface.BOLD)
     val sb = SpannableString(topUpString)
     sb.setSpan(boldStyle, 0, formattedInitialString.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)

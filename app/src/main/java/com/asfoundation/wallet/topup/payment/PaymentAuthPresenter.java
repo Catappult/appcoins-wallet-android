@@ -4,6 +4,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.adyen.core.models.PaymentMethod;
+import com.adyen.core.utils.AmountUtil;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asfoundation.wallet.billing.BillingService;
 import com.asfoundation.wallet.billing.adyen.Adyen;
@@ -106,10 +107,14 @@ public class PaymentAuthPresenter {
           if (data.getPaymentMethod()
               .getType()
               .equals(PaymentMethod.Type.CARD)) {
-            view.showCreditCardView(data.getPaymentMethod(), true,
-                data.getShopperReference() != null, data.getPublicKey(), data.getGenerationTime());
+            view.showCreditCardView(data.getPaymentMethod(),
+                AmountUtil.format(data.getAmount(), false), data.getAmount()
+                    .getCurrency(), true, data.getShopperReference() != null, data.getPublicKey(),
+                data.getGenerationTime());
           } else {
-            view.showCvcView(data.getPaymentMethod());
+            view.showCvcView(data.getPaymentMethod(), AmountUtil.format(data.getAmount(), false),
+                data.getAmount()
+                    .getCurrency());
           }
         })
         .observeOn(viewScheduler)

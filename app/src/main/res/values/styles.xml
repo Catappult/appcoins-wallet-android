@@ -330,7 +330,7 @@
   </style>
 
   <style name="TopUpTextStyle.MainValueCurrency">
-    <item name="android:textSize">8sp</item>
+    <item name="android:textSize">12sp</item>
   </style>
 
   <style name="TopUpTextStyle.ConvertedValue">

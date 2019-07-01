@@ -48,7 +48,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
         .observeOn(viewScheduler)
         .map { pair ->
           Balance(
-              TokenValue(BigDecimal(pair.first.value),
+              TokenValue(pair.first.value,
                   APPC_C_CURRENCY,
                   pair.first.symbol),
               pair.second)
@@ -61,7 +61,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
         .observeOn(viewScheduler)
         .map { pair ->
           Balance(
-              TokenValue(BigDecimal(pair.first.value),
+              TokenValue(pair.first.value,
                   APPC_CURRENCY,
                   pair.first.symbol),
               pair.second)
@@ -74,7 +74,7 @@ class BalanceFragmentPresenter(private val view: BalanceFragmentView,
         .observeOn(viewScheduler)
         .map { pair ->
           Balance(
-              TokenValue(BigDecimal(pair.first.value),
+              TokenValue(pair.first.value,
                   ETH_CURRENCY,
                   pair.first.symbol),
               pair.second)

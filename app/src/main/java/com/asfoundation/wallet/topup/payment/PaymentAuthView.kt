@@ -7,7 +7,7 @@ import io.reactivex.Observable
 
 interface PaymentAuthView {
 
-  fun showValues()
+  fun showValues(value: String, currency: String)
 
   fun showLoading()
 
@@ -21,10 +21,11 @@ interface PaymentAuthView {
 
   fun showNetworkError()
 
-  fun showCvcView(paymentMethod: PaymentMethod)
+  fun showCvcView(paymentMethod: PaymentMethod, value: String, currency: String)
 
-  fun showCreditCardView(paymentMethod: PaymentMethod, cvcStatus: Boolean, allowSave: Boolean,
-                         publicKey: String, generationTime: String)
+  fun showCreditCardView(paymentMethod: PaymentMethod, value: String, currency: String,
+                         cvcStatus: Boolean, allowSave: Boolean, publicKey: String,
+                         generationTime: String)
 
   fun showPaymentRefusedError(adyenAuthorization: AdyenAuthorization)
 

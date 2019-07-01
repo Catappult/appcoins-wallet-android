@@ -298,13 +298,13 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     setupSubject.onNext(true);
   }
 
-  @Override public void showError() {
+  @Override public void showError(int message) {
     loadingView.setVisibility(View.GONE);
     dialog.setVisibility(View.GONE);
     addressFooter.setVisibility(View.GONE);
     mainView.setVisibility(View.GONE);
     errorView.setVisibility(View.VISIBLE);
-    errorMessage.setText(R.string.activity_iab_error_message);
+    errorMessage.setText(message);
   }
 
   @Override public void showItemAlreadyOwnedError() {

@@ -8,6 +8,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.appcoins.wallet.gamification.repository.ForecastBonus;
+import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
@@ -19,6 +20,7 @@ import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Currency;
@@ -148,8 +150,8 @@ public class PaymentMethodsPresenter {
     }
     disposables.add(waitForUi(transaction.getSkuId()).observeOn(viewScheduler)
         .subscribe(view::hideLoading, throwable -> {
+          showError(throwable);
           throwable.printStackTrace();
-          view.showError();
         }));
   }
 
@@ -248,7 +250,16 @@ public class PaymentMethodsPresenter {
 
   private void showError(Throwable t) {
     t.printStackTrace();
-    view.showError();
+    if (isNoNetworkException(t)) {
+      view.showError(R.string.notification_no_network_poa);
+    } else {
+      view.showError(R.string.activity_iab_error_message);
+    }
+  }
+
+  private boolean isNoNetworkException(Throwable throwable) {
+    return (throwable instanceof IOException) || (throwable.getCause() != null
+        && throwable.getCause() instanceof IOException);
   }
 
   private void close() {

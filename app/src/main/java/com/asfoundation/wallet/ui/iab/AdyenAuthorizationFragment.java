@@ -38,7 +38,6 @@ import com.asfoundation.wallet.billing.purchase.BillingFactory;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.navigator.UriNavigator;
 import com.asfoundation.wallet.util.KeyboardUtils;
-import com.asfoundation.wallet.view.rx.RxAlertDialog;
 import com.braintreepayments.cardform.view.CardForm;
 import com.google.android.material.textfield.TextInputLayout;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -74,7 +73,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   private static final String ORIGIN = "origin";
   private static final String PAYMENT_TYPE = "paymentType";
   private static final String DEVELOPER_PAYLOAD_KEY = "developer_payload";
-  public static final String BONUS_KEY = "bonus";
+  private static final String BONUS_KEY = "bonus";
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject FindDefaultWalletInteract defaultWalletInteract;
   @Inject BillingFactory billingFactory;
@@ -84,9 +83,6 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   private View progressBar;
   private View ccInfoView;
   private IabView iabView;
-  private RxAlertDialog genericErrorDialog;
-  private RxAlertDialog networkErrorDialog;
-  private RxAlertDialog paymentRefusedDialog;
   private CardForm cardForm;
   private Button buyButton;
   private Button cancelButton;
@@ -106,11 +102,14 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   private AdyenAuthorizationPresenter presenter;
   private PublishRelay<Boolean> backButton;
   private PublishRelay<Boolean> keyboardBuyRelay;
-  private FragmentNavigator navigator;
   private View transactionCompletedLayout;
   private View creditCardInformationsLayout;
   private View walletInformationsFooter;
   private LottieAnimationView lottieTransactionComplete;
+  private View errorView;
+  private TextView errorMessage;
+  private View errorOkButton;
+  private View mainView;
 
   public static AdyenAuthorizationFragment newInstance(String skuId, String type, String origin,
       PaymentType paymentType, String domain, String transactionData, BigDecimal amount,
@@ -136,7 +135,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     backButton = PublishRelay.create();
     keyboardBuyRelay = PublishRelay.create();
 
-    navigator = new FragmentNavigator((UriNavigator) getActivity(), iabView);
+    FragmentNavigator navigator = new FragmentNavigator((UriNavigator) getActivity(), iabView);
 
     presenter = new AdyenAuthorizationPresenter(this, getAppPackage(), defaultWalletInteract,
         AndroidSchedulers.mainThread(), new CompositeDisposable(), adyen,
@@ -166,6 +165,10 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     transactionCompletedLayout = view.findViewById(R.id.iab_activity_transaction_completed);
     creditCardInformationsLayout = view.findViewById(R.id.credit_card_info);
     walletInformationsFooter = view.findViewById(R.id.layout_wallet_footer);
+    mainView = view.findViewById(R.id.main_view);
+    errorView = view.findViewById(R.id.fragment_iab_error);
+    errorMessage = errorView.findViewById(R.id.activity_iab_error_message);
+    errorOkButton = errorView.findViewById(R.id.activity_iab_error_ok_button);
 
     lottieTransactionComplete =
         transactionCompletedLayout.findViewById(R.id.lottie_transaction_success);
@@ -208,21 +211,6 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
       }
     });
 
-    genericErrorDialog = new RxAlertDialog.Builder(getContext()).setMessage(R.string.unknown_error)
-        .setPositiveButton(R.string.ok)
-        .build();
-    networkErrorDialog =
-        new RxAlertDialog.Builder(getContext()).setMessage(R.string.notification_no_network_poa)
-            .setPositiveButton(R.string.ok)
-            .build();
-    paymentRefusedDialog =
-        new RxAlertDialog.Builder(getContext()).setMessage(R.string.notification_payment_refused)
-            .setPositiveButton(R.string.ok)
-            .build();
-
-    paymentRefusedDialog.positiveClicks()
-        .subscribe(dialogInterface -> navigator.popViewWithError(), Throwable::printStackTrace);
-
     showProduct();
     presenter.present(savedInstanceState);
   }
@@ -259,6 +247,10 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     creditCardInformationsLayout = null;
     walletInformationsFooter = null;
     transactionCompletedLayout = null;
+    mainView = null;
+    errorView = null;
+    errorMessage = null;
+    errorOkButton = null;
     super.onDestroyView();
   }
 
@@ -309,8 +301,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   }
 
   @Override public Observable<Object> errorDismisses() {
-    return Observable.merge(networkErrorDialog.dismisses(), paymentRefusedDialog.dismisses())
-        .map(dialogInterface -> new Object());
+    return RxView.clicks(errorOkButton);
   }
 
   @Override public Observable<PaymentDetails> paymentMethodDetailsEvent() {
@@ -321,12 +312,6 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   @Override public Observable<PaymentMethod> changeCardMethodDetailsEvent() {
     return RxView.clicks(changeCardButton)
         .map(__ -> paymentMethod);
-  }
-
-  @Override public void showNetworkError() {
-    if (!networkErrorDialog.isShowing()) {
-      networkErrorDialog.show();
-    }
   }
 
   @Override public Observable<Object> cancelEvent() {
@@ -393,18 +378,25 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     creditCardInformationsLayout.setVisibility(View.GONE);
     walletInformationsFooter.setVisibility(View.GONE);
     transactionCompletedLayout.setVisibility(View.VISIBLE);
+    errorView.setVisibility(View.GONE);
+  }
+
+  @Override public void showNetworkError() {
+    mainView.setVisibility(View.GONE);
+    errorView.setVisibility(View.VISIBLE);
+    errorMessage.setText(R.string.notification_no_network_poa);
   }
 
   @Override public void showPaymentRefusedError(AdyenAuthorization adyenAuthorization) {
-    if (!paymentRefusedDialog.isShowing()) {
-      paymentRefusedDialog.show();
-    }
+    mainView.setVisibility(View.GONE);
+    errorView.setVisibility(View.VISIBLE);
+    errorMessage.setText(R.string.notification_payment_refused);
   }
 
   @Override public void showGenericError() {
-    if (!genericErrorDialog.isShowing()) {
-      genericErrorDialog.show();
-    }
+    mainView.setVisibility(View.GONE);
+    errorView.setVisibility(View.VISIBLE);
+    errorMessage.setText(R.string.unknown_error);
   }
 
   @Override public long getAnimationDuration() {

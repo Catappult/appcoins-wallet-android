@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.repository;
 
-import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.LocalCurrencyConversionService;
+import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.ui.iab.FiatValue;
 import io.reactivex.Single;
 
@@ -25,6 +25,7 @@ public class CurrencyConversionService {
   }
 
   public Single<FiatValue> getLocalFiatAmount(String appcValue) {
-    return localCurrencyConversionService.getAppcToLocalFiat(appcValue).firstOrError();
+    return localCurrencyConversionService.getAppcToLocalFiat(appcValue, 2)
+        .firstOrError();
   }
 }

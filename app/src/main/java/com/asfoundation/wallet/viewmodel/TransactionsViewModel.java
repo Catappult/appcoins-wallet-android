@@ -20,9 +20,7 @@ import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchTransactionsInteract;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
-import com.asfoundation.wallet.interact.GetDefaultWalletBalance;
 import com.asfoundation.wallet.repository.OffChainTransactions;
-import com.asfoundation.wallet.router.AirdropRouter;
 import com.asfoundation.wallet.router.BalanceRouter;
 import com.asfoundation.wallet.router.ExternalBrowserRouter;
 import com.asfoundation.wallet.router.MyAddressRouter;
@@ -31,7 +29,6 @@ import com.asfoundation.wallet.router.SendRouter;
 import com.asfoundation.wallet.router.SettingsRouter;
 import com.asfoundation.wallet.router.TopUpRouter;
 import com.asfoundation.wallet.router.TransactionDetailRouter;
-import com.asfoundation.wallet.service.LocalCurrencyConversionService;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionsAnalytics;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
@@ -47,12 +44,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Collections;
 import java.util.List;
 
 public class TransactionsViewModel extends BaseViewModel {
   private static final long GET_BALANCE_INTERVAL = 10 * DateUtils.SECOND_IN_MILLIS;
   private static final long FETCH_TRANSACTIONS_INTERVAL = 12 * DateUtils.SECOND_IN_MILLIS;
+  private static final int FIAT_SCALE = 2;
   private static final BigDecimal MINUS_ONE = new BigDecimal("-1");
   private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
   private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
@@ -75,20 +74,17 @@ public class TransactionsViewModel extends BaseViewModel {
   private final RewardsLevelRouter rewardsLevelRouter;
   private final CompositeDisposable disposables;
   private final DefaultTokenProvider defaultTokenProvider;
-  private final GetDefaultWalletBalance getDefaultWalletBalance;
   private final TransactionsMapper transactionsMapper;
-  private final AirdropRouter airdropRouter;
   private final AppcoinsApps applications;
   private final TopUpRouter topUpRouter;
   private final OffChainTransactions offChainTransactions;
   private final GamificationInteractor gamificationInteractor;
   private final TransactionsAnalytics analytics;
-  private final LocalCurrencyConversionService localCurrencyConversionService;
+  private final BalanceInteract balanceInteract;
   private Handler handler = new Handler();
   private final Runnable startGlobalBalanceTask = this::getGlobalBalance;
   private boolean hasTransactions = false;
   private final Runnable startFetchTransactionsTask = () -> this.fetchTransactions(false);
-  private final BalanceInteract balanceInteract;
 
   TransactionsViewModel(FindDefaultNetworkInteract findDefaultNetworkInteract,
       FindDefaultWalletInteract findDefaultWalletInteract,
@@ -96,13 +92,10 @@ public class TransactionsViewModel extends BaseViewModel {
       SendRouter sendRouter, TransactionDetailRouter transactionDetailRouter,
       MyAddressRouter myAddressRouter, BalanceRouter balanceRouter,
       ExternalBrowserRouter externalBrowserRouter, DefaultTokenProvider defaultTokenProvider,
-      GetDefaultWalletBalance getDefaultWalletBalance, TransactionsMapper transactionsMapper,
-      AirdropRouter airdropRouter, AppcoinsApps applications,
+      TransactionsMapper transactionsMapper, AppcoinsApps applications,
       OffChainTransactions offChainTransactions, RewardsLevelRouter rewardsLevelRouter,
       GamificationInteractor gamificationInteractor, TopUpRouter topUpRouter,
-      TransactionsAnalytics analytics,
-      LocalCurrencyConversionService localCurrencyConversionService,
-      BalanceInteract balanceInteract) {
+      TransactionsAnalytics analytics, BalanceInteract balanceInteract) {
     this.findDefaultNetworkInteract = findDefaultNetworkInteract;
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchTransactionsInteract = fetchTransactionsInteract;
@@ -114,15 +107,12 @@ public class TransactionsViewModel extends BaseViewModel {
     this.externalBrowserRouter = externalBrowserRouter;
     this.rewardsLevelRouter = rewardsLevelRouter;
     this.defaultTokenProvider = defaultTokenProvider;
-    this.getDefaultWalletBalance = getDefaultWalletBalance;
     this.transactionsMapper = transactionsMapper;
-    this.airdropRouter = airdropRouter;
     this.applications = applications;
     this.offChainTransactions = offChainTransactions;
     this.gamificationInteractor = gamificationInteractor;
     this.topUpRouter = topUpRouter;
     this.analytics = analytics;
-    this.localCurrencyConversionService = localCurrencyConversionService;
     this.disposables = new CompositeDisposable();
     this.balanceInteract = balanceInteract;
   }
@@ -233,7 +223,8 @@ public class TransactionsViewModel extends BaseViewModel {
     BigDecimal sumFiat = sumFiat(tokenBalance.second.getAmount(), creditsBalance.second.getAmount(),
         ethereumBalance.second.getAmount());
     if (sumFiat.compareTo(MINUS_ONE) > 0) {
-      fiatValue = sumFiat.toString();
+      fiatValue = sumFiat.setScale(FIAT_SCALE, RoundingMode.FLOOR)
+          .toString();
     }
     GlobalBalance currentGlobalBalance = defaultWalletBalance.getValue();
     GlobalBalance newGlobalBalance =
@@ -263,9 +254,11 @@ public class TransactionsViewModel extends BaseViewModel {
   }
 
   private boolean shouldShow(Pair<Balance, FiatValue> balance, Double threshold) {
-    return balance.first.getValue().length() > 0
-        && Double.valueOf(balance.first.getValue()) >= threshold
-        && (balance.second.getAmount().compareTo(MINUS_ONE) > 0)
+    return balance.first.getStringValue()
+        .length() > 0
+        && Double.valueOf(balance.first.getStringValue()) >= threshold
+        && (balance.second.getAmount()
+        .compareTo(MINUS_ONE) > 0)
         && balance.second.getAmount()
         .doubleValue() >= threshold;
   }

@@ -38,7 +38,7 @@
       android:layout_marginEnd="16dp"
       android:layout_marginBottom="52dp"
       android:gravity="center"
-      android:text="@string/topup_completed_2"
+      android:text="@string/topup_completed_2_with_bonus"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="@id/mid_guideline"
