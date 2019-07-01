@@ -16,6 +16,7 @@ import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.util.TransferParser;
 import dagger.android.AndroidInjection;
 import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import javax.inject.Inject;
 
@@ -42,8 +43,11 @@ public class OneStepPaymentReceiver extends BaseActivity {
     walletCreationText = findViewById(R.id.create_wallet_text);
     if (savedInstanceState == null) {
       disposable = walletInteract.find()
-          .onErrorResumeNext(throwable -> throwable instanceof WalletNotFoundException
-              ? createWallet().doAfterTerminate(this::endAnimation) : Single.error(throwable))
+          .retry(3)
+          .onErrorResumeNext(
+              throwable -> throwable instanceof WalletNotFoundException ? createWallet().observeOn(
+                  AndroidSchedulers.mainThread())
+                  .doAfterTerminate(this::endAnimation) : Single.error(throwable))
           .flatMap(__ -> transferParser.parse(getIntent().getDataString())
               .flatMap(
                   transaction -> inAppPurchaseInteractor.isWalletFromBds(transaction.getDomain(),
