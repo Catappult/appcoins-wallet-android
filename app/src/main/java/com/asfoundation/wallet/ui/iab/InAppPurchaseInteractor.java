@@ -32,18 +32,16 @@ public class InAppPurchaseInteractor {
   private final ExternalBillingSerializer billingSerializer;
   private final AppcoinsRewards appcoinsRewards;
   private final Billing billing;
-  private final PaymentMethodsMapper paymentMethodsMapper;
 
   public InAppPurchaseInteractor(AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
       BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
-      ExternalBillingSerializer billingSerializer, AppcoinsRewards appcoinsRewards, Billing billing,
-      PaymentMethodsMapper paymentMethodsMapper) {
+      ExternalBillingSerializer billingSerializer, AppcoinsRewards appcoinsRewards,
+      Billing billing) {
     this.asfInAppPurchaseInteractor = asfInAppPurchaseInteractor;
     this.bdsInAppPurchaseInteractor = bdsInAppPurchaseInteractor;
     this.billingSerializer = billingSerializer;
     this.appcoinsRewards = appcoinsRewards;
     this.billing = billing;
-    this.paymentMethodsMapper = paymentMethodsMapper;
   }
 
   public Single<TransactionBuilder> parseTransaction(String uri, boolean isBds) {

@@ -13,6 +13,7 @@ import com.asfoundation.wallet.ui.iab.IabActivity;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.util.TransferParser;
 import dagger.android.AndroidInjection;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import javax.inject.Inject;
 
 /**
@@ -40,7 +41,7 @@ public class Erc681Receiver extends BaseActivity implements Erc681ReceiverView {
     walletCreationText = findViewById(R.id.create_wallet_text);
     presenter =
         new Erc681ReceiverPresenter(this, transferParser, inAppPurchaseInteractor, walletInteract,
-            getIntent().getDataString(), paymentReceiverInteract);
+            getIntent().getDataString(), paymentReceiverInteract, AndroidSchedulers.mainThread());
     presenter.present(savedInstanceState);
   }
 

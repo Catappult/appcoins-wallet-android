@@ -389,7 +389,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       @Named("ASF_IN_APP_INTERACTOR") AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
       AppcoinsRewards appcoinsRewards, Billing billing, PaymentMethodsMapper paymentMethodsMapper) {
     return new InAppPurchaseInteractor(asfInAppPurchaseInteractor, bdsInAppPurchaseInteractor,
-        new ExternalBillingSerializer(), appcoinsRewards, billing, paymentMethodsMapper);
+        new ExternalBillingSerializer(), appcoinsRewards, billing);
   }
 
   @Provides LocalPaymentInteractor provideLocalPaymentInteractor(ShareLinkRepository repository,
@@ -959,6 +959,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides CampaignInteract provideCampaignInteract(CampaignService campaignService,
       WalletService walletService, CreateWalletInteract createWalletInteract) {
-    return new CampaignInteract(campaignService, walletService, createWalletInteract, new AdvertisingThrowableCodeMapper());
+    return new CampaignInteract(campaignService, walletService, createWalletInteract,
+        new AdvertisingThrowableCodeMapper());
   }
 }
