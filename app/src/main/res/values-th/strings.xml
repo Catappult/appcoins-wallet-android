@@ -404,4 +404,6 @@
   <string name="verification_notification_reward_already_received_body">หมายเลขโทรศัพท์นี้ถูกใช้เพื่อรับรางวัลนี้แล้ว😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">เบอร์โทรศัพท์ถูกใช้แล้ว</string>
   <string name="verification_insert_code_error_common">อุ๊ปส์ มีบางอย่างผิดพลาด โปรดลองใหม่อีกครั้ง!</string>
+  <!--Purchase Flow-->
+  <string name="purchase_error_incomplete_transaction_body">It seems this purchase is already being processed. Please hold on until the transaction is completed or contact our Support Team.</string>
 </resources>
