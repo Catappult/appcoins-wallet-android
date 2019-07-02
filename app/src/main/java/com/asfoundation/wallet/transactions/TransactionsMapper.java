@@ -24,9 +24,9 @@ import static com.asfoundation.wallet.transactions.Transaction.TransactionType.T
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.TRANSFER_OFF_CHAIN;
 
 public class TransactionsMapper {
-  public static final String APPROVE_METHOD_ID = "0x095ea7b3";
-  public static final String BUY_METHOD_ID = "0xb7a2e1f2";
-  public static final String ADS_METHOD_ID = "0xd5bde837";
+  private static final String APPROVE_METHOD_ID = "0x095ea7b3";
+  private static final String BUY_METHOD_ID = "0xb7a2e1f2";
+  private static final String ADS_METHOD_ID = "0xd5bde837";
   private final DefaultTokenProvider defaultTokenProvider;
   private final AppCoinsOperationRepository repository;
   private final Scheduler scheduler;
