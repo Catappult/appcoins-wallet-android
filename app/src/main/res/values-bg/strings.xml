@@ -404,4 +404,6 @@
   <string name="verification_notification_reward_already_received_body">Този телефонен номер вече е бил използван за получаване на тази награда😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Телефонът вече е бил използван.</string>
   <string name="verification_insert_code_error_common">Опа, нещо се обърка. Опитай отново!</string>
+  <!--Purchase Flow-->
+  <string name="purchase_error_incomplete_transaction_body">It seems this purchase is already being processed. Please hold on until the transaction is completed or contact our Support Team.</string>
 </resources>
