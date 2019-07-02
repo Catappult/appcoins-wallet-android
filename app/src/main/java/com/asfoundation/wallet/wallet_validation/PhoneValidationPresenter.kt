@@ -53,16 +53,19 @@ class PhoneValidationPresenter(
       WalletValidationStatus.SUCCESS -> activity?.showCodeValidationView(submitInfo.first,
           submitInfo.second)
       WalletValidationStatus.INVALID_INPUT,
-      WalletValidationStatus.INVALID_PHONE -> handleError(
-          R.string.verification_insert_phone_field_number_error)
-      WalletValidationStatus.DOUBLE_SPENT -> handleError(
-          R.string.verification_insert_phone_field_phone_used_already_error)
-      WalletValidationStatus.GENERIC_ERROR -> handleError(R.string.unknown_error)
+      WalletValidationStatus.INVALID_PHONE -> {
+        showErrorMessage(R.string.verification_insert_phone_field_number_error)
+        view.setButtonState(false)
+      }
+      WalletValidationStatus.DOUBLE_SPENT -> {
+        showErrorMessage(R.string.verification_insert_phone_field_phone_used_already_error)
+        view.setButtonState(false)
+      }
+      WalletValidationStatus.GENERIC_ERROR -> showErrorMessage(R.string.unknown_error)
     }
   }
 
-  private fun handleError(errorMessage: Int) {
-    view.setButtonState(false)
+  private fun showErrorMessage(errorMessage: Int) {
     view.setError(errorMessage)
   }
 
