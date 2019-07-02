@@ -404,4 +404,6 @@
   <string name="verification_notification_reward_already_received_body">Acest număr de telefon a fost folosit deja pentru a primi această recompensă 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Număr de telefon deja folosit.</string>
   <string name="verification_insert_code_error_common">Ups, ceva nu a mers cum trebuie. Încearcă din nou!</string>
+  <!--Purchase Flow-->
+  <string name="purchase_error_incomplete_transaction_body">It seems this purchase is already being processed. Please hold on until the transaction is completed or contact our Support Team.</string>
 </resources>
