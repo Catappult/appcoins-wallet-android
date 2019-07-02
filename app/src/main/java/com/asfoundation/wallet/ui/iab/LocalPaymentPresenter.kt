@@ -1,10 +1,12 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
+import java.util.concurrent.TimeUnit
 
 private val WAITING_RESULT = "WAITING_RESULT"
 private var waitingResult: Boolean = false
@@ -18,6 +20,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
                             private val paymentId: String,
                             private val localPaymentInteractor: LocalPaymentInteractor,
                             private val navigator: FragmentNavigator,
+                            private val isInApp: Boolean,
                             private val savedInstance: Bundle?,
                             private val viewScheduler: Scheduler,
                             private val networkScheduler: Scheduler,
@@ -71,13 +74,20 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
         viewScheduler).doOnNext { view.close() }.subscribe())
   }
 
-  private fun handleTransactionStatus(transactionStatus: Status): Completable {
+  private fun handleTransactionStatus(transaction: Transaction): Completable {
     view.hideLoading()
-    return when (transactionStatus) {
+    return when (transaction.status) {
       Status.COMPLETED -> {
-        Completable.fromAction {
-          view.showCompletedPayment()
-        }
+        localPaymentInteractor.getCompletePurchaseBundle(isInApp, domain, skuId, networkScheduler,
+            transaction.orderReference,
+            transaction.hash)
+            .flatMapCompletable {
+              Completable.fromAction {
+                view.showCompletedPayment()
+              }
+                  .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+                  .andThen(Completable.fromAction { view.popView(it) })
+            }
       }
       Status.PENDING_USER_PAYMENT -> Completable.fromAction {
         view.showPendingUserPayment()

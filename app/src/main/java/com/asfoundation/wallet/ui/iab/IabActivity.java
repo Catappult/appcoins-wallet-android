@@ -194,11 +194,11 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
 
   @Override
   public void showLocalPayment(String domain, String skuId, String originalAmount, String currency,
-      String bonus, String selectedPaymentMethod) {
+      String bonus, String selectedPaymentMethod, boolean isInApp) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container,
             LocalPaymentFragment.newInstance(domain, skuId, originalAmount, currency, bonus,
-                selectedPaymentMethod))
+                selectedPaymentMethod, isInApp))
         .commit();
   }
 

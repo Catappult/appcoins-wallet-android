@@ -35,11 +35,13 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     private const val PAYMENT_KEY = "payment_name"
     private const val BONUS_KEY = "bonus"
     private const val STATUS_KEY = "status"
+    private const val TYPE_KEY = "type"
 
     @JvmStatic
     fun newInstance(domain: String, skudId: String?, originalAmount: String?,
                     currency: String?, bonus: String?,
-                    selectedPaymentMethod: String): LocalPaymentFragment {
+                    selectedPaymentMethod: String,
+                    isInApp: Boolean): LocalPaymentFragment {
       val fragment = LocalPaymentFragment()
       val bundle = Bundle()
       bundle.putString(DOMAIN_KEY, domain)
@@ -48,6 +50,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
       bundle.putString(CURRENCY_KEY, currency)
       bundle.putString(BONUS_KEY, bonus)
       bundle.putString(PAYMENT_KEY, selectedPaymentMethod)
+      bundle.putBoolean(TYPE_KEY, isInApp)
       fragment.arguments = bundle
       return fragment
     }
@@ -60,7 +63,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
       throw IllegalArgumentException("domain data not found")
     }
   }
-  private val skudId: String? by lazy {
+  private val skudId: String by lazy {
     if (arguments!!.containsKey(SKU_ID_KEY)) {
       arguments!!.getString(SKU_ID_KEY)
     } else {
@@ -99,6 +102,14 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     }
   }
 
+  private val type: Boolean by lazy {
+    if (arguments!!.containsKey(TYPE_KEY)) {
+      arguments!!.getBoolean(TYPE_KEY)
+    } else {
+      throw IllegalArgumentException("type data not found")
+    }
+  }
+
   @Inject
   lateinit var localPaymentInteractor: LocalPaymentInteractor
 
@@ -113,7 +124,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     status = NONE
     localPaymentPresenter =
         LocalPaymentPresenter(this, originalAmount, currency, domain, skudId,
-            paymentId, localPaymentInteractor, navigator,
+            paymentId, localPaymentInteractor, navigator, type,
             savedInstanceState, AndroidSchedulers.mainThread(), Schedulers.io(),
             CompositeDisposable())
   }
@@ -256,5 +267,13 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     pending_user_payment_view.completed_bonus_animation.cancelAnimation()
     pending_user_payment_view.visibility = View.GONE
     iabView.close(Bundle())
+  }
+
+  override fun getAnimationDuration(): Long {
+    return completed_bonus_animation.duration
+  }
+
+  override fun popView(bundle: Bundle) {
+    iabView.finish(bundle)
   }
 }
