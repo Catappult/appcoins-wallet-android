@@ -404,4 +404,6 @@
   <string name="verification_notification_reward_already_received_body">इस फोन नंबर का उपयोग यह इनाम पाने के लिए पहले ही किया जा चुका है 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">फोन पहले से ही उपयोग किया है।</string>
   <string name="verification_insert_code_error_common">अरे, कुछ गलत हो गया है। पुन: प्रयास करें!</string>
+  <!--Purchase Flow-->
+  <string name="purchase_error_incomplete_transaction_body">It seems this purchase is already being processed. Please hold on until the transaction is completed or contact our Support Team.</string>
 </resources>
