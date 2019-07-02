@@ -404,4 +404,6 @@
   <string name="verification_notification_reward_already_received_body">لقد استُخدم رقم الهاتف هذا سابقًا لاستقبال هذه الجائزة 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">رقم هاتف مُستخدَم سابقًا.</string>
   <string name="verification_insert_code_error_common">يا للخسارة، حدث خطأ. حاول مجددًا!</string>
+  <!--Purchase Flow-->
+  <string name="purchase_error_incomplete_transaction_body">It seems this purchase is already being processed. Please hold on until the transaction is completed or contact our Support Team.</string>
 </resources>
