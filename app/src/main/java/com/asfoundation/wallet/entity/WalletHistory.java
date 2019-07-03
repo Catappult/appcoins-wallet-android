@@ -35,6 +35,7 @@ import java.util.List;
     @JsonProperty("receiver") private String receiver;
     @JsonProperty("sender") private String sender;
     @JsonProperty("ts") private Date ts;
+    @JsonProperty("processed_time") private Date processedTime;
     @JsonProperty("type") private String type;
     @JsonProperty("status") private Status status;
 
@@ -120,6 +121,10 @@ import java.util.List;
 
     public Date getTs() {
       return ts;
+    }
+
+    public Date getProcessedTime() {
+      return processedTime;
     }
 
     public void setTs(Date ts) {

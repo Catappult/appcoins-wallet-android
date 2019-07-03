@@ -20,7 +20,7 @@ public class Operation implements Parcelable {
   private String to;
   private String fee;
 
-  Operation(String transactionId, String from, String to, String fee) {
+  public Operation(String transactionId, String from, String to, String fee) {
     this.transactionId = transactionId;
     this.from = from;
     this.to = to;
