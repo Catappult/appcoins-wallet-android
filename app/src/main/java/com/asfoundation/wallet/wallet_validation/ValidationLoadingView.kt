@@ -6,6 +6,4 @@ interface ValidationLoadingView {
 
   fun clean()
 
-  fun close()
-
 }

@@ -91,8 +91,4 @@ class ValidationLoadingFragment : DaggerFragment(), ValidationLoadingView {
     validation_loading_animation.removeAllLottieOnCompositionLoadedListener()
   }
 
-  override fun close() {
-    walletValidationView.close(null)
-  }
-
 }
