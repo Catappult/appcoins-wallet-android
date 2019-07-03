@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.transactions;
 
 import androidx.annotation.Nullable;
+
 import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.TransactionOperation;
 import com.asfoundation.wallet.entity.WalletHistory;
@@ -8,13 +9,16 @@ import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperation;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository;
 import com.asfoundation.wallet.util.BalanceUtils;
-import io.reactivex.Scheduler;
-import io.reactivex.Single;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-import org.jetbrains.annotations.NotNull;
+
+import io.reactivex.Scheduler;
+import io.reactivex.Single;
 
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.ADS_OFFCHAIN;
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.BONUS;
@@ -132,7 +136,8 @@ public class TransactionsMapper {
 
   /**
    * Method to map a raw transaction to an Ads transaction. In this case the raw transaction value
-   * does not contain the value of the transfer, that information is in the operations contained in
+   * does not contain the value of the transfer, that information is in the operations
+   * contained in
    * the raw transaction.
    * NOTE: For the value of this transaction we are considering the value of the first operation,
    * by relying on the order that the ads transactions are done. Only the first operation includes
@@ -140,7 +145,8 @@ public class TransactionsMapper {
    *
    * @param transaction The raw transaction including all the information for a given transaction.
    *
-   * @return a Transaction object containing the information needed and formatted, ready to be shown
+   * @return a Transaction object containing the information needed and formatted, ready to be
+   * shown
    * on the transactions list.
    */
   private Transaction mapAdsTransaction(RawTransaction transaction) {
@@ -172,8 +178,8 @@ public class TransactionsMapper {
 
     return new Transaction(transaction.hash,
         com.asfoundation.wallet.transactions.Transaction.TransactionType.ADS, null,
-        transaction.timeStamp, transaction.processedTime, getError(transaction), value, from, to,
-        details, currency, operations);
+        (transaction.timeStamp * 1000), transaction.processedTime, getError(transaction), value,
+        from, to, details, currency, operations);
   }
 
   /**
@@ -207,15 +213,17 @@ public class TransactionsMapper {
       operations.add(new Operation(transaction.hash, transaction.from, transaction.to, fee));
     }
 
-    return new Transaction(transaction.hash, STANDARD, null, transaction.timeStamp,
+    return new Transaction(transaction.hash, STANDARD, null, (transaction.timeStamp * 1000),
         transaction.processedTime, getError(transaction), value, transaction.from, transaction.to,
         null, currency, operations);
   }
 
   /**
-   * Method to map a raw transaction to an IAB transaction. In this case all the transfer mentioned
+   * Method to map a raw transaction to an IAB transaction. In this case all the transfer
+   * mentioned
    * in the operations list on the raw transaction need to be summed to obtained the value of the
-   * transaction, since the user transfer the value that afterwards is split between all the parties
+   * transaction, since the user transfer the value that afterwards is split between all the
+   * parties
    * included in the iab transaction.
    *
    * @param approveTransaction The raw transaction for the approve transaction.
@@ -260,9 +268,9 @@ public class TransactionsMapper {
     Transaction.TransactionType type = getTransactionType(transaction);
     TransactionDetails details = getTransactionDetails(type, transaction.hash);
 
-    return new Transaction(transaction.hash, type, approveTransaction.hash, transaction.timeStamp,
-        transaction.processedTime, getError(transaction), value.toString(), transaction.from,
-        transaction.to, details, currency, operations);
+    return new Transaction(transaction.hash, type, approveTransaction.hash,
+        (transaction.timeStamp * 1000), transaction.processedTime, getError(transaction),
+        value.toString(), transaction.from, transaction.to, details, currency, operations);
   }
 
   private boolean isAdsTransaction(RawTransaction transaction) {
