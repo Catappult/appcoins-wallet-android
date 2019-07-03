@@ -36,12 +36,14 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     private const val BONUS_KEY = "bonus"
     private const val STATUS_KEY = "status"
     private const val TYPE_KEY = "type"
+    private const val DEV_ADDRESS_KEY = "dev_address"
 
     @JvmStatic
     fun newInstance(domain: String, skudId: String?, originalAmount: String?,
                     currency: String?, bonus: String?,
                     selectedPaymentMethod: String,
-                    isInApp: Boolean): LocalPaymentFragment {
+                    isInApp: Boolean,
+                    developerAddress: String): LocalPaymentFragment {
       val fragment = LocalPaymentFragment()
       val bundle = Bundle()
       bundle.putString(DOMAIN_KEY, domain)
@@ -51,6 +53,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
       bundle.putString(BONUS_KEY, bonus)
       bundle.putString(PAYMENT_KEY, selectedPaymentMethod)
       bundle.putBoolean(TYPE_KEY, isInApp)
+      bundle.putString(DEV_ADDRESS_KEY, developerAddress)
       fragment.arguments = bundle
       return fragment
     }
@@ -102,6 +105,14 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     }
   }
 
+  private val developerAddress: String by lazy {
+    if (arguments!!.containsKey(DEV_ADDRESS_KEY)) {
+      arguments!!.getString(DEV_ADDRESS_KEY)
+    } else {
+      throw IllegalArgumentException("dev address data not found")
+    }
+  }
+
   private val type: Boolean by lazy {
     if (arguments!!.containsKey(TYPE_KEY)) {
       arguments!!.getBoolean(TYPE_KEY)
@@ -124,7 +135,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     status = NONE
     localPaymentPresenter =
         LocalPaymentPresenter(this, originalAmount, currency, domain, skudId,
-            paymentId, localPaymentInteractor, navigator, type,
+            paymentId, developerAddress, localPaymentInteractor, navigator, type,
             savedInstanceState, AndroidSchedulers.mainThread(), Schedulers.io(),
             CompositeDisposable())
   }

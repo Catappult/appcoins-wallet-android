@@ -417,7 +417,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     iabView.showLocalPayment(transaction.getDomain(), transaction.getSkuId(),
         isOneStep ? transaction.getOriginalOneStepValue() : null,
         isOneStep ? transaction.getOriginalOneStepCurrency() : null, bonusMessageValue,
-        selectedPaymentMethod, isInApp);
+        selectedPaymentMethod, isInApp, transaction.toAddress());
   }
 
   @Override public void setBonus(@NotNull BigDecimal bonus, String currency) {

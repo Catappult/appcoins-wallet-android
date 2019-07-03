@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.asf.wallet.R;
@@ -176,6 +177,7 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
 
   @Override public void showAdyenPayment(BigDecimal amount, String currency, boolean isBds,
       PaymentType paymentType, String bonus) {
+    Log.d("TAG123", "HERE: " + transaction.toAddress());
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container, ExpressCheckoutBuyFragment.newInstance(
             createBundle(BigDecimal.valueOf(amount.doubleValue()), currency), isBds, paymentType,
@@ -194,11 +196,11 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
 
   @Override
   public void showLocalPayment(String domain, String skuId, String originalAmount, String currency,
-      String bonus, String selectedPaymentMethod, boolean isInApp) {
+      String bonus, String selectedPaymentMethod, boolean isInApp, String developerAddress) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container,
             LocalPaymentFragment.newInstance(domain, skuId, originalAmount, currency, bonus,
-                selectedPaymentMethod, isInApp))
+                selectedPaymentMethod, isInApp, developerAddress))
         .commit();
   }
 

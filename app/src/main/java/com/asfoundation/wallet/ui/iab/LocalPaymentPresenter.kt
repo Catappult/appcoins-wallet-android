@@ -18,6 +18,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
                             private val domain: String,
                             private val skuId: String?,
                             private val paymentId: String,
+                            private val developerAddress: String,
                             private val localPaymentInteractor: LocalPaymentInteractor,
                             private val navigator: FragmentNavigator,
                             private val isInApp: Boolean,
@@ -45,7 +46,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
   private fun onViewCreatedRequestLink() {
     disposables.add(
         localPaymentInteractor.getPaymentLink(domain, skuId, originalAmount, currency,
-            paymentId).filter { !waitingResult }.observeOn(
+            paymentId, developerAddress).filter { !waitingResult }.observeOn(
             viewScheduler).doOnSuccess {
           navigator.navigateToUriForResult(it, "", domain, skuId, null, "")
           waitingResult = true

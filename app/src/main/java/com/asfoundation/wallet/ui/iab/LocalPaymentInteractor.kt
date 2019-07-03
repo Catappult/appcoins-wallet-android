@@ -6,14 +6,14 @@ import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.*
 import com.appcoins.wallet.billing.BillingMessagesMapper
-import com.asfoundation.wallet.billing.share.ShareLinkRepository
+import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import java.util.concurrent.TimeUnit
 
-class LocalPaymentInteractor(private val remoteRepository: ShareLinkRepository,
+class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkRepository,
                              private val walletInteractor: FindDefaultWalletInteract,
                              private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                              private val billing: Billing,
@@ -22,12 +22,12 @@ class LocalPaymentInteractor(private val remoteRepository: ShareLinkRepository,
 
   fun getPaymentLink(domain: String, skuId: String?,
                      originalAmount: String?, originalCurrency: String?,
-                     paymentMethod: String): Single<String> {
+                     paymentMethod: String, developerAddress: String): Single<String> {
 
     return walletInteractor.find()
         .flatMap {
-          remoteRepository.getLink(domain, skuId, null, it.address, originalAmount,
-              originalCurrency, paymentMethod)
+          deepLinkRepository.getDeepLink(domain, skuId, it.address, originalAmount,
+              originalCurrency, paymentMethod, developerAddress)
         }
   }
 
