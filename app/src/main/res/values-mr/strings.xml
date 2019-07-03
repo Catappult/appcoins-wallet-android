@@ -278,11 +278,12 @@
   <string name="gamification_level_body">आपल्या आवडत्या अॅप्स आणि खेळात वस्तु खरेदी केल्यास आपण एपीपीसी क्रेडीटस कमावु शकता.</string>
   <string name="gamification_how_header">पातळी कशी वाढवायची?</string>
   <string name="gamification_how_body">आपल्या आवडत्या अॅपस आणि खेळात जेव्हा खरेदी करता तेव्हा आपण एपीपीसी क्रेडीट्स कमावता.</string>
-  <string name="gamification_how_body_new">जितक्या जास्त अॅपकॉइन्स आपण आपल्या आवडत्या अॅप्समध्ये खर्च कराल, तितका मोठा बोनस मिळेल!</string>
+  <string name="gamification_how_body_new">The more you spend in your favorite apps, the bigger the Bonus!</string>
   <string name="gamification_how_table_a1">खर्च करा</string>
   <string name="gamification_how_table_b1">बोनस</string>
   <string name="gamification_how_table_a2">%s एपीपीसी</string>
   <string name="gamification_how_table_b2">%s %%</string>
+  <string name="gamification_how_table_level">LEVEL</string>
   <string name="gamification_how_terms_and_conditions">अटी</string>
   <string name="gamification_how_spend">एपीपीसी %s खर्च करा</string>
   <string name="gamification_a_comet_title">धूमकेतु</string>
@@ -304,6 +305,15 @@
   <string name="gamification_purchase_completed_bonus_received">बोनस मिळाला</string>
   <string name="action_level">माझी पातळी</string>
   <string name="gamification_purchase_appccredits_body">झटपट पेमेंट प्रकार!</string>
+  <string name="gamification_how_bonus_received_body">Bonus received</string>
+  <string name="gamification_how_appc_spent">Amount spent to reach this level</string>
+  <string name="gamification_how_to_next_level_body">Spend %1$s AppCoins more to reach level %2$s.</string>
+  <string name="gamification_level_expiration_title">Next level check: %s</string>
+  <string name="gamification_level_expiration_body">Your level is based on your purchase activity over the last 12 months.</string>
+  <string name="gamification_leveled_up_title">You\'ve reached the next level!</string>
+  <string name="gamification_leveled_up_body">You\'ll now get a %s bonus on every purchase. Keep buying to earn even more!</string>
+  <string name="gamification_leveled_up_notification_title">You reached the next level!</string>
+  <string name="gamification_leveled_up_notification_body">Congrats, you\'ll now get a %s bonus on every purchase!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">आपला वॉलेट पत्ता %s ला पुरविण्यासाठी अॅपकॉइन्स वॉलेटला परवानगी द्या.</string>
   <string name="provide_wallet_body_placeholders">आपला वॉलेट पत्ता %2$s ला पुरविण्यासाठी %1$s ला परवानगी द्या.</string>
@@ -329,7 +339,8 @@
   <string name="topup_bonus_header_part_1">टॉप-अप बोनस:</string>
   <string name="topup_bonus_header_part_2">%s एपीपीसी क्रेडीटसमध्ये</string>
   <string name="topup_bonus_body">आपल्या पुढच्या खरेदीत आपण हा बोनस वापरु शकता.</string>
-  <string name="topup_minimum_value">Minimum top-up value: %s</string>
+  <string name="topup_minimum_value">Minimum top-up value is %s</string>
+  <string name="topup_maximum_value">Minimum top-up value is %s</string>
   <!--Balance-->
   <string name="balance_title">शिल्लक</string>
   <string name="balance_total_body">%s तील एकुण शिल्लक</string>
@@ -370,6 +381,7 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
   <string name="dismiss_button">डिसमिस करा</string>
+  <string name="connectoin_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मला अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s मान्य आहेत.</string>
   <string name="terms_and_conditions_error">चालू ठेवण्यासाठी कृपया आमच्या अटी आणि शर्ती मंजुर करा</string>
@@ -383,7 +395,7 @@
   <string name="title_redeem">Redeem Code</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">&#8230;चालू आहे</string>
-  <string name="local_payments_inprogress_body">आपले पेमेंट पूर्ण करा आणि, एकदा का आपल्या वॉलेटमध्ये अॅपकॉिन्स आल्या कि खरेदी करा!</string>
+  <string name="local_payments_inprogress_body">Once you complete the payment you\'ll receive the AppCoins Credits in your wallet. Then go back to the game to make the purchase!</string>
   <!--Wallet Verification-->
   <string name="verification_notification_verification_needed_title">बक्षिस तयार आहे पण व्हेरिफिकेसनची गरज आहे</string>
   <string name="verification_notification_verification_needed_body">सुरक्षा कारणांसाठी आम्हाला आपले वॉलेट एसएमएस कोडने व्हेरिफाय करावे लागेल.</string>
@@ -406,4 +418,10 @@
   <string name="verification_insert_code_error_common">Oops, something went wrong. Try again!</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">It seems this purchase is already being processed. Please hold on until the transaction is completed or contact our Support Team.</string>
+  <string name="purchase_more_payment_methods_button">OTHER PAYMENT METHODS</string>
+  <string name="purchase_appcoins_available_body">You\'ll use a small amount of ETH to pay for the fees.</string>
+  <string name="purchase_appcoins_noavailable_body">You don\'t have enough AppCoins or Ether for this purchase.</string>
+  <string name="purchase_appcoins_credits_available_body">No fees and lightning fast!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough APPC Credits, try topping up!</string>
+  <string name="purchase_appcoins_credits_default_body">You earned enough AppCoins Credits for this purchase. Enjoy!</string>
 </resources>
