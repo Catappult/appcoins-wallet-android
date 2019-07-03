@@ -278,11 +278,12 @@
   <string name="gamification_level_body">आप अपने पसंदीदा ऐप्स और गेम्स में वस्तुएं खरीदते समय APPC क्रेडिट अर्जित करेंगे।</string>
   <string name="gamification_how_header">लेवल से ऊपर कैसे जाएँ?</string>
   <string name="gamification_how_body">आप अपने पसंदीदा ऐप्स और गेम्स में वस्तुएं खरीदते समय APPC क्रेडिट अर्जित करेंगे।</string>
-  <string name="gamification_how_body_new">जितने अधिक AppCoins आप अपनी पसंदीदा ऐप्स में खर्च करते हैं, उतना बड़ा बोनस!</string>
+  <string name="gamification_how_body_new">The more you spend in your favorite apps, the bigger the Bonus!</string>
   <string name="gamification_how_table_a1">खर्च करें</string>
   <string name="gamification_how_table_b1">बोनस</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s %%</string>
+  <string name="gamification_how_table_level">LEVEL</string>
   <string name="gamification_how_terms_and_conditions">शर्तें</string>
   <string name="gamification_how_spend">%s APPC खर्च करें</string>
   <string name="gamification_a_comet_title">एक धूमकेतु</string>
@@ -304,6 +305,15 @@
   <string name="gamification_purchase_completed_bonus_received">बोनस प्राप्त हुआ</string>
   <string name="action_level">मेरा लेवल</string>
   <string name="gamification_purchase_appccredits_body">सबसे तेज भुगतान विधि!</string>
+  <string name="gamification_how_bonus_received_body">Bonus received</string>
+  <string name="gamification_how_appc_spent">Amount spent to reach this level</string>
+  <string name="gamification_how_to_next_level_body">Spend %1$s AppCoins more to reach level %2$s.</string>
+  <string name="gamification_level_expiration_title">Next level check: %s</string>
+  <string name="gamification_level_expiration_body">Your level is based on your purchase activity over the last 12 months.</string>
+  <string name="gamification_leveled_up_title">You\'ve reached the next level!</string>
+  <string name="gamification_leveled_up_body">You\'ll now get a %s bonus on every purchase. Keep buying to earn even more!</string>
+  <string name="gamification_leveled_up_notification_title">You reached the next level!</string>
+  <string name="gamification_leveled_up_notification_body">Congrats, you\'ll now get a %s bonus on every purchase!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">AppCoins वॉलेट को अपना वॉलेट पता %s को देने की अनुमति दें।</string>
   <string name="provide_wallet_body_placeholders">%1$s को अपना वॉलेट पता %2$s को देने की अनुमति दें।</string>
@@ -329,7 +339,8 @@
   <string name="topup_bonus_header_part_1">टॉप-अप बोनस:</string>
   <string name="topup_bonus_header_part_2">APPC Credits में %s</string>
   <string name="topup_bonus_body">आप इस बोनस का उपयोग अपनी अगली खरीद में कर सकते हैं।</string>
-  <string name="topup_minimum_value">Minimum top-up value: %s</string>
+  <string name="topup_minimum_value">Minimum top-up value is %s</string>
+  <string name="topup_maximum_value">Minimum top-up value is %s</string>
   <!--Balance-->
   <string name="balance_title">बैलेंस</string>
   <string name="balance_total_body">%s में कुल बैलेंस</string>
@@ -370,6 +381,7 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
   <string name="dismiss_button">निकालें</string>
+  <string name="connectoin_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मैं AppCoins Wallet के %1$s और %2$s से सहमत हूँ।</string>
   <string name="terms_and_conditions_error">जारी रखने के लिए कृपया हमारे नियम एवं शर्तों तथा गोपनीयता नीति को स्वीकार करें</string>
@@ -383,7 +395,7 @@
   <string name="title_redeem">Redeem Code</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">प्रगति पर&#8230;</string>
-  <string name="local_payments_inprogress_body">अपना भुगतान पूरा करें और, आपके वॉलेट में AppCoins Credits मिलते ही, खरीद कर लें!</string>
+  <string name="local_payments_inprogress_body">Once you complete the payment you\'ll receive the AppCoins Credits in your wallet. Then go back to the game to make the purchase!</string>
   <!--Wallet Verification-->
   <string name="verification_notification_verification_needed_title">इनाम तैयार लेकिन सत्यापन आवश्यक है</string>
   <string name="verification_notification_verification_needed_body">सुरक्षा कारणों से, हमें आपके वॉलेट को एक एसएमएस कोड से सत्यापित करना होगा।</string>
@@ -406,4 +418,10 @@
   <string name="verification_insert_code_error_common">अरे, कुछ गलत हो गया है। पुन: प्रयास करें!</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">It seems this purchase is already being processed. Please hold on until the transaction is completed or contact our Support Team.</string>
+  <string name="purchase_more_payment_methods_button">OTHER PAYMENT METHODS</string>
+  <string name="purchase_appcoins_available_body">You\'ll use a small amount of ETH to pay for the fees.</string>
+  <string name="purchase_appcoins_noavailable_body">You don\'t have enough AppCoins or Ether for this purchase.</string>
+  <string name="purchase_appcoins_credits_available_body">No fees and lightning fast!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough APPC Credits, try topping up!</string>
+  <string name="purchase_appcoins_credits_default_body">You earned enough AppCoins Credits for this purchase. Enjoy!</string>
 </resources>
