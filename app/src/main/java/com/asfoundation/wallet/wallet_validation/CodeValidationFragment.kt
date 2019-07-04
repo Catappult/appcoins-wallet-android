@@ -96,14 +96,14 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView,
     if (isValidPaste()) {
       val text = getTextFromClipboard()
 
-      text?.forEachIndexed { index, char ->
+      text?.forEachIndexed { index, digit ->
         when (index) {
-          0 -> code_1.code.setText(char.toString())
-          1 -> code_2.code.setText(char.toString())
-          2 -> code_3.code.setText(char.toString())
-          3 -> code_4.code.setText(char.toString())
-          4 -> code_5.code.setText(char.toString())
-          5 -> code_6.code.setText(char.toString())
+          0 -> code_1.code.setText(digit.toString())
+          1 -> code_2.code.setText(digit.toString())
+          2 -> code_3.code.setText(digit.toString())
+          3 -> code_4.code.setText(digit.toString())
+          4 -> code_5.code.setText(digit.toString())
+          5 -> code_6.code.setText(digit.toString())
           else -> return@forEachIndexed
         }
       }
