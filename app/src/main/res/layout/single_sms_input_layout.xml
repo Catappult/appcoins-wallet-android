@@ -11,7 +11,7 @@
     app:layout_constraintStart_toStartOf="parent"
     >
 
-  <EditText
+  <com.asfoundation.wallet.widget.PasteEditText
       android:id="@+id/code"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
