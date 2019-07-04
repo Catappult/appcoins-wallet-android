@@ -47,7 +47,7 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
         .filter {
           isEndingState(it.status)
         }
-        .distinctUntilChanged()
+        .distinctUntilChanged { transaction -> transaction.status }
   }
 
   private fun isEndingState(status: Transaction.Status): Boolean {
