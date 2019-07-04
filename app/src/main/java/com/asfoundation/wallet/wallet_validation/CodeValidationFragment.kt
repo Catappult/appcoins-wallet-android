@@ -12,7 +12,6 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.SmsValidationInteract
-import com.asfoundation.wallet.util.isNotNumeric
 import com.asfoundation.wallet.widget.PasteEditText
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -24,6 +23,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_sms_code.*
 import kotlinx.android.synthetic.main.single_sms_input_layout.view.*
 import kotlinx.android.synthetic.main.sms_text_input_layout.*
+import org.apache.commons.lang3.StringUtils
 import javax.inject.Inject
 
 
@@ -36,6 +36,7 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView,
   private var walletValidationView: WalletValidationView? = null
   private lateinit var presenter: CodeValidationPresenter
   private lateinit var fragmentContainer: ViewGroup
+  private lateinit var clipboard: ClipboardManager
 
   val countryCode: String by lazy {
     if (arguments!!.containsKey(PhoneValidationFragment.COUNTRY_CODE)) {
@@ -72,6 +73,8 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView,
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
+    clipboard = context!!.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+
     presenter =
         CodeValidationPresenter(this, walletValidationView,
             smsValidationInteract, AndroidSchedulers.mainThread(), Schedulers.io(), countryCode,
@@ -90,36 +93,32 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView,
   }
 
   override fun onPaste() {
-    val text = getValidTextFromClipboard()
+    if (isValidPaste()) {
+      val text = getTextFromClipboard()
 
-    text?.forEachIndexed { i, c ->
-      when (i) {
-        0 -> code_1.code.setText(c.toString())
-        1 -> code_2.code.setText(c.toString())
-        2 -> code_3.code.setText(c.toString())
-        3 -> code_4.code.setText(c.toString())
-        4 -> code_5.code.setText(c.toString())
-        5 -> code_6.code.setText(c.toString())
-        else -> return@forEachIndexed
+      text?.forEachIndexed { index, char ->
+        when (index) {
+          0 -> code_1.code.setText(char.toString())
+          1 -> code_2.code.setText(char.toString())
+          2 -> code_3.code.setText(char.toString())
+          3 -> code_4.code.setText(char.toString())
+          4 -> code_5.code.setText(char.toString())
+          5 -> code_6.code.setText(char.toString())
+          else -> return@forEachIndexed
+        }
       }
     }
   }
 
-  private fun getValidTextFromClipboard(): String? {
-    var clipboard = context!!.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+  private fun isValidPaste(): Boolean {
+    return clipboard.primaryClipDescription?.hasMimeType(
+        MIMETYPE_TEXT_PLAIN) == true && StringUtils.isNumeric(clipboard.primaryClip?.getItemAt(0)
+        ?.text)
+  }
 
-    if (clipboard.primaryClipDescription?.hasMimeType(MIMETYPE_TEXT_PLAIN) == false) {
-      return null
-    }
-
-    val text = clipboard.primaryClip?.getItemAt(0)
-        ?.text
-
-    if (text != null && text.toString().isNotNumeric()) {
-      return null
-    }
-
-    return text.toString()
+  private fun getTextFromClipboard(): String? {
+    return clipboard.primaryClip?.getItemAt(0)
+        ?.text?.toString()
   }
 
   override fun setupUI() {
