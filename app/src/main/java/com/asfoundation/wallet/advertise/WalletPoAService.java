@@ -268,6 +268,8 @@ public class WalletPoAService extends Service {
                 .build());
         break;
       case PHONE_NOT_VERIFIED:
+        stopForeground(false);
+        notificationManager.cancel(SERVICE_ID);
         notificationManager.notify(VERIFICATION_SERVICE_ID,
             createVerificationNotification().build());
         break;
@@ -317,6 +319,8 @@ public class WalletPoAService extends Service {
     return builder.setContentTitle(getString(R.string.app_name))
         .setSmallIcon(R.drawable.ic_launcher_foreground)
         .setPriority(NotificationCompat.PRIORITY_MAX)
+        .setAutoCancel(true)
+        .setOngoing(false)
         .setContentText(getString(notificationText));
   }
 
@@ -345,8 +349,8 @@ public class WalletPoAService extends Service {
     return builder.setContentTitle(
         getString(R.string.verification_notification_verification_needed_title))
         .setContentIntent(pendingIntent)
-        .setAutoCancel(false)
-        .setOngoing(true)
+        .setAutoCancel(true)
+        .setOngoing(false)
         .setSmallIcon(R.drawable.ic_launcher_foreground)
         .setPriority(NotificationCompat.PRIORITY_MAX)
         .setContentText(getString(R.string.verification_notification_verification_needed_body));
