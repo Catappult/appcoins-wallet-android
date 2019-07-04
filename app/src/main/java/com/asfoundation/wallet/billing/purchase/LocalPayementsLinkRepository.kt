@@ -5,16 +5,18 @@ import com.google.gson.annotations.SerializedName
 import io.reactivex.Single
 import retrofit2.http.Body
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 class LocalPayementsLinkRepository(private var api: DeepLinkApi) : InAppDeepLinkRepository {
 
   override fun getDeepLink(domain: String, skuId: String?,
-                           userWalletAddress: String,
+                           userWalletAddress: String, signature: String,
                            originalAmount: String?, originalCurrency: String?,
                            paymentMethod: String,
                            developerWalletAddress: String): Single<String> {
-    return api.getDeepLink(
-        DeepLinkData(domain, skuId, userWalletAddress, null, originalAmount, originalCurrency,
+    return api.getDeepLink(userWalletAddress, signature,
+        DeepLinkData(domain, skuId, null, originalAmount,
+            originalCurrency,
             paymentMethod, developerWalletAddress, null, null, null,
             null, null))
         .map { it.url }
@@ -23,13 +25,13 @@ class LocalPayementsLinkRepository(private var api: DeepLinkApi) : InAppDeepLink
   interface DeepLinkApi {
 
     @POST("deeplink/8.20190101/inapp/product/purchases")
-    fun getDeepLink(@Body data: DeepLinkData): Single<GetPaymentLinkResponse>
+    fun getDeepLink(@Query("wallets.user") userWalletAddress: String, @Query("wallet.signature")
+    signature: String, @Body data: DeepLinkData): Single<GetPaymentLinkResponse>
   }
 }
 
 data class DeepLinkData(@SerializedName("package") var packageName: String,
                         var sku: String?, @SerializedName("wallets.user")
-                        var userWalletAddress: String,
                         var message: String?, @SerializedName("price.value")
                         var amount: String?, @SerializedName("price.currency")
                         var currency: String?, var method: String,

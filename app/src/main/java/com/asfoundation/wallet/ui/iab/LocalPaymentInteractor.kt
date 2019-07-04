@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.iab
 import android.net.Uri
 import android.os.Bundle
 import com.appcoins.wallet.bdsbilling.Billing
+import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.*
 import com.appcoins.wallet.billing.BillingMessagesMapper
@@ -15,6 +16,7 @@ import java.util.concurrent.TimeUnit
 
 class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkRepository,
                              private val walletInteractor: FindDefaultWalletInteract,
+                             private val walletService: WalletService,
                              private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                              private val billing: Billing,
                              private val billingMessagesMapper: BillingMessagesMapper
@@ -25,9 +27,13 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
                      paymentMethod: String, developerAddress: String): Single<String> {
 
     return walletInteractor.find()
-        .flatMap {
-          deepLinkRepository.getDeepLink(domain, skuId, it.address, originalAmount,
-              originalCurrency, paymentMethod, developerAddress)
+        .map { it.address }
+        .flatMap { address ->
+          walletService.signContent(address)
+              .flatMap {
+                deepLinkRepository.getDeepLink(domain, skuId, address, it, originalAmount,
+                    originalCurrency, paymentMethod, developerAddress)
+              }
         }
   }
 
