@@ -395,10 +395,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Provides LocalPaymentInteractor provideLocalPaymentInteractor(InAppDeepLinkRepository repository,
-      FindDefaultWalletInteract interactor, WalletService walletService,
+      WalletService walletService, AddressService partnerAddressService,
       InAppPurchaseInteractor inAppPurchaseInteractor, Billing billing,
       BillingMessagesMapper billingMessagesMapper) {
-    return new LocalPaymentInteractor(repository, interactor, walletService,
+    return new LocalPaymentInteractor(repository, walletService, partnerAddressService,
         inAppPurchaseInteractor, billing, billingMessagesMapper);
   }
 

@@ -7,16 +7,17 @@ import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.*
 import com.appcoins.wallet.billing.BillingMessagesMapper
+import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
+import io.reactivex.functions.BiFunction
 import java.util.concurrent.TimeUnit
 
 class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkRepository,
-                             private val walletInteractor: FindDefaultWalletInteract,
                              private val walletService: WalletService,
+                             private val partnerAddressService: AddressService,
                              private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                              private val billing: Billing,
                              private val billingMessagesMapper: BillingMessagesMapper
@@ -26,13 +27,17 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
                      originalAmount: String?, originalCurrency: String?,
                      paymentMethod: String, developerAddress: String): Single<String> {
 
-    return walletInteractor.find()
-        .map { it.address }
+    return walletService.getWalletAddress()
         .flatMap { address ->
-          walletService.signContent(address)
+          Single.zip(
+              walletService.signContent(address),
+              partnerAddressService.getStoreAddressForPackage(domain),
+              BiFunction { signature: String, storeAddress: String ->
+                Pair(signature, storeAddress)
+              })
               .flatMap {
-                deepLinkRepository.getDeepLink(domain, skuId, address, it, originalAmount,
-                    originalCurrency, paymentMethod, developerAddress)
+                deepLinkRepository.getDeepLink(domain, skuId, address, it.first, originalAmount,
+                    originalCurrency, paymentMethod, developerAddress, it.second)
               }
         }
   }

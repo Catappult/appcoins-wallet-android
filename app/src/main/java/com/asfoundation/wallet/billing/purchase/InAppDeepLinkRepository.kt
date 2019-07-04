@@ -6,7 +6,8 @@ interface InAppDeepLinkRepository {
 
   fun getDeepLink(domain: String, skuId: String?, userWalletAddress: String, signature: String,
                   originalAmount: String?, originalCurrency: String?,
-                  paymentMethod: String, developerWalletAddress: String): Single<String>
+                  paymentMethod: String, developerWalletAddress: String,
+                  storeWalletAddress: String): Single<String>
 
 
 }
