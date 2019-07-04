@@ -14,6 +14,7 @@ import android.os.Messenger;
 import android.util.Log;
 import androidx.annotation.IntRange;
 import androidx.core.app.NotificationCompat;
+import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.billing.analytics.PoaAnalytics;
@@ -22,6 +23,7 @@ import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofStatus;
 import com.asfoundation.wallet.poa.ProofSubmissionFeeData;
 import com.asfoundation.wallet.repository.WrongNetworkException;
+import com.asfoundation.wallet.service.CampaignService;
 import com.asfoundation.wallet.ui.TransactionsActivity;
 import com.asfoundation.wallet.wallet_validation.WalletValidationActivity;
 import dagger.android.AndroidInjection;
@@ -62,6 +64,7 @@ public class WalletPoAService extends Service {
   boolean isBound = false;
 
   @Inject ProofOfAttentionService proofOfAttentionService;
+  @Inject CampaignService campaignService;
   @Inject @Named("MAX_NUMBER_PROOF_COMPONENTS") int maxNumberProofComponents;
   @Inject Logger logger;
   @Inject PoaAnalytics analytics;
@@ -69,6 +72,7 @@ public class WalletPoAService extends Service {
   private Disposable disposable;
   private NotificationManager notificationManager;
   private Disposable timerDisposable;
+  private Disposable walletVerificationDisposable;
   private Disposable requirementsDisposable;
   private Disposable startedEventDisposable;
   private Disposable completedEventDisposable;
@@ -89,9 +93,17 @@ public class WalletPoAService extends Service {
         // set the chain id received from the application. If not received, it is set as the main
         String packageName = intent.getStringExtra(PARAM_APP_PACKAGE_NAME);
 
-        requirementsDisposable = proofOfAttentionService.handleCreateWallet()
-            .flatMap(aBoolean -> proofOfAttentionService.isWalletReady(
-                intent.getIntExtra(PARAM_NETWORK_ID, -1))
+        walletVerificationDisposable = proofOfAttentionService.handleCreateWallet()
+            .flatMap(wallet -> campaignService.getCampaign(wallet.address, packageName,
+                BuildConfig.VERSION_CODE))
+            .doOnSuccess(campaignService -> {
+              if (!isEligible(campaignService)) {
+              }
+            })
+            .subscribe();
+
+        requirementsDisposable =
+            proofOfAttentionService.isWalletReady(intent.getIntExtra(PARAM_NETWORK_ID, -1))
                 // network chain id
                 .doOnSuccess(requirementsStatus -> proofOfAttentionService.setChainId(packageName,
                     intent.getIntExtra(PARAM_NETWORK_ID, -1)))
@@ -100,16 +112,20 @@ public class WalletPoAService extends Service {
                         proofSubmissionFeeData.getGasPrice(), proofSubmissionFeeData.getGasLimit()))
                 .doOnSuccess(
                     requirementsStatus -> processWalletState(requirementsStatus.getStatus(),
-                        intent)))
-            .subscribe(requirementsStatus -> {
-            }, throwable -> {
-              logger.log(throwable);
-              showGenericErrorNotificationAndStopForeground();
-            });
+                        intent))
+                .subscribe(requirementsStatus -> {
+                }, throwable -> {
+                  logger.log(throwable);
+                  showGenericErrorNotificationAndStopForeground();
+                });
       }
       setTimeout(intent.getStringExtra(PARAM_APP_PACKAGE_NAME));
     }
     return super.onStartCommand(intent, flags, startId);
+  }
+
+  private Boolean isEligible(String campaign) {
+    return !campaign.equals("");
   }
 
   /**
