@@ -27,7 +27,7 @@ class PhoneValidationPresenter(
     disposables.add(
         view.getCancelClicks()
             .doOnNext {
-              activity?.finish()
+              activity?.close()
             }.subscribe())
   }
 

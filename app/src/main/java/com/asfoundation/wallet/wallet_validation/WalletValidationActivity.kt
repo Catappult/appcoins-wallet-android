@@ -1,13 +1,10 @@
 package com.asfoundation.wallet.wallet_validation
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
-import com.asfoundation.wallet.ui.iab.IabActivity.RESPONSE_CODE
-import com.asfoundation.wallet.ui.iab.IabActivity.RESULT_USER_CANCELED
 import dagger.android.AndroidInjection
 
 class WalletValidationActivity : BaseActivity(), WalletValidationView {
@@ -29,28 +26,12 @@ class WalletValidationActivity : BaseActivity(), WalletValidationView {
     presenter.present()
   }
 
-  override fun finish() {
-    super.finish()
-  }
-
-  override fun showError() {
-    setResult(Activity.RESULT_CANCELED)
-    finish()
-  }
-
   override fun onBackPressed() {
-    val bundle = Bundle()
-    bundle.putInt(RESPONSE_CODE, RESULT_USER_CANCELED)
-    close(bundle)
+    close()
     super.onBackPressed()
   }
 
-  override fun close(bundle: Bundle?) {
-    val intent = Intent()
-    if (bundle != null) {
-      intent.putExtras(bundle)
-    }
-    setResult(Activity.RESULT_CANCELED, intent)
+  override fun close() {
     finish()
   }
 

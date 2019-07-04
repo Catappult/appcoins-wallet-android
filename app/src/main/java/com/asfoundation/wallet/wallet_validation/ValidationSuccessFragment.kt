@@ -76,7 +76,7 @@ class ValidationSuccessFragment : DaggerFragment(), ValidationSuccessView {
       override fun onAnimationEnd(animation: Animator?) {
         animationCompleted.onNext(true)
         notificationManager.cancel(VERIFICATION_SERVICE_ID)
-        walletValidationView.finish()
+        walletValidationView.close()
       }
 
       override fun onAnimationCancel(animation: Animator?) {
@@ -95,10 +95,6 @@ class ValidationSuccessFragment : DaggerFragment(), ValidationSuccessView {
     validation_success_animation.removeAllAnimatorListeners()
     validation_success_animation.removeAllUpdateListeners()
     validation_success_animation.removeAllLottieOnCompositionLoadedListener()
-  }
-
-  fun close() {
-    walletValidationView.close(null)
   }
 
   companion object {
