@@ -66,24 +66,24 @@ class AppcoinsRewardsTest {
         DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null)).thenReturn(
         Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
             com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
-            Gateway.unknown(), "0x32453134", "orderReference", null)))
+            Gateway.unknown(), "0x32453134", "orderReference", null, "")))
 
     `when`(remoteApi.pay(USER_ADDRESS, USER_ADDRESS_SIGANTURE, PRICE, UNITY_ORIGIN, SKU, TYPE,
         DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null)).thenReturn(
         Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
             com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
-            Gateway.unknown(), "0x32453134", "orderReference", null)))
+            Gateway.unknown(), "0x32453134", "orderReference", null, "")))
 
     `when`(remoteApi.pay(USER_ADDRESS, USER_ADDRESS_SIGANTURE, PRICE, null, SKU, TYPE,
         DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null)).thenReturn(
         Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
             com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
-            Gateway.unknown(), "0x32453134", "orderReference", null)))
+            Gateway.unknown(), "0x32453134", "orderReference", null, "")))
 
     `when`(billing.getAppcoinsTransaction(UID, scheduler)).thenReturn(
         Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
             com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
-            Gateway.unknown(), "0x32453134", "orderReference", null)))
+            Gateway.unknown(), "0x32453134", "orderReference", null, "")))
 
     scheduler.advanceTimeBy(1, TimeUnit.DAYS)
     scheduler.triggerActions()
@@ -108,18 +108,22 @@ class AppcoinsRewardsTest {
   fun makePayment() {
     val testObserver = TestObserver<Any>()
     appcoinsRewards.pay(PRICE, BDS_ORIGIN, SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS,
-        PACKAGE_NAME, null, null, null).subscribe(testObserver)
+        PACKAGE_NAME, null, null, null)
+        .subscribe(testObserver)
     val statusObserver = TestObserver<Transaction>()
-    appcoinsRewards.getPayment(PACKAGE_NAME, SKU, PRICE.toString()).subscribe(statusObserver)
+    appcoinsRewards.getPayment(PACKAGE_NAME, SKU, PRICE.toString())
+        .subscribe(statusObserver)
 
     scheduler.triggerActions()
-    testObserver.assertNoErrors().assertComplete()
+    testObserver.assertNoErrors()
+        .assertComplete()
     val mutableListOf = mutableListOf(
         Transaction(SKU, TYPE, STORE_ADDRESS, DEVELOPER_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
             PRICE, BDS_ORIGIN, Transaction.Status.PROCESSING, null, null, null, null),
         Transaction(SKU, TYPE, STORE_ADDRESS, DEVELOPER_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
             PRICE, BDS_ORIGIN, Transaction.Status.COMPLETED, "0x32453134", null, null, null))
-    statusObserver.assertNoErrors().assertValueSequence(mutableListOf)
+    statusObserver.assertNoErrors()
+        .assertValueSequence(mutableListOf)
   }
 
   @Test
@@ -127,18 +131,22 @@ class AppcoinsRewardsTest {
     val testObserver = TestObserver<Any>()
     val origin = UNITY_ORIGIN
     appcoinsRewards.pay(PRICE, origin, SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS,
-        PACKAGE_NAME, null, null, null).subscribe(testObserver)
+        PACKAGE_NAME, null, null, null)
+        .subscribe(testObserver)
     val statusObserver = TestObserver<Transaction>()
-    appcoinsRewards.getPayment(PACKAGE_NAME, SKU, PRICE.toString()).subscribe(statusObserver)
+    appcoinsRewards.getPayment(PACKAGE_NAME, SKU, PRICE.toString())
+        .subscribe(statusObserver)
 
     scheduler.triggerActions()
-    testObserver.assertNoErrors().assertComplete()
+    testObserver.assertNoErrors()
+        .assertComplete()
     val mutableListOf = mutableListOf(
         Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
             PRICE, origin, Transaction.Status.PROCESSING, null, null, null, null),
         Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
             PRICE, origin, Transaction.Status.COMPLETED, "0x32453134", null, null, null))
-    statusObserver.assertNoErrors().assertValueSequence(mutableListOf)
+    statusObserver.assertNoErrors()
+        .assertValueSequence(mutableListOf)
   }
 
   @Test
@@ -146,36 +154,49 @@ class AppcoinsRewardsTest {
     val testObserver = TestObserver<Any>()
     val origin = UNKNOWN_ORIGIN
     appcoinsRewards.pay(PRICE, origin, SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS,
-        PACKAGE_NAME, null, null, null).subscribe(testObserver)
+        PACKAGE_NAME, null, null, null)
+        .subscribe(testObserver)
     val statusObserver = TestObserver<Transaction>()
-    appcoinsRewards.getPayment(PACKAGE_NAME, SKU, PRICE.toString()).subscribe(statusObserver)
+    appcoinsRewards.getPayment(PACKAGE_NAME, SKU, PRICE.toString())
+        .subscribe(statusObserver)
 
     scheduler.triggerActions()
-    testObserver.assertNoErrors().assertComplete()
+    testObserver.assertNoErrors()
+        .assertComplete()
     val mutableListOf = mutableListOf(
         Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
             PRICE, origin, Transaction.Status.PROCESSING, null, null, null, null),
         Transaction(SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
             PRICE, origin, Transaction.Status.COMPLETED, "0x32453134", null, null, null))
-    statusObserver.assertNoErrors().assertValueSequence(mutableListOf)
+    statusObserver.assertNoErrors()
+        .assertValueSequence(mutableListOf)
   }
 
   @Test
   fun getBalance() {
     val testObserverNoAddress = TestObserver<BigDecimal>()
-    appcoinsRewards.getBalance().subscribe(testObserverNoAddress)
-    testObserverNoAddress.assertNoErrors().assertValue(BALANCE).assertComplete()
+    appcoinsRewards.getBalance()
+        .subscribe(testObserverNoAddress)
+    testObserverNoAddress.assertNoErrors()
+        .assertValue(BALANCE)
+        .assertComplete()
 
     val testObserverWithAddress = TestObserver<BigDecimal>()
-    appcoinsRewards.getBalance(USER_ADDRESS).subscribe(testObserverWithAddress)
-    testObserverWithAddress.assertNoErrors().assertValue(BALANCE).assertComplete()
+    appcoinsRewards.getBalance(USER_ADDRESS)
+        .subscribe(testObserverWithAddress)
+    testObserverWithAddress.assertNoErrors()
+        .assertValue(BALANCE)
+        .assertComplete()
   }
 
   @Test
   fun transferCredits() {
-    val test = appcoinsRewards.sendCredits(DEVELOPER_ADDRESS, PRICE, PACKAGE_NAME).test()
+    val test = appcoinsRewards.sendCredits(DEVELOPER_ADDRESS, PRICE, PACKAGE_NAME)
+        .test()
     scheduler.triggerActions()
-    test.assertNoErrors().assertComplete().assertValue(AppcoinsRewardsRepository.Status.SUCCESS)
+    test.assertNoErrors()
+        .assertComplete()
+        .assertValue(AppcoinsRewardsRepository.Status.SUCCESS)
   }
 
   @Test
@@ -184,9 +205,11 @@ class AppcoinsRewardsTest {
         BDS_ORIGIN, TYPE_TRANSFER, PACKAGE_NAME)).thenReturn(
         Completable.error(HttpException(
             Response.error<AppcoinsRewardsRepository.Status>(400, ResponseBody.create(null, "")))))
-    val test = appcoinsRewards.sendCredits(DEVELOPER_ADDRESS, PRICE, PACKAGE_NAME).test()
+    val test = appcoinsRewards.sendCredits(DEVELOPER_ADDRESS, PRICE, PACKAGE_NAME)
+        .test()
     scheduler.triggerActions()
-    test.assertNoErrors().assertComplete()
+    test.assertNoErrors()
+        .assertComplete()
         .assertValue(AppcoinsRewardsRepository.Status.API_ERROR)
   }
 
@@ -195,9 +218,11 @@ class AppcoinsRewardsTest {
     `when`(remoteApi.sendCredits(DEVELOPER_ADDRESS, USER_ADDRESS, USER_ADDRESS_SIGANTURE, PRICE,
         BDS_ORIGIN, TYPE_TRANSFER, PACKAGE_NAME)).thenReturn(
         Completable.error(NullPointerException()))
-    val test = appcoinsRewards.sendCredits(DEVELOPER_ADDRESS, PRICE, PACKAGE_NAME).test()
+    val test = appcoinsRewards.sendCredits(DEVELOPER_ADDRESS, PRICE, PACKAGE_NAME)
+        .test()
     scheduler.triggerActions()
-    test.assertNoErrors().assertComplete()
+    test.assertNoErrors()
+        .assertComplete()
         .assertValue(AppcoinsRewardsRepository.Status.UNKNOWN_ERROR)
   }
 }

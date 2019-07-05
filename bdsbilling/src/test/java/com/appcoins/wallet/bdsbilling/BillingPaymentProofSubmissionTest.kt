@@ -48,15 +48,19 @@ class BillingPaymentProofSubmissionTest {
   fun setUp() {
     scheduler = TestScheduler()
 
-    billing = BillingPaymentProofSubmissionImpl.Builder().setApi(api).setScheduler(scheduler)
+    billing = BillingPaymentProofSubmissionImpl.Builder()
+        .setApi(api)
+        .setScheduler(scheduler)
         .setWalletService(object : WalletService {
           override fun getWalletAddress(): Single<String> = Single.just(walletAddress)
           override fun signContent(content: String): Single<String> = Single.just(signedContent)
-        }).setBdsApiSecondary(object : BdsApiSecondary {
+        })
+        .setBdsApiSecondary(object : BdsApiSecondary {
           override fun getWallet(packageName: String): Single<GetWalletResponse> {
             return Single.just(GetWalletResponse(Data("developer_address")))
           }
-        }).build()
+        })
+        .build()
 
     `when`(
         api.createTransaction(paymentType, origin, packageName, priceValue, currency, productName,
@@ -66,7 +70,7 @@ class BillingPaymentProofSubmissionTest {
             signedContent)).thenReturn(
         Single.just(Transaction(paymentId, Transaction.Status.FAILED,
             Gateway(Gateway.Name.appcoins_credits, "APPC C", "icon"), null, "orderReference",
-            null)))
+            null, "")))
 
     `when`(api.patchTransaction(paymentType, paymentId, walletAddress, signedContent,
         paymentToken)).thenReturn(Completable.complete())
@@ -84,12 +88,15 @@ class BillingPaymentProofSubmissionTest {
     scheduler.triggerActions()
 
     billing.processPurchaseProof(PaymentProof(paymentType, paymentId, paymentToken, productName,
-        packageName, storeAddress, oemAddress)).subscribe(purchaseDisposable)
+        packageName, storeAddress, oemAddress))
+        .subscribe(purchaseDisposable)
     scheduler.triggerActions()
 
 
-    authorizationDisposable.assertNoErrors().assertComplete()
-    purchaseDisposable.assertNoErrors().assertComplete()
+    authorizationDisposable.assertNoErrors()
+        .assertComplete()
+    purchaseDisposable.assertNoErrors()
+        .assertComplete()
     verify(api, times(1)).createTransaction(paymentType, origin, packageName, priceValue, currency,
         productName, type, null, developerAddress, storeAddress, oemAddress, paymentId,
         developerPayload, callback, orderReference, walletAddress, signedContent)
