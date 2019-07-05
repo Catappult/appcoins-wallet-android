@@ -340,7 +340,7 @@
   <string name="topup_bonus_header_part_2">%s bằng APPC Credits</string>
   <string name="topup_bonus_body">Bạn có thể sử dụng tiền thưởng này trong lần mua tiếp theo của mình.</string>
   <string name="topup_minimum_value">Minimum top-up value is %s</string>
-  <string name="topup_maximum_value">Minimum top-up value is %s</string>
+  <string name="topup_maximum_value">Maximum top-up value is %s</string>
   <!--Balance-->
   <string name="balance_title">Số dư</string>
   <string name="balance_total_body">Tổng số dư bằng %s</string>
