@@ -11,6 +11,7 @@ class PaymentMethodsMapper {
       "credit_card" -> SelectedPaymentMethod.CREDIT_CARD
       "appcoins" -> SelectedPaymentMethod.APPC
       "appcoins_credits" -> SelectedPaymentMethod.APPC_CREDITS
+      "" -> SelectedPaymentMethod.ERROR
       else -> SelectedPaymentMethod.LOCAL_PAYMENTS
     }
   }
@@ -23,6 +24,7 @@ class PaymentMethodsMapper {
       SelectedPaymentMethod.APPC -> "appcoins"
       SelectedPaymentMethod.APPC_CREDITS -> "appcoins_credits"
       SelectedPaymentMethod.LOCAL_PAYMENTS -> "local_payments"
+      SelectedPaymentMethod.ERROR -> ""
     }
   }
 }

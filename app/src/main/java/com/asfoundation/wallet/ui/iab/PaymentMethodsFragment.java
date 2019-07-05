@@ -113,6 +113,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private TextView bonusValue;
   private boolean showBonus;
   private TextView noBonusMsg;
+  private int iconSize;
 
   public static Fragment newInstance(TransactionBuilder transaction, String productName,
       boolean isBds, String developerPayload, String uri) {
@@ -198,6 +199,9 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     noBonusMsg = view.findViewById(R.id.no_bonus_msg);
 
     bonusValue = view.findViewById(R.id.bonus_value);
+    buyButton.setEnabled(false);
+    iconSize = getResources().getDimensionPixelSize(R.dimen.payment_method_icon_size);
+
     setupAppNameAndIcon();
 
     presenter.present(transactionValue);
@@ -290,11 +294,11 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     } else if (productName != null) {
       appSkuDescriptionTv.setText(productName);
     }
+    setupPaymentMethods(paymentMethods,
+        paymentMethodsMapper.map(SelectedPaymentMethod.CREDIT_CARD));
 
     presenter.sendPurchaseDetailsEvent();
 
-    setupPaymentMethods(paymentMethods,
-        paymentMethodsMapper.map(SelectedPaymentMethod.CREDIT_CARD));
     setupSubject.onNext(true);
     hideLoading();
   }
@@ -324,6 +328,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override public void hideLoading() {
     loadingView.setVisibility(View.GONE);
+    buyButton.setEnabled(true);
     if (processingDialog.getVisibility() != View.VISIBLE) {
       dialog.setVisibility(View.VISIBLE);
       addressFooter.setVisibility(View.VISIBLE);
@@ -359,7 +364,13 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override public Observable<String> getBuyClick() {
     return RxView.clicks(buyButton)
-        .map(__ -> paymentMethodList.get(radioGroup.getCheckedRadioButtonId()));
+        .map(__ -> {
+          if (paymentMethodList.isEmpty() || radioGroup.getCheckedRadioButtonId() == -1) {
+            return "";
+          } else {
+            return paymentMethodList.get(radioGroup.getCheckedRadioButtonId());
+          }
+        });
   }
 
   @Override public void showPaypal() {
@@ -438,7 +449,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
             .load(paymentMethod.getIconUrl())
             .get();
         loadedBitmaps.put(paymentMethod.getId(), bitmap);
-        int iconSize = getResources().getDimensionPixelSize(R.dimen.payment_method_icon_size);
         BitmapDrawable drawable = new BitmapDrawable(context.getResources(),
             Bitmap.createScaledBitmap(bitmap, iconSize, iconSize, true));
         return drawable.getCurrent();
@@ -455,9 +465,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
           radioButton.setCompoundDrawablesWithIntrinsicBounds(drawable, null, newOptionIcon, null);
         })
         .subscribe(__ -> {
-        }, throwable -> {
-          throwable.printStackTrace();
-        }));
+        }, Throwable::printStackTrace));
   }
 
   private void setupPaymentMethods(List<PaymentMethod> paymentMethods, String preSelectedMethod) {

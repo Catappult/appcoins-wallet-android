@@ -9,7 +9,6 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +35,6 @@ import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxrelay2.PublishRelay;
 import dagger.android.support.DaggerFragment;
 import io.reactivex.Observable;
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -158,19 +156,6 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     ((TextView) processingDialog.findViewById(R.id.loading_message)).setText(
         R.string.activity_iab_buying_message);
     walletAddressView = view.findViewById(R.id.wallet_address_footer);
-
-    Single.defer(() -> Single.just(getAppPackage()))
-        .observeOn(Schedulers.io())
-        .map(packageName -> new Pair<>(getApplicationName(packageName),
-            getContext().getPackageManager()
-                .getApplicationIcon(packageName)))
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(pair -> {
-          appName.setText(pair.first);
-          appIcon.setImageDrawable(pair.second);
-        }, throwable -> {
-          throwable.printStackTrace();
-        });
 
     buyButton.setOnClickListener(
         v -> iabView.navigateToAdyenAuthorization(presenter.isBds(), fiatValue.getCurrency(),

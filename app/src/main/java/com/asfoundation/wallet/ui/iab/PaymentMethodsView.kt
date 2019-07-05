@@ -35,6 +35,6 @@ interface PaymentMethodsView {
   fun setBonus(bonus: BigDecimal, currency: String)
 
   enum class SelectedPaymentMethod {
-    PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, SHARE_LINK, LOCAL_PAYMENTS
+    PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, SHARE_LINK, LOCAL_PAYMENTS, ERROR
   }
 }
