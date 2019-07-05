@@ -340,7 +340,7 @@
   <string name="topup_bonus_header_part_2">%s σε APPC Credits</string>
   <string name="topup_bonus_body">Μπορείτε να χρησιμοποιήσετε αυτό το bonus στην επόμενη αγορά σας.</string>
   <string name="topup_minimum_value">Minimum top-up value is %s</string>
-  <string name="topup_maximum_value">Minimum top-up value is %s</string>
+  <string name="topup_maximum_value">Maximum top-up value is %s</string>
   <!--Balance-->
   <string name="balance_title">Υπόλοιπο</string>
   <string name="balance_total_body">Συνολικό Υπόλοιπο σε %s</string>
