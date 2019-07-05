@@ -13,7 +13,6 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
-import java.util.concurrent.TimeUnit
 
 class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkRepository,
                              private val walletService: WalletService,
@@ -59,11 +58,6 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
                                 orderReference: String?, hash: String?): Single<Bundle> {
     return if (isInApp && sku != null) {
       billing.getSkuPurchase(merchantName, sku, scheduler)
-          .retryWhen { throwableFlowable ->
-            throwableFlowable.delay(3, TimeUnit.SECONDS)
-                .map { 0 }
-                .timeout(3, TimeUnit.MINUTES)
-          }
           .map {
             billingMessagesMapper.mapPurchase(it,
                 orderReference)

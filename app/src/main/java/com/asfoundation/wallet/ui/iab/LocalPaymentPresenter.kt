@@ -50,7 +50,9 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
             viewScheduler).doOnSuccess {
           navigator.navigateToUriForResult(it, "", domain, skuId, null, "")
           waitingResult = true
-        }.subscribeOn(networkScheduler).subscribe({ }, { showError(it) }))
+        }.subscribeOn(networkScheduler).observeOn(viewScheduler)
+            .subscribe({ },
+                { showError(it) }))
   }
 
   private fun handlePaymentRedirect() {
@@ -59,10 +61,11 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
           view.showProcessingLoading()
         }.flatMap {
           localPaymentInteractor.getTransaction(it)
-        }
-            .observeOn(viewScheduler)
+              .subscribeOn(networkScheduler)
+        }.observeOn(viewScheduler)
             .flatMapCompletable { handleTransactionStatus(it) }
-            .subscribe({ }, { showError(it) }))
+            .subscribe({}, { showError(it) }
+            ))
   }
 
   private fun handleOkErrorButtonClick() {
@@ -82,6 +85,8 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
         localPaymentInteractor.getCompletePurchaseBundle(isInApp, domain, skuId, networkScheduler,
             transaction.orderReference,
             transaction.hash)
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler)
             .flatMapCompletable {
               Completable.fromAction {
                 view.showCompletedPayment()
@@ -92,10 +97,10 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
       }
       Status.PENDING_USER_PAYMENT -> Completable.fromAction {
         view.showPendingUserPayment()
-      }
+      }.subscribeOn(viewScheduler)
       else -> Completable.fromAction {
         view.showError()
-      }
+      }.subscribeOn(viewScheduler)
     }
   }
 
