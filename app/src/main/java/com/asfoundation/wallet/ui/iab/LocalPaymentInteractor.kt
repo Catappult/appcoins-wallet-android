@@ -44,13 +44,13 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
   fun getTransaction(uri: Uri): Observable<Transaction> {
     return inAppPurchaseInteractor.getTransaction(uri.lastPathSegment)
         .filter {
-          isEndingState(it.status)
+          isEndingState(it.status, it.type)
         }
         .distinctUntilChanged { transaction -> transaction.status }
   }
 
-  private fun isEndingState(status: Transaction.Status): Boolean {
-    return status == PENDING_USER_PAYMENT || status == COMPLETED || status == FAILED || status == CANCELED || status == INVALID_TRANSACTION
+  private fun isEndingState(status: Transaction.Status, type: String): Boolean {
+    return (status == PENDING_USER_PAYMENT && type == "TOPUP") || (status == COMPLETED && (type == "INAPP" || type == "INAPP_UNMANAGED")) || status == FAILED || status == CANCELED || status == INVALID_TRANSACTION
   }
 
   fun getCompletePurchaseBundle(isInApp: Boolean, merchantName: String, sku: String?,
