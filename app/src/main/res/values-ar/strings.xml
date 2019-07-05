@@ -340,7 +340,7 @@
   <string name="topup_bonus_header_part_2">%s في رصيد APPC</string>
   <string name="topup_bonus_body">يمكنك استخدام هذه المكافأة في عميلة الشراء القادمة.</string>
   <string name="topup_minimum_value">Minimum top-up value is %s</string>
-  <string name="topup_maximum_value">Minimum top-up value is %s</string>
+  <string name="topup_maximum_value">Maximum top-up value is %s</string>
   <!--Balance-->
   <string name="balance_title">الرصيد</string>
   <string name="balance_total_body">الرصيد الكلّي بعملة %s</string>
