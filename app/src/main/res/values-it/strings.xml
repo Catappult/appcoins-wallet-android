@@ -340,7 +340,7 @@
   <string name="topup_bonus_header_part_2">%s in APPC Credits</string>
   <string name="topup_bonus_body">Potrai usare questo bonus al tuo prossimo acquisto.</string>
   <string name="topup_minimum_value">L\'importo minimo per la ricarica è %s</string>
-  <string name="topup_maximum_value">L\'importo minimo per la ricarica è %s</string>
+  <string name="topup_maximum_value">Maximum top-up value is %s</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Saldo totale in %s</string>
