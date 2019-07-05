@@ -340,7 +340,7 @@
   <string name="topup_bonus_header_part_2">APPC Credits में %s</string>
   <string name="topup_bonus_body">आप इस बोनस का उपयोग अपनी अगली खरीद में कर सकते हैं।</string>
   <string name="topup_minimum_value">Minimum top-up value is %s</string>
-  <string name="topup_maximum_value">Minimum top-up value is %s</string>
+  <string name="topup_maximum_value">Maximum top-up value is %s</string>
   <!--Balance-->
   <string name="balance_title">बैलेंस</string>
   <string name="balance_total_body">%s में कुल बैलेंस</string>
