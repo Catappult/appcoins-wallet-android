@@ -268,7 +268,7 @@ public class WalletPoAService extends Service {
                 .build());
         break;
       case PHONE_NOT_VERIFIED:
-        stopForeground(false);
+        stopForeground(true);
         notificationManager.cancel(SERVICE_ID);
         notificationManager.notify(VERIFICATION_SERVICE_ID,
             createVerificationNotification().build());
