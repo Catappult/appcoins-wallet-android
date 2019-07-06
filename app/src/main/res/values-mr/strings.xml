@@ -278,12 +278,12 @@
   <string name="gamification_level_body">आपल्या आवडत्या अॅप्स आणि खेळात वस्तु खरेदी केल्यास आपण एपीपीसी क्रेडीटस कमावु शकता.</string>
   <string name="gamification_how_header">पातळी कशी वाढवायची?</string>
   <string name="gamification_how_body">आपल्या आवडत्या अॅपस आणि खेळात जेव्हा खरेदी करता तेव्हा आपण एपीपीसी क्रेडीट्स कमावता.</string>
-  <string name="gamification_how_body_new">The more you spend in your favorite apps, the bigger the Bonus!</string>
+  <string name="gamification_how_body_new">जितका जास्त आपण आपल्या आवडत्या अॅप्समध्ये खर्च कराल, तितका मोठा बोनस मिळेल!</string>
   <string name="gamification_how_table_a1">खर्च करा</string>
   <string name="gamification_how_table_b1">बोनस</string>
   <string name="gamification_how_table_a2">%s एपीपीसी</string>
   <string name="gamification_how_table_b2">%s %%</string>
-  <string name="gamification_how_table_level">LEVEL</string>
+  <string name="gamification_how_table_level">पातळी</string>
   <string name="gamification_how_terms_and_conditions">अटी</string>
   <string name="gamification_how_spend">एपीपीसी %s खर्च करा</string>
   <string name="gamification_a_comet_title">धूमकेतु</string>
@@ -305,15 +305,15 @@
   <string name="gamification_purchase_completed_bonus_received">बोनस मिळाला</string>
   <string name="action_level">माझी पातळी</string>
   <string name="gamification_purchase_appccredits_body">झटपट पेमेंट प्रकार!</string>
-  <string name="gamification_how_bonus_received_body">Bonus received</string>
-  <string name="gamification_how_appc_spent">Amount spent to reach this level</string>
-  <string name="gamification_how_to_next_level_body">Spend %1$s AppCoins more to reach level %2$s.</string>
-  <string name="gamification_level_expiration_title">Next level check: %s</string>
-  <string name="gamification_level_expiration_body">Your level is based on your purchase activity over the last 12 months.</string>
-  <string name="gamification_leveled_up_title">You\'ve reached the next level!</string>
-  <string name="gamification_leveled_up_body">You\'ll now get a %s bonus on every purchase. Keep buying to earn even more!</string>
-  <string name="gamification_leveled_up_notification_title">You reached the next level!</string>
-  <string name="gamification_leveled_up_notification_body">Congrats, you\'ll now get a %s bonus on every purchase!</string>
+  <string name="gamification_how_bonus_received_body">बोनस मिळाला</string>
+  <string name="gamification_how_appc_spent">ह्या पातळीवर पोचण्यासाठी खर्च केलेली रक्कम</string>
+  <string name="gamification_how_to_next_level_body">%1$s अॅपकॉइन्स खर्च करुन %2$s पातळीवर पोचा.</string>
+  <string name="gamification_level_expiration_title">पुढची पातळी तपासा: %s</string>
+  <string name="gamification_level_expiration_body">गेल्या १२ महिन्यातील आपल्या खरेदीवर आपली पातळी आधारीत आहे.</string>
+  <string name="gamification_leveled_up_title">आपण पुढच्या पातळीवर पोचलात!</string>
+  <string name="gamification_leveled_up_body">आता प्रत्येक खरेदीवर आपल्याला %s बोनस मिळेल. जास्त मिळविण्यासाठी खरेदी करत रहा!</string>
+  <string name="gamification_leveled_up_notification_title">आपण पुढच्या पातळीवर पोचलात!</string>
+  <string name="gamification_leveled_up_notification_body">अभिनंदन, आता प्रत्येक खरेदीवर आपल्याला %s बोनस मिळेल!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">आपला वॉलेट पत्ता %s ला पुरविण्यासाठी अॅपकॉइन्स वॉलेटला परवानगी द्या.</string>
   <string name="provide_wallet_body_placeholders">आपला वॉलेट पत्ता %2$s ला पुरविण्यासाठी %1$s ला परवानगी द्या.</string>
@@ -335,12 +335,12 @@
   <string name="topup_bonus_message">जास्त %s एपीपीसी-सी आपल्या वॉलेटमध्ये जमा केले जातील.</string>
   <string name="topup_completed_1">%s एपीपीसी क्रेडीटसमध्ये</string>
   <string name="topup_completed_2_with_bonus">आपल्या खात्यात जमा केले गेले... बोनससह!</string>
-  <string name="topup_completed_2_without_bonus">were deposited in your account.</string>
+  <string name="topup_completed_2_without_bonus">आम्ही आपल्या खत्यात जमा केले.</string>
   <string name="topup_bonus_header_part_1">टॉप-अप बोनस:</string>
   <string name="topup_bonus_header_part_2">%s एपीपीसी क्रेडीटसमध्ये</string>
   <string name="topup_bonus_body">आपल्या पुढच्या खरेदीत आपण हा बोनस वापरु शकता.</string>
-  <string name="topup_minimum_value">Minimum top-up value is %s</string>
-  <string name="topup_maximum_value">Maximum top-up value is %s</string>
+  <string name="topup_minimum_value">किमान टॉप-अप मूल्य %s आहे</string>
+  <string name="topup_maximum_value">कमाल टॉप-अप मूल्य %s आहे</string>
   <!--Balance-->
   <string name="balance_title">शिल्लक</string>
   <string name="balance_total_body">%s तील एकुण शिल्लक</string>
@@ -381,7 +381,7 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
   <string name="dismiss_button">डिसमिस करा</string>
-  <string name="connectoin_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
+  <string name="connectoin_error_body">आपण इंटरनेटशी जुडलेले नाहीत अस दिसतय. कनेक्शन तपासुन पुन्हा प्रयत्न करा!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मला अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s मान्य आहेत.</string>
   <string name="terms_and_conditions_error">चालू ठेवण्यासाठी कृपया आमच्या अटी आणि शर्ती मंजुर करा</string>
@@ -392,10 +392,10 @@
   <string name="home_empty_discover_apps_button">उच्चीची अॅप्स शोधा</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
+  <string name="title_redeem">रिडीम कोड</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">&#8230;चालू आहे</string>
-  <string name="local_payments_inprogress_body">Once you complete the payment you\'ll receive the AppCoins Credits in your wallet. Then go back to the game to make the purchase!</string>
+  <string name="local_payments_inprogress_body">पेमेंट पूर्ण केल्यानंतर आपल्या वॉलेटमध्ये अॅपकॉइन्स मिळतील. नंतर खेळात परत जाऊन खरेदी करा!</string>
   <!--Wallet Verification-->
   <string name="verification_notification_verification_needed_title">बक्षिस तयार आहे पण व्हेरिफिकेसनची गरज आहे</string>
   <string name="verification_notification_verification_needed_body">सुरक्षा कारणांसाठी आम्हाला आपले वॉलेट एसएमएस कोडने व्हेरिफाय करावे लागेल.</string>
@@ -414,14 +414,14 @@
   <string name="verification_completed_title">झाले!</string>
   <string name="verification_notification_reward_received_body">बक्षीस मिळाले, मजा करा! 👌</string>
   <string name="verification_notification_reward_already_received_body">हे बक्षीस मिळविण्यासाठी फोन नंबर आधीच वापरला गेला आहे 😔</string>
-  <string name="verification_insert_phone_field_phone_used_already_error">Phone already used.</string>
-  <string name="verification_insert_code_error_common">Oops, something went wrong. Try again!</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">फोन आधीच वापरला आहे.</string>
+  <string name="verification_insert_code_error_common">अरेरे, काहीतरी त्रुटी आली. कृपया पुन्हा प्रयत्न करा!</string>
   <!--Purchase Flow-->
-  <string name="purchase_error_incomplete_transaction_body">It seems this purchase is already being processed. Please hold on until the transaction is completed or contact our Support Team.</string>
-  <string name="purchase_more_payment_methods_button">OTHER PAYMENT METHODS</string>
-  <string name="purchase_appcoins_available_body">You\'ll use a small amount of ETH to pay for the fees.</string>
-  <string name="purchase_appcoins_noavailable_body">You don\'t have enough AppCoins or Ether for this purchase.</string>
-  <string name="purchase_appcoins_credits_available_body">No fees and lightning fast!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough APPC Credits, try topping up!</string>
-  <string name="purchase_appcoins_credits_default_body">You earned enough AppCoins Credits for this purchase. Enjoy!</string>
+  <string name="purchase_error_incomplete_transaction_body">ही खरेदी आधीच झालेली आहे असे दिसतेय. व्यवहार पूर्ण होईपर्यंत कृपया थांबा किंवा आमच्या सपोर्ट टीमशी संपर्क करा.</string>
+  <string name="purchase_more_payment_methods_button">अन्य पेमेंट पद्धती</string>
+  <string name="purchase_appcoins_available_body">इटीएच ची छोटी रक्कम शुल्क भरण्यासाठी आपण वापराल.</string>
+  <string name="purchase_appcoins_noavailable_body">ही खरेदी करण्यासाठी आपल्याकडे पुरेशा अँपकॉइन्स किंवा इथर नाहीय.</string>
+  <string name="purchase_appcoins_credits_available_body">कोणतेही शुल्क नाही आणि अतिशय जलद!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">आपल्याकडे पुरेशी एपीपीसी क्रेडीटस नाहीत, टॉप अप करण्याचा प्रयत्न करा!</string>
+  <string name="purchase_appcoins_credits_default_body">ह्या खरेदीसाठी आपण पुरेशा अॅपकॉइन्स कमावल्यात. मजा लुटा!</string>
 </resources>
