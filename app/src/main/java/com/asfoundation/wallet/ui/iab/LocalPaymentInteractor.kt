@@ -12,7 +12,7 @@ import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
-import io.reactivex.functions.BiFunction
+import io.reactivex.functions.Function3
 
 class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkRepository,
                              private val walletService: WalletService,
@@ -31,12 +31,14 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
           Single.zip(
               walletService.signContent(address),
               partnerAddressService.getStoreAddressForPackage(domain),
-              BiFunction { signature: String, storeAddress: String ->
-                Pair(signature, storeAddress)
+              partnerAddressService.getOemAddressForPackage(domain),
+              Function3 { signature: String, storeAddress: String, oemAddress: String ->
+                DeepLinkInformation(signature, storeAddress, oemAddress)
               })
               .flatMap {
-                deepLinkRepository.getDeepLink(domain, skuId, address, it.first, originalAmount,
-                    originalCurrency, paymentMethod, developerAddress, it.second)
+                deepLinkRepository.getDeepLink(domain, skuId, address, it.signature, originalAmount,
+                    originalCurrency, paymentMethod, developerAddress, it.storeAddress,
+                    it.oemAddress)
               }
         }
   }
@@ -66,4 +68,7 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
       Single.just(billingMessagesMapper.successBundle(hash))
     }
   }
+
+  private data class DeepLinkInformation(val signature: String, val storeAddress: String,
+                                         val oemAddress: String)
 }
