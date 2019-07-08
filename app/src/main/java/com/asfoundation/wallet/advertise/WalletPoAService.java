@@ -24,7 +24,6 @@ import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofStatus;
 import com.asfoundation.wallet.poa.ProofSubmissionFeeData;
 import com.asfoundation.wallet.repository.WrongNetworkException;
-import com.asfoundation.wallet.service.CampaignService;
 import com.asfoundation.wallet.ui.TransactionsActivity;
 import com.asfoundation.wallet.wallet_validation.WalletValidationActivity;
 import dagger.android.AndroidInjection;
@@ -65,7 +64,6 @@ public class WalletPoAService extends Service {
   boolean isBound = false;
 
   @Inject ProofOfAttentionService proofOfAttentionService;
-  @Inject CampaignService campaignService;
   @Inject @Named("MAX_NUMBER_PROOF_COMPONENTS") int maxNumberProofComponents;
   @Inject Logger logger;
   @Inject PoaAnalytics analytics;
@@ -95,9 +93,9 @@ public class WalletPoAService extends Service {
         PackageInfo packageInfo;
         try {
           packageInfo = getPackageManager().getPackageInfo(packageName, 0);
-          requirementsDisposable =
-              proofOfAttentionService.isWalletReady(intent.getIntExtra(PARAM_NETWORK_ID, -1),
-                  packageName, packageInfo.versionCode)
+          requirementsDisposable = proofOfAttentionService.handleCreateWallet()
+              .flatMap(__ -> proofOfAttentionService.isWalletReady(
+                  intent.getIntExtra(PARAM_NETWORK_ID, -1), packageName, packageInfo.versionCode)
                   // network chain id
                   .doOnSuccess(requirementsStatus -> proofOfAttentionService.setChainId(packageName,
                       intent.getIntExtra(PARAM_NETWORK_ID, -1)))
@@ -107,12 +105,12 @@ public class WalletPoAService extends Service {
                           proofSubmissionFeeData.getGasLimit()))
                   .doOnSuccess(
                       requirementsStatus -> processWalletState(requirementsStatus.getStatus(),
-                          intent))
-                  .subscribe(requirementsStatus -> {
-                  }, throwable -> {
-                    logger.log(throwable);
-                    showGenericErrorNotificationAndStopForeground();
-                  });
+                          intent)))
+              .subscribe(requirementsStatus -> {
+              }, throwable -> {
+                logger.log(throwable);
+                showGenericErrorNotificationAndStopForeground();
+              });
         } catch (PackageManager.NameNotFoundException e) {
           logger.log(new Throwable("Package not found exception"));
           e.printStackTrace();
