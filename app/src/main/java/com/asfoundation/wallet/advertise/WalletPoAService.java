@@ -23,7 +23,7 @@ import com.asfoundation.wallet.poa.ProofStatus;
 import com.asfoundation.wallet.poa.ProofSubmissionFeeData;
 import com.asfoundation.wallet.repository.WrongNetworkException;
 import com.asfoundation.wallet.ui.TransactionsActivity;
-import com.asfoundation.wallet.wallet_validation.WalletValidationActivity;
+import com.asfoundation.wallet.wallet_validation.WalletValidationBroadcastReceiver;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
@@ -41,6 +41,9 @@ import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_APP_PACKA
 import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_APP_SERVICE_NAME;
 import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_NETWORK_ID;
 import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_WALLET_PACKAGE_NAME;
+import static com.asfoundation.wallet.wallet_validation.WalletValidationBroadcastReceiver.ACTION_DISMISS;
+import static com.asfoundation.wallet.wallet_validation.WalletValidationBroadcastReceiver.ACTION_KEY;
+import static com.asfoundation.wallet.wallet_validation.WalletValidationBroadcastReceiver.ACTION_START_VALIDATION;
 
 /**
  * Created by Joao Raimundo on 29/03/2018.
@@ -342,15 +345,23 @@ public class WalletPoAService extends Service {
       builder.setVibrate(new long[0]);
     }
 
-    Intent intent = WalletValidationActivity.newIntent(this);
-    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+    Intent okIntent = WalletValidationBroadcastReceiver.newIntent(this);
+    okIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    okIntent.putExtra(ACTION_KEY, ACTION_START_VALIDATION);
+    PendingIntent okPendingIntent = PendingIntent.getBroadcast(this, 0, okIntent, 0);
+
+    Intent dismissIntent = WalletValidationBroadcastReceiver.newIntent(this);
+    dismissIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    dismissIntent.putExtra(ACTION_KEY, ACTION_DISMISS);
+    PendingIntent dismissPendingIntent = PendingIntent.getBroadcast(this, 1, dismissIntent, 0);
 
     return builder.setContentTitle(
         getString(R.string.verification_notification_verification_needed_title))
-        .setContentIntent(pendingIntent)
+        .setContentIntent(okPendingIntent)
         .setAutoCancel(true)
-        .setOngoing(false)
+        .setOngoing(true)
+        .addAction(0, getString(R.string.ok), okPendingIntent)
+        .addAction(0, getString(R.string.dismiss_button), dismissPendingIntent)
         .setSmallIcon(R.drawable.ic_launcher_foreground)
         .setPriority(NotificationCompat.PRIORITY_MAX)
         .setContentText(getString(R.string.verification_notification_verification_needed_body));
