@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,16 +25,12 @@ import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.fragment.app.Fragment;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.WalletService;
-import com.appcoins.wallet.bdsbilling.repository.entity.DeveloperPurchase;
-import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxbinding2.widget.RxRadioGroup;
 import com.squareup.picasso.Picasso;
@@ -68,9 +65,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private static final String APP_PACKAGE = "app_package";
   private static final String TAG = PaymentMethodsFragment.class.getSimpleName();
   private static final String TRANSACTION = "transaction";
-  private static final String INAPP_PURCHASE_DATA = "INAPP_PURCHASE_DATA";
-  private static final String INAPP_DATA_SIGNATURE = "INAPP_DATA_SIGNATURE";
-  private static final String INAPP_PURCHASE_ID = "INAPP_PURCHASE_ID";
+  private static final String ITEM_ALREADY_OWNED = "item_already_owned";
 
   private final CompositeDisposable compositeDisposable = new CompositeDisposable();
   private final Map<String, Bitmap> loadedBitmaps = new HashMap<>();
@@ -104,6 +99,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private TextView appNameTv;
   private TextView appSkuDescriptionTv;
   private TextView walletAddressTv;
+  private View mainView;
   private String productName;
   private RadioGroup radioGroup;
   private FiatValue fiatValue;
@@ -113,6 +109,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private TextView bonusValue;
   private boolean showBonus;
   private TextView noBonusMsg;
+  private boolean itemAlreadyOwnedError;
+  private PublishSubject<Boolean> onBackPressSubject;
   private int iconSize;
 
   public static Fragment newInstance(TransactionBuilder transaction, String productName,
@@ -128,14 +126,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     Fragment fragment = new PaymentMethodsFragment();
     fragment.setArguments(bundle);
     return fragment;
-  }
-
-  private static String serializeJson(Purchase purchase) throws IOException {
-    ObjectMapper objectMapper = new ObjectMapper();
-    DeveloperPurchase developerPurchase = objectMapper.readValue(new Gson().toJson(
-        purchase.getSignature()
-            .getMessage()), DeveloperPurchase.class);
-    return objectMapper.writeValueAsString(developerPurchase);
   }
 
   @Override public void onAttach(Context context) {
@@ -156,6 +146,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         ((BigDecimal) getArguments().getSerializable(TRANSACTION_AMOUNT)).doubleValue();
     currency = getArguments().getString(TRANSACTION_CURRENCY);
     productName = getArguments().getString(PRODUCT_NAME);
+    itemAlreadyOwnedError = getArguments().getBoolean(ITEM_ALREADY_OWNED, false);
+    onBackPressSubject = PublishSubject.create();
     String appPackage = getArguments().getString(APP_PACKAGE);
     String developerPayload = getArguments().getString(DEVELOPER_PAYLOAD);
     String uri = getArguments().getString(URI);
@@ -176,6 +168,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
+    mainView = view.findViewById(R.id.payment_method_main_view);
     radioGroup = view.findViewById(R.id.payment_methods_radio_group);
     loadingView = view.findViewById(R.id.loading_view);
     dialog = view.findViewById(R.id.payment_methods);
@@ -207,9 +200,16 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     presenter.present(transactionValue);
   }
 
+  @Override public void onSaveInstanceState(@NonNull Bundle outState) {
+    super.onSaveInstanceState(outState);
+    outState.putBoolean(ITEM_ALREADY_OWNED, itemAlreadyOwnedError);
+  }
+
   @Override public void onDestroyView() {
     presenter.stop();
     compositeDisposable.clear();
+    onBackPressSubject = null;
+    mainView = null;
     radioGroup = null;
     loadingView = null;
     dialog = null;
@@ -300,23 +300,40 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     presenter.sendPurchaseDetailsEvent();
 
     setupSubject.onNext(true);
-    hideLoading();
   }
 
   @Override public void showError(int message) {
     loadingView.setVisibility(View.GONE);
     dialog.setVisibility(View.GONE);
     addressFooter.setVisibility(View.GONE);
+    mainView.setVisibility(View.GONE);
     errorView.setVisibility(View.VISIBLE);
     errorMessage.setText(message);
   }
 
-  @Override public void finish(Purchase purchase) throws IOException {
-    Bundle bundle = new Bundle();
-    bundle.putString(INAPP_PURCHASE_DATA, serializeJson(purchase));
-    bundle.putString(INAPP_DATA_SIGNATURE, purchase.getSignature()
-        .getValue());
-    bundle.putString(INAPP_PURCHASE_ID, purchase.getUid());
+  @Override public void showItemAlreadyOwnedError() {
+    loadingView.setVisibility(View.GONE);
+    dialog.setVisibility(View.GONE);
+    addressFooter.setVisibility(View.GONE);
+    mainView.setVisibility(View.GONE);
+    itemAlreadyOwnedError = true;
+    iabView.disableBack();
+    View view = getView();
+    if (view != null) {
+      view.setFocusableInTouchMode(true);
+      view.requestFocus();
+      view.setOnKeyListener((view1, keyCode, keyEvent) -> {
+        if (keyEvent.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
+          onBackPressSubject.onNext(itemAlreadyOwnedError);
+        }
+        return true;
+      });
+    }
+    errorView.setVisibility(View.VISIBLE);
+    errorMessage.setText(R.string.purchase_error_incomplete_transaction_body);
+  }
+
+  @Override public void finish(Bundle bundle) {
     iabView.finish(bundle);
   }
 
@@ -343,8 +360,9 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     iabView.close(data);
   }
 
-  @Override public Observable<Object> errorDismisses() {
-    return RxView.clicks(errorDismissButton);
+  @Override public Observable<Boolean> errorDismisses() {
+    return RxView.clicks(errorDismissButton)
+        .map(__ -> itemAlreadyOwnedError);
   }
 
   @Override public Observable<Boolean> setupUiCompleted() {
@@ -439,6 +457,10 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     bonusMessageValue = currency + scaledBonus.toPlainString();
     showBonus = true;
     bonusValue.setText(getString(R.string.gamification_purchase_header_part_2, bonusMessageValue));
+  }
+
+  @Override public Observable<Boolean> onBackPressed() {
+    return onBackPressSubject;
   }
 
   private void loadIcons(PaymentMethod paymentMethod, RadioButton radioButton, boolean showNew) {

@@ -11,6 +11,8 @@ import org.jetbrains.annotations.NotNull;
 
 public interface IabView {
 
+  void disableBack();
+
   void finish(Bundle data);
 
   void showError();
