@@ -32,17 +32,15 @@ public class ExpressCheckoutBuyPresenter {
   private final BillingMessagesMapper billingMessagesMapper;
   private final BdsPendingTransactionService bdsPendingTransactionService;
   private final Billing billing;
-  private final BillingAnalytics analytics;
   private final boolean isBds;
-  private final String uri;
   private final Single<TransactionBuilder> transactionBuilder;
   private Scheduler ioScheduler;
 
   public ExpressCheckoutBuyPresenter(ExpressCheckoutBuyView view, String appPackage,
       InAppPurchaseInteractor inAppPurchaseInteractor, Scheduler viewScheduler,
       CompositeDisposable disposables, BillingMessagesMapper billingMessagesMapper,
-      BdsPendingTransactionService bdsPendingTransactionService, Billing billing,
-      BillingAnalytics analytics, boolean isBds, String uri, Scheduler ioScheduler) {
+      BdsPendingTransactionService bdsPendingTransactionService, Billing billing, boolean isBds,
+      String uri, Scheduler ioScheduler) {
     this.view = view;
     this.appPackage = appPackage;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
@@ -51,16 +49,14 @@ public class ExpressCheckoutBuyPresenter {
     this.billingMessagesMapper = billingMessagesMapper;
     this.bdsPendingTransactionService = bdsPendingTransactionService;
     this.billing = billing;
-    this.analytics = analytics;
     this.isBds = isBds;
-    this.uri = uri;
     this.ioScheduler = ioScheduler;
     this.transactionBuilder = inAppPurchaseInteractor.parseTransaction(uri, true);
   }
 
-  public void present(String uri, double transactionValue, String currency) {
+  public void present(double transactionValue) {
     handleCancelClick();
-    setupUi(transactionValue, uri);
+    setupUi(transactionValue);
     handleErrorDismisses();
     handleOnGoingPurchases();
   }
@@ -127,7 +123,7 @@ public class ExpressCheckoutBuyPresenter {
         .ignoreElements();
   }
 
-  private void setupUi(double transactionValue, String uri) {
+  private void setupUi(double transactionValue) {
     disposables.add(Single.zip(transactionBuilder,
         inAppPurchaseInteractor.convertToLocalFiat(transactionValue)
             .subscribeOn(ioScheduler), (transactionBuilder, fiatValue) -> Completable.fromAction(

@@ -1,8 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -13,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
@@ -29,10 +26,8 @@ import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.jakewharton.rxbinding2.view.RxView;
-import com.jakewharton.rxrelay2.PublishRelay;
 import dagger.android.support.DaggerFragment;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -46,6 +41,7 @@ import java.util.Currency;
 import java.util.Formatter;
 import java.util.Locale;
 import javax.inject.Inject;
+import org.jetbrains.annotations.NotNull;
 
 import static com.asfoundation.wallet.ui.iab.IabActivity.PRODUCT_NAME;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
@@ -58,7 +54,6 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_DATA;
 
 public class ExpressCheckoutBuyFragment extends DaggerFragment implements ExpressCheckoutBuyView {
   public static final String APP_PACKAGE = "app_package";
-  public static final String SKU_ID = "sku_id";
   public static final String BONUS_KEY = "bonus";
   private static final String INAPP_PURCHASE_DATA = "INAPP_PURCHASE_DATA";
   private static final String INAPP_DATA_SIGNATURE = "INAPP_DATA_SIGNATURE";
@@ -73,17 +68,14 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
   @Inject Billing billing;
   @Inject BillingAnalytics analytics;
   private Bundle extras;
-  private PublishRelay<Snackbar> buyButtonClick;
   private IabView iabView;
   private ExpressCheckoutBuyPresenter presenter;
   private ProgressBar loadingView;
   private View dialog;
-  private TextView appName;
   private TextView itemHeaderDescription;
   private TextView itemListDescription;
   private TextView itemPrice;
   private TextView itemFinalPrice;
-  private ImageView appIcon;
   private Button buyButton;
   private Button cancelButton;
   private FiatValue fiatValue;
@@ -107,7 +99,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     return fragment;
   }
 
-  public static String serializeJson(Purchase purchase) throws IOException {
+  private static String serializeJson(Purchase purchase) throws IOException {
     ObjectMapper objectMapper = new ObjectMapper();
     DeveloperPurchase developerPurchase = objectMapper.readValue(new Gson().toJson(
         purchase.getSignature()
@@ -129,24 +121,22 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     presenter = new ExpressCheckoutBuyPresenter(this, getAppPackage(), inAppPurchaseInteractor,
         AndroidSchedulers.mainThread(), new CompositeDisposable(),
         inAppPurchaseInteractor.getBillingMessagesMapper(), bdsPendingTransactionService, billing,
-        analytics, isBds, extras.getString(TRANSACTION_DATA), Schedulers.io());
+        isBds, extras.getString(TRANSACTION_DATA), Schedulers.io());
   }
 
-  @Override public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+  @Override public View onCreateView(@NotNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     super.onCreateView(inflater, container, savedInstanceState);
     return inflater.inflate(R.layout.fragment_express_checkout_buy, container, false);
   }
 
-  @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+  @Override public void onViewCreated(@NotNull View view, @Nullable Bundle savedInstanceState) {
     loadingView = view.findViewById(R.id.loading_view);
     dialog = view.findViewById(R.id.info_dialog);
-    appName = view.findViewById(R.id.app_name);
     itemHeaderDescription = view.findViewById(R.id.app_sku_description);
     itemListDescription = view.findViewById(R.id.sku_description);
     itemPrice = view.findViewById(R.id.sku_price);
     itemFinalPrice = view.findViewById(R.id.total_price);
-    appIcon = view.findViewById(R.id.app_icon);
     buyButton = view.findViewById(R.id.buy_button);
     cancelButton = view.findViewById(R.id.cancel_button);
     errorView = view.findViewById(R.id.error_message);
@@ -160,9 +150,8 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     buyButton.setOnClickListener(
         v -> iabView.navigateToAdyenAuthorization(presenter.isBds(), fiatValue.getCurrency(),
             paymentType, getBonus()));
-    presenter.present(extras.getString(TRANSACTION_DATA),
-        ((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue(),
-        extras.getString(TRANSACTION_CURRENCY));
+    presenter.present(
+        ((BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT)).doubleValue());
 
     showLoading();
   }
@@ -174,12 +163,10 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     presenter.stop();
     loadingView = null;
     dialog = null;
-    appName = null;
     itemHeaderDescription = null;
     itemListDescription = null;
     itemPrice = null;
     itemFinalPrice = null;
-    appIcon = null;
     buyButton = null;
     cancelButton = null;
   }
@@ -291,13 +278,6 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     close(bundle);
   }
 
-  private CharSequence getApplicationName(String appPackage)
-      throws PackageManager.NameNotFoundException {
-    PackageManager packageManager = getContext().getPackageManager();
-    ApplicationInfo packageInfo = packageManager.getApplicationInfo(appPackage, 0);
-    return packageManager.getApplicationLabel(packageInfo);
-  }
-
   public String getAppPackage() {
     if (extras.containsKey(APP_PACKAGE)) {
       return extras.getString(APP_PACKAGE);
@@ -312,7 +292,7 @@ public class ExpressCheckoutBuyFragment extends DaggerFragment implements Expres
     throw new IllegalArgumentException("product name not found");
   }
 
-  public String mapCurrencyCodeToSymbol(String currencyCode) {
+  private String mapCurrencyCodeToSymbol(String currencyCode) {
     return Currency.getInstance(currencyCode)
         .getSymbol();
   }
