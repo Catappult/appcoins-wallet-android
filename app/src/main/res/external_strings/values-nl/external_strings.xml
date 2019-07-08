@@ -7,6 +7,6 @@
   <string name="iab_wallet_not_installed_popup_close_button">SLUITEN</string>
   <string name="iab_wallet_not_installed_popup_close_install">WALLET INSTALLEREN</string>
   <!-- SDK - PoA when wallet is not installed -->
-  <string name="poa_wallet_not_installed_notification_title">You need the AppCoins Wallet!</string>
-  <string name="poa_wallet_not_installed_notification_body">To get your reward you need the AppCoins Wallet.</string>
+  <string name="poa_wallet_not_installed_notification_title">Je hebt de AppCoins Wallet nodig!</string>
+  <string name="poa_wallet_not_installed_notification_body">Om je beloning te krijgen heb je de AppCoins Wallet nodig.</string>
 </resources>
