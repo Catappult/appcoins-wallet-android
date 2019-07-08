@@ -6,6 +6,8 @@ import com.asfoundation.wallet.repository.entity.TransactionEntity
 import com.asfoundation.wallet.transactions.Operation
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.transactions.TransactionDetails
+import com.asfoundation.wallet.util.BalanceUtils
+import java.math.BigDecimal
 
 class TransactionMapper {
 
@@ -62,6 +64,7 @@ class TransactionMapper {
       TransactionEntity.TransactionType.BONUS -> Transaction.TransactionType.BONUS
       TransactionEntity.TransactionType.TOP_UP -> Transaction.TransactionType.TOP_UP
       TransactionEntity.TransactionType.TRANSFER_OFF_CHAIN -> Transaction.TransactionType.TRANSFER_OFF_CHAIN
+      TransactionEntity.TransactionType.ETHER_TRANSFER -> Transaction.TransactionType.ETHER_TRANSFER
     }
   }
 
@@ -80,7 +83,9 @@ class TransactionMapper {
   }
 
   private fun map(operation: Operation): OperationEntity {
-    return OperationEntity(operation.transactionId, operation.from, operation.to, operation.fee)
+    return OperationEntity(operation.transactionId, operation.from, operation.to,
+        BalanceUtils.weiToEth(BigDecimal(operation.fee))
+            .toPlainString())
   }
 
   private fun map(details: TransactionDetails?): TransactionDetailsEntity? {
@@ -119,6 +124,7 @@ class TransactionMapper {
       Transaction.TransactionType.BONUS -> TransactionEntity.TransactionType.BONUS
       Transaction.TransactionType.TOP_UP -> TransactionEntity.TransactionType.TOP_UP
       Transaction.TransactionType.TRANSFER_OFF_CHAIN -> TransactionEntity.TransactionType.TRANSFER_OFF_CHAIN
+      Transaction.TransactionType.ETHER_TRANSFER -> TransactionEntity.TransactionType.ETHER_TRANSFER
     }
   }
 }

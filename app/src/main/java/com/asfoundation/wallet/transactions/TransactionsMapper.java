@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.transactions;
 
 import androidx.annotation.Nullable;
-
 import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.TransactionOperation;
 import com.asfoundation.wallet.entity.WalletHistory;
@@ -9,19 +8,17 @@ import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperation;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository;
 import com.asfoundation.wallet.util.BalanceUtils;
-
-import org.jetbrains.annotations.NotNull;
-
+import io.reactivex.Scheduler;
+import io.reactivex.Single;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.Scheduler;
-import io.reactivex.Single;
+import org.jetbrains.annotations.NotNull;
 
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.ADS_OFFCHAIN;
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.BONUS;
+import static com.asfoundation.wallet.transactions.Transaction.TransactionType.ETHER_TRANSFER;
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.IAP_OFFCHAIN;
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.STANDARD;
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.TOP_UP;
@@ -111,9 +108,20 @@ public class TransactionsMapper {
           .toString(), transaction.getSender(), transaction.getReceiver(),
           new TransactionDetails(sourceName,
               new TransactionDetails.Icon(TransactionDetails.Icon.Type.URL, transaction.getIcon()),
-              transaction.getSku()), "APPC", null));
+              transaction.getSku()), txType.equals(ETHER_TRANSFER) ? "ETH" : "APPC",
+          mapOperations(transaction.getOperations())));
     }
     return transactionList;
+  }
+
+  private List<Operation> mapOperations(List<WalletHistory.Operation> operations) {
+    List<Operation> list = new ArrayList<>(operations.size());
+
+    for (WalletHistory.Operation operation : operations) {
+      list.add(new Operation(operation.getTransactionId(), operation.getSender(),
+          operation.getReceiver(), operation.getFee()));
+    }
+    return list;
   }
 
   @NotNull
@@ -129,6 +137,8 @@ public class TransactionsMapper {
         return BONUS;
       case "PoA OffChain":
         return ADS_OFFCHAIN;
+      case "Ether Transfer":
+        return ETHER_TRANSFER;
       default:
         return STANDARD;
     }

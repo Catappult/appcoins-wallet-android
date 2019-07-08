@@ -33,7 +33,7 @@ public class Transaction implements Parcelable {
   public Transaction(String transactionId, TransactionType type,
       @Nullable String approveTransactionId, long timeStamp, long processedTime,
       TransactionStatus status, String value, String from, String to,
-      @Nullable TransactionDetails details, String currency, List<Operation> operations) {
+      @Nullable TransactionDetails details, String currency, @Nullable List<Operation> operations) {
     this.transactionId = transactionId;
     this.approveTransactionId = approveTransactionId;
     this.type = type;
@@ -212,7 +212,8 @@ public class Transaction implements Parcelable {
   }
 
   public enum TransactionType {
-    STANDARD, IAB, ADS, IAP_OFFCHAIN, ADS_OFFCHAIN, BONUS, TOP_UP, TRANSFER_OFF_CHAIN;
+    STANDARD, IAB, ADS, IAP_OFFCHAIN, ADS_OFFCHAIN, BONUS, TOP_UP, TRANSFER_OFF_CHAIN,
+    ETHER_TRANSFER;
 
     static TransactionType fromInt(int type) {
       switch (type) {
