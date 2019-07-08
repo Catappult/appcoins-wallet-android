@@ -290,32 +290,41 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
       private val code_6: EditText,
       private val clipboardManager: ClipboardManager
   ) : TextWatcher {
+
+    private var isPaste = false
+    private var isStart = false
+
     override fun afterTextChanged(s: Editable?) {
+      if (s?.length ?: 0 > 1 && isPaste && isValidPaste()) {
+        s?.replace(0, s.length, s.first().toString())
+        val text = getTextFromClipboard()
+        text?.forEachIndexed { index, digit ->
+          when (index) {
+            0 -> code_1.setText(digit.toString())
+            1 -> code_2.setText(digit.toString())
+            2 -> code_3.setText(digit.toString())
+            3 -> code_4.setText(digit.toString())
+            4 -> code_5.setText(digit.toString())
+            5 -> code_6.setText(digit.toString())
+            else -> return@forEachIndexed
+          }
+        }
+      }
       if (s?.length ?: 0 > 1) {
-        s?.delete(0, s.length - 2)
+        if (isStart) {
+          s?.delete(1, 2)
+        } else {
+          s?.delete(0, 1)
+        }
       }
     }
 
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+      isStart = start == 0
     }
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-      if (count > 1) {
-        if (isValidPaste()) {
-          val text = getTextFromClipboard()
-          text?.forEachIndexed { index, digit ->
-            when (index) {
-              0 -> code_1.setText(digit.toString())
-              1 -> code_2.setText(digit.toString())
-              2 -> code_3.setText(digit.toString())
-              3 -> code_4.setText(digit.toString())
-              4 -> code_5.setText(digit.toString())
-              5 -> code_6.setText(digit.toString())
-              else -> return@forEachIndexed
-            }
-          }
-        }
-      }
+      isPaste = count > 1
     }
 
     private fun isValidPaste(): Boolean {
