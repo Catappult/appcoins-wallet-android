@@ -18,6 +18,7 @@ public class RawTransaction implements Parcelable {
   @SerializedName("id") public final String hash;
   public final String blockNumber;
   public final long timeStamp;
+  public final long processedTime;
   public final int nonce;
   public final String from;
   public final String to;
@@ -29,13 +30,14 @@ public class RawTransaction implements Parcelable {
   public final TransactionOperation[] operations;
   public final String error;
 
-  public RawTransaction(String hash, String error, String blockNumber, long timeStamp, int nonce,
-      String from, String to, String value, String gas, String gasPrice, String input,
-      String gasUsed, TransactionOperation[] operations) {
+  public RawTransaction(String hash, String error, String blockNumber, long timeStamp,
+      long processedTime, int nonce, String from, String to, String value, String gas,
+      String gasPrice, String input, String gasUsed, TransactionOperation[] operations) {
     this.hash = hash;
     this.error = error;
     this.blockNumber = blockNumber;
     this.timeStamp = timeStamp;
+    this.processedTime = processedTime;
     this.nonce = nonce;
     this.from = from;
     this.to = to;
@@ -52,6 +54,7 @@ public class RawTransaction implements Parcelable {
     error = in.readString();
     blockNumber = in.readString();
     timeStamp = in.readLong();
+    processedTime = in.readLong();
     nonce = in.readInt();
     from = in.readString();
     to = in.readString();
@@ -79,6 +82,7 @@ public class RawTransaction implements Parcelable {
     dest.writeString(error);
     dest.writeString(blockNumber);
     dest.writeLong(timeStamp);
+    dest.writeLong(processedTime);
     dest.writeInt(nonce);
     dest.writeString(from);
     dest.writeString(to);

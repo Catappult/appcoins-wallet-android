@@ -1,18 +1,13 @@
 package com.asfoundation.wallet.repository;
 
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.poa.BlockchainErrorMapper;
 import com.asfoundation.wallet.service.AccountKeystoreService;
-import com.asfoundation.wallet.service.TransactionsNetworkClientType;
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer;
 import ethereumj.Transaction;
 import io.reactivex.Flowable;
-import io.reactivex.Maybe;
-import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
@@ -29,48 +24,25 @@ import org.web3j.utils.Numeric;
 import static com.asfoundation.wallet.C.ETHEREUM_NETWORK_NAME;
 import static com.asfoundation.wallet.C.ROPSTEN_NETWORK_NAME;
 
-public class TransactionRepository implements TransactionRepositoryType {
+public abstract class TransactionRepository implements TransactionRepositoryType {
 
   private final NetworkInfo defaultNetwork;
   private final AccountKeystoreService accountKeystoreService;
-  private final TransactionLocalSource inDiskCache;
-  private final TransactionsNetworkClientType blockExplorerClient;
   private final DefaultTokenProvider defaultTokenProvider;
   private final BlockchainErrorMapper errorMapper;
   private final MultiWalletNonceObtainer nonceObtainer;
   private final Scheduler scheduler;
 
   public TransactionRepository(NetworkInfo defaultNetwork,
-      AccountKeystoreService accountKeystoreService, TransactionLocalSource inDiskCache,
-      TransactionsNetworkClientType blockExplorerClient, DefaultTokenProvider defaultTokenProvider,
+      AccountKeystoreService accountKeystoreService, DefaultTokenProvider defaultTokenProvider,
       BlockchainErrorMapper errorMapper, MultiWalletNonceObtainer nonceObtainer,
       Scheduler scheduler) {
     this.defaultNetwork = defaultNetwork;
     this.accountKeystoreService = accountKeystoreService;
-    this.blockExplorerClient = blockExplorerClient;
-    this.inDiskCache = inDiskCache;
     this.defaultTokenProvider = defaultTokenProvider;
     this.errorMapper = errorMapper;
     this.nonceObtainer = nonceObtainer;
     this.scheduler = scheduler;
-  }
-
-  @Override public Observable<RawTransaction[]> fetchTransaction(Wallet wallet) {
-    return Single.merge(fetchFromCache(defaultNetwork, wallet),
-        fetchAndCacheFromNetwork(defaultNetwork, wallet))
-        .toObservable();
-  }
-
-  @Override public Maybe<RawTransaction> findTransaction(Wallet wallet, String transactionHash) {
-    return fetchTransaction(wallet).firstElement()
-        .flatMap(transactions -> {
-          for (RawTransaction transaction : transactions) {
-            if (transaction.hash.equals(transactionHash)) {
-              return Maybe.just(transaction);
-            }
-          }
-          return null;
-        });
   }
 
   public Single<String> createTransaction(TransactionBuilder transactionBuilder, String password) {
@@ -190,21 +162,5 @@ public class TransactionRepository implements TransactionRepositoryType {
   private boolean isNonceError(Throwable throwable) {
     return errorMapper.map(throwable)
         .equals(BlockchainErrorMapper.BlockchainError.NONCE_ERROR);
-  }
-
-  private Single<RawTransaction[]> fetchFromCache(NetworkInfo networkInfo, Wallet wallet) {
-    return inDiskCache.fetchTransaction(networkInfo, wallet);
-  }
-
-  private Single<RawTransaction[]> fetchAndCacheFromNetwork(NetworkInfo networkInfo,
-      Wallet wallet) {
-    return inDiskCache.findLast(networkInfo, wallet)
-        .flatMap(lastTransaction -> Single.fromObservable(
-            blockExplorerClient.fetchLastTransactions(wallet, lastTransaction, networkInfo)))
-        .onErrorResumeNext(throwable -> Single.fromObservable(
-            blockExplorerClient.fetchLastTransactions(wallet, null, networkInfo)))
-        .flatMapCompletable(
-            transactions -> inDiskCache.putTransactions(networkInfo, wallet, transactions))
-        .andThen(inDiskCache.fetchTransaction(networkInfo, wallet));
   }
 }

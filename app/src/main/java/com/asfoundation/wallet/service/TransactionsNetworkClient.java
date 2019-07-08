@@ -5,10 +5,7 @@ import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.Wallet;
 import com.google.gson.Gson;
 import io.reactivex.Observable;
-import io.reactivex.ObservableOperator;
-import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
-import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,10 +34,6 @@ public class TransactionsNetworkClient implements TransactionsNetworkClientType 
     onNetworkChanged(networkInfo);
   }
 
-  private static @NonNull <T> ApiErrorOperator<T> apiError() {
-    return new ApiErrorOperator<>();
-  }
-
   private void buildApiClient(String baseUrl) {
     apiClient = new Retrofit.Builder().baseUrl(baseUrl)
         .client(httpClient)
@@ -48,13 +41,6 @@ public class TransactionsNetworkClient implements TransactionsNetworkClientType 
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(ApiClient.class);
-  }
-
-  @Override public Observable<RawTransaction[]> fetchTransactions(String address) {
-    return apiClient.fetchTransactions(address)
-        .lift(apiError())
-        .map(r -> r.docs)
-        .subscribeOn(Schedulers.io());
   }
 
   @Override public Observable<RawTransaction[]> fetchLastTransactions(Wallet wallet,
@@ -98,9 +84,6 @@ public class TransactionsNetworkClient implements TransactionsNetworkClientType 
   }
 
   private interface ApiClient {
-    @GET("/transactions?limit=50") Observable<Response<ApiClientResponse>> fetchTransactions(
-        @Query("address") String address);
-
     @GET("/transactions") Call<ApiClientResponse> fetchTransactions(@Query("limit") int pageLimit,
         @Query("page") int page, @Query("address") String address);
   }
@@ -110,23 +93,4 @@ public class TransactionsNetworkClient implements TransactionsNetworkClientType 
     int pages;
   }
 
-  private final static class ApiErrorOperator<T> implements ObservableOperator<T, Response<T>> {
-
-    @Override public Observer<? super retrofit2.Response<T>> apply(Observer<? super T> observer) {
-      return new DisposableObserver<Response<T>>() {
-        @Override public void onNext(Response<T> response) {
-          observer.onNext(response.body());
-          observer.onComplete();
-        }
-
-        @Override public void onError(Throwable e) {
-          observer.onError(e);
-        }
-
-        @Override public void onComplete() {
-          observer.onComplete();
-        }
-      };
-    }
-  }
 }

@@ -1,20 +1,24 @@
 package com.asfoundation.wallet.transactions;
 
 import androidx.annotation.Nullable;
+
 import com.asfoundation.wallet.entity.RawTransaction;
 import com.asfoundation.wallet.entity.TransactionOperation;
 import com.asfoundation.wallet.entity.WalletHistory;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperation;
-import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
+import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository;
 import com.asfoundation.wallet.util.BalanceUtils;
-import io.reactivex.Scheduler;
-import io.reactivex.Single;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-import org.jetbrains.annotations.NotNull;
+
+import io.reactivex.Scheduler;
+import io.reactivex.Single;
 
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.ADS_OFFCHAIN;
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.BONUS;
@@ -24,41 +28,35 @@ import static com.asfoundation.wallet.transactions.Transaction.TransactionType.T
 import static com.asfoundation.wallet.transactions.Transaction.TransactionType.TRANSFER_OFF_CHAIN;
 
 public class TransactionsMapper {
-  public static final String APPROVE_METHOD_ID = "0x095ea7b3";
-  public static final String BUY_METHOD_ID = "0xb7a2e1f2";
-  public static final String ADS_METHOD_ID = "0xd5bde837";
+  private static final String APPROVE_METHOD_ID = "0x095ea7b3";
+  private static final String BUY_METHOD_ID = "0xb7a2e1f2";
+  private static final String ADS_METHOD_ID = "0xd5bde837";
   private final DefaultTokenProvider defaultTokenProvider;
-  private final AppcoinsOperationsDataSaver operationsDataSaver;
+  private final AppCoinsOperationRepository repository;
   private final Scheduler scheduler;
 
   public TransactionsMapper(DefaultTokenProvider defaultTokenProvider,
-      AppcoinsOperationsDataSaver operationsDataSaver, Scheduler scheduler) {
+      AppCoinsOperationRepository repository, Scheduler scheduler) {
     this.defaultTokenProvider = defaultTokenProvider;
-    this.operationsDataSaver = operationsDataSaver;
+    this.repository = repository;
     this.scheduler = scheduler;
   }
 
-  public Single<List<Transaction>> map(RawTransaction[] transactions) {
+  public Single<List<Transaction>> map(List<RawTransaction> transactions) {
     return defaultTokenProvider.getDefaultToken()
         .observeOn(scheduler)
         .map(tokenInfo -> map(tokenInfo.address, transactions));
   }
 
-  public Single<List<Transaction>> mapFromWalletHistory(
-      List<WalletHistory.Transaction> transactions) {
-    return Single.just(mapTransactionsFromWalletHistory(transactions))
-        .observeOn(scheduler);
-  }
-
-  private List<Transaction> map(String address, RawTransaction[] transactions) {
+  private List<Transaction> map(String address, List<RawTransaction> transactions) {
     List<Transaction> transactionList = new ArrayList<>();
-    for (int i = transactions.length - 1; i >= 0; i--) {
-      RawTransaction transaction = transactions[i];
+    for (int i = transactions.size() - 1; i >= 0; i--) {
+      RawTransaction transaction = transactions.get(i);
       if (isAppcoinsTransaction(transaction, address)
           && isApprovedTransaction(transaction)
           && i > 0
-          && isTransactionWithApprove(transactions[i - 1])) {
-        transactionList.add(0, mapTransactionWithApprove(transaction, transactions[i - 1]));
+          && isTransactionWithApprove(transactions.get(i - 1))) {
+        transactionList.add(0, mapTransactionWithApprove(transaction, transactions.get(i - 1)));
         i--;
       } else if (isAdsTransaction(transaction)) {
         transactionList.add(0, mapAdsTransaction(transaction));
@@ -69,7 +67,13 @@ public class TransactionsMapper {
     return transactionList;
   }
 
-  private List<Transaction> mapTransactionsFromWalletHistory(
+  public Single<List<Transaction>> mapFromWalletHistory(
+      List<WalletHistory.Transaction> transactions) {
+    return Single.just(mapTransactionsFromWalletHistory(transactions))
+        .observeOn(scheduler);
+  }
+
+  public List<Transaction> mapTransactionsFromWalletHistory(
       List<WalletHistory.Transaction> transactions) {
     List<Transaction> transactionList = new ArrayList<>(transactions.size());
     for (int i = transactions.size() - 1; i >= 0; i--) {
@@ -102,7 +106,8 @@ public class TransactionsMapper {
       }
       transactionList.add(0, new Transaction(transaction.getTxID(), txType, null,
           transaction.getTs()
-              .getTime() / 1000, status, transaction.getAmount()
+              .getTime(), transaction.getProcessedTime()
+          .getTime(), status, transaction.getAmount()
           .toString(), transaction.getSender(), transaction.getReceiver(),
           new TransactionDetails(sourceName,
               new TransactionDetails.Icon(TransactionDetails.Icon.Type.URL, transaction.getIcon()),
@@ -131,7 +136,8 @@ public class TransactionsMapper {
 
   /**
    * Method to map a raw transaction to an Ads transaction. In this case the raw transaction value
-   * does not contain the value of the transfer, that information is in the operations contained in
+   * does not contain the value of the transfer, that information is in the operations
+   * contained in
    * the raw transaction.
    * NOTE: For the value of this transaction we are considering the value of the first operation,
    * by relying on the order that the ads transactions are done. Only the first operation includes
@@ -139,7 +145,8 @@ public class TransactionsMapper {
    *
    * @param transaction The raw transaction including all the information for a given transaction.
    *
-   * @return a Transaction object containing the information needed and formatted, ready to be shown
+   * @return a Transaction object containing the information needed and formatted, ready to be
+   * shown
    * on the transactions list.
    */
   private Transaction mapAdsTransaction(RawTransaction transaction) {
@@ -171,8 +178,8 @@ public class TransactionsMapper {
 
     return new Transaction(transaction.hash,
         com.asfoundation.wallet.transactions.Transaction.TransactionType.ADS, null,
-        transaction.timeStamp, getError(transaction), value, from, to, details, currency,
-        operations);
+        (transaction.timeStamp * 1000), transaction.processedTime, getError(transaction), value,
+        from, to, details, currency, operations);
   }
 
   /**
@@ -206,16 +213,17 @@ public class TransactionsMapper {
       operations.add(new Operation(transaction.hash, transaction.from, transaction.to, fee));
     }
 
-    return new Transaction(transaction.hash,
-        com.asfoundation.wallet.transactions.Transaction.TransactionType.STANDARD, null,
-        transaction.timeStamp, getError(transaction), value, transaction.from, transaction.to, null,
-        currency, operations);
+    return new Transaction(transaction.hash, STANDARD, null, (transaction.timeStamp * 1000),
+        transaction.processedTime, getError(transaction), value, transaction.from, transaction.to,
+        null, currency, operations);
   }
 
   /**
-   * Method to map a raw transaction to an IAB transaction. In this case all the transfer mentioned
+   * Method to map a raw transaction to an IAB transaction. In this case all the transfer
+   * mentioned
    * in the operations list on the raw transaction need to be summed to obtained the value of the
-   * transaction, since the user transfer the value that afterwards is split between all the parties
+   * transaction, since the user transfer the value that afterwards is split between all the
+   * parties
    * included in the iab transaction.
    *
    * @param approveTransaction The raw transaction for the approve transaction.
@@ -260,9 +268,9 @@ public class TransactionsMapper {
     Transaction.TransactionType type = getTransactionType(transaction);
     TransactionDetails details = getTransactionDetails(type, transaction.hash);
 
-    return new Transaction(transaction.hash, type, approveTransaction.hash, transaction.timeStamp,
-        getError(transaction), value.toString(), transaction.from, transaction.to, details,
-        currency, operations);
+    return new Transaction(transaction.hash, type, approveTransaction.hash,
+        (transaction.timeStamp * 1000), transaction.processedTime, getError(transaction),
+        value.toString(), transaction.from, transaction.to, details, currency, operations);
   }
 
   private boolean isAdsTransaction(RawTransaction transaction) {
@@ -298,12 +306,11 @@ public class TransactionsMapper {
   @Nullable private TransactionDetails getTransactionDetails(Transaction.TransactionType type,
       String transactionId) {
     TransactionDetails details = null;
-    AppCoinsOperation operationDetails = operationsDataSaver.getSync(transactionId);
+    AppCoinsOperation operationDetails = repository.getSync(transactionId);
     if (operationDetails != null) {
       String productName = null;
       if (!com.asfoundation.wallet.transactions.Transaction.TransactionType.ADS.equals(type)
-          && !com.asfoundation.wallet.transactions.Transaction.TransactionType.ADS_OFFCHAIN.equals(
-          type)) {
+          && !ADS_OFFCHAIN.equals(type)) {
         productName = operationDetails.getProductName();
       }
       details = new TransactionDetails(operationDetails.getApplicationName(),
@@ -314,8 +321,7 @@ public class TransactionsMapper {
   }
 
   private Transaction.TransactionType getTransactionType(RawTransaction transaction) {
-    Transaction.TransactionType type =
-        com.asfoundation.wallet.transactions.Transaction.TransactionType.STANDARD;
+    Transaction.TransactionType type = STANDARD;
     if (isIabTransaction(transaction)) {
       type = com.asfoundation.wallet.transactions.Transaction.TransactionType.IAB;
     }

@@ -84,6 +84,7 @@ import com.asfoundation.wallet.permissions.PermissionsInteractor;
 import com.asfoundation.wallet.permissions.repository.PermissionRepository;
 import com.asfoundation.wallet.permissions.repository.PermissionsDatabase;
 import com.asfoundation.wallet.poa.BackEndErrorMapper;
+import com.asfoundation.wallet.poa.BlockchainErrorMapper;
 import com.asfoundation.wallet.poa.Calculator;
 import com.asfoundation.wallet.poa.CountryCodeProvider;
 import com.asfoundation.wallet.poa.DataMapper;
@@ -100,21 +101,31 @@ import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.BuyTransactionValidatorBds;
 import com.asfoundation.wallet.repository.CurrencyConversionService;
+import com.asfoundation.wallet.repository.DevTransactionRepository;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.GasSettingsRepository;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.IpCountryCodeProvider;
 import com.asfoundation.wallet.repository.NoValidateTransactionValidator;
+import com.asfoundation.wallet.repository.OffChainTransactions;
+import com.asfoundation.wallet.repository.OffChainTransactionsRepository;
 import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.PreferenceRepositoryType;
+import com.asfoundation.wallet.repository.ProdTransactionRepository;
 import com.asfoundation.wallet.repository.SharedPreferenceRepository;
 import com.asfoundation.wallet.repository.SignDataStandardNormalizer;
 import com.asfoundation.wallet.repository.SmsValidationRepositoryType;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.TrackTransactionService;
+import com.asfoundation.wallet.repository.TransactionLocalSource;
+import com.asfoundation.wallet.repository.TransactionMapper;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
+import com.asfoundation.wallet.repository.TransactionsDao;
+import com.asfoundation.wallet.repository.TransactionsDatabase;
+import com.asfoundation.wallet.repository.TransactionsLocalRepository;
+import com.asfoundation.wallet.repository.TransactionsRepository;
 import com.asfoundation.wallet.repository.TrustPasswordStore;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import com.asfoundation.wallet.repository.WatchedTransactionService;
@@ -130,9 +141,11 @@ import com.asfoundation.wallet.service.RealmManager;
 import com.asfoundation.wallet.service.SmsValidationApi;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenRateService;
+import com.asfoundation.wallet.service.TransactionsNetworkClientType;
 import com.asfoundation.wallet.service.TrustWalletTickerService;
 import com.asfoundation.wallet.topup.TopUpInteractor;
 import com.asfoundation.wallet.transactions.TransactionsAnalytics;
+import com.asfoundation.wallet.transactions.TransactionsMapper;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.airdrop.AirdropChainIdMapper;
 import com.asfoundation.wallet.ui.airdrop.AirdropInteractor;
@@ -185,9 +198,12 @@ import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
@@ -530,14 +546,20 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Provides @Singleton AppcoinsOperationsDataSaver provideInAppPurchaseDataSaver(Context context,
-      List<AppcoinsOperationsDataSaver.OperationDataSource> list) {
-    return new AppcoinsOperationsDataSaver(list, new AppCoinsOperationRepository(
+      List<AppcoinsOperationsDataSaver.OperationDataSource> list,
+      AppCoinsOperationRepository appCoinsOperationRepository) {
+    return new AppcoinsOperationsDataSaver(list, appCoinsOperationRepository,
+        new AppInfoProvider(context, new ImageSaver(context.getFilesDir() + "/app_icons/")),
+        Schedulers.io(), new CompositeDisposable());
+  }
+
+  @Singleton @Provides AppCoinsOperationRepository providesAppCoinsOperationRepository(
+      Context context) {
+    return new AppCoinsOperationRepository(
         Room.databaseBuilder(context.getApplicationContext(), AppCoinsOperationDatabase.class,
             "appcoins_operations_data")
             .build()
-            .appCoinsOperationDao(), new AppCoinsOperationMapper()),
-        new AppInfoProvider(context, new ImageSaver(context.getFilesDir() + "/app_icons/")),
-        Schedulers.io(), new CompositeDisposable());
+            .appCoinsOperationDao(), new AppCoinsOperationMapper());
   }
 
   @Provides OperationSources provideOperationSources(
@@ -841,7 +863,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides PoaAnalyticsController providesPoaAnalyticsController() {
-    return new PoaAnalyticsController(new CopyOnWriteArrayList<String>());
+    return new PoaAnalyticsController(new CopyOnWriteArrayList<>());
   }
 
   @Provides GamificationInteractor provideGamificationInteractor(Gamification gamification,
@@ -946,6 +968,67 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Singleton @Provides GamificationAnalytics provideGamificationAnalytics(
       AnalyticsManager analytics) {
     return new GamificationAnalytics(analytics);
+  }
+
+  @Provides OffChainTransactionsRepository providesOffChainTransactionsRepository(
+      OkHttpClient client) {
+
+    ObjectMapper objectMapper = new ObjectMapper();
+
+    DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSS", Locale.US);
+    objectMapper.setDateFormat(df);
+    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+    Retrofit retrofit =
+        new Retrofit.Builder().addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(JacksonConverterFactory.create(objectMapper))
+            .client(client)
+            .baseUrl(com.asf.wallet.BuildConfig.BACKEND_HOST)
+            .build();
+
+    return new OffChainTransactionsRepository(
+        retrofit.create(OffChainTransactionsRepository.TransactionsApi.class),
+        new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSS", Locale.US));
+  }
+
+  @Provides OffChainTransactions providesOffChainTransactions(
+      OffChainTransactionsRepository repository, TransactionsMapper mapper) {
+    return new OffChainTransactions(repository, mapper, getVersionCode(), Schedulers.io());
+  }
+
+  private String getVersionCode() {
+    return String.valueOf(com.asf.wallet.BuildConfig.VERSION_CODE);
+  }
+
+  @Provides TransactionsMapper provideTransactionsMapper(DefaultTokenProvider defaultTokenProvider,
+      AppCoinsOperationRepository appCoinsOperationRepository) {
+    return new TransactionsMapper(defaultTokenProvider, appCoinsOperationRepository,
+        Schedulers.io());
+  }
+
+  @Singleton @Provides TransactionRepositoryType provideTransactionRepository(
+      NetworkInfo networkInfo, AccountKeystoreService accountKeystoreService,
+      TransactionsNetworkClientType blockExplorerClient, TransactionLocalSource inDiskCache,
+      DefaultTokenProvider defaultTokenProvider, MultiWalletNonceObtainer nonceObtainer,
+      OffChainTransactions transactionsNetworkRepository, @NotNull TransactionsMapper mapper,
+      Context context, SharedPreferences sharedPreferences) {
+    if (BuildConfig.DEBUG) {
+      TransactionsDao transactionsDao =
+          Room.databaseBuilder(context.getApplicationContext(), TransactionsDatabase.class,
+              "transactions_database")
+              .build()
+              .transactionsDao();
+      TransactionsRepository localRepository =
+          new TransactionsLocalRepository(transactionsDao, sharedPreferences);
+      return new DevTransactionRepository(networkInfo, accountKeystoreService, defaultTokenProvider,
+          new BlockchainErrorMapper(), nonceObtainer, Schedulers.io(),
+          transactionsNetworkRepository, localRepository, new TransactionMapper(),
+          new CompositeDisposable(), Schedulers.io());
+    } else {
+      return new ProdTransactionRepository(networkInfo, accountKeystoreService, inDiskCache,
+          blockExplorerClient, defaultTokenProvider, new BlockchainErrorMapper(), nonceObtainer,
+          Schedulers.io(), mapper, transactionsNetworkRepository);
+    }
   }
 
   @Singleton @Provides SmsValidationApi provideSmsValidationApi(OkHttpClient client, Gson gson) {
