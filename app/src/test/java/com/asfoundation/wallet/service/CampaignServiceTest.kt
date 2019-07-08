@@ -62,7 +62,8 @@ class CampaignServiceTest {
     scheduler.triggerActions()
     observer.awaitTerminalEvent()
 
-    observer.assertNoErrors().assertValue(CAMPAIGN_ID)
+    observer.assertNoErrors()
+        .assertValue(CAMPAIGN_ID)
 
   }
 
@@ -74,7 +75,8 @@ class CampaignServiceTest {
     scheduler.triggerActions()
     observer.awaitTerminalEvent()
 
-    observer.assertNoErrors().assertValue("")
+    observer.assertNoErrors()
+        .assertValue(Campaign.NOT_ELIGIBLE.toString())
 
   }
 
@@ -86,7 +88,8 @@ class CampaignServiceTest {
     scheduler.triggerActions()
     observer.awaitTerminalEvent()
 
-    observer.assertNoErrors().assertValue(CAMPAIGN_ID)
+    observer.assertNoErrors()
+        .assertValue(CAMPAIGN_ID)
 
   }
 
@@ -98,7 +101,8 @@ class CampaignServiceTest {
     scheduler.triggerActions()
     observer.awaitTerminalEvent()
 
-    observer.assertNoErrors().assertValue("")
+    observer.assertNoErrors()
+        .assertValue(Campaign.NOT_ELIGIBLE.toString())
 
   }
 
