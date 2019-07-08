@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_iab_error_view"
     android:layout_width="match_parent"
     android:layout_height="160dp"
@@ -14,7 +13,6 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    tools:showIn="@layout/fragment_iab"
     >
 
   <TextView
@@ -32,7 +30,8 @@
       style="@style/Base.TextAppearance.AppCompat.Caption"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:minLines="3"
+      android:layout_marginTop="8dp"
+      android:maxLines="3"
       android:text="@string/activity_iab_error_message"
       android:textColor="@color/iab_activity_gray"
       app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +43,7 @@
       style="@style/ButtonStyle"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/button_height"
-      android:layout_marginTop="8dp"
+      android:layout_marginTop="56dp"
       android:text="@string/ok"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
