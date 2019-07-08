@@ -67,7 +67,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
       throw IllegalArgumentException("domain data not found")
     }
   }
-  private val skudId: String by lazy {
+  private val skudId: String? by lazy {
     if (arguments!!.containsKey(SKU_ID_KEY)) {
       arguments!!.getString(SKU_ID_KEY)
     } else {
