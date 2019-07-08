@@ -146,6 +146,9 @@ public class PaymentMethodsPresenter {
 
   private void handleOnGoingPurchases() {
     if (transaction.getSkuId() == null) {
+      disposables.add(isSetupCompleted().doOnComplete(view::hideLoading)
+          .subscribeOn(viewScheduler)
+          .subscribe());
       return;
     }
     disposables.add(waitForUi(transaction.getSkuId()).observeOn(viewScheduler)
@@ -193,23 +196,28 @@ public class PaymentMethodsPresenter {
   private Completable finishProcess(String skuId) {
     return billing.getSkuPurchase(appPackage, skuId, Schedulers.io())
         .observeOn(viewScheduler)
-        .doOnSuccess(view::finish)
+        .doOnSuccess(purchase -> finish(purchase, false))
         .ignoreElement();
   }
 
   private Completable checkAndConsumePrevious(String sku) {
+    return getPurchases(sku).observeOn(viewScheduler)
+        .doOnNext(purchase -> view.showItemAlreadyOwnedError())
+        .ignoreElements();
+  }
+
+  private Observable<Purchase> getPurchases(String sku) {
     return billing.getPurchases(appPackage, BillingSupportedType.INAPP, Schedulers.io())
         .flatMapObservable(purchases -> {
           for (Purchase purchase : purchases) {
-            if (purchase.getUid()
+            if (purchase.getProduct()
+                .getName()
                 .equals(sku)) {
               return Observable.just(purchase);
             }
           }
           return Observable.empty();
-        })
-        .doOnNext(view::finish)
-        .ignoreElements();
+        });
   }
 
   private void setupUi(double transactionValue) {
@@ -262,10 +270,21 @@ public class PaymentMethodsPresenter {
   }
 
   private void handleErrorDismisses() {
-    disposables.add(view.errorDismisses()
-        .doOnNext(__ -> close())
-        .subscribe(__ -> {
+    disposables.add(Observable.merge(view.errorDismisses(), view.onBackPressed())
+        .flatMapCompletable(itemAlreadyOwned -> {
+          if (itemAlreadyOwned) {
+            return getPurchases(transaction.getSkuId()).doOnNext(purchase -> finish(purchase, true))
+                .ignoreElements();
+          } else {
+            return Completable.fromAction(this::close);
+          }
+        })
+        .subscribe(() -> {
         }, this::showError));
+  }
+
+  private void finish(Purchase purchase, Boolean itemAlreadyOwned) {
+    view.finish(billingMessagesMapper.mapFinishedPurchase(purchase, itemAlreadyOwned));
   }
 
   public void sendPurchaseDetailsEvent() {
