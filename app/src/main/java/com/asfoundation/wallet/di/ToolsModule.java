@@ -61,6 +61,8 @@ import com.asfoundation.wallet.billing.partners.PartnerAddressService;
 import com.asfoundation.wallet.billing.partners.PartnerWalletAddressService;
 import com.asfoundation.wallet.billing.partners.WalletAddressService;
 import com.asfoundation.wallet.billing.purchase.BillingFactory;
+import com.asfoundation.wallet.billing.purchase.InAppDeepLinkRepository;
+import com.asfoundation.wallet.billing.purchase.LocalPayementsLinkRepository;
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository;
 import com.asfoundation.wallet.billing.share.ShareLinkRepository;
 import com.asfoundation.wallet.entity.NetworkInfo;
@@ -408,9 +410,12 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         new ExternalBillingSerializer(), appcoinsRewards, billing);
   }
 
-  @Provides LocalPaymentInteractor provideLocalPaymentInteractor(ShareLinkRepository repository,
-      FindDefaultWalletInteract interactor, InAppPurchaseInteractor inAppPurchaseInteractor) {
-    return new LocalPaymentInteractor(repository, interactor, inAppPurchaseInteractor);
+  @Provides LocalPaymentInteractor provideLocalPaymentInteractor(InAppDeepLinkRepository repository,
+      WalletService walletService, AddressService partnerAddressService,
+      InAppPurchaseInteractor inAppPurchaseInteractor, Billing billing,
+      BillingMessagesMapper billingMessagesMapper) {
+    return new LocalPaymentInteractor(repository, walletService, partnerAddressService,
+        inAppPurchaseInteractor, billing, billingMessagesMapper);
   }
 
   @Provides PaymentMethodsMapper providePaymentMethodsMapper() {
@@ -931,6 +936,22 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(BdsShareLinkRepository.BdsShareLinkApi.class);
+  }
+
+  @Singleton @Provides InAppDeepLinkRepository providesDeepLinkRepository(
+      LocalPayementsLinkRepository.DeepLinkApi api) {
+    return new LocalPayementsLinkRepository(api);
+  }
+
+  @Singleton @Provides LocalPayementsLinkRepository.DeepLinkApi provideDeepLinkApi(
+      OkHttpClient client, Gson gson) {
+    String baseUrl = BuildConfig.CATAPPULT_BASE_HOST;
+    return new Retrofit.Builder().baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(LocalPayementsLinkRepository.DeepLinkApi.class);
   }
 
   @Singleton @Provides TopUpInteractor providesTopUpInteractor(BdsRepository repository,

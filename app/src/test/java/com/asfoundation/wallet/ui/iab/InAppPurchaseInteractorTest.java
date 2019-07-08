@@ -30,16 +30,16 @@ import com.asfoundation.wallet.repository.BdsPendingTransactionService;
 import com.asfoundation.wallet.repository.BdsTransactionProvider;
 import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.BuyService;
-import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.CurrencyConversionService;
+import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
 import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.TransactionSender;
 import com.asfoundation.wallet.repository.TransactionValidator;
 import com.asfoundation.wallet.repository.WatchedTransactionService;
-import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.LocalCurrencyConversionService;
+import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationEntity;
 import com.asfoundation.wallet.util.EIPTransactionParser;
 import com.asfoundation.wallet.util.OneStepTransactionParser;
@@ -104,9 +104,10 @@ public class InAppPurchaseInteractorTest {
   @Mock CountryCodeProvider countryCodeProvider;
   @Mock Billing billing;
   @Mock BdsPendingTransactionService transactionService;
-  private BdsInAppPurchaseInteractor inAppPurchaseInteractor;
   @Mock ProxyService proxyService;
   @Mock TokenRateService conversionService;
+  @Mock AddressService addressService;
+  private BdsInAppPurchaseInteractor inAppPurchaseInteractor;
   private PublishSubject<PendingTransaction> pendingApproveState;
   private PublishSubject<PendingTransaction> pendingBuyState;
   private PublishSubject<GetDefaultWalletBalance.BalanceState> balance;
@@ -117,7 +118,6 @@ public class InAppPurchaseInteractorTest {
   private EIPTransactionParser eipTransactionParser;
   private OneStepTransactionParser oneStepTransactionParser;
   private TransactionIdHelper transactionIdHelper = new TransactionIdHelper();
-  @Mock AddressService addressService;
 
   @Before public void before()
       throws AppInfoProvider.UnknownApplicationException, ImageSaver.SaveException {
@@ -181,7 +181,8 @@ public class InAppPurchaseInteractorTest {
         new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
             new ApproveService(approveTransactionService, transactionValidator),
             new BuyService(buyTransactionService, transactionValidator, defaultTokenProvider,
-                countryCodeProvider, dataMapper, addressService), balanceService, scheduler, new ErrorMapper());
+                countryCodeProvider, dataMapper, addressService), balanceService, scheduler,
+            new ErrorMapper());
 
     proofPublishSubject = PublishSubject.create();
     when(proofOfAttentionService.get()).thenReturn(proofPublishSubject);
@@ -194,13 +195,13 @@ public class InAppPurchaseInteractorTest {
 
     when(transactionProvider.get(PACKAGE_NAME, SKU)).thenReturn(Single.just(
         new Transaction(UID, Transaction.Status.PROCESSING,
-            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null)), Single.just(
-        new Transaction(UID, Transaction.Status.COMPLETED,
-            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null)));
+            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, "")),
+        Single.just(new Transaction(UID, Transaction.Status.COMPLETED,
+            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, "")));
 
     when(billing.getSkuTransaction(anyString(), anyString(), any(Scheduler.class))).thenReturn(
         Single.just(new Transaction(UID, Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
-            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null)));
+            new Gateway(Gateway.Name.appcoins, "", ""), null, "orderReference", null, "")));
 
     when(proxyService.getAppCoinsAddress(anyBoolean())).thenReturn(
         Single.just("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3"));
@@ -220,11 +221,11 @@ public class InAppPurchaseInteractorTest {
             new TransferParser(eipTransactionParser, oneStepTransactionParser),
             new BillingMessagesMapper(new ExternalBillingSerializer()), billing,
             new ExternalBillingSerializer(),
-            new CurrencyConversionService(Mockito.mock(TokenRateService.class), Mockito.mock(LocalCurrencyConversionService.class)),
+            new CurrencyConversionService(Mockito.mock(TokenRateService.class),
+                Mockito.mock(LocalCurrencyConversionService.class)),
             new BdsTransactionService(scheduler,
                 new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
-                new CompositeDisposable(), transactionService), scheduler,
-            transactionIdHelper);
+                new CompositeDisposable(), transactionService), scheduler, transactionIdHelper);
 
     BillingPaymentProofSubmission billingPaymentProofSubmission =
         Mockito.mock(BillingPaymentProofSubmission.class);

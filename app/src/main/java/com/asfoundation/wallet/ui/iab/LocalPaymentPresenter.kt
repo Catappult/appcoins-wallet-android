@@ -1,10 +1,12 @@
 package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
+import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
+import java.util.concurrent.TimeUnit
 
 private val WAITING_RESULT = "WAITING_RESULT"
 private var waitingResult: Boolean = false
@@ -16,8 +18,10 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
                             private val domain: String,
                             private val skuId: String?,
                             private val paymentId: String,
+                            private val developerAddress: String,
                             private val localPaymentInteractor: LocalPaymentInteractor,
                             private val navigator: FragmentNavigator,
+                            private val isInApp: Boolean,
                             private val savedInstance: Bundle?,
                             private val viewScheduler: Scheduler,
                             private val networkScheduler: Scheduler,
@@ -42,11 +46,13 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
   private fun onViewCreatedRequestLink() {
     disposables.add(
         localPaymentInteractor.getPaymentLink(domain, skuId, originalAmount, currency,
-            paymentId).filter { !waitingResult }.observeOn(
+            paymentId, developerAddress).filter { !waitingResult }.observeOn(
             viewScheduler).doOnSuccess {
           navigator.navigateToUriForResult(it, "", domain, skuId, null, "")
           waitingResult = true
-        }.subscribeOn(networkScheduler).subscribe({ }, { showError(it) }))
+        }.subscribeOn(networkScheduler).observeOn(viewScheduler)
+            .subscribe({ },
+                { showError(it) }))
   }
 
   private fun handlePaymentRedirect() {
@@ -55,10 +61,11 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
           view.showProcessingLoading()
         }.flatMap {
           localPaymentInteractor.getTransaction(it)
-        }
-            .observeOn(viewScheduler)
+              .subscribeOn(networkScheduler)
+        }.observeOn(viewScheduler)
             .flatMapCompletable { handleTransactionStatus(it) }
-            .subscribe({ }, { showError(it) }))
+            .subscribe({}, { showError(it) }
+            ))
   }
 
   private fun handleOkErrorButtonClick() {
@@ -71,20 +78,29 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
         viewScheduler).doOnNext { view.close() }.subscribe())
   }
 
-  private fun handleTransactionStatus(transactionStatus: Status): Completable {
+  private fun handleTransactionStatus(transaction: Transaction): Completable {
     view.hideLoading()
-    return when (transactionStatus) {
+    return when (transaction.status) {
       Status.COMPLETED -> {
-        Completable.fromAction {
-          view.showCompletedPayment()
-        }
+        localPaymentInteractor.getCompletePurchaseBundle(isInApp, domain, skuId, networkScheduler,
+            transaction.orderReference,
+            transaction.hash)
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler)
+            .flatMapCompletable {
+              Completable.fromAction {
+                view.showCompletedPayment()
+              }
+                  .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+                  .andThen(Completable.fromAction { view.popView(it) })
+            }
       }
       Status.PENDING_USER_PAYMENT -> Completable.fromAction {
         view.showPendingUserPayment()
-      }
+      }.subscribeOn(viewScheduler)
       else -> Completable.fromAction {
         view.showError()
-      }
+      }.subscribeOn(viewScheduler)
     }
   }
 

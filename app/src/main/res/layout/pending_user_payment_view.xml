@@ -30,26 +30,12 @@
       android:layout_width="264dp"
       android:layout_height="188dp"
       android:layout_marginTop="16dp"
-      android:visibility="invisible"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/in_progress_text"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="true"
       app:lottie_rawRes="@raw/transact_loading_animation"
-      />
-
-  <com.airbnb.lottie.LottieAnimationView
-      android:id="@+id/completed_bonus_animation"
-      android:layout_width="260dp"
-      android:layout_height="188dp"
-      android:layout_marginTop="16dp"
-      android:visibility="invisible"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/in_progress_text"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_rawRes="@raw/transaction_complete_bonus_animation"
       />
 
   <TextView

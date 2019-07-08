@@ -123,7 +123,7 @@ class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerial
     return bundle
   }
 
-  fun successBundle(uid: String): Bundle {
+  fun successBundle(uid: String?): Bundle {
     val bundle = Bundle()
     bundle.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
 

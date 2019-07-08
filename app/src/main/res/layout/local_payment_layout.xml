@@ -32,6 +32,18 @@
       layout="@layout/pending_user_payment_view"
       android:visibility="gone"
       />
+  <FrameLayout
+      android:id="@+id/complete_payment_view"
+      android:layout_width="@dimen/payment_methods_width"
+      android:layout_height="336dp"
+      android:background="@drawable/background_card"
+      android:gravity="center"
+      android:visibility="gone"
+      >
+    <include
+        layout="@layout/fragment_iab_transaction_completed"
+        />
+  </FrameLayout>
 
   <include
       android:id="@+id/error_view"
