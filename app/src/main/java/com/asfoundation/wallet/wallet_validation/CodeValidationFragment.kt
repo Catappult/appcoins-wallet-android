@@ -17,6 +17,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_sms_code.*
+import kotlinx.android.synthetic.main.single_sms_input_layout.view.*
+import kotlinx.android.synthetic.main.sms_text_input_layout.*
 import javax.inject.Inject
 
 class CodeValidationFragment : DaggerFragment(), CodeValidationView {
@@ -91,23 +93,23 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
     }
 
     validationInfo?.let {
-      code_1.setText(it.code1)
-      code_2.setText(it.code2)
-      code_3.setText(it.code3)
-      code_4.setText(it.code4)
-      code_5.setText(it.code5)
-      code_6.setText(it.code6)
+      code_1.code.setText(it.code1)
+      code_2.code.setText(it.code2)
+      code_3.code.setText(it.code3)
+      code_4.code.setText(it.code4)
+      code_5.code.setText(it.code5)
+      code_6.code.setText(it.code6)
     }
   }
 
   override fun clearUI() {
     error.visibility = View.INVISIBLE
-    code_1.text = null
-    code_2.text = null
-    code_3.text = null
-    code_4.text = null
-    code_5.text = null
-    code_6.text = null
+    code_1.code.text = null
+    code_2.code.text = null
+    code_3.code.text = null
+    code_4.code.text = null
+    code_5.code.text = null
+    code_6.code.text = null
   }
 
   override fun setButtonState(state: Boolean) {
@@ -121,8 +123,10 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
   override fun getSubmitClicks(): Observable<ValidationInfo> {
     return RxView.clicks(submit_button)
         .map {
-          ValidationInfo(code_1.text.toString(), code_2.text.toString(), code_3.text.toString(),
-              code_4.text.toString(), code_5.text.toString(), code_6.text.toString(), countryCode,
+          ValidationInfo(code_1.code.text.toString(),
+              code_2.code.text.toString(), code_3.code.text.toString(),
+              code_4.code.text.toString(), code_5.code.text.toString(),
+              code_6.code.text.toString(), countryCode,
               phoneNumber)
         }
   }
@@ -132,7 +136,7 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
   }
 
   override fun getFirstChar(): Observable<String> {
-    return RxTextView.afterTextChangeEvents(code_1)
+    return RxTextView.afterTextChangeEvents(code_1.code)
         .map {
           it.editable()
               ?.toString()
@@ -140,7 +144,7 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
   }
 
   override fun getSecondChar(): Observable<String> {
-    return RxTextView.afterTextChangeEvents(code_2)
+    return RxTextView.afterTextChangeEvents(code_2.code)
         .map {
           it.editable()
               ?.toString()
@@ -148,7 +152,7 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
   }
 
   override fun getThirdChar(): Observable<String> {
-    return RxTextView.afterTextChangeEvents(code_3)
+    return RxTextView.afterTextChangeEvents(code_3.code)
         .map {
           it.editable()
               ?.toString()
@@ -156,7 +160,7 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
   }
 
   override fun getFourthChar(): Observable<String> {
-    return RxTextView.afterTextChangeEvents(code_4)
+    return RxTextView.afterTextChangeEvents(code_4.code)
         .map {
           it.editable()
               ?.toString()
@@ -164,7 +168,7 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
   }
 
   override fun getFifthChar(): Observable<String> {
-    return RxTextView.afterTextChangeEvents(code_5)
+    return RxTextView.afterTextChangeEvents(code_5.code)
         .map {
           it.editable()
               ?.toString()
@@ -172,7 +176,7 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
   }
 
   override fun getSixthChar(): Observable<String> {
-    return RxTextView.afterTextChangeEvents(code_6)
+    return RxTextView.afterTextChangeEvents(code_6.code)
         .map {
           it.editable()
               ?.toString()

@@ -36,7 +36,6 @@ class ValidationLoadingPresenter(
             }
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
-            .doOnSubscribe { view.show() }
             .subscribe { status ->
               handleNext(status)
             }

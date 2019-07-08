@@ -66,6 +66,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private LottieAnimationView balanceSkeleton;
   private PublishSubject<String> emptyTransactionsSubject;
   private CompositeDisposable disposables;
+  private View emptyClickableView;
 
   public static Intent newIntent(Context context) {
     return new Intent(context, TransactionsActivity.class);
@@ -84,6 +85,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
     balanceSkeleton = findViewById(R.id.balance_skeleton);
     balanceSkeleton.setVisibility(View.VISIBLE);
+    emptyClickableView = findViewById(R.id.empty_clickable_view);
+    emptyClickableView.setVisibility(View.VISIBLE);
     balanceSkeleton.playAnimation();
     subtitleView = findViewById(R.id.toolbar_subtitle);
     ((AppBarLayout) findViewById(R.id.app_bar)).addOnOffsetChangedListener(
@@ -315,6 +318,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   @Override protected void onDestroy() {
     subtitleView = null;
+    emptyClickableView = null;
     balanceSkeleton.removeAllAnimatorListeners();
     balanceSkeleton.removeAllUpdateListeners();
     balanceSkeleton.removeAllLottieOnCompositionLoadedListener();
@@ -346,7 +350,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   private void onBalanceChanged(GlobalBalance globalBalance) {
-    if (globalBalance.getFiatValue().length() > 0) {
+    if (globalBalance.getFiatValue()
+        .length() > 0) {
       balanceSkeleton.setVisibility(View.GONE);
       setCollapsingTitle(globalBalance.getFiatSymbol() + globalBalance.getFiatValue());
       setSubtitle(globalBalance);

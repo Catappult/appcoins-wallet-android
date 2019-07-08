@@ -25,6 +25,7 @@
         android:ellipsize="end"
         android:gravity="center"
         android:text="@string/verification_insert_phone_title"
+        android:textColor="#4a4a4a"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -21,6 +21,7 @@ public class Transaction implements Parcelable {
   @Nullable private final String approveTransactionId;
   private final TransactionType type;
   private final long timeStamp;
+  private final long processedTime;
   private final TransactionStatus status;
   private final String value;
   private final String from;
@@ -30,13 +31,14 @@ public class Transaction implements Parcelable {
   @Nullable private final List<Operation> operations;
 
   public Transaction(String transactionId, TransactionType type,
-      @Nullable String approveTransactionId, long timeStamp, TransactionStatus status, String value,
-      String from, String to, @Nullable TransactionDetails details, String currency,
-      List<Operation> operations) {
+      @Nullable String approveTransactionId, long timeStamp, long processedTime,
+      TransactionStatus status, String value, String from, String to,
+      @Nullable TransactionDetails details, String currency, List<Operation> operations) {
     this.transactionId = transactionId;
     this.approveTransactionId = approveTransactionId;
     this.type = type;
     this.timeStamp = timeStamp;
+    this.processedTime = processedTime;
     this.status = status;
     this.value = value;
     this.from = from;
@@ -51,6 +53,7 @@ public class Transaction implements Parcelable {
     approveTransactionId = in.readString();
     type = TransactionType.fromInt(in.readInt());
     timeStamp = in.readLong();
+    processedTime = in.readLong();
     status = TransactionStatus.fromInt(in.readInt());
     value = in.readString();
     from = in.readString();
@@ -75,6 +78,7 @@ public class Transaction implements Parcelable {
     dest.writeString(approveTransactionId);
     dest.writeInt(type.ordinal());
     dest.writeLong(timeStamp);
+    dest.writeLong(processedTime);
     dest.writeInt(status.ordinal());
     dest.writeString(value);
     dest.writeString(from);
@@ -171,6 +175,10 @@ public class Transaction implements Parcelable {
     return timeStamp;
   }
 
+  public long getProcessedTime() {
+    return processedTime;
+  }
+
   public TransactionType getType() {
     return type;
   }
@@ -231,7 +239,7 @@ public class Transaction implements Parcelable {
   }
 
   public enum TransactionStatus {
-    SUCCESS, FAILED, PENDING, PENDING_USER_PAYMENT;
+    SUCCESS, FAILED, PENDING;
 
     static TransactionStatus fromInt(int status) {
       switch (status) {
@@ -241,8 +249,6 @@ public class Transaction implements Parcelable {
           return FAILED;
         case 2:
           return PENDING;
-        case 3:
-          return PENDING_USER_PAYMENT;
         default:
           return SUCCESS;
       }

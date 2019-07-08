@@ -136,6 +136,9 @@ public class PaymentMethodsPresenter {
             case LOCAL_PAYMENTS:
               view.showLocalPayment(selectedPaymentMethod);
               break;
+            case ERROR:
+            default:
+              break;
           }
         })
         .subscribe());

@@ -234,7 +234,7 @@ public class TransactionDetailActivity extends BaseActivity {
 
   private String getDate(long timeStampInSec) {
     Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-    cal.setTimeInMillis(timeStampInSec * 1000);
+    cal.setTimeInMillis(timeStampInSec);
     return DateFormat.format("dd MMM yyyy hh:mm a", cal.getTime())
         .toString();
   }

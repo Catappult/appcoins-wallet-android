@@ -5,8 +5,6 @@ import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchTransactionsInteract;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
-import com.asfoundation.wallet.repository.OffChainTransactions;
-import com.asfoundation.wallet.repository.OffChainTransactionsRepository;
 import com.asfoundation.wallet.repository.TokenLocalSource;
 import com.asfoundation.wallet.repository.TokenRepository;
 import com.asfoundation.wallet.repository.TransactionLocalSource;
@@ -30,20 +28,10 @@ import com.asfoundation.wallet.transactions.TransactionsMapper;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.balance.BalanceInteract;
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
-import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver;
 import com.asfoundation.wallet.viewmodel.TransactionsViewModelFactory;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import dagger.Module;
 import dagger.Provides;
-import io.reactivex.schedulers.Schedulers;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-import okhttp3.OkHttpClient;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.jackson.JacksonConverterFactory;
+import javax.inject.Singleton;
 
 @Module class TransactionsModule {
 
@@ -55,14 +43,13 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
       MyAddressRouter myAddressRouter, BalanceRouter balanceRouter,
       ExternalBrowserRouter externalBrowserRouter, DefaultTokenProvider defaultTokenProvider,
       TransactionsMapper transactionsMapper, AppcoinsApps applications,
-      OffChainTransactions offChainTransactions, RewardsLevelRouter rewardsLevelRouter,
-      GamificationInteractor gamificationInteractor, TopUpRouter topUpRouter,
-      TransactionsAnalytics analytics, BalanceInteract balanceInteract) {
+      RewardsLevelRouter rewardsLevelRouter, GamificationInteractor gamificationInteractor,
+      TopUpRouter topUpRouter, TransactionsAnalytics analytics, BalanceInteract balanceInteract) {
     return new TransactionsViewModelFactory(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, settingsRouter, sendRouter, transactionDetailRouter,
         myAddressRouter, balanceRouter, externalBrowserRouter, defaultTokenProvider,
-        transactionsMapper, applications, offChainTransactions, rewardsLevelRouter,
-        gamificationInteractor, topUpRouter, analytics, balanceInteract);
+        transactionsMapper, applications, rewardsLevelRouter, gamificationInteractor, topUpRouter,
+        analytics, balanceInteract);
   }
 
   @Provides FetchTransactionsInteract provideFetchTransactionsInteract(
@@ -102,7 +89,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
     return new ExternalBrowserRouter();
   }
 
-  @Provides TokenRepository provideTokenRepository(WalletRepositoryType walletRepository,
+  @Singleton @Provides TokenRepository provideTokenRepository(WalletRepositoryType walletRepository,
       TokenExplorerClientType tokenExplorerClientType, TokenLocalSource tokenLocalSource,
       TransactionLocalSource inDiskCache, TickerService tickerService, Web3jProvider web3j,
       NetworkInfo networkInfo, DefaultTokenProvider defaultTokenProvider) {
@@ -110,44 +97,8 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
         inDiskCache, tickerService, web3j, networkInfo, defaultTokenProvider);
   }
 
-  @Provides TransactionsMapper provideTransactionsMapper(DefaultTokenProvider defaultTokenProvider,
-      AppcoinsOperationsDataSaver operationsDataSaver) {
-    return new TransactionsMapper(defaultTokenProvider, operationsDataSaver, Schedulers.io());
-  }
-
   @Provides AirdropRouter provideAirdropRouter() {
     return new AirdropRouter();
-  }
-
-  @Provides OffChainTransactionsRepository providesOffChainTransactionsRepository(
-      OkHttpClient client) {
-
-    ObjectMapper objectMapper = new ObjectMapper();
-
-    DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
-    objectMapper.setDateFormat(df);
-    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-    Retrofit retrofit =
-        new Retrofit.Builder().addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(JacksonConverterFactory.create(objectMapper))
-            .client(client)
-            .baseUrl(com.asf.wallet.BuildConfig.BACKEND_HOST)
-            .build();
-
-    return new OffChainTransactionsRepository(
-        retrofit.create(OffChainTransactionsRepository.TransactionsApi.class));
-  }
-
-  @Provides OffChainTransactions providesOffChainTransactions(
-      OffChainTransactionsRepository repository, TransactionsMapper mapper,
-      FindDefaultWalletInteract walletFinder) {
-    return new OffChainTransactions(repository, mapper, walletFinder, getVersionCode(),
-        Schedulers.io());
-  }
-
-  private String getVersionCode() {
-    return String.valueOf(com.asf.wallet.BuildConfig.VERSION_CODE);
   }
 
   @Provides RewardsLevelRouter providerRewardsLevelRouter() {

@@ -71,6 +71,7 @@ public class ProofOfAttentionService {
                 throwable -> handleError(throwable, proof.getPackageName()))
                 .doOnSubscribe(disposable -> updateProofStatus(proof.getPackageName(),
                     ProofStatus.SUBMITTING))))
+        .retry()
         .subscribe());
 
     compositeDisposable.add(getReadyCountryCode().observeOn(computationScheduler)
