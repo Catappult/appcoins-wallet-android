@@ -363,10 +363,11 @@ public class ProofOfAttentionService {
     }
   }
 
-  public Single<ProofSubmissionFeeData> isWalletReady(int chainId) {
+  public Single<ProofSubmissionFeeData> isWalletReady(int chainId, String packageName,
+      int versionCode) {
     return Single.defer(() -> {
       synchronized (this) {
-        return proofWriter.hasWalletPrepared(chainId);
+        return proofWriter.hasWalletPrepared(chainId, packageName, versionCode);
       }
     });
   }

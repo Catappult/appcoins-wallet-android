@@ -5,6 +5,7 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.poa.Proof
 import com.asfoundation.wallet.poa.ProofSubmissionFeeData
 import com.asfoundation.wallet.poa.ProofWriter
+import com.asfoundation.wallet.service.Campaign
 import com.asfoundation.wallet.service.CampaignService
 import io.reactivex.Single
 import java.math.BigDecimal
@@ -19,23 +20,34 @@ open class BdsBackEndWriter(
         .flatMap { wallet -> service.submitProof(proof, wallet.address) }
   }
 
-  override fun hasWalletPrepared(chainId: Int): Single<ProofSubmissionFeeData> {
+  override fun hasWalletPrepared(chainId: Int,
+                                 packageName: String,
+                                 versionCode: Int): Single<ProofSubmissionFeeData>? {
     if (!isCorrectNetwork(chainId)) {
-      if (isKnownNetwork(chainId)) {
-        return Single.just(
+      return if (isKnownNetwork(chainId)) {
+        Single.just(
             ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.WRONG_NETWORK,
                 BigDecimal.ZERO, BigDecimal.ZERO))
       } else {
-        return Single.just(
+        Single.just(
             ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.UNKNOWN_NETWORK,
                 BigDecimal.ZERO, BigDecimal.ZERO))
       }
-
     }
+
     return defaultWalletInteract.find()
+        .flatMap {
+          service.getCampaign(it.address,
+              packageName, versionCode)
+        }
         .map {
-          ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY,
-              BigDecimal.ZERO, BigDecimal.ZERO)
+          if (!isEligible(it)) {
+            ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NOT_ELIGIBLE,
+                BigDecimal.ZERO, BigDecimal.ZERO)
+          } else {
+            ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY,
+                BigDecimal.ZERO, BigDecimal.ZERO)
+          }
         }
         .onErrorReturn {
           when (it) {
@@ -48,6 +60,10 @@ open class BdsBackEndWriter(
             else -> throw it
           }
         }
+  }
+
+  private fun isEligible(campaign: String): Boolean {
+    return campaign != Campaign.NOT_ELIGIBLE.toString()
   }
 
   private fun isKnownNetwork(chainId: Int): Boolean {

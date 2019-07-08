@@ -45,6 +45,6 @@ public class ProofSubmissionFeeData {
   }
 
   public enum RequirementsStatus {
-    READY, NO_FUNDS, NO_NETWORK, NO_WALLET, WRONG_NETWORK, UNKNOWN_NETWORK
+    READY, NO_FUNDS, NO_NETWORK, NO_WALLET, NOT_ELIGIBLE, WRONG_NETWORK, UNKNOWN_NETWORK
   }
 }
