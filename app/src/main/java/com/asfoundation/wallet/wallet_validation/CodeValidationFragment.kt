@@ -293,10 +293,11 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
 
     private var isPaste = false
     private var isStart = false
+    private var previousChar = ""
 
     override fun afterTextChanged(s: Editable?) {
       if (s?.length ?: 0 > 1 && isPaste && isValidPaste()) {
-        s?.replace(0, s.length, s.first().toString())
+        s?.replace(0, s.length, previousChar)
         val text = getTextFromClipboard()
         text?.forEachIndexed { index, digit ->
           when (index) {
@@ -321,6 +322,9 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
 
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
       isStart = start == 0
+      if(after > 0){
+        previousChar = s.toString()
+      }
     }
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
