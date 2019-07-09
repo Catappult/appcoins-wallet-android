@@ -6,8 +6,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -21,6 +19,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import com.airbnb.lottie.FontAssetDelegate;
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.TextDelegate;
@@ -56,6 +56,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   private static final String TRANSACTION_BUILDER_KEY = "transaction_builder";
   private static final String BONUS_KEY = "bonus";
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
+  @Inject BillingAnalytics analytics;
   private PublishRelay<String> buyButtonClick;
   private Button buyButton;
   private Button cancelButton;
@@ -81,7 +82,6 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   private Bundle extras;
   private String data;
   private boolean isBds;
-  @Inject BillingAnalytics analytics;
   private TransactionBuilder transaction;
   private LottieAnimationView lottieTransactionComplete;
 
@@ -180,6 +180,10 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
 
   @Override public void onDestroyView() {
     presenter.stop();
+    lottieTransactionComplete.removeAllAnimatorListeners();
+    lottieTransactionComplete.removeAllUpdateListeners();
+    lottieTransactionComplete.removeAllLottieOnCompositionLoadedListener();
+    lottieTransactionComplete = null;
     super.onDestroyView();
   }
 
@@ -301,16 +305,16 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     walletAddressTextView.setText(wallet);
   }
 
+  @Override public long getAnimationDuration() {
+    return lottieTransactionComplete.getDuration();
+  }
+
   @Override public void onAttach(Context context) {
     super.onAttach(context);
     if (!(context instanceof IabView)) {
       throw new IllegalStateException("Regular buy fragment must be attached to IAB activity");
     }
     iabView = ((IabView) context);
-  }
-
-  @Override public long getAnimationDuration() {
-    return lottieTransactionComplete.getDuration();
   }
 
   private void showLoading(@StringRes int message) {
