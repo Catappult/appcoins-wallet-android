@@ -114,22 +114,22 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
 
     code_1.code.addTextChangedListener(
         PasteTextWatcher(code_1.code, code_2.code, code_3.code, code_4.code, code_5.code,
-            code_6.code, clipboard))
+            code_6.code, clipboard, code_1.code))
     code_2.code.addTextChangedListener(
         PasteTextWatcher(code_1.code, code_2.code, code_3.code, code_4.code, code_5.code,
-            code_6.code, clipboard))
+            code_6.code, clipboard, code_2.code))
     code_3.code.addTextChangedListener(
         PasteTextWatcher(code_1.code, code_2.code, code_3.code, code_4.code, code_5.code,
-            code_6.code, clipboard))
+            code_6.code, clipboard, code_3.code))
     code_4.code.addTextChangedListener(
         PasteTextWatcher(code_1.code, code_2.code, code_3.code, code_4.code, code_5.code,
-            code_6.code, clipboard))
+            code_6.code, clipboard, code_4.code))
     code_5.code.addTextChangedListener(
         PasteTextWatcher(code_1.code, code_2.code, code_3.code, code_4.code, code_5.code,
-            code_6.code, clipboard))
+            code_6.code, clipboard, code_5.code))
     code_6.code.addTextChangedListener(
         PasteTextWatcher(code_1.code, code_2.code, code_3.code, code_4.code, code_5.code,
-            code_6.code, clipboard))
+            code_6.code, clipboard, code_6.code))
   }
 
   override fun clearUI() {
@@ -288,7 +288,8 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
       private val code_4: EditText,
       private val code_5: EditText,
       private val code_6: EditText,
-      private val clipboardManager: ClipboardManager
+      private val clipboardManager: ClipboardManager,
+      private val selectedEditText: EditText
   ) : TextWatcher {
 
     private var isPaste = false
@@ -297,7 +298,7 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
 
     override fun afterTextChanged(s: Editable?) {
       if (s?.length ?: 0 > 1 && isPaste && isValidPaste()) {
-        s?.replace(0, s.length, previousChar)
+        selectedEditText.setText(previousChar)
         val text = getTextFromClipboard()
         text?.forEachIndexed { index, digit ->
           when (index) {
