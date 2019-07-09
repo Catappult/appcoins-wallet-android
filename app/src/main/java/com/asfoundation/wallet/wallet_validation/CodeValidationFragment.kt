@@ -322,7 +322,7 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
 
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
       isStart = start == 0
-      if(after > 0){
+      if (after > 0) {
         previousChar = s.toString()
       }
     }
@@ -333,14 +333,13 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
 
     private fun isValidPaste(): Boolean {
       return clipboardManager.primaryClipDescription?.hasMimeType(
-          MIMETYPE_TEXT_PLAIN) == true && StringUtils.isNumeric(
-          clipboardManager.primaryClip?.getItemAt(0)
-              ?.text)
+          MIMETYPE_TEXT_PLAIN) == true && StringUtils.isNumeric(getTextFromClipboard())
     }
 
     private fun getTextFromClipboard(): String? {
       return clipboardManager.primaryClip?.getItemAt(0)
           ?.text?.toString()
+          ?.replace(Regex("[^\\d.]"), "")
     }
 
   }
