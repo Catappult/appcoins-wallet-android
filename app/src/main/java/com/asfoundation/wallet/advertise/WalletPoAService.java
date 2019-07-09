@@ -7,6 +7,8 @@ import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -91,10 +93,11 @@ public class WalletPoAService extends Service {
       if (!isBound) {
         // set the chain id received from the application. If not received, it is set as the main
         String packageName = intent.getStringExtra(PARAM_APP_PACKAGE_NAME);
+        int versionCode = getVersionCode(packageName);
 
         requirementsDisposable = proofOfAttentionService.handleCreateWallet()
-            .flatMap(aBoolean -> proofOfAttentionService.isWalletReady(
-                intent.getIntExtra(PARAM_NETWORK_ID, -1))
+            .flatMap(__ -> proofOfAttentionService.isWalletReady(
+                intent.getIntExtra(PARAM_NETWORK_ID, -1), packageName, versionCode)
                 // network chain id
                 .doOnSuccess(requirementsStatus -> proofOfAttentionService.setChainId(packageName,
                     intent.getIntExtra(PARAM_NETWORK_ID, -1)))
@@ -176,6 +179,12 @@ public class WalletPoAService extends Service {
         // Show notification mentioning that we have no wallet configured on the app
         notificationManager.notify(SERVICE_ID,
             createDefaultNotificationBuilder(R.string.notification_no_network_poa).build());
+        stopForeground(false);
+        stopTimeout();
+        break;
+      case NOT_ELIGIBLE:
+        notificationManager.notify(SERVICE_ID,
+            createDefaultNotificationBuilder(R.string.notification_already_rewarded_poa).build());
         stopForeground(false);
         stopTimeout();
         break;
@@ -488,5 +497,18 @@ public class WalletPoAService extends Service {
           super.handleMessage(msg);
       }
     }
+  }
+
+  private int getVersionCode(String packageName) {
+    PackageInfo packageInfo;
+    int versionCode = -1;
+    try {
+      packageInfo = getPackageManager().getPackageInfo(packageName, 0);
+      versionCode = packageInfo.versionCode;
+    } catch (PackageManager.NameNotFoundException e) {
+      logger.log(new Throwable("Package not found exception"));
+      e.printStackTrace();
+    }
+    return versionCode;
   }
 }

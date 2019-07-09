@@ -8,6 +8,7 @@ import com.asfoundation.wallet.interact.CreateWalletInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.repository.BdsBackEndWriter;
 import com.asfoundation.wallet.repository.WalletNotFoundException;
+import com.asfoundation.wallet.service.Campaign;
 import com.asfoundation.wallet.service.CampaignService;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
@@ -51,6 +52,9 @@ public class ProofOfAttentionServiceTest {
   private MemoryCache<String, Proof> cache;
   private int maxNumberProofComponents = 3;
   private long nonce;
+  private String packageName = "package";
+  private int versionCode = 0;
+  private String campaignId = "110";
   private TestScheduler testScheduler;
   private BehaviorSubject<Wallet> hasWallet;
   private ProofWriter proofWriter;
@@ -75,6 +79,10 @@ public class ProofOfAttentionServiceTest {
     nonce = 1L;
     wallet = "wallet_address";
     when(defaultWalletInteract.find()).thenReturn(hasWallet.firstOrError());
+
+    when(campaignService.getCampaign(wallet, packageName, versionCode)).thenReturn(
+        Single.just(campaignId));
+
     when(campaignService.submitProof(any(Proof.class), eq(wallet))).thenReturn(
         Single.just(SUBMIT_HASH));
     when(hashCalculator.calculateNonce(any(NonceData.class))).thenReturn(nonce);
@@ -306,9 +314,10 @@ public class ProofOfAttentionServiceTest {
   }
 
   @Test public void isWalletReady() {
-    TestObserver<ProofSubmissionFeeData> ready = proofOfAttentionService.isWalletReady(chainId)
-        .subscribeOn(testScheduler)
-        .test();
+    TestObserver<ProofSubmissionFeeData> ready =
+        proofOfAttentionService.isWalletReady(chainId, packageName, versionCode)
+            .subscribeOn(testScheduler)
+            .test();
     ProofSubmissionFeeData readyFee =
         new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY, BigDecimal.ZERO,
             BigDecimal.ZERO);
@@ -320,9 +329,10 @@ public class ProofOfAttentionServiceTest {
   }
 
   @Test public void noWalletReady() {
-    TestObserver<ProofSubmissionFeeData> noWallet = proofOfAttentionService.isWalletReady(chainId)
-        .subscribeOn(testScheduler)
-        .test();
+    TestObserver<ProofSubmissionFeeData> noWallet =
+        proofOfAttentionService.isWalletReady(chainId, packageName, versionCode)
+            .subscribeOn(testScheduler)
+            .test();
     ProofSubmissionFeeData noWalletFee =
         new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NO_WALLET,
             BigDecimal.ZERO, BigDecimal.ZERO);
@@ -333,10 +343,28 @@ public class ProofOfAttentionServiceTest {
         .assertValue(noWalletFee);
   }
 
+  @Test public void alreadyRewardedTest() {
+    when(campaignService.getCampaign(wallet, packageName, versionCode)).thenReturn(
+        Single.just(Campaign.NOT_ELIGIBLE.toString()));
+    TestObserver<ProofSubmissionFeeData> noFunds =
+        proofOfAttentionService.isWalletReady(chainId, packageName, versionCode)
+            .subscribeOn(testScheduler)
+            .test();
+    ProofSubmissionFeeData noFundsFee =
+        new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NOT_ELIGIBLE,
+            BigDecimal.ZERO, BigDecimal.ZERO);
+    hasWallet.onNext(new Wallet(wallet));
+    testScheduler.triggerActions();
+    noFunds.assertComplete()
+        .assertNoErrors()
+        .assertValue(noFundsFee);
+  }
+
   @Test public void noNetwork() {
-    TestObserver<ProofSubmissionFeeData> noFunds = proofOfAttentionService.isWalletReady(chainId)
-        .subscribeOn(testScheduler)
-        .test();
+    TestObserver<ProofSubmissionFeeData> noFunds =
+        proofOfAttentionService.isWalletReady(chainId, packageName, versionCode)
+            .subscribeOn(testScheduler)
+            .test();
     ProofSubmissionFeeData noFundsFee =
         new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NO_NETWORK,
             BigDecimal.ZERO, BigDecimal.ZERO);
@@ -351,7 +379,7 @@ public class ProofOfAttentionServiceTest {
     int wrongChainId;
     wrongChainId = chainId == 3 ? 1 : 3;
     TestObserver<ProofSubmissionFeeData> noFunds =
-        proofOfAttentionService.isWalletReady(wrongChainId)
+        proofOfAttentionService.isWalletReady(wrongChainId, packageName, versionCode)
             .subscribeOn(testScheduler)
             .test();
     ProofSubmissionFeeData wrongNetwork =
@@ -365,9 +393,10 @@ public class ProofOfAttentionServiceTest {
   }
 
   @Test public void unknownNetwork() {
-    TestObserver<ProofSubmissionFeeData> noFunds = proofOfAttentionService.isWalletReady(-1)
-        .subscribeOn(testScheduler)
-        .test();
+    TestObserver<ProofSubmissionFeeData> noFunds =
+        proofOfAttentionService.isWalletReady(-1, packageName, versionCode)
+            .subscribeOn(testScheduler)
+            .test();
     ProofSubmissionFeeData wrongNetwork =
         new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.UNKNOWN_NETWORK,
             BigDecimal.ZERO, BigDecimal.ZERO);

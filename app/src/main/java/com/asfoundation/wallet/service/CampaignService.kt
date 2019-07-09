@@ -31,7 +31,8 @@ class CampaignService(
   fun getCampaign(address: String, packageName: String, packageVersionCode: Int): Single<String> {
     return campaignApi.getCampaign(address, packageName, packageVersionCode)
         .map { response -> handleResponse(response) }
-        .subscribeOn(Schedulers.io()).singleOrError()
+        .subscribeOn(Schedulers.io())
+        .singleOrError()
   }
 
   private fun handleResponse(response: SubmitPoAResponse): String {
@@ -43,11 +44,11 @@ class CampaignService(
   }
 
   private fun handleResponse(response: GetCampaignResponse): String {
-    return if (!response.status.equals(GetCampaignResponse.EligibleResponseStatus.NOT_ELIGIBLE)
+    return if (response.status != GetCampaignResponse.EligibleResponseStatus.NOT_ELIGIBLE
         && response.bidId != null) {
       response.bidId
     } else {
-      ""
+      Campaign.NOT_ELIGIBLE.toString()
     }
   }
 
@@ -72,3 +73,7 @@ class SerializedProof(val bid_id: String?,
                       val nonces: List<ProofComponent>,
                       val store: String,
                       val oem: String)
+
+enum class Campaign {
+  NOT_ELIGIBLE
+}
