@@ -41,11 +41,11 @@ open class BdsBackEndWriter(
               packageName, versionCode)
         }
         .map {
-          if (!isEligible(it)) {
-            ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NOT_ELIGIBLE,
+          if (isEligible(it)) {
+            ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY,
                 BigDecimal.ZERO, BigDecimal.ZERO)
           } else {
-            ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY,
+            ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NOT_ELIGIBLE,
                 BigDecimal.ZERO, BigDecimal.ZERO)
           }
         }
