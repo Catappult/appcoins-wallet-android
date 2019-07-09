@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.os.Bundle
 import io.reactivex.Observable
 
 interface LocalPaymentView {
@@ -12,6 +13,8 @@ interface LocalPaymentView {
   fun getOkErrorClick(): Observable<Any>
   fun getOkBuyClick(): Observable<Any>
   fun close()
+  fun getAnimationDuration(): Long
+  fun popView(bundle: Bundle)
 
   enum class ViewState {
     NONE, COMPLETED, PENDING_USER_PAYMENT, ERROR, LOADING

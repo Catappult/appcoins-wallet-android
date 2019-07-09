@@ -11,6 +11,8 @@ import org.jetbrains.annotations.NotNull;
 
 public interface IabView {
 
+  void disableBack();
+
   void finish(Bundle data);
 
   void showError();
@@ -30,7 +32,7 @@ public interface IabView {
   void showAppcoinsCreditsPayment(BigDecimal amount);
 
   void showLocalPayment(String domain, String skuId, String originalAmount, String currency,
-      String bonus, String selectedPaymentMethod);
+      String bonus, String selectedPaymentMethod, boolean isInApp, String developerAddress);
 
   void showPaymentMethodsView();
 

@@ -119,15 +119,8 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     }
   }
 
-  @Override protected void onNewIntent(Intent intent) {
-    super.onNewIntent(intent);
-    results.accept(Objects.requireNonNull(intent.getData(), "Intent data cannot be null!"));
-  }
-
-  @Override protected void onSaveInstanceState(Bundle outState) {
-    super.onSaveInstanceState(outState);
-
-    outState.putBundle(SKU_DETAILS, skuDetails);
+  @Override public void disableBack() {
+    isBackEnable = false;
   }
 
   @Override public void finish(Bundle bundle) {
@@ -194,11 +187,11 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
 
   @Override
   public void showLocalPayment(String domain, String skuId, String originalAmount, String currency,
-      String bonus, String selectedPaymentMethod) {
+      String bonus, String selectedPaymentMethod, boolean isInApp, String developerAddress) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container,
             LocalPaymentFragment.newInstance(domain, skuId, originalAmount, currency, bonus,
-                selectedPaymentMethod))
+                selectedPaymentMethod, isInApp, developerAddress))
         .commit();
   }
 
@@ -218,6 +211,17 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
             SharePaymentLinkFragment.newInstance(domain, skuId, originalAmount, originalCurrency,
                 amount, type, selectedPaymentMethod))
         .commit();
+  }
+
+  @Override protected void onNewIntent(Intent intent) {
+    super.onNewIntent(intent);
+    results.accept(Objects.requireNonNull(intent.getData(), "Intent data cannot be null!"));
+  }
+
+  @Override protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+
+    outState.putBundle(SKU_DETAILS, skuDetails);
   }
 
   @Nullable private String getOrigin(boolean isBds) {
