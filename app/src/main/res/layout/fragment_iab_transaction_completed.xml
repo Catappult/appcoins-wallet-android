@@ -31,6 +31,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/transaction_success_text"
       app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="false"
       app:lottie_rawRes="@raw/transaction_complete_bonus_animation"
       />

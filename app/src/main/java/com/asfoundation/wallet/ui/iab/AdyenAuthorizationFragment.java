@@ -145,6 +145,11 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
         getAmount().toString(), getCurrency(), getPaymentType(), analytics, Schedulers.io());
   }
 
+  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
+      Bundle savedInstanceState) {
+    return inflater.inflate(R.layout.dialog_credit_card_authorization, container, false);
+  }
+
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
@@ -215,11 +220,6 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     presenter.present(savedInstanceState);
   }
 
-  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
-    return inflater.inflate(R.layout.dialog_credit_card_authorization, container, false);
-  }
-
   @Override public void onSaveInstanceState(@NonNull Bundle outState) {
     super.onSaveInstanceState(outState);
 
@@ -246,6 +246,10 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     changeCardButton = null;
     creditCardInformationsLayout = null;
     walletInformationsFooter = null;
+    lottieTransactionComplete.removeAllAnimatorListeners();
+    lottieTransactionComplete.removeAllUpdateListeners();
+    lottieTransactionComplete.removeAllLottieOnCompositionLoadedListener();
+    lottieTransactionComplete = null;
     transactionCompletedLayout = null;
     mainView = null;
     errorView = null;
@@ -314,6 +318,12 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
         .map(__ -> paymentMethod);
   }
 
+  @Override public void showNetworkError() {
+    mainView.setVisibility(View.GONE);
+    errorView.setVisibility(View.VISIBLE);
+    errorMessage.setText(R.string.notification_no_network_poa);
+  }
+
   @Override public Observable<Object> cancelEvent() {
     return RxView.clicks(cancelButton)
         .mergeWith(backButton);
@@ -379,12 +389,6 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     walletInformationsFooter.setVisibility(View.GONE);
     transactionCompletedLayout.setVisibility(View.VISIBLE);
     errorView.setVisibility(View.GONE);
-  }
-
-  @Override public void showNetworkError() {
-    mainView.setVisibility(View.GONE);
-    errorView.setVisibility(View.VISIBLE);
-    errorMessage.setText(R.string.notification_no_network_poa);
   }
 
   @Override public void showPaymentRefusedError(AdyenAuthorization adyenAuthorization) {
