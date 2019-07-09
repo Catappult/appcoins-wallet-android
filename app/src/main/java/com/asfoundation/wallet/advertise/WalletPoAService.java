@@ -90,31 +90,25 @@ public class WalletPoAService extends Service {
       if (!isBound) {
         // set the chain id received from the application. If not received, it is set as the main
         String packageName = intent.getStringExtra(PARAM_APP_PACKAGE_NAME);
-        PackageInfo packageInfo;
-        try {
-          packageInfo = getPackageManager().getPackageInfo(packageName, 0);
-          requirementsDisposable = proofOfAttentionService.handleCreateWallet()
-              .flatMap(__ -> proofOfAttentionService.isWalletReady(
-                  intent.getIntExtra(PARAM_NETWORK_ID, -1), packageName, packageInfo.versionCode)
-                  // network chain id
-                  .doOnSuccess(requirementsStatus -> proofOfAttentionService.setChainId(packageName,
-                      intent.getIntExtra(PARAM_NETWORK_ID, -1)))
-                  .doOnSuccess(
-                      proofSubmissionFeeData -> proofOfAttentionService.setGasSettings(packageName,
-                          proofSubmissionFeeData.getGasPrice(),
-                          proofSubmissionFeeData.getGasLimit()))
-                  .doOnSuccess(
-                      requirementsStatus -> processWalletState(requirementsStatus.getStatus(),
-                          intent)))
-              .subscribe(requirementsStatus -> {
-              }, throwable -> {
-                logger.log(throwable);
-                showGenericErrorNotificationAndStopForeground();
-              });
-        } catch (PackageManager.NameNotFoundException e) {
-          logger.log(new Throwable("Package not found exception"));
-          e.printStackTrace();
-        }
+        int versionCode = getVersionCode(packageName);
+
+        requirementsDisposable = proofOfAttentionService.handleCreateWallet()
+            .flatMap(__ -> proofOfAttentionService.isWalletReady(
+                intent.getIntExtra(PARAM_NETWORK_ID, -1), packageName, versionCode)
+                // network chain id
+                .doOnSuccess(requirementsStatus -> proofOfAttentionService.setChainId(packageName,
+                    intent.getIntExtra(PARAM_NETWORK_ID, -1)))
+                .doOnSuccess(
+                    proofSubmissionFeeData -> proofOfAttentionService.setGasSettings(packageName,
+                        proofSubmissionFeeData.getGasPrice(), proofSubmissionFeeData.getGasLimit()))
+                .doOnSuccess(
+                    requirementsStatus -> processWalletState(requirementsStatus.getStatus(),
+                        intent)))
+            .subscribe(requirementsStatus -> {
+            }, throwable -> {
+              logger.log(throwable);
+              showGenericErrorNotificationAndStopForeground();
+            });
       }
       setTimeout(intent.getStringExtra(PARAM_APP_PACKAGE_NAME));
     }
@@ -488,5 +482,18 @@ public class WalletPoAService extends Service {
           super.handleMessage(msg);
       }
     }
+  }
+
+  private int getVersionCode(String packageName) {
+    PackageInfo packageInfo;
+    int versionCode = -1;
+    try {
+      packageInfo = getPackageManager().getPackageInfo(packageName, 0);
+      versionCode = packageInfo.versionCode;
+    } catch (PackageManager.NameNotFoundException e) {
+      logger.log(new Throwable("Package not found exception"));
+      e.printStackTrace();
+    }
+    return versionCode;
   }
 }

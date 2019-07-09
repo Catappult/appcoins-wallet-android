@@ -41,7 +41,7 @@ open class BdsBackEndWriter(
               packageName, versionCode)
         }
         .map {
-          if (isEligible(it)) {
+          if (isEligible(it, versionCode)) {
             ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY,
                 BigDecimal.ZERO, BigDecimal.ZERO)
           } else {
@@ -62,8 +62,8 @@ open class BdsBackEndWriter(
         }
   }
 
-  private fun isEligible(campaign: String): Boolean {
-    return campaign != Campaign.NOT_ELIGIBLE.toString()
+  private fun isEligible(campaign: String, versionCode: Int): Boolean {
+    return campaign != Campaign.NOT_ELIGIBLE.toString() || versionCode == -1
   }
 
   private fun isKnownNetwork(chainId: Int): Boolean {
