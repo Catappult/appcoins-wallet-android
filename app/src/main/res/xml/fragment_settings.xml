@@ -27,18 +27,14 @@
 
     <Preference
         android:icon="@mipmap/settings_open_source"
+        android:key="pref_source_code"
         android:title="@string/title_source_code">
-      <intent
-          android:action="android.intent.action.VIEW"
-          android:data="https://github.com/Aptoide/appcoins-wallet-android"/>
     </Preference>
 
     <Preference
         android:icon="@mipmap/settings_bug"
+        android:key="pref_report_bug"
         android:title="@string/title_report_bug">
-      <intent
-          android:action="android.intent.action.VIEW"
-          android:data="https://github.com/Aptoide/appcoins-wallet-android/issues/new"/>
     </Preference>
 
   </PreferenceCategory>
@@ -68,10 +64,8 @@
 
     <Preference
         android:icon="@mipmap/settings_telegram"
+        android:key="pref_telegram"
         android:title="@string/telegram">
-      <intent
-          android:action="android.intent.action.VIEW"
-          android:data="https://t.me/appcoinsofficial"/>
     </Preference>
 
     <Preference
@@ -94,18 +88,14 @@
 
     <Preference
         android:icon="@mipmap/settings_privacy_policy"
+        android:key="pref_privacy_policy"
         android:title="@string/title_privacy_policy">
-      <intent
-          android:action="android.intent.action.VIEW"
-          android:data="https://catappult.io/appcoins-wallet/privacy-policy"/>
     </Preference>
 
     <Preference
         android:icon="@mipmap/settings_terms"
+        android:key="pref_terms_condition"
         android:title="@string/title_terms">
-      <intent
-          android:action="android.intent.action.VIEW"
-          android:data="https://catappult.io/appcoins-wallet/terms-conditions"/>
     </Preference>
 
 

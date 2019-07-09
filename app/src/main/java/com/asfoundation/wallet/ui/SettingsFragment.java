@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui;
 
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -16,6 +17,7 @@ import com.asf.wallet.R;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity;
 import com.asfoundation.wallet.router.ManageWalletsRouter;
+import com.google.android.material.snackbar.Snackbar;
 import dagger.android.AndroidInjection;
 import javax.inject.Inject;
 
@@ -35,8 +37,9 @@ public class SettingsFragment extends PreferenceFragment {
     final Preference redeem = findPreference("pref_redeem");
     redeem.setOnPreferenceClickListener(preference -> {
       findDefaultWalletInteract.find()
-          .subscribe(wallet -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(
-              BuildConfig.MY_APPCOINS_BASE_HOST + "redeem?wallet_address=" + wallet.address))));
+          .subscribe(wallet -> startBrowserActivity(Uri.parse(
+              BuildConfig.MY_APPCOINS_BASE_HOST + "redeem?wallet_address=" + wallet.address),
+              false));
       return false;
     });
     final Preference wallets = findPreference("pref_wallet");
@@ -69,22 +72,17 @@ public class SettingsFragment extends PreferenceFragment {
         // get the Twitter app if possible
         getActivity().getPackageManager()
             .getPackageInfo("com.twitter.android", 0);
-        intent =
-            new Intent(Intent.ACTION_VIEW, Uri.parse("twitter://user?user_id=915531221551255552"));
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startBrowserActivity(Uri.parse("twitter://user?user_id=915531221551255552"), true);
       } catch (Exception e) {
         // no Twitter app, revert to browser
-        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/AppCoinsProject"));
+        startBrowserActivity(Uri.parse("https://twitter.com/AppCoinsProject"), false);
       }
-      startActivity(intent);
       return false;
     });
 
     final Preference facebook = findPreference("pref_facebook");
     facebook.setOnPreferenceClickListener(preference -> {
-      Intent intent =
-          new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/AppCoinsOfficial"));
-      startActivity(intent);
+      startBrowserActivity(Uri.parse("https://www.facebook.com/AppCoinsOfficial"), false);
       return false;
     });
 
@@ -112,6 +110,38 @@ public class SettingsFragment extends PreferenceFragment {
           .show();
       return true;
     });
+
+    final Preference sourceCode = findPreference("pref_source_code");
+    sourceCode.setOnPreferenceClickListener(preference -> {
+      startBrowserActivity(Uri.parse("https://github.com/Aptoide/appcoins-wallet-android"), false);
+      return false;
+    });
+
+    final Preference bugReport = findPreference("pref_report_bug");
+    bugReport.setOnPreferenceClickListener(preference -> {
+      startBrowserActivity(
+          Uri.parse("https://github.com/Aptoide/appcoins-wallet-android/issues/new"), false);
+      return false;
+    });
+
+    final Preference telegram = findPreference("pref_telegram");
+    telegram.setOnPreferenceClickListener(preference -> {
+      startBrowserActivity(Uri.parse("https://t.me/appcoinsofficial"), false);
+      return false;
+    });
+
+    final Preference privacyPolicy = findPreference("pref_privacy_policy");
+    privacyPolicy.setOnPreferenceClickListener(preference -> {
+      startBrowserActivity(Uri.parse("https://catappult.io/appcoins-wallet/privacy-policy"), false);
+      return false;
+    });
+
+    final Preference termsCondition = findPreference("pref_terms_condition");
+    termsCondition.setOnPreferenceClickListener(preference -> {
+      startBrowserActivity(Uri.parse("https://catappult.io/appcoins-wallet/terms-conditions"),
+          false);
+      return false;
+    });
   }
 
   private boolean openPermissionScreen() {
@@ -129,6 +159,22 @@ public class SettingsFragment extends PreferenceFragment {
       e.printStackTrace();
     }
     return version;
+  }
+
+  private void startBrowserActivity(Uri uri, boolean newTaskFlag) {
+    try {
+      Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+      if (newTaskFlag) {
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      }
+      startActivity(intent);
+    } catch (ActivityNotFoundException exception) {
+      exception.printStackTrace();
+      if (getView() != null) {
+        Snackbar.make(getView(), R.string.unknown_error, Snackbar.LENGTH_SHORT)
+            .show();
+      }
+    }
   }
 }
 
