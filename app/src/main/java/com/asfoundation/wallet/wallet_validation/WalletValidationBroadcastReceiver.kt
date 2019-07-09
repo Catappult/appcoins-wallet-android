@@ -26,8 +26,8 @@ class WalletValidationBroadcastReceiver : BroadcastReceiver() {
     notificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-
     notificationManager.cancel(VERIFICATION_SERVICE_ID)
+    context.sendBroadcast(Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS))
 
     when (intent.getStringExtra(ACTION_KEY)) {
       ACTION_START_VALIDATION -> {
