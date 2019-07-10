@@ -28,7 +28,8 @@ class CampaignService(
         .singleOrError()
   }
 
-  fun getCampaign(address: String, packageName: String, packageVersionCode: Int): Single<String> {
+  fun getCampaign(address: String, packageName: String,
+                  packageVersionCode: Int): Single<Campaign> {
     return campaignApi.getCampaign(address, packageName, packageVersionCode)
         .map { response -> handleResponse(response) }
         .subscribeOn(Schedulers.io())
@@ -43,15 +44,17 @@ class CampaignService(
     }
   }
 
-  private fun handleResponse(response: GetCampaignResponse): String {
-    return if (response.status != GetCampaignResponse.EligibleResponseStatus.NOT_ELIGIBLE
-        && response.bidId != null) {
-      response.bidId
+  private fun handleResponse(response: GetCampaignResponse): Campaign {
+    return if (response.status != GetCampaignResponse.EligibleResponseStatus.NOT_ELIGIBLE) {
+      if (response.bidId != null) {
+        Campaign(response.bidId, CampaignStatus.AVAILABLE)
+      } else {
+        Campaign("", CampaignStatus.NO_CAMPAIGN_AVAILABLE)
+      }
     } else {
-      Campaign.NOT_ELIGIBLE.toString()
+      Campaign("", CampaignStatus.NOT_ELIGIBLE)
     }
   }
-
 
   interface CampaignApi {
     @Headers("Content-Type: application/json")
@@ -74,6 +77,8 @@ class SerializedProof(val bid_id: String?,
                       val store: String,
                       val oem: String)
 
-enum class Campaign {
-  NOT_ELIGIBLE
+enum class CampaignStatus {
+  AVAILABLE, NOT_ELIGIBLE, NO_CAMPAIGN_AVAILABLE
 }
+
+data class Campaign(val campaignId: String, val campaignStatus: CampaignStatus)

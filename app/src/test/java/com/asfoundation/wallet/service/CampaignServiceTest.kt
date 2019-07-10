@@ -58,6 +58,7 @@ class CampaignServiceTest {
   fun testUserEligible() {
     val observer = TestObserver<String>()
     campaignService.getCampaign(ELIGIBLE_ADDRESS, PACKAGE_WITH_CAMPAIGN, VERSION_CODE)
+        .map { it.campaignId }
         .subscribe(observer)
     scheduler.triggerActions()
     observer.awaitTerminalEvent()
@@ -69,14 +70,15 @@ class CampaignServiceTest {
 
   @Test
   fun testUserNotEligible() {
-    val observer = TestObserver<String>()
+    val observer = TestObserver<CampaignStatus>()
     campaignService.getCampaign(NOT_ELIGIBLE_ADDRESS, PACKAGE_WITH_CAMPAIGN, VERSION_CODE)
+        .map { it.campaignStatus }
         .subscribe(observer)
     scheduler.triggerActions()
     observer.awaitTerminalEvent()
 
     observer.assertNoErrors()
-        .assertValue(Campaign.NOT_ELIGIBLE.toString())
+        .assertValue(CampaignStatus.NOT_ELIGIBLE)
 
   }
 
@@ -84,6 +86,7 @@ class CampaignServiceTest {
   fun testUserRequiresValidation() {
     val observer = TestObserver<String>()
     campaignService.getCampaign(REQUIRES_VALIDATION_ADDRESS, PACKAGE_WITH_CAMPAIGN, VERSION_CODE)
+        .map { it.campaignId }
         .subscribe(observer)
     scheduler.triggerActions()
     observer.awaitTerminalEvent()
@@ -95,14 +98,15 @@ class CampaignServiceTest {
 
   @Test
   fun testNoCampaignAvailable() {
-    val observer = TestObserver<String>()
+    val observer = TestObserver<CampaignStatus>()
     campaignService.getCampaign(ELIGIBLE_ADDRESS, PACKAGE_WITHOUT_CAMPAIGN, VERSION_CODE)
+        .map { it.campaignStatus }
         .subscribe(observer)
     scheduler.triggerActions()
     observer.awaitTerminalEvent()
 
     observer.assertNoErrors()
-        .assertValue(Campaign.NOT_ELIGIBLE.toString())
+        .assertValue(CampaignStatus.NO_CAMPAIGN_AVAILABLE)
 
   }
 

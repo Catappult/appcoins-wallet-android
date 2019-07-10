@@ -5,8 +5,8 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.poa.Proof
 import com.asfoundation.wallet.poa.ProofSubmissionFeeData
 import com.asfoundation.wallet.poa.ProofWriter
-import com.asfoundation.wallet.service.Campaign
 import com.asfoundation.wallet.service.CampaignService
+import com.asfoundation.wallet.service.CampaignStatus
 import io.reactivex.Single
 import java.math.BigDecimal
 import java.net.UnknownHostException
@@ -41,11 +41,16 @@ open class BdsBackEndWriter(
               packageName, versionCode)
         }
         .map {
-          if (isEligible(it, versionCode)) {
-            ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY,
-                BigDecimal.ZERO, BigDecimal.ZERO)
+          if (isAvailable(it.campaignStatus)) {
+            if (isEligible(it.campaignStatus)) {
+              ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY,
+                  BigDecimal.ZERO, BigDecimal.ZERO)
+            } else {
+              ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NOT_ELIGIBLE,
+                  BigDecimal.ZERO, BigDecimal.ZERO)
+            }
           } else {
-            ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NOT_ELIGIBLE,
+            ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NOT_AVAILABLE,
                 BigDecimal.ZERO, BigDecimal.ZERO)
           }
         }
@@ -62,8 +67,12 @@ open class BdsBackEndWriter(
         }
   }
 
-  private fun isEligible(campaign: String, versionCode: Int): Boolean {
-    return campaign != Campaign.NOT_ELIGIBLE.toString() || versionCode == -1
+  private fun isAvailable(campaignStatus: CampaignStatus): Boolean {
+    return campaignStatus != CampaignStatus.NO_CAMPAIGN_AVAILABLE
+  }
+
+  private fun isEligible(campaignStatus: CampaignStatus): Boolean {
+    return campaignStatus != CampaignStatus.NOT_ELIGIBLE
   }
 
   private fun isKnownNetwork(chainId: Int): Boolean {
