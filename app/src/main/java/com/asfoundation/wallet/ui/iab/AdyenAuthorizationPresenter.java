@@ -42,7 +42,6 @@ public class AdyenAuthorizationPresenter {
   private final Navigator navigator;
   private final BillingMessagesMapper billingMessagesMapper;
   private final InAppPurchaseInteractor inAppPurchaseInteractor;
-  private final String transactionData;
   private final String developerPayload;
   private final Billing billing;
   private final String skuId;
@@ -59,7 +58,7 @@ public class AdyenAuthorizationPresenter {
   private boolean waitingResult;
   private Scheduler ioScheduler;
 
-  public AdyenAuthorizationPresenter(AdyenAuthorizationView view, String appPackage,
+  AdyenAuthorizationPresenter(AdyenAuthorizationView view, String appPackage,
       FindDefaultWalletInteract defaultWalletInteract, Scheduler viewScheduler,
       CompositeDisposable disposables, Adyen adyen, BillingService billingService,
       Navigator navigator, BillingMessagesMapper billingMessagesMapper,
@@ -77,7 +76,6 @@ public class AdyenAuthorizationPresenter {
     this.navigator = navigator;
     this.billingMessagesMapper = billingMessagesMapper;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
-    this.transactionData = transactionData;
     this.developerPayload = developerPayload;
     this.billing = billing;
     this.skuId = skuId;
@@ -361,21 +359,21 @@ public class AdyenAuthorizationPresenter {
     disposables.clear();
   }
 
-  public void sendPaymentMethodDetailsEvent() {
+  void sendPaymentMethodDetailsEvent() {
     disposables.add(transactionBuilder.subscribe(
         transactionBuilder -> analytics.sendPaymentMethodDetailsEvent(appPackage,
             transactionBuilder.getSkuId(), transactionBuilder.amount()
                 .toString(), PAYMENT_METHOD_CC, transactionBuilder.getType())));
   }
 
-  public void sendPaymentEvent() {
+  private void sendPaymentEvent() {
     disposables.add(transactionBuilder.subscribe(
         transactionBuilder -> analytics.sendPaymentEvent(appPackage, transactionBuilder.getSkuId(),
             transactionBuilder.amount()
                 .toString(), PAYMENT_METHOD_CC, transactionBuilder.getType())));
   }
 
-  public void sendRevenueEvent() {
+  private void sendRevenueEvent() {
     disposables.add(transactionBuilder.subscribe(transactionBuilder -> analytics.sendRevenueEvent(
         inAppPurchaseInteractor.convertToFiat(transactionBuilder.amount()
             .doubleValue(), EVENT_REVENUE_CURRENCY)

@@ -44,7 +44,7 @@ public class InAppPurchaseInteractor {
     this.billing = billing;
   }
 
-  public Single<TransactionBuilder> parseTransaction(String uri, boolean isBds) {
+  Single<TransactionBuilder> parseTransaction(String uri, boolean isBds) {
     if (isBds) {
       return bdsInAppPurchaseInteractor.parseTransaction(uri);
     } else {
@@ -64,7 +64,7 @@ public class InAppPurchaseInteractor {
     }
   }
 
-  public Completable resume(String uri, AsfInAppPurchaseInteractor.TransactionType transactionType,
+  Completable resume(String uri, AsfInAppPurchaseInteractor.TransactionType transactionType,
       String packageName, String productName, String developerPayload, boolean isBds) {
     if (isBds) {
       return bdsInAppPurchaseInteractor.resume(uri, transactionType, packageName, productName,
@@ -74,7 +74,7 @@ public class InAppPurchaseInteractor {
     }
   }
 
-  public Observable<Payment> getTransactionState(String uri) {
+  Observable<Payment> getTransactionState(String uri) {
     return Observable.merge(asfInAppPurchaseInteractor.getTransactionState(uri),
         bdsInAppPurchaseInteractor.getTransactionState(uri));
   }
@@ -94,7 +94,7 @@ public class InAppPurchaseInteractor {
         bdsInAppPurchaseInteractor.getAll());
   }
 
-  public List<BigDecimal> getTopUpChannelSuggestionValues(BigDecimal price) {
+  List<BigDecimal> getTopUpChannelSuggestionValues(BigDecimal price) {
     return bdsInAppPurchaseInteractor.getTopUpChannelSuggestionValues(price);
   }
 
@@ -102,12 +102,12 @@ public class InAppPurchaseInteractor {
     return asfInAppPurchaseInteractor.getWalletAddress();
   }
 
-  public Single<AsfInAppPurchaseInteractor.CurrentPaymentStep> getCurrentPaymentStep(
-      String packageName, TransactionBuilder transactionBuilder) {
+  Single<AsfInAppPurchaseInteractor.CurrentPaymentStep> getCurrentPaymentStep(String packageName,
+      TransactionBuilder transactionBuilder) {
     return asfInAppPurchaseInteractor.getCurrentPaymentStep(packageName, transactionBuilder);
   }
 
-  public Single<FiatValue> convertToFiat(double appcValue, String currency) {
+  Single<FiatValue> convertToFiat(double appcValue, String currency) {
     return asfInAppPurchaseInteractor.convertToFiat(appcValue, currency);
   }
 
@@ -119,20 +119,11 @@ public class InAppPurchaseInteractor {
     return bdsInAppPurchaseInteractor.getBillingMessagesMapper();
   }
 
-  public ExternalBillingSerializer getBillingSerializer() {
-    return bdsInAppPurchaseInteractor.getBillingSerializer();
-  }
-
-  public Single<Transaction> getCompletedTransaction(String packageName, String productName,
-      String type) {
-    return asfInAppPurchaseInteractor.getTransaction(packageName, productName, type);
-  }
-
   private Single<Purchase> getCompletedPurchase(String packageName, String productName) {
     return bdsInAppPurchaseInteractor.getCompletedPurchase(packageName, productName);
   }
 
-  public Single<Payment> getCompletedPurchase(Payment transaction, boolean isBds) {
+  Single<Payment> getCompletedPurchase(Payment transaction, boolean isBds) {
     return parseTransaction(transaction.getUri(), isBds).flatMap(transactionBuilder -> {
       if (isBds && transactionBuilder.getType()
           .equalsIgnoreCase(TransactionData.TransactionType.INAPP.name())) {
@@ -224,7 +215,7 @@ public class InAppPurchaseInteractor {
             .toObservable());
   }
 
-  public Single<List<PaymentMethod>> getPaymentMethods(TransactionBuilder transaction,
+  Single<List<PaymentMethod>> getPaymentMethods(TransactionBuilder transaction,
       String transactionValue, String currency) {
     return bdsInAppPurchaseInteractor.getPaymentMethods(transactionValue, currency)
         .flatMap(paymentMethods -> getAvailablePaymentMethods(transaction, paymentMethods).flatMap(

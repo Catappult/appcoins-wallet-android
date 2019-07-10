@@ -103,13 +103,15 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   private PublishRelay<Boolean> backButton;
   private PublishRelay<Boolean> keyboardBuyRelay;
   private View transactionCompletedLayout;
-  private View creditCardInformationsLayout;
-  private View walletInformationsFooter;
+  private View creditCardInformationLayout;
+  private View walletInformationFooter;
   private LottieAnimationView lottieTransactionComplete;
   private View errorView;
   private TextView errorMessage;
   private View errorOkButton;
   private View mainView;
+  private View headerView;
+  private View lineSeparator;
 
   public static AdyenAuthorizationFragment newInstance(String skuId, String type, String origin,
       PaymentType paymentType, String domain, String transactionData, BigDecimal amount,
@@ -168,9 +170,11 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     changeCardButton = view.findViewById(R.id.change_card_button);
     cardForm = view.findViewById(R.id.fragment_braintree_credit_card_form);
     transactionCompletedLayout = view.findViewById(R.id.iab_activity_transaction_completed);
-    creditCardInformationsLayout = view.findViewById(R.id.credit_card_info);
-    walletInformationsFooter = view.findViewById(R.id.layout_wallet_footer);
+    creditCardInformationLayout = view.findViewById(R.id.credit_card_info);
+    walletInformationFooter = view.findViewById(R.id.layout_wallet_footer);
     mainView = view.findViewById(R.id.main_view);
+    headerView = view.findViewById(R.id.info_header);
+    lineSeparator = view.findViewById(R.id.line_separator);
     errorView = view.findViewById(R.id.fragment_iab_error);
     errorMessage = errorView.findViewById(R.id.activity_iab_error_message);
     errorOkButton = errorView.findViewById(R.id.activity_iab_error_ok_button);
@@ -244,14 +248,16 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     cardForm.setOnCardFormValidListener(null);
     cardForm = null;
     changeCardButton = null;
-    creditCardInformationsLayout = null;
-    walletInformationsFooter = null;
+    creditCardInformationLayout = null;
+    walletInformationFooter = null;
     lottieTransactionComplete.removeAllAnimatorListeners();
     lottieTransactionComplete.removeAllUpdateListeners();
     lottieTransactionComplete.removeAllLottieOnCompositionLoadedListener();
     lottieTransactionComplete = null;
     transactionCompletedLayout = null;
     mainView = null;
+    headerView = null;
+    lineSeparator = null;
     errorView = null;
     errorMessage = null;
     errorOkButton = null;
@@ -290,6 +296,11 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
 
   @Override public void showLoading() {
     progressBar.setVisibility(View.VISIBLE);
+    headerView.setVisibility(View.INVISIBLE);
+    walletInformationFooter.setVisibility(View.GONE);
+    lineSeparator.setVisibility(View.INVISIBLE);
+    fiatPrice.setVisibility(View.INVISIBLE);
+    appcPrice.setVisibility(View.INVISIBLE);
     cardForm.setVisibility(View.GONE);
     ccInfoView.setVisibility(View.INVISIBLE);
     buyButton.setVisibility(View.INVISIBLE);
@@ -299,6 +310,11 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
 
   @Override public void hideLoading() {
     progressBar.setVisibility(View.GONE);
+    headerView.setVisibility(View.VISIBLE);
+    walletInformationFooter.setVisibility(View.VISIBLE);
+    lineSeparator.setVisibility(View.VISIBLE);
+    fiatPrice.setVisibility(View.VISIBLE);
+    appcPrice.setVisibility(View.VISIBLE);
     cardForm.setVisibility(View.VISIBLE);
     ccInfoView.setVisibility(View.VISIBLE);
     cancelButton.setVisibility(View.VISIBLE);
@@ -385,8 +401,8 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
 
   @Override public void showSuccess() {
     progressBar.setVisibility(View.GONE);
-    creditCardInformationsLayout.setVisibility(View.GONE);
-    walletInformationsFooter.setVisibility(View.GONE);
+    creditCardInformationLayout.setVisibility(View.GONE);
+    walletInformationFooter.setVisibility(View.GONE);
     transactionCompletedLayout.setVisibility(View.VISIBLE);
     errorView.setVisibility(View.GONE);
   }
@@ -467,7 +483,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     throw new IllegalArgumentException("previous app package name not found");
   }
 
-  public String getTransactionData() {
+  private String getTransactionData() {
     if (getArguments().containsKey(TRANSACTION_DATA)) {
       return getArguments().getString(TRANSACTION_DATA);
     }

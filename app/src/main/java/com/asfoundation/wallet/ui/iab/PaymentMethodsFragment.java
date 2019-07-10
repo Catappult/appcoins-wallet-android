@@ -56,7 +56,6 @@ import org.jetbrains.annotations.NotNull;
 import static com.asfoundation.wallet.ui.iab.IabActivity.DEVELOPER_PAYLOAD;
 import static com.asfoundation.wallet.ui.iab.IabActivity.PRODUCT_NAME;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
-import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_CURRENCY;
 import static com.asfoundation.wallet.ui.iab.IabActivity.URI;
 
 public class PaymentMethodsFragment extends DaggerFragment implements PaymentMethodsView {
@@ -92,7 +91,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private PublishSubject<Boolean> setupSubject;
   private TransactionBuilder transaction;
   private double transactionValue;
-  private String currency;
   private String bonusMessageValue = "";
   private TextView appcPriceTv;
   private TextView fiatPriceTv;
@@ -144,7 +142,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     transaction = getArguments().getParcelable(TRANSACTION);
     transactionValue =
         ((BigDecimal) getArguments().getSerializable(TRANSACTION_AMOUNT)).doubleValue();
-    currency = getArguments().getString(TRANSACTION_CURRENCY);
     productName = getArguments().getString(PRODUCT_NAME);
     itemAlreadyOwnedError = getArguments().getBoolean(ITEM_ALREADY_OWNED, false);
     onBackPressSubject = PublishSubject.create();
@@ -392,13 +389,13 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   }
 
   @Override public void showPaypal() {
-    iabView.showAdyenPayment(fiatValue.getAmount(), currency, isBds, PaymentType.PAYPAL,
-        bonusMessageValue);
+    iabView.showAdyenPayment(fiatValue.getAmount(), fiatValue.getCurrency(), isBds,
+        PaymentType.PAYPAL, bonusMessageValue);
   }
 
   @Override public void showCreditCard() {
-    iabView.showAdyenPayment(fiatValue.getAmount(), currency, isBds, PaymentType.CARD,
-        bonusMessageValue);
+    iabView.showAdyenPayment(fiatValue.getAmount(), fiatValue.getCurrency(), isBds,
+        PaymentType.CARD, bonusMessageValue);
   }
 
   @Override public void showAppCoins() {
@@ -449,7 +446,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         selectedPaymentMethod, isInApp, transaction.toAddress());
   }
 
-  @Override public void setBonus(@NotNull BigDecimal bonus, String currency) {
+  @Override public void setBonus(@NotNull BigDecimal bonus, @NotNull String currency) {
     BigDecimal scaledBonus = bonus.stripTrailingZeros()
         .setScale(2, BigDecimal.ROUND_DOWN);
     if (scaledBonus.compareTo(new BigDecimal(0.01)) < 0) {
