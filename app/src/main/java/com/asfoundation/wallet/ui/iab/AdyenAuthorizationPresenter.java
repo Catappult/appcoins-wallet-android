@@ -195,7 +195,7 @@ public class AdyenAuthorizationPresenter {
         .subscribeOn(ioScheduler)
         .blockingGet()
         .getAmount()
-        .setScale(2, BigDecimal.ROUND_UP);
+        .setScale(8, BigDecimal.ROUND_UP);
   }
 
   private void onViewCreatedSelectPaymentMethod() {
