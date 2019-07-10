@@ -25,7 +25,7 @@ public class CurrencyConversionService {
   }
 
   public Single<FiatValue> getLocalFiatAmount(String appcValue) {
-    return localCurrencyConversionService.getAppcToLocalFiat(appcValue, 2)
+    return localCurrencyConversionService.getAppcToLocalFiat(appcValue, 18)
         .firstOrError();
   }
 }

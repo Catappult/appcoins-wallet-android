@@ -10,6 +10,7 @@ import com.asfoundation.wallet.billing.BillingService;
 import com.asfoundation.wallet.billing.adyen.Adyen;
 import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
+import com.asfoundation.wallet.ui.iab.FiatValue;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.Navigator;
 import io.reactivex.Completable;
@@ -152,8 +153,7 @@ public class PaymentAuthPresenter {
   @NonNull private Single<BigDecimal> convertAmount(String amount) {
     return inAppPurchaseInteractor.convertToLocalFiat((new BigDecimal(amount)).doubleValue())
         .subscribeOn(Schedulers.io())
-        .map(value -> value.getAmount()
-            .setScale(2, BigDecimal.ROUND_UP));
+        .map(FiatValue::getAmount);
   }
 
   private void onViewCreatedSelectPaymentMethod(PaymentType paymentType) {
