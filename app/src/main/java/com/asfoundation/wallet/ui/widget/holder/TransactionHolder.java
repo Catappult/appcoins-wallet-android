@@ -75,7 +75,8 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   }
 
   private String extractTo(Transaction transaction) {
-    if (transaction.getOperations() != null
+    if (transaction.getOperations() != null && !transaction.getOperations()
+        .isEmpty()
         && transaction.getOperations()
         .get(0) != null
         && transaction.getOperations()
@@ -90,7 +91,8 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
   }
 
   private String extractFrom(Transaction transaction) {
-    if (transaction.getOperations() != null
+    if (transaction.getOperations() != null && !transaction.getOperations()
+        .isEmpty()
         && transaction.getOperations()
         .get(0) != null
         && transaction.getOperations()
@@ -167,7 +169,8 @@ public class TransactionHolder extends BinderViewHolder<Transaction>
           .equals(Transaction.TransactionType.TRANSFER_OFF_CHAIN)) {
         address.setText(R.string.transaction_type_p2p);
       } else {
-        address.setText(details.getSourceName() == null ? isSent ? to : from : getSourceText(transaction));
+        address.setText(
+            details.getSourceName() == null ? isSent ? to : from : getSourceText(transaction));
       }
       description.setText(details.getDescription() == null ? "" : details.getDescription());
     } else {

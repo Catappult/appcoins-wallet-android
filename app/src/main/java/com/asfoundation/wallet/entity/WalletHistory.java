@@ -38,6 +38,15 @@ import java.util.List;
     @JsonProperty("processed_time") private Date processedTime;
     @JsonProperty("type") private String type;
     @JsonProperty("status") private Status status;
+    @JsonProperty("operations") private List<Operation> operations;
+
+    public List<Operation> getOperations() {
+      return operations;
+    }
+
+    public void setOperations(List<Operation> operations) {
+      this.operations = operations;
+    }
 
     public String getSku() {
       return sku;
@@ -139,6 +148,10 @@ import java.util.List;
       this.type = type;
     }
 
+    public void setProcessedTime(Date processedTime) {
+      this.processedTime = processedTime;
+    }
+
     @Override public String toString() {
       return "Result{"
           + "txID='"
@@ -161,6 +174,45 @@ import java.util.List;
           + type
           + '\''
           + '}';
+    }
+  }
+
+  public static class Operation {
+    @JsonProperty("TxID") private String transactionId;
+    private String fee;
+    private String receiver;
+    private String sender;
+
+    public String getTransactionId() {
+      return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+      this.transactionId = transactionId;
+    }
+
+    public String getFee() {
+      return fee;
+    }
+
+    public void setFee(String fee) {
+      this.fee = fee;
+    }
+
+    public String getSender() {
+      return sender;
+    }
+
+    public void setSender(String sender) {
+      this.sender = sender;
+    }
+
+    public String getReceiver() {
+      return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+      this.receiver = receiver;
     }
   }
 }
