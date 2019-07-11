@@ -257,6 +257,7 @@ public class AsfInAppPurchaseInteractor {
     switch (transaction.getStatus()) {
       case PENDING:
       case PENDING_SERVICE_AUTHORIZATION:
+      case PENDING_USER_PAYMENT:
       case PROCESSING:
         switch (transaction.getGateway()
             .getName()) {
