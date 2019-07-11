@@ -309,9 +309,9 @@
   <string name="gamification_how_appc_spent">Số tiền cần chi tiêu để đạt đến cấp này</string>
   <string name="gamification_how_to_next_level_body">Chi tiêu thêm %1$s AppCoins để đạt đến cấp %2$s.</string>
   <string name="gamification_level_expiration_title">Kiểm tra cấp kế tiếp: %s</string>
-  <string name="gamification_level_expiration_body">Your level is based on your purchase activity over the last 12 months.</string>
-  <string name="gamification_leveled_up_title">You\'ve reached the next level!</string>
-  <string name="gamification_leveled_up_body">You\'ll now get a %s bonus on every purchase. Keep buying to earn even more!</string>
+  <string name="gamification_level_expiration_body">Cấp của bạn dựa trên hoạt động mua hàng của bạn trong 12 tháng qua.</string>
+  <string name="gamification_leveled_up_title">Bạn đã đạt đến cấp kế tiếp!</string>
+  <string name="gamification_leveled_up_body">Kể từ giờ, bạn sẽ nhận được %s tiền thưởng trên mỗi lần mua. Hãy tiếp tục mua để nhận được nhiều hơn nữa!</string>
   <string name="gamification_leveled_up_notification_title">Bạn đã đạt đến cấp kế tiếp!</string>
   <string name="gamification_leveled_up_notification_body">Xin chúc mừng, giờ đây bạn sẽ nhận được tiền thưởng %s trên mỗi lần mua!</string>
   <!-- Provide wallet address -->
@@ -381,7 +381,7 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
   <string name="dismiss_button">Bỏ qua</string>
-  <string name="connectoin_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
+  <string name="connectoin_error_body">Có vẻ như bạn không kết nối Internet. Hãy kiểm tra kết nối của mình và thử lại!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Tôi đồng ý với %1$s và %2$s của Ví AppCoins.</string>
   <string name="terms_and_conditions_error">Vui lòng chấp nhận Điều khoản và Điều kiện và Chính sách bảo mật của chúng tôi để tiếp tục</string>
@@ -395,7 +395,7 @@
   <string name="title_redeem">Redeem Code</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">Đang xử lý&#8230;</string>
-  <string name="local_payments_inprogress_body">Once you complete the payment you\'ll receive the AppCoins Credits in your wallet. Then go back to the game to make the purchase!</string>
+  <string name="local_payments_inprogress_body">Khi bạn hoàn tất thanh toán, bạn sẽ nhận được AppCoins Credits trong ví của mình. Sau đó quay trở lại trò chơi để mua hàng!</string>
   <!--Wallet Verification-->
   <string name="verification_notification_verification_needed_title">Phần thưởng đã sẵn sàng nhưng cần phải xác minh</string>
   <string name="verification_notification_verification_needed_body">Vì lý do bảo mật, chúng tôi cần xác minh ví của bạn bằng mã SMS.</string>
@@ -417,11 +417,11 @@
   <string name="verification_insert_phone_field_phone_used_already_error">Số điện thoại này đã được sử dụng.</string>
   <string name="verification_insert_code_error_common">Rất tiếc, đã xảy ra lỗi. Vui lòng thử lại!</string>
   <!--Purchase Flow-->
-  <string name="purchase_error_incomplete_transaction_body">It seems this purchase is already being processed. Please hold on until the transaction is completed or contact our Support Team.</string>
+  <string name="purchase_error_incomplete_transaction_body">Có vẻ như giao dịch mua này đã được xử lý. Vui lòng chờ cho đến khi giao dịch được hoàn thành hoặc liên hệ với đội hỗ trợ của chúng tôi.</string>
   <string name="purchase_more_payment_methods_button">PHƯƠNG THỨC THANH TOÁN KHÁC</string>
-  <string name="purchase_appcoins_available_body">You\'ll use a small amount of ETH to pay for the fees.</string>
-  <string name="purchase_appcoins_noavailable_body">You don\'t have enough AppCoins or Ether for this purchase.</string>
+  <string name="purchase_appcoins_available_body">Bạn sẽ dùng một ít ETH để trả phí.</string>
+  <string name="purchase_appcoins_noavailable_body">Bạn không có đủ AppCoins hoặc Ether cho giao dịch mua này.</string>
   <string name="purchase_appcoins_credits_available_body">Không tốn phí và nhanh như chớp!</string>
   <string name="purchase_appcoins_credits_noavailable_body">Bạn không có đủ APPC Credits, hãy thử nạp tiền!</string>
-  <string name="purchase_appcoins_credits_default_body">You earned enough AppCoins Credits for this purchase. Enjoy!</string>
+  <string name="purchase_appcoins_credits_default_body">Bạn đã kiếm đủ AppCoins Credits cho giao dịch mua này. Hãy thỏa thích dùng chúng!</string>
 </resources>
