@@ -45,10 +45,6 @@ public class AsfInAppPurchaseInteractor {
 
   private final TransactionIdHelper transactionIdHelper;
 
-  public Single<TransactionBuilder> parseTransaction(String uri) {
-    return parser.parse(uri);
-  }
-
   public AsfInAppPurchaseInteractor(InAppPurchaseService inAppPurchaseService,
       FindDefaultWalletInteract defaultWalletInteract, FetchGasSettingsInteract gasSettingsInteract,
       BigDecimal paymentGasLimit, TransferParser parser,
@@ -69,6 +65,10 @@ public class AsfInAppPurchaseInteractor {
     this.trackTransactionService = trackTransactionService;
     this.scheduler = scheduler;
     this.transactionIdHelper = transactionIdHelper;
+  }
+
+  public Single<TransactionBuilder> parseTransaction(String uri) {
+    return parser.parse(uri);
   }
 
   public Completable send(String uri, TransactionType transactionType, String packageName,
@@ -269,6 +269,8 @@ public class AsfInAppPurchaseInteractor {
             } else {
               return isBuyReady ? CurrentPaymentStep.READY : CurrentPaymentStep.NO_FUNDS;
             }
+          case myappcoins:
+            return CurrentPaymentStep.PAUSED_LOCAL_PAYMENT;
           default:
           case unknown:
             throw new UnknownServiceException("Unknown gateway");
@@ -333,6 +335,6 @@ public class AsfInAppPurchaseInteractor {
   }
 
   public enum CurrentPaymentStep {
-    PAUSED_CC_PAYMENT, PAUSED_ON_CHAIN, NO_FUNDS, READY
+    PAUSED_CC_PAYMENT, PAUSED_ON_CHAIN, NO_FUNDS, PAUSED_LOCAL_PAYMENT, READY
   }
 }

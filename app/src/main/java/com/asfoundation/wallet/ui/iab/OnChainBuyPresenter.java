@@ -122,6 +122,7 @@ public class OnChainBuyPresenter {
                       return Completable.fromAction(view::showNoFundsError)
                           .subscribeOn(viewScheduler);
                     case PAUSED_CC_PAYMENT:
+                    case PAUSED_LOCAL_PAYMENT:
                     default:
                       return Completable.error(new UnsupportedOperationException(
                           "Cannot resume from " + currentPaymentStep.name() + " status"));
