@@ -16,6 +16,7 @@ import io.reactivex.subjects.Subject;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 
 public class ProofOfAttentionService {
   private final Repository<String, Proof> cache;
@@ -153,11 +154,13 @@ public class ProofOfAttentionService {
   private void setCampaignIdSync(String packageName, String campaignId) {
     synchronized (this) {
       Proof proof = getPreviousProofSync(packageName);
-      cache.saveSync(packageName,
-          new Proof(packageName, campaignId, proof.getProofComponentList(), walletPackage,
-              ProofStatus.PROCESSING, proof.getChainId(), proof.getOemAddress(),
-              proof.getStoreAddress(), proof.getGasPrice(), proof.getGasLimit(), proof.getHash(),
-              proof.getCountryCode()));
+      if (areComponentsMissing(proof) || StringUtils.isBlank(proof.getCampaignId())) {
+        cache.saveSync(packageName,
+            new Proof(packageName, campaignId, proof.getProofComponentList(), walletPackage,
+                ProofStatus.PROCESSING, proof.getChainId(), proof.getOemAddress(),
+                proof.getStoreAddress(), proof.getGasPrice(), proof.getGasLimit(), proof.getHash(),
+                proof.getCountryCode()));
+      }
     }
   }
 
@@ -169,11 +172,13 @@ public class ProofOfAttentionService {
   private void setChainIdSync(String packageName, int chainId) {
     synchronized (this) {
       Proof proof = getPreviousProofSync(packageName);
-      cache.saveSync(packageName,
-          new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
-              walletPackage, ProofStatus.PROCESSING, chainId, proof.getOemAddress(),
-              proof.getStoreAddress(), proof.getGasPrice(), proof.getGasLimit(), proof.getHash(),
-              proof.getCountryCode()));
+      if (areComponentsMissing(proof) && proof.getChainId() <= 0) {
+        cache.saveSync(packageName,
+            new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
+                walletPackage, ProofStatus.PROCESSING, chainId, proof.getOemAddress(),
+                proof.getStoreAddress(), proof.getGasPrice(), proof.getGasLimit(), proof.getHash(),
+                proof.getCountryCode()));
+      }
     }
   }
 
@@ -325,22 +330,28 @@ public class ProofOfAttentionService {
   private void setOemAddressSync(String packageName, String address) {
     synchronized (this) {
       Proof proof = getPreviousProofSync(packageName);
-      cache.saveSync(packageName,
-          new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
-              walletPackage, ProofStatus.PROCESSING, proof.getChainId(), address,
-              proof.getStoreAddress(), proof.getGasPrice(), proof.getGasLimit(), proof.getHash(),
-              proof.getCountryCode()));
+      if (areComponentsMissing(proof) || StringUtils.isBlank(proof.getOemAddress())) {
+        cache.saveSync(packageName,
+            new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
+                walletPackage, ProofStatus.PROCESSING, proof.getChainId(), address,
+                proof.getStoreAddress(), proof.getGasPrice(), proof.getGasLimit(), proof.getHash(),
+                proof.getCountryCode()));
+      }
     }
   }
 
   private void setGasSettingsSync(String packageName, BigDecimal gasPrice, BigDecimal gasLimit) {
     synchronized (this) {
       Proof proof = getPreviousProofSync(packageName);
-      cache.saveSync(packageName,
-          new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
-              walletPackage, ProofStatus.PROCESSING, proof.getChainId(), proof.getOemAddress(),
-              proof.getStoreAddress(), gasPrice, gasLimit, proof.getHash(),
-              proof.getCountryCode()));
+      if (areComponentsMissing(proof)
+          || proof.getGasLimit() == null
+          || proof.getGasPrice() == null) {
+        cache.saveSync(packageName,
+            new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
+                walletPackage, ProofStatus.PROCESSING, proof.getChainId(), proof.getOemAddress(),
+                proof.getStoreAddress(), gasPrice, gasLimit, proof.getHash(),
+                proof.getCountryCode()));
+      }
     }
   }
 
@@ -355,11 +366,13 @@ public class ProofOfAttentionService {
   private void setStoreAddressSync(String packageName, String address) {
     synchronized (this) {
       Proof proof = getPreviousProofSync(packageName);
-      cache.saveSync(packageName,
-          new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
-              walletPackage, ProofStatus.PROCESSING, proof.getChainId(), proof.getOemAddress(),
-              address, proof.getGasPrice(), proof.getGasLimit(), proof.getHash(),
-              proof.getCountryCode()));
+      if (areComponentsMissing(proof) || StringUtils.isBlank(proof.getStoreAddress())) {
+        cache.saveSync(packageName,
+            new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
+                walletPackage, ProofStatus.PROCESSING, proof.getChainId(), proof.getOemAddress(),
+                address, proof.getGasPrice(), proof.getGasLimit(), proof.getHash(),
+                proof.getCountryCode()));
+      }
     }
   }
 
