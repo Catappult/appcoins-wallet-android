@@ -10,6 +10,7 @@ import com.asfoundation.wallet.repository.BdsBackEndWriter;
 import com.asfoundation.wallet.repository.WalletNotFoundException;
 import com.asfoundation.wallet.service.Campaign;
 import com.asfoundation.wallet.service.CampaignService;
+import com.asfoundation.wallet.service.CampaignStatus;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.TestObserver;
@@ -81,7 +82,7 @@ public class ProofOfAttentionServiceTest {
     when(defaultWalletInteract.find()).thenReturn(hasWallet.firstOrError());
 
     when(campaignService.getCampaign(wallet, packageName, versionCode)).thenReturn(
-        Single.just(campaignId));
+        Single.just(new Campaign(campaignId, CampaignStatus.AVAILABLE)));
 
     when(campaignService.submitProof(any(Proof.class), eq(wallet))).thenReturn(
         Single.just(SUBMIT_HASH));
@@ -345,13 +346,30 @@ public class ProofOfAttentionServiceTest {
 
   @Test public void alreadyRewardedTest() {
     when(campaignService.getCampaign(wallet, packageName, versionCode)).thenReturn(
-        Single.just(Campaign.NOT_ELIGIBLE.toString()));
+        Single.just(new Campaign("", CampaignStatus.NOT_ELIGIBLE)));
     TestObserver<ProofSubmissionFeeData> noFunds =
         proofOfAttentionService.isWalletReady(chainId, packageName, versionCode)
             .subscribeOn(testScheduler)
             .test();
     ProofSubmissionFeeData noFundsFee =
         new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NOT_ELIGIBLE,
+            BigDecimal.ZERO, BigDecimal.ZERO);
+    hasWallet.onNext(new Wallet(wallet));
+    testScheduler.triggerActions();
+    noFunds.assertComplete()
+        .assertNoErrors()
+        .assertValue(noFundsFee);
+  }
+
+  @Test public void noCampaignAvailabilityTest() {
+    when(campaignService.getCampaign(wallet, packageName, versionCode)).thenReturn(
+        Single.just(new Campaign("", CampaignStatus.NO_CAMPAIGN_AVAILABLE)));
+    TestObserver<ProofSubmissionFeeData> noFunds =
+        proofOfAttentionService.isWalletReady(chainId, packageName, versionCode)
+            .subscribeOn(testScheduler)
+            .test();
+    ProofSubmissionFeeData noFundsFee =
+        new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NOT_AVAILABLE,
             BigDecimal.ZERO, BigDecimal.ZERO);
     hasWallet.onNext(new Wallet(wallet));
     testScheduler.triggerActions();

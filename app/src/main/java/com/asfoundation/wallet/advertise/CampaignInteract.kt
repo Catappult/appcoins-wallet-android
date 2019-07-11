@@ -2,7 +2,9 @@ package com.asfoundation.wallet.advertise
 
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.interact.CreateWalletInteract
+import com.asfoundation.wallet.service.Campaign
 import com.asfoundation.wallet.service.CampaignService
+import com.asfoundation.wallet.service.CampaignStatus
 import io.reactivex.Single
 
 class CampaignInteract(private val campaignService: CampaignService,
@@ -12,14 +14,19 @@ class CampaignInteract(private val campaignService: CampaignService,
 
   override fun getCampaign(packageName: String, versionCode: Int): Single<CampaignDetails> {
     return walletService.getWalletAddress()
-        .onErrorResumeNext { createWalletInteract.create().map { it.address } }
-        .flatMap { campaignService.getCampaign(it, packageName, versionCode) }.map { map(it) }
+        .onErrorResumeNext {
+          createWalletInteract.create()
+              .map { it.address }
+        }
+        .flatMap { campaignService.getCampaign(it, packageName, versionCode) }
+        .map { map(it) }
         .onErrorReturn { CampaignDetails(errorMapper.map(it)) }
   }
 
-  private fun map(campaignId: String?) =
-      if (!campaignId.isNullOrEmpty()) CampaignDetails(
+  private fun map(campaign: Campaign) =
+      if (campaign.campaignStatus == CampaignStatus.AVAILABLE) CampaignDetails(
           Advertising.CampaignAvailabilityType.AVAILABLE,
-          campaignId) else CampaignDetails(Advertising.CampaignAvailabilityType.UNAVAILABLE,
-          campaignId)
+          campaign.campaignId) else CampaignDetails(
+          Advertising.CampaignAvailabilityType.UNAVAILABLE,
+          campaign.campaignId)
 }

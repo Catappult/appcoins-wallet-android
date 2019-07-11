@@ -188,6 +188,12 @@ public class WalletPoAService extends Service {
         stopForeground(false);
         stopTimeout();
         break;
+      case NOT_AVAILABLE:
+        notificationManager.notify(SERVICE_ID,
+            createDefaultNotificationBuilder(R.string.notification_not_available_poa).build());
+        stopForeground(false);
+        stopTimeout();
+        break;
       case WRONG_NETWORK:
         notificationManager.notify(SERVICE_ID,
             createDefaultNotificationBuilder(R.string.notification_wrong_network_poa).build());
@@ -463,6 +469,19 @@ public class WalletPoAService extends Service {
     }
   }
 
+  private int getVersionCode(String packageName) {
+    PackageInfo packageInfo;
+    int versionCode = -1;
+    try {
+      packageInfo = getPackageManager().getPackageInfo(packageName, 0);
+      versionCode = packageInfo.versionCode;
+    } catch (PackageManager.NameNotFoundException e) {
+      logger.log(new Throwable("Package not found exception"));
+      e.printStackTrace();
+    }
+    return versionCode;
+  }
+
   /**
    * Handler of incoming messages from clients.
    */
@@ -497,18 +516,5 @@ public class WalletPoAService extends Service {
           super.handleMessage(msg);
       }
     }
-  }
-
-  private int getVersionCode(String packageName) {
-    PackageInfo packageInfo;
-    int versionCode = -1;
-    try {
-      packageInfo = getPackageManager().getPackageInfo(packageName, 0);
-      versionCode = packageInfo.versionCode;
-    } catch (PackageManager.NameNotFoundException e) {
-      logger.log(new Throwable("Package not found exception"));
-      e.printStackTrace();
-    }
-    return versionCode;
   }
 }
