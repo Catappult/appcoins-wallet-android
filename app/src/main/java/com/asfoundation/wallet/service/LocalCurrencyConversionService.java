@@ -21,7 +21,7 @@ public class LocalCurrencyConversionService {
   }
 
   public Single<FiatValue> getLocalCurrency() {
-    return getAppcToLocalFiat("1.0", 8).firstOrError();
+    return getAppcToLocalFiat("1.0", 18).firstOrError();
   }
 
   public Observable<FiatValue> getAppcToLocalFiat(String value, int scale) {

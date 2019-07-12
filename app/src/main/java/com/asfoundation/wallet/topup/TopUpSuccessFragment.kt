@@ -17,16 +17,18 @@ import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_top_up_success.*
 import java.math.BigDecimal
-import java.util.*
+import java.math.RoundingMode
 
 class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
 
   companion object {
     @JvmStatic
-    fun newInstance(amount: Double, bonus: String, validBonus: Boolean): TopUpSuccessFragment {
+    fun newInstance(amount: String, currency: String, bonus: String,
+                    validBonus: Boolean): TopUpSuccessFragment {
       val fragment = TopUpSuccessFragment()
       val bundle = Bundle()
-      bundle.putDouble(PARAM_AMOUNT, amount)
+      bundle.putString(PARAM_AMOUNT, amount)
+      bundle.putString(CURRENCY, currency)
       bundle.putString(BONUS, bonus)
       bundle.putBoolean(VALID_BONUS, validBonus)
       fragment.arguments = bundle
@@ -34,6 +36,7 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
     }
 
     private const val PARAM_AMOUNT = "amount"
+    private const val CURRENCY = "currency"
     private const val BONUS = "bonus"
     private const val VALID_BONUS = "valid_bonus"
   }
@@ -43,10 +46,17 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
   private lateinit var topUpActivityView: TopUpActivityView
   val amount: String? by lazy {
     if (arguments!!.containsKey(PARAM_AMOUNT)) {
-      arguments!!.getDouble(PARAM_AMOUNT)
-          .toString()
+      arguments!!.getString(PARAM_AMOUNT)
     } else {
       throw IllegalArgumentException("product name not found")
+    }
+  }
+
+  val currency: String? by lazy {
+    if (arguments!!.containsKey(CURRENCY)) {
+      arguments!!.getString(CURRENCY)
+    } else {
+      throw IllegalArgumentException("currency not found")
     }
   }
 
@@ -136,13 +146,12 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
   }
 
   private fun formatBonusSuccessMessage() {
-    val formatter = Formatter()
-    val appcValue = formatter.format(Locale.getDefault(), "%(,.2f",
-        BigDecimal(amount).toDouble())
-        .toString()
+    val fiatValue =
+        BigDecimal(amount).setScale(2, RoundingMode.FLOOR).toString() + " " + currency
     val formattedInitialString = String.format(
-        resources.getString(R.string.topup_completed_1), appcValue)
-    val topUpString = formattedInitialString + " " + resources.getString(R.string.topup_completed_2_with_bonus)
+        resources.getString(R.string.topup_completed_1), fiatValue)
+    val topUpString =
+        formattedInitialString + " " + resources.getString(R.string.topup_completed_2_with_bonus)
     val boldStyle = StyleSpan(Typeface.BOLD)
     val sb = SpannableString(topUpString)
     sb.setSpan(boldStyle, 0, formattedInitialString.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)

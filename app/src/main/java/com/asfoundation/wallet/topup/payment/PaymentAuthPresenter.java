@@ -189,7 +189,8 @@ public class PaymentAuthPresenter {
           return errors.takeWhile(e -> counter.getAndIncrement() != 3)
               .flatMap(e -> Flowable.timer(counter.get(), TimeUnit.SECONDS));
         })
-        .map((Double amount) -> billingMessagesMapper.topUpBundle(amount, bonusValue, validBonus));
+        .map(price -> billingMessagesMapper.topUpBundle(price.getValue(), price.getCurrency(),
+            bonusValue, validBonus));
   }
 
   private void onViewCreatedCheckAuthorizationFailed(String transactionOrigin, String amount,
