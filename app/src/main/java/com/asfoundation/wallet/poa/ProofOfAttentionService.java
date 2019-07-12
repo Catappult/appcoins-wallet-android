@@ -154,7 +154,7 @@ public class ProofOfAttentionService {
   private void setCampaignIdSync(String packageName, String campaignId) {
     synchronized (this) {
       Proof proof = getPreviousProofSync(packageName);
-      if (areComponentsMissing(proof) || StringUtils.isBlank(proof.getCampaignId())) {
+      if (areComponentsMissing(proof) || StringUtils.equals(proof.getCampaignId(), campaignId)) {
         cache.saveSync(packageName,
             new Proof(packageName, campaignId, proof.getProofComponentList(), walletPackage,
                 ProofStatus.PROCESSING, proof.getChainId(), proof.getOemAddress(),
@@ -172,7 +172,7 @@ public class ProofOfAttentionService {
   private void setChainIdSync(String packageName, int chainId) {
     synchronized (this) {
       Proof proof = getPreviousProofSync(packageName);
-      if (areComponentsMissing(proof) && proof.getChainId() <= 0) {
+      if (areComponentsMissing(proof) && proof.getChainId() != chainId) {
         cache.saveSync(packageName,
             new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
                 walletPackage, ProofStatus.PROCESSING, chainId, proof.getOemAddress(),
@@ -304,6 +304,17 @@ public class ProofOfAttentionService {
         .size() < maxNumberProofComponents;
   }
 
+  private boolean areGasSettingsTheSame(BigDecimal gasPrice, BigDecimal gasLimit, Proof proof) {
+    return (proof.getGasPrice() == null && gasPrice != null) || (proof.getGasLimit() == null
+        && gasLimit != null) || (proof.getGasLimit() != null
+        && gasLimit != null
+        && proof.getGasLimit()
+        .compareTo(gasLimit) == 0) || (proof.getGasPrice() != null
+        && gasPrice != null
+        && proof.getGasPrice()
+        .compareTo(gasPrice) == 0);
+  }
+
   public Observable<List<Proof>> get() {
     return cache.getAll();
   }
@@ -330,7 +341,7 @@ public class ProofOfAttentionService {
   private void setOemAddressSync(String packageName, String address) {
     synchronized (this) {
       Proof proof = getPreviousProofSync(packageName);
-      if (areComponentsMissing(proof) || StringUtils.isBlank(proof.getOemAddress())) {
+      if (areComponentsMissing(proof) || StringUtils.equals(proof.getOemAddress(), address)) {
         cache.saveSync(packageName,
             new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
                 walletPackage, ProofStatus.PROCESSING, proof.getChainId(), address,
@@ -343,9 +354,7 @@ public class ProofOfAttentionService {
   private void setGasSettingsSync(String packageName, BigDecimal gasPrice, BigDecimal gasLimit) {
     synchronized (this) {
       Proof proof = getPreviousProofSync(packageName);
-      if (areComponentsMissing(proof)
-          || proof.getGasLimit() == null
-          || proof.getGasPrice() == null) {
+      if (areComponentsMissing(proof) || areGasSettingsTheSame(gasPrice, gasLimit, proof)) {
         cache.saveSync(packageName,
             new Proof(packageName, proof.getCampaignId(), proof.getProofComponentList(),
                 walletPackage, ProofStatus.PROCESSING, proof.getChainId(), proof.getOemAddress(),
