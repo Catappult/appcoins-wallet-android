@@ -113,8 +113,8 @@ public class BillingWebViewFragment extends DaggerFragment {
     webView.setWebViewClient(new WebViewClient() {
 
       @Override public boolean shouldOverrideUrlLoading(WebView view, String clickUrl) {
-        currentUrl = clickUrl;
         if (clickUrl.startsWith(BILLING_SCHEMA)) {
+          currentUrl = clickUrl;
           Intent intent = new Intent();
           intent.setData(Uri.parse(clickUrl));
           getActivity().setResult(WebViewActivity.SUCCESS, intent);
@@ -122,6 +122,7 @@ public class BillingWebViewFragment extends DaggerFragment {
           sendRevenueEvent();
           getActivity().finish();
         } else if (clickUrl.contains(LOCAL_PAYMENTS_SCHEMA)) {
+          currentUrl = clickUrl;
           Intent intent = new Intent();
           intent.setData(Uri.parse(clickUrl));
           getActivity().setResult(WebViewActivity.SUCCESS, intent);
@@ -129,6 +130,7 @@ public class BillingWebViewFragment extends DaggerFragment {
         } else if (clickUrl.contains(GO_PAY_PAYMENTS_SCHEMA)) {
           launchActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(clickUrl)));
         } else {
+          currentUrl = clickUrl;
           return false;
         }
         return true;
