@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -15,12 +16,9 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.appcoins.wallet.bdsbilling.Billing;
-import com.appcoins.wallet.bdsbilling.WalletService;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.billing.TransactionService;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
-import com.asfoundation.wallet.billing.purchase.BillingFactory;
+import com.google.android.material.snackbar.Snackbar;
 import dagger.android.support.DaggerFragment;
 import java.math.BigDecimal;
 import java.util.concurrent.Executors;
@@ -36,7 +34,7 @@ public class BillingWebViewFragment extends DaggerFragment {
 
   private static final String BILLING_SCHEMA = "billing://";
   private static final String LOCAL_PAYMENTS_SCHEMA = "myappcoins.com/t/";
-
+  private static final String GO_PAY_PAYMENTS_SCHEMA = "gojek://gopay/merchanttransfer";
   private static final String URL = "url";
   private static final String DOMAIN = "domain";
   private static final String SKUID = "skuid";
@@ -44,13 +42,8 @@ public class BillingWebViewFragment extends DaggerFragment {
   private static final String TYPE = "type";
   private static final String CURRENT_URL = "currentUrl";
   private final AtomicReference<ScheduledFuture<?>> timeoutReference;
-  @Inject Billing billing;
-  @Inject BillingFactory billingFactory;
-  @Inject WalletService walletService;
-  @Inject TransactionService transactionService;
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject BillingAnalytics analytics;
-  private WebView webView;
   private ProgressBar webviewProgressBar;
   private String currentUrl;
   private String currentDomain;
@@ -114,7 +107,7 @@ public class BillingWebViewFragment extends DaggerFragment {
       @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.webview_fragment, container, false);
 
-    webView = view.findViewById(R.id.webview);
+    WebView webView = view.findViewById(R.id.webview);
     webviewProgressBar = view.findViewById(R.id.webview_progress_bar);
 
     webView.setWebViewClient(new WebViewClient() {
@@ -133,6 +126,8 @@ public class BillingWebViewFragment extends DaggerFragment {
           intent.setData(Uri.parse(clickUrl));
           getActivity().setResult(WebViewActivity.SUCCESS, intent);
           getActivity().finish();
+        } else if (clickUrl.contains(GO_PAY_PAYMENTS_SCHEMA)) {
+          launchActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(clickUrl)));
         } else {
           return false;
         }
@@ -202,5 +197,17 @@ public class BillingWebViewFragment extends DaggerFragment {
     inAppPurchaseInteractor.convertToFiat(currentAmount.doubleValue(), EVENT_REVENUE_CURRENCY)
         .doOnSuccess(fiatValue -> analytics.sendRevenueEvent(String.valueOf(fiatValue.getAmount())))
         .subscribe();
+  }
+
+  private void launchActivity(Intent intent) {
+    try {
+      startActivity(intent);
+    } catch (ActivityNotFoundException exception) {
+      exception.printStackTrace();
+      if (getView() != null) {
+        Snackbar.make(getView(), R.string.unknown_error, Snackbar.LENGTH_SHORT)
+            .show();
+      }
+    }
   }
 }
