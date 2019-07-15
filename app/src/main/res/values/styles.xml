@@ -70,6 +70,9 @@
     <item name="android:windowContentTransitions">true</item>
   </style>
 
+  <style name="Theme.AppCompat.Transparent.WebActivity" parent="Theme.AppCompat.Transparent">
+  </style>
+
   <style name="Theme.AppCompat.Transparent.FitAppWindow" parent="Theme.AppCompat.Transparent">
     <item name="android:fitsSystemWindows">true</item>
     <item name="android:windowIsFloating">false</item>
