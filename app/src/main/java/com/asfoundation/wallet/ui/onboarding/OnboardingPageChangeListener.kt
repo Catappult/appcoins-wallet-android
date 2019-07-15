@@ -8,16 +8,18 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import com.airbnb.lottie.LottieAnimationView
 import com.asf.wallet.R
+import com.rd.PageIndicatorView
 
 
 class OnboardingPageChangeListener internal constructor(private val view: View) :
-    ViewPager.OnPageChangeListener {
+    ViewPager2.OnPageChangeCallback() {
 
   companion object {
     var ANIMATION_TRANSITIONS = 3
+    var pageCount = 4
   }
 
   private var lottieView: LottieAnimationView? = null
@@ -25,6 +27,7 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
   private var checkBox: CheckBox? = null
   private var warningText: TextView? = null
   private var termsConditionsLayout: LinearLayout? = null
+  private var pageIndicatorView: PageIndicatorView? = null
 
   init {
     init()
@@ -36,6 +39,8 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
     checkBox = view.findViewById(R.id.onboarding_checkbox)
     warningText = view.findViewById(R.id.terms_conditions_warning)
     termsConditionsLayout = view.findViewById(R.id.terms_conditions_layout)
+    pageIndicatorView = view.findViewById(R.id.page_indicator)
+    updatePageIndicator(0)
   }
 
   private fun showWarningText(position: Int) {
@@ -78,14 +83,16 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
   }
 
   private fun animateCheckboxUp(layout: LinearLayout) {
-    (AnimatorInflater.loadAnimator(view.context, R.animator.minor_translate_up) as AnimatorSet).apply {
+    (AnimatorInflater.loadAnimator(view.context,
+        R.animator.minor_translate_up) as AnimatorSet).apply {
       setTarget(layout)
       start()
     }
   }
 
   private fun animateCheckboxDown(layout: LinearLayout) {
-    (AnimatorInflater.loadAnimator(view.context, R.animator.minor_translate_down) as AnimatorSet).apply {
+    (AnimatorInflater.loadAnimator(view.context,
+        R.animator.minor_translate_down) as AnimatorSet).apply {
       setTarget(layout)
       start()
     }
@@ -120,6 +127,18 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
     }
     showWarningText(position)
     showButton(position)
+    updatePageIndicator(position)
+  }
+
+  private fun updatePageIndicator(position: Int) {
+    val pos: Int
+    val config = view.resources.configuration
+    pos = if (config.layoutDirection == View.LAYOUT_DIRECTION_LTR) {
+      position
+    } else {
+      pageCount - position - 1
+    }
+    pageIndicatorView!!.setSelected(pos)
   }
 
   override fun onPageSelected(position: Int) {

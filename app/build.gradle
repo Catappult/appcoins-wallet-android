@@ -191,7 +191,7 @@ dependencies {
   implementation "com.google.android.gms:play-services-vision:17.0.2"
 
   implementation "com.github.apl-devs:appintro:v4.2.2"
-  implementation 'com.romandanylyk:pageindicatorview:1.0.0'
+  implementation "com.romandanylyk:pageindicatorview:$project.pageindicatorviewVersion"
   implementation "com.journeyapps:zxing-android-embedded:3.2.0@aar"
   // ReactiveX
   implementation "io.reactivex.rxjava2:rxjava:$project.rxJavaVersion"
@@ -264,7 +264,8 @@ dependencies {
 
   implementation 'com.hendraanggrian.material:collapsingtoolbarlayout-subtitle:1.0.0'
   implementation "com.airbnb.android:lottie:$lottieVersion"
-  implementation "com.hbb20:ccp:$cpp"
+  implementation "com.hbb20:ccp:$cppVersion"
+  implementation "androidx.viewpager2:viewpager2:$project.viewPagerVersion"
 }
 
 def renameArtifact(defaultConfig) {
