@@ -55,6 +55,7 @@ public class WebViewActivity extends AppCompatActivity {
   }
 
   private void lockCurrentPosition() {
+    //setRequestedOrientation requires translucent and floating to be false to work in API 26
     int orientation = getWindowManager().getDefaultDisplay()
         .getRotation();
     switch (orientation) {
