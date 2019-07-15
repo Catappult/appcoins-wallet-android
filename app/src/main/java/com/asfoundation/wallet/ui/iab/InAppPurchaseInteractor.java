@@ -202,8 +202,7 @@ public class InAppPurchaseInteractor {
   }
 
   public Single<Price> getTransactionAmount(String uid) {
-    return getCompletedTransaction(uid).map(transaction -> transaction.getPrice()
-        .getAppc())
+    return getCompletedTransaction(uid).map(transaction -> transaction.getPrice())
         .firstOrError();
   }
 
