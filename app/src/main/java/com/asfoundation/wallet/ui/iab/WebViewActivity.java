@@ -2,11 +2,11 @@ package com.asfoundation.wallet.ui.iab;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.navigator.UriNavigator;
 import dagger.android.AndroidInjection;
 import java.math.BigDecimal;
 
@@ -36,7 +36,7 @@ public class WebViewActivity extends AppCompatActivity {
     AndroidInjection.inject(this);
     super.onCreate(savedInstanceState);
     setContentView(R.layout.web_view_activity);
-
+    lockCurrentPosition();
     if (savedInstanceState == null) {
       String url = getIntent().getStringExtra(URL);
       String domain = getIntent().getStringExtra(DOMAIN);
@@ -49,6 +49,15 @@ public class WebViewActivity extends AppCompatActivity {
       getSupportFragmentManager().beginTransaction()
           .add(R.id.container, billingWebViewFragment)
           .commit();
+    }
+  }
+
+  private void lockCurrentPosition() {
+    int orientation = getResources().getConfiguration().orientation;
+    if (orientation == 1) {
+      setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+    } else {
+      setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
   }
 }

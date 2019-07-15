@@ -108,7 +108,6 @@
     </activity>
     <activity
         android:name="com.asfoundation.wallet.ui.iab.WebViewActivity"
-        android:configChanges="orientation|screenSize"
         android:theme="@style/Theme.AppCompat.Transparent"/>
     <activity
         android:name="com.asfoundation.wallet.permissions.request.view.PermissionsActivity"
