@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/payment_methods_width_landscape"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
     tools:context="com.asfoundation.wallet.ui.iab.IabActivity"
     >
   <WebView
