@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Surface;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.asf.wallet.R;
@@ -53,11 +55,24 @@ public class WebViewActivity extends AppCompatActivity {
   }
 
   private void lockCurrentPosition() {
-    int orientation = getResources().getConfiguration().orientation;
-    if (orientation == 1) {
-      setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-    } else {
-      setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+    int orientation = getWindowManager().getDefaultDisplay()
+        .getRotation();
+    switch (orientation) {
+      case Surface.ROTATION_0:
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        break;
+      case Surface.ROTATION_90:
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        break;
+      case Surface.ROTATION_180:
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
+        break;
+      case Surface.ROTATION_270:
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
+        break;
+      default:
+        Log.w("WebView", "Invalid orientation value: " + orientation);
+        break;
     }
   }
 }
