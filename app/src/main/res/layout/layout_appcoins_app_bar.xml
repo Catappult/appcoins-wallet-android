@@ -13,10 +13,6 @@
       android:layout_height="match_parent"
       android:background="@drawable/appbar_background_color"
       android:fitsSystemWindows="false"
-      app:collapsedTitleGravity="start|center_vertical"
-      app:collapsedTitleTextAppearance="@style/ToolbarTextAppearance.Title"
-      app:expandedTitleGravity="center"
-      app:expandedTitleTextAppearance="@style/ToolbarTextAppearance.Title.Expanded"
       app:layout_scrollFlags="scroll|exitUntilCollapsed"
       app:toolbarId="@+id/toolbar"
       >
