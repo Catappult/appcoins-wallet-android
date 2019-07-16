@@ -277,11 +277,10 @@ public class AsfInAppPurchaseInteractor {
             throw new UnknownServiceException("Unknown gateway");
         }
       case COMPLETED:
-        return isBuyReady ? CurrentPaymentStep.READY : CurrentPaymentStep.NO_FUNDS;
-      default:
       case FAILED:
       case CANCELED:
       case INVALID_TRANSACTION:
+      default:
         return isBuyReady ? CurrentPaymentStep.READY : CurrentPaymentStep.NO_FUNDS;
     }
   }
