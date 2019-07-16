@@ -185,8 +185,8 @@ public class OnChainBuyPresenter {
         return Completable.fromAction(view::showApproving);
       case BUYING:
         return Completable.fromAction(view::showBuying);
-      default:
       case ERROR:
+      default:
         return Completable.fromAction(() -> showError(null))
             .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));
     }
