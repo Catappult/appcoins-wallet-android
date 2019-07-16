@@ -278,11 +278,12 @@
   <string name="gamification_level_body">Você ganhará Créditos APPC ao comprar itens em seus apps e games favoritos.</string>
   <string name="gamification_how_header">Como subir de nível?</string>
   <string name="gamification_how_body">Você ganhará Créditos APPC ao comprar itens em seus apps e games favoritos.</string>
-  <string name="gamification_how_body_new">Quanto mais AppCoins você gastar em seus apps favoritos, maiores são os bônus!</string>
+  <string name="gamification_how_body_new">The more you spend in your favorite apps, the bigger the Bonus!</string>
   <string name="gamification_how_table_a1">GASTAR</string>
   <string name="gamification_how_table_b1">BÔNUS</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s %%</string>
+  <string name="gamification_how_table_level">LEVEL</string>
   <string name="gamification_how_terms_and_conditions">Condições</string>
   <string name="gamification_how_spend">GASTAR %s APPC</string>
   <string name="gamification_a_comet_title">um Cometa</string>
@@ -304,6 +305,15 @@
   <string name="gamification_purchase_completed_bonus_received">Bônus Recebido</string>
   <string name="action_level">Meu Nível</string>
   <string name="gamification_purchase_appccredits_body">O método de pagamento mais rápido!</string>
+  <string name="gamification_how_bonus_received_body">Bonus received</string>
+  <string name="gamification_how_appc_spent">Amount spent to reach this level</string>
+  <string name="gamification_how_to_next_level_body">Spend %1$s AppCoins more to reach level %2$s.</string>
+  <string name="gamification_level_expiration_title">Next level check: %s</string>
+  <string name="gamification_level_expiration_body">Your level is based on your purchase activity over the last 12 months.</string>
+  <string name="gamification_leveled_up_title">You\'ve reached the next level!</string>
+  <string name="gamification_leveled_up_body">You\'ll now get a %s bonus on every purchase. Keep buying to earn even more!</string>
+  <string name="gamification_leveled_up_notification_title">You reached the next level!</string>
+  <string name="gamification_leveled_up_notification_body">Congrats, you\'ll now get a %s bonus on every purchase!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Permitir que a AppCoins Wallet forneça o endereço de sua wallet para %s.</string>
   <string name="provide_wallet_body_placeholders">Permitir que a %1$s forneça o endereço da sua wallet para %2$s.</string>
@@ -329,6 +339,8 @@
   <string name="topup_bonus_header_part_1">Bônus Adicional:</string>
   <string name="topup_bonus_header_part_2">%s em Créditos APPC</string>
   <string name="topup_bonus_body">Você pode usar este bônus em sua próxima compra.</string>
+  <string name="topup_minimum_value">Minimum top-up value is %s</string>
+  <string name="topup_maximum_value">Maximum top-up value is %s</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Saldo total em %s</string>
@@ -369,6 +381,7 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
   <string name="dismiss_button">Ignorar</string>
+  <string name="connectoin_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Eu concordo com os %1$s e %2$s da AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, aceite nossos Termos e Condições e Política de Privacidade para continuar</string>
@@ -378,9 +391,11 @@
   <string name="home_empty_discover_apps_body">Os melhores apps de Android estão esperando por você.</string>
   <string name="home_empty_discover_apps_button">DESCUBRA OS MELHORES APPS</string>
   <!--Tokens-->
+  <!--Settings-->
+  <string name="title_redeem">Redeem Code</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">Em andamento&#8230;</string>
-  <string name="local_payments_inprogress_body">Complete seu pagamento e, assim que receber seus Créditos AppCoins na sua carteira, siga com a compra!</string>
+  <string name="local_payments_inprogress_body">Once you complete the payment you\'ll receive the AppCoins Credits in your wallet. Then go back to the game to make the purchase!</string>
   <!--Wallet Verification-->
   <string name="verification_notification_verification_needed_title">Recompensa disponível, mas verificação é necessária</string>
   <string name="verification_notification_verification_needed_body">Por razões de segurança, precisamos verificar sua wallet com um código SMS.</string>
@@ -401,4 +416,12 @@
   <string name="verification_notification_reward_already_received_body">Este número de telefone já foi utilizado para receber esta recompensa 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Phone already used.</string>
   <string name="verification_insert_code_error_common">Oops, something went wrong. Try again!</string>
+  <!--Purchase Flow-->
+  <string name="purchase_error_incomplete_transaction_body">It seems this purchase is already being processed. Please hold on until the transaction is completed or contact our Support Team.</string>
+  <string name="purchase_more_payment_methods_button">OTHER PAYMENT METHODS</string>
+  <string name="purchase_appcoins_available_body">You\'ll use a small amount of ETH to pay for the fees.</string>
+  <string name="purchase_appcoins_noavailable_body">You don\'t have enough AppCoins or Ether for this purchase.</string>
+  <string name="purchase_appcoins_credits_available_body">No fees and lightning fast!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough APPC Credits, try topping up!</string>
+  <string name="purchase_appcoins_credits_default_body">You earned enough AppCoins Credits for this purchase. Enjoy!</string>
 </resources>

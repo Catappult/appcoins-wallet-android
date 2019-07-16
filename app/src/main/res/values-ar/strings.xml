@@ -278,11 +278,12 @@
   <string name="gamification_level_body">ستحصل على رصيد APPC عند شراء العناصر في تطبيقاتك وألعابك المفضلة.</string>
   <string name="gamification_how_header">كيف أنتقل للمستوى التالي؟</string>
   <string name="gamification_how_body">ستحصل على رصيد APPC عند شراء العناصر في تطبيقاتك وألعابك المفضلة.</string>
-  <string name="gamification_how_body_new">كلما أنفقت المزيد من الأبكوينز في تطبيقاتك المفضلة، ارتفعت علاوتك!</string>
+  <string name="gamification_how_body_new">كلما أنفقت أكثر على تطبيقاتك المفضلة، زادت مكافآتك!</string>
   <string name="gamification_how_table_a1">أنفق</string>
   <string name="gamification_how_table_b1">علاوة</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s %%</string>
+  <string name="gamification_how_table_level">المستوى</string>
   <string name="gamification_how_terms_and_conditions">الشروط</string>
   <string name="gamification_how_spend">أنفق %s APPC</string>
   <string name="gamification_a_comet_title">مذَنَّبْ</string>
@@ -304,6 +305,15 @@
   <string name="gamification_purchase_completed_bonus_received">تلقيت مكافأة</string>
   <string name="action_level">مستواي</string>
   <string name="gamification_purchase_appccredits_body">أسرع وسيلة دفع!</string>
+  <string name="gamification_how_bonus_received_body">تلقيت مكافأة</string>
+  <string name="gamification_how_appc_spent">ما عليك أن تنفقه للوصول إلى هذا المستوى</string>
+  <string name="gamification_how_to_next_level_body">أَنفق %1$s AppCoins إضافية لتصل إلى المستوى %2$s.</string>
+  <string name="gamification_level_expiration_title">الفحص التالي للمستوى: %s</string>
+  <string name="gamification_level_expiration_body">يعتمد مستواك على أنشطتك الشرائية خلال الـ 12 شهرًا الماضية.</string>
+  <string name="gamification_leveled_up_title">لقد وصلت إلى المستوى التالي!</string>
+  <string name="gamification_leveled_up_body">ستحصل الآن على مكافأة %s على كل عملية شراء. استمر في الشراء للحصول على المزيد!</string>
+  <string name="gamification_leveled_up_notification_title">لقد وصلت إلى المستوى التالي!</string>
+  <string name="gamification_leveled_up_notification_body">مبروك، ستحصل الآن على مكافأة %s على كل عملية شراء!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">اسمح لمحفظة AppCoins بإعطاء عنوان محفظتك إلى %s.</string>
   <string name="provide_wallet_body_placeholders">السماح لـ %1$s بتوفير عنوان محفظتك لـ %2$s.</string>
@@ -325,10 +335,12 @@
   <string name="topup_bonus_message">سيضاف %s APPC-C إضافية إلى محفظتك.</string>
   <string name="topup_completed_1">%s في رصيد الـAppCoins</string>
   <string name="topup_completed_2_with_bonus">أُودعت في حسابك... إضافة إلى مكافأة!</string>
-  <string name="topup_completed_2_without_bonus">were deposited in your account.</string>
+  <string name="topup_completed_2_without_bonus">أُودِعَتْ في حسابك.</string>
   <string name="topup_bonus_header_part_1">مكافأة شحن رصيد:</string>
   <string name="topup_bonus_header_part_2">%s في رصيد APPC</string>
   <string name="topup_bonus_body">يمكنك استخدام هذه المكافأة في عميلة الشراء القادمة.</string>
+  <string name="topup_minimum_value">Minimum top-up value is %s</string>
+  <string name="topup_maximum_value">Maximum top-up value is %s</string>
   <!--Balance-->
   <string name="balance_title">الرصيد</string>
   <string name="balance_total_body">الرصيد الكلّي بعملة %s</string>
@@ -369,6 +381,7 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
   <string name="dismiss_button">تجاهل</string>
+  <string name="connectoin_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">أوافق على %1$s و%2$s الخاصة بـ AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">يرجى قبول القواعد والشروط وسياسة الخصوصية لمتابعة</string>
@@ -378,9 +391,11 @@
   <string name="home_empty_discover_apps_body">أفضل تطبيقات الأندرويد بانتظارك.</string>
   <string name="home_empty_discover_apps_button">اكتشف أفضل التطبيقات</string>
   <!--Tokens-->
+  <!--Settings-->
+  <string name="title_redeem">Redeem Code</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">قيد العمل&#8230;</string>
-  <string name="local_payments_inprogress_body">أتِمَّ عملية الدفع، وعندما تحصل على رصيد الAppCoins في محفظتك، أتِمّ عملية الشراء!</string>
+  <string name="local_payments_inprogress_body">Once you complete the payment you\'ll receive the AppCoins Credits in your wallet. Then go back to the game to make the purchase!</string>
   <!--Wallet Verification-->
   <string name="verification_notification_verification_needed_title">الجائزة جاهزة لكن التأكيد مطلوب</string>
   <string name="verification_notification_verification_needed_body">لأسباب أمنية، نحن بحاجة إلى تأكيد محفظتك برمز SMS.</string>
@@ -401,4 +416,12 @@
   <string name="verification_notification_reward_already_received_body">لقد استُخدم رقم الهاتف هذا سابقًا لاستقبال هذه الجائزة 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">رقم هاتف مُستخدَم سابقًا.</string>
   <string name="verification_insert_code_error_common">يا للخسارة، حدث خطأ. حاول مجددًا!</string>
+  <!--Purchase Flow-->
+  <string name="purchase_error_incomplete_transaction_body">It seems this purchase is already being processed. Please hold on until the transaction is completed or contact our Support Team.</string>
+  <string name="purchase_more_payment_methods_button">OTHER PAYMENT METHODS</string>
+  <string name="purchase_appcoins_available_body">You\'ll use a small amount of ETH to pay for the fees.</string>
+  <string name="purchase_appcoins_noavailable_body">You don\'t have enough AppCoins or Ether for this purchase.</string>
+  <string name="purchase_appcoins_credits_available_body">No fees and lightning fast!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough APPC Credits, try topping up!</string>
+  <string name="purchase_appcoins_credits_default_body">You earned enough AppCoins Credits for this purchase. Enjoy!</string>
 </resources>
