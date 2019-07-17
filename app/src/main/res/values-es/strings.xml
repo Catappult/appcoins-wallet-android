@@ -308,7 +308,7 @@
   <string name="gamification_how_bonus_received_body">Bonus received</string>
   <string name="gamification_how_appc_spent">Amount spent to reach this level</string>
   <string name="gamification_how_to_next_level_body">Spend %1$s AppCoins more to reach level %2$s.</string>
-  <string name="gamification_level_expiration_title">Next level check: %s</string>
+  <string name="gamification_level_expiration_title">Próxima revisión de nivel: %s</string>
   <string name="gamification_level_expiration_body">Your level is based on your purchase activity over the last 12 months.</string>
   <string name="gamification_leveled_up_title">You\'ve reached the next level!</string>
   <string name="gamification_leveled_up_body">You\'ll now get a %s bonus on every purchase. Keep buying to earn even more!</string>
@@ -381,7 +381,7 @@
   <string name="value_fiat">%2$s%1$s</string>
   <string name="value_crypto">%1$s %2$s</string>
   <string name="dismiss_button">Pasar</string>
-  <string name="connectoin_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
+  <string name="connectoin_error_body">Parece que no tienes conexión a Internet. ¡Compruébala y prueba de nuevo!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acepto los %1$s y la %2$s de la AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, acepta nuestros Términos y Condiciones y Política de Privacidad para continuar</string>
@@ -392,7 +392,7 @@
   <string name="home_empty_discover_apps_button">DESCUBRIR APPS</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
+  <string name="title_redeem">Usar código promocional</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">Procesando&#8230;</string>
   <string name="local_payments_inprogress_body">Once you complete the payment you\'ll receive the AppCoins Credits in your wallet. Then go back to the game to make the purchase!</string>
