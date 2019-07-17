@@ -30,7 +30,6 @@ import com.asfoundation.wallet.ui.gamification.MyLevelFragment;
 import com.asfoundation.wallet.ui.iab.AdyenAuthorizationFragment;
 import com.asfoundation.wallet.ui.iab.AppcoinsRewardsBuyFragment;
 import com.asfoundation.wallet.ui.iab.BillingWebViewFragment;
-import com.asfoundation.wallet.ui.iab.ExpressCheckoutBuyFragment;
 import com.asfoundation.wallet.ui.iab.IabActivity;
 import com.asfoundation.wallet.ui.iab.LocalPaymentFragment;
 import com.asfoundation.wallet.ui.iab.OnChainBuyFragment;
@@ -104,9 +103,6 @@ import dagger.android.ContributesAndroidInjector;
   @ContributesAndroidInjector() abstract MyLevelFragment bindMyLevelFragment();
 
   @ContributesAndroidInjector()
-  abstract ExpressCheckoutBuyFragment bindExpressCheckoutBuyFragment();
-
-  @ContributesAndroidInjector()
   abstract AdyenAuthorizationFragment bindCreditCardAuthorizationFragment();
 
   @ContributesAndroidInjector() abstract BillingWebViewFragment bindWebViewFragment();
@@ -156,5 +152,4 @@ import dagger.android.ContributesAndroidInjector;
   @ContributesAndroidInjector() abstract BalanceFragment bindBalanceFragment();
 
   @ContributesAndroidInjector() abstract TokenDetailsActivity bindTokenDetailsFragment();
-
 }
