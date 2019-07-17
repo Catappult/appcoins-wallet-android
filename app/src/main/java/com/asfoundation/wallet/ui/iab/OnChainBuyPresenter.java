@@ -3,7 +3,6 @@ package com.asfoundation.wallet.ui.iab;
 import android.os.Bundle;
 import android.util.Log;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
-import com.appcoins.wallet.billing.repository.entity.TransactionData.TransactionType;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.util.UnknownTokenException;
@@ -33,24 +32,22 @@ public class OnChainBuyPresenter {
   private final CompositeDisposable disposables;
   private final BillingMessagesMapper billingMessagesMapper;
   private final boolean isBds;
-  private final String productName;
   private final String appPackage;
   private final String uriString;
   private final Single<TransactionBuilder> transactionBuilder;
   private BillingAnalytics analytics;
   private Disposable statusDisposable;
 
-  public OnChainBuyPresenter(OnChainBuyView view, InAppPurchaseInteractor inAppPurchaseInteractor,
+  OnChainBuyPresenter(OnChainBuyView view, InAppPurchaseInteractor inAppPurchaseInteractor,
       Scheduler viewScheduler, CompositeDisposable disposables,
-      BillingMessagesMapper billingMessagesMapper, boolean isBds, String productName,
-      BillingAnalytics analytics, String appPackage, String uriString) {
+      BillingMessagesMapper billingMessagesMapper, boolean isBds, BillingAnalytics analytics,
+      String appPackage, String uriString) {
     this.view = view;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.viewScheduler = viewScheduler;
     this.disposables = disposables;
     this.billingMessagesMapper = billingMessagesMapper;
     this.isBds = isBds;
-    this.productName = productName;
     this.analytics = analytics;
     this.appPackage = appPackage;
     this.uriString = uriString;
@@ -60,8 +57,6 @@ public class OnChainBuyPresenter {
   public void present(String uriString, String appPackage, String productName, BigDecimal amount,
       String developerPayload) {
     setupUi(amount, uriString, appPackage, developerPayload);
-
-    handleCancelClick();
 
     handleOkErrorClick(uriString);
 
@@ -81,27 +76,21 @@ public class OnChainBuyPresenter {
 
   private void handleBuyEvent(String appPackage, String productName, String developerPayload,
       boolean isBds) {
-    disposables.add(view.getBuyClick()
-        .doOnNext(this::showTransactionState)
-        .observeOn(Schedulers.io())
-        .flatMapCompletable(buyData -> inAppPurchaseInteractor.send(buyData,
-            AsfInAppPurchaseInteractor.TransactionType.NORMAL, appPackage, productName,
-            BigDecimal.ZERO, developerPayload, isBds)
+    disposables.add(
+        inAppPurchaseInteractor.send(uriString, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
+            appPackage, productName, BigDecimal.ZERO, developerPayload, isBds)
             .observeOn(viewScheduler)
-            .doOnError(this::showError))
-        .retry()
-        .subscribe());
+            .doOnError(this::showError)
+            .observeOn(Schedulers.io())
+            .doOnSubscribe(disposable -> showTransactionState(uriString))
+            .retry()
+            .subscribe());
   }
 
   private void handleOkErrorClick(String uriString) {
     disposables.add(view.getOkErrorClick()
         .flatMapSingle(__ -> inAppPurchaseInteractor.parseTransaction(uriString, isBds))
         .subscribe(click -> close(), throwable -> close()));
-  }
-
-  private void handleCancelClick() {
-    disposables.add(view.getCancelClick()
-        .subscribe(click -> close()));
   }
 
   private void setupUi(BigDecimal appcAmount, String uri, String packageName,
@@ -116,7 +105,7 @@ public class OnChainBuyPresenter {
                           AsfInAppPurchaseInteractor.TransactionType.NORMAL, packageName,
                           transaction.getSkuId(), developerPayload, isBds);
                     case READY:
-                      return Completable.fromAction(() -> setup(appcAmount, transaction.getType()))
+                      return Completable.fromAction(() -> setup(appcAmount))
                           .subscribeOn(AndroidSchedulers.mainThread());
                     case NO_FUNDS:
                       return Completable.fromAction(view::showNoFundsError)
@@ -130,10 +119,6 @@ public class OnChainBuyPresenter {
                 }))
         .subscribe(() -> {
         }, this::showError));
-
-    disposables.add(inAppPurchaseInteractor.getWalletAddress()
-        .observeOn(viewScheduler)
-        .subscribe(wallet -> view.showWallet(wallet), this::showError));
   }
 
   private void close() {
@@ -164,22 +149,22 @@ public class OnChainBuyPresenter {
                 .andThen(Completable.fromRunnable(() -> view.finish(bundle))))
             .onErrorResumeNext(throwable -> Completable.fromAction(() -> showError(throwable)));
       case NO_FUNDS:
-        return Completable.fromAction(() -> view.showNoFundsError())
+        return Completable.fromAction(view::showNoFundsError)
             .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));
       case NETWORK_ERROR:
-        return Completable.fromAction(() -> view.showWrongNetworkError())
+        return Completable.fromAction(view::showWrongNetworkError)
             .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));
       case NO_TOKENS:
-        return Completable.fromAction(() -> view.showNoTokenFundsError())
+        return Completable.fromAction(view::showNoTokenFundsError)
             .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));
       case NO_ETHER:
-        return Completable.fromAction(() -> view.showNoEtherFundsError())
+        return Completable.fromAction(view::showNoEtherFundsError)
             .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));
       case NO_INTERNET:
-        return Completable.fromAction(() -> view.showNoNetworkError())
+        return Completable.fromAction(view::showNoNetworkError)
             .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));
       case NONCE_ERROR:
-        return Completable.fromAction(() -> view.showNonceError())
+        return Completable.fromAction(view::showNonceError)
             .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));
       case APPROVING:
         return Completable.fromAction(view::showApproving);
@@ -211,28 +196,26 @@ public class OnChainBuyPresenter {
     disposables.clear();
   }
 
-  private void setup(BigDecimal amount, String type) {
-    view.setup(productName, TransactionType.DONATION.name()
-        .equalsIgnoreCase(type));
+  private void setup(BigDecimal amount) {
     view.showRaidenChannelValues(inAppPurchaseInteractor.getTopUpChannelSuggestionValues(amount));
   }
 
-  public void sendPaymentEvent(String purchaseDetails) {
+  void sendPaymentEvent(String purchaseDetails) {
     disposables.add(transactionBuilder.subscribe(
         transactionBuilder -> analytics.sendPaymentEvent(appPackage, transactionBuilder.getSkuId(),
             transactionBuilder.amount()
                 .toString(), purchaseDetails, transactionBuilder.getType())));
   }
 
-  public void resume() {
+  void resume() {
     showTransactionState(uriString);
   }
 
-  public void pause() {
+  void pause() {
     statusDisposable.dispose();
   }
 
-  public void sendRevenueEvent() {
+  void sendRevenueEvent() {
     disposables.add(transactionBuilder.flatMap(
         transaction -> inAppPurchaseInteractor.convertToFiat((transaction.amount()).doubleValue(),
             EVENT_REVENUE_CURRENCY))

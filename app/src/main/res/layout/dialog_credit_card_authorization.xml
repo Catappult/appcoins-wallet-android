@@ -84,6 +84,7 @@
           android:layout_height="wrap_content"
           android:layout_below="@id/line_separator"
           android:layout_centerInParent="true"
+          android:indeterminateDrawable="@drawable/gradient_progress"
           />
 
       <ScrollView
@@ -187,7 +188,10 @@
           />
     </RelativeLayout>
 
-    <include layout="@layout/fragment_iab_transaction_completed"/>
+    <include
+        layout="@layout/fragment_iab_transaction_completed"
+        tools:visibility="gone"
+        />
 
   </LinearLayout>
 
@@ -197,6 +201,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_centerInParent="true"
+      tools:visibility="gone"
       />
 
 </RelativeLayout>
