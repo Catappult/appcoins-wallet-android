@@ -102,9 +102,6 @@ public class WalletPoAService extends Service {
                 .doOnSuccess(requirementsStatus -> proofOfAttentionService.setChainId(packageName,
                     intent.getIntExtra(PARAM_NETWORK_ID, -1)))
                 .doOnSuccess(
-                    proofSubmissionFeeData -> proofOfAttentionService.setGasSettings(packageName,
-                        proofSubmissionFeeData.getGasPrice(), proofSubmissionFeeData.getGasLimit()))
-                .doOnSuccess(
                     requirementsStatus -> processWalletState(requirementsStatus.getStatus(),
                         intent)))
             .subscribe(requirementsStatus -> {
