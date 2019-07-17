@@ -8,7 +8,6 @@ import com.asfoundation.wallet.poa.ProofWriter
 import com.asfoundation.wallet.service.CampaignService
 import com.asfoundation.wallet.service.CampaignStatus
 import io.reactivex.Single
-import java.math.BigDecimal
 import java.net.UnknownHostException
 
 open class BdsBackEndWriter(
@@ -26,12 +25,10 @@ open class BdsBackEndWriter(
     if (!isCorrectNetwork(chainId)) {
       return if (isKnownNetwork(chainId)) {
         Single.just(
-            ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.WRONG_NETWORK,
-                BigDecimal.ZERO, BigDecimal.ZERO))
+            ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.WRONG_NETWORK))
       } else {
         Single.just(
-            ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.UNKNOWN_NETWORK,
-                BigDecimal.ZERO, BigDecimal.ZERO))
+            ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.UNKNOWN_NETWORK))
       }
     }
 
@@ -43,25 +40,20 @@ open class BdsBackEndWriter(
         .map {
           if (isAvailable(it.campaignStatus)) {
             if (isEligible(it.campaignStatus)) {
-              ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY,
-                  BigDecimal.ZERO, BigDecimal.ZERO)
+              ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY)
             } else {
-              ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NOT_ELIGIBLE,
-                  BigDecimal.ZERO, BigDecimal.ZERO)
+              ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NOT_ELIGIBLE)
             }
           } else {
-            ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NOT_AVAILABLE,
-                BigDecimal.ZERO, BigDecimal.ZERO)
+            ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NOT_AVAILABLE)
           }
         }
         .onErrorReturn {
           when (it) {
             is WalletNotFoundException -> ProofSubmissionFeeData(
-                ProofSubmissionFeeData.RequirementsStatus.NO_WALLET,
-                BigDecimal.ZERO, BigDecimal.ZERO)
+                ProofSubmissionFeeData.RequirementsStatus.NO_WALLET)
             is UnknownHostException -> ProofSubmissionFeeData(
-                ProofSubmissionFeeData.RequirementsStatus.NO_NETWORK,
-                BigDecimal.ZERO, BigDecimal.ZERO)
+                ProofSubmissionFeeData.RequirementsStatus.NO_NETWORK)
             else -> throw it
           }
         }
