@@ -14,11 +14,13 @@ class LocalPayementsLinkRepository(private var api: DeepLinkApi) : InAppDeepLink
                            originalAmount: String?, originalCurrency: String?,
                            paymentMethod: String,
                            developerWalletAddress: String,
-                           storeWalletAddress: String, oemWalletAddress: String): Single<String> {
+                           storeWalletAddress: String, oemWalletAddress: String,
+                           callbackUrl: String?, orderReference: String?,
+                           payload: String?): Single<String> {
     return api.getDeepLink(userWalletAddress, signature,
         DeepLinkData(domain, skuId, null, originalAmount,
             originalCurrency,
-            paymentMethod, developerWalletAddress, null, null, null,
+            paymentMethod, developerWalletAddress, callbackUrl, payload, orderReference,
             storeWalletAddress, oemWalletAddress))
         .map { it.url }
   }

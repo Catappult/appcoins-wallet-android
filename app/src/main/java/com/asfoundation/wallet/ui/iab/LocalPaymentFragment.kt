@@ -38,13 +38,23 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     private const val STATUS_KEY = "status"
     private const val TYPE_KEY = "type"
     private const val DEV_ADDRESS_KEY = "dev_address"
+    private const val CALLBACK_URL = "CALLBACK_URL"
+    private const val ORDER_REFERENCE = "ORDER_REFERENCE"
+    private const val PAYLOAD = "PAYLOAD"
 
     @JvmStatic
-    fun newInstance(domain: String, skudId: String?, originalAmount: String?,
-                    currency: String?, bonus: String?,
-                    selectedPaymentMethod: String,
-                    isInApp: Boolean,
-                    developerAddress: String): LocalPaymentFragment {
+    fun newInstance(
+        domain: String,
+        skudId: String?,
+        originalAmount: String?,
+        currency: String?,
+        bonus: String?,
+        selectedPaymentMethod: String,
+        isInApp: Boolean,
+        developerAddress: String,
+        callbackUrl: String?,
+        orderReference: String?,
+        payload: String?): LocalPaymentFragment {
       val fragment = LocalPaymentFragment()
       val bundle = Bundle()
       bundle.putString(DOMAIN_KEY, domain)
@@ -55,6 +65,9 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
       bundle.putString(PAYMENT_KEY, selectedPaymentMethod)
       bundle.putBoolean(TYPE_KEY, isInApp)
       bundle.putString(DEV_ADDRESS_KEY, developerAddress)
+      bundle.putString(CALLBACK_URL, callbackUrl)
+      bundle.putString(ORDER_REFERENCE, orderReference)
+      bundle.putString(PAYLOAD, payload)
       fragment.arguments = bundle
       return fragment
     }
@@ -114,6 +127,30 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     }
   }
 
+  private val orderReference: String? by lazy {
+    if (arguments!!.containsKey(ORDER_REFERENCE)) {
+      arguments!!.getString(ORDER_REFERENCE)
+    } else {
+      throw IllegalArgumentException("dev address data not found")
+    }
+  }
+
+  private val callbackUrl: String? by lazy {
+    if (arguments!!.containsKey(CALLBACK_URL)) {
+      arguments!!.getString(CALLBACK_URL)
+    } else {
+      throw IllegalArgumentException("dev address data not found")
+    }
+  }
+
+  private val payload: String? by lazy {
+    if (arguments!!.containsKey(PAYLOAD)) {
+      arguments!!.getString(PAYLOAD)
+    } else {
+      throw IllegalArgumentException("dev address data not found")
+    }
+  }
+
   private val type: Boolean by lazy {
     if (arguments!!.containsKey(TYPE_KEY)) {
       arguments!!.getBoolean(TYPE_KEY)
@@ -138,7 +175,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
         LocalPaymentPresenter(this, originalAmount, currency, domain, skudId,
             paymentId, developerAddress, localPaymentInteractor, navigator, type,
             savedInstanceState, AndroidSchedulers.mainThread(), Schedulers.io(),
-            CompositeDisposable())
+            CompositeDisposable(), callbackUrl, orderReference, payload)
   }
 
 

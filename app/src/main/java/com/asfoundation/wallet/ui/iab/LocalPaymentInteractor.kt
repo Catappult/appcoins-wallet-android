@@ -24,7 +24,9 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
 
   fun getPaymentLink(domain: String, skuId: String?,
                      originalAmount: String?, originalCurrency: String?,
-                     paymentMethod: String, developerAddress: String): Single<String> {
+                     paymentMethod: String, developerAddress: String,
+                     callbackUrl: String?, orderReference: String?,
+                     payload: String?): Single<String> {
 
     return walletService.getWalletAddress()
         .flatMap { address ->
@@ -38,7 +40,7 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
               .flatMap {
                 deepLinkRepository.getDeepLink(domain, skuId, address, it.signature, originalAmount,
                     originalCurrency, paymentMethod, developerAddress, it.storeAddress,
-                    it.oemAddress)
+                    it.oemAddress, callbackUrl, orderReference, payload)
               }
         }
   }
