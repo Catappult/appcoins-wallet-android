@@ -38,14 +38,10 @@ open class BdsBackEndWriter(
               packageName, versionCode)
         }
         .map {
-          if (isAvailable(it.campaignStatus)) {
-            if (isEligible(it.campaignStatus)) {
-              ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY)
-            } else {
-              ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NOT_ELIGIBLE)
-            }
+          if (isEligible(it.campaignStatus)) {
+            ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY)
           } else {
-            ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NOT_AVAILABLE)
+            ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NOT_ELIGIBLE)
           }
         }
         .onErrorReturn {
@@ -59,12 +55,8 @@ open class BdsBackEndWriter(
         }
   }
 
-  private fun isAvailable(campaignStatus: CampaignStatus): Boolean {
-    return campaignStatus != CampaignStatus.NO_CAMPAIGN_AVAILABLE
-  }
-
   private fun isEligible(campaignStatus: CampaignStatus): Boolean {
-    return campaignStatus != CampaignStatus.NOT_ELIGIBLE
+    return campaignStatus == CampaignStatus.AVAILABLE
   }
 
   private fun isKnownNetwork(chainId: Int): Boolean {
