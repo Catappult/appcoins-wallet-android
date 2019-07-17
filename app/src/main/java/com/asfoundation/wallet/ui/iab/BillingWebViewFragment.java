@@ -20,15 +20,11 @@ import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.google.android.material.snackbar.Snackbar;
 import dagger.android.support.DaggerFragment;
-import java.math.BigDecimal;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.atomic.AtomicReference;
 import javax.inject.Inject;
-
-import static com.asfoundation.wallet.analytics.FacebookEventLogger.EVENT_REVENUE_CURRENCY;
-import static com.asfoundation.wallet.billing.analytics.BillingAnalytics.PAYMENT_METHOD_PAYPAL;
 
 public class BillingWebViewFragment extends DaggerFragment {
 
@@ -46,10 +42,6 @@ public class BillingWebViewFragment extends DaggerFragment {
   @Inject BillingAnalytics analytics;
   private ProgressBar webviewProgressBar;
   private String currentUrl;
-  private String currentDomain;
-  private String currentSkuId;
-  private BigDecimal currentAmount;
-  private String currentType;
   private ScheduledExecutorService executorService;
   private AndroidBug5497Workaround androidBug5497Workaround;
 
@@ -57,14 +49,9 @@ public class BillingWebViewFragment extends DaggerFragment {
     this.timeoutReference = new AtomicReference<>();
   }
 
-  public static BillingWebViewFragment newInstance(String url, String domain, String skuId,
-      BigDecimal amount, String type) {
+  public static BillingWebViewFragment newInstance(String url) {
     Bundle args = new Bundle();
     args.putString(URL, url);
-    args.putString(DOMAIN, domain);
-    args.putString(SKUID, skuId);
-    args.putSerializable(AMOUNT, amount);
-    args.putString(TYPE, type);
     BillingWebViewFragment fragment = new BillingWebViewFragment();
     fragment.setArguments(args);
     fragment.setRetainInstance(true);
@@ -93,11 +80,6 @@ public class BillingWebViewFragment extends DaggerFragment {
       currentUrl = savedInstanceState.getString(CURRENT_URL);
     }
 
-    currentDomain = getArguments().getString(DOMAIN);
-    currentSkuId = getArguments().getString(SKUID);
-    currentAmount = (BigDecimal) getArguments().getSerializable(AMOUNT);
-    currentType = getArguments().getString(TYPE);
-
     CookieManager.getInstance()
         .setAcceptCookie(true);
   }
@@ -118,8 +100,6 @@ public class BillingWebViewFragment extends DaggerFragment {
           Intent intent = new Intent();
           intent.setData(Uri.parse(clickUrl));
           getActivity().setResult(WebViewActivity.SUCCESS, intent);
-          sendPaymentEvent();
-          sendRevenueEvent();
           getActivity().finish();
         } else if (clickUrl.contains(LOCAL_PAYMENTS_SCHEMA)) {
           currentUrl = clickUrl;
@@ -160,13 +140,6 @@ public class BillingWebViewFragment extends DaggerFragment {
     return view;
   }
 
-  @Override public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-    super.onViewCreated(view, savedInstanceState);
-    if (savedInstanceState == null) {
-      sendPaymentMethodDetailsEvent();
-    }
-  }
-
   @Override public void onSaveInstanceState(@NonNull Bundle outState) {
     super.onSaveInstanceState(outState);
 
@@ -183,22 +156,6 @@ public class BillingWebViewFragment extends DaggerFragment {
     androidBug5497Workaround.removeListener();
 
     super.onDetach();
-  }
-
-  private void sendPaymentMethodDetailsEvent() {
-    analytics.sendPaymentMethodDetailsEvent(currentDomain, currentSkuId, currentAmount.toString(),
-        PAYMENT_METHOD_PAYPAL, currentType);
-  }
-
-  private void sendPaymentEvent() {
-    analytics.sendPaymentEvent(currentDomain, currentSkuId, currentAmount.toString(),
-        PAYMENT_METHOD_PAYPAL, currentType);
-  }
-
-  private void sendRevenueEvent() {
-    inAppPurchaseInteractor.convertToFiat(currentAmount.doubleValue(), EVENT_REVENUE_CURRENCY)
-        .doOnSuccess(fiatValue -> analytics.sendRevenueEvent(String.valueOf(fiatValue.getAmount())))
-        .subscribe();
   }
 
   private void launchActivity(Intent intent) {

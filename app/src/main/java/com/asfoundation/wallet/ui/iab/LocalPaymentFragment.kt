@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.view.*
 import kotlinx.android.synthetic.main.local_payment_layout.*
 import kotlinx.android.synthetic.main.pending_user_payment_view.*
 import kotlinx.android.synthetic.main.pending_user_payment_view.view.*
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
@@ -38,13 +39,14 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     private const val STATUS_KEY = "status"
     private const val TYPE_KEY = "type"
     private const val DEV_ADDRESS_KEY = "dev_address"
+    private const val AMOUNT_KEY = "amount"
 
     @JvmStatic
     fun newInstance(domain: String, skudId: String?, originalAmount: String?,
                     currency: String?, bonus: String?,
                     selectedPaymentMethod: String,
-                    isInApp: Boolean,
-                    developerAddress: String): LocalPaymentFragment {
+                    developerAddress: String, type: String,
+                    amount: BigDecimal): LocalPaymentFragment {
       val fragment = LocalPaymentFragment()
       val bundle = Bundle()
       bundle.putString(DOMAIN_KEY, domain)
@@ -53,8 +55,9 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
       bundle.putString(CURRENCY_KEY, currency)
       bundle.putString(BONUS_KEY, bonus)
       bundle.putString(PAYMENT_KEY, selectedPaymentMethod)
-      bundle.putBoolean(TYPE_KEY, isInApp)
       bundle.putString(DEV_ADDRESS_KEY, developerAddress)
+      bundle.putString(TYPE_KEY, type)
+      bundle.putSerializable(AMOUNT_KEY, amount)
       fragment.arguments = bundle
       return fragment
     }
@@ -114,17 +117,26 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     }
   }
 
-  private val type: Boolean by lazy {
+  private val type: String by lazy {
     if (arguments!!.containsKey(TYPE_KEY)) {
-      arguments!!.getBoolean(TYPE_KEY)
+      arguments!!.getString(TYPE_KEY)
     } else {
       throw IllegalArgumentException("type data not found")
     }
   }
 
+  private val amount: BigDecimal by lazy {
+    if (arguments!!.containsKey(AMOUNT_KEY)) {
+      arguments!!.getSerializable(AMOUNT_KEY) as BigDecimal
+    } else {
+      throw IllegalArgumentException("amount data not found")
+    }
+  }
+
   @Inject
   lateinit var localPaymentInteractor: LocalPaymentInteractor
-
+  @Inject
+  lateinit var analytics: LocalPaymentAnalytics
   private lateinit var iabView: IabView
   private lateinit var navigator: FragmentNavigator
   private lateinit var localPaymentPresenter: LocalPaymentPresenter
@@ -136,7 +148,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     status = NONE
     localPaymentPresenter =
         LocalPaymentPresenter(this, originalAmount, currency, domain, skudId,
-            paymentId, developerAddress, localPaymentInteractor, navigator, type,
+            paymentId, developerAddress, localPaymentInteractor, navigator, type, amount, analytics,
             savedInstanceState, AndroidSchedulers.mainThread(), Schedulers.io(),
             CompositeDisposable())
   }

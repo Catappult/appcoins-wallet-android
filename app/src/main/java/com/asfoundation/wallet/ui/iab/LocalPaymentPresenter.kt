@@ -6,6 +6,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
+import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 private val WAITING_RESULT = "WAITING_RESULT"
@@ -21,7 +22,9 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
                             private val developerAddress: String,
                             private val localPaymentInteractor: LocalPaymentInteractor,
                             private val navigator: FragmentNavigator,
-                            private val isInApp: Boolean,
+                            private val type: String,
+                            private val amount: BigDecimal,
+                            private val analytics: LocalPaymentAnalytics,
                             private val savedInstance: Bundle?,
                             private val viewScheduler: Scheduler,
                             private val networkScheduler: Scheduler,
@@ -48,7 +51,8 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
         localPaymentInteractor.getPaymentLink(domain, skuId, originalAmount, currency,
             paymentId, developerAddress).filter { !waitingResult }.observeOn(
             viewScheduler).doOnSuccess {
-          navigator.navigateToUriForResult(it, "", domain, skuId, null, "")
+          analytics.sendPaymentMethodDetailsEvent(domain, skuId, amount.toString(), type, paymentId)
+          navigator.navigateToUriForResult(it)
           waitingResult = true
         }.subscribeOn(networkScheduler).observeOn(viewScheduler)
             .subscribe({ },
@@ -58,6 +62,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
   private fun handlePaymentRedirect() {
     disposables.add(
         navigator.uriResults().doOnNext {
+          analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
           view.showProcessingLoading()
         }.flatMap {
           localPaymentInteractor.getTransaction(it)
@@ -82,9 +87,10 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
     view.hideLoading()
     return when (transaction.status) {
       Status.COMPLETED -> {
-        localPaymentInteractor.getCompletePurchaseBundle(isInApp, domain, skuId, networkScheduler,
+        localPaymentInteractor.getCompletePurchaseBundle(type, domain, skuId, networkScheduler,
             transaction.orderReference,
             transaction.hash)
+            .doOnSuccess { analytics.sendRevenueEvent(disposables, amount) }
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .flatMapCompletable {
@@ -97,6 +103,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
       }
       Status.PENDING_USER_PAYMENT -> Completable.fromAction {
         view.showPendingUserPayment()
+        analytics.sendRevenueEvent(disposables, amount)
       }.subscribeOn(viewScheduler)
       else -> Completable.fromAction {
         view.showError()

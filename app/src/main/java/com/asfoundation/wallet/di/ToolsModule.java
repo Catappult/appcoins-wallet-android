@@ -167,6 +167,7 @@ import com.asfoundation.wallet.ui.iab.AsfInAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.BdsInAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.ImageSaver;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
+import com.asfoundation.wallet.ui.iab.LocalPaymentAnalytics;
 import com.asfoundation.wallet.ui.iab.LocalPaymentInteractor;
 import com.asfoundation.wallet.ui.iab.PaymentMethodsMapper;
 import com.asfoundation.wallet.ui.iab.RewardsManager;
@@ -416,6 +417,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       BillingMessagesMapper billingMessagesMapper) {
     return new LocalPaymentInteractor(repository, walletService, partnerAddressService,
         inAppPurchaseInteractor, billing, billingMessagesMapper);
+  }
+
+  @Provides LocalPaymentAnalytics provideLocalPaymentAnalytics(BillingAnalytics billingAnalytics,
+      InAppPurchaseInteractor inAppPurchaseInteractor) {
+    return new LocalPaymentAnalytics(billingAnalytics, inAppPurchaseInteractor, Schedulers.io());
   }
 
   @Provides PaymentMethodsMapper providePaymentMethodsMapper() {

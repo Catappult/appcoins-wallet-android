@@ -83,7 +83,7 @@ public class PaymentAuthPresenter {
 
     handleChangeCardMethodResults();
 
-    handleAdyenUriRedirect(appPackage, amount, transactionType);
+    handleAdyenUriRedirect();
 
     handleAdyenUriResult();
 
@@ -249,14 +249,13 @@ public class PaymentAuthPresenter {
         }, this::showError));
   }
 
-  private void handleAdyenUriRedirect(String domain, String amount, String transactionType) {
+  private void handleAdyenUriRedirect() {
     disposables.add(adyen.getRedirectUrl()
         .observeOn(viewScheduler)
         .filter(s -> !waitingResult)
         .doOnSuccess(redirectUrl -> {
           view.showLoading();
-          navigator.navigateToUriForResult(redirectUrl, billingService.getTransactionUid(), domain,
-              "", new BigDecimal(amount), transactionType);
+          navigator.navigateToUriForResult(redirectUrl);
           waitingResult = true;
         })
         .subscribe(__ -> {

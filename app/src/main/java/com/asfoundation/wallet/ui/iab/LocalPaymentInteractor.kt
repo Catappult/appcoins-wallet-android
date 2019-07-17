@@ -55,10 +55,10 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
     return (status == PENDING_USER_PAYMENT && type == "TOPUP") || (status == COMPLETED && (type == "INAPP" || type == "INAPP_UNMANAGED")) || status == FAILED || status == CANCELED || status == INVALID_TRANSACTION
   }
 
-  fun getCompletePurchaseBundle(isInApp: Boolean, merchantName: String, sku: String?,
+  fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
                                 scheduler: Scheduler,
                                 orderReference: String?, hash: String?): Single<Bundle> {
-    return if (isInApp && sku != null) {
+    return if (isInApp(type) && sku != null) {
       billing.getSkuPurchase(merchantName, sku, scheduler)
           .map {
             billingMessagesMapper.mapPurchase(it,
@@ -67,6 +67,10 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
     } else {
       Single.just(billingMessagesMapper.successBundle(hash))
     }
+  }
+
+  private fun isInApp(type: String): Boolean {
+    return type.equals("INAPP", ignoreCase = true)
   }
 
   private data class DeepLinkInformation(val signature: String, val storeAddress: String,
