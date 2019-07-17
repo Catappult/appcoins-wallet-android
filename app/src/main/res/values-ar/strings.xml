@@ -339,8 +339,8 @@
   <string name="topup_bonus_header_part_1">مكافأة شحن رصيد:</string>
   <string name="topup_bonus_header_part_2">%s في رصيد APPC</string>
   <string name="topup_bonus_body">يمكنك استخدام هذه المكافأة في عميلة الشراء القادمة.</string>
-  <string name="topup_minimum_value">Minimum top-up value is %s</string>
-  <string name="topup_maximum_value">Maximum top-up value is %s</string>
+  <string name="topup_minimum_value">أقل قيمة يمكن إضافتها هي %s</string>
+  <string name="topup_maximum_value">أعلى قيمة يمكن إضافتها هي %s</string>
   <!--Balance-->
   <string name="balance_title">الرصيد</string>
   <string name="balance_total_body">الرصيد الكلّي بعملة %s</string>
@@ -381,7 +381,7 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
   <string name="dismiss_button">تجاهل</string>
-  <string name="connectoin_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
+  <string name="connectoin_error_body">يبدو أنك غير متصل بالإنترنت. افحص اتصالك بالإنترنت وحاول مجددًا!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">أوافق على %1$s و%2$s الخاصة بـ AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">يرجى قبول القواعد والشروط وسياسة الخصوصية لمتابعة</string>
@@ -392,10 +392,10 @@
   <string name="home_empty_discover_apps_button">اكتشف أفضل التطبيقات</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
+  <string name="title_redeem">استرجع قيمة الكود</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">قيد العمل&#8230;</string>
-  <string name="local_payments_inprogress_body">Once you complete the payment you\'ll receive the AppCoins Credits in your wallet. Then go back to the game to make the purchase!</string>
+  <string name="local_payments_inprogress_body">حالما تكمل الدفع ستتلقّى رصيد AppCoins في محفظتك. بعدها تعدود إلى اللعبة لتشتري!</string>
   <!--Wallet Verification-->
   <string name="verification_notification_verification_needed_title">الجائزة جاهزة لكن التأكيد مطلوب</string>
   <string name="verification_notification_verification_needed_body">لأسباب أمنية، نحن بحاجة إلى تأكيد محفظتك برمز SMS.</string>
@@ -417,11 +417,11 @@
   <string name="verification_insert_phone_field_phone_used_already_error">رقم هاتف مُستخدَم سابقًا.</string>
   <string name="verification_insert_code_error_common">يا للخسارة، حدث خطأ. حاول مجددًا!</string>
   <!--Purchase Flow-->
-  <string name="purchase_error_incomplete_transaction_body">It seems this purchase is already being processed. Please hold on until the transaction is completed or contact our Support Team.</string>
-  <string name="purchase_more_payment_methods_button">OTHER PAYMENT METHODS</string>
-  <string name="purchase_appcoins_available_body">You\'ll use a small amount of ETH to pay for the fees.</string>
-  <string name="purchase_appcoins_noavailable_body">You don\'t have enough AppCoins or Ether for this purchase.</string>
-  <string name="purchase_appcoins_credits_available_body">No fees and lightning fast!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough APPC Credits, try topping up!</string>
-  <string name="purchase_appcoins_credits_default_body">You earned enough AppCoins Credits for this purchase. Enjoy!</string>
+  <string name="purchase_error_incomplete_transaction_body">يبدو أن عملية الشراء قد تمت بالفعل. يرجى الانتظار حتى تتم عملية التحويل أو يمكنك التواصل مع فريق الدعم.</string>
+  <string name="purchase_more_payment_methods_button">طرق دفع أخرى</string>
+  <string name="purchase_appcoins_available_body">سترى رصيدًا قليلًا من ETH لتدفع به الرّسوم.</string>
+  <string name="purchase_appcoins_noavailable_body">لا تتوفر لديك AppCoins ولا إيثر كافية لإتمام عملية الشراء هذه.</string>
+  <string name="purchase_appcoins_credits_available_body">دون رسوم، وسرعة كالبرق!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">لا يتوفر رصيد كافٍ من APPC، جرب إضافة المزيد!</string>
+  <string name="purchase_appcoins_credits_default_body">لقد كسبت ما يكفي من رصيد الAppCoins لعملية الشراء هه. استمتع!</string>
 </resources>
