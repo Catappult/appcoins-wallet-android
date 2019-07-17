@@ -84,13 +84,15 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
 
   private fun handleTransactionStatus(transaction: Transaction): Completable {
     view.hideLoading()
-    analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
     return when (transaction.status) {
       Status.COMPLETED -> {
         localPaymentInteractor.getCompletePurchaseBundle(type, domain, skuId, networkScheduler,
             transaction.orderReference,
             transaction.hash)
-            .doOnSuccess { analytics.sendRevenueEvent(disposables, amount) }
+            .doOnSuccess {
+              analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
+              analytics.sendRevenueEvent(disposables, amount)
+            }
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .flatMapCompletable {
@@ -103,7 +105,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
       }
       Status.PENDING_USER_PAYMENT -> Completable.fromAction {
         view.showPendingUserPayment()
-        analytics.sendRevenueEvent(disposables, amount)
+        analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
       }.subscribeOn(viewScheduler)
       else -> Completable.fromAction {
         view.showError()
