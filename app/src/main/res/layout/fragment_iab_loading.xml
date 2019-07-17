@@ -47,7 +47,7 @@
       android:layout_height="80dp"
       android:layout_marginTop="44dp"
       android:layout_marginBottom="38dp"
-      android:theme="@style/AppTheme"
+      android:indeterminateDrawable="@drawable/gradient_progress"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"

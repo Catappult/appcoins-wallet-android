@@ -110,8 +110,6 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   private TextView errorMessage;
   private View errorOkButton;
   private View mainView;
-  private View headerView;
-  private View lineSeparator;
 
   public static AdyenAuthorizationFragment newInstance(String skuId, String type, String origin,
       PaymentType paymentType, String domain, String transactionData, BigDecimal amount,
@@ -173,8 +171,6 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     creditCardInformationLayout = view.findViewById(R.id.credit_card_info);
     walletInformationFooter = view.findViewById(R.id.layout_wallet_footer);
     mainView = view.findViewById(R.id.main_view);
-    headerView = view.findViewById(R.id.info_header);
-    lineSeparator = view.findViewById(R.id.line_separator);
     errorView = view.findViewById(R.id.fragment_iab_error);
     errorMessage = errorView.findViewById(R.id.activity_iab_error_message);
     errorOkButton = errorView.findViewById(R.id.activity_iab_error_ok_button);
@@ -256,8 +252,6 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     lottieTransactionComplete = null;
     transactionCompletedLayout = null;
     mainView = null;
-    headerView = null;
-    lineSeparator = null;
     errorView = null;
     errorMessage = null;
     errorOkButton = null;
@@ -296,11 +290,6 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
 
   @Override public void showLoading() {
     progressBar.setVisibility(View.VISIBLE);
-    headerView.setVisibility(View.INVISIBLE);
-    walletInformationFooter.setVisibility(View.GONE);
-    lineSeparator.setVisibility(View.INVISIBLE);
-    fiatPrice.setVisibility(View.INVISIBLE);
-    appcPrice.setVisibility(View.INVISIBLE);
     cardForm.setVisibility(View.GONE);
     ccInfoView.setVisibility(View.INVISIBLE);
     buyButton.setVisibility(View.INVISIBLE);
@@ -310,11 +299,6 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
 
   @Override public void hideLoading() {
     progressBar.setVisibility(View.GONE);
-    headerView.setVisibility(View.VISIBLE);
-    walletInformationFooter.setVisibility(View.VISIBLE);
-    lineSeparator.setVisibility(View.VISIBLE);
-    fiatPrice.setVisibility(View.VISIBLE);
-    appcPrice.setVisibility(View.VISIBLE);
     cardForm.setVisibility(View.VISIBLE);
     ccInfoView.setVisibility(View.VISIBLE);
     cancelButton.setVisibility(View.VISIBLE);
