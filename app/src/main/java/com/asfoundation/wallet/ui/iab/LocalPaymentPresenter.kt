@@ -62,7 +62,6 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
   private fun handlePaymentRedirect() {
     disposables.add(
         navigator.uriResults().doOnNext {
-          analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
           view.showProcessingLoading()
         }.flatMap {
           localPaymentInteractor.getTransaction(it)
@@ -85,6 +84,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
 
   private fun handleTransactionStatus(transaction: Transaction): Completable {
     view.hideLoading()
+    analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
     return when (transaction.status) {
       Status.COMPLETED -> {
         localPaymentInteractor.getCompletePurchaseBundle(type, domain, skuId, networkScheduler,
