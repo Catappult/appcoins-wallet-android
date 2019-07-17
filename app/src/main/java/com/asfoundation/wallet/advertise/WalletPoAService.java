@@ -102,8 +102,8 @@ public class WalletPoAService extends Service {
                 .doOnSuccess(requirementsStatus -> proofOfAttentionService.setChainId(packageName,
                     intent.getIntExtra(PARAM_NETWORK_ID, -1)))
                 .doOnSuccess(
-                    requirementsStatus -> processWalletState(requirementsStatus.getStatus(),
-                        intent)))
+                    requirementsStatus -> processWalletState(requirementsStatus.getStatus(), intent,
+                        packageName)))
             .subscribe(requirementsStatus -> {
             }, throwable -> {
               logger.log(throwable);
@@ -142,7 +142,7 @@ public class WalletPoAService extends Service {
   }
 
   private void processWalletState(ProofSubmissionFeeData.RequirementsStatus requirementsStatus,
-      Intent intent) {
+      Intent intent, String packageName) {
     switch (requirementsStatus) {
       case READY:
         // send intent to confirm that we receive the broadcast and we want to finish the handshake
@@ -180,15 +180,9 @@ public class WalletPoAService extends Service {
         stopTimeout();
         break;
       case NOT_ELIGIBLE:
-        notificationManager.notify(SERVICE_ID,
-            createDefaultNotificationBuilder(R.string.notification_already_rewarded_poa).build());
-        stopForeground(false);
-        stopTimeout();
-        break;
-      case NOT_AVAILABLE:
-        notificationManager.notify(SERVICE_ID,
-            createDefaultNotificationBuilder(R.string.notification_not_available_poa).build());
-        stopForeground(false);
+        //No campaign or already rewarded so there is no need to notify the user of anything
+        proofOfAttentionService.remove(packageName);
+        stopForeground(true);
         stopTimeout();
         break;
       case WRONG_NETWORK:

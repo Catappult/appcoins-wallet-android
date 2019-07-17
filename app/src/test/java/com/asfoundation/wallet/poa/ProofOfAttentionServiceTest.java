@@ -356,22 +356,6 @@ public class ProofOfAttentionServiceTest {
         .assertValue(noFundsFee);
   }
 
-  @Test public void noCampaignAvailabilityTest() {
-    when(campaignService.getCampaign(wallet, packageName, versionCode)).thenReturn(
-        Single.just(new Campaign("", CampaignStatus.NO_CAMPAIGN_AVAILABLE)));
-    TestObserver<ProofSubmissionFeeData> noFunds =
-        proofOfAttentionService.isWalletReady(chainId, packageName, versionCode)
-            .subscribeOn(testScheduler)
-            .test();
-    ProofSubmissionFeeData noFundsFee =
-        new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NOT_AVAILABLE);
-    hasWallet.onNext(new Wallet(wallet));
-    testScheduler.triggerActions();
-    noFunds.assertComplete()
-        .assertNoErrors()
-        .assertValue(noFundsFee);
-  }
-
   @Test public void noNetwork() {
     TestObserver<ProofSubmissionFeeData> noFunds =
         proofOfAttentionService.isWalletReady(chainId, packageName, versionCode)

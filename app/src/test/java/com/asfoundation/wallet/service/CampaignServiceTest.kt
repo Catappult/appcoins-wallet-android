@@ -106,7 +106,7 @@ class CampaignServiceTest {
     observer.awaitTerminalEvent()
 
     observer.assertNoErrors()
-        .assertValue(CampaignStatus.NO_CAMPAIGN_AVAILABLE)
+        .assertValue(CampaignStatus.NOT_ELIGIBLE)
 
   }
 
