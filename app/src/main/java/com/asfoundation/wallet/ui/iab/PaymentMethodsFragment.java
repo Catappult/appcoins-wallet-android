@@ -438,12 +438,11 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   @Override public void showLocalPayment(@NotNull String selectedPaymentMethod) {
     boolean isOneStep = transaction.getType()
         .equalsIgnoreCase("INAPP_UNMANAGED");
-    boolean isInApp = transaction.getType()
-        .equalsIgnoreCase("INAPP");
     iabView.showLocalPayment(transaction.getDomain(), transaction.getSkuId(),
         isOneStep ? transaction.getOriginalOneStepValue() : null,
         isOneStep ? transaction.getOriginalOneStepCurrency() : null, bonusMessageValue,
-        selectedPaymentMethod, isInApp, transaction.toAddress(), transaction.getCallbackUrl(),
+        selectedPaymentMethod, transaction.toAddress(), transaction.getType(),
+        transaction.amount(), transaction.getCallbackUrl(),
         transaction.getOrderReference(), transaction.getPayload());
   }
 

@@ -6,10 +6,8 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
+import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
-
-private val WAITING_RESULT = "WAITING_RESULT"
-private var waitingResult: Boolean = false
 
 
 class LocalPaymentPresenter(private val view: LocalPaymentView,
@@ -21,7 +19,9 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
                             private val developerAddress: String,
                             private val localPaymentInteractor: LocalPaymentInteractor,
                             private val navigator: FragmentNavigator,
-                            private val isInApp: Boolean,
+                            private val type: String,
+                            private val amount: BigDecimal,
+                            private val analytics: LocalPaymentAnalytics,
                             private val savedInstance: Bundle?,
                             private val viewScheduler: Scheduler,
                             private val networkScheduler: Scheduler,
@@ -29,6 +29,9 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
                             private val callbackUrl: String?,
                             private val orderReference: String?,
                             private val payload: String?) {
+
+
+  private var waitingResult: Boolean = false
 
   fun present() {
     if (savedInstance != null) {
@@ -52,7 +55,8 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
             paymentId, developerAddress, callbackUrl, orderReference,
             payload).filter { !waitingResult }.observeOn(
             viewScheduler).doOnSuccess {
-          navigator.navigateToUriForResult(it, "", domain, skuId, null, "")
+          analytics.sendPaymentMethodDetailsEvent(domain, skuId, amount.toString(), type, paymentId)
+          navigator.navigateToUriForResult(it)
           waitingResult = true
         }.subscribeOn(networkScheduler).observeOn(viewScheduler)
             .subscribe({ },
@@ -86,9 +90,12 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
     view.hideLoading()
     return when (transaction.status) {
       Status.COMPLETED -> {
-        localPaymentInteractor.getCompletePurchaseBundle(isInApp, domain, skuId, networkScheduler,
-            transaction.orderReference,
-            transaction.hash)
+        localPaymentInteractor.getCompletePurchaseBundle(type, domain, skuId,
+            transaction.orderReference, transaction.hash, networkScheduler)
+            .doOnSuccess {
+              analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
+              analytics.sendRevenueEvent(disposables, amount)
+            }
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .flatMapCompletable {
@@ -101,6 +108,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
       }
       Status.PENDING_USER_PAYMENT -> Completable.fromAction {
         view.showPendingUserPayment()
+        analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
       }.subscribeOn(viewScheduler)
       else -> Completable.fromAction {
         view.showError()
@@ -115,6 +123,10 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
 
   fun onSaveInstanceState(outState: Bundle) {
     outState.putBoolean(WAITING_RESULT, waitingResult)
+  }
+
+  companion object {
+    private const val WAITING_RESULT = "WAITING_RESULT"
   }
 }
 

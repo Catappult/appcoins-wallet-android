@@ -17,7 +17,6 @@ import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
-import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
 
@@ -113,7 +112,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   }
 
   override fun close() {
-    if (supportFragmentManager.findFragmentByTag(TopUpSuccessFragment::class.java.simpleName) != null) {
+    if (supportFragmentManager.findFragmentByTag(
+            TopUpSuccessFragment::class.java.simpleName) != null) {
       TransactionsRouter().open(this, true)
     }
     finish()
@@ -123,9 +123,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     results.accept(Objects.requireNonNull(uri, "Intent data cannot be null!"))
   }
 
-  override fun navigateToUri(url: String, domain: String, skuId: String, amount: BigDecimal,
-                             type: String) {
-    startActivityForResult(WebViewActivity.newIntent(this, url, domain, skuId, amount, type),
+  override fun navigateToUri(url: String) {
+    startActivityForResult(WebViewActivity.newIntent(this, url),
         WEB_VIEW_REQUEST_CODE)
   }
 

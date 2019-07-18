@@ -26,6 +26,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.asfoundation.wallet.analytics.FacebookEventLogger.EVENT_REVENUE_CURRENCY;
 import static com.asfoundation.wallet.billing.analytics.BillingAnalytics.PAYMENT_METHOD_CC;
+import static com.asfoundation.wallet.billing.analytics.BillingAnalytics.PAYMENT_METHOD_PAYPAL;
 
 /**
  * Created by franciscocalado on 30/07/2018.
@@ -215,7 +216,7 @@ public class AdyenAuthorizationPresenter {
             .observeOn(viewScheduler)
             .flatMapCompletable(bundle -> Completable.fromAction(() -> {
               waitingResult = false;
-              sendPaymentEvent();
+              sendPaymentEvent(paymentType);
               sendRevenueEvent();
               view.showSuccess();
             })
@@ -313,10 +314,9 @@ public class AdyenAuthorizationPresenter {
         .filter(s -> !waitingResult)
         .flatMapSingle(redirectUrl -> transactionBuilder.doOnSuccess(transaction -> {
           view.showLoading();
-          navigator.navigateToUriForResult(redirectUrl, billingService.getTransactionUid(),
-              transaction.getDomain(), transaction.getSkuId(), transaction.amount(),
-              transaction.getType());
+          navigator.navigateToUriForResult(redirectUrl);
           waitingResult = true;
+          sendPaymentMethodDetailsEvent(PAYMENT_METHOD_PAYPAL);
         }))
         .subscribe(__ -> {
         }, throwable -> showError(throwable)));
@@ -359,18 +359,18 @@ public class AdyenAuthorizationPresenter {
     disposables.clear();
   }
 
-  void sendPaymentMethodDetailsEvent() {
+  void sendPaymentMethodDetailsEvent(String paymentMethod) {
     disposables.add(transactionBuilder.subscribe(
         transactionBuilder -> analytics.sendPaymentMethodDetailsEvent(appPackage,
             transactionBuilder.getSkuId(), transactionBuilder.amount()
-                .toString(), PAYMENT_METHOD_CC, transactionBuilder.getType())));
+                .toString(), paymentMethod, transactionBuilder.getType())));
   }
 
-  private void sendPaymentEvent() {
+  private void sendPaymentEvent(PaymentType paymentType) {
     disposables.add(transactionBuilder.subscribe(
         transactionBuilder -> analytics.sendPaymentEvent(appPackage, transactionBuilder.getSkuId(),
             transactionBuilder.amount()
-                .toString(), PAYMENT_METHOD_CC, transactionBuilder.getType())));
+                .toString(), mapPayment(paymentType), transactionBuilder.getType())));
   }
 
   private void sendRevenueEvent() {
@@ -385,5 +385,13 @@ public class AdyenAuthorizationPresenter {
 
   void onSaveInstanceState(Bundle outState) {
     outState.putBoolean(WAITING_RESULT, waitingResult);
+  }
+
+  private String mapPayment(PaymentType paymentType) {
+    if (paymentType == PaymentType.CARD) {
+      return PAYMENT_METHOD_CC;
+    } else {
+      return PAYMENT_METHOD_PAYPAL;
+    }
   }
 }

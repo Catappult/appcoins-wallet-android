@@ -54,6 +54,7 @@ import javax.inject.Inject;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.asfoundation.wallet.billing.analytics.BillingAnalytics.PAYMENT_METHOD_CC;
 import static com.asfoundation.wallet.ui.iab.IabActivity.APP_PACKAGE;
 import static com.asfoundation.wallet.ui.iab.IabActivity.PRODUCT_NAME;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
@@ -417,7 +418,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
         .getParent()
         .getParent()
         .getParent()).setPadding(24, 0, 0, 0);
-    presenter.sendPaymentMethodDetailsEvent();
+    presenter.sendPaymentMethodDetailsEvent(PAYMENT_METHOD_CC);
   }
 
   private PaymentDetails getPaymentDetails(String publicKey, String generationTime) {

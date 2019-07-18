@@ -141,9 +141,7 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   }
 
   @Override public void navigateToWebViewAuthorization(String url) {
-    startActivityForResult(
-        WebViewActivity.newIntent(this, url, transaction.getDomain(), transaction.getSkuId(),
-            transaction.amount(), transaction.getType()), WEB_VIEW_REQUEST_CODE);
+    startActivityForResult(WebViewActivity.newIntent(this, url), WEB_VIEW_REQUEST_CODE);
   }
 
   @Override public void showOnChain(BigDecimal amount, boolean isBds, String bonus) {
@@ -175,12 +173,12 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
 
   @Override
   public void showLocalPayment(String domain, String skuId, String originalAmount, String currency,
-      String bonus, String selectedPaymentMethod, boolean isInApp, String developerAddress,
-      String callbackUrl, String orderReference, String payload) {
+      String bonus, String selectedPaymentMethod, String developerAddress, String type,
+      BigDecimal amount, String callbackUrl, String orderReference, String payload) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container,
             LocalPaymentFragment.newInstance(domain, skuId, originalAmount, currency, bonus,
-                selectedPaymentMethod, isInApp, developerAddress, callbackUrl, orderReference,
+                selectedPaymentMethod, developerAddress, type, amount, callbackUrl, orderReference,
                 payload))
         .commit();
   }
@@ -238,8 +236,7 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     return getIntent().getBooleanExtra(EXTRA_BDS_IAP, false);
   }
 
-  @Override public void navigateToUri(String url, String domain, String skuId, BigDecimal amount,
-      String type) {
+  @Override public void navigateToUri(String url) {
     navigateToWebViewAuthorization(url);
   }
 

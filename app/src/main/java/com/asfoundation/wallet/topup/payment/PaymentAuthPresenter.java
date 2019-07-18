@@ -83,7 +83,7 @@ public class PaymentAuthPresenter {
 
     handleChangeCardMethodResults();
 
-    handleAdyenUriRedirect(appPackage, amount, transactionType);
+    handleAdyenUriRedirect();
 
     handleAdyenUriResult();
 
@@ -120,7 +120,7 @@ public class PaymentAuthPresenter {
         })
         .observeOn(viewScheduler)
         .subscribe(__ -> {
-        }, throwable -> showError(throwable)));
+        }, this::showError));
   }
 
   private void showError(Throwable throwable) {
@@ -141,13 +141,13 @@ public class PaymentAuthPresenter {
             value -> billingService.getAuthorization(transactionOrigin, value, currency,
                 transactionType, appPackage)
                 .observeOn(viewScheduler)
-                .filter(payment -> payment.isPendingAuthorization())
+                .filter(AdyenAuthorization::isPendingAuthorization)
                 .firstOrError()
                 .flatMapCompletable(
                     authorization -> adyen.completePayment(authorization.getSession()))))
         .observeOn(viewScheduler)
         .subscribe(() -> {
-        }, throwable -> showError(throwable)));
+        }, this::showError));
   }
 
   @NonNull private Single<BigDecimal> convertAmount(String amount) {
@@ -158,10 +158,10 @@ public class PaymentAuthPresenter {
 
   private void onViewCreatedSelectPaymentMethod(PaymentType paymentType) {
     disposables.add(adyen.getPaymentMethod(paymentType)
-        .flatMapCompletable(paymentMethod -> adyen.selectPaymentService(paymentMethod))
+        .flatMapCompletable(adyen::selectPaymentService)
         .observeOn(viewScheduler)
         .subscribe(() -> {
-        }, throwable -> showError(throwable)));
+        }, this::showError));
   }
 
   private void onViewCreatedCheckAuthorizationActive(String transactionOrigin, String amount,
@@ -169,7 +169,7 @@ public class PaymentAuthPresenter {
     disposables.add(convertAmount(amount).flatMap(
         value -> billingService.getAuthorization(transactionOrigin, value, currency,
             transactionType, appPackage)
-            .filter(adyenAuthorization -> adyenAuthorization.isCompleted())
+            .filter(AdyenAuthorization::isCompleted)
             .firstOrError()
             .flatMap(adyenAuthorization -> createBundle())
             .observeOn(viewScheduler)
@@ -179,7 +179,7 @@ public class PaymentAuthPresenter {
             }))
         .observeOn(viewScheduler)
         .subscribe(__ -> {
-        }, throwable -> showError(throwable)));
+        }, this::showError));
   }
 
   private Single<Bundle> createBundle() {
@@ -200,7 +200,7 @@ public class PaymentAuthPresenter {
             .filter(AdyenAuthorization::isFailed)
             .firstOrError()
             .observeOn(viewScheduler)
-            .doOnSuccess(adyenAuthorization -> showError(adyenAuthorization)))
+            .doOnSuccess(this::showError))
         .observeOn(viewScheduler)
         .subscribe(__ -> {
         }, this::showError));
@@ -243,20 +243,19 @@ public class PaymentAuthPresenter {
 
   private void handleAdyenUriResult() {
     disposables.add(navigator.uriResults()
-        .flatMapCompletable(uri -> adyen.finishUri(uri))
+        .flatMapCompletable(adyen::finishUri)
         .observeOn(viewScheduler)
         .subscribe(() -> {
         }, this::showError));
   }
 
-  private void handleAdyenUriRedirect(String domain, String amount, String transactionType) {
+  private void handleAdyenUriRedirect() {
     disposables.add(adyen.getRedirectUrl()
         .observeOn(viewScheduler)
         .filter(s -> !waitingResult)
         .doOnSuccess(redirectUrl -> {
           view.showLoading();
-          navigator.navigateToUriForResult(redirectUrl, billingService.getTransactionUid(), domain,
-              "", new BigDecimal(amount), transactionType);
+          navigator.navigateToUriForResult(redirectUrl);
           waitingResult = true;
         })
         .subscribe(__ -> {
@@ -282,7 +281,7 @@ public class PaymentAuthPresenter {
         })
         .observeOn(viewScheduler)
         .subscribe(() -> {
-        }, throwable -> showError(throwable)));
+        }, this::showError));
   }
 
   private void handleFieldValidationStateChange() {
