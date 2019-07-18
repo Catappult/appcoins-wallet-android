@@ -213,7 +213,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
 
     topUpView?.showToolbar()
     main_value.visibility = View.INVISIBLE
-    presenter.present(savedInstanceState, origin, data.currency.appcValue,
+    presenter.present(savedInstanceState, origin, data.currency, data.selectedCurrency,
         data.currency.fiatCurrencyCode, transactionType, paymentType)
   }
 

@@ -10,6 +10,8 @@ import com.asfoundation.wallet.billing.BillingService;
 import com.asfoundation.wallet.billing.adyen.Adyen;
 import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
+import com.asfoundation.wallet.topup.CurrencyData;
+import com.asfoundation.wallet.topup.TopUpData;
 import com.asfoundation.wallet.ui.iab.FiatValue;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.Navigator;
@@ -59,31 +61,36 @@ public class PaymentAuthPresenter {
     this.validBonus = validBonus;
   }
 
-  public void present(@Nullable Bundle savedInstanceState, String transactionOrigin, String amount,
-      String currency, String transactionType, PaymentType paymentType) {
+  public void present(@Nullable Bundle savedInstanceState, String transactionOrigin,
+      CurrencyData currencyData, String selectedCurrency, String currency, String transactionType,
+      PaymentType paymentType) {
     adyen.createNewPayment();
 
     if (savedInstanceState != null) {
       waitingResult = savedInstanceState.getBoolean(WAITING_RESULT);
     }
 
-    onViewCreatedCompletePayment(transactionOrigin, amount, currency, transactionType);
+    onViewCreatedCompletePayment(transactionOrigin, currencyData, selectedCurrency, currency,
+        transactionType);
 
     onViewCreatedSelectPaymentMethod(paymentType);
 
     onViewCreatedShowPaymentMethodInputView();
 
-    onViewCreatedCheckAuthorizationActive(transactionOrigin, amount, currency, transactionType);
+    onViewCreatedCheckAuthorizationActive(transactionOrigin, currencyData, selectedCurrency,
+        currency, transactionType);
 
-    onViewCreatedCheckAuthorizationFailed(transactionOrigin, amount, currency, transactionType);
+    onViewCreatedCheckAuthorizationFailed(transactionOrigin, currencyData, selectedCurrency,
+        currency, transactionType);
 
-    onViewCreatedCheckAuthorizationProcessing(transactionOrigin, amount, currency, transactionType);
+    onViewCreatedCheckAuthorizationProcessing(transactionOrigin, currencyData, selectedCurrency,
+        currency, transactionType);
 
     handlePaymentMethodResults();
 
     handleChangeCardMethodResults();
 
-    handleAdyenUriRedirect(appPackage, amount, transactionType);
+    handleAdyenUriRedirect(appPackage, currencyData.getAppcValue(), transactionType);
 
     handleAdyenUriResult();
 
@@ -134,10 +141,10 @@ public class PaymentAuthPresenter {
     }
   }
 
-  private void onViewCreatedCompletePayment(String transactionOrigin, String amount,
-      String currency, String transactionType) {
+  private void onViewCreatedCompletePayment(String transactionOrigin, CurrencyData currencyData,
+      String selectedCurrency, String currency, String transactionType) {
     disposables.add(Completable.fromAction(() -> view.showLoading())
-        .andThen(convertAmount(amount).flatMapCompletable(
+        .andThen(convertAmount(currencyData, selectedCurrency).flatMapCompletable(
             value -> billingService.getAuthorization(transactionOrigin, value, currency,
                 transactionType, appPackage)
                 .observeOn(viewScheduler)
@@ -150,8 +157,13 @@ public class PaymentAuthPresenter {
         }, throwable -> showError(throwable)));
   }
 
-  @NonNull private Single<BigDecimal> convertAmount(String amount) {
-    return inAppPurchaseInteractor.convertToLocalFiat((new BigDecimal(amount)).doubleValue())
+  @NonNull
+  private Single<BigDecimal> convertAmount(CurrencyData currencyData, String selectedCurrency) {
+    if (selectedCurrency.equals(TopUpData.FIAT_CURRENCY)) {
+      return Single.just(new BigDecimal(currencyData.getFiatValue()));
+    }
+    return inAppPurchaseInteractor.convertToLocalFiat(
+        (new BigDecimal(currencyData.getAppcValue())).doubleValue())
         .subscribeOn(Schedulers.io())
         .map(FiatValue::getAmount);
   }
@@ -164,9 +176,9 @@ public class PaymentAuthPresenter {
         }, throwable -> showError(throwable)));
   }
 
-  private void onViewCreatedCheckAuthorizationActive(String transactionOrigin, String amount,
-      String currency, String transactionType) {
-    disposables.add(convertAmount(amount).flatMap(
+  private void onViewCreatedCheckAuthorizationActive(String transactionOrigin,
+      CurrencyData currencyData, String selectedCurrency, String currency, String transactionType) {
+    disposables.add(convertAmount(currencyData, selectedCurrency).flatMap(
         value -> billingService.getAuthorization(transactionOrigin, value, currency,
             transactionType, appPackage)
             .filter(adyenAuthorization -> adyenAuthorization.isCompleted())
@@ -193,9 +205,9 @@ public class PaymentAuthPresenter {
             bonusValue, validBonus));
   }
 
-  private void onViewCreatedCheckAuthorizationFailed(String transactionOrigin, String amount,
-      String currency, String transactionType) {
-    disposables.add(convertAmount(amount).flatMap(
+  private void onViewCreatedCheckAuthorizationFailed(String transactionOrigin,
+      CurrencyData currencyData, String selectedCurrency, String currency, String transactionType) {
+    disposables.add(convertAmount(currencyData, selectedCurrency).flatMap(
         value -> billingService.getAuthorization(transactionOrigin, value, currency,
             transactionType, appPackage)
             .filter(AdyenAuthorization::isFailed)
@@ -211,9 +223,9 @@ public class PaymentAuthPresenter {
     view.showPaymentRefusedError(adyenAuthorization);
   }
 
-  private void onViewCreatedCheckAuthorizationProcessing(String transactionOrigin, String amount,
-      String currency, String transactionType) {
-    disposables.add(convertAmount(amount).map(
+  private void onViewCreatedCheckAuthorizationProcessing(String transactionOrigin,
+      CurrencyData currencyData, String selectedCurrency, String currency, String transactionType) {
+    disposables.add(convertAmount(currencyData, selectedCurrency).map(
         value -> billingService.getAuthorization(transactionOrigin, value, currency,
             transactionType, appPackage)
             .filter(AdyenAuthorization::isProcessing)
