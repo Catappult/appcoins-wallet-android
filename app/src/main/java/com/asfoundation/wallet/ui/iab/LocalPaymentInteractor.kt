@@ -47,9 +47,7 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
 
   fun getTransaction(uri: Uri): Observable<Transaction> {
     return inAppPurchaseInteractor.getTransaction(uri.lastPathSegment)
-        .filter {
-          isEndingState(it.status, it.type)
-        }
+        .filter { isEndingState(it.status, it.type) }
         .distinctUntilChanged { transaction -> transaction.status }
   }
 
