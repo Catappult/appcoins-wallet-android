@@ -278,11 +278,12 @@
   <string name="gamification_level_body">Vei câștiga Credite APPC când cumperi articole în aplicațiile și jocurile tale favorite.</string>
   <string name="gamification_how_header">Cum îți crești nivelul?</string>
   <string name="gamification_how_body">Vei câștiga Credite APPC când cumperi articole în aplicațiile și jocurile tale favorite.</string>
-  <string name="gamification_how_body_new">Cu cât mai multe AppCoins cheltuiești în aplicațiile tale preferate, cu atât mai mare va fi Bonusul!</string>
+  <string name="gamification_how_body_new">Cu cât cheltuiești mai mult în aplicațiile tale preferate, cu atât mai mare va fi Bonusul!</string>
   <string name="gamification_how_table_a1">CHELTUIEȘTI</string>
   <string name="gamification_how_table_b1">BONUS</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s %%</string>
+  <string name="gamification_how_table_level">NIVEL</string>
   <string name="gamification_how_terms_and_conditions">Condiții</string>
   <string name="gamification_how_spend">CHELTUIEȘTE %s APPC</string>
   <string name="gamification_a_comet_title">o Cometă</string>
@@ -304,6 +305,15 @@
   <string name="gamification_purchase_completed_bonus_received">Bonus primit</string>
   <string name="action_level">Nivelul meu</string>
   <string name="gamification_purchase_appccredits_body">Cea mai rapidă metodă de plată!</string>
+  <string name="gamification_how_bonus_received_body">Bonus primit</string>
+  <string name="gamification_how_appc_spent">Sumă cheltuită pentru a atinge acest nivel</string>
+  <string name="gamification_how_to_next_level_body">Cheltuiește încă %1$s AppCoins ca să atingi nivelul %2$s.</string>
+  <string name="gamification_level_expiration_title">Următoarea verificare a nivelului: %s</string>
+  <string name="gamification_level_expiration_body">Nivelul tău se bazează pe activitatea ta de cumpărare din ultimele 12 luni.</string>
+  <string name="gamification_leveled_up_title">Ai atins următorul nivel!</string>
+  <string name="gamification_leveled_up_body">Acum vei primi un bonus de %s la fiecare cumpărătură. Continuă să cumperi ca să câștigi și mai mult!</string>
+  <string name="gamification_leveled_up_notification_title">Ai atins următorul nivel!</string>
+  <string name="gamification_leveled_up_notification_body">Felicitări, acum vei primi un bonus de %s la fiecare cumpărătură!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Permite AppCoins Wallet să furnizeze adresa portofelului tău către %s.</string>
   <string name="provide_wallet_body_placeholders">Permite %1$s să furnizeze adresa portofelului tău către %2$s.</string>
@@ -325,10 +335,12 @@
   <string name="topup_bonus_message">%s APPC-C suplimentare vor fi creditate în portofelul tău.</string>
   <string name="topup_completed_1">%s în AppCoins Credits</string>
   <string name="topup_completed_2_with_bonus">au fost depozitate în contul tău... Plus un bonus!</string>
-  <string name="topup_completed_2_without_bonus">were deposited in your account.</string>
+  <string name="topup_completed_2_without_bonus">au fost creditați în contul tău.</string>
   <string name="topup_bonus_header_part_1">Bonus în plus:</string>
   <string name="topup_bonus_header_part_2">%s în APPC Credits</string>
   <string name="topup_bonus_body">Poți folosi acest bonus la următoarea ta cumpărătură.</string>
+  <string name="topup_minimum_value">Valoarea minimă de alimentare este %s</string>
+  <string name="topup_maximum_value">Valoarea maximă de alimentare este %s</string>
   <!--Balance-->
   <string name="balance_title">Balanță</string>
   <string name="balance_total_body">Balanță totală în %s</string>
@@ -369,6 +381,7 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
   <string name="dismiss_button">Respinge</string>
+  <string name="connectoin_error_body">Se pare că nu ești conectat la Internet. Verifică conexiunea și încearcă din nou!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Sunt de acord cu %1$s și %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Te rugăm să accepți Termenii și condițiile și Politica de confidențialitate pentru a continua</string>
@@ -378,9 +391,11 @@
   <string name="home_empty_discover_apps_body">Cele mai bune aplicații Android te așteaptă.</string>
   <string name="home_empty_discover_apps_button">DESCOPERĂ APLICAȚII DE TOP</string>
   <!--Tokens-->
+  <!--Settings-->
+  <string name="title_redeem">Revendică cod</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">În curs&#8230;</string>
-  <string name="local_payments_inprogress_body">Finalizează plata și, odată ce vei primi AppCoins Credits în portofelul tău, fă cumpărătura!</string>
+  <string name="local_payments_inprogress_body">Odată ce ai finalizat plata, vei primi AppCoins Credits în portofelul tău. Apoi întoarce-te la joc ca să faci cumpărătura!</string>
   <!--Wallet Verification-->
   <string name="verification_notification_verification_needed_title">Recompensa este pregătită, dar este necesară verificarea</string>
   <string name="verification_notification_verification_needed_body">Din motive de securitate, trebuie să îți verificăm portofelul cu un cod SMS.</string>
@@ -401,4 +416,12 @@
   <string name="verification_notification_reward_already_received_body">Acest număr de telefon a fost folosit deja pentru a primi această recompensă 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Număr de telefon deja folosit.</string>
   <string name="verification_insert_code_error_common">Ups, ceva nu a mers cum trebuie. Încearcă din nou!</string>
+  <!--Purchase Flow-->
+  <string name="purchase_error_incomplete_transaction_body">Se pare că această cumpărătură este deja în curs de procesare. Te rugăm să aștepți până când tranzacția este finalizată sau contactează Echipa de asistență.</string>
+  <string name="purchase_more_payment_methods_button">ALTE METODE DE PLATĂ</string>
+  <string name="purchase_appcoins_available_body">Vei folosi o sumă mică de ETH ca să plătești comisioanele.</string>
+  <string name="purchase_appcoins_noavailable_body">Nu ai suficienți AppCoins sau Ether pentru această cumpărătură.</string>
+  <string name="purchase_appcoins_credits_available_body">Fără comisioane și fulger!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">Nu ai suficiente APPC Credits, încearcă să alimentezi!</string>
+  <string name="purchase_appcoins_credits_default_body">Ai câștigat suficiente AppCoins Credits pentru această cumpărătură. Bucură-te de ea!</string>
 </resources>

@@ -278,11 +278,12 @@
   <string name="gamification_level_body">Bạn sẽ nhận được APPC Credits khi mua vật phẩm trong các ứng dụng và trò chơi yêu thích của mình.</string>
   <string name="gamification_how_header">Làm thế nào để lên cấp?</string>
   <string name="gamification_how_body">Bạn sẽ nhận được APPC Credits khi mua vật phẩm trong các ứng dụng và trò chơi yêu thích của mình.</string>
-  <string name="gamification_how_body_new">Bạn càng dùng nhiều AppCoin trong các ứng dụng yêu thích của mình, tiền thưởng sẽ càng lớn!</string>
+  <string name="gamification_how_body_new">Bạn chi tiêu càng nhiều trong các ứng dụng yêu thích của mình, thì tiền thưởng sẽ càng lớn!</string>
   <string name="gamification_how_table_a1">DÙNG</string>
   <string name="gamification_how_table_b1">TIỀN THƯỞNG</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s %%</string>
+  <string name="gamification_how_table_level">CẤP</string>
   <string name="gamification_how_terms_and_conditions">Điều kiện</string>
   <string name="gamification_how_spend">XÀI %s APPC</string>
   <string name="gamification_a_comet_title">một sao chổi</string>
@@ -304,6 +305,15 @@
   <string name="gamification_purchase_completed_bonus_received">Tiền thưởng đã nhận</string>
   <string name="action_level">Cấp của tôi</string>
   <string name="gamification_purchase_appccredits_body">Phương thức thanh toán nhanh nhất!</string>
+  <string name="gamification_how_bonus_received_body">Tiền thưởng đã nhận</string>
+  <string name="gamification_how_appc_spent">Số tiền cần chi tiêu để đạt đến cấp này</string>
+  <string name="gamification_how_to_next_level_body">Chi tiêu thêm %1$s AppCoins để đạt đến cấp %2$s.</string>
+  <string name="gamification_level_expiration_title">Kiểm tra cấp kế tiếp: %s</string>
+  <string name="gamification_level_expiration_body">Cấp của bạn dựa trên hoạt động mua hàng của bạn trong 12 tháng qua.</string>
+  <string name="gamification_leveled_up_title">Bạn đã đạt đến cấp kế tiếp!</string>
+  <string name="gamification_leveled_up_body">Kể từ giờ, bạn sẽ nhận được %s tiền thưởng trên mỗi lần mua. Hãy tiếp tục mua để nhận được nhiều hơn nữa!</string>
+  <string name="gamification_leveled_up_notification_title">Bạn đã đạt đến cấp kế tiếp!</string>
+  <string name="gamification_leveled_up_notification_body">Xin chúc mừng, giờ đây bạn sẽ nhận được tiền thưởng %s trên mỗi lần mua!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Cho phép AppCoins Wallet cung cấp địa chỉ ví của bạn cho %s.</string>
   <string name="provide_wallet_body_placeholders">Cho phép %1$s cung cấp địa chỉ ví của bạn cho %2$s.</string>
@@ -325,10 +335,12 @@
   <string name="topup_bonus_message">Thêm %s APPC-C sẽ được ghi có vào ví của bạn.</string>
   <string name="topup_completed_1">%s bằng AppCoins Credits</string>
   <string name="topup_completed_2_with_bonus">đã được gửi vào tài khoản của bạn... Cùng với tiền thưởng!</string>
-  <string name="topup_completed_2_without_bonus">were deposited in your account.</string>
+  <string name="topup_completed_2_without_bonus">đã được gửi vào tài khoản của bạn.</string>
   <string name="topup_bonus_header_part_1">Tiền thưởng nạp vào:</string>
   <string name="topup_bonus_header_part_2">%s bằng APPC Credits</string>
   <string name="topup_bonus_body">Bạn có thể sử dụng tiền thưởng này trong lần mua tiếp theo của mình.</string>
+  <string name="topup_minimum_value">Giá trị nạp tối thiểu là %s</string>
+  <string name="topup_maximum_value">Giá trị nạp tối đa là %s</string>
   <!--Balance-->
   <string name="balance_title">Số dư</string>
   <string name="balance_total_body">Tổng số dư bằng %s</string>
@@ -369,6 +381,7 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
   <string name="dismiss_button">Bỏ qua</string>
+  <string name="connectoin_error_body">Có vẻ như bạn không kết nối Internet. Hãy kiểm tra kết nối của mình và thử lại!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Tôi đồng ý với %1$s và %2$s của Ví AppCoins.</string>
   <string name="terms_and_conditions_error">Vui lòng chấp nhận Điều khoản và Điều kiện và Chính sách bảo mật của chúng tôi để tiếp tục</string>
@@ -378,9 +391,11 @@
   <string name="home_empty_discover_apps_body">Các ứng dụng Android tốt nhất đang chờ bạn.</string>
   <string name="home_empty_discover_apps_button">KHÁM PHÁ CÁC ỨNG DỤNG HÀNG ĐẦU</string>
   <!--Tokens-->
+  <!--Settings-->
+  <string name="title_redeem">Mã quà tặng</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">Đang xử lý&#8230;</string>
-  <string name="local_payments_inprogress_body">Hoàn tất thanh toán của bạn và sau khi nhận được AppCoins Credits trong ví của mình, hãy thực hiện giao dịch mua!</string>
+  <string name="local_payments_inprogress_body">Khi bạn hoàn tất thanh toán, bạn sẽ nhận được AppCoins Credits trong ví của mình. Sau đó quay trở lại trò chơi để mua hàng!</string>
   <!--Wallet Verification-->
   <string name="verification_notification_verification_needed_title">Phần thưởng đã sẵn sàng nhưng cần phải xác minh</string>
   <string name="verification_notification_verification_needed_body">Vì lý do bảo mật, chúng tôi cần xác minh ví của bạn bằng mã SMS.</string>
@@ -399,6 +414,14 @@
   <string name="verification_completed_title">Xong!</string>
   <string name="verification_notification_reward_received_body">Đã nhận phần thưởng, hãy tận hưởng! 👌</string>
   <string name="verification_notification_reward_already_received_body">Số điện thoại này đã được sử dụng để nhận phần thưởng này 😔</string>
-  <string name="verification_insert_phone_field_phone_used_already_error">Phone already used.</string>
-  <string name="verification_insert_code_error_common">Oops, something went wrong. Try again!</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">Số điện thoại này đã được sử dụng.</string>
+  <string name="verification_insert_code_error_common">Rất tiếc, đã xảy ra lỗi. Vui lòng thử lại!</string>
+  <!--Purchase Flow-->
+  <string name="purchase_error_incomplete_transaction_body">Có vẻ như giao dịch mua này đã được xử lý. Vui lòng chờ cho đến khi hoàn thành giao dịch hoặc liên hệ với đội hỗ trợ của chúng tôi.</string>
+  <string name="purchase_more_payment_methods_button">PHƯƠNG THỨC THANH TOÁN KHÁC</string>
+  <string name="purchase_appcoins_available_body">Bạn sẽ dùng một ít ETH để trả phí.</string>
+  <string name="purchase_appcoins_noavailable_body">Bạn không có đủ AppCoins hoặc Ether cho giao dịch mua này.</string>
+  <string name="purchase_appcoins_credits_available_body">Không tốn phí và nhanh như chớp!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">Bạn không có đủ APPC Credits, hãy thử nạp tiền!</string>
+  <string name="purchase_appcoins_credits_default_body">Bạn đã kiếm đủ AppCoins Credits cho giao dịch mua này. Hãy thỏa thích dùng chúng!</string>
 </resources>

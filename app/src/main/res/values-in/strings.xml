@@ -278,11 +278,12 @@
   <string name="gamification_level_body">Anda akan mendapatkan Kredit APPC saat membeli item di aplikasi dan permainan favorit.</string>
   <string name="gamification_how_header">Bagaimana Cara Naik Tingkat?</string>
   <string name="gamification_how_body">Anda akan mendapatkan Kredit APPC saat membeli item di aplikasi dan permainan favorit.</string>
-  <string name="gamification_how_body_new">Semakin banyak AppCoins yang Anda habiskan di aplikasi favorit, semakin besar Bonusnya!</string>
+  <string name="gamification_how_body_new">Semakin banyak yang Anda habiskan di aplikasi favorit, semakin besar Bonus-nya!</string>
   <string name="gamification_how_table_a1">HABISKAN</string>
   <string name="gamification_how_table_b1">BONUS</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s %%</string>
+  <string name="gamification_how_table_level">TINGKAT</string>
   <string name="gamification_how_terms_and_conditions">Syarat-syarat</string>
   <string name="gamification_how_spend">GUNAKAN %s APPC</string>
   <string name="gamification_a_comet_title">Komet</string>
@@ -304,6 +305,15 @@
   <string name="gamification_purchase_completed_bonus_received">Bonus Diterima</string>
   <string name="action_level">Tingkat Saya</string>
   <string name="gamification_purchase_appccredits_body">Metode pembayaran tercepat!</string>
+  <string name="gamification_how_bonus_received_body">Bonus diterima</string>
+  <string name="gamification_how_appc_spent">Jumlah yang dihabiskan untuk mencapai tingkat ini</string>
+  <string name="gamification_how_to_next_level_body">Habiskan %1$s AppCoin lagi untuk mencapai tingkat %2$s.</string>
+  <string name="gamification_level_expiration_title">Cek tingkat berikutnya: %s</string>
+  <string name="gamification_level_expiration_body">Tingkat Anda didasarkan pada aktivitas pembelian selama 12 bulan terakhir.</string>
+  <string name="gamification_leveled_up_title">Anda sudah mencapai tingkat berikutnya!</string>
+  <string name="gamification_leveled_up_body">Sekarang Anda akan mendapatkan bonus %s di setiap pembelian. Teruslah membeli agar bonus yang didapatkan lebih banyak lagi!</string>
+  <string name="gamification_leveled_up_notification_title">Anda sudah mencapai tingkat berikutnya!</string>
+  <string name="gamification_leveled_up_notification_body">Selamat, Anda sekarang akan mendapatkan bonus %s di setiap pembelian!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Izinkan Dompet AppCoins untuk menginformasikan alamat dompet Anda ke %s.</string>
   <string name="provide_wallet_body_placeholders">Izinkan %1$s untuk menginformasikan alamat dompet Anda ke %2$s.</string>
@@ -325,10 +335,12 @@
   <string name="topup_bonus_message">%s APPC-C akan dimasukkan ke dompet Anda.</string>
   <string name="topup_completed_1">%s dalam Kredit AppCoins</string>
   <string name="topup_completed_2_with_bonus">disimpan di akun Anda... Bersama dengan bonus!</string>
-  <string name="topup_completed_2_without_bonus">were deposited in your account.</string>
+  <string name="topup_completed_2_without_bonus">disimpan ke akun Anda.</string>
   <string name="topup_bonus_header_part_1">Bonus Isi Ulang:</string>
   <string name="topup_bonus_header_part_2">%s dalam Kredit APPC</string>
   <string name="topup_bonus_body">Anda bisa menggunakan bonus ini di pembelian berikutnya.</string>
+  <string name="topup_minimum_value">Nilai isi ulang minimal adalah %s</string>
+  <string name="topup_maximum_value">Nilai isi ulang maksimal adalah %s</string>
   <!--Balance-->
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Total Saldo dalam %s</string>
@@ -369,6 +381,7 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
   <string name="dismiss_button">Tutup</string>
+  <string name="connectoin_error_body">Sepertinya Anda tidak terhubung ke Internet. Periksa koneksi Anda, lalu coba lagi!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Harap menerima Syarat dan Ketentuan serta Kebijakan Privasi kami untuk melanjutkan</string>
@@ -378,9 +391,11 @@
   <string name="home_empty_discover_apps_body">Aplikasi Android terbaik menunggu Anda.</string>
   <string name="home_empty_discover_apps_button">TEMUKAN APLIKASI TERATAS</string>
   <!--Tokens-->
+  <!--Settings-->
+  <string name="title_redeem">Dapatkan Kode</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">Sedang diproses&#8230;</string>
-  <string name="local_payments_inprogress_body">Selesaikan pembayaran Anda dan, setelah menerima Kredit AppCoins di dompet Anda, lakukan pembelian!</string>
+  <string name="local_payments_inprogress_body">Setelah pembayaran selesai, Anda akan menerima Kredit AppCoin di dompet Anda. Kemudian, kembalilah ke permainan untuk melakukan pembelian!</string>
   <!--Wallet Verification-->
   <string name="verification_notification_verification_needed_title">Hadiah sudah siap tetapi diperlukan verifikasi</string>
   <string name="verification_notification_verification_needed_body">Demi keamanan, kami perlu memverifikasi dompet Anda dengan kode lewat SMS.</string>
@@ -401,4 +416,12 @@
   <string name="verification_notification_reward_already_received_body">Nomor telepon ini sudah digunakan untuk menerima hadiah ini 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Nomor telepon sudah digunakan.</string>
   <string name="verification_insert_code_error_common">Ups, ada kesalahan. Coba lagi!</string>
+  <!--Purchase Flow-->
+  <string name="purchase_error_incomplete_transaction_body">Sepertinya pembelian ini sedang diproses. Harap tunggu sampai transaksinya selesai atau hubungi Tim Dukungan kami.</string>
+  <string name="purchase_more_payment_methods_button">METODE PEMBAYARAN LAINNYA</string>
+  <string name="purchase_appcoins_available_body">Anda akan menggunakan sedikit ETH untuk membayar biayanya.</string>
+  <string name="purchase_appcoins_noavailable_body">AppCoin atau Ether yang Anda miliki tidak cukup untuk pembelian ini.</string>
+  <string name="purchase_appcoins_credits_available_body">Tanpa biaya dan secepat kilat!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">Kredit APPC yang Anda miliki tidak cukup, coba isi ulang!</string>
+  <string name="purchase_appcoins_credits_default_body">Anda mendapatkan Kredit AppCoins yang cukup untuk pembelian ini. Silakan!</string>
 </resources>

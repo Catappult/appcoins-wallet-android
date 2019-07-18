@@ -278,11 +278,12 @@
   <string name="gamification_level_body">你在喜爱的应用和游戏内购买物品时会赚取APPC积分。</string>
   <string name="gamification_how_header">如何升级</string>
   <string name="gamification_how_body">你在喜爱的应用和游戏内购买物品时会赚取APPC积分。</string>
-  <string name="gamification_how_body_new">你在喜爱的应用中支付的AppCoins越多，奖励就越大！</string>
+  <string name="gamification_how_body_new">在自己最喜欢的应用中花费得越多，奖金就越大！</string>
   <string name="gamification_how_table_a1">支付</string>
   <string name="gamification_how_table_b1">奖励</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s %%</string>
+  <string name="gamification_how_table_level">等级</string>
   <string name="gamification_how_terms_and_conditions">条件</string>
   <string name="gamification_how_spend">花费%s个APPC</string>
   <string name="gamification_a_comet_title">彗星</string>
@@ -299,11 +300,20 @@
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">购买奖励：</string>
   <string name="gamification_purchase_header_part_2">%s APPC积金</string>
-  <string name="gamification_purchase_body">You can use this bonus in your next purchase.</string>
-  <string name="gamification_purchase_completed_bonus_received_done">Done!</string>
-  <string name="gamification_purchase_completed_bonus_received">Bonus Received</string>
+  <string name="gamification_purchase_body">你可以在下次购买中使用此奖金。</string>
+  <string name="gamification_purchase_completed_bonus_received_done">完成！</string>
+  <string name="gamification_purchase_completed_bonus_received">奖金已收到</string>
   <string name="action_level">我的等级</string>
-  <string name="gamification_purchase_appccredits_body">The quickest payment method!</string>
+  <string name="gamification_purchase_appccredits_body">最快的付款方式！</string>
+  <string name="gamification_how_bonus_received_body">奖金已收到</string>
+  <string name="gamification_how_appc_spent">达到此等级需花费的金额</string>
+  <string name="gamification_how_to_next_level_body">再花费%1$s个AppCoins可达到%2$s级。</string>
+  <string name="gamification_level_expiration_title">下一级检查：%s</string>
+  <string name="gamification_level_expiration_body">你的等级取决于你在过去12个月内的购买活动。</string>
+  <string name="gamification_leveled_up_title">你已达到下一级！</string>
+  <string name="gamification_leveled_up_body">你现在可以在每次购买时获得%s奖金。继续购买以赚取更多！</string>
+  <string name="gamification_leveled_up_notification_title">你已达到下一级！</string>
+  <string name="gamification_leveled_up_notification_body">恭喜，现在你将在每次购买时获得%s奖金！</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">允许AppCoins Wallet向%s提供你的钱包地址。</string>
   <string name="provide_wallet_body_placeholders">允许%1$s向%2$s提供你的钱包地址。</string>
@@ -323,12 +333,14 @@
   <string name="topup_amount">%s APPC-C</string>
   <string name="topup_bonus_header">你获得了奖励！</string>
   <string name="topup_bonus_message">你的钱包将额外获得%s APPC-C。</string>
-  <string name="topup_completed_1">%s in AppCoins Credits</string>
-  <string name="topup_completed_2_with_bonus">were deposited in your account... Along with a bonus!</string>
-  <string name="topup_completed_2_without_bonus">were deposited in your account.</string>
-  <string name="topup_bonus_header_part_1">Top-Up Bonus:</string>
+  <string name="topup_completed_1">%s的AppCoins积金</string>
+  <string name="topup_completed_2_with_bonus">已存入你的帐户...奖金也已存入！</string>
+  <string name="topup_completed_2_without_bonus">已存入你的帐户。</string>
+  <string name="topup_bonus_header_part_1">充值奖金：</string>
   <string name="topup_bonus_header_part_2">%s APPC积金</string>
-  <string name="topup_bonus_body">You can use this bonus in your next purchase.</string>
+  <string name="topup_bonus_body">你可以在下次购买中使用此奖金。</string>
+  <string name="topup_minimum_value">最低充值额为%s</string>
+  <string name="topup_maximum_value">最高充值额为%s</string>
   <!--Balance-->
   <string name="balance_title">余额</string>
   <string name="balance_total_body">总余额(%s)</string>
@@ -365,40 +377,51 @@
   <string name="cancel_button">取消</string>
   <string name="submit_button">提交</string>
   <string name="close_button">关闭</string>
-  <string name="back_button">Back</string>
+  <string name="back_button">返回</string>
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
-  <string name="dismiss_button">Dismiss</string>
+  <string name="dismiss_button">取消</string>
+  <string name="connectoin_error_body">你似乎没有连接到互联网。请检查你的连接并重试！</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我同意AppCoins Wallet的%1$s和%2$s。</string>
-  <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
+  <string name="terms_and_conditions_error">请接受我们的条款和条件以及隐私政策以继续</string>
   <string name="terms_and_conditions">条款与条件</string>
   <string name="privacy_policy">隐私政策</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">最精彩的安卓应用正等你去探索。</string>
   <string name="home_empty_discover_apps_button">探索最佳应用</string>
   <!--Tokens-->
+  <!--Settings-->
+  <string name="title_redeem">兑换码</string>
   <!--Local Payments-->
-  <string name="local_payments_inprogress_header">In progress&#8230;</string>
-  <string name="local_payments_inprogress_body">Complete your payment and, once you get the AppCoins Credits in your wallet, make the purchase!</string>
+  <string name="local_payments_inprogress_header">正在进行中&#8230;</string>
+  <string name="local_payments_inprogress_body">完成付款后，你将在钱包中收到AppCoins积金。然后回到游戏进行购买！</string>
   <!--Wallet Verification-->
-  <string name="verification_notification_verification_needed_title">Reward ready but verification needed</string>
-  <string name="verification_notification_verification_needed_body">For security reasons, we need to verify your wallet with a SMS code.</string>
-  <string name="verification_insert_phone_title">Insert your phone number</string>
-  <string name="verification_insert_phone_body">We\'ll send you a verification code.</string>
-  <string name="verification_insert_phone_field_country">Country</string>
-  <string name="verification_insert_phone_field_number">Phone Number</string>
-  <string name="verification_insert_phone_field_number_error">Invalid phone number</string>
-  <string name="verification_insert_phone_security_disclaimer">This is only for security reasons, we don\'t store any personal data.</string>
+  <string name="verification_notification_verification_needed_title">奖励可领取但需要验证</string>
+  <string name="verification_notification_verification_needed_body">出于安全原因，我们需要使用短信代码验证你的钱包。</string>
+  <string name="verification_insert_phone_title">输入你的电话号码</string>
+  <string name="verification_insert_phone_body">我们将向你发送验证码。</string>
+  <string name="verification_insert_phone_field_country">国家/地区</string>
+  <string name="verification_insert_phone_field_number">电话号码</string>
+  <string name="verification_insert_phone_field_number_error">电话号码无效</string>
+  <string name="verification_insert_phone_security_disclaimer">此操作仅出于安全原因，我们不存储任何个人数据。</string>
   <string name="verification_notification_code_title">AppCoins Wallet</string>
-  <string name="verification_notification_code_body">Your verification code is %s. Use it to verify your AppCoins Wallet address.</string>
-  <string name="verification_insert_code_title">Insert your verification code</string>
-  <string name="verification_insert_code_error">Invalid code</string>
-  <string name="verification_insert_code_resend_button">RESEND CODE</string>
-  <string name="verification_validating_title">Validating your code&#8230;</string>
-  <string name="verification_completed_title">Done!</string>
-  <string name="verification_notification_reward_received_body">Reward received, enjoy! 👌</string>
-  <string name="verification_notification_reward_already_received_body">This phone number has already been used to receive this reward 😔</string>
-  <string name="verification_insert_phone_field_phone_used_already_error">Phone already used.</string>
-  <string name="verification_insert_code_error_common">Oops, something went wrong. Try again!</string>
+  <string name="verification_notification_code_body">你的验证码是%s。使用它验证你的AppCoins Wallet地址。</string>
+  <string name="verification_insert_code_title">输入你的验证码</string>
+  <string name="verification_insert_code_error">代码无效</string>
+  <string name="verification_insert_code_resend_button">重新发送代码</string>
+  <string name="verification_validating_title">正在验证你的代码&#8230;</string>
+  <string name="verification_completed_title">完成！</string>
+  <string name="verification_notification_reward_received_body">已收到奖励，尽情享用吧！👌</string>
+  <string name="verification_notification_reward_already_received_body">此电话号码已被用于接收奖励😔</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">电话已使用。</string>
+  <string name="verification_insert_code_error_common">糟糕，出现错误。请重试！</string>
+  <!--Purchase Flow-->
+  <string name="purchase_error_incomplete_transaction_body">此购买似乎已在处理中。请等待交易完成或联系我们的支持团队。</string>
+  <string name="purchase_more_payment_methods_button">其他付款方式</string>
+  <string name="purchase_appcoins_available_body">你将使用少量以太币来支付费用。</string>
+  <string name="purchase_appcoins_noavailable_body">你的AppCoins或以太币不足，无法进行此购买。</string>
+  <string name="purchase_appcoins_credits_available_body">不收费且速度超快！</string>
+  <string name="purchase_appcoins_credits_noavailable_body">你的APPC积金不足，请尝试充值！</string>
+  <string name="purchase_appcoins_credits_default_body">你获得了足够的AppCoins积金，可支付此购买。享用吧！</string>
 </resources>
