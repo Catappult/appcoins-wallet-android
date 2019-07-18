@@ -36,10 +36,10 @@ public class LocalCurrencyConversionService {
             .setScale(scale, RoundingMode.FLOOR), response.getCurrency(), response.getSymbol()));
   }
 
-  public Observable<FiatValue> getLocalToAppc(String currency, String value) {
+  public Observable<FiatValue> getLocalToAppc(String currency, String value, int scale) {
     return tokenToLocalFiatApi.convertLocalToAppc(currency, value)
         .map(response -> new FiatValue(response.getAppcValue()
-            .setScale(2, RoundingMode.FLOOR), response.getCurrency(), response.getSymbol()));
+            .setScale(scale, RoundingMode.FLOOR), response.getCurrency(), response.getSymbol()));
   }
 
   public interface TokenToLocalFiatApi {
