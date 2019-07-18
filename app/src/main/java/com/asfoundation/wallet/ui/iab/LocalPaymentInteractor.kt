@@ -24,7 +24,9 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
 
   fun getPaymentLink(domain: String, skuId: String?,
                      originalAmount: String?, originalCurrency: String?,
-                     paymentMethod: String, developerAddress: String): Single<String> {
+                     paymentMethod: String, developerAddress: String,
+                     callbackUrl: String?, orderReference: String?,
+                     payload: String?): Single<String> {
 
     return walletService.getWalletAddress()
         .flatMap { address ->
@@ -38,16 +40,14 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
               .flatMap {
                 deepLinkRepository.getDeepLink(domain, skuId, address, it.signature, originalAmount,
                     originalCurrency, paymentMethod, developerAddress, it.storeAddress,
-                    it.oemAddress)
+                    it.oemAddress, callbackUrl, orderReference, payload)
               }
         }
   }
 
   fun getTransaction(uri: Uri): Observable<Transaction> {
     return inAppPurchaseInteractor.getTransaction(uri.lastPathSegment)
-        .filter {
-          isEndingState(it.status, it.type)
-        }
+        .filter { isEndingState(it.status, it.type) }
         .distinctUntilChanged { transaction -> transaction.status }
   }
 
@@ -55,18 +55,19 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
     return (status == PENDING_USER_PAYMENT && type == "TOPUP") || (status == COMPLETED && (type == "INAPP" || type == "INAPP_UNMANAGED")) || status == FAILED || status == CANCELED || status == INVALID_TRANSACTION
   }
 
-  fun getCompletePurchaseBundle(isInApp: Boolean, merchantName: String, sku: String?,
-                                scheduler: Scheduler,
-                                orderReference: String?, hash: String?): Single<Bundle> {
-    return if (isInApp && sku != null) {
+  fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
+                                orderReference: String?, hash: String?,
+                                scheduler: Scheduler): Single<Bundle> {
+    return if (isInApp(type) && sku != null) {
       billing.getSkuPurchase(merchantName, sku, scheduler)
-          .map {
-            billingMessagesMapper.mapPurchase(it,
-                orderReference)
-          }
+          .map { billingMessagesMapper.mapPurchase(it, orderReference) }
     } else {
       Single.just(billingMessagesMapper.successBundle(hash))
     }
+  }
+
+  private fun isInApp(type: String): Boolean {
+    return type.equals("INAPP", ignoreCase = true)
   }
 
   private data class DeepLinkInformation(val signature: String, val storeAddress: String,

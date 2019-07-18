@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/payment_methods_width"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
     android:animateLayoutChanges="true"
     android:background="@drawable/background_card"
     android:elevation="2dp"
     android:minHeight="160dp"
-    android:layout_gravity="center"
     >
 
-  <include layout="@layout/fragment_iab_loading"/>
-  <include layout="@layout/fragment_express_checkout_buy"/>
+  <include
+      android:id="@+id/error_message"
+      layout="@layout/fragment_iab_error"
+      />
+
+  <ProgressBar
+      android:id="@+id/loading_view"
+      android:layout_width="80dp"
+      android:layout_height="80dp"
+      android:indeterminateDrawable="@drawable/gradient_progress"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

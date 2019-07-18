@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.poa;
 
-import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nullable;
@@ -11,8 +10,6 @@ public class Proof {
   private final List<ProofComponent> proofComponentList;
   private final ProofStatus proofStatus;
   private final int chainId;
-  private final BigDecimal gasPrice;
-  private final BigDecimal gasLimit;
   @Nullable private final String countryCode;
   @Nullable private final String campaignId;
   @Nullable private final String oemAddress;
@@ -21,8 +18,8 @@ public class Proof {
 
   public Proof(String packageName, @Nullable String campaignId,
       List<ProofComponent> proofComponentList, String walletPackage, ProofStatus proofStatus,
-      int chainId, @Nullable String oemAddress, @Nullable String storeAddress, BigDecimal gasPrice,
-      BigDecimal gasLimit, @Nullable String hash, @Nullable String countryCode) {
+      int chainId, @Nullable String oemAddress, @Nullable String storeAddress,
+      @Nullable String hash, @Nullable String countryCode) {
     this.packageName = packageName;
     this.campaignId = campaignId;
     this.proofComponentList = proofComponentList;
@@ -31,23 +28,20 @@ public class Proof {
     this.chainId = chainId;
     this.oemAddress = oemAddress;
     this.storeAddress = storeAddress;
-    this.gasPrice = gasPrice;
-    this.gasLimit = gasLimit;
     this.hash = hash;
     this.countryCode = countryCode;
   }
 
   public Proof(String packageName, @Nullable String campaignId,
       List<ProofComponent> proofComponentList, String walletPackage, ProofStatus proofStatus,
-      int chainId, @Nullable String oemAddress, @Nullable String storeAddress, BigDecimal gasPrice,
-      BigDecimal gasLimit, String countryCode) {
+      int chainId, @Nullable String oemAddress, @Nullable String storeAddress, String countryCode) {
     this(packageName, campaignId, proofComponentList, walletPackage, proofStatus, chainId,
-        oemAddress, storeAddress, gasPrice, gasLimit, null, countryCode);
+        oemAddress, storeAddress, null, countryCode);
   }
 
   public Proof(String packageName, String walletPackage, ProofStatus proofStatus, int chainId) {
     this(packageName, null, Collections.emptyList(), walletPackage, proofStatus, chainId, null,
-        null, BigDecimal.ZERO, BigDecimal.ZERO, null, null);
+        null, null, null);
   }
 
   @Nullable public String getCountryCode() {
@@ -56,14 +50,6 @@ public class Proof {
 
   @Nullable public String getHash() {
     return hash;
-  }
-
-  public BigDecimal getGasPrice() {
-    return gasPrice;
-  }
-
-  public BigDecimal getGasLimit() {
-    return gasLimit;
   }
 
   public String getOemAddress() {
@@ -104,8 +90,6 @@ public class Proof {
     result = 31 * result + proofComponentList.hashCode();
     result = 31 * result + proofStatus.hashCode();
     result = 31 * result + chainId;
-    result = 31 * result + (gasPrice != null ? gasPrice.hashCode() : 0);
-    result = 31 * result + (gasLimit != null ? gasLimit.hashCode() : 0);
     result = 31 * result + (countryCode != null ? countryCode.hashCode() : 0);
     result = 31 * result + (campaignId != null ? campaignId.hashCode() : 0);
     result = 31 * result + (oemAddress != null ? oemAddress.hashCode() : 0);
@@ -125,8 +109,6 @@ public class Proof {
     if (!walletPackage.equals(proof.walletPackage)) return false;
     if (!proofComponentList.equals(proof.proofComponentList)) return false;
     if (proofStatus != proof.proofStatus) return false;
-    if (gasPrice != null ? !gasPrice.equals(proof.gasPrice) : proof.gasPrice != null) return false;
-    if (gasLimit != null ? !gasLimit.equals(proof.gasLimit) : proof.gasLimit != null) return false;
     if (countryCode != null ? !countryCode.equals(proof.countryCode) : proof.countryCode != null) {
       return false;
     }
@@ -157,16 +139,20 @@ public class Proof {
         + proofStatus
         + ", chainId="
         + chainId
-        + ", gasPrice="
-        + gasPrice
-        + ", gasLimit=" + gasLimit + ", countryCode='" + countryCode + '\''
+        + ", countryCode='"
+        + countryCode
+        + '\''
         + ", campaignId='"
         + campaignId
         + '\''
         + ", oemAddress='"
         + oemAddress
         + '\''
-        + ", storeAddress='" + storeAddress + '\'' + ", hash='" + hash
+        + ", storeAddress='"
+        + storeAddress
+        + '\''
+        + ", hash='"
+        + hash
         + '\''
         + '}';
   }

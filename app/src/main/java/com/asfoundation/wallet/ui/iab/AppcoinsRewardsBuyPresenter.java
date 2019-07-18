@@ -10,7 +10,6 @@ import io.reactivex.Completable;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import static com.asfoundation.wallet.analytics.FacebookEventLogger.EVENT_REVENUE_CURRENCY;
 
@@ -20,31 +19,26 @@ public class AppcoinsRewardsBuyPresenter {
   private final Scheduler scheduler;
   private final CompositeDisposable disposables;
   private final BigDecimal amount;
-  private final String oemAddress;
   private final String uri;
   private final String packageName;
   private final TransferParser transferParser;
-  private final String productName;
   private final boolean isBds;
   private final BillingAnalytics analytics;
   private final TransactionBuilder transactionBuilder;
   private final InAppPurchaseInteractor inAppPurchaseInteractor;
 
-  public AppcoinsRewardsBuyPresenter(AppcoinsRewardsBuyView view, RewardsManager rewardsManager,
-      Scheduler scheduler, CompositeDisposable disposables, BigDecimal amount, String oemAddress,
-      String uri, String packageName, TransferParser transferParser, String productName,
-      boolean isBds, BillingAnalytics analytics, TransactionBuilder transactionBuilder,
-      InAppPurchaseInteractor inAppPurchaseInteractor) {
+  AppcoinsRewardsBuyPresenter(AppcoinsRewardsBuyView view, RewardsManager rewardsManager,
+      Scheduler scheduler, CompositeDisposable disposables, BigDecimal amount, String uri,
+      String packageName, TransferParser transferParser, boolean isBds, BillingAnalytics analytics,
+      TransactionBuilder transactionBuilder, InAppPurchaseInteractor inAppPurchaseInteractor) {
     this.view = view;
     this.rewardsManager = rewardsManager;
     this.scheduler = scheduler;
     this.disposables = disposables;
     this.amount = amount;
-    this.oemAddress = oemAddress;
     this.uri = uri;
     this.packageName = packageName;
     this.transferParser = transferParser;
-    this.productName = productName;
     this.isBds = isBds;
     this.analytics = analytics;
     this.transactionBuilder = transactionBuilder;
@@ -53,8 +47,6 @@ public class AppcoinsRewardsBuyPresenter {
 
   public void present() {
     handleBuyClick();
-    handleCancelClick();
-    handleViewSetup();
     handleOkErrorClick();
   }
 
@@ -63,29 +55,8 @@ public class AppcoinsRewardsBuyPresenter {
         .subscribe(__ -> view.errorClose()));
   }
 
-  private void handleCancelClick() {
-    disposables.add(view.getCancelClick()
-        .subscribe(__ -> view.close()));
-  }
-
-  private void handleViewSetup() {
-    disposables.add(transferParser.parse(uri)
-        .observeOn(scheduler)
-        .doOnSuccess(transactionBuilder -> {
-          view.showLoading();
-          view.setupView(amount.setScale(2, RoundingMode.CEILING)
-                  .toPlainString(), productName, packageName,
-              TransactionData.TransactionType.DONATION.name()
-                  .equalsIgnoreCase(transactionBuilder.getType()));
-          view.hideLoading();
-          view.showPaymentDetails();
-        })
-        .subscribe());
-  }
-
   private void handleBuyClick() {
-    disposables.add(view.getBuyClick()
-        .flatMapSingle(__ -> transferParser.parse(uri))
+    disposables.add(transferParser.parse(uri)
         .flatMapCompletable(transaction -> rewardsManager.pay(transaction.getSkuId(), amount,
             transaction.toAddress(), packageName, getOrigin(isBds, transaction),
             transaction.getType(), transaction.getPayload(), transaction.getCallbackUrl(),
@@ -96,6 +67,7 @@ public class AppcoinsRewardsBuyPresenter {
             .flatMapCompletable(
                 paymentStatus -> handlePaymentStatus(paymentStatus, transaction.getSkuId(),
                     transaction.amount())))
+        .doOnSubscribe(disposable -> view.showLoading())
         .subscribe());
   }
 
@@ -112,8 +84,7 @@ public class AppcoinsRewardsBuyPresenter {
     switch (transaction.getStatus()) {
       case PROCESSING:
         return Completable.fromAction(() -> {
-          view.hidePaymentDetails();
-          view.showProcessingLoading();
+          view.showLoading();
         });
       case COMPLETED:
         if (isBds && transactionBuilder.getType()
@@ -125,7 +96,7 @@ public class AppcoinsRewardsBuyPresenter {
               .onErrorResumeNext(throwable -> Completable.fromAction(() -> {
                 throwable.printStackTrace();
                 view.showGenericError();
-                view.hideGenericLoading();
+                view.hideLoading();
               }));
         }
         return rewardsManager.getTransaction(packageName, sku, amount)
@@ -136,12 +107,12 @@ public class AppcoinsRewardsBuyPresenter {
       case ERROR:
         return Completable.fromAction(() -> {
           view.showGenericError();
-          view.hideGenericLoading();
+          view.hideLoading();
         });
       case NO_NETWORK:
         return Completable.fromAction(() -> {
           view.showNoNetworkError();
-          view.hideGenericLoading();
+          view.hideLoading();
         });
     }
     return Completable.error(new UnsupportedOperationException(
@@ -152,13 +123,13 @@ public class AppcoinsRewardsBuyPresenter {
     disposables.clear();
   }
 
-  public void sendPaymentEvent(String purchaseDetails) {
+  void sendPaymentEvent(String purchaseDetails) {
     analytics.sendPaymentEvent(packageName, transactionBuilder.getSkuId(),
         transactionBuilder.amount()
             .toString(), purchaseDetails, transactionBuilder.getType());
   }
 
-  public void sendRevenueEvent() {
+  void sendRevenueEvent() {
     analytics.sendRevenueEvent(inAppPurchaseInteractor.convertToFiat(transactionBuilder.amount()
         .doubleValue(), EVENT_REVENUE_CURRENCY)
         .blockingGet()

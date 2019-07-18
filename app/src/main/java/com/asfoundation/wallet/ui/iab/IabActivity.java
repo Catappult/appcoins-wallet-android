@@ -42,11 +42,9 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   public static final String TRANSACTION_CURRENCY = "transaction_currency";
   public static final String DEVELOPER_PAYLOAD = "developer_payload";
   private static final String BDS = "BDS";
-  private static final String TAG = IabActivity.class.getSimpleName();
   private static final int WEB_VIEW_REQUEST_CODE = 1234;
   private static final String IS_BDS_EXTRA = "is_bds_extra";
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
-  @Inject PaymentMethodsMapper paymentMethodsMapper;
   private boolean isBackEnable;
   private IabPresenter presenter;
   private Bundle skuDetails;
@@ -142,21 +140,8 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     finish();
   }
 
-  @Override
-  public void navigateToAdyenAuthorization(boolean isBds, String currency, PaymentType paymentType,
-      String bonus) {
-    getSupportFragmentManager().beginTransaction()
-        .replace(R.id.fragment_container,
-            AdyenAuthorizationFragment.newInstance(transaction.getSkuId(), transaction.getType(),
-                getOrigin(isBds), paymentType, transaction.getDomain(), getIntent().getDataString(),
-                transaction.amount(), currency, developerPayload, bonus))
-        .commit();
-  }
-
   @Override public void navigateToWebViewAuthorization(String url) {
-    startActivityForResult(
-        WebViewActivity.newIntent(this, url, transaction.getDomain(), transaction.getSkuId(),
-            transaction.amount(), transaction.getType()), WEB_VIEW_REQUEST_CODE);
+    startActivityForResult(WebViewActivity.newIntent(this, url), WEB_VIEW_REQUEST_CODE);
   }
 
   @Override public void showOnChain(BigDecimal amount, boolean isBds, String bonus) {
@@ -170,9 +155,10 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   @Override public void showAdyenPayment(BigDecimal amount, String currency, boolean isBds,
       PaymentType paymentType, String bonus) {
     getSupportFragmentManager().beginTransaction()
-        .replace(R.id.fragment_container, ExpressCheckoutBuyFragment.newInstance(
-            createBundle(BigDecimal.valueOf(amount.doubleValue()), currency), isBds, paymentType,
-            bonus))
+        .replace(R.id.fragment_container,
+            AdyenAuthorizationFragment.newInstance(transaction.getSkuId(), transaction.getType(),
+                getOrigin(isBds), paymentType, transaction.getDomain(), getIntent().getDataString(),
+                transaction.amount(), currency, developerPayload, bonus))
         .commit();
   }
 
@@ -187,11 +173,13 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
 
   @Override
   public void showLocalPayment(String domain, String skuId, String originalAmount, String currency,
-      String bonus, String selectedPaymentMethod, boolean isInApp, String developerAddress) {
+      String bonus, String selectedPaymentMethod, String developerAddress, String type,
+      BigDecimal amount, String callbackUrl, String orderReference, String payload) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container,
             LocalPaymentFragment.newInstance(domain, skuId, originalAmount, currency, bonus,
-                selectedPaymentMethod, isInApp, developerAddress))
+                selectedPaymentMethod, developerAddress, type, amount, callbackUrl, orderReference,
+                payload))
         .commit();
   }
 
@@ -218,7 +206,7 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     results.accept(Objects.requireNonNull(intent.getData(), "Intent data cannot be null!"));
   }
 
-  @Override protected void onSaveInstanceState(Bundle outState) {
+  @Override protected void onSaveInstanceState(@NotNull Bundle outState) {
     super.onSaveInstanceState(outState);
 
     outState.putBundle(SKU_DETAILS, skuDetails);
@@ -230,14 +218,6 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     } else {
       return transaction.getOrigin();
     }
-  }
-
-  @NonNull private Bundle createBundle(BigDecimal amount, String currency) {
-    Bundle bundle = createBundle(amount);
-
-    bundle.putSerializable(TRANSACTION_CURRENCY, currency);
-
-    return bundle;
   }
 
   @NonNull private Bundle createBundle(BigDecimal amount) {
@@ -256,8 +236,7 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     return getIntent().getBooleanExtra(EXTRA_BDS_IAP, false);
   }
 
-  @Override public void navigateToUri(String url, String domain, String skuId, BigDecimal amount,
-      String type) {
+  @Override public void navigateToUri(String url) {
     navigateToWebViewAuthorization(url);
   }
 

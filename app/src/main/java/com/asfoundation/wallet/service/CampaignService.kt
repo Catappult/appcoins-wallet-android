@@ -45,12 +45,8 @@ class CampaignService(
   }
 
   private fun handleResponse(response: GetCampaignResponse): Campaign {
-    return if (response.status != GetCampaignResponse.EligibleResponseStatus.NOT_ELIGIBLE) {
-      if (response.bidId != null) {
-        Campaign(response.bidId, CampaignStatus.AVAILABLE)
-      } else {
-        Campaign("", CampaignStatus.NO_CAMPAIGN_AVAILABLE)
-      }
+    return if (response.status != GetCampaignResponse.EligibleResponseStatus.NOT_ELIGIBLE && response.bidId != null) {
+      Campaign(response.bidId, CampaignStatus.AVAILABLE)
     } else {
       Campaign("", CampaignStatus.NOT_ELIGIBLE)
     }
@@ -78,7 +74,7 @@ class SerializedProof(val bid_id: String?,
                       val oem: String)
 
 enum class CampaignStatus {
-  AVAILABLE, NOT_ELIGIBLE, NO_CAMPAIGN_AVAILABLE
+  AVAILABLE, NOT_ELIGIBLE
 }
 
 data class Campaign(val campaignId: String, val campaignStatus: CampaignStatus)

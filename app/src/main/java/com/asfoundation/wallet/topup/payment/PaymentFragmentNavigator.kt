@@ -2,12 +2,10 @@ package com.asfoundation.wallet.topup.payment
 
 import android.net.Uri
 import android.os.Bundle
-import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.ui.iab.Navigator
 import io.reactivex.Observable
-import java.math.BigDecimal
 
 class PaymentFragmentNavigator(private val uriNavigator: UriNavigator,
                                private val topUpView: TopUpActivityView) : Navigator {
@@ -20,9 +18,8 @@ class PaymentFragmentNavigator(private val uriNavigator: UriNavigator,
     topUpView.close()
   }
 
-  override fun navigateToUriForResult(redirectUrl: String, transactionUid: String,
-                                      domain: String, skuId: String, amount: BigDecimal, type: String) {
-    uriNavigator.navigateToUri(redirectUrl, domain, skuId, amount, type)
+  override fun navigateToUriForResult(redirectUrl: String) {
+    uriNavigator.navigateToUri(redirectUrl)
   }
 
   override fun uriResults(): Observable<Uri> {

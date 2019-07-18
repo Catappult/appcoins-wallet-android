@@ -19,9 +19,6 @@ public interface IabView {
 
   void close(Bundle bundle);
 
-  void navigateToAdyenAuthorization(boolean isBds, String currency, PaymentType paymentType,
-      String bonus);
-
   void navigateToWebViewAuthorization(String url);
 
   void showOnChain(BigDecimal amount, boolean isBds, String bonus);
@@ -32,7 +29,8 @@ public interface IabView {
   void showAppcoinsCreditsPayment(BigDecimal amount);
 
   void showLocalPayment(String domain, String skuId, String originalAmount, String currency,
-      String bonus, String selectedPaymentMethod, boolean isInApp, String developerAddress);
+      String bonus, String selectedPaymentMethod, String developerAddress, String type,
+      BigDecimal amount, String callbackUrl, String orderReference, String payload);
 
   void showPaymentMethodsView();
 
