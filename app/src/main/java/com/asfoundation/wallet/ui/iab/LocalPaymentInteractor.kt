@@ -56,14 +56,11 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
   }
 
   fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
-                                scheduler: Scheduler,
-                                orderReference: String?, hash: String?): Single<Bundle> {
+                                orderReference: String?, hash: String?,
+                                scheduler: Scheduler): Single<Bundle> {
     return if (isInApp(type) && sku != null) {
       billing.getSkuPurchase(merchantName, sku, scheduler)
-          .map {
-            billingMessagesMapper.mapPurchase(it,
-                orderReference)
-          }
+          .map { billingMessagesMapper.mapPurchase(it, orderReference) }
     } else {
       Single.just(billingMessagesMapper.successBundle(hash))
     }

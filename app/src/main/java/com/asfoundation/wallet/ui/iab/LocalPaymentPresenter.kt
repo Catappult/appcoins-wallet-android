@@ -9,9 +9,6 @@ import io.reactivex.disposables.CompositeDisposable
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
-private val WAITING_RESULT = "WAITING_RESULT"
-private var waitingResult: Boolean = false
-
 
 class LocalPaymentPresenter(private val view: LocalPaymentView,
                             private val originalAmount: String?,
@@ -29,6 +26,9 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
                             private val viewScheduler: Scheduler,
                             private val networkScheduler: Scheduler,
                             private val disposables: CompositeDisposable) {
+
+
+  private var waitingResult: Boolean = false
 
   fun present() {
     if (savedInstance != null) {
@@ -86,9 +86,8 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
     view.hideLoading()
     return when (transaction.status) {
       Status.COMPLETED -> {
-        localPaymentInteractor.getCompletePurchaseBundle(type, domain, skuId, networkScheduler,
-            transaction.orderReference,
-            transaction.hash)
+        localPaymentInteractor.getCompletePurchaseBundle(type, domain, skuId,
+            transaction.orderReference, transaction.hash, networkScheduler)
             .doOnSuccess {
               analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
               analytics.sendRevenueEvent(disposables, amount)
@@ -120,6 +119,10 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
 
   fun onSaveInstanceState(outState: Bundle) {
     outState.putBoolean(WAITING_RESULT, waitingResult)
+  }
+
+  companion object {
+    private const val WAITING_RESULT = "WAITING_RESULT"
   }
 }
 

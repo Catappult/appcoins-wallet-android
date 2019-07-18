@@ -32,10 +32,6 @@ public class BillingWebViewFragment extends DaggerFragment {
   private static final String LOCAL_PAYMENTS_SCHEMA = "myappcoins.com/t/";
   private static final String GO_PAY_PAYMENTS_SCHEMA = "gojek://gopay/merchanttransfer";
   private static final String URL = "url";
-  private static final String DOMAIN = "domain";
-  private static final String SKUID = "skuid";
-  private static final String AMOUNT = "amount";
-  private static final String TYPE = "type";
   private static final String CURRENT_URL = "currentUrl";
   private final AtomicReference<ScheduledFuture<?>> timeoutReference;
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;

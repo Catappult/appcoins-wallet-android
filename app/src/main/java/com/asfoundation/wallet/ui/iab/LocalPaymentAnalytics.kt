@@ -13,15 +13,13 @@ class LocalPaymentAnalytics(private val analytics: BillingAnalytics,
 
   fun sendPaymentMethodDetailsEvent(domain: String, skuId: String?, amount: String,
                                     type: String, paymentId: String) {
-    analytics.sendPaymentMethodDetailsEvent(domain, skuId, amount,
-        paymentId, type)
+    analytics.sendPaymentMethodDetailsEvent(domain, skuId, amount, paymentId, type)
   }
 
 
   fun sendPaymentEvent(domain: String, skuId: String?, amount: String,
                        type: String, paymentId: String) {
-    analytics.sendPaymentEvent(domain, skuId, amount,
-        paymentId, type)
+    analytics.sendPaymentEvent(domain, skuId, amount, paymentId, type)
   }
 
   fun sendRevenueEvent(disposable: CompositeDisposable, amount: BigDecimal) {
