@@ -34,6 +34,7 @@ import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_top_up.*
 import org.json.JSONException
@@ -165,7 +166,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     validationSubject = PublishSubject.create()
 
     presenter =
-        PaymentAuthPresenter(this, appPackage, AndroidSchedulers.mainThread(),
+        PaymentAuthPresenter(this, appPackage, AndroidSchedulers.mainThread(), Schedulers.io(),
             CompositeDisposable(), adyen, billingFactory.getBilling(appPackage),
             navigator, inAppPurchaseInteractor.billingMessagesMapper,
             inAppPurchaseInteractor, bonusValue, validBonus)

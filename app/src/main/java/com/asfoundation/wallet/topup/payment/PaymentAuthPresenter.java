@@ -21,7 +21,6 @@ import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.exceptions.OnErrorNotImplementedException;
-import io.reactivex.schedulers.Schedulers;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
@@ -32,6 +31,7 @@ public class PaymentAuthPresenter {
   private static final String WAITING_RESULT = "WAITING_RESULT";
 
   private final Scheduler viewScheduler;
+  private final Scheduler networkScheduler;
   private final CompositeDisposable disposables;
   private final Adyen adyen;
   private final BillingService billingService;
@@ -45,12 +45,14 @@ public class PaymentAuthPresenter {
   private boolean waitingResult;
 
   public PaymentAuthPresenter(PaymentAuthView view, String appPackage, Scheduler viewScheduler,
-      CompositeDisposable disposables, Adyen adyen, BillingService billingService,
-      Navigator navigator, BillingMessagesMapper billingMessagesMapper,
-      InAppPurchaseInteractor inAppPurchaseInteractor, String bonusValue, boolean validBonus) {
+      Scheduler networkScheduler, CompositeDisposable disposables, Adyen adyen,
+      BillingService billingService, Navigator navigator,
+      BillingMessagesMapper billingMessagesMapper, InAppPurchaseInteractor inAppPurchaseInteractor,
+      String bonusValue, boolean validBonus) {
     this.view = view;
     this.appPackage = appPackage;
     this.viewScheduler = viewScheduler;
+    this.networkScheduler = networkScheduler;
     this.disposables = disposables;
     this.adyen = adyen;
     this.billingService = billingService;
@@ -144,10 +146,10 @@ public class PaymentAuthPresenter {
   private void onViewCreatedCompletePayment(String transactionOrigin, CurrencyData currencyData,
       String selectedCurrency, String currency, String transactionType) {
     disposables.add(Completable.fromAction(() -> view.showLoading())
+        .observeOn(networkScheduler)
         .andThen(convertAmount(currencyData, selectedCurrency).flatMapCompletable(
             value -> billingService.getAuthorization(transactionOrigin, value, currency,
                 transactionType, appPackage)
-                .subscribeOn(Schedulers.io())
                 .observeOn(viewScheduler)
                 .filter(AdyenAuthorization::isPendingAuthorization)
                 .firstOrError()
@@ -189,6 +191,7 @@ public class PaymentAuthPresenter {
               waitingResult = false;
               navigator.popView(bundle);
             }))
+        .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .subscribe(__ -> {
         }, this::showError));
@@ -214,6 +217,7 @@ public class PaymentAuthPresenter {
             .firstOrError()
             .observeOn(viewScheduler)
             .doOnSuccess(this::showError))
+        .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .subscribe(__ -> {
         }, this::showError));
@@ -231,6 +235,7 @@ public class PaymentAuthPresenter {
             .filter(AdyenAuthorization::isProcessing)
             .observeOn(viewScheduler)
             .doOnNext(__ -> view.showLoading()))
+        .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .subscribe(__ -> {
         }, this::showError));
