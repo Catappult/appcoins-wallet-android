@@ -106,7 +106,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
   }
 
   override fun finishOnboarding() {
-    create_wallet_animation.setAnimation(R.raw.create_wallet_finish_animation)
+    create_wallet_animation.setAnimation(R.raw.success_animation)
     create_wallet_text.text = getText(R.string.provide_wallet_created_header)
     create_wallet_animation.addAnimatorListener(object : Animator.AnimatorListener {
       override fun onAnimationRepeat(animation: Animator?) {
