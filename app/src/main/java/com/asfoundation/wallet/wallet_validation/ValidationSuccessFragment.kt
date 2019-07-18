@@ -66,7 +66,7 @@ class ValidationSuccessFragment : DaggerFragment(), ValidationSuccessView {
   }
 
   override fun setupUI() {
-    validation_success_animation.setAnimation(R.raw.top_up_success_animation)
+    validation_success_animation.setAnimation(R.raw.success_animation)
     validation_success_animation.playAnimation()
     validation_success_animation.repeatCount = 0
     validation_success_animation.addAnimatorListener(object : Animator.AnimatorListener {
