@@ -30,7 +30,7 @@ public interface IabView {
 
   void showLocalPayment(String domain, String skuId, String originalAmount, String currency,
       String bonus, String selectedPaymentMethod, String developerAddress, String type,
-      BigDecimal amount);
+      BigDecimal amount, String callbackUrl, String orderReference, String payload);
 
   void showPaymentMethodsView();
 

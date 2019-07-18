@@ -25,7 +25,10 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
                             private val savedInstance: Bundle?,
                             private val viewScheduler: Scheduler,
                             private val networkScheduler: Scheduler,
-                            private val disposables: CompositeDisposable) {
+                            private val disposables: CompositeDisposable,
+                            private val callbackUrl: String?,
+                            private val orderReference: String?,
+                            private val payload: String?) {
 
 
   private var waitingResult: Boolean = false
@@ -49,7 +52,8 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
   private fun onViewCreatedRequestLink() {
     disposables.add(
         localPaymentInteractor.getPaymentLink(domain, skuId, originalAmount, currency,
-            paymentId, developerAddress).filter { !waitingResult }.observeOn(
+            paymentId, developerAddress, callbackUrl, orderReference,
+            payload).filter { !waitingResult }.observeOn(
             viewScheduler).doOnSuccess {
           analytics.sendPaymentMethodDetailsEvent(domain, skuId, amount.toString(), type, paymentId)
           navigator.navigateToUriForResult(it)

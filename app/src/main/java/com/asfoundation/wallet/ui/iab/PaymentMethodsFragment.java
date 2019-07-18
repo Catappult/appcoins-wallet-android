@@ -442,7 +442,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         isOneStep ? transaction.getOriginalOneStepValue() : null,
         isOneStep ? transaction.getOriginalOneStepCurrency() : null, bonusMessageValue,
         selectedPaymentMethod, transaction.toAddress(), transaction.getType(),
-        transaction.amount());
+        transaction.amount(), transaction.getCallbackUrl(),
+        transaction.getOrderReference(), transaction.getPayload());
   }
 
   @Override public void setBonus(@NotNull BigDecimal bonus, @NotNull String currency) {
