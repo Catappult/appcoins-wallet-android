@@ -193,8 +193,7 @@ public class AdyenAuthorizationPresenter {
     return inAppPurchaseInteractor.convertToLocalFiat((new BigDecimal(amount)).doubleValue())
         .subscribeOn(ioScheduler)
         .blockingGet()
-        .getAmount()
-        .setScale(8, BigDecimal.ROUND_UP);
+        .getAmount();
   }
 
   private void onViewCreatedSelectPaymentMethod() {
