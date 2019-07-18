@@ -147,6 +147,7 @@ public class PaymentAuthPresenter {
         .andThen(convertAmount(currencyData, selectedCurrency).flatMapCompletable(
             value -> billingService.getAuthorization(transactionOrigin, value, currency,
                 transactionType, appPackage)
+                .subscribeOn(Schedulers.io())
                 .observeOn(viewScheduler)
                 .filter(AdyenAuthorization::isPendingAuthorization)
                 .firstOrError()
@@ -164,7 +165,6 @@ public class PaymentAuthPresenter {
     }
     return inAppPurchaseInteractor.convertToLocalFiat(
         (new BigDecimal(currencyData.getAppcValue())).doubleValue())
-        .subscribeOn(Schedulers.io())
         .map(FiatValue::getAmount);
   }
 
