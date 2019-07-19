@@ -314,6 +314,7 @@
   <string name="gamification_leveled_up_body">Sekarang Anda akan mendapatkan bonus %s di setiap pembelian. Teruslah membeli agar bonus yang didapatkan lebih banyak lagi!</string>
   <string name="gamification_leveled_up_notification_title">Anda sudah mencapai tingkat berikutnya!</string>
   <string name="gamification_leveled_up_notification_body">Selamat, Anda sekarang akan mendapatkan bonus %s di setiap pembelian!</string>
+  <string name="gamification_how_max_level_body">Congrats! You\'ve reached the highest level 💃</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Izinkan Dompet AppCoins untuk menginformasikan alamat dompet Anda ke %s.</string>
   <string name="provide_wallet_body_placeholders">Izinkan %1$s untuk menginformasikan alamat dompet Anda ke %2$s.</string>
