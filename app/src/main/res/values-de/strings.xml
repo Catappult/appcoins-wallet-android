@@ -314,6 +314,7 @@
   <string name="gamification_leveled_up_body">You\'ll now get a %s bonus on every purchase. Keep buying to earn even more!</string>
   <string name="gamification_leveled_up_notification_title">You reached the next level!</string>
   <string name="gamification_leveled_up_notification_body">Congrats, you\'ll now get a %s bonus on every purchase!</string>
+  <string name="gamification_how_max_level_body">Congrats! You\'ve reached the highest level 💃</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Erlauben Sie dem AppCoinsWallet ihre Wallet Adresse an %s weiterzureichen.</string>
   <string name="provide_wallet_body_placeholders">Erlauben Sie %1$s ihre Wallet-Adresse für %2$s zur Verfügung zu stellen.</string>
