@@ -314,6 +314,7 @@
   <string name="gamification_leveled_up_body">Her bir satın alma işlemi için %s bonus alacaksınız. Daha da fazla kazanmak için satın almaya devam edin!</string>
   <string name="gamification_leveled_up_notification_title">Bir sonraki seviyeye ulaştınız!</string>
   <string name="gamification_leveled_up_notification_body">Tebrikler, artık her bir satın alma işleminde %s bonus kazanacaksınız!</string>
+  <string name="gamification_how_max_level_body">Congrats! You\'ve reached the highest level 💃</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">AppCoins Cüzdanın %s\'e cüzdan adresinizi vermesine izin verin.</string>
   <string name="provide_wallet_body_placeholders">%1$s\'ın %2$s\'e cüzdan adresinizi vermesine izin verin.</string>
