@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.ui.onboarding
 
 import android.view.View
-import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 
-class OnboardingPageTransformer : ViewPager.PageTransformer {
+class OnboardingPageTransformer : ViewPager2.PageTransformer {
 
   override fun transformPage(view: View, position: Float) {
     val pageWidth = view.width

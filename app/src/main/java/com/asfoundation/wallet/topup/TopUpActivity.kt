@@ -42,6 +42,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
     const val WEB_VIEW_REQUEST_CODE = 1234
     private const val TOP_UP_AMOUNT = "top_up_amount"
+    private const val TOP_UP_CURRENCY = "currency"
     private const val BONUS = "bonus"
     private const val VALID_BONUS = "valid_bonus"
   }
@@ -105,7 +106,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   override fun finish(data: Bundle) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            TopUpSuccessFragment.newInstance(data.getDouble(TOP_UP_AMOUNT), data.getString(BONUS),
+            TopUpSuccessFragment.newInstance(data.getString(TOP_UP_AMOUNT),
+                data.getString(TOP_UP_CURRENCY), data.getString(BONUS),
                 data.getBoolean(
                     VALID_BONUS)), TopUpSuccessFragment::class.java.simpleName)
         .commit()

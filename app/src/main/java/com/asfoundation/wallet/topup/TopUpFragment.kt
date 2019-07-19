@@ -269,7 +269,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   private fun buildBonusString(bonus: BigDecimal, bonusCurrency: String) {
     var scaledBonus = bonus.stripTrailingZeros()
-        .setScale(2, BigDecimal.ROUND_DOWN)
+        .setScale(2, BigDecimal.ROUND_FLOOR)
     var currency = bonusCurrency
     if (scaledBonus < BigDecimal(0.01)) {
       currency = "~$currency"

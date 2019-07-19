@@ -257,7 +257,6 @@ public class AsfInAppPurchaseInteractor {
     switch (transaction.getStatus()) {
       case PENDING:
       case PENDING_SERVICE_AUTHORIZATION:
-      case PENDING_USER_PAYMENT:
       case PROCESSING:
         switch (transaction.getGateway()
             .getName()) {
@@ -277,6 +276,7 @@ public class AsfInAppPurchaseInteractor {
             throw new UnknownServiceException("Unknown gateway");
         }
       case COMPLETED:
+      case PENDING_USER_PAYMENT:
       case FAILED:
       case CANCELED:
       case INVALID_TRANSACTION:

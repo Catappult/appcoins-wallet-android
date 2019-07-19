@@ -33,8 +33,8 @@ class TopUpInteractor(private val repository: BdsRepository,
     return conversionService.getAppcToLocalFiat(value, 2)
   }
 
-  fun convertLocal(currency: String, value: String): Observable<FiatValue> {
-    return conversionService.getLocalToAppc(currency, value)
+  fun convertLocal(currency: String, value: String, scale: Int): Observable<FiatValue> {
+    return conversionService.getLocalToAppc(currency, value, scale)
   }
 
   private fun mapPaymentMethods(

@@ -4,6 +4,7 @@ import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity;
+import com.appcoins.wallet.bdsbilling.repository.entity.Price;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status;
@@ -191,9 +192,8 @@ public class InAppPurchaseInteractor {
         .firstOrError();
   }
 
-  public Single<Double> getTransactionAmount(String uid) {
-    return getCompletedTransaction(uid).map(transaction -> Double.parseDouble(transaction.getPrice()
-        .getAppc()))
+  public Single<Price> getTransactionAmount(String uid) {
+    return getCompletedTransaction(uid).map(transaction -> transaction.getPrice())
         .firstOrError();
   }
 
