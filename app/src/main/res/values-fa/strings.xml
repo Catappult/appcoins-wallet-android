@@ -278,12 +278,12 @@
   <string name="gamification_level_body">شما اعتبار APPC بدست خواهید آورد زمانی که در اپلیکیشن‌های و بازی‌های محبوب خود خرید کنید.</string>
   <string name="gamification_how_header">چگونه سطح بالاتری بروید؟</string>
   <string name="gamification_how_body">شما اعتبار APPC بدست خواهید آورد زمانی که در اپلیکیشن‌های و بازی‌های محبوب خود خرید کنید.</string>
-  <string name="gamification_how_body_new">The more you spend in your favorite apps, the bigger the Bonus!</string>
+  <string name="gamification_how_body_new">هر چه بیشتر در اپلیکیشن‌های محبوب خود خرج کنید، پاداش بزرگتر خواهد بود!</string>
   <string name="gamification_how_table_a1">خرج کردن</string>
   <string name="gamification_how_table_b1">بونوس</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s %%</string>
-  <string name="gamification_how_table_level">LEVEL</string>
+  <string name="gamification_how_table_level">مرحله</string>
   <string name="gamification_how_terms_and_conditions">شرایط</string>
   <string name="gamification_how_spend">خرج کردن %s APPC</string>
   <string name="gamification_a_comet_title">یک ستاره دنباله دار</string>
@@ -305,15 +305,16 @@
   <string name="gamification_purchase_completed_bonus_received">پاداش دریافت شد</string>
   <string name="action_level">سطح من</string>
   <string name="gamification_purchase_appccredits_body">سریع‌ترین روش پرداخت!</string>
-  <string name="gamification_how_bonus_received_body">Bonus received</string>
-  <string name="gamification_how_appc_spent">Amount spent to reach this level</string>
-  <string name="gamification_how_to_next_level_body">Spend %1$s AppCoins more to reach level %2$s.</string>
-  <string name="gamification_level_expiration_title">Next level check: %s</string>
-  <string name="gamification_level_expiration_body">Your level is based on your purchase activity over the last 12 months.</string>
-  <string name="gamification_leveled_up_title">You\'ve reached the next level!</string>
-  <string name="gamification_leveled_up_body">You\'ll now get a %s bonus on every purchase. Keep buying to earn even more!</string>
-  <string name="gamification_leveled_up_notification_title">You reached the next level!</string>
-  <string name="gamification_leveled_up_notification_body">Congrats, you\'ll now get a %s bonus on every purchase!</string>
+  <string name="gamification_how_bonus_received_body">پاداش دریافت شد</string>
+  <string name="gamification_how_appc_spent">مقدار پرداخت‌شده برای رسیدن به این مرحله</string>
+  <string name="gamification_how_to_next_level_body">%1$s AppCoins بیشتری پرداخت کنید تا به مرحله %2$s برسید.</string>
+  <string name="gamification_level_expiration_title">بررسی برای مرحله بعد: %s</string>
+  <string name="gamification_level_expiration_body">مرحله شما بر اساس خریدهای شما در ۱۲ ماه قبل است.</string>
+  <string name="gamification_leveled_up_title">به مرحله بعدی رسیدید!</string>
+  <string name="gamification_leveled_up_body">%s پاداش برای هر خرید دریافت خواهید کرد. به خرید ادامه دهید تا پاداش بیشتری کسب کنید!</string>
+  <string name="gamification_leveled_up_notification_title">به مرحله بعد رسیده‌اید!</string>
+  <string name="gamification_leveled_up_notification_body">تبریک، پاداش %s برای هر خرید دریافت خواهید کرد!</string>
+  <string name="gamification_how_max_level_body">تبریک! به بالاترین مرحله رسیدید 💃</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">به کیف پول AppCoins اجازه دهید که آدرس کیف پول شما را به %s بدهد.</string>
   <string name="provide_wallet_body_placeholders">به %1$s اجازه دهید که آدرس کیف پول شما را به %2$s بدهد.</string>
@@ -335,12 +336,12 @@
   <string name="topup_bonus_message">%s APPC-C اضافی به کیف پول شما اضافه می شود.</string>
   <string name="topup_completed_1">%s در اعتبار AppCoins</string>
   <string name="topup_completed_2_with_bonus">در حساب شما قرار گرفت... به همراه یک پاداش!</string>
-  <string name="topup_completed_2_without_bonus">were deposited in your account.</string>
+  <string name="topup_completed_2_without_bonus">به حساب‌کاربری شما پرداخت شده‌است.</string>
   <string name="topup_bonus_header_part_1">پاداش افزایشی:</string>
   <string name="topup_bonus_header_part_2">%s اعتبار داخل APPC</string>
   <string name="topup_bonus_body">شما می‌توانید از این پاداش در خرید بعدی خود استفاده کنید.</string>
-  <string name="topup_minimum_value">Minimum top-up value is %s</string>
-  <string name="topup_maximum_value">Maximum top-up value is %s</string>
+  <string name="topup_minimum_value">حداقل مقدار افزایش برابر %s است</string>
+  <string name="topup_maximum_value">حداکثر مقدار افزایش برابر %s است</string>
   <!--Balance-->
   <string name="balance_title">بالانس</string>
   <string name="balance_total_body">بالانس کلی در %s</string>
@@ -381,7 +382,7 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s%2$s</string>
   <string name="dismiss_button">رد کردن</string>
-  <string name="connectoin_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
+  <string name="connectoin_error_body">به نظر می‌رسد به اینترنت متصل نیستید. ارتباط خود را بررسی کنید و دوباره امتحان کنید!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">با %1$s و %2$s کیف پول AppCoins موافقم.</string>
   <string name="terms_and_conditions_error">برای ادامه، لطفا شرایط، مقررات و قوانین حریم خصوصی را تایید کنید</string>
@@ -392,10 +393,10 @@
   <string name="home_empty_discover_apps_button">اپلیکیشن‌های برتر را کشف کنید</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
+  <string name="title_redeem">استفاده از کد</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">در حال پیش رفتن&#8230;</string>
-  <string name="local_payments_inprogress_body">Once you complete the payment you\'ll receive the AppCoins Credits in your wallet. Then go back to the game to make the purchase!</string>
+  <string name="local_payments_inprogress_body">هرزمان که پرداخت خود را تکمیل کنید، اعتبار AppCoins در کیف پول خود دریافت خواهید کرد. پس برای تکمیل خرید به بازی برگردید!</string>
   <!--Wallet Verification-->
   <string name="verification_notification_verification_needed_title">پاداش آماده است ولی نیازمند تایید است</string>
   <string name="verification_notification_verification_needed_body">به دلایل امنیتی، نیازمند به تایید کیف پول شما با یک کد پیامکی هستیم.</string>
@@ -417,11 +418,11 @@
   <string name="verification_insert_phone_field_phone_used_already_error">شماره تلفن قبلا استفاده شده است.</string>
   <string name="verification_insert_code_error_common">مشکلی پیش آمده است. دوباره امتحان کنید!</string>
   <!--Purchase Flow-->
-  <string name="purchase_error_incomplete_transaction_body">It seems this purchase is already being processed. Please hold on until the transaction is completed or contact our Support Team.</string>
-  <string name="purchase_more_payment_methods_button">OTHER PAYMENT METHODS</string>
-  <string name="purchase_appcoins_available_body">You\'ll use a small amount of ETH to pay for the fees.</string>
-  <string name="purchase_appcoins_noavailable_body">You don\'t have enough AppCoins or Ether for this purchase.</string>
-  <string name="purchase_appcoins_credits_available_body">No fees and lightning fast!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough APPC Credits, try topping up!</string>
-  <string name="purchase_appcoins_credits_default_body">You earned enough AppCoins Credits for this purchase. Enjoy!</string>
+  <string name="purchase_error_incomplete_transaction_body">به نظر می‌رسد که این خرید پردازش شده است. لطفا منتظر بمانید تا تراکنش تکمیل شود یا با تیم پشتیبانی تماس بگیرید.</string>
+  <string name="purchase_more_payment_methods_button">سایر روش‌های پرداخت</string>
+  <string name="purchase_appcoins_available_body">برای پرداخت این مبلغ، مقدار اندکی از ETH را پرداخت خواهید کرد.</string>
+  <string name="purchase_appcoins_noavailable_body">به مقدار کافی AppCoins یا Ether برای این خرید ندارید.</string>
+  <string name="purchase_appcoins_credits_available_body">بدون هزینه و بسرعت!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">به مقداری کافی اعتبار APPC ندارید، اقدام به افزایش اعتبار کنید!</string>
+  <string name="purchase_appcoins_credits_default_body">به مقدار کافی اعتبار AppCoins برای این خرید دریافت‌ خواهید کرد. لذت ببرید!</string>
 </resources>
