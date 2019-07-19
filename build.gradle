@@ -60,7 +60,7 @@ project.ext {
   lottieVersion = "3.0.1"
   cppVersion = "2.2.9"
   viewPagerVersion = "1.0.0-alpha06"
-  pageindicatorviewVersion = "1.0.3"
+  pageIndicatorViewVersion = "1.0.3"
 }
 
 task clean(type: Delete) {

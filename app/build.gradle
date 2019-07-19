@@ -191,7 +191,7 @@ dependencies {
   implementation "com.google.android.gms:play-services-vision:17.0.2"
 
   implementation "com.github.apl-devs:appintro:v4.2.2"
-  implementation "com.romandanylyk:pageindicatorview:$project.pageindicatorviewVersion"
+  implementation "com.romandanylyk:pageindicatorview:$project.pageIndicatorViewVersion"
   implementation "com.journeyapps:zxing-android-embedded:3.2.0@aar"
   // ReactiveX
   implementation "io.reactivex.rxjava2:rxjava:$project.rxJavaVersion"

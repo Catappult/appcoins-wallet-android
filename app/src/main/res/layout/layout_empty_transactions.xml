@@ -17,14 +17,14 @@
         android:layout_marginTop="@dimen/half_large_margin"
         android:gravity="center"
         android:text="@string/no_transactions_yet_main"
-        app:layout_constraintBottom_toTopOf="@id/empty_transactions_pageindicator"
+        app:layout_constraintBottom_toTopOf="@id/page_indicator"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="parent"
         />
 
     <com.rd.PageIndicatorView
-        android:id="@+id/empty_transactions_pageindicator"
+        android:id="@+id/page_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
@@ -49,7 +49,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/empty_transactions_pageindicator"
+        app:layout_constraintTop_toBottomOf="@id/page_indicator"
         />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
