@@ -54,7 +54,10 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_rewards_level, container, false)
+    childFragmentManager.beginTransaction()
+        .replace(R.id.gamification_fragment_container, HowItWorksFragment())
+        .commit()
+    return inflater.inflate(R.layout.fragment_gamification_my_level, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -354,10 +357,13 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
       override fun onAnimationRepeat(animation: Animator?) {
         setLevelIdleAnimation(level)
       }
+
       override fun onAnimationEnd(animation: Animator?) {
       }
+
       override fun onAnimationCancel(animation: Animator?) {
       }
+
       override fun onAnimationStart(animation: Animator?) {
       }
     })

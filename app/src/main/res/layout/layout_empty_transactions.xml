@@ -18,7 +18,7 @@
         android:gravity="center"
         android:text="@string/no_transactions_yet_main"
         app:layout_constraintBottom_toTopOf="@id/page_indicator"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="parent"
         />
@@ -59,7 +59,7 @@
         app:layout_constraintGuide_begin="80dp"
         />
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
+        android:id="@+id/vertical_guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"

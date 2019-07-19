@@ -463,4 +463,16 @@
     <item name="android:textColor">@color/black</item>
   </style>
 
+  <style name="GamificationBottomPeekTextStyle">
+    <item name="android:fontFamily">sans-serif-medium</item>
+    <item name="android:textSize">20sp</item>
+    <item name="android:textColor">@color/rewards_level_main_color</item>
+  </style>
+
+  <style name="GamificationBottomPeekTextStyle.Body">
+    <item name="android:fontFamily">sans-serif</item>
+    <item name="android:textSize">10sp</item>
+    <item name="android:textColor">@color/dialog_fiat_price</item>
+  </style>
+
 </resources>

@@ -44,6 +44,7 @@ class RewardsLevelActivity : BaseActivity(), GamificationView {
 
       R.id.action_info -> {
         showHowItWorksView()
+        expandHowItWorksView()
         return true
       }
     }
@@ -78,6 +79,10 @@ class RewardsLevelActivity : BaseActivity(), GamificationView {
         .commit()
     menu.findItem(R.id.action_info).isVisible = false
 
+  }
+
+  fun expandHowItWorksView() {
+    
   }
 
   override fun onHowItWorksClosed() {
