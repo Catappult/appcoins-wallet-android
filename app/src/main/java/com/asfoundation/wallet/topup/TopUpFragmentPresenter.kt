@@ -93,7 +93,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                 view.setConversionValue(topUpData)
               }
               .flatMap {
-                loadBonusIntoView(packageName, it.currency.appcValue).toObservable()
+                loadBonusIntoView(packageName, it.currency.fiatValue, it.currency.fiatCurrencyCode)
                     .doOnNext {
                       view.setNextButtonState(hasValidData(topUpData))
                     }
@@ -131,7 +131,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     return if (data.selectedCurrency == TopUpData.FIAT_CURRENCY
         && data.currency.fiatValue != DEFAULT_VALUE) {
       interactor.convertLocal(data.currency.fiatCurrencyCode,
-          data.currency.fiatValue)
+          data.currency.fiatValue, 2)
     } else if (data.selectedCurrency == TopUpData.APPC_C_CURRENCY
         && data.currency.appcValue != DEFAULT_VALUE) {
       interactor.convertAppc(data.currency.appcValue)
@@ -144,11 +144,13 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     disposables.add(view.getPaymentMethodClick().doOnNext { view.hideKeyboard() }.subscribe())
   }
 
-  private fun loadBonusIntoView(appPackage: String, amount: String): Single<ForecastBonus> {
-    return interactor.getEarningBonus(appPackage, amount.toBigDecimal())
+  private fun loadBonusIntoView(appPackage: String, amount: String,
+                                currency: String): Observable<ForecastBonus> {
+    return interactor.convertLocal(currency, amount, 18)
+        .flatMapSingle { interactor.getEarningBonus(appPackage, it.amount) }
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-        .doOnSuccess {
+        .doOnNext {
           if (it.status != ForecastBonus.Status.ACTIVE || it.amount <= BigDecimal.ZERO) {
             view.hideBonus()
           } else {

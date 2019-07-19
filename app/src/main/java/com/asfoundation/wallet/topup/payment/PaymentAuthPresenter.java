@@ -10,6 +10,8 @@ import com.asfoundation.wallet.billing.BillingService;
 import com.asfoundation.wallet.billing.adyen.Adyen;
 import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
+import com.asfoundation.wallet.topup.CurrencyData;
+import com.asfoundation.wallet.topup.TopUpData;
 import com.asfoundation.wallet.ui.iab.FiatValue;
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.Navigator;
@@ -19,7 +21,6 @@ import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.exceptions.OnErrorNotImplementedException;
-import io.reactivex.schedulers.Schedulers;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
@@ -30,6 +31,7 @@ public class PaymentAuthPresenter {
   private static final String WAITING_RESULT = "WAITING_RESULT";
 
   private final Scheduler viewScheduler;
+  private final Scheduler networkScheduler;
   private final CompositeDisposable disposables;
   private final Adyen adyen;
   private final BillingService billingService;
@@ -43,12 +45,14 @@ public class PaymentAuthPresenter {
   private boolean waitingResult;
 
   public PaymentAuthPresenter(PaymentAuthView view, String appPackage, Scheduler viewScheduler,
-      CompositeDisposable disposables, Adyen adyen, BillingService billingService,
-      Navigator navigator, BillingMessagesMapper billingMessagesMapper,
-      InAppPurchaseInteractor inAppPurchaseInteractor, String bonusValue, boolean validBonus) {
+      Scheduler networkScheduler, CompositeDisposable disposables, Adyen adyen,
+      BillingService billingService, Navigator navigator,
+      BillingMessagesMapper billingMessagesMapper, InAppPurchaseInteractor inAppPurchaseInteractor,
+      String bonusValue, boolean validBonus) {
     this.view = view;
     this.appPackage = appPackage;
     this.viewScheduler = viewScheduler;
+    this.networkScheduler = networkScheduler;
     this.disposables = disposables;
     this.adyen = adyen;
     this.billingService = billingService;
@@ -59,25 +63,30 @@ public class PaymentAuthPresenter {
     this.validBonus = validBonus;
   }
 
-  public void present(@Nullable Bundle savedInstanceState, String transactionOrigin, String amount,
-      String currency, String transactionType, PaymentType paymentType) {
+  public void present(@Nullable Bundle savedInstanceState, String transactionOrigin,
+      CurrencyData currencyData, String selectedCurrency, String currency, String transactionType,
+      PaymentType paymentType) {
     adyen.createNewPayment();
 
     if (savedInstanceState != null) {
       waitingResult = savedInstanceState.getBoolean(WAITING_RESULT);
     }
 
-    onViewCreatedCompletePayment(transactionOrigin, amount, currency, transactionType);
+    onViewCreatedCompletePayment(transactionOrigin, currencyData, selectedCurrency, currency,
+        transactionType);
 
     onViewCreatedSelectPaymentMethod(paymentType);
 
     onViewCreatedShowPaymentMethodInputView();
 
-    onViewCreatedCheckAuthorizationActive(transactionOrigin, amount, currency, transactionType);
+    onViewCreatedCheckAuthorizationActive(transactionOrigin, currencyData, selectedCurrency,
+        currency, transactionType);
 
-    onViewCreatedCheckAuthorizationFailed(transactionOrigin, amount, currency, transactionType);
+    onViewCreatedCheckAuthorizationFailed(transactionOrigin, currencyData, selectedCurrency,
+        currency, transactionType);
 
-    onViewCreatedCheckAuthorizationProcessing(transactionOrigin, amount, currency, transactionType);
+    onViewCreatedCheckAuthorizationProcessing(transactionOrigin, currencyData, selectedCurrency,
+        currency, transactionType);
 
     handlePaymentMethodResults();
 
@@ -134,10 +143,11 @@ public class PaymentAuthPresenter {
     }
   }
 
-  private void onViewCreatedCompletePayment(String transactionOrigin, String amount,
-      String currency, String transactionType) {
+  private void onViewCreatedCompletePayment(String transactionOrigin, CurrencyData currencyData,
+      String selectedCurrency, String currency, String transactionType) {
     disposables.add(Completable.fromAction(() -> view.showLoading())
-        .andThen(convertAmount(amount).flatMapCompletable(
+        .observeOn(networkScheduler)
+        .andThen(convertAmount(currencyData, selectedCurrency).flatMapCompletable(
             value -> billingService.getAuthorization(transactionOrigin, value, currency,
                 transactionType, appPackage)
                 .observeOn(viewScheduler)
@@ -150,9 +160,13 @@ public class PaymentAuthPresenter {
         }, this::showError));
   }
 
-  @NonNull private Single<BigDecimal> convertAmount(String amount) {
-    return inAppPurchaseInteractor.convertToLocalFiat((new BigDecimal(amount)).doubleValue())
-        .subscribeOn(Schedulers.io())
+  @NonNull
+  private Single<BigDecimal> convertAmount(CurrencyData currencyData, String selectedCurrency) {
+    if (selectedCurrency.equals(TopUpData.FIAT_CURRENCY)) {
+      return Single.just(new BigDecimal(currencyData.getFiatValue()));
+    }
+    return inAppPurchaseInteractor.convertToLocalFiat(
+        (new BigDecimal(currencyData.getAppcValue())).doubleValue())
         .map(FiatValue::getAmount);
   }
 
@@ -164,9 +178,9 @@ public class PaymentAuthPresenter {
         }, this::showError));
   }
 
-  private void onViewCreatedCheckAuthorizationActive(String transactionOrigin, String amount,
-      String currency, String transactionType) {
-    disposables.add(convertAmount(amount).flatMap(
+  private void onViewCreatedCheckAuthorizationActive(String transactionOrigin,
+      CurrencyData currencyData, String selectedCurrency, String currency, String transactionType) {
+    disposables.add(convertAmount(currencyData, selectedCurrency).flatMap(
         value -> billingService.getAuthorization(transactionOrigin, value, currency,
             transactionType, appPackage)
             .filter(AdyenAuthorization::isCompleted)
@@ -177,6 +191,7 @@ public class PaymentAuthPresenter {
               waitingResult = false;
               navigator.popView(bundle);
             }))
+        .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .subscribe(__ -> {
         }, this::showError));
@@ -189,18 +204,20 @@ public class PaymentAuthPresenter {
           return errors.takeWhile(e -> counter.getAndIncrement() != 3)
               .flatMap(e -> Flowable.timer(counter.get(), TimeUnit.SECONDS));
         })
-        .map((Double amount) -> billingMessagesMapper.topUpBundle(amount, bonusValue, validBonus));
+        .map(price -> billingMessagesMapper.topUpBundle(price.getValue(), price.getCurrency(),
+            bonusValue, validBonus));
   }
 
-  private void onViewCreatedCheckAuthorizationFailed(String transactionOrigin, String amount,
-      String currency, String transactionType) {
-    disposables.add(convertAmount(amount).flatMap(
+  private void onViewCreatedCheckAuthorizationFailed(String transactionOrigin,
+      CurrencyData currencyData, String selectedCurrency, String currency, String transactionType) {
+    disposables.add(convertAmount(currencyData, selectedCurrency).flatMap(
         value -> billingService.getAuthorization(transactionOrigin, value, currency,
             transactionType, appPackage)
             .filter(AdyenAuthorization::isFailed)
             .firstOrError()
             .observeOn(viewScheduler)
             .doOnSuccess(this::showError))
+        .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .subscribe(__ -> {
         }, this::showError));
@@ -210,14 +227,15 @@ public class PaymentAuthPresenter {
     view.showPaymentRefusedError(adyenAuthorization);
   }
 
-  private void onViewCreatedCheckAuthorizationProcessing(String transactionOrigin, String amount,
-      String currency, String transactionType) {
-    disposables.add(convertAmount(amount).map(
+  private void onViewCreatedCheckAuthorizationProcessing(String transactionOrigin,
+      CurrencyData currencyData, String selectedCurrency, String currency, String transactionType) {
+    disposables.add(convertAmount(currencyData, selectedCurrency).map(
         value -> billingService.getAuthorization(transactionOrigin, value, currency,
             transactionType, appPackage)
             .filter(AdyenAuthorization::isProcessing)
             .observeOn(viewScheduler)
             .doOnNext(__ -> view.showLoading()))
+        .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .subscribe(__ -> {
         }, this::showError));
