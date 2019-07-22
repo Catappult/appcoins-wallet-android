@@ -33,7 +33,7 @@ interface PaymentMethodsView {
   fun onBackPressed(): Observable<Boolean>
   fun showNext()
   fun showBuy()
-  fun navigateToMergedAppcoins()
+  fun showMergedAppcoins()
 
   enum class SelectedPaymentMethod {
     PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, ERROR

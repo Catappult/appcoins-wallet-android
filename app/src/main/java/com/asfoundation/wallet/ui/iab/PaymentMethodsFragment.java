@@ -456,8 +456,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     buyButton.setText(R.string.action_buy);
   }
 
-  @Override public void navigateToMergedAppcoins() {
-    //TODO
+  @Override public void showMergedAppcoins() {
+
   }
 
   private void showBonus() {

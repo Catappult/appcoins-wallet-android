@@ -132,7 +132,7 @@ public class PaymentMethodsPresenter {
               view.showCredits();
               break;
             case MERGED_APPC:
-              view.navigateToMergedAppcoins();
+              view.showMergedAppcoins();
             case SHARE_LINK:
               view.showShareLink(selectedPaymentMethod);
               break;
