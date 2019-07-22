@@ -106,7 +106,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private View bonusMsg;
   private TextView bonusValue;
   private boolean showBonus;
-  private TextView noBonusMsg;
   private boolean itemAlreadyOwnedError;
   private PublishSubject<Boolean> onBackPressSubject;
   private int iconSize;
@@ -186,7 +185,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
     bonusView = view.findViewById(R.id.bonus_layout);
     bonusMsg = view.findViewById(R.id.bonus_msg);
-    noBonusMsg = view.findViewById(R.id.no_bonus_msg);
 
     bonusValue = view.findViewById(R.id.bonus_value);
     buyButton.setEnabled(false);
@@ -224,7 +222,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     appSkuDescriptionTv = null;
     walletAddressTv = null;
     bonusView = null;
-    noBonusMsg = null;
     super.onDestroyView();
   }
 
@@ -416,14 +413,12 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   }
 
   @Override public void hideBonus() {
-    noBonusMsg.setVisibility(View.VISIBLE);
     bonusView.setVisibility(View.INVISIBLE);
     bonusMsg.setVisibility(View.INVISIBLE);
   }
 
   @Override public void showBonus() {
     if (showBonus) {
-      noBonusMsg.setVisibility(View.INVISIBLE);
       bonusView.setVisibility(View.VISIBLE);
       bonusMsg.setVisibility(View.VISIBLE);
     }
@@ -441,9 +436,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     iabView.showLocalPayment(transaction.getDomain(), transaction.getSkuId(),
         isOneStep ? transaction.getOriginalOneStepValue() : null,
         isOneStep ? transaction.getOriginalOneStepCurrency() : null, bonusMessageValue,
-        selectedPaymentMethod, transaction.toAddress(), transaction.getType(),
-        transaction.amount(), transaction.getCallbackUrl(),
-        transaction.getOrderReference(), transaction.getPayload());
+        selectedPaymentMethod, transaction.toAddress(), transaction.getType(), transaction.amount(),
+        transaction.getCallbackUrl(), transaction.getOrderReference(), transaction.getPayload());
   }
 
   @Override public void setBonus(@NotNull BigDecimal bonus, @NotNull String currency) {

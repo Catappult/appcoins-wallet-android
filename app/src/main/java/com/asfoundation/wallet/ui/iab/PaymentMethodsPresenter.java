@@ -86,15 +86,7 @@ public class PaymentMethodsPresenter {
 
   private void handlePaymentSelection() {
     disposables.add(view.getPaymentSelection()
-        .flatMapCompletable(selectedPaymentMethod -> {
-          if (selectedPaymentMethod.equals(
-              paymentMethodsMapper.map(PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS))) {
-            return Completable.fromAction(view::hideBonus)
-                .subscribeOn(viewScheduler);
-          } else {
-            return Completable.fromAction(view::showBonus);
-          }
-        })
+        .doOnNext(selectedPaymentMethod -> view.showBonus())
         .subscribe());
   }
 
@@ -234,7 +226,7 @@ public class PaymentMethodsPresenter {
         }, this::showError));
   }
 
-  public String mapCurrencyCodeToSymbol(String currencyCode) {
+  private String mapCurrencyCodeToSymbol(String currencyCode) {
     return currencyCode.equalsIgnoreCase("APPC") ? currencyCode : Currency.getInstance(currencyCode)
         .getCurrencyCode();
   }
@@ -287,7 +279,7 @@ public class PaymentMethodsPresenter {
     view.finish(billingMessagesMapper.mapFinishedPurchase(purchase, itemAlreadyOwned));
   }
 
-  public void sendPurchaseDetailsEvent() {
+  void sendPurchaseDetailsEvent() {
     analytics.sendPurchaseDetailsEvent(appPackage, transaction.getSkuId(), transaction.amount()
         .toString(), transaction.getType());
   }
@@ -299,7 +291,8 @@ public class PaymentMethodsPresenter {
   private Single<List<PaymentMethod>> getPaymentMethods(FiatValue fiatValue) {
     if (isBds) {
       return inAppPurchaseInteractor.getPaymentMethods(transaction, fiatValue.getAmount()
-          .toString(), fiatValue.getCurrency());
+          .toString(), fiatValue.getCurrency())
+          .map(inAppPurchaseInteractor::mergeAppcoins);
     } else {
       return Single.just(Collections.singletonList(PaymentMethod.APPC));
     }

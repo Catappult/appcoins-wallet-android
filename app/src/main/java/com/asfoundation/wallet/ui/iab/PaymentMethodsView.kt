@@ -34,6 +34,6 @@ interface PaymentMethodsView {
   fun onBackPressed(): Observable<Boolean>
 
   enum class SelectedPaymentMethod {
-    PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, SHARE_LINK, LOCAL_PAYMENTS, ERROR
+    PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, ERROR
   }
 }
