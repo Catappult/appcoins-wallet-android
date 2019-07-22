@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.WindowManager;
 import androidx.room.Room;
 import cm.aptoide.analytics.AnalyticsManager;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
@@ -235,8 +237,11 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides @Named("user_agent") String provideUserAgent(Context context) {
-    DisplayMetrics displayMetrics = context.getResources()
-        .getDisplayMetrics();
+    WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+    Display display = wm.getDefaultDisplay();
+    DisplayMetrics displayMetrics = new DisplayMetrics();
+    display.getRealMetrics(displayMetrics);
+
     return "AppCoins_Wallet/"
         + BuildConfig.VERSION_NAME
         + " (Linux; Android "
