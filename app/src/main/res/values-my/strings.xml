@@ -420,9 +420,9 @@
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">ဤ၀ယ္ယူမႈကို ေဆာင္ရြက္ေပးၿပီး ျဖစ္ပံုရပါသည္။ ေငြလႊဲေျပာင္းမႈ ၿပီးစီးသည္အထိ ေစာင့္ေပးပါ သို႔မဟုတ္ ကၽြႏ္ုပ္တို႔၏ ပံ့ပိုးေရးအဖြဲ႕သို႔ ဆက္သြယ္ေပးပါ။</string>
   <string name="purchase_more_payment_methods_button">အျခား ေငြေပးေခ်ရန္နည္းလမ္းမ်ား</string>
-  <string name="purchase_appcoins_available_body">You\'ll use a small amount of ETH to pay for the fees.</string>
-  <string name="purchase_appcoins_noavailable_body">You don\'t have enough AppCoins or Ether for this purchase.</string>
-  <string name="purchase_appcoins_credits_available_body">No fees and lightning fast!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough APPC Credits, try topping up!</string>
-  <string name="purchase_appcoins_credits_default_body">You earned enough AppCoins Credits for this purchase. Enjoy!</string>
+  <string name="purchase_appcoins_available_body">က်သင့္ေငြမ်ားကို ေပးရန္အတြက္ ETH ပမာဏအနည္းငယ္ကို သင္အသံုးျပဳမည္ ျဖစ္ပါသည္။</string>
+  <string name="purchase_appcoins_noavailable_body">ဤ၀ယ္ယူမႈအတြက္ သင့္္တြင္ AppCoins သို႔မဟုတ္ Ether လံုေလာက္စြာ မရွိပါ။</string>
+  <string name="purchase_appcoins_credits_available_body">က်သင့္ေငြမရွိသလို အလြန္ပင္ ျမန္ဆန္ပါသည္။</string>
+  <string name="purchase_appcoins_credits_noavailable_body">သင့္တြင္ APPC Credit မ်ား လံုေလာက္စြာမရွိပါ။ ေငြျဖည့္ၾကည့္ပါ။</string>
+  <string name="purchase_appcoins_credits_default_body">ဤ၀ယ္ယူမႈအတြက္ AppCoins Credit မ်ား သင့္ထံတြင္ လံုေလာက္စြာ ရွိပါသည္။ အသံုးျပဳလိုက္ပါ။</string>
 </resources>
