@@ -105,7 +105,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private View bonusView;
   private View bonusMsg;
   private TextView bonusValue;
-  private boolean showBonus;
   private boolean itemAlreadyOwnedError;
   private PublishSubject<Boolean> onBackPressSubject;
   private int iconSize;
@@ -417,13 +416,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     bonusMsg.setVisibility(View.INVISIBLE);
   }
 
-  @Override public void showBonus() {
-    if (showBonus) {
-      bonusView.setVisibility(View.VISIBLE);
-      bonusMsg.setVisibility(View.VISIBLE);
-    }
-  }
-
   @NotNull @Override public Observable<String> getPaymentSelection() {
     return RxRadioGroup.checkedChanges(radioGroup)
         .filter(checkedRadioButtonId -> checkedRadioButtonId >= 0)
@@ -448,12 +440,29 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     }
     scaledBonus = scaledBonus.max(new BigDecimal("0.01"));
     bonusMessageValue = currency + scaledBonus.toPlainString();
-    showBonus = true;
     bonusValue.setText(getString(R.string.gamification_purchase_header_part_2, bonusMessageValue));
+    showBonus();
   }
 
   @Override public Observable<Boolean> onBackPressed() {
     return onBackPressSubject;
+  }
+
+  @Override public void showNext() {
+    buyButton.setText(R.string.action_next);
+  }
+
+  @Override public void showBuy() {
+    buyButton.setText(R.string.action_buy);
+  }
+
+  @Override public void navigateToMergedAppcoins() {
+    //TODO
+  }
+
+  private void showBonus() {
+    bonusView.setVisibility(View.VISIBLE);
+    bonusMsg.setVisibility(View.VISIBLE);
   }
 
   private void loadIcons(PaymentMethod paymentMethod, RadioButton radioButton, boolean showNew) {

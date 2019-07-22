@@ -86,7 +86,16 @@ public class PaymentMethodsPresenter {
 
   private void handlePaymentSelection() {
     disposables.add(view.getPaymentSelection()
-        .doOnNext(selectedPaymentMethod -> view.showBonus())
+        .flatMapCompletable(selectedPaymentMethod -> {
+          if (selectedPaymentMethod.equals(
+              paymentMethodsMapper.map(PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC))) {
+            return Completable.fromAction(view::showNext)
+                .subscribeOn(viewScheduler);
+          } else {
+            return Completable.fromAction(view::showBuy)
+                .subscribeOn(viewScheduler);
+          }
+        })
         .subscribe());
   }
 
@@ -122,6 +131,8 @@ public class PaymentMethodsPresenter {
             case APPC_CREDITS:
               view.showCredits();
               break;
+            case MERGED_APPC:
+              view.navigateToMergedAppcoins();
             case SHARE_LINK:
               view.showShareLink(selectedPaymentMethod);
               break;

@@ -27,11 +27,13 @@ interface PaymentMethodsView {
   fun showCredits()
   fun showShareLink(selectedPaymentMethod: String)
   fun hideBonus()
-  fun showBonus()
   fun getPaymentSelection(): Observable<String>
   fun showLocalPayment(selectedPaymentMethod: String)
   fun setBonus(bonus: BigDecimal, currency: String)
   fun onBackPressed(): Observable<Boolean>
+  fun showNext()
+  fun showBuy()
+  fun navigateToMergedAppcoins()
 
   enum class SelectedPaymentMethod {
     PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, ERROR
