@@ -227,7 +227,16 @@ public class InAppPurchaseInteractor {
         .map(this::swapDisabledPositions);
   }
 
-  public List<PaymentMethod> mergeAppcoins(List<PaymentMethod> paymentMethods) {
+  public Single<List<PaymentMethod>> getAppcoinsPaymentMethods(TransactionBuilder transaction,
+      String transactionValue, String currency) {
+    return bdsInAppPurchaseInteractor.getAppcoinsPaymentMethods(transactionValue, currency)
+        .flatMap(paymentMethods -> getAvailablePaymentMethods(transaction, paymentMethods).flatMap(
+            availablePaymentMethods -> Observable.fromIterable(paymentMethods)
+                .map(paymentMethod -> mapPaymentMethods(paymentMethod, availablePaymentMethods))
+                .toList()));
+  }
+
+  List<PaymentMethod> mergeAppcoins(List<PaymentMethod> paymentMethods) {
     PaymentMethod appcMethod = getAppcMethod(paymentMethods);
     PaymentMethod creditsMethod = getCreditsMethod(paymentMethods);
     if (appcMethod != null && creditsMethod != null) {
@@ -245,8 +254,8 @@ public class InAppPurchaseInteractor {
         String mergedId = "merged_appcoins";
         String mergedLabel = appcMethod.getLabel() + " / " + creditsMethod.getLabel();
         boolean isMergedEnabled = appcMethod.isEnabled() || creditsMethod.isEnabled();
-        mergedList.add(
-            new PaymentMethod(mergedId, mergedLabel, appcMethod.getIconUrl(), isMergedEnabled));
+        mergedList.add(new AppCoinsPaymentMethod(mergedId, mergedLabel, appcMethod.getIconUrl(),
+            isMergedEnabled, appcMethod.isEnabled(), creditsMethod.isEnabled()));
       } else if (!paymentMethod.getId()
           .equals(CREDITS_ID)) {
         //Don't add the credits method to this list

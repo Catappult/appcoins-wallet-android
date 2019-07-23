@@ -32,6 +32,7 @@ import com.asfoundation.wallet.ui.iab.AppcoinsRewardsBuyFragment;
 import com.asfoundation.wallet.ui.iab.BillingWebViewFragment;
 import com.asfoundation.wallet.ui.iab.IabActivity;
 import com.asfoundation.wallet.ui.iab.LocalPaymentFragment;
+import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment;
 import com.asfoundation.wallet.ui.iab.OnChainBuyFragment;
 import com.asfoundation.wallet.ui.iab.PaymentMethodsFragment;
 import com.asfoundation.wallet.ui.iab.WebViewActivity;
@@ -135,6 +136,8 @@ import dagger.android.ContributesAndroidInjector;
   @ContributesAndroidInjector() abstract SharePaymentLinkFragment bindSharePaymentLinkFragment();
 
   @ContributesAndroidInjector() abstract LocalPaymentFragment bindLocalPaymentFragment();
+
+  @ContributesAndroidInjector() abstract MergedAppcoinsFragment bindMergedAppcoinsFragment();
 
   @ActivityScope @ContributesAndroidInjector abstract AdvertisingService bindAdvertisingService();
 

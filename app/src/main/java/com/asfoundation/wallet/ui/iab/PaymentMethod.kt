@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.iab
 
-data class PaymentMethod(val id: String, val label: String,
-                         val iconUrl: String, val isEnabled: Boolean = true) {
+open class PaymentMethod(open val id: String, open val label: String,
+                         open val iconUrl: String, open val isEnabled: Boolean = true) {
 
   companion object {
     @JvmField

@@ -108,6 +108,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private boolean itemAlreadyOwnedError;
   private PublishSubject<Boolean> onBackPressSubject;
   private int iconSize;
+  private boolean appcEnabled;
+  private boolean creditsEnabled;
 
   public static Fragment newInstance(TransactionBuilder transaction, String productName,
       boolean isBds, String developerPayload, String uri) {
@@ -457,7 +459,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   }
 
   @Override public void showMergedAppcoins() {
-
+    iabView.showMergedAppcoins(transaction, fiatValue.getAmount(), fiatValue.getCurrency(),
+        bonusMessageValue, appcEnabled, creditsEnabled);
   }
 
   private void showBonus() {
@@ -502,6 +505,10 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         if (paymentMethod.getId()
             .equals(preSelectedMethod)) {
           radioButton.setChecked(true);
+        }
+        if (paymentMethod instanceof AppCoinsPaymentMethod) {
+          appcEnabled = ((AppCoinsPaymentMethod) paymentMethod).isAppcEnabled();
+          creditsEnabled = ((AppCoinsPaymentMethod) paymentMethod).isCreditsEnabled();
         }
         paymentMethodList.add(paymentMethod.getId());
         radioGroup.addView(radioButton);

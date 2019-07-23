@@ -201,6 +201,16 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
         .commit();
   }
 
+  @Override public void showMergedAppcoins(TransactionBuilder transaction, BigDecimal fiatAmount,
+      String currency, String bonus, boolean appcEnabled, boolean creditsEnabled) {
+    getSupportFragmentManager().beginTransaction()
+        .replace(R.id.fragment_container,
+            MergedAppcoinsFragment.newInstance(transaction, fiatAmount, currency, bonus,
+                transaction.getDomain(), transaction.getSkuId(), transaction.amount(), appcEnabled,
+                creditsEnabled))
+        .commit();
+  }
+
   @Override protected void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
     results.accept(Objects.requireNonNull(intent.getData(), "Intent data cannot be null!"));

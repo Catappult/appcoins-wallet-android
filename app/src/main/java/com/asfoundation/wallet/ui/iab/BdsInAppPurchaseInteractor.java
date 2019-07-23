@@ -90,4 +90,14 @@ public class BdsInAppPurchaseInteractor {
   public Single<List<PaymentMethodEntity>> getPaymentMethods(String value, String currency) {
     return billing.getPaymentMethods(value, currency);
   }
+
+  public Single<List<PaymentMethodEntity>> getAppcoinsPaymentMethods(String value,
+      String currency) {
+    return billing.getPaymentMethods(value, currency)
+        .flatMapObservable(Observable::fromIterable)
+        .filter(paymentMethod -> paymentMethod.getId()
+            .equals("appcoins") || paymentMethod.getId()
+            .equals("appcoins_credits"))
+        .toList();
+  }
 }
