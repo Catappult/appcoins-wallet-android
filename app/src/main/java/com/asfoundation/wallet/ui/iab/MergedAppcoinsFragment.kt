@@ -163,6 +163,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     cancel_button.text = getString(R.string.back_button)
 
     setBonus()
+    setRadioButtonListeners()
     setPaymentInformation()
     payment_methods.visibility = VISIBLE
     mergedAppcoinsPresenter.present()
@@ -218,4 +219,16 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     val packageInfo = packageManager.getApplicationInfo(appPackage, 0)
     return packageManager.getApplicationLabel(packageInfo)
   }
+
+  override fun onDestroyView() {
+    super.onDestroyView()
+    appcoins_radio_button.setOnClickListener(null)
+    credits_radio_button.setOnClickListener(null)
+  }
+
+  private fun setRadioButtonListeners() {
+    appcoins_radio_button.setOnClickListener { credits_radio_button.isChecked = false }
+    credits_radio_button.setOnClickListener { appcoins_radio_button.isChecked = false }
+  }
+
 }

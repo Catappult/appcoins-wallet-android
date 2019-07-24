@@ -17,12 +17,12 @@
       />
   <ImageView
       android:id="@+id/icon"
-      android:layout_width="32dp"
-      android:layout_height="32dp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
       android:src="@drawable/ic_appc_c_token"
-      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintBottom_toBottomOf="@id/credits_radio_button"
       app:layout_constraintStart_toEndOf="@id/credits_radio_button"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toTopOf="@id/credits_radio_button"
       />
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="0dp"
