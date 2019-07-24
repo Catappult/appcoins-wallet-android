@@ -50,19 +50,30 @@
             app:layout_constraintTop_toTopOf="parent"
             />
 
+        <View
+            android:id="@+id/top_separator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/layout_separator_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/payment_methods_header"
+            />
+
         <RadioGroup
             android:id="@+id/radio_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/payment_methods_header"
+            app:layout_constraintTop_toBottomOf="@id/top_separator"
             >
           <include
               android:id="@+id/appcoins_radio"
               layout="@layout/appcoins_radio_button"
               android:layout_width="match_parent"
-              android:layout_height="124dp"
+              android:layout_height="128dp"
               android:layout_marginStart="24dp"
               android:layout_marginEnd="24dp"
               />
