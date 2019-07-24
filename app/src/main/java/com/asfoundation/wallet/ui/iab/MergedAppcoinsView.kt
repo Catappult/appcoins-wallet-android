@@ -16,7 +16,11 @@ interface MergedAppcoinsView {
 
   fun backClick(): Observable<Any>
 
+  fun backPressed(): Observable<Any>
+
   fun navigateToAppcPayment()
 
   fun navigateToCreditsPayment()
+
+  fun navigateToPaymentMethods(preSelectedMethod: PaymentMethodsView.SelectedPaymentMethod)
 }

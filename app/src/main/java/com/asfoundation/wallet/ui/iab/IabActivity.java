@@ -121,6 +121,10 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     isBackEnable = false;
   }
 
+  @Override public void enableBack() {
+    isBackEnable = true;
+  }
+
   @Override public void finish(Bundle bundle) {
     setResult(Activity.RESULT_OK, new Intent().putExtras(bundle));
     finish();
@@ -184,10 +188,15 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   }
 
   @Override public void showPaymentMethodsView() {
+    showPaymentMethodsView(PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD);
+  }
+
+  @Override
+  public void showPaymentMethodsView(PaymentMethodsView.SelectedPaymentMethod preSelectedMethod) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
             getIntent().getExtras()
-                .getString(PRODUCT_NAME), isBds, developerPayload, uri))
+                .getString(PRODUCT_NAME), isBds, developerPayload, uri, preSelectedMethod))
         .commit();
   }
 

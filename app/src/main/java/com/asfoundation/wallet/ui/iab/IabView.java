@@ -14,6 +14,8 @@ public interface IabView {
 
   void disableBack();
 
+  void enableBack();
+
   void finish(Bundle data);
 
   void showError();
@@ -34,6 +36,8 @@ public interface IabView {
       BigDecimal amount, String callbackUrl, String orderReference, String payload);
 
   void showPaymentMethodsView();
+
+  void showPaymentMethodsView(PaymentMethodsView.SelectedPaymentMethod preSelectedMethod);
 
   void showShareLinkPayment(String domain, String skuId, String originalAmount,
       String originalCurrency, BigDecimal amount, @NotNull String type,

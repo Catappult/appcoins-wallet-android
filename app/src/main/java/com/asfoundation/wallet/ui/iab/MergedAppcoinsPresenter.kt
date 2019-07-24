@@ -5,6 +5,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.APPC
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.CREDITS
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.io.IOException
@@ -24,6 +25,15 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
   fun present() {
     handlePaymentSelectionChange()
     handleBuyClick()
+    handleBackClick()
+  }
+
+  private fun handleBackClick() {
+    disposables.add(Observable.merge(view.backClick(), view.backPressed())
+        .doOnNext {
+          view.navigateToPaymentMethods(PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC)
+        }
+        .subscribe({}, { showError(it) }))
   }
 
   private fun handleBuyClick() {
@@ -33,10 +43,9 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
   }
 
   private fun handlePaymentSelectionChange() {
-    disposables.add(
-        view.getPaymentSelection()
-            .doOnNext { handleSelection(it) }
-            .subscribe({}, { showError(it) }))
+    disposables.add(view.getPaymentSelection()
+        .doOnNext { handleSelection(it) }
+        .subscribe({}, { showError(it) }))
   }
 
 

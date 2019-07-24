@@ -65,6 +65,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private static final String TAG = PaymentMethodsFragment.class.getSimpleName();
   private static final String TRANSACTION = "transaction";
   private static final String ITEM_ALREADY_OWNED = "item_already_owned";
+  private static final String PRE_SELECTED_METHOD = "pre_selected_method";
 
   private final CompositeDisposable compositeDisposable = new CompositeDisposable();
   private final Map<String, Bitmap> loadedBitmaps = new HashMap<>();
@@ -110,9 +111,10 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private int iconSize;
   private boolean appcEnabled;
   private boolean creditsEnabled;
+  private SelectedPaymentMethod preSelectedMethod;
 
   public static Fragment newInstance(TransactionBuilder transaction, String productName,
-      boolean isBds, String developerPayload, String uri) {
+      boolean isBds, String developerPayload, String uri, SelectedPaymentMethod preSelectedMethod) {
     Bundle bundle = new Bundle();
     bundle.putParcelable(TRANSACTION, transaction);
     bundle.putSerializable(TRANSACTION_AMOUNT, transaction.amount());
@@ -121,6 +123,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     bundle.putString(DEVELOPER_PAYLOAD, developerPayload);
     bundle.putString(URI, uri);
     bundle.putBoolean(IS_BDS, isBds);
+    bundle.putSerializable(PRE_SELECTED_METHOD, preSelectedMethod);
     Fragment fragment = new PaymentMethodsFragment();
     fragment.setArguments(bundle);
     return fragment;
@@ -144,6 +147,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         ((BigDecimal) getArguments().getSerializable(TRANSACTION_AMOUNT)).doubleValue();
     productName = getArguments().getString(PRODUCT_NAME);
     itemAlreadyOwnedError = getArguments().getBoolean(ITEM_ALREADY_OWNED, false);
+    preSelectedMethod =
+        ((SelectedPaymentMethod) getArguments().getSerializable(PRE_SELECTED_METHOD));
     onBackPressSubject = PublishSubject.create();
     String appPackage = getArguments().getString(APP_PACKAGE);
     String developerPayload = getArguments().getString(DEVELOPER_PAYLOAD);
@@ -289,8 +294,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     } else if (productName != null) {
       appSkuDescriptionTv.setText(productName);
     }
-    setupPaymentMethods(paymentMethods,
-        paymentMethodsMapper.map(SelectedPaymentMethod.CREDIT_CARD));
+
+    setupPaymentMethods(paymentMethods, paymentMethodsMapper.map(preSelectedMethod));
 
     presenter.sendPurchaseDetailsEvent();
 

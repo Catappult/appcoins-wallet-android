@@ -1,7 +1,9 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
@@ -9,6 +11,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,11 +21,14 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.appcoins_radio_button.*
 import kotlinx.android.synthetic.main.appcoins_radio_button.view.*
 import kotlinx.android.synthetic.main.credits_radio_button.*
+import kotlinx.android.synthetic.main.dialog_buy_app_info_header.app_icon
+import kotlinx.android.synthetic.main.dialog_buy_app_info_header.app_name
+import kotlinx.android.synthetic.main.dialog_buy_app_info_header.app_sku_description
 import kotlinx.android.synthetic.main.dialog_buy_buttons.*
+import kotlinx.android.synthetic.main.dialog_credit_card_authorization.*
 import kotlinx.android.synthetic.main.fragment_iab_error.*
 import kotlinx.android.synthetic.main.merged_appcoins_layout.*
 import kotlinx.android.synthetic.main.merged_appcoins_layout.view.*
-import kotlinx.android.synthetic.main.payment_methods_header.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
 import java.math.BigDecimal
@@ -67,6 +73,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   private lateinit var mergedAppcoinsPresenter: MergedAppcoinsPresenter
   private var paymentSelectionSubject: PublishSubject<String>? = null
+  private var onBackPressSubject: PublishSubject<Any>? = null
+  private lateinit var iabView: IabView
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
 
@@ -143,10 +151,19 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     paymentSelectionSubject = PublishSubject.create()
+    onBackPressSubject = PublishSubject.create()
     mergedAppcoinsPresenter =
         MergedAppcoinsPresenter(this, transaction, fiatAmount.toString(), currency,
             inAppPurchaseInteractor, CompositeDisposable(), AndroidSchedulers.mainThread(),
             Schedulers.io())
+  }
+
+  override fun onAttach(context: Context) {
+    super.onAttach(context)
+    if (context !is IabView) {
+      throw IllegalStateException("Regular buy fragment must be attached to IAB activity")
+    }
+    iabView = context
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -162,24 +179,28 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     setRadioButtonListeners()
     setPaymentInformation()
     setBonus()
+    setBackListener(view)
     payment_methods.visibility = VISIBLE
     mergedAppcoinsPresenter.present()
+  }
+
+  override fun buyClick(): Observable<String> {
+    return RxView.clicks(buy_button)
+        .map { getSelectedPaymentMethod() }
+  }
+
+  override fun backClick(): Observable<Any> {
+    return RxView.clicks(cancel_button)
+  }
+
+  override fun backPressed(): Observable<Any> {
+    return onBackPressSubject!!
   }
 
   override fun getPaymentSelection(): Observable<String> {
     return paymentSelectionSubject!!
   }
 
-  override fun buyClick(): Observable<String> {
-    var selectedPaymentMethod = ""
-    if (appcoins_radio_button.isChecked) selectedPaymentMethod = APPC
-    if (credits_radio_button.isChecked) selectedPaymentMethod = CREDITS
-    return Observable.just(selectedPaymentMethod)
-  }
-
-  override fun backClick(): Observable<Any> {
-    return Observable.just("")
-  }
 
   override fun hideBonus() {
     bonus_layout?.visibility = INVISIBLE
@@ -203,6 +224,11 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   override fun navigateToCreditsPayment() {
 
+  }
+
+  override fun navigateToPaymentMethods(
+      preSelectedMethod: PaymentMethodsView.SelectedPaymentMethod) {
+    iabView.showPaymentMethodsView(preSelectedMethod)
   }
 
   private fun setBonus() {
@@ -272,8 +298,29 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     }
   }
 
+
+  private fun setBackListener(view: View) {
+    iabView.disableBack()
+    view.isFocusableInTouchMode = true
+    view.requestFocus()
+    view.setOnKeyListener { view1, keyCode, keyEvent ->
+      if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
+        onBackPressSubject?.onNext("")
+      }
+      true
+    }
+  }
+
+  private fun getSelectedPaymentMethod(): String {
+    var selectedPaymentMethod = ""
+    if (appcoins_radio_button.isChecked) selectedPaymentMethod = APPC
+    if (credits_radio_button.isChecked) selectedPaymentMethod = CREDITS
+    return selectedPaymentMethod
+  }
+
   override fun onDestroyView() {
     super.onDestroyView()
+    iabView.enableBack()
     appcoins_radio_button.setOnCheckedChangeListener(null)
     credits_radio_button.setOnCheckedChangeListener(null)
   }
@@ -281,5 +328,6 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   override fun onDestroy() {
     super.onDestroy()
     paymentSelectionSubject = null
+    onBackPressSubject = null
   }
 }
