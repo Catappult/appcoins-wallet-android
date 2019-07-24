@@ -262,20 +262,20 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   private fun setRadioButtonListeners() {
-    appcoins_radio_button.setOnClickListener {
-      paymentSelectionSubject?.onNext(APPC)
-      credits_radio_button.isChecked = false
+    appcoins_radio_button.setOnCheckedChangeListener { _, checked ->
+      if (checked) paymentSelectionSubject?.onNext(APPC)
+      credits_radio_button.isChecked = !checked
     }
-    credits_radio_button.setOnClickListener {
-      paymentSelectionSubject?.onNext(CREDITS)
-      appcoins_radio_button.isChecked = false
+    credits_radio_button.setOnCheckedChangeListener { _, checked ->
+      if (checked) paymentSelectionSubject?.onNext(CREDITS)
+      appcoins_radio_button.isChecked = !checked
     }
   }
 
   override fun onDestroyView() {
     super.onDestroyView()
-    appcoins_radio_button.setOnClickListener(null)
-    credits_radio_button.setOnClickListener(null)
+    appcoins_radio_button.setOnCheckedChangeListener(null)
+    credits_radio_button.setOnCheckedChangeListener(null)
   }
 
   override fun onDestroy() {
