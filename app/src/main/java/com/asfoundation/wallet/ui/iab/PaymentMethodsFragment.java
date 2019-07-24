@@ -465,7 +465,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override public void showMergedAppcoins() {
     iabView.showMergedAppcoins(transaction, fiatValue.getAmount(), fiatValue.getCurrency(),
-        bonusMessageValue, appcEnabled, creditsEnabled);
+        bonusMessageValue, appcEnabled, creditsEnabled, isBds);
   }
 
   private void showBonus() {

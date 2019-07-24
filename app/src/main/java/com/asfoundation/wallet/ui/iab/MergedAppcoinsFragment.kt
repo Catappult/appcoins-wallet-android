@@ -47,6 +47,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     private const val APPC_AMOUNT_KEY = "appc_amount"
     private const val APPC_ENABLED_KEY = "appc_enabled"
     private const val CREDITS_ENABLED_KEY = "credits_enabled"
+    private const val IS_BDS = "is_bds"
     const val APPC = "appcoins"
     const val CREDITS = "credits"
 
@@ -54,7 +55,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     fun newInstance(transaction: TransactionBuilder, fiatAmount: BigDecimal,
                     currency: String, bonus: String, appName: String, skuId: String,
                     appcAmount: BigDecimal, appcEnabled: Boolean,
-                    creditsEnabled: Boolean): Fragment {
+                    creditsEnabled: Boolean, isBds: Boolean): Fragment {
       val fragment = MergedAppcoinsFragment()
       val bundle = Bundle()
       bundle.putParcelable(TRANSACTION_KEY, transaction)
@@ -66,6 +67,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
       bundle.putSerializable(APPC_AMOUNT_KEY, appcAmount)
       bundle.putBoolean(APPC_ENABLED_KEY, appcEnabled)
       bundle.putBoolean(CREDITS_ENABLED_KEY, creditsEnabled)
+      bundle.putBoolean(IS_BDS, isBds)
       fragment.arguments = bundle
       return fragment
     }
@@ -148,6 +150,14 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     }
   }
 
+  private val isBds: Boolean by lazy {
+    if (arguments!!.containsKey(IS_BDS)) {
+      arguments!!.getBoolean(IS_BDS)
+    } else {
+      throw IllegalArgumentException("is bds data not found")
+    }
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     paymentSelectionSubject = PublishSubject.create()
@@ -219,11 +229,11 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   override fun navigateToAppcPayment() {
-
+    iabView.showOnChain(fiatAmount, isBds, bonus)
   }
 
   override fun navigateToCreditsPayment() {
-
+    iabView.showAppcoinsCreditsPayment(appcAmount)
   }
 
   override fun navigateToPaymentMethods(

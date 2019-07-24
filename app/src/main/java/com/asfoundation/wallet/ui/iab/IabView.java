@@ -29,7 +29,7 @@ public interface IabView {
   void showAdyenPayment(BigDecimal amount, String currency, boolean isBds, PaymentType paymentType,
       String bonus);
 
-  void showAppcoinsCreditsPayment(BigDecimal amount);
+  void showAppcoinsCreditsPayment(BigDecimal appcAmount);
 
   void showLocalPayment(String domain, String skuId, String originalAmount, String currency,
       String bonus, String selectedPaymentMethod, String developerAddress, String type,
@@ -44,5 +44,5 @@ public interface IabView {
       String selectedPaymentMethod);
 
   void showMergedAppcoins(TransactionBuilder transaction, BigDecimal fiatAmount, String currency,
-      String bonus, boolean appcEnabled, boolean creditsEnabled);
+      String bonus, boolean appcEnabled, boolean creditsEnabled, boolean isBds);
 }

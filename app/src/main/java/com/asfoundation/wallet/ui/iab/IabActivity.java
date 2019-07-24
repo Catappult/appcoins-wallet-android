@@ -166,10 +166,10 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
         .commit();
   }
 
-  @Override public void showAppcoinsCreditsPayment(BigDecimal amount) {
+  @Override public void showAppcoinsCreditsPayment(BigDecimal appcAmount) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container,
-            AppcoinsRewardsBuyFragment.newInstance(amount, transaction, getIntent().getData()
+            AppcoinsRewardsBuyFragment.newInstance(appcAmount, transaction, getIntent().getData()
                 .toString(), getIntent().getExtras()
                 .getString(PRODUCT_NAME, ""), isBds))
         .commit();
@@ -211,12 +211,12 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   }
 
   @Override public void showMergedAppcoins(TransactionBuilder transaction, BigDecimal fiatAmount,
-      String currency, String bonus, boolean appcEnabled, boolean creditsEnabled) {
+      String currency, String bonus, boolean appcEnabled, boolean creditsEnabled, boolean isBds) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container,
             MergedAppcoinsFragment.newInstance(transaction, fiatAmount, currency, bonus,
                 transaction.getDomain(), transaction.getSkuId(), transaction.amount(), appcEnabled,
-                creditsEnabled))
+                creditsEnabled, isBds))
         .commit();
   }
 
