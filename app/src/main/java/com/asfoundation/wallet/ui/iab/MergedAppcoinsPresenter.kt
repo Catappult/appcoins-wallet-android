@@ -3,6 +3,8 @@ package com.asfoundation.wallet.ui.iab
 import android.util.Log
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.APPC
+import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.CREDITS
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.io.IOException
@@ -15,19 +17,28 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
                               private val viewScheduler: Scheduler,
                               private val networkScheduler: Scheduler) {
 
+  companion object {
+    private val TAG = MergedAppcoinsFragment::class.java.simpleName
+  }
+
   fun present() {
-    setupUi()
+    handlePaymentSelectionChange()
+    handleBuyClick()
   }
 
-  private fun setupUi() {
+  private fun handleBuyClick() {
+    disposables.add(view.buyClick()
+        .doOnNext { handleBuyClickSelection(it) }
+        .subscribe({}, { showError(it) }))
   }
 
-  private fun map(payments: List<PaymentMethod>): Pair<PaymentMethod, PaymentMethod> {
-    for (payment: PaymentMethod in payments) {
-      Log.d("TAG123", payment.label)
-    }
-    return Pair(payments[0], payments[1])
+  private fun handlePaymentSelectionChange() {
+    disposables.add(
+        view.getPaymentSelection()
+            .doOnNext { handleSelection(it) }
+            .subscribe({}, { showError(it) }))
   }
+
 
   private fun showError(t: Throwable) {
     t.printStackTrace()
@@ -40,5 +51,21 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
 
   private fun isNoNetworkException(throwable: Throwable): Boolean {
     return throwable is IOException || throwable.cause != null && throwable.cause is IOException
+  }
+
+  private fun handleBuyClickSelection(selection: String) {
+    when (selection) {
+      APPC -> view.navigateToAppcPayment()
+      CREDITS -> view.navigateToCreditsPayment()
+      else -> Log.w(TAG, "No appcoins payment method selected")
+    }
+  }
+
+  private fun handleSelection(selection: String) {
+    when (selection) {
+      APPC -> view.showBonus()
+      CREDITS -> view.hideBonus()
+      else -> Log.w(Companion.TAG, "Error creating PublishSubject")
+    }
   }
 }

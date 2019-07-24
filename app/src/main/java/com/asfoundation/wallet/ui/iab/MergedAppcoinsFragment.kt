@@ -4,25 +4,24 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
+import android.view.View.*
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
 import dagger.android.support.DaggerFragment
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.appcoins_radio_button.*
-import kotlinx.android.synthetic.main.appcoins_radio_button.bonus_layout
 import kotlinx.android.synthetic.main.appcoins_radio_button.view.*
 import kotlinx.android.synthetic.main.credits_radio_button.*
 import kotlinx.android.synthetic.main.dialog_buy_buttons.*
 import kotlinx.android.synthetic.main.fragment_iab_error.*
-import kotlinx.android.synthetic.main.local_payment_layout.*
 import kotlinx.android.synthetic.main.merged_appcoins_layout.*
-import kotlinx.android.synthetic.main.merged_appcoins_layout.view.bonus_layout
+import kotlinx.android.synthetic.main.merged_appcoins_layout.view.*
 import kotlinx.android.synthetic.main.payment_methods_header.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
@@ -42,6 +41,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     private const val APPC_AMOUNT_KEY = "appc_amount"
     private const val APPC_ENABLED_KEY = "appc_enabled"
     private const val CREDITS_ENABLED_KEY = "credits_enabled"
+    const val APPC = "appcoins"
+    const val CREDITS = "credits"
 
     @JvmStatic
     fun newInstance(transaction: TransactionBuilder, fiatAmount: BigDecimal,
@@ -65,6 +66,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   private lateinit var mergedAppcoinsPresenter: MergedAppcoinsPresenter
+  private var paymentSelectionSubject: PublishSubject<String>? = null
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
 
@@ -140,14 +142,84 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    paymentSelectionSubject = PublishSubject.create()
     mergedAppcoinsPresenter =
         MergedAppcoinsPresenter(this, transaction, fiatAmount.toString(), currency,
             inAppPurchaseInteractor, CompositeDisposable(), AndroidSchedulers.mainThread(),
             Schedulers.io())
   }
 
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                            savedInstanceState: Bundle?): View? {
+    return inflater.inflate(R.layout.merged_appcoins_layout, container, false)
+  }
+
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    setHeaderInformation()
+    buy_button.text = getString(R.string.action_buy)
+    cancel_button.text = getString(R.string.back_button)
+    setRadioButtonListeners()
+    setPaymentInformation()
+    setBonus()
+    payment_methods.visibility = VISIBLE
+    mergedAppcoinsPresenter.present()
+  }
+
+  override fun getPaymentSelection(): Observable<String> {
+    return paymentSelectionSubject!!
+  }
+
+  override fun buyClick(): Observable<String> {
+    var selectedPaymentMethod = ""
+    if (appcoins_radio_button.isChecked) selectedPaymentMethod = APPC
+    if (credits_radio_button.isChecked) selectedPaymentMethod = CREDITS
+    return Observable.just(selectedPaymentMethod)
+  }
+
+  override fun backClick(): Observable<Any> {
+    return Observable.just("")
+  }
+
+  override fun hideBonus() {
+    bonus_layout?.visibility = INVISIBLE
+    bonus_msg?.visibility = INVISIBLE
+  }
+
+  override fun showBonus() {
+    bonus_layout?.visibility = VISIBLE
+    bonus_msg?.visibility = VISIBLE
+  }
+
+  override fun showError(errorMessage: Int) {
+    payment_method_main_view.visibility = GONE
+    activity_iab_error_message.text = getString(errorMessage)
+    activity_iab_error_view.visibility = VISIBLE
+  }
+
+  override fun navigateToAppcPayment() {
+
+  }
+
+  override fun navigateToCreditsPayment() {
+
+  }
+
+  private fun setBonus() {
+    //Build string for both landscape (header) and portrait (radio button) bonus layout
+    appcoins_radio?.bonus_value?.text =
+        getString(R.string.gamification_purchase_header_part_2, bonus)
+    bonus_value?.text = getString(R.string.gamification_purchase_header_part_2, bonus)
+
+    //Set visibility for both landscape (header) and portrait (radio button) bonus layout
+    if (appcoins_radio_button.isChecked) {
+      bonus_layout?.visibility = VISIBLE
+      bonus_msg?.visibility = VISIBLE
+    }
+    appcoins_bonus_layout?.visibility = VISIBLE
+  }
+
+  private fun setHeaderInformation() {
     try {
       app_icon.setImageDrawable(context!!.packageManager
           .getApplicationIcon(appName))
@@ -159,31 +231,6 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     fiat_price.text =
         String.format(fiatAmount.setScale(2, RoundingMode.FLOOR).toString() + " " + currency)
     appc_price.text = String.format(appcAmount.setScale(2, RoundingMode.FLOOR).toString() + " APPC")
-    buy_button.text = getString(R.string.action_buy)
-    cancel_button.text = getString(R.string.back_button)
-
-    setBonus()
-    setRadioButtonListeners()
-    setPaymentInformation()
-    payment_methods.visibility = VISIBLE
-    mergedAppcoinsPresenter.present()
-  }
-
-  private fun setBonus() {
-    //Build string for both landscape (header) and portrait (radio button) bonus layout
-    appcoins_radio?.bonus_value?.text =
-        getString(R.string.gamification_purchase_header_part_2, bonus)
-    bonus_value?.text = getString(R.string.gamification_purchase_header_part_2, bonus)
-
-    //Set visibility for both landscape (header) and portrait (radio button) bonus layout
-    bonus_layout?.visibility = VISIBLE
-    appcoins_radio?.bonus_layout?.visibility = VISIBLE
-    bonus_msg?.visibility = VISIBLE
-  }
-
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.merged_appcoins_layout, container, false)
   }
 
   private fun setPaymentInformation() {
@@ -208,16 +255,21 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     }
   }
 
-  override fun showError(errorMessage: Int) {
-    payment_method_main_view.visibility = GONE
-    activity_iab_error_message.text = getString(errorMessage)
-    error_view.visibility = VISIBLE
-  }
-
   private fun getApplicationName(appPackage: String): CharSequence {
     val packageManager = context!!.packageManager
     val packageInfo = packageManager.getApplicationInfo(appPackage, 0)
     return packageManager.getApplicationLabel(packageInfo)
+  }
+
+  private fun setRadioButtonListeners() {
+    appcoins_radio_button.setOnClickListener {
+      paymentSelectionSubject?.onNext(APPC)
+      credits_radio_button.isChecked = false
+    }
+    credits_radio_button.setOnClickListener {
+      paymentSelectionSubject?.onNext(CREDITS)
+      appcoins_radio_button.isChecked = false
+    }
   }
 
   override fun onDestroyView() {
@@ -226,9 +278,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     credits_radio_button.setOnClickListener(null)
   }
 
-  private fun setRadioButtonListeners() {
-    appcoins_radio_button.setOnClickListener { credits_radio_button.isChecked = false }
-    credits_radio_button.setOnClickListener { appcoins_radio_button.isChecked = false }
+  override fun onDestroy() {
+    super.onDestroy()
+    paymentSelectionSubject = null
   }
-
 }

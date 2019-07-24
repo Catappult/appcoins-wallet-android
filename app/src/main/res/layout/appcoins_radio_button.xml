@@ -12,7 +12,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:enabled="false"
-      app:layout_constraintBottom_toTopOf="@id/bonus_layout"
+      app:layout_constraintBottom_toTopOf="@id/appcoins_bonus_layout"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       />
@@ -50,13 +50,13 @@
       android:text="You will use a small amount of ETH to pay for the gas"
       android:textColor="#727272"
       android:textSize="12sp"
-      app:layout_constraintBottom_toTopOf="@id/bonus_layout"
+      app:layout_constraintBottom_toTopOf="@id/appcoins_bonus_layout"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="@id/title"
       />
 
   <include
-      android:id="@+id/bonus_layout"
+      android:id="@+id/appcoins_bonus_layout"
       layout="@layout/view_purchase_bonus"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
