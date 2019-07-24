@@ -210,13 +210,12 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
         .commit();
   }
 
-  @Override public void showMergedAppcoins(TransactionBuilder transaction, BigDecimal fiatAmount,
-      String currency, String bonus, boolean appcEnabled, boolean creditsEnabled, boolean isBds) {
+  @Override public void showMergedAppcoins(BigDecimal fiatAmount, String currency, String bonus,
+      boolean appcEnabled, boolean creditsEnabled, boolean isBds) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container,
-            MergedAppcoinsFragment.newInstance(transaction, fiatAmount, currency, bonus,
-                transaction.getDomain(), transaction.getSkuId(), transaction.amount(), appcEnabled,
-                creditsEnabled, isBds))
+            MergedAppcoinsFragment.newInstance(fiatAmount, currency, bonus, transaction.getDomain(),
+                transaction.getSkuId(), transaction.amount(), appcEnabled, creditsEnabled, isBds))
         .commit();
   }
 

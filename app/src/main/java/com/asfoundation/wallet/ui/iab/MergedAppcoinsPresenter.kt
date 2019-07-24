@@ -2,21 +2,14 @@ package com.asfoundation.wallet.ui.iab
 
 import android.util.Log
 import com.asf.wallet.R
-import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.APPC
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.CREDITS
 import io.reactivex.Observable
-import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.io.IOException
 
 class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
-                              private val transaction: TransactionBuilder,
-                              private val fiatAmount: String, private val currency: String,
-                              private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-                              private val disposables: CompositeDisposable,
-                              private val viewScheduler: Scheduler,
-                              private val networkScheduler: Scheduler) {
+                              private val disposables: CompositeDisposable) {
 
   companion object {
     private val TAG = MergedAppcoinsFragment::class.java.simpleName

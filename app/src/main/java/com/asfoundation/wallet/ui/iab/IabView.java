@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui.iab;
 
 import android.os.Bundle;
 import com.asfoundation.wallet.billing.adyen.PaymentType;
-import com.asfoundation.wallet.entity.TransactionBuilder;
 import java.math.BigDecimal;
 import org.jetbrains.annotations.NotNull;
 
@@ -43,6 +42,6 @@ public interface IabView {
       String originalCurrency, BigDecimal amount, @NotNull String type,
       String selectedPaymentMethod);
 
-  void showMergedAppcoins(TransactionBuilder transaction, BigDecimal fiatAmount, String currency,
-      String bonus, boolean appcEnabled, boolean creditsEnabled, boolean isBds);
+  void showMergedAppcoins(BigDecimal fiatAmount, String currency, String bonus, boolean appcEnabled,
+      boolean creditsEnabled, boolean isBds);
 }

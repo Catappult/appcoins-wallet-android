@@ -10,13 +10,10 @@ import android.view.View.*
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
-import com.asfoundation.wallet.entity.TransactionBuilder
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.appcoins_radio_button.*
 import kotlinx.android.synthetic.main.appcoins_radio_button.view.*
@@ -38,7 +35,6 @@ import javax.inject.Inject
 class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   companion object {
-    private const val TRANSACTION_KEY = "transaction"
     private const val FIAT_AMOUNT_KEY = "fiat_amount"
     private const val FIAT_CURRENCY_KEY = "currency_amount"
     private const val BONUS_KEY = "bonus"
@@ -52,13 +48,12 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     const val CREDITS = "credits"
 
     @JvmStatic
-    fun newInstance(transaction: TransactionBuilder, fiatAmount: BigDecimal,
+    fun newInstance(fiatAmount: BigDecimal,
                     currency: String, bonus: String, appName: String, skuId: String,
                     appcAmount: BigDecimal, appcEnabled: Boolean,
                     creditsEnabled: Boolean, isBds: Boolean): Fragment {
       val fragment = MergedAppcoinsFragment()
       val bundle = Bundle()
-      bundle.putParcelable(TRANSACTION_KEY, transaction)
       bundle.putSerializable(FIAT_AMOUNT_KEY, fiatAmount)
       bundle.putString(FIAT_CURRENCY_KEY, currency)
       bundle.putString(BONUS_KEY, bonus)
@@ -80,13 +75,6 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
 
-  private val transaction: TransactionBuilder by lazy {
-    if (arguments!!.containsKey(TRANSACTION_KEY)) {
-      arguments!!.getParcelable(TRANSACTION_KEY) as TransactionBuilder
-    } else {
-      throw IllegalArgumentException("transaction data not found")
-    }
-  }
   private val fiatAmount: BigDecimal by lazy {
     if (arguments!!.containsKey(FIAT_AMOUNT_KEY)) {
       arguments!!.getSerializable(FIAT_AMOUNT_KEY) as BigDecimal
@@ -162,10 +150,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     super.onCreate(savedInstanceState)
     paymentSelectionSubject = PublishSubject.create()
     onBackPressSubject = PublishSubject.create()
-    mergedAppcoinsPresenter =
-        MergedAppcoinsPresenter(this, transaction, fiatAmount.toString(), currency,
-            inAppPurchaseInteractor, CompositeDisposable(), AndroidSchedulers.mainThread(),
-            Schedulers.io())
+    mergedAppcoinsPresenter = MergedAppcoinsPresenter(this, CompositeDisposable())
   }
 
   override fun onAttach(context: Context) {
