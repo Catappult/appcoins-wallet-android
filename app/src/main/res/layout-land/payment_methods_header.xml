@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     >
 
   <ImageView
@@ -13,6 +12,8 @@
       android:layout_height="42dp"
       android:src="@drawable/ic_appc"
       app:layout_constraintBottom_toTopOf="@id/app_separator"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       />
 
   <TextView
