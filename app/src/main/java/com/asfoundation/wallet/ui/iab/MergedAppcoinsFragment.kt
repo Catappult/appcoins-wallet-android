@@ -25,11 +25,11 @@ import kotlinx.android.synthetic.main.dialog_buy_buttons.*
 import kotlinx.android.synthetic.main.dialog_credit_card_authorization.*
 import kotlinx.android.synthetic.main.fragment_iab_error.*
 import kotlinx.android.synthetic.main.merged_appcoins_layout.*
-import kotlinx.android.synthetic.main.merged_appcoins_layout.view.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
 import java.math.BigDecimal
-import java.math.RoundingMode
+import java.text.DecimalFormat
+import java.util.*
 import javax.inject.Inject
 
 class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
@@ -202,9 +202,13 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
       e.printStackTrace()
     }
     app_sku_description.text = skuId
-    fiat_price.text =
-        String.format(fiatAmount.setScale(2, RoundingMode.FLOOR).toString() + " " + currency)
-    appc_price.text = String.format(appcAmount.setScale(2, RoundingMode.FLOOR).toString() + " APPC")
+    val formatter = Formatter()
+    val decimalFormat = DecimalFormat("0.00")
+    val appcText = formatter.format(Locale.getDefault(), "%(,.2f", appcAmount)
+        .toString() + " APPC"
+    val fiatText = decimalFormat.format(fiatAmount) + ' ' + currency
+    fiat_price.text = fiatText
+    appc_price.text = appcText
   }
 
   private fun setPaymentInformation() {
@@ -214,8 +218,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
       appcoins_radio.message.text = getString(R.string.purchase_appcoins_noavailable_body)
       appcoins_radio.title.setTextColor(resources.getColor(R.color.btn_disable_snd_color))
       appcoins_radio.message.setTextColor(resources.getColor(R.color.btn_disable_snd_color))
-      appcoins_radio?.bonus_layout?.setBackgroundColor(
-          resources.getColor(R.color.btn_disable_snd_color))
+      appcoins_bonus_layout?.setBackgroundResource(R.drawable.disable_bonus_img_background)
     }
     if (creditsEnabled) {
       credits_radio_button.isEnabled = true
