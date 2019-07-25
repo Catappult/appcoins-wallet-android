@@ -278,11 +278,12 @@
   <string name="gamification_level_body">Zaradićete APPC Credits kada kupujete u omiljenim aplikacijama i igrama.</string>
   <string name="gamification_how_header">Kako da pređem na viši nivo?</string>
   <string name="gamification_how_body">Zaradićete APPC Credits kada kupujete u omiljenim aplikacijama i igrama.</string>
-  <string name="gamification_how_body_new">Što više AppCoins potrošite u omiljenim aplikacijama, bonus će biti veći!</string>
+  <string name="gamification_how_body_new">Što više potrošite u omiljenim aplikacijama, bonus će biti veći!</string>
   <string name="gamification_how_table_a1">POTROŠITE</string>
   <string name="gamification_how_table_b1">BONUS</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s%%</string>
+  <string name="gamification_how_table_level">NIVO</string>
   <string name="gamification_how_terms_and_conditions">Uslovi</string>
   <string name="gamification_how_spend">POTROŠITE %s APPC</string>
   <string name="gamification_a_comet_title">Kometa</string>
@@ -304,6 +305,15 @@
   <string name="gamification_purchase_completed_bonus_received">bounsa je dobijeno</string>
   <string name="action_level">Moj nivo</string>
   <string name="gamification_purchase_appccredits_body">Najbrži način plaćanja!</string>
+  <string name="gamification_how_bonus_received_body">bounsa je dobijeno</string>
+  <string name="gamification_how_appc_spent">Iznos potrošen za dostizanje ovog nivoa</string>
+  <string name="gamification_how_to_next_level_body">Potrošite %1$s AppCoins da biste dostigli nivo %2$s.</string>
+  <string name="gamification_level_expiration_title">Provera za sledeći nivo: %s</string>
+  <string name="gamification_level_expiration_body">Vaš nivo je određen na osnovu vaših kupovina u poslednjih 12 meseci.</string>
+  <string name="gamification_leveled_up_title">Dostigli ste sledeći nivo!</string>
+  <string name="gamification_leveled_up_body">Od sada ćete dobijati bonus od %s za svaku kupovinu. Kupujte i dalje da biste zaradili još više!</string>
+  <string name="gamification_leveled_up_notification_title">Dostigli ste sledeći nivo!</string>
+  <string name="gamification_leveled_up_notification_body">Čestitamo, od sada ćete dobijati bonus od %s za svaku kupovinu!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Dozvolite aplikaciji AppCoins Wallet da adresu vašeg novčanika pošalje aplikaciji %s.</string>
   <string name="provide_wallet_body_placeholders">Dozvolite aplikaciji %1$s da adresu vašeg novčanika pošalje aplikaciji %2$s.</string>
@@ -325,10 +335,12 @@
   <string name="topup_bonus_message">Dodatak od %s APPC-C će biti dodat u vaš novčanik.</string>
   <string name="topup_completed_1">%s AppCoins Credits</string>
   <string name="topup_completed_2_with_bonus">je deponovano na vaš nalog... Zajedno sa bonusom!</string>
-  <string name="topup_completed_2_without_bonus">were deposited in your account.</string>
+  <string name="topup_completed_2_without_bonus">dodato je na vaš nalog.</string>
   <string name="topup_bonus_header_part_1">Bonus za dopunu:</string>
   <string name="topup_bonus_header_part_2">%s APPC Credits</string>
   <string name="topup_bonus_body">Ovaj bonus možete da upotrebite prilikom sledeće kupovine.</string>
+  <string name="topup_minimum_value">Najmanja vrednost dopune je %s</string>
+  <string name="topup_maximum_value">Najveća vrednost dopune je %s</string>
   <!--Balance-->
   <string name="balance_title">Stanje</string>
   <string name="balance_total_body">Ukupno stanje u %s</string>
@@ -369,6 +381,7 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s%2$s</string>
   <string name="dismiss_button">Odbaci</string>
+  <string name="connectoin_error_body">Izgleda da niste povezani na internet. Proverite vezu pa pokušajte ponovo!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Prihvatam dokumente %1$s i %2$s aplikacije AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Prihvatite naše Uslove i odredbe i Smernice za privatnost da biste nastavili</string>
@@ -378,9 +391,11 @@
   <string name="home_empty_discover_apps_body">Čekaju vas najbolje aplikacije za Android.</string>
   <string name="home_empty_discover_apps_button">OTKRIJTE NAJPOPULARNIJE APLIKACIJE</string>
   <!--Tokens-->
+  <!--Settings-->
+  <string name="title_redeem">Iskoristite kod</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">U toku&#8230;</string>
-  <string name="local_payments_inprogress_body">Dovršite plaćanje i, kada AppCoins Credits budu u vašem novčaniku, obavite kupovinu!</string>
+  <string name="local_payments_inprogress_body">Kada dovršite plaćanje, u novčanik ćete dobiti AppCoins Credits. Zatim se vratite u igru da obavite kupovinu!</string>
   <!--Wallet Verification-->
   <string name="verification_notification_verification_needed_title">Nagradna je spremna, ali je potrebna potvrda</string>
   <string name="verification_notification_verification_needed_body">Iz bezbednosnih razloga, moramo da potvrdimo vaš novčanik pomoću SMS koda.</string>
@@ -401,4 +416,12 @@
   <string name="verification_notification_reward_already_received_body">Ovaj broj telefona se već koristio za ovu nagradu 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Telefon se već koristio.</string>
   <string name="verification_insert_code_error_common">Ups, došlo je do greške. Pokušajte ponovo!</string>
+  <!--Purchase Flow-->
+  <string name="purchase_error_incomplete_transaction_body">Izgleda da se ova kupovina već obrađuje. Sačekajte dok se transakcija ne obavi ili se obratite našem timu korisničke podrške.</string>
+  <string name="purchase_more_payment_methods_button">DRUGI NAČINI PLAĆANJA</string>
+  <string name="purchase_appcoins_available_body">Malim iznosom u ETH ćete platiti naknade.</string>
+  <string name="purchase_appcoins_noavailable_body">Nemate dovoljno AppCoins ili Ethera za ovu kupovinu.</string>
+  <string name="purchase_appcoins_credits_available_body">Bez naknada i brzi kao munja!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">Nemate dovoljno APPC Credits, dopunite ih!</string>
+  <string name="purchase_appcoins_credits_default_body">Zaradili ste dovoljno AppCoins Credits za ovu kupovinu. Uživajte!</string>
 </resources>
