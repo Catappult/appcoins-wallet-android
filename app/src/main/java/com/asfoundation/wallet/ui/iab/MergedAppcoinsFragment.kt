@@ -261,6 +261,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
       if (checked) paymentSelectionSubject?.onNext(APPC)
       credits_radio_button.isChecked = !checked
     }
+    appcoins_radio.setOnClickListener { appcoins_radio_button.isChecked = true }
+    credits_radio.setOnClickListener { credits_radio_button.isChecked = true }
     credits_radio_button.setOnCheckedChangeListener { _, checked ->
       if (checked) paymentSelectionSubject?.onNext(CREDITS)
       appcoins_radio_button.isChecked = !checked
@@ -338,7 +340,9 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     super.onDestroyView()
     iabView.enableBack()
     appcoins_radio_button.setOnCheckedChangeListener(null)
+    appcoins_radio.setOnClickListener(null)
     credits_radio_button.setOnCheckedChangeListener(null)
+    credits_radio.setOnClickListener(null)
   }
 
   override fun onDestroy() {
