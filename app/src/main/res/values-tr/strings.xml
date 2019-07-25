@@ -278,11 +278,12 @@
   <string name="gamification_level_body">Favori uygulama ve oyunlarınızda öğe satın alırken APPC Kredisi kazanırsınız.</string>
   <string name="gamification_how_header">Nasıl Seviye Atlanır?</string>
   <string name="gamification_how_body">Favori uygulama ve oyunlarınızda öğe satın alırken APPC Kredisi kazanırsınız.</string>
-  <string name="gamification_how_body_new">Favori uygulamalarınızda ne kadar AppCoins harcarsanız o kadar fazla Bonus kazanırsınız!</string>
+  <string name="gamification_how_body_new">The more you spend in your favorite apps, the bigger the Bonus!</string>
   <string name="gamification_how_table_a1">HARCA</string>
   <string name="gamification_how_table_b1">BONUS</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%%%s</string>
+  <string name="gamification_how_table_level">LEVEL</string>
   <string name="gamification_how_terms_and_conditions">Koşullar</string>
   <string name="gamification_how_spend">%s APPC HARCAYIN</string>
   <string name="gamification_a_comet_title">bir Kuyrukluyıldız</string>
@@ -304,6 +305,15 @@
   <string name="gamification_purchase_completed_bonus_received">Bonus Alındı</string>
   <string name="action_level">Seviyem</string>
   <string name="gamification_purchase_appccredits_body">En hızlı ödeme yöntemi!</string>
+  <string name="gamification_how_bonus_received_body">Bonus received</string>
+  <string name="gamification_how_appc_spent">Amount spent to reach this level</string>
+  <string name="gamification_how_to_next_level_body">Spend %1$s AppCoins more to reach level %2$s.</string>
+  <string name="gamification_level_expiration_title">Next level check: %s</string>
+  <string name="gamification_level_expiration_body">Your level is based on your purchase activity over the last 12 months.</string>
+  <string name="gamification_leveled_up_title">You\'ve reached the next level!</string>
+  <string name="gamification_leveled_up_body">You\'ll now get a %s bonus on every purchase. Keep buying to earn even more!</string>
+  <string name="gamification_leveled_up_notification_title">You reached the next level!</string>
+  <string name="gamification_leveled_up_notification_body">Congrats, you\'ll now get a %s bonus on every purchase!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">AppCoins Cüzdanın %s\'e cüzdan adresinizi vermesine izin verin.</string>
   <string name="provide_wallet_body_placeholders">%1$s\'ın %2$s\'e cüzdan adresinizi vermesine izin verin.</string>
@@ -329,6 +339,8 @@
   <string name="topup_bonus_header_part_1">Yükleme Bonusu:</string>
   <string name="topup_bonus_header_part_2">APPC Credits cinsinden %s</string>
   <string name="topup_bonus_body">Bir sonraki satın alma işleminizde bu bonusu kullanabilirsiniz.</string>
+  <string name="topup_minimum_value">Minimum top-up value is %s</string>
+  <string name="topup_maximum_value">Maximum top-up value is %s</string>
   <!--Balance-->
   <string name="balance_title">Bakiye</string>
   <string name="balance_total_body">%s cinsinden Toplam Bakiye</string>
@@ -369,6 +381,7 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
   <string name="dismiss_button">Kapat</string>
+  <string name="connectoin_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet\'ın %1$s ve %2$s\'nı kabul ediyorum.</string>
   <string name="terms_and_conditions_error">Devam etmek için lütfen Koşul ve Şartlarımız ile Gizlilik Politikasını kabul edin</string>
@@ -378,9 +391,11 @@
   <string name="home_empty_discover_apps_body">En iyi Android uygulamaları sizi bekliyor.</string>
   <string name="home_empty_discover_apps_button">EN İYİ UYGULAMALARI KEŞFEDİN</string>
   <!--Tokens-->
+  <!--Settings-->
+  <string name="title_redeem">Redeem Code</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">Devam ediyor&#8230;</string>
-  <string name="local_payments_inprogress_body">Ödemenizi tamamlayın, AppCoins Credits cüzdanınıza geldiğinde satın alma işlemini gerçekleştirin!</string>
+  <string name="local_payments_inprogress_body">Once you complete the payment you\'ll receive the AppCoins Credits in your wallet. Then go back to the game to make the purchase!</string>
   <!--Wallet Verification-->
   <string name="verification_notification_verification_needed_title">Ödül hazır ancak doğrulama gerekiyor</string>
   <string name="verification_notification_verification_needed_body">Güvenlik nedeniyle cüzdanınızı bir SMS koduyla doğrulamamız gerekiyor.</string>
@@ -401,4 +416,12 @@
   <string name="verification_notification_reward_already_received_body">Bu telefon numarası, bu ödülü almak için zaten kullanılmış 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Phone already used.</string>
   <string name="verification_insert_code_error_common">Oops, something went wrong. Try again!</string>
+  <!--Purchase Flow-->
+  <string name="purchase_error_incomplete_transaction_body">It seems this purchase is already being processed. Please hold on until the transaction is completed or contact our Support Team.</string>
+  <string name="purchase_more_payment_methods_button">OTHER PAYMENT METHODS</string>
+  <string name="purchase_appcoins_available_body">You\'ll use a small amount of ETH to pay for the fees.</string>
+  <string name="purchase_appcoins_noavailable_body">You don\'t have enough AppCoins or Ether for this purchase.</string>
+  <string name="purchase_appcoins_credits_available_body">No fees and lightning fast!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough APPC Credits, try topping up!</string>
+  <string name="purchase_appcoins_credits_default_body">You earned enough AppCoins Credits for this purchase. Enjoy!</string>
 </resources>
