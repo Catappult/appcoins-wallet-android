@@ -179,53 +179,6 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     mergedAppcoinsPresenter.present()
   }
 
-  override fun buyClick(): Observable<String> {
-    return RxView.clicks(buy_button)
-        .map { getSelectedPaymentMethod() }
-  }
-
-  override fun backClick(): Observable<Any> {
-    return RxView.clicks(cancel_button)
-  }
-
-  override fun backPressed(): Observable<Any> {
-    return onBackPressSubject!!
-  }
-
-  override fun getPaymentSelection(): Observable<String> {
-    return paymentSelectionSubject!!
-  }
-
-
-  override fun hideBonus() {
-    bonus_layout?.visibility = INVISIBLE
-    bonus_msg?.visibility = INVISIBLE
-  }
-
-  override fun showBonus() {
-    bonus_layout?.visibility = VISIBLE
-    bonus_msg?.visibility = VISIBLE
-  }
-
-  override fun showError(errorMessage: Int) {
-    payment_method_main_view.visibility = GONE
-    activity_iab_error_message.text = getString(errorMessage)
-    activity_iab_error_view.visibility = VISIBLE
-  }
-
-  override fun navigateToAppcPayment() {
-    iabView.showOnChain(fiatAmount, isBds, bonus)
-  }
-
-  override fun navigateToCreditsPayment() {
-    iabView.showAppcoinsCreditsPayment(appcAmount)
-  }
-
-  override fun navigateToPaymentMethods(
-      preSelectedMethod: PaymentMethodsView.SelectedPaymentMethod) {
-    iabView.showPaymentMethodsView(preSelectedMethod)
-  }
-
   private fun setBonus() {
     //Build string for both landscape (header) and portrait (radio button) bonus layout
     appcoins_radio?.bonus_value?.text =
@@ -310,6 +263,53 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     if (appcoins_radio_button.isChecked) selectedPaymentMethod = APPC
     if (credits_radio_button.isChecked) selectedPaymentMethod = CREDITS
     return selectedPaymentMethod
+  }
+
+  override fun buyClick(): Observable<String> {
+    return RxView.clicks(buy_button)
+        .map { getSelectedPaymentMethod() }
+  }
+
+  override fun backClick(): Observable<Any> {
+    return RxView.clicks(cancel_button)
+  }
+
+  override fun backPressed(): Observable<Any> {
+    return onBackPressSubject!!
+  }
+
+  override fun getPaymentSelection(): Observable<String> {
+    return paymentSelectionSubject!!
+  }
+
+
+  override fun hideBonus() {
+    bonus_layout?.visibility = INVISIBLE
+    bonus_msg?.visibility = INVISIBLE
+  }
+
+  override fun showBonus() {
+    bonus_layout?.visibility = VISIBLE
+    bonus_msg?.visibility = VISIBLE
+  }
+
+  override fun showError(errorMessage: Int) {
+    payment_method_main_view.visibility = GONE
+    activity_iab_error_message.text = getString(errorMessage)
+    activity_iab_error_view.visibility = VISIBLE
+  }
+
+  override fun navigateToAppcPayment() {
+    iabView.showOnChain(fiatAmount, isBds, bonus)
+  }
+
+  override fun navigateToCreditsPayment() {
+    iabView.showAppcoinsCreditsPayment(appcAmount)
+  }
+
+  override fun navigateToPaymentMethods(
+      preSelectedMethod: PaymentMethodsView.SelectedPaymentMethod) {
+    iabView.showPaymentMethodsView(preSelectedMethod)
   }
 
   override fun onDestroyView() {
