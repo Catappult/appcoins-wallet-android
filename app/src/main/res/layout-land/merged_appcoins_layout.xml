@@ -114,10 +114,11 @@
           app:layout_constraintStart_toEndOf="@id/mid_guideline"
           app:layout_constraintTop_toBottomOf="@id/top_separator"
           />
-      <RadioGroup
+      <LinearLayout
           android:id="@+id/radio_group"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
+          android:orientation="vertical"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/mid_guideline"
           app:layout_constraintTop_toBottomOf="@id/top_separator"
@@ -148,7 +149,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="24dp"
             />
-      </RadioGroup>
+      </LinearLayout>
       <View
           android:id="@+id/bottom_separator"
           android:layout_width="match_parent"
