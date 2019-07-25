@@ -52,7 +52,7 @@
         android:ellipsize="end"
         android:fontFamily="sans-serif"
         android:maxLines="2"
-        android:text="No fees, lightning fast!"
+        android:text="@string/purchase_appcoins_credits_available_body"
         android:textColor="#727272"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -47,7 +47,7 @@
       android:ellipsize="end"
       android:fontFamily="sans-serif"
       android:maxLines="2"
-      android:text="You will use a small amount of ETH to pay for the gas"
+      android:text="@string/purchase_appcoins_available_body"
       android:textColor="#727272"
       android:textSize="12sp"
       app:layout_constraintBottom_toTopOf="@id/appcoins_bonus_layout"

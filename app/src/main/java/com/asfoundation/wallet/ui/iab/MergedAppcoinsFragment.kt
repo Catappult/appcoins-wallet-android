@@ -258,7 +258,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     if (appcEnabled) {
       appcoins_radio_button.isEnabled = true
     } else {
-      appcoins_radio.message.text = "You don't have enough AppCoins or Ethereum."
+      appcoins_radio.message.text = getString(R.string.purchase_appcoins_noavailable_body)
       appcoins_radio.title.setTextColor(resources.getColor(R.color.btn_disable_snd_color))
       appcoins_radio.message.setTextColor(resources.getColor(R.color.btn_disable_snd_color))
       appcoins_radio?.bonus_layout?.setBackgroundColor(
@@ -269,8 +269,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
       credits_radio_button.isChecked = true
     } else {
       appcoins_radio_button.isChecked = true
-      credits_radio.message.text =
-          "You don't have enough Credits in your balance, try topping up."
+      credits_radio.message.text = getString(R.string.purchase_appcoins_credits_noavailable_body)
       credits_radio.title.setTextColor(resources.getColor(R.color.btn_disable_snd_color))
       credits_radio.message.setTextColor(resources.getColor(R.color.btn_disable_snd_color))
     }
