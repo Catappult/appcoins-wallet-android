@@ -21,6 +21,10 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
     handleBackClick()
   }
 
+  fun handleStop() {
+    disposables.clear()
+  }
+
   private fun handleBackClick() {
     disposables.add(Observable.merge(view.backClick(), view.backPressed())
         .doOnNext {

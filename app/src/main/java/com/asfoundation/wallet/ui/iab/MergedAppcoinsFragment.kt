@@ -30,7 +30,6 @@ import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.util.*
-import javax.inject.Inject
 
 class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
@@ -74,8 +73,6 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   private var paymentSelectionSubject: PublishSubject<String>? = null
   private var onBackPressSubject: PublishSubject<Any>? = null
   private lateinit var iabView: IabView
-  @Inject
-  lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
 
   private val fiatAmount: BigDecimal by lazy {
     if (arguments!!.containsKey(FIAT_AMOUNT_KEY)) {
@@ -332,12 +329,13 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   override fun onDestroyView() {
-    super.onDestroyView()
+    mergedAppcoinsPresenter.handleStop()
     iabView.enableBack()
     appcoins_radio_button.setOnCheckedChangeListener(null)
     appcoins_radio.setOnClickListener(null)
     credits_radio_button.setOnCheckedChangeListener(null)
     credits_radio.setOnClickListener(null)
+    super.onDestroyView()
   }
 
   override fun onDestroy() {
