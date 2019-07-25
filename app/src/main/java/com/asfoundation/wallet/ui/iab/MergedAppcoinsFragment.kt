@@ -39,30 +39,32 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     private const val FIAT_CURRENCY_KEY = "currency_amount"
     private const val BONUS_KEY = "bonus"
     private const val APP_NAME_KEY = "app_name"
-    private const val SKU_ID_KEY = "skuId"
+    private const val PRODUCT_NAME_KEY = "product_name"
     private const val APPC_AMOUNT_KEY = "appc_amount"
     private const val APPC_ENABLED_KEY = "appc_enabled"
     private const val CREDITS_ENABLED_KEY = "credits_enabled"
-    private const val IS_BDS = "is_bds"
+    private const val IS_BDS_KEY = "is_bds"
+    private const val IS_DONATION_KEY = "is_donation"
     const val APPC = "appcoins"
     const val CREDITS = "credits"
 
     @JvmStatic
     fun newInstance(fiatAmount: BigDecimal,
-                    currency: String, bonus: String, appName: String, skuId: String,
+                    currency: String, bonus: String, appName: String, productName: String?,
                     appcAmount: BigDecimal, appcEnabled: Boolean,
-                    creditsEnabled: Boolean, isBds: Boolean): Fragment {
+                    creditsEnabled: Boolean, isBds: Boolean, isDonation: Boolean): Fragment {
       val fragment = MergedAppcoinsFragment()
       val bundle = Bundle()
       bundle.putSerializable(FIAT_AMOUNT_KEY, fiatAmount)
       bundle.putString(FIAT_CURRENCY_KEY, currency)
       bundle.putString(BONUS_KEY, bonus)
       bundle.putString(APP_NAME_KEY, appName)
-      bundle.putString(SKU_ID_KEY, skuId)
+      bundle.putString(PRODUCT_NAME_KEY, productName)
       bundle.putSerializable(APPC_AMOUNT_KEY, appcAmount)
       bundle.putBoolean(APPC_ENABLED_KEY, appcEnabled)
       bundle.putBoolean(CREDITS_ENABLED_KEY, creditsEnabled)
-      bundle.putBoolean(IS_BDS, isBds)
+      bundle.putBoolean(IS_BDS_KEY, isBds)
+      bundle.putBoolean(IS_DONATION_KEY, isDonation)
       fragment.arguments = bundle
       return fragment
     }
@@ -106,11 +108,11 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     }
   }
 
-  private val skuId: String by lazy {
-    if (arguments!!.containsKey(SKU_ID_KEY)) {
-      arguments!!.getString(SKU_ID_KEY)
+  private val productName: String? by lazy {
+    if (arguments!!.containsKey(PRODUCT_NAME_KEY)) {
+      arguments!!.getString(PRODUCT_NAME_KEY)
     } else {
-      throw IllegalArgumentException("sku data not found")
+      throw IllegalArgumentException("product name data not found")
     }
   }
 
@@ -139,10 +141,18 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   private val isBds: Boolean by lazy {
-    if (arguments!!.containsKey(IS_BDS)) {
-      arguments!!.getBoolean(IS_BDS)
+    if (arguments!!.containsKey(IS_BDS_KEY)) {
+      arguments!!.getBoolean(IS_BDS_KEY)
     } else {
       throw IllegalArgumentException("is bds data not found")
+    }
+  }
+
+  private val isDonation: Boolean by lazy {
+    if (arguments!!.containsKey(IS_DONATION_KEY)) {
+      arguments!!.getBoolean(IS_DONATION_KEY)
+    } else {
+      throw IllegalArgumentException("is donation data not found")
     }
   }
 
@@ -169,7 +179,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     setHeaderInformation()
-    buy_button.text = getString(R.string.action_buy)
+    buy_button.text = setBuyButtonText()
     cancel_button.text = getString(R.string.back_button)
     setRadioButtonListeners()
     setPaymentInformation()
@@ -177,6 +187,10 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     setBackListener(view)
     payment_methods.visibility = VISIBLE
     mergedAppcoinsPresenter.present()
+  }
+
+  private fun setBuyButtonText(): String {
+    return if (isDonation) getString(R.string.action_donate) else getString(R.string.action_buy)
   }
 
   private fun setBonus() {
@@ -194,14 +208,19 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   private fun setHeaderInformation() {
+    if (isDonation) {
+      app_name.text = getString(R.string.item_donation)
+      app_sku_description.text = getString(R.string.item_donation)
+    } else {
+      app_name.text = getApplicationName(appName)
+      app_sku_description.text = productName
+    }
     try {
       app_icon.setImageDrawable(context!!.packageManager
           .getApplicationIcon(appName))
-      app_name.text = getApplicationName(appName)
     } catch (e: PackageManager.NameNotFoundException) {
       e.printStackTrace()
     }
-    app_sku_description.text = skuId
     val formatter = Formatter()
     val decimalFormat = DecimalFormat("0.00")
     val appcText = formatter.format(Locale.getDefault(), "%(,.2f", appcAmount)

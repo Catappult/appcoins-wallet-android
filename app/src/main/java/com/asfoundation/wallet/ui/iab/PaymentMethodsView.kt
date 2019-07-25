@@ -6,7 +6,7 @@ import java.math.BigDecimal
 
 interface PaymentMethodsView {
   fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue,
-                         isDonation: Boolean, currency: String)
+                         currency: String)
 
   fun showError(message: Int)
   fun showItemAlreadyOwnedError()

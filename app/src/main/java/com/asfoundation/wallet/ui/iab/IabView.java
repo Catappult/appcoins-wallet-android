@@ -42,6 +42,6 @@ public interface IabView {
       String originalCurrency, BigDecimal amount, @NotNull String type,
       String selectedPaymentMethod);
 
-  void showMergedAppcoins(BigDecimal fiatAmount, String currency, String bonus, boolean appcEnabled,
-      boolean creditsEnabled, boolean isBds);
+  void showMergedAppcoins(BigDecimal fiatAmount, String currency, String bonus, String productName,
+      boolean appcEnabled, boolean creditsEnabled, boolean isBds, boolean isDonation);
 }

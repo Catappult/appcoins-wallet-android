@@ -66,6 +66,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private static final String TRANSACTION = "transaction";
   private static final String ITEM_ALREADY_OWNED = "item_already_owned";
   private static final String PRE_SELECTED_METHOD = "pre_selected_method";
+  private static final String IS_DONATION = "is_donation";
 
   private final CompositeDisposable compositeDisposable = new CompositeDisposable();
   private final Map<String, Bitmap> loadedBitmaps = new HashMap<>();
@@ -112,9 +113,11 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private boolean appcEnabled;
   private boolean creditsEnabled;
   private SelectedPaymentMethod preSelectedMethod;
+  private boolean isDonation;
 
   public static Fragment newInstance(TransactionBuilder transaction, String productName,
-      boolean isBds, String developerPayload, String uri, SelectedPaymentMethod preSelectedMethod) {
+      boolean isBds, boolean isDonation, String developerPayload, String uri,
+      SelectedPaymentMethod preSelectedMethod) {
     Bundle bundle = new Bundle();
     bundle.putParcelable(TRANSACTION, transaction);
     bundle.putSerializable(TRANSACTION_AMOUNT, transaction.amount());
@@ -123,6 +126,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     bundle.putString(DEVELOPER_PAYLOAD, developerPayload);
     bundle.putString(URI, uri);
     bundle.putBoolean(IS_BDS, isBds);
+    bundle.putBoolean(IS_DONATION, isDonation);
     bundle.putSerializable(PRE_SELECTED_METHOD, preSelectedMethod);
     Fragment fragment = new PaymentMethodsFragment();
     fragment.setArguments(bundle);
@@ -142,6 +146,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
     setupSubject = PublishSubject.create();
     isBds = getArguments().getBoolean(IS_BDS);
+    isDonation = getArguments().getBoolean(IS_DONATION, false);
     transaction = getArguments().getParcelable(TRANSACTION);
     transactionValue =
         ((BigDecimal) getArguments().getSerializable(TRANSACTION_AMOUNT)).doubleValue();
@@ -276,7 +281,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override
   public void showPaymentMethods(@NotNull List<PaymentMethod> paymentMethods, FiatValue fiatValue,
-      boolean isDonation, String currency) {
+      String currency) {
     this.fiatValue = fiatValue;
     Formatter formatter = new Formatter();
     String valueText = formatter.format(Locale.getDefault(), "%(,.2f", transaction.amount())
@@ -285,9 +290,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     String priceText = decimalFormat.format(fiatValue.getAmount()) + ' ' + currency;
     appcPriceTv.setText(valueText);
     fiatPriceTv.setText(priceText);
-    int buyButtonText = isDonation ? R.string.action_donate : R.string.action_buy;
-    buyButton.setText(getResources().getString(buyButtonText));
-
+    setBuyButtonText();
     if (isDonation) {
       appSkuDescriptionTv.setText(getResources().getString(R.string.item_donation));
       appNameTv.setText(getResources().getString(R.string.item_donation));
@@ -460,12 +463,17 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   }
 
   @Override public void showBuy() {
-    buyButton.setText(R.string.action_buy);
+    setBuyButtonText();
   }
 
   @Override public void showMergedAppcoins() {
     iabView.showMergedAppcoins(fiatValue.getAmount(), fiatValue.getCurrency(), bonusMessageValue,
-        appcEnabled, creditsEnabled, isBds);
+        productName, appcEnabled, creditsEnabled, isBds, isDonation);
+  }
+
+  private void setBuyButtonText() {
+    int buyButtonText = isDonation ? R.string.action_donate : R.string.action_buy;
+    buyButton.setText(getResources().getString(buyButtonText));
   }
 
   private void showBonus() {

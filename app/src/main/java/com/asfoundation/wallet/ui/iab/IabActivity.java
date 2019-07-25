@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -193,10 +194,13 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
 
   @Override
   public void showPaymentMethodsView(PaymentMethodsView.SelectedPaymentMethod preSelectedMethod) {
+    boolean isDonation = TransactionData.TransactionType.DONATION.name()
+        .equalsIgnoreCase(transaction.getType());
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
             getIntent().getExtras()
-                .getString(PRODUCT_NAME), isBds, developerPayload, uri, preSelectedMethod))
+                .getString(PRODUCT_NAME), isBds, isDonation, developerPayload, uri,
+            preSelectedMethod))
         .commit();
   }
 
@@ -211,11 +215,12 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   }
 
   @Override public void showMergedAppcoins(BigDecimal fiatAmount, String currency, String bonus,
-      boolean appcEnabled, boolean creditsEnabled, boolean isBds) {
+      String productName, boolean appcEnabled, boolean creditsEnabled, boolean isBds,
+      boolean isDonation) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container,
             MergedAppcoinsFragment.newInstance(fiatAmount, currency, bonus, transaction.getDomain(),
-                transaction.getSkuId(), transaction.amount(), appcEnabled, creditsEnabled, isBds))
+                productName, transaction.amount(), appcEnabled, creditsEnabled, isBds, isDonation))
         .commit();
   }
 

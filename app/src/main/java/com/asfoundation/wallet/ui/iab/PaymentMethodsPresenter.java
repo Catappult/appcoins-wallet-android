@@ -6,7 +6,6 @@ import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
-import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.appcoins.wallet.gamification.repository.ForecastBonus;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
@@ -230,8 +229,6 @@ public class PaymentMethodsPresenter {
         .flatMapCompletable(fiatValue -> getPaymentMethods(fiatValue).observeOn(viewScheduler)
             .flatMapCompletable(paymentMethods -> Completable.fromAction(
                 () -> view.showPaymentMethods(paymentMethods, fiatValue,
-                    TransactionData.TransactionType.DONATION.name()
-                        .equalsIgnoreCase(transaction.getType()),
                     mapCurrencyCodeToSymbol(fiatValue.getCurrency())))))
         .subscribeOn(networkThread)
         .subscribe(() -> {
