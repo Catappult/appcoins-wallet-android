@@ -181,7 +181,6 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     setHeaderInformation()
     buy_button.text = setBuyButtonText()
     cancel_button.text = getString(R.string.back_button)
-    setRadioButtonListeners()
     setPaymentInformation()
     setBonus()
     setBackListener(view)
@@ -232,6 +231,11 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
   private fun setPaymentInformation() {
     if (appcEnabled) {
+      appcoins_radio.setOnClickListener { appcoins_radio_button.isChecked = true }
+      appcoins_radio_button.setOnCheckedChangeListener { _, checked ->
+        if (checked) paymentSelectionSubject?.onNext(APPC)
+        credits_radio_button.isChecked = !checked
+      }
       appcoins_radio_button.isEnabled = true
     } else {
       appcoins_radio.message.text = getString(R.string.purchase_appcoins_noavailable_body)
@@ -240,6 +244,11 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
       appcoins_bonus_layout?.setBackgroundResource(R.drawable.disable_bonus_img_background)
     }
     if (creditsEnabled) {
+      credits_radio.setOnClickListener { credits_radio_button.isChecked = true }
+      credits_radio_button.setOnCheckedChangeListener { _, checked ->
+        if (checked) paymentSelectionSubject?.onNext(CREDITS)
+        appcoins_radio_button.isChecked = !checked
+      }
       credits_radio_button.isEnabled = true
       credits_radio_button.isChecked = true
     } else {
@@ -255,20 +264,6 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     val packageInfo = packageManager.getApplicationInfo(appPackage, 0)
     return packageManager.getApplicationLabel(packageInfo)
   }
-
-  private fun setRadioButtonListeners() {
-    appcoins_radio_button.setOnCheckedChangeListener { _, checked ->
-      if (checked) paymentSelectionSubject?.onNext(APPC)
-      credits_radio_button.isChecked = !checked
-    }
-    appcoins_radio.setOnClickListener { appcoins_radio_button.isChecked = true }
-    credits_radio.setOnClickListener { credits_radio_button.isChecked = true }
-    credits_radio_button.setOnCheckedChangeListener { _, checked ->
-      if (checked) paymentSelectionSubject?.onNext(CREDITS)
-      appcoins_radio_button.isChecked = !checked
-    }
-  }
-
 
   private fun setBackListener(view: View) {
     iabView.disableBack()
