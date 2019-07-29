@@ -145,7 +145,7 @@ public class PaymentAuthPresenter {
 
   private void onViewCreatedCompletePayment(String transactionOrigin, CurrencyData currencyData,
       String selectedCurrency, String currency, String transactionType) {
-    disposables.add(Completable.fromAction(() -> view.showLoading())
+    disposables.add(Completable.fromAction(() -> view.showFinishingLoading())
         .observeOn(networkScheduler)
         .andThen(convertAmount(currencyData, selectedCurrency).flatMapCompletable(
             value -> billingService.getAuthorization(transactionOrigin, value, currency,

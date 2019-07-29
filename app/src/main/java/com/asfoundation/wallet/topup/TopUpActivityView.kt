@@ -20,4 +20,6 @@ interface TopUpActivityView {
   fun acceptResult(uri: Uri)
 
   fun showToolbar()
+
+  fun lockOrientation()
 }
