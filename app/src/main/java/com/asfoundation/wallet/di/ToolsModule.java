@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.WindowManager;
 import androidx.room.Room;
 import cm.aptoide.analytics.AnalyticsManager;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
@@ -185,6 +188,7 @@ import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.OneStepTransactionParser;
 import com.asfoundation.wallet.util.TransactionIdHelper;
 import com.asfoundation.wallet.util.TransferParser;
+import com.asfoundation.wallet.util.UserAgentInterceptor;
 import com.facebook.appevents.AppEventsLogger;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -232,8 +236,38 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new Gson();
   }
 
-  @Singleton @Provides OkHttpClient okHttpClient() {
-    return new OkHttpClient.Builder().addInterceptor(new LogInterceptor())
+  @Singleton @Provides @Named("user_agent") String provideUserAgent(Context context) {
+    WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+    Display display = wm.getDefaultDisplay();
+    DisplayMetrics displayMetrics = new DisplayMetrics();
+    display.getRealMetrics(displayMetrics);
+
+    return "AppCoins_Wallet/"
+        + BuildConfig.VERSION_NAME
+        + " (Linux; Android "
+        + Build.VERSION.RELEASE.replaceAll(";", " ")
+        + "; "
+        + android.os.Build.VERSION.SDK_INT
+        + "; "
+        + Build.MODEL.replaceAll(";", " ")
+        + " Build/"
+        + Build.PRODUCT.replace(";", " ")
+        + "; "
+        + System.getProperty("os.arch")
+        + "; "
+        + BuildConfig.APPLICATION_ID
+        + "; "
+        + BuildConfig.VERSION_CODE
+        + "; "
+        + displayMetrics.widthPixels
+        + "x"
+        + displayMetrics.heightPixels
+        + ")";
+  }
+
+  @Singleton @Provides OkHttpClient okHttpClient(@Named("user_agent") String userAgent) {
+    return new OkHttpClient.Builder().addInterceptor(new UserAgentInterceptor(userAgent))
+        .addInterceptor(new LogInterceptor())
         .connectTimeout(15, TimeUnit.MINUTES)
         .readTimeout(30, TimeUnit.MINUTES)
         .writeTimeout(30, TimeUnit.MINUTES)
