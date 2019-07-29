@@ -22,4 +22,6 @@ interface TopUpActivityView {
   fun showToolbar()
 
   fun lockOrientation()
+
+  fun unlockRotation()
 }

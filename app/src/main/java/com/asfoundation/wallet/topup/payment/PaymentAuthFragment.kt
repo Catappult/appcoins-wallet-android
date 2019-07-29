@@ -311,6 +311,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
   override fun showNetworkError() {
     if (!networkErrorDialog.isShowing) {
       networkErrorDialog.show()
+      topUpView?.unlockRotation()
     }
   }
 
@@ -370,6 +371,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
   override fun showGenericError() {
     if (!genericErrorDialog.isShowing) {
       genericErrorDialog.show()
+      topUpView?.unlockRotation()
     }
   }
 

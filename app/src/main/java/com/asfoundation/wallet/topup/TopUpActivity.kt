@@ -112,6 +112,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
                 data.getBoolean(
                     VALID_BONUS)), TopUpSuccessFragment::class.java.simpleName)
         .commit()
+    unlockRotation()
   }
 
   override fun close() {
@@ -137,6 +138,10 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
 
   override fun uriResults(): Observable<Uri> {
     return results
+  }
+
+  override fun unlockRotation() {
+    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
   }
 
   override fun lockOrientation() {
