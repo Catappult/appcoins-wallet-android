@@ -10,8 +10,12 @@ import dagger.android.AndroidInjection
 class WalletValidationActivity : BaseActivity(), WalletValidationView {
 
   private lateinit var presenter: WalletValidationPresenter
+  private var walletValidated: Boolean = false
 
   companion object {
+    private const val RESULT_OK = 0
+    private const val RESULT_CANCELED = 1
+    private const val RESULT_FAILED = 2
     @JvmStatic
     fun newIntent(context: Context): Intent {
       return Intent(context, WalletValidationActivity::class.java)
@@ -27,13 +31,14 @@ class WalletValidationActivity : BaseActivity(), WalletValidationView {
   }
 
   override fun onBackPressed() {
-    close()
+    if (walletValidated) {
+      closeSuccess()
+    } else {
+      closeCancel()
+    }
     super.onBackPressed()
   }
 
-  override fun close() {
-    finish()
-  }
 
   override fun showPhoneValidationView(countryCode: String?, phoneNumber: String?,
                                        errorMessage: Int?) {
@@ -65,10 +70,30 @@ class WalletValidationActivity : BaseActivity(), WalletValidationView {
   }
 
   override fun showSuccess() {
+    walletValidated = true
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             ValidationSuccessFragment.newInstance())
         .commit()
+  }
+
+  override fun closeSuccess() {
+    val intent = Intent()
+    setResult(RESULT_OK, intent)
+    finishAndRemoveTask()
+  }
+
+  override fun closeCancel() {
+    val intent = Intent()
+    setResult(RESULT_CANCELED, intent)
+    finish()
+  }
+
+  override fun closeError(message: String) {
+    val intent = Intent()
+    intent.putExtra("ERROR_MESSAGE", message)
+    setResult(RESULT_FAILED, intent)
+    finishAndRemoveTask()
   }
 
 }

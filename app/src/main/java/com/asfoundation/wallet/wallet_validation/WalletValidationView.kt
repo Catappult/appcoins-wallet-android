@@ -2,8 +2,6 @@ package com.asfoundation.wallet.wallet_validation
 
 interface WalletValidationView {
 
-  fun close()
-
   fun showPhoneValidationView(countryCode: String?, phoneNumber: String?, errorMessage: Int? = null)
 
   fun showCodeValidationView(countryCode: String, phoneNumber: String)
@@ -14,4 +12,9 @@ interface WalletValidationView {
 
   fun showSuccess()
 
+  fun closeSuccess()
+
+  fun closeCancel()
+
+  fun closeError(message: String)
 }
