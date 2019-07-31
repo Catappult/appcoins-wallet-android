@@ -27,12 +27,12 @@ class WalletValidationActivity : BaseActivity(), WalletValidationView {
   }
 
   override fun onBackPressed() {
-    close()
+    finish()
     super.onBackPressed()
   }
 
   override fun close() {
-    finish()
+    finishAndRemoveTask()
   }
 
   override fun showPhoneValidationView(countryCode: String?, phoneNumber: String?,
