@@ -3,6 +3,7 @@ package com.asfoundation.wallet.wallet_validation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import com.asf.wallet.R
@@ -32,6 +33,7 @@ class WalletValidationActivity : BaseActivity(), WalletValidationView {
     private const val RESULT_OK = 0
     private const val RESULT_CANCELED = 1
     private const val RESULT_FAILED = 2
+    private const val WALLET_VALIDATED_KEY = "wallet_validated"
     @JvmStatic
     fun newIntent(context: Context): Intent {
       return Intent(context, WalletValidationActivity::class.java)
@@ -42,6 +44,8 @@ class WalletValidationActivity : BaseActivity(), WalletValidationView {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_wallet_validation)
+    walletValidated = savedInstanceState?.getBoolean(WALLET_VALIDATED_KEY, false)
+        .let { false }
     presenter = WalletValidationPresenter(this, smsValidationRepository, walletInteractor,
         createWalletInteractor, CompositeDisposable(), AndroidSchedulers.mainThread(),
         Schedulers.io())
@@ -60,6 +64,11 @@ class WalletValidationActivity : BaseActivity(), WalletValidationView {
   override fun onDestroy() {
     presenter.stop()
     super.onDestroy()
+  }
+
+  override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
+    super.onSaveInstanceState(outState, outPersistentState)
+    outState?.putBoolean(WALLET_VALIDATED_KEY, walletValidated)
   }
 
   override fun showPhoneValidationView(countryCode: String?, phoneNumber: String?,
