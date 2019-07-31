@@ -243,7 +243,7 @@ public class PaymentAuthPresenter {
 
   private void handlePaymentMethodResults() {
     disposables.add(view.paymentMethodDetailsEvent()
-        .doOnNext(__ -> view.showLoading())
+        .doOnNext(__ -> view.showFinishingLoading())
         .flatMapCompletable(adyen::finishPayment)
         .observeOn(viewScheduler)
         .subscribe(() -> {
