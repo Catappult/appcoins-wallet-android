@@ -16,5 +16,9 @@ interface WalletValidationView {
 
   fun closeCancel()
 
-  fun closeError(message: String)
+  fun closeError()
+
+  fun showCreateAnimation()
+
+  fun hideAnimation()
 }
