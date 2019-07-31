@@ -14,7 +14,7 @@ interface WalletValidationView {
 
   fun closeSuccess()
 
-  fun closeCancel()
+  fun closeCancel(removeTask: Boolean)
 
   fun closeError()
 

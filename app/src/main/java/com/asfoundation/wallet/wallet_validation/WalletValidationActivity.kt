@@ -55,7 +55,7 @@ class WalletValidationActivity : BaseActivity(), WalletValidationView {
     if (walletValidated) {
       closeSuccess()
     } else {
-      closeCancel()
+      closeCancel(false)
     }
     super.onBackPressed()
   }
@@ -113,10 +113,14 @@ class WalletValidationActivity : BaseActivity(), WalletValidationView {
     finishAndRemoveTask()
   }
 
-  override fun closeCancel() {
+  override fun closeCancel(removeTask: Boolean) {
     val intent = Intent()
     setResult(RESULT_CANCELED, intent)
-    finish()
+    if (removeTask) {
+      finishAndRemoveTask()
+    } else {
+      finish()
+    }
   }
 
   override fun closeError() {
