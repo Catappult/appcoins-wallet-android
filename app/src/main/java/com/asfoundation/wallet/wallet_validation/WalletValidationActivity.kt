@@ -44,8 +44,8 @@ class WalletValidationActivity : BaseActivity(), WalletValidationView {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_wallet_validation)
-    walletValidated = savedInstanceState?.getBoolean(WALLET_VALIDATED_KEY, false)
-        .let { false }
+    if (savedInstanceState != null)
+      walletValidated = savedInstanceState.getBoolean(WALLET_VALIDATED_KEY, false)
     presenter = WalletValidationPresenter(this, smsValidationRepository, walletInteractor,
         createWalletInteractor, CompositeDisposable(), AndroidSchedulers.mainThread(),
         Schedulers.io())
