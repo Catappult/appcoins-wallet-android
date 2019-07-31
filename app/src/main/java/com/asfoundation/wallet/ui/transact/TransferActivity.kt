@@ -57,7 +57,7 @@ class TransferActivity : BaseActivity(), TransferActivityView, TransactNavigator
   }
 
   private fun lockOrientation() {
-    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_NOSENSOR
+    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
   }
 
   private fun unlockOrientation() {
