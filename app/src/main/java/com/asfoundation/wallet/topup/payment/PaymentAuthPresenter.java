@@ -145,7 +145,7 @@ public class PaymentAuthPresenter {
 
   private void onViewCreatedCompletePayment(String transactionOrigin, CurrencyData currencyData,
       String selectedCurrency, String currency, String transactionType) {
-    disposables.add(Completable.fromAction(() -> view.showFinishingLoading())
+    disposables.add(Completable.fromAction(() -> view.showLoading())
         .observeOn(networkScheduler)
         .andThen(convertAmount(currencyData, selectedCurrency).flatMapCompletable(
             value -> billingService.getAuthorization(transactionOrigin, value, currency,
@@ -243,7 +243,7 @@ public class PaymentAuthPresenter {
 
   private void handlePaymentMethodResults() {
     disposables.add(view.paymentMethodDetailsEvent()
-        .doOnNext(__ -> view.showLoading())
+        .doOnNext(__ -> view.showFinishingLoading())
         .flatMapCompletable(adyen::finishPayment)
         .observeOn(viewScheduler)
         .subscribe(() -> {
