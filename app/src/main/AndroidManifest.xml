@@ -172,7 +172,16 @@
     <activity
         android:name="com.asfoundation.wallet.wallet_validation.WalletValidationActivity"
         android:launchMode="singleInstance"
-        android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow"/>
+        android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <data
+            android:host="wallet"
+            android:path="/validation/1"
+            android:scheme="appcoins"/>
+      </intent-filter>
+    </activity>
 
     <meta-data
         android:name="io.fabric.ApiKey"

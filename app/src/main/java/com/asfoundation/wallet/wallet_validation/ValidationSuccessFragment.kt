@@ -33,7 +33,7 @@ class ValidationSuccessFragment : DaggerFragment(), ValidationSuccessView {
     super.onAttach(context)
     if (context !is WalletValidationView) {
       throw IllegalStateException(
-          "Express checkout buy fragment must be attached to Wallet Validation Activity")
+          "Validation Success fragment must be attached to Wallet Validation Activity")
     }
     walletValidationView = context
   }
@@ -48,7 +48,8 @@ class ValidationSuccessFragment : DaggerFragment(), ValidationSuccessView {
     animationCompleted = BehaviorSubject.create()
 
     presenter =
-        ValidationSuccessPresenter(this, proofOfAttentionService, CompositeDisposable())
+        ValidationSuccessPresenter(this, proofOfAttentionService, CompositeDisposable(),
+            walletValidationView)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -76,7 +77,7 @@ class ValidationSuccessFragment : DaggerFragment(), ValidationSuccessView {
       override fun onAnimationEnd(animation: Animator?) {
         animationCompleted.onNext(true)
         notificationManager.cancel(VERIFICATION_SERVICE_ID)
-        walletValidationView.close()
+        walletValidationView.closeSuccess()
       }
 
       override fun onAnimationCancel(animation: Animator?) {

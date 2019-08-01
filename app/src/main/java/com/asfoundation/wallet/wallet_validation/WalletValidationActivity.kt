@@ -3,15 +3,37 @@ package com.asfoundation.wallet.wallet_validation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import com.asf.wallet.R
+import com.asfoundation.wallet.interact.CreateWalletInteract
+import com.asfoundation.wallet.interact.FindDefaultWalletInteract
+import com.asfoundation.wallet.repository.SmsValidationRepositoryType
 import com.asfoundation.wallet.ui.BaseActivity
 import dagger.android.AndroidInjection
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_iab_wallet_creation.*
+import javax.inject.Inject
 
 class WalletValidationActivity : BaseActivity(), WalletValidationView {
 
   private lateinit var presenter: WalletValidationPresenter
+  @Inject
+  lateinit var smsValidationRepository: SmsValidationRepositoryType
+  @Inject
+  lateinit var walletInteractor: FindDefaultWalletInteract
+  @Inject
+  lateinit var createWalletInteractor: CreateWalletInteract
+  private var walletValidated: Boolean = false
 
   companion object {
+    private const val RESULT_OK = 0
+    private const val RESULT_CANCELED = 1
+    private const val RESULT_FAILED = 2
+    private const val WALLET_VALIDATED_KEY = "wallet_validated"
     @JvmStatic
     fun newIntent(context: Context): Intent {
       return Intent(context, WalletValidationActivity::class.java)
@@ -22,17 +44,30 @@ class WalletValidationActivity : BaseActivity(), WalletValidationView {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_wallet_validation)
-    presenter = WalletValidationPresenter(this)
+    savedInstanceState?.let { walletValidated = it.getBoolean(WALLET_VALIDATED_KEY, false) }
+    presenter = WalletValidationPresenter(this, smsValidationRepository, walletInteractor,
+        createWalletInteractor, CompositeDisposable(), AndroidSchedulers.mainThread(),
+        Schedulers.io())
     presenter.present()
   }
 
   override fun onBackPressed() {
-    finish()
+    if (walletValidated) {
+      closeSuccess()
+    } else {
+      closeCancel(false)
+    }
     super.onBackPressed()
   }
 
-  override fun close() {
-    finishAndRemoveTask()
+  override fun onDestroy() {
+    presenter.stop()
+    super.onDestroy()
+  }
+
+  override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
+    super.onSaveInstanceState(outState, outPersistentState)
+    outState?.putBoolean(WALLET_VALIDATED_KEY, walletValidated)
   }
 
   override fun showPhoneValidationView(countryCode: String?, phoneNumber: String?,
@@ -65,10 +100,45 @@ class WalletValidationActivity : BaseActivity(), WalletValidationView {
   }
 
   override fun showSuccess() {
+    walletValidated = true
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             ValidationSuccessFragment.newInstance())
         .commit()
   }
 
+  override fun closeSuccess() {
+    val intent = Intent()
+    setResult(RESULT_OK, intent)
+    finishAndRemoveTask()
+  }
+
+  override fun closeCancel(removeTask: Boolean) {
+    val intent = Intent()
+    setResult(RESULT_CANCELED, intent)
+    if (removeTask) {
+      finishAndRemoveTask()
+    } else {
+      finish()
+    }
+  }
+
+  override fun closeError() {
+    val intent = Intent()
+    setResult(RESULT_FAILED, intent)
+    finishAndRemoveTask()
+  }
+
+  override fun showCreateAnimation() {
+    create_wallet_card.visibility = VISIBLE
+    create_wallet_animation.visibility = VISIBLE
+    create_wallet_animation.playAnimation()
+    create_wallet_text.visibility = VISIBLE
+  }
+
+  override fun hideAnimation() {
+    create_wallet_card.visibility = GONE
+    create_wallet_animation.visibility = GONE
+    create_wallet_text.visibility = GONE
+  }
 }
