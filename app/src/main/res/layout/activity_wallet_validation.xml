@@ -17,6 +17,5 @@
       android:focusableInTouchMode="true"
       />
   <include
-      layout="@layout/activity_iab_wallet_creation">
-  </include>
+      layout="@layout/activity_iab_wallet_creation"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

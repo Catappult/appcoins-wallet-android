@@ -4,6 +4,7 @@ import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.CreateWalletInteract
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.repository.SmsValidationRepositoryType
+import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -24,7 +25,11 @@ class WalletValidationPresenter(
 
   private fun handleWalletValidation() {
     disposables.add(walletInteractor.find()
-        .onErrorResumeNext { createWallet().subscribeOn(viewScheduler) }
+        .onErrorResumeNext {
+          Completable.fromAction { view.showCreateAnimation() }
+              .subscribeOn(viewScheduler)
+              .andThen(createWallet())
+        }
         .flatMap { smsValidationRepository.isValid(it.address) }.subscribeOn(
             networkScheduler).observeOn(viewScheduler)
         .doOnSuccess {
@@ -41,7 +46,6 @@ class WalletValidationPresenter(
   }
 
   private fun createWallet(): Single<Wallet> {
-    view.showCreateAnimation()
     return createWalletInteractor.create()
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
