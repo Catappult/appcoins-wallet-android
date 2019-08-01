@@ -266,7 +266,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     iabView.disableBack()
     view.isFocusableInTouchMode = true
     view.requestFocus()
-    view.setOnKeyListener { view1, keyCode, keyEvent ->
+    view.setOnKeyListener { _, keyCode, keyEvent ->
       if (keyEvent.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
         onBackPressSubject?.onNext("")
       }

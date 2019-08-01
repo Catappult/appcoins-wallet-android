@@ -34,8 +34,6 @@ public interface IabView {
       String bonus, String selectedPaymentMethod, String developerAddress, String type,
       BigDecimal amount, String callbackUrl, String orderReference, String payload);
 
-  void showPaymentMethodsView();
-
   void showPaymentMethodsView(PaymentMethodsView.SelectedPaymentMethod preSelectedMethod);
 
   void showShareLinkPayment(String domain, String skuId, String originalAmount,

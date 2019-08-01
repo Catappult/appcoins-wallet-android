@@ -188,10 +188,6 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
         .commit();
   }
 
-  @Override public void showPaymentMethodsView() {
-    showPaymentMethodsView(PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD);
-  }
-
   @Override
   public void showPaymentMethodsView(PaymentMethodsView.SelectedPaymentMethod preSelectedMethod) {
     boolean isDonation = TransactionData.TransactionType.DONATION.name()

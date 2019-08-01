@@ -5,7 +5,6 @@ import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
-import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -75,10 +74,6 @@ public class BdsInAppPurchaseInteractor {
     return inAppPurchaseInteractor.getBillingMessagesMapper();
   }
 
-  public ExternalBillingSerializer getBillingSerializer() {
-    return inAppPurchaseInteractor.getBillingSerializer();
-  }
-
   public Single<Purchase> getCompletedPurchase(String packageName, String productName) {
     return inAppPurchaseInteractor.getCompletedPurchase(packageName, productName);
   }
@@ -89,15 +84,5 @@ public class BdsInAppPurchaseInteractor {
 
   public Single<List<PaymentMethodEntity>> getPaymentMethods(String value, String currency) {
     return billing.getPaymentMethods(value, currency);
-  }
-
-  public Single<List<PaymentMethodEntity>> getAppcoinsPaymentMethods(String value,
-      String currency) {
-    return billing.getPaymentMethods(value, currency)
-        .flatMapObservable(Observable::fromIterable)
-        .filter(paymentMethod -> paymentMethod.getId()
-            .equals("appcoins") || paymentMethod.getId()
-            .equals("appcoins_credits"))
-        .toList();
   }
 }

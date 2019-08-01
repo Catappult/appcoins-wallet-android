@@ -16,7 +16,7 @@ public class IabPresenter {
 
   public void present(Bundle savedInstanceState) {
     if (savedInstanceState == null) {
-      view.showPaymentMethodsView();
+      view.showPaymentMethodsView(PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD);
     }
   }
 }

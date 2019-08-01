@@ -227,15 +227,6 @@ public class InAppPurchaseInteractor {
         .map(this::swapDisabledPositions);
   }
 
-  public Single<List<PaymentMethod>> getAppcoinsPaymentMethods(TransactionBuilder transaction,
-      String transactionValue, String currency) {
-    return bdsInAppPurchaseInteractor.getAppcoinsPaymentMethods(transactionValue, currency)
-        .flatMap(paymentMethods -> getAvailablePaymentMethods(transaction, paymentMethods).flatMap(
-            availablePaymentMethods -> Observable.fromIterable(paymentMethods)
-                .map(paymentMethod -> mapPaymentMethods(paymentMethod, availablePaymentMethods))
-                .toList()));
-  }
-
   List<PaymentMethod> mergeAppcoins(List<PaymentMethod> paymentMethods) {
     PaymentMethod appcMethod = getAppcMethod(paymentMethods);
     PaymentMethod creditsMethod = getCreditsMethod(paymentMethods);
