@@ -19,6 +19,10 @@ class WalletValidationPresenter(
 ) {
 
   fun present() {
+    handleWalletValidation()
+  }
+
+  private fun handleWalletValidation() {
     disposables.add(walletInteractor.find()
         .onErrorResumeNext { createWallet().subscribeOn(viewScheduler) }
         .flatMap { smsValidationRepository.isValid(it.address) }.subscribeOn(
