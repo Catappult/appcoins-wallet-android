@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.jakewharton.rxbinding2.view.RxView
@@ -163,7 +165,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   override fun onAttach(context: Context) {
     super.onAttach(context)
     if (context !is IabView) {
-      throw IllegalStateException("Regular buy fragment must be attached to IAB activity")
+      throw IllegalStateException("Merged Appcoins fragment must be attached to IAB activity")
     }
     iabView = context
   }
@@ -236,8 +238,10 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
       appcoins_radio_button.isEnabled = true
     } else {
       appcoins_radio.message.text = getString(R.string.purchase_appcoins_noavailable_body)
-      appcoins_radio.title.setTextColor(resources.getColor(R.color.btn_disable_snd_color))
-      appcoins_radio.message.setTextColor(resources.getColor(R.color.btn_disable_snd_color))
+      appcoins_radio.title.setTextColor(
+          ContextCompat.getColor(context!!, R.color.btn_disable_snd_color))
+      appcoins_radio.message.setTextColor(
+          ContextCompat.getColor(context!!, R.color.btn_disable_snd_color))
       appcoins_bonus_layout?.setBackgroundResource(R.drawable.disable_bonus_img_background)
     }
     if (creditsEnabled) {
@@ -309,7 +313,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     bonus_msg?.visibility = VISIBLE
   }
 
-  override fun showError(errorMessage: Int) {
+  override fun showError(@StringRes errorMessage: Int) {
     payment_method_main_view.visibility = GONE
     activity_iab_error_message.text = getString(errorMessage)
     activity_iab_error_view.visibility = VISIBLE

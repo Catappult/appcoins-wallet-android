@@ -1,10 +1,11 @@
 package com.asfoundation.wallet.ui.iab
 
+import androidx.annotation.StringRes
 import io.reactivex.Observable
 
 interface MergedAppcoinsView {
 
-  fun showError(errorMessage: Int)
+  fun showError(@StringRes errorMessage: Int)
 
   fun getPaymentSelection(): Observable<String>
 

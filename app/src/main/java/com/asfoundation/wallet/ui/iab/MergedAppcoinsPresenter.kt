@@ -71,7 +71,7 @@ class MergedAppcoinsPresenter(private val view: MergedAppcoinsView,
     when (selection) {
       APPC -> view.showBonus()
       CREDITS -> view.hideBonus()
-      else -> Log.w(Companion.TAG, "Error creating PublishSubject")
+      else -> Log.w(TAG, "Error creating PublishSubject")
     }
   }
 }

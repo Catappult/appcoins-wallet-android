@@ -35,26 +35,24 @@
       >
     <TextView
         android:id="@+id/title"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
         android:text="@string/appc_token_name"
-        android:textColor="#4a4a4a"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
     <TextView
         android:id="@+id/message"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:ellipsize="end"
-        android:fontFamily="sans-serif"
         android:maxLines="2"
         android:text="@string/purchase_appcoins_available_body"
         android:textColor="#727272"
-        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/title"
