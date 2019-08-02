@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -121,6 +122,10 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     isBackEnable = false;
   }
 
+  @Override public void enableBack() {
+    isBackEnable = true;
+  }
+
   @Override public void finish(Bundle bundle) {
     setResult(Activity.RESULT_OK, new Intent().putExtras(bundle));
     finish();
@@ -162,10 +167,10 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
         .commit();
   }
 
-  @Override public void showAppcoinsCreditsPayment(BigDecimal amount) {
+  @Override public void showAppcoinsCreditsPayment(BigDecimal appcAmount) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container,
-            AppcoinsRewardsBuyFragment.newInstance(amount, transaction, getIntent().getData()
+            AppcoinsRewardsBuyFragment.newInstance(appcAmount, transaction, getIntent().getData()
                 .toString(), getIntent().getExtras()
                 .getString(PRODUCT_NAME, ""), isBds))
         .commit();
@@ -183,11 +188,15 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
         .commit();
   }
 
-  @Override public void showPaymentMethodsView() {
+  @Override
+  public void showPaymentMethodsView(PaymentMethodsView.SelectedPaymentMethod preSelectedMethod) {
+    boolean isDonation = TransactionData.TransactionType.DONATION.name()
+        .equalsIgnoreCase(transaction.getType());
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
             getIntent().getExtras()
-                .getString(PRODUCT_NAME), isBds, developerPayload, uri))
+                .getString(PRODUCT_NAME), isBds, isDonation, developerPayload, uri,
+            preSelectedMethod))
         .commit();
   }
 
@@ -198,6 +207,16 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
         .replace(R.id.fragment_container,
             SharePaymentLinkFragment.newInstance(domain, skuId, originalAmount, originalCurrency,
                 amount, type, selectedPaymentMethod))
+        .commit();
+  }
+
+  @Override public void showMergedAppcoins(BigDecimal fiatAmount, String currency, String bonus,
+      String productName, boolean appcEnabled, boolean creditsEnabled, boolean isBds,
+      boolean isDonation) {
+    getSupportFragmentManager().beginTransaction()
+        .replace(R.id.fragment_container,
+            MergedAppcoinsFragment.newInstance(fiatAmount, currency, bonus, transaction.getDomain(),
+                productName, transaction.amount(), appcEnabled, creditsEnabled, isBds, isDonation))
         .commit();
   }
 

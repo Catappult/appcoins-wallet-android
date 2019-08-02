@@ -5,7 +5,6 @@ import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
-import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
@@ -73,10 +72,6 @@ public class BdsInAppPurchaseInteractor {
 
   public BillingMessagesMapper getBillingMessagesMapper() {
     return inAppPurchaseInteractor.getBillingMessagesMapper();
-  }
-
-  public ExternalBillingSerializer getBillingSerializer() {
-    return inAppPurchaseInteractor.getBillingSerializer();
   }
 
   public Single<Purchase> getCompletedPurchase(String packageName, String productName) {

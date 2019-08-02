@@ -149,7 +149,7 @@ class SharePaymentLinkFragment : DaggerFragment(),
 
   override fun onAttach(context: Context) {
     if (context !is IabView) {
-      throw IllegalStateException("Regular buy fragment must be attached to IAB activity")
+      throw IllegalStateException("share payment link fragment must be attached to IAB activity")
     }
     iabView = context
     super.onAttach(context)
