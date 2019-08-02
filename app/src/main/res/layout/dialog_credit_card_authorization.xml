@@ -96,6 +96,7 @@
           android:paddingStart="@dimen/big_margin"
           android:paddingEnd="@dimen/big_margin"
           android:scrollbars="none"
+          android:visibility="invisible"
           >
         <RelativeLayout
             android:layout_width="match_parent"
@@ -151,41 +152,11 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_below="@id/cc_info_view"
+          android:layout_marginStart="@dimen/big_margin"
           android:layout_marginTop="10dp"
+          android:layout_marginEnd="@dimen/big_margin"
           />
 
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/layout_wallet_footer"
-        android:layout_width="match_parent"
-        android:layout_height="24dp"
-        >
-      <ImageView
-          android:id="@+id/logo_wallet"
-          android:layout_width="wrap_content"
-          android:layout_height="16dp"
-          android:layout_centerVertical="true"
-          android:layout_marginStart="16dp"
-          android:src="@drawable/logo_appc_wallet"
-          />
-
-      <TextView
-          android:id="@+id/wallet_address_footer"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_alignTop="@id/logo_wallet"
-          android:layout_alignBottom="@id/logo_wallet"
-          android:layout_marginStart="16dp"
-          android:layout_marginEnd="16dp"
-          android:layout_toEndOf="@id/logo_wallet"
-          android:ellipsize="end"
-          android:gravity="end|center_vertical"
-          android:maxLines="1"
-          android:textColor="@color/grey_8a_alpha"
-          android:textSize="12sp"
-          tools:text="0x1a78a81235dls019sk291id"
-          />
     </RelativeLayout>
 
     <include

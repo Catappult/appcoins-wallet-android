@@ -87,9 +87,9 @@ class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerial
   fun mapPurchase(purchaseId: String, signature: String, signatureData: String,
                   orderReference: String?): Bundle {
     val intent = Bundle()
-    intent.putString(AppcoinsBillingBinder.INAPP_PURCHASE_ID, purchaseId)
-    intent.putString(AppcoinsBillingBinder.INAPP_PURCHASE_DATA, signatureData)
-    intent.putString(AppcoinsBillingBinder.INAPP_DATA_SIGNATURE, signature)
+    intent.putString(INAPP_PURCHASE_ID, purchaseId)
+    intent.putString(INAPP_PURCHASE_DATA, signatureData)
+    intent.putString(INAPP_DATA_SIGNATURE, signature)
     intent.putString(AppcoinsBillingBinder.INAPP_ORDER_REFERENCE, orderReference)
     intent.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
     return intent

@@ -440,9 +440,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Singleton @Provides InAppPurchaseInteractor provideDualInAppPurchaseInteractor(
       BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
       @Named("ASF_IN_APP_INTERACTOR") AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
-      AppcoinsRewards appcoinsRewards, Billing billing, PaymentMethodsMapper paymentMethodsMapper) {
+      AppcoinsRewards appcoinsRewards, Billing billing, SharedPreferences sharedPreferences) {
     return new InAppPurchaseInteractor(asfInAppPurchaseInteractor, bdsInAppPurchaseInteractor,
-        new ExternalBillingSerializer(), appcoinsRewards, billing);
+        new ExternalBillingSerializer(), appcoinsRewards, billing, sharedPreferences);
   }
 
   @Provides LocalPaymentInteractor provideLocalPaymentInteractor(InAppDeepLinkRepository repository,
@@ -889,8 +889,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Provides OnboardingInteract provideOnboardingInteract(CreateWalletInteract createWalletInteract,
-      WalletService walletService, PreferenceRepositoryType preferenceRepositoryType,
-      TokenRepositoryType tokenRepository) {
+      WalletService walletService, PreferenceRepositoryType preferenceRepositoryType) {
     return new OnboardingInteract(createWalletInteract, walletService, preferenceRepositoryType);
   }
 

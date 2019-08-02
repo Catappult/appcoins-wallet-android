@@ -12,7 +12,6 @@ import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
@@ -54,22 +53,20 @@ public class AdyenAuthorizationPresenter {
   private final PaymentType paymentType;
   private final Single<TransactionBuilder> transactionBuilder;
   private AdyenAuthorizationView view;
-  private FindDefaultWalletInteract defaultWalletInteract;
   private BillingAnalytics analytics;
   private boolean waitingResult;
   private Scheduler ioScheduler;
+  private boolean isPreSelected;
 
   AdyenAuthorizationPresenter(AdyenAuthorizationView view, String appPackage,
-      FindDefaultWalletInteract defaultWalletInteract, Scheduler viewScheduler,
-      CompositeDisposable disposables, Adyen adyen, BillingService billingService,
-      Navigator navigator, BillingMessagesMapper billingMessagesMapper,
-      InAppPurchaseInteractor inAppPurchaseInteractor, String transactionData,
-      String developerPayload, Billing billing, String skuId, String type, String origin,
-      String amount, String currency, PaymentType paymentType, BillingAnalytics analytics,
-      Scheduler ioScheduler) {
+      Scheduler viewScheduler, CompositeDisposable disposables, Adyen adyen,
+      BillingService billingService, Navigator navigator,
+      BillingMessagesMapper billingMessagesMapper, InAppPurchaseInteractor inAppPurchaseInteractor,
+      String transactionData, String developerPayload, Billing billing, String skuId, String type,
+      String origin, String amount, String currency, PaymentType paymentType,
+      BillingAnalytics analytics, Scheduler ioScheduler, boolean isPreSelected) {
     this.view = view;
     this.appPackage = appPackage;
-    this.defaultWalletInteract = defaultWalletInteract;
     this.viewScheduler = viewScheduler;
     this.disposables = disposables;
     this.adyen = adyen;
@@ -88,6 +85,7 @@ public class AdyenAuthorizationPresenter {
     this.analytics = analytics;
     this.transactionBuilder = inAppPurchaseInteractor.parseTransaction(transactionData, true);
     this.ioScheduler = ioScheduler;
+    this.isPreSelected = isPreSelected;
   }
 
   public void present(@Nullable Bundle savedInstanceState) {
@@ -96,12 +94,6 @@ public class AdyenAuthorizationPresenter {
     if (savedInstanceState != null) {
       waitingResult = savedInstanceState.getBoolean(WAITING_RESULT);
     }
-
-    disposables.add(defaultWalletInteract.find()
-        .observeOn(viewScheduler)
-        .doOnSuccess(wallet -> view.showWalletAddress(wallet.address))
-        .subscribe(wallet -> {
-        }, this::showError));
 
     onViewCreatedCompletePayment();
 
@@ -128,6 +120,18 @@ public class AdyenAuthorizationPresenter {
     handleAdyenPaymentResult();
 
     handleCancel();
+
+    handleMorePaymentMethodClicks();
+  }
+
+  private void handleMorePaymentMethodClicks() {
+    if (isPreSelected) {
+      disposables.add(view.getMorePaymentMethodsClicks()
+          .observeOn(viewScheduler)
+          .doOnNext(o -> showMoreMethods())
+          .subscribe(__ -> {
+          }, this::showError));
+    }
   }
 
   private void onViewCreatedShowPaymentMethodInputView() {
@@ -135,8 +139,7 @@ public class AdyenAuthorizationPresenter {
         .filter(paymentRequest -> paymentRequest.getPaymentMethod() != null)
         .map(paymentRequest -> paymentRequest.getPaymentMethod()
             .getType())
-        .distinctUntilChanged(
-            (paymentRequest, paymentRequest2) -> paymentRequest.equals(paymentRequest2))
+        .distinctUntilChanged(String::equals)
         .flatMapMaybe(type -> adyen.getPaymentRequest()
             .firstElement())
         .observeOn(viewScheduler)
@@ -152,7 +155,7 @@ public class AdyenAuthorizationPresenter {
         })
         .observeOn(viewScheduler)
         .subscribe(__ -> {
-        }, throwable -> showError(throwable)));
+        }, this::showError));
   }
 
   private void showError(Throwable throwable) {
@@ -173,11 +176,10 @@ public class AdyenAuthorizationPresenter {
     disposables.add(Completable.fromAction(() -> view.showLoading())
         .andThen(transactionBuilder.flatMapCompletable(
             transaction -> billingService.getAuthorization(transaction.getSkuId(),
-                transaction.toAddress(), developerPayload, origin, convertAmount(currency),
-                currency, type, transaction.getCallbackUrl(), transaction.getOrderReference(),
-                appPackage)
+                transaction.toAddress(), developerPayload, origin, convertAmount(), currency, type,
+                transaction.getCallbackUrl(), transaction.getOrderReference(), appPackage)
                 .observeOn(viewScheduler)
-                .filter(payment -> payment.isPendingAuthorization())
+                .filter(AdyenAuthorization::isPendingAuthorization)
                 .firstOrError()
                 .map(payment -> payment)
                 .flatMapCompletable(
@@ -186,10 +188,10 @@ public class AdyenAuthorizationPresenter {
         .observeOn(viewScheduler)
         .doOnError(this::showError)
         .subscribe(() -> {
-        }, throwable -> showError(throwable)));
+        }, this::showError));
   }
 
-  @NonNull private BigDecimal convertAmount(String currency) {
+  @NonNull private BigDecimal convertAmount() {
     return inAppPurchaseInteractor.convertToLocalFiat((new BigDecimal(amount)).doubleValue())
         .subscribeOn(ioScheduler)
         .blockingGet()
@@ -198,18 +200,18 @@ public class AdyenAuthorizationPresenter {
 
   private void onViewCreatedSelectPaymentMethod() {
     disposables.add(adyen.getPaymentMethod(paymentType)
-        .flatMapCompletable(paymentMethod -> adyen.selectPaymentService(paymentMethod))
+        .flatMapCompletable(adyen::selectPaymentService)
         .observeOn(viewScheduler)
         .subscribe(() -> {
-        }, throwable -> showError(throwable)));
+        }, this::showError));
   }
 
   private void onViewCreatedCheckAuthorizationActive() {
     disposables.add(transactionBuilder.flatMapCompletable(
         transaction -> billingService.getAuthorization(transaction.getSkuId(),
-            transaction.toAddress(), developerPayload, origin, convertAmount(currency), currency,
-            type, transaction.getCallbackUrl(), transaction.getOrderReference(), appPackage)
-            .filter(adyenAuthorization -> adyenAuthorization.isCompleted())
+            transaction.toAddress(), developerPayload, origin, convertAmount(), currency, type,
+            transaction.getCallbackUrl(), transaction.getOrderReference(), appPackage)
+            .filter(AdyenAuthorization::isCompleted)
             .firstOrError()
             .flatMap(adyenAuthorization -> createBundle())
             .observeOn(viewScheduler)
@@ -235,7 +237,8 @@ public class AdyenAuthorizationPresenter {
                 .map(throwable -> 0)
                 .timeout(3, TimeUnit.MINUTES))
             .map(purchase -> billingMessagesMapper.mapPurchase(purchase,
-                transaction.getOrderReference()));
+                transaction.getOrderReference()))
+            .map(bundle -> mapPaymentMethodId(bundle, paymentType));
       } else {
         return inAppPurchaseInteractor.getTransactionUid(billingService.getTransactionUid())
             .retryWhen(errors -> {
@@ -248,12 +251,25 @@ public class AdyenAuthorizationPresenter {
     });
   }
 
+  private Bundle mapPaymentMethodId(Bundle bundle, PaymentType paymentType) {
+    if (paymentType.name()
+        .equals("CARD")) {
+      bundle.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
+          PaymentMethodsView.PaymentMethodId.CREDIT_CARD.getId());
+    } else if (paymentType.name()
+        .equals("PAYPAL")) {
+      bundle.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
+          PaymentMethodsView.PaymentMethodId.PAYPAL.getId());
+    }
+    return bundle;
+  }
+
   private void onViewCreatedCheckAuthorizationFailed() {
     disposables.add(transactionBuilder.flatMap(
         transaction -> billingService.getAuthorization(transaction.getSkuId(),
-            transaction.toAddress(), developerPayload, origin, convertAmount(currency), currency,
-            type, transaction.getCallbackUrl(), transaction.getOrderReference(), appPackage)
-            .filter(payment -> payment.isFailed())
+            transaction.toAddress(), developerPayload, origin, convertAmount(), currency, type,
+            transaction.getCallbackUrl(), transaction.getOrderReference(), appPackage)
+            .filter(AdyenAuthorization::isFailed)
             .firstOrError()
             .observeOn(viewScheduler)
             .doOnSuccess(this::showError))
@@ -270,15 +286,15 @@ public class AdyenAuthorizationPresenter {
   private void onViewCreatedCheckAuthorizationProcessing() {
     disposables.add(transactionBuilder.flatMapObservable(
         transaction -> billingService.getAuthorization(transaction.getSkuId(),
-            transaction.toAddress(), developerPayload, origin, convertAmount(currency), currency,
-            type, transaction.getCallbackUrl(), transaction.getOrderReference(), appPackage)
-            .filter(payment -> payment.isProcessing())
+            transaction.toAddress(), developerPayload, origin, convertAmount(), currency, type,
+            transaction.getCallbackUrl(), transaction.getOrderReference(), appPackage)
+            .filter(AdyenAuthorization::isProcessing)
             .observeOn(viewScheduler)
             .doOnNext(__ -> view.showLoading()))
         .observeOn(viewScheduler)
         .doOnError(this::showError)
         .subscribe(__ -> {
-        }, throwable -> showError(throwable)));
+        }, this::showError));
   }
 
   private void handlePaymentMethodResults() {
@@ -287,24 +303,26 @@ public class AdyenAuthorizationPresenter {
         .flatMapCompletable(adyen::finishPayment)
         .observeOn(viewScheduler)
         .subscribe(() -> {
-        }, throwable -> showError(throwable)));
+        }, this::showError));
   }
 
   private void handleChangeCardMethodResults() {
-    disposables.add(view.changeCardMethodDetailsEvent()
-        .doOnNext(__ -> view.showLoading())
-        .flatMapCompletable(adyen::deletePaymentMethod)
-        .observeOn(viewScheduler)
-        .subscribe(() -> {
-        }, throwable -> showError(throwable)));
+    if (!isPreSelected) {
+      disposables.add(view.changeCardMethodDetailsEvent()
+          .doOnNext(__ -> view.showLoading())
+          .flatMapCompletable(paymentMethod -> adyen.deletePaymentMethod())
+          .observeOn(viewScheduler)
+          .subscribe(() -> {
+          }, this::showError));
+    }
   }
 
   private void handleAdyenUriResult() {
     disposables.add(navigator.uriResults()
-        .flatMapCompletable(uri -> adyen.finishUri(uri))
+        .flatMapCompletable(adyen::finishUri)
         .observeOn(viewScheduler)
         .subscribe(() -> {
-        }, throwable -> showError(throwable)));
+        }, this::showError));
   }
 
   private void handleAdyenUriRedirect() {
@@ -318,7 +336,7 @@ public class AdyenAuthorizationPresenter {
           sendPaymentMethodDetailsEvent(PAYMENT_METHOD_PAYPAL);
         }))
         .subscribe(__ -> {
-        }, throwable -> showError(throwable)));
+        }, this::showError));
   }
 
   private void handleErrorDismissEvent() {
@@ -339,7 +357,7 @@ public class AdyenAuthorizationPresenter {
         })
         .observeOn(viewScheduler)
         .subscribe(() -> {
-        }, throwable -> showError(throwable)));
+        }, this::showError));
   }
 
   private void handleCancel() {
@@ -352,6 +370,11 @@ public class AdyenAuthorizationPresenter {
 
   private void close() {
     view.close(billingMessagesMapper.mapCancellation());
+  }
+
+  private void showMoreMethods() {
+    inAppPurchaseInteractor.removePreSelectedPaymentMethod();
+    view.showMoreMethods();
   }
 
   public void stop() {

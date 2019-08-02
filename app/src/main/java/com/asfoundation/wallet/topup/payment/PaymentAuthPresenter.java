@@ -253,7 +253,7 @@ public class PaymentAuthPresenter {
   private void handleChangeCardMethodResults() {
     disposables.add(view.changeCardMethodDetailsEvent()
         .doOnNext(__ -> view.showLoading())
-        .flatMapCompletable(adyen::deletePaymentMethod)
+        .flatMapCompletable(paymentMethod -> adyen.deletePaymentMethod())
         .observeOn(viewScheduler)
         .subscribe(() -> {
         }, this::showError));

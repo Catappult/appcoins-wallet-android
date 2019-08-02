@@ -85,7 +85,6 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="@dimen/big_margin"
-      android:layout_marginBottom="4dp"
       android:textColor="@color/dialog_secondary_price"
       android:textSize="12sp"
       app:layout_constraintBottom_toBottomOf="parent"

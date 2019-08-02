@@ -35,22 +35,24 @@ import com.asfoundation.wallet.billing.adyen.PaymentType;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.billing.authorization.AdyenAuthorization;
 import com.asfoundation.wallet.billing.purchase.BillingFactory;
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
 import com.asfoundation.wallet.navigator.UriNavigator;
 import com.asfoundation.wallet.util.KeyboardUtils;
 import com.braintreepayments.cardform.view.CardForm;
 import com.google.android.material.textfield.TextInputLayout;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.jakewharton.rxrelay2.PublishRelay;
+import com.squareup.picasso.Picasso;
 import dagger.android.support.DaggerFragment;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Formatter;
 import java.util.Locale;
 import javax.inject.Inject;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -75,8 +77,10 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   private static final String PAYMENT_TYPE = "paymentType";
   private static final String DEVELOPER_PAYLOAD_KEY = "developer_payload";
   private static final String BONUS_KEY = "bonus";
+  private static final String PRE_SELECTED_KEY = "pre_selected";
+  private static final String ICON_URL_KEY = "icon_url";
+  private final CompositeDisposable compositeDisposable = new CompositeDisposable();
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
-  @Inject FindDefaultWalletInteract defaultWalletInteract;
   @Inject BillingFactory billingFactory;
   @Inject Adyen adyen;
   @Inject Billing billing;
@@ -98,23 +102,28 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   private TextView fiatPrice;
   private TextView appcPrice;
   private TextView preAuthorizedCardText;
-  private TextView walletAddressFooter;
   private CheckBox rememberCardCheckBox;
   private AdyenAuthorizationPresenter presenter;
   private PublishRelay<Boolean> backButton;
   private PublishRelay<Boolean> keyboardBuyRelay;
   private View transactionCompletedLayout;
   private View creditCardInformationLayout;
-  private View walletInformationFooter;
   private LottieAnimationView lottieTransactionComplete;
   private View errorView;
   private TextView errorMessage;
   private View errorOkButton;
   private View mainView;
 
+  private ImageView preSelectedIcon;
+  private View bonusView;
+  private View bonusMsg;
+  private TextView bonusValue;
+  private TextView morePaymentMethods;
+  private View dialog;
+
   public static AdyenAuthorizationFragment newInstance(String skuId, String type, String origin,
       PaymentType paymentType, String domain, String transactionData, BigDecimal amount,
-      String currency, String payload, String bonus) {
+      String currency, String payload, String bonus, boolean isPreSelected, String iconUrl) {
     Bundle bundle = new Bundle();
     bundle.putString(SKU_ID, skuId);
     bundle.putString(TYPE, type);
@@ -126,6 +135,8 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     bundle.putString(TRANSACTION_CURRENCY, currency);
     bundle.putString(DEVELOPER_PAYLOAD_KEY, payload);
     bundle.putString(BONUS_KEY, bonus);
+    bundle.putBoolean(PRE_SELECTED_KEY, isPreSelected);
+    bundle.putString(ICON_URL_KEY, iconUrl);
     AdyenAuthorizationFragment fragment = new AdyenAuthorizationFragment();
     fragment.setArguments(bundle);
     return fragment;
@@ -138,27 +149,32 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
 
     FragmentNavigator navigator = new FragmentNavigator((UriNavigator) getActivity(), iabView);
 
-    presenter = new AdyenAuthorizationPresenter(this, getAppPackage(), defaultWalletInteract,
-        AndroidSchedulers.mainThread(), new CompositeDisposable(), adyen,
-        billingFactory.getBilling(getAppPackage()), navigator,
-        inAppPurchaseInteractor.getBillingMessagesMapper(), inAppPurchaseInteractor,
-        getTransactionData(), getDeveloperPayload(), billing, getSkuId(), getType(), getOrigin(),
-        getAmount().toString(), getCurrency(), getPaymentType(), analytics, Schedulers.io());
+    presenter =
+        new AdyenAuthorizationPresenter(this, getAppPackage(), AndroidSchedulers.mainThread(),
+            new CompositeDisposable(), adyen, billingFactory.getBilling(getAppPackage()), navigator,
+            inAppPurchaseInteractor.getBillingMessagesMapper(), inAppPurchaseInteractor,
+            getTransactionData(), getDeveloperPayload(), billing, getSkuId(), getType(),
+            getOrigin(), getAmount().toString(), getCurrency(), getPaymentType(), analytics,
+            Schedulers.io(), isPreSelected());
   }
 
-  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
+  @Override public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    return inflater.inflate(R.layout.dialog_credit_card_authorization, container, false);
+    if (isPreSelected()) {
+      return inflater.inflate(R.layout.dialog_credit_card_authorization_pre_selected, container,
+          false);
+    } else {
+      return inflater.inflate(R.layout.dialog_credit_card_authorization, container, false);
+    }
   }
 
-  @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+  @Override public void onViewCreated(@NotNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
     preAuthorizedCardText =
         view.findViewById(R.id.fragment_credit_card_authorization_pre_authorized_card);
     progressBar = view.findViewById(R.id.fragment_credit_card_authorization_progress_bar);
     ccInfoView = view.findViewById(R.id.cc_info_view);
-    ccInfoView.setVisibility(View.INVISIBLE);
     productIcon = view.findViewById(R.id.app_icon);
     productName = view.findViewById(R.id.app_name);
     productDescription = view.findViewById(R.id.app_sku_description);
@@ -170,7 +186,6 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     cardForm = view.findViewById(R.id.fragment_braintree_credit_card_form);
     transactionCompletedLayout = view.findViewById(R.id.iab_activity_transaction_completed);
     creditCardInformationLayout = view.findViewById(R.id.credit_card_info);
-    walletInformationFooter = view.findViewById(R.id.layout_wallet_footer);
     mainView = view.findViewById(R.id.main_view);
     errorView = view.findViewById(R.id.fragment_iab_error);
     errorMessage = errorView.findViewById(R.id.activity_iab_error_message);
@@ -182,14 +197,8 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     setupTransactionCompleteAnimation();
 
     // removing additional margin top of the credit card form to help in the layout build
-    View cardNumberParent = (View) cardForm.findViewById(R.id.bt_card_form_card_number)
-        .getParent();
-    ViewGroup.MarginLayoutParams lp =
-        (ViewGroup.MarginLayoutParams) cardNumberParent.getLayoutParams();
-    lp.setMargins(0, 0, 0, 0);
-    cardNumberParent.setLayoutParams(lp);
+    fixCardFormLayout();
 
-    walletAddressFooter = view.findViewById(R.id.wallet_address_footer);
     rememberCardCheckBox =
         view.findViewById(R.id.fragment_credit_card_authorization_remember_card_check_box);
 
@@ -216,6 +225,18 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
         }
       }
     });
+
+    if (isPreSelected()) {
+      dialog = view.findViewById(R.id.payment_methods);
+      preSelectedIcon = view.findViewById(R.id.payment_method_ic);
+      bonusView = view.findViewById(R.id.bonus_layout);
+      bonusMsg = view.findViewById(R.id.bonus_msg);
+      bonusValue = view.findViewById(R.id.bonus_value);
+      morePaymentMethods = view.findViewById(R.id.more_payment_methods);
+
+      showBonus();
+      loadIcon();
+    }
 
     showProduct();
     presenter.present(savedInstanceState);
@@ -246,7 +267,6 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     cardForm = null;
     changeCardButton = null;
     creditCardInformationLayout = null;
-    walletInformationFooter = null;
     lottieTransactionComplete.removeAllAnimatorListeners();
     lottieTransactionComplete.removeAllUpdateListeners();
     lottieTransactionComplete.removeAllLottieOnCompositionLoadedListener();
@@ -256,12 +276,41 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     errorView = null;
     errorMessage = null;
     errorOkButton = null;
+
+    preSelectedIcon = null;
+    bonusView = null;
+    bonusMsg = null;
+    bonusValue = null;
+    morePaymentMethods = null;
+    dialog = null;
     super.onDestroyView();
   }
 
   @Override public void onDetach() {
     super.onDetach();
     iabView = null;
+  }
+
+  private void fixCardFormLayout() {
+    int marginTop = isPreSelected() ? -10 : 0;
+    View cardNumberParent = (View) cardForm.findViewById(R.id.bt_card_form_card_number)
+        .getParent();
+    ViewGroup.MarginLayoutParams lp =
+        (ViewGroup.MarginLayoutParams) cardNumberParent.getLayoutParams();
+    lp.setMargins(0, marginTop, 0, 0);
+    cardNumberParent.setLayoutParams(lp);
+
+    View expirationParent = (View) cardForm.findViewById(R.id.bt_card_form_expiration)
+        .getParent();
+    lp = (ViewGroup.MarginLayoutParams) expirationParent.getLayoutParams();
+    lp.setMargins(0, marginTop, 0, 0);
+    expirationParent.setLayoutParams(lp);
+
+    View cvvParent = (View) cardForm.findViewById(R.id.bt_card_form_cvv)
+        .getParent();
+    lp = (ViewGroup.MarginLayoutParams) cvvParent.getLayoutParams();
+    lp.setMargins(0, marginTop, 0, 0);
+    cvvParent.setLayoutParams(lp);
   }
 
   @Override public void onAttach(Context context) {
@@ -271,6 +320,10 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
           "adyen authorization fragment must be attached to IAB activity");
     }
     iabView = ((IabView) context);
+  }
+
+  @Override public long getAnimationDuration() {
+    return lottieTransactionComplete.getDuration();
   }
 
   @Override public void showProduct() {
@@ -291,31 +344,46 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   }
 
   @Override public void showLoading() {
-    progressBar.setVisibility(View.VISIBLE);
-    cardForm.setVisibility(View.GONE);
-    ccInfoView.setVisibility(View.INVISIBLE);
-    buyButton.setVisibility(View.INVISIBLE);
-    cancelButton.setVisibility(View.INVISIBLE);
-    changeCardButton.setVisibility(View.INVISIBLE);
+    if (isPreSelected()) {
+      progressBar.setVisibility(View.VISIBLE);
+      dialog.setVisibility(View.INVISIBLE);
+    } else {
+      progressBar.setVisibility(View.VISIBLE);
+      cardForm.setVisibility(View.GONE);
+      ccInfoView.setVisibility(View.INVISIBLE);
+      buyButton.setVisibility(View.INVISIBLE);
+      cancelButton.setVisibility(View.INVISIBLE);
+      changeCardButton.setVisibility(View.INVISIBLE);
+    }
   }
 
   @Override public void hideLoading() {
-    progressBar.setVisibility(View.GONE);
-    cardForm.setVisibility(View.VISIBLE);
-    ccInfoView.setVisibility(View.VISIBLE);
-    cancelButton.setVisibility(View.VISIBLE);
+    if (isPreSelected()) {
+      progressBar.setVisibility(View.GONE);
+      dialog.setVisibility(View.VISIBLE);
+    } else {
+      progressBar.setVisibility(View.GONE);
+      cardForm.setVisibility(View.VISIBLE);
+      ccInfoView.setVisibility(View.VISIBLE);
+      cancelButton.setVisibility(View.VISIBLE);
+    }
   }
 
-  @Override public Observable<Object> errorDismisses() {
+  @NotNull @Override public Observable<Object> errorDismisses() {
     return RxView.clicks(errorOkButton);
   }
 
-  @Override public Observable<PaymentDetails> paymentMethodDetailsEvent() {
+  @NotNull @Override public Observable<PaymentDetails> paymentMethodDetailsEvent() {
     return Observable.merge(keyboardBuyRelay, RxView.clicks(buyButton))
-        .map(__ -> getPaymentDetails(publicKey, generationTime));
+        .map(__ -> {
+          if (getView() != null) {
+            KeyboardUtils.hideKeyboard(getView());
+          }
+          return getPaymentDetails(publicKey, generationTime);
+        });
   }
 
-  @Override public Observable<PaymentMethod> changeCardMethodDetailsEvent() {
+  @NotNull @Override public Observable<PaymentMethod> changeCardMethodDetailsEvent() {
     return RxView.clicks(changeCardButton)
         .map(__ -> paymentMethod);
   }
@@ -326,12 +394,12 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     errorMessage.setText(R.string.notification_no_network_poa);
   }
 
-  @Override public Observable<Object> cancelEvent() {
+  @NotNull @Override public Observable<Object> cancelEvent() {
     return RxView.clicks(cancelButton)
         .mergeWith(backButton);
   }
 
-  @Override public void showCvcView(Amount amount, PaymentMethod paymentMethod) {
+  @Override public void showCvcView(@NotNull Amount amount, PaymentMethod paymentMethod) {
     cvcOnly = true;
     cardForm.findViewById(com.braintreepayments.cardform.R.id.bt_card_form_card_number_icon)
         .setVisibility(View.GONE);
@@ -339,7 +407,9 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     showProductPrice(amount);
     preAuthorizedCardText.setVisibility(View.VISIBLE);
     preAuthorizedCardText.setText(paymentMethod.getName());
-    changeCardButton.setVisibility(View.VISIBLE);
+    if (!isPreSelected()) {
+      changeCardButton.setVisibility(View.VISIBLE);
+    }
     rememberCardCheckBox.setVisibility(View.GONE);
     cardForm.cardRequired(false)
         .expirationRequired(false)
@@ -354,14 +424,17 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   }
 
   @Override
-  public void showCreditCardView(PaymentMethod paymentMethod, Amount amount, boolean cvcStatus,
-      boolean allowSave, String publicKey, String generationTime) {
+  public void showCreditCardView(@NotNull PaymentMethod paymentMethod, @NotNull Amount amount,
+      boolean cvcStatus, boolean allowSave, @NotNull String publicKey,
+      @NotNull String generationTime) {
     this.paymentMethod = paymentMethod;
     this.publicKey = publicKey;
     this.generationTime = generationTime;
     cvcOnly = false;
     preAuthorizedCardText.setVisibility(View.GONE);
-    changeCardButton.setVisibility(View.GONE);
+    if (!isPreSelected()) {
+      changeCardButton.setVisibility(View.GONE);
+    }
     rememberCardCheckBox.setVisibility(View.VISIBLE);
     showProductPrice(amount);
     cardForm.setCardNumberIcon(0);
@@ -381,19 +454,19 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     iabView.close(bundle);
   }
 
-  @Override public void showWalletAddress(String address) {
-    walletAddressFooter.setText(address);
-  }
-
   @Override public void showSuccess() {
-    progressBar.setVisibility(View.GONE);
-    creditCardInformationLayout.setVisibility(View.GONE);
-    walletInformationFooter.setVisibility(View.GONE);
-    transactionCompletedLayout.setVisibility(View.VISIBLE);
-    errorView.setVisibility(View.GONE);
+    if (isPreSelected()) {
+      mainView.setVisibility(View.GONE);
+      transactionCompletedLayout.setVisibility(View.VISIBLE);
+    } else {
+      progressBar.setVisibility(View.GONE);
+      creditCardInformationLayout.setVisibility(View.GONE);
+      transactionCompletedLayout.setVisibility(View.VISIBLE);
+      errorView.setVisibility(View.GONE);
+    }
   }
 
-  @Override public void showPaymentRefusedError(AdyenAuthorization adyenAuthorization) {
+  @Override public void showPaymentRefusedError(@NotNull AdyenAuthorization adyenAuthorization) {
     mainView.setVisibility(View.GONE);
     errorView.setVisibility(View.VISIBLE);
     errorMessage.setText(R.string.notification_payment_refused);
@@ -405,20 +478,51 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     errorMessage.setText(R.string.unknown_error);
   }
 
-  @Override public long getAnimationDuration() {
-    return lottieTransactionComplete.getDuration();
+  @NotNull @Override public Observable<Object> getMorePaymentMethodsClicks() {
+    return RxView.clicks(morePaymentMethods);
+  }
+
+  @Override public void showMoreMethods() {
+    KeyboardUtils.hideKeyboard(mainView);
+    iabView.showPaymentMethodsView();
   }
 
   private void finishSetupView() {
+    int paddingTop = isPreSelected() ? 0 : 50;
+    int paddingLeft = isPreSelected() ? 0 : 24;
     cardForm.findViewById(R.id.bt_card_form_card_number_icon)
         .setVisibility(View.GONE);
-    ((TextInputLayout) cardForm.findViewById(R.id.bt_card_form_card_number)
-        .getParent()
-        .getParent()).setPadding(24, 50, 0, 0);
+
+    //CardEditText card_number
+    cardForm.findViewById(R.id.bt_card_form_card_number)
+        .setPadding(0, 4, 0, 0);
+
+    //TextInputLayout card_number
+    TextInputLayout textInputLayout =
+        (TextInputLayout) cardForm.findViewById(R.id.bt_card_form_card_number)
+            .getParent()
+            .getParent();
+
+    textInputLayout.setPadding(paddingLeft, paddingTop, 0, 0);
+    TextInputLayout.LayoutParams paramsText =
+        (TextInputLayout.LayoutParams) textInputLayout.getLayoutParams();
+    paramsText.setMargins(0, 8, 0, 0);
+    textInputLayout.setLayoutParams(paramsText);
+
+    //CardEditText expiration date
+    cardForm.findViewById(R.id.bt_card_form_expiration)
+        .setPadding(0, 4, 0, 0);
+
+    //LinearLayout expiration date
     ((LinearLayout) cardForm.findViewById(R.id.bt_card_form_expiration)
         .getParent()
         .getParent()
-        .getParent()).setPadding(24, 0, 0, 0);
+        .getParent()).setPadding(paddingLeft, 0, 0, 0);
+
+    //CardEditText expiration date
+    cardForm.findViewById(R.id.bt_card_form_cvv)
+        .setPadding(0, 4, 0, 0);
+
     presenter.sendPaymentMethodDetailsEvent(PAYMENT_METHOD_CC);
   }
 
@@ -462,7 +566,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     return packageManager.getApplicationLabel(packageInfo);
   }
 
-  public String getAppPackage() {
+  private String getAppPackage() {
     if (getArguments().containsKey(APP_PACKAGE)) {
       return getArguments().getString(APP_PACKAGE);
     }
@@ -530,6 +634,22 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     }
   }
 
+  private String getIconUrl() {
+    if (getArguments().containsKey(ICON_URL_KEY)) {
+      return getArguments().getString(ICON_URL_KEY);
+    } else {
+      throw new IllegalArgumentException("icon url data not found");
+    }
+  }
+
+  private boolean isPreSelected() {
+    if (getArguments().containsKey(PRE_SELECTED_KEY)) {
+      return getArguments().getBoolean(PRE_SELECTED_KEY);
+    } else {
+      throw new IllegalArgumentException("pre selected data not found");
+    }
+  }
+
   private void setupTransactionCompleteAnimation() {
     TextDelegate textDelegate = new TextDelegate(lottieTransactionComplete);
     textDelegate.setText("bonus_value", getBonus());
@@ -541,5 +661,30 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
         return Typeface.create("sans-serif-medium", Typeface.BOLD);
       }
     });
+  }
+
+  private void showBonus() {
+    bonusView.setVisibility(View.VISIBLE);
+    bonusMsg.setVisibility(View.VISIBLE);
+    bonusValue.setText(getString(R.string.gamification_purchase_header_part_2, getBonus()));
+  }
+
+  private void loadIcon() {
+    compositeDisposable.add(Observable.fromCallable(() -> {
+      try {
+        Context context = getContext();
+        return Picasso.with(context)
+            .load(getIconUrl())
+            .get();
+      } catch (IOException e) {
+        Log.w(TAG, "setupPaymentMethods: Failed to load icons!");
+        throw new RuntimeException(e);
+      }
+    })
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .doOnNext(preSelectedIcon::setImageBitmap)
+        .subscribe(__ -> {
+        }, Throwable::printStackTrace));
   }
 }
