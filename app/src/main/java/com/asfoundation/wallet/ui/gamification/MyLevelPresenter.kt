@@ -69,7 +69,4 @@ class MyLevelPresenter(private val view: MyLevelView,
   fun stop() {
     disposables.clear()
   }
-
-
-
 }

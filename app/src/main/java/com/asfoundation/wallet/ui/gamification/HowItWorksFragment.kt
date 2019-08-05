@@ -4,12 +4,14 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
+import android.text.SpannedString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.text.HtmlCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.asfoundation.wallet.ui.iab.FiatValue
@@ -63,8 +65,10 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
       val messageTextView = view.findViewById<TextView>(R.id.message)
       val bonusTextView = view.findViewById<TextView>(R.id.bonus)
       levelTextView.text = (level.level + 1).toString()
-      messageTextView.text = getString(R.string.gamification_how_table_a2, level.amount)
-      bonusTextView.text = getString(R.string.gamification_how_table_b2, level.bonus.toString())
+      messageTextView.text =
+          getString(R.string.gamification_how_table_a2, formatLevelInfo(level.amount.toDouble()))
+      bonusTextView.text =
+          getString(R.string.gamification_how_table_b2, formatLevelInfo(level.bonus))
       view.findViewById<ImageView>(R.id.ic_level)
           .setImageResource(levelResourcesMapper.mapDarkIcons(level))
       (fragment_gamification_how_it_works_levels_layout as LinearLayout).addView(view)
@@ -84,18 +88,41 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   }
 
   override fun showNextLevelFooter(userStatus: UserRewardsStatus) {
-    if (userStatus.level > 4) {
-      //nextLevelFooter.text = getString(R.string.gamification_how_max_level_body)
+    if (userStatus.level == 4) {
+      nextLevelFooter.text = getString(R.string.gamification_how_max_level_body)
     } else {
       val nextLevel = (userStatus.level + 2).toString()
       nextLevelFooter.text =
-          getString(R.string.gamification_how_to_next_level_body, userStatus.toNextLevelAmount,
-              nextLevel)
+          formatNextLevelFooter(R.string.gamification_how_to_next_level_body,
+              userStatus.toNextLevelAmount.toString(), nextLevel)
     }
   }
 
-  override fun highlightCurrentLevel(levelTextView: TextView, messageTextView: TextView,
-                                     bonusTextView: TextView) {
+  private fun formatNextLevelFooter(id: Int, nextLevelAmount: String,
+                                    nextLevel: String): CharSequence {
+    return HtmlCompat.fromHtml(String.format(
+        HtmlCompat.toHtml(SpannedString(getText(id)), HtmlCompat.FROM_HTML_MODE_LEGACY),
+        nextLevelAmount, nextLevel), HtmlCompat.FROM_HTML_MODE_LEGACY)
+  }
+
+  private fun formatLevelInfo(value: Double): String {
+    val splitValue = value.toString()
+        .split(".")
+    return if (splitValue[1] != "0") {
+      value.toString()
+    } else {
+      removeDecimalPlaces(value)
+    }
+  }
+
+  private fun removeDecimalPlaces(value: Double): String {
+    val splitValue = value.toString()
+        .split(".")
+    return splitValue[0]
+  }
+
+  private fun highlightCurrentLevel(levelTextView: TextView, messageTextView: TextView,
+                                    bonusTextView: TextView) {
     val currentLevelColour = Color.parseColor("#001727")
     levelTextView.typeface = Typeface.DEFAULT_BOLD
     levelTextView.setTextColor(currentLevelColour)

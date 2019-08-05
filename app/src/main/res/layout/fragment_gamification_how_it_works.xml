@@ -53,10 +53,9 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:gravity="center"
-      android:minLines="2"
       android:paddingStart="40dp"
       android:paddingEnd="40dp"
-      android:text="Bonus received from your purchases"
+      android:text="@string/gamification_how_bonus_received_body"
       app:layout_constraintEnd_toEndOf="@id/vertical_guideline4"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/bonus_earned"
@@ -83,7 +82,7 @@
       android:minLines="2"
       android:paddingStart="40dp"
       android:paddingEnd="40dp"
-      android:text="Spent counting for AppCoins Level"
+      android:text="@string/gamification_how_appc_spent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="@id/vertical_guideline4"
       app:layout_constraintTop_toBottomOf="@id/total_spend"
@@ -223,10 +222,22 @@
       android:layout_marginTop="23dp"
       android:layout_marginEnd="32dp"
       android:gravity="center"
+      android:paddingBottom="20dp"
       android:text="@string/gamification_how_to_next_level_body"
       android:textSize="12sp"
+      app:layout_constraintBottom_toBottomOf="@id/how_it_works_background"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/fragment_gamification_how_it_works_levels_layout"
+      />
+
+  <View
+      android:id="@+id/how_it_works_background"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:background="@color/gamification_how_it_works"
+      android:padding="20dp"
+      app:layout_constraintBottom_toBottomOf="@id/next_level_footer"
+      app:layout_constraintTop_toTopOf="@id/horizontal_guideline1"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>

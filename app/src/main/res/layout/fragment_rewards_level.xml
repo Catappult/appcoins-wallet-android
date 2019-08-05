@@ -6,12 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_fragment"
+    app:layout_constraintVertical_chainStyle="spread"
     >
 
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/gamification_current_level_animation"
       android:layout_width="wrap_content"
       android:layout_height="137dp"
+      android:layout_marginTop="50dp"
       android:visibility="invisible"
       app:layout_constraintBottom_toTopOf="@+id/level_title"
       app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +30,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:visibility="gone"
-      app:constraint_referenced_ids="current_level_card,current_level,rewards_progress_bar,earned_value,earned_label"
+      app:constraint_referenced_ids="current_level_card,current_level,rewards_progress_bar"
       />
 
   <View
@@ -38,13 +40,12 @@
       android:layout_marginStart="16dp"
       android:layout_marginTop="16dp"
       android:layout_marginEnd="16dp"
+      android:layout_marginBottom="60dp"
       android:background="@drawable/background_card"
       android:elevation="2dp"
-      app:layout_constraintBottom_toTopOf="@+id/details_button"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/level_description"
-      app:layout_constraintVertical_chainStyle="packed"
       />
 
   <TextView
@@ -57,10 +58,10 @@
       android:layout_marginEnd="16dp"
       android:layout_marginBottom="13dp"
       android:elevation="2dp"
-      android:text="Level 1"
       android:textSize="20sp"
       app:layout_constraintStart_toStartOf="@id/current_level_card"
       app:layout_constraintTop_toTopOf="@id/current_level_card"
+      tools:text="Level 1"
       />
 
   <include
@@ -72,42 +73,9 @@
       android:layout_marginTop="16dp"
       android:layout_marginEnd="20dp"
       android:layout_marginBottom="25dp"
-      app:layout_constraintBottom_toTopOf="@+id/earned_value"
       app:layout_constraintStart_toStartOf="@id/current_level_card"
       app:layout_constraintTop_toBottomOf="@id/current_level"
       app:layout_constraintVertical_chainStyle="packed"
-      />
-
-  <TextView
-      android:id="@+id/earned_value"
-      style="@style/GamificationToNextLevelTextStyle"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="13dp"
-      android:layout_marginEnd="16dp"
-      android:layout_marginBottom="13dp"
-      android:elevation="2dp"
-      android:padding="4dp"
-      android:textSize="12sp"
-      app:layout_constraintBottom_toBottomOf="@id/current_level_card"
-      app:layout_constraintEnd_toEndOf="@id/current_level_card"
-      app:layout_constraintHorizontal_chainStyle="packed"
-      app:layout_constraintVertical_chainStyle="packed"
-      />
-
-  <TextView
-      android:id="@+id/earned_label"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="4dp"
-      android:elevation="2dp"
-      android:text="@string/gamification_level_next_lvl"
-      android:textColor="#828282"
-      android:textSize="10sp"
-      app:layout_constraintBottom_toBottomOf="@id/earned_value"
-      app:layout_constraintEnd_toStartOf="@id/earned_value"
-      app:layout_constraintHorizontal_chainStyle="packed"
-      app:layout_constraintTop_toTopOf="@id/earned_value"
       />
 
   <TextView
@@ -115,7 +83,6 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="16dp"
-      android:layout_marginTop="12dp"
       android:layout_marginEnd="16dp"
       android:fontFamily="sans-serif-medium"
       android:gravity="center"
@@ -129,6 +96,7 @@
       app:layout_constraintVertical_chainStyle="packed"
       tools:text="Congrats, you are a Moon!"
       />
+
   <TextView
       android:id="@+id/level_description"
       android:layout_width="wrap_content"

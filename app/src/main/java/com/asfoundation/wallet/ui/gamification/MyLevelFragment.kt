@@ -21,7 +21,6 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_rewards_level.*
 import kotlinx.android.synthetic.main.level_component.view.*
 import kotlinx.android.synthetic.main.rewards_progress_bar.*
-import java.math.BigDecimal
 import javax.inject.Inject
 
 class MyLevelFragment : DaggerFragment(), MyLevelView {
@@ -85,15 +84,6 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
 
     setLevelResources(userStatus.level)
 
-    if (userStatus.toNextLevelAmount > BigDecimal.ZERO) {
-      earned_label.visibility = View.VISIBLE
-      earned_value.text =
-          getString(R.string.gamification_level_next_lvl_value, userStatus.toNextLevelAmount)
-      earned_value.visibility = View.VISIBLE
-    } else {
-      earned_label.visibility = View.INVISIBLE
-      earned_value.visibility = View.INVISIBLE
-    }
     animateProgress(userStatus.lastShownLevel, userStatus.level)
 
     if (userStatus.level > userStatus.lastShownLevel) {
@@ -101,9 +91,9 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     }
 
     for (value in userStatus.bonus) {
-      setLevelBonus(userStatus.bonus.indexOf(value), value.toString())
+      val level = userStatus.bonus.indexOf(value)
+      setLevelBonus(level, formatLevelInfo(value), level == userStatus.lastShownLevel)
     }
-
   }
 
   override fun getButtonClicks(): Observable<Any> {
@@ -115,7 +105,6 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   }
 
   override fun showHowItWorksButton() {
-    details_button.visibility = View.VISIBLE
     gamificationView.showHowItWorksButton()
   }
 
@@ -257,7 +246,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   }
 
   private fun animateLevelToLock(levelIcon: View?, levelText: TextView?) {
-    var icon: ImageView = levelIcon?.findViewById(R.id.level_active_icon) as ImageView
+    val icon: ImageView = levelIcon?.findViewById(R.id.level_active_icon) as ImageView
     startShrinkAnimation(icon)
     icon.visibility = View.INVISIBLE
     levelText?.isEnabled = false
@@ -306,16 +295,21 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     level_description.text = getString(levelResourcesMapper.mapSubtitle(level))
     level_description.visibility = View.VISIBLE
     current_level.text =
-        getString(R.string.gamification_level_on_graphic, Integer.toString(level + 1))
+        getString(R.string.gamification_level_on_graphic, (level + 1).toString())
   }
 
-  private fun setLevelBonus(level: Int, text: String) {
+  private fun setLevelBonus(level: Int, text: String, isCurrentLevel: Boolean) {
+    val bonusLabel: Int = if (isCurrentLevel) {
+      R.string.gamification_level_bonus
+    } else {
+      R.string.gamification_how_table_b2
+    }
     when (level) {
-      0 -> level_1_text.text = getString(R.string.gamification_level_bonus, text)
-      1 -> level_2_text.text = getString(R.string.gamification_level_bonus, text)
-      2 -> level_3_text.text = getString(R.string.gamification_level_bonus, text)
-      3 -> level_4_text.text = getString(R.string.gamification_level_bonus, text)
-      4 -> level_5_text.text = getString(R.string.gamification_level_bonus, text)
+      0 -> level_1_text.text = getString(bonusLabel, text)
+      1 -> level_2_text.text = getString(bonusLabel, text)
+      2 -> level_3_text.text = getString(bonusLabel, text)
+      3 -> level_4_text.text = getString(bonusLabel, text)
+      4 -> level_5_text.text = getString(bonusLabel, text)
     }
   }
 
@@ -375,17 +369,19 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     gamification_current_level_animation.playAnimation()
   }
 
-  private fun fadeOutAnimation(view: View, listener: AnimationListener?) {
-    val animation = AnimationUtils.loadAnimation(activity, R.anim.fade_out_animation)
-    animation.fillAfter = true
-    animation.setAnimationListener(listener)
-    view.startAnimation(animation)
+  private fun formatLevelInfo(value: Double): String {
+    val splitValue = value.toString()
+        .split(".")
+    return if (splitValue[1] != "0") {
+      value.toString()
+    } else {
+      removeDecimalPlaces(value)
+    }
   }
 
-  private fun fadeInAnimation(view: View, listener: AnimationListener?) {
-    val animation = AnimationUtils.loadAnimation(activity, R.anim.fade_in_animation)
-    animation.fillAfter = true
-    animation.setAnimationListener(listener)
-    view.startAnimation(animation)
+  private fun removeDecimalPlaces(value: Double): String {
+    val splitValue = value.toString()
+        .split(".")
+    return splitValue[0]
   }
 }
