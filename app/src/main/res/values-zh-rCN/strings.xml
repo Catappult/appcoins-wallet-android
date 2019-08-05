@@ -307,7 +307,7 @@
   <string name="gamification_purchase_appccredits_body">最快的付款方式！</string>
   <string name="gamification_how_bonus_received_body">奖金已收到</string>
   <string name="gamification_how_appc_spent">达到此等级需花费的金额</string>
-  <string name="gamification_how_to_next_level_body">再花费%1$s个AppCoins可达到%2$s级。</string>
+  <string name="gamification_how_to_next_level_body">Spend <b>%1$s AppCoins</b> more to reach <b>level %2$s</b>.</string>
   <string name="gamification_level_expiration_title">下一级检查：%s</string>
   <string name="gamification_level_expiration_body">你的等级取决于你在过去12个月内的购买活动。</string>
   <string name="gamification_leveled_up_title">你已达到下一级！</string>
