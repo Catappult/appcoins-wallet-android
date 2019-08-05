@@ -307,7 +307,7 @@
   <string name="gamification_purchase_appccredits_body">झटपट पेमेंट प्रकार!</string>
   <string name="gamification_how_bonus_received_body">बोनस मिळाला</string>
   <string name="gamification_how_appc_spent">ह्या पातळीवर पोचण्यासाठी खर्च केलेली रक्कम</string>
-  <string name="gamification_how_to_next_level_body">%1$s अॅपकॉइन्स खर्च करुन %2$s पातळीवर पोचा.</string>
+  <string name="gamification_how_to_next_level_body">Spend <b>%1$s AppCoins</b> more to reach <b>level %2$s</b>.</string>
   <string name="gamification_level_expiration_title">पुढची पातळी तपासा: %s</string>
   <string name="gamification_level_expiration_body">गेल्या १२ महिन्यातील आपल्या खरेदीवर आपली पातळी आधारीत आहे.</string>
   <string name="gamification_leveled_up_title">आपण पुढच्या पातळीवर पोचलात!</string>
