@@ -307,7 +307,7 @@
   <string name="gamification_purchase_appccredits_body">ਭੁਗਤਾਨ ਦੀ ਸੱਭ ਤੋਂ ਤੇਜ਼ ਵਿਧੀ!</string>
   <string name="gamification_how_bonus_received_body">ਬੋਨਸ ਪ੍ਰਾਪਤ ਹੋਇਆ</string>
   <string name="gamification_how_appc_spent">ਇਸ ਪੱਧਰ ਤੱਕ ਪਹੁੰਚਣ ਲਈ ਖਰਚ ਕੀਤੀ ਰਕਮ</string>
-  <string name="gamification_how_to_next_level_body">%2$s ਪੱਧਰ ਤੱਕ ਪਹੁੰਚਣ ਲਈ %1$s ਵੱਧ ਐਪਸਿੱਕੇ ਖਰਚ ਕਰੋ|</string>
+  <string name="gamification_how_to_next_level_body">Spend <b>%1$s AppCoins</b> more to reach <b>level %2$s</b>.</string>
   <string name="gamification_level_expiration_title">ਅਗਲਾ ਪੱਧਰ ਚੈੱਕ: %s</string>
   <string name="gamification_level_expiration_body">ਤੁਹਾਡਾ ਪੱਧਰ ਤੁਹਾਡੀ ਪਿਛਲੇ 12 ਮਹੀਨਿਆਂ ਵਿੱਚ ਕੀਤੀ ਖਰੀਦ ਤੇ ਅਧਾਰਤ ਹੈ|</string>
   <string name="gamification_leveled_up_title">ਤੁਸੀਂ ਅਗਲੇ ਪੱਧਰ ਤਕ ਪਹੁੰਚ ਗਏ ਹੋ!</string>
