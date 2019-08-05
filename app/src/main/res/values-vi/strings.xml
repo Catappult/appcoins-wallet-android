@@ -307,7 +307,7 @@
   <string name="gamification_purchase_appccredits_body">Phương thức thanh toán nhanh nhất!</string>
   <string name="gamification_how_bonus_received_body">Tiền thưởng đã nhận</string>
   <string name="gamification_how_appc_spent">Số tiền cần chi tiêu để đạt đến cấp này</string>
-  <string name="gamification_how_to_next_level_body">Chi tiêu thêm %1$s AppCoins để đạt đến cấp %2$s.</string>
+  <string name="gamification_how_to_next_level_body">Spend <b>%1$s AppCoins</b> more to reach <b>level %2$s</b>.</string>
   <string name="gamification_level_expiration_title">Kiểm tra cấp kế tiếp: %s</string>
   <string name="gamification_level_expiration_body">Cấp của bạn dựa trên hoạt động mua hàng của bạn trong 12 tháng qua.</string>
   <string name="gamification_leveled_up_title">Bạn đã đạt đến cấp kế tiếp!</string>
