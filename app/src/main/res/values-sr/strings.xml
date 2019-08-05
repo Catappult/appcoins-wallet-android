@@ -307,7 +307,7 @@
   <string name="gamification_purchase_appccredits_body">Najbrži način plaćanja!</string>
   <string name="gamification_how_bonus_received_body">bounsa je dobijeno</string>
   <string name="gamification_how_appc_spent">Iznos potrošen za dostizanje ovog nivoa</string>
-  <string name="gamification_how_to_next_level_body">Potrošite %1$s AppCoins da biste dostigli nivo %2$s.</string>
+  <string name="gamification_how_to_next_level_body">Spend <b>%1$s AppCoins</b> more to reach <b>level %2$s</b>.</string>
   <string name="gamification_level_expiration_title">Provera za sledeći nivo: %s</string>
   <string name="gamification_level_expiration_body">Vaš nivo je određen na osnovu vaših kupovina u poslednjih 12 meseci.</string>
   <string name="gamification_leveled_up_title">Dostigli ste sledeći nivo!</string>
