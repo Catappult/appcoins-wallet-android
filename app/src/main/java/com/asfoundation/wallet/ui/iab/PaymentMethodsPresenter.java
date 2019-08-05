@@ -6,7 +6,6 @@ import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
-import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.appcoins.wallet.gamification.repository.ForecastBonus;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
@@ -88,11 +87,12 @@ public class PaymentMethodsPresenter {
     disposables.add(view.getPaymentSelection()
         .flatMapCompletable(selectedPaymentMethod -> {
           if (selectedPaymentMethod.equals(
-              paymentMethodsMapper.map(PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS))) {
-            return Completable.fromAction(view::hideBonus)
+              paymentMethodsMapper.map(PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC))) {
+            return Completable.fromAction(view::showNext)
                 .subscribeOn(viewScheduler);
           } else {
-            return Completable.fromAction(view::showBonus);
+            return Completable.fromAction(view::showBuy)
+                .subscribeOn(viewScheduler);
           }
         })
         .subscribe());
@@ -129,6 +129,9 @@ public class PaymentMethodsPresenter {
               break;
             case APPC_CREDITS:
               view.showCredits();
+              break;
+            case MERGED_APPC:
+              view.showMergedAppcoins();
               break;
             case SHARE_LINK:
               view.showShareLink(selectedPaymentMethod);
@@ -226,15 +229,13 @@ public class PaymentMethodsPresenter {
         .flatMapCompletable(fiatValue -> getPaymentMethods(fiatValue).observeOn(viewScheduler)
             .flatMapCompletable(paymentMethods -> Completable.fromAction(
                 () -> view.showPaymentMethods(paymentMethods, fiatValue,
-                    TransactionData.TransactionType.DONATION.name()
-                        .equalsIgnoreCase(transaction.getType()),
                     mapCurrencyCodeToSymbol(fiatValue.getCurrency())))))
         .subscribeOn(networkThread)
         .subscribe(() -> {
         }, this::showError));
   }
 
-  public String mapCurrencyCodeToSymbol(String currencyCode) {
+  private String mapCurrencyCodeToSymbol(String currencyCode) {
     return currencyCode.equalsIgnoreCase("APPC") ? currencyCode : Currency.getInstance(currencyCode)
         .getCurrencyCode();
   }
@@ -287,7 +288,7 @@ public class PaymentMethodsPresenter {
     view.finish(billingMessagesMapper.mapFinishedPurchase(purchase, itemAlreadyOwned));
   }
 
-  public void sendPurchaseDetailsEvent() {
+  void sendPurchaseDetailsEvent() {
     analytics.sendPurchaseDetailsEvent(appPackage, transaction.getSkuId(), transaction.amount()
         .toString(), transaction.getType());
   }
@@ -299,7 +300,8 @@ public class PaymentMethodsPresenter {
   private Single<List<PaymentMethod>> getPaymentMethods(FiatValue fiatValue) {
     if (isBds) {
       return inAppPurchaseInteractor.getPaymentMethods(transaction, fiatValue.getAmount()
-          .toString(), fiatValue.getCurrency());
+          .toString(), fiatValue.getCurrency())
+          .map(inAppPurchaseInteractor::mergeAppcoins);
     } else {
       return Single.just(Collections.singletonList(PaymentMethod.APPC));
     }

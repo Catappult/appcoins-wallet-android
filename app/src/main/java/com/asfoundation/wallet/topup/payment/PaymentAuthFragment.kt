@@ -248,7 +248,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
   override fun onAttach(context: Context) {
     super.onAttach(context)
     if (context !is TopUpActivityView) {
-      throw IllegalStateException("Regular buy fragment must be attached to IAB activity")
+      throw IllegalStateException("Payment Auth fragment must be attached to IAB activity")
     }
     topUpView = context
     navigator = PaymentFragmentNavigator((activity as UriNavigator?)!!, topUpView!!)
@@ -275,6 +275,11 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     credit_card_info_container.visibility = View.INVISIBLE
     button.isEnabled = false
     change_card_button.visibility = View.INVISIBLE
+  }
+
+  override fun showFinishingLoading() {
+    topUpView?.lockOrientation()
+    showLoading()
   }
 
   override fun hideLoading() {
@@ -306,6 +311,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
   override fun showNetworkError() {
     if (!networkErrorDialog.isShowing) {
       networkErrorDialog.show()
+      topUpView?.unlockRotation()
     }
   }
 
@@ -365,6 +371,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
   override fun showGenericError() {
     if (!genericErrorDialog.isShowing) {
       genericErrorDialog.show()
+      topUpView?.unlockRotation()
     }
   }
 

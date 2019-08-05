@@ -65,6 +65,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private static final String TAG = PaymentMethodsFragment.class.getSimpleName();
   private static final String TRANSACTION = "transaction";
   private static final String ITEM_ALREADY_OWNED = "item_already_owned";
+  private static final String PRE_SELECTED_METHOD = "pre_selected_method";
+  private static final String IS_DONATION = "is_donation";
 
   private final CompositeDisposable compositeDisposable = new CompositeDisposable();
   private final Map<String, Bitmap> loadedBitmaps = new HashMap<>();
@@ -105,14 +107,17 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private View bonusView;
   private View bonusMsg;
   private TextView bonusValue;
-  private boolean showBonus;
-  private TextView noBonusMsg;
   private boolean itemAlreadyOwnedError;
   private PublishSubject<Boolean> onBackPressSubject;
   private int iconSize;
+  private boolean appcEnabled;
+  private boolean creditsEnabled;
+  private SelectedPaymentMethod preSelectedMethod;
+  private boolean isDonation;
 
   public static Fragment newInstance(TransactionBuilder transaction, String productName,
-      boolean isBds, String developerPayload, String uri) {
+      boolean isBds, boolean isDonation, String developerPayload, String uri,
+      SelectedPaymentMethod preSelectedMethod) {
     Bundle bundle = new Bundle();
     bundle.putParcelable(TRANSACTION, transaction);
     bundle.putSerializable(TRANSACTION_AMOUNT, transaction.amount());
@@ -121,6 +126,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     bundle.putString(DEVELOPER_PAYLOAD, developerPayload);
     bundle.putString(URI, uri);
     bundle.putBoolean(IS_BDS, isBds);
+    bundle.putBoolean(IS_DONATION, isDonation);
+    bundle.putSerializable(PRE_SELECTED_METHOD, preSelectedMethod);
     Fragment fragment = new PaymentMethodsFragment();
     fragment.setArguments(bundle);
     return fragment;
@@ -139,11 +146,14 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
     setupSubject = PublishSubject.create();
     isBds = getArguments().getBoolean(IS_BDS);
+    isDonation = getArguments().getBoolean(IS_DONATION, false);
     transaction = getArguments().getParcelable(TRANSACTION);
     transactionValue =
         ((BigDecimal) getArguments().getSerializable(TRANSACTION_AMOUNT)).doubleValue();
     productName = getArguments().getString(PRODUCT_NAME);
     itemAlreadyOwnedError = getArguments().getBoolean(ITEM_ALREADY_OWNED, false);
+    preSelectedMethod =
+        ((SelectedPaymentMethod) getArguments().getSerializable(PRE_SELECTED_METHOD));
     onBackPressSubject = PublishSubject.create();
     String appPackage = getArguments().getString(APP_PACKAGE);
     String developerPayload = getArguments().getString(DEVELOPER_PAYLOAD);
@@ -186,7 +196,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
     bonusView = view.findViewById(R.id.bonus_layout);
     bonusMsg = view.findViewById(R.id.bonus_msg);
-    noBonusMsg = view.findViewById(R.id.no_bonus_msg);
 
     bonusValue = view.findViewById(R.id.bonus_value);
     buyButton.setEnabled(false);
@@ -224,7 +233,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     appSkuDescriptionTv = null;
     walletAddressTv = null;
     bonusView = null;
-    noBonusMsg = null;
     super.onDestroyView();
   }
 
@@ -273,7 +281,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override
   public void showPaymentMethods(@NotNull List<PaymentMethod> paymentMethods, FiatValue fiatValue,
-      boolean isDonation, String currency) {
+      String currency) {
     this.fiatValue = fiatValue;
     Formatter formatter = new Formatter();
     String valueText = formatter.format(Locale.getDefault(), "%(,.2f", transaction.amount())
@@ -282,17 +290,15 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     String priceText = decimalFormat.format(fiatValue.getAmount()) + ' ' + currency;
     appcPriceTv.setText(valueText);
     fiatPriceTv.setText(priceText);
-    int buyButtonText = isDonation ? R.string.action_donate : R.string.action_buy;
-    buyButton.setText(getResources().getString(buyButtonText));
-
+    setBuyButtonText();
     if (isDonation) {
       appSkuDescriptionTv.setText(getResources().getString(R.string.item_donation));
       appNameTv.setText(getResources().getString(R.string.item_donation));
     } else if (productName != null) {
       appSkuDescriptionTv.setText(productName);
     }
-    setupPaymentMethods(paymentMethods,
-        paymentMethodsMapper.map(SelectedPaymentMethod.CREDIT_CARD));
+
+    setupPaymentMethods(paymentMethods, paymentMethodsMapper.map(preSelectedMethod));
 
     presenter.sendPurchaseDetailsEvent();
 
@@ -416,17 +422,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   }
 
   @Override public void hideBonus() {
-    noBonusMsg.setVisibility(View.VISIBLE);
     bonusView.setVisibility(View.INVISIBLE);
     bonusMsg.setVisibility(View.INVISIBLE);
-  }
-
-  @Override public void showBonus() {
-    if (showBonus) {
-      noBonusMsg.setVisibility(View.INVISIBLE);
-      bonusView.setVisibility(View.VISIBLE);
-      bonusMsg.setVisibility(View.VISIBLE);
-    }
   }
 
   @NotNull @Override public Observable<String> getPaymentSelection() {
@@ -441,9 +438,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     iabView.showLocalPayment(transaction.getDomain(), transaction.getSkuId(),
         isOneStep ? transaction.getOriginalOneStepValue() : null,
         isOneStep ? transaction.getOriginalOneStepCurrency() : null, bonusMessageValue,
-        selectedPaymentMethod, transaction.toAddress(), transaction.getType(),
-        transaction.amount(), transaction.getCallbackUrl(),
-        transaction.getOrderReference(), transaction.getPayload());
+        selectedPaymentMethod, transaction.toAddress(), transaction.getType(), transaction.amount(),
+        transaction.getCallbackUrl(), transaction.getOrderReference(), transaction.getPayload());
   }
 
   @Override public void setBonus(@NotNull BigDecimal bonus, @NotNull String currency) {
@@ -454,12 +450,35 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     }
     scaledBonus = scaledBonus.max(new BigDecimal("0.01"));
     bonusMessageValue = currency + scaledBonus.toPlainString();
-    showBonus = true;
     bonusValue.setText(getString(R.string.gamification_purchase_header_part_2, bonusMessageValue));
+    showBonus();
   }
 
   @Override public Observable<Boolean> onBackPressed() {
     return onBackPressSubject;
+  }
+
+  @Override public void showNext() {
+    buyButton.setText(R.string.action_next);
+  }
+
+  @Override public void showBuy() {
+    setBuyButtonText();
+  }
+
+  @Override public void showMergedAppcoins() {
+    iabView.showMergedAppcoins(fiatValue.getAmount(), fiatValue.getCurrency(), bonusMessageValue,
+        productName, appcEnabled, creditsEnabled, isBds, isDonation);
+  }
+
+  private void setBuyButtonText() {
+    int buyButtonText = isDonation ? R.string.action_donate : R.string.action_buy;
+    buyButton.setText(getResources().getString(buyButtonText));
+  }
+
+  private void showBonus() {
+    bonusView.setVisibility(View.VISIBLE);
+    bonusMsg.setVisibility(View.VISIBLE);
   }
 
   private void loadIcons(PaymentMethod paymentMethod, RadioButton radioButton, boolean showNew) {
@@ -499,6 +518,10 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         if (paymentMethod.getId()
             .equals(preSelectedMethod)) {
           radioButton.setChecked(true);
+        }
+        if (paymentMethod instanceof AppCoinsPaymentMethod) {
+          appcEnabled = ((AppCoinsPaymentMethod) paymentMethod).isAppcEnabled();
+          creditsEnabled = ((AppCoinsPaymentMethod) paymentMethod).isCreditsEnabled();
         }
         paymentMethodList.add(paymentMethod.getId());
         radioGroup.addView(radioButton);

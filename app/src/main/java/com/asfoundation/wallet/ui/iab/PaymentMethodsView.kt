@@ -6,7 +6,7 @@ import java.math.BigDecimal
 
 interface PaymentMethodsView {
   fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue,
-                         isDonation: Boolean, currency: String)
+                         currency: String)
 
   fun showError(message: Int)
   fun showItemAlreadyOwnedError()
@@ -27,13 +27,15 @@ interface PaymentMethodsView {
   fun showCredits()
   fun showShareLink(selectedPaymentMethod: String)
   fun hideBonus()
-  fun showBonus()
   fun getPaymentSelection(): Observable<String>
   fun showLocalPayment(selectedPaymentMethod: String)
   fun setBonus(bonus: BigDecimal, currency: String)
   fun onBackPressed(): Observable<Boolean>
+  fun showNext()
+  fun showBuy()
+  fun showMergedAppcoins()
 
   enum class SelectedPaymentMethod {
-    PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, SHARE_LINK, LOCAL_PAYMENTS, ERROR
+    PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, ERROR
   }
 }

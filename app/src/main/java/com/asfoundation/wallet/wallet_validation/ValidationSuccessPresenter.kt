@@ -7,7 +7,8 @@ import io.reactivex.disposables.CompositeDisposable
 class ValidationSuccessPresenter(
     private val view: ValidationSuccessView,
     private val service: ProofOfAttentionService,
-    private val disposables: CompositeDisposable
+    private val disposables: CompositeDisposable,
+    private val activity: WalletValidationView?
 ) {
 
   fun present() {
@@ -20,7 +21,10 @@ class ValidationSuccessPresenter(
         view.handleAnimationEnd()
             .filter { animationCompleted -> animationCompleted }
             .flatMapCompletable { Completable.fromAction { service.setWalletValidated() } }
-            .subscribe()
+            .subscribe({}, {
+              it.printStackTrace()
+              activity?.closeSuccess()
+            })
     )
   }
 

@@ -213,7 +213,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   @Override public void onAttach(Context context) {
     super.onAttach(context);
     if (!(context instanceof IabView)) {
-      throw new IllegalStateException("Regular buy fragment must be attached to IAB activity");
+      throw new IllegalStateException("On chain buy fragment must be attached to IAB activity");
     }
     iabView = ((IabView) context);
   }

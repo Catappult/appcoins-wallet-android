@@ -11,6 +11,8 @@ interface PaymentAuthView {
 
   fun showLoading()
 
+  fun showFinishingLoading()
+
   fun hideLoading()
 
   fun errorDismisses(): Observable<Any>

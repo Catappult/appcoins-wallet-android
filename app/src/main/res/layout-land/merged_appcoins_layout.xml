@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -23,51 +22,8 @@
         android:layout_height="80dp"
         android:layout_centerInParent="true"
         android:indeterminateDrawable="@drawable/gradient_progress"
-        android:visibility="visible"
+        android:visibility="invisible"
         />
-
-    <LinearLayout
-        android:id="@+id/processing_loading"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone"
-        >
-      <TextView
-          android:id="@+id/loading_title"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:layout_marginTop="16dp"
-          android:fontFamily="sans-serif"
-          android:gravity="center"
-          android:lineSpacingExtra="8sp"
-          android:text="@string/activity_aib_loading_title"
-          android:textColor="@color/black_87_alpha"
-          android:textSize="24sp"
-          />
-      <TextView
-          android:id="@+id/loading_message"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:layout_marginTop="8dp"
-          android:gravity="center"
-          android:text="@string/activity_aib_loading_message"
-          android:textColor="@color/iab_activity_gray"
-          />
-      <ProgressBar
-          android:id="@+id/progressBar"
-          android:layout_width="80dp"
-          android:layout_height="80dp"
-          android:layout_gravity="center"
-          android:layout_marginTop="44dp"
-          android:layout_marginBottom="38dp"
-          android:indeterminateDrawable="@drawable/gradient_progress"
-          />
-    </LinearLayout>
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/payment_methods"
         android:layout_width="match_parent"
@@ -109,7 +65,6 @@
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/top_separator"
           />
-
       <include
           android:id="@+id/bonus_layout"
           layout="@layout/view_purchase_bonus"
@@ -156,41 +111,50 @@
           app:layout_constraintStart_toEndOf="@id/mid_guideline"
           app:layout_constraintTop_toBottomOf="@id/top_separator"
           />
-
-      <androidx.core.widget.NestedScrollView
-          android:id="@+id/payment_methods_radio_list"
+      <LinearLayout
+          android:id="@+id/radio_group"
           android:layout_width="0dp"
-          android:layout_height="0dp"
-          android:layout_centerInParent="true"
-          app:layout_constraintBottom_toTopOf="@id/bottom_separator"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="@id/mid_guideline"
+          app:layout_constraintStart_toEndOf="@id/mid_guideline"
           app:layout_constraintTop_toBottomOf="@id/top_separator"
+          app:layout_constraintTop_toTopOf="@id/top_separator"
           >
-        <RadioGroup
-            android:id="@+id/payment_methods_radio_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:orientation="vertical"
-            >
-
-        </RadioGroup>
-
-      </androidx.core.widget.NestedScrollView>
-
+        <include
+            android:id="@+id/appcoins_radio"
+            layout="@layout/appcoins_radio_button"
+            android:layout_width="match_parent"
+            android:layout_height="102dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="24dp"
+            />
+        <View
+            android:id="@+id/radio_middle_separator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/layout_separator_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/payment_methods_radio_list"
+            />
+        <include
+            android:id="@+id/credits_radio"
+            layout="@layout/credits_radio_button"
+            android:layout_width="match_parent"
+            android:layout_height="108dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="24dp"
+            />
+      </LinearLayout>
       <View
           android:id="@+id/bottom_separator"
           android:layout_width="match_parent"
           android:layout_height="1dp"
-          android:layout_marginTop="224dp"
           android:background="@color/layout_separator_color"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/top_separator"
+          app:layout_constraintTop_toBottomOf="@id/radio_group"
           />
 
       <androidx.constraintlayout.widget.Guideline
@@ -206,48 +170,16 @@
           layout="@layout/dialog_buy_buttons_payment_methods"
           android:layout_width="0dp"
           android:layout_height="48dp"
+          android:layout_marginTop="@dimen/normal_margin"
           android:layout_marginEnd="@dimen/normal_margin"
+          android:layout_marginBottom="@dimen/normal_margin"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/bottom_mid_guideline"
           app:layout_constraintTop_toBottomOf="@id/bottom_separator"
 
           />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <RelativeLayout
-        android:id="@+id/address_footer"
-        android:layout_width="match_parent"
-        android:layout_height="24dp"
-        android:layout_below="@+id/payment_methods"
-        android:visibility="invisible"
-        >
-      <ImageView
-          android:id="@+id/logo_wallet"
-          android:layout_width="wrap_content"
-          android:layout_height="16dp"
-          android:layout_centerVertical="true"
-          android:layout_marginStart="16dp"
-          android:src="@drawable/logo_appc_wallet"
-          />
-
-      <TextView
-          android:id="@+id/wallet_address_footer"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_alignTop="@id/logo_wallet"
-          android:layout_alignBottom="@id/logo_wallet"
-          android:layout_marginStart="16dp"
-          android:layout_marginEnd="16dp"
-          android:layout_toEndOf="@id/logo_wallet"
-          android:ellipsize="end"
-          android:gravity="end|center_vertical"
-          android:maxLines="1"
-          android:textColor="@color/grey_8a_alpha"
-          android:textSize="12sp"
-          tools:text="0x1a78a81235dls019sk291id"
-          />
-    </RelativeLayout>
   </RelativeLayout>
 
   <include

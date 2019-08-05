@@ -28,6 +28,8 @@ import java.util.concurrent.TimeUnit;
 
 public class InAppPurchaseInteractor {
 
+  private static final String APPC_ID = "appcoins";
+  private static final String CREDITS_ID = "appcoins_credits";
   private final AsfInAppPurchaseInteractor asfInAppPurchaseInteractor;
   private final BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor;
   private final ExternalBillingSerializer billingSerializer;
@@ -225,6 +227,55 @@ public class InAppPurchaseInteractor {
         .map(this::swapDisabledPositions);
   }
 
+  List<PaymentMethod> mergeAppcoins(List<PaymentMethod> paymentMethods) {
+    PaymentMethod appcMethod = getAppcMethod(paymentMethods);
+    PaymentMethod creditsMethod = getCreditsMethod(paymentMethods);
+    if (appcMethod != null && creditsMethod != null) {
+      return buildMergedList(paymentMethods, appcMethod, creditsMethod);
+    }
+    return paymentMethods;
+  }
+
+  private List<PaymentMethod> buildMergedList(List<PaymentMethod> paymentMethods,
+      PaymentMethod appcMethod, PaymentMethod creditsMethod) {
+    List<PaymentMethod> mergedList = new ArrayList<>();
+    for (PaymentMethod paymentMethod : paymentMethods) {
+      if (paymentMethod.getId()
+          .equals(APPC_ID)) {
+        String mergedId = "merged_appcoins";
+        String mergedLabel = appcMethod.getLabel() + " / " + creditsMethod.getLabel();
+        boolean isMergedEnabled = appcMethod.isEnabled() || creditsMethod.isEnabled();
+        mergedList.add(new AppCoinsPaymentMethod(mergedId, mergedLabel, appcMethod.getIconUrl(),
+            isMergedEnabled, appcMethod.isEnabled(), creditsMethod.isEnabled()));
+      } else if (!paymentMethod.getId()
+          .equals(CREDITS_ID)) {
+        //Don't add the credits method to this list
+        mergedList.add(paymentMethod);
+      }
+    }
+    return mergedList;
+  }
+
+  private PaymentMethod getCreditsMethod(List<PaymentMethod> paymentMethods) {
+    for (PaymentMethod paymentMethod : paymentMethods) {
+      if (paymentMethod.getId()
+          .equals(CREDITS_ID)) {
+        return paymentMethod;
+      }
+    }
+    return null;
+  }
+
+  private PaymentMethod getAppcMethod(List<PaymentMethod> paymentMethods) {
+    for (PaymentMethod paymentMethod : paymentMethods) {
+      if (paymentMethod.getId()
+          .equals(APPC_ID)) {
+        return paymentMethod;
+      }
+    }
+    return null;
+  }
+
   private List<PaymentMethod> swapDisabledPositions(List<PaymentMethod> paymentMethods) {
     boolean swapped = false;
     if (paymentMethods.size() > 1) {
@@ -256,9 +307,9 @@ public class InAppPurchaseInteractor {
     while (iterator.hasNext()) {
       PaymentMethodEntity paymentMethod = iterator.next();
       String id = paymentMethod.getId();
-      if (id.equals("appcoins") && !filteredGateways.contains(Gateway.Name.appcoins)) {
+      if (id.equals(APPC_ID) && !filteredGateways.contains(Gateway.Name.appcoins)) {
         iterator.remove();
-      } else if (id.equals("appcoins_credits") && !filteredGateways.contains(
+      } else if (id.equals(CREDITS_ID) && !filteredGateways.contains(
           Gateway.Name.appcoins_credits)) {
         iterator.remove();
       } else if (paymentMethod.getGateway()

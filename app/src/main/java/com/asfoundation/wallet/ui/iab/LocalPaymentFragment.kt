@@ -49,7 +49,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
                     currency: String?, bonus: String?,
                     selectedPaymentMethod: String,
                     developerAddress: String, type: String,
-                    amount: BigDecimal,  callbackUrl: String?,
+                    amount: BigDecimal, callbackUrl: String?,
                     orderReference: String?,
                     payload: String?): LocalPaymentFragment {
       val fragment = LocalPaymentFragment()
@@ -195,7 +195,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
   override fun onAttach(context: Context) {
     super.onAttach(context)
     if (context !is IabView) {
-      throw IllegalStateException("Regular buy fragment must be attached to IAB activity")
+      throw IllegalStateException("Local payment fragment must be attached to IAB activity")
     }
     iabView = context
   }
