@@ -307,7 +307,7 @@
   <string name="gamification_purchase_appccredits_body">Kaedah pembayaran terpantas!</string>
   <string name="gamification_how_bonus_received_body">Bonus diterima</string>
   <string name="gamification_how_appc_spent">Jumlah dibelanjakan untuk capai tahap ini</string>
-  <string name="gamification_how_to_next_level_body">Belanja sebanyak %1$s AppCoins untuk capai tahap %2$s.</string>
+  <string name="gamification_how_to_next_level_body">Spend <b>%1$s AppCoins</b> more to reach <b>level %2$s</b>.</string>
   <string name="gamification_level_expiration_title">Semakan tahap seterusnya: %s</string>
   <string name="gamification_level_expiration_body">Tahap anda adalah berdasarkan aktiviti pembelian anda sepanjang 12 bulan lepas.</string>
   <string name="gamification_leveled_up_title">Anda telah capai tahap seterusnya!</string>
