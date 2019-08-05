@@ -307,7 +307,7 @@
   <string name="gamification_purchase_appccredits_body">Cea mai rapidă metodă de plată!</string>
   <string name="gamification_how_bonus_received_body">Bonus primit</string>
   <string name="gamification_how_appc_spent">Sumă cheltuită pentru a atinge acest nivel</string>
-  <string name="gamification_how_to_next_level_body">Cheltuiește încă %1$s AppCoins ca să atingi nivelul %2$s.</string>
+  <string name="gamification_how_to_next_level_body">Spend <b>%1$s AppCoins</b> more to reach <b>level %2$s</b>.</string>
   <string name="gamification_level_expiration_title">Următoarea verificare a nivelului: %s</string>
   <string name="gamification_level_expiration_body">Nivelul tău se bazează pe activitatea ta de cumpărare din ultimele 12 luni.</string>
   <string name="gamification_leveled_up_title">Ai atins următorul nivel!</string>
