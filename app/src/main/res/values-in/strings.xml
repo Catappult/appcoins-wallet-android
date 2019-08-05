@@ -307,7 +307,7 @@
   <string name="gamification_purchase_appccredits_body">Metode pembayaran tercepat!</string>
   <string name="gamification_how_bonus_received_body">Bonus diterima</string>
   <string name="gamification_how_appc_spent">Jumlah yang dihabiskan untuk mencapai tingkat ini</string>
-  <string name="gamification_how_to_next_level_body">Habiskan %1$s AppCoin lagi untuk mencapai tingkat %2$s.</string>
+  <string name="gamification_how_to_next_level_body">Spend <b>%1$s AppCoins</b> more to reach <b>level %2$s</b>.</string>
   <string name="gamification_level_expiration_title">Cek tingkat berikutnya: %s</string>
   <string name="gamification_level_expiration_body">Tingkat Anda didasarkan pada aktivitas pembelian selama 12 bulan terakhir.</string>
   <string name="gamification_leveled_up_title">Anda sudah mencapai tingkat berikutnya!</string>
