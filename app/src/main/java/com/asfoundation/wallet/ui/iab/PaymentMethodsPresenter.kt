@@ -63,11 +63,11 @@ class PaymentMethodsPresenter(
     disposables.add(view.getPaymentSelection()
         .flatMapCompletable { selectedPaymentMethod ->
           if (selectedPaymentMethod == paymentMethodsMapper.map(
-                  PaymentMethodsView.SelectedPaymentMethod.APPC_CREDITS)) {
-            return@flatMapCompletable Completable.fromAction { view.hideBonus() }
+                  PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC)) {
+            return@flatMapCompletable Completable.fromAction { view.showNext() }
                 .subscribeOn(viewScheduler)
           } else {
-            return@flatMapCompletable Completable.fromAction { view.showBonus() }
+            return@flatMapCompletable Completable.fromAction { view.showBuy() }
           }
         }
         .subscribe())
@@ -98,6 +98,7 @@ class PaymentMethodsPresenter(
                 selectedPaymentMethod)
             PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS -> view.showLocalPayment(
                 selectedPaymentMethod)
+            PaymentMethodsView.SelectedPaymentMethod.MERGED_APPC -> view.showMergedAppcoins()
             else -> return@doOnNext
           }
         }
@@ -205,9 +206,9 @@ class PaymentMethodsPresenter(
         showPaymentMethods(fiatValue, paymentMethods,
             PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id)
       } else {
-        when {
-          paymentMethod.id == PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id -> view.showAdyen(
-              fiatValue, PaymentType.CARD, paymentMethod.iconUrl)
+        when (paymentMethod.id) {
+          PaymentMethodsView.PaymentMethodId.CREDIT_CARD.id -> view.showAdyen(fiatValue,
+              PaymentType.CARD, paymentMethod.iconUrl)
           else -> showPreSelectedPaymentMethod(fiatValue, paymentMethod)
         }
       }
@@ -220,9 +221,7 @@ class PaymentMethodsPresenter(
 
   private fun showPaymentMethods(fiatValue: FiatValue, paymentMethods: List<PaymentMethod>,
                                  paymentMethodId: String) {
-    view.showPaymentMethods(paymentMethods, fiatValue,
-        TransactionData.TransactionType.DONATION.name
-            .equals(transaction.type, ignoreCase = true),
+    view.showPaymentMethods(paymentMethods.toMutableList(), fiatValue,
         mapCurrencyCodeToSymbol(fiatValue.currency), paymentMethodId)
   }
 
@@ -258,6 +257,7 @@ class PaymentMethodsPresenter(
               .flatMapCompletable { paymentMethods ->
                 Completable.fromAction {
                   val paymentMethodId = getLastUsedPaymentMethod(paymentMethods)
+                  loadBonusIntoView()
                   showPaymentMethods(fiatValue, paymentMethods, paymentMethodId)
                 }
               }
@@ -315,8 +315,9 @@ class PaymentMethodsPresenter(
 
   private fun getPaymentMethods(fiatValue: FiatValue): Single<List<PaymentMethod>> {
     return if (isBds) {
-      inAppPurchaseInteractor.getPaymentMethods(transaction, fiatValue.amount
-          .toString(), fiatValue.currency)
+      inAppPurchaseInteractor.getPaymentMethods(transaction, fiatValue.amount.toString(),
+          fiatValue.currency)
+          .map { inAppPurchaseInteractor.mergeAppcoins(it) }
     } else {
       Single.just(listOf(PaymentMethod.APPC))
     }
@@ -325,6 +326,21 @@ class PaymentMethodsPresenter(
   private fun getPreSelectedPaymentMethod(paymentMethods: List<PaymentMethod>): PaymentMethod? {
     val preSelectedPreference = inAppPurchaseInteractor.preSelectedPaymentMethod
     for (paymentMethod in paymentMethods) {
+      if (paymentMethod.id == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id) {
+        if (preSelectedPreference == PaymentMethodsView.PaymentMethodId.APPC.id) {
+          val mergedPaymentMethod = paymentMethod as AppCoinsPaymentMethod
+          return PaymentMethod(PaymentMethodsView.PaymentMethodId.APPC.id,
+              mergedPaymentMethod.appcLabel!!, mergedPaymentMethod.iconUrl,
+              mergedPaymentMethod.isAppcEnabled)
+        }
+        if (preSelectedPreference == PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id) {
+          val mergedPaymentMethod = paymentMethod as AppCoinsPaymentMethod
+          return PaymentMethod(PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id,
+              mergedPaymentMethod.creditsLabel!!, paymentMethod.iconUrl,
+              mergedPaymentMethod.isCreditsEnabled)
+        }
+        return paymentMethod
+      }
       if (paymentMethod.id == preSelectedPreference) {
         return paymentMethod
       }
@@ -335,6 +351,11 @@ class PaymentMethodsPresenter(
   private fun getLastUsedPaymentMethod(paymentMethods: List<PaymentMethod>): String {
     val lastUsedPaymentMethod = inAppPurchaseInteractor.lastUsedPaymentMethod
     for (it in paymentMethods) {
+      if (it.id == PaymentMethodsView.PaymentMethodId.MERGED_APPC.id &&
+          (lastUsedPaymentMethod == PaymentMethodsView.PaymentMethodId.APPC.id ||
+              lastUsedPaymentMethod == PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id)) {
+        return PaymentMethodsView.PaymentMethodId.MERGED_APPC.id
+      }
       if (it.id == lastUsedPaymentMethod && it.isEnabled) {
         return it.id
       }

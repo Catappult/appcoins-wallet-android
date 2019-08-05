@@ -6,7 +6,9 @@
     android:clipToPadding="false"
     android:gravity="end"
     android:orientation="horizontal"
+    android:paddingStart="@dimen/big_margin"
     android:paddingTop="@dimen/big_margin"
+    android:paddingEnd="@dimen/big_margin"
     android:paddingBottom="@dimen/big_margin"
     >
   <Button

@@ -7,8 +7,6 @@
     android:layout_gravity="center"
     android:animateLayoutChanges="true"
     android:background="@drawable/background_card"
-    android:clipChildren="false"
-    android:clipToPadding="false"
     android:theme="@style/AppTheme"
     >
   <RelativeLayout
@@ -138,8 +136,6 @@
             layout="@layout/dialog_buy_buttons_payment_methods"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/big_margin"
-            android:layout_marginEnd="@dimen/big_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

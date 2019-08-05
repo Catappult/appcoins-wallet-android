@@ -7,8 +7,6 @@
     android:layout_gravity="center"
     android:animateLayoutChanges="true"
     android:background="@drawable/background_card"
-    android:clipChildren="false"
-    android:clipToPadding="false"
     android:theme="@style/AppTheme"
     >
 
@@ -163,7 +161,6 @@
           layout="@layout/dialog_buy_buttons_payment_methods"
           android:layout_width="0dp"
           android:layout_height="48dp"
-          android:layout_marginEnd="@dimen/normal_margin"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/bottom_mid_guideline"

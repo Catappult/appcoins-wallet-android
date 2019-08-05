@@ -67,9 +67,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private static final String TAG = PaymentMethodsFragment.class.getSimpleName();
   private static final String TRANSACTION = "transaction";
   private static final String ITEM_ALREADY_OWNED = "item_already_owned";
-  private static final String PRE_SELECTED_METHOD = "pre_selected_method";
   private static final String IS_DONATION = "is_donation";
-
 
   private final CompositeDisposable compositeDisposable = new CompositeDisposable();
   private final Map<String, Bitmap> loadedBitmaps = new HashMap<>();
@@ -108,13 +106,11 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private View bonusMsg;
   private View bottomSeparator;
   private TextView bonusValue;
-  private boolean showBonus;
   private boolean itemAlreadyOwnedError;
   private PublishSubject<Boolean> onBackPressSubject;
   private int iconSize;
   private boolean appcEnabled;
   private boolean creditsEnabled;
-  private SelectedPaymentMethod preSelectedMethod;
   private boolean isDonation;
   private Group paymentMethodsGroup;
   private Group preSelectedPaymentMethodGroup;
@@ -127,7 +123,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private TextView preSelectedDescription;
 
   public static Fragment newInstance(TransactionBuilder transaction, String productName,
-      boolean isBds, boolean isDonation, String developerPayload, String uri, SelectedPaymentMethod preSelectedMethod) {
+      boolean isBds, boolean isDonation, String developerPayload, String uri,
+      String transactionData) {
     Bundle bundle = new Bundle();
     bundle.putParcelable(TRANSACTION, transaction);
     bundle.putSerializable(TRANSACTION_AMOUNT, transaction.amount());
@@ -137,7 +134,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     bundle.putString(URI, uri);
     bundle.putBoolean(IS_BDS, isBds);
     bundle.putBoolean(IS_DONATION, isDonation);
-    bundle.putSerializable(PRE_SELECTED_METHOD, preSelectedMethod);
     bundle.putString(TRANSACTION_DATA, transactionData);
     Fragment fragment = new PaymentMethodsFragment();
     fragment.setArguments(bundle);
@@ -164,8 +160,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         ((BigDecimal) getArguments().getSerializable(TRANSACTION_AMOUNT)).doubleValue();
     productName = getArguments().getString(PRODUCT_NAME);
     itemAlreadyOwnedError = getArguments().getBoolean(ITEM_ALREADY_OWNED, false);
-    preSelectedMethod =
-        ((SelectedPaymentMethod) getArguments().getSerializable(PRE_SELECTED_METHOD));
     onBackPressSubject = PublishSubject.create();
     String appPackage = getArguments().getString(APP_PACKAGE);
     String developerPayload = getArguments().getString(DEVELOPER_PAYLOAD);
@@ -309,8 +303,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   }
 
   @Override public void showPaymentMethods(@NotNull List<PaymentMethod> paymentMethods,
-      @NotNull FiatValue fiatValue, boolean isDonation, @NotNull String currency,
-      @NotNull String paymentMethodId) {
+      @NotNull FiatValue fiatValue, @NotNull String currency, @NotNull String paymentMethodId) {
     updateHeaderInfo(fiatValue, isDonation, currency);
     setupPaymentMethods(paymentMethods, paymentMethodId);
 
@@ -630,6 +623,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     if (paymentMethod.getId()
         .equals(PaymentMethodId.APPC_CREDITS.getId())) {
       preSelectedDescription.setVisibility(View.VISIBLE);
+      hideBonus();
     } else {
       preSelectedDescription.setVisibility(View.GONE);
     }

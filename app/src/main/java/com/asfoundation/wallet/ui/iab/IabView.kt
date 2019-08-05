@@ -11,6 +11,7 @@ import java.math.BigDecimal
 interface IabView {
 
   fun disableBack()
+  fun enableBack()
   fun finish(bundle: Bundle)
   fun showError()
   fun close(bundle: Bundle?)
@@ -20,14 +21,18 @@ interface IabView {
                        paymentType: PaymentType, bonus: String?, isPreselected: Boolean,
                        iconUrl: String?)
 
-  fun showAppcoinsCreditsPayment(amount: BigDecimal)
+  fun showAppcoinsCreditsPayment(appcAmount: BigDecimal)
   fun showLocalPayment(domain: String, skuId: String?, originalAmount: String?, currency: String?,
                        bonus: String?, selectedPaymentMethod: String, developerAddress: String,
                        type: String, amount: BigDecimal, callbackUrl: String?,
                        orderReference: String?, payload: String?)
 
-  fun showPaymentMethodsView()
+  fun showPaymentMethodsView(preSelectedMethod: PaymentMethodsView.SelectedPaymentMethod)
   fun showShareLinkPayment(domain: String, skuId: String?, originalAmount: String?,
                            originalCurrency: String?, amount: BigDecimal, type: String,
                            selectedPaymentMethod: String)
+
+  fun showMergedAppcoins(fiatAmount: BigDecimal, currency: String, bonus: String,
+                         productName: String, appcEnabled: Boolean, creditsEnabled: Boolean,
+                         isBds: Boolean, isDonation: Boolean)
 }

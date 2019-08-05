@@ -6,9 +6,8 @@ import io.reactivex.Observable
 import java.math.BigDecimal
 
 interface PaymentMethodsView {
-  fun showPaymentMethods(
-      paymentMethods: List<PaymentMethod>, fiatValue: FiatValue,
-      isDonation: Boolean, currency: String, paymentMethodId: String)
+  fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>, fiatValue: FiatValue,
+                         currency: String, paymentMethodId: String)
 
   fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod, fiatValue: FiatValue,
                                    isDonation: Boolean, currency: String)
@@ -48,6 +47,7 @@ interface PaymentMethodsView {
     PAYPAL("paypal"),
     APPC("appcoins"),
     APPC_CREDITS("appcoins_credits"),
+    MERGED_APPC("merged_appcoins"),
     CREDIT_CARD("credit_card"),
     ASK_FRIEND("ask_friend")
   }

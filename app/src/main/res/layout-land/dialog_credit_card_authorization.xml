@@ -247,8 +247,6 @@
           layout="@layout/dialog_buy_buttons"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginEnd="@dimen/big_margin"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/bottom_mid_guideline"

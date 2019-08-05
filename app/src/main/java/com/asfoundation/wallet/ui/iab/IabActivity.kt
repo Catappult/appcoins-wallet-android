@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
+import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -19,6 +20,7 @@ import io.reactivex.Observable
 import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
+
 
 /**
  * Created by franciscocalado on 20/07/2018.
@@ -83,6 +85,10 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     isBackEnable = false
   }
 
+  override fun enableBack() {
+    isBackEnable = true
+  }
+
   override fun finish(bundle: Bundle) {
     setResult(Activity.RESULT_OK, Intent().putExtras(bundle))
     inAppPurchaseInteractor.savePreSelectedPaymentMethod(
@@ -125,21 +131,19 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .commit()
   }
 
-  override fun showAppcoinsCreditsPayment(amount: BigDecimal) {
+  override fun showAppcoinsCreditsPayment(appcAmount: BigDecimal) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            AppcoinsRewardsBuyFragment.newInstance(amount, transaction, intent.data!!
+            AppcoinsRewardsBuyFragment.newInstance(appcAmount, transaction, intent.data!!
                 .toString(), intent.extras!!
                 .getString(PRODUCT_NAME, ""), isBds))
         .commit()
   }
 
   override fun showLocalPayment(domain: String, skuId: String?, originalAmount: String?,
-                                currency: String?,
-                                bonus: String?, selectedPaymentMethod: String,
-                                developerAddress: String,
-                                type: String, amount: BigDecimal, callbackUrl: String?,
-                                orderReference: String?, payload: String?) {
+                                currency: String?, bonus: String?, selectedPaymentMethod: String,
+                                developerAddress: String, type: String, amount: BigDecimal,
+                                callbackUrl: String?, orderReference: String?, payload: String?) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             LocalPaymentFragment.newInstance(domain, skuId, originalAmount, currency, bonus,
@@ -148,11 +152,14 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .commit()
   }
 
-  override fun showPaymentMethodsView() {
+  override fun showPaymentMethodsView(preSelectedMethod: PaymentMethodsView.SelectedPaymentMethod) {
+    val isDonation = TransactionData.TransactionType.DONATION.name
+        .equals(transaction?.type, ignoreCase = true)
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, PaymentMethodsFragment.newInstance(transaction,
             intent.extras!!
-                .getString(PRODUCT_NAME), isBds, developerPayload, uri, intent.dataString))
+                .getString(PRODUCT_NAME), isBds, isDonation, developerPayload, uri,
+            intent.dataString))
         .commit()
   }
 
@@ -163,6 +170,18 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         .replace(R.id.fragment_container,
             SharePaymentLinkFragment.newInstance(domain, skuId, originalAmount, originalCurrency,
                 amount, type, selectedPaymentMethod))
+        .commit()
+  }
+
+  override fun showMergedAppcoins(fiatAmount: BigDecimal, currency: String, bonus: String,
+                                  productName: String, appcEnabled: Boolean,
+                                  creditsEnabled: Boolean, isBds: Boolean,
+                                  isDonation: Boolean) {
+    supportFragmentManager.beginTransaction()
+        .replace(R.id.fragment_container,
+            MergedAppcoinsFragment.newInstance(fiatAmount, currency, bonus, transaction!!.domain,
+                productName, transaction!!.amount(), appcEnabled, creditsEnabled, isBds,
+                isDonation))
         .commit()
   }
 
