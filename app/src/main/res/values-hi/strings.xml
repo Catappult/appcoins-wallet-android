@@ -307,7 +307,7 @@
   <string name="gamification_purchase_appccredits_body">सबसे तेज भुगतान विधि!</string>
   <string name="gamification_how_bonus_received_body">बोनस प्राप्त हुआ</string>
   <string name="gamification_how_appc_spent">यह लेवल पाने के लिए खर्च राशि</string>
-  <string name="gamification_how_to_next_level_body">लेवल %2$s तक पहुँचने के लिए %1$s AppCoins और खर्च करें।</string>
+  <string name="gamification_how_to_next_level_body">Spend <b>%1$s AppCoins</b> more to reach <b>level %2$s</b>.</string>
   <string name="gamification_level_expiration_title">अगला लेवल देखें: %s</string>
   <string name="gamification_level_expiration_body">आपका लेवल पिछले 12 महीनों में आपकी खरीद गतिविधि पर आधारित है।</string>
   <string name="gamification_leveled_up_title">आप अगले लेवल पर पहुँच गए हैं!</string>
