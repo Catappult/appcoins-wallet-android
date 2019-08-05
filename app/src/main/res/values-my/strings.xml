@@ -307,7 +307,7 @@
   <string name="gamification_purchase_appccredits_body">အလ်င္ျမန္ဆံုး ေငြေပးေခ်မႈနည္းလမ္း။</string>
   <string name="gamification_how_bonus_received_body">ေဘာနပ္စ္ ရရွိၿပီးပါၿပီ</string>
   <string name="gamification_how_appc_spent">ဤအဆင့္သို႔ေရာက္ရန္ အသံုးျပဳခဲ့ေသာ ပမာဏ</string>
-  <string name="gamification_how_to_next_level_body">အဆင့္ %2$s သို႔ေရာက္ရန္ ေနာက္ထပ္ %1$s AppCoins သံုးစြဲပါ။</string>
+  <string name="gamification_how_to_next_level_body">Spend <b>%1$s AppCoins</b> more to reach <b>level %2$s</b>.</string>
   <string name="gamification_level_expiration_title">ေနာက္အဆင့္ စစ္ေဆးမႈ - %s</string>
   <string name="gamification_level_expiration_body">သင့္အဆင့္သည္ လြန္ခဲ့ေသာ ၁၂ လ အတြင္း သင့္၀ယ္ယူမႈ လုပ္ေဆာင္ခ်က္အေပၚတြင္ မူတည္ပါသည္။</string>
   <string name="gamification_leveled_up_title">ေနာက္အဆင့္သို႔ သင္ေရာက္ရွိပါၿပီ။</string>
