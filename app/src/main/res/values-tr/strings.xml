@@ -307,7 +307,7 @@
   <string name="gamification_purchase_appccredits_body">En hızlı ödeme yöntemi!</string>
   <string name="gamification_how_bonus_received_body">Alınan bonus</string>
   <string name="gamification_how_appc_spent">Bu seviyeye ulaşmak için harcanan miktar</string>
-  <string name="gamification_how_to_next_level_body">%2$s. seviyeye ulaşmak için %1$s AppCoins daha harcayın.</string>
+  <string name="gamification_how_to_next_level_body">Spend <b>%1$s AppCoins</b> more to reach <b>level %2$s</b>.</string>
   <string name="gamification_level_expiration_title">Sonraki seviye kontrolü: %s</string>
   <string name="gamification_level_expiration_body">Seviyeniz son 12 aydaki satın alma aktivitenize dayalıdır.</string>
   <string name="gamification_leveled_up_title">Bir sonraki seviyeye ulaştınız!</string>
