@@ -344,8 +344,8 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
   private fun focusAndShowKeyboard(view: EditText) {
     view.post {
       view.requestFocus()
-      val imm = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-      imm.showSoftInput(view, InputMethodManager.SHOW_FORCED)
+      val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+      imm?.showSoftInput(view, InputMethodManager.SHOW_FORCED)
     }
   }
 

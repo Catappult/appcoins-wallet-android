@@ -58,7 +58,7 @@ project.ext {
   ethereumjSdkVersion = "0.5.0.0"
   jacksonVersion = "2.9.6"
   lottieVersion = "3.0.1"
-  cppVersion = "2.2.9"
+  cppVersion = "2.3.1"
   viewPagerVersion = "1.0.0-alpha06"
   pageIndicatorViewVersion = "1.0.3"
 }
