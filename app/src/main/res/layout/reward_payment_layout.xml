@@ -26,4 +26,9 @@
       app:layout_constraintTop_toTopOf="parent"
       />
 
+  <include
+      layout="@layout/fragment_iab_transaction_completed"
+      android:visibility="invisible"
+      />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
