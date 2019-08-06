@@ -77,12 +77,9 @@
           android:layout_marginTop="19dp"
           android:layout_marginEnd="@dimen/big_margin"
           android:visibility="invisible"
-          app:layout_constraintBottom_toTopOf="@id/bonus_msg"
           app:layout_constraintEnd_toEndOf="@id/mid_guideline"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/payment_methods_header"
-          app:layout_constraintVertical_bias="1"
-          app:layout_constraintVertical_chainStyle="packed"
           tools:visibility="visible"
           />
 
@@ -98,11 +95,9 @@
           android:gravity="center_vertical"
           android:text="@string/gamification_purchase_body"
           android:visibility="invisible"
-          app:layout_constraintBottom_toTopOf="@id/bottom_separator"
           app:layout_constraintEnd_toEndOf="@id/mid_guideline"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
-          app:layout_constraintVertical_bias="1"
           />
 
       <include
