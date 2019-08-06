@@ -355,7 +355,7 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
     view.post {
       view.requestFocus()
       val imm = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-      imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+      imm.showSoftInput(view, InputMethodManager.SHOW_FORCED)
     }
   }
 
