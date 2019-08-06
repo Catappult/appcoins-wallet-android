@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.SmsValidationInteract
@@ -57,6 +59,12 @@ class PhoneValidationFragment : DaggerFragment(), PhoneValidationView {
     }
 
     presenter.present()
+  }
+
+  override fun onResume() {
+    super.onResume()
+
+    focusAndShowKeyboard(phone_number)
   }
 
   override fun setupUI() {
@@ -148,6 +156,14 @@ class PhoneValidationFragment : DaggerFragment(), PhoneValidationView {
       return fragment
     }
 
+  }
+
+  private fun focusAndShowKeyboard(view: EditText) {
+    view.post {
+      view.requestFocus()
+      val imm = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+      imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+    }
   }
 
 }

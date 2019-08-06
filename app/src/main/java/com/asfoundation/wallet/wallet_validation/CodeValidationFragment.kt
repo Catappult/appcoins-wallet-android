@@ -37,7 +37,7 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
   private var walletValidationView: WalletValidationView? = null
   private lateinit var presenter: CodeValidationPresenter
   private lateinit var fragmentContainer: ViewGroup
-  lateinit var clipboard: ClipboardManager
+  private lateinit var clipboard: ClipboardManager
 
   val countryCode: String by lazy {
     if (arguments!!.containsKey(PhoneValidationFragment.COUNTRY_CODE)) {
@@ -91,6 +91,12 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     presenter.present()
+  }
+
+  override fun onResume() {
+    super.onResume()
+
+    focusAndShowKeyboard(code_1.code)
   }
 
   override fun setupUI() {
@@ -343,6 +349,14 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
           ?.replace(Regex("[^\\d.]"), "")
     }
 
+  }
+
+  private fun focusAndShowKeyboard(view: EditText) {
+    view.post {
+      view.requestFocus()
+      val imm = context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+      imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+    }
   }
 
 }
