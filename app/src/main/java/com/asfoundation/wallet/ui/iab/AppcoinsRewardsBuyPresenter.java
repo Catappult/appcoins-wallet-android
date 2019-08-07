@@ -10,6 +10,7 @@ import io.reactivex.Completable;
 import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
+import java.util.concurrent.TimeUnit;
 
 import static com.asfoundation.wallet.analytics.FacebookEventLogger.EVENT_REVENUE_CURRENCY;
 
@@ -83,15 +84,16 @@ public class AppcoinsRewardsBuyPresenter {
       BigDecimal amount) {
     switch (transaction.getStatus()) {
       case PROCESSING:
-        return Completable.fromAction(() -> {
-          view.showLoading();
-        });
+        return Completable.fromAction(view::showLoading);
       case COMPLETED:
         if (isBds && transactionBuilder.getType()
             .equalsIgnoreCase(TransactionData.TransactionType.INAPP.name())) {
           return rewardsManager.getPaymentCompleted(packageName, sku)
-              .doOnSuccess(purchase -> view.finish(purchase, transaction.getOrderReference()))
-              .ignoreElement()
+              .flatMapCompletable(purchase -> Completable.fromAction(view::showTransactionCompleted)
+                  .subscribeOn(scheduler)
+                  .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+                  .andThen(Completable.fromAction(
+                      () -> view.finish(purchase, transaction.getOrderReference()))))
               .observeOn(scheduler)
               .onErrorResumeNext(throwable -> Completable.fromAction(() -> {
                 throwable.printStackTrace();
