@@ -252,7 +252,7 @@ public class InAppPurchaseInteractor {
         boolean isMergedEnabled = appcMethod.isEnabled() || creditsMethod.isEnabled();
         mergedList.add(new AppCoinsPaymentMethod(mergedId, mergedLabel, appcMethod.getIconUrl(),
             isMergedEnabled, appcMethod.isEnabled(), creditsMethod.isEnabled(),
-            appcMethod.getLabel(), creditsMethod.getLabel()));
+            appcMethod.getLabel(), creditsMethod.getLabel(), creditsMethod.getIconUrl()));
       } else if (!paymentMethod.getId()
           .equals(CREDITS_ID)) {
         //Don't add the credits method to this list

@@ -5,6 +5,7 @@ data class AppCoinsPaymentMethod(override val id: String, override val label: St
                                  override val isEnabled: Boolean = false,
                                  val isAppcEnabled: Boolean = false,
                                  val isCreditsEnabled: Boolean = false,
-                                 val appcLabel: String? = null,
-                                 val creditsLabel: String? = null) :
+                                 val appcLabel: String,
+                                 val creditsLabel: String,
+                                 val creditsIconUrl: String) :
     PaymentMethod(id, label, iconUrl, isEnabled)
