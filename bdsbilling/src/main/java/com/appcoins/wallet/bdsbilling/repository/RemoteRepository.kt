@@ -206,6 +206,10 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
         @Path("uid") uid: String, @Query("wallet.address") walletAddress: String,
         @Query("wallet.signature") walletSignature: String): Observable<Authorization>
 
+    /**
+     * All optional fields should be passed despite possible being null as these are
+     * required by some applications to complete the purchase flow
+     */
     @FormUrlEncoded
     @POST("broker/8.20180518/gateways/{gateway}/transactions")
     fun createTransaction(@Path("gateway") gateway: String,
