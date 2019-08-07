@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_fragment"
+    android:background="@drawable/background_card"
     app:layout_constraintVertical_chainStyle="spread"
     >
 
@@ -124,6 +124,20 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/background_fade_animation"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:elevation="2dp"
+      android:scaleType="centerCrop"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_rawRes="@raw/background_fade_animation"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

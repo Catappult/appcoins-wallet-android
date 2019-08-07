@@ -21,6 +21,7 @@ class MyLevelPresenter(private val view: MyLevelView,
   fun present(savedInstanceState: Bundle?) {
     handleShowLevels(savedInstanceState == null)
     handleInfoButtonClick()
+    view.animateBackgroundFade()
     view.setupLayout()
   }
 

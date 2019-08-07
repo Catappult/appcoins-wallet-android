@@ -47,7 +47,7 @@ class RewardsLevelActivity : BaseActivity(), GamificationView {
       }
 
       R.id.action_info -> {
-        infoButtonSubject?.onNext("")
+        infoButtonSubject?.onNext(Any())
         return true
       }
     }

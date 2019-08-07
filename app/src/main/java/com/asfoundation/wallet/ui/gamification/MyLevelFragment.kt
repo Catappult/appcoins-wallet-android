@@ -11,6 +11,7 @@ import android.view.animation.Animation.AnimationListener
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
+import com.airbnb.lottie.LottieAnimationView
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -34,6 +35,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   private lateinit var presenter: MyLevelPresenter
   private lateinit var gamificationView: GamificationView
   private lateinit var howItWorksBottomSheet: BottomSheetBehavior<View>
+  private lateinit var backgroundFadeView: LottieAnimationView
   private var step = 100
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,6 +66,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     super.onViewCreated(view, savedInstanceState)
     howItWorksBottomSheet =
         BottomSheetBehavior.from(view.findViewById<View>(R.id.gamification_fragment_container))
+    backgroundFadeView = view.findViewById(R.id.background_fade_animation)
     presenter.present(savedInstanceState)
   }
 
@@ -238,6 +241,18 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     }
     if (newLevel) startBounceAnimation(activeIcon, listener) else startRebounceAnimation(activeIcon,
         listener)
+  }
+
+  override fun animateBackgroundFade() {
+    howItWorksBottomSheet.setBottomSheetCallback(object :
+        BottomSheetBehavior.BottomSheetCallback() {
+      override fun onStateChanged(bottomSheet: View, newState: Int) {
+      }
+
+      override fun onSlide(bottomSheet: View, slideOffset: Float) {
+        backgroundFadeView.progress = slideOffset
+      }
+    })
   }
 
   private fun animateLevelToLock(levelIcon: View?, levelText: TextView?) {
