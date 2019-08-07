@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_sheet"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
@@ -41,11 +42,26 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginBottom="4dp"
+      android:visibility="invisible"
       app:layout_constraintBottom_toBottomOf="@id/horizontal_guideline1"
       app:layout_constraintEnd_toEndOf="@id/vertical_guideline4"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       tools:text="$8.60"
+      />
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/bonus_earned_skeleton"
+      android:layout_width="wrap_content"
+      android:layout_height="16dp"
+      app:layout_constraintBottom_toBottomOf="@id/horizontal_guideline1"
+      app:layout_constraintEnd_toEndOf="@id/vertical_guideline4"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/gamification_peek_skeleton"
       />
 
   <TextView
@@ -67,11 +83,26 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginBottom="4dp"
+      android:visibility="invisible"
       app:layout_constraintBottom_toBottomOf="@id/horizontal_guideline1"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="@id/vertical_guideline4"
       app:layout_constraintTop_toTopOf="parent"
       tools:text="89.20 APPC"
+      />
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/total_spend_skeleton"
+      android:layout_width="wrap_content"
+      android:layout_height="16dp"
+      app:layout_constraintBottom_toBottomOf="@id/horizontal_guideline1"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="@id/vertical_guideline4"
+      app:layout_constraintTop_toTopOf="parent"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/gamification_peek_skeleton"
       />
 
   <TextView
@@ -121,7 +152,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="12dp"
-      android:text="LEVEL"
+      android:text="@string/gamification_how_table_level"
       android:textSize="14sp"
       app:layout_constraintStart_toEndOf="@id/vertical_guideline1"
       app:layout_constraintTop_toBottomOf="@+id/fragment_gamification_how_it_works_message"
@@ -196,7 +227,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="16dp"
-      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintBottom_toTopOf="@+id/next_level_footer"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/fragment_gamification_how_it_works_message"
@@ -208,6 +239,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="8dp"
       android:orientation="vertical"
+      android:visibility="visible"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/bonus"
@@ -219,16 +251,15 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginStart="32dp"
-      android:layout_marginTop="23dp"
+      android:layout_marginTop="15dp"
       android:layout_marginEnd="32dp"
       android:gravity="center"
-      android:paddingBottom="20dp"
-      android:text="@string/gamification_how_to_next_level_body"
       android:textSize="12sp"
       app:layout_constraintBottom_toBottomOf="@id/how_it_works_background"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/fragment_gamification_how_it_works_levels_layout"
+      tools:text="@string/gamification_how_to_next_level_body"
       />
 
   <View
@@ -236,7 +267,6 @@
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:background="@color/gamification_how_it_works"
-      android:padding="20dp"
       app:layout_constraintBottom_toBottomOf="@id/next_level_footer"
       app:layout_constraintTop_toTopOf="@id/horizontal_guideline1"
       />

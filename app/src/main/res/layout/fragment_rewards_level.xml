@@ -116,21 +116,6 @@
       tools:text="A natural Satellite"
       />
 
-  <Button
-      android:id="@+id/details_button"
-      style="@style/ButtonStyle"
-      android:layout_width="wrap_content"
-      android:layout_height="@dimen/button_height"
-      android:layout_marginTop="36dp"
-      android:text="@string/gamification_level_button_how"
-      android:visibility="invisible"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/current_level_card"
-      app:layout_constraintVertical_chainStyle="packed"
-      />
-
   <ProgressBar
       android:id="@+id/gamification_loading"
       android:layout_width="wrap_content"

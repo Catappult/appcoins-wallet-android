@@ -13,9 +13,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
-import com.jakewharton.rxbinding2.view.RxView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.android.support.DaggerFragment
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_rewards_level.*
@@ -34,12 +33,14 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
 
   private lateinit var presenter: MyLevelPresenter
   private lateinit var gamificationView: GamificationView
+  private lateinit var howItWorksBottomSheet: BottomSheetBehavior<View>
   private var step = 100
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = MyLevelPresenter(this, gamificationInteractor, analytics, Schedulers.io(),
-        AndroidSchedulers.mainThread())
+    presenter =
+        MyLevelPresenter(this, gamificationView, gamificationInteractor, analytics, Schedulers.io(),
+            AndroidSchedulers.mainThread())
   }
 
   override fun onAttach(context: Context) {
@@ -61,6 +62,8 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    howItWorksBottomSheet =
+        BottomSheetBehavior.from(view.findViewById<View>(R.id.gamification_fragment_container))
     presenter.present(savedInstanceState)
   }
 
@@ -94,14 +97,6 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
       val level = userStatus.bonus.indexOf(value)
       setLevelBonus(level, formatLevelInfo(value), level == userStatus.lastShownLevel)
     }
-  }
-
-  override fun getButtonClicks(): Observable<Any> {
-    return RxView.clicks(details_button)
-  }
-
-  override fun showHowItWorksScreen() {
-    gamificationView.showHowItWorksView()
   }
 
   override fun showHowItWorksButton() {
@@ -367,6 +362,22 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     setLevelIdleAnimation(level)
     gamification_current_level_animation.visibility = View.VISIBLE
     gamification_current_level_animation.playAnimation()
+  }
+
+  private fun expandBottomSheet() {
+    howItWorksBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
+  }
+
+  private fun collapseBottomSheet() {
+    howItWorksBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+  }
+
+  override fun changeBottomSheetState() {
+    if (howItWorksBottomSheet.state == BottomSheetBehavior.STATE_COLLAPSED) {
+      expandBottomSheet()
+    } else {
+      collapseBottomSheet()
+    }
   }
 
   private fun formatLevelInfo(value: Double): String {

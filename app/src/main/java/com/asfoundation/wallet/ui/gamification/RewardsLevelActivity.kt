@@ -6,17 +6,21 @@ import android.view.MenuItem
 import com.asf.wallet.R
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 
 class RewardsLevelActivity : BaseActivity(), GamificationView {
 
-  lateinit var menu: Menu
+  private lateinit var menu: Menu
   private var gamificationAvailable = false
+  private var infoButtonSubject: PublishSubject<Any>? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
     setContentView(R.layout.activity_rewards_level)
     toolbar()
+    infoButtonSubject = PublishSubject.create()
     val fragment = MyLevelFragment()
     // Display the fragment as the main content.
     supportFragmentManager.beginTransaction()
@@ -43,8 +47,7 @@ class RewardsLevelActivity : BaseActivity(), GamificationView {
       }
 
       R.id.action_info -> {
-        showHowItWorksView()
-        expandHowItWorksView()
+        infoButtonSubject?.onNext("")
         return true
       }
     }
@@ -57,7 +60,6 @@ class RewardsLevelActivity : BaseActivity(), GamificationView {
     return super.onCreateOptionsMenu(menu)
   }
 
-
   override fun closeHowItWorksView() {
     val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
 
@@ -66,33 +68,33 @@ class RewardsLevelActivity : BaseActivity(), GamificationView {
           supportFragmentManager.findFragmentByTag(HowItWorksFragment::class.java.simpleName)
       if (fragment != null && fragment::class.java.name.equals(
               HowItWorksFragment::class.java.name, false)) {
-        supportFragmentManager.beginTransaction().remove(currentFragment).commit()
+        supportFragmentManager.beginTransaction()
+            .remove(currentFragment)
+            .commit()
       }
       supportFragmentManager.popBackStackImmediate()
     }
   }
 
-  override fun showHowItWorksView() {
-    supportFragmentManager.beginTransaction()
-        .add(R.id.fragment_container, HowItWorksFragment.newInstance())
-        .addToBackStack(HowItWorksFragment::class.java.simpleName)
-        .commit()
-    menu.findItem(R.id.action_info).isVisible = false
-
-  }
-
-  fun expandHowItWorksView() {
-    
+  override fun getInfoButtonClick(): Observable<Any>? {
+    return infoButtonSubject
   }
 
   override fun onHowItWorksClosed() {
     if (gamificationAvailable) {
-      menu.findItem(R.id.action_info).isVisible = true
+      menu.findItem(R.id.action_info)
+          .isVisible = true
     }
   }
 
   override fun showHowItWorksButton() {
     gamificationAvailable = true
-    menu.findItem(R.id.action_info).isVisible = true
+    menu.findItem(R.id.action_info)
+        .isVisible = true
+  }
+
+  override fun onDestroy() {
+    infoButtonSubject = null
+    super.onDestroy()
   }
 }

@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
+import com.airbnb.lottie.LottieAnimationView
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.asfoundation.wallet.ui.iab.FiatValue
@@ -37,6 +38,8 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   private lateinit var bonusEarnedTextView: TextView
   private lateinit var totalSpendTextView: TextView
   private lateinit var nextLevelFooter: TextView
+  private lateinit var bonusEarnedSkeleton: LottieAnimationView
+  private lateinit var totalSpendSkeleton: LottieAnimationView
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -55,7 +58,7 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   }
 
   override fun showLevels(levels: List<ViewLevel>, currentLevel: Int) {
-    fragment_gamification_how_it_works_loading.visibility = View.GONE
+    fragment_gamification_how_it_works_loading.visibility = View.INVISIBLE
     var view: View?
 
     for (level in levels) {
@@ -81,10 +84,14 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   override fun showPeekInformation(totalSpend: BigDecimal, bonusEarned: FiatValue) {
     val totalSpendRounded = totalSpend.setScale(2, RoundingMode.DOWN)
     val bonusEarnedRounded = bonusEarned.amount.setScale(2, RoundingMode.DOWN)
-
     bonusEarnedTextView.text =
         getString(R.string.value_fiat, bonusEarned.symbol, bonusEarnedRounded)
     totalSpendTextView.text = getString(R.string.gamification_how_table_a2, totalSpendRounded)
+
+    bonusEarnedSkeleton.visibility = View.INVISIBLE
+    totalSpendSkeleton.visibility = View.INVISIBLE
+    bonusEarnedTextView.visibility = View.VISIBLE
+    totalSpendTextView.visibility = View.VISIBLE
   }
 
   override fun showNextLevelFooter(userStatus: UserRewardsStatus) {
@@ -146,6 +153,8 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
     bonusEarnedTextView = view.findViewById(R.id.bonus_earned)
     totalSpendTextView = view.findViewById(R.id.total_spend)
     nextLevelFooter = view.findViewById(R.id.next_level_footer)
+    bonusEarnedSkeleton = view.findViewById(R.id.bonus_earned_skeleton)
+    totalSpendSkeleton = view.findViewById(R.id.total_spend_skeleton)
     presenter.present(savedInstanceState)
   }
 
