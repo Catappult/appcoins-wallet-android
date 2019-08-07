@@ -172,7 +172,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               app:constraint_referenced_ids="top_separator,payment_methods_radio_list"
-              tools:visibility="visible"
+              tools:visibility="gone"
               />
 
           <androidx.constraintlayout.widget.Group
@@ -180,7 +180,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               app:constraint_referenced_ids="layout_pre_selected,more_payment_methods"
-              tools:visibility="gone"
+              tools:visibility="visible"
               />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

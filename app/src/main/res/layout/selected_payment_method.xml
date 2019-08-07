@@ -22,15 +22,33 @@
       />
 
   <TextView
+      android:id="@+id/payment_method_description_single"
+      style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:textSize="16sp"
+      app:layout_constraintBottom_toBottomOf="@id/payment_method_ic"
+      app:layout_constraintStart_toEndOf="@id/payment_method_ic"
+      app:layout_constraintTop_toTopOf="@id/payment_method_ic"
+      tools:text="APPC"
+      tools:visibility="gone"
+      />
+
+  <TextView
       android:id="@+id/payment_method_description"
       style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:layout_marginBottom="2dp"
       android:textSize="16sp"
-      app:layout_constraintBottom_toTopOf="@id/payment_method_description"
-      app:layout_constraintStart_toEndOf="@id/payment_method_ic"
-      app:layout_constraintTop_toTopOf="@id/payment_method_ic"
+      app:layout_constraintBottom_toTopOf="@+id/payment_method_secondary"
+      app:layout_constraintStart_toEndOf="@+id/payment_method_ic"
+      app:layout_constraintTop_toTopOf="@+id/payment_method_ic"
+      app:layout_constraintVertical_bias="1.0"
       tools:text="Paypal"
       />
   <TextView
@@ -38,14 +56,14 @@
       style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
+      android:layout_marginTop="2dp"
       android:layout_marginEnd="@dimen/big_margin"
       android:text="@string/purchase_appcoins_credits_default_body"
       android:textColor="#727272"
-      android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="@+id/payment_method_ic"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="@+id/payment_method_description"
-      app:layout_constraintTop_toBottomOf="@+id/payment_method_description"
+      app:layout_constraintTop_toBottomOf="@+id/payment_method_description_single"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
