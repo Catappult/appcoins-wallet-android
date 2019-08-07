@@ -581,6 +581,9 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private void setupPaymentMethods(List<PaymentMethod> paymentMethods, String preSelectedMethod) {
     preSelectedPaymentMethodGroup.setVisibility(View.GONE);
     paymentMethodsGroup.setVisibility(View.VISIBLE);
+    if (bottomSeparator != null) {
+      bottomSeparator.setVisibility(View.VISIBLE);
+    }
 
     AppCompatRadioButton radioButton;
     if (isBds) {

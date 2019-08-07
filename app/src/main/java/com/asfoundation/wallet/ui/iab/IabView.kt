@@ -33,6 +33,6 @@ interface IabView {
                            selectedPaymentMethod: String)
 
   fun showMergedAppcoins(fiatAmount: BigDecimal, currency: String, bonus: String,
-                         productName: String, appcEnabled: Boolean, creditsEnabled: Boolean,
+                         productName: String?, appcEnabled: Boolean, creditsEnabled: Boolean,
                          isBds: Boolean, isDonation: Boolean)
 }

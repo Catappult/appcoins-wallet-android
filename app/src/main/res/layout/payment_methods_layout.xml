@@ -129,6 +129,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:orientation="vertical"
                 />
@@ -171,7 +172,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               app:constraint_referenced_ids="top_separator,payment_methods_radio_list"
-              tools:visibility="gone"
+              tools:visibility="visible"
               />
 
           <androidx.constraintlayout.widget.Group
@@ -179,7 +180,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               app:constraint_referenced_ids="layout_pre_selected,more_payment_methods"
-              tools:visibility="visible"
+              tools:visibility="gone"
               />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -189,11 +190,13 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/big_margin"
+            android:layout_marginBottom="40dp"
             android:background="@color/layout_separator_color"
+            app:layout_constraintBottom_toTopOf="@id/bonus_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/content_main"
-            tools:visibility="invisible"
+            tools:visibility="visible"
             />
 
         <include
@@ -202,7 +205,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/big_margin"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="@dimen/big_margin"
             android:layout_marginEnd="@dimen/big_margin"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"

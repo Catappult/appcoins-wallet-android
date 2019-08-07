@@ -174,7 +174,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   }
 
   override fun showMergedAppcoins(fiatAmount: BigDecimal, currency: String, bonus: String,
-                                  productName: String, appcEnabled: Boolean,
+                                  productName: String?, appcEnabled: Boolean,
                                   creditsEnabled: Boolean, isBds: Boolean,
                                   isDonation: Boolean) {
     supportFragmentManager.beginTransaction()
