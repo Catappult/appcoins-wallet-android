@@ -54,5 +54,6 @@ class GamificationInteractor(
 
   fun getAppcToLocalFiat(value: String, scale: Int): Observable<FiatValue> {
     return conversionService.getAppcToLocalFiat(value, scale)
+        .onErrorReturn { FiatValue(BigDecimal("-1"), "", "") }
   }
 }

@@ -4,8 +4,6 @@ import android.os.Bundle
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.UserStats
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
-import com.asfoundation.wallet.ui.iab.FiatValue
-import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -48,11 +46,10 @@ class HowItWorksPresenter(private val view: HowItWorksView,
   private fun handleShowPeekInformation() {
     disposables.add(gamification.getUserStatus()
         .flatMapObservable { userStats ->
-          getAppcToLocalCurrency(userStats.totalEarned.toString(), 2)
+          gamification.getAppcToLocalFiat(userStats.totalEarned.toString(), 2)
+              .filter { it.amount.toInt() >= 0 }
               .observeOn(viewScheduler)
-              .doOnNext {
-                view.showPeekInformation(userStats.totalEarned, it)
-              }
+              .doOnNext { view.showPeekInformation(userStats.totalEarned, it) }
         }
         .subscribeOn(networkScheduler)
         .subscribe())
@@ -65,7 +62,6 @@ class HowItWorksPresenter(private val view: HowItWorksView,
             Function3 { levels: Levels, userStats: UserStats, lastShownLevel: Int ->
               mapToUserStatus(levels, userStats, lastShownLevel)
             })
-            .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess {
               view.showNextLevelFooter(it)
@@ -105,10 +101,6 @@ class HowItWorksPresenter(private val view: HowItWorksView,
     disposables.add(gamification.getUserStatus().subscribeOn(networkScheduler).doOnSuccess {
       analytics.sendMoreInfoScreenViewEvent(it.level + 1)
     }.subscribe())
-  }
-
-  private fun getAppcToLocalCurrency(value: String, scale: Int): Observable<FiatValue> {
-    return gamification.getAppcToLocalFiat(value, scale)
   }
 
   fun stop() {
