@@ -446,8 +446,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   }
 
   @Override public void hideBonus() {
-    bonusView.setVisibility(View.INVISIBLE);
-    bonusMsg.setVisibility(View.INVISIBLE);
+    bonusView.setVisibility(View.GONE);
+    bonusMsg.setVisibility(View.GONE);
     if (bottomSeparator != null) {
       bottomSeparator.setVisibility(View.INVISIBLE);
     }
