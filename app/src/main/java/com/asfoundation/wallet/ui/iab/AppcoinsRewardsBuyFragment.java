@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import com.airbnb.lottie.LottieAnimationView;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asf.wallet.R;
@@ -39,6 +40,8 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   @Inject BillingAnalytics analytics;
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   private View loadingView;
+  private View transactionCompletedLayout;
+  private LottieAnimationView lottieTransactionComplete;
   private AppcoinsRewardsBuyPresenter presenter;
   private BigDecimal amount;
   private IabView iabView;
@@ -82,6 +85,7 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     errorMessage = view.findViewById(R.id.activity_iab_error_message);
     transactionErrorLayout = view.findViewById(R.id.error_message);
     okErrorButton = view.findViewById(R.id.activity_iab_error_ok_button);
+    transactionCompletedLayout = view.findViewById(R.id.iab_activity_transaction_completed);
 
     TransactionBuilder transactionBuilder = getArguments().getParcelable(TRANSACTION_KEY);
     String callerPackageName = transactionBuilder.getDomain();
@@ -89,6 +93,11 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
         new AppcoinsRewardsBuyPresenter(this, rewardsManager, AndroidSchedulers.mainThread(),
             new CompositeDisposable(), amount, uri, callerPackageName, transferParser, isBds,
             analytics, transactionBuilder, inAppPurchaseInteractor);
+
+    lottieTransactionComplete =
+        transactionCompletedLayout.findViewById(R.id.lottie_transaction_success);
+
+    setupTransactionCompleteAnimation();
 
     presenter.present();
   }
@@ -104,6 +113,8 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   }
 
   @Override public void showLoading() {
+    transactionErrorLayout.setVisibility(View.GONE);
+    transactionCompletedLayout.setVisibility(View.INVISIBLE);
     loadingView.setVisibility(View.VISIBLE);
   }
 
@@ -147,6 +158,16 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     iabView.finish(billingMessagesMapper.mapPurchase(purchase, orderReference));
   }
 
+  @Override public void showTransactionCompleted() {
+    loadingView.setVisibility(View.GONE);
+    transactionErrorLayout.setVisibility(View.GONE);
+    transactionCompletedLayout.setVisibility(View.VISIBLE);
+  }
+
+  @Override public long getAnimationDuration() {
+    return lottieTransactionComplete.getDuration();
+  }
+
   @Override public void onAttach(Context context) {
     super.onAttach(context);
     if (!(context instanceof IabView)) {
@@ -154,5 +175,11 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
           "Express checkout buy fragment must be attached to IAB activity");
     }
     iabView = ((IabView) context);
+  }
+
+  private void setupTransactionCompleteAnimation() {
+    LottieAnimationView lottieTransactionComplete =
+        transactionCompletedLayout.findViewById(R.id.lottie_transaction_success);
+    lottieTransactionComplete.setAnimation(R.raw.success_animation);
   }
 }

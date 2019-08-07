@@ -25,4 +25,8 @@ interface AppcoinsRewardsBuyView {
   void errorClose();
 
   void finish(Purchase purchase, @Nullable String orderReference);
+
+  void showTransactionCompleted();
+
+  long getAnimationDuration();
 }
