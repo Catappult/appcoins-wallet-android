@@ -60,7 +60,7 @@
           android:id="@+id/payment_methods_header"
           layout="@layout/payment_methods_header"
           android:layout_width="0dp"
-          android:layout_height="match_parent"
+          android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/big_margin"
           android:layout_marginTop="19dp"
           app:layout_constraintEnd_toEndOf="@id/mid_guideline"
