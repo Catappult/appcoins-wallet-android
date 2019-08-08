@@ -61,8 +61,8 @@ class RewardsLevelActivity : BaseActivity(), GamificationView {
     return super.onCreateOptionsMenu(menu)
   }
 
-  override fun getInfoButtonClick(): Observable<Any>? {
-    return infoButtonSubject
+  override fun getInfoButtonClick(): Observable<Any> {
+    return infoButtonSubject!!
   }
 
   override fun onDestroy() {

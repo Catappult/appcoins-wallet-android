@@ -48,10 +48,10 @@ class MyLevelPresenter(private val view: MyLevelView,
   }
 
   private fun handleInfoButtonClick() {
-    activity.let {
-      disposables.add(it!!.getInfoButtonClick()!!.doOnNext {
+    activity?.let {
+      disposables.add(it.getInfoButtonClick().doOnNext {
         view.changeBottomSheetState()
-      }!!.subscribe())
+      }.subscribe())
     }
   }
 
