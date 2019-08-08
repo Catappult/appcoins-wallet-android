@@ -36,6 +36,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     private const val CURRENCY_KEY = "currency"
     private const val PAYMENT_KEY = "payment_name"
     private const val BONUS_KEY = "bonus"
+    private const val VALID_BONUS = "valid_bonus"
     private const val STATUS_KEY = "status"
     private const val TYPE_KEY = "type"
     private const val DEV_ADDRESS_KEY = "dev_address"
@@ -51,7 +52,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
                     developerAddress: String, type: String,
                     amount: BigDecimal, callbackUrl: String?,
                     orderReference: String?,
-                    payload: String?): LocalPaymentFragment {
+                    payload: String?, validBonus: Boolean): LocalPaymentFragment {
       val fragment = LocalPaymentFragment()
       val bundle = Bundle()
       bundle.putString(DOMAIN_KEY, domain)
@@ -66,6 +67,7 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
       bundle.putString(CALLBACK_URL, callbackUrl)
       bundle.putString(ORDER_REFERENCE, orderReference)
       bundle.putString(PAYLOAD, payload)
+      bundle.putBoolean(VALID_BONUS, validBonus)
       fragment.arguments = bundle
       return fragment
     }
@@ -165,6 +167,14 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
     }
   }
 
+  val validBonus: Boolean by lazy {
+    if (arguments!!.containsKey(VALID_BONUS)) {
+      arguments!!.getBoolean(VALID_BONUS)
+    } else {
+      throw IllegalArgumentException("valid bonus not found")
+    }
+  }
+
   @Inject
   lateinit var localPaymentInteractor: LocalPaymentInteractor
   @Inject
@@ -202,7 +212,15 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    setAnimationText()
+
+    if (validBonus) {
+      complete_payment_view.lottie_transaction_success.setAnimation(
+          R.raw.top_up_bonus_success_animation)
+      setAnimationText()
+    } else {
+      complete_payment_view.lottie_transaction_success.setAnimation(R.raw.top_up_success_animation)
+    }
+
     localPaymentPresenter.present()
   }
 

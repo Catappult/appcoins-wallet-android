@@ -94,6 +94,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private TransactionBuilder transaction;
   private double transactionValue;
   private String bonusMessageValue = "";
+  private boolean validBonus;
   private TextView appcPriceTv;
   private TextView fiatPriceTv;
   private TextView appNameTv;
@@ -396,16 +397,16 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override public void showPaypal() {
     iabView.showAdyenPayment(fiatValue.getAmount(), fiatValue.getCurrency(), isBds,
-        PaymentType.PAYPAL, bonusMessageValue);
+        PaymentType.PAYPAL, bonusMessageValue, validBonus);
   }
 
   @Override public void showCreditCard() {
     iabView.showAdyenPayment(fiatValue.getAmount(), fiatValue.getCurrency(), isBds,
-        PaymentType.CARD, bonusMessageValue);
+        PaymentType.CARD, bonusMessageValue, validBonus);
   }
 
   @Override public void showAppCoins() {
-    iabView.showOnChain(transaction.amount(), isBds, bonusMessageValue);
+    iabView.showOnChain(transaction.amount(), isBds, bonusMessageValue, validBonus);
   }
 
   @Override public void showCredits() {
@@ -439,7 +440,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         isOneStep ? transaction.getOriginalOneStepValue() : null,
         isOneStep ? transaction.getOriginalOneStepCurrency() : null, bonusMessageValue,
         selectedPaymentMethod, transaction.toAddress(), transaction.getType(), transaction.amount(),
-        transaction.getCallbackUrl(), transaction.getOrderReference(), transaction.getPayload());
+        transaction.getCallbackUrl(), transaction.getOrderReference(), transaction.getPayload(),
+        validBonus);
   }
 
   @Override public void setBonus(@NotNull BigDecimal bonus, @NotNull String currency) {
@@ -448,6 +450,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     if (scaledBonus.compareTo(new BigDecimal(0.01)) < 0) {
       currency = "~" + currency;
     }
+    validBonus = bonus.compareTo(BigDecimal.ZERO) > 0;
     scaledBonus = scaledBonus.max(new BigDecimal("0.01"));
     bonusMessageValue = currency + scaledBonus.toPlainString();
     bonusValue.setText(getString(R.string.gamification_purchase_header_part_2, bonusMessageValue));
@@ -468,7 +471,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override public void showMergedAppcoins() {
     iabView.showMergedAppcoins(fiatValue.getAmount(), fiatValue.getCurrency(), bonusMessageValue,
-        productName, appcEnabled, creditsEnabled, isBds, isDonation);
+        productName, appcEnabled, creditsEnabled, isBds, isDonation, validBonus);
   }
 
   private void setBuyButtonText() {

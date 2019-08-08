@@ -39,6 +39,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     private const val FIAT_AMOUNT_KEY = "fiat_amount"
     private const val FIAT_CURRENCY_KEY = "currency_amount"
     private const val BONUS_KEY = "bonus"
+    private const val VALID_BONUS = "valid_bonus"
     private const val APP_NAME_KEY = "app_name"
     private const val PRODUCT_NAME_KEY = "product_name"
     private const val APPC_AMOUNT_KEY = "appc_amount"
@@ -53,7 +54,8 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
     fun newInstance(fiatAmount: BigDecimal,
                     currency: String, bonus: String, appName: String, productName: String?,
                     appcAmount: BigDecimal, appcEnabled: Boolean,
-                    creditsEnabled: Boolean, isBds: Boolean, isDonation: Boolean): Fragment {
+                    creditsEnabled: Boolean, isBds: Boolean, isDonation: Boolean,
+                    validBonus: Boolean): Fragment {
       val fragment = MergedAppcoinsFragment()
       val bundle = Bundle()
       bundle.putSerializable(FIAT_AMOUNT_KEY, fiatAmount)
@@ -66,6 +68,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
       bundle.putBoolean(CREDITS_ENABLED_KEY, creditsEnabled)
       bundle.putBoolean(IS_BDS_KEY, isBds)
       bundle.putBoolean(IS_DONATION_KEY, isDonation)
+      bundle.putBoolean(VALID_BONUS, validBonus)
       fragment.arguments = bundle
       return fragment
     }
@@ -152,6 +155,14 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
       arguments!!.getBoolean(IS_DONATION_KEY)
     } else {
       throw IllegalArgumentException("is donation data not found")
+    }
+  }
+
+  val validBonus: Boolean by lazy {
+    if (arguments!!.containsKey(VALID_BONUS)) {
+      arguments!!.getBoolean(VALID_BONUS)
+    } else {
+      throw IllegalArgumentException("valid bonus not found")
     }
   }
 
@@ -320,7 +331,7 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
   }
 
   override fun navigateToAppcPayment() {
-    iabView.showOnChain(fiatAmount, isBds, bonus)
+    iabView.showOnChain(fiatAmount, isBds, bonus, validBonus)
   }
 
   override fun navigateToCreditsPayment() {

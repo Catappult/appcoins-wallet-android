@@ -149,21 +149,22 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
     startActivityForResult(WebViewActivity.newIntent(this, url), WEB_VIEW_REQUEST_CODE);
   }
 
-  @Override public void showOnChain(BigDecimal amount, boolean isBds, String bonus) {
+  @Override
+  public void showOnChain(BigDecimal amount, boolean isBds, String bonus, boolean validBonus) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container, OnChainBuyFragment.newInstance(createBundle(amount),
             getIntent().getData()
-                .toString(), isBds, transaction, bonus))
+                .toString(), isBds, transaction, bonus, validBonus))
         .commit();
   }
 
   @Override public void showAdyenPayment(BigDecimal amount, String currency, boolean isBds,
-      PaymentType paymentType, String bonus) {
+      PaymentType paymentType, String bonus, boolean validBonus) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container,
             AdyenAuthorizationFragment.newInstance(transaction.getSkuId(), transaction.getType(),
                 getOrigin(isBds), paymentType, transaction.getDomain(), getIntent().getDataString(),
-                transaction.amount(), currency, developerPayload, bonus))
+                transaction.amount(), currency, developerPayload, bonus, validBonus))
         .commit();
   }
 
@@ -179,12 +180,13 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
   @Override
   public void showLocalPayment(String domain, String skuId, String originalAmount, String currency,
       String bonus, String selectedPaymentMethod, String developerAddress, String type,
-      BigDecimal amount, String callbackUrl, String orderReference, String payload) {
+      BigDecimal amount, String callbackUrl, String orderReference, String payload,
+      boolean validBonus) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container,
             LocalPaymentFragment.newInstance(domain, skuId, originalAmount, currency, bonus,
                 selectedPaymentMethod, developerAddress, type, amount, callbackUrl, orderReference,
-                payload))
+                payload, validBonus))
         .commit();
   }
 
@@ -212,11 +214,12 @@ public class IabActivity extends BaseActivity implements IabView, UriNavigator {
 
   @Override public void showMergedAppcoins(BigDecimal fiatAmount, String currency, String bonus,
       String productName, boolean appcEnabled, boolean creditsEnabled, boolean isBds,
-      boolean isDonation) {
+      boolean isDonation, boolean validBonus) {
     getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container,
             MergedAppcoinsFragment.newInstance(fiatAmount, currency, bonus, transaction.getDomain(),
-                productName, transaction.amount(), appcEnabled, creditsEnabled, isBds, isDonation))
+                productName, transaction.amount(), appcEnabled, creditsEnabled, isBds, isDonation,
+                validBonus))
         .commit();
   }
 
