@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.ui.gamification
 
 import android.content.Context
-import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.SpannedString
@@ -11,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
@@ -59,10 +59,10 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
       view = layoutInflater.inflate(R.layout.fragment_gamification_how_it_works_level,
           fragment_gamification_how_it_works_levels_layout, false)
       val levelTextView = view.findViewById<TextView>(R.id.level)
-      val messageTextView = view.findViewById<TextView>(R.id.message)
+      val spendTextView = view.findViewById<TextView>(R.id.message)
       val bonusTextView = view.findViewById<TextView>(R.id.bonus)
       levelTextView.text = (level.level + 1).toString()
-      messageTextView.text =
+      spendTextView.text =
           getString(R.string.gamification_how_table_a2, formatLevelInfo(level.amount.toDouble()))
       bonusTextView.text =
           getString(R.string.gamification_how_table_b2, formatLevelInfo(level.bonus))
@@ -70,7 +70,7 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
           .setImageResource(levelResourcesMapper.mapDarkIcons(level))
       (fragment_gamification_how_it_works_levels_layout as LinearLayout).addView(view)
       if (level.level == currentLevel) {
-        highlightCurrentLevel(levelTextView, messageTextView, bonusTextView)
+        highlightCurrentLevel(levelTextView, spendTextView, bonusTextView)
       }
     }
   }
@@ -89,13 +89,13 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   }
 
   override fun showNextLevelFooter(userStatus: UserRewardsStatus) {
-    if (userStatus.level == 4) {
+    if (userStatus.level == MAX_LEVEL) {
       next_level_footer.text = getString(R.string.gamification_how_max_level_body)
     } else {
       val nextLevel = (userStatus.level + 2).toString()
       next_level_footer.text =
           formatNextLevelFooter(R.string.gamification_how_to_next_level_body,
-              userStatus.toNextLevelAmount.toString(), nextLevel)
+              formatLevelInfo(userStatus.toNextLevelAmount.toDouble()), nextLevel)
     }
   }
 
@@ -124,13 +124,15 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
 
   private fun highlightCurrentLevel(levelTextView: TextView, messageTextView: TextView,
                                     bonusTextView: TextView) {
-    val currentLevelColour = Color.parseColor("#001727")
     levelTextView.typeface = Typeface.DEFAULT_BOLD
-    levelTextView.setTextColor(currentLevelColour)
+    levelTextView.setTextColor(
+        ContextCompat.getColor(context!!, R.color.rewards_level_main_color))
     messageTextView.typeface = Typeface.DEFAULT_BOLD
-    messageTextView.setTextColor(currentLevelColour)
+    messageTextView.setTextColor(
+        ContextCompat.getColor(context!!, R.color.rewards_level_main_color))
     bonusTextView.typeface = Typeface.DEFAULT_BOLD
-    bonusTextView.setTextColor(currentLevelColour)
+    bonusTextView.setTextColor(
+        ContextCompat.getColor(context!!, R.color.rewards_level_main_color))
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -150,6 +152,7 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
 
   companion object {
     private val TAG = HowItWorksFragment::class.java.simpleName
+    public const val MAX_LEVEL = 4
     @JvmStatic
     fun newInstance(): HowItWorksFragment {
       return HowItWorksFragment()

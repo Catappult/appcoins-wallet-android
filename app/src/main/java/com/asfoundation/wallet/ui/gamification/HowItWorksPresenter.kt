@@ -37,9 +37,7 @@ class HowItWorksPresenter(private val view: HowItWorksView,
             })
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
-            .doOnSuccess {
-              view.showLevels(it.first, it.second)
-            }
+            .doOnSuccess { view.showLevels(it.first, it.second) }
             .subscribe())
   }
 
@@ -63,9 +61,7 @@ class HowItWorksPresenter(private val view: HowItWorksView,
               mapToUserStatus(levels, userStats, lastShownLevel)
             })
             .observeOn(viewScheduler)
-            .doOnSuccess {
-              view.showNextLevelFooter(it)
-            }
+            .doOnSuccess { view.showNextLevelFooter(it) }
             .subscribeOn(networkScheduler)
             .subscribe())
   }

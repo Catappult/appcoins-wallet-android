@@ -12,7 +12,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 class MyLevelPresenter(private val view: MyLevelView,
-                       private val gamificationView: GamificationView?,
+                       private val activity: GamificationView?,
                        private val gamification: GamificationInteractor,
                        private val analytics: GamificationAnalytics,
                        private val networkScheduler: Scheduler,
@@ -48,10 +48,11 @@ class MyLevelPresenter(private val view: MyLevelView,
   }
 
   private fun handleInfoButtonClick() {
-    disposables.add(
-        gamificationView!!.getInfoButtonClick()!!.doOnNext {
-          view.changeBottomSheetState()
-        }!!.subscribe())
+    activity.let {
+      disposables.add(it!!.getInfoButtonClick()!!.doOnNext {
+        view.changeBottomSheetState()
+      }!!.subscribe())
+    }
   }
 
   private fun mapToUserStatus(levels: Levels, userStats: UserStats,

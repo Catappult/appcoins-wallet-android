@@ -11,13 +11,13 @@ import android.view.animation.Animation.AnimationListener
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
-import com.airbnb.lottie.LottieAnimationView
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_gamification_my_level.*
 import kotlinx.android.synthetic.main.fragment_rewards_level.*
 import kotlinx.android.synthetic.main.level_component.view.*
 import kotlinx.android.synthetic.main.rewards_progress_bar.*
@@ -35,7 +35,6 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   private lateinit var presenter: MyLevelPresenter
   private lateinit var gamificationView: GamificationView
   private lateinit var howItWorksBottomSheet: BottomSheetBehavior<View>
-  private lateinit var backgroundFadeView: LottieAnimationView
   private var step = 100
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,8 +64,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     howItWorksBottomSheet =
-        BottomSheetBehavior.from(view.findViewById<View>(R.id.gamification_fragment_container))
-    backgroundFadeView = view.findViewById(R.id.background_fade_animation)
+        BottomSheetBehavior.from(gamification_fragment_container)
     presenter.present(savedInstanceState)
   }
 
@@ -246,7 +244,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
       }
 
       override fun onSlide(bottomSheet: View, slideOffset: Float) {
-        backgroundFadeView.progress = slideOffset
+        background_fade_animation.progress = slideOffset
       }
     })
   }
@@ -305,7 +303,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   }
 
   private fun setLevelBonus(level: Int, text: String, isCurrentLevel: Boolean) {
-    val bonusLabel: Int = if (isCurrentLevel) {
+    val bonusLabel = if (isCurrentLevel) {
       R.string.gamification_level_bonus
     } else {
       R.string.gamification_how_table_b2
