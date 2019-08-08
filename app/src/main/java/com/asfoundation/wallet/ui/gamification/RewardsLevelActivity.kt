@@ -12,7 +12,6 @@ import io.reactivex.subjects.PublishSubject
 class RewardsLevelActivity : BaseActivity(), GamificationView {
 
   private lateinit var menu: Menu
-  private var gamificationAvailable = false
   private var infoButtonSubject: PublishSubject<Any>? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,40 +56,13 @@ class RewardsLevelActivity : BaseActivity(), GamificationView {
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
     menuInflater.inflate(R.menu.menu_info, menu)
     this.menu = menu
+    this.menu.findItem(R.id.action_info)
+        .isVisible = true
     return super.onCreateOptionsMenu(menu)
-  }
-
-  override fun closeHowItWorksView() {
-    val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
-
-    if (currentFragment != null && supportFragmentManager.backStackEntryCount > 0) {
-      val fragment =
-          supportFragmentManager.findFragmentByTag(HowItWorksFragment::class.java.simpleName)
-      if (fragment != null && fragment::class.java.name.equals(
-              HowItWorksFragment::class.java.name, false)) {
-        supportFragmentManager.beginTransaction()
-            .remove(currentFragment)
-            .commit()
-      }
-      supportFragmentManager.popBackStackImmediate()
-    }
   }
 
   override fun getInfoButtonClick(): Observable<Any>? {
     return infoButtonSubject
-  }
-
-  override fun onHowItWorksClosed() {
-    if (gamificationAvailable) {
-      menu.findItem(R.id.action_info)
-          .isVisible = true
-    }
-  }
-
-  override fun showHowItWorksButton() {
-    gamificationAvailable = true
-    menu.findItem(R.id.action_info)
-        .isVisible = true
   }
 
   override fun onDestroy() {

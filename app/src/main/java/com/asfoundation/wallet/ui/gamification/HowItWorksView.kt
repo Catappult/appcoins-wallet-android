@@ -5,8 +5,7 @@ import java.math.BigDecimal
 
 
 interface HowItWorksView {
-  fun close()
   fun showLevels(levels: List<ViewLevel>, currentLevel: Int)
-  fun showPeekInformation(bonusEarned: BigDecimal, totalSpend: FiatValue)
+  fun showPeekInformation(totalSpend: BigDecimal, bonusEarned: FiatValue)
   fun showNextLevelFooter(userStatus: UserRewardsStatus)
 }

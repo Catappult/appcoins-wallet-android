@@ -66,6 +66,7 @@ class HowItWorksPresenter(private val view: HowItWorksView,
             .doOnSuccess {
               view.showNextLevelFooter(it)
             }
+            .subscribeOn(networkScheduler)
             .subscribe())
   }
 

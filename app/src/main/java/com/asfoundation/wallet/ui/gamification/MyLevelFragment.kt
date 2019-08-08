@@ -102,10 +102,6 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     }
   }
 
-  override fun showHowItWorksButton() {
-    gamificationView.showHowItWorksButton()
-  }
-
   private fun animateProgress(fromLevel: Int, toLevel: Int) {
     if (fromLevel == toLevel) {
       if (toLevel == 0) {

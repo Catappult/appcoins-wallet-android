@@ -42,7 +42,6 @@ class MyLevelPresenter(private val view: MyLevelView,
               if (sendEvent) {
                 analytics.sendMainScreenViewEvent(it.level + 1)
               }
-              if (it.bonus.isNotEmpty()) view.showHowItWorksButton()
             }
             .flatMapCompletable { gamification.levelShown(it.level) }
             .subscribe())
