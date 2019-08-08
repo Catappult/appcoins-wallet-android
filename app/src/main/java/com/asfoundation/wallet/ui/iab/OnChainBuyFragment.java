@@ -26,6 +26,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import static com.asfoundation.wallet.billing.analytics.BillingAnalytics.PAYMENT_METHOD_APPC;
@@ -41,7 +42,6 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   private static final String APP_PACKAGE = "app_package";
   private static final String TRANSACTION_BUILDER_KEY = "transaction_builder";
   private static final String BONUS_KEY = "bonus";
-  private static final String VALID_BONUS = "valid_bonus";
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject BillingAnalytics analytics;
   private Button okErrorButton;
@@ -56,12 +56,11 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   private Bundle extras;
   private String data;
   private boolean isBds;
-  private boolean validBonus;
   private TransactionBuilder transaction;
   private LottieAnimationView lottieTransactionComplete;
 
   public static OnChainBuyFragment newInstance(Bundle extras, String data, boolean bdsIap,
-      TransactionBuilder transaction, String bonus, boolean validBonus) {
+      TransactionBuilder transaction, String bonus) {
     OnChainBuyFragment fragment = new OnChainBuyFragment();
     Bundle bundle = new Bundle();
     bundle.putBundle("extras", extras);
@@ -69,7 +68,6 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     bundle.putBoolean("isBds", bdsIap);
     bundle.putParcelable(TRANSACTION_BUILDER_KEY, transaction);
     bundle.putString(BONUS_KEY, bonus);
-    bundle.putBoolean(VALID_BONUS, validBonus);
     fragment.setArguments(bundle);
     return fragment;
   }
@@ -80,7 +78,6 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     data = getArguments().getString("data");
     isBds = getArguments().getBoolean("isBds");
     transaction = getArguments().getParcelable(TRANSACTION_BUILDER_KEY);
-    validBonus = getValidBonus();
   }
 
   @Override
@@ -113,7 +110,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     presenter.present(data, getAppPackage(), extras.getString(PRODUCT_NAME, ""),
         (BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT), transaction.getPayload());
 
-    if (validBonus) {
+    if (StringUtils.isNotBlank(getBonus())) {
       lottieTransactionComplete.setAnimation(R.raw.transaction_complete_bonus_animation);
       setupTransactionCompleteAnimation();
     } else {
@@ -253,14 +250,6 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   private String getBonus() {
     if (getArguments().containsKey(BONUS_KEY)) {
       return getArguments().getString(BONUS_KEY);
-    } else {
-      throw new IllegalArgumentException("bonus amount data not found");
-    }
-  }
-
-  private Boolean getValidBonus() {
-    if (getArguments().containsKey(VALID_BONUS)) {
-      return getArguments().getBoolean(VALID_BONUS);
     } else {
       throw new IllegalArgumentException("bonus amount data not found");
     }

@@ -23,14 +23,12 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
 
   companion object {
     @JvmStatic
-    fun newInstance(amount: String, currency: String, bonus: String,
-                    validBonus: Boolean): TopUpSuccessFragment {
+    fun newInstance(amount: String, currency: String, bonus: String): TopUpSuccessFragment {
       val fragment = TopUpSuccessFragment()
       val bundle = Bundle()
       bundle.putString(PARAM_AMOUNT, amount)
       bundle.putString(CURRENCY, currency)
       bundle.putString(BONUS, bonus)
-      bundle.putBoolean(VALID_BONUS, validBonus)
       fragment.arguments = bundle
       return fragment
     }
@@ -38,7 +36,6 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
     private const val PARAM_AMOUNT = "amount"
     private const val CURRENCY = "currency"
     private const val BONUS = "bonus"
-    private const val VALID_BONUS = "valid_bonus"
   }
 
   private lateinit var presenter: TopUpSuccessPresenter
@@ -65,14 +62,6 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
       arguments!!.getString(BONUS)
     } else {
       throw IllegalArgumentException("bonus not found")
-    }
-  }
-
-  val validBonus: Boolean by lazy {
-    if (arguments!!.containsKey(VALID_BONUS)) {
-      arguments!!.getBoolean(VALID_BONUS)
-    } else {
-      throw IllegalArgumentException("valid bonus not found")
     }
   }
 
@@ -107,7 +96,7 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
   }
 
   override fun show() {
-    if (validBonus) {
+    if (bonus?.isNotBlank() == true) {
       top_up_success_animation.setAnimation(R.raw.top_up_bonus_success_animation)
       setAnimationText()
     } else {

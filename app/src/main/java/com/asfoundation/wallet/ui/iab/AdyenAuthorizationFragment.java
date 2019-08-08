@@ -75,7 +75,6 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   private static final String PAYMENT_TYPE = "paymentType";
   private static final String DEVELOPER_PAYLOAD_KEY = "developer_payload";
   private static final String BONUS_KEY = "bonus";
-  private static final String VALID_BONUS = "valid_bonus";
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject FindDefaultWalletInteract defaultWalletInteract;
   @Inject BillingFactory billingFactory;
@@ -112,11 +111,10 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   private TextView errorMessage;
   private View errorOkButton;
   private View mainView;
-  private boolean validBonus;
 
   public static AdyenAuthorizationFragment newInstance(String skuId, String type, String origin,
       PaymentType paymentType, String domain, String transactionData, BigDecimal amount,
-      String currency, String payload, String bonus, boolean validBonus) {
+      String currency, String payload, String bonus) {
     Bundle bundle = new Bundle();
     bundle.putString(SKU_ID, skuId);
     bundle.putString(TYPE, type);
@@ -128,7 +126,6 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     bundle.putString(TRANSACTION_CURRENCY, currency);
     bundle.putString(DEVELOPER_PAYLOAD_KEY, payload);
     bundle.putString(BONUS_KEY, bonus);
-    bundle.putBoolean(VALID_BONUS, validBonus);
     AdyenAuthorizationFragment fragment = new AdyenAuthorizationFragment();
     fragment.setArguments(bundle);
     return fragment;
@@ -147,8 +144,6 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
         inAppPurchaseInteractor.getBillingMessagesMapper(), inAppPurchaseInteractor,
         getTransactionData(), getDeveloperPayload(), billing, getSkuId(), getType(), getOrigin(),
         getAmount().toString(), getCurrency(), getPaymentType(), analytics, Schedulers.io());
-
-    validBonus = getValidBonus();
   }
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -222,7 +217,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
       }
     });
 
-    if (validBonus) {
+    if (org.apache.commons.lang3.StringUtils.isNotBlank(getBonus())) {
       lottieTransactionComplete.setAnimation(R.raw.transaction_complete_bonus_animation);
       setupTransactionCompleteAnimation();
     } else {
@@ -537,14 +532,6 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   private String getBonus() {
     if (getArguments().containsKey(BONUS_KEY)) {
       return getArguments().getString(BONUS_KEY);
-    } else {
-      throw new IllegalArgumentException("bonus amount data not found");
-    }
-  }
-
-  private Boolean getValidBonus() {
-    if (getArguments().containsKey(VALID_BONUS)) {
-      return getArguments().getBoolean(VALID_BONUS);
     } else {
       throw new IllegalArgumentException("bonus amount data not found");
     }

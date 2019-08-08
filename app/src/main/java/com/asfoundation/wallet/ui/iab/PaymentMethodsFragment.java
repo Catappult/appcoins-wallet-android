@@ -397,16 +397,16 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override public void showPaypal() {
     iabView.showAdyenPayment(fiatValue.getAmount(), fiatValue.getCurrency(), isBds,
-        PaymentType.PAYPAL, bonusMessageValue, validBonus);
+        PaymentType.PAYPAL, bonusMessageValue);
   }
 
   @Override public void showCreditCard() {
     iabView.showAdyenPayment(fiatValue.getAmount(), fiatValue.getCurrency(), isBds,
-        PaymentType.CARD, bonusMessageValue, validBonus);
+        PaymentType.CARD, bonusMessageValue);
   }
 
   @Override public void showAppCoins() {
-    iabView.showOnChain(transaction.amount(), isBds, bonusMessageValue, validBonus);
+    iabView.showOnChain(transaction.amount(), isBds, bonusMessageValue);
   }
 
   @Override public void showCredits() {
@@ -440,8 +440,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         isOneStep ? transaction.getOriginalOneStepValue() : null,
         isOneStep ? transaction.getOriginalOneStepCurrency() : null, bonusMessageValue,
         selectedPaymentMethod, transaction.toAddress(), transaction.getType(), transaction.amount(),
-        transaction.getCallbackUrl(), transaction.getOrderReference(), transaction.getPayload(),
-        validBonus);
+        transaction.getCallbackUrl(), transaction.getOrderReference(), transaction.getPayload());
   }
 
   @Override public void setBonus(@NotNull BigDecimal bonus, @NotNull String currency) {
@@ -450,7 +449,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     if (scaledBonus.compareTo(new BigDecimal(0.01)) < 0) {
       currency = "~" + currency;
     }
-    validBonus = bonus.compareTo(BigDecimal.ZERO) > 0;
     scaledBonus = scaledBonus.max(new BigDecimal("0.01"));
     bonusMessageValue = currency + scaledBonus.toPlainString();
     bonusValue.setText(getString(R.string.gamification_purchase_header_part_2, bonusMessageValue));
@@ -471,7 +469,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override public void showMergedAppcoins() {
     iabView.showMergedAppcoins(fiatValue.getAmount(), fiatValue.getCurrency(), bonusMessageValue,
-        productName, appcEnabled, creditsEnabled, isBds, isDonation, validBonus);
+        productName, appcEnabled, creditsEnabled, isBds, isDonation);
   }
 
   private void setBuyButtonText() {

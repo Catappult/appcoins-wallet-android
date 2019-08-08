@@ -45,7 +45,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     private const val TOP_UP_AMOUNT = "top_up_amount"
     private const val TOP_UP_CURRENCY = "currency"
     private const val BONUS = "bonus"
-    private const val VALID_BONUS = "valid_bonus"
   }
 
 
@@ -108,9 +107,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             TopUpSuccessFragment.newInstance(data.getString(TOP_UP_AMOUNT),
-                data.getString(TOP_UP_CURRENCY), data.getString(BONUS),
-                data.getBoolean(
-                    VALID_BONUS)), TopUpSuccessFragment::class.java.simpleName)
+                data.getString(TOP_UP_CURRENCY), data.getString(BONUS)),
+            TopUpSuccessFragment::class.java.simpleName)
         .commit()
     unlockRotation()
   }

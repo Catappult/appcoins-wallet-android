@@ -23,17 +23,16 @@ public interface IabView {
 
   void navigateToWebViewAuthorization(String url);
 
-  void showOnChain(BigDecimal amount, boolean isBds, String bonus, boolean validBonus);
+  void showOnChain(BigDecimal amount, boolean isBds, String bonus);
 
   void showAdyenPayment(BigDecimal amount, String currency, boolean isBds, PaymentType paymentType,
-      String bonus, boolean validBonus);
+      String bonus);
 
   void showAppcoinsCreditsPayment(BigDecimal appcAmount);
 
   void showLocalPayment(String domain, String skuId, String originalAmount, String currency,
       String bonus, String selectedPaymentMethod, String developerAddress, String type,
-      BigDecimal amount, String callbackUrl, String orderReference, String payload,
-      boolean validBonus);
+      BigDecimal amount, String callbackUrl, String orderReference, String payload);
 
   void showPaymentMethodsView(PaymentMethodsView.SelectedPaymentMethod preSelectedMethod);
 
@@ -42,6 +41,5 @@ public interface IabView {
       String selectedPaymentMethod);
 
   void showMergedAppcoins(BigDecimal fiatAmount, String currency, String bonus, String productName,
-      boolean appcEnabled, boolean creditsEnabled, boolean isBds, boolean isDonation,
-      boolean validBonus);
+      boolean appcEnabled, boolean creditsEnabled, boolean isBds, boolean isDonation);
 }
