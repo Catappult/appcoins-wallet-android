@@ -7,7 +7,8 @@ interface WalletAddressService {
 
   fun getOemDefaultAddress(): Single<String>
 
-  fun getStoreWalletForPackage(packageName: String): Single<String>
+  fun getStoreWalletForPackage(packageName: String, manufacturer: String?,
+                               model: String?): Single<String>
 
   fun getOemWalletForPackage(packageName: String, manufacturer: String?,
                              model: String?): Single<String>
