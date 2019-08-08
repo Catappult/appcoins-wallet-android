@@ -113,7 +113,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     val nextLevel = fromLevel + 1
     val to = (nextLevel) * step
     val animation = ProgressAnimation(progress_bar,
-        progress_bar?.progress!!.toFloat(), to.toFloat())
+        progress_bar.progress.toFloat(), to.toFloat())
     animation.duration = if (nextLevel == toLevel) 1000 else 600
     animation.setAnimationListener(object : AnimationListener {
       override fun onAnimationRepeat(animation: Animation?) {
@@ -220,16 +220,16 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     }
   }
 
-  private fun animateLevelUp(levelIcon: View?, levelText: TextView?, newLevel: Boolean) {
-    val activeIcon = levelIcon?.findViewById(R.id.level_active_icon) as ImageView
+  private fun animateLevelUp(levelIcon: View, levelText: TextView, newLevel: Boolean) {
+    val activeIcon = levelIcon.findViewById(R.id.level_active_icon) as ImageView
     val listener = object : AnimationListener {
       override fun onAnimationRepeat(animation: Animation?) {
       }
 
       override fun onAnimationEnd(animation: Animation?) {
         activeIcon.visibility = View.VISIBLE
-        levelText?.isEnabled = true
-        levelText?.visibility = View.VISIBLE
+        levelText.isEnabled = true
+        levelText.visibility = View.VISIBLE
       }
 
       override fun onAnimationStart(animation: Animation?) {
@@ -251,45 +251,45 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     })
   }
 
-  private fun animateLevelToLock(levelIcon: View?, levelText: TextView?) {
-    val icon: ImageView = levelIcon?.findViewById(R.id.level_active_icon) as ImageView
+  private fun animateLevelToLock(levelIcon: View, levelText: TextView) {
+    val icon = levelIcon.findViewById(R.id.level_active_icon) as ImageView
     startShrinkAnimation(icon)
     icon.visibility = View.INVISIBLE
-    levelText?.isEnabled = false
-    levelText?.visibility = View.VISIBLE
+    levelText.isEnabled = false
+    levelText.visibility = View.VISIBLE
   }
 
-  private fun animateLevelShow(levelIcon: View?, levelText: TextView?) {
-    val activeIcon = levelIcon?.findViewById(R.id.level_active_icon) as ImageView
+  private fun animateLevelShow(levelIcon: View, levelText: TextView) {
+    val activeIcon = levelIcon.findViewById(R.id.level_active_icon) as ImageView
     startGrowAnimation(activeIcon)
-    levelText?.isEnabled = false
-    levelText?.visibility = View.INVISIBLE
+    levelText.isEnabled = false
+    levelText.visibility = View.INVISIBLE
   }
 
-  private fun startBounceAnimation(view: View?, listener: AnimationListener) {
+  private fun startBounceAnimation(view: View, listener: AnimationListener) {
     val animation = AnimationUtils.loadAnimation(activity, R.anim.bounce_animation)
     animation.setAnimationListener(listener)
     animation.fillAfter = true
-    view?.startAnimation(animation)
+    view.startAnimation(animation)
   }
 
-  private fun startRebounceAnimation(view: View?, listener: AnimationListener) {
+  private fun startRebounceAnimation(view: View, listener: AnimationListener) {
     val animation = AnimationUtils.loadAnimation(activity, R.anim.rebounce_animation)
     animation.setAnimationListener(listener)
     animation.fillAfter = true
-    view?.startAnimation(animation)
+    view.startAnimation(animation)
   }
 
-  private fun startShrinkAnimation(view: View?) {
+  private fun startShrinkAnimation(view: View) {
     val animation = AnimationUtils.loadAnimation(activity, R.anim.shrink_animation)
     animation.fillAfter = true
-    view?.startAnimation(animation)
+    view.startAnimation(animation)
   }
 
-  private fun startGrowAnimation(view: View?) {
+  private fun startGrowAnimation(view: View) {
     val animation = AnimationUtils.loadAnimation(activity, R.anim.grow_animation)
     animation.fillAfter = true
-    view?.startAnimation(animation)
+    view.startAnimation(animation)
   }
 
   private fun setLevelResources(level: Int) {
