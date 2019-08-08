@@ -313,7 +313,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     mainView.setVisibility(View.GONE);
     itemAlreadyOwnedError = true;
     iabView.disableBack();
-    iabView.disableBack();
     View view = getView();
     if (view != null) {
       view.setFocusableInTouchMode(true);
