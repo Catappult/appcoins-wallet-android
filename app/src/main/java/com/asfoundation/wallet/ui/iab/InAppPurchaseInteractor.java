@@ -312,11 +312,10 @@ public class InAppPurchaseInteractor {
       } else if (id.equals(CREDITS_ID) && !filteredGateways.contains(
           Gateway.Name.appcoins_credits)) {
         iterator.remove();
-      } else if (paymentMethod.getGateway()
-          .getName() == (Gateway.Name.myappcoins) && isUnavailable(paymentMethod)) {
-        iterator.remove();
-      } else if (paymentMethod.getGateway()
-          .getName() == (Gateway.Name.adyen) && isUnavailable(paymentMethod)) {
+      } else if ((paymentMethod.getGateway()
+          .getName() == (Gateway.Name.myappcoins)
+          || paymentMethod.getGateway()
+          .getName() == (Gateway.Name.adyen)) && isUnavailable(paymentMethod)) {
         iterator.remove();
       }
     }
