@@ -28,15 +28,14 @@ public class EthplorerTokenService implements TokenExplorerClientType {
 
   @Override public Observable<TokenInfo[]> fetch(String walletAddress) {
     return ethplorerApiClient.fetchTokens(walletAddress)
-        .flatMap(response -> Observable.just(response.body()))
-        .map(r -> {
-          if (r.tokens == null) {
+        .map(response -> {
+          if (response == null || response.body() == null || response.body().tokens == null) {
             return new TokenInfo[0];
           } else {
-            int len = r.tokens.length;
+            int len = response.body().tokens.length;
             TokenInfo[] result = new TokenInfo[len];
             for (int i = 0; i < len; i++) {
-              result[i] = r.tokens[i].tokenInfo;
+              result[i] = response.body().tokens[i].tokenInfo;
             }
             return result;
           }
