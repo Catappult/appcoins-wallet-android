@@ -43,7 +43,6 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   private var topUpActivityView: TopUpActivityView? = null
   private var selectedCurrency = FIAT_CURRENCY
   private var switchingCurrency = false
-  private var validBonus = false
   private var bonusMessageValue: String = ""
   private var localCurrency = LocalCurrency()
 
@@ -163,7 +162,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     return RxView.clicks(button)
         .map {
           TopUpData(getCurrencyData(), selectedCurrency, getSelectedPaymentMethod(),
-              bonusMessageValue, validBonus)
+              bonusMessageValue)
         }
   }
 
@@ -255,14 +254,12 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   override fun hideBonus() {
-    validBonus = false
     bonus_layout.visibility = View.INVISIBLE
     bonus_msg.visibility = View.INVISIBLE
   }
 
-  override fun showBonus(bonus: BigDecimal, bonusCurrency: String) {
-    validBonus = true
-    buildBonusString(bonus, bonusCurrency)
+  override fun showBonus(bonus: BigDecimal, currency: String) {
+    buildBonusString(bonus, currency)
     bonus_layout.visibility = View.VISIBLE
     bonus_msg.visibility = View.VISIBLE
   }

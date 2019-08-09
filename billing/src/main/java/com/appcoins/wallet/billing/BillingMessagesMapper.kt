@@ -133,13 +133,12 @@ class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerial
     return bundle
   }
 
-  fun topUpBundle(amount: String, currency: String, bonus: String, validBonus: Boolean): Bundle {
+  fun topUpBundle(amount: String, currency: String, bonus: String): Bundle {
     val bundle = Bundle()
     bundle.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
     bundle.putString(TOP_UP_AMOUNT, amount)
     bundle.putString(TOP_UP_CURRENCY, currency)
     bundle.putString(BONUS, bonus)
-    bundle.putBoolean(VALID_BONUS, validBonus)
     return bundle
   }
 

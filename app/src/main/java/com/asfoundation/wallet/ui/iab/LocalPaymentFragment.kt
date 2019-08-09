@@ -202,7 +202,15 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    setAnimationText()
+
+    if (bonus?.isNotBlank() == true) {
+      complete_payment_view.lottie_transaction_success.setAnimation(
+          R.raw.top_up_bonus_success_animation)
+      setAnimationText()
+    } else {
+      complete_payment_view.lottie_transaction_success.setAnimation(R.raw.top_up_success_animation)
+    }
+
     localPaymentPresenter.present()
   }
 

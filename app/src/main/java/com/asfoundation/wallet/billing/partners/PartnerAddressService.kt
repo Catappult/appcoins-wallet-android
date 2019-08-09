@@ -12,7 +12,8 @@ class PartnerAddressService(private val installerService: InstallerService,
   override fun getStoreAddressForPackage(packageName: String): Single<String> {
     return installerService.getInstallerPackageName(packageName)
         .flatMap { installerPackageName ->
-          walletAddressService.getStoreWalletForPackage(installerPackageName)
+          walletAddressService.getStoreWalletForPackage(installerPackageName,
+              deviceInfo.manufacturer, deviceInfo.model)
         }.onErrorResumeNext { walletAddressService.getStoreDefaultAddress() }
   }
 

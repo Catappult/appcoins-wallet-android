@@ -47,10 +47,8 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Formatter;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import javax.inject.Inject;
 import org.jetbrains.annotations.NotNull;
 
@@ -70,7 +68,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private static final String IS_DONATION = "is_donation";
 
   private final CompositeDisposable compositeDisposable = new CompositeDisposable();
-  private final Map<String, Bitmap> loadedBitmaps = new HashMap<>();
   @Inject InAppPurchaseInteractor inAppPurchaseInteractor;
   @Inject BillingAnalytics analytics;
   @Inject BdsPendingTransactionService bdsPendingTransactionService;
@@ -266,11 +263,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override public void onDestroy() {
     super.onDestroy();
-
-    for (Bitmap bitmap : loadedBitmaps.values()) {
-      bitmap.recycle();
-    }
-    loadedBitmaps.clear();
   }
 
   @Override public void onDetach() {
@@ -540,7 +532,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         Bitmap bitmap = Picasso.with(context)
             .load(paymentMethod.getIconUrl())
             .get();
-        loadedBitmaps.put(paymentMethod.getId(), bitmap);
         BitmapDrawable drawable = new BitmapDrawable(context.getResources(),
             Bitmap.createScaledBitmap(bitmap, iconSize, iconSize, true));
         return drawable.getCurrent();
@@ -567,7 +558,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         Bitmap bitmap = Picasso.with(context)
             .load(paymentMethod.getIconUrl())
             .get();
-        loadedBitmaps.put(paymentMethod.getId(), bitmap);
         return bitmap;
       } catch (IOException e) {
         Log.w(TAG, "setupPaymentMethods: Failed to load icons!");

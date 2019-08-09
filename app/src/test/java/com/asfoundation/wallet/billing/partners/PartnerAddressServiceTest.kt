@@ -42,7 +42,9 @@ class PartnerAddressServiceTest {
     `when`(installerService.getInstallerPackageName(APP_PACKAGE_NAME)).thenReturn(
         Single.just(INSTALLER_PACKAGE_NAME))
 
-    `when`(walletAddressService.getStoreWalletForPackage(INSTALLER_PACKAGE_NAME)).thenReturn(
+    `when`(walletAddressService.getStoreWalletForPackage(INSTALLER_PACKAGE_NAME,
+        deviceInfo.manufacturer,
+        deviceInfo.model)).thenReturn(
         Single.just(INSTALLER_WALLET_ADDRESS))
 
     `when`(walletAddressService.getOemWalletForPackage(INSTALLER_PACKAGE_NAME,
@@ -78,7 +80,9 @@ class PartnerAddressServiceTest {
 
   @Test
   fun getDefaultWalletAddressOnError() {
-    `when`(api.getStoreWallet(INSTALLER_PACKAGE_NAME)).thenAnswer { Single.just("") }
+    `when`(api.getStoreWallet(INSTALLER_PACKAGE_NAME,
+        deviceInfo.manufacturer,
+        deviceInfo.model)).thenAnswer { Single.just("") }
 
     walletAddressService = PartnerWalletAddressService(api, BuildConfig.DEFAULT_STORE_ADDRESS,
         BuildConfig.DEFAULT_OEM_ADDRESS)

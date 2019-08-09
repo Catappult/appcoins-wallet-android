@@ -26,6 +26,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
+import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import static com.asfoundation.wallet.billing.analytics.BillingAnalytics.PAYMENT_METHOD_APPC;
@@ -109,7 +110,12 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     presenter.present(data, getAppPackage(), extras.getString(PRODUCT_NAME, ""),
         (BigDecimal) extras.getSerializable(TRANSACTION_AMOUNT), transaction.getPayload());
 
-    setupTransactionCompleteAnimation();
+    if (StringUtils.isNotBlank(getBonus())) {
+      lottieTransactionComplete.setAnimation(R.raw.transaction_complete_bonus_animation);
+      setupTransactionCompleteAnimation();
+    } else {
+      lottieTransactionComplete.setAnimation(R.raw.success_animation);
+    }
   }
 
   @Override public void onResume() {

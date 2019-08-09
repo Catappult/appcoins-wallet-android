@@ -39,7 +39,6 @@ public class PaymentAuthPresenter {
   private final BillingMessagesMapper billingMessagesMapper;
   private final InAppPurchaseInteractor inAppPurchaseInteractor;
   private final String bonusValue;
-  private final boolean validBonus;
   private final String appPackage;
   private PaymentAuthView view;
   private boolean waitingResult;
@@ -48,7 +47,7 @@ public class PaymentAuthPresenter {
       Scheduler networkScheduler, CompositeDisposable disposables, Adyen adyen,
       BillingService billingService, Navigator navigator,
       BillingMessagesMapper billingMessagesMapper, InAppPurchaseInteractor inAppPurchaseInteractor,
-      String bonusValue, boolean validBonus) {
+      String bonusValue) {
     this.view = view;
     this.appPackage = appPackage;
     this.viewScheduler = viewScheduler;
@@ -60,7 +59,6 @@ public class PaymentAuthPresenter {
     this.billingMessagesMapper = billingMessagesMapper;
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.bonusValue = bonusValue;
-    this.validBonus = validBonus;
   }
 
   public void present(@Nullable Bundle savedInstanceState, String transactionOrigin,
@@ -205,7 +203,7 @@ public class PaymentAuthPresenter {
               .flatMap(e -> Flowable.timer(counter.get(), TimeUnit.SECONDS));
         })
         .map(price -> billingMessagesMapper.topUpBundle(price.getValue(), price.getCurrency(),
-            bonusValue, validBonus));
+            bonusValue));
   }
 
   private void onViewCreatedCheckAuthorizationFailed(String transactionOrigin,

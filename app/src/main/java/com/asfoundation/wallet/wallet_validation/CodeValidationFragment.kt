@@ -37,7 +37,7 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
   private var walletValidationView: WalletValidationView? = null
   private lateinit var presenter: CodeValidationPresenter
   private lateinit var fragmentContainer: ViewGroup
-  lateinit var clipboard: ClipboardManager
+  private lateinit var clipboard: ClipboardManager
 
   val countryCode: String by lazy {
     if (arguments!!.containsKey(PhoneValidationFragment.COUNTRY_CODE)) {
@@ -93,6 +93,12 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
     presenter.present()
   }
 
+  override fun onResume() {
+    super.onResume()
+
+    focusAndShowKeyboard(code_1.code)
+  }
+
   override fun setupUI() {
     if (errorMessage == null) {
       error.visibility = View.INVISIBLE
@@ -112,24 +118,15 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
       code_6.code.setText(it.code6)
     }
 
-    code_1.code.addTextChangedListener(
-        PasteTextWatcher(code_1.code, code_2.code, code_3.code, code_4.code, code_5.code,
-            code_6.code, clipboard, code_1.code))
-    code_2.code.addTextChangedListener(
-        PasteTextWatcher(code_1.code, code_2.code, code_3.code, code_4.code, code_5.code,
-            code_6.code, clipboard, code_2.code))
-    code_3.code.addTextChangedListener(
-        PasteTextWatcher(code_1.code, code_2.code, code_3.code, code_4.code, code_5.code,
-            code_6.code, clipboard, code_3.code))
-    code_4.code.addTextChangedListener(
-        PasteTextWatcher(code_1.code, code_2.code, code_3.code, code_4.code, code_5.code,
-            code_6.code, clipboard, code_4.code))
-    code_5.code.addTextChangedListener(
-        PasteTextWatcher(code_1.code, code_2.code, code_3.code, code_4.code, code_5.code,
-            code_6.code, clipboard, code_5.code))
-    code_6.code.addTextChangedListener(
-        PasteTextWatcher(code_1.code, code_2.code, code_3.code, code_4.code, code_5.code,
-            code_6.code, clipboard, code_6.code))
+    val inputTexts =
+        arrayOf(code_1.code, code_2.code, code_3.code, code_4.code, code_5.code, code_6.code)
+
+    code_1.code.addTextChangedListener(PasteTextWatcher(inputTexts, clipboard, 0))
+    code_2.code.addTextChangedListener(PasteTextWatcher(inputTexts, clipboard, 1))
+    code_3.code.addTextChangedListener(PasteTextWatcher(inputTexts, clipboard, 2))
+    code_4.code.addTextChangedListener(PasteTextWatcher(inputTexts, clipboard, 3))
+    code_5.code.addTextChangedListener(PasteTextWatcher(inputTexts, clipboard, 4))
+    code_6.code.addTextChangedListener(PasteTextWatcher(inputTexts, clipboard, 5))
   }
 
   override fun clearUI() {
@@ -282,32 +279,30 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
   }
 
   class PasteTextWatcher(
-      private val code_1: EditText,
-      private val code_2: EditText,
-      private val code_3: EditText,
-      private val code_4: EditText,
-      private val code_5: EditText,
-      private val code_6: EditText,
+      private val inputTexts: Array<EditText>,
       private val clipboardManager: ClipboardManager,
-      private val selectedEditText: EditText
+      private val selectedPosition: Int
   ) : TextWatcher {
 
     private var isPaste = false
     private var isStart = false
+    private var isDelete = false
     private var previousChar = ""
 
     override fun afterTextChanged(s: Editable?) {
+      if (isDelete) {
+        if (selectedPosition > 0) {
+          inputTexts[selectedPosition - 1].requestFocus()
+          inputTexts[selectedPosition - 1].setSelection(inputTexts[selectedPosition - 1].length())
+          return
+        }
+      }
       if (s?.length ?: 0 > 1 && isPaste && isValidPaste()) {
-        selectedEditText.setText(previousChar)
+        inputTexts[selectedPosition].setText(previousChar)
         val text = getTextFromClipboard()
         text?.forEachIndexed { index, digit ->
           when (index) {
-            0 -> code_1.setText(digit.toString())
-            1 -> code_2.setText(digit.toString())
-            2 -> code_3.setText(digit.toString())
-            3 -> code_4.setText(digit.toString())
-            4 -> code_5.setText(digit.toString())
-            5 -> code_6.setText(digit.toString())
+            0, 1, 2, 3, 4, 5 -> inputTexts[index].setText(digit.toString())
             else -> return@forEachIndexed
           }
         }
@@ -323,6 +318,7 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
 
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
       isStart = start == 0
+      isDelete = (start == 0 && count == 1 && after == 0 && s?.length ?: 0 <= 1)
       if (after > 0) {
         previousChar = s.toString()
       }
@@ -343,6 +339,14 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
           ?.replace(Regex("[^\\d.]"), "")
     }
 
+  }
+
+  private fun focusAndShowKeyboard(view: EditText) {
+    view.post {
+      view.requestFocus()
+      val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+      imm?.showSoftInput(view, InputMethodManager.SHOW_FORCED)
+    }
   }
 
 }
