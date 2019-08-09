@@ -86,8 +86,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   override fun navigateToPayment(paymentType: PaymentType,
                                  data: TopUpData,
                                  selectedCurrency: String, origin: String,
-                                 transactionType: String, bonusValue: String,
-                                 validBonus: Boolean) {
+                                 transactionType: String, bonusValue: String) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             PaymentAuthFragment.newInstance(
@@ -95,7 +94,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
                 data,
                 selectedCurrency,
                 origin,
-                transactionType, bonusValue, validBonus))
+                transactionType, bonusValue))
         .commit()
   }
 

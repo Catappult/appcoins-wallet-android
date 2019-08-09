@@ -57,7 +57,7 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
     }
   }
 
-  val bonus: String? by lazy {
+  val bonus: String by lazy {
     if (arguments!!.containsKey(BONUS)) {
       arguments!!.getString(BONUS)
     } else {
@@ -96,7 +96,7 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
   }
 
   override fun show() {
-    if (bonus?.isNotBlank() == true) {
+    if (bonus.isNotBlank()) {
       top_up_success_animation.setAnimation(R.raw.top_up_bonus_success_animation)
       setAnimationText()
     } else {

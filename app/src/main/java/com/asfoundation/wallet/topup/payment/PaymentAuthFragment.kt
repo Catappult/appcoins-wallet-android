@@ -122,14 +122,6 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     }
   }
 
-  private val validBonus: Boolean by lazy {
-    if (arguments!!.containsKey(VALID_BONUS)) {
-      arguments!!.getBoolean(VALID_BONUS)
-    } else {
-      throw IllegalArgumentException("Valid bonus not found")
-    }
-  }
-
   companion object {
 
     private val TAG = PaymentAuthFragment::class.java.simpleName
@@ -140,12 +132,11 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
     private const val PAYMENT_DATA = "data"
     private const val PAYMENT_CURRENT_CURRENCY = "currentCurrency"
     private const val BONUS = "bonus"
-    private const val VALID_BONUS = "valid_bonus"
 
     fun newInstance(paymentType: PaymentType,
                     data: TopUpData, currentCurrency: String,
                     origin: String, transactionType: String,
-                    bonusValue: String, validBonus: Boolean): PaymentAuthFragment {
+                    bonusValue: String): PaymentAuthFragment {
       val bundle = Bundle()
       bundle.putString(PAYMENT_TYPE, paymentType.name)
       bundle.putString(PAYMENT_ORIGIN, origin)
@@ -153,7 +144,6 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
       bundle.putSerializable(PAYMENT_DATA, data)
       bundle.putString(PAYMENT_CURRENT_CURRENCY, currentCurrency)
       bundle.putString(BONUS, bonusValue)
-      bundle.putBoolean(VALID_BONUS, validBonus)
       val fragment = PaymentAuthFragment()
       fragment.arguments = bundle
       return fragment
@@ -169,7 +159,7 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
         PaymentAuthPresenter(this, appPackage, AndroidSchedulers.mainThread(), Schedulers.io(),
             CompositeDisposable(), adyen, billingFactory.getBilling(appPackage),
             navigator, inAppPurchaseInteractor.billingMessagesMapper,
-            inAppPurchaseInteractor, bonusValue, validBonus)
+            inAppPurchaseInteractor, bonusValue)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

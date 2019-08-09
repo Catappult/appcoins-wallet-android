@@ -94,7 +94,6 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   private TransactionBuilder transaction;
   private double transactionValue;
   private String bonusMessageValue = "";
-  private boolean validBonus;
   private TextView appcPriceTv;
   private TextView fiatPriceTv;
   private TextView appNameTv;

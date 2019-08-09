@@ -10,8 +10,7 @@ interface TopUpActivityView {
   fun navigateToPayment(paymentType: PaymentType,
                         data: TopUpData,
                         selectedCurrency: String, origin: String,
-                        transactionType: String, bonusValue: String,
-                        validBonus: Boolean)
+                        transactionType: String, bonusValue: String)
 
   fun finish(data: Bundle)
 
