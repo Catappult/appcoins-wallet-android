@@ -64,7 +64,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
             }.doOnNext {
               view.showLoading()
               activity?.navigateToPayment(it.paymentMethod!!, it, it.selectedCurrency, "BDS",
-                  "TOPUP", it.bonusValue, it.validBonus)
+                  "TOPUP", it.bonusValue)
             }.subscribe())
   }
 
