@@ -14,18 +14,16 @@ class PartnerWalletAddressService(private val bdsApi: BdsPartnersApi,
     return Single.just(defaultOemAddress)
   }
 
-  override fun getStoreWalletForPackage(packageName: String, manufacturer: String?,
+  override fun getStoreWalletForPackage(packageName: String?, manufacturer: String?,
                                         model: String?): Single<String> {
-    return if (packageName.isEmpty()) Single.just(defaultStoreAddress)
-    else bdsApi.getStoreWallet(packageName, manufacturer,
+    return bdsApi.getStoreWallet(packageName, manufacturer,
         model).map { it.items[0].user.wallet_address }
         .onErrorReturn { defaultStoreAddress }
   }
 
-  override fun getOemWalletForPackage(packageName: String, manufacturer: String?,
+  override fun getOemWalletForPackage(packageName: String?, manufacturer: String?,
                                       model: String?): Single<String> {
-    return if (packageName.isEmpty()) Single.just(defaultOemAddress)
-    else bdsApi.getOemWallet(packageName, manufacturer,
+    return bdsApi.getOemWallet(packageName, manufacturer,
         model).map { it.items[0].user.wallet_address }
         .onErrorReturn { defaultOemAddress }
   }

@@ -834,7 +834,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides AnalyticsAPI provideAnalyticsAPI(OkHttpClient client,
       ObjectMapper objectMapper) {
-    return new Retrofit.Builder().baseUrl("http://ws75.aptoide.com/api/7/")
+    return new Retrofit.Builder().baseUrl("https://ws75.aptoide.com/api/7/")
         .client(client)
         .addConverterFactory(JacksonConverterFactory.create(objectMapper))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
