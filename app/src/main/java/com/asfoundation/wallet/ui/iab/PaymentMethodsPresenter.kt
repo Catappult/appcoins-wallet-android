@@ -339,7 +339,6 @@ class PaymentMethodsPresenter(
               mergedPaymentMethod.creditsLabel, paymentMethod.creditsIconUrl,
               mergedPaymentMethod.isCreditsEnabled)
         }
-        return paymentMethod
       }
       if (paymentMethod.id == preSelectedPreference) {
         return paymentMethod

@@ -211,7 +211,8 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     preSelectedMethodView = view.findViewById(R.id.layout_pre_selected);
     preSelectedIcon = preSelectedMethodView.findViewById(R.id.payment_method_ic);
     preSelectedName = preSelectedMethodView.findViewById(R.id.payment_method_description);
-    pareSelectedNameSingle = preSelectedMethodView.findViewById(R.id.payment_method_description_single);
+    pareSelectedNameSingle =
+        preSelectedMethodView.findViewById(R.id.payment_method_description_single);
     preSelectedDescription = preSelectedMethodView.findViewById(R.id.payment_method_secondary);
 
     setupAppNameAndIcon();
@@ -394,12 +395,12 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
           boolean hasPreSelectedPaymentMethod =
               inAppPurchaseInteractor.hasPreSelectedPaymentMethod();
 
-          if (hasPreSelectedPaymentMethod) {
-            return preSelectedPaymentMethod.getValue();
-          } else if (paymentMethodList.isEmpty() || radioGroup.getCheckedRadioButtonId() == -1) {
-            return "";
-          } else {
+          if (!paymentMethodList.isEmpty() && radioGroup.getCheckedRadioButtonId() != -1) {
             return paymentMethodList.get(radioGroup.getCheckedRadioButtonId());
+          } else if (hasPreSelectedPaymentMethod && radioGroup.getCheckedRadioButtonId() != -1) {
+            return preSelectedPaymentMethod.getValue();
+          } else {
+            return "";
           }
         });
   }
