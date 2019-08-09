@@ -318,9 +318,10 @@ public class InAppPurchaseInteractor {
       } else if (id.equals(CREDITS_ID) && !filteredGateways.contains(
           Gateway.Name.appcoins_credits)) {
         iterator.remove();
-      } else if (paymentMethod.getGateway()
-          .getName() == (Gateway.Name.myappcoins) && paymentMethod.getAvailability()
-          .equals("UNAVAILABLE")) {
+      } else if ((paymentMethod.getGateway()
+          .getName() == (Gateway.Name.myappcoins)
+          || paymentMethod.getGateway()
+          .getName() == (Gateway.Name.adyen)) && isUnavailable(paymentMethod)) {
         iterator.remove();
       }
     }
@@ -365,5 +366,10 @@ public class InAppPurchaseInteractor {
   String getLastUsedPaymentMethod() {
     return sharedPreferences.getString(LAST_USED_PAYMENT_METHOD_KEY,
         PaymentMethodsView.PaymentMethodId.CREDIT_CARD.getId());
+  }
+
+  private boolean isUnavailable(PaymentMethodEntity paymentMethod) {
+    return paymentMethod.getAvailability() != null && paymentMethod.getAvailability()
+        .equals("UNAVAILABLE");
   }
 }
