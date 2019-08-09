@@ -28,4 +28,6 @@ interface AdyenAuthorizationView {
   fun showGenericError()
   fun getMorePaymentMethodsClicks(): Observable<Any>
   fun showMoreMethods()
+  fun onValidFieldStateChange(): Observable<Boolean>
+  fun updateButton(valid: Boolean)
 }

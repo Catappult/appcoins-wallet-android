@@ -350,7 +350,7 @@ public class InAppPurchaseInteractor {
         PaymentMethodsView.PaymentMethodId.APPC_CREDITS.getId());
   }
 
-  void savePreSelectedPaymentMethod(String paymentMethod) {
+  public void savePreSelectedPaymentMethod(String paymentMethod) {
     SharedPreferences.Editor editor = sharedPreferences.edit();
     editor.putString(PRE_SELECTED_PAYMENT_METHOD_KEY, paymentMethod);
     editor.putString(LAST_USED_PAYMENT_METHOD_KEY, paymentMethod);

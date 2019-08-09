@@ -47,6 +47,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.PublishSubject;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Formatter;
@@ -115,6 +116,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   private View errorOkButton;
   private View mainView;
 
+  private PublishSubject validationSubject;
   private ImageView preSelectedIcon;
   private View bonusView;
   private View bonusMsg;
@@ -147,6 +149,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     super.onCreate(savedInstanceState);
     backButton = PublishRelay.create();
     keyboardBuyRelay = PublishRelay.create();
+    validationSubject = PublishSubject.create();
 
     FragmentNavigator navigator = new FragmentNavigator((UriNavigator) getActivity(), iabView);
 
@@ -211,13 +214,6 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
       buyButton.setText(R.string.action_buy);
     }
 
-    cardForm.setOnCardFormValidListener(valid -> {
-      if (valid) {
-        buyButton.setVisibility(View.VISIBLE);
-      } else {
-        buyButton.setVisibility(View.INVISIBLE);
-      }
-    });
     cardForm.setOnCardFormSubmitListener(() -> {
       if (cardForm.isValid()) {
         keyboardBuyRelay.accept(true);
@@ -259,6 +255,7 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   @Override public void onDestroyView() {
     presenter.stop();
 
+    validationSubject = null;
     progressBar = null;
     productIcon = null;
     productName = null;
@@ -366,6 +363,10 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   }
 
   @Override public void hideLoading() {
+    buyButton.setVisibility(cardForm.isValid() ? View.VISIBLE : View.INVISIBLE);
+
+    cardForm.setOnCardFormValidListener(valid -> validationSubject.onNext(valid));
+
     if (isPreSelected()) {
       progressBar.setVisibility(View.GONE);
       dialog.setVisibility(View.VISIBLE);
@@ -493,6 +494,14 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   @Override public void showMoreMethods() {
     KeyboardUtils.hideKeyboard(mainView);
     iabView.showPaymentMethodsView(PaymentMethodsView.SelectedPaymentMethod.CREDIT_CARD);
+  }
+
+  @Override public Observable<Boolean> onValidFieldStateChange() {
+    return validationSubject;
+  }
+
+  @Override public void updateButton(boolean valid) {
+    buyButton.setVisibility(valid ? View.VISIBLE : View.INVISIBLE);
   }
 
   private void finishSetupView() {

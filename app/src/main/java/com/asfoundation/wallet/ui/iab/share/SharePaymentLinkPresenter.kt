@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab.share
 
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -24,6 +25,7 @@ class SharePaymentLinkPresenter(private val view: SharePaymentLinkFragmentView,
         .flatMapSingle {
           getLink(it)
         }.observeOn(viewScheduler).doOnNext {
+          interactor.savePreSelectedPaymentMethod(PaymentMethodsView.PaymentMethodId.ASK_FRIEND.id)
           view.shareLink(it)
         }.subscribe({}, {
           it.printStackTrace()

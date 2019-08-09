@@ -957,8 +957,8 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Provides ShareLinkInteractor providesShareLinkInteractor(ShareLinkRepository repository,
-      FindDefaultWalletInteract interactor) {
-    return new ShareLinkInteractor(repository, interactor);
+      FindDefaultWalletInteract interactor, InAppPurchaseInteractor inAppPurchaseInteractor) {
+    return new ShareLinkInteractor(repository, interactor, inAppPurchaseInteractor);
   }
 
   @Singleton @Provides ShareLinkRepository providesShareLinkRepository(

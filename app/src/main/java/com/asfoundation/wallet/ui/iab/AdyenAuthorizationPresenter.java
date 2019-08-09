@@ -122,6 +122,8 @@ public class AdyenAuthorizationPresenter {
     handleCancel();
 
     handleMorePaymentMethodClicks();
+
+    handleFieldValidationStateChange();
   }
 
   private void handleMorePaymentMethodClicks() {
@@ -415,5 +417,12 @@ public class AdyenAuthorizationPresenter {
     } else {
       return PAYMENT_METHOD_PAYPAL;
     }
+  }
+
+  private void handleFieldValidationStateChange() {
+    disposables.add(view.onValidFieldStateChange()
+        .observeOn(viewScheduler)
+        .doOnNext(valid -> view.updateButton(valid))
+        .subscribe());
   }
 }

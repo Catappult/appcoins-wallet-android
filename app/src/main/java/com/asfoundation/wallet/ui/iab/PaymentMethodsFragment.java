@@ -397,7 +397,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
           if (!paymentMethodList.isEmpty() && radioGroup.getCheckedRadioButtonId() != -1) {
             return paymentMethodList.get(radioGroup.getCheckedRadioButtonId());
-          } else if (hasPreSelectedPaymentMethod && radioGroup.getCheckedRadioButtonId() != -1) {
+          } else if (hasPreSelectedPaymentMethod && radioGroup.getCheckedRadioButtonId() == -1) {
             return preSelectedPaymentMethod.getValue();
           } else {
             return "";
