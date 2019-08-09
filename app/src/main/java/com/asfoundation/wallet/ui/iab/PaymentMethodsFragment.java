@@ -116,7 +116,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   private View preSelectedMethodView;
   private ImageView preSelectedIcon;
-  private TextView pareSelectedNameSingle;
+  private TextView preSelectedNameSingle;
   private TextView preSelectedName;
   private TextView preSelectedDescription;
 
@@ -211,7 +211,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     preSelectedMethodView = view.findViewById(R.id.layout_pre_selected);
     preSelectedIcon = preSelectedMethodView.findViewById(R.id.payment_method_ic);
     preSelectedName = preSelectedMethodView.findViewById(R.id.payment_method_description);
-    pareSelectedNameSingle =
+    preSelectedNameSingle =
         preSelectedMethodView.findViewById(R.id.payment_method_description_single);
     preSelectedDescription = preSelectedMethodView.findViewById(R.id.payment_method_secondary);
 
@@ -256,7 +256,7 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
     preSelectedMethodView = null;
     preSelectedIcon = null;
     preSelectedName = null;
-    pareSelectedNameSingle = null;
+    preSelectedNameSingle = null;
     preSelectedDescription = null;
 
     super.onDestroyView();
@@ -622,13 +622,13 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
       preSelectedName.setVisibility(View.VISIBLE);
       preSelectedName.setText(paymentMethod.getLabel());
       preSelectedDescription.setVisibility(View.VISIBLE);
-      pareSelectedNameSingle.setVisibility(View.GONE);
+      preSelectedNameSingle.setVisibility(View.GONE);
       hideBonus();
     } else {
       preSelectedName.setVisibility(View.VISIBLE);
       preSelectedName.setText(paymentMethod.getLabel());
       preSelectedDescription.setVisibility(View.GONE);
-      pareSelectedNameSingle.setVisibility(View.GONE);
+      preSelectedNameSingle.setVisibility(View.GONE);
     }
 
     preSelectedMethodView.setVisibility(View.VISIBLE);
