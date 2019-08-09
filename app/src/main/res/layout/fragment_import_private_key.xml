@@ -19,7 +19,7 @@
           android:layout_height="wrap_content"
           android:hint="@string/hint_private_key_field"
           android:imeActionLabel="@string/action_sign_in_short"
-          android:imeOptions="actionUnspecified|flagNoExtractUi|flagNoFullscreen"
+          android:imeOptions="actionUnspecified"
           android:inputType="textPassword"
           android:maxLines="1"
           android:singleLine="true"
