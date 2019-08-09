@@ -61,6 +61,7 @@
       android:background="@null"
       android:gravity="start|center_vertical"
       android:hint="@string/askafriend_share_add_message_body"
+      android:imeOptions="flagNoExtractUi|flagNoFullscreen"
       android:inputType="text"
       android:maxLength="50"
       android:maxLines="1"
