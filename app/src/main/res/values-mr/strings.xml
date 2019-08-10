@@ -307,14 +307,14 @@
   <string name="gamification_purchase_appccredits_body">झटपट पेमेंट प्रकार!</string>
   <string name="gamification_how_bonus_received_body">बोनस मिळाला</string>
   <string name="gamification_how_appc_spent">ह्या पातळीवर पोचण्यासाठी खर्च केलेली रक्कम</string>
-  <string name="gamification_how_to_next_level_body">Spend <b>%1$s AppCoins</b> more to reach <b>level %2$s</b>.</string>
+  <string name="gamification_how_to_next_level_body"><b>%2$s पातळी</b> पोचण्यासाठी इतक्या <b>%1$s अॅपकॉइन्स</b> खर्च करा.</string>
   <string name="gamification_level_expiration_title">पुढची पातळी तपासा: %s</string>
   <string name="gamification_level_expiration_body">गेल्या १२ महिन्यातील आपल्या खरेदीवर आपली पातळी आधारीत आहे.</string>
   <string name="gamification_leveled_up_title">आपण पुढच्या पातळीवर पोचलात!</string>
   <string name="gamification_leveled_up_body">आता प्रत्येक खरेदीवर आपल्याला %s बोनस मिळेल. जास्त मिळविण्यासाठी खरेदी करत रहा!</string>
   <string name="gamification_leveled_up_notification_title">आपण पुढच्या पातळीवर पोचलात!</string>
   <string name="gamification_leveled_up_notification_body">अभिनंदन, आता प्रत्येक खरेदीवर आपल्याला %s बोनस मिळेल!</string>
-  <string name="gamification_how_max_level_body">Congrats! You\'ve reached the highest level 💃</string>
+  <string name="gamification_how_max_level_body">अभिनंदन! आपण सर्वोच्च पातळीवर पोचलात 💃</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">आपला वॉलेट पत्ता %s ला पुरविण्यासाठी अॅपकॉइन्स वॉलेटला परवानगी द्या.</string>
   <string name="provide_wallet_body_placeholders">आपला वॉलेट पत्ता %2$s ला पुरविण्यासाठी %1$s ला परवानगी द्या.</string>
