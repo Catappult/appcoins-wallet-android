@@ -307,14 +307,14 @@
   <string name="gamification_purchase_appccredits_body">ਭੁਗਤਾਨ ਦੀ ਸੱਭ ਤੋਂ ਤੇਜ਼ ਵਿਧੀ!</string>
   <string name="gamification_how_bonus_received_body">ਬੋਨਸ ਪ੍ਰਾਪਤ ਹੋਇਆ</string>
   <string name="gamification_how_appc_spent">ਇਸ ਪੱਧਰ ਤੱਕ ਪਹੁੰਚਣ ਲਈ ਖਰਚ ਕੀਤੀ ਰਕਮ</string>
-  <string name="gamification_how_to_next_level_body">Spend <b>%1$s AppCoins</b> more to reach <b>level %2$s</b>.</string>
+  <string name="gamification_how_to_next_level_body"><b>%2$s ਪੱਧਰ</b> ਤੱਕ ਪਹੁੰਚਣ ਲਈ <b>%1$s ਵੱਧ ਐਪਸਿੱਕੇ</b> ਖਰਚ ਕਰੋ|</string>
   <string name="gamification_level_expiration_title">ਅਗਲਾ ਪੱਧਰ ਚੈੱਕ: %s</string>
   <string name="gamification_level_expiration_body">ਤੁਹਾਡਾ ਪੱਧਰ ਤੁਹਾਡੀ ਪਿਛਲੇ 12 ਮਹੀਨਿਆਂ ਵਿੱਚ ਕੀਤੀ ਖਰੀਦ ਤੇ ਅਧਾਰਤ ਹੈ|</string>
   <string name="gamification_leveled_up_title">ਤੁਸੀਂ ਅਗਲੇ ਪੱਧਰ ਤਕ ਪਹੁੰਚ ਗਏ ਹੋ!</string>
   <string name="gamification_leveled_up_body">ਤੁਹਾਨੂੰ ਹੁਣ ਹਰੇਕ ਖਰੀਦ ਤੇ ਇੱਕ %s ਬੋਨਸ ਪ੍ਰਾਪਤ ਹੋਵੇਗਾ| ਹੋਰ ਕਮਾਉਣ ਲਈ ਖਰੀਦਦੇ ਰਹੋ!</string>
   <string name="gamification_leveled_up_notification_title">ਤੁਸੀਂ ਅਗਲੇ ਪੱਧਰ ਤੇ ਪਹੁੰਚ ਗਏ ਹੋ!</string>
   <string name="gamification_leveled_up_notification_body">ਵਧਾਈਆਂ, ਤੁਹਾਨੂੰ ਹੁਣ ਹਰੇਕ ਖਰੀਦ ਤੇ ਇੱਕ %s ਬੋਨਸ ਮਿਲੇਗਾ!</string>
-  <string name="gamification_how_max_level_body">Congrats! You\'ve reached the highest level 💃</string>
+  <string name="gamification_how_max_level_body">ਵਧਾਈਆਂ! ਤੁਸੀਂ ਉੱਚ ਪੱਧਰ ਤੇ ਪਹੁੰਚ ਗਏ ਹੋ 💃</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ %s ਨੂੰ ਬਟੂਏ ਦਾ ਪਤਾ ਦੱਸਣ ਦੀ ਆਗਿਆ ਦਿਓ|</string>
   <string name="provide_wallet_body_placeholders">%1$s ਬਟੂਏ ਨੂੰ %2$s ਨੂੰ ਬਟੂਏ ਦਾ ਪਤਾ ਦੱਸਣ ਦੀ ਆਗਿਆ ਦਿਓ|</string>
