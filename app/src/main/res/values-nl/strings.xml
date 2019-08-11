@@ -307,14 +307,14 @@
   <string name="gamification_purchase_appccredits_body">De snelste betaalmethode!</string>
   <string name="gamification_how_bonus_received_body">Bonus ontvangen</string>
   <string name="gamification_how_appc_spent">Bedrag besteed om dit niveau te bereiken</string>
-  <string name="gamification_how_to_next_level_body">Spend <b>%1$s AppCoins</b> more to reach <b>level %2$s</b>.</string>
+  <string name="gamification_how_to_next_level_body">Besteed nog <b>%1$s AppCoins</b> om <b>level %2$s</b> te bereiken.</string>
   <string name="gamification_level_expiration_title">Controle volgende niveau: %s</string>
   <string name="gamification_level_expiration_body">Je niveau is op je aankoopactiviteit gedurende de laatste 12 maanden gebaseerd.</string>
   <string name="gamification_leveled_up_title">Je hebt het volgende niveau bereikt!</string>
   <string name="gamification_leveled_up_body">Je krijgt nu bij elke aankoop %s bonus. Blijf kopen om nog meer te verdienen!</string>
   <string name="gamification_leveled_up_notification_title">Je hebt het volgende niveau bereikt!</string>
   <string name="gamification_leveled_up_notification_body">Gefeliciteerd, je krijgt nu bij elke aankoop %s bonus!</string>
-  <string name="gamification_how_max_level_body">Congrats! You\'ve reached the highest level 💃</string>
+  <string name="gamification_how_max_level_body">Gefeliciteerd! Je hebt het hoogste level bereikt 💃</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Geef AppCoins Wallet toestemming om je wallet-adres aan %s door te geven.</string>
   <string name="provide_wallet_body_placeholders">Geef %1$s toestemming om je wallet-adres aan %2$s door te geven.</string>
