@@ -278,12 +278,12 @@
   <string name="gamification_level_body">คุณสามารถได้รับเครดิต APPC ได้เมื่อคุณซื้อสินค้าในแอปหรือเกมส์ที่คุณชื่นชอบ</string>
   <string name="gamification_how_header">วิธีการเพิ่มระดับ?</string>
   <string name="gamification_how_body">คุณจะสามารถได้รับเครดิต APPC ได้เมื่อคุณซื้อสินค้าในแอปหรือเกมส์ที่คุณชื่นชอบ</string>
-  <string name="gamification_how_body_new">The more you spend in your favorite apps, the bigger the Bonus!</string>
+  <string name="gamification_how_body_new">ยิ่งคุณซื้อแอปที่คุณโปรดปราน ก็ยิ่งรับโบนัสที่มากกว่า!</string>
   <string name="gamification_how_table_a1">ใช้จ่าย</string>
   <string name="gamification_how_table_b1">โบนัส</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s %%</string>
-  <string name="gamification_how_table_level">LEVEL</string>
+  <string name="gamification_how_table_level">เลเวล</string>
   <string name="gamification_how_terms_and_conditions">เงื่อนไข</string>
   <string name="gamification_how_spend">ใช้ %s APPC</string>
   <string name="gamification_a_comet_title">ดาวหาง</string>
@@ -305,16 +305,16 @@
   <string name="gamification_purchase_completed_bonus_received">โบนัสที่ได้รับ</string>
   <string name="action_level">ระดับของฉัน</string>
   <string name="gamification_purchase_appccredits_body">วิธีการชำระเงินอย่างรวดเร็ว!</string>
-  <string name="gamification_how_bonus_received_body">Bonus received</string>
-  <string name="gamification_how_appc_spent">Amount spent to reach this level</string>
-  <string name="gamification_how_to_next_level_body">Spend <b>%1$s AppCoins</b> more to reach <b>level %2$s</b>.</string>
-  <string name="gamification_level_expiration_title">Next level check: %s</string>
-  <string name="gamification_level_expiration_body">Your level is based on your purchase activity over the last 12 months.</string>
-  <string name="gamification_leveled_up_title">You\'ve reached the next level!</string>
-  <string name="gamification_leveled_up_body">You\'ll now get a %s bonus on every purchase. Keep buying to earn even more!</string>
-  <string name="gamification_leveled_up_notification_title">You reached the next level!</string>
-  <string name="gamification_leveled_up_notification_body">Congrats, you\'ll now get a %s bonus on every purchase!</string>
-  <string name="gamification_how_max_level_body">Congrats! You\'ve reached the highest level 💃</string>
+  <string name="gamification_how_bonus_received_body">โบนัสที่ได้รับ</string>
+  <string name="gamification_how_appc_spent">จำนวนที่ใช้ไปในเลเวลนี้</string>
+  <string name="gamification_how_to_next_level_body">ใช้<b>%1$sAppCoins</b>เพื่อให้ถึง<b>เลเวล%2$s</b></string>
+  <string name="gamification_level_expiration_title">ตรวจสอบเลเวลถัดไป:%s</string>
+  <string name="gamification_level_expiration_body">เลเวลของคุณขึ้นกับการซื้อในช่วง 12 เดือนที่ผ่านมา</string>
+  <string name="gamification_leveled_up_title">คุณถึงเลเวลถัดไป!</string>
+  <string name="gamification_leveled_up_body">คุณจะได้รับโบนัส %s ในทุกการซื้อ ซื้อย่างต่อเนื่องเพื่อรับมากขึ้น!</string>
+  <string name="gamification_leveled_up_notification_title">คุณถึงเลเวลถัดไป!</string>
+  <string name="gamification_leveled_up_notification_body">ยินดีด้วย คุณจะรับโบนัส %s ในทุกการซื้อขาย!</string>
+  <string name="gamification_how_max_level_body">ยินดีด้วย! คุณถึงเลเวลสูงสุดแล้ว!</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">อนุญาตให้ AppCoins กระเป๋าเพื่อให้กระเป๋าสตางค์ที่อยู่ %s</string>
   <string name="provide_wallet_body_placeholders">อนุญาตให้ %1$s ที่อยู่กระเป๋าสตางค์ %2$s</string>
@@ -336,12 +336,12 @@
   <string name="topup_bonus_message">เครดิต %s APPC=C จะถูกเก็บเป็นเครดิตในกระเป๋าสตางค์ของคุณ.</string>
   <string name="topup_completed_1">%s ในเครดิต AppCoins</string>
   <string name="topup_completed_2_with_bonus">ถูกฝากเข้าบัญชีของคุณ... พร้อมกับโบนัส!</string>
-  <string name="topup_completed_2_without_bonus">were deposited in your account.</string>
+  <string name="topup_completed_2_without_bonus">มีในบัญชีของคุณ</string>
   <string name="topup_bonus_header_part_1">เติมโบนัส</string>
   <string name="topup_bonus_header_part_2">%s ในเครดิต APPC</string>
   <string name="topup_bonus_body">คุณสามารถใช้โบนัสนี้ในการซื้อครั้งต่อไป</string>
-  <string name="topup_minimum_value">Minimum top-up value is %s</string>
-  <string name="topup_maximum_value">Maximum top-up value is %s</string>
+  <string name="topup_minimum_value">การเติมเงินอย่างต่ำคือ %s</string>
+  <string name="topup_maximum_value">การเติมเงินสูงสุดคือ %s</string>
   <!--Balance-->
   <string name="balance_title">ยอดคงเหลือ</string>
   <string name="balance_total_body">ยอดดุลรวมใน %s</string>
@@ -382,7 +382,7 @@
   <string name="value_fiat">%1$s %2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
   <string name="dismiss_button">ละทิ้ง</string>
-  <string name="connectoin_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
+  <string name="connectoin_error_body">มันดูเหมือนว่าคุณไม่ได้เชื่อมต่ออินเตอร์เน็ต ตรวจสอบการเชื่อมต่อของคุณและลองอีกครั้ง!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
@@ -393,10 +393,10 @@
   <string name="home_empty_discover_apps_button">ค้นพบแอปยอดนิยม</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
+  <string name="title_redeem">แลกใช้รหัส</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">ดำเนินการ&#8230;</string>
-  <string name="local_payments_inprogress_body">Once you complete the payment you\'ll receive the AppCoins Credits in your wallet. Then go back to the game to make the purchase!</string>
+  <string name="local_payments_inprogress_body">เมื่อคุณชำระเงินเสร็จ คุณจะได้รับเครดิต AppCoins ในกระเป๋าสตางค์ของคุณ หลังจากนั้นกลับไปที่เกมเพื่อซื้อ!</string>
   <!--Wallet Verification-->
   <string name="verification_notification_verification_needed_title">รางวัลพร้อมแล้วแต่จำเป็นต้องมีการตรวจสอบ</string>
   <string name="verification_notification_verification_needed_body">เพื่อเหตุผลด้านความปลอดภัย เราต้องยืนยันกระเป๋าเงินของคุณด้วยรหัส SMS</string>
@@ -418,11 +418,11 @@
   <string name="verification_insert_phone_field_phone_used_already_error">เบอร์โทรศัพท์ถูกใช้แล้ว</string>
   <string name="verification_insert_code_error_common">อุ๊ปส์ มีบางอย่างผิดพลาด โปรดลองใหม่อีกครั้ง!</string>
   <!--Purchase Flow-->
-  <string name="purchase_error_incomplete_transaction_body">It seems this purchase is already being processed. Please hold on until the transaction is completed or contact our Support Team.</string>
-  <string name="purchase_more_payment_methods_button">OTHER PAYMENT METHODS</string>
-  <string name="purchase_appcoins_available_body">You\'ll use a small amount of ETH to pay for the fees.</string>
-  <string name="purchase_appcoins_noavailable_body">You don\'t have enough AppCoins or Ether for this purchase.</string>
-  <string name="purchase_appcoins_credits_available_body">No fees and lightning fast!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough APPC Credits, try topping up!</string>
-  <string name="purchase_appcoins_credits_default_body">You earned enough AppCoins Credits for this purchase. Enjoy!</string>
+  <string name="purchase_error_incomplete_transaction_body">มันดูเหมือนว่าการซื้อนี้กำลังดำเนินการแล้ว โปรดรอสักครู่จนกระทั่งธุรกรรมเสร็จสิ้นหรือติดต่อทีมสนับสนุน</string>
+  <string name="purchase_more_payment_methods_button">วิธีการชำระเงินอื่น</string>
+  <string name="purchase_appcoins_available_body">คุณจะใช้ ETH จำนวนเล็กน้อยเพื่อชำระค่าธรรมเนียม</string>
+  <string name="purchase_appcoins_noavailable_body">คุณไม่จำเป็นต้องมี AppCoins หรือ. Ether. ที่เพียงพอในการซื้อนี้</string>
+  <string name="purchase_appcoins_credits_available_body">ไม่มีค่าธรรมเนียม รวดเร็ว!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">คุณไม่จำเป็นต้องมีเครดิต APPC ที่เพียงพอ ลองเติมเงินดู!</string>
+  <string name="purchase_appcoins_credits_default_body">คุณรับเครดิต AppCoins ที่เพียงพอสำหรับการซื้อนี้ สนุกกัน!</string>
 </resources>
