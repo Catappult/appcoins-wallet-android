@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProviders;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.C;
@@ -113,8 +114,11 @@ public class ConfirmationActivity extends BaseActivity {
   private void onProgress(boolean shouldShowProgress) {
     if (shouldShowProgress) {
       hideDialog();
+      ProgressBar progressBar = new ProgressBar(this);
+      progressBar.setIndeterminateDrawable(
+          ResourcesCompat.getDrawable(getResources(), R.drawable.gradient_progress, null));
       dialog = new AlertDialog.Builder(this).setTitle(R.string.title_dialog_sending)
-          .setView(new ProgressBar(this))
+          .setView(progressBar)
           .setCancelable(false)
           .create();
       dialog.show();
