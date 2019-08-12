@@ -112,7 +112,7 @@ public class Adyen {
 
   public Observable<PaymentRequest> getPaymentRequest() {
     return getStatus().filter(status -> status.getPaymentRequest() != null)
-        .map(adyenPaymentStatus -> adyenPaymentStatus.getPaymentRequest());
+        .map(AdyenPaymentStatus::getPaymentRequest);
   }
 
   public Single<String> getRedirectUrl() {
@@ -167,6 +167,12 @@ public class Adyen {
     paymentStatus.clear();
     paymentRequest.cancel();
     paymentRequest = null;
+  }
+
+  public Completable deletePaymentMethod() {
+    return Completable.fromRunnable(() -> detailsStatus.getPaymentRequest()
+        .deletePreferredPaymentMethod(detailsStatus.getPaymentRequest()
+            .getPaymentMethod(), detailsStatus));
   }
 
   public class PaymentStatus implements PaymentRequestListener {
@@ -332,11 +338,5 @@ public class Adyen {
       uriCallback = null;
       redirectUrl = null;
     }
-  }
-
-  public Completable deletePaymentMethod(PaymentMethod paymentMethod) {
-    return Completable.fromRunnable(() -> detailsStatus.getPaymentRequest()
-        .deletePreferredPaymentMethod(detailsStatus.getPaymentRequest()
-            .getPaymentMethod(), detailsStatus));
   }
 }

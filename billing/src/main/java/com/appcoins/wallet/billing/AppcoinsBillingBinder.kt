@@ -21,13 +21,13 @@ import java.math.BigDecimal
 import java.util.*
 
 
-internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
-                                     private val billingMessagesMapper: BillingMessagesMapper,
-                                     private var packageManager: PackageManager,
-                                     private val billingFactory: BillingFactory,
-                                     private val serializer: ExternalBillingSerializer,
-                                     private val proxyService: ProxyService,
-                                     private val intentBuilder: BillingIntentBuilder) :
+class AppcoinsBillingBinder(private val supportedApiVersion: Int,
+                            private val billingMessagesMapper: BillingMessagesMapper,
+                            private var packageManager: PackageManager,
+                            private val billingFactory: BillingFactory,
+                            private val serializer: ExternalBillingSerializer,
+                            private val proxyService: ProxyService,
+                            private val intentBuilder: BillingIntentBuilder) :
     AppcoinsBilling.Stub() {
   companion object {
     internal const val RESULT_OK = 0 // success
@@ -111,11 +111,13 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     }
 
     return try {
-      val serializedProducts: List<String> = billing.getProducts(skus).onErrorResumeNext {
-        it.printStackTrace()
-        Single.error(billingMessagesMapper.mapException(it))
-      }
-          .flatMap { Single.just(serializer.serializeProducts(it)) }.subscribeOn(Schedulers.io())
+      val serializedProducts: List<String> = billing.getProducts(skus)
+          .onErrorResumeNext {
+            it.printStackTrace()
+            Single.error(billingMessagesMapper.mapException(it))
+          }
+          .flatMap { Single.just(serializer.serializeProducts(it)) }
+          .subscribeOn(Schedulers.io())
           .blockingGet()
       billingMessagesMapper.mapSkuDetails(serializedProducts)
     } catch (exception: Exception) {
@@ -158,10 +160,12 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
               billingMessagesMapper.mapBuyIntentError(exception)
             }
           }
-        }).onErrorReturn { throwable ->
-      billingMessagesMapper.mapBuyIntentError(
-          throwable as Exception)
-    }.blockingGet()
+        })
+        .onErrorReturn { throwable ->
+          billingMessagesMapper.mapBuyIntentError(
+              throwable as Exception)
+        }
+        .blockingGet()
   }
 
   override fun getPurchases(apiVersion: Int, packageName: String?, type: String?,
@@ -210,7 +214,9 @@ internal class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     }
 
     return try {
-      billing.consumePurchases(purchaseToken).map { RESULT_OK }.blockingGet()
+      billing.consumePurchases(purchaseToken)
+          .map { RESULT_OK }
+          .blockingGet()
     } catch (exception: Exception) {
       billingMessagesMapper.mapConsumePurchasesError(exception)
     }

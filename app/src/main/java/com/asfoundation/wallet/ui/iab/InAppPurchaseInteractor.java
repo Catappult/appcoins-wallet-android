@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
+import android.content.SharedPreferences;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
@@ -28,6 +29,8 @@ import java.util.concurrent.TimeUnit;
 
 public class InAppPurchaseInteractor {
 
+  static final String PRE_SELECTED_PAYMENT_METHOD_KEY = "PRE_SELECTED_PAYMENT_METHOD_KEY";
+  private static final String LAST_USED_PAYMENT_METHOD_KEY = "LAST_USED_PAYMENT_METHOD_KEY";
   private static final String APPC_ID = "appcoins";
   private static final String CREDITS_ID = "appcoins_credits";
   private final AsfInAppPurchaseInteractor asfInAppPurchaseInteractor;
@@ -35,16 +38,18 @@ public class InAppPurchaseInteractor {
   private final ExternalBillingSerializer billingSerializer;
   private final AppcoinsRewards appcoinsRewards;
   private final Billing billing;
+  private final SharedPreferences sharedPreferences;
 
   public InAppPurchaseInteractor(AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
       BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
-      ExternalBillingSerializer billingSerializer, AppcoinsRewards appcoinsRewards,
-      Billing billing) {
+      ExternalBillingSerializer billingSerializer, AppcoinsRewards appcoinsRewards, Billing billing,
+      SharedPreferences sharedPreferences) {
     this.asfInAppPurchaseInteractor = asfInAppPurchaseInteractor;
     this.bdsInAppPurchaseInteractor = bdsInAppPurchaseInteractor;
     this.billingSerializer = billingSerializer;
     this.appcoinsRewards = appcoinsRewards;
     this.billing = billing;
+    this.sharedPreferences = sharedPreferences;
   }
 
   Single<TransactionBuilder> parseTransaction(String uri, boolean isBds) {
@@ -246,7 +251,8 @@ public class InAppPurchaseInteractor {
         String mergedLabel = appcMethod.getLabel() + " / " + creditsMethod.getLabel();
         boolean isMergedEnabled = appcMethod.isEnabled() || creditsMethod.isEnabled();
         mergedList.add(new AppCoinsPaymentMethod(mergedId, mergedLabel, appcMethod.getIconUrl(),
-            isMergedEnabled, appcMethod.isEnabled(), creditsMethod.isEnabled()));
+            isMergedEnabled, appcMethod.isEnabled(), creditsMethod.isEnabled(),
+            appcMethod.getLabel(), creditsMethod.getLabel(), creditsMethod.getIconUrl()));
       } else if (!paymentMethod.getId()
           .equals(CREDITS_ID)) {
         //Don't add the credits method to this list
@@ -333,6 +339,33 @@ public class InAppPurchaseInteractor {
     }
     return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
         paymentMethod.getIconUrl(), false);
+  }
+
+  boolean hasPreSelectedPaymentMethod() {
+    return sharedPreferences.contains(PRE_SELECTED_PAYMENT_METHOD_KEY);
+  }
+
+  String getPreSelectedPaymentMethod() {
+    return sharedPreferences.getString(PRE_SELECTED_PAYMENT_METHOD_KEY,
+        PaymentMethodsView.PaymentMethodId.APPC_CREDITS.getId());
+  }
+
+  public void savePreSelectedPaymentMethod(String paymentMethod) {
+    SharedPreferences.Editor editor = sharedPreferences.edit();
+    editor.putString(PRE_SELECTED_PAYMENT_METHOD_KEY, paymentMethod);
+    editor.putString(LAST_USED_PAYMENT_METHOD_KEY, paymentMethod);
+    editor.apply();
+  }
+
+  void removePreSelectedPaymentMethod() {
+    SharedPreferences.Editor editor = sharedPreferences.edit();
+    editor.remove(PRE_SELECTED_PAYMENT_METHOD_KEY);
+    editor.apply();
+  }
+
+  String getLastUsedPaymentMethod() {
+    return sharedPreferences.getString(LAST_USED_PAYMENT_METHOD_KEY,
+        PaymentMethodsView.PaymentMethodId.CREDIT_CARD.getId());
   }
 
   private boolean isUnavailable(PaymentMethodEntity paymentMethod) {

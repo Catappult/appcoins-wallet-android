@@ -25,6 +25,7 @@ import java.math.BigDecimal;
 import javax.inject.Inject;
 
 import static com.asfoundation.wallet.billing.analytics.BillingAnalytics.PAYMENT_METHOD_REWARDS;
+import static com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY;
 
 public class AppcoinsRewardsBuyFragment extends DaggerFragment implements AppcoinsRewardsBuyView {
 
@@ -145,7 +146,10 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   @Override public void finish(String uid) {
     presenter.sendPaymentEvent(PAYMENT_METHOD_REWARDS);
     presenter.sendRevenueEvent();
-    iabView.finish(billingMessagesMapper.successBundle(uid));
+    Bundle bundle = billingMessagesMapper.successBundle(uid);
+    bundle.putString(PRE_SELECTED_PAYMENT_METHOD_KEY,
+        PaymentMethodsView.PaymentMethodId.APPC_CREDITS.getId());
+    iabView.finish(bundle);
   }
 
   @Override public void errorClose() {
@@ -155,7 +159,10 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
   @Override public void finish(Purchase purchase, @Nullable String orderReference) {
     presenter.sendPaymentEvent(PAYMENT_METHOD_REWARDS);
     presenter.sendRevenueEvent();
-    iabView.finish(billingMessagesMapper.mapPurchase(purchase, orderReference));
+    Bundle bundle = billingMessagesMapper.mapPurchase(purchase, orderReference);
+    bundle.putString(PRE_SELECTED_PAYMENT_METHOD_KEY,
+        PaymentMethodsView.PaymentMethodId.APPC_CREDITS.getId());
+    iabView.finish(bundle);
   }
 
   @Override public void showTransactionCompleted() {

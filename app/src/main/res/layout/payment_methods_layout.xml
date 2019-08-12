@@ -14,7 +14,6 @@
       android:layout_gravity="center"
       android:animateLayoutChanges="true"
       android:background="@drawable/background_card"
-      android:orientation="vertical"
       >
     <ProgressBar
         android:id="@+id/loading_view"
@@ -95,47 +94,109 @@
             app:layout_constraintTop_toTopOf="parent"
             />
 
-        <View
-            android:id="@+id/top_separator"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/content_main"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="12dp"
-            android:background="@color/layout_separator_color"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/payment_methods_header"
-            />
-
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/payment_methods_radio_list"
-            android:layout_width="0dp"
-            android:layout_height="216dp"
-            android:layout_centerInParent="true"
-            app:layout_constraintBottom_toTopOf="@id/bottom_separator"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/top_separator"
+            app:layout_constraintTop_toBottomOf="@id/payment_methods_header"
             >
-          <RadioGroup
-              android:id="@+id/payment_methods_radio_group"
-              android:layout_width="wrap_content"
+
+          <View
+              android:id="@+id/top_separator"
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:layout_marginTop="12dp"
+              android:background="@color/layout_separator_color"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              />
+
+
+          <androidx.core.widget.NestedScrollView
+              android:id="@+id/payment_methods_radio_list"
+              android:layout_width="0dp"
+              android:layout_height="216dp"
+              android:layout_centerInParent="true"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/top_separator"
+              >
+            <RadioGroup
+                android:id="@+id/payment_methods_radio_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="vertical"
+                />
+          </androidx.core.widget.NestedScrollView>
+
+
+          <include
+              android:id="@+id/layout_pre_selected"
+              layout="@layout/selected_payment_method"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginStart="16dp"
-              android:layout_marginTop="8dp"
+              android:layout_marginTop="23dp"
               android:layout_marginEnd="16dp"
-              android:layout_marginBottom="8dp"
-              android:orientation="vertical"
+              android:visibility="gone"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
               />
-        </androidx.core.widget.NestedScrollView>
+
+          <TextView
+              android:id="@+id/more_payment_methods"
+              style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="8dp"
+              android:layout_marginEnd="16.5dp"
+              android:text="@string/purchase_more_payment_methods_button"
+              android:textAllCaps="true"
+              android:textColor="#8f000000"
+              android:textSize="12sp"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintHorizontal_bias="1.0"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/layout_pre_selected"
+              />
+
+          <androidx.constraintlayout.widget.Group
+              android:id="@+id/payment_methods_list_group"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              app:constraint_referenced_ids="top_separator,payment_methods_radio_list"
+              tools:visibility="gone"
+              />
+
+          <androidx.constraintlayout.widget.Group
+              android:id="@+id/pre_selected_payment_method_group"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              app:constraint_referenced_ids="layout_pre_selected,more_payment_methods"
+              tools:visibility="visible"
+              />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
             android:id="@+id/bottom_separator"
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginTop="@dimen/big_margin"
+            android:layout_marginBottom="40dp"
             android:background="@color/layout_separator_color"
+            app:layout_constraintBottom_toTopOf="@id/bonus_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/payment_methods_radio_list"
+            app:layout_constraintTop_toBottomOf="@id/content_main"
+            tools:visibility="visible"
             />
 
         <include
@@ -144,15 +205,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/big_margin"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="@dimen/big_margin"
             android:layout_marginEnd="@dimen/big_margin"
             android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@+id/bonus_msg"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bottom_separator"
+            app:layout_constraintTop_toBottomOf="@+id/content_main"
             app:layout_constraintVertical_bias="0"
             app:layout_constraintVertical_chainStyle="packed"
+            tools:visibility="gone"
             />
 
         <TextView
@@ -167,21 +228,22 @@
             android:gravity="center"
             android:text="@string/gamification_purchase_body"
             android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@id/dialog_buy_buttons_payment_methods"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bonus_layout"
             app:layout_constraintVertical_bias="0"
+            tools:visibility="gone"
             />
 
         <View
             android:id="@+id/bottom_separator_buttons"
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginTop="19dp"
             android:layout_marginBottom="8dp"
             android:background="@color/layout_separator_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/dialog_buy_buttons_payment_methods"
+            app:layout_constraintTop_toBottomOf="@id/bonus_msg"
             />
 
         <include
@@ -189,51 +251,18 @@
             layout="@layout/dialog_buy_buttons_payment_methods"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/normal_margin"
-            android:layout_marginEnd="@dimen/normal_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bottom_separator_buttons"
             />
 
       </androidx.constraintlayout.widget.ConstraintLayout>
-      <RelativeLayout
-          android:id="@+id/address_footer"
-          android:layout_width="match_parent"
-          android:layout_height="24dp"
-          android:visibility="invisible"
-          >
-        <ImageView
-            android:id="@+id/logo_wallet"
-            android:layout_width="wrap_content"
-            android:layout_height="16dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="16dp"
-            android:src="@drawable/logo_appc_wallet"
-            />
-
-        <TextView
-            android:id="@+id/wallet_address_footer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/logo_wallet"
-            android:layout_alignBottom="@id/logo_wallet"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_toEndOf="@id/logo_wallet"
-            android:ellipsize="end"
-            android:gravity="end|center_vertical"
-            android:maxLines="1"
-            android:textColor="@color/grey_8a_alpha"
-            android:textSize="12sp"
-            tools:text="0x1a78a81235dls019sk291id"
-            />
-      </RelativeLayout>
 
     </LinearLayout>
 
   </RelativeLayout>
+
   <include
       android:id="@+id/error_message"
       layout="@layout/fragment_iab_error"
@@ -241,5 +270,6 @@
       android:layout_height="wrap_content"
       android:layout_centerInParent="true"
       />
+
 </RelativeLayout>
 

@@ -70,6 +70,10 @@ class LocalPaymentInteractor(private val deepLinkRepository: InAppDeepLinkReposi
     return type.equals("INAPP", ignoreCase = true)
   }
 
+  fun savePreSelectedPaymentMethod(paymentMethod: String) {
+    inAppPurchaseInteractor.savePreSelectedPaymentMethod(paymentMethod)
+  }
+
   private data class DeepLinkInformation(val signature: String, val storeAddress: String,
                                          val oemAddress: String)
 }

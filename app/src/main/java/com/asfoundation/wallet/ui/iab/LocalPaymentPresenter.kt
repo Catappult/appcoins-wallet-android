@@ -107,6 +107,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
             }
       }
       Status.PENDING_USER_PAYMENT -> Completable.fromAction {
+        localPaymentInteractor.savePreSelectedPaymentMethod(paymentId)
         view.showPendingUserPayment()
         analytics.sendPaymentEvent(domain, skuId, amount.toString(), type, paymentId)
       }.subscribeOn(viewScheduler)
