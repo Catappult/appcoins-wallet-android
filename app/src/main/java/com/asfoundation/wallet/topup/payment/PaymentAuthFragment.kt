@@ -285,6 +285,11 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
   override fun errorDismisses(): Observable<Any> {
     return Observable.merge<DialogInterface>(networkErrorDialog.dismisses(),
         paymentRefusedDialog.dismisses(), genericErrorDialog.dismisses())
+        .map {
+          if (paymentType == PaymentType.PAYPAL) {
+            topUpView?.unlockRotation()
+          }
+        }
         .map { Any() }
   }
 
@@ -354,6 +359,9 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
 
   override fun showPaymentRefusedError(adyenAuthorization: AdyenAuthorization) {
     if (!paymentRefusedDialog.isShowing) {
+      if (paymentType == PaymentType.PAYPAL) {
+        topUpView?.lockOrientation()
+      }
       paymentRefusedDialog.show()
     }
   }
