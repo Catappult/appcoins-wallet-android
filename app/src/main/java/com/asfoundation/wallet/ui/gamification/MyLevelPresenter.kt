@@ -12,6 +12,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 class MyLevelPresenter(private val view: MyLevelView,
+                       private val activity: GamificationView?,
                        private val gamification: GamificationInteractor,
                        private val analytics: GamificationAnalytics,
                        private val networkScheduler: Scheduler,
@@ -19,12 +20,9 @@ class MyLevelPresenter(private val view: MyLevelView,
   val disposables = CompositeDisposable()
   fun present(savedInstanceState: Bundle?) {
     handleShowLevels(savedInstanceState == null)
-    handleButtonClick()
+    handleInfoButtonClick()
+    view.animateBackgroundFade()
     view.setupLayout()
-  }
-
-  private fun handleButtonClick() {
-    disposables.add(view.getButtonClicks().doOnNext { view.showHowItWorksScreen() }.subscribe())
   }
 
   private fun handleShowLevels(sendEvent: Boolean) {
@@ -44,10 +42,17 @@ class MyLevelPresenter(private val view: MyLevelView,
               if (sendEvent) {
                 analytics.sendMainScreenViewEvent(it.level + 1)
               }
-              if (it.bonus.isNotEmpty()) view.showHowItWorksButton()
             }
             .flatMapCompletable { gamification.levelShown(it.level) }
-            .subscribe())
+            .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun handleInfoButtonClick() {
+    activity?.let {
+      disposables.add(it.getInfoButtonClick().doOnNext {
+        view.changeBottomSheetState()
+      }.subscribe())
+    }
   }
 
   private fun mapToUserStatus(levels: Levels, userStats: UserStats,
@@ -63,13 +68,10 @@ class MyLevelPresenter(private val view: MyLevelView,
           userStats.totalSpend)?.setScale(2, RoundingMode.HALF_UP) ?: BigDecimal.ZERO
       return UserRewardsStatus(lastShownLevel, userStats.level, nextLevelAmount, list)
     }
-    return UserRewardsStatus(lastShownLevel)
+    return UserRewardsStatus(lastShownLevel, lastShownLevel)
   }
 
   fun stop() {
     disposables.clear()
   }
-
-
-
 }

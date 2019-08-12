@@ -13,15 +13,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
-import com.jakewharton.rxbinding2.view.RxView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.android.support.DaggerFragment
-import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_gamification_my_level.*
 import kotlinx.android.synthetic.main.fragment_rewards_level.*
 import kotlinx.android.synthetic.main.level_component.view.*
 import kotlinx.android.synthetic.main.rewards_progress_bar.*
-import java.math.BigDecimal
 import javax.inject.Inject
 
 class MyLevelFragment : DaggerFragment(), MyLevelView {
@@ -35,12 +34,14 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
 
   private lateinit var presenter: MyLevelPresenter
   private lateinit var gamificationView: GamificationView
+  private lateinit var howItWorksBottomSheet: BottomSheetBehavior<View>
   private var step = 100
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = MyLevelPresenter(this, gamificationInteractor, analytics, Schedulers.io(),
-        AndroidSchedulers.mainThread())
+    presenter =
+        MyLevelPresenter(this, gamificationView, gamificationInteractor, analytics, Schedulers.io(),
+            AndroidSchedulers.mainThread())
   }
 
   override fun onAttach(context: Context) {
@@ -54,11 +55,16 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_rewards_level, container, false)
+    childFragmentManager.beginTransaction()
+        .replace(R.id.gamification_fragment_container, HowItWorksFragment())
+        .commit()
+    return inflater.inflate(R.layout.fragment_gamification_my_level, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    howItWorksBottomSheet =
+        BottomSheetBehavior.from(gamification_fragment_container)
     presenter.present(savedInstanceState)
   }
 
@@ -76,21 +82,13 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   }
 
   override fun updateLevel(userStatus: UserRewardsStatus) {
-    step = 100 / (userStatus.bonus.size - 1)
-
+    if (userStatus.bonus.size != 1) {
+      step = 100 / (userStatus.bonus.size - 1)
+    }
     gamification_loading.visibility = View.GONE
 
     setLevelResources(userStatus.level)
 
-    if (userStatus.toNextLevelAmount > BigDecimal.ZERO) {
-      earned_label.visibility = View.VISIBLE
-      earned_value.text =
-          getString(R.string.gamification_level_next_lvl_value, userStatus.toNextLevelAmount)
-      earned_value.visibility = View.VISIBLE
-    } else {
-      earned_label.visibility = View.INVISIBLE
-      earned_value.visibility = View.INVISIBLE
-    }
     animateProgress(userStatus.lastShownLevel, userStatus.level)
 
     if (userStatus.level > userStatus.lastShownLevel) {
@@ -98,22 +96,9 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     }
 
     for (value in userStatus.bonus) {
-      setLevelBonus(userStatus.bonus.indexOf(value), value.toString())
+      val level = userStatus.bonus.indexOf(value)
+      setLevelBonus(level, formatLevelInfo(value), level == userStatus.lastShownLevel)
     }
-
-  }
-
-  override fun getButtonClicks(): Observable<Any> {
-    return RxView.clicks(details_button)
-  }
-
-  override fun showHowItWorksScreen() {
-    gamificationView.showHowItWorksView()
-  }
-
-  override fun showHowItWorksButton() {
-    details_button.visibility = View.VISIBLE
-    gamificationView.showHowItWorksButton()
   }
 
   private fun animateProgress(fromLevel: Int, toLevel: Int) {
@@ -127,7 +112,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     val nextLevel = fromLevel + 1
     val to = (nextLevel) * step
     val animation = ProgressAnimation(progress_bar,
-        progress_bar?.progress!!.toFloat(), to.toFloat())
+        progress_bar.progress.toFloat(), to.toFloat())
     animation.duration = if (nextLevel == toLevel) 1000 else 600
     animation.setAnimationListener(object : AnimationListener {
       override fun onAnimationRepeat(animation: Animation?) {
@@ -234,16 +219,16 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     }
   }
 
-  private fun animateLevelUp(levelIcon: View?, levelText: TextView?, newLevel: Boolean) {
-    val activeIcon = levelIcon?.findViewById(R.id.level_active_icon) as ImageView
+  private fun animateLevelUp(levelIcon: View, levelText: TextView, newLevel: Boolean) {
+    val activeIcon = levelIcon.findViewById(R.id.level_active_icon) as ImageView
     val listener = object : AnimationListener {
       override fun onAnimationRepeat(animation: Animation?) {
       }
 
       override fun onAnimationEnd(animation: Animation?) {
         activeIcon.visibility = View.VISIBLE
-        levelText?.isEnabled = true
-        levelText?.visibility = View.VISIBLE
+        levelText.isEnabled = true
+        levelText.visibility = View.VISIBLE
       }
 
       override fun onAnimationStart(animation: Animation?) {
@@ -253,66 +238,82 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
         listener)
   }
 
-  private fun animateLevelToLock(levelIcon: View?, levelText: TextView?) {
-    var icon: ImageView = levelIcon?.findViewById(R.id.level_active_icon) as ImageView
+  override fun animateBackgroundFade() {
+    howItWorksBottomSheet.setBottomSheetCallback(object :
+        BottomSheetBehavior.BottomSheetCallback() {
+      override fun onStateChanged(bottomSheet: View, newState: Int) {
+      }
+
+      override fun onSlide(bottomSheet: View, slideOffset: Float) {
+        background_fade_animation.progress = slideOffset
+      }
+    })
+  }
+
+  private fun animateLevelToLock(levelIcon: View, levelText: TextView) {
+    val icon = levelIcon.findViewById(R.id.level_active_icon) as ImageView
     startShrinkAnimation(icon)
     icon.visibility = View.INVISIBLE
-    levelText?.isEnabled = false
-    levelText?.visibility = View.VISIBLE
+    levelText.isEnabled = false
+    levelText.visibility = View.VISIBLE
   }
 
-  private fun animateLevelShow(levelIcon: View?, levelText: TextView?) {
-    val activeIcon = levelIcon?.findViewById(R.id.level_active_icon) as ImageView
+  private fun animateLevelShow(levelIcon: View, levelText: TextView) {
+    val activeIcon = levelIcon.findViewById(R.id.level_active_icon) as ImageView
     startGrowAnimation(activeIcon)
-    levelText?.isEnabled = false
-    levelText?.visibility = View.INVISIBLE
+    levelText.isEnabled = false
+    levelText.visibility = View.INVISIBLE
   }
 
-  private fun startBounceAnimation(view: View?, listener: AnimationListener) {
+  private fun startBounceAnimation(view: View, listener: AnimationListener) {
     val animation = AnimationUtils.loadAnimation(activity, R.anim.bounce_animation)
     animation.setAnimationListener(listener)
     animation.fillAfter = true
-    view?.startAnimation(animation)
+    view.startAnimation(animation)
   }
 
-  private fun startRebounceAnimation(view: View?, listener: AnimationListener) {
+  private fun startRebounceAnimation(view: View, listener: AnimationListener) {
     val animation = AnimationUtils.loadAnimation(activity, R.anim.rebounce_animation)
     animation.setAnimationListener(listener)
     animation.fillAfter = true
-    view?.startAnimation(animation)
+    view.startAnimation(animation)
   }
 
-  private fun startShrinkAnimation(view: View?) {
+  private fun startShrinkAnimation(view: View) {
     val animation = AnimationUtils.loadAnimation(activity, R.anim.shrink_animation)
     animation.fillAfter = true
-    view?.startAnimation(animation)
+    view.startAnimation(animation)
   }
 
-  private fun startGrowAnimation(view: View?) {
+  private fun startGrowAnimation(view: View) {
     val animation = AnimationUtils.loadAnimation(activity, R.anim.grow_animation)
     animation.fillAfter = true
-    view?.startAnimation(animation)
+    view.startAnimation(animation)
   }
 
   private fun setLevelResources(level: Int) {
     levelIdleAnimation(level)
     level_title.text = getString(R.string.gamification_level_header,
         getString(levelResourcesMapper.mapTitle(level)))
-    current_level_card_group.visibility = View.VISIBLE
     level_title.visibility = View.VISIBLE
     level_description.text = getString(levelResourcesMapper.mapSubtitle(level))
     level_description.visibility = View.VISIBLE
     current_level.text =
-        getString(R.string.gamification_level_on_graphic, Integer.toString(level + 1))
+        getString(R.string.gamification_level_on_graphic, (level + 1).toString())
   }
 
-  private fun setLevelBonus(level: Int, text: String) {
+  private fun setLevelBonus(level: Int, text: String, isCurrentLevel: Boolean) {
+    val bonusLabel = if (isCurrentLevel) {
+      R.string.gamification_level_bonus
+    } else {
+      R.string.gamification_how_table_b2
+    }
     when (level) {
-      0 -> level_1_text.text = getString(R.string.gamification_level_bonus, text)
-      1 -> level_2_text.text = getString(R.string.gamification_level_bonus, text)
-      2 -> level_3_text.text = getString(R.string.gamification_level_bonus, text)
-      3 -> level_4_text.text = getString(R.string.gamification_level_bonus, text)
-      4 -> level_5_text.text = getString(R.string.gamification_level_bonus, text)
+      0 -> level_1_text.text = getString(bonusLabel, text)
+      1 -> level_2_text.text = getString(bonusLabel, text)
+      2 -> level_3_text.text = getString(bonusLabel, text)
+      3 -> level_4_text.text = getString(bonusLabel, text)
+      4 -> level_5_text.text = getString(bonusLabel, text)
     }
   }
 
@@ -354,10 +355,13 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
       override fun onAnimationRepeat(animation: Animator?) {
         setLevelIdleAnimation(level)
       }
+
       override fun onAnimationEnd(animation: Animator?) {
       }
+
       override fun onAnimationCancel(animation: Animator?) {
       }
+
       override fun onAnimationStart(animation: Animator?) {
       }
     })
@@ -369,17 +373,35 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     gamification_current_level_animation.playAnimation()
   }
 
-  private fun fadeOutAnimation(view: View, listener: AnimationListener?) {
-    val animation = AnimationUtils.loadAnimation(activity, R.anim.fade_out_animation)
-    animation.fillAfter = true
-    animation.setAnimationListener(listener)
-    view.startAnimation(animation)
+  private fun expandBottomSheet() {
+    howItWorksBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
   }
 
-  private fun fadeInAnimation(view: View, listener: AnimationListener?) {
-    val animation = AnimationUtils.loadAnimation(activity, R.anim.fade_in_animation)
-    animation.fillAfter = true
-    animation.setAnimationListener(listener)
-    view.startAnimation(animation)
+  private fun collapseBottomSheet() {
+    howItWorksBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+  }
+
+  override fun changeBottomSheetState() {
+    if (howItWorksBottomSheet.state == BottomSheetBehavior.STATE_COLLAPSED) {
+      expandBottomSheet()
+    } else {
+      collapseBottomSheet()
+    }
+  }
+
+  private fun formatLevelInfo(value: Double): String {
+    val splitValue = value.toString()
+        .split(".")
+    return if (splitValue[1] != "0") {
+      value.toString()
+    } else {
+      removeDecimalPlaces(value)
+    }
+  }
+
+  private fun removeDecimalPlaces(value: Double): String {
+    val splitValue = value.toString()
+        .split(".")
+    return splitValue[0]
   }
 }

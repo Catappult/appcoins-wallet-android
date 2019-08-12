@@ -84,5 +84,7 @@
   <color name="selection_dot_unselected">#d8d8d8</color>
   <color name="selection_dot_selected">#fe647f</color>
 
+  <color name="gamification_how_it_works">#33eaeaea</color>
+
   <color name="transparent">#00000000</color>
 </resources>
