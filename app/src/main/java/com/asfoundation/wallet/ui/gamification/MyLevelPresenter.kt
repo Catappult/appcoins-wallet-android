@@ -44,7 +44,7 @@ class MyLevelPresenter(private val view: MyLevelView,
               }
             }
             .flatMapCompletable { gamification.levelShown(it.level) }
-            .subscribe())
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleInfoButtonClick() {
@@ -68,7 +68,7 @@ class MyLevelPresenter(private val view: MyLevelView,
           userStats.totalSpend)?.setScale(2, RoundingMode.HALF_UP) ?: BigDecimal.ZERO
       return UserRewardsStatus(lastShownLevel, userStats.level, nextLevelAmount, list)
     }
-    return UserRewardsStatus(lastShownLevel)
+    return UserRewardsStatus(lastShownLevel, lastShownLevel)
   }
 
   fun stop() {

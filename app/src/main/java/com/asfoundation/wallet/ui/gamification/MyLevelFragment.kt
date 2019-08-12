@@ -82,8 +82,9 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
   }
 
   override fun updateLevel(userStatus: UserRewardsStatus) {
-    step = 100 / (userStatus.bonus.size - 1)
-
+    if (userStatus.bonus.size != 1) {
+      step = 100 / (userStatus.bonus.size - 1)
+    }
     gamification_loading.visibility = View.GONE
 
     setLevelResources(userStatus.level)
