@@ -307,14 +307,14 @@
   <string name="gamification_purchase_appccredits_body">En hızlı ödeme yöntemi!</string>
   <string name="gamification_how_bonus_received_body">Alınan bonus</string>
   <string name="gamification_how_appc_spent">Bu seviyeye ulaşmak için harcanan miktar</string>
-  <string name="gamification_how_to_next_level_body">Spend <b>%1$s AppCoins</b> more to reach <b>level %2$s</b>.</string>
+  <string name="gamification_how_to_next_level_body"><b>%2$s. seviyeye</b> ulaşmak için <b>%1$s AppCoins</b> daha harcayın.</string>
   <string name="gamification_level_expiration_title">Sonraki seviye kontrolü: %s</string>
   <string name="gamification_level_expiration_body">Seviyeniz son 12 aydaki satın alma aktivitenize dayalıdır.</string>
   <string name="gamification_leveled_up_title">Bir sonraki seviyeye ulaştınız!</string>
   <string name="gamification_leveled_up_body">Her bir satın alma işlemi için %s bonus alacaksınız. Daha da fazla kazanmak için satın almaya devam edin!</string>
   <string name="gamification_leveled_up_notification_title">Bir sonraki seviyeye ulaştınız!</string>
   <string name="gamification_leveled_up_notification_body">Tebrikler, artık her bir satın alma işleminde %s bonus kazanacaksınız!</string>
-  <string name="gamification_how_max_level_body">Congrats! You\'ve reached the highest level 💃</string>
+  <string name="gamification_how_max_level_body">Tebrikler! En üst seviyeye ulaştınız 💃</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">AppCoins Cüzdanın %s\'e cüzdan adresinizi vermesine izin verin.</string>
   <string name="provide_wallet_body_placeholders">%1$s\'ın %2$s\'e cüzdan adresinizi vermesine izin verin.</string>
