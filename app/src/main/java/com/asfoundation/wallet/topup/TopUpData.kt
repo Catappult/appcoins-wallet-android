@@ -6,7 +6,7 @@ import java.io.Serializable
 
 data class TopUpData(var currency: CurrencyData,
                      var selectedCurrency: String, var paymentMethod: PaymentType? = null,
-                     var bonusValue: String = "", var validBonus: Boolean = false) :
+                     var bonusValue: String = "") :
     Serializable {
   companion object {
     const val FIAT_CURRENCY = "FIAT_CURRENCY"

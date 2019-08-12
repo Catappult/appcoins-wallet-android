@@ -60,6 +60,7 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.PRODUCT_NAME;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_CURRENCY;
 import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_DATA;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 /**
  * Created by franciscocalado on 30/07/2018.
@@ -216,6 +217,13 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
         }
       }
     });
+
+    if (isNotBlank(getBonus())) {
+      lottieTransactionComplete.setAnimation(R.raw.transaction_complete_bonus_animation);
+      setupTransactionCompleteAnimation();
+    } else {
+      lottieTransactionComplete.setAnimation(R.raw.success_animation);
+    }
 
     showProduct();
     presenter.present(savedInstanceState);

@@ -51,9 +51,11 @@ class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
 
     @JvmStatic
     fun newInstance(fiatAmount: BigDecimal,
-                    currency: String, bonus: String, appName: String, productName: String?,
+                    currency: String, bonus: String, appName: String,
+                    productName: String?,
                     appcAmount: BigDecimal, appcEnabled: Boolean,
-                    creditsEnabled: Boolean, isBds: Boolean, isDonation: Boolean): Fragment {
+                    creditsEnabled: Boolean, isBds: Boolean,
+                    isDonation: Boolean): Fragment {
       val fragment = MergedAppcoinsFragment()
       val bundle = Bundle()
       bundle.putSerializable(FIAT_AMOUNT_KEY, fiatAmount)
