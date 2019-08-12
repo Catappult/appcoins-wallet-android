@@ -307,14 +307,14 @@
   <string name="gamification_purchase_appccredits_body">Kaedah pembayaran terpantas!</string>
   <string name="gamification_how_bonus_received_body">Bonus diterima</string>
   <string name="gamification_how_appc_spent">Jumlah dibelanjakan untuk capai tahap ini</string>
-  <string name="gamification_how_to_next_level_body">Spend <b>%1$s AppCoins</b> more to reach <b>level %2$s</b>.</string>
+  <string name="gamification_how_to_next_level_body">Belanja <b>%1$s AppCoins</b> lagi untuk capai <b>tahap%2$s</b>.</string>
   <string name="gamification_level_expiration_title">Semakan tahap seterusnya: %s</string>
   <string name="gamification_level_expiration_body">Tahap anda adalah berdasarkan aktiviti pembelian anda sepanjang 12 bulan lepas.</string>
   <string name="gamification_leveled_up_title">Anda telah capai tahap seterusnya!</string>
   <string name="gamification_leveled_up_body">Anda akan dapat %s bonus bagi setiap pembelian. Terus membeli untuk dapat lebih banyak!</string>
   <string name="gamification_leveled_up_notification_title">Anda telah capai tahap seterusnya!</string>
   <string name="gamification_leveled_up_notification_body">Tahniah! Kini anda akan dapat %s bonus bagi setiap pembelian!</string>
-  <string name="gamification_how_max_level_body">Congrats! You\'ve reached the highest level 💃</string>
+  <string name="gamification_how_max_level_body">Tahniah! Anda telah capat tahap tertinggi 💃</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Izinkan Dompet AppCoins untuk berikan alamat dompet anda kepada %s.</string>
   <string name="provide_wallet_body_placeholders">Izinkan %1$s untuk berikan alamat dompet anda kepada %2$s.</string>
