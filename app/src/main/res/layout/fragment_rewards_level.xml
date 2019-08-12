@@ -29,7 +29,7 @@
       android:id="@+id/current_level_card_group"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:visibility="gone"
+      android:visibility="visible"
       app:constraint_referenced_ids="current_level_card,current_level,rewards_progress_bar"
       />
 

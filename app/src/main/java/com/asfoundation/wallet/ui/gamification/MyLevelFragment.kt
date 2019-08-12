@@ -295,7 +295,6 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     levelIdleAnimation(level)
     level_title.text = getString(R.string.gamification_level_header,
         getString(levelResourcesMapper.mapTitle(level)))
-    current_level_card_group.visibility = View.VISIBLE
     level_title.visibility = View.VISIBLE
     level_description.text = getString(levelResourcesMapper.mapSubtitle(level))
     level_description.visibility = View.VISIBLE
