@@ -183,27 +183,18 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
         .setMessage(R.string.unknown_error)
         .setPositiveButton(R.string.ok)
         .build()
-    disposables.add(
-        Observable.merge(genericErrorDialog.positiveClicks(), genericErrorDialog.cancels())
-            .subscribe({ navigator.popViewWithError() }, { it.printStackTrace() }))
 
     networkErrorDialog =
         RxAlertDialog.Builder(context)
             .setMessage(R.string.notification_no_network_poa)
             .setPositiveButton(R.string.ok)
             .build()
-    disposables.add(
-        Observable.merge(networkErrorDialog.positiveClicks(), networkErrorDialog.cancels())
-            .subscribe({ navigator.popViewWithError() }, { it.printStackTrace() }))
 
     paymentRefusedDialog =
         RxAlertDialog.Builder(context)
             .setMessage(R.string.notification_payment_refused)
             .setPositiveButton(R.string.ok)
             .build()
-    disposables.add(
-        Observable.merge(paymentRefusedDialog.positiveClicks(), paymentRefusedDialog.cancels())
-            .subscribe({ navigator.popViewWithError() }, { it.printStackTrace() }))
 
     topUpView?.showToolbar()
     main_value.visibility = View.INVISIBLE
@@ -288,22 +279,21 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
   override fun errorDismisses(): Observable<Any> {
     return Observable.merge<DialogInterface>(networkErrorDialog.dismisses(),
         paymentRefusedDialog.dismisses(), genericErrorDialog.dismisses())
-        .map {
-          if (paymentType == PaymentType.PAYPAL) {
-            topUpView?.unlockRotation()
-          }
-        }
+        .map { topUpView?.unlockRotation() }
         .map { Any() }
   }
 
   override fun errorCancels(): Observable<Any> {
     return Observable.merge<DialogInterface>(networkErrorDialog.cancels(),
         paymentRefusedDialog.cancels(), genericErrorDialog.cancels())
-        .map {
-          if (paymentType == PaymentType.PAYPAL) {
-            topUpView?.unlockRotation()
-          }
-        }
+        .map { topUpView?.unlockRotation() }
+        .map { Any() }
+  }
+
+  override fun errorPositiveClicks(): Observable<Any> {
+    return Observable.merge<DialogInterface>(networkErrorDialog.positiveClicks(),
+        paymentRefusedDialog.positiveClicks(), genericErrorDialog.positiveClicks())
+        .map { topUpView?.unlockRotation() }
         .map { Any() }
   }
 
@@ -319,8 +309,8 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
 
   override fun showNetworkError() {
     if (!networkErrorDialog.isShowing) {
+      topUpView?.lockOrientation()
       networkErrorDialog.show()
-      topUpView?.unlockRotation()
     }
   }
 
@@ -373,17 +363,15 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
 
   override fun showPaymentRefusedError(adyenAuthorization: AdyenAuthorization) {
     if (!paymentRefusedDialog.isShowing) {
-      if (paymentType == PaymentType.PAYPAL) {
-        topUpView?.lockOrientation()
-      }
+      topUpView?.lockOrientation()
       paymentRefusedDialog.show()
     }
   }
 
   override fun showGenericError() {
     if (!genericErrorDialog.isShowing) {
+      topUpView?.lockOrientation()
       genericErrorDialog.show()
-      topUpView?.unlockRotation()
     }
   }
 

@@ -19,6 +19,8 @@ interface PaymentAuthView {
 
   fun errorCancels(): Observable<Any>
 
+  fun errorPositiveClicks(): Observable<Any>
+
   fun paymentMethodDetailsEvent(): Observable<PaymentDetails>
 
   fun changeCardMethodDetailsEvent(): Observable<PaymentMethod>

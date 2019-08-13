@@ -21,7 +21,6 @@ import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.exceptions.OnErrorNotImplementedException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
@@ -95,7 +94,7 @@ public class PaymentAuthPresenter {
 
     handleAdyenUriResult();
 
-    handleErrorDismissCancelsEvent();
+    handleErrorDismissEvent();
 
     handleAdyenPaymentResult();
 
@@ -279,12 +278,10 @@ public class PaymentAuthPresenter {
         }, throwable -> showError(throwable)));
   }
 
-  private void handleErrorDismissCancelsEvent() {
-    disposables.add(Observable.merge(view.errorDismisses(), view.errorCancels())
-        .subscribe(__ -> {
-        }, throwable -> {
-          throw new OnErrorNotImplementedException(throwable);
-        }));
+  private void handleErrorDismissEvent() {
+    disposables.add(
+        Observable.merge(view.errorDismisses(), view.errorCancels(), view.errorPositiveClicks())
+            .subscribe(__ -> navigator.popViewWithError(), Throwable::printStackTrace));
   }
 
   private void handleAdyenPaymentResult() {
