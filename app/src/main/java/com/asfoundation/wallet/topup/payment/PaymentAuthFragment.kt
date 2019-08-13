@@ -183,24 +183,27 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
         .setMessage(R.string.unknown_error)
         .setPositiveButton(R.string.ok)
         .build()
-    disposables.add(genericErrorDialog.positiveClicks()
-        .subscribe({ navigator.popViewWithError() }, { it.printStackTrace() }))
+    disposables.add(
+        Observable.merge(genericErrorDialog.positiveClicks(), genericErrorDialog.cancels())
+            .subscribe({ navigator.popViewWithError() }, { it.printStackTrace() }))
 
     networkErrorDialog =
         RxAlertDialog.Builder(context)
             .setMessage(R.string.notification_no_network_poa)
             .setPositiveButton(R.string.ok)
             .build()
-    disposables.add(networkErrorDialog.positiveClicks()
-        .subscribe({ navigator.popViewWithError() }, { it.printStackTrace() }))
+    disposables.add(
+        Observable.merge(networkErrorDialog.positiveClicks(), networkErrorDialog.cancels())
+            .subscribe({ navigator.popViewWithError() }, { it.printStackTrace() }))
 
     paymentRefusedDialog =
         RxAlertDialog.Builder(context)
             .setMessage(R.string.notification_payment_refused)
             .setPositiveButton(R.string.ok)
             .build()
-    disposables.add(paymentRefusedDialog.positiveClicks()
-        .subscribe({ navigator.popViewWithError() }, { it.printStackTrace() }))
+    disposables.add(
+        Observable.merge(paymentRefusedDialog.positiveClicks(), paymentRefusedDialog.cancels())
+            .subscribe({ navigator.popViewWithError() }, { it.printStackTrace() }))
 
     topUpView?.showToolbar()
     main_value.visibility = View.INVISIBLE
@@ -285,6 +288,17 @@ class PaymentAuthFragment : DaggerFragment(), PaymentAuthView {
   override fun errorDismisses(): Observable<Any> {
     return Observable.merge<DialogInterface>(networkErrorDialog.dismisses(),
         paymentRefusedDialog.dismisses(), genericErrorDialog.dismisses())
+        .map {
+          if (paymentType == PaymentType.PAYPAL) {
+            topUpView?.unlockRotation()
+          }
+        }
+        .map { Any() }
+  }
+
+  override fun errorCancels(): Observable<Any> {
+    return Observable.merge<DialogInterface>(networkErrorDialog.cancels(),
+        paymentRefusedDialog.cancels(), genericErrorDialog.cancels())
         .map {
           if (paymentType == PaymentType.PAYPAL) {
             topUpView?.unlockRotation()

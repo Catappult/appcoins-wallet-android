@@ -17,6 +17,7 @@ import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor;
 import com.asfoundation.wallet.ui.iab.Navigator;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
@@ -94,7 +95,7 @@ public class PaymentAuthPresenter {
 
     handleAdyenUriResult();
 
-    handleErrorDismissEvent();
+    handleErrorDismissCancelsEvent();
 
     handleAdyenPaymentResult();
 
@@ -278,8 +279,8 @@ public class PaymentAuthPresenter {
         }, throwable -> showError(throwable)));
   }
 
-  private void handleErrorDismissEvent() {
-    disposables.add(view.errorDismisses()
+  private void handleErrorDismissCancelsEvent() {
+    disposables.add(Observable.merge(view.errorDismisses(), view.errorCancels())
         .subscribe(__ -> {
         }, throwable -> {
           throw new OnErrorNotImplementedException(throwable);
