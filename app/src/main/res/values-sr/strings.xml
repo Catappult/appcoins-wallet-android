@@ -307,14 +307,14 @@
   <string name="gamification_purchase_appccredits_body">Najbrži način plaćanja!</string>
   <string name="gamification_how_bonus_received_body">bounsa je dobijeno</string>
   <string name="gamification_how_appc_spent">Iznos potrošen za dostizanje ovog nivoa</string>
-  <string name="gamification_how_to_next_level_body">Spend <b>%1$s AppCoins</b> more to reach <b>level %2$s</b>.</string>
+  <string name="gamification_how_to_next_level_body">Potrošite još <b>%1$s AppCoins</b> da biste dostigli <b>nivo %2$s</b>.</string>
   <string name="gamification_level_expiration_title">Provera za sledeći nivo: %s</string>
   <string name="gamification_level_expiration_body">Vaš nivo je određen na osnovu vaših kupovina u poslednjih 12 meseci.</string>
   <string name="gamification_leveled_up_title">Dostigli ste sledeći nivo!</string>
   <string name="gamification_leveled_up_body">Od sada ćete dobijati bonus od %s za svaku kupovinu. Kupujte i dalje da biste zaradili još više!</string>
   <string name="gamification_leveled_up_notification_title">Dostigli ste sledeći nivo!</string>
   <string name="gamification_leveled_up_notification_body">Čestitamo, od sada ćete dobijati bonus od %s za svaku kupovinu!</string>
-  <string name="gamification_how_max_level_body">Congrats! You\'ve reached the highest level 💃</string>
+  <string name="gamification_how_max_level_body">Čestitamo! Dostigli ste najviši nivo 💃</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Dozvolite aplikaciji AppCoins Wallet da adresu vašeg novčanika pošalje aplikaciji %s.</string>
   <string name="provide_wallet_body_placeholders">Dozvolite aplikaciji %1$s da adresu vašeg novčanika pošalje aplikaciji %2$s.</string>
