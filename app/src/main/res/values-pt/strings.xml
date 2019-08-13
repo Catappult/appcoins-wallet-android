@@ -307,14 +307,14 @@
   <string name="gamification_purchase_appccredits_body">O método de pagamento mais rápido!</string>
   <string name="gamification_how_bonus_received_body">Bónus recebido</string>
   <string name="gamification_how_appc_spent">Valor gasto para atingir este nível</string>
-  <string name="gamification_how_to_next_level_body">Spend <b>%1$s AppCoins</b> more to reach <b>level %2$s</b>.</string>
+  <string name="gamification_how_to_next_level_body">Gasta mais <b>%1$s em AppCoins </b> para chegares <b> ao nível %2$s</b>.</string>
   <string name="gamification_level_expiration_title">Próxima verificação de nível: %s</string>
   <string name="gamification_level_expiration_body">O teu nível é baseado na tua actividade de compra nos últimos 12 meses.</string>
   <string name="gamification_leveled_up_title">Chegaste ao próximo nível!</string>
   <string name="gamification_leveled_up_body">Irás receber um bónus de %s em cada compra. Continua a comprar para ganhar ainda mais!</string>
   <string name="gamification_leveled_up_notification_title">Chegaste ao próximo nível!</string>
   <string name="gamification_leveled_up_notification_body">Parabéns, agora irás receber um bónus de %s em cada compra!</string>
-  <string name="gamification_how_max_level_body">Congrats! You\'ve reached the highest level 💃</string>
+  <string name="gamification_how_max_level_body">Parabéns! Chegaste ao nível mais alto 💃</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Permitir que a Wallet da AppCoins forneça o endereço da tua wallet para %s.</string>
   <string name="provide_wallet_body_placeholders">Permite que a %1$s forneça o teu endereço wallet a %2$s.</string>
