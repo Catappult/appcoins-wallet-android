@@ -99,11 +99,12 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
     if (bonus.isNotBlank()) {
       top_up_success_animation.setAnimation(R.raw.top_up_bonus_success_animation)
       setAnimationText()
+      formatBonusSuccessMessage()
     } else {
       top_up_success_animation.setAnimation(R.raw.top_up_success_animation)
+      formatSuccessMessage()
     }
     top_up_success_animation.playAnimation()
-    formatBonusSuccessMessage()
   }
 
   override fun clean() {
@@ -112,10 +113,10 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
     top_up_success_animation.removeAllLottieOnCompositionLoadedListener()
   }
 
-
   override fun close() {
     topUpActivityView.close()
   }
+
 
   override fun getOKClicks(): Observable<Any> {
     return RxView.clicks(button)
@@ -135,16 +136,31 @@ class TopUpSuccessFragment : DaggerFragment(), TopUpSuccessFragmentView {
   }
 
   private fun formatBonusSuccessMessage() {
-    val fiatValue =
-        BigDecimal(amount).setScale(2, RoundingMode.FLOOR).toString() + " " + currency
-    val formattedInitialString = String.format(
-        resources.getString(R.string.topup_completed_1), fiatValue)
+    val formattedInitialString = getFormattedTopUpValue()
     val topUpString =
         formattedInitialString + " " + resources.getString(R.string.topup_completed_2_with_bonus)
-    val boldStyle = StyleSpan(Typeface.BOLD)
-    val sb = SpannableString(topUpString)
-    sb.setSpan(boldStyle, 0, formattedInitialString.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
-    value.text = sb
+    setSpannableString(topUpString, formattedInitialString.length)
+
   }
 
+  private fun formatSuccessMessage() {
+    val formattedInitialString = getFormattedTopUpValue()
+    val secondStringFormat =
+        String.format(resources.getString(R.string.askafriend_notification_received_body),
+            formattedInitialString, "\n")
+    setSpannableString(secondStringFormat, formattedInitialString.length)
+  }
+
+  private fun getFormattedTopUpValue(): String {
+    val fiatValue =
+        BigDecimal(amount).setScale(2, RoundingMode.FLOOR).toString() + " " + currency
+    return String.format(resources.getString(R.string.topup_completed_1), fiatValue)
+  }
+
+  private fun setSpannableString(secondStringFormat: String, firstStringLength: Int) {
+    val boldStyle = StyleSpan(Typeface.BOLD)
+    val sb = SpannableString(secondStringFormat)
+    sb.setSpan(boldStyle, 0, firstStringLength, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+    value.text = sb
+  }
 }
