@@ -307,14 +307,14 @@
   <string name="gamification_purchase_appccredits_body">Phương thức thanh toán nhanh nhất!</string>
   <string name="gamification_how_bonus_received_body">Tiền thưởng đã nhận</string>
   <string name="gamification_how_appc_spent">Số tiền cần chi tiêu để đạt đến cấp này</string>
-  <string name="gamification_how_to_next_level_body">Spend <b>%1$s AppCoins</b> more to reach <b>level %2$s</b>.</string>
+  <string name="gamification_how_to_next_level_body">Dùng thêm <b>%1$s AppCoins</b> để đạt đến <b>cấp %2$s</b>.</string>
   <string name="gamification_level_expiration_title">Kiểm tra cấp kế tiếp: %s</string>
   <string name="gamification_level_expiration_body">Cấp của bạn dựa trên hoạt động mua hàng của bạn trong 12 tháng qua.</string>
   <string name="gamification_leveled_up_title">Bạn đã đạt đến cấp kế tiếp!</string>
   <string name="gamification_leveled_up_body">Kể từ giờ, bạn sẽ nhận được %s tiền thưởng trên mỗi lần mua. Hãy tiếp tục mua để nhận được nhiều hơn nữa!</string>
   <string name="gamification_leveled_up_notification_title">Bạn đã đạt đến cấp kế tiếp!</string>
   <string name="gamification_leveled_up_notification_body">Xin chúc mừng, giờ đây bạn sẽ nhận được tiền thưởng %s trên mỗi lần mua!</string>
-  <string name="gamification_how_max_level_body">Congrats! You\'ve reached the highest level 💃</string>
+  <string name="gamification_how_max_level_body">Chúc mừng! Bạn đã đạt đến cấp cao nhất 💃</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Cho phép AppCoins Wallet cung cấp địa chỉ ví của bạn cho %s.</string>
   <string name="provide_wallet_body_placeholders">Cho phép %1$s cung cấp địa chỉ ví của bạn cho %2$s.</string>
