@@ -17,8 +17,8 @@
       >
     <ProgressBar
         android:id="@+id/loading_view"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:indeterminateDrawable="@drawable/gradient_progress"
         tools:visibility="gone"
@@ -56,8 +56,8 @@
           />
       <ProgressBar
           android:id="@+id/progressBar"
-          android:layout_width="80dp"
-          android:layout_height="80dp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
           android:layout_gravity="center"
           android:layout_marginTop="44dp"
           android:layout_marginBottom="38dp"
