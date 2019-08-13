@@ -249,6 +249,9 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
     switch (item.getItemId()) {
+      case R.id.action_promotions: {
+        viewModel.showPromotions(this);
+      }
       case R.id.action_my_address: {
         viewModel.showMyAddress(this);
         return true;

@@ -182,6 +182,9 @@
             android:scheme="appcoins"/>
       </intent-filter>
     </activity>
+    <activity
+        android:name="com.asfoundation.wallet.promotions.PromotionsActivity"
+        android:label="Promotions"/>
 
     <meta-data
         android:name="io.fabric.ApiKey"
