@@ -77,7 +77,7 @@
   <color name="seekbar_tint">#fe756f</color>
   <color name="seekbar_background_tint">#fe7871</color>
 
-  <color name="transaction_details_button_color">#fe7073</color>
+  <color name="text_button_color">#fe7073</color>
   <color name="purchase_bonus_background_color">#001727</color>
   <color name="layout_separator_color">#eaeaea</color>
 

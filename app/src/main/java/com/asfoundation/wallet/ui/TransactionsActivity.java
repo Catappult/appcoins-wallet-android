@@ -251,6 +251,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     switch (item.getItemId()) {
       case R.id.action_promotions: {
         viewModel.showPromotions(this);
+        return true;
       }
       case R.id.action_my_address: {
         viewModel.showMyAddress(this);
