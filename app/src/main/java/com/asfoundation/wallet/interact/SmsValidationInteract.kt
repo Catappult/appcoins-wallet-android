@@ -2,7 +2,7 @@ package com.asfoundation.wallet.interact
 
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.repository.SmsValidationRepositoryType
-import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
+import com.asfoundation.wallet.poa_wallet_validation.WalletValidationStatus
 import io.reactivex.Single
 
 class SmsValidationInteract(

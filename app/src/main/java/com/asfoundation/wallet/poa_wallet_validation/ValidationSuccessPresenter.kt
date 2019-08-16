@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_validation
+package com.asfoundation.wallet.poa_wallet_validation
 
 import com.asfoundation.wallet.poa.ProofOfAttentionService
 import io.reactivex.Completable

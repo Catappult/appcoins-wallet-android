@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_validation
+package com.asfoundation.wallet.poa_wallet_validation
 
 enum class WalletValidationStatus {
 

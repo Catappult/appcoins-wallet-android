@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_validation
+package com.asfoundation.wallet.poa_wallet_validation
 
 import android.animation.Animator
 import android.app.NotificationManager

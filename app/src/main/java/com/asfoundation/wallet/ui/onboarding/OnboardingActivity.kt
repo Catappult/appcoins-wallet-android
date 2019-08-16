@@ -17,8 +17,8 @@ import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
-import com.asfoundation.wallet.wallet_validation.WalletValidationActivity
-import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
+import com.asfoundation.wallet.poa_wallet_validation.WalletValidationActivity
+import com.asfoundation.wallet.poa_wallet_validation.WalletValidationStatus
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.AndroidInjection
 import io.reactivex.Observable

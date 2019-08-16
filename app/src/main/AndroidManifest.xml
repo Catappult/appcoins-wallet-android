@@ -19,7 +19,7 @@
       android:theme="@style/AppTheme.NoActionBar"
       tools:replace="android:name, android:theme, android:allowBackup">
     <receiver
-        android:name="com.asfoundation.wallet.wallet_validation.WalletValidationBroadcastReceiver"
+        android:name="com.asfoundation.wallet.poa_wallet_validation.WalletValidationBroadcastReceiver"
         android:enabled="true"
         android:exported="false">
     </receiver>
@@ -170,7 +170,7 @@
       </intent-filter>
     </activity>
     <activity
-        android:name="com.asfoundation.wallet.wallet_validation.WalletValidationActivity"
+        android:name="com.asfoundation.wallet.poa_wallet_validation.WalletValidationActivity"
         android:launchMode="singleInstance"
         android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">
       <intent-filter>

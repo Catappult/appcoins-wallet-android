@@ -25,7 +25,7 @@ import com.asfoundation.wallet.poa.ProofStatus;
 import com.asfoundation.wallet.poa.ProofSubmissionFeeData;
 import com.asfoundation.wallet.repository.WrongNetworkException;
 import com.asfoundation.wallet.ui.TransactionsActivity;
-import com.asfoundation.wallet.wallet_validation.WalletValidationBroadcastReceiver;
+import com.asfoundation.wallet.poa_wallet_validation.WalletValidationBroadcastReceiver;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
@@ -43,9 +43,9 @@ import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_APP_PACKA
 import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_APP_SERVICE_NAME;
 import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_NETWORK_ID;
 import static com.asfoundation.wallet.advertise.ServiceConnector.PARAM_WALLET_PACKAGE_NAME;
-import static com.asfoundation.wallet.wallet_validation.WalletValidationBroadcastReceiver.ACTION_DISMISS;
-import static com.asfoundation.wallet.wallet_validation.WalletValidationBroadcastReceiver.ACTION_KEY;
-import static com.asfoundation.wallet.wallet_validation.WalletValidationBroadcastReceiver.ACTION_START_VALIDATION;
+import static com.asfoundation.wallet.poa_wallet_validation.WalletValidationBroadcastReceiver.ACTION_DISMISS;
+import static com.asfoundation.wallet.poa_wallet_validation.WalletValidationBroadcastReceiver.ACTION_KEY;
+import static com.asfoundation.wallet.poa_wallet_validation.WalletValidationBroadcastReceiver.ACTION_START_VALIDATION;
 
 /**
  * Created by Joao Raimundo on 29/03/2018.

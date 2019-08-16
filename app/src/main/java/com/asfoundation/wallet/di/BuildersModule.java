@@ -40,11 +40,11 @@ import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment;
 import com.asfoundation.wallet.ui.onboarding.OnboardingActivity;
 import com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment;
 import com.asfoundation.wallet.ui.transact.TransferFragment;
-import com.asfoundation.wallet.wallet_validation.CodeValidationFragment;
-import com.asfoundation.wallet.wallet_validation.PhoneValidationFragment;
-import com.asfoundation.wallet.wallet_validation.ValidationLoadingFragment;
-import com.asfoundation.wallet.wallet_validation.ValidationSuccessFragment;
-import com.asfoundation.wallet.wallet_validation.WalletValidationActivity;
+import com.asfoundation.wallet.poa_wallet_validation.CodeValidationFragment;
+import com.asfoundation.wallet.poa_wallet_validation.PhoneValidationFragment;
+import com.asfoundation.wallet.poa_wallet_validation.ValidationLoadingFragment;
+import com.asfoundation.wallet.poa_wallet_validation.ValidationSuccessFragment;
+import com.asfoundation.wallet.poa_wallet_validation.WalletValidationActivity;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 

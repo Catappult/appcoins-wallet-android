@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_validation
+package com.asfoundation.wallet.poa_wallet_validation
 
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract

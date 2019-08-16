@@ -3,7 +3,7 @@ package com.asfoundation.wallet.ui.onboarding
 import android.net.Uri
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.SmsValidationInteract
-import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
+import com.asfoundation.wallet.poa_wallet_validation.WalletValidationStatus
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
