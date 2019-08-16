@@ -25,14 +25,6 @@
       app:lottie_rawRes="@raw/gamification_current_level_animation"
       />
 
-  <androidx.constraintlayout.widget.Group
-      android:id="@+id/current_level_card_group"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:visibility="visible"
-      app:constraint_referenced_ids="current_level_card,current_level,rewards_progress_bar"
-      />
-
   <View
       android:id="@+id/current_level_card"
       android:layout_width="match_parent"
@@ -64,15 +56,15 @@
       tools:text="Level 1"
       />
 
-  <include
-      android:id="@+id/rewards_progress_bar"
-      layout="@layout/rewards_progress_bar"
+  <com.asfoundation.wallet.promotions.GamificationProgressBarView
+      android:id="@+id/gamification_progress_bar"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginStart="20dp"
       android:layout_marginTop="16dp"
       android:layout_marginEnd="20dp"
       android:layout_marginBottom="25dp"
+      android:elevation="2dp"
       app:layout_constraintStart_toStartOf="@id/current_level_card"
       app:layout_constraintTop_toBottomOf="@id/current_level"
       app:layout_constraintVertical_chainStyle="packed"

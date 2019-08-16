@@ -27,8 +27,6 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   @Inject
   lateinit var gamificationInteractor: GamificationInteractor
   @Inject
-  lateinit var levelResourcesMapper: LevelResourcesMapper
-  @Inject
   lateinit var analytics: GamificationAnalytics
 
   private lateinit var presenter: HowItWorksPresenter
@@ -67,7 +65,7 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
       bonusTextView.text =
           getString(R.string.gamification_how_table_b2, formatLevelInfo(level.bonus))
       view.findViewById<ImageView>(R.id.ic_level)
-          .setImageResource(levelResourcesMapper.mapDarkIcons(level))
+          .setImageResource(LevelResourcesMapper.mapDarkIcons(level))
       (fragment_gamification_how_it_works_levels_layout as LinearLayout).addView(view)
       if (level.level == currentLevel) {
         highlightCurrentLevel(levelTextView, spendTextView, bonusTextView)

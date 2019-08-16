@@ -159,7 +159,6 @@ import com.asfoundation.wallet.ui.balance.BalanceRepository;
 import com.asfoundation.wallet.ui.balance.database.BalanceDetailsDatabase;
 import com.asfoundation.wallet.ui.balance.database.BalanceDetailsMapper;
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
-import com.asfoundation.wallet.ui.gamification.LevelResourcesMapper;
 import com.asfoundation.wallet.ui.gamification.SharedPreferencesGamificationLocalData;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationMapper;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository;
@@ -908,10 +907,6 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Provides GamificationInteractor provideGamificationInteractor(Gamification gamification,
       FindDefaultWalletInteract defaultWallet, LocalCurrencyConversionService conversionService) {
     return new GamificationInteractor(gamification, defaultWallet, conversionService);
-  }
-
-  @Singleton @Provides LevelResourcesMapper providesLevelResourcesMapper() {
-    return new LevelResourcesMapper();
   }
 
   @Singleton @Provides Permissions providesPermissions(Context context) {

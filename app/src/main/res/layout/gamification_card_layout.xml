@@ -46,14 +46,12 @@
           android:textColor="@color/black"
           android:textSize="14sp"
           />
-      <include
-          android:id="@+id/promotions_rewards_progress_bar"
-          layout="@layout/rewards_progress_bar"
+      <com.asfoundation.wallet.promotions.GamificationProgressBarView
+          android:id="@+id/gamification_progress_bar"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_gravity="center_horizontal"
           android:layout_marginTop="15dp"
-          app:layout_constraintVertical_chainStyle="packed"
           />
     </LinearLayout>
     <View
