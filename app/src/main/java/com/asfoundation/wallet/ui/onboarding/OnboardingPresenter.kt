@@ -1,6 +1,9 @@
 package com.asfoundation.wallet.ui.onboarding
 
 import android.net.Uri
+import com.asfoundation.wallet.entity.Wallet
+import com.asfoundation.wallet.interact.SmsValidationInteract
+import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -10,7 +13,9 @@ import java.util.concurrent.TimeUnit
 class OnboardingPresenter(private val disposables: CompositeDisposable,
                           private val view: OnboardingView,
                           private val onboardingInteract: OnboardingInteract,
-                          private val viewScheduler: Scheduler) {
+                          private val viewScheduler: Scheduler,
+                          private val smsValidationInteract: SmsValidationInteract,
+                          private val networkScheduler: Scheduler) {
 
   fun present() {
     handleOnBoardingFinish()
@@ -21,19 +26,19 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
     disposables.clear()
   }
 
-  private fun handleSkip(): Observable<Any> {
+  private fun handleNext(): Observable<Any> {
     return Observable.fromCallable { onboardingInteract.hasClickedSkipOnboarding() }
         .flatMap {
           if (it) {
             view.showLoading()
             return@flatMap Observable.just(true)
           }
-          return@flatMap handleSkipButtonClick()
+          return@flatMap handleNextButtonClick()
         }
   }
 
-  private fun handleSkipButtonClick(): Observable<Any> {
-    return view.getSkipButtonClick()
+  private fun handleNextButtonClick(): Observable<Any> {
+    return view.getNextButtonClick()
         .doOnNext {
           onboardingInteract.clickSkipOnboarding()
           view.showLoading()
@@ -51,11 +56,14 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
 
   private fun handleOnBoardingFinish() {
     disposables.add(
-        Observable.zip(handleGetWalletAddress(), handleSkip(),
-            BiFunction { _: String, _: Any -> true })
+        Observable.zip(handleGetWalletAddress(), handleNext(),
+            BiFunction { walletAddress: String, _: Any -> walletAddress }
+        )
+            .flatMapSingle { smsValidationInteract.isValid(Wallet(it)) }
             .delay(1, TimeUnit.SECONDS)
             .observeOn(viewScheduler)
-            .subscribe({ finishOnBoarding() }, {})
+            .subscribeOn(networkScheduler)
+            .subscribe({ finishOnBoarding(it) }, {})
     )
   }
 
@@ -67,8 +75,8 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
         .toObservable()
   }
 
-  private fun finishOnBoarding() {
+  private fun finishOnBoarding(walletValidationStatus: WalletValidationStatus) {
     onboardingInteract.finishOnboarding()
-    view.finishOnboarding()
+    view.finishOnboarding(walletValidationStatus)
   }
 }

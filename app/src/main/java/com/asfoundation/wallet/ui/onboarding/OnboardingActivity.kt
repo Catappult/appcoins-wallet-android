@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.onboarding
 
 import android.animation.Animator
+import android.content.Intent
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
@@ -12,14 +13,18 @@ import android.text.style.ClickableSpan
 import android.text.style.StyleSpan
 import android.view.View
 import com.asf.wallet.R
+import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
+import com.asfoundation.wallet.wallet_validation.WalletValidationActivity
+import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_onboarding.*
 import javax.inject.Inject
@@ -28,6 +33,8 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
 
   @Inject
   lateinit var interactor: OnboardingInteract
+  @Inject
+  lateinit var smsValidationInteract: SmsValidationInteract
   private lateinit var browserRouter: ExternalBrowserRouter
   private lateinit var presenter: OnboardingPresenter
   private var linkSubject: PublishSubject<String>? = null
@@ -48,7 +55,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     browserRouter = ExternalBrowserRouter()
     linkSubject = PublishSubject.create()
     presenter = OnboardingPresenter(CompositeDisposable(), this, interactor,
-        AndroidSchedulers.mainThread())
+        AndroidSchedulers.mainThread(), smsValidationInteract, Schedulers.io())
     setupUi()
   }
 
@@ -91,8 +98,8 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
         OnboardingPageChangeListener(onboarding_content))
   }
 
-  override fun getSkipButtonClick(): Observable<Any> {
-    return RxView.clicks(skip_button)
+  override fun getNextButtonClick(): Observable<Any> {
+    return RxView.clicks(next_button)
   }
 
   override fun getLinkClick(): Observable<String>? {
@@ -106,7 +113,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     create_wallet_animation.playAnimation()
   }
 
-  override fun finishOnboarding() {
+  override fun finishOnboarding(walletValidationStatus: WalletValidationStatus) {
     create_wallet_animation.setAnimation(R.raw.success_animation)
     create_wallet_text.text = getText(R.string.provide_wallet_created_header)
     create_wallet_animation.addAnimatorListener(object : Animator.AnimatorListener {
@@ -114,7 +121,13 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
       }
 
       override fun onAnimationEnd(animation: Animator?) {
-        TransactionsRouter().open(applicationContext, true)
+        if (walletValidationStatus == WalletValidationStatus.SUCCESS) {
+          TransactionsRouter().open(applicationContext, true)
+        } else {
+          val intent = Intent(applicationContext, WalletValidationActivity::class.java)
+          intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+          applicationContext.startActivity(intent)
+        }
         finish()
       }
 

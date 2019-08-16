@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.onboarding
 
 import android.net.Uri
+import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Observable
 
 interface OnboardingView {
@@ -9,9 +10,9 @@ interface OnboardingView {
 
   fun showLoading()
 
-  fun finishOnboarding()
+  fun finishOnboarding(walletValidationStatus: WalletValidationStatus)
 
-  fun getSkipButtonClick(): Observable<Any>
+  fun getNextButtonClick(): Observable<Any>
 
   fun getLinkClick(): Observable<String>?
 
