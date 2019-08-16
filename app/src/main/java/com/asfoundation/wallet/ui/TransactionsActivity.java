@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Html;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,6 +40,9 @@ import com.asfoundation.wallet.widget.DepositView;
 import com.asfoundation.wallet.widget.EmptyTransactionsView;
 import com.asfoundation.wallet.widget.SystemView;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -142,6 +146,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::onGamificationMaxBonus);
     viewModel.applications()
         .observe(this, this::onApplications);
+    viewModel.shouldShowGamificationNotification()
+        .observe(this, this::onGamificationNotification);
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
   }
 
@@ -151,16 +157,27 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         viewModel.showSettings(this);
         break;
       }
-      case R.id.action_level: {
-        viewModel.showRewardsLevel(this);
-        break;
-      }
       case R.id.action_deposit: {
         openExchangeDialog();
         break;
       }
     }
     return super.onOptionsItemSelected(item);
+  }
+
+  private void onGamificationNotification(Boolean shouldShow) {
+    if (shouldShow) {
+      BottomNavigationMenuView bottomNavigationMenuView =
+          (BottomNavigationMenuView) ((BottomNavigationView) findViewById(
+              R.id.bottom_navigation)).getChildAt(0);
+      int promotionsIconIndex = 0;
+      View promotionsIcon = bottomNavigationMenuView.getChildAt(promotionsIconIndex);
+      BottomNavigationItemView itemView = (BottomNavigationItemView) promotionsIcon;
+
+      View badge = LayoutInflater.from(this)
+          .inflate(R.layout.notification_badge, bottomNavigationMenuView, false);
+      itemView.addView(badge);
+    }
   }
 
   private void onFetchTransactionsError(Double maxBonus) {
@@ -215,18 +232,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     if (networkInfo != null && networkInfo.name.equals(ETHEREUM_NETWORK_NAME)) {
       getMenuInflater().inflate(R.menu.menu_deposit, menu);
     }
-    LottieAnimationView view = menu.findItem(R.id.action_level)
-        .getActionView()
-        .findViewById(R.id.gamification_highlight_animation_view);
-    viewModel.shouldShowGamificationAnimation()
-        .observe(this, shouldShow -> {
-          if (shouldShow) {
-            view.playAnimation();
-          } else {
-            view.cancelAnimation();
-          }
-        });
-    view.setOnClickListener(v -> viewModel.showRewardsLevel(this));
     return super.onCreateOptionsMenu(menu);
   }
 

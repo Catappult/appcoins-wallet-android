@@ -42,7 +42,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
   private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
   private final MutableLiveData<List<Transaction>> transactions = new MutableLiveData<>();
-  private final MutableLiveData<Boolean> showAnimation = new MutableLiveData<>();
+  private final MutableLiveData<Boolean> showNotification = new MutableLiveData<>();
   private final MutableLiveData<List<AppcoinsApplication>> appcoinsApplications =
       new MutableLiveData<>();
   private final MutableLiveData<GlobalBalance> defaultWalletBalance = new MutableLiveData<>();
@@ -102,7 +102,7 @@ public class TransactionsViewModel extends BaseViewModel {
     disposables.add(transactionViewInteract.findNetwork()
         .subscribe(this::onDefaultNetwork, this::onError));
     disposables.add(transactionViewInteract.hasNewLevel()
-        .subscribe(showAnimation::postValue, this::onError));
+        .subscribe(showNotification::postValue, this::onError));
   }
 
   private Completable publishMaxBonus() {
@@ -323,8 +323,8 @@ public class TransactionsViewModel extends BaseViewModel {
         Uri.parse("https://en.aptoide.com/store/bds-store/group/group-10867"));
   }
 
-  public MutableLiveData<Boolean> shouldShowGamificationAnimation() {
-    return showAnimation;
+  public MutableLiveData<Boolean> shouldShowGamificationNotification() {
+    return showNotification;
   }
 
   public void showTopUp(Context context) {
