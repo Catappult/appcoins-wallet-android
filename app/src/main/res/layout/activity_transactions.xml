@@ -80,6 +80,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground"
+        app:menu="@menu/bottom_navigation_menu"
         app:itemIconTint="@color/gray_alpha_8a"
         app:itemTextColor="@color/gray_alpha_8a"
         app:labelVisibilityMode="labeled"

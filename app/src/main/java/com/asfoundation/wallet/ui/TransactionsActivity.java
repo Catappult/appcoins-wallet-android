@@ -1,11 +1,9 @@
 package com.asfoundation.wallet.ui;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Html;
@@ -14,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
@@ -36,15 +33,12 @@ import com.asfoundation.wallet.util.RootUtil;
 import com.asfoundation.wallet.viewmodel.BaseNavigationActivity;
 import com.asfoundation.wallet.viewmodel.TransactionsViewModel;
 import com.asfoundation.wallet.viewmodel.TransactionsViewModelFactory;
-import com.asfoundation.wallet.widget.DepositView;
 import com.asfoundation.wallet.widget.EmptyTransactionsView;
 import com.asfoundation.wallet.widget.SystemView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
@@ -63,7 +57,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private TransactionsViewModel viewModel;
   private SystemView systemView;
   private TransactionsAdapter adapter;
-  private Dialog dialog;
   private EmptyTransactionsView emptyView;
   private RecyclerView list;
   private TextView subtitleView;
@@ -71,6 +64,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private PublishSubject<String> emptyTransactionsSubject;
   private CompositeDisposable disposables;
   private View emptyClickableView;
+  private View badge;
 
   public static Intent newIntent(Context context) {
     return new Intent(context, TransactionsActivity.class);
@@ -113,7 +107,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     setCollapsingTitle(" ");
     initBottomNavigation();
     disableDisplayHomeAsUp();
-
+    prepareNotificationIcon();
     emptyTransactionsSubject = PublishSubject.create();
 
     adapter = new TransactionsAdapter(this::onTransactionClick, this::onApplicationClick);
@@ -151,32 +145,31 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
   }
 
+  private void prepareNotificationIcon() {
+    BottomNavigationMenuView bottomNavigationMenuView =
+        (BottomNavigationMenuView) ((BottomNavigationView) findViewById(
+            R.id.bottom_navigation)).getChildAt(0);
+    int promotionsIconIndex = 0;
+    View promotionsIcon = bottomNavigationMenuView.getChildAt(promotionsIconIndex);
+    BottomNavigationItemView itemView = (BottomNavigationItemView) promotionsIcon;
+    badge = LayoutInflater.from(this)
+        .inflate(R.layout.notification_badge, bottomNavigationMenuView, false);
+    badge.setVisibility(View.INVISIBLE);
+    itemView.addView(badge);
+  }
+
   @Override public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.action_settings: {
-        viewModel.showSettings(this);
-        break;
-      }
-      case R.id.action_deposit: {
-        openExchangeDialog();
-        break;
-      }
+    if (item.getItemId() == R.id.action_settings) {
+      viewModel.showSettings(this);
     }
     return super.onOptionsItemSelected(item);
   }
 
-  private void onGamificationNotification(Boolean shouldShow) {
+  private void onGamificationNotification(boolean shouldShow) {
     if (shouldShow) {
-      BottomNavigationMenuView bottomNavigationMenuView =
-          (BottomNavigationMenuView) ((BottomNavigationView) findViewById(
-              R.id.bottom_navigation)).getChildAt(0);
-      int promotionsIconIndex = 0;
-      View promotionsIcon = bottomNavigationMenuView.getChildAt(promotionsIconIndex);
-      BottomNavigationItemView itemView = (BottomNavigationItemView) promotionsIcon;
-
-      View badge = LayoutInflater.from(this)
-          .inflate(R.layout.notification_badge, bottomNavigationMenuView, false);
-      itemView.addView(badge);
+      badge.setVisibility(View.VISIBLE);
+    } else {
+      badge.setVisibility(View.INVISIBLE);
     }
   }
 
@@ -204,10 +197,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   @Override protected void onPause() {
     super.onPause();
-
-    if (dialog != null && dialog.isShowing()) {
-      dialog.dismiss();
-    }
     viewModel.pause();
     disposables.dispose();
   }
@@ -294,7 +283,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private void onDefaultNetwork(NetworkInfo networkInfo) {
     adapter.setDefaultNetwork(networkInfo);
-    setBottomMenu(R.menu.menu_main_network);
   }
 
   private void onError(ErrorEnvelope errorEnvelope) {
@@ -334,28 +322,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     emptyTransactionsSubject = null;
     disposables.dispose();
     super.onDestroy();
-  }
-
-  private void openExchangeDialog() {
-    Wallet wallet = viewModel.defaultWallet()
-        .getValue();
-    if (wallet == null) {
-      Toast.makeText(this, getString(R.string.error_wallet_not_selected), Toast.LENGTH_SHORT)
-          .show();
-    } else {
-      BottomSheetDialog dialog = new BottomSheetDialog(this);
-      DepositView view = new DepositView(this, wallet);
-      view.setOnDepositClickListener(this::onDepositClick);
-      dialog.setContentView(view);
-      BottomSheetBehavior behavior = BottomSheetBehavior.from((View) view.getParent());
-      dialog.setOnShowListener(d -> behavior.setPeekHeight(view.getHeight()));
-      dialog.show();
-      this.dialog = dialog;
-    }
-  }
-
-  private void onDepositClick(View view, Uri uri) {
-    viewModel.openDeposit(view.getContext(), uri);
   }
 
   private void onBalanceChanged(GlobalBalance globalBalance) {

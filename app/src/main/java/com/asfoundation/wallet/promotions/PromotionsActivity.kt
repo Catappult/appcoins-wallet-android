@@ -20,7 +20,6 @@ class PromotionsActivity : BaseActivity(), PromotionsActivityView {
     transactionsRouter = TransactionsRouter()
     rewardsLevelRouter = RewardsLevelRouter()
     val promotionsFragment = PromotionsFragment()
-    // Display the fragment as the main content.
     supportFragmentManager.beginTransaction()
         .add(R.id.fragment_container, promotionsFragment)
         .commit()

@@ -300,10 +300,6 @@ public class TransactionsViewModel extends BaseViewModel {
     handler.removeCallbacks(startGlobalBalanceTask);
   }
 
-  public void openDeposit(Context context, Uri uri) {
-    transactionViewNavigator.navigateToBrowser(context, uri);
-  }
-
   public LiveData<List<AppcoinsApplication>> applications() {
     return appcoinsApplications;
   }
