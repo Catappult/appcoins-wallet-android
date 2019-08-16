@@ -42,23 +42,25 @@
           android:layout_marginStart="@dimen/normal_margin"
           android:layout_marginTop="14dp"
           android:fontFamily="sans-serif-medium"
-          android:text="Earn up to $12 inviting friends"
+          android:text="Earn up to 30% on every purchase"
           android:textColor="@color/black"
           android:textSize="14sp"
           />
       <include
-          android:id="@+id/rewards_progress_bar"
+          android:id="@+id/promotions_rewards_progress_bar"
           layout="@layout/rewards_progress_bar"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_gravity="center_horizontal"
           android:layout_marginTop="15dp"
+          app:layout_constraintVertical_chainStyle="packed"
           />
     </LinearLayout>
     <View
         android:id="@+id/content_separator"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginTop="16dp"
         android:background="@color/layout_separator_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
