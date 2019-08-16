@@ -3,23 +3,22 @@ package com.asfoundation.wallet.promotions
 import android.os.Bundle
 import android.view.MenuItem
 import com.asf.wallet.R
+import com.asfoundation.wallet.router.RewardsLevelRouter
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
-import dagger.android.AndroidInjection
 
-class PromotionsActivity : BaseActivity() {
+class PromotionsActivity : BaseActivity(), PromotionsActivityView {
 
   private lateinit var transactionsRouter: TransactionsRouter
-
+  private lateinit var rewardsLevelRouter: RewardsLevelRouter
   override fun onCreate(savedInstanceState: Bundle?) {
-    AndroidInjection.inject(this)
-
     super.onCreate(savedInstanceState)
 
     setContentView(R.layout.promotions_activity_view)
     toolbar()
     enableDisplayHomeAsUp()
     transactionsRouter = TransactionsRouter()
+    rewardsLevelRouter = RewardsLevelRouter()
     val promotionsFragment = PromotionsFragment()
     // Display the fragment as the main content.
     supportFragmentManager.beginTransaction()
@@ -34,5 +33,9 @@ class PromotionsActivity : BaseActivity() {
       }
     }
     return super.onOptionsItemSelected(item)
+  }
+
+  override fun navigateToGamification() {
+    rewardsLevelRouter.open(this)
   }
 }

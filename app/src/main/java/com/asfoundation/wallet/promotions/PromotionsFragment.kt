@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.promotions
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +8,9 @@ import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.UserRewardsStatus
+import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -19,14 +22,23 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
 
   @Inject
   lateinit var gamification: GamificationInteractor
+  private lateinit var activity: PromotionsActivityView
   private var step = 100
-
-
   private lateinit var presenter: PromotionsPresenter
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter = PromotionsPresenter(this, gamification, CompositeDisposable(), Schedulers.io(),
         AndroidSchedulers.mainThread())
+  }
+
+  override fun onAttach(context: Context) {
+    super.onAttach(context)
+    if (context !is PromotionsActivityView) {
+      throw IllegalArgumentException(
+          PromotionsFragment::class.java.simpleName + " needs to be attached to a " + PromotionsActivityView::class.java.simpleName)
+    }
+    activity = context
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,14 +73,17 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
 
     for (value in userStatus.bonus) {
       val level = userStatus.bonus.indexOf(value)
-      val isCurrentLevel = level == userStatus.level
-      val bonusLabel = if (isCurrentLevel) {
-        R.string.gamification_level_bonus
-      } else {
-        R.string.gamification_how_table_b2
-      }
+      val bonusLabel = R.string.gamification_how_table_b2
       gamification_progress_bar.setLevelBonus(level,
           getString(bonusLabel, gamification_progress_bar.formatLevelInfo(value)))
     }
+  }
+
+  override fun seeMoreClick(): Observable<Any> {
+    return RxView.clicks(see_more_button)
+  }
+
+  override fun navigateToGamification() {
+    activity.navigateToGamification()
   }
 }

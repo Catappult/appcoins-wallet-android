@@ -8,7 +8,6 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
-import io.reactivex.functions.Function3
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -56,9 +55,8 @@ class HowItWorksPresenter(private val view: HowItWorksView,
   private fun handleShowNextLevelFooter() {
     disposables.add(
         Single.zip(gamification.getLevels(), gamification.getUserStatus(),
-            gamification.getLastShownLevel(),
-            Function3 { levels: Levels, userStats: UserStats, lastShownLevel: Int ->
-              mapToUserStatus(levels, userStats, lastShownLevel)
+            BiFunction { levels: Levels, userStats: UserStats ->
+              mapToUserStatus(levels, userStats)
             })
             .observeOn(viewScheduler)
             .doOnSuccess { view.showNextLevelFooter(it) }
@@ -78,20 +76,13 @@ class HowItWorksPresenter(private val view: HowItWorksView,
     return Pair(list.toList(), userStats.level)
   }
 
-  private fun mapToUserStatus(levels: Levels, userStats: UserStats,
-                              lastShownLevel: Int): UserRewardsStatus {
+  private fun mapToUserStatus(levels: Levels, userStats: UserStats): UserRewardsStatus {
     if (levels.status == Levels.Status.OK && userStats.status == UserStats.Status.OK) {
-      val list = mutableListOf<Double>()
-      if (levels.isActive) {
-        for (level in levels.list) {
-          list.add(level.bonus)
-        }
-      }
       val nextLevelAmount = userStats.nextLevelAmount?.minus(
           userStats.totalSpend)?.setScale(2, RoundingMode.HALF_UP) ?: BigDecimal.ZERO
-      return UserRewardsStatus(lastShownLevel, userStats.level, nextLevelAmount, list)
+      return UserRewardsStatus(level = userStats.level, toNextLevelAmount = nextLevelAmount)
     }
-    return UserRewardsStatus(lastShownLevel)
+    return UserRewardsStatus()
   }
 
   private fun sendEvent() {

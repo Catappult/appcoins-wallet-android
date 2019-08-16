@@ -10,6 +10,6 @@ interface GamificationRepository {
   fun getForecastBonus(wallet: String, packageName: String,
                        amount: BigDecimal): Single<ForecastBonus>
 
-  fun getLastShownLevel(wallet: String): Single<Int>
-  fun shownLevel(wallet: String, level: Int): Completable
+  fun getLastShownLevel(wallet: String, screen: String): Single<Int>
+  fun shownLevel(wallet: String, level: Int, screen: String): Completable
 }

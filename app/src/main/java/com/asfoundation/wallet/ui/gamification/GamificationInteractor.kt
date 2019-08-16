@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.gamification
 
 import com.appcoins.wallet.gamification.Gamification
+import com.appcoins.wallet.gamification.GamificationScreen
 import com.appcoins.wallet.gamification.repository.ForecastBonus
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.UserStats
@@ -17,6 +18,7 @@ class GamificationInteractor(
     private val gamification: Gamification,
     private val defaultWallet: FindDefaultWalletInteract,
     private val conversionService: LocalCurrencyConversionService) {
+
   fun getLevels(): Single<Levels> {
     return gamification.getLevels()
   }
@@ -37,19 +39,19 @@ class GamificationInteractor(
         })
   }
 
-  fun hasNewLevel(): Single<Boolean> {
+  fun hasNewLevel(screen: GamificationScreen): Single<Boolean> {
     return defaultWallet.find()
-        .flatMap { gamification.hasNewLevel(it.address) }
+        .flatMap { gamification.hasNewLevel(it.address, screen.toString()) }
   }
 
-  fun levelShown(level: Int): Completable {
+  fun levelShown(level: Int, screen: GamificationScreen): Completable {
     return defaultWallet.find()
-        .flatMapCompletable { gamification.levelShown(it.address, level) }
+        .flatMapCompletable { gamification.levelShown(it.address, level, screen.toString()) }
   }
 
-  fun getLastShownLevel(): Single<Int> {
+  fun getLastShownLevel(screen: GamificationScreen): Single<Int> {
     return defaultWallet.find()
-        .flatMap { gamification.getLastShownLevel(it.address) }
+        .flatMap { gamification.getLastShownLevel(it.address, screen.toString()) }
   }
 
   fun getAppcToLocalFiat(value: String, scale: Int): Observable<FiatValue> {

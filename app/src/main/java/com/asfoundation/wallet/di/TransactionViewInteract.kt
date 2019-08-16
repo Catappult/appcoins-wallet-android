@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.di
 
 import android.util.Pair
+import com.appcoins.wallet.gamification.GamificationScreen
 import com.appcoins.wallet.gamification.repository.Levels
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.NetworkInfo
@@ -38,7 +39,7 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
   }
 
   fun hasNewLevel(): Single<Boolean> {
-    return gamificationInteractor.hasNewLevel()
+    return gamificationInteractor.hasNewLevel(GamificationScreen.PROMOTIONS)
   }
 
   fun fetchTransactions(wallet: Wallet?): Observable<List<Transaction>> {

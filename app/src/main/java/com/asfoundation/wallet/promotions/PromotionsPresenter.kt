@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.promotions
 
+import com.appcoins.wallet.gamification.GamificationScreen
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.UserStats
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
@@ -19,13 +20,19 @@ class PromotionsPresenter(private val view: PromotionsView,
 
   fun present() {
     handleShowLevels()
+    handleGamificationNavigationClicks()
     view.setupLayout()
+  }
+
+  private fun handleGamificationNavigationClicks() {
+    disposables.add(view.seeMoreClick().doOnNext { view.navigateToGamification() }.subscribe({},
+        { it.printStackTrace() }))
   }
 
   private fun handleShowLevels() {
     disposables.add(
         Single.zip(gamification.getLevels(), gamification.getUserStatus(),
-            gamification.getLastShownLevel(),
+            gamification.getLastShownLevel(GamificationScreen.PROMOTIONS),
             Function3 { levels: Levels, userStats: UserStats, lastShownLevel: Int ->
               mapToUserStatus(levels, userStats, lastShownLevel)
             })
@@ -37,7 +44,7 @@ class PromotionsPresenter(private val view: PromotionsView,
               }
               view.updateLevel(it)
             }
-            .flatMapCompletable { gamification.levelShown(it.level) }
+            .flatMapCompletable { gamification.levelShown(it.level, GamificationScreen.PROMOTIONS) }
             .subscribe({}, { it.printStackTrace() }))
   }
 

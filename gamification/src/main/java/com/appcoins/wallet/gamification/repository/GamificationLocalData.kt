@@ -7,7 +7,7 @@ interface GamificationLocalData {
   /**
    * @return -1 if never showed any level
    */
-  fun getLastShownLevel(wallet: String): Single<Int>
+  fun getLastShownLevel(wallet: String, screen: String): Single<Int>
 
-  fun saveShownLevel(wallet: String, level: Int): Completable
+  fun saveShownLevel(wallet: String, level: Int, screen: String): Completable
 }
