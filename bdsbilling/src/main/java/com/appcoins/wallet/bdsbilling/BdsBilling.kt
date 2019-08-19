@@ -43,7 +43,7 @@ class BdsBilling(private val repository: BillingRepository,
         }
   }
 
-  override fun getSkuTransaction(merchantName: String, sku: String,
+  override fun getSkuTransaction(merchantName: String, sku: String?,
                                  scheduler: Scheduler): Single<Transaction> {
     return walletService.getWalletAddress()
         .flatMap { address ->
@@ -55,7 +55,7 @@ class BdsBilling(private val repository: BillingRepository,
         }
   }
 
-  override fun getSkuPurchase(merchantName: String, sku: String,
+  override fun getSkuPurchase(merchantName: String, sku: String?,
                               scheduler: Scheduler): Single<Purchase> {
     return walletService.getWalletAddress()
         .flatMap { address ->

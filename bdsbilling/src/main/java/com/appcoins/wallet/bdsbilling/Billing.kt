@@ -18,7 +18,7 @@ interface Billing {
 
   fun getAppcoinsTransaction(uid: String, scheduler: Scheduler): Single<Transaction>
 
-  fun getSkuPurchase(merchantName: String, sku: String, scheduler: Scheduler): Single<Purchase>
+  fun getSkuPurchase(merchantName: String, sku: String?, scheduler: Scheduler): Single<Purchase>
 
   fun getPurchases(merchantName: String, type: BillingSupportedType,
                    scheduler: Scheduler): Single<List<Purchase>>
@@ -32,7 +32,7 @@ interface Billing {
     SUPPORTED, MERCHANT_NOT_FOUND, UNKNOWN_ERROR, NO_INTERNET_CONNECTION, API_ERROR
   }
 
-  fun getSkuTransaction(merchantName: String, sku: String,
+  fun getSkuTransaction(merchantName: String, sku: String?,
                         scheduler: Scheduler): Single<Transaction>
 
   fun getWallet(packageName: String): Single<String>

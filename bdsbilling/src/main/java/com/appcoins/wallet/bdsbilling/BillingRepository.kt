@@ -15,10 +15,10 @@ interface BillingRepository {
 
   fun getSkuDetails(packageName: String, skus: List<String>): Single<List<Product>>
 
-  fun getSkuPurchase(packageName: String, skuId: String, walletAddress: String,
+  fun getSkuPurchase(packageName: String, skuId: String?, walletAddress: String,
                      walletSignature: String): Single<Purchase>
 
-  fun getSkuTransaction(packageName: String, skuId: String, walletAddress: String,
+  fun getSkuTransaction(packageName: String, skuId: String?, walletAddress: String,
                         walletSignature: String): Single<Transaction>
 
   fun getPurchases(packageName: String, walletAddress: String, walletSignature: String,

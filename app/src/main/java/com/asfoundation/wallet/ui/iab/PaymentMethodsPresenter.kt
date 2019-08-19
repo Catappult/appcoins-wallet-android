@@ -125,16 +125,16 @@ class PaymentMethodsPresenter(
         .ignoreElements()
   }
 
-  private fun waitForUi(skuId: String): Completable {
+  private fun waitForUi(skuId: String?): Completable {
     return Completable.mergeArray(checkProcessing(skuId), checkAndConsumePrevious(skuId),
         isSetupCompleted())
   }
 
-  private fun waitForOngoingPurchase(skuId: String): Completable {
+  private fun waitForOngoingPurchase(skuId: String?): Completable {
     return Completable.mergeArray(checkProcessing(skuId), checkAndConsumePrevious(skuId))
   }
 
-  private fun checkProcessing(skuId: String): Completable {
+  private fun checkProcessing(skuId: String?): Completable {
     return billing.getSkuTransaction(appPackage, skuId, Schedulers.io())
         .filter { (_, status) -> status === Transaction.Status.PROCESSING }
         .observeOn(AndroidSchedulers.mainThread())
@@ -160,20 +160,20 @@ class PaymentMethodsPresenter(
         .subscribe())
   }
 
-  private fun finishProcess(skuId: String): Completable {
+  private fun finishProcess(skuId: String?): Completable {
     return billing.getSkuPurchase(appPackage, skuId, Schedulers.io())
         .observeOn(viewScheduler)
         .doOnSuccess { purchase -> finish(purchase, false) }
         .toCompletable()
   }
 
-  private fun checkAndConsumePrevious(sku: String): Completable {
+  private fun checkAndConsumePrevious(sku: String?): Completable {
     return getPurchases(sku).observeOn(viewScheduler)
         .doOnNext { view.showItemAlreadyOwnedError() }
         .ignoreElements()
   }
 
-  private fun getPurchases(sku: String): Observable<Purchase> {
+  private fun getPurchases(sku: String?): Observable<Purchase> {
     return billing.getPurchases(appPackage, BillingSupportedType.INAPP, Schedulers.io())
         .flatMapObservable { purchases ->
           for (purchase in purchases) {

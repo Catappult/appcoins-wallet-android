@@ -27,14 +27,14 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
   }
 
   internal fun getSkuPurchase(packageName: String,
-                              skuId: String,
+                              skuId: String?,
                               walletAddress: String,
                               walletSignature: String): Single<Purchase> {
     return api.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
   }
 
   internal fun getSkuTransaction(packageName: String,
-                                 skuId: String,
+                                 skuId: String?,
                                  walletAddress: String,
                                  walletSignature: String): Single<TransactionsResponse> {
     return api.getSkuTransaction(walletAddress, walletSignature, 0, TransactionType.INAPP, 1,
@@ -150,7 +150,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
 
     @GET("inapp/8.20180518/packages/{packageName}/products/{skuId}/purchase")
     fun getSkuPurchase(@Path("packageName") packageName: String,
-                       @Path("skuId") skuId: String,
+                       @Path("skuId") skuId: String?,
                        @Query("wallet.address") walletAddress: String,
                        @Query("wallet.signature") walletSignature: String): Single<Purchase>
 
@@ -163,7 +163,7 @@ class RemoteRepository(private val api: BdsApi, private val responseMapper: BdsA
         @Query("limit") limit: Long,
         @Query("sort.name") sort: String,
         @Query("sort.reverse") isReverse: Boolean,
-        @Query("product") skuId: String,
+        @Query("product") skuId: String?,
         @Query("domain") packageName: String
     ): Single<TransactionsResponse>
 
