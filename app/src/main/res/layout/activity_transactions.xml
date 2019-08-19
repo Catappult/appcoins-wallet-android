@@ -80,11 +80,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground"
-        app:menu="@menu/bottom_navigation_menu"
         app:itemIconTint="@color/gray_alpha_8a"
+        app:itemRippleColor="#409e9e9e"
         app:itemTextColor="@color/gray_alpha_8a"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_navigation_menu"
         />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
