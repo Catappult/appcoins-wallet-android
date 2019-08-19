@@ -15,4 +15,6 @@ interface PromotionsView {
   fun showShare()
   fun gamificationCardClick(): Observable<Any>
   fun referralCardClick(): Observable<Any>
+  fun showGamificationUpdate(show: Boolean)
+  fun showReferralUpdate(show: Boolean)
 }

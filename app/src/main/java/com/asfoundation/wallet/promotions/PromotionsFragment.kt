@@ -4,7 +4,10 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.UserRewardsStatus
@@ -15,7 +18,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.gamification_card_layout.*
+import kotlinx.android.synthetic.main.gamification_card_layout.gamification_card
+import kotlinx.android.synthetic.main.promotions_fragment_view.*
 import kotlinx.android.synthetic.main.referral_card_layout.*
+import kotlinx.android.synthetic.main.referral_card_layout.referrals_card
 import kotlinx.android.synthetic.main.rewards_progress_bar.*
 import javax.inject.Inject
 
@@ -23,13 +29,16 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
 
   @Inject
   lateinit var gamification: GamificationInteractor
+  @Inject
+  lateinit var referralInteractor: ReferralTestInteractor
   private lateinit var activity: PromotionsActivityView
   private var step = 100
   private lateinit var presenter: PromotionsPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = PromotionsPresenter(this, gamification, CompositeDisposable(), Schedulers.io(),
+    presenter = PromotionsPresenter(this, gamification, referralInteractor, CompositeDisposable(),
+        Schedulers.io(),
         AndroidSchedulers.mainThread())
   }
 
@@ -40,11 +49,6 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
           PromotionsFragment::class.java.simpleName + " needs to be attached to a " + PromotionsActivityView::class.java.simpleName)
     }
     activity = context
-  }
-
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    presenter.present()
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -80,6 +84,44 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
     }
   }
 
+  override fun showReferralUpdate(show: Boolean) {
+    when (show) {
+      true -> {
+        if (referal_update.visibility == INVISIBLE) {
+          referal_update.visibility = VISIBLE
+          referal_update.startAnimation(
+              AnimationUtils.loadAnimation(context, R.anim.fade_in_animation))
+        }
+      }
+      else -> {
+        if (referal_update.visibility == VISIBLE) {
+          referal_update.startAnimation(
+              AnimationUtils.loadAnimation(context, R.anim.fade_out_animation))
+          referal_update.visibility = INVISIBLE
+        }
+      }
+    }
+  }
+
+  override fun showGamificationUpdate(show: Boolean) {
+    when (show) {
+      true -> {
+        if (gamification_update.visibility == INVISIBLE) {
+          gamification_update.visibility = VISIBLE
+          gamification_update.startAnimation(
+              AnimationUtils.loadAnimation(context, R.anim.fade_in_animation))
+        }
+      }
+      else -> {
+        if (gamification_update.visibility == VISIBLE) {
+          gamification_update.startAnimation(
+              AnimationUtils.loadAnimation(context, R.anim.fade_out_animation))
+          gamification_update.visibility = INVISIBLE
+        }
+      }
+    }
+  }
+
   override fun seeMoreClick(): Observable<Any> {
     return RxView.clicks(see_more_button)
   }
@@ -110,5 +152,15 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
 
   override fun navigateToGamification() {
     activity.navigateToGamification()
+  }
+
+  override fun onResume() {
+    presenter.present()
+    super.onResume()
+  }
+
+  override fun onPause() {
+    presenter.stop()
+    super.onPause()
   }
 }

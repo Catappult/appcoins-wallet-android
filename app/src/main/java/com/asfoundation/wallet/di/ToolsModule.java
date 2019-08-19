@@ -95,6 +95,7 @@ import com.asfoundation.wallet.poa.HashCalculator;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofWriter;
 import com.asfoundation.wallet.poa.TaggedCompositeDisposable;
+import com.asfoundation.wallet.promotions.ReferralTestInteractor;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.ApproveTransactionValidatorBds;
 import com.asfoundation.wallet.repository.BalanceService;
@@ -907,6 +908,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   @Provides GamificationInteractor provideGamificationInteractor(Gamification gamification,
       FindDefaultWalletInteract defaultWallet, LocalCurrencyConversionService conversionService) {
     return new GamificationInteractor(gamification, defaultWallet, conversionService);
+  }
+
+  @Provides ReferralTestInteractor provideReferralInteractor() {
+    return new ReferralTestInteractor();
   }
 
   @Singleton @Provides Permissions providesPermissions(Context context) {

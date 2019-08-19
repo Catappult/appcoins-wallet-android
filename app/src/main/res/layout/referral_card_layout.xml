@@ -26,49 +26,53 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
-    <LinearLayout
-        android:id="@+id/promotions_content"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/promotions_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginTop="14dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Earn up to $12 inviting friends"
+        android:textColor="@color/black"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/promotions_image"
-        >
-      <TextView
-          android:id="@+id/promotions_title"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/normal_margin"
-          android:layout_marginTop="14dp"
-          android:fontFamily="sans-serif-medium"
-          android:text="Earn up to $12 inviting friends"
-          android:textColor="@color/black"
-          android:textSize="14sp"
-          />
-      <TextView
-          android:id="@+id/promotions_subtitle"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="@dimen/normal_margin"
-          android:layout_marginTop="6dp"
-          android:layout_marginBottom="12dp"
-          android:ellipsize="end"
-          android:fontFamily="sans-serif"
-          android:maxLines="2"
-          android:text="Share your invite link and earn Appcoins Credits"
-          android:textColor="#727272"
-          android:textSize="14sp"
-          />
-    </LinearLayout>
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:src="@drawable/ic_new_option"
+        app:layout_constraintBottom_toBottomOf="@id/promotions_title"
+        app:layout_constraintStart_toEndOf="@id/promotions_title"
+        app:layout_constraintTop_toTopOf="@id/promotions_title"
+        />
+    <!--ImageView ic_new is supposed to be removed when we no longer want to show it-->
+    <TextView
+        android:id="@+id/promotions_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginTop="6dp"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif"
+        android:maxLines="2"
+        android:text="Share your invite link and earn Appcoins Credits"
+        android:textColor="#727272"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/promotions_title"
+        />
     <View
         android:id="@+id/content_separator"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginTop="12dp"
         android:background="@color/layout_separator_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/promotions_content"
+        app:layout_constraintTop_toBottomOf="@id/promotions_subtitle"
         />
     <LinearLayout
         android:layout_width="match_parent"

@@ -15,6 +15,7 @@ import java.math.RoundingMode
 
 class PromotionsPresenter(private val view: PromotionsView,
                           private val gamification: GamificationInteractor,
+                          private val referralInteractor: ReferralTestInteractor,
                           private val disposables: CompositeDisposable,
                           private val networkScheduler: Scheduler,
                           private val viewScheduler: Scheduler) {
@@ -24,7 +25,25 @@ class PromotionsPresenter(private val view: PromotionsView,
     handleGamificationNavigationClicks()
     handleDetailsClick()
     handleShareClick()
+    handleNewLevel()
+    handleNewPromotion()
     view.setupLayout()
+  }
+
+  private fun handleNewPromotion() {
+    disposables.add(referralInteractor.hasReferralUpdate()
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          view.showReferralUpdate(it)
+        }.subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun handleNewLevel() {
+    disposables.add(gamification.hasNewLevel(
+        GamificationScreen.MY_LEVEL)
+        .observeOn(viewScheduler)
+        .doOnSuccess { view.showGamificationUpdate(it) }.subscribe({},
+            { it.printStackTrace() }))
   }
 
   private fun handleShareClick() {
@@ -78,6 +97,10 @@ class PromotionsPresenter(private val view: PromotionsView,
       return UserRewardsStatus(lastShownLevel, userStats.level, nextLevelAmount, list)
     }
     return UserRewardsStatus(lastShownLevel, lastShownLevel)
+  }
+
+  fun stop() {
+    disposables.clear()
   }
 
 }
