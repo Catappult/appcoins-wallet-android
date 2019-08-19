@@ -88,9 +88,10 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
     when (show) {
       true -> {
         if (referal_update.visibility == INVISIBLE) {
+          val animation = AnimationUtils.loadAnimation(context, R.anim.fade_in_animation)
+          animation.duration = 750
           referal_update.visibility = VISIBLE
-          referal_update.startAnimation(
-              AnimationUtils.loadAnimation(context, R.anim.fade_in_animation))
+          referal_update.startAnimation(animation)
         }
       }
       else -> {
@@ -107,9 +108,10 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
     when (show) {
       true -> {
         if (gamification_update.visibility == INVISIBLE) {
+          val animation = AnimationUtils.loadAnimation(context, R.anim.fade_in_animation)
+          animation.duration = 750
           gamification_update.visibility = VISIBLE
-          gamification_update.startAnimation(
-              AnimationUtils.loadAnimation(context, R.anim.fade_in_animation))
+          gamification_update.startAnimation(animation)
         }
       }
       else -> {
