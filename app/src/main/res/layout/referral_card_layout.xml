@@ -1,7 +1,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/promotions_card"
+    android:id="@+id/referrals_card"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:cardCornerRadius="4dp"
@@ -84,7 +84,6 @@
           style="?android:attr/borderlessButtonStyle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginEnd="8dp"
           android:maxWidth="126dp"
           android:minWidth="80dp"
           android:text="Details"
@@ -92,9 +91,12 @@
           android:textSize="14sp"
           />
       <ImageView
-          android:layout_width="20dp"
-          android:layout_height="20dp"
-          android:layout_marginEnd="@dimen/big_margin"
+          android:id="@+id/share_button"
+          style="?android:attr/borderlessButtonStyle"
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          android:layout_marginEnd="6dp"
+          android:padding="10dp"
           android:src="@drawable/ic_share"
           android:tint="@color/text_button_color"
           />

@@ -5,6 +5,7 @@ import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.UserStats
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.UserRewardsStatus
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -21,11 +22,26 @@ class PromotionsPresenter(private val view: PromotionsView,
   fun present() {
     handleShowLevels()
     handleGamificationNavigationClicks()
+    handleDetailsClick()
+    handleShareClick()
     view.setupLayout()
   }
 
+  private fun handleShareClick() {
+    disposables.add(
+        view.shareClick().doOnNext { view.showShare() }.subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun handleDetailsClick() {
+    disposables.add(
+        Observable.merge(view.detailsClick(),
+            view.referralCardClick()).doOnNext { view.detailsClick() }.subscribe({},
+            { it.printStackTrace() }))
+  }
+
   private fun handleGamificationNavigationClicks() {
-    disposables.add(view.seeMoreClick().doOnNext { view.navigateToGamification() }.subscribe({},
+    disposables.add(Observable.merge(view.seeMoreClick(),
+        view.gamificationCardClick()).doOnNext { view.navigateToGamification() }.subscribe({},
         { it.printStackTrace() }))
   }
 

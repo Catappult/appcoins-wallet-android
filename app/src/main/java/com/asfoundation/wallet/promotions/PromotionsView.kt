@@ -9,4 +9,10 @@ interface PromotionsView {
   fun updateLevel(userStatus: UserRewardsStatus)
   fun seeMoreClick(): Observable<Any>
   fun navigateToGamification()
+  fun detailsClick(): Observable<Any>
+  fun navigateToPromotionDetails()
+  fun shareClick(): Observable<Any>
+  fun showShare()
+  fun gamificationCardClick(): Observable<Any>
+  fun referralCardClick(): Observable<Any>
 }

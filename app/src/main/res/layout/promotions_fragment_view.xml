@@ -8,8 +8,7 @@
     >
 
   <include
-      android:id="@+id/promotions_layout"
-      layout="@layout/promotions_card_layout"
+      layout="@layout/referral_card_layout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginStart="16dp"
@@ -18,7 +17,6 @@
       />
 
   <include
-      android:id="@+id/gamification_layout"
       layout="@layout/gamification_card_layout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"

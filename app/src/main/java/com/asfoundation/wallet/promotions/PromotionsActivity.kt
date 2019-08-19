@@ -2,6 +2,7 @@ package com.asfoundation.wallet.promotions
 
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.core.app.ShareCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.router.RewardsLevelRouter
 import com.asfoundation.wallet.router.TransactionsRouter
@@ -36,5 +37,17 @@ class PromotionsActivity : BaseActivity(), PromotionsActivityView {
 
   override fun navigateToGamification() {
     rewardsLevelRouter.open(this)
+  }
+
+  override fun handleShare() {
+    ShareCompat.IntentBuilder.from(this)
+        .setText("link")
+        .setType("text/plain")
+        .setChooserTitle("Share Invite Link Via")
+        .startChooser()
+  }
+
+  override fun navigateToPromotionDetails() {
+    //TODO
   }
 }

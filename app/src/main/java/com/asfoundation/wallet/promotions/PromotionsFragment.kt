@@ -15,6 +15,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.gamification_card_layout.*
+import kotlinx.android.synthetic.main.referral_card_layout.*
 import kotlinx.android.synthetic.main.rewards_progress_bar.*
 import javax.inject.Inject
 
@@ -81,6 +82,30 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
 
   override fun seeMoreClick(): Observable<Any> {
     return RxView.clicks(see_more_button)
+  }
+
+  override fun detailsClick(): Observable<Any> {
+    return RxView.clicks(details_button)
+  }
+
+  override fun shareClick(): Observable<Any> {
+    return RxView.clicks(share_button)
+  }
+
+  override fun gamificationCardClick(): Observable<Any> {
+    return RxView.clicks(gamification_card)
+  }
+
+  override fun referralCardClick(): Observable<Any> {
+    return RxView.clicks(referrals_card)
+  }
+
+  override fun showShare() {
+    activity.handleShare()
+  }
+
+  override fun navigateToPromotionDetails() {
+    activity.navigateToPromotionDetails()
   }
 
   override fun navigateToGamification() {
