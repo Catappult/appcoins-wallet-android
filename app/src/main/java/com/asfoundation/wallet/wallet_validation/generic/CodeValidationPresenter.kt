@@ -7,6 +7,7 @@ import com.asfoundation.wallet.wallet_validation.ValidationInfo
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Observable
 import io.reactivex.Scheduler
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function6
 import java.util.concurrent.TimeUnit
@@ -88,17 +89,35 @@ class CodeValidationPresenter(
     )
   }
 
+  private fun checkReferralAvailability() {
+    disposables.add(
+        Single.just(true)//TODO Change when Microservices implements the changes
+            .subscribeOn(networkScheduler)
+            .observeOn(viewScheduler)
+            .doOnSuccess { handleReferralStatus(it) }
+            .subscribe()
+    )
+  }
+
+  private fun handleReferralStatus(eligible: Boolean) {
+    if (eligible) {
+      view.showReferralEligible()
+    } else {
+      view.showReferralIneligible()
+    }
+  }
+
   private fun handleNext(status: WalletValidationStatus,
                          validationInfo: ValidationInfo) {
     when (status) {
-      WalletValidationStatus.SUCCESS -> view.showReferralSuccess()
+      WalletValidationStatus.SUCCESS -> checkReferralAvailability()
       WalletValidationStatus.INVALID_INPUT -> handleError(
           R.string.verification_insert_code_error, validationInfo)
       WalletValidationStatus.INVALID_PHONE ->
         activity?.showPhoneValidationView(validationInfo.countryCode, validationInfo.phoneNumber,
             R.string.verification_insert_code_error_common)
       WalletValidationStatus.DOUBLE_SPENT ->
-        view.showReferralSuccess()
+        checkReferralAvailability()
       WalletValidationStatus.GENERIC_ERROR -> handleError(R.string.unknown_error, validationInfo)
     }
   }

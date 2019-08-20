@@ -47,6 +47,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
               smsValidationInteract.isValid(Wallet(it))
                   .subscribeOn(networkScheduler)
             }
+            .delay(1, TimeUnit.SECONDS)
             .observeOn(viewScheduler)
             .subscribe({ finishOnBoarding(it) }, {})
     )
@@ -57,6 +58,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
         Observable.zip(isWalletCreated(), view.getNextButtonClick(),
             BiFunction { _: Boolean, _: Any -> }
         )
+            .delay(1, TimeUnit.SECONDS)
             .observeOn(viewScheduler)
             .subscribe({ finishOnBoarding(null) }, {})
     )

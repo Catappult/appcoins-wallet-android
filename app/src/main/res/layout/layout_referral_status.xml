@@ -13,7 +13,6 @@
       android:layout_gravity="center_horizontal"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="false"
-      app:lottie_rawRes="@raw/referral_invited"
       />
 
   <TextView

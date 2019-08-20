@@ -35,7 +35,9 @@ interface CodeValidationView {
 
   fun showLoading()
 
-  fun showReferralSuccess()
+  fun showReferralEligible()
+
+  fun showReferralIneligible()
 
   fun getOkClicks(): Observable<Any>
 

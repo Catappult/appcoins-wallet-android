@@ -259,11 +259,21 @@ class CodeValidationFragment : DaggerFragment(),
     validate_code_animation!!.playAnimation()
   }
 
-  override fun showReferralSuccess() {
+  override fun showReferralEligible() {
     walletValidationView?.showLastStepAnimation()
     content!!.visibility = View.GONE
     animation_validating_code!!.visibility = View.GONE
     referral_status!!.visibility = View.VISIBLE
+    referral_status_animation!!.setAnimation(R.raw.referral_invited)
+    referral_status_animation!!.playAnimation()
+  }
+
+  override fun showReferralIneligible() {
+    walletValidationView?.showLastStepAnimation()
+    content!!.visibility = View.GONE
+    animation_validating_code!!.visibility = View.GONE
+    referral_status!!.visibility = View.VISIBLE
+    referral_status_animation!!.setAnimation(R.raw.referral_not_invited)
     referral_status_animation!!.playAnimation()
   }
 
