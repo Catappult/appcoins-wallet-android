@@ -115,7 +115,7 @@
       app:itemTextColor="@color/white"
       app:labelVisibilityMode="labeled"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:menu="@menu/overlay_bottom_navigation_menu"
+      app:menu="@menu/bottom_navigation_menu"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

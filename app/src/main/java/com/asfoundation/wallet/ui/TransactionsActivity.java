@@ -393,11 +393,10 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   }
 
   public void showPromotionsOverlay() {
-    OverlayFragment fragment = new OverlayFragment();
     getSupportFragmentManager().beginTransaction()
         .setCustomAnimations(R.anim.fragment_fade_in_animation, R.anim.fragment_fade_out_animation,
             R.anim.fragment_fade_in_animation, R.anim.fragment_fade_out_animation)
-        .add(R.id.container, fragment)
+        .add(R.id.container, OverlayFragment.newInstance(0))
         .addToBackStack(OverlayFragment.class.getName())
         .commit();
   }

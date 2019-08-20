@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
@@ -17,6 +18,14 @@ class OverlayFragment : Fragment(), OverlayView {
 
   private lateinit var presenter: OverlayPresenter
   private lateinit var activity: TransactionsActivity
+
+  private val item: Int by lazy {
+    if (arguments!!.containsKey(ITEM_KEY)) {
+      arguments!!.getInt(ITEM_KEY)
+    } else {
+      throw IllegalArgumentException("item not found")
+    }
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -34,7 +43,26 @@ class OverlayFragment : Fragment(), OverlayView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    handleItemAndArrowPosition()
     presenter.present()
+  }
+
+  private fun handleItemAndArrowPosition() {
+    //Highlights the correct BN item
+    val size = overlay_bottom_navigation.menu.size()
+    for (i in 0 until size) {
+      if (i != item) {
+        overlay_bottom_navigation.menu.getItem(i)
+            .icon = null
+        overlay_bottom_navigation.menu.getItem(i)
+            .title = ""
+      }
+    }
+    //if not first item remove arrow
+    if (item != 0) {
+      arrow_down_tip.visibility = INVISIBLE
+    }
+
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -65,5 +93,17 @@ class OverlayFragment : Fragment(), OverlayView {
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+  }
+
+  companion object {
+    private const val ITEM_KEY = "item"
+    @JvmStatic
+    fun newInstance(highlightedBottomNavigationItem: Int): Fragment {
+      val fragment = OverlayFragment()
+      val bundle = Bundle()
+      bundle.putInt(ITEM_KEY, highlightedBottomNavigationItem)
+      fragment.arguments = bundle
+      return fragment
+    }
   }
 }
