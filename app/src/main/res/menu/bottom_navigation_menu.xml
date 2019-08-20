@@ -22,3 +22,6 @@
       android:title="@string/balance_title"
       />
 </menu>
+    <!-- !! overlay_bottom_navigation_menu used in OverlayFragment has direct relationship with
+    this menu, if something is changed in this menu it should be changed on that menu too!! -->
+

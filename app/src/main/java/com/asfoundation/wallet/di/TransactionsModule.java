@@ -45,10 +45,9 @@ import javax.inject.Singleton;
   @Provides TransactionViewNavigator provideTransactionsViewNavigator(SettingsRouter settingsRouter,
       SendRouter sendRouter, TransactionDetailRouter transactionDetailRouter,
       MyAddressRouter myAddressRouter, BalanceRouter balanceRouter,
-      ExternalBrowserRouter externalBrowserRouter, RewardsLevelRouter rewardsLevelRouter,
-      TopUpRouter topUpRouter) {
+      ExternalBrowserRouter externalBrowserRouter, TopUpRouter topUpRouter) {
     return new TransactionViewNavigator(settingsRouter, sendRouter, transactionDetailRouter,
-        myAddressRouter, balanceRouter, externalBrowserRouter, rewardsLevelRouter, topUpRouter);
+        myAddressRouter, balanceRouter, externalBrowserRouter, topUpRouter);
   }
 
   @Provides TransactionViewInteract provideTransactionsViewInteract(

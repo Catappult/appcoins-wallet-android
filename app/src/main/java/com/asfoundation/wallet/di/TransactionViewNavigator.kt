@@ -15,7 +15,6 @@ class TransactionViewNavigator(private val settingsRouter: SettingsRouter,
                                private val myAddressRouter: MyAddressRouter,
                                private val balanceRouter: BalanceRouter,
                                private val externalBrowserRouter: ExternalBrowserRouter,
-                               private val rewardsLevelRouter: RewardsLevelRouter,
                                private val topUpRouter: TopUpRouter) {
   fun openSettings(context: Context) {
     settingsRouter.open(context)
@@ -39,10 +38,6 @@ class TransactionViewNavigator(private val settingsRouter: SettingsRouter,
 
   fun navigateToBrowser(context: Context, uri: Uri) {
     externalBrowserRouter.open(context, uri)
-  }
-
-  fun openRewardsLevel(context: Context) {
-    rewardsLevelRouter.open(context)
   }
 
   fun openTopUp(context: Context) {

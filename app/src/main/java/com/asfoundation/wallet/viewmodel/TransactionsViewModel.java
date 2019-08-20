@@ -310,10 +310,6 @@ public class TransactionsViewModel extends BaseViewModel {
     analytics.openApp(appcoinsApplication.getUniqueName(), appcoinsApplication.getPackageName());
   }
 
-  public void showRewardsLevel(Context context) {
-    transactionViewNavigator.openRewardsLevel(context);
-  }
-
   public void showTopApps(Context context) {
     transactionViewNavigator.navigateToBrowser(context,
         Uri.parse("https://en.aptoide.com/store/bds-store/group/group-10867"));
@@ -335,7 +331,7 @@ public class TransactionsViewModel extends BaseViewModel {
     return fetchTransactionsError;
   }
 
-  public void showPromotions(Context context) {
+  public void navigateToPromotions(Context context) {
     transactionViewNavigator.openPromotions(context);
   }
 }

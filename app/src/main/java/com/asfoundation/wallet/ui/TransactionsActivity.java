@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +26,7 @@ import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.GlobalBalance;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.repository.PreferenceRepositoryType;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
@@ -54,6 +56,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private static String maxBonusEmptyScreen;
   @Inject TransactionsViewModelFactory transactionsViewModelFactory;
+  @Inject PreferenceRepositoryType preferenceRepositoryType;
   private TransactionsViewModel viewModel;
   private SystemView systemView;
   private TransactionsAdapter adapter;
@@ -143,6 +146,21 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     viewModel.shouldShowGamificationNotification()
         .observe(this, this::onGamificationNotification);
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
+    handlePromotionsOverlayVisibility();
+  }
+
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    if (item.getItemId() == R.id.action_settings) {
+      viewModel.showSettings(this);
+    }
+    return super.onOptionsItemSelected(item);
+  }
+
+  private void handlePromotionsOverlayVisibility() {
+    if (!preferenceRepositoryType.isFirstTimeOnTransactionActivity()) {
+      showPromotionsOverlay();
+      preferenceRepositoryType.setFirstTimeOnTransactionActivity();
+    }
   }
 
   private void prepareNotificationIcon() {
@@ -156,13 +174,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .inflate(R.layout.notification_badge, bottomNavigationMenuView, false);
     badge.setVisibility(View.INVISIBLE);
     itemView.addView(badge);
-  }
-
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    if (item.getItemId() == R.id.action_settings) {
-      viewModel.showSettings(this);
-    }
-    return super.onOptionsItemSelected(item);
   }
 
   private void onGamificationNotification(boolean shouldShow) {
@@ -244,7 +255,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
     switch (item.getItemId()) {
       case R.id.action_promotions: {
-        viewModel.showPromotions(this);
+        navigateToPromotions(false);
         return true;
       }
       case R.id.action_my_address: {
@@ -305,11 +316,13 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       pref.edit()
           .putBoolean("should_show_root_warning", false)
           .apply();
-      new AlertDialog.Builder(this).setTitle(R.string.root_title)
+      AlertDialog alertDialog = new AlertDialog.Builder(this).setTitle(R.string.root_title)
           .setMessage(R.string.root_body)
           .setNegativeButton(R.string.ok, (dialog, which) -> {
           })
           .show();
+      alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+          .setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.transparent, null));
     }
   }
 
@@ -372,7 +385,20 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     viewModel.showTopApps(this);
   }
 
-  public void navigateToGamification() {
-    viewModel.showRewardsLevel(this);
+  public void navigateToPromotions(boolean clearStack) {
+    if (clearStack) {
+      getSupportFragmentManager().popBackStack();
+    }
+    viewModel.navigateToPromotions(this);
+  }
+
+  public void showPromotionsOverlay() {
+    OverlayFragment fragment = new OverlayFragment();
+    getSupportFragmentManager().beginTransaction()
+        .setCustomAnimations(R.anim.fragment_fade_in_animation, R.anim.fragment_fade_out_animation,
+            R.anim.fragment_fade_in_animation, R.anim.fragment_fade_out_animation)
+        .add(R.id.container, fragment)
+        .addToBackStack(OverlayFragment.class.getName())
+        .commit();
   }
 }
