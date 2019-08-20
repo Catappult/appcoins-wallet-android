@@ -42,13 +42,11 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
         Observable.zip(isWalletCreated(), view.getRedeemButtonClick(),
             BiFunction { _: Boolean, _: Any -> }
         )
-            .doOnEach { view.showLoading() }
             .flatMapSingle { onboardingInteract.getWalletAddress() }
             .flatMapSingle {
               smsValidationInteract.isValid(Wallet(it))
                   .subscribeOn(networkScheduler)
             }
-            .delay(1, TimeUnit.SECONDS)
             .observeOn(viewScheduler)
             .subscribe({ finishOnBoarding(it) }, {})
     )
@@ -59,8 +57,6 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
         Observable.zip(isWalletCreated(), view.getNextButtonClick(),
             BiFunction { _: Boolean, _: Any -> }
         )
-            .doOnEach { view.showLoading() }
-            .delay(1, TimeUnit.SECONDS)
             .observeOn(viewScheduler)
             .subscribe({ finishOnBoarding(null) }, {})
     )

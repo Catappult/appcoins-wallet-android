@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.CreateWalletInteract
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
@@ -65,11 +66,21 @@ class WalletValidationActivity : BaseActivity(),
 
   override fun showPhoneValidationView(countryCode: String?, phoneNumber: String?,
                                        errorMessage: Int?) {
+    if (countryCode != null && phoneNumber != null) {
+      reverseAnimation(30, 60, 0)
+    }
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             PhoneValidationFragment.newInstance(
                 countryCode, phoneNumber, errorMessage))
         .commit()
+
+    Handler().postDelayed({
+      if (countryCode != null && phoneNumber != null) {
+        reverseAnimation(0, 30, -1)
+      }
+    }, 1000)
+
   }
 
   override fun showCodeValidationView(countryCode: String, phoneNumber: String) {
@@ -140,5 +151,18 @@ class WalletValidationActivity : BaseActivity(),
     referral_status_animation?.removeAllLottieOnCompositionLoadedListener()
 
     super.onDestroy()
+  }
+
+  private fun reverseAnimation(minFrame: Int, maxFrame: Int, loop: Int) {
+    this.minFrame = minFrame
+    this.maxFrame = maxFrame
+    loopAnimation = loop
+
+    validation_progress_animation!!.removeAllAnimatorListeners()
+    validation_progress_animation!!.setMinAndMaxFrame(this.minFrame, this.maxFrame)
+    validation_progress_animation!!.repeatCount = loopAnimation
+    validation_progress_animation!!.reverseAnimationSpeed()
+    validation_progress_animation!!.playAnimation()
+
   }
 }

@@ -55,7 +55,7 @@ class CodeValidationPresenter(
             .doOnEach { view.showLoading() }
             .flatMapSingle { validationInfo ->
               defaultWalletInteract.find()
-                  .delay(5, TimeUnit.SECONDS)
+                  .delay(2, TimeUnit.SECONDS)
                   .flatMap { wallet ->
                     smsValidationInteract.validateCode(
                         "+${validationInfo.countryCode}${validationInfo.phoneNumber}",

@@ -109,10 +109,12 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
 
   override fun getNextButtonClick(): Observable<Any> {
     return RxView.clicks(next_button)
+        .map { showLoading() }
   }
 
   override fun getRedeemButtonClick(): Observable<Any> {
     return RxView.clicks(redeem_bonus)
+        .map { showLoading() }
   }
 
   override fun getLinkClick(): Observable<String>? {

@@ -84,7 +84,6 @@ class PhoneValidationFragment : DaggerFragment(),
     phoneNumber?.let { phone_number.setText(it) }
 
     errorMessage?.let { setError(it) }
-
   }
 
   override fun setError(message: Int) {

@@ -8,8 +8,8 @@
 
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/referral_status_animation"
-      android:layout_width="200dp"
-      android:layout_height="200dp"
+      android:layout_width="196dp"
+      android:layout_height="162dp"
       android:layout_gravity="center_horizontal"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="false"

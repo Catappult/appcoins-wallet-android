@@ -85,14 +85,14 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5"
+        app:layout_constraintGuide_percent="0.45"
         />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/text_guideline"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.75"
+        app:layout_constraintGuide_percent="0.70"
         />
 
     <Button
@@ -122,7 +122,7 @@
         android:layout_marginEnd="20dp"
         android:gravity="center"
         android:text="@string/terms_and_conditions_error"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/onboarding_viewpager"
@@ -132,12 +132,12 @@
         android:id="@+id/terms_conditions_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="46dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="47dp"
         android:layout_marginEnd="20dp"
         android:gravity="center"
         android:orientation="horizontal"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@id/onboarding_viewpager"
         >
       <CheckBox
@@ -145,7 +145,6 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:buttonTint="@color/selection_dot_selected"
-          android:gravity="center"
           app:layout_constraintBottom_toBottomOf="@id/terms_conditions_body"
           app:layout_constraintEnd_toStartOf="@id/terms_conditions_body"
           />
@@ -156,7 +155,7 @@
           android:layout_height="wrap_content"
           android:clickable="true"
           android:focusable="true"
-          android:gravity="center"
+          android:gravity="start"
           app:layout_constraintTop_toBottomOf="@id/onboarding_viewpager"
           tools:text="@string/terms_and_conditions_tickbox"
           />
