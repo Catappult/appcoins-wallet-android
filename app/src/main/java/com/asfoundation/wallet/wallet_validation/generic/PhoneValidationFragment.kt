@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.poa_wallet_validation
+package com.asfoundation.wallet.wallet_validation.generic
 
 import android.content.Context
 import android.os.Bundle
@@ -17,11 +17,12 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_phone_validation.*
+import kotlinx.android.synthetic.main.layout_phone_validation.*
 import javax.inject.Inject
 
 
-class PhoneValidationFragment : DaggerFragment(), PhoneValidationView {
+class PhoneValidationFragment : DaggerFragment(),
+    PhoneValidationView {
 
   @Inject
   lateinit var interactor: SmsValidationInteract
@@ -37,25 +38,32 @@ class PhoneValidationFragment : DaggerFragment(), PhoneValidationView {
     super.onCreate(savedInstanceState)
 
     presenter =
-        PhoneValidationPresenter(this, walletValidationView, interactor,
+        PhoneValidationPresenter(this,
+            walletValidationView, interactor,
             AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable())
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_phone_validation, container, false)
+    return inflater.inflate(R.layout.layout_phone_validation, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    if (arguments?.containsKey(COUNTRY_CODE) == true) {
-      countryCode = arguments?.getString(COUNTRY_CODE)
+    if (arguments?.containsKey(
+            COUNTRY_CODE) == true) {
+      countryCode = arguments?.getString(
+          COUNTRY_CODE)
     }
-    if (arguments?.containsKey(PHONE_NUMBER) == true) {
-      phoneNumber = arguments?.getString(PHONE_NUMBER)
+    if (arguments?.containsKey(
+            PHONE_NUMBER) == true) {
+      phoneNumber = arguments?.getString(
+          PHONE_NUMBER)
     }
-    if (arguments?.containsKey(ERROR_MESSAGE) == true) {
-      errorMessage = arguments?.getInt(ERROR_MESSAGE)
+    if (arguments?.containsKey(
+            ERROR_MESSAGE) == true) {
+      errorMessage = arguments?.getInt(
+          ERROR_MESSAGE)
     }
 
     presenter.present()
@@ -100,11 +108,11 @@ class PhoneValidationFragment : DaggerFragment(), PhoneValidationView {
   }
 
   override fun setButtonState(state: Boolean) {
-    submit_button.isEnabled = state
+    next_button.isEnabled = state
   }
 
-  override fun getSubmitClicks(): Observable<Pair<String, String>> {
-    return RxView.clicks(submit_button)
+  override fun getNextClicks(): Observable<Pair<String, String>> {
+    return RxView.clicks(next_button)
         .map {
           Pair(ccp.selectedCountryCodeWithPlus,
               ccp.fullNumber.substringAfter(ccp.selectedCountryCode))
@@ -125,7 +133,7 @@ class PhoneValidationFragment : DaggerFragment(), PhoneValidationView {
 
     if (context !is WalletValidationView) {
       throw IllegalStateException(
-          "PhoneValidationFragment must be attached to Wallet Validation activity")
+          "PoaPhoneValidationFragment must be attached to Wallet Validation activity")
     }
 
     walletValidationView = context
@@ -146,10 +154,15 @@ class PhoneValidationFragment : DaggerFragment(), PhoneValidationView {
     fun newInstance(countryCode: String? = null, phoneNumber: String? = null,
                     errorMessage: Int? = null): Fragment {
       val bundle = Bundle()
-      bundle.putString(COUNTRY_CODE, countryCode)
-      bundle.putString(PHONE_NUMBER, phoneNumber)
+      bundle.putString(
+          COUNTRY_CODE, countryCode)
+      bundle.putString(
+          PHONE_NUMBER, phoneNumber)
 
-      errorMessage?.let { bundle.putInt(ERROR_MESSAGE, errorMessage) }
+      errorMessage?.let {
+        bundle.putInt(
+            ERROR_MESSAGE, errorMessage)
+      }
 
       val fragment = PhoneValidationFragment()
       fragment.arguments = bundle

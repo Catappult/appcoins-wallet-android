@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/referral_status_animation"
+      android:layout_width="200dp"
+      android:layout_height="200dp"
+      android:layout_gravity="center_horizontal"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="false"
+      app:lottie_rawRes="@raw/referral_invited"
+      />
+
+  <TextView
+      style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginTop="58dp"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:gravity="center_horizontal"
+      android:text="Great news. Your invite was validated!"
+      android:textColor="@color/black"
+      />
+
+  <TextView
+      style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginTop="8dp"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:gravity="center_horizontal"
+      android:text="As soon as you make your first purchase you will get 2$ worth of AppCoins Credits."
+      android:textColor="#727272"
+      />
+
+  <Button
+      android:id="@+id/ok_button"
+      style="@style/ButtonStyle.Alternative"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/button_height"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginTop="52dp"
+      android:minWidth="169dp"
+      android:text="@string/ok"
+      android:textColor="@color/white"
+      android:textSize="14sp"
+      />
+
+
+</LinearLayout>

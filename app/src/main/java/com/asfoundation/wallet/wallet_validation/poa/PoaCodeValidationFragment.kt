@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.poa_wallet_validation
+package com.asfoundation.wallet.wallet_validation.poa
 
 import android.content.ClipDescription.MIMETYPE_TEXT_PLAIN
 import android.content.ClipboardManager
@@ -15,6 +15,7 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.SmsValidationInteract
+import com.asfoundation.wallet.wallet_validation.ValidationInfo
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.android.support.DaggerFragment
@@ -29,43 +30,52 @@ import org.apache.commons.lang3.StringUtils
 import javax.inject.Inject
 
 
-class CodeValidationFragment : DaggerFragment(), CodeValidationView {
+class PoaCodeValidationFragment : DaggerFragment(),
+    PoaCodeValidationView {
 
   @Inject
   lateinit var smsValidationInteract: SmsValidationInteract
 
-  private var walletValidationView: WalletValidationView? = null
-  private lateinit var presenter: CodeValidationPresenter
+  private var walletValidationView: PoaWalletValidationView? = null
+  private lateinit var presenter: PoaCodeValidationPresenter
   private lateinit var fragmentContainer: ViewGroup
   private lateinit var clipboard: ClipboardManager
 
   val countryCode: String by lazy {
-    if (arguments!!.containsKey(PhoneValidationFragment.COUNTRY_CODE)) {
-      arguments!!.getString(PhoneValidationFragment.COUNTRY_CODE)
+    if (arguments!!.containsKey(
+            PoaPhoneValidationFragment.COUNTRY_CODE)) {
+      arguments!!.getString(
+          PoaPhoneValidationFragment.COUNTRY_CODE)
     } else {
       throw IllegalArgumentException("Country Code not passed")
     }
   }
 
   val phoneNumber: String by lazy {
-    if (arguments!!.containsKey(PhoneValidationFragment.PHONE_NUMBER)) {
-      arguments!!.getString(PhoneValidationFragment.PHONE_NUMBER)
+    if (arguments!!.containsKey(
+            PoaPhoneValidationFragment.PHONE_NUMBER)) {
+      arguments!!.getString(
+          PoaPhoneValidationFragment.PHONE_NUMBER)
     } else {
       throw IllegalArgumentException("Phone Number not passed")
     }
   }
 
   private val errorMessage: Int? by lazy {
-    if (arguments!!.containsKey(ERROR_MESSAGE)) {
-      arguments!!.getInt(ERROR_MESSAGE)
+    if (arguments!!.containsKey(
+            ERROR_MESSAGE)) {
+      arguments!!.getInt(
+          ERROR_MESSAGE)
     } else {
       null
     }
   }
 
   private val validationInfo: ValidationInfo? by lazy {
-    if (arguments!!.containsKey(VALIDATION_INFO)) {
-      arguments!!.getSerializable(VALIDATION_INFO) as ValidationInfo
+    if (arguments!!.containsKey(
+            VALIDATION_INFO)) {
+      arguments!!.getSerializable(
+          VALIDATION_INFO) as ValidationInfo
     } else {
       null
     }
@@ -77,7 +87,8 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
     clipboard = context!!.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
 
     presenter =
-        CodeValidationPresenter(this, walletValidationView,
+        PoaCodeValidationPresenter(this,
+            walletValidationView,
             smsValidationInteract, AndroidSchedulers.mainThread(), Schedulers.io(), countryCode,
             phoneNumber, CompositeDisposable())
   }
@@ -121,12 +132,24 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
     val inputTexts =
         arrayOf(code_1.code, code_2.code, code_3.code, code_4.code, code_5.code, code_6.code)
 
-    code_1.code.addTextChangedListener(PasteTextWatcher(inputTexts, clipboard, 0))
-    code_2.code.addTextChangedListener(PasteTextWatcher(inputTexts, clipboard, 1))
-    code_3.code.addTextChangedListener(PasteTextWatcher(inputTexts, clipboard, 2))
-    code_4.code.addTextChangedListener(PasteTextWatcher(inputTexts, clipboard, 3))
-    code_5.code.addTextChangedListener(PasteTextWatcher(inputTexts, clipboard, 4))
-    code_6.code.addTextChangedListener(PasteTextWatcher(inputTexts, clipboard, 5))
+    code_1.code.addTextChangedListener(
+        PasteTextWatcher(
+            inputTexts, clipboard, 0))
+    code_2.code.addTextChangedListener(
+        PasteTextWatcher(
+            inputTexts, clipboard, 1))
+    code_3.code.addTextChangedListener(
+        PasteTextWatcher(
+            inputTexts, clipboard, 2))
+    code_4.code.addTextChangedListener(
+        PasteTextWatcher(
+            inputTexts, clipboard, 3))
+    code_5.code.addTextChangedListener(
+        PasteTextWatcher(
+            inputTexts, clipboard, 4))
+    code_6.code.addTextChangedListener(
+        PasteTextWatcher(
+            inputTexts, clipboard, 5))
   }
 
   override fun clearUI() {
@@ -228,7 +251,7 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
   override fun onAttach(context: Context) {
     super.onAttach(context)
 
-    if (context !is WalletValidationView) {
+    if (context !is PoaWalletValidationView) {
       throw IllegalStateException(
           "CodeValidationFragment must be attached to Wallet Validation activity")
     }
@@ -255,10 +278,12 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
     @JvmStatic
     fun newInstance(countryCode: String, phoneNumber: String): Fragment {
       val bundle = Bundle()
-      bundle.putString(PhoneValidationFragment.COUNTRY_CODE, countryCode)
-      bundle.putString(PhoneValidationFragment.PHONE_NUMBER, phoneNumber)
+      bundle.putString(
+          PoaPhoneValidationFragment.COUNTRY_CODE, countryCode)
+      bundle.putString(
+          PoaPhoneValidationFragment.PHONE_NUMBER, phoneNumber)
 
-      val fragment = CodeValidationFragment()
+      val fragment = PoaCodeValidationFragment()
       fragment.arguments = bundle
       return fragment
     }
@@ -266,12 +291,16 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
     @JvmStatic
     fun newInstance(info: ValidationInfo, errorMessage: Int): Fragment {
       val bundle = Bundle()
-      bundle.putString(PhoneValidationFragment.COUNTRY_CODE, info.countryCode)
-      bundle.putString(PhoneValidationFragment.PHONE_NUMBER, info.phoneNumber)
-      bundle.putInt(ERROR_MESSAGE, errorMessage)
-      bundle.putSerializable(VALIDATION_INFO, info)
+      bundle.putString(
+          PoaPhoneValidationFragment.COUNTRY_CODE, info.countryCode)
+      bundle.putString(
+          PoaPhoneValidationFragment.PHONE_NUMBER, info.phoneNumber)
+      bundle.putInt(
+          ERROR_MESSAGE, errorMessage)
+      bundle.putSerializable(
+          VALIDATION_INFO, info)
 
-      val fragment = CodeValidationFragment()
+      val fragment = PoaCodeValidationFragment()
       fragment.arguments = bundle
       return fragment
     }

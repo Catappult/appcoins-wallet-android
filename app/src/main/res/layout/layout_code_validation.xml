@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/content"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <TextView
+        android:id="@+id/code_validation_title"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="@dimen/big_margin"
+        android:gravity="center_horizontal"
+        android:text="@string/verification_insert_code_title"
+        android:textColor="#4a4a4a"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/code_validation_subtitle"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="@dimen/big_margin"
+        android:gravity="center_horizontal"
+        android:text="Phone verification is needed to verify if you have an invitation bonus. We'll send you a verification code via SMS."
+        android:textColor="#727272"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/code_validation_title"
+        />
+
+    <include
+        android:id="@+id/text_layout"
+        layout="@layout/sms_text_input_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="37dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/code_validation_subtitle"
+        />
+
+    <TextView
+        android:id="@+id/error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="7.5dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="10sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_layout"
+        tools:text="@string/verification_insert_code_error"
+        />
+
+    <TextView
+        android:id="@+id/resend_code"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/button_height"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="31.5dp"
+        android:layout_marginEnd="16dp"
+        android:ellipsize="end"
+        android:text="@string/verification_insert_code_resend_button"
+        android:textAllCaps="true"
+        android:textColor="@color/btn_cancel_text"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_layout"
+        />
+
+    <LinearLayout
+        android:id="@+id/disclaimer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/resend_code"
+        >
+
+      <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_marginEnd="3dp"
+          app:srcCompat="@drawable/ic_info_grey"
+          />
+
+      <TextView
+          style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/verification_insert_phone_security_disclaimer"
+          android:textSize="10sp"
+          />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/submit_button"
+        style="@style/ButtonStyle.Alternative"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginTop="70dp"
+        android:minWidth="169dp"
+        android:text="@string/submit_button"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/disclaimer_layout"
+        />
+
+    <Button
+        android:id="@+id/back_button"
+        style="@style/CancelBorderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginTop="8dp"
+        android:minWidth="169dp"
+        android:text="@string/back_button"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/submit_button"
+        />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <include
+      android:id="@+id/animation_validating_code"
+      layout="@layout/layout_validation_result"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_centerVertical="true"
+      android:layout_marginTop="48dp"
+      android:visibility="gone"
+      />
+
+  <include
+      android:id="@+id/referral_status"
+      layout="@layout/layout_referral_status"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_centerVertical="true"
+      android:layout_marginTop="48dp"
+      android:visibility="gone"
+      />
+
+</RelativeLayout>

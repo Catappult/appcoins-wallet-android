@@ -1,5 +1,6 @@
-package com.asfoundation.wallet.poa_wallet_validation
+package com.asfoundation.wallet.wallet_validation.generic
 
+import com.asfoundation.wallet.wallet_validation.ValidationInfo
 import io.reactivex.Observable
 
 interface CodeValidationView {
@@ -31,5 +32,11 @@ interface CodeValidationView {
   fun setButtonState(state: Boolean)
 
   fun hideKeyboard()
+
+  fun showLoading()
+
+  fun showReferralSuccess()
+
+  fun getOkClicks(): Observable<Any>
 
 }

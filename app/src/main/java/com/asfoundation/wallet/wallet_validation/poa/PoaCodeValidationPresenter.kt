@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.poa_wallet_validation
+package com.asfoundation.wallet.wallet_validation.poa
 
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import io.reactivex.Observable
@@ -6,9 +6,9 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function6
 
-class CodeValidationPresenter(
-    private val view: CodeValidationView,
-    private val activity: WalletValidationView?,
+class PoaCodeValidationPresenter(
+    private val view: PoaCodeValidationView,
+    private val activity: PoaWalletValidationView?,
     private val smsValidationInteract: SmsValidationInteract,
     private val viewScheduler: Scheduler,
     private val networkScheduler: Scheduler,

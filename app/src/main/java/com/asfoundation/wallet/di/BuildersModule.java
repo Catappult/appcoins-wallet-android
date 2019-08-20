@@ -40,11 +40,14 @@ import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment;
 import com.asfoundation.wallet.ui.onboarding.OnboardingActivity;
 import com.asfoundation.wallet.ui.transact.AppcoinsCreditsTransferSuccessFragment;
 import com.asfoundation.wallet.ui.transact.TransferFragment;
-import com.asfoundation.wallet.poa_wallet_validation.CodeValidationFragment;
-import com.asfoundation.wallet.poa_wallet_validation.PhoneValidationFragment;
-import com.asfoundation.wallet.poa_wallet_validation.ValidationLoadingFragment;
-import com.asfoundation.wallet.poa_wallet_validation.ValidationSuccessFragment;
-import com.asfoundation.wallet.poa_wallet_validation.WalletValidationActivity;
+import com.asfoundation.wallet.wallet_validation.generic.CodeValidationFragment;
+import com.asfoundation.wallet.wallet_validation.generic.PhoneValidationFragment;
+import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity;
+import com.asfoundation.wallet.wallet_validation.poa.PoaCodeValidationFragment;
+import com.asfoundation.wallet.wallet_validation.poa.PoaPhoneValidationFragment;
+import com.asfoundation.wallet.wallet_validation.poa.PoaValidationLoadingFragment;
+import com.asfoundation.wallet.wallet_validation.poa.PoaValidationSuccessFragment;
+import com.asfoundation.wallet.wallet_validation.poa.PoaWalletValidationActivity;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
@@ -142,17 +145,27 @@ import dagger.android.ContributesAndroidInjector;
   @ActivityScope @ContributesAndroidInjector abstract AdvertisingService bindAdvertisingService();
 
   @ActivityScope @ContributesAndroidInjector
+  abstract PoaWalletValidationActivity bindPoaWalletValidationActivity();
+
+  @ContributesAndroidInjector()
+  abstract PoaPhoneValidationFragment bindPoaPhoneValidationFragment();
+
+  @ContributesAndroidInjector() abstract PoaCodeValidationFragment bindPoaCodeValidationFragment();
+
+  @ContributesAndroidInjector()
+  abstract PoaValidationLoadingFragment bindPoaValidationLoadingFragment();
+
+  @ContributesAndroidInjector()
+  abstract PoaValidationSuccessFragment bindPoaValidationSuccessFragment();
+
+  @ContributesAndroidInjector() abstract BalanceFragment bindBalanceFragment();
+
+  @ContributesAndroidInjector() abstract TokenDetailsActivity bindTokenDetailsFragment();
+
+  @ActivityScope @ContributesAndroidInjector
   abstract WalletValidationActivity bindWalletValidationActivity();
 
   @ContributesAndroidInjector() abstract PhoneValidationFragment bindPhoneValidationFragment();
 
   @ContributesAndroidInjector() abstract CodeValidationFragment bindCodeValidationFragment();
-
-  @ContributesAndroidInjector() abstract ValidationLoadingFragment bindValidationLoadingFragment();
-
-  @ContributesAndroidInjector() abstract ValidationSuccessFragment bindValidationSuccessFragment();
-
-  @ContributesAndroidInjector() abstract BalanceFragment bindBalanceFragment();
-
-  @ContributesAndroidInjector() abstract TokenDetailsActivity bindTokenDetailsFragment();
 }

@@ -17,8 +17,8 @@ import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
-import com.asfoundation.wallet.poa_wallet_validation.WalletValidationActivity
-import com.asfoundation.wallet.poa_wallet_validation.WalletValidationStatus
+import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
+import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
@@ -38,6 +38,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
   private lateinit var browserRouter: ExternalBrowserRouter
   private lateinit var presenter: OnboardingPresenter
   private var linkSubject: PublishSubject<String>? = null
+  private val compositeDisposable = CompositeDisposable()
 
   companion object {
     fun newInstance(): OnboardingActivity {
@@ -96,10 +97,22 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     onboarding_viewpager.adapter = OnboardingPageAdapter()
     onboarding_viewpager.registerOnPageChangeCallback(
         OnboardingPageChangeListener(onboarding_content))
+
+    compositeDisposable.add(
+        RxView.clicks(skip_button)
+            .subscribe {
+              onboarding_viewpager.setCurrentItem(onboarding_viewpager.adapter?.itemCount ?: 0,
+                  true)
+            }
+    )
   }
 
   override fun getNextButtonClick(): Observable<Any> {
     return RxView.clicks(next_button)
+  }
+
+  override fun getRedeemButtonClick(): Observable<Any> {
+    return RxView.clicks(redeem_bonus)
   }
 
   override fun getLinkClick(): Observable<String>? {
@@ -113,7 +126,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     create_wallet_animation.playAnimation()
   }
 
-  override fun finishOnboarding(walletValidationStatus: WalletValidationStatus) {
+  override fun finishOnboarding(walletValidationStatus: WalletValidationStatus?) {
     create_wallet_animation.setAnimation(R.raw.success_animation)
     create_wallet_text.text = getText(R.string.provide_wallet_created_header)
     create_wallet_animation.addAnimatorListener(object : Animator.AnimatorListener {
@@ -121,10 +134,10 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
       }
 
       override fun onAnimationEnd(animation: Animator?) {
-        if (walletValidationStatus == WalletValidationStatus.SUCCESS) {
+        if (walletValidationStatus == null || walletValidationStatus == WalletValidationStatus.SUCCESS) {
           TransactionsRouter().open(applicationContext, true)
         } else {
-          val intent = Intent(applicationContext, WalletValidationActivity::class.java)
+          val intent = WalletValidationActivity.newIntent(applicationContext)
           intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
           applicationContext.startActivity(intent)
         }

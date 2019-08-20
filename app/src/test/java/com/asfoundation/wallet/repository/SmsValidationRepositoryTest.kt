@@ -3,7 +3,7 @@ package com.asfoundation.wallet.repository
 import com.asfoundation.wallet.entity.WalletRequestCodeResponse
 import com.asfoundation.wallet.entity.WalletStatus
 import com.asfoundation.wallet.service.SmsValidationApi
-import com.asfoundation.wallet.poa_wallet_validation.WalletValidationStatus
+import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import com.google.gson.Gson
 import io.reactivex.Single
 import org.junit.Before

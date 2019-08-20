@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.repository
 
-import com.asfoundation.wallet.poa_wallet_validation.WalletValidationStatus
+import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Single
 
 interface SmsValidationRepositoryType {
