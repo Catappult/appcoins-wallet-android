@@ -396,7 +396,7 @@
   <string name="title_redeem">Code einlösen</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">Verarbeitung läuft&#8230;</string>
-  <string name="local_payments_inprogress_body">Once you complete the payment you\'ll receive the AppCoins Credits in your wallet. Then go back to the game to make the purchase!</string>
+  <string name="local_payments_inprogress_body">So wie Sie die Bezahlung abgeschlossen haben, werden die AppCoins auf ihrem Wallet gutgeschrieben, danach gehen Sie zurück zu ihrem Spiel und tätigen den Einkauf!</string>
   <!--Wallet Verification-->
   <string name="verification_notification_verification_needed_title">Die Prämie steht bereit, aber die Verifikation steht noch aus</string>
   <string name="verification_notification_verification_needed_body">Aus Sicherheitsgründen müssen wir ihr Wallet mit einem SMS-Code verifizieren.</string>
@@ -418,11 +418,11 @@
   <string name="verification_insert_phone_field_phone_used_already_error">Telefon wurde bereits verwendet.</string>
   <string name="verification_insert_code_error_common">Upps, etwas ist schief gelaufen, Bitte versuchen Sie es erneut!</string>
   <!--Purchase Flow-->
-  <string name="purchase_error_incomplete_transaction_body">It seems this purchase is already being processed. Please hold on until the transaction is completed or contact our Support Team.</string>
+  <string name="purchase_error_incomplete_transaction_body">Wie es scheint wurde dieser Einkauf bereits verarbeitet. Bitte warten Sie ab, bis die Transaktion verarbeitet wurde oder kontaktieren Sie ihren Kunden-Support.</string>
   <string name="purchase_more_payment_methods_button">ANDERE BEZAHL-METHODEN</string>
-  <string name="purchase_appcoins_available_body">You\'ll use a small amount of ETH to pay for the fees.</string>
-  <string name="purchase_appcoins_noavailable_body">You don\'t have enough AppCoins or Ether for this purchase.</string>
+  <string name="purchase_appcoins_available_body">Sie werden einen kleinen ETH-Betrag verwenden, um die Gebühren zu bezahlen.</string>
+  <string name="purchase_appcoins_noavailable_body">Für diesen Kauf verfügen Sie über zu wenige AppCoins oder Ethereum.</string>
   <string name="purchase_appcoins_credits_available_body">Keine Gebühren und blitzschnell!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough APPC Credits, try topping up!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">Sie haben zu wenige AppCoins, bitte auffladen!</string>
   <string name="purchase_appcoins_credits_default_body">Sie haben genügend AppCoins verdient, Sie können sich diesen Einkauf leisten. Viel Spaß!</string>
 </resources>
