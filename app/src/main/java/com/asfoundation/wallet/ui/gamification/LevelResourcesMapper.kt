@@ -33,19 +33,6 @@ class LevelResourcesMapper {
       }
     }
 
-    fun mapImage(level: Int): Int {
-      return when (level) {
-        0 -> R.drawable.level_comet
-        1 -> R.drawable.level_moon
-        2 -> R.drawable.level_planet
-        3 -> R.drawable.level_star
-        4 -> R.drawable.level_galaxy
-        else -> {
-          R.drawable.ic_locked
-        }
-      }
-    }
-
     fun mapTitle(level: Int): Int {
       return when (level) {
         0 -> R.string.gamification_a_comet_title

@@ -4,8 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.INVISIBLE
-import android.view.View.VISIBLE
+import android.view.View.*
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import com.asf.wallet.R
@@ -19,6 +18,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.gamification_card_layout.*
 import kotlinx.android.synthetic.main.gamification_card_layout.gamification_card
+import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import kotlinx.android.synthetic.main.promotions_fragment_view.*
 import kotlinx.android.synthetic.main.referral_card_layout.*
 import kotlinx.android.synthetic.main.referral_card_layout.referrals_card
@@ -30,14 +30,14 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
   @Inject
   lateinit var gamification: GamificationInteractor
   @Inject
-  lateinit var referralInteractor: ReferralTestInteractor
+  lateinit var promotionsInteractor: PromotionsTestInteractor
   private lateinit var activity: PromotionsActivityView
   private var step = 100
   private lateinit var presenter: PromotionsPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = PromotionsPresenter(this, gamification, referralInteractor, CompositeDisposable(),
+    presenter = PromotionsPresenter(this, gamification, promotionsInteractor, CompositeDisposable(),
         Schedulers.io(),
         AndroidSchedulers.mainThread())
   }
@@ -144,6 +144,10 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
     return RxView.clicks(referrals_card)
   }
 
+  override fun retryClick(): Observable<Any> {
+    return RxView.clicks(retry_button)
+  }
+
   override fun showShare() {
     activity.handleShare()
   }
@@ -154,6 +158,30 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
 
   override fun navigateToGamification() {
     activity.navigateToGamification()
+  }
+
+  override fun showReferralCard() {
+    no_network.visibility = GONE
+    promotions_container.visibility = VISIBLE
+    referrals_card.visibility = VISIBLE
+  }
+
+  override fun showGamificationCard() {
+    no_network.visibility = GONE
+    promotions_container.visibility = VISIBLE
+    gamification_card.visibility = VISIBLE
+  }
+
+  override fun showNetworkErrorView() {
+    no_network.visibility = VISIBLE
+    retry_button.visibility = VISIBLE
+    retry_animation.visibility = GONE
+    promotions_container.visibility = GONE
+  }
+
+  override fun showRetryAnimation() {
+    retry_button.visibility = INVISIBLE
+    retry_animation.visibility = VISIBLE
   }
 
   override fun onResume() {
