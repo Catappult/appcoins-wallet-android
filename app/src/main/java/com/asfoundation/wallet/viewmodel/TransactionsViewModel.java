@@ -123,7 +123,7 @@ public class TransactionsViewModel extends BaseViewModel {
           return Single.error(new IllegalStateException(levels.getStatus()
               .name()));
         })
-        .doOnSuccess(bonus -> fetchTransactionsError.postValue(bonus))
+        .doOnSuccess(fetchTransactionsError::postValue)
         .ignoreElement();
   }
 
@@ -143,7 +143,7 @@ public class TransactionsViewModel extends BaseViewModel {
                     .andThen(Completable.fromAction(this::onTransactionsFetchCompleted)))
             .onErrorResumeNext(throwable -> publishMaxBonus())
             .observeOn(AndroidSchedulers.mainThread())
-            .doAfterTerminate(() -> transactionViewInteract.stopTransactionFetch())
+            .doAfterTerminate(transactionViewInteract::stopTransactionFetch)
             .subscribe(() -> {
             }, this::onError);
     disposables.add(fetchTransactionsDisposable);

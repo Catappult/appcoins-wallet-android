@@ -12,12 +12,16 @@ class PromotionsTestInteractor {
     return Single.just(true)
   }
 
-  fun retrievePromotions(): Single<List<String>> {
+  fun retrievePromotions(): Single<List<PromotionType>> {
     return if (boolean) {
-      Single.just(listOf("Referral", "Gamification"))
+      Single.just(listOf(PromotionType.REFERRAL, PromotionType.GAMIFICATION))
     } else {
       boolean = true
       return Single.error(IOException())
     }
+  }
+
+  enum class PromotionType {
+    REFERRAL, GAMIFICATION
   }
 }

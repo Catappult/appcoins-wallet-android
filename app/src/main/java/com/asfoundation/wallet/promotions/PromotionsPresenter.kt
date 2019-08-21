@@ -3,6 +3,7 @@ package com.asfoundation.wallet.promotions
 import com.appcoins.wallet.gamification.GamificationScreen
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.UserStats
+import com.asfoundation.wallet.promotions.PromotionsTestInteractor.PromotionType
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.UserRewardsStatus
 import io.reactivex.Completable
@@ -110,13 +111,13 @@ class PromotionsPresenter(private val view: PromotionsView,
     return UserRewardsStatus(lastShownLevel, lastShownLevel)
   }
 
-  private fun showPromotions(promotion: String) {
+  private fun showPromotions(promotion: PromotionType) {
     when (promotion) {
-      "Referral" -> {
+      PromotionType.REFERRAL -> {
         view.showReferralCard()
         handleNewReferralUpdate()
       }
-      "Gamification" -> {
+      PromotionType.GAMIFICATION -> {
         view.showGamificationCard()
         handleShowLevels()
         handleNewLevel()
@@ -125,6 +126,7 @@ class PromotionsPresenter(private val view: PromotionsView,
   }
 
   private fun handlerError(throwable: Throwable) {
+    throwable.printStackTrace()
     if (isNoNetworkException(throwable)) {
       view.showNetworkErrorView()
     }
