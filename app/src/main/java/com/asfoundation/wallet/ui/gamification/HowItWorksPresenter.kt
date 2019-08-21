@@ -46,7 +46,7 @@ class HowItWorksPresenter(private val view: HowItWorksView,
           gamification.getAppcToLocalFiat(userStats.totalEarned.toString(), 2)
               .filter { it.amount.toInt() >= 0 }
               .observeOn(viewScheduler)
-              .doOnNext { view.showPeekInformation(userStats.totalEarned, it) }
+              .doOnNext { view.showPeekInformation(userStats, it) }
         }
         .subscribeOn(networkScheduler)
         .subscribe())

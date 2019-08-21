@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.ProgressBar;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -102,8 +103,11 @@ public class ImportWalletActivity extends BaseActivity
   private void onProgress(boolean shouldShowProgress) {
     hideDialog();
     if (shouldShowProgress) {
+      ProgressBar progressBar = new ProgressBar(this);
+      progressBar.setIndeterminateDrawable(
+          ResourcesCompat.getDrawable(getResources(), R.drawable.gradient_progress, null));
       dialog = new AlertDialog.Builder(this).setTitle(R.string.title_dialog_handling)
-          .setView(new ProgressBar(this))
+          .setView(progressBar)
           .setCancelable(false)
           .create();
       dialog.show();

@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
+import com.appcoins.wallet.gamification.repository.UserStats
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.asfoundation.wallet.ui.iab.FiatValue
@@ -19,7 +20,6 @@ import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_gamification_how_it_works.*
-import java.math.BigDecimal
 import java.math.RoundingMode
 import javax.inject.Inject
 
@@ -73,11 +73,11 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
     }
   }
 
-  override fun showPeekInformation(totalSpend: BigDecimal, bonusEarned: FiatValue) {
-    val totalSpendRounded = totalSpend.setScale(2, RoundingMode.DOWN)
-    val bonusEarnedRounded = bonusEarned.amount.setScale(2, RoundingMode.DOWN)
+  override fun showPeekInformation(userStats: UserStats, bonusEarnedFiat: FiatValue) {
+    val totalSpendRounded = userStats.totalSpend.setScale(2, RoundingMode.DOWN)
+    val bonusEarnedRounded = bonusEarnedFiat.amount.setScale(2, RoundingMode.DOWN)
     bonus_earned.text =
-        getString(R.string.value_fiat, bonusEarned.symbol, bonusEarnedRounded)
+        getString(R.string.value_fiat, bonusEarnedFiat.symbol, bonusEarnedRounded)
     total_spend.text = getString(R.string.gamification_how_table_a2, totalSpendRounded)
 
     bonus_earned_skeleton.visibility = View.INVISIBLE

@@ -49,13 +49,13 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     return remoteRepository.getSkuDetails(packageName, skus)
   }
 
-  override fun getSkuPurchase(packageName: String, skuId: String, walletAddress: String,
+  override fun getSkuPurchase(packageName: String, skuId: String?, walletAddress: String,
                               walletSignature: String): Single<Purchase> {
     return remoteRepository.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
 
   }
 
-  override fun getSkuTransaction(packageName: String, skuId: String, walletAddress: String,
+  override fun getSkuTransaction(packageName: String, skuId: String?, walletAddress: String,
                                  walletSignature: String): Single<Transaction> {
     return remoteRepository.getSkuTransaction(packageName, skuId, walletAddress, walletSignature)
         .flatMap {

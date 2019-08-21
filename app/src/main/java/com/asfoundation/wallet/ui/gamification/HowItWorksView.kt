@@ -1,11 +1,11 @@
 package com.asfoundation.wallet.ui.gamification
 
+import com.appcoins.wallet.gamification.repository.UserStats
 import com.asfoundation.wallet.ui.iab.FiatValue
-import java.math.BigDecimal
 
 
 interface HowItWorksView {
   fun showLevels(levels: List<ViewLevel>, currentLevel: Int)
-  fun showPeekInformation(totalSpend: BigDecimal, bonusEarned: FiatValue)
+  fun showPeekInformation(userStats: UserStats, bonusEarnedFiat: FiatValue)
   fun showNextLevelFooter(userStatus: UserRewardsStatus)
 }
