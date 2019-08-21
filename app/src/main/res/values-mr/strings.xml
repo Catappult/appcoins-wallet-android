@@ -114,7 +114,7 @@
   <string name="intro_3_body">आपली आवडती पेमेंट पद्धत वापरुन आपली इन-अॅप खरेदी प्रक्रिया पूर्ण करा.</string>
   <string name="intro_4_title">सुरक्षित आणि खासगी</string>
   <string name="intro_4_body">आपल्या खासगी कीज आपल्या डिव्हाइसच्या बाहेर जाणार नाहीत. त्यामुळे आपल्या अॅपकॉइन्स नेहमीच सुरक्षित रहातील.</string>
-  <string name="intro_creating_wallet_short">आम्ही आपल्यासाठी वॉलेट तयार करीत आहोत&#8230;</string>
+  <string name="intro_creating_wallet_short">Setting up your wallet for you&#8230;</string>
   <string name="intro_wallet_created_short">वॉलेट बनविले!</string>
   <string name="intro_agree_terms_and_conditions_body">वगळा वर टॅप करुन आपण अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s ना मान्यता देता</string>
   <string name="intro_skip_button">वगळा</string>
@@ -382,6 +382,7 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
   <string name="dismiss_button">डिसमिस करा</string>
+  <string name="discover_button">Discover</string>
   <string name="connectoin_error_body">आपण इंटरनेटशी जुडलेले नाहीत अस दिसतय. कनेक्शन तपासुन पुन्हा प्रयत्न करा!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मला अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s मान्य आहेत.</string>
@@ -401,7 +402,7 @@
   <string name="verification_notification_verification_needed_title">बक्षिस तयार आहे पण व्हेरिफिकेसनची गरज आहे</string>
   <string name="verification_notification_verification_needed_body">सुरक्षा कारणांसाठी आम्हाला आपले वॉलेट एसएमएस कोडने व्हेरिफाय करावे लागेल.</string>
   <string name="verification_insert_phone_title">आपला फोन नंबर घाला</string>
-  <string name="verification_insert_phone_body">आम्ही आपल्याला व्हेरिफिकेशन कोड पाठवु.</string>
+  <string name="verification_insert_phone_body">Verify your wallet to get rewards! We\'ll send you a verification code.</string>
   <string name="verification_insert_phone_field_country">देश</string>
   <string name="verification_insert_phone_field_number">फोन नंबर</string>
   <string name="verification_insert_phone_field_number_error">अवैध फोन नंबर</string>
@@ -415,8 +416,11 @@
   <string name="verification_completed_title">झाले!</string>
   <string name="verification_notification_reward_received_body">बक्षीस मिळाले, मजा करा! 👌</string>
   <string name="verification_notification_reward_already_received_body">हे बक्षीस मिळविण्यासाठी फोन नंबर आधीच वापरला गेला आहे 😔</string>
-  <string name="verification_insert_phone_field_phone_used_already_error">फोन आधीच वापरला आहे.</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">Number already used.</string>
   <string name="verification_insert_code_error_common">अरेरे, काहीतरी त्रुटी आली. कृपया पुन्हा प्रयत्न करा!</string>
+  <string name="verification_settings_unverified_title">Verify Wallet</string>
+  <string name="verification_settings_unverified_body">Get rewards and invite friends</string>
+  <string name="verification_settings_verified_title">Wallet Verified</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">ही खरेदी आधीच झालेली आहे असे दिसतेय. व्यवहार पूर्ण होईपर्यंत कृपया थांबा किंवा आमच्या सपोर्ट टीमशी संपर्क करा.</string>
   <string name="purchase_more_payment_methods_button">अन्य पेमेंट पद्धती</string>
@@ -425,4 +429,56 @@
   <string name="purchase_appcoins_credits_available_body">कोणतेही शुल्क नाही आणि अतिशय जलद!</string>
   <string name="purchase_appcoins_credits_noavailable_body">आपल्याकडे पुरेशी एपीपीसी क्रेडीटस नाहीत, टॉप अप करण्याचा प्रयत्न करा!</string>
   <string name="purchase_appcoins_credits_default_body">ह्या खरेदीसाठी आपण पुरेशा अॅपकॉइन्स कमावल्यात. मजा लुटा!</string>
+  <!--Referral Program-->
+  <string name="referral_onboarding_title">Invite Your Friends!</string>
+  <string name="referral_onboarding_body">You and your friends can earn up to %s with our Referral Program!</string>
+  <string name="referral_onboarding_redeem_button">I\'ve been invited</string>
+  <string name="referral_onboarding_"></string>
+  <string name="referral_verification_title">Verify Your Wallet</string>
+  <string name="referral_verification_body">You need to verify your wallet to participate in the Referral Program. We\'ll sent you a verification code via SMS.</string>
+  <string name="referral_verification_later_button">DO IT LATER</string>
+  <string name="referral_verification_confirmation_title">Your invite was validated!</string>
+  <string name="referral_verification_confirmation_body">As soon as you make your first purchase you\'ll get %s worth of AppCoins Credits.</string>
+  <string name="referral_verification_not_invited_title">It seems this number wasn\’t invited&#8230;</string>
+  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃🏽</string>
+  <string name="referral_notification_bonus_pending_title">%s Referral Bonus Pending</string>
+  <string name="referral_notification_bonus_pending_body">Make your first in-app purchase to get your bonus.</string>
+  <string name="referral_view_title">Invite Friends</string>
+  <string name="referral_view_title_1">Invite Friends and Earn More!</string>
+  <string name="referral_view_verified_body">Receive %s worth of AppCoins Credits for each friend. Just share the link!</string>
+  <string name="referral_view_share_link_button">SHARE INVITE LINK</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_verify_button">VERIFY WALLET</string>
+  <string name="referral_view_i_have_been_invited_button">I\'VE BEEN INVITED</string>
+  <string name="referral_view_dropup_menu_friends_invited">Friends invited</string>
+  <string name="referral_view_dropup_menu_earned">Earned</string>
+  <string name="referral_dropup_menu_friends_title_1">Friends Invited</string>
+  <string name="referral_dropup_menu_requirements_title">Requirements</string>
+  <string name="referral_dropup_menu_requirements_verification">Verify your wallet with a phone number</string>
+  <string name="referral_dropup_menu_requirements_purchase">Make one in-app purchase or top-up</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <string name="referral_"></string>
+  <string name="referral_"></string>
+  <string name="referral_"></string>
+  <string name="referral_"></string>
+  <string name="referral_"></string>
+  <string name="referral_"></string>
+  <string name="referral_"></string>
+  <string name="referral_"></string>
+  <string name="referral_"></string>
+  <string name="referral_"></string>
+  <string name="referral_"></string>
+  <string name="referral_"></string>
+  <string name="referral_"></string>
+  <string name="referral_"></string>
+  <string name="referral_"></string>
+  <string name="referral_"></string>
+  <!--Promotions-->
+  <string name="bottom_navigation_promotions">Promotions</string>
+  <string name="bottom_navigation_promotions_detailed">Discover how to earn free AppCoins Credits with our promotions and campaigns!</string>
+  <string name="promotions_title">Promotions</string>
+  <string name="promotions_referral_card_title">Earn up to %s by inviting friends</string>
+  <string name="promotions_referral_card_body">Share your invite link and earn AppCoins Credits.</string>
+  <string name="promotions_gamification_card_title">Up to 30% bonus on every purchase</string>
+  <string name="promotions_new">NEW</string>
 </resources>
