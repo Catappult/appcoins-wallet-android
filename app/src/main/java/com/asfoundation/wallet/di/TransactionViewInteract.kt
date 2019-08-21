@@ -15,12 +15,14 @@ import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Observable
 import io.reactivex.Single
+import io.reactivex.functions.BiFunction
 
 class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaultNetworkInteract,
                               private val findDefaultWalletInteract: FindDefaultWalletInteract,
                               private val fetchTransactionsInteract: FetchTransactionsInteract,
                               private val gamificationInteractor: GamificationInteractor,
-                              private val balanceInteract: BalanceInteract) {
+                              private val balanceInteract: BalanceInteract,
+                              private val referralInteractor: ReferralTestInteractor) {
 
   val levels: Single<Levels>
     get() = gamificationInteractor.getLevels()
@@ -38,8 +40,12 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
     return findDefaultNetworkInteract.find()
   }
 
-  fun hasNewLevel(): Single<Boolean> {
-    return gamificationInteractor.hasNewLevel(GamificationScreen.PROMOTIONS)
+  fun hasPromotionUpdate(): Single<Boolean> {
+    return Single.zip(referralInteractor.hasReferralUpdate(),
+        gamificationInteractor.hasNewLevel(GamificationScreen.PROMOTIONS),
+        BiFunction { hasReferralUpdate: Boolean, hasNewLevel: Boolean ->
+          hasReferralUpdate || hasNewLevel
+        })
   }
 
   fun fetchTransactions(wallet: Wallet?): Observable<List<Transaction>> {

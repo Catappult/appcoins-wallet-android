@@ -143,7 +143,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::onGamificationMaxBonus);
     viewModel.applications()
         .observe(this, this::onApplications);
-    viewModel.shouldShowGamificationNotification()
+    viewModel.shouldShowPromotionsNotification()
         .observe(this, this::onGamificationNotification);
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
     handlePromotionsOverlayVisibility();

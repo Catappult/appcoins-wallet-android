@@ -101,7 +101,7 @@ public class TransactionsViewModel extends BaseViewModel {
     progress.postValue(true);
     disposables.add(transactionViewInteract.findNetwork()
         .subscribe(this::onDefaultNetwork, this::onError));
-    disposables.add(transactionViewInteract.hasNewLevel()
+    disposables.add(transactionViewInteract.hasPromotionUpdate()
         .subscribe(showNotification::postValue, this::onError));
   }
 
@@ -315,7 +315,7 @@ public class TransactionsViewModel extends BaseViewModel {
         Uri.parse("https://en.aptoide.com/store/bds-store/group/group-10867"));
   }
 
-  public MutableLiveData<Boolean> shouldShowGamificationNotification() {
+  public MutableLiveData<Boolean> shouldShowPromotionsNotification() {
     return showNotification;
   }
 
