@@ -11,12 +11,13 @@
 
   <androidx.cardview.widget.CardView
       android:id="@+id/promotions_dialog"
-      android:layout_width="303dp"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginBottom="32dp"
       app:cardCornerRadius="8dp"
       app:cardElevation="0dp"
       app:layout_constraintBottom_toTopOf="@id/overlay_bottom_navigation"
+      app:layout_constraintEnd_toEndOf="@id/card_end_guideline"
       app:layout_constraintStart_toStartOf="@id/card_start_guideline"
       >
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -103,6 +104,14 @@
       android:layout_height="wrap_content"
       android:orientation="vertical"
       app:layout_constraintGuide_percent="0.05"
+      />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/card_end_guideline"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent="0.8"
       />
 
   <com.google.android.material.bottomnavigation.BottomNavigationView

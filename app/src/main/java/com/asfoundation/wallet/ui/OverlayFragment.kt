@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.INVISIBLE
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.jakewharton.rxbinding2.view.RxView
@@ -58,11 +59,22 @@ class OverlayFragment : Fragment(), OverlayView {
             .title = ""
       }
     }
-    //if not first item remove arrow
-    if (item != 0) {
+    //If selected view is not on the first half of the Bottom Navigation hide arrow
+    if (item > size / 2) {
       arrow_down_tip.visibility = INVISIBLE
+    } else {
+      setArrowPosition(size)
     }
 
+  }
+
+  private fun setArrowPosition(size: Int) {
+    val lp = bn_icon_guideline.layoutParams as ConstraintLayout.LayoutParams
+    val itemPercentage = 1f / size.toFloat()
+    val middleItemPercentage = itemPercentage / 2f
+    val arrowPercentage = itemPercentage * (item.toFloat() + 1f) - middleItemPercentage
+    lp.guidePercent = arrowPercentage
+    bn_icon_guideline.layoutParams = lp
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
