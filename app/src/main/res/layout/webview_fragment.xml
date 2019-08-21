@@ -17,7 +17,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_centerInParent="true"
-      android:theme="@style/AppTheme"
+      android:indeterminateDrawable="@drawable/gradient_progress"
       />
 
 </RelativeLayout>
