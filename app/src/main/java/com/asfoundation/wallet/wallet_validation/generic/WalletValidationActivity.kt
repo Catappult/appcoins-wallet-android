@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.TransactionsActivity
@@ -46,6 +47,14 @@ class WalletValidationActivity : BaseActivity(),
     validation_progress_animation!!.setMinAndMaxFrame(minFrame, maxFrame)
     validation_progress_animation!!.repeatCount = loopAnimation
     validation_progress_animation!!.playAnimation()
+  }
+
+  override fun showProgressAnimation() {
+    validation_progress_animation!!.visibility = View.VISIBLE
+  }
+
+  override fun hideProgressAnimation() {
+    validation_progress_animation!!.visibility = View.INVISIBLE
   }
 
   override fun showPhoneValidationView(countryCode: String?, phoneNumber: String?,
@@ -145,6 +154,6 @@ class WalletValidationActivity : BaseActivity(),
     validation_progress_animation!!.repeatCount = loopAnimation
     validation_progress_animation!!.reverseAnimationSpeed()
     validation_progress_animation!!.playAnimation()
-
   }
+
 }

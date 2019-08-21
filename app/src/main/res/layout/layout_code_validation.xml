@@ -193,7 +193,7 @@
       layout="@layout/layout_validation_result"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_centerVertical="true"
+      android:layout_centerInParent="true"
       android:layout_marginTop="48dp"
       android:visibility="gone"
       />
@@ -203,8 +203,17 @@
       layout="@layout/layout_referral_status"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_centerVertical="true"
+      android:layout_centerInParent="true"
       android:layout_marginTop="48dp"
+      android:visibility="gone"
+      />
+
+  <include
+      android:id="@+id/layout_validation_no_internet"
+      layout="@layout/layout_validation_no_internet"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_centerInParent="true"
       android:visibility="gone"
       />
 

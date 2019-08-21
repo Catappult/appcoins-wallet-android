@@ -30,8 +30,17 @@ class CodeValidationPresenter(
     handleCode()
     handleResendCode()
     handleValuesChange()
-    handleSubmit()
+    handleSubmitAndRetryClicks()
     handleOkClicks()
+    handleLaterClicks()
+  }
+
+  private fun handleLaterClicks() {
+    disposables.add(
+        view.getLaterButtonClicks()
+            .doOnNext {
+              activity?.showTransactionsActivity()
+            }.subscribe())
   }
 
   private fun handleResendCode() {
@@ -50,9 +59,10 @@ class CodeValidationPresenter(
     )
   }
 
-  private fun handleSubmit() {
+  private fun handleSubmitAndRetryClicks() {
     disposables.add(
-        view.getSubmitClicks()
+        Observable.merge(view.getSubmitClicks(), view.getRetryButtonClicks())
+            .doOnEach { view.hideNoInternetView() }
             .doOnEach { view.showLoading() }
             .flatMapSingle { validationInfo ->
               defaultWalletInteract.find()
@@ -119,6 +129,10 @@ class CodeValidationPresenter(
       WalletValidationStatus.DOUBLE_SPENT ->
         checkReferralAvailability()
       WalletValidationStatus.GENERIC_ERROR -> handleError(R.string.unknown_error, validationInfo)
+      WalletValidationStatus.NO_NETWORK -> {
+        view.hideKeyboard()
+        view.showNoInternetView()
+      }
     }
   }
 

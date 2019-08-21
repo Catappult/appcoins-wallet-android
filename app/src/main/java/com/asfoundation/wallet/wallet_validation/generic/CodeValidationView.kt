@@ -41,4 +41,12 @@ interface CodeValidationView {
 
   fun getOkClicks(): Observable<Any>
 
+  fun showNoInternetView()
+
+  fun hideNoInternetView()
+
+  fun getRetryButtonClicks(): Observable<ValidationInfo>
+
+  fun getLaterButtonClicks(): Observable<Any>
+
 }

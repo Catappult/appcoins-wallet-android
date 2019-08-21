@@ -20,4 +20,14 @@ interface PhoneValidationView {
 
   fun clearError()
 
+  fun showNoInternetView()
+
+  fun hideNoInternetView()
+
+  fun getRetryButtonClicks(): Observable<Pair<String, String>>
+
+  fun getLaterButtonClicks(): Observable<Any>
+
+  fun hideKeyboard()
+
 }

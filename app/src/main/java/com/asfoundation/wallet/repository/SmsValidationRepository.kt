@@ -7,6 +7,8 @@ import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import com.google.gson.Gson
 import io.reactivex.Single
 import retrofit2.HttpException
+import java.io.IOException
+import java.net.UnknownHostException
 
 class SmsValidationRepository(
     private val api: SmsValidationApi,
@@ -57,6 +59,8 @@ class SmsValidationRepository(
           else -> WalletValidationStatus.GENERIC_ERROR
         }
       }
+      is IOException,
+      is UnknownHostException -> WalletValidationStatus.NO_NETWORK
       else -> WalletValidationStatus.GENERIC_ERROR
     }
   }

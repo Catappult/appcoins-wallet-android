@@ -192,4 +192,13 @@
 
 
   </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <include
+      android:id="@+id/layout_validation_no_internet"
+      layout="@layout/layout_validation_no_internet"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_centerInParent="true"
+      android:visibility="gone"
+      />
 </RelativeLayout>

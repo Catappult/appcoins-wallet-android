@@ -18,6 +18,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.layout_phone_validation.*
+import kotlinx.android.synthetic.main.layout_validation_no_internet.*
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
@@ -29,6 +31,7 @@ class PhoneValidationFragment : DaggerFragment(),
 
   private var walletValidationView: WalletValidationView? = null
   private lateinit var presenter: PhoneValidationPresenter
+  private lateinit var fragmentContainer: ViewGroup
 
   private var countryCode: String? = null
   private var phoneNumber: String? = null
@@ -45,6 +48,7 @@ class PhoneValidationFragment : DaggerFragment(),
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
+    fragmentContainer = container!!
     return inflater.inflate(R.layout.layout_phone_validation, container, false)
   }
 
@@ -75,6 +79,39 @@ class PhoneValidationFragment : DaggerFragment(),
     focusAndShowKeyboard(phone_number)
   }
 
+  override fun hideKeyboard() {
+    val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+    imm?.hideSoftInputFromWindow(fragmentContainer.windowToken, 0)
+    content_main.requestFocus()
+  }
+
+  override fun showNoInternetView() {
+    walletValidationView?.hideProgressAnimation()
+    stopRetryAnimation()
+    content_main!!.visibility = View.GONE
+    layout_validation_no_internet!!.visibility = View.VISIBLE
+  }
+
+  override fun hideNoInternetView() {
+    walletValidationView?.showProgressAnimation()
+    content_main!!.visibility = View.VISIBLE
+    layout_validation_no_internet!!.visibility = View.GONE
+  }
+
+  override fun getRetryButtonClicks(): Observable<Pair<String, String>> {
+    return RxView.clicks(retry_button)
+        .map {
+          Pair(ccp.selectedCountryCodeWithPlus,
+              ccp.fullNumber.substringAfter(ccp.selectedCountryCode))
+        }
+        .doOnNext { playRetryAnimation() }
+        .delay(1, TimeUnit.SECONDS)
+  }
+
+  override fun getLaterButtonClicks(): Observable<Any> {
+    return RxView.clicks(later_button)
+  }
+
   override fun setupUI() {
     ccp.registerCarrierNumberEditText(phone_number)
 
@@ -88,6 +125,7 @@ class PhoneValidationFragment : DaggerFragment(),
 
   override fun setError(message: Int) {
     phone_number_layout.error = getString(message)
+    hideNoInternetView()
   }
 
   override fun clearError() {
@@ -125,6 +163,19 @@ class PhoneValidationFragment : DaggerFragment(),
   override fun onDestroy() {
     presenter.stop()
     super.onDestroy()
+  }
+
+  private fun stopRetryAnimation() {
+    retry_button!!.visibility = View.VISIBLE
+    later_button!!.visibility = View.VISIBLE
+    retry_animation!!.visibility = View.GONE
+  }
+
+  private fun playRetryAnimation() {
+    retry_button!!.visibility = View.GONE
+    later_button!!.visibility = View.GONE
+    retry_animation!!.visibility = View.VISIBLE
+    retry_animation!!.playAnimation()
   }
 
   override fun onAttach(context: Context) {

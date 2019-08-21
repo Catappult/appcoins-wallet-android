@@ -20,21 +20,21 @@ class PhoneValidationPresenter(
   fun present() {
     view.setupUI()
     handleValuesChange()
-    handleNext()
-    handleCancel()
+    handleNextAndRetryClicks()
+    handleCancelAndLaterClicks()
   }
 
-  private fun handleCancel() {
+  private fun handleCancelAndLaterClicks() {
     disposables.add(
-        view.getCancelClicks()
+        Observable.merge(view.getCancelClicks(), view.getLaterButtonClicks())
             .doOnNext {
               activity?.showTransactionsActivity()
             }.subscribe())
   }
 
-  private fun handleNext() {
+  private fun handleNextAndRetryClicks() {
     disposables.add(
-        view.getNextClicks()
+        Observable.merge(view.getNextClicks(), view.getRetryButtonClicks())
             .subscribeOn(viewScheduler)
             .flatMapSingle {
               smsValidationInteract.requestValidationCode("${it.first}${it.second}")
@@ -63,6 +63,10 @@ class PhoneValidationPresenter(
         view.setButtonState(false)
       }
       WalletValidationStatus.GENERIC_ERROR -> showErrorMessage(R.string.unknown_error)
+      WalletValidationStatus.NO_NETWORK -> {
+        view.hideKeyboard()
+        view.showNoInternetView()
+      }
     }
   }
 

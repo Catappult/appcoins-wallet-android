@@ -27,6 +27,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_onboarding.*
+import kotlinx.android.synthetic.main.layout_validation_no_internet.*
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class OnboardingActivity : BaseActivity(), OnboardingView {
@@ -128,6 +130,10 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     create_wallet_animation.playAnimation()
   }
 
+  override fun finishOnboarding() {
+    TransactionsRouter().open(applicationContext, true)
+  }
+
   override fun finishOnboarding(walletValidationStatus: WalletValidationStatus?) {
     create_wallet_animation.setAnimation(R.raw.success_animation)
     create_wallet_text.text = getText(R.string.provide_wallet_created_header)
@@ -179,5 +185,35 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
 
   override fun navigateToBrowser(uri: Uri) {
     browserRouter.open(this, uri)
+  }
+
+  override fun showNoInternetView() {
+    stopRetryAnimation()
+    onboarding_content.visibility = View.GONE
+    wallet_creation_animation.visibility = View.GONE
+    layout_validation_no_internet!!.visibility = View.VISIBLE
+  }
+
+  override fun getRetryButtonClicks(): Observable<Any> {
+    return RxView.clicks(retry_button)
+        .doOnNext { playRetryAnimation() }
+        .delay(1, TimeUnit.SECONDS)
+  }
+
+  override fun getLaterButtonClicks(): Observable<Any> {
+    return RxView.clicks(later_button)
+  }
+
+  private fun playRetryAnimation() {
+    retry_button!!.visibility = View.GONE
+    later_button!!.visibility = View.GONE
+    retry_animation!!.visibility = View.VISIBLE
+    retry_animation!!.playAnimation()
+  }
+
+  private fun stopRetryAnimation() {
+    retry_button!!.visibility = View.VISIBLE
+    later_button!!.visibility = View.VISIBLE
+    retry_animation!!.visibility = View.GONE
   }
 }

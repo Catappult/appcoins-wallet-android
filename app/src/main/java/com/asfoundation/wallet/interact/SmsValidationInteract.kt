@@ -14,13 +14,11 @@ class SmsValidationInteract(
   }
 
   fun requestValidationCode(phoneNumber: String): Single<WalletValidationStatus> {
-    return Single.just(WalletValidationStatus.SUCCESS)
     return smsValidationRepository.requestValidationCode(phoneNumber)
   }
 
   fun validateCode(phoneNumber: String, wallet: Wallet,
                    code: String): Single<WalletValidationStatus> {
-    return Single.just(WalletValidationStatus.SUCCESS)
     return smsValidationRepository.validateCode(phoneNumber, wallet.address, code)
   }
 

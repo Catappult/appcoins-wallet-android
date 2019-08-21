@@ -27,6 +27,8 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
     handleCreateWallet()
     handleRedeemButtonClicks()
     handleNextButtonClicks()
+    handleLaterClicks()
+    handleRetryClicks()
   }
 
   fun stop() {
@@ -35,6 +37,30 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
 
   private fun isWalletCreated(): Observable<Boolean> {
     return walletCreated.filter { created -> created }
+  }
+
+  private fun handleRetryClicks() {
+    disposables.add(
+        Observable.combineLatest(isWalletCreated(), view.getRetryButtonClicks(),
+            BiFunction { _: Boolean, _: Any -> }
+        )
+            .flatMapSingle { onboardingInteract.getWalletAddress() }
+            .flatMapSingle {
+              smsValidationInteract.isValid(Wallet(it))
+                  .subscribeOn(networkScheduler)
+            }
+            .delay(1, TimeUnit.SECONDS)
+            .observeOn(viewScheduler)
+            .subscribe({ onNext(it) }, {})
+    )
+  }
+
+  private fun handleLaterClicks() {
+    disposables.add(
+        view.getLaterButtonClicks()
+            .doOnNext {
+              finishOnBoarding()
+            }.subscribe())
   }
 
   private fun handleRedeemButtonClicks() {
@@ -49,8 +75,16 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
             }
             .delay(1, TimeUnit.SECONDS)
             .observeOn(viewScheduler)
-            .subscribe({ finishOnBoarding(it) }, {})
+            .subscribe({ onNext(it) }, {})
     )
+  }
+
+  private fun onNext(walletValidationStatus: WalletValidationStatus?) {
+    if (walletValidationStatus == WalletValidationStatus.NO_NETWORK) {
+      view.showNoInternetView()
+    } else {
+      finishOnBoarding(walletValidationStatus)
+    }
   }
 
   private fun handleNextButtonClicks() {
@@ -99,5 +133,11 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
     onboardingInteract.clickSkipOnboarding()
     onboardingInteract.finishOnboarding()
     view.finishOnboarding(walletValidationStatus)
+  }
+
+  private fun finishOnBoarding() {
+    onboardingInteract.clickSkipOnboarding()
+    onboardingInteract.finishOnboarding()
+    view.finishOnboarding()
   }
 }

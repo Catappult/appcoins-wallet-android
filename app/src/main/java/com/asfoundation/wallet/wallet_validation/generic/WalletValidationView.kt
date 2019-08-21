@@ -15,4 +15,8 @@ interface WalletValidationView {
 
   fun showLastStepAnimation()
 
+  fun showProgressAnimation()
+
+  fun hideProgressAnimation()
+
 }

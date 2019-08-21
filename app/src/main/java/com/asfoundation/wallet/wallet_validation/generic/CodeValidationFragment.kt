@@ -26,6 +26,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.layout_code_validation.*
 import kotlinx.android.synthetic.main.layout_referral_status.*
+import kotlinx.android.synthetic.main.layout_validation_no_internet.*
 import kotlinx.android.synthetic.main.layout_validation_result.*
 import kotlinx.android.synthetic.main.single_sms_input_layout.view.*
 import kotlinx.android.synthetic.main.sms_text_input_layout.*
@@ -175,6 +176,21 @@ class CodeValidationFragment : DaggerFragment(),
     return RxView.clicks(back_button)
   }
 
+  override fun getRetryButtonClicks(): Observable<ValidationInfo> {
+    return RxView.clicks(retry_button)
+        .map {
+          ValidationInfo(code_1.code.text.toString(),
+              code_2.code.text.toString(), code_3.code.text.toString(),
+              code_4.code.text.toString(), code_5.code.text.toString(),
+              code_6.code.text.toString(), countryCode,
+              phoneNumber)
+        }
+  }
+
+  override fun getLaterButtonClicks(): Observable<Any> {
+    return RxView.clicks(later_button)
+  }
+
   override fun getSubmitClicks(): Observable<ValidationInfo> {
     return RxView.clicks(submit_button)
         .map {
@@ -277,6 +293,26 @@ class CodeValidationFragment : DaggerFragment(),
     referral_status_animation!!.playAnimation()
   }
 
+  override fun showNoInternetView() {
+    walletValidationView?.hideProgressAnimation()
+    stopRetryAnimation()
+    content!!.visibility = View.GONE
+    referral_status!!.visibility = View.GONE
+    animation_validating_code!!.visibility = View.GONE
+    layout_validation_no_internet!!.visibility = View.VISIBLE
+  }
+
+  override fun hideNoInternetView() {
+    walletValidationView?.showProgressAnimation()
+    layout_validation_no_internet!!.visibility = View.GONE
+  }
+
+  private fun stopRetryAnimation() {
+    retry_button!!.visibility = View.VISIBLE
+    later_button!!.visibility = View.VISIBLE
+    retry_animation!!.visibility = View.GONE
+  }
+
   override fun onDestroy() {
     presenter.stop()
     super.onDestroy()
@@ -301,7 +337,7 @@ class CodeValidationFragment : DaggerFragment(),
   override fun hideKeyboard() {
     val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
     imm?.hideSoftInputFromWindow(fragmentContainer.windowToken, 0)
-    code_validation_title.requestFocus()
+    content.requestFocus()
   }
 
   companion object {
