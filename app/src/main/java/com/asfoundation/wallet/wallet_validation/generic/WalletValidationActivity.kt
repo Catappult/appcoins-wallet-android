@@ -6,30 +6,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import com.asf.wallet.R
-import com.asfoundation.wallet.interact.CreateWalletInteract
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
-import com.asfoundation.wallet.repository.SmsValidationRepositoryType
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.TransactionsActivity
 import com.asfoundation.wallet.wallet_validation.ValidationInfo
 import dagger.android.AndroidInjection
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_wallet_validation.*
 import kotlinx.android.synthetic.main.layout_referral_status.*
-import javax.inject.Inject
 
 class WalletValidationActivity : BaseActivity(),
     WalletValidationView {
 
   private lateinit var presenter: WalletValidationPresenter
-  @Inject
-  lateinit var smsValidationRepository: SmsValidationRepositoryType
-  @Inject
-  lateinit var walletInteractor: FindDefaultWalletInteract
-  @Inject
-  lateinit var createWalletInteractor: CreateWalletInteract
 
   private var minFrame = 0
   private var maxFrame = 30
@@ -48,10 +35,7 @@ class WalletValidationActivity : BaseActivity(),
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_wallet_validation)
-    presenter = WalletValidationPresenter(this,
-        smsValidationRepository, walletInteractor,
-        createWalletInteractor, CompositeDisposable(), AndroidSchedulers.mainThread(),
-        Schedulers.io())
+    presenter = WalletValidationPresenter(this)
 
     setupUI()
 
@@ -142,8 +126,6 @@ class WalletValidationActivity : BaseActivity(),
   }
 
   override fun onDestroy() {
-    presenter.stop()
-
     validation_progress_animation?.removeAllUpdateListeners()
     validation_progress_animation?.removeAllLottieOnCompositionLoadedListener()
 

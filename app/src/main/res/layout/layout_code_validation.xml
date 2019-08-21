@@ -11,20 +11,27 @@
       android:layout_height="match_parent"
       >
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/top_guideline"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.01"
+        />
+
     <TextView
         android:id="@+id/code_validation_title"
         style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/big_margin"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="@dimen/big_margin"
         android:gravity="center_horizontal"
         android:text="@string/verification_insert_code_title"
         android:textColor="#4a4a4a"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_guideline"
         />
 
     <TextView
@@ -43,15 +50,22 @@
         app:layout_constraintTop_toBottomOf="@id/code_validation_title"
         />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/subtitle_guideline"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.17"
+        />
+
     <include
         android:id="@+id/text_layout"
         layout="@layout/sms_text_input_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="37dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/code_validation_subtitle"
+        app:layout_constraintTop_toBottomOf="@id/subtitle_guideline"
         />
 
     <TextView
@@ -72,6 +86,14 @@
         tools:text="@string/verification_insert_code_error"
         />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/resend_guideline"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.32"
+        />
+
     <TextView
         android:id="@+id/resend_code"
         style="?android:attr/borderlessButtonStyle"
@@ -79,7 +101,6 @@
         android:layout_height="@dimen/button_height"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="31.5dp"
         android:layout_marginEnd="16dp"
         android:ellipsize="end"
         android:text="@string/verification_insert_code_resend_button"
@@ -88,7 +109,15 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_layout"
+        app:layout_constraintTop_toBottomOf="@id/resend_guideline"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/disclaimer_guideline"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.44"
         />
 
     <LinearLayout
@@ -96,11 +125,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="42dp"
         android:layout_marginEnd="40dp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/resend_code"
+        app:layout_constraintTop_toBottomOf="@id/disclaimer_guideline"
         >
 
       <ImageView
@@ -114,25 +143,33 @@
           style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:gravity="start"
           android:text="@string/verification_insert_phone_security_disclaimer"
           android:textSize="10sp"
           />
 
     </LinearLayout>
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/buttons_guideline"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.55"
+        />
+
     <Button
         android:id="@+id/submit_button"
         style="@style/ButtonStyle.Alternative"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/button_height"
-        android:layout_marginTop="70dp"
         android:minWidth="169dp"
         android:text="@string/submit_button"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/disclaimer_layout"
+        app:layout_constraintTop_toBottomOf="@id/buttons_guideline"
         />
 
     <Button

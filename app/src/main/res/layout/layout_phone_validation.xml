@@ -5,20 +5,27 @@
     android:layout_height="match_parent"
     >
 
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/top_guideline"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.01"
+      />
+
   <TextView
       android:id="@+id/phone_validation_title"
       style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/big_margin"
-      android:layout_marginTop="16dp"
       android:layout_marginEnd="@dimen/big_margin"
       android:gravity="center_horizontal"
       android:text="@string/verification_insert_phone_title"
       android:textColor="#4a4a4a"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/top_guideline"
       />
 
   <TextView
@@ -37,12 +44,19 @@
       app:layout_constraintTop_toBottomOf="@id/phone_validation_title"
       />
 
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/subtitle_guideline"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.17"
+      />
+
   <com.hbb20.CountryCodePicker
       android:id="@+id/ccp"
       android:layout_width="match_parent"
       android:layout_height="50dp"
       android:layout_marginStart="63dp"
-      android:layout_marginTop="36dp"
       android:layout_marginEnd="56dp"
       app:ccpDialog_backgroundColor="#FAFAFA"
       app:ccpDialog_textColor="#000000"
@@ -52,7 +66,7 @@
       app:ccp_textSize="16sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/phone_validation_subtitle"
+      app:layout_constraintTop_toBottomOf="@id/subtitle_guideline"
       />
 
   <com.google.android.material.textfield.TextInputLayout
@@ -80,17 +94,25 @@
         />
   </com.google.android.material.textfield.TextInputLayout>
 
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/disclaimer_guideline"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.45"
+      />
+
   <LinearLayout
       android:id="@+id/disclaimer_layout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginStart="40dp"
-      android:layout_marginTop="50dp"
       android:layout_marginEnd="23dp"
+      android:gravity="center"
       android:orientation="horizontal"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/phone_number_layout"
+      app:layout_constraintTop_toBottomOf="@id/disclaimer_guideline"
       >
 
     <ImageView
@@ -104,25 +126,33 @@
         style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="start"
         android:text="@string/verification_insert_phone_security_disclaimer"
         android:textSize="10sp"
         />
 
   </LinearLayout>
 
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/buttons_guideline"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.58"
+      />
+
   <Button
       android:id="@+id/next_button"
       style="@style/ButtonStyle.Alternative"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/button_height"
-      android:layout_marginTop="36dp"
       android:minWidth="169dp"
       android:text="@string/action_next"
       android:textColor="@color/white"
       android:textSize="14sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/disclaimer_layout"
+      app:layout_constraintTop_toBottomOf="@id/buttons_guideline"
       />
 
   <Button
