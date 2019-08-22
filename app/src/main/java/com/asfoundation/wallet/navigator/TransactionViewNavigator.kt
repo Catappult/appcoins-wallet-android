@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.di
+package com.asfoundation.wallet.navigator
 
 import android.content.Context
 import android.content.Intent

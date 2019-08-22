@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.di
+package com.asfoundation.wallet.interact
 
 import android.util.Pair
 import com.appcoins.wallet.gamification.GamificationScreen
@@ -6,9 +6,6 @@ import com.appcoins.wallet.gamification.repository.Levels
 import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.interact.FetchTransactionsInteract
-import com.asfoundation.wallet.interact.FindDefaultNetworkInteract
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.ReferralsScreen
 import com.asfoundation.wallet.transactions.Transaction
@@ -52,11 +49,8 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
   }
 
   fun fetchTransactions(wallet: Wallet?): Observable<List<Transaction>> {
-    return if (wallet != null) {
-      fetchTransactionsInteract.fetch(wallet.address)
-    } else {
-      Observable.just(emptyList())
-    }
+    return wallet?.let { fetchTransactionsInteract.fetch(wallet.address) } ?: Observable.just(
+        emptyList())
   }
 
   fun stopTransactionFetch() {

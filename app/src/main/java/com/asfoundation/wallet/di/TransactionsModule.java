@@ -5,6 +5,8 @@ import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchTransactionsInteract;
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
+import com.asfoundation.wallet.interact.TransactionViewInteract;
+import com.asfoundation.wallet.navigator.TransactionViewNavigator;
 import com.asfoundation.wallet.referrals.ReferralInteractorContract;
 import com.asfoundation.wallet.repository.TokenLocalSource;
 import com.asfoundation.wallet.repository.TokenRepository;

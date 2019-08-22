@@ -3,9 +3,9 @@ package com.asfoundation.wallet.viewmodel;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-import com.asfoundation.wallet.di.TransactionViewInteract;
-import com.asfoundation.wallet.di.TransactionViewNavigator;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
+import com.asfoundation.wallet.interact.TransactionViewInteract;
+import com.asfoundation.wallet.navigator.TransactionViewNavigator;
 import com.asfoundation.wallet.transactions.TransactionsAnalytics;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 
