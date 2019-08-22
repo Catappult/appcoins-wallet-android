@@ -60,7 +60,7 @@
   <string name="do_manage_make_backup">Did you successfully make a backup?</string>
   <string name="yes_continue">Yes, continue</string>
   <string name="no_repeat">No, repeat</string>
-  <string name="skip">Skip \></string>
+  <string name="skip">Skip</string>
   <string name="root_title">DEVICE SECURITY COMPROMISED</string>
   <string name="root_body">Any \'rooted\' app can access AppCoins Wallet\'s keychain data and steal your wallet! Wipe this wallet immediately and restore on a secure device.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
@@ -105,7 +105,7 @@
   <string name="toast_message_wallet_exported">A backup was created</string>
   <string name="toast_qr_code_no_address">QR code doesn\'t contain a valid address</string>
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
-
+  
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins Wallet</string>
   <string name="intro_title_second_page"><![CDATA[Private & Secure]]></string>
@@ -119,13 +119,13 @@
   <string name="intro_2_body">Get rewarded for buying items in your favorite apps and games.</string>
   <string name="intro_3_title">Simple and Easy</string>
   <string name="intro_3_body">Process all your in-app purchases using your favorite payment method.</string>
-  <string name="intro_4_title">Invitations</string>
-  <string name="intro_4_body">Redeem your invitation bonus or invite friends  to earn up to $12</string>
-  <string name="intro_creating_wallet_short">We are creating a wallet for you&#8230;</string>
+  <string name="intro_4_title">Secure and Private</string>
+  <string name="intro_4_body">Your private info will never leave your device, so your AppCoins are safe at all times.</string>
+  <string name="intro_creating_wallet_short">Setting up your wallet for you&#8230;</string>
   <string name="intro_wallet_created_short">Wallet created!</string>
   <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
   <string name="intro_skip_button">SKIP</string>
-
+        
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">From</string>
@@ -288,7 +288,7 @@
   <string name="gamification_level_next_lvl_value">%s APPC</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">HOW IT WORKS</string>
-  <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>  
   <string name="gamification_how_header">How to Level Up?</string>
   <string name="gamification_how_body">You\'ll earn APPC Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_body_new">The more you spend in your favorite apps, the bigger the Bonus!</string>
@@ -365,7 +365,7 @@
   <string name="balance_ethereum_body">Ethereum is the cryptocurrency that AppCoins are based on. You can buy and sell them in most exchanges, it\'s very popular!</string>
   <string name="balance_appcoins_body">AppCoins is the cryptocurrency for the app economy. You can buy and sell it on several exchanges and use it to purchase in-app items.</string>
   <string name="balance_appccreditos_body">The token to buy in-app items! Top up APPC-C from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
-
+  
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Ask someone to pay</string>
   <string name="askafriend_generating_link_message">We\'re generating your payment link&#8230;</string>
@@ -406,6 +406,7 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
   <string name="dismiss_button">Dismiss</string>
+  <string name="discover_button">Discover</string>
   <string name="connectoin_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
 
   <!--Onboarding-->
@@ -413,11 +414,11 @@
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
   <string name="terms_and_conditions">Terms and Conditions</string>
   <string name="privacy_policy">Privacy Policy</string>
-
+  
   <!--Home-->
   <string name="home_empty_discover_apps_body">The best Android apps are waiting for you.</string>
   <string name="home_empty_discover_apps_button">DISCOVER TOP APPS</string>
-
+  
   <!--Tokens-->
   <string name="appc_token_name" translatable="false">AppCoins</string>
   <string name="appc_credits_token_name" translatable="false">AppCoins Credits</string>
@@ -434,7 +435,7 @@
   <string name="verification_notification_verification_needed_title">Reward ready but verification needed</string>
   <string name="verification_notification_verification_needed_body">For security reasons, we need to verify your wallet with a SMS code.</string>
   <string name="verification_insert_phone_title">Insert your phone number</string>
-  <string name="verification_insert_phone_body">We\'ll send you a verification code.</string>
+  <string name="verification_insert_phone_body">Verify your wallet to get rewards! We\'ll send you a verification code.</string>
   <string name="verification_insert_phone_field_country">Country</string>
   <string name="verification_insert_phone_field_number">Phone Number</string>
   <string name="verification_insert_phone_field_number_error">Invalid phone number</string>
@@ -448,8 +449,11 @@
   <string name="verification_completed_title">Done!</string>
   <string name="verification_notification_reward_received_body">Reward received, enjoy! 👌</string>
   <string name="verification_notification_reward_already_received_body">This phone number has already been used to receive this reward 😔</string>
-  <string name="verification_insert_phone_field_phone_used_already_error">Phone already used.</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">Number already used.</string>
   <string name="verification_insert_code_error_common">Oops, something went wrong. Try again!</string>
+  <string name="verification_settings_unverified_title">Verify Wallet</string>
+  <string name="verification_settings_unverified_body">Get rewards and invite friends</string>
+  <string name="verification_settings_verified_title">Wallet Verified</string>
 
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">It seems this purchase is already being processed. Please hold on until the transaction is completed or contact our Support Team.</string>
@@ -460,4 +464,42 @@
   <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough APPC Credits, try topping up!</string>
   <string name="purchase_appcoins_credits_default_body">You earned enough AppCoins Credits for this purchase. Enjoy!</string>
 
+  <!--Referral Program-->
+  <string name="referral_onboarding_title">Invite Your Friends!</string>
+  <string name="referral_onboarding_body">You and your friends can earn up to %s with our Referral Program!</string>
+  <string name="referral_onboarding_redeem_button">I've been invited</string>
+  <string name="referral_onboarding_"></string>
+  <string name="referral_verification_title">Verify Your Wallet</string>
+  <string name="referral_verification_body">You need to verify your wallet to participate in the Referral Program. We\'ll sent you a verification code via SMS.</string>
+  <string name="referral_verification_later_button">DO IT LATER</string>
+  <string name="referral_verification_confirmation_title">Your invite was validated!</string>
+  <string name="referral_verification_confirmation_body">As soon as you make your first purchase you\'ll get %s worth of AppCoins Credits.</string>
+  <string name="referral_verification_not_invited_title">It seems this number wasn\’t invited&#8230;</string>
+  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃🏽</string>
+  <string name="referral_notification_bonus_pending_title">%s Referral Bonus Pending</string>
+  <string name="referral_notification_bonus_pending_body">Make your first in-app purchase to get your bonus.</string>
+  <string name="referral_view_title">Invite Friends</string>
+  <string name="referral_view_title_1">Invite Friends and Earn More!</string>
+  <string name="referral_view_verified_body">Receive %s worth of AppCoins Credits for each friend. Just share the link!</string>
+  <string name="referral_view_share_link_button">SHARE INVITE LINK</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_verify_button">VERIFY WALLET</string>
+  <string name="referral_view_i_have_been_invited_button">I\'VE BEEN INVITED</string>
+  <string name="referral_view_dropup_menu_friends_invited">Friends invited</string>
+  <string name="referral_view_dropup_menu_earned">Earned</string>
+  <string name="referral_dropup_menu_friends_title_1">Friends Invited</string>
+  <string name="referral_dropup_menu_requirements_title">Requirements</string>
+  <string name="referral_dropup_menu_requirements_verification">Verify your wallet with a phone number</string>
+  <string name="referral_dropup_menu_requirements_purchase">Make one in-app purchase or top-up</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+
+
+<!--Promotions-->
+  <string name="bottom_navigation_promotions">Promotions</string>
+  <string name="bottom_navigation_promotions_detailed">Discover how to earn free AppCoins Credits with our promotions and campaigns!</string>
+  <string name="promotions_title">Promotions</string>
+  <string name="promotions_referral_card_title">Earn up to %s by inviting friends</string>
+  <string name="promotions_referral_card_body">Share your invite link and earn AppCoins Credits.</string>
+  <string name="promotions_gamification_card_title">Up to 30% bonus on every purchase</string>
+  <string name="promotions_new">NEW</string>
 </resources>
