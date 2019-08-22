@@ -22,4 +22,5 @@ interface PromotionsView {
   fun showNetworkErrorView()
   fun retryClick(): Observable<Any>
   fun showRetryAnimation()
+  fun setReferralBonus(bonus: String)
 }

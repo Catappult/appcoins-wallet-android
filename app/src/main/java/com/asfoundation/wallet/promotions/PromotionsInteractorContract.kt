@@ -12,6 +12,8 @@ interface PromotionsInteractorContract {
 
   fun retrievePromotions(): Single<List<PromotionType>>
 
+  fun retrieveReferralBonus(): Single<String>
+
   enum class PromotionType {
     REFERRAL, GAMIFICATION
   }

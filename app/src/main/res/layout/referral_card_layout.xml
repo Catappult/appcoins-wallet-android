@@ -1,6 +1,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/referrals_card"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -33,11 +34,11 @@
         android:layout_marginStart="@dimen/normal_margin"
         android:layout_marginTop="14dp"
         android:fontFamily="sans-serif-medium"
-        android:text="Earn up to $12 inviting friends"
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/promotions_image"
+        tools:text="Earn up to $12 inviting friends"
         />
     <ImageView
         android:layout_width="wrap_content"
@@ -58,7 +59,7 @@
         android:ellipsize="end"
         android:fontFamily="sans-serif"
         android:maxLines="2"
-        android:text="Share your invite link and earn Appcoins Credits"
+        android:text="@string/promotions_referral_card_body"
         android:textColor="#727272"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,7 +91,7 @@
           android:layout_height="wrap_content"
           android:maxWidth="126dp"
           android:minWidth="80dp"
-          android:text="Details"
+          android:text="@string/transaction_details_label"
           android:textColor="@color/text_button_color"
           android:textSize="14sp"
           />

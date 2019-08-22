@@ -24,7 +24,7 @@
       android:minWidth="80dp"
       android:paddingStart="6dp"
       android:paddingEnd="6dp"
-      android:text="Retry"
+      android:text="@string/retry_button"
       android:textAlignment="center"
       android:textColor="@color/text_button_color"
       android:textSize="14sp"

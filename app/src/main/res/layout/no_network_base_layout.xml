@@ -29,7 +29,7 @@
       android:fontFamily="sans-serif"
       android:gravity="center"
       android:lineSpacingExtra="4sp"
-      android:text="Oops... It looks like you are facing connection issues. Check your connection and try again."
+      android:text="@string/connectoin_error_body"
       android:textColor="@color/grey_8a_alpha"
       android:textSize="12sp"
       app:layout_constraintEnd_toEndOf="parent"

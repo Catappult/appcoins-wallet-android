@@ -36,13 +36,13 @@
         app:layout_constraintTop_toBottomOf="@id/gamification_image"
         >
       <TextView
-          android:id="@+id/promotions_title"
+          android:id="@+id/gamification_title"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/normal_margin"
           android:layout_marginTop="14dp"
           android:fontFamily="sans-serif-medium"
-          android:text="Earn up to 30% on every purchase"
+          android:text="@string/promotions_gamification_card_title"
           android:textColor="@color/black"
           android:textSize="14sp"
           />
@@ -84,7 +84,7 @@
           android:layout_marginEnd="@dimen/big_margin"
           android:maxWidth="126dp"
           android:minWidth="80dp"
-          android:text="See More"
+          android:text="@string/action_more_details"
           android:textColor="@color/text_button_color"
           android:textSize="14sp"
           />

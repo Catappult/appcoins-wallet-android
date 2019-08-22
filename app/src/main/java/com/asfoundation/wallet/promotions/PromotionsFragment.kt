@@ -183,6 +183,10 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
     retry_animation.visibility = VISIBLE
   }
 
+  override fun setReferralBonus(bonus: String) {
+    promotions_title.text = getString(R.string.promotions_referral_card_title, bonus)
+  }
+
   override fun onResume() {
     presenter.present()
     super.onResume()

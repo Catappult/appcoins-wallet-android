@@ -184,7 +184,7 @@
     </activity>
     <activity
         android:name="com.asfoundation.wallet.promotions.PromotionsActivity"
-        android:label="Promotions"
+        android:label="@string/promotions_title"
         android:screenOrientation="portrait"/>
 
     <meta-data

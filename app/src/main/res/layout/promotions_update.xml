@@ -32,7 +32,7 @@
         android:layout_marginBottom="1dp"
         android:fontFamily="sans-serif"
         android:gravity="center_vertical"
-        android:text="update"
+        android:text="@string/promotions_new"
         android:textColor="@color/white"
         android:textSize="14sp"
         />

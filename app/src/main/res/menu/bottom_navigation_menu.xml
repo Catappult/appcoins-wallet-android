@@ -4,7 +4,7 @@
   <item
       android:id="@+id/action_promotions"
       android:icon="@drawable/ic_promotions"
-      android:title="Promotions"
+      android:title="@string/bottom_navigation_promotions"
       />
   <item
       android:id="@+id/action_send"

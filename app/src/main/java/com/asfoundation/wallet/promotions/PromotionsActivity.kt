@@ -43,7 +43,7 @@ class PromotionsActivity : BaseActivity(), PromotionsActivityView {
     ShareCompat.IntentBuilder.from(this)
         .setText("link")
         .setType("text/plain")
-        .setChooserTitle("Share Invite Link Via")
+        .setChooserTitle(resources.getString(R.string.referral_view_share_link_button))
         .startChooser()
   }
 

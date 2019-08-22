@@ -27,6 +27,7 @@ class PromotionsPresenter(private val view: PromotionsView,
 
   fun present() {
     retrievePromotions()
+    retrieveReferralBonus()
     handleGamificationNavigationClicks()
     handleDetailsClick()
     handleShareClick()
@@ -39,6 +40,13 @@ class PromotionsPresenter(private val view: PromotionsView,
         promotionsInteractor.retrievePromotions().toObservable().flatMapIterable { it }
             .observeOn(viewScheduler).doOnNext { showPromotions(it) }
             .subscribe({}, { handlerError(it) }))
+  }
+
+  private fun retrieveReferralBonus() {
+    disposables.add(promotionsInteractor.retrieveReferralBonus()
+        .observeOn(viewScheduler)
+        .doOnSuccess { view.setReferralBonus(it) }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleNewReferralUpdate() {
