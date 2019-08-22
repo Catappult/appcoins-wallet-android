@@ -24,6 +24,10 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.layout_code_validation.*
+import kotlinx.android.synthetic.main.layout_referral_status.*
+import kotlinx.android.synthetic.main.layout_validation_no_internet.*
+import kotlinx.android.synthetic.main.layout_validation_result.*
 import kotlinx.android.synthetic.main.single_sms_input_layout.view.*
 import kotlinx.android.synthetic.main.sms_text_input_layout.*
 import org.apache.commons.lang3.StringUtils
