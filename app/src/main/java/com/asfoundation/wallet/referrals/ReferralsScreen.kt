@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.promotions
+package com.asfoundation.wallet.referrals
 
 enum class ReferralsScreen {
   PROMOTIONS, REFERRAL

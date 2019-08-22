@@ -4,6 +4,7 @@ import com.appcoins.wallet.gamification.GamificationScreen
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.UserStats
 import com.asfoundation.wallet.promotions.PromotionsInteractorContract.PromotionType
+import com.asfoundation.wallet.referrals.ReferralsScreen
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.UserRewardsStatus
 import io.reactivex.Completable
@@ -41,11 +42,13 @@ class PromotionsPresenter(private val view: PromotionsView,
   }
 
   private fun handleNewReferralUpdate() {
-    disposables.add(promotionsInteractor.hasReferralUpdate(ReferralsScreen.REFERRAL)
+    disposables.add(promotionsInteractor.hasReferralUpdate(
+        ReferralsScreen.REFERRAL)
         .observeOn(viewScheduler)
         .doOnSuccess { view.showReferralUpdate(it) }
         .flatMapCompletable {
-          promotionsInteractor.saveReferralInformation(ReferralsScreen.PROMOTIONS)
+          promotionsInteractor.saveReferralInformation(
+              ReferralsScreen.PROMOTIONS)
         }
         .subscribe({}, { it.printStackTrace() }))
   }

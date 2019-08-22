@@ -1,15 +1,14 @@
-package com.asfoundation.wallet.di
+package com.asfoundation.wallet.referrals
 
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
-import com.asfoundation.wallet.promotions.ReferralsScreen
-import com.asfoundation.wallet.promotions.SharedPreferencesReferralLocalData
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.functions.Function4
 
 class ReferralTestInteractor(
     private val preferences: SharedPreferencesReferralLocalData,
-    private val defaultWallet: FindDefaultWalletInteract) : ReferralInteractorContract {
+    private val defaultWallet: FindDefaultWalletInteract) :
+    ReferralInteractorContract {
 
   override fun hasReferralUpdate(screen: ReferralsScreen): Single<Boolean> {
     return defaultWallet.find()

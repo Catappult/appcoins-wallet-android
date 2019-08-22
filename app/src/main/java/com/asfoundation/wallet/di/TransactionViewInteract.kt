@@ -9,7 +9,8 @@ import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.FetchTransactionsInteract
 import com.asfoundation.wallet.interact.FindDefaultNetworkInteract
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
-import com.asfoundation.wallet.promotions.ReferralsScreen
+import com.asfoundation.wallet.referrals.ReferralInteractorContract
+import com.asfoundation.wallet.referrals.ReferralsScreen
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
@@ -42,7 +43,8 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
   }
 
   fun hasPromotionUpdate(): Single<Boolean> {
-    return Single.zip(referralInteractor.hasReferralUpdate(ReferralsScreen.PROMOTIONS),
+    return Single.zip(referralInteractor.hasReferralUpdate(
+        ReferralsScreen.PROMOTIONS),
         gamificationInteractor.hasNewLevel(GamificationScreen.PROMOTIONS),
         BiFunction { hasReferralUpdate: Boolean, hasNewLevel: Boolean ->
           hasReferralUpdate || hasNewLevel

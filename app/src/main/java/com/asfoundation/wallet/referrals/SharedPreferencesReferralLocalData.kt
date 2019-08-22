@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.promotions
+package com.asfoundation.wallet.referrals
 
 import android.content.SharedPreferences
 import io.reactivex.Completable
@@ -10,7 +10,8 @@ class SharedPreferencesReferralLocalData(private val preferences: SharedPreferen
   override fun saveTotalEarned(address: String, totalEarned: String, screen: String): Completable {
     return Completable.fromCallable {
       preferences.edit()
-          .putString(getKey(address, EARNED, screen), totalEarned)
+          .putString(getKey(address,
+              EARNED, screen), totalEarned)
           .apply()
     }
   }
@@ -19,18 +20,23 @@ class SharedPreferencesReferralLocalData(private val preferences: SharedPreferen
                                    screen: String): Completable {
     return Completable.fromCallable {
       preferences.edit()
-          .putInt(getKey(address, FRIENDS, screen), numberOfFriends)
+          .putInt(getKey(address,
+              FRIENDS, screen), numberOfFriends)
           .apply()
     }
   }
 
   override fun getNumberOfFriends(address: String, screen: String): Single<Int> {
-    return Single.fromCallable { preferences.getInt(getKey(address, FRIENDS, screen), -1) }
+    return Single.fromCallable {
+      preferences.getInt(getKey(address,
+          FRIENDS, screen), -1)
+    }
   }
 
   override fun getEarned(address: String, screen: String): Single<String> {
     return Single.fromCallable {
-      preferences.getString(getKey(address, EARNED, screen), "-1")
+      preferences.getString(getKey(address,
+          EARNED, screen), "-1")
     }
   }
 

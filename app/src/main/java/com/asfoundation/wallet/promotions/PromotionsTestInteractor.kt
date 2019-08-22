@@ -1,7 +1,8 @@
 package com.asfoundation.wallet.promotions
 
-import com.asfoundation.wallet.di.ReferralInteractorContract
 import com.asfoundation.wallet.promotions.PromotionsInteractorContract.PromotionType
+import com.asfoundation.wallet.referrals.ReferralInteractorContract
+import com.asfoundation.wallet.referrals.ReferralsScreen
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction

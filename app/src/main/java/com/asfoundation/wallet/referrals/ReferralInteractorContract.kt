@@ -1,6 +1,5 @@
-package com.asfoundation.wallet.di
+package com.asfoundation.wallet.referrals
 
-import com.asfoundation.wallet.promotions.ReferralsScreen
 import io.reactivex.Completable
 import io.reactivex.Single
 
