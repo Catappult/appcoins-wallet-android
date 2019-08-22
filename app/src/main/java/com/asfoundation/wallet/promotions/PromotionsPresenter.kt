@@ -41,11 +41,13 @@ class PromotionsPresenter(private val view: PromotionsView,
   }
 
   private fun handleNewReferralUpdate() {
-    disposables.add(promotionsInteractor.hasReferralUpdate()
+    disposables.add(promotionsInteractor.hasReferralUpdate(ReferralsScreen.REFERRAL)
         .observeOn(viewScheduler)
-        .doOnSuccess {
-          view.showReferralUpdate(it)
-        }.subscribe({}, { it.printStackTrace() }))
+        .doOnSuccess { view.showReferralUpdate(it) }
+        .flatMapCompletable {
+          promotionsInteractor.saveReferralInformation(ReferralsScreen.PROMOTIONS)
+        }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleNewLevel() {

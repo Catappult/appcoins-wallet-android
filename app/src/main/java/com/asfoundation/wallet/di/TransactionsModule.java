@@ -60,10 +60,6 @@ import javax.inject.Singleton;
         fetchTransactionsInteract, gamificationInteractor, balanceInteract, referralInteractor);
   }
 
-  @Provides ReferralTestInteractor provideReferralInteractor() {
-    return new ReferralTestInteractor();
-  }
-
   @Provides FetchTransactionsInteract provideFetchTransactionsInteract(
       TransactionRepositoryType transactionRepository) {
     return new FetchTransactionsInteract(transactionRepository);
