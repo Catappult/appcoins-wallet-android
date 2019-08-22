@@ -483,6 +483,7 @@
   <string name="referral_view_title_1">Invite Friends and Earn More!</string>
   <string name="referral_view_verified_body">Receive %s worth of AppCoins Credits for each friend. Just share the link!</string>
   <string name="referral_view_share_link_button">SHARE INVITE LINK</string>
+  <string name="referral_share_sheet_title">Share invite link via:</string>
   <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
   <string name="referral_view_verify_button">VERIFY WALLET</string>
   <string name="referral_view_i_have_been_invited_button">I\'VE BEEN INVITED</string>
