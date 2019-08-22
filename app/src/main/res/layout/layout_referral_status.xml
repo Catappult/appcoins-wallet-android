@@ -16,6 +16,7 @@
       />
 
   <TextView
+      android:id="@+id/referral_status_title"
       style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -23,11 +24,12 @@
       android:layout_marginTop="50dp"
       android:layout_marginEnd="@dimen/big_margin"
       android:gravity="center_horizontal"
-      android:text="Great news. Your invite was validated!"
+      android:text="@string/referral_verification_confirmation_title"
       android:textColor="@color/black"
       />
 
   <TextView
+      android:id="@+id/referral_status_body"
       style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -35,7 +37,7 @@
       android:layout_marginTop="8dp"
       android:layout_marginEnd="@dimen/big_margin"
       android:gravity="center_horizontal"
-      android:text="As soon as you make your first purchase you will get 2$ worth of AppCoins Credits."
+      android:text="@string/referral_verification_confirmation_body"
       android:textColor="#727272"
       />
 

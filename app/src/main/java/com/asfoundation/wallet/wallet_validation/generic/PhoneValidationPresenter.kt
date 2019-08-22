@@ -28,6 +28,7 @@ class PhoneValidationPresenter(
     disposables.add(
         Observable.merge(view.getCancelClicks(), view.getLaterButtonClicks())
             .doOnNext {
+              view.hideKeyboard()
               activity?.showTransactionsActivity()
             }.subscribe())
   }

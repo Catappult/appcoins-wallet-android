@@ -24,10 +24,6 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.layout_code_validation.*
-import kotlinx.android.synthetic.main.layout_referral_status.*
-import kotlinx.android.synthetic.main.layout_validation_no_internet.*
-import kotlinx.android.synthetic.main.layout_validation_result.*
 import kotlinx.android.synthetic.main.single_sms_input_layout.view.*
 import kotlinx.android.synthetic.main.sms_text_input_layout.*
 import org.apache.commons.lang3.StringUtils
@@ -167,6 +163,7 @@ class CodeValidationFragment : DaggerFragment(),
     code_4.code.text = null
     code_5.code.text = null
     code_6.code.text = null
+    code_1.requestFocus()
   }
 
   override fun setButtonState(state: Boolean) {
@@ -281,6 +278,8 @@ class CodeValidationFragment : DaggerFragment(),
     content!!.visibility = View.GONE
     animation_validating_code!!.visibility = View.GONE
     referral_status!!.visibility = View.VISIBLE
+    referral_status_title!!.setText(R.string.referral_verification_confirmation_title)
+    referral_status_body!!.setText(R.string.referral_verification_confirmation_body)
     referral_status_animation!!.setAnimation(R.raw.referral_invited)
     referral_status_animation!!.playAnimation()
   }
@@ -290,6 +289,8 @@ class CodeValidationFragment : DaggerFragment(),
     content!!.visibility = View.GONE
     animation_validating_code!!.visibility = View.GONE
     referral_status!!.visibility = View.VISIBLE
+    referral_status_title!!.setText(R.string.referral_verification_not_invited_title)
+    referral_status_body!!.setText(R.string.referral_verification_not_invited_body)
     referral_status_animation!!.setAnimation(R.raw.referral_not_invited)
     referral_status_animation!!.playAnimation()
   }

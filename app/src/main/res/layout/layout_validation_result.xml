@@ -11,7 +11,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:gravity="top"
-      android:text="Validating your verification code"
+      android:text="@string/verification_validating_title"
       android:textColor="#4a4a4a"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"

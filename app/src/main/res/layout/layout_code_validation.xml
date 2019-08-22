@@ -43,7 +43,7 @@
         android:layout_marginTop="11dp"
         android:layout_marginEnd="@dimen/big_margin"
         android:gravity="center_horizontal"
-        android:text="Phone verification is needed to verify if you have an invitation bonus. We'll send you a verification code via SMS."
+        android:text="@string/referral_verification_body"
         android:textColor="#727272"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
