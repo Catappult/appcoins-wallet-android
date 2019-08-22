@@ -26,21 +26,11 @@ constructor(context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 
 
   fun showPreviousLevelIcons(level: Int, shouldHideLabel: Boolean) {
     when (level) {
-      0 -> {
-        noAnimationLevelUpdate(level, shouldHideLabel, level_1, level_1_text)
-      }
-      1 -> {
-        noAnimationLevelUpdate(level, shouldHideLabel, level_2, level_2_text)
-      }
-      2 -> {
-        noAnimationLevelUpdate(level, shouldHideLabel, level_3, level_3_text)
-      }
-      3 -> {
-        noAnimationLevelUpdate(level, shouldHideLabel, level_4, level_4_text)
-      }
-      4 -> {
-        noAnimationLevelUpdate(level, shouldHideLabel, level_5, level_5_text)
-      }
+      0 -> noAnimationLevelUpdate(level, shouldHideLabel, level_1, level_1_text)
+      1 -> noAnimationLevelUpdate(level, shouldHideLabel, level_2, level_2_text)
+      2 -> noAnimationLevelUpdate(level, shouldHideLabel, level_3, level_3_text)
+      3 -> noAnimationLevelUpdate(level, shouldHideLabel, level_4, level_4_text)
+      4 -> noAnimationLevelUpdate(level, shouldHideLabel, level_5, level_5_text)
     }
   }
 

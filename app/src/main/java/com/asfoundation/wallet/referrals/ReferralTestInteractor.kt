@@ -35,8 +35,8 @@ class ReferralTestInteractor(
                                        screen: ReferralsScreen): Completable {
     return defaultWallet.find()
         .flatMapCompletable {
-          saveNumberOfFriends(it.address, numberOfFriends, screen).andThen(
-              saveTotalEarned(it.address, totalEarned, screen))
+          saveNumberOfFriends(it.address, numberOfFriends, screen)
+              .andThen(saveTotalEarned(it.address, totalEarned, screen))
         }
   }
 

@@ -37,8 +37,10 @@ class PromotionsPresenter(private val view: PromotionsView,
 
   private fun retrievePromotions() {
     disposables.add(
-        promotionsInteractor.retrievePromotions().toObservable().flatMapIterable { it }
-            .observeOn(viewScheduler).doOnNext { showPromotions(it) }
+        promotionsInteractor.retrievePromotions().toObservable()
+            .flatMapIterable { it }
+            .observeOn(viewScheduler)
+            .doOnNext { showPromotions(it) }
             .subscribe({}, { handlerError(it) }))
   }
 
@@ -50,8 +52,7 @@ class PromotionsPresenter(private val view: PromotionsView,
   }
 
   private fun handleNewReferralUpdate() {
-    disposables.add(promotionsInteractor.hasReferralUpdate(
-        ReferralsScreen.REFERRAL)
+    disposables.add(promotionsInteractor.hasReferralUpdate(ReferralsScreen.REFERRAL)
         .observeOn(viewScheduler)
         .doOnSuccess { view.showReferralUpdate(it) }
         .flatMapCompletable {
@@ -62,31 +63,29 @@ class PromotionsPresenter(private val view: PromotionsView,
   }
 
   private fun handleNewLevel() {
-    disposables.add(gamification.hasNewLevel(
-        GamificationScreen.MY_LEVEL)
+    disposables.add(gamification.hasNewLevel(GamificationScreen.MY_LEVEL)
         .observeOn(viewScheduler)
         .doOnSuccess { view.showGamificationUpdate(it) }
         .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleShareClick() {
-    disposables.add(
-        view.shareClick()
-            .doOnNext { view.showShare() }
-            .subscribe({}, { it.printStackTrace() }))
+    disposables.add(view.shareClick()
+        .doOnNext { view.showShare() }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleDetailsClick() {
     disposables.add(
-        Observable.merge(view.detailsClick(),
-            view.referralCardClick()).doOnNext { view.detailsClick() }.subscribe({},
-            { it.printStackTrace() }))
+        Observable.merge(view.detailsClick(), view.referralCardClick())
+            .doOnNext { view.detailsClick() }
+            .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleGamificationNavigationClicks() {
-    disposables.add(Observable.merge(view.seeMoreClick(),
-        view.gamificationCardClick()).doOnNext { view.navigateToGamification() }.subscribe({},
-        { it.printStackTrace() }))
+    disposables.add(Observable.merge(view.seeMoreClick(), view.gamificationCardClick())
+        .doOnNext { view.navigateToGamification() }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleShowLevels() {

@@ -17,11 +17,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.gamification_card_layout.*
-import kotlinx.android.synthetic.main.gamification_card_layout.gamification_card
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import kotlinx.android.synthetic.main.promotions_fragment_view.*
+import kotlinx.android.synthetic.main.promotions_fragment_view.referrals_card
 import kotlinx.android.synthetic.main.referral_card_layout.*
-import kotlinx.android.synthetic.main.referral_card_layout.referrals_card
 import kotlinx.android.synthetic.main.rewards_progress_bar.*
 import javax.inject.Inject
 
@@ -84,42 +83,32 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
   }
 
   override fun showReferralUpdate(show: Boolean) {
-    when (show) {
-      true -> {
-        if (referal_update.visibility == INVISIBLE) {
-          val animation = AnimationUtils.loadAnimation(context, R.anim.fade_in_animation)
-          animation.duration = 750
-          referal_update.visibility = VISIBLE
-          referal_update.startAnimation(animation)
-        }
+    if (show) {
+      if (referal_update.visibility == INVISIBLE) {
+        val animation = AnimationUtils.loadAnimation(context, R.anim.fade_in_animation)
+        animation.duration = 750
+        referal_update.visibility = VISIBLE
+        referal_update.startAnimation(animation)
       }
-      else -> {
-        if (referal_update.visibility == VISIBLE) {
-          referal_update.startAnimation(
-              AnimationUtils.loadAnimation(context, R.anim.fade_out_animation))
-          referal_update.visibility = INVISIBLE
-        }
-      }
+    } else if (referal_update.visibility == VISIBLE) {
+      referal_update.startAnimation(
+          AnimationUtils.loadAnimation(context, R.anim.fade_out_animation))
+      referal_update.visibility = INVISIBLE
     }
   }
 
   override fun showGamificationUpdate(show: Boolean) {
-    when (show) {
-      true -> {
-        if (gamification_update.visibility == INVISIBLE) {
-          val animation = AnimationUtils.loadAnimation(context, R.anim.fade_in_animation)
-          animation.duration = 750
-          gamification_update.visibility = VISIBLE
-          gamification_update.startAnimation(animation)
-        }
+    if (show) {
+      if (gamification_update.visibility == INVISIBLE) {
+        val animation = AnimationUtils.loadAnimation(context, R.anim.fade_in_animation)
+        animation.duration = 750
+        gamification_update.visibility = VISIBLE
+        gamification_update.startAnimation(animation)
       }
-      else -> {
-        if (gamification_update.visibility == VISIBLE) {
-          gamification_update.startAnimation(
-              AnimationUtils.loadAnimation(context, R.anim.fade_out_animation))
-          gamification_update.visibility = INVISIBLE
-        }
-      }
+    } else if (gamification_update.visibility == VISIBLE) {
+      gamification_update.startAnimation(
+          AnimationUtils.loadAnimation(context, R.anim.fade_out_animation))
+      gamification_update.visibility = INVISIBLE
     }
   }
 

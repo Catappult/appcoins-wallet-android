@@ -144,7 +144,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     viewModel.applications()
         .observe(this, this::onApplications);
     viewModel.shouldShowPromotionsNotification()
-        .observe(this, this::onGamificationNotification);
+        .observe(this, this::onPromotionsNotification);
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
     handlePromotionsOverlayVisibility();
   }
@@ -176,7 +176,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     itemView.addView(badge);
   }
 
-  private void onGamificationNotification(boolean shouldShow) {
+  private void onPromotionsNotification(boolean shouldShow) {
     if (shouldShow) {
       badge.setVisibility(View.VISIBLE);
     } else {

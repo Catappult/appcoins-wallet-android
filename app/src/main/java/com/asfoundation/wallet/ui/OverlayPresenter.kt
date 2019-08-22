@@ -11,14 +11,15 @@ class OverlayPresenter(private val view: OverlayView, private val disposable: Co
   }
 
   private fun handleDiscoverClick() {
-    disposable.add(view.discoverClick().doOnNext { view.navigateToPromotions() }.subscribe({},
-        { it.printStackTrace() }))
+    disposable.add(view.discoverClick()
+        .doOnNext { view.navigateToPromotions() }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleDismissClick() {
-    disposable.add(Observable.merge(
-        view.dismissClick(), view.overlayClick()).doOnNext { view.dismissView() }.subscribe({},
-        { it.printStackTrace() }))
+    disposable.add(Observable.merge(view.dismissClick(), view.overlayClick())
+        .doOnNext { view.dismissView() }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   fun stop() {

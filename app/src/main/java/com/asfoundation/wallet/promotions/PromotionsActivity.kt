@@ -12,12 +12,12 @@ class PromotionsActivity : BaseActivity(), PromotionsActivityView {
 
   private lateinit var transactionsRouter: TransactionsRouter
   private lateinit var rewardsLevelRouter: RewardsLevelRouter
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
     setContentView(R.layout.promotions_activity_view)
     toolbar()
-    enableDisplayHomeAsUp()
     transactionsRouter = TransactionsRouter()
     rewardsLevelRouter = RewardsLevelRouter()
     val promotionsFragment = PromotionsFragment()
