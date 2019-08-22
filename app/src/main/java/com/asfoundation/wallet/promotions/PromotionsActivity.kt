@@ -43,7 +43,7 @@ class PromotionsActivity : BaseActivity(), PromotionsActivityView {
     ShareCompat.IntentBuilder.from(this)
         .setText("link")
         .setType("text/plain")
-        .setChooserTitle(resources.getString(R.string.referral_view_share_link_button))
+        .setChooserTitle(resources.getString(R.string.referral_share_sheet_title))
         .startChooser()
   }
 
