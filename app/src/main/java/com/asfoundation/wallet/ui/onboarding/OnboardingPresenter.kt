@@ -51,7 +51,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
             }
             .delay(1, TimeUnit.SECONDS)
             .observeOn(viewScheduler)
-            .subscribe({ onNext(it) }, {})
+            .subscribe({ onNext(it, false) }, {})
     )
   }
 
@@ -59,7 +59,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
     disposables.add(
         view.getLaterButtonClicks()
             .doOnNext {
-              finishOnBoarding()
+              finishOnBoarding(null, false)
             }.subscribe())
   }
 
@@ -75,15 +75,15 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
             }
             .delay(1, TimeUnit.SECONDS)
             .observeOn(viewScheduler)
-            .subscribe({ onNext(it) }, {})
+            .subscribe({ onNext(it, true) }, {})
     )
   }
 
-  private fun onNext(walletValidationStatus: WalletValidationStatus?) {
+  private fun onNext(walletValidationStatus: WalletValidationStatus?, showAnimation: Boolean) {
     if (walletValidationStatus == WalletValidationStatus.NO_NETWORK) {
       view.showNoInternetView()
     } else {
-      finishOnBoarding(walletValidationStatus)
+      finishOnBoarding(walletValidationStatus, showAnimation)
     }
   }
 
@@ -94,7 +94,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
         )
             .delay(1, TimeUnit.SECONDS)
             .observeOn(viewScheduler)
-            .subscribe({ finishOnBoarding(null) }, {})
+            .subscribe({ finishOnBoarding(null, true) }, {})
     )
   }
 
@@ -116,7 +116,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
         )
             .delay(1, TimeUnit.SECONDS)
             .observeOn(viewScheduler)
-            .subscribe({ finishOnBoarding(null) }, {})
+            .subscribe({ finishOnBoarding(null, true) }, {})
     )
   }
 
@@ -129,15 +129,10 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
         ?.let { disposables.add(it) }
   }
 
-  private fun finishOnBoarding(walletValidationStatus: WalletValidationStatus?) {
+  private fun finishOnBoarding(walletValidationStatus: WalletValidationStatus?,
+                               showAnimation: Boolean) {
     onboardingInteract.clickSkipOnboarding()
     onboardingInteract.finishOnboarding()
-    view.finishOnboarding(walletValidationStatus)
-  }
-
-  private fun finishOnBoarding() {
-    onboardingInteract.clickSkipOnboarding()
-    onboardingInteract.finishOnboarding()
-    view.finishOnboarding()
+    view.finishOnboarding(walletValidationStatus, showAnimation)
   }
 }

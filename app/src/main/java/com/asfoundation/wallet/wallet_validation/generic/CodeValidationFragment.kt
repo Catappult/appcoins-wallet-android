@@ -117,6 +117,7 @@ class CodeValidationFragment : DaggerFragment(),
   }
 
   override fun setupUI() {
+    hideNoInternetView()
     if (errorMessage == null) {
       error.visibility = View.INVISIBLE
       setButtonState(true)

@@ -115,6 +115,8 @@ class PhoneValidationFragment : DaggerFragment(),
   override fun setupUI() {
     ccp.registerCarrierNumberEditText(phone_number)
 
+    hideNoInternetView()
+
     countryCode?.let {
       ccp.setCountryForPhoneCode(it.drop(0).toInt())
     }

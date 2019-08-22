@@ -10,9 +10,9 @@ interface OnboardingView {
 
   fun showLoading()
 
-  fun finishOnboarding(walletValidationStatus: WalletValidationStatus?)
+  fun finishOnboarding(walletValidationStatus: WalletValidationStatus?, showAnimation: Boolean)
 
-  fun finishOnboarding()
+  fun navigate(walletValidationStatus: WalletValidationStatus?)
 
   fun getNextButtonClick(): Observable<Any>
 

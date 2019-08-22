@@ -130,11 +130,22 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     create_wallet_animation.playAnimation()
   }
 
-  override fun finishOnboarding() {
-    TransactionsRouter().open(applicationContext, true)
+  override fun navigate(walletValidationStatus: WalletValidationStatus?) {
+    if (walletValidationStatus == null || walletValidationStatus == WalletValidationStatus.SUCCESS) {
+      TransactionsRouter().open(applicationContext, true)
+    } else {
+      val intent = WalletValidationActivity.newIntent(applicationContext)
+      intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+      applicationContext.startActivity(intent)
+    }
   }
 
-  override fun finishOnboarding(walletValidationStatus: WalletValidationStatus?) {
+  override fun finishOnboarding(walletValidationStatus: WalletValidationStatus?,
+                                showAnimation: Boolean) {
+    if (!showAnimation) {
+      navigate(walletValidationStatus)
+      return
+    }
     create_wallet_animation.setAnimation(R.raw.success_animation)
     create_wallet_text.text = getText(R.string.provide_wallet_created_header)
     create_wallet_animation.addAnimatorListener(object : Animator.AnimatorListener {
@@ -142,13 +153,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
       }
 
       override fun onAnimationEnd(animation: Animator?) {
-        if (walletValidationStatus == null || walletValidationStatus == WalletValidationStatus.SUCCESS) {
-          TransactionsRouter().open(applicationContext, true)
-        } else {
-          val intent = WalletValidationActivity.newIntent(applicationContext)
-          intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-          applicationContext.startActivity(intent)
-        }
+        navigate(walletValidationStatus)
         finish()
       }
 
