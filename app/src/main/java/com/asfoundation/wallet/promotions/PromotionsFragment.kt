@@ -30,7 +30,7 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
   @Inject
   lateinit var gamification: GamificationInteractor
   @Inject
-  lateinit var promotionsInteractor: PromotionsTestInteractor
+  lateinit var promotionsInteractor: PromotionsInteractorContract
   private lateinit var activity: PromotionsActivityView
   private var step = 100
   private lateinit var presenter: PromotionsPresenter

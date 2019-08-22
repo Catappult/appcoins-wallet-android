@@ -3,7 +3,7 @@ package com.asfoundation.wallet.promotions
 import com.appcoins.wallet.gamification.GamificationScreen
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.UserStats
-import com.asfoundation.wallet.promotions.PromotionsTestInteractor.PromotionType
+import com.asfoundation.wallet.promotions.PromotionsInteractorContract.PromotionType
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.UserRewardsStatus
 import io.reactivex.Completable
@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit
 
 class PromotionsPresenter(private val view: PromotionsView,
                           private val gamification: GamificationInteractor,
-                          private val promotionsInteractor: PromotionsTestInteractor,
+                          private val promotionsInteractor: PromotionsInteractorContract,
                           private val disposables: CompositeDisposable,
                           private val networkScheduler: Scheduler,
                           private val viewScheduler: Scheduler) {

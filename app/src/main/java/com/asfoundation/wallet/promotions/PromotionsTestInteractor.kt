@@ -1,22 +1,23 @@
 package com.asfoundation.wallet.promotions
 
-import com.asfoundation.wallet.di.ReferralTestInteractor
+import com.asfoundation.wallet.di.ReferralInteractorContract
+import com.asfoundation.wallet.promotions.PromotionsInteractorContract.PromotionType
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import java.io.IOException
 
-//TODO Remove when real implementation is created
-class PromotionsTestInteractor(private val referralInteractor: ReferralTestInteractor) {
+class PromotionsTestInteractor(private val referralInteractor: ReferralInteractorContract) :
+    PromotionsInteractorContract {
 
   private var boolean: Boolean = false
   private val showError: Boolean = false
 
-  fun hasReferralUpdate(screen: ReferralsScreen): Single<Boolean> {
+  override fun hasReferralUpdate(screen: ReferralsScreen): Single<Boolean> {
     return referralInteractor.hasReferralUpdate(screen)
   }
 
-  fun saveReferralInformation(screen: ReferralsScreen): Completable {
+  override fun saveReferralInformation(screen: ReferralsScreen): Completable {
     return Single.zip(referralInteractor.getNumberOfFriends(),
         referralInteractor.getTotalEarned(),
         BiFunction { numberOfFriends: Int, totalEarned: String ->
@@ -27,7 +28,7 @@ class PromotionsTestInteractor(private val referralInteractor: ReferralTestInter
         }
   }
 
-  fun retrievePromotions(): Single<List<PromotionType>> {
+  override fun retrievePromotions(): Single<List<PromotionType>> {
     return if (boolean || !showError) {
       Single.just(listOf(PromotionType.REFERRAL, PromotionType.GAMIFICATION))
     } else {
@@ -36,7 +37,4 @@ class PromotionsTestInteractor(private val referralInteractor: ReferralTestInter
     }
   }
 
-  enum class PromotionType {
-    REFERRAL, GAMIFICATION
-  }
 }

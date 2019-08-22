@@ -23,7 +23,7 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
                               private val fetchTransactionsInteract: FetchTransactionsInteract,
                               private val gamificationInteractor: GamificationInteractor,
                               private val balanceInteract: BalanceInteract,
-                              private val referralInteractor: ReferralTestInteractor) {
+                              private val referralInteractor: ReferralInteractorContract) {
 
   val levels: Single<Levels>
     get() = gamificationInteractor.getLevels()

@@ -95,6 +95,7 @@ import com.asfoundation.wallet.poa.HashCalculator;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofWriter;
 import com.asfoundation.wallet.poa.TaggedCompositeDisposable;
+import com.asfoundation.wallet.promotions.PromotionsInteractorContract;
 import com.asfoundation.wallet.promotions.PromotionsTestInteractor;
 import com.asfoundation.wallet.promotions.SharedPreferencesReferralLocalData;
 import com.asfoundation.wallet.repository.ApproveService;
@@ -911,12 +912,12 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new GamificationInteractor(gamification, defaultWallet, conversionService);
   }
 
-  @Provides PromotionsTestInteractor providePromotionsInteractor(
-      ReferralTestInteractor referralInteractor) {
+  @Provides PromotionsInteractorContract providePromotionsInteractor(
+      ReferralInteractorContract referralInteractor) {
     return new PromotionsTestInteractor(referralInteractor);
   }
 
-  @Provides ReferralTestInteractor provideReferralInteractor(SharedPreferences preferences,
+  @Provides ReferralInteractorContract provideReferralInteractor(SharedPreferences preferences,
       FindDefaultWalletInteract findDefaultWalletInteract) {
     return new ReferralTestInteractor(new SharedPreferencesReferralLocalData(preferences),
         findDefaultWalletInteract);

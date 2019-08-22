@@ -55,7 +55,7 @@ import javax.inject.Singleton;
       FindDefaultWalletInteract findDefaultWalletInteract,
       FetchTransactionsInteract fetchTransactionsInteract,
       GamificationInteractor gamificationInteractor, BalanceInteract balanceInteract,
-      ReferralTestInteractor referralInteractor) {
+      ReferralInteractorContract referralInteractor) {
     return new TransactionViewInteract(findDefaultNetworkInteract, findDefaultWalletInteract,
         fetchTransactionsInteract, gamificationInteractor, balanceInteract, referralInteractor);
   }

@@ -7,12 +7,11 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.functions.Function4
 
-//TODO Remove when real implementation is created
 class ReferralTestInteractor(
     private val preferences: SharedPreferencesReferralLocalData,
-    private val defaultWallet: FindDefaultWalletInteract) {
+    private val defaultWallet: FindDefaultWalletInteract) : ReferralInteractorContract {
 
-  fun hasReferralUpdate(screen: ReferralsScreen): Single<Boolean> {
+  override fun hasReferralUpdate(screen: ReferralsScreen): Single<Boolean> {
     return defaultWallet.find()
         .flatMap {
           Single.zip(getNumberOfFriends(), getTotalEarned(),
@@ -25,16 +24,16 @@ class ReferralTestInteractor(
         }
   }
 
-  fun getNumberOfFriends(): Single<Int> {
+  override fun getNumberOfFriends(): Single<Int> {
     return Single.just(2)
   }
 
-  fun getTotalEarned(): Single<String> {
+  override fun getTotalEarned(): Single<String> {
     return Single.just("$2.5")
   }
 
-  fun saveReferralInformation(numberOfFriends: Int, totalEarned: String,
-                              screen: ReferralsScreen): Completable {
+  override fun saveReferralInformation(numberOfFriends: Int, totalEarned: String,
+                                       screen: ReferralsScreen): Completable {
     return defaultWallet.find()
         .flatMapCompletable {
           saveNumberOfFriends(it.address, numberOfFriends, screen).andThen(
