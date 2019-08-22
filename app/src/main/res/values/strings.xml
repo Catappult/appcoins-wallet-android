@@ -468,7 +468,7 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">Invite Your Friends!</string>
   <string name="referral_onboarding_body">You and your friends can earn up to %s with our Referral Program!</string>
-  <string name="referral_onboarding_redeem_button">I've been invited</string>
+  <string name="referral_onboarding_redeem_button">I\'ve been invited</string>
   <string name="referral_verification_title">Verify Your Wallet</string>
   <string name="referral_verification_body">You need to verify your wallet to participate in the Referral Program. We\'ll sent you a verification code via SMS.</string>
   <string name="referral_verification_later_button">DO IT LATER</string>
