@@ -1,12 +1,9 @@
 package com.asfoundation.wallet.wallet_validation.generic
 
-import android.content.ClipDescription.MIMETYPE_TEXT_PLAIN
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Context.CLIPBOARD_SERVICE
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +13,7 @@ import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.SmsValidationInteract
+import com.asfoundation.wallet.wallet_validation.PasteTextWatcher
 import com.asfoundation.wallet.wallet_validation.ValidationInfo
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -30,7 +28,6 @@ import kotlinx.android.synthetic.main.layout_validation_no_internet.*
 import kotlinx.android.synthetic.main.layout_validation_result.*
 import kotlinx.android.synthetic.main.single_sms_input_layout.view.*
 import kotlinx.android.synthetic.main.sms_text_input_layout.*
-import org.apache.commons.lang3.StringUtils
 import javax.inject.Inject
 
 
@@ -139,24 +136,12 @@ class CodeValidationFragment : DaggerFragment(),
     val inputTexts =
         arrayOf(code_1.code, code_2.code, code_3.code, code_4.code, code_5.code, code_6.code)
 
-    code_1.code.addTextChangedListener(
-        PasteTextWatcher(
-            inputTexts, clipboard, 0))
-    code_2.code.addTextChangedListener(
-        PasteTextWatcher(
-            inputTexts, clipboard, 1))
-    code_3.code.addTextChangedListener(
-        PasteTextWatcher(
-            inputTexts, clipboard, 2))
-    code_4.code.addTextChangedListener(
-        PasteTextWatcher(
-            inputTexts, clipboard, 3))
-    code_5.code.addTextChangedListener(
-        PasteTextWatcher(
-            inputTexts, clipboard, 4))
-    code_6.code.addTextChangedListener(
-        PasteTextWatcher(
-            inputTexts, clipboard, 5))
+    code_1.code.addTextChangedListener(PasteTextWatcher(inputTexts, clipboard, 0))
+    code_2.code.addTextChangedListener(PasteTextWatcher(inputTexts, clipboard, 1))
+    code_3.code.addTextChangedListener(PasteTextWatcher(inputTexts, clipboard, 2))
+    code_4.code.addTextChangedListener(PasteTextWatcher(inputTexts, clipboard, 3))
+    code_5.code.addTextChangedListener(PasteTextWatcher(inputTexts, clipboard, 4))
+    code_6.code.addTextChangedListener(PasteTextWatcher(inputTexts, clipboard, 5))
   }
 
   override fun clearUI() {
@@ -379,69 +364,6 @@ class CodeValidationFragment : DaggerFragment(),
       val fragment = CodeValidationFragment()
       fragment.arguments = bundle
       return fragment
-    }
-
-  }
-
-  class PasteTextWatcher(
-      private val inputTexts: Array<EditText>,
-      private val clipboardManager: ClipboardManager,
-      private val selectedPosition: Int
-  ) : TextWatcher {
-
-    private var isPaste = false
-    private var isStart = false
-    private var isDelete = false
-    private var previousChar = ""
-
-    override fun afterTextChanged(s: Editable?) {
-      if (isDelete) {
-        if (selectedPosition > 0) {
-          inputTexts[selectedPosition - 1].requestFocus()
-          inputTexts[selectedPosition - 1].setSelection(inputTexts[selectedPosition - 1].length())
-          return
-        }
-      }
-      if (s?.length ?: 0 > 1 && isPaste && isValidPaste()) {
-        inputTexts[selectedPosition].setText(previousChar)
-        val text = getTextFromClipboard()
-        text?.forEachIndexed { index, digit ->
-          when (index) {
-            0, 1, 2, 3, 4, 5 -> inputTexts[index].setText(digit.toString())
-            else -> return@forEachIndexed
-          }
-        }
-      }
-      if (s?.length ?: 0 > 1) {
-        if (isStart) {
-          s?.delete(1, 2)
-        } else {
-          s?.delete(0, 1)
-        }
-      }
-    }
-
-    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-      isStart = start == 0
-      isDelete = (start == 0 && count == 1 && after == 0 && s?.length ?: 0 <= 1)
-      if (after > 0) {
-        previousChar = s.toString()
-      }
-    }
-
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-      isPaste = count > 1
-    }
-
-    private fun isValidPaste(): Boolean {
-      return clipboardManager.primaryClipDescription?.hasMimeType(
-          MIMETYPE_TEXT_PLAIN) == true && StringUtils.isNumeric(getTextFromClipboard())
-    }
-
-    private fun getTextFromClipboard(): String? {
-      return clipboardManager.primaryClip?.getItemAt(0)
-          ?.text?.toString()
-          ?.replace(Regex("[^\\d.]"), "")
     }
 
   }
