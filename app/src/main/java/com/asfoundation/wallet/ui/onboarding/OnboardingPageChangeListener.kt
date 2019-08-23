@@ -22,14 +22,14 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
     var pageCount = 4
   }
 
-  private var lottieView: LottieAnimationView? = null
-  private var skipButton: Button? = null
-  private var nextButton: Button? = null
-  private var redeemBonus: Button? = null
-  private var checkBox: CheckBox? = null
-  private var warningText: TextView? = null
-  private var termsConditionsLayout: LinearLayout? = null
-  private var pageIndicatorView: PageIndicatorView? = null
+  private lateinit var lottieView: LottieAnimationView
+  private lateinit var skipButton: Button
+  private lateinit var nextButton: Button
+  private lateinit var redeemBonus: Button
+  private lateinit var checkBox: CheckBox
+  private lateinit var warningText: TextView
+  private lateinit var termsConditionsLayout: LinearLayout
+  private lateinit var pageIndicatorView: PageIndicatorView
 
   init {
     init()
@@ -45,6 +45,7 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
     termsConditionsLayout = view.findViewById(R.id.terms_conditions_layout)
     pageIndicatorView = view.findViewById(R.id.page_indicator)
     updatePageIndicator(0)
+    handleUI(0)
   }
 
   private fun animateCheckboxUp(layout: LinearLayout) {
@@ -84,9 +85,9 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
   }
 
   override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-    lottieView!!.progress =
+    lottieView.progress =
         position * (1f / ANIMATION_TRANSITIONS) + positionOffset * (1f / ANIMATION_TRANSITIONS)
-    checkBox!!.setOnClickListener { handleUI(position) }
+    checkBox.setOnClickListener { handleUI(position) }
     updatePageIndicator(position)
     handleUI(position)
   }
@@ -100,69 +101,69 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
   }
 
   private fun showLastPageLayout() {
-    if (skipButton!!.visibility == View.VISIBLE) {
-      animateHideButton(skipButton!!)
-      skipButton!!.visibility = View.GONE
+    if (skipButton.visibility == View.VISIBLE) {
+      animateHideButton(skipButton)
+      skipButton.visibility = View.GONE
     }
 
-    if (checkBox!!.isChecked) {
-      if (nextButton!!.visibility == View.GONE) {
-        animateShowButton(nextButton!!)
-        nextButton!!.visibility = View.VISIBLE
-        animateShowButton(redeemBonus!!)
-        redeemBonus!!.visibility = View.VISIBLE
-        animateCheckboxUp(termsConditionsLayout!!)
-        termsConditionsLayout!!.visibility = View.VISIBLE
+    if (checkBox.isChecked) {
+      if (nextButton.visibility == View.GONE) {
+        animateShowButton(nextButton)
+        nextButton.visibility = View.VISIBLE
+        animateShowButton(redeemBonus)
+        redeemBonus.visibility = View.VISIBLE
+        animateCheckboxUp(termsConditionsLayout)
+        termsConditionsLayout.visibility = View.VISIBLE
       }
-      if (warningText!!.visibility == View.VISIBLE) {
-        animateHideWarning(warningText!!)
-        warningText!!.visibility = View.GONE
+      if (warningText.visibility == View.VISIBLE) {
+        animateHideWarning(warningText)
+        warningText.visibility = View.GONE
       }
 
-      if (termsConditionsLayout!!.visibility == View.GONE) {
-        termsConditionsLayout!!.visibility = View.VISIBLE
-        animateCheckboxUp(termsConditionsLayout!!)
+      if (termsConditionsLayout.visibility == View.GONE) {
+        termsConditionsLayout.visibility = View.VISIBLE
+        animateCheckboxUp(termsConditionsLayout)
       }
     } else {
-      if (warningText!!.visibility == View.GONE) {
-        animateShowWarning(warningText!!)
-        warningText!!.visibility = View.VISIBLE
+      if (warningText.visibility == View.GONE) {
+        animateShowWarning(warningText)
+        warningText.visibility = View.VISIBLE
       }
-      if (nextButton!!.visibility == View.VISIBLE) {
-        animateHideButton(nextButton!!)
-        nextButton!!.visibility = View.GONE
-        animateHideButton(redeemBonus!!)
-        redeemBonus!!.visibility = View.GONE
+      if (nextButton.visibility == View.VISIBLE) {
+        animateHideButton(nextButton)
+        nextButton.visibility = View.GONE
+        animateHideButton(redeemBonus)
+        redeemBonus.visibility = View.GONE
       }
 
-      if (termsConditionsLayout!!.visibility == View.GONE) {
-        termsConditionsLayout!!.visibility = View.VISIBLE
-        animateCheckboxDown(termsConditionsLayout!!)
+      if (termsConditionsLayout.visibility == View.GONE) {
+        termsConditionsLayout.visibility = View.VISIBLE
+        animateCheckboxDown(termsConditionsLayout)
       }
     }
   }
 
   private fun showFirstPageLayout() {
-    if (skipButton!!.visibility == View.GONE) {
-      animateShowButton(skipButton!!)
-      skipButton!!.visibility = View.VISIBLE
+    if (skipButton.visibility == View.GONE) {
+      animateShowButton(skipButton)
+      skipButton.visibility = View.VISIBLE
     }
 
-    if (nextButton!!.visibility == View.VISIBLE) {
-      animateHideButton(nextButton!!)
-      nextButton!!.visibility = View.GONE
-      animateHideButton(redeemBonus!!)
-      redeemBonus!!.visibility = View.GONE
+    if (nextButton.visibility == View.VISIBLE) {
+      animateHideButton(nextButton)
+      nextButton.visibility = View.GONE
+      animateHideButton(redeemBonus)
+      redeemBonus.visibility = View.GONE
     }
 
-    if (termsConditionsLayout!!.visibility == View.VISIBLE) {
-      animateCheckboxDown(termsConditionsLayout!!)
-      termsConditionsLayout!!.visibility = View.GONE
+    if (termsConditionsLayout.visibility == View.VISIBLE) {
+      animateCheckboxDown(termsConditionsLayout)
+      termsConditionsLayout.visibility = View.GONE
     }
 
-    if (warningText!!.visibility == View.VISIBLE) {
-      animateHideWarning(warningText!!)
-      warningText!!.visibility = View.GONE
+    if (warningText.visibility == View.VISIBLE) {
+      animateHideWarning(warningText)
+      warningText.visibility = View.GONE
     }
   }
 
@@ -174,7 +175,7 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
     } else {
       pageCount - position - 1
     }
-    pageIndicatorView!!.setSelected(pos)
+    pageIndicatorView.setSelected(pos)
   }
 
   override fun onPageSelected(position: Int) {

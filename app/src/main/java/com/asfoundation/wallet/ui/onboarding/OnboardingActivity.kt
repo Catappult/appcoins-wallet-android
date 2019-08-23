@@ -40,7 +40,6 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
   private lateinit var browserRouter: ExternalBrowserRouter
   private lateinit var presenter: OnboardingPresenter
   private var linkSubject: PublishSubject<String>? = null
-  private val compositeDisposable = CompositeDisposable()
 
   companion object {
     fun newInstance(): OnboardingActivity {
@@ -100,6 +99,10 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     onboarding_viewpager.adapter = OnboardingPageAdapter()
     onboarding_viewpager.registerOnPageChangeCallback(
         OnboardingPageChangeListener(onboarding_content))
+
+    onboarding_content.visibility = View.VISIBLE
+    wallet_creation_animation.visibility = View.GONE
+    layout_validation_no_internet.visibility = View.GONE
   }
 
   override fun getNextButtonClick(): Observable<Any> {
@@ -137,9 +140,10 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
       intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
       startActivity(intent)
     }
+    presenter.markOnboardingCompleted()
   }
 
-  override fun finishOnboarding(walletValidationStatus: WalletValidationStatus?,
+  override fun finishOnboarding(walletValidationStatus: WalletValidationStatus,
                                 showAnimation: Boolean) {
     if (!showAnimation) {
       navigate(walletValidationStatus)

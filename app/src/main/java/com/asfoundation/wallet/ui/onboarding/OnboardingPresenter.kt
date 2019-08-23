@@ -9,6 +9,7 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
+import io.reactivex.functions.Function3
 import io.reactivex.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 
@@ -21,8 +22,9 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
                           private val walletCreated: PublishSubject<Boolean>) {
 
   fun present() {
+    view.setupUi()
     handleSkipClicks()
-    handleSkipedOnboarding()
+    handleSkippedOnboarding()
     handleLinkClick()
     handleCreateWallet()
     handleRedeemButtonClicks()
@@ -67,7 +69,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
     disposables.add(
         view.getLaterButtonClicks()
             .doOnNext {
-              finishOnBoarding(null, false)
+              finishOnBoarding(WalletValidationStatus.SUCCESS, false)
             }.subscribe())
   }
 
@@ -89,7 +91,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
     )
   }
 
-  private fun handleValidationStatus(walletValidationStatus: WalletValidationStatus?,
+  private fun handleValidationStatus(walletValidationStatus: WalletValidationStatus,
                                      showAnimation: Boolean) {
     if (walletValidationStatus == WalletValidationStatus.NO_NETWORK) {
       view.showNoInternetView()
@@ -106,7 +108,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
             .doOnNext { view.showLoading() }
             .delay(1, TimeUnit.SECONDS)
             .observeOn(viewScheduler)
-            .doOnNext { finishOnBoarding(null, true) }
+            .doOnNext { finishOnBoarding(WalletValidationStatus.SUCCESS, true) }
             .subscribe()
     )
   }
@@ -121,15 +123,16 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
             .subscribe())
   }
 
-  private fun handleSkipedOnboarding() {
+  private fun handleSkippedOnboarding() {
     disposables.add(
         Observable.zip(isWalletCreated(),
             Observable.fromCallable { onboardingInteract.hasClickedSkipOnboarding() }.filter { clicked -> clicked },
-            BiFunction { _: Boolean, _: Any -> }
+            Observable.fromCallable { onboardingInteract.hasOnboardingCompleted() }.filter { clicked -> clicked },
+            Function3 { _: Any, _: Any, _: Any -> }
         )
             .delay(1, TimeUnit.SECONDS)
             .observeOn(viewScheduler)
-            .doOnNext { finishOnBoarding(null, true) }
+            .doOnNext { finishOnBoarding(WalletValidationStatus.SUCCESS, true) }
             .subscribe()
     )
   }
@@ -142,10 +145,13 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
     )
   }
 
-  private fun finishOnBoarding(walletValidationStatus: WalletValidationStatus?,
+  fun markOnboardingCompleted() {
+    onboardingInteract.finishOnboarding()
+  }
+
+  private fun finishOnBoarding(walletValidationStatus: WalletValidationStatus,
                                showAnimation: Boolean) {
     onboardingInteract.clickSkipOnboarding()
-    onboardingInteract.finishOnboarding()
     view.finishOnboarding(walletValidationStatus, showAnimation)
   }
 }
