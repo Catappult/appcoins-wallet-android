@@ -93,11 +93,41 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
 
   private fun handleUI(position: Int) {
     if (position < 3) {
-      if (skipButton!!.visibility == View.GONE) {
-        animateShowButton(skipButton!!)
-        skipButton!!.visibility = View.VISIBLE
+      showFirstPageLayout()
+    } else if (position == 3) {
+      showLastPageLayout()
+    }
+  }
+
+  private fun showLastPageLayout() {
+    if (skipButton!!.visibility == View.VISIBLE) {
+      animateHideButton(skipButton!!)
+      skipButton!!.visibility = View.GONE
+    }
+
+    if (checkBox!!.isChecked) {
+      if (nextButton!!.visibility == View.GONE) {
+        animateShowButton(nextButton!!)
+        nextButton!!.visibility = View.VISIBLE
+        animateShowButton(redeemBonus!!)
+        redeemBonus!!.visibility = View.VISIBLE
+        animateCheckboxUp(termsConditionsLayout!!)
+        termsConditionsLayout!!.visibility = View.VISIBLE
+      }
+      if (warningText!!.visibility == View.VISIBLE) {
+        animateHideWarning(warningText!!)
+        warningText!!.visibility = View.GONE
       }
 
+      if (termsConditionsLayout!!.visibility == View.GONE) {
+        termsConditionsLayout!!.visibility = View.VISIBLE
+        animateCheckboxUp(termsConditionsLayout!!)
+      }
+    } else {
+      if (warningText!!.visibility == View.GONE) {
+        animateShowWarning(warningText!!)
+        warningText!!.visibility = View.VISIBLE
+      }
       if (nextButton!!.visibility == View.VISIBLE) {
         animateHideButton(nextButton!!)
         nextButton!!.visibility = View.GONE
@@ -105,53 +135,34 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
         redeemBonus!!.visibility = View.GONE
       }
 
-      if (termsConditionsLayout!!.visibility == View.VISIBLE) {
-        animateCheckboxDown(termsConditionsLayout!!)
-        termsConditionsLayout!!.visibility = View.GONE
-      }
-
-      if (warningText!!.visibility == View.VISIBLE) {
-        animateHideWarning(warningText!!)
-        warningText!!.visibility = View.GONE
-      }
-
-    } else if (position == 3) {
-      if (skipButton!!.visibility == View.VISIBLE) {
-        animateHideButton(skipButton!!)
-        skipButton!!.visibility = View.GONE
-      }
-
-      termsConditionsLayout!!.visibility = View.VISIBLE
-
-      if (checkBox!!.isChecked) {
-        if (nextButton!!.visibility == View.GONE) {
-          animateShowButton(nextButton!!)
-          nextButton!!.visibility = View.VISIBLE
-          animateShowButton(redeemBonus!!)
-          redeemBonus!!.visibility = View.VISIBLE
-          animateCheckboxUp(termsConditionsLayout!!)
-          termsConditionsLayout!!.visibility = View.VISIBLE
-        }
-        if (warningText!!.visibility == View.VISIBLE) {
-          animateHideWarning(warningText!!)
-          warningText!!.visibility = View.GONE
-        }
-
-        animateCheckboxUp(termsConditionsLayout!!)
-      } else {
-        if (warningText!!.visibility == View.GONE) {
-          animateShowWarning(warningText!!)
-          warningText!!.visibility = View.VISIBLE
-        }
-        if (nextButton!!.visibility == View.VISIBLE) {
-          animateHideButton(nextButton!!)
-          nextButton!!.visibility = View.GONE
-          animateHideButton(redeemBonus!!)
-          redeemBonus!!.visibility = View.GONE
-        }
-
+      if (termsConditionsLayout!!.visibility == View.GONE) {
+        termsConditionsLayout!!.visibility = View.VISIBLE
         animateCheckboxDown(termsConditionsLayout!!)
       }
+    }
+  }
+
+  private fun showFirstPageLayout() {
+    if (skipButton!!.visibility == View.GONE) {
+      animateShowButton(skipButton!!)
+      skipButton!!.visibility = View.VISIBLE
+    }
+
+    if (nextButton!!.visibility == View.VISIBLE) {
+      animateHideButton(nextButton!!)
+      nextButton!!.visibility = View.GONE
+      animateHideButton(redeemBonus!!)
+      redeemBonus!!.visibility = View.GONE
+    }
+
+    if (termsConditionsLayout!!.visibility == View.VISIBLE) {
+      animateCheckboxDown(termsConditionsLayout!!)
+      termsConditionsLayout!!.visibility = View.GONE
+    }
+
+    if (warningText!!.visibility == View.VISIBLE) {
+      animateHideWarning(warningText!!)
+      warningText!!.visibility = View.GONE
     }
   }
 

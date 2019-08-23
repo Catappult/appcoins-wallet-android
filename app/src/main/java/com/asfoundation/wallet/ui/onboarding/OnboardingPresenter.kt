@@ -17,11 +17,11 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
                           private val onboardingInteract: OnboardingInteract,
                           private val viewScheduler: Scheduler,
                           private val smsValidationInteract: SmsValidationInteract,
-                          private val networkScheduler: Scheduler) {
-
-  private var walletCreated: PublishSubject<Boolean> = PublishSubject.create()
+                          private val networkScheduler: Scheduler,
+                          private val walletCreated: PublishSubject<Boolean>) {
 
   fun present() {
+    handleSkipClicks()
     handleSkipedOnboarding()
     handleLinkClick()
     handleCreateWallet()
@@ -33,6 +33,14 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
 
   fun stop() {
     disposables.clear()
+  }
+
+  private fun handleSkipClicks() {
+    disposables.add(
+        view.getSkipClicks()
+            .doOnNext { view.showViewPagerLastPage() }
+            .subscribe()
+    )
   }
 
   private fun isWalletCreated(): Observable<Boolean> {
@@ -49,9 +57,9 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
               smsValidationInteract.isValid(Wallet(it))
                   .subscribeOn(networkScheduler)
             }
-            .delay(1, TimeUnit.SECONDS)
             .observeOn(viewScheduler)
-            .subscribe({ onNext(it, false) }, {})
+            .doOnNext { handleValidationStatus(it, false) }
+            .subscribe()
     )
   }
 
@@ -68,6 +76,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
         Observable.zip(isWalletCreated(), view.getRedeemButtonClick(),
             BiFunction { _: Boolean, _: Any -> }
         )
+            .doOnNext { view.showLoading() }
             .flatMapSingle { onboardingInteract.getWalletAddress() }
             .flatMapSingle {
               smsValidationInteract.isValid(Wallet(it))
@@ -75,11 +84,13 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
             }
             .delay(1, TimeUnit.SECONDS)
             .observeOn(viewScheduler)
-            .subscribe({ onNext(it, true) }, {})
+            .doOnNext { handleValidationStatus(it, true) }
+            .subscribe()
     )
   }
 
-  private fun onNext(walletValidationStatus: WalletValidationStatus?, showAnimation: Boolean) {
+  private fun handleValidationStatus(walletValidationStatus: WalletValidationStatus?,
+                                     showAnimation: Boolean) {
     if (walletValidationStatus == WalletValidationStatus.NO_NETWORK) {
       view.showNoInternetView()
     } else {
@@ -92,9 +103,11 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
         Observable.zip(isWalletCreated(), view.getNextButtonClick(),
             BiFunction { _: Boolean, _: Any -> }
         )
+            .doOnNext { view.showLoading() }
             .delay(1, TimeUnit.SECONDS)
             .observeOn(viewScheduler)
-            .subscribe({ finishOnBoarding(null, true) }, {})
+            .doOnNext { finishOnBoarding(null, true) }
+            .subscribe()
     )
   }
 
@@ -116,17 +129,17 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
         )
             .delay(1, TimeUnit.SECONDS)
             .observeOn(viewScheduler)
-            .subscribe({ finishOnBoarding(null, true) }, {})
+            .doOnNext { finishOnBoarding(null, true) }
+            .subscribe()
     )
   }
 
   private fun handleLinkClick() {
-    view.getLinkClick()
-        ?.doOnNext { uri ->
-          view.navigateToBrowser(Uri.parse(uri))
-        }
-        ?.subscribe()
-        ?.let { disposables.add(it) }
+    disposables.add(
+        view.getLinkClick()
+            .doOnNext { uri -> view.navigateToBrowser(Uri.parse(uri)) }
+            .subscribe()
+    )
   }
 
   private fun finishOnBoarding(walletValidationStatus: WalletValidationStatus?,

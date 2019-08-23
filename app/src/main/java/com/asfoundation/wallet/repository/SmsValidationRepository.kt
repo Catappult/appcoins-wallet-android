@@ -59,10 +59,20 @@ class SmsValidationRepository(
           else -> WalletValidationStatus.GENERIC_ERROR
         }
       }
-      is IOException,
-      is UnknownHostException -> WalletValidationStatus.NO_NETWORK
-      else -> WalletValidationStatus.GENERIC_ERROR
+      else -> {
+        if (isNoNetworkException(throwable)) {
+          WalletValidationStatus.NO_NETWORK
+        } else {
+          WalletValidationStatus.GENERIC_ERROR
+        }
+      }
     }
+  }
+
+  private fun isNoNetworkException(throwable: Throwable): Boolean {
+    return throwable is IOException ||
+        throwable.cause != null && throwable.cause is IOException ||
+        throwable is UnknownHostException
   }
 
 }

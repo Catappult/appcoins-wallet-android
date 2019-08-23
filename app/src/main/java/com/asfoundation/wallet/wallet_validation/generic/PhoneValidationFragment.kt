@@ -88,14 +88,14 @@ class PhoneValidationFragment : DaggerFragment(),
   override fun showNoInternetView() {
     walletValidationView?.hideProgressAnimation()
     stopRetryAnimation()
-    content_main!!.visibility = View.GONE
-    layout_validation_no_internet!!.visibility = View.VISIBLE
+    content_main.visibility = View.GONE
+    layout_validation_no_internet.visibility = View.VISIBLE
   }
 
   override fun hideNoInternetView() {
     walletValidationView?.showProgressAnimation()
-    content_main!!.visibility = View.VISIBLE
-    layout_validation_no_internet!!.visibility = View.GONE
+    content_main.visibility = View.VISIBLE
+    layout_validation_no_internet.visibility = View.GONE
   }
 
   override fun getRetryButtonClicks(): Observable<Pair<String, String>> {
@@ -168,16 +168,16 @@ class PhoneValidationFragment : DaggerFragment(),
   }
 
   private fun stopRetryAnimation() {
-    retry_button!!.visibility = View.VISIBLE
-    later_button!!.visibility = View.VISIBLE
-    retry_animation!!.visibility = View.GONE
+    retry_button.visibility = View.VISIBLE
+    later_button.visibility = View.VISIBLE
+    retry_animation.visibility = View.GONE
   }
 
   private fun playRetryAnimation() {
-    retry_button!!.visibility = View.GONE
-    later_button!!.visibility = View.GONE
-    retry_animation!!.visibility = View.VISIBLE
-    retry_animation!!.playAnimation()
+    retry_button.visibility = View.GONE
+    later_button.visibility = View.GONE
+    retry_animation.visibility = View.VISIBLE
+    retry_animation.playAnimation()
   }
 
   override fun onAttach(context: Context) {

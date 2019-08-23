@@ -14,31 +14,31 @@
   <include
       android:id="@+id/code_1"
       layout="@layout/single_sms_input_layout"
-      ></include>
+      />
 
   <include
       android:id="@+id/code_2"
       layout="@layout/single_sms_input_layout"
-      ></include>
+      />
 
   <include
       android:id="@+id/code_3"
       layout="@layout/single_sms_input_layout"
-      ></include>
+      />
 
   <include
       android:id="@+id/code_4"
       layout="@layout/single_sms_input_layout"
-      ></include>
+      />
 
   <include
       android:id="@+id/code_5"
       layout="@layout/single_sms_input_layout"
-      ></include>
+      />
 
   <include
       android:id="@+id/code_6"
       layout="@layout/single_sms_input_layout"
-      ></include>
+      />
 
 </LinearLayout>

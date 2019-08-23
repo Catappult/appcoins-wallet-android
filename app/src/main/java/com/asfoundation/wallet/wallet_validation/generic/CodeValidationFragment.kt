@@ -271,52 +271,52 @@ class CodeValidationFragment : DaggerFragment(),
   }
 
   override fun showLoading() {
-    content!!.visibility = View.GONE
-    referral_status!!.visibility = View.GONE
-    animation_validating_code!!.visibility = View.VISIBLE
-    validate_code_animation!!.playAnimation()
+    content.visibility = View.GONE
+    referral_status.visibility = View.GONE
+    animation_validating_code.visibility = View.VISIBLE
+    validate_code_animation.playAnimation()
   }
 
   override fun showReferralEligible() {
     walletValidationView?.showLastStepAnimation()
-    content!!.visibility = View.GONE
-    animation_validating_code!!.visibility = View.GONE
-    referral_status!!.visibility = View.VISIBLE
-    referral_status_title!!.setText(R.string.referral_verification_confirmation_title)
-    referral_status_body!!.setText(R.string.referral_verification_confirmation_body)
-    referral_status_animation!!.setAnimation(R.raw.referral_invited)
-    referral_status_animation!!.playAnimation()
+    content.visibility = View.GONE
+    animation_validating_code.visibility = View.GONE
+    referral_status.visibility = View.VISIBLE
+    referral_status_title.setText(R.string.referral_verification_confirmation_title)
+    referral_status_body.setText(R.string.referral_verification_confirmation_body)
+    referral_status_animation.setAnimation(R.raw.referral_invited)
+    referral_status_animation.playAnimation()
   }
 
   override fun showReferralIneligible() {
     walletValidationView?.showLastStepAnimation()
-    content!!.visibility = View.GONE
-    animation_validating_code!!.visibility = View.GONE
-    referral_status!!.visibility = View.VISIBLE
-    referral_status_title!!.setText(R.string.referral_verification_not_invited_title)
-    referral_status_body!!.setText(R.string.referral_verification_not_invited_body)
-    referral_status_animation!!.setAnimation(R.raw.referral_not_invited)
-    referral_status_animation!!.playAnimation()
+    content.visibility = View.GONE
+    animation_validating_code.visibility = View.GONE
+    referral_status.visibility = View.VISIBLE
+    referral_status_title.setText(R.string.referral_verification_not_invited_title)
+    referral_status_body.setText(R.string.referral_verification_not_invited_body)
+    referral_status_animation.setAnimation(R.raw.referral_not_invited)
+    referral_status_animation.playAnimation()
   }
 
   override fun showNoInternetView() {
     walletValidationView?.hideProgressAnimation()
     stopRetryAnimation()
-    content!!.visibility = View.GONE
-    referral_status!!.visibility = View.GONE
-    animation_validating_code!!.visibility = View.GONE
-    layout_validation_no_internet!!.visibility = View.VISIBLE
+    content.visibility = View.GONE
+    referral_status.visibility = View.GONE
+    animation_validating_code.visibility = View.GONE
+    layout_validation_no_internet.visibility = View.VISIBLE
   }
 
   override fun hideNoInternetView() {
     walletValidationView?.showProgressAnimation()
-    layout_validation_no_internet!!.visibility = View.GONE
+    layout_validation_no_internet.visibility = View.GONE
   }
 
   private fun stopRetryAnimation() {
-    retry_button!!.visibility = View.VISIBLE
-    later_button!!.visibility = View.VISIBLE
-    retry_animation!!.visibility = View.GONE
+    retry_button.visibility = View.VISIBLE
+    later_button.visibility = View.VISIBLE
+    retry_animation.visibility = View.GONE
   }
 
   override fun onDestroy() {

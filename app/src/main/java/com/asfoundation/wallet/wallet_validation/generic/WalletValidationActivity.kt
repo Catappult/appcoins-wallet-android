@@ -44,17 +44,17 @@ class WalletValidationActivity : BaseActivity(),
   }
 
   private fun setupUI() {
-    validation_progress_animation!!.setMinAndMaxFrame(minFrame, maxFrame)
-    validation_progress_animation!!.repeatCount = loopAnimation
-    validation_progress_animation!!.playAnimation()
+    validation_progress_animation.setMinAndMaxFrame(minFrame, maxFrame)
+    validation_progress_animation.repeatCount = loopAnimation
+    validation_progress_animation.playAnimation()
   }
 
   override fun showProgressAnimation() {
-    validation_progress_animation!!.visibility = View.VISIBLE
+    validation_progress_animation.visibility = View.VISIBLE
   }
 
   override fun hideProgressAnimation() {
-    validation_progress_animation!!.visibility = View.INVISIBLE
+    validation_progress_animation.visibility = View.INVISIBLE
   }
 
   override fun showPhoneValidationView(countryCode: String?, phoneNumber: String?,
@@ -102,9 +102,9 @@ class WalletValidationActivity : BaseActivity(),
   }
 
   private fun updateAnimation() {
-    validation_progress_animation!!.removeAllAnimatorListeners()
-    validation_progress_animation!!.setMinAndMaxFrame(minFrame, maxFrame)
-    validation_progress_animation!!.repeatCount = loopAnimation
+    validation_progress_animation.removeAllAnimatorListeners()
+    validation_progress_animation.setMinAndMaxFrame(minFrame, maxFrame)
+    validation_progress_animation.repeatCount = loopAnimation
     validation_progress_animation.addAnimatorListener(object : Animator.AnimatorListener {
       override fun onAnimationRepeat(animation: Animator?) {
       }
@@ -113,9 +113,9 @@ class WalletValidationActivity : BaseActivity(),
         minFrame += FRAME_RATE
         maxFrame += FRAME_RATE
         loopAnimation = -1
-        validation_progress_animation!!.setMinAndMaxFrame(minFrame, maxFrame)
-        validation_progress_animation!!.repeatCount = loopAnimation
-        validation_progress_animation!!.playAnimation()
+        validation_progress_animation.setMinAndMaxFrame(minFrame, maxFrame)
+        validation_progress_animation.repeatCount = loopAnimation
+        validation_progress_animation.playAnimation()
       }
 
       override fun onAnimationCancel(animation: Animator?) {
@@ -149,11 +149,11 @@ class WalletValidationActivity : BaseActivity(),
     this.maxFrame = maxFrame
     loopAnimation = loop
 
-    validation_progress_animation!!.removeAllAnimatorListeners()
-    validation_progress_animation!!.setMinAndMaxFrame(this.minFrame, this.maxFrame)
-    validation_progress_animation!!.repeatCount = loopAnimation
-    validation_progress_animation!!.reverseAnimationSpeed()
-    validation_progress_animation!!.playAnimation()
+    validation_progress_animation.removeAllAnimatorListeners()
+    validation_progress_animation.setMinAndMaxFrame(this.minFrame, this.maxFrame)
+    validation_progress_animation.repeatCount = loopAnimation
+    validation_progress_animation.reverseAnimationSpeed()
+    validation_progress_animation.playAnimation()
   }
 
 }

@@ -12,17 +12,19 @@ interface OnboardingView {
 
   fun finishOnboarding(walletValidationStatus: WalletValidationStatus?, showAnimation: Boolean)
 
-  fun navigate(walletValidationStatus: WalletValidationStatus?)
-
   fun getNextButtonClick(): Observable<Any>
 
   fun getRedeemButtonClick(): Observable<Any>
 
-  fun getLinkClick(): Observable<String>?
+  fun getLinkClick(): Observable<String>
+
+  fun getSkipClicks(): Observable<Any>
 
   fun navigateToBrowser(uri: Uri)
 
   fun showNoInternetView()
+
+  fun showViewPagerLastPage()
 
   fun getRetryButtonClicks(): Observable<Any>
 

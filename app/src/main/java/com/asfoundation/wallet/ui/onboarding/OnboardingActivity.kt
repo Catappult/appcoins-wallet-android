@@ -58,7 +58,8 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     browserRouter = ExternalBrowserRouter()
     linkSubject = PublishSubject.create()
     presenter = OnboardingPresenter(CompositeDisposable(), this, interactor,
-        AndroidSchedulers.mainThread(), smsValidationInteract, Schedulers.io())
+        AndroidSchedulers.mainThread(), smsValidationInteract, Schedulers.io(),
+        PublishSubject.create())
     setupUi()
   }
 
@@ -99,28 +100,26 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     onboarding_viewpager.adapter = OnboardingPageAdapter()
     onboarding_viewpager.registerOnPageChangeCallback(
         OnboardingPageChangeListener(onboarding_content))
-
-    compositeDisposable.add(
-        RxView.clicks(skip_button)
-            .subscribe {
-              onboarding_viewpager.setCurrentItem(onboarding_viewpager.adapter?.itemCount ?: 0,
-                  true)
-            }
-    )
   }
 
   override fun getNextButtonClick(): Observable<Any> {
     return RxView.clicks(next_button)
-        .map { showLoading() }
   }
 
   override fun getRedeemButtonClick(): Observable<Any> {
     return RxView.clicks(redeem_bonus)
-        .map { showLoading() }
   }
 
-  override fun getLinkClick(): Observable<String>? {
-    return linkSubject
+  override fun getSkipClicks(): Observable<Any> {
+    return RxView.clicks(skip_button)
+  }
+
+  override fun showViewPagerLastPage() {
+    onboarding_viewpager.setCurrentItem(onboarding_viewpager.adapter?.itemCount ?: 0, true)
+  }
+
+  override fun getLinkClick(): Observable<String> {
+    return linkSubject!!
   }
 
   override fun showLoading() {
@@ -130,13 +129,13 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     create_wallet_animation.playAnimation()
   }
 
-  override fun navigate(walletValidationStatus: WalletValidationStatus?) {
+  private fun navigate(walletValidationStatus: WalletValidationStatus?) {
     if (walletValidationStatus == null || walletValidationStatus == WalletValidationStatus.SUCCESS) {
-      TransactionsRouter().open(applicationContext, true)
+      TransactionsRouter().open(this, true)
     } else {
-      val intent = WalletValidationActivity.newIntent(applicationContext)
+      val intent = WalletValidationActivity.newIntent(this)
       intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-      applicationContext.startActivity(intent)
+      startActivity(intent)
     }
   }
 
@@ -196,7 +195,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     stopRetryAnimation()
     onboarding_content.visibility = View.GONE
     wallet_creation_animation.visibility = View.GONE
-    layout_validation_no_internet!!.visibility = View.VISIBLE
+    layout_validation_no_internet.visibility = View.VISIBLE
   }
 
   override fun getRetryButtonClicks(): Observable<Any> {
@@ -210,15 +209,15 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
   }
 
   private fun playRetryAnimation() {
-    retry_button!!.visibility = View.GONE
-    later_button!!.visibility = View.GONE
-    retry_animation!!.visibility = View.VISIBLE
-    retry_animation!!.playAnimation()
+    retry_button.visibility = View.GONE
+    later_button.visibility = View.GONE
+    retry_animation.visibility = View.VISIBLE
+    retry_animation.playAnimation()
   }
 
   private fun stopRetryAnimation() {
-    retry_button!!.visibility = View.VISIBLE
-    later_button!!.visibility = View.VISIBLE
-    retry_animation!!.visibility = View.GONE
+    retry_button.visibility = View.VISIBLE
+    later_button.visibility = View.VISIBLE
+    retry_animation.visibility = View.GONE
   }
 }

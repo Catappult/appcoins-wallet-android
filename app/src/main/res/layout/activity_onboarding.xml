@@ -137,7 +137,6 @@
         android:layout_marginEnd="20dp"
         android:gravity="center"
         android:orientation="horizontal"
-        android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@id/onboarding_viewpager"
         >
       <CheckBox
@@ -180,14 +179,14 @@
         style="@style/CancelBorderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/button_height"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="30dp"
         android:maxWidth="126dp"
         android:minWidth="80dp"
         android:text="@string/skip_with_arrow"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/terms_conditions_layout"
+        app:layout_constraintTop_toBottomOf="@id/onboarding_viewpager"
         />
 
 
