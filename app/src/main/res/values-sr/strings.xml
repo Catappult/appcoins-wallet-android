@@ -56,6 +56,7 @@
   <string name="yes_continue">Da, nastavi</string>
   <string name="no_repeat">Ne, ponovi</string>
   <string name="skip">Preskoči</string>
+  <string name="skip_with_arrow">Preskoči &gt;</string>
   <string name="root_title">BEZBEDNOST UREĐAJA JE UGROŽENA</string>
   <string name="root_body">Bilo koja „rutirana“ aplikacija može da pristupi privesku za ključeve za AppCoins Wallet i ukrade vam novčanik! Odmah obrišite ovaj novčanik i obnovite ga na bezbednom uređaju.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
@@ -114,7 +115,7 @@
   <string name="intro_3_body">Obradite sve kupovine u aplikacijama pomoću omiljenog načina plaćanja.</string>
   <string name="intro_4_title">Bezbedno i privatno</string>
   <string name="intro_4_body">Vaši privatni ključevi nikad neće napuštati uređaj, tako da su vaši AppCoins uvek bezbedni.</string>
-  <string name="intro_creating_wallet_short">Setting up your wallet for you&#8230;</string>
+  <string name="intro_creating_wallet_short">Podešavamo vam novčanik&#8230;</string>
   <string name="intro_wallet_created_short">Novčanik je napravljen!</string>
   <string name="intro_agree_terms_and_conditions_body">Ako dodirnete Preskoči, prihvatate %1$s i %2$s aplikacije AppCoins Wallet</string>
   <string name="intro_skip_button">PRESKOČI</string>
@@ -382,7 +383,9 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s%2$s</string>
   <string name="dismiss_button">Odbaci</string>
-  <string name="discover_button">Discover</string>
+  <string name="discover_button">Otkrij</string>
+  <string name="retry_button">Pokušaj ponovo</string>
+  <string name="do_it_later_button">Pokušaj kasnije</string>
   <string name="connectoin_error_body">Izgleda da niste povezani na internet. Proverite vezu pa pokušajte ponovo!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Prihvatam dokumente %1$s i %2$s aplikacije AppCoins Wallet.</string>
@@ -402,7 +405,7 @@
   <string name="verification_notification_verification_needed_title">Nagradna je spremna, ali je potrebna potvrda</string>
   <string name="verification_notification_verification_needed_body">Iz bezbednosnih razloga, moramo da potvrdimo vaš novčanik pomoću SMS koda.</string>
   <string name="verification_insert_phone_title">Unesite svoj broj telefona</string>
-  <string name="verification_insert_phone_body">Verify your wallet to get rewards! We\'ll send you a verification code.</string>
+  <string name="verification_insert_phone_body">Potvrdite novčanik da biste dobili nagrade! Poslaćemo vam kod za potvrdu.</string>
   <string name="verification_insert_phone_field_country">Zemlja</string>
   <string name="verification_insert_phone_field_number">Broj telefona</string>
   <string name="verification_insert_phone_field_number_error">Neispravan broj telefona</string>
@@ -416,11 +419,11 @@
   <string name="verification_completed_title">Gotovo!</string>
   <string name="verification_notification_reward_received_body">Dobili ste nagradu, uživajte! 👌</string>
   <string name="verification_notification_reward_already_received_body">Ovaj broj telefona se već koristio za ovu nagradu 😔</string>
-  <string name="verification_insert_phone_field_phone_used_already_error">Number already used.</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">Broj se već koristi.</string>
   <string name="verification_insert_code_error_common">Ups, došlo je do greške. Pokušajte ponovo!</string>
-  <string name="verification_settings_unverified_title">Verify Wallet</string>
-  <string name="verification_settings_unverified_body">Get rewards and invite friends</string>
-  <string name="verification_settings_verified_title">Wallet Verified</string>
+  <string name="verification_settings_unverified_title">Potvrdite novčanik</string>
+  <string name="verification_settings_unverified_body">Osvojite nagrade i pozovite prijatelje</string>
+  <string name="verification_settings_verified_title">Novčanik je potvrđen</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Izgleda da se ova kupovina već obrađuje. Sačekajte dok se transakcija ne obavi ili se obratite našem timu korisničke podrške.</string>
   <string name="purchase_more_payment_methods_button">DRUGI NAČINI PLAĆANJA</string>
@@ -430,23 +433,23 @@
   <string name="purchase_appcoins_credits_noavailable_body">Nemate dovoljno APPC Credits, dopunite ih!</string>
   <string name="purchase_appcoins_credits_default_body">Zaradili ste dovoljno AppCoins Credits za ovu kupovinu. Uživajte!</string>
   <!--Referral Program-->
-  <string name="referral_onboarding_title">Invite Your Friends!</string>
-  <string name="referral_onboarding_body">You and your friends can earn up to %s with our Referral Program!</string>
-  <string name="referral_onboarding_redeem_button">I\'ve been invited</string>
-  <string name="referral_onboarding_"></string>
-  <string name="referral_verification_title">Verify Your Wallet</string>
-  <string name="referral_verification_body">You need to verify your wallet to participate in the Referral Program. We\'ll sent you a verification code via SMS.</string>
-  <string name="referral_verification_later_button">DO IT LATER</string>
-  <string name="referral_verification_confirmation_title">Your invite was validated!</string>
-  <string name="referral_verification_confirmation_body">As soon as you make your first purchase you\'ll get %s worth of AppCoins Credits.</string>
-  <string name="referral_verification_not_invited_title">It seems this number wasn\’t invited&#8230;</string>
-  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃🏽</string>
-  <string name="referral_notification_bonus_pending_title">%s Referral Bonus Pending</string>
-  <string name="referral_notification_bonus_pending_body">Make your first in-app purchase to get your bonus.</string>
-  <string name="referral_view_title">Invite Friends</string>
-  <string name="referral_view_title_1">Invite Friends and Earn More!</string>
-  <string name="referral_view_verified_body">Receive %s worth of AppCoins Credits for each friend. Just share the link!</string>
-  <string name="referral_view_share_link_button">SHARE INVITE LINK</string>
+  <string name="referral_onboarding_title">Pozovite prijatelje!</string>
+  <string name="referral_onboarding_body">Vi i vaši prijatelji možete da zaradite do %s pomoću našeg programa preporuka!</string>
+  <string name="referral_onboarding_redeem_button">Pozvan/a sam</string>
+  <string name="referral_verification_title">Potvrdite svoj novčanik</string>
+  <string name="referral_verification_body">Da biste učestvovali u programu preporuka, morate da potvrdite novčanik. Kod za potvrdu ćemo vam poslati u SMS poruci.</string>
+  <string name="referral_verification_confirmation_title">Vaš poziv je potvrđen!</string>
+  <string name="referral_verification_confirmation_body">Čim obavite prvu kupovinu dobićete AppCoins Credits u vrednosti od %s.</string>
+  <string name="referral_verification_not_invited_title">Izgleda da ovaj broj nije pozvan&#8230;</string>
+  <string name="referral_verification_not_invited_body">Ali ipak možete da zaradite do %s ako pozovete prijatelje! 💃🏽</string>
+  <string name="referral_notification_bonus_pending_title">%s bonusa za preporuku je na čekanju</string>
+  <string name="referral_notification_bonus_pending_body">Obavite prvu kupovinu u aplikaciji da biste dobili bonus.</string>
+  <string name="referral_view_title">Pozovite prijatelje</string>
+  <string name="referral_view_title_1">Pozovite prijatelje i dodatno zaradite!</string>
+  <string name="referral_view_verified_body">Za svakog prijatelja ćete dobiti AppCoins Credits u vrednosti od %s. Jednostavno podelite link!</string>
+  <string name="referral_view_share_link_button">PODELI LINK KA POZIVU</string>
+  <string name="referral_view_notifications_title">Obaveštenja</string>
+  <string name="referral_share_sheet_title">Share invite link via:</string>
   <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
   <string name="referral_view_verify_button">VERIFY WALLET</string>
   <string name="referral_view_i_have_been_invited_button">I\'VE BEEN INVITED</string>
