@@ -56,6 +56,7 @@
   <string name="yes_continue">Oui, continuer</string>
   <string name="no_repeat">Non, répéter</string>
   <string name="skip">Passer</string>
+  <string name="skip_with_arrow">Passer &gt;</string>
   <string name="root_title">SÉCURITÉ DE L\'APPAREIL COMPROMISE</string>
   <string name="root_body">N’importe quelle application « rootée » peut accéder aux données du portefeuille AppCoins et le voler ! Effacez immédiatement ce portefeuille et restaurez sur un appareil sûr.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
@@ -114,7 +115,7 @@
   <string name="intro_3_body">Traitez tous vos achats in-app en utilisant votre méthode de paiement préférée.</string>
   <string name="intro_4_title">Sécurisé et privé</string>
   <string name="intro_4_body">Vos clés privées ne quitterons jamais votre appareil, vos AppCoins sont donc sécurisés en permanence.</string>
-  <string name="intro_creating_wallet_short">Nous créons un portefeuille pour vous&#8230;</string>
+  <string name="intro_creating_wallet_short">Configurer votre portefeuille pour vous&#8230;</string>
   <string name="intro_wallet_created_short">Portefeuille créé !</string>
   <string name="intro_agree_terms_and_conditions_body">En tapant sur Passer, vous acceptez les %1$s et %2$s du portefeuille AppCoins</string>
   <string name="intro_skip_button">PASSER</string>
@@ -307,13 +308,14 @@
   <string name="gamification_purchase_appccredits_body">La méthode de paiement la plus rapide !</string>
   <string name="gamification_how_bonus_received_body">Bonus Reçu</string>
   <string name="gamification_how_appc_spent">Montant dépensé pour atteindre ce niveau</string>
-  <string name="gamification_how_to_next_level_body">Dépensez %1$s AppCoins de plus pour atteindre le niveau %2$s.</string>
+  <string name="gamification_how_to_next_level_body">Dépensez <b>%1$s AppCoins</b> de plus pour atteindre le <b>niveau %2$s</b>.</string>
   <string name="gamification_level_expiration_title">Vérification prochain niveau : %s</string>
   <string name="gamification_level_expiration_body">Votre niveau est basé sur vos achats au cours des 12 derniers mois.</string>
   <string name="gamification_leveled_up_title">Vous avez atteint le niveau suivant !</string>
   <string name="gamification_leveled_up_body">Vous obtiendrez maintenant un bonus de %s sur chaque achat. Continuez d\'acheter pour gagner encore plus !</string>
   <string name="gamification_leveled_up_notification_title">Vous avez atteint le niveau suivant !</string>
   <string name="gamification_leveled_up_notification_body">Félicitations, vous obtiendrez maintenant %s de bonus sur chaque achat !</string>
+  <string name="gamification_how_max_level_body">Félicitations ! Vous avez atteint le plus haut niveau 💃</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Autoriser le portefeuille AppCoins à fournir votre adresse de portefeuille à %s.</string>
   <string name="provide_wallet_body_placeholders">Autoriser %1$s à fournir votre adresse de portefeuille à %2$s.</string>
@@ -381,6 +383,9 @@
   <string name="value_fiat">%2$s%1$s</string>
   <string name="value_crypto">%2$s%1$s</string>
   <string name="dismiss_button">Rejeter</string>
+  <string name="discover_button">Découvrir</string>
+  <string name="retry_button">Réessayer</string>
+  <string name="do_it_later_button">Plus tard</string>
   <string name="connectoin_error_body">On dirait que vous n\'êtes pas connecté à Internet. Vérifiez votre connexion et réessayez !</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">J\'accepte les %1$s et %2$s du portefeuille AppCoins.</string>
@@ -400,7 +405,7 @@
   <string name="verification_notification_verification_needed_title">Récompense prête, mais vérification nécessaire</string>
   <string name="verification_notification_verification_needed_body">Pour des raisons de sécurité, nous devons vérifier votre portefeuille avec un code SMS.</string>
   <string name="verification_insert_phone_title">Saisissez votre numéro de téléphone</string>
-  <string name="verification_insert_phone_body">Nous vous enverrons un code de vérification.</string>
+  <string name="verification_insert_phone_body">Vérifiez votre portefeuille pour obtenir des récompenses ! Nous vous enverrons un code de vérification.</string>
   <string name="verification_insert_phone_field_country">Pays</string>
   <string name="verification_insert_phone_field_number">Numéro de Téléphone</string>
   <string name="verification_insert_phone_field_number_error">Numéro de téléphone invalide</string>
@@ -416,6 +421,9 @@
   <string name="verification_notification_reward_already_received_body">Ce numéro de téléphone a déjà été utilisé pour recevoir cette récompense 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Téléphone déjà utilisé.</string>
   <string name="verification_insert_code_error_common">Oups, quelque chose s\'est mal passé. Veuillez réessayer !</string>
+  <string name="verification_settings_unverified_title">Vérifier le portefeuille</string>
+  <string name="verification_settings_unverified_body">Obtenez des récompenses et invitez des amis</string>
+  <string name="verification_settings_verified_title">Portefeuille Vérifié</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Il semble que cet achat soit déjà en cours de traitement. Veuillez patienter jusqu\'à ce que la transaction soit terminée ou contactez notre équipe de support.</string>
   <string name="purchase_more_payment_methods_button">AUTRES METHODES DE PAIEMENT</string>
@@ -424,4 +432,40 @@
   <string name="purchase_appcoins_credits_available_body">Pas de frais et à la vitesse de l\'éclair !</string>
   <string name="purchase_appcoins_credits_noavailable_body">Vous n\'avez pas assez de crédits APPC, essayez de recharger !</string>
   <string name="purchase_appcoins_credits_default_body">Vous avez gagné suffisamment de crédits AppCoins pour cet achat. Amusez-vous bien !</string>
+  <!--Referral Program-->
+  <string name="referral_onboarding_title">Invitez vos amis !</string>
+  <string name="referral_onboarding_body">Vous et vos amis pouvez gagner jusqu\'à %s avec notre programme de parrainage !</string>
+  <string name="referral_onboarding_redeem_button">J\'ai été invité</string>
+  <string name="referral_verification_title">Vérifier votre portefeuille</string>
+  <string name="referral_verification_body">Vous devez vérifier votre portefeuille pour participer au programme de recommandation. Nous vous enverrons un code de vérification par SMS.</string>
+  <string name="referral_verification_confirmation_title">Votre invitation a été validée !</string>
+  <string name="referral_verification_confirmation_body">Dès que vous effectuez votre premier achat, vous obtenez %s de crédits AppCoins.</string>
+  <string name="referral_verification_not_invited_title">Il semble que ce numéro ne soit pas invité&#8230;</string>
+  <string name="referral_verification_not_invited_body">Mais vous pouvez toujours gagner jusqu\'à %s en invitant des amis ! 💃🏽</string>
+  <string name="referral_notification_bonus_pending_title">%s de Bonus de référence en attente</string>
+  <string name="referral_notification_bonus_pending_body">Faites votre premier achat in-app pour obtenir votre bonus.</string>
+  <string name="referral_view_title">Invitez des amis</string>
+  <string name="referral_view_title_1">Invitez des amis et gagnez plus !</string>
+  <string name="referral_view_verified_body">Recevez %s de crédits AppCoins pour chaque ami. Il suffit de partager le lien !</string>
+  <string name="referral_view_share_link_button">PARTAGER LE LIEN D\'INVITATION</string>
+  <string name="referral_view_notifications_title">Notifications</string>
+  <string name="referral_share_sheet_title">Partager le lien d\'invitation via :</string>
+  <string name="referral_view_unverified_body">Recevez %s de crédits AppCoins pour chaque ami. Vous devez d\'abord vérifier votre portefeuille.</string>
+  <string name="referral_view_verify_button">VERIFIER LE PORTEFEUILLE</string>
+  <string name="referral_view_i_have_been_invited_button">J\'AI ETE INVITE</string>
+  <string name="referral_view_dropup_menu_friends_invited">Friends invited</string>
+  <string name="referral_view_dropup_menu_earned">Earned</string>
+  <string name="referral_dropup_menu_friends_title_1">Friends Invited</string>
+  <string name="referral_dropup_menu_requirements_title">Requirements</string>
+  <string name="referral_dropup_menu_requirements_verification">Verify your wallet with a phone number</string>
+  <string name="referral_dropup_menu_requirements_purchase">Make one in-app purchase or top-up</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <!--Promotions-->
+  <string name="bottom_navigation_promotions">Promotions</string>
+  <string name="bottom_navigation_promotions_detailed">Discover how to earn free AppCoins Credits with our promotions and campaigns!</string>
+  <string name="promotions_title">Promotions</string>
+  <string name="promotions_referral_card_title">Earn up to %s by inviting friends</string>
+  <string name="promotions_referral_card_body">Share your invite link and earn AppCoins Credits.</string>
+  <string name="promotions_gamification_card_title">Up to 30% bonus on every purchase</string>
+  <string name="promotions_new">NEW</string>
 </resources>

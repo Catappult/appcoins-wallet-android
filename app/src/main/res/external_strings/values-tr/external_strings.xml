@@ -7,6 +7,6 @@
   <string name="iab_wallet_not_installed_popup_close_button">KAPAT</string>
   <string name="iab_wallet_not_installed_popup_close_install">CÜZDANI YÜKLE</string>
   <!-- SDK - PoA when wallet is not installed -->
-  <string name="poa_wallet_not_installed_notification_title">You need the AppCoins Wallet!</string>
-  <string name="poa_wallet_not_installed_notification_body">To get your reward you need the AppCoins Wallet.</string>
+  <string name="poa_wallet_not_installed_notification_title">AppCoins Wallet\'a ihtiyacınız var!</string>
+  <string name="poa_wallet_not_installed_notification_body">Ödülünüzü almak için AppCoins Wallet\'a ihtiyacınız var.</string>
 </resources>
