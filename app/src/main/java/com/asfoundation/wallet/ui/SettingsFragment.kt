@@ -7,7 +7,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.util.Log
 import android.view.View
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -60,7 +59,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     val permissionPreference = findPreference<Preference>("pref_permissions")
     permissionPreference?.setOnPreferenceClickListener {
-      Log.d("tag123", "I was here")
       openPermissionScreen()
     }
 
@@ -75,8 +73,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
       false
     }
 
-    val sourcecodePreference = findPreference<Preference>("pref_source_code")
-    sourcecodePreference?.setOnPreferenceClickListener {
+    val sourceCodePreference = findPreference<Preference>("pref_source_code")
+    sourceCodePreference?.setOnPreferenceClickListener {
       startBrowserActivity(Uri.parse("https://github.com/Aptoide/appcoins-wallet-android"), false)
       false
     }
@@ -163,14 +161,16 @@ class SettingsFragment : PreferenceFragmentCompat() {
     } catch (exception: ActivityNotFoundException) {
       exception.printStackTrace()
       if (view != null) {
-        Snackbar.make(view!!, R.string.unknown_error, Snackbar.LENGTH_SHORT)
-            .show()
+        view?.let {
+          Snackbar.make(it, R.string.unknown_error, Snackbar.LENGTH_SHORT)
+              .show()
+        }
       }
     }
   }
 
   private fun openPermissionScreen(): Boolean {
-    startActivity(ManagePermissionsActivity.newIntent(context!!))
+    context?.let { startActivity(ManagePermissionsActivity.newIntent(it)) }
     return true
   }
 
