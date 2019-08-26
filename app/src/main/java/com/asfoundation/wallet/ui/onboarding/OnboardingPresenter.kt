@@ -7,10 +7,10 @@ import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function3
-import io.reactivex.subjects.PublishSubject
+import io.reactivex.subjects.ReplaySubject
 import java.util.concurrent.TimeUnit
 
 class OnboardingPresenter(private val disposables: CompositeDisposable,
@@ -19,7 +19,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
                           private val viewScheduler: Scheduler,
                           private val smsValidationInteract: SmsValidationInteract,
                           private val networkScheduler: Scheduler,
-                          private val walletCreated: PublishSubject<Boolean>) {
+                          private val walletCreated: ReplaySubject<Boolean>) {
 
   fun present() {
     view.setupUi()
@@ -51,16 +51,8 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
 
   private fun handleRetryClicks() {
     disposables.add(
-        Observable.combineLatest(isWalletCreated(), view.getRetryButtonClicks(),
-            BiFunction { _: Boolean, _: Any -> }
-        )
-            .flatMapSingle { onboardingInteract.getWalletAddress() }
-            .flatMapSingle {
-              smsValidationInteract.isValid(Wallet(it))
-                  .subscribeOn(networkScheduler)
-            }
-            .observeOn(viewScheduler)
-            .doOnNext { handleValidationStatus(it, false) }
+        view.getRetryButtonClicks()
+            .doOnNext { handleWalletCreation(skipValidation = false, showAnimation = false) }
             .subscribe()
     )
   }
@@ -69,27 +61,37 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
     disposables.add(
         view.getLaterButtonClicks()
             .doOnNext {
-              finishOnBoarding(WalletValidationStatus.SUCCESS, false)
+              handleValidationStatus(WalletValidationStatus.SUCCESS, false)
             }.subscribe())
   }
 
   private fun handleRedeemButtonClicks() {
     disposables.add(
-        Observable.zip(isWalletCreated(), view.getRedeemButtonClick(),
-            BiFunction { _: Boolean, _: Any -> }
-        )
+        view.getRedeemButtonClick()
             .observeOn(viewScheduler)
-            .doOnNext { view.showLoading() }
-            .flatMapSingle { onboardingInteract.getWalletAddress() }
-            .flatMapSingle {
-              smsValidationInteract.isValid(Wallet(it))
-                  .subscribeOn(networkScheduler)
+            .doOnNext {
+              view.showLoading()
+              handleWalletCreation(skipValidation = false, showAnimation = true)
             }
-            .delay(1, TimeUnit.SECONDS)
-            .observeOn(viewScheduler)
-            .doOnNext { handleValidationStatus(it, true) }
             .subscribe()
     )
+  }
+
+  private fun handleWalletCreation(skipValidation: Boolean, showAnimation: Boolean) {
+    disposables.add(isWalletCreated()
+        .flatMapSingle { onboardingInteract.getWalletAddress() }
+        .flatMapSingle {
+          if (skipValidation) {
+            Single.just(WalletValidationStatus.SUCCESS)
+          } else {
+            smsValidationInteract.isValid(Wallet(it))
+                .subscribeOn(networkScheduler)
+          }
+        }
+        .delay(1, TimeUnit.SECONDS)
+        .observeOn(viewScheduler)
+        .doOnNext { handleValidationStatus(it, showAnimation) }
+        .subscribe())
   }
 
   private fun handleValidationStatus(walletValidationStatus: WalletValidationStatus,
@@ -103,14 +105,11 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
 
   private fun handleNextButtonClicks() {
     disposables.add(
-        Observable.zip(isWalletCreated(), view.getNextButtonClick(),
-            BiFunction { _: Boolean, _: Any -> }
-        )
-            .observeOn(viewScheduler)
-            .doOnNext { view.showLoading() }
-            .delay(1, TimeUnit.SECONDS)
-            .observeOn(viewScheduler)
-            .doOnNext { finishOnBoarding(WalletValidationStatus.SUCCESS, true) }
+        view.getNextButtonClick()
+            .doOnNext {
+              view.showLoading()
+              handleWalletCreation(skipValidation = true, showAnimation = true)
+            }
             .subscribe()
     )
   }
@@ -134,7 +133,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
         )
             .delay(1, TimeUnit.SECONDS)
             .observeOn(viewScheduler)
-            .doOnNext { finishOnBoarding(WalletValidationStatus.SUCCESS, true) }
+            .doOnNext { handleValidationStatus(WalletValidationStatus.SUCCESS, true) }
             .subscribe()
     )
   }

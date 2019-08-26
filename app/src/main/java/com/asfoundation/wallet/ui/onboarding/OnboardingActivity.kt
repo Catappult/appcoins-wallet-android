@@ -26,6 +26,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
+import io.reactivex.subjects.ReplaySubject
 import kotlinx.android.synthetic.main.activity_onboarding.*
 import kotlinx.android.synthetic.main.layout_validation_no_internet.*
 import java.util.concurrent.TimeUnit
@@ -58,7 +59,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     linkSubject = PublishSubject.create()
     presenter = OnboardingPresenter(CompositeDisposable(), this, interactor,
         AndroidSchedulers.mainThread(), smsValidationInteract, Schedulers.io(),
-        PublishSubject.create())
+        ReplaySubject.create())
     setupUi()
   }
 
