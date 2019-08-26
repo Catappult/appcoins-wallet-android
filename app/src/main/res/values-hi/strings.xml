@@ -450,7 +450,7 @@
   <string name="referral_view_share_link_button">आमंत्रण लिंक साझा करें</string>
   <string name="referral_view_notifications_title">अधिसूचनाएँ</string>
   <string name="referral_share_sheet_title">आमंत्रण लिंक साझा करें:</string>
-  <string name="referral_view_unverified_body">प्रत्येक मित्र के लिए %s मूल्य के AppCoins Credits पाएँ। आपको पहले अपना वॉलेट सत्यापित करने की जरूरत है!</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">वॉलेट सत्यापित करें</string>
   <string name="referral_view_i_have_been_invited_button">मुझे आमंत्रित किया गया है</string>
   <string name="referral_view_dropup_menu_friends_invited">मित्र आमंत्रित किये</string>
@@ -459,7 +459,7 @@
   <string name="referral_dropup_menu_requirements_title">आवश्यकताएँ</string>
   <string name="referral_dropup_menu_requirements_verification">एक फोन नंबर के साथ अपना वॉलेट सत्यापित करें</string>
   <string name="referral_dropup_menu_requirements_purchase">एक इन-एप्प खरीदारी या टॉप-अप करें</string>
-  <string name="referral_dropup_menu_requirements_body">आप दोनों आवश्यकताओं को पूरा करने वाले प्रत्येक मित्र के लिए %2$s मूल्य के AppCoins Credits कमाएँगे (%2$s तक)</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %1$s worth in AppCoins Credits for each friend meeting both requirements (up to %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">प्रमोशन</string>
   <string name="bottom_navigation_promotions_detailed">हमारे प्रमोशन एवं अभियानों के साथ मुफ्त AppCoins Credits कमाने का तरीका जानें!</string>
