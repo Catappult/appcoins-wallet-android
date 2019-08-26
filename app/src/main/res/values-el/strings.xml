@@ -450,7 +450,7 @@
   <string name="referral_view_share_link_button">ΚΟΙΝΟΠΟΙΗΣΗ ΣΥΝΔΕΣΜΟΥ ΠΡΟΣΚΛΗΣΗΣ</string>
   <string name="referral_view_notifications_title">Ειδοποιήσεις</string>
   <string name="referral_share_sheet_title">Κοινοποίηση συνδέσμου πρόσκλησης μέσω:</string>
-  <string name="referral_view_unverified_body">Λάβετε AppCoins Credits αξίας %s για κάθε φίλο. Θα πρέπει πρώτα να επαληθεύσετε το wallet σας.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">ΕΠΑΛΗΘΕΥΣΗ WALLET</string>
   <string name="referral_view_i_have_been_invited_button">ΕΧΩ ΛΑΒΕΙ ΠΡΟΣΚΛΗΣΗ</string>
   <string name="referral_view_dropup_menu_friends_invited">Προσκεκλημένοι φίλοι</string>
@@ -459,7 +459,7 @@
   <string name="referral_dropup_menu_requirements_title">Προϋποθέσεις</string>
   <string name="referral_dropup_menu_requirements_verification">Επαληθεύστε το wallet σας με έναν αριθμό τηλεφώνου</string>
   <string name="referral_dropup_menu_requirements_purchase">Πραγματοποιήστε μία αγορά εντός εφαρμογών ή φόρτιση</string>
-  <string name="referral_dropup_menu_requirements_body">Θα λάβετε AppCoins Credits αξίας %2$s για κάθε φίλο που πληροί και τις δύο προϋποθέσεις (έως %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %1$s worth in AppCoins Credits for each friend meeting both requirements (up to %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Προωθήσεις</string>
   <string name="bottom_navigation_promotions_detailed">Ανακαλύψτε πώς θα κερδίσετε δωρεάν AppCoins Credits μέσα από τις προωθήσεις και τις καμπάνιες μας!</string>
