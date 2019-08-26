@@ -78,6 +78,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
         Observable.zip(isWalletCreated(), view.getRedeemButtonClick(),
             BiFunction { _: Boolean, _: Any -> }
         )
+            .observeOn(viewScheduler)
             .doOnNext { view.showLoading() }
             .flatMapSingle { onboardingInteract.getWalletAddress() }
             .flatMapSingle {
@@ -105,6 +106,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
         Observable.zip(isWalletCreated(), view.getNextButtonClick(),
             BiFunction { _: Boolean, _: Any -> }
         )
+            .observeOn(viewScheduler)
             .doOnNext { view.showLoading() }
             .delay(1, TimeUnit.SECONDS)
             .observeOn(viewScheduler)
