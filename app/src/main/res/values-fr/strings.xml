@@ -450,7 +450,7 @@
   <string name="referral_view_share_link_button">PARTAGER LE LIEN D\'INVITATION</string>
   <string name="referral_view_notifications_title">Notifications</string>
   <string name="referral_share_sheet_title">Partager le lien d\'invitation via :</string>
-  <string name="referral_view_unverified_body">Recevez %s de crédits AppCoins pour chaque ami. Vous devez d\'abord vérifier votre portefeuille.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">VERIFIER LE PORTEFEUILLE</string>
   <string name="referral_view_i_have_been_invited_button">J\'AI ETE INVITE</string>
   <string name="referral_view_dropup_menu_friends_invited">Amis invités</string>
@@ -459,7 +459,7 @@
   <string name="referral_dropup_menu_requirements_title">Exigences</string>
   <string name="referral_dropup_menu_requirements_verification">Vérifier votre portefeuille avec un numéro de téléphone</string>
   <string name="referral_dropup_menu_requirements_purchase">Effectuez un achat ou une recharge dans l\'application</string>
-  <string name="referral_dropup_menu_requirements_body">Vous gagnerez %2$s en crédits AppCoins pour chaque ami répondant aux exigences (jusqu\'à %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %1$s worth in AppCoins Credits for each friend meeting both requirements (up to %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promotions</string>
   <string name="bottom_navigation_promotions_detailed">Découvrez comment gagner des crédits AppCoins gratuits grâce à nos promotions et campagnes !</string>
