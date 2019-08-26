@@ -1,21 +1,20 @@
 package com.asfoundation.wallet.ui;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Html;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +26,7 @@ import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.GlobalBalance;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.repository.PreferenceRepositoryType;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
@@ -35,12 +35,12 @@ import com.asfoundation.wallet.util.RootUtil;
 import com.asfoundation.wallet.viewmodel.BaseNavigationActivity;
 import com.asfoundation.wallet.viewmodel.TransactionsViewModel;
 import com.asfoundation.wallet.viewmodel.TransactionsViewModelFactory;
-import com.asfoundation.wallet.widget.DepositView;
 import com.asfoundation.wallet.widget.EmptyTransactionsView;
 import com.asfoundation.wallet.widget.SystemView;
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import dagger.android.AndroidInjection;
 import io.reactivex.Observable;
@@ -56,10 +56,10 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private static String maxBonusEmptyScreen;
   @Inject TransactionsViewModelFactory transactionsViewModelFactory;
+  @Inject PreferenceRepositoryType preferenceRepositoryType;
   private TransactionsViewModel viewModel;
   private SystemView systemView;
   private TransactionsAdapter adapter;
-  private Dialog dialog;
   private EmptyTransactionsView emptyView;
   private RecyclerView list;
   private TextView subtitleView;
@@ -67,6 +67,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private PublishSubject<String> emptyTransactionsSubject;
   private CompositeDisposable disposables;
   private View emptyClickableView;
+  private View badge;
 
   public static Intent newIntent(Context context) {
     return new Intent(context, TransactionsActivity.class);
@@ -109,7 +110,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     setCollapsingTitle(" ");
     initBottomNavigation();
     disableDisplayHomeAsUp();
-
+    prepareNotificationIcon();
     emptyTransactionsSubject = PublishSubject.create();
 
     adapter = new TransactionsAdapter(this::onTransactionClick, this::onApplicationClick);
@@ -142,25 +143,45 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::onGamificationMaxBonus);
     viewModel.applications()
         .observe(this, this::onApplications);
+    viewModel.shouldShowPromotionsNotification()
+        .observe(this, this::onPromotionsNotification);
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
+    handlePromotionsOverlayVisibility();
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.action_settings: {
-        viewModel.showSettings(this);
-        break;
-      }
-      case R.id.action_level: {
-        viewModel.showRewardsLevel(this);
-        break;
-      }
-      case R.id.action_deposit: {
-        openExchangeDialog();
-        break;
-      }
+    if (item.getItemId() == R.id.action_settings) {
+      viewModel.showSettings(this);
     }
     return super.onOptionsItemSelected(item);
+  }
+
+  private void handlePromotionsOverlayVisibility() {
+    if (!preferenceRepositoryType.isFirstTimeOnTransactionActivity()) {
+      showPromotionsOverlay();
+      preferenceRepositoryType.setFirstTimeOnTransactionActivity();
+    }
+  }
+
+  private void prepareNotificationIcon() {
+    BottomNavigationMenuView bottomNavigationMenuView =
+        (BottomNavigationMenuView) ((BottomNavigationView) findViewById(
+            R.id.bottom_navigation)).getChildAt(0);
+    int promotionsIconIndex = 0;
+    View promotionsIcon = bottomNavigationMenuView.getChildAt(promotionsIconIndex);
+    BottomNavigationItemView itemView = (BottomNavigationItemView) promotionsIcon;
+    badge = LayoutInflater.from(this)
+        .inflate(R.layout.notification_badge, bottomNavigationMenuView, false);
+    badge.setVisibility(View.INVISIBLE);
+    itemView.addView(badge);
+  }
+
+  private void onPromotionsNotification(boolean shouldShow) {
+    if (shouldShow) {
+      badge.setVisibility(View.VISIBLE);
+    } else {
+      badge.setVisibility(View.INVISIBLE);
+    }
   }
 
   private void onFetchTransactionsError(Double maxBonus) {
@@ -187,10 +208,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   @Override protected void onPause() {
     super.onPause();
-
-    if (dialog != null && dialog.isShowing()) {
-      dialog.dismiss();
-    }
     viewModel.pause();
     disposables.dispose();
   }
@@ -215,18 +232,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     if (networkInfo != null && networkInfo.name.equals(ETHEREUM_NETWORK_NAME)) {
       getMenuInflater().inflate(R.menu.menu_deposit, menu);
     }
-    LottieAnimationView view = menu.findItem(R.id.action_level)
-        .getActionView()
-        .findViewById(R.id.gamification_highlight_animation_view);
-    viewModel.shouldShowGamificationAnimation()
-        .observe(this, shouldShow -> {
-          if (shouldShow) {
-            view.playAnimation();
-          } else {
-            view.cancelAnimation();
-          }
-        });
-    view.setOnClickListener(v -> viewModel.showRewardsLevel(this));
     return super.onCreateOptionsMenu(menu);
   }
 
@@ -249,6 +254,10 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
     switch (item.getItemId()) {
+      case R.id.action_promotions: {
+        navigateToPromotions(false);
+        return true;
+      }
       case R.id.action_my_address: {
         viewModel.showMyAddress(this);
         return true;
@@ -285,7 +294,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private void onDefaultNetwork(NetworkInfo networkInfo) {
     adapter.setDefaultNetwork(networkInfo);
-    setBottomMenu(R.menu.menu_main_network);
   }
 
   private void onError(ErrorEnvelope errorEnvelope) {
@@ -308,11 +316,13 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
       pref.edit()
           .putBoolean("should_show_root_warning", false)
           .apply();
-      new AlertDialog.Builder(this).setTitle(R.string.root_title)
+      AlertDialog alertDialog = new AlertDialog.Builder(this).setTitle(R.string.root_title)
           .setMessage(R.string.root_body)
           .setNegativeButton(R.string.ok, (dialog, which) -> {
           })
           .show();
+      alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+          .setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.transparent, null));
     }
   }
 
@@ -325,28 +335,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     emptyTransactionsSubject = null;
     disposables.dispose();
     super.onDestroy();
-  }
-
-  private void openExchangeDialog() {
-    Wallet wallet = viewModel.defaultWallet()
-        .getValue();
-    if (wallet == null) {
-      Toast.makeText(this, getString(R.string.error_wallet_not_selected), Toast.LENGTH_SHORT)
-          .show();
-    } else {
-      BottomSheetDialog dialog = new BottomSheetDialog(this);
-      DepositView view = new DepositView(this, wallet);
-      view.setOnDepositClickListener(this::onDepositClick);
-      dialog.setContentView(view);
-      BottomSheetBehavior behavior = BottomSheetBehavior.from((View) view.getParent());
-      dialog.setOnShowListener(d -> behavior.setPeekHeight(view.getHeight()));
-      dialog.show();
-      this.dialog = dialog;
-    }
-  }
-
-  private void onDepositClick(View view, Uri uri) {
-    viewModel.openDeposit(view.getContext(), uri);
   }
 
   private void onBalanceChanged(GlobalBalance globalBalance) {
@@ -397,7 +385,19 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     viewModel.showTopApps(this);
   }
 
-  public void navigateToGamification() {
-    viewModel.showRewardsLevel(this);
+  public void navigateToPromotions(boolean clearStack) {
+    if (clearStack) {
+      getSupportFragmentManager().popBackStack();
+    }
+    viewModel.navigateToPromotions(this);
+  }
+
+  public void showPromotionsOverlay() {
+    getSupportFragmentManager().beginTransaction()
+        .setCustomAnimations(R.anim.fragment_fade_in_animation, R.anim.fragment_fade_out_animation,
+            R.anim.fragment_fade_in_animation, R.anim.fragment_fade_out_animation)
+        .add(R.id.container, OverlayFragment.newInstance(0))
+        .addToBackStack(OverlayFragment.class.getName())
+        .commit();
   }
 }

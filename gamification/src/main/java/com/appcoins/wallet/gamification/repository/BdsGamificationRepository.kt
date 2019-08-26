@@ -10,14 +10,13 @@ import java.net.UnknownHostException
 class BdsGamificationRepository(private val api: GamificationApi,
                                 private val local: GamificationLocalData) :
     GamificationRepository {
-  private var forecastBonus: ForecastBonus? = null
 
-  override fun getLastShownLevel(wallet: String): Single<Int> {
-    return local.getLastShownLevel(wallet)
+  override fun getLastShownLevel(wallet: String, screen: String): Single<Int> {
+    return local.getLastShownLevel(wallet, screen)
   }
 
-  override fun shownLevel(wallet: String, level: Int): Completable {
-    return local.saveShownLevel(wallet, level)
+  override fun shownLevel(wallet: String, level: Int, screen: String): Completable {
+    return local.saveShownLevel(wallet, level, screen)
   }
 
   override fun getForecastBonus(wallet: String, packageName: String,

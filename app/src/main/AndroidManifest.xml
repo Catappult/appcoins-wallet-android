@@ -21,7 +21,7 @@
     <receiver
         android:name="com.asfoundation.wallet.wallet_validation.poa.WalletValidationBroadcastReceiver"
         android:enabled="true"
-        android:exported="false"></receiver>
+        android:exported="false"/>
 
     <meta-data
         android:name="com.facebook.sdk.ApplicationId"
@@ -184,6 +184,11 @@
     <activity
         android:name="com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity"
         android:label=""
+        android:screenOrientation="portrait"/>
+
+    <activity
+        android:name="com.asfoundation.wallet.promotions.PromotionsActivity"
+        android:label="@string/promotions_title"
         android:screenOrientation="portrait"/>
 
     <meta-data

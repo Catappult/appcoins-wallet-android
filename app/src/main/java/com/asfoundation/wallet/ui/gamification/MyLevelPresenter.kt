@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.gamification
 
 import android.os.Bundle
+import com.appcoins.wallet.gamification.GamificationScreen
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.UserStats
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
@@ -28,7 +29,7 @@ class MyLevelPresenter(private val view: MyLevelView,
   private fun handleShowLevels(sendEvent: Boolean) {
     disposables.add(
         Single.zip(gamification.getLevels(), gamification.getUserStatus(),
-            gamification.getLastShownLevel(),
+            gamification.getLastShownLevel(GamificationScreen.MY_LEVEL),
             Function3 { levels: Levels, userStats: UserStats, lastShownLevel: Int ->
               mapToUserStatus(levels, userStats, lastShownLevel)
             })
@@ -43,7 +44,7 @@ class MyLevelPresenter(private val view: MyLevelView,
                 analytics.sendMainScreenViewEvent(it.level + 1)
               }
             }
-            .flatMapCompletable { gamification.levelShown(it.level) }
+            .flatMapCompletable { gamification.levelShown(it.level, GamificationScreen.MY_LEVEL) }
             .subscribe({}, { it.printStackTrace() }))
   }
 

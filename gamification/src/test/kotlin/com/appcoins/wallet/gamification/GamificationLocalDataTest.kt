@@ -8,7 +8,7 @@ class GamificationLocalDataTest : GamificationLocalData {
   var lastShownLevelResponse: Single<Int>? = null
   private var wallet: String? = null
 
-  override fun saveShownLevel(wallet: String, level: Int): Completable {
+  override fun saveShownLevel(wallet: String, level: Int, screen: String): Completable {
     return Completable.fromAction {
       this.wallet = wallet
       lastShownLevelResponse = Single.just(level)
@@ -21,7 +21,7 @@ class GamificationLocalDataTest : GamificationLocalData {
     return aux
   }
 
-  override fun getLastShownLevel(wallet: String): Single<Int> {
+  override fun getLastShownLevel(wallet: String, screen: String): Single<Int> {
     val aux = lastShownLevelResponse!!
     lastShownLevelResponse = null
     return aux
