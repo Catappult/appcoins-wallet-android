@@ -48,14 +48,6 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
     handleUI(0)
   }
 
-  private fun animateCheckboxUp(layout: LinearLayout) {
-    (AnimatorInflater.loadAnimator(view.context,
-        R.animator.minor_translate_up) as AnimatorSet).apply {
-      setTarget(layout)
-      start()
-    }
-  }
-
   private fun animateCheckboxDown(layout: LinearLayout) {
     (AnimatorInflater.loadAnimator(view.context,
         R.animator.minor_translate_down) as AnimatorSet).apply {
@@ -112,8 +104,6 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
         nextButton.visibility = View.VISIBLE
         animateShowButton(redeemBonus)
         redeemBonus.visibility = View.VISIBLE
-        animateCheckboxUp(termsConditionsLayout)
-        termsConditionsLayout.visibility = View.VISIBLE
       }
       if (warningText.visibility == View.VISIBLE) {
         animateHideWarning(warningText)
@@ -121,24 +111,23 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
       }
 
       if (termsConditionsLayout.visibility == View.GONE) {
+        animateCheckboxDown(termsConditionsLayout)
         termsConditionsLayout.visibility = View.VISIBLE
-        animateCheckboxUp(termsConditionsLayout)
       }
     } else {
       if (warningText.visibility == View.GONE) {
         animateShowWarning(warningText)
         warningText.visibility = View.VISIBLE
       }
+      if (termsConditionsLayout.visibility == View.GONE) {
+        animateCheckboxDown(termsConditionsLayout)
+        termsConditionsLayout.visibility = View.VISIBLE
+      }
       if (nextButton.visibility == View.VISIBLE) {
         animateHideButton(nextButton)
         nextButton.visibility = View.GONE
         animateHideButton(redeemBonus)
         redeemBonus.visibility = View.GONE
-      }
-
-      if (termsConditionsLayout.visibility == View.GONE) {
-        termsConditionsLayout.visibility = View.VISIBLE
-        animateCheckboxDown(termsConditionsLayout)
       }
     }
   }

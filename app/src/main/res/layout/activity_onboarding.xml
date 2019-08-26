@@ -118,7 +118,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="20dp"
         android:gravity="center"
         android:text="@string/terms_and_conditions_error"
@@ -144,8 +144,6 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:buttonTint="@color/selection_dot_selected"
-          app:layout_constraintBottom_toBottomOf="@id/terms_conditions_body"
-          app:layout_constraintEnd_toStartOf="@id/terms_conditions_body"
           />
       <TextView
           android:id="@+id/terms_conditions_body"
@@ -155,7 +153,6 @@
           android:clickable="true"
           android:focusable="true"
           android:gravity="start"
-          app:layout_constraintTop_toBottomOf="@id/onboarding_viewpager"
           tools:text="@string/terms_and_conditions_tickbox"
           />
     </LinearLayout>
