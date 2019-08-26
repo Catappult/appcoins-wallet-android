@@ -194,7 +194,6 @@ class PaymentMethodsPresenter(
               getPaymentMethods(fiatValue)
                   .flatMapCompletable { paymentMethods ->
                     Completable.fromAction { selectPaymentMethod(paymentMethods, fiatValue) }
-                    //.observeOn(viewScheduler)
                   }
             })
         .subscribeOn(networkThread)
