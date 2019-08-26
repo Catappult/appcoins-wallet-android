@@ -68,6 +68,7 @@ class PaymentMethodsPresenter(
                 .subscribeOn(viewScheduler)
           } else {
             return@flatMapCompletable Completable.fromAction { view.showBuy() }
+                .subscribeOn(viewScheduler)
           }
         }
         .subscribe())
@@ -193,6 +194,7 @@ class PaymentMethodsPresenter(
               getPaymentMethods(fiatValue)
                   .flatMapCompletable { paymentMethods ->
                     Completable.fromAction { selectPaymentMethod(paymentMethods, fiatValue) }
+                    //.observeOn(viewScheduler)
                   }
             })
         .subscribeOn(networkThread)
