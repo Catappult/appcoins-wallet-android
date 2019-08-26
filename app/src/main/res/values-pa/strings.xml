@@ -450,7 +450,7 @@
   <string name="referral_view_share_link_button">ਸੱਦੇ ਦੇ ਲਿੰਕ ਨੂੰ ਸਾਂਝਾ ਕਰੋ</string>
   <string name="referral_view_notifications_title">ਨੋਟੀਫਿਕੇਸ਼ਨ</string>
   <string name="referral_share_sheet_title">ਸੱਦੇ ਵਾਲੇ ਲਿੰਕ ਨੂੰ ਇਸ ਰਾਹੀਂ ਸਾਂਝਾ ਕਰੋ:</string>
-  <string name="referral_view_unverified_body">ਹਰ ਦੋਸਤ ਲਈ %s ਕੀਮਤ ਦੇ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋ| ਤੁਹਾਨੂੰ ਪਹਿਲਾਂ ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰਨ ਦੀ ਲੋੜ ਹੈ|</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
   <string name="referral_view_i_have_been_invited_button">ਮੈਨੂੰ ਬੁਲਾਇਆ ਗਿਆ ਹੈ</string>
   <string name="referral_view_dropup_menu_friends_invited">ਦੋਸਤ ਬੁਲਾਏ ਗਏ</string>
@@ -459,7 +459,7 @@
   <string name="referral_dropup_menu_requirements_title">ਜਰੂਰਤਾਂ</string>
   <string name="referral_dropup_menu_requirements_verification">ਇੱਕ ਫੋਨ ਨੰਬਰ ਨਾਲ ਆਪਣੇ ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
   <string name="referral_dropup_menu_requirements_purchase">ਇੱਕ ਇਨ-ਐਪ ਖਰੀਦਾਰੀ ਕਰੋ ਜਾਂ ਟੌਪ-ਅਪ ਕਰੋ</string>
-  <string name="referral_dropup_menu_requirements_body">ਤੁਸੀਂ ਬੂਥ ਦੀਆਂ ਜਰੂਰਤਾਂ ਪੂਰੀਆਂ ਕਰਨ ਵਾਲੇ ਹਰ ਇੱਕ ਦੋਸਤ (%2$s) ਲਈ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟਾਂ ਵਿੱਚ %2$s ਦੀ ਕਮਾਈ ਕਰੋਗੇ|</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %1$s worth in AppCoins Credits for each friend meeting both requirements (up to %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">ਪ੍ਰਚਾਰ</string>
   <string name="bottom_navigation_promotions_detailed">ਸਾਡੀਆਂ ਪ੍ਰਚਾਰਾਂ ਅਤੇ ਮੁਹਿੰਮਾਂ ਨਾਲ ਮੁਫਤ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਕਮਾਉਣ ਬਾਰੇ ਜਾਣੋ!</string>
