@@ -4,76 +4,32 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
-import com.asfoundation.wallet.interact.FetchTransactionsInteract;
-import com.asfoundation.wallet.interact.FindDefaultNetworkInteract;
-import com.asfoundation.wallet.interact.FindDefaultWalletInteract;
-import com.asfoundation.wallet.router.BalanceRouter;
-import com.asfoundation.wallet.router.ExternalBrowserRouter;
-import com.asfoundation.wallet.router.MyAddressRouter;
-import com.asfoundation.wallet.router.RewardsLevelRouter;
-import com.asfoundation.wallet.router.SendRouter;
-import com.asfoundation.wallet.router.SettingsRouter;
-import com.asfoundation.wallet.router.TopUpRouter;
-import com.asfoundation.wallet.router.TransactionDetailRouter;
+import com.asfoundation.wallet.interact.TransactionViewInteract;
+import com.asfoundation.wallet.navigator.TransactionViewNavigator;
 import com.asfoundation.wallet.transactions.TransactionsAnalytics;
-import com.asfoundation.wallet.transactions.TransactionsMapper;
 import com.asfoundation.wallet.ui.AppcoinsApps;
-import com.asfoundation.wallet.ui.balance.BalanceInteract;
-import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
 
 public class TransactionsViewModelFactory implements ViewModelProvider.Factory {
 
-  private final FindDefaultNetworkInteract findDefaultNetworkInteract;
-  private final FindDefaultWalletInteract findDefaultWalletInteract;
-  private final FetchTransactionsInteract fetchTransactionsInteract;
-  private final SettingsRouter settingsRouter;
-  private final SendRouter sendRouter;
-  private final TransactionDetailRouter transactionDetailRouter;
-  private final MyAddressRouter myAddressRouter;
-  private final BalanceRouter balanceRouter;
-  private final ExternalBrowserRouter externalBrowserRouter;
   private final DefaultTokenProvider defaultTokenProvider;
-  private final TransactionsMapper transactionsMapper;
   private final AppcoinsApps applications;
-  private final RewardsLevelRouter rewardsLevelRouter;
-  private final GamificationInteractor gamificationInteractor;
-  private final TopUpRouter topUpRouter;
   private final TransactionsAnalytics analytics;
-  private final BalanceInteract balanceInteract;
+  private final TransactionViewNavigator transactionViewNavigator;
+  private final TransactionViewInteract transactionViewInteract;
 
-  public TransactionsViewModelFactory(FindDefaultNetworkInteract findDefaultNetworkInteract,
-      FindDefaultWalletInteract findDefaultWalletInteract,
-      FetchTransactionsInteract fetchTransactionsInteract, SettingsRouter settingsRouter,
-      SendRouter sendRouter, TransactionDetailRouter transactionDetailRouter,
-      MyAddressRouter myAddressRouter, BalanceRouter balanceRouter,
-      ExternalBrowserRouter externalBrowserRouter, DefaultTokenProvider defaultTokenProvider,
-      TransactionsMapper transactionsMapper, AppcoinsApps applications,
-      RewardsLevelRouter rewardsLevelRouter, GamificationInteractor gamificationInteractor,
-      TopUpRouter topUpRouter, TransactionsAnalytics analytics, BalanceInteract balanceInteract) {
-    this.findDefaultNetworkInteract = findDefaultNetworkInteract;
-    this.findDefaultWalletInteract = findDefaultWalletInteract;
-    this.fetchTransactionsInteract = fetchTransactionsInteract;
-    this.settingsRouter = settingsRouter;
-    this.sendRouter = sendRouter;
-    this.transactionDetailRouter = transactionDetailRouter;
-    this.myAddressRouter = myAddressRouter;
-    this.balanceRouter = balanceRouter;
-    this.externalBrowserRouter = externalBrowserRouter;
+  public TransactionsViewModelFactory(DefaultTokenProvider defaultTokenProvider,
+      AppcoinsApps applications, TransactionsAnalytics analytics,
+      TransactionViewNavigator transactionViewNavigator,
+      TransactionViewInteract transactionViewInteract) {
     this.defaultTokenProvider = defaultTokenProvider;
-    this.transactionsMapper = transactionsMapper;
     this.applications = applications;
-    this.rewardsLevelRouter = rewardsLevelRouter;
-    this.gamificationInteractor = gamificationInteractor;
-    this.topUpRouter = topUpRouter;
     this.analytics = analytics;
-    this.balanceInteract = balanceInteract;
+    this.transactionViewNavigator = transactionViewNavigator;
+    this.transactionViewInteract = transactionViewInteract;
   }
 
   @NonNull @Override public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-    return (T) new TransactionsViewModel(findDefaultNetworkInteract, findDefaultWalletInteract,
-        fetchTransactionsInteract, settingsRouter, sendRouter, transactionDetailRouter,
-        myAddressRouter, balanceRouter, externalBrowserRouter, defaultTokenProvider,
-        transactionsMapper, applications, rewardsLevelRouter, gamificationInteractor, topUpRouter,
-        analytics, balanceInteract);
+    return (T) new TransactionsViewModel(defaultTokenProvider, applications, analytics,
+        transactionViewNavigator, transactionViewInteract);
   }
 }

@@ -23,18 +23,18 @@ class Gamification(private val repository: GamificationRepository) {
     return repository.getForecastBonus(wallet, packageName, amount)
   }
 
-  fun hasNewLevel(wallet: String): Single<Boolean> {
-    return Single.zip(repository.getLastShownLevel(wallet), getUserStatus(wallet),
+  fun hasNewLevel(wallet: String, screen: String): Single<Boolean> {
+    return Single.zip(repository.getLastShownLevel(wallet, screen), getUserStatus(wallet),
         BiFunction { lastShownLevel: Int, userStats: UserStats ->
           userStats.status == UserStats.Status.OK && lastShownLevel < userStats.level
         })
   }
 
-  fun levelShown(wallet: String, level: Int): Completable {
-    return repository.shownLevel(wallet, level)
+  fun levelShown(wallet: String, level: Int, screen: String): Completable {
+    return repository.shownLevel(wallet, level, screen)
   }
 
-  fun getLastShownLevel(wallet: String): Single<Int> {
-    return repository.getLastShownLevel(wallet)
+  fun getLastShownLevel(wallet: String, screen: String): Single<Int> {
+    return repository.getLastShownLevel(wallet, screen)
   }
 }

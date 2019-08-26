@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.asf.wallet.R
-import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -24,24 +23,13 @@ class RewardsLevelActivity : BaseActivity(), GamificationView {
     // Display the fragment as the main content.
     supportFragmentManager.beginTransaction()
         .add(R.id.fragment_container, fragment)
-        .addToBackStack(fragment::class.java.simpleName)
         .commit()
-  }
-
-  override fun onBackPressed() {
-    if (supportFragmentManager.backStackEntryCount == 1) {
-      TransactionsRouter().open(this, true)
-      finish()
-      return
-    }
-    super.onBackPressed()
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     when (item.itemId) {
       android.R.id.home -> {
-        TransactionsRouter().open(this, true)
-        finish()
+        onBackPressed()
         return true
       }
 

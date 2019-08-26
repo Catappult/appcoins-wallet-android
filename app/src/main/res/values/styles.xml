@@ -231,7 +231,7 @@
   </style>
 
   <style name="TransactionDetailsButtonStyle" parent="@style/Widget.AppCompat.Button.Borderless.Colored">
-    <item name="android:textColor">@color/transaction_details_button_color</item>
+    <item name="android:textColor">@color/text_button_color</item>
     <item name="android:textSize">12sp</item>
   </style>
 

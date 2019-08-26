@@ -6,6 +6,8 @@ import com.asfoundation.wallet.permissions.manage.view.PermissionsListFragment;
 import com.asfoundation.wallet.permissions.request.view.CreateWalletFragment;
 import com.asfoundation.wallet.permissions.request.view.PermissionFragment;
 import com.asfoundation.wallet.permissions.request.view.PermissionsActivity;
+import com.asfoundation.wallet.promotions.PromotionsActivity;
+import com.asfoundation.wallet.promotions.PromotionsFragment;
 import com.asfoundation.wallet.topup.TopUpActivity;
 import com.asfoundation.wallet.topup.TopUpFragment;
 import com.asfoundation.wallet.topup.TopUpSuccessFragment;
@@ -93,6 +95,8 @@ import dagger.android.ContributesAndroidInjector;
 
   @ActivityScope @ContributesAndroidInjector abstract OnboardingActivity bindOnboardingModule();
 
+  @ActivityScope @ContributesAndroidInjector abstract PromotionsActivity promotionsActivity();
+
   @ContributesAndroidInjector() abstract WalletPoAService bindWalletPoAService();
 
   @ContributesAndroidInjector() abstract AirdropFragment bindAirdropFragment();
@@ -155,4 +159,6 @@ import dagger.android.ContributesAndroidInjector;
   @ContributesAndroidInjector() abstract BalanceFragment bindBalanceFragment();
 
   @ContributesAndroidInjector() abstract TokenDetailsActivity bindTokenDetailsFragment();
+
+  @ContributesAndroidInjector() abstract PromotionsFragment promotionsFragment();
 }
