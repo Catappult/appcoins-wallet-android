@@ -38,10 +38,21 @@ class SharedPreferenceRepository(context: Context) : PreferenceRepositoryType {
         .apply()
   }
 
+  override fun isFirstTimeOnTransactionActivity(): Boolean {
+    return pref.getBoolean(FIRST_TIME_ON_TRANSACTION_ACTIVITY_KEY, false)
+  }
+
+  override fun setFirstTimeOnTransactionActivity() {
+    pref.edit()
+        .putBoolean(FIRST_TIME_ON_TRANSACTION_ACTIVITY_KEY, true)
+        .apply()
+  }
+
   companion object {
 
     private const val CURRENT_ACCOUNT_ADDRESS_KEY = "current_account_address"
     private const val ONBOARDING_COMPLETE_KEY = "onboarding_complete"
     private const val ONBOARDING_SKIP_CLICKED_KEY = "onboarding_skip_clicked"
+    private const val FIRST_TIME_ON_TRANSACTION_ACTIVITY_KEY = "first_time_on_transaction_activity"
   }
 }

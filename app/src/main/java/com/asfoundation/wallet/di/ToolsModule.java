@@ -95,6 +95,11 @@ import com.asfoundation.wallet.poa.HashCalculator;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofWriter;
 import com.asfoundation.wallet.poa.TaggedCompositeDisposable;
+import com.asfoundation.wallet.promotions.PromotionsInteractorContract;
+import com.asfoundation.wallet.promotions.PromotionsTestInteractor;
+import com.asfoundation.wallet.referrals.ReferralInteractorContract;
+import com.asfoundation.wallet.referrals.ReferralTestInteractor;
+import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.ApproveTransactionValidatorBds;
 import com.asfoundation.wallet.repository.BalanceService;
@@ -159,7 +164,6 @@ import com.asfoundation.wallet.ui.balance.BalanceRepository;
 import com.asfoundation.wallet.ui.balance.database.BalanceDetailsDatabase;
 import com.asfoundation.wallet.ui.balance.database.BalanceDetailsMapper;
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
-import com.asfoundation.wallet.ui.gamification.LevelResourcesMapper;
 import com.asfoundation.wallet.ui.gamification.SharedPreferencesGamificationLocalData;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationMapper;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository;
@@ -910,8 +914,15 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new GamificationInteractor(gamification, defaultWallet, conversionService);
   }
 
-  @Singleton @Provides LevelResourcesMapper providesLevelResourcesMapper() {
-    return new LevelResourcesMapper();
+  @Provides PromotionsInteractorContract providePromotionsInteractor(
+      ReferralInteractorContract referralInteractor) {
+    return new PromotionsTestInteractor(referralInteractor);
+  }
+
+  @Provides ReferralInteractorContract provideReferralInteractor(SharedPreferences preferences,
+      FindDefaultWalletInteract findDefaultWalletInteract) {
+    return new ReferralTestInteractor(new SharedPreferencesReferralLocalData(preferences),
+        findDefaultWalletInteract);
   }
 
   @Singleton @Provides Permissions providesPermissions(Context context) {
