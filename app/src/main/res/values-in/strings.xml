@@ -450,7 +450,7 @@
   <string name="referral_view_share_link_button">BAGIKAN TAUTAN UNDANGAN</string>
   <string name="referral_view_notifications_title">Pemberitahuan</string>
   <string name="referral_share_sheet_title">Bagikan tautan undangan melalui:</string>
-  <string name="referral_view_unverified_body">Dapatkan Kredit AppCoins senilai %s untuk setiap teman. Terlebih dahulu Anda harus memverifikasi dompet Anda.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">VERIFIKASI DOMPET</string>
   <string name="referral_view_i_have_been_invited_button">SAYA SUDAH DIUNDANG</string>
   <string name="referral_view_dropup_menu_friends_invited">Teman sudah diundang</string>
@@ -459,7 +459,7 @@
   <string name="referral_dropup_menu_requirements_title">Persyaratan</string>
   <string name="referral_dropup_menu_requirements_verification">Verifikasi dompet Anda dengan nomor telepon</string>
   <string name="referral_dropup_menu_requirements_purchase">Lakukan satu pembelian in-app atau isi ulang</string>
-  <string name="referral_dropup_menu_requirements_body">Anda akan mendapatkan Kredit AppCoins senilai %2$s untuk setiap teman yang memeuhi persyaratan (hingga %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %1$s worth in AppCoins Credits for each friend meeting both requirements (up to %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promosi</string>
   <string name="bottom_navigation_promotions_detailed">Cari tahu cara mendapatkan Kredit AppCoin gratis dengan promosi dan kampanye kami!</string>
