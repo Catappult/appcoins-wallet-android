@@ -1,7 +1,8 @@
-package com.asfoundation.wallet.wallet_validation
+package com.asfoundation.wallet.wallet_validation.generic
 
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.SmsValidationInteract
+import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -19,21 +20,22 @@ class PhoneValidationPresenter(
   fun present() {
     view.setupUI()
     handleValuesChange()
-    handleSubmit()
-    handleCancel()
+    handleNextAndRetryClicks()
+    handleCancelAndLaterClicks()
   }
 
-  private fun handleCancel() {
+  private fun handleCancelAndLaterClicks() {
     disposables.add(
-        view.getCancelClicks()
+        Observable.merge(view.getCancelClicks(), view.getLaterButtonClicks())
             .doOnNext {
-              activity?.closeCancel(true)
+              view.hideKeyboard()
+              activity?.showTransactionsActivity()
             }.subscribe())
   }
 
-  private fun handleSubmit() {
+  private fun handleNextAndRetryClicks() {
     disposables.add(
-        view.getSubmitClicks()
+        Observable.merge(view.getNextClicks(), view.getRetryButtonClicks())
             .subscribeOn(viewScheduler)
             .flatMapSingle {
               smsValidationInteract.requestValidationCode("${it.first}${it.second}")
@@ -62,6 +64,10 @@ class PhoneValidationPresenter(
         view.setButtonState(false)
       }
       WalletValidationStatus.GENERIC_ERROR -> showErrorMessage(R.string.unknown_error)
+      WalletValidationStatus.NO_NETWORK -> {
+        view.hideKeyboard()
+        view.showNoInternetView()
+      }
     }
   }
 

@@ -19,10 +19,9 @@
       android:theme="@style/AppTheme.NoActionBar"
       tools:replace="android:name, android:theme, android:allowBackup">
     <receiver
-        android:name="com.asfoundation.wallet.wallet_validation.WalletValidationBroadcastReceiver"
+        android:name="com.asfoundation.wallet.wallet_validation.poa.WalletValidationBroadcastReceiver"
         android:enabled="true"
-        android:exported="false">
-    </receiver>
+        android:exported="false"/>
 
     <meta-data
         android:name="com.facebook.sdk.ApplicationId"
@@ -170,7 +169,7 @@
       </intent-filter>
     </activity>
     <activity
-        android:name="com.asfoundation.wallet.wallet_validation.WalletValidationActivity"
+        android:name="com.asfoundation.wallet.wallet_validation.poa.PoaWalletValidationActivity"
         android:launchMode="singleInstance"
         android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">
       <intent-filter>
@@ -182,6 +181,11 @@
             android:scheme="appcoins"/>
       </intent-filter>
     </activity>
+    <activity
+        android:name="com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity"
+        android:label=""
+        android:screenOrientation="portrait"/>
+
     <activity
         android:name="com.asfoundation.wallet.promotions.PromotionsActivity"
         android:label="@string/promotions_title"

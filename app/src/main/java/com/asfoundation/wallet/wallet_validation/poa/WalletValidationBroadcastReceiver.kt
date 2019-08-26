@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_validation
+package com.asfoundation.wallet.wallet_validation.poa
 
 import android.app.NotificationManager
 import android.content.BroadcastReceiver
@@ -29,9 +29,12 @@ class WalletValidationBroadcastReceiver : BroadcastReceiver() {
     notificationManager.cancel(VERIFICATION_SERVICE_ID)
     context.sendBroadcast(Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS))
 
-    when (intent.getStringExtra(ACTION_KEY)) {
+    when (intent.getStringExtra(
+        ACTION_KEY)) {
       ACTION_START_VALIDATION -> {
-        val validationIntent = WalletValidationActivity.newIntent(context)
+        val validationIntent =
+            PoaWalletValidationActivity.newIntent(
+                context)
         validationIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         context.startActivity(validationIntent)
       }

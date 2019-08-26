@@ -59,7 +59,7 @@ project.ext {
   jacksonVersion = "2.9.6"
   lottieVersion = "3.0.1"
   cppVersion = "2.3.1"
-  viewPagerVersion = "1.0.0-alpha06"
+  viewPagerVersion = "1.0.0-beta03"
   pageIndicatorViewVersion = "1.0.3"
 }
 
