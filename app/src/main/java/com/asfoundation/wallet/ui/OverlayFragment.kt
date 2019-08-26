@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.INVISIBLE
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.view.ViewTreeObserver
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -63,18 +66,27 @@ class OverlayFragment : Fragment(), OverlayView {
     if (item > size / 2) {
       arrow_down_tip.visibility = INVISIBLE
     } else {
-      setArrowPosition(size)
+      setArrowPosition()
     }
 
   }
 
-  private fun setArrowPosition(size: Int) {
-    val lp = bn_icon_guideline.layoutParams as ConstraintLayout.LayoutParams
-    val itemPercentage = 1f / size.toFloat()
-    val middleItemPercentage = itemPercentage / 2f
-    val arrowPercentage = itemPercentage * (item.toFloat() + 1f) - middleItemPercentage
-    lp.guidePercent = arrowPercentage
-    bn_icon_guideline.layoutParams = lp
+  private fun setArrowPosition() {
+    val bottomNavigationMenuView = (overlay_bottom_navigation as BottomNavigationView)
+        .getChildAt(0) as BottomNavigationMenuView
+    val promotionsIcon = bottomNavigationMenuView.getChildAt(item)
+    val itemView = promotionsIcon as BottomNavigationItemView
+    val icon = itemView.getChildAt(1)
+    icon.viewTreeObserver.addOnGlobalLayoutListener(
+        object : ViewTreeObserver.OnGlobalLayoutListener {
+          override fun onGlobalLayout() {
+            icon.viewTreeObserver.removeOnGlobalLayoutListener(this)
+            val location = IntArray(2)
+            icon.getLocationInWindow(location)
+            arrow_down_tip.x =
+                location[0] * 1f + (icon.width / 4f) + itemView.width * item + (arrow_down_tip.width / 4f)
+          }
+        })
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
