@@ -417,6 +417,7 @@
   <string name="verification_insert_code_resend_button">ПОВТОРНО ИЗПРАЩАНЕ НА КОД</string>
   <string name="verification_validating_title">Валидиране на твоя код&#8230;</string>
   <string name="verification_completed_title">Готово!</string>
+  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
   <string name="verification_notification_reward_received_body">Наградата е получена, наслади се! 👌</string>
   <string name="verification_notification_reward_already_received_body">Този телефонен номер вече е бил използван за получаване на тази награда😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Номерът вече се използва.</string>
@@ -450,7 +451,7 @@
   <string name="referral_view_share_link_button">СПОДЕЛИ ЛИНКА ЗА ПОКАНА</string>
   <string name="referral_view_notifications_title">Известия</string>
   <string name="referral_share_sheet_title">Сподели линка за покана през:</string>
-  <string name="referral_view_unverified_body">Получи %s като стойност в AppCoins Credits за всеки приятел. Първо трябва да верифицираш портфейла си.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
   <string name="referral_view_verify_button">ВЕРИФИЦИРАЙ ПОРТФЕЙЛА</string>
   <string name="referral_view_i_have_been_invited_button">БЯХ ПОКАНЕН</string>
   <string name="referral_view_dropup_menu_friends_invited">Поканени приятели</string>
@@ -459,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">Изисквания</string>
   <string name="referral_dropup_menu_requirements_verification">Верифицирай портфейла си с телефонен номер</string>
   <string name="referral_dropup_menu_requirements_purchase">Направи една ин-ап покупка, за да качиш</string>
-  <string name="referral_dropup_menu_requirements_body">Ще спечелиш %1$s като стойност в AppCoins Credits за всеки приятел, който отговаря и на двете условия (до %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Промоции</string>
   <string name="bottom_navigation_promotions_detailed">Открий как да спечелиш безплатни AppCoins Credits с нашите промоции и кампании!</string>
