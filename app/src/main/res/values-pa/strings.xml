@@ -417,6 +417,7 @@
   <string name="verification_insert_code_resend_button">ਕੋਡ ਦੁਬਾਰਾ ਭੇਜੋ</string>
   <string name="verification_validating_title">ਤੁਹਾਡੇ ਕੋਡ ਨੂੰ ਪ੍ਰਮਾਣਿਤ ਹੋ ਰਿਹਾ ਹੈ&#8230;</string>
   <string name="verification_completed_title">ਹੋ ਗਿਆ!</string>
+  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
   <string name="verification_notification_reward_received_body">ਇਨਾਮ ਪ੍ਰਾਪਤ ਹੋਇਆ, ਆਨੰਦ ਮਾਣੋ! 👌</string>
   <string name="verification_notification_reward_already_received_body">ਇਸ ਇਨਾਮ ਨੂੰ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਇਹ ਫੋਨ ਨੰਬਰ ਪਹਿਲਾਂ ਹੀ ਵਰਤਿਆ ਜਾ ਚੁੱਕਾ ਹੈ 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">ਨੰਬਰ ਪਹਿਲਾਂ ਹੀ ਵਰਤਿਆ ਗਿਆ ਹੈ|</string>
@@ -450,7 +451,7 @@
   <string name="referral_view_share_link_button">ਸੱਦੇ ਦੇ ਲਿੰਕ ਨੂੰ ਸਾਂਝਾ ਕਰੋ</string>
   <string name="referral_view_notifications_title">ਨੋਟੀਫਿਕੇਸ਼ਨ</string>
   <string name="referral_share_sheet_title">ਸੱਦੇ ਵਾਲੇ ਲਿੰਕ ਨੂੰ ਇਸ ਰਾਹੀਂ ਸਾਂਝਾ ਕਰੋ:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
   <string name="referral_view_verify_button">ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
   <string name="referral_view_i_have_been_invited_button">ਮੈਨੂੰ ਬੁਲਾਇਆ ਗਿਆ ਹੈ</string>
   <string name="referral_view_dropup_menu_friends_invited">ਦੋਸਤ ਬੁਲਾਏ ਗਏ</string>
@@ -459,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">ਜਰੂਰਤਾਂ</string>
   <string name="referral_dropup_menu_requirements_verification">ਇੱਕ ਫੋਨ ਨੰਬਰ ਨਾਲ ਆਪਣੇ ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
   <string name="referral_dropup_menu_requirements_purchase">ਇੱਕ ਇਨ-ਐਪ ਖਰੀਦਾਰੀ ਕਰੋ ਜਾਂ ਟੌਪ-ਅਪ ਕਰੋ</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %1$s worth in AppCoins Credits for each friend meeting both requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">ਪ੍ਰਚਾਰ</string>
   <string name="bottom_navigation_promotions_detailed">ਸਾਡੀਆਂ ਪ੍ਰਚਾਰਾਂ ਅਤੇ ਮੁਹਿੰਮਾਂ ਨਾਲ ਮੁਫਤ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਕਮਾਉਣ ਬਾਰੇ ਜਾਣੋ!</string>
