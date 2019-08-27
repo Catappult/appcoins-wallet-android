@@ -417,6 +417,7 @@
   <string name="verification_insert_code_resend_button">إعادة إرسال الرمز</string>
   <string name="verification_validating_title">قيد التأكد من رمزك&#8230;</string>
   <string name="verification_completed_title">تمت!</string>
+  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
   <string name="verification_notification_reward_received_body">تلقيت الجائزة، تمتّع بها! 👌</string>
   <string name="verification_notification_reward_already_received_body">لقد استُخدم رقم الهاتف هذا سابقًا لاستقبال هذه الجائزة 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">الرقم مستخدم مسبقًا.</string>
@@ -450,7 +451,7 @@
   <string name="referral_view_share_link_button">شارك رابط الدعوة</string>
   <string name="referral_view_notifications_title">الإشعارات</string>
   <string name="referral_share_sheet_title">شارك رابط الدعوة بواسطة:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
   <string name="referral_view_verify_button">توثيق المحفظة</string>
   <string name="referral_view_i_have_been_invited_button">لقد دُعيت</string>
   <string name="referral_view_dropup_menu_friends_invited">الأصدقاء المدعوون</string>
@@ -459,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">المتطلبات</string>
   <string name="referral_dropup_menu_requirements_verification">وثّق محفظتك برقم الهاتف</string>
   <string name="referral_dropup_menu_requirements_purchase">أتمَّ عملية شراء واحدة أو اشحن رصيدك</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %1$s worth in AppCoins Credits for each friend meeting both requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">ترقيات</string>
   <string name="bottom_navigation_promotions_detailed">اكتشف كيف يمكنك أن تحصل على رصيد AppCoins مجاني مع ترقياتنا وحملاتنا!</string>
