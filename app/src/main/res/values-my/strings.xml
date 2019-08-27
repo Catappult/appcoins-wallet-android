@@ -417,6 +417,7 @@
   <string name="verification_insert_code_resend_button">ကုဒ္ကို ထပ္မံေပးပို႔ပါ</string>
   <string name="verification_validating_title">သင့္ကုဒ္ကို အတည္ျပဳေနပါသည္&#8230;</string>
   <string name="verification_completed_title">ၿပီးပါၿပီ။</string>
+  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
   <string name="verification_notification_reward_received_body">ဆုကို ရရွိပါသည္။ ခံစားလိုက္ပါ။ 👌</string>
   <string name="verification_notification_reward_already_received_body">ဤဆုကို ရယူရန္အတြက္ ဤဖုန္းနံပါတ္ကို အသံုးျပဳထားၿပီး ျဖစ္ပါသည္။</string>
   <string name="verification_insert_phone_field_phone_used_already_error">နံပါတ္ကို အသံုးျပဳထားၿပီး ျဖစ္ပါသည္။</string>
@@ -450,7 +451,7 @@
   <string name="referral_view_share_link_button">ဖိတ္ေခၚသည့္လင့္ခ္ကို မွ်ေ၀မည္</string>
   <string name="referral_view_notifications_title">အသိေပးခ်က္မ်ား</string>
   <string name="referral_share_sheet_title">ဖိတ္ေခၚသည့္လင့္ခ္ကို ေအာက္ပါမွတဆင့္ မွ်ေ၀မည္ -</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
   <string name="referral_view_verify_button">ပိုက္ဆံအိတ္ကို အတည္ျပဳမည္</string>
   <string name="referral_view_i_have_been_invited_button">ကၽြႏ္ုပ္တို႔ ဖိ္တ္ေခၚထားပါသည္</string>
   <string name="referral_view_dropup_menu_friends_invited">သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚထားပါသည္</string>
@@ -459,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">လိုအပ္ခ်က္မ်ား</string>
   <string name="referral_dropup_menu_requirements_verification">ဖုန္းနံပါတ္တစ္ခုျဖင့္ သင့္ပိုက္ဆံအိတ္ကို အတည္ျပဳပါ</string>
   <string name="referral_dropup_menu_requirements_purchase">အက္ပ္အတြင္း ၀ယ္ယူမႈ သို႔မဟုတ္ ေငြျဖည့္မႈတစ္ခုကို ျပဳလုုပ္လိုက္ပါ</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %1$s worth in AppCoins Credits for each friend meeting both requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">ပ႐ိုမိုးရွင္းမ်ား</string>
   <string name="bottom_navigation_promotions_detailed">ကၽြႏ္ုပ္တို႔၏ ပ႐ိုမိုးရွင္းမ်ားႏွင့္ ျမႇင့္တင္ေရး အစီအစဥ္မ်ားျဖင့္ AppCoins Credits မ်ားအား အခမဲ့ရယူပံုကို ေဖာ္ျပပါ။</string>
