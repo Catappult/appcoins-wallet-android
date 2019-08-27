@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_validation
+package com.asfoundation.wallet.wallet_validation.poa
 
 import android.animation.Animator
 import android.app.NotificationManager
@@ -18,20 +18,21 @@ import io.reactivex.subjects.Subject
 import kotlinx.android.synthetic.main.fragment_validation_success.*
 import javax.inject.Inject
 
-class ValidationSuccessFragment : DaggerFragment(), ValidationSuccessView {
+class PoaValidationSuccessFragment : DaggerFragment(),
+    PoaValidationSuccessView {
 
   @Inject
   lateinit var proofOfAttentionService: ProofOfAttentionService
 
-  private lateinit var walletValidationView: WalletValidationView
-  private lateinit var presenter: ValidationSuccessPresenter
+  private lateinit var walletValidationView: PoaWalletValidationView
+  private lateinit var presenter: PoaValidationSuccessPresenter
   private lateinit var notificationManager: NotificationManager
 
   private lateinit var animationCompleted: Subject<Boolean>
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    if (context !is WalletValidationView) {
+    if (context !is PoaWalletValidationView) {
       throw IllegalStateException(
           "Validation Success fragment must be attached to Wallet Validation Activity")
     }
@@ -48,7 +49,8 @@ class ValidationSuccessFragment : DaggerFragment(), ValidationSuccessView {
     animationCompleted = BehaviorSubject.create()
 
     presenter =
-        ValidationSuccessPresenter(this, proofOfAttentionService, CompositeDisposable(),
+        PoaValidationSuccessPresenter(this,
+            proofOfAttentionService, CompositeDisposable(),
             walletValidationView)
   }
 
@@ -100,8 +102,8 @@ class ValidationSuccessFragment : DaggerFragment(), ValidationSuccessView {
 
   companion object {
     @JvmStatic
-    fun newInstance(): ValidationSuccessFragment {
-      return ValidationSuccessFragment()
+    fun newInstance(): PoaValidationSuccessFragment {
+      return PoaValidationSuccessFragment()
     }
   }
 

@@ -1,12 +1,9 @@
-package com.asfoundation.wallet.wallet_validation
+package com.asfoundation.wallet.wallet_validation.generic
 
-import android.content.ClipDescription.MIMETYPE_TEXT_PLAIN
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Context.CLIPBOARD_SERVICE
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +11,10 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
+import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.SmsValidationInteract
+import com.asfoundation.wallet.wallet_validation.PasteTextWatcher
+import com.asfoundation.wallet.wallet_validation.ValidationInfo
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import dagger.android.support.DaggerFragment
@@ -22,17 +22,23 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_sms_code.*
+import kotlinx.android.synthetic.main.layout_code_validation.*
+import kotlinx.android.synthetic.main.layout_referral_status.*
+import kotlinx.android.synthetic.main.layout_validation_no_internet.*
+import kotlinx.android.synthetic.main.layout_validation_result.*
 import kotlinx.android.synthetic.main.single_sms_input_layout.view.*
 import kotlinx.android.synthetic.main.sms_text_input_layout.*
-import org.apache.commons.lang3.StringUtils
 import javax.inject.Inject
 
 
-class CodeValidationFragment : DaggerFragment(), CodeValidationView {
+class CodeValidationFragment : DaggerFragment(),
+    CodeValidationView {
 
   @Inject
   lateinit var smsValidationInteract: SmsValidationInteract
+
+  @Inject
+  lateinit var defaultWalletInteract: FindDefaultWalletInteract
 
   private var walletValidationView: WalletValidationView? = null
   private lateinit var presenter: CodeValidationPresenter
@@ -40,32 +46,40 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
   private lateinit var clipboard: ClipboardManager
 
   val countryCode: String by lazy {
-    if (arguments!!.containsKey(PhoneValidationFragment.COUNTRY_CODE)) {
-      arguments!!.getString(PhoneValidationFragment.COUNTRY_CODE)
+    if (arguments!!.containsKey(
+            PhoneValidationFragment.COUNTRY_CODE)) {
+      arguments!!.getString(
+          PhoneValidationFragment.COUNTRY_CODE)
     } else {
       throw IllegalArgumentException("Country Code not passed")
     }
   }
 
   val phoneNumber: String by lazy {
-    if (arguments!!.containsKey(PhoneValidationFragment.PHONE_NUMBER)) {
-      arguments!!.getString(PhoneValidationFragment.PHONE_NUMBER)
+    if (arguments!!.containsKey(
+            PhoneValidationFragment.PHONE_NUMBER)) {
+      arguments!!.getString(
+          PhoneValidationFragment.PHONE_NUMBER)
     } else {
       throw IllegalArgumentException("Phone Number not passed")
     }
   }
 
   private val errorMessage: Int? by lazy {
-    if (arguments!!.containsKey(ERROR_MESSAGE)) {
-      arguments!!.getInt(ERROR_MESSAGE)
+    if (arguments!!.containsKey(
+            ERROR_MESSAGE)) {
+      arguments!!.getInt(
+          ERROR_MESSAGE)
     } else {
       null
     }
   }
 
   private val validationInfo: ValidationInfo? by lazy {
-    if (arguments!!.containsKey(VALIDATION_INFO)) {
-      arguments!!.getSerializable(VALIDATION_INFO) as ValidationInfo
+    if (arguments!!.containsKey(
+            VALIDATION_INFO)) {
+      arguments!!.getSerializable(
+          VALIDATION_INFO) as ValidationInfo
     } else {
       null
     }
@@ -77,15 +91,15 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
     clipboard = context!!.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
 
     presenter =
-        CodeValidationPresenter(this, walletValidationView,
-            smsValidationInteract, AndroidSchedulers.mainThread(), Schedulers.io(), countryCode,
+        CodeValidationPresenter(this, walletValidationView, smsValidationInteract,
+            defaultWalletInteract, AndroidSchedulers.mainThread(), Schedulers.io(), countryCode,
             phoneNumber, CompositeDisposable())
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
     fragmentContainer = container!!
-    return inflater.inflate(R.layout.fragment_sms_code, container, false)
+    return inflater.inflate(R.layout.layout_code_validation, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -100,6 +114,7 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
   }
 
   override fun setupUI() {
+    hideNoInternetView()
     if (errorMessage == null) {
       error.visibility = View.INVISIBLE
       setButtonState(true)
@@ -137,6 +152,7 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
     code_4.code.text = null
     code_5.code.text = null
     code_6.code.text = null
+    code_1.requestFocus()
   }
 
   override fun setButtonState(state: Boolean) {
@@ -145,6 +161,21 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
 
   override fun getBackClicks(): Observable<Any> {
     return RxView.clicks(back_button)
+  }
+
+  override fun getRetryButtonClicks(): Observable<ValidationInfo> {
+    return RxView.clicks(retry_button)
+        .map {
+          ValidationInfo(code_1.code.text.toString(),
+              code_2.code.text.toString(), code_3.code.text.toString(),
+              code_4.code.text.toString(), code_5.code.text.toString(),
+              code_6.code.text.toString(), countryCode,
+              phoneNumber)
+        }
+  }
+
+  override fun getLaterButtonClicks(): Observable<Any> {
+    return RxView.clicks(later_button)
   }
 
   override fun getSubmitClicks(): Observable<ValidationInfo> {
@@ -156,6 +187,10 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
               code_6.code.text.toString(), countryCode,
               phoneNumber)
         }
+  }
+
+  override fun getOkClicks(): Observable<Any> {
+    return RxView.clicks(ok_button)
   }
 
   override fun getResentCodeClicks(): Observable<Any> {
@@ -220,6 +255,55 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
     }
   }
 
+  override fun showLoading() {
+    content.visibility = View.GONE
+    referral_status.visibility = View.GONE
+    animation_validating_code.visibility = View.VISIBLE
+    validate_code_animation.playAnimation()
+  }
+
+  override fun showReferralEligible() {
+    walletValidationView?.showLastStepAnimation()
+    content.visibility = View.GONE
+    animation_validating_code.visibility = View.GONE
+    referral_status.visibility = View.VISIBLE
+    referral_status_title.setText(R.string.referral_verification_confirmation_title)
+    referral_status_body.setText(R.string.referral_verification_confirmation_body)
+    referral_status_animation.setAnimation(R.raw.referral_invited)
+    referral_status_animation.playAnimation()
+  }
+
+  override fun showReferralIneligible() {
+    walletValidationView?.showLastStepAnimation()
+    content.visibility = View.GONE
+    animation_validating_code.visibility = View.GONE
+    referral_status.visibility = View.VISIBLE
+    referral_status_title.setText(R.string.referral_verification_not_invited_title)
+    referral_status_body.setText(R.string.referral_verification_not_invited_body)
+    referral_status_animation.setAnimation(R.raw.referral_not_invited)
+    referral_status_animation.playAnimation()
+  }
+
+  override fun showNoInternetView() {
+    walletValidationView?.hideProgressAnimation()
+    stopRetryAnimation()
+    content.visibility = View.GONE
+    referral_status.visibility = View.GONE
+    animation_validating_code.visibility = View.GONE
+    layout_validation_no_internet.visibility = View.VISIBLE
+  }
+
+  override fun hideNoInternetView() {
+    walletValidationView?.showProgressAnimation()
+    layout_validation_no_internet.visibility = View.GONE
+  }
+
+  private fun stopRetryAnimation() {
+    retry_button.visibility = View.VISIBLE
+    later_button.visibility = View.VISIBLE
+    retry_animation.visibility = View.GONE
+  }
+
   override fun onDestroy() {
     presenter.stop()
     super.onDestroy()
@@ -244,7 +328,7 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
   override fun hideKeyboard() {
     val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
     imm?.hideSoftInputFromWindow(fragmentContainer.windowToken, 0)
-    title.requestFocus()
+    content.requestFocus()
   }
 
   companion object {
@@ -255,8 +339,10 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
     @JvmStatic
     fun newInstance(countryCode: String, phoneNumber: String): Fragment {
       val bundle = Bundle()
-      bundle.putString(PhoneValidationFragment.COUNTRY_CODE, countryCode)
-      bundle.putString(PhoneValidationFragment.PHONE_NUMBER, phoneNumber)
+      bundle.putString(
+          PhoneValidationFragment.COUNTRY_CODE, countryCode)
+      bundle.putString(
+          PhoneValidationFragment.PHONE_NUMBER, phoneNumber)
 
       val fragment = CodeValidationFragment()
       fragment.arguments = bundle
@@ -266,77 +352,18 @@ class CodeValidationFragment : DaggerFragment(), CodeValidationView {
     @JvmStatic
     fun newInstance(info: ValidationInfo, errorMessage: Int): Fragment {
       val bundle = Bundle()
-      bundle.putString(PhoneValidationFragment.COUNTRY_CODE, info.countryCode)
-      bundle.putString(PhoneValidationFragment.PHONE_NUMBER, info.phoneNumber)
-      bundle.putInt(ERROR_MESSAGE, errorMessage)
-      bundle.putSerializable(VALIDATION_INFO, info)
+      bundle.putString(
+          PhoneValidationFragment.COUNTRY_CODE, info.countryCode)
+      bundle.putString(
+          PhoneValidationFragment.PHONE_NUMBER, info.phoneNumber)
+      bundle.putInt(
+          ERROR_MESSAGE, errorMessage)
+      bundle.putSerializable(
+          VALIDATION_INFO, info)
 
       val fragment = CodeValidationFragment()
       fragment.arguments = bundle
       return fragment
-    }
-
-  }
-
-  class PasteTextWatcher(
-      private val inputTexts: Array<EditText>,
-      private val clipboardManager: ClipboardManager,
-      private val selectedPosition: Int
-  ) : TextWatcher {
-
-    private var isPaste = false
-    private var isStart = false
-    private var isDelete = false
-    private var previousChar = ""
-
-    override fun afterTextChanged(s: Editable?) {
-      if (isDelete) {
-        if (selectedPosition > 0) {
-          inputTexts[selectedPosition - 1].requestFocus()
-          inputTexts[selectedPosition - 1].setSelection(inputTexts[selectedPosition - 1].length())
-          return
-        }
-      }
-      if (s?.length ?: 0 > 1 && isPaste && isValidPaste()) {
-        inputTexts[selectedPosition].setText(previousChar)
-        val text = getTextFromClipboard()
-        text?.forEachIndexed { index, digit ->
-          when (index) {
-            0, 1, 2, 3, 4, 5 -> inputTexts[index].setText(digit.toString())
-            else -> return@forEachIndexed
-          }
-        }
-      }
-      if (s?.length ?: 0 > 1) {
-        if (isStart) {
-          s?.delete(1, 2)
-        } else {
-          s?.delete(0, 1)
-        }
-      }
-    }
-
-    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-      isStart = start == 0
-      isDelete = (start == 0 && count == 1 && after == 0 && s?.length ?: 0 <= 1)
-      if (after > 0) {
-        previousChar = s.toString()
-      }
-    }
-
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-      isPaste = count > 1
-    }
-
-    private fun isValidPaste(): Boolean {
-      return clipboardManager.primaryClipDescription?.hasMimeType(
-          MIMETYPE_TEXT_PLAIN) == true && StringUtils.isNumeric(getTextFromClipboard())
-    }
-
-    private fun getTextFromClipboard(): String? {
-      return clipboardManager.primaryClip?.getItemAt(0)
-          ?.text?.toString()
-          ?.replace(Regex("[^\\d.]"), "")
     }
 
   }

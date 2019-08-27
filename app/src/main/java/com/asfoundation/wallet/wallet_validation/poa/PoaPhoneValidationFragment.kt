@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_validation
+package com.asfoundation.wallet.wallet_validation.poa
 
 import android.content.Context
 import android.os.Bundle
@@ -21,13 +21,14 @@ import kotlinx.android.synthetic.main.fragment_phone_validation.*
 import javax.inject.Inject
 
 
-class PhoneValidationFragment : DaggerFragment(), PhoneValidationView {
+class PoaPhoneValidationFragment : DaggerFragment(),
+    PoaPhoneValidationView {
 
   @Inject
   lateinit var interactor: SmsValidationInteract
 
-  private var walletValidationView: WalletValidationView? = null
-  private lateinit var presenter: PhoneValidationPresenter
+  private var walletValidationView: PoaWalletValidationView? = null
+  private lateinit var presenter: PoaPhoneValidationPresenter
 
   private var countryCode: String? = null
   private var phoneNumber: String? = null
@@ -37,7 +38,8 @@ class PhoneValidationFragment : DaggerFragment(), PhoneValidationView {
     super.onCreate(savedInstanceState)
 
     presenter =
-        PhoneValidationPresenter(this, walletValidationView, interactor,
+        PoaPhoneValidationPresenter(this,
+            walletValidationView, interactor,
             AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable())
   }
 
@@ -48,14 +50,20 @@ class PhoneValidationFragment : DaggerFragment(), PhoneValidationView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    if (arguments?.containsKey(COUNTRY_CODE) == true) {
-      countryCode = arguments?.getString(COUNTRY_CODE)
+    if (arguments?.containsKey(
+            COUNTRY_CODE) == true) {
+      countryCode = arguments?.getString(
+          COUNTRY_CODE)
     }
-    if (arguments?.containsKey(PHONE_NUMBER) == true) {
-      phoneNumber = arguments?.getString(PHONE_NUMBER)
+    if (arguments?.containsKey(
+            PHONE_NUMBER) == true) {
+      phoneNumber = arguments?.getString(
+          PHONE_NUMBER)
     }
-    if (arguments?.containsKey(ERROR_MESSAGE) == true) {
-      errorMessage = arguments?.getInt(ERROR_MESSAGE)
+    if (arguments?.containsKey(
+            ERROR_MESSAGE) == true) {
+      errorMessage = arguments?.getInt(
+          ERROR_MESSAGE)
     }
 
     presenter.present()
@@ -123,9 +131,9 @@ class PhoneValidationFragment : DaggerFragment(), PhoneValidationView {
   override fun onAttach(context: Context) {
     super.onAttach(context)
 
-    if (context !is WalletValidationView) {
+    if (context !is PoaWalletValidationView) {
       throw IllegalStateException(
-          "PhoneValidationFragment must be attached to Wallet Validation activity")
+          "PoaPhoneValidationFragment must be attached to Wallet Validation activity")
     }
 
     walletValidationView = context
@@ -146,12 +154,17 @@ class PhoneValidationFragment : DaggerFragment(), PhoneValidationView {
     fun newInstance(countryCode: String? = null, phoneNumber: String? = null,
                     errorMessage: Int? = null): Fragment {
       val bundle = Bundle()
-      bundle.putString(COUNTRY_CODE, countryCode)
-      bundle.putString(PHONE_NUMBER, phoneNumber)
+      bundle.putString(
+          COUNTRY_CODE, countryCode)
+      bundle.putString(
+          PHONE_NUMBER, phoneNumber)
 
-      errorMessage?.let { bundle.putInt(ERROR_MESSAGE, errorMessage) }
+      errorMessage?.let {
+        bundle.putInt(
+            ERROR_MESSAGE, errorMessage)
+      }
 
-      val fragment = PhoneValidationFragment()
+      val fragment = PoaPhoneValidationFragment()
       fragment.arguments = bundle
       return fragment
     }

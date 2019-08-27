@@ -1,15 +1,17 @@
-package com.asfoundation.wallet.wallet_validation
+package com.asfoundation.wallet.wallet_validation.poa
 
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.SmsValidationInteract
+import com.asfoundation.wallet.wallet_validation.ValidationInfo
+import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
-class ValidationLoadingPresenter(
-    private val view: ValidationLoadingView,
-    private val activity: WalletValidationView?,
+class PoaValidationLoadingPresenter(
+    private val view: PoaValidationLoadingView,
+    private val activity: PoaWalletValidationView?,
     private val defaultWalletInteract: FindDefaultWalletInteract,
     private val smsValidationInteract: SmsValidationInteract,
     private val validationInfo: ValidationInfo,

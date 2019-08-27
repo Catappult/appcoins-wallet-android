@@ -6,6 +6,7 @@ enum class WalletValidationStatus {
   INVALID_INPUT,
   INVALID_PHONE,
   DOUBLE_SPENT,
-  GENERIC_ERROR
+  GENERIC_ERROR,
+  NO_NETWORK
 
 }

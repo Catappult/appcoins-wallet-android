@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_validation
+package com.asfoundation.wallet.wallet_validation.poa
 
 import android.content.Context
 import android.content.Intent
@@ -11,6 +11,7 @@ import com.asfoundation.wallet.interact.CreateWalletInteract
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.repository.SmsValidationRepositoryType
 import com.asfoundation.wallet.ui.BaseActivity
+import com.asfoundation.wallet.wallet_validation.ValidationInfo
 import dagger.android.AndroidInjection
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -18,9 +19,10 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_iab_wallet_creation.*
 import javax.inject.Inject
 
-class WalletValidationActivity : BaseActivity(), WalletValidationView {
+class PoaWalletValidationActivity : BaseActivity(),
+    PoaWalletValidationView {
 
-  private lateinit var presenter: WalletValidationPresenter
+  private lateinit var presenter: PoaWalletValidationPresenter
   @Inject
   lateinit var smsValidationRepository: SmsValidationRepositoryType
   @Inject
@@ -36,16 +38,20 @@ class WalletValidationActivity : BaseActivity(), WalletValidationView {
     private const val WALLET_VALIDATED_KEY = "wallet_validated"
     @JvmStatic
     fun newIntent(context: Context): Intent {
-      return Intent(context, WalletValidationActivity::class.java)
+      return Intent(context, PoaWalletValidationActivity::class.java)
     }
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_wallet_validation)
-    savedInstanceState?.let { walletValidated = it.getBoolean(WALLET_VALIDATED_KEY, false) }
-    presenter = WalletValidationPresenter(this, smsValidationRepository, walletInteractor,
+    setContentView(R.layout.activity_poa_wallet_validation)
+    savedInstanceState?.let {
+      walletValidated = it.getBoolean(
+          WALLET_VALIDATED_KEY, false)
+    }
+    presenter = PoaWalletValidationPresenter(this,
+        smsValidationRepository, walletInteractor,
         createWalletInteractor, CompositeDisposable(), AndroidSchedulers.mainThread(),
         Schedulers.io())
     presenter.present()
@@ -67,35 +73,40 @@ class WalletValidationActivity : BaseActivity(), WalletValidationView {
 
   override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
     super.onSaveInstanceState(outState, outPersistentState)
-    outState?.putBoolean(WALLET_VALIDATED_KEY, walletValidated)
+    outState?.putBoolean(
+        WALLET_VALIDATED_KEY, walletValidated)
   }
 
   override fun showPhoneValidationView(countryCode: String?, phoneNumber: String?,
                                        errorMessage: Int?) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            PhoneValidationFragment.newInstance(countryCode, phoneNumber, errorMessage))
+            PoaPhoneValidationFragment.newInstance(
+                countryCode, phoneNumber, errorMessage))
         .commit()
   }
 
   override fun showCodeValidationView(countryCode: String, phoneNumber: String) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            CodeValidationFragment.newInstance(countryCode, phoneNumber))
+            PoaCodeValidationFragment.newInstance(
+                countryCode, phoneNumber))
         .commit()
   }
 
   override fun showCodeValidationView(validationInfo: ValidationInfo, errorMessage: Int) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            CodeValidationFragment.newInstance(validationInfo, errorMessage))
+            PoaCodeValidationFragment.newInstance(
+                validationInfo, errorMessage))
         .commit()
   }
 
   override fun showLoading(it: ValidationInfo) {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            ValidationLoadingFragment.newInstance(it))
+            PoaValidationLoadingFragment.newInstance(
+                it))
         .commit()
   }
 
@@ -103,19 +114,21 @@ class WalletValidationActivity : BaseActivity(), WalletValidationView {
     walletValidated = true
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            ValidationSuccessFragment.newInstance())
+            PoaValidationSuccessFragment.newInstance())
         .commit()
   }
 
   override fun closeSuccess() {
     val intent = Intent()
-    setResult(RESULT_OK, intent)
+    setResult(
+        RESULT_OK, intent)
     finishAndRemoveTask()
   }
 
   override fun closeCancel(removeTask: Boolean) {
     val intent = Intent()
-    setResult(RESULT_CANCELED, intent)
+    setResult(
+        RESULT_CANCELED, intent)
     if (removeTask) {
       finishAndRemoveTask()
     } else {
@@ -125,7 +138,8 @@ class WalletValidationActivity : BaseActivity(), WalletValidationView {
 
   override fun closeError() {
     val intent = Intent()
-    setResult(RESULT_FAILED, intent)
+    setResult(
+        RESULT_FAILED, intent)
     finishAndRemoveTask()
   }
 
