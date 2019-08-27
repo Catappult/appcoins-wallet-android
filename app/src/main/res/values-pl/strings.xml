@@ -417,6 +417,7 @@
   <string name="verification_insert_code_resend_button">PONOWNIE WYŚLIJ KOD</string>
   <string name="verification_validating_title">Sprawdzamy Twój kod&#8230;</string>
   <string name="verification_completed_title">Zrobione!</string>
+  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
   <string name="verification_notification_reward_received_body">Nagroda odebrana! 👌</string>
   <string name="verification_notification_reward_already_received_body">Ten numer telefonu został już użyty do odebrania tej nagrody</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Ten numer jest już w użytku.</string>
@@ -450,7 +451,7 @@
   <string name="referral_view_share_link_button">UDOSTĘPNIJ TWÓJ LINK</string>
   <string name="referral_view_notifications_title">Powiadomienia</string>
   <string name="referral_share_sheet_title">Udostępnij link przez:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
   <string name="referral_view_verify_button">ZWERYFIKUJ PORTFEL</string>
   <string name="referral_view_i_have_been_invited_button">ZOSTAŁEM ZAPROSZONY</string>
   <string name="referral_view_dropup_menu_friends_invited">Zaproszonych Znajomych</string>
@@ -459,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">Wymagania</string>
   <string name="referral_dropup_menu_requirements_verification">Zweryfikuj swój portfel numerem telefonu</string>
   <string name="referral_dropup_menu_requirements_purchase">Dokonaj jednego zakupu w aplikacji lub doładowania</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %1$s worth in AppCoins Credits for each friend meeting both requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promocje</string>
   <string name="bottom_navigation_promotions_detailed">Odkryj jak zarabiać darmowe Kredyty AppCoins z naszymi promocjami i kampaniami!</string>
