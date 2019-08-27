@@ -417,6 +417,7 @@
   <string name="verification_insert_code_resend_button">ΕΠΑΝΑΠΟΣΤΟΛΗ ΚΩΔΙΚΟΥ</string>
   <string name="verification_validating_title">Επιβεβαίωση του κωδικού σας&#8230;</string>
   <string name="verification_completed_title">Τέλος!</string>
+  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
   <string name="verification_notification_reward_received_body">Η αμοιβή ελήφθη. Καλή απόλαυση! 👌</string>
   <string name="verification_notification_reward_already_received_body">Αυτός ο αριθμός τηλεφώνου έχει ήδη χρησιμοποιηθεί για τη λήψη αυτής της αμοιβής 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Ο αριθμός χρησιμοποιείται ήδη.</string>
@@ -450,7 +451,7 @@
   <string name="referral_view_share_link_button">ΚΟΙΝΟΠΟΙΗΣΗ ΣΥΝΔΕΣΜΟΥ ΠΡΟΣΚΛΗΣΗΣ</string>
   <string name="referral_view_notifications_title">Ειδοποιήσεις</string>
   <string name="referral_share_sheet_title">Κοινοποίηση συνδέσμου πρόσκλησης μέσω:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
   <string name="referral_view_verify_button">ΕΠΑΛΗΘΕΥΣΗ WALLET</string>
   <string name="referral_view_i_have_been_invited_button">ΕΧΩ ΛΑΒΕΙ ΠΡΟΣΚΛΗΣΗ</string>
   <string name="referral_view_dropup_menu_friends_invited">Προσκεκλημένοι φίλοι</string>
@@ -459,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">Προϋποθέσεις</string>
   <string name="referral_dropup_menu_requirements_verification">Επαληθεύστε το wallet σας με έναν αριθμό τηλεφώνου</string>
   <string name="referral_dropup_menu_requirements_purchase">Πραγματοποιήστε μία αγορά εντός εφαρμογών ή φόρτιση</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %1$s worth in AppCoins Credits for each friend meeting both requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Προωθήσεις</string>
   <string name="bottom_navigation_promotions_detailed">Ανακαλύψτε πώς θα κερδίσετε δωρεάν AppCoins Credits μέσα από τις προωθήσεις και τις καμπάνιες μας!</string>
