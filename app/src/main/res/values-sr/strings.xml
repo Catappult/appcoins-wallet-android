@@ -417,6 +417,7 @@
   <string name="verification_insert_code_resend_button">PONOVO POŠALJI KOD</string>
   <string name="verification_validating_title">Potvrđujemo kod&#8230;</string>
   <string name="verification_completed_title">Gotovo!</string>
+  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
   <string name="verification_notification_reward_received_body">Dobili ste nagradu, uživajte! 👌</string>
   <string name="verification_notification_reward_already_received_body">Ovaj broj telefona se već koristio za ovu nagradu 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Broj se već koristi.</string>
@@ -447,10 +448,10 @@
   <string name="referral_view_title">Pozovite prijatelje</string>
   <string name="referral_view_title_1">Pozovite prijatelje i dodatno zaradite!</string>
   <string name="referral_view_verified_body">Za svakog prijatelja ćete dobiti AppCoins Credits u vrednosti od %s. Jednostavno podelite link!</string>
-  <string name="referral_view_share_link_button">PODELI POZIVNI LINK</string>
+  <string name="referral_view_share_link_button">PODELI LINK KA POZIVU</string>
   <string name="referral_view_notifications_title">Obaveštenja</string>
   <string name="referral_share_sheet_title">Podeli pozivni link preko:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
   <string name="referral_view_verify_button">POTVRDITE NOVČANIK</string>
   <string name="referral_view_i_have_been_invited_button">POZVAN/A SAM</string>
   <string name="referral_view_dropup_menu_friends_invited">Pozvani prijatelji</string>
@@ -459,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">Uslovi</string>
   <string name="referral_dropup_menu_requirements_verification">Potvrdite novčanik pomoću broja telefona</string>
   <string name="referral_dropup_menu_requirements_purchase">Obavite jednu kupovinu u aplikaciji ili dopunite</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %1$s worth in AppCoins Credits for each friend meeting both requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promocije</string>
   <string name="bottom_navigation_promotions_detailed">Otkrijte kako da zaradite besplatne AppCoins Credits pomoću naših promocija i kampanja!</string>
