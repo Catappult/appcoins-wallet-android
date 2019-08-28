@@ -3,7 +3,7 @@ package com.appcoins.wallet.gamification.repository.entity
 import com.google.gson.annotations.SerializedName
 import java.math.BigDecimal
 
-data class UserStatsGamification(
+data class GamificationResponse(
     val bonus: Double,
     @SerializedName("current_amount")
     val totalSpend: BigDecimal,

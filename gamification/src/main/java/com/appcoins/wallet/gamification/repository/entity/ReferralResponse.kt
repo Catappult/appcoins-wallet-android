@@ -3,7 +3,7 @@ package com.appcoins.wallet.gamification.repository.entity
 import com.google.gson.annotations.SerializedName
 import java.math.BigDecimal
 
-data class UserStatsReferral(
+data class ReferralResponse(
     val available: Int,
     val completed: Int,
     val currency: String,

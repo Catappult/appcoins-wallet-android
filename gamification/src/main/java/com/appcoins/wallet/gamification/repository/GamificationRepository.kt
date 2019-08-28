@@ -12,4 +12,5 @@ interface GamificationRepository {
 
   fun getLastShownLevel(wallet: String, screen: String): Single<Int>
   fun shownLevel(wallet: String, level: Int, screen: String): Completable
+  fun getUserStatsReferral(wallet: String): Single<ForecastBonus>
 }

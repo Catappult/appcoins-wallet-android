@@ -5,13 +5,13 @@ import com.appcoins.wallet.gamification.GamificationScreen
 import com.appcoins.wallet.gamification.repository.ForecastBonus
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.UserStats
+import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.service.LocalCurrencyConversionService
 import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.functions.BiFunction
 import java.math.BigDecimal
 
 class GamificationInteractor(
@@ -29,14 +29,31 @@ class GamificationInteractor(
   }
 
   fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonus> {
-    return Single.zip(defaultWallet.find()
-        .flatMap { gamification.getEarningBonus(it.address, packageName, amount) },
-        conversionService.localCurrency,
-        BiFunction { appcBonusValue, localCurrency ->
-          ForecastBonus(appcBonusValue.status,
-              appcBonusValue.amount.multiply(localCurrency.amount),
-              localCurrency.symbol)
-        })
+    return defaultWallet.find()
+        .flatMap { wallet: Wallet ->
+          gamification.getEarningBonus(wallet.address, packageName, amount)
+              .flatMap { forecastBonus: ForecastBonus ->
+                conversionService.localCurrency
+                    .flatMap { fiatValue: FiatValue ->
+                      gamification.getNextPurchaseBonusFromReferrals(wallet.address)
+                          .map {
+                            val status = getBonusStatus(forecastBonus, it)
+                            val bonus = forecastBonus.amount.multiply(fiatValue.amount)
+                                .add(it.amount)
+                            ForecastBonus(status, bonus, fiatValue.symbol)
+                          }
+                    }
+              }
+        }
+  }
+
+  private fun getBonusStatus(forecastBonus: ForecastBonus,
+                             referralBonus: ForecastBonus): ForecastBonus.Status {
+    return if (forecastBonus.status == ForecastBonus.Status.ACTIVE || referralBonus.status == ForecastBonus.Status.ACTIVE) {
+      ForecastBonus.Status.ACTIVE
+    } else {
+      ForecastBonus.Status.INACTIVE
+    }
   }
 
   fun hasNewLevel(screen: GamificationScreen): Single<Boolean> {
