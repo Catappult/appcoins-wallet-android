@@ -10,7 +10,8 @@ import java.math.BigDecimal
 import java.net.UnknownHostException
 
 class BdsGamificationRepository(private val api: GamificationApi,
-                                private val local: GamificationLocalData) :
+                                private val local: GamificationLocalData,
+                                private val versionCode: String) :
     GamificationRepository {
 
   override fun getLastShownLevel(wallet: String, screen: String): Single<Int> {
@@ -46,7 +47,7 @@ class BdsGamificationRepository(private val api: GamificationApi,
   }
 
   override fun getUserStatus(wallet: String): Single<UserStats> {
-    return api.getUserStatus(wallet)
+    return api.getUserStatus(wallet, versionCode)
         .map { map(it) }
         .onErrorReturn { map(it) }
   }
@@ -62,7 +63,7 @@ class BdsGamificationRepository(private val api: GamificationApi,
   }
 
   override fun getUserStatsReferral(wallet: String): Single<ForecastBonus> {
-    return api.getUserStatus(wallet)
+    return api.getUserStatus(wallet, versionCode)
         .map { map(it.referral) }
         .onErrorReturn { mapReferralError(it) }
   }

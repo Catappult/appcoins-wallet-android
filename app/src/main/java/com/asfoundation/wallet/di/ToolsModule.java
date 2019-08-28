@@ -207,6 +207,7 @@ import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -736,7 +737,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides Adyen provideAdyen(Context context) {
-    return new Adyen(context, Charset.forName("UTF-8"), Schedulers.io(), BehaviorRelay.create());
+    return new Adyen(context, StandardCharsets.UTF_8, Schedulers.io(), BehaviorRelay.create());
   }
 
   @Singleton @Provides TransactionService provideTransactionService(
@@ -810,8 +811,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(GamificationApi.class);
-    return new Gamification(new BdsGamificationRepository(api,
-        new SharedPreferencesGamificationLocalData(preferences)));
+    return new Gamification(
+        new BdsGamificationRepository(api, new SharedPreferencesGamificationLocalData(preferences),
+            getVersionCode()));
   }
 
   @Singleton @Provides BackendApi provideBackendApi(OkHttpClient client, Gson gson) {
