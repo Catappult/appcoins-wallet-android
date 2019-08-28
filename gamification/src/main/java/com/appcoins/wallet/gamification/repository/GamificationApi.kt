@@ -15,7 +15,8 @@ interface GamificationApi {
   fun getLevels(): Single<LevelsResponse>
 
   @GET("gamification/bonus_forecast")
-  fun getForecastBonus(@Query("address") wallet: String, @Query("package_name") packageName: String,
+  fun getForecastBonus(@Query("address") wallet: String,
+                       @Query("package_name") packageName: String,
                        @Query("amount") amount: BigDecimal, @Query("currency")
                        currency: String): Single<ForecastBonusResponse>
 }

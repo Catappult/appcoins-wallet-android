@@ -1,6 +1,7 @@
 package com.appcoins.wallet.gamification.repository
 
 import com.appcoins.wallet.gamification.repository.entity.LevelsResponse
+import com.appcoins.wallet.gamification.repository.entity.UserStatsGamification
 import com.appcoins.wallet.gamification.repository.entity.UserStatusResponse
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -60,9 +61,11 @@ class BdsGamificationRepository(private val api: GamificationApi,
   }
 
   private fun map(response: UserStatusResponse): UserStats {
-    return UserStats(UserStats.Status.OK, response.level,
-        response.nextLevelAmount, response.bonus, response.totalSpend, response.totalEarned,
-        UserStatusResponse.Status.ACTIVE == response.status)
+    val gamification = response.gamification
+    return UserStats(UserStats.Status.OK, gamification.level,
+        gamification.nextLevelAmount, gamification.bonus, gamification.totalSpend,
+        gamification.totalEarned,
+        UserStatsGamification.Status.ACTIVE == gamification.status)
   }
 
   override fun getLevels(): Single<Levels> {

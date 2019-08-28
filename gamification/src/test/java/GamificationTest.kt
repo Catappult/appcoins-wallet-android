@@ -5,6 +5,7 @@ import com.appcoins.wallet.gamification.GamificationScreen
 import com.appcoins.wallet.gamification.repository.*
 import com.appcoins.wallet.gamification.repository.entity.Level
 import com.appcoins.wallet.gamification.repository.entity.LevelsResponse
+import com.appcoins.wallet.gamification.repository.entity.UserStatsGamification
 import com.appcoins.wallet.gamification.repository.entity.UserStatusResponse
 import io.reactivex.Single
 import org.junit.Assert
@@ -28,9 +29,11 @@ class GamificationTest {
 
   @Test
   fun getUserStatsTest() {
-    api.userStatusResponse = Single.just(
-        UserStatusResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 1, BigDecimal.TEN,
-            UserStatusResponse.Status.ACTIVE))
+    val userStatsGamification =
+        UserStatsGamification(2.2, BigDecimal.ONE, BigDecimal.ZERO, 1, BigDecimal.TEN,
+            UserStatsGamification.Status.ACTIVE)
+
+    api.userStatusResponse = Single.just(UserStatusResponse(userStatsGamification, null))
     val testObserver = gamification.getUserStatus(wallet)
         .test()
     testObserver.assertValue(
@@ -86,9 +89,11 @@ class GamificationTest {
 
   @Test
   fun hasNewLevelNoNewLevel() {
-    api.userStatusResponse = Single.just(
-        UserStatusResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 0, BigDecimal.TEN,
-            UserStatusResponse.Status.ACTIVE))
+    val userStatsGamification =
+        UserStatsGamification(2.2, BigDecimal.ONE, BigDecimal.ZERO, 0, BigDecimal.TEN,
+            UserStatsGamification.Status.ACTIVE)
+
+    api.userStatusResponse = Single.just(UserStatusResponse(userStatsGamification, null))
     local.lastShownLevelResponse = Single.just(0)
     val test = gamification.hasNewLevel(wallet, GamificationScreen.MY_LEVEL.toString())
         .test()
@@ -99,9 +104,11 @@ class GamificationTest {
 
   @Test
   fun hasNewLevelNewLevel() {
-    api.userStatusResponse = Single.just(
-        UserStatusResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 0, BigDecimal.TEN,
-            UserStatusResponse.Status.ACTIVE))
+    val userStatsGamification =
+        UserStatsGamification(2.2, BigDecimal.ONE, BigDecimal.ZERO, 0, BigDecimal.TEN,
+            UserStatsGamification.Status.ACTIVE)
+
+    api.userStatusResponse = Single.just(UserStatusResponse(userStatsGamification, null))
     local.lastShownLevelResponse = Single.just(-1)
     val test = gamification.hasNewLevel(wallet, GamificationScreen.MY_LEVEL.toString())
         .test()
