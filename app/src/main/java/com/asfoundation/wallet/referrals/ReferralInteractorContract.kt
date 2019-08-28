@@ -12,4 +12,10 @@ interface ReferralInteractorContract {
 
   fun saveReferralInformation(numberOfFriends: Int, totalEarned: String,
                               screen: ReferralsScreen): Completable
+
+  fun getTotalReferralBonus(): Single<String>
+
+  fun getSingleReferralBonus(): Single<String>
+
+  fun getPendingBonus(): Single<String>
 }

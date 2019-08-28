@@ -1,9 +1,11 @@
 package com.asfoundation.wallet.promotions
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.core.app.ShareCompat
 import com.asf.wallet.R
+import com.asfoundation.wallet.referrals.InviteFriendsActivity
 import com.asfoundation.wallet.router.RewardsLevelRouter
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
@@ -47,7 +49,8 @@ class PromotionsActivity : BaseActivity(), PromotionsActivityView {
         .startChooser()
   }
 
-  override fun navigateToPromotionDetails() {
-    //TODO
+  override fun navigateToInviteFriends() {
+    val intent = Intent(this, InviteFriendsActivity::class.java)
+    startActivity(intent)
   }
 }

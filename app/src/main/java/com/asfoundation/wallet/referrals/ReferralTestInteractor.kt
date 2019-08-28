@@ -40,6 +40,18 @@ class ReferralTestInteractor(
         }
   }
 
+  override fun getTotalReferralBonus(): Single<String> {
+    return Single.just("$10")
+  }
+
+  override fun getSingleReferralBonus(): Single<String> {
+    return Single.just("$2")
+  }
+
+  override fun getPendingBonus(): Single<String> {
+    return Single.just("$4")
+  }
+
   private fun getSavedNumberOfFriends(address: String, screen: ReferralsScreen): Single<Int> {
     return preferences.getNumberOfFriends(address, screen.toString())
   }

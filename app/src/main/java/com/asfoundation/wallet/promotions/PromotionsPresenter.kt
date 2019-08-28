@@ -52,7 +52,7 @@ class PromotionsPresenter(private val view: PromotionsView,
   }
 
   private fun handleNewReferralUpdate() {
-    disposables.add(promotionsInteractor.hasReferralUpdate(ReferralsScreen.REFERRAL)
+    disposables.add(promotionsInteractor.hasReferralUpdate(ReferralsScreen.INVITE_FRIENDS)
         .observeOn(viewScheduler)
         .doOnSuccess { view.showReferralUpdate(it) }
         .flatMapCompletable {
@@ -78,7 +78,7 @@ class PromotionsPresenter(private val view: PromotionsView,
   private fun handleDetailsClick() {
     disposables.add(
         Observable.merge(view.detailsClick(), view.referralCardClick())
-            .doOnNext { view.detailsClick() }
+            .doOnNext { view.navigateToInviteFriends() }
             .subscribe({}, { it.printStackTrace() }))
   }
 

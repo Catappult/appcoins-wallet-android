@@ -7,9 +7,6 @@
     app:cardCornerRadius="4dp"
     app:cardElevation="2dp"
     app:cardUseCompatPadding="true"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
     >
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"

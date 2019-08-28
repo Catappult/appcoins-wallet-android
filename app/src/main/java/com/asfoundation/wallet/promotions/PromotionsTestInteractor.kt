@@ -39,6 +39,6 @@ class PromotionsTestInteractor(private val referralInteractor: ReferralInteracto
   }
 
   override fun retrieveReferralBonus(): Single<String> {
-    return Single.just("$10")
+    return referralInteractor.getTotalReferralBonus()
   }
 }

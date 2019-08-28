@@ -10,7 +10,7 @@ interface PromotionsView {
   fun seeMoreClick(): Observable<Any>
   fun navigateToGamification()
   fun detailsClick(): Observable<Any>
-  fun navigateToPromotionDetails()
+  fun navigateToInviteFriends()
   fun shareClick(): Observable<Any>
   fun showShare()
   fun gamificationCardClick(): Observable<Any>

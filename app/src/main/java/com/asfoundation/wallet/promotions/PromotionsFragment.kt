@@ -42,10 +42,8 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    if (context !is PromotionsActivityView) {
-      throw IllegalArgumentException(
-          PromotionsFragment::class.java.simpleName + " needs to be attached to a " + PromotionsActivityView::class.java.simpleName)
-    }
+    require(
+        context is PromotionsActivityView) { PromotionsFragment::class.java.simpleName + " needs to be attached to a " + PromotionsActivityView::class.java.simpleName }
     activity = context
   }
 
@@ -140,8 +138,8 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
     activity.handleShare()
   }
 
-  override fun navigateToPromotionDetails() {
-    activity.navigateToPromotionDetails()
+  override fun navigateToInviteFriends() {
+    activity.navigateToInviteFriends()
   }
 
   override fun navigateToGamification() {
