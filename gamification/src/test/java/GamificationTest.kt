@@ -20,11 +20,12 @@ class GamificationTest {
   private val local = GamificationLocalDataTest()
   private val wallet = "wallet1"
   private val packageName = "packageName"
+  private val versionCode = "version_code"
 
   @Before
   @Throws(Exception::class)
   fun setUp() {
-    gamification = Gamification(BdsGamificationRepository(api, local))
+    gamification = Gamification(BdsGamificationRepository(api, local, versionCode))
   }
 
   @Test
