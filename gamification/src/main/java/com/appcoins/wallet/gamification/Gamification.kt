@@ -18,6 +18,10 @@ class Gamification(private val repository: GamificationRepository) {
     return repository.getLevels()
   }
 
+  fun getNextPurchaseBonusFromReferrals(wallet: String): Single<ForecastBonus> {
+    return repository.getUserStatsReferral(wallet)
+  }
+
   fun getEarningBonus(wallet: String, packageName: String,
                       amount: BigDecimal): Single<ForecastBonus> {
     return repository.getForecastBonus(wallet, packageName, amount)

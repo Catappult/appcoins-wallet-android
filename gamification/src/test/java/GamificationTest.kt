@@ -3,6 +3,7 @@ import com.appcoins.wallet.gamification.GamificationApiTest
 import com.appcoins.wallet.gamification.GamificationLocalDataTest
 import com.appcoins.wallet.gamification.GamificationScreen
 import com.appcoins.wallet.gamification.repository.*
+import com.appcoins.wallet.gamification.repository.entity.GamificationResponse
 import com.appcoins.wallet.gamification.repository.entity.Level
 import com.appcoins.wallet.gamification.repository.entity.LevelsResponse
 import com.appcoins.wallet.gamification.repository.entity.UserStatusResponse
@@ -19,18 +20,21 @@ class GamificationTest {
   private val local = GamificationLocalDataTest()
   private val wallet = "wallet1"
   private val packageName = "packageName"
+  private val versionCode = "version_code"
 
   @Before
   @Throws(Exception::class)
   fun setUp() {
-    gamification = Gamification(BdsGamificationRepository(api, local))
+    gamification = Gamification(BdsGamificationRepository(api, local, versionCode))
   }
 
   @Test
   fun getUserStatsTest() {
-    api.userStatusResponse = Single.just(
-        UserStatusResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 1, BigDecimal.TEN,
-            UserStatusResponse.Status.ACTIVE))
+    val userStatsGamification =
+        GamificationResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 1, BigDecimal.TEN,
+            GamificationResponse.Status.ACTIVE)
+
+    api.userStatusResponse = Single.just(UserStatusResponse(userStatsGamification, null))
     val testObserver = gamification.getUserStatus(wallet)
         .test()
     testObserver.assertValue(
@@ -86,9 +90,11 @@ class GamificationTest {
 
   @Test
   fun hasNewLevelNoNewLevel() {
-    api.userStatusResponse = Single.just(
-        UserStatusResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 0, BigDecimal.TEN,
-            UserStatusResponse.Status.ACTIVE))
+    val userStatsGamification =
+        GamificationResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 0, BigDecimal.TEN,
+            GamificationResponse.Status.ACTIVE)
+
+    api.userStatusResponse = Single.just(UserStatusResponse(userStatsGamification, null))
     local.lastShownLevelResponse = Single.just(0)
     val test = gamification.hasNewLevel(wallet, GamificationScreen.MY_LEVEL.toString())
         .test()
@@ -99,9 +105,11 @@ class GamificationTest {
 
   @Test
   fun hasNewLevelNewLevel() {
-    api.userStatusResponse = Single.just(
-        UserStatusResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 0, BigDecimal.TEN,
-            UserStatusResponse.Status.ACTIVE))
+    val userStatsGamification =
+        GamificationResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 0, BigDecimal.TEN,
+            GamificationResponse.Status.ACTIVE)
+
+    api.userStatusResponse = Single.just(UserStatusResponse(userStatsGamification, null))
     local.lastShownLevelResponse = Single.just(-1)
     val test = gamification.hasNewLevel(wallet, GamificationScreen.MY_LEVEL.toString())
         .test()

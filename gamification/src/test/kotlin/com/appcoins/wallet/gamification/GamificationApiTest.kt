@@ -11,7 +11,7 @@ class GamificationApiTest : GamificationApi {
   var userStatusResponse: Single<UserStatusResponse>? = null
   var levelsResponse: Single<LevelsResponse>? = null
   var bonusResponse: Single<ForecastBonusResponse>? = null
-  override fun getUserStatus(address: String): Single<UserStatusResponse> {
+  override fun getUserStatus(address: String, versionCode: String): Single<UserStatusResponse> {
     val aux = userStatusResponse!!
     userStatusResponse = null
     return aux
