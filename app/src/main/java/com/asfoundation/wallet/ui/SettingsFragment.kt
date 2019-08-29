@@ -12,20 +12,30 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
+import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
+import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.router.ManageWalletsRouter
+import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
+import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
+import io.reactivex.Scheduler
+import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class SettingsFragment : PreferenceFragmentCompat() {
+class SettingsFragment(private var networkScheduler: Scheduler,
+                       private var viewScheduler: Scheduler) : PreferenceFragmentCompat() {
 
   @Inject
   internal lateinit var findDefaultWalletInteract: FindDefaultWalletInteract
   @Inject
   internal lateinit var manageWalletsRouter: ManageWalletsRouter
+  @Inject
+  lateinit var smsValidationInteract: SmsValidationInteract
 
+  private lateinit var disposables: CompositeDisposable
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidSupportInjection.inject(this)
@@ -39,23 +49,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    val walletPreference = findPreference<Preference>("pref_wallet")
-    walletPreference?.setOnPreferenceClickListener {
-      manageWalletsRouter.open(activity, false)
-      false
-    }
+    disposables = CompositeDisposable()
 
-    findDefaultWalletInteract.find()
-        .subscribe({ wallet ->
-          PreferenceManager.getDefaultSharedPreferences(view.context)
-              .edit()
-              .putString("pref_wallet", wallet.address)
-              .apply()
-          walletPreference?.summary = wallet.address
-        }, {})
+    setWalletsPreference()
 
-    val verifyPreference = findPreference<Preference>("pref_verify")
-    //verifyPreference?.setOnPreferenceClickListener {  }
+    setWalletValidationPreference()
 
     val permissionPreference = findPreference<Preference>("pref_permissions")
     permissionPreference?.setOnPreferenceClickListener {
@@ -151,6 +149,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
     versionPreference?.summary = versionString
   }
 
+  override fun onResume() {
+    setWalletsPreference()
+    setWalletValidationPreference()
+    super.onResume()
+  }
+
+  override fun onDestroyView() {
+    disposables.dispose()
+    super.onDestroyView()
+  }
+
   private fun startBrowserActivity(uri: Uri, newTaskFlag: Boolean) {
     try {
       val intent = Intent(Intent.ACTION_VIEW, uri)
@@ -172,6 +181,52 @@ class SettingsFragment : PreferenceFragmentCompat() {
   private fun openPermissionScreen(): Boolean {
     context?.let { startActivity(ManagePermissionsActivity.newIntent(it)) }
     return true
+  }
+
+  private fun openWalletValidationScreen(): Boolean {
+    context?.let {
+      startActivity(WalletValidationActivity.newIntent(it,
+          getString(R.string.verification_settings_unverified_title)))
+    }
+    return true
+  }
+
+  private fun setWalletValidationPreference() {
+    val verifyWalletPreference = findPreference<Preference>("pref_verification")
+
+    disposables.add(findDefaultWalletInteract.find()
+        .flatMap { smsValidationInteract.isValid(Wallet(it.address)) }
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          if (it == WalletValidationStatus.SUCCESS) {
+            verifyWalletPreference?.summary =
+                getString(R.string.verification_settings_verified_title)
+            verifyWalletPreference?.onPreferenceClickListener = null
+          } else {
+            verifyWalletPreference?.summary =
+                getString(R.string.verification_settings_unverified_body)
+            verifyWalletPreference?.setOnPreferenceClickListener { openWalletValidationScreen() }
+          }
+        }
+        .subscribe())
+  }
+
+  private fun setWalletsPreference() {
+    val walletPreference = findPreference<Preference>("pref_wallet")
+    walletPreference?.setOnPreferenceClickListener {
+      manageWalletsRouter.open(activity, false)
+      false
+    }
+
+    disposables.add(findDefaultWalletInteract.find()
+        .subscribe({ wallet ->
+          PreferenceManager.getDefaultSharedPreferences(view?.context)
+              .edit()
+              .putString("pref_wallet", wallet.address)
+              .apply()
+          walletPreference?.summary = wallet.address
+        }, {}))
   }
 
   private fun getVersion(): String? {

@@ -22,13 +22,22 @@ class WalletValidationActivity : BaseActivity(),
   private var minFrame = 0
   private var maxFrame = 30
   private var loopAnimation = -1
+  private var toolbarTitle = ""
 
   companion object {
     const val FRAME_RATE = 30
+    const val TOOLBAR_TITLE = "toolbar_title"
 
     @JvmStatic
     fun newIntent(context: Context): Intent {
       return Intent(context, WalletValidationActivity::class.java)
+    }
+
+    @JvmStatic
+    fun newIntent(context: Context, toolbarTitle: String): Intent {
+      val intent = Intent(context, WalletValidationActivity::class.java)
+      intent.putExtra(TOOLBAR_TITLE, toolbarTitle)
+      return intent
     }
   }
 
@@ -47,6 +56,17 @@ class WalletValidationActivity : BaseActivity(),
     validation_progress_animation.setMinAndMaxFrame(minFrame, maxFrame)
     validation_progress_animation.repeatCount = loopAnimation
     validation_progress_animation.playAnimation()
+    setupToolbar()
+  }
+
+  private fun setupToolbar() {
+    intent.getStringExtra(TOOLBAR_TITLE)
+        ?.let { toolbarTitle = it }
+    if (toolbarTitle != "") {
+      toolbar()
+      setTitle(toolbarTitle)
+      wallet_validation_toolbar.visibility = View.VISIBLE
+    }
   }
 
   override fun showProgressAnimation() {
