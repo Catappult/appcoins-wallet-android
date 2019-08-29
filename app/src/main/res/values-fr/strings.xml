@@ -417,6 +417,7 @@
   <string name="verification_insert_code_resend_button">RENVOYER LE CODE</string>
   <string name="verification_validating_title">Validation de votre code&#8230;</string>
   <string name="verification_completed_title">Terminé !</string>
+  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
   <string name="verification_notification_reward_received_body">Récompense reçue, Profitez-en ! 👌</string>
   <string name="verification_notification_reward_already_received_body">Ce numéro de téléphone a déjà été utilisé pour recevoir cette récompense 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Téléphone déjà utilisé.</string>
@@ -453,19 +454,19 @@
   <string name="referral_view_unverified_body">Recevez %s de crédits AppCoins pour chaque ami. Vous devez d\'abord vérifier votre portefeuille.</string>
   <string name="referral_view_verify_button">VERIFIER LE PORTEFEUILLE</string>
   <string name="referral_view_i_have_been_invited_button">J\'AI ETE INVITE</string>
-  <string name="referral_view_dropup_menu_friends_invited">Friends invited</string>
-  <string name="referral_view_dropup_menu_earned">Earned</string>
-  <string name="referral_dropup_menu_friends_title_1">Friends Invited</string>
-  <string name="referral_dropup_menu_requirements_title">Requirements</string>
-  <string name="referral_dropup_menu_requirements_verification">Verify your wallet with a phone number</string>
-  <string name="referral_dropup_menu_requirements_purchase">Make one in-app purchase or top-up</string>
+  <string name="referral_view_dropup_menu_friends_invited">Amis invités</string>
+  <string name="referral_view_dropup_menu_earned">Gagnés</string>
+  <string name="referral_dropup_menu_friends_title_1">Amis invités</string>
+  <string name="referral_dropup_menu_requirements_title">Exigences</string>
+  <string name="referral_dropup_menu_requirements_verification">Vérifier votre portefeuille avec un numéro de téléphone</string>
+  <string name="referral_dropup_menu_requirements_purchase">Effectuez un achat ou une recharge dans l\'application</string>
   <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promotions</string>
-  <string name="bottom_navigation_promotions_detailed">Discover how to earn free AppCoins Credits with our promotions and campaigns!</string>
+  <string name="bottom_navigation_promotions_detailed">Découvrez comment gagner des crédits AppCoins gratuits grâce à nos promotions et campagnes !</string>
   <string name="promotions_title">Promotions</string>
-  <string name="promotions_referral_card_title">Earn up to %s by inviting friends</string>
-  <string name="promotions_referral_card_body">Share your invite link and earn AppCoins Credits.</string>
-  <string name="promotions_gamification_card_title">Up to 30% bonus on every purchase</string>
-  <string name="promotions_new">NEW</string>
+  <string name="promotions_referral_card_title">Gagnez jusqu\'à %s en invitant des amis</string>
+  <string name="promotions_referral_card_body">Partagez votre lien d\'invitation et gagnez des crédits AppCoins.</string>
+  <string name="promotions_gamification_card_title">Jusqu\'à 30% de bonus sur chaque achat</string>
+  <string name="promotions_new">NOUVEAU</string>
 </resources>

@@ -417,6 +417,7 @@
   <string name="verification_insert_code_resend_button">ส่งรหัสอีกคร้ัง</string>
   <string name="verification_validating_title">ยืนยันรหัสของคุณ &#8230;</string>
   <string name="verification_completed_title">เสร็จสิ้น!</string>
+  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
   <string name="verification_notification_reward_received_body">ได้รับรางวัลสนุกๆ! 👌</string>
   <string name="verification_notification_reward_already_received_body">หมายเลขโทรศัพท์นี้ถูกใช้เพื่อรับรางวัลนี้แล้ว😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Number already used.</string>

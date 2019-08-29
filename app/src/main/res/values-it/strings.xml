@@ -56,7 +56,7 @@
   <string name="yes_continue">Sì, continua</string>
   <string name="no_repeat">No, ripeti</string>
   <string name="skip">Salta</string>
-  <string name="skip_with_arrow">Skip &gt;</string>
+  <string name="skip_with_arrow">Salta &gt;</string>
   <string name="root_title">SICUREZZA DISPOSITIVO COMPROMESSA</string>
   <string name="root_body">Qualsiasi app \'con permesso di root\' può accedere ai dati portachiavi di AppCoin Wallet e rubare il tuo portafoglio! Cancella immediatamente questo portafoglio e ripristinalo su un dispositivo sicuro.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
@@ -115,7 +115,7 @@
   <string name="intro_3_body">Processa tutti i tuoi acquisti in-app con il tuo metodo di pagamento preferito.</string>
   <string name="intro_4_title">Sicuro e privato</string>
   <string name="intro_4_body">Le tue chiavi private non lasceranno mai il tuo dispositivo, rendendo le AppCoins sicure in ogni momento.</string>
-  <string name="intro_creating_wallet_short">Setting up your wallet for you&#8230;</string>
+  <string name="intro_creating_wallet_short">Stiamo configurando il tuo wallet&#8230;</string>
   <string name="intro_wallet_created_short">Wallet creato!</string>
   <string name="intro_agree_terms_and_conditions_body">Premendo \'Salta\' accetti i %1$s e l\'%2$s di AppCoins Wallet</string>
   <string name="intro_skip_button">SALTA</string>
@@ -383,9 +383,9 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
   <string name="dismiss_button">Rifiuta</string>
-  <string name="discover_button">Discover</string>
-  <string name="retry_button">Retry</string>
-  <string name="do_it_later_button">Do it later</string>
+  <string name="discover_button">Scopri di più</string>
+  <string name="retry_button">Riprova</string>
+  <string name="do_it_later_button">Riprova più tardi</string>
   <string name="connectoin_error_body">Sembra che tu non sia connesso a internet. Controlla la connessione e riprova!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acconsento ai %1$s e all\'%2$s dell\'AppCoins Wallet.</string>
@@ -405,7 +405,7 @@
   <string name="verification_notification_verification_needed_title">Premio disponibile ma è necessaria una verifica</string>
   <string name="verification_notification_verification_needed_body">Per motivi di sicurezza dobbiamo verificare il tuo wallet con un codice SMS.</string>
   <string name="verification_insert_phone_title">Inserisci il tuo numero di telefono</string>
-  <string name="verification_insert_phone_body">Verify your wallet to get rewards! We\'ll send you a verification code.</string>
+  <string name="verification_insert_phone_body">Verifica il tuo wallet per ricevere premi! Ti invieremo un codice di verifica.</string>
   <string name="verification_insert_phone_field_country">Codice Paese</string>
   <string name="verification_insert_phone_field_number">Numero di telefono</string>
   <string name="verification_insert_phone_field_number_error">Numero di telefono non valido</string>
@@ -417,13 +417,14 @@
   <string name="verification_insert_code_resend_button">REINVIA CODICE</string>
   <string name="verification_validating_title">Convalida codice in corso&#8230;</string>
   <string name="verification_completed_title">Fatto!</string>
+  <string name="verification_completed_body">Puoi adesso ricevere AppCoins Credits invitando amici o installando app.</string>
   <string name="verification_notification_reward_received_body">Premio ricevuto, buon divertimento! 👌</string>
   <string name="verification_notification_reward_already_received_body">Questo numero di telefono è già stato utilizzato per ricevere questo premio</string>
-  <string name="verification_insert_phone_field_phone_used_already_error">Number already used.</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">Numero già usato in precedenza.</string>
   <string name="verification_insert_code_error_common">Ops, qualcosa è andato storto. Riprova!</string>
-  <string name="verification_settings_unverified_title">Verify Wallet</string>
-  <string name="verification_settings_unverified_body">Get rewards and invite friends</string>
-  <string name="verification_settings_verified_title">Wallet Verified</string>
+  <string name="verification_settings_unverified_title">Verifica Wallet</string>
+  <string name="verification_settings_unverified_body">Ricevi premi e invita amici</string>
+  <string name="verification_settings_verified_title">Wallet verificato</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Sembra che questo acquisto sia già stato processato. Attendi il completamento della transazione o contatta il nostro servizio clienti.</string>
   <string name="purchase_more_payment_methods_button">ALTRI METODI DI PAGAMENTO</string>
@@ -433,10 +434,10 @@
   <string name="purchase_appcoins_credits_noavailable_body">Non hai abbastanza APPC Credits, fai una ricarica!</string>
   <string name="purchase_appcoins_credits_default_body">Hai guadagnato abbastanza AppCoins Credits per questo acquisto. Divertiti!</string>
   <!--Referral Program-->
-  <string name="referral_onboarding_title">Invite Your Friends!</string>
-  <string name="referral_onboarding_body">You and your friends can earn up to %s with our Referral Program!</string>
-  <string name="referral_onboarding_redeem_button">I\'ve been invited</string>
-  <string name="referral_verification_title">Verify Your Wallet</string>
+  <string name="referral_onboarding_title">Invita i tuoi amici!</string>
+  <string name="referral_onboarding_body">Tu e i tuoi amici potete ricevere fino a %s grazie al nostro programma Presenta un amico!</string>
+  <string name="referral_onboarding_redeem_button">Sono stato invitato</string>
+  <string name="referral_verification_title">Verifica il tuo Wallet</string>
   <string name="referral_verification_body">You need to verify your wallet to participate in the Referral Program. We\'ll sent you a verification code via SMS.</string>
   <string name="referral_verification_confirmation_title">Your invite was validated!</string>
   <string name="referral_verification_confirmation_body">As soon as you make your first purchase you\'ll get %s worth of AppCoins Credits.</string>
