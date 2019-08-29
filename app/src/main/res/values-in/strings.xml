@@ -56,6 +56,7 @@
   <string name="yes_continue">Ya, lanjutkan</string>
   <string name="no_repeat">Tidak, ulangi</string>
   <string name="skip">Lewatkan</string>
+  <string name="skip_with_arrow">Lewati &gt;</string>
   <string name="root_title">KEAMANAN PERANGKAT TERGANGGU</string>
   <string name="root_body">Aplikasi yang \'di-root\' dapat mengakses data keychain Dompet AppCoin dan mencuri dompet Anda! Segera hapus dompet ini, lalu pulihkan di perangkat yang aman.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
@@ -114,7 +115,7 @@
   <string name="intro_3_body">Proses semua pembelian in-app Anda dengan metode pembayaran favorit.</string>
   <string name="intro_4_title">Aman dan Pribadi</string>
   <string name="intro_4_body">Kunci pribadi Anda tidak akan pernah meninggalkan perangkat, jadi AppCoins Anda selalu aman.</string>
-  <string name="intro_creating_wallet_short">Kami membuat dompet untuk Anda&#8230;</string>
+  <string name="intro_creating_wallet_short">Menyiapkan dompet untuk Anda&#8230;</string>
   <string name="intro_wallet_created_short">Dompet sudah dibuat!</string>
   <string name="intro_agree_terms_and_conditions_body">Dengan mengetuk Lewatkan, Anda menyetujui %1$s dan %2$s Dompet AppCoins</string>
   <string name="intro_skip_button">LEWATKAN</string>
@@ -307,13 +308,14 @@
   <string name="gamification_purchase_appccredits_body">Metode pembayaran tercepat!</string>
   <string name="gamification_how_bonus_received_body">Bonus diterima</string>
   <string name="gamification_how_appc_spent">Jumlah yang dihabiskan untuk mencapai tingkat ini</string>
-  <string name="gamification_how_to_next_level_body">Habiskan %1$s AppCoin lagi untuk mencapai tingkat %2$s.</string>
+  <string name="gamification_how_to_next_level_body">Gunakan <b>%1$s AppCoins</b> lagi untuk mencapai <b>tingkat %2$s</b>.</string>
   <string name="gamification_level_expiration_title">Cek tingkat berikutnya: %s</string>
   <string name="gamification_level_expiration_body">Tingkat Anda didasarkan pada aktivitas pembelian selama 12 bulan terakhir.</string>
   <string name="gamification_leveled_up_title">Anda sudah mencapai tingkat berikutnya!</string>
   <string name="gamification_leveled_up_body">Sekarang Anda akan mendapatkan bonus %s di setiap pembelian. Teruslah membeli agar bonus yang didapatkan lebih banyak lagi!</string>
   <string name="gamification_leveled_up_notification_title">Anda sudah mencapai tingkat berikutnya!</string>
   <string name="gamification_leveled_up_notification_body">Selamat, Anda sekarang akan mendapatkan bonus %s di setiap pembelian!</string>
+  <string name="gamification_how_max_level_body">Selamat! Anda sudah mencapai tingkat tertinggi 💃</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Izinkan Dompet AppCoins untuk menginformasikan alamat dompet Anda ke %s.</string>
   <string name="provide_wallet_body_placeholders">Izinkan %1$s untuk menginformasikan alamat dompet Anda ke %2$s.</string>
@@ -381,6 +383,9 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
   <string name="dismiss_button">Tutup</string>
+  <string name="discover_button">Temukan</string>
+  <string name="retry_button">Coba lagi</string>
+  <string name="do_it_later_button">Lakukan nanti</string>
   <string name="connectoin_error_body">Sepertinya Anda tidak terhubung ke Internet. Periksa koneksi Anda, lalu coba lagi!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s AppCoins Wallet.</string>
@@ -400,7 +405,7 @@
   <string name="verification_notification_verification_needed_title">Hadiah sudah siap tetapi diperlukan verifikasi</string>
   <string name="verification_notification_verification_needed_body">Demi keamanan, kami perlu memverifikasi dompet Anda dengan kode lewat SMS.</string>
   <string name="verification_insert_phone_title">Masukkan nomor telepon Anda</string>
-  <string name="verification_insert_phone_body">Kami akan mengirimkan kode verifikasi ke Anda.</string>
+  <string name="verification_insert_phone_body">Verifikasi dompet Anda untuk mendapatkan hadiah! Kami akan mengirimi Anda kode verifikasi.</string>
   <string name="verification_insert_phone_field_country">Negara</string>
   <string name="verification_insert_phone_field_number">Nomor Telepon</string>
   <string name="verification_insert_phone_field_number_error">Nomor telepon tidak valid</string>
@@ -412,10 +417,14 @@
   <string name="verification_insert_code_resend_button">KIRIM ULANG KODE</string>
   <string name="verification_validating_title">Memvalidasi kode Anda&#8230;</string>
   <string name="verification_completed_title">Selesai!</string>
+  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
   <string name="verification_notification_reward_received_body">Hadiah diterima, silakan dinikmati! 👌</string>
   <string name="verification_notification_reward_already_received_body">Nomor telepon ini sudah digunakan untuk menerima hadiah ini 😔</string>
-  <string name="verification_insert_phone_field_phone_used_already_error">Nomor telepon sudah digunakan.</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">Nomor sudah digunakan.</string>
   <string name="verification_insert_code_error_common">Ups, ada kesalahan. Coba lagi!</string>
+  <string name="verification_settings_unverified_title">Verifikasi Dompet</string>
+  <string name="verification_settings_unverified_body">Dapatkan hadiah dan undang teman</string>
+  <string name="verification_settings_verified_title">Dompet Terverifikasi</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Sepertinya pembelian ini sedang diproses. Harap tunggu sampai transaksinya selesai atau hubungi Tim Dukungan kami.</string>
   <string name="purchase_more_payment_methods_button">METODE PEMBAYARAN LAINNYA</string>
@@ -424,4 +433,40 @@
   <string name="purchase_appcoins_credits_available_body">Tanpa biaya dan secepat kilat!</string>
   <string name="purchase_appcoins_credits_noavailable_body">Kredit APPC yang Anda miliki tidak cukup, coba isi ulang!</string>
   <string name="purchase_appcoins_credits_default_body">Anda mendapatkan Kredit AppCoins yang cukup untuk pembelian ini. Silakan!</string>
+  <!--Referral Program-->
+  <string name="referral_onboarding_title">Undang Teman Anda!</string>
+  <string name="referral_onboarding_body">Anda dan teman bisa mendapatkan penghasilan hingga %s dengan Program Referral kami!</string>
+  <string name="referral_onboarding_redeem_button">Saya sudah diundang</string>
+  <string name="referral_verification_title">Verifikasi Dompet Anda</string>
+  <string name="referral_verification_body">Anda harus memverifikasi dompet Anda untuk ikut serta di Program Referensi. Kami akan mengirimi Anda kode verifikasi melalui SMS.</string>
+  <string name="referral_verification_confirmation_title">Undangan Anda sudah divalidasi!</string>
+  <string name="referral_verification_confirmation_body">Segera setelah Anda melakukan pembelian pertama, Anda akan mendapatkan Kredit AppCoins senilai %s.</string>
+  <string name="referral_verification_not_invited_title">Sepertinya nomor ini tidak diundang&#8230;</string>
+  <string name="referral_verification_not_invited_body">Tetapi Anda masih bisa mendapatkan penghasilan sampai %s dengan mengundang teman! 💃🏽</string>
+  <string name="referral_notification_bonus_pending_title">%s Bonus Referral Tertunda</string>
+  <string name="referral_notification_bonus_pending_body">Lakukan pembelian in-app pertama Anda untuk mendapatkan bonus.</string>
+  <string name="referral_view_title">Undang Teman</string>
+  <string name="referral_view_title_1">Undang Teman dan Raih Penghasilan Lebih Banyak!</string>
+  <string name="referral_view_verified_body">Dapatkan Kredit AppCoins senilai %s untuk setiap teman. Tinggal bagikan tautannya!</string>
+  <string name="referral_view_share_link_button">BAGIKAN TAUTAN UNDANGAN</string>
+  <string name="referral_view_notifications_title">Pemberitahuan</string>
+  <string name="referral_share_sheet_title">Bagikan tautan undangan melalui:</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_verify_button">VERIFIKASI DOMPET</string>
+  <string name="referral_view_i_have_been_invited_button">SAYA SUDAH DIUNDANG</string>
+  <string name="referral_view_dropup_menu_friends_invited">Teman sudah diundang</string>
+  <string name="referral_view_dropup_menu_earned">Dihasilkan</string>
+  <string name="referral_dropup_menu_friends_title_1">Teman sudah diundang</string>
+  <string name="referral_dropup_menu_requirements_title">Persyaratan</string>
+  <string name="referral_dropup_menu_requirements_verification">Verifikasi dompet Anda dengan nomor telepon</string>
+  <string name="referral_dropup_menu_requirements_purchase">Lakukan satu pembelian in-app atau isi ulang</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <!--Promotions-->
+  <string name="bottom_navigation_promotions">Promosi</string>
+  <string name="bottom_navigation_promotions_detailed">Cari tahu cara mendapatkan Kredit AppCoin gratis dengan promosi dan kampanye kami!</string>
+  <string name="promotions_title">Promosi</string>
+  <string name="promotions_referral_card_title">Dapatkan penghasilan hingga %s dengan mengundang teman</string>
+  <string name="promotions_referral_card_body">Bagikan tautan undangan Anda dan dapatkan Kredit AppCoins.</string>
+  <string name="promotions_gamification_card_title">Bonus sampai 30% untuk setiap pembelian</string>
+  <string name="promotions_new">BARU</string>
 </resources>

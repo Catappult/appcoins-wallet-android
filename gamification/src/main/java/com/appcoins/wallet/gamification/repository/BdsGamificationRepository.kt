@@ -46,7 +46,7 @@ class BdsGamificationRepository(private val api: GamificationApi,
     return ForecastBonus(ForecastBonus.Status.INACTIVE)
   }
 
-  override fun getUserStatus(wallet: String): Single<UserStats> {
+  override fun getUserStats(wallet: String): Single<UserStats> {
     return api.getUserStatus(wallet, versionCode)
         .map { map(it) }
         .onErrorReturn { map(it) }
@@ -58,30 +58,6 @@ class BdsGamificationRepository(private val api: GamificationApi,
       is UnknownHostException -> UserStats(UserStats.Status.NO_NETWORK)
       else -> {
         UserStats(UserStats.Status.UNKNOWN_ERROR)
-      }
-    }
-  }
-
-  override fun getUserStatsReferral(wallet: String): Single<ForecastBonus> {
-    return api.getUserStatus(wallet, versionCode)
-        .map { map(it.referral) }
-        .onErrorReturn { mapReferralError(it) }
-  }
-
-  private fun map(referralResponse: ReferralResponse?): ForecastBonus {
-    if (referralResponse == null || referralResponse.pendingValue.compareTo(
-            BigDecimal.ZERO) == 0) {
-      return ForecastBonus(ForecastBonus.Status.INACTIVE)
-    }
-    return ForecastBonus(ForecastBonus.Status.ACTIVE, referralResponse.pendingValue)
-  }
-
-  private fun mapReferralError(throwable: Throwable): ForecastBonus {
-    throwable.printStackTrace()
-    return when (throwable) {
-      is UnknownHostException -> ForecastBonus(ForecastBonus.Status.NO_NETWORK)
-      else -> {
-        ForecastBonus(ForecastBonus.Status.UNKNOWN_ERROR)
       }
     }
   }
@@ -116,5 +92,19 @@ class BdsGamificationRepository(private val api: GamificationApi,
       list.add(Levels.Level(level.amount, level.bonus, level.level))
     }
     return Levels(Levels.Status.OK, list.toList(), LevelsResponse.Status.ACTIVE == response.status)
+  }
+
+  override fun getUserStatus(wallet: String): Single<UserStatusResponse> {
+    return api.getUserStatus(wallet, versionCode)
+  }
+
+  override fun getGamificationUserStatus(wallet: String): Single<GamificationResponse> {
+    return api.getUserStatus(wallet, versionCode)
+        .map { it.gamification }
+  }
+
+  override fun getReferralUserStatus(wallet: String): Single<ReferralResponse> {
+    return api.getUserStatus(wallet, versionCode)
+        .map { it.referral }
   }
 }

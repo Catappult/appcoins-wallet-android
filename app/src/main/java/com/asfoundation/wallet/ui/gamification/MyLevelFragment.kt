@@ -113,7 +113,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
       }
 
       override fun onSlide(bottomSheet: View, slideOffset: Float) {
-        background_fade_animation.progress = slideOffset
+        background_fade_animation?.progress = slideOffset
       }
     })
   }

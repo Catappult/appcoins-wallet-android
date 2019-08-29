@@ -56,6 +56,7 @@
   <string name="yes_continue">Ναι, συνέχεια</string>
   <string name="no_repeat">Όχι, επανάληψη</string>
   <string name="skip">Παράλειψη</string>
+  <string name="skip_with_arrow">Παράλειψη &gt;</string>
   <string name="root_title">Η ΑΣΦΑΛΕΙΑ ΤΗΣ ΣΥΣΚΕΥΗΣ ΒΡΙΣΚΕΤΑΙ ΣΕ ΚΙΝΔΥΝΟ</string>
   <string name="root_body">Οποιαδήποτε «rooted» εφαρμογή θα διαθέτει πρόσβαση στα δεδομένα keychain του AppCoins Wallet και θα μπορεί να κλέψει το wallet σας! Διαγράψτε αμέσως αυτό το wallet και πραγματοποιήστε επαναφορά σε μία ασφαλή συσκευή.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
@@ -114,7 +115,7 @@
   <string name="intro_3_body">Πραγματοποιήστε όλες σας τις πληρωμές σας εντός εφαρμογών, χρησιμοποιώντας την αγαπημένη σας μέθοδο πληρωμής.</string>
   <string name="intro_4_title">Ασφαλές και Ιδιωτικό</string>
   <string name="intro_4_body">Τα ιδιωτικά σας κλειδιά δε θα φύγουν ποτέ από τη συσκευή σας, επομένως τα AppCoins σας θα είναι πάντα ασφαλή.</string>
-  <string name="intro_creating_wallet_short">Δημιουργούμε ένα wallet για εσάς&#8230;</string>
+  <string name="intro_creating_wallet_short">Ρυθμίζουμε το wallet για εσάς&#8230;</string>
   <string name="intro_wallet_created_short">Το wallet δημιουργήθηκε!</string>
   <string name="intro_agree_terms_and_conditions_body">Εάν πατήσετε Παράλειψη, συμφωνείτε με %1$s και %2$s του AppCoins Wallet</string>
   <string name="intro_skip_button">ΠΑΡΑΛΕΙΨΗ</string>
@@ -307,13 +308,14 @@
   <string name="gamification_purchase_appccredits_body">Η πιο ταχεία μέθοδος πληρωμής!</string>
   <string name="gamification_how_bonus_received_body">Bonus που ελήφθη</string>
   <string name="gamification_how_appc_spent">Πόσο που ξοδεύτηκε για να φτάσετε σε αυτό το επίπεδο</string>
-  <string name="gamification_how_to_next_level_body">Ξοδέψτε ακόμη %1$s AppCoins για να φτάσετε στο επίπεδο %2$s.</string>
+  <string name="gamification_how_to_next_level_body">Ξοδέψτε <b>%1$s AppCoins</b> ακόμη για να φτάσετε στο <b>επίπεδο %2$s</b>.</string>
   <string name="gamification_level_expiration_title">Έλεγχος επόμενου επιπέδου: %s</string>
   <string name="gamification_level_expiration_body">Το επίπεδό σας βασίζεται στο ιστορικό αγορών σας τους τελευταίους 12 μήνες.</string>
   <string name="gamification_leveled_up_title">Έχετε φτάσει στο επόμενο επίπεδο!</string>
   <string name="gamification_leveled_up_body">Τώρα θα λαμβάνετε bonus %s σε κάθε αγορά. Συνεχίστε τις αγορές για να κερδίσετε ακόμη περισσότερα!</string>
   <string name="gamification_leveled_up_notification_title">Φτάσατε στο επόμενο επίπεδο!</string>
   <string name="gamification_leveled_up_notification_body">Συγχαρητήρια! Τώρα θα λαμβάνετε bonus %s σε κάθε αγορά!</string>
+  <string name="gamification_how_max_level_body">Συγχαρητήρια! Έχετε φτάσει στο υψηλότερο επίπεδο 💃</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Επιτρέψτε στο AppCoins Wallet να παρέχει τη διεύθυνση wallet σας στο %s.</string>
   <string name="provide_wallet_body_placeholders">Επιτρέψτε στο %1$s να παρέχει τη διεύθυνση wallet σας στο %2$s.</string>
@@ -381,6 +383,9 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
   <string name="dismiss_button">Απόρριψη</string>
+  <string name="discover_button">Ανακαλύψτε</string>
+  <string name="retry_button">Επανάληψη</string>
+  <string name="do_it_later_button">Αργότερα</string>
   <string name="connectoin_error_body">Φαίνεται ότι δεν έχετε συνδεθεί στο διαδίκτυο. Ελέγξτε τη σύνδεσή σας και προσπαθήστε ξανά!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Συμφωνώ με %1$s και %2$s του AppCoins Wallet.</string>
@@ -400,7 +405,7 @@
   <string name="verification_notification_verification_needed_title">Η αμοιβή είναι έτοιμη, αλλά χρειάζεται επαλήθευση</string>
   <string name="verification_notification_verification_needed_body">Για λόγους ασφαλείας, πρέπει να επαληθεύσουμε το wallet σας με έναν κωδικό SMS.</string>
   <string name="verification_insert_phone_title">Εισαγάγετε τον αριθμό τηλεφώνου σας</string>
-  <string name="verification_insert_phone_body">Θα σας στείλουμε έναν κωδικό επαλήθευσης.</string>
+  <string name="verification_insert_phone_body">Επαληθεύστε το wallet σας για να λαμβάνετε αμοιβές! Θα σας στείλουμε έναν κωδικό επαλήθευσης.</string>
   <string name="verification_insert_phone_field_country">Χώρα</string>
   <string name="verification_insert_phone_field_number">Αριθμός Τηλεφώνου</string>
   <string name="verification_insert_phone_field_number_error">Μη έγκυρος αριθμός τηλεφώνου</string>
@@ -412,10 +417,14 @@
   <string name="verification_insert_code_resend_button">ΕΠΑΝΑΠΟΣΤΟΛΗ ΚΩΔΙΚΟΥ</string>
   <string name="verification_validating_title">Επιβεβαίωση του κωδικού σας&#8230;</string>
   <string name="verification_completed_title">Τέλος!</string>
+  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
   <string name="verification_notification_reward_received_body">Η αμοιβή ελήφθη. Καλή απόλαυση! 👌</string>
   <string name="verification_notification_reward_already_received_body">Αυτός ο αριθμός τηλεφώνου έχει ήδη χρησιμοποιηθεί για τη λήψη αυτής της αμοιβής 😔</string>
-  <string name="verification_insert_phone_field_phone_used_already_error">Το τηλέφωνο χρησιμοποιείται ήδη.</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">Ο αριθμός χρησιμοποιείται ήδη.</string>
   <string name="verification_insert_code_error_common">Ωχ, κάτι πήγε στραβά. Προσπαθήστε ξανά!</string>
+  <string name="verification_settings_unverified_title">Επαλήθευση Wallet</string>
+  <string name="verification_settings_unverified_body">Λάβετε αμοιβές και προσκαλέστε φίλους</string>
+  <string name="verification_settings_verified_title">Το Wallet επαληθεύθηκε</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Φαίνεται πως αυτή η αγορά βρίσκεται ήδη υπό επεξεργασία. Παρακαλούμε περιμένετε μέχρι να ολοκληρωθεί η συναλλαγή ή επικοινωνήστε με την Ομάδα Υποστήριξης.</string>
   <string name="purchase_more_payment_methods_button">ΑΛΛΕΣ ΜΕΘΟΔΟΙ ΠΛΗΡΩΜΗΣ</string>
@@ -424,4 +433,40 @@
   <string name="purchase_appcoins_credits_available_body">Χωρίς χρεώσεις και εξαιρετικά γρήγορα!</string>
   <string name="purchase_appcoins_credits_noavailable_body">Δεν έχετε αρκετά APPC Credits, δοκιμάστε να κάνετε φόρτιση!</string>
   <string name="purchase_appcoins_credits_default_body">Κερδίσατε αρκετά AppCoins Credits για αυτήν την αγορά. Απολαύστε!</string>
+  <!--Referral Program-->
+  <string name="referral_onboarding_title">Προσκαλέστε τους φίλους σας!</string>
+  <string name="referral_onboarding_body">Εσείς και οι φίλοι σας μπορείτε να λάβετε έως %s με το Πρόγραμμα Σύστασης!</string>
+  <string name="referral_onboarding_redeem_button">Έχω προσκληθεί</string>
+  <string name="referral_verification_title">Επαληθεύστε το Wallet σας</string>
+  <string name="referral_verification_body">Για να συμμετάσχετε στο Πρόγραμμα Σύστασης, πρέπει να επαληθεύσετε το wallet σας. Θα σας στείλουμε έναν κωδικό επαλήθευσης μέσω SMS.</string>
+  <string name="referral_verification_confirmation_title">Η πρόσκλησή σας επικυρώθηκε!</string>
+  <string name="referral_verification_confirmation_body">Μόλις πραγματοποιήσετε την πρώτη σας αγορά, θα λάβετε AppCoins Credits αξίας %s.</string>
+  <string name="referral_verification_not_invited_title">Φαίνεται ότι αυτός ο αριθμός δεν έχει λάβει πρόσκληση&#8230;</string>
+  <string name="referral_verification_not_invited_body">Ωστόσο, μπορείτε ακόμη να λάβετε έως %s, προσκαλώντας φίλους! 💃🏽</string>
+  <string name="referral_notification_bonus_pending_title">Bonus Σύστασης %s σε εκκρεμότητα</string>
+  <string name="referral_notification_bonus_pending_body">Πραγματοποιήστε την πρώτη σας αγορά εντός εφαρμογών για να λάβετε το bonus σας.</string>
+  <string name="referral_view_title">Προσκαλέστε Φίλους</string>
+  <string name="referral_view_title_1">Προσκαλέστε Φίλους και Κερδίστε Περισσότερα!</string>
+  <string name="referral_view_verified_body">Λάβετε AppCoins Credits αξίας %s για κάθε φίλο. Απλώς κοινοποιήστε τον σύνδεσμο!</string>
+  <string name="referral_view_share_link_button">ΚΟΙΝΟΠΟΙΗΣΗ ΣΥΝΔΕΣΜΟΥ ΠΡΟΣΚΛΗΣΗΣ</string>
+  <string name="referral_view_notifications_title">Ειδοποιήσεις</string>
+  <string name="referral_share_sheet_title">Κοινοποίηση συνδέσμου πρόσκλησης μέσω:</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_verify_button">ΕΠΑΛΗΘΕΥΣΗ WALLET</string>
+  <string name="referral_view_i_have_been_invited_button">ΕΧΩ ΛΑΒΕΙ ΠΡΟΣΚΛΗΣΗ</string>
+  <string name="referral_view_dropup_menu_friends_invited">Προσκεκλημένοι φίλοι</string>
+  <string name="referral_view_dropup_menu_earned">Κερδήθηκαν</string>
+  <string name="referral_dropup_menu_friends_title_1">Προσκεκλημένοι φίλοι</string>
+  <string name="referral_dropup_menu_requirements_title">Προϋποθέσεις</string>
+  <string name="referral_dropup_menu_requirements_verification">Επαληθεύστε το wallet σας με έναν αριθμό τηλεφώνου</string>
+  <string name="referral_dropup_menu_requirements_purchase">Πραγματοποιήστε μία αγορά εντός εφαρμογών ή φόρτιση</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <!--Promotions-->
+  <string name="bottom_navigation_promotions">Προωθήσεις</string>
+  <string name="bottom_navigation_promotions_detailed">Ανακαλύψτε πώς θα κερδίσετε δωρεάν AppCoins Credits μέσα από τις προωθήσεις και τις καμπάνιες μας!</string>
+  <string name="promotions_title">Προωθήσεις</string>
+  <string name="promotions_referral_card_title">Κερδίστε έως %s προσκαλώντας φίλους</string>
+  <string name="promotions_referral_card_body">Κοινοποιήστε τον σύνδεσμο πρόσκλησης και κερδίστε AppCoins Credits.</string>
+  <string name="promotions_gamification_card_title">Έως και 30% bonus σε κάθε αγορά</string>
+  <string name="promotions_new">ΝΕΟ</string>
 </resources>

@@ -56,6 +56,7 @@
   <string name="yes_continue">Tak, kontynuuj</string>
   <string name="no_repeat">Nie, powtórz</string>
   <string name="skip">Pomiń</string>
+  <string name="skip_with_arrow">Pomiń &gt;</string>
   <string name="root_title">ZŁAMANE ZABEZPIECZENIE URZĄDZENIA</string>
   <string name="root_body">Dowolna aplikacja z uprawnieniami \'root\' może uzyskać dostęp do danych portfela i ukraść portfel! Należy natychmiast opróżnić ten portfel i przywrócić na bezpieczne urządzenie.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
@@ -114,7 +115,7 @@
   <string name="intro_3_body">Zapłać za wszystkie transakcje w aplikacjach używając Twojej ulubionej metody płatności.</string>
   <string name="intro_4_title">Bezpieczeństwo i prywatność</string>
   <string name="intro_4_body">Twoje prywatne klucze nigdy nie opuszczą Twojego urządzenia, więc Twoje AppCoins są zawsze bezpieczne.</string>
-  <string name="intro_creating_wallet_short">Tworzymy dla Ciebie portfel&#8230;</string>
+  <string name="intro_creating_wallet_short">Zakładamy dla Ciebie Twój portfel&#8230;</string>
   <string name="intro_wallet_created_short">Stworzono portfel!</string>
   <string name="intro_agree_terms_and_conditions_body">Naciskając na Pomiń, zgadzasz się na %1$s i %2$s portfela AppCoins</string>
   <string name="intro_skip_button">POMIŃ</string>
@@ -278,12 +279,12 @@
   <string name="gamification_level_body">Możesz zarabiać APPC, kupując przedmioty w ulubionych aplikacjach i grach.</string>
   <string name="gamification_how_header">Jak wbijać poziomy?</string>
   <string name="gamification_how_body">Możesz zarabiać APPC, kupując przedmioty w ulubionych aplikacjach i grach.</string>
-  <string name="gamification_how_body_new">The more you spend in your favorite apps, the bigger the Bonus!</string>
+  <string name="gamification_how_body_new">Im więcej AppCoins wydajesz w ulubionych aplikacjach, tym większy Bonus!</string>
   <string name="gamification_how_table_a1">WYDAJ</string>
   <string name="gamification_how_table_b1">BONUS</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s %%</string>
-  <string name="gamification_how_table_level">LEVEL</string>
+  <string name="gamification_how_table_level">POZIOM</string>
   <string name="gamification_how_terms_and_conditions">Warunki</string>
   <string name="gamification_how_spend">WYDAJ %s APPC</string>
   <string name="gamification_a_comet_title">Kometą</string>
@@ -305,15 +306,16 @@
   <string name="gamification_purchase_completed_bonus_received">Bonus Otrzymany</string>
   <string name="action_level">Mój poziom</string>
   <string name="gamification_purchase_appccredits_body">Najszybsza metoda płatności!</string>
-  <string name="gamification_how_bonus_received_body">Bonus received</string>
-  <string name="gamification_how_appc_spent">Amount spent to reach this level</string>
-  <string name="gamification_how_to_next_level_body">Spend %1$s AppCoins more to reach level %2$s.</string>
-  <string name="gamification_level_expiration_title">Next level check: %s</string>
-  <string name="gamification_level_expiration_body">Your level is based on your purchase activity over the last 12 months.</string>
-  <string name="gamification_leveled_up_title">You\'ve reached the next level!</string>
-  <string name="gamification_leveled_up_body">You\'ll now get a %s bonus on every purchase. Keep buying to earn even more!</string>
-  <string name="gamification_leveled_up_notification_title">You reached the next level!</string>
-  <string name="gamification_leveled_up_notification_body">Congrats, you\'ll now get a %s bonus on every purchase!</string>
+  <string name="gamification_how_bonus_received_body">Bonus Otrzymany</string>
+  <string name="gamification_how_appc_spent">Wydana kwota do tego poziomu</string>
+  <string name="gamification_how_to_next_level_body">Wydaj <b>%1$s AppCoins</b> aby wbić <b>%2$s poziom</b>.</string>
+  <string name="gamification_level_expiration_title">Następny poziom: %s</string>
+  <string name="gamification_level_expiration_body">Twój poziom zależy od Twoich zakupów przez ostatnie 12 miesięcy.</string>
+  <string name="gamification_leveled_up_title">Osiągnąłeś następny poziom!</string>
+  <string name="gamification_leveled_up_body">Teraz będziesz otrzymywać bonus %s przy każdym zakupie. Kupuj więcej aby zarabiać!</string>
+  <string name="gamification_leveled_up_notification_title">Osiągnąłeś następny poziom!</string>
+  <string name="gamification_leveled_up_notification_body">Gratulacje, teraz otrzymasz bonus %s przy każdych zakupach!</string>
+  <string name="gamification_how_max_level_body">Gratulacje! Osiągnąłeś najwyższy poziom</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Pozwól portfelowi AppCoins udostępnić adres Twojego portfela dla %s.</string>
   <string name="provide_wallet_body_placeholders">Pozwól %1$s udostępnić adres Twojego portfela %2$s.</string>
@@ -339,8 +341,8 @@
   <string name="topup_bonus_header_part_1">Bonus:</string>
   <string name="topup_bonus_header_part_2">%s Kredytów APPC</string>
   <string name="topup_bonus_body">Możesz wykorzystać ten bonus przy następnych zakupach.</string>
-  <string name="topup_minimum_value">Minimum top-up value is %s</string>
-  <string name="topup_maximum_value">Maximum top-up value is %s</string>
+  <string name="topup_minimum_value">Minimalne doładowanie to %s</string>
+  <string name="topup_maximum_value">Maksymalne doładowanie to %s</string>
   <!--Balance-->
   <string name="balance_title">Stan konta</string>
   <string name="balance_total_body">Saldo w %s</string>
@@ -381,7 +383,10 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
   <string name="dismiss_button">Zamknij</string>
-  <string name="connectoin_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
+  <string name="discover_button">Odkryj</string>
+  <string name="retry_button">Spróbuj ponownie</string>
+  <string name="do_it_later_button">Potem</string>
+  <string name="connectoin_error_body">Wygląda na to że nie jesteś podłączony do internetu. Sprawdź połączenie i spróbuj ponownie!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Zgadzam się na %1$s i %2$s portfela AppCoins.</string>
   <string name="terms_and_conditions_error">Proszę zaakceptować nasz regulamin aby kontynuować</string>
@@ -392,15 +397,15 @@
   <string name="home_empty_discover_apps_button">ODKRYJ NAJLEPSZE APLIKACJE</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
+  <string name="title_redeem">Odbierz kod</string>
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">W trakcie&#8230;</string>
-  <string name="local_payments_inprogress_body">Once you complete the payment you\'ll receive the AppCoins Credits in your wallet. Then go back to the game to make the purchase!</string>
+  <string name="local_payments_inprogress_body">Kiedy ukończysz płatność, otrzymasz Kredyty AppCoins w Twoim portfelu. Wróć potem do gry aby dokonać zakupu!</string>
   <!--Wallet Verification-->
   <string name="verification_notification_verification_needed_title">Nagroda gotowa ale wymaga weryfikacji</string>
   <string name="verification_notification_verification_needed_body">Dla bezpieczeństwa, musimy zweryfikować Twój portfel kodem SMS.</string>
   <string name="verification_insert_phone_title">Wpisz numer telefonu</string>
-  <string name="verification_insert_phone_body">Wyślemy Ci kod weryfikacyjny.</string>
+  <string name="verification_insert_phone_body">Zweryfikuj swój portfel aby otrzymywać nagrody! Wyślemy Ci kod weryfikacyjny.</string>
   <string name="verification_insert_phone_field_country">Kraj</string>
   <string name="verification_insert_phone_field_number">Numer telefonu</string>
   <string name="verification_insert_phone_field_number_error">Nieprawidłowy numer telefonu</string>
@@ -412,16 +417,56 @@
   <string name="verification_insert_code_resend_button">PONOWNIE WYŚLIJ KOD</string>
   <string name="verification_validating_title">Sprawdzamy Twój kod&#8230;</string>
   <string name="verification_completed_title">Zrobione!</string>
+  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
   <string name="verification_notification_reward_received_body">Nagroda odebrana! 👌</string>
   <string name="verification_notification_reward_already_received_body">Ten numer telefonu został już użyty do odebrania tej nagrody</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Ten numer jest już w użytku.</string>
   <string name="verification_insert_code_error_common">Coś poszło nie tak. Spróbuj ponownie!</string>
+  <string name="verification_settings_unverified_title">Zweryfikuj portfel</string>
+  <string name="verification_settings_unverified_body">Otrzymuj nagrody i zaproś znajomych</string>
+  <string name="verification_settings_verified_title">Portfel zweryfikowany</string>
   <!--Purchase Flow-->
-  <string name="purchase_error_incomplete_transaction_body">It seems this purchase is already being processed. Please hold on until the transaction is completed or contact our Support Team.</string>
-  <string name="purchase_more_payment_methods_button">OTHER PAYMENT METHODS</string>
-  <string name="purchase_appcoins_available_body">You\'ll use a small amount of ETH to pay for the fees.</string>
-  <string name="purchase_appcoins_noavailable_body">You don\'t have enough AppCoins or Ether for this purchase.</string>
-  <string name="purchase_appcoins_credits_available_body">No fees and lightning fast!</string>
-  <string name="purchase_appcoins_credits_noavailable_body">You don\'t have enough APPC Credits, try topping up!</string>
-  <string name="purchase_appcoins_credits_default_body">You earned enough AppCoins Credits for this purchase. Enjoy!</string>
+  <string name="purchase_error_incomplete_transaction_body">Wygląda na to, że ten zakup jest już przetwarzany. Poczekaj aż transakcja zostanie zakończone lub skontaktuj się z Zespołem Wsparcia.</string>
+  <string name="purchase_more_payment_methods_button">INNE METODY PŁATNOŚCI</string>
+  <string name="purchase_appcoins_available_body">Użyjesz małej sumy ETH aby opłacić transakcję.</string>
+  <string name="purchase_appcoins_noavailable_body">Nie masz wystarczającej ilości AppCoins lub Ether dla tego zakupu.</string>
+  <string name="purchase_appcoins_credits_available_body">Bez opłat i w mgnieniu oka!</string>
+  <string name="purchase_appcoins_credits_noavailable_body">Nie masz wystarczająco Kredytów APPC, doładuj konto!</string>
+  <string name="purchase_appcoins_credits_default_body">Zarobiłeś wystarczająco dużo Kredytów AppCoins dla tego zakupu!</string>
+  <!--Referral Program-->
+  <string name="referral_onboarding_title">Zaproś Swoich Przyjaciół!</string>
+  <string name="referral_onboarding_body">Ty i Twoi znajomy mogą zarobić aż %s w naszym Programie Polecającym!</string>
+  <string name="referral_onboarding_redeem_button">Zostałem zaproszony</string>
+  <string name="referral_verification_title">Zweryfikuj Twój Portfel</string>
+  <string name="referral_verification_body">Musisz zweryfikować Twój portfel aby brać udział w Programie Polecającym. Wyślemy Ci kod weryfikacyjny przez SMS.</string>
+  <string name="referral_verification_confirmation_title">Twoje zaproszenie zostało potwierdzone!</string>
+  <string name="referral_verification_confirmation_body">Jak tylko dokonasz pierwszego zakupu, dostaniesz %s Kredytów AppCoins.</string>
+  <string name="referral_verification_not_invited_title">Wygląda na to że ten numer nie został zaproszony &#8230;</string>
+  <string name="referral_verification_not_invited_body">Ale nadal możesz zarobić aż %s zapraszając znajomych!</string>
+  <string name="referral_notification_bonus_pending_title">%s Oczekujących Bonusów</string>
+  <string name="referral_notification_bonus_pending_body">Dokonaj pierwszego zakupu w aplikacji aby otrzymać bonus.</string>
+  <string name="referral_view_title">Zaproś Znajomych</string>
+  <string name="referral_view_title_1">Zaproś Znajomych i Zarób Więcej!</string>
+  <string name="referral_view_verified_body">Otrzymuj %s Kredytów AppCoins za każdego znajomego. Po prostu udostępnij link!</string>
+  <string name="referral_view_share_link_button">UDOSTĘPNIJ TWÓJ LINK</string>
+  <string name="referral_view_notifications_title">Powiadomienia</string>
+  <string name="referral_share_sheet_title">Udostępnij link przez:</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_verify_button">ZWERYFIKUJ PORTFEL</string>
+  <string name="referral_view_i_have_been_invited_button">ZOSTAŁEM ZAPROSZONY</string>
+  <string name="referral_view_dropup_menu_friends_invited">Zaproszonych Znajomych</string>
+  <string name="referral_view_dropup_menu_earned">Zarobione</string>
+  <string name="referral_dropup_menu_friends_title_1">Zaproszonych Znajomych</string>
+  <string name="referral_dropup_menu_requirements_title">Wymagania</string>
+  <string name="referral_dropup_menu_requirements_verification">Zweryfikuj swój portfel numerem telefonu</string>
+  <string name="referral_dropup_menu_requirements_purchase">Dokonaj jednego zakupu w aplikacji lub doładowania</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <!--Promotions-->
+  <string name="bottom_navigation_promotions">Promocje</string>
+  <string name="bottom_navigation_promotions_detailed">Odkryj jak zarabiać darmowe Kredyty AppCoins z naszymi promocjami i kampaniami!</string>
+  <string name="promotions_title">Promocje</string>
+  <string name="promotions_referral_card_title">Zarób aż %s zapraszając znajomych</string>
+  <string name="promotions_referral_card_body">Udostępnij swój link i zarabiaj Kredyty AppCoins. </string>
+  <string name="promotions_gamification_card_title">Aż do 30% ekstra przy każdym zakupie</string>
+  <string name="promotions_new">NOWE</string>
 </resources>

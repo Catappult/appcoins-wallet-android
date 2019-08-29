@@ -56,6 +56,7 @@
   <string name="yes_continue">होय, चालू ठेवा</string>
   <string name="no_repeat">नाही, परत करा</string>
   <string name="skip">वगळा</string>
+  <string name="skip_with_arrow">वगळा &gt;</string>
   <string name="root_title">डिव्हाइसची सुरक्षा काँप्रोमाइझ्ड झाली</string>
   <string name="root_body">कोणतेही \'रुटेड\' अॅप, अॅपकॉइन्स वॉलेटचा कीचेन डेटा मिळवु शकते आणि आपले वॉलेट चोरी होऊ शकते! हे वॉलेट लगेच पुसा आणि सुरक्षित डिव्हाइसवर रिस्टोर करा.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
@@ -114,7 +115,7 @@
   <string name="intro_3_body">आपली आवडती पेमेंट पद्धत वापरुन आपली इन-अॅप खरेदी प्रक्रिया पूर्ण करा.</string>
   <string name="intro_4_title">सुरक्षित आणि खासगी</string>
   <string name="intro_4_body">आपल्या खासगी कीज आपल्या डिव्हाइसच्या बाहेर जाणार नाहीत. त्यामुळे आपल्या अॅपकॉइन्स नेहमीच सुरक्षित रहातील.</string>
-  <string name="intro_creating_wallet_short">आम्ही आपल्यासाठी वॉलेट तयार करीत आहोत&#8230;</string>
+  <string name="intro_creating_wallet_short">आपले वॉलेट आपल्यासाठी सेटअप करीत आहे&#8230;</string>
   <string name="intro_wallet_created_short">वॉलेट बनविले!</string>
   <string name="intro_agree_terms_and_conditions_body">वगळा वर टॅप करुन आपण अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s ना मान्यता देता</string>
   <string name="intro_skip_button">वगळा</string>
@@ -307,13 +308,14 @@
   <string name="gamification_purchase_appccredits_body">झटपट पेमेंट प्रकार!</string>
   <string name="gamification_how_bonus_received_body">बोनस मिळाला</string>
   <string name="gamification_how_appc_spent">ह्या पातळीवर पोचण्यासाठी खर्च केलेली रक्कम</string>
-  <string name="gamification_how_to_next_level_body">%1$s अॅपकॉइन्स खर्च करुन %2$s पातळीवर पोचा.</string>
+  <string name="gamification_how_to_next_level_body"><b>%2$s पातळी</b> पोचण्यासाठी इतक्या <b>%1$s अॅपकॉइन्स</b> खर्च करा.</string>
   <string name="gamification_level_expiration_title">पुढची पातळी तपासा: %s</string>
   <string name="gamification_level_expiration_body">गेल्या १२ महिन्यातील आपल्या खरेदीवर आपली पातळी आधारीत आहे.</string>
   <string name="gamification_leveled_up_title">आपण पुढच्या पातळीवर पोचलात!</string>
   <string name="gamification_leveled_up_body">आता प्रत्येक खरेदीवर आपल्याला %s बोनस मिळेल. जास्त मिळविण्यासाठी खरेदी करत रहा!</string>
   <string name="gamification_leveled_up_notification_title">आपण पुढच्या पातळीवर पोचलात!</string>
   <string name="gamification_leveled_up_notification_body">अभिनंदन, आता प्रत्येक खरेदीवर आपल्याला %s बोनस मिळेल!</string>
+  <string name="gamification_how_max_level_body">अभिनंदन! आपण सर्वोच्च पातळीवर पोचलात 💃</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">आपला वॉलेट पत्ता %s ला पुरविण्यासाठी अॅपकॉइन्स वॉलेटला परवानगी द्या.</string>
   <string name="provide_wallet_body_placeholders">आपला वॉलेट पत्ता %2$s ला पुरविण्यासाठी %1$s ला परवानगी द्या.</string>
@@ -381,6 +383,9 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
   <string name="dismiss_button">डिसमिस करा</string>
+  <string name="discover_button">शोधुन काढा</string>
+  <string name="retry_button">पुन्हा प्रयत्न करा</string>
+  <string name="do_it_later_button">नंतर करा</string>
   <string name="connectoin_error_body">आपण इंटरनेटशी जुडलेले नाहीत अस दिसतय. कनेक्शन तपासुन पुन्हा प्रयत्न करा!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मला अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s मान्य आहेत.</string>
@@ -400,7 +405,7 @@
   <string name="verification_notification_verification_needed_title">बक्षिस तयार आहे पण व्हेरिफिकेसनची गरज आहे</string>
   <string name="verification_notification_verification_needed_body">सुरक्षा कारणांसाठी आम्हाला आपले वॉलेट एसएमएस कोडने व्हेरिफाय करावे लागेल.</string>
   <string name="verification_insert_phone_title">आपला फोन नंबर घाला</string>
-  <string name="verification_insert_phone_body">आम्ही आपल्याला व्हेरिफिकेशन कोड पाठवु.</string>
+  <string name="verification_insert_phone_body">बक्षिसे मिळविण्यासाठी वॉलेट सत्यापन करा! आम्ही आपल्याला सत्यापन कोड पाठवू.</string>
   <string name="verification_insert_phone_field_country">देश</string>
   <string name="verification_insert_phone_field_number">फोन नंबर</string>
   <string name="verification_insert_phone_field_number_error">अवैध फोन नंबर</string>
@@ -412,10 +417,14 @@
   <string name="verification_insert_code_resend_button">कोड परत पाठवा</string>
   <string name="verification_validating_title">आपला कोड&#8230; व्हॅलिडेट करत आहोत</string>
   <string name="verification_completed_title">झाले!</string>
+  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
   <string name="verification_notification_reward_received_body">बक्षीस मिळाले, मजा करा! 👌</string>
   <string name="verification_notification_reward_already_received_body">हे बक्षीस मिळविण्यासाठी फोन नंबर आधीच वापरला गेला आहे 😔</string>
-  <string name="verification_insert_phone_field_phone_used_already_error">फोन आधीच वापरला आहे.</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">हा नंबर आधीच वापरला आहे.</string>
   <string name="verification_insert_code_error_common">अरेरे, काहीतरी त्रुटी आली. कृपया पुन्हा प्रयत्न करा!</string>
+  <string name="verification_settings_unverified_title">वॉलेट सत्यापन करा</string>
+  <string name="verification_settings_unverified_body">बक्षिसे मिळवा आणि मित्रांना आमंत्रण द्या</string>
+  <string name="verification_settings_verified_title">वॉलेट सत्यापित झाले</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">ही खरेदी आधीच झालेली आहे असे दिसतेय. व्यवहार पूर्ण होईपर्यंत कृपया थांबा किंवा आमच्या सपोर्ट टीमशी संपर्क करा.</string>
   <string name="purchase_more_payment_methods_button">अन्य पेमेंट पद्धती</string>
@@ -424,4 +433,40 @@
   <string name="purchase_appcoins_credits_available_body">कोणतेही शुल्क नाही आणि अतिशय जलद!</string>
   <string name="purchase_appcoins_credits_noavailable_body">आपल्याकडे पुरेशी एपीपीसी क्रेडीटस नाहीत, टॉप अप करण्याचा प्रयत्न करा!</string>
   <string name="purchase_appcoins_credits_default_body">ह्या खरेदीसाठी आपण पुरेशा अॅपकॉइन्स कमावल्यात. मजा लुटा!</string>
+  <!--Referral Program-->
+  <string name="referral_onboarding_title">आपल्या मित्रांना आमंत्रण द्या!</string>
+  <string name="referral_onboarding_body">आपण आणि आपले मित्र आमच्या संदर्भ कार्यक्रमातुन %s पर्यंत मिळवु शकता!</string>
+  <string name="referral_onboarding_redeem_button">मला आमंत्रण मिळाले आहे</string>
+  <string name="referral_verification_title">आपले वॉलेट सत्यापन करा</string>
+  <string name="referral_verification_body">संदर्भ कार्यक्रमात सहभागी होण्यासाठी आपले वॉलेट सत्यापनाची गरज आहे. आम्ही आपल्याला एसएमएसद्वारे सत्यापन कोड पाठवू.</string>
+  <string name="referral_verification_confirmation_title">आपले आमंत्रण सत्यापित झाले आहे!</string>
+  <string name="referral_verification_confirmation_body">आपण आपली पहिली खरेदी करताच आपल्याला %s मूल्याच्या अॅपकॉईन्सचे क्रेडीट मिळेल.</string>
+  <string name="referral_verification_not_invited_title">ह्या नंबराला आमंत्रित केले गेले नाही असे दिसते&#8230;</string>
+  <string name="referral_verification_not_invited_body">पण आपण तरीही आपल्या मित्रांना आमंत्रित करुन %s पर्यंत मिळवु शकता! 💃🏽</string>
+  <string name="referral_notification_bonus_pending_title">%s संदर्भ बोनस प्रलंबित आहे</string>
+  <string name="referral_notification_bonus_pending_body">आपला बोनस मिळविण्यासाठी आपली पहिली अॅपमधील खरेदी करा.</string>
+  <string name="referral_view_title">मित्रांना आमंत्रण द्या</string>
+  <string name="referral_view_title_1">मित्रांना आमंत्रण द्या आणि जास्त कमवा!</string>
+  <string name="referral_view_verified_body">प्रत्येक मित्रापाठी %s मूल्याचे अॅपकॉइन्स क्रेडीटस मिळवा. फक्त लिंक सामायिक करा!</string>
+  <string name="referral_view_share_link_button">आमंत्रण लिंक सामायिक करा</string>
+  <string name="referral_view_notifications_title">सूचना</string>
+  <string name="referral_share_sheet_title">आमंत्रण लिंक ह्याद्वारे सामायिक करा:</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_verify_button">वॉलेट सत्यापित करा</string>
+  <string name="referral_view_i_have_been_invited_button">मला आमंत्रण आले आहे</string>
+  <string name="referral_view_dropup_menu_friends_invited">मित्रांना आमंत्रित केले</string>
+  <string name="referral_view_dropup_menu_earned">कमावले</string>
+  <string name="referral_dropup_menu_friends_title_1">मित्रांना आमंत्रित केले</string>
+  <string name="referral_dropup_menu_requirements_title">गरजा</string>
+  <string name="referral_dropup_menu_requirements_verification">आपले वॉलेट फोन नंबरसह सत्यापित करा</string>
+  <string name="referral_dropup_menu_requirements_purchase">अॅपमधील एक खरेदी करा किंवा टॉप अप करा</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <!--Promotions-->
+  <string name="bottom_navigation_promotions">प्रमोशन्स</string>
+  <string name="bottom_navigation_promotions_detailed">आमच्या प्रमोशन्स आणि कँपेनसह मोफत अॅपकॉइन्स क्रेडीटस कशी मिळवायची हे समजुन घ्या!</string>
+  <string name="promotions_title">प्रमोशन्स</string>
+  <string name="promotions_referral_card_title">मित्रांना आमंत्रित करुन %s पर्यंत कमवा</string>
+  <string name="promotions_referral_card_body">आपली आमंत्रण लिंक सामायिक करा आणि अॅपकॉइन्स क्रेडीटस कमवा.</string>
+  <string name="promotions_gamification_card_title">प्रत्येक खरेदीवर ३०% पर्यंत बोनस</string>
+  <string name="promotions_new">नविन</string>
 </resources>

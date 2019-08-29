@@ -56,6 +56,7 @@
   <string name="yes_continue">نعم، متابعة</string>
   <string name="no_repeat">لا، تكرار</string>
   <string name="skip">تخطّي</string>
+  <string name="skip_with_arrow">تخطي &gt;</string>
   <string name="root_title">أمان الجهاز معرض خطر</string>
   <string name="root_body">يمكن لأي تطبيق الوصول إلى بيانات سلسلة المفاتيح الخاصة بمحفظة الأبكوينز وسرقة محفظتك! امسح هذه المحفظة حالًا واستعدها على جهاز آمن.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
@@ -114,7 +115,7 @@
   <string name="intro_3_body">قم بكل عمليات الشراء داخل التطبيقات باستخدام وسيلة الدفع المفضلة لديك.</string>
   <string name="intro_4_title">آمن وسرّي</string>
   <string name="intro_4_body">مفاتيحك السرية لن تفارق الجهاز، ما يبقي الأبكوينز الخاصو بك آمنة طوال الوقت.</string>
-  <string name="intro_creating_wallet_short">نحن نُنشئ محفظة لك&#8230;</string>
+  <string name="intro_creating_wallet_short">ضبط محفظتك من أجلك&#8230;</string>
   <string name="intro_wallet_created_short">تم إنشاء المحفظة!</string>
   <string name="intro_agree_terms_and_conditions_body">بالضغط على تخطّي، أنت توافق على محفظة AppCoins %1$s و%2$s</string>
   <string name="intro_skip_button">تخطّي</string>
@@ -307,13 +308,14 @@
   <string name="gamification_purchase_appccredits_body">أسرع وسيلة دفع!</string>
   <string name="gamification_how_bonus_received_body">تلقيت مكافأة</string>
   <string name="gamification_how_appc_spent">ما عليك أن تنفقه للوصول إلى هذا المستوى</string>
-  <string name="gamification_how_to_next_level_body">أَنفق %1$s AppCoins إضافية لتصل إلى المستوى %2$s.</string>
+  <string name="gamification_how_to_next_level_body">اصرف <b>%1$s AppCoins</b>أكثر لتصل إلى <b>المستوى %2$s</b>.</string>
   <string name="gamification_level_expiration_title">الفحص التالي للمستوى: %s</string>
   <string name="gamification_level_expiration_body">يعتمد مستواك على أنشطتك الشرائية خلال الـ 12 شهرًا الماضية.</string>
   <string name="gamification_leveled_up_title">لقد وصلت إلى المستوى التالي!</string>
   <string name="gamification_leveled_up_body">ستحصل الآن على مكافأة %s على كل عملية شراء. استمر في الشراء للحصول على المزيد!</string>
   <string name="gamification_leveled_up_notification_title">لقد وصلت إلى المستوى التالي!</string>
   <string name="gamification_leveled_up_notification_body">مبروك، ستحصل الآن على مكافأة %s على كل عملية شراء!</string>
+  <string name="gamification_how_max_level_body">مبروك! لقد وصلت إلى أعلى مستوى 💃</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">اسمح لمحفظة AppCoins بإعطاء عنوان محفظتك إلى %s.</string>
   <string name="provide_wallet_body_placeholders">السماح لـ %1$s بتوفير عنوان محفظتك لـ %2$s.</string>
@@ -381,6 +383,9 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
   <string name="dismiss_button">تجاهل</string>
+  <string name="discover_button">اطّلاع</string>
+  <string name="retry_button">حاول ثانية</string>
+  <string name="do_it_later_button">لاحقًا</string>
   <string name="connectoin_error_body">يبدو أنك غير متصل بالإنترنت. افحص اتصالك بالإنترنت وحاول مجددًا!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">أوافق على %1$s و%2$s الخاصة بـ AppCoins Wallet.</string>
@@ -400,7 +405,7 @@
   <string name="verification_notification_verification_needed_title">الجائزة جاهزة لكن التأكيد مطلوب</string>
   <string name="verification_notification_verification_needed_body">لأسباب أمنية، نحن بحاجة إلى تأكيد محفظتك برمز SMS.</string>
   <string name="verification_insert_phone_title">أدخل رقم هاتفك</string>
-  <string name="verification_insert_phone_body">سنرسل إليك رمز التأكيد.</string>
+  <string name="verification_insert_phone_body">وثّق محفظتك للحصول على الجوائز! سنرسل إليك رمز التحقق.</string>
   <string name="verification_insert_phone_field_country">البلد</string>
   <string name="verification_insert_phone_field_number">رقم الهاتف</string>
   <string name="verification_insert_phone_field_number_error">رقم هاتف غير صالح</string>
@@ -412,10 +417,14 @@
   <string name="verification_insert_code_resend_button">إعادة إرسال الرمز</string>
   <string name="verification_validating_title">قيد التأكد من رمزك&#8230;</string>
   <string name="verification_completed_title">تمت!</string>
+  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
   <string name="verification_notification_reward_received_body">تلقيت الجائزة، تمتّع بها! 👌</string>
   <string name="verification_notification_reward_already_received_body">لقد استُخدم رقم الهاتف هذا سابقًا لاستقبال هذه الجائزة 😔</string>
-  <string name="verification_insert_phone_field_phone_used_already_error">رقم هاتف مُستخدَم سابقًا.</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">الرقم مستخدم مسبقًا.</string>
   <string name="verification_insert_code_error_common">يا للخسارة، حدث خطأ. حاول مجددًا!</string>
+  <string name="verification_settings_unverified_title">وثّق المحفظة</string>
+  <string name="verification_settings_unverified_body">احصل على الجوائز وادعُ الأصدقاء</string>
+  <string name="verification_settings_verified_title">اكتمل التحقق من المحفظة</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">يبدو أن عملية الشراء قد تمت بالفعل. يرجى الانتظار حتى تتم عملية التحويل أو يمكنك التواصل مع فريق الدعم.</string>
   <string name="purchase_more_payment_methods_button">طرق دفع أخرى</string>
@@ -424,4 +433,40 @@
   <string name="purchase_appcoins_credits_available_body">دون رسوم، وسرعة كالبرق!</string>
   <string name="purchase_appcoins_credits_noavailable_body">لا يتوفر رصيد كافٍ من APPC، جرب إضافة المزيد!</string>
   <string name="purchase_appcoins_credits_default_body">لقد كسبت ما يكفي من رصيد الAppCoins لعملية الشراء هه. استمتع!</string>
+  <!--Referral Program-->
+  <string name="referral_onboarding_title">ادعُ أصدقاءك!</string>
+  <string name="referral_onboarding_body">يمكنك أن تكسب أنت وأصدقاؤك ما يصل إلى %s مع برنامج الإحالة لدينا!</string>
+  <string name="referral_onboarding_redeem_button">لقد دُعيتُ</string>
+  <string name="referral_verification_title">وثّق محفظتك</string>
+  <string name="referral_verification_body">أنت بحاجة إلى توثيق محفظتك للمشاركة في برنامج الإحالة. سنرسل إليك رمز تحقق من خلال الرسائل القصيرة.</string>
+  <string name="referral_verification_confirmation_title">تم التحقق من دعوتك!</string>
+  <string name="referral_verification_confirmation_body">حالما تتم عملة شرائك الأولى ستحصل على ما يساوي %s من رصيد AppCoins.</string>
+  <string name="referral_verification_not_invited_title">يبدو أن هذا الرقم لم يُدعى&#8230;</string>
+  <string name="referral_verification_not_invited_body">لكن ما زال بإمكانك الحصول على ما يصل إلى %s بدعوة الأصدقاء! 💃🏽</string>
+  <string name="referral_notification_bonus_pending_title">%s مكافأة الإحالة بالانتظار</string>
+  <string name="referral_notification_bonus_pending_body">أجرِ عمليات الشراء داخل التطبيقات للحصول على المكافأة.</string>
+  <string name="referral_view_title">دعوة الأصدقاء</string>
+  <string name="referral_view_title_1">ادعُ الأصدقاء واكسب المزيد!</string>
+  <string name="referral_view_verified_body">استقبل ما قيمته %s من رصيد AppCoins لكل صديق. شارك الرابط وحسب!</string>
+  <string name="referral_view_share_link_button">شارك رابط الدعوة</string>
+  <string name="referral_view_notifications_title">الإشعارات</string>
+  <string name="referral_share_sheet_title">شارك رابط الدعوة بواسطة:</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_verify_button">توثيق المحفظة</string>
+  <string name="referral_view_i_have_been_invited_button">لقد دُعيت</string>
+  <string name="referral_view_dropup_menu_friends_invited">الأصدقاء المدعوون</string>
+  <string name="referral_view_dropup_menu_earned">المكسب</string>
+  <string name="referral_dropup_menu_friends_title_1">الأصدقاء المدعوون</string>
+  <string name="referral_dropup_menu_requirements_title">المتطلبات</string>
+  <string name="referral_dropup_menu_requirements_verification">وثّق محفظتك برقم الهاتف</string>
+  <string name="referral_dropup_menu_requirements_purchase">أتمَّ عملية شراء واحدة أو اشحن رصيدك</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <!--Promotions-->
+  <string name="bottom_navigation_promotions">ترقيات</string>
+  <string name="bottom_navigation_promotions_detailed">اكتشف كيف يمكنك أن تحصل على رصيد AppCoins مجاني مع ترقياتنا وحملاتنا!</string>
+  <string name="promotions_title">ترقيات</string>
+  <string name="promotions_referral_card_title">احصل على ما يصل إلى %s بدعوة الأصدقاء</string>
+  <string name="promotions_referral_card_body">شارك رابط الدعوة الخاص بك واحصل على رصيد AppCoins.</string>
+  <string name="promotions_gamification_card_title">مكافآت تصل إلى 30% على كل عملية شراء</string>
+  <string name="promotions_new">جديد</string>
 </resources>

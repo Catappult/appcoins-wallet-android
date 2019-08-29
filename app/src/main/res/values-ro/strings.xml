@@ -56,6 +56,7 @@
   <string name="yes_continue">Da, continuă</string>
   <string name="no_repeat">Nu, repetă</string>
   <string name="skip">Sari</string>
+  <string name="skip_with_arrow">Ignoră &gt;</string>
   <string name="root_title">SECURITATE DISPOZITIV COMPROMISĂ</string>
   <string name="root_body">Orice aplicație „cu acces rădăcină” poate accesa datele keychain-ului Portofelului AppCoins și îți poate fura portofelul! Șterge imediat acest portofel și restaurează-l pe un dispozitiv sigur.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
@@ -114,7 +115,7 @@
   <string name="intro_3_body">Procesează-ți toate cumpărăturile in-app folosind metoda ta de plată preferată.</string>
   <string name="intro_4_title">Sigur și Privat</string>
   <string name="intro_4_body">Cheile tale private nu vor părăsi niciodată dispozitivul tău, așa că AppCoins sunt sigure în orice moment.</string>
-  <string name="intro_creating_wallet_short">Se creează un portofel pentru tine&#8230;</string>
+  <string name="intro_creating_wallet_short">Se configurează portofelul tău&#8230;</string>
   <string name="intro_wallet_created_short">Portofel creat!</string>
   <string name="intro_agree_terms_and_conditions_body">Apăsând pe Ignoră, ești de acord cu %1$s și %2$s Portofelului AppCoins</string>
   <string name="intro_skip_button">IGNORĂ</string>
@@ -307,13 +308,14 @@
   <string name="gamification_purchase_appccredits_body">Cea mai rapidă metodă de plată!</string>
   <string name="gamification_how_bonus_received_body">Bonus primit</string>
   <string name="gamification_how_appc_spent">Sumă cheltuită pentru a atinge acest nivel</string>
-  <string name="gamification_how_to_next_level_body">Cheltuiește încă %1$s AppCoins ca să atingi nivelul %2$s.</string>
+  <string name="gamification_how_to_next_level_body">Cheltuiește încă <b>%1$s AppCoins</b> ca să atingi <b>nivelul %2$s</b>.</string>
   <string name="gamification_level_expiration_title">Următoarea verificare a nivelului: %s</string>
   <string name="gamification_level_expiration_body">Nivelul tău se bazează pe activitatea ta de cumpărare din ultimele 12 luni.</string>
   <string name="gamification_leveled_up_title">Ai atins următorul nivel!</string>
   <string name="gamification_leveled_up_body">Acum vei primi un bonus de %s la fiecare cumpărătură. Continuă să cumperi ca să câștigi și mai mult!</string>
   <string name="gamification_leveled_up_notification_title">Ai atins următorul nivel!</string>
   <string name="gamification_leveled_up_notification_body">Felicitări, acum vei primi un bonus de %s la fiecare cumpărătură!</string>
+  <string name="gamification_how_max_level_body">Felicitări! Ai atins cel mai înalt nivel 💃</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Permite AppCoins Wallet să furnizeze adresa portofelului tău către %s.</string>
   <string name="provide_wallet_body_placeholders">Permite %1$s să furnizeze adresa portofelului tău către %2$s.</string>
@@ -381,6 +383,9 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
   <string name="dismiss_button">Respinge</string>
+  <string name="discover_button">Descoperă</string>
+  <string name="retry_button">Reîncearcă</string>
+  <string name="do_it_later_button">Amână</string>
   <string name="connectoin_error_body">Se pare că nu ești conectat la Internet. Verifică conexiunea și încearcă din nou!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Sunt de acord cu %1$s și %2$s AppCoins Wallet.</string>
@@ -400,7 +405,7 @@
   <string name="verification_notification_verification_needed_title">Recompensa este pregătită, dar este necesară verificarea</string>
   <string name="verification_notification_verification_needed_body">Din motive de securitate, trebuie să îți verificăm portofelul cu un cod SMS.</string>
   <string name="verification_insert_phone_title">Introdu numărul tău de telefon</string>
-  <string name="verification_insert_phone_body">Îți vom trimite un cod de verificare.</string>
+  <string name="verification_insert_phone_body">Verifică-ți portofelul pentru a primi recompense! Îți vom trimite un cod de verificare.</string>
   <string name="verification_insert_phone_field_country">Țară</string>
   <string name="verification_insert_phone_field_number">Număr de telefon</string>
   <string name="verification_insert_phone_field_number_error">Număr de telefon nevalid</string>
@@ -412,10 +417,14 @@
   <string name="verification_insert_code_resend_button">RETRIMITE COD</string>
   <string name="verification_validating_title">Codul tău este în curs de validare&#8230;</string>
   <string name="verification_completed_title">Gata!</string>
+  <string name="verification_completed_body">Acum poți câștiga AppCoins Credits invitându-ți prietenii sau instalând aplicații.</string>
   <string name="verification_notification_reward_received_body">Recompensă primită! Bucură-te de ea! 👌</string>
   <string name="verification_notification_reward_already_received_body">Acest număr de telefon a fost folosit deja pentru a primi această recompensă 😔</string>
-  <string name="verification_insert_phone_field_phone_used_already_error">Număr de telefon deja folosit.</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">Număr deja folosit.</string>
   <string name="verification_insert_code_error_common">Ups, ceva nu a mers cum trebuie. Încearcă din nou!</string>
+  <string name="verification_settings_unverified_title">Verifică portofel</string>
+  <string name="verification_settings_unverified_body">Primește recompense și invită prieteni</string>
+  <string name="verification_settings_verified_title">Portofel verificat</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Se pare că această cumpărătură este deja în curs de procesare. Te rugăm să aștepți până când tranzacția este finalizată sau contactează Echipa de asistență.</string>
   <string name="purchase_more_payment_methods_button">ALTE METODE DE PLATĂ</string>
@@ -424,4 +433,40 @@
   <string name="purchase_appcoins_credits_available_body">Fără comisioane și fulger!</string>
   <string name="purchase_appcoins_credits_noavailable_body">Nu ai suficiente APPC Credits, încearcă să alimentezi!</string>
   <string name="purchase_appcoins_credits_default_body">Ai câștigat suficiente AppCoins Credits pentru această cumpărătură. Bucură-te de ea!</string>
+  <!--Referral Program-->
+  <string name="referral_onboarding_title">Invită-ți prietenii!</string>
+  <string name="referral_onboarding_body">Tu și prietenii tăi puteți câștiga până la %s cu Programul nostru de referință!</string>
+  <string name="referral_onboarding_redeem_button">Am fost invitat</string>
+  <string name="referral_verification_title">Verifică-ți portofelul</string>
+  <string name="referral_verification_body">Trebuie să îți verifici portofelul pentru a participa la Programul de referință. Îți vom trimite un cod de verificare prin SMS.</string>
+  <string name="referral_verification_confirmation_title">Invitația ta a fost validată!</string>
+  <string name="referral_verification_confirmation_body">Imediat ce vei face prima ta cumpărătură, vei primi AppCoins Credits în valoare de %s.</string>
+  <string name="referral_verification_not_invited_title">Se pare că acest număr nu a fost invitat&#8230;</string>
+  <string name="referral_verification_not_invited_body">Dar poți continua să câștigi până la %s invitând prieteni! 💃🏽</string>
+  <string name="referral_notification_bonus_pending_title">%s Bonus de referință în așteptare</string>
+  <string name="referral_notification_bonus_pending_body">Fă prima ta cumpărătură in-app pentru a-ți primi bonusul.</string>
+  <string name="referral_view_title">Invită prieteni</string>
+  <string name="referral_view_title_1">Invită prieteni și câștigă mai mult!</string>
+  <string name="referral_view_verified_body">Primești AppCoins Credits în valoare de %s pentru fiecare prieten. Distribuie linkul!</string>
+  <string name="referral_view_share_link_button">DISTRIBUIE LINK DE INVITAȚIE</string>
+  <string name="referral_view_notifications_title">Notificări</string>
+  <string name="referral_share_sheet_title">Distribuie link de invitația via:</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_verify_button">VERIFICĂ PORTOFEL</string>
+  <string name="referral_view_i_have_been_invited_button">AM FOST INVITAT</string>
+  <string name="referral_view_dropup_menu_friends_invited">Prieteni invitați</string>
+  <string name="referral_view_dropup_menu_earned">Câștigați</string>
+  <string name="referral_dropup_menu_friends_title_1">Prieteni invitați</string>
+  <string name="referral_dropup_menu_requirements_title">Cerințe</string>
+  <string name="referral_dropup_menu_requirements_verification">Verifică-ți portofelul cu un număr de telefon</string>
+  <string name="referral_dropup_menu_requirements_purchase">Fă o cumpărătură in-app sau o încărcare</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <!--Promotions-->
+  <string name="bottom_navigation_promotions">Promoții</string>
+  <string name="bottom_navigation_promotions_detailed">Descoperă cum poți să câștigi AppCoins Credits gratuite cu promoțiile și campaniile noastre!</string>
+  <string name="promotions_title">Promoții</string>
+  <string name="promotions_referral_card_title">Câștigă până la %s invitând prieteni</string>
+  <string name="promotions_referral_card_body">Distribuie linkul tău de invitație și câștigă AppCoins Credits.</string>
+  <string name="promotions_gamification_card_title">Până la 30% bonus la fiecare cumpărătură</string>
+  <string name="promotions_new">NOU</string>
 </resources>
