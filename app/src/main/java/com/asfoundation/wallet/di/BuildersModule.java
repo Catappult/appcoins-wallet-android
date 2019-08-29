@@ -10,6 +10,7 @@ import com.asfoundation.wallet.promotions.PromotionsFragment;
 import com.asfoundation.wallet.referrals.InviteFriendsActivity;
 import com.asfoundation.wallet.referrals.InviteFriendsFragment;
 import com.asfoundation.wallet.referrals.InviteFriendsVerificationFragment;
+import com.asfoundation.wallet.referrals.ReferralsFragment;
 import com.asfoundation.wallet.topup.TopUpActivity;
 import com.asfoundation.wallet.topup.TopUpFragment;
 import com.asfoundation.wallet.topup.TopUpSuccessFragment;
@@ -181,4 +182,6 @@ import dagger.android.ContributesAndroidInjector;
   abstract InviteFriendsVerificationFragment inviteFriendsVerificationFragment();
 
   @ContributesAndroidInjector() abstract InviteFriendsFragment inviteFriendsFragment();
+
+  @ContributesAndroidInjector() abstract ReferralsFragment referralsFragment();
 }

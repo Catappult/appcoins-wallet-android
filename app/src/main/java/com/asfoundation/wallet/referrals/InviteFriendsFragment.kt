@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -20,6 +21,7 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
 
   private lateinit var presenter: InviteFriendsFragmentPresenter
   private lateinit var activity: InviteFriendsActivityView
+  private lateinit var howItWorksBottomSheet: BottomSheetBehavior<View>
   @Inject
   lateinit var referralInteractor: ReferralInteractorContract
 
@@ -38,13 +40,32 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    howItWorksBottomSheet =
+        BottomSheetBehavior.from(bottom_sheet_fragment_container)
+    animateBackgroundFade()
     presenter.present()
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
+    childFragmentManager.beginTransaction()
+        .replace(R.id.bottom_sheet_fragment_container, ReferralsFragment())
+        .commit()
     return inflater.inflate(R.layout.invite_friends_fragment_layout, container, false)
   }
+
+  private fun animateBackgroundFade() {
+    howItWorksBottomSheet.setBottomSheetCallback(object :
+        BottomSheetBehavior.BottomSheetCallback() {
+      override fun onStateChanged(bottomSheet: View, newState: Int) {
+      }
+
+      override fun onSlide(bottomSheet: View, slideOffset: Float) {
+        background_fade_animation.progress = slideOffset
+      }
+    })
+  }
+
 
   override fun setTextValues(individualValue: String, pendingValue: String) {
     referral_description.text = getString(R.string.referral_view_verified_body, individualValue)
