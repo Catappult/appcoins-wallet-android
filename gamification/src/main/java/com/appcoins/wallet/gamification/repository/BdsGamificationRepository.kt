@@ -1,6 +1,8 @@
 package com.appcoins.wallet.gamification.repository
 
+import com.appcoins.wallet.gamification.repository.entity.GamificationResponse
 import com.appcoins.wallet.gamification.repository.entity.LevelsResponse
+import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
 import com.appcoins.wallet.gamification.repository.entity.UserStatusResponse
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -8,7 +10,8 @@ import java.math.BigDecimal
 import java.net.UnknownHostException
 
 class BdsGamificationRepository(private val api: GamificationApi,
-                                private val local: GamificationLocalData) :
+                                private val local: GamificationLocalData,
+                                private val versionCode: String) :
     GamificationRepository {
 
   override fun getLastShownLevel(wallet: String, screen: String): Single<Int> {
@@ -44,7 +47,7 @@ class BdsGamificationRepository(private val api: GamificationApi,
   }
 
   override fun getUserStatus(wallet: String): Single<UserStats> {
-    return api.getUserStatus(wallet)
+    return api.getUserStatus(wallet, versionCode)
         .map { map(it) }
         .onErrorReturn { map(it) }
   }
@@ -59,10 +62,36 @@ class BdsGamificationRepository(private val api: GamificationApi,
     }
   }
 
+  override fun getUserStatsReferral(wallet: String): Single<ForecastBonus> {
+    return api.getUserStatus(wallet, versionCode)
+        .map { map(it.referral) }
+        .onErrorReturn { mapReferralError(it) }
+  }
+
+  private fun map(referralResponse: ReferralResponse?): ForecastBonus {
+    if (referralResponse == null || referralResponse.pendingValue.compareTo(
+            BigDecimal.ZERO) == 0) {
+      return ForecastBonus(ForecastBonus.Status.INACTIVE)
+    }
+    return ForecastBonus(ForecastBonus.Status.ACTIVE, referralResponse.pendingValue)
+  }
+
+  private fun mapReferralError(throwable: Throwable): ForecastBonus {
+    throwable.printStackTrace()
+    return when (throwable) {
+      is UnknownHostException -> ForecastBonus(ForecastBonus.Status.NO_NETWORK)
+      else -> {
+        ForecastBonus(ForecastBonus.Status.UNKNOWN_ERROR)
+      }
+    }
+  }
+
   private fun map(response: UserStatusResponse): UserStats {
-    return UserStats(UserStats.Status.OK, response.level,
-        response.nextLevelAmount, response.bonus, response.totalSpend, response.totalEarned,
-        UserStatusResponse.Status.ACTIVE == response.status)
+    val gamification = response.gamification
+    return UserStats(UserStats.Status.OK, gamification.level,
+        gamification.nextLevelAmount, gamification.bonus, gamification.totalSpend,
+        gamification.totalEarned,
+        GamificationResponse.Status.ACTIVE == gamification.status)
   }
 
   override fun getLevels(): Single<Levels> {

@@ -810,8 +810,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(GamificationApi.class);
-    return new Gamification(new BdsGamificationRepository(api,
-        new SharedPreferencesGamificationLocalData(preferences)));
+    return new Gamification(
+        new BdsGamificationRepository(api, new SharedPreferencesGamificationLocalData(preferences),
+            getVersionCode()));
   }
 
   @Singleton @Provides BackendApi provideBackendApi(OkHttpClient client, Gson gson) {
