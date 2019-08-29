@@ -34,7 +34,7 @@ class GamificationInteractor(
         .flatMap { wallet: Wallet ->
           Single.zip(gamification.getEarningBonus(wallet.address, packageName, amount),
               conversionService.localCurrency,
-              gamification.getNextPurchaseBonusFromReferrals(wallet.address),
+              gamification.getNextPurchaseBonus(wallet.address),
               Function3 { appcBonusValue: ForecastBonus, localCurrency: FiatValue, referralBonus: ForecastBonus ->
                 map(appcBonusValue, localCurrency, referralBonus)
               })
