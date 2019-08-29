@@ -56,6 +56,7 @@
   <string name="yes_continue">Có, tiếp tục</string>
   <string name="no_repeat">Không, lặp lại</string>
   <string name="skip">Bỏ qua</string>
+  <string name="skip_with_arrow">Bỏ qua &gt;</string>
   <string name="root_title">BẢO MẬT THIẾT BỊ BỊ XÂM PHẠM</string>
   <string name="root_body">Bất kỳ ứng dụng \'đã root\' nào cũng có thể truy cập dữ liệu chuỗi khóa của AppCoins Wallet và đánh cắp ví của bạn! Xóa ví này ngay lập tức và khôi phục trên một thiết bị an toàn.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
@@ -114,7 +115,7 @@
   <string name="intro_3_body">Xử lý tất cả các giao dịch mua trong ứng dụng bằng phương thức thanh toán yêu thích của bạn.</string>
   <string name="intro_4_title">Bảo mật và Riêng tư</string>
   <string name="intro_4_body">Khóa cá nhân sẽ không bao giờ rời khỏi thiết bị của bạn, vì vậy AppCoin của bạn sẽ luôn được an toàn.</string>
-  <string name="intro_creating_wallet_short">Chúng tôi đang tạo ví cho bạn&#8230;</string>
+  <string name="intro_creating_wallet_short">Cài đặt ví của bạn&#8230;</string>
   <string name="intro_wallet_created_short">Đã tạo ví!</string>
   <string name="intro_agree_terms_and_conditions_body">Bằng cách nhấn vào Bỏ qua, bạn đã đồng ý với %1$s và %2$s của AppCoins Wallet</string>
   <string name="intro_skip_button">BỎ QUA</string>
@@ -307,13 +308,14 @@
   <string name="gamification_purchase_appccredits_body">Phương thức thanh toán nhanh nhất!</string>
   <string name="gamification_how_bonus_received_body">Tiền thưởng đã nhận</string>
   <string name="gamification_how_appc_spent">Số tiền cần chi tiêu để đạt đến cấp này</string>
-  <string name="gamification_how_to_next_level_body">Chi tiêu thêm %1$s AppCoins để đạt đến cấp %2$s.</string>
+  <string name="gamification_how_to_next_level_body">Dùng thêm <b>%1$s AppCoins</b> để đạt đến <b>cấp %2$s</b>.</string>
   <string name="gamification_level_expiration_title">Kiểm tra cấp kế tiếp: %s</string>
   <string name="gamification_level_expiration_body">Cấp của bạn dựa trên hoạt động mua hàng của bạn trong 12 tháng qua.</string>
   <string name="gamification_leveled_up_title">Bạn đã đạt đến cấp kế tiếp!</string>
   <string name="gamification_leveled_up_body">Kể từ giờ, bạn sẽ nhận được %s tiền thưởng trên mỗi lần mua. Hãy tiếp tục mua để nhận được nhiều hơn nữa!</string>
   <string name="gamification_leveled_up_notification_title">Bạn đã đạt đến cấp kế tiếp!</string>
   <string name="gamification_leveled_up_notification_body">Xin chúc mừng, giờ đây bạn sẽ nhận được tiền thưởng %s trên mỗi lần mua!</string>
+  <string name="gamification_how_max_level_body">Chúc mừng! Bạn đã đạt đến cấp cao nhất 💃</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Cho phép AppCoins Wallet cung cấp địa chỉ ví của bạn cho %s.</string>
   <string name="provide_wallet_body_placeholders">Cho phép %1$s cung cấp địa chỉ ví của bạn cho %2$s.</string>
@@ -381,6 +383,9 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
   <string name="dismiss_button">Bỏ qua</string>
+  <string name="discover_button">Khám phá</string>
+  <string name="retry_button">Thử lại</string>
+  <string name="do_it_later_button">Để sau</string>
   <string name="connectoin_error_body">Có vẻ như bạn không kết nối Internet. Hãy kiểm tra kết nối của mình và thử lại!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Tôi đồng ý với %1$s và %2$s của Ví AppCoins.</string>
@@ -400,7 +405,7 @@
   <string name="verification_notification_verification_needed_title">Phần thưởng đã sẵn sàng nhưng cần phải xác minh</string>
   <string name="verification_notification_verification_needed_body">Vì lý do bảo mật, chúng tôi cần xác minh ví của bạn bằng mã SMS.</string>
   <string name="verification_insert_phone_title">Nhập số điện thoại của bạn</string>
-  <string name="verification_insert_phone_body">Chúng tôi sẽ gửi cho bạn một mã xác minh.</string>
+  <string name="verification_insert_phone_body">Xác minh ví của bạn để nhận phần thưởng! Chúng tôi sẽ gửi bạn một mã xác minh.</string>
   <string name="verification_insert_phone_field_country">Quốc gia</string>
   <string name="verification_insert_phone_field_number">Số điện thoại</string>
   <string name="verification_insert_phone_field_number_error">Số điện thoại không hợp lệ</string>
@@ -412,10 +417,14 @@
   <string name="verification_insert_code_resend_button">GỬI LẠI MÃ</string>
   <string name="verification_validating_title">Xác thực mã của bạn&#8230;</string>
   <string name="verification_completed_title">Xong!</string>
+  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
   <string name="verification_notification_reward_received_body">Đã nhận phần thưởng, hãy tận hưởng! 👌</string>
   <string name="verification_notification_reward_already_received_body">Số điện thoại này đã được sử dụng để nhận phần thưởng này 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Số điện thoại này đã được sử dụng.</string>
   <string name="verification_insert_code_error_common">Rất tiếc, đã xảy ra lỗi. Vui lòng thử lại!</string>
+  <string name="verification_settings_unverified_title">Xác minh Ví</string>
+  <string name="verification_settings_unverified_body">Mời bạn bè và Nhận phần thưởng</string>
+  <string name="verification_settings_verified_title">Ví đã được xác minh</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Có vẻ như giao dịch mua này đã được xử lý. Vui lòng chờ cho đến khi hoàn thành giao dịch hoặc liên hệ với đội hỗ trợ của chúng tôi.</string>
   <string name="purchase_more_payment_methods_button">PHƯƠNG THỨC THANH TOÁN KHÁC</string>
@@ -424,4 +433,40 @@
   <string name="purchase_appcoins_credits_available_body">Không tốn phí và nhanh như chớp!</string>
   <string name="purchase_appcoins_credits_noavailable_body">Bạn không có đủ APPC Credits, hãy thử nạp tiền!</string>
   <string name="purchase_appcoins_credits_default_body">Bạn đã kiếm đủ AppCoins Credits cho giao dịch mua này. Hãy thỏa thích dùng chúng!</string>
+  <!--Referral Program-->
+  <string name="referral_onboarding_title">Mời bạn bè của bạn!</string>
+  <string name="referral_onboarding_body">Bạn và bạn bè của mình có thể nhận đến %s với Chương Trình Giới Thiệu của chúng tôi!</string>
+  <string name="referral_onboarding_redeem_button">Tôi đã được mời</string>
+  <string name="referral_verification_title">Xác minh Ví của bạn</string>
+  <string name="referral_verification_body">Bạn cần xác minh ví của mình để tham gia vào Chương Trình Giới Thiệu. Chúng tôi sẽ gửi bạn mã xác nhận qua tin nhắn SMS.</string>
+  <string name="referral_verification_confirmation_title">Lời mời của bạn đã được xác thực!</string>
+  <string name="referral_verification_confirmation_body">Ngay khi bạn thực hiện giao dịch đầu tiên, bạn sẽ nhận được %s bằng AppCoins Credits.</string>
+  <string name="referral_verification_not_invited_title">Dường như số này không được mời&#8230;</string>
+  <string name="referral_verification_not_invited_body">Tuy nhiên, bạn vẫn có thể nhận được đến %s bằng cách mời bạn bè! 💃🏽</string>
+  <string name="referral_notification_bonus_pending_title">%s tiền thưởng giới thiệu đang chờ xử lý</string>
+  <string name="referral_notification_bonus_pending_body">Thực hiện mua hàng trong ứng dụng lần đầu tiên để nhận được phần thưởng.</string>
+  <string name="referral_view_title">Mời bạn bè</string>
+  <string name="referral_view_title_1">Mời bạn bè và Nhận thêm nhiều phần thưởng!</string>
+  <string name="referral_view_verified_body">Nhận %s bằng AppCoins Credits cho mỗi người bạn. Bạn chỉ cần chia sẻ liên kết!</string>
+  <string name="referral_view_share_link_button">CHIA SẺ LIÊN KẾT MỜI</string>
+  <string name="referral_view_notifications_title">Thông báo</string>
+  <string name="referral_share_sheet_title">Chia sẻ liên kết mời qua:</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_verify_button">XÁC MINH VÍ</string>
+  <string name="referral_view_i_have_been_invited_button">TÔI ĐÃ ĐƯỢC MỜI</string>
+  <string name="referral_view_dropup_menu_friends_invited">Bạn bè đã mời</string>
+  <string name="referral_view_dropup_menu_earned">Đã nhận</string>
+  <string name="referral_dropup_menu_friends_title_1">Bạn bè đã mời</string>
+  <string name="referral_dropup_menu_requirements_title">Yêu cầu</string>
+  <string name="referral_dropup_menu_requirements_verification">Xác nhận ví của bạn bằng số điện thoại</string>
+  <string name="referral_dropup_menu_requirements_purchase">Thực hiện một giao dịch mua hàng trong ứng dụng hoặc nạp tiền</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <!--Promotions-->
+  <string name="bottom_navigation_promotions">Khuyến mãi</string>
+  <string name="bottom_navigation_promotions_detailed">Khám phá cách để nhận được AppCoins Credits miễn phí với các chương trình khuyến mãi và chiến dịch của chúng tôi!</string>
+  <string name="promotions_title">Khuyến mãi</string>
+  <string name="promotions_referral_card_title">Nhận đến %s bằng cách mời bạn bè</string>
+  <string name="promotions_referral_card_body">Chia sẻ liên kết mời của bạn và nhận AppCoins Credits.</string>
+  <string name="promotions_gamification_card_title">Thưởng tới 30% cho mỗi lần mua</string>
+  <string name="promotions_new">MỚI</string>
 </resources>

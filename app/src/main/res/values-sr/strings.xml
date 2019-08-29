@@ -56,6 +56,7 @@
   <string name="yes_continue">Da, nastavi</string>
   <string name="no_repeat">Ne, ponovi</string>
   <string name="skip">Preskoči</string>
+  <string name="skip_with_arrow">Preskoči &gt;</string>
   <string name="root_title">BEZBEDNOST UREĐAJA JE UGROŽENA</string>
   <string name="root_body">Bilo koja „rutirana“ aplikacija može da pristupi privesku za ključeve za AppCoins Wallet i ukrade vam novčanik! Odmah obrišite ovaj novčanik i obnovite ga na bezbednom uređaju.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
@@ -114,7 +115,7 @@
   <string name="intro_3_body">Obradite sve kupovine u aplikacijama pomoću omiljenog načina plaćanja.</string>
   <string name="intro_4_title">Bezbedno i privatno</string>
   <string name="intro_4_body">Vaši privatni ključevi nikad neće napuštati uređaj, tako da su vaši AppCoins uvek bezbedni.</string>
-  <string name="intro_creating_wallet_short">Pravimo vam novčanik&#8230;</string>
+  <string name="intro_creating_wallet_short">Podešavamo vam novčanik&#8230;</string>
   <string name="intro_wallet_created_short">Novčanik je napravljen!</string>
   <string name="intro_agree_terms_and_conditions_body">Ako dodirnete Preskoči, prihvatate %1$s i %2$s aplikacije AppCoins Wallet</string>
   <string name="intro_skip_button">PRESKOČI</string>
@@ -307,13 +308,14 @@
   <string name="gamification_purchase_appccredits_body">Najbrži način plaćanja!</string>
   <string name="gamification_how_bonus_received_body">bounsa je dobijeno</string>
   <string name="gamification_how_appc_spent">Iznos potrošen za dostizanje ovog nivoa</string>
-  <string name="gamification_how_to_next_level_body">Potrošite %1$s AppCoins da biste dostigli nivo %2$s.</string>
+  <string name="gamification_how_to_next_level_body">Potrošite još <b>%1$s AppCoins</b> da biste dostigli <b>nivo %2$s</b>.</string>
   <string name="gamification_level_expiration_title">Provera za sledeći nivo: %s</string>
   <string name="gamification_level_expiration_body">Vaš nivo je određen na osnovu vaših kupovina u poslednjih 12 meseci.</string>
   <string name="gamification_leveled_up_title">Dostigli ste sledeći nivo!</string>
   <string name="gamification_leveled_up_body">Od sada ćete dobijati bonus od %s za svaku kupovinu. Kupujte i dalje da biste zaradili još više!</string>
   <string name="gamification_leveled_up_notification_title">Dostigli ste sledeći nivo!</string>
   <string name="gamification_leveled_up_notification_body">Čestitamo, od sada ćete dobijati bonus od %s za svaku kupovinu!</string>
+  <string name="gamification_how_max_level_body">Čestitamo! Dostigli ste najviši nivo 💃</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Dozvolite aplikaciji AppCoins Wallet da adresu vašeg novčanika pošalje aplikaciji %s.</string>
   <string name="provide_wallet_body_placeholders">Dozvolite aplikaciji %1$s da adresu vašeg novčanika pošalje aplikaciji %2$s.</string>
@@ -381,6 +383,9 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s%2$s</string>
   <string name="dismiss_button">Odbaci</string>
+  <string name="discover_button">Otkrij</string>
+  <string name="retry_button">Pokušaj ponovo</string>
+  <string name="do_it_later_button">Pokušaj kasnije</string>
   <string name="connectoin_error_body">Izgleda da niste povezani na internet. Proverite vezu pa pokušajte ponovo!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Prihvatam dokumente %1$s i %2$s aplikacije AppCoins Wallet.</string>
@@ -400,7 +405,7 @@
   <string name="verification_notification_verification_needed_title">Nagradna je spremna, ali je potrebna potvrda</string>
   <string name="verification_notification_verification_needed_body">Iz bezbednosnih razloga, moramo da potvrdimo vaš novčanik pomoću SMS koda.</string>
   <string name="verification_insert_phone_title">Unesite svoj broj telefona</string>
-  <string name="verification_insert_phone_body">Poslaćemo vam kod za potvrdu.</string>
+  <string name="verification_insert_phone_body">Potvrdite novčanik da biste dobili nagrade! Poslaćemo vam kod za potvrdu.</string>
   <string name="verification_insert_phone_field_country">Zemlja</string>
   <string name="verification_insert_phone_field_number">Broj telefona</string>
   <string name="verification_insert_phone_field_number_error">Neispravan broj telefona</string>
@@ -412,10 +417,14 @@
   <string name="verification_insert_code_resend_button">PONOVO POŠALJI KOD</string>
   <string name="verification_validating_title">Potvrđujemo kod&#8230;</string>
   <string name="verification_completed_title">Gotovo!</string>
+  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
   <string name="verification_notification_reward_received_body">Dobili ste nagradu, uživajte! 👌</string>
   <string name="verification_notification_reward_already_received_body">Ovaj broj telefona se već koristio za ovu nagradu 😔</string>
-  <string name="verification_insert_phone_field_phone_used_already_error">Telefon se već koristio.</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">Broj se već koristi.</string>
   <string name="verification_insert_code_error_common">Ups, došlo je do greške. Pokušajte ponovo!</string>
+  <string name="verification_settings_unverified_title">Potvrdite novčanik</string>
+  <string name="verification_settings_unverified_body">Osvojite nagrade i pozovite prijatelje</string>
+  <string name="verification_settings_verified_title">Novčanik je potvrđen</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">Izgleda da se ova kupovina već obrađuje. Sačekajte dok se transakcija ne obavi ili se obratite našem timu korisničke podrške.</string>
   <string name="purchase_more_payment_methods_button">DRUGI NAČINI PLAĆANJA</string>
@@ -424,4 +433,40 @@
   <string name="purchase_appcoins_credits_available_body">Bez naknada i brzi kao munja!</string>
   <string name="purchase_appcoins_credits_noavailable_body">Nemate dovoljno APPC Credits, dopunite ih!</string>
   <string name="purchase_appcoins_credits_default_body">Zaradili ste dovoljno AppCoins Credits za ovu kupovinu. Uživajte!</string>
+  <!--Referral Program-->
+  <string name="referral_onboarding_title">Pozovite prijatelje!</string>
+  <string name="referral_onboarding_body">Vi i vaši prijatelji možete da zaradite do %s pomoću našeg programa preporuka!</string>
+  <string name="referral_onboarding_redeem_button">Pozvan/a sam</string>
+  <string name="referral_verification_title">Potvrdite svoj novčanik</string>
+  <string name="referral_verification_body">Da biste učestvovali u programu preporuka, morate da potvrdite novčanik. Kod za potvrdu ćemo vam poslati u SMS poruci.</string>
+  <string name="referral_verification_confirmation_title">Vaš poziv je potvrđen!</string>
+  <string name="referral_verification_confirmation_body">Čim obavite prvu kupovinu dobićete AppCoins Credits u vrednosti od %s.</string>
+  <string name="referral_verification_not_invited_title">Izgleda da ovaj broj nije pozvan&#8230;</string>
+  <string name="referral_verification_not_invited_body">Ali ipak možete da zaradite do %s ako pozovete prijatelje! 💃🏽</string>
+  <string name="referral_notification_bonus_pending_title">%s bonusa za preporuku je na čekanju</string>
+  <string name="referral_notification_bonus_pending_body">Obavite prvu kupovinu u aplikaciji da biste dobili bonus.</string>
+  <string name="referral_view_title">Pozovite prijatelje</string>
+  <string name="referral_view_title_1">Pozovite prijatelje i dodatno zaradite!</string>
+  <string name="referral_view_verified_body">Za svakog prijatelja ćete dobiti AppCoins Credits u vrednosti od %s. Jednostavno podelite link!</string>
+  <string name="referral_view_share_link_button">PODELI LINK KA POZIVU</string>
+  <string name="referral_view_notifications_title">Obaveštenja</string>
+  <string name="referral_share_sheet_title">Podeli pozivni link preko:</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_verify_button">POTVRDITE NOVČANIK</string>
+  <string name="referral_view_i_have_been_invited_button">POZVAN/A SAM</string>
+  <string name="referral_view_dropup_menu_friends_invited">Pozvani prijatelji</string>
+  <string name="referral_view_dropup_menu_earned">Zarađeno</string>
+  <string name="referral_dropup_menu_friends_title_1">Pozvani prijatelji</string>
+  <string name="referral_dropup_menu_requirements_title">Uslovi</string>
+  <string name="referral_dropup_menu_requirements_verification">Potvrdite novčanik pomoću broja telefona</string>
+  <string name="referral_dropup_menu_requirements_purchase">Obavite jednu kupovinu u aplikaciji ili dopunite</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <!--Promotions-->
+  <string name="bottom_navigation_promotions">Promocije</string>
+  <string name="bottom_navigation_promotions_detailed">Otkrijte kako da zaradite besplatne AppCoins Credits pomoću naših promocija i kampanja!</string>
+  <string name="promotions_title">Promocije</string>
+  <string name="promotions_referral_card_title">Zaradite do %s tako što ćete pozvati prijatelje</string>
+  <string name="promotions_referral_card_body">Podelite pozivni link i zaradite AppCoins Credits.</string>
+  <string name="promotions_gamification_card_title">Do 30% bonusa za svaku kupovinu</string>
+  <string name="promotions_new">NOVO</string>
 </resources>

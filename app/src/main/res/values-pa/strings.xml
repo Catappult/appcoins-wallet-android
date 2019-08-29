@@ -56,6 +56,7 @@
   <string name="yes_continue">ਹਾਂ, ਜਾਰੀ ਰੱਖੋ</string>
   <string name="no_repeat">ਨਹੀਂ, ਦੁਹਰਾਓ</string>
   <string name="skip">ਛੱਡੋ</string>
+  <string name="skip_with_arrow">ਛੱਡੋ &gt;</string>
   <string name="root_title">ਡਿਵਾਈਸ ਸੁਰੱਖਿਆ ਨੂੰ ਕੰਪ੍ਰਾਮਾਇਜ਼ ਕੀਤਾ ਗਿਆ</string>
   <string name="root_body">ਕੋਈ ਵੀ \'ਰੂਟਿਡ\' ਐਪ ਐਪ ਕੋਆਈਨ ਬਟੂਏ ਦੇ ਕੀਚੈਨ ਡਾਟਾ ਤੱਕ ਪਹੁੰਚ ਸਕਦੀ ਹੈ ਅਤੇ ਤੁਹਾਡੇ ਬਟੂਏ ਨੂੰ ਚੋਰੀ ਕਰ ਸਕਦੀ ਹੈ! ਇਸ ਬਟੂਏ ਨੂੰ ਤੁਰੰਤ ਖਾਲੀ ਕਰੋ ਅਤੇ ਸੁਰੱਖਿਅਤ ਡਿਵਾਈਸ ਤੇ ਰੀਸਟੋਰ ਕਰੋ|</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
@@ -114,7 +115,7 @@
   <string name="intro_3_body">ਆਪਣੀ ਮਨਪਸੰਦ ਭੁਗਤਾਨ ਵਿਧੀ ਵਰਤਦੇ ਹੋਏ ਆਪਣੀਆਂ ਸਾਰੀਆਂ ਇਨ-ਐਪ ਖ਼ਰੀਦਾਂ ਕਰੋ|</string>
   <string name="intro_4_title">ਸੁਰੱਖਿਅਤ ਅਤੇ ਨਿੱਜੀ</string>
   <string name="intro_4_body">ਤੁਹਾਡੀਆਂ ਨਿੱਜੀ ਚਾਬੀਆਂ ਕਦੇ ਵੀ ਤੁਹਾਡੇ ਫੋਨ ਨੂੰ ਨਹੀਂ ਛੱਡਣਗੀਆਂ, ਤਾਂ ਜੋ ਤੁਹਾਡੇ ਐਪ ਸਿੱਕੇ ਹਰ ਸਮੇਂ ਸੁਰੱਖਿਅਤ ਰਹਿਣ|</string>
-  <string name="intro_creating_wallet_short">ਅਸੀਂ ਤੁਹਾਡੇ ਲਈ ਇੱਕ ਬਟੂਆ ਬਣਾ ਰਹੇ ਹਾਂ&#8230;</string>
+  <string name="intro_creating_wallet_short">ਤੁਹਾਡੇ ਲਈ ਤੁਹਾਡਾ ਬਟੂਆ ਸੈਟ ਅਪ ਕਰ ਰਹੇ ਹਾਂ&#8230;</string>
   <string name="intro_wallet_created_short">ਬਟੂਆ ਬਣਾਇਆ ਗਿਆ!</string>
   <string name="intro_agree_terms_and_conditions_body">ਛੱਡੋ ਤੇ ਟੈਪ ਕਰਕੇ, ਤੁਸੀਂ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਦੇ %1$s ਅਤੇ %2$s ਨਾਲ ਸਹਿਮਤ ਹੁੰਦੇ ਹੋ</string>
   <string name="intro_skip_button">ਛੱਡੋ</string>
@@ -307,13 +308,14 @@
   <string name="gamification_purchase_appccredits_body">ਭੁਗਤਾਨ ਦੀ ਸੱਭ ਤੋਂ ਤੇਜ਼ ਵਿਧੀ!</string>
   <string name="gamification_how_bonus_received_body">ਬੋਨਸ ਪ੍ਰਾਪਤ ਹੋਇਆ</string>
   <string name="gamification_how_appc_spent">ਇਸ ਪੱਧਰ ਤੱਕ ਪਹੁੰਚਣ ਲਈ ਖਰਚ ਕੀਤੀ ਰਕਮ</string>
-  <string name="gamification_how_to_next_level_body">%2$s ਪੱਧਰ ਤੱਕ ਪਹੁੰਚਣ ਲਈ %1$s ਵੱਧ ਐਪਸਿੱਕੇ ਖਰਚ ਕਰੋ|</string>
+  <string name="gamification_how_to_next_level_body"><b>%2$s ਪੱਧਰ</b> ਤੱਕ ਪਹੁੰਚਣ ਲਈ <b>%1$s ਵੱਧ ਐਪਸਿੱਕੇ</b> ਖਰਚ ਕਰੋ|</string>
   <string name="gamification_level_expiration_title">ਅਗਲਾ ਪੱਧਰ ਚੈੱਕ: %s</string>
   <string name="gamification_level_expiration_body">ਤੁਹਾਡਾ ਪੱਧਰ ਤੁਹਾਡੀ ਪਿਛਲੇ 12 ਮਹੀਨਿਆਂ ਵਿੱਚ ਕੀਤੀ ਖਰੀਦ ਤੇ ਅਧਾਰਤ ਹੈ|</string>
   <string name="gamification_leveled_up_title">ਤੁਸੀਂ ਅਗਲੇ ਪੱਧਰ ਤਕ ਪਹੁੰਚ ਗਏ ਹੋ!</string>
   <string name="gamification_leveled_up_body">ਤੁਹਾਨੂੰ ਹੁਣ ਹਰੇਕ ਖਰੀਦ ਤੇ ਇੱਕ %s ਬੋਨਸ ਪ੍ਰਾਪਤ ਹੋਵੇਗਾ| ਹੋਰ ਕਮਾਉਣ ਲਈ ਖਰੀਦਦੇ ਰਹੋ!</string>
   <string name="gamification_leveled_up_notification_title">ਤੁਸੀਂ ਅਗਲੇ ਪੱਧਰ ਤੇ ਪਹੁੰਚ ਗਏ ਹੋ!</string>
   <string name="gamification_leveled_up_notification_body">ਵਧਾਈਆਂ, ਤੁਹਾਨੂੰ ਹੁਣ ਹਰੇਕ ਖਰੀਦ ਤੇ ਇੱਕ %s ਬੋਨਸ ਮਿਲੇਗਾ!</string>
+  <string name="gamification_how_max_level_body">ਵਧਾਈਆਂ! ਤੁਸੀਂ ਉੱਚ ਪੱਧਰ ਤੇ ਪਹੁੰਚ ਗਏ ਹੋ 💃</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ %s ਨੂੰ ਬਟੂਏ ਦਾ ਪਤਾ ਦੱਸਣ ਦੀ ਆਗਿਆ ਦਿਓ|</string>
   <string name="provide_wallet_body_placeholders">%1$s ਬਟੂਏ ਨੂੰ %2$s ਨੂੰ ਬਟੂਏ ਦਾ ਪਤਾ ਦੱਸਣ ਦੀ ਆਗਿਆ ਦਿਓ|</string>
@@ -381,6 +383,9 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s%2$s</string>
   <string name="dismiss_button">ਬਰਖਾਸਤ</string>
+  <string name="discover_button">ਖੋਜ</string>
+  <string name="retry_button">ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ</string>
+  <string name="do_it_later_button">ਬਾਅਦ ਵਿਚ ਕਰੋ</string>
   <string name="connectoin_error_body">ਇੰਝ ਲੱਗਦਾ ਹੈ ਕਿ ਤੁਸੀਂ ਇੰਟਰਨੈਟ ਨਾਲ ਜੁੜੇ ਨਹੀਂ ਹੋ, ਆਪਣੇ ਕਨੈਕਸ਼ਨ ਦੀ ਜਾਂਚ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ਮੈਂ ਐਪ ਸਿੱਕੇ ਬਟੂਏ %1$s ਅਤੇ %2$s ਨਾਲ ਸਹਿਮਤ ਹਾਂ|</string>
@@ -400,7 +405,7 @@
   <string name="verification_notification_verification_needed_title">ਇਨਾਮ ਤਿਆਰ ਹੈ ਬੱਸ ਜਾਂਚ ਦੀ ਲੋੜ ਹੈ</string>
   <string name="verification_notification_verification_needed_body">ਸੁਰੱਖਿਆ ਲਈ ਸਾਨੂੰ ਤੁਹਾਡੇ ਬਟੂਏ ਨੂੰ ਇੱਕ ਐਸਐਮਐਸ ਕੋਡ ਨਾਲ ਪ੍ਰਮਾਣਿਤ ਕਰਨ ਦੀ ਲੋੜ ਹੈ|</string>
   <string name="verification_insert_phone_title">ਆਪਣਾ ਫੋਨ ਨੰਬਰ ਭਰੋ</string>
-  <string name="verification_insert_phone_body">ਅਸੀਂ ਤੁਹਾਨੂੰ ਇੱਕ ਪੁਸ਼ਟੀਕਰਣ ਕੋਡ ਭੇਜਾਂਗੇ|</string>
+  <string name="verification_insert_phone_body">ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਆਪਣੇ ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰੋ! ਅਸੀਂ ਤੁਹਾਨੂੰ ਇੱਕ ਤਸਦੀਕ ਕੋਡ ਭੇਜਾਂਗੇ|</string>
   <string name="verification_insert_phone_field_country">ਦੇਸ਼</string>
   <string name="verification_insert_phone_field_number">ਫੋਨ ਨੰਬਰ</string>
   <string name="verification_insert_phone_field_number_error">ਗਲਤ ਫੋਨ ਨੰਬਰ</string>
@@ -412,10 +417,14 @@
   <string name="verification_insert_code_resend_button">ਕੋਡ ਦੁਬਾਰਾ ਭੇਜੋ</string>
   <string name="verification_validating_title">ਤੁਹਾਡੇ ਕੋਡ ਨੂੰ ਪ੍ਰਮਾਣਿਤ ਹੋ ਰਿਹਾ ਹੈ&#8230;</string>
   <string name="verification_completed_title">ਹੋ ਗਿਆ!</string>
+  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
   <string name="verification_notification_reward_received_body">ਇਨਾਮ ਪ੍ਰਾਪਤ ਹੋਇਆ, ਆਨੰਦ ਮਾਣੋ! 👌</string>
   <string name="verification_notification_reward_already_received_body">ਇਸ ਇਨਾਮ ਨੂੰ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਇਹ ਫੋਨ ਨੰਬਰ ਪਹਿਲਾਂ ਹੀ ਵਰਤਿਆ ਜਾ ਚੁੱਕਾ ਹੈ 😔</string>
-  <string name="verification_insert_phone_field_phone_used_already_error">ਫੋਨ ਪਹਿਲਾਂ ਹੀ ਵਰਤਿਆ ਗਿਆ|</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">ਨੰਬਰ ਪਹਿਲਾਂ ਹੀ ਵਰਤਿਆ ਗਿਆ ਹੈ|</string>
   <string name="verification_insert_code_error_common">ਓਹ ਹੋ, ਕੁਝ ਗ਼ਲਤ ਹੋਇਆ| ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ!</string>
+  <string name="verification_settings_unverified_title">ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
+  <string name="verification_settings_unverified_body">ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰੋ ਅਤੇ ਦੋਸਤਾਂ ਨੂੰ ਸੱਦਾ ਦਿਓ</string>
+  <string name="verification_settings_verified_title">ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕੀਤੀ ਗਈ</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">ਇੰਝ ਲਗਦਾ ਹੈ ਕਿ ਖਰੀਦ ਪਹਿਲਾਂ ਤੋਂ ਹੀ ਪ੍ਰੋਸੈਸ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਟ੍ਰਾਂਜੈਕਸ਼ਨ ਪੂਰੀ ਹੋਣ ਤੱਕ ਰੁਕੋ ਜਾਂ ਸਾਡੀ ਸਹਾਇਤਾ ਟੀਮ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <string name="purchase_more_payment_methods_button">ਭੁਗਤਾਨ ਦੇ ਹੋਰ ਤਰੀਕੇ</string>
@@ -424,4 +433,40 @@
   <string name="purchase_appcoins_credits_available_body">ਕੋਈ ਫੀਸ ਨਹੀਂ ਅਤੇ ਬਿਜਲੀ ਵਾਂਗ ਤੇਜ਼!</string>
   <string name="purchase_appcoins_credits_noavailable_body">ਤੁਹਾਡੇ ਕੋਲ ਕਾਫ਼ੀ ਐਪਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਨਹੀਂ ਹਨ, ਐਪ ਸਿੱਕੇ ਭਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ!</string>
   <string name="purchase_appcoins_credits_default_body">ਤੁਸੀ ਇਸ ਖਰੀਦ ਲਈ ਕਾਫ਼ੀ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਕਮਾ ਲਏ| ਆਨੰਦ ਮਾਣੋ!</string>
+  <!--Referral Program-->
+  <string name="referral_onboarding_title">ਆਪਣੇ ਦੋਸਤਾਂ ਨੂੰ ਸੱਦਾ ਦਿਓ!</string>
+  <string name="referral_onboarding_body">ਤੁਸੀਂ ਅਤੇ ਤੁਹਾਡੇ ਦੋਸਤ ਸਾਡੇ ਰੈਫਰਲ ਪ੍ਰੋਗਰਾਮ ਨਾਲ %s ਤੱਕ ਕਮਾ ਸਕਦੇ ਹੋ!</string>
+  <string name="referral_onboarding_redeem_button">ਮੈਨੂੰ ਬੁਲਾਇਆ ਗਿਆ ਹੈ</string>
+  <string name="referral_verification_title">ਆਪਣੇ ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
+  <string name="referral_verification_body">ਰੈਫਰਲ ਪ੍ਰੋਗਰਾਮ ਵਿਚ ਹਿੱਸਾ ਲੈਣ ਲਈ ਤੁਹਾਨੂੰ ਆਪਣੇ ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰਨ ਦੀ ਜ਼ਰੂਰਤ ਹੈ| ਅਸੀਂ ਤੁਹਾਨੂੰ ਐਸਐਮਐਸ ਦੁਆਰਾ ਇੱਕ ਪ੍ਰਮਾਣੀਕਰਨ ਕੋਡ ਭੇਜਾਂਗੇ|</string>
+  <string name="referral_verification_confirmation_title">ਤੁਹਾਡਾ ਸੱਦਾ ਪ੍ਰਮਾਣਿਤ ਕੀਤਾ ਗਿਆ ਸੀ!</string>
+  <string name="referral_verification_confirmation_body">ਜਿਉਂ ਹੀ ਤੁਸੀਂ ਆਪਣੀ ਪਹਿਲੀ ਖਰੀਦਾਰੀ ਕਰੋਗੇ ਤਾਂ ਤੁਹਾਨੂੰ %s ਕੀਮਤ ਦੇ ਐਪਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਮਿਲ ਜਾਣਗੇ|</string>
+  <string name="referral_verification_not_invited_title">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਇਸ ਨੰਬਰ ਨੂੰ ਬੁਲਾਇਆ ਨਹੀਂ ਗਿਆ ਸੀ&#8230;</string>
+  <string name="referral_verification_not_invited_body">ਪਰ ਤੁਸੀਂ ਦੋਸਤਾਂ ਨੂੰ ਬੁਲਾ ਕੇ ਅਜੇ ਵੀ %s ਕਮਾ ਸਕਦੇ ਹੋ!💃🏽</string>
+  <string name="referral_notification_bonus_pending_title">%s ਰੈਫਰਲ ਬੋਨਸ ਬਕਾਇਆ ਹੈ</string>
+  <string name="referral_notification_bonus_pending_body">ਆਪਣਾ ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਆਪਣੀ ਪਹਿਲੀ ਇਨ ਐਪ ਖਰੀਦ ਕਰੋ|</string>
+  <string name="referral_view_title">ਦੋਸਤਾਂ ਨੂੰ ਸੱਦਾ ਦਿਓ</string>
+  <string name="referral_view_title_1">ਦੋਸਤਾਂ ਨੂੰ ਸੱਦਾ ਦਿਓ ਅਤੇ ਹੋਰ ਕਮਾਓ!</string>
+  <string name="referral_view_verified_body">ਹਰ ਦੋਸਤ ਲਈ %s ਕੀਮਤ ਦੇ ਐਪਕੋਇਨ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋ| ਬੱਸ ਲਿੰਕ ਸ਼ੇਅਰ ਕਰੋ!</string>
+  <string name="referral_view_share_link_button">ਸੱਦੇ ਦੇ ਲਿੰਕ ਨੂੰ ਸਾਂਝਾ ਕਰੋ</string>
+  <string name="referral_view_notifications_title">ਨੋਟੀਫਿਕੇਸ਼ਨ</string>
+  <string name="referral_share_sheet_title">ਸੱਦੇ ਵਾਲੇ ਲਿੰਕ ਨੂੰ ਇਸ ਰਾਹੀਂ ਸਾਂਝਾ ਕਰੋ:</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_verify_button">ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
+  <string name="referral_view_i_have_been_invited_button">ਮੈਨੂੰ ਬੁਲਾਇਆ ਗਿਆ ਹੈ</string>
+  <string name="referral_view_dropup_menu_friends_invited">ਦੋਸਤ ਬੁਲਾਏ ਗਏ</string>
+  <string name="referral_view_dropup_menu_earned">ਕਮਾਏ</string>
+  <string name="referral_dropup_menu_friends_title_1">ਦੋਸਤ ਬੁਲਾਏ ਗਏ</string>
+  <string name="referral_dropup_menu_requirements_title">ਜਰੂਰਤਾਂ</string>
+  <string name="referral_dropup_menu_requirements_verification">ਇੱਕ ਫੋਨ ਨੰਬਰ ਨਾਲ ਆਪਣੇ ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
+  <string name="referral_dropup_menu_requirements_purchase">ਇੱਕ ਇਨ-ਐਪ ਖਰੀਦਾਰੀ ਕਰੋ ਜਾਂ ਟੌਪ-ਅਪ ਕਰੋ</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <!--Promotions-->
+  <string name="bottom_navigation_promotions">ਪ੍ਰਚਾਰ</string>
+  <string name="bottom_navigation_promotions_detailed">ਸਾਡੀਆਂ ਪ੍ਰਚਾਰਾਂ ਅਤੇ ਮੁਹਿੰਮਾਂ ਨਾਲ ਮੁਫਤ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਕਮਾਉਣ ਬਾਰੇ ਜਾਣੋ!</string>
+  <string name="promotions_title">ਪ੍ਰਚਾਰ</string>
+  <string name="promotions_referral_card_title">ਦੋਸਤਾਂ ਨੂੰ ਸੱਦਾ ਦੇ ਕੇ %s ਤੱਕ ਕਮਾਓ</string>
+  <string name="promotions_referral_card_body">ਆਪਣੇ ਸੱਦੇ ਵਾਲੇ ਲਿੰਕ ਨੂੰ ਸਾਂਝਾ ਕਰੋ ਅਤੇ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਕਮਾਓ|</string>
+  <string name="promotions_gamification_card_title">ਹਰ ਖਰੀਦ ਤੇ 30% ਤੱਕ ਦਾ ਬੋਨਸ</string>
+  <string name="promotions_new">ਨਵਾਂ</string>
 </resources>
