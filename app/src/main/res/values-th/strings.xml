@@ -56,7 +56,7 @@
   <string name="yes_continue">ใช่ ต่อไป</string>
   <string name="no_repeat">ไม่ ทำซ้ำ</string>
   <string name="skip">ข้าม</string>
-  <string name="skip_with_arrow">Skip &gt;</string>
+  <string name="skip_with_arrow">ข้าม&gt;</string>
   <string name="root_title">อุปกรณ์ความปลอดภัยที่สมบูรณ์</string>
   <string name="root_body">\'รูท\'ของแอปใดๆที่สามารถเข้าถึงข้อมูลกุญแจกระเป๋าสตางค์ของ AppCoins และขโมยกระเป๋าสตางค์ของคุณ ล้างกระเป๋าสตางค์นี้ทันที และกู้คืนบนอุปกรณ์ที่เชื่อถือได้</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
@@ -115,7 +115,7 @@
   <string name="intro_3_body">ดำเนินการการซื้อของในแอปทั้งหมดโดยใช้วิธีการชำระเงินที่คุณชื่นชอบ</string>
   <string name="intro_4_title">ปลอดภัยและเป็นส่วนตัว</string>
   <string name="intro_4_body">คีย์ส่วนตัวของคุณจะไม่เคยออกจากอุปกรณ์ของคุณ เพื่อ AppCoins ของคุณจะปลอดภัยตลอดเวลา</string>
-  <string name="intro_creating_wallet_short">Setting up your wallet for you&#8230;</string>
+  <string name="intro_creating_wallet_short">ตั้งค่ากระเป๋าสตางค์ของคุณสำหรับคุณ &#8230;</string>
   <string name="intro_wallet_created_short">สร้างกระเป๋าสตางค์!</string>
   <string name="intro_agree_terms_and_conditions_body">โดยการแตะที่ข้าม คุณตกลงที่จะใช้กระเป๋าสตางค์ AppCoins %1$s และ %2$s</string>
   <string name="intro_skip_button">ข้าม</string>
@@ -383,9 +383,9 @@
   <string name="value_fiat">%1$s %2$s</string>
   <string name="value_crypto">%1$s %2$s</string>
   <string name="dismiss_button">ละทิ้ง</string>
-  <string name="discover_button">Discover</string>
-  <string name="retry_button">Retry</string>
-  <string name="do_it_later_button">Do it later</string>
+  <string name="discover_button">เปิด</string>
+  <string name="retry_button">ลอง</string>
+  <string name="do_it_later_button">ทำภายหลัง</string>
   <string name="connectoin_error_body">มันดูเหมือนว่าคุณไม่ได้เชื่อมต่ออินเตอร์เน็ต ตรวจสอบการเชื่อมต่อของคุณและลองอีกครั้ง!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
@@ -405,7 +405,7 @@
   <string name="verification_notification_verification_needed_title">รางวัลพร้อมแล้วแต่จำเป็นต้องมีการตรวจสอบ</string>
   <string name="verification_notification_verification_needed_body">เพื่อเหตุผลด้านความปลอดภัย เราต้องยืนยันกระเป๋าเงินของคุณด้วยรหัส SMS</string>
   <string name="verification_insert_phone_title">ใส่เบอร์โทรศัพท์ของคุณ</string>
-  <string name="verification_insert_phone_body">Verify your wallet to get rewards! We\'ll send you a verification code.</string>
+  <string name="verification_insert_phone_body">ยืนยันกระเป๋าสตางค์ของคุณเพื่อรับรางวัล! เราจะส่งรหัสยืนยันให้คุณ</string>
   <string name="verification_insert_phone_field_country">ประเทศ</string>
   <string name="verification_insert_phone_field_number">เบอร์โทรศัพท์</string>
   <string name="verification_insert_phone_field_number_error">ไม่มีเบอร์โทรศัพท์</string>
@@ -417,14 +417,14 @@
   <string name="verification_insert_code_resend_button">ส่งรหัสอีกคร้ัง</string>
   <string name="verification_validating_title">ยืนยันรหัสของคุณ &#8230;</string>
   <string name="verification_completed_title">เสร็จสิ้น!</string>
-  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
+  <string name="verification_completed_body">คุณสามารถรับเครดิต AppCoins โดยการเชิญเพื่อนหรือติดตั้งแอป</string>
   <string name="verification_notification_reward_received_body">ได้รับรางวัลสนุกๆ! 👌</string>
   <string name="verification_notification_reward_already_received_body">หมายเลขโทรศัพท์นี้ถูกใช้เพื่อรับรางวัลนี้แล้ว😔</string>
-  <string name="verification_insert_phone_field_phone_used_already_error">Number already used.</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">เบอร์โทรศัพท์ถูกใช้แล้ว</string>
   <string name="verification_insert_code_error_common">อุ๊ปส์ มีบางอย่างผิดพลาด โปรดลองใหม่อีกครั้ง!</string>
-  <string name="verification_settings_unverified_title">Verify Wallet</string>
-  <string name="verification_settings_unverified_body">Get rewards and invite friends</string>
-  <string name="verification_settings_verified_title">Wallet Verified</string>
+  <string name="verification_settings_unverified_title">ยืนยันกระเป๋าสตางค์</string>
+  <string name="verification_settings_unverified_body">รับรางวัลและเชิญเพื่อน</string>
+  <string name="verification_settings_verified_title">กระเป๋าสตางค์ที่ยืนยัน</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">มันดูเหมือนว่าการซื้อนี้กำลังดำเนินการแล้ว โปรดรอสักครู่จนกระทั่งธุรกรรมเสร็จสิ้นหรือติดต่อทีมสนับสนุน</string>
   <string name="purchase_more_payment_methods_button">วิธีการชำระเงินอื่น</string>
@@ -434,7 +434,7 @@
   <string name="purchase_appcoins_credits_noavailable_body">คุณไม่จำเป็นต้องมีเครดิต APPC ที่เพียงพอ ลองเติมเงินดู!</string>
   <string name="purchase_appcoins_credits_default_body">คุณรับเครดิต AppCoins ที่เพียงพอสำหรับการซื้อนี้ สนุกกัน!</string>
   <!--Referral Program-->
-  <string name="referral_onboarding_title">Invite Your Friends!</string>
+  <string name="referral_onboarding_title">เชิญเพื่อนของคุณ</string>
   <string name="referral_onboarding_body">You and your friends can earn up to %s with our Referral Program!</string>
   <string name="referral_onboarding_redeem_button">I\'ve been invited</string>
   <string name="referral_verification_title">Verify Your Wallet</string>
@@ -449,24 +449,24 @@
   <string name="referral_view_title_1">Invite Friends and Earn More!</string>
   <string name="referral_view_verified_body">Receive %s worth of AppCoins Credits for each friend. Just share the link!</string>
   <string name="referral_view_share_link_button">SHARE INVITE LINK</string>
-  <string name="referral_view_notifications_title">Notifications</string>
-  <string name="referral_share_sheet_title">Share invite link via:</string>
+  <string name="referral_view_notifications_title">การแจ้งเตือน</string>
+  <string name="referral_share_sheet_title">แชร์ลิงค์เชิญ:</string>
   <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
-  <string name="referral_view_verify_button">VERIFY WALLET</string>
-  <string name="referral_view_i_have_been_invited_button">I\'VE BEEN INVITED</string>
-  <string name="referral_view_dropup_menu_friends_invited">Friends invited</string>
-  <string name="referral_view_dropup_menu_earned">Earned</string>
-  <string name="referral_dropup_menu_friends_title_1">Friends Invited</string>
-  <string name="referral_dropup_menu_requirements_title">Requirements</string>
-  <string name="referral_dropup_menu_requirements_verification">Verify your wallet with a phone number</string>
-  <string name="referral_dropup_menu_requirements_purchase">Make one in-app purchase or top-up</string>
+  <string name="referral_view_verify_button">ยินยันกระเป๋าสตางค์</string>
+  <string name="referral_view_i_have_been_invited_button">ฉันได้ส่งเชิญไปแล้ว</string>
+  <string name="referral_view_dropup_menu_friends_invited">เพื่อนที่เชิญ</string>
+  <string name="referral_view_dropup_menu_earned">รับ</string>
+  <string name="referral_dropup_menu_friends_title_1">เพื่อนที่เชิญ</string>
+  <string name="referral_dropup_menu_requirements_title">สิ่งจำเป็น</string>
+  <string name="referral_dropup_menu_requirements_verification">ยืนยันกระเป๋าสตางค์ของคุณด้วยเบอร์โทรศัพท์</string>
+  <string name="referral_dropup_menu_requirements_purchase">ซื้อหนึ่งแอปหรือเติมเงิน</string>
   <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
   <!--Promotions-->
-  <string name="bottom_navigation_promotions">Promotions</string>
-  <string name="bottom_navigation_promotions_detailed">Discover how to earn free AppCoins Credits with our promotions and campaigns!</string>
-  <string name="promotions_title">Promotions</string>
-  <string name="promotions_referral_card_title">Earn up to %s by inviting friends</string>
-  <string name="promotions_referral_card_body">Share your invite link and earn AppCoins Credits.</string>
-  <string name="promotions_gamification_card_title">Up to 30% bonus on every purchase</string>
-  <string name="promotions_new">NEW</string>
+  <string name="bottom_navigation_promotions">โปรโมชั่น</string>
+  <string name="bottom_navigation_promotions_detailed">ค้นพบวิธีการหาเครดิต AppCoins ฟรีด้วยโปรโมชั่นและแคมเปญของเรา</string>
+  <string name="promotions_title">โปรโมชั่น</string>
+  <string name="promotions_referral_card_title">รับสูงสุด %s โดยการเชิญเพื่อน</string>
+  <string name="promotions_referral_card_body">แชร์ลิงค์เชิญของคุณและรับเครดิต AppCoins</string>
+  <string name="promotions_gamification_card_title">โบนัสสูงสุด 30% ในทุกการซื้อ</string>
+  <string name="promotions_new">ใหม่</string>
 </resources>
