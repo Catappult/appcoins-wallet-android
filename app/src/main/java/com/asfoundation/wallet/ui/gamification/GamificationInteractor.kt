@@ -12,6 +12,7 @@ import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
+import io.reactivex.functions.Function3
 import java.math.BigDecimal
 
 class GamificationInteractor(
@@ -31,20 +32,21 @@ class GamificationInteractor(
   fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonus> {
     return defaultWallet.find()
         .flatMap { wallet: Wallet ->
-          gamification.getEarningBonus(wallet.address, packageName, amount)
-              .flatMap { forecastBonus: ForecastBonus ->
-                conversionService.localCurrency
-                    .flatMap { fiatValue: FiatValue ->
-                      gamification.getNextPurchaseBonusFromReferrals(wallet.address)
-                          .map {
-                            val status = getBonusStatus(forecastBonus, it)
-                            val bonus = forecastBonus.amount.multiply(fiatValue.amount)
-                                .add(it.amount)
-                            ForecastBonus(status, bonus, fiatValue.symbol)
-                          }
-                    }
-              }
+          Single.zip(gamification.getEarningBonus(wallet.address, packageName, amount),
+              conversionService.localCurrency,
+              gamification.getNextPurchaseBonusFromReferrals(wallet.address),
+              Function3 { appcBonusValue: ForecastBonus, localCurrency: FiatValue, referralBonus: ForecastBonus ->
+                map(appcBonusValue, localCurrency, referralBonus)
+              })
         }
+  }
+
+  private fun map(forecastBonus: ForecastBonus, fiatValue: FiatValue,
+                  referralBonus: ForecastBonus): ForecastBonus {
+    val status = getBonusStatus(forecastBonus, referralBonus)
+    val bonus = forecastBonus.amount.multiply(fiatValue.amount)
+        .add(referralBonus.amount)
+    return ForecastBonus(status, bonus, fiatValue.symbol)
   }
 
   private fun getBonusStatus(forecastBonus: ForecastBonus,
