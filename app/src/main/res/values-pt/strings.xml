@@ -56,6 +56,7 @@
   <string name="yes_continue">Sim, continuar</string>
   <string name="no_repeat">Não, repetir</string>
   <string name="skip">Ignorar</string>
+  <string name="skip_with_arrow">Saltar &gt;</string>
   <string name="root_title">DISPOSITIVO DE SEGURANÇA COMPROMETIDA</string>
   <string name="root_body">Qualquer \'root\' app consegue aceder aos dados da keychain da Wallet da AppCoins, e roubar a tua wallet! Apaga esta wallet imediatamente e escolhe um dispositivo seguro para restaurá-la.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
@@ -108,13 +109,13 @@
   <string name="intro_message_third_page">Processa todos os teus pagamentos integrados e recompensas em APPC.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">A tua app para compras in-app.</string>
-  <string name="intro_2_title">Jogue Mais, Pague Menos</string>
+  <string name="intro_2_title">Joga Mais, Paga Menos</string>
   <string name="intro_2_body">Recebe recompensas ao comprares itens nas tuas apps e jogos preferidos.</string>
   <string name="intro_3_title">Simples e Fácil</string>
   <string name="intro_3_body">Processa todas as tuas compras integradas utilizando o teu método de pagamento preferido.</string>
   <string name="intro_4_title">Seguro e Privado</string>
   <string name="intro_4_body">As tuas private keys nunca deixarão o teu dispositivo, e por isso as tuas AppCoins estão sempre seguras.</string>
-  <string name="intro_creating_wallet_short">Estamos a criar uma wallet para ti&#8230;</string>
+  <string name="intro_creating_wallet_short">A configurar a tua wallet &#8230;</string>
   <string name="intro_wallet_created_short">Wallet criada!</string>
   <string name="intro_agree_terms_and_conditions_body">Ao selecionar Saltar, estará a concordar com os %1$s e com a %2$s da AppCoins Wallet</string>
   <string name="intro_skip_button">Saltar</string>
@@ -291,7 +292,7 @@
   <string name="gamification_a_planet_title">um Planeta</string>
   <string name="gamification_a_star_title">uma Estrela</string>
   <string name="gamification_a_galaxy_title">uma Galáxia</string>
-  <string name="gamification_a_comet_subtitle">Cuidado, não colidas com outro planeta!</string>
+  <string name="gamification_a_comet_subtitle">Cuidado, não batas noutro planeta!</string>
   <string name="gamification_a_moon_subtitle">Um satélite natural</string>
   <string name="gamification_planet_subtitle">Que orbita uma grande estrela</string>
   <string name="gamification_star_subtitle">Grande, brilhante e cheio de vida!</string>
@@ -307,13 +308,14 @@
   <string name="gamification_purchase_appccredits_body">O método de pagamento mais rápido!</string>
   <string name="gamification_how_bonus_received_body">Bónus recebido</string>
   <string name="gamification_how_appc_spent">Valor gasto para atingir este nível</string>
-  <string name="gamification_how_to_next_level_body">Gasta mais %1$s AppCoins para chegar ao nível %2$s.</string>
+  <string name="gamification_how_to_next_level_body">Gasta mais <b>%1$s em AppCoins</b> para chegares ao <b>nível %2$s</b>.</string>
   <string name="gamification_level_expiration_title">Próxima verificação de nível: %s</string>
   <string name="gamification_level_expiration_body">O teu nível é baseado na tua actividade de compra nos últimos 12 meses.</string>
   <string name="gamification_leveled_up_title">Chegaste ao próximo nível!</string>
   <string name="gamification_leveled_up_body">Irás receber um bónus de %s em cada compra. Continua a comprar para ganhar ainda mais!</string>
   <string name="gamification_leveled_up_notification_title">Chegaste ao próximo nível!</string>
   <string name="gamification_leveled_up_notification_body">Parabéns, agora irás receber um bónus de %s em cada compra!</string>
+  <string name="gamification_how_max_level_body">Parabéns! Chegaste ao nível mais alto 💃</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Permitir que a Wallet da AppCoins forneça o endereço da tua wallet para %s.</string>
   <string name="provide_wallet_body_placeholders">Permite que a %1$s forneça o teu endereço wallet a %2$s.</string>
@@ -328,15 +330,15 @@
   <string name="provide_wallet_status">Permitir acesso ao endereço da wallet</string>
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
-  <string name="topup_home_button">Carrega</string>
-  <string name="topup_title">Carrega</string>
+  <string name="topup_home_button">Carregar</string>
+  <string name="topup_title">Carregamento</string>
   <string name="topup_amount">%s APPC-C</string>
   <string name="topup_bonus_header">Tens um bónus!</string>
   <string name="topup_bonus_message">%s os APPC-C extra serão creditados na tua wallet.</string>
   <string name="topup_completed_1">%s em AppCoins Credits</string>
   <string name="topup_completed_2_with_bonus">foram depositados na tua conta... juntamente com um bónus!</string>
   <string name="topup_completed_2_without_bonus">foram depositados na tua conta.</string>
-  <string name="topup_bonus_header_part_1">Carregar Bónus:</string>
+  <string name="topup_bonus_header_part_1">Bónus:</string>
   <string name="topup_bonus_header_part_2">%s em APPC Credits</string>
   <string name="topup_bonus_body">Podes usar este bónus na tua próxuma compra.</string>
   <string name="topup_minimum_value">O valor mínimo de carregamento é %s</string>
@@ -345,8 +347,8 @@
   <string name="balance_title">Saldo</string>
   <string name="balance_total_body">Saldo total em %s</string>
   <string name="balance_topup_body">Podes carregar a tua wallet com AppCoins Credits.</string>
-  <string name="balance_ethereum_body">O Ethereum é a criptomoeda em que as AppCoins se baseiam. Podes comprá-as e vendê-las em quase todas as moedas, é muito popular!</string>
-  <string name="balance_appcoins_body">A AppCoins é a criptomoeda para a economia da app. Podes comprá-la e vendê-la em várias moedas e usá-la para comprar itens na app.</string>
+  <string name="balance_ethereum_body">O Ethereum é a criptomoeda em que as AppCoins se baseiam. Podes comprá-las e vendê-las em quase todas as exchanges, é muito popular!</string>
+  <string name="balance_appcoins_body">A AppCoins é a criptomoeda para a economia das apps. Podes comprá-la e vendê-la em várias exchanges e usá-la para comprar itens em apps.</string>
   <string name="balance_appccreditos_body">O token para comprares itens na app! Carrega a APPC-C através da tua wallet ou consegue-as de graça utilizando apps. Podem ainda ser transferidas entre amigos!</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Pede a alguém para pagar</string>
@@ -381,6 +383,9 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s%2$s</string>
   <string name="dismiss_button">Dispensar</string>
+  <string name="discover_button">Explorar</string>
+  <string name="retry_button">Tentar novamente</string>
+  <string name="do_it_later_button">Tentar mais tarde</string>
   <string name="connectoin_error_body">Parece que não estás ligado à Internet. Por favor verifica a ligação e tenta novamente!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Eu concordo com os %1$s e a %2$s da AppCoins Wallet.</string>
@@ -400,7 +405,7 @@
   <string name="verification_notification_verification_needed_title">Prémio pronto mas necessita verificação</string>
   <string name="verification_notification_verification_needed_body">Por questões de segurança, precisamos de verificar a tua wallet com um código SMS.</string>
   <string name="verification_insert_phone_title">Insere o teu número de telemóvel</string>
-  <string name="verification_insert_phone_body">Vamos enviar-te um código de verificação.</string>
+  <string name="verification_insert_phone_body">Precisas de verificar a tua wallet para receberes recompensas! Enviamos-te um código de verificação por sms.</string>
   <string name="verification_insert_phone_field_country">País</string>
   <string name="verification_insert_phone_field_number">Número de Telemóvel</string>
   <string name="verification_insert_phone_field_number_error">Número de telemóvel inválido</string>
@@ -412,10 +417,14 @@
   <string name="verification_insert_code_resend_button">REENVIAR CÓDIGO</string>
   <string name="verification_validating_title">A validar o teu código&#8230;</string>
   <string name="verification_completed_title">Feito!</string>
+  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
   <string name="verification_notification_reward_received_body">Prémio recebido, aproveita! 👌</string>
   <string name="verification_notification_reward_already_received_body">Este número de telefone já foi utilizado para receber este prémio 😔</string>
-  <string name="verification_insert_phone_field_phone_used_already_error">Telemóvel já utilizado.</string>
+  <string name="verification_insert_phone_field_phone_used_already_error">Esse número já está a ser utilizado.</string>
   <string name="verification_insert_code_error_common">Oops, alguma coisa correu mal. Tenta novamente!</string>
+  <string name="verification_settings_unverified_title">Verificar Wallet</string>
+  <string name="verification_settings_unverified_body">Recebe recompensas e convida amigos</string>
+  <string name="verification_settings_verified_title">Wallet Verificada</string>
   <!--Purchase Flow-->
   <string name="purchase_error_incomplete_transaction_body">A tua compra já está a ser processada. Por favor espera até a transação ter completado ou contacta a nossa Equipa de Suporte.</string>
   <string name="purchase_more_payment_methods_button">OUTROS MÉTODOS DE PAGAMENTO</string>
@@ -424,4 +433,40 @@
   <string name="purchase_appcoins_credits_available_body">Sem taxas e muito rápido!</string>
   <string name="purchase_appcoins_credits_noavailable_body">Não tens APPC Credits suficientes, experimenta carregar!</string>
   <string name="purchase_appcoins_credits_default_body">Ganhaste AppCoins Credits suficientes para esta compra. Aproveita!</string>
+  <!--Referral Program-->
+  <string name="referral_onboarding_title">Convida os teus amigos!</string>
+  <string name="referral_onboarding_body">Tu e os teus amigos podem ganhar até %s com o nosso Programa de Referências!</string>
+  <string name="referral_onboarding_redeem_button">Fui convidado(a)</string>
+  <string name="referral_verification_title">Verifica a tua Wallet</string>
+  <string name="referral_verification_body">Precisas de verificar a tua wallet para participar no Programa de Referências. Enviamos-te um código de verificação por SMS.</string>
+  <string name="referral_verification_confirmation_title">O teu convite foi validado!</string>
+  <string name="referral_verification_confirmation_body">Assim que fizeres a tua primeira compra irás receber %s em AppCoins Credits.</string>
+  <string name="referral_verification_not_invited_title">Parece que este número não foi convidado &#8230;</string>
+  <string name="referral_verification_not_invited_body">Mas ainda podes ganhar até %s ao convidares amigos! 💃🏽</string>
+  <string name="referral_notification_bonus_pending_title">%s Bonus por Referência Pendente</string>
+  <string name="referral_notification_bonus_pending_body">Faz a tua primeira compra in-app para receberes o teu bónus.</string>
+  <string name="referral_view_title">Convida Amigos</string>
+  <string name="referral_view_title_1">Convida Amigos e Ganha Mais!</string>
+  <string name="referral_view_verified_body">Recebe %s em AppCoins Credits por cada amigo. Partilha o link!</string>
+  <string name="referral_view_share_link_button">PARTILHAR LINK DE CONVITE</string>
+  <string name="referral_view_notifications_title">Notificações</string>
+  <string name="referral_share_sheet_title">Partilhar link de convite via:</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_verify_button">VERIFICAR WALLET</string>
+  <string name="referral_view_i_have_been_invited_button">FUI CONVIDADO (A)</string>
+  <string name="referral_view_dropup_menu_friends_invited">Amigos Convidados</string>
+  <string name="referral_view_dropup_menu_earned">Ganhos</string>
+  <string name="referral_dropup_menu_friends_title_1">Amigos Convidados</string>
+  <string name="referral_dropup_menu_requirements_title">Requisitos</string>
+  <string name="referral_dropup_menu_requirements_verification">Verifica a tua wallet com um número de telefone</string>
+  <string name="referral_dropup_menu_requirements_purchase">Faz uma compra in-app ou carrega</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <!--Promotions-->
+  <string name="bottom_navigation_promotions">Promoções</string>
+  <string name="bottom_navigation_promotions_detailed">Descobre como ganhar AppCoins Credits grátis com as nossas promoções e campanhas!</string>
+  <string name="promotions_title">Promoções</string>
+  <string name="promotions_referral_card_title">Ganha até %s ao convidar amigos</string>
+  <string name="promotions_referral_card_body">Partilha o teu link de convite e ganha AppCoins Credits.</string>
+  <string name="promotions_gamification_card_title">Até 30% de bónus em todas as compras</string>
+  <string name="promotions_new">NOVO</string>
 </resources>
