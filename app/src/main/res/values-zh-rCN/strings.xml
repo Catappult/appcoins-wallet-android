@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">要求</string>
   <string name="referral_dropup_menu_requirements_verification">使用电话号码验证钱包</string>
   <string name="referral_dropup_menu_requirements_purchase">完成一次应用内购买或充值</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %1$s worth in AppCoins Credits for each friend meeting both requirements (up to %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">促销</string>
   <string name="bottom_navigation_promotions_detailed">了解通过促销和营销活动，获取免费AppCoins积金的方法！</string>
