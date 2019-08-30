@@ -22,6 +22,8 @@ import kotlinx.android.synthetic.main.promotions_fragment_view.*
 import kotlinx.android.synthetic.main.promotions_fragment_view.referrals_card
 import kotlinx.android.synthetic.main.referral_card_layout.*
 import kotlinx.android.synthetic.main.rewards_progress_bar.*
+import java.math.BigDecimal
+import java.math.RoundingMode
 import javax.inject.Inject
 
 class PromotionsFragment : DaggerFragment(), PromotionsView {
@@ -80,6 +82,10 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
     }
   }
 
+  override fun showLoading() {
+    promotions_progress_bar.visibility = VISIBLE
+  }
+
   override fun showReferralUpdate(show: Boolean) {
     if (show) {
       if (referal_update.visibility == INVISIBLE) {
@@ -134,8 +140,8 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
     return RxView.clicks(retry_button)
   }
 
-  override fun showShare() {
-    activity.handleShare()
+  override fun showShare(link: String) {
+    activity.handleShare(link)
   }
 
   override fun navigateToInviteFriends() {
@@ -170,8 +176,17 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
     retry_animation.visibility = VISIBLE
   }
 
-  override fun setReferralBonus(bonus: String) {
-    promotions_title.text = getString(R.string.promotions_referral_card_title, bonus)
+  override fun setReferralBonus(bonus: BigDecimal, currency: String) {
+    promotions_title.text = getString(R.string.promotions_referral_card_title,
+        currency + bonus.setScale(2, RoundingMode.HALF_DOWN))
+  }
+
+  override fun toogleShareAvailability(validated: Boolean) {
+    share_button.isEnabled = validated
+  }
+
+  override fun hideLoading() {
+    promotions_progress_bar.visibility = INVISIBLE
   }
 
   override fun onResume() {

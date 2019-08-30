@@ -4,5 +4,5 @@ interface PromotionsActivityView {
 
   fun navigateToGamification()
   fun navigateToInviteFriends()
-  fun handleShare()
+  fun handleShare(link: String)
 }

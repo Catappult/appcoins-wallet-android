@@ -1,34 +1,40 @@
 package com.asfoundation.wallet.referrals
 
+import com.appcoins.wallet.gamification.repository.PromotionsRepository
+import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import io.reactivex.Completable
 import io.reactivex.Single
-import io.reactivex.functions.Function4
+import io.reactivex.functions.BiFunction
+import java.math.BigDecimal
 
-class ReferralTestInteractor(
+class ReferralInteractor(
     private val preferences: SharedPreferencesReferralLocalData,
-    private val defaultWallet: FindDefaultWalletInteract) :
+    private val defaultWallet: FindDefaultWalletInteract,
+    private val promotionsRepository: PromotionsRepository) :
     ReferralInteractorContract {
+
+  override fun hasReferralUpdate(address: String, friendsInvited: Int, receivedValue: BigDecimal,
+                                 screen: ReferralsScreen): Single<Boolean> {
+    return Single.zip(getSavedNumberOfFriends(address, screen),
+        getSavedEarned(address, screen),
+        BiFunction { savedNumberOfFriends: Int, savedTotalEarned: String ->
+          hasDifferentInformation(friendsInvited, receivedValue.toString(),
+              savedNumberOfFriends, savedTotalEarned)
+        })
+  }
 
   override fun hasReferralUpdate(screen: ReferralsScreen): Single<Boolean> {
     return defaultWallet.find()
-        .flatMap {
-          Single.zip(getNumberOfFriends(), getTotalEarned(),
-              getSavedNumberOfFriends(it.address, screen),
-              getSavedEarned(it.address, screen),
-              Function4 { numberOfFriends: Int, totalEarned: String, savedNumberOfFriends: Int, savedTotalEarned: String ->
-                hasDifferentInformation(numberOfFriends, totalEarned, savedNumberOfFriends,
-                    savedTotalEarned)
-              })
+        .flatMap { wallet ->
+          promotionsRepository.getReferralUserStatus(wallet.address)
+              .flatMap { hasReferralUpdate(wallet.address, it.invited, it.receivedAmount, screen) }
         }
   }
 
-  override fun getNumberOfFriends(): Single<Int> {
-    return Single.just(2)
-  }
-
-  override fun getTotalEarned(): Single<String> {
-    return Single.just("$2.5")
+  override fun retrieveReferral(): Single<ReferralResponse> {
+    return defaultWallet.find()
+        .flatMap { promotionsRepository.getReferralUserStatus(it.address) }
   }
 
   override fun saveReferralInformation(numberOfFriends: Int, totalEarned: String,
@@ -38,18 +44,6 @@ class ReferralTestInteractor(
           saveNumberOfFriends(it.address, numberOfFriends, screen)
               .andThen(saveTotalEarned(it.address, totalEarned, screen))
         }
-  }
-
-  override fun getTotalReferralBonus(): Single<String> {
-    return Single.just("$10")
-  }
-
-  override fun getSingleReferralBonus(): Single<String> {
-    return Single.just("$2")
-  }
-
-  override fun getPendingBonus(): Single<String> {
-    return Single.just("$4")
   }
 
   private fun getSavedNumberOfFriends(address: String, screen: ReferralsScreen): Single<Int> {

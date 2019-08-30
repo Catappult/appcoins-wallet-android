@@ -75,7 +75,16 @@
           />
     </androidx.constraintlayout.widget.ConstraintLayout>
   </ScrollView>
-
+  <ProgressBar
+      android:id="@+id/promotions_progress_bar"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:indeterminateDrawable="@drawable/gradient_progress"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
   <include
       android:id="@+id/no_network"
       layout="@layout/no_network_retry_only_layout"

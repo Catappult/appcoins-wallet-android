@@ -7,7 +7,7 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import java.math.BigDecimal
 
-interface GamificationRepository {
+interface PromotionsRepository {
   fun getUserStats(wallet: String): Single<UserStats>
   fun getLevels(): Single<Levels>
   fun getForecastBonus(wallet: String, packageName: String,

@@ -25,7 +25,7 @@ class GamificationTest {
   @Before
   @Throws(Exception::class)
   fun setUp() {
-    gamification = Gamification(BdsGamificationRepository(api, local, versionCode))
+    gamification = Gamification(BdsPromotionsRepository(api, local, versionCode))
   }
 
   @Test
@@ -35,7 +35,7 @@ class GamificationTest {
             GamificationResponse.Status.ACTIVE)
 
     api.userStatusResponse = Single.just(UserStatusResponse(userStatsGamification, null))
-    val testObserver = gamification.getUserStatus(wallet)
+    val testObserver = gamification.getUserStats(wallet)
         .test()
     testObserver.assertValue(
         UserStats(UserStats.Status.OK, 1, BigDecimal.TEN, 2.2, BigDecimal.ONE, BigDecimal.ZERO,
@@ -45,7 +45,7 @@ class GamificationTest {
   @Test
   fun getUserStatsNoNetworkTest() {
     api.userStatusResponse = Single.error(UnknownHostException())
-    val testObserver = gamification.getUserStatus(wallet)
+    val testObserver = gamification.getUserStats(wallet)
         .test()
     testObserver.assertValue(UserStats(UserStats.Status.NO_NETWORK))
   }

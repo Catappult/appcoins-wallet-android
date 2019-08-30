@@ -11,6 +11,6 @@ interface InviteFriendsActivityView {
   fun showNoNetworkScreen()
   fun showInfoButton()
   fun navigateToWalletValidation(beenInvited: Boolean)
-  fun showShare()
+  fun showShare(link: String)
   fun navigateToTopApps()
 }

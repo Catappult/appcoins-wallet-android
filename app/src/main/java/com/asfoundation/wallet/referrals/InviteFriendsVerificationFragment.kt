@@ -13,6 +13,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.invite_friends_verification_layout.*
+import java.math.BigDecimal
+import java.math.RoundingMode
 import javax.inject.Inject
 
 class InviteFriendsVerificationFragment : DaggerFragment(), InviteFriendsVerificationView {
@@ -45,8 +47,10 @@ class InviteFriendsVerificationFragment : DaggerFragment(), InviteFriendsVerific
     return inflater.inflate(R.layout.invite_friends_verification_layout, container, false)
   }
 
-  override fun setDescriptionText(referralValue: String) {
-    verification_description.text = getString(R.string.referral_view_unverified_body, referralValue)
+  override fun setDescriptionText(referralValue: BigDecimal, currency: String) {
+    verification_description.text =
+        getString(R.string.referral_view_unverified_body,
+            currency + referralValue.setScale(2, RoundingMode.HALF_DOWN).toString())
   }
 
   override fun verifyButtonClick(): Observable<Any> {

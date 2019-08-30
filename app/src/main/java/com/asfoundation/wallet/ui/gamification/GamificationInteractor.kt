@@ -24,9 +24,9 @@ class GamificationInteractor(
     return gamification.getLevels()
   }
 
-  fun getUserStatus(): Single<UserStats> {
+  fun getUserStats(): Single<UserStats> {
     return defaultWallet.find()
-        .flatMap { gamification.getUserStatus(it.address) }
+        .flatMap { gamification.getUserStats(it.address) }
   }
 
   fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonus> {

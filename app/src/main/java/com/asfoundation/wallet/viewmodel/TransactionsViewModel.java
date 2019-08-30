@@ -102,6 +102,7 @@ public class TransactionsViewModel extends BaseViewModel {
     disposables.add(transactionViewInteract.findNetwork()
         .subscribe(this::onDefaultNetwork, this::onError));
     disposables.add(transactionViewInteract.hasPromotionUpdate()
+        .subscribeOn(Schedulers.io())
         .subscribe(showNotification::postValue, this::onError));
   }
 

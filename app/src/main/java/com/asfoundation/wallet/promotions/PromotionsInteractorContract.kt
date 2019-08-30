@@ -3,18 +3,15 @@ package com.asfoundation.wallet.promotions
 import com.asfoundation.wallet.referrals.ReferralsScreen
 import io.reactivex.Completable
 import io.reactivex.Single
+import java.math.BigDecimal
 
 interface PromotionsInteractorContract {
 
-  fun hasReferralUpdate(screen: ReferralsScreen): Single<Boolean>
+  fun retrievePromotions(): Single<PromotionsViewModel>
 
-  fun saveReferralInformation(screen: ReferralsScreen): Completable
+  fun saveReferralInformation(friendsInvited: Int, receivedValue: BigDecimal,
+                              screen: ReferralsScreen): Completable
 
-  fun retrievePromotions(): Single<List<PromotionType>>
-
-  fun retrieveReferralBonus(): Single<String>
-
-  enum class PromotionType {
-    REFERRAL, GAMIFICATION
-  }
+  fun hasReferralUpdate(friendsInvited: Int, receivedValue: BigDecimal,
+                        screen: ReferralsScreen): Single<Boolean>
 }

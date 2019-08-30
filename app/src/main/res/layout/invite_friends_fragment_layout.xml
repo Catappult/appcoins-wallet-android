@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
@@ -62,7 +63,7 @@
           android:layout_width="wrap_content"
           android:layout_height="@dimen/button_height"
           android:layout_marginTop="16dp"
-          android:drawableEnd="@drawable/ic_share"
+          android:drawableEnd="@drawable/ic_share_white"
           android:drawablePadding="12dp"
           android:maxWidth="360dp"
           android:minWidth="80dp"
@@ -81,10 +82,13 @@
           android:layout_marginStart="16dp"
           android:layout_marginTop="24dp"
           android:layout_marginEnd="16dp"
+          android:visibility="gone"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/share_invite_button"
+          tools:visibility="visible"
           />
+
       <com.airbnb.lottie.LottieAnimationView
           android:id="@+id/background_fade_animation"
           android:layout_width="0dp"
@@ -97,6 +101,16 @@
           app:layout_constraintTop_toTopOf="parent"
           app:lottie_enableMergePathsForKitKatAndAbove="true"
           app:lottie_rawRes="@raw/background_fade_animation"
+          />
+      <!-- empty view to add margin due to the bottom sheet and scroll -->
+      <View
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="16dp"
+          android:layout_marginBottom="96dp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/referral_notification_card"
           />
     </androidx.constraintlayout.widget.ConstraintLayout>
   </ScrollView>

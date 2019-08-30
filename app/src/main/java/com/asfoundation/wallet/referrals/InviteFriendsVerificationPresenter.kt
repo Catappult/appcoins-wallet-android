@@ -10,7 +10,7 @@ class InviteFriendsVerificationPresenter(private val view: InviteFriendsVerifica
                                          private val networkScheduler: Scheduler) {
 
   fun present() {
-    handleReferralBonus()
+    retrieveReferral()
     handleVerifyClick()
     handleBeenInvitedClick()
   }
@@ -27,11 +27,11 @@ class InviteFriendsVerificationPresenter(private val view: InviteFriendsVerifica
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun handleReferralBonus() {
-    disposable.add(referralInteractor.getSingleReferralBonus()
+  private fun retrieveReferral() {
+    disposable.add(referralInteractor.retrieveReferral()
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-        .doOnSuccess { view.setDescriptionText(it) }
+        .doOnSuccess { view.setDescriptionText(it.amount, it.currency) }
         .subscribe({}, { it.printStackTrace() }))
   }
 

@@ -1,9 +1,7 @@
 package com.asfoundation.wallet.referrals
 
 import io.reactivex.Scheduler
-import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.BiFunction
 
 class InviteFriendsFragmentPresenter(private val view: InviteFriendsFragmentView,
                                      private val referralInteractor: ReferralInteractorContract,
@@ -12,25 +10,26 @@ class InviteFriendsFragmentPresenter(private val view: InviteFriendsFragmentView
                                      private val networkScheduler: Scheduler) {
 
   fun present() {
-    handleTextValues()
+    retrieveReferral()
     handleShareClicks()
     handleAppsGamesClicks()
   }
 
-  private fun handleShareClicks() {
-    disposable.add(view.shareLinkClick()
-        .doOnNext { view.showShare() }
-        .subscribe({}, { it.printStackTrace() }))
+  private fun retrieveReferral() {
+    disposable.add(referralInteractor.retrieveReferral()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .doOnSuccess {
+          view.showNotificationCard(it.pendingAmount)
+          view.setTextValues(it.amount, it.pendingAmount, it.currency)
+        }.subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun handleTextValues() {
-    disposable.add(Single.zip(referralInteractor.getSingleReferralBonus(),
-        referralInteractor.getPendingBonus(),
-        BiFunction { referralBonus: String, pendingBonus: String ->
-          Pair(referralBonus, pendingBonus)
-        }).subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .doOnSuccess { view.setTextValues(it.first, it.second) }
+  private fun handleShareClicks() {
+    disposable.add(view.shareLinkClick()
+        .observeOn(networkScheduler)
+        .flatMapSingle { referralInteractor.retrieveReferral() }
+        .doOnNext { view.showShare(it.link!!) }
         .subscribe({}, { it.printStackTrace() }))
   }
 

@@ -4,22 +4,28 @@ import com.google.gson.annotations.SerializedName
 import java.math.BigDecimal
 
 data class ReferralResponse(
+    @SerializedName("max_amount")
+    val maxAmount: BigDecimal,
     val available: Int,
+    val bundle: Boolean,
     val completed: Int,
     val currency: String,
-    val id: String,
     val invited: Int,
-    @SerializedName("max_value")
-    val maxValue: BigDecimal,
-    @SerializedName("pending_value")
-    val pendingValue: BigDecimal,
-    @SerializedName("received_value")
-    val received_value: BigDecimal,
+    val link: String?,
+    @SerializedName("pending_amount")
+    val pendingAmount: BigDecimal,
+    @SerializedName("received_amount")
+    val receivedAmount: BigDecimal,
+    @SerializedName("user_status")
+    val userStatus: UserStatus?,
     val status: Status,
-    val value: BigDecimal) {
+    val amount: BigDecimal) {
 
-  enum class Status {
+  enum class UserStatus {
     RESERVED, VERIFIED, REDEEMED
   }
 
+  enum class Status {
+    ACTIVE, INACTIVE
+  }
 }

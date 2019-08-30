@@ -100,9 +100,9 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
     browserRouter.open(this, Uri.parse(APTOIDE_TOP_APPS_URL))
   }
 
-  override fun showShare() {
+  override fun showShare(link: String) {
     ShareCompat.IntentBuilder.from(this)
-        .setText("link")
+        .setText(link)
         .setType("text/plain")
         .setChooserTitle(resources.getString(R.string.referral_share_sheet_title))
         .startChooser()

@@ -30,7 +30,7 @@ class HowItWorksPresenter(private val view: HowItWorksView,
 
   private fun handleShowLevels() {
     disposables.add(
-        Single.zip(gamification.getLevels(), gamification.getUserStatus(),
+        Single.zip(gamification.getLevels(), gamification.getUserStats(),
             BiFunction { levels: Levels, userStats: UserStats ->
               mapToViewLevels(levels, userStats)
             })
@@ -41,7 +41,7 @@ class HowItWorksPresenter(private val view: HowItWorksView,
   }
 
   private fun handleShowPeekInformation() {
-    disposables.add(gamification.getUserStatus()
+    disposables.add(gamification.getUserStats()
         .flatMapObservable { userStats ->
           gamification.getAppcToLocalFiat(userStats.totalEarned.toString(), 2)
               .filter { it.amount.toInt() >= 0 }
@@ -54,7 +54,7 @@ class HowItWorksPresenter(private val view: HowItWorksView,
 
   private fun handleShowNextLevelFooter() {
     disposables.add(
-        Single.zip(gamification.getLevels(), gamification.getUserStatus(),
+        Single.zip(gamification.getLevels(), gamification.getUserStats(),
             BiFunction { levels: Levels, userStats: UserStats ->
               mapToUserStatus(levels, userStats)
             })
@@ -86,7 +86,7 @@ class HowItWorksPresenter(private val view: HowItWorksView,
   }
 
   private fun sendEvent() {
-    disposables.add(gamification.getUserStatus().subscribeOn(networkScheduler).doOnSuccess {
+    disposables.add(gamification.getUserStats().subscribeOn(networkScheduler).doOnSuccess {
       analytics.sendMoreInfoScreenViewEvent(it.level + 1)
     }.subscribe())
   }

@@ -1,8 +1,8 @@
 package com.appcoins.wallet.gamification
 
 import com.appcoins.wallet.gamification.repository.ForecastBonus
-import com.appcoins.wallet.gamification.repository.GamificationRepository
 import com.appcoins.wallet.gamification.repository.Levels
+import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.UserStats
 import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
 import io.reactivex.Completable
@@ -11,9 +11,9 @@ import io.reactivex.functions.BiFunction
 import java.math.BigDecimal
 import java.net.UnknownHostException
 
-class Gamification(private val repository: GamificationRepository) {
+class Gamification(private val repository: PromotionsRepository) {
 
-  fun getUserStatus(wallet: String): Single<UserStats> {
+  fun getUserStats(wallet: String): Single<UserStats> {
     return repository.getUserStats(wallet)
   }
 
@@ -28,11 +28,11 @@ class Gamification(private val repository: GamificationRepository) {
   }
 
   private fun map(referralResponse: ReferralResponse?): ForecastBonus {
-    if (referralResponse == null || referralResponse.pendingValue.compareTo(
+    if (referralResponse == null || referralResponse.pendingAmount.compareTo(
             BigDecimal.ZERO) == 0) {
       return ForecastBonus(ForecastBonus.Status.INACTIVE)
     }
-    return ForecastBonus(ForecastBonus.Status.ACTIVE, referralResponse.pendingValue)
+    return ForecastBonus(ForecastBonus.Status.ACTIVE, referralResponse.pendingAmount)
   }
 
   private fun mapReferralError(throwable: Throwable): ForecastBonus {
@@ -51,7 +51,7 @@ class Gamification(private val repository: GamificationRepository) {
   }
 
   fun hasNewLevel(wallet: String, screen: String): Single<Boolean> {
-    return Single.zip(repository.getLastShownLevel(wallet, screen), getUserStatus(wallet),
+    return Single.zip(repository.getLastShownLevel(wallet, screen), getUserStats(wallet),
         BiFunction { lastShownLevel: Int, userStats: UserStats ->
           userStats.status == UserStats.Status.OK && lastShownLevel < userStats.level
         })

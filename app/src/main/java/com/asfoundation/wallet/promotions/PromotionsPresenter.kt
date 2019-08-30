@@ -3,7 +3,6 @@ package com.asfoundation.wallet.promotions
 import com.appcoins.wallet.gamification.GamificationScreen
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.UserStats
-import com.asfoundation.wallet.promotions.PromotionsInteractorContract.PromotionType
 import com.asfoundation.wallet.referrals.ReferralsScreen
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.UserRewardsStatus
@@ -27,39 +26,27 @@ class PromotionsPresenter(private val view: PromotionsView,
 
   fun present() {
     retrievePromotions()
-    retrieveReferralBonus()
     handleGamificationNavigationClicks()
     handleDetailsClick()
     handleShareClick()
     handleRetryClick()
+    handleNewLevel()
+    handleShowLevels()
     view.setupLayout()
   }
 
   private fun retrievePromotions() {
     disposables.add(
-        promotionsInteractor.retrievePromotions().toObservable()
-            .flatMapIterable { it }
+        promotionsInteractor.retrievePromotions()
+            .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
-            .doOnNext { showPromotions(it) }
+            .doOnSuccess {
+              view.setReferralBonus(it.maxValue, it.currency)
+              view.toogleShareAvailability(it.isValidated)
+              showPromotions(it)
+              checkForUpdates(it)
+            }
             .subscribe({}, { handlerError(it) }))
-  }
-
-  private fun retrieveReferralBonus() {
-    disposables.add(promotionsInteractor.retrieveReferralBonus()
-        .observeOn(viewScheduler)
-        .doOnSuccess { view.setReferralBonus(it) }
-        .subscribe({}, { it.printStackTrace() }))
-  }
-
-  private fun handleNewReferralUpdate() {
-    disposables.add(promotionsInteractor.hasReferralUpdate(ReferralsScreen.INVITE_FRIENDS)
-        .observeOn(viewScheduler)
-        .doOnSuccess { view.showReferralUpdate(it) }
-        .flatMapCompletable {
-          promotionsInteractor.saveReferralInformation(
-              ReferralsScreen.PROMOTIONS)
-        }
-        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleNewLevel() {
@@ -71,7 +58,10 @@ class PromotionsPresenter(private val view: PromotionsView,
 
   private fun handleShareClick() {
     disposables.add(view.shareClick()
-        .doOnNext { view.showShare() }
+        .observeOn(networkScheduler)
+        .flatMapSingle { promotionsInteractor.retrievePromotions() }
+        .observeOn(viewScheduler)
+        .doOnNext { view.showShare(it.link!!) }
         .subscribe({}, { it.printStackTrace() }))
   }
 
@@ -90,7 +80,7 @@ class PromotionsPresenter(private val view: PromotionsView,
 
   private fun handleShowLevels() {
     disposables.add(
-        Single.zip(gamification.getLevels(), gamification.getUserStatus(),
+        Single.zip(gamification.getLevels(), gamification.getUserStats(),
             gamification.getLastShownLevel(GamificationScreen.PROMOTIONS),
             Function3 { levels: Levels, userStats: UserStats, lastShownLevel: Int ->
               mapToUserStatus(levels, userStats, lastShownLevel)
@@ -123,23 +113,34 @@ class PromotionsPresenter(private val view: PromotionsView,
     return UserRewardsStatus(lastShownLevel, lastShownLevel)
   }
 
-  private fun showPromotions(promotion: PromotionType) {
-    when (promotion) {
-      PromotionType.REFERRAL -> {
-        view.showReferralCard()
-        handleNewReferralUpdate()
-      }
-      PromotionType.GAMIFICATION -> {
-        view.showGamificationCard()
-        handleShowLevels()
-        handleNewLevel()
-      }
+  private fun showPromotions(promotionsViewModel: PromotionsViewModel) {
+    view.hideLoading()
+    if (promotionsViewModel.showReferrals) {
+      view.showReferralCard()
+    }
+    if (promotionsViewModel.showGamification) {
+      view.showGamificationCard()
     }
   }
+
+  private fun checkForUpdates(promotionsViewModel: PromotionsViewModel) {
+    disposables.add(promotionsInteractor.hasReferralUpdate(promotionsViewModel.numberOfInvitations,
+        promotionsViewModel.receivedValue, ReferralsScreen.INVITE_FRIENDS)
+        .flatMapCompletable {
+          promotionsInteractor.saveReferralInformation(promotionsViewModel.numberOfInvitations,
+              promotionsViewModel.receivedValue, ReferralsScreen.PROMOTIONS)
+              .observeOn(viewScheduler)
+              .doOnComplete { view.showReferralUpdate(it) }
+        }
+        .subscribeOn(networkScheduler)
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
 
   private fun handlerError(throwable: Throwable) {
     throwable.printStackTrace()
     if (isNoNetworkException(throwable)) {
+      view.hideLoading()
       view.showNetworkErrorView()
     }
   }
@@ -154,6 +155,7 @@ class PromotionsPresenter(private val view: PromotionsView,
         .flatMapCompletable {
           Completable.fromAction { view.showRetryAnimation() }
               .andThen(Completable.timer(1, TimeUnit.SECONDS))
+              .andThen { view.showLoading() }
               .andThen { retrievePromotions() }
         }
         .subscribe({}, { it.printStackTrace() }))

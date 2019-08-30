@@ -2,6 +2,7 @@ package com.asfoundation.wallet.promotions
 
 import com.asfoundation.wallet.ui.gamification.UserRewardsStatus
 import io.reactivex.Observable
+import java.math.BigDecimal
 
 interface PromotionsView {
   fun setupLayout()
@@ -12,7 +13,7 @@ interface PromotionsView {
   fun detailsClick(): Observable<Any>
   fun navigateToInviteFriends()
   fun shareClick(): Observable<Any>
-  fun showShare()
+  fun showShare(link: String)
   fun gamificationCardClick(): Observable<Any>
   fun referralCardClick(): Observable<Any>
   fun showGamificationUpdate(show: Boolean)
@@ -22,5 +23,8 @@ interface PromotionsView {
   fun showNetworkErrorView()
   fun retryClick(): Observable<Any>
   fun showRetryAnimation()
-  fun setReferralBonus(bonus: String)
+  fun setReferralBonus(bonus: BigDecimal, currency: String)
+  fun toogleShareAvailability(validated: Boolean)
+  fun hideLoading()
+  fun showLoading()
 }

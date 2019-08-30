@@ -4,6 +4,8 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import com.asf.wallet.R
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -15,6 +17,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.invite_friends_fragment_layout.*
 import kotlinx.android.synthetic.main.referral_notification_card.*
+import java.math.BigDecimal
+import java.math.RoundingMode
 import javax.inject.Inject
 
 class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
@@ -67,10 +71,14 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
   }
 
 
-  override fun setTextValues(individualValue: String, pendingValue: String) {
-    referral_description.text = getString(R.string.referral_view_verified_body, individualValue)
+  override fun setTextValues(individualValue: BigDecimal, pendingValue: BigDecimal,
+                             currency: String) {
+    referral_description.text =
+        getString(R.string.referral_view_verified_body,
+            currency + individualValue.setScale(2, RoundingMode.HALF_DOWN).toString())
     notification_title.text =
-        getString(R.string.referral_notification_bonus_pending_title, pendingValue)
+        getString(R.string.referral_notification_bonus_pending_title,
+            currency + pendingValue.setScale(2, RoundingMode.HALF_DOWN).toString())
   }
 
   override fun shareLinkClick(): Observable<Any> {
@@ -81,12 +89,20 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
     return RxView.clicks(notification_apps_games_button)
   }
 
-  override fun showShare() {
-    activity.showShare()
+  override fun showShare(link: String) {
+    activity.showShare(link)
   }
 
   override fun navigateToAptoide() {
     activity.navigateToTopApps()
+  }
+
+  override fun showNotificationCard(pendingAmount: BigDecimal) {
+    if (pendingAmount.toDouble() > 0) {
+      referral_notification_card.visibility = VISIBLE
+    } else {
+      referral_notification_card.visibility = GONE
+    }
   }
 
   override fun onDestroyView() {
