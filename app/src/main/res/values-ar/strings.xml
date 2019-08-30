@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">المتطلبات</string>
   <string name="referral_dropup_menu_requirements_verification">وثّق محفظتك برقم الهاتف</string>
   <string name="referral_dropup_menu_requirements_purchase">أتمَّ عملية شراء واحدة أو اشحن رصيدك</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">ستحصل على ما قيمته %1$s من رصيد AppCoins لكل صديق يتوافق مع المتطلبات (حتى %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">ترقيات</string>
   <string name="bottom_navigation_promotions_detailed">اكتشف كيف يمكنك أن تحصل على رصيد AppCoins مجاني مع ترقياتنا وحملاتنا!</string>
