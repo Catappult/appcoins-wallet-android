@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">လိုအပ္ခ်က္မ်ား</string>
   <string name="referral_dropup_menu_requirements_verification">ဖုန္းနံပါတ္တစ္ခုျဖင့္ သင့္ပိုက္ဆံအိတ္ကို အတည္ျပဳပါ</string>
   <string name="referral_dropup_menu_requirements_purchase">အက္ပ္အတြင္း ၀ယ္ယူမႈ သို႔မဟုတ္ ေငြျဖည့္မႈတစ္ခုကို ျပဳလုုပ္လိုက္ပါ</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">ျမႇင့္တင္ရန္ လိုအပ္ခ်က္မ်ားကို ျပည့္မီသည့္ သူငယ္ခ်င္းတစ္ဦးအတြက္ %1$s တန္ဖိုးရွိေသာ AppCoins Credits မ်ားကို (%2$s အထိ) သင္ရရွိပါမည္</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">ပ႐ိုမိုးရွင္းမ်ား</string>
   <string name="bottom_navigation_promotions_detailed">ကၽြႏ္ုပ္တို႔၏ ပ႐ိုမိုးရွင္းမ်ားႏွင့္ ျမႇင့္တင္ေရး အစီအစဥ္မ်ားျဖင့္ AppCoins Credits မ်ားအား အခမဲ့ရယူပံုကို ေဖာ္ျပပါ။</string>
