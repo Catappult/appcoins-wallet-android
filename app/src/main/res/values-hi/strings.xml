@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">आवश्यकताएँ</string>
   <string name="referral_dropup_menu_requirements_verification">एक फोन नंबर के साथ अपना वॉलेट सत्यापित करें</string>
   <string name="referral_dropup_menu_requirements_purchase">एक इन-एप्प खरीदारी या टॉप-अप करें</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">आप दोनों आवश्यकताओं को पूरा करने वाले प्रत्येक मित्र के लिए %1$s मूल्य के AppCoins Credits कमाएँगे (%2$s तक)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">प्रमोशन</string>
   <string name="bottom_navigation_promotions_detailed">हमारे प्रमोशन एवं अभियानों के साथ मुफ्त AppCoins Credits कमाने का तरीका जानें!</string>
