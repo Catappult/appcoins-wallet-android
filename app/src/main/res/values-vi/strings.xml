@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">Yêu cầu</string>
   <string name="referral_dropup_menu_requirements_verification">Xác nhận ví của bạn bằng số điện thoại</string>
   <string name="referral_dropup_menu_requirements_purchase">Thực hiện một giao dịch mua hàng trong ứng dụng hoặc nạp tiền</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">Bạn sẽ nhận được %1$s bằng AppCoins Credits cho mỗi người bạn đáp ứng được cả 2 yêu cầu (tối đa %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Khuyến mãi</string>
   <string name="bottom_navigation_promotions_detailed">Khám phá cách để nhận được AppCoins Credits miễn phí với các chương trình khuyến mãi và chiến dịch của chúng tôi!</string>
