@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">Gereklilikler</string>
   <string name="referral_dropup_menu_requirements_verification">Cüzdanınızı telefon numarasıyla doğrulayın</string>
   <string name="referral_dropup_menu_requirements_purchase">Bir uygulama içi satın alma veya yükleme yapın</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">Her iki gerekliliği karşılayan her bir arkadaş için %1$s değerinde AppCoins Credits kazanacaksınız (en fazla %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promosyonlar</string>
   <string name="bottom_navigation_promotions_detailed">Promosyon ve kampanyalarımızla nasıl ücretsiz AppCoins Credits kazanabileceğinizi keşfedin!</string>
