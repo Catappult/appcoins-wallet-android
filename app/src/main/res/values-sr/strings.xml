@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">Uslovi</string>
   <string name="referral_dropup_menu_requirements_verification">Potvrdite novčanik pomoću broja telefona</string>
   <string name="referral_dropup_menu_requirements_purchase">Obavite jednu kupovinu u aplikaciji ili dopunite</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">Zaradićete AppCoins Credits u vrednosti od %1$s za svakog prijatelja koji ispuni oba uslova (do %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promocije</string>
   <string name="bottom_navigation_promotions_detailed">Otkrijte kako da zaradite besplatne AppCoins Credits pomoću naših promocija i kampanja!</string>
