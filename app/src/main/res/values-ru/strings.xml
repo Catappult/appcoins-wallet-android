@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">Требования</string>
   <string name="referral_dropup_menu_requirements_verification">Подтвердите ваш кошелёк при помощи телефонного номера</string>
   <string name="referral_dropup_menu_requirements_purchase">Сделайте одну покупку или пополнение счёта в приложении</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">Вы заработаете %1$s в AppCoins Credits за каждого друга, который выполнит оба требования (до %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Продвижения</string>
   <string name="bottom_navigation_promotions_detailed">Узнайте как получить бесплатные AppCoins Credits с нашими продвижениями и кампаниями!</string>
