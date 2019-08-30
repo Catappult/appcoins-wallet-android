@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.referrals_layout.*
 import java.math.BigDecimal
 import java.math.RoundingMode
 import javax.inject.Inject
+import kotlin.math.roundToInt
 
 class ReferralsFragment : DaggerFragment(), ReferralsView {
 
@@ -48,13 +49,15 @@ class ReferralsFragment : DaggerFragment(), ReferralsView {
     val totalAvailable = invited + available
     friends_invited.text = String.format("%d/%d", invited, totalAvailable)
     friends_invited.visibility = VISIBLE
+    number_friends_invited.text = String.format("%d/%d", invited, totalAvailable)
     total_earned.text = currency.plus(receivedAmount)
     total_earned.visibility = VISIBLE
     val individualEarn = currency + amount.setScale(2, RoundingMode.FLOOR).toString()
     val totalEarn = currency + maxAmount.setScale(2, RoundingMode.FLOOR).toString()
     referral_explanation.text =
         getString(R.string.referral_dropup_menu_requirements_body, individualEarn, totalEarn)
-    invitations_progress_bar.progress = (100 / (invited + available)) * invited
+    invitations_progress_bar.progress =
+        ((100 / (invited.toDouble() + available.toDouble())) * invited).roundToInt()
     setFriendsAnimations(invited, invited + available)
   }
 
@@ -64,7 +67,10 @@ class ReferralsFragment : DaggerFragment(), ReferralsView {
             friend_animation_5)
     if (invited != 0) {
       for (i in friendsAnimation.indices) {
-        if (i < invited) friendsAnimation[i].setAnimation(R.raw.invited_user_animation)
+        if (i < invited) {
+          friendsAnimation[i].setAnimation(R.raw.invited_user_animation)
+          friendsAnimation[i].playAnimation()
+        }
         if (i >= totalInvitations) friendsAnimation[i].visibility = GONE
       }
     } else if (totalInvitations < friendsAnimation.size) {
