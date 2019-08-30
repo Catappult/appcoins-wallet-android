@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">Requisitos</string>
   <string name="referral_dropup_menu_requirements_verification">Verificat tu wallet con un número de teléfono</string>
   <string name="referral_dropup_menu_requirements_purchase">Hacer una compra in-app o recarga</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">Recibirás %1$s en AppCoins Credits por cada amigo que cumpla ambos requisitos (hasta %2$s).</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promociones</string>
   <string name="bottom_navigation_promotions_detailed">Descubre como ganar AppCoins Credits gratis con nuestras promociones y campañas.</string>
