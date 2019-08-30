@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">Προϋποθέσεις</string>
   <string name="referral_dropup_menu_requirements_verification">Επαληθεύστε το wallet σας με έναν αριθμό τηλεφώνου</string>
   <string name="referral_dropup_menu_requirements_purchase">Πραγματοποιήστε μία αγορά εντός εφαρμογών ή φόρτιση</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">Θα λάβετε AppCoins Credits αξίας %1$s για κάθε φίλο που πληροί και τις δύο προϋποθέσεις (έως %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Προωθήσεις</string>
   <string name="bottom_navigation_promotions_detailed">Ανακαλύψτε πώς θα κερδίσετε δωρεάν AppCoins Credits μέσα από τις προωθήσεις και τις καμπάνιες μας!</string>
