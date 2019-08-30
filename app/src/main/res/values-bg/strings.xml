@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">Изисквания</string>
   <string name="referral_dropup_menu_requirements_verification">Верифицирай портфейла си с телефонен номер</string>
   <string name="referral_dropup_menu_requirements_purchase">Направи една ин-ап покупка, за да качиш</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">Ще спечелиш %1$s като стойност в AppCoins Credits за всеки приятел, който отговаря и на двете условия (до %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Промоции</string>
   <string name="bottom_navigation_promotions_detailed">Открий как да спечелиш безплатни AppCoins Credits с нашите промоции и кампании!</string>
