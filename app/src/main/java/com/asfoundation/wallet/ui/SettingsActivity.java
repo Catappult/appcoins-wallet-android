@@ -9,8 +9,6 @@ import dagger.android.AndroidInjection;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasFragmentInjector;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import javax.inject.Inject;
 
 public class SettingsActivity extends BaseActivity implements HasFragmentInjector {
@@ -23,8 +21,7 @@ public class SettingsActivity extends BaseActivity implements HasFragmentInjecto
     setContentView(R.layout.activity_settings);
     toolbar();
     getSupportFragmentManager().beginTransaction()
-        .replace(R.id.fragment_container,
-            new SettingsFragment(Schedulers.io(), AndroidSchedulers.mainThread()))
+        .replace(R.id.fragment_container, new SettingsFragment())
         .commit();
   }
 
