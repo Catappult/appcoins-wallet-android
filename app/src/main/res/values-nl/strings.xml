@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">Vereisten</string>
   <string name="referral_dropup_menu_requirements_verification">Verifieer je wallet met een telefoonnummer</string>
   <string name="referral_dropup_menu_requirements_purchase">Doe een in-app aankoop of waardeer op</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">Je verdient %1$s AppCoins Credits voor elke vriend die aan de vereisten voldoet (tot %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Acties</string>
   <string name="bottom_navigation_promotions_detailed">Ontdek hoe je met onze acties en campagnes gratis AppCoins Credits kunt verdienen!</string>
