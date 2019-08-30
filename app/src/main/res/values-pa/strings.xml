@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">ਜਰੂਰਤਾਂ</string>
   <string name="referral_dropup_menu_requirements_verification">ਇੱਕ ਫੋਨ ਨੰਬਰ ਨਾਲ ਆਪਣੇ ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
   <string name="referral_dropup_menu_requirements_purchase">ਇੱਕ ਇਨ-ਐਪ ਖਰੀਦਾਰੀ ਕਰੋ ਜਾਂ ਟੌਪ-ਅਪ ਕਰੋ</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">ਤੁਸੀਂ ਬੂਥ ਦੀਆਂ ਜਰੂਰਤਾਂ ਪੂਰੀਆਂ ਕਰਨ ਵਾਲੇ ਹਰ ਇੱਕ ਦੋਸਤ (%1$s) ਲਈ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟਾਂ ਵਿੱਚ %2$s ਦੀ ਕਮਾਈ ਕਰੋਗੇ|</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">ਪ੍ਰਚਾਰ</string>
   <string name="bottom_navigation_promotions_detailed">ਸਾਡੀਆਂ ਪ੍ਰਚਾਰਾਂ ਅਤੇ ਮੁਹਿੰਮਾਂ ਨਾਲ ਮੁਫਤ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਕਮਾਉਣ ਬਾਰੇ ਜਾਣੋ!</string>
