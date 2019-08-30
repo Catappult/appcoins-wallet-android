@@ -9,9 +9,9 @@ interface PromotionsInteractorContract {
 
   fun retrievePromotions(): Single<PromotionsViewModel>
 
-  fun saveReferralInformation(friendsInvited: Int, receivedValue: BigDecimal,
+  fun saveReferralInformation(friendsInvited: Int, receivedValue: BigDecimal, isVerified: Boolean,
                               screen: ReferralsScreen): Completable
 
-  fun hasReferralUpdate(friendsInvited: Int, receivedValue: BigDecimal,
+  fun hasReferralUpdate(friendsInvited: Int, receivedValue: BigDecimal, isVerified: Boolean,
                         screen: ReferralsScreen): Single<Boolean>
 }

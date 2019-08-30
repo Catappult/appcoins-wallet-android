@@ -32,6 +32,10 @@ class InviteFriendsVerificationPresenter(private val view: InviteFriendsVerifica
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess { view.setDescriptionText(it.amount, it.currency) }
+        .flatMapCompletable {
+          referralInteractor.saveReferralInformation(it.completed, it.receivedAmount.toString(),
+              false, ReferralsScreen.INVITE_FRIENDS)
+        }
         .subscribe({}, { it.printStackTrace() }))
   }
 

@@ -92,7 +92,7 @@
         android:layout_height="40dp"
         android:layout_marginEnd="6dp"
         android:padding="10dp"
-        android:src="@drawable/ic_share_disabled"
+        android:src="@drawable/ic_share_selector"
         app:layout_constraintBottom_toBottomOf="@id/details_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/content_separator"

@@ -15,17 +15,18 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
     PromotionsInteractorContract {
 
   override fun hasReferralUpdate(friendsInvited: Int, receivedValue: BigDecimal,
-                                 screen: ReferralsScreen): Single<Boolean> {
+                                 isVerified: Boolean, screen: ReferralsScreen): Single<Boolean> {
     return findWalletInteract.find()
         .flatMap {
-          referralInteractor.hasReferralUpdate(it.address, friendsInvited, receivedValue, screen)
+          referralInteractor.hasReferralUpdate(it.address, friendsInvited, receivedValue,
+              isVerified, screen)
         }
   }
 
   override fun saveReferralInformation(friendsInvited: Int, receivedValue: BigDecimal,
-                                       screen: ReferralsScreen): Completable {
+                                       isVerified: Boolean, screen: ReferralsScreen): Completable {
     return referralInteractor.saveReferralInformation(friendsInvited, receivedValue.toString(),
-        screen)
+        isVerified, screen)
 
   }
 
@@ -41,6 +42,6 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
     return PromotionsViewModel(gamification.bundle, referral.bundle,
         gamification.level, gamification.nextLevelAmount, gamification.totalSpend,
         gamification.status, referral.link, referral.maxAmount, referral.invited,
-        referral.receivedAmount, referral.link == null, referral.currency)
+        referral.receivedAmount, referral.link != null, referral.currency)
   }
 }

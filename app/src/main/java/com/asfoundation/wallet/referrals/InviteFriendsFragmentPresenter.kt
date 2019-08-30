@@ -24,7 +24,11 @@ class InviteFriendsFragmentPresenter(private val view: InviteFriendsFragmentView
         .doOnSuccess {
           view.showNotificationCard(it.pendingAmount)
           view.setTextValues(it.amount, it.pendingAmount, it.currency)
-        }.subscribe({}, { it.printStackTrace() }))
+        }.flatMapCompletable {
+          referralInteractor.saveReferralInformation(it.completed, it.receivedAmount.toString(),
+              true, ReferralsScreen.INVITE_FRIENDS)
+        }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleShareClicks() {
