@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">Cerințe</string>
   <string name="referral_dropup_menu_requirements_verification">Verifică-ți portofelul cu un număr de telefon</string>
   <string name="referral_dropup_menu_requirements_purchase">Fă o cumpărătură in-app sau o încărcare</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %1$s worth in AppCoins Credits for each friend meeting both requirements (up to %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promoții</string>
   <string name="bottom_navigation_promotions_detailed">Descoperă cum poți să câștigi AppCoins Credits gratuite cu promoțiile și campaniile noastre!</string>
