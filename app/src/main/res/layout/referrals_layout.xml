@@ -5,7 +5,6 @@
     android:id="@+id/bottom_sheet"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
     android:background="@drawable/background_card"
     android:clickable="true"
     android:clipToPadding="false"
@@ -50,7 +49,7 @@
       />
 
   <com.airbnb.lottie.LottieAnimationView
-      android:id="@+id/bonus_earned_skeleton"
+      android:id="@+id/invited_friends_skeleton"
       android:layout_width="wrap_content"
       android:layout_height="16dp"
       android:layout_marginTop="24dp"
@@ -77,7 +76,7 @@
       />
 
   <TextView
-      android:id="@+id/total_spend"
+      android:id="@+id/total_earned"
       style="@style/GamificationBottomPeekTextStyle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -91,7 +90,7 @@
       />
 
   <com.airbnb.lottie.LottieAnimationView
-      android:id="@+id/total_spend_skeleton"
+      android:id="@+id/received_amount_skeleton"
       android:layout_width="wrap_content"
       android:layout_height="16dp"
       android:layout_marginTop="24dp"
@@ -114,7 +113,7 @@
       android:text="@string/referral_view_dropup_menu_earned"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="@id/vertical_guideline4"
-      app:layout_constraintTop_toBottomOf="@id/total_spend"
+      app:layout_constraintTop_toBottomOf="@id/total_earned"
       />
 
   <TextView
@@ -143,11 +142,11 @@
       android:layout_marginEnd="16dp"
       android:fontFamily="sans-serif"
       android:gravity="end"
+      android:text="0/5"
       android:textColor="#9d9d9d"
       android:textSize="16sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@id/horizontal_guideline1"
-      tools:text="0/5"
       />
   <include
       android:id="@+id/friends_list"
@@ -161,14 +160,14 @@
       />
 
   <ProgressBar
-      android:id="@+id/progress_bar"
+      android:id="@+id/invitations_progress_bar"
       style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
       android:layout_width="0dp"
       android:layout_height="6dp"
       android:layout_marginTop="16dp"
       android:layout_marginEnd="16dp"
       android:max="100"
-      android:progress="100"
+      android:progress="0"
       android:progressDrawable="@drawable/progress_bar_gradient"
       app:layout_constraintEnd_toEndOf="@id/friends_list"
       app:layout_constraintStart_toStartOf="@id/friends_list"
@@ -190,7 +189,7 @@
       android:textSize="16sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/progress_bar"
+      app:layout_constraintTop_toBottomOf="@id/invitations_progress_bar"
       />
 
   <ImageView
@@ -262,12 +261,12 @@
       android:layout_marginEnd="20dp"
       android:fontFamily="sans-serif"
       android:gravity="start"
-      android:text="@string/referral_dropup_menu_requirements_body"
       android:textColor="#727272"
       android:textSize="14sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/redeem_instructions"
+      tools:text="@string/referral_dropup_menu_requirements_body"
       />
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/vertical_guideline4"

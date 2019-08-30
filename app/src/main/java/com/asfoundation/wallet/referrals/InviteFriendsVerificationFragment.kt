@@ -50,7 +50,7 @@ class InviteFriendsVerificationFragment : DaggerFragment(), InviteFriendsVerific
   override fun setDescriptionText(referralValue: BigDecimal, currency: String) {
     verification_description.text =
         getString(R.string.referral_view_unverified_body,
-            currency + referralValue.setScale(2, RoundingMode.HALF_DOWN).toString())
+            currency + referralValue.setScale(2, RoundingMode.FLOOR).toString())
   }
 
   override fun verifyButtonClick(): Observable<Any> {

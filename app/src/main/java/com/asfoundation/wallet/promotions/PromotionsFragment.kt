@@ -178,7 +178,7 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
 
   override fun setReferralBonus(bonus: BigDecimal, currency: String) {
     promotions_title.text = getString(R.string.promotions_referral_card_title,
-        currency + bonus.setScale(2, RoundingMode.HALF_DOWN))
+        currency + bonus.setScale(2, RoundingMode.FLOOR))
   }
 
   override fun toogleShareAvailability(validated: Boolean) {

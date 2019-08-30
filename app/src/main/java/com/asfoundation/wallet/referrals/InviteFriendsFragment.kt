@@ -25,7 +25,7 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
 
   private lateinit var presenter: InviteFriendsFragmentPresenter
   private lateinit var activity: InviteFriendsActivityView
-  private lateinit var howItWorksBottomSheet: BottomSheetBehavior<View>
+  private lateinit var referralsBottomSheet: BottomSheetBehavior<View>
   @Inject
   lateinit var referralInteractor: ReferralInteractorContract
 
@@ -44,7 +44,7 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    howItWorksBottomSheet =
+    referralsBottomSheet =
         BottomSheetBehavior.from(bottom_sheet_fragment_container)
     animateBackgroundFade()
     presenter.present()
@@ -59,7 +59,7 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
   }
 
   private fun animateBackgroundFade() {
-    howItWorksBottomSheet.setBottomSheetCallback(object :
+    referralsBottomSheet.setBottomSheetCallback(object :
         BottomSheetBehavior.BottomSheetCallback() {
       override fun onStateChanged(bottomSheet: View, newState: Int) {
       }
@@ -75,10 +75,10 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
                              currency: String) {
     referral_description.text =
         getString(R.string.referral_view_verified_body,
-            currency + individualValue.setScale(2, RoundingMode.HALF_DOWN).toString())
+            currency + individualValue.setScale(2, RoundingMode.FLOOR).toString())
     notification_title.text =
         getString(R.string.referral_notification_bonus_pending_title,
-            currency + pendingValue.setScale(2, RoundingMode.HALF_DOWN).toString())
+            currency + pendingValue.setScale(2, RoundingMode.FLOOR).toString())
   }
 
   override fun shareLinkClick(): Observable<Any> {
@@ -102,6 +102,22 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
       referral_notification_card.visibility = VISIBLE
     } else {
       referral_notification_card.visibility = GONE
+    }
+  }
+
+  private fun expandBottomSheet() {
+    referralsBottomSheet.state = BottomSheetBehavior.STATE_EXPANDED
+  }
+
+  private fun collapseBottomSheet() {
+    referralsBottomSheet.state = BottomSheetBehavior.STATE_COLLAPSED
+  }
+
+  override fun changeBottomSheetState() {
+    if (referralsBottomSheet.state == BottomSheetBehavior.STATE_COLLAPSED) {
+      expandBottomSheet()
+    } else {
+      collapseBottomSheet()
     }
   }
 

@@ -10,4 +10,5 @@ interface InviteFriendsFragmentView {
   fun showShare(link: String)
   fun navigateToAptoide()
   fun showNotificationCard(pendingAmount: BigDecimal)
+  fun changeBottomSheetState()
 }
