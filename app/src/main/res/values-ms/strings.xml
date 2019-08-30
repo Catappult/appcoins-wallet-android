@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">Syarat-syarat</string>
   <string name="referral_dropup_menu_requirements_verification">Sahkan dompet anda dengan nombor telefon</string>
   <string name="referral_dropup_menu_requirements_purchase">Buat satu pembelian dalam aplikasi atau tambah nilai</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">Anda akan peroleh sebanyak %1$s Kredit AppCoins bagi setiap rakan yang memenuhi kedua-dua syarat (sehingga %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promosi</string>
   <string name="bottom_navigation_promotions_detailed">Ketahui cara untuk memperoleh Kredit AppCoins percuma menerusi promosi dan kempen kami!</string>
