@@ -4,6 +4,7 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
 class InviteFriendsFragmentPresenter(private val view: InviteFriendsFragmentView,
+                                     private val activity: InviteFriendsActivityView?,
                                      private val referralInteractor: ReferralInteractorContract,
                                      private val disposable: CompositeDisposable,
                                      private val viewScheduler: Scheduler,
@@ -11,6 +12,7 @@ class InviteFriendsFragmentPresenter(private val view: InviteFriendsFragmentView
 
   fun present() {
     retrieveReferral()
+    handleInfoButtonClick()
     handleShareClicks()
     handleAppsGamesClicks()
   }
@@ -37,6 +39,14 @@ class InviteFriendsFragmentPresenter(private val view: InviteFriendsFragmentView
     disposable.add(view.appsAndGamesButtonClick()
         .doOnNext { view.navigateToAptoide() }
         .subscribe({}, { it.printStackTrace() }))
+  }
+
+  private fun handleInfoButtonClick() {
+    activity?.let {
+      disposable.add(it.getInfoButtonClick().doOnNext {
+        view.changeBottomSheetState()
+      }.subscribe())
+    }
   }
 
   fun stop() {

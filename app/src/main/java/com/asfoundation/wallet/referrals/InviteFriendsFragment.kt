@@ -24,15 +24,16 @@ import javax.inject.Inject
 class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
 
   private lateinit var presenter: InviteFriendsFragmentPresenter
-  private lateinit var activity: InviteFriendsActivityView
+  private var activity: InviteFriendsActivityView? = null
   private lateinit var referralsBottomSheet: BottomSheetBehavior<View>
   @Inject
   lateinit var referralInteractor: ReferralInteractorContract
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = InviteFriendsFragmentPresenter(this, referralInteractor, CompositeDisposable(),
-        AndroidSchedulers.mainThread(), Schedulers.io())
+    presenter =
+        InviteFriendsFragmentPresenter(this, activity, referralInteractor, CompositeDisposable(),
+            AndroidSchedulers.mainThread(), Schedulers.io())
   }
 
   override fun onAttach(context: Context) {
@@ -90,11 +91,11 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
   }
 
   override fun showShare(link: String) {
-    activity.showShare(link)
+    activity?.showShare(link)
   }
 
   override fun navigateToAptoide() {
-    activity.navigateToTopApps()
+    activity?.navigateToTopApps()
   }
 
   override fun showNotificationCard(pendingAmount: BigDecimal) {
