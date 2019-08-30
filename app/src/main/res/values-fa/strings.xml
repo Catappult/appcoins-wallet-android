@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">الزامات</string>
   <string name="referral_dropup_menu_requirements_verification">کیف پول خود را با یک شماره تلفن تایید کنید</string>
   <string name="referral_dropup_menu_requirements_purchase">یک خرید داخل اپلیکیشنی انجام دهید یا افزایش اعتبار کنید</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">You\'ll earn %1$s worth in AppCoins Credits for each friend meeting both requirements (up to %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">پیشنهادات تشویقی</string>
   <string name="bottom_navigation_promotions_detailed">کشف کنید که چگونه می‌توانید با پیشنهادهای تشویقی ما، اعتبار AppCoins رایگان دریافت کنید!</string>
