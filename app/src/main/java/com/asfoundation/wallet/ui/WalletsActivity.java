@@ -68,7 +68,7 @@ public class WalletsActivity extends BaseActivity
 
     systemView.attachRecyclerView(list);
     systemView.attachSwipeRefreshLayout(refreshLayout);
-    backupWarning.setOnPositiveClickListener(this::onNowBackup);
+    backupWarning.setOnPositiveClickListener((__, wallet) -> onNowBackup(wallet));
     backupWarning.setOnSkipClickListener(v -> {
       hideDialog();
       showToolbar();
@@ -118,28 +118,6 @@ public class WalletsActivity extends BaseActivity
     return super.onOptionsItemSelected(item);
   }
 
-  private void onCreateWalletError(ErrorEnvelope errorEnvelope) {
-    dialog = buildDialog().setTitle(R.string.title_dialog_error)
-        .setMessage(
-            TextUtils.isEmpty(errorEnvelope.message) ? getString(R.string.error_create_wallet)
-                : errorEnvelope.message)
-        .setPositiveButton(R.string.ok, (dialog, which) -> {
-        })
-        .create();
-    dialog.show();
-  }
-
-  private void onExportWallet(Wallet wallet) {
-    showBackupDialog(wallet, false);
-  }
-
-  @Override public boolean onCreateOptionsMenu(Menu menu) {
-    if (adapter.getItemCount() > 0) {
-      getMenuInflater().inflate(R.menu.menu_add, menu);
-    }
-    return super.onCreateOptionsMenu(menu);
-  }
-
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
 
@@ -186,6 +164,28 @@ public class WalletsActivity extends BaseActivity
     }
   }
 
+  private void onCreateWalletError(ErrorEnvelope errorEnvelope) {
+    dialog = buildDialog().setTitle(R.string.title_dialog_error)
+        .setMessage(
+            TextUtils.isEmpty(errorEnvelope.message) ? getString(R.string.error_create_wallet)
+                : errorEnvelope.message)
+        .setPositiveButton(R.string.ok, (dialog, which) -> {
+        })
+        .create();
+    dialog.show();
+  }
+
+  private void onExportWallet(Wallet wallet) {
+    showBackupDialog(wallet, false);
+  }
+
+  @Override public boolean onCreateOptionsMenu(Menu menu) {
+    if (adapter.getItemCount() > 0) {
+      getMenuInflater().inflate(R.menu.menu_add, menu);
+    }
+    return super.onCreateOptionsMenu(menu);
+  }
+
   @Override public void onBackPressed() {
     if (backupWarning.isShown() && adapter.getItemCount() > 1) {
       hideDialog();
@@ -194,7 +194,7 @@ public class WalletsActivity extends BaseActivity
     } else {
       // User can't start work without wallet.
       if (adapter.getItemCount() > 0) {
-        viewModel.showTransactions(this);
+        super.onBackPressed();
       } else {
         finish();
         System.exit(0);
@@ -209,11 +209,8 @@ public class WalletsActivity extends BaseActivity
   }
 
   @Override public void onClick(View view) {
-    switch (view.getId()) {
-      case R.id.try_again: {
-        viewModel.fetchWallets();
-      }
-      break;
+    if (view.getId() == R.id.try_again) {
+      viewModel.fetchWallets();
     }
   }
 
@@ -260,7 +257,7 @@ public class WalletsActivity extends BaseActivity
     backupWarning.show(wallet);
   }
 
-  private void onNowBackup(View view, Wallet wallet) {
+  private void onNowBackup(Wallet wallet) {
     showBackupDialog(wallet, true);
   }
 

@@ -21,7 +21,8 @@ class CodeValidationPresenter(
     private val networkScheduler: Scheduler,
     private val countryCode: String,
     private val phoneNumber: String,
-    private val disposables: CompositeDisposable
+    private val disposables: CompositeDisposable,
+    private val isSettingsFlow: Boolean
 ) {
 
   fun present() {
@@ -100,13 +101,17 @@ class CodeValidationPresenter(
   }
 
   private fun checkReferralAvailability() {
-    disposables.add(
-        Single.just(true)//TODO Change when Microservices implements the changes
-            .subscribeOn(networkScheduler)
-            .observeOn(viewScheduler)
-            .doOnSuccess { handleReferralStatus(it) }
-            .subscribe()
-    )
+    if (isSettingsFlow) {
+      view.showGenericValidationComplete()
+    } else {
+      disposables.add(
+          Single.just(true)//TODO Change when Microservices implements the changes
+              .subscribeOn(networkScheduler)
+              .observeOn(viewScheduler)
+              .doOnSuccess { handleReferralStatus(it) }
+              .subscribe()
+      )
+    }
   }
 
   private fun handleReferralStatus(eligible: Boolean) {
@@ -126,8 +131,7 @@ class CodeValidationPresenter(
       WalletValidationStatus.INVALID_PHONE ->
         activity?.showPhoneValidationView(validationInfo.countryCode, validationInfo.phoneNumber,
             R.string.verification_insert_code_error_common)
-      WalletValidationStatus.DOUBLE_SPENT ->
-        checkReferralAvailability()
+      WalletValidationStatus.DOUBLE_SPENT -> checkReferralAvailability()
       WalletValidationStatus.GENERIC_ERROR -> handleError(R.string.unknown_error, validationInfo)
       WalletValidationStatus.NO_NETWORK -> {
         view.hideKeyboard()
