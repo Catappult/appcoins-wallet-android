@@ -5,17 +5,23 @@
     android:layout_height="match_parent"
     >
 
+  <include
+      android:id="@+id/wallet_validation_toolbar"
+      layout="@layout/layout_app_bar"
+      android:visibility="invisible"
+      />
+
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/validation_progress_animation"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="80dp"
-      android:layout_marginTop="24dp"
+      android:layout_marginTop="8dp"
       android:layout_marginEnd="80dp"
       android:scaleType="centerInside"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/wallet_validation_toolbar"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_rawRes="@raw/validation_progress"
       />

@@ -37,6 +37,10 @@ class PhoneValidationFragment : DaggerFragment(),
   private var phoneNumber: String? = null
   private var errorMessage: Int? = null
 
+  private val isSettingsFlow: Boolean by lazy {
+    arguments!!.getBoolean(SETTINGS_FLOW)
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
@@ -69,7 +73,7 @@ class PhoneValidationFragment : DaggerFragment(),
       errorMessage = arguments?.getInt(
           ERROR_MESSAGE)
     }
-
+    setupBodyText()
     presenter.present()
   }
 
@@ -201,15 +205,18 @@ class PhoneValidationFragment : DaggerFragment(),
     internal const val COUNTRY_CODE = "COUNTRY_CODE"
     internal const val PHONE_NUMBER = "PHONE_NUMBER"
     internal const val ERROR_MESSAGE = "ERROR_MESSAGE"
+    internal const val SETTINGS_FLOW = "SETTINGS_FLOW"
 
     @JvmStatic
     fun newInstance(countryCode: String? = null, phoneNumber: String? = null,
-                    errorMessage: Int? = null): Fragment {
+                    errorMessage: Int? = null, isSettingsFlow: Boolean = false): Fragment {
       val bundle = Bundle()
       bundle.putString(
           COUNTRY_CODE, countryCode)
       bundle.putString(
           PHONE_NUMBER, phoneNumber)
+      bundle.putBoolean(
+          SETTINGS_FLOW, isSettingsFlow)
 
       errorMessage?.let {
         bundle.putInt(
@@ -228,6 +235,12 @@ class PhoneValidationFragment : DaggerFragment(),
       view.requestFocus()
       val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
       imm?.showSoftInput(view, InputMethodManager.SHOW_FORCED)
+    }
+  }
+
+  private fun setupBodyText() {
+    if (isSettingsFlow) {
+      phone_validation_subtitle.text = getString(R.string.verification_insert_phone_body)
     }
   }
 

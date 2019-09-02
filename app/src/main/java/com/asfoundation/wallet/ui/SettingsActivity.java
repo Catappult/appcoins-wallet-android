@@ -20,26 +20,18 @@ public class SettingsActivity extends BaseActivity implements HasFragmentInjecto
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_settings);
     toolbar();
-    // Display the fragment as the main content.
-    getFragmentManager().beginTransaction()
+    getSupportFragmentManager().beginTransaction()
         .replace(R.id.fragment_container, new SettingsFragment())
         .commit();
   }
 
   @Override public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case android.R.id.home: {
-        new TransactionsRouter().open(this, true);
-        finish();
-        return true;
-      }
+    if (item.getItemId() == android.R.id.home) {
+      new TransactionsRouter().open(this, true);
+      finish();
+      return true;
     }
     return super.onOptionsItemSelected(item);
-  }
-
-  @Override public void onBackPressed() {
-    new TransactionsRouter().open(this, true);
-    finish();
   }
 
   @Override public AndroidInjector<android.app.Fragment> fragmentInjector() {

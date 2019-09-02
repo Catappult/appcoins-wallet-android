@@ -61,6 +61,7 @@ project.ext {
   cppVersion = "2.3.1"
   viewPagerVersion = "1.0.0-beta03"
   pageIndicatorViewVersion = "1.0.3"
+  preferenceLibVersion = "1.1.0-rc01"
 }
 
 task clean(type: Delete) {
