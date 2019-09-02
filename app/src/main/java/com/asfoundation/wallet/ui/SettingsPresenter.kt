@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui
 
-import android.preference.PreferenceManager
+import android.content.SharedPreferences
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.SmsValidationInteract
@@ -13,7 +13,8 @@ class SettingsPresenter(private val view: SettingsView,
                         private val viewScheduler: Scheduler,
                         private val disposables: CompositeDisposable,
                         private val findDefaultWalletInteract: FindDefaultWalletInteract,
-                        private val smsValidationInteract: SmsValidationInteract) {
+                        private val smsValidationInteract: SmsValidationInteract,
+                        private val defaultSharedPreferences: SharedPreferences) {
 
 
   fun present() {
@@ -45,12 +46,16 @@ class SettingsPresenter(private val view: SettingsView,
   private fun handleWalletsPreferenceSummary() {
     disposables.add(findDefaultWalletInteract.find()
         .subscribe({ wallet ->
-          PreferenceManager.getDefaultSharedPreferences(view.getContext())
-              .edit()
-              .putString("pref_wallet", wallet.address)
-              .apply()
+          addWalletPreference(wallet.address)
           view.setWalletsPreference(wallet.address)
         }, {}))
+  }
+
+  private fun addWalletPreference(address: String?) {
+    defaultSharedPreferences
+        .edit()
+        .putString("pref_wallet", address)
+        .apply()
   }
 
   private fun handleRedeemPreferenceSetup() {

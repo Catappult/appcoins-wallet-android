@@ -32,9 +32,9 @@ class WalletValidationActivity : BaseActivity(),
     const val SETTINGS_FLOW = "settings_flow"
 
     @JvmStatic
-    fun newIntent(context: Context, hasToolbar: Boolean = false): Intent {
+    fun newIntent(context: Context, isSettingsFlow: Boolean = false): Intent {
       val intent = Intent(context, WalletValidationActivity::class.java)
-      intent.putExtra(SETTINGS_FLOW, hasToolbar)
+      intent.putExtra(SETTINGS_FLOW, isSettingsFlow)
       return intent
     }
   }

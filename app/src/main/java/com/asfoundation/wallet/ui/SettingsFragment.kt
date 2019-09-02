@@ -2,11 +2,11 @@ package com.asfoundation.wallet.ui
 
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.View
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -38,10 +38,9 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidSupportInjection.inject(this)
     super.onCreate(savedInstanceState)
-    presenter = SettingsPresenter(this,
-        Schedulers.io(),
-        AndroidSchedulers.mainThread(), CompositeDisposable(), findDefaultWalletInteract,
-        smsValidationInteract)
+    presenter = SettingsPresenter(this, Schedulers.io(), AndroidSchedulers.mainThread(),
+        CompositeDisposable(), findDefaultWalletInteract, smsValidationInteract,
+        PreferenceManager.getDefaultSharedPreferences(context))
   }
 
   override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -131,10 +130,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
           false)
       false
     }
-  }
-
-  override fun getContext(): Context? {
-    return super.getContext()
   }
 
   private fun setPermissionPreference() {
