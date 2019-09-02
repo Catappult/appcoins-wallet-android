@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View.*
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
@@ -11,6 +12,7 @@ import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.ui.BaseActivity
+import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,6 +20,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.ReplaySubject
+import kotlinx.android.synthetic.main.invite_friends_activity_layout.*
+import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import javax.inject.Inject
 
 class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
@@ -68,10 +72,14 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
   }
 
   override fun navigateToVerificationFragment() {
+    fragment_container.visibility = VISIBLE
+    no_network.visibility = GONE
     navigateTo(InviteFriendsVerificationFragment())
   }
 
   override fun navigateToInviteFriends() {
+    fragment_container.visibility = VISIBLE
+    no_network.visibility = GONE
     navigateTo(InviteFriendsFragment())
   }
 
@@ -81,10 +89,6 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
 
   override fun infoButtonInitialized(): Observable<Boolean> {
     return infoButtonInitializeSubject!!
-  }
-
-  override fun showNoNetworkScreen() {
-
   }
 
   override fun showInfoButton() {
@@ -112,6 +116,22 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, fragment)
         .commit()
+  }
+
+  override fun retryClick(): Observable<Any> {
+    return RxView.clicks(retry_button)
+  }
+
+  override fun showNetworkErrorView() {
+    no_network.visibility = VISIBLE
+    retry_button.visibility = VISIBLE
+    retry_animation.visibility = GONE
+    fragment_container.visibility = GONE
+  }
+
+  override fun showRetryAnimation() {
+    retry_button.visibility = INVISIBLE
+    retry_animation.visibility = VISIBLE
   }
 
   override fun onDestroy() {

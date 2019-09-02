@@ -5,6 +5,8 @@ import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
+import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 class InviteFriendsActivityPresenter(private val activity: InviteFriendsActivityView,
                                      private val smsValidationInteract: SmsValidationInteract,
@@ -15,6 +17,7 @@ class InviteFriendsActivityPresenter(private val activity: InviteFriendsActivity
 
   fun present() {
     handleFragmentNavigation()
+    handleRetryClick()
   }
 
   private fun handleFragmentNavigation() {
@@ -23,7 +26,7 @@ class InviteFriendsActivityPresenter(private val activity: InviteFriendsActivity
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess { handleValidationResult(it) }
-        .subscribe({}, { it.printStackTrace() })
+        .subscribe({}, { handlerError(it) })
     )
   }
 
@@ -33,7 +36,7 @@ class InviteFriendsActivityPresenter(private val activity: InviteFriendsActivity
         activity.navigateToInviteFriends()
         handleInfoButtonVisibility()
       }
-      WalletValidationStatus.NO_NETWORK -> activity.showNoNetworkScreen()
+      WalletValidationStatus.NO_NETWORK -> activity.showNetworkErrorView()
       else -> activity.navigateToVerificationFragment()
     }
   }
@@ -44,6 +47,27 @@ class InviteFriendsActivityPresenter(private val activity: InviteFriendsActivity
         .doOnNext { activity.showInfoButton() }
         .subscribe({}, { it.printStackTrace() }))
   }
+
+  private fun handlerError(throwable: Throwable) {
+    throwable.printStackTrace()
+    if (isNoNetworkException(throwable)) {
+      activity.showNetworkErrorView()
+    }
+  }
+
+  private fun isNoNetworkException(throwable: Throwable): Boolean {
+    return throwable is IOException || throwable.cause != null && throwable.cause is IOException
+  }
+
+  private fun handleRetryClick() {
+    disposables.add(activity.retryClick()
+        .observeOn(viewScheduler)
+        .doOnNext { activity.showRetryAnimation() }
+        .delay(1, TimeUnit.SECONDS)
+        .doOnNext { handleFragmentNavigation() }
+        .subscribe({}, { it.printStackTrace() }))
+  }
+
 
   fun stop() {
     disposables.clear()

@@ -20,5 +20,30 @@
       android:layout_marginTop="?attr/actionBarSize"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      ></FrameLayout>
+      />
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/no_network"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_marginTop="?attr/actionBarSize"
+      android:background="@drawable/background_card"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      >
+    <include
+        layout="@layout/no_network_retry_only_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/half_guideline"
+        />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/half_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.68"
+        />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,9 +8,11 @@ interface InviteFriendsActivityView {
   fun navigateToInviteFriends()
   fun getInfoButtonClick(): Observable<Any>
   fun infoButtonInitialized(): Observable<Boolean>
-  fun showNoNetworkScreen()
   fun showInfoButton()
   fun navigateToWalletValidation(beenInvited: Boolean)
   fun showShare(link: String)
   fun navigateToTopApps()
+  fun showNetworkErrorView()
+  fun showRetryAnimation()
+  fun retryClick(): Observable<Any>
 }

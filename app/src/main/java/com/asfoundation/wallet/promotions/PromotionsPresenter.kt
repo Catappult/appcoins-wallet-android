@@ -6,7 +6,6 @@ import com.appcoins.wallet.gamification.repository.UserStats
 import com.asfoundation.wallet.referrals.ReferralsScreen
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.UserRewardsStatus
-import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -155,12 +154,9 @@ class PromotionsPresenter(private val view: PromotionsView,
   private fun handleRetryClick() {
     disposables.add(view.retryClick()
         .observeOn(viewScheduler)
-        .flatMapCompletable {
-          Completable.fromAction { view.showRetryAnimation() }
-              .andThen(Completable.timer(1, TimeUnit.SECONDS))
-              .andThen { view.showLoading() }
-              .andThen { retrievePromotions() }
-        }
+        .doOnNext { view.showRetryAnimation() }
+        .delay(1, TimeUnit.SECONDS)
+        .doOnNext { retrievePromotions() }
         .subscribe({}, { it.printStackTrace() }))
   }
 
