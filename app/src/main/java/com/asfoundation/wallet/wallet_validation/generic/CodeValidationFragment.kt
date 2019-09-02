@@ -45,6 +45,10 @@ class CodeValidationFragment : DaggerFragment(),
   private lateinit var fragmentContainer: ViewGroup
   private lateinit var clipboard: ClipboardManager
 
+  private val isSettingsFlow: Boolean by lazy {
+    arguments!!.getBoolean(SETTINGS_FLOW)
+  }
+
   val countryCode: String by lazy {
     if (arguments!!.containsKey(
             PhoneValidationFragment.COUNTRY_CODE)) {
@@ -93,7 +97,7 @@ class CodeValidationFragment : DaggerFragment(),
     presenter =
         CodeValidationPresenter(this, walletValidationView, smsValidationInteract,
             defaultWalletInteract, AndroidSchedulers.mainThread(), Schedulers.io(), countryCode,
-            phoneNumber, CompositeDisposable())
+            phoneNumber, CompositeDisposable(), isSettingsFlow)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -104,6 +108,7 @@ class CodeValidationFragment : DaggerFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    setupBodyText()
     presenter.present()
   }
 
@@ -284,6 +289,17 @@ class CodeValidationFragment : DaggerFragment(),
     referral_status_animation.playAnimation()
   }
 
+  override fun showGenericValidationComplete() {
+    walletValidationView?.showLastStepAnimation()
+    content.visibility = View.GONE
+    animation_validating_code.visibility = View.GONE
+    referral_status.visibility = View.VISIBLE
+    referral_status_title.setText(R.string.verification_completed_title)
+    referral_status_body.setText(R.string.verification_completed_body)
+    referral_status_animation.setAnimation(R.raw.referral_invited)
+    referral_status_animation.playAnimation()
+  }
+
   override fun showNoInternetView() {
     walletValidationView?.hideProgressAnimation()
     stopRetryAnimation()
@@ -335,14 +351,17 @@ class CodeValidationFragment : DaggerFragment(),
 
     internal const val ERROR_MESSAGE = "ERROR_MESSAGE"
     internal const val VALIDATION_INFO = "VALIDATION_INFO"
+    internal const val SETTINGS_FLOW = "SETTINGS_FLOW"
 
     @JvmStatic
-    fun newInstance(countryCode: String, phoneNumber: String): Fragment {
+    fun newInstance(countryCode: String, phoneNumber: String,
+                    isSettingsFlow: Boolean = false): Fragment {
       val bundle = Bundle()
       bundle.putString(
           PhoneValidationFragment.COUNTRY_CODE, countryCode)
       bundle.putString(
           PhoneValidationFragment.PHONE_NUMBER, phoneNumber)
+      bundle.putBoolean(SETTINGS_FLOW, isSettingsFlow)
 
       val fragment = CodeValidationFragment()
       fragment.arguments = bundle
@@ -350,7 +369,8 @@ class CodeValidationFragment : DaggerFragment(),
     }
 
     @JvmStatic
-    fun newInstance(info: ValidationInfo, errorMessage: Int): Fragment {
+    fun newInstance(info: ValidationInfo, errorMessage: Int,
+                    isSettingsFlow: Boolean = false): Fragment {
       val bundle = Bundle()
       bundle.putString(
           PhoneValidationFragment.COUNTRY_CODE, info.countryCode)
@@ -360,12 +380,12 @@ class CodeValidationFragment : DaggerFragment(),
           ERROR_MESSAGE, errorMessage)
       bundle.putSerializable(
           VALIDATION_INFO, info)
+      bundle.putBoolean(SETTINGS_FLOW, isSettingsFlow)
 
       val fragment = CodeValidationFragment()
       fragment.arguments = bundle
       return fragment
     }
-
   }
 
   private fun focusAndShowKeyboard(view: EditText) {
@@ -376,4 +396,9 @@ class CodeValidationFragment : DaggerFragment(),
     }
   }
 
+  private fun setupBodyText() {
+    if (isSettingsFlow) {
+      code_validation_subtitle.text = getString(R.string.verification_insert_phone_body)
+    }
+  }
 }

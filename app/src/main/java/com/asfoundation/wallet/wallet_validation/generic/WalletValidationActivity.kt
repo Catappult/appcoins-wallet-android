@@ -22,21 +22,19 @@ class WalletValidationActivity : BaseActivity(),
   private var minFrame = 0
   private var maxFrame = 30
   private var loopAnimation = -1
-  private var toolbarTitle = ""
+
+  private val isSettingsFlow: Boolean by lazy {
+    intent.getBooleanExtra(SETTINGS_FLOW, false)
+  }
 
   companion object {
     const val FRAME_RATE = 30
-    const val TOOLBAR_TITLE = "toolbar_title"
+    const val SETTINGS_FLOW = "settings_flow"
 
     @JvmStatic
-    fun newIntent(context: Context): Intent {
-      return Intent(context, WalletValidationActivity::class.java)
-    }
-
-    @JvmStatic
-    fun newIntent(context: Context, toolbarTitle: String): Intent {
+    fun newIntent(context: Context, hasToolbar: Boolean = false): Intent {
       val intent = Intent(context, WalletValidationActivity::class.java)
-      intent.putExtra(TOOLBAR_TITLE, toolbarTitle)
+      intent.putExtra(SETTINGS_FLOW, hasToolbar)
       return intent
     }
   }
@@ -60,11 +58,9 @@ class WalletValidationActivity : BaseActivity(),
   }
 
   private fun setupToolbar() {
-    intent.getStringExtra(TOOLBAR_TITLE)
-        ?.let { toolbarTitle = it }
-    if (toolbarTitle != "") {
+    if (isSettingsFlow) {
       toolbar()
-      setTitle(toolbarTitle)
+      setTitle(getString(R.string.verification_settings_unverified_title))
       wallet_validation_toolbar.visibility = View.VISIBLE
     }
   }
@@ -85,7 +81,7 @@ class WalletValidationActivity : BaseActivity(),
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             PhoneValidationFragment.newInstance(
-                countryCode, phoneNumber, errorMessage))
+                countryCode, phoneNumber, errorMessage, isSettingsFlow))
         .commit()
 
     Handler().postDelayed({
@@ -100,7 +96,7 @@ class WalletValidationActivity : BaseActivity(),
     increaseAnimationFrames()
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            CodeValidationFragment.newInstance(countryCode, phoneNumber))
+            CodeValidationFragment.newInstance(countryCode, phoneNumber, isSettingsFlow))
         .commit()
   }
 
@@ -108,7 +104,7 @@ class WalletValidationActivity : BaseActivity(),
     updateAnimation()
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            CodeValidationFragment.newInstance(validationInfo, errorMessage))
+            CodeValidationFragment.newInstance(validationInfo, errorMessage, isSettingsFlow))
         .commit()
   }
 

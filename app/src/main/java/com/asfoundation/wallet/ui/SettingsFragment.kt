@@ -37,11 +37,11 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidSupportInjection.inject(this)
+    super.onCreate(savedInstanceState)
     presenter = SettingsPresenter(this,
         Schedulers.io(),
         AndroidSchedulers.mainThread(), CompositeDisposable(), findDefaultWalletInteract,
         smsValidationInteract)
-    super.onCreate(savedInstanceState)
   }
 
   override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -51,11 +51,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     presenter.present()
-  }
-
-  override fun onResume() {
-    presenter.present()
-    super.onResume()
   }
 
   override fun onDestroyView() {
@@ -72,11 +67,9 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
       startActivity(intent)
     } catch (exception: ActivityNotFoundException) {
       exception.printStackTrace()
-      if (view != null) {
-        view?.let {
-          Snackbar.make(it, R.string.unknown_error, Snackbar.LENGTH_SHORT)
-              .show()
-        }
+      view?.let {
+        Snackbar.make(it, R.string.unknown_error, Snackbar.LENGTH_SHORT)
+            .show()
       }
     }
   }
@@ -88,15 +81,13 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   private fun openWalletValidationScreen(): Boolean {
     context?.let {
-      startActivity(WalletValidationActivity.newIntent(it,
-          getString(R.string.verification_settings_unverified_title)))
+      startActivity(WalletValidationActivity.newIntent(it, true))
     }
     return true
   }
 
   override fun setupPreferences() {
     setPermissionPreference()
-    setRedeemCodePreference()
     setSourceCodePreference()
     setBugReportPreference()
     setTwitterPreference()
@@ -132,6 +123,16 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
+  override fun setRedeemCodePreference(walletAddress: String) {
+    val redeemPreference = findPreference<Preference>("pref_redeem")
+    redeemPreference?.setOnPreferenceClickListener {
+      startBrowserActivity(Uri.parse(
+          BuildConfig.MY_APPCOINS_BASE_HOST + "redeem?wallet_address=" + walletAddress),
+          false)
+      false
+    }
+  }
+
   override fun getContext(): Context? {
     return super.getContext()
   }
@@ -140,19 +141,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     val permissionPreference = findPreference<Preference>("pref_permissions")
     permissionPreference?.setOnPreferenceClickListener {
       openPermissionScreen()
-    }
-  }
-
-  private fun setRedeemCodePreference() {
-    val redeemPreference = findPreference<Preference>("pref_redeem")
-    redeemPreference?.setOnPreferenceClickListener {
-      findDefaultWalletInteract.find()
-          .subscribe { wallet ->
-            startBrowserActivity(Uri.parse(
-                BuildConfig.MY_APPCOINS_BASE_HOST + "redeem?wallet_address=" + wallet.address),
-                false)
-          }
-      false
     }
   }
 

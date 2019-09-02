@@ -20,6 +20,7 @@ class SettingsPresenter(private val view: SettingsView,
     view.setupPreferences()
     handleVerifyWalletPreferenceSummary()
     handleWalletsPreferenceSummary()
+    handleRedeemPreferenceSetup()
   }
 
   fun stop() {
@@ -50,6 +51,13 @@ class SettingsPresenter(private val view: SettingsView,
               .apply()
           view.setWalletsPreference(wallet.address)
         }, {}))
+  }
+
+  private fun handleRedeemPreferenceSetup() {
+    disposables.add(findDefaultWalletInteract.find()
+        .subscribe { wallet ->
+          view.setRedeemCodePreference(wallet.address)
+        })
   }
 }
 

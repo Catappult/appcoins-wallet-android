@@ -13,6 +13,7 @@ interface SettingsView {
 
   fun setWalletsPreference(walletAddress: String)
 
-  fun getContext(): Context?
+  fun setRedeemCodePreference(walletAddress: String)
 
+  fun getContext(): Context?
 }

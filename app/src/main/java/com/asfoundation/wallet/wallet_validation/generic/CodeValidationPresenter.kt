@@ -21,7 +21,8 @@ class CodeValidationPresenter(
     private val networkScheduler: Scheduler,
     private val countryCode: String,
     private val phoneNumber: String,
-    private val disposables: CompositeDisposable
+    private val disposables: CompositeDisposable,
+    private val isSettingsFlow: Boolean
 ) {
 
   fun present() {
@@ -33,6 +34,7 @@ class CodeValidationPresenter(
     handleSubmitAndRetryClicks()
     handleOkClicks()
     handleLaterClicks()
+    handleGenericValidationStatus()
   }
 
   private fun handleLaterClicks() {
@@ -114,6 +116,12 @@ class CodeValidationPresenter(
       view.showReferralEligible()
     } else {
       view.showReferralIneligible()
+    }
+  }
+
+  private fun handleGenericValidationStatus() {
+    if (isSettingsFlow) {
+      view.showGenericValidationComplete()
     }
   }
 
