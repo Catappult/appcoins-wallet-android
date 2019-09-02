@@ -1,15 +1,14 @@
 package com.asfoundation.wallet.referrals
 
+import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
-import com.asfoundation.wallet.interact.SmsValidationInteract
-import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 class InviteFriendsActivityPresenter(private val activity: InviteFriendsActivityView,
-                                     private val smsValidationInteract: SmsValidationInteract,
+                                     private val referralInteractor: ReferralInteractorContract,
                                      private val walletInteract: FindDefaultWalletInteract,
                                      private val disposables: CompositeDisposable,
                                      private val networkScheduler: Scheduler,
@@ -22,22 +21,26 @@ class InviteFriendsActivityPresenter(private val activity: InviteFriendsActivity
 
   private fun handleFragmentNavigation() {
     disposables.add(walletInteract.find()
-        .flatMap { smsValidationInteract.isValid(it) }
+        .flatMap { referralInteractor.retrieveReferral() }
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess { handleValidationResult(it) }
+        .flatMapCompletable {
+          referralInteractor.saveReferralInformation(it.completed, it.receivedAmount.toString(),
+              it.link != null, ReferralsScreen.INVITE_FRIENDS)
+        }
         .subscribe({}, { handlerError(it) })
     )
   }
 
-  private fun handleValidationResult(validationStatus: WalletValidationStatus) {
-    when (validationStatus) {
-      WalletValidationStatus.SUCCESS -> {
-        activity.navigateToInviteFriends()
-        handleInfoButtonVisibility()
-      }
-      WalletValidationStatus.NO_NETWORK -> activity.showNetworkErrorView()
-      else -> activity.navigateToVerificationFragment()
+  private fun handleValidationResult(referral: ReferralResponse) {
+    if (referral.link != null) {
+      activity.navigateToInviteFriends(referral.amount, referral.pendingAmount,
+          referral.currency, referral.link, referral.completed, referral.receivedAmount,
+          referral.maxAmount, referral.available)
+      handleInfoButtonVisibility()
+    } else {
+      activity.navigateToVerificationFragment(referral.amount, referral.currency)
     }
   }
 

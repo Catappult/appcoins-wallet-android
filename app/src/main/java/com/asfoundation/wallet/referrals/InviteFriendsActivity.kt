@@ -9,7 +9,6 @@ import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
-import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.ui.BaseActivity
 import com.jakewharton.rxbinding2.view.RxView
@@ -22,6 +21,7 @@ import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.ReplaySubject
 import kotlinx.android.synthetic.main.invite_friends_activity_layout.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
@@ -32,7 +32,7 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
   private var infoButtonSubject: PublishSubject<Any>? = null
   private var infoButtonInitializeSubject: ReplaySubject<Boolean>? = null
   @Inject
-  lateinit var smsValidationInteract: SmsValidationInteract
+  lateinit var referralInteractor: ReferralInteractorContract
   @Inject
   lateinit var walletInteract: FindDefaultWalletInteract
 
@@ -46,7 +46,7 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
     browserRouter = ExternalBrowserRouter()
     navigateTo(LoadingFragment())
     presenter =
-        InviteFriendsActivityPresenter(this, smsValidationInteract, walletInteract,
+        InviteFriendsActivityPresenter(this, referralInteractor, walletInteract,
             CompositeDisposable(), Schedulers.io(), AndroidSchedulers.mainThread())
     presenter.present()
   }
@@ -71,16 +71,18 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
     return super.onCreateOptionsMenu(menu)
   }
 
-  override fun navigateToVerificationFragment() {
-    fragment_container.visibility = VISIBLE
-    no_network.visibility = GONE
-    navigateTo(InviteFriendsVerificationFragment())
+  override fun navigateToVerificationFragment(amount: BigDecimal, currency: String) {
+    hideNoNetworkView()
+    navigateTo(InviteFriendsVerificationFragment.newInstance(amount, currency))
   }
 
-  override fun navigateToInviteFriends() {
-    fragment_container.visibility = VISIBLE
-    no_network.visibility = GONE
-    navigateTo(InviteFriendsFragment())
+  override fun navigateToInviteFriends(amount: BigDecimal, pendingAmount: BigDecimal,
+                                       currency: String, link: String?, completed: Int,
+                                       receivedAmount: BigDecimal, maxAmount: BigDecimal,
+                                       available: Int) {
+    hideNoNetworkView()
+    navigateTo(InviteFriendsFragment.newInstance(amount, pendingAmount, currency, link, completed,
+        receivedAmount, maxAmount, available))
   }
 
   override fun getInfoButtonClick(): Observable<Any> {
@@ -110,6 +112,11 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
         .setType("text/plain")
         .setChooserTitle(resources.getString(R.string.referral_share_sheet_title))
         .startChooser()
+  }
+
+  private fun hideNoNetworkView() {
+    fragment_container.visibility = VISIBLE
+    no_network.visibility = GONE
   }
 
   private fun navigateTo(fragment: Fragment) {

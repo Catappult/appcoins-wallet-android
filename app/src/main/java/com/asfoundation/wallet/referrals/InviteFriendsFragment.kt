@@ -12,7 +12,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.invite_friends_fragment_layout.*
@@ -33,7 +32,7 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
     super.onCreate(savedInstanceState)
     presenter =
         InviteFriendsFragmentPresenter(this, activity, referralInteractor, CompositeDisposable(),
-            AndroidSchedulers.mainThread(), Schedulers.io())
+            Schedulers.io())
   }
 
   override fun onAttach(context: Context) {
@@ -48,13 +47,16 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
     referralsBottomSheet =
         BottomSheetBehavior.from(bottom_sheet_fragment_container)
     animateBackgroundFade()
+    setTextValues()
     presenter.present()
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
     childFragmentManager.beginTransaction()
-        .replace(R.id.bottom_sheet_fragment_container, ReferralsFragment())
+        .replace(R.id.bottom_sheet_fragment_container,
+            ReferralsFragment.newInstance(amount, pendingAmount, currency, completedInvites,
+                receivedAmount, maxAmount, available))
         .commit()
     return inflater.inflate(R.layout.invite_friends_fragment_layout, container, false)
   }
@@ -72,14 +74,13 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
   }
 
 
-  override fun setTextValues(individualValue: BigDecimal, pendingValue: BigDecimal,
-                             currency: String) {
+  private fun setTextValues() {
     referral_description.text =
         getString(R.string.referral_view_verified_body,
-            currency + individualValue.setScale(2, RoundingMode.FLOOR).toString())
+            currency + amount.setScale(2, RoundingMode.FLOOR).toString())
     notification_title.text =
         getString(R.string.referral_notification_bonus_pending_title,
-            currency + pendingValue.setScale(2, RoundingMode.FLOOR).toString())
+            currency + pendingAmount.setScale(2, RoundingMode.FLOOR).toString())
   }
 
   override fun shareLinkClick(): Observable<Any> {
@@ -90,7 +91,7 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
     return RxView.clicks(notification_apps_games_button)
   }
 
-  override fun showShare(link: String) {
+  override fun showShare() {
     activity?.showShare(link)
   }
 
@@ -125,5 +126,100 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+  }
+
+
+  private val receivedAmount: BigDecimal by lazy {
+    if (arguments!!.containsKey(RECEIVED_AMOUNT)) {
+      arguments!!.getSerializable(RECEIVED_AMOUNT) as BigDecimal
+    } else {
+      throw IllegalArgumentException("Received amount not found")
+    }
+  }
+
+  private val maxAmount: BigDecimal by lazy {
+    if (arguments!!.containsKey(MAX_AMOUNT)) {
+      arguments!!.getSerializable(MAX_AMOUNT) as BigDecimal
+    } else {
+      throw IllegalArgumentException("Max amount not found")
+    }
+  }
+
+  val amount: BigDecimal by lazy {
+    if (arguments!!.containsKey(AMOUNT)) {
+      arguments!!.getSerializable(AMOUNT) as BigDecimal
+    } else {
+      throw IllegalArgumentException("Amount not found")
+    }
+  }
+
+  val pendingAmount: BigDecimal by lazy {
+    if (arguments!!.containsKey(PENDING_AMOUNT)) {
+      arguments!!.getSerializable(PENDING_AMOUNT) as BigDecimal
+    } else {
+      throw IllegalArgumentException("Pending amount not found")
+    }
+  }
+
+  val currency: String by lazy {
+    if (arguments!!.containsKey(CURRENCY)) {
+      arguments!!.getString(CURRENCY)
+    } else {
+      throw IllegalArgumentException("Currency not found")
+    }
+  }
+
+  val link: String by lazy {
+    if (arguments!!.containsKey(LINK)) {
+      arguments!!.getString(LINK)
+    } else {
+      throw IllegalArgumentException("link not found")
+    }
+  }
+
+  val completedInvites: Int by lazy {
+    if (arguments!!.containsKey(COMPLETED_INVITES)) {
+      arguments!!.getInt(COMPLETED_INVITES)
+    } else {
+      throw IllegalArgumentException("Completed not found")
+    }
+  }
+
+  val available: Int by lazy {
+    if (arguments!!.containsKey(AVAILABLE)) {
+      arguments!!.getInt(AVAILABLE)
+    } else {
+      throw IllegalArgumentException("available not found")
+    }
+  }
+
+  companion object {
+
+    private const val AMOUNT = "amount"
+    private const val PENDING_AMOUNT = "pending_amount"
+    private const val LINK = "link"
+    private const val COMPLETED_INVITES = "completed_invites"
+    private const val RECEIVED_AMOUNT = "received_amount"
+    private const val MAX_AMOUNT = "max_amount"
+    private const val AVAILABLE = "available"
+    private const val CURRENCY = "currency"
+
+    fun newInstance(amount: BigDecimal, pendingAmount: BigDecimal,
+                    currency: String, link: String?, completed: Int,
+                    receivedAmount: BigDecimal, maxAmount: BigDecimal,
+                    available: Int): InviteFriendsFragment {
+      val bundle = Bundle()
+      bundle.putSerializable(AMOUNT, amount)
+      bundle.putSerializable(PENDING_AMOUNT, pendingAmount)
+      bundle.putString(CURRENCY, currency)
+      bundle.putString(LINK, link)
+      bundle.putInt(COMPLETED_INVITES, completed)
+      bundle.putSerializable(RECEIVED_AMOUNT, receivedAmount)
+      bundle.putSerializable(MAX_AMOUNT, maxAmount)
+      bundle.putInt(AVAILABLE, available)
+      val fragment = InviteFriendsFragment()
+      fragment.arguments = bundle
+      return fragment
+    }
   }
 }

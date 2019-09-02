@@ -9,25 +9,19 @@ import com.asf.wallet.R
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.invite_friends_verification_layout.*
 import java.math.BigDecimal
 import java.math.RoundingMode
-import javax.inject.Inject
 
 class InviteFriendsVerificationFragment : DaggerFragment(), InviteFriendsVerificationView {
 
   private lateinit var presenter: InviteFriendsVerificationPresenter
   private lateinit var activity: InviteFriendsActivityView
-  @Inject
-  lateinit var referralInteractor: ReferralInteractorContract
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = InviteFriendsVerificationPresenter(this, referralInteractor, CompositeDisposable(),
-        AndroidSchedulers.mainThread(), Schedulers.io())
+    presenter = InviteFriendsVerificationPresenter(this, CompositeDisposable())
   }
 
   override fun onAttach(context: Context) {
@@ -39,6 +33,7 @@ class InviteFriendsVerificationFragment : DaggerFragment(), InviteFriendsVerific
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    setDescriptionText()
     presenter.present()
   }
 
@@ -47,10 +42,10 @@ class InviteFriendsVerificationFragment : DaggerFragment(), InviteFriendsVerific
     return inflater.inflate(R.layout.invite_friends_verification_layout, container, false)
   }
 
-  override fun setDescriptionText(referralValue: BigDecimal, currency: String) {
+  private fun setDescriptionText() {
     verification_description.text =
         getString(R.string.referral_view_unverified_body,
-            currency + referralValue.setScale(2, RoundingMode.FLOOR).toString())
+            currency + amount.setScale(2, RoundingMode.FLOOR).toString())
   }
 
   override fun verifyButtonClick(): Observable<Any> {
@@ -68,5 +63,36 @@ class InviteFriendsVerificationFragment : DaggerFragment(), InviteFriendsVerific
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+  }
+
+  val amount: BigDecimal by lazy {
+    if (arguments!!.containsKey(AMOUNT)) {
+      arguments!!.getSerializable(AMOUNT) as BigDecimal
+    } else {
+      throw IllegalArgumentException("Amount not found")
+    }
+  }
+
+  val currency: String by lazy {
+    if (arguments!!.containsKey(CURRENCY)) {
+      arguments!!.getString(CURRENCY)
+    } else {
+      throw IllegalArgumentException("Currency not found")
+    }
+  }
+
+  companion object {
+
+    private const val AMOUNT = "amount"
+    private const val CURRENCY = "currency"
+
+    fun newInstance(amount: BigDecimal, currency: String): InviteFriendsVerificationFragment {
+      val bundle = Bundle()
+      bundle.putSerializable(AMOUNT, amount)
+      bundle.putString(CURRENCY, currency)
+      val fragment = InviteFriendsVerificationFragment()
+      fragment.arguments = bundle
+      return fragment
+    }
   }
 }

@@ -48,20 +48,6 @@
       tools:text="$8.60"
       />
 
-  <com.airbnb.lottie.LottieAnimationView
-      android:id="@+id/invited_friends_skeleton"
-      android:layout_width="wrap_content"
-      android:layout_height="16dp"
-      android:layout_marginTop="24dp"
-      app:layout_constraintEnd_toEndOf="@id/vertical_guideline4"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:lottie_autoPlay="true"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_loop="true"
-      app:lottie_rawRes="@raw/gamification_peek_skeleton"
-      />
-
   <TextView
       style="@style/GamificationBottomPeekTextStyle.Body"
       android:layout_width="0dp"
@@ -87,20 +73,6 @@
       app:layout_constraintStart_toStartOf="@id/vertical_guideline4"
       app:layout_constraintTop_toTopOf="parent"
       tools:text="89.20 APPC"
-      />
-
-  <com.airbnb.lottie.LottieAnimationView
-      android:id="@+id/received_amount_skeleton"
-      android:layout_width="wrap_content"
-      android:layout_height="16dp"
-      android:layout_marginTop="24dp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="@id/vertical_guideline4"
-      app:layout_constraintTop_toTopOf="parent"
-      app:lottie_autoPlay="true"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_loop="true"
-      app:lottie_rawRes="@raw/gamification_peek_skeleton"
       />
 
   <TextView
