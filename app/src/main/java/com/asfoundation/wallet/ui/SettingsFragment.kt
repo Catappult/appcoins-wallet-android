@@ -80,7 +80,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   private fun openWalletValidationScreen(): Boolean {
     context?.let {
-      startActivity(WalletValidationActivity.newIntent(it, true))
+      startActivity(WalletValidationActivity.newIntent(it, false, true))
     }
     return true
   }

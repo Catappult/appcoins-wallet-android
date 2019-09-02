@@ -11,6 +11,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.ui.BaseActivity
+import com.asfoundation.wallet.wallet_validation.generic.WalletValidationActivity
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
@@ -48,7 +49,6 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
     presenter =
         InviteFriendsActivityPresenter(this, referralInteractor, walletInteract,
             CompositeDisposable(), Schedulers.io(), AndroidSchedulers.mainThread())
-    presenter.present()
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -69,6 +69,11 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
     this.menu = menu
     infoButtonInitializeSubject?.onNext(true)
     return super.onCreateOptionsMenu(menu)
+  }
+
+  override fun onResume() {
+    super.onResume()
+    presenter.present()
   }
 
   override fun navigateToVerificationFragment(amount: BigDecimal, currency: String) {
@@ -99,7 +104,7 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
   }
 
   override fun navigateToWalletValidation(beenInvited: Boolean) {
-
+    startActivity(WalletValidationActivity.newIntent(this, beenInvited, false))
   }
 
   override fun navigateToTopApps() {
@@ -141,10 +146,14 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
     retry_animation.visibility = VISIBLE
   }
 
+  override fun onPause() {
+    presenter.stop()
+    super.onPause()
+  }
+
   override fun onDestroy() {
     infoButtonSubject = null
     infoButtonInitializeSubject = null
-    presenter.stop()
     super.onDestroy()
   }
 

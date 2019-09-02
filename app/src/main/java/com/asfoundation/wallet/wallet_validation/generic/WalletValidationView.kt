@@ -11,7 +11,7 @@ interface WalletValidationView {
 
   fun showCodeValidationView(validationInfo: ValidationInfo, errorMessage: Int)
 
-  fun showTransactionsActivity()
+  fun finishActivity()
 
   fun showLastStepAnimation()
 

@@ -37,8 +37,8 @@ class PhoneValidationFragment : DaggerFragment(),
   private var phoneNumber: String? = null
   private var errorMessage: Int? = null
 
-  private val isSettingsFlow: Boolean by lazy {
-    arguments!!.getBoolean(SETTINGS_FLOW)
+  private val hasBeenInvitedFlow: Boolean by lazy {
+    arguments!!.getBoolean(HAS_BEEN_INVITED_FLOW)
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -205,19 +205,18 @@ class PhoneValidationFragment : DaggerFragment(),
     internal const val COUNTRY_CODE = "COUNTRY_CODE"
     internal const val PHONE_NUMBER = "PHONE_NUMBER"
     internal const val ERROR_MESSAGE = "ERROR_MESSAGE"
-    internal const val SETTINGS_FLOW = "SETTINGS_FLOW"
+    internal const val HAS_BEEN_INVITED_FLOW = "HAS_BEEN_INVITED_FLOW"
 
     @JvmStatic
     fun newInstance(countryCode: String? = null, phoneNumber: String? = null,
-                    errorMessage: Int? = null, isSettingsFlow: Boolean = false): Fragment {
+                    errorMessage: Int? = null, hasBeenInvitedFlow: Boolean = true): Fragment {
       val bundle = Bundle()
       bundle.putString(
           COUNTRY_CODE, countryCode)
       bundle.putString(
           PHONE_NUMBER, phoneNumber)
       bundle.putBoolean(
-          SETTINGS_FLOW, isSettingsFlow)
-
+          HAS_BEEN_INVITED_FLOW, hasBeenInvitedFlow)
       errorMessage?.let {
         bundle.putInt(
             ERROR_MESSAGE, errorMessage)
@@ -239,7 +238,7 @@ class PhoneValidationFragment : DaggerFragment(),
   }
 
   private fun setupBodyText() {
-    if (isSettingsFlow) {
+    if (!hasBeenInvitedFlow) {
       phone_validation_subtitle.text = getString(R.string.verification_insert_phone_body)
     }
   }
