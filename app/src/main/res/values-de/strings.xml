@@ -56,7 +56,7 @@
   <string name="yes_continue">Ja, weiter</string>
   <string name="no_repeat">Nein, wiederholen</string>
   <string name="skip">Überspringen</string>
-  <string name="skip_with_arrow">Skip &gt;</string>
+  <string name="skip_with_arrow">Überspringen &gt;</string>
   <string name="root_title">GERÄTESICHERHEIT WURDE KOMPROMITTIERT</string>
   <string name="root_body">Jede App mit Root-Rechten kann auf die Keychain_Daten ihres AppCoins Wallets zugreifen und ihr Wallet entwenden! Entfernen Sie dieses Wallet sofort und stellen Sie sie auf einem sicheren Gerät wieder her.</string>
   <string name="credits_purchase_value">%s APPC Credits</string>
@@ -115,7 +115,7 @@
   <string name="intro_3_body">Erledigen Sie alle ihre In-App Einkäufe durch ihre bevorzugte Bezahlmethode.</string>
   <string name="intro_4_title">Sicher und Privat</string>
   <string name="intro_4_body">Ihre privaten Schlüssel werden nie ihr Gerät verlassen, ihre AppCoins sind also zu jeder Zeit sicher.</string>
-  <string name="intro_creating_wallet_short">Setting up your wallet for you&#8230;</string>
+  <string name="intro_creating_wallet_short">Ihr Wallet wird für Sie eingerichtet&#8230;</string>
   <string name="intro_wallet_created_short">Wallet erstellt!</string>
   <string name="intro_agree_terms_and_conditions_body">Durch das Drücken auf Weiter erklären Sie sich mit %1$s und %2$s des AppCoins Wallet einverstanden</string>
   <string name="intro_skip_button">WEITER</string>
@@ -383,9 +383,9 @@
   <string name="value_fiat">%1$s%2$s</string>
   <string name="value_crypto">%1$s%2$s</string>
   <string name="dismiss_button">Ablehnen</string>
-  <string name="discover_button">Discover</string>
-  <string name="retry_button">Retry</string>
-  <string name="do_it_later_button">Do it later</string>
+  <string name="discover_button">Los geht\'s</string>
+  <string name="retry_button">Neuer Versuch</string>
+  <string name="do_it_later_button">Später</string>
   <string name="connectoin_error_body">Scheinbar sind Sie nicht mit dem Internet verbunden. Überprüfen Sie ihrer Verbindung und überprüfen Sie es erneut!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ich stimme den %1$s und der %2$s des AppCoins Wallets zu.</string>
@@ -462,11 +462,11 @@
   <string name="referral_dropup_menu_requirements_purchase">Make one in-app purchase or top-up</string>
   <string name="referral_dropup_menu_requirements_body">You\'ll earn %1$s worth in AppCoins Credits for each friend meeting both requirements (up to %2$s)</string>
   <!--Promotions-->
-  <string name="bottom_navigation_promotions">Promotions</string>
+  <string name="bottom_navigation_promotions">Aktionen</string>
   <string name="bottom_navigation_promotions_detailed">Discover how to earn free AppCoins Credits with our promotions and campaigns!</string>
-  <string name="promotions_title">Promotions</string>
-  <string name="promotions_referral_card_title">Earn up to %s by inviting friends</string>
-  <string name="promotions_referral_card_body">Share your invite link and earn AppCoins Credits.</string>
-  <string name="promotions_gamification_card_title">Up to 30% bonus on every purchase</string>
-  <string name="promotions_new">NEW</string>
+  <string name="promotions_title">Aktionen</string>
+  <string name="promotions_referral_card_title">Laden Sie Freunde ein und verdienen Sie bis zu %s</string>
+  <string name="promotions_referral_card_body">Teilen Sie ihren Einladungslink und verdienen Sie AppCoins.</string>
+  <string name="promotions_gamification_card_title">Bis zu 30% Bonus für jeden Einkauf</string>
+  <string name="promotions_new">NEU</string>
 </resources>
