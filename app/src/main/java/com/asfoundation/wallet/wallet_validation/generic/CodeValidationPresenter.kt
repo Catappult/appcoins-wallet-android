@@ -40,7 +40,7 @@ class CodeValidationPresenter(
     disposables.add(
         view.getLaterButtonClicks()
             .doOnNext {
-              activity?.finishActivity()
+              activity?.finishCancelActivity()
             }.subscribe())
   }
 
@@ -95,7 +95,7 @@ class CodeValidationPresenter(
   private fun handleOkClicks() {
     disposables.add(
         view.getOkClicks()
-            .doOnNext { activity?.finishActivity() }
+            .doOnNext { activity?.finishSuccessActivity() }
             .subscribe()
     )
   }

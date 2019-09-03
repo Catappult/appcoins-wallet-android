@@ -27,21 +27,35 @@ class WalletValidationActivity : BaseActivity(),
     intent.getBooleanExtra(HAS_BEEN_INVITED_FLOW, false)
   }
 
-  private val navigateToTransactions: Boolean by lazy {
-    intent.getBooleanExtra(NAVIGATE_TO_TRANSACTIONS, true)
+  private val navigateToTransactionsOnSuccess: Boolean by lazy {
+    intent.getBooleanExtra(NAVIGATE_TO_TRANSACTIONS_ON_SUCCESS, true)
+  }
+
+  private val navigateToTransactionsOnCancel: Boolean by lazy {
+    intent.getBooleanExtra(NAVIGATE_TO_TRANSACTIONS_ON_CANCEL, true)
+  }
+
+  private val showToolbar: Boolean by lazy {
+    intent.getBooleanExtra(SHOW_TOOLBAR, false)
   }
 
   companion object {
     const val FRAME_RATE = 30
     const val HAS_BEEN_INVITED_FLOW = "has_been_invited_flow"
-    const val NAVIGATE_TO_TRANSACTIONS = "navigate_to_transactions"
+    const val NAVIGATE_TO_TRANSACTIONS_ON_SUCCESS = "navigate_to_transactions_on_success"
+    const val NAVIGATE_TO_TRANSACTIONS_ON_CANCEL = "navigate_to_transactions_on_cancel"
+    const val SHOW_TOOLBAR = "show_toolbar"
 
     @JvmStatic
     fun newIntent(context: Context, hasBeenInvitedFlow: Boolean,
-                  navigateToTransactions: Boolean): Intent {
+                  navigateToTransactionsOnSuccess: Boolean,
+                  navigateToTransactionsOnCancel: Boolean,
+                  showToolbar: Boolean): Intent {
       val intent = Intent(context, WalletValidationActivity::class.java)
       intent.putExtra(HAS_BEEN_INVITED_FLOW, hasBeenInvitedFlow)
-      intent.putExtra(NAVIGATE_TO_TRANSACTIONS, navigateToTransactions)
+      intent.putExtra(NAVIGATE_TO_TRANSACTIONS_ON_SUCCESS, navigateToTransactionsOnSuccess)
+      intent.putExtra(NAVIGATE_TO_TRANSACTIONS_ON_CANCEL, navigateToTransactionsOnCancel)
+      intent.putExtra(SHOW_TOOLBAR, showToolbar)
       return intent
     }
   }
@@ -65,7 +79,7 @@ class WalletValidationActivity : BaseActivity(),
   }
 
   private fun setupToolbar() {
-    if (!navigateToTransactions || !hasBeenInvitedFlow) {
+    if (showToolbar) {
       toolbar()
       setTitle(getString(R.string.verification_settings_unverified_title))
       wallet_validation_toolbar.visibility = View.VISIBLE
@@ -119,8 +133,15 @@ class WalletValidationActivity : BaseActivity(),
     increaseAnimationFrames()
   }
 
-  override fun finishActivity() {
-    if (navigateToTransactions) {
+  override fun finishSuccessActivity() {
+    if (navigateToTransactionsOnSuccess) {
+      startActivity(TransactionsActivity.newIntent(this))
+    }
+    finish()
+  }
+
+  override fun finishCancelActivity() {
+    if (navigateToTransactionsOnCancel) {
       startActivity(TransactionsActivity.newIntent(this))
     }
     finish()

@@ -104,7 +104,10 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
   }
 
   override fun navigateToWalletValidation(beenInvited: Boolean) {
-    startActivity(WalletValidationActivity.newIntent(this, beenInvited, false))
+    startActivity(WalletValidationActivity.newIntent(this, beenInvited,
+        navigateToTransactionsOnSuccess = false,
+        navigateToTransactionsOnCancel = false,
+        showToolbar = true))
   }
 
   override fun navigateToTopApps() {
