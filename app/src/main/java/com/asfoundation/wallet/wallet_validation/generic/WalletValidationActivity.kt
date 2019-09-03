@@ -65,7 +65,7 @@ class WalletValidationActivity : BaseActivity(),
   }
 
   private fun setupToolbar() {
-    if (!hasBeenInvitedFlow) {
+    if (!navigateToTransactions || !hasBeenInvitedFlow) {
       toolbar()
       setTitle(getString(R.string.verification_settings_unverified_title))
       wallet_validation_toolbar.visibility = View.VISIBLE
