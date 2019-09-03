@@ -8,7 +8,7 @@ public class TransactionsRouter {
   public void open(Context context, boolean isClearStack) {
     Intent intent = new Intent(context, TransactionsActivity.class);
     if (isClearStack) {
-      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+      intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
     }
     context.startActivity(intent);
   }
