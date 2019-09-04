@@ -442,7 +442,7 @@
   <string name="referral_verification_confirmation_title">O teu convite foi validado!</string>
   <string name="referral_verification_confirmation_body">Assim que fizeres a tua primeira compra irás receber %s em AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">Parece que este número não foi convidado &#8230;</string>
-  <string name="referral_verification_not_invited_body">Mas ainda podes ganhar até %s ao convidares amigos! 💃🏽</string>
+  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s Bonus por Referência Pendente</string>
   <string name="referral_notification_bonus_pending_body">Faz a tua primeira compra in-app para receberes o teu bónus.</string>
   <string name="referral_view_title">Convida Amigos</string>
