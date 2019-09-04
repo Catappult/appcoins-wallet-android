@@ -21,6 +21,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Action
 import io.reactivex.schedulers.Schedulers
+import retrofit2.HttpException
 import java.io.IOException
 import java.math.BigDecimal
 import java.util.*
@@ -271,11 +272,15 @@ class PaymentMethodsPresenter(
 
   private fun showError(t: Throwable) {
     t.printStackTrace()
-    if (isNoNetworkException(t)) {
-      view.showError(R.string.notification_no_network_poa)
-    } else {
-      view.showError(R.string.activity_iab_error_message)
+    when {
+      isNoNetworkException(t) -> view.showError(R.string.notification_no_network_poa)
+      isItemAlreadyOwnedError(t) -> view.showItemAlreadyOwnedError()
+      else -> view.showError(R.string.activity_iab_error_message)
     }
+  }
+
+  private fun isItemAlreadyOwnedError(throwable: Throwable): Boolean {
+    return throwable is HttpException && throwable.code() == 409
   }
 
   private fun isNoNetworkException(throwable: Throwable): Boolean {
