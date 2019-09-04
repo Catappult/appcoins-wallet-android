@@ -442,7 +442,7 @@
   <string name="referral_verification_confirmation_title">Jemputan anda telah disahkan!</string>
   <string name="referral_verification_confirmation_body">Sebaik saja anda buat pembelian pertama anda, anda akan dapat sebanyak %s Kredit AppCoins.</string>
   <string name="referral_verification_not_invited_title">Nampaknya nombor ini tidak dijemput&#8230;</string>
-  <string name="referral_verification_not_invited_body">Tapi anda masih boleh peroleh sehingga %s dengan menjemput rakan! 💃🏽</string>
+  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s Bonus Rujukan Menanti</string>
   <string name="referral_notification_bonus_pending_body">Buat pembelian pertama dalam aplikasi untuk dapat bonus anda.</string>
   <string name="referral_view_title">Jemput Rakan</string>
