@@ -442,7 +442,7 @@
   <string name="referral_verification_confirmation_title">คำเชิญของคุณถูกยืนยันแล้ว!</string>
   <string name="referral_verification_confirmation_body">เมื่อคุณซื้อครั้งแรก คุณจะไดรับ %s ของเครดิต Aptoide</string>
   <string name="referral_verification_not_invited_title">ดูเหมือนว่าหมายเลขนี้ไม่ได้เชิญ &#8230;</string>
-  <string name="referral_verification_not_invited_body">แต่คุณยังคงสามารถรับได้สูงสุด %s ด้วยหารเชิญเพื่อน</string>
+  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">โบนัสการแนะนำ %s ที่ค้างอยู่</string>
   <string name="referral_notification_bonus_pending_body">ซื้อแอปครั้งแรกเพื่อรับโบนัสของคุณ</string>
   <string name="referral_view_title">เชิญเพื่อน</string>
