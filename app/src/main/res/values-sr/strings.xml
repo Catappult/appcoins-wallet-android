@@ -442,7 +442,7 @@
   <string name="referral_verification_confirmation_title">Vaš poziv je potvrđen!</string>
   <string name="referral_verification_confirmation_body">Čim obavite prvu kupovinu dobićete AppCoins Credits u vrednosti od %s.</string>
   <string name="referral_verification_not_invited_title">Izgleda da ovaj broj nije pozvan&#8230;</string>
-  <string name="referral_verification_not_invited_body">Ali ipak možete da zaradite do %s ako pozovete prijatelje! 💃🏽</string>
+  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s bonusa za preporuku je na čekanju</string>
   <string name="referral_notification_bonus_pending_body">Obavite prvu kupovinu u aplikaciji da biste dobili bonus.</string>
   <string name="referral_view_title">Pozovite prijatelje</string>
