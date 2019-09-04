@@ -442,7 +442,7 @@
   <string name="referral_verification_confirmation_title">Invitația ta a fost validată!</string>
   <string name="referral_verification_confirmation_body">Imediat ce vei face prima ta cumpărătură, vei primi AppCoins Credits în valoare de %s.</string>
   <string name="referral_verification_not_invited_title">Se pare că acest număr nu a fost invitat&#8230;</string>
-  <string name="referral_verification_not_invited_body">Dar poți continua să câștigi până la %s invitând prieteni! 💃🏽</string>
+  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s Bonus de referință în așteptare</string>
   <string name="referral_notification_bonus_pending_body">Fă prima ta cumpărătură in-app pentru a-ți primi bonusul.</string>
   <string name="referral_view_title">Invită prieteni</string>
