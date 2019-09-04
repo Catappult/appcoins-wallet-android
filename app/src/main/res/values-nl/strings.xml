@@ -442,7 +442,7 @@
   <string name="referral_verification_confirmation_title">Je uitnodiging is goedgekeurd!</string>
   <string name="referral_verification_confirmation_body">Als je je eerste aankoop doet, krijg je %s AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">Het lijkt erop dat dit nummer niet is uitgenodigd&#8230;</string>
-  <string name="referral_verification_not_invited_body">Maar je kunt nog steeds tot %s verdienen door vrienden uit te nodigen! 💃🏽</string>
+  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s verwijzingsbonus in behandeling</string>
   <string name="referral_notification_bonus_pending_body">Doe je eerste in-app aankoop om je bonus te ontvangen.</string>
   <string name="referral_view_title">Vrienden uitnodigen</string>
