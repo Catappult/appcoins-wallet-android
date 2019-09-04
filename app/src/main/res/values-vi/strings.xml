@@ -442,7 +442,7 @@
   <string name="referral_verification_confirmation_title">Lời mời của bạn đã được xác thực!</string>
   <string name="referral_verification_confirmation_body">Ngay khi bạn thực hiện giao dịch đầu tiên, bạn sẽ nhận được %s bằng AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">Dường như số này không được mời&#8230;</string>
-  <string name="referral_verification_not_invited_body">Tuy nhiên, bạn vẫn có thể nhận được đến %s bằng cách mời bạn bè! 💃🏽</string>
+  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s tiền thưởng giới thiệu đang chờ xử lý</string>
   <string name="referral_notification_bonus_pending_body">Thực hiện mua hàng trong ứng dụng lần đầu tiên để nhận được phần thưởng.</string>
   <string name="referral_view_title">Mời bạn bè</string>
