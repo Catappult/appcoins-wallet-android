@@ -442,7 +442,7 @@
   <string name="referral_verification_confirmation_title">Η πρόσκλησή σας επικυρώθηκε!</string>
   <string name="referral_verification_confirmation_body">Μόλις πραγματοποιήσετε την πρώτη σας αγορά, θα λάβετε AppCoins Credits αξίας %s.</string>
   <string name="referral_verification_not_invited_title">Φαίνεται ότι αυτός ο αριθμός δεν έχει λάβει πρόσκληση&#8230;</string>
-  <string name="referral_verification_not_invited_body">Ωστόσο, μπορείτε ακόμη να λάβετε έως %s, προσκαλώντας φίλους! 💃🏽</string>
+  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">Bonus Σύστασης %s σε εκκρεμότητα</string>
   <string name="referral_notification_bonus_pending_body">Πραγματοποιήστε την πρώτη σας αγορά εντός εφαρμογών για να λάβετε το bonus σας.</string>
   <string name="referral_view_title">Προσκαλέστε Φίλους</string>
