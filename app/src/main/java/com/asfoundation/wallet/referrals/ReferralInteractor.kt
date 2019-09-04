@@ -26,7 +26,7 @@ class ReferralInteractor(
         .flatMap { wallet ->
           promotionsRepository.getReferralUserStatus(wallet.address)
               .flatMap {
-                hasReferralUpdate(wallet.address, it.invited, it.receivedAmount,
+                hasReferralUpdate(wallet.address, it.completed, it.receivedAmount,
                     it.link != null, screen)
               }
         }

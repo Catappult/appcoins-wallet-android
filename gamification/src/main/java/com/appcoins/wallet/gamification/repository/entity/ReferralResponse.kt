@@ -10,7 +10,7 @@ data class ReferralResponse(
     val bundle: Boolean,
     val completed: Int,
     val currency: String,
-    val invited: Int,
+    val invited: Boolean,
     val link: String?,
     @SerializedName("pending_amount")
     val pendingAmount: BigDecimal,

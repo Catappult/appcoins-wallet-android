@@ -41,7 +41,7 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
     val referral = userStatus.referral
     return PromotionsViewModel(gamification.bundle, referral.bundle,
         gamification.level, gamification.nextLevelAmount, gamification.totalSpend,
-        gamification.status, referral.link, referral.maxAmount, referral.invited,
+        gamification.status, referral.link, referral.maxAmount, referral.completed,
         referral.receivedAmount, referral.link != null, referral.currency)
   }
 }
