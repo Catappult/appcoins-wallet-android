@@ -13,7 +13,6 @@ import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.invite_friends_fragment_layout.*
 import kotlinx.android.synthetic.main.referral_notification_card.*
 import java.math.BigDecimal
@@ -30,9 +29,7 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter =
-        InviteFriendsFragmentPresenter(this, activity, referralInteractor, CompositeDisposable(),
-            Schedulers.io())
+    presenter = InviteFriendsFragmentPresenter(this, activity, CompositeDisposable())
   }
 
   override fun onAttach(context: Context) {
@@ -145,7 +142,7 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
     }
   }
 
-  val amount: BigDecimal by lazy {
+  private val amount: BigDecimal by lazy {
     if (arguments!!.containsKey(AMOUNT)) {
       arguments!!.getSerializable(AMOUNT) as BigDecimal
     } else {
@@ -153,7 +150,7 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
     }
   }
 
-  val pendingAmount: BigDecimal by lazy {
+  private val pendingAmount: BigDecimal by lazy {
     if (arguments!!.containsKey(PENDING_AMOUNT)) {
       arguments!!.getSerializable(PENDING_AMOUNT) as BigDecimal
     } else {
@@ -161,7 +158,7 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
     }
   }
 
-  val currency: String by lazy {
+  private val currency: String by lazy {
     if (arguments!!.containsKey(CURRENCY)) {
       arguments!!.getString(CURRENCY)
     } else {
@@ -169,7 +166,7 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
     }
   }
 
-  val link: String by lazy {
+  private val link: String by lazy {
     if (arguments!!.containsKey(LINK)) {
       arguments!!.getString(LINK)
     } else {
@@ -177,7 +174,7 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
     }
   }
 
-  val completedInvites: Int by lazy {
+  private val completedInvites: Int by lazy {
     if (arguments!!.containsKey(COMPLETED_INVITES)) {
       arguments!!.getInt(COMPLETED_INVITES)
     } else {
@@ -185,7 +182,7 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
     }
   }
 
-  val available: Int by lazy {
+  private val available: Int by lazy {
     if (arguments!!.containsKey(AVAILABLE)) {
       arguments!!.getInt(AVAILABLE)
     } else {
@@ -204,9 +201,8 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
     private const val AVAILABLE = "available"
     private const val CURRENCY = "currency"
 
-    fun newInstance(amount: BigDecimal, pendingAmount: BigDecimal,
-                    currency: String, link: String?, completed: Int,
-                    receivedAmount: BigDecimal, maxAmount: BigDecimal,
+    fun newInstance(amount: BigDecimal, pendingAmount: BigDecimal, currency: String, link: String?,
+                    completed: Int, receivedAmount: BigDecimal, maxAmount: BigDecimal,
                     available: Int): InviteFriendsFragment {
       val bundle = Bundle()
       bundle.putSerializable(AMOUNT, amount)

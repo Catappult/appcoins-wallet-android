@@ -180,7 +180,6 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="16dp"
-      android:layout_marginTop="18dp"
       android:layout_marginEnd="16dp"
       android:ellipsize="end"
       android:fontFamily="sans-serif"
@@ -191,7 +190,7 @@
       android:textSize="14sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/phone_icon"
-      app:layout_constraintTop_toBottomOf="@id/requirements"
+      app:layout_constraintTop_toTopOf="@id/phone_icon"
       />
 
   <ImageView
@@ -210,7 +209,6 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="16dp"
-      android:layout_marginTop="18dp"
       android:layout_marginEnd="16dp"
       android:ellipsize="end"
       android:fontFamily="sans-serif"
@@ -221,7 +219,7 @@
       android:textSize="14sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/shop_cart_icon"
-      app:layout_constraintTop_toBottomOf="@id/validation_text"
+      app:layout_constraintTop_toTopOf="@id/shop_cart_icon"
       />
 
   <TextView

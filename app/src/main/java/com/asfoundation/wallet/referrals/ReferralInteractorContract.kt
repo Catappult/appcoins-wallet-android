@@ -7,8 +7,8 @@ import java.math.BigDecimal
 
 interface ReferralInteractorContract {
 
-  fun hasReferralUpdate(address: String, friendsInvited: Int, receivedValue:
-  BigDecimal, isVerified: Boolean, screen: ReferralsScreen): Single<Boolean>
+  fun hasReferralUpdate(address: String, friendsInvited: Int, receivedValue: BigDecimal,
+                        isVerified: Boolean, screen: ReferralsScreen): Single<Boolean>
 
   fun hasReferralUpdate(screen: ReferralsScreen): Single<Boolean>
 

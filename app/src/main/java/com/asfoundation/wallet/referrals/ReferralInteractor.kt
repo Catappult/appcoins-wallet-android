@@ -15,9 +15,10 @@ class ReferralInteractor(
 
   override fun hasReferralUpdate(address: String, friendsInvited: Int, receivedValue: BigDecimal,
                                  isVerified: Boolean, screen: ReferralsScreen): Single<Boolean> {
-    return getReferralInformation(address, screen).map {
-      hasDifferentInformation(receivedValue.toString() + friendsInvited + isVerified, it)
-    }
+    return getReferralInformation(address, screen)
+        .map {
+          hasDifferentInformation(receivedValue.toString() + friendsInvited + isVerified, it)
+        }
   }
 
   override fun hasReferralUpdate(screen: ReferralsScreen): Single<Boolean> {

@@ -92,7 +92,7 @@ class ReferralsFragment : DaggerFragment(), ReferralsView {
     }
   }
 
-  val currency: String by lazy {
+  private val currency: String by lazy {
     if (arguments!!.containsKey(CURRENCY)) {
       arguments!!.getString(CURRENCY)
     } else {
@@ -108,7 +108,7 @@ class ReferralsFragment : DaggerFragment(), ReferralsView {
     }
   }
 
-  val available: Int by lazy {
+  private val available: Int by lazy {
     if (arguments!!.containsKey(AVAILABLE)) {
       arguments!!.getInt(AVAILABLE)
     } else {
@@ -126,9 +126,9 @@ class ReferralsFragment : DaggerFragment(), ReferralsView {
     private const val AVAILABLE = "available"
     private const val CURRENCY = "currency"
 
-    fun newInstance(amount: BigDecimal, pendingAmount: BigDecimal,
-                    currency: String, completed: Int, receivedAmount: BigDecimal,
-                    maxAmount: BigDecimal, available: Int): ReferralsFragment {
+    fun newInstance(amount: BigDecimal, pendingAmount: BigDecimal, currency: String,
+                    completed: Int, receivedAmount: BigDecimal, maxAmount: BigDecimal,
+                    available: Int): ReferralsFragment {
       val bundle = Bundle()
       bundle.putSerializable(AMOUNT, amount)
       bundle.putSerializable(PENDING_AMOUNT, pendingAmount)

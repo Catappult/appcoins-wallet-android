@@ -1,13 +1,10 @@
 package com.asfoundation.wallet.referrals
 
-import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 
 class InviteFriendsFragmentPresenter(private val view: InviteFriendsFragmentView,
                                      private val activity: InviteFriendsActivityView?,
-                                     private val referralInteractor: ReferralInteractorContract,
-                                     private val disposable: CompositeDisposable,
-                                     private val networkScheduler: Scheduler) {
+                                     private val disposable: CompositeDisposable) {
 
   fun present() {
     handleInfoButtonClick()
@@ -29,9 +26,9 @@ class InviteFriendsFragmentPresenter(private val view: InviteFriendsFragmentView
 
   private fun handleInfoButtonClick() {
     activity?.let {
-      disposable.add(it.getInfoButtonClick().doOnNext {
-        view.changeBottomSheetState()
-      }.subscribe())
+      disposable.add(it.getInfoButtonClick()
+          .doOnNext { view.changeBottomSheetState() }
+          .subscribe())
     }
   }
 
