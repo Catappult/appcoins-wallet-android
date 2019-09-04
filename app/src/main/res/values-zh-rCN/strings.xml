@@ -442,7 +442,7 @@
   <string name="referral_verification_confirmation_title">你的邀请已通过验证！</string>
   <string name="referral_verification_confirmation_body">完成首次购买后，你将获得%s的AppCoins积金。</string>
   <string name="referral_verification_not_invited_title">此号码似乎未被邀请&#8230;</string>
-  <string name="referral_verification_not_invited_body">但你仍然可通过邀请好友最多获取%s💃🏽</string>
+  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s推荐奖励待处理</string>
   <string name="referral_notification_bonus_pending_body">完成首次应用内购买，以获取奖励。</string>
   <string name="referral_view_title">邀请好友</string>
