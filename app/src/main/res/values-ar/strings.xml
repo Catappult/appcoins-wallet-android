@@ -442,7 +442,7 @@
   <string name="referral_verification_confirmation_title">تم التحقق من دعوتك!</string>
   <string name="referral_verification_confirmation_body">حالما تتم عملة شرائك الأولى ستحصل على ما يساوي %s من رصيد AppCoins.</string>
   <string name="referral_verification_not_invited_title">يبدو أن هذا الرقم لم يُدعى&#8230;</string>
-  <string name="referral_verification_not_invited_body">لكن ما زال بإمكانك الحصول على ما يصل إلى %s بدعوة الأصدقاء! 💃🏽</string>
+  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s مكافأة الإحالة بالانتظار</string>
   <string name="referral_notification_bonus_pending_body">أجرِ عمليات الشراء داخل التطبيقات للحصول على المكافأة.</string>
   <string name="referral_view_title">دعوة الأصدقاء</string>
