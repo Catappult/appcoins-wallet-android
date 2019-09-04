@@ -442,7 +442,7 @@
   <string name="referral_verification_confirmation_title">دعوت شما معتبر است!</string>
   <string name="referral_verification_confirmation_body">به محض انجام اولین خرید خود، به ارزش %s اعتبار AppCoins دریافت خواهید کرد.</string>
   <string name="referral_verification_not_invited_title">به نظر می‌رسد که این شماره دعوت نشده‌است&#8230;</string>
-  <string name="referral_verification_not_invited_body">ولی هنوز می‌توانید با دعوت دوستان تا %s کسب درآمد کنید! 💃🏽</string>
+  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s پاداش همکاری به حالت تعلیق</string>
   <string name="referral_notification_bonus_pending_body">اولین خرید داخل اپلیکیشن خود را انجام دهید تا پاداش خود را دریافت کنید.</string>
   <string name="referral_view_title">دوستان را دعوت کنید</string>
