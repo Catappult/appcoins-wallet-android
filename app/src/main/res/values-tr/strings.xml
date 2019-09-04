@@ -442,7 +442,7 @@
   <string name="referral_verification_confirmation_title">Davetiniz doğrulandı!</string>
   <string name="referral_verification_confirmation_body">İlk alışverişinizi yapar yapmaz %s değerinde AppCoins Credits kazanacaksınız.</string>
   <string name="referral_verification_not_invited_title">Bu numara davet edilmemiş gibi görünüyor&#8230;</string>
-  <string name="referral_verification_not_invited_body">Ama yine de arkadaşlarınızı davet ederek %s\'a kadar kazanabilirsiniz! 💃🏽</string>
+  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s Referans Bonusu Beklemede</string>
   <string name="referral_notification_bonus_pending_body">Bonusunuzu almak için ilk uygulama içi satın alma işleminizi gerçekleştirin.</string>
   <string name="referral_view_title">Arkadaşlarınızı Davet Edin</string>
