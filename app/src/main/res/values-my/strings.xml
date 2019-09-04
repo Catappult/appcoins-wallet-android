@@ -442,7 +442,7 @@
   <string name="referral_verification_confirmation_title">သင့္ဖိတ္ေခၚမႈကိုု အတည္ျပဳၿပီးပါၿပီ။</string>
   <string name="referral_verification_confirmation_body">သင့္ပထမဆံုး ၀ယ္ယူမႈကို ျပဳလုပ္လိုက္သည္ႏွင့္ %s တန္ဖိုးရွိ AppCoins Credits မ်ားကို သင္ရရွိပါမည္။</string>
   <string name="referral_verification_not_invited_title">ဤနံပါတ္ကို ဖိတ္ေခၚထားပံုမရပါ&#8230;</string>
-  <string name="referral_verification_not_invited_body">သို႔ရာတြင္ သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚျခင္းျဖင့္ %s အထိ ရရွိႏိုင္ပါေသးသည္။ 💃🏽</string>
+  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s ညႊန္ေပးသည့္ေဘာနပ္စ္ကို ေဆာင္ရြက္ေနဆဲ</string>
   <string name="referral_notification_bonus_pending_body">သင့္ေဘာနပ္စ္ကို ရရွိရန္ အက္ပ္အတြင္း ၀ယ္ယူမႈကို ပထမဆံုးအႀကိမ္ ျပဳလုပ္လိုက္ပါ။</string>
   <string name="referral_view_title">သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚပါ</string>
