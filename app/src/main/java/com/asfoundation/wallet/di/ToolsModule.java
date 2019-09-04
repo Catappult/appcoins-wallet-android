@@ -146,6 +146,7 @@ import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.TransactionsNetworkClientType;
 import com.asfoundation.wallet.service.TrustWalletTickerService;
+import com.asfoundation.wallet.topup.MockedTopUpValuesService;
 import com.asfoundation.wallet.topup.TopUpInteractor;
 import com.asfoundation.wallet.transactions.TransactionsAnalytics;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
@@ -995,8 +996,13 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides TopUpInteractor providesTopUpInteractor(BdsRepository repository,
       LocalCurrencyConversionService conversionService,
-      GamificationInteractor gamificationInteractor) {
-    return new TopUpInteractor(repository, conversionService, gamificationInteractor);
+      GamificationInteractor gamificationInteractor, MockedTopUpValuesService topUpValuesService) {
+    return new TopUpInteractor(repository, conversionService, gamificationInteractor,
+        topUpValuesService);
+  }
+
+  @Provides MockedTopUpValuesService providesMockedTopUpValuesService() {
+    return new MockedTopUpValuesService();
   }
 
   @Singleton @Provides TransactionsAnalytics providesTransactionsAnalytics(

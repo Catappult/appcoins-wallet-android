@@ -91,6 +91,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
               .filter { it.currency.appcValue != "--" }
               .doOnComplete {
                 view.setConversionValue(topUpData)
+                handleShowValueWarning(topUpData)
               }
               .flatMap {
                 loadBonusIntoView(packageName, it.currency.fiatValue, it.currency.fiatCurrencyCode)
@@ -157,5 +158,36 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
             view.showBonus(it.amount, it.currency)
           }
         }
+  }
+
+  private fun handleShowValueWarning(topUpData: TopUpData) {
+    if (topUpData.currency.fiatValue != DEFAULT_VALUE) {
+      val value =
+          FiatValue(BigDecimal(topUpData.currency.fiatValue), topUpData.currency.fiatCurrencyCode,
+              topUpData.currency.fiatCurrencySymbol)
+      disposables.add(fetchMinAndMaxValues()
+          .subscribeOn(networkScheduler)
+          .observeOn(viewScheduler)
+          .doOnSuccess { showValueWarning(it.first, it.second, value) }
+          .subscribe())
+    }
+  }
+
+  private fun fetchMinAndMaxValues(): Single<Pair<FiatValue, FiatValue>> {
+    return Single.zip(interactor.getMaxTopUpValue(), interactor.getMinTopUpValue(),
+        BiFunction { maxValue: FiatValue, minValue: FiatValue -> Pair(maxValue, minValue) })
+  }
+
+  private fun showValueWarning(maxValue: FiatValue, minValue: FiatValue, value: FiatValue) {
+    val localCurrency = " ${maxValue.currency}"
+    if (value.amount > maxValue.amount) {
+      view.showMaxValueWarning(maxValue.amount.toPlainString() + localCurrency)
+    } else {
+      if (value.amount < minValue.amount) {
+        view.showMinValueWarning(minValue.amount.toPlainString() + localCurrency)
+      } else {
+        view.hideValueInputWarning()
+      }
+    }
   }
 }

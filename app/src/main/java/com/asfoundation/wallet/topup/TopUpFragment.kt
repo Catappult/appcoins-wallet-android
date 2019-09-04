@@ -264,6 +264,23 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     bonus_msg.visibility = View.VISIBLE
   }
 
+  override fun showMaxValueWarning(value: String) {
+    value_warning_text.text = getString(R.string.topup_maximum_value, value)
+    value_warning_icon.visibility = View.VISIBLE
+    value_warning_text.visibility = View.VISIBLE
+  }
+
+  override fun showMinValueWarning(value: String) {
+    value_warning_text.text = getString(R.string.topup_minimum_value, value)
+    value_warning_icon.visibility = View.VISIBLE
+    value_warning_text.visibility = View.VISIBLE
+  }
+
+  override fun hideValueInputWarning() {
+    value_warning_icon.visibility = View.INVISIBLE
+    value_warning_text.visibility = View.INVISIBLE
+  }
+
   private fun buildBonusString(bonus: BigDecimal, bonusCurrency: String) {
     var scaledBonus = bonus.stripTrailingZeros()
         .setScale(2, BigDecimal.ROUND_FLOOR)

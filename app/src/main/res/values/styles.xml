@@ -388,6 +388,10 @@
     <item name="android:gravity">start</item>
   </style>
 
+  <style name="TopUpTextStyle.ValueWarning">
+    <item name="android:textColor">@color/share_link_error_text_color</item>
+  </style>
+
   <style name="TransferAddressTextStyle">
     <item name="android:fontFamily">sans-serif</item>
     <item name="android:gravity">center</item>

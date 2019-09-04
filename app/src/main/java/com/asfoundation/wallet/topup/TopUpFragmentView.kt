@@ -39,4 +39,10 @@ interface TopUpFragmentView {
   fun hideBonus()
 
   fun showBonus(bonus: BigDecimal, currency: String)
+
+  fun showMaxValueWarning(value: String)
+
+  fun showMinValueWarning(value: String)
+
+  fun hideValueInputWarning()
 }
