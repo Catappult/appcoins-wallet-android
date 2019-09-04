@@ -10,6 +10,7 @@ import android.view.animation.AnimationUtils
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.UserRewardsStatus
+import com.asfoundation.wallet.util.scaleToString
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -23,8 +24,6 @@ import kotlinx.android.synthetic.main.promotions_fragment_view.referrals_card
 import kotlinx.android.synthetic.main.referral_card_layout.*
 import kotlinx.android.synthetic.main.rewards_progress_bar.*
 import java.math.BigDecimal
-import java.math.RoundingMode
-import java.text.DecimalFormat
 import javax.inject.Inject
 
 class PromotionsFragment : DaggerFragment(), PromotionsView {
@@ -179,7 +178,7 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
 
   override fun setReferralBonus(bonus: BigDecimal, currency: String) {
     promotions_title.text = getString(R.string.promotions_referral_card_title,
-        currency + convertToString(bonus))
+        currency + bonus.scaleToString(2))
   }
 
   override fun toogleShareAvailability(validated: Boolean) {
@@ -198,10 +197,5 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
   override fun onPause() {
     presenter.stop()
     super.onPause()
-  }
-
-  private fun convertToString(value: BigDecimal): String {
-    val format = DecimalFormat("#.##")
-    return format.format(value.setScale(2, RoundingMode.FLOOR))
   }
 }
