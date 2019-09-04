@@ -4,6 +4,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
+import com.asfoundation.wallet.util.scaleToString
 import com.asfoundation.wallet.wallet_validation.ValidationInfo
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Observable
@@ -11,8 +12,6 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function6
 import java.math.BigDecimal
-import java.math.RoundingMode
-import java.text.DecimalFormat
 import java.util.concurrent.TimeUnit
 
 class CodeValidationPresenter(
@@ -118,9 +117,7 @@ class CodeValidationPresenter(
   }
 
   private fun handleReferralStatus(eligible: Boolean, currency: String, maxAmount: BigDecimal) {
-    val format = DecimalFormat("#.##")
-    val maxAmountString = format.format(maxAmount.setScale(2, RoundingMode.FLOOR))
-        .toString()
+    val maxAmountString = maxAmount.scaleToString(2)
     if (eligible) {
       view.showReferralEligible(currency, maxAmountString)
     } else {
