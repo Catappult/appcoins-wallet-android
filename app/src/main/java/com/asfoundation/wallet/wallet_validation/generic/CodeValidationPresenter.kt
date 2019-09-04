@@ -22,7 +22,7 @@ class CodeValidationPresenter(
     private val countryCode: String,
     private val phoneNumber: String,
     private val disposables: CompositeDisposable,
-    private val isSettingsFlow: Boolean
+    private val hasBeenInvitedFlow: Boolean
 ) {
 
   fun present() {
@@ -40,7 +40,7 @@ class CodeValidationPresenter(
     disposables.add(
         view.getLaterButtonClicks()
             .doOnNext {
-              activity?.showTransactionsActivity()
+              activity?.finishCancelActivity()
             }.subscribe())
   }
 
@@ -95,13 +95,13 @@ class CodeValidationPresenter(
   private fun handleOkClicks() {
     disposables.add(
         view.getOkClicks()
-            .doOnNext { activity?.showTransactionsActivity() }
+            .doOnNext { activity?.finishSuccessActivity() }
             .subscribe()
     )
   }
 
   private fun checkReferralAvailability() {
-    if (isSettingsFlow) {
+    if (!hasBeenInvitedFlow) {
       view.showGenericValidationComplete()
     } else {
       disposables.add(

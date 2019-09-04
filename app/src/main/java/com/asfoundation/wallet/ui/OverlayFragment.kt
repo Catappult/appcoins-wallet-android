@@ -84,7 +84,7 @@ class OverlayFragment : Fragment(), OverlayView {
             val location = IntArray(2)
             icon.getLocationInWindow(location)
             arrow_down_tip.x =
-                location[0] * 1f + (icon.width / 4f) + itemView.width * item + (arrow_down_tip.width / 4f)
+                location[0] * 1f + (icon.width / 4f) + (arrow_down_tip.width / 4f)
           }
         })
   }

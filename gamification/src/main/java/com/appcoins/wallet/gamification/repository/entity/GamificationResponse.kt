@@ -12,7 +12,8 @@ data class GamificationResponse(
     val level: Int,
     @SerializedName("next_level_amount")
     val nextLevelAmount: BigDecimal?,
-    val status: Status) {
+    val status: Status,
+    val bundle: Boolean) {
 
   enum class Status {
     ACTIVE, INACTIVE

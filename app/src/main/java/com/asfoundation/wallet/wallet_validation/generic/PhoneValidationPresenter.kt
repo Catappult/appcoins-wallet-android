@@ -29,7 +29,7 @@ class PhoneValidationPresenter(
         Observable.merge(view.getCancelClicks(), view.getLaterButtonClicks())
             .doOnNext {
               view.hideKeyboard()
-              activity?.showTransactionsActivity()
+              activity?.finishCancelActivity()
             }.subscribe())
   }
 

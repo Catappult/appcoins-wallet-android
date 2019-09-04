@@ -137,7 +137,9 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     if (walletValidationStatus == null || walletValidationStatus == WalletValidationStatus.SUCCESS) {
       TransactionsRouter().open(this, true)
     } else {
-      val intent = WalletValidationActivity.newIntent(this)
+      val intent = WalletValidationActivity.newIntent(this, hasBeenInvitedFlow = true,
+          navigateToTransactionsOnSuccess = true, navigateToTransactionsOnCancel = true,
+          showToolbar = false)
       intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
       startActivity(intent)
     }

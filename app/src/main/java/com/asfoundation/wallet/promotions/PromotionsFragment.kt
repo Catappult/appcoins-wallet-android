@@ -10,6 +10,7 @@ import android.view.animation.AnimationUtils
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.gamification.UserRewardsStatus
+import com.asfoundation.wallet.util.scaleToString
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
@@ -22,6 +23,7 @@ import kotlinx.android.synthetic.main.promotions_fragment_view.*
 import kotlinx.android.synthetic.main.promotions_fragment_view.referrals_card
 import kotlinx.android.synthetic.main.referral_card_layout.*
 import kotlinx.android.synthetic.main.rewards_progress_bar.*
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class PromotionsFragment : DaggerFragment(), PromotionsView {
@@ -42,10 +44,8 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    if (context !is PromotionsActivityView) {
-      throw IllegalArgumentException(
-          PromotionsFragment::class.java.simpleName + " needs to be attached to a " + PromotionsActivityView::class.java.simpleName)
-    }
+    require(
+        context is PromotionsActivityView) { PromotionsFragment::class.java.simpleName + " needs to be attached to a " + PromotionsActivityView::class.java.simpleName }
     activity = context
   }
 
@@ -80,6 +80,10 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
       gamification_progress_bar.setLevelBonus(level,
           getString(bonusLabel, gamification_progress_bar.formatLevelInfo(value)))
     }
+  }
+
+  override fun showLoading() {
+    promotions_progress_bar.visibility = VISIBLE
   }
 
   override fun showReferralUpdate(show: Boolean) {
@@ -136,12 +140,12 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
     return RxView.clicks(retry_button)
   }
 
-  override fun showShare() {
-    activity.handleShare()
+  override fun showShare(link: String) {
+    activity.handleShare(link)
   }
 
-  override fun navigateToPromotionDetails() {
-    activity.navigateToPromotionDetails()
+  override fun navigateToInviteFriends() {
+    activity.navigateToInviteFriends()
   }
 
   override fun navigateToGamification() {
@@ -172,8 +176,17 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
     retry_animation.visibility = VISIBLE
   }
 
-  override fun setReferralBonus(bonus: String) {
-    promotions_title.text = getString(R.string.promotions_referral_card_title, bonus)
+  override fun setReferralBonus(bonus: BigDecimal, currency: String) {
+    promotions_title.text = getString(R.string.promotions_referral_card_title,
+        currency + bonus.scaleToString(2))
+  }
+
+  override fun toogleShareAvailability(validated: Boolean) {
+    share_button.isEnabled = validated
+  }
+
+  override fun hideLoading() {
+    promotions_progress_bar.visibility = INVISIBLE
   }
 
   override fun onResume() {

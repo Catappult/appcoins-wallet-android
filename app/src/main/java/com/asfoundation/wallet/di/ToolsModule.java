@@ -27,8 +27,9 @@ import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.commons.MemoryCache;
 import com.appcoins.wallet.gamification.Gamification;
-import com.appcoins.wallet.gamification.repository.BdsGamificationRepository;
+import com.appcoins.wallet.gamification.repository.BdsPromotionsRepository;
 import com.appcoins.wallet.gamification.repository.GamificationApi;
+import com.appcoins.wallet.gamification.repository.PromotionsRepository;
 import com.appcoins.wallet.permissions.Permissions;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxyBuilder;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk;
@@ -95,10 +96,10 @@ import com.asfoundation.wallet.poa.HashCalculator;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofWriter;
 import com.asfoundation.wallet.poa.TaggedCompositeDisposable;
+import com.asfoundation.wallet.promotions.PromotionsInteractor;
 import com.asfoundation.wallet.promotions.PromotionsInteractorContract;
-import com.asfoundation.wallet.promotions.PromotionsTestInteractor;
+import com.asfoundation.wallet.referrals.ReferralInteractor;
 import com.asfoundation.wallet.referrals.ReferralInteractorContract;
-import com.asfoundation.wallet.referrals.ReferralTestInteractor;
 import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.ApproveTransactionValidatorBds;
@@ -802,17 +803,24 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new CampaignService(api, BuildConfig.VERSION_CODE);
   }
 
-  @Provides Gamification provideGamification(OkHttpClient client, SharedPreferences preferences) {
+  @Provides Gamification provideGamification(PromotionsRepository promotionsRepository) {
+    return new Gamification(promotionsRepository);
+  }
+
+  @Provides PromotionsRepository providePromotionsRepository(GamificationApi api,
+      SharedPreferences preferences) {
+    return new BdsPromotionsRepository(api, new SharedPreferencesGamificationLocalData(preferences),
+        getVersionCode());
+  }
+
+  @Provides GamificationApi provideGamificationApi(OkHttpClient client) {
     String baseUrl = CampaignService.SERVICE_HOST;
-    GamificationApi api = new Retrofit.Builder().baseUrl(baseUrl)
+    return new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(GamificationApi.class);
-    return new Gamification(
-        new BdsGamificationRepository(api, new SharedPreferencesGamificationLocalData(preferences),
-            getVersionCode()));
   }
 
   @Singleton @Provides BackendApi provideBackendApi(OkHttpClient client, Gson gson) {
@@ -916,14 +924,17 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Provides PromotionsInteractorContract providePromotionsInteractor(
-      ReferralInteractorContract referralInteractor) {
-    return new PromotionsTestInteractor(referralInteractor);
+      ReferralInteractorContract referralInteractor, PromotionsRepository promotionsRepository,
+      FindDefaultWalletInteract findDefaultWalletInteract) {
+    return new PromotionsInteractor(referralInteractor, promotionsRepository,
+        findDefaultWalletInteract);
   }
 
   @Provides ReferralInteractorContract provideReferralInteractor(SharedPreferences preferences,
-      FindDefaultWalletInteract findDefaultWalletInteract) {
-    return new ReferralTestInteractor(new SharedPreferencesReferralLocalData(preferences),
-        findDefaultWalletInteract);
+      FindDefaultWalletInteract findDefaultWalletInteract,
+      PromotionsRepository promotionsRepository) {
+    return new ReferralInteractor(new SharedPreferencesReferralLocalData(preferences),
+        findDefaultWalletInteract, promotionsRepository);
   }
 
   @Singleton @Provides Permissions providesPermissions(Context context) {

@@ -23,18 +23,39 @@ class WalletValidationActivity : BaseActivity(),
   private var maxFrame = 30
   private var loopAnimation = -1
 
-  private val isSettingsFlow: Boolean by lazy {
-    intent.getBooleanExtra(SETTINGS_FLOW, false)
+  private val hasBeenInvitedFlow: Boolean by lazy {
+    intent.getBooleanExtra(HAS_BEEN_INVITED_FLOW, false)
+  }
+
+  private val navigateToTransactionsOnSuccess: Boolean by lazy {
+    intent.getBooleanExtra(NAVIGATE_TO_TRANSACTIONS_ON_SUCCESS, true)
+  }
+
+  private val navigateToTransactionsOnCancel: Boolean by lazy {
+    intent.getBooleanExtra(NAVIGATE_TO_TRANSACTIONS_ON_CANCEL, true)
+  }
+
+  private val showToolbar: Boolean by lazy {
+    intent.getBooleanExtra(SHOW_TOOLBAR, false)
   }
 
   companion object {
     const val FRAME_RATE = 30
-    const val SETTINGS_FLOW = "settings_flow"
+    const val HAS_BEEN_INVITED_FLOW = "has_been_invited_flow"
+    const val NAVIGATE_TO_TRANSACTIONS_ON_SUCCESS = "navigate_to_transactions_on_success"
+    const val NAVIGATE_TO_TRANSACTIONS_ON_CANCEL = "navigate_to_transactions_on_cancel"
+    const val SHOW_TOOLBAR = "show_toolbar"
 
     @JvmStatic
-    fun newIntent(context: Context, isSettingsFlow: Boolean = false): Intent {
+    fun newIntent(context: Context, hasBeenInvitedFlow: Boolean,
+                  navigateToTransactionsOnSuccess: Boolean,
+                  navigateToTransactionsOnCancel: Boolean,
+                  showToolbar: Boolean): Intent {
       val intent = Intent(context, WalletValidationActivity::class.java)
-      intent.putExtra(SETTINGS_FLOW, isSettingsFlow)
+      intent.putExtra(HAS_BEEN_INVITED_FLOW, hasBeenInvitedFlow)
+      intent.putExtra(NAVIGATE_TO_TRANSACTIONS_ON_SUCCESS, navigateToTransactionsOnSuccess)
+      intent.putExtra(NAVIGATE_TO_TRANSACTIONS_ON_CANCEL, navigateToTransactionsOnCancel)
+      intent.putExtra(SHOW_TOOLBAR, showToolbar)
       return intent
     }
   }
@@ -58,7 +79,7 @@ class WalletValidationActivity : BaseActivity(),
   }
 
   private fun setupToolbar() {
-    if (isSettingsFlow) {
+    if (showToolbar) {
       toolbar()
       setTitle(getString(R.string.verification_settings_unverified_title))
       wallet_validation_toolbar.visibility = View.VISIBLE
@@ -81,7 +102,7 @@ class WalletValidationActivity : BaseActivity(),
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
             PhoneValidationFragment.newInstance(
-                countryCode, phoneNumber, errorMessage, isSettingsFlow))
+                countryCode, phoneNumber, errorMessage, hasBeenInvitedFlow))
         .commit()
 
     Handler().postDelayed({
@@ -96,7 +117,7 @@ class WalletValidationActivity : BaseActivity(),
     increaseAnimationFrames()
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            CodeValidationFragment.newInstance(countryCode, phoneNumber, isSettingsFlow))
+            CodeValidationFragment.newInstance(countryCode, phoneNumber, hasBeenInvitedFlow))
         .commit()
   }
 
@@ -104,7 +125,7 @@ class WalletValidationActivity : BaseActivity(),
     updateAnimation()
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container,
-            CodeValidationFragment.newInstance(validationInfo, errorMessage, isSettingsFlow))
+            CodeValidationFragment.newInstance(validationInfo, errorMessage, hasBeenInvitedFlow))
         .commit()
   }
 
@@ -112,8 +133,17 @@ class WalletValidationActivity : BaseActivity(),
     increaseAnimationFrames()
   }
 
-  override fun showTransactionsActivity() {
-    startActivity(TransactionsActivity.newIntent(this))
+  override fun finishSuccessActivity() {
+    if (navigateToTransactionsOnSuccess) {
+      startActivity(TransactionsActivity.newIntent(this))
+    }
+    finish()
+  }
+
+  override fun finishCancelActivity() {
+    if (navigateToTransactionsOnCancel) {
+      startActivity(TransactionsActivity.newIntent(this))
+    }
     finish()
   }
 

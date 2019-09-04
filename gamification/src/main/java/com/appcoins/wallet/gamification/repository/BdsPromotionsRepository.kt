@@ -9,10 +9,10 @@ import io.reactivex.Single
 import java.math.BigDecimal
 import java.net.UnknownHostException
 
-class BdsGamificationRepository(private val api: GamificationApi,
-                                private val local: GamificationLocalData,
-                                private val versionCode: String) :
-    GamificationRepository {
+class BdsPromotionsRepository(private val api: GamificationApi,
+                              private val local: GamificationLocalData,
+                              private val versionCode: String) :
+    PromotionsRepository {
 
   override fun getLastShownLevel(wallet: String, screen: String): Single<Int> {
     return local.getLastShownLevel(wallet, screen)

@@ -28,7 +28,7 @@ class MyLevelPresenter(private val view: MyLevelView,
 
   private fun handleShowLevels(sendEvent: Boolean) {
     disposables.add(
-        Single.zip(gamification.getLevels(), gamification.getUserStatus(),
+        Single.zip(gamification.getLevels(), gamification.getUserStats(),
             gamification.getLastShownLevel(GamificationScreen.MY_LEVEL),
             Function3 { levels: Levels, userStats: UserStats, lastShownLevel: Int ->
               mapToUserStatus(levels, userStats, lastShownLevel)

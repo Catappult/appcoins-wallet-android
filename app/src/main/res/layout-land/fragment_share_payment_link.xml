@@ -92,7 +92,7 @@
       android:layout_marginTop="@dimen/normal_margin"
       android:layout_marginEnd="@dimen/big_margin"
       android:layout_marginBottom="@dimen/normal_margin"
-      android:drawableStart="@drawable/ic_share"
+      android:drawableStart="@drawable/ic_share_enabled"
       android:drawablePadding="8dp"
       android:text="@string/askafriend_share_button"
       app:layout_constraintBottom_toBottomOf="parent"

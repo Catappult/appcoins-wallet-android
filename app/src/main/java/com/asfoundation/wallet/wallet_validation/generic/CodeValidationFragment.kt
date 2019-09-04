@@ -45,8 +45,8 @@ class CodeValidationFragment : DaggerFragment(),
   private lateinit var fragmentContainer: ViewGroup
   private lateinit var clipboard: ClipboardManager
 
-  private val isSettingsFlow: Boolean by lazy {
-    arguments!!.getBoolean(SETTINGS_FLOW)
+  private val hasBeenInvitedFlow: Boolean by lazy {
+    arguments!!.getBoolean(HAS_BEEN_INVITED_FLOW)
   }
 
   val countryCode: String by lazy {
@@ -97,7 +97,7 @@ class CodeValidationFragment : DaggerFragment(),
     presenter =
         CodeValidationPresenter(this, walletValidationView, smsValidationInteract,
             defaultWalletInteract, AndroidSchedulers.mainThread(), Schedulers.io(), countryCode,
-            phoneNumber, CompositeDisposable(), isSettingsFlow)
+            phoneNumber, CompositeDisposable(), hasBeenInvitedFlow)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -351,17 +351,17 @@ class CodeValidationFragment : DaggerFragment(),
 
     internal const val ERROR_MESSAGE = "ERROR_MESSAGE"
     internal const val VALIDATION_INFO = "VALIDATION_INFO"
-    internal const val SETTINGS_FLOW = "SETTINGS_FLOW"
+    internal const val HAS_BEEN_INVITED_FLOW = "HAS_BEEN_INVITED_FLOW"
 
     @JvmStatic
     fun newInstance(countryCode: String, phoneNumber: String,
-                    isSettingsFlow: Boolean = false): Fragment {
+                    hasBeenInvitedFlow: Boolean = true): Fragment {
       val bundle = Bundle()
       bundle.putString(
           PhoneValidationFragment.COUNTRY_CODE, countryCode)
       bundle.putString(
           PhoneValidationFragment.PHONE_NUMBER, phoneNumber)
-      bundle.putBoolean(SETTINGS_FLOW, isSettingsFlow)
+      bundle.putBoolean(HAS_BEEN_INVITED_FLOW, hasBeenInvitedFlow)
 
       val fragment = CodeValidationFragment()
       fragment.arguments = bundle
@@ -370,7 +370,7 @@ class CodeValidationFragment : DaggerFragment(),
 
     @JvmStatic
     fun newInstance(info: ValidationInfo, errorMessage: Int,
-                    isSettingsFlow: Boolean = false): Fragment {
+                    hasBeenInvitedFlow: Boolean = true): Fragment {
       val bundle = Bundle()
       bundle.putString(
           PhoneValidationFragment.COUNTRY_CODE, info.countryCode)
@@ -380,7 +380,7 @@ class CodeValidationFragment : DaggerFragment(),
           ERROR_MESSAGE, errorMessage)
       bundle.putSerializable(
           VALIDATION_INFO, info)
-      bundle.putBoolean(SETTINGS_FLOW, isSettingsFlow)
+      bundle.putBoolean(HAS_BEEN_INVITED_FLOW, hasBeenInvitedFlow)
 
       val fragment = CodeValidationFragment()
       fragment.arguments = bundle
@@ -397,7 +397,7 @@ class CodeValidationFragment : DaggerFragment(),
   }
 
   private fun setupBodyText() {
-    if (isSettingsFlow) {
+    if (!hasBeenInvitedFlow) {
       code_validation_subtitle.text = getString(R.string.verification_insert_phone_body)
     }
   }

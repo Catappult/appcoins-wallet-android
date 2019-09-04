@@ -3,10 +3,7 @@ import com.appcoins.wallet.gamification.GamificationApiTest
 import com.appcoins.wallet.gamification.GamificationLocalDataTest
 import com.appcoins.wallet.gamification.GamificationScreen
 import com.appcoins.wallet.gamification.repository.*
-import com.appcoins.wallet.gamification.repository.entity.GamificationResponse
-import com.appcoins.wallet.gamification.repository.entity.Level
-import com.appcoins.wallet.gamification.repository.entity.LevelsResponse
-import com.appcoins.wallet.gamification.repository.entity.UserStatusResponse
+import com.appcoins.wallet.gamification.repository.entity.*
 import io.reactivex.Single
 import org.junit.Assert
 import org.junit.Before
@@ -25,17 +22,22 @@ class GamificationTest {
   @Before
   @Throws(Exception::class)
   fun setUp() {
-    gamification = Gamification(BdsGamificationRepository(api, local, versionCode))
+    gamification = Gamification(BdsPromotionsRepository(api, local, versionCode))
   }
 
   @Test
   fun getUserStatsTest() {
     val userStatsGamification =
         GamificationResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 1, BigDecimal.TEN,
-            GamificationResponse.Status.ACTIVE)
+            GamificationResponse.Status.ACTIVE, true)
+    val referralResponse =
+        ReferralResponse(BigDecimal(2.2), 3, true, 2, "€", false, "link", BigDecimal.ONE,
+            BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, ReferralResponse.Status.ACTIVE,
+            BigDecimal.ONE)
 
-    api.userStatusResponse = Single.just(UserStatusResponse(userStatsGamification, null))
-    val testObserver = gamification.getUserStatus(wallet)
+    api.userStatusResponse =
+        Single.just(UserStatusResponse(userStatsGamification, referralResponse))
+    val testObserver = gamification.getUserStats(wallet)
         .test()
     testObserver.assertValue(
         UserStats(UserStats.Status.OK, 1, BigDecimal.TEN, 2.2, BigDecimal.ONE, BigDecimal.ZERO,
@@ -45,7 +47,7 @@ class GamificationTest {
   @Test
   fun getUserStatsNoNetworkTest() {
     api.userStatusResponse = Single.error(UnknownHostException())
-    val testObserver = gamification.getUserStatus(wallet)
+    val testObserver = gamification.getUserStats(wallet)
         .test()
     testObserver.assertValue(UserStats(UserStats.Status.NO_NETWORK))
   }
@@ -92,9 +94,14 @@ class GamificationTest {
   fun hasNewLevelNoNewLevel() {
     val userStatsGamification =
         GamificationResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 0, BigDecimal.TEN,
-            GamificationResponse.Status.ACTIVE)
+            GamificationResponse.Status.ACTIVE, true)
+    val referralResponse =
+        ReferralResponse(BigDecimal(2.2), 3, true, 2, "€", false, "link", BigDecimal.ONE,
+            BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, ReferralResponse.Status.ACTIVE,
+            BigDecimal.ONE)
 
-    api.userStatusResponse = Single.just(UserStatusResponse(userStatsGamification, null))
+    api.userStatusResponse =
+        Single.just(UserStatusResponse(userStatsGamification, referralResponse))
     local.lastShownLevelResponse = Single.just(0)
     val test = gamification.hasNewLevel(wallet, GamificationScreen.MY_LEVEL.toString())
         .test()
@@ -107,9 +114,14 @@ class GamificationTest {
   fun hasNewLevelNewLevel() {
     val userStatsGamification =
         GamificationResponse(2.2, BigDecimal.ONE, BigDecimal.ZERO, 0, BigDecimal.TEN,
-            GamificationResponse.Status.ACTIVE)
+            GamificationResponse.Status.ACTIVE, true)
+    val referralResponse =
+        ReferralResponse(BigDecimal(2.2), 3, true, 2, "€", false, "link", BigDecimal.ONE,
+            BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, ReferralResponse.Status.ACTIVE,
+            BigDecimal.ONE)
 
-    api.userStatusResponse = Single.just(UserStatusResponse(userStatsGamification, null))
+    api.userStatusResponse =
+        Single.just(UserStatusResponse(userStatsGamification, referralResponse))
     local.lastShownLevelResponse = Single.just(-1)
     val test = gamification.hasNewLevel(wallet, GamificationScreen.MY_LEVEL.toString())
         .test()
