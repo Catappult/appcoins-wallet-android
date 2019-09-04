@@ -67,7 +67,6 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
     })
   }
 
-
   private fun setTextValues() {
     referral_description.text =
         getString(R.string.referral_view_verified_body,

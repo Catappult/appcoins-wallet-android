@@ -3,18 +3,21 @@ package com.asfoundation.wallet.wallet_validation.generic
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.SmsValidationInteract
+import com.asfoundation.wallet.referrals.ReferralInteractorContract
+import com.asfoundation.wallet.util.scaleToString
 import com.asfoundation.wallet.wallet_validation.ValidationInfo
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Observable
 import io.reactivex.Scheduler
-import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function6
+import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 class CodeValidationPresenter(
     private val view: CodeValidationView,
     private val activity: WalletValidationView?,
+    private val referralInteractor: ReferralInteractorContract,
     private val smsValidationInteract: SmsValidationInteract,
     private val defaultWalletInteract: FindDefaultWalletInteract,
     private val viewScheduler: Scheduler,
@@ -104,21 +107,21 @@ class CodeValidationPresenter(
     if (!hasBeenInvitedFlow) {
       view.showGenericValidationComplete()
     } else {
-      disposables.add(
-          Single.just(true)//TODO Change when Microservices implements the changes
-              .subscribeOn(networkScheduler)
-              .observeOn(viewScheduler)
-              .doOnSuccess { handleReferralStatus(it) }
-              .subscribe()
+      disposables.add(referralInteractor.retrieveReferral()
+          .subscribeOn(networkScheduler)
+          .observeOn(viewScheduler)
+          .doOnSuccess { handleReferralStatus(it.invited, it.currency, it.maxAmount) }
+          .subscribe()
       )
     }
   }
 
-  private fun handleReferralStatus(eligible: Boolean) {
+  private fun handleReferralStatus(eligible: Boolean, currency: String, maxAmount: BigDecimal) {
+    val maxAmountString = maxAmount.scaleToString(2)
     if (eligible) {
-      view.showReferralEligible()
+      view.showReferralEligible(currency, maxAmountString)
     } else {
-      view.showReferralIneligible()
+      view.showReferralIneligible(currency, maxAmountString)
     }
   }
 
