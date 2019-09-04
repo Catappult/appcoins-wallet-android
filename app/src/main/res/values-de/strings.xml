@@ -442,7 +442,7 @@
   <string name="referral_verification_confirmation_title">Ihre Einladung wurde bestätigt!</string>
   <string name="referral_verification_confirmation_body">Sobald Sie ihren ersten Einkauf tätigen erhalten Sie AppCoins im Wert von %s.</string>
   <string name="referral_verification_not_invited_title">Es scheint diese Nummer wurde nicht eingeladen&#8230;</string>
-  <string name="referral_verification_not_invited_body">Sie können immer noch bis zu %s verdienen in dem Sie Freunde einladen! 💃🏽</string>
+  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s Referral Bonus Wird Verarbeitet</string>
   <string name="referral_notification_bonus_pending_body">Mache Sie ihren ersten In-App Kauf und erhalten Sie ihren Bonus.</string>
   <string name="referral_view_title">Freunde Einladen</string>
