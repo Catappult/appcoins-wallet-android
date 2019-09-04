@@ -442,7 +442,7 @@
   <string name="referral_verification_confirmation_title">आपले आमंत्रण सत्यापित झाले आहे!</string>
   <string name="referral_verification_confirmation_body">आपण आपली पहिली खरेदी करताच आपल्याला %s मूल्याच्या अॅपकॉईन्सचे क्रेडीट मिळेल.</string>
   <string name="referral_verification_not_invited_title">ह्या नंबराला आमंत्रित केले गेले नाही असे दिसते&#8230;</string>
-  <string name="referral_verification_not_invited_body">पण आपण तरीही आपल्या मित्रांना आमंत्रित करुन %s पर्यंत मिळवु शकता! 💃🏽</string>
+  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s संदर्भ बोनस प्रलंबित आहे</string>
   <string name="referral_notification_bonus_pending_body">आपला बोनस मिळविण्यासाठी आपली पहिली अॅपमधील खरेदी करा.</string>
   <string name="referral_view_title">मित्रांना आमंत्रण द्या</string>
