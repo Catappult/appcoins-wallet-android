@@ -442,7 +442,7 @@
   <string name="referral_verification_confirmation_title">Поканата ти беше валидирана!</string>
   <string name="referral_verification_confirmation_body">Веднага след като направиш първата си покупка, ще получиш %s като стойност в AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">Изглежда, че този номер не е поканен&#8230;</string>
-  <string name="referral_verification_not_invited_body">Но все пак можеш да спечелиш до %s като поканиш приятели! 💃🏽</string>
+  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">В очакване на %s референтен бонус</string>
   <string name="referral_notification_bonus_pending_body">Направи първата си ин-ап покупка, за да получиш бонус.</string>
   <string name="referral_view_title">Покани приятели</string>
