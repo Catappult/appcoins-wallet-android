@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.invite_friends_fragment_layout.*
 import kotlinx.android.synthetic.main.referral_notification_card.*
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.text.DecimalFormat
 import javax.inject.Inject
 
 class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
@@ -65,7 +66,7 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
       }
 
       override fun onSlide(bottomSheet: View, slideOffset: Float) {
-        background_fade_animation.progress = slideOffset
+        background_fade_animation?.progress = slideOffset
       }
     })
   }
@@ -73,11 +74,10 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
 
   private fun setTextValues() {
     referral_description.text =
-        getString(R.string.referral_view_verified_body,
-            currency + amount.setScale(2, RoundingMode.FLOOR).toString())
+        getString(R.string.referral_view_verified_body, currency + convertToString(amount))
     notification_title.text =
         getString(R.string.referral_notification_bonus_pending_title,
-            currency + pendingAmount.setScale(2, RoundingMode.FLOOR).toString())
+            currency + convertToString(pendingAmount))
   }
 
   override fun shareLinkClick(): Observable<Any> {
@@ -125,6 +125,11 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
     super.onDestroyView()
   }
 
+
+  private fun convertToString(value: BigDecimal): String {
+    val format = DecimalFormat("#.##")
+    return format.format(value.setScale(2, RoundingMode.FLOOR))
+  }
 
   private val receivedAmount: BigDecimal by lazy {
     if (arguments!!.containsKey(RECEIVED_AMOUNT)) {

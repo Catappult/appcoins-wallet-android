@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.invited_friends_animation_list.*
 import kotlinx.android.synthetic.main.referrals_layout.*
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.text.DecimalFormat
 import kotlin.math.roundToInt
 
 class ReferralsFragment : DaggerFragment(), ReferralsView {
@@ -38,10 +39,10 @@ class ReferralsFragment : DaggerFragment(), ReferralsView {
     friends_invited.text = String.format("%d/%d", completedInvites, totalAvailable)
     friends_invited.visibility = VISIBLE
     number_friends_invited.text = String.format("%d/%d", completedInvites, totalAvailable)
-    total_earned.text = currency.plus(receivedAmount)
+    total_earned.text = currency.plus(convertToString(receivedAmount))
     total_earned.visibility = VISIBLE
-    val individualEarn = currency + amount.setScale(2, RoundingMode.FLOOR).toString()
-    val totalEarn = currency + maxAmount.setScale(2, RoundingMode.FLOOR).toString()
+    val individualEarn = currency + convertToString(amount)
+    val totalEarn = currency + convertToString(maxAmount)
     referral_explanation.text =
         getString(R.string.referral_dropup_menu_requirements_body, individualEarn, totalEarn)
     invitations_progress_bar.progress =
@@ -64,6 +65,11 @@ class ReferralsFragment : DaggerFragment(), ReferralsView {
         friendsAnimation[animationIndex].visibility = GONE
       }
     }
+  }
+
+  private fun convertToString(value: BigDecimal): String {
+    val format = DecimalFormat("#.##")
+    return format.format(value.setScale(2, RoundingMode.FLOOR))
   }
 
   private val receivedAmount: BigDecimal by lazy {

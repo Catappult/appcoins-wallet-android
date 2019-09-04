@@ -24,6 +24,7 @@ import kotlinx.android.synthetic.main.referral_card_layout.*
 import kotlinx.android.synthetic.main.rewards_progress_bar.*
 import java.math.BigDecimal
 import java.math.RoundingMode
+import java.text.DecimalFormat
 import javax.inject.Inject
 
 class PromotionsFragment : DaggerFragment(), PromotionsView {
@@ -178,7 +179,7 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
 
   override fun setReferralBonus(bonus: BigDecimal, currency: String) {
     promotions_title.text = getString(R.string.promotions_referral_card_title,
-        currency + bonus.setScale(2, RoundingMode.FLOOR))
+        currency + convertToString(bonus))
   }
 
   override fun toogleShareAvailability(validated: Boolean) {
@@ -197,5 +198,10 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
   override fun onPause() {
     presenter.stop()
     super.onPause()
+  }
+
+  private fun convertToString(value: BigDecimal): String {
+    val format = DecimalFormat("#.##")
+    return format.format(value.setScale(2, RoundingMode.FLOOR))
   }
 }
