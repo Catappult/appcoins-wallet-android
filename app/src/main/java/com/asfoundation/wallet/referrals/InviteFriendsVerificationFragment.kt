@@ -6,14 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
+import com.asfoundation.wallet.util.scaleToString
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.invite_friends_verification_layout.*
 import java.math.BigDecimal
-import java.math.RoundingMode
-import java.text.DecimalFormat
 
 class InviteFriendsVerificationFragment : DaggerFragment(), InviteFriendsVerificationView {
 
@@ -46,7 +45,7 @@ class InviteFriendsVerificationFragment : DaggerFragment(), InviteFriendsVerific
   private fun setDescriptionText() {
     verification_description.text =
         getString(R.string.referral_view_unverified_body,
-            currency + convertToString(amount))
+            currency + amount.scaleToString(2))
   }
 
   override fun verifyButtonClick(): Observable<Any> {
@@ -64,11 +63,6 @@ class InviteFriendsVerificationFragment : DaggerFragment(), InviteFriendsVerific
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
-  }
-
-  private fun convertToString(value: BigDecimal): String {
-    val format = DecimalFormat("#.##")
-    return format.format(value.setScale(2, RoundingMode.FLOOR))
   }
 
   val amount: BigDecimal by lazy {

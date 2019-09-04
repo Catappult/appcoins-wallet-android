@@ -8,6 +8,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import com.asf.wallet.R
+import com.asfoundation.wallet.util.scaleToString
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.android.support.DaggerFragment
@@ -16,17 +17,12 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.invite_friends_fragment_layout.*
 import kotlinx.android.synthetic.main.referral_notification_card.*
 import java.math.BigDecimal
-import java.math.RoundingMode
-import java.text.DecimalFormat
-import javax.inject.Inject
 
 class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
 
   private lateinit var presenter: InviteFriendsFragmentPresenter
   private var activity: InviteFriendsActivityView? = null
   private lateinit var referralsBottomSheet: BottomSheetBehavior<View>
-  @Inject
-  lateinit var referralInteractor: ReferralInteractorContract
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -74,10 +70,11 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
 
   private fun setTextValues() {
     referral_description.text =
-        getString(R.string.referral_view_verified_body, currency + convertToString(amount))
+        getString(R.string.referral_view_verified_body,
+            currency + amount.scaleToString(2))
     notification_title.text =
         getString(R.string.referral_notification_bonus_pending_title,
-            currency + convertToString(pendingAmount))
+            currency + pendingAmount.scaleToString(2))
   }
 
   override fun shareLinkClick(): Observable<Any> {
@@ -123,11 +120,6 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
-  }
-
-  private fun convertToString(value: BigDecimal): String {
-    val format = DecimalFormat("#.##")
-    return format.format(value.setScale(2, RoundingMode.FLOOR))
   }
 
   private val receivedAmount: BigDecimal by lazy {
