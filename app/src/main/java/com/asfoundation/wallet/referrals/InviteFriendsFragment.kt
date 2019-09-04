@@ -125,7 +125,6 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
     super.onDestroyView()
   }
 
-
   private fun convertToString(value: BigDecimal): String {
     val format = DecimalFormat("#.##")
     return format.format(value.setScale(2, RoundingMode.FLOOR))

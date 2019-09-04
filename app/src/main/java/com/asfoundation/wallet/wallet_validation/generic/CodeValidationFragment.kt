@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
 import com.asfoundation.wallet.interact.SmsValidationInteract
+import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.wallet_validation.PasteTextWatcher
 import com.asfoundation.wallet.wallet_validation.ValidationInfo
 import com.jakewharton.rxbinding2.view.RxView
@@ -33,6 +34,9 @@ import javax.inject.Inject
 
 class CodeValidationFragment : DaggerFragment(),
     CodeValidationView {
+
+  @Inject
+  lateinit var referralInteractor: ReferralInteractorContract
 
   @Inject
   lateinit var smsValidationInteract: SmsValidationInteract
@@ -95,9 +99,9 @@ class CodeValidationFragment : DaggerFragment(),
     clipboard = context!!.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
 
     presenter =
-        CodeValidationPresenter(this, walletValidationView, smsValidationInteract,
-            defaultWalletInteract, AndroidSchedulers.mainThread(), Schedulers.io(), countryCode,
-            phoneNumber, CompositeDisposable(), hasBeenInvitedFlow)
+        CodeValidationPresenter(this, walletValidationView, referralInteractor,
+            smsValidationInteract, defaultWalletInteract, AndroidSchedulers.mainThread(),
+            Schedulers.io(), countryCode, phoneNumber, CompositeDisposable(), hasBeenInvitedFlow)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -267,24 +271,26 @@ class CodeValidationFragment : DaggerFragment(),
     validate_code_animation.playAnimation()
   }
 
-  override fun showReferralEligible() {
+  override fun showReferralEligible(currency: String, maxAmount: String) {
     walletValidationView?.showLastStepAnimation()
     content.visibility = View.GONE
     animation_validating_code.visibility = View.GONE
     referral_status.visibility = View.VISIBLE
     referral_status_title.setText(R.string.referral_verification_confirmation_title)
-    referral_status_body.setText(R.string.referral_verification_confirmation_body)
+    referral_status_body.text =
+        getString(R.string.referral_verification_confirmation_body, currency + maxAmount)
     referral_status_animation.setAnimation(R.raw.referral_invited)
     referral_status_animation.playAnimation()
   }
 
-  override fun showReferralIneligible() {
+  override fun showReferralIneligible(currency: String, maxAmount: String) {
     walletValidationView?.showLastStepAnimation()
     content.visibility = View.GONE
     animation_validating_code.visibility = View.GONE
     referral_status.visibility = View.VISIBLE
     referral_status_title.setText(R.string.referral_verification_not_invited_title)
-    referral_status_body.setText(R.string.referral_verification_not_invited_body)
+    referral_status_body.text =
+        getString(R.string.referral_verification_not_invited_body, currency + maxAmount)
     referral_status_animation.setAnimation(R.raw.referral_not_invited)
     referral_status_animation.playAnimation()
   }
