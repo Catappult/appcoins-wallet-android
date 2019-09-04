@@ -198,10 +198,10 @@
       android:layout_width="40dp"
       android:layout_height="40dp"
       android:layout_marginStart="16dp"
-      android:layout_marginTop="14dp"
+      android:layout_marginTop="16dp"
       android:src="@drawable/ic_referral_shop_cart"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/validation_text"
+      app:layout_constraintTop_toBottomOf="@id/phone_icon"
       />
 
   <TextView

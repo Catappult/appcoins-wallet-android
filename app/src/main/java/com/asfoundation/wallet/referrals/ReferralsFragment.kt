@@ -53,17 +53,15 @@ class ReferralsFragment : DaggerFragment(), ReferralsView {
     val friendsAnimation =
         arrayOf(friend_animation_1, friend_animation_2, friend_animation_3, friend_animation_4,
             friend_animation_5)
-    if (invited != 0) {
-      for (i in friendsAnimation.indices) {
-        if (i < invited) {
-          friendsAnimation[i].setAnimation(R.raw.invited_user_animation)
-          friendsAnimation[i].playAnimation()
-        }
-        if (i >= totalInvitations) friendsAnimation[i].visibility = GONE
+
+    for (animationIndex in friendsAnimation.indices) {
+      if (animationIndex < invited) {
+        friendsAnimation[animationIndex].setAnimation(R.raw.invited_user_animation)
+        friendsAnimation[animationIndex].playAnimation()
       }
-    } else if (totalInvitations < friendsAnimation.size) {
-      for (i in totalInvitations until friendsAnimation.size) {
-        friendsAnimation[i].visibility = GONE
+      if (animationIndex >= totalInvitations) {
+        //If there are less animation icons than total invitations, remove extra icons
+        friendsAnimation[animationIndex].visibility = GONE
       }
     }
   }
