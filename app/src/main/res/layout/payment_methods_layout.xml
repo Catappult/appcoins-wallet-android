@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:animateLayoutChanges="true"
+    android:theme="@style/AppTheme"
     >
   <RelativeLayout
       android:id="@+id/payment_method_main_view"
@@ -150,16 +151,15 @@
               app:layout_constraintTop_toTopOf="parent"
               />
 
-          <TextView
+          <Button
               android:id="@+id/more_payment_methods"
-              style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
+              style="?android:attr/borderlessButtonStyle"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginTop="8dp"
-              android:layout_marginEnd="16.5dp"
+              android:layout_marginEnd="4dp"
+              android:drawableEnd="@drawable/ic_arrow_right"
               android:text="@string/purchase_more_payment_methods_button"
-              android:textAllCaps="true"
-              android:textColor="#8f000000"
+              android:textColor="@color/transaction_details_button_color"
               android:textSize="12sp"
               app:layout_constraintEnd_toEndOf="parent"
               app:layout_constraintHorizontal_bias="1.0"
