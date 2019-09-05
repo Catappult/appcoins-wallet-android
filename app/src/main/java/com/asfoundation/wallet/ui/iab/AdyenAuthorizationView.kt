@@ -30,4 +30,5 @@ interface AdyenAuthorizationView {
   fun showMoreMethods()
   fun onValidFieldStateChange(): Observable<Boolean>
   fun updateButton(valid: Boolean)
+  fun lockRotation()
 }

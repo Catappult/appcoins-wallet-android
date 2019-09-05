@@ -64,16 +64,16 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
   }
 
   private fun handlePaymentRedirect() {
-    disposables.add(
-        navigator.uriResults().doOnNext {
-          view.showProcessingLoading()
-        }.flatMap {
+    disposables.add(navigator.uriResults()
+        .doOnNext { view.showProcessingLoading() }
+        .doOnNext { view.lockRotation() }
+        .flatMap {
           localPaymentInteractor.getTransaction(it)
               .subscribeOn(networkScheduler)
-        }.observeOn(viewScheduler)
-            .flatMapCompletable { handleTransactionStatus(it) }
-            .subscribe({}, { showError(it) }
-            ))
+        }
+        .observeOn(viewScheduler)
+        .flatMapCompletable { handleTransactionStatus(it) }
+        .subscribe({}, { showError(it) }))
   }
 
   private fun handleOkErrorButtonClick() {

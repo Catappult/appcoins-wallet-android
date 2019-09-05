@@ -15,6 +15,7 @@ interface LocalPaymentView {
   fun close()
   fun getAnimationDuration(): Long
   fun popView(bundle: Bundle)
+  fun lockRotation()
 
   enum class ViewState {
     NONE, COMPLETED, PENDING_USER_PAYMENT, ERROR, LOADING

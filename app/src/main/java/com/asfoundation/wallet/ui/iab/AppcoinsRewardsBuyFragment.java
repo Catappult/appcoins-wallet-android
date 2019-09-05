@@ -175,6 +175,10 @@ public class AppcoinsRewardsBuyFragment extends DaggerFragment implements Appcoi
     return lottieTransactionComplete.getDuration();
   }
 
+  @Override public void lockRotation() {
+    iabView.lockRotation();
+  }
+
   @Override public void onAttach(Context context) {
     super.onAttach(context);
     if (!(context instanceof IabView)) {
