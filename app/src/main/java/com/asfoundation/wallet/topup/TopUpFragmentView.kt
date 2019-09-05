@@ -45,4 +45,6 @@ interface TopUpFragmentView {
   fun showMinValueWarning(value: String)
 
   fun hideValueInputWarning()
+
+  fun changeMainValueColor(isValid: Boolean)
 }

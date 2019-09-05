@@ -91,13 +91,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
               .filter { it.currency.appcValue != "--" }
               .doOnComplete {
                 view.setConversionValue(topUpData)
-                handleShowValueWarning(topUpData)
-              }
-              .flatMap {
-                loadBonusIntoView(packageName, it.currency.fiatValue, it.currency.fiatCurrencyCode)
-                    .doOnNext {
-                      view.setNextButtonState(hasValidData(topUpData))
-                    }
+                handleInvalidValueInput(packageName, topUpData)
               }
         }
         .subscribe())
@@ -160,7 +154,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         }
   }
 
-  private fun handleShowValueWarning(topUpData: TopUpData) {
+  private fun handleInvalidValueInput(packageName: String, topUpData: TopUpData) {
     if (topUpData.currency.fiatValue != DEFAULT_VALUE) {
       val value =
           FiatValue(BigDecimal(topUpData.currency.fiatValue), topUpData.currency.fiatCurrencyCode,
@@ -168,7 +162,10 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
       disposables.add(fetchMinAndMaxValues()
           .subscribeOn(networkScheduler)
           .observeOn(viewScheduler)
-          .doOnSuccess { showValueWarning(it.first, it.second, value) }
+          .doOnSuccess {
+            showValueWarning(it.first, it.second, value)
+            handleShowBonus(packageName, topUpData, it.first, it.second, value)
+          }
           .subscribe())
     }
   }
@@ -176,6 +173,20 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   private fun fetchMinAndMaxValues(): Single<Pair<FiatValue, FiatValue>> {
     return Single.zip(interactor.getMaxTopUpValue(), interactor.getMinTopUpValue(),
         BiFunction { maxValue: FiatValue, minValue: FiatValue -> Pair(maxValue, minValue) })
+  }
+
+  private fun handleShowBonus(appPackage: String, topUpData: TopUpData, maxValue: FiatValue,
+                              minValue: FiatValue, value: FiatValue) {
+    if (value.amount < minValue.amount || value.amount > maxValue.amount) {
+      view.hideBonus()
+      view.changeMainValueColor(false)
+    } else {
+      view.changeMainValueColor(true)
+      disposables.add(loadBonusIntoView(appPackage, topUpData.currency.fiatValue,
+          topUpData.currency.fiatCurrencyCode)
+          .doOnNext { view.setNextButtonState(hasValidData(topUpData)) }
+          .subscribe())
+    }
   }
 
   private fun showValueWarning(maxValue: FiatValue, minValue: FiatValue, value: FiatValue) {

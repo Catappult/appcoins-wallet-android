@@ -9,6 +9,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
 import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.PaymentType
@@ -279,6 +280,14 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   override fun hideValueInputWarning() {
     value_warning_icon.visibility = View.INVISIBLE
     value_warning_text.visibility = View.INVISIBLE
+  }
+
+  override fun changeMainValueColor(isValid: Boolean) {
+    if (isValid) {
+      main_value.setTextColor(ContextCompat.getColor(context!!, R.color.black))
+    } else {
+      main_value.setTextColor(ContextCompat.getColor(context!!, R.color.color_grey_9e))
+    }
   }
 
   private fun buildBonusString(bonus: BigDecimal, bonusCurrency: String) {
