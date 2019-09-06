@@ -504,6 +504,10 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
     buyButton.setVisibility(valid ? View.VISIBLE : View.INVISIBLE);
   }
 
+  @Override public void lockRotation() {
+    iabView.lockRotation();
+  }
+
   private void finishSetupView() {
     int paddingTop = isPreSelected() ? 0 : 50;
     int paddingLeft = isPreSelected() ? 0 : 24;

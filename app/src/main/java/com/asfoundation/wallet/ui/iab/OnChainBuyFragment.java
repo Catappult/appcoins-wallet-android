@@ -171,6 +171,7 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
   }
 
   @Override public void showTransactionCompleted() {
+    iabView.lockRotation();
     loadingView.setVisibility(View.GONE);
     transactionErrorLayout.setVisibility(View.GONE);
     transactionCompletedLayout.setVisibility(View.VISIBLE);

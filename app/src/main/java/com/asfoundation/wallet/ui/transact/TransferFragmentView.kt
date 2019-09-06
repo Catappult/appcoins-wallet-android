@@ -15,6 +15,7 @@ interface TransferFragmentView {
 
   fun openAppcCreditsConfirmationView(walletAddress: String, amount: BigDecimal,
                                       currency: Currency): Completable
+
   fun showLoading()
   fun hideLoading()
   fun showInvalidAmountError()
@@ -33,4 +34,6 @@ interface TransferFragmentView {
   enum class Currency {
     APPC_C, APPC, ETH
   }
+
+  fun showCameraErrorToast()
 }

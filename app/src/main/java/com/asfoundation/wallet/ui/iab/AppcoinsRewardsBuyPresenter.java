@@ -47,6 +47,7 @@ public class AppcoinsRewardsBuyPresenter {
   }
 
   public void present() {
+    view.lockRotation();
     handleBuyClick();
     handleOkErrorClick();
   }
