@@ -40,6 +40,8 @@ public class BillingWebViewFragment extends DaggerFragment {
   private String currentUrl;
   private ScheduledExecutorService executorService;
   private AndroidBug5497Workaround androidBug5497Workaround;
+  private WebViewActivity webViewActivity;
+  private WebView webView;
 
   public BillingWebViewFragment() {
     this.timeoutReference = new AtomicReference<>();
@@ -56,8 +58,11 @@ public class BillingWebViewFragment extends DaggerFragment {
 
   @Override public void onAttach(Context context) {
     super.onAttach(context);
-
-    androidBug5497Workaround = new AndroidBug5497Workaround(getActivity());
+    if (!(context instanceof WebViewActivity)) {
+      throw new IllegalStateException("WebView fragment must be attached to WebView Activity");
+    }
+    webViewActivity = (WebViewActivity) context;
+    androidBug5497Workaround = new AndroidBug5497Workaround(webViewActivity);
     androidBug5497Workaround.addListener();
   }
 
@@ -85,7 +90,7 @@ public class BillingWebViewFragment extends DaggerFragment {
       @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.webview_fragment, container, false);
 
-    WebView webView = view.findViewById(R.id.webview);
+    webView = view.findViewById(R.id.webview);
     webviewProgressBar = view.findViewById(R.id.webview_progress_bar);
 
     webView.setWebViewClient(new WebViewClient() {
@@ -95,14 +100,14 @@ public class BillingWebViewFragment extends DaggerFragment {
           currentUrl = clickUrl;
           Intent intent = new Intent();
           intent.setData(Uri.parse(clickUrl));
-          getActivity().setResult(WebViewActivity.SUCCESS, intent);
-          getActivity().finish();
+          webViewActivity.setResult(WebViewActivity.SUCCESS, intent);
+          webViewActivity.finish();
         } else if (clickUrl.contains(LOCAL_PAYMENTS_SCHEMA)) {
           currentUrl = clickUrl;
           Intent intent = new Intent();
           intent.setData(Uri.parse(clickUrl));
-          getActivity().setResult(WebViewActivity.SUCCESS, intent);
-          getActivity().finish();
+          webViewActivity.setResult(WebViewActivity.SUCCESS, intent);
+          webViewActivity.finish();
         } else if (clickUrl.contains(GO_PAY_PAYMENTS_SCHEMA)) {
           launchActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(clickUrl)));
         } else {
@@ -150,7 +155,8 @@ public class BillingWebViewFragment extends DaggerFragment {
 
   @Override public void onDetach() {
     androidBug5497Workaround.removeListener();
-
+    webViewActivity = null;
+    webView.setWebViewClient(null);
     super.onDetach();
   }
 
