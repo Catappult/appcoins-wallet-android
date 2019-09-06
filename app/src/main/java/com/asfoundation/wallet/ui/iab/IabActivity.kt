@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.iab
 
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
@@ -27,7 +28,6 @@ import javax.inject.Inject
  */
 
 class IabActivity : BaseActivity(), IabView, UriNavigator {
-
 
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
@@ -226,6 +226,14 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun uriResults(): Observable<Uri>? {
     return results
+  }
+
+  override fun lockRotation() {
+    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
+  }
+
+  override fun unlockRotation() {
+    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
   }
 
   companion object {

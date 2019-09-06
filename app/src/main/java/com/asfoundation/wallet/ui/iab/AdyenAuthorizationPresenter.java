@@ -301,7 +301,10 @@ public class AdyenAuthorizationPresenter {
 
   private void handlePaymentMethodResults() {
     disposables.add(view.paymentMethodDetailsEvent()
-        .doOnNext(__ -> view.showLoading())
+        .doOnNext(__ -> {
+          view.showLoading();
+          view.lockRotation();
+        })
         .flatMapCompletable(adyen::finishPayment)
         .observeOn(viewScheduler)
         .subscribe(() -> {
@@ -333,6 +336,7 @@ public class AdyenAuthorizationPresenter {
         .filter(s -> !waitingResult)
         .flatMapSingle(redirectUrl -> transactionBuilder.doOnSuccess(transaction -> {
           view.showLoading();
+          view.lockRotation();
           navigator.navigateToUriForResult(redirectUrl);
           waitingResult = true;
           sendPaymentMethodDetailsEvent(PAYMENT_METHOD_PAYPAL);

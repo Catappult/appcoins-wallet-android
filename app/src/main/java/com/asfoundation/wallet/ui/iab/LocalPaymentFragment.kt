@@ -342,4 +342,8 @@ class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
         paymentId)
     iabView.finish(bundle)
   }
+
+  override fun lockRotation() {
+    iabView.lockRotation()
+  }
 }

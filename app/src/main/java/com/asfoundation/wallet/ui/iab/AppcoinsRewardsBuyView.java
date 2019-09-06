@@ -29,4 +29,6 @@ interface AppcoinsRewardsBuyView {
   void showTransactionCompleted();
 
   long getAnimationDuration();
+
+  void lockRotation();
 }
