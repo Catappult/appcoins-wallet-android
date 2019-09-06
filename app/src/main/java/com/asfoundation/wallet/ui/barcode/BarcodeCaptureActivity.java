@@ -28,14 +28,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
-import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.ui.camera.CameraSource;
 import com.asfoundation.wallet.ui.camera.CameraSourcePreview;
@@ -52,6 +51,7 @@ public final class BarcodeCaptureActivity extends AppCompatActivity
 
   // Constants used to pass extra data in the intent
   public static final String BarcodeObject = "Barcode";
+  public static final String ERROR_CODE = "error";
   private static final String TAG = "Barcode-reader";
   // Intent request code to handle updating play services if needed.
   private static final int RC_HANDLE_GMS = 9001;
@@ -93,10 +93,13 @@ public final class BarcodeCaptureActivity extends AppCompatActivity
   }
 
   @Override public void onDetectedQrCode(Barcode barcode) {
+    Intent intent = new Intent();
     if (barcode != null) {
-      Intent intent = new Intent();
       intent.putExtra(BarcodeObject, barcode);
       setResult(CommonStatusCodes.SUCCESS, intent);
+      finish();
+    } else {
+      setResult(CommonStatusCodes.ERROR, intent);
       finish();
     }
   }
@@ -117,7 +120,8 @@ public final class BarcodeCaptureActivity extends AppCompatActivity
   @SuppressLint("InlinedApi") private void createCameraSource(boolean autoFocus, boolean useFlash) {
     Context context = getApplicationContext();
 
-    // A barcode_capture detector is created to track barcodes.  An associated multi-processor instance
+    // A barcode_capture detector is created to track barcodes.  An associated multi-processor
+    // instance
     // is set to receive the barcode_capture detection results, track the barcodes, and maintain
     // graphics for each barcode_capture on screen.  The factory is used by the multi-processor to
     // create a separate tracker instance for each barcode_capture.
@@ -165,10 +169,8 @@ public final class BarcodeCaptureActivity extends AppCompatActivity
             .setRequestedFps(24.0f);
 
     // make sure that auto focus is an available option
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-      builder =
-          builder.setFocusMode(autoFocus ? Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE : null);
-    }
+    builder =
+        builder.setFocusMode(autoFocus ? Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE : null);
 
     mCameraSource = builder.setFlashMode(useFlash ? Camera.Parameters.FLASH_MODE_TORCH : null)
         .build();
@@ -213,14 +215,11 @@ public final class BarcodeCaptureActivity extends AppCompatActivity
         // we have permission, so create the camerasource
         createCameraSource(AUTO_FOCUS, USE_FLASH);
       } else {
-        Log.e(TAG,
-            "Permission not granted: results len = " + grantResults.length + " Result code = " + (
-                grantResults.length > 0 ? grantResults[0] : "(empty)"));
-        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-          public void onClick(DialogInterface dialog, int id) {
-            finish();
-          }
-        };
+        Log.e(TAG, "Permission not granted: results len = "
+            + grantResults.length
+            + " Result code = "
+            + grantResults[0]);
+        DialogInterface.OnClickListener listener = (dialog, id) -> finish();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.no_camera_permission)
             .setPositiveButton(R.string.ok, listener)
@@ -237,7 +236,8 @@ public final class BarcodeCaptureActivity extends AppCompatActivity
    * again when the camera source is created.
    */
   private void startCameraSource() throws SecurityException {
-    // check that the device has play services available<uses-permission android:name="android.permission.CAMERA" />.
+    // check that the device has play services available<uses-permission android:name="android
+    // .permission.CAMERA" />.
     int code = GoogleApiAvailability.getInstance()
         .isGooglePlayServicesAvailable(getApplicationContext());
     if (code != ConnectionResult.SUCCESS) {

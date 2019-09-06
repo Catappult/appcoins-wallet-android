@@ -22,6 +22,8 @@ import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
 import org.web3j.utils.Numeric;
 
+import static com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity.ERROR_CODE;
+
 public class SendViewModel extends BaseViewModel {
   private final MutableLiveData<String> symbol = new MutableLiveData<>();
   private final MutableLiveData<String> address = new MutableLiveData<>();
@@ -32,8 +34,8 @@ public class SendViewModel extends BaseViewModel {
   private final ConfirmationRouter confirmationRouter;
   private final TransferParser transferParser;
   private final CompositeDisposable disposables;
-  private TransactionBuilder transactionBuilder;
   private final TransactionsRouter transactionsRouter;
+  private TransactionBuilder transactionBuilder;
 
   SendViewModel(FindDefaultWalletInteract findDefaultWalletInteract,
       FetchGasSettingsInteract fetchGasSettingsInteract, ConfirmationRouter confirmationRouter,
@@ -117,7 +119,8 @@ public class SendViewModel extends BaseViewModel {
 
   public boolean extractFromQR(Barcode barcode) {
     QRUri qrUrl = QRUri.parse(barcode.displayValue);
-    if (qrUrl != null) {
+    if (!qrUrl.getAddress()
+        .equals(ERROR_CODE)) {
       transactionBuilder.toAddress(qrUrl.getAddress());
       if (qrUrl.getParameter("data") != null) {
         transactionBuilder.data(
