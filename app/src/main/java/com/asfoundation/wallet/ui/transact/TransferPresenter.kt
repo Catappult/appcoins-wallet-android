@@ -55,9 +55,16 @@ class TransferPresenter(private val view: TransferFragmentView,
             .observeOn(ioScheduler)
             .map { QRUri.parse(it.displayValue) }
             .observeOn(viewScheduler)
-            .filter { it.address != BarcodeCaptureActivity.ERROR_CODE }
-            .doOnNext { view.showAddress(it.address) }
+            .doOnNext { handleQRUri(it) }
             .subscribe())
+  }
+
+  private fun handleQRUri(qrUri: QRUri) {
+    if (qrUri.address != BarcodeCaptureActivity.ERROR_CODE) {
+      view.showAddress(qrUri.address)
+    } else {
+      view.showCameraErrorToast()
+    }
   }
 
   private fun handleQrCodeButtonClick() {
@@ -72,7 +79,8 @@ class TransferPresenter(private val view: TransferFragmentView,
         .subscribeOn(viewScheduler)
         .observeOn(ioScheduler)
         .flatMapCompletable {
-          makeTransaction(it).observeOn(viewScheduler)
+          makeTransaction(it)
+              .observeOn(viewScheduler)
               .flatMapCompletable { status ->
                 handleTransferResult(it.currency, status, it.walletAddress, it.amount)
               }
@@ -98,11 +106,9 @@ class TransferPresenter(private val view: TransferFragmentView,
     }
   }
 
-  private fun handleTransferResult(
-      currency: TransferFragmentView.Currency,
-      status: AppcoinsRewardsRepository.Status,
-      walletAddress: String,
-      amount: BigDecimal): Completable {
+  private fun handleTransferResult(currency: TransferFragmentView.Currency,
+                                   status: AppcoinsRewardsRepository.Status, walletAddress: String,
+                                   amount: BigDecimal): Completable {
     return Single.just(status)
         .subscribeOn(viewScheduler)
         .flatMapCompletable {
@@ -119,8 +125,6 @@ class TransferPresenter(private val view: TransferFragmentView,
             AppcoinsRewardsRepository.Status.NOT_ENOUGH_FUNDS -> Completable.fromCallable { view.showNotEnoughFunds() }
           }
         }
-
-
   }
 
   private fun handleSuccess(
@@ -139,7 +143,6 @@ class TransferPresenter(private val view: TransferFragmentView,
           }
     }
   }
-
 
   private fun handleCreditsTransfer(walletAddress: String,
                                     amount: BigDecimal): Single<AppcoinsRewardsRepository.Status> {

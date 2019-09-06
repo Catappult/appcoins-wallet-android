@@ -98,9 +98,6 @@ public final class BarcodeCaptureActivity extends AppCompatActivity
       intent.putExtra(BarcodeObject, barcode);
       setResult(CommonStatusCodes.SUCCESS, intent);
       finish();
-    } else {
-      setResult(CommonStatusCodes.ERROR, intent);
-      finish();
     }
   }
 
