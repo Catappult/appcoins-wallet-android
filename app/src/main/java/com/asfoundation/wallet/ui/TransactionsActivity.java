@@ -49,7 +49,6 @@ import io.reactivex.subjects.PublishSubject;
 import java.util.List;
 import javax.inject.Inject;
 
-import static com.asfoundation.wallet.C.ETHEREUM_NETWORK_NAME;
 import static com.asfoundation.wallet.C.ErrorCode.EMPTY_COLLECTION;
 
 public class TransactionsActivity extends BaseNavigationActivity implements View.OnClickListener {
@@ -226,12 +225,6 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.menu_transactions_activity, menu);
-
-    NetworkInfo networkInfo = viewModel.defaultNetwork()
-        .getValue();
-    if (networkInfo != null && networkInfo.name.equals(ETHEREUM_NETWORK_NAME)) {
-      getMenuInflater().inflate(R.menu.menu_deposit, menu);
-    }
     return super.onCreateOptionsMenu(menu);
   }
 
