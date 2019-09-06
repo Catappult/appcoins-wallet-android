@@ -110,7 +110,7 @@ class CodeValidationPresenter(
       disposables.add(referralInteractor.retrieveReferral()
           .subscribeOn(networkScheduler)
           .observeOn(viewScheduler)
-          .doOnSuccess { handleReferralStatus(it.invited, it.currency, it.maxAmount) }
+          .doOnSuccess { handleReferralStatus(it.invited, it.symbol, it.maxAmount) }
           .subscribe()
       )
     }

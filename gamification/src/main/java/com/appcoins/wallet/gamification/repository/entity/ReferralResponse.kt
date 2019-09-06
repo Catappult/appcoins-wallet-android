@@ -10,6 +10,8 @@ data class ReferralResponse(
     val bundle: Boolean,
     val completed: Int,
     val currency: String,
+    @SerializedName("sign")
+    val symbol: String,
     val invited: Boolean,
     val link: String?,
     @SerializedName("pending_amount")
