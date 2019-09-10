@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.transact
 
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
+import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
 import com.asfoundation.wallet.util.QRUri
 import io.reactivex.Completable
 import io.reactivex.Scheduler
@@ -52,14 +53,18 @@ class TransferPresenter(private val view: TransferFragmentView,
     disposables.add(
         view.getQrCodeResult()
             .observeOn(ioScheduler)
-            .map {
-              QRUri.parse(it.displayValue)
-            }
+            .map { QRUri.parse(it.displayValue) }
             .observeOn(viewScheduler)
-            .doOnNext { qrCode ->
-              qrCode?.let { view.showAddress(it.address) }
-            }
+            .doOnNext { handleQRUri(it) }
             .subscribe())
+  }
+
+  private fun handleQRUri(qrUri: QRUri) {
+    if (qrUri.address != BarcodeCaptureActivity.ERROR_CODE) {
+      view.showAddress(qrUri.address)
+    } else {
+      view.showCameraErrorToast()
+    }
   }
 
   private fun handleQrCodeButtonClick() {
@@ -74,9 +79,11 @@ class TransferPresenter(private val view: TransferFragmentView,
         .subscribeOn(viewScheduler)
         .observeOn(ioScheduler)
         .flatMapCompletable {
-          makeTransaction(it).observeOn(viewScheduler).flatMapCompletable { status ->
-            handleTransferResult(it.currency, status, it.walletAddress, it.amount)
-          }
+          makeTransaction(it)
+              .observeOn(viewScheduler)
+              .flatMapCompletable { status ->
+                handleTransferResult(it.currency, status, it.walletAddress, it.amount)
+              }
               .andThen { view.hideLoading() }
         }
         .doOnError { error ->
@@ -99,27 +106,25 @@ class TransferPresenter(private val view: TransferFragmentView,
     }
   }
 
-  private fun handleTransferResult(
-      currency: TransferFragmentView.Currency,
-      status: AppcoinsRewardsRepository.Status,
-      walletAddress: String,
-      amount: BigDecimal): Completable {
-    return Single.just(status).subscribeOn(viewScheduler).flatMapCompletable {
-      when (status) {
-        AppcoinsRewardsRepository.Status.API_ERROR,
-        AppcoinsRewardsRepository.Status.UNKNOWN_ERROR,
-        AppcoinsRewardsRepository.Status.NO_INTERNET ->
-          Completable.fromCallable { view.showUnknownError() }
-        AppcoinsRewardsRepository.Status.SUCCESS -> {
-          handleSuccess(currency, walletAddress, amount)
+  private fun handleTransferResult(currency: TransferFragmentView.Currency,
+                                   status: AppcoinsRewardsRepository.Status, walletAddress: String,
+                                   amount: BigDecimal): Completable {
+    return Single.just(status)
+        .subscribeOn(viewScheduler)
+        .flatMapCompletable {
+          when (status) {
+            AppcoinsRewardsRepository.Status.API_ERROR,
+            AppcoinsRewardsRepository.Status.UNKNOWN_ERROR,
+            AppcoinsRewardsRepository.Status.NO_INTERNET ->
+              Completable.fromCallable { view.showUnknownError() }
+            AppcoinsRewardsRepository.Status.SUCCESS -> {
+              handleSuccess(currency, walletAddress, amount)
+            }
+            AppcoinsRewardsRepository.Status.INVALID_AMOUNT -> Completable.fromCallable { view.showInvalidAmountError() }
+            AppcoinsRewardsRepository.Status.INVALID_WALLET_ADDRESS -> Completable.fromCallable { view.showInvalidWalletAddress() }
+            AppcoinsRewardsRepository.Status.NOT_ENOUGH_FUNDS -> Completable.fromCallable { view.showNotEnoughFunds() }
+          }
         }
-        AppcoinsRewardsRepository.Status.INVALID_AMOUNT -> Completable.fromCallable { view.showInvalidAmountError() }
-        AppcoinsRewardsRepository.Status.INVALID_WALLET_ADDRESS -> Completable.fromCallable { view.showInvalidWalletAddress() }
-        AppcoinsRewardsRepository.Status.NOT_ENOUGH_FUNDS -> Completable.fromCallable { view.showNotEnoughFunds() }
-      }
-    }
-
-
   }
 
   private fun handleSuccess(
@@ -138,7 +143,6 @@ class TransferPresenter(private val view: TransferFragmentView,
           }
     }
   }
-
 
   private fun handleCreditsTransfer(walletAddress: String,
                                     amount: BigDecimal): Single<AppcoinsRewardsRepository.Status> {

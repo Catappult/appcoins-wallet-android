@@ -187,8 +187,8 @@ dependencies {
 
   implementation "androidx.multidex:multidex:$project.multidexVersion"
   // Bar code scanning
-  implementation "com.google.zxing:core:3.3.3"
-  implementation "com.google.android.gms:play-services-vision:17.0.2"
+  implementation "com.google.zxing:core:3.4.0"
+  implementation "com.google.android.gms:play-services-vision:18.0.0"
 
   implementation "com.github.apl-devs:appintro:v4.2.2"
   implementation "com.romandanylyk:pageindicatorview:$project.pageIndicatorViewVersion"

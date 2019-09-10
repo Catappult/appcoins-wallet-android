@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TokenInfo
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -91,7 +93,8 @@ class TransferFragment : DaggerFragment(), TransferFragmentView {
       transaction.toAddress(toWalletAddress)
       transaction.fromAddress(walletAddress)
       confirmationRouter.open(activity, transaction)
-    }.ignoreElement()
+    }
+        .ignoreElement()
   }
 
   override fun openAppcCreditsConfirmationView(walletAddress: String,
@@ -171,6 +174,11 @@ class TransferFragment : DaggerFragment(), TransferFragmentView {
     })
   }
 
+  override fun showCameraErrorToast() {
+    Toast.makeText(context, R.string.toast_qr_code_no_address, LENGTH_SHORT)
+        .show()
+  }
+
   override fun showAddress(address: String) {
     transact_fragment_recipient_address.setText(address)
   }
@@ -180,15 +188,17 @@ class TransferFragment : DaggerFragment(), TransferFragmentView {
   }
 
   override fun getSendClick(): Observable<TransferFragmentView.TransferData> {
-    return Observable.merge(doneClick, RxView.clicks(send_button)).map {
-      var amount = BigDecimal.ZERO
-      if (!transact_fragment_amount.text.toString().isEmpty()) {
-        amount = transact_fragment_amount.text.toString().toBigDecimal()
-      }
-      TransferFragmentView.TransferData(
-          transact_fragment_recipient_address.text.toString().toLowerCase(),
-          map(currency_selector.checkedRadioButtonId), amount)
-    }
+    return Observable.merge(doneClick, RxView.clicks(send_button))
+        .map {
+          var amount = BigDecimal.ZERO
+          if (!transact_fragment_amount.text.toString().isEmpty()) {
+            amount = transact_fragment_amount.text.toString()
+                .toBigDecimal()
+          }
+          TransferFragmentView.TransferData(
+              transact_fragment_recipient_address.text.toString().toLowerCase(),
+              map(currency_selector.checkedRadioButtonId), amount)
+        }
   }
 
   override fun showInvalidWalletAddress() {
@@ -205,7 +215,8 @@ class TransferFragment : DaggerFragment(), TransferFragmentView {
   }
 
   override fun showUnknownError() {
-    Snackbar.make(title, R.string.error_general, Snackbar.LENGTH_LONG).show()
+    Snackbar.make(title, R.string.error_general, Snackbar.LENGTH_LONG)
+        .show()
   }
 
   override fun showInvalidAmountError() {
@@ -256,7 +267,8 @@ class TransferFragment : DaggerFragment(), TransferFragmentView {
   override fun onDestroy() {
     disposable?.takeIf {
       !it.isDisposed
-    }.let { it?.dispose() }
+    }
+        .let { it?.dispose() }
     super.onDestroy()
   }
 }

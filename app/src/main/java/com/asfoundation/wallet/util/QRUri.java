@@ -1,12 +1,14 @@
 package com.asfoundation.wallet.util;
 
-import androidx.annotation.Nullable;
 import android.text.TextUtils;
+import androidx.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity.ERROR_CODE;
 
 /**
  * Created by marat on 10/11/17.
@@ -48,9 +50,9 @@ public class QRUri {
     return isValidAddress(address) ? address : null;
   }
 
-  @Nullable public static QRUri parse(String url) {
+  public static QRUri parse(String url) {
     String[] parts = url.split(":");
-    QRUri result = null;
+    QRUri result = new QRUri("", ERROR_CODE, Collections.emptyMap());
     if (parts.length == 1) {
       String address = extractAddress(parts[0]);
       if (!TextUtils.isEmpty(address)) {

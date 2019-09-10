@@ -321,11 +321,13 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
   }
 
   @Override public void showError(int message) {
-    loadingView.setVisibility(View.GONE);
-    dialog.setVisibility(View.GONE);
-    mainView.setVisibility(View.GONE);
-    errorView.setVisibility(View.VISIBLE);
-    errorMessage.setText(message);
+    if (!itemAlreadyOwnedError) {
+      loadingView.setVisibility(View.GONE);
+      dialog.setVisibility(View.GONE);
+      mainView.setVisibility(View.GONE);
+      errorView.setVisibility(View.VISIBLE);
+      errorMessage.setText(message);
+    }
   }
 
   @Override public void showItemAlreadyOwnedError() {
@@ -412,8 +414,10 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
 
   @Override public void showAdyen(@NotNull FiatValue fiatValue, @NotNull PaymentType paymentType,
       String iconUrl) {
-    iabView.showAdyenPayment(fiatValue.getAmount(), fiatValue.getCurrency(), isBds, paymentType,
-        bonusMessageValue, true, iconUrl);
+    if (!itemAlreadyOwnedError) {
+      iabView.showAdyenPayment(fiatValue.getAmount(), fiatValue.getCurrency(), isBds, paymentType,
+          bonusMessageValue, true, iconUrl);
+    }
   }
 
   @Override public void showCreditCard() {
