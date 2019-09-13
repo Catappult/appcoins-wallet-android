@@ -17,11 +17,13 @@ import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.TransactionViewInteract;
 import com.asfoundation.wallet.navigator.TransactionViewNavigator;
+import com.asfoundation.wallet.referrals.ReferralNotification;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionsAnalytics;
 import com.asfoundation.wallet.ui.AppcoinsApps;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.iab.FiatValue;
+import com.asfoundation.wallet.ui.widget.holder.ReferralNotificationAction;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -44,6 +46,8 @@ public class TransactionsViewModel extends BaseViewModel {
   private final MutableLiveData<List<Transaction>> transactions = new MutableLiveData<>();
   private final MutableLiveData<Boolean> showNotification = new MutableLiveData<>();
   private final MutableLiveData<List<AppcoinsApplication>> appcoinsApplications =
+      new MutableLiveData<>();
+  private final MutableLiveData<List<ReferralNotification>> referralNotifications =
       new MutableLiveData<>();
   private final MutableLiveData<GlobalBalance> defaultWalletBalance = new MutableLiveData<>();
   private final MutableLiveData<Double> gamificationMaxBonus = new MutableLiveData<>();
@@ -150,16 +154,28 @@ public class TransactionsViewModel extends BaseViewModel {
     disposables.add(fetchTransactionsDisposable);
 
     if (shouldShowProgress) {
-      disposables.add(applications.getApps()
-          .subscribeOn(Schedulers.io())
-          .map(appcoinsApplications -> {
-            Collections.shuffle(appcoinsApplications);
-            return appcoinsApplications;
-          })
-          .observeOn(AndroidSchedulers.mainThread())
-          .doOnSubscribe(disposable -> appcoinsApplications.postValue(Collections.emptyList()))
-          .subscribe(appcoinsApplications::postValue, Throwable::printStackTrace));
+      fetchReferralNotifications();
     }
+  }
+
+  private void fetchApps() {
+    disposables.add(applications.getApps()
+        .subscribeOn(Schedulers.io())
+        .map(appcoinsApplications -> {
+          Collections.shuffle(appcoinsApplications);
+          return appcoinsApplications;
+        })
+        .observeOn(AndroidSchedulers.mainThread())
+        .doOnSubscribe(disposable -> appcoinsApplications.postValue(Collections.emptyList()))
+        .subscribe(appcoinsApplications::postValue, Throwable::printStackTrace));
+  }
+
+  private void fetchReferralNotifications() {
+    disposables.add(transactionViewInteract.getReferralNotifications()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .doOnSubscribe(disposable1 -> referralNotifications.postValue(Collections.emptyList()))
+        .subscribe(referralNotifications::postValue, Throwable::printStackTrace, this::fetchApps));
   }
 
   private void getGlobalBalance() {
@@ -305,6 +321,10 @@ public class TransactionsViewModel extends BaseViewModel {
     return appcoinsApplications;
   }
 
+  public LiveData<List<ReferralNotification>> notifications() {
+    return referralNotifications;
+  }
+
   public void onAppClick(AppcoinsApplication appcoinsApplication, Context context) {
     transactionViewNavigator.navigateToBrowser(context,
         Uri.parse("https://" + appcoinsApplication.getUniqueName() + ".en.aptoide.com/"));
@@ -334,5 +354,22 @@ public class TransactionsViewModel extends BaseViewModel {
 
   public void navigateToPromotions(Context context) {
     transactionViewNavigator.openPromotions(context);
+  }
+
+  public void onNotificationClick(ReferralNotification referralNotification,
+      ReferralNotificationAction referralNotificationAction, Context context) {
+    switch (referralNotificationAction) {
+      case DISMISS:
+        dismissNotification(referralNotification);
+        break;
+      case DISCOVER:
+        transactionViewNavigator.openAptoide(context);
+        break;
+    }
+  }
+
+  private void dismissNotification(ReferralNotification referralNotification) {
+    disposables.add(transactionViewInteract.dismissNotification(referralNotification)
+        .subscribe(this::fetchReferralNotifications, this::onError));
   }
 }

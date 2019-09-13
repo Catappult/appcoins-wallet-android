@@ -26,11 +26,13 @@ import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.GlobalBalance;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.referrals.ReferralNotification;
 import com.asfoundation.wallet.repository.PreferenceRepositoryType;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.toolbar.ToolbarArcBackground;
 import com.asfoundation.wallet.ui.widget.adapter.TransactionsAdapter;
+import com.asfoundation.wallet.ui.widget.holder.ReferralNotificationAction;
 import com.asfoundation.wallet.util.RootUtil;
 import com.asfoundation.wallet.viewmodel.BaseNavigationActivity;
 import com.asfoundation.wallet.viewmodel.TransactionsViewModel;
@@ -112,7 +114,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     prepareNotificationIcon();
     emptyTransactionsSubject = PublishSubject.create();
 
-    adapter = new TransactionsAdapter(this::onTransactionClick, this::onApplicationClick);
+    adapter = new TransactionsAdapter(this::onTransactionClick, this::onApplicationClick,
+        this::onNotificationClick);
     SwipeRefreshLayout refreshLayout = findViewById(R.id.refresh_layout);
     systemView = findViewById(R.id.system_view);
     list = findViewById(R.id.list);
@@ -142,6 +145,8 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
         .observe(this, this::onGamificationMaxBonus);
     viewModel.applications()
         .observe(this, this::onApplications);
+    viewModel.notifications()
+        .observe(this, this::onNotifications);
     viewModel.shouldShowPromotionsNotification()
         .observe(this, this::onPromotionsNotification);
     refreshLayout.setOnRefreshListener(() -> viewModel.fetchTransactions(true));
@@ -201,8 +206,19 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
     showList();
   }
 
+  private void onNotifications(List<ReferralNotification> referralNotifications) {
+    adapter.setNotifications(referralNotifications);
+    showList();
+  }
+
   private void onTransactionClick(View view, Transaction transaction) {
     viewModel.showDetails(view.getContext(), transaction);
+  }
+
+  private void onNotificationClick(ReferralNotification referralNotification,
+      ReferralNotificationAction referralNotificationAction) {
+    viewModel.onNotificationClick(referralNotification, referralNotificationAction,
+        this.getApplicationContext());
   }
 
   @Override protected void onPause() {
