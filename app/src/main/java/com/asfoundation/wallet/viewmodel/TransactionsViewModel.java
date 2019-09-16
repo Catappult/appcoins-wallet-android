@@ -17,6 +17,7 @@ import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.TransactionViewInteract;
 import com.asfoundation.wallet.navigator.TransactionViewNavigator;
+import com.asfoundation.wallet.referrals.InviteFriendsActivity;
 import com.asfoundation.wallet.referrals.ReferralNotification;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.TransactionsAnalytics;
@@ -363,7 +364,8 @@ public class TransactionsViewModel extends BaseViewModel {
         dismissNotification(referralNotification);
         break;
       case DISCOVER:
-        transactionViewNavigator.openAptoide(context);
+        transactionViewNavigator.navigateToBrowser(context,
+            Uri.parse(InviteFriendsActivity.APTOIDE_TOP_APPS_URL));
         break;
     }
   }

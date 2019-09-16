@@ -4,13 +4,13 @@ import android.graphics.Rect
 import android.util.TypedValue
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import kotlin.math.max
 
 
 class ReferralNotificationsItemDecorator : RecyclerView.ItemDecoration() {
 
   override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView,
                               state: RecyclerView.State) {
-
     if (parent.adapter != null && parent.adapter!!.itemCount > 1) {
       if (parent.getChildAdapterPosition(view) == 0) {
         if (isRtl(view)) {
@@ -35,7 +35,7 @@ class ReferralNotificationsItemDecorator : RecyclerView.ItemDecoration() {
       outRect.right = 16
       outRect.left = 16
 
-      val maxWith = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 400.toFloat(),
+      val maxWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 400.toFloat(),
           parent.context.resources
               .displayMetrics)
           .toInt()
@@ -45,29 +45,25 @@ class ReferralNotificationsItemDecorator : RecyclerView.ItemDecoration() {
               .displayMetrics)
           .toInt()
 
-      val screenWith =
+      val screenWidth =
           TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, parent.measuredWidth.toFloat(),
               parent.context.resources
                   .displayMetrics)
               .toInt()
 
-      val cardWidth = if (screenWith > maxWith) {
-        maxWith
+      val cardWidth = if (screenWidth > maxWidth) {
+        maxWidth
       } else {
-        screenWith - margins
+        screenWidth - margins
       }
 
-      var sidePadding = (screenWith - cardWidth) / 2
-      sidePadding = Math.max(0, sidePadding)
+      var sidePadding = (screenWidth - cardWidth) / 2
+      sidePadding = max(0, sidePadding)
       outRect.set(sidePadding, 0, sidePadding, 0)
     }
-
   }
 
-  private fun isRtl(view: View): Boolean {
-    return view.context
-        .resources
-        .configuration
-        .layoutDirection == View.LAYOUT_DIRECTION_RTL
-  }
+  private fun isRtl(view: View) =
+      view.context.resources.configuration.layoutDirection == View.LAYOUT_DIRECTION_RTL
+
 }

@@ -78,7 +78,8 @@ class ReferralInteractor(
                           it != userStats.pendingAmount.toPlainString()
                     }
                     .map {
-                      ReferralNotification(1, R.string.referral_notification_bonus_pending_title,
+                      ReferralNotification(PENDING_AMOUNT_ID,
+                          R.string.referral_notification_bonus_pending_title,
                           R.string.referral_notification_bonus_pending_body,
                           R.drawable.ic_bonus_pending,
                           userStats.pendingAmount.scaleToString(2),
@@ -93,6 +94,10 @@ class ReferralInteractor(
         .flatMapCompletable {
           preferences.savePendingAmountNotification(it.address, referralNotification.pendingAmount)
         }
+  }
+
+  companion object {
+    const val PENDING_AMOUNT_ID = 1
   }
 
 }

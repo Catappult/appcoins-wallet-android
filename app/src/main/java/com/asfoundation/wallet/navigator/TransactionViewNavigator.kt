@@ -6,7 +6,6 @@ import android.net.Uri
 import com.asfoundation.wallet.entity.TokenInfo
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.promotions.PromotionsActivity
-import com.asfoundation.wallet.referrals.InviteFriendsActivity
 import com.asfoundation.wallet.router.*
 import com.asfoundation.wallet.transactions.Transaction
 
@@ -48,10 +47,6 @@ class TransactionViewNavigator(private val settingsRouter: SettingsRouter,
   fun openPromotions(context: Context) {
     val intent = Intent(context, PromotionsActivity::class.java)
     context.startActivity(intent)
-  }
-
-  fun openAptoide(context: Context) {
-    externalBrowserRouter.open(context, Uri.parse(InviteFriendsActivity.APTOIDE_TOP_APPS_URL))
   }
 
 }

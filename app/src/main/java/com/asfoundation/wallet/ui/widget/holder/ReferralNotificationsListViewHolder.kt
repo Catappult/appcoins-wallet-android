@@ -12,10 +12,8 @@ import com.asfoundation.wallet.ui.widget.adapter.ReferralNotificationsAdapter
 import rx.functions.Action2
 import java.util.*
 
-class ReferralNotificationsListViewHolder(
-    resId: Int,
-    parent: ViewGroup,
-    action: Action2<ReferralNotification, ReferralNotificationAction>
+class ReferralNotificationsListViewHolder(resId: Int, parent: ViewGroup,
+                                          action: Action2<ReferralNotification, ReferralNotificationAction>
 ) : BinderViewHolder<List<ReferralNotification>>(resId, parent) {
 
   private val adapter: ReferralNotificationsAdapter
@@ -29,7 +27,7 @@ class ReferralNotificationsListViewHolder(
   }
 
   override fun bind(data: List<ReferralNotification>?, addition: Bundle) {
-    if (data!!.isEmpty()) {
+    if (data == null || data.isEmpty()) {
       recyclerView.visibility = View.GONE
     } else {
       adapter.notifications = data

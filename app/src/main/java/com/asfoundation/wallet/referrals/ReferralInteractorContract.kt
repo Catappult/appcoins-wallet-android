@@ -19,5 +19,6 @@ interface ReferralInteractorContract {
                               screen: ReferralsScreen): Completable
 
   fun getReferralNotifications(): Maybe<List<ReferralNotification>>
+
   fun dismissNotification(referralNotification: ReferralNotification): Completable
 }
