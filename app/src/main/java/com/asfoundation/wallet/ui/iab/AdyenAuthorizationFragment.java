@@ -577,7 +577,8 @@ public class AdyenAuthorizationFragment extends DaggerFragment implements AdyenA
   }
 
   private void showProductPrice(Amount amount) {
-    fiatPrice.setText(AmountUtil.format(amount, true, StringUtils.getLocale(getActivity())));
+    String amountValue = AmountUtil.format(amount, false, StringUtils.getLocale(getActivity()));
+    fiatPrice.setText(amountValue + ' ' + amount.getCurrency());
   }
 
   private CharSequence getApplicationName(String appPackage)
