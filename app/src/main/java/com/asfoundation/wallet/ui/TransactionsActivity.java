@@ -291,9 +291,16 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
   private void showList() {
     // the value is 1 because apps list item is always added, so if there is at least 1
     // transaction, the list is shown
-    if (adapter.getItemCount() > 1) {
+
+    if (adapter.getTransactionsCount() > 0) {
       systemView.setVisibility(View.GONE);
       list.setVisibility(View.VISIBLE);
+    } else if (adapter.getNotificationsCount() > 0) {
+      systemView.setVisibility(View.VISIBLE);
+      list.setVisibility(View.VISIBLE);
+    } else {
+      systemView.setVisibility(View.VISIBLE);
+      list.setVisibility(View.GONE);
     }
   }
 

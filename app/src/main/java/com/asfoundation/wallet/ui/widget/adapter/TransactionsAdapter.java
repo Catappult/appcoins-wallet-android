@@ -23,7 +23,6 @@ import com.asfoundation.wallet.ui.widget.holder.TransactionDateHolder;
 import com.asfoundation.wallet.ui.widget.holder.TransactionHolder;
 import java.util.Collections;
 import java.util.List;
-import org.jetbrains.annotations.NotNull;
 import rx.functions.Action1;
 import rx.functions.Action2;
 
@@ -75,18 +74,16 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
     this.referralNotificationClickListener = referralNotificationClickListener;
   }
 
-  @Override public BinderViewHolder<?> onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
+  @Override public BinderViewHolder<?> onCreateViewHolder(ViewGroup parent, int viewType) {
     BinderViewHolder holder = null;
     switch (viewType) {
-      case TransactionHolder.VIEW_TYPE: {
+      case TransactionHolder.VIEW_TYPE:
         holder =
             new TransactionHolder(R.layout.item_transaction, parent, onTransactionClickListener);
-      }
-      break;
-      case TransactionDateHolder.VIEW_TYPE: {
+        break;
+      case TransactionDateHolder.VIEW_TYPE:
         holder = new TransactionDateHolder(R.layout.item_transactions_date_head, parent);
-      }
-      break;
+        break;
       case AppcoinsApplicationListViewHolder.VIEW_TYPE:
         holder =
             new AppcoinsApplicationListViewHolder(R.layout.item_appcoins_application_list, parent,
@@ -113,6 +110,26 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
 
   @Override public int getItemCount() {
     return items.size();
+  }
+
+  public int getTransactionsCount() {
+    int counter = 0;
+    for (int i = 0; i < items.size(); i++) {
+      if (items.get(i) instanceof TransactionSortedItem) {
+        counter++;
+      }
+    }
+    return counter;
+  }
+
+  public int getNotificationsCount() {
+    int counter = 0;
+    for (int i = 0; i < items.size(); i++) {
+      if (items.get(i) instanceof ReferralNotificationSortedItem) {
+        counter += ((ReferralNotificationSortedItem) items.get(i)).value.size();
+      }
+    }
+    return counter;
   }
 
   public void setDefaultWallet(Wallet wallet) {
@@ -146,11 +163,15 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
   }
 
   public void setApps(List<AppcoinsApplication> apps) {
-    items.add(new ApplicationSortedItem(apps, AppcoinsApplicationListViewHolder.VIEW_TYPE));
+    if (apps.size() != 0) {
+      items.add(new ApplicationSortedItem(apps, AppcoinsApplicationListViewHolder.VIEW_TYPE));
+    }
   }
 
   public void setNotifications(List<ReferralNotification> notifications) {
-    items.add(new ReferralNotificationSortedItem(notifications,
-        ReferralNotificationsListViewHolder.VIEW_TYPE));
+    if (notifications.size() != 0) {
+      items.add(new ReferralNotificationSortedItem(notifications,
+          ReferralNotificationsListViewHolder.VIEW_TYPE));
+    }
   }
 }
