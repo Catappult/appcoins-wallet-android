@@ -150,10 +150,6 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
     return RxView.clicks(okErrorButton);
   }
 
-  @Override public void showLoading() {
-    showLoading(R.string.activity_aib_loading_message);
-  }
-
   @Override public void close(Bundle data) {
     iabView.close(data);
   }
@@ -217,6 +213,10 @@ public class OnChainBuyFragment extends DaggerFragment implements OnChainBuyView
 
   @Override public long getAnimationDuration() {
     return lottieTransactionComplete.getDuration();
+  }
+
+  @Override public void lockRotation() {
+    iabView.lockRotation();
   }
 
   @Override public void onAttach(Context context) {

@@ -38,6 +38,7 @@ interface PaymentMethodsView {
   fun showNext()
   fun showBuy()
   fun showMergedAppcoins()
+  fun lockRotation()
 
   enum class SelectedPaymentMethod {
     PAYPAL, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, ERROR

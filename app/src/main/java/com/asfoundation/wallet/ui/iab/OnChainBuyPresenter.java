@@ -140,6 +140,7 @@ public class OnChainBuyPresenter {
     Log.d(TAG, "present: " + transaction);
     switch (transaction.getStatus()) {
       case COMPLETED:
+        view.lockRotation();
         return inAppPurchaseInteractor.getCompletedPurchase(transaction, isBds)
             .observeOn(AndroidSchedulers.mainThread())
             .map(payment -> buildBundle(payment, transaction.getOrderReference()))
@@ -167,8 +168,10 @@ public class OnChainBuyPresenter {
         return Completable.fromAction(view::showNonceError)
             .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));
       case APPROVING:
+        view.lockRotation();
         return Completable.fromAction(view::showApproving);
       case BUYING:
+        view.lockRotation();
         return Completable.fromAction(view::showBuying);
       case ERROR:
       default:

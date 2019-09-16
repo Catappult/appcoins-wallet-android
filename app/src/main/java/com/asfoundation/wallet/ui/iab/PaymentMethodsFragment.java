@@ -500,6 +500,10 @@ public class PaymentMethodsFragment extends DaggerFragment implements PaymentMet
         productName, appcEnabled, creditsEnabled, isBds, isDonation);
   }
 
+  @Override public void lockRotation() {
+    iabView.lockRotation();
+  }
+
   private void setBuyButtonText() {
     int buyButtonText = isDonation ? R.string.action_donate : R.string.action_buy;
     buyButton.setText(getResources().getString(buyButtonText));
