@@ -41,7 +41,8 @@ class ReferralsFragment : DaggerFragment(), ReferralsView {
     total_earned.text = currency.plus(receivedAmount.scaleToString(2))
     total_earned.visibility = VISIBLE
     val individualEarn = currency + amount.scaleToString(2)
-    val totalEarn = currency + maxAmount.scaleToString(2)
+    val totalEarn =
+        currency + amount.multiply(BigDecimal(completedInvites + available)).scaleToString(2)
     referral_explanation.text =
         getString(R.string.referral_dropup_menu_requirements_body, individualEarn, totalEarn)
     invitations_progress_bar.progress =
