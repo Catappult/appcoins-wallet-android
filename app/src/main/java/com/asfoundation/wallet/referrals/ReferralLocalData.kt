@@ -8,4 +8,8 @@ interface ReferralLocalData {
                               isVerified: Boolean, screen: String): Completable
 
   fun getReferralInformation(address: String, screen: String): Single<String>
+
+  fun savePendingAmountNotification(address: String, pendingAmount: String): Completable
+
+  fun getPendingAmountNotification(address: String): Single<String>
 }

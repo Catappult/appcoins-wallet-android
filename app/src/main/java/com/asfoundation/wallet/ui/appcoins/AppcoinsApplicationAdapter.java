@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.ui.appcoins;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication;
 import com.asfoundation.wallet.ui.widget.holder.AppcoinsApplicationViewHolder;
@@ -13,7 +13,6 @@ import rx.functions.Action1;
 
 public class AppcoinsApplicationAdapter
     extends RecyclerView.Adapter<AppcoinsApplicationViewHolder> {
-  private static final String TAG = AppcoinsApplicationAdapter.class.getSimpleName();
   private final Action1<AppcoinsApplication> applicationClickListener;
   private List<AppcoinsApplication> applications;
 

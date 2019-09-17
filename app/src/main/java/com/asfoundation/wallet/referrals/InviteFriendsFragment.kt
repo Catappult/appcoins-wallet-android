@@ -17,8 +17,12 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.invite_friends_fragment_layout.*
 import kotlinx.android.synthetic.main.referral_notification_card.*
 import java.math.BigDecimal
+import javax.inject.Inject
 
 class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
+
+  @Inject
+  lateinit var referralInteractor: ReferralInteractorContract
 
   private lateinit var presenter: InviteFriendsFragmentPresenter
   private var activity: InviteFriendsActivityView? = null
@@ -26,7 +30,8 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = InviteFriendsFragmentPresenter(this, activity, CompositeDisposable())
+    presenter =
+        InviteFriendsFragmentPresenter(this, activity, CompositeDisposable(), referralInteractor)
   }
 
   override fun onAttach(context: Context) {
@@ -56,15 +61,14 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
   }
 
   private fun animateBackgroundFade() {
-    referralsBottomSheet.setBottomSheetCallback(object :
-        BottomSheetBehavior.BottomSheetCallback() {
+    referralsBottomSheet.bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
       override fun onStateChanged(bottomSheet: View, newState: Int) {
       }
 
       override fun onSlide(bottomSheet: View, slideOffset: Float) {
         background_fade_animation?.progress = slideOffset
       }
-    })
+    }
   }
 
   private fun setTextValues() {
@@ -92,9 +96,11 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
     activity?.navigateToTopApps()
   }
 
-  override fun showNotificationCard(pendingAmount: BigDecimal) {
+  override fun showNotificationCard(pendingAmount: BigDecimal, symbol: String) {
     if (pendingAmount.toDouble() > 0) {
       referral_notification_card.visibility = VISIBLE
+      notification_title.text = getString(R.string.referral_notification_bonus_pending_title,
+          "$symbol$pendingAmount")
     } else {
       referral_notification_card.visibility = GONE
     }

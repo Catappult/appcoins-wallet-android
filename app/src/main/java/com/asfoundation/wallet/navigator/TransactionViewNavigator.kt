@@ -49,7 +49,6 @@ class TransactionViewNavigator(private val settingsRouter: SettingsRouter,
     context.startActivity(intent)
   }
 
-
 }
 
 

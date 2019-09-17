@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,32 +19,11 @@
       app:layout_anchorGravity="start|top"
       />
 
-  <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-      android:id="@+id/refresh_layout"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_marginBottom="?android:actionBarSize"
-      android:background="@color/activity_background_color"
-      app:layout_behavior="@string/appbar_scrolling_view_behavior"
-      >
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/activity_background_color"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:paddingBottom="@dimen/large_padding"
-        android:visibility="gone"
-        />
-  </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-  <com.asfoundation.wallet.widget.SystemView
-      android:id="@+id/system_view"
+  <include
+      layout="@layout/layout_transactions_activity"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="@color/activity_background_color"
       app:layout_behavior="@string/appbar_scrolling_view_behavior"
-      tools:visibility="gone"
       />
 
   <androidx.constraintlayout.widget.ConstraintLayout
@@ -57,7 +34,6 @@
       android:clipChildren="false"
       android:clipToPadding="false"
       >
-
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/top_up_btn"

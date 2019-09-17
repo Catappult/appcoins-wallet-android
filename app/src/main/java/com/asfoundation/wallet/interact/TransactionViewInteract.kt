@@ -7,11 +7,14 @@ import com.asfoundation.wallet.entity.Balance
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
+import com.asfoundation.wallet.referrals.ReferralNotification
 import com.asfoundation.wallet.referrals.ReferralsScreen
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.balance.BalanceInteract
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
+import io.reactivex.Completable
+import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
@@ -35,13 +38,15 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
   val creditsBalance: Observable<Pair<Balance, FiatValue>>
     get() = balanceInteract.getCreditsBalance()
 
+  val referralNotifications: Maybe<List<ReferralNotification>>
+    get() = referralInteractor.getReferralNotifications()
+
   fun findNetwork(): Single<NetworkInfo> {
     return findDefaultNetworkInteract.find()
   }
 
   fun hasPromotionUpdate(): Single<Boolean> {
-    return Single.zip(referralInteractor.hasReferralUpdate(
-        ReferralsScreen.PROMOTIONS),
+    return Single.zip(referralInteractor.hasReferralUpdate(ReferralsScreen.PROMOTIONS),
         gamificationInteractor.hasNewLevel(GamificationScreen.PROMOTIONS),
         BiFunction { hasReferralUpdate: Boolean, hasNewLevel: Boolean ->
           hasReferralUpdate || hasNewLevel
@@ -60,4 +65,9 @@ class TransactionViewInteract(private val findDefaultNetworkInteract: FindDefaul
   fun findWallet(): Single<Wallet> {
     return findDefaultWalletInteract.find()
   }
+
+  fun dismissNotification(referralNotification: ReferralNotification): Completable {
+    return referralInteractor.dismissNotification(referralNotification)
+  }
+
 }

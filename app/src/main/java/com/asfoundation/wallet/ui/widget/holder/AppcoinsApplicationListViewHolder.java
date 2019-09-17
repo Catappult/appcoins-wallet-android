@@ -40,7 +40,7 @@ public class AppcoinsApplicationListViewHolder extends BinderViewHolder<List<App
   }
 
   @Override public void bind(@Nullable List<AppcoinsApplication> data, @NonNull Bundle addition) {
-    if (data.isEmpty()) {
+    if (data == null || data.isEmpty()) {
       recyclerView.setVisibility(View.GONE);
       title.setVisibility(View.GONE);
       icon.setVisibility(View.GONE);
