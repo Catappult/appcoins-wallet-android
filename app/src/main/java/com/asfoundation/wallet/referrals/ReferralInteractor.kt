@@ -67,7 +67,7 @@ class ReferralInteractor(
     return getPendingBonusNotification().map { listOf(it) }
   }
 
-  private fun getPendingBonusNotification(): Maybe<ReferralNotification> {
+  override fun getPendingBonusNotification(): Maybe<ReferralNotification> {
     return defaultWallet.find()
         .flatMapMaybe { wallet ->
           promotionsRepository.getReferralUserStatus(wallet.address)
