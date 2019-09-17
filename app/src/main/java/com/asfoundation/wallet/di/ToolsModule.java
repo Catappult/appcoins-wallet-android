@@ -110,7 +110,7 @@ import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.BuyTransactionValidatorBds;
 import com.asfoundation.wallet.repository.CurrencyConversionService;
-import com.asfoundation.wallet.repository.DevTransactionRepository;
+import com.asfoundation.wallet.repository.BackendTransactionRepository;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.GasSettingsRepository;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
@@ -122,7 +122,6 @@ import com.asfoundation.wallet.repository.OffChainTransactionsRepository;
 import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.PreferenceRepositoryType;
-import com.asfoundation.wallet.repository.ProdTransactionRepository;
 import com.asfoundation.wallet.repository.SharedPreferenceRepository;
 import com.asfoundation.wallet.repository.SignDataStandardNormalizer;
 import com.asfoundation.wallet.repository.SmsValidationRepositoryType;
@@ -1074,23 +1073,16 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       DefaultTokenProvider defaultTokenProvider, MultiWalletNonceObtainer nonceObtainer,
       OffChainTransactions transactionsNetworkRepository, @NotNull TransactionsMapper mapper,
       Context context, SharedPreferences sharedPreferences) {
-    if (BuildConfig.DEBUG) {
-      TransactionsDao transactionsDao =
-          Room.databaseBuilder(context.getApplicationContext(), TransactionsDatabase.class,
-              "transactions_database")
-              .build()
-              .transactionsDao();
-      TransactionsRepository localRepository =
-          new TransactionsLocalRepository(transactionsDao, sharedPreferences);
-      return new DevTransactionRepository(networkInfo, accountKeystoreService, defaultTokenProvider,
-          new BlockchainErrorMapper(), nonceObtainer, Schedulers.io(),
-          transactionsNetworkRepository, localRepository, new TransactionMapper(),
-          new CompositeDisposable(), Schedulers.io());
-    } else {
-      return new ProdTransactionRepository(networkInfo, accountKeystoreService, inDiskCache,
-          blockExplorerClient, defaultTokenProvider, new BlockchainErrorMapper(), nonceObtainer,
-          Schedulers.io(), mapper, transactionsNetworkRepository);
-    }
+    TransactionsDao transactionsDao =
+        Room.databaseBuilder(context.getApplicationContext(), TransactionsDatabase.class,
+            "transactions_database")
+            .build()
+            .transactionsDao();
+    TransactionsRepository localRepository =
+        new TransactionsLocalRepository(transactionsDao, sharedPreferences);
+    return new BackendTransactionRepository(networkInfo, accountKeystoreService, defaultTokenProvider,
+        new BlockchainErrorMapper(), nonceObtainer, Schedulers.io(), transactionsNetworkRepository,
+        localRepository, new TransactionMapper(), new CompositeDisposable(), Schedulers.io());
   }
 
   @Singleton @Provides SmsValidationApi provideSmsValidationApi(OkHttpClient client, Gson gson) {
