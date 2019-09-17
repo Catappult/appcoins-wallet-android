@@ -28,6 +28,7 @@
         style="@style/TopUpTextStyle.MainValue"
         android:layout_width="152dp"
         android:layout_height="55dp"
+        android:layout_marginTop="5dp"
         android:background="@null"
         android:enabled="false"
         android:focusable="true"
@@ -105,12 +106,12 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:background="#eaeaea"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/converted_value"
+        app:layout_constraintTop_toBottomOf="@id/value_warning_text"
         />
 
     <TextView
@@ -118,12 +119,23 @@
         style="@style/TopUpTextStyle.ValueWarning"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="20dp"
         android:text="@string/topup_minimum_value"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/top_separator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chips"
+        />
+
+    <include
+        android:id="@+id/chips"
+        layout="@layout/default_value_chips_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintTop_toBottomOf="@id/converted_value"
         />
 
     <androidx.constraintlayout.widget.ConstraintLayout
