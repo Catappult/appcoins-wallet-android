@@ -6,6 +6,7 @@ import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
 import com.appcoins.wallet.gamification.repository.entity.UserStatusResponse
 import io.reactivex.Completable
 import io.reactivex.Single
+import java.io.IOException
 import java.math.BigDecimal
 import java.net.UnknownHostException
 
@@ -31,11 +32,10 @@ class BdsPromotionsRepository(private val api: GamificationApi,
 
   private fun mapForecastError(throwable: Throwable): ForecastBonus {
     throwable.printStackTrace()
-    return when (throwable) {
-      is UnknownHostException -> ForecastBonus(ForecastBonus.Status.NO_NETWORK)
-      else -> {
-        ForecastBonus(ForecastBonus.Status.UNKNOWN_ERROR)
-      }
+    return if (isNoNetworkException(throwable)) {
+      ForecastBonus(ForecastBonus.Status.NO_NETWORK)
+    } else {
+      ForecastBonus(ForecastBonus.Status.UNKNOWN_ERROR)
     }
   }
 
@@ -54,11 +54,10 @@ class BdsPromotionsRepository(private val api: GamificationApi,
 
   private fun map(throwable: Throwable): UserStats {
     throwable.printStackTrace()
-    return when (throwable) {
-      is UnknownHostException -> UserStats(UserStats.Status.NO_NETWORK)
-      else -> {
-        UserStats(UserStats.Status.UNKNOWN_ERROR)
-      }
+    return if (isNoNetworkException(throwable)) {
+      UserStats(UserStats.Status.NO_NETWORK)
+    } else {
+      UserStats(UserStats.Status.UNKNOWN_ERROR)
     }
   }
 
@@ -78,11 +77,10 @@ class BdsPromotionsRepository(private val api: GamificationApi,
 
   private fun mapLevelsError(throwable: Throwable): Levels {
     throwable.printStackTrace()
-    return when (throwable) {
-      is UnknownHostException -> Levels(Levels.Status.NO_NETWORK)
-      else -> {
-        Levels(Levels.Status.UNKNOWN_ERROR)
-      }
+    return if (isNoNetworkException(throwable)) {
+      Levels(Levels.Status.NO_NETWORK)
+    } else {
+      Levels(Levels.Status.UNKNOWN_ERROR)
     }
   }
 
@@ -106,5 +104,11 @@ class BdsPromotionsRepository(private val api: GamificationApi,
   override fun getReferralUserStatus(wallet: String): Single<ReferralResponse> {
     return api.getUserStatus(wallet, versionCode)
         .map { it.referral }
+  }
+
+  private fun isNoNetworkException(throwable: Throwable): Boolean {
+    return throwable is IOException ||
+        throwable.cause != null && throwable.cause is IOException ||
+        throwable is UnknownHostException
   }
 }
