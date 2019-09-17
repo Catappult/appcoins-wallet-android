@@ -181,7 +181,7 @@ class PromotionsFragment : DaggerFragment(), PromotionsView {
         currency + bonus.scaleToString(2))
   }
 
-  override fun toogleShareAvailability(validated: Boolean) {
+  override fun toggleShareAvailability(validated: Boolean) {
     share_button.isEnabled = validated
   }
 
