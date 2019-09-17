@@ -8,10 +8,12 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
+import java.io.IOException
 import java.math.BigDecimal
 import java.math.RoundingMode
 
 class HowItWorksPresenter(private val view: HowItWorksView,
+                          private val activity: GamificationView?,
                           private val gamification: GamificationInteractor,
                           private val analytics: GamificationAnalytics,
                           private val networkScheduler: Scheduler,
@@ -36,8 +38,15 @@ class HowItWorksPresenter(private val view: HowItWorksView,
             })
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
-            .doOnSuccess { view.showLevels(it.first, it.second) }
-            .subscribe())
+            .doOnSuccess {
+              if (it.third == Status.NO_NETWORK) {
+                activity?.showNetworkErrorView()
+              } else {
+                activity?.showMainView()
+                view.showLevels(it.first, it.second)
+              }
+            }
+            .subscribe({ }, { handleError(it) }))
   }
 
   private fun handleShowPeekInformation() {
@@ -49,7 +58,7 @@ class HowItWorksPresenter(private val view: HowItWorksView,
               .doOnNext { view.showPeekInformation(userStats, it) }
         }
         .subscribeOn(networkScheduler)
-        .subscribe())
+        .subscribe({}, { handleError(it) }))
   }
 
   private fun handleShowNextLevelFooter() {
@@ -58,14 +67,23 @@ class HowItWorksPresenter(private val view: HowItWorksView,
             BiFunction { levels: Levels, userStats: UserStats ->
               mapToUserStatus(levels, userStats)
             })
-            .observeOn(viewScheduler)
-            .doOnSuccess { view.showNextLevelFooter(it) }
             .subscribeOn(networkScheduler)
-            .subscribe())
+            .observeOn(viewScheduler)
+            .doOnSuccess {
+              if (it.status == Status.NO_NETWORK) {
+                activity?.showNetworkErrorView()
+              } else {
+                activity?.showMainView()
+                view.showNextLevelFooter(it)
+              }
+            }
+            .subscribe({ }, { handleError(it) }))
   }
 
-  private fun mapToViewLevels(levels: Levels, userStats: UserStats): Pair<List<ViewLevel>, Int> {
+  private fun mapToViewLevels(levels: Levels,
+                              userStats: UserStats): Triple<List<ViewLevel>, Int, Status> {
     val list = mutableListOf<ViewLevel>()
+    var status = Status.OK
     if (levels.status == Levels.Status.OK && userStats.status == UserStats.Status.OK) {
       for (level in levels.list) {
         list.add(
@@ -73,23 +91,43 @@ class HowItWorksPresenter(private val view: HowItWorksView,
                 userStats.totalSpend >= level.amount))
       }
     }
-    return Pair(list.toList(), userStats.level)
+    if (levels.status == Levels.Status.NO_NETWORK || userStats.status == UserStats.Status.NO_NETWORK) {
+      status = Status.NO_NETWORK
+    }
+    return Triple(list.toList(), userStats.level, status)
   }
 
   private fun mapToUserStatus(levels: Levels, userStats: UserStats): UserRewardsStatus {
+    var status = Status.OK
     if (levels.status == Levels.Status.OK && userStats.status == UserStats.Status.OK) {
       val nextLevelAmount = userStats.nextLevelAmount?.minus(
           userStats.totalSpend)?.setScale(2, RoundingMode.HALF_UP) ?: BigDecimal.ZERO
-      return UserRewardsStatus(level = userStats.level, toNextLevelAmount = nextLevelAmount)
+      return UserRewardsStatus(level = userStats.level, toNextLevelAmount = nextLevelAmount,
+          status = status)
     }
-    return UserRewardsStatus()
+    if (levels.status == Levels.Status.NO_NETWORK || userStats.status == UserStats.Status.NO_NETWORK) {
+      status = Status.NO_NETWORK
+    }
+    return UserRewardsStatus(status = status)
   }
 
   private fun sendEvent() {
-    disposables.add(gamification.getUserStats().subscribeOn(networkScheduler).doOnSuccess {
-      analytics.sendMoreInfoScreenViewEvent(it.level + 1)
-    }.subscribe())
+    disposables.add(gamification.getUserStats().subscribeOn(networkScheduler)
+        .doOnSuccess { analytics.sendMoreInfoScreenViewEvent(it.level + 1) }
+        .subscribe())
   }
+
+  private fun handleError(throwable: Throwable) {
+    throwable.printStackTrace()
+    if (isNoNetworkException(throwable)) {
+      activity?.showNetworkErrorView()
+    }
+  }
+
+  private fun isNoNetworkException(throwable: Throwable): Boolean {
+    return throwable is IOException || throwable.cause != null && throwable.cause is IOException
+  }
+
 
   fun stop() {
     disposables.clear()

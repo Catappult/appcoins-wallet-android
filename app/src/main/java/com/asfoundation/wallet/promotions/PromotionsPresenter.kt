@@ -5,6 +5,7 @@ import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.UserStats
 import com.asfoundation.wallet.referrals.ReferralsScreen
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
+import com.asfoundation.wallet.ui.gamification.Status
 import com.asfoundation.wallet.ui.gamification.UserRewardsStatus
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -45,7 +46,7 @@ class PromotionsPresenter(private val view: PromotionsView,
               showPromotions(it)
               checkForUpdates(it)
             }
-            .subscribe({}, { handlerError(it) }))
+            .subscribe({}, { handleError(it) }))
   }
 
   private fun handleNewLevel() {
@@ -87,17 +88,25 @@ class PromotionsPresenter(private val view: PromotionsView,
             .subscribeOn(networkScheduler)
             .observeOn(viewScheduler)
             .doOnSuccess {
-              if (it.lastShownLevel > 0 || it.lastShownLevel == 0 && it.level == 0) {
-                view.setStaringLevel(it)
+              if (it.status == Status.NO_NETWORK) {
+                view.showNetworkErrorView()
+              } else {
+                if (it.lastShownLevel > 0 || it.lastShownLevel == 0 && it.level == 0) {
+                  view.setStaringLevel(it)
+                }
+                view.updateLevel(it)
               }
-              view.updateLevel(it)
             }
             .flatMapCompletable { gamification.levelShown(it.level, GamificationScreen.PROMOTIONS) }
-            .subscribe({}, { it.printStackTrace() }))
+            .subscribe({}, { handleError(it) }))
   }
 
   private fun mapToUserStatus(levels: Levels, userStats: UserStats,
                               lastShownLevel: Int): UserRewardsStatus {
+    var status = Status.OK
+    if (levels.status == Levels.Status.NO_NETWORK && userStats.status == UserStats.Status.NO_NETWORK) {
+      status = Status.NO_NETWORK
+    }
     if (levels.status == Levels.Status.OK && userStats.status == UserStats.Status.OK) {
       val list = mutableListOf<Double>()
       if (levels.isActive) {
@@ -107,9 +116,9 @@ class PromotionsPresenter(private val view: PromotionsView,
       }
       val nextLevelAmount = userStats.nextLevelAmount?.minus(
           userStats.totalSpend)?.setScale(2, RoundingMode.HALF_UP) ?: BigDecimal.ZERO
-      return UserRewardsStatus(lastShownLevel, userStats.level, nextLevelAmount, list)
+      return UserRewardsStatus(lastShownLevel, userStats.level, nextLevelAmount, list, status)
     }
-    return UserRewardsStatus(lastShownLevel, lastShownLevel)
+    return UserRewardsStatus(lastShownLevel, lastShownLevel, status = status)
   }
 
   private fun showPromotions(promotionsViewModel: PromotionsViewModel) {
@@ -135,11 +144,11 @@ class PromotionsPresenter(private val view: PromotionsView,
               ReferralsScreen.PROMOTIONS)
         }
         .subscribeOn(networkScheduler)
-        .subscribe({}, { it.printStackTrace() }))
+        .subscribe({}, { handleError(it) }))
   }
 
 
-  private fun handlerError(throwable: Throwable) {
+  private fun handleError(throwable: Throwable) {
     throwable.printStackTrace()
     if (isNoNetworkException(throwable)) {
       view.hideLoading()
@@ -156,7 +165,10 @@ class PromotionsPresenter(private val view: PromotionsView,
         .observeOn(viewScheduler)
         .doOnNext { view.showRetryAnimation() }
         .delay(1, TimeUnit.SECONDS)
-        .doOnNext { retrievePromotions() }
+        .doOnNext {
+          retrievePromotions()
+          handleShowLevels()
+        }
         .subscribe({}, { it.printStackTrace() }))
   }
 

@@ -29,7 +29,7 @@ class InviteFriendsActivityPresenter(private val activity: InviteFriendsActivity
           referralInteractor.saveReferralInformation(it.completed, it.receivedAmount.toString(),
               it.link != null, ReferralsScreen.INVITE_FRIENDS)
         }
-        .subscribe({}, { handlerError(it) })
+        .subscribe({}, { handleError(it) })
     )
   }
 
@@ -51,7 +51,7 @@ class InviteFriendsActivityPresenter(private val activity: InviteFriendsActivity
         .subscribe({}, { it.printStackTrace() }))
   }
 
-  private fun handlerError(throwable: Throwable) {
+  private fun handleError(throwable: Throwable) {
     throwable.printStackTrace()
     if (isNoNetworkException(throwable)) {
       activity.showNetworkErrorView()

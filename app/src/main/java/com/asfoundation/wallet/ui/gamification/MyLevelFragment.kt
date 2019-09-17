@@ -71,23 +71,23 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     }
   }
 
-  override fun updateLevel(userStatus: UserRewardsStatus) {
-    if (userStatus.bonus.size != 1) {
-      step = 100 / (userStatus.bonus.size - 1)
+  override fun updateLevel(lastShownLevel: Int, level: Int, bonus: List<Double>) {
+    if (bonus.size != 1) {
+      step = 100 / (bonus.size - 1)
     }
     gamification_loading.visibility = View.GONE
 
-    setLevelResources(userStatus.level)
+    setLevelResources(level)
 
-    gamification_progress_bar.animateProgress(userStatus.lastShownLevel, userStatus.level, step)
+    gamification_progress_bar.animateProgress(lastShownLevel, level, step)
 
-    if (userStatus.level > userStatus.lastShownLevel) {
-      levelUpAnimation(userStatus.level)
+    if (level > lastShownLevel) {
+      levelUpAnimation(level)
     }
 
-    for (value in userStatus.bonus) {
-      val level = userStatus.bonus.indexOf(value)
-      val isCurrentLevel = level == userStatus.level
+    for (value in bonus) {
+      val newLevel = bonus.indexOf(value)
+      val isCurrentLevel = newLevel == level
       val bonusLabel = if (isCurrentLevel) {
         R.string.gamification_level_bonus
       } else {
@@ -98,16 +98,16 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     }
   }
 
-  override fun setStaringLevel(userStatus: UserRewardsStatus) {
-    progress_bar.progress = userStatus.lastShownLevel * (100 / (userStatus.bonus.size - 1))
-    levelUpAnimation(userStatus.level)
-    for (i in 0..userStatus.lastShownLevel) {
-      gamification_progress_bar.showPreviousLevelIcons(i, i < userStatus.lastShownLevel)
+  override fun setStaringLevel(lastShownLevel: Int, level: Int, bonus: List<Double>) {
+    progress_bar.progress = lastShownLevel * (100 / (bonus.size - 1))
+    levelUpAnimation(level)
+    for (i in 0..lastShownLevel) {
+      gamification_progress_bar.showPreviousLevelIcons(i, i < lastShownLevel)
     }
   }
 
   override fun animateBackgroundFade() {
-    howItWorksBottomSheet.setBottomSheetCallback(object :
+    howItWorksBottomSheet.bottomSheetCallback = object :
         BottomSheetBehavior.BottomSheetCallback() {
       override fun onStateChanged(bottomSheet: View, newState: Int) {
       }
@@ -115,7 +115,7 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
       override fun onSlide(bottomSheet: View, slideOffset: Float) {
         background_fade_animation?.progress = slideOffset
       }
-    })
+    }
   }
 
   private fun setLevelResources(level: Int) {
