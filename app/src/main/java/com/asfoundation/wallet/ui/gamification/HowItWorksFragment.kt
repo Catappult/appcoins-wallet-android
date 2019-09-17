@@ -27,8 +27,6 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
   @Inject
   lateinit var gamificationInteractor: GamificationInteractor
   @Inject
-  lateinit var levelResourcesMapper: LevelResourcesMapper
-  @Inject
   lateinit var analytics: GamificationAnalytics
 
   private lateinit var presenter: HowItWorksPresenter
@@ -37,17 +35,15 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = HowItWorksPresenter(this, gamificationInteractor, analytics, Schedulers.io(),
-        AndroidSchedulers.mainThread())
+    presenter = HowItWorksPresenter(this, gamificationView, gamificationInteractor, analytics,
+        Schedulers.io(), AndroidSchedulers.mainThread())
   }
 
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    if (context !is GamificationView) {
-      throw IllegalArgumentException(
-          HowItWorksFragment::class.java.simpleName + " needs to be attached to a " + GamificationView::class.java.simpleName)
-    }
+    require(
+        context is GamificationView) { HowItWorksFragment::class.java.simpleName + " needs to be attached to a " + GamificationView::class.java.simpleName }
     gamificationView = context
   }
 
@@ -67,7 +63,7 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
       bonusTextView.text =
           getString(R.string.gamification_how_table_b2, formatLevelInfo(level.bonus))
       view.findViewById<ImageView>(R.id.ic_level)
-          .setImageResource(levelResourcesMapper.mapDarkIcons(level))
+          .setImageResource(LevelResourcesMapper.mapDarkIcons(level))
       (fragment_gamification_how_it_works_levels_layout as LinearLayout).addView(view)
       if (level.level == currentLevel) {
         highlightCurrentLevel(levelTextView, spendTextView, bonusTextView)
@@ -152,7 +148,7 @@ class HowItWorksFragment : DaggerFragment(), HowItWorksView {
 
   companion object {
     private val TAG = HowItWorksFragment::class.java.simpleName
-    public const val MAX_LEVEL = 4
+    const val MAX_LEVEL = 4
     @JvmStatic
     fun newInstance(): HowItWorksFragment {
       return HowItWorksFragment()

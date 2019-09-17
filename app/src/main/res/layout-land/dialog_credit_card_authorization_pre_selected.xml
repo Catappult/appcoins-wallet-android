@@ -124,7 +124,7 @@
           android:layout_marginBottom="20dp"
           android:drawableEnd="@drawable/ic_arrow_right"
           android:text="@string/purchase_more_payment_methods_button"
-          android:textColor="@color/transaction_details_button_color"
+          android:textColor="@color/text_button_color"
           android:textSize="12sp"
           app:layout_constraintBottom_toTopOf="@+id/dialog_buy_buttons_payment_methods"
           app:layout_constraintEnd_toEndOf="parent"

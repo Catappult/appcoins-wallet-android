@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:drawable="@drawable/ic_share_enabled" android:state_enabled="true" />
+  <item android:drawable="@drawable/ic_share_disabled" android:state_enabled="false" />
+  <!--default state -->
+  <item android:drawable="@drawable/ic_share_disabled" />
+</selector>

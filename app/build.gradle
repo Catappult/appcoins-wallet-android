@@ -184,6 +184,7 @@ dependencies {
   implementation "androidx.constraintlayout:constraintlayout:$project.androidxConstraintLayoutVersion"
   implementation "androidx.palette:palette:$project.androidxViewVersion"
   implementation "com.google.android.material:material:$project.androidxMaterialVersion"
+  implementation "androidx.preference:preference:$project.preferenceLibVersion"
 
   implementation "androidx.multidex:multidex:$project.multidexVersion"
   // Bar code scanning
