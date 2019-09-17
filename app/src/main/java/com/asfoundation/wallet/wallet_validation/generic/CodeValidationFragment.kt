@@ -271,14 +271,14 @@ class CodeValidationFragment : DaggerFragment(),
     validate_code_animation.playAnimation()
   }
 
-  override fun showReferralEligible(currency: String, maxAmount: String) {
+  override fun showReferralEligible(currency: String, pendingAmount: String) {
     walletValidationView?.showLastStepAnimation()
     content.visibility = View.GONE
     animation_validating_code.visibility = View.GONE
     referral_status.visibility = View.VISIBLE
     referral_status_title.setText(R.string.referral_verification_confirmation_title)
     referral_status_body.text =
-        getString(R.string.referral_verification_confirmation_body, currency + maxAmount)
+        getString(R.string.referral_verification_confirmation_body, currency + pendingAmount)
     referral_status_animation.setAnimation(R.raw.referral_invited)
     referral_status_animation.playAnimation()
   }
