@@ -110,18 +110,20 @@ class CodeValidationPresenter(
       disposables.add(referralInteractor.retrieveReferral()
           .subscribeOn(networkScheduler)
           .observeOn(viewScheduler)
-          .doOnSuccess { handleReferralStatus(it.invited, it.symbol, it.maxAmount) }
+          .doOnSuccess {
+            handleReferralStatus(it.invited, it.symbol, it.maxAmount, it.pendingAmount)
+          }
           .subscribe()
       )
     }
   }
 
-  private fun handleReferralStatus(eligible: Boolean, currency: String, maxAmount: BigDecimal) {
-    val maxAmountString = maxAmount.scaleToString(2)
+  private fun handleReferralStatus(eligible: Boolean, currency: String, maxAmount: BigDecimal,
+                                   pendingAmount: BigDecimal) {
     if (eligible) {
-      view.showReferralEligible(currency, maxAmountString)
+      view.showReferralEligible(currency, pendingAmount.scaleToString(2))
     } else {
-      view.showReferralIneligible(currency, maxAmountString)
+      view.showReferralIneligible(currency, maxAmount.scaleToString(2))
     }
   }
 
