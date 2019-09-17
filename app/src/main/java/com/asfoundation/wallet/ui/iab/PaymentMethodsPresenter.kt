@@ -155,9 +155,9 @@ class PaymentMethodsPresenter(
     disposables.add(inAppPurchaseInteractor.getCurrentPaymentStep(appPackage, transaction)
         .filter { currentPaymentStep -> currentPaymentStep == AsfInAppPurchaseInteractor.CurrentPaymentStep.PAUSED_ON_CHAIN }
         .doOnSuccess {
-          inAppPurchaseInteractor.resume(uri,
-              AsfInAppPurchaseInteractor.TransactionType.NORMAL, appPackage, transaction.skuId,
-              developerPayload, isBds)
+          view.lockRotation()
+          inAppPurchaseInteractor.resume(uri, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
+              appPackage, transaction.skuId, developerPayload, isBds)
         }
         .subscribe())
   }
