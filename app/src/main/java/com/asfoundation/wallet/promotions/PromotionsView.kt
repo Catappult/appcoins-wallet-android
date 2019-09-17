@@ -24,7 +24,7 @@ interface PromotionsView {
   fun retryClick(): Observable<Any>
   fun showRetryAnimation()
   fun setReferralBonus(bonus: BigDecimal, currency: String)
-  fun toogleShareAvailability(validated: Boolean)
+  fun toggleShareAvailability(validated: Boolean)
   fun hideLoading()
   fun showLoading()
 }

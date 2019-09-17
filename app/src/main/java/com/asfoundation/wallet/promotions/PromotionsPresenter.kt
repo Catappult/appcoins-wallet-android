@@ -41,7 +41,7 @@ class PromotionsPresenter(private val view: PromotionsView,
             .observeOn(viewScheduler)
             .doOnSuccess {
               view.setReferralBonus(it.maxValue, it.currency)
-              view.toogleShareAvailability(it.isValidated)
+              view.toggleShareAvailability(it.isValidated)
               showPromotions(it)
               checkForUpdates(it)
             }
