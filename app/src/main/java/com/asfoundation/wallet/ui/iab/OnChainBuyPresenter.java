@@ -76,14 +76,13 @@ public class OnChainBuyPresenter {
 
   private void handleBuyEvent(String appPackage, String productName, String developerPayload,
       boolean isBds) {
+    showTransactionState(uriString);
     disposables.add(
         inAppPurchaseInteractor.send(uriString, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
             appPackage, productName, BigDecimal.ZERO, developerPayload, isBds)
             .observeOn(viewScheduler)
             .doOnError(this::showError)
             .observeOn(Schedulers.io())
-            .doOnSubscribe(disposable -> showTransactionState(uriString))
-            .retry()
             .subscribe());
   }
 
