@@ -12,6 +12,8 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.StyleSpan
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.TextView
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.router.ExternalBrowserRouter
@@ -124,6 +126,21 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
 
   override fun getLinkClick(): Observable<String> {
     return linkSubject!!
+  }
+
+  override fun showWarningText() {
+    if (!onboarding_checkbox.isChecked &&
+        terms_conditions_warning.visibility == View.GONE &&
+        terms_conditions_layout.visibility == View.VISIBLE) {
+      animateShowWarning(terms_conditions_warning)
+      terms_conditions_warning.visibility = View.VISIBLE
+      presenter.markedWarningTextAsShowed()
+    }
+  }
+
+  private fun animateShowWarning(textView: TextView) {
+    val animation = AnimationUtils.loadAnimation(applicationContext, R.anim.fast_fade_in_animation)
+    textView.animation = animation
   }
 
   override fun showLoading() {

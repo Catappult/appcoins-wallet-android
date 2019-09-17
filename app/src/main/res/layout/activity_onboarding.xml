@@ -97,7 +97,7 @@
 
     <Button
         android:id="@+id/redeem_bonus"
-        style="@style/TransactionDetailsButtonStyle"
+        style="@style/ButtonStyle.Light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -118,7 +118,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="41dp"
         android:layout_marginEnd="20dp"
         android:gravity="center"
         android:text="@string/terms_and_conditions_error"
@@ -133,7 +133,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
-        android:layout_marginTop="47dp"
+        android:layout_marginTop="52dp"
         android:layout_marginEnd="20dp"
         android:gravity="center"
         android:orientation="horizontal"
@@ -159,7 +159,7 @@
 
     <Button
         android:id="@+id/next_button"
-        style="@style/ButtonStyle"
+        style="@style/ButtonStyle.Alternative"
         android:layout_width="120dp"
         android:layout_height="@dimen/button_height"
         android:layout_marginTop="17dp"
