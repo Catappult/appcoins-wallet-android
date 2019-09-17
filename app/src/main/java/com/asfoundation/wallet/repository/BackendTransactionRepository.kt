@@ -13,7 +13,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import java.util.concurrent.TimeUnit
 
-class DevTransactionRepository(
+class BackendTransactionRepository(
     networkInfo: NetworkInfo,
     accountKeystoreService: AccountKeystoreService,
     defaultTokenProvider: DefaultTokenProvider,
