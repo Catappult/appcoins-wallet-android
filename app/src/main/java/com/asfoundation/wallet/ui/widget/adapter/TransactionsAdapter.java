@@ -163,9 +163,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
   }
 
   public void setApps(List<AppcoinsApplication> apps) {
-    //   if (apps.size() != 0) {
     items.add(new ApplicationSortedItem(apps, AppcoinsApplicationListViewHolder.VIEW_TYPE));
-    // }
   }
 
   public void setNotifications(List<ReferralNotification> notifications) {
