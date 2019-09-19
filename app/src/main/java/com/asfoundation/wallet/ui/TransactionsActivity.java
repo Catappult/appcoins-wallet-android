@@ -203,6 +203,7 @@ public class TransactionsActivity extends BaseNavigationActivity implements View
 
   private void onApplications(List<AppcoinsApplication> appcoinsApplications) {
     adapter.setApps(appcoinsApplications);
+    list.smoothScrollToPosition(0);
     showList();
   }
 
