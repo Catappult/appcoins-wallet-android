@@ -86,14 +86,14 @@ class MyLevelFragment : DaggerFragment(), MyLevelView {
     }
 
     for (value in bonus) {
-      val newLevel = bonus.indexOf(value)
-      val isCurrentLevel = newLevel == level
+      val levelIndex = bonus.indexOf(value)
+      val isCurrentLevel = levelIndex == level
       val bonusLabel = if (isCurrentLevel) {
         R.string.gamification_level_bonus
       } else {
         R.string.gamification_how_table_b2
       }
-      gamification_progress_bar.setLevelBonus(level,
+      gamification_progress_bar.setLevelBonus(levelIndex,
           getString(bonusLabel, gamification_progress_bar.formatLevelInfo(value)))
     }
   }
