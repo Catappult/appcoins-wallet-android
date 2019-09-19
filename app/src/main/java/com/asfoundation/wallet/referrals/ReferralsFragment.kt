@@ -38,11 +38,12 @@ class ReferralsFragment : DaggerFragment(), ReferralsView {
     friends_invited.text = String.format("%d/%d", completedInvites, totalAvailable)
     friends_invited.visibility = VISIBLE
     number_friends_invited.text = String.format("%d/%d", completedInvites, totalAvailable)
-    total_earned.text = currency.plus(receivedAmount.scaleToString(2))
+    total_earned.text =
+        currency.plus(amount.multiply(BigDecimal(completedInvites)).scaleToString(2))
     total_earned.visibility = VISIBLE
     val individualEarn = currency + amount.scaleToString(2)
     val totalEarn =
-        currency + amount.multiply(BigDecimal(completedInvites + available)).scaleToString(2)
+        currency + amount.multiply(BigDecimal(totalAvailable)).scaleToString(2)
     referral_explanation.text =
         getString(R.string.referral_dropup_menu_requirements_body, individualEarn, totalEarn)
     invitations_progress_bar.progress =
