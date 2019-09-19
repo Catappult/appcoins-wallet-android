@@ -45,6 +45,8 @@ class SettingsPresenter(private val view: SettingsView,
 
   private fun handleWalletsPreferenceSummary() {
     disposables.add(findDefaultWalletInteract.find()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
         .subscribe({ wallet ->
           addWalletPreference(wallet.address)
           view.setWalletsPreference(wallet.address)
