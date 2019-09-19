@@ -163,15 +163,13 @@ public class TransactionsAdapter extends RecyclerView.Adapter<BinderViewHolder> 
   }
 
   public void setApps(List<AppcoinsApplication> apps) {
-    if (apps.size() != 0) {
-      items.add(new ApplicationSortedItem(apps, AppcoinsApplicationListViewHolder.VIEW_TYPE));
-    }
+    //   if (apps.size() != 0) {
+    items.add(new ApplicationSortedItem(apps, AppcoinsApplicationListViewHolder.VIEW_TYPE));
+    // }
   }
 
   public void setNotifications(List<ReferralNotification> notifications) {
-    if (notifications.size() != 0) {
-      items.add(new ReferralNotificationSortedItem(notifications,
-          ReferralNotificationsListViewHolder.VIEW_TYPE));
-    }
+    items.add(new ReferralNotificationSortedItem(notifications,
+        ReferralNotificationsListViewHolder.VIEW_TYPE));
   }
 }
