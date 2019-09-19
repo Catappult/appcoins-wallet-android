@@ -3,6 +3,7 @@ package com.appcoins.wallet.gamification
 import com.appcoins.wallet.gamification.repository.ForecastBonusResponse
 import com.appcoins.wallet.gamification.repository.GamificationApi
 import com.appcoins.wallet.gamification.repository.entity.LevelsResponse
+import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
 import com.appcoins.wallet.gamification.repository.entity.UserStatusResponse
 import io.reactivex.Single
 import java.math.BigDecimal
@@ -11,6 +12,7 @@ class GamificationApiTest : GamificationApi {
   var userStatusResponse: Single<UserStatusResponse>? = null
   var levelsResponse: Single<LevelsResponse>? = null
   var bonusResponse: Single<ForecastBonusResponse>? = null
+  var referralResponse: Single<ReferralResponse>? = null
   override fun getUserStatus(address: String, versionCode: String): Single<UserStatusResponse> {
     val aux = userStatusResponse!!
     userStatusResponse = null
@@ -27,6 +29,12 @@ class GamificationApiTest : GamificationApi {
                                 currency: String): Single<ForecastBonusResponse> {
     val aux = bonusResponse!!
     bonusResponse = null
+    return aux
+  }
+
+  override fun getReferralInfo(): Single<ReferralResponse> {
+    val aux = referralResponse!!
+    referralResponse = null
     return aux
   }
 }
