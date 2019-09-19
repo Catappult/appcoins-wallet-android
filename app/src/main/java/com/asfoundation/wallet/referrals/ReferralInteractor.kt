@@ -96,6 +96,10 @@ class ReferralInteractor(
         }
   }
 
+  override fun getReferralInfo(): Single<ReferralResponse> {
+    return promotionsRepository.getReferralInfo()
+  }
+
   companion object {
     const val PENDING_AMOUNT_ID = 1
   }

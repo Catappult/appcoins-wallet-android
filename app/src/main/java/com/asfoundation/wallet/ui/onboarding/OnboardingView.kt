@@ -6,7 +6,7 @@ import io.reactivex.Observable
 
 interface OnboardingView {
 
-  fun setupUi()
+  fun setupUi(maxAmount: String)
 
   fun showLoading()
 

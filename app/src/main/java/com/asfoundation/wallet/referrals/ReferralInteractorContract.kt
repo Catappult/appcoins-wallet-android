@@ -23,4 +23,6 @@ interface ReferralInteractorContract {
   fun getPendingBonusNotification(): Maybe<ReferralNotification>
 
   fun dismissNotification(referralNotification: ReferralNotification): Completable
+
+  fun getReferralInfo(): Single<ReferralResponse>
 }
