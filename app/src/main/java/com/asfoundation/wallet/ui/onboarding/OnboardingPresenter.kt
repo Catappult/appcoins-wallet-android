@@ -21,6 +21,8 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
                           private val networkScheduler: Scheduler,
                           private val walletCreated: ReplaySubject<Boolean>) {
 
+  private var hasShowedWarning = false
+
   fun present() {
     view.setupUi()
     handleSkipClicks()
@@ -31,6 +33,21 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
     handleNextButtonClicks()
     handleLaterClicks()
     handleRetryClicks()
+    handleWarningText()
+  }
+
+  fun markedWarningTextAsShowed() {
+    hasShowedWarning = true
+  }
+
+  private fun handleWarningText() {
+    disposables.add(
+        Observable.timer(5, TimeUnit.SECONDS)
+            .observeOn(viewScheduler)
+            .doOnNext { view.showWarningText() }
+            .repeatUntil { hasShowedWarning }
+            .subscribe()
+    )
   }
 
   fun stop() {
