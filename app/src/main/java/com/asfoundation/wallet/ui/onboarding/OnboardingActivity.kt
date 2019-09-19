@@ -63,21 +63,13 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
         AndroidSchedulers.mainThread(), smsValidationInteract, Schedulers.io(),
         ReplaySubject.create())
     setupUi()
-  }
-
-  override fun onResume() {
     presenter.present()
-    super.onResume()
-  }
-
-  override fun onPause() {
-    presenter.stop()
-    create_wallet_animation.removeAllAnimatorListeners()
-    super.onPause()
   }
 
   override fun onDestroy() {
     linkSubject = null
+    presenter.stop()
+    create_wallet_animation.removeAllAnimatorListeners()
     create_wallet_animation.removeAllUpdateListeners()
     create_wallet_animation.removeAllLottieOnCompositionLoadedListener()
     super.onDestroy()
