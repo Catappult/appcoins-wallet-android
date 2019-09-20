@@ -65,7 +65,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     presenter = OnboardingPresenter(CompositeDisposable(), this, interactor,
         AndroidSchedulers.mainThread(), smsValidationInteract, Schedulers.io(),
         ReplaySubject.create(), referralInteractor)
-    setupUi("")
+    setupUI()
     presenter.present()
   }
 
@@ -78,7 +78,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     super.onDestroy()
   }
 
-  override fun setupUi(maxAmount: String) {
+  private fun setupUI() {
     val termsConditions = resources.getString(R.string.terms_and_conditions)
     val privacyPolicy = resources.getString(R.string.privacy_policy)
     val termsPolicyTickBox =
@@ -94,13 +94,17 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     terms_conditions_body.movementMethod = LinkMovementMethod.getInstance()
 
     onboarding_viewpager.setPageTransformer(OnboardingPageTransformer())
-    onboarding_viewpager.adapter = OnboardingPageAdapter(maxAmount, applicationContext)
+    onboarding_viewpager.adapter = OnboardingPageAdapter("", applicationContext)
     onboarding_viewpager.registerOnPageChangeCallback(
         OnboardingPageChangeListener(onboarding_content))
 
     onboarding_content.visibility = View.VISIBLE
     wallet_creation_animation.visibility = View.GONE
     layout_validation_no_internet.visibility = View.GONE
+  }
+
+  override fun updateUI(maxAmount: String) {
+    onboarding_viewpager.adapter = OnboardingPageAdapter(maxAmount, applicationContext)
   }
 
   override fun getNextButtonClick(): Observable<Any> {
