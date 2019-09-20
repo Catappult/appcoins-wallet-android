@@ -75,7 +75,7 @@ class ReferralInteractor(
                 preferences.getPendingAmountNotification(wallet.address)
                     .filter {
                       userStats.pendingAmount.compareTo(BigDecimal.ZERO) != 0 &&
-                          it != userStats.pendingAmount.toPlainString()
+                          it != userStats.pendingAmount.scaleToString(2)
                     }
                     .map {
                       ReferralNotification(PENDING_AMOUNT_ID,
