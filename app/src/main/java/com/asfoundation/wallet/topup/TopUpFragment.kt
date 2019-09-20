@@ -355,7 +355,6 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   override fun initialInputSetup(preselectedChip: Int, secondChipValue: String) {
     changeMainValueText(secondChipValue)
-    //Preselects the second chip
     selectChip(preselectedChip)
   }
 

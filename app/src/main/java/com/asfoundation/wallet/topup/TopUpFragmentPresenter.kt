@@ -23,6 +23,9 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
 
   companion object {
     private const val NUMERIC_REGEX = "-?\\d+(\\.\\d+)?"
+
+    //Preselects the second chip
+    private const val PRESELECTED_CHIP = 1
   }
 
   fun present(appPackage: String) {
@@ -45,7 +48,9 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         interactor.getLocalCurrency().subscribeOn(networkScheduler).observeOn(viewScheduler),
         BiFunction { paymentMethods: List<PaymentMethodData>, currency: LocalCurrency ->
           view.setupUiElements(filterPaymentMethods(paymentMethods), currency)
-        }).subscribe({ }, { throwable -> throwable.printStackTrace() }))
+        })
+        .doOnSuccess { handlePreselectedChip() }
+        .subscribe({ }, { throwable -> throwable.printStackTrace() }))
   }
 
   private fun handleChangeCurrencyClick() {
@@ -97,6 +102,15 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
                 view.setConversionValue(topUpData)
                 handleInvalidValueInput(packageName, topUpData)
               }
+        }
+        .subscribe())
+  }
+
+  private fun handlePreselectedChip() {
+    disposables.add(getChipValue(PRESELECTED_CHIP)
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler).map {
+          view.initialInputSetup(PRESELECTED_CHIP, it.amount.toString())
         }
         .subscribe())
   }
