@@ -7,7 +7,10 @@ import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
+import androidx.annotation.NonNull;
 import androidx.room.Room;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 import cm.aptoide.analytics.AnalyticsManager;
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards;
 import com.appcoins.wallet.appcoins.rewards.repository.BdsAppcoinsRewardsRepository;
@@ -103,6 +106,7 @@ import com.asfoundation.wallet.referrals.ReferralInteractorContract;
 import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.ApproveTransactionValidatorBds;
+import com.asfoundation.wallet.repository.BackendTransactionRepository;
 import com.asfoundation.wallet.repository.BalanceService;
 import com.asfoundation.wallet.repository.BdsBackEndWriter;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
@@ -110,7 +114,6 @@ import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.BuyTransactionValidatorBds;
 import com.asfoundation.wallet.repository.CurrencyConversionService;
-import com.asfoundation.wallet.repository.BackendTransactionRepository;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.GasSettingsRepository;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
@@ -127,7 +130,6 @@ import com.asfoundation.wallet.repository.SignDataStandardNormalizer;
 import com.asfoundation.wallet.repository.SmsValidationRepositoryType;
 import com.asfoundation.wallet.repository.TokenRepositoryType;
 import com.asfoundation.wallet.repository.TrackTransactionService;
-import com.asfoundation.wallet.repository.TransactionLocalSource;
 import com.asfoundation.wallet.repository.TransactionMapper;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
 import com.asfoundation.wallet.repository.TransactionsDao;
@@ -149,7 +151,6 @@ import com.asfoundation.wallet.service.RealmManager;
 import com.asfoundation.wallet.service.SmsValidationApi;
 import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenRateService;
-import com.asfoundation.wallet.service.TransactionsNetworkClientType;
 import com.asfoundation.wallet.service.TrustWalletTickerService;
 import com.asfoundation.wallet.topup.TopUpInteractor;
 import com.asfoundation.wallet.transactions.TransactionsAnalytics;
@@ -1069,20 +1070,39 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides TransactionRepositoryType provideTransactionRepository(
       NetworkInfo networkInfo, AccountKeystoreService accountKeystoreService,
-      TransactionsNetworkClientType blockExplorerClient, TransactionLocalSource inDiskCache,
       DefaultTokenProvider defaultTokenProvider, MultiWalletNonceObtainer nonceObtainer,
-      OffChainTransactions transactionsNetworkRepository, @NotNull TransactionsMapper mapper,
-      Context context, SharedPreferences sharedPreferences) {
+      OffChainTransactions transactionsNetworkRepository, Context context,
+      SharedPreferences sharedPreferences) {
+    final Migration MIGRATION_1_2 = new Migration(1, 2) {
+      @Override public void migrate(@NonNull SupportSQLiteDatabase database) {
+        database.execSQL("CREATE TABLE IF NOT EXISTS TransactionEntityCopy (transactionId TEXT NOT "
+            + "NULL, relatedWallet TEXT NOT NULL, approveTransactionId TEXT, type TEXT NOT "
+            + "NULL, timeStamp INTEGER NOT NULL, processedTime INTEGER NOT NULL, status "
+            + "TEXT NOT NULL, value TEXT NOT NULL, `from` TEXT NOT NULL, `to` TEXT NOT NULL, "
+            + "currency TEXT, operations TEXT, sourceName TEXT, description TEXT, "
+            + "iconType TEXT, uri TEXT, PRIMARY KEY(transactionId, relatedWallet))");
+        database.execSQL("INSERT INTO TransactionEntityCopy (transactionId, relatedWallet, "
+            + "approveTransactionId, type, timeStamp, processedTime, status, value, `from`, `to`,"
+            + " currency, operations, sourceName, description, iconType, uri) SELECT "
+            + "transactionId, relatedWallet,approveTransactionId, type, timeStamp, processedTime,"
+            + " status, value, `from`, `to`, currency, operations, sourceName, description, "
+            + "iconType, uri FROM TransactionEntity");
+        database.execSQL("DROP TABLE TransactionEntity");
+        database.execSQL("ALTER TABLE TransactionEntityCopy RENAME TO TransactionEntity");
+      }
+    };
     TransactionsDao transactionsDao =
         Room.databaseBuilder(context.getApplicationContext(), TransactionsDatabase.class,
             "transactions_database")
+            .addMigrations(MIGRATION_1_2)
             .build()
             .transactionsDao();
     TransactionsRepository localRepository =
         new TransactionsLocalRepository(transactionsDao, sharedPreferences);
-    return new BackendTransactionRepository(networkInfo, accountKeystoreService, defaultTokenProvider,
-        new BlockchainErrorMapper(), nonceObtainer, Schedulers.io(), transactionsNetworkRepository,
-        localRepository, new TransactionMapper(), new CompositeDisposable(), Schedulers.io());
+    return new BackendTransactionRepository(networkInfo, accountKeystoreService,
+        defaultTokenProvider, new BlockchainErrorMapper(), nonceObtainer, Schedulers.io(),
+        transactionsNetworkRepository, localRepository, new TransactionMapper(),
+        new CompositeDisposable(), Schedulers.io());
   }
 
   @Singleton @Provides SmsValidationApi provideSmsValidationApi(OkHttpClient client, Gson gson) {
