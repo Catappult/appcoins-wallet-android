@@ -10,8 +10,8 @@ class DeleteKeyListener(
 ) : View.OnKeyListener {
 
   override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
-    if (keyCode == KeyEvent.KEYCODE_DEL) {
-      inputTexts[selectedPosition].text = null
+    if (event?.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DEL) {
+      inputTexts[selectedPosition].setText("")
       if (selectedPosition > 0) {
         inputTexts[selectedPosition - 1].requestFocus()
       }
