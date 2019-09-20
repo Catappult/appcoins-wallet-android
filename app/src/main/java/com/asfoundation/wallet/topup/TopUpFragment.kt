@@ -18,6 +18,7 @@ import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
 import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
 import com.asfoundation.wallet.topup.paymentMethods.TopUpPaymentMethodAdapter
+import com.asfoundation.wallet.ui.iab.FiatValue
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.jakewharton.rxrelay2.PublishRelay
@@ -25,6 +26,8 @@ import dagger.android.support.DaggerFragment
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.default_value_chips_layout.*
 import kotlinx.android.synthetic.main.fragment_top_up.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
 import java.math.BigDecimal
@@ -41,6 +44,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   private lateinit var paymentMethodClick: PublishRelay<String>
   private lateinit var fragmentContainer: ViewGroup
   private lateinit var paymentMethods: List<PaymentMethodData>
+  private var chipClickSubject: PublishSubject<Int>? = null
   private var topUpActivityView: TopUpActivityView? = null
   private var selectedCurrency = FIAT_CURRENCY
   private var switchingCurrency = false
@@ -53,6 +57,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
     private const val SELECTED_CURRENCY_PARAM = "SELECTED_CURRENCY"
     private const val LOCAL_CURRENCY_PARAM = "LOCAL_CURRENCY"
+
+    private const val NUMBER_OF_CHIPS = 4
 
 
     @JvmStatic
@@ -90,10 +96,10 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     paymentMethodClick = PublishRelay.create()
+    chipClickSubject = PublishSubject.create()
     presenter =
         TopUpFragmentPresenter(this, topUpActivityView, interactor, AndroidSchedulers.mainThread(),
             Schedulers.io())
-
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -108,6 +114,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       selectedCurrency = savedInstanceState.getString(SELECTED_CURRENCY_PARAM) ?: FIAT_CURRENCY
       localCurrency = savedInstanceState.getSerializable(LOCAL_CURRENCY_PARAM) as LocalCurrency
     }
+    setupDefaultValuesChips()
     topUpActivityView?.showToolbar()
     presenter.present(appPackage)
 
@@ -139,6 +146,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   override fun onDestroy() {
+    chipClickSubject = null
     presenter.stop()
     super.onDestroy()
   }
@@ -165,6 +173,10 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
           TopUpData(getCurrencyData(), selectedCurrency, getSelectedPaymentMethod(),
               bonusMessageValue)
         }
+  }
+
+  override fun getChipsClick(): Observable<Int> {
+    return chipClickSubject!!
   }
 
   override fun setNextButtonState(enabled: Boolean) {
@@ -287,6 +299,148 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       main_value.setTextColor(ContextCompat.getColor(context!!, R.color.black))
     } else {
       main_value.setTextColor(ContextCompat.getColor(context!!, R.color.color_grey_9e))
+    }
+  }
+
+  override fun getSelectedChip(): Int {
+    var selectedChip: Int = -1
+    if (default_chip1.isChecked) {
+      selectedChip = 0
+    }
+    if (default_chip2.isChecked) {
+      selectedChip = 1
+    }
+    if (default_chip3.isChecked) {
+      selectedChip = 2
+    }
+    if (default_chip4.isChecked) {
+      selectedChip = 3
+    }
+    return selectedChip
+  }
+
+  override fun changeMainValueText(value: String) {
+    main_value.setText(value)
+  }
+
+  override fun setupDefaultValueChips(values: List<FiatValue>) {
+    default_chip1.text = values[0].symbol + values[0].amount
+    default_chip2.text = values[1].symbol + values[1].amount
+    default_chip3.text = values[2].symbol + values[2].amount
+    default_chip4.text = values[3].symbol + values[3].amount
+  }
+
+  override fun unselectChips() {
+    setChipsUnchecked()
+    setUnselectedChipsDrawable()
+    setUnselectedChipsText()
+  }
+
+  override fun selectChip(index: Int) {
+    setChipChecked(index)
+    setSelectedChipDrawable(index)
+    setSelectedChipText(index)
+  }
+
+  override fun getSelectedCurrency(): String {
+    return selectedCurrency
+  }
+
+  private fun setupDefaultValuesChips() {
+    for (i in 0..NUMBER_OF_CHIPS) {
+      setChipOnClickListener(i)
+    }
+    unselectChips()
+  }
+
+  override fun initialInputSetup(preselectedChip: Int, secondChipValue: String) {
+    changeMainValueText(secondChipValue)
+    //Preselects the second chip
+    selectChip(preselectedChip)
+  }
+
+  private fun setChipsUnchecked() {
+    default_chip1.isChecked = false
+    default_chip2.isChecked = false
+    default_chip3.isChecked = false
+    default_chip4.isChecked = false
+  }
+
+  private fun setUnselectedChipsDrawable() {
+    default_chip1.background = resources.getDrawable(R.drawable.chip_unselected_background, null)
+    default_chip2.background = resources.getDrawable(R.drawable.chip_unselected_background, null)
+    default_chip3.background = resources.getDrawable(R.drawable.chip_unselected_background, null)
+    default_chip4.background = resources.getDrawable(R.drawable.chip_unselected_background, null)
+  }
+
+  private fun setUnselectedChipsText() {
+    default_chip1.setTextColor(ContextCompat.getColor(context!!, R.color.top_up_default_value_chip))
+    default_chip2.setTextColor(ContextCompat.getColor(context!!, R.color.top_up_default_value_chip))
+    default_chip3.setTextColor(ContextCompat.getColor(context!!, R.color.top_up_default_value_chip))
+    default_chip4.setTextColor(ContextCompat.getColor(context!!, R.color.top_up_default_value_chip))
+  }
+
+  private fun setChipChecked(index: Int) {
+    when (index) {
+      0 -> default_chip1.isChecked = true
+      1 -> default_chip2.isChecked = true
+      2 -> default_chip3.isChecked = true
+      3 -> default_chip4.isChecked = true
+    }
+  }
+
+  private fun setSelectedChipDrawable(index: Int) {
+    when (index) {
+      0 -> default_chip1.background =
+          resources.getDrawable(R.drawable.chip_selected_background, null)
+      1 -> default_chip2.background =
+          resources.getDrawable(R.drawable.chip_selected_background, null)
+      2 -> default_chip3.background =
+          resources.getDrawable(R.drawable.chip_selected_background, null)
+      3 -> default_chip4.background =
+          resources.getDrawable(R.drawable.chip_selected_background, null)
+    }
+  }
+
+  private fun setSelectedChipText(index: Int) {
+    when (index) {
+      0 -> default_chip1.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+      1 -> default_chip2.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+      2 -> default_chip3.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+      3 -> default_chip4.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+    }
+  }
+
+  private fun setChipOnClickListener(index: Int) {
+    when (index) {
+      0 -> {
+        default_chip1.setOnCheckedChangeListener { _, isChecked ->
+          if (isChecked) {
+            chipClickSubject?.onNext(index)
+          }
+        }
+      }
+      1 -> {
+        default_chip2.setOnCheckedChangeListener { _, isChecked ->
+          if (isChecked) {
+            chipClickSubject?.onNext(index)
+          }
+        }
+      }
+      2 -> {
+        default_chip3.setOnCheckedChangeListener { _, isChecked ->
+          if (isChecked) {
+            chipClickSubject?.onNext(index)
+          }
+        }
+      }
+      3 -> {
+        default_chip4.setOnCheckedChangeListener { _, isChecked ->
+          if (isChecked) {
+            chipClickSubject?.onNext(index)
+          }
+        }
+      }
     }
   }
 

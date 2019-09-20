@@ -31,6 +31,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     handleNextClick()
     handleAmountChange(appPackage)
     handlePaymentMethodSelected()
+    handleDefaultValueChips()
+    handleValueChipsClick()
   }
 
   fun stop() {
@@ -63,8 +65,10 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
               it.currency.appcValue != DEFAULT_VALUE && it.currency.fiatValue != DEFAULT_VALUE
             }.doOnNext {
               view.showLoading()
+              val values = getChipValuesList()
               activity?.navigateToPayment(it.paymentMethod!!, it, it.selectedCurrency, "BDS",
-                  "TOPUP", it.bonusValue)
+                  "TOPUP", it.bonusValue, view.getSelectedChip(), values[0],
+                  values[1], values[2], values[3])
             }.subscribe())
   }
 
@@ -189,6 +193,41 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     }
   }
 
+  private fun handleDefaultValueChips() {
+    disposables.add(interactor.getDefaultValues()
+        .map { view.setupDefaultValueChips(it) }
+        .subscribe())
+  }
+
+  private fun handleValueChipsClick() {
+    disposables.add(view.getChipsClick()
+        .doOnNext { index ->
+          view.unselectChips()
+          view.selectChip(index)
+        }
+        .flatMapSingle { getChipValue(it) }
+        .doOnNext {
+          if (view.getSelectedCurrency() == TopUpData.FIAT_CURRENCY) {
+            handleChipFiatInput(it)
+          } else {
+            handleChipCreditsInput(it)
+          }
+        }
+        .subscribe())
+  }
+
+  private fun handleChipFiatInput(value: FiatValue) {
+    view.changeMainValueText(value.amount.toString())
+  }
+
+  private fun handleChipCreditsInput(value: FiatValue) {
+    disposables.add(interactor.convertLocal(value.currency, value.amount.toString(), 2)
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .map { view.changeMainValueText(it.amount.toString()) }
+        .subscribe())
+  }
+
   private fun showValueWarning(maxValue: FiatValue, minValue: FiatValue, value: FiatValue) {
     val localCurrency = " ${maxValue.currency}"
     if (value.amount > maxValue.amount) {
@@ -200,5 +239,16 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         view.hideValueInputWarning()
       }
     }
+  }
+
+  private fun getChipValuesList(): List<FiatValue> {
+    return interactor.getDefaultValues()
+        .subscribeOn(networkScheduler)
+        .blockingGet()
+  }
+
+  private fun getChipValue(index: Int): Single<FiatValue> {
+    return interactor.getDefaultValues()
+        .map { it[index] }
   }
 }
