@@ -1037,7 +1037,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
     ObjectMapper objectMapper = new ObjectMapper();
 
-    DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSS", Locale.US);
+    DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.US);
     objectMapper.setDateFormat(df);
     objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
@@ -1050,12 +1050,12 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
     return new OffChainTransactionsRepository(
         retrofit.create(OffChainTransactionsRepository.TransactionsApi.class),
-        new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSS", Locale.US));
+        new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US));
   }
 
   @Provides OffChainTransactions providesOffChainTransactions(
       OffChainTransactionsRepository repository, TransactionsMapper mapper) {
-    return new OffChainTransactions(repository, mapper, getVersionCode(), Schedulers.io());
+    return new OffChainTransactions(repository, mapper, getVersionCode());
   }
 
   private String getVersionCode() {
