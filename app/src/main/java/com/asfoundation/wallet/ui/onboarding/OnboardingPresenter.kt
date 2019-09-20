@@ -12,7 +12,6 @@ import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.Function3
 import io.reactivex.subjects.ReplaySubject
-import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 class OnboardingPresenter(private val disposables: CompositeDisposable,
@@ -43,7 +42,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
     disposables.add(referralInteractor.getReferralInfo()
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-        .doOnSuccess { view.updateUI(it.symbol + it.amount.multiply(BigDecimal(it.available))) }
+        .doOnSuccess { view.updateUI(it.symbol + it.maxAmount) }
         .subscribe({}, { throwable -> throwable.printStackTrace() })
     )
   }
