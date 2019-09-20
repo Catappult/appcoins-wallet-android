@@ -23,8 +23,6 @@ interface TopUpFragmentView {
 
   fun setNextButtonState(enabled: Boolean)
 
-  fun hideKeyboard()
-
   fun showLoading()
 
   fun showPaymentDetailsForm()
@@ -64,4 +62,6 @@ interface TopUpFragmentView {
   fun getSelectedChip(): Int
 
   fun initialInputSetup(preselectedChip: Int, secondChipValue: String)
+
+  fun paymentMethodsFocusRequest()
 }

@@ -183,9 +183,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     button.isEnabled = enabled
   }
 
-  override fun hideKeyboard() {
-    val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-    imm?.hideSoftInputFromWindow(fragmentContainer.windowToken, 0)
+  override fun paymentMethodsFocusRequest() {
+    hideKeyboard()
     payment_methods.requestFocus()
   }
 
@@ -321,6 +320,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   override fun changeMainValueText(value: String) {
     main_value.setText(value)
+    main_value.setSelection(value.length)
   }
 
   override fun setupDefaultValueChips(values: List<FiatValue>) {
@@ -346,16 +346,22 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     return selectedCurrency
   }
 
+  override fun initialInputSetup(preselectedChip: Int, secondChipValue: String) {
+    hideKeyboard()
+    changeMainValueText(secondChipValue)
+    selectChip(preselectedChip)
+  }
+
+  private fun hideKeyboard() {
+    val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+    imm?.hideSoftInputFromWindow(fragmentContainer.windowToken, 0)
+  }
+
   private fun setupDefaultValuesChips() {
     for (i in 0..NUMBER_OF_CHIPS) {
       setChipOnClickListener(i)
     }
     unselectChips()
-  }
-
-  override fun initialInputSetup(preselectedChip: Int, secondChipValue: String) {
-    changeMainValueText(secondChipValue)
-    selectChip(preselectedChip)
   }
 
   private fun setChipsUnchecked() {

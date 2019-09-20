@@ -154,7 +154,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   private fun handlePaymentMethodSelected() {
-    disposables.add(view.getPaymentMethodClick().doOnNext { view.hideKeyboard() }.subscribe())
+    disposables.add(
+        view.getPaymentMethodClick().doOnNext { view.paymentMethodsFocusRequest() }.subscribe())
   }
 
   private fun loadBonusIntoView(appPackage: String, amount: String,
