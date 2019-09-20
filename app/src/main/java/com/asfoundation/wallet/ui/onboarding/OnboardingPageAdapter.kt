@@ -9,10 +9,10 @@ class OnboardingPageAdapter : RecyclerView.Adapter<OnboardingViewHolder>() {
 
   private val titles =
       intArrayOf(R.string.intro_1_title, R.string.intro_2_title, R.string.intro_3_title,
-          R.string.intro_4_title)
+          R.string.referral_onboarding_title)
   private val messages =
       intArrayOf(R.string.intro_1_body, R.string.intro_2_body, R.string.intro_3_body,
-          R.string.intro_4_body)
+          R.string.referral_onboarding_body)
 
   override fun getItemCount(): Int {
     return titles.size

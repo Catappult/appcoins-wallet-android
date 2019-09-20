@@ -63,7 +63,7 @@
         android:layout_below="@id/note"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="36dp"
-        android:drawableStart="@drawable/ic_share"
+        android:drawableStart="@drawable/ic_share_enabled"
         android:drawablePadding="8dp"
         android:text="@string/askafriend_share_button"
         />

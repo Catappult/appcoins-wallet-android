@@ -76,14 +76,13 @@ public class OnChainBuyPresenter {
 
   private void handleBuyEvent(String appPackage, String productName, String developerPayload,
       boolean isBds) {
+    showTransactionState(uriString);
     disposables.add(
         inAppPurchaseInteractor.send(uriString, AsfInAppPurchaseInteractor.TransactionType.NORMAL,
             appPackage, productName, BigDecimal.ZERO, developerPayload, isBds)
             .observeOn(viewScheduler)
             .doOnError(this::showError)
             .observeOn(Schedulers.io())
-            .doOnSubscribe(disposable -> showTransactionState(uriString))
-            .retry()
             .subscribe());
   }
 
@@ -140,6 +139,7 @@ public class OnChainBuyPresenter {
     Log.d(TAG, "present: " + transaction);
     switch (transaction.getStatus()) {
       case COMPLETED:
+        view.lockRotation();
         return inAppPurchaseInteractor.getCompletedPurchase(transaction, isBds)
             .observeOn(AndroidSchedulers.mainThread())
             .map(payment -> buildBundle(payment, transaction.getOrderReference()))
@@ -167,8 +167,10 @@ public class OnChainBuyPresenter {
         return Completable.fromAction(view::showNonceError)
             .andThen(inAppPurchaseInteractor.remove(transaction.getUri()));
       case APPROVING:
+        view.lockRotation();
         return Completable.fromAction(view::showApproving);
       case BUYING:
+        view.lockRotation();
         return Completable.fromAction(view::showBuying);
       case ERROR:
       default:

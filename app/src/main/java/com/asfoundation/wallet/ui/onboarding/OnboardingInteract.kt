@@ -30,4 +30,8 @@ class OnboardingInteract(
   fun hasClickedSkipOnboarding(): Boolean {
     return preferenceRepositoryType.hasClickedSkipOnboarding()
   }
+
+  fun hasOnboardingCompleted(): Boolean {
+    return preferenceRepositoryType.hasCompletedOnboarding()
+  }
 }

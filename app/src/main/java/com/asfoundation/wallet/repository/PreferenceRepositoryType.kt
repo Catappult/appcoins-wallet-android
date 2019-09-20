@@ -8,5 +8,7 @@ interface PreferenceRepositoryType {
   fun setOnboardingSkipClicked()
   fun getCurrentWalletAddress(): String?
   fun setCurrentWalletAddress(address: String)
+  fun isFirstTimeOnTransactionActivity(): Boolean
+  fun setFirstTimeOnTransactionActivity()
 
 }

@@ -1,21 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
+
+  <include
+      android:id="@+id/wallet_validation_toolbar"
+      layout="@layout/layout_app_bar"
+      android:visibility="invisible"
+      />
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/validation_progress_animation"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="80dp"
+      android:layout_marginTop="8dp"
+      android:layout_marginEnd="80dp"
+      android:scaleType="centerInside"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/wallet_validation_toolbar"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_rawRes="@raw/validation_progress"
+      />
+
   <FrameLayout
       android:id="@+id/fragment_container"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_margin="8dp"
-      android:layout_marginStart="@dimen/normal_margin"
-      android:layout_marginTop="@dimen/normal_margin"
-      android:layout_marginEnd="@dimen/normal_margin"
-      android:layout_marginBottom="@dimen/normal_margin"
-      android:descendantFocusability="beforeDescendants"
-      android:focusableInTouchMode="true"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/validation_progress_animation"
       />
-  <include
-      layout="@layout/activity_iab_wallet_creation"/>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

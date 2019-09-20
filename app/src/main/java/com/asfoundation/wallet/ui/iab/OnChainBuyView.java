@@ -13,8 +13,6 @@ public interface OnChainBuyView {
 
   Observable<Object> getOkErrorClick();
 
-  void showLoading();
-
   void close(Bundle data);
 
   void finish(Bundle data);
@@ -42,4 +40,6 @@ public interface OnChainBuyView {
   void showRaidenChannelValues(List<BigDecimal> values);
 
   long getAnimationDuration();
+
+  void lockRotation();
 }

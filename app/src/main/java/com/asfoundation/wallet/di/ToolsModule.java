@@ -27,8 +27,9 @@ import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.commons.MemoryCache;
 import com.appcoins.wallet.gamification.Gamification;
-import com.appcoins.wallet.gamification.repository.BdsGamificationRepository;
+import com.appcoins.wallet.gamification.repository.BdsPromotionsRepository;
 import com.appcoins.wallet.gamification.repository.GamificationApi;
+import com.appcoins.wallet.gamification.repository.PromotionsRepository;
 import com.appcoins.wallet.permissions.Permissions;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxyBuilder;
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk;
@@ -95,6 +96,11 @@ import com.asfoundation.wallet.poa.HashCalculator;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofWriter;
 import com.asfoundation.wallet.poa.TaggedCompositeDisposable;
+import com.asfoundation.wallet.promotions.PromotionsInteractor;
+import com.asfoundation.wallet.promotions.PromotionsInteractorContract;
+import com.asfoundation.wallet.referrals.ReferralInteractor;
+import com.asfoundation.wallet.referrals.ReferralInteractorContract;
+import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.ApproveTransactionValidatorBds;
 import com.asfoundation.wallet.repository.BalanceService;
@@ -104,7 +110,7 @@ import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.BuyTransactionValidatorBds;
 import com.asfoundation.wallet.repository.CurrencyConversionService;
-import com.asfoundation.wallet.repository.DevTransactionRepository;
+import com.asfoundation.wallet.repository.BackendTransactionRepository;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.GasSettingsRepository;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
@@ -116,7 +122,6 @@ import com.asfoundation.wallet.repository.OffChainTransactionsRepository;
 import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.PendingTransactionService;
 import com.asfoundation.wallet.repository.PreferenceRepositoryType;
-import com.asfoundation.wallet.repository.ProdTransactionRepository;
 import com.asfoundation.wallet.repository.SharedPreferenceRepository;
 import com.asfoundation.wallet.repository.SignDataStandardNormalizer;
 import com.asfoundation.wallet.repository.SmsValidationRepositoryType;
@@ -160,7 +165,6 @@ import com.asfoundation.wallet.ui.balance.BalanceRepository;
 import com.asfoundation.wallet.ui.balance.database.BalanceDetailsDatabase;
 import com.asfoundation.wallet.ui.balance.database.BalanceDetailsMapper;
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor;
-import com.asfoundation.wallet.ui.gamification.LevelResourcesMapper;
 import com.asfoundation.wallet.ui.gamification.SharedPreferencesGamificationLocalData;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationMapper;
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository;
@@ -799,16 +803,24 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new CampaignService(api, BuildConfig.VERSION_CODE);
   }
 
-  @Provides Gamification provideGamification(OkHttpClient client, SharedPreferences preferences) {
+  @Provides Gamification provideGamification(PromotionsRepository promotionsRepository) {
+    return new Gamification(promotionsRepository);
+  }
+
+  @Provides PromotionsRepository providePromotionsRepository(GamificationApi api,
+      SharedPreferences preferences) {
+    return new BdsPromotionsRepository(api, new SharedPreferencesGamificationLocalData(preferences),
+        getVersionCode());
+  }
+
+  @Provides GamificationApi provideGamificationApi(OkHttpClient client) {
     String baseUrl = CampaignService.SERVICE_HOST;
-    GamificationApi api = new Retrofit.Builder().baseUrl(baseUrl)
+    return new Retrofit.Builder().baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(GamificationApi.class);
-    return new Gamification(new BdsGamificationRepository(api,
-        new SharedPreferencesGamificationLocalData(preferences)));
   }
 
   @Singleton @Provides BackendApi provideBackendApi(OkHttpClient client, Gson gson) {
@@ -911,8 +923,18 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new GamificationInteractor(gamification, defaultWallet, conversionService);
   }
 
-  @Singleton @Provides LevelResourcesMapper providesLevelResourcesMapper() {
-    return new LevelResourcesMapper();
+  @Provides PromotionsInteractorContract providePromotionsInteractor(
+      ReferralInteractorContract referralInteractor, PromotionsRepository promotionsRepository,
+      FindDefaultWalletInteract findDefaultWalletInteract) {
+    return new PromotionsInteractor(referralInteractor, promotionsRepository,
+        findDefaultWalletInteract);
+  }
+
+  @Provides ReferralInteractorContract provideReferralInteractor(SharedPreferences preferences,
+      FindDefaultWalletInteract findDefaultWalletInteract,
+      PromotionsRepository promotionsRepository) {
+    return new ReferralInteractor(new SharedPreferencesReferralLocalData(preferences),
+        findDefaultWalletInteract, promotionsRepository);
   }
 
   @Singleton @Provides Permissions providesPermissions(Context context) {
@@ -1057,23 +1079,16 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       DefaultTokenProvider defaultTokenProvider, MultiWalletNonceObtainer nonceObtainer,
       OffChainTransactions transactionsNetworkRepository, @NotNull TransactionsMapper mapper,
       Context context, SharedPreferences sharedPreferences) {
-    if (BuildConfig.DEBUG) {
-      TransactionsDao transactionsDao =
-          Room.databaseBuilder(context.getApplicationContext(), TransactionsDatabase.class,
-              "transactions_database")
-              .build()
-              .transactionsDao();
-      TransactionsRepository localRepository =
-          new TransactionsLocalRepository(transactionsDao, sharedPreferences);
-      return new DevTransactionRepository(networkInfo, accountKeystoreService, defaultTokenProvider,
-          new BlockchainErrorMapper(), nonceObtainer, Schedulers.io(),
-          transactionsNetworkRepository, localRepository, new TransactionMapper(),
-          new CompositeDisposable(), Schedulers.io());
-    } else {
-      return new ProdTransactionRepository(networkInfo, accountKeystoreService, inDiskCache,
-          blockExplorerClient, defaultTokenProvider, new BlockchainErrorMapper(), nonceObtainer,
-          Schedulers.io(), mapper, transactionsNetworkRepository);
-    }
+    TransactionsDao transactionsDao =
+        Room.databaseBuilder(context.getApplicationContext(), TransactionsDatabase.class,
+            "transactions_database")
+            .build()
+            .transactionsDao();
+    TransactionsRepository localRepository =
+        new TransactionsLocalRepository(transactionsDao, sharedPreferences);
+    return new BackendTransactionRepository(networkInfo, accountKeystoreService, defaultTokenProvider,
+        new BlockchainErrorMapper(), nonceObtainer, Schedulers.io(), transactionsNetworkRepository,
+        localRepository, new TransactionMapper(), new CompositeDisposable(), Schedulers.io());
   }
 
   @Singleton @Provides SmsValidationApi provideSmsValidationApi(OkHttpClient client, Gson gson) {
