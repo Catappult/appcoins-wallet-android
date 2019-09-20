@@ -100,7 +100,7 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
     if (pendingAmount.toDouble() > 0) {
       referral_notification_card.visibility = VISIBLE
       notification_title.text = getString(R.string.referral_notification_bonus_pending_title,
-          "$symbol$pendingAmount")
+          "$symbol${pendingAmount.scaleToString(2)}")
     } else {
       referral_notification_card.visibility = GONE
     }

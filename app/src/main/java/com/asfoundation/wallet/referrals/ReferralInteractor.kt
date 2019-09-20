@@ -82,7 +82,7 @@ class ReferralInteractor(
                           R.string.referral_notification_bonus_pending_title,
                           R.string.referral_notification_bonus_pending_body,
                           R.drawable.ic_bonus_pending,
-                          userStats.pendingAmount.scaleToString(2),
+                          userStats.pendingAmount,
                           userStats.symbol)
                     }
               }
@@ -92,7 +92,8 @@ class ReferralInteractor(
   override fun dismissNotification(referralNotification: ReferralNotification): Completable {
     return defaultWallet.find()
         .flatMapCompletable {
-          preferences.savePendingAmountNotification(it.address, referralNotification.pendingAmount)
+          preferences.savePendingAmountNotification(it.address,
+              referralNotification.pendingAmount.scaleToString(2))
         }
   }
 
