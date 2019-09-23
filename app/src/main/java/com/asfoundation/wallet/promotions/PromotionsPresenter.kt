@@ -133,15 +133,13 @@ class PromotionsPresenter(private val view: PromotionsView,
 
   private fun checkForUpdates(promotionsViewModel: PromotionsViewModel) {
     disposables.add(promotionsInteractor.hasReferralUpdate(promotionsViewModel.numberOfInvitations,
-        promotionsViewModel.receivedValue, promotionsViewModel.isValidated,
-        ReferralsScreen.INVITE_FRIENDS)
+        promotionsViewModel.isValidated, ReferralsScreen.INVITE_FRIENDS)
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess { view.showReferralUpdate(it) }
         .flatMapCompletable {
           promotionsInteractor.saveReferralInformation(promotionsViewModel.numberOfInvitations,
-              promotionsViewModel.receivedValue, promotionsViewModel.isValidated,
-              ReferralsScreen.PROMOTIONS)
+              promotionsViewModel.isValidated, ReferralsScreen.PROMOTIONS)
         }
         .subscribeOn(networkScheduler)
         .subscribe({}, { handleError(it) }))

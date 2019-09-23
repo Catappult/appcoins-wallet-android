@@ -16,11 +16,11 @@ class ReferralInteractor(
     private val promotionsRepository: PromotionsRepository) :
     ReferralInteractorContract {
 
-  override fun hasReferralUpdate(address: String, friendsInvited: Int, receivedValue: BigDecimal,
-                                 isVerified: Boolean, screen: ReferralsScreen): Single<Boolean> {
+  override fun hasReferralUpdate(address: String, friendsInvited: Int, isVerified: Boolean,
+                                 screen: ReferralsScreen): Single<Boolean> {
     return getReferralInformation(address, screen)
         .map {
-          hasDifferentInformation(receivedValue.toString() + friendsInvited + isVerified, it)
+          hasDifferentInformation(friendsInvited.toString() + isVerified, it)
         }
   }
 
@@ -29,7 +29,7 @@ class ReferralInteractor(
         .flatMap { wallet ->
           promotionsRepository.getReferralUserStatus(wallet.address)
               .flatMap {
-                hasReferralUpdate(wallet.address, it.completed, it.receivedAmount,
+                hasReferralUpdate(wallet.address, it.completed,
                     it.link != null, screen)
               }
         }
@@ -40,11 +40,11 @@ class ReferralInteractor(
         .flatMap { promotionsRepository.getReferralUserStatus(it.address) }
   }
 
-  override fun saveReferralInformation(numberOfFriends: Int, totalEarned: String,
-                                       isVerified: Boolean, screen: ReferralsScreen): Completable {
+  override fun saveReferralInformation(numberOfFriends: Int, isVerified: Boolean,
+                                       screen: ReferralsScreen): Completable {
     return defaultWallet.find()
         .flatMapCompletable {
-          saveReferralInformation(it.address, totalEarned, numberOfFriends, isVerified, screen)
+          saveReferralInformation(it.address, numberOfFriends, isVerified, screen)
         }
   }
 
@@ -52,10 +52,10 @@ class ReferralInteractor(
     return preferences.getReferralInformation(address, screen.toString())
   }
 
-  private fun saveReferralInformation(address: String, totalEarned: String, numberOfFriends: Int,
+  private fun saveReferralInformation(address: String, numberOfFriends: Int,
                                       isVerified: Boolean,
                                       screen: ReferralsScreen): Completable {
-    return preferences.saveReferralInformation(address, totalEarned, numberOfFriends, isVerified,
+    return preferences.saveReferralInformation(address, numberOfFriends, isVerified,
         screen.toString())
   }
 
