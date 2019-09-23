@@ -15,7 +15,7 @@
 
   <Button
       android:id="@+id/retry_button"
-      style="?android:attr/borderlessButtonStyle"
+      style="@style/CancelBorderlessButtonStyle"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="16dp"
