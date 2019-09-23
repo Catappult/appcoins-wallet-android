@@ -23,7 +23,7 @@ class InviteFriendsFragmentPresenter(private val view: InviteFriendsFragmentView
         referralInteractor.getPendingBonusNotification()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSuccess { view.showNotificationCard(BigDecimal(it.pendingAmount), it.symbol) }
+            .doOnSuccess { view.showNotificationCard(it.pendingAmount, it.symbol) }
             .doOnComplete { view.showNotificationCard(BigDecimal.ZERO, "") }
             .doOnError { handlerError(it) }
             .subscribe()

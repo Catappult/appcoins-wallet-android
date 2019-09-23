@@ -14,19 +14,17 @@ class PromotionsInteractor(private val referralInteractor: ReferralInteractorCon
                            private val findWalletInteract: FindDefaultWalletInteract) :
     PromotionsInteractorContract {
 
-  override fun hasReferralUpdate(friendsInvited: Int, receivedValue: BigDecimal,
-                                 isVerified: Boolean, screen: ReferralsScreen): Single<Boolean> {
+  override fun hasReferralUpdate(friendsInvited: Int, isVerified: Boolean,
+                                 screen: ReferralsScreen): Single<Boolean> {
     return findWalletInteract.find()
         .flatMap {
-          referralInteractor.hasReferralUpdate(it.address, friendsInvited, receivedValue,
-              isVerified, screen)
+          referralInteractor.hasReferralUpdate(it.address, friendsInvited, isVerified, screen)
         }
   }
 
-  override fun saveReferralInformation(friendsInvited: Int, receivedValue: BigDecimal,
-                                       isVerified: Boolean, screen: ReferralsScreen): Completable {
-    return referralInteractor.saveReferralInformation(friendsInvited, receivedValue.toString(),
-        isVerified, screen)
+  override fun saveReferralInformation(friendsInvited: Int, isVerified: Boolean,
+                                       screen: ReferralsScreen): Completable {
+    return referralInteractor.saveReferralInformation(friendsInvited, isVerified, screen)
 
   }
 

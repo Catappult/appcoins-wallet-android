@@ -30,4 +30,6 @@ interface OnboardingView {
 
   fun getLaterButtonClicks(): Observable<Any>
 
+  fun showWarningText()
+
 }

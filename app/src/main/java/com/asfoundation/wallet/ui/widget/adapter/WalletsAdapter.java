@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.ui.widget.adapter;
 
 import android.os.Bundle;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.ViewGroup;
+import androidx.recyclerview.widget.RecyclerView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.ui.widget.holder.BinderViewHolder;
@@ -28,29 +28,24 @@ public class WalletsAdapter extends RecyclerView.Adapter<BinderViewHolder> {
 
   @Override public BinderViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     BinderViewHolder binderViewHolder = null;
-    switch (viewType) {
-      case WalletHolder.VIEW_TYPE: {
-        WalletHolder h = new WalletHolder(R.layout.item_wallet_manage, parent);
-        h.setOnSetWalletDefaultListener(onSetWalletDefaultListener);
-        h.setOnWalletDeleteListener(onWalletDeleteListener);
-        h.setOnExportWalletListener(onExportWalletListener);
-        binderViewHolder = h;
-      }
+    if (viewType == WalletHolder.VIEW_TYPE) {
+      WalletHolder h = new WalletHolder(R.layout.item_wallet_manage, parent);
+      h.setOnSetWalletDefaultListener(onSetWalletDefaultListener);
+      h.setOnWalletDeleteListener(onWalletDeleteListener);
+      h.setOnExportWalletListener(onExportWalletListener);
+      binderViewHolder = h;
     }
     return binderViewHolder;
   }
 
   @Override public void onBindViewHolder(BinderViewHolder holder, int position) {
-    switch (getItemViewType(position)) {
-      case WalletHolder.VIEW_TYPE: {
-        Wallet wallet = wallets[position];
-        Bundle bundle = new Bundle();
-        bundle.putBoolean(WalletHolder.IS_DEFAULT_ADDITION,
-            defaultWallet != null && defaultWallet.sameAddress(wallet.address));
-        bundle.putBoolean(WalletHolder.IS_LAST_ITEM, getItemCount() == 1);
-        holder.bind(wallet, bundle);
-      }
-      break;
+    if (getItemViewType(position) == WalletHolder.VIEW_TYPE) {
+      Wallet wallet = wallets[position];
+      Bundle bundle = new Bundle();
+      bundle.putBoolean(WalletHolder.IS_DEFAULT_ADDITION,
+          defaultWallet != null && defaultWallet.sameAddress(wallet.address));
+      bundle.putBoolean(WalletHolder.IS_LAST_ITEM, getItemCount() == 1);
+      holder.bind(wallet, bundle);
     }
   }
 

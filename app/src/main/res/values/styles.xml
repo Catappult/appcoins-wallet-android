@@ -29,7 +29,7 @@
     <item name="android:windowContentOverlay">@null</item>
   </style>
 
-  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"></style>
+  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
   <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
@@ -69,7 +69,7 @@
     <item name="android:windowContentTransitions">true</item>
   </style>
 
-  <style name="Theme.AppCompat.Transparent.WebActivity" parent="Theme.AppCompat.Transparent"></style>
+  <style name="Theme.AppCompat.Transparent.WebActivity" parent="Theme.AppCompat.Transparent"/>
 
   <style name="Theme.AppCompat.Transparent.FitAppWindow" parent="Theme.AppCompat.Transparent">
     <item name="android:fitsSystemWindows">true</item>
@@ -131,7 +131,7 @@
     <item name="android:letterSpacing">.09</item>
   </style>
 
-  <style name="ButtonStyle.Alternative">
+  <style name="ButtonStyle.Alternative" parent="ButtonStyle">
     <item name="android:background">@drawable/button_snd_background</item>
     <item name="android:textColor">@color/btn_text_enable_color</item>
   </style>

@@ -178,4 +178,8 @@ public class WalletsViewModel extends BaseViewModel {
   public void showTransactions(Context context) {
     transactionsRouter.open(context, true);
   }
+
+  public void clearExportedStore() {
+    exportedStore.setValue(null);
+  }
 }
