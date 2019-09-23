@@ -26,8 +26,8 @@ class InviteFriendsActivityPresenter(private val activity: InviteFriendsActivity
         .observeOn(viewScheduler)
         .doOnSuccess { handleValidationResult(it) }
         .flatMapCompletable {
-          referralInteractor.saveReferralInformation(it.completed, it.receivedAmount.toString(),
-              it.link != null, ReferralsScreen.INVITE_FRIENDS)
+          referralInteractor.saveReferralInformation(it.completed, it.link != null,
+              ReferralsScreen.INVITE_FRIENDS)
         }
         .subscribe({}, { handleError(it) })
     )

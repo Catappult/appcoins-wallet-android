@@ -7,11 +7,11 @@ import io.reactivex.Single
 class SharedPreferencesReferralLocalData(private val preferences: SharedPreferences) :
     ReferralLocalData {
 
-  override fun saveReferralInformation(address: String, totalEarned: String, invitedFriends: Int,
+  override fun saveReferralInformation(address: String, invitedFriends: Int,
                                        isVerified: Boolean, screen: String): Completable {
     return Completable.fromCallable {
       preferences.edit()
-          .putString(getKey(address, screen), totalEarned + invitedFriends + isVerified)
+          .putString(getKey(address, screen), invitedFriends.toString() + isVerified)
           .apply()
     }
   }
