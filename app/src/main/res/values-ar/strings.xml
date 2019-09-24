@@ -417,7 +417,7 @@
   <string name="verification_insert_code_resend_button">إعادة إرسال الرمز</string>
   <string name="verification_validating_title">قيد التأكد من رمزك&#8230;</string>
   <string name="verification_completed_title">تمت!</string>
-  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
+  <string name="verification_completed_body">يمكنك الآن كسب رصيد AppCoins بدعوة أصدقائك أو تثبيت التطبيقات.</string>
   <string name="verification_notification_reward_received_body">تلقيت الجائزة، تمتّع بها! 👌</string>
   <string name="verification_notification_reward_already_received_body">لقد استُخدم رقم الهاتف هذا سابقًا لاستقبال هذه الجائزة 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">الرقم مستخدم مسبقًا.</string>
@@ -442,7 +442,7 @@
   <string name="referral_verification_confirmation_title">تم التحقق من دعوتك!</string>
   <string name="referral_verification_confirmation_body">حالما تتم عملة شرائك الأولى ستحصل على ما يساوي %s من رصيد AppCoins.</string>
   <string name="referral_verification_not_invited_title">يبدو أن هذا الرقم لم يُدعى&#8230;</string>
-  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
+  <string name="referral_verification_not_invited_body">لكن لا يزال بإمكانك كسب ما يصل إلى %s بدعوة الأصدقاء! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s مكافأة الإحالة بالانتظار</string>
   <string name="referral_notification_bonus_pending_body">أجرِ عمليات الشراء داخل التطبيقات للحصول على المكافأة.</string>
   <string name="referral_view_title">دعوة الأصدقاء</string>
