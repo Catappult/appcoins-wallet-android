@@ -442,7 +442,7 @@
   <string name="referral_verification_confirmation_title">Davetiniz doğrulandı!</string>
   <string name="referral_verification_confirmation_body">İlk alışverişinizi yapar yapmaz %s değerinde AppCoins Credits kazanacaksınız.</string>
   <string name="referral_verification_not_invited_title">Bu numara davet edilmemiş gibi görünüyor&#8230;</string>
-  <string name="referral_verification_not_invited_body">Ama yine de arkadaşlarınızı davet ederek %s\'a kadar kazanabilirsiniz! 💃🏽</string>
+  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s Referans Bonusu Beklemede</string>
   <string name="referral_notification_bonus_pending_body">Bonusunuzu almak için ilk uygulama içi satın alma işleminizi gerçekleştirin.</string>
   <string name="referral_view_title">Arkadaşlarınızı Davet Edin</string>
@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">Gereklilikler</string>
   <string name="referral_dropup_menu_requirements_verification">Cüzdanınızı telefon numarasıyla doğrulayın</string>
   <string name="referral_dropup_menu_requirements_purchase">Bir uygulama içi satın alma veya yükleme yapın</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">Her iki gerekliliği karşılayan her bir arkadaş için %1$s değerinde AppCoins Credits kazanacaksınız (en fazla %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promosyonlar</string>
   <string name="bottom_navigation_promotions_detailed">Promosyon ve kampanyalarımızla nasıl ücretsiz AppCoins Credits kazanabileceğinizi keşfedin!</string>
