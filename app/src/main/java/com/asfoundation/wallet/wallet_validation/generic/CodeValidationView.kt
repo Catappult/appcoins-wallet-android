@@ -35,7 +35,7 @@ interface CodeValidationView {
 
   fun showLoading()
 
-  fun showReferralEligible(currency: String, maxAmount: String)
+  fun showReferralEligible(currency: String, maxAmount: String, minAmount: String)
 
   fun showReferralIneligible(currency: String, maxAmount: String)
 

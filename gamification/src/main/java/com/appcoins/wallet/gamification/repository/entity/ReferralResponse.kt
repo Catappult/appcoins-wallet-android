@@ -20,6 +20,8 @@ data class ReferralResponse(
     val receivedAmount: BigDecimal,
     @SerializedName("user_status")
     val userStatus: UserStatus?,
+    @SerializedName("min_amount")
+    val minAmount: BigDecimal,
     val status: Status,
     val amount: BigDecimal) {
 
