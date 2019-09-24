@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#c9c9c9">
+  <item android:id="@android:id/mask">
+    <shape android:shape="rectangle">
+      <corners android:radius="18dp" />
+      <solid android:color="#c9c9c9" />
+    </shape>
+  </item>
+  <!-- This is the background for your button -->
+  <item>
+    <shape android:shape="rectangle">
+      <corners android:radius="18dp" />
+      <!-- Use the solid tag to define the background color you want -->
+      <solid android:color="@color/transparent" />
+    </shape>
+  </item>
+</ripple>
