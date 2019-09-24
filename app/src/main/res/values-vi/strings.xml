@@ -442,7 +442,7 @@
   <string name="referral_verification_confirmation_title">Lời mời của bạn đã được xác thực!</string>
   <string name="referral_verification_confirmation_body">Ngay khi bạn thực hiện giao dịch đầu tiên, bạn sẽ nhận được %s bằng AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">Dường như số này không được mời&#8230;</string>
-  <string name="referral_verification_not_invited_body">Tuy nhiên, bạn vẫn có thể nhận được đến %s bằng cách mời bạn bè! 💃🏽</string>
+  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s tiền thưởng giới thiệu đang chờ xử lý</string>
   <string name="referral_notification_bonus_pending_body">Thực hiện mua hàng trong ứng dụng lần đầu tiên để nhận được phần thưởng.</string>
   <string name="referral_view_title">Mời bạn bè</string>
@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">Yêu cầu</string>
   <string name="referral_dropup_menu_requirements_verification">Xác nhận ví của bạn bằng số điện thoại</string>
   <string name="referral_dropup_menu_requirements_purchase">Thực hiện một giao dịch mua hàng trong ứng dụng hoặc nạp tiền</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">Bạn sẽ nhận được %1$s bằng AppCoins Credits cho mỗi người bạn đáp ứng được cả 2 yêu cầu (tối đa %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Khuyến mãi</string>
   <string name="bottom_navigation_promotions_detailed">Khám phá cách để nhận được AppCoins Credits miễn phí với các chương trình khuyến mãi và chiến dịch của chúng tôi!</string>

@@ -442,7 +442,7 @@
   <string name="referral_verification_confirmation_title">Undangan Anda sudah divalidasi!</string>
   <string name="referral_verification_confirmation_body">Segera setelah Anda melakukan pembelian pertama, Anda akan mendapatkan Kredit AppCoins senilai %s.</string>
   <string name="referral_verification_not_invited_title">Sepertinya nomor ini tidak diundang&#8230;</string>
-  <string name="referral_verification_not_invited_body">Tetapi Anda masih bisa mendapatkan penghasilan sampai %s dengan mengundang teman! 💃🏽</string>
+  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s Bonus Referral Tertunda</string>
   <string name="referral_notification_bonus_pending_body">Lakukan pembelian in-app pertama Anda untuk mendapatkan bonus.</string>
   <string name="referral_view_title">Undang Teman</string>
@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">Persyaratan</string>
   <string name="referral_dropup_menu_requirements_verification">Verifikasi dompet Anda dengan nomor telepon</string>
   <string name="referral_dropup_menu_requirements_purchase">Lakukan satu pembelian in-app atau isi ulang</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">Anda akan mendapatkan Kredit AppCoins senilai %1$s untuk setiap teman yang memeuhi persyaratan (hingga %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promosi</string>
   <string name="bottom_navigation_promotions_detailed">Cari tahu cara mendapatkan Kredit AppCoin gratis dengan promosi dan kampanye kami!</string>

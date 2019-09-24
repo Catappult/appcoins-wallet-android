@@ -442,7 +442,7 @@
   <string name="referral_verification_confirmation_title">Ваше приглашение подтверждено!</string>
   <string name="referral_verification_confirmation_body">Как только вы сделаете свою первую покупку, вы получите %s в AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">Похоже, этот номер не был приглашен&#8230;</string>
-  <string name="referral_verification_not_invited_body">Однако вы всё ещё можете заработать до %s, пригласив друзей! 💃🏽</string>
+  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">Реферальный бонус в %s ожидает</string>
   <string name="referral_notification_bonus_pending_body">Сделайте первую покупку внутри приложения, чтобы получить бонус.</string>
   <string name="referral_view_title">Пригласите друзей</string>
@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">Требования</string>
   <string name="referral_dropup_menu_requirements_verification">Подтвердите ваш кошелёк при помощи телефонного номера</string>
   <string name="referral_dropup_menu_requirements_purchase">Сделайте одну покупку или пополнение счёта в приложении</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">Вы заработаете %1$s в AppCoins Credits за каждого друга, который выполнит оба требования (до %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Продвижения</string>
   <string name="bottom_navigation_promotions_detailed">Узнайте как получить бесплатные AppCoins Credits с нашими продвижениями и кампаниями!</string>
