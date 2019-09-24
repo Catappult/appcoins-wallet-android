@@ -32,7 +32,7 @@ class GamificationTest {
             GamificationResponse.Status.ACTIVE, true)
     val referralResponse =
         ReferralResponse(BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link", BigDecimal.ONE,
-            BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, ReferralResponse.Status.ACTIVE,
+            BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO, ReferralResponse.Status.ACTIVE,
             BigDecimal.ONE)
 
     api.userStatusResponse =
@@ -97,7 +97,7 @@ class GamificationTest {
             GamificationResponse.Status.ACTIVE, true)
     val referralResponse =
         ReferralResponse(BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link", BigDecimal.ONE,
-            BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, ReferralResponse.Status.ACTIVE,
+            BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO, ReferralResponse.Status.ACTIVE,
             BigDecimal.ONE)
 
     api.userStatusResponse =
@@ -117,7 +117,7 @@ class GamificationTest {
             GamificationResponse.Status.ACTIVE, true)
     val referralResponse =
         ReferralResponse(BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link", BigDecimal.ONE,
-            BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, ReferralResponse.Status.ACTIVE,
+            BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO, ReferralResponse.Status.ACTIVE,
             BigDecimal.ONE)
 
     api.userStatusResponse =
