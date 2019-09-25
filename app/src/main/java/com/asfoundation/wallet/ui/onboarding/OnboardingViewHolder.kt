@@ -7,9 +7,9 @@ import kotlinx.android.synthetic.main.layout_page_intro.view.*
 class OnboardingViewHolder(itemView: View) :
     RecyclerView.ViewHolder(itemView) {
 
-  fun bind(title: Int, message: String) {
-    itemView.title.setText(title)
-    itemView.message.text = message
+  fun bind(item: OnboardingItem) {
+    itemView.title.setText(item.title)
+    itemView.message.text = item.message
   }
 
 }

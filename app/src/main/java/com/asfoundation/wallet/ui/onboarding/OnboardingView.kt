@@ -8,6 +8,8 @@ interface OnboardingView {
 
   fun updateUI(maxAmount: String)
 
+  fun updateUINoInternet()
+
   fun showLoading()
 
   fun finishOnboarding(walletValidationStatus: WalletValidationStatus, showAnimation: Boolean)
