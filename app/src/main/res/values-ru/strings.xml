@@ -436,11 +436,12 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">Пригласите своих друзей!</string>
   <string name="referral_onboarding_body">Вы и ваши друзья можете заработать до %s с нашей реферальной программой!</string>
+  <string name="referral_onboarding_body_no_connection">You and your friends can earn AppCoins Credits with our Referral Program!</string>
   <string name="referral_onboarding_redeem_button">Меня пригласили</string>
   <string name="referral_verification_title">Подтвердите свой кошелёк</string>
   <string name="referral_verification_body">Вам нужно подтвердить ваш кошелёк, чтобы участвовать в реферальной программе. Мы пришлём вам код подтверждения через СМС.</string>
   <string name="referral_verification_confirmation_title">Ваше приглашение подтверждено!</string>
-  <string name="referral_verification_confirmation_body">Как только вы сделаете свою первую покупку, вы получите %s в AppCoins Credits.</string>
+  <string name="referral_verification_confirmation_body">You\'ll get %1$s worth of AppCoins Credits on your first in-app purchase. Your first purchase must be above %2$s with any payment method other than AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">Похоже, этот номер не был приглашен&#8230;</string>
   <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">Реферальный бонус в %s ожидает</string>
@@ -459,7 +460,7 @@
   <string name="referral_dropup_menu_friends_title_1">Друзей приглашено</string>
   <string name="referral_dropup_menu_requirements_title">Требования</string>
   <string name="referral_dropup_menu_requirements_verification">Подтвердите ваш кошелёк при помощи телефонного номера</string>
-  <string name="referral_dropup_menu_requirements_purchase">Сделайте одну покупку или пополнение счёта в приложении</string>
+  <string name="referral_dropup_menu_requirements_purchase">Make one in-app purchase or top-up above %s with any payment method other than AppCoins Credits</string>
   <string name="referral_dropup_menu_requirements_body">Вы заработаете %1$s в AppCoins Credits за каждого друга, который выполнит оба требования (до %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Продвижения</string>
