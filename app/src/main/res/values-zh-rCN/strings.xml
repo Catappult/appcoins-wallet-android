@@ -436,11 +436,12 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">邀请好友！</string>
   <string name="referral_onboarding_body">通过推介项目，你和你的好友最多可获取%s！</string>
+  <string name="referral_onboarding_body_no_connection">You and your friends can earn AppCoins Credits with our Referral Program!</string>
   <string name="referral_onboarding_redeem_button">我已被邀请</string>
   <string name="referral_verification_title">验证钱包</string>
   <string name="referral_verification_body">你需要验证钱包方可参与推荐项目。我们将通过短信向你发送验证码。</string>
   <string name="referral_verification_confirmation_title">你的邀请已通过验证！</string>
-  <string name="referral_verification_confirmation_body">完成首次购买后，你将获得%s的AppCoins积金。</string>
+  <string name="referral_verification_confirmation_body">You\'ll get %1$s worth of AppCoins Credits on your first in-app purchase. Your first purchase must be above %2$s with any payment method other than AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">此号码似乎未被邀请&#8230;</string>
   <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s推荐奖励待处理</string>
@@ -459,7 +460,7 @@
   <string name="referral_dropup_menu_friends_title_1">已邀请好友</string>
   <string name="referral_dropup_menu_requirements_title">要求</string>
   <string name="referral_dropup_menu_requirements_verification">使用电话号码验证钱包</string>
-  <string name="referral_dropup_menu_requirements_purchase">完成一次应用内购买或充值</string>
+  <string name="referral_dropup_menu_requirements_purchase">Make one in-app purchase or top-up above %s with any payment method other than AppCoins Credits</string>
   <string name="referral_dropup_menu_requirements_body">You\'ll earn %1$s worth in AppCoins Credits for each friend meeting both requirements (up to %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">促销</string>
