@@ -45,6 +45,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
   lateinit var referralInteractor: ReferralInteractorContract
   private lateinit var browserRouter: ExternalBrowserRouter
   private lateinit var presenter: OnboardingPresenter
+  private lateinit var adapter: OnboardingPageAdapter
   private var linkSubject: PublishSubject<String>? = null
 
   companion object {
@@ -93,8 +94,11 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     terms_conditions_body.isClickable = true
     terms_conditions_body.movementMethod = LinkMovementMethod.getInstance()
 
+    adapter = OnboardingPageAdapter(this, createItemList(""))
+
     onboarding_viewpager.setPageTransformer(OnboardingPageTransformer())
-    onboarding_viewpager.adapter = OnboardingPageAdapter("", applicationContext)
+    onboarding_viewpager.adapter = adapter
+
     onboarding_viewpager.registerOnPageChangeCallback(
         OnboardingPageChangeListener(onboarding_content))
 
@@ -104,7 +108,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
   }
 
   override fun updateUI(maxAmount: String) {
-    onboarding_viewpager.adapter = OnboardingPageAdapter(maxAmount, applicationContext)
+    adapter.setPages(createItemList(maxAmount))
   }
 
   override fun getNextButtonClick(): Observable<Any> {
@@ -242,5 +246,27 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     retry_button.visibility = View.VISIBLE
     later_button.visibility = View.VISIBLE
     retry_animation.visibility = View.GONE
+  }
+
+  override fun updateUINoInternet() {
+    adapter.setPages(createNoInternetItemList())
+  }
+
+  private fun createItemList(maxAmount: String): List<OnboardingItem> {
+    val item1 = OnboardingItem(R.string.intro_1_title, this.getString(R.string.intro_1_body))
+    val item2 = OnboardingItem(R.string.intro_2_title, this.getString(R.string.intro_2_body))
+    val item3 = OnboardingItem(R.string.intro_3_title, this.getString(R.string.intro_3_body))
+    val item4 = OnboardingItem(R.string.referral_onboarding_title,
+        this.getString(R.string.referral_onboarding_body, maxAmount))
+    return listOf(item1, item2, item3, item4)
+  }
+
+  private fun createNoInternetItemList(): List<OnboardingItem> {
+    val item1 = OnboardingItem(R.string.intro_1_title, this.getString(R.string.intro_1_body))
+    val item2 = OnboardingItem(R.string.intro_2_title, this.getString(R.string.intro_2_body))
+    val item3 = OnboardingItem(R.string.intro_3_title, this.getString(R.string.intro_3_body))
+    val item4 = OnboardingItem(R.string.referral_onboarding_title,
+        this.getString(R.string.referral_onboarding_body_no_connection))
+    return listOf(item1, item2, item3, item4)
   }
 }
