@@ -436,11 +436,12 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">Zaproś Swoich Przyjaciół!</string>
   <string name="referral_onboarding_body">Ty i Twoi znajomy mogą zarobić aż %s w naszym Programie Polecającym!</string>
+  <string name="referral_onboarding_body_no_connection">You and your friends can earn AppCoins Credits with our Referral Program!</string>
   <string name="referral_onboarding_redeem_button">Zostałem zaproszony</string>
   <string name="referral_verification_title">Zweryfikuj Twój Portfel</string>
   <string name="referral_verification_body">Musisz zweryfikować Twój portfel aby brać udział w Programie Polecającym. Wyślemy Ci kod weryfikacyjny przez SMS.</string>
   <string name="referral_verification_confirmation_title">Twoje zaproszenie zostało potwierdzone!</string>
-  <string name="referral_verification_confirmation_body">Jak tylko dokonasz pierwszego zakupu, dostaniesz %s Kredytów AppCoins.</string>
+  <string name="referral_verification_confirmation_body">You\'ll get %1$s worth of AppCoins Credits on your first in-app purchase. Your first purchase must be above %2$s with any payment method other than AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">Wygląda na to że ten numer nie został zaproszony &#8230;</string>
   <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s Oczekujących Bonusów</string>
@@ -459,7 +460,7 @@
   <string name="referral_dropup_menu_friends_title_1">Zaproszonych Znajomych</string>
   <string name="referral_dropup_menu_requirements_title">Wymagania</string>
   <string name="referral_dropup_menu_requirements_verification">Zweryfikuj swój portfel numerem telefonu</string>
-  <string name="referral_dropup_menu_requirements_purchase">Dokonaj jednego zakupu w aplikacji lub doładowania</string>
+  <string name="referral_dropup_menu_requirements_purchase">Make one in-app purchase or top-up above %s with any payment method other than AppCoins Credits</string>
   <string name="referral_dropup_menu_requirements_body">Zarobisz %1$s Kredytów AppCoins za każdego znajomego który spełni wymaga (do %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promocje</string>
