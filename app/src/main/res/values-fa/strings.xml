@@ -436,11 +436,12 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">دوستان خود را دعوت کنید!</string>
   <string name="referral_onboarding_body">شما و دوستان شما می‌توانید از برنامه همکاری ما تا %s کسب درآمد کنید!</string>
+  <string name="referral_onboarding_body_no_connection">You and your friends can earn AppCoins Credits with our Referral Program!</string>
   <string name="referral_onboarding_redeem_button">دعوت شده‌ام</string>
   <string name="referral_verification_title">کیف پول خود را تاییدکنید</string>
   <string name="referral_verification_body">برای مشارکت در برنامه برنامه همکاری باید کیف پول خود را تایید کنید. یک کد تاییدیه از طریق اس‌ام‌اس برای شما ارسال می‌کنیم.</string>
   <string name="referral_verification_confirmation_title">دعوت شما معتبر است!</string>
-  <string name="referral_verification_confirmation_body">به محض انجام اولین خرید خود، به ارزش %s اعتبار AppCoins دریافت خواهید کرد.</string>
+  <string name="referral_verification_confirmation_body">You\'ll get %1$s worth of AppCoins Credits on your first in-app purchase. Your first purchase must be above %2$s with any payment method other than AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">به نظر می‌رسد که این شماره دعوت نشده‌است&#8230;</string>
   <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s پاداش همکاری به حالت تعلیق</string>
@@ -459,7 +460,7 @@
   <string name="referral_dropup_menu_friends_title_1">دوستان دعوت‌شده</string>
   <string name="referral_dropup_menu_requirements_title">الزامات</string>
   <string name="referral_dropup_menu_requirements_verification">کیف پول خود را با یک شماره تلفن تایید کنید</string>
-  <string name="referral_dropup_menu_requirements_purchase">یک خرید داخل اپلیکیشنی انجام دهید یا افزایش اعتبار کنید</string>
+  <string name="referral_dropup_menu_requirements_purchase">Make one in-app purchase or top-up above %s with any payment method other than AppCoins Credits</string>
   <string name="referral_dropup_menu_requirements_body">You\'ll earn %1$s worth in AppCoins Credits for each friend meeting both requirements (up to %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">پیشنهادات تشویقی</string>
