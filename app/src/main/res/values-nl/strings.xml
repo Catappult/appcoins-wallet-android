@@ -442,7 +442,7 @@
   <string name="referral_verification_confirmation_title">Je uitnodiging is goedgekeurd!</string>
   <string name="referral_verification_confirmation_body">Als je je eerste aankoop doet, krijg je %s AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">Het lijkt erop dat dit nummer niet is uitgenodigd&#8230;</string>
-  <string name="referral_verification_not_invited_body">Maar je kunt nog steeds tot %s verdienen door vrienden uit te nodigen! 💃🏽</string>
+  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s verwijzingsbonus in behandeling</string>
   <string name="referral_notification_bonus_pending_body">Doe je eerste in-app aankoop om je bonus te ontvangen.</string>
   <string name="referral_view_title">Vrienden uitnodigen</string>
@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_requirements_title">Vereisten</string>
   <string name="referral_dropup_menu_requirements_verification">Verifieer je wallet met een telefoonnummer</string>
   <string name="referral_dropup_menu_requirements_purchase">Doe een in-app aankoop of waardeer op</string>
-  <string name="referral_dropup_menu_requirements_body">You\'ll earn %2$s worth in AppCoins Credits for each friend meeting booth requirements (up to %2$s)</string>
+  <string name="referral_dropup_menu_requirements_body">Je verdient %1$s AppCoins Credits voor elke vriend die aan de vereisten voldoet (tot %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Acties</string>
   <string name="bottom_navigation_promotions_detailed">Ontdek hoe je met onze acties en campagnes gratis AppCoins Credits kunt verdienen!</string>

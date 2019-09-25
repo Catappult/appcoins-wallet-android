@@ -173,13 +173,15 @@
 
     <Button
         android:id="@+id/skip_button"
-        style="@style/CancelBorderlessButtonStyle"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/button_height"
         android:layout_marginTop="30dp"
+        android:fontFamily="sans-serif-medium"
         android:maxWidth="126dp"
         android:minWidth="80dp"
         android:text="@string/skip_with_arrow"
+        android:textColor="@color/btn_cancel_text"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
