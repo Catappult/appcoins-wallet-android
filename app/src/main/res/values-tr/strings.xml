@@ -436,11 +436,12 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">Arkadaşlarınızı Davet Edin!</string>
   <string name="referral_onboarding_body">Referans Programımızla siz ve arkadaşlarınız %s\'a kadar kazanabilirsiniz!</string>
+  <string name="referral_onboarding_body_no_connection">You and your friends can earn AppCoins Credits with our Referral Program!</string>
   <string name="referral_onboarding_redeem_button">Davet edildim</string>
   <string name="referral_verification_title">Cüzdanınızı Doğrulayın</string>
   <string name="referral_verification_body">Referans Programına katılmak için cüzdanınızı doğrulamanız gerekiyor. Size SMS yoluyla bir doğrulama kodu göndereceğiz.</string>
   <string name="referral_verification_confirmation_title">Davetiniz doğrulandı!</string>
-  <string name="referral_verification_confirmation_body">İlk alışverişinizi yapar yapmaz %s değerinde AppCoins Credits kazanacaksınız.</string>
+  <string name="referral_verification_confirmation_body">You\'ll get %1$s worth of AppCoins Credits on your first in-app purchase. Your first purchase must be above %2$s with any payment method other than AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">Bu numara davet edilmemiş gibi görünüyor&#8230;</string>
   <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s Referans Bonusu Beklemede</string>
@@ -459,7 +460,7 @@
   <string name="referral_dropup_menu_friends_title_1">Davet Edilen Arkadaşlar</string>
   <string name="referral_dropup_menu_requirements_title">Gereklilikler</string>
   <string name="referral_dropup_menu_requirements_verification">Cüzdanınızı telefon numarasıyla doğrulayın</string>
-  <string name="referral_dropup_menu_requirements_purchase">Bir uygulama içi satın alma veya yükleme yapın</string>
+  <string name="referral_dropup_menu_requirements_purchase">Make one in-app purchase or top-up above %s with any payment method other than AppCoins Credits</string>
   <string name="referral_dropup_menu_requirements_body">Her iki gerekliliği karşılayan her bir arkadaş için %1$s değerinde AppCoins Credits kazanacaksınız (en fazla %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Promosyonlar</string>
