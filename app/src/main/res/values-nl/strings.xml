@@ -436,11 +436,12 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">Nodig je vrienden uit!</string>
   <string name="referral_onboarding_body">Jij en je vrienden kunnen met ons verwijzingsprogramma tot %s verdienen!</string>
+  <string name="referral_onboarding_body_no_connection">You and your friends can earn AppCoins Credits with our Referral Program!</string>
   <string name="referral_onboarding_redeem_button">Ik ben uitgenodigd</string>
   <string name="referral_verification_title">Verifieer je wallet</string>
   <string name="referral_verification_body">Je dient je wallet te verifiëren om aan het verwijzingsprogramma deel te nemen. We zullen je via sms een verificatiecode sturen.</string>
   <string name="referral_verification_confirmation_title">Je uitnodiging is goedgekeurd!</string>
-  <string name="referral_verification_confirmation_body">Als je je eerste aankoop doet, krijg je %s AppCoins Credits.</string>
+  <string name="referral_verification_confirmation_body">You\'ll get %1$s worth of AppCoins Credits on your first in-app purchase. Your first purchase must be above %2$s with any payment method other than AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">Het lijkt erop dat dit nummer niet is uitgenodigd&#8230;</string>
   <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s verwijzingsbonus in behandeling</string>
@@ -459,7 +460,7 @@
   <string name="referral_dropup_menu_friends_title_1">Vrienden uitgenodigd</string>
   <string name="referral_dropup_menu_requirements_title">Vereisten</string>
   <string name="referral_dropup_menu_requirements_verification">Verifieer je wallet met een telefoonnummer</string>
-  <string name="referral_dropup_menu_requirements_purchase">Doe een in-app aankoop of waardeer op</string>
+  <string name="referral_dropup_menu_requirements_purchase">Make one in-app purchase or top-up above %s with any payment method other than AppCoins Credits</string>
   <string name="referral_dropup_menu_requirements_body">Je verdient %1$s AppCoins Credits voor elke vriend die aan de vereisten voldoet (tot %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Acties</string>
