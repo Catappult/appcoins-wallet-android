@@ -436,11 +436,12 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">Mời bạn bè của bạn!</string>
   <string name="referral_onboarding_body">Bạn và bạn bè của mình có thể nhận đến %s với Chương Trình Giới Thiệu của chúng tôi!</string>
+  <string name="referral_onboarding_body_no_connection">You and your friends can earn AppCoins Credits with our Referral Program!</string>
   <string name="referral_onboarding_redeem_button">Tôi đã được mời</string>
   <string name="referral_verification_title">Xác minh Ví của bạn</string>
   <string name="referral_verification_body">Bạn cần xác minh ví của mình để tham gia vào Chương Trình Giới Thiệu. Chúng tôi sẽ gửi bạn mã xác nhận qua tin nhắn SMS.</string>
   <string name="referral_verification_confirmation_title">Lời mời của bạn đã được xác thực!</string>
-  <string name="referral_verification_confirmation_body">Ngay khi bạn thực hiện giao dịch đầu tiên, bạn sẽ nhận được %s bằng AppCoins Credits.</string>
+  <string name="referral_verification_confirmation_body">You\'ll get %1$s worth of AppCoins Credits on your first in-app purchase. Your first purchase must be above %2$s with any payment method other than AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">Dường như số này không được mời&#8230;</string>
   <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s tiền thưởng giới thiệu đang chờ xử lý</string>
@@ -459,7 +460,7 @@
   <string name="referral_dropup_menu_friends_title_1">Bạn bè đã mời</string>
   <string name="referral_dropup_menu_requirements_title">Yêu cầu</string>
   <string name="referral_dropup_menu_requirements_verification">Xác nhận ví của bạn bằng số điện thoại</string>
-  <string name="referral_dropup_menu_requirements_purchase">Thực hiện một giao dịch mua hàng trong ứng dụng hoặc nạp tiền</string>
+  <string name="referral_dropup_menu_requirements_purchase">Make one in-app purchase or top-up above %s with any payment method other than AppCoins Credits</string>
   <string name="referral_dropup_menu_requirements_body">Bạn sẽ nhận được %1$s bằng AppCoins Credits cho mỗi người bạn đáp ứng được cả 2 yêu cầu (tối đa %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Khuyến mãi</string>
