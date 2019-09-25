@@ -64,4 +64,8 @@ interface TopUpFragmentView {
   fun initialInputSetup(preselectedChip: Int, secondChipValue: String)
 
   fun paymentMethodsFocusRequest()
+
+  fun disableSwapCurrencyButton()
+
+  fun enableSwapCurrencyButton()
 }

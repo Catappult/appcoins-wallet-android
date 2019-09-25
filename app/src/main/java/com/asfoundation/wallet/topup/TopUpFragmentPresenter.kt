@@ -21,6 +21,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
 
   private val disposables: CompositeDisposable = CompositeDisposable()
 
+  private lateinit var chipValuesList: List<FiatValue>
+
   companion object {
     private const val NUMERIC_REGEX = "-?\\d+(\\.\\d+)?"
 
@@ -29,6 +31,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
   }
 
   fun present(appPackage: String) {
+    chipValuesList = getChipValuesList()
     setupUi()
     handleChangeCurrencyClick()
     handleNextClick()
@@ -101,18 +104,23 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
               .doOnComplete {
                 view.setConversionValue(topUpData)
                 handleInvalidValueInput(packageName, topUpData)
+                handleManualInputValue(topUpData)
               }
         }
         .subscribe())
   }
 
   private fun handlePreselectedChip() {
-    disposables.add(getChipValue(PRESELECTED_CHIP)
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler).map {
-          view.initialInputSetup(PRESELECTED_CHIP, it.amount.toString())
-        }
-        .subscribe())
+    view.initialInputSetup(PRESELECTED_CHIP, getChipValue(PRESELECTED_CHIP).amount.toString())
+  }
+
+  private fun handleManualInputValue(topUpData: TopUpData) {
+    val chipIndex = getChipIndex(topUpData.currency.fiatValue)
+    if (chipIndex != -1) {
+      view.selectChip(chipIndex)
+    } else {
+      view.unselectChips()
+    }
   }
 
   private fun isNumericOrEmpty(data: TopUpData): Boolean {
@@ -219,8 +227,9 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .doOnNext { index ->
           view.unselectChips()
           view.selectChip(index)
+          view.disableSwapCurrencyButton()
         }
-        .flatMapSingle { getChipValue(it) }
+        .map { getChipValue(it) }
         .doOnNext {
           if (view.getSelectedCurrency() == TopUpData.FIAT_CURRENCY) {
             handleChipFiatInput(it)
@@ -228,6 +237,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
             handleChipCreditsInput(it)
           }
         }
+        .debounce(300, TimeUnit.MILLISECONDS, viewScheduler)
+        .doOnNext { view.enableSwapCurrencyButton() }
         .subscribe())
   }
 
@@ -256,14 +267,27 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     }
   }
 
+  private fun getChipIndex(inputValue: String): Int {
+    var index = -1
+    if (inputValue != "--") {
+      val value = inputValue.toBigDecimal()
+      for (i in chipValuesList.indices) {
+        if (value == chipValuesList[i].amount) {
+          index = i
+          break
+        }
+      }
+    }
+    return index
+  }
+
   private fun getChipValuesList(): List<FiatValue> {
     return interactor.getDefaultValues()
         .subscribeOn(networkScheduler)
         .blockingGet()
   }
 
-  private fun getChipValue(index: Int): Single<FiatValue> {
-    return interactor.getDefaultValues()
-        .map { it[index] }
+  private fun getChipValue(index: Int): FiatValue {
+    return chipValuesList[index]
   }
 }

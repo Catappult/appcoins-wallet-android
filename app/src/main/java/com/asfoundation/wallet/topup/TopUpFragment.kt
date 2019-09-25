@@ -155,6 +155,14 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     return RxView.clicks(swap_value_button)
   }
 
+  override fun disableSwapCurrencyButton() {
+    swap_value_button.isEnabled = false
+  }
+
+  override fun enableSwapCurrencyButton() {
+    swap_value_button.isEnabled = true
+  }
+
   override fun getEditTextChanges(): Observable<TopUpData> {
     return RxTextView.afterTextChangeEvents(main_value)
         .filter { !switchingCurrency }
