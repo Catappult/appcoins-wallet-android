@@ -147,7 +147,7 @@ public class PaymentAuthPresenter {
         .observeOn(networkScheduler)
         .andThen(convertAmount(currencyData, selectedCurrency).flatMapCompletable(
             value -> billingService.getAuthorization(transactionOrigin, value, currency,
-                transactionType, appPackage, null, null)//TODO REVIEW
+                transactionType, appPackage, null, null)
                 .observeOn(viewScheduler)
                 .filter(AdyenAuthorization::isPendingAuthorization)
                 .firstOrError()
@@ -180,7 +180,7 @@ public class PaymentAuthPresenter {
       CurrencyData currencyData, String selectedCurrency, String currency, String transactionType) {
     disposables.add(convertAmount(currencyData, selectedCurrency).flatMap(
         value -> billingService.getAuthorization(transactionOrigin, value, currency,
-            transactionType, appPackage, null, null)//TODO REVIEW
+            transactionType, appPackage, null, null)
             .filter(AdyenAuthorization::isCompleted)
             .firstOrError()
             .flatMap(adyenAuthorization -> createBundle())
@@ -210,7 +210,7 @@ public class PaymentAuthPresenter {
       CurrencyData currencyData, String selectedCurrency, String currency, String transactionType) {
     disposables.add(convertAmount(currencyData, selectedCurrency).flatMap(
         value -> billingService.getAuthorization(transactionOrigin, value, currency,
-            transactionType, appPackage, null, null)//TODO REVIEW
+            transactionType, appPackage, null, null)
             .filter(AdyenAuthorization::isFailed)
             .firstOrError()
             .observeOn(viewScheduler)
@@ -229,7 +229,7 @@ public class PaymentAuthPresenter {
       CurrencyData currencyData, String selectedCurrency, String currency, String transactionType) {
     disposables.add(convertAmount(currencyData, selectedCurrency).map(
         value -> billingService.getAuthorization(transactionOrigin, value, currency,
-            transactionType, appPackage, null, null)//TODO REVIEW
+            transactionType, appPackage, null, null)
             .filter(AdyenAuthorization::isProcessing)
             .observeOn(viewScheduler)
             .doOnNext(__ -> view.showLoading()))
