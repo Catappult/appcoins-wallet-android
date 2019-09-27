@@ -28,26 +28,28 @@ class BillingPaymentProofSubmissionImpl internal constructor(
   override fun processAuthorizationProof(authorizationProof: AuthorizationProof): Completable {
     return registerAuthorizationProof(authorizationProof.id, authorizationProof.paymentType,
         authorizationProof.productName, authorizationProof.packageName,
-        authorizationProof.priceValue,
-        authorizationProof.developerAddress, authorizationProof.storeAddress,
-        authorizationProof.origin,
-        authorizationProof.type, authorizationProof.oemAddress, authorizationProof.developerPayload,
-        authorizationProof.callback,
-        authorizationProof.orderReference)
+        authorizationProof.priceValue, authorizationProof.developerAddress,
+        authorizationProof.storeAddress, authorizationProof.origin, authorizationProof.type,
+        authorizationProof.oemAddress, authorizationProof.developerPayload,
+        authorizationProof.callback, authorizationProof.orderReference,
+        authorizationProof.url, authorizationProof.urlSignature)
         .doOnSuccess { paymentId -> transactionIdsFromApprove[authorizationProof.id] = paymentId }
         .toCompletable()
   }
 
   override fun registerPaymentProof(paymentId: String, paymentProof: String,
                                     paymentType: String): Completable {
-    return walletService.getWalletAddress().observeOn(networkScheduler)
+    return walletService.getWalletAddress()
+        .observeOn(networkScheduler)
         .flatMapCompletable { walletAddress ->
-          walletService.signContent(walletAddress).observeOn(networkScheduler)
+          walletService.signContent(walletAddress)
+              .observeOn(networkScheduler)
               .flatMapCompletable { signedData ->
                 repository.registerPaymentProof(paymentId, paymentType, walletAddress, signedData,
                     paymentProof)
               }
-        }.andThen(Completable.fromAction { transactionIdsFromBuy[paymentProof] = paymentId })
+        }
+        .andThen(Completable.fromAction { transactionIdsFromBuy[paymentProof] = paymentId })
   }
 
   override fun registerAuthorizationProof(id: String, paymentType: String,
@@ -61,15 +63,20 @@ class BillingPaymentProofSubmissionImpl internal constructor(
                                           oemWallet: String,
                                           developerPayload: String?,
                                           callback: String?,
-                                          orderReference: String?): Single<String> {
-    return walletService.getWalletAddress().observeOn(networkScheduler).flatMap { walletAddress ->
-      walletService.signContent(walletAddress).observeOn(networkScheduler).flatMap { signedData ->
-        repository.registerAuthorizationProof(id, paymentType, walletAddress, signedData,
-            productName, packageName, priceValue, developerWallet, storeWallet, origin, type,
-            oemWallet, developerPayload, callback, orderReference)
-
-      }
-    }
+                                          orderReference: String?,
+                                          url: String?,
+                                          urlSignature: String?): Single<String> {
+    return walletService.getWalletAddress()
+        .observeOn(networkScheduler)
+        .flatMap { walletAddress ->
+          walletService.signContent(walletAddress)
+              .observeOn(networkScheduler)
+              .flatMap { signedData ->
+                repository.registerAuthorizationProof(id, paymentType, walletAddress, signedData,
+                    productName, packageName, priceValue, developerWallet, storeWallet, origin,
+                    type, oemWallet, developerPayload, callback, orderReference, url, urlSignature)
+              }
+        }
   }
 
   override fun saveTransactionId(key: String) {
@@ -129,7 +136,9 @@ data class AuthorizationProof(val paymentType: String,
                               val origin: String,
                               val developerPayload: String?,
                               val callback: String?,
-                              val orderReference: String?)
+                              val orderReference: String?,
+                              val url: String?,
+                              val urlSignature: String?)
 
 data class PaymentProof(val paymentType: String,
                         val approveProof: String,

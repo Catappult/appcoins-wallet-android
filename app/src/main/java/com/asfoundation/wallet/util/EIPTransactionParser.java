@@ -79,8 +79,8 @@ public class EIPTransactionParser {
             payment.getChainId(), getReceiverAddress(payment),
             getTokenTransferAmount(payment, token.tokenInfo.decimals), getSkuId(payment),
             token.tokenInfo.decimals, getIabContract(payment), getType(payment), getOrigin(payment),
-            getDomain(payment), getPayload(payment), null,
-            getOrderReference(payment)).shouldSendToken(true));
+            getDomain(payment), getPayload(payment), null, getOrderReference(payment), null,
+            null).shouldSendToken(true));
   }
 
   private String getOrigin(ERC681 payment) {

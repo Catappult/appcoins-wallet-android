@@ -10,9 +10,10 @@ public interface TransactionService {
       String packageName, String payload, String productName, String developerWallet,
       String storeWallet, String oemWallet, String origin, String walletAddress,
       BigDecimal priceValue, String priceCurrency, String type, String callback,
-      String orderReference);
+      String orderReference, String url, String urlSignature);
 
   Single<String> getSession(String address, String signature, String transactionUid);
 
-  Completable finishTransaction(String address, String signature, String transactionUid, String paykey);
+  Completable finishTransaction(String address, String signature, String transactionUid,
+      String paykey);
 }

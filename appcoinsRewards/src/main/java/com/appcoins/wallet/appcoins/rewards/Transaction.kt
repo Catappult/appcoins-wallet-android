@@ -14,11 +14,14 @@ data class Transaction(val sku: String?,
                        var txId: String?,
                        val payload: String?,
                        val callback: String?,
-                       val orderReference: String?) {
+                       val orderReference: String?,
+                       val url: String?,
+                       val urlSignature: String?) {
   constructor(transaction: Transaction, status: Status) : this(transaction.sku, transaction.type,
       transaction.developerAddress, transaction.oemAddress, transaction.storeAddress,
       transaction.packageName, transaction.amount, transaction.origin, status, transaction.txId,
-      transaction.payload, transaction.callback, transaction.orderReference)
+      transaction.payload, transaction.callback, transaction.orderReference, transaction.url,
+      transaction.urlSignature)
 
   fun isBds(): Boolean = this.origin == "BDS" || this.origin == "UNITY"
 

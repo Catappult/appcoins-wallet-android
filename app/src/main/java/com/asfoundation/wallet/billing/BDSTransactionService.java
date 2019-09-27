@@ -19,10 +19,10 @@ public final class BDSTransactionService implements TransactionService {
       String packageName, String payload, String productName, String developerWallet,
       String storeWallet, String oemWallet, String origin, String walletAddress,
       BigDecimal priceValue, String priceCurrency, String type, String callback,
-      String orderReference) {
+      String orderReference, String url, String urlSignature) {
     return remoteRepository.createAdyenTransaction(origin, walletAddress, signature, token,
         packageName, priceValue, priceCurrency, productName, type, developerWallet, storeWallet,
-        oemWallet, payload, callback, orderReference)
+        oemWallet, payload, callback, orderReference, url, urlSignature)
         .map(Transaction::getUid)
         .subscribeOn(Schedulers.io());
   }

@@ -29,11 +29,11 @@ interface BillingRepository {
 
   fun registerAuthorizationProof(id: String, paymentType: String, walletAddress: String,
                                  walletSignature: String, productName: String?, packageName: String,
-                                 priceValue: BigDecimal,
-                                 developerWallet: String, storeWallet: String, origin: String,
-                                 type: String, oemWallet: String,
-                                 developerPayload: String?, callback: String?,
-                                 orderReference: String?): Single<String>
+                                 priceValue: BigDecimal, developerWallet: String,
+                                 storeWallet: String, origin: String, type: String,
+                                 oemWallet: String, developerPayload: String?, callback: String?,
+                                 orderReference: String?, url: String?,
+                                 urlSignature: String?): Single<String>
 
   fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
                            signedData: String, paymentProof: String): Completable

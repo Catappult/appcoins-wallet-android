@@ -29,17 +29,18 @@ class OneStepTransactionParserTest {
   private lateinit var conversionService: TokenRateService
 
   companion object {
-    val contractAddress = "contract_address"
-    val iabContractAddress = "iab_contract_address"
-    val developerAddress = "developer_address"
-    val wrongDeveloperAddress = "wrong_developer_address"
-    val productName = "product_name"
-    val packageName = "package_name"
-    val paymentType = "INAPP_UNMANAGED"
-    val developerPayload = "developer_payload"
-    val priceValue = "2.3"
-    val currency = "APPC"
-    val callback = "callback_url"
+    const val contractAddress = "contract_address"
+    const val iabContractAddress = "iab_contract_address"
+    const val developerAddress = "developer_address"
+    const val wrongDeveloperAddress = "wrong_developer_address"
+    const val productName = "product_name"
+    const val packageName = "package_name"
+    const val paymentType = "INAPP_UNMANAGED"
+    const val developerPayload = "developer_payload"
+    const val priceValue = "2.3"
+    const val currency = "APPC"
+    const val callback = "callback_url"
+    const val url = "a_random_uri"
   }
 
   @Before
@@ -86,12 +87,12 @@ class OneStepTransactionParserTest {
     parameters["value"] = priceValue
     parameters["currency"] = currency
     parameters["domain"] = packageName
-    parameters["product"] = productName
     parameters["data"] = developerPayload
     parameters["callback_url"] = callback
 
-    val uri = OneStepUri("https", "apichain-dev.blockchainds.com", "/transaction/inapp", parameters)
-    val test = oneStepTransactionParser.buildTransaction(uri)
+    val oneStepUri =
+        OneStepUri("https", "apichain-dev.blockchainds.com", "/transaction/inapp", parameters)
+    val test = oneStepTransactionParser.buildTransaction(oneStepUri, url)
         .test()
         .await()
 
@@ -110,7 +111,7 @@ class OneStepTransactionParserTest {
     test.assertValue { transactionBuilder -> transactionBuilder.type == paymentType }
     test.assertValue { transactionBuilder -> transactionBuilder.domain == packageName }
     test.assertValue { transactionBuilder -> transactionBuilder.iabContract == iabContractAddress }
-    test.assertValue { transactionBuilder -> transactionBuilder.skuId == productName }
+    test.assertValue { transactionBuilder -> transactionBuilder.skuId == null }
     test.assertValue { transactionBuilder -> transactionBuilder.payload == developerPayload }
     test.assertValue { transactionBuilder -> transactionBuilder.callbackUrl == callback }
   }
@@ -128,8 +129,9 @@ class OneStepTransactionParserTest {
     parameters["value"] = priceValue
     parameters["domain"] = packageName
 
-    val uri = OneStepUri("https", "apichain-dev.blockchainds.com", "/transaction/inapp", parameters)
-    val test = oneStepTransactionParser.buildTransaction(uri)
+    val oneStepUri =
+        OneStepUri("https", "apichain-dev.blockchainds.com", "/transaction/inapp", parameters)
+    val test = oneStepTransactionParser.buildTransaction(oneStepUri, url)
         .test()
         .await()
 
@@ -162,8 +164,9 @@ class OneStepTransactionParserTest {
     parameters["domain"] = packageName
     parameters["to"] = wrongDeveloperAddress
 
-    val uri = OneStepUri("https", "apichain-dev.blockchainds.com", "/transaction/inapp", parameters)
-    val test = oneStepTransactionParser.buildTransaction(uri)
+    val oneStepUri =
+        OneStepUri("https", "apichain-dev.blockchainds.com", "/transaction/inapp", parameters)
+    val test = oneStepTransactionParser.buildTransaction(oneStepUri, url)
         .test()
         .await()
 

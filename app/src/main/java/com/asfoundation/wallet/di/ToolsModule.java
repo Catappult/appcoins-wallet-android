@@ -103,6 +103,7 @@ import com.asfoundation.wallet.referrals.ReferralInteractorContract;
 import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.ApproveTransactionValidatorBds;
+import com.asfoundation.wallet.repository.BackendTransactionRepository;
 import com.asfoundation.wallet.repository.BalanceService;
 import com.asfoundation.wallet.repository.BdsBackEndWriter;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
@@ -110,7 +111,6 @@ import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.BuyTransactionValidatorBds;
 import com.asfoundation.wallet.repository.CurrencyConversionService;
-import com.asfoundation.wallet.repository.BackendTransactionRepository;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.GasSettingsRepository;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
@@ -190,7 +190,6 @@ import com.asfoundation.wallet.util.DeviceInfo;
 import com.asfoundation.wallet.util.EIPTransactionParser;
 import com.asfoundation.wallet.util.LogInterceptor;
 import com.asfoundation.wallet.util.OneStepTransactionParser;
-import com.asfoundation.wallet.util.TransactionIdHelper;
 import com.asfoundation.wallet.util.TransferParser;
 import com.asfoundation.wallet.util.UserAgentInterceptor;
 import com.facebook.appevents.AppEventsLogger;
@@ -206,7 +205,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.BehaviorSubject;
 import java.math.BigDecimal;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -229,8 +228,6 @@ import static com.asfoundation.wallet.AirdropService.BASE_URL;
 import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
 @Module class ToolsModule {
-
-  private final TransactionIdHelper transactionIdHelper = new TransactionIdHelper();
 
   @Provides Context provideContext(App application) {
     return application.getApplicationContext();
@@ -426,7 +423,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
         billingMessagesMapper, billing, new ExternalBillingSerializer(), currencyConversionService,
-        bdsTransactionService, Schedulers.io(), transactionIdHelper);
+        bdsTransactionService, Schedulers.io());
   }
 
   @Singleton @Provides @Named("ASF_IN_APP_INTERACTOR")
@@ -438,7 +435,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
     return new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
         gasSettingsInteract, new BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT), parser,
         billingMessagesMapper, billing, new ExternalBillingSerializer(), currencyConversionService,
-        bdsTransactionService, Schedulers.io(), transactionIdHelper);
+        bdsTransactionService, Schedulers.io());
   }
 
   @Singleton @Provides InAppPurchaseInteractor provideDualInAppPurchaseInteractor(
@@ -736,7 +733,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides Adyen provideAdyen(Context context) {
-    return new Adyen(context, Charset.forName("UTF-8"), Schedulers.io(), BehaviorRelay.create());
+    return new Adyen(context, StandardCharsets.UTF_8, Schedulers.io(), BehaviorRelay.create());
   }
 
   @Singleton @Provides TransactionService provideTransactionService(
@@ -1080,9 +1077,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
             .transactionsDao();
     TransactionsRepository localRepository =
         new TransactionsLocalRepository(transactionsDao, sharedPreferences);
-    return new BackendTransactionRepository(networkInfo, accountKeystoreService, defaultTokenProvider,
-        new BlockchainErrorMapper(), nonceObtainer, Schedulers.io(), transactionsNetworkRepository,
-        localRepository, new TransactionMapper(), new CompositeDisposable(), Schedulers.io());
+    return new BackendTransactionRepository(networkInfo, accountKeystoreService,
+        defaultTokenProvider, new BlockchainErrorMapper(), nonceObtainer, Schedulers.io(),
+        transactionsNetworkRepository, localRepository, new TransactionMapper(),
+        new CompositeDisposable(), Schedulers.io());
   }
 
   @Singleton @Provides SmsValidationApi provideSmsValidationApi(OkHttpClient client, Gson gson) {

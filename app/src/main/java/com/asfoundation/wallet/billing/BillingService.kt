@@ -12,11 +12,12 @@ interface BillingService {
 
   fun getAuthorization(productName: String?, developerAddress: String?, payload: String?,
                        origin: String, priceValue: BigDecimal, priceCurrency: String, type: String,
-                       callback: String?, orderReference: String?,
-                       appPackageName: String): Observable<AdyenAuthorization>
+                       callback: String?, orderReference: String?, appPackageName: String,
+                       url: String?, urlSignature: String?): Observable<AdyenAuthorization>
 
   fun getAuthorization(origin: String, priceValue: BigDecimal, priceCurrency: String, type: String,
-                       appPackageName: String): Observable<AdyenAuthorization>
+                       appPackageName: String, url: String?,
+                       urlSignature: String?): Observable<AdyenAuthorization>
 
   fun authorize(payment: Payment, paykey: String): Completable
 }

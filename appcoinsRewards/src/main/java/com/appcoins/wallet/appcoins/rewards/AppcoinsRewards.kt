@@ -24,7 +24,8 @@ class AppcoinsRewards(
   }
 
   fun getBalance(): Single<BigDecimal> {
-    return walletService.getWalletAddress().flatMap { getBalance(it) }
+    return walletService.getWalletAddress()
+        .flatMap { getBalance(it) }
   }
 
   fun pay(amount: BigDecimal,
@@ -36,46 +37,53 @@ class AppcoinsRewards(
           packageName: String,
           payload: String?,
           callbackUrl: String?,
-          orderReference: String?): Completable {
+          orderReference: String?,
+          url: String?,
+          urlSignature: String?): Completable {
     return cache.save(getKey(amount.toString(), sku, packageName),
         Transaction(sku, type, developerAddress, storeAddress, oemAddress, packageName, amount,
-            origin, Transaction.Status.PENDING, null, payload, callbackUrl, orderReference))
+            origin, Transaction.Status.PENDING, null, payload, callbackUrl, orderReference,
+            url, urlSignature))
   }
 
   fun start() {
-    cache.all.observeOn(scheduler).flatMapCompletable {
-      Observable.fromIterable(it)
-          .filter { transaction -> transaction.status == Transaction.Status.PENDING }
-          .doOnNext { transaction ->
-            cache.saveSync(getKey(transaction),
-                Transaction(transaction, Transaction.Status.PROCESSING))
-          }
-          .flatMapCompletable { transaction ->
-            walletService.getWalletAddress()
-                .flatMapCompletable { walletAddress ->
-                  walletService.signContent(walletAddress).flatMap { signature ->
-                    repository.pay(walletAddress, signature, transaction.amount,
-                        getOrigin(transaction), transaction.sku, transaction.type,
-                        transaction.developerAddress, transaction.storeAddress,
-                        transaction.oemAddress, transaction.packageName, transaction.payload,
-                        transaction.callback, transaction.orderReference)
-
-                  }
-                      .flatMapCompletable { transaction1 ->
-                        waitTransactionCompletion(transaction1).andThen {
-                          val tx = Transaction(transaction, Transaction.Status.COMPLETED)
-                          tx.txId = transaction1.hash
-                          cache.saveSync(getKey(tx), tx)
-                        }
-                      }
-                }
-                .onErrorResumeNext {
-                  it.printStackTrace()
-                  cache.save(getKey(transaction),
-                      Transaction(transaction, errorMapper.map(it)))
-                }
-          }
-    }.subscribe()
+    cache.all.observeOn(scheduler)
+        .flatMapCompletable {
+          Observable.fromIterable(it)
+              .filter { transaction -> transaction.status == Transaction.Status.PENDING }
+              .doOnNext { transaction ->
+                cache.saveSync(getKey(transaction),
+                    Transaction(transaction, Transaction.Status.PROCESSING))
+              }
+              .flatMapCompletable { transaction ->
+                walletService.getWalletAddress()
+                    .flatMapCompletable { walletAddress ->
+                      walletService.signContent(walletAddress)
+                          .flatMap { signature ->
+                            repository.pay(walletAddress, signature, transaction.amount,
+                                getOrigin(transaction), transaction.sku, transaction.type,
+                                transaction.developerAddress, transaction.storeAddress,
+                                transaction.oemAddress, transaction.packageName,
+                                transaction.payload, transaction.callback,
+                                transaction.orderReference, transaction.url,
+                                transaction.urlSignature)
+                          }
+                          .flatMapCompletable { transaction1 ->
+                            waitTransactionCompletion(transaction1).andThen {
+                              val tx = Transaction(transaction, Transaction.Status.COMPLETED)
+                              tx.txId = transaction1.hash
+                              cache.saveSync(getKey(tx), tx)
+                            }
+                          }
+                    }
+                    .onErrorResumeNext {
+                      it.printStackTrace()
+                      cache.save(getKey(transaction),
+                          Transaction(transaction, errorMapper.map(it)))
+                    }
+              }
+        }
+        .subscribe()
   }
 
   private fun getOrigin(
@@ -87,11 +95,13 @@ class AppcoinsRewards(
     return Observable.interval(0, 5, TimeUnit.SECONDS, scheduler)
         .timeInterval()
         .switchMap {
-          billing.getAppcoinsTransaction(createdTransaction.uid, scheduler).toObservable()
+          billing.getAppcoinsTransaction(createdTransaction.uid, scheduler)
+              .toObservable()
         }
         .takeUntil { pendingTransaction ->
           pendingTransaction.status != Status.PROCESSING
-        }.ignoreElements()
+        }
+        .ignoreElements()
 
   }
 
@@ -109,10 +119,12 @@ class AppcoinsRewards(
                   packageName: String): Single<AppcoinsRewardsRepository.Status> {
     return walletService.getWalletAddress()
         .flatMap { walletAddress ->
-          walletService.signContent(walletAddress).flatMap { signature ->
-            repository.sendCredits(toWallet, walletAddress, signature, amount, "BDS", "TRANSFER",
-                packageName)
-          }
+          walletService.signContent(walletAddress)
+              .flatMap { signature ->
+                repository.sendCredits(toWallet, walletAddress, signature, amount, "BDS",
+                    "TRANSFER",
+                    packageName)
+              }
         }
   }
 }

@@ -24,30 +24,34 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
                                private val conversionService: TokenRateService,
                                private val cache: Repository<String, TransactionBuilder>) {
 
-  fun buildTransaction(uri: OneStepUri): Single<TransactionBuilder> {
-    return if (cache.getSync(uri.toString()) != null) Single.just(cache.getSync(uri.toString()))
-    else Single.zip(getToken(), getIabContract(), getWallet(uri),
-        getTokenContract(),
-        getAmount(uri),
-        //TODO adicionar check da signature
-        Function5 { token: Token, iabContract: String, walletAddress: String, tokenContract: String,
-                    amount: BigDecimal ->
-          TransactionBuilder(token.tokenInfo.symbol, tokenContract,
-              getChainId(uri), walletAddress, amount, getSkuId(uri), token.tokenInfo.decimals,
-              iabContract, Parameters.PAYMENT_TYPE_INAPP_UNMANAGED.toUpperCase(), null,
-              getDomain(uri), getPayload(uri), getCallback(uri),
-              getOrderReference(uri), getSignature(uri)).shouldSendToken(true)
-        }).map {
-      it.originalOneStepValue = uri.parameters[Parameters.VALUE]
-      var currency = uri.parameters[Parameters.CURRENCY]
-      if (currency == null) {
-        currency = "APPC"
-      }
-      it.originalOneStepCurrency = currency
-      return@map it
-    }.doOnSuccess { transactionBuilder ->
-      cache.saveSync(uri.toString(), transactionBuilder)
-    }.subscribeOn(Schedulers.io())
+  fun buildTransaction(oneStepUri: OneStepUri, url: String): Single<TransactionBuilder> {
+    return if (cache.getSync(oneStepUri.toString()) != null) {
+      Single.just(cache.getSync(oneStepUri.toString()))
+    } else {
+      Single.zip(getToken(), getIabContract(), getWallet(oneStepUri), getTokenContract(),
+          getAmount(oneStepUri),
+          Function5 { token: Token, iabContract: String, walletAddress: String,
+                      tokenContract: String, amount: BigDecimal ->
+            TransactionBuilder(token.tokenInfo.symbol, tokenContract, getChainId(oneStepUri),
+                walletAddress, amount, getSkuId(oneStepUri), token.tokenInfo.decimals,
+                iabContract, Parameters.PAYMENT_TYPE_INAPP_UNMANAGED.toUpperCase(),
+                null, getDomain(oneStepUri), getPayload(oneStepUri), getCallback(oneStepUri),
+                getOrderReference(oneStepUri), url, getSignature(oneStepUri)).shouldSendToken(true)
+          })
+          .map {
+            it.originalOneStepValue = oneStepUri.parameters[Parameters.VALUE]
+            var currency = oneStepUri.parameters[Parameters.CURRENCY]
+            if (currency == null) {
+              currency = "APPC"
+            }
+            it.originalOneStepCurrency = currency
+            it
+          }
+          .doOnSuccess { transactionBuilder ->
+            cache.saveSync(oneStepUri.toString(), transactionBuilder)
+          }
+          .subscribeOn(Schedulers.io())
+    }
   }
 
   private fun getOrderReference(uri: OneStepUri): String? {
@@ -167,3 +171,5 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
 class MissingWalletException : RuntimeException()
 
 class MissingProductException : RuntimeException()
+
+class SignatureException : RuntimeException()
