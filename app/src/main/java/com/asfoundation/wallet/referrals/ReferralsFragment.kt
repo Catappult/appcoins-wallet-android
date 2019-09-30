@@ -39,7 +39,7 @@ class ReferralsFragment : DaggerFragment(), ReferralsView {
     friends_invited.visibility = VISIBLE
     number_friends_invited.text = String.format("%d/%d", completedInvites, totalAvailable)
     total_earned.text =
-        currency.plus(amount.multiply(BigDecimal(completedInvites)).scaleToString(2))
+        currency.plus(getTotalEarned().scaleToString(2))
     total_earned.visibility = VISIBLE
     val individualEarn = currency + amount.scaleToString(2)
     val totalEarn =
@@ -49,6 +49,12 @@ class ReferralsFragment : DaggerFragment(), ReferralsView {
     invitations_progress_bar.progress =
         ((100 / (completedInvites.toDouble() + available.toDouble())) * completedInvites).roundToInt()
     setFriendsAnimations(completedInvites, completedInvites + available)
+  }
+
+  private fun getTotalEarned(): BigDecimal {
+    return if (!isRedeemed) receivedAmount else {
+      amount.multiply(BigDecimal(completedInvites))
+    }
   }
 
   private fun setFriendsAnimations(invited: Int, totalInvitations: Int) {
@@ -116,6 +122,14 @@ class ReferralsFragment : DaggerFragment(), ReferralsView {
     }
   }
 
+  private val isRedeemed: Boolean by lazy {
+    if (arguments!!.containsKey(IS_REDEEMED)) {
+      arguments!!.getBoolean(IS_REDEEMED)
+    } else {
+      throw IllegalArgumentException("is redeemed not found")
+    }
+  }
+
   companion object {
 
     private const val AMOUNT = "amount"
@@ -125,10 +139,11 @@ class ReferralsFragment : DaggerFragment(), ReferralsView {
     private const val MAX_AMOUNT = "max_amount"
     private const val AVAILABLE = "available"
     private const val CURRENCY = "currency"
+    private const val IS_REDEEMED = "is_redeemed"
 
     fun newInstance(amount: BigDecimal, pendingAmount: BigDecimal, currency: String,
                     completed: Int, receivedAmount: BigDecimal, maxAmount: BigDecimal,
-                    available: Int): ReferralsFragment {
+                    available: Int, isRedeemed: Boolean): ReferralsFragment {
       val bundle = Bundle()
       bundle.putSerializable(AMOUNT, amount)
       bundle.putSerializable(PENDING_AMOUNT, pendingAmount)
@@ -137,6 +152,7 @@ class ReferralsFragment : DaggerFragment(), ReferralsView {
       bundle.putSerializable(RECEIVED_AMOUNT, receivedAmount)
       bundle.putSerializable(MAX_AMOUNT, maxAmount)
       bundle.putInt(AVAILABLE, available)
+      bundle.putBoolean(IS_REDEEMED, isRedeemed)
       val fragment = ReferralsFragment()
       fragment.arguments = bundle
       return fragment

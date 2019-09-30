@@ -55,7 +55,7 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
     childFragmentManager.beginTransaction()
         .replace(R.id.bottom_sheet_fragment_container,
             ReferralsFragment.newInstance(amount, pendingAmount, currency, completedInvites,
-                receivedAmount, maxAmount, available))
+                receivedAmount, maxAmount, available, isRedeemed))
         .commit()
     return inflater.inflate(R.layout.invite_friends_fragment_layout, container, false)
   }
@@ -191,6 +191,14 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
     }
   }
 
+  private val isRedeemed: Boolean by lazy {
+    if (arguments!!.containsKey(IS_REDEEMED)) {
+      arguments!!.getBoolean(IS_REDEEMED)
+    } else {
+      throw IllegalArgumentException("is redeemed not found")
+    }
+  }
+
   companion object {
 
     private const val AMOUNT = "amount"
@@ -201,10 +209,11 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
     private const val MAX_AMOUNT = "max_amount"
     private const val AVAILABLE = "available"
     private const val CURRENCY = "currency"
+    private const val IS_REDEEMED = "is_redeemed"
 
     fun newInstance(amount: BigDecimal, pendingAmount: BigDecimal, currency: String, link: String?,
                     completed: Int, receivedAmount: BigDecimal, maxAmount: BigDecimal,
-                    available: Int): InviteFriendsFragment {
+                    available: Int, isRedeemed: Boolean): InviteFriendsFragment {
       val bundle = Bundle()
       bundle.putSerializable(AMOUNT, amount)
       bundle.putSerializable(PENDING_AMOUNT, pendingAmount)
@@ -214,6 +223,7 @@ class InviteFriendsFragment : DaggerFragment(), InviteFriendsFragmentView {
       bundle.putSerializable(RECEIVED_AMOUNT, receivedAmount)
       bundle.putSerializable(MAX_AMOUNT, maxAmount)
       bundle.putInt(AVAILABLE, available)
+      bundle.putBoolean(IS_REDEEMED, isRedeemed)
       val fragment = InviteFriendsFragment()
       fragment.arguments = bundle
       return fragment
