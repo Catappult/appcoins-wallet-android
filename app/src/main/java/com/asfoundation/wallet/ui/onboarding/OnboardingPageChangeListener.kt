@@ -78,7 +78,7 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
     if (checkBox.isChecked) {
       if (warningText.visibility == View.VISIBLE) {
         animateHideWarning(warningText)
-        warningText.visibility = View.GONE
+        warningText.visibility = View.INVISIBLE
       }
     }
   }
@@ -91,7 +91,7 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
 
     if (warningText.visibility == View.VISIBLE) {
       animateHideWarning(warningText)
-      warningText.visibility = View.GONE
+      warningText.visibility = View.INVISIBLE
     }
   }
 
