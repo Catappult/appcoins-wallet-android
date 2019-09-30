@@ -4,6 +4,7 @@ import android.net.Uri
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.SmsValidationInteract
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
+import com.asfoundation.wallet.util.scaleToString
 import com.asfoundation.wallet.wallet_validation.WalletValidationStatus
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -43,7 +44,7 @@ class OnboardingPresenter(private val disposables: CompositeDisposable,
     disposables.add(referralInteractor.getReferralInfo()
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-        .doOnSuccess { view.updateUI(it.symbol + it.maxAmount) }
+        .doOnSuccess { view.updateUI(it.symbol + it.maxAmount.scaleToString(2)) }
         .subscribe({}, { handlerError(it) })
     )
   }
