@@ -64,10 +64,28 @@ class ReferralInteractor(
   }
 
   override fun getReferralNotifications(): Maybe<List<ReferralNotification>> {
-    return getPendingBonusNotification().map { listOf(it) }
+    return getUnwatchedPendingBonusNotification().map { listOf(it) }
   }
 
   override fun getPendingBonusNotification(): Maybe<ReferralNotification> {
+    return defaultWallet.find()
+        .flatMapMaybe { wallet ->
+          promotionsRepository.getReferralUserStatus(wallet.address)
+              .filter {
+                it.pendingAmount.compareTo(BigDecimal.ZERO) != 0
+              }
+              .map {
+                ReferralNotification(PENDING_AMOUNT_ID,
+                    R.string.referral_notification_bonus_pending_title,
+                    R.string.referral_notification_bonus_pending_body,
+                    R.drawable.ic_bonus_pending,
+                    it.pendingAmount,
+                    it.symbol)
+              }
+        }
+  }
+
+  override fun getUnwatchedPendingBonusNotification(): Maybe<ReferralNotification> {
     return defaultWallet.find()
         .flatMapMaybe { wallet ->
           promotionsRepository.getReferralUserStatus(wallet.address)
