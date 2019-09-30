@@ -133,7 +133,7 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
 
   override fun showWarningText() {
     if (!onboarding_checkbox.isChecked &&
-        terms_conditions_warning.visibility == View.GONE &&
+        terms_conditions_warning.visibility == View.INVISIBLE &&
         terms_conditions_layout.visibility == View.VISIBLE) {
       animateShowWarning(terms_conditions_warning)
       terms_conditions_warning.visibility = View.VISIBLE
