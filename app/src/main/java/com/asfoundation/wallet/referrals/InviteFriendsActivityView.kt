@@ -9,7 +9,7 @@ interface InviteFriendsActivityView {
 
   fun navigateToInviteFriends(amount: BigDecimal, pendingAmount: BigDecimal, currency: String,
                               link: String?, completed: Int, receivedAmount: BigDecimal,
-                              maxAmount: BigDecimal, available: Int)
+                              maxAmount: BigDecimal, available: Int, isRedeemed: Boolean)
 
   fun getInfoButtonClick(): Observable<Any>
   fun infoButtonInitialized(): Observable<Boolean>
