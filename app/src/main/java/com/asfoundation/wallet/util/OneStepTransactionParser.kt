@@ -24,7 +24,7 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
                                private val conversionService: TokenRateService,
                                private val cache: Repository<String, TransactionBuilder>) {
 
-  fun buildTransaction(oneStepUri: OneStepUri, url: String): Single<TransactionBuilder> {
+  fun buildTransaction(oneStepUri: OneStepUri, referrerUrl: String): Single<TransactionBuilder> {
     return if (cache.getSync(oneStepUri.toString()) != null) {
       Single.just(cache.getSync(oneStepUri.toString()))
     } else {
@@ -36,7 +36,7 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
                 walletAddress, amount, getSkuId(oneStepUri), token.tokenInfo.decimals,
                 iabContract, Parameters.PAYMENT_TYPE_INAPP_UNMANAGED.toUpperCase(),
                 null, getDomain(oneStepUri), getPayload(oneStepUri), getCallback(oneStepUri),
-                getOrderReference(oneStepUri), url, getSignature(oneStepUri)).shouldSendToken(true)
+                getOrderReference(oneStepUri), referrerUrl).shouldSendToken(true)
           })
           .map {
             it.originalOneStepValue = oneStepUri.parameters[Parameters.VALUE]
@@ -85,10 +85,6 @@ class OneStepTransactionParser(private val findDefaultWalletInteract: FindDefaul
 
   private fun getCurrency(uri: OneStepUri): String? {
     return uri.parameters[Parameters.CURRENCY]
-  }
-
-  private fun getSignature(uri: OneStepUri): String? {
-    return uri.parameters[Parameters.SIGNATURE]
   }
 
   private fun getChainId(uri: OneStepUri): Long {

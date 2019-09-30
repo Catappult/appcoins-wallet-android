@@ -11,7 +11,7 @@ interface RemoteRepository {
   fun pay(walletAddress: String, signature: String, amount: BigDecimal, origin: String?,
           sku: String?, type: String, developerAddress: String, storeAddress: String,
           oemAddress: String, packageName: String, payload: String?, callback: String?,
-          orderReference: String?, url: String?, urlSignature: String?): Single<Transaction>
+          orderReference: String?, referrerUrl: String?): Single<Transaction>
 
   fun sendCredits(toWallet: String, walletAddress: String, signature: String, amount: BigDecimal,
                   origin: String,

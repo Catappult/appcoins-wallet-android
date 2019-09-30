@@ -13,7 +13,6 @@ class Parameters {
     const val CURRENCY = "currency"
     const val CALLBACK_URL = "callback_url"
     const val SCHEME = "https"
-    const val SIGNATURE = "signature"
     const val HOST = BuildConfig.PAYMENT_HOST
     const val SECOND_HOST = BuildConfig.SECOND_PAYMENT_HOST
     const val PATH = "/transaction"

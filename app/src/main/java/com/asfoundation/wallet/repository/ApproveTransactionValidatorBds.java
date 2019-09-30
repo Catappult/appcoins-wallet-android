@@ -46,8 +46,7 @@ public class ApproveTransactionValidatorBds implements TransactionValidator {
                 .getOrigin(), paymentTransaction.getDeveloperPayload(),
             paymentTransaction.getCallbackUrl(), paymentTransaction.getTransactionBuilder()
             .getOrderReference(), paymentTransaction.getTransactionBuilder()
-            .getUrl(), paymentTransaction.getTransactionBuilder()
-            .getUrlSignature()))
+            .getReferrerUrl()))
         .flatMapCompletable(billingPaymentProofSubmission::processAuthorizationProof);
   }
 }

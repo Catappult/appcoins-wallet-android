@@ -32,8 +32,7 @@ interface BillingRepository {
                                  priceValue: BigDecimal, developerWallet: String,
                                  storeWallet: String, origin: String, type: String,
                                  oemWallet: String, developerPayload: String?, callback: String?,
-                                 orderReference: String?, url: String?,
-                                 urlSignature: String?): Single<String>
+                                 orderReference: String?, referrerUrl: String?): Single<String>
 
   fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
                            signedData: String, paymentProof: String): Completable

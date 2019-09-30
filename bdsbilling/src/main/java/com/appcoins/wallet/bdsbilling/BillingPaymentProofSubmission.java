@@ -16,7 +16,7 @@ public interface BillingPaymentProofSubmission {
       @Nullable String productName, String packageName, BigDecimal priceValue,
       String developerWallet, String storeWallet, String origin, String type, String oemWallet,
       @Nullable String developerPayload, @Nullable String callback, @Nullable String orderReference,
-      @Nullable String url, @Nullable String urlSignature);
+      @Nullable String referrerUrl);
 
   void saveTransactionId(String key);
 

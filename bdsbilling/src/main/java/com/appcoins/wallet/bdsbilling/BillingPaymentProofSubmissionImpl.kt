@@ -32,7 +32,7 @@ class BillingPaymentProofSubmissionImpl internal constructor(
         authorizationProof.storeAddress, authorizationProof.origin, authorizationProof.type,
         authorizationProof.oemAddress, authorizationProof.developerPayload,
         authorizationProof.callback, authorizationProof.orderReference,
-        authorizationProof.url, authorizationProof.urlSignature)
+        authorizationProof.referrerUrl)
         .doOnSuccess { paymentId -> transactionIdsFromApprove[authorizationProof.id] = paymentId }
         .toCompletable()
   }
@@ -64,8 +64,7 @@ class BillingPaymentProofSubmissionImpl internal constructor(
                                           developerPayload: String?,
                                           callback: String?,
                                           orderReference: String?,
-                                          url: String?,
-                                          urlSignature: String?): Single<String> {
+                                          referrerUrl: String?): Single<String> {
     return walletService.getWalletAddress()
         .observeOn(networkScheduler)
         .flatMap { walletAddress ->
@@ -74,7 +73,7 @@ class BillingPaymentProofSubmissionImpl internal constructor(
               .flatMap { signedData ->
                 repository.registerAuthorizationProof(id, paymentType, walletAddress, signedData,
                     productName, packageName, priceValue, developerWallet, storeWallet, origin,
-                    type, oemWallet, developerPayload, callback, orderReference, url, urlSignature)
+                    type, oemWallet, developerPayload, callback, orderReference, referrerUrl)
               }
         }
   }
@@ -137,8 +136,7 @@ data class AuthorizationProof(val paymentType: String,
                               val developerPayload: String?,
                               val callback: String?,
                               val orderReference: String?,
-                              val url: String?,
-                              val urlSignature: String?)
+                              val referrerUrl: String?)
 
 data class PaymentProof(val paymentType: String,
                         val approveProof: String,

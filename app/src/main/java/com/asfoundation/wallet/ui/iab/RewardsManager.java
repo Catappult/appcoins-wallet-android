@@ -28,14 +28,14 @@ public class RewardsManager {
 
   public Completable pay(String sku, BigDecimal amount, String developerAddress, String packageName,
       String origin, String type, String payload, String callbackUrl, String orderReference,
-      String url, String urlSignature) {
+      String referrerUrl) {
     return Single.zip(partnerAddressService.getStoreAddressForPackage(packageName),
         partnerAddressService.getOemAddressForPackage(packageName),
         (storeAddress, oemAddress) -> new Pair<>(storeAddress, oemAddress))
         .flatMapCompletable(
             partnersAddresses -> appcoinsRewards.pay(amount, origin, sku, type, developerAddress,
                 partnersAddresses.first, partnersAddresses.second, packageName, payload,
-                callbackUrl, orderReference, url, urlSignature));
+                callbackUrl, orderReference, referrerUrl));
   }
 
   public Single<Purchase> getPaymentCompleted(String packageName, String sku) {

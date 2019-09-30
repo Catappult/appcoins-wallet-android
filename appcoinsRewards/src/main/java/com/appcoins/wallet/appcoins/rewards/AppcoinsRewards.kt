@@ -38,12 +38,11 @@ class AppcoinsRewards(
           payload: String?,
           callbackUrl: String?,
           orderReference: String?,
-          url: String?,
-          urlSignature: String?): Completable {
+          referrerUrl: String?): Completable {
     return cache.save(getKey(amount.toString(), sku, packageName),
         Transaction(sku, type, developerAddress, storeAddress, oemAddress, packageName, amount,
             origin, Transaction.Status.PENDING, null, payload, callbackUrl, orderReference,
-            url, urlSignature))
+            referrerUrl))
   }
 
   fun start() {
@@ -65,8 +64,7 @@ class AppcoinsRewards(
                                 transaction.developerAddress, transaction.storeAddress,
                                 transaction.oemAddress, transaction.packageName,
                                 transaction.payload, transaction.callback,
-                                transaction.orderReference, transaction.url,
-                                transaction.urlSignature)
+                                transaction.orderReference, transaction.referrerUrl)
                           }
                           .flatMapCompletable { transaction1 ->
                             waitTransactionCompletion(transaction1).andThen {

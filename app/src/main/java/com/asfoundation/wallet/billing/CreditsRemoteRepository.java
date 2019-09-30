@@ -29,11 +29,10 @@ public class CreditsRemoteRepository
       @NotNull BigDecimal amount, @Nullable String origin, @Nullable String sku,
       @NotNull String type, @NotNull String developerAddress, @NotNull String storeAddress,
       @NotNull String oemAddress, @NotNull String packageName, @Nullable String payload,
-      @Nullable String callback, @Nullable String orderReference, @Nullable String url,
-      @Nullable String urlSignature) {
+      @Nullable String callback, @Nullable String orderReference, @Nullable String referrerUrl) {
     return remoteRepository.registerAuthorizationProof(origin, type, oemAddress, null,
         "appcoins_credits", walletAddress, signature, sku, packageName, amount, developerAddress,
-        storeAddress, payload, callback, orderReference, url, urlSignature);
+        storeAddress, payload, callback, orderReference, referrerUrl);
   }
 
   @NotNull @Override

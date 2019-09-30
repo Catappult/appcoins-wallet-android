@@ -32,21 +32,20 @@ class AdyenBillingService(
   override fun getAuthorization(productName: String?, developerAddress: String?, payload: String?,
                                 origin: String, priceValue: BigDecimal, priceCurrency: String,
                                 type: String, callback: String?, orderReference: String?,
-                                appPackageName: String, url: String?,
-                                urlSignature: String?): Observable<AdyenAuthorization> {
+                                appPackageName: String,
+                                referrerUrl: String?): Observable<AdyenAuthorization> {
     return relay.doOnSubscribe {
       startPaymentIfNeeded(productName, developerAddress, payload, origin,
-          priceValue, priceCurrency, type, callback, orderReference, appPackageName, url,
-          urlSignature)
+          priceValue, priceCurrency, type, callback, orderReference, appPackageName, referrerUrl)
     }
         .doOnNext { this.resetProcessingFlag(it) }
   }
 
   override fun getAuthorization(origin: String, priceValue: BigDecimal, priceCurrency: String,
-                                type: String, appPackageName: String, url: String?,
-                                urlSignature: String?): Observable<AdyenAuthorization> {
+                                type: String, appPackageName: String,
+                                referrerUrl: String?): Observable<AdyenAuthorization> {
     return getAuthorization(null, null, null, origin, priceValue,
-        priceCurrency, type, null, null, appPackageName, url, urlSignature)
+        priceCurrency, type, null, null, appPackageName, referrerUrl)
   }
 
   override fun authorize(payment: Payment, paykey: String): Completable {
@@ -95,8 +94,8 @@ class AdyenBillingService(
   private fun startPaymentIfNeeded(productName: String?, developerAddress: String?,
                                    payload: String?, origin: String, priceValue: BigDecimal,
                                    priceCurrency: String, type: String, callback: String?,
-                                   orderReference: String?, appPackageName: String, url: String?,
-                                   urlSignature: String?) {
+                                   orderReference: String?, appPackageName: String,
+                                   referrerUrl: String?) {
     if (!processingPayment.getAndSet(true)) {
       this.adyenAuthorization = walletService.getWalletAddress()
           .flatMap { walletAddress ->
@@ -112,7 +111,7 @@ class AdyenBillingService(
                                   walletAddress, signedContent, token, merchantName, payload,
                                   productName, developerAddress, storeAddress, oemAddress, origin,
                                   walletAddress, priceValue, priceCurrency, type, callback,
-                                  orderReference, url, urlSignature)
+                                  orderReference, referrerUrl)
                             })
                             .flatMap { transactionUid -> transactionUid }
                             .doOnSuccess { transactionUid -> this.transactionUid = transactionUid }

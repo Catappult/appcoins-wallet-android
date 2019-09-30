@@ -21,11 +21,11 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
                                           developerWallet: String, storeWallet: String,
                                           origin: String, type: String, oemWallet: String,
                                           developerPayload: String?, callback: String?,
-                                          orderReference: String?, url: String?,
-                                          urlSignature: String?): Single<String> {
+                                          orderReference: String?,
+                                          referrerUrl: String?): Single<String> {
     return remoteRepository.registerAuthorizationProof(origin, type, oemWallet, id, paymentType,
         walletAddress, walletSignature, productName, packageName, priceValue, developerWallet,
-        storeWallet, developerPayload, callback, orderReference, url, urlSignature)
+        storeWallet, developerPayload, callback, orderReference, referrerUrl)
         .map { it.uid }
   }
 

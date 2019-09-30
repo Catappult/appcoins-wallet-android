@@ -6,7 +6,6 @@ import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
-import com.asfoundation.wallet.interact.SendTransactionInteract;
 import com.asfoundation.wallet.poa.CountryCodeProvider;
 import com.asfoundation.wallet.poa.DataMapper;
 import io.reactivex.Completable;
@@ -40,10 +39,8 @@ import static org.mockito.Mockito.when;
   private static final String DEVELOPER_PAYLOAD = "developer_payload";
   private static final String STORE_ADDRESS = "0xc41b4160b63d1f9488937f7b66640d2babdbf8ad";
   private static final String OEM_ADDRESS = "0x0965b2a3e664690315ad20b9e5b0336c19cf172e";
-  private static final String URL = "url";
-  private static final String URL_SIGNATURE = "url_signature";
+  private static final String REFERRER_URL = "url";
 
-  @Mock SendTransactionInteract sendTransactionInteract;
   @Mock TrackTransactionService trackTransactionService;
 
   @Mock TransactionSender transactionSender;
@@ -73,7 +70,7 @@ import static org.mockito.Mockito.when;
         new TransactionBuilder("APPC", "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", 3l,
             "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", BigDecimal.ONE, "sku", 18,
             "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", "origin", "type", "packageName",
-            "payload", null, URL, URL_SIGNATURE);
+            "payload", null, REFERRER_URL);
     when(transactionSender.send(transactionBuilder)).thenReturn(Single.just("hash"));
     when(defaultTokenProvider.getDefaultToken()).thenReturn(Single.just(tokenInfo));
     when(countryCodeProvider.getCountryCode()).thenReturn(Single.just("PT"));

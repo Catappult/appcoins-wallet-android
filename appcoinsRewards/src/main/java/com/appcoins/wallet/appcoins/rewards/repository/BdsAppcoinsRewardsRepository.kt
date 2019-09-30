@@ -26,11 +26,11 @@ class BdsAppcoinsRewardsRepository(private val remoteRepository: RemoteRepositor
   override fun pay(walletAddress: String, signature: String, amount: BigDecimal, origin: String?,
                    sku: String?, type: String, developerAddress: String, storeAddress: String,
                    oemAddress: String, packageName: String, payload: String?, callback: String?,
-                   orderReference: String?, url: String?, urlSignature: String?)
+                   orderReference: String?, referrerUrl: String?)
       : Single<Transaction> {
     return remoteRepository.pay(walletAddress, signature, amount, origin, sku,
         type, developerAddress, storeAddress, oemAddress, packageName, payload, callback,
-        orderReference, url, urlSignature)
+        orderReference, referrerUrl)
   }
 
   private fun map(throwable: Throwable): AppcoinsRewardsRepository.Status {

@@ -10,7 +10,7 @@ public interface TransactionService {
       String packageName, String payload, String productName, String developerWallet,
       String storeWallet, String oemWallet, String origin, String walletAddress,
       BigDecimal priceValue, String priceCurrency, String type, String callback,
-      String orderReference, String url, String urlSignature);
+      String orderReference, String referrerUrl);
 
   Single<String> getSession(String address, String signature, String transactionUid);
 

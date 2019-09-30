@@ -38,8 +38,7 @@ class BillingPaymentProofSubmissionTest {
     const val type = "APPC"
     const val callback = "callback_url"
     const val orderReference = "order_reference"
-    const val url = "a_random_url"
-    const val urlSignature = "signature"
+    const val referrerUrl = "a_random_url"
   }
 
   @Mock
@@ -67,8 +66,8 @@ class BillingPaymentProofSubmissionTest {
     `when`(
         api.createTransaction(paymentType, origin, packageName, priceValue, currency, productName,
             type, null, developerAddress, storeAddress, oemAddress, paymentId,
-            developerPayload, callback, orderReference, walletAddress, signedContent, url,
-            urlSignature)).thenReturn(
+            developerPayload, callback, orderReference, walletAddress, signedContent,
+            referrerUrl)).thenReturn(
         Single.just(Transaction(paymentId, Transaction.Status.FAILED,
             Gateway(Gateway.Name.appcoins_credits, "APPC C", "icon"), null,
             "orderReference", null, "")))
@@ -84,7 +83,7 @@ class BillingPaymentProofSubmissionTest {
     billing.processAuthorizationProof(
         AuthorizationProof(paymentType, paymentId, productName, packageName, BigDecimal.ONE,
             storeAddress, oemAddress, developerAddress, type, origin, developerPayload, callback,
-            orderReference, url, urlSignature))
+            orderReference, referrerUrl))
         .subscribe(authorizationDisposable)
     scheduler.triggerActions()
 
@@ -101,7 +100,7 @@ class BillingPaymentProofSubmissionTest {
     verify(api, times(1)).createTransaction(paymentType, origin, packageName,
         priceValue, currency, productName, type, null, developerAddress, storeAddress,
         oemAddress, paymentId, developerPayload, callback, orderReference, walletAddress,
-        signedContent, url, urlSignature)
+        signedContent, referrerUrl)
     verify(api, times(1)).patchTransaction(paymentType, paymentId,
         walletAddress, signedContent,
         paymentToken)

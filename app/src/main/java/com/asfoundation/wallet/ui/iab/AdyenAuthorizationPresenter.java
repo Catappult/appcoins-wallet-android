@@ -180,7 +180,7 @@ public class AdyenAuthorizationPresenter {
             transaction -> billingService.getAuthorization(transaction.getSkuId(),
                 transaction.toAddress(), developerPayload, origin, convertAmount(), currency, type,
                 transaction.getCallbackUrl(), transaction.getOrderReference(), appPackage,
-                transaction.getUrl(), transaction.getUrlSignature())
+                transaction.getReferrerUrl())
                 .observeOn(viewScheduler)
                 .filter(AdyenAuthorization::isPendingAuthorization)
                 .firstOrError()
@@ -214,7 +214,7 @@ public class AdyenAuthorizationPresenter {
         transaction -> billingService.getAuthorization(transaction.getSkuId(),
             transaction.toAddress(), developerPayload, origin, convertAmount(), currency, type,
             transaction.getCallbackUrl(), transaction.getOrderReference(), appPackage,
-            transaction.getUrl(), transaction.getUrlSignature())
+            transaction.getReferrerUrl())
             .filter(AdyenAuthorization::isCompleted)
             .firstOrError()
             .flatMap(adyenAuthorization -> createBundle())
@@ -273,7 +273,7 @@ public class AdyenAuthorizationPresenter {
         transaction -> billingService.getAuthorization(transaction.getSkuId(),
             transaction.toAddress(), developerPayload, origin, convertAmount(), currency, type,
             transaction.getCallbackUrl(), transaction.getOrderReference(), appPackage,
-            transaction.getUrl(), transaction.getUrlSignature())
+            transaction.getReferrerUrl())
             .filter(AdyenAuthorization::isFailed)
             .firstOrError()
             .observeOn(viewScheduler)
@@ -293,7 +293,7 @@ public class AdyenAuthorizationPresenter {
         transaction -> billingService.getAuthorization(transaction.getSkuId(),
             transaction.toAddress(), developerPayload, origin, convertAmount(), currency, type,
             transaction.getCallbackUrl(), transaction.getOrderReference(), appPackage,
-            transaction.getUrl(), transaction.getUrlSignature())
+            transaction.getReferrerUrl())
             .filter(AdyenAuthorization::isProcessing)
             .observeOn(viewScheduler)
             .doOnNext(__ -> view.showLoading()))
