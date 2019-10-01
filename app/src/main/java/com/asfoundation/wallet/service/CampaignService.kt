@@ -48,7 +48,7 @@ class CampaignService(
     return if (response.status != GetCampaignResponse.EligibleResponseStatus.NOT_ELIGIBLE && response.bidId != null) {
       Campaign(response.bidId, CampaignStatus.AVAILABLE)
     } else {
-      Campaign("", CampaignStatus.NOT_ELIGIBLE)
+      Campaign("", CampaignStatus.NOT_ELIGIBLE, response.hours, response.minutes)
     }
   }
 
@@ -77,4 +77,5 @@ enum class CampaignStatus {
   AVAILABLE, NOT_ELIGIBLE
 }
 
-data class Campaign(val campaignId: String, val campaignStatus: CampaignStatus)
+data class Campaign(val campaignId: String, val campaignStatus: CampaignStatus,
+                    val hoursRemaining: Int = 0, val minutesRemaining: Int = 0)

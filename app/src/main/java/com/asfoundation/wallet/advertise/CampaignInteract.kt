@@ -28,5 +28,5 @@ class CampaignInteract(private val campaignService: CampaignService,
           Advertising.CampaignAvailabilityType.AVAILABLE,
           campaign.campaignId) else CampaignDetails(
           Advertising.CampaignAvailabilityType.UNAVAILABLE,
-          campaign.campaignId)
+          campaign.campaignId, campaign.hoursRemaining, campaign.minutesRemaining)
 }

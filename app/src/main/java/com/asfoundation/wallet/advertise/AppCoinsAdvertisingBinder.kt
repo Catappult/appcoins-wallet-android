@@ -1,12 +1,17 @@
 package com.asfoundation.wallet.advertise
 
+import android.app.NotificationManager
 import android.content.pm.PackageManager
 import android.os.Binder
 import android.os.Bundle
+import androidx.core.app.NotificationCompat
 import com.appcoins.advertising.AppCoinsAdvertising
 
-internal class AppCoinsAdvertisingBinder(private val packageManager: PackageManager,
-                                         private val campaignInteract: CampaignInteract) :
+internal class AppCoinsAdvertisingBinder(
+    private val packageManager: PackageManager,
+    private val campaignInteract: CampaignInteract,
+    private val notificationManager: NotificationManager,
+    private val headsUpNotificationBuilder: NotificationCompat.Builder) :
     AppCoinsAdvertising.Stub() {
 
   companion object {
@@ -22,8 +27,22 @@ internal class AppCoinsAdvertisingBinder(private val packageManager: PackageMana
     val uid = Binder.getCallingUid()
     val pkg = packageManager.getNameForUid(uid)
     val pkgInfo = packageManager.getPackageInfo(pkg, 0)
-    return campaignInteract.getCampaign(pkg, pkgInfo.versionCode).map { mapCampaignDetails(it) }
+    return campaignInteract.getCampaign(pkg, pkgInfo.versionCode)
+        .doOnSuccess { handleNotificationBuild(it) }
+        .map { mapCampaignDetails(it) }
         .blockingGet()
+  }
+
+  private fun handleNotificationBuild(campaign: CampaignDetails) {
+    if (campaign.limitReached()) {
+      //TODO Change string
+      notificationManager.notify(WalletPoAService.SERVICE_ID,
+          headsUpNotificationBuilder.setContentTitle(
+              "You've reached your PoA limit, please try again in "
+                  + campaign.hoursRemaining
+                  + ":"
+                  + campaign.minutesRemaining).build())
+    }
   }
 
   private fun mapCampaignDetails(details: CampaignDetails): Bundle {
