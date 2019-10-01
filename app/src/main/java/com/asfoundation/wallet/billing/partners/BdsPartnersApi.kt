@@ -9,12 +9,14 @@ interface BdsPartnersApi {
   @GET("/roles/8.20180518/stores")
   fun getStoreWallet(@Query("package.name") packageName: String?,
                      @Query("device.manufacturer") manufacturer: String?,
-                     @Query("device.model") model: String?): Single<GetWalletResponse>
+                     @Query("device.model") model: String?,
+                     @Query("uid") uid: String?): Single<GetWalletResponse>
 
   @GET("/roles/8.20180518/oems")
   fun getOemWallet(@Query("package.name") packageName: String?,
                    @Query("device.manufacturer") manufacturer: String?,
-                   @Query("device.model") model: String?): Single<GetWalletResponse>
+                   @Query("device.model") model: String?,
+                   @Query("uid") uid: String?): Single<GetWalletResponse>
 }
 
 data class GetWalletResponse(val items: List<Store>)

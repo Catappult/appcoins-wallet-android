@@ -58,6 +58,7 @@ import com.asfoundation.wallet.billing.adyen.AdyenBillingService;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.billing.analytics.PoaAnalytics;
 import com.asfoundation.wallet.billing.partners.AddressService;
+import com.asfoundation.wallet.billing.partners.ApkFyService;
 import com.asfoundation.wallet.billing.partners.BdsPartnersApi;
 import com.asfoundation.wallet.billing.partners.InstallerService;
 import com.asfoundation.wallet.billing.partners.InstallerSourceService;
@@ -103,6 +104,7 @@ import com.asfoundation.wallet.referrals.ReferralInteractorContract;
 import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.ApproveTransactionValidatorBds;
+import com.asfoundation.wallet.repository.BackendTransactionRepository;
 import com.asfoundation.wallet.repository.BalanceService;
 import com.asfoundation.wallet.repository.BdsBackEndWriter;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
@@ -110,7 +112,6 @@ import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.BuyTransactionValidatorBds;
 import com.asfoundation.wallet.repository.CurrencyConversionService;
-import com.asfoundation.wallet.repository.BackendTransactionRepository;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.GasSettingsRepository;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
@@ -950,9 +951,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
   }
 
   @Singleton @Provides AddressService providesAddressService(InstallerService installerService,
-      WalletAddressService addressService) {
+      WalletAddressService addressService, ApkFyService apkFyService) {
     return new PartnerAddressService(installerService, addressService,
-        new DeviceInfo(Build.MANUFACTURER, Build.MODEL));
+        new DeviceInfo(Build.MANUFACTURER, Build.MODEL), apkFyService);
   }
 
   @Singleton @Provides InstallerService providesInstallerService(Context context) {
@@ -1080,9 +1081,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
             .transactionsDao();
     TransactionsRepository localRepository =
         new TransactionsLocalRepository(transactionsDao, sharedPreferences);
-    return new BackendTransactionRepository(networkInfo, accountKeystoreService, defaultTokenProvider,
-        new BlockchainErrorMapper(), nonceObtainer, Schedulers.io(), transactionsNetworkRepository,
-        localRepository, new TransactionMapper(), new CompositeDisposable(), Schedulers.io());
+    return new BackendTransactionRepository(networkInfo, accountKeystoreService,
+        defaultTokenProvider, new BlockchainErrorMapper(), nonceObtainer, Schedulers.io(),
+        transactionsNetworkRepository, localRepository, new TransactionMapper(),
+        new CompositeDisposable(), Schedulers.io());
   }
 
   @Singleton @Provides SmsValidationApi provideSmsValidationApi(OkHttpClient client, Gson gson) {
@@ -1119,5 +1121,9 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
       WalletService walletService, CreateWalletInteract createWalletInteract) {
     return new CampaignInteract(campaignService, walletService, createWalletInteract,
         new AdvertisingThrowableCodeMapper());
+  }
+
+  @Singleton @Provides ApkFyService provideApkFyService(Context context) {
+    return new ApkFyService(context);
   }
 }

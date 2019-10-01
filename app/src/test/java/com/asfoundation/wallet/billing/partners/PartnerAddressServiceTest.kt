@@ -22,6 +22,8 @@ class PartnerAddressServiceTest {
   lateinit var api: BdsPartnersApi
   @Mock
   lateinit var deviceInfo: DeviceInfo
+  @Mock
+  lateinit var apkFyService: ApkFyService
 
   private lateinit var scheduler: TestScheduler
   private lateinit var partnerAddressService: AddressService
@@ -32,6 +34,7 @@ class PartnerAddressServiceTest {
     private const val INSTALLER_WALLET_ADDRESS = "0xc41b4160b63d1f9488937c41b4160b63d1f94889"
     private const val DEVICE_MANUFACTURER = "manufacturer"
     private const val DEVICE_MODEL = "model"
+    private const val OEM_ID = "oemid"
   }
 
   @Before
@@ -41,26 +44,32 @@ class PartnerAddressServiceTest {
 
     `when`(installerService.getInstallerPackageName(APP_PACKAGE_NAME)).thenReturn(
         Single.just(INSTALLER_PACKAGE_NAME))
+    `when`(apkFyService.extractOemId(APP_PACKAGE_NAME)).thenReturn(
+        Single.just(OEM_ID))
 
     `when`(walletAddressService.getStoreWalletForPackage(INSTALLER_PACKAGE_NAME,
         deviceInfo.manufacturer,
-        deviceInfo.model)).thenReturn(
+        deviceInfo.model,
+        OEM_ID)).thenReturn(
         Single.just(INSTALLER_WALLET_ADDRESS))
 
     `when`(walletAddressService.getOemWalletForPackage(INSTALLER_PACKAGE_NAME,
         deviceInfo.manufacturer,
-        deviceInfo.model)).thenReturn(
+        deviceInfo.model,
+        OEM_ID)).thenReturn(
         Single.just(INSTALLER_WALLET_ADDRESS))
 
     scheduler = TestScheduler()
-    partnerAddressService = PartnerAddressService(installerService, walletAddressService, deviceInfo)
+    partnerAddressService =
+        PartnerAddressService(installerService, walletAddressService, deviceInfo, apkFyService)
   }
 
   @Test
   fun getStoreWalletAddress() {
     val observer = TestObserver<String>()
 
-    partnerAddressService.getStoreAddressForPackage(APP_PACKAGE_NAME).subscribe(observer)
+    partnerAddressService.getStoreAddressForPackage(APP_PACKAGE_NAME)
+        .subscribe(observer)
     scheduler.triggerActions()
 
     observer.assertValues(INSTALLER_WALLET_ADDRESS)
@@ -71,7 +80,8 @@ class PartnerAddressServiceTest {
   fun getOemWalletAddress() {
     val observer = TestObserver<String>()
 
-    partnerAddressService.getOemAddressForPackage(APP_PACKAGE_NAME).subscribe(observer)
+    partnerAddressService.getOemAddressForPackage(APP_PACKAGE_NAME)
+        .subscribe(observer)
     scheduler.triggerActions()
 
     observer.assertValues(INSTALLER_WALLET_ADDRESS)
@@ -80,20 +90,26 @@ class PartnerAddressServiceTest {
 
   @Test
   fun getDefaultWalletAddressOnError() {
-    `when`(api.getStoreWallet(INSTALLER_PACKAGE_NAME,
-        deviceInfo.manufacturer,
-        deviceInfo.model)).thenAnswer { Single.just("") }
+    `when`(api.getStoreWallet(INSTALLER_PACKAGE_NAME, deviceInfo.manufacturer,
+        deviceInfo.model, OEM_ID)).thenAnswer { Single.just("") }
 
     walletAddressService = PartnerWalletAddressService(api, BuildConfig.DEFAULT_STORE_ADDRESS,
         BuildConfig.DEFAULT_OEM_ADDRESS)
-    partnerAddressService = PartnerAddressService(installerService, walletAddressService, deviceInfo)
+    partnerAddressService =
+        PartnerAddressService(installerService, walletAddressService, deviceInfo, apkFyService)
 
     val testStoreWalletAddress = TestObserver<String>()
-    partnerAddressService.getStoreAddressForPackage(APP_PACKAGE_NAME).subscribe(testStoreWalletAddress)
-    testStoreWalletAddress.assertNoErrors().assertValue(BuildConfig.DEFAULT_STORE_ADDRESS).assertComplete()
+    partnerAddressService.getStoreAddressForPackage(APP_PACKAGE_NAME)
+        .subscribe(testStoreWalletAddress)
+    testStoreWalletAddress.assertNoErrors()
+        .assertValue(BuildConfig.DEFAULT_STORE_ADDRESS)
+        .assertComplete()
 
     val testOemWalletAddress = TestObserver<String>()
-    partnerAddressService.getOemAddressForPackage(APP_PACKAGE_NAME).subscribe(testOemWalletAddress)
-    testOemWalletAddress.assertNoErrors().assertValue(BuildConfig.DEFAULT_OEM_ADDRESS).assertComplete()
+    partnerAddressService.getOemAddressForPackage(APP_PACKAGE_NAME)
+        .subscribe(testOemWalletAddress)
+    testOemWalletAddress.assertNoErrors()
+        .assertValue(BuildConfig.DEFAULT_OEM_ADDRESS)
+        .assertComplete()
   }
 }
