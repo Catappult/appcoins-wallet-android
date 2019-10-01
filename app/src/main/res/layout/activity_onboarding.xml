@@ -97,7 +97,7 @@
 
     <Button
         android:id="@+id/redeem_bonus"
-        style="@style/TransactionDetailsButtonStyle"
+        style="@style/ButtonStyle.Light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -118,14 +118,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="20dp"
         android:gravity="center"
         android:text="@string/terms_and_conditions_error"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/onboarding_viewpager"
+        app:layout_constraintTop_toBottomOf="@+id/redeem_bonus"
         />
 
     <LinearLayout
@@ -133,11 +133,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
-        android:layout_marginTop="47dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="20dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/onboarding_viewpager"
+        app:layout_constraintTop_toBottomOf="@id/terms_conditions_warning"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         >
       <CheckBox
           android:id="@+id/onboarding_checkbox"
@@ -159,7 +161,7 @@
 
     <Button
         android:id="@+id/next_button"
-        style="@style/ButtonStyle"
+        style="@style/ButtonStyle.Alternative"
         android:layout_width="120dp"
         android:layout_height="@dimen/button_height"
         android:layout_marginTop="17dp"
@@ -173,13 +175,15 @@
 
     <Button
         android:id="@+id/skip_button"
-        style="@style/CancelBorderlessButtonStyle"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/button_height"
         android:layout_marginTop="30dp"
+        android:fontFamily="sans-serif-medium"
         android:maxWidth="126dp"
         android:minWidth="80dp"
         android:text="@string/skip_with_arrow"
+        android:textColor="@color/btn_cancel_text"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -38,10 +38,8 @@ class OverlayFragment : Fragment(), OverlayView {
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    if (context !is TransactionsActivity) {
-      throw IllegalArgumentException(
-          OverlayFragment::class.java.simpleName + " needs to be attached to a " + TransactionsActivity::class.java.simpleName)
-    }
+    require(
+        context is TransactionsActivity) { OverlayFragment::class.java.simpleName + " needs to be attached to a " + TransactionsActivity::class.java.simpleName }
     activity = context
   }
 

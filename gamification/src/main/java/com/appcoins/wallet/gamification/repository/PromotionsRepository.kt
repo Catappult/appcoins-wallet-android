@@ -19,4 +19,5 @@ interface PromotionsRepository {
   fun getUserStatus(wallet: String): Single<UserStatusResponse>
   fun getGamificationUserStatus(wallet: String): Single<GamificationResponse>
   fun getReferralUserStatus(wallet: String): Single<ReferralResponse>
+  fun getReferralInfo(): Single<ReferralResponse>
 }

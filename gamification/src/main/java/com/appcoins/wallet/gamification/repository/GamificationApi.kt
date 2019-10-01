@@ -1,6 +1,7 @@
 package com.appcoins.wallet.gamification.repository
 
 import com.appcoins.wallet.gamification.repository.entity.LevelsResponse
+import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
 import com.appcoins.wallet.gamification.repository.entity.UserStatusResponse
 import io.reactivex.Single
 import retrofit2.http.GET
@@ -20,4 +21,7 @@ interface GamificationApi {
                        @Query("package_name") packageName: String,
                        @Query("amount") amount: BigDecimal, @Query("currency")
                        currency: String): Single<ForecastBonusResponse>
+
+  @GET("gamification/referral_info")
+  fun getReferralInfo(): Single<ReferralResponse>
 }

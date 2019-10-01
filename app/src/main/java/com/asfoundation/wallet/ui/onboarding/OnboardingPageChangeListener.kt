@@ -1,7 +1,5 @@
 package com.asfoundation.wallet.ui.onboarding
 
-import android.animation.AnimatorInflater
-import android.animation.AnimatorSet
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
@@ -48,29 +46,6 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
     handleUI(0)
   }
 
-  private fun animateCheckboxDown(layout: LinearLayout) {
-    (AnimatorInflater.loadAnimator(view.context,
-        R.animator.minor_translate_down) as AnimatorSet).apply {
-      setTarget(layout)
-      start()
-    }
-  }
-
-  private fun animateShowButton(button: Button) {
-    val animation = AnimationUtils.loadAnimation(view.context, R.anim.bottom_translate_in)
-    button.animation = animation
-  }
-
-  private fun animateShowWarning(textView: TextView) {
-    val animation = AnimationUtils.loadAnimation(view.context, R.anim.fast_fade_in_animation)
-    textView.animation = animation
-  }
-
-  private fun animateHideButton(button: Button) {
-    val animation = AnimationUtils.loadAnimation(view.context, R.anim.bottom_translate_out)
-    button.animation = animation
-  }
-
   private fun animateHideWarning(textView: TextView) {
     val animation = AnimationUtils.loadAnimation(view.context, R.anim.fast_fade_out_animation)
     textView.animation = animation
@@ -93,66 +68,30 @@ class OnboardingPageChangeListener internal constructor(private val view: View) 
   }
 
   private fun showLastPageLayout() {
-    if (skipButton.visibility == View.VISIBLE) {
-      animateHideButton(skipButton)
-      skipButton.visibility = View.GONE
-    }
+    skipButton.visibility = View.GONE
+    nextButton.visibility = View.VISIBLE
+    redeemBonus.visibility = View.VISIBLE
+    termsConditionsLayout.visibility = View.VISIBLE
+    nextButton.isEnabled = checkBox.isChecked
+    redeemBonus.isEnabled = checkBox.isChecked
 
     if (checkBox.isChecked) {
-      if (nextButton.visibility == View.GONE) {
-        animateShowButton(nextButton)
-        nextButton.visibility = View.VISIBLE
-        animateShowButton(redeemBonus)
-        redeemBonus.visibility = View.VISIBLE
-      }
       if (warningText.visibility == View.VISIBLE) {
         animateHideWarning(warningText)
-        warningText.visibility = View.GONE
-      }
-
-      if (termsConditionsLayout.visibility == View.GONE) {
-        animateCheckboxDown(termsConditionsLayout)
-        termsConditionsLayout.visibility = View.VISIBLE
-      }
-    } else {
-      if (warningText.visibility == View.GONE) {
-        animateShowWarning(warningText)
-        warningText.visibility = View.VISIBLE
-      }
-      if (termsConditionsLayout.visibility == View.GONE) {
-        animateCheckboxDown(termsConditionsLayout)
-        termsConditionsLayout.visibility = View.VISIBLE
-      }
-      if (nextButton.visibility == View.VISIBLE) {
-        animateHideButton(nextButton)
-        nextButton.visibility = View.GONE
-        animateHideButton(redeemBonus)
-        redeemBonus.visibility = View.GONE
+        warningText.visibility = View.INVISIBLE
       }
     }
   }
 
   private fun showFirstPageLayout() {
-    if (skipButton.visibility == View.GONE) {
-      animateShowButton(skipButton)
-      skipButton.visibility = View.VISIBLE
-    }
-
-    if (nextButton.visibility == View.VISIBLE) {
-      animateHideButton(nextButton)
-      nextButton.visibility = View.GONE
-      animateHideButton(redeemBonus)
-      redeemBonus.visibility = View.GONE
-    }
-
-    if (termsConditionsLayout.visibility == View.VISIBLE) {
-      animateCheckboxDown(termsConditionsLayout)
-      termsConditionsLayout.visibility = View.GONE
-    }
+    skipButton.visibility = View.VISIBLE
+    nextButton.visibility = View.GONE
+    redeemBonus.visibility = View.GONE
+    termsConditionsLayout.visibility = View.GONE
 
     if (warningText.visibility == View.VISIBLE) {
       animateHideWarning(warningText)
-      warningText.visibility = View.GONE
+      warningText.visibility = View.INVISIBLE
     }
   }
 

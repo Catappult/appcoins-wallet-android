@@ -227,7 +227,7 @@ public class TransactionsViewModel extends BaseViewModel {
   private boolean shouldShow(Pair<Balance, FiatValue> balance, Double threshold) {
     return balance.first.getStringValue()
         .length() > 0
-        && Double.valueOf(balance.first.getStringValue()) >= threshold
+        && Double.parseDouble(balance.first.getStringValue()) >= threshold
         && (balance.second.getAmount()
         .compareTo(MINUS_ONE) > 0)
         && balance.second.getAmount()

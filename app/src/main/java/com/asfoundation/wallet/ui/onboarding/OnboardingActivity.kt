@@ -12,8 +12,11 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.StyleSpan
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.widget.TextView
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.SmsValidationInteract
+import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.ui.BaseActivity
@@ -38,8 +41,11 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
   lateinit var interactor: OnboardingInteract
   @Inject
   lateinit var smsValidationInteract: SmsValidationInteract
+  @Inject
+  lateinit var referralInteractor: ReferralInteractorContract
   private lateinit var browserRouter: ExternalBrowserRouter
   private lateinit var presenter: OnboardingPresenter
+  private lateinit var adapter: OnboardingPageAdapter
   private var linkSubject: PublishSubject<String>? = null
 
   companion object {
@@ -59,29 +65,21 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     linkSubject = PublishSubject.create()
     presenter = OnboardingPresenter(CompositeDisposable(), this, interactor,
         AndroidSchedulers.mainThread(), smsValidationInteract, Schedulers.io(),
-        ReplaySubject.create())
-    setupUi()
-  }
-
-  override fun onResume() {
+        ReplaySubject.create(), referralInteractor)
+    setupUI()
     presenter.present()
-    super.onResume()
-  }
-
-  override fun onPause() {
-    presenter.stop()
-    create_wallet_animation.removeAllAnimatorListeners()
-    super.onPause()
   }
 
   override fun onDestroy() {
     linkSubject = null
+    presenter.stop()
+    create_wallet_animation.removeAllAnimatorListeners()
     create_wallet_animation.removeAllUpdateListeners()
     create_wallet_animation.removeAllLottieOnCompositionLoadedListener()
     super.onDestroy()
   }
 
-  override fun setupUi() {
+  private fun setupUI() {
     val termsConditions = resources.getString(R.string.terms_and_conditions)
     val privacyPolicy = resources.getString(R.string.privacy_policy)
     val termsPolicyTickBox =
@@ -96,14 +94,21 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     terms_conditions_body.isClickable = true
     terms_conditions_body.movementMethod = LinkMovementMethod.getInstance()
 
+    adapter = OnboardingPageAdapter(this, createItemList(""))
+
     onboarding_viewpager.setPageTransformer(OnboardingPageTransformer())
-    onboarding_viewpager.adapter = OnboardingPageAdapter()
+    onboarding_viewpager.adapter = adapter
+
     onboarding_viewpager.registerOnPageChangeCallback(
         OnboardingPageChangeListener(onboarding_content))
 
     onboarding_content.visibility = View.VISIBLE
     wallet_creation_animation.visibility = View.GONE
     layout_validation_no_internet.visibility = View.GONE
+  }
+
+  override fun updateUI(maxAmount: String) {
+    adapter.setPages(createItemList(maxAmount))
   }
 
   override fun getNextButtonClick(): Observable<Any> {
@@ -124,6 +129,21 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
 
   override fun getLinkClick(): Observable<String> {
     return linkSubject!!
+  }
+
+  override fun showWarningText() {
+    if (!onboarding_checkbox.isChecked &&
+        terms_conditions_warning.visibility == View.INVISIBLE &&
+        terms_conditions_layout.visibility == View.VISIBLE) {
+      animateShowWarning(terms_conditions_warning)
+      terms_conditions_warning.visibility = View.VISIBLE
+      presenter.markedWarningTextAsShowed()
+    }
+  }
+
+  private fun animateShowWarning(textView: TextView) {
+    val animation = AnimationUtils.loadAnimation(applicationContext, R.anim.fast_fade_in_animation)
+    textView.animation = animation
   }
 
   override fun showLoading() {
@@ -226,5 +246,27 @@ class OnboardingActivity : BaseActivity(), OnboardingView {
     retry_button.visibility = View.VISIBLE
     later_button.visibility = View.VISIBLE
     retry_animation.visibility = View.GONE
+  }
+
+  override fun updateUINoInternet() {
+    adapter.setPages(createNoInternetItemList())
+  }
+
+  private fun createItemList(maxAmount: String): List<OnboardingItem> {
+    val item1 = OnboardingItem(R.string.intro_1_title, this.getString(R.string.intro_1_body))
+    val item2 = OnboardingItem(R.string.intro_2_title, this.getString(R.string.intro_2_body))
+    val item3 = OnboardingItem(R.string.intro_3_title, this.getString(R.string.intro_3_body))
+    val item4 = OnboardingItem(R.string.referral_onboarding_title,
+        this.getString(R.string.referral_onboarding_body, maxAmount))
+    return listOf(item1, item2, item3, item4)
+  }
+
+  private fun createNoInternetItemList(): List<OnboardingItem> {
+    val item1 = OnboardingItem(R.string.intro_1_title, this.getString(R.string.intro_1_body))
+    val item2 = OnboardingItem(R.string.intro_2_title, this.getString(R.string.intro_2_body))
+    val item3 = OnboardingItem(R.string.intro_3_title, this.getString(R.string.intro_3_body))
+    val item4 = OnboardingItem(R.string.referral_onboarding_title,
+        this.getString(R.string.referral_onboarding_body_no_connection))
+    return listOf(item1, item2, item3, item4)
   }
 }

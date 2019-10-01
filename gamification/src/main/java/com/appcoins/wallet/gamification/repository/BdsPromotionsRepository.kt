@@ -106,6 +106,10 @@ class BdsPromotionsRepository(private val api: GamificationApi,
         .map { it.referral }
   }
 
+  override fun getReferralInfo(): Single<ReferralResponse> {
+    return api.getReferralInfo()
+  }
+
   private fun isNoNetworkException(throwable: Throwable): Boolean {
     return throwable is IOException ||
         throwable.cause != null && throwable.cause is IOException ||
