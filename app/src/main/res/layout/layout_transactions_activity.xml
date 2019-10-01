@@ -25,6 +25,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:background="@color/activity_background_color"
+          android:paddingBottom="@dimen/large_padding"
           />
 
       <com.asfoundation.wallet.widget.SystemView
