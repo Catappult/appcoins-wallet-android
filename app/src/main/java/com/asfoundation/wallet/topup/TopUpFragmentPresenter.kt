@@ -218,6 +218,8 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
 
   private fun handleDefaultValueChips() {
     disposables.add(interactor.getDefaultValues()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
         .map { view.setupDefaultValueChips(it) }
         .subscribe())
   }

@@ -103,6 +103,7 @@ import com.asfoundation.wallet.referrals.ReferralInteractorContract;
 import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.ApproveTransactionValidatorBds;
+import com.asfoundation.wallet.repository.BackendTransactionRepository;
 import com.asfoundation.wallet.repository.BalanceService;
 import com.asfoundation.wallet.repository.BdsBackEndWriter;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
@@ -110,7 +111,6 @@ import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.BuyService;
 import com.asfoundation.wallet.repository.BuyTransactionValidatorBds;
 import com.asfoundation.wallet.repository.CurrencyConversionService;
-import com.asfoundation.wallet.repository.BackendTransactionRepository;
 import com.asfoundation.wallet.repository.ErrorMapper;
 import com.asfoundation.wallet.repository.GasSettingsRepository;
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType;
@@ -151,8 +151,9 @@ import com.asfoundation.wallet.service.TickerService;
 import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.TransactionsNetworkClientType;
 import com.asfoundation.wallet.service.TrustWalletTickerService;
-import com.asfoundation.wallet.topup.MockedTopUpValuesService;
 import com.asfoundation.wallet.topup.TopUpInteractor;
+import com.asfoundation.wallet.topup.TopUpValuesApiResponseMapper;
+import com.asfoundation.wallet.topup.TopUpValuesService;
 import com.asfoundation.wallet.transactions.TransactionsAnalytics;
 import com.asfoundation.wallet.transactions.TransactionsMapper;
 import com.asfoundation.wallet.ui.AppcoinsApps;
@@ -1018,13 +1019,30 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
 
   @Singleton @Provides TopUpInteractor providesTopUpInteractor(BdsRepository repository,
       LocalCurrencyConversionService conversionService,
-      GamificationInteractor gamificationInteractor, MockedTopUpValuesService topUpValuesService) {
+      GamificationInteractor gamificationInteractor, TopUpValuesService topUpValuesService) {
     return new TopUpInteractor(repository, conversionService, gamificationInteractor,
         topUpValuesService);
   }
 
-  @Provides MockedTopUpValuesService providesMockedTopUpValuesService() {
-    return new MockedTopUpValuesService();
+  @Provides TopUpValuesService providesTopUpValuesService(
+      TopUpValuesService.TopUpValuesApi topUpValuesApi,
+      TopUpValuesApiResponseMapper responseMapper) {
+    return new TopUpValuesService(topUpValuesApi, responseMapper);
+  }
+
+  @Singleton @Provides TopUpValuesService.TopUpValuesApi providesTopUpValuesApi(OkHttpClient client,
+      Gson gson) {
+    String baseUrl = BuildConfig.BASE_HOST;
+    return new Retrofit.Builder().baseUrl(baseUrl)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .build()
+        .create(TopUpValuesService.TopUpValuesApi.class);
+  }
+
+  @Provides TopUpValuesApiResponseMapper providesTopUpValuesApiResponseMapper() {
+    return new TopUpValuesApiResponseMapper();
   }
 
   @Singleton @Provides TransactionsAnalytics providesTransactionsAnalytics(
@@ -1086,9 +1104,10 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
             .transactionsDao();
     TransactionsRepository localRepository =
         new TransactionsLocalRepository(transactionsDao, sharedPreferences);
-    return new BackendTransactionRepository(networkInfo, accountKeystoreService, defaultTokenProvider,
-        new BlockchainErrorMapper(), nonceObtainer, Schedulers.io(), transactionsNetworkRepository,
-        localRepository, new TransactionMapper(), new CompositeDisposable(), Schedulers.io());
+    return new BackendTransactionRepository(networkInfo, accountKeystoreService,
+        defaultTokenProvider, new BlockchainErrorMapper(), nonceObtainer, Schedulers.io(),
+        transactionsNetworkRepository, localRepository, new TransactionMapper(),
+        new CompositeDisposable(), Schedulers.io());
   }
 
   @Singleton @Provides SmsValidationApi provideSmsValidationApi(OkHttpClient client, Gson gson) {

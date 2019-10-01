@@ -14,7 +14,7 @@ import java.math.BigDecimal
 class TopUpInteractor(private val repository: BdsRepository,
                       private val conversionService: LocalCurrencyConversionService,
                       private val gamificationInteractor: GamificationInteractor,
-                      private val mockedTopUpValuesService: MockedTopUpValuesService) {
+                      private val topUpValuesService: TopUpValuesService) {
 
   fun getPaymentMethods(): Single<List<PaymentMethodData>> {
     return repository.getPaymentMethods(type = "fiat")
@@ -52,14 +52,17 @@ class TopUpInteractor(private val repository: BdsRepository,
   }
 
   fun getMinTopUpValue(): Single<FiatValue> {
-    return mockedTopUpValuesService.getMinTopUpValue()
+    return topUpValuesService.getMinimumValue()
+        .map { it.value }
   }
 
   fun getMaxTopUpValue(): Single<FiatValue> {
-    return mockedTopUpValuesService.getMaxTopUpValue()
+    return topUpValuesService.getMaximumValue()
+        .map { it.value }
   }
 
   fun getDefaultValues(): Single<List<FiatValue>> {
-    return mockedTopUpValuesService.getDefaultValues()
+    return topUpValuesService.getDefaultValues()
+        .map { it }
   }
 }
