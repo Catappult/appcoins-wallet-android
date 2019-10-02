@@ -369,4 +369,9 @@ public class ProofOfAttentionService {
             .flatMap(wallet -> walletInteract.setDefaultWallet(wallet)
                 .andThen(Single.just(wallet))));
   }
+
+  public Single<PoaInformationModel> retrievePoaInformation() {
+    return findDefaultWalletInteract.find()
+        .flatMap(wallet -> proofWriter.retrievePoaInformation(wallet.address));
+  }
 }

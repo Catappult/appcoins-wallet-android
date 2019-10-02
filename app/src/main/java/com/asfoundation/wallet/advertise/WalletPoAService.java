@@ -19,6 +19,7 @@ import androidx.core.app.NotificationCompat;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.Logger;
 import com.asfoundation.wallet.billing.analytics.PoaAnalytics;
+import com.asfoundation.wallet.poa.PoaInformationModel;
 import com.asfoundation.wallet.poa.Proof;
 import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.poa.ProofStatus;
@@ -237,11 +238,16 @@ public class WalletPoAService extends Service {
         stopTimeout();
         break;
       case COMPLETED:
+        PoaInformationModel poaInformation = proofOfAttentionService.retrievePoaInformation()
+            .blockingGet();
         Intent intent = TransactionsActivity.newIntent(this);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        String completed = getString(R.string.verification_notification_reward_received_body);
+        if (!poaInformation.hasRemainingPoa()) {
+          completed = buildNoPoaRemainingString(poaInformation);
+        }
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-        notificationManager.notify(SERVICE_ID, headsUpNotificationBuilder.setContentTitle(
-            getString(R.string.verification_notification_reward_received_body))
+        notificationManager.notify(SERVICE_ID, headsUpNotificationBuilder.setContentTitle(completed)
             .setContentIntent(pendingIntent)
             .build());
         break;
@@ -298,6 +304,17 @@ public class WalletPoAService extends Service {
       stopForeground(false);
       stopTimeout();
     }
+  }
+
+  private String buildNoPoaRemainingString(PoaInformationModel poaInformation) {
+    String minutes = String.valueOf(poaInformation.getRemainingMinutes());
+    String leadingZero = "";
+    if (poaInformation.getRemainingMinutes() >= 0 && poaInformation.getRemainingMinutes() < 10) {
+      leadingZero = "0";
+    }
+    minutes = leadingZero + minutes;
+    return getString(R.string.test_poa_no_poa_remaining,
+        String.valueOf(poaInformation.getRemainingHours()), minutes);
   }
 
   private @IntRange(from = 0, to = 100) int calculateProgress(Proof proof) {

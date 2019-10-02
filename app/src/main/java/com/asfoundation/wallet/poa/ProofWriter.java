@@ -7,4 +7,6 @@ public interface ProofWriter {
 
   Single<ProofSubmissionFeeData> hasWalletPrepared(int chainId, String packageName,
       int versionCode);
+
+  Single<PoaInformationModel> retrievePoaInformation(String address);
 }

@@ -2,6 +2,7 @@ package com.asfoundation.wallet.repository
 
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.interact.FindDefaultWalletInteract
+import com.asfoundation.wallet.poa.PoaInformationModel
 import com.asfoundation.wallet.poa.Proof
 import com.asfoundation.wallet.poa.ProofSubmissionFeeData
 import com.asfoundation.wallet.poa.ProofWriter
@@ -66,5 +67,9 @@ open class BdsBackEndWriter(
 
   private fun isCorrectNetwork(chainId: Int): Boolean {
     return chainId == 3 && BuildConfig.DEBUG || chainId == 1 && !BuildConfig.DEBUG
+  }
+
+  override fun retrievePoaInformation(address: String): Single<PoaInformationModel> {
+    return service.retrievePoaInformation(address)
   }
 }

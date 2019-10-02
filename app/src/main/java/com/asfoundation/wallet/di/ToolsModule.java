@@ -801,7 +801,7 @@ import static com.asfoundation.wallet.service.AppsApi.API_BASE_URL;
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
         .create(CampaignService.CampaignApi.class);
-    return new CampaignService(api, BuildConfig.VERSION_CODE);
+    return new CampaignService(api, BuildConfig.VERSION_CODE, Schedulers.io());
   }
 
   @Provides Gamification provideGamification(PromotionsRepository promotionsRepository) {
