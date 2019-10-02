@@ -33,7 +33,7 @@ class InviteFriendsActivityPresenter(private val activity: InviteFriendsActivity
     )
   }
 
-  private fun handleValidationResult(referral: ReferralsViewModel) {
+  private fun handleValidationResult(referral: ReferralsModel) {
     if (referral.link != null) {
       activity.navigateToInviteFriends(referral.amount, referral.pendingAmount,
           referral.symbol, referral.link, referral.completed, referral.receivedAmount,

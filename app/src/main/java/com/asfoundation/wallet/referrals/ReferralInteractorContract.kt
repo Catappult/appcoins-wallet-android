@@ -12,7 +12,7 @@ interface ReferralInteractorContract {
 
   fun hasReferralUpdate(screen: ReferralsScreen): Single<Boolean>
 
-  fun retrieveReferral(): Single<ReferralsViewModel>
+  fun retrieveReferral(): Single<ReferralsModel>
 
   fun saveReferralInformation(numberOfFriends: Int, isVerified: Boolean,
                               screen: ReferralsScreen): Completable
