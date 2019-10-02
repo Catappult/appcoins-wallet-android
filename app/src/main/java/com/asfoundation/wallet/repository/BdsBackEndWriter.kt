@@ -41,7 +41,8 @@ open class BdsBackEndWriter(
           if (isEligible(it.campaignStatus)) {
             ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY)
           } else {
-            ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NOT_ELIGIBLE)
+            ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NOT_ELIGIBLE,
+                it.hoursRemaining, it.minutesRemaining)
           }
         }
         .onErrorReturn {
