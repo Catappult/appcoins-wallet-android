@@ -511,5 +511,6 @@
   <!--Test (to be removed) -->
 
   <string name="test_poa_no_poa_remaining">Reward received, enjoy! 👌 \n You\'ll have to wait %1$sh%2$sm to earn more rewards by trying apps!</string>
+  <string name="test_poa_hours_remaining">You reached your daily rewards limit. Come back in %1$sh%2$sm and try again!</string>
 
 </resources>

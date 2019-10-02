@@ -18,6 +18,6 @@ class AdvertisingService : DaggerService() {
 
   override fun onBind(intent: Intent): IBinder {
     return AppCoinsAdvertisingBinder(applicationContext.packageManager, campaignInteract,
-        notificationManager, headsUpNotificationBuilder)
+        notificationManager, headsUpNotificationBuilder, applicationContext)
   }
 }

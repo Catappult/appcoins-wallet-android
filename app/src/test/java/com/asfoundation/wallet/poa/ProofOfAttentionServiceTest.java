@@ -81,7 +81,7 @@ public class ProofOfAttentionServiceTest {
     when(defaultWalletInteract.find()).thenReturn(hasWallet.firstOrError());
 
     when(campaignService.getCampaign(wallet, packageName, versionCode)).thenReturn(
-        Single.just(new Campaign(campaignId, CampaignStatus.AVAILABLE)));
+        Single.just(new Campaign(campaignId, CampaignStatus.AVAILABLE, 0, 0)));
 
     when(campaignService.submitProof(any(Proof.class), eq(wallet))).thenReturn(
         Single.just(SUBMIT_HASH));
@@ -318,7 +318,7 @@ public class ProofOfAttentionServiceTest {
             .subscribeOn(testScheduler)
             .test();
     ProofSubmissionFeeData readyFee =
-        new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY);
+        new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.READY, 0, 0);
     hasWallet.onNext(new Wallet(wallet));
     testScheduler.triggerActions();
     ready.assertComplete()
@@ -332,7 +332,7 @@ public class ProofOfAttentionServiceTest {
             .subscribeOn(testScheduler)
             .test();
     ProofSubmissionFeeData noWalletFee =
-        new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NO_WALLET);
+        new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NO_WALLET, 0, 0);
     hasWallet.onError(new WalletNotFoundException());
     testScheduler.triggerActions();
     noWallet.assertComplete()
@@ -342,13 +342,13 @@ public class ProofOfAttentionServiceTest {
 
   @Test public void alreadyRewardedTest() {
     when(campaignService.getCampaign(wallet, packageName, versionCode)).thenReturn(
-        Single.just(new Campaign("", CampaignStatus.NOT_ELIGIBLE)));
+        Single.just(new Campaign("", CampaignStatus.NOT_ELIGIBLE, 0, 0)));
     TestObserver<ProofSubmissionFeeData> noFunds =
         proofOfAttentionService.isWalletReady(chainId, packageName, versionCode)
             .subscribeOn(testScheduler)
             .test();
     ProofSubmissionFeeData noFundsFee =
-        new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NOT_ELIGIBLE);
+        new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NOT_ELIGIBLE, 0, 0);
     hasWallet.onNext(new Wallet(wallet));
     testScheduler.triggerActions();
     noFunds.assertComplete()
@@ -362,7 +362,7 @@ public class ProofOfAttentionServiceTest {
             .subscribeOn(testScheduler)
             .test();
     ProofSubmissionFeeData noFundsFee =
-        new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NO_NETWORK);
+        new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.NO_NETWORK, 0, 0);
     hasWallet.onError(new UnknownHostException());
     testScheduler.triggerActions();
     noFunds.assertComplete()
@@ -378,7 +378,7 @@ public class ProofOfAttentionServiceTest {
             .subscribeOn(testScheduler)
             .test();
     ProofSubmissionFeeData wrongNetwork =
-        new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.WRONG_NETWORK);
+        new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.WRONG_NETWORK, 0, 0);
     hasWallet.onError(new UnknownHostException());
     testScheduler.triggerActions();
     noFunds.assertComplete()
@@ -392,7 +392,7 @@ public class ProofOfAttentionServiceTest {
             .subscribeOn(testScheduler)
             .test();
     ProofSubmissionFeeData wrongNetwork =
-        new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.UNKNOWN_NETWORK);
+        new ProofSubmissionFeeData(ProofSubmissionFeeData.RequirementsStatus.UNKNOWN_NETWORK, 0, 0);
     hasWallet.onError(new UnknownHostException());
     testScheduler.triggerActions();
     noFunds.assertComplete()
