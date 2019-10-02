@@ -36,18 +36,19 @@ class CampaignServiceTest {
   fun setUp() {
     `when`(api.getCampaign(ELIGIBLE_ADDRESS, PACKAGE_WITH_CAMPAIGN, VERSION_CODE)).thenReturn(
         Observable.just(
-            GetCampaignResponse(GetCampaignResponse.EligibleResponseStatus.ELIGIBLE, CAMPAIGN_ID)))
+            GetCampaignResponse(GetCampaignResponse.EligibleResponseStatus.ELIGIBLE, CAMPAIGN_ID, 0,
+                0)))
     `when`(api.getCampaign(NOT_ELIGIBLE_ADDRESS, PACKAGE_WITH_CAMPAIGN, VERSION_CODE)).thenReturn(
         Observable.just(GetCampaignResponse(GetCampaignResponse.EligibleResponseStatus.NOT_ELIGIBLE,
-            CAMPAIGN_ID)))
+            CAMPAIGN_ID, 0, 0)))
     `when`(api.getCampaign(REQUIRES_VALIDATION_ADDRESS, PACKAGE_WITH_CAMPAIGN,
         VERSION_CODE)).thenReturn(
         Observable.just(
             GetCampaignResponse(GetCampaignResponse.EligibleResponseStatus.REQUIRES_VALIDATION,
-                CAMPAIGN_ID)))
+                CAMPAIGN_ID, 0, 0)))
     `when`(api.getCampaign(ELIGIBLE_ADDRESS, PACKAGE_WITHOUT_CAMPAIGN, VERSION_CODE)).thenReturn(
         Observable.just(
-            GetCampaignResponse(GetCampaignResponse.EligibleResponseStatus.ELIGIBLE, null)))
+            GetCampaignResponse(GetCampaignResponse.EligibleResponseStatus.ELIGIBLE, null, 0, 0)))
 
     scheduler = TestScheduler()
     campaignService = CampaignService(api, BuildConfig.VERSION_CODE)
