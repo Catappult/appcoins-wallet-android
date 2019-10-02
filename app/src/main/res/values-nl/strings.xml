@@ -417,7 +417,7 @@
   <string name="verification_insert_code_resend_button">CODE OPNIEUW VERSTUREN</string>
   <string name="verification_validating_title">Je code wordt gecontroleerd&#8230;</string>
   <string name="verification_completed_title">Gelukt!</string>
-  <string name="verification_completed_body">You can now earn AppCoins Credits by inviting friends or installing apps.</string>
+  <string name="verification_completed_body">Je kunt nu AppCoins Credits verdienen door vrienden uit te nodigen of apps te installeren.</string>
   <string name="verification_notification_reward_received_body">Beloning ontvangen, veel plezier! 👌</string>
   <string name="verification_notification_reward_already_received_body">Dit telefoonnummer is al gebruikt om deze beloning te ontvangen 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Telefoonnummer is al in gebruik.</string>
@@ -436,14 +436,14 @@
   <!--Referral Program-->
   <string name="referral_onboarding_title">Nodig je vrienden uit!</string>
   <string name="referral_onboarding_body">Jij en je vrienden kunnen met ons verwijzingsprogramma tot %s verdienen!</string>
-  <string name="referral_onboarding_body_no_connection">You and your friends can earn AppCoins Credits with our Referral Program!</string>
+  <string name="referral_onboarding_body_no_connection">Jij en je vrienden kunnen met ons verwijzingsprogramma AppCoins Credits verdienen!</string>
   <string name="referral_onboarding_redeem_button">Ik ben uitgenodigd</string>
   <string name="referral_verification_title">Verifieer je wallet</string>
   <string name="referral_verification_body">Je dient je wallet te verifiëren om aan het verwijzingsprogramma deel te nemen. We zullen je via sms een verificatiecode sturen.</string>
   <string name="referral_verification_confirmation_title">Je uitnodiging is goedgekeurd!</string>
-  <string name="referral_verification_confirmation_body">You\'ll get %1$s worth of AppCoins Credits on your first in-app purchase. Your first purchase must be above %2$s with any payment method other than AppCoins Credits.</string>
+  <string name="referral_verification_confirmation_body">Je krijgt %1$s aan AppCoins Credits bij je eerste in-app aankoop. Je dient een eerste aankoop voor een bedrag hoger dan %2$s te doen en je dient een andere betaalmethode dan AppCoins Credits te gebruiken.</string>
   <string name="referral_verification_not_invited_title">Het lijkt erop dat dit nummer niet is uitgenodigd&#8230;</string>
-  <string name="referral_verification_not_invited_body">But you can still earn up to %s by inviting friends! 💃</string>
+  <string name="referral_verification_not_invited_body">Maar je kunt nog steeds tot %s verdienen door vrienden uit te nodigen! 💃</string>
   <string name="referral_notification_bonus_pending_title">%s verwijzingsbonus in behandeling</string>
   <string name="referral_notification_bonus_pending_body">Doe je eerste in-app aankoop om je bonus te ontvangen.</string>
   <string name="referral_view_title">Vrienden uitnodigen</string>
@@ -460,7 +460,7 @@
   <string name="referral_dropup_menu_friends_title_1">Vrienden uitgenodigd</string>
   <string name="referral_dropup_menu_requirements_title">Vereisten</string>
   <string name="referral_dropup_menu_requirements_verification">Verifieer je wallet met een telefoonnummer</string>
-  <string name="referral_dropup_menu_requirements_purchase">Make one in-app purchase or top-up above %s with any payment method other than AppCoins Credits</string>
+  <string name="referral_dropup_menu_requirements_purchase">Doe één in-app aankoop of waardeer op met een bedrag hoger dan %s door een andere betaalmethode dan AppCoins Credits te gebruiken</string>
   <string name="referral_dropup_menu_requirements_body">Je verdient %1$s AppCoins Credits voor elke vriend die aan de vereisten voldoet (tot %2$s)</string>
   <!--Promotions-->
   <string name="bottom_navigation_promotions">Acties</string>
