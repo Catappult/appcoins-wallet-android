@@ -62,7 +62,7 @@ public class AppcoinsRewardsBuyPresenter {
         .flatMapCompletable(transaction -> rewardsManager.pay(transaction.getSkuId(), amount,
             transaction.toAddress(), packageName, getOrigin(isBds, transaction),
             transaction.getType(), transaction.getPayload(), transaction.getCallbackUrl(),
-            transaction.getOrderReference())
+            transaction.getOrderReference(), transaction.getReferrerUrl())
             .andThen(rewardsManager.getPaymentStatus(packageName, transaction.getSkuId(),
                 transaction.amount()))
             .observeOn(scheduler)
