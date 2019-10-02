@@ -9,6 +9,6 @@ public class SendRouter {
   public void open(Context context) {
     Intent intent = TransferActivity.newIntent(context);
     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-    context.startActivity(TransferActivity.newIntent(context));
+    context.startActivity(intent);
   }
 }
