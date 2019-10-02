@@ -74,6 +74,24 @@ public class ConfirmationActivity extends BaseActivity {
         .observe(this, this::onError);
   }
 
+  @Override public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+      case R.id.action_edit: {
+        viewModel.openGasSettings(ConfirmationActivity.this);
+      }
+      break;
+    }
+    return super.onOptionsItemSelected(item);
+  }
+
+  @Override protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    if (requestCode == GasSettingsViewModel.SET_GAS_SETTINGS) {
+      if (resultCode == RESULT_OK) {
+        viewModel.setGasSettings(intent.getParcelableExtra(EXTRA_GAS_SETTINGS));
+      }
+    }
+  }
+
   private void onTransactionBuilder(TransactionBuilder transactionBuilder) {
     fromAddressText.setText(transactionBuilder.fromAddress());
     toAddressText.setText(transactionBuilder.toAddress());
@@ -99,16 +117,6 @@ public class ConfirmationActivity extends BaseActivity {
     getMenuInflater().inflate(R.menu.confirmation_menu, menu);
 
     return super.onCreateOptionsMenu(menu);
-  }
-
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.action_edit: {
-        viewModel.openGasSettings(ConfirmationActivity.this);
-      }
-      break;
-    }
-    return super.onOptionsItemSelected(item);
   }
 
   private void onProgress(boolean shouldShowProgress) {
@@ -138,6 +146,7 @@ public class ConfirmationActivity extends BaseActivity {
   private void onTransaction(PendingTransaction transaction) {
     Log.d(TAG, "onTransaction() called with: transaction = [" + transaction + "]");
     if (!transaction.isPending()) {
+      viewModel.progressFinished();
       hideDialog();
       dialog = new AlertDialog.Builder(this).setTitle(R.string.transaction_succeeded)
           .setMessage(transaction.getHash())
@@ -171,14 +180,6 @@ public class ConfirmationActivity extends BaseActivity {
         })
         .create();
     dialog.show();
-  }
-
-  @Override protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-    if (requestCode == GasSettingsViewModel.SET_GAS_SETTINGS) {
-      if (resultCode == RESULT_OK) {
-        viewModel.setGasSettings(intent.getParcelableExtra(EXTRA_GAS_SETTINGS));
-      }
-    }
   }
 
   @Override protected void onResume() {
