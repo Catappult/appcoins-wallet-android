@@ -51,7 +51,7 @@ class CampaignServiceTest {
             GetCampaignResponse(GetCampaignResponse.EligibleResponseStatus.ELIGIBLE, null, 0, 0)))
 
     scheduler = TestScheduler()
-    campaignService = CampaignService(api, BuildConfig.VERSION_CODE)
+    campaignService = CampaignService(api, BuildConfig.VERSION_CODE, TestScheduler())
   }
 
 
