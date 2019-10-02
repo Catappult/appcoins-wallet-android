@@ -61,7 +61,7 @@ interface TopUpFragmentView {
 
   fun getSelectedChip(): Int
 
-  fun initialInputSetup(preselectedChip: Int, secondChipValue: String)
+  fun initialInputSetup(preselectedChip: Int, preselectedChipValue: String)
 
   fun paymentMethodsFocusRequest()
 

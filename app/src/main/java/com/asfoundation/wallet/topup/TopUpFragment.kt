@@ -19,6 +19,7 @@ import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
 import com.asfoundation.wallet.topup.paymentMethods.PaymentMethodData
 import com.asfoundation.wallet.topup.paymentMethods.TopUpPaymentMethodAdapter
 import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.util.NumberFormatterUtils
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.jakewharton.rxrelay2.PublishRelay
@@ -340,10 +341,15 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   override fun setupDefaultValueChips(values: List<FiatValue>) {
-    default_chip1.text = values[0].symbol + values[0].amount
-    default_chip2.text = values[1].symbol + values[1].amount
-    default_chip3.text = values[2].symbol + values[2].amount
-    default_chip4.text = values[3].symbol + values[3].amount
+    val formatter = NumberFormatterUtils.create()
+    default_chip1.text =
+        values[0].symbol + formatter.formatNumberWithSuffix(values[0].amount.toLong())
+    default_chip2.text =
+        values[1].symbol + formatter.formatNumberWithSuffix(values[1].amount.toLong())
+    default_chip3.text =
+        values[2].symbol + formatter.formatNumberWithSuffix(values[2].amount.toLong())
+    default_chip4.text =
+        values[3].symbol + formatter.formatNumberWithSuffix(values[3].amount.toLong())
   }
 
   override fun unselectChips() {
@@ -362,9 +368,9 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
     return selectedCurrency
   }
 
-  override fun initialInputSetup(preselectedChip: Int, secondChipValue: String) {
+  override fun initialInputSetup(preselectedChip: Int, preselectedChipValue: String) {
     hideKeyboard()
-    changeMainValueText(secondChipValue)
+    changeMainValueText(preselectedChipValue)
     selectChip(preselectedChip)
   }
 
