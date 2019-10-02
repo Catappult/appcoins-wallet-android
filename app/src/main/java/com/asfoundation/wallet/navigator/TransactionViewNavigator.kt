@@ -3,7 +3,6 @@ package com.asfoundation.wallet.navigator
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import com.asfoundation.wallet.entity.TokenInfo
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.promotions.PromotionsActivity
 import com.asfoundation.wallet.router.*
@@ -20,8 +19,8 @@ class TransactionViewNavigator(private val settingsRouter: SettingsRouter,
     settingsRouter.open(context)
   }
 
-  fun openSendView(context: Context, defaultToken: TokenInfo) {
-    sendRouter.open(context, defaultToken)
+  fun openSendView(context: Context) {
+    sendRouter.open(context)
   }
 
   fun openTransactionsDetailView(context: Context, transaction: Transaction) {
