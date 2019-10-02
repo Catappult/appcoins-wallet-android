@@ -45,6 +45,7 @@ class TransactionViewNavigator(private val settingsRouter: SettingsRouter,
 
   fun openPromotions(context: Context) {
     val intent = Intent(context, PromotionsActivity::class.java)
+    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
     context.startActivity(intent)
   }
 
