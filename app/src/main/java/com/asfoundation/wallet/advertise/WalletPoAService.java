@@ -180,12 +180,14 @@ public class WalletPoAService extends Service {
         //No campaign or already rewarded so there is no need to notify the user of anything
         proofOfAttentionService.remove(packageName);
         if (proof.limitReached()) {
-          //TODO Change string
+          String leadingZero = "";
+          if (proof.getMinutesRemaining() >= 0 && proof.getMinutesRemaining() < 10) {
+            leadingZero = "0";
+          }
           notificationManager.notify(SERVICE_ID, headsUpNotificationBuilder.setContentTitle(
-              "You've reached your PoA limit, please try again in "
-                  + proof.getHoursRemaining()
-                  + ":"
-                  + proof.getMinutesRemaining())
+              getString(R.string.test_poa_hours_remaining,
+                  String.valueOf(proof.getHoursRemaining()),
+                  leadingZero + proof.getMinutesRemaining()))
               .build());
           stopForeground(false);
         } else {

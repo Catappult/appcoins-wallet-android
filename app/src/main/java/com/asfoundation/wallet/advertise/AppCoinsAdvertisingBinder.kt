@@ -1,17 +1,20 @@
 package com.asfoundation.wallet.advertise
 
 import android.app.NotificationManager
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Binder
 import android.os.Bundle
 import androidx.core.app.NotificationCompat
 import com.appcoins.advertising.AppCoinsAdvertising
+import com.asf.wallet.R
 
 internal class AppCoinsAdvertisingBinder(
     private val packageManager: PackageManager,
     private val campaignInteract: CampaignInteract,
     private val notificationManager: NotificationManager,
-    private val headsUpNotificationBuilder: NotificationCompat.Builder) :
+    private val headsUpNotificationBuilder: NotificationCompat.Builder,
+    private val context: Context) :
     AppCoinsAdvertising.Stub() {
 
   companion object {
@@ -35,13 +38,15 @@ internal class AppCoinsAdvertisingBinder(
 
   private fun handleNotificationBuild(campaign: CampaignDetails) {
     if (campaign.limitReached()) {
-      //TODO Change string
+      var leadingZero = ""
+      if (campaign.minutesRemaining in 0..9) {
+        leadingZero = "0"
+      }
       notificationManager.notify(WalletPoAService.SERVICE_ID,
           headsUpNotificationBuilder.setContentTitle(
-              "You've reached your PoA limit, please try again in "
-                  + campaign.hoursRemaining
-                  + ":"
-                  + campaign.minutesRemaining).build())
+              context.getString(R.string.test_poa_hours_remaining,
+                  campaign.hoursRemaining.toString(),
+                  leadingZero + campaign.minutesRemaining)).build())
     }
   }
 
